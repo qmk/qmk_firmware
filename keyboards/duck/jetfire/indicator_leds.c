@@ -17,21 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include <stdint.h>
-#include "backlight_led.h"
+#include "indicator_leds.h"
 #include "quantum.h"
-// #include "led.h"
 
-
-#define T1H  900
-#define T1L  600
-#define T0H  400
-#define T0L  900
-#define RES 6000
-
-#define NS_PER_SEC (1000000000L)
-#define CYCLES_PER_SEC (F_CPU)
-#define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
-#define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
+#define LED_T1H  900
+#define LED_T1L  600
+#define LED_T0H  400
+#define LED_T0L  900
 
 void send_bit_d4(bool bitVal)
 {
@@ -48,8 +40,8 @@ void send_bit_d4(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T1H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T1L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T1H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T1L) - 2));
   } else {
     asm volatile (
         "sbi %[port], %[bit] \n\t"
@@ -63,8 +55,8 @@ void send_bit_d4(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
 }
 
@@ -83,8 +75,8 @@ void send_bit_d6(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (6),
-        [onCycles]  "I" (NS_TO_CYCLES(T1H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T1L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T1H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T1L) - 2));
   } else {
     asm volatile (
         "sbi %[port], %[bit] \n\t"
@@ -98,20 +90,15 @@ void send_bit_d6(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (6),
-        [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
-}
-
-void show(void)
-{
-  _delay_us((RES / 1000UL) + 1);
 }
 
 void send_value(uint8_t byte, enum Device device)
 {
   for(uint8_t b = 0; b < 8; b++) {
-    if(device == Device_STATELED) {
+    if(device == Device_STATUSLED) {
       send_bit_d4(byte & 0b10000000);
     }
     if(device == Device_PCBRGB) {
@@ -123,7 +110,7 @@ void send_value(uint8_t byte, enum Device device)
 
 void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device)
 {
-  send_value(g, device);
   send_value(r, device);
+  send_value(g, device);
   send_value(b, device);
 }

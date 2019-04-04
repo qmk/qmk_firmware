@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stddef.h>
 
 #include "config.h"
 #include "matrix.h"
@@ -15,15 +16,45 @@
 extern backlight_config_t backlight_config;
 #endif
 
+#ifdef ENCODER_ENABLE
+#  include "encoder.h"
+#endif
+
 #if defined(USE_I2C) || defined(EH)
 
 #  include "i2c_master.h"
 #  include "i2c_slave.h"
 
-#  define I2C_BACKLIT_START 0x00
-// Need 4 bytes for RGB (32 bit)
-#  define I2C_RGB_START 0x01
-#  define I2C_KEYMAP_START 0x05
+typedef struct __attribute__ ((__packed__)) {
+#ifdef BACKLIGHT_ENABLE
+  uint8_t backlight_level;
+#endif
+#ifdef RGBLIGHT_ENABLE
+  uint32_t rgb_settings;
+#endif
+#ifdef ENCODER_ENABLE
+  uint8_t encoder_state[NUMBER_OF_ENCODERS];
+#endif
+  // Keep matrix last, we are only using this for it's offset
+  uint8_t matrix_start[0];
+} transport_values_t;
+
+__attribute__ ((unused))
+static transport_values_t transport_values;
+
+#ifdef BACKLIGHT_ENABLE
+#  define I2C_BACKLIT_START (uint8_t)offsetof(transport_values_t, backlight_level)
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#  define I2C_RGB_START (uint8_t)offsetof(transport_values_t, rgb_settings)
+#endif
+
+#ifdef ENCODER_ENABLE
+#  define I2C_ENCODER_START (uint8_t)offsetof(transport_values_t, encoder_state)
+#endif
+
+#define I2C_KEYMAP_START (uint8_t)offsetof(transport_values_t, matrix_start)
 
 #  define TIMEOUT 100
 
@@ -37,23 +68,26 @@ bool transport_master(matrix_row_t matrix[]) {
 
   // write backlight info
 #  ifdef BACKLIGHT_ENABLE
-  static uint8_t prev_level = ~0;
-  uint8_t        level      = get_backlight_level();
-  if (level != prev_level) {
+  uint8_t level = get_backlight_level();
+  if (level != transport_values.backlight_level) {
     if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
-      prev_level = level;
+      transport_values.backlight_level = level;
     }
   }
 #  endif
 
 #  ifdef RGBLIGHT_ENABLE
-  static uint32_t prev_rgb = ~0;
-  uint32_t        rgb      = rgblight_read_dword();
-  if (rgb != prev_rgb) {
+  uint32_t rgb = rgblight_read_dword();
+  if (rgb != transport_values.rgb_settings) {
     if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb, sizeof(rgb), TIMEOUT) >= 0) {
-      prev_rgb = rgb;
+      transport_values.rgb_settings = rgb;
     }
   }
+#  endif
+
+#  ifdef ENCODER_ENABLE
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)transport_values.encoder_state, sizeof(transport_values.encoder_state), TIMEOUT);
+  encoder_update_raw(&transport_values.encoder_state[0]);
 #  endif
 
   return true;
@@ -73,6 +107,10 @@ void transport_slave(matrix_row_t matrix[]) {
   // Update the RGB with the new data
   rgblight_update_dword(rgb);
 #  endif
+
+#  ifdef ENCODER_ENABLE
+  encoder_state_raw((uint8_t*)(i2c_slave_reg + I2C_ENCODER_START));
+#  endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -83,12 +121,15 @@ void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
 
 #  include "serial.h"
 
-typedef struct _Serial_s2m_buffer_t {
+typedef struct __attribute__ ((__packed__)) {
+#  ifdef ENCODER_ENABLE
+  uint8_t encoder_state[NUMBER_OF_ENCODERS];
+#  endif
   // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
   matrix_row_t smatrix[ROWS_PER_HAND];
 } Serial_s2m_buffer_t;
 
-typedef struct _Serial_m2s_buffer_t {
+typedef struct __attribute__ ((__packed__)) {
 #  ifdef BACKLIGHT_ENABLE
   uint8_t           backlight_level;
 #  endif
@@ -147,6 +188,10 @@ bool transport_master(matrix_row_t matrix[]) {
   }
 #  endif
 
+#  ifdef ENCODER_ENABLE
+  encoder_update_raw((uint8_t*)&serial_s2m_buffer.encoder_state);
+#  endif
+
   return true;
 }
 
@@ -161,6 +206,10 @@ void transport_slave(matrix_row_t matrix[]) {
 #  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
   // Update RGB config with the new data
   rgblight_update_dword(serial_m2s_buffer.rgblight_config.raw);
+#  endif
+
+#  ifdef ENCODER_ENABLE
+  encoder_state_raw((uint8_t*)&serial_s2m_buffer.encoder_state);
 #  endif
 }
 
