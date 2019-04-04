@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "alt.h"
+#ifdef USE_MASSDROP_CONFIGURATOR
+
 #include "led_matrix.h"
 
 //Teal <-> Salmon
@@ -118,3 +119,5 @@ void *led_setups[] = {
 };
 
 const uint8_t led_setups_count = sizeof(led_setups) / sizeof(led_setups[0]);
+
+#endif
