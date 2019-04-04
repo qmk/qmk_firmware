@@ -91,6 +91,15 @@
   #define RGB_MATRIX_SPD_STEP 16
 #endif
 
+#if !defined(RGB_MATRIX_STARTUP_MODE)
+  #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+  #else
+    // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+  #endif
+#endif
+
 bool g_suspend_state = false;
 
 rgb_config_t rgb_matrix_config;
@@ -114,12 +123,7 @@ void eeconfig_update_rgb_matrix(uint32_t val) {
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
   rgb_matrix_config.enable = 1;
-#ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
-  rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
-#else
-  // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
-  rgb_matrix_config.mode = RGB_MATRIX_SOLID_COLOR;
-#endif
+  rgb_matrix_config.mode = RGB_MATRIX_STARTUP_MODE;
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = UINT8_MAX;
   rgb_matrix_config.val = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
