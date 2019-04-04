@@ -86,8 +86,18 @@
 // disable backlight after timeout in minutes, 0 = no timeout
 #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default brightness
+#define RGB_BACKLIGHT_BRIGHTNESS 255
+
 // the default effect (RGB test)
 #define RGB_BACKLIGHT_EFFECT 255
+
+// the default effect speed (0-3)
+#define RGB_BACKLIGHT_EFFECT_SPEED 0
+
+// the default color1 and color2
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
