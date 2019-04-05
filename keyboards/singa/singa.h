@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SINGA_H
-#define SINGA_H
+#pragma once
 
 #include "quantum.h"
 
@@ -139,5 +138,3 @@
   { k74,   k81,   k75,   KC_NO, KC_NO, k76,   KC_NO, KC_NO, k77,   KC_NO, k82,   KC_NO, k78,   k79, k80 }, \
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30 } \
 }
-
-#endif
