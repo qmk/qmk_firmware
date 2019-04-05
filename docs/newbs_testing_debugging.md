@@ -33,7 +33,7 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 
 ### Debugging With hid_listen
 
-Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display deboug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
 <!-- FIXME: Describe the debugging messages here. -->
 
@@ -52,7 +52,7 @@ After that you can use a few different print functions:
 
 ## Debug Examples
 
-Collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
 
 ### Which matrix position is this keypress?
 
