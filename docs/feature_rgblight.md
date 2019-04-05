@@ -125,6 +125,8 @@ The following options can be used to tweak the various animations:
 
 You can also modify the speeds that the different modes animate at:
 
+Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).
+
 ```c
 // How long (in milliseconds) to wait between animation steps for each of the "Solid color breathing" animations
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
