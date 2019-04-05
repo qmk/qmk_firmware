@@ -1,7 +1,27 @@
-# Default layout with a more sane amount of layers
+# Default layout
 
-Layout created by: [Klaus Weidinger](https://github.com/dunkelziffer)
+Layout created by: [Jan Christoph Ebersbach](https://github.com/jceb)
 
-The generate_km.py file automatically generates comments within keymap.c that visually represent the layout.
+The `generate_km.py` file automatically generates `keymap.c` with
+additional comments that visually represent the layout.
 
-This layout will not be maintained, as I am not using it, but you can use it as a starting point to create your own layouts for the Signum 3.1 with "km_template.txt" and "generate_km.py".
+This layout is maintained as I am using it. You can also use it as a
+starting point to create your own layouts for the Signum 3.0 with
+`km_template.txt` and `generate_km.py`.
+
+# Customization
+
+- Install `python3` and [Sorted Containers
+  Library](http://www.grantjenks.com/docs/sortedcontainers/), `pip
+  install sortedcontainers`.
+
+- Customize `layout.py` to your liking.
+    - Attention 1: keycodes are either translated into symbols and
+      function calls via the `translate()` function in `generate_km.py`
+      or via user-defined mappings in the dictionary `qmk_dict` in
+      `layout.py`. Especially the latter might require adjustment for
+      uncommon qmk features
+    - Attention 2: additional C functions need to be put into
+      `km_template.txt`
+
+Run `./generate_km.py` to regenerate `keymap.c`.
