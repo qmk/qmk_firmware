@@ -22,7 +22,7 @@ extern uint32_t vertMask;			// Mask of all vertical cols
 #define QWERBUF	12					// Size of chords to buffer for output
 
 // Function defs
-bool 			processQwerty(void);
+uint32_t		processQwerty(void);
 bool 			processFakeSteno(void);
 void 			clickMouse(uint8_t kc);
 void 			SEND(uint8_t kc);
@@ -51,8 +51,13 @@ int8_t	mousePress;
 // See if a given chord is pressed. 
 // P will return 
 // PJ will continue processing, removing the found chord 
-#define P(chord, act)  if (cChord == (chord)) { act; cChord ^= chord; return true;}
-#define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; }
+//#define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; }
+//#define P(chord, act)  if (cChord == (chord)) { act; cChord ^= chord; return true;}
+//
+#define P(chord, act) if ((cChord & (chord)) == (chord)) {act; return chord;}
+#define PJ(chord, act) if ((cChord & (chord)) == (chord)) {act; return chord;}
+
+//#define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; return;}
 
 // All Steno Codes
 // Shift to internal representation
@@ -162,8 +167,10 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
 		// Try to process entire chord, store leftovers
 		if (cChord & FN)  cChord ^= FN;
-		processQwerty();
-		pChord = cChord;
+		while (cChord != pChord) {
+				pChord = cChord;
+				cChord ^= processQwerty();
+		}
 	
 		// Check if the entire chord has been processed
 		// If not, walk back through the history trying to process columns
@@ -194,7 +201,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 		// unprocessed chords after removing the cols
 		cChord = pChord & ~vertMask;
 		for (int i = 0; cChord != 0 && i < 10; i++)
-			processQwerty();
+			cChord ^= processQwerty();
 
 		goto out;
 	}

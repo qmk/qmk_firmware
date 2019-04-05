@@ -43,7 +43,7 @@ int getKeymapCount(void);
 // Returns true if a P match was found
 //
 // http://docs.gboards.ca
-bool processQwerty() {
+uint32_t processQwerty() {
 	// Place P's that would be trashed by PJ's here
 	P( RT  | RS  | RD  | RZ | LNO,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
 	P( LNO | RNO | LA  | LO  | RE | RU,	SEND(KC_MPLY));
@@ -183,7 +183,7 @@ bool processQwerty() {
 	P( ST1 | ST2,						SEND(KC_G));
 	P( ST3 | ST4,						SEND(KC_H));
 	P( RF  | RR,						SEND(KC_J));
-	P( RT  | RS,						SEND(KC_SCLN))
+	P( RT  | RS,						SEND(KC_SCLN));
 	P( RG  | RL,						SEND(KC_L));
 	P( RP  | RB,						SEND(KC_K));
 	P( LSU,								SEND(KC_Q));
@@ -207,7 +207,7 @@ bool processQwerty() {
 	P( RT,								SEND(KC_P));
 	P( RS,								SEND(KC_SLSH));
 
-	return false;
+	return 0;
 }
 
 #define STENO_LAYER  	0
