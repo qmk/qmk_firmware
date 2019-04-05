@@ -5,13 +5,46 @@
 #include "keymap.h"
 #include "keymap_steno.h"
 
-// Bitfield representing the current chord
-uint32_t cChord = 0;
+// Bitfield representing the current chord and it's changes
+uint32_t cChord = 0;				// Current Chord
+uint32_t pChord = 0;				// Previous Chord
+uint32_t chordState[32];			// Chord history
+uint32_t chordIndex = 0;			// Keys in current chord
+extern const uint32_t verticals[];	// Vertical pairs
+extern size_t verticalCount;		// Len of verticals
+extern size_t keymapsCount;			// Total keymaps
+
+// Function defs
+bool 			processQwerty(void);
+bool 			processFakeSteno(void);
+void 			clickMouse(uint8_t kc);
+void 			SEND(uint8_t kc);
+uint32_t 		getLastCol(int depth);
+
+// Mode state
+enum MODE { STENO = 0, QWERTY, COMMAND };
+enum MODE cMode = STENO;
+enum MODE pMode;
+bool QWERSTENO = false;
+
+// Command State
+#define MAX_CMD_BUF 20
+uint8_t CMDBUF[MAX_CMD_BUF];
+uint8_t CMDLEN = 0;
+
+// Key Repeat state
+bool     inChord  = false;
+uint16_t repTimer = 0;
+#define  REP_DELAY 300
+
+// Mousekeys state
+bool	inMouse = false;
+int8_t	mousePress;
 
 // See if a given chord is pressed. 
 // P will return 
 // PJ will continue processing, removing the found chord 
-#define P(chord, act)  if (cChord == (chord)) { act; return true; }
+#define P(chord, act)  if (cChord == (chord)) { act; return cChord ^= chord; }
 #define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; }
 
 // All Steno Codes
@@ -59,31 +92,6 @@ enum ORDER {
 #define RD  STN(SRD)
 #define RZ  STN(SRZ)
 
-bool 		processQwerty(void);
-bool 		processFakeSteno(void);
-void 		clickMouse(uint8_t kc);
-void 		SEND(uint8_t kc);
-extern int 	getKeymapCount(void);
-
-// Mode state
-enum MODE { STENO = 0, QWERTY, COMMAND };
-enum MODE cMode = STENO;
-enum MODE pMode;
-bool QWERSTENO = false;
-
-// Command State
-#define MAX_CMD_BUF 20
-uint8_t CMDBUF[MAX_CMD_BUF];
-uint8_t CMDLEN = 0;
-
-// Key Repeat state
-bool     inChord  = false;
-uint16_t repTimer = 0;
-#define  REP_DELAY 300
-
-// Mousekeys state
-bool	inMouse = false;
-int8_t	mousePress;
 
 // All processing done at chordUp goes through here
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) { 
@@ -125,7 +133,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	}
 
 	// Handle Gaming Toggle,
-	if (cChord == (PWR | FN | ST4 | ST3) && getKeymapCount() > 1) {
+	if (cChord == (PWR | FN | ST4 | ST3) && keymapsCount > 1) {
 		uprintf("Switching to QMK\n");
 		layer_on(1);
 		goto out;
@@ -147,6 +155,18 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
 		if (cChord & FN)  cChord ^= FN;
 		processQwerty();
+	
+		// Check if the entire chord has been processed
+		// If not, walk back through the history trying to process columns
+		while (cChord != 0 && chordIndex != 0) {
+				uprintf("Chord Len: %d, %b", chordIndex, cChord);
+				pChord = cChord;
+				cChord = cChord & getLastCol(chordIndex);
+				chordIndex--;
+				processQwerty();
+				cChord = pChord | cChord;
+		}
+		// We store this data, and only send iff this zero out cChord
 		goto out;
 	}
 
@@ -178,6 +198,10 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
 	// Update key repeat timers
 	repTimer = timer_read();
 	inChord  = true;
+
+	// Store previous state for fastQWER
+	chordState[chordIndex] = cChord;
+	chordIndex++;
 
 	// Switch on the press adding to chord
 	bool pr = record->event.pressed;
@@ -289,4 +313,20 @@ void SEND(uint8_t kc) {
 
 	if (cMode != COMMAND) register_code(kc);
 	return;
+}
+
+// Traverse the chord history to a given point
+// Returns the mask to use
+uint32_t getLastCol(int depth) {
+		uint32_t lastCol = 0;
+		for (int i = 0; i <= depth; i++) {
+				for (int j = 0; j < verticalCount; j++) {
+						if ((lastCol & verticals[j]) != 0)
+								lastCol = verticals[j];
+
+						break;
+				}
+		}
+
+		return lastCol;
 }

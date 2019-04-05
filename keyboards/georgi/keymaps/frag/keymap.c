@@ -40,8 +40,6 @@ int getKeymapCount(void);
 // First any chords that would conflict with PJs need to be checked, then PJs, lastly Ps.
 // For all chords should be ordered by length in their section!
 //
-// Returns true if a P match was found
-//
 // http://docs.gboards.ca
 bool processQwerty(void) {
 	// Place P's that would be trashed by PJ's here
@@ -227,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [STENO_LAYER] = LAYOUT_georgi(  
 STN_FN,  STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,       STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
 STN_PWR, STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,       STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
-						 STN_N1, STN_A,  STN_O,			STN_E,   STN_U,  STN_N7)
+						 STN_RES2, STN_A,  STN_O,			STN_E,   STN_U,  STN_N7)
 ,
 // Gaming layer with Numpad, Very limited
 [GAMING] = LAYOUT_georgi(  
@@ -241,13 +239,6 @@ KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,       KC_N, KC_M, KC_LT, KC_GT, KC_QUES, 
 			  KC_LALT, KC_SPC, KC_ENT,	     KC_DEL, KC_ASTR,  TO(STENO_LAYER))
 }; 
 
-
-// We define the verticals, this is used for prechord sending in QWERTY. Only modify if you change 
-// the lowest keymap
-const uint32_t verticals[] = { 
-		LSU | LSD, LFT | LK, LP | LW, LH | LR, ST1 | ST2, 
-		ST3 | ST4, RF | RR, RP | RG, RL | RB, RT | RS
-};
-
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
-size_t verticalCount = sizeof(verticals)/sizeof(verticals[0]);
+int getKeymapCount(void) {
+	return sizeof(keymaps)/sizeof(keymaps[0]);
+}
