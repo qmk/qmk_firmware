@@ -44,10 +44,6 @@
     #endif
 #endif
 
-#ifdef SPLIT_KEYBOARD
-    #include "split_flags.h"
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     #include "rgb_matrix.h"
 #endif
@@ -137,6 +133,10 @@ extern uint32_t default_layer_state;
 
 #ifdef HD44780_ENABLE
     #include "hd44780.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
 #endif
 
 //Function substitutions to ease GPIO manipulation

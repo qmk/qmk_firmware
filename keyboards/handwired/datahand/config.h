@@ -30,7 +30,7 @@
 #define MATRIX_ROWS 13
 #define MATRIX_COLS 4
 
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 0

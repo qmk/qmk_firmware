@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MATRIX_COL_PINS { F5, B1, F0, F1, F4, B3, D7, D6, D4, D5, D3, D2, D1, D0 }
 // #define UNUSED_PINS
 
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

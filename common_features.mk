@@ -246,14 +246,29 @@ endif
 
 ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
     SRC += DRV2605L.c
     SRC += i2c_master.c
+    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DDRV2605L
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    SRC += solenoid.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+    OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
@@ -282,25 +297,27 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
-# Include the standard debounce code if needed
-ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
+# Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
+DEBOUNCE_TYPE?= sym_g
+ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                   $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
+        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
+                           i2c_master.c \
+                           i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

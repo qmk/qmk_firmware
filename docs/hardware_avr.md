@@ -87,7 +87,7 @@ Once you've defined the size of your matrix you need to define which pins on you
 
 The number of `MATRIX_ROW_PINS` entries must be the same as the number you assigned to `MATRIX_ROWS`, and likewise for `MATRIX_COL_PINS` and `MATRIX_COLS`. You do not have to specify `UNUSED_PINS`, but you can if you want to document what pins are open.
 
-Finally, you can specify the direction your diodes point. This can be `COL2ROW`, `ROW2COL`, or `CUSTOM_MATRIX`.
+Finally, you can specify the direction your diodes point. This can be `COL2ROW` or `ROW2COL`.
 
 ```c
 #define DIODE_DIRECTION COL2ROW
