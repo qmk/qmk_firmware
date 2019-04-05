@@ -234,7 +234,7 @@ void rgblight_step_reverse(void) {
   rgblight_mode(mode);
 }
 
-uint32_t rgblight_get_mode(void) {
+uint8_t rgblight_get_mode(void) {
   if (!rgblight_config.enable) {
     return false;
   }

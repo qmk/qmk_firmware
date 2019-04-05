@@ -18,12 +18,12 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5A45 // ZealPC ("ZE")
+#define PRODUCT_ID      0x0060 // Zeal60
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
 #define PRODUCT         Zeal60
-#define DESCRIPTION     Zeal60 (QMK Firmware)
+#define DESCRIPTION     Zeal60
 
 // key matrix size
 #define MATRIX_ROWS 5
@@ -48,11 +48,6 @@
 #define LOCKING_SUPPORT_ENABLE
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
-
-// key combination for command
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options
@@ -91,8 +86,18 @@
 // disable backlight after timeout in minutes, 0 = no timeout
 #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default brightness
+#define RGB_BACKLIGHT_BRIGHTNESS 255
+
 // the default effect (RGB test)
 #define RGB_BACKLIGHT_EFFECT 255
+
+// the default effect speed (0-3)
+#define RGB_BACKLIGHT_EFFECT_SPEED 0
+
+// the default color1 and color2
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
@@ -105,6 +110,11 @@
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
 
+#define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 // EEPROM usage
@@ -115,11 +125,14 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
-
+// Dynamic keymap starts after backlight config (35+31)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
+// Dynamic macro starts after dynamic keymaps (66+(4*5*14*2)) = (66+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 626
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

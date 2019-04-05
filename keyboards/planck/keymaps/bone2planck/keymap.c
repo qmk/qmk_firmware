@@ -11,10 +11,6 @@
 #include "..\..\..\..\tmk_core\common\keycode.h"
 */
 
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /* This Layout tries to emulate the Bone2 Variant of Neo2, and is intended to be used with a German QWERTZ Softwarelayout.
 It has "üäöß" as it is optimized for a mix of German & English.
 My favourite features are the placement of the special characters often used for programming right on the home row
@@ -140,11 +136,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______, DE_SQ2,  KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______ },
     { _______, _______, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, _______, _______, _______ }
 }
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

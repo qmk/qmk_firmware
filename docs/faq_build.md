@@ -15,7 +15,7 @@ or just:
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Note that running `make` with `sudo` is generally *not* a good idea, and you should use one of the former methods, if possible.
+Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
 ### Linux `udev` Rules
 On Linux, you'll need proper privileges to access the MCU. You can either use
@@ -36,14 +36,29 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+
+```
+# Input Club keyboard bootloader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
+
+### Serial device is not detected in bootloader mode on Linux
+Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
+Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices may require `USB_SERIAL` and any of its sub options.
 
 ## Unknown Device for DFU Bootloader
 
-If you're using Windows to flash your keyboard, and you are running into issues, check the Device Manager.  If you see an "Unknown Device" when the keyboard is in "bootloader mode", then you may have a driver issue. 
+If you're using Windows to flash your keyboard, and you are running into issues, check the Device Manager.  If you see an "Unknown Device" when the keyboard is in "bootloader mode", then you may have a driver issue.
 
-Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue. 
+Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUS(libusb-1.0)` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again. 
+If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUSB` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.  If that doesn't work, try all of the options, until one works. 
+
+?> There isn't a best option for which driver should be used here.  Some options work better on some systems than others.  libUSB and WinUSB seem to be the best options here.
+
+If the bootloader doesn't show up in the list for devices, you may need to enable the "List all devices" option in the `Options` menu, and then find the bootloader in question. 
+
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
@@ -98,9 +113,9 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
 ## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
-This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled. 
+This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
 
-The solution is to remove and reinstall all affected modules. 
+The solution is to remove and reinstall all affected modules.
 
 ```
 brew rm avr-gcc
@@ -126,5 +141,13 @@ For now, you need to rollback avr-gcc to 7 in brew.
 ```
 brew uninstall --force avr-gcc
 brew install avr-gcc@7
-brew link avr-gcc@7
+brew link --force avr-gcc@7
 ```
+
+### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
+Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
+
+[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
+[Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
+
+If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic.md) and keyboard info for specifics on how to do this).

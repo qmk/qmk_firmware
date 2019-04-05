@@ -14,13 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define TAPPING_TERM 150 //reduce time required to register a held key
-
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 // place overrides here
 
-#endif
+#define TAPPING_TERM 150 //reduce time required to register a held key

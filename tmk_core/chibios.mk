@@ -39,9 +39,13 @@ include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 endif
 include $(PLATFORM_MK)
 
@@ -232,6 +236,24 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+
+ifneq ($(strip $(TIME_DELAY)),)
+  TIME_DELAY = $(strip $(TIME_DELAY))
+else
+  TIME_DELAY = 10
+endif
+dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
+  COUNTDOWN=$(TIME_DELAY) ;\
+  while [[ $$COUNTDOWN -ge 1 ]] ; do \
+        echo "Flashing in $$COUNTDOWN ..."; \
+        sleep 1 ;\
+        ((COUNTDOWN = COUNTDOWN - 1)) ; \
+  done; \
+  echo "Flashing $(TARGET).bin" ;\
+  sleep 1 ;\
+  $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
