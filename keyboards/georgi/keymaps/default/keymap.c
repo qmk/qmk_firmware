@@ -26,7 +26,7 @@ int getKeymapCount(void);
  * ,---------------------------------.    ,------------------------------.
  * | FN  | LSU | LFT | LP | LH | ST1 |    | ST3 | RF | RP | RL | RT | RD |
  * |-----+-----+-----+----+----|-----|    |-----|----+----+----+----+----|
- * | PWR | LSD | LK  | LW | LR | ST2 |    | ST4 | RR | RG | RB | RS | RZ |
+ * | PWR | LSD | LK  | LW | LR | ST2 |    | ST4 | RR | BB | RG | RS | RZ |
  * `---------------------------------'    `------------------------------'
  *                   ,---------------,    .---------------.
  *                   | LNO | LA | LO |    | RE | RU | RNO |
@@ -43,7 +43,7 @@ int getKeymapCount(void);
 // Returns true if a P match was found
 //
 // http://docs.gboards.ca
-bool processQwerty(void) {
+bool processQwerty() {
 	// Place P's that would be trashed by PJ's here
 	P( RT  | RS  | RD  | RZ | LNO,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
 	P( LNO | RNO | LA  | LO  | RE | RU,	SEND(KC_MPLY));
@@ -140,38 +140,6 @@ bool processQwerty(void) {
 	P( RU,								SEND(KC_SPC));
 	P( RZ,								SEND(KC_ESC));
 
-	// Letters
-	P( LSU | LSD,						SEND(KC_A));
-	P( LFT | LK,						SEND(KC_S));
-	P( LP  | LW,						SEND(KC_D));
-	P( LH  | LR,						SEND(KC_F));
-	P( ST1 | ST2,						SEND(KC_G));
-	P( ST3 | ST4,						SEND(KC_H));
-	P( RF  | RR,						SEND(KC_J));
-	P( RT  | RS,						SEND(KC_SCLN))
-	P( RG  | RL,						SEND(KC_L));
-	P( RP  | RB,						SEND(KC_K));
-	P( LSU,								SEND(KC_Q));
-	P( LSD,								SEND(KC_Z));
-	P( LFT,								SEND(KC_W));
-	P( LK,								SEND(KC_X));
-	P( LP,								SEND(KC_E));
-	P( LW,								SEND(KC_C));
-	P( LH,								SEND(KC_R));
-	P( LR,								SEND(KC_V));
-	P( ST1,								SEND(KC_T));
-	P( ST2,								SEND(KC_B));
-	P( ST3,								SEND(KC_Y));
-	P( ST4,								SEND(KC_N));
-	P( RF,								SEND(KC_U));
-	P( RR,								SEND(KC_M));
-	P( RP,								SEND(KC_I));
-	P( RB,								SEND(KC_COMM));
-	P( RL,								SEND(KC_O));
-	P( RG,								SEND(KC_DOT));
-	P( RT,								SEND(KC_P));
-	P( RS,								SEND(KC_SLSH));
-
 	// Symbols and Numbers
 	P( PWR | RE | RU,					SEND(KC_ENT));
 	P( PWR | LA | LO,					SEND(KC_SPC));
@@ -207,9 +175,38 @@ bool processQwerty(void) {
 	P( PWR | RE,						SEND(KC_SCLN));
 	P( PWR | RU,						SEND(KC_SLSH));
 
+	// Letters
+	P( LSU | LSD,						SEND(KC_A));
+	P( LFT | LK,						SEND(KC_S));
+	P( LP  | LW,						SEND(KC_D));
+	P( LH  | LR,						SEND(KC_F));
+	P( ST1 | ST2,						SEND(KC_G));
+	P( ST3 | ST4,						SEND(KC_H));
+	P( RF  | RR,						SEND(KC_J));
+	P( RT  | RS,						SEND(KC_SCLN))
+	P( RG  | RL,						SEND(KC_L));
+	P( RP  | RB,						SEND(KC_K));
+	P( LSU,								SEND(KC_Q));
+	P( LSD,								SEND(KC_Z));
+	P( LFT,								SEND(KC_W));
+	P( LK,								SEND(KC_X));
+	P( LP,								SEND(KC_E));
+	P( LW,								SEND(KC_C));
+	P( LH,								SEND(KC_R));
+	P( LR,								SEND(KC_V));
+	P( ST1,								SEND(KC_T));
+	P( ST2,								SEND(KC_B));
+	P( ST3,								SEND(KC_Y));
+	P( ST4,								SEND(KC_N));
+	P( RF,								SEND(KC_U));
+	P( RR,								SEND(KC_M));
+	P( RP,								SEND(KC_I));
+	P( RB,								SEND(KC_COMM));
+	P( RL,								SEND(KC_O));
+	P( RG,								SEND(KC_DOT));
+	P( RT,								SEND(KC_P));
+	P( RS,								SEND(KC_SLSH));
 
-	// If we make here, send as a steno chord
-	// If plover is running we can hook that host side
 	return false;
 }
 
@@ -219,8 +216,7 @@ bool processQwerty(void) {
 
 // "Layers"
 // Steno layer should be first in your map.
-// When PWR | FN | RR | RG | RB | RS is pressed, the layer is increased to the next map. You must return to STENO_LAYER at the end.
-// If you have only a single layer, you must set SINGLELAYER = yes in your rules.mk, otherwise you may experince undefined behaviour
+// When PWR | FN | ST3 | ST4 is pressed, the layer is increased to the next map. You must return to STENO_LAYER at the end.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Main layer, everything goes through here
@@ -241,13 +237,17 @@ KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,       KC_N, KC_M, KC_LT, KC_GT, KC_QUES, 
 			  KC_LALT, KC_SPC, KC_ENT,	     KC_DEL, KC_ASTR,  TO(STENO_LAYER))
 }; 
 
-
+// !!!!!!!!!!!!!!!!!!!
+// Only modify anything below here if you know what you're doing
+// This is here for advanced customization 
+// !!!!!!!!!!!!!!!!!!!
+//
 // We define the verticals, this is used for prechord sending in QWERTY. Only modify if you change 
 // the lowest keymap
 const uint32_t verticals[] = { 
 		LSU | LSD, LFT | LK, LP | LW, LH | LR, ST1 | ST2, 
-		ST3 | ST4, RF | RR, RP | RG, RL | RB, RT | RS
+		ST3 | ST4, RF | RR, RP | RB, RL | RG, RT | RS, RD | RZ
 };
-
+uint32_t vertMask = LSU|LSD|LFT|LK|LP|LW|LH|LR|ST1|ST2|ST3|ST4|RF|RR|RP|RB|RL|RG|RT|RS|RD|RZ;
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
 size_t verticalCount = sizeof(verticals)/sizeof(verticals[0]);

@@ -1,4 +1,9 @@
 // 2019, g Heavy Industries
+// Blessed mother of Christ, please keep this readable
+// and protect us from segfaults. For thine is the clock,
+// the slave and the master. Until we return from main.
+//
+// Amen.
 
 #include QMK_KEYBOARD_H
 #include "mousekey.h"
@@ -8,11 +13,13 @@
 // Bitfield representing the current chord and it's changes
 uint32_t cChord = 0;				// Current Chord
 uint32_t pChord = 0;				// Previous Chord
-uint32_t chordState[32];			// Chord history
-uint32_t chordIndex = 0;			// Keys in current chord
+uint32_t chordState[32];			// Full Chord history
+int		 chordIndex = 0;			// Keys in current chord
 extern const uint32_t verticals[];	// Vertical pairs
 extern size_t verticalCount;		// Len of verticals
 extern size_t keymapsCount;			// Total keymaps
+extern uint32_t vertMask;			// Mask of all vertical cols
+#define QWERBUF	12					// Size of chords to buffer for output
 
 // Function defs
 bool 			processQwerty(void);
@@ -35,7 +42,7 @@ uint8_t CMDLEN = 0;
 // Key Repeat state
 bool     inChord  = false;
 uint16_t repTimer = 0;
-#define  REP_DELAY 300
+#define  REP_DELAY 250
 
 // Mousekeys state
 bool	inMouse = false;
@@ -44,7 +51,7 @@ int8_t	mousePress;
 // See if a given chord is pressed. 
 // P will return 
 // PJ will continue processing, removing the found chord 
-#define P(chord, act)  if (cChord == (chord)) { act; return cChord ^= chord; }
+#define P(chord, act)  if (cChord == (chord)) { act; cChord ^= chord; return true;}
 #define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; }
 
 // All Steno Codes
@@ -153,20 +160,42 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Do QWERTY and Momentary QWERTY
 	if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
+		// Try to process entire chord, store leftovers
 		if (cChord & FN)  cChord ^= FN;
 		processQwerty();
+		pChord = cChord;
 	
 		// Check if the entire chord has been processed
 		// If not, walk back through the history trying to process columns
-		while (cChord != 0 && chordIndex != 0) {
-				uprintf("Chord Len: %d, %b", chordIndex, cChord);
-				pChord = cChord;
-				cChord = cChord & getLastCol(chordIndex);
+		// These get buffered and written in reverse order
+		uint32_t bufChords[QWERBUF];
+		int bufLen = 0;
+		uint32_t pMask = 0;
+
+
+		while (cChord != 0 && chordIndex > 0) {
+				uint32_t mask = getLastCol(chordIndex-1);
+				if ((pMask & mask) == 0) {
+					bufChords[bufLen] = cChord & mask;
+					bufLen++;
+					pMask |= mask;
+				}
 				chordIndex--;
-				processQwerty();
-				cChord = pChord | cChord;
 		}
-		// We store this data, and only send iff this zero out cChord
+
+		// Now that the buffer is populated, we run it
+		for (int i = bufLen; i > 0; i--) {
+			cChord = bufChords[i-1];
+			processQwerty();
+		}
+	
+		// In theory, we have a clean buffer here, otherwise
+		// we say 'fuck it' and just hamfist the rest of the 
+		// unprocessed chords after removing the cols
+		cChord = pChord & ~vertMask;
+		for (int i = 0; cChord != 0 && i < 10; i++)
+			processQwerty();
+
 		goto out;
 	}
 
@@ -179,13 +208,18 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 steno:
 	// Hey that's a steno chord!
 	inChord = false;
+	chordIndex = 0;
 	cChord = 0;
 	return true; 
 
 out:
 	inChord = false;
+	chordIndex = 0;
 	clear_keyboard();
 	cChord = 0;
+
+	for (int i = 0; i < 32; i++) 
+			chordState[i] = 0;
 	return false;
 }
 
@@ -198,10 +232,6 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
 	// Update key repeat timers
 	repTimer = timer_read();
 	inChord  = true;
-
-	// Store previous state for fastQWER
-	chordState[chordIndex] = cChord;
-	chordIndex++;
 
 	// Switch on the press adding to chord
 	bool pr = record->event.pressed;
@@ -241,7 +271,12 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
 			case STN_ZR:			pr ? (cChord |= (RZ)) : (cChord &= ~(RZ)); break;
 	}
 
-	// Check for key repeat in QWERTY mode
+	// Store previous state for fastQWER
+	if (pr) {
+		chordState[chordIndex] = cChord; 
+		chordIndex++;
+	}
+
 	return true; 
 }
 void matrix_scan_user(void) {
@@ -250,6 +285,7 @@ void matrix_scan_user(void) {
 	if (cMode != QWERTY) return;
 
 	// Check timers
+#ifndef NO_REPEAT
 	if (timer_elapsed(repTimer) > REP_DELAY) {
 		// Process Key for report
 		processQwerty();
@@ -258,6 +294,7 @@ void matrix_scan_user(void) {
 		send_keyboard_report();
 		repTimer = timer_read();
 	}
+#endif
 };
 
 // Helpers
@@ -318,15 +355,13 @@ void SEND(uint8_t kc) {
 // Traverse the chord history to a given point
 // Returns the mask to use
 uint32_t getLastCol(int depth) {
-		uint32_t lastCol = 0;
-		for (int i = 0; i <= depth; i++) {
-				for (int j = 0; j < verticalCount; j++) {
-						if ((lastCol & verticals[j]) != 0)
-								lastCol = verticals[j];
-
-						break;
-				}
+	for (int j = 0; j < verticalCount; j++) {
+		if (depth == 0) { 
+			if ((chordState[0] & verticals[j]) != 0) return verticals[j];
+		} else {
+			if (((chordState[depth] ^ chordState[depth-1]) & verticals[j]) != 0) 
+				return verticals[j];
 		}
-
-		return lastCol;
+	}
+	return 0;
 }

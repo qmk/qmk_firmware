@@ -15,8 +15,9 @@ F_USB = $(F_CPU)
 EXTRAFLAGS += -flto
 
 CUSTOM_MATRIX 		= yes
+MOUSEKEY_ENABLE		= yes
 STENO_ENABLE 		= yes
 EXTRAKEY_ENABLE     = yes
-CONSOLE_ENABLE      = no
+CONSOLE_ENABLE      = yes
 COMMAND_ENABLE      = no
 NKRO_ENABLE			= yes

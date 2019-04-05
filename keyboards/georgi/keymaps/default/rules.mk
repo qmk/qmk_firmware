@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-# make georgi:extrakey:dfu
+# make georgi:default:dfu
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 
@@ -10,8 +10,9 @@ DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
-MOUSEKEY_ENABLE			 = no
-SINGLE_LAYER			 = no
+MOUSEKEY_ENABLE			 = nr
+NO_REPEAT				 = no
+
 
 
 # A bunch of stuff that you shouldn't touch unless you
@@ -22,6 +23,6 @@ SRC += matrix.c i2c_master.c
 ifeq ($(strip $(DEBUG_MATRIX)), yes)
     OPT_DEFS += -DDEBUG_MATRIX
 endif
-ifeq ($(strip $(SINGLE_LAYER)), yes)
-    OPT_DEFS += -DSINGLE_LAYER
+ifeq ($(strip $(NO_REPEAT)), yes)
+    OPT_DEFS += -DNO_REPEAT
 endif
