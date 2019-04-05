@@ -1,8 +1,0 @@
-MOUSEKEY_ENABLE = no
-TAP_DANCE_ENABLE = no
-RGBLIGHT_ENABLE = no
-LED_ANIMATIONS = no
-
-ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    OPT_DEFS += -DLED_ANIMATIONS
-endif
