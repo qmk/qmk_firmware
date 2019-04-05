@@ -1,3 +1,6 @@
+/* keymap.c is auto-generated, don't edit it directly.
+ * Further instructions are provided in readme.md */
+
 #include QMK_KEYBOARD_H
 
 enum unicode_name {
@@ -310,9 +313,9 @@ zeta
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-	[AB_ARC] = 0x0361,  // ͡
-	[AB_LINE] = 0x0305,  // ̅
-	[AB_VEC] = 0x20d7,  // ⃗
+	[AB_ARC] = 0x0361,  //
+	[AB_LINE] = 0x0305,  //
+	[AB_VEC] = 0x20d7,  //
 	[ACUTE] = 0x00b4,  // ´
 	[AE] = 0x00c4,  // Ä
 	[ALEPH] = 0x2135,  // ℵ
@@ -746,3 +749,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	)
 };
+
+/* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et
+ */
