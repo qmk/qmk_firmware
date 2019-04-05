@@ -10,7 +10,7 @@ DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
-MOUSEKEY_ENABLE			 = nr
+MOUSEKEY_ENABLE			 = no
 NO_REPEAT				 = no
 
 
