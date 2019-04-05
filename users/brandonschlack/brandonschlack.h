@@ -13,7 +13,7 @@
 
 // Macros
 enum custom_keycodes {
-  KC_LHPD = SAFE_RANGE,
+  KC_MAKE = SAFE_RANGE,
   KEYMAP_SAFE_RANGE
 };
 
