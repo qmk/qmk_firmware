@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|             |------+------+------+------+------|
        ZSFT,     X,     C,     V,     B,                   N,     M,  CODO,    UP,  MNSF,\
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-       ESCT,  TBAL,  LGUI, LOWER,   SPC, KANJI,  BSPC,   ENT, RAISE,  LEFT,  DOWN,  RGHT \
+       ESCT,  TBAL,  LGUI, LOWER,  BSPC,  BSPC,   SPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   ),
 
