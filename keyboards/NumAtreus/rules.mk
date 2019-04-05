@@ -49,7 +49,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
@@ -58,7 +58,7 @@ NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: h
 #MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = yes         # Unicode
 #BLUETOOTH_ENABLE = yes       # Enable Bluetooth with the Adafruit EZ-Key HID
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 RGBLIGHT_ENABLE = no
 LED_ANIMATIONS = no
 
