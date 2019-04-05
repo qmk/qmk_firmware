@@ -20,7 +20,7 @@ layer_state_t default_layer_state = 0;
  * Run user code on default layer state change
  */
 __attribute__((weak))
-uint32_t default_layer_state_set_user(uint32_t state) {
+layer_state_t default_layer_state_set_user(layer_state_t state) {
   return state;
 }
 

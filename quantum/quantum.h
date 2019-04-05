@@ -61,10 +61,10 @@
 #include "send_string_keycodes.h"
 #include "suspend.h"
 
-extern uint32_t default_layer_state;
+extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-    extern uint32_t layer_state;
+    extern layer_state_t layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
