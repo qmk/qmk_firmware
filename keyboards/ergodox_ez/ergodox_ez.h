@@ -26,6 +26,16 @@
 extern i2c_status_t mcp23018_status;
 #define ERGODOX_EZ_I2C_TIMEOUT 100
 
+#ifdef I2CLCD_PORT
+extern void lcd_init(void);
+extern void lcd_update(matrix_row_t *matrix);
+extern uint8_t lcd_move(int row, int col);
+extern uint8_t lcd_clear(void);
+extern uint8_t lcd_char(uint8_t c);
+extern uint8_t lcd_string(char *s, int len);
+extern uint8_t lcd_backlight(uint8_t brightness);
+#endif
+
 void init_ergodox(void);
 void ergodox_blink_all_leds(void);
 uint8_t init_mcp23018(void);

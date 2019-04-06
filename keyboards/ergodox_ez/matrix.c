@@ -89,6 +89,10 @@ void matrix_init(void) {
 
   mcp23018_status = init_mcp23018();
 
+#ifdef I2CLCD_PORT
+  lcd_init();
+#endif
+
   unselect_rows();
   init_cols();
 
@@ -174,6 +178,10 @@ uint8_t matrix_scan(void) {
   
   debounce(raw_matrix, matrix, MATRIX_ROWS, true);
   matrix_scan_quantum();
+
+#ifdef I2CLCD_PORT
+  lcd_update(matrix);
+#endif
 
   return 1;
 }
