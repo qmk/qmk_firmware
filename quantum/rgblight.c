@@ -245,6 +245,7 @@ void rgblight_init(void) {
     eeconfig_update_rgblight_default();
   }
   rgblight_config.raw = eeconfig_read_rgblight();
+  RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
   if (!rgblight_config.mode) {
     dprintf("rgblight_init rgblight_config.mode = 0. Write default values to EEPROM.\n");
     eeconfig_update_rgblight_default();
