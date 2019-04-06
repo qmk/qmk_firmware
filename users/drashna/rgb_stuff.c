@@ -248,16 +248,17 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_rgb(void) {
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
-	rgblight_enable_noeeprom();
-	layer_state_set_user(layer_state);
-  uint16_t old_hue = rgblight_config.hue;
-	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-	for (uint16_t i = 360; i > 0; i--) {
-		rgblight_sethsv_noeeprom( ( i + old_hue) % 360, 255, 255);
-    matrix_scan();
-    wait_ms(10);
-	}
-	layer_state_set_user(layer_state);
+	if (rgblight_config.enable) {
+    layer_state_set_user(layer_state);
+    uint16_t old_hue = rgblight_config.hue;
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    for (uint16_t i = 360; i > 0; i--) {
+      rgblight_sethsv_noeeprom( ( i + old_hue) % 360, 255, 255);
+      matrix_scan();
+      wait_ms(10);
+    }
+    layer_state_set_user(layer_state);
+  }
 #endif
 }
 
