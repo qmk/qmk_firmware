@@ -13,11 +13,19 @@ extern uint32_t __ram0_end__;
 #define MAGIC_ADDR (unsigned long*)(SYMVAL(__ram0_end__) - 4)
 
 
+/** \brief Jump to the bootloader
+ *
+ * FIXME: needs doc
+ */
 void bootloader_jump(void) {
   *MAGIC_ADDR = BOOTLOADER_MAGIC; // set magic flag => reset handler will jump into boot loader
    NVIC_SystemReset();
 }
 
+/** \brief Enter bootloader mode if requested
+ *
+ * FIXME: needs doc
+ */
 void enter_bootloader_mode_if_requested(void)  {
   unsigned long* check = MAGIC_ADDR;
   if(*check == BOOTLOADER_MAGIC)  {

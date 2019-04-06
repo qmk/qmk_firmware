@@ -54,6 +54,7 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
+#include "rgblight_reconfig.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -141,6 +142,10 @@ USB_ClassInfo_CDC_Device_t cdc_device =
 
 #ifdef RAW_ENABLE
 
+/** \brief Raw HID Send
+ *
+ * FIXME: Needs doc
+ */
 void raw_hid_send( uint8_t *data, uint8_t length )
 {
 	// TODO: implement variable size packet
@@ -172,6 +177,10 @@ void raw_hid_send( uint8_t *data, uint8_t length )
 	Endpoint_SelectEndpoint(ep);
 }
 
+/** \brief Raw HID Receive
+ *
+ * FIXME: Needs doc
+ */
 __attribute__ ((weak))
 void raw_hid_receive( uint8_t *data, uint8_t length )
 {
@@ -180,6 +189,10 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 	// so users can opt to not handle data coming in.
 }
 
+/** \brief Raw HID Task
+ *
+ * FIXME: Needs doc
+ */
 static void raw_hid_task(void)
 {
 	// Create a temporary buffer to hold the read in data from the host
@@ -218,6 +231,10 @@ static void raw_hid_task(void)
  * Console
  ******************************************************************************/
 #ifdef CONSOLE_ENABLE
+/** \brief Console Task
+ *
+ * FIXME: Needs doc
+ */
 static void Console_Task(void)
 {
     /* Device must be connected and configured for the task to run */
@@ -282,6 +299,10 @@ static void Console_Task(void)
  * 2) EVENT_USB_Device_Reset
  * 3) EVENT_USB_Device_Wake
 */
+/** \brief Event USB Device Connect
+ *
+ * FIXME: Needs doc
+ */
 void EVENT_USB_Device_Connect(void)
 {
     print("[C]");
@@ -293,6 +314,10 @@ void EVENT_USB_Device_Connect(void)
     }
 }
 
+/** \brief Event USB Device Connect
+ *
+ * FIXME: Needs doc
+ */
 void EVENT_USB_Device_Disconnect(void)
 {
     print("[D]");
@@ -307,11 +332,19 @@ void EVENT_USB_Device_Disconnect(void)
 */
 }
 
+/** \brief Event USB Device Connect
+ *
+ * FIXME: Needs doc
+ */
 void EVENT_USB_Device_Reset(void)
 {
     print("[R]");
 }
 
+/** \brief Event USB Device Connect
+ *
+ * FIXME: Needs doc
+ */
 void EVENT_USB_Device_Suspend()
 {
     print("[S]");
@@ -320,6 +353,10 @@ void EVENT_USB_Device_Suspend()
 #endif
 }
 
+/** \brief Event USB Device Connect
+ *
+ * FIXME: Needs doc
+ */
 void EVENT_USB_Device_WakeUp()
 {
     print("[W]");
@@ -342,7 +379,11 @@ static bool console_flush = false;
   } \
 } while (0)
 
-// called every 1ms
+/** \brief Event USB Device Start Of Frame
+ *
+ * FIXME: Needs doc
+ * called every 1ms
+ */
 void EVENT_USB_Device_StartOfFrame(void)
 {
     static uint8_t count;
@@ -356,30 +397,33 @@ void EVENT_USB_Device_StartOfFrame(void)
 
 #endif
 
-/** Event handler for the USB_ConfigurationChanged event.
+/** \brief Event handler for the USB_ConfigurationChanged event.
+ *
  * This is fired when the host sets the current configuration of the USB device after enumeration.
  *
  * ATMega32u2 supports dual bank(ping-pong mode) only on endpoint 3 and 4,
- * it is safe to use singl bank for all endpoints.
+ * it is safe to use single bank for all endpoints.
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
     bool ConfigSuccess = true;
 
     /* Setup Keyboard HID Report Endpoints */
+#ifndef KEYBOARD_SHARED_EP
     ConfigSuccess &= ENDPOINT_CONFIG(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 
-#ifdef MOUSE_ENABLE
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     /* Setup Mouse HID Report Endpoint */
     ConfigSuccess &= ENDPOINT_CONFIG(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
-#ifdef EXTRAKEY_ENABLE
-    /* Setup Extra HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
+#ifdef SHARED_EP_ENABLE
+    /* Setup Shared HID Report Endpoint */
+    ConfigSuccess &= ENDPOINT_CONFIG(SHARED_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     SHARED_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef RAW_ENABLE
@@ -400,12 +444,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #endif
 #endif
 
-#ifdef NKRO_ENABLE
-    /* Setup NKRO HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(NKRO_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     NKRO_EPSIZE, ENDPOINT_BANK_SINGLE);
-#endif
-
 #ifdef MIDI_ENABLE
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_IN_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(MIDI_STREAM_OUT_EPADDR, EP_TYPE_BULK, MIDI_STREAM_EPSIZE, ENDPOINT_BANK_SINGLE);
@@ -418,7 +456,7 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 #endif
 }
 
-/*
+/* FIXME: Expose this table in the docs somehow
 Appendix G: HID Request Support Requirements
 
 The following table enumerates the requests that need to be supported by various types of HID class devices.
@@ -431,7 +469,8 @@ Boot Keyboard   Required    Optional    Required    Required    Required    Requ
 Non-Boot Keybrd Required    Optional    Required    Required    Optional    Optional
 Other Device    Required    Optional    Optional    Optional    Optional    Optional
 */
-/** Event handler for the USB_ControlRequest event.
+/** \brief Event handler for the USB_ControlRequest event.
+ *
  *  This is fired before passing along unhandled control requests to the library for processing internally.
  */
 void EVENT_USB_Device_ControlRequest(void)
@@ -469,8 +508,8 @@ void EVENT_USB_Device_ControlRequest(void)
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
                 case KEYBOARD_INTERFACE:
-#ifdef NKRO_ENABLE
-                case NKRO_INTERFACE:
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
+                case SHARED_INTERFACE:
 #endif
                     Endpoint_ClearSETUP();
 
@@ -478,7 +517,16 @@ void EVENT_USB_Device_ControlRequest(void)
                         if (USB_DeviceState == DEVICE_STATE_Unattached)
                           return;
                     }
-                    keyboard_led_stats = Endpoint_Read_8();
+
+                    if (Endpoint_BytesInEndpoint() == 2) {
+                      uint8_t report_id = Endpoint_Read_8();
+
+                      if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
+                        keyboard_led_stats = Endpoint_Read_8();
+                      }
+                    } else {
+                      keyboard_led_stats = Endpoint_Read_8();
+                    }
 
                     Endpoint_ClearOUT();
                     Endpoint_ClearStatusStage();
@@ -546,11 +594,19 @@ void EVENT_USB_Device_ControlRequest(void)
 /*******************************************************************************
  * Host driver
  ******************************************************************************/
+/** \brief Keyboard LEDs
+ *
+ * FIXME: Needs doc
+ */
 static uint8_t keyboard_leds(void)
 {
     return keyboard_led_stats;
 }
 
+/** \brief Send Keyboard
+ *
+ * FIXME: Needs doc
+ */
 static void send_keyboard(report_keyboard_t *report)
 {
     uint8_t timeout = 255;
@@ -561,16 +617,20 @@ static void send_keyboard(report_keyboard_t *report)
     #ifdef MODULE_ADAFRUIT_BLE
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
     #elif MODULE_RN42
-       bluefruit_serial_send(0xFD);
-       bluefruit_serial_send(0x09);
-       bluefruit_serial_send(0x01);
-       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-         bluefruit_serial_send(report->raw[i]);
-       }
+      bluefruit_serial_send(0xFD);
+      bluefruit_serial_send(0x09);
+      bluefruit_serial_send(0x01);
+      bluefruit_serial_send(report->mods);
+      bluefruit_serial_send(report->reserved);
+      for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        bluefruit_serial_send(report->keys[i]);
+      }
     #else
       bluefruit_serial_send(0xFD);
-      for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-        bluefruit_serial_send(report->raw[i]);
+      bluefruit_serial_send(report->mods);
+      bluefruit_serial_send(report->reserved);
+      for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        bluefruit_serial_send(report->keys[i]);
       }
     #endif
   }
@@ -581,30 +641,24 @@ static void send_keyboard(report_keyboard_t *report)
     }
 
     /* Select the Keyboard Report Endpoint */
+    uint8_t ep = KEYBOARD_IN_EPNUM;
+    uint8_t size = KEYBOARD_REPORT_SIZE;
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        /* Report protocol - NKRO */
-        Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
-
-        /* Check if write ready for a polling interval around 1ms */
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(4);
-        if (!Endpoint_IsReadWriteAllowed()) return;
-
-        /* Write Keyboard Report Data */
-        Endpoint_Write_Stream_LE(report, NKRO_EPSIZE, NULL);
+        ep = SHARED_IN_EPNUM;
+        size = sizeof(struct nkro_report);
     }
-    else
 #endif
-    {
-        /* Boot protocol */
-        Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+    Endpoint_SelectEndpoint(ep);
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
 
-        /* Check if write ready for a polling interval around 10ms */
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
-        if (!Endpoint_IsReadWriteAllowed()) return;
-
-        /* Write Keyboard Report Data */
-        Endpoint_Write_Stream_LE(report, KEYBOARD_EPSIZE, NULL);
+    /* If we're in Boot Protocol, don't send any report ID or other funky fields */
+    if (!keyboard_protocol) {
+        Endpoint_Write_Stream_LE(&report->mods, 8, NULL);
+    } else {
+        Endpoint_Write_Stream_LE(report, size, NULL);
     }
 
     /* Finalize the stream transfer to send the last packet */
@@ -612,7 +666,11 @@ static void send_keyboard(report_keyboard_t *report)
 
     keyboard_report_sent = *report;
 }
-
+ 
+/** \brief Send Mouse
+ *
+ * FIXME: Needs doc
+ */
 static void send_mouse(report_mouse_t *report)
 {
 #ifdef MOUSE_ENABLE
@@ -657,8 +715,13 @@ static void send_mouse(report_mouse_t *report)
 #endif
 }
 
+/** \brief Send System
+ *
+ * FIXME: Needs doc
+ */
 static void send_system(uint16_t data)
 {
+#ifdef EXTRAKEY_ENABLE
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -668,7 +731,7 @@ static void send_system(uint16_t data)
         .report_id = REPORT_ID_SYSTEM,
         .usage = data - SYSTEM_POWER_DOWN + 1
     };
-    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
+    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
@@ -676,10 +739,16 @@ static void send_system(uint16_t data)
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+#endif
 }
 
+/** \brief Send Consumer
+ *
+ * FIXME: Needs doc
+ */
 static void send_consumer(uint16_t data)
 {
+#ifdef EXTRAKEY_ENABLE
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
@@ -723,7 +792,7 @@ static void send_consumer(uint16_t data)
         .report_id = REPORT_ID_CONSUMER,
         .usage = data
     };
-    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
+    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
@@ -731,6 +800,7 @@ static void send_consumer(uint16_t data)
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+#endif
 }
 
 
@@ -739,6 +809,10 @@ static void send_consumer(uint16_t data)
  ******************************************************************************/
 #ifdef CONSOLE_ENABLE
 #define SEND_TIMEOUT 5
+/** \brief Send Char
+ *
+ * FIXME: Needs doc
+ */
 int8_t sendchar(uint8_t c)
 {
     // Not wait once timeouted.
@@ -842,18 +916,30 @@ bool recv_midi_packet(MIDI_EventPacket_t* const event) {
  ******************************************************************************/
 
 #ifdef VIRTSER_ENABLE
+/** \brief Virtual Serial Init
+ *
+ * FIXME: Needs doc
+ */
 void virtser_init(void)
 {
   cdc_device.State.ControlLineStates.DeviceToHost = CDC_CONTROL_LINE_IN_DSR ;
   CDC_Device_SendControlLineStateChange(&cdc_device);
 }
 
+/** \brief Virtual Serial Receive
+ *
+ * FIXME: Needs doc
+ */
 void virtser_recv(uint8_t c) __attribute__ ((weak));
 void virtser_recv(uint8_t c)
 {
   // Ignore by default
 }
 
+/** \brief Virtual Serial Task
+ *
+ * FIXME: Needs doc
+ */
 void virtser_task(void)
 {
   uint16_t count = CDC_Device_BytesReceived(&cdc_device);
@@ -864,6 +950,10 @@ void virtser_task(void)
     virtser_recv(ch);
   }
 }
+/** \brief Virtual Serial Send
+ *
+ * FIXME: Needs doc
+ */
 void virtser_send(const uint8_t byte)
 {
   uint8_t timeout = 255;
@@ -896,6 +986,10 @@ void virtser_send(const uint8_t byte)
 /*******************************************************************************
  * main
  ******************************************************************************/
+/** \brief Setup MCU
+ *
+ * FIXME: Needs doc
+ */
 static void setup_mcu(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
@@ -909,6 +1003,10 @@ static void setup_mcu(void)
     CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
 }
 
+/** \brief Setup USB
+ *
+ * FIXME: Needs doc
+ */
 static void setup_usb(void)
 {
     // Leonardo needs. Without this USB device is not recognized.
@@ -921,6 +1019,10 @@ static void setup_usb(void)
     print_set_sendchar(sendchar);
 }
 
+/** \brief Main
+ *
+ * FIXME: Needs doc
+ */
 int main(void)  __attribute__ ((weak));
 int main(void)
 {

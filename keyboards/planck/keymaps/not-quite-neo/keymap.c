@@ -4,6 +4,7 @@ A layout based on the
 */
 
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "nqn-keys-on-quertz-de-latin1.h"
 #include "nqn-basic-layout.h"

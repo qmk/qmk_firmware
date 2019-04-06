@@ -90,7 +90,6 @@ uint16_t keycode_config(uint16_t keycode) {
 }
 
 uint8_t mod_config(uint8_t mod) {
-    keymap_config.raw = eeconfig_read_keymap();
     if (keymap_config.swap_lalt_lgui) {
         if ((mod & MOD_RGUI) == MOD_LGUI) {
             mod &= ~MOD_LGUI;

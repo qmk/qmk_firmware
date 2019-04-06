@@ -69,6 +69,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #   include "process_midi.h"
 #endif
+#ifdef HD44780_ENABLE
+#   include "hd44780.h"
+#endif
+#ifdef QWIIC_ENABLE
+#   include "qwiic.h"
+#endif
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -117,22 +126,85 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
+void disable_jtag(void) {
+// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+    MCUCR |= _BV(JTD);
+    MCUCR |= _BV(JTD);
+#endif
+}
+
+/** \brief matrix_setup
+ *
+ * FIXME: needs doc
+ */
 __attribute__ ((weak))
 void matrix_setup(void) {
 }
 
-void keyboard_setup(void) {
-    matrix_setup();
+/** \brief keyboard_pre_init_user
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void keyboard_pre_init_user(void) { }
+
+/** \brief keyboard_pre_init_kb
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void keyboard_pre_init_kb(void) {
+  keyboard_pre_init_user();
 }
 
+/** \brief keyboard_post_init_user
+ *
+ * FIXME: needs doc
+ */
+
+__attribute__ ((weak))
+void keyboard_post_init_user() {}
+
+/** \brief keyboard_post_init_kb
+ *
+ * FIXME: needs doc
+ */
+
+__attribute__ ((weak))
+void keyboard_post_init_kb(void) {
+  keyboard_post_init_user();
+}
+
+/** \brief keyboard_setup
+ *
+ * FIXME: needs doc
+ */
+void keyboard_setup(void) {
+    disable_jtag();
+    matrix_setup();
+    keyboard_pre_init_kb();
+}
+
+/** \brief is_keyboard_master
+ *
+ * FIXME: needs doc
+ */
 __attribute__((weak))
 bool is_keyboard_master(void) {
     return true;
 }
 
+/** \brief keyboard_init
+ *
+ * FIXME: needs doc
+ */
 void keyboard_init(void) {
     timer_init();
     matrix_init();
+#ifdef QWIIC_ENABLE
+    qwiic_init();
+#endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
@@ -165,18 +237,24 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
+    keyboard_post_init_kb(); /* Always keep this last */
 }
 
-/*
- * Do keyboard routine jobs: scan matrix, light LEDs, ...
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs:
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * run visualizer code
+ * * handle midi commands
+ * * light LEDs
+ *
  * This is repeatedly called as fast as possible.
  */
 void keyboard_task(void)
 {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
-#ifdef MATRIX_HAS_GHOST
-  //  static matrix_row_t matrix_ghost[MATRIX_ROWS];
-#endif
     static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
     matrix_row_t matrix_change = 0;
@@ -185,24 +263,14 @@ void keyboard_task(void)
 #endif
 
     matrix_scan();
+
     if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
             matrix_row = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
             if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-                if (has_ghost_in_row(r, matrix_row)) {
-                    /* Keep track of whether ghosted status has changed for
-                    * debugging. But don't update matrix_prev until un-ghosted, or
-                    * the last key would be lost.
-                    */
-                    //if (debug_matrix && matrix_ghost[r] != matrix_row) {
-                    //    matrix_print();
-                    //}
-                    //matrix_ghost[r] = matrix_row;
-                    continue;
-                }
-                //matrix_ghost[r] = matrix_row;
+                if (has_ghost_in_row(r, matrix_row)) { continue; }
 #endif
                 if (debug_matrix) matrix_print();
                 for (uint8_t c = 0; c < MATRIX_COLS; c++) {
@@ -233,6 +301,10 @@ void keyboard_task(void)
     action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+#ifdef QWIIC_ENABLE
+    qwiic_task();
+#endif
 
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
@@ -267,6 +339,10 @@ MATRIX_LOOP_END:
     midi_task();
 #endif
 
+#ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled()) { velocikey_decelerate();  }
+#endif
+
     // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
@@ -274,6 +350,10 @@ MATRIX_LOOP_END:
     }
 }
 
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
 void keyboard_set_leds(uint8_t leds)
 {
     if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }

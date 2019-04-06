@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "meira.h"
+#include QMK_KEYBOARD_H
 #include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -36,6 +36,17 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
 };
+
+#ifdef AUDIO_ENABLE
+
+float tone_my_startup[][2] = SONG(ODE_TO_JOY);
+float tone_my_goodbye[][2] = SONG(ROCK_A_BYE_BABY);
+
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+
+#endif /* AUDIO_ENABLE */
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
@@ -149,10 +160,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
                 _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
         )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 // Setting ADJUST layer RGB back to default

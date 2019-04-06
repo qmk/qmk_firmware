@@ -18,9 +18,6 @@
 #include "print.h"
 
 
-#define COMBO_TIMER_ELAPSED -1
-
-
 __attribute__ ((weak))
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -34,6 +31,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 static uint16_t timer = 0;
 static uint8_t current_combo_index = 0;
 static bool drop_buffer = false;
+static bool is_active = false;
 
 static uint8_t buffer_size = 0;
 #ifdef COMBO_ALLOW_ACTION_KEYS
@@ -76,10 +74,8 @@ static inline void dump_key_buffer(bool emit) {
 }
 
 #define ALL_COMBO_KEYS_ARE_DOWN     (((1<<count)-1) == combo->state)
-#define NO_COMBO_KEYS_ARE_DOWN      (0 == combo->state)
 #define KEY_STATE_DOWN(key)         do{ combo->state |= (1<<key); } while(0)
 #define KEY_STATE_UP(key)           do{ combo->state &= ~(1<<key); } while(0)
-#define IS_COMBO_ACTIVE             (COMBO_TIMER_ELAPSED != timer)
 
 static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *record)
 {
@@ -95,8 +91,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     /* Continue processing if not a combo key */
     if (-1 == (int8_t)index) return false;
 
-    /* The timer is used to signal whether combo is active */
-    bool is_combo_active = IS_COMBO_ACTIVE;
+    bool is_combo_active = is_active;
 
     if (record->event.pressed) {
         KEY_STATE_DOWN(index);
@@ -118,21 +113,21 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         KEY_STATE_UP(index);
     }
 
-    if (NO_COMBO_KEYS_ARE_DOWN) {
-        timer = 0;
-    }
-
     return is_combo_active;
 }
+
+#define NO_COMBO_KEYS_ARE_DOWN      (0 == combo->state)
 
 bool process_combo(uint16_t keycode, keyrecord_t *record)
 {
     bool is_combo_key = false;
     drop_buffer = false;
+    bool no_combo_keys_pressed = false;
 
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
         combo_t *combo = &key_combos[current_combo_index];
         is_combo_key |= process_single_combo(combo, keycode, record);
+        no_combo_keys_pressed |= NO_COMBO_KEYS_ARE_DOWN;
     }
 
     if (drop_buffer) {
@@ -142,7 +137,13 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
     } else if (!is_combo_key) {
         /* if no combos claim the key we need to emit the keybuffer */
         dump_key_buffer(true);
-    } else if (record->event.pressed && IS_COMBO_ACTIVE) {
+
+        // reset state if there are no combo keys pressed at all
+        if (no_combo_keys_pressed) {
+          timer = 0;
+          is_active = true;
+        }
+    } else if (record->event.pressed && is_active) {
         /* otherwise the key is consumed and placed in the buffer */
         timer = timer_read();
 
@@ -160,14 +161,14 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
 
 void matrix_scan_combo(void)
 {
-    if (timer &&
-        timer != COMBO_TIMER_ELAPSED &&
+    if (is_active &&
+        timer &&
         timer_elapsed(timer) > COMBO_TERM) {
 
         /* This disables the combo, meaning key events for this
          * combo will be handled by the next processors in the chain
          */
-        timer = COMBO_TIMER_ELAPSED;
+        is_active = false;
         dump_key_buffer(true);
     }
 }
