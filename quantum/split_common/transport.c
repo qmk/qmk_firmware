@@ -27,7 +27,7 @@ extern backlight_config_t backlight_config;
 
 typedef struct _I2C_slave_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
-    uint8_t      backlit_level;
+    uint8_t      backlight_level;
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     rgblight_syncinfo_t rgblight_sync;
 #endif
@@ -38,7 +38,7 @@ typedef struct _I2C_slave_buffer_t {
 
 static I2C_slave_buffer_t * const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
-#  define I2C_BACKLIT_START offsetof(I2C_slave_buffer_t, backlit_level)
+#  define I2C_BACKLIGHT_START offsetof(I2C_slave_buffer_t, backlight_level)
 #  define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #  define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 #  define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
@@ -57,7 +57,7 @@ bool transport_master(matrix_row_t matrix[]) {
 #  ifdef BACKLIGHT_ENABLE
   uint8_t level = get_backlight_level();
   if (level != i2c_buffer->backlight_level) {
-    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIGHT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
       i2c_buffer->backlight_level = level;
     }
   }
@@ -88,7 +88,7 @@ void transport_slave(matrix_row_t matrix[]) {
 
 // Read Backlight Info
 #  ifdef BACKLIGHT_ENABLE
-  backlight_set(i2c_buffer->backlit_level);
+  backlight_set(i2c_buffer->backlight_level);
 #  endif
 
 #  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
