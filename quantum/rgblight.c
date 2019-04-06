@@ -362,6 +362,9 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
       rgblight_timer_enable();
 #endif
   }
+#ifdef RGBLIGHT_USE_TIMER
+    animation_status.restart = true;
+#endif
   rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
 }
 
@@ -555,9 +558,6 @@ void rgblight_sethsv_noeeprom_old(uint16_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
   if (rgblight_config.enable) {
     rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
-#ifdef RGBLIGHT_USE_TIMER
-    animation_status.restart = true;
-#endif
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
       LED_TYPE tmp_led;
