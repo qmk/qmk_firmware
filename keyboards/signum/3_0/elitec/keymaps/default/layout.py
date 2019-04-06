@@ -358,7 +358,7 @@ qmk_dict = {
     # Basic Keycodes missing from Print Screen onwards, included as fallback
     # random Keycodes
     "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTRL", "RCtrl": "KC_RCTRL",
-    "LShift(": "KC_LSPO", "RShift)": "KC_RSPO",
+    "LShift(": "KC_LSPO", "RShift)": "KC_RSPC",
     "L1_ENT": "LT(1, KC_ENT)", "LT6_SPC": "LT(6, KC_SPC)",
     "CPg Dn": "CTL_T(KC_PGDN)", "CPg Up": "CTL_T(KC_PGUP)",
     "S_Enter": "S(KC_ENT)", "S_Tab": "S(KC_TAB)", "Compose": "KC_ALGR",
