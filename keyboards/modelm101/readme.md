@@ -29,7 +29,7 @@ Status LEDs: CapsLock +5V ScrollLock NumLock
 Pins:        B6       5V  B5         B4  
 ```  
 
-Please note that some versions of Model M have LED connected a ribbon cable, and not with separate wires.  
+Please note that some versions of Model M have LED connected with a ribbon cable, and not with separate wires.  
 
 Keyboard Maintainer: [iw0rm3r](https://github.com/iw0rm3r)  
 
