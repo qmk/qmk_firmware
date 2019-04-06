@@ -85,5 +85,32 @@ API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 RGB_MATRIX_ENABLE = no # enable later
 DEBOUNCE_TYPE = eager_pr
+I2CLCD_AF_ENABLE = no  # i2c access to character LCD (Adafruit backpack)
+I2CLCD_SB_ENABLE = no  # i2c access to character LCD (Seebs implementation)
+STENO_ENABLE     = no
+LCDSTENO_ENABLE  = no  # use i2c display for steno
+# Set to match the address pins on LCD backpack. For the Adafruit
+# backpack, You MUST set at least one address pin or things will work badly.
+# For instance, if you solder the A0 jumper, you use 1 here.
+I2CLCD_PORT    = 0
+
+ifeq ($(strip $(I2CLCD_AF_ENABLE)), yes)
+    SRC += i2c_lcd_af.c
+    OPT_DEFS += -DI2CLCD_PORT=$(I2CLCD_PORT) -DI2CLCD_ENABLE
+endif
+
+ifeq ($(strip $(I2CLCD_SB_ENABLE)), yes)
+    SRC += i2c_lcd_sb.c
+    OPT_DEFS += -DI2CLCD_PORT=$(I2CLCD_PORT) -DI2CLCD_ENABLE
+endif
+
+ifeq ($(strip $(I2CLCD_ENABLE)), yes)
+  SRC += i2c_lcd.c
+  OPT_DEFS += -DI2CLCD_PORT=$(I2CLCD_PORT)
+endif
+
+ifeq ($(strip $(LCDSTENO_ENABLE)), yes)
+  SRC += lcd_steno.c
+endif
 
 LAYOUTS = ergodox
