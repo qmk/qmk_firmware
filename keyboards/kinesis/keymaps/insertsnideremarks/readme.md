@@ -14,7 +14,7 @@ I've largely left the function keys untouched, with the intension of not using t
 
 I use Colemak as my default layout.  I've included QWERTY here as well.
 
-Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have limited access to the Function or Numbers layers, and are mainly used for gaming.
+Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have limited access to the Function or Numbers/Symbols layers, and are mainly used for gaming.
 
 Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/vanilla Colemak and QWERTY can be set as default layer, but will not be persistent.
 
@@ -22,24 +22,24 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 
 * Add status LEDs to the Stapelberg PCB (usually used for Caps Lock, Num Lock, and Scroll Lock).  May configure it as layer indicator.
 * Add a speaker now that QMK supports additional pins for audio use.
-* Utilize the leftover spots on the key matrix, as well as unused pins on Teensy to run macropad and/or foot pedals.
+* Utilize the leftover spots on the key matrix, as well as unused pins on Teensy++ 2.0 to run macropad and/or foot pedals.
 
 
 ### Colemak
-	(Default layer, keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
-	,-----------------------------------------------------------------------------------------------------------.
-	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
-	`-----------------------------------------------------------------------------------------------------------'
-	,-------------------------------------------.                   ,-------------------------------------------.
-	|    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
-	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
-	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
+    (Defauit layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
+    ,-----------------------------------------------------------------------------------------------------------.
+    | ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
+    `-----------------------------------------------------------------------------------------------------------'
+    ,-------------------------------------------.                   ,-------------------------------------------.
+    |    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
+    `--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
+             |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
 	                            |Esc/Ctl| Hyper |                   |  RAlt |  RCtl |
@@ -150,7 +150,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	
 
 ### Colemak gaming/vanilla
-	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
+    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -159,23 +159,23 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Ctrl  |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
+	|  LCtrl |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |  Shift |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
-	                            |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                            |  Esc  |       |                   |  RAlt |  RCtl |
 	                    ,-------|-------|-------|                   |-------+-------+-------.
-	                    |       |       |  LAlt |                   |  RGUI |       |       |
-	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
+	                    |       |       |  LAlt |                   |  RGUI | Delete|       |
+	                    | Space | Enter |-------|                   |-------|   /   |  Bspc |
+	                    |       |       |Bspc/FN|                   | Ent/NS|Number2|       |
 	                    `-----------------------'                   `-----------------------' 
 	
 
 ### QWERTY gaming/vanilla
-	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
+    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -184,18 +184,18 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|   Tab  |   Q  |   W  |   E  |   R  |   T  |                   |   Y  |   U  |   I  |   O  |   P  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Ctrl  |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
+	|  LCtrl |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   N  |   M  |   ,  |   .  |   /  |  Shift |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
-	                            |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                            |  Esc  |       |                   |  RAlt |  RCtl |
 	                    ,-------|-------|-------|                   |-------+-------+-------.
-	                    |       |       |  LAlt |                   |  RGUI |       |       |
-	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
+	                    |       |       |  LAlt |                   |  RGUI | Delete|       |
+	                    | Space | Enter |-------|                   |-------|   /   |  Bspc |
+	                    |       |       |Bspc/FN|                   | Ent/NS|Number2|       |
 	                    `-----------------------'                   `-----------------------' 
 	
 ### Adjust layer
