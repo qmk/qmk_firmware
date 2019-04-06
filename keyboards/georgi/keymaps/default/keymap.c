@@ -15,9 +15,6 @@
 #include "keymap_steno.h"
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// So we can access the current state
-extern uint32_t cChord;
-
 // Proper Layers
 #define FUNCT   (LSD | LK | LP | LH)
 #define MEDIA   (LSD | LK | LW | LR)
@@ -211,6 +208,7 @@ uint32_t processQwerty(bool lookup) {
 // "Layers"
 // Steno layer should be first in your map.
 // When PWR | FN | ST3 | ST4 is pressed, the layer is increased to the next map. You must return to STENO_LAYER at the end.
+// If you need more space for chords, remove the two gaming layers.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Main layer, everything goes through here
@@ -230,7 +228,6 @@ KC_LSFT, KC_1, KC_2, KC_3, KC_4, KC_5,       KC_6, KC_7, KC_8,  KC_9,  KC_0, KC_
 KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,       KC_N, KC_M, KC_LT, KC_GT, KC_QUES, KC_RSFT,
 			  KC_LALT, KC_SPC, KC_ENT,		 KC_DEL, KC_ASTR,  TO(STENO_LAYER))
 }; 
-
 
 // Don't fuck with this, thanks.
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
