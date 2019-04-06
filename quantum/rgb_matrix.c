@@ -101,7 +101,7 @@ void eeconfig_update_rgb_matrix(uint32_t val) {
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
   rgb_matrix_config.enable = 1;
-#ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
+#ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
   rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
 #else
   // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
