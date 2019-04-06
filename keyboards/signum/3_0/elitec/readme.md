@@ -5,7 +5,7 @@
 An ergonomic 40% PCB.
 
 Keyboard Maintainer: [Troy Fletcher](http://troyfletcher.net/)  
-Hardware available here: [Troy Fletcher](http://troyfletcher.net/keyboard_sales.html)
+Hardware available here: [Troy Fletcher](http://troyfletcher.net/keyboard_sales.html)  
 
 Make example for this keyboard (after setting up your build environment):
 
