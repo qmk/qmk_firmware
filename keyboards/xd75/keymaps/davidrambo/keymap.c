@@ -2,14 +2,14 @@
 
 //aliases for clarity in layering
 #define A_BSPC  LALT(KC_BSPC) // delete whole word in Mac
-#define C_BSPS  LCTL(KC_BSPC) // delete whole word in PC
+#define C_BSPC  LCTL(KC_BSPC) // delete whole word in PC
 #define A_LEFT  LALT(KC_LEFT)
 #define A_RGHT  LALT(KC_RGHT)
 #define C_RGHT  LCTL(KC_RGHT)
 #define C_LEFT  LCTL(KC_LEFT)
 #define SftEnt  SFT_T(KC_ENT)
-#define GBSPC   LGUI_T(KC_BSPC)
-#define CBSPC   LCTL_T(KC_BSPC)
+#define BS_GUI  LGUI_T(KC_BSPC)
+#define BS_CTL  LCTL_T(KC_BSPC)
 
 // internet browser tab shortcuts and window/application swapping for Mac and Win
 #define GSL     LGUI(S(KC_LEFT)) // back one tab in Safari
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,   KC_LBRC, KC_BSLS, KC_RBRC, KC_J,   KC_L,   KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
    NAV    , KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_PGUP, KC_ESC , KC_ENT , KC_H,   KC_N,   KC_E,    KC_I,    KC_O,    KC_QUOT,
    SftLck , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGDN, KC_UP  , KC_ENT , KC_K,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SftEnt ,
-   KC_DEL , KC_LGUI, KC_LCTL, KC_LALT, KC_LGUI, GBSPC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC, MO(3) , KC_RGUI, KC_RALT, KC_RCTL, BL_STEP
+   KC_DEL , KC_LGUI, KC_LCTL, KC_LALT, KC_LGUI, BS_GUI, KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC, MO(3) , KC_RGUI, KC_RALT, KC_RCTL, BL_STEP
  ),
     
 // Windows Layer: essentially swaps Control and GUI
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
    NAVPC  , _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-   _______, KC_LCTL, KC_LGUI, _______, KC_LCTL, _______, _______, _______, _______, _______, _______, KC_RCTL, KC_RALT, KC_RGUI, _______
+   _______, KC_LCTL, KC_LGUI, _______, KC_LCTL, BS_CTL , _______, _______, _______, _______, _______, KC_RCTL, KC_RALT, KC_RGUI, _______
  ),
 
  [_GAME] = LAYOUT_ortho_5x15( /* Gaming Layer */
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, C_TAB  , C_LEFT,  KC_UP,   C_RGHT , KC_DEL , _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, CTLPGUP, KC_LEFT, KC_DOWN, KC_RGHT, CTLPGDN, _______,
-   _______, _______, _______, _______, _______, _______, _______, _______, _______, A_TAB  , CBSPC  , KC_HOME, KC_END , _______, _______,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, A_TAB  , C_BSPC , KC_HOME, KC_END , _______, _______,
    RESET  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
  )
 };
