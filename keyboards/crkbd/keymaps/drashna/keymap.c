@@ -7,6 +7,9 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#ifdef OLED_DRIVER_ENABLE
+  #include "oled_driver.h"
+#endif
 
 extern keymap_config_t keymap_config;
 extern uint8_t is_master;
@@ -287,4 +290,89 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+
+bool oled_init_user(bool flip180) {
+  return !has_usb(); // flips the display 180 degrees if offhand
+}
+
+void render_crkbd_logo(void) {
+  static const char PROGMEM crkbd_logo[] = {
+      0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+      0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+      0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+      0};
+  oled_write_P(crkbd_logo, false);
+}
+
+
+void render_status(void) {
+  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+  oled_write_P(PSTR("Layer: "), false);
+  switch (biton32(layer_state)) {
+    case 0:
+      oled_write_P(PSTR("Base    "), false);
+      break;
+    case _RAISE:
+      oled_write_P(PSTR("Raise   "), false);
+      break;
+    case _LOWER:
+      oled_write_P(PSTR("Lower   "), false);
+      break;
+    case _ADJUST:
+      oled_write_P(PSTR("Adjust  "), false);
+      break;
+    default:
+      oled_write_P(PSTR("Unknown "), false);
+      break;
+  }
+
+  oled_write_P(PSTR("\nLayout: "), false);
+  switch (biton32(default_layer_state)) {
+    case _QWERTY:
+      oled_write_P(PSTR("Qwerty  "), false);
+      break;
+    case _COLEMAK:
+      oled_write_P(PSTR("Colemak "), false);
+      break;
+    case _DVORAK:
+      oled_write_P(PSTR("Dvorak  "), false);
+      break;
+    case _WORKMAN:
+      oled_write_P(PSTR("Workman "), false);
+      break;
+    case _NORMAN:
+      oled_write_P(PSTR("Norman  "), false);
+      break;
+    case _MALTRON:
+      oled_write_P(PSTR("Maltron "), false);
+      break;
+    case _EUCALYN:
+      oled_write_P(PSTR("Eucalyn "), false);
+      break;
+    case _CARPLAX:
+      oled_write_P(PSTR("CARPLAX "), false);
+      break;
+  }
+  oled_write_P(PSTR("\n"), false);
+
+  // Host Keyboard LED Status
+  uint8_t led_usb_state = host_keyboard_leds();
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
+
+}
+
+
+void oled_task_user(void) {
+  if (has_usb()) {
+    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+  } else {
+    render_crkbd_logo();       // Renders a statuc logo
+    oled_scroll_left();  // Turns on scrolling
+  }
+}
 #endif
