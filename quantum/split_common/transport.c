@@ -227,7 +227,7 @@ bool transport_master(matrix_row_t matrix[]) {
 #  endif
 
 #  ifdef ENCODER_ENABLE
-  encoder_update_raw(serial_s2m_buffer.encoder_state);
+  encoder_update_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #  endif
 
   return true;
@@ -244,7 +244,7 @@ void transport_slave(matrix_row_t matrix[]) {
 #  endif
 
 #  ifdef ENCODER_ENABLE
-  encoder_state_raw(serial_s2m_buffer.encoder_state);
+  encoder_state_raw((uint8_t *)serial_s2m_buffer.encoder_state);
 #  endif
 
 }
