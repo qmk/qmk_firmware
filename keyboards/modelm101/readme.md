@@ -6,7 +6,7 @@ This is a configuration for the QMK firmware for reversible conversion of IBM's 
 Configuration is build for the Atmel AT90USB1286 controller, which you can easily use on the Teensy 2.0++ board (produced by PJRC).  
 Project is heavely based on 2 other projects:
 1. Teensy 2.0++-based custom Model M controller running TMK firmware ('modelm" by [lmorchard](https://blog.lmorchard.com/2016/02/21/modelm-controller/)); - had a few issues.
-2. Teensy 2.0++-based custom Model M 122-key controller running QMK firmware ("ibm122m" by [lukexorz](https://github.com/lukexorz)); - had wrong layout for 101/102-key boards and LED support.
+2. Teensy 2.0++-based custom Model M 122-key controller running QMK firmware ("ibm122m" by [lukexorz](https://github.com/lukexorz)); - had wrong layout for 101/102-key boards and no status LED support.
 
 For this conversion you will need:  
 1. Teensy 2.0++ dev board itself (can be used a different dev board, but it will require some changes in configuration);
