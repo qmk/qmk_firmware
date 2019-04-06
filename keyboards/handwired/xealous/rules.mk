@@ -1,5 +1,4 @@
-#SRC += matrix_scanrate.c matrix.c
-SRC += debounce.c
+SRC += matrix_scanrate.c matrix.c
 
 # MCU name
 MCU = atmega32u4
@@ -67,8 +66,7 @@ SUBPROJECT_rev1 = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = no
-DEBOUNCE_TYPE = custom
+DEBOUNCE_TYPE = eager_pk
 
 LAYOUTS = split60
 

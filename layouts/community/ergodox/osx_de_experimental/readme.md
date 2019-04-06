@@ -8,7 +8,6 @@ dieses layout ist experimentell und wird im Lufe der Zeit viele Änderungen und 
 # Erstellt Mit Dem ErgodoxLayoutGenerator
 
 Der ErgodoxLayoutGenerator (ELG) ist ein kleines Werkzeug, welches die Erstellung und Pflege der eigenen Keymaps erleichtern soll. Es ist in java geschrieben und kann [hier](https://github.com/sboesebeck/ErgodoxLayoutGenerator/releases) heruntergeladen werden. Damit das Tool funktioniert sollte das offizielle Oracle JDK in aktueller Version installiert sein.
-Die Dokumentation für den ELG kann man [hier](https://boesebeck.name/2016/04/16/ergodoxlayoutgenerator-documentation/) nachlesen (momentan leider nur in Englisch verfügbar).
 ---------------------------------------------------------------------------------------------------------------------
 
 # Ergodox and Ergodox-EZ experimental layout

@@ -49,9 +49,18 @@ To generate this bootloader, use the `bootloader` target, eg `make planck/rev4:d
 
 To generate a production-ready .hex file (containing the application and the bootloader), use the `production` target, eg `make planck/rev4:default:production`.
 
+### DFU commands
+
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
+
+* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
+* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
+* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+
 ## Caterina
 
-Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
+Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
 
 To ensure compatibility with the Caterina bootloader, make sure this block is present your `rules.mk`:
 
@@ -83,6 +92,7 @@ or if you want to flash multiple boards, use the following command
     make <keyboard>:<keymap>:avrdude-loop
 
 When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
+
 
 ## Halfkay
 
@@ -131,3 +141,12 @@ Flashing sequence:
     * You will receive a warning about the DFU signature; Just ignore it
 4. Reset the device into application mode (may be done automatically)
     * If you are building from command line (e.g. `make planck/rev6:default:dfu-util`), make sure that `:leave` is passed to the `DFU_ARGS` variable inside your `rules.mk` (e.g. `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) so that your device resets after flashing
+
+### STM32 Commands
+
+There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+
+* `:dfu-util` - The default command for flashing to STM32 devices. 
+* `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
+   * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
