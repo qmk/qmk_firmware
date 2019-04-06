@@ -292,10 +292,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
 
+#ifdef OLED_DRIVER_ENABLE
 bool oled_init_user(bool flip180) {
-  return !has_usb(); // flips the display 180 degrees if offhand
+  return !is_master; // flips the display 180 degrees if offhand
 }
 
 void render_crkbd_logo(void) {
@@ -310,6 +310,7 @@ void render_crkbd_logo(void) {
 
 void render_status(void) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+  if (true) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case 0:
@@ -357,18 +358,32 @@ void render_status(void) {
       break;
   }
   oled_write_P(PSTR("\n"), false);
+  }
 
+  if(true) {
+    uint8_t modifiers = get_mods();
+    uint8_t one_shot = get_oneshot_mods();
+
+    oled_write_P(PSTR("Mods: "), false);
+    oled_write_P( (modifiers & MOD_MASK_CTRL  || one_shot & MOD_MASK_CTRL ) ? PSTR("CTL ") : PSTR("    "), false);
+    oled_write_P( (modifiers & MOD_MASK_GUI   || one_shot & MOD_MASK_GUI  ) ? PSTR("GUI ") : PSTR("    "), false);
+    oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR("ALT ") : PSTR("    "), false);
+    oled_write_P( (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? PSTR("SFT ") : PSTR("    "), false);
+
+    oled_write_P(PSTR("\n"), false);
+  }
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
-
+  if (false) {
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
+  }
 }
 
 
 void oled_task_user(void) {
-  if (has_usb()) {
+  if (is_master) {
     render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
   } else {
     render_crkbd_logo();       // Renders a statuc logo
