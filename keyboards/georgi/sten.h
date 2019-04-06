@@ -9,6 +9,7 @@
 #include "mousekey.h"
 #include "keymap.h"
 #include "keymap_steno.h"
+#include "wait.h"
 
 // Bitfield representing the current chord and it's changes
 uint32_t cChord = 0;				// Current Chord
@@ -22,8 +23,9 @@ extern uint32_t vertMask;			// Mask of all vertical cols
 #define QWERBUF	12					// Size of chords to buffer for output
 
 // Function defs
-uint32_t		processQwerty(void);
-bool 			processFakeSteno(void);
+void 			processChord(bool useFakeSteno);
+uint32_t		processQwerty(bool lookup);
+uint32_t 		processFakeSteno(bool lookup);
 void 			clickMouse(uint8_t kc);
 void 			SEND(uint8_t kc);
 uint32_t 		getLastCol(int depth);
@@ -48,16 +50,8 @@ uint16_t repTimer = 0;
 bool	inMouse = false;
 int8_t	mousePress;
 
-// See if a given chord is pressed. 
-// P will return 
-// PJ will continue processing, removing the found chord 
-//#define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; }
-//#define P(chord, act)  if (cChord == (chord)) { act; cChord ^= chord; return true;}
-//
-#define P(chord, act) if ((cChord & (chord)) == (chord)) {act; return chord;}
-#define PJ(chord, act) if ((cChord & (chord)) == (chord)) {act; return chord;}
-
-//#define PJ(chord, act) if ((cChord & (chord)) == (chord)) { cChord ^= chord; act; return;}
+// Keymap helper
+#define P(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;}
 
 // All Steno Codes
 // Shift to internal representation
@@ -118,7 +112,9 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Toggle Serial/QWERTY steno
 	if (cChord == (PWR | FN | ST1 | ST2)) {
+#ifndef NO_PRINT
 		uprintf("Fallback Toggle\n");
+#endif
 		QWERSTENO = !QWERSTENO;
 		
 		goto out;
@@ -126,7 +122,9 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// handle command mode
 	if (cChord == (PWR | FN | RD | RZ)) {
+#ifndef NO_PRINT
 		uprintf("COMMAND Toggle\n");
+#endif
 		if (cMode != COMMAND) {   // Entering Command Mode
 			CMDLEN = 0;
 			pMode = cMode;
@@ -146,7 +144,9 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Handle Gaming Toggle,
 	if (cChord == (PWR | FN | ST4 | ST3) && keymapsCount > 1) {
+#ifndef NO_PRINT
 		uprintf("Switching to QMK\n");
+#endif
 		layer_on(1);
 		goto out;
 	}
@@ -165,50 +165,13 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Do QWERTY and Momentary QWERTY
 	if (cMode == QWERTY || (cMode == COMMAND) || (cChord & (FN | PWR))) {
-		// Try to process entire chord, store leftovers
-		if (cChord & FN)  cChord ^= FN;
-		while (cChord != pChord) {
-				pChord = cChord;
-				cChord ^= processQwerty();
-		}
-	
-		// Check if the entire chord has been processed
-		// If not, walk back through the history trying to process columns
-		// These get buffered and written in reverse order
-		uint32_t bufChords[QWERBUF];
-		int bufLen = 0;
-		uint32_t pMask = 0;
-
-
-		while (cChord != 0 && chordIndex > 0) {
-				uint32_t mask = getLastCol(chordIndex-1);
-				if ((pMask & mask) == 0) {
-					bufChords[bufLen] = cChord & mask;
-					bufLen++;
-					pMask |= mask;
-				}
-				chordIndex--;
-		}
-
-		// Now that the buffer is populated, we run it
-		for (int i = bufLen; i > 0; i--) {
-			cChord = bufChords[i-1];
-			processQwerty();
-		}
-	
-		// In theory, we have a clean buffer here, otherwise
-		// we say 'fuck it' and just hamfist the rest of the 
-		// unprocessed chords after removing the cols
-		cChord = pChord & ~vertMask;
-		for (int i = 0; cChord != 0 && i < 10; i++)
-			cChord ^= processQwerty();
-
+		processChord(false);
 		goto out;
 	}
 
 	// Fallback NKRO Steno
 	if (cMode == STENO && QWERSTENO) {
-		processFakeSteno();
+		processChord(true);
 		goto out;
 	}
 
@@ -220,13 +183,13 @@ steno:
 	return true; 
 
 out:
+	cChord = 0;
 	inChord = false;
 	chordIndex = 0;
 	clear_keyboard();
-	cChord = 0;
+	for (int i = 0; i < 32; i++)
+		chordState[i] = 0xFFFF;
 
-	for (int i = 0; i < 32; i++) 
-			chordState[i] = 0;
 	return false;
 }
 
@@ -295,7 +258,7 @@ void matrix_scan_user(void) {
 #ifndef NO_REPEAT
 	if (timer_elapsed(repTimer) > REP_DELAY) {
 		// Process Key for report
-		processQwerty();
+		processQwerty(false);
 
 		// Send report to host
 		send_keyboard_report();
@@ -305,37 +268,37 @@ void matrix_scan_user(void) {
 };
 
 // Helpers
-bool processFakeSteno(void) {
-	PJ( LSU,			SEND(KC_Q););
-	PJ( LSD,			SEND(KC_A););
-	PJ( LFT,			SEND(KC_W););
-	PJ( LP,				SEND(KC_E););
-	PJ( LH,				SEND(KC_R););
-	PJ( LK,				SEND(KC_S););
-	PJ( LW,				SEND(KC_D););
-	PJ( LR,				SEND(KC_F););
-	PJ( ST1,			SEND(KC_T););
-	PJ( ST2,			SEND(KC_G););
-	PJ( LA,				SEND(KC_C););
-	PJ( LO,				SEND(KC_V););
-	PJ( RE,				SEND(KC_N););
-	PJ( RU,				SEND(KC_M););
-	PJ( ST3,			SEND(KC_Y););
-	PJ( ST4,			SEND(KC_H););
-	PJ( RF,				SEND(KC_U););
-	PJ( RP,				SEND(KC_I););
-	PJ( RL,				SEND(KC_O););
-	PJ( RT,				SEND(KC_P););
-	PJ( RD,				SEND(KC_LBRC););
-	PJ( RR,				SEND(KC_J););
-	PJ( RB,				SEND(KC_K););
-	PJ( RG,				SEND(KC_L););
-	PJ( RS,				SEND(KC_SCLN););
-	PJ( RZ,				SEND(KC_COMM););
-	PJ( LNO,			SEND(KC_1););
-	PJ( RNO,			SEND(KC_1););
+uint32_t processFakeSteno(bool lookup) { 
+	P( LSU,				SEND(KC_Q););
+	P( LSD,				SEND(KC_A););
+	P( LFT,				SEND(KC_W););
+	P( LP,				SEND(KC_E););
+	P( LH,				SEND(KC_R););
+	P( LK,				SEND(KC_S););
+	P( LW,				SEND(KC_D););
+	P( LR,				SEND(KC_F););
+	P( ST1,				SEND(KC_T););
+	P( ST2,				SEND(KC_G););
+	P( LA,				SEND(KC_C););
+	P( LO,				SEND(KC_V););
+	P( RE,				SEND(KC_N););
+	P( RU,				SEND(KC_M););
+	P( ST3,				SEND(KC_Y););
+	P( ST4,				SEND(KC_H););
+	P( RF,				SEND(KC_U););
+	P( RP,				SEND(KC_I););
+	P( RL,				SEND(KC_O););
+	P( RT,				SEND(KC_P););
+	P( RD,				SEND(KC_LBRC););
+	P( RR,				SEND(KC_J););
+	P( RB,				SEND(KC_K););
+	P( RG,				SEND(KC_L););
+	P( RS,				SEND(KC_SCLN););
+	P( RZ,				SEND(KC_COMM););
+	P( LNO,				SEND(KC_1););
+	P( RNO,				SEND(KC_1););
 
-	return false;
+	return 0;
 }
 void clickMouse(uint8_t kc) {
 #ifdef MOUSEKEY_ENABLE
@@ -350,7 +313,9 @@ void clickMouse(uint8_t kc) {
 void SEND(uint8_t kc) {
 	// Send Keycode, Does not work for Quantum Codes
 	if (cMode == COMMAND && CMDLEN < MAX_CMD_BUF) {
+#ifndef NO_PRINT
 		uprintf("CMD LEN: %d BUF: %d\n", CMDLEN, MAX_CMD_BUF);
+#endif
 		CMDBUF[CMDLEN] = kc;
 		CMDLEN++;
 	} 
@@ -361,14 +326,58 @@ void SEND(uint8_t kc) {
 
 // Traverse the chord history to a given point
 // Returns the mask to use
-uint32_t getLastCol(int depth) {
-	for (int j = 0; j < verticalCount; j++) {
-		if (depth == 0) { 
-			if ((chordState[0] & verticals[j]) != 0) return verticals[j];
+
+void processChord(bool useFakeSteno) {
+	// Strip FN
+	if (cChord & FN) cChord ^= FN;
+
+	// First we test if a whole chord was passsed
+	// If so we just run it
+	if (useFakeSteno && processFakeSteno(true) == cChord) {
+		processFakeSteno(false);
+		return;
+	} else if (processQwerty(true) == cChord) {
+		processQwerty(false);
+		return;
+	}
+
+	// Iterate through chord picking out the individual 
+	// and longest chords
+	uint32_t bufChords[QWERBUF];
+	int bufLen = 0;
+	int maxFails = 10;
+	uint32_t test  	 = 0;
+	uint32_t found 	 = 0;
+	uint32_t mask 	 = 0;
+
+	for (int i = 0; i <= chordIndex && maxFails > 0; i++) {
+		cChord = chordState[i] & ~mask;
+		found = test;
+		if (useFakeSteno) {
+			test = processFakeSteno(true);
 		} else {
-			if (((chordState[depth] ^ chordState[depth-1]) & verticals[j]) != 0) 
-				return verticals[j];
+			test = processQwerty(true);
+		}
+	 
+		if (test == 0) {
+			mask |= found;
+			maxFails--;
+			bufChords[bufLen] = found;
+			bufLen++;
+			if (i != chordIndex) 
+					i--;
 		}
 	}
-	return 0;
+
+	// Now that the buffer is populated, we run it
+	for (int i = 0; i < bufLen ; i++) {
+		cChord = bufChords[i];
+		if (useFakeSteno) {
+			processFakeSteno(false);
+		} else {
+			processQwerty(false);
+		}
+	}
+
+	return;
 }

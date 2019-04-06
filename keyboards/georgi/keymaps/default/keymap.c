@@ -15,7 +15,8 @@
 #include "keymap_steno.h"
 #define IGNORE_MOD_TAP_INTERRUPT
 
-int getKeymapCount(void);
+// So we can access the current state
+extern uint32_t cChord;
 
 // Proper Layers
 #define FUNCT   (LSD | LK | LP | LH)
@@ -34,35 +35,32 @@ int getKeymapCount(void);
  */
 
 // YOU MUST ORDER THIS!
-// P   Will return from processing on the first match it finds. Therefore
-// PJ  Will run the requested action, remove the matched chord and continue 
+// Order your chords from longest to shortest!
 //
-// First any chords that would conflict with PJs need to be checked, then PJs, lastly Ps.
-// For all chords should be ordered by length in their section!
-//
-// Returns true if a P match was found
+// P is just a wrapper. 
+// Returns 0 on no matching chord
 //
 // http://docs.gboards.ca
-uint32_t processQwerty() {
-	// Place P's that would be trashed by PJ's here
+uint32_t processQwerty(bool lookup) {
+	// Specials
 	P( RT  | RS  | RD  | RZ | LNO,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
 	P( LNO | RNO | LA  | LO  | RE | RU,	SEND(KC_MPLY));
 	P( ST1 | ST2 | ST3 | ST4,			SEND(KC_BSPC));
 
 	// Thumb Chords
-	P(  LA  | LO  | RE  | RU,			SEND(KC_CAPS));
-	P(  LA  | RU,						SEND(KC_ESC));
-	PJ( LO  | RE,						SEND(KC_LCTL));
-	PJ( LNO | RNO | LA | RU,			SEND(KC_LCTL); SEND(KC_LSFT));
-	PJ( LNO | LA | RE,					SEND(KC_LCTL); SEND(KC_LSFT); SEND(KC_LALT));
+	P( LA  | LO  | RE  | RU,			SEND(KC_CAPS));
+	P( LA  | RU,						SEND(KC_ESC));
+	P( LO  | RE,						SEND(KC_LCTL));
+	P( LNO | RNO | LA | RU,				SEND(KC_LCTL); SEND(KC_LSFT));
+	P( LNO | LA  | RE,					SEND(KC_LCTL); SEND(KC_LSFT); SEND(KC_LALT));
 	
 	// Mods 
-	PJ( RT | RD | RS | RZ,				SEND(KC_LGUI));
-	PJ( RT | RD,						SEND(KC_LCTL));
-	PJ( RS | RZ,						SEND(KC_LALT));
-	PJ( LA | LNO,						SEND(KC_LCTL));
-	PJ( LA | LO,						SEND(KC_LALT));
-	PJ( LO,								SEND(KC_LSFT));
+	P( RT | RD | RS | RZ,				SEND(KC_LGUI));
+	P( RT | RD,							SEND(KC_LCTL));
+	P( RS | RZ,							SEND(KC_LALT));
+	P( LA | LNO,						SEND(KC_LCTL));
+	P( LA | LO,							SEND(KC_LALT));
+	P( LO,								SEND(KC_LSFT));
 
 	// Function Layer 
 	P( FUNCT | RF | RR,					SEND(KC_F5));
@@ -110,8 +108,6 @@ uint32_t processQwerty() {
 	P( LNO | RP,						SEND(KC_8));
 	P( LNO | RL,						SEND(KC_9));
 	P( LNO | RT,						SEND(KC_0));
-	P( LNO | LA,						SEND(KC_5));
-	P( LNO | RT,						SEND(KC_0));
 
 	// Number Row, Right
 	P( RNO | LSU,						SEND(KC_1));
@@ -125,10 +121,8 @@ uint32_t processQwerty() {
 	P( RNO | RL,						SEND(KC_9));
 	P( RNO | RT,						SEND(KC_0));
 	P( RNO | LA,						SEND(KC_5));
-	P( RNO | RT,						SEND(KC_0));
 	
 	// Specials
-	P( LA | LNO,						SEND(KC_ESC));
 	P( RU | RNO,						SEND(KC_TAB));
 	P( RE | RU,							SEND(KC_BSPC));
 	P( RD | RZ,							SEND(KC_ENT));
@@ -210,7 +204,7 @@ uint32_t processQwerty() {
 	return 0;
 }
 
-#define STENO_LAYER  	0
+#define STENO_LAYER		0
 #define GAMING			1
 #define GAMING_2		2
 
@@ -229,25 +223,14 @@ STN_PWR, STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,       STN_ST4, STN_RR, STN_BR,
 [GAMING] = LAYOUT_georgi(  
 KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T,       KC_Y,   KC_U, KC_I, KC_O, KC_P,    KC_ENT,
 KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G,       KC_H,   KC_J, KC_K, KC_L, KC_SCLN, KC_DQUO,
-KC_LALT, KC_SPC, LT(GAMING_2, KC_ENT),	     KC_DEL, KC_ASTR,  TO(STENO_LAYER)), 
+KC_LALT, KC_SPC, LT(GAMING_2, KC_ENT),		 KC_DEL, KC_ASTR,  TO(STENO_LAYER)), 
 
 [GAMING_2] = LAYOUT_georgi(  
 KC_LSFT, KC_1, KC_2, KC_3, KC_4, KC_5,       KC_6, KC_7, KC_8,  KC_9,  KC_0, KC_MINS,
 KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,       KC_N, KC_M, KC_LT, KC_GT, KC_QUES, KC_RSFT,
-			  KC_LALT, KC_SPC, KC_ENT,	     KC_DEL, KC_ASTR,  TO(STENO_LAYER))
+			  KC_LALT, KC_SPC, KC_ENT,		 KC_DEL, KC_ASTR,  TO(STENO_LAYER))
 }; 
 
-// !!!!!!!!!!!!!!!!!!!
-// Only modify anything below here if you know what you're doing
-// This is here for advanced customization 
-// !!!!!!!!!!!!!!!!!!!
-//
-// We define the verticals, this is used for prechord sending in QWERTY. Only modify if you change 
-// the lowest keymap
-const uint32_t verticals[] = { 
-		LSU | LSD, LFT | LK, LP | LW, LH | LR, ST1 | ST2, 
-		ST3 | ST4, RF | RR, RP | RB, RL | RG, RT | RS, RD | RZ
-};
-uint32_t vertMask = LSU|LSD|LFT|LK|LP|LW|LH|LR|ST1|ST2|ST3|ST4|RF|RR|RP|RB|RL|RG|RT|RS|RD|RZ;
+
+// Don't fuck with this, thanks.
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
-size_t verticalCount = sizeof(verticals)/sizeof(verticals[0]);
