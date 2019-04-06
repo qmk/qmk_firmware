@@ -1,10 +1,12 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
+#pragma once
 
 //TAPPING_TERM
 //tapping term short (<100): on multi-purpose keys, slow taps may not register, but "holds" register easier. multi-tap keys may be difficult to activate.
 //tapping term long (>200): holds don't register as easily - noticeable when typing quickly (e.g. shift doesn't want to engage.)
-#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2)
+
+
+//MIGHT HAVE TO SPLIT THIS INTO TWO CONDITIONS
+#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2) || defined(KEYBOARD_iris_rev2)
 //Kailh Coppers activate quickly and don't need a long tapping term
 #define TAPPING_TERM 100
 
@@ -40,5 +42,3 @@
 #ifndef IGNORE_MOD_TAP_INTERRUPT
 #define IGNORE_MOD_TAP_INTERRUPT
 #endif // !mod tap interrrupt
-
-#endif // !USERSPACE_CONFIG_H

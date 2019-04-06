@@ -11,5 +11,5 @@ Please see the [Tada68 readme](../../readme.md). Make the firmware wih the
 following command:
 
 ```
-make tada68:rys:bin
+make tada68:rys:flashbin
 ```
