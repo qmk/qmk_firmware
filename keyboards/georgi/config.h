@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Defaults */
 
-#define VERSION "Alpha 02: Frag"
+#define VERSION "Alpha 03: TomatoSoup"
 #define VERBOSE
 
 #define FORCE_NKRO

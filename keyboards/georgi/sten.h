@@ -258,7 +258,7 @@ void matrix_scan_user(void) {
 #ifndef NO_REPEAT
 	if (timer_elapsed(repTimer) > REP_DELAY) {
 		// Process Key for report
-		processQwerty(false);
+		processChord(false);
 
 		// Send report to host
 		send_keyboard_report();
@@ -326,7 +326,6 @@ void SEND(uint8_t kc) {
 
 // Traverse the chord history to a given point
 // Returns the mask to use
-
 void processChord(bool useFakeSteno) {
 	// Strip FN
 	if (cChord & FN) cChord ^= FN;
