@@ -313,9 +313,9 @@ zeta
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-	[AB_ARC] = 0x0361,  //
-	[AB_LINE] = 0x0305,  //
-	[AB_VEC] = 0x20d7,  //
+	[AB_ARC] = 0x0361,  // ͡
+	[AB_LINE] = 0x0305,  // ̅
+	[AB_VEC] = 0x20d7,  // ⃗
 	[ACUTE] = 0x00b4,  // ´
 	[AE] = 0x00c4,  // Ä
 	[ALEPH] = 0x2135,  // ℵ
@@ -629,16 +629,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * | LCtrl |   a   |   s   |   d   |   f   |   g   |               |   h   |   j   |   k   |   l   |   ;   |   '   |
  * -------------------------------------------------               -------------------------------------------------
- * |LShift |   z   |   x   |   c   |   v   |   b   |               |   n   |   m   |   ,   |   .   |   /   |RShift |
+ * |LShift(|   z   |   x   |   c   |   v   |   b   |               |   n   |   m   |   ,   |   .   |   /   |RShift)|
  * -----------------------------------------------------------------------------------------------------------------
- *    Esc    LGui    LAlt          |  TT4  |LT5_SPC|  TT2  | Enter | Space |  TT4  |         RAlt    RGui    RCtrl
+ *    MO2    LGui    LAlt          |  TT2  |LT6_SPC|  TT4  | Enter | Space |  TT2  |         RAlt    RGui    RCtrl
  *                                 -------------------------------------------------
  */
 	LAYOUT(
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
 		KC_LCTRL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-		KC_ESC, KC_LGUI, KC_LALT, TT(4), LT(5, KC_SPC), TT(2), KC_ENT, KC_SPC, TT(4), KC_RALT, KC_RGUI, KC_RCTRL
+		KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPO,
+		MO(2), KC_LGUI, KC_LALT, TT(2), LT(6, KC_SPC), TT(4), KC_ENT, KC_SPC, TT(2), KC_RALT, KC_RGUI, KC_RCTRL
 	),
 
 /* Layer 1
@@ -649,71 +649,89 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |LShift |   z   |   x   |   c   |   v   |   b   |               |   k   |   m   |   ,   |   .   |   /   |RShift |
  * -----------------------------------------------------------------------------------------------------------------
- *    Esc    LGui    LAlt          |  TT4  |LT5_SPC|  TT2  | Enter | Space |  TT4  |         RAlt    RGui    RCtrl
+ *    MO2    LGui    LAlt          |  TT2  |LT6_SPC|  TT4  | Enter | Space |  TT2  |         RAlt    RGui    RCtrl
  *                                 -------------------------------------------------
  */
 	LAYOUT(
 		KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
 		KC_LCTRL, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
 		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
-		KC_ESC, KC_LGUI, KC_LALT, TT(4), LT(5, KC_SPC), TT(2), KC_ENT, KC_SPC, TT(4), KC_RALT, KC_RGUI, KC_RCTRL
+		MO(2), KC_LGUI, KC_LALT, TT(2), LT(6, KC_SPC), TT(4), KC_ENT, KC_SPC, TT(2), KC_RALT, KC_RGUI, KC_RCTRL
 	),
 
 /* Layer 2
  * -------------------------------------------------               -------------------------------------------------
- * |       |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   ]   |
+ * |   `   |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   ]   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  DF0  |  DF1  |  XXX  |  XXX  |  MO3  |               |  XXX  |   4   |   5   |   6   |   -   |   `   |
+ * |       |  DF0  |  DF1  |  XXX  |  XXX  |  MO3  |               |   4   |   4   |   5   |   6   |   -   |   =   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  MO6  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |   1   |   2   |   3   |   \   |   =   |
+ * |       |  MO5  |  XXX  |  XXX  |  XXX  |  XXX  |               |   1   |   1   |   2   |   3   |   \   |       |
  * -----------------------------------------------------------------------------------------------------------------
- *    TG2                          |       |       |       | Enter |BSpace |   0   |
+ *    TG2                          |       |       |       |       |       |   0   |
  *                                 -------------------------------------------------
  */
 	LAYOUT(
-		KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
-		KC_TRNS, DF(0), DF(1), XXXXXXX, XXXXXXX, MO(3), XXXXXXX, KC_4, KC_5, KC_6, KC_MINS, KC_GRV,
-		KC_TRNS, MO(6), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_2, KC_3, KC_BSLS, KC_EQL,
-		TG(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT, KC_BSPC, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
+		KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
+		KC_TRNS, DF(0), DF(1), XXXXXXX, XXXXXXX, MO(3), KC_4, KC_4, KC_5, KC_6, KC_MINS, KC_EQL,
+		KC_TRNS, MO(5), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_1, KC_2, KC_3, KC_BSLS, KC_TRNS,
+		TG(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
 /* Layer 3
  * -------------------------------------------------               -------------------------------------------------
  * |       |  F1   |  F2   |  F3   |  F4   |  F5   |               |  F6   |  F7   |  F8   |  F9   |  F10  |  XXX  |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  |  XXX  |  XXX  |  MO3  |               |  XXX  |  F4   |  F5   |  F6   |  XXX  |  XXX  |
+ * |       |  XXX  |  XXX  |  XXX  |  XXX  |  MO3  |               |  F4   |  F4   |  F5   |  F6   |  XXX  |  XXX  |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |  F1   |  F2   |  F3   |  XXX  |       |
+ * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  F1   |  F1   |  F2   |  F3   |  XXX  |       |
  * -----------------------------------------------------------------------------------------------------------------
  *    TG3                          |       |       |       |  F10  |  F11  |  F12  |
  *                                 -------------------------------------------------
  */
 	LAYOUT(
 		KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, XXXXXXX,
-		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(3), XXXXXXX, KC_F4, KC_F5, KC_F6, XXXXXXX, XXXXXXX,
-		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1, KC_F2, KC_F3, XXXXXXX, KC_TRNS,
+		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(3), KC_F4, KC_F4, KC_F5, KC_F6, XXXXXXX, XXXXXXX,
+		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1, KC_F1, KC_F2, KC_F3, XXXXXXX, KC_TRNS,
 		TG(3), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F10, KC_F11, KC_F12, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
 /* Layer 4
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |play/ps| Vol + | Vol + |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  XXX  |
+ * |       |  Esc  | Tab x | Tab n |CPg Dn |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  Esc  |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  |<<  | Vol 0 |  >>|  |  >>|  |               |< Arrow|< Arrow|v Arrow|> Arrow|  End  |  XXX  |
+ * |       | Caps  | < Gui |Gui Tab|  💥   |  💥   |               |< Arrow|< Arrow|v Arrow|> Arrow|  End  |Pr Scr |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  | Vol - | Vol - |CPg Up |               | Pg Up |  XXX  |v Arrow|  XXX  |  XXX  |       |
+ * |       |  XXX  |  XXX  |  XXX  |CPg Up |CPg Up |               | Pg Up |  XXX  |v Arrow|  XXX  |  App  |       |
  * -----------------------------------------------------------------------------------------------------------------
  *    TG4                          |       |       |       |       |       |       |
  *                                 -------------------------------------------------
  */
 	LAYOUT(
-		KC_TRNS, XXXXXXX, KC_MPLY, KC_VOLU, KC_VOLU, CTL_T(KC_PGDN), KC_PGDN, KC_HOME, KC_UP, KC_INS, SFT_T(KC_INS), XXXXXXX,
-		KC_TRNS, XXXXXXX, KC_MPRV, KC_MUTE, KC_MNXT, KC_MNXT, KC_LEFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, XXXXXXX,
-		KC_TRNS, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLD, CTL_T(KC_PGUP), KC_PGUP, XXXXXXX, KC_DOWN, XXXXXXX, XXXXXXX, KC_TRNS,
+		KC_TRNS, KC_ESC, LCTL(KC_W), LCTL(KC_T), CTL_T(KC_PGDN), CTL_T(KC_PGDN), KC_PGDN, KC_HOME, KC_UP, KC_INS, SFT_T(KC_INS), KC_ESC,
+		KC_TRNS, KC_CAPS, LGUI_T(KC_RIGHT), LGUI_T(KC_TAB), XXXXXXX, XXXXXXX, KC_LEFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_PSCR,
+		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, CTL_T(KC_PGUP), CTL_T(KC_PGUP), KC_PGUP, XXXXXXX, KC_DOWN, XXXXXXX, KC_APP, KC_TRNS,
 		TG(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
 /* Layer 5
+ * -------------------------------------------------               -------------------------------------------------
+ * |       |  XXX  |play/ps| Vol + | Vol + |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |_reset | Power |
+ * -------------------------------------------------               -------------------------------------------------
+ * |       |  XXX  |  |<<  | Vol 0 |  >>|  |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  | Sleep |
+ * -------------------------------------------------               -------------------------------------------------
+ * |       |  XXX  |  XXX  | Vol - | Vol - |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |
+ * -----------------------------------------------------------------------------------------------------------------
+ *    TG5                          |       |       |       |       |       |       |
+ *                                 -------------------------------------------------
+ */
+	LAYOUT(
+		KC_TRNS, XXXXXXX, KC_MPLY, KC_VOLU, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, KC_PWR,
+		KC_TRNS, XXXXXXX, KC_MPRV, KC_MUTE, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLEP,
+		KC_TRNS, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+		TG(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+	),
+
+/* Layer 6
  * -------------------------------------------------               -------------------------------------------------
  * |       | acc1  |  XXX  |  XXX  |  XXX  |  XXX  |               |^ Wheel|< Wheel|^ Mouse|> Wheel|  XXX  |  XXX  |
  * -------------------------------------------------               -------------------------------------------------
@@ -721,32 +739,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |       | acc0  |  XXX  |  XXX  |  XXX  |  XXX  |               |v Wheel|  XXX  |v Mouse|  XXX  |  XXX  |       |
  * -----------------------------------------------------------------------------------------------------------------
- *    TG5                          |       |       |       |       |       |       |
+ *    TG6                          |       |       |       |       |       |       |
  *                                 -------------------------------------------------
  */
 	LAYOUT(
 		KC_TRNS, KC_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, XXXXXXX, XXXXXXX,
 		KC_TRNS, KC_ACL2, KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN1, KC_MS_L, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
 		KC_TRNS, KC_ACL0, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX, KC_MS_D, XXXXXXX, XXXXXXX, KC_TRNS,
-		TG(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-	),
-
-/* Layer 6
- * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               | Power |  XXX  |  XXX  |  XXX  |  XXX  |       |
- * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               | Sleep | Sleep |  XXX  |  XXX  |  XXX  |       |
- * -------------------------------------------------               -------------------------------------------------
- * |       |  MO6  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |       |
- * -----------------------------------------------------------------------------------------------------------------
- *          _reset                 |       |       |       |       |       |       |
- *                                 -------------------------------------------------
- */
-	LAYOUT(
-		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
-		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLEP, KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
-		KC_TRNS, MO(6), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
-		KC_TRNS, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		TG(6), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	)
 };
 
