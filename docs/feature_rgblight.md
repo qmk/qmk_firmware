@@ -197,7 +197,7 @@ Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/maste
 If you want to make the logical order of LEDs different from the electrical connection order, you can do this by defining the `RGBLIGHT_LED_MAP` macro in your `config.h`.
 
 Normally, the contents of the LED buffer are output to the LEDs in the same order.
-<img src="https://user-images.githubusercontent.com/2170248/55686206-3e346400-5999-11e9-8d82-d642b50e70b1.jpg" alt="simple dicrect" width="80%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55686206-3e346400-5999-11e9-8d82-d642b50e70b1.jpg" alt="simple dicrect" width="45%"/>
 
 By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED with addressing in reverse order of the electrical connection order.
 
@@ -208,7 +208,7 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 #define RGBLIGHT_LED_MAP { 3, 2, 1, 0 }
 
 ```
-<img src="https://user-images.githubusercontent.com/2170248/55686208-44c2db80-5999-11e9-8afd-f0851910a765.jpg" alt="simple mapped" width="80%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55686208-44c2db80-5999-11e9-8afd-f0851910a765.jpg" alt="simple mapped" width="45%"/>
 
 For keyboards that use the RGB LEDs as a backlight for each key, you can also define it as in the example below.
 
