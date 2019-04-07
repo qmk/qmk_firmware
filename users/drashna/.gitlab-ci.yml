@@ -12,9 +12,7 @@ Preliminary Test:
   image: ubuntu:18.10
   before_script:
     - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi unzip wget zip
-    - wget http://blog.zakkemble.net/download/avr-gcc-8.3.0-x64-linux.tar.bz2
-    - bzip2 -d avr-gcc-8.3.0-x64-linux.tar.bz2
+    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi gcc-avr unzip wget zip
     - avr-gcc --version
     - uname -a
   script:
