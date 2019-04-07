@@ -32,6 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 5
 #define RGBLIGHT_ANIMATIONS
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 12
