@@ -14,7 +14,7 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
-**Reset Key:**  Hold down the key located at `K00`, commonly programmed as left control while plugging in the keyboard. You may also hold down the key located at `K50`, commonly programmed as the escape key. 
+**Reset Key:**  Hold down the key located at `K00`, commonly programmed as left control while plugging in the keyboard. 
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
