@@ -45,13 +45,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, C2, C3, C4, C5, D7 }
 #define DIODE_DIRECTION COL2ROW
 
-
 #define RGBLED_NUM 6
 #define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-// Set bootmagic lite key to the key commonly programmed as Esc. 
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 0
