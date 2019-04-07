@@ -46,9 +46,11 @@ uint8_t CMDBUF[MAX_CMD_BUF];
 uint8_t CMDLEN = 0;
 
 // Key Repeat state
-bool     inChord  = false;
+bool     inChord  	= false;
+bool	 repEngaged = false;
 uint16_t repTimer = 0;
-#define  REP_DELAY 250
+#define  REP_INIT_DELAY 750
+#define  REP_DELAY 		25
 
 // Mousekeys state
 bool	inMouse = false;
@@ -191,6 +193,7 @@ out:
 	inChord = false;
 	chordIndex = 0;
 	clear_keyboard();
+	repEngaged  = false;
 	for (int i = 0; i < 32; i++)
 		chordState[i] = 0xFFFF;
 
@@ -256,11 +259,11 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
 	// We abuse this for early sending of key
 	// Key repeat only on QWER/SYMB layers
-	if (cMode != QWERTY) return;
+	if (cMode != QWERTY || !inChord) return;
 
 	// Check timers
 #ifndef NO_REPEAT
-	if (timer_elapsed(repTimer) > REP_DELAY && inChord) {
+	if (repEngaged && timer_elapsed(repTimer) > REP_DELAY) {
 		// Process Key for report
 		processChord(false);
 
@@ -268,6 +271,10 @@ void matrix_scan_user(void) {
 		send_keyboard_report();
 		clear_keyboard();
 		repTimer = timer_read();
+	}
+
+	if (!repEngaged && timer_elapsed(repTimer) > REP_INIT_DELAY) {
+		repEngaged = true;
 	}
 #endif
 };
@@ -366,29 +373,38 @@ void processChord(bool useFakeSteno) {
 	// Iterate through chord picking out the individual 
 	// and longest chords
 	uint32_t bufChords[QWERBUF];
-	int bufLen = 0;
-	int maxFails = 10;
-	uint32_t test  	 = 0;
-	uint32_t found 	 = 0;
-	uint32_t mask 	 = 0;
+	int bufLen 		= 0;
+	uint32_t mask	= 0;
 
-	for (int i = 0; i <= chordIndex && maxFails > 0; i++) {
-		cChord = chordState[i] & ~mask;
-		found = test;
-		if (useFakeSteno) {
-			test = processFakeSteno(true);
-		} else {
-			test = processQwerty(true);
+	// We iterate over it multiple times to catch the longest
+	// chord. Then that gets addded to the mask and re run.
+	while (savedChord != mask) {
+		uint32_t test  	 		= 0;
+		uint32_t longestChord	= 0;
+
+		for (int i = 0; i <= chordIndex; i++) {
+			cChord = chordState[i] & ~mask;
+			if (cChord == 0)
+				continue;
+
+			// Lock SYM layer in once detected
+			if (mask & PWR) cChord |= PWR;
+			
+			// Testing
+			if (useFakeSteno) {
+				test = processFakeSteno(true);
+			} else {
+				test = processQwerty(true);
+			}
+		 
+			if (test != 0) {
+				longestChord = test;
+			}
 		}
-	 
-		if (test == 0) {
-			mask |= found;
-			maxFails--;
-			bufChords[bufLen] = found;
-			bufLen++;
-			if (i != chordIndex) 
-					i--;
-		}
+		
+		mask |= longestChord;
+		bufChords[bufLen] = longestChord;
+		bufLen++;
 	}
 	
 	// Now that the buffer is populated, we run it
@@ -411,7 +427,6 @@ void processChord(bool useFakeSteno) {
 
 	return;
 }
-
 void saveState(uint32_t cleanChord) {
 	pChord = cleanChord;
 	pChordIndex = chordIndex;

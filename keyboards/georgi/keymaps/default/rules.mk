@@ -10,10 +10,10 @@ CUSTOM_MATRIX			 = yes
 MOUSEKEY_ENABLE			 = yes
 
 #Debug options
-CONSOLE_ENABLE			 = yes
+CONSOLE_ENABLE			 = no
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
-NO_PRINT				 = no
+NO_PRINT				 = yes
 
 # A bunch of stuff that you shouldn't touch unless you
 # know what you're doing.

@@ -33,9 +33,9 @@
 
 // YOU MUST ORDER THIS!
 // Order your chords from longest to shortest!
+// You can only use basic keycodes here!
 //
 // P is just a wrapper. 
-// Returns 0 on no matching chord
 //
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
@@ -162,10 +162,10 @@ uint32_t processQwerty(bool lookup) {
 	P( PWR | RT,						SEND(KC_PAST));
 	P( PWR | RS,						SEND(KC_DOT));
 	P( PWR | RD,						SEND(KC_TAB));
-	P( PWR | LA,						SEND(KC_SCLN));
+	P( PWR | LA,						SEND(KC_LSFT));
 	P( PWR | LO,						SEND(KC_SLSH));
 	P( PWR | RE,						SEND(KC_SCLN));
-	P( PWR | RU,						SEND(KC_SLSH));
+	P( PWR | RU,						SEND(KC_BSLS));
 
 	// Letters
 	P( LSU | LSD,						SEND(KC_A));
