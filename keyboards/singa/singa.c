@@ -17,7 +17,7 @@
 
 #include <avr/pgmspace.h>
 #include "action_layer.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "quantum.h"
 
 
