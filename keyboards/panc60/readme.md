@@ -14,11 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing
 
-<<<<<<< HEAD
 **Reset Key:** Hold down the key located at `K40`, commonly programmed as left control while plugging in the keyboard.
-=======
-**Reset Key:** Hold down the key located at `K40`, commonly programmed as left control while plugging in the keyboard. You may also hold down the key located at `K00`, commonly programmed as the `Esc` key. 
->>>>>>> 5c1ef2bddc0fa5d4753d33a5ec8fed5d9da736c8
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
