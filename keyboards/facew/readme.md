@@ -2,19 +2,11 @@
 
 A 60% no frills keyboard.
 
-The FaceW is a special run of the WKL B.Face sourced from Sprit that doesn't have underglow RGB LEDs
-but does have in switch LEDs. Also unlike the B.Face, it is based on ps2avru instead of ps2avrGB. It 
-is designed and manufactured in Korea.  It originally uses BootMapperClient for programming but 
-can now also use QMK. 
+The FaceW is a special run of the WKL B.Face sourced from Sprit that doesn't have underglow RGB LEDs but does have in switch LEDs. Also unlike the B.Face, it is based on ps2avru instead of ps2avrGB. It is designed and manufactured in Korea. 
 
 Keyboard Maintainer: [MechMerlin](www.github.com/mechmerlin)  
 Hardware Supported: FaceW Sprit Edition PCB  
 Hardware Availability: https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1352
-
-## Keyboard Notes
-- The FaceW Sprit Edition can be purchased on [mechanicalkeyboards.com](www.mechanicalkeyboards.com)
-- Uses ps2avru instead of ps2avrgb
-- To put in reset mode hold `q` while inserting the USB cable
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,6 +15,8 @@ Make example for this keyboard (after setting up your build environment):
 Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
+
+**Reset Key:** To put the FaceW into reset, hold `q` (`K01`) while plugging in.
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
