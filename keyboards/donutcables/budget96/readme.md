@@ -34,7 +34,7 @@ macOS:
     ```
 3. Install the following packages:
     ```
-    brew install python
+    brew install python3
     pip3 install pyusb
     brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
 
