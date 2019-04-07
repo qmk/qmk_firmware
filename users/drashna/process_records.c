@@ -54,8 +54,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        }
       if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
-      set_mods(temp_mod);
-      set_oneshot_mods(temp_osm);
     }
     break;
 
