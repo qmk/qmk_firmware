@@ -3,17 +3,18 @@
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 
+#Debug options
 NO_REPEAT				 = no
 VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
 MOUSEKEY_ENABLE			 = yes
 
-#Debug options
-CONSOLE_ENABLE			 = yes
+#debug/fw size options
+CONSOLE_ENABLE			 = no
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
-NO_PRINT				 = no
+NO_PRINT				 = yes
 
 # A bunch of stuff that you shouldn't touch unless you
 # know what you're doing.
@@ -27,5 +28,5 @@ ifeq ($(strip $(NO_REPEAT)), yes)
     OPT_DEFS += -DNO_REPEAT
 endif
 ifeq ($(strip $(NO_PRINT)), yes)
-    OPT_DEFS += -DNO_PRINT -DNO_DEBUG
+    OPT_DEFS += -DNO_PRINT
 endif

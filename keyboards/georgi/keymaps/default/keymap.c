@@ -41,8 +41,13 @@
 uint32_t processQwerty(bool lookup) {
 	// Specials
 	P( RT  | RS  | RD  | RZ | LNO,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
-	P( LNO | RNO | LA  | LO  | RE | RU,	SEND(KC_MPLY));
-	P( ST1 | ST2 | ST3 | ST4,			SEND(KC_BSPC));
+	P( LNO | RNO | LA  | LO | RE | RU,	SEND(KC_MPLY));
+	P( LFT | LK  | LP  | LW,			REPEAT());
+	P( ST1 | ST2 | LW  | ST4,			SEND(KC_BSPC));
+
+	// Mouse Keys
+	P( LFT | LP | RP | RL,				clickMouse(KC_MS_BTN1));
+	P( LFT | LP | RB | RG,				clickMouse(KC_MS_BTN2));
 
 	// Thumb Chords
 	P( LA  | LO  | RE  | RU,			SEND(KC_CAPS));
@@ -89,10 +94,6 @@ uint32_t processQwerty(bool lookup) {
 	P( MEDIA | RD,						SEND(KC_VOLU));
 	P( MEDIA | RZ,						SEND(KC_VOLD));
 	P( MEDIA | RS,						SEND(KC_MUTE));
-
-	// Mouse Keys
-	P( LP | LH,							clickMouse(KC_MS_BTN1));
-	P( LW | LR,							clickMouse(KC_MS_BTN2));
 	
 	// Number Row, Left
 	P( LNO | LSU,						SEND(KC_1));

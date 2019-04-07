@@ -11,15 +11,17 @@
 #include "keymap_steno.h"
 #include "wait.h"
 
-// Bitfield representing the current chord and it's changes
+// Chord state
 uint32_t cChord = 0;				// Current Chord
+int32_t  chordState[32];			// Full Chord history
+int		 chordIndex = 0;			// Keys in previousachord
+
+bool	 repeatFlag = false;		// Should we repeat?
 uint32_t pChord = 0;				// Previous Chord
-uint32_t chordState[32];			// Full Chord history
-int		 chordIndex = 0;			// Keys in current chord
-extern const uint32_t verticals[];	// Vertical pairs
-extern size_t verticalCount;		// Len of verticals
+uint32_t pChordState[32];			// Previous chord sate
+int		 pChordIndex = 0;			// Keys in previousachord
+
 extern size_t keymapsCount;			// Total keymaps
-extern uint32_t vertMask;			// Mask of all vertical cols
 #define QWERBUF	12					// Size of chords to buffer for output
 
 // Function defs
@@ -28,7 +30,9 @@ uint32_t		processQwerty(bool lookup);
 uint32_t 		processFakeSteno(bool lookup);
 void 			clickMouse(uint8_t kc);
 void 			SEND(uint8_t kc);
-uint32_t 		getLastCol(int depth);
+void 			REPEAT(void);
+void 			saveState(uint32_t cChord);
+void 			restoreState(void);
 
 // Mode state
 enum MODE { STENO = 0, QWERTY, COMMAND };
@@ -112,7 +116,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Toggle Serial/QWERTY steno
 	if (cChord == (PWR | FN | ST1 | ST2)) {
-#ifndef NO_PRINT
+#ifndef NO_DEBUG
 		uprintf("Fallback Toggle\n");
 #endif
 		QWERSTENO = !QWERSTENO;
@@ -122,7 +126,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// handle command mode
 	if (cChord == (PWR | FN | RD | RZ)) {
-#ifndef NO_PRINT
+#ifndef NO_DEBUG
 		uprintf("COMMAND Toggle\n");
 #endif
 		if (cMode != COMMAND) {   // Entering Command Mode
@@ -144,7 +148,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 
 	// Handle Gaming Toggle,
 	if (cChord == (PWR | FN | ST4 | ST3) && keymapsCount > 1) {
-#ifndef NO_PRINT
+#ifndef NO_DEBUG
 		uprintf("Switching to QMK\n");
 #endif
 		layer_on(1);
@@ -256,12 +260,13 @@ void matrix_scan_user(void) {
 
 	// Check timers
 #ifndef NO_REPEAT
-	if (timer_elapsed(repTimer) > REP_DELAY) {
+	if (timer_elapsed(repTimer) > REP_DELAY && inChord) {
 		// Process Key for report
 		processChord(false);
 
 		// Send report to host
 		send_keyboard_report();
+		clear_keyboard();
 		repTimer = timer_read();
 	}
 #endif
@@ -313,7 +318,7 @@ void clickMouse(uint8_t kc) {
 void SEND(uint8_t kc) {
 	// Send Keycode, Does not work for Quantum Codes
 	if (cMode == COMMAND && CMDLEN < MAX_CMD_BUF) {
-#ifndef NO_PRINT
+#ifndef NO_DEBUG
 		uprintf("CMD LEN: %d BUF: %d\n", CMDLEN, MAX_CMD_BUF);
 #endif
 		CMDBUF[CMDLEN] = kc;
@@ -323,20 +328,38 @@ void SEND(uint8_t kc) {
 	if (cMode != COMMAND) register_code(kc);
 	return;
 }
+void REPEAT(void) {
+	if (cMode != QWERTY)
+		return;
+
+	repeatFlag = true;
+	return;
+}
 
 // Traverse the chord history to a given point
 // Returns the mask to use
 void processChord(bool useFakeSteno) {
+	// Save the clean chord state
+	uint32_t savedChord = cChord;
+
 	// Strip FN
 	if (cChord & FN) cChord ^= FN;
 
 	// First we test if a whole chord was passsed
-	// If so we just run it
+	// If so we just run it handling repeat logic
 	if (useFakeSteno && processFakeSteno(true) == cChord) {
 		processFakeSteno(false);
 		return;
 	} else if (processQwerty(true) == cChord) {
 		processQwerty(false);
+		// Repeat logic
+		if (repeatFlag) {
+			restoreState();
+			repeatFlag = false;
+			processChord(false);
+		} else {
+			saveState(cChord);
+		}
 		return;
 	}
 
@@ -367,7 +390,7 @@ void processChord(bool useFakeSteno) {
 					i--;
 		}
 	}
-
+	
 	// Now that the buffer is populated, we run it
 	for (int i = 0; i < bufLen ; i++) {
 		cChord = bufChords[i];
@@ -378,5 +401,26 @@ void processChord(bool useFakeSteno) {
 		}
 	}
 
+	// Save state in case of repeat
+	if (!repeatFlag) {			
+		saveState(savedChord);
+	}
+
+	// Restore cChord for held repeat
+	cChord = savedChord;
+
 	return;
+}
+
+void saveState(uint32_t cleanChord) {
+	pChord = cleanChord;
+	pChordIndex = chordIndex;
+	for (int i = 0; i < 32; i++) 
+		pChordState[i] = chordState[i];
+}
+void restoreState() {
+	cChord = pChord;
+	chordIndex = pChordIndex;
+	for (int i = 0; i < 32; i++) 
+		chordState[i] = pChordState[i];
 }
