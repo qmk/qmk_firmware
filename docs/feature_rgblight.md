@@ -253,7 +253,7 @@ You can set the Clipping Range by executing the following code.
   rgblight_set_clipping_range(2, 4);
 ```
 
-<img src="https://user-images.githubusercontent.com/2170248/55686211-4a202600-5999-11e9-9bf0-7abf994f4058.jpg" alt="clip direct" width="80%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55686211-4a202600-5999-11e9-9bf0-7abf994f4058.jpg" alt="clip direct" width="65%"/>
 
 In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` together.
 
@@ -266,7 +266,7 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
   rgblight_set_clipping_range(2, 4);
 ```
 
-<img src="https://user-images.githubusercontent.com/2170248/55686213-4db3ad00-5999-11e9-844d-2be30f61ca69.jpg" alt="clip mapped" width="80%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55686213-4db3ad00-5999-11e9-844d-2be30f61ca69.jpg" alt="clip mapped" width="65%"/>
 ## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.
