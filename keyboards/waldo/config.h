@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -76,5 +75,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // RGB LED
 #define RGB_DI_PIN B0     // The pin the LED strip is connected to
 #define RGBLED_NUM 10     // Number of LEDs in your strip
-
-#endif
