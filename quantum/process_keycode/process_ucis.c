@@ -122,6 +122,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
       return false;
     }
   }
+
   if (keycode == KC_ENT || keycode == KC_SPC || keycode == KC_ESC) {
     bool symbol_found = false;
 
