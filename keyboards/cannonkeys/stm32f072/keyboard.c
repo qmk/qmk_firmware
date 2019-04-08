@@ -57,6 +57,9 @@ void eeprom_init_kb(void)
 	}
 }
 
+__attribute__ ((weak))
+void matrix_init_board(void);
+
 void matrix_init_kb(void){
   	eeprom_init_kb();
       /* MOSI pin*/
@@ -70,6 +73,8 @@ void matrix_init_kb(void){
     }
 #endif
     backlight_init_ports();
+
+    matrix_init_board();
 }
 
 void matrix_scan_kb(void)
