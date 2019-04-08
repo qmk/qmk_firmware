@@ -197,7 +197,7 @@ Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/maste
 If you want to make the logical order of LEDs different from the electrical connection order, you can do this by defining the `RGBLIGHT_LED_MAP` macro in your `config.h`.
 
 Normally, the contents of the LED buffer are output to the LEDs in the same order.
-<img src="https://user-images.githubusercontent.com/2170248/55686206-3e346400-5999-11e9-8d82-d642b50e70b1.jpg" alt="simple dicrect" width="45%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55743718-01866c80-5a6e-11e9-8134-25419928327a.JPG" alt="simple dicrect" width="50%"/>
 
 By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED with addressing in reverse order of the electrical connection order.
 
@@ -208,7 +208,7 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 #define RGBLIGHT_LED_MAP { 3, 2, 1, 0 }
 
 ```
-<img src="https://user-images.githubusercontent.com/2170248/55686208-44c2db80-5999-11e9-8afd-f0851910a765.jpg" alt="simple mapped" width="45%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55743725-08ad7a80-5a6e-11e9-83ed-126a2b0209fc.JPG" alt="simple mapped" width="50%"/>
 
 For keyboards that use the RGB LEDs as a backlight for each key, you can also define it as in the example below.
 
@@ -250,10 +250,9 @@ You can set the Clipping Range by executing the following code.
 
 ```c
 // some soruce
-  rgblight_set_clipping_range(2, 4);
+  rgblight_set_clipping_range(3, 4);
 ```
-
-<img src="https://user-images.githubusercontent.com/2170248/55686211-4a202600-5999-11e9-9bf0-7abf994f4058.jpg" alt="clip direct" width="65%"/>
+<img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
 
 In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` together.
 
@@ -263,10 +262,8 @@ In addition to setting the Clipping Range, you can use `RGBLIGHT_LED_MAP` togeth
 #define RGBLIGHT_LED_MAP { 7, 6, 5, 4, 3, 2, 1, 0 }
 
 // some soruce
-  rgblight_set_clipping_range(2, 4);
+  rgblight_set_clipping_range(3, 4);
 ```
-
-<img src="https://user-images.githubusercontent.com/2170248/55686213-4db3ad00-5999-11e9-844d-2be30f61ca69.jpg" alt="clip mapped" width="65%"/>
-## Hardware Modification
+<img src="https://user-images.githubusercontent.com/2170248/55743747-119e4c00-5a6e-11e9-91e5-013203ffae8a.JPG" alt="clip mapped" width="70%"/>
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.
