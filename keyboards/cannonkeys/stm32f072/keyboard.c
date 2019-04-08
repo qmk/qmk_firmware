@@ -65,9 +65,6 @@ void matrix_init_kb(void){
 
 #ifdef RGBLIGHT_ENABLE
     leds_init();
-    if(kb_first_init){
-      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL_end);
-    }
 #endif
     backlight_init_ports();
 
