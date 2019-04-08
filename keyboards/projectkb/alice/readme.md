@@ -3,6 +3,7 @@
 ProjectKeyboard Alice Keyboard Replacement PCB
 
 Keyboard Maintainer: onefiftynine 
+
 Hardware Supported: STM32F072CBT6  
 
 Make example for this keyboard (after setting up your build environment):
