@@ -22,7 +22,7 @@ uint32_t pChordState[32];			// Previous chord sate
 int		 pChordIndex = 0;			// Keys in previousachord
 
 extern size_t keymapsCount;			// Total keymaps
-#define QWERBUF	12					// Size of chords to buffer for output
+#define QWERBUF	24					// Size of chords to buffer for output
 
 // Function defs
 void 			processChord(bool useFakeSteno);
@@ -373,8 +373,8 @@ void processChord(bool useFakeSteno) {
 	// Iterate through chord picking out the individual 
 	// and longest chords
 	uint32_t bufChords[QWERBUF];
-	int bufLen 		= 0;
-	uint32_t mask	= 0;
+	int 	 bufLen		= 0;
+	uint32_t mask		= 0;
 
 	// We iterate over it multiple times to catch the longest
 	// chord. Then that gets addded to the mask and re run.
@@ -387,10 +387,19 @@ void processChord(bool useFakeSteno) {
 			if (cChord == 0)
 				continue;
 
+			// Assume mid parse Sym is new chord
+			if (i != 0 && test != 0 && (cChord ^ test) == PWR) {
+				uprintf("in: %d %d\n", cChord, test);
+				longestChord = test;
+				break;
+			}
+
 			// Lock SYM layer in once detected
-			if (mask & PWR) cChord |= PWR;
-			
-			// Testing
+			if (mask & PWR)
+				cChord |= PWR;
+
+
+			// Testing for keycodes
 			if (useFakeSteno) {
 				test = processFakeSteno(true);
 			} else {
@@ -405,6 +414,11 @@ void processChord(bool useFakeSteno) {
 		mask |= longestChord;
 		bufChords[bufLen] = longestChord;
 		bufLen++;
+
+		// That's a loop of sorts, halt processing
+		if (bufLen >= QWERBUF) {
+			return;
+		}
 	}
 	
 	// Now that the buffer is populated, we run it

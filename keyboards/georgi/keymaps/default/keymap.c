@@ -35,7 +35,10 @@
 // Order your chords from longest to shortest!
 // You can only use basic keycodes here!
 //
-// P is just a wrapper. 
+// P() is just a wrapper to make your life easier. 
+//
+// Make sure you have single press definitions at the bottom, without 
+// these your keyboard will crash and reset :)
 //
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
@@ -166,6 +169,7 @@ uint32_t processQwerty(bool lookup) {
 	P( PWR | LO,						SEND(KC_SLSH));
 	P( PWR | RE,						SEND(KC_SCLN));
 	P( PWR | RU,						SEND(KC_BSLS));
+	P( PWR | LNO,						SEND(KC_BSLS));
 
 	// Letters
 	P( LSU | LSD,						SEND(KC_A));
@@ -198,7 +202,9 @@ uint32_t processQwerty(bool lookup) {
 	P( RG,								SEND(KC_DOT));
 	P( RT,								SEND(KC_P));
 	P( RS,								SEND(KC_SLSH));
-
+	P( RNO,								SEND(KC_BSPC));
+	P( LNO,								SEND(KC_BSPC));
+	
 	return 0;
 }
 
