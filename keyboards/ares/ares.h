@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ARES_H
-#define ARES_H
+#pragma once
 
 #include "quantum.h"
 
@@ -36,6 +35,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, XXX}, \
     {k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k4e}  \
 }
-
-
-#endif
