@@ -54,7 +54,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 ###  IS31FL3733/IS31FL3737
 
-?> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`
+!> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
