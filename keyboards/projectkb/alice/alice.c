@@ -1,11 +1,5 @@
 #include "alice.h"
 
-// void matrix_init_user(){
-//   palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL);
-//   palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL);
-//   palSetPadMode(GPIOA, 2, PAL_MODE_OUTPUT_PUSHPULL);
-// }
-
 void matrix_init_board(void){
   palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL);
