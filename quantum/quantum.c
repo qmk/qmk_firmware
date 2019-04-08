@@ -225,27 +225,39 @@ static uint16_t scs_timer[2] = {0, 0};
  */
 static bool grave_esc_was_shifted = false;
 
-bool process_record_quantum(keyrecord_t *record) {
+/* Convert record into usable keycode via the contained event. */
+uint16_t get_record_keycode(keyrecord_t *record) {
+  return get_event_keycode(record->event);
+}
 
-  /* This gets the keycode from the key pressed */
-  keypos_t key = record->event.key;
-  uint16_t keycode;
+
+/* Convert event into usable keycode. Checks the layer cache to ensure that it
+ * retains the correct keycode after a layer change, if the key is still pressed.
+ */
+uint16_t get_event_keycode(keyevent_t event) {
 
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
 
-      if (record->event.pressed) {
-        layer = layer_switch_get_layer(key);
-        update_source_layers_cache(key, layer);
+      if (event.pressed) {
+        layer = layer_switch_get_layer(event.key);
+        update_source_layers_cache(event.key, layer);
       } else {
-        layer = read_source_layers_cache(key);
+        layer = read_source_layers_cache(event.key);
       }
-      keycode = keymap_key_to_keycode(layer, key);
+      return keymap_key_to_keycode(layer, event.key);
     } else
   #endif
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+    return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
+}
+
+/* Main keycode processing function. Hands off handling to other functions,
+ * then processes internal Quantum keycodes, then processes ACTIONs.
+ */
+bool process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -870,16 +882,16 @@ void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = *str;
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = *(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = *(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = *(++str);
           unregister_code(keycode);
@@ -896,16 +908,16 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = pgm_read_byte(++str);
           unregister_code(keycode);
