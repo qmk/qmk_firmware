@@ -144,6 +144,36 @@ Flashing sequence:
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
+## BootloadHID
+
+BootloadHID is a USB bootloader for AVR microcontrollers. The uploader tool requires no kernel level driver on Windows and can therefore be run without installing any DLLs.
+
+To ensure compatibility with the bootloadHID bootloader, make sure this block is present your `rules.mk`:
+
+    # Bootloader
+    #     This definition is optional, and if your keyboard supports multiple bootloaders of
+    #     different sizes, comment this out, and the correct address will be loaded
+    #     automatically (+60). See bootloader.mk for all options.
+    BOOTLOADER = bootloadHID
+
+Compatible flashers:
+
+* [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash) (recommended Windows GUI)
+* [bootloadhid Command Line](https://www.obdev.at/products/vusb/bootloadhid.html) / `:BootloadHID` in QMK (recommended command line)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode (may not work on all devices)
+    * Hold the salt key while plugging the keyboard in (usually documented within keyboard readme) 
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+or:
+
+    make <keyboard>:<keymap>:bootloadHID
+
 ## STM32
 
 All STM32 chips come preloaded with a factory bootloader that cannot be modified nor deleted. Some STM32 chips have bootloaders that do not come with USB programming (e.g. STM32F103) but the process is still the same.
