@@ -36,9 +36,13 @@ void 			restoreState(void);
 
 // Mode state
 enum MODE { STENO = 0, QWERTY, COMMAND };
-enum MODE cMode = STENO;
 enum MODE pMode;
 bool QWERSTENO = false;
+#ifdef ONLYQWERTY
+enum MODE cMode = QWERTY;
+#else
+enum MODE cMode = STENO;
+#endif
 
 // Command State
 #define MAX_CMD_BUF 20
@@ -158,10 +162,12 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	}
 
 	// Lone FN press, toggle QWERTY
+#ifndef ONLYQWERTY
 	if (cChord == FN) {
 		(cMode == STENO) ? (cMode = QWERTY) : (cMode = STENO);
 		goto out;
 	}
+#endif
 
 	// Check for Plover momentary
 	if (cMode == QWERTY && (cChord & FN)) {
@@ -389,7 +395,6 @@ void processChord(bool useFakeSteno) {
 
 			// Assume mid parse Sym is new chord
 			if (i != 0 && test != 0 && (cChord ^ test) == PWR) {
-				uprintf("in: %d %d\n", cChord, test);
 				longestChord = test;
 				break;
 			}

@@ -37,9 +37,6 @@
 //
 // P() is just a wrapper to make your life easier. 
 //
-// Make sure you have single press definitions at the bottom, without 
-// these your keyboard will crash and reset :)
-//
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
 	// Specials
@@ -49,8 +46,8 @@ uint32_t processQwerty(bool lookup) {
 	P( ST1 | ST2 | LW  | ST4,			SEND(KC_BSPC));
 
 	// Mouse Keys
-	P( LFT | LP | RP | RL,				clickMouse(KC_MS_BTN1));
-	P( LFT | LP | RB | RG,				clickMouse(KC_MS_BTN2));
+	P( LO  | LSD | LK,					clickMouse(KC_MS_BTN2));
+	P( LO  | LR  | LW,					clickMouse(KC_MS_BTN1));
 
 	// Thumb Chords
 	P( LA  | LO  | RE  | RU,			SEND(KC_CAPS));
@@ -60,7 +57,7 @@ uint32_t processQwerty(bool lookup) {
 	P( LNO | LA  | RE,					SEND(KC_LCTL); SEND(KC_LSFT); SEND(KC_LALT));
 	
 	// Mods 
-	P( RT | RD | RS | RZ,				SEND(KC_LGUI));
+	P( RT | RD   | RS | RZ,				SEND(KC_LGUI));
 	P( RT | RD,							SEND(KC_LCTL));
 	P( RS | RZ,							SEND(KC_LALT));
 	P( LA | LNO,						SEND(KC_LCTL));
