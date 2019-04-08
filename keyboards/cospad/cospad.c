@@ -1,37 +1,33 @@
+    
+/* Copyright 2019
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "cospad.h"
-#include "led.h"
 
-extern inline void cospad_bl_led_on(void);
-extern inline void cospad_bl_led_off(void);
-extern inline void cospad_bl_led_togg(void);
+#ifdef BACKLIGHT_ENABLE
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-	matrix_init_user();
-	led_init_ports();
-};
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-	matrix_scan_user();
-};
-
-void led_init_ports(void) {
-    // * Set our LED pins as output
-    DDRB |= (1<<2);
-    DDRF |= (1<<7);
-    // * Setting BL LEDs to init as off
-    PORTF |= (1<<7);
+void backlight_init_ports(void) {
+  setPinOutput(F7);
 }
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        // Turn numlock on
-        PORTB &= ~(1<<2);
-    } else {
-        // Turn numlock off
-        PORTB |= (1<<2);
-    }    
+void backlight_set(uint8_t level) {
+  writePin(F7, !!level);
 }
+
+void backlight_task(void) {
+    // do nothing - as default implementation of software PWM does not work
+}
+
+#endif //BACKLIGHT_ENABLE
