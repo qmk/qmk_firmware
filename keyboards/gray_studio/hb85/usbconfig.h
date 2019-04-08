@@ -8,8 +8,7 @@
  * This Revision: $Id: usbconfig-prototype.h 785 2010-05-30 17:57:07Z cs $
  */
 
-#ifndef __usbconfig_h_included__
-#define __usbconfig_h_included__
+#pragma once
 
 #include "config.h"
 
@@ -392,5 +391,3 @@ section at the end of this file).
 /* #define USB_INTR_PENDING        EIFR */
 #define USB_INTR_PENDING_BIT    INTF1
 #define USB_INTR_VECTOR         INT1_vect
-
-#endif /* __usbconfig_h_included__ */

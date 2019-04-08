@@ -18,6 +18,18 @@
 void i2c_init(void) {
   TWSR = 0; /* no prescaler */
   TWBR = (uint8_t)TWBR_val;
+
+  #ifdef __AVR_ATmega32A__
+  // set pull-up resistors on I2C bus pins
+  PORTC |= 0b11;
+
+  // enable TWI (two-wire interface)
+  TWCR |= (1 << TWEN);
+
+  // enable TWI interrupt and slave address ACK
+  TWCR |= (1 << TWIE);
+  TWCR |= (1 << TWEA);
+  #endif
 }
 
 i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
