@@ -28,18 +28,9 @@ doxygen/
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
+/users/
+/layouts/
 /keyboards/*/Makefile
-/keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
-/keyboards/*/*/*/*/Makefile
-/keyboards/*/*/*/*/*/Makefile
-/keyboards/*/keymaps/Makefile
-/keyboards/*/*/keymaps/Makefile
-/keyboards/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/keymaps/Makefile
-/keyboards/*/*/*/*/*/keymaps/Makefile
-users/
-layouts/
 !/keyboards/ergodox_ez/
 !/keyboards/planck/
 
