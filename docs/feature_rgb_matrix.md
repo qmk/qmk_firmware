@@ -52,7 +52,9 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
-###  IS31FL3733
+###  IS31FL3733/IS31FL3737
+
+!> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
