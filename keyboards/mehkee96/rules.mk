@@ -32,4 +32,4 @@ CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/mehkee96/program $(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

@@ -31,20 +31,19 @@ F_CPU = 12000000
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = yes
+BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

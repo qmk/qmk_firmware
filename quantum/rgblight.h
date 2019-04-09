@@ -174,6 +174,7 @@ void rgblight_step_reverse(void);
 uint8_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
+uint32_t rgblight_read_dword(void);
 void rgblight_update_dword(uint32_t dword);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
@@ -196,6 +197,7 @@ void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);

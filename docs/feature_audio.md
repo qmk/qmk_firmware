@@ -100,6 +100,16 @@ In music mode, the following keycodes work differently, and don't pass through:
 * `KC_UP` - speed-up playback
 * `KC_DOWN` - slow-down playback
 
+The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+
+    #define PITCH_STANDARD_A 432.0f
+
+You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
+
+    #define NO_MUSIC_MODE
+
+### Music Mask
+
 By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
 
     #define MUSIC_MASK keycode != KC_NO
@@ -120,13 +130,26 @@ For a more advanced way to control which keycodes should still be processed, you
 
 Things that return false are not part of the mask, and are always processed.
 
-The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+### Music Map
 
-    #define PITCH_STANDARD_A 432.0f
+By default, the Music Mode uses the columns and row to determine the scale for the keys. For a board that uses a rectangular matrix that matches the keyboard layout, this is just fine.  However, for boards that use a more complicated matrix (such as the Planck Rev6, or many split keyboards) this would result in a very skewed experience.  
 
-You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
+However, the Music Map option allows you to remap the scaling for the music mode, so it fits the layout, and is more natural. 
 
-    #define NO_MUSIC_MODE
+To enable this feature, add `#define MUSIC_MAP` to your `config.h` file, and then you will want to add a `uint8_t music_map` to your keyboard's `c` file, or your `keymap.c`.
+
+```c
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
+	36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+	24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+	 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11
+);
+```
+
+You will want to use whichever `LAYOUT` macro that your keyboard uses here.  This maps it to the correct key location.  Start in  the bottom left of the keyboard layout, and  move to the right, and then upwards.  Fill in all the entries until you have a complete matrix.  
+
+You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e9ace1487887c1f8b4a7e8e6d87c322988bec9ce/keyboards/planck/planck.c#L24-L29) as an example of how to implement this. 
 
 ## Audio Click
 
