@@ -101,7 +101,7 @@ void eeconfig_update_rgb_matrix(uint32_t val) {
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
   rgb_matrix_config.enable = 1;
-#ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
+#ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
   rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
 #else
   // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
@@ -142,11 +142,28 @@ void rgb_matrix_update_pwm_buffers(void) {
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+  const bool is_key = g_rgb_leds[index].matrix_co.raw != 0xff;
+  if (
+    (rgb_matrix_config.enable == RGB_ZONE_KEYS && !is_key) ||
+    (rgb_matrix_config.enable == RGB_ZONE_UNDER && is_key)
+  ) {
+    rgb_matrix_driver.set_color(index, 0, 0, 0);
+    return;
+  }
+#endif
+
   rgb_matrix_driver.set_color(index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+      rgb_matrix_set_color(i, red, green, blue);
+  }
+#else
   rgb_matrix_driver.set_color_all(red, green, blue);
+#endif
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -494,7 +511,7 @@ void rgb_matrix_set_suspend_state(bool state) {
 }
 
 void rgb_matrix_toggle(void) {
-  rgb_matrix_config.enable ^= 1;
+  rgb_matrix_config.enable++;
   if (!rgb_matrix_config.enable) {
     rgb_task_state = STARTING;
   }
