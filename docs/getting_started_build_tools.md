@@ -2,6 +2,8 @@
 
 This page describes setting up the build environment for QMK. These instructions cover AVR processors (such as the atmega32u4).
 
+After cloning the repo of QMK run `make git-submodule` once to download 3rd party libraries like ChibiOS.
+
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
 Note: If it is your first time here, Check out the "Complete Newbs guide" instead
@@ -44,9 +46,7 @@ Fedora / Red Hat example:
     
 Arch / Manjaro example:
 
-    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
-
-(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
 
 ## Nix
 

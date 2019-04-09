@@ -1,10 +1,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
-
 /* Use I2C or Serial, not both */
-
 #define USE_SERIAL
 // #define USE_I2C
 
@@ -14,18 +11,16 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+#define SWAP_SCLN
+#define TAPPING_TERM 300
+#define IGNORE_MOD_TAP_INTERRUPT
+
 #undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLED_NUM 10
+#define RGBLIGHT_LIMIT_VAL 100
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 100
 
-#define MOUSEKEY_WHEEL_MAX_SPEED   10
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 20
-
-#define TAPPING_TERM 120
-#define SWAP_SCLN
-
-#endif
+#endif // CONFIG_USER_H
