@@ -135,6 +135,7 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
   (*led1).b = b;
 }
 
+#ifdef RGBLIGHT_EEPROM_CHECK
 static uint32_t rgblight_check_config(uint32_t raw) {
   /* Add some out of bound checks for RGB light config */
   rgblight_config_t work_config;
@@ -167,6 +168,11 @@ static uint32_t rgblight_check_config(uint32_t raw) {
   return work_config.raw;
 }
 
+  #define RGBLIGHT_CHECK_CONFIG(val) val = rgblight_check_config(val)
+#else
+  #define RGBLIGHT_CHECK_CONFIG(val)
+#endif /* RGBLIGHT_EEPROM_CHECK */
+
 uint32_t eeconfig_read_rgblight(void) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     return eeprom_read_dword(EECONFIG_RGBLIGHT);
@@ -177,7 +183,7 @@ uint32_t eeconfig_read_rgblight(void) {
 
 void eeconfig_update_rgblight(uint32_t val) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
-    val = rgblight_check_config(val);
+    RGBLIGHT_CHECK_CONFIG(val);
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
   #endif
 }
@@ -223,8 +229,8 @@ void rgblight_init(void) {
     eeconfig_update_rgblight_default();
     rgblight_config.raw = eeconfig_read_rgblight();
   }
-  rgblight_config.raw = rgblight_check_config(rgblight_config.raw);
 
+  RGBLIGHT_CHECK_CONFIG(rgblight_config.raw);
   eeconfig_debug_rgblight(); // display current eeprom values
 
 #ifdef RGBLIGHT_USE_TIMER

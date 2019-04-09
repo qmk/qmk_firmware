@@ -112,6 +112,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     else
         SRC += ws2812.c
     endif
+    ifeq ($(strip $(RGBLIGHT_EEPROM_CHECK)), yes)
+      OPT_DEFS += -DRGBLIGHT_EEPROM_CHECK
+      $(info RGBLIGHT_EEPROM_CHECK=yes)
+      $(info )
+    endif
 endif
 
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
