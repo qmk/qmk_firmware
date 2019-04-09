@@ -396,3 +396,12 @@ void oled_task_user(void) {
     render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
 }
 #endif
+
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case ALT_T(KC_A):
+      return TAPPING_TERM + 100;
+    default:
+      return TAPPING_TERM;
+  }
+}
