@@ -66,15 +66,6 @@ bool is_rgblight_initialized = false;
 LED_TYPE led[RGBLED_NUM];
 bool rgblight_timer_enabled = false;
 
-static const rgblight_config_t rgblight_default_config = {
-    .enable = 1,
-    .mode = RGBLIGHT_MODE_STATIC_LIGHT,
-    .hue = 0,
-    .sat = 255,
-    .val = RGBLIGHT_LIMIT_VAL,
-    .speed = 0,
-};
-
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;
 
@@ -149,13 +140,31 @@ static uint32_t rgblight_check_config(uint32_t raw) {
   rgblight_config_t work_config;
 
   work_config.raw = raw;
-  if (work_config.mode < RGBLIGHT_MODE_STATIC_LIGHT
-      || work_config.mode > RGBLIGHT_MODES
-      || work_config.hue < 0 || work_config.hue > 360
-      || work_config.sat < 0 || work_config.sat > 255
-      || work_config.val < 0 || work_config.val > RGBLIGHT_LIMIT_VAL)
-      { return rgblight_default_config.raw; }
-  return raw;
+  if (work_config.mode < RGBLIGHT_MODE_STATIC_LIGHT) {
+    work_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
+  }
+  else if (work_config.mode > RGBLIGHT_MODES) {
+    work_config.mode = RGBLIGHT_MODES;
+  }
+
+  if (work_config.hue < 0) {
+    work_config.hue = 0;
+  } else if (work_config.hue > 360) {
+    work_config.hue %= 360;
+  }
+
+  if (work_config.sat < 0) {
+    work_config.sat = 0;
+  } else if (work_config.sat > 255) {
+    work_config.sat = 255;
+  }
+
+  if (work_config.val < 0) {
+    work_config.val = 0;
+  } else if (work_config.val > RGBLIGHT_LIMIT_VAL) {
+    work_config.val = RGBLIGHT_LIMIT_VAL;
+  }
+  return work_config.raw;
 }
 
 uint32_t eeconfig_read_rgblight(void) {
@@ -175,7 +184,12 @@ void eeconfig_update_rgblight(uint32_t val) {
 
 void eeconfig_update_rgblight_default(void) {
   //dprintf("eeconfig_update_rgblight_default\n");
-  rgblight_config.raw = rgblight_default_config.raw;
+  rgblight_config.enable = 1;
+  rgblight_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
+  rgblight_config.hue = 0;
+  rgblight_config.sat = 255;
+  rgblight_config.val = RGBLIGHT_LIMIT_VAL;
+  rgblight_config.speed = 0;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 
