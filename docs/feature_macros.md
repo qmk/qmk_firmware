@@ -273,7 +273,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 
-### Advanced Example: Single-Key Copy/Paste
+### Advanced Examples: 
+
+#### Single-Key Copy/Paste
 
 This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 
@@ -291,4 +293,44 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     return MACRO_NONE;
 };
+```
+
+#### Super ALT/TAB
+
+This marco will register `KC_LALT` and tap `KC_TAB` and wait for 1000ms. If the key is taped again it will send another `KC_TAP`, if there is no tap then unregister `KC_LALT`. Thus allowing you to cycle through windows. 
+
+```
+bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        # we will be using them soon.
+
+enum custom_keycodes {             # Make sure have the awesome keycode ready
+  ALT_TAB = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {               # This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        } 
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     # The very important timer. 
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code16(LALT(KC_TAB));
+      is_alt_tab_active = false;
+    }
+  }
+}
 ```
