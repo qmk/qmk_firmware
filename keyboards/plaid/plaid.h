@@ -61,3 +61,7 @@
 #define KEYMAP LAYOUT_plaid_grid
 #define LAYOUT_ortho_4x12 LAYOUT_plaid_grid
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
+
+// Compatibility for LAYOUTS = planck_mit planck_grid
+#define LAYOUT_planck_mit LAYOUT_plaid_mit
+#define LAYOUT_planck_grid LAYOUT_plaid_grid
