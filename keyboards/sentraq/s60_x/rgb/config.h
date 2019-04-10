@@ -1,5 +1,4 @@
-#ifndef RBG_CONFIG_H
-#define RBG_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -23,6 +22,7 @@
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
+#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 #endif
 
@@ -47,4 +47,3 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#endif
