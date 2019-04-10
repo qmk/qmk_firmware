@@ -10,7 +10,7 @@ There are two versions of this keyboard, an RGB and a non RGB one. Firmware buil
 
 Make example for this keyboard (after setting up your build environment):
 
-    make sentraq/s60_x:default
+    make sentraq/s60_x/default:default
 
 Make example for rgb version of this keyboard:
 

@@ -70,4 +70,4 @@ BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
 
 
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb

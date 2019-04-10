@@ -8,7 +8,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Massdrop
 #define PRODUCT         S60-X
-#define DESCRIPTION     q.m.k. keyboard firmware for S60-X
+#define DESCRIPTION     QMK keyboard firmware for S60-X
 
 /* key matrix size */
 #define MATRIX_ROWS 5
