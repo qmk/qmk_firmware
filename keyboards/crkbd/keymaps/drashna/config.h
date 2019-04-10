@@ -48,3 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define B6_AUDIO
 // #define NO_MUSIC_MODE
 #endif
+
+#undef PRODUCT
+#define PRODUCT Drashna Hacked Corne Keyboard
