@@ -6,6 +6,7 @@
 // Define layer names
 #define BL 0
 #define FL 1
+#define ML 2
 
 // Config
 #define TAPPING_TOGGLE 2
