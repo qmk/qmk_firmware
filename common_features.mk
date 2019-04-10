@@ -147,6 +147,8 @@ endif
     CIE1931_CURVE = yes
 endif
 
+QUANTUM_LIB_SRC += $(LIB_PATH)/lib8tion/lib8tion.c
+
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 	RGB_MATRIX_ENABLE = IS31FL3731
 endif
@@ -290,8 +292,6 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
-
-QUANTUM_LIB_SRC += $(LIB_PATH)/lib8tion/lib8tion.c
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
