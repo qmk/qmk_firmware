@@ -299,7 +299,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 This marco will register `KC_LALT` and tap `KC_TAB` and wait for 1000ms. If the key is taped again it will send another `KC_TAP`, if there is no tap then unregister `KC_LALT`. Thus allowing you to cycle through windows. 
 
-```
+```c
 bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
 uint16_t alt_tab_timer = 0;        # we will be using them soon.
 
