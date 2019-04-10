@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DEFAULT_H
-#define DEFAULT_H
+#pragma once
 
 #include "quantum.h"
 
@@ -114,5 +113,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_##K37, KC_##K38, KC_##K39, KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E }, \
   { KC_##K40, KC_##K41, KC_##K42, XXX,      XXX,      XXX,      KC_##K46, XXX,      XXX,      XXX,      KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, XXX      }  \
 }
-
-#endif
