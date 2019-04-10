@@ -144,7 +144,6 @@ endif
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
-    FASTLED_LIB8TION = yes
     CIE1931_CURVE = yes
 endif
 
@@ -229,9 +228,7 @@ ifeq ($(strip $(CIE1931_CURVE)), yes)
     LED_TABLES = yes
 endif
 
-ifeq ($(strip $(FASTLED_LIB8TION)), yes)
-    SRC += $(LIB_PATH)/lib8tion/trig8.c
-endif
+
 
 ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
     OPT_DEFS += -DUSE_LED_BREATHING_TABLE
@@ -295,6 +292,8 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
 endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
+
+QUANTUM_LIB_SRC += $(LIB_PATH)/lib8tion/lib8tion.c
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
