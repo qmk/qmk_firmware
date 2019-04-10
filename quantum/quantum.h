@@ -187,6 +187,10 @@ extern uint32_t default_layer_state;
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
 
+#define SS_TAP_CODE 1
+#define SS_DOWN_CODE 2
+#define SS_UP_CODE 3
+
 #define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
 #define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
 #define SS_UP(keycode) "\3" SYMBOL_STR(keycode)

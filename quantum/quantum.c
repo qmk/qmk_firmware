@@ -882,16 +882,16 @@ void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = *str;
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = *(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = *(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = *(++str);
           unregister_code(keycode);
@@ -908,16 +908,16 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = pgm_read_byte(++str);
           unregister_code(keycode);
@@ -1125,6 +1125,13 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define COMxx1 COM1A1
 #  define OCRxx  OCR3A
 #  define ICRx   ICR3
+#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
+#  define TCCRxA TCCR1A
+#  define TCCRxB TCCR1B
+#  define COMxx1 COM1B1
+#  define OCRxx  OCR1B
+#  define ICRx   ICR1
+#  define TIMSK1 TIMSK
 #else
 #  define NO_HARDWARE_PWM
 #endif
