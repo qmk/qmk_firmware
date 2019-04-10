@@ -179,27 +179,33 @@ enum rgb_matrix_effects {
 You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
 
 
-|Define                                             |Description                                 |
-|---------------------------------------------------|--------------------------------------------|
-|`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`           |Disables `RGB_MATRIX_ALPHAS_MODS`           |
-|`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`      |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`      |
-|`#define DISABLE_RGB_MATRIX_BREATHING`             |Disables `RGB_MATRIX_BREATHING`             |
-|`#define DISABLE_RGB_MATRIX_CYCLE_ALL`             |Disables `RGB_MATRIX_CYCLE_ALL`             |
-|`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`      |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`      |
-|`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`         |Disables `RGB_MATRIX_CYCLE_UP_DOWN`         |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`|Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`|
-|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`           |Disables `RGB_MATRIX_DUAL_BEACON`           |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`        |Disables `RGB_MATRIX_RAINBOW_BEACON`        |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`     |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`     |
-|`#define DISABLE_RGB_MATRIX_RAINDROPS`             |Disables `RGB_MATRIX_RAINDROPS`             |
-|`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`   |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`   |
-|`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`          |Disables `RGB_MATRIX_DIGITAL_RAIN`          |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`        |Disables `RGB_MATRIX_SOLID_REACTIVE`        |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE` |Disables `RGB_MATRIX_SOLID_REACTIVE_SIMPLEE`|
-|`#define DISABLE_RGB_MATRIX_SPLASH`                |Disables `RGB_MATRIX_SPLASH`                |
-|`#define DISABLE_RGB_MATRIX_MULTISPLASH`           |Disables `RGB_MATRIX_MULTISPLASH`           |
-|`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`          |Disables `RGB_MATRIX_SOLID_SPLASH`          |
-|`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`     |Disables `RGB_MATRIX_SOLID_MULTISPLASH`     |
+|Define                                                 |Description                                    |
+|-------------------------------------------------------|-----------------------------------------------|
+|`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
+|`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
+|`#define DISABLE_RGB_MATRIX_BREATHING`                 |Disables `RGB_MATRIX_BREATHING`                |
+|`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
+|`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
+|`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
+|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`    |Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`   |
+|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`               |Disables `RGB_MATRIX_DUAL_BEACON`              |
+|`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`            |Disables `RGB_MATRIX_RAINBOW_BEACON`           |
+|`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
+|`#define DISABLE_RGB_MATRIX_RAINDROPS`                 |Disables `RGB_MATRIX_RAINDROPS`                |
+|`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
+|`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`            |Disables `RGB_MATRIX_SOLID_REACTIVE`           |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE`     |Disables `RGB_MATRIX_SOLID_REACTIVE_SIMPLE`    |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE`       |Disables `RGB_MATRIX_SOLID_REACTIVE_WIDE`      |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE`  |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE` |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS`      |Disables `RGB_MATRIX_SOLID_REACTIVE_CROSS`     |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS` |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTICROSS`|
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS`      |Disables `RGB_MATRIX_SOLID_REACTIVE_NEXUS`     |
+|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS` |Disables `RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS`|
+|`#define DISABLE_RGB_MATRIX_SPLASH`                    |Disables `RGB_MATRIX_SPLASH`                   |
+|`#define DISABLE_RGB_MATRIX_MULTISPLASH`               |Disables `RGB_MATRIX_MULTISPLASH`              |
+|`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`              |Disables `RGB_MATRIX_SOLID_SPLASH`             |
+|`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
 
 ## Custom layer effects
