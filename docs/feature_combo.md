@@ -29,7 +29,7 @@ If you want to add a list, then you'd use something like this:
 enum combos {
   AB_ESC,
   JK_TAB
-}
+};
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 

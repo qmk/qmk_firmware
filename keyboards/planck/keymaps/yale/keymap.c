@@ -15,10 +15,6 @@
 #define _FUNC 6
 #define _NAV 7
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* _QWERTY
@@ -81,10 +77,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_MS_ACCEL0,  KC_FN9,     KC_FN10,    KC_FN11,    KC_FN12,    XXXXXXX,    XXXXXXX,        XXXXXXX,        XXXXXXX,    XXXXXXX,        XXXXXXX,    XXXXXXX},
     {XXXXXXX,       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,        XXXXXXX,        XXXXXXX,    XXXXXXX,        XXXXXXX,    XXXXXXX}
 },
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

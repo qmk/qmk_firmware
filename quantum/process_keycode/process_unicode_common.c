@@ -118,6 +118,9 @@ void unicode_input_finish(void) {
   case UC_WIN:
     unregister_code(KC_LALT);
     break;
+  case UC_WINC:
+    tap_code(KC_ENTER);
+    break;
   }
 
   set_mods(saved_mods); // Reregister previously set mods
@@ -216,7 +219,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
 #if   defined(UNICODE_ENABLE)
   return process_unicode(keycode, record);
 #elif defined(UNICODEMAP_ENABLE)
-  return process_unicode_map(keycode, record);
+  return process_unicodemap(keycode, record);
 #elif defined(UCIS_ENABLE)
   return process_ucis(keycode, record);
 #else

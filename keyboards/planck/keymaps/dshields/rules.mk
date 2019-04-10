@@ -1,7 +1,3 @@
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
 MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
 COMMAND_ENABLE   = no  # Commands for debug and configuration
 CONSOLE_ENABLE   = no  # Console for debug(+400)
