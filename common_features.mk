@@ -228,8 +228,6 @@ ifeq ($(strip $(CIE1931_CURVE)), yes)
     LED_TABLES = yes
 endif
 
-
-
 ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
     OPT_DEFS += -DUSE_LED_BREATHING_TABLE
     LED_TABLES = yes
