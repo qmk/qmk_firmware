@@ -13,3 +13,8 @@
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
+
+#if defined(KEYBOARD_primekb_prime_m)
+#undef PRODUCT
+#define PRODUCT Drashna Hacked Prime_M Macro Pad
+#endif
