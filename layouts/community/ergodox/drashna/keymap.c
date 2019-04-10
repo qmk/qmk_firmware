@@ -47,7 +47,7 @@ bool skip_leds = false;
       KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
-                                         KC_SPAC, KC_BSPC, LOWER,                   RAISE, KC_DEL, KC_ENT                                           \
+                                          KC_SPC, KC_BSPC, LOWER,                   RAISE, KC_DEL, KC_ENT                                           \
     )
 
 #define LAYOUT_ergodox_pretty_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
