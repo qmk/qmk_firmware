@@ -297,7 +297,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 #### Super ALT/TAB
 
-This marco will register `KC_LALT` and tap `KC_TAB` and wait for 1000ms. If the key is taped again it will send another `KC_TAP`, if there is no tap then unregister `KC_LALT`. Thus allowing you to cycle through windows. 
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
 
 ```c
 bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
