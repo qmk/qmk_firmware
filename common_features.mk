@@ -144,6 +144,7 @@ endif
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    FASTLED_LIB8TION = yes
     CIE1931_CURVE = yes
 endif
 
@@ -226,6 +227,10 @@ endif
 ifeq ($(strip $(CIE1931_CURVE)), yes)
     OPT_DEFS += -DUSE_CIE1931_CURVE
     LED_TABLES = yes
+endif
+
+ifeq ($(strip $(FASTLED_LIB8TION)), yes)
+    SRC += $(LIB_PATH)/lib8tion/trig8.c
 endif
 
 ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
