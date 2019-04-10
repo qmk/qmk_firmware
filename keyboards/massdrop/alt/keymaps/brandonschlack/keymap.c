@@ -2,25 +2,24 @@
 #include "brandonschlack.h"
 
 enum alt_keycodes {
-    L_BRI = KEYMAP_SAFE_RANGE, //LED Brightness Increase
-    L_BRD,                     //LED Brightness Decrease
-    L_PTN,                     //LED Pattern Select Next
-    L_PTP,                     //LED Pattern Select Previous
-    L_PSI,                     //LED Pattern Speed Increase
-    L_PSD,                     //LED Pattern Speed Decrease
-    L_T_MD,                    //LED Toggle Mode
-    L_T_ONF,                   //LED Toggle On / Off
-    L_ON,                      //LED On
-    L_OFF,                     //LED Off
-    L_T_BR,                    //LED Toggle Breath Effect
-    L_T_PTD,                   //LED Toggle Scrolling Pattern Direction
-    U_T_AUTO,                  //USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,                  //USB Toggle Automatic GCR control
-    DBG_TOG,                   //DEBUG Toggle On / Off
-    DBG_MTRX,                  //DEBUG Toggle Matrix Prints
-    DBG_KBD,                   //DEBUG Toggle Keyboard Prints
-    DBG_MOU,                   //DEBUG Toggle Mouse Prints
-    MD_BOOT,                   //Restart into bootloader after hold timeout
+    L_BRI = SAFE_RANGE, //LED Brightness Increase                                   //Working
+    L_BRD,              //LED Brightness Decrease                                   //Working
+    L_PTN,              //LED Pattern Select Next                                   //Working
+    L_PTP,              //LED Pattern Select Previous                               //Working
+    L_PSI,              //LED Pattern Speed Increase                                //Working
+    L_PSD,              //LED Pattern Speed Decrease                                //Working
+    L_T_MD,             //LED Toggle Mode                                           //Working
+    L_T_ONF,            //LED Toggle On / Off                                       //Broken
+    L_ON,               //LED On                                                    //Broken
+    L_OFF,              //LED Off                                                   //Broken
+    L_T_BR,             //LED Toggle Breath Effect                                  //Working
+    L_T_PTD,            //LED Toggle Scrolling Pattern Direction                    //Working
+    U_T_AGCR,           //USB Toggle Automatic GCR control                          //Working
+    DBG_TOG,            //DEBUG Toggle On / Off                                     //
+    DBG_MTRX,           //DEBUG Toggle Matrix Prints                                //
+    DBG_KBD,            //DEBUG Toggle Keyboard Prints                              //
+    DBG_MOU,            //DEBUG Toggle Mouse Prints                                 //
+    MD_BOOT             //Restart into bootloader after hold timeout                //Working
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
@@ -52,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ,---------------------------------------------------------------.
       * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   SLPD|Mut|
       * |---------------------------------------------------------------|
-      * |LBr  |LS-|LB+|LS+|   |   |   |UAT|GCR|   |F13|F14|F15|  LHP|End|
+      * |LBr  |LS-|LB+|LS+|   |   |   |   |GCR|   |F13|F14|F15|  LHP|End|
       * |---------------------------------------------------------------|
       * |LPD   |LP-|LB-|LP+|   |   |   |   |   |   |   |   |        |VlU|
       * |---------------------------------------------------------------|
@@ -63,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [FL] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  MC_SLPD, MC_MUTE, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   KC_TRNS, KC_TRNS, KC_TRNS, U_T_AUTO,U_T_AGCR,KC_TRNS, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_END, \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, U_T_AGCR,KC_TRNS, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_END, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, MC_VOLU, \
         KC_TRNS, L_T_MD,  L_T_ONF, KC_TRNS, KC_TRNS, MD_BOOT, TG_NKRO, KC_TRNS, KC_MRWD, KC_MFFD, KC_MPLY, KC_TRNS,          KC_PGUP, MC_VOLD, \
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END  \
@@ -171,11 +170,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 led_animation_direction = !led_animation_direction;
             }
             return false;
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-            }
-            return false;
         case U_T_AGCR:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
@@ -214,3 +208,43 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             return true; //Process all other keycodes normally
     }
 }
+
+led_instruction_t led_instructions[] = {
+    //LEDs are normally inactive, no processing is performed on them
+    //Flags are used in matching criteria for an LED to be active and indicate how to color it
+    //Flags can be found in tmk_core/protocol/arm_atsam/led_matrix.h (prefixed with LED_FLAG_)
+    //LED IDs can be found in config_led.h in the keyboard's directory
+    //Examples are below
+
+    //All LEDs use the user's selected pattern (this is the factory default)
+     { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+
+    //Specific LEDs use the user's selected pattern while all others are off
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN, .id0 = 0xFFFFFFFF, .id1 = 0xAAAAAAAA, .id2 = 0x55555555, .id3 = 0x11111111 },
+
+    //Specific LEDs use specified RGB values while all others are off
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFF, .id1 = 0x00FF, .id2 = 0x0000FF00, .id3 = 0xFF000000, .r = 75, .g = 150, .b = 225 },
+
+    //All LEDs use the user's selected pattern
+    //On layer 1, all key LEDs (except the top row which keeps active pattern) are red while all edge LEDs are green
+    //When layer 1 is active, key LEDs use red    (id0  32 -  16: 1111 1111 1111 1111 1000 0000 0000 0000 = 0xFFFF8000) (except top row 15 - 1)
+    //When layer 1 is active, key LEDs use red    (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //When layer 1 is active, key LEDs use red    (id2  67 -  65: 0000 0000 0000 0000 0000 0000 0000 0111 = 0x00000007)
+    //When layer 1 is active, edge LEDs use green (id2  95 -  68: 1111 1111 1111 1111 1111 1111 1111 1000 = 0xFFFFFFF8)
+    //When layer 1 is active, edge LEDs use green (id3 105 -  96: 0000 0000 0000 0000 0000 0011 1111 1111 = 0x000003FF)
+    // { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFF8000, .id1 = 0xFFFFFFFF, .id2 = 0x00000007, .r = 255, .layer = 1 },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id2 = 0xFFFFFFF8, .id3 = 0x000003FF, .g = 127, .layer = 1 },
+
+    //All key LEDs use red while edge LEDs use the active pattern
+    //All key LEDs use red     (id0  32 -   1: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //All key LEDs use red     (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //All key LEDs use red     (id2  67 -  65: 0000 0000 0000 0000 0000 0000 0000 0111 = 0x00000007)
+    //Edge uses active pattern (id2  95 -  68: 1111 1111 1111 1111 1111 1111 1111 1000 = 0xFFFFFFF8)
+    //Edge uses active pattern (id3 105 -  96: 0000 0000 0000 0000 0000 0011 1111 1111 = 0x000003FF)
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0x00000007, .r = 255 },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN , .id2 = 0xFFFFFFF8, .id3 = 0x000003FF },
+
+    //end must be set to 1 to indicate end of instruction set
+     { .end = 1 }
+};
