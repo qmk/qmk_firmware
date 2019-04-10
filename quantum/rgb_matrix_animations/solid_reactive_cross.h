@@ -18,11 +18,16 @@ static bool rgb_matrix_solid_reactive_multicross_range(uint8_t start, effect_par
       int16_t dx = point.x - g_last_hit_tracker.x[j];
       int16_t dy = point.y - g_last_hit_tracker.y[j];
       uint8_t dist = sqrt16(dx * dx + dy * dy);
-      int16_t dist2 = 8;
+      int16_t dist2 = 16;
+      uint8_t dist3;
       uint16_t effect = scale16by8(g_last_hit_tracker.tick[j], rgb_matrix_config.speed) + dist;
+      dx = dx < 0 ? dx * -1 : dx;
+      dy = dy < 0 ? dy * -1 : dy;
+      dx = dx * dist2 > 255 ? 255 : dx * dist2;
+      dy = dy * dist2 > 255 ? 255 : dy * dist2;
+      dist3 = dx > dy ? dy : dx;
+      effect += dist3;
       if (effect > 255)
-        effect = 255;
-      if ((dx > dist2 || dx < -dist2) && (dy > dist2 || dy < -dist2))
         effect = 255;
       hsv.v = qadd8(hsv.v, 255 - effect);
     }
