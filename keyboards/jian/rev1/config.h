@@ -58,27 +58,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SCROLL_LOCK_INVERT  //uncomment this if you using n-mosfet
 
 #ifdef NUM_LOCK_INVERT
-#define SET_NUM_LOCK_LED writePinHigh(NUM_LOCK_LED_PIN)
-#define RESET_NUM_LOCK_LED writePinLow(NUM_LOCK_LED_PIN)
+#define SET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
 #else
-#define SET_NUM_LOCK_LED writePinLow(NUM_LOCK_LED_PIN)
-#define RESET_NUM_LOCK_LED writePinHigh(NUM_LOCK_LED_PIN)
+#define SET_NUM_LOCK_LED() writePinLow(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED() writePinHigh(NUM_LOCK_LED_PIN)
 #endif // NUM_LOCK_INVERT
 
 #ifdef CAPS_LOCK_INVERT
-#define SET_CAPS_LOCK_LED writePinHigh(CAPS_LOCK_LED_PIN)
-#define RESET_CAPS_LOCK_LED writePinLow(CAPS_LOCK_LED_PIN)
+#define SET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
 #else
-#define SET_CAPS_LOCK_LED writePinLow(CAPS_LOCK_LED_PIN)
-#define RESET_CAPS_LOCK_LED writePinHigh(CAPS_LOCK_LED_PIN)
+#define SET_CAPS_LOCK_LED() writePinLow(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED() writePinHigh(CAPS_LOCK_LED_PIN)
 #endif // CAPS_LOCK_INVERT
 
 #ifdef SCROLL_LOCK_INVERT
-#define SET_SCROLL_LOCK_LED writePinHigh(SCROLL_LOCK_LED_PIN)
-#define RESET_SCROLL_LOCK_LED writePinLow(SCROLL_LOCK_LED_PIN)
+#define SET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
 #else
-#define SET_SCROLL_LOCK_LED writePinLow(SCROLL_LOCK_LED_PIN)
-#define RESET_SCROLL_LOCK_LED writePinHigh(SCROLL_LOCK_LED_PIN)
+#define SET_SCROLL_LOCK_LED() writePinLow(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED() writePinHigh(SCROLL_LOCK_LED_PIN)
 #endif // SCROLL_LOCK_INVERT
 
 /* define if matrix has ghost */
