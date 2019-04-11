@@ -1,32 +1,5 @@
 #include "rev1.h"
 
-#define SET_PIN(PORT, BIT) (PORT & ~(1 << BIT))
-#define RESET_PIN(PORT, BIT) (PORT | (1 << BIT))
-
-#ifdef NUM_LOCK_INVERT
-#define SET_NUM_LOCK RESET_PIN
-#define RESET_NUM_LOCK SET_PIN
-#else
-#define SET_NUM_LOCK SET_PIN
-#define RESET_NUM_LOCK RESET_PIN
-#endif
-
-#ifdef SCROLL_LOCK_INVERT
-#define SET_SCROLL_LOCK RESET_PIN
-#define RESET_SCROLL_LOCK SET_PIN
-#else
-#define SET_SCROLL_LOCK SET_PIN
-#define RESET_SCROLL_LOCK RESET_PIN
-#endif
-
-#ifdef CAPS_LOCK_INVERT
-#define SET_CAPS_LOCK RESET_PIN
-#define RESET_CAPS_LOCK SET_PIN
-#else
-#define SET_CAPS_LOCK SET_PIN
-#define RESET_CAPS_LOCK RESET_PIN
-#endif
-
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
@@ -44,19 +17,18 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef PHYSICAL_LEDS_ENABLE
 void led_init_kb(void)
 {
-#ifdef NUM_LOCK_LED_ENABLE
-  NUM_LOCK_LED_DDR |= (1 << NUM_LOCK_LED_BIT);
-  //NUM_LOCK_LED_PORT = RESET_NUM_LOCK(NUM_LOCK_LED_PORT, NUM_LOCK_LED_BIT);
-  NUM_LOCK_LED_PORT = SET_PIN(NUM_LOCK_LED_PORT, NUM_LOCK_LED_BIT); // this is a personnel crutch, don't mind
-#endif // NUM_LOCK_LED_ENABLE
-#ifdef CAPS_LOCK_LED_ENABLE
-  CAPS_LOCK_LED_DDR |= (1 << CAPS_LOCK_LED_BIT);
-  CAPS_LOCK_LED_PORT = RESET_CAPS_LOCK(CAPS_LOCK_LED_PORT, CAPS_LOCK_LED_BIT);
-#endif // CAPS_LOCK_LED_ENABLE
-#ifdef SCROLL_LOCK_LED_ENABLE
-  SCROLL_LOCK_LED_DDR |= (1 << SCROLL_LOCK_LED_BIT);
-  SCROLL_LOCK_LED_PORT = RESET_SCROLL_LOCK(SCROLL_LOCK_LED_PORT, SCROLL_LOCK_LED_BIT);
-#endif // SCROLL_LOCK_LED_ENABLE
+#ifdef NUM_LOCK_LED_PIN
+    setPinOutput(NUM_LOCK_LED_PIN);
+    RESET_NUM_LOCK_LED;
+#endif // NUM_LOCK_LED_PIN
+#ifdef CAPS_LOCK_LED_PIN
+    setPinOutput(CAPS_LOCK_LED_PIN);
+    RESET_CAPS_LOCK_LED;
+#endif // CAPS_LOCK_LED_PIN
+#ifdef SCROLL_LOCK_LED_PIN
+    setPinOutput(SCROLL_LOCK_LED_PIN);
+    RESET_SCROLL_LOCK_LED;
+#endif // SCROLL_LOCK_LED_PIN
 }
 #endif // PHYSICAL_LEDS_ENABLE
 
@@ -70,27 +42,27 @@ void matrix_init_kb(void) {
 #ifdef PHYSICAL_LEDS_ENABLE
 void led_set_kb(uint8_t usb_led)
 {
-#ifdef NUM_LOCK_LED_ENABLE
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-    NUM_LOCK_LED_PORT = SET_NUM_LOCK(NUM_LOCK_LED_PORT, NUM_LOCK_LED_BIT);
-  } else {
-    NUM_LOCK_LED_PORT = RESET_NUM_LOCK(NUM_LOCK_LED_PORT, NUM_LOCK_LED_BIT);
-  }
-#endif // NUM_LOCK_LED_ENABLE
-#ifdef CAPS_LOCK_LED_ENABLE
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    CAPS_LOCK_LED_PORT = SET_CAPS_LOCK(CAPS_LOCK_LED_PORT, CAPS_LOCK_LED_BIT);
-  } else {
-    CAPS_LOCK_LED_PORT = RESET_CAPS_LOCK(CAPS_LOCK_LED_PORT, CAPS_LOCK_LED_BIT);
-  }
-#endif // CAPS_LOCK_LED_ENABLE
-#ifdef SCROLL_LOCK_LED_ENABLE
-  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    SCROLL_LOCK_LED_PORT = SET_SCROLL_LOCK(SCROLL_LOCK_LED_PORT, SCROLL_LOCK_LED_BIT);
-  } else {
-    SCROLL_LOCK_LED_PORT = RESET_SCROLL_LOCK(SCROLL_LOCK_LED_PORT, SCROLL_LOCK_LED_BIT);
-  }
-#endif // SCROLL_LOCK_LED_ENABLE
-  led_set_user(usb_led);
+#ifdef NUM_LOCK_LED_PIN
+   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        SET_NUM_LOCK_LED;
+    } else {
+        RESET_NUM_LOCK_LED;
+    }
+#endif // NUM_LOCK_LED_PIN
+#ifdef CAPS_LOCK_LED_PIN
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        SET_CAPS_LOCK_LED;
+    } else {
+        RESET_CAPS_LOCK_LED;
+    }
+#endif // CAPS_LOCK_LED_PIN
+#ifdef SCROLL_LOCK_LED_PIN
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+        SET_SCROLL_LOCK_LED;
+    } else {
+        RESET_SCROLL_LOCK_LED;
+    }
+#endif // SCROLL_LOCK_LED_PIN
+    led_set_user(usb_led);
 }
 #endif // PHYSICAL_LEDS_ENABLE

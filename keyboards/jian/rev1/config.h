@@ -47,45 +47,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+#ifdef BACKLIGHT_ENABLE
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 5
+//#define BACKLIGHT_BREATHING #not working with splits right tnow
+#define BREATHING_PERIOD 6
+#endif
 
 // different Jian configs
 #define DIPS_ENABLE
 #define PHYSICAL_LEDS_ENABLE
-#define NUM_LOCK_LED_ENABLE
-#define CAPS_LOCK_LED_ENABLE
-#define SCROLL_LOCK_LED_ENABLE
-
-#ifdef PHYSICAL_LEDS_ENABLE
-
-#ifdef NUM_LOCK_LED_ENABLE
+#define NUM_LOCK_LED_PIN C6
+#define CAPS_LOCK_LED_PIN D7
+#define SCROLL_LOCK_LED_PIN B5
 //#define NUM_LOCK_INVERT  //uncomment this if you using n-mosfet
-#define NUM_LOCK_LED_PORT PORTC
-#define NUM_LOCK_LED_DDR DDRC
-#define NUM_LOCK_LED_BIT PC6
-#endif
-
-#ifdef CAPS_LOCK_LED_ENABLE
 //#define CAPS_LOCK_INVERT  //uncomment this if you using n-mosfet
-#define CAPS_LOCK_LED_PORT PORTD
-#define CAPS_LOCK_LED_DDR DDRD
-#define CAPS_LOCK_LED_BIT PD7
-#endif
-
-#ifdef SCROLL_LOCK_LED_ENABLE
 //#define SCROLL_LOCK_INVERT  //uncomment this if you using n-mosfet
-#define SCROLL_LOCK_LED_PORT PORTB
-#define SCROLL_LOCK_LED_DDR DDRB
-#define SCROLL_LOCK_LED_BIT PB5
-#endif
 
-#endif
+#ifdef NUM_LOCK_INVERT
+#define SET_NUM_LOCK_LED writePinHigh(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED writePinLow(NUM_LOCK_LED_PIN)
+#else
+#define SET_NUM_LOCK_LED writePinLow(NUM_LOCK_LED_PIN)
+#define RESET_NUM_LOCK_LED writePinHigh(NUM_LOCK_LED_PIN)
+#endif // NUM_LOCK_INVERT
 
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
-//#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
-#endif
+#ifdef CAPS_LOCK_INVERT
+#define SET_CAPS_LOCK_LED writePinHigh(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED writePinLow(CAPS_LOCK_LED_PIN)
+#else
+#define SET_CAPS_LOCK_LED writePinLow(CAPS_LOCK_LED_PIN)
+#define RESET_CAPS_LOCK_LED writePinHigh(CAPS_LOCK_LED_PIN)
+#endif // CAPS_LOCK_INVERT
+
+#ifdef SCROLL_LOCK_INVERT
+#define SET_SCROLL_LOCK_LED writePinHigh(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED writePinLow(SCROLL_LOCK_LED_PIN)
+#else
+#define SET_SCROLL_LOCK_LED writePinLow(SCROLL_LOCK_LED_PIN)
+#define RESET_SCROLL_LOCK_LED writePinHigh(SCROLL_LOCK_LED_PIN)
+#endif // SCROLL_LOCK_INVERT
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
