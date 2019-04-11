@@ -951,17 +951,9 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 }
 
 void send_char(char ascii_code) {
-  uint8_t keycode;
-  bool is_shifted = false;
-  bool is_alted = false;
-
-  keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
-    is_shifted = true;
-  }
-  if (pgm_read_byte(&ascii_to_alt_lut[(uint8_t)ascii_code])) {
-    is_alted = true;
-  }
+  uint8_t keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+  bool is_shifted = pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code]);
+  bool is_alted = pgm_read_byte(&ascii_to_alt_lut[(uint8_t)ascii_code]);
 
   if (is_shifted) {
     register_code(KC_LSFT);
@@ -969,9 +961,7 @@ void send_char(char ascii_code) {
   if (is_alted) {
     register_code(KC_RALT);
   }
-
   tap_code(keycode);
-
   if (is_alted) {
     unregister_code(KC_RALT);
   }
