@@ -953,11 +953,23 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 void send_char(char ascii_code) {
   uint8_t keycode;
   keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
+  if ( pgm_read_byte(&ascii_to_algr_lut[(uint8_t)ascii_code]) && pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code]) ) {
+      register_code(KC_ALGR);
       register_code(KC_LSFT);
       register_code(keycode);
       unregister_code(keycode);
       unregister_code(KC_LSFT);
+      unregister_code(KC_ALGR);
+  } else if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
+      register_code(KC_LSFT);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_LSFT);
+  } else if (pgm_read_byte(&ascii_to_algr_lut[(uint8_t)ascii_code])) {
+      register_code(KC_ALGR);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_ALGR);
   } else {
       register_code(keycode);
       unregister_code(keycode);
