@@ -258,9 +258,9 @@ void keyboard_post_init_rgb(void) {
       matrix_scan();
       wait_ms(10);
     }
-    layer_state_set_user(layer_state);
   }
 #endif
+  layer_state_set_user(layer_state);
 }
 
 void matrix_scan_rgb(void) {
