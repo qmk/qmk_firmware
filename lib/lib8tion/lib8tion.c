@@ -4,7 +4,6 @@
 #define RAND16_SEED  1337
 uint16_t rand16seed = RAND16_SEED;
 
-const uint8_t b_m16_interleave[8] = { 0, 49, 49, 41, 90, 27, 117, 10 };
 
 // memset8, memcpy8, memmove8:
 //  optimized avr replacements for the standard "C" library
