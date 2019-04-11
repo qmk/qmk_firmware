@@ -47,13 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
-//#define BACKLIGHT_BREATHING #not working with splits right tnow
-#define BREATHING_PERIOD 6
-#endif
-
 // different Jian configs
 #define DIPS_ENABLE
 #define PHYSICAL_LEDS_ENABLE
@@ -107,11 +100,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+#ifdef BACKLIGHT_ENABLE
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 5
+//#define BACKLIGHT_BREATHING //not working with splits right now
+#define BREATHING_PERIOD 6
+#endif
+
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 7    // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+//#define RGBLIGHT_ANIMATIONS //not working with splits right now
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
