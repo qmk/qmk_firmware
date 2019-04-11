@@ -19,14 +19,12 @@ static bool rgb_matrix_solid_reactive_multinexus_range(uint8_t start, effect_par
       int16_t dy = point.y - g_last_hit_tracker.y[j];
       uint8_t dist = sqrt16(dx * dx + dy * dy);
       int16_t dist2 = 8;
-      // uint16_t effect = scale16by8(g_last_hit_tracker.tick[j], rgb_matrix_config.speed) + dist * 5 - 512;
       uint16_t effect = scale16by8(g_last_hit_tracker.tick[j], rgb_matrix_config.speed) - dist;
       if (effect > 255)
         effect = 255;
       if (dist > 72)
         effect = 255;
       if ((dx > dist2 || dx < -dist2) && (dy > dist2 || dy < -dist2))
-      // if (dx > dist2 || dx < -dist2)
         effect = 255;
       hsv.v = qadd8(hsv.v, 255 - effect);
       hsv.h = rgb_matrix_config.hue + dy / 4;
