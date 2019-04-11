@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
 #define RGBLED_NUM 16     // Number of LEDs
+#undef RGBLED_SPLIT
+#define RGBLED_SPLIT { 8, 8 }
 #endif
 
 #undef PRODUCT
