@@ -201,8 +201,8 @@ void rgb_matrix_indicators_user(void)
 
             rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // KC_MSTP
 
-            rgb_matrix_set_color(47, 0xFF, 0x00, 0x00); // KC_MPRV
-            rgb_matrix_set_color(48, 0xFF, 0x00, 0x00); 
+            rgb_matrix_set_color(47, 0xFF, 0x40, 0x00); // KC_MPRV
+            rgb_matrix_set_color(48, 0xFF, 0x40, 0x00); 
 
             rgb_matrix_set_color(14, 0x00, 0xFF, 0x00); // KC_MSEL
             rgb_matrix_set_color(31, 0x00, 0xFF, 0x00); // KC_MPLY
