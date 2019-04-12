@@ -64,25 +64,35 @@ void draw_ui(void) {
   send_command(DISPLAYON);
 
 /* Layer indicator is 41 x 10 pixels */
-#define LAYER_INDICATOR_X 0
+#define NAME_X 0
+#define NAME_Y 0 
+
+  draw_string(NAME_X + 1, NAME_Y + 2, "BOSTON MK", PIXEL_ON, NORM, 0);
+
+/* Layer indicator is 41 x 10 pixels */
+#define LAYER_INDICATOR_X 60
 #define LAYER_INDICATOR_Y 0 
 
   draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
   draw_char(LAYER_INDICATOR_X + 34, LAYER_INDICATOR_Y + 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
-/* Matrix display is 19 x 9 pixels */
-#define MATRIX_DISPLAY_X 0
-#define MATRIX_DISPLAY_Y 18
+/* Matrix display is 12 x 12 pixels */
+#define MATRIX_DISPLAY_X 8
+#define MATRIX_DISPLAY_Y 16
 
   for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
     for (uint8_t y = 0; y < MATRIX_COLS; y++) {
-      draw_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+      draw_pixel(MATRIX_DISPLAY_X + y + y + 2, MATRIX_DISPLAY_Y + x + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+      draw_pixel(MATRIX_DISPLAY_X + y + y + 3, MATRIX_DISPLAY_Y + x + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+      draw_pixel(MATRIX_DISPLAY_X + y + y + 2, MATRIX_DISPLAY_Y + x + x + 3,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+      draw_pixel(MATRIX_DISPLAY_X + y + y + 3, MATRIX_DISPLAY_Y + x + x + 3,(matrix_get_row(x) & (1 << y)) > 0, NORM);
+
     }
   } 
-  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
+  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 12, 12, PIXEL_ON, NORM);
   /* hadron oled location on thumbnail */
-  draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
+  draw_rect_filled_soft(MATRIX_DISPLAY_X + 5, MATRIX_DISPLAY_Y + 2, 6, 2, PIXEL_ON, NORM);
 /*
   draw_rect_soft(0, 13, 64, 6, PIXEL_ON, NORM);
   draw_line_vert(encoder_value, 13, 6, PIXEL_ON, NORM);
@@ -90,8 +100,8 @@ void draw_ui(void) {
 */
 
 /* Mod display is 41 x 16 pixels */
-#define MOD_DISPLAY_X 30
-#define MOD_DISPLAY_Y 18
+#define MOD_DISPLAY_X 60
+#define MOD_DISPLAY_Y 20
 
   uint8_t mods = get_mods();
   if (mods & MOD_LSFT) {
@@ -120,7 +130,7 @@ void draw_ui(void) {
   }
 
 /* Lock display is 23 x 32 */
-#define LOCK_DISPLAY_X 100
+#define LOCK_DISPLAY_X 104
 #define LOCK_DISPLAY_Y 0
 
   if (led_numlock == true) {
