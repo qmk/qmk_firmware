@@ -20,7 +20,9 @@ void keyboard_pre_init_kb(void) {
   setPinOutput(B4);
   setPinOutput(B5);
   setPinOutput(B6);
-  PORTB |= (1<<4) | (1<<5) | (1<<6);
+  writePinHigh(B4);
+  writePinHigh(B5);
+  writePinHigh(B6);
 }
 
 void matrix_init_kb(void) {
