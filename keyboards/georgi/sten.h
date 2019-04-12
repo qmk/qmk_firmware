@@ -18,11 +18,15 @@ extern uint32_t cChord;				// Current Chord
 void 			processChord(bool useFakeSteno);
 uint32_t		processQwerty(bool lookup);
 uint32_t 		processFakeSteno(bool lookup);
-void 			clickMouse(uint8_t kc);
-void 			SEND(uint8_t kc);
-void 			REPEAT(void);
 void 			saveState(uint32_t cChord);
 void 			restoreState(void);
+
+// Macros for use in keymap.c
+void 			SEND(uint8_t kc);
+void 			REPEAT(void);
+void 			SET_STICKY(uint32_t);
+void 			SWITCH_LAYER(int);
+void 			CLICK_MOUSE(uint8_t);
 
 // Keymap helper
 #define P(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;}
@@ -33,7 +37,7 @@ void 			restoreState(void);
 enum ORDER { 
 		SFN = 0, SPWR, SST1, SST2, SST3, SST4, SNUML, SNUMR,
 		SLSU, SLSD, SLT, SLK, SLP, SLW, SLH, SLR, SLA, SLO, 
-		SRE, SRU, SRF, SRR, SRP, SRB, SRL, SRG, SRT, SRS, SRD, SRZ
+		SRE, SRU, SRF, SRR, SRP, SRB, SRL, SRG, SRT, SRS, SRD, SRZ, SRES1, SRES2
 };
 
 // Break it all out
@@ -43,12 +47,14 @@ enum ORDER {
 #define ST2 STN(SST2)
 #define ST3 STN(SST3)
 #define ST4 STN(SST4)
-#define LNO STN(SNUML) // STN1-6
-#define RNO STN(SNUMR) // STN7-C
+#define LNO STN(SNUML) 	// STN1-6
+#define RNO STN(SNUMR) 	// STN7-C
+#define RES1 STN(SRES1) // Use reserved for sticky state
+#define RES2 STN(SRES2)
 
 #define LSU STN(SLSU)
 #define LSD STN(SLSD)
-#define LFT STN(SLT)  // (L)e(F)t (T), preprocessor conflict
+#define LFT STN(SLT)  	// (L)e(F)t (T), preprocessor conflict
 #define LK  STN(SLK)
 #define LP  STN(SLP)
 #define LW  STN(SLW)

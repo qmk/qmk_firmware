@@ -20,6 +20,11 @@
 #define MEDIA   (LSD | LK | LW | LR)
 #define MOVE    (ST1 | ST2)
 
+// QMK Layers
+#define STENO_LAYER		0
+#define GAMING			1
+#define GAMING_2		2
+
 /* Keyboard Layout
  * ,---------------------------------.    ,------------------------------.
  * | FN  | LSU | LFT | LP | LH | ST1 |    | ST3 | RF | RP | RL | RT | RD |
@@ -31,10 +36,7 @@
  *                   `---------------'    `---------------'
  */
 
-// YOU MUST ORDER THIS!
-// Order your chords from longest to shortest!
-// You can only use basic keycodes here!
-//
+// Note: You can only use basic keycodes here!
 // P() is just a wrapper to make your life easier. 
 //
 // http://docs.gboards.ca
@@ -46,8 +48,8 @@ uint32_t processQwerty(bool lookup) {
 	P( ST1 | ST2 | LW  | ST4,			SEND(KC_BSPC));
 
 	// Mouse Keys
-	P( LO  | LSD | LK,					clickMouse(KC_MS_BTN2));
-	P( LO  | LR  | LW,					clickMouse(KC_MS_BTN1));
+	P( LO  | LSD | LK,					CLICK_MOUSE(KC_MS_BTN2));
+	P( LO  | LR  | LW,					CLICK_MOUSE(KC_MS_BTN1));
 
 	// Thumb Chords
 	P( LA  | LO  | RE  | RU,			SEND(KC_CAPS));
@@ -205,14 +207,11 @@ uint32_t processQwerty(bool lookup) {
 	return 0;
 }
 
-#define STENO_LAYER		0
-#define GAMING			1
-#define GAMING_2		2
-
 // "Layers"
 // Steno layer should be first in your map.
 // When PWR | FN | ST3 | ST4 is pressed, the layer is increased to the next map. You must return to STENO_LAYER at the end.
 // If you need more space for chords, remove the two gaming layers.
+// Note: If using NO_ACTION_TAPPING, LT will not work!
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Main layer, everything goes through here

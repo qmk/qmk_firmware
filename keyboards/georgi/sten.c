@@ -4,12 +4,13 @@
 uint32_t cChord 		= 0;		// Current Chord
 int		 chordIndex 	= 0;		// Keys in previousachord
 int32_t  chordState[32];			// Full Chord history
-#define  QWERBUF	24					// Size of chords to buffer for output
+#define  QWERBUF		24			// Size of chords to buffer for output
 
-bool	 repeatFlag = false;		// Should we repeat?
-uint32_t pChord = 0;				// Previous Chord
-uint32_t pChordState[32];			// Previous chord sate
-int		 pChordIndex = 0;			// Keys in previousachord
+bool	 repeatFlag 	= false;	// Should we repeat?
+uint32_t pChord 		= 0;		// Previous Chord
+int		 pChordIndex 	= 0;		// Keys in previousachord
+uint32_t pChordState[32];			// Previous chord sate 
+uint32_t stickyBits = 0;			// Or'd with every incoming press
 
 // Mode state
 enum MODE { STENO = 0, QWERTY, COMMAND };
@@ -22,19 +23,19 @@ enum MODE cMode = STENO;
 #endif
 
 // Command State
-#define MAX_CMD_BUF 20
-uint8_t CMDBUF[MAX_CMD_BUF];
-uint8_t CMDLEN = 0;
+#define MAX_CMD_BUF   20
+uint8_t	 CMDLEN 	= 0;
+uint8_t	 CMDBUF[MAX_CMD_BUF];
 
 // Key Repeat state
-bool     inChord  	= false;
-bool	 repEngaged = false;
-uint16_t repTimer = 0;
+bool     inChord  		= false;
+bool	 repEngaged 	= false;
+uint16_t repTimer 		= 0;
 #define  REP_INIT_DELAY 750
 #define  REP_DELAY 		25
 
 // Mousekeys state
-bool	inMouse = false;
+bool	inMouse 		= false;
 int8_t	mousePress;
 
 // All processing done at chordUp goes through here
@@ -213,7 +214,7 @@ void matrix_scan_user(void) {
 #endif
 };
 
-// Helpers
+// For Plover NKRO
 uint32_t processFakeSteno(bool lookup) { 
 	P( LSU,				SEND(KC_Q););
 	P( LSD,				SEND(KC_A););
@@ -246,42 +247,19 @@ uint32_t processFakeSteno(bool lookup) {
 
 	return 0;
 }
-void clickMouse(uint8_t kc) {
-#ifdef MOUSEKEY_ENABLE
-	mousekey_on(kc);
-	mousekey_send();
-
-	// Store state for later use
-	inMouse = true;
-	mousePress = kc;
-#endif
-}
-void SEND(uint8_t kc) {
-	// Send Keycode, Does not work for Quantum Codes
-	if (cMode == COMMAND && CMDLEN < MAX_CMD_BUF) {
-#ifndef NO_DEBUG
-		uprintf("CMD LEN: %d BUF: %d\n", CMDLEN, MAX_CMD_BUF);
-#endif
-		CMDBUF[CMDLEN] = kc;
-		CMDLEN++;
-	} 
-
-	if (cMode != COMMAND) register_code(kc);
-	return;
-}
-void REPEAT(void) {
-	if (cMode != QWERTY)
-		return;
-
-	repeatFlag = true;
-	return;
-}
 
 // Traverse the chord history to a given point
 // Returns the mask to use
 void processChord(bool useFakeSteno) {
 	// Save the clean chord state
 	uint32_t savedChord = cChord;
+
+	// Apply Stick Bits if needed
+	if (stickyBits != 0) {
+		cChord |= stickyBits;
+		for (int i = 0; i <= chordIndex; i++)
+			chordState[i] |= stickyBits;
+	}
 
 	// Strip FN
 	if (cChord & FN) cChord ^= FN;
@@ -385,4 +363,44 @@ void restoreState() {
 	chordIndex = pChordIndex;
 	for (int i = 0; i < 32; i++) 
 		chordState[i] = pChordState[i];
+}
+
+// Macros for calling from keymap.c
+void SEND(uint8_t kc) {
+	// Send Keycode, Does not work for Quantum Codes
+	if (cMode == COMMAND && CMDLEN < MAX_CMD_BUF) {
+#ifndef NO_DEBUG
+		uprintf("CMD LEN: %d BUF: %d\n", CMDLEN, MAX_CMD_BUF);
+#endif
+		CMDBUF[CMDLEN] = kc;
+		CMDLEN++;
+	} 
+
+	if (cMode != COMMAND) register_code(kc);
+	return;
+}
+void REPEAT(void) {
+	if (cMode != QWERTY)
+		return;
+
+	repeatFlag = true;
+	return;
+}
+void SET_STICKY(uint32_t stick) {
+	stickyBits = stick;
+	return;
+}
+void SWITCH_LAYER(int layer) {
+	if (keymapsCount >= layer) 
+		layer_on(layer);
+}
+void CLICK_MOUSE(uint8_t kc) {
+#ifdef MOUSEKEY_ENABLE
+	mousekey_on(kc);
+	mousekey_send();
+
+	// Store state for later use
+	inMouse = true;
+	mousePress = kc;
+#endif
 }
