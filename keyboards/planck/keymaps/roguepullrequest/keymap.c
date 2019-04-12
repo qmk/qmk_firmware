@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "planck.h"
-#include "eeconfig.h"
 
 #ifdef AUDIO_ENABLE
 	float mushroom[][2] = SONG(MARIO_MUSHROOM);
