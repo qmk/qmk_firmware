@@ -50,7 +50,8 @@ void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_NUM_LOCK)) {
     PORTB &= ~(1<<4);
   } else {
-    PORTB |=  (1<<4);
+    writePinHigh(B4);
+ ```
   }
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
     PORTB &= ~(1<<6);
