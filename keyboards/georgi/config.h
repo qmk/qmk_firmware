@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Defaults */
 
-#define VERSION "RC 01: Wilfred"
+#define VERSION "v1.0: Stenoknight"
 #define VERBOSE
 
 #define FORCE_NKRO
