@@ -49,22 +49,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_NUM_LOCK)) {
     writePinLow(B4);
- ```
   } else {
     writePinHigh(B4);
- ```
   }
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    PORTB &= ~(1<<6);
+    writePinLow(B6);
   } else {
-    PORTB |=  (1<<6);
+    writePinHigh(B6);
   }
   if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
     writePinLow(B5);
- ```
   } else {
     writePinHigh(B5);
- ```
   }
 
   led_set_user(usb_led);
