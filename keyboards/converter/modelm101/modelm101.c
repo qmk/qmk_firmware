@@ -61,7 +61,8 @@ void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
     PORTB &= ~(1<<5);
   } else {
-    PORTB |=  (1<<5);
+    writePinHigh(B5);
+ ```
   }
 
   led_set_user(usb_led);
