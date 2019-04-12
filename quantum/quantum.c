@@ -1058,7 +1058,7 @@ void matrix_init_quantum() {
   #ifdef HAPTIC_ENABLE
     haptic_init();
   #endif
-  #ifdef MODULE_ADAFRUIT_BLE
+  #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
   matrix_init_kb();
