@@ -3,7 +3,6 @@
 #include "eeconfig.h"
 
 #ifdef AUDIO_ENABLE
-	#include "audio.h"
 	float mushroom[][2] = SONG(MARIO_MUSHROOM);
 #endif
 
