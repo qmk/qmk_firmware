@@ -1,5 +1,6 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>,
+          2019 fcoury <felipe.coury@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "rgblight.h"
 
-#include "i2c.h"
+#include "i2c_master.h"
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -35,7 +36,7 @@ void rgblight_set(void) {
     }
 
     i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
 }
 #endif
 
