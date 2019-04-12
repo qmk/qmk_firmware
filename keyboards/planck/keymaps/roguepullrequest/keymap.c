@@ -4,7 +4,6 @@
 
 #ifdef AUDIO_ENABLE
 	#include "audio.h"
-	#include "song_list.h"
 	float mushroom[][2] = SONG(MARIO_MUSHROOM);
 #endif
 
