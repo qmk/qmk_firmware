@@ -1,6 +1,5 @@
 # Programmer Dvorak for the Planck (Light)
 
-![LAYOUT IMAGE v0.1](layout.jpg?raw=true "Planck Layout")
 
 | Magic    |         | UPPER |
 |----------|---------|-------|
