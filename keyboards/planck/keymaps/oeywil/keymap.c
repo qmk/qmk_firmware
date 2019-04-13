@@ -102,7 +102,7 @@ void leader_end(void) {
   }
 }
 
-// tap dance
+// tap dance definitions
 typedef struct {
   bool is_press_action;
   int state;
@@ -224,17 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-/* Return an integer that corresponds to what kind of tap dance should be executed.
- *
- * How to figure out tap dance state: interrupted and pressed.
- *
- * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
- *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
- *
- * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
- *  has ended, but the key is still being pressed down. This generally means the key is being "held".
- *
- */
+// tap dance declarations
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
@@ -252,7 +242,6 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 8;
 }
 
-//instanalize an instance of 'tap'
 static tap xtap_state = {
   .is_press_action = true,
   .state = 0
