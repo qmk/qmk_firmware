@@ -14,7 +14,7 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _GAME,
-  _GAMELOWER
+  _GLOW
 };
 
 // macro definitions
@@ -27,7 +27,6 @@ enum planck_keycodes {
   float onsong[][2]  = SONG(MARIO_MUSHROOM);
   float offsong[][2] = SONG(PLOVER_GOODBYE_SOUND);
   float beep[][2]    = SONG(TERMINAL_SOUND);
-  float leader[][2]  = SONG(STARTUP_SOUND);
 #endif
 
 // macro declarations
@@ -87,9 +86,7 @@ void matrix_scan_user(void) {
 
 void leader_end(void) {
   if (leader_succeed) {
-    #ifdef AUDIO_ENABLE
-      PLAY_SONG(leader);
-    #endif
+    // do nothing
   } else if (leader_layer_on) {
     #ifdef AUDIO_ENABLE
       PLAY_SONG(onsong);
