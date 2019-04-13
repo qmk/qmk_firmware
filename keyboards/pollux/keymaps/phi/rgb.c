@@ -124,11 +124,11 @@ void rgb_update (bool force) {
     last_update = timer_read();
 
     if (layer_state != last_layer_state || force) {
-        rgb_set_bg_gradient(180, 64, 180, 64);
+        rgb_set_bg_gradient(180, 30, 180, 30);
         if (is_master) {
-            rgb_set_underglow_gradient(90, 127, 179, 127);
+            rgb_set_underglow_gradient(90, 100, 270, 100);
         } else {
-            rgb_set_underglow_gradient(179, 127, 90, 127);
+            rgb_set_underglow_gradient(90, 100, 270, 100);
         }
         last_layer_state = layer_state;
     }
