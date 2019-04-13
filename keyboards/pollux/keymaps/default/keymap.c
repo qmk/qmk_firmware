@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [RAISE] = LAYOUT_kc(                                                  \
-    ZNHN, 1,     2,    3,    4,     5,     6,    /**/ 6,    7,     8,    9,    0,    ____, BSPC, \
-    ____, ____,  ____, LCBR, LPRN,  LBRC,        /**/       RBRC,  RPRN, RCBR, ____, UP,   ____, \
-    ____, EXLM , AT,   HASH, DLR,   PERC,  CIRC, /**/ CIRC, AMPR,  ASTR, ____, LEFT, DOWN, RGHT, \
-    /*                           */ LANG2, LANG1,     ____, ____        \
+    ZNHN, 1,    2,    3,    4,     5,     6,   /**/ 6,    7,     8,    9,    0,    ____, BSPC, \
+    ____, ____, ____, LCBR, LPRN,  LBRC,       /**/       RBRC,  RPRN, RCBR, ____, UP,   ____, \
+    ____, ____, EXLM, AT,   HASH, DLR,   PERC, /**/ PERC, CIRC,  AMPR, ASTR, LEFT, DOWN, RGHT, \
+    /*                           */ LANG2, LANG1,   ____, ____        \
   ),
 
   [FUNCTION] = LAYOUT_kc(                                               \
