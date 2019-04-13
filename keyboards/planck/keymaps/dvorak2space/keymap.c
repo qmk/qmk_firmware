@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [1] = LAYOUT_planck_2x2u(
     KC_TRNS,KC_TRNS,KC_SLSH,KC_1,   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-    KC_NO,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
     KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_NO,          KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
   ),
@@ -80,15 +80,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   =  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Enter|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   <  |   >  |   &  |   |  |   _  |   $  |   @  |   #  |   %  |   ^  |      |
+ * |   `  |   <  |   >  |   &  |   |  |   _  |   $  |   @  |   #  |   %  |   ^  |   ~  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |    Space    |             |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
   [2] = LAYOUT_planck_2x2u(
-    KC_TRNS,KC_PLUS,KC_PMNS,KC_ASTR,TD(FB), HK_IF,  HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,KC_TRNS,
-    KC_PEQL,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_TRNS,
-    KC_NO,  KC_LT,  KC_GT,  KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR, KC_AT,  KC_HASH,KC_PERC,KC_CIRC,KC_NO,
+    KC_TRNS,KC_PLUS,TD(DSH),KC_ASTR,TD(FB), HK_IF,  HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,KC_TRNS,
+    KC_EQL, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_TRNS,
+    KC_GRV, KC_LT,  KC_GT,  KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR, KC_AT,  KC_HASH,KC_PERC,KC_CIRC,LSFT(KC_GRV),
     KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_SPC, KC_TRNS,        KC_NO,  KC_NO,  KC_NO,  KC_NO
   ),
 //Nav
@@ -149,18 +149,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
     case HK_COSL:
       break;
     case HK_SLP:
-      if(record->event.pressed && IS_LAYER_ON(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F23))); }
-      if(!record->event.pressed) {
-        if(IS_LAYER_OFF(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F24))); }
-        layer_invert(LOCK_L);
-      }
-      break;
-    default:
-      if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) {
-        SEND_STRING(passwords[keycode - KC_A]);
-        layer_invert(PASS_L);
+      if(record->event.pressed) {
+        if(IS_LAYER_OFF(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F23))); }
+        else { SEND_STRING(SS_LALT(SS_TAP(X_F24))); }
         return false;
       }
+      else layer_invert(LOCK_L);
+      break;
+    default:
+      if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) { SEND_STRING(passwords[keycode - KC_A]); }
   }
   return true;
 };
@@ -208,9 +205,9 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
-  [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LCBR),
-  [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RCBR),
+  [FB]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
+  [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
+  [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
   [BCK] = ACTION_TAP_DANCE_FN_ADVANCED(back_tap, back_finished, NULL), //each tap, on finished, and reset. Normally register_code on press unregister on reset so keys
   [DSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_finished, NULL) //can be held down, but in both cases a trigger I'm using is holding them down so no point.
 };
