@@ -53,9 +53,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [0] = LAYOUT_planck_2x2u(
     KC_TAB,  KC_QUOT,KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    TD(BCK),
-    TT(NAV_L),KC_A,  KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_ENT,
+    MO(NAV_L),KC_A,  KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_ENT,
     KC_LSFT, KC_SCLN,KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    KC_ESC,  MOUSER, MOUSEL,  KC_LCTL,          KC_SPC,  TT(MOD_L),        KC_LGUI, KC_VOLD, KC_VOLU, OSL(AHK_L)
+    KC_ESC,  MOUSER, MOUSEL,  KC_LCTL,          KC_SPC,  MO(MOD_L),        KC_LGUI, KC_VOLD, KC_VOLU, OSL(AHK_L)
   ),
 /* Custom Shifts
  * ,-----------------------------------------------------------------------------------.
@@ -154,7 +154,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
         else { SEND_STRING(SS_LALT(SS_TAP(X_F24))); }
         return false;
       }
-      else layer_invert(LOCK_L);
+      layer_invert(LOCK_L);
+      if(IS_LAYER_ON(AHK_L))
+        layer_invert(AHK_L);
       break;
     default:
       if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) { SEND_STRING(passwords[keycode - KC_A]); }
