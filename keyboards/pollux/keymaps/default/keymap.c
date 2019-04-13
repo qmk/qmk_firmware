@@ -48,6 +48,7 @@ extern uint8_t is_master;
 #define KC_WDN  KC_WH_D
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
+#define KC_ZNHN A(KC_ZKHK)
 
 /* KEYMAPS */
 
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [RAISE] = LAYOUT_kc(                                                  \
-    BSPC, 1,     2,    3,    4,     5,     6,    /**/ 6,    7,     8,    9,    0,    ____, ____, \
+    ZNHN, 1,     2,    3,    4,     5,     6,    /**/ 6,    7,     8,    9,    0,    ____, BSPC, \
     ____, ____,  ____, LCBR, LPRN,  LBRC,        /**/       RBRC,  RPRN, RCBR, ____, UP,   ____, \
     ____, EXLM , AT,   HASH, DLR,   PERC,  CIRC, /**/ CIRC, AMPR,  ASTR, ____, LEFT, DOWN, RGHT, \
     /*                           */ LANG2, LANG1,     ____, ____        \
