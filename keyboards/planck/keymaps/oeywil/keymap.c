@@ -17,31 +17,12 @@ enum planck_layers {
   _GLOW
 };
 
-// macro definitions
-enum planck_keycodes {
-  BEEP = SAFE_RANGE,
-};
-
 // sounds
 #ifdef AUDIO_ENABLE
   float onsong[][2]  = SONG(MARIO_MUSHROOM);
   float offsong[][2] = SONG(PLOVER_GOODBYE_SOUND);
-  float beep[][2]    = SONG(TERMINAL_SOUND);
+  float failed[][2]  = SONG(TERMINAL_SOUND);
 #endif
-
-// macro declarations
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case BEEP:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(beep);
-        #endif
-      }
-      break;
-  }
-  return true;
-};
 
 // leader key
 bool leader_succeed;
@@ -97,7 +78,7 @@ void leader_end(void) {
     #endif
   } else {
     #ifdef AUDIO_ENABLE
-      PLAY_SONG(beep);
+      PLAY_SONG(failed);
     #endif
   }
 }
@@ -200,10 +181,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_GAME] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W, KC_E,    KC_R,      KC_T,   KC_Y,   KC_U,      KC_I, KC_O,    BEEP,    KC_BSPC,
-    KC_ESC,  KC_A,    KC_S, KC_D,    KC_F,      KC_G,   KC_H,   KC_J,      KC_K, KC_L,    BEEP,    BEEP,
-    KC_LSFT, KC_Z,    KC_X, KC_C,    KC_V,      KC_B,   KC_N,   KC_M,      KC_P, KC_COMM, KC_DOT,  BEEP,
-    KC_LCTL, KC_LEAD, BEEP, KC_LALT, MO(_GLOW), KC_SPC, KC_ENT, MO(_GLOW), BEEP, BEEP,    KC_LEAD, BEEP
+    KC_TAB,  KC_Q,    KC_W,  KC_E,    KC_R,      KC_T,   KC_Y,   KC_U,      KC_I, KC_O,    KC_NO,   KC_BSPC,
+    KC_ESC,  KC_A,    KC_S,  KC_D,    KC_F,      KC_G,   KC_H,   KC_J,      KC_K, KC_L,    KC_NO,   KC_NO,
+    KC_LSFT, KC_Z,    KC_X,  KC_C,    KC_V,      KC_B,   KC_N,   KC_M,      KC_P, KC_COMM, KC_DOT,  KC_NO,
+    KC_LCTL, KC_LEAD, KC_NO, KC_LALT, MO(_GLOW), KC_SPC, KC_ENT, MO(_GLOW), KC_NO, KC_NO,  KC_LEAD, KC_NO
   ),
   /* Game lower
    * ,-----------------------------------------------------------------------------------.
