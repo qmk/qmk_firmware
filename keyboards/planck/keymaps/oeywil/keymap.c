@@ -238,7 +238,6 @@ void lsft_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       register_code(KC_LSFT);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       register_code(KC_NUBS);
       break;
@@ -257,7 +256,6 @@ void lsft_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       unregister_code(KC_LSFT);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       unregister_code(KC_NUBS);
       break;
@@ -278,7 +276,6 @@ void rsft_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       register_code(KC_RSFT);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       register_mods(MOD_BIT(KC_LSFT));
       register_code(KC_NUBS);
@@ -299,7 +296,6 @@ void rsft_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       unregister_code(KC_RSFT);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       unregister_code(KC_NUBS);
       unregister_mods(MOD_BIT(KC_LSFT));
@@ -322,7 +318,6 @@ void lctl_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       register_code(KC_LCTL);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       register_mods(MOD_BIT(KC_ALGR));
       register_code(KC_8);
@@ -343,7 +338,6 @@ void lctl_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       unregister_code(KC_LCTL);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       unregister_code(KC_8);
       unregister_mods(MOD_BIT(KC_ALGR));
@@ -366,7 +360,6 @@ void rctl_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       register_code(KC_RCTL);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       register_mods(MOD_BIT(KC_ALGR));
       register_code(KC_9);
@@ -387,7 +380,6 @@ void rctl_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       unregister_code(KC_RCTL);
       break;
-    case DOUBLE_HOLD:
     case DOUBLE_TAP:
       unregister_code(KC_9);
       unregister_mods(MOD_BIT(KC_ALGR));
