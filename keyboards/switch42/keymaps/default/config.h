@@ -28,12 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 #define MASTER_LEFT             /* LEFT or RIGHT (or EE_HANDS) */
 
-#define MATRIX_ROWS_SINGLE (MATRIX_ROWS >> 1) /* # of rows per hand */
-#define BACKLIGHT_NUM (MATRIX_ROWS_SINGLE * MATRIX_COLS - (MATRIX_COLS >> 1))
-#define UNDERGLOW_NUM 4
+/* *** COMMENT THIS LINE IF YOU ARE USING UNDERGLOW *** */
+#define USE_BACKLIGHT
 
 #undef RGBLED_NUM
-#define RGBLED_NUM (BACKLIGHT_NUM + UNDERGLOW_NUM)
+#ifdef USE_BACKLIGHT
+#define RGBLED_NUM 21
+#else
+#define RGBLED_NUM 4
+#endif
 
 // #define CATERINA_BOOTLOADER /* Explicitly use caterina bootloader to make RESET keycode available */
 #define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
