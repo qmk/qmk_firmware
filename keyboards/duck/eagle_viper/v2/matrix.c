@@ -156,11 +156,11 @@ uint8_t read_fwkey(void)
 /* Columns 0 - 15
  *
  * atmega32u4   decoder    pin
- *    PC6          U1      E2
- *    PB6          U2      E2    
- *    PF0          U1      A0
- *    PF1          U1      A1
- *    PC7          U1      A2
+ *    PC6       U1         E2
+ *    PB6       U2         E2    
+ *    PF0       U1, U2     A0
+ *    PF1       U1, U2     A1
+ *    PC7       U1, U2     A2
  * 
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
  * col / pin:    PC6  PB6  PF0  PF1  PC7 Decoder  Pin
