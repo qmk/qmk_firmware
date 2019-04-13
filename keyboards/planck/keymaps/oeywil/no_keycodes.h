@@ -25,8 +25,4 @@
 // altgr
 #define NO_ALFA ALGR(KC_2)
 #define NO_USDO ALGR(KC_4)
-#define NO_LBRA ALGR(KC_7)
-#define NO_LBRC ALGR(KC_8)
-#define NO_RBRC ALGR(KC_9)
-#define NO_RBRA ALGR(KC_0)
 #define NO_TILD ALGR(KC_RBRC)

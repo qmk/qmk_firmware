@@ -29,14 +29,9 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-// One Shot Modifiers
-#define ONESHOT_TAP_TOGGLE 5
-#define ONESHOT_TIMEOUT 3000
-
-// Space Cadet Shift
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
-
 // Leader Key
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING
+
+// Tap dance
+#define TAPPING_TERM 200

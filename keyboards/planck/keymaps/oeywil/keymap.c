@@ -102,6 +102,39 @@ void leader_end(void) {
   }
 }
 
+// tap dance
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
+};
+
+enum {
+  TD_LSFT = 0,
+  TD_LCTL,
+  TD_RSFT,
+  TD_RCTL
+};
+
+int cur_dance (qk_tap_dance_state_t *state);
+void lsft_finished (qk_tap_dance_state_t *state, void *user_data);
+void lsft_reset (qk_tap_dance_state_t *state, void *user_data);
+void rsft_finished (qk_tap_dance_state_t *state, void *user_data);
+void rsft_reset (qk_tap_dance_state_t *state, void *user_data);
+void lctl_finished (qk_tap_dance_state_t *state, void *user_data);
+void lctl_reset (qk_tap_dance_state_t *state, void *user_data);
+void rctl_finished (qk_tap_dance_state_t *state, void *user_data);
+void rctl_reset (qk_tap_dance_state_t *state, void *user_data);
+
 // layer declarations
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Default
@@ -116,10 +149,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_DEFAULT] = LAYOUT_planck_grid(
-    KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,   KC_Y,   KC_U,       KC_I,    KC_O,    NO_AA,   KC_BSPC,
-    KC_ESC,        KC_A,    KC_S,    KC_D,    KC_F,       KC_G,   KC_H,   KC_J,       KC_K,    KC_L,    NO_OE,   NO_AE,
-    KC_LSPO,       KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,   KC_N,   KC_M,       KC_P,    KC_COMM, KC_DOT,  KC_RSPC,
-    OSM(MOD_LCTL), KC_LEAD, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE), KC_ALGR, KC_APP,  KC_LEAD, OSM(MOD_RCTL)
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,   KC_Y,   KC_U,       KC_I,    KC_O,    NO_AA,   KC_BSPC,
+    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,       KC_G,   KC_H,   KC_J,       KC_K,    KC_L,    NO_OE,   NO_AE,
+    TD(TD_LSFT), KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,   KC_N,   KC_M,       KC_P,    KC_COMM, KC_DOT,  TD(TD_RSFT),
+    TD(TD_LCTL), KC_LEAD, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE), KC_ALGR, KC_APP,  KC_LEAD, TD(TD_RCTL)
   ),
   /* Lower
    * ,-----------------------------------------------------------------------------------.
@@ -140,20 +173,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /* Raise
    * ,-----------------------------------------------------------------------------------.
-   * | Tab  |   !  |   ?  |   *  |   '  |   "  |   ¨  |   /  |   7  |   8  |   9  | Ins  |
+   * | Tab  |   !  |   ?  |   #  |   *  |   |  |   =  |   /  |   7  |   8  |   9  | Ins  |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * | BkSp |   @  |   &  |   $  |   #  |   %  |  <>  |   \  |   4  |   5  |   6  |      |
+   * | BkSp |   @  |   &  |   $  |   %  |   ~  |   +  |   \  |   4  |   5  |   6  |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   |  |   ~  |   {  |   }  |   [  |   ]  |   0  |   1  |   2  |   3  | Shift|
+   * | Shift|   '  |   "  |   ¨  |      |      |   -  |   0  |   1  |   2  |   3  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl |      | Win  | Alt  |      | Space| Enter| Raise| AltGr|   -  |   +  |   =  |
+   * | Ctrl |      | Win  | Alt  |      | Space| Enter| Raise| AltGr|      |      |      |
    * `-----------------------------------------------------------------------------------'
    */
   [_RAISE] = LAYOUT_planck_grid(
-    KC_TRNS, NO_EXCL, NO_QEST, NO_ASTE, NO_APOS, NO_QUOT, NO_UMLA, NO_FSLS, KC_7,    KC_8,    KC_9,    KC_INS,
-    KC_BSPC, NO_ALFA, NO_AMPE, NO_USDO, NO_HASH, NO_PERC, NO_ANBR, NO_BSLS, KC_4,    KC_5,    KC_6,    KC_NO,
-    KC_TRNS, NO_PIPE, NO_TILD, NO_LBRA, NO_RBRA, NO_LBRC, NO_RBRC, KC_0,    KC_1,    KC_2,    KC_3,    KC_TRNS,
-    KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, NO_DASH, NO_PLUS, NO_EQUA
+    KC_TRNS, NO_EXCL, NO_QEST, NO_HASH, NO_ASTE, NO_PIPE, NO_EQUA, NO_FSLS, KC_7,    KC_8,  KC_9,  KC_INS,
+    KC_BSPC, NO_ALFA, NO_AMPE, NO_USDO, NO_PERC, NO_TILD, NO_PLUS, NO_BSLS, KC_4,    KC_5,  KC_6,  KC_NO,
+    KC_TRNS, NO_APOS, NO_QUOT, NO_UMLA, KC_NO,   KC_NO,   NO_DASH, KC_0,    KC_1,    KC_2,  KC_3,  KC_TRNS,
+    KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO
   ),
   /* Game
    * ,-----------------------------------------------------------------------------------.
@@ -189,4 +222,221 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_7,    KC_8,    KC_9,    KC_0,    KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_MUTE,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MNXT, KC_NO, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU
   )
+};
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ */
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  }
+  else if (state->count == 2) {
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  if (state->count == 3) {
+    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8;
+}
+
+//instanalize an instance of 'tap'
+static tap xtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void lsft_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_8);
+      break;
+    case SINGLE_HOLD:
+      register_code(KC_LSFT);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      register_code(KC_NUBS);
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_code(KC_NUBS);
+      break;
+  }
+}
+
+void lsft_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_8);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_code(KC_LSFT);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      unregister_code(KC_NUBS);
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_NUBS);
+      break;
+  }
+  xtap_state.state = 0;
+}
+
+void rsft_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_9);
+      break;
+    case SINGLE_HOLD:
+      register_code(KC_RSFT);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_NUBS);
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_NUBS);
+      break;
+  }
+}
+
+void rsft_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_9);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_code(KC_RSFT);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      unregister_code(KC_NUBS);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_NUBS);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+  }
+  xtap_state.state = 0;
+}
+
+void lctl_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_7);
+      break;
+    case SINGLE_HOLD:
+      register_code(KC_LCTL);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_8);
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_8);
+      break;
+  }
+}
+
+void lctl_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_7);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+    case SINGLE_HOLD:
+      unregister_code(KC_LCTL);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      unregister_code(KC_8);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_8);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+  }
+  xtap_state.state = 0;
+}
+
+void rctl_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_0);
+      break;
+    case SINGLE_HOLD:
+      register_code(KC_RCTL);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_9);
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_ALGR));
+      register_code(KC_9);
+      break;
+  }
+}
+
+void rctl_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_0);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+    case SINGLE_HOLD:
+      unregister_code(KC_RCTL);
+      break;
+    case DOUBLE_HOLD:
+    case DOUBLE_TAP:
+      unregister_code(KC_9);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_9);
+      unregister_mods(MOD_BIT(KC_ALGR));
+      break;
+  }
+  xtap_state.state = 0;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Single tap = ( | Double tap = < | Single hold = KC_LSFT
+  [TD_LSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lsft_finished, lsft_reset),
+  // Single tap = ) | Double tap = > | Single hold = KC_RSFT
+  [TD_RSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rsft_finished, rsft_reset),
+  // Single tap = { | Double tap = [ | Single hold = KC_LCTL
+  [TD_LCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctl_finished, lctl_reset),
+  // Single tap = } | Double tap = ] | Single hold = KC_RCTL
+  [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rctl_finished, rctl_reset),
 };
