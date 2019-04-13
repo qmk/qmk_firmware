@@ -401,12 +401,8 @@ void rctl_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  // Single tap = ( | Double tap = < | Single hold = KC_LSFT
   [TD_LSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lsft_finished, lsft_reset),
-  // Single tap = ) | Double tap = > | Single hold = KC_RSFT
   [TD_RSFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rsft_finished, rsft_reset),
-  // Single tap = { | Double tap = [ | Single hold = KC_LCTL
   [TD_LCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lctl_finished, lctl_reset),
-  // Single tap = } | Double tap = ] | Single hold = KC_RCTL
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rctl_finished, rctl_reset),
 };
