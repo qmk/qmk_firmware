@@ -296,7 +296,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_DRIVER_ENABLE
 bool oled_init_user(bool flip180) {
 #ifdef OLED_ROTATE90
-  return true; // flips the display 180 degrees if offhand
+  return is_master; // flips the display 180 degrees if offhand
 #else
   return !is_master;
 #endif
@@ -369,11 +369,6 @@ void render_status(void) {
   oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR(" ALT ") : PSTR("     "), false);
   oled_write_P( (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? PSTR(" SFT ") : PSTR("     "), false);
 
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(PSTR("Lock:"), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
 
   oled_write_P(PSTR("BTMGK"), false);
   static const char PROGMEM mode_logo[4][4] = {
@@ -389,11 +384,25 @@ void render_status(void) {
     oled_write_P(mode_logo[2], false);
     oled_write_P(mode_logo[3], false);
   }
+  
+  uint8_t led_usb_state = host_keyboard_leds();
+  oled_write_P(PSTR("Lock:"), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
 }
 
 
 void oled_task_user(void) {
-    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+#ifdef OLED_ROTATE90
+  render_status();
+#else
+    if (is_master) {
+      render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+      render_crkbd_logo();
+    }
+#endif
 }
 #endif
 
