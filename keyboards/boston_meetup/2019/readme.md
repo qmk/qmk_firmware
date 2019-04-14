@@ -1,14 +1,13 @@
-# Boston Meetup Macropads
+# Boston Meetup 2019 Macropad
 
-![Boston Meetup Macropads](https://i.imgur.com/yQcBF8g.jpg)
+![Boston Meetup 2019](https://i.imgur.com/6LgBc4g.jpg)
  
-Limited-run boards designed for Boston MK community meetups.
+Limited-run board designed for Boston MK community meetup 2019.
 
 Keyboard Maintainer: [ishtob](https://github.com/ishtob), [QMK](https://github.com/qmk)  
-Hardware Supported: Boston Meetup PCB 2018, 2019 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make boston_meetup/YYYY:default
+    make boston_meetup/2019:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -27,12 +27,12 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     |             {x=0..224, y=0..64}
     |              |         modifier
     |              |         | */
-  {{1|(13<<4)},   {195, 3},  0},
-  {{4|(13<<4)},   {195, 16}, 0},
-  {{4|(10<<4)},   {150, 16}, 0},
-  {{4|(7<<4)},    {105, 16}, 0},
-  {{4|(4<<4)},    {60,  16}, 0},
-  {{1|(10<<4)},   {150, 3},  0}
+  {{1|(3<<4)},    {188, 16}, 0},
+  {{3|(3<<4)},    {187, 48}, 0},
+  {{4|(2<<4)},    {149, 64}, 0},
+  {{4|(1<<4)},    {112, 64}, 0},
+  {{3|(0<<4)},    {37,  48}, 0},
+  {{1|(0<<4)},    {38, 16}, 0}
 };
 #endif
 
@@ -155,28 +155,21 @@ void draw_ui(void) {
   send_buffer();
 }
 
-void read_host_led_state(void) {
-  uint8_t leds = host_keyboard_leds();
-  if (leds & (1 << USB_LED_NUM_LOCK))    {
-    if (led_numlock == false){
-    led_numlock = true;}
+void led_set_user(uint8_t usb_led) {
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+      if (led_numlock == false){led_numlock = true;}
     } else {
-    if (led_numlock == true){
-    led_numlock = false;}
+      if (led_numlock == true){led_numlock = false;}
     }
-  if (leds & (1 << USB_LED_CAPS_LOCK))   {
-    if (led_capslock == false){
-    led_capslock = true;}
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+      if (led_capslock == false){led_capslock = true;}
     } else {
-    if (led_capslock == true){  
-    led_capslock = false;}
+      if (led_capslock == true){led_capslock = false;}
     }
-  if (leds & (1 << USB_LED_SCROLL_LOCK)) {
-    if (led_scrolllock == false){
-    led_scrolllock = true;}
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+      if (led_scrolllock == false){led_scrolllock = true;}
     } else {
-    if (led_scrolllock == true){
-    led_scrolllock = false;}
+      if (led_scrolllock == true){led_scrolllock = false;}
     }
 }
 
@@ -207,7 +200,6 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
 if (queue_for_send) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
-   read_host_led_state();
    draw_ui();
 #endif
    queue_for_send = false;

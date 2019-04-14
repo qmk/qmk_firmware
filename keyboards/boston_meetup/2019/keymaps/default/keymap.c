@@ -7,7 +7,7 @@
 #define _BASE 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 16
+#define _ADJUST 3
 
 enum preonic_keycodes {
   BASE = SAFE_RANGE,
@@ -27,7 +27,7 @@ enum macro_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   M(KC_DEMOMACRO)            // Sample for macros
+#define DEMOMACRO   KC_DEMOMACRO                // Sample for macros
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -115,6 +115,14 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case KC_DEMOMACRO:
+            if (record->event.pressed) {
+        // when keycode KC_DEMOMACRO is pressed
+        SEND_STRING("QMK is the best thing ever!");
+      } else {
+        // when keycode KC_DEMOMACRO is released
+      }
+      break;
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -148,26 +156,6 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
-
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
-
 
 void matrix_init_user(void) {
 }
