@@ -792,4 +792,48 @@
   H__NOTE(_DF5), H__NOTE(_A4), B__NOTE(_AF4), W__NOTE(_DF5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_DF5), \
   H__NOTE(_EF5), BD_NOTE(_F5), 
 
+#define GOT_THEME \
+  WD_NOTE(_G5), WD_NOTE(_C5), Q__NOTE(_EF5), Q__NOTE(_F5), W__NOTE(_G5), W__NOTE(_C5), Q__NOTE(_EF5), Q__NOTE(_F5), H__NOTE(_D5), \
+  H__NOTE(_G4), Q__NOTE(_BF4), Q__NOTE(_C5), H__NOTE(_D5), H__NOTE(_G4), Q__NOTE(_BF4), Q__NOTE(_C5), H__NOTE(_D5), \
+  H__NOTE(_G4), Q__NOTE(_BF4), Q__NOTE(_C5), H__NOTE(_D5), H__NOTE(_BF4), H__NOTE(_D5), WD_NOTE(_F5), WD_NOTE(_BF4), \
+  W__NOTE(_D5), H__NOTE(_EF5), W__NOTE(_D5), H__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_G4), Q__NOTE(_AF4), Q__NOTE(_BF4), \
+  H__NOTE(_C5), H__NOTE(_G4), Q__NOTE(_AF4), Q__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_G4), Q__NOTE(_AF4), Q__NOTE(_BF4), \
+  WD_NOTE(_C5), H__NOTE(_C6), H__NOTE(_EF5), Q__NOTE(_AF5), Q__NOTE(_BF5), H__NOTE(_C6), H__NOTE(_EF5), Q__NOTE(_AF5), \
+  Q__NOTE(_C6), H__NOTE(_BF5), H__NOTE(_EF5), Q__NOTE(_G5), Q__NOTE(_AF5), H__NOTE(_BF5), H__NOTE(_EF5), H__NOTE(_G5), \
+  H__NOTE(_AF5), H__NOTE(_C5), Q__NOTE(_F5), Q__NOTE(_G5), H__NOTE(_AF5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_AF5), \
+  H__NOTE(_G5), H__NOTE(_C5), Q__NOTE(_EF5), Q__NOTE(_F5), H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_D5), H__NOTE(_EF5), \
+  H__NOTE(_AF4), Q__NOTE(_C5), Q__NOTE(_D5), H__NOTE(_EF5), H__NOTE(_AF4), Q__NOTE(_C5), Q__NOTE(_D5), H__NOTE(_EF5), \
+  H__NOTE(_AF4), H__NOTE(_EF5), H__NOTE(_D5), H__NOTE(_G4), H__NOTE(_D5), H__NOTE(_C5), H__NOTE(_G4), Q__NOTE(_AF4), \
+  Q__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_G4), Q__NOTE(_AF4), Q__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_G5), Q__NOTE(_AF5), \
+  Q__NOTE(_BF5), H__NOTE(_C6), H__NOTE(_G5), Q__NOTE(_AF5), Q__NOTE(_BF5), H__NOTE(_C6), H__NOTE(_G5), Q__NOTE(_AF5), \
+  Q__NOTE(_BF5), WD_NOTE(_C6), 
+
+#define THE_RAINS_OF_CASTAMERE \
+  H__NOTE(_A4), WD_NOTE(_F5), H__NOTE(_A4), WD_NOTE(_E5), H__NOTE(_A4), W__NOTE(_F5), W__NOTE(_G5), WD_NOTE(_E5), H__NOTE(_A4), \
+  W__NOTE(_G5), W__NOTE(_F5), W__NOTE(_E5), W__NOTE(_D5), BD_NOTE(_E5), H__NOTE(_A5), W__NOTE(_A5), H__NOTE(_BF5), \
+  W__NOTE(_G5), H__NOTE(_C5), H__NOTE(_C5), W__NOTE(_A5), W__NOTE(_BF5), WD_NOTE(_G5), H__NOTE(_C5), W__NOTE(_BF5), \
+  W__NOTE(_A5), W__NOTE(_G5), W__NOTE(_F5), BD_NOTE(_E5), W__NOTE(_A4), H__NOTE(_E5), H__NOTE(_F5), B__NOTE(_D5), \
+  W__NOTE(_F5), H__NOTE(_F5), H__NOTE(_E5), B__NOTE(_A4), W__NOTE(_A4), H__NOTE(_E5), H__NOTE(_F5), B__NOTE(_D5), \
+  W__NOTE(_F5), BD_NOTE(_E5), W__NOTE(_A4), H__NOTE(_E5), H__NOTE(_F5), B__NOTE(_D5), W__NOTE(_A5), W__NOTE(_A5), \
+  W__NOTE(_G5), WD_NOTE(_D5), H__NOTE(_E5), WD_NOTE(_F5), H__NOTE(_D5), WD_NOTE(_E5), H__NOTE(_C5), BD_NOTE(_D5), \
+  W__NOTE(_A4), H__NOTE(_E5), H__NOTE(_F5), B__NOTE(_D5), W__NOTE(_A5), W__NOTE(_A5), W__NOTE(_G5), WD_NOTE(_D5), \
+  H__NOTE(_E5), WD_NOTE(_F5), H__NOTE(_D5), H__NOTE(_A5), H__NOTE(_G5), H__NOTE(_E5), H__NOTE(_F5), BD_NOTE(_D5),
+
+#define LIGHT_OF_THE_SEVEN \
+  H__NOTE(_C5), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_G5), H__NOTE(_F4), \
+  H__NOTE(_C5), H__NOTE(_AF5), H__NOTE(_C5), H__NOTE(_AF5), H__NOTE(_C5), H__NOTE(_F4), H__NOTE(_C5), H__NOTE(_C5), \
+  H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_G5), BD_NOTE(_C5), \
+  H__NOTE(_F4), H__NOTE(_C5), H__NOTE(_AF5), H__NOTE(_C5), H__NOTE(_AF5), H__NOTE(_C5), H__NOTE(_F4), H__NOTE(_C5), \
+  H__NOTE(_EF4), H__NOTE(_BF4), H__NOTE(_G5), H__NOTE(_BF4), B__NOTE(_G5), H__NOTE(_G4), H__NOTE(_D5), H__NOTE(_F5), \
+  H__NOTE(_D5), B__NOTE(_F5), BD_NOTE(_C5), H__NOTE(_C7), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_C7), \
+  H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_G5), H__NOTE(_C7), H__NOTE(_C5), H__NOTE(_BF6), H__NOTE(_C5), H__NOTE(_AF6), \
+  H__NOTE(_C5), H__NOTE(_G6), H__NOTE(_C5), H__NOTE(_C7), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), H__NOTE(_C7), \
+  H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_G5), BD_NOTE(_C7), H__NOTE(_C7), H__NOTE(_G5), H__NOTE(_EF6), H__NOTE(_G5), \
+  H__NOTE(_C7), H__NOTE(_G5), H__NOTE(_C5), H__NOTE(_G5), H__NOTE(_C7), H__NOTE(_G5), H__NOTE(_B6), H__NOTE(_G5), \
+  H__NOTE(_A6), H__NOTE(_G5), H__NOTE(_G6), H__NOTE(_G5), H__NOTE(_C7), H__NOTE(_EF5), H__NOTE(_C6), H__NOTE(_EF5), \
+  H__NOTE(_C7), H__NOTE(_EF5), H__NOTE(_G5), H__NOTE(_EF5), BD_NOTE(_C7), B__NOTE(_C7), B__NOTE(_G6), H__NOTE(_AF6), \
+  H__NOTE(_BF6), W__NOTE(_C7), B__NOTE(_G6), B__NOTE(_C6), B__NOTE(_G5), H__NOTE(_AF5), H__NOTE(_BF5), W__NOTE(_C6), \
+  B__NOTE(_D6), B__NOTE(_F6), B__NOTE(_G5), H__NOTE(_C6), H__NOTE(_D6), W__NOTE(_F6), W__NOTE(_C6), W__NOTE(_G5), \
+  BD_NOTE(_C7),
+
 #endif
