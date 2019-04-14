@@ -9,8 +9,8 @@ KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
 
 #Firmware reduction options
-MOUSEKEY_ENABLE			 = yes 		# 1500 bytes
-NO_TAPPING				 = no 	    # 2000 bytes
+MOUSEKEY_ENABLE			 = no 		# 1500 bytes
+NO_TAPPING				 = yes		# 2000 bytes
 NO_PRINT				 = yes		
 
 #Debug options
