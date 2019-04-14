@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing
 
-**Reset Key:** Hold down the key located at `K00`, commonly programmed as left control while plugging in the keyboard. You may also hold down the key located at `K50`, commonly programmed as the `Esc` key. 
+**Reset Key:** Hold down the key located at `K00`, commonly programmed as left control while plugging in the keyboard.
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
@@ -34,7 +34,7 @@ macOS:
     ```
 3. Install the following packages:
     ```
-    brew install python
+    brew install python3
     pip3 install pyusb
     brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
 

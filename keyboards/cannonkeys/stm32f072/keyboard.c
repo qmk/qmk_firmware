@@ -15,7 +15,6 @@ backlight_config_t kb_backlight_config = {
   .level = BACKLIGHT_LEVELS
 };
 
-
 bool eeprom_is_valid(void)
 {
 	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
@@ -51,8 +50,12 @@ void eeprom_init_kb(void)
 	} else	{
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
+    save_backlight_config_to_eeprom();
 	}
 }
+
+__attribute__ ((weak))
+void matrix_init_board(void);
 
 void matrix_init_kb(void){
   	eeprom_init_kb();
@@ -64,6 +67,8 @@ void matrix_init_kb(void){
     leds_init();
 #endif
     backlight_init_ports();
+
+    matrix_init_board();
 }
 
 void matrix_scan_kb(void)
