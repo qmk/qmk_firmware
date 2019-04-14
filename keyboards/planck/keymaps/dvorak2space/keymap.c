@@ -14,6 +14,8 @@
 #define LOCK_L  5
 #define PASS_L  6
 
+static host_driver_t *host_driver = 0;
+
 enum {
   HK_SLP = SAFE_RANGE,
   HK_IF,
@@ -150,8 +152,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       break;
     case HK_SLP:
       if(record->event.pressed) {
-        if(IS_LAYER_OFF(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F23))); }
-        else { SEND_STRING(SS_LALT(SS_TAP(X_F24))); }
+        if(IS_LAYER_OFF(LOCK_L)) {
+          host_driver = host_get_driver();
+          SEND_STRING(SS_LALT(SS_TAP(X_F23)));
+          host_set_driver(0);
+        }
+        else {
+          host_set_driver(host_driver);
+          SEND_STRING(SS_LALT(SS_TAP(X_F24)));
+        }
         return false;
       }
       layer_invert(LOCK_L);
