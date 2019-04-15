@@ -19,22 +19,22 @@ enum planck_layers {
 
 // sounds
 #ifdef AUDIO_ENABLE
-  float onsong[][2]  = SONG(MARIO_MUSHROOM);
-  float offsong[][2] = SONG(PLOVER_GOODBYE_SOUND);
+  float gamesong[][2]  = SONG(MARIO_MUSHROOM);
+  float defsong[][2] = SONG(PLOVER_GOODBYE_SOUND);
   float failed[][2]  = SONG(TERMINAL_SOUND);
 #endif
 
 // leader key
 bool leader_succeed;
-bool leader_layer_on;
-bool leader_layer_off;
+bool leader_layer_game;
+bool leader_layer_def;
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leader_succeed = leading = false;
-    leader_layer_on = false;
-    leader_layer_off = false;
+    leader_layer_gameleader_layer_game = false;
+    leader_layer_def = false;
 
     SEQ_TWO_KEYS(KC_P, KC_P) {
       SEND_STRING(pwd_str);
@@ -55,11 +55,11 @@ void matrix_scan_user(void) {
     }
     SEQ_TWO_KEYS(KC_L, KC_G) {
       layer_on(_GAME);
-      leader_layer_on = true;
+      leader_layer_game = true;
     }
     SEQ_TWO_KEYS(KC_L, KC_D) {
       layer_off(_GAME);
-      leader_layer_off = true;
+      leader_layer_def = true;
     }
     leader_end();
   }
@@ -68,13 +68,13 @@ void matrix_scan_user(void) {
 void leader_end(void) {
   if (leader_succeed) {
     // do nothing
-  } else if (leader_layer_on) {
+  } else if (leader_layer_game) {
     #ifdef AUDIO_ENABLE
-      PLAY_SONG(onsong);
+      PLAY_SONG(gamesong);
     #endif
-  } else if (leader_layer_off) {
+  } else if (leader_layer_def) {
     #ifdef AUDIO_ENABLE
-      PLAY_SONG(offsong);
+      PLAY_SONG(defsong);
     #endif
   } else {
     #ifdef AUDIO_ENABLE
@@ -94,7 +94,7 @@ enum {
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
   DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  DOUBLE_SINGLE_TAP = 5,
   TRIPLE_TAP = 6,
   TRIPLE_HOLD = 7
 };
