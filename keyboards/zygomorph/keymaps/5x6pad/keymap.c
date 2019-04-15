@@ -58,8 +58,7 @@ LAYOUT_5x6( \
       KC_TAB,  _10,     _11,     _12,     _13,     _14, \
       FN_CAPS, _20,     _21,     _22,     _23,     _24, \
       KC_LSFT, _30,     _31,     _32,     _33,     _34, \
-      KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, ADJ,  KC_SPC, \
-                        _______, _______ \
+      KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, ADJ,  KC_SPC \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -82,8 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, \
       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
       _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, RGB_MOD, _______, _______, \
-                        KC_VOLU, KC_VOLD \
+      _______, _______, _______, RGB_MOD, _______, _______ \
       ),
 
   [_ADJ] =  LAYOUT_5x6( \
@@ -91,8 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, \
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, \
       _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, RGB_MOD, _______, _______, \
-                        KC_VOLU, KC_VOLD \
+      _______, _______, _______, RGB_MOD, _______, _______ \
       )
 };
 
@@ -124,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MACROPAD:
       if(record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        set_single_persistent_default_layer(_MACROPAD);
       }
       return false;
       break;

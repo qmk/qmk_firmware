@@ -12,7 +12,7 @@ place:
 ``` text
 +------+         +-----+       +----------+      +----------+     +----+
 | User |-------->| Key |------>| Firmware |----->| USB wire |---->| OS |
-+------+         +-----+       +----------+      +----------+     |----+
++------+         +-----+       +----------+      +----------+     +----+
 ```
 
 This scheme is a very simple view of what's going on, and more details follow

@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -44,6 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
 
+/* Set to top left most key */
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 10
+
 #define TAPPING_TERM 200
 
-#endif
