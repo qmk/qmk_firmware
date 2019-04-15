@@ -18,7 +18,6 @@ MCU = atmega32a
 PROTOCOL = VUSB
 
 # unsupported features for now
-NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
 
 # processor frequency
@@ -31,7 +30,7 @@ F_CPU = 12000000
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
