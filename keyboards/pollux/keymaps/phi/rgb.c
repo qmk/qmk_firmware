@@ -1,12 +1,12 @@
-#define BG_GRADIENT_VALUE 96
-#define UNDERGLOW_VALUE 96
+#define BG_GRADIENT_VALUE 65
+#define UNDERGLOW_VALUE 50
 #define RGB_REFRESH_INTERVAL 66 /* 15fps */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 LED_TYPE bg[BACKLIGHT_NUM];
 
 bool fg[BACKLIGHT_NUM];
-LED_TYPE fg_color = { .r = 24, .g = 16, .b = 16 };
+LED_TYPE fg_color = { .r = 24, .g = 24, .b = 24 };
 
 LED_TYPE led[RGBLED_NUM];
 int dirty_led_count = 0;
@@ -124,7 +124,7 @@ void rgb_update (bool force) {
     last_update = timer_read();
 
     if (layer_state != last_layer_state || force) {
-        rgb_set_bg_gradient(180, 30, 180, 30);
+        rgb_set_bg_gradient(90, 40, 90, 40);
         if (is_master) {
             rgb_set_underglow_gradient(90, 100, 270, 100);
         } else {
