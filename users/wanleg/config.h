@@ -38,7 +38,9 @@
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 
-// Disable mod tap interrrupt
-#ifndef IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT
-#endif // !mod tap interrrupt
+
+#define PERMISSIVE_HOLD
+//// Disable mod tap interrrupt
+//#ifndef IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
+//#endif // !mod tap interrrupt
