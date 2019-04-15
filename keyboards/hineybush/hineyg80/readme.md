@@ -1,6 +1,5 @@
 # hineyg80
 
-hineyg80
 
 A small-batch PCB design to be a drop-in replacement for G80-1800 and G81-1800 boards.
 
