@@ -95,7 +95,7 @@ void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t n
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
       matrix_row_t col_mask = (ROW_SHIFTER << col);
       if ((delta & col_mask) && *debounce_pointer == DEBOUNCE_ELAPSED) {
-        *debounce_pointer = current_time;
+        *debounce_pointer    = current_time;
         counters_need_update = true;
         existing_row ^= col_mask;  // flip the bit.
       }
