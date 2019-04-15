@@ -275,6 +275,10 @@ void keyboard_task(void)
                 if (debug_matrix) matrix_print();
                 for (uint8_t c = 0; c < MATRIX_COLS; c++) {
                     if (matrix_change & ((matrix_row_t)1<<c)) {
+                        if (keymap_key_to_keycode(layer_switch_get_layer((keypos_t){r, c}), (keypos_t){r, c}) == KC_NO) {
+                          matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                          goto MATRIX_LOOP_END;
+                        }
                         action_exec((keyevent_t){
                             .key = (keypos_t){ .row = r, .col = c },
                             .pressed = (matrix_row & ((matrix_row_t)1<<c)),
