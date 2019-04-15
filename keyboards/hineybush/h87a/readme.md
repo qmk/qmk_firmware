@@ -5,7 +5,6 @@ A QMK-powered replacement PCB for custom TKL keyboards. This PCB has the same si
 
 Keyboard Maintainer: [hineybush](https://github.com/hineybush)  
 Hardware Supported: h87a ver. 1.5, ver. 1.6 (normal and thin), h87alps  
-
 Hardware Availability: hineybush.com
 
 Make example for this keyboard (after setting up your build environment):
