@@ -1,6 +1,7 @@
 #pragma once
 #ifndef DISABLE_RGB_MATRIX_BREATHING
 
+extern rgb_counters_t g_rgb_counters;
 extern rgb_config_t rgb_matrix_config;
 
 bool rgb_matrix_breathing(effect_params_t* params) {
