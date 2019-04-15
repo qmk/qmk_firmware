@@ -33,7 +33,7 @@ LEADER_EXTERNS();
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leader_succeed = leading = false;
-    leader_layer_gameleader_layer_game = false;
+    leader_layer_game = false;
     leader_layer_def = false;
 
     SEQ_TWO_KEYS(KC_P, KC_P) {
