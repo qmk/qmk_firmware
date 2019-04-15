@@ -1,5 +1,4 @@
-#ifndef VITAMINS_INCLUDED_H
-#define VITAMINS_INCLUDED_H
+#pragma once
 
 #include "quantum.h"
 
@@ -25,5 +24,3 @@
     )
 
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
-
-#endif
