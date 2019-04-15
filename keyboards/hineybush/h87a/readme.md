@@ -4,7 +4,6 @@ h87a
 A QMK-powered replacement PCB for custom TKL keyboards. This PCB has the same size of the b.87 PCB, while using the USB port placement and spacebar stabilizer orientation as the a.87 PCB.
 
 Keyboard Maintainer: [hineybush](https://github.com/hineybush)  
-
 Hardware Supported: h87a ver. 1.5, ver. 1.6 (normal and thin), h87alps
 
 Hardware Availability: hineybush.com
