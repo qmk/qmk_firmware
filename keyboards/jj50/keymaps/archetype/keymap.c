@@ -38,66 +38,62 @@ enum {
 
 void left_brackets(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-      if (state->interrupted || !state->pressed) {
-        register_mods(MOD_LSFT);
+      if (!state->pressed) {
+        register_code(KC_LSFT);
         register_code(KC_9);
       } else {
-        register_mods(MOD_LCTL);
+        register_code(KC_LCTL);
       }
     } else if (state->count == 2) {
         register_code(KC_LBRC);
     } else if (state->count == 3) {
-        register_mods(MOD_LSFT);
+        register_code(KC_LSFT);
         register_code(KC_LBRC);
     }
 }
 
 void left_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-      if (state->interrupted || !state->pressed) {
-        unregister_mods(MOD_LSFT);
+        unregister_code(KC_LSFT);
         unregister_code(KC_9);
-      } else {
-        unregister_mods(MOD_LCTL);
-      }
     } else if (state->count == 2) {
         unregister_code(KC_LBRC);
     } else if (state->count == 3) {
-        unregister_mods(MOD_LSFT);
+        unregister_code(KC_LSFT);
         unregister_code(KC_LBRC);
     }
+
+    unregister_code(KC_LCTL);
 }
 
 void right_brackets(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-      if (state->interrupted || !state->pressed) {
-        register_mods(MOD_LSFT);
+      if (!state->pressed) {
+        register_code(KC_LSFT);
         register_code(KC_0);
       } else {
-        register_mods(MOD_LALT);
+        register_code(KC_LALT);
       }
     } else if (state->count == 2) {
         register_code(KC_RBRC);
     } else if (state->count == 3) {
-        register_mods(MOD_LSFT);
+        register_code(KC_LSFT);
         register_code(KC_RBRC);
     }
 }
 
 void right_brackets_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-      if (state->interrupted || !state->pressed) {
-        unregister_mods(MOD_LSFT);
+        unregister_code(KC_LSFT);
         unregister_code(KC_0);
-      } else {
-        unregister_mods(MOD_LALT);
-      }
     } else if (state->count == 2) {
         unregister_code(KC_RBRC);
     } else if (state->count == 3) {
-        unregister_mods(MOD_LSFT);
+        unregister_code(KC_LSFT);
         unregister_code(KC_RBRC);
     }
+
+    unregister_code(KC_LALT);
 }
 
 typedef struct {
@@ -163,7 +159,7 @@ void layer_switcher_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD: unregister_code(KC_ESC); break;
     case DOUBLE_TAP: unregister_code(KC_ESC); break;
     case DOUBLE_HOLD: break;
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_PGUP); break;
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_ESC); break;
     case TRIPLE_TAP: unregister_code(KC_ESC); break;
     case TRIPLE_HOLD: break;
     case TRIPLE_SINGLE_TAP: unregister_code(KC_ESC); break;
@@ -205,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+|
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
-        TD(TD_LCTL_LBRC),     KC_LGUI,      TD(TD_LALT_RBRC),     _______,          _______,       LT(_FN, KC_SPC),  LT(_FN, KC_SPC),     _______,          KC_COMM,          KC_LEFT,          KC_DOWN,          KC_RGHT       \
+        TD(TD_LCTL_LBRC),     KC_LGUI,      TD(TD_LALT_RBRC),     _______,          _______,        LT(_FN, KC_SPC),    _______,        LT(_FX, KC_SPC),    KC_COMM,          KC_LEFT,          KC_DOWN,          KC_RGHT       \
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+'
     ),
@@ -268,19 +264,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+|
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
-            _______,          BL_ON,            BL_INC,           RGB_TOG,          RGB_MOD,          _______,          _______,          _______,          _______,          _______,          _______,          _______,      \
+            _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          RGB_VAI,          _______,      \
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+|
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
-            _______,          BL_OFF,           BL_DEC,           RGB_HUI,          RGB_SAI,          RGB_VAI,          RGB_SPI,          _______,          _______,          _______,          _______,          _______,      \
+            _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          RGB_VAD,          _______,      \
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+|
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
-            _______,          RGB_TOG,          BL_STEP,          RGB_HUD,          RGB_SAD,          RGB_VAD,          RGB_SPD,          _______,          _______,          _______,          _______,          _______,      \
+            _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          RGB_MOD,          RGB_HUI,          RGB_TOG,      \
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+|
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
-            _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______       \
+            _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          _______,          RGB_SAI,          RGB_HUD,          RGB_SAD       \
       //|                |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                  |
       //,----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+'
     ),
