@@ -47,9 +47,9 @@ The instructions below have been adapted from https://www.reddit.com/r/olkb/comm
 | Arduino | ProMicro |
 | --- | --- |
 | 10 | RST |
-| 11 | 16 |
-| 12 | 14 |
-| 13 | 15 |
+| 11 (MOSI) | 16 |
+| 12 (MISO) | 14 |
+| 13 (SCK) | 15 |
 | GND | GND |
 | 5V | VCC |
 
