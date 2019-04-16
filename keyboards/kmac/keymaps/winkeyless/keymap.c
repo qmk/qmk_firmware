@@ -22,6 +22,13 @@
 #define _BL 0
 #define _FL 1
 
+enum custom_keycodes {
+    KC_THE = SAFE_RANGE,
+    KC_CUSTOM,
+    KC_KEYBOARD,
+    KC_COPYPASTE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = LAYOUT_WKL(
         KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SLCK, KC_BRK,
@@ -31,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, MO(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT),
     [_FL] = LAYOUT_WKL(
-        BL_STEP, M(0), M(1), M(2), M(3), M(4), M(5), M(6), M(7), M(8), M(9), M(10), M(11), _______, _______, _______,
+        BL_STEP, KC_THE, KC_CUSTOM, KC_KEYBOARD, KC_COPYPASTE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -39,40 +46,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch (id)
-    {
-    case 0:
-        if (record->event.pressed)
-        {
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    switch (keycode) {
+    case KC_THE:
+        if (record->event.pressed) {
             SEND_STRING("The");
-            return false;
         }
-        break;
-    case 1:
-        if (record->event.pressed)
-        {
+        return false;
+    case KC_CUSTOM:
+        if (record->event.pressed) {
             SEND_STRING("Custom");
-            return false;
         }
-        break;
-    case 2:
-        if (record->event.pressed)
-        {
+        return false;
+    case KC_KEYBOARD:
+        if (record->event.pressed) {
             SEND_STRING("Keyboard");
-            return false;
         }
-        break;
-    case 3:
-        if (record->event.pressed)
-        {
-            return MACRO(D(LCTL), T(C), U(LCTL), T(RGHT), D(LCTL), T(V), U(LCTL), END);
+        return false;
+    case KC_COPYPASTE:
+        if (record->event.pressed) {
+            tap_code16(C(KC_C));
+            tap_code16(KC_RGHT);
+            tap_code16(C(KC_V));
         }
-        break;
+        return false;
+    default:
+        return true;
     }
-    return MACRO_NONE;
+    return true;
 };
 
 void matrix_init_user(void)
@@ -81,11 +82,6 @@ void matrix_init_user(void)
 
 void matrix_scan_user(void)
 {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    return true;
 }
 
 void led_set_user(uint8_t usb_led)

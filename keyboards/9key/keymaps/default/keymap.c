@@ -6,9 +6,9 @@ enum {
   ZERO_7
 };
 
-// Macro Declarations
-enum {
-  DBL_0 = 0
+// Custom keycodes
+enum custom_keycodes {
+  DBL_0 = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [1] = LAYOUT( \
   KC_ESC,   KC_PLUS, KC_MINS, \
   KC_BSPC,  KC_ASTR, KC_SLSH, \
-  M(DBL_0), KC_DOT,  KC_TRNS  \
+  DBL_0,    KC_DOT,  KC_TRNS  \
 )
 
 };
@@ -50,16 +50,18 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ZERO_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, KC_0)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  if (record->event.pressed) {
-      switch(id) {
-          case DBL_0:
-              SEND_STRING("00");
-              return false;
-      }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(record->event.pressed) {
+    switch(keycode) {
+      case DBL_0:
+        SEND_STRING("00");
+        return false;
+      default:
+        return true;
+    }
   }
-  return MACRO_NONE;
-};
+  return true;
+}
 
 void matrix_init_user(void) {
 }

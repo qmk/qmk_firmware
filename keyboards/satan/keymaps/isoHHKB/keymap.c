@@ -10,8 +10,10 @@
 #define _BL 0
 #define _FL 1
 
-#define KC_ENYE M(0)
-#define KC_CEDL M(1)
+enum custom_keycodes {
+  KC_ENYE = SAFE_RANGE,
+  KC_CEDL
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -93,14 +95,28 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   }
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        switch(id) {
-            case 0: // Ñ
-                return MACRO(D(LALT), T(KP_0), T(KP_2), T(KP_4), T(KP_1), U(LALT), END);
-            case 1: // Ç
-                return MACRO(D(LALT), T(KP_0), T(KP_2), T(KP_3), T(KP_1), U(LALT), END);
+        switch(keycode) {
+            case KC_ENYE: // Ñ
+                register_code16(KC_LALT);
+                tap_code(KC_KP_0);
+                tap_code(KC_KP_2);
+                tap_code(KC_KP_4);
+                tap_code(KC_KP_1);
+                unregister_code16(KC_LALT);
+                return false;
+            case KC_CEDL: // Ç
+                register_code16(KC_LALT);
+                tap_code(KC_KP_0);
+                tap_code(KC_KP_2);
+                tap_code(KC_KP_3);
+                tap_code(KC_KP_1);
+                unregister_code16(KC_LALT);
+                return false;
+            default:
+              return true;
         }
     }
-    return MACRO_NONE;
+    return true;
 };
