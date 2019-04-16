@@ -27,6 +27,28 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+*/
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROW_PINS { C15, C14, A10, A9, A8 }
+#define MATRIX_COL_PINS { B8,  B2,  B10, A0, A1, A2, B0, A3, B1, A6, A7, B12, C13, B11, B9 }
+#define UNUSED_PINS
+
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { B13 }
+#define ENCODERS_PAD_B { B14 }
+
+ 
 //Audio
 #undef AUDIO_VOICES
 #undef C6_AUDIO
@@ -55,16 +77,6 @@
 #define micro_oled_rotate_180
 
 #endif
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
@@ -185,13 +197,13 @@
 #define ZC_DET_TIME 0
 #define AUTO_CAL_TIME 3
 
-//#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS
 
-//#define RGBLED_NUM 10
-//#define RGB_DI_PIN B5
-//#define DRIVER_LED_TOTAL RGBLED_NUM
+#define RGBLED_NUM 10
+#define RGB_DI_PIN B5
+#define DRIVER_LED_TOTAL RGBLED_NUM
 
-//#define RGB_MATRIX_KEYPRESSES
+// #define RGB_MATRIX_KEYPRESSES
 
 #define SOLENOID_PIN A14
 
