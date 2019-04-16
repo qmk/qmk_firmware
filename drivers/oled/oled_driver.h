@@ -27,14 +27,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_DISPLAY_WIDTH 128
   #define OLED_DISPLAY_HEIGHT 64
   #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 1024 (compile time mathed)
-  #define OLED_BLOCK_TYPE uint16_t
-  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
-  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
+  #define OLED_BLOCK_TYPE uint32_t
+  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
+  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
 
   // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
   // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
-  #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
-  #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
+  #define OLED_SOURCE_MAP { 32, 40, 48, 56 }
+  #define OLED_TARGET_MAP { 24, 16, 8, 0 }
+  // If OLED_BLOCK_TYPE is uint16_t, these tables would look like:
+  // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+  // #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
   // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
   // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
   // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
@@ -43,14 +46,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_DISPLAY_WIDTH 128
   #define OLED_DISPLAY_HEIGHT 32
   #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
-  #define OLED_BLOCK_TYPE uint8_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
-  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
-  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 128 (compile time mathed)
+  #define OLED_BLOCK_TYPE uint16_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
+  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
+  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
 
   // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
   // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
-  #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
-  #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
+  #define OLED_SOURCE_MAP { 0, 8, 16, 24 }
+  #define OLED_TARGET_MAP { 24, 16, 8, 0 }
+  // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
+  // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+  // #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
 #endif // defined(OLED_DISPLAY_CUSTOM)
 
 // Address to use for tthe i2d oled communication
@@ -79,19 +85,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_FONT_HEIGHT 8
 #endif
 
-#define OLED_ROTATION_0 0x00
-#define OLED_ROTATION_90 0x01
-#define OLED_ROTATION_180 0x02
-#define OLED_ROTATION_270 0x03
+// OLED Rotation enum values are flags
+typedef enum {
+    OLED_ROTATION_0   = 0,
+    OLED_ROTATION_90  = 1,
+    OLED_ROTATION_180 = 2,
+    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
+} oled_rotation_t;
 
 // Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
-bool oled_init(uint8_t rotation);
+bool oled_init(oled_rotation_t rotation);
 
 // Called at the start of oled_init, weak function overridable by the user
 // rotation - the value passed into oled_init
-// Return new uint8_t if you want to override default rotation
-uint8_t oled_init_user(uint8_t rotation);
+// Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);

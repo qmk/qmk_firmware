@@ -56,7 +56,7 @@ In split keyboards, it is very common to have two OLED displays that each render
 
 ```C++
 #ifdef OLED_DRIVER_ENABLE
-uint8_t oled_init_user(uint8_t rotation) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   return rotation;
@@ -99,18 +99,28 @@ void oled_task_user(void) {
 |`OLED_DISPLAY_WIDTH`   |`128`          |The width of the OLED display.                                   |
 |`OLED_DISPLAY_HEIGHT`  |`32`           |The height of the OLED display.                                  |
 |`OLED_MATRIX_SIZE`     |`512`          |The local buffer size to allocate.<br />`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`|
-|`OLED_BLOCK_TYPE`      |`uint8_t`      |The unsigned integer type to use for dirty rendering.|
-|`OLED_BLOCK_COUNT`     |`8`            |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`|
-|`OLED_BLOCK_SIZE`      |`64`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`|
+|`OLED_BLOCK_TYPE`      |`uint16_t`     |The unsigned integer type to use for dirty rendering.|
+|`OLED_BLOCK_COUNT`     |`16`           |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`|
+|`OLED_BLOCK_SIZE`      |`32`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`|
 |`OLED_SOURCE_MAP`      |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
-|`OLED_TARGET_MAP`      |`{ 48, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
+|`OLED_TARGET_MAP`      |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
 
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo 
 
+```C
+// OLED Rotation enum values are flags
+typedef enum {
+    OLED_ROTATION_0   = 0,
+    OLED_ROTATION_90  = 1,
+    OLED_ROTATION_180 = 2,
+    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
+} oled_rotation_t;
+```
+
  OLED displays driven by SSD1306 drivers only natively support in hard ware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an `atmega32u4` board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms. 
  
- 90 Degree Rotated Rendering is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the OLED Height, Width, and Block Size. For example, in the default 128x32 implementation we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
+ 90 Degree Rotated Rendering is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the OLED Height, Width, and Block Size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
@@ -133,14 +143,22 @@ So those precalculated arrays just index the memory offsets in the order in whic
 ## OLED API
 
 ```C++
-// Initialize the OLED display, rotating the rendered output 180 degrees if true.
+// OLED Rotation enum values are flags
+typedef enum {
+    OLED_ROTATION_0   = 0,
+    OLED_ROTATION_90  = 1,
+    OLED_ROTATION_180 = 2,
+    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
+} oled_rotation_t;
+
+// Initialize the OLED display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
-bool oled_init(bool flip180);
+bool oled_init(oled_rotation_t rotation);
 
 // Called at the start of oled_init, weak function overridable by the user
-// flip180 - the value passed into oled_init
-// Return true if you want the oled to be flip180
-bool oled_init_user(bool flip180);
+// rotation - the value passed into oled_init
+// Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
@@ -217,7 +235,7 @@ bool oled_scroll_off(void);
 // Returns the maximum number of characters that will fit on a line
 uint8_t oled_max_chars(void);
 
-// Returns the maximum number of lines that will fit on the oled
+// Returns the maximum number of lines that will fit on the OLED
 uint8_t oled_max_lines(void);
 ```
 

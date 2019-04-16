@@ -47,11 +47,11 @@ void render_status(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
 }
 
-#ifdef OLED_ROTATE90
-bool oled_init_user(bool flip180) {
-  return true;
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_keyboard_master())
+    return OLED_ROTATION_90;  // flips the display 90 degrees if mainhand
+  return rotation;
 }
-#endif
 
 __attribute__((weak))
 void oled_task_user(void) {
