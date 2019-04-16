@@ -2,7 +2,7 @@
     "keyboard_name": "kbd4x",
     "url": "",
     "maintainer": "qmk",
-    "width": 14,
+    "width": 12,
     "height": 4,
     "layouts": {
         "LAYOUT_planck_mit": {
