@@ -55,6 +55,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/keymaps/drashna/glcdfont.c"
 // #define OLED_FONT_WIDTH 5
 // #define OLED_FONT_HEIGHT 7
-#define OLED_ROTATE90
 
 #define TAPPING_TERM_PER_KEY
