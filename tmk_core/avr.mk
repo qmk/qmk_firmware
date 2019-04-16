@@ -14,8 +14,6 @@ BIN =
 
 COMMON_VPATH += $(DRIVER_PATH)/avr
 
-ARFLAGS =  rcs
-
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
