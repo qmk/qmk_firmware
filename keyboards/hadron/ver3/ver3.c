@@ -16,8 +16,9 @@
 #include "ver3.h"
 #include "qwiic.h"
 #include "action_layer.h"
-#include "matrix.h"
 #include "haptic.h"
+
+#ifdef RGB_MATRIX_ENABLE
 #include "rgblight.h"
 
 const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
@@ -36,6 +37,8 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
   {{1|(7<<4)},    {105, 3},  0},
   {{1|(10<<4)},   {150, 3},  0}
 };
+
+#endif
 
 uint8_t *o_fb;
 
