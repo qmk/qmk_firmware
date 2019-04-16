@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _MAIN_ARM_ATSAM_H_
 #define _MAIN_ARM_ATSAM_H_
 
+#define COMPILE_VERSION "VER "__DATE__" "__TIME__" [" QMK_KEYBOARD ":" QMK_KEYMAP "]\n\r"
+
 uint8_t keyboard_leds(void);
 
 #endif //_MAIN_ARM_ATSAM_H_

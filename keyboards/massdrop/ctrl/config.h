@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SR_EXP_OE_N_PIN             15
 /* SERCOM port to use for Shift Register SPI */
 /* DATAOUT and SCLK must be configured to use hardware pins of this port */
-#define SR_EXP_SERCOM               SERCOM2
+#define SR_EXP_SERCOM_NUM           2
 /* Shift Register SPI Data Out configuration (MCU.SERCOMx.PAD[0] to ShiftRegister.SER) */
 #define SR_EXP_DATAOUT_PORT         PA
 #define SR_EXP_DATAOUT_PIN          12

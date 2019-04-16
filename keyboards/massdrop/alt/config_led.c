@@ -8,10 +8,14 @@
 // This table can be almost-automatically derived from ISSI3733_LED_MAP that is
 // defined in config_led.h
 
+// scan in the following equations refers to the scan variable of ISSI3733_LED_MAP
+//   col = (uint8_t)(scan / 8)
+//   row = (uint8_t)(scan % 8)
+//   
 // You can calculate the (0-244, 0-64) x/y values from the x/y values defined in
 // ISSI3733_LED_MAP with the following formula:
 //   uint8_t rgb_x = ((ISSI3733_LED_MAP[i].x - MIN_X) / (MAX_X - MIN_X)) * 224;
-//   uint8_t rgb_y = ((ISSI3733_LED_MAP[i].y - MIN_Y) / (MAX_Y - MIN_Y)) * 64;
+//   uint8_t rgb_y = ((ISSI3733_LED_MAP[i].y - MIN_Y) / (MAX_Y - MIN_Y)) * 64; //TODO: 64 - this?
 // Where the min/max vars are the minimum and maximum "bounds" of x/y values
 // present in ISSI3733_LED_MAP
 //

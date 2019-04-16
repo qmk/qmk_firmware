@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //From keyboard's directory
 #include "config_led.h"
+
+volatile char embed_version[] = COMPILE_VERSION;
 
 uint8_t g_usb_state = USB_FSMSTATUS_FSMSTATE_OFF_Val;   //Saved USB state from hardware value to detect changes
 
@@ -188,9 +190,9 @@ void main_subtask_usb_state(void)
         {
             if (fsmstate_on_delay == 0)                             //If ON delay timer is cleared
             {
-                fsmstate_on_delay = timer_read64() + 250;             //Set ON delay timer
+                fsmstate_on_delay = timer_read64() + 250;           //Set ON delay timer
             }
-            else if (timer_read64() > fsmstate_on_delay)              //Else if ON delay timer is active and timed out
+            else if (timer_read64() > fsmstate_on_delay)            //Else if ON delay timer is active and timed out
             {
                 suspend_wakeup_init();                              //Run wakeup routine
                 g_usb_state = fsmstate_now;                         //Save current USB state
@@ -207,12 +209,14 @@ void main_subtask_power_check(void)
 {
     static uint64_t next_5v_checkup = 0;
 
-    if (timer_read64() > next_5v_checkup)
+    if (timer_read64() >= next_5v_checkup)
     {
-        next_5v_checkup = timer_read64() + 5;
+        next_5v_checkup = timer_read64() + POWER_CHECK_INTERVAL;
 
-        v_5v = adc_get(ADC_5V);
-        v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
+        g_v_5v = adc_get(ADC_5V);
+        g_v_5v_avg = (((float)V_5V_AVGS - 1) / (float)V_5V_AVGS) * g_v_5v_avg + (1 / (float)V_5V_AVGS) * (float)g_v_5v;
+
+        power_run(); //Check up on 5v bus voltage for spikes or low conditions
 
 #ifdef RGB_MATRIX_ENABLE
         gcr_compute();
@@ -224,9 +228,9 @@ void main_subtask_usb_extra_device(void)
 {
     static uint64_t next_usb_checkup = 0;
 
-    if (timer_read64() > next_usb_checkup)
+    if (timer_read64() >= next_usb_checkup)
     {
-        next_usb_checkup = timer_read64() + 10;
+        next_usb_checkup = timer_read64() + USBC_CFG_PERIOD;
 
         USB_HandleExtraDevice();
     }
@@ -253,13 +257,14 @@ int main(void)
 
     CLK_init();
 
-    ADC0_init();
+    ADC_init();
 
     SR_EXP_Init();
 
 #ifdef RGB_MATRIX_ENABLE
     i2c1_init();
 #endif // RGB_MATRIX_ENABLE
+    power_init();
 
     matrix_init();
 
@@ -299,9 +304,9 @@ int main(void)
     uint64_t next_print = 0;
 #endif //CONSOLE_ENABLE
 
-    v_5v_avg = adc_get(ADC_5V);
-
     debug_code_disable();
+
+    usbc_enable();
 
     while (1)
     {
@@ -323,13 +328,24 @@ int main(void)
 #ifdef CONSOLE_ENABLE
         if (timer_read64() > next_print)
         {
-            next_print = timer_read64() + 250;
+            next_print = timer_read64() + 1;
+
             //Add any debug information here that you want to see very often
-            //dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
+
+            //Corrected CC values for host port detection debugging
+            //dprintf("%4u %4u %4u %4u\n",ADC_CC_5VCOR(g_v_5v, adc_get(ADC_C1A5)),
+            //                            ADC_CC_5VCOR(g_v_5v, adc_get(ADC_C1B5)),
+            //                            ADC_CC_5VCOR(g_v_5v, adc_get(ADC_C2A5)),
+            //                            ADC_CC_5VCOR(g_v_5v, adc_get(ADC_C2B5)));
+
+            //USB state and CC line monitoring
+            //dprintf("%4u %4u %4u %4u %2u %1u\n",usbc_cc_a5_v,usbc_cc_b5_v,(uint16_t)usbc_cc_a5_v_avg,(uint16_t)usbc_cc_b5_v_avg,usbc.state,usbc.state == USB_STATE_ATTACHED_SRC ? 1 : 0);
+
+            //Power manager monitoring
+            //dprintf("%4u %4u %3u %3u %3u %i %3u\n",g_v_5v,(uint16_t)g_v_5v_avg,gcr_desired,(uint8_t)gcr_actual,gcr_actual_last,gcr_change_counter,usbc.state);
         }
 #endif //CONSOLE_ENABLE
     }
-
 
     return 1;
 }

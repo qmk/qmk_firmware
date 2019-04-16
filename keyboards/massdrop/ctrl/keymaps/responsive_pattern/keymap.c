@@ -29,7 +29,6 @@ enum ctrl_keycodes {
     L_OFF,              //LED Off
     L_T_BR,             //LED Toggle Breath Effect
     L_T_PTD,            //LED Toggle Scrolling Pattern Direction
-    U_T_AUTO,           //USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,           //USB Toggle Automatic GCR control
     DBG_TOG,            //DEBUG Toggle On / Off
     DBG_MTRX,           //DEBUG Toggle Matrix Prints
@@ -67,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, _______, U_T_AUTO,U_T_AGCR,_______, MO(2),   _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, _______, _______, U_T_AGCR,_______, MO(2),   _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
         _______, L_T_MD,  L_T_ONF, _______, _______, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,                              _______, \
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______ \
@@ -775,11 +774,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case L_T_PTD:
             if (record->event.pressed) {
                 led_animation_direction = !led_animation_direction;
-            }
-            return false;
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
         case U_T_AGCR:

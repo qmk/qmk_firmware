@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -120,10 +120,10 @@ void i2c1_init(void)
     CLK_set_i2c1_freq(CHAN_SERCOM_I2C1, FREQ_I2C1_DEFAULT);
 
     /* MCU */
-    PORT->Group[0].PMUX[8].bit.PMUXE = 2;
-    PORT->Group[0].PMUX[8].bit.PMUXO = 2;
-    PORT->Group[0].PINCFG[16].bit.PMUXEN = 1;
-    PORT->Group[0].PINCFG[17].bit.PMUXEN = 1;
+    PORT->Group[0].PMUX[8].bit.PMUXE = 2;       //PA16 even
+    PORT->Group[0].PMUX[8].bit.PMUXO = 2;       //PA17 odd
+    PORT->Group[0].PINCFG[16].bit.PMUXEN = 1;   //PA16
+    PORT->Group[0].PINCFG[17].bit.PMUXEN = 1;   //PA17
 
     /* I2C */
     //Note: SW Reset handled in CLK_set_i2c1_freq clks.c
@@ -214,15 +214,11 @@ void i2c_led_send_GCR(uint8_t drvid)
 
 void i2c_led_send_onoff(uint8_t drvid)
 {
-#if I2C_LED_USE_DMA != 1
     if (!i2c_led_q_running)
     {
-#endif
         i2c_led_send_CRWL(drvid);
         i2c_led_select_page(drvid, 0);
-#if I2C_LED_USE_DMA != 1
     }
-#endif
 
     *issidrv[drvid].onoff = 0; //Force start location offset to zero
     i2c1_transmit(issidrv[drvid].addr, issidrv[drvid].onoff, ISSI3733_PG0_BYTES, 0);
@@ -243,15 +239,11 @@ void i2c_led_send_pur_pdr(uint8_t drvid, uint8_t pur, uint8_t pdr)
 
 void i2c_led_send_pwm(uint8_t drvid)
 {
-#if I2C_LED_USE_DMA != 1
     if (!i2c_led_q_running)
     {
-#endif
         i2c_led_send_CRWL(drvid);
-        i2c_led_select_page(drvid, 0);
-#if I2C_LED_USE_DMA != 1
+        i2c_led_select_page(drvid, 1);
     }
-#endif
 
     *issidrv[drvid].pwm = 0; //Force start location offset to zero
     i2c1_transmit(issidrv[drvid].addr, issidrv[drvid].pwm, ISSI3733_PG1_BYTES, 0);
@@ -292,18 +284,21 @@ uint8_t I2C3733_Init_Drivers(void)
     i2c_led_select_page(0, 3);
     i2c_led_send_mode_op_gcr(0, 0, ISSI3733_CR_SSD_NORMAL); //No SYNC due to brightness mismatch with second driver
 
-    //Set up slave device
-    i2c_led_send_CRWL(1);
-    i2c_led_select_page(1, 3);
-    i2c_led_send_mode_op_gcr(1, 0, ISSI3733_CR_SSD_NORMAL); //No SYNC due to brightness mismatch with first driver and slight flicker at rgb values 1,2
-
     i2c_led_send_CRWL(0);
     i2c_led_select_page(0, 3);
     i2c_led_send_pur_pdr(0, ISSI3733_SWYR_PUR_8000, ISSI3733_CSXR_PDR_8000);
 
-    i2c_led_send_CRWL(1);
-    i2c_led_select_page(1, 3);
-    i2c_led_send_pur_pdr(1, ISSI3733_SWYR_PUR_8000, ISSI3733_CSXR_PDR_8000);
+    //Set up slave devices
+    for (uint8_t drvid = 1; drvid < ISSI3733_DRIVER_COUNT; drvid++)
+    {
+        i2c_led_send_CRWL(drvid);
+        i2c_led_select_page(drvid, 3);
+        i2c_led_send_mode_op_gcr(drvid, 0, ISSI3733_CR_SSD_NORMAL); //No SYNC due to brightness mismatch with master driver and slight flicker at rgb values 1,2
+
+        i2c_led_send_CRWL(drvid);
+        i2c_led_select_page(drvid, 3);
+        i2c_led_send_pur_pdr(drvid, ISSI3733_SWYR_PUR_8000, ISSI3733_CSXR_PDR_8000);
+    }
 
     DBGC(DC_I2C3733_INIT_DRIVERS_COMPLETE);
 
@@ -357,10 +352,22 @@ void I2C3733_Control_Set(uint8_t state)
 {
     DBGC(DC_I2C3733_CONTROL_SET_BEGIN);
 
+    if (sr_exp_data.bit.SDB_N == 0 && state == 1)
+    {
+        gcr_actual = 0; //Set low GCR when turning on to prevent instant overload conditions
+    }
+
     sr_exp_data.bit.SDB_N = (state == 1 ? 1 : 0);
     SR_EXP_WriteData();
 
     DBGC(DC_I2C3733_CONTROL_SET_COMPLETE);
+}
+
+//Return 1 if enabled
+//Return 0 if disabled
+uint8_t I2C3733_Control_Get(void)
+{
+    return (sr_exp_data.bit.SDB_N == 1);
 }
 
 void i2c_led_desc_defaults(void)
@@ -421,7 +428,6 @@ void i2c_led_send_GCR_dma(uint8_t drvid)
 
 void i2c_led_send_pwm_dma(uint8_t drvid)
 {
-    //Note: This copies the CURRENT pwm buffer, which may be getting modified
     memcpy(dma_sendbuf, issidrv[drvid].pwm, ISSI3733_PG1_BYTES);
     *dma_sendbuf = 0; //Force start location offset to zero
     i2c_led_prepare_send_dma(dma_sendbuf, ISSI3733_PG1_BYTES);
