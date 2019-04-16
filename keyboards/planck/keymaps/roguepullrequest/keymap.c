@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Programmer Dvorak */
 	[_PDVORAK] = LAYOUT_planck_grid(
 		KC_GESC, KC_SCOLON, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,
-   		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLASH,
+   		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, TD(TD_S), KC_SLASH,
    		TD(LSHIFT), KC_QUOT, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, TD(RSHIFT),
     		TD(X_AT_FUN), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ALT_TAB, KC_SPACE, KC_ENTER, MT(MOD_LCTL | MOD_LSFT, KC_LGUI), KC_PGUP, KC_PGDN, LT(_LOWER, KC_PLUS)
    	),
@@ -190,6 +190,14 @@ void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
 		case TRIPLE_TAP: register_code16(KC_LSFT); register_code16(KC_LBRC); break;
 	}
 }
+void s_finished (qk_tap_dance_state_t *state, void *user_data) {
+	xtap_state.state = cur_dance(state);
+	switch (xtap_state.state) {
+		case SINGLE_TAP: register_code16(KC_S); break;
+		case DOUBLE_TAP: register_code16(KC_MINUS); break;
+		case TRIPLE_TAP: register_code16(KC_LSFT); register_code16(KC_MINUS); break;
+	}
+}
 
 void rshift_finished (qk_tap_dance_state_t *state, void *user_data) {
 	xtap_state.state = cur_dance(state);
@@ -231,11 +239,19 @@ void rshift_reset (qk_tap_dance_state_t *state, void *user_data) {
 	}
 	xtap_state.state = 0;
 }
-
+void s_reset (qk_tap_dance_state_t *state, void *user_data) {
+	switch (xtap_state.state) {
+		case SINGLE_TAP: unregister_code16(KC_S); break;
+		case DOUBLE_TAP: unregister_code16(KC_MINUS); break;
+		case TRIPLE_TAP: unregister_code16(KC_MINUS); unregister_code16(KC_LSFT);  break;
+	}
+	xtap_state.state = 0;
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
 	[X_AT_FUN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
 	[LSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lshift_finished, lshift_reset),
 	[RSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rshift_finished, rshift_reset),
+	[TD_S] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, s_finished, s_reset),
 
 };
 
