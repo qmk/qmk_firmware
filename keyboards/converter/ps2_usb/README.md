@@ -13,10 +13,10 @@ Hardware
 Wiring
 -------------
 I have only tested *Interrupt* mode so far.
-1. Connect *Vcc* and *GND*.
-2. Connect *Clock* and *Data* line.
-    - *Interrupt*:   *Clock* is on `PD1` (pin 2 on Pro Micro) and **Data** on `PD0` (pin 3 on Pro Micro). (Recommended. Soarer's converter compatible)
-3. You need two pull-up resistors for *Clock* and *Data* lines. 1K-10K Ohm would be fine.
+1. Connect **VCC** and *GND*.
+2. Connect **Clock** and **Data** line.
+    - *Interrupt*:   **Clock** is on `PD1` (pin 2 on Pro Micro) and **Data** on `PD0` (pin 3 on Pro Micro). (Recommended. Soarer's converter compatible)
+3. You need two pull-up resistors for **Clock** and **Data** lines. 1K-10K Ohm would be fine.
 
 Build Firmware
 --------------
