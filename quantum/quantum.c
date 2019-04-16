@@ -275,6 +275,12 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
+  #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
+    // Wake up oled if user is using those fabulous keys!
+    if (record->event.pressed)
+      oled_on();
+  #endif
+
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -1087,6 +1093,9 @@ void matrix_init_quantum() {
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
+  #ifdef OLED_DRIVER_ENABLE
+    oled_init(OLED_ROTATION_0);
+  #endif
   matrix_init_kb();
 }
 
@@ -1121,6 +1130,10 @@ void matrix_scan_quantum() {
 
   #ifdef HAPTIC_ENABLE
     haptic_task();
+  #endif
+
+  #ifdef OLED_DRIVER_ENABLE
+    oled_task();
   #endif
 
   matrix_scan_kb();
