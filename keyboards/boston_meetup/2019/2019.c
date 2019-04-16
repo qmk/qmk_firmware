@@ -16,7 +16,6 @@
 #include "2019.h"
 #include "qwiic.h"
 #include "action_layer.h"
-#include "matrix.h"
 #include "haptic.h"
 
 #ifdef RGB_MATRIX_ENABLE
