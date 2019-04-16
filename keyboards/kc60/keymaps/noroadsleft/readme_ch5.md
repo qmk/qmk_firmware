@@ -60,7 +60,7 @@ Output: `git commit -m ""` <kbd>Left</kbd>
 
 Readies a `git commit` command, moves the cursor between the quotation marks, then disables the Macro layer.
 
-#### [G_BRCH](./keymap.c#L148-158)
+#### [G_BRCH](./keymap.c#L148-L158)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -93,7 +93,7 @@ An Undo shortcut that turns to Redo if <kbd>Shift</kbd> is being held. I'm not s
 
 The program I use this in uses <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Option</kbd> + <kbd>V</kbd> to paste while maintaining formatting (typeface, text size, etc.). Sometimes I want this and sometimes I don't. Using <kbd>Shift</kbd> changes the behavior.
 
-#### [NUBS_Z](./keymap.c#L220-L228)
+#### [NUBS_Z](./keymap.c#L220-L234)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -102,11 +102,15 @@ The program I use this in uses <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Opti
 
 Sometimes I type in languages from countries that use ISO layout, but my keyboard is ANSI, so I have one key fewer. This macro simulates the Non-US Backslash key if I use Right Alt + Z.
 
-#### [VRSN](./keymap.c#L229-L233)
+#### [VRSN](./keymap.c#L235-L239)
 
 Outputs a string that tells me the Git commit from which my flashed firmware was built. Looks something like:
 
-    kc60/noroadsleft @ 0.6.240-20-ge91549-dirty
+    kc60/noroadsleft @ 0.6.326-6-gae6d7b-dirty
+
+#### [Emulated Numeric Keypad](./keymap.c#L240-L254)
+
+If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output numpad keycodes instead of number row keycodes, enabling quicker access to characters like ™ and °.
 
 ----
 
