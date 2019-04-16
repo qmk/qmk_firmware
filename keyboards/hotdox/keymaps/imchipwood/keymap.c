@@ -22,6 +22,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 	[TD_RSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
 };
 
+#define KC_REND TD(TD_RIGHT_END)
+#define KC_LOME TD(TD_LEFT_HOME)
+#define KC_RCAP TD(TD_RSFT_CAPS)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -50,14 +54,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB, 			KC_Q, 		KC_W, 		KC_E, 				KC_R, 				KC_T, 		TG(1), 
 	KC_BSLS, 			KC_A, 		KC_S, 		KC_D, 				KC_F, 				KC_G, 
 	KC_LSFT, 			KC_Z, 		KC_X, 		KC_C, 				KC_V, 				KC_B, 		MO(2), 
-	KC_LCTL, 			KC_LALT, 	KC_LGUI, 	TD(TD_LEFT_HOME), 	TD(TD_RIGHT_END), 	
+	KC_LCTL, 			KC_LALT, 	KC_LGUI, 	KC_LOME, 			KC_REND, 	
 									KC_DEL, 	KC_INS, 			KC_HOME, 
 									KC_ENT, 	MO(1), 				KC_END, 
 	// Right hand
 	KC_GRV, 			KC_6, 		KC_7, 		KC_8, 				KC_9, 				KC_0, 		KC_MINS, 
 	TG(2), 				KC_Y, 		KC_U, 		KC_I, 				KC_O, 				KC_P, 		KC_LBRC, 
 						KC_H, 		KC_J, 		KC_K, 				KC_L, 				KC_SCLN, 	KC_QUOT, 
-	MO(1), 				KC_N, 		KC_M, 		KC_COMM, 			KC_DOT, 			KC_SLSH, 	TD(TD_RSFT_CAPS), 
+	MO(1), 				KC_N, 		KC_M, 		KC_COMM, 			KC_DOT, 			KC_SLSH, 	KC_RCAP, 
 									KC_UP, 		KC_DOWN, 			KC_LEFT, 			KC_RGHT, 	KC_PSCR, 
 									KC_LCTL, 	KC_LALT, 			KC_PGUP, 	
 									KC_PGDN, 	KC_BSPC, 			KC_SPC
