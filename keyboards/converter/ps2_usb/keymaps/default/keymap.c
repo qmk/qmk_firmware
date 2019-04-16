@@ -6,6 +6,7 @@
 #define _DEFAULT 0
 #define _FN1     1
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: default
      * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.     ,-----------.
@@ -41,3 +42,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_WH_D, _______, _______,          KC_SPC,                                      _______, _______, _______, _______,           _______, _______, _______,   _______,          _______, _______
     ),
 };
+
+// clang-format on

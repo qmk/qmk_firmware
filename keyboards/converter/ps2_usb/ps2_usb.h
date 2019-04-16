@@ -14,8 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef PS2USB_H
-#define PS2USB_H
+#pragma once
 
 #include "quantum.h"
 
@@ -58,6 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 51, 63, 68, 6D: hidden keys in IBM model M
  */
 /* All keys */
+// clang-format off
 #define LAYOUT_ALL( \
         K08,K10,K18,K20,K28,K30,K38,K40,K48,K50,K57,K5F,                                        \
     K76,K05,K06,K04,K0C,K03,K0B,K83,K0A,K01,K09,K78,K07,         KFC,K7E,KFE,      KA1,KB2,KA3, \
@@ -236,13 +236,12 @@ http://www.seasip.info/VintagePC/ibm_6450225.html
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KCA,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KDA,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KE9,   KC_NO, KC_NO, KEC,   KC_NO, KC_NO, KC_NO }, \
-    { KF0,   KF1,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, KFA,   KC_NO, KFC,   KFD,   KFE,   KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
 }
 
-#endif
