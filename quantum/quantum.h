@@ -139,6 +139,10 @@ extern uint32_t default_layer_state;
     #include "haptic.h"
 #endif
 
+#ifdef OLED_DRIVER_ENABLE
+    #include "oled_driver.h"
+#endif
+
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
     #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
