@@ -181,7 +181,7 @@ void matrix_init_user(void) {
 // OLED Driver Logic
 #ifdef OLED_DRIVER_ENABLE
 
-uint8_t oled_init_user(uint8_t rotation) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!has_usb())
     return OLED_ROTATION_180;  // flip 180 for offhand
   return rotation;

@@ -203,7 +203,7 @@ bool oled_init(uint8_t rotation) {
 }
 
 __attribute__((weak))
-uint8_t oled_init_user(uint8_t rotation) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
@@ -384,7 +384,10 @@ void oled_write_char(const char data, bool invert) {
 
   // Dirty check
   if (memcmp(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH)) {
-    oled_dirty |= (1 << ((oled_cursor - &oled_buffer[0]) / OLED_BLOCK_SIZE));
+    uint16_t index = oled_cursor - &oled_buffer[0];
+    oled_dirty |= (1 << (index / OLED_BLOCK_SIZE));
+    // Edgecase check if the written data spans the 2 chunks
+    oled_dirty |= (1 << ((index + OLED_FONT_WIDTH) / OLED_BLOCK_SIZE));
   }
 
   // Finally move to the next char
