@@ -30,7 +30,7 @@ Keymaps
 -------
 All available scancodes are organized in 8x32 matrix, so you can treat them like physical key matrix. Physical layouts are defined in `ps2_usb.h`:
 
-- `LAYOUT_ALL`: sample layout with most scancodes including F13-F24, JIS and media keys.
+- `LAYOUT_all`: sample layout with most scancodes including F13-F24, JIS and media keys.
 - `LAYOUT_104_ansi`: ANSI 104 keys layout
 - `LAYOUT_105_iso`: ISO 105 keys layout
 - `LAYOUT_ibm_f_at`: IBM Model F AT keyboard (including hidden pads for ANSI mod)
