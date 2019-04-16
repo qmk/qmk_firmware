@@ -23,3 +23,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_Q) {
+      SEND_STRING("QMK is awesome.");
+    }
+    SEQ_TWO_KEYS(KC_N, KC_A) {
+      SEND_STRING("N/A");
+    }
+    SEQ_THREE_KEYS(KC_S, KC_I, KC_G) {
+      SEND_STRING("Ki Finnsson");
+    }
+
+  }
+}
