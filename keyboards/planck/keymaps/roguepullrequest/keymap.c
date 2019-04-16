@@ -102,13 +102,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-  if (is_alt_tab_active) {
+  if (is_alt_tab_active) 
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code16(KC_LALT);
       is_alt_tab_active = false;
     }
   }
-}
 
 #define PDVORAK MO(_PDVORAK)
 #define LOWER MO(_LOWER)
@@ -120,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_PDVORAK] = LAYOUT_planck_grid(
 		KC_GESC, KC_SCOLON, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,
    		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLASH,
-   		LSHIFT, KC_QUOT, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSPC,
+   		TD(LSHIFT), KC_QUOT, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSPC,
     		TD(X_AT_FUN), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ALT_TAB, KC_SPACE, KC_ENTER, MT(MOD_LCTL | MOD_LSFT, KC_LGUI), KC_PGUP, KC_PGDN, LT(_LOWER, KC_PLUS)
    	),
 	
@@ -190,7 +189,6 @@ void lshift_finished (qk_tap_dance_state_t *state, void *user_data) {
 		case DOUBLE_TAP: register_code16(KC_LBRC); break;
 		case TRIPLE_TAP: register_code16(KC_LSFT); register_code16(KC_LBRC); break;
 	}
-	xtap_state.state = 0;
 }
 
 // forgetting keypresses
