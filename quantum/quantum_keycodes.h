@@ -431,6 +431,18 @@ enum quantum_keycodes {
     // Right shift, close paren
     KC_RSPC,
 
+    // Left control, open paren
+    KC_LCPO,
+
+    // Right control, close paren
+    KC_RCPC,
+
+    // Left control, open paren
+    KC_LAPO,
+
+    // Right control, close paren
+    KC_RAPC,
+
     // Shift, Enter
     KC_SFTENT,
 
