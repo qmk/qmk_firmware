@@ -16,7 +16,7 @@ NKRO_ENABLE = yes
 PS2_USE_INT ?= yes
 #PS2_USE_BUSYWAIT ?= no
 
-CUSTOM_MATRIX ?= yes
+CUSTOM_MATRIX = yes
 
 SRC = matrix.c led.c
 
