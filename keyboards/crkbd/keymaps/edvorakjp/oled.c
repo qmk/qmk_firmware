@@ -21,20 +21,13 @@ const char *read_layer_state(void) {
 
   switch (biton32(layer_state)) {
     case L_BASE:
-      strcpy(layer_name, default_layer_state == 1UL<<_EDVORAK ? "EDVORAK" : "QWERTY");
-      break;
-    case _EDVORAKJ1:
-    case _EDVORAKJ2:
-      strcpy(layer_name, "JP_EXT");
+      strcpy(layer_name, "Default");
       break;
     case _RAISE:
       strcpy(layer_name, "Raise");
       break;
     case _LOWER:
       strcpy(layer_name, "Lower");
-      break;
-    case _ADJUST:
-      strcpy(layer_name, "Adjust");
       break;
     default:
       snprintf(layer_name, sizeof(layer_name), "Undef-%ld", layer_state);
@@ -49,10 +42,7 @@ const char *read_layer_state(void) {
 
 const char *read_host_led_state(void) {
   static char led_str[24];
-  bool ext_status = get_enable_jp_extra_layer() && get_japanese_mode();
-  strcpy(led_str, ext_status ? "EXT" : "   ");
-
-  strcat(led_str, (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? " NMLK" : "     ");
+  strcpy(led_str, (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NMLK" : "    ");
   strcat(led_str, (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? " CAPS" : "    ");
   strcat(led_str, (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? " SCLK" : "     ");
   return led_str;
@@ -70,7 +60,11 @@ void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
 
   matrix_clear(&matrix);
+#ifdef MASTER_RIGHT
+  if (!is_master) {
+#else
   if (is_master) {
+#endif // MASTER_RIGHT
     matrix_write(&matrix, read_mode_icon(!get_enable_kc_lang()));
     matrix_write(&matrix, " ");
     matrix_write(&matrix, read_layer_state());

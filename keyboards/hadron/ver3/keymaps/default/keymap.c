@@ -33,9 +33,6 @@ enum macro_keycodes {
   KC_DEMOMACRO,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl
@@ -178,20 +175,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,------+------+------+------+------+------------------------------------------------.
- * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   -  |
+ * | Reset|HPT TG|HPT FB|HPT M+|HPT M-|HPT RS|      |      |      |      |      |EEP RS|
  * |------+------+------+------+------+------+------+------+------+------+------+------+--------------------.
- * | Reset|RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |      |      |      |  Del |
+ * |      |RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |      |      |      |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|      |      |      |AGswap|Qwerty|Colemk|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |      | BL + |BL ST |BL TG |
+ * |      |Voice-|Voice+|Mus on|Musoff|      |      |      |      |      |      |BL -  | BL + |BL ST |BL TG |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |CK RS |CK -  |CK +  |CK TG |
  * `--------------------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT(
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
+  RESET,   HPT_TOG, HPT_FBK, HPT_MODI, HPT_MODD, HPT_RST , _______, _______, _______, _______, _______, EEP_RST, \
+  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, _______, _______, AG_SWAP, QWERTY,  COLEMAK, _______,  _______,  _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF, _______, _______, _______,  _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG\

@@ -27,9 +27,9 @@ extern rgb_config_t rgb_matrix_config;
 #endif
 extern userspace_config_t userspace_config;
 
-//enum more_custom_keycodes {
-//    KC_P00 = NEW_SAFE_RANGE
-//};
+enum more_custom_keycodes {
+   KC_SWAP_NUM = NEW_SAFE_RANGE
+};
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -166,6 +166,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
   ),
 
+  [_NORMAN] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
+    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
+    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
+  ),
+
+  [_MALTRON] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
+    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
+    _________________MALTRON_L3________________, _________________MALTRON_R3________________
+  ),
+
+  [_EUCALYN] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
+    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
+    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
+  ),
+
+  [_CARPLAX] = LAYOUT_ergodox_pretty_base_wrapper(
+    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
+    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
+    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
+  ),
+
+
 // Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)
   [_MODS] = LAYOUT_ergodox_pretty_wrapper(
              _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
@@ -206,9 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                                      KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG(_GAMEPAD), KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
-                                                          KC_O,    KC_P,                    KC_HYPR, MAGIC_TOGGLE_NKRO,
-                                                                   KC_LGUI,                 KC_NO,
-                                                 KC_V,    KC_SPC,  KC_H,                    KC_PGDN, KC_DEL,  KC_ENTER
+                                                          KC_O,    KC_P,                    MAGIC_TOGGLE_NKRO, LALT(KC_PSCR),
+                                                                   KC_LGUI,                 KC_HYPR,
+                                                 KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_SWAP_NUM
             ),
 
 /* Keymap 3:
@@ -280,6 +305,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
+  switch (keycode) {
+    case KC_1:
+      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+        if (record->event.pressed) {
+          register_code(KC_2);
+        } else {
+          unregister_code(KC_2);
+        }
+        return false;
+      }
+      break;
+    case KC_2:
+      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+        if (record->event.pressed) {
+          register_code(KC_1);
+        } else {
+          unregister_code(KC_1);
+        }
+        return false;
+      }
+      break;
+    case KC_SWAP_NUM:
+      if (record->event.pressed) {
+        userspace_config.swapped_numbers ^= 1;
+        eeconfig_update_user(userspace_config.raw);
+      }
+  }
   //switch (keycode) {
   //  case KC_P00:
   //    if (!record->event.pressed) {
@@ -308,15 +360,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
     // Also, no "else", since we want to know each, independently.
-    if (modifiers & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+    if ( ( modifiers | one_shot ) & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) ) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set( 50 );
     }
-    if (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+    if ( ( modifiers | one_shot ) & MOD_MASK_CTRL) {
       ergodox_right_led_1_on();
       ergodox_right_led_1_set( 10 );
     }
-    if (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+    if ( ( modifiers | one_shot ) & MOD_MASK_ALT) {
       ergodox_right_led_3_on();
       ergodox_right_led_3_set( 10 );
     }
@@ -362,7 +414,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) return;
+  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
 
   switch (biton32(layer_state)) {
     case _MODS:
@@ -401,23 +453,31 @@ void rgb_matrix_indicators_user(void) {
           rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
         case _WORKMAN:
           rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+        case _NORMAN:
+          rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+        case _MALTRON:
+          rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+        case _EUCALYN:
+          rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+        case _CARPLAX:
+          rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
       }
   }
 #if 0
-  if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+  if (this_mod & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MOD_MASK_SHIFT) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
     rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
   }
-  if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+  if (this_mod & MOD_MASK_CTRL || this_osm & MOD_MASK_CTRL) {
     rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
 
   }
-  if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+  if (this_mod & MOD_MASK_GUI || this_osm & MOD_MASK_GUI) {
     rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
   }
-  if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+  if (this_mod & MOD_MASK_ALT || this_osm & MOD_MASK_ALT) {
     rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
   }
 #endif

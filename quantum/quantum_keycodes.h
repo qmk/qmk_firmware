@@ -422,6 +422,9 @@ enum quantum_keycodes {
     RGB_MODE_GRADIENT,
     RGB_MODE_RGBTEST,
 
+    //Momentum matching toggle
+    VLK_TOG,
+
     // Left shift, open paren
     KC_LSPO,
 
@@ -455,12 +458,22 @@ enum quantum_keycodes {
 
     UNICODE_MODE_FORWARD,
     UNICODE_MODE_REVERSE,
-
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
     UNICODE_MODE_BSD,
     UNICODE_MODE_WINC,
+
+    HPT_ON,
+    HPT_OFF,
+    HPT_TOG,
+    HPT_RST,
+    HPT_FBK,
+    HPT_BUZ,
+    HPT_MODI,
+    HPT_MODD,
+    HPT_DWLI,
+    HPT_DWLD,
 
     // always leave at the end
     SAFE_RANGE
@@ -567,9 +580,12 @@ enum quantum_keycodes {
 #define FUNC(kc) (QK_FUNCTION | (kc))
 
 // Aliases
+#define C(kc) LCTL(kc)
 #define S(kc) LSFT(kc)
-#define F(kc) FUNC(kc)
+#define A(kc) LALT(kc)
+#define G(kc) LGUI(kc)
 
+#define F(kc) FUNC(kc)
 #define M(kc) (QK_MACRO | (kc))
 
 #define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))

@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,
@@ -56,12 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(LFK_CLEAR),                               // FN0 - reset layers
-    ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),                   // FN1 - Increase Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),                    // FN2 - Decrease Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),                   // FN3 - Increase length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN4 - Decrease length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
+    [1] = ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),                   // FN1 - Increase Freq of audio click
+    [2] = ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),                    // FN2 - Decrease Freq of audio click
+    [3] = ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),                   // FN3 - Increase length of audio click
+    [4] = ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN4 - Decrease length of audio click
+    [5] = ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
   };
 
 

@@ -52,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-//#define DIODE_DIRECTION CUSTOM_MATRIX
+/* COL2ROW, ROW2COL*/
+////#define DIODE_DIRECTION
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -119,11 +119,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -244,4 +239,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define I2C_MASTER_RIGHT
 
 #define DISABLE_JTAG
-
