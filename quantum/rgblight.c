@@ -92,7 +92,11 @@ bool is_rgblight_initialized = false;
 animation_status_t animation_status = {};
 #endif
 
+#ifndef LED_ARRAY
 LED_TYPE led[RGBLED_NUM];
+  #define LED_ARRAY led
+#endif
+
 
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;

@@ -225,27 +225,39 @@ static uint16_t scs_timer[2] = {0, 0};
  */
 static bool grave_esc_was_shifted = false;
 
-bool process_record_quantum(keyrecord_t *record) {
+/* Convert record into usable keycode via the contained event. */
+uint16_t get_record_keycode(keyrecord_t *record) {
+  return get_event_keycode(record->event);
+}
 
-  /* This gets the keycode from the key pressed */
-  keypos_t key = record->event.key;
-  uint16_t keycode;
+
+/* Convert event into usable keycode. Checks the layer cache to ensure that it
+ * retains the correct keycode after a layer change, if the key is still pressed.
+ */
+uint16_t get_event_keycode(keyevent_t event) {
 
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
 
-      if (record->event.pressed) {
-        layer = layer_switch_get_layer(key);
-        update_source_layers_cache(key, layer);
+      if (event.pressed) {
+        layer = layer_switch_get_layer(event.key);
+        update_source_layers_cache(event.key, layer);
       } else {
-        layer = read_source_layers_cache(key);
+        layer = read_source_layers_cache(event.key);
       }
-      keycode = keymap_key_to_keycode(layer, key);
+      return keymap_key_to_keycode(layer, event.key);
     } else
   #endif
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+    return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
+}
+
+/* Main keycode processing function. Hands off handling to other functions,
+ * then processes internal Quantum keycodes, then processes ACTIONs.
+ */
+bool process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -274,10 +286,10 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef HAPTIC_ENABLE
     process_haptic(keycode, record) &&
   #endif //HAPTIC_ENABLE
-    process_record_kb(keycode, record) &&
-  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
+  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     process_rgb_matrix(keycode, record) &&
   #endif
+    process_record_kb(keycode, record) &&
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
@@ -839,6 +851,26 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
+const bool ascii_to_altgr_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+__attribute__ ((weak))
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
@@ -870,16 +902,16 @@ void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = *str;
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = *(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = *(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = *(++str);
           unregister_code(keycode);
@@ -896,16 +928,16 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
     while (1) {
         char ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        if (ascii_code == 1) {
+        if (ascii_code == SS_TAP_CODE) {
           // tap
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
           unregister_code(keycode);
-        } else if (ascii_code == 2) {
+        } else if (ascii_code == SS_DOWN_CODE) {
           // down
           uint8_t keycode = pgm_read_byte(++str);
           register_code(keycode);
-        } else if (ascii_code == 3) {
+        } else if (ascii_code == SS_UP_CODE) {
           // up
           uint8_t keycode = pgm_read_byte(++str);
           unregister_code(keycode);
@@ -919,16 +951,22 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 }
 
 void send_char(char ascii_code) {
-  uint8_t keycode;
-  keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
-      register_code(KC_LSFT);
-      register_code(keycode);
-      unregister_code(keycode);
-      unregister_code(KC_LSFT);
-  } else {
-      register_code(keycode);
-      unregister_code(keycode);
+  uint8_t keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+  bool is_shifted = pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code]);
+  bool is_altgred = pgm_read_byte(&ascii_to_altgr_lut[(uint8_t)ascii_code]);
+
+  if (is_shifted) {
+    register_code(KC_LSFT);
+  }
+  if (is_altgred) {
+    register_code(KC_RALT);
+  }
+  tap_code(keycode);
+  if (is_altgred) {
+    unregister_code(KC_RALT);
+  }
+  if (is_shifted) {
+    unregister_code(KC_LSFT);
   }
 }
 
@@ -1049,12 +1087,6 @@ void matrix_init_quantum() {
   matrix_init_kb();
 }
 
-uint8_t rgb_matrix_task_counter = 0;
-
-#ifndef RGB_MATRIX_SKIP_FRAMES
-  #define RGB_MATRIX_SKIP_FRAMES 1
-#endif
-
 void matrix_scan_quantum() {
   #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
@@ -1078,10 +1110,6 @@ void matrix_scan_quantum() {
 
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-    if (rgb_matrix_task_counter == 0) {
-      rgb_matrix_update_pwm_buffers();
-    }
-    rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
   #endif
 
   #ifdef ENCODER_ENABLE
@@ -1123,6 +1151,13 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define COMxx1 COM1A1
 #  define OCRxx  OCR3A
 #  define ICRx   ICR3
+#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
+#  define TCCRxA TCCR1A
+#  define TCCRxB TCCR1B
+#  define COMxx1 COM1B1
+#  define OCRxx  OCR1B
+#  define ICRx   ICR1
+#  define TIMSK1 TIMSK
 #else
 #  define NO_HARDWARE_PWM
 #endif

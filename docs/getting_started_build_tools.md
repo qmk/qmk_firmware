@@ -4,7 +4,9 @@ This page describes setting up the build environment for QMK. These instructions
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
-Note: If it is your first time here, Check out the "Complete Newbs guide" instead
+**Note:** If this is your first time here, check out the [Complete Newbs Guide](newbs.md) page.
+
+Before continuing, double check that your submodules (third-party libraries) are up to date by running `make git-submodule`.
 
 ## Linux
 
