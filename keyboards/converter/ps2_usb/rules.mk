@@ -13,7 +13,7 @@ COMMAND_ENABLE = yes
 NKRO_ENABLE = yes
 
 #PS2_USE_USART ?= no
-PS2_USE_INT ?= yes
+PS2_USE_INT = yes
 #PS2_USE_BUSYWAIT ?= no
 
 CUSTOM_MATRIX = yes
