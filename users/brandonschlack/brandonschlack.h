@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -29,5 +28,3 @@ enum custom_keycodes {
 #define MC_MUTE   KC__MUTE
 #define MC_VOLD   KC__VOLDOWN
 #define MC_VOLU   KC__VOLUP
-
-#endif
