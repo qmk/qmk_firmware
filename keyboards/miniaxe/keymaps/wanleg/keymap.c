@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GK] = LAYOUT_miniaxe_base_wrapper( 
   _______________Gherkin_Row_0_______________, 
   _______________Gherkin_Row_1_______________, 
-  _______________Gherkin_Row_2_______________  
+  SFT_T(KC_Z), 	KC_X, 	KC_C, 	LT(NUM,KC_V),	LT(ETC,KC_B),  LT(_FN,KC_N), 	LT(DIR,KC_M), 	GUI_T(KC_COMM),	ALT_T(KC_DOT),	CTL_T(KC_BSPC)  
 ),
 
 [NUM] = LAYOUT_wrapper(
