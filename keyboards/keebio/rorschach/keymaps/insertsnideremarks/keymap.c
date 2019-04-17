@@ -255,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL << _COLEMAK);
+        default_layer_set(1UL << _COLEMAK);
         layer_off ( _QWERTY);
         layer_off ( _NUMBERS);
         layer_off ( _NUMBERS2);
@@ -269,7 +269,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL << _QWERTY);
+        default_layer_set(1UL << _QWERTY);
         layer_off ( _COLEMAK);
         layer_off ( _NUMBERS);
         layer_off ( _NUMBERS2);
