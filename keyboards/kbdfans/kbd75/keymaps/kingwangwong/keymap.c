@@ -5,9 +5,7 @@ enum layer_names {
     _CL,
     _DL
 };
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-};
+
 
 
 // Custom macros
