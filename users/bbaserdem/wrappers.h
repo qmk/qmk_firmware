@@ -25,14 +25,14 @@
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Sft |  Z  |  X  |  C  |  V  |  B  ||  N  |  M  | , < | . > | / ? |Enter|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | Ctrl|Super| Alt |AltGr| Num |   Space    | Set | Lft | Dwn |  Up | Rght|
+ * |AltGr| Ctrl|Super| Alt | Num |   Space    | Set | Lft | Dwn |  Up | Rght|
  * `------------------------------------------------------------------------'
  */
 #define BASE \
     KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT, \
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_ENT,  \
-    KC_LCTL,KC_LGUI,KC_LALT,KC_RALT,K_NU_GA,KC_SPC, KC_SPC, K_SE_MO,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
+    KC_RALT,KC_LCTL,KC_LGUI,KC_LALT,K_NU_GA,KC_SPC, KC_SPC, K_SE_MO,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
 
 /* Game layer
  * ,------------------------------------------------------------------------.
@@ -65,7 +65,7 @@
 #define NUMBERS \
     _______,KC_GRV, KC_DEL, KC_INS, KC_HOME,KC_END, KC_PGDN,KC_PGUP,DBL_USC,KC_MINS,KC_EQL, _______, \
     _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSLS, \
-    _______,KC_NUBS,DBL_GRV,DBL_QUO,DBL_PAR,DBL_ANG,DBL_SQR,DBL_BRC,DBL_DQT,KC_LBRC,KC_RBRC,_______, \
+    _______,KC_NUBS,XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    KC_LBRC,KC_RBRC,_______, \
     _______,_______,_______,_______,_______,_______,_______,KC_CAPS,_______,_______,_______,_______
 
 /* Settings layer
