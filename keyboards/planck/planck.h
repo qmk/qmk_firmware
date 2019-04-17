@@ -9,7 +9,7 @@
   #include "ez.h"
 #endif
 
-#ifdef __AVR__ // Planck revs. 3-5
+#ifdef __AVR__ // Planck revs. 1-5
 
   #define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
