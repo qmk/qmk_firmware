@@ -11,6 +11,16 @@ enum kuatsure_keycodes {
   USER_SAFE_RANGE,
 };
 
+enum {
+  TD_LBRC = 0,
+  TD_RBRC,
+};
+
+#define KT_LBRC TD(TD_LBRC)
+#define KT_RBRC TD(TD_RBRC)
+
+#define TAPPING_TERM 200
+
 void tmux_prefix(void);
 void tmux_pane_zoom(void);
 
@@ -40,7 +50,7 @@ void tmux_pane_zoom(void);
 #define ____________FUNCTION_2____________                 KC_F5,   KC_F6,   KC_F7,   KC_F8
 #define ____________FUNCTION_3____________                 KC_F9,   KC_F10,  KC_F11,  KC_F12
 
-#define ___SQBRACKETS___                                   KC_LBRC, KC_RBRC
+#define ___SQBRACKETS___                                   KT_LBRC, KT_RBRC
 #define _____PARENS_____                                   KC_LPRN, KC_RPRN
 #define ____CRBRACES____                                   KC_LCBR, KC_RCBR
 #define ___ANBRACKETS___                                   KC_LT,   KC_GT

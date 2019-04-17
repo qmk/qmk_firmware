@@ -3,6 +3,11 @@
 #include "action.h"
 #include "version.h"
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LT),
+  [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_GT)
+};
+
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
