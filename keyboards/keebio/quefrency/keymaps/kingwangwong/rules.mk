@@ -1,1 +1,0 @@
-DISABLE_JTAG = yes

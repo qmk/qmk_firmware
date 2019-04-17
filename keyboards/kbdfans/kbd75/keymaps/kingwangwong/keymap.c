@@ -1,11 +1,10 @@
-#include QMK_KEYBOARD_H
-
-#define _QW 0
-#define _FO 1
-#define _FL 2
-#define _CL 3
-#define _DL 4
-
+enum layer_names {
+    _QW,
+    _FO,
+    _FL,
+    _CL,
+    _DL
+};
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
 };
@@ -141,5 +140,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,  _______,            KC_VOLU, 
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,            _______,            KC_VOLD, 
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  RGB_SAI,  _______, 
-    _______,  _______,  _______,                      _______,  _______,  _______,                      _______,  RGB_VAD,  RGB_VAI,  RGB_HUD,  RGB_SAD,  RGB_HUI),
+    _______,  _______,  _______,                      _______,  _______,  _______,                      _______,  RGB_VAD,  RGB_VAI,  RGB_HUD,  RGB_SAD,  RGB_HUI)
 };
