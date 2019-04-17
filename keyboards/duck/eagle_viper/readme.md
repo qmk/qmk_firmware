@@ -9,4 +9,3 @@ Newest version is the [Eagle/Viper V2](http://duck0113.tistory.com/127)
 Make example for this keyboard (after setting up your build environment):
 
     make duck/eagle_viper/v2:default
-

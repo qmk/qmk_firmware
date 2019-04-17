@@ -12,8 +12,8 @@ Hardware Availability: [Mercado Libre](https://articulo.mercadolibre.com.ar/MLA-
 
 | Rows        | 0  | 1  | 2  | 3  |
 |-------------|----|----|----|----|
-| Arduino pin | 8  | 9  | 10 | 16 |
-| QMK pin     | B4 | B5 | B6 | B2 |
+| Arduino pin | 6  | 7  | 10 | 16 |
+| QMK pin     | D7 | E6 | B6 | B2 |
 
 | Columns     | 0  | 1  | 2  | 3  | 4  | 5  | 6   | 7   | 8  | 9  | 10 | 11 |
 |-------------|----|----|----|----|----|----|-----|-----|----|----|----|----|
@@ -22,8 +22,8 @@ Hardware Availability: [Mercado Libre](https://articulo.mercadolibre.com.ar/MLA-
 
 |             | QMK led   | Backlight |
 |-------------|-----------|-----------|
-| Arduino pin | 7         | 6         |
-| QMK pin     | E6        | D7        |
+| Arduino pin | 8         | 9         |
+| QMK pin     | B4        | B5        |
 
 ### Compiling the Firmware
 
@@ -33,6 +33,6 @@ Make example for this keyboard (after setting up your build environment):
 
 ### The Defaukt Keymap
 
-![Default Keymap](https://i.imgur.com/Fh7g1AQ.jpg)
+![Default Keymap](https://i.imgur.com/xh7Dmd7.png)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

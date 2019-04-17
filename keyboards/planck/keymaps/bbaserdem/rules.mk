@@ -14,7 +14,6 @@ endif
 # 	No daughterboard yet, so no rgbmatrix
 ifneq (,$(findstring planck/rev6,$(KEYBOARD)))
     AUDIO_ENABLE = yes
-    RGBLIGHT_ENABLE = yes
 endif
 
 # Planck rev4

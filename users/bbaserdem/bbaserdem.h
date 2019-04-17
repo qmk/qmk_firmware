@@ -46,15 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #include "wrappers.h"           // Layouts
 
-// Define layer names
-#define _BA 0   // Base layer
-#define _GA 1   // Game layer
-#define _NU 2   // Numbers layer
-#define _SE 3   // Settings layer
-#define _MO 4   // Mouse emulation
-#define _MU 5   // Music mode
-
-/*// Using enum kinda screws things up?
+/// Using enum kinda screws things up?
 enum userspace_layers {
     _BA = 0,    // Base layer
     _GA,        // Game layer
@@ -115,15 +107,6 @@ extern userspace_config_t userspace_config;
 
 #define XXX     KC_NO
 
-// Layers
-#define _DV 0 // Base layer
-#define _AL 1 // Alt char overlay
-#define _GA 2 // Game layer
-#define _NU 3 // Numbers layer
-#define _SE 4 // Settings layer
-#define _MO 5 // Mouse emulation
-#define _MU 6 // Music mode
-
 // Define short macros
 #define UNDO    LCTL(KC_Z)
 #define REDO    LCTL(KC_Y)
@@ -132,6 +115,7 @@ extern userspace_config_t userspace_config;
 #define PASTE   LCTL(KC_V)
 
 // Rename mouse keys with 7 letters
+#ifdef MOUSEKEY_ENABLE
 #define MO_S_N  KC_MS_WH_UP
 #define MO_S_S  KC_MS_WH_DOWN
 #define MO_S_E  KC_MS_WH_RIGHT

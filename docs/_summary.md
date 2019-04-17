@@ -3,7 +3,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
-  * [Best Practices](newbs_best_practices.md)
+  * [Git Best Practices](newbs_best_practices.md)
   * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
@@ -60,6 +60,7 @@
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
+  * [LED Matrix](feature_led_matrix.md)
   * [Macros](feature_macros.md)
   * [Mouse Keys](feature_mouse_keys.md)
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
@@ -91,7 +92,8 @@
   * [Understanding QMK](understanding_qmk.md)
 
 * Other Topics
-  * [Using Eclipse with QMK](eclipse.md)
+  * [Using Eclipse with QMK](other_eclipse.md)
+  * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
 
 * QMK Internals (In Progress)

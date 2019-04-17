@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Infinity Ergodox",
-    "width": 19.5,
-    "height": 9.375,
+    "width": 17,
+    "height": 8,
     "layouts": {
       "LAYOUT_ergodox": {
         "layout": [
