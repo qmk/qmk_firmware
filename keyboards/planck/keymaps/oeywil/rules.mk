@@ -1,9 +1,11 @@
 SRC += muse.c
 
 # Build Options
-AUDIO_ENABLE 		= yes
-CONSOLE_ENABLE  = no
-EXTRAKEY_ENABLE = yes
-NKRO_ENABLE 		= yes
-
-DEFAULT_FOLDER = planck/rev6
+NKRO_ENABLE 		 = yes
+EXTRAKEY_ENABLE  = yes
+LEADER_ENABLE    = yes
+TAP_DANCE_ENABLE = yes
+AUDIO_ENABLE 		 = yes
+COMMAND_ENABLE 	 = no
+CONSOLE_ENABLE   = no
+MOUSEKEY_ENABLE  = no
