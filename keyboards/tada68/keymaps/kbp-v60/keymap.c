@@ -6,7 +6,6 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
-#define _ML 2
 
 // Tilde is shift-grave
 #define KC_TLDE S(KC_GRV)
