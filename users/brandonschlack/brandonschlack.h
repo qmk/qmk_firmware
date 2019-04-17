@@ -20,6 +20,10 @@ enum custom_keycodes {
 // Useful Defines
 #define FN_CAPS   LT(FL, KC_CAPS)
 #define HY_CAPS   ALL_T(KC_CAPS)
+// Media Mod-Tap
+#define MM_LCTL   LCTL_T(KC_MRWD)
+#define MM_LALT   LALT_T(KC_MPLY)
+#define MM_LGUI   LGUI_T(KC_MFFD)
 // MacOS
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   HYPR(KC_F3)          // Mission Control: Configure karabiner for HYPER -> fn
