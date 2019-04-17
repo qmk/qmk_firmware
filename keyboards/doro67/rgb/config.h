@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    MechMerlin
-#define PRODUCT         rgb
-#define DESCRIPTION     A custom keyboard
+#define MANUFACTURER    BackProp Studios
+#define PRODUCT         Doro 67 RGB 
+#define DESCRIPTION     A custom 65% keyboard with blocker
 
 /* key matrix size */
 #define MATRIX_ROWS 2
