@@ -20,4 +20,3 @@ CUSTOM_MATRIX = yes
 
 SRC = matrix.c led.c
 
-LAYOUTS = 104_ansi 105_iso ibm_f_at
