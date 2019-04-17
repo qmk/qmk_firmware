@@ -145,6 +145,6 @@ LAYOUT_ortho_4x12( \
 #define KEYMAP LAYOUT_ortho_4x12
 #define LAYOUT_planck_mit  LAYOUT_planck_1x2uC
 #define LAYOUT_planck_grid LAYOUT_ortho_4x12
-#define KC_LAYOUT_ortho_4x12 LAYOUT_kc
+#define LAYOUT_kc_ortho_4x12 LAYOUT_kc
 
 #endif
