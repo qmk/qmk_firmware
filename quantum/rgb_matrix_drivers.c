@@ -111,13 +111,13 @@ extern LED_TYPE led[DRIVER_LED_TOTAL];
 
   static void init( void )
   {
-
+    WS2812_init();
   }
 
   const rgb_matrix_driver_t rgb_matrix_driver = {
       .init = init,
       .flush = flush,
-      .set_color = ws2812_setled,
-      .set_color_all = ws2812_setled_all,
+      .set_color = WS2812_setled,
+      .set_color_all = WS2812_setled_all,
   };
 #endif
