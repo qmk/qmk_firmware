@@ -2,24 +2,24 @@
 #include "brandonschlack.h"
 
 enum alt_keycodes {
-    L_BRI = SAFE_RANGE, //LED Brightness Increase                                   //Working
-    L_BRD,              //LED Brightness Decrease                                   //Working
-    L_PTN,              //LED Pattern Select Next                                   //Working
-    L_PTP,              //LED Pattern Select Previous                               //Working
-    L_PSI,              //LED Pattern Speed Increase                                //Working
-    L_PSD,              //LED Pattern Speed Decrease                                //Working
-    L_T_MD,             //LED Toggle Mode                                           //Working
-    L_T_ONF,            //LED Toggle On / Off                                       //Broken
-    L_ON,               //LED On                                                    //Broken
-    L_OFF,              //LED Off                                                   //Broken
-    L_T_BR,             //LED Toggle Breath Effect                                  //Working
-    L_T_PTD,            //LED Toggle Scrolling Pattern Direction                    //Working
-    U_T_AGCR,           //USB Toggle Automatic GCR control                          //Working
-    DBG_TOG,            //DEBUG Toggle On / Off                                     //
-    DBG_MTRX,           //DEBUG Toggle Matrix Prints                                //
-    DBG_KBD,            //DEBUG Toggle Keyboard Prints                              //
-    DBG_MOU,            //DEBUG Toggle Mouse Prints                                 //
-    MD_BOOT             //Restart into bootloader after hold timeout                //Working
+    L_BRI = KEYMAP_SAFE_RANGE, //LED Brightness Increase                                   //Working
+    L_BRD,                     //LED Brightness Decrease                                   //Working
+    L_PTN,                     //LED Pattern Select Next                                   //Working
+    L_PTP,                     //LED Pattern Select Previous                               //Working
+    L_PSI,                     //LED Pattern Speed Increase                                //Working
+    L_PSD,                     //LED Pattern Speed Decrease                                //Working
+    L_T_MD,                    //LED Toggle Mode                                           //Working
+    L_T_ONF,                   //LED Toggle On / Off                                       //Broken
+    L_ON,                      //LED On                                                    //Broken
+    L_OFF,                     //LED Off                                                   //Broken
+    L_T_BR,                    //LED Toggle Breath Effect                                  //Working
+    L_T_PTD,                   //LED Toggle Scrolling Pattern Direction                    //Working
+    U_T_AGCR,                  //USB Toggle Automatic GCR control                          //Working
+    DBG_TOG,                   //DEBUG Toggle On / Off                                     //
+    DBG_MTRX,                  //DEBUG Toggle Matrix Prints                                //
+    DBG_KBD,                   //DEBUG Toggle Keyboard Prints                              //
+    DBG_MOU,                   //DEBUG Toggle Mouse Prints                                 //
+    MD_BOOT                    //Restart into bootloader after hold timeout                //Working
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
