@@ -24,6 +24,8 @@ enum custom_keycodes {
 #define MM_LCTL   LCTL_T(KC_MRWD)
 #define MM_LALT   LALT_T(KC_MPLY)
 #define MM_LGUI   LGUI_T(KC_MFFD)
+#define MM_FN     LT(FL, KC_MPLY)
+#define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   HYPR(KC_F3)          // Mission Control: Configure karabiner for HYPER -> fn
