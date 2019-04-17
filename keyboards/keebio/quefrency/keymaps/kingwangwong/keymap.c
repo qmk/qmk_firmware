@@ -3,6 +3,7 @@ enum layer_names {
     _FN1
 };
 
+QWERTY = SAFE_RANGE,
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

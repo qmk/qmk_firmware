@@ -7,6 +7,8 @@ enum layer_names {
 };
 
 
+QWERTY = SAFE_RANGE,
+
 
 // Custom macros
 #define SPC_FUN LT(_FL, KC_SPC)
