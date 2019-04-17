@@ -1172,14 +1172,11 @@ __attribute__ ((weak))
 void backlight_init_ports(void)
 {
   // Setup backlight pin as output and output to on state.
-  // DDRx |= n
-  _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
+  setPinOutput(backlight_pin); // DDRx |= n
   #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    writePinLow(backlight_pin); // PORTx &= ~n
   #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    writePinHigh(backlight_pin); // PORTx |= n
   #endif
 }
 
@@ -1192,19 +1189,15 @@ uint8_t backlight_tick = 0;
 void backlight_task(void) {
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
-      // PORTx &= ~n
-      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      writePinLow(backlight_pin); // PORTx &= ~n
     #else
-      // PORTx |= n
-      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      writePinHigh(backlight_pin); // PORTx |= n
     #endif
   } else {
     #if BACKLIGHT_ON_STATE == 0
-      // PORTx |= n
-      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      writePinHigh(backlight_pin); // PORTx |= n
     #else
-      // PORTx &= ~n
-      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      writePinLow(backlight_pin); // PORTx &= ~n
     #endif
   }
   backlight_tick = (backlight_tick + 1) % 16;
@@ -1377,14 +1370,11 @@ __attribute__ ((weak))
 void backlight_init_ports(void)
 {
   // Setup backlight pin as output and output to on state.
-  // DDRx |= n
-  _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
+  setPinOutput(backlight_pin); // DDRx |= n
   #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    writePinLow(backlight_pin); // PORTx &= ~n
   #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    writePinHigh(backlight_pin); // PORTx |= n
   #endif
   // I could write a wall of text here to explain... but TL;DW
   // Go read the ATmega32u4 datasheet.
