@@ -26,16 +26,6 @@ enum {
 	X_AT_FUN = 0,
 	RSHIFT,
 	LSHIFT,
-	TD_SMICN,
-	TD_COMMA,
-	TD_DOT,
-	TD_P,
-	TD_Y,
-	TD_F,
-	TD_G,
-	TD_C,
-	TD_R,
-	TD_L,
 	TD_S
 
 };
@@ -115,7 +105,7 @@ void matrix_scan_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Programmer Dvorak */
+	/* Programmer Dvorak */
 	[_PDVORAK] = LAYOUT_planck_grid(
 		KC_GESC, KC_SCOLON, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,
    		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, TD(TD_S), KC_SLASH,
@@ -125,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
 	[_UPPER] = LAYOUT_planck_grid(
 		KC_GRAVE, KC_AMPR, KC_PERC, KC_NO, KC_NO, KC_EQL, KC_ASTR, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_TRNS,
-		KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MINUS, KC_BSLASH, 
+		KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSLASH, 
 		KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 		KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS
 	),
