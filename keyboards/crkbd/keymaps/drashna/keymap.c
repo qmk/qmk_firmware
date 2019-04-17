@@ -294,7 +294,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef OLED_DRIVER_ENABLE
-uint8_t oled_init_user(uint8_t rotation) {
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_master) {
     return OLED_ROTATION_270;
   } else {
