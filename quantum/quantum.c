@@ -1499,20 +1499,15 @@ __attribute__ ((weak))
 void led_set(uint8_t usb_led)
 {
 
-  // Example LED Code
-  //
-    // // Using PE6 Caps Lock LED
-    // if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    // {
-    //     // Output high.
-    //     DDRE |= (1<<6);
-    //     PORTE |= (1<<6);
-    // }
-    // else
-    // {
-    //     // Output low.
-    //     DDRE &= ~(1<<6);
-    //     PORTE &= ~(1<<6);
+    // Example LED Code
+    // Using PE6 Caps Lock LED
+    //
+    // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    //     setPinOutput(E6);
+    //     writePinHigh(E6);
+    // } else {
+    //     setPinInput(E6);
+    //     writePinLow(E6);
     // }
 
 #if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
