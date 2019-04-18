@@ -48,11 +48,12 @@ void debounce_init(uint8_t num_rows) {
 
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
   uint8_t current_time = timer_read() % MAX_DEBOUNCE;
+  bool needed_update = counters_need_update;
   if (counters_need_update) {
     update_debounce_counters(num_rows, current_time);
   }
 
-  if (changed) {
+  if (changed || (needed_update && !counters_need_update)) {
     transfer_matrix_values(raw, cooked, num_rows, current_time);
   }
 }
