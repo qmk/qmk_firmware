@@ -93,6 +93,24 @@ Finally, you can specify the direction your diodes point. This can be `COL2ROW` 
 #define DIODE_DIRECTION COL2ROW
 ```
 
+#### Direct Pin Matrix
+To configure a keyboard where each switch is connected to a separate pin and ground instead of sharing row and column pins, use `DIRECT_PINS`. The mapping defines the pins of each switch in rows and columns, from left to right. Must conform to the sizes within `MATRIX_ROWS` and `MATRIX_COLS`, use `NO_PIN` to fill in blank spaces. Overrides the behaviour of `DIODE_DIRECTION`, `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`.
+
+```c
+// #define MATRIX_ROW_PINS { D0, D5 }
+// #define MATRIX_COL_PINS { F1, F0, B0 }
+#define DIRECT_PINS { \
+    { F1, E6, B0, B2, B3 }, \
+    { F5, F0, B1, B7, D2 }, \
+    { F6, F7, C7, D5, D3 }, \
+    { B5, C6, B6, NO_PIN, NO_PIN } \
+}
+#define UNUSED_PINS
+
+/* COL2ROW, ROW2COL */
+//#define DIODE_DIRECTION
+```
+
 ### Backlight Configuration
 
 By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are using one of those you can simply enable it here. For more details see the [Backlight Documentation](feature_backlight.md).
