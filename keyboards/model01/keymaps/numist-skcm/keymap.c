@@ -66,6 +66,8 @@ enum {
   PLV,
 };
 
+#define CAG_ESC MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_ESC)
+
 #define M_FIND  M(KC_M_FIND)
 #define M_AGAIN M(KC_M_AGAIN)
 #define M_UNDO  M(KC_M_UNDO)
@@ -82,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TG(PLV), KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , MO(NUM),
   KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_LBRC,    KC_RBRC, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
   KC_PGUP, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_TAB ,    KC_ENT , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-  KC_PGDN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_ESC ,    KC_BSLS, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
+  KC_PGDN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , CAG_ESC,    KC_BSLS, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
                                          KC_LCTL,                                 KC_RCTL,
                                             KC_LALT,                           KC_SPC ,
                                                KC_LGUI,                     KC_RSFT,
@@ -103,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FUN] = LAYOUT(
   RESET  , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                      KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
   _______, M_RECD1, M_STOP1, M_PLAY1, _______, _______, _______,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
-  KC_HOME, M_CUT  , M_COPY , M_PSTE , M_FIND , M_AGAIN, _______,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
-  KC_END , _______, _______, _______, _______, _______, M_UNDO ,    _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
+  KC_HOME, M_CUT  , M_COPY , M_PSTE , M_FIND , M_AGAIN, M_UNDO ,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
+  KC_END , _______, _______, _______, _______, _______, CAG_ESC,    _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
                                          _______,                                 _______,
                                             _______,                           _______,
                                                _______,                     _______,
