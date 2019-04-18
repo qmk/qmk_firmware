@@ -1,4 +1,4 @@
-#include "four_banger.h"
+#include QMK_KEYBOARD_H
 
 enum custom_keycodes {
   UP_URL = SAFE_RANGE

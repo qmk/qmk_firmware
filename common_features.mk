@@ -114,7 +114,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -135,6 +135,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
 endif
 
 RGB_MATRIX_ENABLE ?= no
+
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -151,17 +152,29 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+    OPT_DEFS += -DWS2812
+    SRC += ws2812.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -298,34 +311,26 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
 endif
 
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
-# Debounce Modules. If implemented in matrix.c, don't use these.
+# Debounce Modules. Set DEBOUNCE_TYPE=custom if including one manually.
 DEBOUNCE_TYPE?= sym_g
-VALID_DEBOUNCE_TYPES := sym_g eager_pk custom
-ifeq ($(filter $(DEBOUNCE_TYPE),$(VALID_DEBOUNCE_TYPES)),)
-    $(error DEBOUNCE_TYPE="$(DEBOUNCE_TYPE)" is not a valid debounce algorithm)
+ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/$(strip $(DEBOUNCE_TYPE)).c
 endif
-ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
-else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
-    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
-endif
-
-
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                   $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
+        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
+                           i2c_master.c \
+                           i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

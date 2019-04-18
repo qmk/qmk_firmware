@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #ifdef AUDIO_ENABLE
-  #include "audio.h"
   float  tone_caps[][2]  = SONG( CAPS_LOCK_ON_SOUND );
   float  tone_taps[][2]     = SONG( E__NOTE( _A6 ) );
 #endif
