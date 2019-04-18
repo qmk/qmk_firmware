@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  UP_URL = SAFE_RANGE
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_4x4( /* Base */
     RGB_TOG,    KC_1,    KC_U,    KC_P,
@@ -30,13 +25,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case UP_URL:
-      if (record->event.pressed) {
-        SEND_STRING("http://1upkeyboads.com");
-      }
-      break;
-  }
   return true;
 }
 
