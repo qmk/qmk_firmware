@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_FL] = LAYOUT_aek_103(
     KC_ESC , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_DEL ,
-    _______, M_RECD1, M_STOP1, M_PLAY1, _______, _______, KC_PAUS, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, _______, _______, RESET  ,
+    _______, M_RECD1, M_STOP1, M_PLAY1, _______, _______, KC_MPLY, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, _______, _______, RESET  ,
     M_UNDO , M_CUT  , M_COPY , M_PSTE , M_FIND , M_AGAIN, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______, _______,
     LS_HOME, AG_SWAP, AG_NORM, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
     LC_END , _______, _______,                            _______                           , _______, _______, _______
