@@ -16,25 +16,19 @@
 #include QMK_KEYBOARD_H
 #include "keymap_steno.h"
 
-enum keycodes {
-  NONE = SAFE_RANGE,
-  DYNAMIC_MACRO_RANGE
-};
-
+#define DYNAMIC_MACRO_SIZE 256
+#define DYNAMIC_MACRO_RANGE SAFE_RANGE
 #include "dynamic_macro.h"
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return process_record_dynamic_macro(keycode, record);
+}
 
 void matrix_init_user() {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
-  return true;
-}
-
-enum macro_keycodes {
+enum {
   KC_M_FIND,
   KC_M_AGAIN,
   KC_M_UNDO,
@@ -45,28 +39,19 @@ enum macro_keycodes {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    bool use_cmd = true;
-    // if(keymap_config.swap_lalt_lgui == 1) {
-    //   use_cmd = false;
-    // }
-
     switch (id) {
       case KC_M_FIND:
-        return use_cmd ? MACRODOWN( D(LGUI), T(F), END ) : MACRODOWN( D(LCTRL), T(F), END );
+        return MACRODOWN( D(LGUI), T(F), END );
       case KC_M_AGAIN:
-        return use_cmd ? MACRODOWN( D(LGUI), T(G), END ) : MACRODOWN( D(LCTRL), T(G), END );
+        return MACRODOWN( D(LGUI), T(G), END );
       case KC_M_UNDO:
-        return use_cmd ? MACRODOWN( D(LGUI), T(Z), END ) : MACRODOWN( D(LCTRL), T(Z), END );
+        return MACRODOWN( D(LGUI), T(Z), END );
       case KC_M_CUT:
-        return use_cmd ? MACRODOWN( D(LGUI), T(X), END ) : MACRODOWN( D(LCTRL), T(X), END );
+        return MACRODOWN( D(LGUI), T(X), END );
       case KC_M_COPY:
-        return use_cmd ? MACRODOWN( D(LGUI), T(C), END ) : MACRODOWN( D(LCTRL), T(C), END );
+        return MACRODOWN( D(LGUI), T(C), END );
       case KC_M_PASTE:
-        return use_cmd ? MACRODOWN( D(LGUI), T(V), END ) : MACRODOWN( D(LCTRL), T(V), END );
+        return MACRODOWN( D(LGUI), T(V), END );
     }
 
     return MACRO_NONE;
@@ -81,14 +66,14 @@ enum {
   PLV,
 };
 
-#define M_FIND     M(KC_M_FIND)
-#define M_AGAIN    M(KC_M_AGAIN)
-#define M_UNDO     M(KC_M_UNDO)
-#define M_CUT      M(KC_M_CUT)
-#define M_COPY     M(KC_M_COPY)
-#define M_PSTE     M(KC_M_PASTE)
+#define M_FIND  M(KC_M_FIND)
+#define M_AGAIN M(KC_M_AGAIN)
+#define M_UNDO  M(KC_M_UNDO)
+#define M_CUT   M(KC_M_CUT)
+#define M_COPY  M(KC_M_COPY)
+#define M_PSTE  M(KC_M_PASTE)
 
-#define M_RECD1  DYN_REC_START1
+#define M_RECD1 DYN_REC_START1
 #define M_STOP1 DYN_REC_STOP
 #define M_PLAY1 DYN_MACRO_PLAY1
 
@@ -138,19 +123,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       XXXXXXX,                                        XXXXXXX
   )
 };
-
-/* template for new layouts:
-LAYOUT(
-  _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
-                                         _______,                                 _______,
-                                            _______,                           _______,
-                                               _______,                     _______,
-                                                  _______,               _______,
-                                      _______,                                        _______
-  )
-*/
-
-/* vim: set ts=2 sw=2 et: */
