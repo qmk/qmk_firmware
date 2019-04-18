@@ -126,13 +126,13 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode,
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
   bool is_combo_key = false;
   drop_buffer = false;
-  bool no_combo_keys_pressed = false;
+  bool no_combo_keys_pressed = true;
 
   for (current_combo_index = 0; current_combo_index < COMBO_COUNT;
        ++current_combo_index) {
     combo_t *combo = &key_combos[current_combo_index];
     is_combo_key |= process_single_combo(combo, keycode, record);
-    no_combo_keys_pressed |= NO_COMBO_KEYS_ARE_DOWN;
+    no_combo_keys_pressed = no_combo_keys_pressed && NO_COMBO_KEYS_ARE_DOWN;
   }
 
   if (drop_buffer) {
