@@ -187,10 +187,10 @@ const char* read_modifier_state(void) {
   uint8_t one_shot = get_oneshot_mods();
 
   snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s %s %s %s",
-    (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) ? "CTL" : "   ",
-    (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) ? "GUI" : "   ",
-    (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) ? "ALT" : "   ",
-    (modifiers & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) ? "SFT" : "   "
+    (modifiers & MOD_MASK_CTRL || one_shot & MOD_MASK_CTRL) ? "CTL" : "   ",
+    (modifiers & MOD_MASK_GUI || one_shot & MOD_MASK_GUI) ? "GUI" : "   ",
+    (modifiers & MOD_MASK_ALT || one_shot & MOD_MASK_ALT) ? "ALT" : "   ",
+    (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? "SFT" : "   "
   );
 
   return modifier_state_str;
@@ -252,7 +252,7 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     // matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
     // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    matrix_write(matrix, read_host_led_state());
+    // matrix_write(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
     matrix_write(matrix, read_logo());

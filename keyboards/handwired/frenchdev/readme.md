@@ -19,7 +19,6 @@ with the added possibility to connect up to 6 external switches like pedals,
 ## Laser-cuttable file
 There is intentionnaly no hole for the TRRS connector, you are supposed to use a drill for it. 
 This way if you don't want to use the pedals you don't have a useless hole. Plus it's cleaner.
-http://qmk.fm/frenchdev/frenchdev_v1_lasercut_template.svg
 
 ## Side stickers
 You can find my original file here : http://qmk.fm/frenchdev/example_printable_stickers.svg

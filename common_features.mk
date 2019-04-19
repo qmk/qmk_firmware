@@ -114,7 +114,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -135,6 +135,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
 endif
 
 RGB_MATRIX_ENABLE ?= no
+
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -151,17 +152,29 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+    OPT_DEFS += -DWS2812
+    SRC += ws2812.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -308,16 +321,16 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                   $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
+        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
+                           i2c_master.c \
+                           i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

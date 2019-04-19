@@ -42,3 +42,7 @@ ifdef CONSOLE_ENABLE
     OPT_DEFS += -DKEYLOGGER_ENABLE
   endif
 endif
+
+ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
+    OPT_DEFS += -DMAKE_BOOTLOADER
+endif
