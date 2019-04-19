@@ -25,7 +25,8 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 * Utilize the leftover spots on the key matrix, as well as unused pins on Teensy++ 2.0 to run macropad and/or foot pedals.
 
 
-### Colemak
+### 
+Colemak
     (Defauit layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
     ,-----------------------------------------------------------------------------------------------------------.
     | ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
