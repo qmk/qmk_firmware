@@ -26,7 +26,7 @@ extern uint8_t is_master;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
-  [_DVORAK] = LAYOUT_wrapper( \
+  [_MACBASE] = LAYOUT_wrapper( \
 
 
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
@@ -34,8 +34,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____,   _______________MACDVK_L3___________________,                   _______________MACDVK_R3___________________, KC_____, \
                                           __________________MAC_THUMB_CLUSTER_V2______________ \
       ),
-//In this case, this "alt" Dvorak layout is for Windows
-  [_ALTDVK] = LAYOUT_wrapper( \
+
+  [_WINBASE] = LAYOUT_wrapper( \
 
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
@@ -61,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNC] = LAYOUT_wrapper( \
 
-      KC_____, MAKEK,   KC_____, KC_____, KC_____, KC_____,                   KC_ALTDVK, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_____, KC_____, KC_TAB,  KC_____,                   KC_DVORAK, _____________FUNC_2_______________, KC_____, \
-      KC_____, KC_LGUI, KC_RALT, KC_LCTL, KC_____, KC_____,                   KC_GRV,    _____________FUNC_3_______________, KC_____, \
+      KC_____, MAKEK,   KC_____, KC_____, KC_____, KC_____,                   KC_WINBASE, _____________FUNC_1_______________, KC_____, \
+      KC_____, KC_____, KC_____, KC_ENT,  KC_____,  KC_____,                   KC_MACBASE, _____________FUNC_2_______________, KC_____, \
+      KC_____, KC_LGUI, KC_RALT, KC_LCTL, KC_TAB,  KC_____,                   KC_GRV,    _____________FUNC_3_______________, KC_____, \
                                           KC_____, KC_____, KC_DEL,  KC_CAPS, KC_____,   MO(_MDIA) \
       ),
 
@@ -103,7 +103,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 // Setting MDIA layer RGB back to default
-static inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     layer_on(layer3);
   } else {

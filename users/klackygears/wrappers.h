@@ -91,27 +91,27 @@ NOTE: If you do a search/replace
 #define ________WIN_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT)
 #define ________MAC_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT)
 
-#define __________________WIN_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ESC)
-#define __________________MAC_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ESC)
+#define __________________WIN_THUMB_CLUSTER_V2______________ KC_LSFT, LT(_FUNC,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ENT)
+#define __________________MAC_THUMB_CLUSTER_V2______________ KC_LSFT, LT(_FUNC,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ENT)
 
 #define ________MAC_MISSION_CTRL__________                LCTL(KC_LEFT),    LCTL(KC_UP),       LCTL(KC_DOWN),    LCTL(KC_RGHT)
 
 #define _________________MACNAV_L1_________________       KC_PGUP,    KC_PGDN,    KC_HOME,       KC_END,         KC_____
 #define _________________MACNAV_L2_________________       KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,       KC_____
-#define _________________MACNAV_L3_________________       KC_____, LGUI(KC_A), TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL
+#define _________________MACNAV_L3_________________       KC_____,    LGUI(KC_A), TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL
 
 #define _________________WINNAV_L1_________________       KC_PGUP,     KC_PGDN,    KC_HOME,     KC_END,      TD(TD_FNDR)
 #define _________________WINNAV_L2_________________       KC_LEFT,     KC_UP,      KC_DOWN,     KC_RIGHT,    TD(TD_PTSP)
-#define _________________WINNAV_L3_________________       TD(TD_ACCW), LCTL(KC_A),    TD(TD_CCPY), TD(TD_PSTI), TD(TD_DDEL)
+#define _________________WINNAV_L3_________________       TD(TD_ACCW), LCTL(KC_A), TD(TD_CCPY), TD(TD_PSTI), TD(TD_DDEL)
 
 #define _________________NUMBER_L__________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7,       KC_8,       KC_9,              KC_COLN
-#define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,              C_S_T(KC_COLN)
-#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3), KC_LCTRL
-#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1,       MT(MOD_LCTL,KC_2),       MT(MOD_LALT,KC_3), KC_LGUI
-#define _________________NUMB_R4___________________       KC_____,    KC_0,       KC_0,       KC_____,         KC_____
+#define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7, KC_8,              KC_9,              KC_COLN
+#define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4, KC_5,              KC_6,              C_S_T(KC_COLN)
+#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1, KC_2,              MT(MOD_LGUI,KC_3), MT(MOD_LCTL,KC_0)
+#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), KC_LGUI
+#define _________________NUMB_R4___________________       KC_____,       KC_0, KC_0,              KC_____,           KC_____
 /*
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -121,8 +121,8 @@ NOTE: If you do a search/replace
 #define _________________RGB_1_____________________       RGBRST,     RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI
 #define _________________RGB_2_____________________       RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD
 
-#define _________________MEDIA_____________________       KC_MPLY,    KC_MUTE,     KC_VOLD,     KC_VOLU,     KC_____
-#define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_DVORAK,   KC_ALTDVK,   KC_____
+#define _________________MEDIA_____________________       KC_MPLY,    KC_MUTE,     KC_VOLD,      KC_VOLU,     KC_____
+#define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_MACBASE,   KC_WINBASE,   KC_____
 
 #define _________________PUNC_L1___________________       KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
 #define _________________PUNC_L1_ALT_______________       KC_DQT,     KC_AT,      KC_HASH,    KC_DLR,     KC_PERC

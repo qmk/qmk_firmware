@@ -21,8 +21,8 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 enum layer_number {
-    _DVORAK = 0,
-    _ALTDVK, //for use with Windows or Mac layouts, varies for which OS the keyboard is primarily used on
+    _MACBASE = 0,
+    _WINBASE,
     _QWERTY,
     _NUMB,
     _MNMB,
@@ -32,8 +32,8 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
-  ALTDVK,
+  MACBASE = SAFE_RANGE,
+  WINBASE,
   QWERTY,
   NUMB,
   MNMB,
@@ -48,9 +48,10 @@ enum custom_keycodes {
 };
 
 enum userspace_custom_keycodes {
-  KC_DVORAK,
-  KC_ALTDVK,
+  KC_MACBASE,
+  KC_PROTECT, //for some reason, this position does not work. This is just a placeholder
   KC_QWERTY,
+  KC_WINBASE,
   //NEW_SAFE_RANGE
 };
 

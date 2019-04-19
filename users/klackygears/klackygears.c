@@ -52,19 +52,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(":Shrug:");
         //send_unicode_hex_string(0x2122);
       }
-
     break;
 
-  case KC_DVORAK:
+  case KC_MACBASE:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(_DVORAK);
+      set_single_persistent_default_layer(_MACBASE);
     }
     break;
-  case KC_ALTDVK:
+
+  case KC_WINBASE:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(_ALTDVK);
+      set_single_persistent_default_layer(_WINBASE);
     }
     break;
+
   case KC_QWERTY:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_QWERTY);

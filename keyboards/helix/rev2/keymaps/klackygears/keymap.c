@@ -26,15 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-  [_DVORAK] = LAYOUT_wrapper( \
+  [_MACBASE] = LAYOUT_wrapper( \
       RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
       KC_LSFT,   _______________MACDVK_L3___________________, KC_____, KC_____, _______________MACDVK_R3___________________, KC_RSFT, \
       MO(_MDIA), KC_ENT, KC_LALT, KC_TAB, __________________MAC_THUMB_CLUSTER_V2______________, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
       ),
-//In this case, this "alt" Dvorak layout is for Windows
-  [_ALTDVK] = LAYOUT_wrapper( \
+
+  [_WINBASE] = LAYOUT_wrapper( \
       RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
