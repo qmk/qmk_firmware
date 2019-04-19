@@ -1,15 +1,6 @@
-#ifndef BFO9000_H
-#define BFO9000_H
+#pragma once
 
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-#endif
-#endif
 
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05, L06, L07, L08, R00, R01, R02, R03, R04, R05, R06, R07, R08, \
@@ -33,5 +24,3 @@
         { R40, R41, R42, R43, R44, R45, R46, R47, R48 }, \
         { R50, R51, R52, R53, R54, R55, R56, R57, R58 } \
     }
-
-#endif

@@ -1,0 +1,190 @@
+[
+  {
+    "name": "gsm-idobo",
+    "notes": "Massdrop xd75\n\nFront Legend = \"Adust\" layer (both lower and Raise)"
+  },
+  [
+    {
+      "a": 3
+    },
+    "Esc\n\n\n\nreset",
+    {
+      "t": "#0000ff\n#ff0000",
+      "a": 4
+    },
+    "\nF1\n\n\n\n\n\n\n\n1 !",
+    "\nF2\n\n\n\n\n\n\n\n2 @",
+    "\nF3\n\n\n\n\n\n\n\n3 #",
+    "\nF4\n\n\n\n\n\n\n\n4 $",
+    "\nF5\n\n\n\n\n\n\n\n5 %",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "= +",
+    "",
+    "- _",
+    {
+      "t": "#0000ff\n#ff0000",
+      "a": 0
+    },
+    "\nF6\n\n\nrgbplain\n\n\n\n\n6 ^",
+    "\nF7\n\n\nrgbtest\n\n\n\n\n7 &",
+    "\nF8\n\n\nrgbmode\n\n\n\n\n8 *",
+    {
+      "a": 4
+    },
+    "\nF9\n\n\n\n\n\n\n\n9 (",
+    "\nF10\n\n\n\n\n\n\n\n0 )",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "Bksp"
+  ],
+  [
+    "Tab",
+    "Q",
+    {
+      "t": "#0000ff\n#ff0000",
+      "a": 4
+    },
+    "PgUp\nUP\n\n\n\n\n\n\n\nW",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "E",
+    {
+      "a": 3
+    },
+    "R\n\n\n\nrgb_tog",
+    "T\n\n\n\nbl_tog",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    "[ {",
+    "T",
+    "Y",
+    "I",
+    "O",
+    "P",
+    "]"
+  ],
+  [
+    {
+      "c": "#0000ff",
+      "t": "#ffffff"
+    },
+    "Raise",
+    {
+      "c": "#cccccc",
+      "t": "#0000ff\n#ff0000",
+      "a": 4
+    },
+    "Home\nLEFT\n\n\n\n\n\n\n\nA",
+    {
+      "a": 0
+    },
+    "PgDwn\nDOWN\n\n\nrgb_hai\n\n\n\n\nS",
+    "End\nRIGHT\n\n\nrgb_sai\n\n\n\n\nD",
+    {
+      "t": "#000000",
+      "a": 3
+    },
+    "F\n\n\n\nrgb_vai",
+    "G\n\n\n\nbl_inc",
+    {
+      "a": 7
+    },
+    "",
+    "UP",
+    "",
+    "H",
+    "J",
+    "K",
+    "L",
+    "; :",
+    "' \""
+  ],
+  [
+    {
+      "a": 3
+    },
+    "Shift\n\n\n\neep_rst",
+    {
+      "a": 7
+    },
+    "Z",
+    {
+      "a": 3
+    },
+    "X\n\n\n\nrgb_hud",
+    "C\n\n\n\nrgb_sad",
+    "V\n\n\n\nrgb_vad",
+    "B\n\n\n\nbl_dec",
+    {
+      "a": 7
+    },
+    "LEFT",
+    "DOWN",
+    "RIGHT",
+    "N",
+    "M",
+    ", <",
+    ". >",
+    "/ ?",
+    {
+      "a": 6
+    },
+    "Shift"
+  ],
+  [
+    {
+      "a": 7
+    },
+    "` ~",
+    "\\ |",
+    "Alt",
+    "Ctrl",
+    {
+      "c": "#ff0000"
+    },
+    "Lower",
+    {
+      "c": "#eb7c15"
+    },
+    "Space",
+    {
+      "c": "#cccccc",
+      "t": "#0000ff\n#ff0000",
+      "a": 4
+    },
+    "\nApp\n\n\n\n\n\n\n\nOS",
+    {
+      "t": "#000000",
+      "a": 7
+    },
+    "Del",
+    "Enter",
+    {
+      "c": "#eb7c15"
+    },
+    "Space",
+    {
+      "c": "#0000ff",
+      "t": "#ffffff"
+    },
+    "Raise",
+    {
+      "c": "#cccccc",
+      "t": "#000000"
+    },
+    "",
+    "",
+    "",
+    "PrtScr"
+  ]
+]

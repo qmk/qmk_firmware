@@ -59,6 +59,8 @@ This is a C header file that is one of the first things included, and will persi
   * define is matrix has ghost (unlikely)
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
+* `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * pins mapped to rows and columns, from left to right. Defines a matrix where each switch is connected to a separate pin and ground.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
 * `#define C4_AUDIO`
@@ -126,6 +128,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+* `#define TAPPING_TERM_PER_KEY`
+  * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
   * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
@@ -171,11 +175,15 @@ If you define these options you will enable the associated feature, which may in
 ## RGB Light Configuration
 
 * `#define RGB_DI_PIN D7`
-  * pin the DI on the ws2812 is hooked-up to
+  * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
-* `#define RGBLED_NUM 15`
+* `#define RGBLED_NUM 12`
   * number of LEDs
+* `#define RGBLED_SPLIT { 6, 6 }`
+  * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
+  * First value indicates number of LEDs for left half, second value is for the right half
+  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
@@ -208,8 +216,12 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+   * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
+   * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
+#### Defines for handedness
 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
@@ -231,6 +243,9 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define RGBLED_SPLIT { 6, 6 }`
+  * See [RGB Light Configuration](#rgb-light-configuration)
 
 * `#define SELECT_SOFT_SERIAL_SPEED <speed>` (default speed is 1)
   * Sets the protocol speed when using serial communication

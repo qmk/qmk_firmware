@@ -146,9 +146,102 @@ send_string(my_str);
 SEND_STRING(".."SS_TAP(X_END));
 ```
 
-## The Old Way: `MACRO()` & `action_get_macro`
 
-?> This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
+## Advanced Macro Functions
+
+There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
+
+### `record->event.pressed`
+
+This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
+
+```c
+    if (record->event.pressed) {
+        // on keydown
+    } else {
+        // on keyup
+    }
+```
+
+### `register_code(<kc>);`
+
+This sends the `<kc>` keydown event to the computer. Some examples would be `KC_ESC`, `KC_C`, `KC_4`, and even modifiers such as `KC_LSFT` and `KC_LGUI`.
+
+### `unregister_code(<kc>);`
+
+Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
+
+### `tap_code(<kc>);`
+
+This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
+
+If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
+
+### `register_code16(<kc>);`, `unregister_code16(<kc>);` and `tap_code16(<kc>);`
+
+These functions work similar to their regular counterparts, but allow you to use modded keycodes (with Shift, Alt, Control, and/or GUI applied to them).
+
+Eg, you could use `register_code16(S(KC_5));` instead of registering the mod, then registering the keycode.
+
+### `clear_keyboard();`
+
+This will clear all mods and keys currently pressed.
+
+### `clear_mods();`
+
+This will clear all mods currently pressed.
+
+### `clear_keyboard_but_mods();`
+
+This will clear all keys besides the mods currently pressed.
+
+## Advanced Example: 
+
+### Super ALT↯TAB
+
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
+
+```c
+bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        # we will be using them soon.
+
+enum custom_keycodes {             # Make sure have the awesome keycode ready
+  ALT_TAB = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {               # This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        } 
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     # The very important timer. 
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code16(LALT(KC_TAB));
+      is_alt_tab_active = false;
+    }
+  }
+}
+```
+
+---
+
+##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
+
+!> This is inherited from TMK, and hasn't been updated - it's recommended that you use `SEND_STRING` and `process_record_user` instead.
 
 By default QMK assumes you don't have any macros. To define your macros you create an `action_get_macro()` function. For example:
 
@@ -222,49 +315,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-## Advanced Macro Functions
 
-There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
+## Advanced Example: 
 
-### `record->event.pressed`
-
-This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
-
-```c
-    if (record->event.pressed) {
-        // on keydown
-    } else {
-        // on keyup
-    }
-```
-
-### `register_code(<kc>);`
-
-This sends the `<kc>` keydown event to the computer. Some examples would be `KC_ESC`, `KC_C`, `KC_4`, and even modifiers such as `KC_LSFT` and `KC_LGUI`.
-
-### `unregister_code(<kc>);`
-
-Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
-
-### `tap_code(<kc>);`
-
-This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
-
-If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
-
-### `clear_keyboard();`
-
-This will clear all mods and keys currently pressed.
-
-### `clear_mods();`
-
-This will clear all mods currently pressed.
-
-### `clear_keyboard_but_mods();`
-
-This will clear all keys besides the mods currently pressed.
-
-## Advanced Example: Single-Key Copy/Paste
+### Single-Key Copy/Paste
 
 This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 
