@@ -62,7 +62,7 @@ void draw_ui(void) {
   last_flush = timer_read();
   send_command(DISPLAYON);
 
-/* Layer indicator is 41 x 10 pixels */
+/* Boston MK title is 55 x 10 pixels */
 #define NAME_X 0
 #define NAME_Y 0 
 
