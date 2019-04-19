@@ -44,13 +44,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_BASE] = LAYOUT(
-  KC_ESC,   \
-  KC_COLN, KC_P7,  KC_P8,  KC_P9,   \
-  RAISE,   KC_P4,  KC_P5,  KC_P6,   \
-  LOWER,   KC_P1,  KC_P2,  KC_P3    \
+  KC_ESC,
+  KC_COLN, KC_P7,  KC_P8,  KC_P9,
+  RAISE,   KC_P4,  KC_P5,  KC_P6,
+  LOWER,   KC_P1,  KC_P2,  KC_P3
 ),
 
-/* RAISE
+/* Lower
  * ,------.
  * | Nmlk | 
  * |------+------+-------------.
@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_NLCK,   \
-  KC_COLN,  KC_PSLS, KC_PAST, KC_PMNS, \
-  _______,  XXXXXXX, KC_EQL,  KC_PPLS, \
-  _______,  KC_P0,   KC_PDOT, KC_PENT  \
+  KC_NLCK,
+  KC_COLN,  KC_PSLS, KC_PAST, KC_PMNS,
+  _______,  XXXXXXX, KC_EQL,  KC_PPLS,
+  _______,  KC_P0,   KC_PDOT, KC_PENT
 ),
 
 /* Raise
@@ -80,14 +80,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_RAISE] = LAYOUT(
-  KC_NLCK,   \
-  RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX, \
-  _______, RGB_HUI, RGB_SAI,  RGB_VAI, \
-  _______, RGB_HUD, RGB_SAD,  RGB_VAD  \
+  KC_NLCK,
+  RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX,
+  _______, RGB_HUI, RGB_SAI,  RGB_VAI,
+  _______, RGB_HUD, RGB_SAD,  RGB_VAD
 
 ),
 
-/* Base
+/* Adjust
  * ,------.
  * | DFU  | 
  * |------+------+-------------.
@@ -99,10 +99,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------'
  */
 [_ADJUST] = LAYOUT(
-  RESET, \
-  HPT_TOG, HPT_FBK,  HPT_RST, KC_BSPC, \
-  _______, HPT_MODI, XXXXXXX, XXXXXXX, \
-  _______, HPT_MODD, CK_TOGG, KC_DEL \
+  RESET,
+  HPT_TOG, HPT_FBK,  HPT_RST, KC_BSPC,
+  _______, HPT_MODI, XXXXXXX, XXXXXXX,
+  _______, HPT_MODD, CK_TOGG, KC_DEL
 ),
 
 
