@@ -699,7 +699,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |       |  Esc  | Tab x | Tab n |CPg Dn |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  Esc  |
  * -------------------------------------------------               -------------------------------------------------
- * |       | Caps  | < Gui |Gui Tab|  💥   |  💥   |               |< Arrow|< Arrow|v Arrow|> Arrow|  End  |Pr Scr |
+ * |       | Caps  | < Gui |Gui Tab| > Gui | > Gui |               |< Arrow|< Arrow|v Arrow|> Arrow|  End  |Pr Scr |
  * -------------------------------------------------               -------------------------------------------------
  * |       |  XXX  |  XXX  |  XXX  |CPg Up |CPg Up |               | Pg Up |  XXX  |v Arrow|  XXX  |  App  |       |
  * -----------------------------------------------------------------------------------------------------------------
@@ -708,7 +708,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 	LAYOUT_ortho_4x12(
 		KC_TRNS, KC_ESC, LCTL(KC_W), LCTL(KC_T), CTL_T(KC_PGDN), CTL_T(KC_PGDN), KC_PGDN, KC_HOME, KC_UP, KC_INS, SFT_T(KC_INS), KC_ESC,
-		KC_TRNS, KC_CAPS, LGUI_T(KC_RIGHT), LGUI_T(KC_TAB), XXXXXXX, XXXXXXX, KC_LEFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_PSCR,
+		KC_TRNS, KC_CAPS, LGUI_T(KC_LEFT), LGUI_T(KC_TAB), LGUI_T(KC_RIGHT), LGUI_T(KC_RIGHT), KC_LEFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_PSCR,
 		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, CTL_T(KC_PGUP), CTL_T(KC_PGUP), KC_PGUP, XXXXXXX, KC_DOWN, XXXXXXX, KC_APP, KC_TRNS,
 		TG(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),

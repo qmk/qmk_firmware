@@ -402,7 +402,7 @@ qmk_dict = {
     "Undo": "LCTL(KC_Z)", "Cut": "LCTL(KC_X)", "Copy": "LCTL(KC_C)", "Paste": "LCTL(KC_V)",
     "< Tab": "LCTL(S(KC_TAB))", "> Tab": "LCTL(KC_TAB)",
     "Tab x": "LCTL(KC_W)", "Tab n": "LCTL(KC_T)",
-    "Gui Tab":  "LGUI_T(KC_TAB)", "< Gui":  "LGUI_T(KC_LEFT)", "< Gui":  "LGUI_T(KC_RIGHT)",
+    "Gui Tab":  "LGUI_T(KC_TAB)", "< Gui":  "LGUI_T(KC_LEFT)", "> Gui":  "LGUI_T(KC_RIGHT)",
     "C+A+Del": "LCTL(LALT(KC_DEL))", "Mic 0": "LCTL(KC_M)",
     "Power": "KC_PWR", "Sleep": "KC_SLEP",
 
