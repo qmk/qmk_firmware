@@ -35,48 +35,48 @@
 
 #ifdef DISABLE_SPACE_CADET_MODIFIER
   #ifndef LSPO_MOD
-    #define LSPO_MOD KC_TRNS
+    #define LSPO_MOD MOD_NONE
   #endif
   #ifndef RSPC_MOD
-    #define RSPC_MOD KC_TRNS
+    #define RSPC_MOD MOD_NONE
   #endif
 #else
   #ifndef LSPO_MOD
-    #define LSPO_MOD KC_LSFT
+    #define LSPO_MOD MOD_LSFT
   #endif
   #ifndef RSPC_MOD
-    #define RSPC_MOD KC_RSFT
+    #define RSPC_MOD MOD_RSFT
   #endif
 #endif
 // **********************************************************
 
 // Shift / paren setup
 #ifndef LSPO_KEYS
-  #define LSPO_KEYS KC_LSFT, LSPO_MOD, LSPO_KEY
+  #define LSPO_KEYS MOD_LSFT, LSPO_MOD, LSPO_KEY
 #endif
 #ifndef RSPC_KEYS
-  #define RSPC_KEYS KC_RSFT, RSPC_MOD, RSPC_KEY
+  #define RSPC_KEYS MOD_RSFT, RSPC_MOD, RSPC_KEY
 #endif
 
 // Control / paren setup
 #ifndef LCPO_KEYS
-  #define LCPO_KEYS KC_LCTL, KC_LCTL, KC_9
+  #define LCPO_KEYS MOD_LCTL, MOD_LCTL, KC_9
 #endif
 #ifndef RCPO_KEYS
-  #define RCPO_KEYS KC_RCTL, KC_RCTL, KC_0
+  #define RCPO_KEYS MOD_RCTL, MOD_RCTL, KC_0
 #endif
 
 // Alt / paren setup
 #ifndef LAPO_KEYS
-  #define LAPO_KEYS KC_LALT, KC_LALT, KC_9
+  #define LAPO_KEYS MOD_LALT, MOD_LALT, KC_9
 #endif
 #ifndef RAPO_KEYS
-  #define RAPO_KEYS KC_RALT, KC_RALT, KC_0
+  #define RAPO_KEYS MOD_RALT, MOD_RALT, KC_0
 #endif
 
 // Shift / Enter setup
 #ifndef SFTENT_KEYS
-  #define SFTENT_KEYS KC_RSFT, KC_TRNS, SFTENT_KEY
+  #define SFTENT_KEYS MOD_RSFT, MOD_NONE, SFTENT_KEY
 #endif
 
 static uint8_t sc_last = 0;
@@ -86,23 +86,15 @@ void perform_space_cadet(keyrecord_t *record, uint8_t normalMod, uint8_t tapMod,
   if (record->event.pressed) {
     sc_last = normalMod;
     sc_timer = timer_read ();
-    if (IS_MOD(normalMod)) {
-      register_mods(MOD_BIT(normalMod));
-    }
+    register_mods(normalMod);
   }
   else {
-    if (IS_MOD(normalMod)) {
-      unregister_mods(MOD_BIT(normalMod));
-    }
+    unregister_mods(normalMod);
 
     if (sc_last == normalMod && timer_elapsed(sc_timer) < TAPPING_TERM) {
-      if (IS_MOD(tapMod)) {
-        register_mods(MOD_BIT(tapMod));
-      }
+      register_mods(tapMod);
       tap_code(keycode);
-      if (IS_MOD(tapMod)) {
-        unregister_mods(MOD_BIT(tapMod));
-      }
+      unregister_mods(tapMod);
     }
   }
 }
