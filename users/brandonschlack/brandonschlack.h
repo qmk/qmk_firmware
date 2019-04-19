@@ -14,6 +14,7 @@
 // Macros
 enum custom_keycodes {
   KC_MAKE = SAFE_RANGE,
+  MD_MAKE,
   KEYMAP_SAFE_RANGE
 };
 
