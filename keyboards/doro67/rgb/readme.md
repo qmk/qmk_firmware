@@ -1,6 +1,8 @@
-# Doro 67 RGB
+# Doro67 RGB PCB
 
-65% custom keyboard made by 80ultraman/Alf/Backprop Studios with in switch RGB. 
+65% custom keyboard made by 80ultraman/Alf/Backprop Studios with in switch RGB featuring the same switch matrix and layout as the regular PCB. 
+
+Flashing the regular PCB firmware on this board will work, but will disable RGB lighting. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Doro 67 RGB PCB  
