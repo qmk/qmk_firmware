@@ -23,8 +23,8 @@ else
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
     RGB_MATRIX_ENABLE           = yes
-    RGBLIGHT_ENABLE             = no
-    RGBLIGHT_STARTUP_ANIMATION  = no
+    RGBLIGHT_ENABLE             = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
     # HAPTIC_ENABLE               += SOLENOID
 endif
 ifeq ($(strip $(KEYBOARD)), planck/ez)
