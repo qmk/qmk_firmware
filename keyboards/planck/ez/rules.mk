@@ -1,22 +1,5 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), planck/rev3)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev4)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev5)
-    BOOTLOADER = qmk-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/light)
-    BOOTLOADER = atmel-dfu
-endif
+# Cortex version
+MCU  = STM32F303
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -25,11 +8,12 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
+MOUSEKEY_ENABLE = yes      # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes         # Console for debug(+400)
-COMMAND_ENABLE = no        # Commands for debug and configuration
+COMMAND_ENABLE = yes       # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
@@ -41,30 +25,12 @@ API_SYSEX_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-LAYOUTS = ortho_4x12 planck_mit planck_grid
-LAYOUTS_HAS_RGB = no
-# project specific files
-LAYOUTS += ortho_4x12
-
-# Cortex version
-MCU  = STM32F303
-
-# Build Options
-#   comment out to disable the options.
-#
-BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = yes  # Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes # Mouse keys
-EXTRAKEY_ENABLE = yes # Audio control and System control
-CONSOLE_ENABLE = yes  # Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes     # USB Nkey Rollover
+
 CUSTOM_MATRIX = no # Custom matrix file
-AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = no
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = IS31FL3737
+
+LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS_HAS_RGB = no

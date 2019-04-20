@@ -5,18 +5,7 @@ MCU = atmega32u4
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), planck/rev3)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev4)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev5)
-    BOOTLOADER = qmk-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/light)
-    BOOTLOADER = atmel-dfu
-endif
+BOOTLOADER = atmel-dfu
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -33,7 +22,7 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = yes           # Audio output on port C6
+AUDIO_ENABLE = no            # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
@@ -44,4 +33,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_4x12 planck_mit planck_grid
 LAYOUTS_HAS_RGB = no
-AUDIO_ENABLE = no           # Audio output on port C6
