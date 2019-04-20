@@ -40,12 +40,7 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), preonic/rev1)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), preonic/rev2)
-    BOOTLOADER = qmk-dfu
-endif
+BOOTLOADER = atmel-dfu
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
