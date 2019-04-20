@@ -51,3 +51,88 @@ void led_set_kb(uint8_t usb_led) {
   }
 	led_set_user(usb_led);
 }
+
+#define NUMBER_OF_COLS 15
+#define NUMBER_OF_ROWS 5
+
+const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+/*  {row | col << 4}
+    *    |         {x=0..224, y=0..64}
+    *    |            |              modifier
+    *    |            |                | */
+    // {{0|(0<<4)},   {20.36*0, 21.33*0}, 1},
+    // {{0|(1<<4)},   {20.36*1, 21.33*0}, 1},
+    // ....
+
+    {{0|(0<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 0)}, 0},
+    {{0|(1<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 1)}, 0},
+    {{0|(2<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 2)}, 0},
+    {{0|(3<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 3)}, 0},
+    {{0|(4<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 4)}, 0},
+    {{0|(5<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 5)}, 0},
+    {{0|(6<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 6)}, 0},
+    {{0|(7<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 7)}, 0},
+    {{0|(8<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 8)}, 0},
+    {{0|(9<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 9)}, 0},
+    {{0|(10<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 10)}, 0},
+    {{0|(11<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 11)}, 0},
+    {{0|(12<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 12)}, 0},
+    {{0|(13<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 13)}, 1},
+    {{0|(14<<4)},   {(224/(NUMBER_OF_COLS - 1) * 0), (64/(NUMBER_OF_ROWS - 1) * 14)}, 1},
+
+    {{1|(0<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 0)}, 1},
+    {{1|(1<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 1)}, 0},
+    {{1|(2<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 2)}, 0},
+    {{1|(3<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 3)}, 0},
+    {{1|(4<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 4)}, 0},
+    {{1|(5<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 5)}, 0},
+    {{1|(6<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 6)}, 0},
+    {{1|(7<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 7)}, 0},
+    {{1|(8<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 8)}, 0},
+    {{1|(9<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 9)}, 0},
+    {{1|(10<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 10)}, 0},
+    {{1|(11<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 11)}, 0},
+    {{1|(12<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 12)}, 0},
+    {{1|(13<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 13)}, 1},
+    {{1|(14<<4)},   {(224/(NUMBER_OF_COLS - 1) * 1), (64/(NUMBER_OF_ROWS - 1) * 14)}, 1},
+
+    {{2|(0<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 0)}, 1},
+    {{2|(1<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 1)}, 0},
+    {{2|(2<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 2)}, 0},
+    {{2|(3<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 3)}, 0},
+    {{2|(4<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 4)}, 0},
+    {{2|(5<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 5)}, 0},
+    {{2|(6<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 6)}, 0},
+    {{2|(7<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 7)}, 0},
+    {{2|(8<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 8)}, 0},
+    {{2|(9<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 9)}, 0},
+    {{2|(10<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 10)}, 0},
+    {{2|(11<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 11)}, 0},
+    {{2|(13<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 12)}, 1},
+    {{2|(14<<4)},   {(224/(NUMBER_OF_COLS - 1) * 2), (64/(NUMBER_OF_ROWS - 1) * 13)}, 1},
+
+    {{3|(0<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 0)}, 1},
+    {{3|(2<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 1)}, 0},
+    {{3|(3<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 2)}, 0},
+    {{3|(4<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 3)}, 0},
+    {{3|(5<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 4)}, 0},
+    {{3|(6<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 5)}, 0},
+    {{3|(7<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 6)}, 0},
+    {{3|(8<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 7)}, 0},
+    {{3|(9<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 8)}, 0},
+    {{3|(10<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 9)}, 0},
+    {{3|(11<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 10)}, 0},
+    {{3|(12<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 11)}, 1},
+    {{3|(13<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 12)}, 1},
+    {{3|(14<<4)},   {(224/(NUMBER_OF_COLS - 1) * 3), (64/(NUMBER_OF_ROWS - 1) * 13)}, 1},
+    
+    {{4|(0<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 0)}, 1},
+    {{4|(1<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 1)}, 1},
+    {{4|(2<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 2)}, 1},
+    {{4|(3<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 3)}, 0},
+    {{4|(9<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 4)}, 1},
+    {{4|(10<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 5)}, 1},
+    {{4|(12<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 6)}, 1},
+    {{4|(13<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 7)}, 1},
+    {{4|(14<<4)},   {(224/(NUMBER_OF_COLS - 1) * 4), (64/(NUMBER_OF_ROWS - 1) * 8)}, 1},
+};
