@@ -26,15 +26,15 @@ git clone https://github.com/qmk/qmk_firmware.git
 ```
 2. Customize your layout by starting with a [keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dz60/keymaps). I copied [StephenGrier](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dz60/keymaps/stephengrier)'s and modified it for DZ60 Build 4 and changed a few things, like the `grave` key, `ESC` and `/`.
 
-1. Build your hex file
+3. Build your hex file
 ```
 make dz60:billiams # be in the qmk_firmware directory to do this
 ```
 A hex file `dz60_billiams.hex` will be created in the base qmk_firmware directory
 
-2. Before plugging in your keyboard into your computer, hold SPACE and B keys down
-3. Plug the computer in, which will put the keyboard in bootlegger mode
-4. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. Don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
+4. Before plugging in your keyboard into your computer, hold SPACE and B keys down
+5. Plug the computer in, which will put the keyboard in bootlegger mode
+6. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. Don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
 
 Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. You don't have to unplug the keyboard. 
 
