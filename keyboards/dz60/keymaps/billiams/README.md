@@ -6,7 +6,7 @@ cluster in the bottom right. Don't use this layout if you didn't get Build 4, yo
 Settings:
 
 * The `CAPS LOCK` key is replaced with a second function key.
-* The Alt an Cmd keys are swapped to replicate the Mac layout.
+* The `ALT` and `CMD` keys are swapped to replicate the Mac layout.
 * Del is available as `Fn` + `Backspace`
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
