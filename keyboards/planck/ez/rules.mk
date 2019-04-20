@@ -32,5 +32,5 @@ CUSTOM_MATRIX = no # Custom matrix file
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = IS31FL3737
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no

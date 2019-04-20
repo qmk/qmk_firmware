@@ -35,5 +35,5 @@ CUSTOM_MATRIX = yes # Custom matrix file
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
