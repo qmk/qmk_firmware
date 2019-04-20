@@ -1,6 +1,6 @@
 # bm16s
 
-A 16 key macropad, with USB C, per-key RGB backlighting, it's a variant of the BM16A, but with low profile cioc switches.
+A 16-key macropad, with USB C and per-key RGB backlighting. This is a variant of the BM16A, but with low profile Choc switches.
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: The PCBs, controllers supported  
