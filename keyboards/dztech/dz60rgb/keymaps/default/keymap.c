@@ -113,7 +113,7 @@ void rgb_matrix_indicators_user(void) {
           rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
           break;
 	      case _LAYER4:
-	        rgb_matrix_set_color_all(0xFF, 0xFF, 0x00, false);
+	        rgb_matrix_set_color_all(0xFF, 0xFF, 0x00);
           break;
       }
     }
