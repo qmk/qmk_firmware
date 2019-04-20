@@ -7,10 +7,10 @@ Settings:
 
 * The capslock key is replaced with a second function key.
 * The Alt an Cmd keys are swapped to replicate the Mac layout.
-* Del is available as Fn+Backspace
+* Del is available as `Fn` + `Backspace`
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
-* RESET is available as Fn+Esc
-* Underglow toggle and mode selection are available as Fn+A and Fn+S
+* RESET is available as `Fn`+ ` ESC`
+* Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`
 * Media play/pause doesn't seem to work with anything but iTunes at the moment. FML
 
 
