@@ -445,8 +445,8 @@ colemak = [
 # 2
 numpad = [
     ["`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]"],
-    ["",        "DF0",  "DF1",     "XXX",     "XXX",     "MO3",     "4",       "4",       "5",       "6",       "-",       "="],
-    ["",        "MO5",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      ""],
+    ["",        "DF0",  "DF1",     "XXX",     "MO5",     "MO3",     "4",       "4",       "5",       "6",       "-",       "="],
+    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      ""],
     ["TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        ""],
     ]
 
@@ -460,7 +460,7 @@ fpad = [
 
 # 4
 movement = [
-    ["",        "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
+    ["Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
     ["",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr"],
     ["",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     ""],
     ["TG4",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],

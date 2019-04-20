@@ -663,17 +663,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |   `   |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   ]   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  DF0  |  DF1  |  XXX  |  XXX  |  MO3  |               |   4   |   4   |   5   |   6   |   -   |   =   |
+ * |       |  DF0  |  DF1  |  XXX  |  MO5  |  MO3  |               |   4   |   4   |   5   |   6   |   -   |   =   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  MO5  |  XXX  |  XXX  |  XXX  |  XXX  |               |   1   |   1   |   2   |   3   |   \   |       |
+ * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |   1   |   1   |   2   |   3   |   \   |       |
  * -----------------------------------------------------------------------------------------------------------------
  *    TG2                          |       |  Del  |       |       |BSpace |   0   |
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
 		KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
-		KC_TRNS, DF(0), DF(1), XXXXXXX, XXXXXXX, MO(3), KC_4, KC_4, KC_5, KC_6, KC_MINS, KC_EQL,
-		KC_TRNS, MO(5), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_1, KC_2, KC_3, KC_BSLS, KC_TRNS,
+		KC_TRNS, DF(0), DF(1), XXXXXXX, MO(5), MO(3), KC_4, KC_4, KC_5, KC_6, KC_MINS, KC_EQL,
+		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_1, KC_2, KC_3, KC_BSLS, KC_TRNS,
 		TG(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_BSPC, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
@@ -697,7 +697,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 4
  * -------------------------------------------------               -------------------------------------------------
- * |       |  Esc  | Tab x | Tab n |CPg Dn |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  Esc  |
+ * |  Esc  |  Esc  | Tab x | Tab n |CPg Dn |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  Esc  |
  * -------------------------------------------------               -------------------------------------------------
  * |       | Caps  | < Gui |Gui Tab| > Gui | > Gui |               |< Arrow|< Arrow|v Arrow|> Arrow|  End  |Pr Scr |
  * -------------------------------------------------               -------------------------------------------------
@@ -707,7 +707,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
-		KC_TRNS, KC_ESC, LCTL(KC_W), LCTL(KC_T), CTL_T(KC_PGDN), CTL_T(KC_PGDN), KC_PGDN, KC_HOME, KC_UP, KC_INS, SFT_T(KC_INS), KC_ESC,
+		KC_ESC, KC_ESC, LCTL(KC_W), LCTL(KC_T), CTL_T(KC_PGDN), CTL_T(KC_PGDN), KC_PGDN, KC_HOME, KC_UP, KC_INS, SFT_T(KC_INS), KC_ESC,
 		KC_TRNS, KC_CAPS, LGUI_T(KC_LEFT), LGUI_T(KC_TAB), LGUI_T(KC_RIGHT), LGUI_T(KC_RIGHT), KC_LEFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_PSCR,
 		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, CTL_T(KC_PGUP), CTL_T(KC_PGUP), KC_PGUP, XXXXXXX, KC_DOWN, XXXXXXX, KC_APP, KC_TRNS,
 		TG(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
