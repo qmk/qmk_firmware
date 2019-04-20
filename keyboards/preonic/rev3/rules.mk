@@ -1,5 +1,3 @@
-
-
 # project specific files
 SRC = matrix.c
 
