@@ -663,17 +663,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |   `   |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   ]   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  DF0  |  DF1  |  XXX  |  MO5  |  MO3  |               |   4   |   4   |   5   |   6   |   -   |   =   |
+ * |       |  DF0  |  DF1  |  XXX  |  XXX  |  MO3  |               |   4   |   4   |   5   |   6   |   -   |   =   |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |   1   |   1   |   2   |   3   |   \   |       |
+ * |       |  XXX  |  XXX  |  XXX  |  XXX  |  MO5  |               |   1   |   1   |   2   |   3   |   \   |       |
  * -----------------------------------------------------------------------------------------------------------------
  *    TG2                          |       |  Del  |       |       |BSpace |   0   |
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
 		KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
-		KC_TRNS, DF(0), DF(1), XXXXXXX, MO(5), MO(3), KC_4, KC_4, KC_5, KC_6, KC_MINS, KC_EQL,
-		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_1, KC_2, KC_3, KC_BSLS, KC_TRNS,
+		KC_TRNS, DF(0), DF(1), XXXXXXX, XXXXXXX, MO(3), KC_4, KC_4, KC_5, KC_6, KC_MINS, KC_EQL,
+		KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(5), KC_1, KC_1, KC_2, KC_3, KC_BSLS, KC_TRNS,
 		TG(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_BSPC, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
@@ -719,7 +719,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |       |  XXX  |  |<<  | Vol 0 |  >>|  |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  | Sleep |
  * -------------------------------------------------               -------------------------------------------------
- * |       |  XXX  |  XXX  | Vol - | Vol - |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |
+ * |       |  XXX  |  XXX  | Vol - | Vol - |  MO5  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |
  * -----------------------------------------------------------------------------------------------------------------
  *    TG5                          |       |       |       |       |       |       |
  *                                 -------------------------------------------------
@@ -727,7 +727,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_ortho_4x12(
 		KC_TRNS, XXXXXXX, KC_MPLY, KC_VOLU, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, KC_PWR,
 		KC_TRNS, XXXXXXX, KC_MPRV, KC_MUTE, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLEP,
-		KC_TRNS, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+		KC_TRNS, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLD, MO(5), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 		TG(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
