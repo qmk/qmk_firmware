@@ -45,6 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
+
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B4
 #define RGBLED_NUM 20    // Number of LEDs
