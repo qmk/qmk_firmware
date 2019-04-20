@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
@@ -32,7 +29,9 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-// Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
+// Leader Key
+#define LEADER_TIMEOUT 250
+#define LEADER_PER_KEY_TIMING
 
-#endif
+// Tap dance
+#define TAPPING_TERM 200
