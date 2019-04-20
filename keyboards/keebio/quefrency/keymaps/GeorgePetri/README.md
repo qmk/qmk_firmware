@@ -7,7 +7,7 @@ make keebio/quefrency:GeorgePetri
 Based on the default querty layout with minor tweaks. 
 The position of the arrow keys in a line in the bottom right. 
 The backspace key is 1u and to the left of the delete key.
-Grave, pause and insert are on the fuction layer.
+Grave, pause and insert are on the function layer.
 
 ### Base Layer
 ```
