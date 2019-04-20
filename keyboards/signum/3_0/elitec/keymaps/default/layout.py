@@ -463,7 +463,7 @@ movement = [
     ["Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
     ["",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr"],
     ["",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     ""],
-    ["TG4",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    ["TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        ""],
     ]
 
 # 5
