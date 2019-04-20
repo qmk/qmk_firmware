@@ -1,6 +1,6 @@
 ## Billiam's DZ60 layout
 
-This layout is optimized for MacOS is for a Build 4 DZ60 with a 2U left shift, 2U right shift and an arrow
+This layout is optimized for MacOS and is for a Build 4 DZ60 with a 2U left shift, 2U right shift and an arrow
 cluster in the bottom right. Don't use this layout if you didn't get Build 4, you will enter a world of pain Donny.
 
 Settings:
