@@ -1,5 +1,8 @@
 #include "bm16s.h"
 
+#define RGB_BRU RGB_VAI
+#define RGB_BRD RGB_VAD
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
@@ -9,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_MPRV, KC_MPLY, KC_MNXT, MO(1)    \
 	),
 	[1] = LAYOUT(
-		RESET,   _______, _______, _______, \
-		BL_TOGG, BL_DEC,  BL_INC,  BL_STEP, \
-		RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, \
-		RGB_SAI, RGB_SAD, _______, _______  \
+		RESET,    _______, _______, _______, \
+		RGB_SPD,  RGB_BRU, RGB_SPI, _______, \
+		RGB_RMOD, RGB_BRD, RGB_MOD, _______, \
+		RGB_TOG,  _______, _______, _______  \
 	),
 };
