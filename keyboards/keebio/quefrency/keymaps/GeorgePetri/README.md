@@ -1,4 +1,4 @@
-# George Petri's Nyquist layout
+# George Petri's Quefrency 65 layout
 
 ```
 make keebio/quefrency:GeorgePetri
