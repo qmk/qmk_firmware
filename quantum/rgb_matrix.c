@@ -511,7 +511,12 @@ void rgb_matrix_set_suspend_state(bool state) {
 }
 
 void rgb_matrix_toggle(void) {
+#ifdef RGB_MATRIX_EXTRA_TOG
   rgb_matrix_config.enable++;
+#else
+  rgb_matrix_config.enable ^= 1;
+  if (rgb_matrix_config.enable > 1) { rgb_matrix_config.enable = 0; } // make sure that if we are treating this as a bool, that it is only 1 or 0.
+#endif
   if (!rgb_matrix_config.enable) {
     rgb_task_state = STARTING;
   }
