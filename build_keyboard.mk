@@ -143,7 +143,7 @@ include quantum/mcu_selection.mk
 
 ifdef MCU_FAMILY
     OPT_DEFS += -DQMK_STM32
-    KEYBOARD_PATHS += $(STM32_PATH)
+    KEYBOARD_PATHS += $(STM32_PATH)/${MCU_SERIES}
 endif
 
 
