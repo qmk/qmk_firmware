@@ -4,10 +4,10 @@
 make keebio/quefrency:GeorgePetri
 ```
 
-Based on the default querty layout with minor tweaks. 
-The position of the arrow keys in a line in the bottom right. 
-The backspace key is 1u and to the left of the delete key.
-Grave, pause and insert are on the function layer.
+Based on the default querty layout with minor tweaks.  
+The position of the arrow keys in a line in the bottom right.  
+The backspace key is 1u and to the left of the delete key.  
+Grave, pause and insert are on the function layer.  
 
 ### Base Layer
 ```
@@ -28,7 +28,7 @@ Grave, pause and insert are on the function layer.
 └────────┘└────────┘└────────┘└────────┘└────────────────┘        └────────────────────┘└──────┘└──────┘└──────┘└──────┘└──────┘└──────┘
 ```
 
-### FUNCTION
+### Function
 ```
 ┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐        ┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐┌──────┐
 │  GRV ││  F1  ││  F2  ││  F3  ││  F4  ││  F5  ││  F6  │        │  F7  ││  F8  ││  F9  ││  F10 ││  F11 ││  F12 ││  BSPC││  DEL ││  INS │
