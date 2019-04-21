@@ -1,4 +1,4 @@
-﻿---
+---
 BasedOnStyle: Google
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: 'true'
@@ -20,7 +20,7 @@ SortIncludes: 'false'
 SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: 'false'
-TabWidth: '2'
+TabWidth: '4'
 UseTab: Never
 
 ...

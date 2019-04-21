@@ -34,7 +34,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBCONF_NONINTERACTIVE_SEEN=true
 	export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
 	sudo apt-get update
-	sudo apt-get install \
+	sudo apt-get -yq install \
 		build-essential \
 		avr-libc \
 		binutils-arm-none-eabi \
