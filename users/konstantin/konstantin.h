@@ -28,8 +28,10 @@
 #define MV_RGHT LCTL(KC_RGHT)
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
-#define PRV_TAB LCTL(KC_PGUP)
-#define NXT_TAB LCTL(KC_PGDN)
+#define TAB_PRV LCTL(KC_PGUP)
+#define TAB_NXT LCTL(KC_PGDN)
+#define DEL_PRV LCTL(KC_BSPC)
+#define DEL_NXT LCTL(KC_DEL)
 
 #define DST_ADD LCTL(LGUI(KC_D))
 #define DST_REM LCTL(LGUI(KC_F4))
