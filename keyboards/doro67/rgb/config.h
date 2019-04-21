@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN B7
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 68
+#define DRIVER_LED_TOTAL 67
 
 #define RGB_MATRIX_KEYPRESSES 
 
@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define RGB_DI_PIN E2
 // #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 68
+  #define RGBLED_NUM 67
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
