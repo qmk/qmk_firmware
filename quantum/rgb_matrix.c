@@ -515,7 +515,9 @@ void rgb_matrix_toggle(void) {
   rgb_matrix_config.enable++;
 #else
   rgb_matrix_config.enable ^= 1;
-  if (rgb_matrix_config.enable > 1) { rgb_matrix_config.enable = 0; } // make sure that if we are treating this as a bool, that it is only 1 or 0.
+  if (rgb_matrix_config.enable > 1) {  // make sure that if we are treating this  as a bool, that it is only 1 or 0.
+    rgb_matrix_config.enable = 0; 
+  }
 #endif
   if (!rgb_matrix_config.enable) {
     rgb_task_state = STARTING;
