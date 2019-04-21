@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D3
 
 #define NUMBER_OF_ENCODERS 1
-#define ENCODERS_PAD_A  { D0 } // D2 maybe?
+#define ENCODERS_PAD_A  { D2 } // D2 maybe?
 #define ENCODERS_PAD_B  { D7 } // D4 maybe?
 
 /* Set 0 if debouncing isn't needed */
