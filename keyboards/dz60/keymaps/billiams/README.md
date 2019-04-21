@@ -1,16 +1,16 @@
 ## Billiam's DZ60 layout
 
-This layout is optimized for MacOS is for a Build 4 DZ60 with a 2U left shift, 2U right shift and an arrow
+This layout is optimized for MacOS and is for a Build 4 DZ60 with a 2U left shift, 2U right shift and an arrow
 cluster in the bottom right. Don't use this layout if you didn't get Build 4, you will enter a world of pain Donny.
 
 Settings:
 
-* The capslock key is replaced with a second function key.
-* The Alt an Cmd keys are swapped to replicate the Mac layout.
-* Del is available as Fn+Backspace
-* / ? are available when you tap the right shift. Otherwise RShift is shift when held down
-* RESET is available as Fn+Esc
-* Underglow toggle and mode selection are available as Fn+A and Fn+S
+* The `CAPS LOCK` key is replaced with a second function key.
+* The `ALT` and `CMD` keys are swapped to replicate the Mac layout.
+* Del is available as `Fn` + `Backspace`
+* `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
+* RESET is available as `Fn`+ ` ESC`
+* Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
 * Media play/pause doesn't seem to work with anything but iTunes at the moment. FML
 
 
@@ -32,11 +32,11 @@ make dz60:billiams # be in the qmk_firmware directory to do this
 ```
 A hex file `dz60_billiams.hex` will be created in the base qmk_firmware directory
 
-4. Before plugging in your keyboard into your computer, hold SPACE and B keys down
-5. Plug the computer in, which will put the keyboard in bootlegger mode
-6. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. Don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
+4. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
+5. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode
+6. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. For the love of all that is good and holy on Earth, don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
 
-Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. You don't have to unplug the keyboard. 
+Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. Note that you don't have to unplug the keyboard. 
 
 Hope this helps!
 
