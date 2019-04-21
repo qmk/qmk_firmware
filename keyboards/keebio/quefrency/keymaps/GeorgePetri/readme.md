@@ -1,7 +1,7 @@
 # George Petri's Quefrency 65 layout
 
 ```
-make keebio/quefrency:GeorgePetri
+make keebio/quefrency:georgepetri
 ```
 
 Based on the default querty layout with minor tweaks.  
