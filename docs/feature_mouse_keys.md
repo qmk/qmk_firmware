@@ -60,6 +60,7 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
+|`MK_ACCEL2`                 |no     |Enable another acceleration model                        |
 
 Tips:
 
