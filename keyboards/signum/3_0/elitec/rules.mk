@@ -59,4 +59,6 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-UNICODEMAP_ENABLE = yes
+UNICODEMAP_ENABLE = no
+
+LAYOUTS = ortho_4x12

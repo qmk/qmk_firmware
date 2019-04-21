@@ -24,13 +24,13 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #include <stdlib.h>
 
 #ifndef DEBOUNCE
-  #define DEBOUNCE 5
+#  define DEBOUNCE 5
 #endif
-
 
 #define debounce_counter_t uint8_t
 
 static debounce_counter_t *debounce_counters;
+static bool                counters_need_update;
 
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
@@ -38,33 +38,36 @@ static debounce_counter_t *debounce_counters;
 void update_debounce_counters(uint8_t num_rows, uint8_t current_time);
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
 
-//we use num_rows rather than MATRIX_ROWS to support split keyboards
-void debounce_init(uint8_t num_rows)
-{
-  debounce_counters = (debounce_counter_t*)malloc(num_rows*sizeof(debounce_counter_t));  
-  for (uint8_t r = 0; r < num_rows; r++)
-  {    
+// we use num_rows rather than MATRIX_ROWS to support split keyboards
+void debounce_init(uint8_t num_rows) {
+  debounce_counters = (debounce_counter_t *)malloc(num_rows * sizeof(debounce_counter_t));
+  for (uint8_t r = 0; r < num_rows; r++) {
     debounce_counters[r] = DEBOUNCE_ELAPSED;
   }
 }
 
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
-{
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
   uint8_t current_time = timer_read() % MAX_DEBOUNCE;
-  update_debounce_counters(num_rows, current_time);
-  transfer_matrix_values(raw, cooked, num_rows, current_time);
+  bool needed_update = counters_need_update;
+  if (counters_need_update) {
+    update_debounce_counters(num_rows, current_time);
+  }
+
+  if (changed || (needed_update && !counters_need_update)) {
+    transfer_matrix_values(raw, cooked, num_rows, current_time);
+  }
 }
 
-//If the current time is > debounce counter, set the counter to enable input.
-void update_debounce_counters(uint8_t num_rows, uint8_t current_time)
-{
+// If the current time is > debounce counter, set the counter to enable input.
+void update_debounce_counters(uint8_t num_rows, uint8_t current_time) {
+  counters_need_update                 = false;
   debounce_counter_t *debounce_pointer = debounce_counters;
-  for (uint8_t row = 0; row < num_rows; row++)
-  {    
-    if (*debounce_pointer != DEBOUNCE_ELAPSED)
-    {
+  for (uint8_t row = 0; row < num_rows; row++) {
+    if (*debounce_pointer != DEBOUNCE_ELAPSED) {
       if (TIMER_DIFF(current_time, *debounce_pointer, MAX_DEBOUNCE) >= DEBOUNCE) {
         *debounce_pointer = DEBOUNCE_ELAPSED;
+      } else {
+        counters_need_update = true;
       }
     }
     debounce_pointer++;
@@ -72,29 +75,21 @@ void update_debounce_counters(uint8_t num_rows, uint8_t current_time)
 }
 
 // upload from raw_matrix to final matrix;
-void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time)
-{
+void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
   debounce_counter_t *debounce_pointer = debounce_counters;
-  for (uint8_t row = 0; row < num_rows; row++)
-  {
-    matrix_row_t existing_row = cooked[row]; 
-    matrix_row_t raw_row = raw[row];
-    
-    //determine new value basd on debounce pointer + raw value
-    if (*debounce_pointer == DEBOUNCE_ELAPSED &&
-      (existing_row != raw_row))
-    {
-      *debounce_pointer = current_time;
-      existing_row = raw_row; 
+  for (uint8_t row = 0; row < num_rows; row++) {
+    matrix_row_t existing_row = cooked[row];
+    matrix_row_t raw_row      = raw[row];
+
+    // determine new value basd on debounce pointer + raw value
+    if (*debounce_pointer == DEBOUNCE_ELAPSED && (existing_row != raw_row)) {
+      *debounce_pointer    = current_time;
+      cooked[row]          = raw_row;
+      counters_need_update = true;
     }
-    cooked[row] = existing_row;
-    
+
     debounce_pointer++;
-  }  
+  }
 }
 
-bool debounce_active(void)
-{
-  return true;
-}
-
+bool debounce_active(void) { return true; }
