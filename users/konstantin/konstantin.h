@@ -2,20 +2,20 @@
 
 #include "quantum.h"
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  #include "rgb.h"
+    #include "rgb.h"
 #endif
 #ifdef TAP_DANCE_ENABLE
-  #include "tap_dance.h"
+    #include "tap_dance.h"
 #endif
 #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
-  #include "unicode.h"
+    #include "unicode.h"
 #endif
 
 #ifdef LAYER_FN
-  #define FN      MO(L_FN)
-  #define FN_CAPS LT(L_FN, KC_CAPS)
-  #define FN_ESC  LT(L_FN, KC_ESC)
-  #define FN_FNLK TT(L_FN)
+    #define FN      MO(L_FN)
+    #define FN_CAPS LT(L_FN, KC_CAPS)
+    #define FN_ESC  LT(L_FN, KC_ESC)
+    #define FN_FNLK TT(L_FN)
 #endif
 
 #define KC_SYSR LALT(KC_PSCR)
@@ -38,42 +38,42 @@
 #define DST_PRV LCTL(LGUI(KC_LEFT))
 #define DST_NXT LCTL(LGUI(KC_RGHT))
 #ifndef DST_MOD_MASK
-  #define DST_MOD_MASK MOD_MASK_CTRL
+    #define DST_MOD_MASK MOD_MASK_CTRL
 #endif
 
 #define LCT_CPS LCTL_T(KC_CAPS)
 
 #ifdef SEND_STRING_CLEAN
-  #undef  SEND_STRING
-  #define SEND_STRING(string) {     \
-      uint8_t ss_mods = get_mods(); \
-      clear_mods();                 \
-      send_string_P(PSTR(string));  \
-      set_mods(ss_mods);            \
-    }
+    #undef  SEND_STRING
+    #define SEND_STRING(string) {         \
+            uint8_t ss_mods = get_mods(); \
+            clear_mods();                 \
+            send_string_P(PSTR(string));  \
+            set_mods(ss_mods);            \
+        }
 #endif
 
 enum keycodes_user {
-  CLEAR = SAFE_RANGE,
-  DST_P_R,
-  DST_N_A,
+    CLEAR = SAFE_RANGE,
+    DST_P_R,
+    DST_N_A,
 #ifdef LAYER_NUMPAD
-  NUMPAD,
+    NUMPAD,
 #endif
 
-  RANGE_KEYMAP,
+    RANGE_KEYMAP,
 };
 
 enum layers_user {
-  L_BASE,
+    L_BASE,
 #ifdef LAYER_FN
-  L_FN,
+    L_FN,
 #endif
 #ifdef LAYER_NUMPAD
-  L_NUMPAD,
+    L_NUMPAD,
 #endif
 
-  L_RANGE_KEYMAP,
+    L_RANGE_KEYMAP,
 };
 
 void keyboard_pre_init_keymap(void);
