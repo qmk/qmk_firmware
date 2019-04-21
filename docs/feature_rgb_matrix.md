@@ -138,14 +138,14 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 }
 ```
 
-The first part, `{row | col << 4}`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `{x=0..224, y=0..64}` represents the LED's physical position on the keyboard. The `x` is between (inclusive) 0-224, and `y` is between (inclusive) 0-64 as the effects are based on this range. The easiest way to calculate these positions is imagin your keyboard is a grid, and the top left of the keyboard represents x, y coordinate 0, 0 and the bottom right of your keyboard represents 224, 64. Using this as a basis, you can use the following formula to calucalte the physical position:
+The first part, `{row | col << 4}`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `{x=0..224, y=0..64}` represents the LED's physical position on the keyboard. The `x` is between (inclusive) 0-224, and `y` is between (inclusive) 0-64 as the effects are based on this range. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents x, y coordinate 0, 0 and the bottom right of your keyboard represents 224, 64. Using this as a basis, you can use the following formula to calculate the physical position:
 
 ```C
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not eletrical layout.
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
 `modifier` is a boolean, whether or not a certain key is considered a modifier (used in some effects).
 
