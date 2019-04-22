@@ -5,3 +5,4 @@
 04-16-2019 - Fix info.json for Ergodox EZ   
 04-16-2019 - Add support for WS2812 based RGB Matrix   
 04-18-2019 - Fix Eager Per Row Debouncing bug  
+04-22-2019 - OLED Driver Features
