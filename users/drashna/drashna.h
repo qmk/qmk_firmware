@@ -27,7 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   #include "rgb_stuff.h"
 #endif
-
+#if defined(AUDIO_ENABLE) && __GNUC__ > 7
+  #if __has_include("drashna_song_list.h")
+    #include "drashna_song_list.h"
+  #endif
+#endif
 
 /* Define layer names */
 enum userspace_layers {

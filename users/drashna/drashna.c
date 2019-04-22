@@ -38,9 +38,9 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
     }
     clear_keyboard();
     tap_code(keycode);
-    wait_ms(50);
-    send_string_with_delay(str, MACRO_TIMER);
-    wait_ms(50);
+    wait_ms(TAP_CODE_DELAY);
+    send_string_with_delay(str, TAP_CODE_DELAY);
+    wait_ms(TAP_CODE_DELAY);
     tap_code(KC_ENTER);
   }
   if (override) wait_ms(3000);
@@ -53,12 +53,10 @@ bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
       this_timer= timer_read();
   } else {
       if (timer_elapsed(this_timer) < TAPPING_TERM){
-          register_code(code);
-          unregister_code(code);
+          tap_code(code);
       } else {
           register_code(mod_code);
-          register_code(code);
-          unregister_code(code);
+          tap_code(code);
           unregister_code(mod_code);
       }
   }
@@ -70,12 +68,10 @@ bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t thi
       this_timer= timer_read();
   } else {
       if (timer_elapsed(this_timer) < TAPPING_TERM){
-          register_code(code);
-          unregister_code(code);
+          tap_code(code);
       } else {
           register_code(mod_code);
-          register_code(code);
-          unregister_code(code);
+          tap_code(code);
           unregister_code(mod_code);
       }
   }
