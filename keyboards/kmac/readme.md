@@ -20,7 +20,7 @@ For the full Quantum feature list, see the [documentation](https://docs.qmk.fm).
 
 The KMAC are available with two different PCB layouts, a winkey version and a winkeyless version. A default keymap are provided for each versions of the PCB.
 
-Depending on which PCB and keymap you would like to use, you will have to compile the firmware slightly differently. All of the commands should be run in the [keyboards/kmac](/keyboards/kmac) folder.
+Depending on which PCB and keymap you would like to use, you will have to compile the firmware slightly differently. All of the commands should be run in the [qmk root](https://github.com/qmk/qmk_firmware/) folder.
 
 ### Winkey keymap
 

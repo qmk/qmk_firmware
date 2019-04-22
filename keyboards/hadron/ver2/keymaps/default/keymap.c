@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 #ifdef USE_I2C
 #include "i2c.h"
 #endif

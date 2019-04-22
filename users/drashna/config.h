@@ -15,10 +15,10 @@
   // #ifdef RGBLIGHT_ENABLE
   // #define NO_MUSIC_MODE
   // #endif //RGBLIGHT_ENABLE/
-  #ifndef __arm__
-    #undef  NOTE_REST
-    #define NOTE_REST         1.00f
-  #endif // !__arm__
+  // #ifndef __arm__
+  //   #undef  NOTE_REST
+  //   #define NOTE_REST         1.00f
+  // #endif // !__arm__
 
 #define UNICODE_SONG_OSX SONG(RICK_ROLL)
 #define UNICODE_SONG_LNX SONG(RICK_ROLL)
