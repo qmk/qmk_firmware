@@ -24,11 +24,15 @@
 #define _MINE 6
 #define _OSU 7
 #define _MU 8
-//keycode defs
+//macro defs
 enum custom_keycodes {
   LOGIN = SAFE_RANGE,
   MACRO
 };
+//custom keycodes
+#define ___ KC_TRNS
+#define XXX KC_NO
+#define KC_ KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*                          .-------.   .-------.
@@ -181,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOGIN:
       if (record->event.pressed) {
-        SEND_STRING("password" SS_TAP(X_ENTER));
+        SEND_STRING("43110" SS_TAP(X_ENTER));
       } else {
       }
       break;
@@ -241,35 +245,44 @@ else if (index == 1) {
 }
 #endif // ENCODER_ENABLE
 
+//RGB Light Code
 #ifdef RGBLIGHT_ENABLE
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _PICK:
-        rgblight_sethsv_range (0,30,70,0,7);
+        rgblight_sethsv_range (0,30,40,0,7);
         break;
     case _PREM:
-        rgblight_sethsv_at (50,255,255,0);
+        rgblight_sethsv_at (130,255,160,0);
+        rgblight_sethsv_at (50,255,160,4);
         break;
     case _PS:
-        rgblight_sethsv_at (100,180,255,1);
+        rgblight_sethsv_at (150,255,160,1);
+        rgblight_sethsv_at (50,255,160,4);
         break;
     case _KICAD:
-        rgblight_sethsv_at (150,180,255,2);
+        rgblight_sethsv_at (170,255,160,2);
+        rgblight_sethsv_at (50,255,160,4);
         break;
     case _CODE:
-        rgblight_sethsv_at (200,255,255,3);
+        rgblight_sethsv_at (190,255,160,3);
+        rgblight_sethsv_at (50,255,160,4);
         break;
     case _MED:
-        rgblight_sethsv_at (250,255,255,4);
+        rgblight_sethsv_at (230,255,160,0);
+        rgblight_sethsv_at (30,255,160,5);
         break;
     case _MINE:
-        rgblight_sethsv_at (120,255,150,5);
+        rgblight_sethsv_at (250,255,160,1);
+        rgblight_sethsv_at (30,255,160,5);
         break;
     case _OSU:
-        rgblight_sethsv_at (300,255,255,6);
+        rgblight_sethsv_at (270,255,160,2);
+        rgblight_sethsv_at (30,255,160,5);
         break;
     case _MU:
-        rgblight_sethsv_range (270,230,255,0,2);
+        rgblight_sethsv_at (290,255,160,3);
+        rgblight_sethsv_at (30,255,160,5);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);

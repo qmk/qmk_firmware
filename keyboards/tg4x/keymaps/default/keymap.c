@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.
    KC_GRV , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_DEL , \
 //|-------'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-------------|
-   RGB_TOG  ,KC_HOME,KC_PGUP,KC_TRNS,KC_BTN1,KC_MS_U,KC_BTN2,KC_LBRC,KC_RBRC,KC_EQL ,KC_BSLS,    KC_ENT   , \
+   RGB_TOG  ,KC_HOME,KC_PGUP,KC_TRNS,KC_F5,KC_TRNS,KC_TRNS,KC_LBRC,KC_RBRC,KC_EQL ,KC_BSLS,    KC_ENT   , \
 //|---------'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----------|
-    KC_TRNS    ,KC_END ,KC_PGDN,KC_MS_L,KC_MS_D,KC_MS_R,KC_ACL0,KC_ACL1,KC_TRNS,KC_TRNS,KC_TRNS, KC_RSFT  , \
+    KC_TRNS    ,KC_END ,KC_PGDN,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UP, KC_RSFT  , \
 //|-------,----'--,----'--,----'-------'-------'-------'-------'-------'--,----'--,----'--,----'--,-------|
    KC_TRNS,KC_TRNS,KC_TRNS,         KC_SPC                                ,KC_TRNS,KC_LEFT,KC_DOWN,KC_RGHT  \
 //`-------'-------'-------'-----------------------------------------------'-------'-------'-------'-------'
@@ -116,16 +116,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void update_led(void) {
   if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
     //if caps lock is on
-    rgblight_sethsv_at(120,100,100, 0);
+    rgblight_sethsv_at(0,255,255, 0);
     //turns the first led green
     switch (biton32(layer_state)) {
-      case _FL:
-      //when the base layer is active, turns the LEDs pink
-        rgblight_sethsv_range(300,50,50,1,7);
-        break;
       case _BL:
-      //when the function layer is active, turns the LEDs blue
-        rgblight_sethsv_range(240,100,100,1,7);
+      //when the base layer is active, turns the LEDs teal
+        rgblight_sethsv_range(50,190,125,1,7);
+        break;
+      case _FL:
+      //when the function layer is active, turns the LEDs purple
+        rgblight_sethsv_range(205,150,240,1,7);
         break;
       default:
       //if anything else is active, turns the LEDs off. isn't in use, mostly a fallback
@@ -137,11 +137,11 @@ void update_led(void) {
         rgblight_sethsv_at(0,0,0, 0);
         switch (biton32(layer_state)) {
           //same code as above
-          case _FL:
-            rgblight_sethsv_range(0,0,50,1,7);
-            break;
           case _BL:
-            rgblight_sethsv_range(240,100,100,1,7);
+            rgblight_sethsv_range(50,190,125,1,7);
+            break;
+          case _FL:
+            rgblight_sethsv_range(205,150,240,1,7);
             break;
           default:
             rgblight_sethsv(0,0,0);

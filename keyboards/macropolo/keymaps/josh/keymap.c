@@ -76,9 +76,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |           |           |           |           |
     `-----------'-----------'-----------'-----------'*/
     [_L1] = LAYOUT( /* 1 */
-      KC_,KC_,KC_,L1,  \
-      KC_,KC_,KC_,KC_, \
-      KC_,KC_,KC_,KC_ \
+      KC_MSEL,KC_,KC_MUTE,L1,  \
+      KC_MPRV,KC_MPLY,KC_MNXT,KC_MSTP, \
+      KC_SLEP,KC_WAKE,LOGIN,KC_ \
     ),
 /*                          .-------.   .-------.
   .-----------.-----------./>        \./>        \.
@@ -92,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |           |           |           |           |
   `-----------'-----------'-----------'-----------'*/
   [_L2] = LAYOUT( /* 2 */
-    KC_,KC_,KC_,L2,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
+    C(A(KC_S)),C(S(KC_S)),KC_,L2,  \
+    KC_R,KC_C,KC_L,KC_D, \
+    KC_Q,KC_F,C(S(KC_C)),LCTL(KC_M) \
   ),
 /*                          .-------.   .-------.
   .-----------.-----------./>        \./>        \.
@@ -231,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOGIN:
       if (record->event.pressed) {
-        SEND_STRING("password" SS_TAP(X_ENTER));
+        SEND_STRING("15328" SS_TAP(X_ENTER));
       } else {
       }
       break;
@@ -254,10 +254,13 @@ if (index == 0) {
         clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       case _L1:
-        clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
+        clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
+        break;
+      case _L2:
+        clockwise ? tap_code(KC_WH_U) : tap_code(KC_WH_D);
         break;
       default:
-        clockwise ? tap_code(KC_UP) : tap_code(KC_DOWN);
+        clockwise ? tap_code(KC_DOWN) : tap_code(KC_UP);
         break;
       }
   }
@@ -267,10 +270,13 @@ else if (index == 1) {
         clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       case _L1:
-        clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
+        clockwise ? tap_code(KC_BRID) : tap_code(KC_BRIU);
+        break;
+      case _L2:
+        clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
         break;
       default:
-        clockwise ? tap_code(KC_RIGHT) : tap_code(KC_LEFT);
+        clockwise ? tap_code(KC_LEFT) : tap_code(KC_RGHT);
         break;
       }
     }
@@ -285,36 +291,44 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_sethsv_range (0,30,40,0,7);
         break;
     case _L1:
-        rgblight_sethsv_at (35,255,160,0);
-        rgblight_sethsv_at (35,255,160,4);
+        rgblight_sethsv_at (130,255,40,0);
+        rgblight_sethsv_at (50,255,40,4);
         break;
     case _L2:
-        rgblight_sethsv_at (35,255,160,1);
-        rgblight_sethsv_at (35,255,160,4);
+        rgblight_sethsv_at (150,255,40,1);
+        rgblight_sethsv_at (50,255,40,4);
         break;
     case _L3:
-        rgblight_sethsv_at (35,255,160,2);
-        rgblight_sethsv_at (35,255,160,4);
+        rgblight_sethsv_at (170,255,40,2);
+        rgblight_sethsv_at (50,255,40,4);
         break;
     case _L4:
-        rgblight_sethsv_at (35,255,160,3);
-        rgblight_sethsv_at (35,255,160,4);
+        rgblight_sethsv_at (190,255,40,3);
+        rgblight_sethsv_at (50,255,40,4);
         break;
     case _L5:
-        rgblight_sethsv_at (155,255,160,0);
-        rgblight_sethsv_at (155,255,160,5);
+        rgblight_sethsv_at (230,255,40,0);
+        rgblight_sethsv_at (30,255,40,5);
         break;
     case _L6:
-        rgblight_sethsv_at (155,255,160,1);
-        rgblight_sethsv_at (155,255,160,5);
+        rgblight_sethsv_at (250,255,40,1);
+        rgblight_sethsv_at (30,255,40,5);
         break;
     case _L7:
-        rgblight_sethsv_at (155,255,160,2);
-        rgblight_sethsv_at (155,255,160,5);
+        rgblight_sethsv_at (270,255,40,2);
+        rgblight_sethsv_at (30,255,40,5);
         break;
     case _L8:
-        rgblight_sethsv_at (155,255,160,3);
-        rgblight_sethsv_at (155,255,160,5);
+        rgblight_sethsv_at (290,255,40,3);
+        rgblight_sethsv_at (30,255,40,5);
+        break;
+    case _L9:
+        rgblight_sethsv_at (320,255,40,0);
+        rgblight_sethsv_at (10,255,40,6);
+        break;
+    case _L10:
+        rgblight_sethsv_at (340,255,40,1);
+        rgblight_sethsv_at (10,255,40,6);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);

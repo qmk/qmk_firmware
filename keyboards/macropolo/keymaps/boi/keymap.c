@@ -24,13 +24,18 @@
 #define _L6 6
 #define _L7 7
 #define _L8 8
-#define _L9 9
-#define _L10 10
-
 //keycode defs
 enum custom_keycodes {
   LOGIN = SAFE_RANGE,
-  MACRO
+  MACRO,
+  OOF,
+  PHAT,
+  COPY,
+  PASTE,
+  BANTER1,
+  BANTER2,
+  BANTER3,
+  BANTER4
 };
 #define L1 TG(_L1)
 #define L2 TG(_L2)
@@ -40,8 +45,6 @@ enum custom_keycodes {
 #define L6 TG(_L6)
 #define L7 TG(_L7)
 #define L8 TG(_L8)
-#define L9 TG(_L9)
-#define L10 TG(_L10)
 
 #define ___ KC_TRNS
 #define XXX KC_NO
@@ -53,21 +56,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |           |           ||<NO      |||<NO      ||
   |           |           |\         /|\ Select  /|
   |-----------+-----------+-----------+-----------|
-  | 5         | 6         | 7         | 8         |
+  | L5        | Minecraft | Osu!      | Music     |
   |           |           |           |           |
   |-----------+-----------+-----------+-----------|
-  | 1         | 2         | 3         | 4         |
+  | Premiere  | Photoshop | KiCad     | None      |
   |           |           |           |           |
   `-----------'-----------'-----------'-----------'*/
   [_PICK] = LAYOUT( /* Layer Select */
-    TO(_L9),TO(_L10),KC_,KC_, \
-    TO(_L5),TO(_L6),TO(_L7),TO(_L8), \
+    XXX,XXX,XXX,XXX, \
+    TO(_L5),XXX,XXX,XXX, \
     TO(_L1),TO(_L2),TO(_L3),TO(_L4) \
   ),
   /*                          .-------.   .-------.
     .-----------.-----------./>        \./>        \.
     |           |           ||<        |||<        ||
-    |           |           |\         /|\ Pick    /|
+    |           |           |\         /|\         /|
     |-----------+-----------+-----------+-----------|
     |           |           |           |           |
     |           |           |           |           |
@@ -76,14 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |           |           |           |           |
     `-----------'-----------'-----------'-----------'*/
     [_L1] = LAYOUT( /* 1 */
-      KC_,KC_,KC_,L1,  \
-      KC_,KC_,KC_,KC_, \
-      KC_,KC_,KC_,KC_ \
+      KC_SPC,KC_E,KC_S,L1,  \
+      KC_B,KC_DEL,OOF,PHAT, \
+      KC_MINUS,KC_PLUS,KC_L,KC_F7 \
     ),
 /*                          .-------.   .-------.
   .-----------.-----------./>        \./>        \.
   |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
+  |           |           |\         /|\         /|
   |-----------+-----------+-----------+-----------|
   |           |           |           |           |
   |           |           |           |           |
@@ -92,14 +95,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |           |           |           |           |
   `-----------'-----------'-----------'-----------'*/
   [_L2] = LAYOUT( /* 2 */
-    KC_,KC_,KC_,L2,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
+    COPY,PASTE,KC_MUTE,L2,  \
+    KC_PSCR,KC_LCTL,BANTER1,BANTER2, \
+    KC_LWIN,KC_LALT,BANTER3,BANTER4 \
   ),
 /*                          .-------.   .-------.
   .-----------.-----------./>        \./>        \.
   |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
+  |           |           |\         /|\         /|
   |-----------+-----------+-----------+-----------|
   |           |           |           |           |
   |           |           |           |           |
@@ -115,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*                          .-------.   .-------.
   .-----------.-----------./>        \./>        \.
   |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
+  |           |           |\         /|\         /|
   |-----------+-----------+-----------+-----------|
   |           |           |           |           |
   |           |           |           |           |
@@ -129,102 +132,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_,KC_,KC_,KC_ \
   ),
 /*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
+  .-----------.-----------./>VolUp   \./>MNXT    \.
+  | Play      | Stop      ||<VolDown |||<MPRV    ||
+  | Pause     |           |\ Player  /|\ Layers  /|
   |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
+  | Mute      |           | RGB       | RGB       |
+  |           |           | On        | Off       |
   |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
+  | Login     |           |           | RGB Value |
+  | Macro     |           |           | Decrease  |
   `-----------'-----------'-----------'-----------'*/
-  [_L5] = LAYOUT( /* 4 */
-    KC_,KC_,KC_,L5,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
+  [_L5] = LAYOUT( /* Media Control */
+    KC_MPLY,KC_MSTP,KC_MSEL,L5,  \
+    KC_AUDIO_MUTE,RGB_TOG, XXX, XXX, \
+    XXX, XXX, XXX, XXX \
   ),
-/*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  `-----------'-----------'-----------'-----------'*/
-  [_L6] = LAYOUT( /* 4 */
-    KC_,KC_,KC_,L6,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
-  ),
-/*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  `-----------'-----------'-----------'-----------'*/
-  [_L7] = LAYOUT( /* 4 */
-    KC_,KC_,KC_,L7,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
-  ),
-/*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  `-----------'-----------'-----------'-----------'*/
-  [_L8] = LAYOUT( /* 4 */
-    KC_,KC_,KC_,L8,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
-  ),
-/*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  `-----------'-----------'-----------'-----------'*/
-  [_L9] = LAYOUT( /* 1 */
-    KC_,KC_,KC_,L9,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
-  ),
-/*                          .-------.   .-------.
-  .-----------.-----------./>        \./>        \.
-  |           |           ||<        |||<        ||
-  |           |           |\         /|\ Pick    /|
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
-  |           |           |           |           |
-  `-----------'-----------'-----------'-----------'*/
-  [_L10] = LAYOUT( /* 1 */
-    KC_,KC_,KC_,L10,  \
-    KC_,KC_,KC_,KC_, \
-    KC_,KC_,KC_,KC_ \
-  ),
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -241,6 +163,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
       }
       break;
+    case OOF:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("o"));
+      } else {
+      }
+      break;
+    case PHAT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("s"));
+      } else {
+      }
+      break;
+    case COPY:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("c"));
+      } else {
+      }
+      break;
+    case PASTE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("v"));
+      } else {
+      }
+      break;
+    case BANTER1:
+      if (record->event.pressed) {
+        SEND_STRING("I'm so nuts, you can suck my fresh");
+      } else {
+      }
+      break;
+    case BANTER2:
+      if (record->event.pressed) {
+        SEND_STRING("MAKE AMERICA GREAT AGAIN!");
+      } else {
+      }
+      break;
+    case BANTER3:
+      if (record->event.pressed) {
+        SEND_STRING("#BUILDit!!");
+      } else {
+      }
+      break;
+    case BANTER4:
+      if (record->event.pressed) {
+        SEND_STRING("AMEN BROTHER!");
+      } else {
+      }
+      break;
     }
   return true;
 }
@@ -254,6 +224,12 @@ if (index == 0) {
         clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       case _L1:
+        clockwise ? tap_code(KC_A) : tap_code(KC_B);
+        break;
+      case _L2:
+        clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
+        break;
+      case _L5:
         clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
         break;
       default:
@@ -267,6 +243,12 @@ else if (index == 1) {
         clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       case _L1:
+        clockwise ? tap_code(KC_C) : tap_code(KC_D);
+        break;
+      case _L2:
+        clockwise ? tap_code(KC_BRIU) : tap_code(KC_BRID);
+        break;
+      case _L5:
         clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
         break;
       default:
@@ -277,47 +259,31 @@ else if (index == 1) {
 }
 #endif // ENCODER_ENABLE
 
-//RGB Light Code
+
+//RGB Code
 #ifdef RGBLIGHT_ENABLE
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
-    case _PICK:
-        rgblight_sethsv_range (0,30,40,0,7);
-        break;
-    case _L1:
-        rgblight_sethsv_at (35,255,160,0);
-        rgblight_sethsv_at (35,255,160,4);
-        break;
-    case _L2:
-        rgblight_sethsv_at (35,255,160,1);
-        rgblight_sethsv_at (35,255,160,4);
-        break;
-    case _L3:
-        rgblight_sethsv_at (35,255,160,2);
-        rgblight_sethsv_at (35,255,160,4);
-        break;
-    case _L4:
-        rgblight_sethsv_at (35,255,160,3);
-        rgblight_sethsv_at (35,255,160,4);
-        break;
-    case _L5:
-        rgblight_sethsv_at (155,255,160,0);
-        rgblight_sethsv_at (155,255,160,5);
-        break;
-    case _L6:
-        rgblight_sethsv_at (155,255,160,1);
-        rgblight_sethsv_at (155,255,160,5);
-        break;
-    case _L7:
-        rgblight_sethsv_at (155,255,160,2);
-        rgblight_sethsv_at (155,255,160,5);
-        break;
-    case _L8:
-        rgblight_sethsv_at (155,255,160,3);
-        rgblight_sethsv_at (155,255,160,5);
-        break;
+      case _PICK:
+          rgblight_sethsv (0,30,70);
+          break;
+      case _L1:
+          rgblight_sethsv (0,255,255);
+          break;
+      case _L2:
+          rgblight_sethsv (60,255,255);
+          break;
+      case _L3:
+          rgblight_sethsv (120,255,255);
+          break;
+      case _L4:
+          rgblight_sethsv (180,255,255);
+          break;
+      case _L5:
+          rgblight_sethsv (240,255,255);
+          break;
     default: //  for any other layers, or the default layer
-        rgblight_sethsv (0,0,100);
+        rgblight_sethsv (130,255,255);
         break;
     }
   return state;
