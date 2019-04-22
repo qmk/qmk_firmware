@@ -41,6 +41,9 @@
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"
+#include "rgb_matrix_animations/solid_reactive_wide.h"
+#include "rgb_matrix_animations/solid_reactive_cross.h"
+#include "rgb_matrix_animations/solid_reactive_nexus.h"
 #include "rgb_matrix_animations/splash_anim.h"
 #include "rgb_matrix_animations/solid_splash_anim.h"
 #include "rgb_matrix_animations/breathing_anim.h"
@@ -380,6 +383,36 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_solid_reactive(&rgb_effect_params);       // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+    case RGB_MATRIX_SOLID_REACTIVE_WIDE:
+      rendering = rgb_matrix_solid_reactive_wide(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+    case RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE:
+      rendering = rgb_matrix_solid_reactive_multiwide(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+    case RGB_MATRIX_SOLID_REACTIVE_CROSS:
+      rendering = rgb_matrix_solid_reactive_cross(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+    case RGB_MATRIX_SOLID_REACTIVE_MULTICROSS:
+      rendering = rgb_matrix_solid_reactive_multicross(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+    case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
+      rendering = rgb_matrix_solid_reactive_nexus(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+    case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
+      rendering = rgb_matrix_solid_reactive_multinexus(&rgb_effect_params);       // Max ?? ms Avg ?? ms
+      break;
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 #ifndef DISABLE_RGB_MATRIX_SPLASH
     case RGB_MATRIX_SPLASH:
       rendering = rgb_matrix_splash(&rgb_effect_params);               // Max 5ms Avg 3ms

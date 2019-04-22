@@ -331,7 +331,7 @@ $1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.a : $1/%.o
 	@mkdir -p $$(@D)
 	@$(SILENT) || printf "Archiving: $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(AR) $$@ $$<)
+	$$(eval CMD=$$(AR) rcs $$@ $$<)
 	@$$(BUILD_CMD)
 
 $1/force:

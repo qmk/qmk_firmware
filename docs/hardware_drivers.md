@@ -14,9 +14,9 @@ QMK is used on a lot of different hardware. While support for the most common MC
 
 Support for addressing pins on the ProMicro by their Arduino name rather than their AVR name. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
 
-## SSD1306 (AVR Only)
+## SSD1306 OLED Driver
 
-Support for SSD1306 based OLED displays. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
+Support for SSD1306 based OLED displays. For more information see the [OLED Driver Feature](feature_oled_driver.md) page.
 
 ## uGFX
 
