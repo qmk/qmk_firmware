@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
 import layout
+import os
 import re
-
-# TODO: auto-generate mutex layers
-# TODO: auto-generate update_tri_layer (_state)
 
 
 def gen_uc_iter():
@@ -114,7 +113,51 @@ def writeKeymap(f_template, f_keymap, columns, rows):
         if doCopy:
             f_keymap.write(line)
 
+
+def getKeymapJSON(keyboard, keymap, layout, layers):
+    return json.dumps({
+        'keyboard': keyboard,
+        'keymap': keymap,
+        'layout': layout,
+        'layers': layers
+        }, sort_keys=True, indent=4)
+
+
+def layersToKC(layers):
+    return [list(map(toKC, layer)) for layer in layers]
+
+
+def pathToKeymap(path):
+    head, keymap = os.path.split(path)
+    _, keymapsdir = os.path.split(head)
+    if keymapsdir == 'keymaps':
+        return keymap
+
+
+def pathToKeyboard(path):
+    head, keymap = os.path.split(path)
+    head, keymapsdir = os.path.split(head)
+    if keymapsdir == 'keymaps':
+        head, dir = os.path.split(head)
+        while dir not in ('/', 'keyboards'):
+            yield dir
+            head, dir = os.path.split(head)
+
+
 if __name__ == "__main__":
     with open("km_template.txt", mode="r") as f_template:
         with open("keymap.c", mode="w", encoding='utf-8') as f_keymap:
             writeKeymap(f_template, f_keymap, columns=12, rows=4)
+
+    abspath = os.path.dirname(os.path.abspath(__file__))
+    keyboard = list(reversed(list(pathToKeyboard(abspath))))
+    keymap = pathToKeymap(abspath)
+    keyboard_layout = 'LAYOUT_ortho_4x12'
+    with open("%s_%s.json" % ('_'.join(keyboard), keymap), mode="w") as f_keymapjson:
+        f_keymapjson.write(
+                getKeymapJSON(
+                    '/'.join(keyboard),
+                    keymap,
+                    keyboard_layout,
+                    layersToKC(layout.layers))
+                )
