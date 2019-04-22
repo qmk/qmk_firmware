@@ -236,6 +236,35 @@ void rgb_matrix_indicators_kb(void) {
 
 A similar function works in the keymap as `rgb_matrix_indicators_user`.
 
+
+## Colors
+
+These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
+
+|RGB                |HSV                |
+|-------------------|-------------------|
+|`RGB_WHITE`        |`HSV_WHITE`        |
+|`RGB_RED`          |`HSV_RED`          |
+|`RGB_CORAL`        |`HSV_CORAL`        |
+|`RGB_ORANGE`       |`HSV_ORANGE`       |
+|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
+|`RGB_GOLD`         |`HSV_GOLD`         |
+|`RGB_YELLOW`       |`HSV_YELLOW`       |
+|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
+|`RGB_GREEN`        |`HSV_GREEN`        |
+|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
+|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
+|`RGB_TEAL`         |`HSV_TEAL`         |
+|`RGB_CYAN`         |`HSV_CYAN`         |
+|`RGB_AZURE`        |`HSV_AZURE`        |
+|`RGB_BLUE`         |`HSV_BLUE`         |
+|`RGB_PURPLE`       |`HSV_PURPLE`       |
+|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
+|`RGB_PINK`         |`HSV_PINK`         |
+
+These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+
+
 ## Additional `config.h` Options
 
 ```C
