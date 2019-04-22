@@ -56,6 +56,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             set_mods(temp_mod);
         }
         break;
+    case OS_MAC:
+        set_single_persistent_default_layer(LB_MAC);
+        break;
+    case OS_WIN:
+        set_single_persistent_default_layer(LB_WIN);
+        break;
+    case OS_NIX:
+        set_single_persistent_default_layer(LB_NIX);
+        break;
 
   }
   return process_record_keymap(keycode, record);
