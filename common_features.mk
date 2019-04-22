@@ -103,6 +103,7 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
@@ -318,6 +319,7 @@ ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
@@ -333,4 +335,11 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                            i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    OPT_DEFS += -DOLED_DRIVER_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += oled_driver.c
 endif
