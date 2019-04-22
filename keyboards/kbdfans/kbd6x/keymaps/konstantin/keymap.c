@@ -17,11 +17,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case RCTRL:
         if (record->event.pressed) {
-            layer_on(L_RCTRL);
             register_code(KC_RCTRL);
+            layer_on(L_RCTRL);
         } else {
-            layer_off(L_RCTRL);
             unregister_code(KC_RCTRL);
+            layer_off(L_RCTRL);
         }
         return false;
 

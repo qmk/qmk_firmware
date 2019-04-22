@@ -38,7 +38,7 @@
 #define DST_PRV LCTL(LGUI(KC_LEFT))
 #define DST_NXT LCTL(LGUI(KC_RGHT))
 #ifndef DST_MOD_MASK
-    #define DST_MOD_MASK MOD_MASK_CTRL
+    #define DST_MOD_MASK MOD_MASK_SHIFT
 #endif
 
 #define LCT_CPS LCTL_T(KC_CAPS)
