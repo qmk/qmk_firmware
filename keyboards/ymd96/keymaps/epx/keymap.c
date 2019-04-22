@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _AR 1
 #define _RAISE 2
 
-#define KEYMAP KEYMAP_DEFAULT
+#define KEYMAP LAYOUT_default
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Layer 0, default layer
