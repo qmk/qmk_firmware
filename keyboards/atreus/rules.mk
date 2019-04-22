@@ -1,19 +1,4 @@
-
-
-ifdef TEENSY2
-    OPT_DEFS += -DATREUS_TEENSY2
-    ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
-else
-    OPT_DEFS += -DATREUS_ASTAR
-ifdef PCBDOWN
-    OPT_DEFS += -DPCBDOWN
-endif
-    ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                            avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-endif
-
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -48,34 +33,56 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
-#     automatically (+60). See bootloader.mk for all options.
-ifdef TEENSY2
-    BOOTLOADER = halfkay
-else
-    BOOTLOADER = caterina
-endif
-
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
-# Build Options
-#   comment out to disable the options.
-#
-#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
-# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE = YES 		# MIDI controls
-UNICODE_ENABLE = YES 		# Unicode
-# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+ifdef TEENSY2
+    BOOTLOADER = halfkay
+    OPT_DEFS += -DATREUS_TEENSY2
+else
+    BOOTLOADER = caterina
+    OPT_DEFS += -DATREUS_ASTAR
+    ifdef PCBDOWN
+        OPT_DEFS += -DPCBDOWN
+    endif
+endif
 
-USB = /dev/cu.usbmodem1411
+
+# If you don't know the bootloader type, then you can specify the
+# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
+#   Teensy halfKay      512
+#   Teensy++ halfKay    1024
+#   Atmel DFU loader    4096
+#   LUFA bootloader     4096
+#   USBaspLoader        2048
+# OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
+UNICODE_ENABLE = yes         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
