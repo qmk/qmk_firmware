@@ -426,58 +426,58 @@ static = ["NEO", "GREEK", "GREEK", "GREEK", "GREEK", "MOUSE"]
 
 # 0
 qwerty = [
-    ["Tab",     "q",    "w",       "e",       "r",       "t",       "y",       "u",       "i",       "o",       "p",       "["],
-    ["LCtrl",   "a",    "s",       "d",       "f",       "g",       "h",       "j",       "k",       "l",       ";",       "'"],
-    ["LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",       ",",       ".",       "/",       "RShift)"],
-    ["MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl"],
+    "Tab",     "q",    "w",       "e",       "r",       "t",       "y",       "u",       "i",       "o",       "p",       "[",
+    "LCtrl",   "a",    "s",       "d",       "f",       "g",       "h",       "j",       "k",       "l",       ";",       "'",
+    "LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",       ",",       ".",       "/",       "RShift)",
+    "MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl",
     ]
 
 # 1
 colemak = [
-    ["Tab",     "q",    "w",       "f",       "p",       "g",       "j",       "l",       "u",       "y",       ";",       "["],
-    ["LCtrl",   "a",    "r",       "s",       "t",       "d",       "h",       "n",       "e",       "i",       "o",       "'"],
-    ["LShift(", "z",    "x",       "c",       "v",       "b",       "k",       "m",       ",",       ".",       "/",       "RShift)"],
-    ["MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl"],
+    "Tab",     "q",    "w",       "f",       "p",       "g",       "j",       "l",       "u",       "y",       ";",       "[",
+    "LCtrl",   "a",    "r",       "s",       "t",       "d",       "h",       "n",       "e",       "i",       "o",       "'",
+    "LShift(", "z",    "x",       "c",       "v",       "b",       "k",       "m",       ",",       ".",       "/",       "RShift)",
+    "MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl",
     ]
 
 # 2
 numpad = [
-    ["`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]"],
-    ["",        "DF0",  "DF1",     "XXX",     "XXX",     "MO3",     "4",       "4",       "5",       "6",       "-",       "="],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "MO5",     "1",       "1",       "2",       "3",       "\\",      ""],
-    ["TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        ""],
+    "`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]",
+    "",        "DF0",  "DF1",     "XXX",     "XXX",     "MO3",     "4",       "4",       "5",       "6",       "-",       "=",
+    "",        "XXX",  "XXX",     "XXX",     "XXX",     "MO5",     "1",       "1",       "2",       "3",       "\\",      "",
+    "TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        "",
     ]
 
 # 3
 fpad = [
-    ["",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX"],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "MO3",     "F4",      "F4",      "F5",      "F6",      "XXX",     "XXX"],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "XXX",     ""],
-    ["TG3",     "",     "",        "",        "",        "",        "F10",     "F11",     "F12",     "",        "",        ""],
+    "",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "XXX",     "MO3",     "F4",      "F4",      "F5",      "F6",      "XXX",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "XXX",     "",
+    "TG3",     "",     "",        "",        "",        "",        "F10",     "F11",     "F12",     "",        "",        "",
     ]
 
 # 4
 movement = [
-    ["Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
-    ["",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr"],
-    ["",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     ""],
-    ["TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        ""],
+    "Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc",
+    "",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr",
+    "",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     "",
+    "TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        "",
     ]
 
 # 5
 media = [
-    ["",        "XXX",  "play/ps", "Vol +",   "Vol +",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "_reset",  "Power"],
-    ["",        "XXX",  "|<<",     "Vol 0",   ">>|",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "Sleep"],
-    ["",        "XXX",  "XXX",     "Vol -",   "Vol -",   "MO5",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX"],
-    ["TG5",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    "",        "XXX",  "play/ps", "Vol +",   "Vol +",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "_reset",  "Power",
+    "",        "XXX",  "|<<",     "Vol 0",   ">>|",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "Sleep",
+    "",        "XXX",  "XXX",     "Vol -",   "Vol -",   "MO5",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",
+    "TG5",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
 
 # 6
 mouse = [
-    ["",        "acc1", "XXX",     "XXX",     "XXX",     "XXX",     "^ Wheel", "< Wheel", "^ Mouse", "> Wheel", "XXX",     "XXX"],
-    ["",        "acc2", "Mouse 3", "Mouse 2", "Mouse 1", "Mouse 1", "< Mouse", "< Mouse", "v Mouse", "> Mouse", "XXX",     "XXX"],
-    ["",        "acc0", "XXX",     "XXX",     "XXX",     "XXX",     "v Wheel", "XXX",     "v Mouse", "XXX",     "XXX",     ""],
-    ["TG6",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    "",        "acc1", "XXX",     "XXX",     "XXX",     "XXX",     "^ Wheel", "< Wheel", "^ Mouse", "> Wheel", "XXX",     "XXX",
+    "",        "acc2", "Mouse 3", "Mouse 2", "Mouse 1", "Mouse 1", "< Mouse", "< Mouse", "v Mouse", "> Mouse", "XXX",     "XXX",
+    "",        "acc0", "XXX",     "XXX",     "XXX",     "XXX",     "v Wheel", "XXX",     "v Mouse", "XXX",     "XXX",     "",
+    "TG6",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
 
 layers = [
