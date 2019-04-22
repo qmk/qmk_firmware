@@ -7,8 +7,7 @@ Keyboard Maintainer: [Phil Hagelberg](https://github.com/technomancy)
 Hardware Supported: Atreus, PCB-based or hand-wired  
 Hardware Availability: https://atreus.technomancy.us
 
-These configuration files are specifically for the Atreus keyboards created by Phil Hagelberg (@technomancy). This keyboard is available in two variants: one powered by a Teensy 2 (usually hand-wired), one powered by an A-Star (usually using a PCB). You will need 
-to use different `make` commands depending on the variant you have; see examples below.
+These configuration files are specifically for the Atreus keyboards created by Phil Hagelberg (@technomancy). This keyboard is available in two variants: one powered by a Teensy 2 (usually hand-wired), one powered by an A-Star (usually using a PCB). You will need to use different `make` commands depending on the variant you have; see examples below.
 
 A-Star:\
 `make atreus:default:avrdude`
