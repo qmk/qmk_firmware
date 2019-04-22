@@ -45,14 +45,14 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
 ifdef TEENSY2
-  BOOTLOADER = halfkay
-  OPT_DEFS += -DATREUS_TEENSY2
+    BOOTLOADER = halfkay
+    OPT_DEFS += -DATREUS_TEENSY2
 else
-  BOOTLOADER = caterina
-  OPT_DEFS += -DATREUS_ASTAR
-  ifdef PCBDOWN
-    OPT_DEFS += -DPCBDOWN
-  endif
+    BOOTLOADER = caterina
+    OPT_DEFS += -DATREUS_ASTAR
+    ifdef PCBDOWN
+        OPT_DEFS += -DPCBDOWN
+    endif
 endif
 
 
