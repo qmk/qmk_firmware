@@ -20,4 +20,5 @@ starting point to create your own layouts for the Signum 3.0 with
     - Attention 2: additional C functions need to be put into
       `km_template.txt`
 
-Run `./generate_km.py` to regenerate `keymap.c`.
+Run `./generate_km.py` to regenerate `keymap.c` and the JSON keymap
+definition that should be copied to `qmk_configurator/public/keymaps`.
