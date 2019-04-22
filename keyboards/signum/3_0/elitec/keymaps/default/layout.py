@@ -1,11 +1,9 @@
-from sortedcontainers import SortedDict
-
 # Add all used Unicode symbols to this list.
 # The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
 # The key is also used in this file to define the layout, so use recognizeable names.
 # The value (e.g. "0x1f40d") is used in keymap.c for "unicode_map" and to automatically generate the "ASCII"-art comments.
 # When adding new Unicode names, use "0x1f40d" until you looked up the correct Unicode code point.
-uc_dict = SortedDict({
+uc_dict = {
     "SNEK": "0x1f40d", ## Error
     ## qwertz
     "ACUTE": "0x00b4",
@@ -329,7 +327,7 @@ uc_dict = SortedDict({
     "NOT_PARA": "0x2226",
     "TIMES_OP": "0x2297",
     "NOT_DIV": "0x2224"
-})
+}
 
 # Add all used Keycodes to this list.
 # The key (e.g. "a") is used in keymap.c to automatically generate the comments. The first 7 chars will show as a keycap legend.
