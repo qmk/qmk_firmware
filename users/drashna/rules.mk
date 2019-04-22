@@ -9,7 +9,9 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
 
-EXTRAFLAGS += -flto
+ifeq ($(PLATFORM),AVR)
+  EXTRAFLAGS += -flto
+endif
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
@@ -25,6 +27,9 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   endif
   ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
     OPT_DEFS += -DRGBLIGHT_NOEEPROM
+  endif
+  ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
+    OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
   endif
 endif
 
