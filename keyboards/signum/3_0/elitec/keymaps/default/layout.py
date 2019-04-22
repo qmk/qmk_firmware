@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Add all used Unicode symbols to this list.
 # The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
 # The key is also used in this file to define the layout, so use recognizeable names.
