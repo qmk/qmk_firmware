@@ -336,3 +336,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    OPT_DEFS += -DOLED_DRIVER_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += oled_driver.c
+endif
