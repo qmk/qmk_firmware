@@ -64,42 +64,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #else /* #ifndef MK_3_SPEED */
 
-#ifndef MK_C_OFFSET_SLOW
-#define MK_C_OFFSET_SLOW 1
+#ifndef MK_C_OFFSET_UNMOD
+#define MK_C_OFFSET_UNMOD 16
 #endif
-#ifndef MK_C_INTERVAL_SLOW
-#define MK_C_INTERVAL_SLOW 100
+#ifndef MK_C_INTERVAL_UNMOD
+#define MK_C_INTERVAL_UNMOD 16
 #endif
-#ifndef MK_C_OFFSET_MED
-#define MK_C_OFFSET_MED 4
+#ifndef MK_C_OFFSET_0
+#define MK_C_OFFSET_0 1
 #endif
-#ifndef MK_C_INTERVAL_MED
-#define MK_C_INTERVAL_MED 16
+#ifndef MK_C_INTERVAL_0
+#define MK_C_INTERVAL_0 32
 #endif
-#ifndef MK_C_OFFSET_FAST
-#define MK_C_OFFSET_FAST 12
+#ifndef MK_C_OFFSET_1
+#define MK_C_OFFSET_1 4
 #endif
-#ifndef MK_C_INTERVAL_FAST
-#define MK_C_INTERVAL_FAST 16
+#ifndef MK_C_INTERVAL_1
+#define MK_C_INTERVAL_1 16
+#endif
+#ifndef MK_C_OFFSET_2
+#define MK_C_OFFSET_2 32
+#endif
+#ifndef MK_C_INTERVAL_2
+#define MK_C_INTERVAL_2 16
 #endif
 
-#ifndef MK_W_OFFSET_SLOW
-#define MK_W_OFFSET_SLOW 1
+#ifndef MK_W_OFFSET_UNMOD
+#define MK_W_OFFSET_UNMOD 1
 #endif
-#ifndef MK_W_INTERVAL_SLOW
-#define MK_W_INTERVAL_SLOW 400
+#ifndef MK_W_INTERVAL_UNMOD
+#define MK_W_INTERVAL_UNMOD 40
 #endif
-#ifndef MK_W_OFFSET_MED
-#define MK_W_OFFSET_MED 1
+#ifndef MK_W_OFFSET_0
+#define MK_W_OFFSET_0 1
 #endif
-#ifndef MK_W_INTERVAL_MED
-#define MK_W_INTERVAL_MED 200
+#ifndef MK_W_INTERVAL_0
+#define MK_W_INTERVAL_0 360
 #endif
-#ifndef MK_W_OFFSET_FAST
-#define MK_W_OFFSET_FAST 1
+#ifndef MK_W_OFFSET_1
+#define MK_W_OFFSET_1 1
 #endif
-#ifndef MK_W_INTERVAL_FAST
-#define MK_W_INTERVAL_FAST 100
+#ifndef MK_W_INTERVAL_1
+#define MK_W_INTERVAL_1 120
+#endif
+#ifndef MK_W_OFFSET_2
+#define MK_W_OFFSET_2 1
+#endif
+#ifndef MK_W_INTERVAL_2
+#define MK_W_INTERVAL_2 20
 #endif
 
 #endif /* #ifndef MK_3_SPEED */

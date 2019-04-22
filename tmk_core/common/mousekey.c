@@ -171,28 +171,31 @@ void mousekey_off(uint8_t code) {
 
 
 enum {
-  mkspd_slow,
-  mkspd_med,
-  mkspd_fast,
+  mkspd_unmod,
+  mkspd_0,
+  mkspd_1,
+  mkspd_2,
   mkspd_COUNT
 };
-static uint8_t mk_speed = mkspd_med;
-#ifdef MK_MOMENTARY_ACCEL
-static uint8_t mkspd_DEFAULT = mkspd_med;
+#ifndef MK_MOMENTARY_ACCEL
+static uint8_t mk_speed = mkspd_1;
+#else
+static uint8_t mk_speed = mkspd_unmod;
+static uint8_t mkspd_DEFAULT = mkspd_unmod;
 #endif
 static uint16_t last_timer_c = 0;
 static uint16_t last_timer_w = 0;
 uint16_t c_offsets[mkspd_COUNT] = {
-  MK_C_OFFSET_SLOW, MK_C_OFFSET_MED, MK_C_OFFSET_FAST
+  MK_C_OFFSET_UNMOD, MK_C_OFFSET_0, MK_C_OFFSET_1, MK_C_OFFSET_2
 };
 uint16_t c_intervals[mkspd_COUNT] = {
-  MK_C_INTERVAL_SLOW, MK_C_INTERVAL_MED, MK_C_INTERVAL_FAST
+  MK_C_INTERVAL_UNMOD, MK_C_INTERVAL_0, MK_C_INTERVAL_1, MK_C_INTERVAL_2
 };
 uint16_t w_offsets[mkspd_COUNT] = {
-  MK_W_OFFSET_SLOW, MK_W_OFFSET_MED, MK_W_OFFSET_FAST
+  MK_W_OFFSET_UNMOD, MK_W_OFFSET_0, MK_W_OFFSET_1, MK_W_OFFSET_2
 };
 uint16_t w_intervals[mkspd_COUNT] = {
-  MK_W_INTERVAL_SLOW, MK_W_INTERVAL_MED, MK_W_INTERVAL_FAST
+  MK_W_INTERVAL_UNMOD, MK_W_INTERVAL_0, MK_W_INTERVAL_1, MK_W_INTERVAL_2
 };
 
 
@@ -254,9 +257,9 @@ void mousekey_on(uint8_t code) {
   else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
   else if (code == KC_MS_BTN4)     mouse_report.buttons |= MOUSE_BTN4;
   else if (code == KC_MS_BTN5)     mouse_report.buttons |= MOUSE_BTN5;
-  else if (code == KC_MS_ACCEL0)   mk_speed = mkspd_slow;
-  else if (code == KC_MS_ACCEL1)   mk_speed = mkspd_med;
-  else if (code == KC_MS_ACCEL2)   mk_speed = mkspd_fast;
+  else if (code == KC_MS_ACCEL0)   mk_speed = mkspd_0;
+  else if (code == KC_MS_ACCEL1)   mk_speed = mkspd_1;
+  else if (code == KC_MS_ACCEL2)   mk_speed = mkspd_2;
   if (mk_speed != old_speed) adjust_speed();
 }
 
