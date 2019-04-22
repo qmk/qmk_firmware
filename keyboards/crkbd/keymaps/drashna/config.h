@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define SSD1306OLED
+// #define SSD1306OLED
 
 #define USE_SERIAL_PD2
 
@@ -48,3 +48,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define B6_AUDIO
 // #define NO_MUSIC_MODE
 #endif
+
+#undef PRODUCT
+#define PRODUCT Drashna Hacked Corne Keyboard
+
+#define OLED_FONT_H "keyboards/crkbd/keymaps/drashna/glcdfont.c"
+// #define OLED_FONT_WIDTH 5
+// #define OLED_FONT_HEIGHT 7
+
+#define TAPPING_TERM_PER_KEY

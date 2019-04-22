@@ -103,6 +103,7 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
@@ -114,7 +115,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -135,6 +136,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
 endif
 
 RGB_MATRIX_ENABLE ?= no
+
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -151,17 +153,29 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+    OPT_DEFS += -DWS2812
+    SRC += ws2812.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -305,6 +319,7 @@ ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
@@ -320,4 +335,11 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                            i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    OPT_DEFS += -DOLED_DRIVER_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += oled_driver.c
 endif

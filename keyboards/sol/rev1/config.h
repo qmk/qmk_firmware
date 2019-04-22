@@ -40,12 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// Helix keyboard OLED support
-//      see ./rules.mk: OLED_ENABLE=yes or no
-#ifdef OLED_ENABLE
-  #define SSD1306OLED
-#endif
-
 /* Select rows configuration */
 // Rows are 4 or 5
 // #define HELIX_ROWS 5 see ./rules.mk
@@ -81,8 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
-#define DRIVER_COUNT      2
-#define DRIVER_LED_TOTAL  70
+#define DRIVER_COUNT      1
 // #define RGB_MATRIX_KEYPRESSES
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 5
@@ -92,6 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
   #define RGBLED_NUM 70
 #endif
+#define DRIVER_LED_TOTAL  RGBLED_NUM
 
 #define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
 
@@ -111,6 +105,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 
 #define RGBLIGHT_ANIMATIONS
+
+#define LED_HITS_TO_REMEMBER 5
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard
