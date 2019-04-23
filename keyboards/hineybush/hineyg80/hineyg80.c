@@ -54,7 +54,7 @@ void led_set_kb(uint8_t usb_led) {
     }
 	if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         // Turn scrolllock on
-	    PORTB |= (1<<5);
+	    writePinHigh(B5);
     } else {
         // Turn scrolllock off
 		PORTB &= ~(1<<5);
