@@ -74,6 +74,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-LAYOUTS = ortho_6x16
-
 DEFAULT_FOLDER = adkb96/rev1
