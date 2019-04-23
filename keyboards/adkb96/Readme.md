@@ -1,43 +1,15 @@
-## [The production method manual is here! ](http://bit-trade-one.co.jp/selfmadekb/adkb96manual/) (Sorry, now japanese only ...)
+# ADKB96
 
-## Standard 96 key type base model.
+![ADKB96](http://bit-trade-one.co.jp/selfmadekb/wp-content/uploads/sites/6/2019/04/3_ADKB96-%E8%A3%BD%E5%93%81%E3%83%88%E3%83%83%E3%83%97.png)
 
-It is a standard rectangle (rectangular) base model of vertical 6 x horizontal 16 keys.
-Recommended for those who want to make it first, and those who want to stick to the type of key in orthodox form.
-Comfortable to use as a tester with various switches and key tops.
+A 16x6 ortholinear keyboard kit made and sold by Bit Trade One Ltd. [More info on Web](http://bit-trade-one.co.jp/selfmadekb/adkb96/)
 
-## Compact and easy to carry. Also supports tilt.
+Keyboard Maintainer: [Bit Trade One Ltd.](http://bit-trade-one.co.jp/)
+Hardware Supported: ADKB96 Rev.1
+Hardware Availability:[BTOS Shop](http://btoshop.jp/)
 
-The compact acrylic case with a thickness of 20 mm is easy to handle and matches various desks.
-Use of the tilt is also possible by using the included stand.
+Make example for this keyboard (after setting up your build environment):
 
-## please note!
+  make adkb96/rev1
 
-To use this product, you need a general knowledge of electronic work and electronic circuits. Also, key tops and key switches are not included.
-Please prepare your own by yourself.
-
-### <Product specification>
-
-- Supported interface: USB MicroB
-- Maximum number of keys: 96
-- Supported key switch: Cherry MX / Kailh Low Profile
-- Body size 310 x D 115 x H 20 mm
-- Weight: about 300g ※ The dimensions and weight are measured with the kit only
-- Operating environment: Temperature: 0 to 45 ° C, humidity 10 to 60% (thing without condensation)
-- Contents: complete set / parts list & preparation manual guide 1 part / kit repair guide 1 part
-- Producing country: Made in Japan
-- Warranty period: Only initial failure of parts is supported. Operation after assembly is not covered by warranty.
-
-| Part name | Quantity |
-|:-: |:-: |
-| * Pro Micro compatible products (firmware has been written) | 2 |
-| Diode 1N4148 (THD) | 96 |
-| Tact switch | 2 |
-| * Micro USB Cable | 1 |
-| Spacer | 14 |
-| Screw | 28 |
-| Cushion rubber seal | 8 |
-| Round washer | 4 |
-| Substrate | 1 |
-| Acrylic set | 1 |
-
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
