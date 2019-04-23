@@ -5,7 +5,7 @@
 A 16x6 ortholinear keyboard kit made and sold by Bit Trade One Ltd. [More info on Web](http://bit-trade-one.co.jp/selfmadekb/adkb96/)  
 
 Keyboard Maintainer: [Bit Trade One Ltd.](http://bit-trade-one.co.jp/)  
-Hardware Supported: ADKB96 Rev.1  
+Hardware Supported: ADKB96 kit  
 Hardware Availability:[BTOS Shop](http://btoshop.jp/)  
 
 Make example for this keyboard (after setting up your build environment):  
