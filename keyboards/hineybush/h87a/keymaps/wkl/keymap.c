@@ -48,7 +48,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_init_ports(void) {
-  DDRD |= (1<<5); // OUT
+  setPinOutput(D5);
   DDRE |= (1<<6); // OUT
 }
 
