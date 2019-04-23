@@ -47,7 +47,7 @@ void led_set_kb(uint8_t usb_led) {
     }
 	if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         // Turn capslock on
-		PORTB |= (1<<6);
+		writePinHigh(B6);
     } else {
         // Turn capslock off
 		PORTB &= ~(1<<6);
