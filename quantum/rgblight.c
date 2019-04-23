@@ -38,11 +38,13 @@
   /* for split keyboard */
   #define RGBLIGHT_SPLIT_SET_CHANGE_MODE         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
   #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
+  #define RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS     rgblight_status.change_flags |= (RGBLIGHT_STATUS_CHANGE_MODE|RGBLIGHT_STATUS_CHANGE_HSVS)
   #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
   #define RGBLIGHT_SPLIT_ANIMATION_TICK          rgblight_status.change_flags |= RGBLIGHT_STATUS_ANIMATION_TICK
 #else
   #define RGBLIGHT_SPLIT_SET_CHANGE_MODE
   #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
+  #define RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS
   #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
   #define RGBLIGHT_SPLIT_ANIMATION_TICK
 #endif
@@ -221,6 +223,7 @@ void eeconfig_update_rgblight_default(void) {
   rgblight_config.sat = 255;
   rgblight_config.val = RGBLIGHT_LIMIT_VAL;
   rgblight_config.speed = 0;
+  RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 
@@ -249,7 +252,7 @@ void rgblight_init(void) {
     eeconfig_update_rgblight_default();
   }
   rgblight_config.raw = eeconfig_read_rgblight();
-  RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+  RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
   if (!rgblight_config.mode) {
     dprintf("rgblight_init rgblight_config.mode = 0. Write default values to EEPROM.\n");
     eeconfig_update_rgblight_default();
