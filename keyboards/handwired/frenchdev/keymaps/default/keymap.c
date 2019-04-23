@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 #include "keymap_bepo.h"
 
 
@@ -63,19 +62,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------|  /   |------|  ,   | space|------|------|------  ..  ------|------|------| L1/sp| LEFT |------|  UP  |------+------| *
  * | CTRL | win  |------/      \-------------| L1   | alt  |        ..        | CAPS | L1   |-------------/      \------| :    | CTRL | *
  * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
- *
  */
 [_BASE] = LAYOUT(
            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     \
   KC_ESC,  BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_DTRM,                                        BP_DCRC, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
   KC_TAB,  BP_B,    BP_ECUT, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
   BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_APOS, \
-  M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRACKET,    M_SFS,    BP_CBSP, L2INS,    L2LOC,    BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF, \
-  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,    KC_LALT,                     KC_CAPS, M_L1E,   KC_SPACE,KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
+  M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRC, M_SFS,   BP_CBSP, L2INS,        L2LOC, BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF, \
+  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,   KC_LALT,                     KC_CAPS, M_L1E,  KC_SPACE,  KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
   //left pedals
-  M_LP,    M_RP,    KC_TRNS, \
+  M_LP, M_RP, KC_TRNS, \
   //right pedals
-  M_LP,    M_RP,    KC_TRNS \
+  M_LP, M_RP, KC_TRNS \
 ),
 
  /* Larer 1 for symbols.
@@ -169,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   //left pedals
-  KC_BTN3, M_RP,   KC_TRNS, \
+  KC_BTN3, M_RP,    KC_TRNS, \
   //right pedals
-  KC_BTN3, M_RP,   KC_TRNS  \
+  KC_BTN3, M_RP,    KC_TRNS  \
 ),
 
 };
@@ -191,24 +189,49 @@ void release_shift(void) {
 
 void press_space(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code (KC_SPACE);
-  unregister_code (KC_SPACE);
+  tap_code(KC_SPACE);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
 void press_enter(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code (KC_ENT);
-  unregister_code (KC_ENT);
+  tap_code (KC_ENT);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
 void press_underscore(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code ((unsigned char) BP_UNDS);
-  unregister_code ((unsigned char) BP_UNDS);
+  tap_code ((unsigned char) BP_UNDS);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
+
+void matrix_init_user(void) {
+}
+
+// Bleah globals need to be initialized.
+uint8_t old_layer=_BASE;
+
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    frenchdev_led_1_off();
+    frenchdev_led_2_off();
+    switch (layer) {
+        case _BASE:
+            frenchdev_led_2_on();
+            break;
+        case _SYMBOLS:
+            frenchdev_led_1_on();
+            break;
+        case _MEDIA:
+           frenchdev_led_1_on();
+           frenchdev_led_2_on();
+        default:
+            // none
+            break;
+    }
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
@@ -219,25 +242,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
-           mousekey_on (KC_BTN2);
-           mousekey_send();
-           mousekey_off (KC_BTN2);
-           mousekey_send();
+           tap_code (KC_BTN2);
         }
         unregister_code (KC_SLCK);
         layer_off(1);
       }
-    return false;
+      break;
     case M_RP: //right pedal
       if (record->event.pressed) {
         layer_on(2);
         key_timer_right_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_right_pedal) < PEDAL_DELAY) {
-           mousekey_on (KC_BTN1);
-           mousekey_send();
-           mousekey_off (KC_BTN1);
-           mousekey_send();
+           tap_code (KC_BTN1);
         }
         layer_off(2);
       }
@@ -288,13 +305,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         key_timer_2 = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_2) < KEY_DELAY) {
-           register_code (KC_INS);
-           unregister_code (KC_INS);
+           tap_code (KC_INS);
         }
         l2_locked = 0;
         layer_off(2);
       }
-    return false;
+      break;
     case L2LOC: //lock L2
       if (record->event.pressed) {
         key_timer_2 = timer_read(); // if the key is being pressed, we start the timer.
@@ -308,78 +324,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(2);
         }
       }
-    return false;
+      break;
     case M_UN: // undo
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_Z);
-        unregister_code(BP_Z);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_Z));
       }
-    return false;
+      break;
     case M_CUT: // cut
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_X);
-        unregister_code(BP_X);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_X));
       }
-    return false;
+      break;
     case M_CP: // copy
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_C);
-        unregister_code(BP_C);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_C));
       }
-    return false;
+      break;
     case M_PS: // paste
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_V);
-        unregister_code(BP_V);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_V));
       }
-    return false;
+      break;
     case M_SE: // search
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_F);
-        unregister_code(BP_F);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_F));
       }
-    return false;
-    default:
-      return true;
+      break;
   }
   return true;
-};
-
-void matrix_init_user(void) {
-}
-
-// Bleah globals need to be initialized.
-uint8_t old_layer=_BASE;
-
-void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
-
-    frenchdev_led_1_off();
-    frenchdev_led_2_off();
-    switch (layer) {
-        case _BASE:
-            frenchdev_led_2_on();
-            break;
-        case _SYMBOLS:
-            frenchdev_led_1_on();
-            break;
-        case _MEDIA:
-           frenchdev_led_1_on();
-           frenchdev_led_2_on();
-        default:
-            // none
-            break;
-    }
 }
 
 void led_set_user(uint8_t usb_led) {

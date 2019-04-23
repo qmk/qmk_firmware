@@ -66,19 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGBLED_NUM 34    // Number of LEDs
 
-// If using 90 Degree rotation, increase block cout
-#ifdef OLED_ROTATE90
-  #define OLED_DISPLAY_CUSTOM
-  #define OLED_DISPLAY_WIDTH 128
-  #define OLED_DISPLAY_HEIGHT 32
-  #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
-  #define OLED_BLOCK_TYPE uint16_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
-  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
-  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
-  #define OLED_SOURCE_MAP { 0, 8, 16, 24 }
-  #define OLED_TARGET_MAP { 24, 16, 8, 0 }
-#endif
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
