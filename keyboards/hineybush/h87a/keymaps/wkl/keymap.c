@@ -60,7 +60,7 @@ void led_set_user(uint8_t usb_led) {
     DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
   }
 
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
     DDRE |= (1 << 6); PORTE &= ~(1 << 6);
   } else {
     DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
