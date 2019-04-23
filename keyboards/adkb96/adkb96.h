@@ -1,5 +1,4 @@
 #pragma once
-#define ADKB96_H
 
 #include "quantum.h"
 
