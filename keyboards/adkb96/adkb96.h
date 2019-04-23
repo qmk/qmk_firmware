@@ -26,4 +26,3 @@
     )
 
 #define LAYOUT_kc LAYOUT_kc_ortho_6x16
-#endif
