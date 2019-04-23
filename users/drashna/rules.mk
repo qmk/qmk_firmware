@@ -36,7 +36,9 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
   SRC += rgb_stuff.c
 endif
-
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+  SRC += rgb_stuff.c
+endif
 
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
