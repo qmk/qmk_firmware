@@ -1,6 +1,6 @@
 # ADKB96
 
-![ADKB96](http://bit-trade-one.co.jp/selfmadekb/wp-content/uploads/sites/6/2019/04/3_ADKB96-%E8%A3%BD%E5%93%81%E3%83%88%E3%83%83%E3%83%97.png)  
+![ADKB96](http://btoshop.jp/wp-content/uploads/sites/3/2019/04/ADKB96_ALL.png)  
 
 A 16x6 ortholinear keyboard kit made and sold by Bit Trade One Ltd. [More info on Web](http://bit-trade-one.co.jp/selfmadekb/adkb96/)  
 
