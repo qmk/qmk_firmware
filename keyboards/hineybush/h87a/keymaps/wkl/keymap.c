@@ -49,7 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_init_ports(void) {
   setPinOutput(D5);
-  DDRE |= (1<<6); // OUT
+  setPinOutput(E6);
 }
 
 void led_set_user(uint8_t usb_led) {
