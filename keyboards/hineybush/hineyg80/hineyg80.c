@@ -52,7 +52,7 @@ void led_set_kb(uint8_t usb_led) {
         // Turn capslock off
 		PORTB &= ~(1<<6);
     }
-	if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+	if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         // Turn scrolllock on
 	    PORTB |= (1<<5);
     } else {
