@@ -279,6 +279,7 @@ uint32_t rgblight_read_dword(void) {
 }
 
 void rgblight_update_dword(uint32_t dword) {
+  RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
   rgblight_config.raw = dword;
   if (rgblight_config.enable)
     rgblight_mode_noeeprom(rgblight_config.mode);
