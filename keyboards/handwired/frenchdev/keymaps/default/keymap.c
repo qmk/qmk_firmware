@@ -258,14 +258,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         layer_off(2);
       }
-      return false;
+      break;
     case M_SF: // shift, using macro to keep track of shift state and avoid inserting nbsp by mistake
       if (record->event.pressed) {
         hold_shift();
       } else {
         release_shift();
       }
-      return false;
+      break;
     case M_SFS: // shift when held, space when tapped
       if (record->event.pressed) {
         hold_shift();
@@ -276,7 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         release_shift();
       }
-      return false;
+      break;
     case M_SFU: // shift when held, _ when tapped
       if (record->event.pressed) {
         hold_shift();
@@ -287,7 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         release_shift();
       }
-      return false;
+      break;
     case M_L1E: // L1 when held, space when tapped
       if (record->event.pressed) {
         layer_on(1);
@@ -298,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         layer_off(1);
       }
-      return false;
+      break;
     case L2INS: //activate layer 2, if released before 100ms trigger INS. basicaly equivalent to LT(2, KC_INS) but without delay for activation of layer 2
       if (record->event.pressed) {
         layer_on(2);
