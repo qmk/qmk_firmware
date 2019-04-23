@@ -44,4 +44,3 @@
 
 #define LAYOUT LAYOUT_ortho_6x16
 
-#endif
