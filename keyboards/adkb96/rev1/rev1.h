@@ -1,5 +1,4 @@
 #pragma once
-#define REV1_H
 
 #include "adkb96.h"
 
