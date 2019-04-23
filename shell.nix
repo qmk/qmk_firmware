@@ -1,8 +1,17 @@
-# dfu-programmer doesn't have darwin on it's list of supported platforms
-{ pkgs ? import <nixpkgs> { config = { allowUnsupportedSystem = true; }; }
-, avr ? true, arm ? true, teensy ? true }:
+# Compatibility note:
+# This nix expression is designed to work on systems tracking the latest stable channel or unstable.
+# (Currently 19.03)
+{ pkgs ? import <nixpkgs> {}, avr ? true, arm ? true, teensy ? true }:
 
-with pkgs;
+# Required because gcc-arm-embeded fails to build on macOS when tracking nixpkgs-19.03-darwin.
+with if pkgs.stdenv.isDarwin && arm then
+   (import (pkgs.fetchFromGitHub {
+      owner  = "NixOS";
+      repo   = "nixpkgs-channels";
+      rev    = "9ebc6ad";
+      sha256 = "1hv53kw8nwg9k3kim19ykbmn3yksgmlw1gjbd6d5midhmjjc6mhv";
+    }) { config.allowUnsupportedSystem = true; }).pkgs
+    else pkgs;
 let
   avrbinutils = pkgsCross.avr.buildPackages.binutils;
   avrlibc = pkgsCross.avr.libcCross;
