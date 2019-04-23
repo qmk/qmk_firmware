@@ -43,7 +43,7 @@ void led_set_kb(uint8_t usb_led) {
 		writePinHigh(C6);
     } else {
         // Turn numlock off
-	    PORTC &= ~(1<<6);
+	    writePinLow(C6);
     }
 	if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         // Turn capslock on
