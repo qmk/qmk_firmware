@@ -6,7 +6,7 @@ A 16x6 ortholinear keyboard kit made and sold by Bit Trade One Ltd. [More info o
 
 Keyboard Maintainer: [Bit Trade One Ltd.](http://bit-trade-one.co.jp/)  
 Hardware Supported: ADKB96 PCB, Pro Micro  
-Hardware Availability: [PCB & case Data](https://github.com/bit-trade-one/ADKB96-hardware),[BTOS Shop](http://btoshop.jp/2019/04/11/4562469772424/)  
+Hardware Availability: [PCB & case Data](https://github.com/bit-trade-one/ADKB96-hardware), [BTOS Shop](http://btoshop.jp/2019/04/11/4562469772424/)  
 
 Make example for this keyboard (after setting up your build environment):  
 
