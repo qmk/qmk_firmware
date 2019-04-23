@@ -128,12 +128,18 @@ void matrix_init_keymap(void) {}
 
 // Call user matrix init, then call the keymap's init function
 void matrix_init_user(void) {
+//turn off pro micro LEDs
 #if defined(KEYBOARD_lets_split_rev2)
   DDRD &= ~(1<<5);
   PORTD &= ~(1<<5);
 
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
+#endif
+
+//disable breathing for keyboard using random flashing RGB LEDs for backlight
+#if defined(KEYBOARD_kbdfans_kbd6x) && defined(BACKLIGHT_BREATHING)
+  breathing_disable();
 #endif
   matrix_init_keymap();
 }
