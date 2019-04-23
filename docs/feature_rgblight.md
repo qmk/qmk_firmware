@@ -75,6 +75,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
 |`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
 |`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
+|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
 
 ## Animations
 
@@ -190,7 +191,40 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |`rgblight_decrease_val_noeeprom()`          |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                   |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range                                                                                                                                            |
 
-Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
+## Colors
+
+These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
+
+|RGB                |HSV                |
+|-------------------|-------------------|
+|`RGB_WHITE`        |`HSV_WHITE`        |
+|`RGB_RED`          |`HSV_RED`          |
+|`RGB_CORAL`        |`HSV_CORAL`        |
+|`RGB_ORANGE`       |`HSV_ORANGE`       |
+|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
+|`RGB_GOLD`         |`HSV_GOLD`         |
+|`RGB_YELLOW`       |`HSV_YELLOW`       |
+|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
+|`RGB_GREEN`        |`HSV_GREEN`        |
+|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
+|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
+|`RGB_TEAL`         |`HSV_TEAL`         |
+|`RGB_CYAN`         |`HSV_CYAN`         |
+|`RGB_AZURE`        |`HSV_AZURE`        |
+|`RGB_BLUE`         |`HSV_BLUE`         |
+|`RGB_PURPLE`       |`HSV_PURPLE`       |
+|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
+|`RGB_PINK`         |`HSV_PINK`         |
+
+```c
+rgblight_setrgb(RGB_ORANGE);
+rgblight_sethsv_noeeprom(HSV_GREEN);
+rgblight_setrgb_at(RGB_GOLD, 3);
+rgblight_sethsv_range(HSV_WHITE, 0, 6);
+```
+
+These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+
 
 ## Changing the order of the LEDs
 

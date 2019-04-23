@@ -14,4 +14,3 @@
 #define PRODUCT         DrashnaDox - Hacked ErgoDox EZ Shine
 
 #undef DEBOUNCE
-#define DEBOUNCE 5

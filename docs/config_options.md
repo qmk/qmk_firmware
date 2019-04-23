@@ -180,10 +180,12 @@ If you define these options you will enable the associated feature, which may in
   * run RGB animations
 * `#define RGBLED_NUM 12`
   * number of LEDs
+* `#define RGBLIGHT_SPLIT`
+  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
   * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
-  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
+  * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
