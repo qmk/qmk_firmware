@@ -1,114 +1,119 @@
-# Mousekeys
+# Mouse keys
 
+Mouse keys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer at different speeds, press 5 buttons and scroll in 8 directions.
 
-Mousekeys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer around, click up to 5 buttons, and even scroll in all 4 directions.
+## Adding mouse keys to your keyboard
 
-There are 2 ways to define how the mousekeys behave, using "[auto-accelerating](#configuring-the-behavior-of-mousekeys-with-auto-accelerated-movement)" or "[3-speed constant](#configuring-the-behavior-of-mousekeys-with-3-speed-constant-movement)" behavior.
+To use mouse keys, you must at least enable mouse keys support and map mouse actions to keys on your keyboard.
 
-In either case, you will need to enable mousekeys in your makefile,
-and add the relevant [keycodes](#mapping-mouse-actions-to-keyboard-keys) to your keymap.
+### Enabling mouse keys
 
-#### Enable Mousekeys
+To enable mouse keys, add the following line to your keymap’s `rules.mk`:
 
-To enable the mousekey functionality, add the following line to your keymap's `rules.mk`:
-
-```
+```c
 MOUSEKEY_ENABLE = yes
 ```
 
-#### Mapping Mouse Actions to Keyboard Keys
+### Mapping mouse actions
 
-You can use these keycodes within your keymap to map button presses to mouse actions:
+In your keymap you can use the following keycodes to map key presses to mouse actions:
 
-|Key             |Aliases  |Description                        |
-|----------------|---------|-----------------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up                    |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down                  |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left                  |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right                 |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1                     |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2                     |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3                     |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4                     |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5                     |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up                     |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down                   |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left                   |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right                  |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0(slow)  |
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1(medium)|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2(fast)  |
+|Key             |Aliases  |Description      |
+|----------------|---------|-----------------|
+|`KC_MS_UP`      |`KC_MS_U`|Move cursor up   |
+|`KC_MS_DOWN`    |`KC_MS_D`|Move cursor down |
+|`KC_MS_LEFT`    |`KC_MS_L`|Move cursor left |
+|`KC_MS_RIGHT`   |`KC_MS_R`|Move cursor right|
+|`KC_MS_BTN1`    |`KC_BTN1`|Press button 1   |
+|`KC_MS_BTN2`    |`KC_BTN2`|Press button 2   |
+|`KC_MS_BTN3`    |`KC_BTN3`|Press button 3   |
+|`KC_MS_BTN4`    |`KC_BTN4`|Press button 4   |
+|`KC_MS_BTN5`    |`KC_BTN5`|Press button 5   |
+|`KC_MS_WH_UP`   |`KC_WH_U`|Move wheel up    |
+|`KC_MS_WH_DOWN` |`KC_WH_D`|Move wheel down  |
+|`KC_MS_WH_LEFT` |`KC_WH_L`|Move wheel left  |
+|`KC_MS_WH_RIGHT`|`KC_WH_R`|Move wheel right |
+|`KC_MS_ACCEL0`  |`KC_ACL0`|Set speed to 0   |
+|`KC_MS_ACCEL1`  |`KC_ACL1`|Set speed to 1   |
+|`KC_MS_ACCEL2`  |`KC_ACL2`|Set speed to 2   |
 
+## Configuring mouse keys
 
-## Configuring the Behavior of Mousekeys with auto-accelerated movement
+Mouse keys supports two different modes to move the cursor:
 
-This behavior is intended to emulate the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
+* **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
+* **Constant:** Holding movement keys moves the cursor at constant speeds.
 
-The default speed for controlling the mouse with the keyboard is intentionally slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in milliseconds (ms).
+The same principle applies to scrolling.
 
-```
-#define MOUSEKEY_DELAY             300
-#define MOUSEKEY_INTERVAL          50
-#define MOUSEKEY_MAX_SPEED         10
-#define MOUSEKEY_TIME_TO_MAX       20
-#define MOUSEKEY_WHEEL_MAX_SPEED   8
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-```
+Configuration options that are times, intervals or delays are given in milliseconds. Scroll speed is given as multiples of the default scroll step. For example, a scroll speed of 8 means that each scroll action covers 8 times the length of the default scroll step as defined by your operating system or application.
 
-#### `MOUSEKEY_DELAY`
+### Accelerated mode
 
-When one of the mouse movement buttons is pressed this setting is used to define the delay between that button press and the mouse cursor moving. Some people find that small movements are impossible if this setting is too low, while settings that are too high feel sluggish.
+This is the default mode. You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
 
-#### `MOUSEKEY_INTERVAL`
+|Define                      |Default|Description                                              |
+|----------------------------|-------|---------------------------------------------------------|
+|`MOUSEKEY_DELAY`            |300    |Delay between pressing a movement key and cursor movement|
+|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements                            |
+|`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
+|`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
+|`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
+|`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
-When a movement key is held down this specifies how long to wait between each movement report. Lower settings will translate into an effectively higher mouse speed.
+Tips:
 
-#### `MOUSEKEY_MAX_SPEED`
+* Setting `MOUSEKEY_DELAY` too low makes the cursor unresponsive. Setting it too high makes small movements difficult.
+* For smoother cursor movements, lower the value of `MOUSEKEY_INTERVAL`. If the refresh rate of your display is 60Hz, you could set it to `16` (1/60). As this raises the cursor speed significantly, you may want to lower `MOUSEKEY_MAX_SPEED`.
+* Setting `MOUSEKEY_TIME_TO_MAX` or `MOUSEKEY_WHEEL_TIME_TO_MAX` to `0` will disable acceleration for the cursor or scrolling respectively. This way you can make one of them constant while keeping the other accelerated, which is not possible in constant speed mode.
 
-As a movement key is held down the speed of the mouse cursor will increase until it reaches `MOUSEKEY_MAX_SPEED`.
+Cursor acceleration uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 
-#### `MOUSEKEY_TIME_TO_MAX`
+### Constant mode
 
-How long you want to hold down a movement key for until `MOUSEKEY_MAX_SPEED` is reached. This controls how quickly your cursor will accelerate.
+In this mode you can define multiple different speeds for both the cursor and the mouse wheel. There is no acceleration. `KC_ACL0`, `KC_ACL1` and `KC_ACL2` change the cursor and scroll speed to their respective setting.
 
-#### `MOUSEKEY_WHEEL_MAX_SPEED`
+You can choose whether speed selection is momentary or tap-to-select:
 
-The top speed for scrolling movements.
+* **Momentary:** The chosen speed is only active while you hold the respective key. When the key is raised, mouse keys returns to the unmodified speed.
+* **Tap-to-select:** The chosen speed is activated when you press the respective key and remains active even after the key has been raised. The default speed is that of `KC_ACL1`. There is no unmodified speed.
 
-#### `MOUSEKEY_WHEEL_TIME_TO_MAX`
+The default speeds from slowest to fastest are as follows:
 
-How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickly your scrolling will accelerate.
+* **Momentary:** `KC_ACL0` < `KC_ACL1` < *unmodified* < `KC_ACL2`
+* **Tap-to-select:** `KC_ACL0` < `KC_ACL1` < `KC_ACL2`
 
+To use constant speed mode, you must at least define `MK_3_SPEED` in your keymap’s `config.h` file:
 
-## Configuring the Behavior of Mousekeys with 3-speed constant movement
-
-In your keymap's `config.h`, you must add the line:
-```
+```c
 #define MK_3_SPEED
 ```
-Then you can precisely define 3 different speeds for both the cursor and the mouse wheel, and also whether speed selection is momentary or tap-to-select.
-For each speed, you can specify how many milliseconds you want between reports(interval), and how far you want to it to move per report(offset).
 
-For example:
+To enable momentary mode, also define `MK_MOMENTARY_ACCEL`:
 
-```
-#define MK_3_SPEED
-#define MK_MOMENTARY_ACCEL // comment this out for tap-to-select acceleration
-// cursor speeds:
-#define MK_C_OFFSET_SLOW     1 // pixels
-#define MK_C_INTERVAL_SLOW 100 // milliseconds
-#define MK_C_OFFSET_MED      4
-#define MK_C_INTERVAL_MED   16
-#define MK_C_OFFSET_FAST    12
-#define MK_C_INTERVAL_FAST  16
-// scroll wheel speeds:
-#define MK_W_OFFSET_SLOW     1 // wheel clicks
-#define MK_W_INTERVAL_SLOW 400 // milliseconds
-#define MK_W_OFFSET_MED      1
-#define MK_W_INTERVAL_MED  200
-#define MK_W_OFFSET_FAST     1
-#define MK_W_INTERVAL_FAST 100
+```c
+#define MK_MOMENTARY_ACCEL
 ```
 
-Medium values will be used as the default or unmodified speed.
-The speed at which both the cursor and scrolling move can be selected with KC_ACL0, KC_ACL1, KC_ACL2 for slow, medium, and fast. However, if you leave MK_MOMENTARY_ACCEL defined then there is no need to ever send KC_ACL1, since that will be the unmodified speed.
+Use the following settings if you want to adjust cursor movement or scrolling:
+
+|Define               |Default      |Description                                |
+|---------------------|-------------|-------------------------------------------|
+|`MK_3_SPEED`         |*Not defined*|Enable constant cursor speeds              |
+|`MK_MOMENTARY_ACCEL` |*Not defined*|Enable momentary speed selection           |
+|`MK_C_OFFSET_UNMOD`  |16           |Cursor offset per movement (unmodified)    |
+|`MK_C_INTERVAL_UNMOD`|16           |Time between cursor movements (unmodified) |
+|`MK_C_OFFSET_0`      |1            |Cursor offset per movement (`KC_ACL0`)     |
+|`MK_C_INTERVAL_0`    |32           |Time between cursor movements (`KC_ACL0`)  |
+|`MK_C_OFFSET_1`      |4            |Cursor offset per movement (`KC_ACL1`)     |
+|`MK_C_INTERVAL_1`    |16           |Time between cursor movements (`KC_ACL1`)  |
+|`MK_C_OFFSET_2`      |32           |Cursor offset per movement (`KC_ACL2`)     |
+|`MK_C_INTERVAL_2`    |16           |Time between cursor movements (`KC_ACL2`)  |
+|`MK_W_OFFSET_UNMOD`  |1            |Scroll steps per scroll action (unmodified)|
+|`MK_W_INTERVAL_UNMOD`|40           |Time between scroll steps (unmodified)     |
+|`MK_W_OFFSET_0`      |1            |Scroll steps per scroll action (`KC_ACL0`) |
+|`MK_W_INTERVAL_0`    |360          |Time between scroll steps (`KC_ACL0`)      |
+|`MK_W_OFFSET_1`      |1            |Scroll steps per scroll action (`KC_ACL1`) |
+|`MK_W_INTERVAL_1`    |120          |Time between scroll steps (`KC_ACL1`)      |
+|`MK_W_OFFSET_2`      |1            |Scroll steps per scroll action (`KC_ACL2`) |
+|`MK_W_INTERVAL_2`    |20           |Time between scroll steps (`KC_ACL2`)      |

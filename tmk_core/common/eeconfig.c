@@ -47,6 +47,9 @@ void eeconfig_init_quantum(void) {
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
   eeprom_update_dword(EECONFIG_HAPTIC,        0);
   eeprom_update_byte(EECONFIG_VELOCIKEY,      0);
+#ifdef EECONFIG_RGB_MATRIX
+  eeprom_update_dword(EECONFIG_RGB_MATRIX,    0);
+#endif
 
   eeconfig_init_kb();
 }
@@ -185,5 +188,3 @@ uint32_t eeconfig_read_haptic(void)      { return eeprom_read_dword(EECONFIG_HAP
  * FIXME: needs doc
  */
 void eeconfig_update_haptic(uint32_t val) { eeprom_update_dword(EECONFIG_HAPTIC, val); }
-
-
