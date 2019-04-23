@@ -63,7 +63,11 @@ const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 rgblight_config_t rgblight_config;
 bool is_rgblight_initialized = false;
 
+#ifndef LED_ARRAY
 LED_TYPE led[RGBLED_NUM];
+  #define LED_ARRAY led
+#endif
+
 bool rgblight_timer_enabled = false;
 
 static uint8_t clipping_start_pos = 0;
