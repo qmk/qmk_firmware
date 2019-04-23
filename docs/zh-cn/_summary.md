@@ -92,7 +92,7 @@
   * [理解 QMK](understanding_qmk.md)
 
 * 其他话题
-  * 使用Eclipse开发QMK](other_eclipse.md)
+  * [使用Eclipse开发QMK](other_eclipse.md)
   * [使用VSCode开发QMK](other_vscode.md)
   * [支持](support.md)
 
