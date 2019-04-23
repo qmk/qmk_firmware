@@ -137,6 +137,13 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     {{3|(4<<4)},  {20.36*11,21.33*3}, 1}
 };
 
+static const WDGConfig wdognormalcfg =
+{
+    STM32_IWDG_PR_64,
+    STM32_IWDG_RL(1000),
+    STM32_IWDG_WIN_DISABLED
+};
+
 void matrix_init_kb(void) {
   matrix_init_user();
 
@@ -145,9 +152,12 @@ void matrix_init_kb(void) {
 
   palClearPad(GPIOB, 8);
   palClearPad(GPIOB, 9);
+
+  wdgStart(&WDGD1, &wdognormalcfg);
 }
 
 void matrix_scan_kb(void) {
+  wdgReset(&WDGD1);
   matrix_scan_user();
 }
 
