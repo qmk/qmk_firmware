@@ -45,7 +45,7 @@ void led_set_kb(uint8_t usb_led) {
         // Turn numlock off
 	    PORTC &= ~(1<<6);
     }
-	if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+	if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         // Turn capslock on
 		PORTB |= (1<<6);
     } else {
