@@ -66,7 +66,8 @@ void led_set_user(uint8_t usb_led) {
     setPinOutput(E6);
     writePinLow(E6);
   } else {
-    DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
+    setPinInput(E6);
+    writePinLow(E6);
   }
 
 }
