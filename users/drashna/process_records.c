@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       uint8_t dtime;
       for (dtime = 0; dtime < 4; dtime++) {
-        diablo_key_time[dtime] = diablo_times[0];
+        diablo_timer[dtime].key_time = diablo_times[0];
       }
     }
 #endif // TAP_DANCE_ENABLE
