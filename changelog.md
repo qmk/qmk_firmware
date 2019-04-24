@@ -11,3 +11,4 @@
 04-22-2019 - Add new reactive modes (wide, cross, nexus) for RGB Matrix  
 04-22-2019 - OLED Driver Features  
 04-22-2019 - Add Split RGB support  
+04-24-2019 - Add RGB Split fixes and RGB Names  
