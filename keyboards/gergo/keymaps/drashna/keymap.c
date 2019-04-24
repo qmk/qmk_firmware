@@ -9,11 +9,6 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
-// Blank template at the bottom
-
-enum customKeycodes {
-	URL  = 1
-};
 
 #define LAYOUT_gergo_wrapper(...)       LAYOUT_gergo(__VA_ARGS__)
 #define LAYOUT_gergo_base( \
