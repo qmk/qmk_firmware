@@ -1,22 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), planck/rev3)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev4)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev5)
-    BOOTLOADER = qmk-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/light)
-    BOOTLOADER = atmel-dfu
-endif
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -45,4 +29,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 LAYOUTS = ortho_4x12 planck_mit planck_grid
 LAYOUTS_HAS_RGB = no
 
-DEFAULT_FOLDER = planck/rev5
+DEFAULT_FOLDER = planck/ez

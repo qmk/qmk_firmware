@@ -22,7 +22,7 @@ before_script:
 script:
 - git rev-parse --short HEAD
 - make test:all
-- make all:default
+- make all:all
 addons:
   apt:
     packages:
