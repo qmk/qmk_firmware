@@ -1,2 +1,3 @@
 #pragma once
 #define USB_MAX_POWER_CONSUMPTION 100
+#define BACKLIGHT_LEVELS 3
