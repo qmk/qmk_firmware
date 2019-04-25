@@ -12,7 +12,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 |`uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
 |`uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
 |`uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
-|`uint8_t i2c_stop(uint16_t timeout);`                                                                             |Stops the I2C driver.                                                                                                                                                        |
+|`uint8_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
 
 ### Function Return
 

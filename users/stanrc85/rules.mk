@@ -8,6 +8,8 @@ AUDIO_ENABLE = no
 CONSOLE_ENABLE = no
 NKRO_ENABLE = no
 
+SRC += stanrc85.c
+
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   # Include my fancy rgb functions source here
   SRC += layer_rgb.c

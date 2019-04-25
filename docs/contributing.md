@@ -56,7 +56,7 @@ Never made an open source contribution before? Wondering how contributions work 
 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
-* We indent using two spaces (soft tabs)
+* We indent using four (4) spaces (soft tabs)
 * We use a modified One True Brace Style
   * Opening Brace: At the end of the same line as the statement that opens the block
   * Closing Brace: Lined up with the first character of the statement that opens the block
@@ -71,6 +71,14 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * If you not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
+* We accept both forms of preprocessor if's: `#ifdef DEFINED` and `#if defined(DEFINED)`
+  * If you are not sure which to prefer use the `#if defined(DEFINED)` form.
+  * Do not change existing code from one style to the other, except when moving to a multiple condition `#if`.
+  * Do not put whitespace between `#` and `if`.
+  * When deciding how (or if) to indent directives keep these points in mind:
+    * Readability is more important than consistency.
+    * Follow the file's existing style. If the file is mixed follow the style that makes sense for the section you are modifying.
+    * When choosing to indent you can follow the indention level of the surrounding C code, or preprocessor directives can have their own indent level. Choose the style that best communicates the intent of your code.
 
 Here is an example for easy reference:
 
@@ -128,6 +136,20 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please [reach out for help](#where-can-i-go-for-help)!
 
 You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
+
+When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+
+```c
+enum my_layers {
+  _FIRST_LAYER,
+  _SECOND_LAYER
+};
+
+enum my_keycodes {
+  FIRST_LAYER = SAFE_RANGE,
+  SECOND_LAYER
+};
+```
 
 ## Keymaps
 

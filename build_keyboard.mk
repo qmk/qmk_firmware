@@ -280,6 +280,23 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_1)/config.h
 endif
 
+POST_CONFIG_H :=
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/post_config.h)","")
+    POST_CONFIG_H += $(KEYBOARD_PATH_1)/post_config.h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/post_config.h)","")
+    POST_CONFIG_H += $(KEYBOARD_PATH_2)/post_config.h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/post_config.h)","")
+    POST_CONFIG_H += $(KEYBOARD_PATH_3)/post_config.h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_config.h)","")
+    POST_CONFIG_H += $(KEYBOARD_PATH_4)/post_config.h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
+    POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
+endif
+
 # Save the defines and includes here, so we don't include any keymap specific ones
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
@@ -355,6 +372,7 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
+CONFIG_H += $(POST_CONFIG_H)
 ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)

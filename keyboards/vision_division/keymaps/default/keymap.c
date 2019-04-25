@@ -1,12 +1,5 @@
-#include "vision_division.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "led.h"
-
-#ifdef AUDIO_ENABLE
-    #include "audio.h"
-    #include "song_list.h"
-#endif
 
 enum keyboard_layers {
   LAYER_QWERTY = 0,

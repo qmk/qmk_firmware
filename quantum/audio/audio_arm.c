@@ -79,7 +79,7 @@ float startup_song[][2] = STARTUP_SONG;
 
 static void gpt_cb8(GPTDriver *gptp);
 
-#define DAC_BUFFER_SIZE 720
+#define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #define DAC_SAMPLE_MAX  65535U
 #endif
@@ -98,8 +98,8 @@ static void gpt_cb8(GPTDriver *gptp);
     RESTART_CHANNEL_1()
 #define UPDATE_CHANNEL_2_FREQ(freq) gpt7cfg1.frequency = freq * DAC_BUFFER_SIZE; \
     RESTART_CHANNEL_2()
-#define GET_CHANNEL_1_FREQ gpt6cfg1.frequency
-#define GET_CHANNEL_2_FREQ gpt7cfg1.frequency
+#define GET_CHANNEL_1_FREQ (uint16_t)(gpt6cfg1.frequency * DAC_BUFFER_SIZE)
+#define GET_CHANNEL_2_FREQ (uint16_t)(gpt7cfg1.frequency * DAC_BUFFER_SIZE)
 
 
 /*

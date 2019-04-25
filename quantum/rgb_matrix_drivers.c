@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3737)
 
 #include "i2c_master.h"
 
@@ -33,23 +33,29 @@ static void init( void )
 #ifdef IS31FL3731
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
-#else
+#elif defined(IS31FL3733)
     IS31FL3733_init( DRIVER_ADDR_1 );
+#else
+    IS31FL3737_init( DRIVER_ADDR_1 );
 #endif
     for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
         bool enabled = true;
         // This only caches it for later
 #ifdef IS31FL3731
         IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
-#else
+#elif defined(IS31FL3733)
         IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+#else
+        IS31FL3737_set_led_control_register( index, enabled, enabled, enabled );
 #endif
     }
     // This actually updates the LED drivers
 #ifdef IS31FL3731
     IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#else
+#elif defined(IS31FL3733)
     IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#else
+    IS31FL3737_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 #endif
 }
 
@@ -65,7 +71,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3731_set_color,
     .set_color_all = IS31FL3731_set_color_all,
 };
-#else
+#elif defined(IS31FL3733)
 static void flush( void )
 {
     IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
@@ -77,6 +83,39 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3733_set_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
+#else
+static void flush( void )
+{
+    IS31FL3737_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = IS31FL3737_set_color,
+    .set_color_all = IS31FL3737_set_color_all,
+};
 #endif
 
+#elif defined(WS2812)
+
+extern LED_TYPE led[RGBLED_NUM];
+
+  static void flush( void )
+  {
+    // Assumes use of RGB_DI_PIN
+    ws2812_setleds(led, RGBLED_NUM);
+  }
+
+  static void init( void )
+  {
+
+  }
+
+  const rgb_matrix_driver_t rgb_matrix_driver = {
+      .init = init,
+      .flush = flush,
+      .set_color = ws2812_setled,
+      .set_color_all = ws2812_setled_all,
+  };
 #endif

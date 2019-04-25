@@ -72,14 +72,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Trackball pin defs
 #define TRKUP (1<<4)
 #define TRKDN (1<<5)
-#define TRKLT (1<<6) 
+#define TRKLT (1<<6)
 #define TRKRT (1<<7)
 #define TRKBTN (1<<6)
 
 
 // Multiple for mouse moves
 #ifndef TRKSTEP
-#define TRKSTEP 20 
+#define TRKSTEP 20
 #endif
 
 // multiple for mouse scroll
@@ -98,13 +98,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Trackball interrupts accumulate over here. Processed on scan
 // Stores prev state of mouse, high bits store direction
-uint8_t trkState    = 0; 
-uint8_t trkBtnState = 0; 
+uint8_t trkState    = 0;
+uint8_t trkBtnState = 0;
 
-volatile uint8_t tbUpCnt  = 0; 
-volatile uint8_t tbDnCnt  = 0; 
-volatile uint8_t tbLtCnt  = 0; 
-volatile uint8_t tbRtCnt  = 0; 
+volatile uint8_t tbUpCnt  = 0;
+volatile uint8_t tbDnCnt  = 0;
+volatile uint8_t tbLtCnt  = 0;
+volatile uint8_t tbRtCnt  = 0;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -240,14 +240,14 @@ uint8_t matrix_scan(void)
   // First we handle the mouse inputs
   #ifdef BALLER
   uint8_t pBtn   = PINE & TRKBTN;
-  
+
   #ifdef DEBUG_BALLER
-  // Compare to previous, mod report 
+  // Compare to previous, mod report
   if (tbUpCnt + tbDnCnt + tbLtCnt + tbRtCnt != 0)
     xprintf("U: %d D: %d L: %d R: %d B: %d\n", tbUpCnt, tbDnCnt, tbLtCnt, tbRtCnt, (trkBtnState >> 6));
   #endif
 
-  // Modify the report 
+  // Modify the report
   report_mouse_t pRprt = pointing_device_get_report();
 
   // Scroll by default, move on layer
@@ -264,7 +264,7 @@ uint8_t matrix_scan(void)
   }
 
   #ifdef DEBUG_BALLER
-  if (pRprt.x != 0 || pRprt.y != 0) 
+  if (pRprt.x != 0 || pRprt.y != 0)
 	xprintf("X: %d Y: %d\n", pRprt.x, pRprt.y);
   #endif
 
@@ -272,7 +272,7 @@ uint8_t matrix_scan(void)
   if ((pBtn != trkBtnState) && ((pBtn >> 6) == 1))  pRprt.buttons &= ~MOUSE_BTN1;
 
   // Save state, push update
-  if (pRprt.x != 0 || pRprt.y != 0 || pRprt.h != 0 || pRprt.v != 0 || (trkBtnState != pBtn)) 
+  if (pRprt.x != 0 || pRprt.y != 0 || pRprt.h != 0 || pRprt.v != 0 || (trkBtnState != pBtn))
     pointing_device_set_report(pRprt);
 
   trkBtnState = pBtn;
@@ -325,8 +325,8 @@ uint8_t matrix_scan(void)
     enableInterrupts();
 
 #ifdef DEBUG_MATRIX
-    for (uint8_t c = 0; c < MATRIX_COLS; c++) 
-		for (uint8_t r = 0; r < MATRIX_ROWS; r++) 
+    for (uint8_t c = 0; c < MATRIX_COLS; c++)
+		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
 		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
@@ -394,7 +394,7 @@ static matrix_row_t read_cols(uint8_t row)
             data = ~((uint8_t)mcp23018_status);
             mcp23018_status = I2C_STATUS_SUCCESS;
         out:
-            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+            i2c_stop();
 
 #ifdef DEBUG_MATRIX
             if (data != 0x00) xprintf("I2C: %d\n", data);
@@ -439,12 +439,12 @@ static void select_row(uint8_t row)
     if (row < 7) {
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
-        } else { // set active row low  : 0 // set other rows hi-Z : 1 
+        } else { // set active row low  : 0 // set other rows hi-Z : 1
             mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
         out:
-            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+            i2c_stop();
         }
     } else {
         // Output low(DDR:1, PORT:0) to select
