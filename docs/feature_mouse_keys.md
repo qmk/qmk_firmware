@@ -1,6 +1,6 @@
 # Mouse keys
 
-Mouse keys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer at different speeds, press 5 buttons and scroll in all 8 directions.
+Mouse keys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer at different speeds, press 5 buttons and scroll in 8 directions.
 
 ## Adding mouse keys to your keyboard
 
@@ -36,8 +36,6 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 |`KC_MS_ACCEL0`  |`KC_ACL0`|Set speed to 0   |
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set speed to 1   |
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set speed to 2   |
-
-For an example, see [the mouse layer in this keymap](https://github.com/qmk/qmk_firmware/blob/1df10ae3bfc146805c75b06dc0c126cd1ef3a60a/keyboards/clueboard/66/keymaps/mouse_keys/keymap.c#L40).
 
 ## Configuring mouse keys
 

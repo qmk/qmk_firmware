@@ -104,7 +104,7 @@ if __name__ == "__main__":
                 output.write(" *                                 -------------------------------------------------\n")
                 output.write(" */\n")
 
-                l_code = '\tLAYOUT(\n'
+                l_code = '\tLAYOUT_ortho_4x12(\n'
                 for r in range(r_counter):
                     r_counter -= 1
                     c_counter = 12

@@ -44,10 +44,10 @@ bool skip_leds = false;
       KC_TAB,  K01,    K02,     K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
-                                                  OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE), \
-                                                           KC_HOME,                 KC_PGUP, \
-                             LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)                          \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
+                                                  OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
+                                                           KC_APP,                  KC_MENU,                                                        \
+                              KC_SPC, LT(_LOWER, KC_BSPC), OS_LWR,                  OS_RSE, LT(_RAISE, KC_DEL), KC_ENT                              \
     )
 
 #define LAYOUT_ergodox_pretty_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
@@ -270,8 +270,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_ergodox_pretty_wrapper(
              KC_F12,  _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             KC_TILD, _________________LOWER_L1__________________, _______,                 _______, _________________LOWER_R1__________________, _______,
-             _______, ___________________BLANK___________________,                                   _________________LOWER_R2__________________, KC_PIPE,
+             KC_TILD, _________________LOWER_L1__________________, _______,                 _______, _________________LOWER_R1__________________, KC_PIPE,
+             _______, ___________________BLANK___________________,                                   _________________LOWER_R2__________________, KC_DQUO,
              _______, ___________________BLANK___________________, _______,                 _______, _________________LOWER_R3__________________, KC_PSCR,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, KC_PAUS,
                                                           _______, _______,                 _______, _______,
@@ -281,8 +281,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_ergodox_pretty_wrapper(
              KC_F12,  _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, _______,
-             _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_BSLS,
+             KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, KC_BSLS,
+             _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_QUOT,
              _______, _________________RAISE_L3__________________, _______,                 _______, _________________RAISE_R3__________________, KC_PSCR,
              _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SLCK,
                                                           _______, _______,                 _______, _______,

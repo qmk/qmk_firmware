@@ -41,17 +41,17 @@ void render_status(void) {
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  oled_set_cursor(0, OLED_MAX_LINES - 4); // Line 13
+  oled_set_cursor(0, oled_max_lines() - 4); // Line 13
   oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false); // Line 14
   oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false); // Line 15
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
 }
 
-#ifdef OLED_ROTATE90
-bool oled_init_user(bool flip180) {
-  return true;
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_keyboard_master())
+    return OLED_ROTATION_90;  // flips the display 90 degrees if mainhand
+  return rotation;
 }
-#endif
 
 __attribute__((weak))
 void oled_task_user(void) {
