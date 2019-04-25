@@ -189,12 +189,19 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
+  bool is_ez;
+  #ifdef KEYBOARD_planck_ez
+  is_ez = true;
+  #endif
 
-  if (!g_suspend_state && userspace_config.rgb_layer_change &&
+  if ( userspace_config.rgb_layer_change &&
+#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+      !g_suspend_state &&
+#endif
 #if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-    (!rgblight_config.enable && rgb_matrix_config.enable)
+        (!rgblight_config.enable && rgb_matrix_config.enable)
 #else
-    rgb_matrix_config.enable
+        rgb_matrix_config.enable
 #endif
     ) {
     switch (biton32(layer_state)) {
@@ -228,13 +235,13 @@ void rgb_matrix_indicators_user(void) {
 
   switch (biton32(default_layer_state)) {
     case _QWERTY:
-      rgb_matrix_set_color(42, 0x00, 0xFF, 0xFF); break;
+      rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF); break;
     case _COLEMAK:
-      rgb_matrix_set_color(42, 0xFF, 0x00, 0xFF); break;
+      rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF); break;
     case _DVORAK:
-      rgb_matrix_set_color(42, 0x00, 0xFF, 0x00); break;
+      rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00); break;
     case _WORKMAN:
-      rgb_matrix_set_color(42, 0xD9, 0xA5, 0x21); break;
+      rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21); break;
   }
   if ( (this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
@@ -314,3 +321,27 @@ void dip_update(uint8_t index, bool active) {
    }
 }
 #endif // KEYBOARD_planck_rev6
+
+#ifdef KEYBOARD_planck_ez
+uint32_t layer_state_set_keymap(uint32_t state) {
+
+  palClearPad(GPIOB, 8);
+  palClearPad(GPIOB, 9);
+  uint8_t layer = biton32(state);
+  switch (layer) {
+      case _LOWER:
+        palSetPad(GPIOB, 9);
+        break;
+      case _RAISE:
+        palSetPad(GPIOB, 8);
+        break;
+      case _ADJUST:
+        palSetPad(GPIOB, 9);
+        palSetPad(GPIOB, 8);
+        break;
+      default:
+        break;
+    }
+    return state;
+}
+#endif

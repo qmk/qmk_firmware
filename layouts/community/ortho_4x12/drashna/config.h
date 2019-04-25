@@ -17,9 +17,11 @@
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 // #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 // #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED true// turn off effects when suspended
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define EECONFIG_RGB_MATRIX (uint32_t *)15
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED true// turn off effects when suspended
+#ifndef KEYBOARD_planck_ez
+    #define EECONFIG_RGB_MATRIX (uint32_t *)15
+#endif
 #endif
 
 #if defined(KEYBOARD_lets_split_rev2)
