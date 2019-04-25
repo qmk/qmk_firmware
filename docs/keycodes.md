@@ -79,6 +79,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_PSCREEN`           |`KC_PSCR`           |Print Screen                                   |
 |`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`|Scroll Lock, Brightness Down (macOS)           |
 |`KC_PAUSE`             |`KC_PAUS`, `KC_BRMU`|Pause, Brightness Up (macOS)                   |
+|`KC_SYSR`              |                    |PrtSc or SysRq depending on `SEPARATE_SYSR_BRK`|
+|`KC_BRK`               |                    |Pause or Break depending on `SEPARATE_SYSR_BRK`|
 |`KC_INSERT`            |`KC_INS`            |Insert                                         |
 |`KC_HOME`              |                    |Home                                           |
 |`KC_PGUP`              |                    |Page Up                                        |

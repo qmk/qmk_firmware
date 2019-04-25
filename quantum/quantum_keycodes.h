@@ -505,6 +505,12 @@ enum quantum_keycodes {
 #define MOD_HYPR 0xF
 #define MOD_MEH  0x7
 
+// Actual SysRq and Break codes (Linux, Windows)
+#ifdef SEPARATE_SYSR_BRK
+  #define KC_SYSR LALT(KC_PSCR)
+  #define KC_BRK  LCTL(KC_PAUS)
+#endif
+
 // Aliases for shifted symbols
 // Each key has a 4-letter code, and some have longer aliases too.
 // While the long aliases are descriptive, the 4-letter codes

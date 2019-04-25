@@ -21,8 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * See https://web.archive.org/web/20060218214400/http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
  * or http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (older)
  */
-#ifndef KEYCODE_H
-#define KEYCODE_H
+#pragma once
 
 /* FIXME: Add doxygen comments here */
 
@@ -104,6 +103,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Commands */
 #define KC_PSCR KC_PSCREEN
 #define KC_PAUS KC_PAUSE
+#ifndef SEPARATE_SYSR_BRK
+  #define KC_SYSR KC_PSCREEN
+  #define KC_BRK  KC_PAUSE
+#endif
 #define KC_INS  KC_INSERT
 #define KC_DEL  KC_DELETE
 #define KC_PGDN KC_PGDOWN
@@ -540,4 +543,3 @@ enum mouse_keys {
   KC_MS_ACCEL1,
   KC_MS_ACCEL2
 };
-#endif
