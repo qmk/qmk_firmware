@@ -126,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         rgblight_sethsv_noeeprom_red();
       }
-      return true; // Let QMK send the enter press/release events as normal
+      return true; // Let QMK send the press/release events as normal
       break;
   }
   return true;
