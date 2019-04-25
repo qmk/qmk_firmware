@@ -56,6 +56,28 @@ def toLgd(s):
     return _translate(s)[1]
 
 
+def quoteC(text):
+    yield "/*"
+    for line in text:
+        yield " * " + line
+    yield " */\n"
+
+
+def getKeymapText(id, layer, columns, rows):
+    keymap = []
+    keymap.append("Layer %d" % id)
+    keymap.append("-------------------------------------------------               -------------------------------------------------")
+    keymap.append("|{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|".format(*map(toLgd, layer[:12])))
+    keymap.append("-------------------------------------------------               -------------------------------------------------")
+    keymap.append("|{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|".format(*map(toLgd, layer[12:24])))
+    keymap.append("-------------------------------------------------               -------------------------------------------------")
+    keymap.append("|{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|".format(*map(toLgd, layer[24:36])))
+    keymap.append("-----------------------------------------------------------------------------------------------------------------")
+    keymap.append(" {0} {1} {2}        |{3}|{4}|{5}|{6}|{7}|{8}|        {9} {10} {11}".format(*map(toLgd, layer[36:48])).rstrip())
+    keymap.append("                                -------------------------------------------------")
+    return keymap
+
+
 def writeKeymap(f_template, f_keymap, columns, rows):
     doCopy = False
 
@@ -80,17 +102,7 @@ def writeKeymap(f_template, f_keymap, columns, rows):
             doCopy = False
             for layer, L in enumerate(layout.layers):
                 r_counter = rows
-                f_keymap.write("/* Layer %d\n" % layer)
-                f_keymap.write(" * -------------------------------------------------               -------------------------------------------------\n")
-                f_keymap.write(" * |{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|\n".format(*map(toLgd, L[:12])))
-                f_keymap.write(" * -------------------------------------------------               -------------------------------------------------\n")
-                f_keymap.write(" * |{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|\n".format(*map(toLgd, L[12:24])))
-                f_keymap.write(" * -------------------------------------------------               -------------------------------------------------\n")
-                f_keymap.write(" * |{0}|{1}|{2}|{3}|{4}|{5}|               |{6}|{7}|{8}|{9}|{10}|{11}|\n".format(*map(toLgd, L[24:36])))
-                f_keymap.write(" * -----------------------------------------------------------------------------------------------------------------\n")
-                f_keymap.write(" *  {0} {1} {2}        |{3}|{4}|{5}|{6}|{7}|{8}|        {9} {10} {11}".format(*map(toLgd, L[36:48])).rstrip()+"\n")
-                f_keymap.write(" *                                 -------------------------------------------------\n")
-                f_keymap.write(" */\n")
+                f_keymap.write('\n'.join(quoteC(getKeymapText(layer, L, columns, rows))))
 
                 l_code = '\tLAYOUT_ortho_4x12(\n'
                 for r in range(r_counter):
