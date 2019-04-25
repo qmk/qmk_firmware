@@ -10,7 +10,6 @@ Settings:
 * Del is available as `Fn` + `Backspace`
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
-* Right `ALT` sends a Left Shift with the unshifted keycode (for emacs convenience)
 * Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
 
 
@@ -51,7 +50,7 @@ Hope this helps!
 |-----------------------------------------------------------------------------------------+
 | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Tap:/ RSh |  U  | ESC |
 |-----------------------------------------------------------------------------------------+
-| Ctrl |  Opt  |  Cmd  |              Space                | Alt |  Fn  |  L  |  D  |  R  |
+| Ctrl |  Alt  |  Cmd  |              Space                | Alt |  Fn  |  L  |  D  |  R  |
 `-----------------------------------------------------------------------------------------'
 ```
 
