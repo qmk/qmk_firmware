@@ -7,7 +7,6 @@ uint16_t lgui_timer = 0;
 //Macro Declarations
 enum my_keycodes {
   KI_NO = SAFE_RANGE,
-    KI_0,
     KI_1,
     KI_2,
     KI_3,
@@ -17,6 +16,9 @@ enum my_keycodes {
     KI_7,
     KI_8,
     KI_9,
+    KI_10,
+    KI_11,
+    KI_12,
     KI_ESC,
 		KI_KI,
 		KI_KI2,
@@ -47,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT_all(
 		KI_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  WG_PHON, KI_BKSP,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KI_BSLS,
-		KC_CAPS, KC_TRNS, KC_TRNS, KI_SIG,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KI_KI2,  KC_TRNS, KI_KI,   KC_TRNS, KI_WLFT, KI_WRGT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		KC_NO,   KI_1,    KI_2,    KI_3,    KI_4,    KI_5,    KI_6,    KI_7,    KI_8,    KI_9,    KI_10,   KI_11,   KI_12,   KI_BSLS,
+		KC_CAPS, KC_NO,   KC_NO,   KI_SIG,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KI_KI2,  KC_TRNS, KI_KI,   KC_TRNS, KI_WLFT, KI_WRGT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO,   KC_NO,  KC_NO),
 
 	LAYOUT_all(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
