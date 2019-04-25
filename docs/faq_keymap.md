@@ -28,7 +28,7 @@ As a quick fix try holding down `Space`+`Backspace` while you plug in your keybo
 The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
 
 ## `KC_SYSREQ` Isn't Working
-Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
+Add `#define SEPARATE_SYSR_BRK` to your `config.h` file and use the `KC_SYSR` keycode instead. Alternatively, use Alt + Print Screen; Linux and Windows recognize this combination as System Request (this is also how `KC_SYSR` is implemented).
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 * http://en.wikipedia.org/wiki/Magic_SysRq_key
