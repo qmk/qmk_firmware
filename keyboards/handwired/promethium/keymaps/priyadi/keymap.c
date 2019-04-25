@@ -53,7 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 } while (0)
 #endif
 #endif
+#ifdef __AVR__
 #include "outputselect.h"
+#endif
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
@@ -1277,7 +1279,9 @@ void set_output_user(uint8_t output) {
 }
 
 void matrix_init_user() {
+#ifdef __AVR__
   _delay_ms(500); // give time for usb to initialize
+#endif
 
   set_unicode_input_mode(UC_LNX);
 
