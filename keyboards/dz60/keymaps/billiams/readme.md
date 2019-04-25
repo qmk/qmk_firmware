@@ -11,7 +11,6 @@ Settings:
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
 * Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
-* Media play/pause doesn't seem to work with anything but iTunes at the moment. FML
 
 
 ### Initial Installation
@@ -61,9 +60,9 @@ FN Layer
 ,-----------------------------------------------------------------------------------------.
 |  `  |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |    DEL    |
 |-----------------------------------------------------------------------------------------+
-|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+|     |     | MUTE | Vol- | Vol+ |
+|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+|     |     | MUTE | Prev | Next |
 |-----------------------------------------------------------------------------------------+
-|         |     |     |     |     |     |     |     |     |    | Prev | Next | Play/Pause |
+|         |     |     |     |     |     |     |     |     |    | Vol- | Vol+ | Play/Pause |
 |-----------------------------------------------------------------------------------------+
 |           |     |     |     |     |     |     |     |Scr- |Scr+ |         | PG_UP |RESET|
 |-----------------------------------------------------------------------------------------+
