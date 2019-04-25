@@ -63,7 +63,6 @@ enum {
 #define KC_LGU8 LGUI(KC_8)
 #define KC_LGU9 LGUI(KC_9)
 #define KC_LGU0 LGUI(KC_0)
-#define KC_SYSR KC_SYSREQ
 #define KC_REST RESET
 
 /* Tap Dance */
