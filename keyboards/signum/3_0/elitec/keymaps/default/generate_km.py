@@ -78,7 +78,7 @@ def getKeymapText(id, layer, columns, rows):
     return keymap
 
 
-def writeKeymap(f_template, f_keymap, columns, rows):
+def writeKeymap(f_template, f_keymap, layers, columns, rows):
     doCopy = False
 
     for line in f_template:
@@ -100,7 +100,7 @@ def writeKeymap(f_template, f_keymap, columns, rows):
                     f_keymap.write(u"\t[{0}] = {1},  // {2}\n".format(k, v, chr(int(v, 0))))
         elif line.startswith("//<keymaps/>"):
             doCopy = False
-            for layer, L in enumerate(layout.layers):
+            for layer, L in enumerate(layers):
                 r_counter = rows
                 f_keymap.write('\n'.join(quoteC(getKeymapText(layer, L, columns, rows))))
 
@@ -135,6 +135,20 @@ def getKeymapJSON(keyboard, keymap, layout, layers):
         }, sort_keys=True, indent=4)
 
 
+def getKeymapAsciidoc(title, layers, columns, rows):
+    yield '= ' + title
+    yield ''
+    for id, layer in enumerate(layers):
+        keymap = getKeymapText(id, layer, columns, rows)
+        if len(keymap):
+            yield '.' + keymap[0]
+            yield '--------------------------'
+            for line in keymap[1:]:
+                yield ' ' + line
+            yield '--------------------------'
+            yield ''
+
+
 def layersToKC(layers):
     return [list(map(toKC, layer)) for layer in layers]
 
@@ -159,7 +173,7 @@ def pathToKeyboard(path):
 if __name__ == "__main__":
     with open("km_template.txt", mode="r") as f_template:
         with open("keymap.c", mode="w", encoding='utf-8') as f_keymap:
-            writeKeymap(f_template, f_keymap, columns=12, rows=4)
+            writeKeymap(f_template, f_keymap, layout.layers, columns=12, rows=4)
 
     abspath = os.path.dirname(os.path.abspath(__file__))
     keyboard = list(reversed(list(pathToKeyboard(abspath))))
@@ -173,3 +187,8 @@ if __name__ == "__main__":
                     keyboard_layout,
                     layersToKC(layout.layers))
                 )
+
+    with open("keymap.adoc", mode="w") as f_keymapasciidoc:
+        f_keymapasciidoc.write('\n'.join(getKeymapAsciidoc('Signum 3.0 %s_%s' % ('_'.join(keyboard), keymap), layout.layers, columns=12, rows=4)))
+        print("Run the following command to generate a PDF from the keymap")
+        print("a2x -f pdf --xsltproc-opts '--stringparam page.orientation landscape --stringparam  body.font.master 12' --fop -v -k keymap.adoc")
