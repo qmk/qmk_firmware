@@ -348,7 +348,7 @@ qmk_dict = {
     ":": "S(KC_SCLN)", "'": "KC_QUOT", "\"": "S(KC_QUOT)", "`": "KC_GRV",
     "~": "S(KC_GRV)", ",": "KC_COMM", "<": "S(KC_COMM)", ".": "KC_DOT",
     ">": "S(KC_DOT)", "/": "KC_SLSH", "?": "S(KC_SLSH)", "Caps": "KC_CAPS",
-    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SLCK", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "SFT_T(KC_INS)",
+    "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SLCK", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
     "Home": "KC_HOME", "Pg Up": "KC_PGUP", "Del": "KC_DEL", "End": "KC_END",
     "Pg Down": "KC_PGDN", "> Arrow": "KC_RIGHT", "< Arrow": "KC_LEFT",
     "v Arrow": "KC_DOWN", "^ Arrow": "KC_UP",
@@ -402,7 +402,7 @@ qmk_dict = {
     "Undo": "LCTL(KC_Z)", "Cut": "LCTL(KC_X)", "Copy": "LCTL(KC_C)", "Paste": "LCTL(KC_V)",
     "< Tab": "LCTL(S(KC_TAB))", "> Tab": "LCTL(KC_TAB)",
     "Tab x": "LCTL(KC_W)", "Tab n": "LCTL(KC_T)",
-    "Gui Tab":  "LGUI_T(KC_TAB)", "< Gui":  "LGUI_T(KC_LEFT)", "< Gui":  "LGUI_T(KC_RIGHT)",
+    "Gui Tab":  "LGUI_T(KC_TAB)", "< Gui":  "LGUI_T(KC_LEFT)", "> Gui":  "LGUI_T(KC_RIGHT)",
     "C+A+Del": "LCTL(LALT(KC_DEL))", "Mic 0": "LCTL(KC_M)",
     "Power": "KC_PWR", "Sleep": "KC_SLEP",
 
@@ -446,8 +446,8 @@ colemak = [
 numpad = [
     ["`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]"],
     ["",        "DF0",  "DF1",     "XXX",     "XXX",     "MO3",     "4",       "4",       "5",       "6",       "-",       "="],
-    ["",        "MO5",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      ""],
-    ["TG2",     "",     "",        "",        "",        "",        "",        "",        "0",       "",        "",        ""],
+    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "MO5",     "1",       "1",       "2",       "3",       "\\",      ""],
+    ["TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        ""],
     ]
 
 # 3
@@ -460,17 +460,17 @@ fpad = [
 
 # 4
 movement = [
-    ["",        "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
+    ["Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
     ["",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr"],
     ["",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     ""],
-    ["TG4",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    ["TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        ""],
     ]
 
 # 5
 media = [
     ["",        "XXX",  "play/ps", "Vol +",   "Vol +",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "_reset",  "Power"],
     ["",        "XXX",  "|<<",     "Vol 0",   ">>|",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "Sleep"],
-    ["",        "XXX",  "XXX",     "Vol -",   "Vol -",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX"],
+    ["",        "XXX",  "XXX",     "Vol -",   "Vol -",   "MO5",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX"],
     ["TG5",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
     ]
 

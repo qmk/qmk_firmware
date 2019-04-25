@@ -247,17 +247,20 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 
 void keyboard_post_init_rgb(void) {
-#ifdef RGBLIGHT_ENABLE
-	rgblight_enable_noeeprom();
-	layer_state_set_user(layer_state);
-  uint16_t old_hue = rgblight_config.hue;
-	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-	for (uint16_t i = 360; i > 0; i--) {
-		rgblight_sethsv_noeeprom( ( i + old_hue) % 360, 255, 255);
-    wait_ms(10);
-	}
-	layer_state_set_user(layer_state);
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
+  if (userspace_config.rgb_layer_change) { rgblight_enable_noeeprom(); }
+	if (rgblight_config.enable) {
+    layer_state_set_user(layer_state);
+    uint16_t old_hue = rgblight_config.hue;
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    for (uint16_t i = 360; i > 0; i--) {
+      rgblight_sethsv_noeeprom( ( i + old_hue) % 360, 255, 255);
+      matrix_scan();
+      wait_ms(10);
+    }
+  }
 #endif
+  layer_state_set_user(layer_state);
 }
 
 void matrix_scan_rgb(void) {
@@ -278,7 +281,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
     switch (biton32(state)) {
     case _MACROS:
       rgblight_sethsv_noeeprom_orange();
-      userspace_config.is_overwatch ? rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 2) : rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 3);
+      userspace_config.is_overwatch ? rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2) : rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 3);
       break;
     case _MEDIA:
       rgblight_sethsv_noeeprom_chartreuse();
