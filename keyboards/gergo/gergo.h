@@ -8,7 +8,7 @@
 
 
 extern i2c_status_t mcp23018_status;
-#define GERGO_I2C_TIMEOUT 1000
+#define I2C_TIMEOUT 1000
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 #define CPU_16MHz       0x00
 
