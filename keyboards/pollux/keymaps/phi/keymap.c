@@ -92,7 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* USER TASKS */
 
-void rgblight_task_user (void) {
+void matrix_scan_user (void) {
+ #ifdef RGBLIGHT_ENABLE
+  rgb_update(false);
+ #endif
+}
+
+void keybaord_post_init_user (void) {
  #ifdef RGBLIGHT_ENABLE
   rgb_update(false);
  #endif
