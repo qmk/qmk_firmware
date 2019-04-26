@@ -34,6 +34,18 @@ enum planck_keycodes {
   #define BACKLIT OSM(MOD_LSFT)
 #endif
 
+#ifdef KEYBOARD_planck_ez
+#   define PLNK_1 BK_LWER
+#   define PLNK_2 SP_LWER
+#   define PLNK_3 KC_NO
+#   define PLNK_4 ET_RAIS
+#else
+#   define PLNK_1 SP_LWER
+#   define PLNK_2 BK_LWER
+#   define PLNK_3 DL_RAIS
+#   define PLNK_4 ET_RAIS
+#endif
+
 #define LAYOUT_ortho_4x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -43,7 +55,7 @@ enum planck_keycodes {
     KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
     KC_TAB,  K11,    K12,     K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29,  CTL_T(K2A), KC_ENT,  \
-    BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+    BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
 #define LAYOUT_ortho_4x12_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
