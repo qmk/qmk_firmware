@@ -64,3 +64,16 @@ which was added in Git v1.5.0 "to delete a remote branch or a tag."
 Starting on Git v2.8.0 you can also use `git push` with the `-d` option as an alias for `--delete`.
 
 Therefore, the version of Git you have installed will dictate whether you need to use the easier or harder syntax.
+
+# Merge TEST branch into DEV branch
+
+Executive Summary
+```bash
+$ git checkout DEV
+$ git merge TEST
+$ git push <remote_name> DEV
+$ git branch -d TEST
+$ git push <remote_name> :TEST
+```
+Note that in most cases the remote name is origin.  
+The above code will merge, push to remote, and delete both the local and remote TEST branches
