@@ -44,3 +44,8 @@
 //#ifndef IGNORE_MOD_TAP_INTERRUPT
 //#define IGNORE_MOD_TAP_INTERRUPT
 //#endif // !mod tap interrrupt
+
+//set max breathing brightness on kbd6x
+#if defined(KEYBOARD_kbdfans_kbd6x)
+#define RGBLIGHT_EFFECT_BREATHE_MAX 128  // 0-255
+#endif

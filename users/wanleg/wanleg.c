@@ -6,8 +6,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
+        //print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QW);
+        //set layer colour
+        //rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
+        rgblight_sethsv_noeeprom(0,0,128);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
       }
       return false;
       break;
@@ -20,6 +24,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case gGHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(gGK);
+        rgblight_sethsv_noeeprom(120,255,128);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT);
       }
       return false;
       break;
@@ -113,6 +119,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+  //on RESET, underglow red if present
+  case RESET:
+      if (record->event.pressed) {
+        rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        rgblight_sethsv_noeeprom_red();
+      }
+      return true; // Let QMK send the press/release events as normal
+      break;
   }
   return true;
 }
@@ -137,9 +152,19 @@ void matrix_init_user(void) {
   PORTB &= ~(1<<0);
 #endif
 
-//disable breathing for keyboard using random flashing RGB LEDs for backlight
+//disable backlight breathing for keyboard using random flashing RGB LEDs for backlight
+//(breathing provides insufficient power to integrated LED IC)
 #if defined(KEYBOARD_kbdfans_kbd6x) && defined(BACKLIGHT_BREATHING)
   breathing_disable();
 #endif
   matrix_init_keymap();
+}
+
+//at end of firmware startup process, change powerup default layer and underglow colour for kbd6x
+void keyboard_post_init_user(void) {
+  #if defined(KEYBOARD_kbdfans_kbd6x)
+    set_single_persistent_default_layer(_QW);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 5);
+    rgblight_sethsv_noeeprom(0,0,128);
+  #endif
 }
