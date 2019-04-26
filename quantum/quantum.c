@@ -1694,18 +1694,6 @@ void led_init_ports(void)
 __attribute__ ((weak))
 void led_set(uint8_t usb_led)
 {
-
-    // Example LED Code
-    // Using PE6 Caps Lock LED
-    //
-    // if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    //     setPinOutput(E6);
-    //     writePinHigh(E6);
-    // } else {
-    //     setPinInput(E6);
-    //     writePinLow(E6);
-    // }
-
 #if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
   // Use backlight as Caps Lock indicator
   uint8_t bl_toggle_lvl = 0;
