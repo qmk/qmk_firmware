@@ -6,10 +6,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        //print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QW);
-        //set layer colour
-        //rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
         rgblight_sethsv_noeeprom(0,0,128);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
       }
@@ -18,13 +15,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case GHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_GK);
+        rgblight_sethsv_noeeprom(128,255,64);
       }
       return false;
       break;
     case gGHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(gGK);
-        rgblight_sethsv_noeeprom(120,255,128);
+        rgblight_sethsv_noeeprom(128,255,128);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT);
       }
       return false;
