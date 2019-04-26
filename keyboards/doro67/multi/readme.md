@@ -1,9 +1,6 @@
-Doro67 Multi PCB
-===
+# Doro67 Multi PCB
 
-A custom 65% keyboard with multiple layout support.
-
-Do not flash RGB firmware for this board. 
+65% custom keyboard made by 80ultraman/Alf/Backprop Studios with multiple layout support. Despite the layout options available, layout is dictated by the selected integrated plate.  
 
 Keyboard Maintainer: [ShadeDream](https://github.com/shadedream)  
 Hardware Supported: Doro67 Multi PCB  
