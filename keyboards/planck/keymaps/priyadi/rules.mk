@@ -22,8 +22,6 @@ BACKLIGHT_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
-FAUXCLICKY_ENABLE = no
-BACKLIGHT_ENABLE = no
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 endif
 
