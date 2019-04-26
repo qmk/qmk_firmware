@@ -11,7 +11,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //set layer colour
         //rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1);
         rgblight_sethsv_noeeprom(0,0,128);
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
       }
       return false;
       break;
@@ -164,7 +164,7 @@ void matrix_init_user(void) {
 void keyboard_post_init_user(void) {
   #if defined(KEYBOARD_kbdfans_kbd6x)
     set_single_persistent_default_layer(_QW);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 2);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 5);
     rgblight_sethsv_noeeprom(0,0,128);
   #endif
 }
