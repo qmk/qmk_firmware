@@ -167,11 +167,9 @@ bool music_mask_user(uint16_t keycode) {
 
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
-    rgb_matrix_config.enable = false;
 }
 
 void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_config.enable = true;
     rgb_matrix_set_suspend_state(false);
 }
 

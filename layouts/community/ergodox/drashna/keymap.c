@@ -393,12 +393,10 @@ bool indicator_is_this_led_used_keyboard(uint8_t index) {
 
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
-    rgb_matrix_config.enable = false;
 }
 
 void suspend_wakeup_init_keymap(void) {
     rgb_matrix_config.enable = true;
-    rgb_matrix_set_suspend_state(false);
 }
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
@@ -412,82 +410,64 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
-
-  switch (biton32(layer_state)) {
-    case _MODS:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-    case _GAMEPAD:
-      rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
-      rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
-      rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
-      rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
-      rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
-      rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
-      rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
-      rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
-      rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
-
-      rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
-      rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
-      rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
-
-      break;
-    case _DIABLO:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
-    case _RAISE:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-    case _LOWER:
-      rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
-    case _ADJUST:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
-    default:
-      switch (biton32(default_layer_state)) {
-        case _QWERTY:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
-        case _COLEMAK:
-          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
-        case _DVORAK:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
-        case _WORKMAN:
-          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
-        case _NORMAN:
-          rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
-        case _MALTRON:
-          rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-        case _EUCALYN:
-          rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
-        case _CARPLAX:
-          rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
-      }
-  }
-#if 0
-  if (this_mod & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MOD_MASK_SHIFT) {
-    rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
-    rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
-  }
-  if (this_mod & MOD_MASK_CTRL || this_osm & MOD_MASK_CTRL) {
-    rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
-    rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
-    rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
-
-  }
-  if (this_mod & MOD_MASK_GUI || this_osm & MOD_MASK_GUI) {
-    rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
-  }
-  if (this_mod & MOD_MASK_ALT || this_osm & MOD_MASK_ALT) {
-    rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
-  }
+  if ( userspace_config.rgb_layer_change &&
+#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+      !g_suspend_state &&
 #endif
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+        (!rgblight_config.enable && rgb_matrix_config.enable)
+#else
+        rgb_matrix_config.enable
+#endif
+    ) {
+        switch (biton32(layer_state)) {
+            case _MODS:
+            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+            case _GAMEPAD:
+            rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
+            rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
+            rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
+            rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
+            rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
+            rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
+            rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
+            rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
+            rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
+
+            rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
+            rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
+            rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
+
+            break;
+            case _DIABLO:
+            rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+            case _RAISE:
+            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+            case _LOWER:
+            rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+            case _ADJUST:
+            rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+            default:
+            switch (biton32(default_layer_state)) {
+                case _QWERTY:
+                rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+                case _COLEMAK:
+                rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
+                case _DVORAK:
+                rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                case _WORKMAN:
+                rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+                case _NORMAN:
+                rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+                case _MALTRON:
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                case _EUCALYN:
+                rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+                case _CARPLAX:
+                rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
+            }
+        }
+    }
 }
 
-void matrix_init_keymap(void) {
-#if 0
-  #ifdef RGB_MATRIX_KEYPRESSES
-    rgblight_mode(RGB_MATRIX_MULTISPLASH);
-  #else
-    rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-  #endif
-#endif
-}
 #endif //RGB_MATRIX_INIT
