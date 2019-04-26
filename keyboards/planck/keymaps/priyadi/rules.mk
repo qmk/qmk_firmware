@@ -9,7 +9,6 @@ CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = yes     # Unicode map
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
@@ -19,6 +18,7 @@ API_SYSEX_ENABLE = no
 ifeq ($(strip $(KEYBOARD)), planck/rev4)
 FAUXCLICKY_ENABLE = yes
 BACKLIGHT_ENABLE = yes
+AUDIO_ENABLE = no
 endif
 
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
