@@ -156,8 +156,8 @@ uint8_t read_fwkey(void)
 /* Columns 0 - 15
  *
  * atmega32u4   decoder    pin
- *    PC6       U1         E2
- *    PB6       U2         E2    
+ *    PC6       U1         E3
+ *    PB6       U2         E3    
  *    PF0       U1, U2     A0
  *    PF1       U1, U2     A1
  *    PC7       U1, U2     A2
