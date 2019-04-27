@@ -1,7 +1,7 @@
 #pragma once
 
 /* Use I2C rather than serial communicaiton to reduce latency. */
-#define USE_SERIAL
+#define USE_I2C
 
 /* Turn off RGB lighting when the host goes to sleep. */
 #define RGBLIGHT_SLEEP
