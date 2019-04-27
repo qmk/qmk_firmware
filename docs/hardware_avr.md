@@ -6,14 +6,26 @@ If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_
 
 ## Adding Your AVR Keyboard to QMK
 
-QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started run the `util/new_project.sh` script:
+QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `util/new_keyboard.sh` script:
 
-```bash
-$ util/new_project.sh my_awesome_keyboard
-######################################################
-# /keyboards/my_awesome_keyboard project created. To start
-# working on things, cd into keyboards/my_awesome_keyboard
-######################################################
+```
+$ ./util/new_keyboard.sh
+Generating a new QMK keyboard directory
+
+Keyboard Name: mycoolkb
+Keyboard Type [avr]: 
+Your Name [John Smith]: 
+
+Copying base template files... done
+Copying avr template files... done
+Renaming keyboard files... done
+Replacing %KEYBOARD% with mycoolkb... done
+Replacing %YOUR_NAME% with John Smith... done
+
+Created a new keyboard called mycoolkb.
+
+To start working on things, cd into keyboards/mycoolkb,
+or open the directory in your favourite text editor.
 ```
 
 This will create all the files needed to support your new keyboard, and populate the settings with default values. Now you just need to customize it for your keyboard.
