@@ -14,4 +14,4 @@ cluster, and mouse keys on their own layer centered around the arrow cluster.
 
 ## Mouse layer
 
-![Mouse layer layout](https://i.imgur.com/lCRDfdp.png)
+![Mouse layer layout](https://i.imgur.com/LmGgJEG.png)
