@@ -54,7 +54,8 @@ if [ "$GIT" != "" ]; then
              "$NEW_KBD/$KEYBOARD_NAME.c" \
              "$NEW_KBD/$KEYBOARD_NAME.h" \
              "$NEW_KBD/keymaps/default/config.h" \
-             "$NEW_KBD/keymaps/default/keymap.c"
+             "$NEW_KBD/keymaps/default/keymap.c" \
+             "$NEW_KBD/readme.md"
     do
       awk -v id="$ID" '{sub(/%YOUR_NAME%/,id); print}' < "$i" > "$i.$$"
       mv "$i.$$" "$i"
