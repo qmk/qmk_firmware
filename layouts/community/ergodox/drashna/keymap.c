@@ -396,7 +396,7 @@ void suspend_power_down_keymap(void) {
 }
 
 void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_config.enable = true;
+    rgb_matrix_set_suspend_state(false);
 }
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
