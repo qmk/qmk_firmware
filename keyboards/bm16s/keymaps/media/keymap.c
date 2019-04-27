@@ -1,4 +1,4 @@
-#include "bm16s.h"
+#include QMK_KEYBOARD_H
 
 #define RGB_BRU RGB_VAI
 #define RGB_BRD RGB_VAD
