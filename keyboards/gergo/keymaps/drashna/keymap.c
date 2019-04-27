@@ -17,10 +17,10 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_gergo_wrapper( \
-    KC_ESC,  K01,    K02,     K03,      K04,     K05,                                              K06,     K07,     K08,     K09,     K0A,    KC_PIPE,      \
-    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,   _______,                         _______,  K16,     K17,     K18,     K19,     K1A, RGUI_T(KC_QUOT), \
-    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,   _______, _______,       _______, _______,  K26,     K27,     K28,     K29, CTL_T(K2A), OS_RSFT,      \
-                            _______, _______, KC_SPC, LT(_LOWER, KC_BSPC),      LT(_RAISE, KC_DEL), KC_ENT, _______, _______                            \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                K06,     K07,     K08,     K09,     K0A,    KC_PIPE,      \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,     _______,                         _______,  K16,     K17,     K18,     K19,     K1A,    KC_QUOT, \
+    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     _______, OS_LALT,       OS_RGUI, _______,  K26,     K27,     K28,     K29, CTL_T(K2A), OS_RSFT,      \
+                                       KC_GRV,   _______, KC_SPC,  BK_LWER,       DL_RAIS, KC_ENT, _______, _______                            \
     )
 
 #define LAYOUT_gergo_base_wrapper(...)       LAYOUT_gergo_base(__VA_ARGS__)
