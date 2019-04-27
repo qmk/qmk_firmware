@@ -1,8 +1,19 @@
 #pragma once
 
+/* Use I2C rather than serial communicaiton to reduce latency. */
 #define USE_SERIAL
 
-/* Make operation smoother. */
+/* Turn off RGB lighting when the host goes to sleep. */
+#define RGBLIGHT_SLEEP
+
+/* Use an extra LED on the right side since it's wider on the 65% PCB. */
+#undef RGBLED_NUM
+#define RGBLED_NUM 17
+
+/* Set up RGB lighting so it works with either side as master. */
+#define RGBLED_SPLIT { 8, 9 }
+
+/* Make mouse operation smoother. */
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_INTERVAL 16
 
