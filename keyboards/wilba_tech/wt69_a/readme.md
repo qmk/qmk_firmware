@@ -2,7 +2,7 @@
 
 ![WILBA.TECH WT69-A](https://wilba.tech)
 
-WT69-A is a keyboard PCB supporting 65% layout with 0.25U blocker and left side function keys. [More info at wilba.tech](https://wilba.tech/)
+WT69-A is a keyboard PCB supporting 65% layout with 0.5U blocker and left side function keys. [More info at wilba.tech](https://wilba.tech/)
 
 Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
 Hardware Supported: WILBA.TECH WT69-A  
