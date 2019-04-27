@@ -36,10 +36,10 @@ cp -r "quantum/template/$KEYBOARD_TYPE/." "$NEW_KBD"
 
 mv "${NEW_KBD}/template.c" "${NEW_KBD}/${KEYBOARD_NAME}.c"
 mv "${NEW_KBD}/template.h" "${NEW_KBD}/${KEYBOARD_NAME}.h"
-find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
-find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+find "${NEW_KBD}" -type f -exec sh -c "sed -i.bak -e \"s;%KEYBOARD%;${KEYBOARD_NAME};g\" {}; rm {}.bak;" \;
+find "${NEW_KBD}" -type f -exec sh -c "sed -i.bak -e \"s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g\" {}; rm {}.bak" \;
 
-GIT=$(whereis git)
+GIT=$(which git)
 if [ "$GIT" != "" ]; then
   IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
   if [ "$IS_GIT_REPO" -eq 0 ]; then
