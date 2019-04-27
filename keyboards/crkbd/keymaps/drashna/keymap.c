@@ -1,15 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-#ifdef OLED_DRIVER_ENABLE
-  #include "oled_driver.h"
-#endif
 
 extern keymap_config_t keymap_config;
 extern uint8_t is_master;
@@ -115,11 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb());   // turns on the display
-  #endif
-
   #ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
@@ -128,169 +113,6 @@ void matrix_init_keymap(void) {
     writePinHigh(B0);
   #endif
 }
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_logo(void);
-char layer_state_str[24];
-char modifier_state_str[24];
-char host_led_state_str[24];
-char keylog_str[24] = {};
-char keylogs_str[21] = {};
-int keylogs_str_idx = 0;
-
-// const char *read_mode_icon(bool swap);
-// void set_timelog(void);
-// const char *read_timelog(void);
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
-
-  // update keylogs
-  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-    keylogs_str_idx = 0;
-    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-      keylogs_str[i] = ' ';
-    }
-  }
-
-  keylogs_str[keylogs_str_idx] = name;
-  keylogs_str_idx++;
-}
-
-const char *read_keylog(void) {
-  return keylog_str;
-}
-
-const char *read_keylogs(void) {
-  return keylogs_str;
-}
-
-
-const char* read_modifier_state(void) {
-  uint8_t modifiers = get_mods();
-  uint8_t one_shot = get_oneshot_mods();
-
-  snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s %s %s %s",
-    (modifiers & MOD_MASK_CTRL || one_shot & MOD_MASK_CTRL) ? "CTL" : "   ",
-    (modifiers & MOD_MASK_GUI || one_shot & MOD_MASK_GUI) ? "GUI" : "   ",
-    (modifiers & MOD_MASK_ALT || one_shot & MOD_MASK_ALT) ? "ALT" : "   ",
-    (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? "SFT" : "   "
-  );
-
-  return modifier_state_str;
-}
-
-const char *read_host_led_state(void) {
-  uint8_t leds = host_keyboard_leds();
-
-  snprintf(host_led_state_str, sizeof(host_led_state_str), "NL:%s CL:%s SL:%s",
-    (leds & (1 << USB_LED_NUM_LOCK)) ? "on" : "- ",
-    (leds & (1 << USB_LED_CAPS_LOCK)) ? "on" : "- ",
-    (leds & (1 << USB_LED_SCROLL_LOCK)) ? "on" : "- "
-  );
-
-  return host_led_state_str;
-}
-
-const char* read_layer_state(void) {
-  switch (biton32(layer_state)) {
-    case _RAISE:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise  ");
-      break;
-    case _LOWER:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower  ");
-      break;
-    case _ADJUST:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust ");
-      break;
-    default:
-      switch (biton32(default_layer_state)) {
-        case _QWERTY:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty ");
-          break;
-        case _COLEMAK:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Colemak");
-          break;
-        case _DVORAK:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Dvorak ");
-          break;
-        case _WORKMAN:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Workman");
-          break;
-      }
-      break;
-  }
-
-    return layer_state_str;
-}
-
-void matrix_scan_keymap(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
-  if (is_master) {
-    //If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_modifier_state());
-    // matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
-    // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    // matrix_write(matrix, read_host_led_state());
-    //matrix_write_ln(matrix, read_timelog());
-  } else {
-    matrix_write(matrix, read_logo());
-  }
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_A ... KC_SLASH:
-    case KC_F1 ... KC_F12:
-    case KC_INSERT ... KC_UP:
-    case KC_KP_SLASH ... KC_KP_DOT:
-    case KC_F13 ... KC_F24:
-    if (record->event.pressed) { set_keylog(keycode, record); }
-      break;
-    // set_timelog();
-  }
-  return true;
-}
-
-#endif
 
 
 #ifdef OLED_DRIVER_ENABLE
@@ -311,6 +133,43 @@ void render_crkbd_logo(void) {
   oled_write_P(crkbd_logo, false);
 }
 
+char keylogs_str[6] = {};
+int keylogs_str_idx = 0;
+
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+
+void set_keylog(uint16_t keycode, keyrecord_t *record) {
+  char name = ' ';
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
+  if (keycode < 60) {
+    name = code_to_name[keycode];
+  } else { return; }
+
+
+  // update keylogs
+  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
+    keylogs_str_idx = 0;
+    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
+      keylogs_str[i] = ' ';
+    }
+  }
+
+  keylogs_str[keylogs_str_idx] = name;
+  keylogs_str_idx++;
+}
+
+
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) { set_keylog(keycode, record); }
+    return true;
+}
 
 void render_status(void) {
 
@@ -364,32 +223,27 @@ void render_status(void) {
   uint8_t one_shot = get_oneshot_mods();
 
   oled_write_P(PSTR("Mods:"), false);
-  oled_write_P( (modifiers & MOD_MASK_CTRL  || one_shot & MOD_MASK_CTRL ) ? PSTR(" CTL ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_GUI   || one_shot & MOD_MASK_GUI  ) ? PSTR(" GUI ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR(" ALT ") : PSTR("     "), false);
   oled_write_P( (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? PSTR(" SFT ") : PSTR("     "), false);
+  oled_write_P( (modifiers & MOD_MASK_CTRL  || one_shot & MOD_MASK_CTRL ) ? PSTR(" CTL ") : PSTR("     "), false);
+  oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR(" ALT ") : PSTR("     "), false);
+  oled_write_P( (modifiers & MOD_MASK_GUI   || one_shot & MOD_MASK_GUI  ) ? PSTR(" GUI ") : PSTR("     "), false);
 
 
   oled_write_P(PSTR("BTMGK"), false);
-  static const char PROGMEM mode_logo[4][4] = {
-    {0x95,0x96,0x0a,0},
-    {0xb5,0xb6,0x0a,0},
-    {0x97,0x98,0x0a,0},
-    {0xb7,0xb8,0x0a,0} };
 
-  if (keymap_config.swap_lalt_lgui != false) {
-    oled_write_P(mode_logo[0], false);
-    oled_write_P(mode_logo[1], false);
-  } else {
-    oled_write_P(mode_logo[2], false);
-    oled_write_P(mode_logo[3], false);
-  }
+    if (keymap_config.swap_lalt_lgui) {
+        oled_write_P(PSTR(" Mac "), false);
+    } else {
+        oled_write_P(PSTR(" Win "), false);
+    }
 
   uint8_t led_usb_state = host_keyboard_leds();
   oled_write_P(PSTR("Lock:"), false);
   oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
   oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
+
+  oled_write(keylogs_str, false);
 }
 
 
