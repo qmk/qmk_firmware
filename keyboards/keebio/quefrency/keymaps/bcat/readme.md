@@ -10,7 +10,7 @@ cluster, and mouse keys on their own layer centered around the arrow cluster.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/eucGFjL.png)
+![Function layer layout](https://i.imgur.com/Hu5wNpl.png)
 
 ## Mouse layer
 
