@@ -1,6 +1,6 @@
 # WILBA.TECH WT65-A
 
-![WILBA.TECH WT65-A](https://images.squarespace-cdn.com/content/5b267e429772ae4372e3b65f/1556352502542-AKHBF9R6CP5HVHOZYJHM/i69_g.png?content-type=image%2Fpng)
+![WILBA.TECH WT65-A](https://cdn.shopify.com/s/files/1/0015/5084/3975/products/no.165_PCB_1_of_1_a85e9af1-174f-497a-aadb-bb53ce74ef8c_720x.jpg?v=1546475185)
 
 WT65-A is a keyboard PCB supporting 65% layout with 0.5U blocker. [More info at wilba.tech](https://wilba.tech/)
 
