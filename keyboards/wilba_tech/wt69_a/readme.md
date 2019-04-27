@@ -1,6 +1,6 @@
 # WILBA.TECH WT69-A
 
-![WILBA.TECH WT69-A](https://wilba.tech)
+![WILBA.TECH WT69-A](https://wilba.tech/images/wt69a.jpg)
 
 WT69-A is a keyboard PCB supporting 65% layout with 0.5U blocker and left side function keys. [More info at wilba.tech](https://wilba.tech/)
 
