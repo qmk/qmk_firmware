@@ -191,4 +191,4 @@ if __name__ == "__main__":
     with open("keymap.adoc", mode="w") as f_keymapasciidoc:
         f_keymapasciidoc.write('\n'.join(getKeymapAsciidoc('Signum 3.0 %s_%s' % ('_'.join(keyboard), keymap), layout.layers, columns=12, rows=4)))
         print("Run the following command to generate a PDF from the keymap")
-        print("a2x -f pdf --xsltproc-opts '--stringparam page.orientation landscape --stringparam  body.font.master 12' --fop -v -k keymap.adoc")
+        print("a2x -f pdf --xsltproc-opts '--stringparam page.orientation landscape --stringparam body.font.master 12' --fop -v keymap.adoc")
