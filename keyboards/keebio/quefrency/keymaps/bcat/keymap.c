@@ -6,7 +6,7 @@ enum layer {
     LAYER_MOUSE,
 };
 
-/* Switch to mouse function layer when held. */
+/* Switch to function layer when held. */
 #define LY_FUNC MO(LAYER_FUNCTION)
 
 /* Switch to mouse layer when held; send menu key when tapped. */
