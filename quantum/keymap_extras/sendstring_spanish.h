@@ -27,23 +27,40 @@ const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
 
-    0, 1, 1, 1, 1, 1, 1, 0,
+    0, 1, 1, 0, 1, 1, 1, 0,
     1, 1, 1, 0, 0, 0, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 1, 1, 0, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
+    0, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 0, 0, 1, 1,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const bool ascii_to_altgr_lut[128] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+
+    0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-/* Until an ALT table/functionality is added, the following symbols will not work:
- # @ [ ] { } | ~
-*/
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -69,7 +86,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
     // X     Y        Z        [        \        ]        ^        _
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, ES_GRV,  ES_MINS,
+    KC_X,    KC_Y,    KC_Z,    ES_GRV,  ES_OVRR, ES_PLUS, ES_GRV,  ES_MINS,
     // `     a        b        c        d        e        f        g
     ES_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
     // h     i        j        k        l        m        n        o
@@ -77,7 +94,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // p     q        r        s        t        u        v        w
     KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
     // x     y        z        {        |        }        ~        DEL
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
+    KC_X,    KC_Y,    KC_Z,    ES_ACUT, KC_1,    ES_CCED, ES_NTIL, KC_DEL
 };
 
 #endif

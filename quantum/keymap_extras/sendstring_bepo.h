@@ -21,6 +21,46 @@
 
 #include "keymap_bepo.h"
 
+const bool ascii_to_shift_lut[128] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+
+    0, 1, 0, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 0, 0, 1,
+    0, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const bool ascii_to_altgr_lut[128] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+
+    0, 0, 0, 0, 0, 0, 1, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 1, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
+};
+
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -38,7 +78,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    BP_DOT,  BP_DOT,  KC_2,    BP_EQL,  KC_2,    BP_APOS,
+    KC_8,    KC_9,    BP_DOT,  BP_COMM, KC_2,    BP_EQL,  KC_3,    BP_APOS,
     // @     A        B        C        D        E        F        G
     BP_AT,   BP_A,    BP_B,    BP_C,    BP_D,    BP_E,    BP_F,    BP_G,
     // H     I        J        K        L        M        N        O
@@ -46,9 +86,9 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     BP_P,    BP_Q,    BP_R,    BP_S,    BP_T,    BP_U,    BP_V,    BP_W,
     // X     Y        Z        [        \        ]        ^        _
-    BP_X,    BP_Y,    BP_Z,    KC_4,    BP_AGRV, KC_5,    KC_5,    KC_MINS,
+    BP_X,    BP_Y,    BP_Z,    KC_4,    BP_AGRV, KC_5,    KC_6,    KC_SPC,
     // `     a        b        c        d        e        f        g
-    KC_2,    BP_A,    BP_B,    BP_C,    BP_D,    BP_E,    BP_F,    BP_G,
+    KC_T,    BP_A,    BP_B,    BP_C,    BP_D,    BP_E,    BP_F,    BP_G,
     // h     i        j        k        l        m        n        o
     BP_H,    BP_I,    BP_J,    BP_K,    BP_L,    BP_M,    BP_N,    BP_O,
     // p     q        r        s        t        u        v        w

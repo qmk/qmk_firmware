@@ -31,23 +31,36 @@ const bool ascii_to_shift_lut[128] PROGMEM = {
     1, 1, 1, 0, 0, 0, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 1, 1, 0, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
+    0, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 0, 0, 0, 1,
     1, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+const bool ascii_to_altgr_lut[128] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-/* Until an ALT table/functionality is added, the following symbols will not work:
-* § @ [ ] { } \ ~ äA öÖ ß ´
-* Following characters can be printed using other characters like so:
-* [ in makro will be ü
-* { in makro will be Ü
-* ~ in makro will be °
-*/
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -59,29 +72,29 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  KC_1,    KC_2,    DE_HASH, KC_4,    KC_5,    KC_6,    DE_HASH,
+    KC_SPC,  DE_1,    DE_2,    DE_HASH, DE_4,    DE_5,    DE_6,    DE_HASH,
     // (     )        *        +        ,        -        .        /
-    KC_8,    KC_9,    DE_PLUS, DE_PLUS, KC_COMM, DE_MINS, KC_DOT,  KC_7,
+    DE_8,    DE_9,    DE_PLUS, DE_PLUS, DE_COMM, DE_MINS, DE_DOT,  DE_7,
     // 0     1        2        3        4        5        6        7
-    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    DE_0,    DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    KC_DOT,  KC_COMM, DE_LESS, KC_0,    DE_LESS, KC_MINS,
+    DE_8,    DE_9,    DE_DOT,  DE_COMM, DE_LESS, DE_0,    DE_LESS, DE_SS,
     // @     A        B        C        D        E        F        G
-    KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    DE_Q,    DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
     // H     I        J        K        L        M        N        O
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
     // P     Q        R        S        T        U        V        W
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
     // X     Y        Z        [        \        ]        ^        _
-    KC_X,    DE_Y,    DE_Z,    KC_LBRC, KC_BSLS, KC_RBRC, DE_CIRC, DE_MINS,
+    DE_X,    DE_Y,    DE_Z,    DE_8,    DE_SS,   DE_9,    DE_CIRC, DE_MINS,
     // `     a        b        c        d        e        f        g
-    DE_ACUT, KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    DE_ACUT, DE_A,    DE_B,    DE_C,    DE_D,    DE_E,    DE_F,    DE_G,
     // h     i        j        k        l        m        n        o
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    DE_H,    DE_I,    DE_J,    DE_K,    DE_L,    DE_M,    DE_N,    DE_O,
     // p     q        r        s        t        u        v        w
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    DE_P,    DE_Q,    DE_R,    DE_S,    DE_T,    DE_U,    DE_V,    DE_W,
     // x     y        z        {        |        }        ~        DEL
-    KC_X,    DE_Y,    DE_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
+    DE_X,    DE_Y,    DE_Z,    DE_7,    DE_LESS, DE_0,    DE_PLUS, KC_DEL
 };
 
 #endif

@@ -19,6 +19,8 @@
 #ifndef SENDSTRING_UK
 #define SENDSTRING_UK
 
+#include "keymap_uk.h"
+
 const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -50,29 +52,29 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  KC_1,    KC_2,    KC_NUHS, KC_4,    KC_5,    KC_7,    KC_QUOT,
+    UK_SPC,  UK_1,    UK_2,    UK_HASH, UK_4,    UK_5,    UK_7,    UK_QUOT,
     // (     )        *        +        ,        -        .        /
-    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
+    UK_9,    UK_0,    UK_8,    UK_EQL,  UK_COMM, UK_MINS, UK_DOT,  UK_SLSH,
     // 0     1        2        3        4        5        6        7
-    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    UK_0,    UK_1,    UK_2,    UK_3,    UK_4,    UK_5,    UK_6,    UK_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    UK_8,    UK_9,    UK_SCLN, UK_SCLN, UK_COMM, UK_EQL,  UK_DOT,  UK_SLSH,
     // @     A        B        C        D        E        F        G
-    KC_QUOT, KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    UK_QUOT, UK_A,    UK_B,    UK_C,    UK_D,    UK_E,    UK_F,    UK_G,
     // H     I        J        K        L        M        N        O
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    UK_H,    UK_I,    UK_J,    UK_K,    UK_L,    UK_M,    UK_N,    UK_O,
     // P     Q        R        S        T        U        V        W
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    UK_P,    UK_Q,    UK_R,    UK_S,    UK_T,    UK_U,    UK_V,    UK_W,
     // X     Y        Z        [        \        ]        ^        _
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    UK_X,    UK_Y,    UK_Z,    UK_LBRC, UK_BSLS, UK_RBRC, UK_6,    UK_MINS,
     // `     a        b        c        d        e        f        g
-    KC_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    UK_GRV,  UK_A,    UK_B,    UK_C,    UK_D,    UK_E,    UK_F,    UK_G,
     // h     i        j        k        l        m        n        o
-    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    UK_H,    UK_I,    UK_J,    UK_K,    UK_L,    UK_M,    UK_N,    UK_O,
     // p     q        r        s        t        u        v        w
-    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    UK_P,    UK_Q,    UK_R,    UK_S,    UK_T,    UK_U,    UK_V,    UK_W,
     // x     y        z        {        |        }        ~        DEL
-    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
+    UK_X,    UK_Y,    UK_Z,    UK_LBRC, UK_BSLS, UK_RBRC, UK_HASH, KC_DEL
 };
 
 #endif
