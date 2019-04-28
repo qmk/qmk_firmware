@@ -20,22 +20,23 @@
 #include "keymap_workman.h"
 
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,      0,       0,       0,       0,       0,      0,
-    KC_BSPC, KC_TAB, KC_ENT,  0,       0,       0,       0,      0,
-    0,       0,      0,       0,       0,       0,       0,      0,
-    0,       0,      0,       KC_ESC,  0,       0,       0,      0,
-    KC_SPC,  KC_1,   KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,   KC_QUOT,
-    KC_9,    KC_0,   KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0,    KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   KC_7,
-    KC_8,    KC_9,   KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT, KC_SLSH,
-    KC_2,    WK_A,   WK_B,    WK_C,    WK_D,    WK_E,    WK_F,   WK_G,
-    WK_H,    WK_I,   WK_J,    WK_K,    WK_L,    WK_M,    WK_N,   WK_O,
-    WK_P,    WK_Q,   WK_R,    WK_S,    WK_T,    WK_U,    WK_V,   WK_W,
-    WK_X,    WK_Y,   WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,   KC_MINS,
-    KC_GRV,  WK_A,   WK_B,    WK_C,    WK_D,    WK_E,    WK_F,   WK_G,
-    WK_H,    WK_I,   WK_J,    WK_K,    WK_L,    WK_M,    WK_N,   WK_O,
-    WK_P,    WK_Q,   WK_R,    WK_S,    WK_T,    WK_U,    WK_V,   WK_W,
-    WK_X,    WK_Y,   WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+    0,       0,       0,       0,       0,       0,       0,       0,
+    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
+    0,       0,       0,       0,       0,       0,       0,       0,
+    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+
+    KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
+    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
+    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    KC_8,    KC_9,    KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    KC_2,    WK_A,    WK_B,    WK_C,    WK_D,    WK_E,    WK_F,    WK_G,
+    WK_H,    WK_I,    WK_J,    WK_K,    WK_L,    WK_M,    WK_N,    WK_O,
+    WK_P,    WK_Q,    WK_R,    WK_S,    WK_T,    WK_U,    WK_V,    WK_W,
+    WK_X,    WK_Y,    WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    KC_GRV,  WK_A,    WK_B,    WK_C,    WK_D,    WK_E,    WK_F,    WK_G,
+    WK_H,    WK_I,    WK_J,    WK_K,    WK_L,    WK_M,    WK_N,    WK_O,
+    WK_P,    WK_Q,    WK_R,    WK_S,    WK_T,    WK_U,    WK_V,    WK_W,
+    WK_X,    WK_Y,    WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
 
 #endif
