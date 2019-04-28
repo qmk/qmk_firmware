@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for Dvorak layouts
 
-#ifndef SENDSTRING_DVORAK
-#define SENDSTRING_DVORAK
+#pragma once
 
 #include "keymap_dvorak.h"
 
@@ -56,5 +55,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     DV_X,    DV_Y,    DV_Z,    DV_LBRC, DV_BSLS, DV_RBRC, DV_GRV,  KC_DEL
 };
-
-#endif

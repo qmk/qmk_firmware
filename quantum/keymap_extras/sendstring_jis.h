@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for JIS layouts
 
-#ifndef SENDSTRING_JIS
-#define SENDSTRING_JIS
+#pragma once
 
 #include "keymap_jp.h"
 
@@ -76,5 +75,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     KC_X,    KC_Y,    KC_Z,    JP_LBRC, JP_YEN,  JP_RBRC, JP_CIRC, KC_DEL
 };
-
-#endif

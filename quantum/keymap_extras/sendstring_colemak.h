@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for Colemak layouts
 
-#ifndef SENDSTRING_COLEMAK
-#define SENDSTRING_COLEMAK
+#pragma once
 
 #include "keymap_colemak.h"
 
@@ -56,5 +55,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     CM_X,    CM_Y,    CM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
-
-#endif

@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for Spanish layouts
 
-#ifndef SENDSTRING_SPANISH
-#define SENDSTRING_SPANISH
+#pragma once
 
 #include "keymap_spanish.h"
 
@@ -96,5 +95,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     KC_X,    KC_Y,    KC_Z,    ES_ACUT, KC_1,    ES_CCED, ES_NTIL, KC_DEL
 };
-
-#endif

@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for German layouts
 
-#ifndef SENDSTRING_GERMAN
-#define SENDSTRING_GERMAN
+#pragma once
 
 #include "keymap_german.h"
 
@@ -96,5 +95,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     DE_X,    DE_Y,    DE_Z,    DE_7,    DE_LESS, DE_0,    DE_PLUS, KC_DEL
 };
-
-#endif

@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for Workman layouts
 
-#ifndef SENDSTRING_WORKMAN
-#define SENDSTRING_WORKMAN
+#pragma once
 
 #include "keymap_workman.h"
 
@@ -56,5 +55,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     WK_X,    WK_Y,    WK_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
-
-#endif

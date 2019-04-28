@@ -16,8 +16,7 @@
 
 // Sendstring lookup tables for UK layouts
 
-#ifndef SENDSTRING_UK
-#define SENDSTRING_UK
+#pragma once
 
 #include "keymap_uk.h"
 
@@ -76,5 +75,3 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // x     y        z        {        |        }        ~        DEL
     UK_X,    UK_Y,    UK_Z,    UK_LBRC, UK_BSLS, UK_RBRC, UK_HASH, KC_DEL
 };
-
-#endif
