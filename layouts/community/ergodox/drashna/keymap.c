@@ -46,7 +46,7 @@ bool skip_leds = false;
       KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS, \
       KC_TAB,  K01,    K02,     K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
+      KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  RCTL_T(K2A), KC_MRSF, \
       KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E),        \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE),                                      \
                                                            KC_APP,                  KC_MENU,                                                        \
