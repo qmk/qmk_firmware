@@ -17,7 +17,7 @@
 #ifndef SENDSTRING_JIS
 #define SENDSTRING_JIS
 
-const bool ascii_to_shift_lut[0x80] PROGMEM = {
+const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -37,7 +37,7 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
+const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
