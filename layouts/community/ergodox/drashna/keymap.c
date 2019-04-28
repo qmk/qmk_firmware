@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef UNICODEMAP_ENABLE
 #include "drashna_unicode.h"
 #endif // UNICODEMAP_ENABLE
+#ifndef UNICODE_ENABLE
+#   define UC(x) KC_NO
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
 extern bool g_suspend_state;
