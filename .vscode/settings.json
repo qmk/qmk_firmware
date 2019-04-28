@@ -13,5 +13,7 @@
         "*.cpp": "cpp",
         "*.hpp": "cpp",
         "xstddef": "c"
-    }
+    },
+    "editor.fontLigatures": true,
+    "editor.fontSize": 12
 }

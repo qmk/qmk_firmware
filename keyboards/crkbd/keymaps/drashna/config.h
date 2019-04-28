@@ -36,13 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE
-#undef RGBLED_NUM
-#define RGBLED_NUM 27
+#   undef RGBLED_NUM
+#   define RGBLED_NUM 27
 
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 100
+#   define RGBLIGHT_HUE_STEP 8
+#   define RGBLIGHT_SAT_STEP 8
+#   define RGBLIGHT_VAL_STEP 8
+#   define RGBLIGHT_LIMIT_VAL 100
 #endif
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
@@ -70,7 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #ifdef AUDIO_ENABLE
-#define B6_AUDIO
+#   define B6_AUDIO
 // #define NO_MUSIC_MODE
 #endif
 

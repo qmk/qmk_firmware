@@ -31,7 +31,7 @@ extern rgb_config_t rgb_matrix_config;
 extern userspace_config_t userspace_config;
 
 enum more_custom_keycodes {
-   KC_SWAP_NUM = NEW_SAFE_RANGE
+    KC_SWAP_NUM = NEW_SAFE_RANGE
 };
 
 //define layer change stuff for underglow indicator
@@ -308,87 +308,88 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
-  switch (keycode) {
-    case KC_1:
-      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
-        if (record->event.pressed) {
-          register_code(KC_2);
-        } else {
-          unregister_code(KC_2);
-        }
-        return false;
-      }
-      break;
-    case KC_2:
-      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
-        if (record->event.pressed) {
-          register_code(KC_1);
-        } else {
-          unregister_code(KC_1);
-        }
-        return false;
-      }
-      break;
-    case KC_SWAP_NUM:
-      if (record->event.pressed) {
-        userspace_config.swapped_numbers ^= 1;
-        eeconfig_update_user(userspace_config.raw);
-      }
-  }
-  //switch (keycode) {
-  //  case KC_P00:
-  //    if (!record->event.pressed) {
-  //      register_code(KC_KP_0);
-  //      unregister_code(KC_KP_0);
-  //      register_code(KC_KP_0);
-  //      unregister_code(KC_KP_0);
-  //    }
-  //    return false;
-  //    break;
-  //}
-  return true;
+    switch (keycode) {
+        case KC_1:
+            if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+                if (record->event.pressed) {
+                    register_code(KC_2);
+                } else {
+                    unregister_code(KC_2);
+                }
+                return false;
+            }
+            break;
+        case KC_2:
+            if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+                if (record->event.pressed) {
+                    register_code(KC_1);
+                } else {
+                    unregister_code(KC_1);
+                }
+                return false;
+            }
+            break;
+        case KC_SWAP_NUM:
+            if (record->event.pressed) {
+                userspace_config.swapped_numbers ^= 1;
+                eeconfig_update_user(userspace_config.raw);
+            }
+            break;
+    }
+    //switch (keycode) {
+    //  case KC_P00:
+    //    if (!record->event.pressed) {
+    //      register_code(KC_KP_0);
+    //      unregister_code(KC_KP_0);
+    //      register_code(KC_KP_0);
+    //      unregister_code(KC_KP_0);
+    //    }
+    //    return false;
+    //    break;
+    //}
+    return true;
 }
 
 void matrix_scan_keymap(void) {  // runs frequently to update info
-  uint8_t modifiers = get_mods();
-  uint8_t led_usb_state = host_keyboard_leds();
-  uint8_t one_shot = get_oneshot_mods();
+    uint8_t modifiers = get_mods();
+    uint8_t led_usb_state = host_keyboard_leds();
+    uint8_t one_shot = get_oneshot_mods();
 
-  if (!skip_leds) {
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
+    if (!skip_leds) {
+        ergodox_board_led_off();
+        ergodox_right_led_1_off();
+        ergodox_right_led_2_off();
+        ergodox_right_led_3_off();
 
-    // Since we're not using the LEDs here for layer indication anymore,
-    // then lets use them for modifier indicators.  Shame we don't have 4...
-    // Also, no "else", since we want to know each, independently.
-    if ( ( modifiers | one_shot ) & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) ) {
-      ergodox_right_led_2_on();
-      ergodox_right_led_2_set( 50 );
+        // Since we're not using the LEDs here for layer indication anymore,
+        // then lets use them for modifier indicators.  Shame we don't have 4...
+        // Also, no "else", since we want to know each, independently.
+        if ( ( modifiers | one_shot ) & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) ) {
+            ergodox_right_led_2_on();
+            ergodox_right_led_2_set( 50 );
+        }
+        if ( ( modifiers | one_shot ) & MOD_MASK_CTRL) {
+            ergodox_right_led_1_on();
+            ergodox_right_led_1_set( 10 );
+        }
+        if ( ( modifiers | one_shot ) & MOD_MASK_ALT) {
+            ergodox_right_led_3_on();
+            ergodox_right_led_3_set( 10 );
+        }
+
     }
-    if ( ( modifiers | one_shot ) & MOD_MASK_CTRL) {
-      ergodox_right_led_1_on();
-      ergodox_right_led_1_set( 10 );
-    }
-    if ( ( modifiers | one_shot ) & MOD_MASK_ALT) {
-      ergodox_right_led_3_on();
-      ergodox_right_led_3_set( 10 );
-    }
 
-  }
-
-};
+}
 
 
 bool indicator_is_this_led_used_keyboard(uint8_t index) {
-  switch (index) {
-    case 13 ... 14:
-      return true;
-      break;
-    default:
-    return false;
-  }
+    switch (index) {
+        case 13 ... 14:
+            return true;
+            break;
+        default:
+            return false;
+    }
 }
 
 
@@ -403,21 +404,21 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  rgb_led led;
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    led = g_rgb_leds[i];
-    if (HAS_FLAGS(led.flags, LED_FLAG_MODIFIER)) {
-        rgb_matrix_set_color( i, red, green, blue );
+    rgb_led led;
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        led = g_rgb_leds[i];
+        if (HAS_FLAGS(led.flags, LED_FLAG_MODIFIER)) {
+            rgb_matrix_set_color( i, red, green, blue );
+        }
     }
-  }
 }
 
 void rgb_matrix_indicators_user(void) {
-  if ( userspace_config.rgb_layer_change &&
+    if ( userspace_config.rgb_layer_change &&
 #ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-      !g_suspend_state &&
+        !g_suspend_state &&
 #endif
-#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
         (!rgblight_config.enable && rgb_matrix_config.enable)
 #else
         rgb_matrix_config.enable
@@ -425,50 +426,50 @@ void rgb_matrix_indicators_user(void) {
     ) {
         switch (biton32(layer_state)) {
             case _MODS:
-            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-            case _GAMEPAD:
-            rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
-            rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
-            rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
-            rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
-            rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
-            rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
-            rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
-            rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
-            rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
-
-            rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
-            rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
-            rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
-
-            break;
-            case _DIABLO:
-            rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
-            case _RAISE:
-            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-            case _LOWER:
-            rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
-            case _ADJUST:
-            rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
-            default:
-            switch (biton32(default_layer_state)) {
-                case _QWERTY:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
-                case _COLEMAK:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
-                case _DVORAK:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
-                case _WORKMAN:
-                rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
-                case _NORMAN:
-                rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
-                case _MALTRON:
                 rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
-                case _EUCALYN:
-                rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
-                case _CARPLAX:
-                rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
-            }
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
+                rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
+                rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
+                rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
+                rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
+                rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
+                rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
+                rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
+                rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
+
+                rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
+                rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
+                rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
+
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+            case _RAISE:
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+            case _LOWER:
+                rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+            default:
+                switch (biton32(default_layer_state)) {
+                    case _QWERTY:
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+                    case _COLEMAK:
+                        rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
+                    case _DVORAK:
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                    case _WORKMAN:
+                        rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+                    case _NORMAN:
+                        rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+                    case _MALTRON:
+                        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                    case _EUCALYN:
+                        rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+                    case _CARPLAX:
+                        rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
+                }
         }
     }
 }

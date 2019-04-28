@@ -10,7 +10,7 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 enum crkbd_keycodes {
-  RGBRST = NEW_SAFE_RANGE
+    RGBRST = NEW_SAFE_RANGE
 };
 
 #define LAYOUT_crkbd_base( \
@@ -105,32 +105,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+#ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-  #endif
+#endif
 }
 
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (is_master) {
-    return OLED_ROTATION_270;
-  } else {
-    return rotation;
-  }
+    if (is_master) {
+        return OLED_ROTATION_270;
+    } else {
+        return rotation;
+    }
 }
 
 void render_crkbd_logo(void) {
-  static const char PROGMEM crkbd_logo[] = {
-      0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-      0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-      0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-      0};
-  oled_write_P(crkbd_logo, false);
+    static const char PROGMEM crkbd_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(crkbd_logo, false);
 }
 
 #define KEYLOG_LEN (int)(32 / OLED_FONT_WIDTH)
@@ -173,63 +173,63 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 void render_status(void) {
 
-  oled_write_P(PSTR("Layer"), false);
-  switch (biton32(layer_state)) {
-    case 0:
-      oled_write_P(PSTR("Base "), false);
-      break;
-    case _RAISE:
-      oled_write_P(PSTR("Raise"), false);
-      break;
-    case _LOWER:
-      oled_write_P(PSTR("Lower"), false);
-      break;
-    case _ADJUST:
-      oled_write_P(PSTR("Adjst"), false);
-      break;
-    default:
-      oled_write_P(PSTR("Unkn "), false);
-      break;
-  }
-  oled_write_P(PSTR("Lyout"), false);
-  switch (biton32(default_layer_state)) {
-    case _QWERTY:
-      oled_write_P(PSTR("QWRTY"), false);
-      break;
-    case _COLEMAK:
-      oled_write_P(PSTR("COLMK"), false);
-      break;
-    case _DVORAK:
-      oled_write_P(PSTR("DVRAK"), false);
-      break;
-    case _WORKMAN:
-      oled_write_P(PSTR("WRKMN"), false);
-      break;
-    case _NORMAN:
-      oled_write_P(PSTR("NORMN"), false);
-      break;
-    case _MALTRON:
-      oled_write_P(PSTR("MLTRN"), false);
-      break;
-    case _EUCALYN:
-      oled_write_P(PSTR("ECLYN"), false);
-      break;
-    case _CARPLAX:
-      oled_write_P(PSTR("CRPLX"), false);
-      break;
-  }
+    oled_write_P(PSTR("Layer"), false);
+    switch (biton32(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("Base "), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Raise"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Lower"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adjst"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Unkn "), false);
+            break;
+    }
+    oled_write_P(PSTR("Lyout"), false);
+    switch (biton32(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR("QWRTY"), false);
+            break;
+        case _COLEMAK:
+            oled_write_P(PSTR("COLMK"), false);
+            break;
+        case _DVORAK:
+            oled_write_P(PSTR("DVRAK"), false);
+            break;
+        case _WORKMAN:
+            oled_write_P(PSTR("WRKMN"), false);
+            break;
+        case _NORMAN:
+            oled_write_P(PSTR("NORMN"), false);
+            break;
+        case _MALTRON:
+            oled_write_P(PSTR("MLTRN"), false);
+            break;
+        case _EUCALYN:
+            oled_write_P(PSTR("ECLYN"), false);
+            break;
+        case _CARPLAX:
+            oled_write_P(PSTR("CRPLX"), false);
+            break;
+    }
 
-  uint8_t modifiers = get_mods();
-  uint8_t one_shot = get_oneshot_mods();
+    uint8_t modifiers = get_mods();
+    uint8_t one_shot = get_oneshot_mods();
 
-  oled_write_P(PSTR("Mods:"), false);
-  oled_write_P( (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? PSTR(" SFT ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_CTRL  || one_shot & MOD_MASK_CTRL ) ? PSTR(" CTL ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR(" ALT ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_GUI   || one_shot & MOD_MASK_GUI  ) ? PSTR(" GUI ") : PSTR("     "), false);
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P( (modifiers & MOD_MASK_SHIFT || one_shot & MOD_MASK_SHIFT) ? PSTR(" SFT ") : PSTR("     "), false);
+    oled_write_P( (modifiers & MOD_MASK_CTRL  || one_shot & MOD_MASK_CTRL ) ? PSTR(" CTL ") : PSTR("     "), false);
+    oled_write_P( (modifiers & MOD_MASK_ALT   || one_shot & MOD_MASK_ALT  ) ? PSTR(" ALT ") : PSTR("     "), false);
+    oled_write_P( (modifiers & MOD_MASK_GUI   || one_shot & MOD_MASK_GUI  ) ? PSTR(" GUI ") : PSTR("     "), false);
 
 
-  oled_write_P(PSTR("BTMGK"), false);
+    oled_write_P(PSTR("BTMGK"), false);
 
     if (keymap_config.swap_lalt_lgui) {
         oled_write_P(PSTR(" Mac "), false);
@@ -237,33 +237,33 @@ void render_status(void) {
         oled_write_P(PSTR(" Win "), false);
     }
 
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(PSTR("Lock:"), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_P(PSTR("Lock:"), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
 
-  oled_write(keylog_str, false);
+    oled_write(keylog_str, false);
 }
 
 
 void oled_task_user(void) {
-  if (is_master) {
-    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-  } else {
-    render_crkbd_logo();
-    oled_scroll_left();  // Turns on scrolling
-  }
+    if (is_master) {
+        render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_crkbd_logo();
+        oled_scroll_left();  // Turns on scrolling
+    }
 }
 
 void matrix_scan_keymap(void) { update_log(); }
 #endif
 
 uint16_t get_tapping_term(uint16_t keycode) {
-  switch (keycode) {
-    case ALT_T(KC_A):
-      return TAPPING_TERM + 100;
-    default:
-      return TAPPING_TERM;
-  }
+    switch (keycode) {
+        case ALT_T(KC_A):
+            return TAPPING_TERM + 100;
+        default:
+            return TAPPING_TERM;
+    }
 }
