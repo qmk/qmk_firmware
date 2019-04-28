@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* SEND_STRING() LUTs for UK layouts */
+// Sendstring lookup tables for UK layouts
 
 #ifndef SENDSTRING_UK
 #define SENDSTRING_UK

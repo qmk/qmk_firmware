@@ -13,7 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* Sendstring definitions for the German layout */
+
+// Sendstring lookup tables for German layouts
+
 #ifndef SENDSTRING_GERMAN
 #define SENDSTRING_GERMAN
 

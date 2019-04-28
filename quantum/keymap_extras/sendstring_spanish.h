@@ -13,7 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* Sendstring definitions for the Spanish layout */
+
+// Sendstring lookup tables for Spanish layouts
+
 #ifndef SENDSTRING_SPANISH
 #define SENDSTRING_SPANISH
 

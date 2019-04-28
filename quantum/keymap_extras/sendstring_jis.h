@@ -13,7 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* Sendstring definitions for the JIS keyboard layout */
+
+// Sendstring lookup tables for JIS layouts
+
 #ifndef SENDSTRING_JIS
 #define SENDSTRING_JIS
 
