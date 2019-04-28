@@ -20,10 +20,10 @@
 #include "keymap_dvorak.h"
 
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,       0,       0,       0,       0,       0,       0,
-    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
-    0,       0,       0,       0,       0,       0,       0,       0,
-    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     KC_SPC,  DV_1,    DV_QUOT, DV_3,    DV_4,    DV_5,    DV_7,    DV_QUOT,
     DV_9,    DV_0,    DV_8,    DV_EQL,  DV_COMM, DV_MINS, DV_DOT,  DV_SLSH,

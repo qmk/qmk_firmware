@@ -47,10 +47,10 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
 * ~ in makro will be °
 */
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,       0,       0,       0,       0,       0,       0,
-    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
-    0,       0,       0,       0,       0,       0,       0,       0,
-    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     KC_SPC,  KC_1,    KC_2,    DE_HASH, KC_4,    KC_5,    KC_6,    DE_HASH,
     KC_8,    KC_9,    DE_PLUS, DE_PLUS, KC_COMM, DE_MINS, KC_DOT,  KC_7,

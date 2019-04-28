@@ -20,10 +20,10 @@
 #include "keymap_workman.h"
 
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,       0,       0,       0,       0,       0,       0,
-    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
-    0,       0,       0,       0,       0,       0,       0,       0,
-    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
     KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,

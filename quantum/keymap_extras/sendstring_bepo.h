@@ -20,10 +20,10 @@
 #include "keymap_bepo.h"
 
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,       0,       0,       0,       0,       0,       0,
-    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
-    0,       0,       0,       0,       0,       0,       0,       0,
-    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     KC_SPC,  BP_DCRC, BP_DQOT, BP_DLR,  BP_DLR,  BP_PERC, BP_P,    BP_APOS,
     BP_LPRN, BP_RPRN, BP_ASTR, BP_PLUS, BP_COMM, BP_MINS, BP_DOT,  BP_SLSH,

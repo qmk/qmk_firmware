@@ -43,10 +43,10 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
  # @ [ ] { } | ~
 */
 const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0,       0,       0,       0,       0,       0,       0,       0,
-    KC_BSPC, KC_TAB,  KC_ENT,  0,       0,       0,       0,       0,
-    0,       0,       0,       0,       0,       0,       0,       0,
-    0,       0,       0,       KC_ESC,  0,       0,       0,       0,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     KC_SPC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    ES_APOS,
     KC_8,    KC_9,    ES_PLUS, ES_PLUS, KC_COMM, ES_MINS, KC_DOT,  KC_7,
