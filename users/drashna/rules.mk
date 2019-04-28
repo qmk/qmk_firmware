@@ -1,6 +1,8 @@
 SRC += drashna.c \
        process_records.c
 
+EXTRAFLAGS += -flto
+
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
   SRC += secrets.c
 endif
@@ -9,9 +11,7 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
 
-ifeq ($(PLATFORM),AVR)
-  EXTRAFLAGS += -flto
-endif
+
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
