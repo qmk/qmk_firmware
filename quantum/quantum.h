@@ -209,9 +209,9 @@ extern uint32_t default_layer_state;
 #define SS_ALGR(string) SS_RALT(string)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
-extern const bool ascii_to_shift_lut[0x80];
-extern const bool ascii_to_altgr_lut[0x80];
-extern const uint8_t ascii_to_keycode_lut[0x80];
+extern const bool ascii_to_shift_lut[128];
+extern const bool ascii_to_altgr_lut[128];
+extern const uint8_t ascii_to_keycode_lut[128];
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
 void send_string_P(const char *str);
