@@ -48,6 +48,19 @@
 #include "rgb_matrix_animations/solid_splash_anim.h"
 #include "rgb_matrix_animations/breathing_anim.h"
 
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+    #define RGB_MATRIX_EFFECT(name, ...)
+    #ifdef RGB_MATRIX_CUSTOM_KB
+      #include "rgb_matrix_kb.inc"
+    #endif
+    #ifdef RGB_MATRIX_CUSTOM_USER
+      #include "rgb_matrix_user.inc"
+    #endif
+    #undef RGB_MATRIX_EFFECT
+  #undef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif
+
 #ifndef RGB_DISABLE_AFTER_TIMEOUT
   #define RGB_DISABLE_AFTER_TIMEOUT 0
 #endif
@@ -81,6 +94,15 @@
   #define RGB_MATRIX_SPD_STEP 16
 #endif
 
+#if !defined(RGB_MATRIX_STARTUP_MODE)
+  #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+  #else
+    // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+  #endif
+#endif
+
 bool g_suspend_state = false;
 
 rgb_config_t rgb_matrix_config;
@@ -104,12 +126,7 @@ void eeconfig_update_rgb_matrix(uint32_t val) {
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
   rgb_matrix_config.enable = 1;
-#ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-  rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
-#else
-  // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
-  rgb_matrix_config.mode = RGB_MATRIX_SOLID_COLOR;
-#endif
+  rgb_matrix_config.mode = RGB_MATRIX_STARTUP_MODE;
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = UINT8_MAX;
   rgb_matrix_config.val = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
@@ -434,6 +451,20 @@ static void rgb_task_render(uint8_t effect) {
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_EFFECT(name, ...) \
+    case RGB_MATRIX_CUSTOM_##name: \
+      rendering = name(&rgb_effect_params); \
+      break;
+  #ifdef RGB_MATRIX_CUSTOM_KB
+    #include "rgb_matrix_kb.inc"
+  #endif
+  #ifdef RGB_MATRIX_CUSTOM_USER
+    #include "rgb_matrix_user.inc"
+  #endif
+  #undef RGB_MATRIX_EFFECT
+#endif
 
     // Factory default magic value
     case UINT8_MAX: {
