@@ -2,7 +2,7 @@
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS)
 
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
@@ -15,6 +15,7 @@ static bool rgb_matrix_solid_reactive_multinexus_range(uint8_t start, effect_par
     hsv.v = 0;
     point_t point = g_rgb_leds[i].point;
     for (uint8_t j = start; j < count; j++) {
+      RGB_MATRIX_TEST_LED_FLAGS();
       int16_t dx = point.x - g_last_hit_tracker.x[j];
       int16_t dy = point.y - g_last_hit_tracker.y[j];
       uint8_t dist = sqrt16(dx * dx + dy * dy);
