@@ -19,6 +19,8 @@
 #include "led_tables.h"
 #include "progmem.h"
 
+#include "lib/lib8tion/lib8tion.h"
+
 RGB hsv_to_rgb( HSV hsv )
 {
 	RGB rgb;
@@ -37,8 +39,8 @@ RGB hsv_to_rgb( HSV hsv )
 	s = hsv.s;
 	v = hsv.v;
 
-	region = h / 43;
-	remainder = (h - (region * 43)) * 6;
+	region = scale8(h, 6);
+	remainder = (h - (region * 85 / 2)) * 6;
 
 	p = (v * (255 - s)) >> 8;
 	q = (v * (255 - ((s * remainder) >> 8))) >> 8;
