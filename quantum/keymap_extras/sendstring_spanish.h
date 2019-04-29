@@ -77,7 +77,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    KC_DOT,  KC_COMM, KC_NUBS, KC_0,    KC_NUBS, ES_APOS,
+    KC_8,    KC_9,    KC_DOT,  KC_COMM, ES_LESS, KC_0,    ES_LESS, ES_APOS,
     // @     A        B        C        D        E        F        G
     KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
     // H     I        J        K        L        M        N        O
