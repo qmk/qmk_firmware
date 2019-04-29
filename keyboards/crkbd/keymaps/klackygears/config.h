@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PREVENT_STUCK_MODIFIERS
 //#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
 //#define RETRO_TAPPING
 
@@ -63,3 +63,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      #define RGBLIGHT_EFFECT_BEAM
      #define RGBLIGHT_EFFECT_HYPER
 //#endif
+
+#undef PRODUCT
+#define PRODUCT klackygears Corne Keyboard
+
+#define OLED_FONT_H "keyboards/crkbd/keymaps/klackygears/glcdfont.c"

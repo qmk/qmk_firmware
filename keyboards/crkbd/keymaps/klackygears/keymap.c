@@ -53,18 +53,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMB] = LAYOUT_wrapper( \
 
-      KC_____, _________________PUNC_L1_ALT_______________,                   KC_____, SHRUG,   KC_____, KC_____, MAKEKF,   KC_____, \
-      KC_____, _________________PUNC_L2___________________,                   KC_____, KC_____, KC_BSLS, KC_____, KC_____, KC_____, \
-      KC_____, _________________PUNC_L3___________________,                   KC_GRV,  KC_____, KC_____, KC_____, KC_____, KC_____, \
+      KC_____, _________________PUNC_L1_ALT_______________,                   _________________PUNC_R1___________________, MAKEKF,  \
+      KC_____, _________________PUNC_L3___________________,                   _________________PUNC_R2___________________, KC_____, \
+      KC_____, _________________PUNC_L3_ALT_______________,                   _________________PUNC_R3___________________, KC_____, \
                                           KC_____, KC_____, KC_DEL,  KC_CAPS, KC_____, KC_____ \
       ),
 
   [_FUNC] = LAYOUT_wrapper( \
 
-      KC_____, MAKEK,   KC_____, KC_____, KC_____, KC_____,                   KC_WINBASE, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_____, KC_ENT,  KC_____,  KC_____,                   KC_MACBASE, _____________FUNC_2_______________, KC_____, \
-      KC_____, KC_LGUI, KC_RALT, KC_LCTL, KC_TAB,  KC_____,                   KC_GRV,    _____________FUNC_3_______________, KC_____, \
-                                          KC_____, KC_____, KC_DEL,  KC_CAPS, KC_____,   MO(_MDIA) \
+      KC_____, _____________FUNC_L1_______________________,                   KC_WINBASE, _____________FUNC_1_______________, KC_____, \
+      KC_____, ________MAC_MISSION_CTRL__________, LGUI(KC_L),                KC_MACBASE, _____________FUNC_2_______________, KC_____, \
+      KC_____, _____________FUNC_L3_______________________,                   KC_GRV,     _____________FUNC_3_______________, KC_____, \
+                                          KC_____, KC_____, KC_____, KC_CAPS, KC_LSFT,   MO(_MDIA) \
       ),
 
   [_MNMB] = LAYOUT_wrapper( \
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____, _________________MACNAV_L1_________________,                   _________________NUMB_R1___________________, KC_____, \
       KC_____, _________________MACNAV_L2_________________,                   _________________NUMB_R2___________________, KC_____, \
       KC_____, _________________MACNAV_L3_________________,                   _________________NUMB_R3_MAC_______________, KC_____, \
-                                          KC_____, KC_____, KC_BSPC, KC_____, KC_____,  KC_0 \
+                                          KC_____, KC_____, KC_BSPC, KC_____, KC_LSFT,  KC_0 \
       ),
 
   [_NUMB] = LAYOUT_wrapper( \
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____, _________________WINNAV_L1_________________,                   _________________NUMB_R1___________________, _______, \
       KC_____, _________________WINNAV_L2_________________,                   _________________NUMB_R2___________________, _______, \
       KC_____, _________________WINNAV_L3_________________,                   _________________NUMB_R3_WIN_______________, _______, \
-                                          KC_____, KC_____, KC_BSPC, KC_____, KC_____,  KC_0 \
+                                          KC_____, KC_____, KC_BSPC, KC_____, KC_LSFT,  KC_0 \
       ),
 
 
@@ -175,6 +175,7 @@ void iota_gfx_task_user(void) {
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
+#define L_WIN  (_WINBASE)
 #define L_SYMB (1<<_SYMB)
 #define L_FUNC (1<<_FUNC)
 #define L_MNMB (1<<_MNMB)
@@ -197,7 +198,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
 
 void render_status(struct CharacterMatrix *matrix) {
 
-  // Render to mode icon
+  /* Render to mode icon
   static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
   if(keymap_config.swap_lalt_lgui==false){
     matrix_write(matrix, logo[0][0]);
@@ -207,6 +208,21 @@ void render_status(struct CharacterMatrix *matrix) {
     matrix_write(matrix, logo[1][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, logo[1][1]);
+  }
+  */
+  // Render to mode icon
+  static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+  switch (default_layer_state){
+    case _MACBASE:
+    matrix_write(matrix, logo[1][0]);
+    matrix_write_P(matrix, PSTR("\n"));
+    matrix_write(matrix, logo[1][1]);
+    break;
+    case L_WIN:
+    matrix_write(matrix, logo[0][0]);
+    matrix_write_P(matrix, PSTR("\n"));
+    matrix_write(matrix, logo[0][1]);
+    break;
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below

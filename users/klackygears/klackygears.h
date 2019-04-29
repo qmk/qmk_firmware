@@ -15,7 +15,7 @@
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
-
+//  #include "rgb_stuff.h"
 //#include "rgblight.h"
 extern rgblight_config_t rgblight_config;
 #endif
@@ -71,6 +71,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #endif // UNICODEMAP_ENABLE
 */
 //#include "dynamic_macro.h"
+
+
 
 #define KC_____ KC_TRNS
 #define KC_XXXXX KC_NO

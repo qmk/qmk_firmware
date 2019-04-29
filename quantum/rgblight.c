@@ -494,6 +494,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
         val = rgblight_config.val;
       }
 #endif
+
 #ifdef RGBLIGHT_EFFECT_BEAM
       else if (rgblight_config.mode >= RGBLIGHT_MODE_BEAM &&
                rgblight_config.mode <= RGBLIGHT_MODE_BEAM_end) {
@@ -507,6 +508,14 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
         val = rgblight_config.val;
       }
 #endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
+        // rainbow swirl, ignore the change of hue
+        hue = rgblight_config.hue;
+      }
+#endif
+
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
       else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
                   rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
@@ -521,13 +530,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
         hue = rgblight_config.hue;
       }
 #endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
-      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
-               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
-        // rainbow swirl, ignore the change of hue
-        hue = rgblight_config.hue;
-      }
-#endif
+
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
       else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
                rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
@@ -751,13 +754,7 @@ void rgblight_task(void) {
       rgblight_effect_rainbow_swirl(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SWIRL);
     }
 #endif
-#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
-               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
-      // rainbow swirl mode
-      rgblight_effect_rainbow_sparkle(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SPARKLE);
-    }
-#endif
+
 #ifdef RGBLIGHT_EFFECT_SNAKE
     else if (rgblight_config.mode >= RGBLIGHT_MODE_SNAKE &&
                rgblight_config.mode <= RGBLIGHT_MODE_SNAKE_end) {
@@ -765,6 +762,7 @@ void rgblight_task(void) {
       rgblight_effect_snake(rgblight_config.mode - RGBLIGHT_MODE_SNAKE);
     }
 #endif
+
 #ifdef RGBLIGHT_EFFECT_BEAM
     else if (rgblight_config.mode >= RGBLIGHT_MODE_BEAM &&
                rgblight_config.mode <= RGBLIGHT_MODE_BEAM_end) {
@@ -779,6 +777,14 @@ void rgblight_task(void) {
       rgblight_effect_hyper(rgblight_config.mode - RGBLIGHT_MODE_HYPER);
     }
 #endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+    else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
+      // rainbow swirl mode
+      rgblight_effect_rainbow_sparkle(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SPARKLE);
+    }
+#endif
+
 #ifdef RGBLIGHT_EFFECT_KNIGHT
     else if (rgblight_config.mode >= RGBLIGHT_MODE_KNIGHT &&
                rgblight_config.mode <= RGBLIGHT_MODE_KNIGHT_end) {
@@ -1175,3 +1181,4 @@ void rgblight_effect_rainbow_sparkle(uint8_t interval) {
   }
 }
 #endif
+

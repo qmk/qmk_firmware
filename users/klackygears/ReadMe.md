@@ -1,7 +1,24 @@
+Copyright <2019> <James Smith> @<klackygears>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>#
 `---------------------------------------------------------------------------`
 Flash dfu bootloader on pro micro with arduino uno using adruino as ISP.
-   Documentation by klackygears aka James Smith
 `---------------------------------------------------------------------------`
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>#
 
@@ -113,4 +130,4 @@ avrdude -c stk500v1 -p m32u4 -P /dev/cu.usbmodem14201 -b 19200 -U flash:w:"helix
 #Best of luck with your experiments!#
 `---------------------------------------------------------------------------`
 
-`20190314 James Smith`
+`20190314`

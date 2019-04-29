@@ -151,7 +151,7 @@ extern LED_TYPE led[RGBLED_NUM];
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
-extern const uint8_t RGBLED_RAINBOW_SPARKLE_INTERVALS[3] PROGMEM;
+//extern const uint8_t RGBLED_RAINBOW_SPARKLE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
@@ -245,9 +245,11 @@ void rgblight_timer_toggle(void);
 void rgblight_effect_breathing(uint8_t interval);
 void rgblight_effect_rainbow_mood(uint8_t interval);
 void rgblight_effect_rainbow_swirl(uint8_t interval);
+
 void rgblight_effect_rainbow_sparkle(uint8_t interval);
 void rgblight_effect_beam(uint8_t interval);
 void rgblight_effect_hyper(uint8_t interval);
+
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
@@ -278,14 +280,6 @@ void rgblight_effect_alternating(void);
     _RGBM_TMP_DYNAMIC( rainbow_swirl_13 )
     _RGBM_TMP_DYNAMIC( RAINBOW_SWIRL_end )
   #endif
-  #ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
-    _RGBM_MULTI_DYNAMIC( RAINBOW_SPARKLE )
-    _RGBM_TMP_DYNAMIC( rainbow_sparkle_10 )
-    _RGBM_TMP_DYNAMIC( rainbow_sparkle_11 )
-    _RGBM_TMP_DYNAMIC( rainbow_sparkle_12 )
-    _RGBM_TMP_DYNAMIC( rainbow_sparkle_13 )
-    _RGBM_TMP_DYNAMIC( RAINBOW_SPARKLE_end )
-  #endif
   #ifdef RGBLIGHT_EFFECT_SNAKE
     _RGBM_MULTI_DYNAMIC( SNAKE )
     _RGBM_TMP_DYNAMIC( snake_16 )
@@ -314,6 +308,7 @@ void rgblight_effect_alternating(void);
     _RGBM_TMP_STATIC( static_gradient_33 )
     _RGBM_TMP_STATIC( STATIC_GRADIENT_end )
   #endif
+
   #ifdef RGBLIGHT_EFFECT_BEAM
     _RGBM_MULTI_DYNAMIC( BEAM )
     _RGBM_TMP_DYNAMIC( beam_37 )
@@ -330,6 +325,15 @@ void rgblight_effect_alternating(void);
     //_RGBM_TMP_DYNAMIC( hyper_200 )
     _RGBM_TMP_DYNAMIC( HYPER_end )
   #endif
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+    _RGBM_MULTI_DYNAMIC( RAINBOW_SPARKLE )
+    _RGBM_TMP_DYNAMIC( rainbow_sparkle_10 )
+    _RGBM_TMP_DYNAMIC( rainbow_sparkle_11 )
+    _RGBM_TMP_DYNAMIC( rainbow_sparkle_12 )
+    _RGBM_TMP_DYNAMIC( rainbow_sparkle_13 )
+    _RGBM_TMP_DYNAMIC( RAINBOW_SPARKLE_end )
+  #endif
+
   #ifdef RGBLIGHT_EFFECT_RGB_TEST
     _RGBM_SINGLE_DYNAMIC( RGB_TEST )
   #endif

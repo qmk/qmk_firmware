@@ -91,8 +91,8 @@ NOTE: If you do a search/replace
 #define ________WIN_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT)
 #define ________MAC_THUMB_CLUSTER_________                LT(_SYMB,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT)
 
-#define __________________WIN_THUMB_CLUSTER_V2______________ KC_LSFT, LT(_FUNC,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ENT)
-#define __________________MAC_THUMB_CLUSTER_V2______________ KC_LSFT, LT(_FUNC,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), MT(MOD_RSFT,KC_ENT), LT(_SYMB,KC_ENT)
+#define __________________WIN_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT), LT(_MDIA,KC_ENT)
+#define __________________MAC_THUMB_CLUSTER_V2______________ LT(_FUNC,KC_ENT), MT(MOD_LSFT,KC_SPC), LT(_MNMB,KC_BSPC), LT(_MNMB,KC_TAB), LT(_SYMB,KC_ENT), LT(_MDIA,KC_ENT)
 
 #define ________MAC_MISSION_CTRL__________                LCTL(KC_LEFT),    LCTL(KC_UP),       LCTL(KC_DOWN),    LCTL(KC_RGHT)
 
@@ -128,8 +128,15 @@ NOTE: If you do a search/replace
 #define _________________PUNC_L1_ALT_______________       KC_DQT,     KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
 #define _________________PUNC_L2___________________       KC_PLUS,    KC_MINS,    KC_ASTR,    KC_SLSH,    KC_EQL
 #define _________________PUNC_L3___________________       KC_LBRC,    KC_RBRC,    KC_LPRN,    KC_RPRN,    KC_AMPR
+#define _________________PUNC_L3_ALT_______________       KC_____,    KC_____,    KC_____,    KC_CIRC,    KC_GRV
+
+#define _________________PUNC_R1___________________       TD(TD_MINPLS), KC_DQT,  KC_____, KC_____, KC_____
+#define _________________PUNC_R2___________________       TD(TD_DIVMLT), KC_ASTR, KC_SLSH, KC_PLUS, KC_MINS
+#define _________________PUNC_R3___________________       TD(TD_DOTEQL), KC_EQL,  KC_BSLS, KC_____, KC_____
 
 #define _____________FUNC_1_______________                KC_F9,      KC_F10,     KC_F11,     KC_F12
 #define _____________FUNC_2_______________                KC_F5,      KC_F6,      KC_F7,      KC_F8
 #define _____________FUNC_3_______________                KC_F1,      KC_F2,      KC_F3,      KC_F4
 
+#define _____________FUNC_L1_______________________       MAKEKF,   MAKEK,   KC_____, KC_ESC,  LCTL(LALT(KC_DEL))
+#define _____________FUNC_L3_______________________       KC_LGUI, KC_RALT, KC_LCTL, KC_TAB,  KC_____
