@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    g Heavy Industries
 #define PRODUCT         Butter Stick
 #define DESCRIPTION     Its a stick of butter
+#define VERSION 		"Fresh Milk"
 
 #define DEBOUNCING_DELAY 5
 #define FORCE_NKRO
