@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Bépo layouts
+// Sendstring lookup tables for BÉPO layouts
 
 #pragma once
 
