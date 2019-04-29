@@ -12,6 +12,7 @@ bool rgb_matrix_solid_reactive_simple(effect_params_t* params) {
   // Max tick based on speed scale ensures results from scale16by8 with rgb_matrix_config.speed are no greater than 255
   uint16_t max_tick = 65535 / rgb_matrix_config.speed;
   for (uint8_t i = led_min; i < led_max; i++) {
+    RGB_MATRIX_TEST_LED_FLAGS();
     uint16_t tick = max_tick;
     // Reverse search to find most recent key hit
     for (int8_t j = g_last_hit_tracker.count - 1; j >= 0; j--) {

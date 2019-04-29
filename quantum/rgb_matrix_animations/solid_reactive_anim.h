@@ -13,6 +13,7 @@ bool rgb_matrix_solid_reactive(effect_params_t* params) {
   uint16_t max_tick = 65535 / rgb_matrix_config.speed;
   // Relies on hue being 8-bit and wrapping
   for (uint8_t i = led_min; i < led_max; i++) {
+    RGB_MATRIX_TEST_LED_FLAGS();
     uint16_t tick = max_tick;
     // Reverse search to find most recent key hit
     for (int8_t j = g_last_hit_tracker.count - 1; j >= 0; j--) {
