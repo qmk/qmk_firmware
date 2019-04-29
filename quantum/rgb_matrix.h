@@ -142,6 +142,18 @@ enum rgb_matrix_effects {
   RGB_MATRIX_SOLID_MULTISPLASH,
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_CUSTOM_##name,
+  #ifdef RGB_MATRIX_CUSTOM_KB
+    #include "rgb_matrix_kb.inc"
+  #endif
+  #ifdef RGB_MATRIX_CUSTOM_USER
+    #include "rgb_matrix_user.inc"
+  #endif
+  #undef RGB_MATRIX_EFFECT
+#endif
+
   RGB_MATRIX_EFFECT_MAX
 };
 
