@@ -200,8 +200,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /*
- * Key to press when we do shake to undo.
+ * Shake to undo configuration
  */
+#define SHAKE_ENABLE
 #define SHAKE_PIN_A E4
 #define SHAKE_PIN_B E5
 #define SHAKE_TIMEOUT 500     // How long after shaking stops before we register it
