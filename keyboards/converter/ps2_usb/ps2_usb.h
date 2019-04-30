@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 51, 63, 68, 6D: hidden keys in IBM model M
  */
 /* All keys */
-#define LAYOUT_ALL( \
+#define LAYOUT_all( \
         K08,K10,K18,K20,K28,K30,K38,K40,K48,K50,K57,K5F,                                        \
     K76,K05,K06,K04,K0C,K03,K0B,K83,K0A,K01,K09,K78,K07,         KFC,K7E,KFE,      KA1,KB2,KA3, \
     K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K6A,K66, KF0,KEC,KFD,  K77,KCA,K7C,K7B, \
