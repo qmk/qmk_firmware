@@ -4,7 +4,7 @@
 
 This is not the PCB with RGB support. Do not flash RGB firmware for this board. 
 
-**THIS IS THE DIRECTORY FOR CHINA BUYERS**
+**REGULAR PCB (AVAILABILITY: CHINA GB ONLY)*
 If you are a non-china buyer, you probably have the multi PCB or rgb PCB. 
 Please look at the "multi" and "rgb" readme files.
 

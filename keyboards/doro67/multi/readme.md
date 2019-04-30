@@ -2,7 +2,7 @@
 
 65% custom keyboard made by 80ultraman/Alf/Backprop Studios with multiple layout support. Despite the layout options available, layout is dictated by the selected integrated plate.  
 
-**THIS IS THE MULTI-LAYOUT PCB DIRECTORY FOR NON-CHINA BUYERS**
+**MULTI-LAYOUT PCB (AVAILABILITY: CHINA + INTERNATIONAL GB)**
 The "multi" directory includes keymaps for the multi-layout PCB, which supports ANSI, ISO, and multi (split backspace & non-blocker).
 The keymap you choose from the "multi" directory must correspond to the integrated plate option you chose.
 

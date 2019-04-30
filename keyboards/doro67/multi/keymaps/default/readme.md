@@ -1,6 +1,6 @@
 # Default Doro67 ANSI layout.
 
-**THIS IS THE DEFAULT ANSI KEYMAP FOR NON-CHINA BUYERS**
+**THIS IS THE DEFAULT ANSI KEYMAP (AVAILABILITY: CHINA + INTERNATIONAL GB)**
 The "multi" directory includes keymaps for the multi-layout PCB, which supports ANSI, ISO, and multi (split backspace & non-blocker).
 The keymap you choose from the "multi" directory must correspond to the integrated plate option you chose.
 

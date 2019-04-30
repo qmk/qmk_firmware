@@ -1,6 +1,6 @@
 # The default keymap for rgb
 
-**THIS IS THE DEFAULT RGB KEYMAP FOR NON-CHINA BUYERS**
+**RGB PCB (AVAILABILITY: CHINA + INTERNATIONAL GB)**
 The "rgb" directory includes the keymap for the RGB PCB.
 
 The multi-layout PCB and RGB pcb were the only two options available to NON-china buyers.

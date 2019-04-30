@@ -4,7 +4,7 @@
 
 Flashing the regular PCB firmware on this board will work, but will disable RGB lighting. 
 
-**THIS IS THE RGB PCB DIRECTORY FOR NON-CHINA BUYERS**
+**THIS IS THE RGB PCB DIRECTORY (AVAILABILITY: CHINA + INTERNATIONAL GB)**
 The "rgb" directory includes the keymap for the RGB PCB.
 
 The multi-layout PCB and RGB pcb were the only two options available to NON-china buyers.
