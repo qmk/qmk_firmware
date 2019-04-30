@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "debounce.h"
-#include "pointing_device.h"
 #include QMK_KEYBOARD_H
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #   include  "timer.h"
@@ -38,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BALLER
 #include <avr/interrupt.h>
+#include "pointing_device.h"
 #endif
 
 #ifndef DEBOUNCE
