@@ -17,7 +17,7 @@ To change pin configuration edit **config.h** and **Makefile**.
 
 Build Firmware
 --------------
-For **TMK converter Rev.2**:
+For **QMK converter**:
 
     $ make distclean converter/ps2_usb:default
 
