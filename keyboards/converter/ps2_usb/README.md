@@ -20,7 +20,7 @@ Build Firmware
 For **TMK converter Rev.2**:
 
     $ make -f Makefile.rev2 clean
-    $ make -f Makefile.rev2 KEYMAP=plain
+    $ make distclean converter/ps2_usb:default
 
 To program firmware push the button on converter and run:
 
