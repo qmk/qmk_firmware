@@ -11,21 +11,12 @@ CUSTOM_MATRIX			 = yes
 #Firmware reduction options
 MOUSEKEY_ENABLE			 = yes 		# 1500 bytes
 NO_TAPPING				 = no 	    # 2000 bytes
-<<<<<<< HEAD
 NO_PRINT				 = yes		
 
 #Debug options
 CONSOLE_ENABLE			 = no
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
-=======
-NO_PRINT				 = no
-
-#Debug options
-CONSOLE_ENABLE			 = yes
-DEBUG_MATRIX_SCAN_RATE   = no
-DEBUG_MATRIX			 = yes
->>>>>>> refs/remotes/origin/butterstick
 ONLY_QWERTY				 = no
 
 # A bunch of stuff that you shouldn't touch unless you
