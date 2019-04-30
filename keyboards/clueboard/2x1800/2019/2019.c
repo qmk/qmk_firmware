@@ -31,7 +31,7 @@ void matrix_init_kb(void) {
 }
 
 #ifdef SHAKE_ENABLE
-uint8_t tilt_state[2] = {1,1};
+uint8_t tilt_state = 0x11;
 uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
 #endif
@@ -40,14 +40,14 @@ void matrix_scan_kb(void) {
 #ifdef SHAKE_ENABLE
     // Read the current state of the tilt sensor. It is physically
     // impossible for both pins to register a low state at the same time.
-    uint8_t tilt_read[2] = {readPin(SHAKE_PIN_A), readPin(SHAKE_PIN_B)};
+    uint8_t tilt_read = (readPin(SHAKE_PIN_A) << 4) | readPin(SHAKE_PIN_B);
 
     // Check to see if the tilt sensor has changed state since our last read
     for (uint8_t i = 0; i < 2; i++) {
-        if (tilt_state[i] != tilt_read[i]) {
+        if (tilt_state != tilt_read) {
             shake_timer = timer_read();
             detected_shakes++;
-            tilt_state[i] = tilt_read[i];
+            tilt_state = tilt_read;
         }
     }
 
