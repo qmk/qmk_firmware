@@ -24,6 +24,7 @@ enum custom_keycodes {
   OS_MAC,
   OS_WIN,
   OS_NIX,
+  WN_SLPD,
   KEYMAP_SAFE_RANGE
 };
 
@@ -42,7 +43,6 @@ enum custom_keycodes {
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   HYPR(KC_F3)          // Mission Control: Configure karabiner for HYPER -> fn
 #define MC_LHPD   HYPR(KC_F4)          // Launchpad: Configure karabiner for HYPER -> fn
-// MacOS Media Alias
-#define MC_MUTE   KC__MUTE
-#define MC_VOLD   KC__VOLDOWN
-#define MC_VOLU   KC__VOLUP
+// Windows
+#define WN_LOCK   LGUI(KC_L)           // Lock Computer
+#define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)

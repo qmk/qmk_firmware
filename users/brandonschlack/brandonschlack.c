@@ -65,6 +65,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OS_NIX:
         set_single_persistent_default_layer(LB_NIX);
         break;
+    case WN_SLPD:
+        tap_code16(G(KC_L));
+        tap_code(KC_SYSTEM_POWER);
+        break;
 
   }
   return process_record_keymap(keycode, record);
