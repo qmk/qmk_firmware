@@ -139,10 +139,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        PORTE &= ~(1<<6);
       } else {
         unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
       }
       return false;
       break;
@@ -181,10 +179,8 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool def
   rgb_led led;
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
     led = g_rgb_leds[i];
-    if (led.matrix_co.raw < 0xFF) {
-      if (led.modifier) {
-          rgb_matrix_set_color( i, red, green, blue );
-      }
+    if (HAS_FLAGS(led.flags, LED_FLAG_MODIFIER)) {
+        rgb_matrix_set_color( i, red, green, blue );
     }
   }
 }
