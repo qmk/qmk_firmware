@@ -33,7 +33,7 @@ To program firmware push the button on converter and run:
 
 Keymap
 ------
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `keymap_<name>.c` and see keymap document(you can find in README.md of top directory) and existent keymap files.
+Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with your github username, and in it, a file named `keymap.c` and see keymap document(you can find in README.md of top directory) and existent keymap files.
 
 
 PS/2 signal handling implementations
