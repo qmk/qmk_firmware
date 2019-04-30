@@ -27,7 +27,6 @@ To program firmware push the button on converter and run:
     $ make -f Makefile.rev2 KEYMAP=plain dfu
 
 
-- For **TMK converter Rev.1** use `make -f Makefile.rev1` instead.
 
 
 Keymap
