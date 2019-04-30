@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);
+void matrix_clear(void);
 
 
 /*
