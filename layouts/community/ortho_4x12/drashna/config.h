@@ -36,6 +36,17 @@
 #endif // KEYBOARD_planck_light
 
 
+#if defined(KEYBOARD_planck)
+#undef PRODUCT
+#if defined(KEYBOARD_planck_light)
+#define PRODUCT Drashna Hacked RGB Beacon (Planck Light)
+#elif defined(KEYBOARD_planck_rev6)
+#define PRODUCT Drashna Hacked Planck Rev6
+#elif defined(KEYBOARD_planck_EZ)
+#define PRODUCT Drashna Hacked Planck EZ
+#endif
+#endif
+
 /*
  * MIDI options
  */
@@ -59,5 +70,3 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-#define TAP_CODE_DELAY 10
