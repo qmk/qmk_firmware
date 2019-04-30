@@ -398,6 +398,7 @@ uint8_t matrix_scan(void)
         xprintf("Resend: %02X\n", ret);
     }
 */
+    matrix_scan_quantum();
     return 1;
 }
 
