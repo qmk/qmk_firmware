@@ -24,7 +24,7 @@ For **TMK converter Rev.2**:
 
 To program firmware push the button on converter and run:
 
-    $ make -f Makefile.rev2 KEYMAP=plain dfu
+    $ make converter/ps2_usb:default:teensy
 
 
 
