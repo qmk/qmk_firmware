@@ -12,6 +12,7 @@ bool rgb_matrix_breathing(effect_params_t* params) {
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, val };
   RGB rgb = hsv_to_rgb(hsv);
   for (uint8_t i = led_min; i < led_max; i++) {
+    RGB_MATRIX_TEST_LED_FLAGS();
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
   return led_max < DRIVER_LED_TOTAL;

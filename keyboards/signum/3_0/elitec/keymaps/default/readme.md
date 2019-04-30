@@ -11,10 +11,6 @@ starting point to create your own layouts for the Signum 3.0 with
 
 # Customization
 
-- Install `python3` and [Sorted Containers
-  Library](http://www.grantjenks.com/docs/sortedcontainers/), `pip
-  install sortedcontainers`.
-
 - Customize `layout.py` to your liking.
     - Attention 1: keycodes are either translated into symbols and
       function calls via the `translate()` function in `generate_km.py`
