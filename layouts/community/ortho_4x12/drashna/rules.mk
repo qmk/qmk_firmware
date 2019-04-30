@@ -5,6 +5,7 @@ CONSOLE_ENABLE    = no         # Console for debug(+400)
 COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 AUDIO_ENABLE      = yes
+SPACE_CADET_ENABLE = no
 
 ifeq (,$(findstring planck/rev6,$(KEYBOARD))) # Make sure it's NOT the Planck Rev6
     RGBLIGHT_ENABLE             = yes
