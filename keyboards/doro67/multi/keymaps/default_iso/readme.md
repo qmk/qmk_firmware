@@ -1,5 +1,12 @@
 # Default Doro67 ISO layout.
 
+**THIS IS THE DEFAULT ISO KEYMAP (AVAILABILITY: CHINA + INTERNATIONAL GB)**
+The "multi" directory includes keymaps for the multi-layout PCB, which supports ANSI, ISO, and multi (split backspace & non-blocker).
+The keymap you choose from the "multi" directory must correspond to the integrated plate option you chose.
+
+The multi-layout PCB and RGB pcb were the only two options available to NON-china buyers.
+If you purchased an RGB PCB, please see the 'rgb' directory.
+
 This is the default ISO layout that comes flashed on the Doro67 multi PCB with
 the exception of adding backtick and UK ISO specific keycodes as they were not mapped.
 
