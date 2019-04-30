@@ -54,7 +54,9 @@
   uint8_t max = DRIVER_LED_TOTAL;
 #endif
 
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+#define RGB_MATRIX_TEST_LED_FLAGS() if (!HAS_ANY_FLAGS(g_rgb_leds[i].flags, params->flags)) continue
+
+extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 
 typedef struct
 {
@@ -142,6 +144,18 @@ enum rgb_matrix_effects {
   RGB_MATRIX_SOLID_MULTISPLASH,
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_CUSTOM_##name,
+  #ifdef RGB_MATRIX_CUSTOM_KB
+    #include "rgb_matrix_kb.inc"
+  #endif
+  #ifdef RGB_MATRIX_CUSTOM_USER
+    #include "rgb_matrix_user.inc"
+  #endif
+  #undef RGB_MATRIX_EFFECT
+#endif
+
   RGB_MATRIX_EFFECT_MAX
 };
 
@@ -197,6 +211,8 @@ void rgb_matrix_increase_val(void);
 void rgb_matrix_decrease_val(void);
 void rgb_matrix_increase_speed(void);
 void rgb_matrix_decrease_speed(void);
+led_flags_t rgb_matrix_get_flags(void);
+void rgb_matrix_set_flags(led_flags_t flags);
 void rgb_matrix_mode(uint8_t mode);
 void rgb_matrix_mode_noeeprom(uint8_t mode);
 uint8_t rgb_matrix_get_mode(void);
