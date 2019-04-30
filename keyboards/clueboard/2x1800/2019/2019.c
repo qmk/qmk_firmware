@@ -43,12 +43,10 @@ void matrix_scan_kb(void) {
     uint8_t tilt_read = (readPin(SHAKE_PIN_A) << 4) | readPin(SHAKE_PIN_B);
 
     // Check to see if the tilt sensor has changed state since our last read
-    for (uint8_t i = 0; i < 2; i++) {
-        if (tilt_state != tilt_read) {
-            shake_timer = timer_read();
-            detected_shakes++;
-            tilt_state = tilt_read;
-        }
+    if (tilt_state != tilt_read) {
+        shake_timer = timer_read();
+        detected_shakes++;
+        tilt_state = tilt_read;
     }
 
     if ((detected_shakes > 0) && (timer_elapsed(shake_timer) > SHAKE_TIMEOUT)) {
@@ -66,6 +64,12 @@ void matrix_scan_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (keycode == ENC_BTN1) {
+            
+        }
+    }
+
     return process_record_user(keycode, record);
 }
 

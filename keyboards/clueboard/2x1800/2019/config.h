@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -197,7 +196,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#endif
+/*
+ * Drawing mode
+ */
+#define DRAWING_ENABLE
+//#define UNDO_KEY LGUI(KC_Z)  // What key to send for undo
+//#define UNDO_KEY LCTL(KC_Z)
+#define UNDO_KEY LGUI(KC_SLSH)
 
 /*
  * Shake to undo configuration
@@ -207,6 +212,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SHAKE_PIN_B E5
 #define SHAKE_TIMEOUT 500     // How long after shaking stops before we register it
 #define SHAKE_COUNT 8         // How many shakes it takes to activate
-//#define SHAKE_KEY LGUI(KC_Z)  // What key to send after a shake
-//#define SHAKE_KEY LCTL(KC_Z)
-#define SHAKE_KEY LGUI(KC_SLSH)
+#define SHAKE_KEY UNDO_KEY    // What key to send after a shake

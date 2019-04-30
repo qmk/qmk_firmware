@@ -17,6 +17,17 @@
 
 #include "quantum.h"
 
+enum TWOx1800_keycodes {
+    ENC_BTN1 = SAFE_RANGE,
+    ENC_BTN2,
+    ENC_BTN3,
+    ENC_BTN4,
+    NEW_SAFE_RANGE
+};
+
+#undef SAFE_RANGE
+#define SAFE_RANGE NEW_SAFE_RANGE
+
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
