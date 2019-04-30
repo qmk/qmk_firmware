@@ -475,6 +475,18 @@ enum quantum_keycodes {
     HPT_DWLI,
     HPT_DWLD,
 
+    // Left control, open paren
+    KC_LCPO,
+
+    // Right control, close paren
+    KC_RCPC,
+
+    // Left control, open paren
+    KC_LAPO,
+
+    // Right control, close paren
+    KC_RAPC,
+
     // always leave at the end
     SAFE_RANGE
 };
