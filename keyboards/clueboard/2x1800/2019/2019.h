@@ -189,3 +189,7 @@
 }
 
 #define LAYOUT LAYOUT_all
+
+// Encoder update function that returns true/false
+__attribute__ ((weak))
+bool encoder_update_keymap(int8_t index, bool clockwise);

@@ -27,35 +27,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_P0,   KC_PDOT,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_LCTL, KC_LGUI, KC_LALT,                 KC_SPC,         KC_RALT, KC_RGUI, KC_APP, KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_P0, KC_PDOT               \
 )
 };
-
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    // Encoder 1, outside left
-    if (index == 0 && clockwise) {
-        tap_code(KC_MS_U);  // turned right
-    } else if (index == 0) {
-        tap_code(KC_MS_D);  // turned left
-    }
-
-    // Encoder 2, inside left
-    else if (index == 1 && clockwise) {
-        tap_code(KC_WH_D);  // turned right
-    } else if (index == 1) {
-        tap_code(KC_WH_U);  // turned left
-    }
-
-    // Encoder 3, inside right
-    else if (index == 2 && clockwise) {
-        tap_code(KC_VOLU);  // turned right
-    } else if (index == 2) {
-        tap_code(KC_VOLD);  // turned left
-    }
-
-    // Encoder 4, outside right
-    else if (index == 3 && clockwise) {
-        tap_code(KC_MS_R);   // turned right
-    } else if (index == 3) {
-        tap_code(KC_MS_L);   // turned left
-    }
-}
-#endif
