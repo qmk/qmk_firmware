@@ -40,12 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// Helix keyboard OLED support
-//      see ./rules.mk: OLED_ENABLE=yes or no
-#ifdef OLED_ENABLE
-  #define SSD1306OLED
-#endif
-
 /* Select rows configuration */
 // Rows are 4 or 5
 // #define HELIX_ROWS 5 see ./rules.mk

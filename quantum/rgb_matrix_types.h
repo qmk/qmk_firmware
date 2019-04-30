@@ -67,18 +67,20 @@ typedef union {
   };
 } matrix_co_t;
 
-typedef struct PACKED {
-	matrix_co_t matrix_co;
-	point_t point;
-	uint8_t modifier:1;
-} rgb_led;
+#define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
+#define HAS_ANY_FLAGS(bits, flags) ((bits & flags) != 0x00)
 
-typedef enum {
-  RGB_ZONE_OFF = 0,
-  RGB_ZONE_ALL,
-  RGB_ZONE_KEYS,
-  RGB_ZONE_UNDER,
-} rgb_zone_t;
+#define LED_FLAG_ALL 0xFF
+#define LED_FLAG_NONE 0x00
+#define LED_FLAG_MODIFIER 0x01
+#define LED_FLAG_UNDERGLOW 0x02
+#define LED_FLAG_KEYLIGHT 0x04
+
+typedef struct PACKED {
+  matrix_co_t matrix_co;
+  point_t point;
+  uint8_t flags;
+} rgb_led;
 
 typedef union {
   uint32_t raw;
