@@ -8,14 +8,15 @@ OPT_DEFS += -DBOOTLOADER_SIZE=1024
 
 
 # Build Options
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-ENCODER_ENABLE = yes
+ENCODER_ENABLE = yes        # Rotary encoder (knob) support
 NKRO_ENABLE = yes           # USB Nkey Rollover
-MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
+MIDI_ENABLE = no            # MIDI support
 UNICODE_ENABLE = no         # Unicode
-RGBLIGHT_ENABLE = yes       # RGB on port C6
-AUDIO_ENABLE = yes          # Audio output on port C4 and B7
+RGBLIGHT_ENABLE = yes       # RGB on pin C5
+AUDIO_ENABLE = yes          # Audio output on pin C4 and B7
+SHAKE_ENABLE = yes          # Shake to undo

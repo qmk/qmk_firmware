@@ -46,15 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D2, D3, D4, D5, D7, E0, E1, B0, E6, B3, B2 }
 #define UNUSED_PINS { D0, D1, D6, C5, E7, F0, F1 }
 
-/*
 #define NUMBER_OF_ENCODERS 4
-#define ENCODERS_PAD_A { A1, A0, A7, A5 }
-#define ENCODERS_PAD_B { A2, A3, A6, A4 }
-*/
-#define NUMBER_OF_ENCODERS 1
-#define ENCODERS_PAD_A { A1 }
-#define ENCODERS_PAD_B { A2 }
-#define ENCODER_RESOLUTION 2
+#define ENCODERS_PAD_A { A5, A4, A2, A1 }
+#define ENCODERS_PAD_B { A6, A7, A3, A0 }
+#define ENCODER_RESOLUTION 4
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
@@ -80,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN C6
+#define RGB_DI_PIN C5
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
@@ -203,3 +198,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 #endif
+
+/*
+ * Key to press when we do shake to undo.
+ */
+#define SHAKE_PIN_A E4
+#define SHAKE_PIN_B E5
+#define SHAKE_TIMEOUT 500     // How long after shaking stops before we register it
+#define SHAKE_COUNT 8         // How many shakes it takes to activate
+//#define SHAKE_KEY LGUI(KC_Z)  // What key to send after a shake
+//#define SHAKE_KEY LCTL(KC_Z)
+#define SHAKE_KEY LGUI(KC_SLSH)
