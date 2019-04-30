@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#define BUTTER_LAYOUT( 										\
+#define LAYOUT_butter( 										\
     k09, k08, k07, k06, k05, k04, k03, k02, k01, k00,		\
 	k19, k18, k17, k16, k15, k14, k13, k12, k11, k10		\
 ) { 														\
