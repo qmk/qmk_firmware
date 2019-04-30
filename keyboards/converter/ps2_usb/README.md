@@ -12,7 +12,7 @@ Connect Wires
     - **USART**:       **Clock** is on `PD5` and **Data** on `PD2`.
 3. You need pull-up resistors. 1K-10K Ohm would be fine.
 
-To change pin configuration edit **config.h** and **Makefile**.
+To change pin configuration edit **config.h** and **rules.mk**.
 
 
 Build Firmware
