@@ -28,7 +28,6 @@ To program firmware push the button on converter and run:
 
 
 - For **TMK converter Rev.1** use `make -f Makefile.rev1` instead.
-- To select keymap use `jis`, `spacefn` or your own in place of `plain`.
 
 
 Keymap
