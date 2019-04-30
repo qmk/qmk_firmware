@@ -53,8 +53,10 @@ void matrix_scan_kb(void) {
 
     if ((detected_shakes > 0) && (timer_elapsed(shake_timer) > SHAKE_TIMEOUT)) {
         if (detected_shakes > SHAKE_COUNT) {
-            dprintf("Shake detected! We had %d shakes detected.\n", detected_shakes);
+            dprintf("Shake triggered! We detected %d shakes.\n", detected_shakes);
             tap_code16(SHAKE_KEY);
+        } else {
+            dprintf("Shake not triggered! We detected %d shakes.\n", detected_shakes);
         }
         detected_shakes = 0;
     }
