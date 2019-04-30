@@ -24,10 +24,6 @@
 #include "outputselect.h"
 #endif
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
-
 #ifndef BREATHING_PERIOD
 #define BREATHING_PERIOD 6
 #endif
@@ -196,30 +192,6 @@ void reset_keyboard(void) {
   bootloader_jump();
 }
 
-// Shift / paren setup
-
-#ifndef LSPO_KEY
-  #define LSPO_KEY KC_9
-#endif
-#ifndef RSPC_KEY
-  #define RSPC_KEY KC_0
-#endif
-
-#ifndef LSPO_MOD
-  #define LSPO_MOD KC_LSFT
-#endif
-#ifndef RSPC_MOD
-  #define RSPC_MOD KC_RSFT
-#endif
-
-// Shift / Enter setup
-#ifndef SFTENT_KEY
-  #define SFTENT_KEY KC_ENT
-#endif
-
-static bool shift_interrupted[2] = {0, 0};
-static uint16_t scs_timer[2] = {0, 0};
-
 /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
@@ -328,6 +300,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
+  #endif
+  #ifdef SPACE_CADET_ENABLE
+    process_space_cadet(keycode, record) &&
   #endif
       true)) {
     return false;
@@ -685,92 +660,6 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
       break;
-    case KC_LSPO: {
-      if (record->event.pressed) {
-        shift_interrupted[0] = false;
-        scs_timer[0] = timer_read ();
-        register_mods(MOD_BIT(KC_LSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(RSPC_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_LSFT));
-          #else
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(KC_LSFT));
-              register_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-          register_code(LSPO_KEY);
-          unregister_code(LSPO_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_LSFT));
-      }
-      return false;
-    }
-
-    case KC_RSPC: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(LSPO_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_RSFT));
-          #else
-            if( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(KC_RSFT));
-              register_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-          register_code(RSPC_KEY);
-          unregister_code(RSPC_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if ( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
-
-    case KC_SFTENT: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-        unregister_mods(MOD_BIT(KC_RSFT));
-        register_code(SFTENT_KEY);
-        unregister_code(SFTENT_KEY);
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
 
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
@@ -825,12 +714,6 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 #endif
-
-    default: {
-      shift_interrupted[0] = true;
-      shift_interrupted[1] = true;
-      break;
-    }
   }
 
   return process_action_kb(record);
