@@ -1,12 +1,11 @@
-# butterstick
+# Butter Stick
 
-![butterstick](imgur.com image replace me!)
+![Butter Stick](https://i.redd.it/mvteaomko7s21.jpg)
 
-A short description of the keyboard/project
+A chorded 20% keyboard packing full sized useage into  your pocket. More info on [gboards.ca](http://docs.gboards.ca/Meet-Butter-Stick)!
 
-Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [Germ](https://github.com/germ)  
+Hardware Availability: [g Heavy Industries](https://www.gboards.ca/product/butter-stick-limited-edition)
 
 Make example for this keyboard (after setting up your build environment):
 

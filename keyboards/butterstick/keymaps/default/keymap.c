@@ -5,9 +5,9 @@
 /* 	 	
  *  Key names are inherited from steno machines
  *  .-----------------------------------------------------.
- *	| LSU | LFT | LP | LH | ST1 | ST3 | RF | RP | RL | RT |
+ *	| LSU | LFT | LP | LH | ST1 | RF | RP | RL | RT | RD  |
  *  |-----------------------------------------------------|
- *	| LSD | LK  | LW | LR | ST2 | ST4 | RR | RB | RG | RS |
+ *	| LSD | LK  | LW | LR | ST2 | RR | RB | RG | RS | RZ  |
  *  '-----------------------------------------------------'
  */
 
@@ -23,8 +23,8 @@
  #define BASE 0
  #define GAME 1
 
-// Do not change QMK Layer 1! This is your main keyboard.
-// Make your QMK modifications to the upper layers, to add 
+// Do not change QMK Layer 0! This is your main keyboard.
+// Make your QMK modifications to the later layers, to add 
 // keys/customize on the first layer modify processQwerty():
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = BUTTER_LAYOUT(
@@ -44,8 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
-    // Specials
+    // SECRET AGENT CHORDS
     P( LSU | LK | RS | RD,    	SEND_STRING(VERSION); SEND_STRING(__DATE__));
+    P( LSD | RZ,   			 	SEND(KC_SPC));
 
     // Dual chords
     P( LP  | LH,    			CLICK_MOUSE(KC_MS_BTN2));
@@ -55,10 +56,10 @@ uint32_t processQwerty(bool lookup) {
 	P( RZ  | RS,				SEND(KC_LSFT));
 	P( ST2 | RR,				SEND(KC_SPC));
     P( RP  | RL,    			SEND(KC_LGUI));
-    P( RS  | RD,    			SEND(KC_LALT));
-	P( RG  | RS,				SEND(KC_LCTL)); 
+    P( RT  | RD,    			SEND(KC_LCTL));
+    P( RL  | RT,    			SEND(KC_LALT));
 	P( LSU | LSD | LFT | LK,	SEND(KC_LCTL));
-	P( RL  | RT  | RG  | RS,	SEND(KC_ENT));
+	P( RS  | RT  | RD  | RZ,	SEND(KC_ENT));
 
     // Function Layer
     P( FUNCT | RF,         SEND(KC_F1));
@@ -132,8 +133,8 @@ uint32_t processQwerty(bool lookup) {
     P( SYMB | LR,           SEND(KC_RBRC));
     P( SYMB | ST1,          SEND(KC_LSFT); SEND(KC_BSLS));    // |
     P( SYMB | ST2,          SEND(KC_LSFT); SEND(KC_GRV));     // ~
-    P( SYMB | ST3,          SEND(KC_QUOT));
-    P( SYMB | ST4,          SEND(KC_LSFT); SEND(KC_QUOT));    // "
+    P( SYMB | RP | RB,      SEND(KC_QUOT));
+    P( SYMB | RP | RG,      SEND(KC_LSFT); SEND(KC_QUOT));    // "
     P( SYMB | RF,           SEND(KC_KP_PLUS));
     P( SYMB | RR,           SEND(KC_LSFT); SEND(KC_7));       // &
     P( SYMB | RP,           SEND(KC_MINS));
@@ -149,11 +150,11 @@ uint32_t processQwerty(bool lookup) {
     P( LP  | LW,     SEND(KC_D));
     P( LH  | LR,     SEND(KC_F));
     P( ST1 | ST2,    SEND(KC_G));
-    P( ST3 | ST4,    SEND(KC_H));
-    P( RF  | RR,     SEND(KC_J));
-    P( RT  | RS,     SEND(KC_SCLN));
-    P( RG  | RL,     SEND(KC_L));
-    P( RP  | RB,     SEND(KC_K));
+    P( RF  | RR,     SEND(KC_H));
+    P( RT  | RS,     SEND(KC_L));
+    P( RD  | RZ,     SEND(KC_SCLN));
+    P( RG  | RL,     SEND(KC_K));
+    P( RP  | RB,     SEND(KC_J));
     P( LSU,          SEND(KC_Q));
     P( LSD,          SEND(KC_Z));
     P( LFT,          SEND(KC_W));
@@ -164,16 +165,16 @@ uint32_t processQwerty(bool lookup) {
     P( LR,           SEND(KC_V));
     P( ST1,          SEND(KC_T));
     P( ST2,          SEND(KC_B));
-    P( ST3,          SEND(KC_Y));
-    P( ST4,          SEND(KC_N));
-    P( RF,           SEND(KC_U));
-    P( RR,           SEND(KC_M));
-    P( RP,           SEND(KC_I));
-    P( RB,           SEND(KC_COMM));
-    P( RL,           SEND(KC_O));
-    P( RG,           SEND(KC_DOT));
-    P( RT,           SEND(KC_P));
-    P( RS,           SEND(KC_SLSH));
+    P( RF,          SEND(KC_Y));
+    P( RR,          SEND(KC_N));
+    P( RP,           SEND(KC_U));
+    P( RB,           SEND(KC_M));
+    P( RL,           SEND(KC_I));
+    P( RG,           SEND(KC_COMM));
+    P( RT,           SEND(KC_O));
+    P( RS,           SEND(KC_DOT));
+    P( RD,           SEND(KC_P));
+    P( RZ,           SEND(KC_SLSH));
 
     return 0;
 }
