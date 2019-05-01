@@ -3,7 +3,7 @@
        * [Update a Feature Branch](#update-a-development-branch)  
        * [Delete Branch Locally and Remotely](#delete-branch-locally-and-remotely)
        * [Merge TEST branch into DEV branch](#merge-test-branch-into-dev-branch)
-  * [STM32F103C8T6 Preparation](#STM32F103C8T6-preparation)
+  * [STM32F103C8T6 Setup](#STM32F103C8T6-setup)
        * [Bootloader](#bootloader)
        * [Flashing QMK](#flashing-qmk)
 
@@ -91,34 +91,34 @@ Note that in most cases the remote name is origin.
 The above code will merge, push to remote, and delete both the local and remote TEST branches
 
 ---  
-## STM32F103C8T6 Preparation
-Cheap "Blue/Black Pills" typically do not come with a bootloader. The Black Pill uses [generic_boot20_pb12.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pb12.bin). The Blue Pill uses [generic_boot20_pc13.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pc13.bin).  
-The following instructions are adapted from [here](http://wiki.stm32duino.com/index.php?title=Burning_the_bootloader).
-### Bootloader 
-Flashing the bootloader onto the Black Pill via USB to Serial converter using UART1
-The Black Pill does not come with any USB bootloader. This process should be roughly the same for all F103 boards.
+## STM32F103C8T6 Setup
+Cheap "Blue/Black Pills" typically do not come with a bootloader installed. The Black Pill uses [generic_boot20_pb12.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pb12.bin). The Blue Pill uses [generic_boot20_pc13.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pc13.bin).  
+The following instructions have been adapted from [here](http://wiki.stm32duino.com/index.php?title=Burning_the_bootloader).
+### Bootloader
+Flashing a bootloader on to a Black Pill can be done via a USB to Serial converter (e.g. CP2102). This process should be roughly the same for all F103 boards.
 
 1. Download the correct bootloader binary  
 2. Set the 'boot 0' pin/jumper high, and 'boot 1' low  
-  B0+ to center pin
+  B0+ to center pin  
   B1- to center pin  
 3. Connect the board to the PC using a USB to serial converter  
-  RX to PA9
-  TX to PA10
-  GND to Ground
-  3.3V to 3.3 Volts
-4. Download and install Flash Loader Demonstrator from [here](http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/flasher-stm32.html)  
-5. Use Flash Loader Demonstrator to flash the bootloader
-  Ensure the correct COM port is selected.
-  Use the "Download to Device" option, with "Erase necessary pages" selected
-6. After a successful flash, set 'boot 0' pin/jumper low
-  B0- to center pin
-  B1- to center pin (no change)
-  
+  RX to PA9  
+  TX to PA10  
+  GND to Ground  
+  3.3V to 3.3 Volts  
+4. Download and install __Flash Loader Demonstrator__ from [here](http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/flasher-stm32.html)  
+5. Use __Flash Loader Demonstrator__ to flash the bootloader  
+  Ensure the correct COM port is selected.  
+  Use the "Download to Device" option, with "Erase necessary pages" selected  
+6. After a successful flash, set 'boot 0' pin/jumper low  
+  B0- to center pin  
+  B1- to center pin (no change)  
+
 ### Flashing QMK
-As of April 2019, the `:dfu-util` target doesn't work on the \*Pill. You will need to use dfu-util directly
+As of April 2019, the `:dfu-util` target doesn't work on a \*Pill. You will need to use dfu-util directly.
 1. Use QMK to build your `.bin`
-2. Run `dfu-util.exe -d 1eaf:0003 -a 2 -D YOUR_FIRMWARE.bin"`
-  If this is the first QMK flash on the \*Pill, you will need to synchronize your Reset Button-push with starting the command. By default, the \*Pill only stays in bootloader mode for about 3 seconds before returning to normal operation.
+2. Run `dfu-util.exe -d 1eaf:0003 -a 2 -D YOUR_FIRMWARE.bin"`  
+  If this is the first QMK flash on the \*Pill, you will need to synchronize your Reset Button-push with starting the command. By default, the \*Pill only stays in bootloader mode for about 3 seconds before returning to normal operation.  
 
 See [this page](https://docs.qmk.fm/#/faq_build?id=unknown-device-for-dfu-bootloader) if Windows can't see anything to upload to.
+---
