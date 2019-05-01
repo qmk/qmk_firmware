@@ -1,5 +1,16 @@
-# Updating a feature branch
+# Contents  
+---
 
+  * [Git Basics](#git-basics)  
+       * [Update a Feature Branch](#update-a-feature-branch)  
+       * [Delete Branch Locally and Remotely](#delete-branch-locally-and-remotely)
+       * [Merge TEST branch into DEV branch](#merge-test-branch-into-dev-branch)
+
+## Git Basics  
+---
+### Update a Development Branch
+
+This is how to update a working branch with upstream changes.
 First we'll update your local master branch. Go to your local project and check out the branch you want to merge into (your local master branch)
 ```bash
 $ git checkout master
@@ -16,7 +27,7 @@ Merge the changes from origin/master into your local master branch. This brings 
 $ git merge origin/master
 ```
 
-Check out the branch you want to merge into
+Checkout the branch you want to merge into
 ```bash
 $ git checkout <feature-branch>
 ```
@@ -26,14 +37,14 @@ Merge your (now updated) master branch into your feature branch to update it wit
 $ git merge master
 ```
 
-Depending on your git configuration this may open vim. Enter a commit message, save, and quit vim e.g. press "a" to enter insert mode and append text following current cursor position, press Esc key to enter command mode, press :wq to write the file to disk and quit.
+This will open your git-configured text editor. Edit the message as desired, save, and exit the editor.
 
-This only updates your local feature branch. To update it on GitHub, push your changes.
+The above steps only update your local feature branch. To update it on GitHub, push your changes.
 ```bash
 $ git push origin <feature-branch>
 ```
 
-# Delete Git branch locally and remotely
+### Delete Branch Locally and Remotely
 
 Executive Summary
 ```bash
@@ -65,7 +76,7 @@ Starting on Git v2.8.0 you can also use `git push` with the `-d` option as an al
 
 Therefore, the version of Git you have installed will dictate whether you need to use the easier or harder syntax.
 
-# Merge TEST branch into DEV branch
+### Merge TEST branch into DEV branch
 
 Executive Summary
 ```bash
