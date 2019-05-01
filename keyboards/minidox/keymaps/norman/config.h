@@ -1,6 +1,5 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
+#define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-
-#endif
+#define QMK_KEYS_PER_SCAN 4
