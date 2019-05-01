@@ -4,7 +4,8 @@
        * [Delete Branch Locally and Remotely](#delete-branch-locally-and-remotely)
        * [Merge TEST branch into DEV branch](#merge-test-branch-into-dev-branch)
   * [STM32F103C8T6 Preparation](#STM32F103C8T6-preparation)
-       * [Flashing](#flashing)
+       * [Bootloader](#bootloader)
+       * [Flashing QMK](#flashing-qmk)
 
 ---
 ## Git Basics  
@@ -93,24 +94,31 @@ The above code will merge, push to remote, and delete both the local and remote 
 ## STM32F103C8T6 Preparation
 Cheap "Blue/Black Pills" typically do not come with a bootloader. The Black Pill uses [generic_boot20_pb12.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pb12.bin). The Blue Pill uses [generic_boot20_pc13.bin](https://github.com/rogerclarkmelbourne/STM32duino-bootloader/blob/master/binaries/generic_boot20_pc13.bin).  
 The following instructions are adapted from [here](http://wiki.stm32duino.com/index.php?title=Burning_the_bootloader).
-### Flashing 
+### Bootloader 
 Flashing the bootloader onto the Black Pill via USB to Serial converter using UART1
 The Black Pill does not come with any USB bootloader. This process should be roughly the same for all F103 boards.
 
-Download the correct bootloader binary, in this case generic_boot20_pb12.bin [2]
-Set the 'boot 0' pin/jumper high, and 'boot 1' low
-B0+ to center pin
-B1- to center pin
-Connect the board to the PC using a USB to serial converter
-RX to PA9
-TX to PA10
-GND to G on the ST-Link connector
-3.3V to V3 on the ST-Link connector
-Ensure the USB to serial converter is in 3.3 V mode
-Reset the board, the user LED should now be off
-Download and install Flash Loader Demonstrator from here: [3]
-Use Flash Loader Demonstrator to flash the bootloader
-See screenshots below
-Select the correct COM port, yours will be different from the screenshots
-For normal use, set both boot pins low
-B0- to center pin B1 stays the same
+1. Download the correct bootloader binary  
+2. Set the 'boot 0' pin/jumper high, and 'boot 1' low  
+  B0+ to center pin
+  B1- to center pin  
+3. Connect the board to the PC using a USB to serial converter  
+  RX to PA9
+  TX to PA10
+  GND to Ground
+  3.3V to 3.3 Volts
+4. Download and install Flash Loader Demonstrator from [here](http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/flasher-stm32.html)  
+5. Use Flash Loader Demonstrator to flash the bootloader
+  Ensure the correct COM port is selected.
+  Use the "Download to Device" option, with "Erase necessary pages" selected
+6. After a successful flash, set 'boot 0' pin/jumper low
+  B0- to center pin
+  B1- to center pin (no change)
+  
+### Flashing QMK
+As of April 2019, the `:dfu-util` target doesn't work on the \*Pill. You will need to use dfu-util directly
+1. Use QMK to build your `.bin`
+2. Run `dfu-util.exe -d 1eaf:0003 -a 2 -D YOUR_FIRMWARE.bin"`
+  If this is the first QMK flash on the \*Pill, you will need to synchronize your Reset Button-push with starting the command. By default, the \*Pill only stays in bootloader mode for about 3 seconds before returning to normal operation.
+
+See [this page](https://docs.qmk.fm/#/faq_build?id=unknown-device-for-dfu-bootloader) if Windows can't see anything to upload to.
