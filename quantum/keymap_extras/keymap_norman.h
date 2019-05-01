@@ -28,6 +28,7 @@
 #define NM_R    KC_I
 #define NM_L    KC_O
 #define NM_SCLN KC_P
+#define NM_COLN LSFT(NM_SCLN)
 
 #define NM_A    KC_A
 #define NM_S    KC_S
@@ -39,7 +40,6 @@
 #define NM_I    KC_K
 #define NM_O    KC_L
 #define NM_H    KC_SCLN
-#define NM_COLN LSFT(NM_SCLN)
 
 #define NM_Z    KC_Z
 #define NM_X    KC_X
