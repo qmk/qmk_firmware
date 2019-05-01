@@ -12,11 +12,18 @@ enum dz60rgb_layers {
 
 enum dz60rgb_keycodes {
 	REBOOT = SAFE_RANGE,
-	RGB_CRM,
-	// RGB_RMOD,
-	// TAPA,
+	MAS_CRM,
+	MAS_PRP,
+	MAS_RED,
+	MAS_GRN,
+	MAS_BLU,
+	MAS_CYN,
+	MAS_MGT,
+	MAS_YEL,
+	MAS_KEY,
+	MAS_WHT,
 };
-
+#define _V_V_V_ KC_TRNS
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #ifdef RGB_MATRIX_ENABLE
 #define LT_DEL  LT(_RGB, KC_DEL)
@@ -43,20 +50,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
-		_______, _______, _______,                   _______,                   _______, _______,          _______, _______, _______  \
+		_______, _______, _V_V_V_,                   _______,                   _______, _______,          _______, _______, _______  \
 	),
 	[_NAV] = LAYOUT(
 		KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PMNS, KC_PPLS, KC_DEL,  \
 		_______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS, KC_PSCR, KC_SLCK, KC_INS,  \
-		_______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, KC_PENT,          \
+		_V_V_V_, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, KC_PENT,          \
 		_______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_P0,   KC_PDOT, _______,          _______, _______, \
 		_______, _______, _______,                   _______,                   _______, _______,          _______, _______, _______  \
 	),
 	[_RGB] = LAYOUT(
 		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, \
-		_______, RGB_MOD,  RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, _______, _______, _______, _______, _______, _______, _______, \
-		_______, RGB_RMOD, RGB_VAD, RGB_SPD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______,          \
-		_______, RGB_TOG,  RGB_CRM, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
+		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT, RGB_RMOD,RGB_MOD, _______, \
+		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP, _______, _______,          \
+		_______, RGB_TOG,  _______, _______, _______, _______, _______, MAS_YEL, MAS_GRN, MAS_CRM, _______,          _______, _V_V_V_, \
 		_______, _______,  _______,                   _______,                   _______, _______,          _______, _______, _______  \
 	),
 	[_FNC] = LAYOUT( // fuck it edition
@@ -64,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		RCTL(KC_TAB),  RCTL(KC_Q), RCTL(KC_W), RCTL(KC_E), RCTL(KC_R), RCTL(KC_T), RCTL(KC_Y), RCTL(KC_U), RCTL(KC_I),    RCTL(KC_O),   RCTL(KC_P),    RCTL(KC_LBRC), RCTL(KC_RBRC), RCTL(KC_BSLS), \
 		RCTL(KC_CAPS), RCTL(KC_A), RCTL(KC_S), RCTL(KC_D), RCTL(KC_F), RCTL(KC_G), RCTL(KC_H), RCTL(KC_J), RCTL(KC_K),    RCTL(KC_L),   RCTL(KC_SCLN), RCTL(KC_QUOT), RCTL(KC_ENT),                 \
 		RCTL(KC_LSFT), RCTL(KC_Z), RCTL(KC_X), RCTL(KC_C), RCTL(KC_V), REBOOT,     RCTL(KC_N), RCTL(KC_M), RCTL(KC_COMM), RCTL(KC_DOT), RCTL(KC_SLSH),                KC_VOLU, RCTL(KC_DEL),        \
-		RCTL(KC_LCTL), RCTL(KC_LGUI), RCTL(KC_LALT),                   RCTL(KC_SPC),                       KC_MUTE,       _______,                     RCTL(KC_LEFT), KC_VOLD, RCTL(KC_RGHT)        \
+		RCTL(KC_LCTL), RCTL(KC_LGUI), RCTL(KC_LALT),                   RCTL(KC_SPC),                       KC_MUTE,       _V_V_V_,                     RCTL(KC_LEFT), KC_VOLD, RCTL(KC_RGHT)        \
 	),
 	/*
 	[_FNC] = LAYOUT(
@@ -155,23 +162,65 @@ void rgb_matrix_indicators_user(void)
 			break;
 			
 		case _RGB:
+		{
+			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+
+			HSV hui = hsv;
+			HSV hud = hsv;
+			HSV sai = hsv;
+			HSV sad = hsv;
+			HSV vai = hsv;
+			HSV vad = hsv;
+			hui.h = hsv.h + 8;
+			hud.h = hsv.h - 8;
+			sai.s = hsv.s + 16 > 255 ? 255 : hsv.s + 16;
+			sad.s = hsv.s - 16 < 0   ?   0 : hsv.s - 16;
+			vai.v = hsv.v + 16 > 255 ? 255 : hsv.v + 16;
+			vad.v = hsv.v - 16 < 0   ?   0 : hsv.v - 16;
+
+			RGB rgb = hsv_to_rgb(hsv);
+
+			RGB rgbHUI = hsv_to_rgb(hui);
+			RGB rgbHUD = hsv_to_rgb(hud);
+			RGB rgbSAI = hsv_to_rgb(sai);
+			RGB rgbSAD = hsv_to_rgb(sad);
+			RGB rgbVAI = hsv_to_rgb(vai);
+			RGB rgbVAD = hsv_to_rgb(vad);
+
 			rgb_matrix_set_color(41, 0xFF, 0xFF, 0xFF); // layer indicator
+			rgb_matrix_set_color(59, rgb.r, rgb.g, rgb.b); // color indicator
+
 			
 			rgb_matrix_set_color(26, 0xFF, 0x80, 0x00); //MOD
 			rgb_matrix_set_color(39, 0xFF, 0x80, 0x00); //MOD
+			rgb_matrix_set_color(16, 0xFF, 0x80, 0x00); //RGB_RMOD
+			rgb_matrix_set_color(15, 0xFF, 0x80, 0x00); //MOD
 			rgb_matrix_set_color(52, 0xFF, 0x40, 0x00); //TOG
 			
-			rgb_matrix_set_color(25, 0x00, 0xFF, 0xFF); //VAI
-			rgb_matrix_set_color(38, 0x00, 0x40, 0x40); //VAD
+			rgb_matrix_set_color(25, 0x80, 0x80, 0x80); //SPI
+			rgb_matrix_set_color(38, 0x80, 0x80, 0x80); //SPD
 			
-			rgb_matrix_set_color(24, 0x80, 0x80, 0x80); //SPI
-			rgb_matrix_set_color(37, 0x80, 0x80, 0x80); //SPD
+			rgb_matrix_set_color(24, rgbHUI.r, rgbHUI.g, rgbHUI.b); //HUI
+			rgb_matrix_set_color(37, rgbHUD.r, rgbHUD.g, rgbHUD.b); //HUD
 			
-			rgb_matrix_set_color(23, 0xFF, 0x80, 0x00); //HUI
-			rgb_matrix_set_color(36, 0xFF, 0x00, 0x80); //HUD
-			
-			rgb_matrix_set_color(22, 0xFF, 0x00, 0x00); //SAI
-			rgb_matrix_set_color(35, 0xFF, 0xAA, 0xAA); //SAD
+			rgb_matrix_set_color(23, rgbSAI.r, rgbSAI.g, rgbSAI.b); //SAI
+			rgb_matrix_set_color(36, rgbSAD.r, rgbSAD.g, rgbSAD.b); //SAD
+
+			rgb_matrix_set_color(22, rgbVAI.r, rgbVAI.g, rgbVAI.b); //VAI
+			rgb_matrix_set_color(35, rgbVAD.r, rgbVAD.g, rgbVAD.b); //VAD
+
+			rgb_matrix_set_color(19, 0xF0, 0x00, 0xFF); //MAS_MGT
+			rgb_matrix_set_color(18, 0x00, 0x02, 0xFF); //MAS_BLU
+			rgb_matrix_set_color(33, 0xFF, 0x00, 0x00); //MAS_RED
+			rgb_matrix_set_color(32, 0x00, 0x00, 0x00); //MAS_KEY
+			rgb_matrix_set_color(31, 0x00, 0xFF, 0xF7); //MAS_CYN
+			rgb_matrix_set_color(46, 0xFF, 0xDA, 0x00); //MAS_YEL
+			rgb_matrix_set_color(45, 0x00, 0xFF, 0x01); //MAS_GRN
+
+			rgb_matrix_set_color(44, 0xFF, 0xE8, 0x22); //MAS_CRM
+			rgb_matrix_set_color(30, 0x81, 0x3C, 0xFF); //MAS_PRP
+			rgb_matrix_set_color(17, 0xFF, 0xFF, 0xFF); //MAS_WHT
+        }
 			break;
 			
 		case _FNC:
@@ -242,17 +291,79 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 		
 		return false;
 		
-	case RGB_CRM:
+	case MAS_CRM:
 		if (record->event.pressed) {
-#ifdef RGB_MATRIX_ENABLE
+		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(40, 144, 255);
-#endif // RGB_MATRIX_ENABLE
+		#endif // RGB_MATRIX_ENABLE
 		}
-		
 		return false;
-		
+
+	case MAS_PRP:
+	    if (record->event.pressed) {
+	    #ifdef RGB_MATRIX_ENABLE
+	        rgb_matrix_sethsv(192, 112, 255);
+	    #endif // RGB_MATRIX_ENABLE
+	    }
+	    return false;
+	case MAS_RED:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(0, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_GRN:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(88, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_BLU:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(168, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_CYN:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(128, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_MGT:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(216, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_YEL:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(40, 255, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_KEY:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(0, 0, 0);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+	case MAS_WHT:
+		if (record->event.pressed) {
+		#ifdef RGB_MATRIX_ENABLE
+			rgb_matrix_sethsv(128, 0, 255);
+		#endif // RGB_MATRIX_ENABLE
+		}
+		return false;
+
 	default:
 		return true;
 	}
 }
-

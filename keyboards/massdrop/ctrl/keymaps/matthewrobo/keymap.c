@@ -15,11 +15,21 @@ enum ctrl_keycodes {
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
     DBG_MOU,               //DEBUG Toggle Mouse Prints
     MD_BOOT,               //Restart into bootloader after hold timeout
+    MAS_CRM,
+    MAS_PRP,
+    MAS_RED,
+    MAS_GRN,
+    MAS_BLU,
+    MAS_CYN,
+    MAS_MGT,
+    MAS_YEL,
+    MAS_KEY,
+    MAS_WHT,
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define LT_CAPS LT(_NAV, KC_CAPS)
-
+#define _V_V_V_ KC_TRNS
 #ifdef RGB_MATRIX_ENABLE
 extern rgb_config_t rgb_matrix_config;
 extern bool autoshift_enabled;
@@ -41,17 +51,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_PMNS, KC_PPLS, _______,   _______, _______, _______, \
         _______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PSLS, _______, _______, KC_EQL,    _______, _______, _______, \
-        _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, KC_PPLS, _______, \
+        _V_V_V_, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, KC_PPLS, _______, \
         _______, _______, _______, _______, _______, _______, KC_P0,   KC_P0,   KC_P0,   KC_PDOT, KC_PSLS, _______,                              _______, \
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______  \
     ),
     [_FNC] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, KC_MSEL, KC_ASTG, \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MSTP, KC_MPLY, KC_VOLU, \
-        _______, RGB_MOD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______, _______, RGB_RMOD,RGB_MOD, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
-        _______, RGB_RMOD,RGB_VAD, RGB_SPD, RGB_HUD, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, \
-        _______, RGB_TOG, _______, _______, _______, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,                              RGB_VAI, \
-        _______, _______, _______,                   _______,                            _______, _______, _______, _______,            RGB_SPD, RGB_VAD, RGB_SPI  \
+        _______, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT, RGB_RMOD,RGB_MOD, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
+        _______, RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP, _______, _______, \
+        _______, RGB_TOG, _______, _______, _______, MD_BOOT, TG_NKRO, MAS_YEL, MAS_GRN, MAS_CRM, _______, _______,                              RGB_VAI, \
+        _______, _______, _______,                   _______,                            _______, _V_V_V_, _______, _______,            RGB_SPD, RGB_VAD, RGB_SPI  \
     ),
     /*
     [X] = LAYOUT(
@@ -62,69 +72,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                              _______, \
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______ \
     ),
+    [X] = LAYOUT(
+        0,       1,       2,       3,       4,       5,       6,       7,       8,       9,       10,      11,      12,                 13,      14,      15,      \
+        16,      17,      18,      19,      20,      21,      22,      23,      24,      25,      26,      27,      28,      29,        30,      31,      32,      \
+        33,      34,      35,      36,      37,      38,      39,      40,      41,      42,      43,      44,      45,      46,        47,      48,      49,      \
+        50,      51,      52,      53,      54,      55,      56,      57,      58,      59,      60,      61,      62,      \
+        63,      64,      65,      66,      67,      68,      69,      70,      71,      72,      73,      74,                                   75,      \
+        76,      77,      78,                        79,                                 80,      81,      82,      83,                 84,      85,      86      \
+    ),
     */
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-    autoshift_disable();
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
-
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    static uint32_t key_timer;
-
-    switch (keycode) {
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-            }
-            return false;
-        case U_T_AGCR:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
-            }
-            return false;
-        case DBG_TOG:
-            if (record->event.pressed) {
-                TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
-            }
-            return false;
-        case DBG_MTRX:
-            if (record->event.pressed) {
-                TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
-            }
-            return false;
-        case DBG_KBD:
-            if (record->event.pressed) {
-                TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
-            }
-            return false;
-        case DBG_MOU:
-            if (record->event.pressed) {
-                TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
-            }
-            return false;
-        case MD_BOOT:
-            if (record->event.pressed) {
-                key_timer = timer_read32();
-            } else {
-                if (timer_elapsed32(key_timer) >= 500) {
-                    reset_keyboard();
-                }
-            }
-            return false;
-        default:
-            return true; //Process all other keycodes normally
-    }
-}
 void rgb_matrix_indicators_user(void)
 {
 #ifdef RGB_MATRIX_ENABLE
@@ -189,8 +147,39 @@ void rgb_matrix_indicators_user(void)
             
 
         case _FNC:
+        {
+            HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+
+            HSV hui = hsv;
+            HSV hud = hsv;
+            HSV sai = hsv;
+            HSV sad = hsv;
+            HSV vai = hsv;
+            HSV vad = hsv;
+            hui.h = hsv.h + 8;
+            hud.h = hsv.h - 8;
+            sai.s = hsv.s + 16 > 255 ? 255u : hsv.s + 16;
+            sad.s = hsv.s - 16 < 0   ?   0 : hsv.s - 16;
+            vai.v = hsv.v + 16 > 255 ? 255 : hsv.v + 16;
+            vad.v = hsv.v - 16 < 0   ?   0 : hsv.v - 16;
+
+            RGB rgb = hsv_to_rgb(hsv);
+
+            RGB rgbHUI = hsv_to_rgb(hui);
+            RGB rgbHUD = hsv_to_rgb(hud);
+            RGB rgbSAI = hsv_to_rgb(sai);
+            RGB rgbSAD = hsv_to_rgb(sad);
+            RGB rgbVAI = hsv_to_rgb(vai);
+            RGB rgbVAD = hsv_to_rgb(vad);
+
             rgb_matrix_set_color(81, 0xFF, 0xFF, 0xFF); // layer indicator
             rgb_matrix_set_color(91, 0xFF, 0xFF, 0xFF); 
+
+            rgb_matrix_set_color(93, 0x00, 0x00, 0x00); 
+            rgb_matrix_set_color(94, rgb.r, rgb.g, rgb.b); 
+            rgb_matrix_set_color(95, rgb.r, rgb.g, rgb.b); 
+            rgb_matrix_set_color(96, 0x00, 0x00, 0x00); 
+
             
             rgb_matrix_set_color(68, 0xFF, 0x00, 0x00); // MD_BOOT
             rgb_matrix_set_color(69, 0xFF, 0x00, 0x40); // TG_NKRO
@@ -206,8 +195,7 @@ void rgb_matrix_indicators_user(void)
 
             rgb_matrix_set_color(14, 0x00, 0xFF, 0x00); // KC_MSEL
             rgb_matrix_set_color(31, 0x00, 0xFF, 0x00); // KC_MPLY
-                        
-            
+
             if (this_led & (1 << !autoshift_enabled)) {
                 rgb_matrix_set_color(15, 0xFF, 0x00, 0x00); // KC_ASTG
             } else {
@@ -215,33 +203,180 @@ void rgb_matrix_indicators_user(void)
             }
             
             rgb_matrix_set_color(44, 0xFF, 0x80, 0x00); //RGB_MOD
-            rgb_matrix_set_color(45, 0xFF, 0x80, 0x00); 
+            rgb_matrix_set_color(45, 0xFF, 0x80, 0x00);
             rgb_matrix_set_color(34, 0xFF, 0x80, 0x00); //RGB_MOD
-            rgb_matrix_set_color(51, 0xFF, 0x80, 0x00); 
+            rgb_matrix_set_color(51, 0xFF, 0x80, 0x00);
+
             rgb_matrix_set_color(64, 0xFF, 0x40, 0x00); //RGB_TOG
             
-            rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); //RGB_VAI
-            rgb_matrix_set_color(52, 0x00, 0x40, 0x40);
-            rgb_matrix_set_color(75, 0x00, 0xFF, 0xFF); //RGB_VAI
-            rgb_matrix_set_color(85, 0x00, 0x40, 0x40);
-            
-            rgb_matrix_set_color(36, 0x80, 0x80, 0x80); //RGB_SPI
-            rgb_matrix_set_color(53, 0x80, 0x80, 0x80);
+
+            rgb_matrix_set_color(36, rgbHUI.r, rgbHUI.g, rgbHUI.b); //RGB_HUI
+            rgb_matrix_set_color(53, rgbHUD.r, rgbHUD.g, rgbHUD.b);
+            rgb_matrix_set_color(37, rgbSAI.r, rgbSAI.g, rgbSAI.b); //RGB_SAI
+            rgb_matrix_set_color(54, rgbSAD.r, rgbSAD.g, rgbSAD.b);
+            rgb_matrix_set_color(38, rgbVAI.r, rgbVAI.g, rgbVAI.b); //RGB_VAI
+            rgb_matrix_set_color(55, rgbVAD.r, rgbVAD.g, rgbVAD.b);
+
+            rgb_matrix_set_color(79, rgb.r, rgb.g, rgb.b); // config display
+
+            rgb_matrix_set_color(75, rgbVAI.r, rgbVAI.g, rgbVAI.b); //RGB_VAI
+            rgb_matrix_set_color(85, rgbVAD.r, rgbVAD.g, rgbVAD.b);
+
+            rgb_matrix_set_color(35, 0x80, 0x80, 0x80); //RGB_SPI
+            rgb_matrix_set_color(52, 0x80, 0x80, 0x80);
             rgb_matrix_set_color(84, 0x80, 0x80, 0x80); //RGB_SPI
             rgb_matrix_set_color(86, 0x80, 0x80, 0x80);
             
-            rgb_matrix_set_color(37, 0xFF, 0x80, 0x00); //RGB_HUI
-            rgb_matrix_set_color(54, 0xFF, 0x00, 0x80);
-            
-            rgb_matrix_set_color(38, 0xFF, 0x00, 0x00); //SAI
-            rgb_matrix_set_color(55, 0xFF, 0xAA, 0xAA); //SAD
+            rgb_matrix_set_color(41, 0xF0, 0x00, 0xFF); //MAS_MGT
+            rgb_matrix_set_color(42, 0x00, 0x02, 0xFF); //MAS_BLU
+            rgb_matrix_set_color(57, 0xFF, 0x00, 0x00); //MAS_RED
+            rgb_matrix_set_color(58, 0x00, 0x00, 0x00); //MAS_KEY
+            rgb_matrix_set_color(59, 0x00, 0xFF, 0xF7); //MAS_CYN
+            rgb_matrix_set_color(70, 0xFF, 0xDA, 0x00); //MAS_YEL
+            rgb_matrix_set_color(71, 0x00, 0xFF, 0x01); //MAS_GRN
 
-
+            rgb_matrix_set_color(72, 0xFF, 0xE8, 0x22); //MAS_CRM
+            rgb_matrix_set_color(60, 0x81, 0x3C, 0xFF); //MAS_PRP
+            rgb_matrix_set_color(26, 0xFF, 0xFF, 0xFF); //MAS_WHT
+        }
             break;
         }
     }
-    
-    
 #endif // RGB_MATRIX_ENABLE
+}
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+    autoshift_disable();
+    #ifdef RGB_MATRIX_ENABLE
+        rgb_matrix_sethsv(192, 112, 255);
+        rgb_matrix_mode(4);
+    #endif // RGB_MATRIX_ENABLE
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+};
+
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static uint32_t key_timer;
+
+    switch (keycode) {
+        case U_T_AUTO:
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
+            }
+            return false;
+        case U_T_AGCR:
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+                TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
+            }
+            return false;
+        case DBG_TOG:
+            if (record->event.pressed) {
+                TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
+            }
+            return false;
+        case DBG_MTRX:
+            if (record->event.pressed) {
+                TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
+            }
+            return false;
+        case DBG_KBD:
+            if (record->event.pressed) {
+                TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
+            }
+            return false;
+        case DBG_MOU:
+            if (record->event.pressed) {
+                TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
+            }
+            return false;
+        case MD_BOOT:
+            if (record->event.pressed) {
+                key_timer = timer_read32();
+            } else {
+                if (timer_elapsed32(key_timer) >= 500) {
+                    reset_keyboard();
+                }
+            }
+            return false;
+        case MAS_CRM:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(40, 144, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_PRP:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(192, 112, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_RED:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(0, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_GRN:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(88, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_BLU:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(168, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_CYN:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(128, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_MGT:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(216, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_YEL:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(40, 255, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_KEY:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(0, 0, 0);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        case MAS_WHT:
+            if (record->event.pressed) {
+            #ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_sethsv(128, 0, 255);
+            #endif // RGB_MATRIX_ENABLE
+            }
+            return false;
+        default:
+            return true; //Process all other keycodes normally
+    }
 }
 
