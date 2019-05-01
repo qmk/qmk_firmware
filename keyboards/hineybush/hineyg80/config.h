@@ -45,4 +45,3 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#endif
