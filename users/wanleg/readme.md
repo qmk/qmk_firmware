@@ -1,5 +1,4 @@
 # Contents  
----
   * [Git Basics](#git-basics)  
        * [Update a Feature Branch](#update-a-feature-branch)  
        * [Delete Branch Locally and Remotely](#delete-branch-locally-and-remotely)
