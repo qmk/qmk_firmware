@@ -127,13 +127,13 @@ Configure the hardware via your `config.h`:
 From this point forward the configuration is the same for all the drivers. The struct rgb_led array tells the system for each led, what key electrical matrix it represents, what the physical position is on the board, and if the led is for a modifier key or not. Here is a brief example:
 
 ```C
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 /*  {row | col << 4}
     *    |         {x=0..224, y=0..64}
-    *    |            |              modifier
+    *    |            |              flags
     *    |            |                | */
     {{0|(0<<4)},   {20.36*0, 21.33*0}, 1},
-    {{0|(1<<4)},   {20.36*1, 21.33*0}, 1},
+    {{0|(1<<4)},   {20.36*1, 21.33*0}, 4},
     ....
 }
 ```
@@ -147,7 +147,19 @@ y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 
 Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
-`modifier` is a boolean, whether or not a certain key is considered a modifier (used in some effects).
+`flags` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+
+## Flags
+
+|Define                              |Description                                |
+|------------------------------------|-------------------------------------------|
+|`#define HAS_FLAGS(bits, flags)`    |Returns true if `bits` has all `flags` set.|
+|`#define HAS_ANY_FLAGS(bits, flags)`|Returns true if `bits` has any `flags` set.|
+|`#define LED_FLAG_NONE      0x00`   |If thes LED has no flags.                  |
+|`#define LED_FLAG_ALL       0xFF`   |If thes LED has all flags.                 |
+|`#define LED_FLAG_MODIFIER  0x01`   |If the Key for this LED is a modifier.     |
+|`#define LED_FLAG_UNDERGLOW 0x02`   |If the LED is for underglow.               |
+|`#define LED_FLAG_KEYLIGHT  0x04`   |If the LED is for key backlight.           |
 
 ## Keycodes
 
@@ -177,7 +189,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
     RGB_MATRIX_CYCLE_ALL,           // Full keyboard solid hue cycling through full gradient
-    RGB_MATRIX_CYCLE_LEFT_RIGHT,    // Full gradient scrolling left to right 
+    RGB_MATRIX_CYCLE_LEFT_RIGHT,    // Full gradient scrolling left to right
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradent Chevron shapped scrolling left to right
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
@@ -203,7 +215,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_EFFECT_MAX
 };
 ```
-    
+
 You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
 
 
@@ -236,17 +248,60 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`         |Disables `RGB_MATRIX_SOLID_MULTISPLASH`        |
 
 
-## Custom layer effects
+## Custom RGB Matrix Effects
 
-Custom layer effects can be done by defining this in your `<keyboard>.c`:
+By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+
+To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
+
+`rgb_matrix_user.inc` should go in the root of the keymap directory.
+`rgb_matrix_kb.inc` should go in the root of the keyboard directory.
 
 ```C
-void rgb_matrix_indicators_kb(void) {
-    rgb_matrix_set_color(index, red, green, blue);
+// !!! DO NOT ADD #pragma once !!! //
+
+// Step 1.
+// Declare custom effects using the RGB_MATRIX_EFFECT macro
+// (note the lack of semicolon after the macro!)
+RGB_MATRIX_EFFECT(my_cool_effect)
+RGB_MATRIX_EFFECT(my_cool_effect2)
+
+// Step 2.
+// Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
+// e.g: A simple effect, self-contained within a single method
+static bool my_cool_effect(effect_params_t* params) {
+  RGB_MATRIX_USE_LIMITS(led_min, led_max);
+  for (uint8_t i = led_min; i < led_max; i++) {
+    rgb_matrix_set_color(i, 0xff, 0xff, 0x00);
+  }
+  return led_max < DRIVER_LED_TOTAL;
 }
+
+// e.g: A more complex effect, relying on external methods and state, with
+// dedicated init and run methods
+static uint8_t some_global_state;
+static void my_cool_effect2_complex_init(effect_params_t* params) {
+  some_global_state = 1;
+}
+static bool my_cool_effect2_complex_run(effect_params_t* params) {
+  RGB_MATRIX_USE_LIMITS(led_min, led_max);
+  for (uint8_t i = led_min; i < led_max; i++) {
+    rgb_matrix_set_color(i, 0xff, some_global_state++, 0xff);
+  }
+
+  return led_max < DRIVER_LED_TOTAL;
+}
+static bool my_cool_effect2(effect_params_t* params) {
+  if (params->init) my_cool_effect2_complex_init(params);
+  return my_cool_effect2_complex_run(params);
+}
+
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 ```
 
-A similar function works in the keymap as `rgb_matrix_indicators_user`.
+For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix_animation/`
 
 
 ## Colors

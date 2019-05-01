@@ -443,9 +443,9 @@ static void led_matrix_massdrop_config_override(int i)
 
     uint8_t highest_active_layer = biton32(layer_state);
 
-    if (led_lighting_mode == LED_MODE_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw == 0xff) {
+    if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_rgb_leds[i].flags, LED_FLAG_UNDERGLOW)) {
         //Do not act on this LED
-    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw != 0xff) {
+    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !HAS_FLAGS(g_rgb_leds[i].flags, LED_FLAG_UNDERGLOW)) {
         //Do not act on this LED
     } else if (led_lighting_mode == LED_MODE_INDICATORS_ONLY) {
         //Do not act on this LED (Only show indicators)
