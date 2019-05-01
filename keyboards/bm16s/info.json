@@ -5,7 +5,7 @@
     "width": 4,
     "height": 4,
     "layouts": {
-      "LAYOUT": {
+      "LAYOUT_ortho_4x4": {
         "key_count": 16,
         "layout": [
           {"x":0, "y":0},
