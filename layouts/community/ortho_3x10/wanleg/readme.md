@@ -1,4 +1,4 @@
-![Gherkin Wanleg Layout Image](https://i.imgur.com/nCPog2W.png)  
+![Gherkin Wanleg Layout Image](https://i.imgur.com/iNkR90W.png)  
 # Gherkin Wanleg Layout
 This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board.  
 Here are the two Tap Dance keys I've set up for this board:
