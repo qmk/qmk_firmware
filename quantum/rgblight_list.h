@@ -38,22 +38,22 @@
 /*            HSV COLORS            */
 #define HSV_WHITE          0,   0, 255
 #define HSV_RED            0, 255, 255
-#define HSV_CORAL         16, 176, 255
-#define HSV_ORANGE        39, 255, 255
-#define HSV_GOLDENROD     43, 218, 218
-#define HSV_GOLD          51, 255, 255
-#define HSV_YELLOW        60, 255, 255
-#define HSV_CHARTREUSE    90, 255, 255
-#define HSV_GREEN        120, 255, 255
-#define HSV_SPRINGGREEN  150, 255, 255
-#define HSV_TURQUOISE    174,  90, 112
-#define HSV_TEAL         180, 255, 128
-#define HSV_CYAN         180, 255, 255
-#define HSV_AZURE        186, 102, 255
-#define HSV_BLUE         240, 255, 255
-#define HSV_PURPLE       270, 255, 255
-#define HSV_MAGENTA      300, 255, 255
-#define HSV_PINK         330, 128, 255
+#define HSV_CORAL         11, 176, 255
+#define HSV_ORANGE        28, 255, 255
+#define HSV_GOLDENROD     30, 218, 218
+#define HSV_GOLD          36, 255, 255
+#define HSV_YELLOW        43, 255, 255
+#define HSV_CHARTREUSE    64, 255, 255
+#define HSV_GREEN         85, 255, 255
+#define HSV_SPRINGGREEN  106, 255, 255
+#define HSV_TURQUOISE    123,  90, 112
+#define HSV_TEAL         128, 255, 128
+#define HSV_CYAN         128, 255, 255
+#define HSV_AZURE        132, 102, 255
+#define HSV_BLUE         170, 255, 255
+#define HSV_PURPLE       191, 255, 255
+#define HSV_MAGENTA      213, 255, 255
+#define HSV_PINK         234, 128, 255
 
 
 /*

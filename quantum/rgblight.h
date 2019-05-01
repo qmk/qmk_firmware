@@ -113,7 +113,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #endif
 
 #ifndef RGBLIGHT_HUE_STEP
-#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_HUE_STEP 8
 #endif
 #ifndef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 17
@@ -151,12 +151,13 @@ extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern bool is_rgblight_initialized;
 
+// Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
   uint32_t raw;
   struct {
     bool     enable  :1;
-    uint8_t  mode    :6;
-    uint16_t hue     :9;
+    uint8_t  mode    :7;
+    uint8_t  hue     :8;
     uint8_t  sat     :8;
     uint8_t  val     :8;
     uint8_t  speed   :8;//EECONFIG needs to be increased to support this
@@ -211,19 +212,19 @@ void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
 void rgblight_increase_speed(void);
 void rgblight_decrease_speed(void);
-void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
-uint16_t rgblight_get_hue(void);
+void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
+uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
-void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
+void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index);
 void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end);
-void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
+void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
 void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
-void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
-void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds);
 
 uint32_t eeconfig_read_rgblight(void);
@@ -234,10 +235,10 @@ void eeconfig_debug_rgblight(void);
 void rgb_matrix_increase(void);
 void rgb_matrix_decrease(void);
 
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
+void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
-void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
@@ -251,7 +252,7 @@ void rgblight_decrease_sat_noeeprom(void);
 void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val_noeeprom(void);
 
-void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
+void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 
 
@@ -274,7 +275,7 @@ typedef struct _animation_status_t {
     union {
         uint16_t pos16;
         uint8_t  pos;
-        int16_t  current_hue;
+        int8_t   current_hue;
         uint16_t current_offset;
     };
 } animation_status_t;
