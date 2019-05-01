@@ -99,12 +99,12 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 #elif defined(WS2812)
 
-extern LED_TYPE led[RGBLED_NUM];
+extern LED_TYPE led[DRIVER_LED_TOTAL];
 
   static void flush( void )
   {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(led, DRIVER_LED_TOTAL);
   }
 
   static void init( void )
