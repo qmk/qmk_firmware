@@ -338,7 +338,7 @@ qmk_dict = {
     # If you find "BAD" in your keymaps, then something went wrong.)
     "a": "BAD", "A": "BAD", "0": "BAD",
     # Basic Keycodes
-    "XXX": "XXXXXXX", "": "KC_TRNS",
+    "XXX": "KC_NO", "": "KC_TRNS",
     "!": "S(KC_1)", "@": "S(KC_2)", "#": "S(KC_3)", "$": "S(KC_4)", "%": "S(KC_5)",
     "^": "S(KC_6)", "&": "S(KC_7)", "*": "S(KC_8)", "(": "S(KC_9)", ")": "S(KC_0)",
     "Enter": "KC_ENT", "Esc": "KC_ESC", "BSpace": "KC_BSPC", "Tab": "KC_TAB",
