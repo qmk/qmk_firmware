@@ -6,7 +6,6 @@
 
 ---
 ## Git Basics  
----
 ### Update a Development Branch
 
 This is how to update a working branch with upstream changes.
