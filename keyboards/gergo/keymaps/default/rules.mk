@@ -3,7 +3,7 @@
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 # Firmware options
-BALLER = yes 			# Enable to ball out
+BALLER = no 			# Enable to ball out
 BALLSTEP = 20  			# Multiple in px to move, multiplied by layer number
 SCROLLSTEP = 1 			# Lines to scroll with ball
 MOUSEKEY_ENABLE = yes  		# Mouse keys(+4700), needed for baller
@@ -26,6 +26,7 @@ ifneq ($(strip $(SCROLLSTEP)),)
     OPT_DEFS += -DSCROLLSTEP=$(strip $(SCROLLSTEP))
 endif
 ifeq ($(strip $(BALLER)), yes)
+	POINTING_DEVICE_ENABLE	= yes
     OPT_DEFS += -DBALLER
 endif
 ifeq ($(strip $(DEBUG_BALLER)), yes)

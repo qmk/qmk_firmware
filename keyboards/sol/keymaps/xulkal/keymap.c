@@ -92,14 +92,28 @@ static void render_logo(void) {
   oled_write_P(sol_logo, false);
 }
 
+extern rgb_config_t rgb_matrix_config;
+
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[2][4] = {
-    {0x97,0x98,0x0a,0},
-    {0xb7,0xb8,0x0a,0} };
+  static const char PROGMEM mode_logo[2][3] = {
+    {0x97,0x98,0},
+    {0xb7,0xb8,0} };
 
     oled_write_P(mode_logo[0], false);
+
+#if defined(RGB_MATRIX_ENABLE)
+    static char buffer[20] = {0};
+    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val);
+    oled_write(buffer, false);
+#endif
+
     oled_write_P(mode_logo[1], false);
+
+#if defined(RGB_MATRIX_ENABLE)
+    snprintf(buffer, sizeof(buffer), "         s%3d m%3d\n", rgb_matrix_config.speed, rgb_matrix_config.mode);
+    oled_write(buffer, false);
+#endif
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);

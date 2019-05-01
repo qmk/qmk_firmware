@@ -1,14 +1,24 @@
-Setting up your ARM based PCB is a little more involved than an Atmel MCU, but is easy enough. Start by using `util/new_project.sh <keyboard>` to create a new project:
+Setting up your ARM based PCB is a little more involved than an Atmel MCU, but is easy enough. Start by running `util/new_keyboard.sh`:
 
 ```
-$ util/new_project.sh simontester
-######################################################
-# /keyboards/simontester project created. To start
-# working on things, cd into keyboards/simontester
-######################################################
+$ ./util/new_keyboard.sh
+Generating a new QMK keyboard directory
+
+Keyboard Name: mycoolkb
+Keyboard Type [avr]: 
+Your Name [John Smith]: 
+
+Copying base template files... done
+Copying avr template files... done
+Renaming keyboard files... done
+Replacing %KEYBOARD% with mycoolkb... done
+Replacing %YOUR_NAME% with John Smith... done
+
+Created a new keyboard called mycoolkb.
+
+To start working on things, cd into keyboards/mycoolkb,
+or open the directory in your favourite text editor.
 ```
-
-
 
 # END OF NEW ARM DOC, OLD ATMEL DOC FOLLOWS
 
