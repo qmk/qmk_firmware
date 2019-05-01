@@ -1,4 +1,5 @@
 # Copyright 2017 Fred Sundvik
+# Copyright 2019 /u/KeepItUnder
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -193,7 +194,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 custom
+VALID_RGB_MATRIX_TYPES := IS31FL3731 IS31FL3733 IS31FL3737 IS31FL3741 WS2812 MBI5042 custom
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
@@ -242,6 +243,14 @@ endif
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
     endif
+
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), MBI5042)
+        OPT_DEFS += -DMBI5042
+        COMMON_VPATH += $(DRIVER_PATH)/macroblock
+        SRC += mbi5042gp.c
+    endif
+
+
 
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
@@ -350,8 +359,13 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
-    OPT_DEFS += -DUSE_CIE1931_CURVE
-    LED_TABLES := yes
+    ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+        OPT_DEFS += -DUSE_CIE1931_16_CURVE
+        LED_TABLES = yes
+    else
+        OPT_DEFS += -DUSE_CIE1931_CURVE
+        LED_TABLES = yes
+    endif
 endif
 
 ifeq ($(strip $(LED_TABLES)), yes)

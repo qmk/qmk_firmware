@@ -1,5 +1,6 @@
 /*
 Copyright 2017 Fred Sundvik
+Copyright 2019 /u/KeepItUnder
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef USE_CIE1931_CURVE
 extern const uint8_t CIE1931_CURVE[] PROGMEM;
+#endif
+
+#ifdef USE_CIE1931_16_CURVE
+extern const uint16_t CIE1931_16_CURVE[] PROGMEM;
 #endif
 
 #endif
