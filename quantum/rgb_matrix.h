@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2019 /u/KeepItUnder
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +35,8 @@
   #include "is31fl3737.h"
 #elif defined (WS2812)
   #include "ws2812.h"
+#elif defined (MBI5042)
+  #include "mbi5042gp.h"
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT

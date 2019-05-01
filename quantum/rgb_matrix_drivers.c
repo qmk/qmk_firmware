@@ -1,4 +1,5 @@
 /* Copyright 2018 James Laird-Wah
+ * Copyright 2019 /u/KeepItUnder
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -120,4 +121,23 @@ extern LED_TYPE led[DRIVER_LED_TOTAL];
       .set_color = ws2812_setled,
       .set_color_all = ws2812_setled_all,
   };
+
+#elif defined(MBI5042)
+
+static void init( void )
+{
+    MBI5042GP_init();
+}
+
+static void flush( void )
+{
+    MBI5042GP_write_pwm_buffers();
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = MBI5042GP_set_color,
+    .set_color_all = MBI5042GP_set_color_all,
+};
 #endif
