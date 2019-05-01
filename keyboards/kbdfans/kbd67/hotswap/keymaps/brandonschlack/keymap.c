@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MM_FN_W,                   KC_LEFT, KC_DOWN, KC_RGHT),
 /* Function Layer: Windows
  * ,---------------------------------------------------------------.
- * |MKE| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |   |   |
+ * |MKE| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |TSK|LCK|
  * |---------------------------------------------------------------|
  * |     |   |   |   |RST|   |   |   |   |   |PtS|SLk|Pau|  Del|   |
  * |---------------------------------------------------------------|
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------'
  */
 [LF_WIN] = LAYOUT(
-  KC_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, \
+  KC_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, WN_TSKM, WN_LOCK, \
   _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_DEL,           _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC,          KC_BRIU, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MM_RSFT,                   KC_VOLU, KC_BRID, \
