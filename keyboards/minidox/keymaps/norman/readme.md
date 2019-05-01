@@ -1,6 +1,6 @@
 # Minidox Norman Layout by LeHoff
 Based on the QWERTY layout created by Khitsule.
-![Khitsule](https://imgur.com/ogNeW42)
+![lehoff](https://i.imgur.com/rKTdymp.png)
 
 [KLE link](http://www.keyboard-layout-editor.com/#/gists/86ec49f9f820a8b9b36f6e0d2ef8fff7)
 

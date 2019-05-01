@@ -2,9 +2,6 @@
 
 #include "keymap_norman.h"
 
-#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-#define QMK_KEYS_PER_SCAN 4
 
 extern keymap_config_t keymap_config;
 
@@ -12,10 +9,12 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _NORMAN 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 16
+enum layers {
+    _NORMAN,
+    _LOWER,
+    _RAISE,
+    _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
