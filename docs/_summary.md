@@ -63,6 +63,7 @@
   * [LED Matrix](feature_led_matrix.md)
   * [Macros](feature_macros.md)
   * [Mouse Keys](feature_mouse_keys.md)
+  * [OLED Driver](feature_oled_driver)
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
   * [Pointing Device](feature_pointing_device.md)
   * [PS/2 Mouse](feature_ps2_mouse.md)
