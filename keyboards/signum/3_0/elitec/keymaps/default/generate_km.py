@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from sortedcontainers import SortedDict
 import layout
 import re
 
@@ -11,7 +10,7 @@ import re
 
 def gen_uc_iter():
     length = len(layout.uc_dict)
-    for key, value in layout.uc_dict.items():
+    for key, value in sorted(layout.uc_dict.items()):
         length -= 1
         if length:
             yield (key, value, False)
@@ -104,7 +103,7 @@ if __name__ == "__main__":
                 output.write(" *                                 -------------------------------------------------\n")
                 output.write(" */\n")
 
-                l_code = '\tLAYOUT(\n'
+                l_code = '\tLAYOUT_ortho_4x12(\n'
                 for r in range(r_counter):
                     r_counter -= 1
                     c_counter = 12

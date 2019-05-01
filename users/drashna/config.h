@@ -82,4 +82,4 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define MACRO_TIMER 5
+#define TAP_CODE_DELAY 5
