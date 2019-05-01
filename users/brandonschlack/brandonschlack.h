@@ -41,8 +41,8 @@ enum custom_keycodes {
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
-#define MC_MSSN   HYPR(KC_F3)          // Mission Control: Configure karabiner for HYPER -> fn
-#define MC_LHPD   HYPR(KC_F4)          // Launchpad: Configure karabiner for HYPER -> fn
+#define MC_MSSN   LCTL(KC_UP)          // Mission Control
+#define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
 // Windows
 #define WN_LOCK   LGUI(KC_L)           // Lock Computer
 #define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)
