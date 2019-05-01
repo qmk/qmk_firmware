@@ -108,7 +108,7 @@ Flashing a bootloader on to a Black Pill can be done via a USB to Serial convert
   3.3V to 3.3 Volts  
 4. Download and install __Flash Loader Demonstrator__ from [here](http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/stm32-programmers/flasher-stm32.html)  
 5. Use __Flash Loader Demonstrator__ to flash the bootloader  
-  Ensure the correct COM port is selected.  
+  Ensure the correct COM port is selected. Leave other options with their default values/selections.  
   Use the "Download to Device" option, with "Erase necessary pages" selected  
 6. After a successful flash, set 'boot 0' pin/jumper low  
   B0- to center pin  
@@ -120,5 +120,6 @@ As of April 2019, the `:dfu-util` target doesn't work on a \*Pill. You will need
 2. Run `dfu-util.exe -d 1eaf:0003 -a 2 -D YOUR_FIRMWARE.bin"`  
   If this is the first QMK flash on the \*Pill, you will need to synchronize your Reset Button-push with starting the command. By default, the \*Pill only stays in bootloader mode for about 3 seconds before returning to normal operation.  
 
-See [this page](https://docs.qmk.fm/#/faq_build?id=unknown-device-for-dfu-bootloader) if Windows can't see anything to upload to.
+See [this page](https://docs.qmk.fm/#/faq_build?id=unknown-device-for-dfu-bootloader) if Windows can't see anything to upload to.  
+
 ---
