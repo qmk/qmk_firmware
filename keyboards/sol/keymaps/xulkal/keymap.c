@@ -96,7 +96,7 @@ extern rgb_config_t rgb_matrix_config;
 
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[2][4] = {
+  static const char PROGMEM mode_logo[2][3] = {
     {0x97,0x98,0},
     {0xb7,0xb8,0} };
 
