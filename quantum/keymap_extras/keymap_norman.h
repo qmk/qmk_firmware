@@ -14,8 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KEYMAP_NORMAN_H
-#define KEYMAP_NORMAN_H
+#pragma once
 
 #include "keymap.h"
 // For software implementation of norman
@@ -88,4 +87,3 @@
 #define KC_NM_DOT  NM_DOT
 #define KC_NM_SLSH NM_SLSH
 
-#endif
