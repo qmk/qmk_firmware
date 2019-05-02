@@ -261,8 +261,8 @@ st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
-	ifneq ($(strip "$(DFU_SUFFIX_ARGS)","")
-		echo "$(DFU_SUFFIX_ARGS)"
-		# $(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin
-	endif
+	# ifneq ($(strip "$(DFU_SUFFIX_ARGS)","")
+	#	echo "$(DFU_SUFFIX_ARGS)"
+	$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin
+	#endif
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
