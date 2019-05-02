@@ -4,6 +4,12 @@
 
 Flashing the regular PCB firmware on this board will work, but will disable RGB lighting. 
 
+**THIS IS THE RGB PCB DIRECTORY (AVAILABILITY: CHINA + INTERNATIONAL GB)**
+The "rgb" directory includes the keymap for the RGB PCB.
+
+The multi-layout PCB and RGB pcb were the only two options available to NON-china buyers.
+If you purchased a non-rgb PCB, please see the 'multi' directory.
+
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Doro 67 RGB PCB  
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=97265.0)

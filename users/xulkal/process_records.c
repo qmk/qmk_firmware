@@ -11,6 +11,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
+#if defined(RGB_MATRIX_ENABLE)
+extern void eeconfig_update_rgb_matrix_default(void);
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -56,12 +60,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
         }
-      #endif
+#elif defined(RGB_MATRIX_ENABLE)
+        if (record->event.pressed) {
+          eeconfig_update_rgb_matrix_default();
+        }
+#endif
       return false;
       break;
   }
