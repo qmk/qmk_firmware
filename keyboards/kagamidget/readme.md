@@ -6,7 +6,6 @@ KagaMidget is 40% tiny keyboard.
 
 Keyboard Maintainer: [yynmt](https://github.com/yynmt)  
 Hardware Supported:  KagaMidget PCBs, ProMicro supported  
-Hardware Availability: links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 
