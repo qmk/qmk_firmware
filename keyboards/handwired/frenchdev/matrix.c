@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "frenchdev.h"
-#include "i2cmaster.h"
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #include  "timer.h"
 #endif
@@ -280,11 +279,12 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-            data = i2c_readNak();
-            data = ~data;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);   if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            data = i2c_read_nack(I2C_TIMEOUT);                         if (mcp23018_status < 0) goto out;
+            data = ~((uint8_t)mcp23018_status);
+            mcp23018_status = I2C_STATUS_SUCCESS;
         out:
             i2c_stop();
             return data;
@@ -318,11 +318,9 @@ static void unselect_rows(void)
         // do nothing
     } else {
         // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write( 0xFF
-                              & ~(0<<8)
-                          );                            if (mcp23018_status) goto out;
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);             if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write( 0xFF & ~(0<<8), I2C_TIMEOUT);   if (mcp23018_status) goto out;
     out:
         i2c_stop();
     }
@@ -346,11 +344,9 @@ static void select_row(uint8_t row)
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row)
-                                  & ~(0<<8)
-                              );                                if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);                          if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);                                   if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write( 0xFF & ~(1<<row) & ~(0<<8), I2C_TIMEOUT);             if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }
@@ -393,4 +389,3 @@ static void select_row(uint8_t row)
         }
     }
 }
-

@@ -105,6 +105,7 @@ endif
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
+    SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
@@ -176,6 +177,14 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     OPT_DEFS += -DWS2812
     SRC += ws2812.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -342,4 +351,10 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/oled
     QUANTUM_LIB_SRC += i2c_master.c
     SRC += oled_driver.c
+endif
+
+SPACE_CADET_ENABLE ?= yes
+ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+  OPT_DEFS += -DSPACE_CADET_ENABLE
 endif
