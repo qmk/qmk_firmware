@@ -74,7 +74,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	{1, C9_16, C7_15, C6_15}, // LD16
 	{1, C8_16, C7_16, C6_16}, // LD17
 };
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     {{1|(7<<4)},   {16*7,  16}, 4},
     {{1|(6<<4)},   {16*6,  16}, 4},
     {{1|(5<<4)},   {16*5,  16}, 4},
