@@ -68,11 +68,11 @@
 #define _RGBM_SINGLE_DYNAMIC(sym)  RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_DYNAMIC(sym)   RGBLIGHT_MODE_ ## sym,
-#define _RGBM_TMP_STATIC(sym)      RGBLIGHT_MODE_ ## sym,
-#define _RGBM_TMP_DYNAMIC(sym)     RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_STATIC(sym, msym)  RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_ ## sym,
 enum RGBLIGHT_EFFECT_MODE {
     RGBLIGHT_MODE_zero = 0,
-#include "rgblight.h"
+#include "rgblight_modes.h"
     RGBLIGHT_MODE_last
 };
 
@@ -113,7 +113,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #endif
 
 #ifndef RGBLIGHT_HUE_STEP
-#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_HUE_STEP 8
 #endif
 #ifndef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 17
@@ -151,17 +151,45 @@ extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern bool is_rgblight_initialized;
 
+// Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
   uint32_t raw;
   struct {
     bool     enable  :1;
-    uint8_t  mode    :6;
-    uint16_t hue     :9;
+    uint8_t  mode    :7;
+    uint8_t  hue     :8;
     uint8_t  sat     :8;
     uint8_t  val     :8;
     uint8_t  speed   :8;//EECONFIG needs to be increased to support this
   };
 } rgblight_config_t;
+
+typedef struct _rgblight_status_t {
+    uint8_t  base_mode;
+    bool timer_enabled;
+#ifdef RGBLIGHT_SPLIT
+    uint8_t change_flags;
+#endif
+} rgblight_status_t;
+
+#ifdef RGBLIGHT_SPLIT
+  #define RGBLIGHT_STATUS_CHANGE_MODE (1<<0)
+  #define RGBLIGHT_STATUS_CHANGE_HSVS (1<<1)
+  #define RGBLIGHT_STATUS_CHANGE_TIMER (1<<2)
+  #define RGBLIGHT_STATUS_ANIMATION_TICK (1<<3)
+
+  typedef struct _rgblight_syncinfo_t {
+    rgblight_config_t config;
+    rgblight_status_t status;
+  } rgblight_syncinfo_t;
+
+  /* for split keyboard master side */
+  uint8_t rgblight_get_change_flags(void);
+  void rgblight_clear_change_flags(void);
+  void rgblight_get_syncinfo(rgblight_syncinfo_t *syncinfo);
+  /* for split keyboard slave side */
+  void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom);
+#endif
 
 void rgblight_init(void);
 void rgblight_increase(void);
@@ -184,19 +212,19 @@ void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
 void rgblight_increase_speed(void);
 void rgblight_decrease_speed(void);
-void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
-uint16_t rgblight_get_hue(void);
+void rgblight_sethsv(uint8_t hue, uint8_t sat, uint8_t val);
+uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
-void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
+void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index);
 void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end);
-void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
+void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
 void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
-void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
-void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds);
 
 uint32_t eeconfig_read_rgblight(void);
@@ -207,10 +235,10 @@ void eeconfig_debug_rgblight(void);
 void rgb_matrix_increase(void);
 void rgb_matrix_decrease(void);
 
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
+void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 
-void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
@@ -224,7 +252,7 @@ void rgblight_decrease_sat_noeeprom(void);
 void rgblight_increase_val_noeeprom(void);
 void rgblight_decrease_val_noeeprom(void);
 
-void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
+void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
 
 
@@ -237,82 +265,33 @@ void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
-void rgblight_effect_breathing(uint8_t interval);
-void rgblight_effect_rainbow_mood(uint8_t interval);
-void rgblight_effect_rainbow_swirl(uint8_t interval);
-void rgblight_effect_snake(uint8_t interval);
-void rgblight_effect_knight(uint8_t interval);
-void rgblight_effect_christmas(void);
-void rgblight_effect_rgbtest(void);
-void rgblight_effect_alternating(void);
+
+#ifdef RGBLIGHT_USE_TIMER
+
+typedef struct _animation_status_t {
+    uint16_t last_timer;
+    uint8_t  delta; /* mode - base_mode */
+    bool     restart;
+    union {
+        uint16_t pos16;
+        uint8_t  pos;
+        int8_t   current_hue;
+        uint16_t current_offset;
+    };
+} animation_status_t;
+
+extern animation_status_t animation_status;
+
+void rgblight_effect_breathing(animation_status_t *anim);
+void rgblight_effect_rainbow_mood(animation_status_t *anim);
+void rgblight_effect_rainbow_swirl(animation_status_t *anim);
+void rgblight_effect_snake(animation_status_t *anim);
+void rgblight_effect_knight(animation_status_t *anim);
+void rgblight_effect_christmas(animation_status_t *anim);
+void rgblight_effect_rgbtest(animation_status_t *anim);
+void rgblight_effect_alternating(animation_status_t *anim);
+
+#endif
 
 #endif // #ifndef RGBLIGHT_H_DUMMY_DEFINE
 #endif // RGBLIGHT_H
-
-#ifdef _RGBM_SINGLE_STATIC
-  _RGBM_SINGLE_STATIC( STATIC_LIGHT )
-  #ifdef RGBLIGHT_EFFECT_BREATHING
-    _RGBM_MULTI_DYNAMIC( BREATHING )
-    _RGBM_TMP_DYNAMIC( breathing_3 )
-    _RGBM_TMP_DYNAMIC( breathing_4 )
-    _RGBM_TMP_DYNAMIC( BREATHING_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
-    _RGBM_MULTI_DYNAMIC( RAINBOW_MOOD )
-    _RGBM_TMP_DYNAMIC( rainbow_mood_7 )
-    _RGBM_TMP_DYNAMIC( RAINBOW_MOOD_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    _RGBM_MULTI_DYNAMIC( RAINBOW_SWIRL )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_10 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_11 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_12 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_13 )
-    _RGBM_TMP_DYNAMIC( RAINBOW_SWIRL_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_SNAKE
-    _RGBM_MULTI_DYNAMIC( SNAKE )
-    _RGBM_TMP_DYNAMIC( snake_16 )
-    _RGBM_TMP_DYNAMIC( snake_17 )
-    _RGBM_TMP_DYNAMIC( snake_18 )
-    _RGBM_TMP_DYNAMIC( snake_19 )
-    _RGBM_TMP_DYNAMIC( SNAKE_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_KNIGHT
-    _RGBM_MULTI_DYNAMIC( KNIGHT )
-    _RGBM_TMP_DYNAMIC( knight_22 )
-    _RGBM_TMP_DYNAMIC( KNIGHT_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-    _RGBM_SINGLE_DYNAMIC( CHRISTMAS )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-    _RGBM_MULTI_STATIC( STATIC_GRADIENT )
-    _RGBM_TMP_STATIC( static_gradient_26 )
-    _RGBM_TMP_STATIC( static_gradient_27 )
-    _RGBM_TMP_STATIC( static_gradient_28 )
-    _RGBM_TMP_STATIC( static_gradient_29 )
-    _RGBM_TMP_STATIC( static_gradient_30 )
-    _RGBM_TMP_STATIC( static_gradient_31 )
-    _RGBM_TMP_STATIC( static_gradient_32 )
-    _RGBM_TMP_STATIC( static_gradient_33 )
-    _RGBM_TMP_STATIC( STATIC_GRADIENT_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_RGB_TEST
-    _RGBM_SINGLE_DYNAMIC( RGB_TEST )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_ALTERNATING
-    _RGBM_SINGLE_DYNAMIC( ALTERNATING )
-  #endif
-  ////  Add a new mode here.
-  // #ifdef RGBLIGHT_EFFECT_<name>
-  //    _RGBM_<SINGLE|MULTI>_<STATIC|DYNAMIC>( <name> )
-  // #endif
-#endif
-
-#undef _RGBM_SINGLE_STATIC
-#undef _RGBM_SINGLE_DYNAMIC
-#undef _RGBM_MULTI_STATIC
-#undef _RGBM_MULTI_DYNAMIC
-#undef _RGBM_TMP_STATIC
-#undef _RGBM_TMP_DYNAMIC
