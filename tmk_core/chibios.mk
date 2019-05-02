@@ -201,6 +201,7 @@ DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
+DFU_SUFFIX_ARGS ?=
 
 ST_LINK_ARGS ?=
 
@@ -208,6 +209,7 @@ ST_LINK_ARGS ?=
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+DFU_SUFFIX ?= dfu-suffix
 ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
@@ -259,4 +261,8 @@ st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	ifneq ($(strip "$(DFU_SUFFIX_ARGS)","")
+		echo "$(DFU_SUFFIX_ARGS)"
+		# $(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin
+	endif
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
