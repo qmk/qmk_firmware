@@ -3,9 +3,9 @@
 
 #include "config_common.h"
 
-
+// Must raise 5 halftones
 #define CUSTOM_STARTUP \
- Q__NOTE(_F7), \
+ Q__NOTE(_FS7), \
  W__NOTE(_B7),
 
 #ifdef AUDIO_ENABLE
