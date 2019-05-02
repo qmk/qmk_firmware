@@ -3,8 +3,13 @@
 
 #include "config_common.h"
 
+
+#define CUSTOM_STARTUP \
+ Q__NOTE(_F7), \
+ W__NOTE(_B7),
+
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PREONIC_SOUND)
+    #define STARTUP_SONG SONG(CUSTOM_STARTUP)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
