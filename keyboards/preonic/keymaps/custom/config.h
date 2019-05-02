@@ -20,6 +20,9 @@
 
 #define MUSIC_MASK (keycode != KC_NO)
 
+#define AUDIO_CLICKY
+#define AUDIO_CLICKY_FREQ_DEFAULT 440.f
+
 /*
  * MIDI options
  */
