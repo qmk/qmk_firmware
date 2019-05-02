@@ -134,9 +134,11 @@ static uint32_t rgblight_check_config(uint32_t raw) {
     work_config.mode = RGBLIGHT_MODES;
   }
 
+#if RGBLIGHT_LIMIT_VAL < 255
   if (work_config.val > RGBLIGHT_LIMIT_VAL) {
     work_config.val = RGBLIGHT_LIMIT_VAL;
   }
+#endif
   return work_config.raw;
 }
 
