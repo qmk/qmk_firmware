@@ -422,6 +422,7 @@ enum quantum_keycodes {
     RGB_MODE_XMAS,
     RGB_MODE_GRADIENT,
     RGB_MODE_RGBTEST,
+    RGB_MODE_WPM_TEMP,
 
     // Momentum matching toggle
     VLK_TOG,
@@ -639,6 +640,7 @@ enum quantum_keycodes {
 #define RGB_M_X RGB_MODE_XMAS
 #define RGB_M_G RGB_MODE_GRADIENT
 #define RGB_M_T RGB_MODE_RGBTEST
+#define RGB_M_WPM RGB_MODE_WPM_TEMP
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (QK_LAYER_TAP | (((layer)&0xF) << 8) | ((kc)&0xFF))

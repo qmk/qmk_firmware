@@ -477,6 +477,12 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
                 rgblight_set();
             }
 #endif
+#if defined(RGBLIGHT_EFFECT_WPM_TEMP) && defined(VELOCIKEY_ENABLE)
+            else if (rgblight_status.base_mode == RGBLIGHT_MODE_WPM_TEMP) {
+                // wpm temp, ignore the change of hue
+                hue = rgblight_config.hue;
+            }
+#endif
         }
 #ifdef RGBLIGHT_SPLIT
         if (rgblight_config.hue != hue || rgblight_config.sat != sat || rgblight_config.val != val) {
@@ -786,6 +792,12 @@ void rgblight_task(void) {
             effect_func   = (effect_func_t)rgblight_effect_alternating;
         }
 #    endif
+#if defined(RGBLIGHT_EFFECT_WPM_TEMP) && defined(VELOCIKEY_ENABLE)
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_WPM_TEMP){
+      interval_time = 100;
+      effect_func = (effect_func_t)rgblight_effect_wpm_temp;
+    }
+#endif
         if (animation_status.restart) {
             animation_status.restart    = false;
             animation_status.last_timer = timer_read() - interval_time - 1;
@@ -1052,5 +1064,17 @@ void rgblight_effect_alternating(animation_status_t *anim) {
     }
     rgblight_set();
     anim->pos = (anim->pos + 1) % 2;
+}
+#endif
+
+#if defined(RGBLIGHT_EFFECT_WPM_TEMP) && defined(VELOCIKEY_ENABLE)
+__attribute__ ((weak))
+const uint8_t RGBLED_FAKE_INTERVAL = 120;
+void rgblight_effect_wpm_temp(animation_status_t *anim) {
+  const uint8_t typing_hue = get_interval_time(&RGBLED_FAKE_INTERVAL, 1, 120);
+
+  LED_TYPE tmp_led;
+  sethsv(typing_hue, rgblight_config.sat, rgblight_config.val, &tmp_led);
+  rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
 }
 #endif

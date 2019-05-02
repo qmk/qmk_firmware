@@ -307,6 +307,7 @@ void rgblight_effect_knight(animation_status_t *anim);
 void rgblight_effect_christmas(animation_status_t *anim);
 void rgblight_effect_rgbtest(animation_status_t *anim);
 void rgblight_effect_alternating(animation_status_t *anim);
+void rgblight_effect_wpm_temp(animation_status_t *anim);
 
 #    endif
 
