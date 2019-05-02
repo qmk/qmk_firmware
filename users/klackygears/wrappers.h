@@ -110,7 +110,7 @@ NOTE: If you do a search/replace
 #define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7, KC_8,              KC_9,              KC_COLN
 #define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4, KC_5,              KC_6,              C_S_T(KC_COLN)
 #define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1, KC_2,              MT(MOD_LGUI,KC_3), MT(MOD_LCTL,KC_0)
-#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), KC_LGUI
+#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), MT(MOD_LGUI,KC_0)
 #define _________________NUMB_R4___________________       KC_____,       KC_0, KC_0,              KC_____,           KC_____
 /*
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
