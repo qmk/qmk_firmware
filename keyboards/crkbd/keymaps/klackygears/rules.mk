@@ -18,6 +18,8 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
+VELOCIKEY_ENABLE = no
+
 #LED_ANIMATIONS = yes
 #LED_BACK_ENABLE = yes
 

@@ -15,8 +15,7 @@
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
-
-//#include "rgblight.h"
+//#include "rgb_stuff.h"
 extern rgblight_config_t rgblight_config;
 #endif
 
