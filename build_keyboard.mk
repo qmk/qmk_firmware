@@ -334,9 +334,9 @@ SRC += $(KEYBOARD_SRC) \
 
 # Search Path
 VPATH += $(KEYMAP_PATH)
+VPATH += $(USER_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
-VPATH += $(USER_PATH)
 
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
