@@ -121,6 +121,7 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
 }
 
 #ifdef RGBLIGHT_EEPROM_CHECK
+static uint32_t rgblight_check_config(uint32_t raw) __attribute__((noinline));
 static uint32_t rgblight_check_config(uint32_t raw) {
   /* Add some out of bound checks for RGB light config */
   rgblight_config_t work_config;
