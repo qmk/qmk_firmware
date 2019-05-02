@@ -9,7 +9,7 @@ This is a keymap of DZ60 configured with 64 keys for MacOS. It refers the keymap
 3. Insert the dz60 keyboard while pressing  ```Space+b``` (default)
 4. Flash the firmware
 
-More details about flashing firmware please check the intruction of QMK.
+More details about flashing firmware please check the [documentation](https://docs.qmk.fm/#/) of QMK.
 
 ## Base Layer
 

@@ -1,12 +1,6 @@
 #include QMK_KEYBOARD_H
 
 
-enum my_keycodes {
-  BR_UP = SAFE_RANGE,
-  BR_DOWN
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* ,-----------------------------------------------------------------------------------------.
    * | Esc | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 0   | -   | =   | Backspace |
@@ -40,30 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------------'
    */
   LAYOUT_all(
-    KC_GRV , BR_DOWN, BR_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_NO, KC_DEL,
+    KC_GRV , KC_SCROLLLOCK, KC_PAUSE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_NO, KC_DEL,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_0, KC_1, KC_2, KC_3, KC_TRNS, RESET,
     KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_4, KC_5, KC_6, KC_TRNS,
     KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_7, KC_8, KC_9, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t key;
-  switch (keycode) {
-    case BR_DOWN:
-    case BR_UP:
-      // Clear the RGUI modifier placed by LM for _ML layer as brightness don't
-      // work with modifiers.
-      key = (keycode == BR_DOWN) ? KC_SLCK : KC_PAUS;
-      if (record->event.pressed) {
-          add_key(key);
-          send_keyboard_report();
-      } else {
-          del_key(key);
-          send_keyboard_report();
-      }
-      return false; // Skip all further processing of this key
-    default:
-      return true; // Process all other keycodes normally
-  }
-}
