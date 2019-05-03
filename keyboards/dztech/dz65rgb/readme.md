@@ -1,4 +1,4 @@
-# DZ68RGB
+# DZ65RGB
 
 A customizable 65% RGB keyboard.
 
