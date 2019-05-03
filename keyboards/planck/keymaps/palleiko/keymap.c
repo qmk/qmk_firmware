@@ -16,6 +16,7 @@
  * Palleiko Layout
  */
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 
@@ -56,8 +57,6 @@ enum planck_keycodes {
 #define WM_9 LALT(KC_9)
 #define WM_0 LALT(KC_0)
 
-// Transparent Key
-#define _______ KC_TRNS
 // NOP
 #define ___x___ KC_NO
 

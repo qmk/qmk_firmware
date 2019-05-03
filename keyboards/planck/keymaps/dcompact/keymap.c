@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "keymap_steno.h"
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {  KC_TAB, KC_QUOT, KC_COMM,  KC_DOT,    KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L, KC_SLSH},
   {  KC_ESC,    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S, KC_MINS},
   { DEL_SHF, KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, KC_BSPC},
-  { KC_LCTL,  PLOVER, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,   RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT}
+  { KC_LCTL,  PLOVER, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,  RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT}
 },
 
 /* Lower
@@ -150,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Exit |      |      |   A  |   O  |             |   E  |   U  |  PWR | RES1 | RES2 |
+ * | Exit |      |      |   A  |   O  |      |      |   E  |   U  |  PWR | RES1 | RES2 |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -165,17 +166,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|      |      |      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|RGBTog|RGBMod|      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|Light-|Light+|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   { _______,   RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
-  { _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, _______},
-  { _______,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______, _______, _______, _______, _______},
+  { _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP, RGB_TOG, RGB_MOD, _______, _______, _______},
+  { _______,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, RGB_VAD, RGB_VAI, _______, _______, _______},
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 

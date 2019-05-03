@@ -51,7 +51,38 @@ The folder name must be added to the keyboard's `rules.mk`:
 
 but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
 
+## Building a Keymap
+
+You should be able to build the keyboard keymap with a command in this format:
+
+    make <keyboard>:<layout>
+
+### Conflicting layouts
+When a keyboard supports multiple layout options,
+
+    LAYOUTS = ortho_4x4 ortho_4x12
+
+And a layout exists for both options,
+```
+layouts/
++ community/
+| + ortho_4x4/
+| | + <layout>/
+| | | + ...
+| + ortho_4x12/
+| | + <layout>/
+| | | + ...
+| + ...
+```
+
+The FORCE_LAYOUT argument can be used to specify which layout to build
+
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x4
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x12
+
 ## Tips for Making Layouts Keyboard-Agnostic
+
+### Includes
 
 Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<folder>.h` should not be included here) file that is being compiled:
 
@@ -72,3 +103,7 @@ For example:
 ```
 
 Note that the names are lowercase and match the folder/file names for the keyboard/revision exactly.
+
+### Keymaps
+
+In order to support both split and non-split keyboards with the same layout, you need to use the keyboard agnostic `LAYOUT_<layout name>` macro in your keymap. For instance, in order for a Let's Split and Planck to share the same layout file, you need to use `LAYOUT_ortho_4x12` instead of `LAYOUT_planck_grid` or just `{}` for a C array.

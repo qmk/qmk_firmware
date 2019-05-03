@@ -31,17 +31,23 @@ This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/t
 
 ## Installing and Building
 
-Since the YMD96 uses an ATmega32a chip instead of the 32u4, you need to download [HIDBootFlash v.1.0](http://vusb.wikidot.com/project:hidbootflash) for Windows. If anyone knows of a Linux/Mac bootflasher that works, edit this readme!  
+Since the YMD96 uses an ATmega32a chip instead of the 32u4, you need to download [HIDBootFlash v.1.0](http://vusb.wikidot.com/project:hidbootflash) for Windows. For Linux you can use the [bootloadHID](https://www.obdev.at/products/vusb/bootloadhid.html) utility (which will require building). Arch Linux users can alternatively install this from the [AUR](https://aur.archlinux.org/packages/bootloadhid/).
 On Windows, I use [MINGw](http://www.mingw.org/) to compile the keymaps. On Linux, you can simply use the terminal. 
 
 Once you have those two pieces of software:
-Build the keyboard with  
+Build the keyboard by navigating to the root folder of the QMK repo and running
 ```
-$ make ymd96-default  
+$ make ymd96:default  
 ```  
 If you make your own layout, change the `default` word to whatever your layout is.  
 
-And flash the compiled hex file with `HIDBootFlash`. Simply put the board in flashing mode by plugging it in while holding control, and click `find device`. Then you can specify the .hex file and flash it to the device. 
+To flash the compiled hex file, simply put the board in flashing mode by plugging it in while holding control. 
+In `HIDBootFlash` first click `find device`, then you can specify the .hex file and flash it to the device. 
+For `bootloadHID`, from a terminal that is in the same folder as your firmware file, run
+```
+$ sudo bootloadHID ymd96_default.hex
+```
+Again replacing default with your custom keymap name if required.
 
 ## Troubleshooting
 

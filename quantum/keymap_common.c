@@ -60,7 +60,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
+        case KC_AUDIO_MUTE ... KC_BRIGHTNESS_DOWN:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
         case KC_MS_UP ... KC_MS_ACCEL2:
@@ -116,14 +116,14 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX: ;
             // OSM(mod) - One-shot mod
-            mod = keycode & 0xFF;
+            mod = mod_config(keycode & 0xFF);
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            mod = keycode & 0xF;
+            mod = mod_config(keycode & 0xF);
             action_layer = (keycode >> 4) & 0xF;
             action.code = ACTION_LAYER_MODS(action_layer, mod);
             break;

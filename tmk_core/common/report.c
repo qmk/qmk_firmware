@@ -19,6 +19,7 @@
 #include "keycode_config.h"
 #include "debug.h"
 #include "util.h"
+#include <string.h>
 
 /** \brief has_anykey
  *
@@ -27,8 +28,16 @@
 uint8_t has_anykey(report_keyboard_t* keyboard_report)
 {
     uint8_t cnt = 0;
-    for (uint8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        if (keyboard_report->raw[i])
+    uint8_t *p = keyboard_report->keys;
+    uint8_t lp = sizeof(keyboard_report->keys);
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        p = keyboard_report->nkro.bits;
+        lp = sizeof(keyboard_report->nkro.bits);
+    }
+#endif
+    while (lp--) {
+        if (*p++)
             cnt++;
     }
     return cnt;
@@ -237,7 +246,11 @@ void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
 void clear_keys_from_report(report_keyboard_t* keyboard_report)
 {
     // not clear mods
-    for (int8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        keyboard_report->raw[i] = 0;
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        memset(keyboard_report->nkro.bits, 0, sizeof(keyboard_report->nkro.bits));
+        return;
     }
+#endif
+    memset(keyboard_report->keys, 0, sizeof(keyboard_report->keys));
 }
