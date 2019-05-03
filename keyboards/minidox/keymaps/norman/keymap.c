@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "keymap_norman.h"
+#include <sendstring_norman.h>
 
 
 extern keymap_config_t keymap_config;

@@ -52,38 +52,3 @@
 #define NM_DOT  KC_DOT
 #define NM_SLSH KC_SLSH
 
-// Make it easy to support these in macros
-// TODO: change macro implementation so these aren't needed
-#define KC_NM_Q    NM_Q
-#define KC_NM_W    NM_W
-#define KC_NM_F    NM_F
-#define KC_NM_P    NM_P
-#define KC_NM_G    NM_G
-#define KC_NM_J    NM_J
-#define KC_NM_L    NM_L
-#define KC_NM_U    NM_U
-#define KC_NM_Y    NM_Y
-#define KC_NM_SCLN NM_SCLN
-
-#define KC_NM_A    NM_A
-#define KC_NM_R    NM_R
-#define KC_NM_S    NM_S
-#define KC_NM_T    NM_T
-#define KC_NM_D    NM_D
-#define KC_NM_H    NM_H
-#define KC_NM_N    NM_N
-#define KC_NM_E    NM_E
-#define KC_NM_I    NM_I
-#define KC_NM_O    NM_O
-
-#define KC_NM_Z    NM_Z
-#define KC_NM_X    NM_X
-#define KC_NM_C    NM_C
-#define KC_NM_V    NM_V
-#define KC_NM_B    NM_B
-#define KC_NM_K    NM_K
-#define KC_NM_M    NM_M
-#define KC_NM_COMM NM_COMM
-#define KC_NM_DOT  NM_DOT
-#define KC_NM_SLSH NM_SLSH
-
