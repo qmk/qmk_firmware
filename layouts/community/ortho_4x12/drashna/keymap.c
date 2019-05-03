@@ -19,7 +19,12 @@
 
 #ifdef RGB_MATRIX_ENABLE
 extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
 #endif
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+#endif
+
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
@@ -134,10 +139,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        PORTE &= ~(1<<6);
       } else {
         unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
       }
       return false;
       break;
@@ -162,13 +165,13 @@ bool music_mask_user(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_keymap(void)
-{
+void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
+    rgb_matrix_config.enable = false;
 }
 
-void suspend_wakeup_init_keymap(void)
-{
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_config.enable = true;
     rgb_matrix_set_suspend_state(false);
 }
 
@@ -176,10 +179,8 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool def
   rgb_led led;
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
     led = g_rgb_leds[i];
-    if (led.matrix_co.raw < 0xFF) {
-      if (led.modifier) {
-          rgb_matrix_set_color( i, red, green, blue );
-      }
+    if (HAS_FLAGS(led.flags, LED_FLAG_MODIFIER)) {
+        rgb_matrix_set_color( i, red, green, blue );
     }
   }
 }
@@ -188,7 +189,14 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
-  if (!g_suspend_state) {
+
+  if (!g_suspend_state && userspace_config.rgb_layer_change &&
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+    (!rgblight_config.enable && rgb_matrix_config.enable)
+#else
+    rgb_matrix_config.enable
+#endif
+    ) {
     switch (biton32(layer_state)) {
       case _RAISE:
         rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
@@ -228,27 +236,26 @@ void rgb_matrix_indicators_user(void) {
     case _WORKMAN:
       rgb_matrix_set_color(42, 0xD9, 0xA5, 0x21); break;
   }
-
-  if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+  if ( (this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
     rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
   }
-  if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+  if ( (this_mod | this_osm) & MOD_MASK_CTRL) {
     rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
 
   }
-  if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+  if ( (this_mod | this_osm) & MOD_MASK_GUI) {
     rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
   }
-  if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+  if ( (this_mod | this_osm) & MOD_MASK_ALT) {
     rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
   }
 }
 
 void matrix_init_keymap(void) {
-  rgblight_mode(RGB_MATRIX_MULTISPLASH);
+  // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
 #else //RGB_MATRIX_INIT
 
@@ -290,15 +297,13 @@ void encoder_update(bool clockwise) {
 #endif // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
-extern audio_config_t audio_config;
-
 void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
-      audio_config.enable = active;
+      if(active) { audio_on(); } else { audio_off(); }
       break;
     case 1:
-      audio_config.clicky_enable = active;
+      if(active) { clicky_on(); } else { clicky_off(); }
       break;
     case 2:
       keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;

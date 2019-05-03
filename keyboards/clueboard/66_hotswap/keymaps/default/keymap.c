@@ -6,6 +6,30 @@
 #define _FL 1
 #define _CL 2
 
+enum custom_keycodes {
+    S_BSKTC = SAFE_RANGE,
+    S_ODEJY,
+    S_RCKBY,
+    S_DOEDR,
+    S_SCALE,
+    S_ONEUP,
+    S_COIN,
+    S_SONIC,
+    S_ZELDA
+};
+
+#ifdef AUDIO_ENABLE
+  float song_basketcase[][2] = SONG(BASKET_CASE);
+  float song_ode_to_joy[][2]  = SONG(ODE_TO_JOY);
+  float song_rock_a_bye_baby[][2]  = SONG(ROCK_A_BYE_BABY);
+  float song_doe_a_deer[][2]  = SONG(DOE_A_DEER);
+  float song_scale[][2]  = SONG(MUSIC_SCALE_SOUND);
+  float song_coin[][2]  = SONG(COIN_SOUND);
+  float song_one_up[][2]  = SONG(ONE_UP_SOUND);
+  float song_sonic_ring[][2]  = SONG(SONIC_RING);
+  float song_zelda_puzzle[][2]  = SONG(ZELDA_PUZZLE);
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
    */
@@ -28,9 +52,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _CL: Control layer
    */
 [_CL] = LAYOUT(
-  BL_STEP,RGB_M_P,RGB_M_B,RGB_M_R,RGB_M_SW,RGB_M_SN,RGB_M_K,RGB_M_X,RGB_M_G,_______,_______,_______,_______,   RGB_TOG,           RGB_VAI, \
-  _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,                RGB_VAD, \
+  BL_STEP,S_ONEUP,S_SCALE,RGB_M_R,RGB_M_SW,RGB_M_SN,RGB_M_K,RGB_M_X,RGB_M_G,_______,_______,_______,_______,   BL_TOGG,           BL_INC, \
+  _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,                BL_DEC, \
   _______,_______,MO(_CL),_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,                             \
   _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        RGB_SAI,         \
-  _______,_______,_______,                RGB_MOD,RGB_MOD,                        _______,_______,MO(_FL),_______,RGB_HUD,RGB_SAD,RGB_HUI),
+  _______,_______,_______,                BL_BRTG,BL_BRTG,                        _______,_______,MO(_FL),_______,RGB_HUD,RGB_SAD,RGB_HUI),
 };
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        #ifdef AUDIO_ENABLE
+            case S_BSKTC:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_basketcase);
+                }
+                return false;
+            case S_ODEJY:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_ode_to_joy);
+                }
+                return false;
+            case S_RCKBY:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_rock_a_bye_baby);
+                }
+                return false;
+            case S_DOEDR:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_doe_a_deer);
+                }
+                return false;
+            case S_SCALE:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_scale);
+                }
+                return false;
+            case S_ONEUP:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_one_up);
+                }
+                return false;
+            case S_COIN:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_coin);
+                }
+                return false;
+            case S_SONIC:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_sonic_ring);
+                }
+                return false;
+            case S_ZELDA:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_zelda_puzzle);
+                }
+                return false;
+        #endif
+    }
+    return true;
+}

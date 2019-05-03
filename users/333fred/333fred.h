@@ -13,9 +13,10 @@
 
 // Tap dance config shared between my keyboards
 enum tap_dance_declarations {
-    TD_SYM_VIM = 0
+    TD_SYM_VIM = 0,
+    TD_COPY_PASTE,
 };
 
-void tap_dance_layer_finished(qk_tap_dance_state_t*, void*);
-void tap_dance_layer_reset(qk_tap_dance_state_t*, void*);
+void tap_dance_sym_vim_finished(qk_tap_dance_state_t*, void*);
+void tap_dance_sym_vim_reset(qk_tap_dance_state_t*, void*);
 void tap_dance_process_record(uint16_t);
