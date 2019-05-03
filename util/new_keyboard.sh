@@ -147,6 +147,9 @@ username=$prompt_return
 
 echo
 
+# Create new keyboard directory and any intermediate directories.
+mkdir -p "$keyboard_dir"
+
 copy_templates
 set_sed_i
 replace_keyboard_placeholders
