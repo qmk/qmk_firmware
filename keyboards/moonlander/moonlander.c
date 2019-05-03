@@ -20,13 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool mcp23018_leds[3] = {0, 0, 0};
 
 void matrix_init_kb(void) {
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
+  setPinOutput(B5);
+  setPinOutput(B4);
+  setPinOutput(B3);
 
-  writePinLow(B0);
-  writePinLow(B1);
-  writePinLow(B2);
+  writePinLow(B5);
+  writePinLow(B4);
+  writePinLow(B3);
 
   mcp23018_leds[0] = 0; // blue
   mcp23018_leds[1] = 0; // green

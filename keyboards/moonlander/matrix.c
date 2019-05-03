@@ -115,9 +115,9 @@ void matrix_init(void) {
     palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLDOWN);
+    palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLDOWN);
+    palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLDOWN);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
@@ -152,9 +152,9 @@ uint8_t matrix_scan(void) {
             (palReadPad(GPIOA, 1) << 1 ) |
             (palReadPad(GPIOA, 2) << 2 ) |
             (palReadPad(GPIOA, 3) << 3 ) |
-            (palReadPad(GPIOA, 4) << 4 ) |
-            (palReadPad(GPIOA, 5) << 5 ) |
-            (palReadPad(GPIOA, 6) << 6 )
+            (palReadPad(GPIOA, 6) << 4 ) |
+            (palReadPad(GPIOA, 7) << 5 ) |
+            (palReadPad(GPIOB, 0) << 6 )
         );
 
         // unstrobe  row

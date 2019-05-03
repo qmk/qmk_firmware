@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MCP23018_DEFAULT_ADDRESS 0b0100000
 
-#define ML_LED_1(status) (status ? writePinHigh(B0) : writePinLow(B0))
-#define ML_LED_2(status) (status ? writePinHigh(B1) : writePinLow(B1))
-#define ML_LED_3(status) (status ? writePinHigh(B2) : writePinLow(B2))
+#define ML_LED_1(status) (status ? writePinHigh(B5) : writePinLow(B5))
+#define ML_LED_2(status) (status ? writePinHigh(B4) : writePinLow(B4))
+#define ML_LED_3(status) (status ? writePinHigh(B3) : writePinLow(B3))
 
 #define ML_LED_4(status) mcp23018_leds[0] = status
 #define ML_LED_5(status) mcp23018_leds[1] = status
