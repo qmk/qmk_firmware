@@ -28,6 +28,7 @@ addons:
   apt:
     packages:
     - dfu-programmer
+    - dfu-util
     - pandoc
     - gcc-arm-none-eabi
     - binutils-arm-none-eabi
