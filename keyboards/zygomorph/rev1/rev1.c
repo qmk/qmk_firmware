@@ -65,9 +65,9 @@
     { { 4 | ( 6 << 4) }, { 122, 64 }, 1}
 
 rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
-    // Left Hand
-    RGB_LEFT_HAND//,
-    // Right Hand
-    //RGB_RIGHT_HAND
-  };
+// Left Hand
+RGB_LEFT_HAND
+// Right Hand
+//RGB_RIGHT_HAND
+};
 #endif

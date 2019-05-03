@@ -31,10 +31,14 @@ enum {
 
 enum layer_number {
     _QWERTY = 0,
+#ifndef GAMELAYER_DISABLE
     _GAME,
+#endif
     _LOWER,
     _RAISE,
+#ifdef TRILAYER_ENABLED
     _ADJUST
+#endif
 };
 
 enum custom_keycodes {
