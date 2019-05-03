@@ -189,8 +189,8 @@ uint8_t matrix_scan(void) {
         // select row
 
         mcp23018_tx[0] = 0x12; // GPIOA
-        mcp23018_tx[1] = (0b01111111 & ~(1<<(row))) | ((uint8_t)mcp23018_leds[2] << 7); // activate row
-        mcp23018_tx[2] = ((uint8_t)mcp23018_leds[1] << 6) | ((uint8_t)mcp23018_leds[0] << 7); // activate row
+        mcp23018_tx[1] = (0b01111111 & ~(1<<(row))) | ((uint8_t)!mcp23018_leds[2] << 7); // activate row
+        mcp23018_tx[2] = ((uint8_t)!mcp23018_leds[1] << 6) | ((uint8_t)!mcp23018_leds[0] << 7); // activate row
 
         if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1,
             mcp23018_tx, 3, 100
