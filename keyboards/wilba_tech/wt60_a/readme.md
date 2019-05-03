@@ -1,6 +1,6 @@
 # WILBA.TECH WT60-A
 
-![WILBA.TECH WT60-A](https://wilba.tech)
+![WILBA.TECH WT60-A](https://cdn.shopify.com/s/files/1/0015/5084/3975/products/no.160_PCB_1_of_1_2d7414ed-7cc5-46a5-b245-6fb7a197232d_720x.jpg?v=1546475122)
 
 WT60-A is a keyboard PCB supporting 60% layout. [More info at wilba.tech](https://wilba.tech/)
 

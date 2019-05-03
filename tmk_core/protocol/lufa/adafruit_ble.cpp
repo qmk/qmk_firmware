@@ -533,8 +533,7 @@ bool adafruit_ble_enable_keyboard(void) {
   // Disable command echo
   static const char kEcho[] PROGMEM = "ATE=0";
   // Make the advertised name match the keyboard
-  static const char kGapDevName[] PROGMEM =
-      "AT+GAPDEVNAME=" STR(PRODUCT) " " STR(DESCRIPTION);
+  static const char kGapDevName[] PROGMEM = "AT+GAPDEVNAME=" STR(PRODUCT);
   // Turn on keyboard support
   static const char kHidEnOn[] PROGMEM = "AT+BLEHIDEN=1";
 

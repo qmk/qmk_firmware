@@ -33,17 +33,10 @@ USE_FPU = yes
 # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
 OPT_DEFS =
 
-# Do not put the microcontroller into power saving mode
-# when we get USB suspend event. We want it to keep updating
-# backlight effects.
-OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
-
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
-# Build Options
-#   comment out to disable the options.
-#
+
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = lite           # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
