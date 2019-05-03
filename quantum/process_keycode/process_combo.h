@@ -17,34 +17,32 @@
 #ifndef PROCESS_COMBO_H
 #define PROCESS_COMBO_H
 
+#include <stdint.h>
 #include "progmem.h"
 #include "quantum.h"
-#include <stdint.h>
 
+typedef struct
+{
+    const uint16_t *keys;
+    uint16_t keycode;        
 #ifdef EXTRA_EXTRA_LONG_COMBOS
-#define MAX_COMBO_LENGTH 32
+    uint32_t state;
 #elif EXTRA_LONG_COMBOS
-#define MAX_COMBO_LENGTH 16
+    uint16_t state;
 #else
-#define MAX_COMBO_LENGTH 8
+    uint8_t state;
 #endif
-
-typedef struct {
-  const uint16_t *keys;
-  uint16_t keycode;
-#ifdef EXTRA_EXTRA_LONG_COMBOS
-  uint32_t state;
-#elif EXTRA_LONG_COMBOS
-  uint16_t state;
+    uint16_t timer;
+#ifdef COMBO_ALLOW_ACTION_KEYS
+    keyrecord_t prev_record;
 #else
-  uint8_t state;
+    uint16_t prev_key;
 #endif
 } combo_t;
 
-#define COMBO(ck, ca)                                                          \
-  { .keys = &(ck)[0], .keycode = (ca) }
-#define COMBO_ACTION(ck)                                                       \
-  { .keys = &(ck)[0] }
+
+#define COMBO(ck, ca)       {.keys = &(ck)[0], .keycode = (ca)}
+#define COMBO_ACTION(ck)    {.keys = &(ck)[0]}
 
 #define COMBO_END 0
 #ifndef COMBO_COUNT

@@ -231,14 +231,12 @@ void EVENT_CDC_Device_ControLineStateChanged(USB_ClassInfo_CDC_Device_t *const C
 	*/
 	bool HostReady = (CDCInterfaceInfo->State.ControlLineStates.HostToDevice & CDC_CONTROL_LINE_OUT_DTR) != 0;
 
-	(void)HostReady;
-
 	if (CDCInterfaceInfo == &VirtualSerial1_CDC_Interface)
 	{
-		// CDC interface 1's host is ready to send/receive data if HostReady is true
+		// CDC interface 1's host is ready to send/receive data
 	}
 	else
 	{
-		// CDC interface 2's host is ready to send/receive data if HostReady is true
+		// CDC interface 2's host is ready to send/receive data
 	}
 }

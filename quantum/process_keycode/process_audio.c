@@ -10,7 +10,9 @@ float voice_change_song[][2] = VOICE_CHANGE_SONG;
     #define PITCH_STANDARD_A 440.0f
 #endif
 
-float compute_freq_for_midi_note(uint8_t note)
+
+
+static float compute_freq_for_midi_note(uint8_t note)
 {
     // https://en.wikipedia.org/wiki/MIDI_tuning_standard
     return pow(2.0, (note - 69) / 12.0) * PITCH_STANDARD_A;

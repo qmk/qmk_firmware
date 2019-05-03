@@ -13,9 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#ifndef PROCESS_UNICODE_H
+#define PROCESS_UNICODE_H
 
 #include "quantum.h"
 #include "process_unicode_common.h"
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
+
+#endif

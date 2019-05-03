@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 enum custom_keycodes {
     KC_P00 = SAFE_RANGE
 };

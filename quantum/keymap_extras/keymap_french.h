@@ -18,6 +18,12 @@
 
 #include "keymap.h"
 
+// Alt gr
+#ifndef ALGR
+#define ALGR(kc) RALT(kc)
+#endif
+#define NO_ALGR KC_RALT
+
 // Normal characters
 #define FR_SUP2	KC_GRV
 #define FR_AMP	KC_1

@@ -6,24 +6,6 @@ To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest fr
 
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
-### The Cirtuitry between Trackpoint and Controller
-
-To get the things working, a 4.7K drag is needed between the two lines DATA and CLK and the line 5+. 
-
-```
-
-          DATA ----------+--------- PIN
-                         |
-                        4.7K
-                         |
-MODULE    5+  --------+--+--------- PWR   CONTROLLER
-                      |
-                     4.7K
-                      |    
-          CLK   ------+------------ PIN
-```
-
-
 ### Busywait Version
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.

@@ -22,5 +22,4 @@ fi
 brew tap osx-cross/avr
 brew tap PX4/homebrew-px4
 brew update
-brew install avr-gcc@7 gcc-arm-none-eabi dfu-programmer avrdude dfu-util
-brew link --force avr-gcc@7
+brew install avr-gcc gcc-arm-none-eabi dfu-programmer avrdude

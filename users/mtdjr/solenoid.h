@@ -4,17 +4,13 @@
 #include <timer.h>
 #include "pincontrol.h"
 
-
 #define SOLENOID_DEFAULT_DWELL 12
 #define SOLENOID_MAX_DWELL 100
 #define SOLENOID_MIN_DWELL 4
 #ifndef SOLENOID_ACTIVE
   #define SOLENOID_ACTIVE false
 #endif
-#ifndef SOLENOID_PIN
-  #define SOLENOID_PIN F6
-#endif
-
+//#define SOLENOID_PIN F6
 
 bool solenoid_enabled = SOLENOID_ACTIVE;
 bool solenoid_on = false;
@@ -94,6 +90,14 @@ void solenoid_check(void) {
 
 void solenoid_setup(void) {
   pinMode(SOLENOID_PIN, PinDirectionOutput);
+}
+
+void matrix_init_user(void) {
+  solenoid_setup();
+}
+
+void matrix_scan_user(void) {
+  solenoid_check();
 }
 
 #endif

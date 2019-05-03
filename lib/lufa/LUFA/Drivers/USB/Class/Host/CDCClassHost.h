@@ -360,7 +360,7 @@
 				static int CDC_Host_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				#endif
 
-				void CDC_Host_Event_Stub(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo);
+				void CDC_Host_Event_Stub(void) ATTR_CONST;
 
 				void EVENT_CDC_Host_ControLineStateChanged(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 				                                           ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Host_Event_Stub);

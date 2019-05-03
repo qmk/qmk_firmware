@@ -57,8 +57,6 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
     .time = (timer_read() | 1)                          \
 }
 
-void disable_jtag(void);
-
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
 /* it runs once after initializing host side protocol, debug and MCU peripherals. */
@@ -67,13 +65,6 @@ void keyboard_init(void);
 void keyboard_task(void);
 /* it runs when host LED status is updated */
 void keyboard_set_leds(uint8_t leds);
-/* it runs whenever code has to behave differently on a slave */
-bool is_keyboard_master(void);
-
-void keyboard_pre_init_kb(void);
-void keyboard_pre_init_user(void);
-void keyboard_post_init_kb(void);
-void keyboard_post_init_user(void);
 
 #ifdef __cplusplus
 }

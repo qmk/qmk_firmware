@@ -11,18 +11,18 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-#define STRICT_LAYER_RELEASE
+#undef PREVENT_STUCK_MODIFIERS
 
 #define FORCE_NKRO
 
 #ifndef TAPPING_TOGGLE
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE  1
 #endif
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 95
+#define TAPPING_TERM 120
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.

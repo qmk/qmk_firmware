@@ -40,8 +40,7 @@ typedef union {
     uint8_t raw;
     struct {
         bool    enable :1;
-        bool    clicky_enable :1;
-        uint8_t level  :6;
+        uint8_t level  :7;
     };
 } audio_config_t;
 

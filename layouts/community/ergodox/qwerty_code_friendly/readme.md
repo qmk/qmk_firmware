@@ -6,7 +6,8 @@
   The this layout is a normalized qwerty,
   with some configurable keys left thumb cluster so you can use it more as needed.
 
-- Arrow keys follow VIM convention.
+- Arrow keys follow VIM convention
+  (the media layer even uses arrow keys for HJKL).
 
 - On the top row only symbols are used (not numbers),
   it's expected the symbol layer's number-pad layout will be used for numbers.
@@ -29,7 +30,7 @@ Some optional behavior is configurable without editing the code
 using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 
 - `CFQ_USER_KEY0`
-  (0..8) are used for custom-keys
+  (0..7) are used for custom-keys
 - `CFQ_USE_MOMENTARY_LAYER_KEYS`
   is used to prevent layer keys from toggling when tapped.
 - `CFQ_USE_SHIFT_QUOTES`
@@ -121,17 +122,22 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 2: F-Keys, Media & Mouse Keys
+## Keymap 2: Media, Mouse Keys and Numbers
+
+Notes:
+
+- Numbers are included on this layer since some applications differentiate
+  between numbers top row and keypad.
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |      |      |      |      |      |      |  | Mute |      |  F10 |  F11 |  F12 |      |        |
+|        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
-|        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |  F7  |  F8  |  F9  |      |        |
+|        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
-|        |      |MsLeft|MsDown|MsRght|      |------|  |------|      |  F4  |  F5  |  F6  |      |        |
+|        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
 |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
-|        |      | Rclk | Mclk | Lclk |      |      |  |      |      |  F1  |  F2  |  F3  |      |        |
+|        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
 '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
   |      |      |      |      |      |                              |      |      |      |      |      |
   '----------------------------------'                              '----------------------------------'
@@ -144,20 +150,15 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 3: User Defined Words & Numbers
+## Keymap 3: F-Keys & User Defined Words
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`
 eg: `-DCFQ_WORD_E=\"my@email.com\"`
 
-Notes:
-
-- Numbers are included on this layer since some applications differentiate
-  between numbers top row and keypad.
-
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |   1  |   2  |   3  |   4  |   5  |      |  |      |   6  |   7  |   8  |   9  |   0  |        |
+|        |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |  | F12  |  F6  |  F7  |  F8  |  F9  |  F10 |        |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
 |        |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
@@ -177,9 +178,6 @@ Notes:
 ```
 
 ## Changelog
-
-- 2018/10/19
-  Move F-Keys to key-pad like layout.
 
 - 2018/05/29
   Add number keys for cases when keypad numbers are handled differently.

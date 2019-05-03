@@ -67,7 +67,7 @@ $(eval $(call NEXT_PATH_ELEMENT))
 # It's really a very simple if else chain, if you squint enough,
 # but the makefile syntax makes it very verbose.
 # If we are in a subfolder of keyboards
-#
+# 
 # *** No longer needed **
 #
 # ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
@@ -112,29 +112,23 @@ $(eval $(call GET_KEYBOARDS))
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 #KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
 
-.PHONY: list-keyboards
 list-keyboards:
 	echo $(KEYBOARDS)
+	exit 0
 
 define PRINT_KEYBOARD
 	$(info $(PRINTING_KEYBOARD))
 endef
 
-.PHONY: generate-keyboards-file
 generate-keyboards-file:
 	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
+	exit 0
 
-.PHONY: clean
 clean:
-	echo -n 'Deleting .build/ ... '
+	echo -n 'Deleting .build ... '
 	rm -rf $(BUILD_DIR)
-	echo 'done.'
-
-.PHONY: distclean
-distclean: clean
-	echo -n 'Deleting *.bin and *.hex ... '
-	rm -f *.bin *.hex
-	echo 'done.'
+	echo 'done'
+	exit 0
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
@@ -313,6 +307,11 @@ define PARSE_KEYBOARD
     KEYBOARD_FOLDER_PATH_3 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_2)))
     KEYBOARD_FOLDER_PATH_4 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_3)))
     KEYBOARD_FOLDER_PATH_5 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_4)))
+    KEYBOARD_FOLDER_1 := $$(notdir $$(KEYBOARD_FOLDER_PATH_1))
+    KEYBOARD_FOLDER_2 := $$(notdir $$(KEYBOARD_FOLDER_PATH_2))
+    KEYBOARD_FOLDER_3 := $$(notdir $$(KEYBOARD_FOLDER_PATH_3))
+    KEYBOARD_FOLDER_4 := $$(notdir $$(KEYBOARD_FOLDER_PATH_4))
+    KEYBOARD_FOLDER_5 := $$(notdir $$(KEYBOARD_FOLDER_PATH_5))
 
     KEYMAPS :=
     # get a list of all keymaps
@@ -326,35 +325,35 @@ define PARSE_KEYBOARD
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
     KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_4)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_4)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_3)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_3)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_2)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_2)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_1)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_1)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
 
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
-
+    
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
@@ -536,9 +535,9 @@ endef
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --init lib/ugfx; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -554,10 +553,9 @@ endif
 	# it has to be there to allow parallel execution of the submake
 	# This always tries to compile everything, even if error occurs in the middle
 	# But we return the error code at the end, to trigger travis failures
-	# The sort at this point is to remove duplicates
-	$(foreach COMMAND,$(sort $(COMMANDS)),$(RUN_COMMAND))
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
+	$(foreach TEST,$(TESTS),$(RUN_TEST))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
 # These no longer work because of the colon system
@@ -583,10 +581,9 @@ lib/%:
 	git submodule sync $?
 	git submodule update --init $?
 
-.PHONY: git-submodule
 git-submodule:
 	git submodule sync --recursive
-	git submodule update --init --recursive --progress
+	git submodule update --init --recursive
 
 ifdef SKIP_VERSION
 SKIP_GIT := yes

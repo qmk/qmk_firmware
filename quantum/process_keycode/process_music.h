@@ -29,11 +29,6 @@ enum music_modes {
   NUMBER_OF_MODES
 };
 
-
-#ifdef MUSIC_MAP
-	extern const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS];
-#endif
-
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
 bool is_music_on(void);

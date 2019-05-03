@@ -5,6 +5,7 @@
 #include "eeprom.h"
 
 #define LAYER_ON(pos) ((layer_state) & (1<<(pos)))
+#define _______ KC_TRNS
 
 #define EECONFIG_BELAK_MAGIC (uint16_t)0xBE42
 

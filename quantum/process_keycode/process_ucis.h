@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef PROCESS_UCIS_H
+#define PROCESS_UCIS_H
 
 #include "quantum.h"
 #include "process_unicode_common.h"
@@ -44,6 +45,7 @@ extern const qk_ucis_symbol_t ucis_symbol_table[];
 void qk_ucis_start(void);
 void qk_ucis_start_user(void);
 void qk_ucis_symbol_fallback (void);
-void qk_ucis_success(uint8_t symbol_index);
 void register_ucis(const char *hex);
 bool process_ucis (uint16_t keycode, keyrecord_t *record);
+
+#endif

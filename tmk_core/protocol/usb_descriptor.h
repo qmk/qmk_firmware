@@ -53,27 +53,26 @@ typedef struct
 {
     USB_Descriptor_Configuration_Header_t Config;
 
-#ifndef KEYBOARD_SHARED_EP
     // Keyboard HID Interface
     USB_Descriptor_Interface_t            Keyboard_Interface;
     USB_HID_Descriptor_HID_t              Keyboard_HID;
     USB_Descriptor_Endpoint_t             Keyboard_INEndpoint;
-#endif
 
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#ifdef MOUSE_ENABLE
     // Mouse HID Interface
     USB_Descriptor_Interface_t            Mouse_Interface;
     USB_HID_Descriptor_HID_t              Mouse_HID;
     USB_Descriptor_Endpoint_t             Mouse_INEndpoint;
 #endif
 
-#if defined(SHARED_EP_ENABLE)
-    USB_Descriptor_Interface_t            Shared_Interface;
-    USB_HID_Descriptor_HID_t              Shared_HID;
-    USB_Descriptor_Endpoint_t             Shared_INEndpoint;
+#ifdef EXTRAKEY_ENABLE
+    // Extrakey HID Interface
+    USB_Descriptor_Interface_t            Extrakey_Interface;
+    USB_HID_Descriptor_HID_t              Extrakey_HID;
+    USB_Descriptor_Endpoint_t             Extrakey_INEndpoint;
 #endif
 
-#if defined(RAW_ENABLE)
+#ifdef RAW_ENABLE
     // Raw HID Interface
     USB_Descriptor_Interface_t            Raw_Interface;
     USB_HID_Descriptor_HID_t              Raw_HID;
@@ -87,6 +86,13 @@ typedef struct
     USB_HID_Descriptor_HID_t              Console_HID;
     USB_Descriptor_Endpoint_t             Console_INEndpoint;
     USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
+#endif
+
+#ifdef NKRO_ENABLE
+    // NKRO HID Interface
+    USB_Descriptor_Interface_t            NKRO_Interface;
+    USB_HID_Descriptor_HID_t              NKRO_HID;
+    USB_Descriptor_Endpoint_t             NKRO_INEndpoint;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -127,105 +133,133 @@ typedef struct
 
 
 /* index of interface */
-enum usb_interfaces {
-#if !defined(KEYBOARD_SHARED_EP)
-    KEYBOARD_INTERFACE,
-#else
-#   define KEYBOARD_INTERFACE SHARED_INTERFACE
-#endif
+#define KEYBOARD_INTERFACE          0
+
 // It is important that the Raw HID interface is at a constant
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
-#if defined(RAW_ENABLE)
-    RAW_INTERFACE,
-#endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    MOUSE_INTERFACE,
-#endif
-#if defined(SHARED_EP_ENABLE)
-    SHARED_INTERFACE,
-#endif
-#if defined(CONSOLE_ENABLE)
-    CONSOLE_INTERFACE,
-#endif
-#if defined(MIDI_ENABLE)
-    AC_INTERFACE,
-    AS_INTERFACE,
-#endif
-#if defined(VIRTSER_ENABLE)
-    CCI_INTERFACE,
-    CDI_INTERFACE,
-#endif
-    TOTAL_INTERFACES
-};
-
-#define NEXT_EPNUM __COUNTER__
-
-enum usb_endpoints {
-    __unused_epnum__ = NEXT_EPNUM,   /* EP numbering starts at 1 */
-#if !defined(KEYBOARD_SHARED_EP)
-    KEYBOARD_IN_EPNUM = NEXT_EPNUM,
+#ifdef RAW_ENABLE
+#   define RAW_INTERFACE          (KEYBOARD_INTERFACE + 1)
 #else
-#   define KEYBOARD_IN_EPNUM    SHARED_IN_EPNUM
+#   define RAW_INTERFACE          KEYBOARD_INTERFACE
 #endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    MOUSE_IN_EPNUM = NEXT_EPNUM,
+
+#ifdef MOUSE_ENABLE
+#   define MOUSE_INTERFACE          (RAW_INTERFACE + 1)
 #else
-#   define MOUSE_IN_EPNUM   SHARED_IN_EPNUM
+#   define MOUSE_INTERFACE          RAW_INTERFACE
 #endif
-#if defined(RAW_ENABLE)
-    RAW_IN_EPNUM = NEXT_EPNUM,
-    RAW_OUT_EPNUM = NEXT_EPNUM,
+
+#ifdef EXTRAKEY_ENABLE
+#   define EXTRAKEY_INTERFACE       (MOUSE_INTERFACE + 1)
+#else
+#   define EXTRAKEY_INTERFACE       MOUSE_INTERFACE
 #endif
-#if defined(SHARED_EP_ENABLE)
-    SHARED_IN_EPNUM = NEXT_EPNUM,
+
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_INTERFACE        (EXTRAKEY_INTERFACE + 1)
+#else
+#   define CONSOLE_INTERFACE        EXTRAKEY_INTERFACE
 #endif
-#if defined(CONSOLE_ENABLE)
-    CONSOLE_IN_EPNUM = NEXT_EPNUM,
+
+#ifdef NKRO_ENABLE
+#   define NKRO_INTERFACE           (CONSOLE_INTERFACE + 1)
+#else
+#   define NKRO_INTERFACE           CONSOLE_INTERFACE
+#endif
+
+#ifdef MIDI_ENABLE
+#   define AC_INTERFACE           (NKRO_INTERFACE + 1)
+#   define AS_INTERFACE           (NKRO_INTERFACE + 2)
+#else
+#   define AS_INTERFACE           NKRO_INTERFACE
+#endif
+
+#ifdef VIRTSER_ENABLE
+#   define CCI_INTERFACE         (AS_INTERFACE + 1)
+#   define CDI_INTERFACE         (AS_INTERFACE + 2)
+#else
+#   define CDI_INTERFACE         AS_INTERFACE
+#endif
+
+/* nubmer of interfaces */
+#define TOTAL_INTERFACES            (CDI_INTERFACE + 1)
+
+
+// Endopoint number and size
+#define KEYBOARD_IN_EPNUM           1
+
+#ifdef MOUSE_ENABLE
+#   define MOUSE_IN_EPNUM           (KEYBOARD_IN_EPNUM + 1)
+#else
+#   define MOUSE_IN_EPNUM           KEYBOARD_IN_EPNUM
+#endif
+
+#ifdef EXTRAKEY_ENABLE
+#   define EXTRAKEY_IN_EPNUM        (MOUSE_IN_EPNUM + 1)
+#else
+#   define EXTRAKEY_IN_EPNUM        MOUSE_IN_EPNUM
+#endif
+
+#ifdef RAW_ENABLE
+#   define RAW_IN_EPNUM         (EXTRAKEY_IN_EPNUM + 1)
+#   define RAW_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 2)
+#else
+#   define RAW_OUT_EPNUM        EXTRAKEY_IN_EPNUM
+#endif
+
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_IN_EPNUM         (RAW_OUT_EPNUM + 1)
 #ifdef PROTOCOL_CHIBIOS
 // ChibiOS has enough memory and descriptor to actually enable the endpoint
 // It could use the same endpoint numbers, as that's supported by ChibiOS
 // But the QMK code currently assumes that the endpoint numbers are different
-    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
 #else
-#define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
 #endif
+#else
+#   define CONSOLE_OUT_EPNUM        RAW_OUT_EPNUM
 #endif
+
+#ifdef NKRO_ENABLE
+#   define NKRO_IN_EPNUM            (CONSOLE_OUT_EPNUM + 1)
+#else
+#   define NKRO_IN_EPNUM            CONSOLE_OUT_EPNUM
+#endif
+
 #ifdef MIDI_ENABLE
-    MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
-    MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
+#   define MIDI_STREAM_IN_EPNUM     (NKRO_IN_EPNUM + 1)
+// #   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 1)
+#   define MIDI_STREAM_OUT_EPNUM    (NKRO_IN_EPNUM + 2)
 #   define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
 #   define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+#else
+#   define MIDI_STREAM_OUT_EPNUM     NKRO_IN_EPNUM
 #endif
+
 #ifdef VIRTSER_ENABLE
-    CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
-    CDC_IN_EPNUM = NEXT_EPNUM,
-    CDC_OUT_EPNUM = NEXT_EPNUM,
+#   define CDC_NOTIFICATION_EPNUM   (MIDI_STREAM_OUT_EPNUM + 1)
+#   define CDC_IN_EPNUM       (MIDI_STREAM_OUT_EPNUM + 2)
+#   define CDC_OUT_EPNUM        (MIDI_STREAM_OUT_EPNUM + 3)
 #   define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
 #   define CDC_IN_EPADDR                  (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
 #   define CDC_OUT_EPADDR                  (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+#else
+#   define CDC_OUT_EPNUM  MIDI_STREAM_OUT_EPNUM
 #endif
-};
 
-#if defined(PROTOCOL_LUFA)
-/* LUFA tells us total endpoints including control */
-#define MAX_ENDPOINTS (ENDPOINT_TOTAL_ENDPOINTS - 1)
-#elif defined(PROTOCOL_CHIBIOS)
-/* ChibiOS gives us number of available user endpoints, not control */
-#define MAX_ENDPOINTS USB_MAX_ENDPOINTS
-#endif
-/* TODO - ARM_ATSAM */
-
-
-#if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
-# error There are not enough available endpoints to support all functions. Remove some in the rules.mk file. (MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)
+#if (defined(PROTOCOL_LUFA) && CDC_OUT_EPNUM > (ENDPOINT_TOTAL_ENDPOINTS - 1)) || \
+  (defined(PROTOCOL_CHIBIOS) && CDC_OUT_EPNUM > USB_MAX_ENDPOINTS)
+# error "There are not enough available endpoints to support all functions. Remove some in the rules.mk file.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)"
 #endif
 
 #define KEYBOARD_EPSIZE             8
-#define SHARED_EPSIZE               32
 #define MOUSE_EPSIZE                8
+#define EXTRAKEY_EPSIZE             8
 #define RAW_EPSIZE                  32
 #define CONSOLE_EPSIZE              32
+#define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
 #define CDC_NOTIFICATION_EPSIZE     8
 #define CDC_EPSIZE                  16

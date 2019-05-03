@@ -197,26 +197,17 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         }
       }
 
-      uint8_t note = 36;
-      #ifdef MUSIC_MAP
-        if (music_mode == MUSIC_MODE_CHROMATIC) {
-          note = music_starting_note + music_offset + 36 + music_map[record->event.key.row][record->event.key.col];
-        } else {
-          uint8_t position = music_map[record->event.key.row][record->event.key.col];
-          note = music_starting_note + music_offset + 36 + SCALE[position % 12] + (position / 12)*12;
-        }
-      #else
-        if (music_mode == MUSIC_MODE_CHROMATIC)
-          note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
-        else if (music_mode == MUSIC_MODE_GUITAR)
-          note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
-        else if (music_mode == MUSIC_MODE_VIOLIN)
-          note = (music_starting_note + record->event.key.col + music_offset + 32)+7*(MATRIX_ROWS - record->event.key.row);
-        else if (music_mode == MUSIC_MODE_MAJOR)
-          note = (music_starting_note + SCALE[record->event.key.col + music_offset] - 3)+12*(MATRIX_ROWS - record->event.key.row);
-        else
-          note = music_starting_note;
-      #endif
+      uint8_t note;
+      if (music_mode == MUSIC_MODE_CHROMATIC)
+        note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_GUITAR)
+        note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_VIOLIN)
+        note = (music_starting_note + record->event.key.col + music_offset + 32)+7*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_MAJOR)
+        note = (music_starting_note + SCALE[record->event.key.col + music_offset] - 3)+12*(MATRIX_ROWS - record->event.key.row);
+      else
+        note = music_starting_note;
 
       if (record->event.pressed) {
         music_noteon(note);
