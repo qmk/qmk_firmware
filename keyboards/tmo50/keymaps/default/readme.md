@@ -6,8 +6,6 @@ You probably tried or will try to configure the keymapping to your liking. To ma
 
 ![TMO50 matrix](https://i.imgur.com/ud7RB8d.png)
 
-As you can see here matrix consists of 4 rows and 14 columns. But the tricky part is that topmost left key (Tab/Esc) is connected to row 3 - this is done so there's no 15th column that would connect only one key to seperate pin. This also poses an thread that you will configure your layout incorrectly because KC_TAB is not in the correct place *[visually](https://i.imgur.com/RtoD9F6.png)* in *keymap.c* file. Please take this into account when making changes and double-check this.
-
 ## Pinout
 
 Most of the pinout can be found in *config.h* but there's here's a table of all the used pins for TMO50 (including indicator LED pins)

@@ -9,7 +9,7 @@ typedef enum {
 static tap_dance_state_enum tap_dance_state;
 static bool tap_dance_active = false;
 
-void tap_dance_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_finished(qk_tap_dance_state_t *state, void *user_data) {
     // Determine the current state
     if (state->count == 1) {
         if (state->interrupted || state->pressed == 0) tap_dance_state = SINGLE_TAP;
@@ -38,8 +38,7 @@ void tap_dance_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-
-void tap_dance_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_sym_vim_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch(tap_dance_state) {
         case SINGLE_TAP:
             clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -53,8 +52,38 @@ void tap_dance_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void tap_dance_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data) {
+    bool is_paste = state->count == 2;
+    // If either the one-shot shift is set, or if shift is being held, count as shift being held.
+    // We'll clear the one-shot shift if it was held
+    uint8_t one_shot_mods = get_oneshot_mods();
+    bool is_shift = false;
+
+    if (get_mods() & MOD_MASK_SHIFT) {
+        is_shift = true;
+    } else if (one_shot_mods & MOD_MASK_SHIFT) {
+        set_oneshot_mods(one_shot_mods & ~MOD_MASK_SHIFT);
+        is_shift = true;
+    }
+
+    if (is_paste) {
+        if (is_shift) {
+            SEND_STRING(SS_LSFT(SS_TAP(X_INSERT)));
+        } else {
+            SEND_STRING(SS_LCTRL("v"));
+        }
+    } else {
+        if (is_shift) {
+            SEND_STRING(SS_LCTRL(SS_TAP(X_INSERT)));
+        } else {
+            SEND_STRING(SS_LCTRL("c"));
+        }
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_SYM_VIM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_layer_finished, tap_dance_layer_reset)
+    [TD_SYM_VIM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_sym_vim_finished, tap_dance_sym_vim_reset),
+    [TD_COPY_PASTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_copy_paste_finished, NULL)
 };
 
 void tap_dance_process_record(uint16_t keycode) {

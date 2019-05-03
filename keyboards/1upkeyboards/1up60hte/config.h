@@ -55,8 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-
 #define RGB_DI_PIN F0
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_numpad_6x4( /* Base */
     KC_ESC,   KC_TAB,   KC_PEQL,  MO(1),   \

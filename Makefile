@@ -112,23 +112,29 @@ $(eval $(call GET_KEYBOARDS))
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 #KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
 
+.PHONY: list-keyboards
 list-keyboards:
 	echo $(KEYBOARDS)
-	exit 0
 
 define PRINT_KEYBOARD
 	$(info $(PRINTING_KEYBOARD))
 endef
 
+.PHONY: generate-keyboards-file
 generate-keyboards-file:
 	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
-	exit 0
 
+.PHONY: clean
 clean:
-	echo -n 'Deleting .build ... '
+	echo -n 'Deleting .build/ ... '
 	rm -rf $(BUILD_DIR)
-	echo 'done'
-	exit 0
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin and *.hex ... '
+	rm -f *.bin *.hex
+	echo 'done.'
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
@@ -530,9 +536,9 @@ endef
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
-	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --init lib/chibios; fi
-	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --init lib/chibios-contrib; fi
-	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --init lib/ugfx; fi
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -577,6 +583,7 @@ lib/%:
 	git submodule sync $?
 	git submodule update --init $?
 
+.PHONY: git-submodule
 git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress

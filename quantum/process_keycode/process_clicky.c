@@ -32,7 +32,7 @@ extern bool midi_activated;
 
 void clicky_play(void) {
 #ifndef NO_MUSIC_MODE
-  if (music_activated || midi_activated) return;
+  if (music_activated || midi_activated || !audio_config.enable) return;
 #endif // !NO_MUSIC_MODE
   clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   clicky_song[1][0] = clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
@@ -73,27 +73,29 @@ void clicky_off(void) {
 }
 
 bool is_clicky_on(void) {
-      return (audio_config.clicky_enable != 0);
+  return (audio_config.clicky_enable != 0);
 }
 
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_toggle(); }
+  if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_toggle(); }
 
-    if (keycode == CLICKY_ENABLE && record->event.pressed) { clicky_on(); }
-    if (keycode == CLICKY_DISABLE && record->event.pressed) { clicky_off(); }
+  if (keycode == CLICKY_ENABLE && record->event.pressed) { clicky_on(); }
+  if (keycode == CLICKY_DISABLE && record->event.pressed) { clicky_off(); }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq_reset(); }
+  if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq_reset(); }
 
-    if (keycode == CLICKY_UP && record->event.pressed) { clicky_freq_up(); }
-    if (keycode == CLICKY_DOWN && record->event.pressed) { clicky_freq_down(); }
+  if (keycode == CLICKY_UP && record->event.pressed) { clicky_freq_up(); }
+  if (keycode == CLICKY_DOWN && record->event.pressed) { clicky_freq_down(); }
 
 
-    if ( audio_config.clicky_enable ) {
-      if (record->event.pressed) {
-        clicky_play();;
+  if (audio_config.enable && audio_config.clicky_enable) {
+    if (record->event.pressed) { // Leave this separate so it's easier to add upstroke sound
+      if (keycode != AU_OFF && keycode != AU_TOG) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
+        clicky_play();
       }
     }
-    return true;
+  }
+  return true;
 }
 
 #endif //AUDIO_CLICKY

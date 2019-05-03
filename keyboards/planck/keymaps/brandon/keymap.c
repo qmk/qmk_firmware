@@ -20,7 +20,6 @@ enum planck_layers {
 };
 
 // Key aliases for legibility
-#define _______ KC_TRNS
 #define ___x___ KC_NO
 
 // Macros
