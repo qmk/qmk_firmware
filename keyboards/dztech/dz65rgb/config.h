@@ -4,8 +4,8 @@
 #define PRODUCT_ID      0x1224
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
-#define PRODUCT         DZ68RGB
-#define DESCRIPTION     DZ68 ARM RGB keyboard
+#define PRODUCT         DZ65RGB
+#define DESCRIPTION     DZ65 ARM RGB keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
