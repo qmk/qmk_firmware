@@ -33,8 +33,3 @@
 
 /* force n-key rollover*/
 #define FORCE_NKRO
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)

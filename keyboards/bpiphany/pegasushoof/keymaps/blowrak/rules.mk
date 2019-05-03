@@ -1,5 +1,5 @@
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
+#   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
@@ -14,9 +14,4 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
-
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.

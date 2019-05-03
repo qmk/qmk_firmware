@@ -76,18 +76,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | A      | R      | S      | T      | D      |        |        |        |        |        | H      | N      | E      | I      | O      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | Z      | X      | C      | V      | B      |        |        |        |        |        | K      | M      | ,      | .      | /      |
+ * | Z      | X      | C      | V      | B      |        |        | UP     |        |        | K      | M      | ,      | .      | /      |
  * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    |        |        |        | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
+ * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    | LEFT   | DOWN   | RIGHT  | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  */
   [cm] = LAYOUT_ortho_5x15( \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN, \
     UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O   , \
-    _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, _______, _______, _______, UK_K,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH  , \
-    UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  _______, _______, _______, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT \
+    _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, UK_UP,   _______, _______, UK_K,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH  , \
+    UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  UK_LEFT, UK_DOWN, UK_RGHT, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT \
   ),
 
 /* Dvorak

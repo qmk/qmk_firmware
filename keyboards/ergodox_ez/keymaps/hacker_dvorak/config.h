@@ -5,26 +5,33 @@
 #pragma once
 
 
-/* Keyboard Settings */
 #undef  TAPPING_TERM
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 
 #undef  DEBOUNCE
 #define DEBOUNCE 10
 
 #undef  IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #undef  FORCE_NKRO
 #define FORCE_NKRO
 
-/* This isn't defined by default, so there is no need to undefine it first. */
-#define LEADER_TIMEOUT 500
+#undef  TAPPING_TOGGLE
+#define TAPPING_TOGGLE 5
+
+#define LEADER_TIMEOUT 1000
+#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define QMK_KEYS_PER_SCAN 4
+#define DANCING_TERM 175
+
+#define ONESHOT_TAP_TOGGLE 5
+#define ONESHOT_TIMEOUT 5000
+
+#define COMBO_COUNT 4
+#define COMBO_TERM 200
 
 
-// RGB Lights
 #undef  RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 24
 
@@ -40,11 +47,7 @@
 #undef  RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
 
-/* This isn't defined by default, so there is no need to undefine it first. */
-#define RGBLIGHT_SLEEP
 
-
-// Mouse
 #undef  MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 10
 
@@ -52,31 +55,34 @@
 #define MOUSEKEY_DELAY 15
 
 #undef  MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 15
+#define MOUSEKEY_MAX_SPEED 20
 
 #undef  MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 150
+#define MOUSEKEY_TIME_TO_MAX 200
 
 #undef  MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 15
+#define MOUSEKEY_WHEEL_MAX_SPEED 20
 
 #undef  MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 150
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 200
 
 
-/* This is defined only if CONSOLE_ENABLE is set to "yes" */
 // #undef  NO_DEBUG
 // #define NO_DEBUG
 
 // #undef  NO_PRINT
 // #define NO_PRINT
 
-/* For COMBO only*/
-// #define COMBO_COUNT 1
-// #define COMBO_TERM 200
+// #define RETRO_TAPPING
+// #define TAPPING_FORCE_HOLD
 
-/* For tap toggle */
-// #define TAPPING_TOGGLE 2
-// #define ONESHOT_TAP_TOGGLE 2
-// #define ONESHOT_TIMEOUT 300
+// #define AUTO_SHIFT_TIMEOUT 150
+// #define NO_AUTO_SHIFT_SPECIAL
+// #define NO_AUTO_SHIFT_NUMERIC
+// #define NO_AUTO_SHIFT_ALPHA
 
+// #define EXTRA_LONG_COMBOS
+// #define EXTRA_EXTRA_LONG_COMBOS
+// #define COMBO_ALLOW_ACTION_KEYS
+
+// #define RGBLIGHT_SLEEP

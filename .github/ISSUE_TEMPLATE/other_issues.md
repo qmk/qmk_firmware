@@ -2,8 +2,8 @@
 name: Other issues
 about: Anything else that doesn't fall into the above categories. 
 ---
-<!--- Provide a general summary of the changes you want in the Title above -->
+<!--- Provide a general summary of the changes you want in the title above. -->
 
-<!-- This text and anything on lines wrapped like this one will not show up in the final text. This text is to help us and you. -->
+<!--- Anything on lines wrapped in comments like these will not show up in the final text. -->
 
-<!-- Please check https://docs.qmk.fm/#/support for additional resources first. If that doesn't answer your question, check the bug report option, as that may be more appropriate. -->
+<!-- Please check https://docs.qmk.fm/#/support for additional resources first. If that doesn't answer your question, choose the bug report template instead, as that may be more appropriate. -->

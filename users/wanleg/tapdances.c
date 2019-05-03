@@ -168,7 +168,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
   LYR75tap_state.state = cur_dance(state);
   switch (LYR75tap_state.state) {
 	case SINGLE_TAP: register_code(KC_PSLS); break;
-	case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+	case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
 }
@@ -176,7 +176,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
 void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYR75tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
-    case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+    case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
   LYR75tap_state.state = 0;

@@ -31,11 +31,6 @@
 /* Set power consumption to work with mobile devices */
 #define USB_MAX_POWER_CONSUMPTION 100
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B2, B5, B4, D7, D6, B3 }

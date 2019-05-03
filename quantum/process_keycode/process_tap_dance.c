@@ -131,6 +131,7 @@ void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
       if (keycode == action->state.keycode && keycode == last_td)
         continue;
       action->state.interrupted = true;
+      action->state.interrupting_keycode = keycode;
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
     }
@@ -209,5 +210,6 @@ void reset_tap_dance (qk_tap_dance_state_t *state) {
   state->count = 0;
   state->interrupted = false;
   state->finished = false;
+  state->interrupting_keycode = 0;
   last_td = 0;
 }

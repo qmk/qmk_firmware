@@ -64,7 +64,7 @@ void USB_write2422_block(void)
         i2c0_transmit(USB2422_ADDR, dest, 34, 50000);
         SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
         while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) { DBGC(DC_USB_WRITE2422_BLOCK_SYNC_SYSOP); }
-        CLK_delay_us(100);
+        wait_us(100);
     }
 
     DBGC(DC_USB_WRITE2422_BLOCK_COMPLETE);
@@ -135,7 +135,7 @@ void USB2422_init(void)
     sr_exp_data.bit.HUB_RESET_N = 1; //reset high
     SR_EXP_WriteData();
 
-    CLK_delay_us(100);
+    wait_us(100);
 
 #ifndef MD_BOOTLOADER
 
@@ -154,10 +154,9 @@ void USB_reset(void)
     //pulse reset for at least 1 usec
     sr_exp_data.bit.HUB_RESET_N = 0; //reset low
     SR_EXP_WriteData();
-    CLK_delay_us(1);
+    wait_us(2);
     sr_exp_data.bit.HUB_RESET_N = 1; //reset high to run
     SR_EXP_WriteData();
-    CLK_delay_us(1);
 
     DBGC(DC_USB_RESET_COMPLETE);
 }
@@ -247,7 +246,7 @@ void USB_set_host_by_voltage(void)
 
     SR_EXP_WriteData();
 
-    CLK_delay_ms(250);
+    wait_ms(250);
 
     while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) { DBGC(DC_USB_SET_HOST_5V_LOW_WAITING); }
 
@@ -313,11 +312,11 @@ uint8_t USB2422_Port_Detect_Init(void)
 
     USB_set_host_by_voltage();
 
-    port_detect_retry_ms = CLK_get_ms() + PORT_DETECT_RETRY_INTERVAL;
+    port_detect_retry_ms = timer_read64() + PORT_DETECT_RETRY_INTERVAL;
 
     while (!USB_active())
     {
-        tmod = CLK_get_ms() % PORT_DETECT_RETRY_INTERVAL;
+        tmod = timer_read64() % PORT_DETECT_RETRY_INTERVAL;
 
         if (v_con_1 > v_con_2) //Values updated from USB_set_host_by_voltage();
         {
@@ -333,7 +332,7 @@ uint8_t USB2422_Port_Detect_Init(void)
             else { DBG_LED_OFF; }
         }
 
-        if (CLK_get_ms() > port_detect_retry_ms)
+        if (timer_read64() > port_detect_retry_ms)
         {
             DBGC(DC_PORT_DETECT_INIT_FAILED);
             return 0;
@@ -366,8 +365,10 @@ void USB_ExtraSetState(uint8_t state)
     if (usb_extra_state == USB_EXTRA_STATE_ENABLED) CDC_print("USB: Extra enabled\r\n");
     else if (usb_extra_state == USB_EXTRA_STATE_DISABLED)
     {
-      CDC_print("USB: Extra disabled\r\n");
-      if (led_animation_breathing) gcr_breathe = gcr_desired;
+        CDC_print("USB: Extra disabled\r\n");
+#ifdef USE_MASSDROP_CONFIGURATOR
+        if (led_animation_breathing) gcr_breathe = gcr_desired;
+#endif
     }
     else if (usb_extra_state == USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG) CDC_print("USB: Extra disabled until replug\r\n");
     else CDC_print("USB: Extra state unknown\r\n");

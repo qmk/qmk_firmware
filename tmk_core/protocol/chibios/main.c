@@ -113,11 +113,13 @@ int main(void) {
   chSysInit();
 
 #ifdef STM32_EEPROM_ENABLE
-  EEPROM_init();
+  EEPROM_Init();
 #endif
 
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+
+  keyboard_setup();
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);

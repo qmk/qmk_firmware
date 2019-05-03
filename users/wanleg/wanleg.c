@@ -6,38 +6,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QW);
+		#if defined(RGBLIGHT_ENABLE)
+		rgblight_sethsv_noeeprom(0,0,128);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
+		#endif
       }
       return false;
       break;
     case GHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_GK);
+		#if defined(RGBLIGHT_ENABLE)
+        rgblight_sethsv_noeeprom(128,255,64);
+		#endif
       }
       return false;
       break;
     case gGHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(gGK);
+		#if defined(RGBLIGHT_ENABLE)
+        rgblight_sethsv_noeeprom(128,255,128);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT);
+		#endif
       }
       return false;
       break;
     case ONEHAND:
     if (record->event.pressed) {
       set_single_persistent_default_layer(ONE);
-      }
-      return false;
-      break;
-    case QWERTY75:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(QW75);
-      }
-      return false;
-      break;
-    case GHERKIN75:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(GK75);
       }
       return false;
       break;
@@ -117,53 +115,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case SUBTER75:
+	case FUNCTION:
       if (record->event.pressed) {
-        layer_on(SUB75);
+        layer_on(_FN);
       } else {
-        layer_off(SUB75);
+        layer_off(_FN);
       }
       return false;
       break;
-	case SUPRA75:
+  //on RESET, underglow red if present
+  case RESET:
       if (record->event.pressed) {
-        layer_on(SUP75);
-      } else {
-        layer_off(SUP75);
+		  #if defined(RGBLIGHT_ENABLE)
+		  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+		  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+		  rgblight_sethsv_noeeprom_red();
+		  #endif
       }
-      return false;
-      break;
-	case NUMBER75:
-      if (record->event.pressed) {
-        layer_on(NUM75);
-      } else {
-        layer_off(NUM75);
-      }
-      return false;
-      break;
-	case DIRECTION75:
-      if (record->event.pressed) {
-        layer_on(DIR75);
-      } else {
-        layer_off(DIR75);
-      }
-      return false;
-      break;
-	case ETCETERA75:
-      if (record->event.pressed) {
-        layer_on(ETC75);
-      } else {
-        layer_off(ETC75);
-      }
-      return false;
-      break;
-	case FUNCTION75:
-      if (record->event.pressed) {
-        layer_on(FN75);
-      } else {
-        layer_off(FN75);
-      }
-      return false;
+      return true; // Let QMK send the press/release events as normal
       break;
   }
   return true;
@@ -180,6 +149,7 @@ void matrix_init_keymap(void) {}
 
 // Call user matrix init, then call the keymap's init function
 void matrix_init_user(void) {
+//turn off pro micro LEDs
 #if defined(KEYBOARD_lets_split_rev2)
   DDRD &= ~(1<<5);
   PORTD &= ~(1<<5);
@@ -187,5 +157,20 @@ void matrix_init_user(void) {
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
 #endif
+
+//disable backlight breathing for keyboard using random flashing RGB LEDs for backlight
+//(breathing provides insufficient power to integrated LED IC)
+#if defined(KEYBOARD_kbdfans_kbd6x) && defined(BACKLIGHT_BREATHING)
+  breathing_disable();
+#endif
   matrix_init_keymap();
+}
+
+//at end of firmware startup process, change powerup default layer and underglow colour for kbd6x
+void keyboard_post_init_user(void) {
+  #if defined(KEYBOARD_kbdfans_kbd6x)
+    set_single_persistent_default_layer(_QW);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 5);
+    rgblight_sethsv_noeeprom(0,0,128);
+  #endif
 }

@@ -14,6 +14,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

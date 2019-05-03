@@ -15,10 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Layer shorthand
 #define _BASE     0
 #define _LOWER    1
@@ -95,8 +91,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
 };
-
-const uint16_t PROGMEM fn_actions[] = {};
 
 void matrix_init_user(void) {
   _delay_ms(20); // Gets rid of tick

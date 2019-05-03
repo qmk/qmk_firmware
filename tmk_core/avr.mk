@@ -6,7 +6,7 @@ CC = avr-gcc
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size
-AR = avr-ar rcs
+AR = avr-ar
 NM = avr-nm
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
@@ -169,6 +169,36 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
 define EXEC_AVRDUDE
 	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
@@ -184,13 +214,20 @@ define EXEC_AVRDUDE
 			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
-		echo "Detected controller on USB port at $$USB"; \
+		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
+			sleep 1; \
+		else \
+			printf "Waiting for $$USB to become writable."; \
+			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
 		fi; \
-		sleep 1; \
-		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		if [ -z "$(1)" ]; then \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		else \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
+		fi \
 	fi
 endef
 
@@ -199,8 +236,14 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	while true; do \
-	    $(call EXEC_AVRDUDE) ; \
+		$(call EXEC_AVRDUDE) ; \
 	done
+
+avrdude-split-left: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE,eeprom-lefthand.eep)
+
+avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -262,14 +305,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	printf "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "MANUFACTURER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s Bootloader\n" "`$(GREP) "PRODUCT\s" $(ALL_CONFIGS) -h | tail -1 | tr -d '\r'`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_OUTPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_INPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_LED\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_SPEAKER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
 	make -C lib/lufa/Bootloaders/DFU/
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
@@ -279,4 +315,3 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
-

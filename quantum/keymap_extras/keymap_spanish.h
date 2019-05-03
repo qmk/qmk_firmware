@@ -18,9 +18,6 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ES_ALGR KC_RALT
-
 // Normal characters
 #define ES_OVRR KC_GRV
 #define ES_APOS	KC_MINS

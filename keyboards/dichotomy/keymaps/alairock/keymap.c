@@ -43,34 +43,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT( /* Shifted layout, small changes (because angle brackets have been moved to thumb cluster buttons) */
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-  _______, _______, KC_VOLD, KC_VOLU, KC_MPLY, KC_MFFD,        KC_MUTE, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, _______,
-  _______, _______, _______, _______, _______, KC_MRWD,        _______, _______, _______, KC_BSLS, KC_QUOT, _______,
+  _______, _______, KC_VOLD, KC_VOLU, KC_MPLY, KC_MFFD,        KC_MUTE, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC,  _______,
+  _______, _______, KC_GRV,  _______, _______, KC_MRWD,        _______, _______, _______, KC_BSLS, KC_QUOT, _______,
                              _______, _______, _______,        _______, _______, _______,
                     _______, _______, KC_LABK, _______,        _______, KC_RABK, _______, _______
 ),
 
 [_LOWER] = LAYOUT( /* Number layout, basically the main function layer */
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  _______, KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,        KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
-  _______, KC_TILD, KC_GRV,  KC_F13,  KC_F14,  KC_F15,         KC_F16,  KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-                             _______, _______, _______,        _______, _______, _______,
-                    _______,   RAISE, _______, _______,        _______, _______, _______, _______
+  _______, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+  _______, _______, KC_VOLD,  KC_VOLU, KC_MPLY, KC_MFFD,       KC_MUTE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
+  _______, _______, KC_TILD,  _______, _______, KC_MRWD,       _______, _______, _______, KC_PIPE, KC_DQT,  _______,
+                              _______, _______, _______,       _______, _______, _______,
+                    _______,  RAISE,   _______, _______,       _______, _______, _______, _______
 ),
 
 [_ADJUST] = LAYOUT( /* Shifted number/function layout, for per-key control.  Only active when shift is held, and number is toggled or held */
-  _______, _______, _______, _______, _______, _______,        _______, _______, KC_UP, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,  _______,
-  _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______,
-  							 _______, _______, _______,        _______, _______, _______,
-					_______, _______, _______, _______,        _______, _______, _______, _______
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,          _______, _______, KC_UP,   _______, _______, _______,
+  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,         _______, _______, _______, _______, _______, _______,
+                             _______, _______, _______,        _______, _______, _______,
+                    _______, _______, _______, _______,        _______, _______, _______, _______
 ),
 
 [_MOUSE] = LAYOUT( /* Mouse layer, including buttons for clicking. */
   _______, _______, _______, _______, _______, _______,        KC_VOLU, KC_HOME, KC_PGUP, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,        _______, MS_BTN1, MS_BTN2, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,        KC_VOLD, KC_END,  KC_PGDN, _______, _______, _______,
-  							 _______, _______, _______,        _______, KC_UP,   _______,
-					_______, _______, _______, _______,        KC_LEFT, KC_DOWN, KC_RGHT, _______
+                             _______, _______, _______,        _______, KC_UP,   _______,
+                    _______, _______, _______, _______,        KC_LEFT, KC_DOWN, KC_RGHT, _______
 )
 
 }; // end keymaps block

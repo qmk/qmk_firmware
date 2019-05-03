@@ -9,7 +9,9 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
 
-EXTRAFLAGS += -flto
+ifeq ($(PLATFORM),AVR)
+  EXTRAFLAGS += -flto
+endif
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
@@ -25,6 +27,9 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   endif
   ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
     OPT_DEFS += -DRGBLIGHT_NOEEPROM
+  endif
+  ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
+    OPT_DEFS += -DRGBLIGHT_STARTUP_ANIMATION
   endif
 endif
 
@@ -43,15 +48,6 @@ ifdef CONSOLE_ENABLE
   endif
 endif
 
-
-ifeq ($(strip $(UCIS_ENABLE)), yes)
-  SRC += send_unicode.c
-endif
-
-ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
-  SRC += send_unicode.c
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-  SRC += send_unicode.c
+ifeq ($(strip $(MAKE_BOOTLOADER)), yes)
+    OPT_DEFS += -DMAKE_BOOTLOADER
 endif
