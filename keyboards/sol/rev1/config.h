@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Sol
 #define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
-// TODO: Have not tried LED_MIRRORED + RGB_MATRIX
 #ifdef LED_MIRRORED
   #define RGBLED_NUM 35
 #else

@@ -25,8 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 150
 
 /* Select hand configuration */
-#define SOFT_SERIAL_PIN D0
-#define MASTER_LEFT
+#define SOFT_SERIAL_PIN D3
 #define EE_HANDS
 
 /* key matrix size */
@@ -40,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Encoder support
 #define NUMBER_OF_ENCODERS 1
-#define ENCODERS_PAD_A { PD2 }
-#define ENCODERS_PAD_B { PD6 }
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D6 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
