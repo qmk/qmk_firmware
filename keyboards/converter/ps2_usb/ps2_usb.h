@@ -72,38 +72,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K90, KBA, KB8, KB0,      /* WWW Search, Home, Back, Forward */                          \
     KA8, KA0, K98            /* WWW Stop, Refresh, Favorites */                             \
 ) { \
-    { KC_NO,    KC_##K01, KC_NO,    KC_##K03, KC_##K04, KC_##K05, KC_##K06, KC_##K07 }, \
-    { KC_##K08, KC_##K09, KC_##K0A, KC_##K0B, KC_##K0C, KC_##K0D, KC_##K0E, KC_NO    }, \
-    { KC_##K10, KC_##K11, KC_##K12, KC_##K13, KC_##K14, KC_##K15, KC_##K16, KC_NO    }, \
-    { KC_##K18, KC_NO,    KC_##K1A, KC_##K1B, KC_##K1C, KC_##K1D, KC_##K1E, KC_NO    }, \
-    { KC_##K20, KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_NO    }, \
-    { KC_##K28, KC_##K29, KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_##K2E, KC_NO    }, \
-    { KC_##K30, KC_##K31, KC_##K32, KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_NO    }, \
-    { KC_##K38, KC_NO,    KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E, KC_NO    }, \
-    { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_NO    }, \
-    { KC_##K48, KC_##K49, KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E, KC_NO    }, \
-    { KC_##K50, KC_##K51, KC_##K52, KC_NO,    KC_##K54, KC_##K55, KC_NO,    KC_##K57 }, \
-    { KC_##K58, KC_##K59, KC_##K5A, KC_##K5B, KC_NO,    KC_##K5D, KC_NO,    KC_##K5F }, \
-    { KC_NO,    KC_##K61, KC_NO,    KC_##K63, KC_##K64, KC_NO,    KC_##K66, KC_##K67 }, \
-    { KC_##K68, KC_##K69, KC_##K6A, KC_##K6B, KC_##K6C, KC_##K6D, KC_NO,    KC_NO    }, \
-    { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_##K77 }, \
-    { KC_##K78, KC_##K79, KC_##K7A, KC_##K7B, KC_##K7C, KC_##K7D, KC_##K7E, KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_NO,    KC_##K83, KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_K01, KC_NO,    KC_K03, KC_K04, KC_K05, KC_K06, KC_K07 }, \
+    { KC_K08, KC_K09, KC_K0A, KC_K0B, KC_K0C, KC_K0D, KC_K0E, KC_NO    }, \
+    { KC_K10, KC_K11, KC_K12, KC_K13, KC_K14, KC_K15, KC_K16, KC_NO    }, \
+    { KC_K18, KC_NO,    KC_K1A, KC_K1B, KC_K1C, KC_K1D, KC_K1E, KC_NO    }, \
+    { KC_K20, KC_K21, KC_K22, KC_K23, KC_K24, KC_K25, KC_K26, KC_NO    }, \
+    { KC_K28, KC_K29, KC_K2A, KC_K2B, KC_K2C, KC_K2D, KC_K2E, KC_NO    }, \
+    { KC_K30, KC_K31, KC_K32, KC_K33, KC_K34, KC_K35, KC_K36, KC_NO    }, \
+    { KC_K38, KC_NO,    KC_K3A, KC_K3B, KC_K3C, KC_K3D, KC_K3E, KC_NO    }, \
+    { KC_K40, KC_K41, KC_K42, KC_K43, KC_K44, KC_K45, KC_K46, KC_NO    }, \
+    { KC_K48, KC_K49, KC_K4A, KC_K4B, KC_K4C, KC_K4D, KC_K4E, KC_NO    }, \
+    { KC_K50, KC_K51, KC_K52, KC_NO,    KC_K54, KC_K55, KC_NO,    KC_K57 }, \
+    { KC_K58, KC_K59, KC_K5A, KC_K5B, KC_NO,    KC_K5D, KC_NO,    KC_K5F }, \
+    { KC_NO,    KC_K61, KC_NO,    KC_K63, KC_K64, KC_NO,    KC_K66, KC_K67 }, \
+    { KC_K68, KC_K69, KC_K6A, KC_K6B, KC_K6C, KC_K6D, KC_NO,    KC_NO    }, \
+    { KC_K70, KC_K71, KC_K72, KC_K73, KC_K74, KC_K75, KC_K76, KC_K77 }, \
+    { KC_K78, KC_K79, KC_K7A, KC_K7B, KC_K7C, KC_K7D, KC_K7E, KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_NO,    KC_K83, KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_##K90, KC_##K91, KC_NO,    KC_NO,    KC_##K94, KC_##K95, KC_NO,    KC_NO    }, \
-    { KC_##K98, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K9F }, \
-    { KC_##KA0, KC_##KA1, KC_NO,    KC_##KA3, KC_NO,    KC_NO,    KC_NO,    KC_##KA7 }, \
-    { KC_##KA8, KC_NO,    KC_NO,    KC_##KAB, KC_NO,    KC_NO,    KC_NO,    KC_##KAF }, \
-    { KC_##KB0, KC_NO,    KC_##KB2, KC_NO,    KC_##KB4, KC_NO,    KC_NO,    KC_##KB7 }, \
-    { KC_##KB8, KC_NO,    KC_##KBA, KC_##KBB, KC_NO,    KC_NO,    KC_NO,    KC_##KBF }, \
-    { KC_##KC0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_##KC8, KC_NO,    KC_##KCA, KC_NO,    KC_NO,    KC_##KCD, KC_NO,    KC_NO    }, \
-    { KC_##KD0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_##KDA, KC_NO,    KC_NO,    KC_NO,    KC_##KDE, KC_NO    }, \
+    { KC_K90, KC_K91, KC_NO,    KC_NO,    KC_K94, KC_K95, KC_NO,    KC_NO    }, \
+    { KC_K98, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_K9F }, \
+    { KC_KA0, KC_KA1, KC_NO,    KC_KA3, KC_NO,    KC_NO,    KC_NO,    KC_KA7 }, \
+    { KC_KA8, KC_NO,    KC_NO,    KC_KAB, KC_NO,    KC_NO,    KC_NO,    KC_KAF }, \
+    { KC_KB0, KC_NO,    KC_KB2, KC_NO,    KC_KB4, KC_NO,    KC_NO,    KC_KB7 }, \
+    { KC_KB8, KC_NO,    KC_KBA, KC_KBB, KC_NO,    KC_NO,    KC_NO,    KC_KBF }, \
+    { KC_KC0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_KC8, KC_NO,    KC_KCA, KC_NO,    KC_NO,    KC_KCD, KC_NO,    KC_NO    }, \
+    { KC_KD0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_KDA, KC_NO,    KC_NO,    KC_NO,    KC_KDE, KC_NO    }, \
     { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_NO,    KC_##KE9, KC_NO,    KC_##KEB, KC_##KEC, KC_NO,    KC_NO,    KC_NO    }, \
-    { KC_##KF0, KC_##KF1, KC_##KF2, KC_NO,    KC_##KF4, KC_##KF5, KC_NO,    KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_##KFA, KC_NO,    KC_##KFC, KC_##KFD, KC_##KFE, KC_NO    }, \
+    { KC_NO,    KC_KE9, KC_NO,    KC_KEB, KC_KEC, KC_NO,    KC_NO,    KC_NO    }, \
+    { KC_KF0, KC_KF1, KC_KF2, KC_NO,    KC_KF4, KC_KF5, KC_NO,    KC_NO    }, \
+    { KC_NO,    KC_NO,    KC_KFA, KC_NO,    KC_KFC, KC_KFD, KC_KFE, KC_NO    }, \
 }
 
 #define LAYOUT_FULL( \
@@ -146,8 +146,8 @@ LAYOUT_full( \
     K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K66, KF0,KEC,KFD,  K77,KCA,K7C,K7B, \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,    K5D, KF1,KE9,KFA,  K6C,K75,K7D,K79, \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,        K5A,               K6B,K73,K74,\
-    K12, K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,   , K59,     KF5,      K69,K72,K7A,KDA, \
-    K14,K9F,K11   K29,          K91,KA7,KAF,K94, KEB,KF2,KF4,  ,K70,K71 \
+    K12,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,   , K59,     KF5,      K69,K72,K7A,KDA, \
+    K14,K9F,K11   K29,          K91,KA7,KAF,K94, KEB,KF2,KF4,  ,K70,K71, \
 )
 
 /* ISO layout */
@@ -166,7 +166,7 @@ LAYOUT_full( \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,    K5D, KF1,KE9,KFA,  K6C,K75,K7D,K79, \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,        K5A,               K6B,K73,K74,\
     K12,K61,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,    , K59,     KF5,      K69,K72,K7A,KDA, \
-    K14,K9F,K11   K29,          K91,KA7,KAF,K94, KEB,KF2,KF4,  ,K70,K71 \
+    K14,K9F,K11   K29,          K91,KA7,KAF,K94, KEB,KF2,KF4,  ,K70,K71, \
 )
 
 /* JIS layout */
@@ -176,7 +176,7 @@ LAYOUT_full( \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,         KF1,KE9,KFA,  K6C,K75,K7D,     \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,K5D,    K5A,               K6B,K73,K74,K79, \
     K12,K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,K51,        K59,     KF5,      K69,K72,K7A,     \
-    K14,K9F,K11,    K67,K29,K64,K13,            K91,KA7,KAF,K94, KEB,KF2,KF4,  K70,    K71, KDA \
+    K14,K9F,K11,    K67,K29,K64,K13,            K91,KA7,KAF,K94, KEB,KF2,KF4,  K70,    K71, KDA,\
 ) \
 
 LAYOUT_full( \
@@ -186,5 +186,5 @@ LAYOUT_full( \
     K0D,K15,K1D,K24,K2D,K2C,K35,K3C,K43,K44,K4D,K54,K5B,    K5D, KF1,KE9,KFA,  K6C,K75,K7D,K79, \
     K58,K1C,K1B,K23,K2B,K34,K33,K3B,K42,K4B,K4C,K52,        K5A,               K6B,K73,K74,\
     K12, K1A,K22,K21,K2A,K32,K31,K3A,K41,K49,K4A,   K51,K59,     KF5,      K69,K72,K7A,KDA, \
-    K14,K9F,K11,K67,    K29,            K64,K13,K91,KA7,KAF,K94, KEB,KF2,KF4,  K70,K71 \
+    K14,K9F,K11,K67,    K29,            K64,K13,K91,KA7,KAF,K94, KEB,KF2,KF4,  K70,K71, \
 )
