@@ -324,7 +324,6 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 
 # # project specific files
-SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
     $(QUANTUM_SRC)
@@ -343,6 +342,7 @@ include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
 
+SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
