@@ -404,7 +404,7 @@ check-size:
 	fi
 else
 check-size:
-	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
 
 # Create build directory
