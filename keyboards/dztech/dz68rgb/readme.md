@@ -3,7 +3,6 @@
 A customizable 68% RGB keyboard.
 
 Keyboard Maintainer: [DZtech](http://keyboarddiy.taobao.com)  
-
 Hardware Supported: [DZtech](http://keyboarddiy.taobao.com) 
 
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
