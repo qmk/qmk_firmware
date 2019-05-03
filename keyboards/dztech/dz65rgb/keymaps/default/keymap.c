@@ -19,7 +19,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void rgb_matrix_indicators_user(void)
 {
-	  uint8_t this_led = host_keyboard_leds();
 	    if ( this_led & (1<<USB_LED_CAPS_LOCK))
 	    {
 	      rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
