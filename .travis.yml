@@ -29,6 +29,7 @@ addons:
     packages:
     - dfu-programmer
     - dfu-util
+    - dfu-suffix
     - pandoc
     - gcc-arm-none-eabi
     - binutils-arm-none-eabi
