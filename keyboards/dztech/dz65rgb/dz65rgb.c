@@ -1,4 +1,4 @@
-#include "dz68rgb.h"
+#include "dz65rgb.h"
 #include "config.h"
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	{0, C2_1,  C3_1,  C4_1},  // LA0
@@ -144,15 +144,7 @@ rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     {{4|(10<<4)},  {16*10,  64}, 1},
     {{4|(11<<4)},  {16*11,  64}, 1},
 };
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
+
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);
