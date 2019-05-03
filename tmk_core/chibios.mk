@@ -39,9 +39,13 @@ include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 endif
 include $(PLATFORM_MK)
 
@@ -125,7 +129,7 @@ CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various
+         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
 #
 # Project, sources and paths
@@ -144,6 +148,8 @@ NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
+
+COMMON_VPATH += $(DRIVER_PATH)/arm
 
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
@@ -196,10 +202,13 @@ ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
 
+ST_LINK_ARGS ?=
+
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -227,6 +236,27 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+
+ifneq ($(strip $(TIME_DELAY)),)
+  TIME_DELAY = $(strip $(TIME_DELAY))
+else
+  TIME_DELAY = 10
+endif
+dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
+  COUNTDOWN=$(TIME_DELAY) ;\
+  while [[ $$COUNTDOWN -ge 1 ]] ; do \
+        echo "Flashing in $$COUNTDOWN ..."; \
+        sleep 1 ;\
+        ((COUNTDOWN = COUNTDOWN - 1)) ; \
+  done; \
+  echo "Flashing $(TARGET).bin" ;\
+  sleep 1 ;\
+  $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

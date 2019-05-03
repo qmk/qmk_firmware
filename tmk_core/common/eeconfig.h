@@ -23,21 +23,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEED
+#define EECONFIG_MAGIC_NUMBER_OFF                   (uint16_t)0xFFFF
 
-/* eeprom parameteter address */
+/* EEPROM parameter address */
 #define EECONFIG_MAGIC                              (uint16_t *)0
-#define EECONFIG_DEBUG                              (uint8_t *)2
-#define EECONFIG_DEFAULT_LAYER                      (uint8_t *)3
-#define EECONFIG_KEYMAP                             (uint8_t *)4
-#define EECONFIG_MOUSEKEY_ACCEL                     (uint8_t *)5
-#define EECONFIG_BACKLIGHT                          (uint8_t *)6
-#define EECONFIG_AUDIO                              (uint8_t *)7
+#define EECONFIG_DEBUG                               (uint8_t *)2
+#define EECONFIG_DEFAULT_LAYER                       (uint8_t *)3
+#define EECONFIG_KEYMAP                              (uint8_t *)4
+#define EECONFIG_MOUSEKEY_ACCEL                      (uint8_t *)5
+#define EECONFIG_BACKLIGHT                           (uint8_t *)6
+#define EECONFIG_AUDIO                               (uint8_t *)7
 #define EECONFIG_RGBLIGHT                           (uint32_t *)8
 #define EECONFIG_UNICODEMODE                        (uint8_t *)12
 #define EECONFIG_STENOMODE                          (uint8_t *)13
 // EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS         				(uint8_t *)14
+#define EECONFIG_HANDEDNESS         			        	(uint8_t *)14
+#define EECONFIG_KEYBOARD                          (uint32_t *)15
+#define EECONFIG_USER                              (uint32_t *)19
+#define EECONFIG_VELOCIKEY                          (uint8_t *)23
 
+#define EECONFIG_HAPTIC                            (uint32_t*)24
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)
@@ -57,8 +62,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 bool eeconfig_is_enabled(void);
+bool eeconfig_is_disabled(void);
 
 void eeconfig_init(void);
+void eeconfig_init_quantum(void);
+void eeconfig_init_kb(void);
+void eeconfig_init_user(void);
 
 void eeconfig_enable(void);
 
@@ -81,6 +90,16 @@ void eeconfig_update_backlight(uint8_t val);
 #ifdef AUDIO_ENABLE
 uint8_t eeconfig_read_audio(void);
 void eeconfig_update_audio(uint8_t val);
+#endif
+
+uint32_t eeconfig_read_kb(void);
+void eeconfig_update_kb(uint32_t val);
+uint32_t eeconfig_read_user(void);
+void eeconfig_update_user(uint32_t val);
+
+#ifdef HAPTIC_ENABLE
+uint32_t eeconfig_read_haptic(void);
+void eeconfig_update_haptic(uint32_t val);
 #endif
 
 #endif
