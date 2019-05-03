@@ -262,6 +262,6 @@ st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
-		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin ;\
+		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
 	fi
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
