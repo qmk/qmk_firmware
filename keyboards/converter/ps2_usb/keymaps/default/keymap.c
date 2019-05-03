@@ -1,7 +1,7 @@
 #include "ps2_usb.h"
+#include "ps2.h"
 
-
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: default
      * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.     ,-----------.
      * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|     |Pwr|Slp|Wak|
@@ -25,6 +25,6 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,     KC_ENT,                         KC_P4,  KC_P5,  KC_P6,  KC_PPLS,
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,          KC_UP,           KC_P1,  KC_P2,  KC_P3,
     KC_LCTL,KC_LGUI,KC_LALT,          KC_SPC,                     KC_RALT,KC_RGUI,KC_APP, KC_RCTL,     KC_LEFT,KC_DOWN,KC_RGHT,    KC_P0,       KC_PDOT,KC_PENT
-    ),
+    )
 };
 

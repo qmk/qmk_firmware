@@ -55,7 +55,7 @@ void matrix_clear(void);
  * 0xFC:    PrintScreen
  * 0xFE:    Pause
  */
-static uint8_t matrix[MATRIX_ROWS];
+static uint16_t matrix[MATRIX_ROWS];
 #define ROW(code)      (code>>3)
 #define COL(code)      (code&0x07)
 
