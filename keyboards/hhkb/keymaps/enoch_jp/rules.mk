@@ -1,0 +1,3 @@
+NKRO_ENABLE = yes
+
+OPT_DEFS += -DHHKB_JP
