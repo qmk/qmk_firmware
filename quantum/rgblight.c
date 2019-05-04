@@ -879,6 +879,14 @@ void rgblight_task(void) {
 
 // Effects
 #ifdef RGBLIGHT_EFFECT_BREATHING
+
+#ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
+  #ifndef RGBLIGHT_BREATHE_TABLE_SIZE
+    #define RGBLIGHT_BREATHE_TABLE_SIZE 256 // 256 or 128 or 64
+  #endif
+  #include <rgblight_breathe_table.h>
+#endif
+
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
@@ -886,7 +894,11 @@ void rgblight_effect_breathing(animation_status_t *anim) {
   float val;
 
   // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+#ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
+  val = pgm_read_byte(&rgblight_effect_breathe_table[anim->pos / table_scale]);
+#else
   val = (exp(sin((anim->pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
+#endif
   rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
   anim->pos = (anim->pos + 1);
 }
