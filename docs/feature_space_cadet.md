@@ -47,7 +47,7 @@ By default Space Cadet assumes a US ANSI layout, but if your layout uses differe
 
 ## Obsolete Configuration
 
-These defines are used in the above defines internally to support backwards compatibility, so you may continue to use them, however the above defines open up a larger range of flexibility than before. As an example, say you want to not send any modifier when you tap just `KC_LSPO`, with the old defines you had an all or nothing choice of using the `DISABLE_SPACE_CADET_MODIFIER` define. Now you can define that key as: `#define LSPO_KEYS KC_LSFT, KC_TRNS, KC_9`. This tells the system to set Left Shift if held or used with other keys, then on tap send no modifier (transparent) with the `KC_9`
+These defines are used in the above defines internally to support backwards compatibility, so you may continue to use them, however the above defines open up a larger range of flexibility than before. As an example, say you want to not send any modifier when you tap just `KC_LSPO`, with the old defines you had an all or nothing choice of using the `DISABLE_SPACE_CADET_MODIFIER` define. Now you can define that key as: `#define LSPO_KEYS KC_LSFT, KC_TRNS, KC_9`. This tells the system to set Left Shift if held or used with other keys, then on tap send no modifier (transparent) with the `KC_9`.
 
 |Define                        |Default      |Description                                                       |
 |------------------------------|-------------|------------------------------------------------------------------|
