@@ -150,14 +150,11 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
 }
 
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
-  // TODO: This is kinda expensive, fix this soonish
   uint8_t led_count = rgb_matrix_map_row_column_to_led_kb(row, column, led_i);
-  for (uint8_t i = 0; i < DRIVER_LED_TOTAL && led_count < LED_HITS_TO_REMEMBER; i++) {
-    matrix_co_t matrix_co = g_rgb_leds[i].matrix_co;
-    if (row == matrix_co.row && column == matrix_co.col) {
-      led_i[led_count] = i;
-      led_count++;
-    }
+  uint8_t led_index = g_led_config.matrix_co[row][column];
+  if (led_index != ___) {
+    led_i[led_count] = led_index;
+    led_count++;
   }
   return led_count;
 }

@@ -54,9 +54,9 @@
   uint8_t max = DRIVER_LED_TOTAL;
 #endif
 
-#define RGB_MATRIX_TEST_LED_FLAGS() if (!HAS_ANY_FLAGS(g_rgb_leds[i].flags, params->flags)) continue
+#define RGB_MATRIX_TEST_LED_FLAGS() if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 
 typedef struct
 {

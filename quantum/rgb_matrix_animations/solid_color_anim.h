@@ -1,5 +1,6 @@
 #pragma once
 
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 bool rgb_matrix_solid_color(effect_params_t* params) {

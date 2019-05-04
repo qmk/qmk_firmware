@@ -2,7 +2,7 @@
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SPLASH) || !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
 
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
@@ -15,7 +15,7 @@ static bool rgb_matrix_multisplash_range(uint8_t start, effect_params_t* params)
     RGB_MATRIX_TEST_LED_FLAGS();
     hsv.h = rgb_matrix_config.hue;
     hsv.v = 0;
-    point_t point = g_rgb_leds[i].point;
+    point_t point = g_led_config.point[i];
     for (uint8_t j = start; j < count; j++) {
       int16_t dx = point.x - g_last_hit_tracker.x[j];
       int16_t dy = point.y - g_last_hit_tracker.y[j];
