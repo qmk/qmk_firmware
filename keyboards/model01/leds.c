@@ -46,7 +46,7 @@ void set_led_to(int led, uint8_t r, uint8_t g, uint8_t b) {
 #ifdef RGB_MATRIX_ENABLE
 
 __attribute__ ((weak))
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     {  27,  26,  20,  19,  12,  11,   4,   3 },
     {  28,  25,  21,  18,  13,  10,   5,   2 },
     {  29,  24,  22,  17,  14,   9,   6,   1 },

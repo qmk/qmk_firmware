@@ -269,7 +269,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 };
 
 
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     { ___, ___, ___, ___, ___, ___ },
     {  28,  33,  38,  43,  47, ___ },
     {  27,  32,  37,  42,  46, ___ },

@@ -21,7 +21,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
   {   5, ___, ___,   0 },
   { ___, ___, ___, ___ },
   {   4, ___, ___,   1 },

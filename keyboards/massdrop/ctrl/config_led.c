@@ -5,7 +5,7 @@
 #include "rgb_matrix.h"
 #include "config_led.h"
 
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     {   0,   1,   2,   3,   4,   5,   6,   7 },
     {  16,  17,  18,  19,  20,  21,  22,  23 },
     {  33,  34,  35,  36,  37,  38,  39,  40 },

@@ -53,7 +53,7 @@ void led_set_kb(uint8_t usb_led) {
 
 
 #ifdef RGB_MATRIX_SPLIT_RIGHT
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     {  51,  50,  45,  44,  37,  36, ___ },
     {  52,  49,  46,  43,  38,  35, ___ },
     {  53,  48,  47,  42,  39,  34, ___ },
@@ -82,7 +82,7 @@ const led_config_t g_led_config = { {
     4, 4, 1, 1, 1
 } };
 #else
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     {  24,  23,  18,  17,  10,   9, ___ },
     {  25,  22,  19,  16,  11,   8, ___ },
     {  26,  21,  20,  15,  12,   7, ___ },

@@ -1,7 +1,7 @@
 #include "sol.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const led_config_t g_led_config = { {
+led_config_t g_led_config = { {
     {   0,   1,   2,   3,   4,   5,   6 },
     {   7,   8,   9,  10,  11,  12,  13 },
     {  14,  15,  16,  17,  18,  19,  20 },
