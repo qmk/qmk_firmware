@@ -327,6 +327,9 @@ uint8_t matrix_scan(void) {
 #ifdef ENCODER_ENABLE
     encoder_read();
 #endif
+#ifdef OLED_DRIVER_ENABLE
+    oled_task();
+#endif
     matrix_slave_scan_user();
   }
 
