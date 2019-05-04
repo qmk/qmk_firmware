@@ -129,10 +129,10 @@ From this point forward the configuration is the same for all the drivers. The `
 ```C
 const led_config_t g_led_config = { {
   // Key Matrix to LED Index
-  {   5, ___, ___,   0 },
-  { ___, ___, ___, ___ },
-  {   4, ___, ___,   1 },
-  {   3, ___, ___,   2 }
+  {   5, NO_LED, NO_LED,   0 },
+  { NO_LED, NO_LED, NO_LED, NO_LED },
+  {   4, NO_LED, NO_LED,   1 },
+  {   3, NO_LED, NO_LED,   2 }
 }, {
   // LED Index to Physical Position
   { 188,  16 }, { 187,  48 }, { 149,  64 }, { 112,  64 }, {  37,  48 }, {  38,  16 }

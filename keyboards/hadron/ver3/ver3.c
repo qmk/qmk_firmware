@@ -22,11 +22,11 @@
 #include "rgb_matrix.h"
 
 led_config_t g_led_config = { {
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },
-    { ___,   6, ___, ___,   7, ___, ___,   8, ___, ___,   9, ___, ___,   0, ___ },
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },
-    { ___,   5, ___, ___,   4, ___, ___,   3, ___, ___,   2, ___, ___,   1, ___ }
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED,   6, NO_LED, NO_LED,   7, NO_LED, NO_LED,   8, NO_LED, NO_LED,   9, NO_LED, NO_LED,   0, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED,   5, NO_LED, NO_LED,   4, NO_LED, NO_LED,   3, NO_LED, NO_LED,   2, NO_LED, NO_LED,   1, NO_LED }
 }, {
     { 195,   3 }, { 195,  16 }, { 150,  16 }, { 105,  16 }, {  60,  16 }, {  15,  16 }, {  15,   3 }, {  60,   3 }, { 105,   3 }, { 150,   3 }
 }, {

@@ -68,7 +68,7 @@ typedef struct PACKED {
 #define LED_FLAG_UNDERGLOW 0x02
 #define LED_FLAG_KEYLIGHT 0x04
 
-#define ___ 255
+#define NO_LED 255
 
 typedef struct PACKED {
   uint8_t matrix_co[MATRIX_ROWS][MATRIX_COLS];
