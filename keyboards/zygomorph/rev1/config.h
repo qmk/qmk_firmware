@@ -61,7 +61,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B7
-#define RGBLED_NUM 30
+#ifndef RGBLIGHT_SPLIT_ENABLE
+    #define RGBLED_NUM 30
+#else
+    #define RGBLED_NUM 60
+    #define RGBLED_SPLIT { 30, 30 }
+#endif
 #define DRIVER_LED_TOTAL 30
 
 #ifdef IOS_DEVICE_ENABLE
