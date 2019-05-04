@@ -7,8 +7,6 @@
   4. **Function Layers**
   5. [Other Layers](./readme_ch5.md)
 
-### Last updated: September 2, 2018, 1:03 PM UTC-0700
-
 
 ----
 
@@ -44,7 +42,7 @@ Based on the Windows function layer, but removes some functions that are pointle
 
 Keycode(s) Sent                   | Notes
 :-------------------------------- | :----
-[`Q2_GRV`](./keymap.c#L208-L216)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
+[`Q2_GRV`](./keymap.c#L194-L201)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
 
 
 

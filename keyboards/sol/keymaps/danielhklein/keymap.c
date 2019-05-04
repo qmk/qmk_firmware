@@ -3,9 +3,6 @@
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "common/ssd1306.h"
-#endif
 
 extern keymap_config_t keymap_config;
 
@@ -240,115 +237,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
+#ifdef RGBLIGHT_ENABLE
+  RGB_current_mode = rgblight_config.mode;
+#endif
 }
 
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+// OLED Driver Logic
+#ifdef OLED_DRIVER_ENABLE
 
-// hook point for 'led_test' keymap
-//   'default' keymap's led_test_init() is empty function, do nothing
-//   'led_test' keymap's led_test_init() force rgblight_mode_noeeprom(35);
-__attribute__ ((weak))
-void led_test_init(void) {}
-
-void matrix_scan_user(void) {
-    led_test_init();
-    iota_gfx_task();  // this is what updates the display continuously
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (!has_usb())
+    return OLED_ROTATION_180;  // flip 180 for offhand
+  return rotation;
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
+static void render_logo(void) {
+  static const char PROGMEM sol_logo[] = {
+    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+
+  oled_write_P(sol_logo, false);
 }
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
 #define L_FN (1<<_FN)
 #define L_ADJ (1<<_ADJ)
+#define L_ADJ_TRI (L_ADJ|L_FN)
 
-static void render_logo(struct CharacterMatrix *matrix) {
-
-  static char logo[]={
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
-    0};
-  matrix_write(matrix, logo);
-  //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
-}
-
-
-
-void render_status(struct CharacterMatrix *matrix) {
-
+static void render_status(void) {
   // Render to mode icon
-  static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, logo[0][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[0][1]);
-  }else{
-    matrix_write(matrix, logo[1][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[1][1]);
+  static const char PROGMEM mode_logo[4][4] = {
+    {0x95,0x96,0x0a,0},
+    {0xb5,0xb6,0x0a,0},
+    {0x97,0x98,0x0a,0},
+    {0xb7,0xb8,0x0a,0} };
+
+  if (keymap_config.swap_lalt_lgui != false) {
+    oled_write_P(mode_logo[0], false);
+    oled_write_P(mode_logo[1], false);
+  } else {
+    oled_write_P(mode_logo[2], false);
+    oled_write_P(mode_logo[3], false);
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(matrix, PSTR("\nLayer: "));
-    switch (layer_state) {
-        case L_BASE:
-           matrix_write_P(matrix, PSTR("Default"));
-           break;
-        case L_FN:
-           matrix_write_P(matrix, PSTR("FN"));
-           break;
-        case L_ADJ:
-        case L_ADJ_TRI:
-           matrix_write_P(matrix, PSTR("ADJ"));
-           break;
-        default:
-           matrix_write(matrix, buf);
-    }
+  oled_write_P(PSTR("Layer: "), false);
+  switch (layer_state) {
+    case L_BASE:
+      oled_write_P(PSTR("Default\n"), false);
+      break;
+    case L_FN:
+      oled_write_P(PSTR("FN     \n"), false);
+      break;
+    case L_ADJ:
+    case L_ADJ_TRI:
+      oled_write_P(PSTR("ADJ    \n"), false);
+      break;
+    default:
+      oled_write_P(PSTR("UNDEF  \n"), false);
+  }
 
   // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(matrix, led);
+  uint8_t led_usb_state = host_keyboard_leds();
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
 }
 
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  matrix_clear(&matrix);
-  if(is_master){
-    render_status(&matrix);
-  }else{
-    render_logo(&matrix);
-  }
-  matrix_update(&display, &matrix);
+void oled_task_user(void) {
+  if (is_master)
+    render_status();
+  else
+    render_logo();
 }
 
 #endif

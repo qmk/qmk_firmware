@@ -1,5 +1,5 @@
 /*
-Copyright 2019 REPLACE_WITH_YOUR_NAME
+Copyright 2019 %YOUR_NAME%
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
+#define MANUFACTURER    %YOUR_NAME%
 #define PRODUCT         %KEYBOARD%
 #define DESCRIPTION     A custom keyboard
 
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F1, F0, B0 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /*
@@ -143,8 +143,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
+//#define MAGIC_KEY_HELP           H
+//#define MAGIC_KEY_HELP_ALT       SLASH
 //#define MAGIC_KEY_DEBUG          D
 //#define MAGIC_KEY_DEBUG_MATRIX   X
 //#define MAGIC_KEY_DEBUG_KBD      K
@@ -152,9 +152,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_VERSION        V
 //#define MAGIC_KEY_STATUS         S
 //#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
 //#define MAGIC_KEY_LAYER0         0
+//#define MAGIC_KEY_LAYER0_ALT     GRAVE
 //#define MAGIC_KEY_LAYER1         1
 //#define MAGIC_KEY_LAYER2         2
 //#define MAGIC_KEY_LAYER3         3
@@ -164,9 +163,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_LAYER7         7
 //#define MAGIC_KEY_LAYER8         8
 //#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
+//#define MAGIC_KEY_BOOTLOADER     B
+//#define MAGIC_KEY_BOOTLOADER_ALT ESC
 //#define MAGIC_KEY_LOCK           CAPS
 //#define MAGIC_KEY_EEPROM         E
+//#define MAGIC_KEY_EEPROM_CLEAR   BSPACE
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 

@@ -30,9 +30,6 @@ enum mitosis_keycodes
 #define LAYOUT LAYOUT_bottomspace
 #endif
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS // Transparent
-
 // I don't use Japanese myself, but I've placed henkan 変換 and muhenkan 無変換
 // in my layout to act as left and right HYPER
 

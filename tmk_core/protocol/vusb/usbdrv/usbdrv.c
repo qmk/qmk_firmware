@@ -95,7 +95,7 @@ const PROGMEM int  usbDescriptorStringDevice[] = {
 #if USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER == 0 && USB_CFG_SERIAL_NUMBER_LEN
 #undef USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER
 #define USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER    sizeof(usbDescriptorStringSerialNumber)
-PROGMEM int usbDescriptorStringSerialNumber[] = {
+const PROGMEM int usbDescriptorStringSerialNumber[] = {
     USB_STRING_DESCRIPTOR_HEADER(USB_CFG_SERIAL_NUMBER_LEN),
     USB_CFG_SERIAL_NUMBER
 };

@@ -98,7 +98,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 5, which is now closer to 10ms, but still plenty according to
  * manufacturer specs.
  */
-#define DEBOUNCE    10
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
@@ -109,7 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_1_LED_TOTAL 24
 #define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
-#define RGB_MATRIX_SKIP_FRAMES 10
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */

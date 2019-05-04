@@ -91,11 +91,11 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________MALTRON_L1________________       KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B
 #define _________________MALTRON_L2________________       KC_A,    KC_N,    KC_I,    KC_S,    KC_F
-#define _________________MALTRON_L3________________       KC_SCLN, KC_SLSH, KC_J     KC_G,    KC_COMM
+#define _________________MALTRON_L3________________       KC_SCLN, KC_SLSH, KC_J,    KC_G,    KC_COMM
 
 #define _________________MALTRON_R1________________       KC_V,    KC_M,    KC_U,    KC_Z,    KC_L
 #define _________________MALTRON_R2________________       KC_D,    KC_T,    KC_D,    KC_O,    KC_R
-#define _________________MALTRON_R3________________       KC_DOT,  KC_W,    KC_K,    KC_MINS,  KC_X
+#define _________________MALTRON_R3________________       KC_DOT,  KC_W,    KC_K,    KC_MINS, KC_X
 
 
 #define _________________EUCALYN_L1________________       KC_SLSH, KC_COMM, KC_DOT,  KC_F,    KC_Q

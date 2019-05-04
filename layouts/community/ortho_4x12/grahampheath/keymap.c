@@ -54,10 +54,6 @@ enum custom_keycodes {
 #define HYPR_1 HYPR(KC_EXLM)  // Send Hyper + !.
 #define HYPR_2 HYPR(KC_AT)  // Send Hyper + @.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty

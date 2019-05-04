@@ -3,7 +3,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
-  * [Best Practices](newbs_best_practices.md)
+  * [Git Best Practices](newbs_best_practices.md)
   * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
@@ -60,15 +60,16 @@
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
+  * [LED Matrix](feature_led_matrix.md)
   * [Macros](feature_macros.md)
   * [Mouse Keys](feature_mouse_keys.md)
+  * [OLED Driver](feature_oled_driver)
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
   * [Pointing Device](feature_pointing_device.md)
   * [PS/2 Mouse](feature_ps2_mouse.md)
   * [RGB Lighting](feature_rgblight.md)
   * [RGB Matrix](feature_rgb_matrix.md)
-  * [Space Cadet Shift](feature_space_cadet_shift.md)
-  * [Space Cadet Shift Enter](feature_space_cadet_shift_enter.md)
+  * [Space Cadet](feature_space_cadet.md)
   * [Stenography](feature_stenography.md)
   * [Swap Hands](feature_swap_hands.md)
   * [Tap Dance](feature_tap_dance.md)
@@ -76,6 +77,7 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
+  * [Velocikey](feature_velocikey.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
@@ -90,7 +92,8 @@
   * [Understanding QMK](understanding_qmk.md)
 
 * Other Topics
-  * [Using Eclipse with QMK](eclipse.md)
+  * [Using Eclipse with QMK](other_eclipse.md)
+  * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
 
 * QMK Internals (In Progress)

@@ -18,14 +18,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-// #include "../../config.h"
+// place overrides here
+
 
 /* Use I2C or Serial */
 
 #define USE_I2C
 #define SSD1306OLED
-
-#endif

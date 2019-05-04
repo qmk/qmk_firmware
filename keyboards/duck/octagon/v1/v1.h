@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef V1_H
-#define V1_H
+#pragma once
 
 #include "quantum.h"
 
@@ -49,4 +48,3 @@
   { K1A, K1C, K1D, K1E,   K1F,   K1G, K1H,   K1I,   K1J, K1K, K1L, KC_NO, K1M,   K1N, KC_NO, K1P }, \
   { K0A, K0B, K0C, KC_NO, KC_NO, K0G, KC_NO, KC_NO, K0J, K0K, K0L, KC_NO, K0M,   K0N, KC_NO, K0P }  \
 }
-#endif

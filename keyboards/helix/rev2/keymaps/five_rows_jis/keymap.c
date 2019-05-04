@@ -46,10 +46,6 @@ enum custom_keycodes {
   #endif
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Layer Mode aliases
 #define DL_BAS  DF(_BASE)
 #define DL_BASE DF(_BAS_E)

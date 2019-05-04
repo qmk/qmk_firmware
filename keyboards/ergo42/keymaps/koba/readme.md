@@ -6,12 +6,12 @@ This keymap is for Ergo42.
 
 - JIS layout.
 - Independent Windows layout/MacOS layout layers.
-- Bottom row keys arranged like a standard keyboard.
+- Bottom row keys are arranged like a standard keyboard.
 - Arrow keys are designed in the inverted-T.
 
 ## Layout
 
-![keyboard-layout](https://user-images.githubusercontent.com/1042121/45888288-aa35ed00-bdf8-11e8-8741-71fe9a0fadc6.png)
+![keyboard-layout](https://user-images.githubusercontent.com/1042121/52666273-32a45e00-2f51-11e9-9e15-c231155f3bed.png)
 
 ## Windows mode/MacOS mode
 
