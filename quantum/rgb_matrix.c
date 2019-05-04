@@ -105,6 +105,7 @@
 
 bool g_suspend_state = false;
 
+extern led_config_t g_led_config;
 rgb_config_t rgb_matrix_config;
 
 rgb_counters_t g_rgb_counters;
@@ -198,8 +199,8 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
   for(uint8_t i = 0; i < led_count; i++) {
     uint8_t index = last_hit_buffer.count;
-    last_hit_buffer.x[index] = g_rgb_leds[led[i]].point.x;
-    last_hit_buffer.y[index] = g_rgb_leds[led[i]].point.y;
+    last_hit_buffer.x[index] = g_led_config.point[led[i]].x;
+    last_hit_buffer.y[index] = g_led_config.point[led[i]].y;
     last_hit_buffer.index[index] = led[i];
     last_hit_buffer.tick[index] = 0;
     last_hit_buffer.count++;
