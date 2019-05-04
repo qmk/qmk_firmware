@@ -106,7 +106,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/zip \
 		app-mobilephone/dfu-util \
 		dev-embedded/avrdude \
-		dev-lang/python:3.5 \
+		dev-lang/python \
 		net-misc/wget \
 		sys-devel/gcc \
 		sys-devel/crossdev
