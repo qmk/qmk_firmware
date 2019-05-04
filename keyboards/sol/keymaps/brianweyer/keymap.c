@@ -11,8 +11,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -132,21 +130,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool TOG_STATUS = false;
 int RGB_current_mode;
 
+#ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
-      tap_code(VOLU);
+      tap_code(KC_VOLU);
     } else {
-      tap_code(VOLD);
+      tap_code(KC_VOLD);
     }
   } else if (index == 1) { /* Second encoder*/
     if (clockwise) {
-      tap_code(UP);
+      tap_code(KC_UP);
     } else {
-      tap_code(DOWN);
+      tap_code(KC_DOWN);
     }
   }
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -198,7 +198,7 @@ void matrix_init_user(void) {
 #ifdef OLED_DRIVER_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!has_usb())
+  if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flip 180 for offhand
   return rotation;
 }
@@ -260,7 +260,7 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-  if (is_master)
+  if (is_keyboard_master())
     render_status();
   else
     render_logo();
