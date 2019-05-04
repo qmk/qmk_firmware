@@ -327,14 +327,6 @@ uint8_t matrix_scan(void) {
 #ifdef ENCODER_ENABLE
     encoder_read();
 #endif
-#ifdef OLED_DRIVER_ENABLE
-    oled_task();
-#ifndef OLED_DISABLE_TIMEOUT
-    // Wake up oled if user is using those fabulous keys!
-    if (ret)
-        oled_on();
-#endif
-#endif
     matrix_slave_scan_user();
   }
 

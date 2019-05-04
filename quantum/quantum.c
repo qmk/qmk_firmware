@@ -247,12 +247,6 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
-  #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
-    // Wake up oled if user is using those fabulous keys!
-    if (record->event.pressed)
-      oled_on();
-  #endif
-
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -976,9 +970,6 @@ void matrix_init_quantum() {
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
-  #ifdef OLED_DRIVER_ENABLE
-    oled_init(OLED_ROTATION_0);
-  #endif
   matrix_init_kb();
 }
 
@@ -1013,10 +1004,6 @@ void matrix_scan_quantum() {
 
   #ifdef HAPTIC_ENABLE
     haptic_task();
-  #endif
-
-  #ifdef OLED_DRIVER_ENABLE
-    oled_task();
   #endif
 
   matrix_scan_kb();
@@ -1214,10 +1201,10 @@ void backlight_task(void) {
 // (which is not possible since the backlight is not wired to PWM pins on the
 // CPU), we do the LED on/off by oursleves.
 // The timer is setup to count up to 0xFFFF, and we set the Output Compare
-// register to the current 16bits backlight level (after CIE correction). 
-// This means the CPU will trigger a compare match interrupt when the counter 
-// reaches the backlight level, where we turn off the LEDs, 
-// but also an overflow interrupt when the counter rolls back to 0, 
+// register to the current 16bits backlight level (after CIE correction).
+// This means the CPU will trigger a compare match interrupt when the counter
+// reaches the backlight level, where we turn off the LEDs,
+// but also an overflow interrupt when the counter rolls back to 0,
 // in which we're going to turn on the LEDs.
 // The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz.
 
@@ -1229,7 +1216,7 @@ ISR(TIMERx_COMPA_vect) {
 }
 
 // Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/65536 =~ 244 Hz 
+// this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #ifdef BACKLIGHT_BREATHING
   breathing_task();
