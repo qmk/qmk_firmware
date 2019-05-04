@@ -179,6 +179,5 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 void matrix_init_user(void) {
-    set_unicode_input_mode(UC_LNX);
 }
 
