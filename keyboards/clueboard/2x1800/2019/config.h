@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x23A0
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Clueboard
-#define PRODUCT         Double 1800
-#define DESCRIPTION     What does it mean?
+#define PRODUCT         2x1800 2019
+#define DESCRIPTION     Mechanical Drawing Toy Edition
 
 /* key matrix size */
 #define MATRIX_ROWS 13
