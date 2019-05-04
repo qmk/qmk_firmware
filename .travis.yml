@@ -13,10 +13,14 @@ env:
   - MAKEFLAGS="-j3 --output-sync"
 before_install:
   - wget http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz || wget http://qmk.fm/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
+  # Need DFU > .5 for dfu-suffix
+  - sudo add-apt-repository --yes ppa:tormodvolden/ppa
+  - sudo apt-get update -qq
 install:
   - tar -zxf avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
   - export PATH="$PATH:$TRAVIS_BUILD_DIR/avr8-gnu-toolchain-linux_x86_64/bin"
   - npm install -g moxygen
+  - sudo apt-get -y --force-yes install dfu-util
 before_script:
   - avr-gcc --version
 script:
