@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    dztech
+#define MANUFACTURER    KBDFans
 #define PRODUCT         KBD67v2
 #define DESCRIPTION     65% Keyboard
 
