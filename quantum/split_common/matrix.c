@@ -299,7 +299,7 @@ uint8_t _matrix_scan(void) {
 
   debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
 
-  return 1;
+  return (uint8_t)changed;
 }
 
 uint8_t matrix_scan(void) {
@@ -329,6 +329,11 @@ uint8_t matrix_scan(void) {
 #endif
 #ifdef OLED_DRIVER_ENABLE
     oled_task();
+#ifndef OLED_DISABLE_TIMEOUT
+    // Wake up oled if user is using those fabulous keys!
+    if (ret)
+        oled_on();
+#endif
 #endif
     matrix_slave_scan_user();
   }
