@@ -31,16 +31,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-#ifdef LAYER_NUMPAD
-    void toggle_numpad(void) {
-        layer_invert(L_NUMPAD);
-        bool numpad = IS_LAYER_ON(L_NUMPAD), num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
-        if (num_lock != numpad) {
-            tap_code(KC_NLCK);  // Toggle Num Lock to match layer state
-        }
-    }
-#endif
-
     switch (keycode) {
     case CLEAR:
         if (record->event.pressed) {
@@ -70,19 +60,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
 #endif
 
-#ifdef LAYER_NUMPAD
-    case NUMPAD:
-        if (record->event.pressed) {
-            toggle_numpad();
-        }
-        return false;
-#endif
-
     case KC_ESC:
         if (record->event.pressed) {
-#ifdef LAYER_NUMPAD
+#ifdef LAYER_NUMPAD  // Disable Numpad layer before Fn layer
             if (IS_LAYER_ON(L_NUMPAD)) {
-                toggle_numpad();
+                layer_off(L_NUMPAD);
                 return false;
             }
 #endif
@@ -106,5 +88,15 @@ uint32_t layer_state_set_keymap(uint32_t state) {
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-    return layer_state_set_keymap(state);
+    state = layer_state_set_keymap(state);
+
+#ifdef LAYER_NUMPAD
+    bool numpad = state & 1UL<<L_NUMPAD;
+    bool num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
+    if (numpad != num_lock) {
+        tap_code(KC_NLCK);  // Toggle Num Lock to match Numpad layer state
+    }
+#endif
+
+    return state;
 }

@@ -18,6 +18,10 @@
     #define FN_FNLK TT(L_FN)
 #endif
 
+#ifdef LAYER_NUMPAD
+    #define NUMPAD TG(L_NUMPAD)
+#endif
+
 #define KC_SYSR LALT(KC_PSCR)
 #undef  KC_BRK
 #define KC_BRK  LCTL(KC_PAUS)
@@ -57,9 +61,6 @@ enum keycodes_user {
     CLEAR = SAFE_RANGE,
     DST_P_R,
     DST_N_A,
-#ifdef LAYER_NUMPAD
-    NUMPAD,
-#endif
 
     RANGE_KEYMAP,
 };
