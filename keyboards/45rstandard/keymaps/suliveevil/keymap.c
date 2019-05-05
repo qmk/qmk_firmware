@@ -65,11 +65,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	return MACRO_NONE;
 }
 
-void matrix_init_user(void) {
-}
+// void matrix_init_user(void) {
+// }
 
-void matrix_scan_user(void) {
-}
+// void matrix_scan_user(void) {
+// }
 
 void led_set_user(uint8_t usb_led) {
 
