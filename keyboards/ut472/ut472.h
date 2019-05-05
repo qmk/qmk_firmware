@@ -13,7 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #ifndef UT472_H
+
+ #pragma once
  #define UT472_H
 
 #include "quantum.h"
