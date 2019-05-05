@@ -40,7 +40,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 ### Colemak
 - Default layer
 - Keys separated by "/" tap for first, hold for second
-- Uses [Space Cadet Shifts](https://beta.docs.qmk.fm/features/feature_space_cadet_shift)
+- Uses [Space Cadet Shifts](https://beta.docs.qmk.fm/features/feature_space_cadet)
 
 ```
 ,------------------------------------------------. ,------------------------------------------------.
@@ -65,7 +65,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	
 ### QWERTY
 - Keys separated by "/" tap for first, hold for second
-- Uses [Space Cadet Shifts](https://beta.docs.qmk.fm/features/feature_space_cadet_shift)
+- Uses [Space Cadet Shifts](https://beta.docs.qmk.fm/features/feature_space_cadet)
 
 ```
 ,------------------------------------------------. ,------------------------------------------------.
