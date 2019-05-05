@@ -232,37 +232,46 @@ void iota_gfx_task_user(void) {
 }
 #endif//SSD1306OLED
 
-// 薙刀式入力
+static bool underglow = false;
+
+// 薙刀式入力のコード1 ここから
+
 static bool is_naginata = false; // 薙刀式入力モードかどうか
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
 static bool is_modifier = false; // modifierの状態
-static bool underglow = false;
-static bool ng_shift = false;
+static bool ng_shift = false; // シフトキーの状態
 
-#define NGBUFFER 5
+#define NGBUFFER 5 // バッファのサイズ
 
-#define BSHIFT (1UL<<0)
-#define BLDK   (1UL<<1)
-#define BRDK   (1UL<<2)
-#define BLHD   (1UL<<3)
-#define BRHD   (1UL<<4)
-#define BLHS   (1UL<<5)
-#define BRHS   (1UL<<6)
-#define BYYA   (1UL<<7)
-#define BYYU   (1UL<<8)
-#define BYYO   (1UL<<9)
-#define BGA    (1UL<<10)
-#define BGI    (1UL<<11)
-#define BGU    (1UL<<12)
-#define BGE    (1UL<<13)
-#define BGO    (1UL<<14)
+// キー単体押しから出力が変わる同時押しのキーのフラグ
+// ここから同時押しされているキーの種類を分類する
+#define BSHIFT (1UL<<0) // シフト
+#define BLDK   (1UL<<1) // 濁音に変化させるキー左
+#define BRDK   (1UL<<2) // 濁音に変化させるキー右
+#define BLHD   (1UL<<3) // 半濁音に変化させるキー左
+#define BRHD   (1UL<<4) // 半濁音に変化させるキー右
+#define BLHS   (1UL<<5) // 左半分にあるキー
+#define BRHS   (1UL<<6) // 右半分にあるキー
+#define BYYA   (1UL<<7) // 拗音ゃに変化させるキー
+#define BYYU   (1UL<<8) // 拗音ゅに変化させるキー
+#define BYYO   (1UL<<9) // 拗音ょに変化させるキー
+#define BGA    (1UL<<10) // 外来音ぁに変化させるキー
+#define BGI    (1UL<<11) // 外来音ぃに変化させるキー
+#define BGU    (1UL<<12) // 外来音ぅに変化させるキー
+#define BGE    (1UL<<13) // 外来音ぇに変化させるキー
+#define BGO    (1UL<<14) // 外来音ぉに変化させるキー
 
 // 文字入力バッファ
 static uint16_t ninputs[NGBUFFER];
 
+// 関数宣言
+void naginata_type(void);
+void ng_clear(void);
+bool ng_remove(uint16_t kc);
+void ng_output(char[NGBUFFER][29][5], uint16_t, int);
+
 // NAGINATA配列のテーブル
 // NAGINATA on EUCALYN
-
 const char PROGMEM ngmap[][29][5] = {
   //           単独  シフト  濁音  半濁音  拗音    拗音同時             濁音拗音同時　          半濁音拗音同時         外来音                             外来音シフト                         外来音濁音
   [KC_Q]    = {"vu" , ""  , "va", ""  , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , "va" , "vi" , "vulu", "ve", "vo" , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   }, 
@@ -300,9 +309,10 @@ const char PROGMEM ngmap[][29][5] = {
   [KC_SLSH] = {"re" , "?" , ""  , ""  , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   , ""   }, 
 };
 
+// 各キーへフラグを割り当てる。同時押しで処理が必要なキー。
 const uint16_t ngcomb[] = {
   //          左右  濁音半濁音 拗音 外来音同時
-  //          NLHS | NLDK | NYYA | NGA
+  //          NLHS | BLDK | BYYA | BGA
   [KC_Q]    = BLHS                     ,   
   [KC_W]    = BLHS                     , 
   [KC_COMM] = BLHS                     , 
@@ -338,26 +348,22 @@ const uint16_t ngcomb[] = {
   [KC_SLSH] = BRHS                     , 
 };
 
-void naginata_type(void);
-void ng_clear(void);
-bool ng_remove(uint16_t kc);
-void ng_output(char[NGBUFFER][29][5], uint16_t, int);
-
-// シフトキーの状態に応じて文字をPCへ送る
-
+// キーが押されているかどうかの判定マクロ
 #define KEYON(KC) ((modflag & (KC)) > 0)
 
+// キー入力を文字に変換して出力する
 void naginata_type(void) {
-  uint16_t modflag = 0UL;
-  if (ng_shift) modflag |= BSHIFT;
+  uint16_t modflag = 0UL; // 押されているキー状態
+  if (ng_shift) modflag |= BSHIFT; // シフトキー状態を反映
 
-  char tngmap[NGBUFFER][29][5];
-  for (int i = 0; i < ng_chrcount; i++) { // 同時押しの状態を確認
-    modflag |= ngcomb[ninputs[i]];
-    memcpy_P(&tngmap[i], &ngmap[ninputs[i]], sizeof(tngmap[i]));
+  char tngmap[NGBUFFER][29][5]; // メモリ上のキーマップ
+  for (int i = 0; i < ng_chrcount; i++) {
+    modflag |= ngcomb[ninputs[i]]; // バッファにあるキー状態を合成する
+    // 必要なキーマップだけメモリにロードする
+    memcpy_P(&tngmap[i], &ngmap[ninputs[i]], sizeof(tngmap[i])); 
   }
 
-  if (ng_chrcount > 2) { // 複数のキーが押されている、同時押し
+  if (ng_chrcount > 2) { // 3キー同時押し
     if (KEYON(BRDK) & KEYON(BYYA) & KEYON(BLHS)) { // 濁音拗音同時 じゃ
       ng_output(tngmap, BYYA, 8);
     } else if (KEYON(BRDK) & KEYON(BYYU) & KEYON(BLHS)) { // 濁音拗音同時 じゅ
@@ -381,7 +387,7 @@ void naginata_type(void) {
     // } else if (KEYON(BRDK) & KEYON(BGO) & KEYON(BLHS)) { // 外来音濁音同時
     //   ng_output(tngmap, BGO, 28);
     }
-  } else if (ng_chrcount > 1) { // 複数のキーが押されている、同時押し
+  } else if (ng_chrcount > 1) { // 2キー同時押し
     if (KEYON(BSHIFT) & KEYON(BLHD) & KEYON(BRHS)) { // 拗音単体 ゃ
       ng_output(tngmap, BLHD, 4);
     } else if (KEYON(BSHIFT) & KEYON(BGA)) { // 外来音シフト同時 つぁ
@@ -428,22 +434,24 @@ void naginata_type(void) {
     } else if (KEYON(BGO)) { // 外来音同時 フォ
       ng_output(tngmap, BGO, 18);
     }
-  } else {
-    if (KEYON(BSHIFT)) {
+  } else { // キー単独押し (シフト押しながらを含む)
+    if (KEYON(BSHIFT)) { // シフトを押しながら
       send_string(tngmap[0][1]);
-    } else {
-      if (ninputs[0] == KC_R) {
+    } else { // 単独押し
+      if (ninputs[0] == KC_R) { // BSキーの変換
         register_code(KC_BSPC);
         unregister_code(KC_BSPC);
-      } else {
+      } else { // 一般キー
         send_string(tngmap[0][0]);
       }
     }
   }
 
-  ng_clear();
+  ng_clear(); // バッファを空にする
 }
 
+// マップのn列目を出力する
+// skipのキーは出力しない。例えば濁音キーとして使う「か」など。
 void ng_output(char tngmap[NGBUFFER][29][5], uint16_t skip, int n) {
   for (int i = 0; i < ng_chrcount; i++) {
     if ((ngcomb[ninputs[i]] & skip) == 0) {
@@ -459,6 +467,8 @@ void ng_clear(void) {
   }
   ng_chrcount = 0;
 }
+
+// 薙刀式入力のコード1 ここまで
 
 void update_led(void);
 
@@ -638,9 +648,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       raise_pressed = false;
   }
 
-  // 薙刀式入力の処理　ここから
+  // 薙刀式入力の処理2　ここから
 
-  // modifierが押されているか
+  // modifierが押されているか確認する
   switch (keycode) {
     case KC_LCTRL:
     case KC_LSHIFT:
@@ -661,6 +671,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
+  // 薙刀式入力モードでmodifierキーを押していない時
   if (is_naginata & !is_modifier) {
     if (record->event.pressed) {
       switch (keycode) {
@@ -673,12 +684,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DOT:
         case KC_COMM:
         case KC_SCLN:
-          ninputs[ng_chrcount] = keycode;
+          ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
           ng_chrcount++;
-          if (ng_chrcount > 2) naginata_type();
+          if (ng_chrcount > 2) naginata_type(); // 3文字押したら処理を開始
           return false;
           break;
-        default: // 薙刀式入力に関係ないキー
+        default: // 薙刀式入力に関係ないキーを押したらバッファを空にして処理を中断
           ng_clear();
           break;
       }
@@ -694,13 +705,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_DOT:
         case KC_COMM:
         case KC_SCLN:
+          // 3文字入力していなくても、どれかキーを離したら処理を開始する
           if (ng_chrcount > 0) naginata_type();
           return false;
           break;
       }
     }
   }
-  // 薙刀式入力処理 ここまで
+  // 薙刀式入力処理2 ここまで
 
   return true;
 }
