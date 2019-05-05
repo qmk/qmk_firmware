@@ -50,7 +50,7 @@ modified by suliveevil <suliveevil@gmail.com>
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL undefined
+#define RGBLIGHT_LIMIT_VAL 128
 #endif
 
 #endif
