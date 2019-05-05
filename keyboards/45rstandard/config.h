@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    dztech
 #define PRODUCT         45rstandard
-#define DESCRIPTION     Keyboard
+#define DESCRIPTION     Keyboard@suliveevil
 
 /* key matrix size */
 #define MATRIX_ROWS 4
