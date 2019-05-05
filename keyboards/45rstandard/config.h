@@ -1,3 +1,7 @@
+/*
+generate by qmkeyboard.cn
+modified by suliveevil <suliveevil@gmail.com>
+*/
 #pragma once
 #define CONFIG_H
 
@@ -7,9 +11,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    dztech
+#define MANUFACTURER    ultimate macOS
 #define PRODUCT         45rstandard
-#define DESCRIPTION     Keyboard@suliveevil
+#define DESCRIPTION     40 percent keyboard@suliveevil
 
 /* key matrix size */
 #define MATRIX_ROWS 4
