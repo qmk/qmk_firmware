@@ -1,4 +1,4 @@
-#ifndef CONFIG_H
+#pragma once
 #define CONFIG_H
 
 #include "config_common.h"
