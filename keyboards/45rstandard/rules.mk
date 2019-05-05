@@ -61,4 +61,4 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no            # RGB Enable / Disable
 KEY_LOCK_ENABLE = yes
 UNICODE_ENABLE = no             # Unicode
-/*BLUETOOTH_ENABLE = no*/
+# BLUETOOTH_ENABLE = no
