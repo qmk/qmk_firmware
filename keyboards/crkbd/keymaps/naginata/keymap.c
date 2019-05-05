@@ -363,6 +363,8 @@ void naginata_type(void) {
     memcpy_P(&tngmap[i], &ngmap[ninputs[i]], sizeof(tngmap[i])); 
   }
 
+  // 同時押しするキーの数によって処理を分岐する
+  // シフトキーだけは同時押しの数に含めない(何も入力しないキーなので)
   if (ng_chrcount > 2) { // 3キー同時押し
     if (KEYON(BRDK) & KEYON(BYYA) & KEYON(BLHS)) { // 濁音拗音同時 じゃ
       ng_output(tngmap, BYYA, 8);
@@ -434,7 +436,7 @@ void naginata_type(void) {
     } else if (KEYON(BGO)) { // 外来音同時 フォ
       ng_output(tngmap, BGO, 18);
     }
-  } else { // キー単独押し (シフト押しながらを含む)
+  } else { // キー単独押し
     if (KEYON(BSHIFT)) { // シフトを押しながら
       send_string(tngmap[0][1]);
     } else { // 単独押し
