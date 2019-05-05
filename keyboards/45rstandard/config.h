@@ -3,7 +3,6 @@ generate by qmkeyboard.cn
 modified by suliveevil <suliveevil@gmail.com>
 */
 #pragma once
-#define CONFIG_H
 
 #include "config_common.h"
 
