@@ -101,12 +101,22 @@ LED_TYPE led[RGBLED_NUM];
 
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;
+static uint8_t effect_start_pos = 0;
+static uint8_t effect_end_pos = RGBLED_NUM;
+static uint8_t effect_num_leds = RGBLED_NUM;
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
   clipping_start_pos = start_pos;
   clipping_num_leds = num_leds;
 }
 
+void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
+  if (start_pos >= RGBLED_NUM) return;
+  if (start_pos + num_leds > RGBLED_NUM) return;
+  effect_start_pos = start_pos;
+  effect_end_pos = start_pos + num_leds;
+  effect_num_leds = num_leds;
+}
 
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   HSV hsv = { hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val };
