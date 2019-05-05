@@ -15,7 +15,6 @@
  */
 
  #pragma once
- #define UT472_H
 
 #include "quantum.h"
 
