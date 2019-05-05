@@ -18,6 +18,8 @@ Install Example: (for pro micro)
 
 Note:  
   "rev1" is for PCB ver 1.0,1.1,1.2  
+  **The original Rev 1 was owned only by the designer. Therefore, Rev1 has been removed. Since the current PCB is Rev1, we changed Rev2 to Rev1 to match the firmware version.**
+
 
 # Layout
 ![layout](https://github.com/omkbd/picture/blob/master/ergodash-layout.png)
