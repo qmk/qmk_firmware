@@ -14,5 +14,7 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-
-#define TAP_CODE_DELAY 10
+#if defined(KEYBOARD_primekb_prime_m)
+#undef PRODUCT
+#define PRODUCT Drashna Hacked Prime_M Macro Pad
+#endif

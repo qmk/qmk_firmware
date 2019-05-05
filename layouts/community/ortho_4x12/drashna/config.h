@@ -18,7 +18,6 @@
 // #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 // #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true// turn off effects when suspended
-// #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define EECONFIG_RGB_MATRIX (uint32_t *)15
 #endif
@@ -36,6 +35,17 @@
 #endif // RGBLIGHT_ENABLE
 #endif // KEYBOARD_planck_light
 
+
+#if defined(KEYBOARD_planck)
+#undef PRODUCT
+#if defined(KEYBOARD_planck_light)
+#define PRODUCT Drashna Hacked RGB Beacon (Planck Light)
+#elif defined(KEYBOARD_planck_rev6)
+#define PRODUCT Drashna Hacked Planck Rev6
+#elif defined(KEYBOARD_planck_EZ)
+#define PRODUCT Drashna Hacked Planck EZ
+#endif
+#endif
 
 /*
  * MIDI options
@@ -60,5 +70,3 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-#define TAP_CODE_DELAY 10
