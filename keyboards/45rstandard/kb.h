@@ -1,4 +1,4 @@
-#ifndef KB_H
+#pragma once
 #define KB_H
 
 #include "quantum.h"
