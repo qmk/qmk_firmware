@@ -38,7 +38,7 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+BOOTLOADER = atmel-dfu
 
 
 
