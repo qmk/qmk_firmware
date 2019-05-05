@@ -52,8 +52,7 @@ CONSOLE_ENABLE = yes            # Console for debug(+400)
 COMMAND_ENABLE = yes            # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no           # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes		    	# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/
-tmk_keyboard/wiki/FAQ.          # nkro-doesnt-work
+NKRO_ENABLE = yes		    	# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ.          # nkro-doesnt-work
 BACKLIGHT_ENABLE = yes           # Enable keyboard backlight functionality
 MIDI_ENABLE = no                # MIDI controls
 AUDIO_ENABLE = no
