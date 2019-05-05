@@ -26,4 +26,4 @@ VOLUME /qmk_firmware
 WORKDIR /qmk_firmware
 COPY . .
 
-CMD make clean ; make git-submodule ; make $KEYBOARD:$KEYMAP
+CMD make $KEYBOARD:$KEYMAP

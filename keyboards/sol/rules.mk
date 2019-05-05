@@ -1,6 +1,4 @@
-SRC += i2c.c \
-	     serial.c \
-	     common/ssd1306.c
+SRC += serial.c
 
 # MCU name
 #MCU = at90usb1287
@@ -46,6 +44,9 @@ BOOTLOADER = qmk-dfu
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+
+# Custom local font file
+OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

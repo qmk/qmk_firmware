@@ -15,7 +15,7 @@
  */
 #include "bmc.h"
 #include "rgblight.h"
-#include "i2c.h"
+#include "i2c_master.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
@@ -57,7 +57,7 @@ void rgblight_set(void) {
     }
 
     i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
 }
 #endif
 
