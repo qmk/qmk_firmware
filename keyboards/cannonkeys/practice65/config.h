@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_ANIMATIONS
 
-#define WS2812_LED_N 16
+#define WS2812_LED_N 20
 #define RGBLED_NUM WS2812_LED_N
 #define PORT_WS2812     GPIOB
 #define PIN_WS2812      15
