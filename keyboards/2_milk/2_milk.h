@@ -1,5 +1,4 @@
-#ifndef 2_MILK_H
-#define 2_MILK_H
+#pragma once
 
 #include "quantum.h"
 
@@ -10,5 +9,3 @@
   { K00 }, \
   { K01 } \  \
 }
-
-#endif
