@@ -104,7 +104,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 
 	switch (id) {
-
+		case 2:
+			if (record->event.pressed) {
+				return MACRO( T(0), T(3), T(2), T(3), END );
+			}
+			break;
 	}
 	return MACRO_NONE;
 }
