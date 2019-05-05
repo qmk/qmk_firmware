@@ -450,7 +450,15 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Unicode Support](feature_unicode.md)
 
-|Key    |Description                                                                |
-|-------|---------------------------------------------------------------------------|
-|`UC(c)`|Send Unicode code point `c` (`UNICODE_ENABLE`)                             |
-|`X(i)` |Send Unicode code point at index `i` in `unicode_map` (`UNICODEMAP_ENABLE`)|
+|Key                   |Aliases  |Description                                                     |
+|----------------------|---------|----------------------------------------------------------------|
+|`UC(c)`               |         |Send Unicode code point `c`                                     |
+|`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
+|`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
+|`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Cycle through selected input modes in reverse                   |
+|`UNICODE_MODE_OSX`    |`UC_M_OS`|Switch to macOS input                                           |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`|Switch to Linux input                                           |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`|Switch to Windows input                                         |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`|Switch to BSD input (not implemented)                           |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`|Switch to Windows input using WinCompose                        |
