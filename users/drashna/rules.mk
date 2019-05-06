@@ -1,7 +1,7 @@
 SRC += drashna.c \
        process_records.c
 
-EXTRAFLAGS += -flto
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
     SRC += secrets.c
