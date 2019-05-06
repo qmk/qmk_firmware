@@ -2,7 +2,6 @@
 // Created by LEdiodes on 5-2-19
 
 #include "kumo.h"
-#include "action_layer.h"
 #define ____ KC_TRNS    // Creates an alias for KC_TRNS which means blank key
 
 // Tap Dance & Layer Declarations
