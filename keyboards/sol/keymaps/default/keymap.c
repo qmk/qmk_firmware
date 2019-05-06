@@ -12,8 +12,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -70,7 +68,7 @@ LAYOUT( \
       FN_CAPS, _10,     _11,     _12,     _13,     _14,    KC_LPRN,  KC_RPRN, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,    KC_LCBR,  KC_RCBR, _25,     _26,     _27,     _28,     _29,     KC_ENT, \
       KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG,  ADJ,     KC_SPC, KC_DEL,  KC_ENT,  KC_SPC,  FN,      KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, \
-                        KC_VOLU, KC_VOLD,          KC_SPC, KC_DEL,  KC_ENT,  KC_SPC,          KC_VOLU, KC_VOLD \
+                                                    KC_SPC, KC_DEL,  KC_ENT,  KC_SPC \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -138,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_END, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
-                        KC_VOLU, KC_VOLD,          _______, _______, _______, _______,           KC_VOLU, KC_VOLD \
+                                                   _______, _______, _______, _______ \
       ),
 
   /* ADJ
@@ -163,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, RGB_MOD, _______, _______, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
-                        KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
+                                                   _______, _______, _______, _______ \
       )
 };
 
@@ -172,6 +170,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
+
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  } else if (index == 1) { /* Second encoder*/
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  }
+}
+#endif
 
 // Setting ADJ layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -316,7 +332,7 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-  if (is_master)
+  if (is_keyboard_master())
     render_status();
   else
     render_logo();
