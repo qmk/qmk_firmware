@@ -4,6 +4,7 @@
 	float mushroom[][2] = SONG(MARIO_MUSHROOM);
 #endif
 
+
 extern keymap_config_t keymap_config;
 
 // Complex Tapdance hoopla
@@ -26,7 +27,8 @@ enum {
 	X_AT_FUN = 0,
 	RSHIFT,
 	LSHIFT,
-	TD_S
+	TD_S,
+	SLASH	
 };
 
 int cur_dance (qk_tap_dance_state_t *state);
@@ -110,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Programmer Dvorak */
 	[_PDVORAK] = LAYOUT_planck_grid(
 		  KC_GESC, KC_SCOLON, KC_COMMA, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC,
-   		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, TD(TD_S), KC_SLASH,
+   		KC_LAST, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, TD(TD_S), TD(SLASH),
    		TD(LSHIFT), KC_QUOT, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, TD(RSHIFT),
     	TD(X_AT_FUN), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ALT_TAB, KC_SPACE, KC_ENTER, MT(MOD_LCTL | MOD_LSFT, KC_LGUI), KC_PGUP, KC_PGDN, LT(_LOWER, KC_PLUS)
    	),
@@ -245,6 +247,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 	[LSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lshift_finished, lshift_reset),
 	[RSHIFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rshift_finished, rshift_reset),
 	[TD_S] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, s_finished, s_reset),
+	[SLASH] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BSLASH),
+
 };
 
 void shutdown_user(void) { clear_keyboard(); }
