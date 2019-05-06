@@ -14,9 +14,10 @@
 #define MATRIX_COLS 1
 
 /* Milk defualt pinout*/
-#define MATRIX_ROW_PINS { B4, B5 }
-#define MATRIX_COL_PINS { D7 }
-
+#define DIRECT_PINS { \
+    { B4, B5 }, \
+}
+#define UNUSED_PINS
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN B6
