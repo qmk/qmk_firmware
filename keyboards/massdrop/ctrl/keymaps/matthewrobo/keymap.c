@@ -31,10 +31,8 @@ enum ctrl_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define _V_V_V_ KC_TRNS
-#ifdef RGB_MATRIX_ENABLE
 extern rgb_config_t rgb_matrix_config;
 extern bool autoshift_enabled;
-#endif // RGB_MATRIX_ENABLE
 
 
 keymap_config_t keymap_config;
@@ -95,7 +93,6 @@ void set_color_helper(int index, uint8_t red, uint8_t green, uint8_t blue)
 
 void rgb_matrix_indicators_user(void)
 {
-	#ifdef RGB_MATRIX_ENABLE
 	uint8_t this_led = host_keyboard_leds();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
@@ -225,17 +222,14 @@ void rgb_matrix_indicators_user(void)
 		}
 	}
 
-	#endif // RGB_MATRIX_ENABLE
 }
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void)
 {
 	autoshift_disable();
-	#ifdef RGB_MATRIX_ENABLE
 	rgb_matrix_sethsv(192, 112, 255);
 	rgb_matrix_mode(4);
-	#endif // RGB_MATRIX_ENABLE
 };
 
 // Runs constantly in the background, in a loop.
@@ -328,7 +322,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 			default: {
 				rgb_matrix_set_flags(LED_FLAG_ALL);
-				rgb_matrix_enable_noeeprom();
 			}
 			break;
 			}
@@ -338,90 +331,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 	case MAS_CRM:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(32, 160, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_PRP:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(192, 112, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_RED:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(0, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_GRN:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(88, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_BLU:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(168, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_CYN:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(128, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_MGT:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(216, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_YEL:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(40, 255, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_KEY:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(0, 0, 0);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;
 
 	case MAS_WHT:
 		if (record->event.pressed) {
-			#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(128, 0, 255);
-			#endif // RGB_MATRIX_ENABLE
 		}
 
 		return false;

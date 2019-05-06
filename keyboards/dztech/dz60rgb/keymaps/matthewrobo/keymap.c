@@ -25,17 +25,12 @@ enum dz60rgb_keycodes {
 };
 #define _V_V_V_ KC_TRNS
 #define LT_CAPS LT(_NAV, KC_CAPS)
-#ifdef RGB_MATRIX_ENABLE
 #define LT_DEL  LT(_RGB, KC_DEL)
 extern rgb_config_t rgb_matrix_config;
 extern bool autoshift_enabled;
-#else
-#define LT_DEL KC_DEL
-#endif // RGB_MATRIX_ENABLE
 #define MT_SLSH RSFT_T(KC_SLSH)
 #define MT_APP  RALT_T(KC_APP)
 #define LM_LALT LM(_FNM, MOD_LALT)
-// #define LM_LCTL LM(_FNC, MOD_LCTL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT(
@@ -61,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[_RGB] = LAYOUT(
 		_______, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, \
-		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT, RGB_RMOD,RGB_MOD, _______, \
+		_______, RGB_MOD,  RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, MAS_MGT, MAS_BLU, MAS_WHT, RGB_RMOD, RGB_MOD, _______, \
 		_______, RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD, _______, MAS_RED, MAS_KEY, MAS_CYN, MAS_PRP, _______, _______,          \
 		_______, RGB_TOG,  _______, _______, _______, _______, _______, MAS_YEL, MAS_GRN, MAS_CRM, _______,          _______, _V_V_V_, \
 		_______, _______,  _______,                   _______,                   _______, _______,          _______, _______, _______  \
@@ -100,9 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void rgb_matrix_indicators_user(void)
 {
-#ifdef RGB_MATRIX_ENABLE
 	uint8_t this_led = host_keyboard_leds();
-	
+
 	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (biton32(layer_state)) {
 		case _NAV:
@@ -113,23 +107,19 @@ void rgb_matrix_indicators_user(void)
 				rgb_matrix_set_color(13, 0x00, 0x00, 0x00);
 				rgb_matrix_set_color(19, 0xFF, 0x00, 0x00);
 			}
-			
+
 			rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF); // layer indicator
-			
 			// ESDF
 			rgb_matrix_set_color(24, 0xFF, 0x00, 0x00);
 			rgb_matrix_set_color(38, 0xFF, 0x00, 0x00);
 			rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
 			rgb_matrix_set_color(36, 0xFF, 0x00, 0x00);
-			
 			// home/end
 			rgb_matrix_set_color(25, 0x00, 0xFF, 0x00);
 			rgb_matrix_set_color(23, 0x00, 0xFF, 0x00);
-			
 			// pgup/dn
 			rgb_matrix_set_color(26, 0x00, 0x00, 0xFF);
 			rgb_matrix_set_color(39, 0x00, 0x00, 0xFF);
-			
 			// numpad
 			rgb_matrix_set_color(6,  0xFF, 0xFF, 0x00);
 			rgb_matrix_set_color(5,  0xFF, 0xFF, 0x00);
@@ -139,32 +129,26 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(33, 0xFF, 0xFF, 0x00);
 			rgb_matrix_set_color(32, 0xFF, 0xFF, 0x00);
 			rgb_matrix_set_color(31, 0xFF, 0xFF, 0x00);
-			
 			// zero
 			rgb_matrix_set_color(47, 0xFF, 0x00, 0x00);
 			rgb_matrix_set_color(46, 0xFF, 0x00, 0x00);
 			rgb_matrix_set_color(45, 0xFF, 0x00, 0x00);
-			
 			// dot
 			rgb_matrix_set_color(44, 0x00, 0x00, 0xFF);
-			
 			// math shit
 			rgb_matrix_set_color(3,  0x00, 0x00, 0xFF);
 			rgb_matrix_set_color(2,  0x00, 0x00, 0xFF);
 			rgb_matrix_set_color(1,  0x00, 0x00, 0xFF);
 			rgb_matrix_set_color(0,  0x00, 0x00, 0xFF);
 			rgb_matrix_set_color(17, 0x00, 0x00, 0xFF);
-			
 			// other
 			rgb_matrix_set_color(16, 0xFF, 0xFF, 0xFF);
 			rgb_matrix_set_color(15, 0xFF, 0xFF, 0xFF);
 			rgb_matrix_set_color(14, 0xFF, 0xFF, 0xFF);
 			break;
-			
-		case _RGB:
-		{
-			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
 
+		case _RGB: {
+			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
 			HSV hui = hsv;
 			HSV hud = hsv;
 			HSV sai = hsv;
@@ -177,38 +161,28 @@ void rgb_matrix_indicators_user(void)
 			sad.s = hsv.s - 16 < 0   ?   0 : hsv.s - 16;
 			vai.v = hsv.v + 16 > 255 ? 255 : hsv.v + 16;
 			vad.v = hsv.v - 16 < 0   ?   0 : hsv.v - 16;
-
 			RGB rgb = hsv_to_rgb(hsv);
-
 			RGB rgbHUI = hsv_to_rgb(hui);
 			RGB rgbHUD = hsv_to_rgb(hud);
 			RGB rgbSAI = hsv_to_rgb(sai);
 			RGB rgbSAD = hsv_to_rgb(sad);
 			RGB rgbVAI = hsv_to_rgb(vai);
 			RGB rgbVAD = hsv_to_rgb(vad);
-
 			rgb_matrix_set_color(41, 0xFF, 0xFF, 0xFF); // layer indicator
 			rgb_matrix_set_color(59, rgb.r, rgb.g, rgb.b); // color indicator
-
-			
 			rgb_matrix_set_color(26, 0xFF, 0x80, 0x00); //MOD
 			rgb_matrix_set_color(39, 0xFF, 0x80, 0x00); //MOD
 			rgb_matrix_set_color(16, 0xFF, 0x80, 0x00); //RGB_RMOD
 			rgb_matrix_set_color(15, 0xFF, 0x80, 0x00); //MOD
 			rgb_matrix_set_color(52, 0xFF, 0x40, 0x00); //TOG
-			
 			rgb_matrix_set_color(25, 0x80, 0x80, 0x80); //SPI
 			rgb_matrix_set_color(38, 0x80, 0x80, 0x80); //SPD
-			
 			rgb_matrix_set_color(24, rgbHUI.r, rgbHUI.g, rgbHUI.b); //HUI
 			rgb_matrix_set_color(37, rgbHUD.r, rgbHUD.g, rgbHUD.b); //HUD
-			
 			rgb_matrix_set_color(23, rgbSAI.r, rgbSAI.g, rgbSAI.b); //SAI
 			rgb_matrix_set_color(36, rgbSAD.r, rgbSAD.g, rgbSAD.b); //SAD
-
 			rgb_matrix_set_color(22, rgbVAI.r, rgbVAI.g, rgbVAI.b); //VAI
 			rgb_matrix_set_color(35, rgbVAD.r, rgbVAD.g, rgbVAD.b); //VAD
-
 			rgb_matrix_set_color(19, 0xF0, 0x00, 0xFF); //MAS_MGT
 			rgb_matrix_set_color(18, 0x00, 0x02, 0xFF); //MAS_BLU
 			rgb_matrix_set_color(33, 0xFF, 0x00, 0x00); //MAS_RED
@@ -216,44 +190,37 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(31, 0x00, 0xFF, 0xF7); //MAS_CYN
 			rgb_matrix_set_color(46, 0xFF, 0xDA, 0x00); //MAS_YEL
 			rgb_matrix_set_color(45, 0x00, 0xFF, 0x01); //MAS_GRN
-
 			rgb_matrix_set_color(44, 0xFF, 0xE8, 0x22); //MAS_CRM
 			rgb_matrix_set_color(30, 0x81, 0x3C, 0xFF); //MAS_PRP
 			rgb_matrix_set_color(17, 0xFF, 0xFF, 0xFF); //MAS_WHT
-        }
-			break;
-			
+		}
+		break;
+
 		case _FNC:
 			rgb_matrix_set_color(57, 0xFF, 0xFF, 0xFF); // layer indicator
-			
 			rgb_matrix_set_color(48, 0xFF, 0x00, 0x00); // bootloader
-			
 			rgb_matrix_set_color(42, 0x00, 0x80, 0xFF); // vol
 			rgb_matrix_set_color(55, 0x00, 0x80, 0xFF);
 			rgb_matrix_set_color(58, 0xFF, 0x00, 0x00); // mute
-			
 			rgb_matrix_set_color(56, 0xFF, 0x80, 0x00); // ctrl+left/right
 			rgb_matrix_set_color(54, 0xFF, 0x80, 0x00);
-			
 			rgb_matrix_set_color(41, 0xFF, 0x00, 0x40); // ctrl+delete
-			
 			rgb_matrix_set_color(43, 0xFF, 0x00, 0x40); // ctrl+slash
-			
+
 			if (this_led & (1 << !autoshift_enabled)) {
 				rgb_matrix_set_color(0, 0xFF, 0x00, 0x00); // KC_ASTG
 			} else {
 				rgb_matrix_set_color(0, 0xFF, 0xFF, 0x00);
 			}
-			
+
 			break;
 		}
 	}
-	
+
 	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
-	
-#endif // RGB_MATRIX_ENABLE
+
 }
 
 void matrix_init_user(void)
@@ -270,7 +237,7 @@ void matrix_scan_user(void)
 bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
 	static uint32_t key_timer;
-	
+
 	switch (keycode) {
 	case REBOOT:
 		if (record->event.pressed) {
@@ -288,79 +255,77 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 				unregister_code(KC_RCTL);
 			}
 		}
-		
+
 		return false;
-		
+
 	case MAS_CRM:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(40, 144, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
 
 	case MAS_PRP:
-	    if (record->event.pressed) {
-	    #ifdef RGB_MATRIX_ENABLE
-	        rgb_matrix_sethsv(192, 112, 255);
-	    #endif // RGB_MATRIX_ENABLE
-	    }
-	    return false;
+		if (record->event.pressed) {
+			rgb_matrix_sethsv(192, 112, 255);
+		}
+
+		return false;
+
 	case MAS_RED:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(0, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_GRN:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(88, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_BLU:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(168, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_CYN:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(128, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_MGT:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(216, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_YEL:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(40, 255, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_KEY:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(0, 0, 0);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
+
 	case MAS_WHT:
 		if (record->event.pressed) {
-		#ifdef RGB_MATRIX_ENABLE
 			rgb_matrix_sethsv(128, 0, 255);
-		#endif // RGB_MATRIX_ENABLE
 		}
+
 		return false;
 
 	default:
