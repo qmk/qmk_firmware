@@ -298,6 +298,11 @@ uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
 // x positive right, y positive down
 // +- 1=forward, 2=slow
+#define MOUSE_NEUTRAL 0
+#define MOUSE_FORWARD 1
+#define MOUSE_FORWARD_SLOW 2
+#define MOUSE_BACKWARD -1
+#define MOUSE_BACKWARD_SLOW -2
 int8_t x_state = 0;
 int8_t y_state = 0;
 
@@ -322,10 +327,10 @@ static uint8_t wheel_unit(void)
 
 static void calc_v(int8_t *state, int8_t *rep)
 {
-    if (!*state) *rep = 0;
-    else if (*state > 0) *rep += acc_per_int;
-    else if (*state < 0) *rep -= acc_per_int;
-    if (*state == 1 || *state == -1) *rep = CLAMP(*rep, -mk_max_speed, mk_max_speed);
+    if (!*state) *rep = MOUSE_NEUTRAL;
+    else if (*state > MOUSE_NEUTRAL) *rep += acc_per_int;
+    else if (*state < MOUSE_NEUTRAL) *rep -= acc_per_int;
+    if (*state == MOUSE_FORWARD || *state == MOUSE_BACKWARD) *rep = CLAMP(*rep, -mk_max_speed, mk_max_speed);
     else *rep = CLAMP(*rep, -mk_slow_speed, mk_slow_speed);
 }
 
@@ -354,20 +359,20 @@ void mousekey_task(void)
 void mousekey_on(uint8_t code)
 {
     if (code == KC_MS_UP) {
-        if (y_state)  y_state = 2;
-        else          y_state = -1;
+        if (y_state)  y_state = MOUSE_FORWARD_SLOW;
+        else          y_state = MOUSE_BACKWARD;
     }
     else if (code == KC_MS_DOWN) {
-        if (y_state)  y_state = -2;
-        else          y_state = 1;
+        if (y_state)  y_state = MOUSE_BACKWARD_SLOW;
+        else          y_state = MOUSE_FORWARD;
     }
     else if (code == KC_MS_LEFT) {
-        if (x_state)  x_state = 2;
-        else          x_state = -1;
+        if (x_state)  x_state = MOUSE_FORWARD_SLOW;
+        else          x_state = MOUSE_BACKWARD;
     }
     else if (code == KC_MS_RIGHT) {
-        if (x_state)  x_state = -2;
-        else          x_state = 1;
+        if (x_state)  x_state = MOUSE_BACKWARD_SLOW;
+        else          x_state = MOUSE_FORWARD;
     }
     else if (code == KC_MS_WH_UP)    mouse_report.v = wheel_unit();
     else if (code == KC_MS_WH_DOWN)  mouse_report.v = wheel_unit() * -1;
@@ -386,32 +391,32 @@ void mousekey_on(uint8_t code)
 void mousekey_off(uint8_t code)
 {
     if (code == KC_MS_UP) {
-        if (y_state == -1) {
-            y_state = 0;
+        if (y_state == MOUSE_BACKWARD) {
+            y_state = MOUSE_NEUTRAL;
             mouse_report.y = 0;
         }
-        else y_state = 1;
+        else y_state = MOUSE_FORWARD;
     }
     else if (code == KC_MS_DOWN) {
-        if (y_state == 1) {
-            y_state = 0;
+        if (y_state == MOUSE_FORWARD) {
+            y_state = MOUSE_NEUTRAL;
             mouse_report.y = 0;
         }
-        else y_state = -1;
+        else y_state = MOUSE_BACKWARD;
     }
     else if (code == KC_MS_LEFT) {
-        if (x_state == -1) {
-            x_state = 0;
+        if (x_state == MOUSE_BACKWARD) {
+            x_state = MOUSE_NEUTRAL;
             mouse_report.x = 0;
         }
-        else x_state = 1;
+        else x_state = MOUSE_FORWARD;
     }
     else if (code == KC_MS_RIGHT) {
-        if (x_state == 1) {
-            x_state = 0;
+        if (x_state == MOUSE_FORWARD) {
+            x_state = MOUSE_NEUTRAL;
             mouse_report.x = 0;
         }
-        else x_state = -1;
+        else x_state = MOUSE_BACKWARD;
     }
     else if (code == KC_MS_WH_UP    && mouse_report.v > 0) mouse_report.v = 0;
     else if (code == KC_MS_WH_DOWN  && mouse_report.v < 0) mouse_report.v = 0;
