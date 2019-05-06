@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |RESET |        |      |             |            |       |LEFT |DOWN |RIGHT|
  * `---------------------------------------------------------------------------'
  */
-[L4] = KEYMAP(KC_BTN1, ____, ____, ____, ____, ____, ____, KC_BTN1, KC_MS_U, KC_BTN2, ____, KC_BTN2, \
+[L4] = LAYOUT(KC_BTN1, ____, ____, ____, ____, ____, ____, KC_BTN1, KC_MS_U, KC_BTN2, ____, KC_BTN2, \
               ____, ____, ____, ____, ____, ____, ____, KC_MS_L, KC_MS_D, KC_MS_R, ____, ____, \
               ____, ____, ____, ____,____, ____, ____, ____, ____, ____, KC_UP, ____, \
               RESET,  ____, ____, KC_NO, ____, ____, ____, KC_LEFT, KC_DOWN, KC_RIGHT \
