@@ -26,7 +26,6 @@
  */
 
 #pragma once
-#define _HALCONF_H_
 
 #include "mcuconf.h"
 
