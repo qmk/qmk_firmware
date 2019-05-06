@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | RESET |  CAD  |      |             |           |        |SNIP |HNDSHK|NOTE |
  * `----------------------------------------------------------------------------'
  */
-[L2] = KEYMAP(____, ____, ____, ____, ____, ____, ____, KC_PGUP, KC_UP, KC_PGDN, ____, ____, \
+[L2] = LAYOUT(____, ____, ____, ____, ____, ____, ____, KC_PGUP, KC_UP, KC_PGDN, ____, ____, \
               KC_CAPS, ____, ____, ____, ____, ____, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, ____, ____, \
               ____, ____, ____, ____, ____, ____, KC_END, ____, ____, ____, M(thumbup), ____, \
               RESET, ____, M(cad), KC_NO, ____, ____, ____, M(snip), M(handsh), M(note) \
