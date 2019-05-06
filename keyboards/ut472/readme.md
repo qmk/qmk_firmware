@@ -9,7 +9,7 @@ or purchased at keyhive.xyz
 
 ## Instructions
 
-To flash the UT47.2, run:
+To create a hex file for the UT47.2, run:
 
     make ut472:default
 
