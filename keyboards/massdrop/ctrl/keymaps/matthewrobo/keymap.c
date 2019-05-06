@@ -84,6 +84,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
+extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+void set_color_helper(int index, uint8_t red, uint8_t green, uint8_t blue)
+{
+	if (!HAS_ANY_FLAGS(g_rgb_leds[index].flags, rgb_matrix_get_flags()))
+	{ return; }
+
+	rgb_matrix_set_color(index, red, green, blue);
+}
+
 void rgb_matrix_indicators_user(void)
 {
 	#ifdef RGB_MATRIX_ENABLE
@@ -187,7 +196,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(34, 0xFF, 0x80, 0x00); //RGB_MOD
 			rgb_matrix_set_color(51, 0xFF, 0x80, 0x00);
 			rgb_matrix_set_color(63, 0xFF, 0x40, 0x00); //RGB_TOG
-            rgb_matrix_set_color(64, rgb.r, rgb.g, rgb.b); //MAS_TOG
+			rgb_matrix_set_color(64, rgb.r, rgb.g, rgb.b); //MAS_TOG
 			rgb_matrix_set_color(36, rgbHUI.r, rgbHUI.g, rgbHUI.b); //RGB_HUI
 			rgb_matrix_set_color(53, rgbHUD.r, rgbHUD.g, rgbHUD.b);
 			rgb_matrix_set_color(37, rgbSAI.r, rgbSAI.g, rgbSAI.b); //RGB_SAI
@@ -208,7 +217,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(59, 0x00, 0xFF, 0xF7); //MAS_CYN
 			rgb_matrix_set_color(70, 0xFF, 0xDA, 0x00); //MAS_YEL
 			rgb_matrix_set_color(71, 0x00, 0xFF, 0x01); //MAS_GRN
-			rgb_matrix_set_color(72, 0xFF, 0xE8, 0x22); //MAS_CRM
+			rgb_matrix_set_color(72, 0xFF, 0xA5, 0x18); //MAS_CRM
 			rgb_matrix_set_color(60, 0x81, 0x3C, 0xFF); //MAS_PRP
 			rgb_matrix_set_color(26, 0xFF, 0xFF, 0xFF); //MAS_WHT
 		}
@@ -330,7 +339,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 	case MAS_CRM:
 		if (record->event.pressed) {
 			#ifdef RGB_MATRIX_ENABLE
-			rgb_matrix_sethsv(40, 144, 255);
+			rgb_matrix_sethsv(32, 160, 255);
 			#endif // RGB_MATRIX_ENABLE
 		}
 
