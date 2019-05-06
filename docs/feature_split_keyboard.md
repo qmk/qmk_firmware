@@ -132,12 +132,12 @@ This sets the pin to be used for serial communication. If you're not using seria
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
 
-    * **0**: about 189kbps (Experimental only)
-    * **1**: about 137kbps (default)
-    * **2**: about 75kbps
-    * **3**: about 39kbps
-    * **4**: about 26kbps
-    * **5**: about 20kbps
+* **`0`**: about 189kbps (Experimental only)
+* **`1`**: about 137kbps (default)
+* **`2`**: about 75kbps
+* **`3`**: about 39kbps
+* **`4`**: about 26kbps
+* **`5`**: about 20kbps
 
 ###  Hardware Configuration Options
 
