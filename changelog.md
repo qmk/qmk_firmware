@@ -13,3 +13,4 @@
 04-22-2019 - Add Split RGB support  
 04-24-2019 - fix LIB_SRC and QUANTUM_LIB_SRC for ARM  
 04-24-2019 - Add RGB Split fixes and RGB Names  
+05-05-2019 - Fix issue with Space Cadet
