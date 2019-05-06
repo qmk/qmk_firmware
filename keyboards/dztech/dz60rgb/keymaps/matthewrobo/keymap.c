@@ -190,7 +190,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(31, 0x00, 0xFF, 0xF7); //MAS_CYN
 			rgb_matrix_set_color(46, 0xFF, 0xDA, 0x00); //MAS_YEL
 			rgb_matrix_set_color(45, 0x00, 0xFF, 0x01); //MAS_GRN
-			rgb_matrix_set_color(44, 0xFF, 0xE8, 0x22); //MAS_CRM
+			rgb_matrix_set_color(44, 0xFF, 0xA5, 0x18); //MAS_CRM
 			rgb_matrix_set_color(30, 0x81, 0x3C, 0xFF); //MAS_PRP
 			rgb_matrix_set_color(17, 0xFF, 0xFF, 0xFF); //MAS_WHT
 		}
@@ -220,7 +220,6 @@ void rgb_matrix_indicators_user(void)
 	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
-
 }
 
 void matrix_init_user(void)
@@ -260,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 
 	case MAS_CRM:
 		if (record->event.pressed) {
-			rgb_matrix_sethsv(40, 144, 255);
+			rgb_matrix_sethsv(32, 160, 255);
 		}
 
 		return false;
