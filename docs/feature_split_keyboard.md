@@ -73,7 +73,8 @@ This will read the specified pin. If it's high, then the controller assumes it i
 
 #### Handedness by EEPROM
 
-This method sets the and reads the handedness by using the EEPROM (persistent storage of the controller). 
+This method sets the keyboard's handedness by setting a flag in the persistent storage (`EEPROM`).  This is checked when the controller first starts up, and determines what half the keyboard is, and how to orient the keyboard layout. 
+
 
 To enable this method, add the following to your `config.h` file: 
 
@@ -88,9 +89,9 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:dfu-split-left`
 * `:dfu-split-right`
 
-If you reset the EEPROM outside of the firmware's built in options (such as using the QMK Toolbox's "Reset EEPROM" option), you'll need to re-flash the EEPROM files. 
+This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
-You can find the EEPROM files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common). 
+You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common). 
 
 #### Handedness by `#define`
 
@@ -149,8 +150,26 @@ There are some settings that you may need to configure, based on how the hardwar
 
 This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency).
 
+
+```c
+#define RGBLIGHT_SPLIT
+```
+
+This option enables synchronization of the RGB Light modes between the controllers of the split Keyboard.  This is for keyboards that have RGB LEDs that are directly wired to the controller (aka, that are not using the "extra data" option on the TRRS cable)
+
 ```c
 #define RGBLED_SPLIT { 6, 6 }
 ```
 
-This sets how many LEDs are connected to each controller.
+This sets how many LEDs are directly connected to each controller.  The first number is the left side, and the second number is the right side.  
+
+?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
+
+
+## Additional Resources
+
+Nicinabox has a [very nice and detailed guide](https://github.com/nicinabox/lets-split-guide) for the Let's Split keyboard, that covers most everything you need to know, including troubleshooting information. 
+
+However, the RGB Light section is out of date, as it was written long before the RGB Split code was added to QMK Firmware. Instead, wire each strip up directly to the controller.
+
+<!-- I may port this information later, but for now ... it's very nice, and covers everything -->
