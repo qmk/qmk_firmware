@@ -221,7 +221,6 @@ void rgb_matrix_indicators_user(void)
 		break;
 		}
 	}
-
 }
 
 // Runs just one time when the keyboard initializes.
