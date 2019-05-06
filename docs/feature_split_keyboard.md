@@ -8,6 +8,8 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
+!> ARM is not yet supported for Split Keyboards.  Progress is being made, but we are not quite there, yet. 
+
 
 ## Hardware Configuration
 
@@ -124,17 +126,17 @@ This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for
 This sets the pin to be used for serial communication. If you're not using serial, you shouldn't need to define this. 
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}` 
+#define SELECT_SOFT_SERIAL_SPEED {#}`
 ```
 
 If you're having issues with serial communication, you can change this value, as it controls the communication speed for serial.  The default is 1, and the possible values are:
 
-    * __0__: about 189kbps (Experimental only)
-    * __1__: about 137kbps (default)
-    * __2__: about 75kbps
-    * __3__: about 39kbps
-    * __4__: about 26kbps
-    * __5__: about 20kbps
+    * **0**: about 189kbps (Experimental only)
+    * **1**: about 137kbps (default)
+    * **2**: about 75kbps
+    * **3**: about 39kbps
+    * **4**: about 26kbps
+    * **5**: about 20kbps
 
 ###  Hardware Configuration Options
 
