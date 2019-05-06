@@ -107,7 +107,7 @@ or
 #define MASTER_LEFT
 ```
 
-Or by not defining any of these options (which defaults to `MASTER_LEFT`, in this case. 
+If neither are defined, the handedness defaults to `MASTER_LEFT`.
 
 
 ### Communication Options
@@ -118,7 +118,7 @@ Because not every split keyboard is identical, there are a number of additional 
 #define USE_I2C
 ```
 
-This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C based devices. 
+This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C-based devices. 
 
 ```c
 #define SOFT_SERIAL_PIN D0
@@ -155,7 +155,7 @@ This allows you to specify a different set of pins for the matrix on the right s
 #define RGBLIGHT_SPLIT
 ```
 
-This option enables synchronization of the RGB Light modes between the controllers of the split Keyboard.  This is for keyboards that have RGB LEDs that are directly wired to the controller (aka, that are not using the "extra data" option on the TRRS cable)
+This option enables synchronization of the RGB Light modes between the controllers of the split keyboard.  This is for keyboards that have RGB LEDs that are directly wired to the controller (that is, they are not using the "extra data" option on the TRRS cable).
 
 ```c
 #define RGBLED_SPLIT { 6, 6 }
