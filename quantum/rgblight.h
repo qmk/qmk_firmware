@@ -236,6 +236,7 @@ void rgb_matrix_decrease(void);
 
 void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
+void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 
 void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 void rgblight_mode_noeeprom(uint8_t mode);
