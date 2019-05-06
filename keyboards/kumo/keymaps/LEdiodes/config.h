@@ -1,5 +1,4 @@
 #pragma once
-#define CONFIG_H
 #include "config.h"
 #include "config_common.h"
 #define VENDOR_ID       0xFEAE
