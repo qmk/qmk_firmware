@@ -1,5 +1,4 @@
 #pragma once
-#define CONFIG_H
 #include "config_common.h"
 #define VENDOR_ID       0xFEAE
 #define PRODUCT_ID      0x8847
