@@ -86,7 +86,7 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:dfu-split-left`
 * `:dfu-split-right`
 
-If you reset the EEPROM outside of the firmeware's built in options (such as using the QMK Toolbox's "Reset EEPROM" option), you'll need to re-flash the EEPROM files. 
+If you reset the EEPROM outside of the firmware's built in options (such as using the QMK Toolbox's "Reset EEPROM" option), you'll need to re-flash the EEPROM files. 
 
 You can find the EEPROM files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common). 
 
