@@ -25,6 +25,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		kernel-headers \
 		make \
 		perl \
+		python3 \
 		unzip \
 		wget \
 		zip
@@ -47,6 +48,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		python3 \
 		unzip \
 		wget \
 		zip
@@ -66,6 +68,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		diffutils \
 		gcc \
 		git \
+		python \
 		unzip \
 		wget \
 		zip
@@ -87,6 +90,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/zip \
 			app-mobilephone/dfu-util \
 			dev-embedded/avrdude \
+			dev-lang/python:3.5 \
 			net-misc/wget \
 			sys-devel/gcc \
 			sys-devel/crossdev
@@ -102,6 +106,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/zip \
 		app-mobilephone/dfu-util \
 		dev-embedded/avrdude \
+		dev-lang/python \
 		net-misc/wget \
 		sys-devel/gcc \
 		sys-devel/crossdev
@@ -125,6 +130,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		dfu-tool \
 		dfu-programmer \
 		gcc \
+		python3 \
 		unzip \
 		wget \
 		zip
@@ -143,7 +149,8 @@ elif grep ID /etc/os-release | grep -q slackware; then
 			dfu-util \
 			arm-binutils \
 			arm-gcc \
-			newlib
+			newlib \
+			python3
 		echo "Done!"
 	else
 		echo "Quitting..."
