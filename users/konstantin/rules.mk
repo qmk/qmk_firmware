@@ -2,7 +2,7 @@ SRC += konstantin.c
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb.c
 endif
-ifneq (,$(filter yes IS31FL3731 IS31FL3733,$(RGB_MATRIX_ENABLE)))
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
     SRC += rgb.c
 endif
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
