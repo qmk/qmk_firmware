@@ -13,13 +13,13 @@
 #define FN_RCTL TD(TD_FN_RCTL)
 
 enum tap_dance {
-  TD_DST_A_R,
+    TD_DST_A_R,
 
-  TD_RAL_LAL,
-  TD_RAL_RGU,
-  TD_RCT_RSF,
+    TD_RAL_LAL,
+    TD_RAL_RGU,
+    TD_RCT_RSF,
 
-  TD_LSFT_FN,
-  TD_RCTL_FN,
-  TD_FN_RCTL,
+    TD_LSFT_FN,
+    TD_RCTL_FN,
+    TD_FN_RCTL,
 };
