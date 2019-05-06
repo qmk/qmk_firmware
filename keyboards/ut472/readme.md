@@ -4,6 +4,9 @@ Somewhere between ortholinear and standard offset. Created to have all the same 
 
 Keyboard Maintainer: [filoxo](https://github.com/filoxo), [network_operations](https://www.keyhive.xyz)
 
+The keyboard files can be found here: https://github.com/ai03-2725/UT47.2
+or purchased at keyhive.xyz
+
 ## Instructions
 
 To flash the UT47.2, run:
