@@ -10,6 +10,6 @@ To flash the UT47.2, run:
 
     make ut472:default
 
-### Layout
+## Layout
 
 Go to the [default layout README](keymaps/default/readme.md) for more information.
