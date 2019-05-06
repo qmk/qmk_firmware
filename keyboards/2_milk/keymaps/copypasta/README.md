@@ -1,1 +1,1 @@
-# Copy/Pasts Keymap
+# Copy/Paste Keymap
