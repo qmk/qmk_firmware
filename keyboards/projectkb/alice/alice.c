@@ -1,27 +1,27 @@
 #include "alice.h"
 
 void matrix_init_board(void){
-  palSetPadMode(GPIOA, 0, PAL_MODE_OUTPUT_PUSHPULL);
-  palSetPadMode(GPIOA, 1, PAL_MODE_OUTPUT_PUSHPULL);
-  palSetPadMode(GPIOA, 2, PAL_MODE_OUTPUT_PUSHPULL);
+    setPinOutput(A0);
+    setPinOutput(A1);
+    setPinOutput(A2);
 }
 
 
 void led_set_kb(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        palClearPad(GPIOA, 0);
+        writePinLow(A0);
     } else {
-        palSetPad(GPIOA, 0);
+        writePinHigh(A0);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        palClearPad(GPIOA, 1);
+        writePinLow(A1);
     } else {
-        palSetPad(GPIOA, 1);
+        writePinHigh(A1);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        palClearPad(GPIOA, 2);
+        writePinLow(A2);
     } else {
-        palSetPad(GPIOA, 2);
+        writePinHigh(A2);
     }
     led_set_user(usb_led);
 }

@@ -348,6 +348,4 @@
 #define USB_USE_WAIT                TRUE
 #endif
 
-#endif /* _HALCONF_H_ */
-
 /** @} */
