@@ -1,4 +1,4 @@
-#include "sol.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
   rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
@@ -80,8 +80,4 @@
     { { 11 | (6 << 4) }, { 127, 55 }, 1}
   };
 #endif
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-};
 

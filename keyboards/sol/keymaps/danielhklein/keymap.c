@@ -11,8 +11,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -64,7 +62,7 @@ LAYOUT( \
       KC_CAPS, _10,     _11,      _12,     _13,     _14,     KC_LCBR,  KC_RCBR, _15,     _16,     _17,     _18,      _19,     KC_QUOT,  \
       KC_LSFT, _20,     _21,      _22,     _23,     _24,     KC_GRV,   KC_BSLS, _25,     _26,     _27,     _28,      _29,     KC_RSFT,  \
       KC_LEFT, KC_DOWN, KC_LCTRL, KC_LALT, KC_LGUI, KC_BSPC, FN,       ADJ,     KC_SPC,  KC_RGUI, KC_RALT, KC_RCTRL, KC_UP,   KC_RIGHT, \
-                        KC_VOLU,  KC_VOLD,          KC_BSPC, FN,       ADJ,     KC_SPC,           KC_VOLU, KC_VOLD \
+                                                    KC_BSPC, FN,       ADJ,     KC_SPC \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -132,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_END,  \
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MRWD, KC_MFFD, \
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-                        XXXXXXX, XXXXXXX,          XXXXXXX, _______, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX \
+                                                   XXXXXXX, _______, XXXXXXX, XXXXXXX \
       ),
 
   /* ADJ
@@ -157,13 +155,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, RGB_SAD, RGB_VAI, RGB_SAI, XXXXXXX,  XXXXXXX, COLEMAK, XXXXXXX, KC_P4,   KC_P5,   KC_P6,   KC_PENT, XXXXXXX, XXXXXXX, \
       XXXXXXX, RGB_HUD, RGB_VAD, RGB_HUI, XXXXXXX,  XXXXXXX, QWERTY,  XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_SPC,  XXXXXXX, XXXXXXX, \
       XXXXXXX, RGBRST,  RGB_TOG, RGB_MOD, RGB_RMOD, XXXXXXX, XXXXXXX, _______, XXXXXXX, KC_P0,   KC_PDOT, KC_BSPC, XXXXXXX, XXXXXXX, \
-                        XXXXXXX, XXXXXXX,           XXXXXXX, XXXXXXX, _______, XXXXXXX,          XXXXXXX, XXXXXXX \
+                                                    XXXXXXX, XXXXXXX, _______, XXXXXXX \
       )
 };
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
+
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  } else if (index == 1) { /* Second encoder*/
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  }
+}
+#endif
 
 // Setting ADJ layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -308,7 +324,7 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-  if (is_master)
+  if (is_keyboard_master())
     render_status();
   else
     render_logo();
