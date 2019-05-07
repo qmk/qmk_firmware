@@ -2,7 +2,7 @@
 #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
 
 extern rgb_counters_t g_rgb_counters;
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 bool rgb_matrix_cycle_all(effect_params_t* params) {
