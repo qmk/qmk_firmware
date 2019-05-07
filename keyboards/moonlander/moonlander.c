@@ -164,7 +164,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 
 };
 
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 
     /*{row | col << 4}
       |             {x=0..224, y=0..64}

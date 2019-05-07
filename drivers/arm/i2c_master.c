@@ -92,11 +92,11 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
   return chibios_to_qmk(&status);
 }
 
-uint8_t i2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length) {
+i2c_status_t i2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length) {
   return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, tx_body, tx_length, rx_body, rx_length, MS2ST(100));
 }
 
-uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
