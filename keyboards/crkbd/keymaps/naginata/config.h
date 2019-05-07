@@ -20,17 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef VENDOR_ID   
-#undef PRODUCT_ID  
-#undef DEVICE_VER  
-#undef MANUFACTURER
 #undef PRODUCT     
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3061
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    foostan
-#define PRODUCT         Crkbd Naginata
+#define PRODUCT         Crkbd Naginata Style
 
 //#define USE_MATRIX_I2C
 
@@ -44,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// #define SSD1306OLED
+#define SSD1306OLED
 
 #define USE_SERIAL_PD2
 
