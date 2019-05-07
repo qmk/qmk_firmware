@@ -23,7 +23,17 @@ Alternatively, you can use any sort of cable and socket that has at least 3 wire
 
 If you want to use I<sup>2</sup>C to communicate between halves, you will need a cable with at least 4 wires and 2x 4.7kΩ pull-up resistors.
 
+#### Considerations 
 
+The most commonly used connection is a TRRS cable and jacks.  These provide 4 wires, making them very useful for split keyboards, and are easy to find. 
+
+However, since one of the wires carries VCC, this means that the boards are not hot pluggable. You should always disconnect the board from USB before unplugging and plugging in TRRS cables, or you can short the controller, or worse. 
+
+Another option is to use phone cables (as in, old school RJ-11/RJ-14 cables). Make sure that you use one that actually supports 4 wires/lanes.  
+
+However, USB cables, SATA cables, and even just 4 wires have been known to be used for communication between the controllers. 
+
+!> Using USB Cables for communication between the controllers works just fine. But you could plug in a normal USB cable here and short out the keyboard, depending on how it's wired.  We would not recommend using USB cables for communication, for this reason. 
 
 ### Serial Wiring
 
