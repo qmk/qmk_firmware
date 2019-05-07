@@ -3,10 +3,11 @@
 #include "rgb_matrix_types.h"
 
 extern rgb_counters_t g_rgb_counters;
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 static void raindrops_set_color(int i, effect_params_t* params) {
-  if (!HAS_ANY_FLAGS(g_rgb_leds[i].flags, params->flags)) return;
+  if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
   HSV hsv = { 0 , rgb_matrix_config.sat, rgb_matrix_config.val };
 
   // Take the shortest path between hues
