@@ -2,11 +2,11 @@
 
 ![Photo](https://cdn.shopify.com/s/files/1/1473/3902/products/9_e4262f46-0d69-4c6c-9cc6-b88a3e2483d7_1800x1800.jpg)
 
-A short description of the keyboard/project
+A fairly typical TKL
 
 Keyboard Maintainer: [ai03](https://github.com/ai03-2725) / [KBDfans](https://kbdfans.cn/)  
-Hardware Supported: KBD8X MKII 
-Hardware Availability: [KBDfans store](https://kbdfans.cn/collections/new-arrival/products/coming-soon-kbd8x-mkii-custom-mechanical-keyboard-kit)
+Hardware Supported: KBD8X MKII PCB/case
+Hardware Availability: [KBDfans](https://kbdfans.cn/collections/new-arrival/products/coming-soon-kbd8x-mkii-custom-mechanical-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
