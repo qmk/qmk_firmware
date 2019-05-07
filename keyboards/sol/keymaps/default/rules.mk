@@ -17,17 +17,11 @@ RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects. Can be very laggy
 RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
 
 OLED_DRIVER_ENABLE = no     # Enable the OLED Driver (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Do not edit past here
-
-ifeq ($(strip $(ENCODER_ENABLE_CUSTOM)), yes)
-    OPT_DEFS += -DENCODER_ENABLE_CUSTOM
-    SRC += common/knob_v2.c
-endif
 
 ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
     OPT_DEFS += -DIOS_DEVICE_ENABLE
