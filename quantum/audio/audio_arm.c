@@ -85,10 +85,13 @@ static void gpt_cb8(GPTDriver *gptp);
 #endif
 
 #define START_CHANNEL_1() gptStart(&GPTD6, &gpt6cfg1); \
-    gptStartContinuous(&GPTD6, 2U)
+    gptStartContinuous(&GPTD6, 2U); \
+    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
 #define START_CHANNEL_2() gptStart(&GPTD7, &gpt7cfg1); \
     gptStartContinuous(&GPTD7, 2U)
-#define STOP_CHANNEL_1() gptStopTimer(&GPTD6)
+#define STOP_CHANNEL_1() gptStopTimer(&GPTD6); \
+    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL); \
+    palSetPad(GPIOA, 5);
 #define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
 #define RESTART_CHANNEL_1() STOP_CHANNEL_1(); \
     START_CHANNEL_1()
@@ -298,6 +301,8 @@ void audio_init() {
    */
   palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
   palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+  palSetPad(GPIOA, 5);
+
   dacStart(&DACD1, &dac1cfg1);
   dacStart(&DACD2, &dac1cfg2);
 
