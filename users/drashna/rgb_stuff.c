@@ -148,12 +148,10 @@ bool rgblight_twinkle_is_led_used(uint8_t index) {
 void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rgblight_sethsv is supppppper intensive
     bool litup = false;
 
-    if (!rgblight_config.enable) return;
-
-    for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
+    for (uint8_t light_index = 0 ; light_index < RGBLED_NUM ; ++light_index ) {
         if (lights[light_index].enabled && timer_elapsed(lights[light_index].timer) > 10) {
             rgblight_fadeout *light = &lights[light_index];
-            litup                   = true;
+            litup = true;
 
             if (light->life) {
                 light->life -= 1;
@@ -182,8 +180,6 @@ void start_rgb_light(void) {
     uint8_t indices_count  = 0;
     uint8_t min_life       = 0xFF;
     uint8_t min_life_index = -1;
-
-    if (!rgblight_config.enable) return;
 
     for (uint8_t index = 0; index < RGBLED_NUM; ++index) {
         if (rgblight_twinkle_is_led_used(index)) {
@@ -254,14 +250,15 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
-#    if defined(RGBLIGHT_ENABLE)
+#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+                    rgblight_enable_noeeprom();
+#    endif
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+                } else {
+                    rgblight_disable_noeeprom();
 #    endif
                 }
-#    if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-                rgblight_config.enable = userspace_config.rgb_layer_change;
-#    endif
-
             }
 #endif  // RGBLIGHT_ENABLE
             break;
@@ -363,7 +360,7 @@ void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mo
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change && rgblight_config.enable) {
+    if (userspace_config.rgb_layer_change) {
         switch (get_highest_layer(state)) {
             case _MACROS:
                 rgblight_set_hsv_and_mode(HSV_ORANGE, userspace_config.is_overwatch ? RGBLIGHT_MODE_SNAKE + 2 : RGBLIGHT_MODE_SNAKE + 3);
