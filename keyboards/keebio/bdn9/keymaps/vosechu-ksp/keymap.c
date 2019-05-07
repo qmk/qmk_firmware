@@ -18,11 +18,6 @@
 // // Debugging
 // #include <print.h>
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define _LAYER_ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define BASE   TO(_BASE)
 #define PANIC  TO(_PANIC)
 #define FLIGHT TO(_FLIGHT)
@@ -37,24 +32,24 @@ enum my_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        KC_MUTE, PANIC  , XXXXXXX, \
-        FLIGHT , XXXXXXX, RCS    , \
-        XXXXXXX, XXXXXXX, XXXXXXX \
+        KC_MUTE, PANIC  , XXXXXXX,
+        FLIGHT , XXXXXXX, RCS    ,
+        XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_PANIC] = LAYOUT(
-        RESET  , BASE   , XXXXXXX, \
-        _______, XXXXXXX, _______, \
-        KC_F2  , KC_F5  , KC_F9 \
+        RESET  , BASE   , XXXXXXX,
+        _______, XXXXXXX, _______,
+        KC_F2  , KC_F5  , KC_F9
     ),
     [_FLIGHT] = LAYOUT(
-        XXXXXXX, _______, KC_M   , \
-        BASE   , KC_W   , _______, \
-        KC_A   , KC_S   , KC_D \
+        XXXXXXX, _______, KC_M   ,
+        BASE   , KC_W   , _______,
+        KC_A   , KC_S   , KC_D
     ),
     [_RCS] = LAYOUT(
-        XXXXXXX, _______, XXXXXXX, \
-        _______, KC_I   , BASE   , \
-        KC_J   , KC_K   , KC_L \
+        XXXXXXX, _______, XXXXXXX,
+        _______, KC_I   , BASE   ,
+        KC_J   , KC_K   , KC_L
     )
 };
 
@@ -167,14 +162,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         else if (index == 1) {
             if (clockwise) {
                 // Trim left
-                register_code(KC_LALT);
-                tap_code(KC_A);
-                unregister_code(KC_LALT);
+                tap_code16(LALT(KC_A));
             } else {
                 // Trim right
-                register_code(KC_LALT);
-                tap_code(KC_D);
-                unregister_code(KC_LALT);
+                tap_code16(LALT(KC_D));
             }
         }
     }
