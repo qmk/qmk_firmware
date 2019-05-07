@@ -33,7 +33,7 @@ Another option is to use phone cables (as in, old school RJ-11/RJ-14 cables). Ma
 
 However, USB cables, SATA cables, and even just 4 wires have been known to be used for communication between the controllers. 
 
-!> Using USB Cables for communication between the controllers works just fine. But you could plug in a normal USB cable here and short out the keyboard, depending on how it's wired.  We would not recommend using USB cables for communication, for this reason. 
+!> Using USB cables for communication between the controllers works just fine, but the connector could be mistaken for a normal USB connection and potentially short out the keyboard, depending on how it's wired.  For this reason, they are not recommended for connecting split keyboards.  
 
 ### Serial Wiring
 
