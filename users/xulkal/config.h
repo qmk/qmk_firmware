@@ -10,7 +10,7 @@
 #define LSPO_KEYS KC_LSFT, KC_TRNS, KC_LBRC
 #define RSPC_KEYS KC_RSFT, KC_TRNS, KC_RBRC
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_MINS
-#define RCPO_KEYS KC_RCTL, KC_TRNS, KC_EQL
+#define RCPC_KEYS KC_RCTL, KC_TRNS, KC_EQL
 
 // No need for the single versions when multi performance isn't a problem =D
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE

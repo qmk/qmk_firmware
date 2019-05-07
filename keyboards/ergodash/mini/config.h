@@ -45,10 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 #define C6_AUDIO
-#ifdef AUDIO_ENABLE
-  #define STARTUP_SONG SONG(STARTUP_SOUND)
-  #define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#endif
 
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE
@@ -68,23 +64,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 20
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 10, 10 }    // Number of LEDs
 
-#define RGBLED_NUM 20    // Number of LEDs
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+#define SOFT_SERIAL_PIN D0
+#define SELECT_SOFT_SERIAL_SPEED 1
+/*Sets the protocol speed when using serial communication*/
+//Speeds:
+//0: about 189kbps (Experimental only)
+//1: about 137kbps (default)
+//2: about 75kbps
+//3: about 39kbps
+//4: about 26kbps
+//5: about 20kbps

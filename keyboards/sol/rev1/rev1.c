@@ -1,4 +1,4 @@
-#include "sol.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -43,8 +43,4 @@ led_config_t g_led_config = { {
 } };
 
 #endif
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-};
 

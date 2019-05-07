@@ -24,7 +24,7 @@ const char* layer_name_user(uint32_t layer) {
 
 __attribute__((weak))
 void render_status(void) {
-  // Setup for 90 degree rendering because it's awesome!
+  // Setup for 270 degree rendering because it's awesome!
   // It can house 16 lines of text, with 5 letters each line
   // Render to mode icon
   static const char PROGMEM mode_logo[2][4] = {
@@ -49,7 +49,7 @@ void render_status(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
-    return OLED_ROTATION_90;  // flips the display 90 degrees if mainhand
+    return OLED_ROTATION_270;  // flips the display 270 degrees if mainhand
   return rotation;
 }
 
