@@ -132,7 +132,9 @@ This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for
 #define SOFT_SERIAL_PIN D0
 ```
 
-This sets the pin to be used for serial communication. If you're not using serial, you shouldn't need to define this. 
+This sets the pin to be used for serial communication. If you're not using serial, you shouldn't need to define this.  
+
+However, if you are using serial and i2c on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
 #define SELECT_SOFT_SERIAL_SPEED {#}`
