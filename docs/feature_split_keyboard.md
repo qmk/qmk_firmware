@@ -49,7 +49,7 @@ The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0
 
 The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
 
-![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
+![I<sup>2</sup>C wiring](https://i.imgur.com/Hbzhc6E.png)
 
 ## Firmware Configuration
 
@@ -134,7 +134,7 @@ This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for
 
 This sets the pin to be used for serial communication. If you're not using serial, you shouldn't need to define this.  
 
-However, if you are using serial and i2c on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
+However, if you are using serial and I<sup>2</sup>C on the board, you will need to set this, and to something other than D0 and D1 (as these are used for I<sup>2</sup>C communication).
 
 ```c
 #define SELECT_SOFT_SERIAL_SPEED {#}`
