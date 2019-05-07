@@ -49,7 +49,7 @@ The 4 wires of the TRRS cable need to connect GND, VCC, and SCL and SDA (aka PD0
 
 The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
 
-![I<sup>2</sup>C wiring](https://i.imgur.com/Hbzhc6E.png)
+![I2C wiring](https://i.imgur.com/Hbzhc6E.png)
 
 ## Firmware Configuration
 
