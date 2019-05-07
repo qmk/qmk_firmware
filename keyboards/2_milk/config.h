@@ -15,7 +15,7 @@
 
 /* Milk defualt pinout*/
 #define DIRECT_PINS { \
-    { B4, B5 }, \
+    { D4, C6 }, \
 }
 #define UNUSED_PINS
 
