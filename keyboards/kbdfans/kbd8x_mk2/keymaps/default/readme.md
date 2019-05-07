@@ -1,1 +1,4 @@
-# The default keymap for kbd8x-mk2
+# The default keymap for KBD8X MKII
+
+A typical setup. Nothing special.
+A nice starting point for customizing.
