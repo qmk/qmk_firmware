@@ -125,7 +125,7 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 
 ### Example Usage to Reduce Memory Footprint
-  1. remove RGBLIGHT_ANIMATION from `config.h`
+  1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
   1. selectively add the animations you want to enable. This would enable 2 animations and save about 4K.
 
 ```diff
