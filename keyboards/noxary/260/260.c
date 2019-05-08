@@ -1,4 +1,4 @@
-/* Copyright 2019 %YOUR_NAME%
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "%KEYBOARD%.h"
+#include "260.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.

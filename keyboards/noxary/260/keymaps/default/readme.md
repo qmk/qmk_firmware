@@ -1,1 +1,1 @@
-# The default keymap for %KEYBOARD%
+# The default keymap for Noxary 260

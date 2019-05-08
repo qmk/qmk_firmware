@@ -1,15 +1,15 @@
-# %KEYBOARD%
+Noxary 260
 
-![%KEYBOARD%](imgur.com image replace me!)
+![260](https://cdn.discordapp.com/attachments/438429095303315456/489188948749451276/image0.jpg)
 
-A short description of the keyboard/project
+A fully customizable 60% keyboard.
 
-Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Rozakiin](https://github.com/rozakiin) 
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 
-    make %KEYBOARD%:default
+    make noxary/260:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
