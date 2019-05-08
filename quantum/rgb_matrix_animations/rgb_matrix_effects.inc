@@ -7,6 +7,8 @@
 #include "rgb_matrix_animations/cycle_left_right_anim.h"
 #include "rgb_matrix_animations/cycle_up_down_anim.h"
 #include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
+#include "rgb_matrix_animations/cycle_out_in_anim.h"
+#include "rgb_matrix_animations/cycle_out_in_dual_anim.h"
 #include "rgb_matrix_animations/dual_beacon_anim.h"
 #include "rgb_matrix_animations/rainbow_beacon_anim.h"
 #include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
