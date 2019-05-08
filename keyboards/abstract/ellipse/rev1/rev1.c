@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "EllipseRev0.h"
+#include "rev1.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
@@ -41,8 +41,3 @@ void led_set_kb(uint8_t usb_led) {
 
 	led_set_user(usb_led);
 }
-
-/*void encoder_update_kb(uint8_t index, bool clockwise) { //might not need this
-	//encoder code here
-    encoder_update_user(index, clockwise);
-}*/
