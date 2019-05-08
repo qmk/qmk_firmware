@@ -138,6 +138,7 @@ The following options can be used to tweak the various animations:
  #define RGBLIGHT_SAT_STEP 8
 ```
 
+### Animation Speed
 
 You can also modify the speeds that the different modes animate at:
 
