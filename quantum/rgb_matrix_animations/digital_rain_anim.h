@@ -18,7 +18,7 @@ bool DIGITAL_RAIN(effect_params_t* params) {
 
   if (params->init) {
     rgb_matrix_set_color_all(0, 0, 0);
-    memset(rgb_frame_buffer, 0, sizeof rgb_frame_buffer);
+    memset(rgb_frame_buffer, 0, sizeof(rgb_frame_buffer));
     drop = 0;
   }
 
@@ -61,9 +61,9 @@ bool DIGITAL_RAIN(effect_params_t* params) {
           rgb_frame_buffer[row][col]--;
         }
         // check if the pixel above is bright
-        if (rgb_frame_buffer[col][row - 1] == max_intensity) {
+        if (rgb_frame_buffer[row - 1][col] == max_intensity) {
           // allow old bright pixel to decay
-          rgb_frame_buffer[col][row - 1]--;
+          rgb_frame_buffer[row - 1][col]--;
           // make this pixel bright
           rgb_frame_buffer[row][col] = max_intensity;
         }
