@@ -22,10 +22,23 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    KC_A,  KC_1,  KC_H, \
-      KC_TAB,  KC_SPC   \
-  ),
+
+	LAYOUT_ortho_6x4(
+		KC_ESC, BL_TOGG, BL_DEC, BL_INC, 
+		KC_NLCK, KC_SLSH, KC_ASTR, KC_PEQL, 
+		KC_7, KC_8, KC_9, KC_PMNS, 
+		KC_4, KC_5, KC_6, KC_PPLS, 
+		KC_1, KC_2, KC_3, KC_PENT, 
+		KC_0, KC_0, KC_DEL, KC_PENT),
+
+	LAYOUT_ortho_6x4(
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
