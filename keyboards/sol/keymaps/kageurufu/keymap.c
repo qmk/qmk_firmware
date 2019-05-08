@@ -35,7 +35,7 @@ EXPAND_LAYOUT( \
       FN_ESC,  _10,     _11,     _12,     _13,     _14,    RGB_SAI,  RGB_VAI, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
       KC_LSPO, _20,     _21,     _22,     _23,     _24,    RGB_SAD,  RGB_VAD, _25,     _26,     _27,     _28,     _29,     KC_RSPC, \
       KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, FN,       FN,      KC_SPC,  KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
-                        KC_VOLD, KC_VOLU,          KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC,           KC_VOLD, KC_VOLU \
+                                                   KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC \
 )
 #define BASE_LAYOUT(...) _BASE_LAYOUT(__VA_ARGS__)
 
@@ -65,15 +65,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ________________FUNCTION_L3________________, _______, _______, ________________FUNCTION_R3________________, \
       ________________FUNCTION_L4________________, _______, _______, ________________FUNCTION_R4________________, \
       ________________FUNCTION_L5________________, ADJ,     ADJ,     ________________FUNCTION_R5________________, \
-               KC_VOLD, KC_VOLU,          _______, KC_DEL,  _______, _______,          KC_VOLD, KC_VOLU \
+                                          _______, KC_DEL,  _______, _______ \
       ),
 
-  [_ADJ] =  EXPAND_LAYOUT( \
+  [_ADJ] = EXPAND_LAYOUT( \
       _________________ADJUST_L1_________________, _______, _______, _________________ADJUST_R1_________________, \
       _________________ADJUST_L2_________________, _______, _______, _________________ADJUST_R2_________________, \
       _________________ADJUST_L3_________________, _______, _______, _________________ADJUST_R3_________________, \
       _________________ADJUST_L4_________________, _______, _______, _________________ADJUST_R4_________________, \
       _________________ADJUST_L5_________________, _______, _______, _________________ADJUST_R5_________________, \
-               KC_VOLD, KC_VOLU,          _______, _______, _______, _______,          KC_VOLD, KC_VOLU \
+                                          _______, _______, _______, _______ \
       )
 };
+
+#ifdef ENCODER_ENABLE
+void encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  } else if (index == 1) { /* Second encoder*/
+    if (clockwise) {
+      tap_code(KC_VOLU);
+    } else {
+      tap_code(KC_VOLD);
+    }
+  }
+}
+#endif
