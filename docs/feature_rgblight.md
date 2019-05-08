@@ -104,26 +104,25 @@ The following options can be used to tweak the various animations:
 
 |Define                              |Default      |Description                                                                          |
 |------------------------------------|-------------|-------------------------------------------------------------------------------------|
-|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|If defined, enable breathing animation mode.                                         |
-|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|If defined, enable rainbow mood animation mode.                                      |
-|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|If defined, enable rainbow swirl animation mode.                                     |
-|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|If defined, enable snake animation mode.                                             |
-|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|If defined, enable knight animation mode.                                            |
-|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|If defined, enable christmas animation mode.                                         |
-|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|If defined, enable static gradient mode.                                             |
-|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|If defined, enable RGB test animation mode.                                          |
-|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|If defined, enable alternating animation mode.                                       |
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|If defined, enables all additional animation modes                                   |
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|Enable all additional animation modes                                   |
+|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|Enable alternating animation mode.                                       |
+|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
 |`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
-|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
-|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
-|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
+|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|If defined, enable christmas animation mode.                                         |
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
+|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|Enable knight animation mode.                                            |
+|`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
+|`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
+|`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
+|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|Enable rainbow mood animation mode.                                      |
+|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|Enable rainbow swirl animation mode.                                     |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
-
+|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
+|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
+|`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
+|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. remove RGBLIGHT_ANIMATION from `config.h`
