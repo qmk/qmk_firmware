@@ -19,15 +19,15 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
 
 void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
+	// put your keyboard start-up code here
+	// runs once when the firmware starts up
+  setPinOutput(B1);
+	matrix_init_user();
 }
 
+/*
 void matrix_scan_kb(void) {
   // put your looping keyboard code here
   // runs every cycle (a lot)
@@ -49,3 +49,13 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
+
+void led_set_kb(uint8_t usb_led) {
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(B1);
+  } else {
+    writePinHigh(B1);
+  }
+
+	led_set_user(usb_led);
+}
