@@ -1,14 +1,13 @@
-#pragma once
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
+RGB_MATRIX_EFFECT(DIGITAL_RAIN)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #ifndef RGB_DIGITAL_RAIN_DROPS
     // lower the number for denser effect/wider keyboard
     #define RGB_DIGITAL_RAIN_DROPS 24
 #endif
 
-extern uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
-
-bool rgb_matrix_digital_rain(effect_params_t* params) {
+bool DIGITAL_RAIN(effect_params_t* params) {
   // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
   const uint8_t drop_ticks           = 28;
   const uint8_t pure_green_intensity = 0xd0;
@@ -74,4 +73,5 @@ bool rgb_matrix_digital_rain(effect_params_t* params) {
   return false;
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
