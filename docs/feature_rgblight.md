@@ -37,8 +37,8 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 
 <img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
-Changing the **Hue** cycles around the circle.  
-Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.  
+Changing the **Hue** cycles around the circle.
+Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.
 Changing the **Value** sets the overall brightness.
 
 ## Keycodes
@@ -123,6 +123,22 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
+
+
+### Example Usage to Reduce Memory Footprint
+  1. remove RGBLIGHT_ANIMATION from `config.h`
+  1. selectively add the animations you want to enable. This would enable 2 animations and save about 4K.
+
+```diff
+ #undef RGBLED_NUM
+-#define RGBLIGHT_ANIMATIONS
++#define RGBLIGHT_EFFECT_STATIC_LIGHT
++#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+ #define RGBLED_NUM 12
+ #define RGBLIGHT_HUE_STEP 8
+ #define RGBLIGHT_SAT_STEP 8
+```
+
 
 You can also modify the speeds that the different modes animate at:
 
