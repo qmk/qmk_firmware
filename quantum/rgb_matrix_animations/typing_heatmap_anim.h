@@ -42,6 +42,11 @@ bool rgb_matrix_typing_heatmap(effect_params_t* params) {
   if (led_max > sizeof(rgb_frame_buffer))
     led_max = sizeof(rgb_frame_buffer);
 
+  if (params->init) {
+    rgb_matrix_set_color_all(0, 0, 0);
+    memset(rgb_frame_buffer, 0, sizeof rgb_frame_buffer);
+  }
+
   // Render heatmap & decrease
   for (int i = led_min; i < led_max; i++) {
     uint8_t row = i % MATRIX_ROWS;

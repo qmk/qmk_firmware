@@ -38,7 +38,7 @@
 #include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
 #include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
 #include "rgb_matrix_animations/jellybean_raindrops_anim.h"
-#include "rgb_matrix_animations/typing_headmap_anim.h"
+#include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"
