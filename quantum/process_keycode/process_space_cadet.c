@@ -62,16 +62,16 @@
 #ifndef LCPO_KEYS
   #define LCPO_KEYS KC_LCTL, KC_LCTL, KC_9
 #endif
-#ifndef RCPO_KEYS
-  #define RCPO_KEYS KC_RCTL, KC_RCTL, KC_0
+#ifndef RCPC_KEYS
+  #define RCPC_KEYS KC_RCTL, KC_RCTL, KC_0
 #endif
 
 // Alt / paren setup
 #ifndef LAPO_KEYS
   #define LAPO_KEYS KC_LALT, KC_LALT, KC_9
 #endif
-#ifndef RAPO_KEYS
-  #define RAPO_KEYS KC_RALT, KC_RALT, KC_0
+#ifndef RAPC_KEYS
+  #define RAPC_KEYS KC_RALT, KC_RALT, KC_0
 #endif
 
 // Shift / Enter setup
@@ -82,26 +82,31 @@
 static uint8_t sc_last = 0;
 static uint16_t sc_timer = 0;
 
-void perform_space_cadet(keyrecord_t *record, uint8_t normalMod, uint8_t tapMod, uint8_t keycode) {
+void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
   if (record->event.pressed) {
-    sc_last = normalMod;
+    sc_last = holdMod;
     sc_timer = timer_read ();
-    if (IS_MOD(normalMod)) {
-      register_mods(MOD_BIT(normalMod));
+    if (IS_MOD(holdMod)) {
+      register_mods(MOD_BIT(holdMod));
     }
   }
   else {
-    if (IS_MOD(normalMod)) {
-      unregister_mods(MOD_BIT(normalMod));
-    }
-
-    if (sc_last == normalMod && timer_elapsed(sc_timer) < TAPPING_TERM) {
-      if (IS_MOD(tapMod)) {
-        register_mods(MOD_BIT(tapMod));
+    if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM) {
+      if (holdMod != tapMod) {
+        if (IS_MOD(holdMod)) {
+          unregister_mods(MOD_BIT(holdMod));
+        }
+        if (IS_MOD(tapMod)) {
+          register_mods(MOD_BIT(tapMod));
+        }
       }
       tap_code(keycode);
       if (IS_MOD(tapMod)) {
         unregister_mods(MOD_BIT(tapMod));
+      }
+    } else {
+      if (IS_MOD(holdMod)) {
+        unregister_mods(MOD_BIT(holdMod));
       }
     }
   }
@@ -122,7 +127,7 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     case KC_RCPC: {
-      perform_space_cadet(record, RCPO_KEYS);
+      perform_space_cadet(record, RCPC_KEYS);
       return false;
     }
     case KC_LAPO: {
@@ -130,7 +135,7 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     case KC_RAPC: {
-      perform_space_cadet(record, RAPO_KEYS);
+      perform_space_cadet(record, RAPC_KEYS);
       return false;
     }
     case KC_SFTENT: {

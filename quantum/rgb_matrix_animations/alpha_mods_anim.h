@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
 
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 // alphas = color1, mods = color2
@@ -15,7 +15,7 @@ bool rgb_matrix_alphas_mods(effect_params_t* params) {
 
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_MATRIX_TEST_LED_FLAGS();
-    if (HAS_FLAGS(g_rgb_leds[i].flags, LED_FLAG_MODIFIER)) {
+    if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
       rgb_matrix_set_color(i, rgb2.r, rgb2.g, rgb2.b);
     } else {
       rgb_matrix_set_color(i, rgb1.r, rgb1.g, rgb1.b);
