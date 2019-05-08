@@ -623,7 +623,8 @@ const uint32_t PROGMEM unicode_map[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Layer 0
+/*
+ * Layer 0
  * -------------------------------------------------               -------------------------------------------------
  * |  Tab  |   q   |   w   |   e   |   r   |   t   |               |   y   |   u   |   i   |   o   |   p   |   [   |
  * -------------------------------------------------               -------------------------------------------------
@@ -641,7 +642,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, KC_RALT, KC_RCTL
 	),
 
-/* Layer 1
+/*
+ * Layer 1
  * -------------------------------------------------               -------------------------------------------------
  * |  Tab  |   q   |   w   |   f   |   p   |   g   |               |   j   |   l   |   u   |   y   |   ;   |   [   |
  * -------------------------------------------------               -------------------------------------------------
@@ -659,7 +661,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, KC_RALT, KC_RCTL
 	),
 
-/* Layer 2
+/*
+ * Layer 2
  * -------------------------------------------------               -------------------------------------------------
  * |   `   |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |   ]   |
  * -------------------------------------------------               -------------------------------------------------
@@ -677,7 +680,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TG(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_BSPC, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-/* Layer 3
+/*
+ * Layer 3
  * -------------------------------------------------               -------------------------------------------------
  * |       |  F1   |  F2   |  F3   |  F4   |  F5   |               |  F6   |  F7   |  F8   |  F9   |  F10  |  XXX  |
  * -------------------------------------------------               -------------------------------------------------
@@ -695,7 +699,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TG(3), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-/* Layer 4
+/*
+ * Layer 4
  * -------------------------------------------------               -------------------------------------------------
  * |  Esc  |  Esc  | Tab x | Tab n |CPg Dn |CPg Dn |               |Pg Down| Home  |^ Arrow|Insert |SInsert|  Esc  |
  * -------------------------------------------------               -------------------------------------------------
@@ -713,7 +718,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TG(4), KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-/* Layer 5
+/*
+ * Layer 5
  * -------------------------------------------------               -------------------------------------------------
  * |       |  XXX  |play/ps| Vol + | Vol + |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |_reset | Power |
  * -------------------------------------------------               -------------------------------------------------
@@ -731,7 +737,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TG(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-/* Layer 6
+/*
+ * Layer 6
  * -------------------------------------------------               -------------------------------------------------
  * |       | acc1  |  XXX  |  XXX  |  XXX  |  XXX  |               |^ Wheel|< Wheel|^ Mouse|> Wheel|  XXX  |  XXX  |
  * -------------------------------------------------               -------------------------------------------------
