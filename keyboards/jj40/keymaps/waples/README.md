@@ -6,10 +6,14 @@
 I currently have the following layers in my keymap:
 * Qwerty 	(as default)
 * Dvorak	(still learning this type of layout, so not really used much)
-* Gaming	(WIP! I tried some I found, but didn't like them, so I'm in the progress of making my own)
 * Lefty		(lower)
 * Righty	(raise)
 * Dual		(adjust)
+
+### Note to self:
+YOU NEED TO USE [bootloadHID -r jj40_waples.hex](https://github.com/qmk/qmk_firmware/tree/master/keyboards/jj40)
+
+## the stuff below is out of date and I think about removing them from this readme
 
 #### QWERTY
 	| Tab |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  | Bsp |
@@ -23,14 +27,6 @@ I currently have the following layers in my keymap:
  	|C_Esc|  A  |  O  |  E  |  U  |  I  |  D  |  H  |  T  |  N  |  S  |S_Ent|
 	| Sft |  ;  |  Q  |  J  |  K  |  X  |  B  |  M  |  W  |  V  |  Z  |  /  |
 	|P_SCR| GUI | Alt | Cps | ^L^ | Bsp | Spc | ^R^ | Lft | Dwn | Up! | Rgt |
-
-
-#### GAMING
-	| Tab |  Q  |  W  |  E  |  R  |  T  |     |     |     |     |     |QWERT|
-	| Esc |  A  |  S  |  D  |  F  |  G  |     |     |     |     |     |     |
-	| Sft |  Z  |  X  |  C  |  V  |  B  |     |     |     |     |     |     |
-	| Ctl |  1  |  2  |  3  | ^L^ | Spc | Bsp | ^R^ | Lft | Dwn | Up  | Rgt |
-
 
 #### LEFTY	(lower)
 	|  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  | Bsp |
@@ -51,5 +47,3 @@ I currently have the following layers in my keymap:
 	|     | Prv | Stp | Tog | Nxt | Nrm | Swp |     |     |     |     |     |
 	|     |     | Mte | Vol-| Vol+|     | NKRO|     |     |     |     |     |
 	|     |     |     |     |     |     |DVORK|     |     |     |     |     |
-
-
