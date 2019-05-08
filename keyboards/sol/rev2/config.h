@@ -18,8 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DIY_BACKLIGHT_ENABLE
-#define FULLHAND_ENABLE
+// For testing - Should be in keymap's config.h
+// #define FULLHAND_ENABLE
+// #define EXTRA_ENCODERS_ENABLE
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -29,24 +30,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Sol
 #define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
-#define KEY_BACKLIGHT_LEDS 70
-
-#ifdef DIY_BACKLIGHT_ENABLE
-  #define DIY_BACKLIGHT_LEDS 54
-#else
-  #define DIY_BACKLIGHT_LEDS 0
-#endif
+#define BACKLIGHT_LEDS 124
 
 #ifdef FULLHAND_ENABLE
-  #define FULLHAND_LEDS 48
+  #define FULLHAND_LEDS 24
 #else
   #define FULLHAND_LEDS 0
 #endif
 
-// TODO: Have not tried LED_MIRRORED + RGB_MATRIX
+// Underglow / DIY Tent Glow are parallel to the top row leds, no separate define
+
 #ifdef LED_MIRRORED
-  #define RGBLED_NUM ((KEY_BACKLIGHT_LEDS + DIY_BACKLIGHT_LEDS + FULLHAND_LEDS) / 2)
+  #define RGBLED_NUM ((BACKLIGHT_LEDS + FULLHAND_LEDS) / 2)
 #else
-  #define RGBLED_NUM (KEY_BACKLIGHT_LEDS + DIY_BACKLIGHT_LEDS + FULLHAND_LEDS)
+  #define RGBLED_NUM (BACKLIGHT_LEDS + FULLHAND_LEDS)
 #endif
 #define DRIVER_LED_TOTAL  RGBLED_NUM
+
+// Encoder support
+#ifndef EXTRA_ENCODERS_ENABLE
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D6 }
+#else
+#ifdef OLED_DRIVER_ENABLE
+    #error Extra encoders cannot be enabled at the same time as the OLED Driver as they use the same pins.
+#endif
+#define NUMBER_OF_ENCODERS 3
+#define ENCODERS_PAD_A { D2, D1, B0 }
+#define ENCODERS_PAD_B { D6, B1, D0 }
+#endif
