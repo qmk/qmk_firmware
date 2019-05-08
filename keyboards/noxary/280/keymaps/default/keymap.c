@@ -1,4 +1,4 @@
-/* Copyright 2019 MechMerlin
+/* Copyright 2019 Rozakin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,9 +20,6 @@ enum custom_keycodes {
   QMKBEST = SAFE_RANGE,
   QMKURL
 };
-
-// Helpful defines
-#define _______ KC_TRNS
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
