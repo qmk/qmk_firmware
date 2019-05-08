@@ -1,5 +1,4 @@
-#ifndef z150_blackheart_H
-#define z150_blackheart_H
+#pragma once
 
 #include "quantum.h"
 
@@ -30,5 +29,3 @@
     { K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311,  K312,  K313,  K314,  KC_NO, K316,  K317,  K318,  KC_NO }, \
     { K400,  K401,  K402,  K403,  K404,  K405,  KC_NO, K407,  KC_NO, KC_NO, KC_NO, KC_NO, K412,  K413,  K414,  K415,  K416,  K417,  K418,  KC_NO }  \
 }
-
-#endif
