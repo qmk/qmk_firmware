@@ -1,10 +1,10 @@
-# %KEYBOARD%
+Noxary 280
 
 ![%KEYBOARD%](imgur.com image replace me!)
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
