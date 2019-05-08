@@ -37,9 +37,9 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 
 <img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250"/>
 
-Changing the **Hue** cycles around the circle.
-Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.
-Changing the **Value** sets the overall brightness.
+Changing the **Hue** cycles around the circle.<br>
+Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
+Changing the **Value** sets the overall brightness.<br>
 
 ## Keycodes
 
@@ -109,7 +109,7 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|Enable breathing animation mode.                                         |
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
 |`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
-|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|If defined, enable christmas animation mode.                                         |
+|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|Enable christmas animation mode.                                         |
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
 |`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|Enable knight animation mode.                                            |
