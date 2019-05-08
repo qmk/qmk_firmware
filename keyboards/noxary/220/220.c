@@ -13,20 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "%KEYBOARD%.h"
+#include "220.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
-
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
-
+  setPinOutput(C6);
   matrix_init_user();
 }
+
+
+/*
 
 void matrix_scan_kb(void) {
   // put your looping keyboard code here
@@ -49,3 +50,13 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
+
+void led_set_kb(uint8_t usb_led) {
+	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinLow(C6);
+  } else {
+    writePinHigh(C6);
+  }
+	led_set_user(usb_led);
+}
