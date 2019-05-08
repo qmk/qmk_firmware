@@ -1,1 +1,2 @@
-# The default keymap for the C39
+# "The world belongs to people who finish things."
+# -- @mwlauthor
