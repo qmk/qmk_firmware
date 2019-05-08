@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   // If it accepts an argument (i.e, is a function), it doesn't need KC_.
   // Otherwise, it needs KC_*
-  [QWERTY] = KEYMAP(  // layer 0 : default
+  [QWERTY] = LAYOUT_ergodox(  // layer 0 : default
           // left hand
           KC_NO,        KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
           KC_TAB,       KC_Q,  KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 |      |      |      |       |      |      |      |
   *                                 `--------------------'       `--------------------'
   */
-  [NUMS] = KEYMAP(
+  [NUMS] = LAYOUT_ergodox(
         // left hand
         KC_TRNS,     KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,   KC_TRNS,
         LGUI(KC_GRV),KC_GRV, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 |      |      |      |       |      |      |      |
   *                                 `--------------------'       `--------------------'
   */
-  [MOVE] = KEYMAP(
+  [MOVE] = LAYOUT_ergodox(
         // left hand
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,VIM_W,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap: AFK Layer
    * All keys wake
    */
-  [AFK] = KEYMAP(
+  [AFK] = LAYOUT_ergodox(
         // left hand
         BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,
         BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,

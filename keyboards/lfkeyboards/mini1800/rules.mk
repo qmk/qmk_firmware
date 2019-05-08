@@ -52,10 +52,8 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-# ifndef QUANTUM_DIR
-# 	include ../../Makefile
-# endif
-
+# Extra source files for IS3731 lighting
+SRC = TWIlib.c issi.c lighting.c
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     # TMK_COMMON_DEFS += -DISSI_ENABLE

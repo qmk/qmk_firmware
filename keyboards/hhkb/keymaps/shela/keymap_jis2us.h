@@ -1,5 +1,5 @@
-#ifndef KEYMAP_JIS2US_H
-#define KEYMAP_JIS2US_H
+#ifndef LAYOUT_JIS2US_H
+#define LAYOUT_JIS2US_H
 
 /* keymap for convert from JIS to US */
 const uint16_t PROGMEM keymap_jis2us[][2] = {

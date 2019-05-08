@@ -1,5 +1,4 @@
-#include "gh60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 // lshift split, backspace split, full ANSI enter, full right shift
 #define KEYMAP_BZIO(                                                         \
@@ -36,7 +35,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,          KC_LEFT, KC_DOWN, KC_RGHT,   KC_DELETE,  KC_MS_BTN1, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_HOME, KC_SPC,  KC_END,    KC_PSCREEN, KC_TRNS,    KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };

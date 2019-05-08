@@ -1,4 +1,4 @@
-#include "satan.h"
+#include QMK_KEYBOARD_H
 #include "rgblight.h"
 
 #define _DEFAULT 0
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         | FN  | LAlt  |               Space                | RAlt   |RGUI |
  *         `-----------------------------------------------------------------'
  */
-  [_DEFAULT] = KEYMAP_HHKB( /* Basic QWERTY */
+  [_DEFAULT] = LAYOUT_60_ansi_split_bs_rshift( /* Basic QWERTY */
       KC_GESC , KC_1    , KC_2    , KC_3   , KC_4    , KC_5    , KC_6   , KC_7     , KC_8    , KC_9   , KC_0    , KC_MINS , KC_EQL   , KC_BSLS , KC_GRV , \
       KC_TAB  , KC_Q    , KC_W    , KC_E   , KC_R    , KC_T    , KC_Y   , KC_U     , KC_I    , KC_O   , KC_P    , KC_LBRC , KC_RBRC  , KC_BSPC , \
       KC_LCTL , KC_A    , KC_S    , KC_D   , KC_F    , KC_G    , KC_H   , KC_J     , KC_K    , KC_L   , KC_SCLN , KC_QUOT , KC_ENT   , \
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       | LAlt  |             Space               | RAlt  | Reset |
  *         `-----------------------------------------------------------------'
  */
-  [_FN] = KEYMAP_HHKB( /* Layer 2 */
+  [_FN] = LAYOUT_60_ansi_split_bs_rshift( /* Layer 2 */
       KC_GRAVE , KC_F1   , KC_F2   , KC_F3   , KC_F4          , KC_F5           , KC_F6        , KC_F7    , KC_F8   , KC_F9    , KC_F10  , KC_F11  , KC_F12       , KC_INS , KC_DEL , \
       KC_CAPS  , KC_VOLD , KC_MUTE , KC_VOLU , DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_REC_STOP , KC_PGUP  , KC_HOME , ______   , KC_PSCR , KC_UP   , ______       , KC_DEL , \
       KC_LCTL  , KC_END  , ______  , KC_PGDN , ______         , ______          , KC_LEFT      , KC_DOWN  , KC_UP   , KC_RIGHT , KC_LEFT , KC_RGHT , KC_ENT       , \
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       | LAlt  |             Space               | RAlt  |       |
  *         `-----------------------------------------------------------------'
  */
-  [_VIM] = KEYMAP_HHKB( /* Layer 10 */
+  [_VIM] = LAYOUT_60_ansi_split_bs_rshift( /* Layer 10 */
       TO(_DEFAULT)     , KC_1    , KC_2         , KC_3         , KC_4    , KC_5         , KC_6    , KC_7     , KC_8         , KC_9     , KC_0     , KC_MINS , KC_EQL       , KC_BSLS , KC_GRV , \
       XXXXXX           , XXXXXX  , KC_NEXT_WORD , KC_NEXT_WORD , XXXXXX  , XXXXXX       , KC_COPY , KC_UNDO  , TO(_DEFAULT) , KC_ENTER , KC_PASTE , XXXXXX  , XXXXXX       , KC_DEL  , \
       MO(_VIM_CONTROL) , a_MACRO , XXXXXX       , XXXXXX       , XXXXXX  , XXXXXX       , KC_LEFT , KC_DOWN  , KC_UP        , KC_RIGHT , XXXXXX   , XXXXXX  , KC_ENTER     , \
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       | LAlt  |             Space               | RAlt  |       |
  *         `-----------------------------------------------------------------'
  */
-  [_VIM_SHIFT] = KEYMAP_HHKB( /* Layer 11 */
+  [_VIM_SHIFT] = LAYOUT_60_ansi_split_bs_rshift( /* Layer 11 */
       TO(_DEFAULT) , KC_1    , KC_2         , KC_3         , KC_4    , KC_5         , KC_6    , KC_7     , KC_8    , KC_9     , KC_0   , KC_MINS , KC_EQL       , KC_BSLS , KC_GRV , \
       XXXXXX       , XXXXXX  , KC_NEXT_WORD , KC_NEXT_WORD , XXXXXX  , XXXXXX       , XXXXXX  , XXXXXX   , I_MACRO , O_MACRO  , XXXXXX , XXXXXX  , XXXXXX       , KC_DEL  , \
       XXXXXX       , A_MACRO , XXXXXX       , KC_PGDN      , XXXXXX  , XXXXXX       , KC_LEFT , KC_DOWN  , KC_UP   , KC_RIGHT , XXXXXX , XXXXXX  , KC_ENTER     , \
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       | LAlt  |             Space               | RAlt  | Reset |
  *         `-----------------------------------------------------------------'
  */
-  [_VIM_CONTROL] = KEYMAP_HHKB( /* Layer 12 */
+  [_VIM_CONTROL] = LAYOUT_60_ansi_split_bs_rshift( /* Layer 12 */
       TO(_DEFAULT) , KC_1    , KC_2         , KC_3         , KC_4    , KC_5         , KC_6    , KC_7     , KC_8    , KC_9     , KC_0   , KC_MINS , KC_EQL       , KC_BSLS , KC_GRV , \
       XXXXXX       , XXXXXX  , KC_NEXT_WORD , KC_NEXT_WORD , XXXXXX  , XXXXXX       , XXXXXX  , XXXXXX   , I_MACRO , O_MACRO  , XXXXXX , XXXXXX  , XXXXXX       , KC_DEL  , \
       XXXXXX       , A_MACRO , XXXXXX       , KC_PGDN      , XXXXXX  , XXXXXX       , KC_LEFT , KC_DOWN  , KC_UP   , KC_RIGHT , XXXXXX , XXXXXX  , KC_ENTER     , \

@@ -1,9 +1,8 @@
 // Waples layout for Let's Split (rev2)
 // Made changes from the default
 
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern keymap_config_t keymap_config;
 
@@ -26,8 +25,6 @@ enum letssplit_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO     // Toggle NKRO
 #define CTLESC MT(MOD_LCTL, KC_ESC)    // Hold for left Ctrl, tap for Esc
 #define SHFTENT MT(MOD_RSFT, KC_ENT)    // Hold for right Shift, tap for Enter
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

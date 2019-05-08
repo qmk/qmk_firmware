@@ -222,6 +222,26 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                 dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
             }
             return false;
+        case MI_BENDD:
+            if (record->event.pressed) {
+                midi_send_pitchbend(&midi_device, midi_config.channel, -0x2000);
+                dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, -0x2000);
+            }
+            else {
+                midi_send_pitchbend(&midi_device, midi_config.channel, 0);
+                dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0);
+            }
+            return false;
+        case MI_BENDU:
+            if (record->event.pressed) {
+                midi_send_pitchbend(&midi_device, midi_config.channel, 0x1fff);
+                dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0x1fff);
+            }
+            else {
+                midi_send_pitchbend(&midi_device, midi_config.channel, 0);
+                dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0);
+            }
+            return false;
     };
 
     return true;

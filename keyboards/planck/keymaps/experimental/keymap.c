@@ -1,4 +1,5 @@
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "keymap_steno.h"
@@ -42,9 +43,6 @@ enum planck_keycodes {
   RGBLED_DECREASE_VAL,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define SW_SPC  SH_T(KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

@@ -1,6 +1,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -50,10 +51,6 @@ enum functions {
 // Timer for custom mod tap
 static uint16_t m_gui_unds_timer;
 static uint16_t m_sft_po_timer;
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)

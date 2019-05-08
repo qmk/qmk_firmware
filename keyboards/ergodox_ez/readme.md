@@ -10,7 +10,8 @@ Linux page].  Some distributions provide a binary, maybe called
 
 To flash the firmware:
 
-  - Build the firmware with `make keymapname`, for example `make default`
+  - Build the firmware with `make <keyboardname>:<keymapname>`, for example `make ergodox_ez:default`
+
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
@@ -19,9 +20,11 @@ To flash the firmware:
   - Load the .hex file into it.
 
   - Press the Reset button by inserting a paperclip gently into the reset hole
-    in the top right corder.
+    in the top right corner.
 
   - Click the button in the Teensy app to download the firmware.
+
+See also [video demonstration](https://www.youtube.com/watch?v=9PyiGUO9_KQ) using Teensy in auto mode.
 
 To flash with ´teensy-loader-cli´:
 

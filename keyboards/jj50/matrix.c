@@ -1,5 +1,6 @@
 /*
 Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Modified 2018 by Wayne K Jones <github.com/WarmCatUK>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,17 +37,20 @@ void matrix_init(void) {
     // all inputs for columns
     DDRA = 0x00;
     DDRC &= ~(0x111111<<2);
-    DDRD &= ~(1<<PIND7);
+    //----> DDRD &= ~(1<<PIND7);
+    // Port D not used on this keyboard
     // all columns are pulled-up
     PORTA = 0xFF;
     PORTC |= (0b111111<<2);
     //PORTD |= (1<<PIND7);
+    // Port D not used on this keyboard
 
     // initialize matrix state: all keys off
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         matrix[row] = 0x00;
         matrix_debouncing[row] = 0x00;
     }
+    matrix_init_quantum();  // missing from original port by Luiz
 }
 
 void matrix_set_row_status(uint8_t row) {
@@ -72,9 +76,6 @@ uint8_t matrix_scan(void) {
         ) | (
             // cols 8..13, PORTC 7 -> 0
             bit_reverse((~PINC) & 0xFF) << 8
-        ) | (
-            // col 14, PORTD 7
-            ((~PIND) & (1 << PIND7)) << 7
         );
 
         if (matrix_debouncing[row] != cols) {
@@ -92,8 +93,8 @@ uint8_t matrix_scan(void) {
             }
         }
     }
-
-    matrix_scan_user();
+    matrix_scan_quantum();  // also missing in original PS2AVRGB implementation
+    //matrix_scan_user();
 
     return 1;
 }

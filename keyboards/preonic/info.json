@@ -6,7 +6,7 @@
   "width": 12,
   "height": 5,
   "layouts": {
-    "KEYMAP": {
+    "LAYOUT_preonic_1x2uC": {
       "key_count": 59,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
@@ -69,7 +69,7 @@
         { "w": 1, "x": 10, "y": 4 }, 
         { "w": 1, "x": 11, "y": 4 } ]
     },
-    "LAYOUT_preonic_grid": {
+    "LAYOUT_ortho_5x12": {
       "key_count": 60,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 

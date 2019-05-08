@@ -1,13 +1,10 @@
-#include "dz60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _L0 0
 #define _L1 1
 #define _L2 2
 #define _L3 3
 #define _L4 4
-
-#define _______ KC_TRNS
 
 enum {
   TD_SPC_ENT = 0,

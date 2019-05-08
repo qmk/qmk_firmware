@@ -3,6 +3,21 @@
 
 this is my personal layer that i use on my Tina-C HHKB layout board with a DZ60 PCB.
 ---
+UPDATE (4-20-2018):
+===
+after a week of using this layout i reazlied that having the ALT button on the right side and the ALTFN layer trigger on the left isn't ideal...i still wanted to change the default HHKB style CROSS arrow cluster into a reversed T cluster since im more used to that so i swapped the ALTFN layer to the right side and the normal ALT layer is back on the left side. so now i can use the arrow cluster (which i shifted one key over to the right) with 1 hand.
+
+it feels more nataural to me this way.
+
+also i decided to change the mouse scroll keys on the mouse layer to mouse movement keys... the scrolling wasn't working out as well as i'd hoped. again, this is merely an experimental layer just to play around with mouse control.
+
+
+
+
+---
+
+Walkthrough:
+---
 
 there is 1 base layer and 4 modifyer layers:
 
@@ -21,7 +36,7 @@ BASE:
  * |-----------------------------------------------------------------------------------------+
  * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |  RShift   |  FN |
  * |-----------------------------------------------------------------------------------------+
- * |              Win  |      Alt  |            Space       |   Alt     |    LIGHTS          |
+ * |              Win  |      Alt  |            Space       |   ALTFN     |    LIGHTS        |
  * `-----------------------------------------------------------------------------------------'
  */
  ```
@@ -37,9 +52,9 @@ BASE:
  *  ,---------------------------------------------------------------------------------------------------------------------
  * |         | F1   | F2   | F3   | F4    | F5    | F6    | F7   | F8    | F9   | F10   | F11   | F12   | INSERT  |  _   |
  * |---------------------------------------------------------------------------------------------------------------------+
- * | CAPS     |   _  |   _  |   _   |    _  |    _  |    _  |    _  |    _   |  UP  |  MUTE  |  V_DEC   |  V_INC  | DEL  |
+ * | CAPS     |   _  |   _  |   _   |    _  |    _  |    _  |    _  |    _   |    _   |  UP  |  V_DEC   |  V_INC  | DEL  |
  * |---------------------------------------------------------------------------------------------------------------------+
- * | CTRL       |   _   |   _   |   _   |   _   |   _    |   _  | HOME | LEFT | DOWN | RIGHT  |   END    |    _          |
+ * | CTRL       |   _   |   _   |   _   |   _   |   _    |   _  | HOME |   END    | LEFT | DOWN | RIGHT  |    _          |
  * |---------------------------------------------------------------------------------------------------------------------+
  * | Shift         |  _   |  _   |  _   |  _   |  _   |  _   |  _   |  PREV  |    NEXT  |  PLAY  |    _       |   _      |
  * |---------------------------------------------------------------------------------------------------------------------+
@@ -61,14 +76,14 @@ also another benefit is that a lot of mice do not have horizontal control button
 (This layer is still experimental so i might change it later or modify it but so far i enjoy it)
 
 ```
-/* MOUSEFN LAYER
+ /* MOUSEFN LAYER
  *
  *  ,---------------------------------------------------------------------------------------------------------------------
  * |        |  ACC_1  |  ACC_2  |  ACC_3  |  _    |  _    |  _    |  _   |  _    |  _   |  _   |  _   |  _   | _  |  _   |
  * |---------------------------------------------------------------------------------------------------------------------+
- * | CAPS     |   _  |   _  |   _   |    _  |    _  |    _  |    _  |    _   |  WHEEL_UP  |  _  |   _   |    _   |   _   |
+ * | CAPS     |   _  |   _  |   _   |    _  |    _  |    _  |    _  |    _   |  _  |  WHEEL_UP  |   _   |    _   |   _   |
  * |---------------------------------------------------------------------------------------------------------------------+
- * | CTRL       |   _   |   _   |   _   |   _   |   _    |   _  | _ |  WH_LEFT |  WH_DOWN |  WH_RIGHT  |   _    |    _   |
+ * | CTRL       |   _   |   _   |   _   |   _   |   _    |   _  | _ |   _    |  WH_LEFT |  WH_DOWN |  WH_RIGHT  |    _   |
  * |---------------------------------------------------------------------------------------------------------------------+
  * | Shift         |  _   |  _   |  _   |  _   |  _   |  _   |  _   |   _    |    _    |    _    |    _       |   _      |
  * |---------------------------------------------------------------------------------------------------------------------+

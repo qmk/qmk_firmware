@@ -29,6 +29,11 @@ enum music_modes {
   NUMBER_OF_MODES
 };
 
+
+#ifdef MUSIC_MAP
+	extern const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS];
+#endif
+
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
 bool is_music_on(void);
@@ -48,6 +53,10 @@ void music_all_notes_off(void);
 void music_mode_cycle(void);
 
 void matrix_scan_music(void);
+
+bool music_mask(uint16_t keycode);
+bool music_mask_kb(uint16_t keycode);
+bool music_mask_user(uint16_t keycode);
 
 #ifndef SCALE
 #define SCALE (int8_t []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \

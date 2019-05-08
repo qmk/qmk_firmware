@@ -17,6 +17,8 @@ Keyboard maintainer: [Andrew](https://github.com/sparkyman215)
 Hardware Supported: YMD96 with the ATmega32a chip.  
 Hardware Availability: The GB was run June 2017, [in this thread](https://www.reddit.com/r/mechmarket/comments/6hu3yx/vendor_ymd96_gb_is_now_live_68_an_universal_and/). The vendor has stated that they plan on selling more rounds.
 
+A very big thanks to @krusli for making the RGB underglow, Backlight, CapsLock and NumLock LEDs working correctly.
+
 ## Finding your specific matrix
 
 This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ps2avrGB), also found on this qmk repo, to work with the YMD96 keyboard. However, I only have one board to test with, which might have a different layout than yours. To get qmk working with your specific layout, you'll need to follow these steps:  
@@ -29,17 +31,23 @@ This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/t
 
 ## Installing and Building
 
-Since the YMD96 uses an ATmega32a chip instead of the 32u4, you need to download [HIDBootFlash v.1.0](http://vusb.wikidot.com/project:hidbootflash) for Windows. If anyone knows of a Linux/Mac bootflasher that works, edit this readme!  
+Since the YMD96 uses an ATmega32a chip instead of the 32u4, you need to download [HIDBootFlash v.1.0](http://vusb.wikidot.com/project:hidbootflash) for Windows. For Linux you can use the [bootloadHID](https://www.obdev.at/products/vusb/bootloadhid.html) utility (which will require building). Arch Linux users can alternatively install this from the [AUR](https://aur.archlinux.org/packages/bootloadhid/).
 On Windows, I use [MINGw](http://www.mingw.org/) to compile the keymaps. On Linux, you can simply use the terminal. 
 
 Once you have those two pieces of software:
-Build the keyboard with  
+Build the keyboard by navigating to the root folder of the QMK repo and running
 ```
-$ make ymd96-default  
+$ make ymd96:default  
 ```  
 If you make your own layout, change the `default` word to whatever your layout is.  
 
-And flash the compiled hex file with `HIDBootFlash`. Simply put the board in flashing mode by plugging it in while holding control, and click `find device`. Then you can specify the .hex file and flash it to the device. 
+To flash the compiled hex file, simply put the board in flashing mode by plugging it in while holding control. 
+In `HIDBootFlash` first click `find device`, then you can specify the .hex file and flash it to the device. 
+For `bootloadHID`, from a terminal that is in the same folder as your firmware file, run
+```
+$ sudo bootloadHID ymd96_default.hex
+```
+Again replacing default with your custom keymap name if required.
 
 ## Troubleshooting
 

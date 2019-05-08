@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
         KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
-                             BP_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
+                             KC_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
 
         KC_LEFT, KC_RGHT,
         KC_UP,
@@ -362,9 +362,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 void hold_shift(void) {
     register_code(KC_LSHIFT);
 }
@@ -449,14 +446,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         register_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(DOWN(CSA_ALTGR), D(SCLN), END);
+                        return MACRO(DOWN(KC_ALGR), D(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(SCLN), END);
                     case M_GRV:
-                        return MACRO(I(75), DOWN(CSA_ALTGR), TYPE(CSA_DCRC), UP(CSA_ALTGR), T(SPACE), END);
+                        return MACRO(I(75), DOWN(KC_ALGR), TYPE(CSA_DCRC), UP(KC_ALGR), T(SPACE), END);
                     case M_NBSP:
                         // use weak mod such that pressing another key will not be affected
-                        add_weak_mods(MOD_BIT(CSA_ALTGR));
+                        add_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(D(SPACE), END);
                 }
             } else {
@@ -466,11 +463,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         unregister_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(UP(CSA_ALTGR), U(SCLN), END);
+                        return MACRO(UP(KC_ALGR), U(SCLN), END);
                     case M_SCLN:
                         return MACRO(U(SCLN), END);
                     case M_NBSP:
-                        del_weak_mods(MOD_BIT(CSA_ALTGR));
+                        del_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(U(SPACE), END);
                 }
             }
