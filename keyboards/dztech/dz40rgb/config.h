@@ -32,7 +32,7 @@
 #define DRIVER_ADDR_2 0b1010000
 #define DRIVER_COUNT 2
 #if defined (split_space)
-##define DRIVER_1_LED_TOTAL 54
+#define DRIVER_1_LED_TOTAL 54
 #else
 #define DRIVER_1_LED_TOTAL 53
 #endif
