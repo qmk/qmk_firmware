@@ -34,7 +34,7 @@
 #if defined (split_space)
 ##define DRIVER_1_LED_TOTAL 54
 #else
-##define DRIVER_1_LED_TOTAL 53
+#define DRIVER_1_LED_TOTAL 53
 #endif
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
