@@ -8,6 +8,10 @@
   #include "ssd1306.h"
 #endif
 
+// 親指シフト
+#include "nicola.h"
+// 親指シフト
+
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -23,7 +27,9 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 #define _QWERTY 0
 #define _EUCALYN 1
-#define _NICOLA 10 // 親指シフトレイヤー
+// 親指シフト
+#define _NICOLA 10 // レイヤー番号はLOWERなどよりも下に
+// 親指シフト
 #define _LOWER 11
 #define _RAISE 12
 #define _ADJUST 16
@@ -38,8 +44,15 @@ enum custom_keycodes {
   BACKLIT,
   RGBRST,
   NICOLA,
-  NLSHFT, NRSHFT // 親指シフトキー
+// 親指シフト
+  NLSHFT, NRSHFT, // 親指シフトキー
+// 親指シフト
+  UNDGL
 };
+
+// 親指シフト
+static uint16_t mkeys[3] = {RAISE, LOWER, ADJUST};
+// 親指シフト
 
 enum macro_keycodes {
   KC_SAMPLEMACRO,
@@ -68,32 +81,41 @@ enum macro_keycodes {
 #define KC_EISU EISU
 #define KC_NICOLA NICOLA
 #define KC_RESET RESET
+#define KC_ABLS LALT(KC_BSLS)
+#define KC_CMDENT  CMD_T(KC_ENT)
+#define KC_CMDSPC  CMD_T(KC_SPC)
+#define KC_CTLSPC  CTL_T(KC_SPC)
+#define KC_ALTSPC  ALT_T(KC_SPC)
+#define KC_CTLBS   CTL_T(KC_BSPC)
+#define KC_CTLENT  CTL_T(KC_ENT)
+#define KC_UNDGL UNDGL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
+        TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  RGUI,\
+       LCTL,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RALT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LSFT,   SPC,      ENT,  RSFT, RAISE \
+                                  LOWER,  LSFT,CTLSPC,   CMDENT,  RSFT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
   [_EUCALYN] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,  COMM,   DOT,  SCLN,                      M,     R,     D,     Y,     P,  BSPC,\
+        TAB,     Q,     W,  COMM,   DOT,  SCLN,                      M,     R,     D,     Y,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  RGUI,\
+       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RALT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LSFT,   SPC,      ENT,  RSFT, RAISE \
+                                  LOWER,  LSFT,CTLSPC,   CMDENT,  RSFT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
+// 親指シフト
   [_NICOLA] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
       _____,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, _____,\
@@ -105,46 +127,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _____,NLSHFT, _____,    _____,NRSHFT, _____ \
                               //`--------------------'  `--------------------'
   ),
+// 親指シフト
 
   [_LOWER] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                       *                           +       
-      _____,  EXLM,    AT,  HASH,   DLR,  PERC,                   ASTR,     7,     8,     9,  PLUS,   DEL,\
+  //             !      @      #      $      %                       /                           -       
+        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   SLSH,     7,     8,     9,  MINS,   DEL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "      ~                       /                           -       
-      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  TILD,                   SLSH,     4,     5,     6,  MINS,  EISU,\
+  //             ^      &      '      "      ~                       *                           +       
+      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  TILD,                   ASTR,     4,     5,     6,  PLUS,   EQL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      `     _       \                                                   =                           
-      XXXXX,  BSLS,  PIPE,   GRV,  UNDS,  JYEN,                      0,     1,     2,     3,   EQL,NICOLA,\
+  //             \      |      `     _       ¥                                                   .                           
+      XXXXX,  ABLS,  PIPE,   GRV,  UNDS,  BSLS,                      0,     1,     2,     3,   DOT,   ENT,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   ),
 
   [_RAISE] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
   //                           <      >                                                                          
-      _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX, XXXXX,    UP, XXXXX,  PGUP,   DEL,\
+      _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX,  PGUP,    UP, XXXXX,  PGUP,   DEL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
   //             (      )      {      }                                                                   
       XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
   //                           [      ]                                                     
-      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,NICOLA,\
+      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX,NICOLA,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   ),
 
   [_ADJUST] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-      XXXXX,QWERTY,  WAKE, XXXXX, RESET, XXXXX,                  XXXXX, XXXXX,  VOLU, XXXXX,  BRIU, XXXXX,\
+       LHUI,  LHUD,  WAKE, XXXXX, RESET, UNDGL,                   LTOG, XXXXX,  VOLU, XXXXX,  BRIU, QWERTY,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-      XXXXX, XXXXX, XXXXX,EUCALYN,XXXXX, XXXXX,                  XXXXX,  MRWD,  VOLD,  MFFD,  BRID, XXXXX,\
+       LSAI,  LSAD, XXXXX, XXXXX, XXXXX, XXXXX,                   LMOD,  MRWD,  VOLD,  MFFD,  BRID, EUCALYN,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-      XXXXX, XXXXX,  SLEP, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
+       LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   )
 };
@@ -223,90 +246,46 @@ void iota_gfx_task_user(void) {
 }
 #endif//SSD1306OLED
 
-// 親指シフト
-static bool is_nicola = false; // 親指シフトモードかどうか
-static uint8_t ncl_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
-static uint8_t ncl_keycount = 0; // シフトキーも含めた入力のカウンタ
-static bool ncl_rshift = false; // 右シフトキーの状態  
-static bool ncl_lshift = false; // 左シフトキーの状態
-static bool is_modifier = false; // modifierの状態
+static bool underglow = false;
 
-// 文字入力バッファ
-static uint16_t ninputs[5];
+void update_led(void);
 
-// NICOLA配列のテーブル
-typedef struct {
-  char t[4]; // 単独
-  char l[4]; // 左シフト
-  char r[4]; // 右シフト
-} ncl_keymap;
-
-// NICOLA on QWERTY
-const ncl_keymap nmap[] = {
-  [KC_Q]    = {.t = ".",  .l = "la",  .r = ""},   
-  [KC_W]    = {.t = "ka", .l = "e",   .r = "ga"}, 
-  [KC_E]    = {.t = "ta", .l = "ri",  .r = "da"}, 
-  [KC_R]    = {.t = "ko", .l = "lya", .r = "go"}, 
-  [KC_T]    = {.t = "sa", .l = "re",  .r = "za"}, 
-
-  [KC_Y]    = {.t = "ra", .l = "pa",  .r = "yo"}, 
-  [KC_U]    = {.t = "ti", .l = "di",  .r = "ni"}, 
-  [KC_I]    = {.t = "ku", .l = "gu",  .r = "ru"}, 
-  [KC_O]    = {.t = "tu", .l = "du",  .r = "ma"}, 
-  [KC_P]    = {.t = ",",  .l = "pi",  .r = "le"}, 
-
-  [KC_A]    = {.t = "u",  .l = "wo",  .r = "vu"},
-  [KC_S]    = {.t = "si", .l = "a",   .r = "zi"}, 
-  [KC_D]    = {.t = "te", .l = "na",  .r = "de"}, 
-  [KC_F]    = {.t = "ke", .l = "lyu", .r = "ge"}, 
-  [KC_G]    = {.t = "se", .l = "mo",  .r = "ze"}, 
-
-  [KC_H]    = {.t = "ha", .l = "ba",  .r = "mi"}, 
-  [KC_J]    = {.t = "to", .l = "do",  .r = "o"},  
-  [KC_K]    = {.t = "ki", .l = "gi",  .r = "no"}, 
-  [KC_L]    = {.t = "i",  .l = "po",  .r = "lyo"},
-  [KC_SCLN] = {.t = "nn", .l = "",    .r = "ltu"},
-
-  [KC_Z]    = {.t = ".",  .l = "lu",  .r = ""},   
-  [KC_X]    = {.t = "hi", .l = "-",   .r = "bi"}, 
-  [KC_C]    = {.t = "su", .l = "ro",  .r = "zu"}, 
-  [KC_V]    = {.t = "hu", .l = "ya",  .r = "bu"}, 
-  [KC_B]    = {.t = "he", .l = "li",  .r = "be"}, 
-
-  [KC_N]    = {.t = "me", .l = "pu",  .r = "nu"}, 
-  [KC_M]    = {.t = "so", .l = "zo",  .r = "yu"}, 
-  [KC_COMM] = {.t = "ne", .l = "pe",  .r = "mu"}, 
-  [KC_DOT]  = {.t = "ho", .l = "bo",  .r = "wa"}, 
-  [KC_SLSH] = {.t = "/",  .l = "",    .r = "lo"}, 
-};
-
-void ncl_type(void);
-void ncl_clear(void);
-
-// シフトキーの状態に応じて文字をPCへ送る
-void ncl_type(void) {
-  for (int i = 0; i < ncl_chrcount; i++) {
-    if (ninputs[i] == 0) break;
-    if (ncl_lshift) {
-      send_string(nmap[ninputs[i]].l);
-    } else if (ncl_rshift) {
-      send_string(nmap[ninputs[i]].r);
-    } else {
-      send_string(nmap[ninputs[i]].t);
-    }
+void update_led() {
+  if (layer_state_is(_LOWER) && !isLeftHand) {
+    // rgblight_setrgb_at(0, 0, 200, 7);
+    rgblight_sethsv_at(200, 100, 255, 10);
+    rgblight_sethsv_at(200, 100, 255, 11);
+    rgblight_sethsv_at(200, 100, 255, 12);
+    rgblight_sethsv_at(200, 100, 255, 15);
+    rgblight_sethsv_at(200, 100, 255, 16);
+    rgblight_sethsv_at(200, 100, 255, 17);
+    rgblight_sethsv_at(200, 100, 255, 18);
+    rgblight_sethsv_at(200, 100, 255, 19);
+    rgblight_sethsv_at(200, 100, 255, 20);
   }
-  ncl_clear();
-}
-
-// バッファをクリアする
-void ncl_clear(void) {
-  for (int i = 0; i < 5; i++) {
-    ninputs[i] = 0;
+  if (layer_state_is(_RAISE) && !isLeftHand) {
+    rgblight_sethsv_at(200, 100, 255, 11);
+    rgblight_sethsv_at(200, 100, 255, 16);
+    rgblight_sethsv_at(200, 100, 255, 17);
+    rgblight_sethsv_at(200, 100, 255, 19);
   }
-  ncl_chrcount = 0;
-  ncl_keycount = 0;
-  ncl_lshift = false;
-  ncl_rshift = false;
+  if (!layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
+    rgblight_sethsv_range(0, 0, 0, 6, 27);
+  }
+  if (layer_state_is(_NICOLA)) {
+    rgblight_sethsv_at(200, 200, 255, 6);
+    rgblight_sethsv_at(200, 200, 255, 13);
+    rgblight_sethsv_at(200, 200, 255, 14);
+  } else {
+    rgblight_sethsv_at(0, 0, 0, 6);
+    rgblight_sethsv_at(0, 0, 0, 13);
+    rgblight_sethsv_at(0, 0, 0, 14);
+  }
+  if (underglow) {
+    rgblight_sethsv_range(200, 200, 255, 0, 6);
+  } else {
+    rgblight_sethsv_range(200, 200, 0, 0, 6);
+  }
 }
 
 static bool lower_pressed = false;
@@ -321,6 +300,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    case UNDGL:
+      if (record->event.pressed) {
+        underglow = !underglow;
+      }
+      update_led();
+      return false;
+      break;
     case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
@@ -335,23 +321,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case EISU:
       if (record->event.pressed) {
+        // 親指シフト
         layer_off(_NICOLA);
+        // 親指シフト
         register_code(KC_LANG2); // Mac
-        // register_code(KC_MHEN); // Win
-        is_nicola = false;
+        register_code(KC_MHEN); // Win
         unregister_code(KC_LANG2); // Mac
-        // unregister_code(KC_MHEN); // Win
+        unregister_code(KC_MHEN); // Win
       }
       return false;
       break;
     case NICOLA:
       if (record->event.pressed) {
+        // 親指シフト
         layer_on(_NICOLA);
+        // 親指シフト
         register_code(KC_LANG1); // Mac
-        // register_code(KC_HENK); // Win
-        is_nicola = true;
+        register_code(KC_HENK); // Win
         unregister_code(KC_LANG1); // Mac
-        // unregister_code(KC_HENK); // Win
+        unregister_code(KC_HENK); // Win
       }
       return false;
       break;
@@ -398,15 +386,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (lower_pressed) {
+          // 親指シフト
           layer_off(_NICOLA);
+          // 親指シフト
           register_code(KC_LANG2); // Mac
-          // register_code(KC_MHEN); // Win
-          is_nicola = false;
+          register_code(KC_MHEN); // Win
           unregister_code(KC_LANG2); // Mac
-          // unregister_code(KC_HENK); // Win
+          unregister_code(KC_MHEN); // Win
           lower_pressed = false;
         }
       }
+      update_led();
       return false;
       break;
     case RAISE:
@@ -422,15 +412,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (raise_pressed) {
+          // 親指シフト
           layer_on(_NICOLA);
+          // 親指シフト
           register_code(KC_LANG1); // Mac
-          // register_code(KC_HENK); // Win
-          is_nicola = true;
+          register_code(KC_HENK); // Win
           unregister_code(KC_LANG1); // Mac
-          // unregister_code(KC_HENK); // Win
+          unregister_code(KC_HENK); // Win
           raise_pressed = false;
         }
       }
+      update_led();
       return false;
       break;
     default:
@@ -438,85 +430,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       raise_pressed = false;
   }
 
-  // 親指シフトの処理　ここから
-
-  // modifierが押されているか
-  switch (keycode) {
-    case KC_LCTRL:
-    case KC_LSHIFT:
-    case KC_LALT:
-    case KC_LGUI:
-    case KC_RCTRL:
-    case KC_RSHIFT:
-    case KC_RALT:
-    case KC_RGUI:
-    case LOWER:
-    case RAISE:
-    case ADJUST:
-      if (record->event.pressed) {
-        is_modifier = true;
-      } else {
-        is_modifier = false;
-      }
-      break;
-  }
-
-  if (is_nicola & !is_modifier) {
-    if (record->event.pressed) {
-      switch (keycode) {
-        case NLSHFT: // 親指シフトキー
-          ncl_lshift = true;
-          ncl_keycount++;
-          if (ncl_keycount > 1) ncl_type();
-          return false;
-          break;
-        case NRSHFT:
-          ncl_rshift = true;
-          ncl_keycount++;
-          if (ncl_keycount > 1) ncl_type();
-          return false;
-          break;
-        case KC_A ... KC_Z: // 親指シフト処理するキー
-        case KC_SLSH:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-          ninputs[ncl_chrcount] = keycode;
-          ncl_chrcount++;
-          ncl_keycount++;
-          if (ncl_keycount > 1) ncl_type();
-          return false;
-          break;
-        default: // 親指シフトに関係ないキー
-          ncl_clear();
-          break;
-      }
-
-    } else { // key release
-      switch (keycode) {
-        case NLSHFT: // 親指シフトキー
-          ncl_lshift = false;
-          if (ncl_keycount > 0) ncl_type();
-          return false;
-          break;
-        case NRSHFT:
-          ncl_rshift = false;
-          if (ncl_keycount > 0) ncl_type();
-          return false;
-          break; 
-        case KC_A ... KC_Z: // 親指シフト処理するキー
-        case KC_SLSH:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-          if (ncl_keycount > 0) ncl_type();
-          return false;
-          break;
-      }
-    }
-  }
-  // 親指シフト処理 ここまで
-
-  return true;
+  // 親指シフト
+  return process_nicola(keycode, record, _NICOLA, NLSHFT, NRSHFT, mkeys);
+  // 親指シフト
 }
 
