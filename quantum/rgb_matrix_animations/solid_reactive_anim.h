@@ -2,6 +2,7 @@
 #if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
 
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
