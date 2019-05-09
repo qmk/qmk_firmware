@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B3
-
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
 #elif RGBLIGHT_FULL_POWER

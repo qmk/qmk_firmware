@@ -30,6 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Sol
 #define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
+/* ws2812 RGB LED */
+#define RGB_DI_PIN B7
+
 #define BACKLIGHT_LEDS 124
 
 #ifdef FULLHAND_ENABLE
