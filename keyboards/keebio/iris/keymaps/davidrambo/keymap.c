@@ -1,6 +1,4 @@
-#include "iris.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -85,13 +83,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAME] = LAYOUT_kc(
     ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
         
-    ___ ,  T  ,  Q  ,  W  ,  E  ,  R  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+     B  ,  T  ,  Q  ,  W  ,  E  ,  R  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
         
     TAB , LSFT,  A  ,  S  ,  D  ,  F  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
         
-     I  , LCTL,  Z  ,  X  ,  C  ,  V  ,  M,   P , ___, ___ , ___ , ___ , ___ , ___ , 
+    LALT, LCTL,  Z  ,  X  ,  C  ,  V  ,  M,   P , ___, ___ , ___ , ___ , ___ , ___ , 
         
-                        LALT , LALT , SPC,    BSPC, MAC, ___ 
+                          G   ,  I  , SPC,    BSPC, MAC, ___ 
     ), 
     
     [_SYMBOL] = LAYOUT_kc(

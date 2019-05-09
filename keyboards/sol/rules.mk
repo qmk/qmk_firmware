@@ -1,7 +1,3 @@
-SRC += i2c.c \
-	     serial.c \
-	     common/ssd1306.c
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -47,6 +43,12 @@ BOOTLOADER = qmk-dfu
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Custom local font file
+OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
+
+SPLIT_KEYBOARD = yes
+ENCODER_ENABLE = yes
+
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
@@ -60,7 +62,5 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-
-CUSTOM_MATRIX = yes
 
 DEFAULT_FOLDER = sol/rev1

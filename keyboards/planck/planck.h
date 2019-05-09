@@ -5,6 +5,10 @@
 
 #define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
 
+#ifdef KEYBOARD_planck_ez
+  #include "ez.h"
+#endif
+
 #ifdef __AVR__
 #define LAYOUT_planck_mit( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
@@ -50,7 +54,7 @@
 #define LAYOUT_ortho_4x12 LAYOUT_planck_grid
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
 
-#else
+#elif KEYBOARD_planck_rev6
 
 	#define LAYOUT_planck_1x2uC( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \

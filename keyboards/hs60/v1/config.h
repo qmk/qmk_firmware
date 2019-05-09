@@ -120,7 +120,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-#define RGB_MATRIX_SKIP_FRAMES 0
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 215
 
 #define DRIVER_ADDR_1 0b1110100
