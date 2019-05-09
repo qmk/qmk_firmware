@@ -38,6 +38,7 @@
 #include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
 #include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
 #include "rgb_matrix_animations/jellybean_raindrops_anim.h"
+#include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"
@@ -110,6 +111,10 @@ rgb_config_t rgb_matrix_config;
 
 rgb_counters_t g_rgb_counters;
 static uint32_t rgb_counters_buffer;
+
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+#endif
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   last_hit_t g_last_hit_tracker;
@@ -206,6 +211,13 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     last_hit_buffer.count++;
   }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+  if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
+    process_rgb_matrix_typing_heatmap(record);
+  }
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+
   return true;
 }
 
@@ -370,11 +382,20 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_jellybean_raindrops(&rgb_effect_params);   // Max 1ms Avg 0ms
       break;
 #endif // DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#ifndef DISABLE_RGB_MATRIX_TYPING_HEATMAP
+    case RGB_MATRIX_TYPING_HEATMAP:
+      rendering = rgb_matrix_typing_heatmap(&rgb_effect_params);        // Max 4ms Avg 3ms
+      break;
+#endif // DISABLE_RGB_MATRIX_TYPING_HEATMAP
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
     case RGB_MATRIX_DIGITAL_RAIN:
       rendering = rgb_matrix_digital_rain(&rgb_effect_params);         // Max 9ms Avg 8ms | this is expensive, fix it
       break;
 #endif // DISABLE_RGB_MATRIX_DIGITAL_RAIN
+#endif // RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
