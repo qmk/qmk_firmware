@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F9, KC_F10, KC_F11, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
-[_DUAL] =  KEYMAP( \
+[_DUAL] = LAYOUT_ortho_4x12( \
   RESET,   _______, _______, _______, _______, QWERTY,  DVORAK,  _______, _______, RGB_HUD,  RGB_TOG,  RESET, \
   _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, AG_NORM, AG_SWAP, _______, _______, RGB_HUI,  RGB_MOD,  _______, \
   _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, TG_NKRO, _______, _______, RGB_SAD,  RGB_VAD,  _______, \
