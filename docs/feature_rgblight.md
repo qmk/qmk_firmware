@@ -77,8 +77,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
 |`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
 
-## Animations
-
+## Effects and Animations
 
 Not only can this lighting be whatever color you want,
 if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
@@ -100,7 +99,7 @@ Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstrat
 
 Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
-### Animation Toggles
+### Effect and Animation Toggles
 
 Use these defines to add or remove animations from the firmware. When you are running low on flash space, it can be helpful to disable animations you are not using.
 
@@ -115,9 +114,9 @@ Use these defines to add or remove animations from the firmware. When you are ru
 |`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|Enable rainbow swirl animation mode.                                     |
 |`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|Enable RGB test animation mode.                                          |
 |`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|Enable snake animation mode.                                             |
+|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 
-
-### Animation Settings
+### Effect and Animation Settings
 
 The following options are used to tweak the various animations:
 
@@ -132,7 +131,6 @@ The following options are used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_OFFSET`     |`0`          |The number of LEDs to start the "Knight" animation from the start of the strip by    |
 |`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
-|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|Enable static gradient mode.                                             |
 
 ### Example Usage to Reduce Memory Footprint
   1. Remove `RGBLIGHT_ANIMATIONS` from `config.h`.
