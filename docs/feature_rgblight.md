@@ -141,7 +141,7 @@ The following options are used to tweak the various animations:
 ```diff
  #undef RGBLED_NUM
 -#define RGBLIGHT_ANIMATIONS
-+#define RGBLIGHT_EFFECT_STATIC_LIGHT
++#define RGBLIGHT_EFFECT_STATIC_GRADIENT
 +#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
  #define RGBLED_NUM 12
  #define RGBLIGHT_HUE_STEP 8
