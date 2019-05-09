@@ -45,24 +45,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-    DDRB |= (1 << 0);
-    DDRE |= (1 << 6) | (1 << 7);
+    setPinOutput(B0);
+    setPinOutput(E6);
+    setPinOutput(E7);
 
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        PORTE |= (1 << 7);
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        writePinHigh(E7);
     } else {
-        PORTE &= ~(1 << 7);
+        writePinLow(E7);
     }
 
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        PORTB |= (1 << 0);
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinHigh(B0);
     } else {
-        PORTB &= ~(1 << 0);
+        writePinLow(B0);
     }
 
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        PORTE |= (1 << 6);
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+        writePinHigh(E6);
     } else {
-        PORTE &= ~(1 << 6);
+        writePinLow(E6);
     }
 }
