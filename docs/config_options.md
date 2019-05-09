@@ -59,6 +59,8 @@ This is a C header file that is one of the first things included, and will persi
   * define is matrix has ghost (unlikely)
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
+* `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * pins mapped to rows and columns, from left to right. Defines a matrix where each switch is connected to a separate pin and ground.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
 * `#define C4_AUDIO`
@@ -178,10 +180,12 @@ If you define these options you will enable the associated feature, which may in
   * run RGB animations
 * `#define RGBLED_NUM 12`
   * number of LEDs
+* `#define RGBLIGHT_SPLIT`
+  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
   * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
-  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
+  * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
@@ -326,6 +330,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
 
 ## USB Endpoint Limitations
 

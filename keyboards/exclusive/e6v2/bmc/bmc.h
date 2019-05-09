@@ -72,7 +72,7 @@
     k01, k02, k75, k08, k09                                                    \
 ) \
 { \
-    { KC_NO, k01,   k02,   KC_NO, KC_NO, k05,   KC_NO, KC_NO, k08,   k09,   KC_NO }, \
+    { KC_NO, k01,   k02,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, k08,   k09,   KC_NO }, \
     { k10,   k11,   k12,   k13,   k14,   k15,   KC_NO, KC_NO, k18,   k19,   KC_NO }, \
     { k20,   k21,   k22,   k23,   k24,   k25,   k26,   KC_NO, k28,   k29,   KC_NO }, \
     { k30,   k31,   k32,   k33,   k34,   k35,   k36,   k37,   k38,   k39,   KC_NO }, \
