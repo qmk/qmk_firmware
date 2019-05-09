@@ -24,7 +24,7 @@ const char* layer_name_user(uint32_t layer) {
 
 __attribute__((weak))
 void render_status(void) {
-  // Setup for 90 degree rendering because it's awesome!
+  // Setup for 270 degree rendering because it's awesome!
   // It can house 16 lines of text, with 5 letters each line
   // Render to mode icon
   static const char PROGMEM mode_logo[2][4] = {
@@ -41,7 +41,7 @@ void render_status(void) {
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  oled_set_cursor(0, OLED_MAX_LINES - 4); // Line 13
+  oled_set_cursor(0, oled_max_lines() - 4); // Line 13
   oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false); // Line 14
   oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false); // Line 15
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
@@ -49,7 +49,7 @@ void render_status(void) {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
-    return OLED_ROTATION_90;  // flips the display 90 degrees if mainhand
+    return OLED_ROTATION_270;  // flips the display 270 degrees if mainhand
   return rotation;
 }
 
