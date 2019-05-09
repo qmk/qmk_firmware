@@ -38,6 +38,7 @@
 #include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
 #include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
 #include "rgb_matrix_animations/jellybean_raindrops_anim.h"
+#include "rgb_matrix_animations/typing_heatmap_anim.h"
 #include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"
@@ -105,10 +106,15 @@
 
 bool g_suspend_state = false;
 
+extern led_config_t g_led_config;
 rgb_config_t rgb_matrix_config;
 
 rgb_counters_t g_rgb_counters;
 static uint32_t rgb_counters_buffer;
+
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+#endif
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   last_hit_t g_last_hit_tracker;
@@ -150,14 +156,11 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
 }
 
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i) {
-  // TODO: This is kinda expensive, fix this soonish
   uint8_t led_count = rgb_matrix_map_row_column_to_led_kb(row, column, led_i);
-  for (uint8_t i = 0; i < DRIVER_LED_TOTAL && led_count < LED_HITS_TO_REMEMBER; i++) {
-    matrix_co_t matrix_co = g_rgb_leds[i].matrix_co;
-    if (row == matrix_co.row && column == matrix_co.col) {
-      led_i[led_count] = i;
-      led_count++;
-    }
+  uint8_t led_index = g_led_config.matrix_co[row][column];
+  if (led_index != NO_LED) {
+    led_i[led_count] = led_index;
+    led_count++;
   }
   return led_count;
 }
@@ -201,13 +204,20 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
   for(uint8_t i = 0; i < led_count; i++) {
     uint8_t index = last_hit_buffer.count;
-    last_hit_buffer.x[index] = g_rgb_leds[led[i]].point.x;
-    last_hit_buffer.y[index] = g_rgb_leds[led[i]].point.y;
+    last_hit_buffer.x[index] = g_led_config.point[led[i]].x;
+    last_hit_buffer.y[index] = g_led_config.point[led[i]].y;
     last_hit_buffer.index[index] = led[i];
     last_hit_buffer.tick[index] = 0;
     last_hit_buffer.count++;
   }
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+  if (rgb_matrix_config.mode == RGB_MATRIX_TYPING_HEATMAP) {
+    process_rgb_matrix_typing_heatmap(record);
+  }
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
+
   return true;
 }
 
@@ -372,11 +382,20 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_jellybean_raindrops(&rgb_effect_params);   // Max 1ms Avg 0ms
       break;
 #endif // DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#ifndef DISABLE_RGB_MATRIX_TYPING_HEATMAP
+    case RGB_MATRIX_TYPING_HEATMAP:
+      rendering = rgb_matrix_typing_heatmap(&rgb_effect_params);        // Max 4ms Avg 3ms
+      break;
+#endif // DISABLE_RGB_MATRIX_TYPING_HEATMAP
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
     case RGB_MATRIX_DIGITAL_RAIN:
       rendering = rgb_matrix_digital_rain(&rgb_effect_params);         // Max 9ms Avg 8ms | this is expensive, fix it
       break;
 #endif // DISABLE_RGB_MATRIX_DIGITAL_RAIN
+#endif // RGB_MATRIX_FRAMEBUFFER_EFFECTS
+
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:

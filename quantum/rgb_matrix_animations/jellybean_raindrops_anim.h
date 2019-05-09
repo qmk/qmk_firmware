@@ -2,11 +2,11 @@
 #ifndef DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 
 extern rgb_counters_t g_rgb_counters;
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 static void jellybean_raindrops_set_color(int i, effect_params_t* params) {
-  if (!HAS_ANY_FLAGS(g_rgb_leds[i].flags, params->flags)) return;
+  if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
   HSV hsv = { rand() & 0xFF , rand() & 0xFF, rgb_matrix_config.val };
   RGB rgb = hsv_to_rgb(hsv);
   rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
