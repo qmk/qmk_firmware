@@ -1,4 +1,4 @@
-# kbd67
+# KBD67 rev2
 
 65% pcb with blocker. Revision 2 (Manufactured after 05/01/19). 
 
