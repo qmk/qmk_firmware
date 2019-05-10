@@ -116,29 +116,29 @@ Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macro
 ```c
 void led_set_user(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        PORTB |= (1<<0);
+        writePinLow(B0);
     } else {
-        PORTB &= ~(1<<0);
+        writePinHigh(B0);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        PORTB |= (1<<1);
+        writePinLow(B1);
     } else {
-        PORTB &= ~(1<<1);
+        writePinHigh(B1);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        PORTB |= (1<<2);
+        writePinLow(B2);
     } else {
-        PORTB &= ~(1<<2);
+        writePinHigh(B2);
     }
     if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
-        PORTB |= (1<<3);
+        writePinLow(B3);
     } else {
-        PORTB &= ~(1<<3);
+        writePinHigh(B3);
     }
     if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-        PORTB |= (1<<4);
+        writePinLow(B4);
     } else {
-        PORTB &= ~(1<<4);
+        writePinHigh(B4);
     }
 }
 ```
@@ -189,16 +189,18 @@ However, if you have hardware stuff that you need initialized, this is the best 
 
 ### Example `keyboard_pre_init_user()` Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+This example, at the keyboard level, sets up B0, B1, B2, B3, and B4 as LED pins.
 
 ```c
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  DDRB |= (1<<1);
-  DDRB |= (1<<2);
-  DDRB |= (1<<3);
+  setPinOutput(B0);
+  setPinOutput(B1);
+  setPinOutput(B2);
+  setPinOutput(B3);
+  setPinOutput(B4);
 }
 ```
 
@@ -233,7 +235,7 @@ This example, running after everything else has initialized, sets up the rgb und
 void keyboard_post_init_user(void) {
   // Call the post init code.
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-  rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
+  rgblight_sethsv_noeeprom(180, 255, 255); // sets the color to teal/cyan without saving
   rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
 }
 ```
@@ -270,16 +272,13 @@ This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```c
-void suspend_power_down_user(void)
-{
+void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
 }
 
-void suspend_wakeup_init_user(void)
-{
+void suspend_wakeup_init_user(void) {
     rgb_matrix_set_suspend_state(false);
 }
 ```
@@ -324,6 +323,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 * Keyboard/Revision: `uint32_t layer_state_set_kb(uint32_t state)`
 * Keymap: `uint32_t layer_state_set_user(uint32_t state)`
 
+
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
 
 
@@ -343,7 +343,7 @@ This is an example of how to add settings, and read and write it. We're using th
 
 
 In your keymap.c file, add this to the top:
-```
+```c
 typedef union {
   uint32_t raw;
   struct {
@@ -356,11 +356,11 @@ user_config_t user_config;
 
 This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written. 
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `matrix_init_user` and `process_record_user` to configure everything. 
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything. 
 
-Now, using the `matrix_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
-```
-void matrix_init_user(void) {
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
+```c
+void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
 
   // Read the user config from EEPROM
@@ -376,7 +376,7 @@ void matrix_init_user(void) {
 ```
 The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
 
-```
+```c
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _RAISE:
@@ -398,8 +398,8 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 ```
-This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR` and `EPRM`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
-```
+This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
+```c
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -416,11 +416,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             PLAY_NOTE_ARRAY(tone_qwerty);
         }
         return true; // Let QMK send the enter press/release events
-    case EPRM:
-        if (record->event.pressed) {
-            eeconfig_init(); // resets the EEPROM to default
-        }
-        return false;
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
         if (record->event.pressed) { 
             user_config.rgb_layer_change ^= 1; // Toggles the status
@@ -443,10 +438,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. For example, if you want to set rgb layer indication by default, and save the default valued. 
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
 
-```
+```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+  user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 
@@ -465,3 +461,31 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
+
+# Custom Tapping Term
+
+By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+
+To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.  
+
+
+## Example `get_tapping_term` Implementation
+
+To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
+
+```c
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return TAPPING_TERM + 1250;
+    case LT(1, KC_GRV):
+      return 130;
+    default:
+      return TAPPING_TERM;
+  }
+}
+```
+
+### `get_tapping_term` Function Documentation
+
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.

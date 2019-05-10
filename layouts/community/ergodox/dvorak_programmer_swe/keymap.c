@@ -2,8 +2,9 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-#include "keymap_nordic.h"
-#include "keymap_norwegian.h"
+#include "keymap_swedish.h"
+//#include "keymap_nordic.h"
+//#include "keymap_norwegian.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -165,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Save |Build |Debug |PrtScr|      |      |           |      | bool | int  |string| dec  | Todo |        |
+ * |        | Save |Build |Debug |PrtScr|  $   |      |           |      | bool | int  |string| dec  | Todo |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |  '   |      |      |      |------|           |------| priv | publ |shared| prot |      |        |
+ * |        |   ´  |  '   |   |  |      |  £   |------|           |------| priv | publ |shared| prot |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      | const| dim  |return|nothin|      |        |
+ * |        |      |      |      |      |  £   |      |           |      | const| dim  |return|nothin|      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -184,9 +185,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [DEVL] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, M(MACRO_SAVE), M(MACRO_BUILD), M(MACRO_DEBUG), KC_PSCR, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, NO_APOS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(MACRO_SAVE), M(MACRO_BUILD), M(MACRO_DEBUG), KC_PSCR, ALGR(KC_4), KC_TRNS,
+       KC_TRNS, NO_ACUT, NO_APOS, NO_PIPE, KC_TRNS, ALGR(KC_3),
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ALGR(KC_5), KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,

@@ -50,6 +50,8 @@ enum {
 
 // Wrappers
 #define LAYOUT_planck_grid_wrapper(...)      LAYOUT_planck_grid(__VA_ARGS__)
+#define LAYOUT_atreus62_grid_wrapper(...)      LAYOUT(__VA_ARGS__)
+#define LAYOUT_ergotravel_grid_wrapper(...)      LAYOUT(__VA_ARGS__)
 
 /* Qwerty Layer */
 #define QWERTY_L1   KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
@@ -126,6 +128,8 @@ enum {
 #define MOUSE_R4                                                         KC_BTN2, _______, _______, _______, _______, _______
 
 #define MOUSE_4_DOX                           _______, _______, _______, _______, _______, _______
+
+#define BLANK_12 KC_NO  ,       KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  ,                     KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO
 
 #define QWERTY_1_12 QWERTY_L1, QWERTY_R1
 #define QWERTY_2_12 QWERTY_L2, QWERTY_R2

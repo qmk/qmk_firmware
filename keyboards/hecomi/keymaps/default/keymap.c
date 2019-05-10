@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "hecomi.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
