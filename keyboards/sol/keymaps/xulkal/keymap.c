@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L3_________________,  KC_GRV,   KC_QUOT,  _________________QWERTY_R3_________________, \
     _________________QWERTY_L4_________________,  RGB_TOG,  RGBRST,   _________________QWERTY_R4_________________, \
     _________________QWERTY_L5_________________,  RGB_RMOD, RGB_MOD,  _________________QWERTY_R5_________________, \
-                KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
+                                         KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC \
   ),
 
 #ifndef GAMELAYER_DISABLE
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________GAME_L3_________________,  KC_GRV,   KC_QUOT,  ___________________GAME_R3_________________, \
     ___________________GAME_L4_________________,  RGB_TOG,  RGBRST,   ___________________GAME_R4_________________, \
     ___________________GAME_L5_________________,  RGB_RMOD, RGB_MOD,  ___________________GAME_R5_________________, \
-                KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
+                                         KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC \
   ),
 #endif
 
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     __________________LOWER_L3_________________, _______, _______, __________________LOWER_R3_________________, \
     __________________LOWER_L4_________________, _______, _______, __________________LOWER_R4_________________, \
     __________________LOWER_L5_________________, _______, _______, __________________LOWER_R5_________________, \
-                _______, _______,       _______, _______, _______, _______,          _______, _______ \
+                                        _______, _______, _______, _______ \
   ),
 
   [_RAISE] = EXPAND_LAYOUT( \
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     __________________RAISE_L3_________________, _______, _______, __________________RAISE_R3_________________, \
     __________________RAISE_L4_________________, _______, _______, __________________RAISE_R4_________________, \
     __________________RAISE_L5_________________, _______, _______, __________________RAISE_R5_________________, \
-                _______, _______,       _______, _______, _______, _______,          _______, _______ \
+                                        _______, _______, _______, _______ \
   ),
 
 #ifdef TRILAYER_ENABLED
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________ADJUST_L3_________________, _______, _______, _________________ADJUST_R3_________________, \
     _________________ADJUST_L4_________________, _______, _______, _________________ADJUST_R4_________________, \
     _________________ADJUST_L5_________________, _______, _______, _________________ADJUST_R5_________________, \
-                _______, _______,       _______, _______, _______, _______,          _______, _______ \
+                                        _______, _______, _______, _______ \
   ),
 #endif
 };
@@ -92,14 +92,28 @@ static void render_logo(void) {
   oled_write_P(sol_logo, false);
 }
 
+extern rgb_config_t rgb_matrix_config;
+
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[2][4] = {
-    {0x97,0x98,0x0a,0},
-    {0xb7,0xb8,0x0a,0} };
+  static const char PROGMEM mode_logo[2][3] = {
+    {0x97,0x98,0},
+    {0xb7,0xb8,0} };
 
     oled_write_P(mode_logo[0], false);
+
+#if defined(RGB_MATRIX_ENABLE)
+    static char buffer[20] = {0};
+    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val);
+    oled_write(buffer, false);
+#endif
+
     oled_write_P(mode_logo[1], false);
+
+#if defined(RGB_MATRIX_ENABLE)
+    snprintf(buffer, sizeof(buffer), "         s%3d m%3d\n", rgb_matrix_config.speed, rgb_matrix_config.mode);
+    oled_write(buffer, false);
+#endif
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
@@ -144,7 +158,7 @@ static void render_status(void) {
 }
 
 void oled_task_user(void) {
-  if (has_usb()) {
+  if (is_keyboard_master()) {
     render_status();
   } else {
     render_logo();
