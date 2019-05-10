@@ -431,6 +431,7 @@ static void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, flo
     }
 }
 
+extern led_config_t g_led_config;
 static void led_matrix_massdrop_config_override(int i)
 {
     float ro = 0;
@@ -438,14 +439,14 @@ static void led_matrix_massdrop_config_override(int i)
     float bo = 0;
 
     float po = (led_animation_orientation)
-        ? (float)g_rgb_leds[i].point.y / 64.f * 100
-        : (float)g_rgb_leds[i].point.x / 224.f * 100;
+        ? (float)g_led_config.point[i].y / 64.f * 100
+        : (float)g_led_config.point[i].x / 224.f * 100;
 
     uint8_t highest_active_layer = biton32(layer_state);
 
-    if (led_lighting_mode == LED_MODE_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw == 0xff) {
+    if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         //Do not act on this LED
-    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw != 0xff) {
+    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
         //Do not act on this LED
     } else if (led_lighting_mode == LED_MODE_INDICATORS_ONLY) {
         //Do not act on this LED (Only show indicators)

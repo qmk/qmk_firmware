@@ -98,6 +98,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case RGB_TOG:
+            if (record->event.pressed) {
+              switch (rgb_matrix_get_flags()) {
+                case LED_FLAG_ALL: {
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                case LED_FLAG_KEYLIGHT: {
+                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                case LED_FLAG_UNDERGLOW: {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    rgb_matrix_disable_noeeprom();
+                  }
+                  break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    rgb_matrix_enable_noeeprom();
+                  }
+                  break;
+              }
+            }
+            return false;
         default:
             return true; //Process all other keycodes normally
     }

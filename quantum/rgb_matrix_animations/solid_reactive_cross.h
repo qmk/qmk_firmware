@@ -2,7 +2,7 @@
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS)
 
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
@@ -13,10 +13,10 @@ static bool rgb_matrix_solid_reactive_multicross_range(uint8_t start, effect_par
   uint8_t count = g_last_hit_tracker.count;
   for (uint8_t i = led_min; i < led_max; i++) {
     hsv.v = 0;
-    point_t point = g_rgb_leds[i].point;
     for (uint8_t j = start; j < count; j++) {
-      int16_t dx = point.x - g_last_hit_tracker.x[j];
-      int16_t dy = point.y - g_last_hit_tracker.y[j];
+      RGB_MATRIX_TEST_LED_FLAGS();
+      int16_t dx = g_led_config.point[i].x - g_last_hit_tracker.x[j];
+      int16_t dy = g_led_config.point[i].y - g_last_hit_tracker.y[j];
       uint8_t dist = sqrt16(dx * dx + dy * dy);
       int16_t dist2 = 16;
       uint8_t dist3;
