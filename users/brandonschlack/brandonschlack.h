@@ -40,9 +40,11 @@ enum custom_keycodes {
 #define MM_FN_X   LT(LF_NIX, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
+#define MC_POWR   KC_POWER             // Mac Power alias
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   LCTL(KC_UP)          // Mission Control
 #define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
+#define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
 // Windows
 #define WN_LOCK   LGUI(KC_L)           // Lock Computer
 #define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)
