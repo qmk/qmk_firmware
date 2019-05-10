@@ -252,10 +252,7 @@ void ng_clear(void) {
   ng_space = false;
 }
 
-// 薙刀式入力のコード1 ここまで
-
-  // 薙刀式入力のコード2　ここから
-
+// 薙刀式の処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, uint8_t ng_layer, uint16_t modkeys[3]) {
   bool is_modifier = false;
   // modifierが押されているか
@@ -333,4 +330,3 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, 
   }
   return true;
 }
-  // 薙刀式入力コード2 ここまで
