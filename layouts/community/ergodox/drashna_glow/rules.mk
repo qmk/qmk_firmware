@@ -1,7 +1,10 @@
 USER_NAME := drashna
-SRC += ../drashna/keymap.c
 
--include $(LAYOUT_KEYMAP_PATH)/../drashna/rules.mk
+CORRECTED_LAYOUT := $(LAYOUTS_REPO)/$(LAYOUT)/drashna
+
+SRC += $(CORRECTED_LAYOUT)/keymap.c
+
+-include $(CORRECTED_LAYOUT)/rules.mk
 
 ifneq (,$(findstring ergodox_ez,$(KEYBOARD)))
   RGBLIGHT_ENABLE = no

@@ -1277,7 +1277,7 @@ void set_output_user(uint8_t output) {
 }
 
 void matrix_init_user() {
-  _delay_ms(500); // give time for usb to initialize
+  wait_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UC_LNX);
 

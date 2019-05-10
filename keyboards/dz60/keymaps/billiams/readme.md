@@ -12,7 +12,6 @@ Settings:
 * RESET is available as `Fn`+ ` ESC`
 * Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
 
-
 ### Initial Installation
 
 I found the instructions to be longer than they had to be, and I ended up having to Google some steps anyway. These are the steps I took to get my keyboard setup, in case you are new to the process.

@@ -2,7 +2,7 @@
 #ifndef DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 
 extern rgb_counters_t g_rgb_counters;
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+extern led_config_t g_led_config;
 extern rgb_config_t rgb_matrix_config;
 
 bool rgb_matrix_rainbow_pinwheels(effect_params_t* params) {
@@ -13,8 +13,8 @@ bool rgb_matrix_rainbow_pinwheels(effect_params_t* params) {
   int16_t cos_value = 3 * (cos8(time) - 128);
   int16_t sin_value = 3 * (sin8(time) - 128);
   for (uint8_t i = led_min; i < led_max; i++) {
-    point_t point = g_rgb_leds[i].point;
-    hsv.h = ((point.y - 32) * cos_value + (56 - abs8(point.x - 112)) * sin_value) / 128 + rgb_matrix_config.hue;
+    RGB_MATRIX_TEST_LED_FLAGS();
+    hsv.h = ((g_led_config.point[i].y - 32) * cos_value + (56 - abs8(g_led_config.point[i].x - 112)) * sin_value) / 128 + rgb_matrix_config.hue;
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }

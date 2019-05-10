@@ -114,7 +114,7 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|If defined, enable RGB test animation mode.                                          |
 |`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|If defined, enable alternating animation mode.                                       |
 |`RGBLIGHT_ANIMATIONS`               |*Not defined*|If defined, enables all additional animation modes                                   |
-|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |`1.85`       |Used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
+|`RGBLIGHT_EFFECT_BREATHE_CENTER`    |*Not defined*|If defined, used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
 |`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |
 |`RGBLIGHT_EFFECT_KNIGHT_LENGTH`     |`3`          |The number of LEDs to light up for the "Knight" animation                            |
@@ -145,7 +145,7 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 // These control which hues are selected for each of the "Static gradient" modes
-const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
+const uint8_t RGBLED_GRADIENT_RANGES[] PROGMEM = {255, 170, 127, 85, 64};
 ```
 
 ## Functions
@@ -191,7 +191,40 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |`rgblight_decrease_val_noeeprom()`          |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                   |
 |`rgblight_set_clipping_range(pos, num)`     |Set clipping Range                                                                                                                                            |
 
-Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
+## Colors
+
+These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
+
+|RGB                |HSV                |
+|-------------------|-------------------|
+|`RGB_WHITE`        |`HSV_WHITE`        |
+|`RGB_RED`          |`HSV_RED`          |
+|`RGB_CORAL`        |`HSV_CORAL`        |
+|`RGB_ORANGE`       |`HSV_ORANGE`       |
+|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
+|`RGB_GOLD`         |`HSV_GOLD`         |
+|`RGB_YELLOW`       |`HSV_YELLOW`       |
+|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
+|`RGB_GREEN`        |`HSV_GREEN`        |
+|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
+|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
+|`RGB_TEAL`         |`HSV_TEAL`         |
+|`RGB_CYAN`         |`HSV_CYAN`         |
+|`RGB_AZURE`        |`HSV_AZURE`        |
+|`RGB_BLUE`         |`HSV_BLUE`         |
+|`RGB_PURPLE`       |`HSV_PURPLE`       |
+|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
+|`RGB_PINK`         |`HSV_PINK`         |
+
+```c
+rgblight_setrgb(RGB_ORANGE);
+rgblight_sethsv_noeeprom(HSV_GREEN);
+rgblight_setrgb_at(RGB_GOLD, 3);
+rgblight_sethsv_range(HSV_WHITE, 0, 6);
+```
+
+These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
+
 
 ## Changing the order of the LEDs
 

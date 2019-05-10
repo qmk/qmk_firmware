@@ -81,3 +81,7 @@ MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(FREE_SIZE) bytes free)\n
 MSG_FILE_NEAR_LIMIT = The firmware size is approaching the maximum - $(CURRENT_SIZE)/$(MAX_SIZE) ($(FREE_SIZE) bytes free)\n
+MSG_PYTHON_MISSING = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
+	Python 3 is not installed. It will be required by a future version\n\
+	of qmk_firmware.\n\n\
+	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
