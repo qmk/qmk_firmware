@@ -10,7 +10,7 @@ Settings:
 * Del is available as `Fn` + `Backspace`
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
-* Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
+* Underglow toggle is available as `Fn` + `Q`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
 
 
 ### Initial Installation
