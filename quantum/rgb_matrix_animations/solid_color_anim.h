@@ -1,9 +1,7 @@
-#pragma once
+RGB_MATRIX_EFFECT(SOLID_COLOR)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
-
-bool rgb_matrix_solid_color(effect_params_t* params) {
+bool SOLID_COLOR(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
@@ -14,3 +12,5 @@ bool rgb_matrix_solid_color(effect_params_t* params) {
   }
   return led_max < DRIVER_LED_TOTAL;
 }
+
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
