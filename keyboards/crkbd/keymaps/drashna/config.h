@@ -69,6 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
 #   define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #   define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#endif
 
 #ifdef AUDIO_ENABLE
 #   define B6_AUDIO
