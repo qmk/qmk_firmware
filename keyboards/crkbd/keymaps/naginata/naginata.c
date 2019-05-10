@@ -4,6 +4,7 @@
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
 static bool ng_shift = false; // シフトキーの状態
 static bool ng_space = false; // シフトキーかスペース入力か
+static bool is_modifier = false;
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -254,7 +255,6 @@ void ng_clear(void) {
 
 // 薙刀式の処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, uint8_t ng_layer, uint16_t modkeys[3]) {
-  bool is_modifier = false;
   // modifierが押されているか
   switch (keycode) {
     case KC_LCTRL:
