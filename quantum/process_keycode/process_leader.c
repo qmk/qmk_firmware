@@ -33,19 +33,13 @@ bool leading = false;
 uint16_t leader_time = 0;
 
 uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
-uint8_t leader_sequence_size = 0;
 
 void qk_leader_start(void) {
   if (leading) { return; }
   leader_start();
   leading = true;
   leader_time = timer_read();
-  leader_sequence_size = 0;
-  leader_sequence[0] = 0;
-  leader_sequence[1] = 0;
-  leader_sequence[2] = 0;
-  leader_sequence[3] = 0;
-  leader_sequence[4] = 0;
+  memset(leader_sequence, 0, sizeof(leader_sequence));
 }
 
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
@@ -58,9 +52,8 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
           keycode = keycode & 0xFF;
         }
 #endif // LEADER_KEY_STRICT_KEY_PROCESSING
-        if (leader_sequence_size < 5) {
-          leader_sequence[leader_sequence_size] = keycode;
-          leader_sequence_size++;
+        if (sizeof(leader_sequence) < 5) {
+          leader_sequence[sizeof(leader_sequence)] = keycode;
         } else {
           leading = false;
           leader_end();
