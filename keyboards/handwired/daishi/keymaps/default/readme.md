@@ -1,4 +1,4 @@
-![Daishi Layout Image](https://imgur.com/fuJZGmw)
+# Default Daishi Layout
 
 ![Daishi Layout Image](https://i.imgur.com/fuJZGmw.png)
 
