@@ -9,6 +9,12 @@
 #include "stdlib.h"
 #include "quantum.h"
 
+#if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
+// LED color buffer
+LED_TYPE led[DRIVER_LED_TOTAL];
+  #define LED_ARRAY led
+#endif
+
 static uint8_t *fb;
 static int sLeds;
 static stm32_gpio_t *sPort;
@@ -185,15 +191,15 @@ void ws2812_send_color( uint8_t index ) {
   setColor(led_array[index].b, (fb+24*index)+16, sMask);
 }
 
-void ws2812_setled( int index, uint8_t red, uint8_t green, uint8_t blue ) {
-  led_array[index].r = red;
-  led_array[index].g = green;
-  led_array[index].b = blue;
+void ws2812_setled( int i, uint8_t r, uint8_t g, uint8_t b ) {
+  led[i].r = r;
+  led[i].g = g;
+  led[i].b = b;
 }
 
-void ws2812_setled_all( uint8_t red, uint8_t green, uint8_t blue ) {
+void ws2812_setled_all( uint8_t r, uint8_t g, uint8_t b ) {
   for (int i = 0; i < RGBLED_NUM; i++) {
-    ws2812_setled( i, red, green, blue );
+    ws2812_setled( i, r, g, b );
   }
 }
 
