@@ -53,7 +53,7 @@ enum macro_keycodes {
   _20, _21, _22, _23, _24, \
   _30, _31, _32, _33, _34 \
 ) \
-LAYOUT_5x6( \
+LAYOUT_ortho_5x6( \
       KC_GESC, _00,     _01,     _02,     _03,     _04, \
       KC_TAB,  _10,     _11,     _12,     _13,     _14, \
       FN_CAPS, _20,     _21,     _22,     _23,     _24, \
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B  \
   ),
 
-  [_FN] = LAYOUT_5x6( \
+  [_FN] = LAYOUT_ortho_5x6( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, \
       _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, \
       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, RGB_MOD, _______, _______ \
       ),
 
-  [_ADJ] =  LAYOUT_5x6( \
+  [_ADJ] =  LAYOUT_ortho_5x6( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, \
       _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, \
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, \

@@ -22,7 +22,7 @@
    * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space|  | Space|  FN  | Left | Down | Up   |Right |
    * \------+------+------+------+------+------/  \------+------+------+------+------+------/
    */
-#define EXPAND_LAYOUT(...) LAYOUT_5x12(__VA_ARGS__)
+#define EXPAND_LAYOUT(...) LAYOUT_ortho_5x12(__VA_ARGS__)
 #define _BASE_LAYOUT( \
   _00, _01, _02, _03, _04,  _05, _06, _07, _08, _09, \
   _10, _11, _12, _13, _14,  _15, _16, _17, _18, _19, \

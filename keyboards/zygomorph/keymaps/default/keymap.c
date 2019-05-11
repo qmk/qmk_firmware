@@ -45,7 +45,7 @@ enum custom_keycodes {
   _10, _11, _12, _13, _14,  _15, _16, _17, _18, _19, \
   _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
 ) \
-LAYOUT_5x12( \
+LAYOUT_ortho_5x12( \
       KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,    _05,     _06,     _07,     _08,     _09,     KC_BSLS, \
       FN_CAPS, _10,     _11,     _12,     _13,     _14,    _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |RGBMOD|      |      |  |      | PLAY | NEXT | MUTE | VOL- | VOL+ |
    * \------+------+------+------+------+------/  \------+------+------+------+------+------/
    */
-  [_FN] = LAYOUT_5x12( \
+  [_FN] = LAYOUT_ortho_5x12( \
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
     _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, _______, KC_PGDN, KC_UP,   KC_PGUP, KC_PSCR, KC_HOME, \
     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, KC_END, \
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |RGBNXT|      |      |  |      |      |RGBPRV|  HUD |  SAD | VAD  |
    * \------+------+------+------+------+------/  \------+------+------+------+------+------/
    */
-  [_ADJ] =  LAYOUT_5x12( \
+  [_ADJ] =  LAYOUT_ortho_5x12( \
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
     _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______, \
     _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \

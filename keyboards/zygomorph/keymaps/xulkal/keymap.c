@@ -6,7 +6,7 @@
 #include "split_util.h"
 #endif
 
-#define EXPAND_LAYOUT(...) LAYOUT_5x12(__VA_ARGS__)
+#define EXPAND_LAYOUT(...) LAYOUT_ortho_5x12(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
