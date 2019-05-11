@@ -249,13 +249,14 @@ void set_naginata_edit(uint8_t layer1, uint8_t layer2, uint16_t ke1, uint16_t ke
 #endif
 
 // 薙刀式をオンオフ
-void naginata_mode(bool flag) {
-  is_naginata = flag;
-  if (flag) {
-    layer_on(naginata_layer);
-  } else {
-    layer_off(naginata_layer);
-  }
+void naginata_on(void) {
+  is_naginata = true;
+  layer_on(naginata_layer);
+}
+
+void naginata_off(void) {
+  is_naginata = false;
+  layer_off(naginata_layer);
 }
 
 // 薙刀式の状態
