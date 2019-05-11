@@ -20,7 +20,7 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
 |`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
 |`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
-|`KC_SFTENT`    |           |Right Shift when held, `Enter` when tapped                           |
+|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
 |`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
 |`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
 |`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
