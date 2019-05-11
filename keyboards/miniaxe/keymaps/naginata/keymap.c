@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-
 // 薙刀式
 #include "naginata.h"
 // 薙刀式
@@ -23,6 +22,8 @@
 #define _QWERTY 0
 // 薙刀式
 #define _NAGINATA 5 // 薙刀式入力レイヤー
+#define _NGEDITL 6 // 薙刀式編集レイヤー
+#define _NGEDITR 7 // 薙刀式編集レイヤー
 // 薙刀式
 #define _LOWER 10
 #define _RAISE 11
@@ -35,10 +36,23 @@ enum custom_keycodes {
   ADJUST,
 // 薙刀式
   NGSHFT, // 薙刀式シフトキー
+  // 編集モードを追加する場合
+  CHR10,
+  CHR20,
+  CHR30,
+  UP5,
+  DOWN5,
 // 薙刀式
 };
 
 #define SFTSPC  LSFT_T(KC_SPC)
+// 薙刀式
+// 編集モードを追加する場合
+#define MC(A) C(KC_##A)
+#define MS(A) S(KC_##A)
+#define MG(A) G(KC_##A)
+// 薙刀式
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -58,27 +72,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-                    KC_LGUI, LOWER, SFTSPC,       SFTSPC, RAISE, MT(MOD_LALT, KC_BSPC)  \
+                    KC_LGUI, LOWER,   SFTSPC,       SFTSPC,  RAISE,   MT(MOD_LALT, KC_BSPC)  \
 ),
 
-/* 薙刀式
- *
- * ,----------------------------------.           ,----------------------------------.
- * |   Q  |   W  |   E  |   R  |      |           |      |   U  |   I  |   O  |   P  |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |   S  |   D  |   F  |   G  |           |   H  |   J  |   K  |   L  |   ;  |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
- * `-------------+------+------+------|           |------+------+------+------+------'
- *               | GUI  | LOWER|Spc/Sft|          |Spc/Sft| RAISE|Alt/BkSp |
- *               `--------------------'           `--------------------'
- */
+// 薙刀式
 [_NAGINATA] = LAYOUT( \
-  KC_Q,    KC_W,    KC_E,    KC_R, KC_LEFT,      KC_RGHT,    KC_U,    KC_I,    KC_O,    KC_P,    \
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_LEFT,      KC_RGHT, KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-                    KC_LGUI, LOWER, NGSHFT,       NGSHFT, RAISE, MT(MOD_LALT, KC_BSPC)  \
+                    KC_LGUI, LOWER,   NGSHFT,       NGSHFT,  RAISE,    MT(MOD_LALT, KC_BSPC)  \
 ),
+
+[_NGEDITL] = LAYOUT( \
+  MG(DOWN),MG(UP),   KC_NO,   KC_NO,   CHR10,        KC_NO,    KC_NO,   KC_NO,   KC_NO,  KC_NO, \
+  MC(Y),   MC(S),    KC_PGDN, KC_PGUP, CHR20,        KC_NO,    KC_NO,   KC_NO,   KC_NO,  KC_NO, \
+  MC(Z),   MC(X),    MC(C),   MC(V),   CHR30,        KC_NO,    KC_NO,   KC_NO,   KC_NO,  KC_NO, \
+                    _______, _______, _______,      _______,  _______, _______\
+),
+
+[_NGEDITL] = LAYOUT( \
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_HOME,  MG(DEL), KC_NO,   KC_DEL, KC_ESC, \
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,    KC_UP,   MS(UP),  UP5,    KC_F7, \
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_END,   KC_DOWN, MS(DOWN),DOWN5,  KC_F6, \
+                    _______, _______, _______,      _______,  _______, _______\
+),
+// 薙刀式
 
 /* Raise
  *
@@ -215,13 +233,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
+  #ifdef NAGINATA_EDIT_MODE
+  if (process_naginata_edit(keycode, record)) {
+    return process_naginata(keycode, record);
+  } else {
+    return false;
+  }
+  #else
   return process_naginata(keycode, record);
+  #endif
   // 薙刀式
 }
 
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA, NGSHFT);
+  #ifdef NAGINATA_EDIT_MODE
+  set_naginata_edit(_NGEDITL, _NGEDITR, CHR10, CHR20, CHR30, UP5, DOWN5);
+  #endif
   // 薙刀式
 }
 

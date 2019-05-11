@@ -1,1 +1,1 @@
-SRC +=  naginata.c \
+SRC += naginata.c

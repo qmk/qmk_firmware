@@ -1,0 +1,2 @@
+
+#define NAGINATA_EDIT_MODE
