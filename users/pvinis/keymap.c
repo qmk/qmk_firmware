@@ -114,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LR_KBCTL] = LAYOUT_wrapper(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, PV_VRSN, PV_MAKE, PV_FLSH, XXXXXXX, XXXXXXX,
-    BASE   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, __________________KBCTL_L1_________________,                        __________________KBCTL_R1_________________, XXXXXXX,
+    XXXXXXX, __________________KBCTL_L2_________________,                        __________________KBCTL_R2_________________, XXXXXXX,
+    BASE   , __________________KBCTL_L3_________________, XXXXXXX,      XXXXXXX, __________________KBCTL_R3_________________, XXXXXXX,
                                         XXXXXXX, _______, XXXXXXX,      XXXXXXX, _______, XXXXXXX
   )
 };

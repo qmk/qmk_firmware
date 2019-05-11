@@ -66,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB , _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
     PV_ESCC, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, KC_ENT ,
     KC_LSFT, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, KC_RSFT,
-    _______, _______, _______, _______, KC_LGUI,                                          SYSCTL , _______, _______, _______, _______,
-                                                 QWERTY , _______,      _______, _______,
+    _______, _______, _______, KC_LGUI, SYMBOL ,                                          SYSCTL , _______, _______, _______, _______,
+                                                 QWERTY , CARPALX,      _______, _______,
                                                           _______,      _______,
-                                        KC_BSPC, SYMBOL , _______,      _______, _______, KC_SPC
+                                        KC_BSPC, _______, _______,      _______, _______, KC_SPC
   ),
 
   // ,------------------------------------.          ,------------------------------------.
@@ -90,6 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                         |    |    |----|      |----|    |    |
   //                         |    |    |    |      |    |    |    |
   //                         `--------------'      `--------------'
+  // See `users/pvinis/pvinis.h`
   [LR_QWERTY] = LAYOUT_ergodox_pretty_wrapper(
     _______, ________________NUMBERS_L__________________, _______,      KC_MINS, ________________NUMBERS_R__________________, KC_EQL ,
     _______, _________________QWERTY_L1_________________, KC_LBRC,      KC_RBRC, _________________QWERTY_R1_________________, _______,
@@ -119,6 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                         |    |    |----|      |----|    |    |
   //                         |    |    |    |      |    |    |    |
   //                         `--------------'      `--------------'
+  // See `users/pvinis/pvinis.h`
   [LR_CARPALX] = LAYOUT_ergodox_pretty_wrapper(
     _______, ________________NUMBERS_L__________________, _______,      _______, ________________NUMBERS_R__________________, _______,
     _______, ________________CARPALX_L1_________________, _______,      _______, ________________CARPALX_R1_________________, _______,
@@ -130,6 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,      _______, _______, _______
   ),
 
+  // See `users/pvinis/pvinis.h`
   [LR_SYMBOL] = LAYOUT_ergodox_pretty_wrapper(
     _______, ______________________F_L__________________, KC_F11 ,      KC_F12 , ______________________F_R__________________, _______,
     _______, _________________SYMBOL_L1_________________, _______,      _______, _________________SYMBOL_R1_________________, _______,
@@ -141,6 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,      _______, _______, _______
   ),
 
+  // See `users/pvinis/pvinis.h`
   [LR_SYSCTL] = LAYOUT_ergodox_pretty_wrapper(
     _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______,      _______, _________________SYSCTL_R1_________________, _______,
@@ -151,6 +155,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  _______, _______,      _______, _______,
                                                           _______,      _______,
                                         _______, _______, _______,      _______, _______, _______
+  ),
+
+  // See `users/pvinis/pvinis.h`
+  [LR_KBCTL] = LAYOUT_ergodox_pretty_wrapper(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, __________________KBCTL_R1_________________, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        __________________KBCTL_R2_________________, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, __________________KBCTL_R3_________________, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                                          _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+                                                 XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX,
+                                                          XXXXXXX,      XXXXXXX,
+                                        XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
 /* MOUSE

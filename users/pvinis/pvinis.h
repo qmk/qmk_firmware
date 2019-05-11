@@ -111,6 +111,13 @@ enum {
 #define _________________SYMBOL_R2_________________  KC_EQL , KC_AMPR, KC_QUOT, KC_DQUO, KC_PIPE
 #define _________________SYMBOL_R3_________________  KC_ASTR, KC_TILD, KC_LABK, KC_RABK, KC_SLSH
 
+// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
+// |     |     |     |     |     |   |MUTE |HOME |  ^  | END |     |
+// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
+// |     |     |     |     |     |   |VOLUP|  <  |  v  |  >  |     |
+// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
+// |     |     |     |     |     |   |VOLDN|MPREV|MPLAY|MNEXT|     |
+// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
 #define _________________SYSCTL_L1_________________
 #define _________________SYSCTL_L2_________________
 #define _________________SYSCTL_L3_________________
@@ -120,6 +127,20 @@ enum {
 #define _________________SYSCTL_R2_________________  KC_VOLU , KC_LEFT , KC_DOWN , KC_RGHT /* < arrows */ , KC_SLEP
 #define _________________SYSCTL_R3_________________  KC_VOLD , KC_MPRV , KC_MPLY , KC_MNXT /* < music */  , KC_PWR
 
+// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
+// |XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|   |XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|
+// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
+// |XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|   |XXXXX|VERSN|MAKE |FLASH|XXXXX|
+// ,-----+-----+-----x-----x-----,   ,-----x-----x-----+-----+-----,
+// |XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|   |XXXXX|XXXXX|XXXXX|XXXXX|XXXXX|
+// ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
+#define __________________KBCTL_L1_________________  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define __________________KBCTL_L2_________________  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define __________________KBCTL_L3_________________  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+
+#define __________________KBCTL_R1_________________  XXXXXXX, XXXXXXX, XXXXXXX, PV_KTMR, XXXXXXX
+#define __________________KBCTL_R2_________________  XXXXXXX, PV_VRSN, PV_MAKE, PV_FLSH, XXXXXXX
+#define __________________KBCTL_R3_________________  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 // we need wrappers in order for these definitions, because they need to be expanded before being used as arguments to the LAYOUT_xxx macro
 #define LAYOUT_ergodox_pretty_wrapper(...)  LAYOUT_ergodox_pretty(__VA_ARGS__)
