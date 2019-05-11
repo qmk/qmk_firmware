@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define REV1_CONFIG_H
-
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -28,11 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Zygomorph
 #define DESCRIPTION     "RGB, thin, ortholinear"
 
-
-
 /* Select hand configuration */
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 /* key matrix size */
@@ -42,15 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_COLS 6
-
 #define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
-//For prototypes, comment out line 48 and enable line 50
 
 #define SOFT_SERIAL_PIN D3
 
 #define NUMBER_OF_ENCODERS 1
-#define ENCODERS_PAD_A  { D2 } // D2 maybe?
-#define ENCODERS_PAD_B  { D7 } // D4 maybe?
+#define ENCODERS_PAD_A  { D2 }
+#define ENCODERS_PAD_B  { D7 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -75,8 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 120
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #endif
-
-#define RGBLIGHT_ANIMATIONS
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard
