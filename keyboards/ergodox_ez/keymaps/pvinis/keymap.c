@@ -229,26 +229,30 @@ void keyboard_post_init_user_local(void) {
     wait_ms(10);
   }
   ergodox_led_all_off();
+
+  // restore default brightness for future use
+  ergodox_led_all_set(LED_BRIGHTNESS_HI);
 }
 
 // light up leds based on the layer
-// void matrix_scan_user(void) {
-//   uint8_t layer = biton32(layer_state);
-
-//   switch(layer) {
-//   case LR_SYSCTL:
-//     ergodox_right_led_3_on();
-//     break;
-//   case MOUSE:
-//     ergodox_right_led_2_on();
-//     break;
-//   default:
-//     ergodox_right_led_1_off();
-//     ergodox_right_led_2_off();
-//     ergodox_right_led_3_off();
-//     break;
-//   }
-// }
+uint32_t layer_state_set_user_local(uint32_t state) {
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+  switch (biton32(state)) {
+  case LR_SYSCTL:
+    ergodox_right_led_3_on(); // blue
+    break;
+  case LR_KBCTL:
+    ergodox_right_led_1_on(); // red
+    break;
+  case LR_SYMBOL:
+    ergodox_right_led_2_on(); // green
+    break;
+  default: break;
+  }
+  return state;
+}
 
 // extra keys
 // const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

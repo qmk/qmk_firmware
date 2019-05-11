@@ -149,3 +149,4 @@ enum {
 
 // extra stuff that might be needed
 void keyboard_post_init_user_local(void);
+uint32_t layer_state_set_user_local(uint32_t state);
