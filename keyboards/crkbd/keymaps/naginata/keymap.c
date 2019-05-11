@@ -111,6 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 // 薙刀式
+  // デフォルトレイヤーに関係なくQWERTYで
   [_NAGINATA] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
       _____,     Q,     W,     E,     R,  LEFT,                   RGHT,     U,     I,     O,     P, _____,\

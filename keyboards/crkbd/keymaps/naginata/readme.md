@@ -19,5 +19,5 @@ http://oookaworks.seesaa.net/article/456099128.html
 
 ### 他キーボードへの移植の指針
 
-rules.mkでnicola.cをSRCに追加する。
-keymap.cの`// 薙刀式`で囲まれた部分を移植する。
+1. rules.mkでnicola.cをSRCに追加する。
+2. keymap.cの`// 薙刀式`で囲まれた部分を移植する。

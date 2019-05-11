@@ -257,7 +257,7 @@ void naginata_type(void) {
       unregister_code(KC_ENT);
       break;
     default:
-      // 同時押しされているキーから仮名に変換して出力する。
+      // キーから仮名に変換して出力する。
       for (int i = 0; i < sizeof ng_comb / sizeof ng_comb[0]; i++) {
         if (keycomb == ng_comb[i]) {
           memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
@@ -283,7 +283,7 @@ void naginata_clear(void) {
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (!is_naginata) return true;
 
-  // modifierが押されているか
+  // modifierが押されたらレイヤーをオフ
   switch (keycode) {
     case KC_LCTRL:
     case KC_LSHIFT:
@@ -295,17 +295,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     case KC_RGUI:
       if (record->event.pressed) {
         n_modifier++;
+        layer_off(naginata_layer);
       } else {
         n_modifier--;
+        if (n_modifier == 0) {
+          layer_on(naginata_layer);
+        }
       }
       break;
-  }
-
-  // modifierが押されたらレイヤーをオフ
-  if (n_modifier > 0) {
-    layer_off(naginata_layer);
-  } else {
-    layer_on(naginata_layer);
   }
 
   if (n_modifier == 0) {
