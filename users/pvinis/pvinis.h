@@ -12,10 +12,12 @@ enum userspace_custom_keycodes {
   PV_FLSH, // resets keyboard
   PV_KTMR, // play katamari music
 
+  PV_SAFE_RANGE, // used for extra keycodes in the individual keymaps
+};
+
+enum tap_dance_indexes {
   // tap dance
   TD_FLSH, // flash keyboard (as if the physical flash key was pressed)
-
-  PV_SAFE_RANGE, // used for extra keycodes in the individual keymaps
 };
 
 #define ALLM(kc) LCAG(kc)           // easier name for left ctrl-alt-gui
