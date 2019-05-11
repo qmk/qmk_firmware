@@ -8,8 +8,8 @@ static void CYCLE_OUT_IN_DUAL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t tim
     hsv->h = 3 * dist + time;
 }
 
-bool CYCLE_OUT_IN_DUAL(effect_params_t* params) {
-    return effect_runner_dx_dy(params, &CYCLE_OUT_IN_DUAL_math);
+bool CYCLE_OUT_IN_DUAL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_dx_dy(params, config, &CYCLE_OUT_IN_DUAL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

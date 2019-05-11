@@ -24,14 +24,14 @@ static void SOLID_REACTIVE_CROSS_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t 
 }
 
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-bool SOLID_REACTIVE_CROSS(effect_params_t* params) {
-    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_CROSS_math);
+bool SOLID_REACTIVE_CROSS(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, config, &SOLID_REACTIVE_CROSS_math);
 }
 #endif
 
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) {
-    return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_CROSS_math);
+bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_reactive_splash(0, params, config, &SOLID_REACTIVE_CROSS_math);
 }
 #endif
 

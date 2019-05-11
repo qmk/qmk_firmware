@@ -7,8 +7,8 @@ static void CYCLE_ALL_math(HSV* hsv, uint8_t i, uint8_t time)
     hsv->h = time;
 }
 
-bool CYCLE_ALL(effect_params_t* params) {
-    return effect_runner_i(params, &CYCLE_ALL_math);
+bool CYCLE_ALL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_i(params, config, &CYCLE_ALL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

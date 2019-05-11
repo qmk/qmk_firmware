@@ -7,8 +7,8 @@ static void SOLID_REACTIVE_SIMPLE_math(HSV* hsv, uint16_t offset) {
     hsv->v = scale8(255 - offset, rgb_matrix_config.val);
 }
 
-bool SOLID_REACTIVE_SIMPLE(effect_params_t* params) {
-    return effect_runner_reactive(params, &SOLID_REACTIVE_SIMPLE_math);
+bool SOLID_REACTIVE_SIMPLE(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_reactive(params, config, &SOLID_REACTIVE_SIMPLE_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

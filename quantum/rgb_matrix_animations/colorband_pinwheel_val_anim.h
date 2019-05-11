@@ -6,8 +6,8 @@ static void BAND_PINWHEEL_VAL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t tim
     hsv->v = rgb_matrix_config.val - time - atan2_8(dy, dx) * 3;
 }
 
-bool BAND_PINWHEEL_VAL(effect_params_t* params) {
-    return effect_runner_dx_dy(params, &BAND_PINWHEEL_VAL_math);
+bool BAND_PINWHEEL_VAL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_dx_dy(params, config, &BAND_PINWHEEL_VAL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

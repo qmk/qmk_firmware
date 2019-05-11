@@ -2,11 +2,11 @@
 
 typedef void (*dx_dy_dist_f)(HSV* hsv, int16_t dx, int16_t dy, uint8_t dist, uint8_t time);
 
-bool effect_runner_dx_dy_dist(effect_params_t* params, dx_dy_dist_f effect_func) {
+bool effect_runner_dx_dy_dist(effect_params_t* params, rgb_config_t* config, dx_dy_dist_f effect_func) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-  HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
-  uint8_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 2);
+  HSV hsv = { config->hue, config->sat, config->val };
+  uint8_t time = scale16by8(g_rgb_counters.tick, config->speed / 2);
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_MATRIX_TEST_LED_FLAGS();
     int16_t dx = g_led_config.point[i].x - k_rgb_matrix_center.x;

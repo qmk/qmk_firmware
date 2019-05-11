@@ -6,8 +6,8 @@ static void CYCLE_PINWHEEL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t time) 
     hsv->h = atan2_8(dy, dx) + time;
 }
 
-bool CYCLE_PINWHEEL(effect_params_t* params) {
-    return effect_runner_dx_dy(params, &CYCLE_PINWHEEL_math);
+bool CYCLE_PINWHEEL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_dx_dy(params, config, &CYCLE_PINWHEEL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

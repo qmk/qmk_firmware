@@ -85,7 +85,7 @@ void rgb_matrix_indicators_user(void)
 {
 	uint8_t this_led = host_keyboard_leds();
 
-	if (!g_suspend_state && rgb_matrix_config.enable) {
+	if (!g_suspend_state && g_rgb_matrix_enable) {
 		switch (biton32(layer_state)) {
 		case _NAV:
 			if (this_led & (1 << USB_LED_NUM_LOCK)) {

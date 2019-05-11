@@ -7,8 +7,8 @@ static void BAND_VAL_math(HSV* hsv, uint8_t i, uint8_t time) {
     hsv->v = v < 0 ? 0 : v;
 }
 
-bool BAND_VAL(effect_params_t* params) {
-    return effect_runner_i(params, &BAND_VAL_math);
+bool BAND_VAL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_i(params, config, &BAND_VAL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

@@ -489,6 +489,8 @@ enum quantum_keycodes {
     // Right control, close paren
     KC_RAPC,
 
+    RGB_LAYER_TOGGLE,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -628,6 +630,7 @@ enum quantum_keycodes {
 #define RGB_M_X RGB_MODE_XMAS
 #define RGB_M_G RGB_MODE_GRADIENT
 #define RGB_M_T RGB_MODE_RGBTEST
+#define RGB_L_T RGB_LAYER_TOGGLE
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (QK_LAYER_TAP | (((layer) & 0xF) << 8) | ((kc) & 0xFF))

@@ -536,6 +536,13 @@ bool process_record_quantum(keyrecord_t *record) {
     }
   #endif
     return false;
+  case RGB_LAYER_TOGGLE:
+  #ifdef RGB_MATRIX_MULTIPLE_EFFECTS
+    if (record->event.pressed) {
+      rgb_matrix_step_layer();
+    }
+  #endif
+    return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   #ifdef VELOCIKEY_ENABLE
     case VLK_TOG:

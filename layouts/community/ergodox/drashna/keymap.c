@@ -405,9 +405,9 @@ void rgb_matrix_indicators_user(void) {
         !g_suspend_state &&
 #endif
 #if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
+        (!rgblight_config.enable && g_rgb_matrix_enable)
 #else
-        rgb_matrix_config.enable
+        g_rgb_matrix_enable
 #endif
     ) {
         switch (biton32(layer_state)) {

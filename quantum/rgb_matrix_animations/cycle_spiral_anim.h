@@ -6,8 +6,8 @@ static void CYCLE_SPIRAL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t dist, ui
     hsv->h = dist - time - atan2_8(dy, dx);
 }
 
-bool CYCLE_SPIRAL(effect_params_t* params) {
-    return effect_runner_dx_dy_dist(params, &CYCLE_SPIRAL_math);
+bool CYCLE_SPIRAL(effect_params_t* params, rgb_config_t* config) {
+    return effect_runner_dx_dy_dist(params, config, &CYCLE_SPIRAL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

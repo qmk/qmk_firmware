@@ -318,7 +318,7 @@ void flush(void)
 void led_matrix_indicators(void)
 {
     uint8_t kbled = keyboard_leds();
-    if (kbled && rgb_matrix_config.enable)
+    if (kbled && g_rgb_matrix_enable)
     {
         for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
         {
