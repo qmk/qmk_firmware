@@ -33,7 +33,7 @@ bool leading = false;
 uint16_t leader_time = 0;
 
 uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
-uint8_t leader_sequence_size;
+uint8_t leader_sequence_size = 0;
 
 void qk_leader_start(void) {
   if (leading) { return; }
