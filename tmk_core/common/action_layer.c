@@ -296,7 +296,7 @@ action_t store_or_get_action(bool pressed, keypos_t key) {
  *
  * Gets the layer based on key info
  */
-int8_t layer_switch_get_layer(keypos_t key) {
+uint8_t layer_switch_get_layer(keypos_t key) {
 #ifndef NO_ACTION_LAYER
   action_t action;
   action.code = ACTION_TRANSPARENT;
@@ -304,7 +304,7 @@ int8_t layer_switch_get_layer(keypos_t key) {
   uint32_t layers = layer_state | default_layer_state;
   /* check top layer first */
   for (int8_t i = 31; i >= 0; i--) {
-    if (layers & (1UL<<i)) {
+    if (layers & (1UL << i)) {
       action = action_for_key(i, key);
       if (action.code != ACTION_TRANSPARENT) {
           return i;

@@ -38,7 +38,6 @@ enum layers {
    ADJUST,
  };
 
- // Fillers to make layering more clear
  #define LOWER MO(_LOWER)
  #define RAISE MO(_RAISE)
 

@@ -13,13 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 #include "backlight.h"
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
 #define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Layer shorthand
 #define _QW 0
