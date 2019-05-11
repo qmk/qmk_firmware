@@ -69,3 +69,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif // TAP_DANCE_ENABLE
+
+
+// init stuff
+void keyboard_post_init_user(void) {
+    keyboard_post_init_user_local();
+}

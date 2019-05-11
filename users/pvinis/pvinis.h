@@ -145,3 +145,7 @@ enum {
 // we need wrappers in order for these definitions, because they need to be expanded before being used as arguments to the LAYOUT_xxx macro
 #define LAYOUT_ergodox_pretty_wrapper(...)  LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                 LAYOUT(__VA_ARGS__)
+
+
+// extra stuff that might be needed
+void keyboard_post_init_user_local(void);

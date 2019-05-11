@@ -215,20 +215,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+
 // keyboard initialization
-// void matrix_init_user() {
-//   ergodox_led_all_on();
-//   for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
-//     ergodox_led_all_set(i);
-//     wait_ms(5);
-//   }
-//   wait_ms(1000);
-//   for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
-//     ergodox_led_all_set(i);
-//     wait_ms(10);
-//   }
-//   ergodox_led_all_off();
-// }
+void keyboard_post_init_user_local(void) {
+  ergodox_led_all_on();
+  for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
+    ergodox_led_all_set(i);
+    wait_ms(5);
+  }
+  wait_ms(1000);
+  for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
+    ergodox_led_all_set(i);
+    wait_ms(10);
+  }
+  ergodox_led_all_off();
+}
 
 // light up leds based on the layer
 // void matrix_scan_user(void) {
