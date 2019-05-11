@@ -2,7 +2,7 @@
 
 ![Zygomorph](https://cdn.shopify.com/s/files/1/0008/8827/5005/products/20190107_004053_2048x2048.jpg?v=1549333933)
 
-Zygomorph is the thinnest keyboard with a fully enclosed case. It's only 3.2mm thick below the switches, including screws. It can be used in 5x6 and 4x6 split, or 5x12 and 4x12 combined. It has per-key RGB, supports kailh choc and MX switches, and has 10 rotary encoder positions per half (only one cas be used per half). The board has presoldered components, including type C ports and ATmega32U4. The build guide can be found [here](https://rgbkb.gitbook.io/rgbkb-build-guides/zygomorph-build-guide/).
+Zygomorph is the thinnest keyboard with a fully enclosed case. It's only 3.2mm thick below the switches, including screws. It can be used in 5x6 and 4x6 split, or 5x12 and 4x12 combined. It has per-key RGB, supports Kailh Choc and MX switches, and has 10 rotary encoder positions per half (only one can be used per half). The board has pre-soldered components, including type C ports and ATmega32U4. The build guide can be found [here](https://rgbkb.gitbook.io/rgbkb-build-guides/zygomorph-build-guide/).
 
 Keyboard Maintainer: [Legonut](https://github.com/Legonut)  
 Hardware Supported: Zygomorph R1.0  
