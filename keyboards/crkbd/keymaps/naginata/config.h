@@ -35,8 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
-// #define NAGINATA_EDIT_MODE
+// #define SSD1306OLED
+#define NAGINATA_EDIT_MODE
 
 #define USE_SERIAL_PD2
 
