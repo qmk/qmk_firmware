@@ -404,13 +404,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           if (ng_chrcount > 2) naginata_type(); // 3文字押したら処理を開始
           return false;
           break;
-        // default: // 薙刀式入力に関係ないキーを押したらバッファを空にして処理を中断
-        //   naginata_clear();
-        //   break;
       }
       if (keycode == ng_shiftkey) {
         ng_shift = true;
-        ng_space = true;
+        if (ng_chrcount == 0) ng_space = true;
         return false;
       }
     } else { // key release
@@ -426,11 +423,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           break;
       }
       if (keycode == ng_shiftkey) {
-        ng_shift = false;
-        if (ng_space) {
+        if (ng_space) { // シフト単独押し
           register_code(KC_SPC);
           unregister_code(KC_SPC);
+          ng_space = false;
+        } else if (ng_chrcount > 0) { // シフトを先に離すとき
+          naginata_type();
         }
+        ng_shift = false;
         return false;
       }
     }
