@@ -50,12 +50,6 @@ enum custom_keycodes {
   UNDGL
 };
 
-// 薙刀式
-// 無視するレイヤーキー
-static uint16_t mkeys[3] = {RAISE, LOWER, ADJUST};
-// 薙刀式
-
-
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
@@ -190,6 +184,10 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 void matrix_init_user(void) {
+  // 薙刀式
+  set_naginata(_NAGINATA, NGSHFT);
+  // 薙刀式
+
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
@@ -273,7 +271,7 @@ void update_led() {
   if (!layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
     rgblight_sethsv_range(0, 0, 0, 6, 27);
   }
-  if (layer_state_is(_NAGINATA)) {
+  if (naginata_state()) {
     rgblight_sethsv_at(200, 200, 255, 6);
     rgblight_sethsv_at(200, 200, 255, 13);
     rgblight_sethsv_at(200, 200, 255, 14);
@@ -323,7 +321,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EISU:
       if (record->event.pressed) {
         // 薙刀式
-        layer_off(_NAGINATA);
+        naginata_mode(false);
         // 薙刀式
         register_code(KC_LANG2); // Mac
         register_code(KC_MHEN); // Win
@@ -335,7 +333,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANA2:
       if (record->event.pressed) {
         // 薙刀式
-        layer_on(_NAGINATA);
+        naginata_mode(true);
         // 薙刀式
         register_code(KC_LANG1); // Mac
         register_code(KC_HENK); // Win
@@ -388,7 +386,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (lower_pressed) {
           // 薙刀式
-          layer_off(_NAGINATA);
+          naginata_mode(false);
           // 薙刀式
           register_code(KC_LANG2); // Mac
           register_code(KC_MHEN); // Win
@@ -414,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (raise_pressed) {
           // 薙刀式
-          layer_on(_NAGINATA);
+          naginata_mode(true);
           // 薙刀式
           register_code(KC_LANG1); // Mac
           register_code(KC_HENK); // Win
@@ -432,7 +430,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
-  return process_naginata(keycode, record, NGSHFT, _NAGINATA, mkeys);
+  return process_naginata(keycode, record);
   // 薙刀式
 }
-

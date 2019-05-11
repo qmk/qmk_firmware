@@ -1,10 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "naginata.h"
 
+#define NGBUFFER 5 // バッファのサイズ
+
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
+static bool is_naginata = false; // 薙刀式がオンかオフか
+static uint8_t naginata_layer = 0; // レイヤー番号
+static uint16_t ng_shiftkey = 0; // 薙刀式のシフトキー
 static bool ng_shift = false; // シフトキーの状態
 static bool ng_space = false; // シフトキーかスペース入力か
-static bool is_modifier = false;
+static uint8_t n_modifier = 0; // 押しているmodifierキーの数
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -211,6 +216,27 @@ const uint32_t ng_comb[] = {
   B_G|B_J|B_P,
 };
 
+// 薙刀式のレイヤー、シフトキーを設定
+void set_naginata(uint8_t layer, uint16_t shiftkey) {
+  naginata_layer = layer;
+  ng_shiftkey = shiftkey;
+}
+
+// 薙刀式をオンオフ
+void naginata_mode(bool flag) {
+  is_naginata = flag;
+  if (flag) {
+    layer_on(naginata_layer);
+  } else {
+    layer_off(naginata_layer);
+  }
+}
+
+// 薙刀式の状態
+bool naginata_state(void) {
+  return is_naginata;
+}
+
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
   char kana[5];
@@ -241,11 +267,11 @@ void naginata_type(void) {
       }
   }
 
-  ng_clear(); // バッファを空にする
+  naginata_clear(); // バッファを空にする
 }
 
 // バッファをクリアする
-void ng_clear(void) {
+void naginata_clear(void) {
   for (int i = 0; i < NGBUFFER; i++) {
     ninputs[i] = 0;
   }
@@ -254,7 +280,9 @@ void ng_clear(void) {
 }
 
 // 薙刀式の処理
-bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, uint8_t ng_layer, uint16_t modkeys[3]) {
+bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata) return true;
+
   // modifierが押されているか
   switch (keycode) {
     case KC_LCTRL:
@@ -266,24 +294,21 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, 
     case KC_RALT:
     case KC_RGUI:
       if (record->event.pressed) {
-        is_modifier = true;
+        n_modifier++;
       } else {
-        is_modifier = false;
+        n_modifier--;
       }
       break;
   }
-  for (int i = 0; i < 3; i++) {
-    if (keycode == modkeys[i]) {
-      if (record->event.pressed) {
-        is_modifier = true;
-      } else {
-        is_modifier = false;
-      }
-    }
+
+  // modifierが押されたらレイヤーをオフ
+  if (n_modifier > 0) {
+    layer_off(naginata_layer);
+  } else {
+    layer_on(naginata_layer);
   }
 
-  // 薙刀式入力モードでmodifierキーを押していない時
-  if (layer_state_is(ng_layer) & !is_modifier) {
+  if (n_modifier == 0) {
     if (record->event.pressed) {
       switch (keycode) {
         case KC_A ... KC_Z:
@@ -297,10 +322,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, 
           return false;
           break;
         default: // 薙刀式入力に関係ないキーを押したらバッファを空にして処理を中断
-          ng_clear();
+          naginata_clear();
           break;
       }
-      if (keycode == shiftkey) {
+      if (keycode == ng_shiftkey) {
         ng_shift = true;
         ng_space = true;
         return false;
@@ -318,7 +343,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record, uint16_t shiftkey, 
           return false;
           break;
       }
-      if (keycode == shiftkey) {
+      if (keycode == ng_shiftkey) {
         ng_shift = false;
         if (ng_space) {
           register_code(KC_SPC);

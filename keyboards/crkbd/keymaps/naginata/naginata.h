@@ -1,6 +1,7 @@
-#define NGBUFFER 5 // バッファのサイズ
-
 void naginata_type(void);
-void ng_clear(void);
-void ng_output(char[NGBUFFER][29][5], uint16_t, int);
-bool process_naginata(uint16_t, keyrecord_t *, uint16_t, uint8_t, uint16_t[3]);
+void naginata_clear(void);
+bool process_naginata(uint16_t, keyrecord_t *);
+void naginata_mode(bool);
+bool naginata_state(void);
+void set_naginata(uint8_t, uint16_t);
+
