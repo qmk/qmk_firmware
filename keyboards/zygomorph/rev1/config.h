@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
+#pragma once
 #define REV1_CONFIG_H
 
 
@@ -29,9 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     "RGB, thin, ortholinear"
 
 
-#define PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 150
 
 /* Select hand configuration */
 // #define MASTER_LEFT
@@ -45,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_COLS 6
-//#define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
 
 #define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
 //For prototypes, comment out line 48 and enable line 50

@@ -63,5 +63,5 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this w
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
-
+LAYOUTS = ortho_4x12 ortho_5x12
 DEFAULT_FOLDER = zygomorph/rev1
