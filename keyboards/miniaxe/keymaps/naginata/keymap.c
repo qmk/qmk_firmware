@@ -191,7 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (lower_pressed) {
           // 薙刀式
-          naginata_mode(false);
+          naginata_off();
           // 薙刀式
           register_code(KC_LANG2); // Mac
           register_code(KC_MHEN); // Win
@@ -216,7 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         if (raise_pressed) {
           // 薙刀式
-          naginata_mode(true);
+          naginata_on();
           // 薙刀式
           register_code(KC_LANG1); // Mac
           register_code(KC_HENK); // Win
