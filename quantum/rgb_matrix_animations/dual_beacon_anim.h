@@ -1,11 +1,8 @@
-#pragma once
 #ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
+RGB_MATRIX_EFFECT(DUAL_BEACON)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-extern rgb_counters_t g_rgb_counters;
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
-
-bool rgb_matrix_dual_beacon(effect_params_t* params) {
+bool DUAL_BEACON(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { 0, rgb_matrix_config.sat, rgb_matrix_config.val };
@@ -21,4 +18,5 @@ bool rgb_matrix_dual_beacon(effect_params_t* params) {
   return led_max < DRIVER_LED_TOTAL;
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // DISABLE_RGB_MATRIX_DUAL_BEACON

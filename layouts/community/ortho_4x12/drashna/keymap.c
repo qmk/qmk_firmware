@@ -17,10 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
-#ifdef RGB_MATRIX_ENABLE
-extern bool g_suspend_state;
-extern rgb_config_t rgb_matrix_config;
-#endif
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 #endif
@@ -184,7 +180,6 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-extern led_config_t g_led_config;
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {

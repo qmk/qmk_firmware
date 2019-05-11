@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-extern bool g_suspend_state;
 #define _LAYER0 0
 #define _LAYER1 1
 #define _LAYER2 2
@@ -50,8 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-extern led_config_t g_led_config;
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
+void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
     if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color( i, red, green, blue );
