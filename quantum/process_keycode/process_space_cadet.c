@@ -60,18 +60,18 @@
 
 // Control / paren setup
 #ifndef LCPO_KEYS
-  #define LCPO_KEYS KC_LCTL, KC_LCTL, KC_9
+  #define LCPO_KEYS KC_LCTL, KC_LSFT, KC_9
 #endif
 #ifndef RCPC_KEYS
-  #define RCPC_KEYS KC_RCTL, KC_RCTL, KC_0
+  #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0
 #endif
 
 // Alt / paren setup
 #ifndef LAPO_KEYS
-  #define LAPO_KEYS KC_LALT, KC_LALT, KC_9
+  #define LAPO_KEYS KC_LALT, KC_LSFT, KC_9
 #endif
 #ifndef RAPC_KEYS
-  #define RAPC_KEYS KC_RALT, KC_RALT, KC_0
+  #define RAPC_KEYS KC_RALT, KC_RSFT, KC_0
 #endif
 
 // Shift / Enter setup
