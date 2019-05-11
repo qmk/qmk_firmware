@@ -2,6 +2,8 @@
 
 薙刀式日本語入力をQMKで実現します。薙刀式v11完成版に準拠しています。
 
+ファームウェアサイズの制限を超えるため、編集モードをオンにするためにOLEDをオフにしています。config.hの`#define NAGINATA_EDIT_MODE`をコメントアウト、`#define SSD1306OLED`を有効にすれば、薙刀式の編集モードをオフにしてOLEDを点灯可能です。編集モードの実装はまだ不完全です。
+
 ### 薙刀式とは
 
 【カタナ式ファミリー】カナ配列「薙刀式」
@@ -19,5 +21,7 @@ http://oookaworks.seesaa.net/article/456099128.html
 
 ### 他キーボードへの移植の指針
 
-1. rules.mkでnicola.cをSRCに追加する。
-2. keymap.cの`// 薙刀式`で囲まれた部分を移植する。
+1. naginata.cとnaginata.hをコピーする。
+2. rules.mkでnicola.cをSRCに追加する。
+3. 編集モードを使用する場合は、config.hに`#define NAGINATA_EDIT_MODE`を追加する。
+4. keymap.cの`// 薙刀式`で囲まれた部分を移植する。

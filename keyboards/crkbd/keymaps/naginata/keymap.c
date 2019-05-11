@@ -28,36 +28,38 @@ extern uint8_t is_master;
 #define _QWERTY 0
 #define _EUCALYN 1
 // 薙刀式
-#define _NAGINATA 10 // 薙刀式入力レイヤー
+#define _NAGINATA 5 // 薙刀式入力レイヤー
+#define _NGEDITL 6 // 薙刀式編集レイヤー
+#define _NGEDITR 7 // 薙刀式編集レイヤー
 // 薙刀式
-#define _LOWER 11
-#define _RAISE 12
+#define _LOWER 12
+#define _RAISE 13
 #define _ADJUST 16
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  EUCALYN,
-  EISU,
-  LOWER,
-  RAISE,
-  ADJUST,
-  BACKLIT,
-  RGBRST,
-  KANA2,
+  KC_QWERTY = SAFE_RANGE,
+  KC_EUCALYN,
+  KC_EISU,
+  KC_LOWER,
+  KC_RAISE,
+  KC_ADJUST,
+  KC_BACKLIT,
+  KC_KANA2,
 // 薙刀式
-  NGSHFT, // 薙刀式シフトキー
+  KC_NGSHFT, // 薙刀式シフトキー
+  // 編集モードを追加する場合
+  KC_CHR10,
+  KC_CHR20,
+  KC_CHR30,
+  KC_UP5,
+  KC_DOWN5,
 // 薙刀式
-  UNDGL
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
+  KC_UNDGL,
+  RGBRST
 };
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -70,11 +72,6 @@ enum macro_keycodes {
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB)
 #define KC_GUITB GUI_T(KC_TAB)
-#define KC_NGSHFT NGSHFT // シフトキー
-#define KC_QWERTY QWERTY
-#define KC_EUCALYN EUCALYN
-#define KC_EISU EISU
-#define KC_KANA2 KANA2
 #define KC_RESET RESET
 #define KC_ABLS LALT(KC_BSLS)
 #define KC_CMDENT  CMD_T(KC_ENT)
@@ -83,7 +80,12 @@ enum macro_keycodes {
 #define KC_ALTSPC  ALT_T(KC_SPC)
 #define KC_CTLBS   CTL_T(KC_BSPC)
 #define KC_CTLENT  CTL_T(KC_ENT)
-#define KC_UNDGL UNDGL
+// 薙刀式
+// 編集モードを追加する場合
+#define KC_C(A) C(KC_##A)
+#define KC_S(A) S(KC_##A)
+#define KC_G(A) G(KC_##A)
+// 薙刀式
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -119,6 +121,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _____,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH, _____,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  _____,NGSHFT, _____,    _____,NGSHFT, _____ \
+                              //`--------------------'  `--------------------'
+  ),
+
+  // 編集モードを追加する場合
+  [_NGEDITL] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      _____,G(DOWN),G(UP), XXXXX, XXXXX, CHR10,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____,  C(Y),  C(S),  PGDN,  PGUP, CHR20,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____,  C(Z),  C(X),  C(C),  C(V), CHR30,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  _____,NGSHFT, _____,    _____,NGSHFT, _____ \
+                              //`--------------------'  `--------------------'
+  ),
+
+  [_NGEDITR] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   HOME,G(DEL), XXXXX,   DEL,   ESC, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,    UP, S(UP),   UP5,    F7, _____,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                    END,  DOWN,S(DOWN),DOWN5,    F6, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____,NGSHFT, _____,    _____,NGSHFT, _____ \
                               //`--------------------'  `--------------------'
@@ -186,7 +213,10 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA, NGSHFT);
+  set_naginata(_NAGINATA, KC_NGSHFT);
+  #ifdef NAGINATA_EDIT_MODE
+  set_naginata_edit(_NGEDITL, _NGEDITR, KC_CHR10, KC_CHR20, KC_CHR30, KC_UP5, KC_DOWN5);
+  #endif
   // 薙刀式
 
     #ifdef RGBLIGHT_ENABLE
@@ -300,26 +330,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case UNDGL:
+    case KC_UNDGL:
       if (record->event.pressed) {
         underglow = !underglow;
       }
       update_led();
       return false;
       break;
-    case QWERTY:
+    case KC_QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
-    case EUCALYN:
+    case KC_EUCALYN:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_EUCALYN);
       }
       return false;
       break;
-    case EISU:
+    case KC_EISU:
       if (record->event.pressed) {
         // 薙刀式
         naginata_mode(false);
@@ -331,7 +361,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KANA2:
+    case KC_KANA2:
       if (record->event.pressed) {
         // 薙刀式
         naginata_mode(true);
@@ -343,7 +373,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case ADJUST:
+    case KC_ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
       } else {
@@ -373,7 +403,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case LOWER:
+    case KC_LOWER:
       if (record->event.pressed) {
         if (raise_pressed) {
           raise_pressed = false;
@@ -399,7 +429,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       update_led();
       return false;
       break;
-    case RAISE:
+    case KC_RAISE:
       if (record->event.pressed) {
         if (lower_pressed) {
           lower_pressed = false;
@@ -431,6 +461,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
+  #ifdef NAGINATA_EDIT_MODE
+  if (process_naginata_edit(keycode, record)) {
+    return process_naginata(keycode, record);
+  } else {
+    return false;
+  }
+  #else
   return process_naginata(keycode, record);
+  #endif
   // 薙刀式
 }
