@@ -1,4 +1,4 @@
-# hotswap
+# KBD67 hotswap
 
 A 65% hot swap board with blocker and USB Type C port. 
 

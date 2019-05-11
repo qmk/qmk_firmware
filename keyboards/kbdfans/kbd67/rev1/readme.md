@@ -1,4 +1,4 @@
-# kbd67
+# KBD67 rev1
 
 65% keyboard with blocker.  
 
