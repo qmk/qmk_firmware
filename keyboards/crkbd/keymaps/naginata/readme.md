@@ -15,6 +15,8 @@ http://oookaworks.seesaa.net/article/456099128.html
 |----|----|
 |RAISE|単押しで薙刀式入力へ切り替え|
 |LOWER|単押しで英字入力へ切り替え|
+|H+J|同時押しで薙刀式入力へ切り替え (不具合:初回に動作しない)|
+|F+G|同時押しで英字入力へ切り替え|
 |ADJUST+BSPC|QWERTY配列へ切り替え|
 |ADJUST+ENT|Eucalyn配列へ切り替え|
 |親指中央キー|単押しでスペース、他のキーと同時押しでシフト|

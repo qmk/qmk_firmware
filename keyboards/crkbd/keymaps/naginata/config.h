@@ -23,6 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT     
 #define PRODUCT         Crkbd Naginata Style
 
+// 薙刀式
+#define NAGINATA_EDIT_MODE
+#define COMBO_COUNT 1
+#define COMBO_TERM 300
+// 薙刀式
+
 //#define USE_MATRIX_I2C
 
 #define QMK_ESC_OUTPUT F4 // usually COL
@@ -36,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // #define SSD1306OLED
-#define NAGINATA_EDIT_MODE
 
 #define USE_SERIAL_PD2
 

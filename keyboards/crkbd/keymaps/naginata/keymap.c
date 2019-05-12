@@ -36,6 +36,21 @@ extern uint8_t is_master;
 #define _RAISE 13
 #define _ADJUST 16
 
+// 薙刀式
+// 
+enum combo_events {
+  NAGINATA_ON_CMB,
+};
+
+// QWERTY
+const uint16_t PROGMEM kanaon_combo[] = {KC_H, KC_J, COMBO_END};
+// Eucalyn
+// const uint16_t PROGMEM kanaon_combo[] = {KC_G, KC_T, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+  [NAGINATA_ON_CMB] = COMBO_ACTION(kanaon_combo),
+};
+// 薙刀式
+
 enum custom_keycodes {
   KC_QWERTY = SAFE_RANGE,
   KC_EUCALYN,
@@ -92,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,   ENT,\
+       LCTL,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  RALT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RALT,\
+       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
@@ -104,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         TAB,     Q,     W,  COMM,   DOT,  SCLN,                      M,     R,     D,     Y,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,   ENT,\
+       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  RALT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RALT,\
+       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
@@ -154,14 +169,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                       /                           -       
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   SLSH,     7,     8,     9,  MINS,   DEL,\
+  //             !      @      #      $      %                             /                           -       
+        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   LPRN,  SLSH,     7,     8,     9,  MINS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "      ~                       *                           +       
-      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  TILD,                   ASTR,     4,     5,     6,  PLUS,   EQL,\
+  //             ^      &      '      "     `                              *                           +       
+      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  GRV,                    RPRN,  ASTR,     4,     5,     6,  PLUS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      `     _       ¥                                                   .                           
-      XXXXX,  ABLS,  PIPE,   GRV,  UNDS,  BSLS,                      0,     1,     2,     3,   DOT,   ENT,\
+  //             \      |      ~     _       ¥                                                         .                           
+      XXXXX,  ABLS,  PIPE,  TILD,  UNDS,  BSLS,                    EQL,     0,     1,     2,     3,   DOT, \
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
@@ -176,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
   //                           [      ]                                                     
-      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX,  KANA2,\
+      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX, KANA2,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
@@ -184,9 +199,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LHUI,  LHUD,  WAKE, XXXXX, RESET, UNDGL,                   LTOG, XXXXX,  VOLU, XXXXX,  BRIU, QWERTY,\
+       LHUI,  LHUD,  WAKE, XXXXX, RESET, UNDGL,                   LTOG, XXXXX,  VOLU, XXXXX,  BRIU,QWERTY,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LSAI,  LSAD, XXXXX, XXXXX, XXXXX, XXXXX,                   LMOD,  MRWD,  VOLD,  MFFD,  BRID, EUCALYN,\
+       LSAI,  LSAD, XXXXX, XXXXX, XXXXX, XXXXX,                   LMOD,  MRWD,  VOLD,  MFFD,  BRID,EUCALYN,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
        LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
@@ -283,15 +298,15 @@ void update_led(void);
 void update_led() {
   if (layer_state_is(_LOWER) && !isLeftHand) {
     // rgblight_setrgb_at(0, 0, 200, 7);
-    rgblight_sethsv_at(200, 100, 255, 10);
-    rgblight_sethsv_at(200, 100, 255, 11);
-    rgblight_sethsv_at(200, 100, 255, 12);
     rgblight_sethsv_at(200, 100, 255, 15);
     rgblight_sethsv_at(200, 100, 255, 16);
     rgblight_sethsv_at(200, 100, 255, 17);
     rgblight_sethsv_at(200, 100, 255, 18);
     rgblight_sethsv_at(200, 100, 255, 19);
     rgblight_sethsv_at(200, 100, 255, 20);
+    rgblight_sethsv_at(200, 100, 255, 21);
+    rgblight_sethsv_at(200, 100, 255, 22);
+    rgblight_sethsv_at(200, 100, 255, 23);
   }
   if (layer_state_is(_RAISE) && !isLeftHand) {
     rgblight_sethsv_at(200, 100, 255, 11);
@@ -354,10 +369,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // 薙刀式
         naginata_off();
         // 薙刀式
-        register_code(KC_LANG2); // Mac
-        register_code(KC_MHEN); // Win
-        unregister_code(KC_LANG2); // Mac
-        unregister_code(KC_MHEN); // Win
       }
       return false;
       break;
@@ -366,10 +377,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // 薙刀式
         naginata_on();
         // 薙刀式
-        register_code(KC_LANG1); // Mac
-        register_code(KC_HENK); // Win
-        unregister_code(KC_LANG1); // Mac
-        unregister_code(KC_HENK); // Win
       }
       return false;
       break;
@@ -399,6 +406,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
+      return false;
       break;
   }
 
@@ -419,10 +427,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // 薙刀式
           naginata_off();
           // 薙刀式
-          register_code(KC_LANG2); // Mac
-          register_code(KC_MHEN); // Win
-          unregister_code(KC_LANG2); // Mac
-          unregister_code(KC_MHEN); // Win
           lower_pressed = false;
         }
       }
@@ -445,10 +449,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // 薙刀式
           naginata_on();
           // 薙刀式
-          register_code(KC_LANG1); // Mac
-          register_code(KC_HENK); // Win
-          unregister_code(KC_LANG1); // Mac
-          unregister_code(KC_HENK); // Win
           raise_pressed = false;
         }
       }
@@ -461,14 +461,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
+  naginata_mode(keycode, record);
   #ifdef NAGINATA_EDIT_MODE
-  if (process_naginata_edit(keycode, record)) {
-    return process_naginata(keycode, record);
-  } else {
-    return false;
-  }
+    bool a = process_naginata(keycode, record);
+    bool b = process_naginata_edit(keycode, record);
+    return a & b;
   #else
-  return process_naginata(keycode, record);
+    return process_naginata(keycode, record);
   #endif
   // 薙刀式
 }
+
+// 薙刀式
+// なぜかcombo 2回目しか起動しない
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case NAGINATA_ON_CMB:
+      if (pressed && !naginata_state()) {
+        naginata_on();
+      }
+      break;
+  }
+}
+// 薙刀式

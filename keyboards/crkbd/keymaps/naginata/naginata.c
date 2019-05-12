@@ -5,6 +5,7 @@
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
 static bool is_naginata = false; // 薙刀式がオンかオフか
+static bool is_naginata_edit = false; // 薙刀式編集モードがオンかオフか
 static uint8_t naginata_layer = 0; // レイヤー番号
 static uint16_t ng_shiftkey = 0; // 薙刀式のシフトキー
 static bool ng_shift = false; // シフトキーの状態
@@ -12,10 +13,10 @@ static bool ng_space = false; // シフトキーかスペース入力か
 static uint8_t n_modifier = 0; // 押しているmodifierキーの数
 
 #ifdef NAGINATA_EDIT_MODE
-static uint8_t naginata_elayerl = 0; // レイヤー番号
-static uint8_t naginata_elayerr = 0; // レイヤー番号
-static uint8_t n_editl = 0; // 押しているmodifierキーの数
-static uint8_t n_editr = 0; // 押しているmodifierキーの数
+static uint8_t naginata_elayerl = 0; // 左編集レイヤー番号
+static uint8_t naginata_elayerr = 0; // 右編集レイヤー番号
+static uint8_t n_editl = 0; // 押しているJKキーの数
+static uint8_t n_editr = 0; // 押しているFGキーの数
 
 // 編集モードキー
 static uint16_t kchr10;
@@ -236,27 +237,33 @@ void set_naginata(uint8_t layer, uint16_t shiftkey) {
   ng_shiftkey = shiftkey;
 }
 
-#ifdef NAGINATA_EDIT_MODE
-void set_naginata_edit(uint8_t layer1, uint8_t layer2, uint16_t ke1, uint16_t ke2, uint16_t ke3, uint16_t ke4, uint16_t ke5) {
-  naginata_elayerl = layer1;
-  naginata_elayerr = layer2;
-  kchr10 = ke1;
-  kchr20 = ke2;
-  kchr30 = ke3;
-  kup5   = ke4;
-  kdown5 = ke5;
-}
-#endif
-
 // 薙刀式をオンオフ
 void naginata_on(void) {
   is_naginata = true;
+  naginata_clear();
   layer_on(naginata_layer);
+#ifdef NAGINATA_EDIT_MODE
+  naginata_edit_off();
+#endif
+
+  register_code(KC_LANG1); // Mac
+  unregister_code(KC_LANG1); // Mac
+  register_code(KC_HENK); // Win
+  unregister_code(KC_HENK); // Win
 }
 
 void naginata_off(void) {
   is_naginata = false;
+  naginata_clear();
   layer_off(naginata_layer);
+#ifdef NAGINATA_EDIT_MODE
+  naginata_edit_off();
+#endif
+
+  register_code(KC_LANG2); // Mac
+  unregister_code(KC_LANG2); // Mac
+  register_code(KC_MHEN); // Win
+  unregister_code(KC_MHEN); // Win
 }
 
 // 薙刀式の状態
@@ -281,6 +288,9 @@ void naginata_type(void) {
     case B_V|B_M:
       register_code(KC_ENT);
       unregister_code(KC_ENT);
+      break;
+    case B_F|B_G:
+      naginata_off();
       break;
     default:
       // キーから仮名に変換して出力する。
@@ -324,6 +334,7 @@ void naginata_clear(void) {
   ng_space = false;
 }
 
+// 同じキーを繰り返し入力
 void repeatkey(uint16_t k, uint8_t n) {
   for (int i = 0; i < n; i++) {
     register_code(k);
@@ -331,9 +342,9 @@ void repeatkey(uint16_t k, uint8_t n) {
   }
 }
 
-// 薙刀式の処理
-bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata) return true;
+// 入力モードか編集モードかを確認する
+void naginata_mode(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata) return;
 
   // modifierが押されたらレイヤーをオフ
   switch (keycode) {
@@ -348,6 +359,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         n_modifier++;
         layer_off(naginata_layer);
+        #ifdef NAGINATA_EDIT_MODE
+        naginata_edit_off();
+        #endif
       } else {
         n_modifier--;
         if (n_modifier == 0) {
@@ -359,20 +373,21 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
   if (n_modifier == 0) {
     #ifdef NAGINATA_EDIT_MODE
+    // 編集モードに入るかチェック
     if (record->event.pressed) {
       switch (keycode) {
         case KC_D:
         case KC_F:
           n_editr++;
-          if (n_editr == 2) {
-            layer_on(naginata_elayerr);
+          if (n_editr >= 2) {
+            naginata_edit_on(1);
           }
           break;
         case KC_J:
         case KC_K:
           n_editl++;
-          if (n_editl == 2) {
-            layer_on(naginata_elayerl);
+          if (n_editl >= 2) {
+            naginata_edit_on(0);
           }
           break;
       }
@@ -380,67 +395,109 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
         case KC_D:
         case KC_F:
-          n_editr--;
-          layer_off(naginata_elayerr);
-          break;
         case KC_J:
         case KC_K:
-          n_editl--;
-          layer_off(naginata_elayerl);
+          n_editl = 0;
+          n_editr = 0;
+          naginata_edit_off();
           break;
       }
     }
     #endif
+  }
+}
 
-    if (record->event.pressed) {
-      switch (keycode) {
-        case KC_A ... KC_Z:
-        case KC_SLSH:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-          ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
-          ng_chrcount++;
-          if (ng_chrcount > 2) naginata_type(); // 3文字押したら処理を開始
-          return false;
-          break;
-      }
-      if (keycode == ng_shiftkey) {
-        ng_shift = true;
-        if (ng_chrcount == 0) ng_space = true;
+// 薙刀式の入力処理
+bool process_naginata(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata || is_naginata_edit || n_modifier > 0) return true;
+
+  if (record->event.pressed) {
+    switch (keycode) {
+      case KC_A ... KC_Z:
+      case KC_SLSH:
+      case KC_DOT:
+      case KC_COMM:
+      case KC_SCLN:
+        ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
+        ng_chrcount++;
+        if (ng_chrcount > 2) naginata_type(); // 3文字押したら処理を開始
         return false;
-      }
-    } else { // key release
-      switch (keycode) {
-        case KC_A ... KC_Z:
-        case KC_SLSH:
-        case KC_DOT:
-        case KC_COMM:
-        case KC_SCLN:
-          // 3文字入力していなくても、どれかキーを離したら処理を開始する
-          if (ng_chrcount > 0) naginata_type();
-          return false;
-          break;
-      }
-      if (keycode == ng_shiftkey) {
-        if (ng_space) { // シフト単独押し
-          register_code(KC_SPC);
-          unregister_code(KC_SPC);
-          ng_space = false;
-        } else if (ng_chrcount > 0) { // シフトを先に離すとき
-          naginata_type();
-        }
-        ng_shift = false;
+        break;
+    }
+    if (keycode == ng_shiftkey) {
+      ng_shift = true;
+      if (ng_chrcount == 0) ng_space = true;
+      return false;
+    }
+  } else { // key release
+    switch (keycode) {
+      case KC_A ... KC_Z:
+      case KC_SLSH:
+      case KC_DOT:
+      case KC_COMM:
+      case KC_SCLN:
+        // 3文字入力していなくても、どれかキーを離したら処理を開始する
+        if (ng_chrcount > 0) naginata_type();
         return false;
+        break;
+    }
+    if (keycode == ng_shiftkey) {
+      if (ng_space) { // シフト単独押し
+        register_code(KC_SPC);
+        unregister_code(KC_SPC);
+        ng_space = false;
+      } else if (ng_chrcount > 0) { // シフトを先に離すとき
+        naginata_type();
       }
+      ng_shift = false;
+      return false;
     }
   }
   return true;
 }
 
+
 #ifdef NAGINATA_EDIT_MODE
+
+// 編集モードのレイヤー、マクロ
+void set_naginata_edit(uint8_t layer1, uint8_t layer2, uint16_t ke1, uint16_t ke2, uint16_t ke3, uint16_t ke4, uint16_t ke5) {
+  naginata_elayerl = layer1;
+  naginata_elayerr = layer2;
+  kchr10 = ke1;
+  kchr20 = ke2;
+  kchr30 = ke3;
+  kup5   = ke4;
+  kdown5 = ke5;
+}
+
+// 薙刀式編集モードをオンオフ
+void naginata_edit_on(uint8_t lr) {
+  is_naginata_edit = true;
+  if (lr == 0) {
+    layer_on(naginata_elayerl);
+  } else {
+    layer_on(naginata_elayerr);
+  }
+  naginata_clear();
+}
+
+void naginata_edit_off(void) {
+  is_naginata_edit = false;
+  if (layer_state_is(naginata_elayerl))
+    layer_off(naginata_elayerl);
+  if (layer_state_is(naginata_elayerr))
+    layer_off(naginata_elayerr);
+}
+
+// 薙刀式編集モードの状態
+bool naginata_edit_state(void) {
+  return is_naginata_edit;
+}
+
 // 編集モード
 bool process_naginata_edit(uint16_t keycode, keyrecord_t *record) {
+  if (!is_naginata || !is_naginata_edit) return true;
+
   if (record->event.pressed) {
     if (keycode == kchr10) {
       register_code(KC_LCMD);
