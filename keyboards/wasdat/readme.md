@@ -2,10 +2,10 @@
 
 ![wasdat](https://maartenwut.com/wp-content/uploads/2019/02/by72xkc5-600x600.jpg)
 
-A drop-in replacement controller for the WASD v2 TKL and 104-key models.
+A drop-in replacement controller for the WASD v2 TKL and fullsize models.
 
 Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)  
-Hardware Supported: Wasdat  
+Hardware Supported: WASD v2 TKL/Fullsize ANSI & ISO with Wasdat controller  
 Hardware Availability: [maartenwut.com](https://maartenwut.com/product/wasdat/)
 
 ## Flashing
