@@ -15,11 +15,20 @@
  */
 #include QMK_KEYBOARD_H
 
+
+bool is_alt_tab_active = false;    // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        // we will be using them soon.
+
+enum custom_keycodes {             // Make sure have the awesome keycode ready
+  ALT_TAB = SAFE_RANGE,
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, \
-        KC_WH_UP, KC_WH_UP, KC_WH_L, \
-        KC_WH_DN, TT(1), KC_WH_R \
+        KC_WH_U, ALT_TAB, KC_WH_L, \
+        KC_WH_D, TT(1), KC_WH_R \
     ),
     [1] = LAYOUT(
         RESET,   KC_ACL0, KC_ACL1, \
@@ -33,14 +42,40 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_MS_LEFT);
         } else {
-            tap_code(KC_MS_RIGHT;
+            tap_code(KC_MS_RIGHT);
         }
     }
     else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_MS_UP);
+            tap_code(KC_MS_U);
         } else {
-            tap_code(KC_MS_DN);
+            tap_code(KC_MS_D);
         }
     }
+}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {               // This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
 }
