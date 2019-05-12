@@ -216,6 +216,15 @@ rgblight_set(); // Utility functions do not call rgblight_set() automatically, s
 |`rgblight_sethsv_master(h, s, v)`           |Set the LEDs on the master side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 |`rgblight_sethsv_slave(h, s, v)`            |Set the LEDs on the slave side to the given HSV value, where `h`/`s`/`v` are between 0 and 255 (not written to EEPROM) |
 
+Example:
+```c
+rgblight_sethsv(HSV_WHITE, 0); // led 0
+rgblight_sethsv(HSV_RED,   1); // led 1
+rgblight_sethsv(HSV_GREEN, 2); // led 2
+// The above functions automatically calls rgblight_set(), so there is no need to call it explicitly.
+// Note that it is inefficient to call repeatedly.
+```
+
 #### effect mode change
 |Function                                    |Description  |
 |--------------------------------------------|-------------|
