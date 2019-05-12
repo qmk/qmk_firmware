@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 
 // Use I2C or Serial, not both
