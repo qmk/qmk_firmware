@@ -10,6 +10,6 @@ BACKLIGHT_ENABLE = no  # leds under keycaps
 #NKRO_ENABLE      = yes
 
 # make firmware smaller
-EXTRAFLAGS += -flto
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
