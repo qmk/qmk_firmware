@@ -17,6 +17,9 @@
 #ifdef LEADER_ENABLE
 
 #include "process_leader.h"
+#ifdef __arm__
+#   include <string.h>
+#endif
 
 #ifndef LEADER_TIMEOUT
   #define LEADER_TIMEOUT 300
