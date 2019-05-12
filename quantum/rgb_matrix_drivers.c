@@ -76,7 +76,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 static void flush( void )
 {
     IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, 0);
-    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_2, 2);
+    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_2, 1);
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
