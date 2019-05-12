@@ -43,9 +43,9 @@ enum combo_events {
 };
 
 // QWERTY
-// const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
 // Eucalyn
-const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+// const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
 };
