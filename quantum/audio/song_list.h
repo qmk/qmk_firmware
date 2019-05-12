@@ -790,6 +790,17 @@
   B__NOTE(_DF5), W__NOTE(_BF4), W__NOTE(_BF5), W__NOTE(_BF5), W__NOTE(_BF5), BD_NOTE(_AF5), W__NOTE(_DF5), H__NOTE(_BF4), \
   H__NOTE(_C5), H__NOTE(_DF5), H__NOTE(_GF5), H__NOTE(_GF5), BD_NOTE(_F5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), \
   H__NOTE(_DF5), H__NOTE(_A4), B__NOTE(_AF4), W__NOTE(_DF5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_DF5), \
-  H__NOTE(_EF5), BD_NOTE(_F5), 
+  H__NOTE(_EF5), BD_NOTE(_F5),
+
+#define KATAMARI_ROLLING_STAR \
+    ED_NOTE(_G4),             \
+    ED_NOTE(_AS5),            \
+    E__NOTE(_B5),             \
+    E__NOTE(_B5),             \
+    ED_NOTE(_AS5),            \
+    ED_NOTE(_G4),             \
+    ED_NOTE(_E4),             \
+    E__NOTE(_C4),             \
+    Q__NOTE(_C4),             \
 
 #endif
