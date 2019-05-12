@@ -39,4 +39,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-DEFAULT_FOLDER = zen/rev2
+DEFAULT_FOLDER = rgbkb/zen/rev2

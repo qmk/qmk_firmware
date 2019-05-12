@@ -16,11 +16,11 @@ A build guide and more info for this keyboard can be found here: [Zen Build Guid
 
 Make example for this keyboard (after setting up your build environment):
 
-    make zen/rev2:default
+    make rgbkb/zen/rev2:default
 
 To build for a Proton-C:
 
-    make zen/rev2:default CTPC=yes
+    make rgbkb/zen/rev2:default CTPC=yes
 
 **Note:** The Proton-C does not have split keyboard, or encoder support. Also OLED driver support is untested. Will update as status changes.
 

@@ -123,10 +123,10 @@ $ cd qmk_firmware
 
 build
 ```
-$ make sol:default
+$ make rgbkb/sol:default
 ```
 
 After the initial flash with AVRdudess, you should be able to flash using this:
 ```
-$ make sol:default:dfu
+$ make rgbkb/sol:default:dfu
 ```

@@ -66,4 +66,4 @@ HD44780_ENABLE = no 	      # Enable support for HD44780 based LCDs (+400)
 SPLIT_KEYBOARD = yes
 LAYOUTS = ortho_4x12 ortho_5x12
 
-DEFAULT_FOLDER = zygomorph/rev1
+DEFAULT_FOLDER = rgbkb/zygomorph/rev1

@@ -112,10 +112,10 @@ $ cd qmk_firmware
 
 build
 ```
-$ make zygomorph:default
+$ make rgbkb/zygomorph:default
 ```
 
 After the initial flash with AVRdudess, you should be able to flash using this:
 ```
-$ make zygomorph:default:dfu
+$ make rgbkb/zygomorph:default:dfu
 ```
