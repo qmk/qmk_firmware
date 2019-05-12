@@ -13,6 +13,6 @@ Make firmware .hex for this keyboard (after setting up your build environment):
 
 Example of flashing this keyboard (or use [QMK Toolbox](https://github.com/qmk/qmk_toolbox)):
 
-    make keycapsss/o4l_5x12/default:avrdude
+    make keycapsss/o4l_5x12:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
