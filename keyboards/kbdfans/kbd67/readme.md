@@ -10,10 +10,10 @@ A 65% keyboard sold in three variants.
 The rev1 PCB is sold under the name "KBD65".
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: KBD67 rev1, rev2, hotswap    
+Hardware Supported: KBD67 rev1, rev2, hotswap  
 Hardware Availability: KBDFans  
 
-Make example for this keyboard (after setting up your build environment):
+Make examples for this keyboard (after setting up your build environment):
 
     make kbdfans/kbd67/rev1:default
     make kbdfans/kbd67/rev2:default
