@@ -295,17 +295,18 @@ void MBI5042GP_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) 
     /*
      * @brief Pick a colour! Any colour!
      */
-    rgb_led led;
+    //led_config_t led;
+    mbi_led led_pos;
 
     if ( index >= 0 && index < DRIVER_LED_TOTAL ) {
         // Convert index into row/column
-        led = g_rgb_leds[index];
+        led_pos = g_mbi_leds[index];
 
         // MBI5042GP_planar_recode(led.matrix_co.row, 15 - (led.matrix_co.col), red, green, blue);
         if (index == 27 && IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-            MBI5042GP_planar_recode(led.matrix_co.row, led.matrix_co.col, 0xff, 0xff, 0xff);
+            MBI5042GP_planar_recode(led_pos.row, led_pos.col, 0xff, 0xff, 0xff);
         } else {
-            MBI5042GP_planar_recode(led.matrix_co.row, led.matrix_co.col, red, green, blue);
+            MBI5042GP_planar_recode(led_pos.row, led_pos.col, red, green, blue);
         }
 
         g_pwm_buffer_update_required = true;

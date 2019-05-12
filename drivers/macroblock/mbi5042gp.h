@@ -22,6 +22,16 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
+
+typedef struct mbi_led {
+  uint8_t row;
+  uint8_t col;
+} __attribute__((packed)) mbi_led;
+
+
+extern const mbi_led g_mbi_leds[DRIVER_LED_TOTAL];
+
 /* #define MBI5042GP_CFGREG_DEFAULT 0x002b0ul */
 #define MBI5042GP_CFGREG_DEFAULT 0b1000010000000000u
 
