@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * | Sft[ |   Z  |   X  |   C  |  V   |  B   | RGB  |  |RGBRST|  N   |  M   |  ,   |  .   |  /   | Sft] |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win | LOWER| RAISE| Alt  | Space|RGBRMOD| |RGBMOD| Space| Left |  Up  | Down | Right| Ctrl |
+   * | Ctl- |  Win | LOWER| RAISE| Alt  | Space|RGBRMOD| |RGBMOD| Space| Left |  Up  | Down | Right| Ctl= |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
