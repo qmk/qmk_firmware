@@ -502,17 +502,6 @@
     W__NOTE(_C5),      \
     W__NOTE(_BF4),
 
-#define KATAMARI_ROLLING_STAR \
-    ED_NOTE(_G4),             \
-    ED_NOTE(_AS5),            \
-    E__NOTE(_B5),             \
-    E__NOTE(_B5),             \
-    ED_NOTE(_AS5),            \
-    ED_NOTE(_G4),             \
-    ED_NOTE(_E4),             \
-    E__NOTE(_C4),             \
-    Q__NOTE(_C4),             \
-
 /* Prelude music from Final Fantasy */
 #define FF_PRELUDE \
   M__NOTE(_C3, 20), M__NOTE(_D3, 20), M__NOTE(_E3, 20), M__NOTE(_G3, 20), \

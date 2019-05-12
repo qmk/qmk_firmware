@@ -7,7 +7,7 @@
 
 
 #ifdef AUDIO_ENABLE
-float tone_katamari_rolling_star[][2] = SONG(KATAMARI_ROLLING_STAR);
+// float tone_katamari_rolling_star[][2] = SONG(KATAMARI_ROLLING_STAR);
 #endif // AUDIO_ENABLE
 
 
@@ -58,7 +58,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PV_KTMR:
       if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_katamari_rolling_star);
+        // PLAY_SONG(tone_katamari_rolling_star);
 #endif
       }
       return false;
