@@ -131,12 +131,20 @@ extern uint32_t default_layer_state;
     #include "process_terminal_nop.h"
 #endif
 
+#ifdef SPACE_CADET_ENABLE
+  #include "process_space_cadet.h"
+#endif
+
 #ifdef HD44780_ENABLE
     #include "hd44780.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+    #include "oled_driver.h"
 #endif
 
 //Function substitutions to ease GPIO manipulation
@@ -256,8 +264,12 @@ void tap_code16(uint16_t code);
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
 void backlight_task(void);
+void backlight_task_internal(void);
+void backlight_on(uint8_t backlight_pin);
+void backlight_off(uint8_t backlight_pin);
 
 #ifdef BACKLIGHT_BREATHING
+void breathing_task(void);
 void breathing_enable(void);
 void breathing_pulse(void);
 void breathing_disable(void);
