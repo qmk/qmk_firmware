@@ -6,14 +6,14 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _NAV 2
-
+enum layer_number {
+    _QWERTY = 0,
+    _NAV
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  NAV,
-
+  NAV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
