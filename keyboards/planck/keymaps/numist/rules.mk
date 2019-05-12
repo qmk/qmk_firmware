@@ -1,0 +1,5 @@
+NKRO_ENABLE = yes
+COMMAND_ENABLE = yes
+STENO_ENABLE = yes
+
+SRC += muse.c
