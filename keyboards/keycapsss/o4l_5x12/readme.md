@@ -4,7 +4,7 @@ O4L 5x12
 A ortholinear 5x12 keyboard made and sold by Keycapsss. [More info at Keycapsss.com](https://keycapsss.com).
 
 Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/ben_roe)  
-Hardware Supported: Pro Micro
+Hardware Supported: Pro Micro  
 Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
 
 Make firmware .hex for this keyboard (after setting up your build environment):
