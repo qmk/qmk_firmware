@@ -255,5 +255,30 @@ LIB8STATIC uint8_t cos8( uint8_t theta)
     return sin8( theta + 64);
 }
 
+/// Fast 16-bit approximation of atan2(x).
+/// @returns atan2, value between 0 and 255
+LIB8STATIC uint8_t atan2_8(int16_t dy, int16_t dx)
+{
+    if (dy == 0)
+    {
+        if (dx >= 0)
+            return 0;
+        else
+            return 128;
+    }
+
+    int16_t abs_y = dy > 0 ? dy : -dy;
+    int8_t a;
+
+    if (dx >= 0)
+        a = 32 - (32 * (dx - abs_y) / (dx + abs_y));
+    else
+        a = 96 - (32 * (dx + abs_y) / (abs_y - dx));
+
+    if (dy < 0)
+        return -a;     // negate if in quad III or IV
+    return a;
+}
+
 ///@}
 #endif
