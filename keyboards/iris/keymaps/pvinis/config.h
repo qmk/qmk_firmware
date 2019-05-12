@@ -1,7 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
 
 #ifdef PRODUCT
 #undef PRODUCT
