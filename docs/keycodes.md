@@ -216,6 +216,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
 |`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
 |`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
+|`KC_LCPO`      |           |Left Control when held, `(` when tapped                              |
+|`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
+|`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
+|`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
+|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
 |`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
 |`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
 |`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
