@@ -631,6 +631,7 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
   rgblight_setrgb_range(tmp_led.r, tmp_led.g, tmp_led.b, start, end);
 }
 
+#ifndef RGBLIGHT_SPLIT
 void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_setrgb_range(r, g, b, 0 , (uint8_t) RGBLED_NUM/2);
 }
@@ -646,6 +647,7 @@ void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) {
   rgblight_sethsv_range(hue, sat, val, (uint8_t) RGBLED_NUM/2, (uint8_t) RGBLED_NUM);
 }
+#endif // ifndef RGBLIGHT_SPLIT
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
