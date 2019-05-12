@@ -420,7 +420,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case KC_SCLN:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
-        if (ng_chrcount > 2) naginata_type(); // 3文字押したら処理を開始
+        if (ng_chrcount > 2) {
+          naginata_type(); // 3文字押したら処理を開始
+        }
         return false;
         break;
     }
@@ -437,8 +439,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case KC_COMM:
       case KC_SCLN:
         // 3文字入力していなくても、どれかキーを離したら処理を開始する
-        if (ng_chrcount > 0) naginata_type();
-        return false;
+        if (ng_chrcount > 0) {
+          naginata_type();
+          return false;
+        }
         break;
     }
     if (keycode == ng_shiftkey) {
@@ -473,6 +477,8 @@ void set_naginata_edit(uint8_t layer1, uint8_t layer2, uint16_t ke1, uint16_t ke
 // 薙刀式編集モードをオンオフ
 void naginata_edit_on(uint8_t lr) {
   is_naginata_edit = true;
+  n_editl = 0;
+  n_editr = 0;
   if (lr == 0) {
     layer_on(naginata_elayerl);
   } else {
@@ -483,6 +489,8 @@ void naginata_edit_on(uint8_t lr) {
 
 void naginata_edit_off(void) {
   is_naginata_edit = false;
+  n_editl = 0;
+  n_editr = 0;
   if (layer_state_is(naginata_elayerl))
     layer_off(naginata_elayerl);
   if (layer_state_is(naginata_elayerr))

@@ -43,11 +43,11 @@ enum combo_events {
 };
 
 // QWERTY
-const uint16_t PROGMEM kanaon_combo[] = {KC_H, KC_J, COMBO_END};
+// const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
 // Eucalyn
-// const uint16_t PROGMEM kanaon_combo[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB] = COMBO_ACTION(kanaon_combo),
+  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
 };
 // 薙刀式
 
@@ -461,19 +461,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
-  naginata_mode(keycode, record);
-  #ifdef NAGINATA_EDIT_MODE
-    bool a = process_naginata(keycode, record);
-    bool b = process_naginata_edit(keycode, record);
-    return a & b;
-  #else
-    return process_naginata(keycode, record);
-  #endif
+  if (naginata_state()) {
+    naginata_mode(keycode, record);
+    #ifdef NAGINATA_EDIT_MODE
+      bool a = process_naginata(keycode, record);
+      bool b = process_naginata_edit(keycode, record);
+      return a & b;
+    #else
+      return process_naginata(keycode, record);
+    #endif
+  }
+  return true;
   // 薙刀式
 }
 
 // 薙刀式
-// なぜかcombo 2回目しか起動しない
+// IME ONのcombo
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
     case NAGINATA_ON_CMB:
