@@ -8,6 +8,12 @@ Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)
 Hardware Supported: Wasdat  
 Hardware Availability: [maartenwut.com](https://maartenwut.com/product/wasdat/)
 
+## Flashing
+
+The WASD has no reset button, but it does have a bank of DIP switches on the bottom, so to enter the bootloader on this board, simply toggle the first one on and off.
+
+---
+
 Make example for this keyboard (after setting up your build environment):
 
     make wasdat:default
