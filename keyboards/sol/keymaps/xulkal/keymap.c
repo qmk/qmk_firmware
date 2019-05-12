@@ -92,7 +92,6 @@ static void render_logo(void) {
   oled_write_P(sol_logo, false);
 }
 
-extern rgb_config_t rgb_matrix_config;
 
 static void render_status(void) {
   // Render to mode icon

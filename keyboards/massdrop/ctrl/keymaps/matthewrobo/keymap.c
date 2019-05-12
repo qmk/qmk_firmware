@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-extern bool g_suspend_state;
 
 enum ctrl_layers {
 	_QWERTY,
@@ -31,7 +30,6 @@ enum ctrl_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define _V_V_V_ KC_TRNS
-extern rgb_config_t rgb_matrix_config;
 extern bool autoshift_enabled;
 
 
