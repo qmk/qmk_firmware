@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_kc( \
       XXXX,  F1,   F2,   F3,   F4,   F5,                F6,   F7,   F8,   F9,  F10,  F11, \
       XXXX, XXXX, PAUS, SLCK, INS,  XXXX,             XXXX,  INS, SLCK, PAUS, XXXX,  F12, \
-      ____, HOME, NLCK, UP,   DEL,  PGUP,             PGUP,  DEL,   UP, NLCK, HOME, ____, \
+      ____, HOME, XXXX, UP,   DEL,  PGUP,             PGUP,  DEL,   UP, XXXX, HOME, ____, \
       ____, END,  LEFT, DOWN, RGHT, PGDN, XXXX, XXXX, PGDN, LEFT, DOWN, RGHT,  END, ____, \
       ____, ____, PSCR, ____, ____, ____,  ADJ,  ADJ, ____, ____, ____, PSCR, ____, ____ \
       ),
@@ -331,67 +331,6 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
     if ( current_default_layer == 15 ) current_default_layer -= 11;
     return state;
 }
-
-#ifdef RGBLIGHT_ENABLE
-#define HSV_BLACK          0, 0, 0
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        sethsv_raw(HSV_WHITE, (LED_TYPE *)&led[0]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
-    }
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        sethsv_raw(HSV_GREEN, (LED_TYPE *)&led[1]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
-    }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        sethsv_raw(HSV_YELLOW, (LED_TYPE *)&led[2]);
-    } else {
-        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
-    }
-    rgblight_set();
-}
-
-void keyboard_post_init_user(void) {
-    rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user((1<<USB_LED_CAPS_LOCK)|(1<<USB_LED_NUM_LOCK)|(1<<USB_LED_SCROLL_LOCK));
-    wait_ms(300);
-    led_set_user(0);
-}
-
-void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
-  LED_TYPE tmp_led;
-  sethsv_raw(hue, sat, val, &tmp_led);
-  for (uint8_t i = start; i < end; i++) {
-      led[i] = tmp_led;
-  }
-  rgblight_set();
-}
-
-uint32_t layer_state_set_kb(uint32_t state) {
-    switch (biton32(state)) {
-    case _RAISE:
-      rgblight_set_effect_range((MATRIX_COLS-1), RGBLED_NUM-(MATRIX_COLS-1));
-      my_sethsv_range(HSV_WHITE, 3, (MATRIX_COLS-1));
-      break;
-    case _LOWER:
-      rgblight_set_effect_range((MATRIX_COLS-1), RGBLED_NUM-(MATRIX_COLS-1));
-      my_sethsv_range(HSV_GREEN, 3, (MATRIX_COLS-1));
-      break;
-    case _ADJUST:
-      rgblight_set_effect_range((MATRIX_COLS-1)*2, RGBLED_NUM-(MATRIX_COLS-1)*2);
-      my_sethsv_range(HSV_RED, 3, (MATRIX_COLS-1)*2);
-      break;
-    default:
-      rgblight_set_effect_range(3, RGBLED_NUM-3);
-      rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
-      break;
-    }
-    return state;
-}
-
-#endif
 
 void update_base_layer(int base)
 {
