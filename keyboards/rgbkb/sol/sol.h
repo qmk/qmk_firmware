@@ -1,10 +1,8 @@
 #pragma once
 
 #include "quantum.h"
-#ifdef KEYBOARD_sol_rev1
+#ifdef KEYBOARD_rgbkb_sol_rev1
 #include "rev1.h"
-#elif KEYBOARD_sol_rev2
-#include "rev2.h"
 #endif
 
 
