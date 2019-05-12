@@ -504,8 +504,6 @@ bool naginata_edit_state(void) {
 
 // 編集モード
 bool process_naginata_edit(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata || !is_naginata_edit) return true;
-
   if (record->event.pressed) {
     if (keycode == kchr10) {
       register_code(KC_LCMD);

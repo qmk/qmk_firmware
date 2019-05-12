@@ -461,16 +461,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // 薙刀式
+  bool a = true;
   if (naginata_state()) {
     naginata_mode(keycode, record);
-    #ifdef NAGINATA_EDIT_MODE
-      bool a = process_naginata(keycode, record);
-      bool b = process_naginata_edit(keycode, record);
-      return a & b;
-    #else
-      return process_naginata(keycode, record);
-    #endif
+    a = process_naginata(keycode, record);
   }
+  #ifdef NAGINATA_EDIT_MODE
+    bool b = process_naginata_edit(keycode, record);
+    return a & b;
+  #else
+    return a;
+  #endif
   return true;
   // 薙刀式
 }
