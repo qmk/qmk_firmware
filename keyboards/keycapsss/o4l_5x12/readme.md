@@ -9,7 +9,7 @@ Hardware Availability: [Keycapsss.com](https://keycapsss.com)
 
 Make firmware .hex for this keyboard (after setting up your build environment):
 
-    make keycapsss/o4l_5x12/default
+    make keycapsss/o4l_5x12:default
 
 Example of flashing this keyboard (or use [QMK Toolbox](https://github.com/qmk/qmk_toolbox)):
 
