@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   1  |   2  |   3  |   =  |  up  |  enter |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  * |         |      |      |      |      |                                       |   0  |   .  | left | down |right |
- * |         |      |      | PgDn | PgUp |                                       |   0  |   .  | left | down |right |
+ * |         |      |      | PgUp | PgDn |                                       |   0  |   .  | left | down |right |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, 			KC_EXLM, 	KC_AT, 		KC_LCBR, 			KC_RCBR, 			KC_PIPE, 	KC_TRNS, 
 	KC_TRNS, 			KC_HASH, 	KC_DLR, 	KC_LPRN, 			KC_RPRN, 			KC_GRV, 
 	KC_TRNS, 			KC_PERC, 	KC_CIRC, 	KC_LBRC, 			KC_RBRC, 			KC_TILD, 	KC_TRNS,
-	KC_TRNS, 			KC_TRNS, 	KC_TRNS, 	KC_PGDN, 			KC_PGUP, 
+	KC_TRNS, 			KC_TRNS, 	KC_TRNS, 	KC_PGUP, 			KC_PGDN, 
 									KC_TRNS, 	KC_TRNS, 			KC_TRNS, 
 									KC_ENT, 	KC_TRNS, 			KC_TRNS, 
 	// Right hand
