@@ -1046,7 +1046,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
   }
   // Determine which LEDs should be lit up
   for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
-    cur = effect_start_pos + (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % effect_num_leds;
+    cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % effect_num_leds + effect_start_pos;
 
     if (i >= low_bound && i <= high_bound) {
       sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
