@@ -1,11 +1,24 @@
-O4L 5x12
-====
+# O4L 5x12
 
 A ortholinear 5x12 keyboard made and sold by Keycapsss. [More info at Keycapsss.com](https://keycapsss.com).
 
-Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/ben_roe)  
-Hardware Supported: Pro Micro  
-Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
+<img src="https://i.imgur.com/5p8rDme.jpg" height="500px">
+
+## Features:
+
+- MX and Choc switch support
+- RGB Underglow (12x SK6812MINI)
+- USB-C
+- PCB shape, reset button and mounting holes position same as Preonic Rev3
+- Pro Micro as controller
+
+---
+
+- Keyboard Maintainer: BenRoe [Github](https://github.com/BenRoe) / [Twitter](https://twitter.com/ben_roe)  
+- Hardware Supported: Pro Micro  
+- Hardware Availability: [Keycapsss.com](https://keycapsss.com)  
+
+
 
 Make firmware .hex for this keyboard (after setting up your build environment):
 
