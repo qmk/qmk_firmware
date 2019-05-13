@@ -123,11 +123,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // alphas vs. mods
 // Each value is for a row, bit 0 is column 0
 // Alpha=0 Mod=1
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0010000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0000000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0010000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0010000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0110000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0100000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0110000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111111000000111
 
 #define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
@@ -148,7 +148,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Dynamic keymap starts after backlight config (35+32)
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 67
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (67+(4*5*14*2)) = (67+560)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 627
+// Dynamic macro starts after dynamic keymaps (67+(4*5*15*2)) = (67+600)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 667
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

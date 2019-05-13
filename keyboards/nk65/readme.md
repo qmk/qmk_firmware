@@ -1,11 +1,11 @@
 NK65
 =========
 
-[NK65](https://mechboards.co.uk/wp-content/uploads/2018/04/IMG_20180420_140353.jpg)
+[NK65]()
 
-This is a standard fixed layout 60% PCB. It comes in three variants; ISO, ANSI and HHKB and support full per-key RGB.
+This is a standard fixed layout 65% PCB. It supports VIA and full per-key RGB.
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
+Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)   
 Hardware Supported: A 65% keyboard with STM32F303CC   
 Hardware Availability: https://novelkeys.xyz/   
 

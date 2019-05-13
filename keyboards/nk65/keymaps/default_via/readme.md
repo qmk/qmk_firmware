@@ -1,6 +1,6 @@
 The default keymap for NK65. VIA support enabled.
 =========================================================
 
-![Layout image](https://imgur.com/6go4vQV.png)
+![Layout image](https://i.imgur.com/DL0CjJO.png)
 
 Default layer is normal ANSI 65%
