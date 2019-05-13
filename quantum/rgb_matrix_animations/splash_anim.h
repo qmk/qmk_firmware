@@ -1,10 +1,16 @@
-#pragma once
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SPLASH) || !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
 
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
-extern last_hit_t g_last_hit_tracker;
+#ifndef DISABLE_RGB_MATRIX_SPLASH
+RGB_MATRIX_EFFECT(SPLASH)
+#endif
+
+#ifndef DISABLE_RGB_MATRIX_MULTISPLASH
+RGB_MATRIX_EFFECT(MULTISPLASH)
+#endif
+
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
 
 static bool rgb_matrix_multisplash_range(uint8_t start, effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -32,13 +38,14 @@ static bool rgb_matrix_multisplash_range(uint8_t start, effect_params_t* params)
   return led_max < DRIVER_LED_TOTAL;
 }
 
-bool rgb_matrix_multisplash(effect_params_t* params) {
+bool MULTISPLASH(effect_params_t* params) {
   return rgb_matrix_multisplash_range(0, params);
 }
 
-bool rgb_matrix_splash(effect_params_t* params) {
+bool SPLASH(effect_params_t* params) {
   return rgb_matrix_multisplash_range(qsub8(g_last_hit_tracker.count, 1), params);
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // !defined(DISABLE_RGB_MATRIX_SPLASH) || !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
