@@ -40,10 +40,6 @@ enum {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch (id) {
-      case KC_M_FIND:
-        return MACRODOWN( D(LGUI), T(F), END );
-      case KC_M_AGAIN:
-        return MACRODOWN( D(LGUI), T(G), END );
       case KC_M_UNDO:
         return MACRODOWN( D(LGUI), T(Z), END );
       case KC_M_CUT:
@@ -52,6 +48,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRODOWN( D(LGUI), T(C), END );
       case KC_M_PASTE:
         return MACRODOWN( D(LGUI), T(V), END );
+      case KC_M_FIND:
+        return MACRODOWN( D(LGUI), T(F), END );
+      case KC_M_AGAIN:
+        return MACRODOWN( D(LGUI), T(G), END );
     }
 
     return MACRO_NONE;
