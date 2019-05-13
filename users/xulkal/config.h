@@ -1,8 +1,6 @@
 #pragma once
 
-#ifndef TAPPING_FORCE_HOLD
-#define TAPPING_FORCE_HOLD
-#endif // TAPPING_FORCE_HOLD
+#undef TAPPING_FORCE_HOLD
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 175
@@ -12,6 +10,17 @@
 #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_MINS
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_EQL
 
+// Running out of firmware space
+#if defined(__AVR__)
+#undef RGB_MATRIX_KEYPRESSES
+#undef RGB_MATRIX_KEYRELEASES
+#undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#else
+#define RGB_MATRIX_KEYPRESSES
+#undef RGB_MATRIX_KEYRELEASES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#endif
+
 // No need for the single versions when multi performance isn't a problem =D
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
@@ -20,8 +29,10 @@
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 
 // Don't like or feel to identical to other effects
+#if defined(__AVR__)
 #define DISABLE_RGB_MATRIX_RAINBOW_BEACON
 #define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#endif
