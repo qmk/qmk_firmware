@@ -47,7 +47,6 @@ QMK是[Jun Wako](https://github.com/tmk)的[tmk_keyboard](https://github.com/tmk
 
 ```
 #pragma once
-
 // 像下面那样覆盖设置（MY_SETTING指的是你要覆盖的设置项）!
 #undef MY_SETTING
 #define MY_SETTING 4
