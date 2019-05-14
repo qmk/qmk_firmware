@@ -19,6 +19,15 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 
+  DDRB |= (1 << PB0); //init B0
+  PORTB &= ~(1 << PB0); //turn on B0
+  DDRB |= (1 << PB1);
+  PORTB |= (1<<PB1); //turn off B1
+  DDRB |= (1 << PB2);
+  PORTB |= (1<<PB2);
+  DDRB |= (1 << PB3);
+  PORTB |= (1<<PB3);
+
 	matrix_init_user();
 }
 
@@ -40,4 +49,36 @@ void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
 	led_set_user(usb_led);
+}
+
+uint32_t layer_state_set_user(uint32_t state)
+{
+  // if on layer 0, turn on B0 LED, otherwise off.
+    if (biton32(state) == 0) {
+        PORTB &= ~(1<<PB0);
+    } else {
+        PORTB |= (1<<PB0);
+    }
+
+  // if on layer 1, turn on B1 LED, otherwise off.
+    if (biton32(state) == 1) {
+        PORTB &= ~(1<<PB1);
+    } else {
+        PORTB |= (1<<PB1);
+    }
+  // if on layer 2, turn on B2 LED, otherwise off.
+    if (biton32(state) == 2) {
+        PORTB &= ~(1<<PB2);
+    } else {
+        PORTB |= (1<<PB2);
+    }
+
+  // if on layer 3, turn on B3 LED, otherwise off.
+    if (biton32(state) == 3) {
+        PORTB &= ~(1<<PB3);
+    } else {
+        PORTB |= (1<<PB3);
+    }
+
+    return state;
 }

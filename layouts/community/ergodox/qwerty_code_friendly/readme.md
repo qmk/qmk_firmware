@@ -6,8 +6,7 @@
   The this layout is a normalized qwerty,
   with some configurable keys left thumb cluster so you can use it more as needed.
 
-- Arrow keys follow VIM convention
-  (the media layer even uses arrow keys for HJKL).
+- Arrow keys follow VIM convention.
 
 - On the top row only symbols are used (not numbers),
   it's expected the symbol layer's number-pad layout will be used for numbers.

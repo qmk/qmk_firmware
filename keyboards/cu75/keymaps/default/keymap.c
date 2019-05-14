@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-//Define a clearer 'transparent' key code
-#define _______ KC_TRNS
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,

@@ -1,10 +1,12 @@
 # Gray Studio Space65
 
-A 65% keyboard with RGB underglow, backlighting and USB C, whose design was inspired by the Voyager I space probe and Apple II home computer.
+A 65% keyboard with RGB underglow, backlighting, and USB C. Its design was inspired by the Voyager I space probe and Apple II home computer.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Gray Studio Space65  
 Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=98768.0)
+
+**Reset Sequence:** Using this firmware sets `BOOTLOADER_ENABLE` to `lite`. While plugging in, hold the top left key, commonly programmed as `Esc` to put your board into bootloader mode. 
 
 Make example for this keyboard (after setting up your build environment):
 
