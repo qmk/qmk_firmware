@@ -1,1 +1,2 @@
-# The default keymap for scythe
+# The forty percent compatible keymap for scythe
+
