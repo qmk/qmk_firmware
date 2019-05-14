@@ -40,11 +40,6 @@ BOOTLOADER = caterina
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# Boot Section Size in *bytes*
-BOOTLOADER = caterina
-
-
 # Build Options
 #   comment out to disable the options.
 #
