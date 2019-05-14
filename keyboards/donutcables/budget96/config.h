@@ -39,9 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_BACKLIGHT_CLOCK
 #define BACKLIGHT_LEVELS 1
 #define RGBLIGHT_ANIMATIONS
-
-// Set bootmagic lite key to the key commonly programmed as Esc. 
-#define BOOTMAGIC_LITE_ROW 5
-#define BOOTMAGIC_LITE_COLUMN 0 
-
-/* key combination for command */

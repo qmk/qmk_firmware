@@ -8,6 +8,7 @@ RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 SPLIT_KEYBOARD    = no
+SPACE_CADET_ENABLE = no
 
 NO_SECRETS        = yes
 MACROS_ENABLED    = yes

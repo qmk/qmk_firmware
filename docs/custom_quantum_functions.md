@@ -323,6 +323,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 * Keyboard/Revision: `uint32_t layer_state_set_kb(uint32_t state)`
 * Keymap: `uint32_t layer_state_set_user(uint32_t state)`
 
+
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
 
 
@@ -460,3 +461,31 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
+
+# Custom Tapping Term
+
+By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+
+To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.  
+
+
+## Example `get_tapping_term` Implementation
+
+To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
+
+```c
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
+    case SFT_T(KC_SPC):
+      return TAPPING_TERM + 1250;
+    case LT(1, KC_GRV):
+      return 130;
+    default:
+      return TAPPING_TERM;
+  }
+}
+```
+
+### `get_tapping_term` Function Documentation
+
+Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.
