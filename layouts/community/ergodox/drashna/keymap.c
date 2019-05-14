@@ -424,8 +424,8 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
                 rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
 
-                rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
-                rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
+                rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF); // 1
+                rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00); // 2
                 rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
 
                 break;
