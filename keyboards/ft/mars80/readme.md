@@ -1,10 +1,10 @@
 # Mars 8.0
 
-A short description of the keyboard/project
+TKL Keyboard with in switch backlight and RGB Underglow. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: Mars 8.0 PCB  
+Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=93723.0)  
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -14,7 +14,7 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
-**Reset Key:** Hold down the key located at `K00`, commonly programmed as `Esc` while plugging in the keyboard.
+**Reset Key:** Hold down the key located at `K00`, commonly programmed as `Pause/Break` while plugging in the keyboard.
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
