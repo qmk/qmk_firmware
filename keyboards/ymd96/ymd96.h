@@ -16,13 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef KEYMAP_COMMON_H
-#define KEYMAP_COMMON_H
+#pragma once
 
 #include "quantum.h"
-#include "quantum_keycodes.h"
-#include "keycode.h"
-#include "action.h"
 
 void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
@@ -79,5 +75,3 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 	{ K0600, K0601, K0602, K0603, K0604, K0605, K0606, K0607, K0608, K0609, K0610, K0611, K0612, K0613, K0614, }, \
 	{ K0700, K0701, K0702, K0703, K0704, K0705, K0706, KC_NO, K0708, K0709, K0710, K0711, K0712, K0713, K0714  }  \
 }
-
-#endif
