@@ -26,14 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Mars 8.0
 #define DESCRIPTION     A custom TKL Keyboard
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 20
 
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 11
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5 }
-// #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1, C0, D7 }
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 14
+//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B5, B6, B7 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2 }
 #define UNUSED_PINS     {}
 
 #define DIODE_DIRECTION COL2ROW
@@ -49,6 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* defined by default; to change, uncomment and set to the combination you want */
 // #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0
