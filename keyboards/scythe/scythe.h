@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SCYTHE_H
-#define SCYTHE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -49,6 +48,4 @@
         { R22, R23, R24, R25, R26, R27, R28 }, \
         { R29, R30, R31, R32, ___, ___, R33 }  \
     }
-
-#endif
 
