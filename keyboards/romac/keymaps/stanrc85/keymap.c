@@ -22,7 +22,6 @@
 #define _FN2 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_NUM] = LAYOUT(
 	KC_7,     KC_8, KC_9, \
 	KC_4,     KC_5, KC_6, \
