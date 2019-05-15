@@ -1,6 +1,6 @@
 # Fox Lab Hotswap Leaf60 
 
-A short description of the keyboard/project
+A hotswap, Tsangan-layout, gasket-mount 60% keyboard.
 
 Keyboard Maintainer: [Fox Lab](https://github.com/fox-lab), [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Leaf60 powered by the ATmega32U4  
