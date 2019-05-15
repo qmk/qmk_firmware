@@ -18,6 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
+
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
@@ -30,8 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef TAPPING_FORCE_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
+
+#define SSD1306OLED
 
 // place overrides here
 
@@ -64,3 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define QMK_SPEAKER C6
 
 //#define EE_HANDS
+#undef PRODUCT
+#define PRODUCT klackygears Helix Keyboard
+
+//#define OLED_FONT_H "keyboards/helix/rev2/keymaps/klackygears/glcdfont.c"

@@ -122,7 +122,8 @@ NOTE: If you do a search/replace
 #define _________________RGB_2_____________________       RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD
 
 #define _________________MEDIA_____________________       KC_MPLY,    KC_MUTE,     KC_VOLD,      KC_VOLU,     KC_____
-#define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_MACBASE,   KC_WINBASE,   KC_____
+#define _________________MEDIA_V2__________________       KC_EJCT,    KC_MRWD,     KC_MPLY,      KC_MFFD,     KC_____
+#define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_MACBASE,   KC_WINBASE,  KC_____
 
 #define _________________PUNC_L1___________________       KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
 #define _________________PUNC_L1_ALT_______________       KC_DQT,     KC_AT,      KC_HASH,    KC_DLR,     KC_PERC

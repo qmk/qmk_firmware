@@ -37,7 +37,7 @@ endef
 #  jp: 以下の7つの変数を必要に応じて編集します。
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = yes           # OLED_ENABLE
-LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+LOCAL_GLCDFONT = yes         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 LED_BACK_ENABLE = yes       # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
@@ -132,3 +132,4 @@ endif
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
 # $(info )
+

@@ -117,7 +117,8 @@ ISP Flashing Guide
 avrdude -c stk500v1 -p m32u4 -P /dev/cu.usbmodem14201 -b 19200 -U flash:w:"helix_rev2_klackygears_production.hex":a -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m -U lock:w:0x3F:m -U eeprom:w:"eeprom-righthand.eep":a
 
 `---------------------------------------------------------------------------`
-
+#Command for non split example
+avrdude -c stk500v1 -p m32u4 -P /dev/cu.usbmodem14201 -b 19200 -U flash:w:"c39_klackygears_production.hex":a -U lfuse:w:0x5E:m -U hfuse:w:0xD9:m -U efuse:w:0xC3:m -U lock:w:0x3F:m
 
 
 
@@ -130,4 +131,4 @@ avrdude -c stk500v1 -p m32u4 -P /dev/cu.usbmodem14201 -b 19200 -U flash:w:"helix
 #Best of luck with your experiments!#
 `---------------------------------------------------------------------------`
 
-`20190314`
+`20190515`

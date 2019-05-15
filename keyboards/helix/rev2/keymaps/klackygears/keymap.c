@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_MACBASE] = LAYOUT_wrapper( \
-      RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
+      RGB_MOD,   KC_____, ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
       KC_LSFT,   _______________MACDVK_L3___________________, KC_____, KC_____, _______________MACDVK_R3___________________, KC_RSFT, \
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [_WINBASE] = LAYOUT_wrapper( \
-      RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
+      RGB_MOD,   KC_____, ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
       KC_LSFT,   _______________WINDVK_L3___________________, KC_____, KC_____, _______________WINDVK_R3___________________, KC_RSFT, \
@@ -52,18 +52,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMB] = LAYOUT_wrapper( \
       KC_____, _________________KC_BLANK__________________,                   _________________KC_BLANK__________________, KC_____, \
-      KC_____, _________________PUNC_L1___________________,                   KC_____, SHRUG,   KC_____, KC_____, MAKEK,   KC_____, \
-      KC_____, _________________PUNC_L2___________________,                   KC_____, KC_____, KC_DQT,  KC_____, KC_____, KC_____, \
-      KC_____, _________________PUNC_L3___________________, KC_____, KC_____, KC_GRV,  KC_____, KC_____, KC_____, KC_____, KC_____, \
-      _________________KC_BLANK__________________, KC_____, KC_DEL,  KC_____, KC_CAPS, _________________KC_BLANK__________________ \
+      KC_____, _________________PUNC_L1_ALT_______________,                   _________________PUNC_R1___________________, KC_____, \
+      KC_____, _________________PUNC_L3___________________,                   _________________PUNC_R2___________________, KC_____, \
+      KC_____, _________________PUNC_L3_ALT_______________, KC_____, KC_____, _________________PUNC_R3___________________, KC_____, \
+      _________________KC_BLANK__________________, KC_____, KC_DEL,  KC_CAPS, KC_____, _________________KC_BLANK__________________ \
       ),
 
   [_FUNC] = LAYOUT_wrapper( \
       KC_____, _________________KC_BLANK__________________,                   _________________KC_BLANK__________________, KC_____, \
-      KC_____, MAKEKF,  KC_____, KC_____, KC_____, KC_____,                   KC_____, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_____, KC_____, KC_____, KC_____,                   KC_____, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_RALT, KC_TAB,  KC_____, KC_____, KC_____, KC_____, KC_GRV,  _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_____, KC_____, KC_____, KC_____, KC_DEL,  KC_____, KC_CAPS, _________________KC_BLANK__________________ \
+      KC_____, _____________FUNC_L1_______________________,                   KC_____, _____________FUNC_1_______________, KC_____, \
+      KC_____, ________MAC_MISSION_CTRL__________, LGUI(KC_L),                KC_____, _____________FUNC_2_______________, KC_____, \
+      KC_____, _____________FUNC_L3_______________________, KC_____, KC_ESC,  KC_GRV,  _____________FUNC_3_______________, KC_____, \
+      KC_____, KC_____, KC_____, KC_____, KC_____, KC_____, KC_DEL,  KC_CAPS, KC_____, _________________KC_BLANK__________________ \
       ),
 
   [_MNMB] = LAYOUT_wrapper( \
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____, _________________MACNAV_L1_________________,                   _________________NUMB_R1___________________, KC_____, \
       KC_____, _________________MACNAV_L2_________________,                   _________________NUMB_R2___________________, KC_____, \
       KC_____, _________________MACNAV_L3_________________, KC_____, KC_____, _________________NUMB_R3_MAC_______________, KC_____, \
-      _________________KC_BLANK__________________, KC_____, KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____, KC_____ \
+      _________________KC_BLANK__________________, KC_____, KC_____, KC_____, KC_LSFT, KC_0, KC_____, KC_____, KC_____, KC_____ \
       ),
 
   [_NUMB] = LAYOUT_wrapper( \
@@ -79,16 +79,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____, _________________WINNAV_L1_________________,                   _________________NUMB_R1___________________, _______, \
       KC_____, _________________WINNAV_L2_________________,                   _________________NUMB_R2___________________, _______, \
       KC_____, _________________WINNAV_L3_________________, KC_____, KC_____, _________________NUMB_R3_WIN_______________, _______, \
-      _________________KC_BLANK__________________, KC_____, KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____, KC_____ \
+      _________________KC_BLANK__________________, KC_____, KC_____, KC_____, KC_LSFT, KC_0, KC_____, KC_____, KC_____, KC_____ \
       ),
 
 
   [_MDIA] =  LAYOUT_wrapper( \
       KC_____, _________________KC_BLANK__________________,                   _________________LYOUT_____________________, KC_____, \
-      KC_____, _________________KC_BLANK__________________,                   _________________RGB_1_____________________, KC_____, \
+      KC_____, _________________LYOUT_____________________,                   _________________RGB_1_____________________, KC_____, \
       KC_____, _________________KC_BLANK__________________,                   _________________RGB_2_____________________, KC_____, \
-      KC_____, _________________KC_BLANK__________________, KC_____, KC_____, _________________MEDIA_____________________, KC_____, \
-      KC_____, _________________KC_BLANK__________________, KC_____, KC_____, _________________KC_BLANK__________________, KC_____ \
+      KC_____, _________________KC_BLANK__________________, KC_____, KC_SLEP, _________________MEDIA_____________________, KC_____, \
+      KC_____, _________________KC_BLANK__________________, KC_____, KC_____, _________________MEDIA_V2__________________, KC_____ \
       )
 
 };
@@ -162,6 +162,7 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
+#define L_WIN  (_WINBASE)
 #define L_SYMB (1<<_SYMB)
 #define L_FUNC (1<<_FUNC)
 #define L_MNMB (1<<_MNMB)
@@ -186,14 +187,17 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
   static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, logo[0][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[0][1]);
-  }else{
+  switch (default_layer_state){
+    case _MACBASE:
     matrix_write(matrix, logo[1][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, logo[1][1]);
+    break;
+    case L_WIN:
+    matrix_write(matrix, logo[0][0]);
+    matrix_write_P(matrix, PSTR("\n"));
+    matrix_write(matrix, logo[0][1]);
+    break;
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
@@ -227,7 +231,7 @@ void render_status(struct CharacterMatrix *matrix) {
   // Host Keyboard LED Status
   char led[40];
   snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "" : "",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
