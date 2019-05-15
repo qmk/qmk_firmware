@@ -6,7 +6,7 @@ A short description of the keyboard/project
 
 Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
 Hardware Supported: Mullet, atmega32u4  
-Hardware Availability: https://github.com/coseyfannitutti
+Hardware Availability: https://github.com/coseyfannitutti/mullet
 
 Make example for this keyboard (after setting up your build environment):
 
