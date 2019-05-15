@@ -16,11 +16,13 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-#define _QWERTY 0
-#define _HAPPY 1
-#define _LOWER 2
-#define _RAISE 3
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _HAPPY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
