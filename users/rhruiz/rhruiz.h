@@ -42,8 +42,8 @@ uint32_t rhruiz_layer_state_set_user(uint32_t state);
 bool rhruiz_is_layer_indicator_led(uint8_t index);
 
 /* underglow control */
-#ifdef RGBLIGHT_ENABLE
 void rhruiz_rgblight_reset(void);
+#ifdef RGBLIGHT_ENABLE
 void rhruiz_change_leds_to(uint16_t, uint8_t);
 
 typedef struct {
