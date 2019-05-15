@@ -56,16 +56,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_GK] = LAYOUT_75_base_wrapper(
   _______________GherkinLike_0_______________, KC_7, KC_8, KC_9,
   _______________GherkinLike_1_______________, KC_4, KC_5, KC_6,
-  TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM, KC_V), LT(ETC, KC_B), KC_N, LT(DIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_1, KC_2, KC_3,
-  TD(RST_TAP_DANCE), GHERKIN50, KC_LALT, NUMPAD, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_0, KC_0, KC_DOT
+  _______________GherkinLike_2_______________, KC_1, KC_2, KC_3,
+  KC_LCTL, GHERKIN50, KC_LALT, NUMPAD, NUMBER, ETCETERA, LT(_FN,KC_SPC),DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_0, KC_0, SH_T(KC_DOT)
 ),
 
 [GK50] = LAYOUT_ortho_5x10_wrapper(
-  KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPC,
+  KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
   _______________Gherkin_Row_0_______________,
   _______________Gherkin_Row_1_______________,
   _______________Gherkin_Row_2_______________,
-  TD(RST_TAP_DANCE), GHERKIN, NUMPAD, gNUMBER, gETCETERA, KC_SPC,gDIRECTION, KC_RGUI, KC_RALT, KC_RGUI
+  KC_LCTL, GHERKIN, NUMPAD, gNUMBER, gETCETERA, LT(_FN,KC_SPC),gDIRECTION, KC_RGUI, KC_RALT, KC_LCTL
 ),
 
 [gNUM] = LAYOUT_ortho_5x10_wrapper(
@@ -89,26 +89,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Gherkin_ETC_0_______________,
   _______________Gherkin_ETC_1_______________,
   _______________Gherkin_ETC_2_______________,
-  _______, KC_CAPS, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
+  _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
 ),
 
-#if defined(BLUEFRUIT)
 [PAD] = LAYOUT_ortho_5x5_wrapper(
-  _______, _______, _______, OUT_BT, OUT_USB,
-  _______________NUMPAD_Row__0_______________, _______,
-  _______________NUMPAD_Row__1_______________, _______,
-  _______________NUMPAD_Row__2_______________, _______,
-  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
-),
-#else
- [PAD] = LAYOUT_ortho_5x5_wrapper(
   _______, _______, _______, _______, _______,
   _______________NUMPAD_Row__0_______________, _______,
   _______________NUMPAD_Row__1_______________, _______,
   _______________NUMPAD_Row__2_______________, _______,
-  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+  _______________NUMPAD_Row__3_______________, _______
 ),
-#endif
+
+
 #else
  /* Gherkin-Like
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -127,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________GherkinLike_0_______________, KC_7, KC_8, KC_9,
   _______________GherkinLike_1_______________, KC_4, KC_5, KC_6,
   _______________GherkinLike_2_______________, KC_1, KC_2, KC_3,
-  _______________GherkinLike_3_______________, KC_0, KC_0, SH_T(KC_DOT)
+  _______________GherkinLike_3_______________, KC_0, KC_0, KC_DOT
 ),
 #endif
 /* QWERTY
@@ -264,11 +256,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
+#if defined(BLUEFRUIT)
 [_FN] = LAYOUT_75_base_wrapper(
-  _______, _______________Gherkin_FN_0________________, _______, _______, _______, _______, 
+  RESET,   _______________Gherkin_FN_0________________, _______, _______, _______, _______, 
+  OUT_BT,  _______________Gherkin_FN_1________________, _______, _______, _______, _______, 
+  OUT_USB, _______________Gherkin_FN_2________________, _______, _______, _______, _______, 
+  KC_NLCK, _______, _______, GHERKIN, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+#else
+[_FN] = LAYOUT_75_base_wrapper(
+  RESET,   _______________Gherkin_FN_0________________, _______, _______, _______, _______, 
   _______, _______________Gherkin_FN_1________________, _______, _______, _______, _______, 
   _______, _______________Gherkin_FN_2________________, _______, _______, _______, _______, 
-  _______, _________________BLANK_50__________________, _______, _______, _______, _______
+  KC_NLCK, _______, _______, GHERKIN, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
-
+#endif
 };
