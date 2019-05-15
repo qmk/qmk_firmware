@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HALBERD_H
-#define HALBERD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -39,4 +38,3 @@
     { KC_NO, KC_NO, K33,   K34,   K35,   K36,   K37,   K38,   K39,   KC_NO, KC_NO } \
 }
 
-#endif
