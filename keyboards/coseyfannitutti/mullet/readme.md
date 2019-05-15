@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: coseyfannitutti (https://github.com/coseyfannitutti)  
+Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
 Hardware Supported: Mullet, atmega32u4  
 Hardware Availability: https://github.com/coseyfannitutti
 
