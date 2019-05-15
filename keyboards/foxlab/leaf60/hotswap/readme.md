@@ -1,6 +1,4 @@
-# %KEYBOARD%
-
-![%KEYBOARD%](imgur.com image replace me!)
+# Fox Lab Hotswap Leaf60 
 
 A short description of the keyboard/project
 
