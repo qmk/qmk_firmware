@@ -1,8 +1,8 @@
-# mullet
+# mulletpad
 
-![mullet](imgur.com image replace me!)
+![mulletpad](https://i.imgur.com/MHKo5f5.png)
 
-A short description of the keyboard/project
+A 17-key numpad with USB Type-C.
 
 Keyboard Maintainer: coseyfannitutti (https://github.com/coseyfannitutti)  
 Hardware Supported: Mullet, atmega32u4  
