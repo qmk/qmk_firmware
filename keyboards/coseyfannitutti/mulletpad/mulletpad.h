@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MULLETPAD_H
-#define MULLETPAD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -41,4 +40,3 @@
 { K30, K31, K32, _x_, }, \
 { K40, _x_, K42, K43, }, \
 }
-#endif
