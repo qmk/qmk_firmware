@@ -227,8 +227,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
 
-#define DISABLE_JTAG
-
 #define TAPPING_TERM    100
 
 
