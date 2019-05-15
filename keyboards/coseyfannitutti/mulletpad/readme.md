@@ -1,4 +1,4 @@
-# mullet
+# mulletpad
 
 ![mulletpad](https://i.imgur.com/MHKo5f5.png)
 
