@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Fox Lab
-#define PRODUCT         Leaf 60 Universal
+#define PRODUCT         Leaf60 Universal
 #define DESCRIPTION     A custom 60% keyboard
 
 /* key matrix size */
