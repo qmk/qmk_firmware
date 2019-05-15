@@ -291,7 +291,7 @@ led_instruction_t led_instructions[] = {
     // On Base Layer, all LEDs use purple
     // On Function Layer, all LEDS use pink
     // On Function Layer, all LEDS use white
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 60, .g = 22, .b = 140, .layer = LB_MAC },
+    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 62, .b = 128, .layer = LB_MAC },
     { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 242, .g = 27, .b = 127, .layer = LF_MAC },
     { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 35, .g = 27, .b = 89, .layer = LB_WIN },
     { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 47, .g = 193, .b = 225, .layer = LF_WIN },
