@@ -1,4 +1,4 @@
-/* Copyright 2019 %YOUR_NAME%
+/* Copyright 2019 Fox Lab
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,13 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
-
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
-
+  setPinOutput(E6);
   matrix_init_user();
 }
+/*
 
 void matrix_scan_kb(void) {
   // put your looping keyboard code here
@@ -49,3 +48,12 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
+
+void led_set_kb(uint8_t usb_led) {
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(E6);
+  } else {
+    writePinHigh(E6);
+  }
+	led_set_user(usb_led);
+}
