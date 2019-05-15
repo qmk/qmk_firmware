@@ -16,75 +16,76 @@
 
 #include "mars80.h"
 
-#ifdef RGBLIGHT_ENABLE
-
-#include <string.h>
-#include "i2c_master.h"
 #include "rgblight.h"
+#include "i2c_master.h"
+#include "quantum.h"
 
+#ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 
-void matrix_init_kb(void) {
-  i2c_init();
-  // call user level keymaps, if any
-  matrix_init_user();
-}
-
-// custom RGB driver
 void rgblight_set(void) {
-  if (!rgblight_config.enable) {
-    memset(led, 0, 3 * RGBLED_NUM);
-  }
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
 
-  i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-}
-
-bool rgb_init = false;
-
-void matrix_scan_kb(void) {
-  // if LEDs were previously on before poweroff, turn them back on
-  if (rgb_init == false && rgblight_config.enable) {
+    i2c_init();
     i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-    rgb_init = true;
-  }
-
-  rgblight_task();
-  matrix_scan_user();
 }
-
 #endif
 
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
-/*
-
 void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-
-  matrix_init_user();
+#ifdef RGBLIGHT_ENABLE
+    if (rgblight_config.enable) {
+        i2c_init();
+        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    }
+#endif
+    // call user level keymaps, if any
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
-
-  matrix_scan_user();
+#ifdef RGBLIGHT_ENABLE
+    rgblight_task();
+#endif
+    matrix_scan_user();
+    /* Nothing else for now. */
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
-
-  return process_record_user(keycode, record);
+__attribute__ ((weak))
+void matrix_scan_user(void) {
 }
 
-void led_set_kb(uint8_t usb_led) {
-  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+void backlight_init_ports(void) {
+    // initialize pins D0, D1, D4 and D6 as output
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D4);
+    setPinOutput(D6);
 
-  led_set_user(usb_led);
+    // turn backlight LEDs on
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(D4);
+    writePinHigh(D6);
 }
 
-*/
+void backlight_set(uint8_t level) {
+	if (level == 0) {
+        // turn backlight LEDs off
+        writePinLow(D0);
+        writePinLow(D1);
+        writePinLow(D4);
+        writePinLow(D6);
+	} else {
+        // turn backlight LEDs on
+        writePinHigh(D0);
+        writePinHigh(D1);
+        writePinHigh(D4);
+        writePinHigh(D6);
+	}
+}
