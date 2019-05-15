@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifndef MULLETPAD_H
-#define MULLETPAD_H
 
 #include "quantum.h"
 
