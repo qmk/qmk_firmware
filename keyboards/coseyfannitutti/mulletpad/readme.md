@@ -5,7 +5,7 @@
 A 17-key numpad with USB Type-C.
 
 Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
-Hardware Supported: Mullet, atmega32u4  
+Hardware Supported: Mulletpad, atmega32u4  
 Hardware Availability: https://github.com/coseyfannitutti
 
 Make example for this keyboard (after setting up your build environment):
