@@ -1,7 +1,6 @@
 SRC += matrix.c TWIlib.c issi.c lighting.c
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 
