@@ -1,8 +1,8 @@
 # mullet
 
-![mullet](imgur.com image replace me!)
+![mullet](https://i.imgur.com/EBOMbhH.jpg)
 
-A short description of the keyboard/project
+A 68 key keyboard with USB Type-C and RGB underglow
 
 Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
 Hardware Supported: Mullet, atmega32u4  
