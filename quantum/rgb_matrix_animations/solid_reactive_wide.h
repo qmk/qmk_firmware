@@ -1,10 +1,15 @@
-#pragma once
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE)
 
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
-extern last_hit_t g_last_hit_tracker;
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_WIDE)
+#endif
+
+#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTIWIDE)
+#endif
+
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool rgb_matrix_solid_reactive_multiwide_range(uint8_t start, effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -30,13 +35,14 @@ static bool rgb_matrix_solid_reactive_multiwide_range(uint8_t start, effect_para
   return led_max < DRIVER_LED_TOTAL;
 }
 
-bool rgb_matrix_solid_reactive_multiwide(effect_params_t* params) {
+bool SOLID_REACTIVE_MULTIWIDE(effect_params_t* params) {
   return rgb_matrix_solid_reactive_multiwide_range(0, params);
 }
 
-bool rgb_matrix_solid_reactive_wide(effect_params_t* params) {
+bool SOLID_REACTIVE_WIDE(effect_params_t* params) {
   return rgb_matrix_solid_reactive_multiwide_range(qsub8(g_last_hit_tracker.count, 1), params);
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE)
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED

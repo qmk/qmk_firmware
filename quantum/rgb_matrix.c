@@ -26,41 +26,23 @@
 
 #include "lib/lib8tion/lib8tion.h"
 
-#include "rgb_matrix_animations/solid_color_anim.h"
-#include "rgb_matrix_animations/alpha_mods_anim.h"
-#include "rgb_matrix_animations/dual_beacon_anim.h"
-#include "rgb_matrix_animations/gradient_up_down_anim.h"
-#include "rgb_matrix_animations/raindrops_anim.h"
-#include "rgb_matrix_animations/cycle_all_anim.h"
-#include "rgb_matrix_animations/cycle_left_right_anim.h"
-#include "rgb_matrix_animations/cycle_up_down_anim.h"
-#include "rgb_matrix_animations/rainbow_beacon_anim.h"
-#include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
-#include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
-#include "rgb_matrix_animations/jellybean_raindrops_anim.h"
-#include "rgb_matrix_animations/typing_heatmap_anim.h"
-#include "rgb_matrix_animations/digital_rain_anim.h"
-#include "rgb_matrix_animations/solid_reactive_simple_anim.h"
-#include "rgb_matrix_animations/solid_reactive_anim.h"
-#include "rgb_matrix_animations/solid_reactive_wide.h"
-#include "rgb_matrix_animations/solid_reactive_cross.h"
-#include "rgb_matrix_animations/solid_reactive_nexus.h"
-#include "rgb_matrix_animations/splash_anim.h"
-#include "rgb_matrix_animations/solid_splash_anim.h"
-#include "rgb_matrix_animations/breathing_anim.h"
+// ------------------------------------------
+// -----Begin rgb effect includes macros-----
+#define RGB_MATRIX_EFFECT(name)
+#define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
-  #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-    #define RGB_MATRIX_EFFECT(name, ...)
-    #ifdef RGB_MATRIX_CUSTOM_KB
-      #include "rgb_matrix_kb.inc"
-    #endif
-    #ifdef RGB_MATRIX_CUSTOM_USER
-      #include "rgb_matrix_user.inc"
-    #endif
-    #undef RGB_MATRIX_EFFECT
-  #undef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#include "rgb_matrix_animations/rgb_matrix_effects.inc"
+#ifdef RGB_MATRIX_CUSTOM_KB
+    #include "rgb_matrix_kb.inc"
 #endif
+#ifdef RGB_MATRIX_CUSTOM_USER
+    #include "rgb_matrix_user.inc"
+#endif
+
+#undef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#undef RGB_MATRIX_EFFECT
+// -----End rgb effect includes macros-------
+// ------------------------------------------
 
 #ifndef RGB_DISABLE_AFTER_TIMEOUT
   #define RGB_DISABLE_AFTER_TIMEOUT 0
@@ -106,7 +88,6 @@
 
 bool g_suspend_state = false;
 
-extern led_config_t g_led_config;
 rgb_config_t rgb_matrix_config;
 
 rgb_counters_t g_rgb_counters;
@@ -319,145 +300,14 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_none(&rgb_effect_params);
       break;
 
-    case RGB_MATRIX_SOLID_COLOR:
-      rendering = rgb_matrix_solid_color(&rgb_effect_params);           // Max 1ms Avg 0ms
+// ---------------------------------------------
+// -----Begin rgb effect switch case macros-----
+#define RGB_MATRIX_EFFECT(name, ...) \
+    case RGB_MATRIX_##name: \
+      rendering = name(&rgb_effect_params); \
       break;
-#ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
-    case RGB_MATRIX_ALPHAS_MODS:
-      rendering = rgb_matrix_alphas_mods(&rgb_effect_params);           // Max 2ms Avg 1ms
-      break;
-#endif // DISABLE_RGB_MATRIX_ALPHAS_MODS
-#ifndef DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-    case RGB_MATRIX_GRADIENT_UP_DOWN:
-      rendering = rgb_matrix_gradient_up_down(&rgb_effect_params);      // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#ifndef DISABLE_RGB_MATRIX_BREATHING
-    case RGB_MATRIX_BREATHING:
-      rendering = rgb_matrix_breathing(&rgb_effect_params);             // Max 1ms Avg 0ms
-      break;
-#endif // DISABLE_RGB_MATRIX_BREATHING
-#ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
-    case RGB_MATRIX_CYCLE_ALL:
-      rendering = rgb_matrix_cycle_all(&rgb_effect_params);             // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_CYCLE_ALL
-#ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-    case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-      rendering = rgb_matrix_cycle_left_right(&rgb_effect_params);      // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#ifndef DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-    case RGB_MATRIX_CYCLE_UP_DOWN:
-      rendering = rgb_matrix_cycle_up_down(&rgb_effect_params);         // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-    case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-      rendering = rgb_matrix_rainbow_moving_chevron(&rgb_effect_params); // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
-    case RGB_MATRIX_DUAL_BEACON:
-      rendering = rgb_matrix_dual_beacon(&rgb_effect_params);           // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_DUAL_BEACON
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_BEACON
-    case RGB_MATRIX_RAINBOW_BEACON:
-      rendering = rgb_matrix_rainbow_beacon(&rgb_effect_params);        // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_RAINBOW_BEACON
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-    case RGB_MATRIX_RAINBOW_PINWHEELS:
-      rendering = rgb_matrix_rainbow_pinwheels(&rgb_effect_params);     // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-#ifndef DISABLE_RGB_MATRIX_RAINDROPS
-    case RGB_MATRIX_RAINDROPS:
-      rendering = rgb_matrix_raindrops(&rgb_effect_params);             // Max 1ms Avg 0ms
-      break;
-#endif // DISABLE_RGB_MATRIX_RAINDROPS
-#ifndef DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    case RGB_MATRIX_JELLYBEAN_RAINDROPS:
-      rendering = rgb_matrix_jellybean_raindrops(&rgb_effect_params);   // Max 1ms Avg 0ms
-      break;
-#endif // DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-
-#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#ifndef DISABLE_RGB_MATRIX_TYPING_HEATMAP
-    case RGB_MATRIX_TYPING_HEATMAP:
-      rendering = rgb_matrix_typing_heatmap(&rgb_effect_params);        // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_TYPING_HEATMAP
-#ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
-    case RGB_MATRIX_DIGITAL_RAIN:
-      rendering = rgb_matrix_digital_rain(&rgb_effect_params);         // Max 9ms Avg 8ms | this is expensive, fix it
-      break;
-#endif // DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#endif // RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-    case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-      rendering = rgb_matrix_solid_reactive_simple(&rgb_effect_params);// Max 4ms Avg 3ms
-      break;
-#endif
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
-    case RGB_MATRIX_SOLID_REACTIVE:
-      rendering = rgb_matrix_solid_reactive(&rgb_effect_params);       // Max 4ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-    case RGB_MATRIX_SOLID_REACTIVE_WIDE:
-      rendering = rgb_matrix_solid_reactive_wide(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    case RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE:
-      rendering = rgb_matrix_solid_reactive_multiwide(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-    case RGB_MATRIX_SOLID_REACTIVE_CROSS:
-      rendering = rgb_matrix_solid_reactive_cross(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-    case RGB_MATRIX_SOLID_REACTIVE_MULTICROSS:
-      rendering = rgb_matrix_solid_reactive_multicross(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-    case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
-      rendering = rgb_matrix_solid_reactive_nexus(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-    case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-      rendering = rgb_matrix_solid_reactive_multinexus(&rgb_effect_params);       // Max ?? ms Avg ?? ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#ifndef DISABLE_RGB_MATRIX_SPLASH
-    case RGB_MATRIX_SPLASH:
-      rendering = rgb_matrix_splash(&rgb_effect_params);               // Max 5ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SPLASH
-#ifndef DISABLE_RGB_MATRIX_MULTISPLASH
-    case RGB_MATRIX_MULTISPLASH:
-      rendering = rgb_matrix_multisplash(&rgb_effect_params);          // Max 10ms Avg 5ms
-      break;
-#endif // DISABLE_RGB_MATRIX_MULTISPLASH
-#ifndef DISABLE_RGB_MATRIX_SOLID_SPLASH
-    case RGB_MATRIX_SOLID_SPLASH:
-      rendering = rgb_matrix_solid_splash(&rgb_effect_params);         // Max 5ms Avg 3ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_SPLASH
-#ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-    case RGB_MATRIX_SOLID_MULTISPLASH:
-      rendering = rgb_matrix_solid_multisplash(&rgb_effect_params);    // Max 10ms Avg 5ms
-      break;
-#endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+#include "rgb_matrix_animations/rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
 
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
   #define RGB_MATRIX_EFFECT(name, ...) \
@@ -472,6 +322,8 @@ static void rgb_task_render(uint8_t effect) {
   #endif
   #undef RGB_MATRIX_EFFECT
 #endif
+// -----End rgb effect switch case macros-------
+// ---------------------------------------------
 
     // Factory default magic value
     case UINT8_MAX: {

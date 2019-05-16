@@ -1,12 +1,9 @@
-#pragma once
-#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
+RGB_MATRIX_EFFECT(SOLID_REACTIVE)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
-extern last_hit_t g_last_hit_tracker;
-
-bool rgb_matrix_solid_reactive(effect_params_t* params) {
+bool SOLID_REACTIVE(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, 255, rgb_matrix_config.val };
@@ -32,5 +29,6 @@ bool rgb_matrix_solid_reactive(effect_params_t* params) {
   return led_max < DRIVER_LED_TOTAL;
 }
 
-#endif // DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
