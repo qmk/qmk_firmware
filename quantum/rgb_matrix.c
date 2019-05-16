@@ -26,6 +26,12 @@
 
 #include "lib/lib8tion/lib8tion.h"
 
+#ifndef RGB_MATRIX_CENTER
+  const point_t k_rgb_matrix_center = { 112, 32 };
+#else
+  const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
+#endif
+
 // ------------------------------------------
 // -----Begin rgb effect includes macros-----
 #define RGB_MATRIX_EFFECT(name)

@@ -144,14 +144,16 @@ const led_config_t g_led_config = { {
 } };
 ```
 
-The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical position on the keyboard. The first value, `x`, is between 0-224 (inclusive), and the second value, `y`, is between 0-64 (inclusive). This range is due to effect that calculate the center or halves for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents x, y coordinate 0, 0 and the bottom right of your keyboard represents 224, 64. Using this as a basis, you can use the following formula to calculate the physical position:
+The first part, `// Key Matrix to LED Index`, tells the system what key this LED represents by using the key's electrical matrix row & col. The second part, `// LED Index to Physical Position` represents the LED's physical `{ x, y }` position on the keyboard. The default expected range of values for `{ x, y }` is the inclusive range `{ 0..224, 0..64 }`. This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
 
 ```C
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout. 
+
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
