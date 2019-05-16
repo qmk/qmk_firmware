@@ -43,7 +43,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 NKRO_ENABLE = no
 # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 TAP_DANCE_ENABLE = yes
-AUTO_SHIFT_ENABLE = yes
+# AUTO_SHIFT_ENABLE = yes
 
 
 DISABLE_WS2812 = no

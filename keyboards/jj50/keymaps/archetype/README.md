@@ -9,7 +9,6 @@ A keymap that can be used with the jj50 ortholinear keyboard.
 - `FX` layout (Control lighting and audio)
 - Use `Left Ctrl` and `Left Alt` to output `()`, `[]` and `{}` by tapping once, twice or thrice respectively. Hold them down for the regular keycode (LCtrl or LAlt)
 - `Right Shift` when held or Enter when tapped
-- Auto-Shift enabled (long press on alphas and numeric keys outputs shifted character)
 - Full arrow keys available
 
 
