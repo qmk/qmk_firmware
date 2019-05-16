@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //Tab/Shift        A        S        D        F        G        H        J        K        L      ;/:    Enter
       KC_TBSF,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCCL,  KC_ENT,\
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-  //    Shift        Z        X        C        V        B        N        M        ,        .        /        \
+  //    Shift        Z        X        C        V        B        N        M        ,        .        /       yen
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,\
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //     Ctrl      Alt GUI/Comm            BackSpace/Lower                Space/Raise      Alt     Menu     Ctrl
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                                                           Left     Down       Up    Right
         _____,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   XXXXX,   _____,\
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-  //                                                                                ,        .        /        \
+  //                                                                                ,        .        /      yen
         _____,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,\
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
         _____,   _____,   _____,                     _____,                     _____,   _____,   _____,   _____ \
