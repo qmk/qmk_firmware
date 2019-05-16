@@ -9,8 +9,8 @@ bool CYCLE_OUT_IN_DUAL(effect_params_t* params) {
   uint8_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 4);
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_MATRIX_TEST_LED_FLAGS();
-    int16_t dx = 56 - abs8(g_led_config.point[i].x - 112);
-    int16_t dy = g_led_config.point[i].y - 32;
+    int16_t dx = (k_rgb_matrix_center.x / 2) - abs8(g_led_config.point[i].x - k_rgb_matrix_center.x);
+    int16_t dy = g_led_config.point[i].y - k_rgb_matrix_center.y;
     uint8_t dist = sqrt16(dx * dx + dy * dy);
     hsv.h = 3 * dist + time;
     RGB rgb = hsv_to_rgb(hsv);

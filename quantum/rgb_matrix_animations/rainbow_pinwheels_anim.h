@@ -11,7 +11,7 @@ bool PINWHEELS(effect_params_t* params) {
   int16_t sin_value = 3 * (sin8(time) - 128);
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_MATRIX_TEST_LED_FLAGS();
-    hsv.h = ((g_led_config.point[i].y - 32) * cos_value + (56 - abs8(g_led_config.point[i].x - 112)) * sin_value) / 128 + rgb_matrix_config.hue;
+    hsv.h = ((g_led_config.point[i].y - k_rgb_matrix_center.y) * cos_value + (56 - abs8(g_led_config.point[i].x - k_rgb_matrix_center.x)) * sin_value) / 128 + rgb_matrix_config.hue;
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
