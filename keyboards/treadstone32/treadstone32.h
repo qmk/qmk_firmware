@@ -47,17 +47,3 @@
     { L25, L26, L27, L28, L29 }, \
     { L35, K_N, K_N, K_N, K_N }  \
   }
-
-// Used to create a keymap using only KC_ prefixed keys
-#define LAYOUT_kc( \
-  L00, L01, L02, L03, L04, L05, L06, L07, L08, L09, \
-  L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, \
-  L20, L21, L22, L23, L24, L25, L26, L27, L28, L29, \
-                      L34, L35 \
-  ) \
-  LAYOUT( \
-  KC_##L00, KC_##L01, KC_##L02, KC_##L03, KC_##L04, KC_##L05, KC_##L06, KC_##L07, KC_##L08, KC_##L09, \
-  KC_##L10, KC_##L11, KC_##L12, KC_##L13, KC_##L14, KC_##L15, KC_##L16, KC_##L17, KC_##L18, KC_##L19, \
-  KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25, KC_##L26, KC_##L27, KC_##L28, KC_##L29, \
-                                          KC_##L34, KC_##L35 \
-  )
