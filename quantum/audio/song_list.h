@@ -51,7 +51,6 @@
 	Q__NOTE(_E4), Q__NOTE(_C4), \
 	Q__NOTE(_E4),
 
-/* Requires: PLAY_NOTE_ARRAY(..., ..., STACCATO); */
 #define IN_LIKE_FLINT \
     E__NOTE(_AS4), E__NOTE(_AS4), QD_NOTE(_B4),  \
     E__NOTE(_AS4), E__NOTE(_B4),  QD_NOTE(_CS4), \
