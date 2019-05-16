@@ -27,20 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     5-key macropad
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 3
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { NO_PIN }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D4 }
+#define DIRECT_PINS { \
+    { NO_PIN, D0,     D1 }, \
+    { D4,     D3,     D2 }, \
+}
 #define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 #define RGB_DI_PIN C6
 #define RGBLED_NUM 1     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_LIMIT_VAL 200
 // #ifdef RGB_DI_PIN
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
@@ -61,8 +61,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_ALTERNATING
 // #endif
 
-#define BACKLIGHT_LEVELS 1 // either on/off
-#define RGBLIGHT_LIMIT_VAL 200
+#undef BACKLIGHT_PIN
+#define BACKLIGHT_PINS { C2, C7, D5, D6, B0 }
+#define BACKLIGHT_LED_COUNT 5
+#define BACKLIGHT_LEVELS 10
+#define BACKLIGHT_ON_STATE 1
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
+
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1

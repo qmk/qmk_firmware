@@ -1,9 +1,9 @@
 # project specific files
 SRC =	keyboards/zeal60/zeal60.c \
-    keyboards/zeal60/rgb_backlight.c \
-		drivers/issi/is31fl3733.c \
-		quantum/color.c \
-		drivers/arm/i2c_master.c
+        keyboards/zeal60/rgb_backlight.c \
+	    drivers/issi/is31fl3733.c \
+	    quantum/color.c \
+	    drivers/arm/i2c_master.c
 
 ## chip/board settings
 #   the next two should match the directories in
