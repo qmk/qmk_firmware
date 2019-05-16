@@ -1,49 +1,85 @@
-#pragma once
 
-/* ws2812 RGB LED 
-#undef RGB_DI_PIN
-#define RGB_DI_PIN D0
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 4     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+/*
+This is the c configuration file for the keymap
 
-#undef RGBLED_NUM
-#define RGBLED_NUM 10
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
+Copyright 2017 Art Ortenburger
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* USB Device descriptor parameter */
-//#define VENDOR_ID       0xCA17
-//#define PRODUCT_ID      0xCA39
-//#define DEVICE_VER      0x0001
-//#define MANUFACTURER    Maple Computing
-//#define PRODUCT         C39
-//#define DESCRIPTION     A compact 39 key keyboard
+#pragma once
 
-/* key matrix size */
-//#define MATRIX_ROWS 3
-//#define MATRIX_COLS 13
+/* Use I2C or Serial, not both */
 
-//#define MATRIX_ROW_PINS { D1, B4, B5 }
-//#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, D7, E6, C6, D2, D3 }
+// #define USE_SERIAL
+//#define USE_I2C
 
-/* COL2ROW or ROW2COL */
-//#define DIODE_DIRECTION COL2ROW
+/* Select hand configuration */
 
+// #define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
 
-// firmware size optimization: https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/ and https://github.com/qmk/qmk_firmware/issues/3224
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-// more size optimization
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
+/* key combination for magic key command */
+#undef IS_COMMAND
+#define IS_COMMAND() ( \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+)
 
-// Leader Key timeout
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 250
+//#ifdef RGBLIGHT_ENABLE
+//#define RGB_DI_PIN D3
+//#define RGBLED_NUM 16     // Number of LEDs
+//#define RGBLED_SPLIT { 8, 8 }
+//
+//#define RGBLIGHT_HUE_STEP 12
+//#define RGBLIGHT_SAT_STEP 12
+//#define RGBLIGHT_VAL_STEP 12
+//#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
+//#define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
+//#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+//#endif // RGBLIGHT_ENABLE
+
+//#ifdef AUDIO_ENABLE
+//#define C6_AUDIO
+//#ifdef RGBLIGHT_ENABLE
+//#define NO_MUSIC_MODE
+//#endif
+//#endif //AUDIO_ENABLE
+
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Kuchosauronad0 Hacked collide39 Proto.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Kuchosauronad0 Hacked collide39 Rev.1
+#endif
+
+//#define QMK_ESC_OUTPUT D7 // usually COL
+//#ifdef KEYBOARD_orthodox_rev1
+//#define QMK_ESC_INPUT D4 // usually ROW
+//#else
+//#define QMK_ESC_INPUT D2 // usually ROW
+//#endif
+//#define QMK_LED B0
+//#define QMK_SPEAKER C6
+//
+//#define SHFT_LED1 5
+//#define SHFT_LED2 10
+//
+//#define CTRL_LED1 6
+//#define CTRL_LED2 9
+//
+//#define GUI_LED1 8
+//#define ALT_LED1 7

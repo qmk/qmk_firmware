@@ -1,2 +1,1 @@
-# "The world belongs to people who finish things."
-# -- @mwlauthor
+# Personal keymap for the collide39
