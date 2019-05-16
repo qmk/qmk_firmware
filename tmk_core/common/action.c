@@ -44,6 +44,9 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifndef TAP_HOLD_CAPS_DELAY
+#  define TAP_HOLD_CAPS_DELAY 200
+#endif
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -518,7 +521,7 @@ void process_action(keyrecord_t *record, action_t action)
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(80);
+                                wait_ms(TAP_HOLD_CAPS_DELAY);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
@@ -853,8 +856,13 @@ void unregister_code(uint8_t code)
  */
 void tap_code(uint8_t code) {
   register_code(code);
+  if (code == KC_CAPS) {
+    wait_ms(TAP_HOLD_CAPS_DELAY);
+  }
   #if TAP_CODE_DELAY > 0
+  else {
     wait_ms(TAP_CODE_DELAY);
+  }
   #endif
   unregister_code(code);
 }
