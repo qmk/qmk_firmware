@@ -23,18 +23,16 @@
 #endif
 
 #ifdef AUDIO_ENABLE
-  //#define STARTUP_SONG SONG(SONIC_RING)
+  // #define STARTUP_SONG SONG(SONIC_RING)
 #endif
 
 #ifdef AUDIO_ENABLE
-float tone_sonic[][2] = SONG(IN_LIKE_FLINT);
-float tone_1[][2] = SONG(QWERTY_SOUND);
-float tone_2[][2] = SONG(OLD_SPICE);
-float tone_3[][2] = SONG(OVERWATCH_THEME);
-float tone_4[][2] = SONG(QWERTY_SOUND);
+  float tone_sonic[][2] = SONG(IN_LIKE_FLINT);
+  float tone_1[][2] = SONG(QWERTY_SOUND);
+  float tone_2[][2] = SONG(OLD_SPICE);
+  float tone_3[][2] = SONG(OVERWATCH_THEME);
+  float tone_4[][2] = SONG(QWERTY_SOUND);
 #endif
-
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

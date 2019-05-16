@@ -78,8 +78,8 @@ enum {
 #define _________________QWERTY_R2_________________  KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN
 #define _________________QWERTY_R3_________________  KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH
 
-#define _____________MOD_QWERTY_L2_________________  KC_A   , SFT_T(KC_S), GUI_T(KC_D), KC_F       , KC_G
-#define _____________MOD_QWERTY_R2_________________  KC_H   , KC_J       , GUI_T(KC_K), SFT_T(KC_L), KC_SCLN
+#define _____________MOD_QWERTY_L2_________________  CTL_T(KC_A), SFT_T(KC_S), GUI_T(KC_D), ALT_T(KC_F), KC_G
+#define _____________MOD_QWERTY_R2_________________  KC_H       , ALT_T(KC_J), GUI_T(KC_K), SFT_T(KC_L), CTL_T(KC_SCLN)
 
 // ,-----+-----+-----+-----+-----,   ,-----+-----+-----+-----+-----,
 // |  Q  |  G  |  M  |  L  |  W  |   |  Y  |  F  |  I  |  O  |  P  |
