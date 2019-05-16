@@ -1,5 +1,3 @@
-# LEADER_ENABLE = yes
-
 # MCU name
 MCU = atmega32u4
 
@@ -15,7 +13,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -63,4 +60,6 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+LEADER_ENABLE = no
 SUBPROJECT_rev1 = no
+

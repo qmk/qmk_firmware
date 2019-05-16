@@ -34,8 +34,6 @@ enum custom_keycodes {
 // Layer Mode aliases
 #define KC_MLAD  MO(_ADJUST)
 
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
 #define KC_KANJI KANJI
 
 // Adjust layer keys
@@ -96,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
          KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_MINS,   KC_EQL,  KC_JYEN,  KC_LBRC,  KC_RBRC,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_F6SF,    KC_F7,    KC_F8,    KC_F9,   KC_F10, KC_XXXXX, KC_XXXXX,  KC_SCLN,  KC_QUOT,  KC_BSSF,
+       KC_F6SF,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUOT,  KC_BSSF,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_11CT,  KC_12AL,   KC_ESC,   KC_TAB, KC_KANJI,   KC_DEL, KC_XXXXX, KC_XXXXX, KC_XXXXX,    KC_RO,
+       KC_11CT,  KC_12AL,   KC_ESC,   KC_TAB, KC_KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,  XXXXXXX,    KC_RO,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                              KC______,  KC_MLAD
+                                               _______,  KC_MLAD
   //                                        `---------|---------'
   ),
 
@@ -108,23 +106,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LSFT, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
+       KC_LSFT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,  KC_LSFT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LCTL,  KC_LALT,  KC_LGUI, KC_XXXXX, KC_XXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_SSCT,
+       KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  KC_MINS,    KC_RO,  KC_COMM,   KC_DOT,  KC_SSCT,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                              KC______, KC______
+                                               _______,  _______
   //                                        `---------|---------'
   ),
 
   [_ADJUST] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_RST,  KC_LRST,  KC_KNRM,  KC_KSWP, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,
+        KC_RST,  KC_LRST,  KC_KNRM,  KC_KSWP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LTOG,  KC_LHUI,  KC_LSAI,  KC_LVAI, KC_XXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R, KC_XXXXX,
+       KC_LTOG,  KC_LHUI,  KC_LSAI,  KC_LVAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LMOD,  KC_LHUD,  KC_LSAD,  KC_LVAD, KC_XXXXX,  KC_BTN1,  KC_BTN2, KC_XXXXX, KC_XXXXX, KC_XXXXX,
+       KC_LMOD,  KC_LHUD,  KC_LSAD,  KC_LVAD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
-                                              KC______, KC______
+                                               _______,  _______
   //                                        `---------|---------'
   )
 };
