@@ -34,9 +34,6 @@ enum tapdances{
 };
 
 // Layer Mode aliases
-#define _____ KC_TRNS
-#define XXXXX KC_NO
-
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_ROSF  RSFT_T(KC_RO)
 #define KC_ALAP  LALT_T(KC_APP)
@@ -53,65 +50,65 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT( \
+  [_BASE] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //      Esc        Q        W        E        R        T        Y        U        I        O        P        -
-       KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS,\
+       KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //Tab/Shift        A        S        D        F        G        H        J        K        L      ;/:    Enter
-      KC_TBSF,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCCL,  KC_ENT,\
+      KC_TBSF,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCCL,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //    Shift        Z        X        C        V        B        N        M        ,        .        /       yen
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,\
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //     Ctrl      Alt GUI/Comm            BackSpace/Lower                Space/Raise      Alt     Menu     Ctrl
-      KC_LCTL, KC_LALT, KC_LGUI,                   KC_BSLO,                   KC_SPRA, KC_RALT, KC_ALAP, KC_RCTL \
+      KC_LCTL, KC_LALT, KC_LGUI,                   KC_BSLO,                   KC_SPRA, KC_RALT, KC_ALAP, KC_RCTL
   //`-----------------------------------------------------------------------------------------------------------'
   ),
 
-  [_LOWER] = LAYOUT( \
+  [_LOWER] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //                F1       F2       F3       F4       F5        -        ^        \        @        [   Delete
-        _____,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC,  KC_DEL,\
+      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //                F6       F7       F8       F9      F10                          ;        :        ]
-        _____,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,   XXXXX,   XXXXX, KC_SCLN, KC_QUOT, KC_BSLS,   _____,\
+      _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX, XXXXXXX, KC_SCLN, KC_QUOT, KC_BSLS, _______,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //               F11      F12        Kana/Kanji    Enter   Delete
-        _____,  KC_F11,  KC_F12,   XXXXX,   KANJI,  KC_ENT,  KC_DEL,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,\
+      _______,  KC_F11,  KC_F12, XXXXXXX,   KANJI,  KC_ENT,  KC_DEL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //                                                                           Adjust
-        _____,   _____,   _____,                     _____,                   KC_MLAD,   _____,   _____,   _____ \
+      _______, _______, _______,                   _______,                   KC_MLAD, _______, _______, _______
   //`-----------------------------------------------------------------------------------------------------------'
   ),
 
-  [_RAISE] = LAYOUT( \
+  [_RAISE] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //                 1        2        3        4        5        6        7        8        9        0        -
-        _____,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,\
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //                                                           Left     Down       Up    Right
-        _____,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   XXXXX,   _____,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //                                                                                ,        .        /      yen
-        _____,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX,   XXXXX, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM,  KC_DOT, KC_SLSH, KC_ROSF,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-        _____,   _____,   _____,                     _____,                     _____,   _____,   _____,   _____ \
+      _______, _______, _______,                   _______,                   _______, _______, _______, _______
   //`-----------------------------------------------------------------------------------------------------------'
   ),
 
-  [_ADJUST] = LAYOUT( \
+  [_ADJUST] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //             Reset LEDReset  MacMode  WinMode              Home PageDown   PageUp      End
-        _____,   RESET,  RGBRST, AG_NORM, AG_SWAP,   XXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,   XXXXX,   XXXXX,\
+      _______,   RESET,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //           LED On/Off Hue/Saturation/Value Increment    Mouse Left Down Up Right
-        _____, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,   XXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,   XXXXX,   _____,\
+      _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //           LED Mode Hue/Saturation/Value Decrement      Mouse Button Left Right
-        _____, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,   XXXXX, KC_BTN1, KC_BTN2,   XXXXX,   XXXXX,   XXXXX,   XXXXX,\
+      _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-        _____,   _____,   _____,                     _____,                     _____,   _____,   _____,   _____ \
+      _______, _______, _______,                   _______,                   _______, _______, _______, _______
   //`-----------------------------------------------------------------------------------------------------------'
   )
 };

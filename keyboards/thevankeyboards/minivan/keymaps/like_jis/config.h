@@ -2,7 +2,6 @@
 
 // place overrides here
 #define TAPPING_TERM 200
-#define PREVENT_STUCK_MODIFIERS
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM_PER_KEY
 
@@ -40,8 +39,5 @@
 #ifdef RGBLIGHT_ENABLE
   #define RGB_DI_PIN D0
   #define RGBLIGHT_TIMER
-  #define ws2812_PORTREG  PORTD
-  #define ws2812_DDRREG   DDRD
-
   #define RGBLED_NUM 3
 #endif
