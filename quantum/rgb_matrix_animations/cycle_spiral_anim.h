@@ -6,13 +6,13 @@ bool CYCLE_SPIRAL(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { 0, rgb_matrix_config.sat, rgb_matrix_config.val };
-  uint8_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 4);
+  uint8_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 2);
   for (uint8_t i = led_min; i < led_max; i++) {
     RGB_MATRIX_TEST_LED_FLAGS();
     int16_t dx = g_led_config.point[i].x - 112;
     int16_t dy = g_led_config.point[i].y - 32;
     uint8_t dist = sqrt16(dx * dx + dy * dy);
-    hsv.h = atan2_8(dy, dx) + (3 * dist) - time;
+    hsv.h = atan2_8(dy, dx) + dist - time;
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
