@@ -319,7 +319,7 @@ void dip_update(uint8_t index, bool active) {
 #endif // KEYBOARD_planck_rev6
 
 #ifdef KEYBOARD_planck_ez
-uint32_t layer_state_set_keymap(uint32_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
 
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
