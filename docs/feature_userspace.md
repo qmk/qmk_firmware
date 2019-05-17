@@ -115,11 +115,11 @@ For instance, let's look at the `layer_state_set_user()` function.  You can enab
 In your `<name.c>` file, you'd want to add this: 
 ```c
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, 2, 3, 5);
   return layer_state_set_keymap (state);
 }
