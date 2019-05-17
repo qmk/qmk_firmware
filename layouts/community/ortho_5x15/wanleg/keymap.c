@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________GherkinLike_0_______________, KC_7, KC_8, KC_9,
   _______________GherkinLike_1_______________, KC_4, KC_5, KC_6,
   _______________GherkinLike_2_______________, KC_1, KC_2, KC_3,
-  KC_LCTL, GHERKIN50, KC_LALT, NUMPAD, NUMBER, ETCETERA, LT(_FN,KC_SPC),DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_0, KC_0, SH_T(KC_DOT)
+  KC_LCTL, GHERKIN50, KC_LALT, NUMPAD, NUMBER, ETCETERA, LT(_FN,KC_SPC),DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, SH_T(KC_0), KC_0, SH_T(KC_DOT)
 ),
 
 [GK50] = LAYOUT_ortho_5x10_wrapper(
