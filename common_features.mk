@@ -306,6 +306,12 @@ endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
+ifeq ($(strip $(LEADERS_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_leaders.c
+    SRC += $(QUANTUM_DIR)/leaders/press_state.c
+    OPT_DEFS += -DLEADERS_ENABLE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \

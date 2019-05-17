@@ -283,6 +283,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
   #endif
+  #ifdef LEADERS_ENABLE
+    process_leaders(keycode, record) &&
+  #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
@@ -969,6 +972,9 @@ void matrix_init_quantum() {
   #endif
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
+  #endif
+  #ifdef LEADERS_ENABLE
+    leaders_init();
   #endif
   matrix_init_kb();
 }

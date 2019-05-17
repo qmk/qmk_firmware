@@ -93,6 +93,10 @@ extern uint32_t default_layer_state;
     #include "process_leader.h"
 #endif
 
+#ifdef LEADERS_ENABLE
+	#include "process_leaders.h"
+#endif
+
 #ifdef UNICODE_ENABLE
     #include "process_unicode.h"
 #endif
