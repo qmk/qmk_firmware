@@ -13,7 +13,7 @@
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 1
 
-/* Milk defualt pinout*/
+/* Milk default pinout */
 #define DIRECT_PINS { \
     { D4, C6 }, \
 }
