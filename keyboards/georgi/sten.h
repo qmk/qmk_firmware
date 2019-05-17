@@ -34,7 +34,7 @@ void 			CLICK_MOUSE(uint8_t);
 // Keymap helper
 #define P(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;}
 #define PC(chord, act) if (cChord == (chord)) { if (!lookup) {act;} return chord;} \
-	for(int i; i < stenoLayerCount; i++) { \
+	for(int i = 0; i < stenoLayerCount; i++) { \
 		refChord = stenoLayers[i] | chord; \
 		if (cChord == (refChord)) { if (!lookup) {act;} return refChord;}; \
 }
