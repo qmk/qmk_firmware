@@ -312,8 +312,13 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
     case DEBUG:
       if (record->event.pressed) {
+        if (debug_enable) {
+          print("DEBUG: disabled.\n");
+          debug_enable = false;
+        } else {
           debug_enable = true;
           print("DEBUG: enabled.\n");
+        }
       }
     return false;
     case EEPROM_RESET:
