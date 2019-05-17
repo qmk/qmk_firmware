@@ -23,10 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(LAYER_STATE_8BIT) || ( defined(DYNAMIC_KEYMAP_ENABLE) && DYNAMIC_KEYMAP_LAYER_COUNT >= 8 )
 typedef uint8_t layer_state_t;
+#define get_highest_layer(state) biton8(state)
 #elif defined(LAYER_STATE_16BIT)
 typedef uint16_t layer_state_t;
+#define get_highest_layer(state) biton16(state)
 #else
 typedef uint32_t layer_state_t;
+#define get_highest_layer(state) biton32(state)
 #endif
 
 
