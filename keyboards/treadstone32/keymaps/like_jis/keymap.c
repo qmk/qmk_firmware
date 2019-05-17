@@ -34,22 +34,6 @@ enum custom_keycodes {
 // Layer Mode aliases
 #define KC_MLAD  MO(_ADJUST)
 
-#define KC_KANJI KANJI
-
-// Adjust layer keys
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
-#define KC_KNRM  AG_NORM
-#define KC_KSWP  AG_SWAP
-
 // Base layer mod tap
 #define KC_A_SF  LSFT_T(KC_A)
 #define KC_Z_CT  LCTL_T(KC_Z)
@@ -96,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        KC_F6SF,    KC_F7,    KC_F8,    KC_F9,   KC_F10,  XXXXXXX,  XXXXXXX,  KC_SCLN,  KC_QUOT,  KC_BSSF,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_11CT,  KC_12AL,   KC_ESC,   KC_TAB, KC_KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,  XXXXXXX,    KC_RO,
+       KC_11CT,  KC_12AL,   KC_ESC,   KC_TAB,    KANJI,   KC_DEL,  XXXXXXX,  XXXXXXX,  XXXXXXX,    KC_RO,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  KC_MLAD
   //                                        `---------|---------'
@@ -116,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
-        KC_RST,  KC_LRST,  KC_KNRM,  KC_KSWP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+         RESET,   RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LTOG,  KC_LHUI,  KC_LSAI,  KC_LVAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
+       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LMOD,  KC_LHUD,  KC_LSAD,  KC_LVAD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  _______
   //                                        `---------|---------'
@@ -179,7 +163,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return result;
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif

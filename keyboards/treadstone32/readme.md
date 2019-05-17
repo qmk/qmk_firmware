@@ -2,7 +2,7 @@
 
 ![treadstone32](https://github.com/marksard/Keyboards/raw/master/_image/20190421-P4210001.jpg)
 
-A 32 keys Symmetric Staggered keyboard.  
+A 32-key Symmetric staggered keyboard.  
 
 Keyboard Maintainer: [marksard](https://github.com/marksard)  
 Hardware Supported: The PCBs, controllers supported  

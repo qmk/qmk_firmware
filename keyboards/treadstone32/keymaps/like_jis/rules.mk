@@ -3,7 +3,6 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-MOUSEKEY_ENABLE =  yes       # Mouse keys(+4700)
 TAP_DANCE_ENABLE = no
 
 # If your custom treadstone32 pcb, you can rewrite to yes.
