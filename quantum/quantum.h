@@ -61,10 +61,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-extern uint32_t default_layer_state;
+extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-    extern uint32_t layer_state;
+    extern layer_state_t layer_state;
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
