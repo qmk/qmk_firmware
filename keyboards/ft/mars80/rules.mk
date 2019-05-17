@@ -36,7 +36,7 @@ MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
@@ -46,3 +46,5 @@ SRC += i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
+
+LAYOUTS = tkl_ansi tkl_iso
