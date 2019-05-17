@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Defaults */
 
-#define VERSION "v1.0: Stenoknight"
+#define VERSION "v1.1: ClayM"
 #define VERBOSE
 
 #define FORCE_NKRO
