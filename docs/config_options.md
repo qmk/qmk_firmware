@@ -171,6 +171,8 @@ If you define these options you will enable the associated feature, which may in
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+* `#define TAP_HOLD_CAPS_DELAY 200`
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 200ms if not defined. 
 
 ## RGB Light Configuration
 
@@ -330,6 +332,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
 
 ## USB Endpoint Limitations
 

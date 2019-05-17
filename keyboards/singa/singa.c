@@ -34,6 +34,25 @@ void rgblight_set(void) {
 }
 #endif
 
+void matrix_init_kb(void) {
+#ifdef RGBLIGHT_ENABLE
+    if (rgblight_config.enable) {
+        i2c_init();
+        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    }
+#endif
+    // call user level keymaps, if any
+    matrix_init_user();
+}
+
+void matrix_scan_kb(void) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_task();
+#endif
+    matrix_scan_user();
+    /* Nothing else for now. */
+}
+
 __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
@@ -45,7 +64,7 @@ void backlight_init_ports(void) {
     setPinOutput(D4);
     setPinOutput(D6);
 
-    // turn RGB LEDs on
+    // turn backlight LEDs on
     writePinHigh(D0);
     writePinHigh(D1);
     writePinHigh(D4);
@@ -54,13 +73,13 @@ void backlight_init_ports(void) {
 
 void backlight_set(uint8_t level) {
 	if (level == 0) {
-        // turn RGB LEDs off
+        // turn backlight LEDs off
         writePinLow(D0);
         writePinLow(D1);
         writePinLow(D4);
         writePinLow(D6);
 	} else {
-        // turn RGB LEDs on
+        // turn backlight LEDs on
         writePinHigh(D0);
         writePinHigh(D1);
         writePinHigh(D4);
