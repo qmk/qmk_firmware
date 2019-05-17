@@ -1,18 +1,18 @@
 #----------------------------------------------------------------------------
-# make georgi:default:dfu
+# make georgi:claymager:dfu
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 
-NO_REPEAT				 = no
+NO_REPEAT				 = yes
 VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
-STENO_LAYERS			 = no
+STENO_LAYERS			 = yes
 
 #Firmware reduction options
 MOUSEKEY_ENABLE			 = yes 		# 1500 bytes
 NO_TAPPING				 = no 	    # 2000 bytes
-NO_PRINT				 = yes		
+NO_PRINT				 = yes
 
 #Debug options
 CONSOLE_ENABLE			 = no
@@ -39,4 +39,7 @@ ifeq ($(strip $(ONLY_QWERTY)), yes)
 endif
 ifeq ($(strip $(NO_TAPPING)), yes)
     OPT_DEFS += -DNO_ACTION_TAPPING
+endif
+ifeq ($(strip $(STENO_LAYERS)), yes)
+    OPT_DEFS += -DSTENOLAYERS
 endif
