@@ -7,11 +7,13 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _QWERTY  0
-#define _LOWER   1
-#define _RAISE   2
-#define _UNICODE 3
-#define _ADJUST  4
+enum layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _UNICODE,
+    _ADJUST,
+};
 
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
