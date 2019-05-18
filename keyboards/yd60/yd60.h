@@ -1,5 +1,5 @@
-#ifndef KB_H
-#define KB_H
+#ifndef YD60_H
+#define YD60_H
 
 #include "quantum.h"
 
