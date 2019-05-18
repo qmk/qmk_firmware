@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "",
-    "url": "",
-    "maintainer": "qmk",
+    "keyboard_name": "Instant60",
+    "url": "https://cannonkeys.com",
+    "maintainer": "CannonKeys",
     "width": 15,
     "height": 5,
     "layouts": {
