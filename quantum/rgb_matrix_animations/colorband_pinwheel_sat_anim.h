@@ -11,7 +11,7 @@ bool BAND_PINWHEEL_SAT(effect_params_t* params) {
     RGB_MATRIX_TEST_LED_FLAGS();
     int16_t dx = g_led_config.point[i].x - 112;
     int16_t dy = g_led_config.point[i].y - 32;
-    hsv.s = rgb_matrix_config.sat - atan2_8(dy, dx) * 3 - time;
+    hsv.s = rgb_matrix_config.sat - time - atan2_8(dy, dx) * 3;
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
