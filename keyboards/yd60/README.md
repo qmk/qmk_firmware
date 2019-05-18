@@ -1,10 +1,10 @@
-YD60
-====
+YD60 (YD60MQ)
+=============
 
 Customizable 60% PCB by YMDK.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: YD60  
+Hardware Supported: YD60MQ  
 Hardware Availability: YMDK
 
 Make example for this keyboard (after setting up your build environment):
