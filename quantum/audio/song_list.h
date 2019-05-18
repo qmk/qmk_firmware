@@ -1,4 +1,4 @@
-/* Any song or sound without a license explicitly states is:
+/* Any song or sound without a license explicitly stated is:
  *
  * Copyright 2019 Jack Humbert
  * Copyright 2019 Zach White
