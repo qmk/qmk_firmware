@@ -43,7 +43,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
-SRC = i2c.c
+SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
