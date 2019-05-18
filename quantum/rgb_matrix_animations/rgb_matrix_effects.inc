@@ -7,6 +7,8 @@
 #include "rgb_matrix_animations/colorband_pinwheel_val_anim.h"
 #include "rgb_matrix_animations/colorband_spiral_sat_anim.h"
 #include "rgb_matrix_animations/colorband_spiral_val_anim.h"
+#include "rgb_matrix_animations/colorband_sat_anim.h"
+#include "rgb_matrix_animations/colorband_val_anim.h"
 #include "rgb_matrix_animations/cycle_all_anim.h"
 #include "rgb_matrix_animations/cycle_left_right_anim.h"
 #include "rgb_matrix_animations/cycle_up_down_anim.h"

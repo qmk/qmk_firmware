@@ -198,6 +198,8 @@ enum rgb_matrix_effects {
     RGB_MATRIX_BAND_PINWHEEL_VAL,   // Single hue 3 blade spinning pinwheel fades brightness
     RGB_MATRIX_BAND_SPIRAL_SAT,     // Single hue spinning spiral fades saturation
     RGB_MATRIX_BAND_SPIRAL_VAL,     // Single hue spinning spiral fades brightness
+    RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
+    RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
     RGB_MATRIX_CYCLE_ALL,           // Full keyboard solid hue cycling through full gradient
     RGB_MATRIX_CYCLE_LEFT_RIGHT,    // Full gradient scrolling left to right
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
@@ -245,6 +247,8 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL`         |Disables `RGB_MATRIX_BAND_PINWHEEL_VAL`        |
 |`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT`           |Disables `RGB_MATRIX_BAND_SPIRAL_SAT`          |
 |`#define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL`           |Disables `RGB_MATRIX_BAND_SPIRAL_VAL`          |
+|`#define DISABLE_RGB_MATRIX_BAND_SAT`                  |Disables `RGB_MATRIX_BAND_SAT`                 |
+|`#define DISABLE_RGB_MATRIX_BAND_VAL`                  |Disables `RGB_MATRIX_BAND_VAL`                 |
 |`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
 |`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
 |`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
