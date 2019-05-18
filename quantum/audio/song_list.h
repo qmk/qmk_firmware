@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "musical_notes.h"
+#pragma once
 
-#ifndef SONG_LIST_H
-#define SONG_LIST_H
+#include "musical_notes.h"
 
 #define NO_SOUND
 
@@ -350,7 +349,3 @@
 #define TERRAS_THEME
 #define RENAI_CIRCULATION
 #define PLATINUM_DISCO
-
-
-
-#endif
