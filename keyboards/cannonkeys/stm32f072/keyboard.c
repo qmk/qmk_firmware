@@ -75,13 +75,10 @@ void eeprom_init_kb(void)
         dynamic_keymap_custom_reset();
 #endif
 		// Save the magic number last, in case saving was interrupted
+        save_backlight_config_to_eeprom();
 		eeprom_set_valid(true);
-    save_backlight_config_to_eeprom();
 	}
 }
-
-
-
 
 __attribute__ ((weak))
 void matrix_init_board(void);

@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION 0x02
 #define EEPROM_VERSION_ADDR 34
 
 
