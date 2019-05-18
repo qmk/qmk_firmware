@@ -16,8 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
 #include "musical_notes.h"
 
 #ifndef SONG_LIST_H
@@ -304,5 +302,55 @@
   H__NOTE(_C5), H__NOTE(_DF5), H__NOTE(_GF5), H__NOTE(_GF5), BD_NOTE(_F5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), \
   H__NOTE(_DF5), H__NOTE(_A4), B__NOTE(_AF4), W__NOTE(_DF5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_DF5), \
   H__NOTE(_EF5), BD_NOTE(_F5),
+
+
+/* Removed sounds
+ +   This list is here solely for compatibility, so that removed songs don't just break things
+ *   If you think that any of these songs were wrongfully removed, let us know and provide
+ *   proof of permission to use them, or public domain status.
+ */
+
+#define CLOSE_ENCOUNTERS_5_NOTE
+#define DOE_A_DEER
+#define IN_LIKE_FLINT
+#define IMPERIAL_MARCH
+#define BASKET_CASE
+#define COIN_SOUND
+#define ONE_UP_SOUND
+#define SONIC_RING
+#define ZELDA_PUZZLE
+#define ZELDA_TREASURE
+#define OVERWATCH_THEME
+#define MARIO_THEME
+#define MARIO_GAMEOVER
+#define MARIO_MUSHROOM
+#define E1M1_DOOM
+#define DISNEY_SONG
+#define NUMBER_ONE
+#define CABBAGE_SONG
+#define OLD_SPICE
+#define VICTORY_FANFARE_SHORT
+#define ALL_STAR
+#define RICK_ROLL
+#define FF_PRELUDE
+#define TO_BOLDLY_GO
+#define KATAWARE_DOKI
+#define MEGALOVANIA
+#define MICHISHIRUBE
+#define LIEBESLEID
+#define MELODIES_OF_LIFE
+#define EYES_ON_ME
+#define SONG_OF_THE_ANCIENTS
+#define NIER_AMUSEMENT_PARK
+#define COPIED_CITY
+#define VAGUE_HOPE_COLD_RAIN
+#define KAINE_SALVATION
+#define WEIGHT_OF_THE_WORLD
+#define ISABELLAS_LULLABY
+#define TERRAS_THEME
+#define RENAI_CIRCULATION
+#define PLATINUM_DISCO
+
+
 
 #endif
