@@ -12,7 +12,7 @@ bool BAND_SPIRAL_VAL(effect_params_t* params) {
     int16_t dx = g_led_config.point[i].x - 112;
     int16_t dy = g_led_config.point[i].y - 32;
     uint8_t dist = sqrt16(dx * dx + dy * dy);
-    hsv.v = rgb_matrix_config.val - atan2_8(dy, dx) + dist - time;
+    hsv.v = rgb_matrix_config.val + dist - time - atan2_8(dy, dx);
     RGB rgb = hsv_to_rgb(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
