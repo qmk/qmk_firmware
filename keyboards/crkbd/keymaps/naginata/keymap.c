@@ -53,7 +53,7 @@ combo_t key_combos[COMBO_COUNT] = {
 // 薙刀式
 
 enum custom_keycodes {
-  KC_QWERTY = SAFE_RANGE,
+  KC_QWERTY = NG_SAFE_RANGE,
   KC_EUCALYN,
   KC_EISU,
   KC_LOWER,
