@@ -25,34 +25,35 @@ void matrix_scan_user(void) {
 
 void led_set_user(uint8_t usb_led) {
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
 
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRF |= (1 << 4); PORTF &= ~(1 << 4);
-	} else {
-		DDRF &= ~(1 << 4); PORTF &= ~(1 << 4);
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-	} else {
+    } else {
 
 	}
 
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        setPinOutput(F4);
+        writePinLow(F4);
+    } else {
+        setPinInput(F4);
+        writePinLow(F4);
+	}
 
-	} else {
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+
+    } else {
 
 	}
 
-	if (usb_led & (1 << USB_LED_KANA)) {
+    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
+    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
+
+    } else {
+
+    }
 }
