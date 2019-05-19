@@ -44,6 +44,9 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifndef TAP_HOLD_CAPS_DELAY
+#  define TAP_HOLD_CAPS_DELAY 200
+#endif
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -403,8 +406,8 @@ void process_action(keyrecord_t *record, action_t action)
                 /* Default Layer Bitwise Operation */
                 if (!event.pressed) {
                     uint8_t shift = action.layer_bitop.part*4;
-                    uint32_t bits = ((uint32_t)action.layer_bitop.bits)<<shift;
-                    uint32_t mask = (action.layer_bitop.xbit) ? ~(((uint32_t)0xf)<<shift) : 0;
+                    layer_state_t bits = ((layer_state_t)action.layer_bitop.bits)<<shift;
+                    layer_state_t mask = (action.layer_bitop.xbit) ? ~(((layer_state_t)0xf)<<shift) : 0;
                     switch (action.layer_bitop.op) {
                         case OP_BIT_AND: default_layer_and(bits | mask); break;
                         case OP_BIT_OR:  default_layer_or(bits | mask);  break;
@@ -417,8 +420,8 @@ void process_action(keyrecord_t *record, action_t action)
                 if (event.pressed ? (action.layer_bitop.on & ON_PRESS) :
                                     (action.layer_bitop.on & ON_RELEASE)) {
                     uint8_t shift = action.layer_bitop.part*4;
-                    uint32_t bits = ((uint32_t)action.layer_bitop.bits)<<shift;
-                    uint32_t mask = (action.layer_bitop.xbit) ? ~(((uint32_t)0xf)<<shift) : 0;
+                    layer_state_t bits = ((layer_state_t)action.layer_bitop.bits)<<shift;
+                    layer_state_t mask = (action.layer_bitop.xbit) ? ~(((layer_state_t)0xf)<<shift) : 0;
                     switch (action.layer_bitop.op) {
                         case OP_BIT_AND: layer_and(bits | mask); break;
                         case OP_BIT_OR:  layer_or(bits | mask);  break;
@@ -518,7 +521,7 @@ void process_action(keyrecord_t *record, action_t action)
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(80);
+                                wait_ms(TAP_HOLD_CAPS_DELAY);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
@@ -537,7 +540,7 @@ void process_action(keyrecord_t *record, action_t action)
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
             break;
 #endif
-#ifdef BACKLIGHT_ENABLE
+#if defined(BACKLIGHT_ENABLE) | defined(LED_MATRIX_ENABLE)
         case ACT_BACKLIGHT:
             if (!event.pressed) {
                 switch (action.backlight.opt) {
@@ -653,7 +656,7 @@ void process_action(keyrecord_t *record, action_t action)
 
 #ifndef NO_ACTION_TAPPING
   #ifdef RETRO_TAPPING
-  if (!is_tap_key(record->event.key)) {
+  if (!is_tap_action(action)) {
     retro_tapping_counter = 0;
   } else {
     if (event.pressed) {
@@ -853,8 +856,13 @@ void unregister_code(uint8_t code)
  */
 void tap_code(uint8_t code) {
   register_code(code);
+  if (code == KC_CAPS) {
+    wait_ms(TAP_HOLD_CAPS_DELAY);
+  }
   #if TAP_CODE_DELAY > 0
+  else {
     wait_ms(TAP_CODE_DELAY);
+  }
   #endif
   unregister_code(code);
 }
@@ -929,7 +937,15 @@ void clear_keyboard_but_mods_and_keys()
 bool is_tap_key(keypos_t key)
 {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
 
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_action(action_t action)
+{
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:

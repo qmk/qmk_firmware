@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN MO(_FN)
 #define TORST TO(_RESET)
 #define TODFT TO(_DEFAULT)
@@ -53,10 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, \
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO \
 )
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

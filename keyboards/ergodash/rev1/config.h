@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -35,9 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 7
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D7, E6, B4, B5, D4 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
-// #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+// #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
 /* define tapping term */
 #define TAPPING_TERM 120
@@ -45,8 +44,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+#define C6_AUDIO
+
 /* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
+#ifdef BACKLIGHT_ENABLE
+  #define BACKLIGHT_PIN B6
+  #define BACKLIGHT_LEVELS 7
+//  #define BACKLIGHT_BREATHING
+//  #define BREATHING_PERIOD 4
+#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -56,33 +62,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 24
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 12, 12 }    // Number of LEDs
 
-#define RGBLED_NUM 24    // Number of LEDs
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-
-#endif
+#define SOFT_SERIAL_PIN D0
+#define SELECT_SOFT_SERIAL_SPEED 1
+/*Sets the protocol speed when using serial communication*/
+//Speeds:
+//0: about 189kbps (Experimental only)
+//1: about 137kbps (default)
+//2: about 75kbps
+//3: about 39kbps
+//4: about 26kbps
+//5: about 20kbps

@@ -11,7 +11,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make mechmini/v1:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Mechmini Notes
 
@@ -29,7 +29,7 @@ $ brew cask install crosspack-avr
 $ brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
 ```
 
-In order to use the `./program` script, which can reboot the board into
+In order to use the `./util/atmega32a_program.py` script, which can reboot the board into
 the bootloader, you'll need Python 2 with PyUSB installed:
 
 ```

@@ -24,10 +24,6 @@ extern keymap_config_t keymap_config;
 #define L_CURBR LSFT(KC_LBRC)
 #define R_CURBR LSFT(KC_RBRC)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QW] = LAYOUT( /* Qwerty */
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
@@ -65,10 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
     _______, KC_LSFT, KC_B,                      KC_SPC,  KC_C,                      _______, _______, _______
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

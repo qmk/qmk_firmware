@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_OUTPUT B5 // usually COL
 #define QMK_ESC_INPUT B2 // usually ROW
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -102,11 +102,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -125,7 +120,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-#define RGB_MATRIX_SKIP_FRAMES 0
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 215
 
 #define DRIVER_ADDR_1 0b1110100
@@ -140,4 +134,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_2_LED_TOTAL 32
 #endif
 
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

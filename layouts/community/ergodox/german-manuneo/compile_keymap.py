@@ -668,9 +668,6 @@ def iter_keymap_parts(config, keymaps):
 
     yield "};\n\n"
 
-    # no idea what this is for
-    yield "const uint16_t PROGMEM fn_actions[] = {};\n"
-
     # macros
     yield MACROCODE.format(
         macro_cases="",

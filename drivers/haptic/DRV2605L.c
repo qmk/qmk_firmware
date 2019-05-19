@@ -21,7 +21,7 @@
 #include <math.h>
 
 
-uint8_t DRV2605L_transfer_buffer[20];
+uint8_t DRV2605L_transfer_buffer[2];
 uint8_t DRV2605L_tx_register[0];
 uint8_t DRV2605L_read_buffer[0];
 uint8_t DRV2605L_read_register;
@@ -34,6 +34,11 @@ void DRV_write(uint8_t drv_register, uint8_t settings) {
 }
 
 uint8_t DRV_read(uint8_t regaddress) {
+#ifdef __AVR__
+  i2c_readReg(DRV2605L_BASE_ADDRESS << 1,
+    regaddress, DRV2605L_read_buffer, 1, 100);
+  DRV2605L_read_register = (uint8_t)DRV2605L_read_buffer[0];
+#else
   DRV2605L_tx_register[0] = regaddress;
   if (MSG_OK != i2c_transmit_receive(DRV2605L_BASE_ADDRESS << 1,
     DRV2605L_tx_register, 1,
@@ -42,14 +47,13 @@ uint8_t DRV_read(uint8_t regaddress) {
     printf("err reading reg \n");
   }
   DRV2605L_read_register = (uint8_t)DRV2605L_read_buffer[0];
+#endif
 return DRV2605L_read_register;
 }
 
 void DRV_init(void)
 {
   i2c_init();
-  i2c_start(DRV2605L_BASE_ADDRESS);
-
   /* 0x07 sets DRV2605 into calibration mode */
   DRV_write(DRV_MODE,0x07); 
 
@@ -104,21 +108,17 @@ void DRV_init(void)
     C4_SET.Bits.C4_AUTO_CAL_TIME = AUTO_CAL_TIME;
     DRV_write(DRV_CTRL_4, (uint8_t) C4_SET.Byte);
   DRV_write(DRV_LIB_SELECTION,LIB_SELECTION);
-  //start autocalibration
+
   DRV_write(DRV_GO, 0x01);
 
   /* 0x00 sets DRV2605 out of standby and to use internal trigger
    * 0x01 sets DRV2605 out of standby and to use external trigger */
   DRV_write(DRV_MODE,0x00); 
-  
-  /* 0x06: LRA library */
-  DRV_write(DRV_WAVEFORM_SEQ_1, 0x01);
 
-  /* 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
-   * 0x39: ERM, 4x brake factor, medium gain, 1.365x back EMF */
-  
-  /* TODO: setup auto-calibration as part of initiation */
-
+//Play greeting sequence
+  DRV_write(DRV_GO, 0x00);
+  DRV_write(DRV_WAVEFORM_SEQ_1, DRV_GREETING);
+  DRV_write(DRV_GO, 0x01);
 }
 
 void DRV_pulse(uint8_t sequence)

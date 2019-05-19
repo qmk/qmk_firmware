@@ -51,6 +51,35 @@ The folder name must be added to the keyboard's `rules.mk`:
 
 but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
 
+## Building a Keymap
+
+You should be able to build the keyboard keymap with a command in this format:
+
+    make <keyboard>:<layout>
+
+### Conflicting layouts
+When a keyboard supports multiple layout options,
+
+    LAYOUTS = ortho_4x4 ortho_4x12
+
+And a layout exists for both options,
+```
+layouts/
++ community/
+| + ortho_4x4/
+| | + <layout>/
+| | | + ...
+| + ortho_4x12/
+| | + <layout>/
+| | | + ...
+| + ...
+```
+
+The FORCE_LAYOUT argument can be used to specify which layout to build
+
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x4
+    make <keyboard>:<layout> FORCE_LAYOUT=ortho_4x12
+
 ## Tips for Making Layouts Keyboard-Agnostic
 
 ### Includes

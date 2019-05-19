@@ -141,7 +141,7 @@ uint16_t notes_count;
 bool     notes_repeat;
 bool     note_resting = false;
 
-uint8_t current_note = 0;
+uint16_t current_note = 0;
 uint8_t rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
