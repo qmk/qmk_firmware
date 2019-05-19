@@ -1,41 +1,11 @@
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    WORD_BACK = SAFE_RANGE,
-    WORD_FORWARD,
-    DELETE_WORD_BACK,
-    DELETE_WORD_FORWARD,
-    FINE_VOLUP,
-    FINE_VOLDOWN
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case WORD_BACK:
-                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_UP(X_LALT));
-                return false;
-            case WORD_FORWARD:
-                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT) SS_UP(X_LALT));
-                return false;
-            case DELETE_WORD_BACK:
-                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_BSPACE) SS_UP(X_LALT));
-                return false;
-            case DELETE_WORD_FORWARD:
-                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_DELETE) SS_UP(X_LALT));
-                return false;
-            case FINE_VOLUP:
-                SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X__VOLUP) SS_UP(X_LALT) SS_UP(X_LSHIFT));
-                return false;
-            case FINE_VOLDOWN:
-                SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LSHIFT) SS_TAP(X__VOLDOWN) SS_UP(X_LALT) SS_UP(X_LSHIFT));
-                return false;
-            default:
-                return true;  // Process all other keycodes normally
-        }
-    }
-    return true;
-};
+#define WORD_BACK A(KC_LEFT)
+#define WORD_FORWARD A(KC_RIGHT)
+#define DELETE_WORD_BACK A(KC_BSPACE)
+#define DELETE_WORD_FORWARD A(KC_DELETE)
+#define FINE_VOLUP S(A(KC__VOLUP))
+#define FINE_VOLDOWN S(A(KC__VOLDOWN))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  Default layer:
