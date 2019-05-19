@@ -5,8 +5,6 @@
 #if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
 bool has_initialized;
-#elif defined(RGB_MATRIX_ENABLE)
-extern rgb_config_t rgb_matrix_config;
 #endif
 
 #ifdef RGBLIGHT_ENABLE

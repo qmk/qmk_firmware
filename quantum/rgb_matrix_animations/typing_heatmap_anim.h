@@ -1,8 +1,6 @@
-#pragma once
 #if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)
-
-extern rgb_config_t rgb_matrix_config;
-extern uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
+RGB_MATRIX_EFFECT(TYPING_HEATMAP)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 void process_rgb_matrix_typing_heatmap(keyrecord_t *record) {
     uint8_t row = record->event.key.row;
@@ -35,7 +33,7 @@ void process_rgb_matrix_typing_heatmap(keyrecord_t *record) {
     }
 }
 
-bool rgb_matrix_typing_heatmap(effect_params_t* params) {
+bool TYPING_HEATMAP(effect_params_t* params) {
   // Modified version of RGB_MATRIX_USE_LIMITS to work off of matrix row / col size
   uint8_t led_min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter;
   uint8_t led_max = led_min + RGB_MATRIX_LED_PROCESS_LIMIT;
@@ -72,4 +70,5 @@ bool rgb_matrix_typing_heatmap(effect_params_t* params) {
   return led_max < sizeof(rgb_frame_buffer);
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_TYPING_HEATMAP)

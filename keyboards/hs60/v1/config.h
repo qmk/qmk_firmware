@@ -134,4 +134,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_2_LED_TOTAL 32
 #endif
 
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)

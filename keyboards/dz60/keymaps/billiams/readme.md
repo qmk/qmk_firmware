@@ -11,6 +11,7 @@ Settings:
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
 * Underglow toggle is available as `Fn` + `Q`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
+* vim-style arrow key bindings H J K L in layer 1
 
 ### Initial Installation
 
@@ -59,9 +60,9 @@ FN Layer
 ,-----------------------------------------------------------------------------------------.
 |  `  |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |    DEL    |
 |-----------------------------------------------------------------------------------------+
-|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+|     |     | MUTE | Prev | Next |
+|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+| Mute | Vol-| Vol+| Prev | Next |
 |-----------------------------------------------------------------------------------------+
-|         |     |     |     |     |     |     |     |     |    | Vol- | Vol+ | Play/Pause |
+|         |     |     |     |     |     | Left| Down| Up |Right|      |      | Play/Pause |
 |-----------------------------------------------------------------------------------------+
 |           |     |     |     |     |     |     |     |Scr- |Scr+ |         | PG_UP |RESET|
 |-----------------------------------------------------------------------------------------+

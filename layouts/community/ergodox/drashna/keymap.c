@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define UC(x) KC_NO
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-extern bool g_suspend_state;
-extern rgb_config_t rgb_matrix_config;
-#endif
 extern userspace_config_t userspace_config;
 
 enum more_custom_keycodes {
@@ -403,7 +399,6 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-extern led_config_t g_led_config;
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
