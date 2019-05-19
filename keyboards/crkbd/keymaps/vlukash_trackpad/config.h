@@ -2,6 +2,13 @@
 
 #define NO_DEBUG_LEDS
 
+// Connector PCB version
+// 1 - PCB that supports flex caple and the trackpad sensor is mounted on an 'H' keycap
+//   - https://github.com/vlukash/corne-trackpad/tree/master/connector
+// 2 - PCB woth no flex option, track sensor mounted directly on the PCB
+//   - https://github.com/vlukash/corne-trackpad/tree/master/connector-no-flex
+#define TRACKPAD_CONNECTOR_VER 1
+
 /* Select hand configuration */
 #define MASTER_RIGHT
 

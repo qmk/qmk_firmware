@@ -6,10 +6,11 @@
 #include <util/delay.h>
 #include "../../lib/lufa/LUFA/Drivers/Peripheral/SPI.h"
 
-// Trackpad speed multiplier
-#define SPEED_MULTIPLIER 2
+// Trackpad speed adjustments
+#define POINTER_SPEED_MULTIPLIER 2
+#define SCROLL_SPEED_DIVIDER 6
 
-// Pins corresponding ports
+// Pins on corresponding ports
 #define TP_RESET     1
 #define TP_SHUTDOWN  0
 #define TP_CS        0

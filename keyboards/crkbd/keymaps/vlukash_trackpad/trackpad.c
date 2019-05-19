@@ -49,19 +49,27 @@ void pointing_device_task(void){
   // Motion has occurred on the trackpad
   if (motion > 127) {
 
-    int8_t dx = readRegister(0x03);
-    int8_t dy = readRegister(0x04);
+  int8_t dx, dy;
+
+  if(TRACKPAD_CONNECTOR_VER == 1) {
+    dx = readRegister(0x03);
+    dy = -readRegister(0x04);
+  }
+  else {
+    dy = -readRegister(0x03);
+    dx = -readRegister(0x04);
+  }
 
     report_mouse_t currentReport = pointing_device_get_report();
     if (isScrollMode)
     {
-      currentReport.h = dx/2;
-      currentReport.v = -dy/2;
+      currentReport.h = dx/SCROLL_SPEED_DIVIDER;
+      currentReport.v = dy/SCROLL_SPEED_DIVIDER;
     }
     else
     {
-      currentReport.x = dx * SPEED_MULTIPLIER;
-      currentReport.y = -dy * SPEED_MULTIPLIER;
+      currentReport.x = dx * POINTER_SPEED_MULTIPLIER;
+      currentReport.y = dy * POINTER_SPEED_MULTIPLIER;
     }
 
     pointing_device_set_report(currentReport);
