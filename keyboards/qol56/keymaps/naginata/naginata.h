@@ -32,3 +32,13 @@ typedef enum naginata_keycodes {
 } NGKEYS;
 
 #define NG_SAFE_RANGE SAFE_RANGE+8
+
+#define KC_NGSHFT NGSHFT
+#define KC_CHR10 CHR10
+#define KC_CHR20 CHR20
+#define KC_CHR30 CHR30
+#define KC_UP5 UP5
+#define KC_DOWN5 DOWN5
+#define KC_LEFT5 LEFT5
+#define KC_RGHT5 RGHT5
+
