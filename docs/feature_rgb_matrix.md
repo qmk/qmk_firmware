@@ -194,6 +194,8 @@ enum rgb_matrix_effects {
     RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
+    RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
+    RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
     RGB_MATRIX_CYCLE_ALL,           // Full keyboard solid hue cycling through full gradient
     RGB_MATRIX_CYCLE_LEFT_RIGHT,    // Full gradient scrolling left to right
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
@@ -235,6 +237,8 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`               |Disables `RGB_MATRIX_ALPHAS_MODS`              |
 |`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`          |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`         |
 |`#define DISABLE_RGB_MATRIX_BREATHING`                 |Disables `RGB_MATRIX_BREATHING`                |
+|`#define DISABLE_RGB_MATRIX_BAND_SAT`                  |Disables `RGB_MATRIX_BAND_SAT`                 |
+|`#define DISABLE_RGB_MATRIX_BAND_VAL`                  |Disables `RGB_MATRIX_BAND_VAL`                 |
 |`#define DISABLE_RGB_MATRIX_CYCLE_ALL`                 |Disables `RGB_MATRIX_CYCLE_ALL`                |
 |`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`          |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`         |
 |`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`             |Disables `RGB_MATRIX_CYCLE_UP_DOWN`            |
