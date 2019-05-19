@@ -1,6 +1,6 @@
-# E6-V2 Bootmapper Client (ps2avrgb)
+# E6-V2 Bootmapper Client (ps2avrgb) OE
 
-These docs are for the BMC version of the E6-V2 PCB which has an atmega32a microcontroller. Please do not flash this `.hex` file on your atmega32u4 equipped E6-V2. 
+These docs are for the BMC version of the E6-V2 PCB sold during Round 1 which has an atmega32a microcontroller. Please do not flash this `.hex` file on your atmega32u4 equipped E6-V2 or your E6V2 BMC from Round 2. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: ps2avrgb E6-V2 with atmega32a microcontroller  
@@ -8,7 +8,7 @@ Hardware Availability: [geekhack.org/index.php?topic=90787.0](https://geekhack.o
 
 Make example for this keyboard (after setting up your build environment):
 
-    make exclusive/e6v2/bmc:default
+    make exclusive/e6v2/oe_bmc:default
 
 Flashing
 
