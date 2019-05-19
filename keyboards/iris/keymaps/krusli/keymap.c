@@ -1,11 +1,13 @@
 #include "iris.h"
+#include "action_layer.h"
+#include "eeconfig.h"
 
-enum layer_names {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
+extern keymap_config_t keymap_config;
+
+#define _QWERTY 0
+#define _LOWER 1
+#define _RAISE 2
+#define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -14,7 +16,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
@@ -62,7 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
-
+      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -72,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-
+      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -82,7 +83,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-
+      break;
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
@@ -90,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ADJUST);
       }
       return false;
-
+      break;
   }
   return true;
 }
