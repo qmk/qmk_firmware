@@ -38,6 +38,12 @@
 
 // Note: You can only use basic keycodes here!
 // P() is just a wrapper to make your life easier.
+// PC() applies the mapping to all of the StenoLayers.
+//   To overload, declare it with P() first.
+//   Be sure to enable in rules.mk and see colemak-dh for usage 
+//
+// FN is unavailable. That is reserved for system use.
+// Chords containing PWR are always available, even in steno mode.
 //
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
@@ -135,7 +141,7 @@ uint32_t processQwerty(bool lookup) {
     P( RZ,          SEND(KC_ESC));
 
     // Symbols and Numbers
-    P( PWR | RE | RU,      SEND(KC_ENT));
+ 	P( PWR | RE | RU,      SEND(KC_ENT));
     P( PWR | LA | LO,      SEND(KC_SPC));
     P( PWR | LP | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
     P( PWR | LH | LR,      SEND(KC_LSFT); SEND(KC_0));       // )
@@ -169,6 +175,10 @@ uint32_t processQwerty(bool lookup) {
     P( PWR | RE,           SEND(KC_SCLN));
     P( PWR | RU,           SEND(KC_BSLS));
     P( PWR | LNO,          SEND(KC_BSLS));
+    P( PWR | RF | RR,      SEND(KC_LEFT));
+    P( PWR | RP | RB,      SEND(KC_DOWN));
+    P( PWR | RL | RG,      SEND(KC_UP));
+    P( PWR | RT | RS,      SEND(KC_RIGHT));
 
     // Letters
     P( LSU | LSD,    SEND(KC_A));
