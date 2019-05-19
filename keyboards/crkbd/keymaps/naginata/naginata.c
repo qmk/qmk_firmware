@@ -7,7 +7,6 @@ static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフト�
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static bool is_naginata_edit = false; // 薙刀式編集モードがオンかオフか
 static uint8_t naginata_layer = 0; // レイヤー番号
-static uint16_t ng_shiftkey = 0; // 薙刀式のシフトキー
 static bool ng_shift = false; // シフトキーの状態
 static bool ng_space = false; // シフトキーかスペース入力か
 static uint8_t n_modifier = 0; // 押しているmodifierキーの数
@@ -17,13 +16,6 @@ static uint8_t naginata_elayerl = 0; // 左編集レイヤー番号
 static uint8_t naginata_elayerr = 0; // 右編集レイヤー番号
 static uint8_t n_editl = 0; // 押しているJKキーの数
 static uint8_t n_editr = 0; // 押しているFGキーの数
-
-// 編集モードキー
-static uint16_t kchr10;
-static uint16_t kchr20;
-static uint16_t kchr30;
-static uint16_t kup5;
-static uint16_t kdown5;
 #endif
 
 // 31キーを32bitの各ビットに割り当てる
@@ -232,9 +224,8 @@ const uint32_t ng_comb[] = {
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
-void set_naginata(uint8_t layer, uint16_t shiftkey) {
+void set_naginata(uint8_t layer) {
   naginata_layer = layer;
-  ng_shiftkey = shiftkey;
 }
 
 // 薙刀式をオンオフ
@@ -380,14 +371,14 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
         case KC_F:
           n_editr++;
           if (n_editr >= 2) {
-            naginata_edit_on(1);
+            naginata_edit_right_on();
           }
           break;
         case KC_J:
         case KC_K:
           n_editl++;
           if (n_editl >= 2) {
-            naginata_edit_on(0);
+            naginata_edit_left_on();
           }
           break;
       }
@@ -425,11 +416,11 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    }
-    if (keycode == ng_shiftkey) {
-      ng_shift = true;
-      if (ng_chrcount == 0) ng_space = true;
-      return false;
+      case NGSHFT:
+        ng_shift = true;
+        if (ng_chrcount == 0) ng_space = true;
+        return false;
+        break;
     }
   } else { // key release
     switch (keycode) {
@@ -444,17 +435,17 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           return false;
         }
         break;
-    }
-    if (keycode == ng_shiftkey) {
-      if (ng_space) { // シフト単独押し
-        register_code(KC_SPC);
-        unregister_code(KC_SPC);
-        ng_space = false;
-      } else if (ng_chrcount > 0) { // シフトを先に離すとき
-        naginata_type();
-      }
-      ng_shift = false;
-      return false;
+      case NGSHFT:
+        if (ng_space) { // シフト単独押し
+          register_code(KC_SPC);
+          unregister_code(KC_SPC);
+          ng_space = false;
+        } else if (ng_chrcount > 0) { // シフトを先に離すとき
+          naginata_type();
+        }
+        ng_shift = false;
+        return false;
+        break;
     }
   }
   return true;
@@ -464,26 +455,25 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 #ifdef NAGINATA_EDIT_MODE
 
 // 編集モードのレイヤー、マクロ
-void set_naginata_edit(uint8_t layer1, uint8_t layer2, uint16_t ke1, uint16_t ke2, uint16_t ke3, uint16_t ke4, uint16_t ke5) {
+void set_naginata_edit(uint8_t layer1, uint8_t layer2) {
   naginata_elayerl = layer1;
   naginata_elayerr = layer2;
-  kchr10 = ke1;
-  kchr20 = ke2;
-  kchr30 = ke3;
-  kup5   = ke4;
-  kdown5 = ke5;
 }
 
 // 薙刀式編集モードをオンオフ
-void naginata_edit_on(uint8_t lr) {
+void naginata_edit_left_on(void) {
   is_naginata_edit = true;
   n_editl = 0;
   n_editr = 0;
-  if (lr == 0) {
-    layer_on(naginata_elayerl);
-  } else {
-    layer_on(naginata_elayerr);
-  }
+  if (!layer_state_is(naginata_elayerl)) layer_on(naginata_elayerl);
+  naginata_clear();
+}
+
+void naginata_edit_right_on(void) {
+  is_naginata_edit = true;
+  n_editl = 0;
+  n_editr = 0;
+  if (!layer_state_is(naginata_elayerr)) layer_on(naginata_elayerr);
   naginata_clear();
 }
 
@@ -504,35 +494,43 @@ bool naginata_edit_state(void) {
 
 // 編集モード
 bool process_naginata_edit(uint16_t keycode, keyrecord_t *record) {
+  // if (!is_naginata || !is_naginata_edit) return true;
+
   if (record->event.pressed) {
-    if (keycode == kchr10) {
-      register_code(KC_LCMD);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LCMD);      
-      repeatkey(KC_RGHT, 10);
-      return false;
-    } else if (keycode == kchr20) {
-      register_code(KC_LCMD);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LCMD);      
-      repeatkey(KC_RGHT, 20);
-      return false;
-    } else if (keycode == kchr30) {
-      register_code(KC_LCMD);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LCMD);      
-      repeatkey(KC_RGHT, 30);
-      return false;
-    } else if (keycode == kup5) {
-      repeatkey(KC_UP, 5);
-      return false;
-    } else if (keycode == kdown5) {
-      repeatkey(KC_DOWN, 5);
-      return false;
-    }
+    switch (keycode) {
+      case CHR10:
+        register_code(KC_LCMD);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LCMD);      
+        repeatkey(KC_RGHT, 10);
+        return false;
+        break;
+      case CHR20:
+        register_code(KC_LCMD);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LCMD);      
+        repeatkey(KC_RGHT, 20);
+        return false;
+        break;
+      case CHR30:
+        register_code(KC_LCMD);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LCMD);      
+        repeatkey(KC_RGHT, 30);
+        return false;
+        break;
+      case UP5:
+        repeatkey(KC_UP, 5);
+        return false;
+        break;
+      case DOWN5:
+        repeatkey(KC_DOWN, 5);
+        return false;
+        break;
+      }
   }
   return true;
 }
