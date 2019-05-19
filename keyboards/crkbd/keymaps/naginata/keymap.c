@@ -10,6 +10,7 @@
 
 // 薙刀式
 #include "naginata.h"
+NGKEYS naginata_keys;
 // 薙刀式
 
 extern keymap_config_t keymap_config;
@@ -60,15 +61,6 @@ enum custom_keycodes {
   KC_ADJUST,
   KC_BACKLIT,
   KC_KANA2,
-// 薙刀式
-  KC_NGSHFT, // 薙刀式シフトキー
-  // 編集モードを追加する場合
-  KC_CHR10,
-  KC_CHR20,
-  KC_CHR30,
-  KC_UP5,
-  KC_DOWN5,
-// 薙刀式
   KC_UNDGL,
   RGBRST
 };
@@ -228,9 +220,9 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA, KC_NGSHFT);
+  set_naginata(_NAGINATA);
   #ifdef NAGINATA_EDIT_MODE
-  set_naginata_edit(_NGEDITL, _NGEDITR, KC_CHR10, KC_CHR20, KC_CHR30, KC_UP5, KC_DOWN5);
+  set_naginata_edit(_NGEDITL, _NGEDITR);
   #endif
   // 薙刀式
 
