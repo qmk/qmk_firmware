@@ -8,7 +8,7 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    YMDK
-#define PRODUCT         YD60
+#define PRODUCT         YD60MQ
 #define DESCRIPTION     Keyboard
 
 /* key matrix size */
