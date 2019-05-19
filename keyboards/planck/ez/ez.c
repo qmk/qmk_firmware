@@ -128,7 +128,7 @@ void matrix_scan_kb(void) {
   matrix_scan_user();
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
 
   palClearPad(GPIOB, 8);
   palClearPad(GPIOB, 9);
