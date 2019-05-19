@@ -2,20 +2,12 @@
 RGB_MATRIX_EFFECT(CYCLE_PINWHEEL)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-bool CYCLE_PINWHEEL(effect_params_t* params) {
-  RGB_MATRIX_USE_LIMITS(led_min, led_max);
+static void CYCLE_PINWHEEL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t time) {
+    hsv->h = atan2_8(dy, dx) + time;
+}
 
-  HSV hsv = { 0, rgb_matrix_config.sat, rgb_matrix_config.val };
-  uint8_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 4);
-  for (uint8_t i = led_min; i < led_max; i++) {
-    RGB_MATRIX_TEST_LED_FLAGS();
-    int16_t dx = g_led_config.point[i].x - 112;
-    int16_t dy = g_led_config.point[i].y - 32;
-    hsv.h = atan2_8(dy, dx) + time;
-    RGB rgb = hsv_to_rgb(hsv);
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-  }
-  return led_max < DRIVER_LED_TOTAL;
+bool CYCLE_PINWHEEL(effect_params_t* params) {
+    return effect_runner_dx_dy(params, &CYCLE_PINWHEEL_math);
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
