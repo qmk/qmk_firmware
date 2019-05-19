@@ -1,5 +1,7 @@
 #pragma once
 
+#define NO_DEBUG_LEDS
+
 /* Select hand configuration */
 #define MASTER_RIGHT
 
