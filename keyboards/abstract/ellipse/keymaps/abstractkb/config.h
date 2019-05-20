@@ -17,6 +17,7 @@
 #pragma once
 
 #define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 2
 #define RGBLIGHT_ANIMATIONS
 
 // place overrides here

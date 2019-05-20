@@ -23,7 +23,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
     KC_A,	RGB_TOG,	KC_C, \
-    BL_TOGG,	RGB_HUI,	BL_STEP \
+    KC_X,	KC_Y,		KC_Z \
   )
 };
 
@@ -46,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void encoder_update_user(uint8_t index, bool clockwise) {
 	if (index == 0) { /* First encoder */
 		if (clockwise) {
-			tap_code(KC_X);
+			tap_code(KC_O);
 		} else {
-			tap_code(KC_Z);
+			tap_code(KC_P);
 		}
 	} else if (index == 1) { /* Second encoder */
 		if (clockwise) {
-			tap_code(KC_U);
+			rgblight_increase_hue_noeeprom();
 		} else {
-			tap_code(KC_I);
+			rgblight_decrease_hue_noeeprom();
 		}
 	} else if (index == 2) {
 		if (clockwise) {

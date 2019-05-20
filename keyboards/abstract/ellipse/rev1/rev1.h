@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ELLIPSEREV0_H
-#define ELLIPSEREV0_H
+#pragma once
 
 #include "quantum.h"
 
@@ -35,4 +34,3 @@
     { K10, K11,   K12 }, \
 }
 
-#endif
