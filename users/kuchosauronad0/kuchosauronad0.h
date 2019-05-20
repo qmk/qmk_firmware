@@ -11,27 +11,28 @@
 #include "process_records.h"
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
-#endif // TAP_DANCE_ENABLE
+  #define KC_TMX TD(TD_TMX)   // tap1: 't'  tap2: <CTL>+b because I want it on my main layer w/o having to press/hold another button
+  #define KC_EOL TD(TD_EOL)   // tap1: 'e'  tap2: <CTL>+e
+  #define KC_BOL TD(TD_BOL)   // tap1: 'a'  tap2: <CTL>+a
+  #define KC_NW TD(TD_NW)     // tap1: 'f'  tap2: <ALT>+f
+  #define KC_PW TD(TD_PW)     // tap1: 'b'  tap2: <ALT>+b
+  #define KC_DW TD(TD_DW)     // tap1: 'w'  tap2: <CTL>+w
+#endif //!TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   #include "rgb_stuff.h"
 #endif
 #if defined(UNICODEMAP_ENABLE) || defined(UNICODE_ENABLE)
   #include "unicode.h"
-#endif // UNICODE ENABLE
+#endif //!UNICODE_ENABLE
+
 // Keycode aliases
-#define OSL_UNI OSL(UNICODE) // activate unicode layer for one key
-#define TM_X LCTL(KC_B) // Tmux control sequence
-#define KC_TMX TD(TD_TMX) // Tmux control sequence
-#define KC_EOL TD(TD_EOL)
-#define KC_BOL TD(TD_BOL)
-#define KC_NW TD(TD_NW)
-#define KC_PW TD(TD_PW)
-#define KC_DW TD(TD_DW)
-#define MC_EOL LCTL(KC_E)
-#define MC_BOL LCTL(KC_A)
-#define MC_NW LALT(KC_F)
-#define MC_PW LALT(KC_B)
-#define MC_DW LCTL(KC_W)
+#define TM_X LCTL(KC_B)     // Tmux control sequence
+// Unix QoL macros
+#define MC_BOL LCTL(KC_A)   // jump to beginning of line
+#define MC_EOL LCTL(KC_E)   // jump to end       of line
+#define MC_NW LALT(KC_F)    //     next word
+#define MC_PW LALT(KC_B)    // previous word
+#define MC_DW LCTL(KC_W)    //   delete word
 
 // Define layer names
 enum userspace_layers {
