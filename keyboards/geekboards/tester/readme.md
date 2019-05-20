@@ -2,7 +2,9 @@ Geekboards 8-keys macropad
 =====
 
 Keyboard Maintainer: Geekboards
-Hardware Supported: Geekboards 8-keys macropad 
+
+Hardware Supported: Geekboards 8-keys macropad
+
 Hardware Availability: geekboards.ru(https://geekboards.ru/)
 
 Make example for this keyboard (after setting up your build environment):
