@@ -8,8 +8,10 @@ At this time there are 2 small known issues with the Rev 1.  One of which is tha
 and the other issue that has been encountered is that the post_init_user function does not seem to be called.
 Hopefully these issues can be resolved soon; this QMK file is being released as orders have started to ship and they need to be configurable.
 
-Keyboard Maintainer: [AbstractKB](https://github.com/abstractkb)  
+Keyboard Maintainer: [AbstractKB](https://github.com/abstractkb)
+
 Hardware Supported: The Abstract Ellipse Rev1
+
 Hardware Availability: https://abstractkb.tk
 
 Make example for this keyboard (after setting up your build environment):
