@@ -17,7 +17,7 @@ enum userspace_custom_keycodes{
   KC_MALTRON,        // Sets default layer to MALTRON
   KC_EUCALYN,        // Sets default layer to EUCALYN
   KC_CARPLAX,        // Sets default layer to CARPLAX
-  KC_UNICODE,        // Sets default layer to UNCODE
+  KC_UNICODE,        // Sets default layer to UNICODE
 
   KC_MAKE,           // Run keyboard's customized make command
   KC_RGB_T,          // Toggles RGB Layer Indication mode
@@ -72,6 +72,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define TG_GAME TG(_GAMEPAD)
 #define OS_LWR OSL(_LOWER)
 #define OS_RSE OSL(_RAISE)
+#define OS_UNI OSL(_UNICODE)
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
