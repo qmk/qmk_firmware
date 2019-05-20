@@ -19,13 +19,13 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,-----------------.
-   * |  1  |  2  |  3  |
+   * |RESET|  2  |  3  |
    * |-----------------|
    * |Caps |NmLk |ScLk |
    * `-----------------'
    */
 [0] = LAYOUT_FULL(
-  KC_1,    KC_2,    KC_3, \
+  RESET,    KC_2,    KC_3, \
   KC_CAPS, KC_NLCK, KC_SLCK),
 };
 

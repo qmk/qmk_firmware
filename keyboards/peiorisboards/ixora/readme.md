@@ -1,18 +1,18 @@
-Vinta
+Ixora
 =========
 
-[Vinta](https://i.imgur.com/huX3lff.jpg)
+[Ixora](https://i.imgur.com/GqDk3XY.png)
 
 
-This is an ARM-powered 65% keyboard PCB with USB Mini B connector and breakout for optional RGB underglow.
+Ixora is an ARM-powered 6-key macropad with a USB connector, hotswap sockets, and indicator LEDs.
 
 Keyboard Maintainer: [Peioris](http://peioris.space/) and on [github](https://github.com/coarse)  
-Hardware Supported: Vinta with STM32F042K6T6  
-Hardware Availability: Private Groupbuy (will post on Reddit once QMK has RGB underglow working)
+Hardware Supported: Ixora PCB  
+Hardware Availability: [Peioris Boards](http://boards.peioris.space/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vinta:default
+    make peiorisboards/ixora:default:dfu-util
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
