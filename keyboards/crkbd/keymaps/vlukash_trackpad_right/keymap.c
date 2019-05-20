@@ -53,6 +53,8 @@ enum custom_keycodes {
 #define KC_CTLSC CTL_T(KC_SCLN)
 #define KC_SFTZ SFT_T(KC_Z)
 #define KC_SFTSL SFT_T(KC_SLSH)
+#define KC_WINX LWIN_T(KC_X)
+#define KC_WINDO RWIN_T(KC_DOT)
 
 #define KC_MBTN1  MBTN1
 #define KC_SCRL   SCRL
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
         TAB,  CTLA,     S,     D,     F,     G,                      H,     J,     K,     L, CTLSC,  QUOT,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      GRAVE,  SFTZ,     X,     C,     V,     B,                      N,     M,  COMM,   DOT, SFTSL,BSLASH,
+      GRAVE,  SFTZ,  WINX,     C,     V,     B,                      N,     M,  COMM, WINDO, SFTSL,BSLASH,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE
                               //`--------------------'  `--------------------'
