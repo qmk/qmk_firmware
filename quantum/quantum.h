@@ -151,10 +151,10 @@ extern layer_state_t default_layer_state;
 #ifdef __AVR__
     #define pin_t uint8_t
     #define setPinInput(pin) DDRx_ADDRESS(pin) &= ~ _BV(pin & 0xF)
-    #define setPinInputHigh(pin) ({\
+    #define setPinInputHigh(pin) do {\
             DDRx_ADDRESS(pin) &= ~ _BV(pin & 0xF);\
             PORTx_ADDRESS(pin) |=   _BV(pin & 0xF);\
-            })
+            } while(0)
     #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
     #define setPinOutput(pin) DDRx_ADDRESS(pin) |= _BV(pin & 0xF)
 
