@@ -35,7 +35,6 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset),
-  [TD_SPC]  = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_4),
   [TD_NUM1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_4),
   [TD_NUM2] = ACTION_TAP_DANCE_DOUBLE(KC_2, KC_5),
   [TD_NUM3] = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_6),
@@ -46,12 +45,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_TMX] = ACTION_TAP_DANCE_DOUBLE(KC_T, TM_X),
   [TD_EOL] = ACTION_TAP_DANCE_DOUBLE(KC_E, MC_EOL), // end of line
   [TD_BOL] = ACTION_TAP_DANCE_DOUBLE(KC_A, MC_BOL), // beginning of line
-  [TD_NW]  = ACTION_TAP_DANCE_DOUBLE(KC_F, MC_NW), // next word
-  [TD_PW]  = ACTION_TAP_DANCE_DOUBLE(KC_B, MC_PW), // pevious word
-  [TD_DW]  = ACTION_TAP_DANCE_DOUBLE(KC_W, MC_DW), // pevious word
+  [TD_NW]  = ACTION_TAP_DANCE_DOUBLE(KC_F, MC_NW),  // next word
+  [TD_PW]  = ACTION_TAP_DANCE_DOUBLE(KC_B, MC_PW),  // pevious word
+  [TD_DW]  = ACTION_TAP_DANCE_DOUBLE(KC_W, MC_DW),  // pevious word
 
-  [TD_PAR] = ACTION_TAP_DANCE_FN(td_parenthesis),
-  [TD_CUR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, MC_CUR),
-  [TD_SQR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_LBRACKET), MC_SQR),
-  [TD_ABR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_COMM), MC_ABR),
+  [TD_SPC] = ACTION_TAP_DANCE_FN(td_parenthesis),
+  [TD_PAR] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, MC_PAR), 
+  [TD_SQR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, MC_SQR), 
+  [TD_CUR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_LCBR), MC_CUR),
+  [TD_ABR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_COMM), MC_ABR), 
 };
