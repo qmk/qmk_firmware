@@ -24,7 +24,8 @@
 #define _FN1 4
 
 enum keys {
-  C_LAYR = SAFE_RANGE
+  U_LAYR = SAFE_RANGE,
+  D_LAYR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,50 +33,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_7,   KC_8, KC_9,
 	KC_4,   KC_5, KC_6,
 	KC_1,   KC_2, KC_3,
-	C_LAYR, KC_0, KC_ENT),
+	U_LAYR, KC_0, KC_ENT),
 
   [_NAV] = LAYOUT(
 	KC_HOME, KC_INS,  KC_PGUP,
 	KC_END,  KC_UP,   KC_PGDN,
 	KC_LEFT, KC_DOWN, KC_RGHT,
-	C_LAYR,  TD_TWIN, KC_DOT),
+	U_LAYR,  TD_TWIN, D_LAYR),
 
   [_MED] = LAYOUT(
 	KC_MUTE, KC_VOLD, KC_VOLU,
 	CA_QUOT, KC_MPLY, CA_SCLN,
-	LCTL(KC_C), LCTL(KC_V), KC_TRNS,
-	C_LAYR,  KC_TRNS, KC_TRNS),
+	LCTL(KC_C), LCTL(KC_V), KC_NO,
+	U_LAYR,  KC_NO, D_LAYR),
 
   [_RGB] = LAYOUT(
 	RGB_SAI, RGB_VAI, RGB_HUI,
 	RGB_SAD, RGB_VAD, RGB_HUD,
-	RGB_TOG, RGB_MOD, KC_TRNS,
-	C_LAYR,  KC_TRNS, KC_TRNS),
+	RGB_TOG, RGB_MOD, KC_NO,
+	U_LAYR,  KC_NO, D_LAYR),
 
   [_FN1] = LAYOUT(
-	KC_TRNS, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, RESET,
-	C_LAYR,  KC_LSFT, KC_MAKE)
+	KC_NO, KC_NO, KC_NO,
+	KC_NO, KC_NO, RESET,
+	KC_NO, KC_NO, KC_MAKE,
+	KC_NO, KC_LSFT, D_LAYR)
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   keypos_t key;
   uint8_t current_layer;
   uint8_t next_layer;
-  uint8_t max_layer;
-  max_layer = sizeof(keymaps) / MATRIX_ROWS / MATRIX_COLS / 2;
   switch (keycode) {
-  case C_LAYR: //Cycles layers from 0 to max_layer
+  case U_LAYR: //cycles up the layers
     if (!record->event.pressed) {
       current_layer = layer_switch_get_layer(key);
-      next_layer = current_layer + 1;
-      if (current_layer < max_layer) {
-        layer_on(next_layer);
-      }
-      else {
-        layer_clear();
-      }
+      next_layer = current_layer+1;
+      layer_move(next_layer);
+    }
+    break;
+  case D_LAYR: //cycles down the layers
+    if (!record->event.pressed) {
+      current_layer = layer_switch_get_layer(key);
+      next_layer = current_layer-1;
+      layer_move(next_layer);
     }
     break;
   }
