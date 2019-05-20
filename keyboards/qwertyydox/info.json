@@ -5,8 +5,8 @@
   "url": "",
   "maintainer": "qmk",
   "processor": "atmega32u4",
-  "width": 14,
-  "height": 4,
+  "width": 16,
+  "height": 5,
   "layouts": {
     "LAYOUT": {
       "key_count": 53,
