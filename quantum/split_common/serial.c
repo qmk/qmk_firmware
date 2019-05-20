@@ -242,7 +242,7 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 
     // Enable INT0-INT3,INT6
     EIMSK |= EIMSK_BIT;
-#if SOFT_SERIAL_PIN == PE6
+#if SOFT_SERIAL_PIN == E6
     // Trigger on falling edge of INT6
     EICRB &= EICRx_BIT;
 #else
