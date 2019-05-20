@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define DRIVER_LED_TOTAL  RGBLED_NUM
 
+#define RGB_MATRIX_CENTER { 112, 35 }
+
 // Encoder support
 #define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { D2 }
