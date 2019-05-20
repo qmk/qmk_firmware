@@ -6,9 +6,9 @@ Ixora
 
 Ixora is an ARM-powered 6-key macropad with a USB connector, hotswap sockets, and indicator LEDs.
 
-Keyboard Maintainer: [Peioris](http://peioris.space/) and on [github](https://github.com/coarse)  
+Keyboard Maintainer: [Peioris](https://github.com/coarse)  
 Hardware Supported: Ixora PCB  
-Hardware Availability: [Peioris Boards](http://boards.peioris.space/)
+Hardware Availability: [Peioris](https://github.com/coarse)
 
 Make example for this keyboard (after setting up your build environment):
 
