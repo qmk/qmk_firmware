@@ -103,7 +103,7 @@ static void render_status(void) {
 
 #if defined(RGB_MATRIX_ENABLE)
     static char buffer[20] = {0};
-    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val);
+    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     oled_write(buffer, false);
 #endif
 
