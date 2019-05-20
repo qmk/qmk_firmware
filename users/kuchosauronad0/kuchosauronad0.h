@@ -1,6 +1,10 @@
-#pragma once
+#ifndef USERSPACE
+#define USERSPACE
+
+//#pragma once
 
 #include "quantum.h"
+
 #include "version.h"
 #include "eeprom.h"
 #include "wrappers.h"
@@ -14,6 +18,20 @@
 #if defined(UNICODEMAP_ENABLE) || defined(UNICODE_ENABLE)
   #include "unicode.h"
 #endif // UNICODE ENABLE
+// Keycode aliases
+#define OSL_UNI OSL(UNICODE) // activate unicode layer for one key
+#define TM_X LCTL(KC_B) // Tmux control sequence
+#define KC_TMX TD(TD_TMX) // Tmux control sequence
+#define KC_EOL TD(TD_EOL)
+#define KC_BOL TD(TD_BOL)
+#define KC_NW TD(TD_NW)
+#define KC_PW TD(TD_PW)
+#define KC_DW TD(TD_DW)
+#define MC_EOL LCTL(KC_E)
+#define MC_BOL LCTL(KC_A)
+#define MC_NW LALT(KC_F)
+#define MC_PW LALT(KC_B)
+#define MC_DW LCTL(KC_W)
 
 // Define layer names
 enum userspace_layers {
@@ -26,7 +44,8 @@ enum userspace_layers {
   _MALTRON,
   _EUCALYN,
   _CARPLAX,
-  _MODS, /* layer 8 */
+  _UNICODE,
+  _MODS, /* layer 8 now 9*/
   _GAMEPAD,
   _DIABLO,
   _MACROS,
@@ -92,3 +111,5 @@ We use custom codes here, so we can substitute the right stuff
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
+
+#endif // !USERSPACE

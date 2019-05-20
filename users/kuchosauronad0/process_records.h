@@ -17,6 +17,7 @@ enum userspace_custom_keycodes{
   KC_MALTRON,        // Sets default layer to MALTRON
   KC_EUCALYN,        // Sets default layer to EUCALYN
   KC_CARPLAX,        // Sets default layer to CARPLAX
+  KC_UNICODE,        // Sets default layer to UNCODE
 
   KC_MAKE,           // Run keyboard's customized make command
   KC_RGB_T,          // Toggles RGB Layer Indication mode
@@ -38,6 +39,7 @@ enum userspace_custom_keycodes{
   MC_PAR,  // Parenthesis
   MC_CUR,  // Curly bracket
   MC_SQR,  // Square bracket
+  MC_ABR,  // Angle bracket
   MCT_NEW, // New Tmux Session
   MCT_SH,  // Tmux horizontal split
   MCT_SV,  // Tmux vertical split
@@ -81,6 +83,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
+#define UNICODE KC_UNICODE
 
 #define KC_RESET RESET
 #define KC_RST KC_RESET

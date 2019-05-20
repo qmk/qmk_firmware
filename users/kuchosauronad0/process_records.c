@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
-  case KC_QWERTY ... KC_CARPLAX:
+  case KC_QWERTY ... KC_UNICODE:
     if (record->event.pressed) {
       set_single_persistent_default_layer(keycode - KC_QWERTY);
     }
@@ -94,6 +94,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MC_SQR:  // Square bracket
       if(record->event.pressed){
         SEND_STRING("[]");
+        register_code(KC_LEFT);
+      }
+      unregister_code(KC_LEFT);
+      break;
+    case MC_ABR:  // Angle bracket
+      if(record->event.pressed){
+        SEND_STRING("<>");
         register_code(KC_LEFT);
       }
       unregister_code(KC_LEFT);

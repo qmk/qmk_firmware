@@ -15,11 +15,11 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
      SRC += leader.c
 endif
 
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","") 
+     SRC += secrets.c
+endif
 ifeq ($(strip $(NO_SECRETS)), yes)
      OPT_DEFS += -DNO_SECRETS
-     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","") # Include secrets.c if NO_SECRETS = yes
-          SRC += secrets.c
-     endif
 endif
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
      SRC += unicode.c
