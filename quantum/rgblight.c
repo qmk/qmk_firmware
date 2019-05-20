@@ -101,17 +101,33 @@ LED_TYPE led[RGBLED_NUM];
 
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;
+static uint8_t effect_start_pos = 0;
+static uint8_t effect_end_pos = RGBLED_NUM;
+static uint8_t effect_num_leds = RGBLED_NUM;
 
 void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
   clipping_start_pos = start_pos;
   clipping_num_leds = num_leds;
 }
 
+void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
+  if (start_pos >= RGBLED_NUM) return;
+  if (start_pos + num_leds > RGBLED_NUM) return;
+  effect_start_pos = start_pos;
+  effect_end_pos = start_pos + num_leds;
+  effect_num_leds = num_leds;
+}
 
-void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
-  HSV hsv = { hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val };
+void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
+  HSV hsv = { hue, sat, val };
   RGB rgb = hsv_to_rgb(hsv);
   setrgb(rgb.r, rgb.g, rgb.b, led1);
+}
+
+void sethsv(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
+  sethsv_raw( hue, sat,
+              val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val,
+              led1);
 }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
@@ -501,15 +517,15 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
 #else
         uint8_t range = RGBLED_GRADIENT_RANGES[delta / 2];
 #endif
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-          uint8_t _hue = ((uint16_t)i * (uint16_t)range) / RGBLED_NUM;
+        for (uint8_t i = 0; i < effect_num_leds; i++) {
+          uint8_t _hue = ((uint16_t)i * (uint16_t)range) / effect_num_leds;
           if (direction) {
             _hue = hue + _hue;
           } else {
             _hue = hue - _hue;
           }
           dprintf("rgblight rainbow set hsv: %d,%d,%d,%u\n", i, _hue, direction, range);
-          sethsv(_hue, sat, val, (LED_TYPE *)&led[i]);
+          sethsv(_hue, sat, val, (LED_TYPE *)&led[i + effect_start_pos]);
         }
         rgblight_set();
       }
@@ -557,7 +573,7 @@ uint8_t rgblight_get_val(void) {
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   if (!rgblight_config.enable) { return; }
 
-  for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+  for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;
@@ -615,6 +631,7 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
   rgblight_setrgb_range(tmp_led.r, tmp_led.g, tmp_led.b, start, end);
 }
 
+#ifndef RGBLIGHT_SPLIT
 void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_setrgb_range(r, g, b, 0 , (uint8_t) RGBLED_NUM/2);
 }
@@ -630,36 +647,34 @@ void rgblight_sethsv_master(uint8_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_slave(uint8_t hue, uint8_t sat, uint8_t val) {
   rgblight_sethsv_range(hue, sat, val, (uint8_t) RGBLED_NUM/2, (uint8_t) RGBLED_NUM);
 }
+#endif // ifndef RGBLIGHT_SPLIT
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
-  LED_TYPE *start_led = led + clipping_start_pos;
+  LED_TYPE *start_led;
   uint16_t num_leds = clipping_num_leds;
-  if (rgblight_config.enable) {
-    #ifdef RGBLIGHT_LED_MAP
-      LED_TYPE led0[RGBLED_NUM];
-      for(uint8_t i = 0; i < RGBLED_NUM; i++) {
-          led0[i] = led[pgm_read_byte(&led_map[i])];
-      }
-      start_led = led0 + clipping_start_pos;
-    #endif
-    #ifdef RGBW
-      ws2812_setleds_rgbw(start_led, num_leds);
-    #else
-      ws2812_setleds(start_led, num_leds);
-    #endif
-  } else {
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+
+  if (!rgblight_config.enable) {
+    for (uint8_t i = effect_start_pos; i < effect_end_pos; i++) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
     }
-    #ifdef RGBW
-      ws2812_setleds_rgbw(start_led, num_leds);
-    #else
-      ws2812_setleds(start_led, num_leds);
-    #endif
   }
+#ifdef RGBLIGHT_LED_MAP
+  LED_TYPE led0[RGBLED_NUM];
+  for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+      led0[i] = led[pgm_read_byte(&led_map[i])];
+  }
+  start_led = led0 + clipping_start_pos;
+#else
+  start_led = led + clipping_start_pos;
+#endif
+#ifdef RGBW
+  ws2812_setleds_rgbw(start_led, num_leds);
+#else
+  ws2812_setleds(start_led, num_leds);
+#endif
 }
 #endif
 
@@ -926,9 +941,9 @@ void rgblight_effect_rainbow_swirl(animation_status_t *anim) {
   uint8_t hue;
   uint8_t i;
 
-  for (i = 0; i < RGBLED_NUM; i++) {
-    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / RGBLED_NUM * i + anim->current_hue);
-    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
+  for (i = 0; i < effect_num_leds; i++) {
+    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / effect_num_leds * i + anim->current_hue);
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i + effect_start_pos]);
   }
   rgblight_set();
 
@@ -957,7 +972,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
 #if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
   if (anim->pos == 0) { // restart signal
     if (increment == 1) {
-      pos = RGBLED_NUM - 1;
+      pos = effect_num_leds - 1;
     } else {
       pos = 0;
     }
@@ -965,26 +980,27 @@ void rgblight_effect_snake(animation_status_t *anim) {
   }
 #endif
 
-  for (i = 0; i < RGBLED_NUM; i++) {
-    led[i].r = 0;
-    led[i].g = 0;
-    led[i].b = 0;
+  for (i = 0; i < effect_num_leds; i++) {
+    LED_TYPE *ledp = led + i + effect_start_pos;
+    ledp->r = 0;
+    ledp->g = 0;
+    ledp->b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
       k = pos + j * increment;
       if (k < 0) {
-        k = k + RGBLED_NUM;
+        k = k + effect_num_leds;
       }
       if (i == k) {
         sethsv(rgblight_config.hue, rgblight_config.sat,
                (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH),
-               (LED_TYPE *)&led[i]);
+               ledp);
       }
     }
   }
   rgblight_set();
   if (increment == 1) {
     if (pos - 1 < 0) {
-      pos = RGBLED_NUM - 1;
+      pos = effect_num_leds - 1;
 #if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
       anim->pos = 0;
 #endif
@@ -995,7 +1011,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
 #endif
     }
   } else {
-    pos = (pos + 1) % RGBLED_NUM;
+    pos = (pos + 1) % effect_num_leds;
 #if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
     anim->pos = pos;
 #endif
@@ -1023,14 +1039,14 @@ void rgblight_effect_knight(animation_status_t *anim) {
   }
 #endif
   // Set all the LEDs to 0
-  for (i = 0; i < RGBLED_NUM; i++) {
+  for (i = effect_start_pos; i < effect_end_pos; i++) {
     led[i].r = 0;
     led[i].g = 0;
     led[i].b = 0;
   }
   // Determine which LEDs should be lit up
   for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
-    cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
+    cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % effect_num_leds + effect_start_pos;
 
     if (i >= low_bound && i <= high_bound) {
       sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
@@ -1064,9 +1080,9 @@ void rgblight_effect_christmas(animation_status_t *anim) {
   uint8_t i;
 
   anim->current_offset = (anim->current_offset + 1) % 2;
-  for (i = 0; i < RGBLED_NUM; i++) {
+  for (i = 0; i < effect_num_leds; i++) {
     hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + anim->current_offset) % 2) * 85;
-    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i + effect_start_pos]);
   }
   rgblight_set();
 }
@@ -1099,13 +1115,14 @@ void rgblight_effect_rgbtest(animation_status_t *anim) {
 #ifdef RGBLIGHT_EFFECT_ALTERNATING
 void rgblight_effect_alternating(animation_status_t *anim) {
 
-  for(int i = 0; i<RGBLED_NUM; i++){
-      if(i<RGBLED_NUM/2 && anim->pos){
-          sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
-      }else if (i>=RGBLED_NUM/2 && !anim->pos){
-          sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
-      }else{
-          sethsv(rgblight_config.hue, rgblight_config.sat, 0, (LED_TYPE *)&led[i]);
+  for (int i = 0; i < effect_num_leds; i++) {
+      LED_TYPE *ledp = led + i + effect_start_pos;
+      if (i<effect_num_leds/2 && anim->pos) {
+          sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, ledp);
+      } else if (i>=effect_num_leds/2 && !anim->pos) {
+          sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, ledp);
+      } else {
+          sethsv(rgblight_config.hue, rgblight_config.sat, 0, ledp);
       }
   }
   rgblight_set();
