@@ -6,7 +6,7 @@ RGB_MATRIX_EFFECT(ALPHAS_MODS)
 bool ALPHAS_MODS(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-  HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+  HSV hsv = rgb_matrix_config.hsv;
   RGB rgb1 = hsv_to_rgb(hsv);
   hsv.h += rgb_matrix_config.speed;
   RGB rgb2 = hsv_to_rgb(hsv);
