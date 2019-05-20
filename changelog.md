@@ -16,6 +16,7 @@
 05-05-2019 - New keycode macro (XP) for shifted character pairs using UNICODEMAP, and bugfixes/improvements  
 05-05-2019 - Add `LINK_TIME_OPTIMIZATION_ENABLE` to enable LTO and disable problematic features that cause LTO to fail  
 05-05-2019 - Fix issue with Space Cadet  
+05-17-2019 - Make delay for Capslock in Hold-Tap functions configurable   
 05-10-2019 - Split Common i2c Backlight fix   
 05-06-2019 - More readable fix of Mousekeys issue  
 05-06-2019 - Changes to Split Common and OLED code  
