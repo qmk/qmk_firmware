@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Caps |NmLk |ScLk |
    * `-----------------'
    */
-[0] = LAYOUT_FULL(
+[0] = LAYOUT_full(
   KC_PSCR, KC_MUTE, LGUI(KC_1),
   KC_MPRV, KC_MPLY, KC_MNXT)
 };
