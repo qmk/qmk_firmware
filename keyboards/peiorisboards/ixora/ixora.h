@@ -1,5 +1,4 @@
 #pragma once
-#define IXORA_H
 
 #define XXX KC_NO
 
