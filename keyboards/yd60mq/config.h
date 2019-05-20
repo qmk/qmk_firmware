@@ -35,7 +35,6 @@
 #define LOCKING_SUPPORT_ENABLE
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
