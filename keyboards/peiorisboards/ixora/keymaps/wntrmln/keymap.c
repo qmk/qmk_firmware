@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [0] = LAYOUT_FULL(
   KC_PSCR, KC_MUTE, LGUI(KC_1),
-  KC_MPRV, KC_MPLY, KC_MNXT),
+  KC_MPRV, KC_MPLY, KC_MNXT)
 };
 
 void matrix_init_user(void) {
