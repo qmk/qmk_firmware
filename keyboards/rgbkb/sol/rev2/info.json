@@ -77,14 +77,10 @@
                 {"label":"R43", "x":13.5, "y":4},
                 {"label":"R44", "x":14.5, "y":4},
                 {"label":"R45", "x":15.5, "y":4, "w":1.5},
-                {"label":"Left Encoder, Counter-Clockwise", "x":2.5, "y":5.5},
-                {"label":"Left Encoder, Clockwise", "x":3.5, "y":5.5},
                 {"label":"L55", "x":6, "y":5.5},
                 {"label":"L56", "x":7, "y":5.5},
                 {"label":"R56", "x":9, "y":5.5},
-                {"label":"R50", "x":10, "y":5.5},
-                {"label":"Right Encoder, Counter-Clockwise", "x":12.5, "y":5.5},
-                {"label":"Right Encoder, Clockwise", "x":13.5, "y":5.5}
+                {"label":"R50", "x":10, "y":5.5}
             ]
         }
     }

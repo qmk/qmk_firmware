@@ -50,6 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define DRIVER_LED_TOTAL  RGBLED_NUM
 
+#define RGB_MATRIX_CENTER { 112, 37 }
+
 // Encoder support
 #ifndef EXTRA_ENCODERS_ENABLE
 #define NUMBER_OF_ENCODERS 1
