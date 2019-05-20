@@ -33,31 +33,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_7,   KC_8, KC_9,
 	KC_4,   KC_5, KC_6,
 	KC_1,   KC_2, KC_3,
-	U_LAYR, KC_0, KC_ENT),
+	LT(_NAV, U_LAYR), KC_0, KC_ENT),
 
   [_NAV] = LAYOUT(
 	KC_HOME, KC_INS,  KC_PGUP,
 	KC_END,  KC_UP,   KC_PGDN,
 	KC_LEFT, KC_DOWN, KC_RGHT,
-	U_LAYR,  TD_TWIN, D_LAYR),
+	LT(_MED, U_LAYR),  TD_TWIN, LT(_NUM, D_LAYR)),
 
   [_MED] = LAYOUT(
 	KC_MUTE, KC_VOLD, KC_VOLU,
 	CA_QUOT, KC_MPLY, CA_SCLN,
 	LCTL(KC_C), LCTL(KC_V), KC_NO,
-	U_LAYR,  KC_NO, D_LAYR),
+	LT(_RGB, U_LAYR),  KC_NO, LT(_NAV, D_LAYR)),
 
   [_RGB] = LAYOUT(
 	RGB_SAI, RGB_VAI, RGB_HUI,
 	RGB_SAD, RGB_VAD, RGB_HUD,
 	RGB_TOG, RGB_MOD, KC_NO,
-	U_LAYR,  KC_NO, D_LAYR),
+	LT(_FN1, U_LAYR),  KC_NO, LT(_MED, D_LAYR)),
 
   [_FN1] = LAYOUT(
 	KC_NO, KC_NO, KC_NO,
 	KC_NO, KC_NO, RESET,
 	KC_NO, KC_NO, KC_MAKE,
-	KC_NO, KC_LSFT, D_LAYR)
+	KC_NO, KC_LSFT, LT(_RGB, D_LAYR))
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
