@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------'
    */
 [0] = LAYOUT_FULL(
-  RESET,    KC_2,    KC_3, \
+  RESET,    KC_2,    KC_3,
   KC_CAPS, KC_NLCK, KC_SLCK),
 };
 
