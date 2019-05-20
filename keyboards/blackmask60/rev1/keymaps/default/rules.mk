@@ -16,9 +16,8 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 SWAP_HANDS_ENABLE = no        # Enable one-hand typing
 
-define HELIX_CUSTOMISE_MSG
-  $(info Helix customize)
-  $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
+define BLACKMASK60_CUSTOMISE_MSG
+  $(info BlackMask60 customize)
   $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))

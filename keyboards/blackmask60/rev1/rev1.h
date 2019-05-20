@@ -1,7 +1,7 @@
 #ifndef REV1_H
 #define REV1_CONFIG_H
 
-#include "../helix.h"
+#include "../blackmask60.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"

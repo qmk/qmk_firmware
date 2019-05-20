@@ -1,5 +1,5 @@
-#ifndef HELIX_H
-#define HELIX_H
+#ifndef BLACKMASK60_H
+#define BLACKMASK60_H
 
 #include "rev1.h"
 #include "quantum.h"
