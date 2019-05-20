@@ -299,7 +299,7 @@ uint8_t _matrix_scan(void) {
 
   debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
 
-  return 1;
+  return (uint8_t)changed;
 }
 
 uint8_t matrix_scan(void) {
