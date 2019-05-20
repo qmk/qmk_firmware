@@ -247,12 +247,6 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
-  #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
-    // Wake up oled if user is using those fabulous keys!
-    if (record->event.pressed)
-      oled_on();
-  #endif
-
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -264,7 +258,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef HAPTIC_ENABLE
     process_haptic(keycode, record) &&
   #endif //HAPTIC_ENABLE
-  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
+  #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(keycode, record) &&
   #endif
     process_record_kb(keycode, record) &&
@@ -976,9 +970,6 @@ void matrix_init_quantum() {
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
-  #ifdef OLED_DRIVER_ENABLE
-    oled_init(OLED_ROTATION_0);
-  #endif
   matrix_init_kb();
 }
 
@@ -1013,10 +1004,6 @@ void matrix_scan_quantum() {
 
   #ifdef HAPTIC_ENABLE
     haptic_task();
-  #endif
-
-  #ifdef OLED_DRIVER_ENABLE
-    oled_task();
   #endif
 
   matrix_scan_kb();
@@ -1109,9 +1096,7 @@ void backlight_task(void) {
   #endif
 #endif
 
-#else // pwm through timer
 
-#define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -1158,7 +1143,6 @@ void backlight_task(void) {}
 
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
-#define BREATHING_HALT_ON  2
 #define BREATHING_STEPS 128
 
 static uint8_t breathing_period = BREATHING_PERIOD;
