@@ -187,13 +187,13 @@ void matrix_scan_user(void) {
 
 
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
     return state;
 }
 
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #ifdef RGBLIGHT_ENABLE
     state = layer_state_set_rgb(state);
@@ -203,12 +203,12 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 __attribute__ ((weak))
-uint32_t default_layer_state_set_keymap (uint32_t state) {
+layer_state_t default_layer_state_set_keymap (layer_state_t state) {
     return state;
 }
 
 // Runs state check and changes underglow color and animation
-uint32_t default_layer_state_set_user(uint32_t state) {
+layer_state_t default_layer_state_set_user(layer_state_t state) {
     state = default_layer_state_set_keymap(state);
 #if 0
 #ifdef RGBLIGHT_ENABLE
