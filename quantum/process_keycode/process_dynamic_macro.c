@@ -1,4 +1,5 @@
 /* Copyright 2016 Jack Humbert
+ * Copyright 2019 Drashna Jael're (Christopher Courtney, @drashna)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,39 +16,9 @@
  */
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
-#pragma once
+#include "quantum.h"
 
-/* Warn users that this is now deprecated and they should use the core feature instead. */
-#pragma message "Dyanmic Macros is now a core feature. See updated documentation to see how to configure it: https://docs.qmk.fm/#/feature_dynamic_macros"
-
-#include "action_layer.h"
-
-#ifndef DYNAMIC_MACRO_SIZE
-/* May be overridden with a custom value. Be aware that the effective
- * macro length is half of this value: each keypress is recorded twice
- * because of the down-event and up-event. This is not a bug, it's the
- * intended behavior.
- *
- * Usually it should be fine to set the macro size to at least 256 but
- * there have been reports of it being too much in some users' cases,
- * so 128 is considered a safe default.
- */
-#    define DYNAMIC_MACRO_SIZE 128
-#endif
-
-/* DYNAMIC_MACRO_RANGE must be set as the last element of user's
- * "planck_keycodes" enum prior to including this header. This allows
- * us to 'extend' it.
- */
-enum dynamic_macro_keycodes {
-    DYN_REC_START1 = DYNAMIC_MACRO_RANGE,
-    DYN_REC_START2,
-    DYN_REC_STOP,
-    DYN_MACRO_PLAY1,
-    DYN_MACRO_PLAY2,
-};
-
-/* Blink the LEDs to notify the user about some event. */
+// default feedback method
 void dynamic_macro_led_blink(void) {
 #ifdef BACKLIGHT_ENABLE
     backlight_toggle();
@@ -56,12 +27,28 @@ void dynamic_macro_led_blink(void) {
 #endif
 }
 
+/* User hooks for Dynamic Macros */
+
+__attribute__((weak))
+void dynamic_macro_record_start_user(void) { dynamic_macro_led_blink(); }
+
+__attribute__((weak))
+void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
+
+__attribute__((weak))
+void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) { dynamic_macro_led_blink(); }
+
+__attribute__((weak))
+void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
+
 /* Convenience macros used for retrieving the debug info. All of them
  * need a `direction` variable accessible at the call site.
  */
 #define DYNAMIC_MACRO_CURRENT_SLOT() (direction > 0 ? 1 : 2)
-#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) ((int)(direction * ((POINTER) - (BEGIN))))
-#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) ((int)(direction * ((END2) - (BEGIN)) + 1))
+#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) \
+    ((int)(direction * ((POINTER) - (BEGIN))))
+#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) \
+    ((int)(direction * ((END2) - (BEGIN)) + 1))
 
 /**
  * Start recording of the dynamic macro.
@@ -72,7 +59,7 @@ void dynamic_macro_led_blink(void) {
 void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_buffer) {
     dprintln("dynamic macro recording: started");
 
-    dynamic_macro_led_blink();
+    dynamic_macro_record_start_user();
 
     clear_keyboard();
     layer_clear();
@@ -102,6 +89,8 @@ void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_
     clear_keyboard();
 
     layer_state = saved_layer_state;
+
+    dynamic_macro_play_user(direction);
 }
 
 /**
@@ -127,10 +116,15 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
-        dynamic_macro_led_blink();
+        dynamic_macro_record_key_user(direction, record);
     }
 
-    dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
+    dprintf(
+        "dynamic macro: slot %d length: %d/%d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer),
+        DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end)
+        );
 }
 
 /**
@@ -138,7 +132,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
  * pointer to the end of the macro.
  */
 void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_pointer, int8_t direction, keyrecord_t **macro_end) {
-    dynamic_macro_led_blink();
+    dynamic_macro_record_end_user(direction);
 
     /* Do not save the keys being held when stopping the recording,
      * i.e. the keys used to access the layer DYN_REC_STOP is on.
@@ -148,9 +142,14 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
         macro_pointer -= direction;
     }
 
-    dprintf("dynamic macro: slot %d saved, length: %d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer));
+    dprintf(
+        "dynamic macro: slot %d saved, length: %d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer)
+        );
 
     *macro_end = macro_pointer;
+
 }
 
 /* Handle the key events related to the dynamic macros. Should be
@@ -163,7 +162,7 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
  *       <...THE REST OF THE FUNCTION...>
  *   }
  */
-bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
+bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
     /* Both macros use the same buffer but read/write on different
      * ends of it.
      *
@@ -210,67 +209,64 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
      * 1,2 - either macro 1 or 2 is being recorded */
     static uint8_t macro_id = 0;
 
+
     if (macro_id == 0) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
             switch (keycode) {
-                case DYN_REC_START1:
-                    dynamic_macro_record_start(&macro_pointer, macro_buffer);
-                    macro_id = 1;
-                    return false;
-                case DYN_REC_START2:
-                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
-                    macro_id = 2;
-                    return false;
-                case DYN_MACRO_PLAY1:
-                    dynamic_macro_play(macro_buffer, macro_end, +1);
-                    return false;
-                case DYN_MACRO_PLAY2:
-                    dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
-                    return false;
+            case DYN_REC_START1:
+                dynamic_macro_record_start(&macro_pointer, macro_buffer);
+                macro_id = 1;
+                return false;
+            case DYN_REC_START2:
+                dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
+                macro_id = 2;
+                return false;
+            case DYN_MACRO_PLAY1:
+                dynamic_macro_play(macro_buffer, macro_end, +1);
+                return false;
+            case DYN_MACRO_PLAY2:
+                dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
+                return false;
             }
         }
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-            case DYN_REC_STOP:
-                /* Stop the macro recording. */
-                if (record->event.pressed) { /* Ignore the initial release
-                                              * just after the recoding
-                                              * starts. */
-                    switch (macro_id) {
-                        case 1:
-                            dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
-                            break;
-                        case 2:
-                            dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
-                            break;
-                    }
-                    macro_id = 0;
-                }
-                return false;
-            case DYN_MACRO_PLAY1:
-            case DYN_MACRO_PLAY2:
-                dprintln("dynamic macro: ignoring macro play key while recording");
-                return false;
-            default:
-                /* Store the key in the macro buffer and process it normally. */
+        case DYN_REC_STOP:
+            /* Stop the macro recording. */
+            if (record->event.pressed) { /* Ignore the initial release
+                                          * just after the recoding
+                                          * starts. */
                 switch (macro_id) {
-                    case 1:
-                        dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
-                        break;
-                    case 2:
-                        dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
-                        break;
+                case 1:
+                    dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
+                    break;
+                case 2:
+                    dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
+                    break;
                 }
-                return true;
+                macro_id = 0;
+            }
+            return false;
+        case DYN_MACRO_PLAY1:
+        case DYN_MACRO_PLAY2:
+            dprintln("dynamic macro: ignoring macro play key while recording");
+            return false;
+        default:
+            /* Store the key in the macro buffer and process it normally. */
+            switch (macro_id) {
+            case 1:
+                dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
                 break;
+            case 2:
+                dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
+                break;
+            }
+            return true;
+            break;
         }
     }
 
     return true;
 }
-
-#undef DYNAMIC_MACRO_CURRENT_SLOT
-#undef DYNAMIC_MACRO_CURRENT_LENGTH
-#undef DYNAMIC_MACRO_CURRENT_CAPACITY

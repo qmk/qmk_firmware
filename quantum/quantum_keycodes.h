@@ -505,6 +505,13 @@ enum quantum_keycodes {
     MAGIC_EE_HANDS_LEFT,
     MAGIC_EE_HANDS_RIGHT,
 
+    // Dynamic Macros
+    DYN_REC_START1,
+    DYN_REC_START2,
+    DYN_REC_STOP,
+    DYN_MACRO_PLAY1,
+    DYN_MACRO_PLAY2,
+
     // always leave at the end
     SAFE_RANGE
 };
