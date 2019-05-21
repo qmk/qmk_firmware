@@ -89,7 +89,7 @@ This is a MacOS-specific keymap for DZ60 configured in a standard 60% ANSI layou
 * Mouse keys
     * Cursor movement: HJKL
     * MB 1, 2, and 3 on F, D, and S, respectively
-    * Mouse wheel: Up (R) and Down (V)
+    * Mouse wheel: up (V), down (R) (reversed because of Natural Scrolling)
 
 ## `L4`
 
