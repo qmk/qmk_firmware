@@ -30,8 +30,8 @@
   #endif
 
   #define setPinInputHigh(pin) do {\
-          DDRx_ADDRESS(pin)  &= ~ _BV(pin & 0xF);\
-          PORTx_ADDRESS(pin) |=   _BV(pin & 0xF);\
+          DDRx_ADDRESS(pin)  &= ~_BV(pin & 0xF);\
+          PORTx_ADDRESS(pin) |=  _BV(pin & 0xF);\
           } while(0)
   #define setPinOutput(pin) DDRx_ADDRESS(pin)  |=  _BV(pin & 0xF)
   #define writePinHigh(pin) PORTx_ADDRESS(pin) |=  _BV(pin & 0xF)
