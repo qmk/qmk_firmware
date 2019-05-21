@@ -1,7 +1,7 @@
 Geekboards 8-keys macropad
 =====
 
-Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)  
+Keyboard Maintainer: [dztech](https://github.com/moyi4681)  
 Hardware Supported: Geekboards 8-keys macropad  
 Hardware Availability: geekboards.ru(https://geekboards.ru/)
 
