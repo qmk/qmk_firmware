@@ -32,5 +32,11 @@
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 #define DRIVER_COUNT 2
+#if defined (dzrgb60_ansi) || defined (dzrgb60_iso)
+#define DRIVER_1_LED_TOTAL 61
+#elif defined (dzrgb60_hhkb) || defined (dzrgb60_hhkb_iso)
+#define DRIVER_1_LED_TOTAL 62
+#else
 #define DRIVER_1_LED_TOTAL 63
+#endif
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
