@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../drashna/config.h"
 
 #ifdef RGBLIGHT_ENABLE
-#undef RGBLED_NUM
-#define RGBLED_NUM 16     // Number of LEDs
-#undef RGBLED_SPLIT
-#define RGBLED_SPLIT { 8, 8 }
+#   undef RGBLED_NUM
+#   define RGBLED_NUM 16     // Number of LEDs
+#   undef RGBLED_SPLIT
+#   define RGBLED_SPLIT { 8, 8 }
 #endif
 
 #undef PRODUCT
 #ifdef KEYBOARD_keebio_iris_rev2
-#define PRODUCT         Drashna Hacked Iris LP Rev.2 (Backlit)
+#   define PRODUCT         Drashna Hacked Iris LP Rev.2 (Backlit)
 #endif
 
 #undef SHFT_LED1

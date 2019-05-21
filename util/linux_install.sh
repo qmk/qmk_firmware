@@ -25,6 +25,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		kernel-headers \
 		make \
 		perl \
+		python3 \
 		unzip \
 		wget \
 		zip
@@ -47,13 +48,13 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		python3 \
 		unzip \
 		wget \
 		zip
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	# install avr-gcc 8.1 until 8.3 is available. See #3657 for details of the bug.
-	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.1.0-1-x86_64.pkg.tar.xz
+	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
 	sudo pacman -S \
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
@@ -66,6 +67,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		diffutils \
 		gcc \
 		git \
+		python \
 		unzip \
 		wget \
 		zip
@@ -87,6 +89,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/zip \
 			app-mobilephone/dfu-util \
 			dev-embedded/avrdude \
+			dev-lang/python:3.5 \
 			net-misc/wget \
 			sys-devel/gcc \
 			sys-devel/crossdev
@@ -102,6 +105,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/zip \
 		app-mobilephone/dfu-util \
 		dev-embedded/avrdude \
+		dev-lang/python \
 		net-misc/wget \
 		sys-devel/gcc \
 		sys-devel/crossdev
@@ -125,6 +129,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		dfu-tool \
 		dfu-programmer \
 		gcc \
+		python3 \
 		unzip \
 		wget \
 		zip
@@ -143,7 +148,8 @@ elif grep ID /etc/os-release | grep -q slackware; then
 			dfu-util \
 			arm-binutils \
 			arm-gcc \
-			newlib
+			newlib \
+			python3
 		echo "Done!"
 	else
 		echo "Quitting..."
