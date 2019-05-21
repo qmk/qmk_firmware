@@ -41,28 +41,29 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define KC_LOSP LT(_LOWER, KC_DEL)
-#define KC_RAEN LT(_RAISE, KC_BSPC)
+#define KC_LOSP LT(_LOWER, KC_SPC)
+#define KC_RAEN LT(_RAISE, KC_ENT)
+
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
+// #define FUJIKO M(KC_FUJIKO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_GRV,                    KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,                   KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_COMM,                   KC_DOT,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,  \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_BSLS, KANA,   KC_ESC,   KC_SLSH, KC_B,    KC_N,    KC_M,    KC_UP,   KC_QUOT, XXXXXXX,  \
-      KC_LCTL,          KC_LGUI, KC_LALT, KC_LOSP,          KC_SPC,  KANA,   KC_ESC,   KC_ENT,           KC_RAEN, KC_LEFT, KC_DOWN,          KC_RGHT \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_BSLS, KANA,    KC_ESC,  KC_SLSH, KC_B,    KC_N,    KC_M,    KC_UP,   KC_QUOT, XXXXXXX,  \
+      KC_LCTL,          KC_LGUI, KC_LALT, KC_DEL,           KC_LOSP, KANA,    KC_ESC,  KC_RAEN,          KC_BSPC, KC_LEFT, KC_DOWN,          KC_RGHT \
       ),
   [_LOWER] = LAYOUT( \
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,                   XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX, \
       _______, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, XXXXXXX, \
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, FUJIKO, \
       _______,          _______, _______, _______,          _______, _______, _______, _______,          _______, XXXXXXX, XXXXXXX,          XXXXXXX \
       ),
   [_RAISE] = LAYOUT( \
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______, \
       _______, RESET,   _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, FUJIKO, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______,          _______, _______, _______,          _______, _______, _______, _______,          _______, _______, _______,          _______ \
       )
 };
@@ -206,25 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // if(keymap_config.swap_lalt_lgui==false){
         //   register_code(KC_LANG1);
         // }else{
-          SEND_STRING("q");
-          SEND_STRING("a");
-          SEND_STRING("w");
-          SEND_STRING("s");
-          SEND_STRING("e");
-          SEND_STRING("d");
-          SEND_STRING("r");
-          SEND_STRING("f");
-          SEND_STRING("t");
-          SEND_STRING("g");
-          SEND_STRING("y");
-          SEND_STRING("h");
-          SEND_STRING("u");
-          SEND_STRING("j");
-          SEND_STRING("i");
-          SEND_STRING("k");
-          SEND_STRING("o");
-          SEND_STRING("l");
-          SEND_STRING("p");
+          SEND_STRING("qawsedrftgyhujikolp;");
         //}
         // unregister_code(KC_LANG1);
       } else {
