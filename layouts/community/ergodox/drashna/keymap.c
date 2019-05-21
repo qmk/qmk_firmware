@@ -399,14 +399,6 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-            rgb_matrix_set_color( i, red, green, blue );
-        }
-    }
-}
-
 void rgb_matrix_indicators_user(void) {
     if ( userspace_config.rgb_layer_change &&
 #ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -420,9 +412,9 @@ void rgb_matrix_indicators_user(void) {
     ) {
         switch (biton32(layer_state)) {
             case _MODS:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
             case _GAMEPAD:
-                rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
+                rgb_matrix_layer_helper(0xFF, 0x80, 0x00, LED_FLAG_MODIFIER);
                 rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
                 rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
                 rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
@@ -432,37 +424,37 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
                 rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
 
-                rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
-                rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
+                rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF); // 1
+                rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00); // 2
                 rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
 
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
             case _RAISE:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
             case _LOWER:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
             case _ADJUST:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
             default:
                 switch (biton32(default_layer_state)) {
                     case _QWERTY:
-                        rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, LED_FLAG_MODIFIER); break;
                     case _COLEMAK:
-                        rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
+                        rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
                     case _DVORAK:
-                        rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+                        rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, LED_FLAG_MODIFIER); break;
                     case _NORMAN:
-                        rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+                        rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, LED_FLAG_MODIFIER); break;
                     case _MALTRON:
-                        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
                     case _EUCALYN:
-                        rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+                        rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, LED_FLAG_MODIFIER); break;
                     case _CARPLAX:
-                        rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
+                        rgb_matrix_layer_helper(0x00, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
                 }
         }
     }

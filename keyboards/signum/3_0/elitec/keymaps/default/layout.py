@@ -446,15 +446,15 @@ colemak = [
 # 2
 numpad = [
     "`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]",
-    "",        "DF0",  "DF1",     "XXX",     "MO3",     "XXX",     "4",       "4",       "5",       "6",       "-",       "=",
+    "",        "DF0",  "DF1",     "XXX",     "MO3",     "MO3",     "4",       "4",       "5",       "6",       "-",       "=",
     "",        "MO5",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      "",
-    "TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        "",
+    "TG2",     "",     "",        "",        "",        "Del",     "",        "0",  "BSpace",       "",        "",        "",
     ]
 
 # 3
 fpad = [
     "",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX",
-    "",        "XXX",  "XXX",     "XXX",     "MO3",     "XXX",     "F4",      "F4",      "F5",      "F6",      "F11",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "MO3",     "MO3",     "F4",      "F4",      "F5",      "F6",      "F11",     "XXX",
     "",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "F12",     "",
     "TG3",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
@@ -464,7 +464,7 @@ movement = [
     "Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc",
     "",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr",
     "",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "",        "v Arrow", "XXX",     "App",     "",
-    "TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        "",
+    "TG4",     "",     "",        "",        "",        "Del",     "",        "BSpace",  "",        "",        "",        "",
     ]
 
 # 5
