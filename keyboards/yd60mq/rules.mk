@@ -1,4 +1,3 @@
-SRC += keyboards/wilba_tech/wt_main.c
 # MCU name
 MCU = atmega32u4
 
@@ -14,7 +13,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -38,31 +36,26 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = atmel-dfu
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no    # Commands for debug and configuration
-NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE = no 		# MIDI controls
+SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
-
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso
+RGBLIGHT_ENABLE = yes
