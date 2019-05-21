@@ -1,4 +1,4 @@
-/* Copyright 2018 AbstractKB
+/* Copyright 2019 AbstractKB
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,14 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
+/*enum custom_keycodes {
   MYKEY = SAFE_RANGE
-};
+};*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
-    KC_MUTE,  RGB_TOG,  BL_TOGG, \
-    RGB_M_SW,  RGB_M_P,	BL_BRTG \
+    KC_MUTE,  RGB_TOG,  BL_TOGG,
+    RGB_M_SW,  RGB_M_P,	BL_BRTG
   )
 };
 
