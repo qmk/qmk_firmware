@@ -8,7 +8,7 @@ enum my_layers {
   _NAVKEY,      //Macropad nav keys
   _MEDIA,       //Macropad media controls
   _RGB,         //Macropad RGB controls
-  _FN1PAD,       //Macropad reset and make commands
+  _FN1PAD,      //Macropad reset and make commands
   _QWERTY = 0,  //Qwerty with custom shortcuts and functions
   _DEFAULT,     //Default ANSI for gaming, enable with FN2+RCtl
   _FN1_60,      //Function keys, arrows, custom shortcuts, volume control
