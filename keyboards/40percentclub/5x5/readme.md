@@ -59,7 +59,7 @@ Assume you have the following keymap and have 3 boards connected together.
    | LGUI   | ALT    | ALT    | NUM    | SHIFT  | SPACE  | DIR    | RGUI   | RALT   | DEL    |
    '-----------------------------------------------------------------------------------------'
   ```
- Holding down `swaphand` + `a` will output nothing, because the default swap hands array is calling for a key that doesn't exist in this keymap (i.e. a key 5 columns to the left of the semicolon).  
+ Holding down `swaphand` + `a` will output nothing, because the default swap hands array is calling for a key that doesn't exist in this keymap (i.e. a key 5 columns to the right of the semicolon).  
  For `swaphand` + `a` to output `;`, the swap hand array would need to be changed to this:
  ```
  const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
