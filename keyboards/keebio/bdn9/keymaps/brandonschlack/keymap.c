@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_6,    KC_RGHT
     ),
     /*
-        Layer: Review/Rate
+        Layer: BDN9
         | XXX                   | RST  | XXX                   |
         | MAKE                  | XXX  | Flash                 |
         | Review                | Nav  | Edit                  |
