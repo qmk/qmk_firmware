@@ -1,6 +1,4 @@
 #include "kuatsure.h"
-#include "quantum.h"
-#include "action.h"
 #include "version.h"
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -52,7 +50,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tmux_prefix(void) {
-  SEND_STRING(SS_LCTRL(" "));
+  tap_code16(LCTL(KC_SPC));
 }
 
 void tmux_pane_zoom(void) {
