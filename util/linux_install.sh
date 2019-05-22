@@ -158,6 +158,7 @@ elif grep ID /etc/os-release | grep -q slackware; then
 	fi
 
 elif grep ID /etc/os-release | grep -q solus; then
+	sudo eopkg ur
 	sudo eopkg it \
 		-c system.devel \
 		arm-none-eabi-gcc \
