@@ -1,5 +1,5 @@
 /* Copyright 2016 Jack Humbert
- * Copyright 2019 Drashna Jael're (Christopher Courtney, @drashna)
+ * Copyright 2019 Drashna Jael're (@drashna, aka Christopher Courtney)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -214,57 +214,57 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
             switch (keycode) {
-            case DYN_REC_START1:
-                dynamic_macro_record_start(&macro_pointer, macro_buffer);
-                macro_id = 1;
-                return false;
-            case DYN_REC_START2:
-                dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
-                macro_id = 2;
-                return false;
-            case DYN_MACRO_PLAY1:
-                dynamic_macro_play(macro_buffer, macro_end, +1);
-                return false;
-            case DYN_MACRO_PLAY2:
-                dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
-                return false;
+                case DYN_REC_START1:
+                    dynamic_macro_record_start(&macro_pointer, macro_buffer);
+                    macro_id = 1;
+                    return false;
+                case DYN_REC_START2:
+                    dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
+                    macro_id = 2;
+                    return false;
+                case DYN_MACRO_PLAY1:
+                    dynamic_macro_play(macro_buffer, macro_end, +1);
+                    return false;
+                case DYN_MACRO_PLAY2:
+                    dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
+                    return false;
             }
         }
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-        case DYN_REC_STOP:
-            /* Stop the macro recording. */
-            if (record->event.pressed) { /* Ignore the initial release
-                                          * just after the recoding
-                                          * starts. */
-                switch (macro_id) {
-                case 1:
-                    dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
-                    break;
-                case 2:
-                    dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
-                    break;
+            case DYN_REC_STOP:
+                /* Stop the macro recording. */
+                if (record->event.pressed) { /* Ignore the initial release
+                                            * just after the recoding
+                                            * starts. */
+                    switch (macro_id) {
+                        case 1:
+                            dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
+                            break;
+                        case 2:
+                            dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
+                            break;
+                    }
+                    macro_id = 0;
                 }
-                macro_id = 0;
-            }
-            return false;
-        case DYN_MACRO_PLAY1:
-        case DYN_MACRO_PLAY2:
-            dprintln("dynamic macro: ignoring macro play key while recording");
-            return false;
-        default:
-            /* Store the key in the macro buffer and process it normally. */
-            switch (macro_id) {
-            case 1:
-                dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
+                return false;
+            case DYN_MACRO_PLAY1:
+            case DYN_MACRO_PLAY2:
+                dprintln("dynamic macro: ignoring macro play key while recording");
+                return false;
+            default:
+                /* Store the key in the macro buffer and process it normally. */
+                switch (macro_id) {
+                    case 1:
+                        dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
+                        break;
+                    case 2:
+                        dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
+                        break;
+                }
+                return true;
                 break;
-            case 2:
-                dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
-                break;
-            }
-            return true;
-            break;
         }
     }
 

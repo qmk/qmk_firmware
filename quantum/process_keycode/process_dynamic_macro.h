@@ -1,4 +1,5 @@
 /* Copyright 2016 Jack Humbert
+ * Copyright 2019 Drashna Jael're (@drashna, aka Christopher Courtney)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +18,6 @@
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
 #pragma once
 
-#ifndef DYNAMIC_MACRO_SIZE
 /* May be overridden with a custom value. Be aware that the effective
  * macro length is half of this value: each keypress is recorded twice
  * because of the down-event and up-event. This is not a bug, it's the
@@ -27,19 +27,10 @@
  * there have been reports of it being too much in some users' cases,
  * so 128 is considered a safe default.
  */
-#define DYNAMIC_MACRO_SIZE 128
+#ifndef DYNAMIC_MACRO_SIZE
+#   define DYNAMIC_MACRO_SIZE 128
 #endif
 
-/* Handle the key events related to the dynamic macros. Should be
- * called from process_record_user() like this:
- *
- *   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- *       if (!process_record_dynamic_macro(keycode, record)) {
- *           return false;
- *       }
- *       <...THE REST OF THE FUNCTION...>
- *   }
- */
 void dynamic_macro_led_blink(void);
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record);
 void dynamic_macro_record_start_user(void);
