@@ -72,6 +72,7 @@
             ]
         },
         "LAYOUT_ortho_5x12_1x2uC": {
+            "key_count": 59,
             "layout": [
                 {"w": 1, "x": 0, "y": 0},
                 {"w": 1, "x": 1, "y": 0},
@@ -135,6 +136,7 @@
             ]
         },
         "LAYOUT_ortho_5x12_2x2u": {
+            "key_count": 58,
             "layout": [
                 {"w": 1, "x": 0, "y": 0},
                 {"w": 1, "x": 1, "y": 0},
