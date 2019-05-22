@@ -20,6 +20,7 @@ enum layer_names {
 // Macros
 enum custom_keycodes {
   KC_MAKE = SAFE_RANGE,
+  KC_FLSH,
   MD_MAKE,
   OS_MAC,
   OS_WIN,
