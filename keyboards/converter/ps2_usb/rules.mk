@@ -51,6 +51,7 @@ CONSOLE_ENABLE   = yes  # Console for debug(+400)
 COMMAND_ENABLE   = yes  # Commands for debug and configuration
 NKRO_ENABLE      = yes  # USB Nkey Rollover
 CUSTOM_MATRIX    = yes
+PS2_USE_USART = yes
 
 SRC = matrix.c led.c
 
