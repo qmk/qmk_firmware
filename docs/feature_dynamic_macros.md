@@ -4,7 +4,7 @@ QMK supports temporary macros created on the fly. We call these Dynamic Macros. 
 
 You can store one or two macros and they may have a combined total of 128 keypresses. You can increase this size at the cost of RAM.
 
-To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your Makefile. Then, add the following keys to your keymap:
+To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. Then, add the following keys to your keymap:
 
 * `DYN_REC_START1` — start recording the macro 1,
 * `DYN_REC_START2` — start recording the macro 2,

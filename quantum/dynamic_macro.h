@@ -18,7 +18,7 @@
 #pragma once
 
 /* Warn users that this is now deprecated and they should use the core feature instead. */
-#pragma message "Dyanmic Macros is now a core feature. See updated documentation to see how to configure it: https://docs.qmk.fm/#/feature_dynamic_macros"
+#pragma message "Dynamic Macros is now a core feature. See updated documentation to see how to configure it: https://docs.qmk.fm/#/feature_dynamic_macros"
 
 #include "action_layer.h"
 

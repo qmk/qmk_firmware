@@ -124,7 +124,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         DYNAMIC_MACRO_CURRENT_SLOT(),
         DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer),
         DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end)
-        );
+    );
 }
 
 /**
@@ -146,7 +146,7 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
         "dynamic macro: slot %d saved, length: %d\n",
         DYNAMIC_MACRO_CURRENT_SLOT(),
         DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer)
-        );
+    );
 
     *macro_end = macro_pointer;
 
