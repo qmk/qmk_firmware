@@ -126,16 +126,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  * |   tab  |    A   |    S   |    D   |    F   |    G   |    H   |    J   |    K   |    L   |    ;   |   del  |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * | lshift |    Z   |    X   |    C   |    V   |    B   |    N   |    M   |    ,   |    .   |   up   |  enter |
+ * | lshift |    Z   |    X   |    C   |    V   |    B   |    N   |    M   |    ,   |    .   |    /   |  enter |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * |  lctrl |  lalt  |  lower |  unic  |  lgui  |  space |  space |  raise |    /   |  left  |  down  |  right | 
+ * |  lctrl |  lalt  |  lower |  unic  |  lgui  |  space |  space |  raise |  left  |  down  |   up   |  right | 
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  */
 [_QWERTY] = LAYOUT_ortho_4x12 ( 
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_DEL,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
-    KC_LCTL, KC_LALT, LOWER,   UNICODE, KC_LGUI, KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+    KC_LCTL, KC_LALT, LOWER,   UNICODE, KC_LGUI, KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -162,16 +162,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  * |  caps  |        |        |        |        |        |    \   |    -   |    =   |    [   |    ]   |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * |        |        |        |        |        |        |    `   |        |        |        |  pgup  |        |
+ * |        |        |        |        |        |        |    `   |        |        |        |        |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * |        |        |        |        |        |        |        |        |        |  home  |  pgdn  |   end  |
+ * |        |        |        |        |        |        |        |        |  home  |  pgdn  |  pgup  |   end  |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  */
 [_RAISE] = LAYOUT_ortho_4x12 (
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     KC_CAPS, _______, _______, _______, _______, _______, KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
-    _______, _______, _______, _______, _______, _______, KC_GRV,  KC_QUOT, _______, _______, KC_PGUP, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END
+    _______, _______, _______, _______, _______, _______, KC_GRV,  KC_QUOT, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
 /* 
@@ -180,8 +180,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_UNICODE] = LAYOUT_ortho_4x12 ( 
     _______, X(EXCL), X(WORR), E_UNIC,  X(EURO), X(TONG), Y_UNIC,  U_UNIC,  I_UNIC,  O_UNIC,  X(POUN), _______,
     _______, A_UNIC,  X(SMIL), X(DISS), X(SCRE), X(DEGR), X(SMIH), X(NOT),  X(QUAR), X(HALF), ORD_UN,  _______,
-    _______, X(DIZY), X(ANGR), X(COPY), X(QUAD), X(CUBE), N_UNIC,  X(NEUT), X(LDQU), X(RDQU), X(ARRU), _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, X(QUES), X(ARRL), X(ARRD), X(ARRR)
+    _______, X(DIZY), X(ANGR), X(COPY), X(QUAD), X(CUBE), N_UNIC,  X(NEUT), X(LDQU), X(RDQU), X(QUES), _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, X(ARRU), X(ARRL), X(ARRD), X(ARRR)
 ),
 
 /* 
