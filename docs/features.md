@@ -24,7 +24,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Macros](feature_macros.md) - Send multiple key presses when pressing only one physical key.
 * [Mouse keys](feature_mouse_keys.md) - Control your mouse pointer from your keyboard.
 * [OLED Driver](feature_oled_driver.md) - Add OLED screens to your keyboard.
-* [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys) - Sticky Keys, lets hit a key rather than holding it.
+* [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys) - Sticky Keys, lets you hit a key rather than holding it.
 * [Pointing Device](feature_pointing_device.md) - Framework for connecting your custom pointing device to your keyboard.
 * [PS2 Mouse](feature_ps2_mouse.md) - Driver for connecting a PS/2 mouse directly to your keyboard.
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
