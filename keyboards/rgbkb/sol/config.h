@@ -50,7 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_HITS_TO_REMEMBER 5
 
 #define RGBLIGHT_ANIMATIONS
-#define FULLHAND_ENABLE
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard

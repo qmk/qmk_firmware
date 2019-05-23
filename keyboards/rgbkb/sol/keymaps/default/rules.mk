@@ -13,12 +13,13 @@ RGBLIGHT_ANIMATIONS     = no    # LED animations
 LED_MIRRORED            = no    # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
 RGB_MATRIX_ENABLE       = WS2812# Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)
 RGB_MATRIX_KEYPRESSES   = no    # Enable reactive per-key effects. Can be very laggy (+1500)
-FULLHAND_ENABLE         = no    # Enable full hand LED positions
+FULLHAND_ENABLE         = no    # Enables the additional 24 Full Hand LEDs
 RGBLIGHT_FULL_POWER     = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 UNICODE_ENABLE          = no    # Unicode
 SWAP_HANDS_ENABLE       = no    # Enable one-hand typing
 OLED_DRIVER_ENABLE      = no    # Enable the OLED Driver (+5000)
 ENCODER_ENABLE          = no    # Enable rotary encoder (+90)
+EXTRA_ENCODERS_ENABLE   = no    # Enables 3 encoders per side (up from 1, not compatible with OLED_DRIVER_ENABLE)
 IOS_DEVICE_ENABLE       = no    # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Do not edit past here
@@ -35,4 +36,12 @@ endif
 
 ifeq ($(strip $(LED_MIRRORED)), yes)
     OPT_DEFS += -DLED_MIRRORED
+endif
+
+ifeq ($(strip $(FULLHAND_ENABLE)), yes)
+    OPT_DEFS += -DFULLHAND_ENABLE
+endif
+
+ifeq ($(strip $(EXTRA_ENCODERS_ENABLE)), yes)
+    OPT_DEFS += -DEXTRA_ENCODERS_ENABLE
 endif
