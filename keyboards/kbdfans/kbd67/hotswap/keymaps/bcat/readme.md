@@ -10,4 +10,4 @@ cluster.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/KScatX6.png)
+![Function layer layout](https://i.imgur.com/urDnuTC.png)
