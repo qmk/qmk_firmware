@@ -5,10 +5,17 @@
 extern uint8_t diablo_times[];
 typedef struct {
     uint16_t timer;
-    uint8_t key_time;
+    uint8_t key_interval;
+    uint8_t keycode;
 } diablo_timer_t;
 
-extern diablo_timer_t diablo_timer[4];
+
+typedef struct {
+  uint8_t index;
+  uint8_t keycode;
+} diable_keys_t;
+
+extern diablo_timer_t diablo_timer[];
 
 void run_diablo_macro_check(void);
 
