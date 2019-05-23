@@ -14,7 +14,7 @@ I've largely left the function keys untouched, with the intension of not using t
 
 I use Colemak as my default layout.  I've included QWERTY here as well.
 
-Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have limited access to the Function or Numbers/Symbols layers, and are mainly used for gaming.  Additionally, NKRO is turned on by default for these layers.
+Additionally, there is a gaming layer on toggle.  This layer is turned top of either Colemak or QWERTY and have limited access to the Function or Numbers/Symbols layers.  Additionally, NKRO is turned on when the layer is turned on.
 
 Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/vanilla Colemak and QWERTY can be set as default layer, but will not be persistent.
 
@@ -164,68 +164,41 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
                          `-----------------------' `-----------------------' 
 ```	
 
-### Colemak gaming/vanilla
-- Limited access to Function or Numbers layers
+### Gaming
+- Toggle layer with limited access to Function or Numbers layers
 - Mainly used for gaming
 - NKRO turned on by default
 - Press and hold Ent/NS + Delete/Numbers2 to access Adjust layer
 
 ```
 ,------------------------------------------------. ,------------------------------------------------.
-|    =   |   1   |   2   |   3   |   4   |   5   | |   6   |   7   |   8   |   9   |   0   |    -   |
+|        |       |       |       |       |       | |       |       |       |       |       |        |
 |--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|   Tab  |   Q   |   W   |   F   |   P   |   G   | |   J   |   L   |   U   |   Y   |   ;   |    \   |
+|        |       |       |       |       |       | |       |       |       |       |       |        |
 |--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|  LCtrl |   A   |   R   |   S   |   T   |   D   | |   H   |   N   |   E   |   I   |   O   |    '   |
+|  LCtrl |       |       |       |       |       | |       |       |       |       |       |        |
 |--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|  Shift |   Z   |   X   |   C   |   V   |   B   | |   K   |   M   |   ,   |   .   |   /   |  Shift |
+|  Shift |       |       |       |       |       | |       |       |       |       |       |  Shift |
 `--------+-------+-------+-------+-------+-------' `-------+-------+-------+-------+-------+--------'
-         |  Ins  |   `   |   [   |   ]   |                 |  Left |  Down |   Up  | Right |
+         |       |       |       |       |                 |       |       |       |       |
          `-------------------------------'                 `-------------------------------'
                                  ,---------------. ,---------------.
-                                 |  ESC  |       | |  RAlt |  RCtl |
+                                 |  ESC  |xxxxxxx| |  RAlt |  RCtl |
                          ,-------+-------+-------| |-------+-------+-------.
                          |       |       |  LAlt | |  RGUI | Delete|  Bspc |
                          | Space | Enter |-------| |-------|   /   |   /   |
                          |       |       |  Bspc | | Ent/NS|Number2|  Fn2  |
                          `-----------------------' `-----------------------' 
 ```	
-
-### QWERTY gaming/vanilla
-- Limited access to Function or Numbers layers
-- Mainly used for gaming
-- NKRO turned on by default
-- Press and hold Ent/NS + Delete/Numbers2 to access Adjust layer
-
-```
-,------------------------------------------------. ,------------------------------------------------.
-|    =   |   1   |   2   |   3   |   4   |   5   | |   6   |   7   |   8   |   9   |   0   |   -    |
-|--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|   Tab  |   Q   |   W   |   E   |   R   |   T   | |   Y   |   U   |   I   |   O   |   P   |    \   |
-|--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|  LCtrl |   A   |   S   |   D   |   F   |   G   | |   H   |   J   |   K   |   L   |   ;   |    '   |
-|--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
-|  Shift |   Z   |   X   |   C   |   V   |   B   | |   N   |   M   |   ,   |   .   |   /   |  Shift |
-`--------+-------+-------+-------+-------+-------' `-------+-------+-------+-------+-------+--------'
-         |  Ins  |   `   |   [   |   ]   |                 |  Left |  Down |   Up  | Right |
-         `-------------------------------'                 `-------------------------------'
-                                 ,---------------. ,---------------.
-                                 |  ESC  |       | |  RAlt |  RCtl |
-                         ,-------+-------+-------| |-------+-------+-------.
-                         |       |       |  LAlt | |  RGUI | Delete|  Bspc |
-                         | Space | Enter |-------| |-------|   /   |   /   |
-                         |       |       |  Bspc | | Ent/NS|Number2|  Fn2  |
-                         `-----------------------' `-----------------------' 
-```
 	
 ### Adjust layer
 - Momentary layer
 - Press and hold Adjust key on the function row or Enter/Number + Delete/Number2 to access
-- Numpad and NKRO are on toggle
+- Gaming, Numpad, and NKRO are on toggle
 
 ```
 ,------------------------------------------------. ,------------------------------------------------.
-|        |Colemak| QWERTY|       |ColmkGM|QWERTYG| | Numpad|       |       |       |       | RESET  |
+|        |Colemak| QWERTY|       | Gaming|       | | Numpad|       |       |       |       |  RESET |
 |--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
 |        |       |       |       |       |       | |       |       |       |       |       |        |
 |--------+-------+-------+-------+-------+-------| |-------+-------+-------+-------+-------+--------|
