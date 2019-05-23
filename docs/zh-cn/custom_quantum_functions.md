@@ -46,7 +46,7 @@ enum my_keycodes {
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {s
+  switch (keycode) {
     case FOO:
       if (record->event.pressed) {
         // 按下时做些什么
