@@ -8,7 +8,7 @@ installflip=false
 util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
+pacman --needed -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
 
 source "$dir/win_shared_install.sh"
 
@@ -43,17 +43,10 @@ if [ -f "FlipInstaller.exe" ]; then
 fi
 
 if [ ! -d "$avrtools" ]; then
-    while true; do
-        echo
-        echo "The AVR toolchain is not installed."
-        echo "This is needed for building AVR based keboards."
-        read -p "Do you want to install it? (Y/N) " res
-        case $res in
-            [Yy]* ) install_avr; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
+    echo
+    echo "The AVR toolchain is not installed."
+    echo "This is needed for building AVR based keboards."
+    install_avr
 else
     while true; do
         echo
@@ -68,17 +61,10 @@ else
 fi
 
 if [ ! -d "$armtools" ]; then
-    while true; do
-        echo
-        echo "The ARM toolchain is not installed."
-        echo "This is needed for building ARM based keyboards."
-        read -p "Do you want to install it? (Y/N) " res
-        case $res in
-            [Yy]* ) install_arm; break;;
-            [Nn]* ) break;;
-            * ) echo "Invalid answer";;
-        esac
-    done
+    echo
+    echo "The ARM toolchain is not installed."
+    echo "This is needed for building ARM based keyboards."
+    install_arm
 else
     while true; do
         echo
