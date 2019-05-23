@@ -15,7 +15,7 @@ enum bfo9000_layers {
   _ADJUST2    // Second Adjust layer (accessed outside of tri-layer feature)
 };
 
-enum kinesis_keycodes {
+enum bfo9000_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
   GAMING
