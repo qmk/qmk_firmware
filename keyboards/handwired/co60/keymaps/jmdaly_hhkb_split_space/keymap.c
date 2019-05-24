@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define LEADER_TIMEOUT 300
 #define _______ KC_TRNS
 
 enum co60_layers {

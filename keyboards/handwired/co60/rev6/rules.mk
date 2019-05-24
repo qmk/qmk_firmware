@@ -36,6 +36,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -v 0483 -p df11
 
 # Code for backlight breathing:
 SRC += matrix.c \
@@ -57,4 +58,3 @@ MIDI_ENABLE = no        # MIDI controls
 UNICODE_ENABLE = no     # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 LEADER_ENABLE = yes
-CUSTOM_MATRIX = yes

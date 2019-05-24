@@ -1,5 +1,5 @@
 # project specific files
-LAYOUTS += all 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb 60_hhkb_split_space 60_hhkb_split_625u_space
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -36,6 +36,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -v 0483 -p df11
 
 # Code for backlight breathing:
 SRC += led.c

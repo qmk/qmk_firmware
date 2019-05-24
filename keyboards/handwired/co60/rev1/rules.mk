@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.
@@ -69,4 +68,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 LEADER_ENABLE = yes         # Turn on leader support
 
 # Layouts supported by this PCB:
-LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_hhkb 60_hhkb_split_space
+LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_hhkb

@@ -16,6 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
+#define LEADER_TIMEOUT 300
 
 // place overrides here
