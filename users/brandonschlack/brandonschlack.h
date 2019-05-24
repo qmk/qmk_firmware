@@ -49,3 +49,10 @@ enum custom_keycodes {
 // Windows
 #define WN_LOCK   LGUI(KC_L)           // Lock Computer
 #define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)
+
+// RGB Colors
+#define RGB_LSR_PURPLE   0x3C, 0x16, 0x8C
+#define RGB_LSR_PINK     0xF2, 0x1B, 0x7F
+#define RGB_LSR_INDIGO   0x23, 0x1B, 0x59
+#define RGB_LSR_CYAN     0x2F, 0xC1, 0xE1
+#define RGB_LSR_VIOLET   0x53, 0x36, 0xBF

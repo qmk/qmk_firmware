@@ -2,24 +2,13 @@
 #include "brandonschlack.h"
 
 enum alt_keycodes {
-    L_BRI = KEYMAP_SAFE_RANGE, //LED Brightness Increase                                   //Working
-    L_BRD,                     //LED Brightness Decrease                                   //Working
-    L_PTN,                     //LED Pattern Select Next                                   //Working
-    L_PTP,                     //LED Pattern Select Previous                               //Working
-    L_PSI,                     //LED Pattern Speed Increase                                //Working
-    L_PSD,                     //LED Pattern Speed Decrease                                //Working
-    L_T_MD,                    //LED Toggle Mode                                           //Working
-    L_T_ONF,                   //LED Toggle On / Off                                       //Broken
-    L_ON,                      //LED On                                                    //Broken
-    L_OFF,                     //LED Off                                                   //Broken
-    L_T_BR,                    //LED Toggle Breath Effect                                  //Working
-    L_T_PTD,                   //LED Toggle Scrolling Pattern Direction                    //Working
-    U_T_AGCR,                  //USB Toggle Automatic GCR control                          //Working
-    DBG_TOG,                   //DEBUG Toggle On / Off                                     //
-    DBG_MTRX,                  //DEBUG Toggle Matrix Prints                                //
-    DBG_KBD,                   //DEBUG Toggle Keyboard Prints                              //
-    DBG_MOU,                   //DEBUG Toggle Mouse Prints                                 //
-    MD_BOOT                    //Restart into bootloader after hold timeout                //Working
+    U_T_AUTO = KEYMAP_SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AGCR,                     //USB Toggle Automatic GCR control
+    DBG_TOG,                      //DEBUG Toggle On / Off
+    DBG_MTRX,                     //DEBUG Toggle Matrix Prints
+    DBG_KBD,                      //DEBUG Toggle Keyboard Prints
+    DBG_MOU,                      //DEBUG Toggle Mouse Prints
+    MD_BOOT,                      //Restart into bootloader after hold timeout
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
@@ -58,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |      |   |   |   |   |   |   |   |   |   |   |   | TgMagic|VlU|
      * |---------------------------------------------------------------|
-     * |        |LTM|   |   |   |   |   |MKE|Prv|Nxt|Plr|MutSft|PgU|VlD|
+     * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Plr|MutSft|PgU|VlD|
      * |---------------------------------------------------------------|
      * |    |    |    |                       |    |    |  |Hom|PgD|End|
      * `---------------------------------------------------------------'
@@ -67,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  MC_SLPD, \
         _______, _______, _______, _______, MD_BOOT, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_END,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC, KC_VOLU, \
-        _______, L_T_MD,  _______, _______, _______, _______, _______, MD_MAKE, KC_MRWD, KC_MFFD, MC_PLYR, MM_RSFT,          KC_PGUP, KC_VOLD, \
+        _______, RGB_TOG, _______, _______, _______, _______, _______, MD_MAKE, KC_MRWD, KC_MFFD, MC_PLYR, MM_RSFT,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
 
@@ -102,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |      |   |   |   |   |   |   |   |   |   |   |   | TgMagic|VlU|
      * |---------------------------------------------------------------|
-     * |        |LTM|   |   |   |   |   |MKE|Prv|Nxt|Stp|MutSft|PgU|VlD|
+     * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Stp|MutSft|PgU|VlD|
      * |---------------------------------------------------------------|
      * |    |    |    |                       |    |    |  |Hom|PgD|End|
      * `---------------------------------------------------------------'
@@ -111,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  WN_LOCK, \
         _______, _______, _______, _______, MD_BOOT, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, WN_TSKM, KC_END,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC, KC_VOLU, \
-        _______, L_T_MD,  _______, _______, _______, _______, _______, MD_MAKE, KC_MPRV, KC_MNXT, KC_MSTP, MM_RSFT,          KC_PGUP, KC_VOLD, \
+        _______, RGB_TOG, _______, _______, _______, _______, _______, MD_MAKE, KC_MPRV, KC_MNXT, KC_MSTP, MM_RSFT,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
 
@@ -122,20 +111,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,---------------------------------------------------------------.
      * |   |   |   |   |   |   |   |   |   |   |   |   |   |       |   |
      * |---------------------------------------------------------------|
-     * |LBr  |LS-|LB+|LS+|   |   |   |   |GCR|   |   |   |   |     |   |
+     * |     |RS-|RB+|RS+|RH+|RS+|   |UAD|GCR|   |   |   |   |     |   |
      * |---------------------------------------------------------------|
-     * |LPD   |LP-|LB-|LP+|   |   |   |   |   |   |   |   | TgMagic|   |
+     * |      |RM-|RB-|RM+|RH-|RS-|   |   |   |   |   |   | TgMagic|   |
      * |---------------------------------------------------------------|
-     * |        |LTM|LTO|   |   |   |KRO|   |Mac|Win|   |      |   |   |
+     * |        |RTO|   |   |   |   |KRO|   |Mac|Win|   |      |   |   |
      * |---------------------------------------------------------------|
      * |    |    |    |                       |    |    |  |   |   |   |
      * `---------------------------------------------------------------'
      */
     [LK_MGC] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, U_T_AGCR,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_MAGC, XXXXXXX, \
-        XXXXXXX, L_T_MD,  L_T_ONF, XXXXXXX, XXXXXXX, XXXXXXX, TG_NKRO, XXXXXXX, OS_MAC,  OS_WIN,  XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, \
+        XXXXXXX, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, XXXXXXX, U_T_AUTO,U_T_AGCR,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+        XXXXXXX, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_MAGC, XXXXXXX, \
+        XXXXXXX, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_NKRO, XXXXXXX, OS_MAC,  OS_WIN,  XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, \
         XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
     ),
     /*
@@ -151,7 +140,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    led_lighting_mode = LED_MODE_INDICATORS_ONLY;
+    rgb_matrix_sethsv(HSV_PURPLE);
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
 };
 
 // Runs constantly in the background, in a loop.
@@ -166,80 +156,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
 
     switch (keycode) {
-        case L_BRI:
-            if (record->event.pressed) {
-                if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
-                else gcr_desired += LED_GCR_STEP;
-                if (led_animation_breathing) gcr_breathe = gcr_desired;
-            }
-            return false;
-        case L_BRD:
-            if (record->event.pressed) {
-                if (LED_GCR_STEP > gcr_desired) gcr_desired = 0;
-                else gcr_desired -= LED_GCR_STEP;
-                if (led_animation_breathing) gcr_breathe = gcr_desired;
-            }
-            return false;
-        case L_PTN:
-            if (record->event.pressed) {
-                if (led_animation_id == led_setups_count - 1) led_animation_id = 0;
-                else led_animation_id++;
-            }
-            return false;
-        case L_PTP:
-            if (record->event.pressed) {
-                if (led_animation_id == 0) led_animation_id = led_setups_count - 1;
-                else led_animation_id--;
-            }
-            return false;
-        case L_PSI:
-            if (record->event.pressed) {
-                led_animation_speed += ANIMATION_SPEED_STEP;
-            }
-            return false;
-        case L_PSD:
-            if (record->event.pressed) {
-                led_animation_speed -= ANIMATION_SPEED_STEP;
-                if (led_animation_speed < 0) led_animation_speed = 0;
-            }
-            return false;
-        case L_T_MD:
-            if (record->event.pressed) {
-                led_lighting_mode++;
-                if (led_lighting_mode > LED_MODE_MAX_INDEX) led_lighting_mode = LED_MODE_NORMAL;
-            }
-            return false;
-        case L_T_ONF:
-            if (record->event.pressed) {
-                led_enabled = !led_enabled;
-                I2C3733_Control_Set(led_enabled);
-            }
-            return false;
-        case L_ON:
-            if (record->event.pressed) {
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
-            }
-            return false;
-        case L_OFF:
-            if (record->event.pressed) {
-                led_enabled = 0;
-                I2C3733_Control_Set(led_enabled);
-            }
-            return false;
-        case L_T_BR:
-            if (record->event.pressed) {
-                led_animation_breathing = !led_animation_breathing;
-                if (led_animation_breathing) {
-                    gcr_breathe = gcr_desired;
-                    led_animation_breathe_cur = BREATHE_MIN_STEP;
-                    breathe_dir = 1;
-                }
-            }
-            return false;
-        case L_T_PTD:
-            if (record->event.pressed) {
-                led_animation_direction = !led_animation_direction;
+        case U_T_AUTO:
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
         case U_T_AGCR:
@@ -276,27 +195,67 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case RGB_TOG:
+            if (record->event.pressed) {
+              switch (rgb_matrix_get_flags()) {
+                case LED_FLAG_ALL: {
+                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                case LED_FLAG_KEYLIGHT: {
+                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                case LED_FLAG_UNDERGLOW: {
+                    rgb_matrix_set_flags(LED_FLAG_MODIFIER);
+                    rgb_matrix_set_color_all(0, 0, 0);
+                  }
+                  break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    rgb_matrix_enable_noeeprom();
+                  }
+                  break;
+              }
+            }
+            return false;
         default:
             return true; //Process all other keycodes normally
     }
 }
 
-led_instruction_t led_instructions[] = {
-    //Please see ../default_md/keymap.c for examples
+void rgb_matrix_hsv_layer (uint8_t hue, uint8_t sat, uint8_t val) {
+    rgb_matrix_sethsv_noeeprom(hue, sat, val);
+    if (rgb_matrix_get_flags() == LED_FLAG_MODIFIER) {
+        rgb_matrix_set_color(30, 0, 0, 0);
+    }
+}
 
-    //All LEDs use the user's selected pattern (this is the factory default)
-    //  { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+void rgb_matrix_indicators_user(void) {
+	uint8_t this_led = host_keyboard_leds();
 
-    // MiTo Laser Lighting
-    // On Base Layer, all LEDs use purple
-    // On Function Layer, all LEDS use pink
-    // On Function Layer, all LEDS use white
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 62, .b = 128, .layer = LB_MAC },
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 242, .g = 27, .b = 127, .layer = LF_MAC },
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 35, .g = 27, .b = 89, .layer = LB_WIN },
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 47, .g = 193, .b = 225, .layer = LF_WIN },
-    { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0xFFFFFFFF, .id3 = 0x000003FF, .r = 255, .g = 255, .b = 255, .layer = LK_MGC },
+	if (!g_suspend_state && rgb_matrix_config.enable) {
+		switch (biton32(layer_state)) {
+            case LB_MAC:
+                rgb_matrix_hsv_layer(HSV_PURPLE);
+                break;
+            case LF_MAC:
+                rgb_matrix_hsv_layer(HSV_PINK);
+                break;
+            case LB_WIN:
+                rgb_matrix_hsv_layer(HSV_MAGENTA);
+                break;
+            case LF_WIN:
+                rgb_matrix_hsv_layer(HSV_CYAN);
+                break;
+            default:
+                rgb_matrix_hsv_layer(HSV_WHITE);
+		}
 
-    //end must be set to 1 to indicate end of instruction set
-     { .end = 1 }
-};
+        if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
+	        rgb_matrix_set_color(30, RGB_GREEN);
+	    }
+	}
+}
