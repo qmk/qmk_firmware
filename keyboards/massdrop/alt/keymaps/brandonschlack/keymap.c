@@ -256,6 +256,8 @@ void rgb_matrix_indicators_user(void) {
 
         if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
 	        rgb_matrix_set_color(30, RGB_GREEN);
-	    }
+	    } else {
+            rgb_matrix_set_color(30, 0, 0, 0);
+        }
 	}
 }
