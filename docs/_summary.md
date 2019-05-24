@@ -52,7 +52,7 @@
   * [Backlight](feature_backlight.md)
   * [Bluetooth](feature_bluetooth.md)
   * [Bootmagic](feature_bootmagic.md)
-  * [Combos](feature_combo)
+  * [Combos](feature_combo.md)
   * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Encoders](feature_encoders.md)
