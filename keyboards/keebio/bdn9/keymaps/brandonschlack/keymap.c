@@ -3,15 +3,15 @@
 
 enum bdn9_layers {
     LR_NAV,
-    LR_EDIT,
     LR_REVW,
+    LR_EDIT,
     BD_FUNC
 };
 
 enum bdn9_keycodes {
     TG_NAV = KEYMAP_SAFE_RANGE,
-    TG_EDIT,
     TG_REVW,
+    TG_EDIT,
     MC_UNDO,
     MC_REDO
 };
@@ -44,18 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        Layer: Edit/Develop
-        | Knob 1: ./,           |      | Knob 2: =/-           |
-        | Press: Review         | \    | Press: Nav            |
-        | X                     | Undo | P                     |
-        | Left                  | Redo | Right                 |
-     */
-    [LR_EDIT] = LAYOUT(
-        TG_REVW, KC_BSLS, TG_NAV,
-        KC_X,    MC_UNDO, KC_P,
-        KC_LEFT, MC_REDO, KC_RGHT
-    ),
-    /*
         Layer: Review/Rate
         | Knob 1: ]/[           |      | Knob 2: G(Up)/G(Dn)   |
         | Press: Nav            | 7    | Press: Edit           |
@@ -66,6 +54,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG_NAV,  KC_7,    TG_EDIT,
         KC_0,    KC_8,    RGB_MOD,
         KC_LEFT, KC_6,    KC_RGHT
+    ),
+    /*
+        Layer: Edit/Develop
+        | Knob 1: ./,           |      | Knob 2: =/-           |
+        | Press: Review         | \    | Press: Nav            |
+        | X                     | Undo | P                     |
+        | Left                  | Redo | Right                 |
+     */
+    [LR_EDIT] = LAYOUT(
+        TG_REVW, KC_BSLS, TG_NAV,
+        KC_X,    MC_UNDO, KC_P,
+        KC_LEFT, MC_REDO, KC_RGHT
     ),
     /*
         Layer: BDN9
@@ -90,18 +90,18 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_MINS);
                 }
                 break;
-            case LR_EDIT:
-                if (!clockwise) {
-                    tap_code(KC_DOT);
-                } else {
-                    tap_code(KC_COMM);
-                }
-                break;
             case LR_REVW:
                 if (!clockwise) {
                     tap_code(KC_RBRC);
                 } else {
                     tap_code(KC_LBRC);
+                }
+                break;
+            case LR_EDIT:
+                if (!clockwise) {
+                    tap_code(KC_DOT);
+                } else {
+                    tap_code(KC_COMM);
                 }
                 break;
         }
@@ -115,18 +115,18 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_MINS);
                 }
                 break;
-            case LR_EDIT:
-                if (!clockwise) {
-                    tap_code(KC_EQL);
-                } else {
-                    tap_code(KC_MINS);
-                }
-                break;
             case LR_REVW:
                 if (!clockwise) {
                     tap_code16(G(KC_UP));
                 } else {
                     tap_code16(G(KC_DOWN));
+                }
+                break;
+            case LR_EDIT:
+                if (!clockwise) {
+                    tap_code(KC_EQL);
+                } else {
+                    tap_code(KC_MINS);
                 }
                 break;
         }
@@ -141,16 +141,16 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 layer_move(LR_NAV);
             }
             break;
-        case TG_EDIT:
-            if (!record->event.pressed) {
-                tap_code(KC_D);
-                layer_move(LR_EDIT);
-            }
-            break;
         case TG_REVW:
             if (!record->event.pressed) {
                 tap_code(KC_E);
                 layer_move(LR_REVW);
+            }
+            break;
+        case TG_EDIT:
+            if (!record->event.pressed) {
+                tap_code(KC_D);
+                layer_move(LR_EDIT);
             }
             break;
     }
