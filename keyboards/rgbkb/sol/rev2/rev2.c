@@ -10,12 +10,12 @@ led_config_t g_led_config = { {
     { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,     33,     34 },
 // Need to shift Right hand indexes if full hand LEDs are enabled
 #define LO (FULLHAND_LEDS / 2)
-    {  LO+35,  LO+36,  LO+37,  LO+38,  LO+39,  LO+40,  LO+41 },
-    {  LO+42,  LO+43,  LO+44,  LO+45,  LO+46,  LO+47,  LO+48 },
-    {  LO+49,  LO+50,  LO+51,  LO+52,  LO+53,  LO+54,  LO+55 },
-    {  LO+56,  LO+57,  LO+58,  LO+59,  LO+60,  LO+61,  LO+62 },
-    {  LO+63,  LO+64,  LO+65,  LO+66,  LO+67,  LO+68,  LO+68 },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,  LO+68,  LO+68 }
+    {  LO+62,  LO+63,  LO+64,  LO+65,  LO+66,  LO+67,  LO+68 },
+    {  LO+69,  LO+70,  LO+71,  LO+72,  LO+73,  LO+74,  LO+75 },
+    {  LO+76,  LO+77,  LO+78,  LO+79,  LO+80,  LO+81,  LO+82 },
+    {  LO+83,  LO+84,  LO+85,  LO+86,  LO+87,  LO+88,  LO+89 },
+    {  LO+90,  LO+91,  LO+92,  LO+93,  LO+94,  LO+95,  LO+95 },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,  LO+95,  LO+95 }
 #undef LO
 }, {
 // Left Hand Mapped Left to Right
