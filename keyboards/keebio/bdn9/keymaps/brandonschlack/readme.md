@@ -40,7 +40,7 @@ This layer is used for editing photos in the Develop Module
 | Left | Redo | Right|
 ---
 
-## BDN9 Layer
+## Adjust Layer
 This layer is used as a meta layer for the pad. This layer is accessed by holding key in Row 1, Col 0
 |   |   |   |
 |:-:|:-:|:-:|
