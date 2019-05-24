@@ -180,14 +180,6 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
-            rgb_matrix_set_color( i, red, green, blue );
-        }
-    }
-}
-
 void rgb_matrix_indicators_user(void) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
@@ -209,29 +201,29 @@ void rgb_matrix_indicators_user(void) {
         ) {
         switch (biton32(layer_state)) {
             case _RAISE:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
             case _LOWER:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
             case _ADJUST:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
             default:
                 switch (biton32(default_layer_state)) {
                 case _QWERTY:
-                    rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+                    rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, LED_FLAG_MODIFIER); break;
                 case _COLEMAK:
-                    rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
+                    rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
                 case _DVORAK:
-                    rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+                    rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
                 case _WORKMAN:
-                    rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+                    rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, LED_FLAG_MODIFIER); break;
                 case _NORMAN:
-                    rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+                    rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, LED_FLAG_MODIFIER); break;
                 case _MALTRON:
-                    rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+                    rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
                 case _EUCALYN:
-                    rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+                    rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, LED_FLAG_MODIFIER); break;
                 case _CARPLAX:
-                    rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
+                    rgb_matrix_layer_helper(0x00, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
                 }
         }
     }
@@ -327,7 +319,7 @@ void dip_update(uint8_t index, bool active) {
 #endif // KEYBOARD_planck_rev6
 
 #ifdef KEYBOARD_planck_ez
-uint32_t layer_state_set_keymap(uint32_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
 
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
