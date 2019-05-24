@@ -100,29 +100,27 @@ static uint8_t wheel_unit(void) {
 }
 
 void mousekey_task(void) {
-  if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay*10)) {
-    return;
+  if (timer_elapsed(last_timer) >= (mousekey_repeat ? mk_interval : mk_delay*10)) {
+    if (mouse_report.x || mouse_report.y || mouse_report.v || mouse_report.h) {
+      if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
+      if (mouse_report.x > 0) mouse_report.x = move_unit();
+      if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
+      if (mouse_report.y > 0) mouse_report.y = move_unit();
+      if (mouse_report.y < 0) mouse_report.y = move_unit() * -1;
+      /* diagonal move [1/sqrt(2)] */
+      if (mouse_report.x && mouse_report.y) {
+        mouse_report.x = times_inv_sqrt2(mouse_report.x);
+        if (mouse_report.x == 0) { mouse_report.x = 1; }
+        mouse_report.y = times_inv_sqrt2(mouse_report.y);
+        if (mouse_report.y == 0) { mouse_report.y = 1; }
+      }
+      if (mouse_report.v > 0) mouse_report.v = wheel_unit();
+      if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
+      if (mouse_report.h > 0) mouse_report.h = wheel_unit();
+      if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
+      mousekey_send();
+    }
   }
-  if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
-    return;
-	}
-  if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
-  if (mouse_report.x > 0) mouse_report.x = move_unit();
-  if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
-  if (mouse_report.y > 0) mouse_report.y = move_unit();
-  if (mouse_report.y < 0) mouse_report.y = move_unit() * -1;
-  /* diagonal move [1/sqrt(2)] */
-  if (mouse_report.x && mouse_report.y) {
-    mouse_report.x = times_inv_sqrt2(mouse_report.x);
-    if (mouse_report.x == 0) { mouse_report.x = 1; }
-    mouse_report.y = times_inv_sqrt2(mouse_report.y);
-    if (mouse_report.y == 0) { mouse_report.y = 1; }
-  }
-  if (mouse_report.v > 0) mouse_report.v = wheel_unit();
-  if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
-  if (mouse_report.h > 0) mouse_report.h = wheel_unit();
-  if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
-  mousekey_send();
 }
 
 void mousekey_on(uint8_t code) {
