@@ -1,15 +1,14 @@
 #include "tap_dances.h"
 
-
+#define NUM_OF_DIABLO_KEYS 4
 //define diablo macro timer variables
-diablo_timer_t diablo_timer[4];
+diablo_timer_t diablo_timer[NUM_OF_DIABLO_KEYS];
 
 // Set the default intervals.  Always start with 0 so that it will disable on first hit.
 // Otherwise, you will need to hit a bunch of times, or hit the "clear" command
 uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
 
 // Cycle through the times for the macro, starting at 0, for disabled.
-// Max of six values, so don't exceed
 void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data) {
     diable_keys_t *diablo_keys = (diable_keys_t *)user_data;
     // Sets the keycode based on the index
@@ -40,9 +39,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // Checks each of the 4 timers/keys to see if enough time has elapsed
-// Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
-    for (uint8_t index = 0; index < 4; index++) {
+    for (uint8_t index = 0; index < NUM_OF_DIABLO_KEYS; index++) {
         // if key_interval is 0, it's disabled, so only run if it's set.  If it's set, check the timer.
         if ( diablo_timer[index].key_interval && timer_elapsed( diablo_timer[index].timer ) > ( diablo_timer[index].key_interval * 1000 ) ) {
             // reset the timer, since enough time has passed
