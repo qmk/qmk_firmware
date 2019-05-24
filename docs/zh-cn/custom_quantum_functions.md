@@ -193,9 +193,9 @@ Ergodox boards 同时定义了最低亮度级别`LED_BRIGHTNESS_LO`和最高亮度级别`LED_BRIGH
 
 ```c
 void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
+  // 调用键盘预初始化代码
 
-  // Set our LED pins as output
+  // 设置LED引脚为输出模式
   setPinOutput(B0);
   setPinOutput(B1);
   setPinOutput(B2);
@@ -294,7 +294,7 @@ void suspend_wakeup_init_user(void) {
 
 ### `layer_state_set_*` 示例实现
 
-本例使用了Planck键盘示范了如何设置 [RGB Underglow](feature_rgblight.md)使之与层对应
+本例使用了Planck键盘示范了如何设置 [RGB背光灯](feature_rgblight.md)使之与层对应
 
 ```c
 uint32_t layer_state_set_user(uint32_t state) {
@@ -398,7 +398,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 ```
-这样仅在值使能时会改变RGB underglow。现在配置这个值, 为`process_record_user`创建一个新键码叫做`RGB_LYR`。我们要确保，如果使用正常的RGB代码，使用上面的示例将其关闭，请将其设置为：
+这样仅在值使能时会改变RGB背光灯。现在配置这个值, 为`process_record_user`创建一个新键码叫做`RGB_LYR`。我们要确保，如果使用正常的RGB代码，使用上面的示例将其关闭，请将其设置为：
 ```c
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -462,9 +462,8 @@ void eeconfig_init_user(void) {  // EEPROM正被重置
 
 `val` 是你想写入EEPROM的值，`eeconfig_read_*`函数会从EEPROM返回一个32位(双字)的值。
 
-# 自定义Tapping Term
-<!--翻译问题：Tapping Term 不会翻译 -->
-默认情况下,tapping term是全球统一的，并且不能通过键进行配置。对于大多数用户来说这很好。但是在有些情况下，对于`LT`键来说按键延时对双功能键的提升更大，可能是因为有些键比其他的键更容易按住。为了不给每个都自定义键码，本功能可以为每个键定义`TAPPING_TERM`。
+# 自定义击键-长按临界值(TAPPING_TERM)
+默认情况下,击键-长按临界值是全球统一的，并且不能通过键进行配置。对于大多数用户来说这很好。但是在有些情况下，对于`LT`键来说按键延时对双功能键的提升更大，可能是因为有些键比其他的键更容易按住。为了不给每个都自定义键码，本功能可以为每个键定义`TAPPING_TERM`。
 
 想使能这个功能的话, 要先在`config.h`加上`#define TAPPING_TERM_PER_KEY`。
 
