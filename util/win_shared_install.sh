@@ -18,6 +18,10 @@ function install_utils {
     wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
     unzip teensy_loader_cli_windows.zip
 
+    echo "Extracting Wally...."
+    wget 'https://github.com/zsa/wally/releases/download/1.0.0/wally-win.zip'
+    unzip wally-win.zip
+
     echo "Installing Atmel Flip"
     wget 'http://ww1.microchip.com/downloads/en/DeviceDoc/Flip%20Installer%20-%203.4.7.112.exe'
     mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
@@ -33,7 +37,7 @@ function install_utils {
 function install_drivers {
     pushd "$download_dir"
     cp -f "$dir/drivers.txt" .
-    echo 
+    echo
     cmd.exe /c "qmk_driver_installer.exe $1 $2 drivers.txt"
     popd > /dev/null
 }
@@ -77,4 +81,3 @@ done
 
 
 popd > /dev/null
-

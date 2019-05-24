@@ -211,6 +211,7 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 DFU_UTIL ?= dfu-util
 DFU_SUFFIX ?= dfu-suffix
 ST_LINK_CLI ?= st-link_cli
+WALLY_CLI ?= wally-cli
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -238,6 +239,9 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+wally: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	$(WALLY_CLI) $(BUILD_DIR)/$(TARGET).bin
 
 
 ifneq ($(strip $(TIME_DELAY)),)

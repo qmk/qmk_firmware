@@ -23,14 +23,21 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		git \
 		gcc \
 		glibc-headers \
+        gtk3 \
 		kernel-devel \
 		kernel-headers \
+        libusb \
 		make \
 		perl \
 		python3 \
 		unzip \
+        webkit2gtk3 \
 		wget \
 		zip
+    wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
+    unzip wally-linux.zip -d ~/bin/
+    rm -f wally-linux.zip
+    chmod -x ~/bin/wally ~/wally-cli
 
 elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBIAN_FRONTEND=noninteractive
@@ -49,11 +56,18 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-arm-none-eabi \
 		gcc-avr \
 		git \
+        gtk+3.0 \
 		libnewlib-arm-none-eabi \
+        libusb-dev \
 		python3 \
 		unzip \
-		wget \
+		webkit2gtk-4.0 \
+        wget \
 		zip
+    wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
+    unzip wally-linux.zip -d ~/bin/
+    rm -f wally-linux.zip
+    chmod -x ~/bin/wally ~/wally-cli
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
@@ -69,14 +83,22 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		diffutils \
 		gcc \
 		git \
+        gtk3 \
+        libusb \
 		python \
 		unzip \
-		wget \
+		webkit2gtk \
+        wget \
 		zip
 	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
 	cd /tmp/dfu-programmer || exit 1
 	makepkg -sic
 	rm -rf /tmp/dfu-programmer/
+    wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
+    unzip wally-linux.zip -d ~/bin/
+    rm -f wally-linux.zip
+    chmod -x ~/bin/wally ~/wally-cli
+
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo "$GENTOO_WARNING" | fmt
@@ -96,6 +118,10 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			sys-devel/gcc \
 			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+        wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
+        unzip wally-linux.zip -d ~/bin/
+        rm -f wally-linux.zip
+        chmod -x ~/bin/wally ~/wally-cli
 		echo "Done!"
 	else
 		echo "Quitting..."

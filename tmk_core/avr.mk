@@ -96,6 +96,8 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+WALLY_CLI ?= wally-cli
+
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).hex
 	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
@@ -126,6 +128,10 @@ program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
 
 teensy: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+
+
+wally: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(WALLY_CLI) $(BUILD_DIR)/$(TARGET).hex
 
 BATCHISP ?= batchisp
 
