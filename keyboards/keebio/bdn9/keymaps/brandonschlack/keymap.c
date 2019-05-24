@@ -19,52 +19,41 @@ enum bdn9_keycodes {
 #define MC_UNDO LGUI(KC_Z)
 #define MC_REDO LSFT(LGUI(KC_Z))
 
-enum bdn9_combos {
-    TG_BDN9,
-};
-
-const uint16_t PROGMEM func_combo[] = {KC_LEFT, KC_RGHT, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    [TG_BDN9] = COMBO_ACTION(func_combo),
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Navigation
         | Knob 1: =/-           |      | Knob 2: Page Dn/Up    |
         | Press: Review         | J    | Press: Edit           |
-        | Home                  | Up   | End                   |
+        | Home, Hold: Shift     | Up   | End                   |
         | Left                  | Down | Right                 |
      */
     [LR_NAV] = LAYOUT(
-        TG_REVW, KC_J,    TG_EDIT,
-        KC_HOME, KC_UP,   KC_END,
+        TG_REVW, KC_J, TG_EDIT,
+        LSFT_T(KC_HOME), KC_UP, KC_END,
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
         Layer: Review/Rate
         | Knob 1: ]/[           |      | Knob 2: G(Up)/G(Dn)   |
         | Press: Nav            | 7    | Press: Edit           |
-        | 0                     | 8    | U                     |
+        | 0, Hold: Shift        | 8    | U                     |
         | Left                  | 9    | Right                 |
      */
     [LR_REVW] = LAYOUT(
-        TG_NAV,  KC_7,    TG_EDIT,
-        KC_0,    KC_8,    RGB_MOD,
-        KC_LEFT, KC_6,    KC_RGHT
+        TG_NAV, KC_7, TG_EDIT,
+        LSFT_T(KC_0), KC_8, KC_U,
+        KC_LEFT, KC_6, KC_RGHT
     ),
     /*
         Layer: Edit/Develop
         | Knob 1: ./,           |      | Knob 2: =/-           |
         | Press: Review         | \    | Press: Nav            |
-        | X                     | Undo | P                     |
+        | X, Hold: Shift        | Undo | P                     |
         | Left                  | Redo | Right                 |
      */
     [LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_NAV,
-        KC_X,    MC_UNDO, KC_P,
+        LSFT_T(KC_X), MC_UNDO, KC_P,
         KC_LEFT, MC_REDO, KC_RGHT
     ),
     /*
@@ -110,9 +99,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case LR_NAV:
                 if (!clockwise) {
-                    tap_code(KC_EQL);
+                    tap_code(KC_PGUP);
                 } else {
-                    tap_code(KC_MINS);
+                    tap_code(KC_PGDN);
                 }
                 break;
             case LR_REVW:
@@ -133,36 +122,39 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_NAV:
-            if (!record->event.pressed) {
-                tap_code(KC_G);
-                layer_move(LR_NAV);
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
+                    layer_move(BD_FUNC);
+                } else {
+                    tap_code(KC_G);
+                    layer_move(LR_NAV);
+                }
             }
             break;
         case TG_REVW:
-            if (!record->event.pressed) {
-                tap_code(KC_E);
-                layer_move(LR_REVW);
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
+                    layer_move(BD_FUNC);
+                } else {
+                    tap_code(KC_E);
+                    layer_move(LR_REVW);
+                }
             }
             break;
         case TG_EDIT:
-            if (!record->event.pressed) {
-                tap_code(KC_D);
-                layer_move(LR_EDIT);
+            if (record->event.pressed) {
+                if (MODS_SHIFT) {
+                    layer_move(BD_FUNC);
+                } else {
+                    tap_code(KC_D);
+                    layer_move(LR_EDIT);
+                }
             }
             break;
     }
     return true;
-}
-
-void process_combo_event(uint8_t combo_index, bool pressed) {
-    switch (combo_index) {
-        case TG_BDN9:
-            if (pressed) {
-                layer_move(BD_FUNC);
-            }
-            break;
-    }
 }

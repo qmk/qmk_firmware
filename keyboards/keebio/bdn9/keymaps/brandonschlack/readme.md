@@ -33,6 +33,7 @@ This layer is used for editing photos in the Develop Module
 
 ## BDN9 Layer
 This layer is used as a meta layer for the pad. This layer is accessed with a [Combo](https://docs.qmk.fm/#/feature_combo) of Left+Right Arrows
+This layer is used as a meta layer for the pad. This layer is accessed by holding key in Row 1, Col 0, and pressing an encoder 
 |   |   |   |
 |:-:|:-:|:-:|
 |  | RESET |  |
