@@ -4,19 +4,13 @@ The CO60 is a 60% PCB that aims to meet the following goals:
 
 * Switches oriented such that the LEDs are South-facing, for
   compatibility with Cherry profile keycaps.
-
 * USB Type-C support in both A to C and C to C configurations.
-
 * QMK support.
-
 * A variety of split spacebar configurations, including split 6.25U
   space and split 7U space.
-
 * ESD protection circuitry, including data line protection and a
   polyfuse on the VCC line.
-
 * Support for per-switch LED backlighting.
-
 * Fits in standard 60% keyboard cases.
 
 More info on the project, including all of the design files, can be found [here](https://github.com/jmdaly/CO60).

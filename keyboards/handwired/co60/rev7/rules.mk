@@ -1,5 +1,4 @@
 # project specific files
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -32,7 +31,6 @@ USE_FPU = yes
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
-OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
@@ -57,4 +55,5 @@ MIDI_ENABLE = no        # MIDI controls
 UNICODE_ENABLE = no     # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 LEADER_ENABLE = yes
-CUSTOM_MATRIX = no
+
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb
