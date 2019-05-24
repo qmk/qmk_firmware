@@ -242,10 +242,8 @@ void naginata_on(void) {
   naginata_edit_off();
 #endif
 
-  register_code(KC_LANG1); // Mac
-  unregister_code(KC_LANG1); // Mac
-  register_code(KC_HENK); // Win
-  unregister_code(KC_HENK); // Win
+  tap_code(KC_LANG1); // Mac
+  tap_code(KC_HENK); // Win
 }
 
 void naginata_off(void) {
@@ -256,10 +254,8 @@ void naginata_off(void) {
   naginata_edit_off();
 #endif
 
-  register_code(KC_LANG2); // Mac
-  unregister_code(KC_LANG2); // Mac
-  register_code(KC_MHEN); // Win
-  unregister_code(KC_MHEN); // Win
+  tap_code(KC_LANG2); // Mac
+  tap_code(KC_MHEN); // Win
 }
 
 // 薙刀式の状態
@@ -324,8 +320,7 @@ void naginata_clear(void) {
 // 同じキーを繰り返し入力
 void repeatkey(uint16_t k, uint8_t n) {
   for (int i = 0; i < n; i++) {
-    register_code(k);
-    unregister_code(k);
+    tap_code(k);
   }
 }
 
@@ -433,8 +428,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
       case NGSHFT:
         if (ng_space) { // シフト単独押し
-          register_code(KC_SPC);
-          unregister_code(KC_SPC);
+          tap_code(KC_SPC);
           ng_space = false;
         } else if (ng_chrcount > 0) { // シフトを先に離すとき
           naginata_type();
