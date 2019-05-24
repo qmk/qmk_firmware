@@ -5,13 +5,6 @@
 #include "split_util.h"
 #endif
 
-extern keymap_config_t keymap_config;
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -23,22 +16,17 @@ enum layer_number {
     _ADJ
 };
 
+// Keycode defines for layers
+#define QWERTY   DF(_QWERTY)
+#define COLEMAK  DF(_COLEMAK)
+#define FN       MO(_FN)
+#define ADJ      MO(_ADJ)
+
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  FN,
-  ADJ,
-  BACKLIT,
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-
-
-#define FN_ESC  LT(_FN, KC_ESC)
+#define FN_ESC   LT(_FN, KC_ESC)
 #define FN_CAPS  LT(_FN, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -140,12 +128,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
-
-// define variables for reactive RGB
-bool TOG_STATUS = false;
-int RGB_current_mode;
-
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
@@ -164,86 +146,43 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-// Setting ADJ layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    #ifdef RGBLIGHT_ENABLE
-      //rgblight_mode(RGB_current_mode);
-    #endif
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
+// For RGBRST Keycode
+#if defined(RGB_MATRIX_ENABLE)
+extern void eeconfig_update_rgb_matrix_default(void);
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-
+  static uint16_t reset_timer;
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if(record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case FN:
-      if (record->event.pressed) {
-        //not sure how to have keyboard check mode and set it to a variable, so my work around
-        //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            //rgblight_mode(15);
-          #endif
-        }
-        layer_on(_FN);
-      } else {
-        #ifdef RGBLIGHT_ENABLE
-          //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
-        #endif
-        layer_off(_FN);
-        TOG_STATUS = false;
-      }
-      return false;
-      break;
-    case ADJ:
-        if (record->event.pressed) {
-          layer_on(_ADJ);
-        } else {
-          layer_off(_ADJ);
-        }
-        return false;
-        break;
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
     case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
         }
-      #endif
-      break;
+#elif defined(RGB_MATRIX_ENABLE)
+        if (record->event.pressed) {
+          eeconfig_update_rgb_matrix_default();
+        }
+#endif
+      return false;
+    case RESET:
+      if (record->event.pressed) {
+          reset_timer = timer_read();
+      } else {
+          if (timer_elapsed(reset_timer) >= 500) {
+              reset_keyboard();
+          }
+      }
+      return false;
   }
   return true;
-}
-
-void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-  RGB_current_mode = rgblight_config.mode;
-#endif
 }
 
 
 // OLED Driver Logic
 #ifdef OLED_DRIVER_ENABLE
+extern keymap_config_t keymap_config;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!has_usb())
@@ -259,12 +198,6 @@ static void render_logo(void) {
 
   oled_write_P(sol_logo, false);
 }
-
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_FN (1<<_FN)
-#define L_ADJ (1<<_ADJ)
-#define L_ADJ_TRI (L_ADJ|L_FN)
 
 static void render_status(void) {
   // Render to mode icon
@@ -284,33 +217,37 @@ static void render_status(void) {
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
-  switch (layer_state) {
-    case L_BASE:
+  switch (biton32(layer_state)) {
+    case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
-    case L_FN:
-      oled_write_P(PSTR("FN     \n"), false);
+    case _COLEMAK:
+      oled_write_P(PSTR("Colemak\n"), false);
       break;
-    case L_ADJ:
-    case L_ADJ_TRI:
-      oled_write_P(PSTR("ADJ    \n"), false);
+    case _FN:
+      oled_write_P(PSTR("FN\n"), false);
+      break;
+    case _ADJ:
+      oled_write_P(PSTR("_ADJ\n"), false);
       break;
     default:
-      oled_write_P(PSTR("UNDEF  \n"), false);
+      oled_write_P(PSTR("Undefined\n"), false);
   }
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLOCK ") : PSTR("        "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCLK ") : PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 
 void oled_task_user(void) {
-  if (is_keyboard_master())
+  if (is_keyboard_master()) {
     render_status();
-  else
+  } else {
     render_logo();
+    oled_scroll_left();
+  }
 }
 
 #endif
