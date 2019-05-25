@@ -46,10 +46,11 @@ enum combo_events {
   NAGINATA_ON_CMB,
 };
 
-// QWERTY
+#if defined(EUCALYN) || defined(EUCALYNKAI)
+const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+#else
 const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-// Eucalyn
-// const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+#endif
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
 };
@@ -58,6 +59,7 @@ combo_t key_combos[COMBO_COUNT] = {
 enum custom_keycodes {
   KC_QWERTY = NG_SAFE_RANGE,
   KC_EUCALYN,
+  KC_EUCALYNK,
   KC_EISU,
   KC_LOWER,
   KC_RAISE,
@@ -210,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
        LSAI,  LSAD, XXXXX, XXXXX, XXXXX, XXXXX,                   LMOD,  MRWD,  VOLD,  MFFD,  BRID,EUCALYN,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
+       LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX,EUCALYNK,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
@@ -363,6 +365,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case KC_EUCALYN:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_EUCALYN);
+      }
+      return false;
+      break;
+    case KC_EUCALYNK:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_EUCALYNK);
       }

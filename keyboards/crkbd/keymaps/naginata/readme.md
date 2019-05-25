@@ -15,7 +15,8 @@ http://oookaworks.seesaa.net/article/456099128.html
 |H+J|同時押しで薙刀式入力へ切り替え|
 |F+G|同時押しで英字入力へ切り替え|
 |ADJUST+BSPC|QWERTY配列へ切り替え|
-|ADJUST+ENT|Eucalyn配列へ切り替え|
+|ADJUST+右ALT|Eucalyn配列へ切り替え|
+|ADJUST+右CMD|Eucalyn配列改へ切り替え|
 |親指中央キー|単押しでスペース、他のキーと同時押しでシフト|
 
 ### 他キーボードへの移植の指針
