@@ -39,22 +39,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             clear_mods(); clear_oneshot_mods();
             send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
 #ifndef MAKE_BOOTLOADER
-        if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
+            if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
 #endif
-        {
-            #if defined(__arm__)
-            send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
-            #elif defined(BOOTLOADER_DFU)
-            send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
-            #elif defined(BOOTLOADER_HALFKAY)
-            send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
-            #elif defined(BOOTLOADER_CATERINA)
-            send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
-            #endif // bootloader options
-        }
-        if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY); }
+            {
+                #if defined(__arm__)
+                send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
+                #elif defined(BOOTLOADER_DFU)
+                send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
+                #elif defined(BOOTLOADER_HALFKAY)
+                send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
+                #elif defined(BOOTLOADER_CATERINA)
+                send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
+                #endif // bootloader options
+            }
+            if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY); }
+#ifdef RGB_MATRIX_SPLIT_RIGHT
+            send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
+#endif
             send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
         }
+
         break;
 
     case VRSN: // Prints firmware version
