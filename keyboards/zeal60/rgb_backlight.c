@@ -576,7 +576,7 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
     // LA1..LA50
     {0,0}, {4,16}, {6,32}, {2,48}, {16,0}, {24,16}, {28,32}, {36,48}, {32,0}, {40,16}, {44,32}, {52,48}, {48,0},
-    {56,16}, {60,32}, {68,48}, {64,0}, {72,16}, {76,32}, {84,48}, {80,0}, {88,16}, {92,32}, {100,48}, {96,0}, {104,16}, 
+    {56,16}, {60,32}, {68,48}, {64,0}, {72,16}, {76,32}, {84,48}, {80,0}, {88,16}, {92,32}, {100,48}, {96,0}, {104,16},
     {108,32}, {116,48}, {112,0}, {120,16}, {124,32}, {132,48}, {128,0}, {136,16}, {140,32}, {148,48}, {144,0}, {152,16},
     {156,32}, {164,48}, {160,0}, {168,16}, {172,32}, {180,48}, {176,0}, {184, 16}, {188,32}, {20,48}, {192,0}, {200,16},
     {255,255},// LA51 does not exit, dummy
@@ -589,7 +589,7 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
     // LA1..LA50
     {96,255}, {109,255}, {128,242}, {147,255}, {93,255}, {105,238}, {128,192}, {154,216}, {89,255}, {101,208}, {128,155}, {159,188}, {85,255},
     {96,181}, {128,119}, {165,163}, {81,255}, {89,157}, {128,82}, {173,143}, {75,255}, {81,139}, {128,46}, {183,131}, {70,255}, {70,129},
-    {129,9}, {195,128}, {64,255}, {58,129}, {255,27}, {206,136}, {58,255}, {47,139}, {255,64}, {215,152}, {53,255}, {39,157}, {255,101}, 
+    {129,9}, {195,128}, {64,255}, {58,129}, {255,27}, {206,136}, {58,255}, {47,139}, {255,64}, {215,152}, {53,255}, {39,157}, {255,101},
     {222,175}, {47,255}, {32,181}, {255,137}, {228,201}, {43,255}, {27,208}, {255, 174}, {150,246}, {39,255}, {23,238},
     {255,255},// LA51 does not exit, dummy
     // LA52..LA60
@@ -1019,15 +1019,15 @@ void backlight_effect_all_off(void)
 void backlight_effect_solid_color(void)
 {
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    LED_TYPE rgb = hsv_to_rgb( hsv );
     backlight_set_color_all( rgb.r, rgb.g, rgb.b );
 }
 
 // alphas = color1, mods = color2
 void backlight_effect_alphas_mods(void)
 {
-    RGB rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
-    RGB rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
+    LED_TYPE rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
+    LED_TYPE rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
 
     for ( int row = 0; row < MATRIX_ROWS; row++ )
     {
@@ -1073,7 +1073,7 @@ void backlight_effect_gradient_up_down(void)
     int16_t deltaS = ( s2 - s1 ) / 4;
 
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    LED_TYPE rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1110,7 +1110,7 @@ void backlight_effect_raindrops(bool initialize)
     int16_t deltaS = ( s2 - s1 ) / 4;
 
     HSV hsv;
-    RGB rgb;
+    LED_TYPE rgb;
 
     // Change one LED every tick
     uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
@@ -1151,7 +1151,7 @@ void backlight_effect_cycle_all(void)
         offset2 = (offset2<=63) ? (63-offset2) : 0;
 
         HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
-        RGB rgb = hsv_to_rgb( hsv );
+        LED_TYPE rgb = hsv_to_rgb( hsv );
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
     }
 }
@@ -1160,7 +1160,7 @@ void backlight_effect_cycle_left_right(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    LED_TYPE rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1187,7 +1187,7 @@ void backlight_effect_cycle_up_down(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    LED_TYPE rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1213,7 +1213,7 @@ void backlight_effect_cycle_up_down(void)
 void backlight_effect_jellybean_raindrops( bool initialize )
 {
     HSV hsv;
-    RGB rgb;
+    LED_TYPE rgb;
 
     // Change one LED every tick
     uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
@@ -1239,7 +1239,7 @@ void backlight_effect_cycle_radial1(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    LED_TYPE rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1257,7 +1257,7 @@ void backlight_effect_cycle_radial2(void)
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 
     HSV hsv = { .h = 0, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb;
+    LED_TYPE rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1278,7 +1278,7 @@ void backlight_effect_cycle_radial2(void)
 #if defined(RGB_BACKLIGHT_M6_B)
 void backlight_effect_custom_colors(void)
 {
-    RGB rgb;
+    LED_TYPE rgb;
     for ( uint8_t i = 0; i < 6; i++ )
     {
         HSV hsv = { .h = g_config.custom_color[i].h, .s = g_config.custom_color[i].s, .v = g_config.brightness };
@@ -1293,7 +1293,7 @@ void backlight_effect_custom_colors(void)
 void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 {
     HSV hsv = { .h = color.h, .s = color.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    LED_TYPE rgb = hsv_to_rgb( hsv );
     if ( index == 254 )
     {
         backlight_set_color_all( rgb.r, rgb.g, rgb.b );

@@ -120,7 +120,7 @@ void rgblight_set_effect_range(uint8_t start_pos, uint8_t num_leds) {
 
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   HSV hsv = { hue, sat, val };
-  RGB rgb = hsv_to_rgb(hsv);
+  LED_TYPE rgb = hsv_to_rgb(hsv);
   setrgb(rgb.r, rgb.g, rgb.b, led1);
 }
 

@@ -19,9 +19,9 @@
 #include "led_tables.h"
 #include "progmem.h"
 
-RGB hsv_to_rgb( HSV hsv )
+LED_TYPE hsv_to_rgb(HSV hsv)
 {
-	RGB rgb;
+	LED_TYPE rgb;
 	uint8_t region, remainder, p, q, t;
 	uint16_t h, s, v;
 

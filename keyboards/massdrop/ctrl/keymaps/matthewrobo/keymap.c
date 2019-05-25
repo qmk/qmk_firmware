@@ -156,13 +156,13 @@ void rgb_matrix_indicators_user(void)
 			sad.s = hsv.s - 16 < 0   ?   0 : hsv.s - 16;
 			vai.v = hsv.v + 16 > 255 ? 255 : hsv.v + 16;
 			vad.v = hsv.v - 16 < 0   ?   0 : hsv.v - 16;
-			RGB rgb = hsv_to_rgb(hsv);
-			RGB rgbHUI = hsv_to_rgb(hui);
-			RGB rgbHUD = hsv_to_rgb(hud);
-			RGB rgbSAI = hsv_to_rgb(sai);
-			RGB rgbSAD = hsv_to_rgb(sad);
-			RGB rgbVAI = hsv_to_rgb(vai);
-			RGB rgbVAD = hsv_to_rgb(vad);
+			LED_TYPE rgb = hsv_to_rgb(hsv);
+			LED_TYPE rgbHUI = hsv_to_rgb(hui);
+			LED_TYPE rgbHUD = hsv_to_rgb(hud);
+			LED_TYPE rgbSAI = hsv_to_rgb(sai);
+			LED_TYPE rgbSAD = hsv_to_rgb(sad);
+			LED_TYPE rgbVAI = hsv_to_rgb(vai);
+			LED_TYPE rgbVAD = hsv_to_rgb(vad);
 			rgb_matrix_set_color(81, 0xFF, 0xFF, 0xFF); // layer indicator
 			rgb_matrix_set_color(91, 0xFF, 0xFF, 0xFF);
 			rgb_matrix_set_color(93, 0x00, 0x00, 0x00);
