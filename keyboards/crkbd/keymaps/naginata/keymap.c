@@ -26,16 +26,19 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _EUCALYN 1
+enum keymap_layers {
+  _QWERTY,
+  _EUCALYN,
+  _EUCALYNK,
 // 薙刀式
-#define _NAGINATA 5 // 薙刀式入力レイヤー
-#define _NGEDITL 6 // 薙刀式編集レイヤー
-#define _NGEDITR 7 // 薙刀式編集レイヤー
+  _NAGINATA, // 薙刀式入力レイヤー
+  _NGEDITL, // 薙刀式編集レイヤー
+  _NGEDITR, // 薙刀式編集レイヤー
 // 薙刀式
-#define _LOWER 12
-#define _RAISE 13
-#define _ADJUST 16
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
 
 // 薙刀式
 // 
@@ -103,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
+                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -115,7 +118,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
+                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
+                              //`--------------------'  `--------------------'
+  ),
+
+  [_EUCALYNK] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+        TAB,     Q,     W,     M,     R,  LEFT,                   RGHT,  BSPC,     D,     Y,     P,  DOT,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  COMM,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  SCLN,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -161,16 +176,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                             /                           -       
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   LPRN,  SLSH,     7,     8,     9,  MINS, \
+  //             !      @      #      $      %                       :     /                           -       
+        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   COLN,  SLSH,     7,     8,     9,  MINS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "     `                              *                           +       
-      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  GRV,                    RPRN,  ASTR,     4,     5,     6,  PLUS, \
+  //             ^      &      '      "     `                        ;     *                           +       
+      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  GRV,                    SCLN,  ASTR,     4,     5,     6,  PLUS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      ~     _       ¥                                                         .                           
-      XXXXX,  ABLS,  PIPE,  TILD,  UNDS,  BSLS,                    EQL,     0,     1,     2,     3,   DOT, \
+  //             \      |      ~     _       ¥                                                                                     
+      XXXXX,  ABLS,  PIPE,  TILD,  UNDS,  BSLS,                    EQL,   DOT,     1,     2,     3,     0, \
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
+                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   ),
 
@@ -182,10 +197,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //             (      )      {      }                                                                   
       XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //                           [      ]                                                     
-      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX, KANA2,\
+  //             [      ]                                                     
+      XXXXX,  LBRC,  RBRC, XXXXX,  COMM, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX, KANA2,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
+                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   ),
 
@@ -197,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
        LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
+                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
   //                            +------+------+------+  +------+------+------+
   )
 };
@@ -325,9 +340,6 @@ void update_led() {
   }
 }
 
-static bool lower_pressed = false;
-static bool raise_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
@@ -352,7 +364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case KC_EUCALYN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_EUCALYN);
+        persistent_default_layer_set(1UL<<_EUCALYNK);
       }
       return false;
       break;
@@ -400,56 +412,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       return false;
       break;
-  }
-
-  switch (keycode) {
     case KC_LOWER:
       if (record->event.pressed) {
-        if (raise_pressed) {
-          raise_pressed = false;
-        } else {
-          lower_pressed = true;
-        }
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (lower_pressed) {
-          // 薙刀式
-          naginata_off();
-          // 薙刀式
-          lower_pressed = false;
-        }
       }
       update_led();
       return false;
       break;
     case KC_RAISE:
       if (record->event.pressed) {
-        if (lower_pressed) {
-          lower_pressed = false;
-        } else {
-          raise_pressed = true;
-        }
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (raise_pressed) {
-          // 薙刀式
-          naginata_on();
-          // 薙刀式
-          raise_pressed = false;
-        }
       }
       update_led();
       return false;
       break;
-    default:
-      lower_pressed = false;
-      raise_pressed = false;
   }
 
   // 薙刀式

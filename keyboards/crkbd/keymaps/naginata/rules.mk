@@ -34,4 +34,4 @@ SRC +=  ./lib/glcdfont.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \
 
-# EXTRAFLAGS += -flto
+EXTRAFLAGS += -flto

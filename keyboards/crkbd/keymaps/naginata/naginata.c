@@ -102,7 +102,7 @@ const uint32_t ng_key[] = {
 // 仮名のマップ。ng_combと対応する。
 const char PROGMEM ng_kana[][5] = {
   // 単独
-  "vu", "ha", "te", "si"                   , "ru", "su", "he",
+  "vu", "ha", "te", "si" , SS_TAP(X_BSPACE), "ru", "su", "he",
   "ro", "ki", "to", "ka", "ltu", "ku", "a" , "i" , "u" , "-" ,
   "ho", "hi", "ke", "ko", "so" , "ta", "na", "nn", "ra", "re",
 
@@ -159,12 +159,14 @@ const char PROGMEM ng_kana[][5] = {
   "je",
   "dolu",
   "dile",
+
+  SS_TAP(X_ENTER),
 };
 
 // 同時キー組み合わせのマップ。ng_kanaと対応する。
 const uint32_t ng_comb[] = {
   // 単独
-  B_Q, B_W, B_E, B_R               , B_I   , B_O  , B_P,
+  B_Q, B_W, B_E, B_R          , B_U, B_I   , B_O  , B_P,
   B_A, B_S, B_D, B_F, B_G, B_H, B_J, B_K   , B_L  , B_SCLN,
   B_Z, B_X, B_C, B_V, B_B, B_N, B_M, B_COMM, B_DOT, B_SLSH,
 
@@ -221,6 +223,9 @@ const uint32_t ng_comb[] = {
   B_R|B_J|B_P,
   B_D|B_J|B_L,
   B_G|B_J|B_P,
+
+  // enter
+  B_V|B_M,
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
@@ -237,10 +242,8 @@ void naginata_on(void) {
   naginata_edit_off();
 #endif
 
-  register_code(KC_LANG1); // Mac
-  unregister_code(KC_LANG1); // Mac
-  register_code(KC_HENK); // Win
-  unregister_code(KC_HENK); // Win
+  tap_code(KC_LANG1); // Mac
+  tap_code(KC_HENK); // Win
 }
 
 void naginata_off(void) {
@@ -251,10 +254,8 @@ void naginata_off(void) {
   naginata_edit_off();
 #endif
 
-  register_code(KC_LANG2); // Mac
-  unregister_code(KC_LANG2); // Mac
-  register_code(KC_MHEN); // Win
-  unregister_code(KC_MHEN); // Win
+  tap_code(KC_LANG2); // Mac
+  tap_code(KC_MHEN); // Win
 }
 
 // 薙刀式の状態
@@ -276,10 +277,6 @@ void naginata_type(void) {
 
   switch (keycomb) {
     // send_stringできないキーはここで定義
-    case B_V|B_M:
-      register_code(KC_ENT);
-      unregister_code(KC_ENT);
-      break;
     case B_F|B_G:
       naginata_off();
       break;
@@ -297,16 +294,11 @@ void naginata_type(void) {
       // 連続押しの場合
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
-          if (ninputs[j] == KC_U) {
-            register_code(KC_BSPC);
-            unregister_code(KC_BSPC);
-          } else {
-            for (int i = 0; i < sizeof ng_comb / sizeof ng_comb[0]; i++) {
-              if (ng_key[ninputs[j]] == ng_comb[i]) {
-                memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
-                send_string(kana);
-                break;
-              }
+          for (int i = 0; i < sizeof ng_comb / sizeof ng_comb[0]; i++) {
+            if (ng_key[ninputs[j]] == ng_comb[i]) {
+              memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
+              send_string(kana);
+              break;
             }
           }
         }
@@ -328,8 +320,7 @@ void naginata_clear(void) {
 // 同じキーを繰り返し入力
 void repeatkey(uint16_t k, uint8_t n) {
   for (int i = 0; i < n; i++) {
-    register_code(k);
-    unregister_code(k);
+    tap_code(k);
   }
 }
 
@@ -437,8 +428,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
       case NGSHFT:
         if (ng_space) { // シフト単独押し
-          register_code(KC_SPC);
-          unregister_code(KC_SPC);
+          tap_code(KC_SPC);
           ng_space = false;
         } else if (ng_chrcount > 0) { // シフトを先に離すとき
           naginata_type();
