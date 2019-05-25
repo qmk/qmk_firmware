@@ -52,6 +52,8 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 BOOTLOADER = atmel-dfu
 
 
+# Supported layouts
+LAYOUTS = tkl_ansi
 
 # Build Options
 #   change yes to no to disable
