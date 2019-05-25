@@ -32,12 +32,39 @@
 #pragma pack( push, 1 )
 #endif
 
+#ifdef RGBW
+  #define LED_TYPE RGBW
+#else
+  #define LED_TYPE RGB
+#endif
+
+#define RGB cGRB
+#define RGBW cGRBW
+
+// WS2812 layout
 typedef struct PACKED
 {
-	uint8_t r;
 	uint8_t g;
+	uint8_t r;
 	uint8_t b;
-} RGB;
+} cGRB;
+
+// APA102 layout
+typedef struct PACKED
+{
+	uint8_t b;
+	uint8_t g;
+	uint8_t r;
+} cBGR;
+
+// WS2812 layout
+typedef struct PACKED
+{
+	uint8_t g;
+	uint8_t r;
+	uint8_t b;
+	uint8_t w;
+} cGRBW;
 
 typedef struct PACKED
 {
@@ -50,6 +77,6 @@ typedef struct PACKED
 #pragma pack( pop )
 #endif
 
-RGB hsv_to_rgb( HSV hsv );
+RGB hsv_to_rgb(HSV hsv);
 
 #endif // COLOR_H
