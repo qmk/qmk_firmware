@@ -114,36 +114,19 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void tap_key(uint16_t keycode) {
-  register_code  (keycode);
-  unregister_code(keycode);
-}
-
-void shift_key(uint16_t keycode) {
-  register_code  (KC_LSFT);
-  tap_key        (keycode);
-  unregister_code(KC_LSFT);
-}
-
-void control_key(uint16_t keycode) {
-  register_code  (KC_LCTL);
-  tap_key        (keycode);
-  unregister_code(KC_LCTL);
-}
-
 void td_common(qk_tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
     case 1:
       /* this case handles ctrl+o which is my tmux prefix
        */
-      control_key(KC_O);
+      tap_code16(C(KC_O));
       reset_tap_dance(state);
       break;
     case 2:
       /* this case handles shift+insert which is a common way
        * for me to paste text in linux
        */
-      shift_key(KC_INS);
+      tap_code16(S(KC_INS));
       reset_tap_dance(state);
       break;
   }
@@ -152,11 +135,11 @@ void td_common(qk_tap_dance_state_t *state, void *user_data) {
 void td_media(qk_tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
     case 1:
-      tap_key(KC_MPLY);
+      tap_code16(KC_MPLY);
       reset_tap_dance(state);
       break;
     case 2:
-      tap_key(KC_MUTE);
+      tap_code16(KC_MUTE);
       reset_tap_dance(state);
       break;
   }
