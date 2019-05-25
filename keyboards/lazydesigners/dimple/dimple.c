@@ -22,3 +22,8 @@ void dimple_led_on() {
 void dimple_led_off() {
   DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
 }
+
+void keyboard_post_init_kb(void) {
+  dimple_led_off();
+  keyboard_post_init_user();
+}
