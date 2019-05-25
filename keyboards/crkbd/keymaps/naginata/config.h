@@ -20,8 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef PRODUCT     
+#undef PRODUCT
 #define PRODUCT         Crkbd Naginata Style
+
+#define SELECT_SOFT_SERIAL_SPEED 2
 
 // 薙刀式
 // #define EUCALYN
