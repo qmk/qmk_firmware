@@ -55,14 +55,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_LCTL,    TD(TD_C),KC_Y,    KC_U,   KC_I,    KC_O,     KC_P,    KC_BSPC,
     CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_LALT,    KC_ENT,  KC_H,    KC_J,   KC_K,    KC_L,     KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   NUM,        OS_LGUI, KC_N,    KC_M,   KC_COMM, KC_DOT,   KC_SLSH, KC_RSFT,
-        KC_LCTL,                        OS_LGUI, KC_SPC, LOWER,      RAISE,   KC_SPC,  OS_LGUI,                        KC_RCTL
+        KC_LCTL,                        OS_LGUI, KC_SPC, LOWER,      RAISE,   KC_SPC,  OS_LGUI,                        KC_RALT
   ),
 
   [_GAMING] = LAYOUT(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_LCTL,    TD(TD_C),KC_Y,    KC_U,   KC_I,    KC_O,     KC_P,    KC_BSPC,
     KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_ESC,     KC_ENT,  KC_H,    KC_J,   KC_K,    KC_L,     KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   NUM,        OS_LGUI, KC_N,    KC_M,   KC_COMM, KC_DOT,   KC_SLSH, KC_RSFT,
-        KC_LALT,                        KC_V,    KC_SPC, LOWER,      RAISE,   KC_SPC,  OS_LGUI,                        KC_RCTL
+        KC_LALT,                        KC_V,    KC_SPC, LOWER,      RAISE,   KC_SPC,  OS_LGUI,                        KC_RALT
   ),
 
   [_LOWER] = LAYOUT(
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_ASTR,
     _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, KC_4,    KC_5,    KC_6,    KC_MINS,
-    _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, KC_1,    KC_2,    KC_3,    KC_PLUS,
+    _______, _______, _______, _______, _______, _______, _______,   _______, _______, KC_DOT,  KC_1,    KC_2,    KC_3,    KC_PLUS,
         _______,                        _______, _______, _______,   _______, _______, _______,                        KC_0
   )
 };
