@@ -13,6 +13,8 @@
 NGKEYS naginata_keys;
 // 薙刀式
 
+void update_led(void);
+
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -41,7 +43,7 @@ enum keymap_layers {
 };
 
 // 薙刀式
-// 
+//
 enum combo_events {
   NAGINATA_ON_CMB,
 };
@@ -178,13 +180,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                       :     /                           -       
+  //             !      @      #      $      %                       :     /                           -
         ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   COLN,  SLSH,     7,     8,     9,  MINS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "     `                        ;     *                           +       
+  //             ^      &      '      "     `                        ;     *                           +
       XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  GRV,                    SCLN,  ASTR,     4,     5,     6,  PLUS, \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      ~     _       ¥                                                                                     
+  //             \      |      ~     _       ¥
       XXXXX,  ABLS,  PIPE,  TILD,  UNDS,  BSLS,                    EQL,   DOT,     1,     2,     3,     0, \
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
@@ -193,13 +195,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //                           <      >                                                                          
+  //                           <      >
       _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX,  PGUP,    UP, XXXXX,  PGUP,   DEL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             (      )      {      }                                                                   
+  //             (      )      {      }
       XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             [      ]                                                     
+  //             [      ]
       XXXXX,  LBRC,  RBRC, XXXXX,  COMM, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX, KANA2,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
@@ -301,8 +303,6 @@ void iota_gfx_task_user(void) {
 #endif//SSD1306OLED
 
 static bool underglow = false;
-
-void update_led(void);
 
 void update_led() {
   if (layer_state_is(_LOWER) && !isLeftHand) {
@@ -449,6 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (naginata_state()) {
     naginata_mode(keycode, record);
     a = process_naginata(keycode, record);
+    update_led();
   }
   #ifdef NAGINATA_EDIT_MODE
     bool b = process_naginata_edit(keycode, record);
@@ -467,6 +468,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_ON_CMB:
       if (pressed && !naginata_state()) {
         naginata_on();
+        update_led();
       }
       break;
   }
