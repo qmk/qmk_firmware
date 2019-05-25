@@ -16,33 +16,50 @@
 #include QMK_KEYBOARD_H
 // 薙刀式
 #include "naginata.h"
+NGKEYS naginata_keys;
 // 薙刀式
 
 // Defines the keycodes used by our macros in process_record_user
-#define _QWERTY 0
+enum keymap_layers {
+  _QWERTY,
 // 薙刀式
-#define _NAGINATA 5 // 薙刀式入力レイヤー
-#define _NGEDITL 6 // 薙刀式編集レイヤー
-#define _NGEDITR 7 // 薙刀式編集レイヤー
+  _NAGINATA, // 薙刀式入力レイヤー
+  _NGEDITL, // 薙刀式編集レイヤー
+  _NGEDITR, // 薙刀式編集レイヤー
 // 薙刀式
-#define _LOWER 10
-#define _RAISE 11
-#define _ADJUST 16
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
+
+// 薙刀式
+enum combo_events {
+  NAGINATA_ON_CMB,
+};
+
+const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+};
+
+// IME ONのcombo
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case NAGINATA_ON_CMB:
+      if (pressed && !naginata_state()) {
+        naginata_on();
+      }
+      break;
+  }
+}
+// 薙刀式
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   ADJUST,
-// 薙刀式
-  NGSHFT, // 薙刀式シフトキー
-  // 編集モードを追加する場合
-  CHR10,
-  CHR20,
-  CHR30,
-  UP5,
-  DOWN5,
-// 薙刀式
 };
 
 #define SFTSPC  LSFT_T(KC_SPC)
@@ -157,9 +174,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-static bool lower_pressed = false;
-static bool raise_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -179,77 +193,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LOWER:
       if (record->event.pressed) {
-        if (raise_pressed) {
-          raise_pressed = false;
-        } else {
-          lower_pressed = true;
-        }
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (lower_pressed) {
-          // 薙刀式
-          naginata_off();
-          // 薙刀式
-          register_code(KC_LANG2); // Mac
-          register_code(KC_MHEN); // Win
-          unregister_code(KC_LANG2); // Mac
-          unregister_code(KC_MHEN); // Win
-          lower_pressed = false;
-        }
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
-        if (lower_pressed) {
-          lower_pressed = false;
-        } else {
-          raise_pressed = true;
-        }
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        if (raise_pressed) {
-          // 薙刀式
-          naginata_on();
-          // 薙刀式
-          register_code(KC_LANG1); // Mac
-          register_code(KC_HENK); // Win
-          unregister_code(KC_LANG1); // Mac
-          unregister_code(KC_HENK); // Win
-          raise_pressed = false;
-        }
       }
       return false;
       break;
-    default:
-      lower_pressed = false;
-      raise_pressed = false;
   }
 
   // 薙刀式
-  #ifdef NAGINATA_EDIT_MODE
-  if (process_naginata_edit(keycode, record)) {
-    return process_naginata(keycode, record);
-  } else {
-    return false;
+  bool a = true;
+  if (naginata_state()) {
+    naginata_mode(keycode, record);
+    a = process_naginata(keycode, record);
   }
+  #ifdef NAGINATA_EDIT_MODE
+    bool b = process_naginata_edit(keycode, record);
+    return a & b;
   #else
-  return process_naginata(keycode, record);
+    return a;
   #endif
+  return true;
   // 薙刀式
 }
 
 void matrix_init_user(void) {
   // 薙刀式
-  set_naginata(_NAGINATA, NGSHFT);
+  set_naginata(_NAGINATA);
   #ifdef NAGINATA_EDIT_MODE
-  set_naginata_edit(_NGEDITL, _NGEDITR, CHR10, CHR20, CHR30, UP5, DOWN5);
+  set_naginata_edit(_NGEDITL, _NGEDITR);
   #endif
   // 薙刀式
 }
