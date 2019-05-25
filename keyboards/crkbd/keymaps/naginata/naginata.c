@@ -298,8 +298,8 @@ void naginata_type(void) {
       // 連続押しの場合
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
+          memcpy_P(&bkey, &ng_key[ninputs[j]], sizeof(bkey));
           for (int i = 0; i < sizeof ng_comb / sizeof comb; i++) {
-            memcpy_P(&bkey, &ng_key[ninputs[i]], sizeof(bkey));
             memcpy_P(&comb, &ng_comb[i], sizeof(comb));
             if (bkey == comb) {
               memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
