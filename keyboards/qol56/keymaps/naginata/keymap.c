@@ -72,10 +72,11 @@ enum combo_events {
   LOGIN_CMB,
 };
 
-// QWERTY
-// const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-// Eucalyn
+#if defined(EUCALYN) || defined(EUCALYNKAI)
 const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+#else
+const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+#endif
 const uint16_t PROGMEM login_combo[] = {KC_B, KC_DEL, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -159,13 +160,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                               <       >       :       
+//                               <       >       :
     JP_LCBR,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX, KS(UP),  KC_UP,  XXXXX,    UP5,KC_PGUP,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//               (       )       {       }                                                                   
+//               (       )       {       }
     JP_RCBR,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,  _____,  _____,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  DOWN5,KC_PGDN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//               [       ]                                                     
+//               [       ]
       XXXXX,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  KANA,  _____,  _____,  _____,  _____,  _____ \
@@ -174,13 +175,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                !       @       #       $       %                                                             
+//                !       @       #       $       %
     JP_LBRC,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//               ^       &       '       "       ~                                                              
+//               ^       &       '       "       ~
     JP_RBRC,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                       |       `               ¥                                                               
+//                       |       `               ¥
       XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
@@ -189,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMPAD] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                                        $       %                                                             
+//                                        $       %
       _____,  _____,  _____,  KC_UP, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,KC_LEFT,KC_DOWN,KC_RGHT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\

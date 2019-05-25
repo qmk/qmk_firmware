@@ -20,10 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef PRODUCT     
+#undef PRODUCT
 #define PRODUCT         QOL56 Naginata Style
 
 // 薙刀式
+// #define EUCALYN
+#define EUCALYNKAI
 #define NAGINATA_EDIT_MODE
 #define COMBO_COUNT 2
 #define COMBO_TERM 300
