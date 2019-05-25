@@ -20,9 +20,9 @@ enum crkbd_keycodes {
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RGUI_T(KC_QUOT), \
+    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                           LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,     KC_DEL,  KC_ENT,  RAISE                                        \
+                                        KC_GRV,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
     _______, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
-                                     _______, _______, _______,        KC_NUKE, TG_MODS, _______
+                                     _______, KC_NUKE, _______,        _______, TG_MODS, _______
   )
 };
 
@@ -156,6 +156,8 @@ void add_keylog(uint16_t keycode) {
     if (keycode < 60) {
         keylog_str[0] = code_to_name[keycode];
     }
+    keylog_str[KEYLOG_LEN] = 0;
+
     log_timer = timer_read();
 }
 
@@ -267,3 +269,61 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return TAPPING_TERM;
     }
 }
+
+#ifdef RGB_MATRIX_ENABLE
+
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_set_suspend_state(false);
+}
+
+void rgb_matrix_indicators_user(void) {
+    if ( userspace_config.rgb_layer_change &&
+#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+        !g_suspend_state &&
+#endif
+#if defined(RGBLIGHT_ENABLE)
+        (!rgblight_config.enable && rgb_matrix_config.enable)
+#else
+        rgb_matrix_config.enable
+#endif
+    ) {
+        switch (biton32(layer_state)) {
+            case _MODS:
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_UNDERGLOW); break;
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(0xFF, 0x80, 0x00, LED_FLAG_UNDERGLOW); break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_UNDERGLOW); break;
+            case _RAISE:
+                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_UNDERGLOW); break;
+            case _LOWER:
+                rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_UNDERGLOW); break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_UNDERGLOW); break;
+            default:
+                switch (biton32(default_layer_state)) {
+                    case _QWERTY:
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, LED_FLAG_UNDERGLOW); break;
+                    case _COLEMAK:
+                        rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, LED_FLAG_UNDERGLOW); break;
+                    case _DVORAK:
+                        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_UNDERGLOW); break;
+                    case _WORKMAN:
+                        rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, LED_FLAG_UNDERGLOW); break;
+                    case _NORMAN:
+                        rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, LED_FLAG_UNDERGLOW); break;
+                    case _MALTRON:
+                        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_UNDERGLOW); break;
+                    case _EUCALYN:
+                        rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, LED_FLAG_UNDERGLOW); break;
+                    case _CARPLAX:
+                        rgb_matrix_layer_helper(0x00, 0x00, 0xFF, LED_FLAG_UNDERGLOW); break;
+                }
+        }
+    }
+}
+#endif
