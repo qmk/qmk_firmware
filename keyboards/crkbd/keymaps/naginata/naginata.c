@@ -61,7 +61,7 @@ static uint8_t n_editr = 0; // 押しているFGキーの数
 static uint16_t ninputs[NGBUFFER];
 
 // キーコードとキービットの対応
-const uint32_t ng_key[] = {
+const uint32_t PROGMEM ng_key[] = {
   [KC_Q]    = B_Q,
   [KC_W]    = B_W, 
   [KC_E]    = B_E, 
@@ -164,7 +164,7 @@ const char PROGMEM ng_kana[][5] = {
 };
 
 // 同時キー組み合わせのマップ。ng_kanaと対応する。
-const uint32_t ng_comb[] = {
+const uint32_t PROGMEM ng_comb[] = {
   // 単独
   B_Q, B_W, B_E, B_R          , B_U, B_I   , B_O  , B_P,
   B_A, B_S, B_D, B_F, B_G, B_H, B_J, B_K   , B_L  , B_SCLN,
@@ -265,14 +265,17 @@ bool naginata_state(void) {
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
-  char kana[5];
-  bool douji = false;
+  uint32_t bkey; // PROGMEM buffer
+  char kana[5]; // PROGMEM buffer
+  uint32_t comb; // PROGMEM buffer
+  bool douji = false; // 同時押しか連続押しか
   uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 
   if (ng_shift) keycomb |= B_SHFT; // シフトキー状態を反映
 
   for (int i = 0; i < ng_chrcount; i++) {
-    keycomb |= ng_key[ninputs[i]]; // バッファにあるキー状態を合成する
+    memcpy_P(&bkey, &ng_key[ninputs[i]], sizeof(bkey));
+    keycomb |= bkey; // バッファにあるキー状態を合成する
   }
 
   switch (keycomb) {
@@ -283,10 +286,11 @@ void naginata_type(void) {
     default:
       // キーから仮名に変換して出力する。
       // 同時押しの場合
-      for (int i = 0; i < sizeof ng_comb / sizeof ng_comb[0]; i++) {
-        if (keycomb == ng_comb[i]) {
+      for (int i = 0; i < sizeof ng_comb / sizeof comb; i++) {
+        memcpy_P(&comb, &ng_comb[i], sizeof(comb));
+        if (keycomb == comb) {
           douji = true;
-          memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
+          memcpy_P(&kana, &ng_kana[i], sizeof(kana));
           send_string(kana);
           break;
         }
@@ -294,8 +298,10 @@ void naginata_type(void) {
       // 連続押しの場合
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
-          for (int i = 0; i < sizeof ng_comb / sizeof ng_comb[0]; i++) {
-            if (ng_key[ninputs[j]] == ng_comb[i]) {
+          for (int i = 0; i < sizeof ng_comb / sizeof comb; i++) {
+            memcpy_P(&bkey, &ng_key[ninputs[i]], sizeof(bkey));
+            memcpy_P(&comb, &ng_comb[i], sizeof(comb));
+            if (bkey == comb) {
               memcpy_P(&kana, &ng_kana[i], sizeof(kana)); 
               send_string(kana);
               break;
