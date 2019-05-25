@@ -63,7 +63,7 @@ You may wonder why a keyboard layout containing all of Unicode is not devised th
 
 ## How to (Maybe) Enter Unicode Characters
 
-You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_code_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
+You can have the firmware send *sequences of keys* to use the [software Unicode Input Method](https://en.wikipedia.org/wiki/Unicode_input#Hexadecimal_input) of the target operating system, thus effectively entering characters independently of the layout defined in the OS.
 
 Yet, it does come with multiple disadvantages:
 
