@@ -58,6 +58,7 @@ enum kepmap_layers {
 #define CMDSPC  CMD_T(KC_SPC)
 #define CTLENT  CTL_T(KC_ENT)
 #define CTLBS   CTL_T(KC_BSPC)
+#define LSHFT LM(_SHIFT,MOD_LSFT)
 // 薙刀式
 // 編集モードを追加する場合
 #define KC(A) C(KC_##A)
@@ -83,6 +84,18 @@ combo_t key_combos[COMBO_COUNT] = {
 };
 // 薙刀式
 
+//Tap Dance Declarations
+enum {
+  TDVC = 0,
+  TDHD,
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TDVC]  = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_COMM),
+  [TDHD]  = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_DOT),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -92,19 +105,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     JP_QUOT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F, KC_TAB, KC_DEL,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,JP_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCTL, NUMLOC,KC_LALT,KC_LSFT,LOWER,MO(_SHIFT),ALTSPC, CTLENT,MO(_SHIFT),RAISE,  KC_0, KC_DOT,KC_COMM,KC_RCTL  \
+    KC_LCTL, NUMLOC,KC_LALT,KC_LSFT,  LOWER,  LSHFT, ALTSPC, CTLENT,  LSHFT,  RAISE,   KC_0, KC_DOT,KC_COMM,KC_RCTL  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
   [_SHIFT] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_LCBR,  KS(Q),  KS(W),  KS(M), KS(R),KS(LEFT),KC_LGUI,KS(F2),KS(RGHT),KS(BSPC), KS(D),  KS(Y),  KS(P),JP_UNDS, \
+    JP_LCBR,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_UNDS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_RCBR,  KS(A),  KS(O),  KS(E),  KS(I),  KS(U),KS(ESC),KC_PGDN,  KS(G),  KS(T),  KS(K),  KS(S),  KS(N),JP_EQL, \
+    JP_RCBR,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____, JP_EQL, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-     JP_DQT,  KS(Z),  KS(X),  KS(C),  KS(V),  KS(F),KS(TAB),KS(DEL),  KS(B),  KS(H),  KS(J),  KS(L),KC_QUES,JP_SCLN, \
+     JP_DQT,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_SCLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-   KS(LCTL), NUMLOC,KS(LALT),KC_LSFT,LOWER,MO(_SHIFT),KS(SPC),KS(ENT),MO(_SHIFT),RAISE,KC_0, KC_DOT,KC_COMM,KS(RCTL)  \
+      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -152,8 +165,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //               (       )       {       }                                                                   
     JP_RCBR,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,  _____,  _____,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  DOWN5,KC_PGDN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                               [       ]                                                     
-      XXXXX,  XXXXX,  XXXXX,JP_LBRC,JP_RBRC,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,  XXXXX,\
+//               [       ]                                                     
+      XXXXX,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  KANA,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -167,10 +180,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //               ^       &       '       "       ~                                                              
     JP_RBRC,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                       |       `       _       ¥                                                               
-      XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, JP_EQL,   KC_1,   KC_2,   KC_3, KC_ENT,\
+//                       |       `               ¥                                                               
+      XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  EISU,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
+      _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -191,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     RGB_HUI,RGB_HUD,KC_WAKE,  XXXXX,  RESET,  XXXXX,KC_BRIU,RGB_TOG,KC_MYCM,  XXXXX,KC_WSCH,  XXXXX, KC_PWR,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_SAI,RGB_SAD,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_BRID,RGB_MOD,KC_MAIL,KC_WBAK,KC_WHOM,KC_WFWD,  XXXXX,  XXXXX,\
+    RGB_SAI,RGB_SAD,  XXXXX,  XXXXX,EEP_RST,  XXXXX,KC_BRID,RGB_MOD,KC_MAIL,KC_WBAK,KC_WHOM,KC_WFWD,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     RGB_VAI,RGB_VAD,KC_SLEP,KC_CALC,  XXXXX,  XXXXX,RGBRST,RGB_RMOD,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -210,44 +223,44 @@ void update_led(void);
 static bool underglow = false;
 
 void update_led() {
-  // if (!layer_state_is(_NUMPAD) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
-  //   rgblight_sethsv_range(0, 0, 0, 0, 55);
-  // }
-  // if (!naginata_state()) {
-  //   rgblight_sethsv_at(0, 0, 0, 17);
-  //   rgblight_sethsv_at(0, 0, 0, 38);
-  // }
-  // if (layer_state_is(_NUMPAD)) {
-  //   rgblight_sethsv_at(150, 200, 70, 4);
-  //   rgblight_sethsv_range(150, 200, 60, 40, 43);
-  //   rgblight_sethsv_range(150, 200, 60, 45, 51);
-  //   rgblight_sethsv_at(150, 200, 70, 9);
-  //   rgblight_sethsv_at(150, 200, 70, 14);
-  //   rgblight_sethsv_at(150, 200, 70, 15);
-  //   rgblight_sethsv_at(150, 200, 70, 17);
-  // }
-  // if (layer_state_is(_LOWER)) {
-  //   // rgblight_sethsv_at(240, 100, 70, 19);
-  //   rgblight_sethsv_range(240, 200, 60, 40, 43);
-  //   rgblight_sethsv_range(240, 200, 60, 45, 51);
-  // }
-  // if (layer_state_is(_RAISE)) {
-  //   // rgblight_sethsv_at(100, 100, 70, 36);
-  //   rgblight_sethsv_at(100, 255, 70, 38);
-  //   rgblight_sethsv_at(100, 255, 70, 40);
-  //   rgblight_sethsv_at(100, 255, 70, 41);
-  //   rgblight_sethsv_at(100, 255, 70, 46);
-  // }
-  // if (naginata_state()) {
-  //   rgblight_sethsv_at(150, 200, 100, 17);
-  //   rgblight_sethsv_at(150, 200, 100, 38);
-  //   // rgblight_setrgb_range(10, 10, 10, 56, 71);
-  // }
-  // if (underglow) {
-  //   rgblight_sethsv_range(150, 200, 200, 56, 71);
-  // } else {
-  //   rgblight_sethsv_range(150, 200, 0, 56, 71);
-  // }
+  if (!layer_state_is(_NUMPAD) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
+    rgblight_sethsv_range(0, 0, 0, 0, 55);
+  }
+  if (!naginata_state()) {
+    rgblight_sethsv_at(0, 0, 0, 17);
+    rgblight_sethsv_at(0, 0, 0, 38);
+  }
+  if (layer_state_is(_NUMPAD)) {
+    rgblight_sethsv_at(150, 200, 70, 4);
+    rgblight_sethsv_range(150, 200, 60, 40, 43);
+    rgblight_sethsv_range(150, 200, 60, 45, 51);
+    rgblight_sethsv_at(150, 200, 70, 9);
+    rgblight_sethsv_at(150, 200, 70, 14);
+    rgblight_sethsv_at(150, 200, 70, 15);
+    rgblight_sethsv_at(150, 200, 70, 17);
+  }
+  if (layer_state_is(_LOWER)) {
+    // rgblight_sethsv_at(240, 100, 70, 19);
+    rgblight_sethsv_range(240, 200, 60, 40, 43);
+    rgblight_sethsv_range(240, 200, 60, 45, 51);
+  }
+  if (layer_state_is(_RAISE)) {
+    // rgblight_sethsv_at(100, 100, 70, 36);
+    rgblight_sethsv_at(100, 255, 70, 38);
+    rgblight_sethsv_at(100, 255, 70, 40);
+    rgblight_sethsv_at(100, 255, 70, 41);
+    rgblight_sethsv_at(100, 255, 70, 46);
+  }
+  if (naginata_state()) {
+    rgblight_sethsv_at(150, 200, 100, 17);
+    rgblight_sethsv_at(150, 200, 100, 38);
+    // rgblight_setrgb_range(10, 10, 10, 56, 71);
+  }
+  if (underglow) {
+    rgblight_sethsv_range(150, 200, 200, 56, 71);
+  } else {
+    rgblight_sethsv_range(150, 200, 0, 56, 71);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -267,14 +280,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       update_led();
       return false;
       break;
-    // case RGBRST:
-    //   if (record->event.pressed) {
-    //     eeconfig_update_rgblight_default();
-    //     rgblight_enable();
-    //   }
-    //   update_led();
-    //   return false;
-    //   break;
+    case RGBRST:
+      if (record->event.pressed) {
+        eeconfig_update_rgblight_default();
+        rgblight_enable();
+      }
+      update_led();
+      return false;
+      break;
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);

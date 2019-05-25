@@ -32,5 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
-
-#define LAYER_STATE_16BIT
