@@ -28,6 +28,8 @@ download_dir=wsl_downloaded
 
 source "$dir/win_shared_install.sh"
 
+pip3 install -r ${util_dir}/../requirements.txt
+
 pushd "$download_dir"
 while true; do
     echo

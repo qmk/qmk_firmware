@@ -17,3 +17,4 @@ pkg install -y \
 	arm-none-eabi-newlib \
 	diffutils \
 	python3
+pip3 install -r ${util_dir}/../requirements.txt
