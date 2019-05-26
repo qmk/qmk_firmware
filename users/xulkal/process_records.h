@@ -4,6 +4,17 @@
 #define RIS_ESC  LT(_RAISE, KC_ESC)
 #define RIS_CAPS LT(_RAISE, KC_CAPS)
 
+#define QWERTY DF(_QWERTY)
+
+#ifndef GAMELAYER_DISABLE
+#define GAME DF(_GAME)
+#else
+#define GAME KC_TRANSPARENT
+#endif
+
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
 #ifdef TAP_DANCE_ENABLE
 #include "process_tap_dance.h"
 
@@ -31,19 +42,18 @@ enum {
 
 enum layer_number {
     _QWERTY = 0,
+#ifndef GAMELAYER_DISABLE
     _GAME,
+#endif
     _LOWER,
     _RAISE,
+#ifdef TRILAYER_ENABLED
     _ADJUST
+#endif
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  GAME,
-  LOWER,
-  RAISE,
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
-bool process_record_rgb(uint16_t keycode, keyrecord_t *record);

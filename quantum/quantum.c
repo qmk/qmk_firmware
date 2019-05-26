@@ -24,10 +24,6 @@
 #include "outputselect.h"
 #endif
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
-
 #ifndef BREATHING_PERIOD
 #define BREATHING_PERIOD 6
 #endif
@@ -196,30 +192,6 @@ void reset_keyboard(void) {
   bootloader_jump();
 }
 
-// Shift / paren setup
-
-#ifndef LSPO_KEY
-  #define LSPO_KEY KC_9
-#endif
-#ifndef RSPC_KEY
-  #define RSPC_KEY KC_0
-#endif
-
-#ifndef LSPO_MOD
-  #define LSPO_MOD KC_LSFT
-#endif
-#ifndef RSPC_MOD
-  #define RSPC_MOD KC_RSFT
-#endif
-
-// Shift / Enter setup
-#ifndef SFTENT_KEY
-  #define SFTENT_KEY KC_ENT
-#endif
-
-static bool shift_interrupted[2] = {0, 0};
-static uint16_t scs_timer[2] = {0, 0};
-
 /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
@@ -275,12 +247,6 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
-  #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
-    // Wake up oled if user is using those fabulous keys!
-    if (record->event.pressed)
-      oled_on();
-  #endif
-
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -292,7 +258,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef HAPTIC_ENABLE
     process_haptic(keycode, record) &&
   #endif //HAPTIC_ENABLE
-  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
+  #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(keycode, record) &&
   #endif
     process_record_kb(keycode, record) &&
@@ -329,6 +295,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
+  #ifdef SPACE_CADET_ENABLE
+    process_space_cadet(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
@@ -343,8 +312,12 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
     case DEBUG:
       if (record->event.pressed) {
-          debug_enable = true;
+        debug_enable ^= 1;
+        if (debug_enable) {
           print("DEBUG: enabled.\n");
+        } else {
+          print("DEBUG: disabled.\n");
+        }
       }
     return false;
     case EEPROM_RESET:
@@ -685,92 +658,6 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
       break;
-    case KC_LSPO: {
-      if (record->event.pressed) {
-        shift_interrupted[0] = false;
-        scs_timer[0] = timer_read ();
-        register_mods(MOD_BIT(KC_LSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(RSPC_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_LSFT));
-          #else
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(KC_LSFT));
-              register_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-          register_code(LSPO_KEY);
-          unregister_code(LSPO_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_LSFT));
-      }
-      return false;
-    }
-
-    case KC_RSPC: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(LSPO_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_RSFT));
-          #else
-            if( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(KC_RSFT));
-              register_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-          register_code(RSPC_KEY);
-          unregister_code(RSPC_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if ( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
-
-    case KC_SFTENT: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-        unregister_mods(MOD_BIT(KC_RSFT));
-        register_code(SFTENT_KEY);
-        unregister_code(SFTENT_KEY);
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
 
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
@@ -825,12 +712,6 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 #endif
-
-    default: {
-      shift_interrupted[0] = true;
-      shift_interrupted[1] = true;
-      break;
-    }
   }
 
   return process_action_kb(record);
@@ -1093,9 +974,6 @@ void matrix_init_quantum() {
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
-  #ifdef OLED_DRIVER_ENABLE
-    oled_init(OLED_ROTATION_0);
-  #endif
   matrix_init_kb();
 }
 
@@ -1130,10 +1008,6 @@ void matrix_scan_quantum() {
 
   #ifdef HAPTIC_ENABLE
     haptic_task();
-  #endif
-
-  #ifdef OLED_DRIVER_ENABLE
-    oled_task();
   #endif
 
   matrix_scan_kb();
@@ -1331,10 +1205,10 @@ void backlight_task(void) {
 // (which is not possible since the backlight is not wired to PWM pins on the
 // CPU), we do the LED on/off by oursleves.
 // The timer is setup to count up to 0xFFFF, and we set the Output Compare
-// register to the current 16bits backlight level (after CIE correction). 
-// This means the CPU will trigger a compare match interrupt when the counter 
-// reaches the backlight level, where we turn off the LEDs, 
-// but also an overflow interrupt when the counter rolls back to 0, 
+// register to the current 16bits backlight level (after CIE correction).
+// This means the CPU will trigger a compare match interrupt when the counter
+// reaches the backlight level, where we turn off the LEDs,
+// but also an overflow interrupt when the counter rolls back to 0,
 // in which we're going to turn on the LEDs.
 // The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz.
 
@@ -1346,7 +1220,7 @@ ISR(TIMERx_COMPA_vect) {
 }
 
 // Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/65536 =~ 244 Hz 
+// this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #ifdef BACKLIGHT_BREATHING
   breathing_task();
