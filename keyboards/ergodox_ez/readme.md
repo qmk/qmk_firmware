@@ -28,12 +28,18 @@ See also [video demonstration](https://www.youtube.com/watch?v=9PyiGUO9_KQ) usin
 
 To flash with ´teensy-loader-cli´:
 
-  - Build the firmware with `make keymapname`, for example `make default`
-
-  - Run ´<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
+  - Build the firmware with `make <keyboardname>:<keymapname>:teensy`, for example `make ergodox_ez:default:teensy`
 
   - Press the Reset button by inserting a paperclip gently into the reset hole
-    in the top right corder.
+    in the top right corner.
+
+
+To flash with [`Wally-cli`](https://github.com/zsa/wally/releases):
+
+  - Build the firmware with `make <keyboardname>:<keymapname>:wally`, for example `make ergodox_ez:default:wally`
+
+  - Press the Reset button by inserting a paperclip gently into the reset hole
+    in the top right corner.
 
 ## Settings
 
