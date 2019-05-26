@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EUCALYN
 #define EUCALYNKAI
 #define NAGINATA_EDIT_MODE
-#define COMBO_COUNT 1
+#define COMBO_COUNT 2
 #define COMBO_TERM 300
 // 薙刀式
 

@@ -43,19 +43,41 @@ enum keymap_layers {
 };
 
 // 薙刀式
-//
 enum combo_events {
   NAGINATA_ON_CMB,
+  // NAGINATA_OFF_CMB,
 };
 
 #if defined(EUCALYN) || defined(EUCALYNKAI)
-const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM ngon_combo[]  = {KC_G, KC_T, COMBO_END};
+// const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
 #else
-const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM ngon_combo[]  = {KC_H, KC_J, COMBO_END};
+// const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
 #endif
+
 combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+  [NAGINATA_ON_CMB]  = COMBO_ACTION(ngon_combo),
+  // [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
 };
+
+// IME ON/OFFのcombo
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case NAGINATA_ON_CMB:
+      if (pressed) {
+        naginata_on();
+        update_led();
+      }
+      break;
+    // case NAGINATA_OFF_CMB:
+    //   if (pressed) {
+    //     naginata_off();
+    //     update_led();
+    //   }
+    //   break;
+  }
+}
 // 薙刀式
 
 enum custom_keycodes {
@@ -245,13 +267,13 @@ void matrix_init_user(void) {
   #endif
   // 薙刀式
 
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
+  #ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+  #endif
+  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  #ifdef SSD1306OLED
+      iota_gfx_init(!has_usb());   // turns on the display
+  #endif
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
@@ -381,6 +403,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // 薙刀式
         naginata_off();
         // 薙刀式
+        update_led();
       }
       return false;
       break;
@@ -389,6 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // 薙刀式
         naginata_on();
         // 薙刀式
+        update_led();
       }
       return false;
       break;
@@ -423,22 +447,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
       update_led();
       return false;
       break;
     case KC_RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
       update_led();
       return false;
       break;
@@ -460,17 +482,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
   // 薙刀式
 }
-
-// 薙刀式
-// IME ONのcombo
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case NAGINATA_ON_CMB:
-      if (pressed && !naginata_state()) {
-        naginata_on();
-        update_led();
-      }
-      break;
-  }
-}
-// 薙刀式
