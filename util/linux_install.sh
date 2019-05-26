@@ -35,9 +35,10 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		wget \
 		zip
     wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
-    unzip wally-linux.zip -d ~/bin/
+    unzip wally-linux.zip -d /tmp/wally/
     rm -f wally-linux.zip
-    chmod -x ~/bin/wally ~/wally-cli
+    sudo mv /tmp/wally/* /usr/bin/
+    sudo chmod +x /usr/bin/wally /usr/bin/wally-cli
 
 elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBIAN_FRONTEND=noninteractive
@@ -64,10 +65,11 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		webkit2gtk-4.0 \
         wget \
 		zip
-    wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
-    unzip wally-linux.zip -d ~/bin/
+    wget https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip
+    unzip wally-linux.zip -d /tmp/wally/
     rm -f wally-linux.zip
-    chmod -x ~/bin/wally ~/wally-cli
+    sudo mv /tmp/wally/* /usr/bin/
+    sudo chmod +x /usr/bin/wally /usr/bin/wally-cli
 
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 	sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.3.0-1-x86_64.pkg.tar.xz
@@ -95,9 +97,10 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 	makepkg -sic
 	rm -rf /tmp/dfu-programmer/
     wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
-    unzip wally-linux.zip -d ~/bin/
+    unzip wally-linux.zip -d /tmp/wally/
     rm -f wally-linux.zip
-    chmod -x ~/bin/wally ~/wally-cli
+    sudo mv /tmp/wally/* /usr/bin/
+    sudo chmod +x /usr/bin/wally /usr/bin/wally-cli
 
 
 elif grep ID /etc/os-release | grep -q gentoo; then
@@ -119,9 +122,10 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
         wget `https://github.com/zsa/wally/releases/download/1.0.0/wally-linux.zip`
-        unzip wally-linux.zip -d ~/bin/
+        unzip wally-linux.zip -d /tmp/wally/
         rm -f wally-linux.zip
-        chmod -x ~/bin/wally ~/wally-cli
+        sudo mv /tmp/wally/* /usr/bin/
+        sudo chmod +x /usr/bin/wally /usr/bin/wally-cli
 		echo "Done!"
 	else
 		echo "Quitting..."
