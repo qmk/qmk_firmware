@@ -460,6 +460,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case KC_SCLN:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
+        ng_space = false;
         if (ng_chrcount > 2) {
           naginata_type(); // 3文字押したら処理を開始
         }
