@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""Script to generate a keymap.c from a configurator export.
+"""
+import json
+import os
+import sys
+
+# Add the QMK python libs to our path and import the modules we use
+script_dir = os.path.dirname(os.path.realpath(__file__))
+qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
+python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
+sys.path.append(python_lib_dir)
+
+import qmk.keymap
+from milc import cli
+
+# Change to the root of our checkout
+running_cwd = os.getcwd()
+os.chdir(qmk_dir)
+
+
+@cli.argument('-f', '--filename', help='Configurator JSON export')  # FIXME: This should be positional
+@cli.argument('-o', '--output', help='File to write to')
+@cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
+def main(cli):
+    # Error checking
+    if cli.config.general.filename == ('-'):
+        cli.log.error('Reading from STDIN is not (yet) supported.')
+        cli.print_usage()
+    if not os.path.exists(cli.config.general.filename):
+        cli.log.error('JSON file does not exist!')
+        cli.print_usage()
+
+    # Environment processing
+    if cli.config.general.output == ('-'):
+        cli.config.general.output = None
+
+    # Parse the configurator json
+    with open(cli.config.general.filename, 'r') as fd:
+        user_keymap = json.load(fd)
+
+    # Generate the keymap
+    keymap_c = qmk.keymap.generate(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
+
+    if cli.config.general.output:
+        with open(cli.config.general.output, 'w') as keymap_fd:
+            keymap_fd.write(keymap_c)
+
+        if sys.stdout.isatty():
+            print('Wrote keymap to', cli.config.general.output)
+
+    else:
+        print(keymap_c)
+
+if __name__ == '__main__':
+    cli()
