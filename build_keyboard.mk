@@ -98,6 +98,9 @@ MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
+# Check for keymap.json first, so we can regenerate keymap.c
+include build_json.mk
+# Look through the possible keymap folders until we find a matching keymap.c
 ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
     -include $(MAIN_KEYMAP_PATH_5)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
@@ -119,6 +122,7 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
     KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
+    # If we haven't found a keymap yet fall back to community layouts
     include build_layout.mk
 else
     $(error Could not find keymap)
