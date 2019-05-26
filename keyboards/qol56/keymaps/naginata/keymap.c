@@ -28,7 +28,6 @@ enum custom_keycodes {
   RAISE, LOWER, ADJUST,
   RGBRST,
   NUMLOC,
-  UNDGL,
   EISU,
   KANA,
 };
@@ -209,58 +208,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     RGB_VAI,RGB_VAD,KC_SLEP,KC_CALC,  XXXXX,  XXXXX,RGBRST,RGB_RMOD,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      UNDGL,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
+      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
 };
 
-// uint32_t layer_state_set_user(uint32_t state) {
-//   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-// }
-
 void update_led(void);
 
-static bool underglow = false;
-
 void update_led() {
+  rgblight_set_effect_range(56, 15);
+
   if (!layer_state_is(_NUMPAD) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
-    rgblight_sethsv_range(0, 0, 0, 0, 55);
-  }
-  if (!naginata_state()) {
-    rgblight_sethsv_at(0, 0, 0, 17);
-    rgblight_sethsv_at(0, 0, 0, 38);
-  }
-  if (layer_state_is(_NUMPAD)) {
-    rgblight_sethsv_at(150, 200, 70, 4);
-    rgblight_sethsv_range(150, 200, 60, 40, 43);
-    rgblight_sethsv_range(150, 200, 60, 45, 51);
-    rgblight_sethsv_at(150, 200, 70, 9);
-    rgblight_sethsv_at(150, 200, 70, 14);
-    rgblight_sethsv_at(150, 200, 70, 15);
-    rgblight_sethsv_at(150, 200, 70, 17);
-  }
-  if (layer_state_is(_LOWER)) {
-    // rgblight_sethsv_at(240, 100, 70, 19);
-    rgblight_sethsv_range(240, 200, 60, 40, 43);
-    rgblight_sethsv_range(240, 200, 60, 45, 51);
-  }
-  if (layer_state_is(_RAISE)) {
-    // rgblight_sethsv_at(100, 100, 70, 36);
-    rgblight_sethsv_at(100, 255, 70, 38);
-    rgblight_sethsv_at(100, 255, 70, 40);
-    rgblight_sethsv_at(100, 255, 70, 41);
-    rgblight_sethsv_at(100, 255, 70, 46);
+    rgblight_sethsv_range(0, 0, 0, 0, 56);
   }
   if (naginata_state()) {
-    rgblight_sethsv_at(150, 200, 100, 17);
-    rgblight_sethsv_at(150, 200, 100, 38);
+    rgblight_sethsv_at(150, 200, 200, 17);
+    rgblight_sethsv_at(150, 200, 200, 38);
+    rgblight_sethsv_at(150, 200, 200, 20);
+    rgblight_sethsv_at(150, 200, 200, 35);
     // rgblight_setrgb_range(10, 10, 10, 56, 71);
-  }
-  if (underglow) {
-    rgblight_sethsv_range(150, 200, 200, 56, 71);
   } else {
-    rgblight_sethsv_range(150, 200, 0, 56, 71);
+    rgblight_sethsv_at(150, 200, 0, 17);
+    rgblight_sethsv_at(150, 200, 0, 38);
+  }
+  if (layer_state_is(_NUMPAD)) {
+    rgblight_sethsv_at(150, 200, 200, 4);
+    rgblight_sethsv_range(150, 200, 200, 40, 43);
+    rgblight_sethsv_range(150, 200, 200, 45, 51);
+    rgblight_sethsv_at(150, 200, 200, 9);
+    rgblight_sethsv_at(150, 200, 200, 14);
+    rgblight_sethsv_at(150, 200, 200, 15);
+    rgblight_sethsv_at(150, 200, 200, 17);
+  }
+  if (layer_state_is(_LOWER)) {
+    // rgblight_sethsv_at(240, 100, 200, 19);
+    rgblight_sethsv_range(240, 200, 200, 40, 43);
+    rgblight_sethsv_range(240, 200, 200, 45, 51);
+  }
+  if (layer_state_is(_RAISE)) {
+    // rgblight_sethsv_at(100, 100, 200, 36);
+    rgblight_sethsv_at(100, 200, 200, 38);
+    rgblight_sethsv_at(100, 200, 200, 40);
+    rgblight_sethsv_at(100, 200, 200, 41);
+    rgblight_sethsv_at(100, 200, 200, 46);
   }
 }
 
@@ -270,13 +261,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NUMLOC:
       if (record->event.pressed) {
         layer_invert(_NUMPAD);
-      }
-      update_led();
-      return false;
-      break;
-    case UNDGL:
-      if (record->event.pressed) {
-        underglow = !underglow;
       }
       update_led();
       return false;
@@ -341,6 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (naginata_state()) {
     naginata_mode(keycode, record);
     a = process_naginata(keycode, record);
+    update_led();
   }
   #ifdef NAGINATA_EDIT_MODE
     bool b = process_naginata_edit(keycode, record);
@@ -360,6 +345,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_ON_CMB:
       if (pressed && !naginata_state()) {
         naginata_on();
+        update_led();
       }
       break;
     case LOGIN_CMB:
