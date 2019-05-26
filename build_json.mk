@@ -17,6 +17,6 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.json)","")
 endif
 
 # Generate the keymap.c
-ifneq ($(KEYMAP_JSON),)
-    $(shell bin/json2keymap -f $(KEYMAP_JSON) -o $(KEYMAP_C))
+ifneq ("$(KEYMAP_JSON)","")
+    _ = $(shell bin/json2keymap -f $(KEYMAP_JSON) -o $(KEYMAP_C))
 endif
