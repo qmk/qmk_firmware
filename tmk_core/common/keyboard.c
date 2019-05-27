@@ -75,6 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef QWIIC_ENABLE
 #   include "qwiic.h"
 #endif
+#ifdef OLED_DRIVER_ENABLE
+    #include "oled_driver.h"
+#endif
 #ifdef VELOCIKEY_ENABLE
   #include "velocikey.h"
 #endif
@@ -205,6 +208,9 @@ void keyboard_init(void) {
 #ifdef QWIIC_ENABLE
     qwiic_init();
 #endif
+#ifdef OLED_DRIVER_ENABLE
+    oled_init(OLED_ROTATION_0);
+#endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
@@ -262,7 +268,11 @@ void keyboard_task(void)
     uint8_t keys_processed = 0;
 #endif
 
+#if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
+    uint8_t ret = matrix_scan();
+#else
     matrix_scan();
+#endif
 
     if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -304,6 +314,15 @@ MATRIX_LOOP_END:
 
 #ifdef QWIIC_ENABLE
     qwiic_task();
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+    oled_task();
+#ifndef OLED_DISABLE_TIMEOUT
+    // Wake up oled if user is using those fabulous keys!
+    if (ret)
+        oled_on();
+#endif
 #endif
 
 #ifdef MOUSEKEY_ENABLE

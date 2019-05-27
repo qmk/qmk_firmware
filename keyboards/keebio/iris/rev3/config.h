@@ -71,6 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
 #define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_SPLIT { 6, 6 }
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
