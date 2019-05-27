@@ -80,14 +80,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
-void set_color_helper(int index, uint8_t red, uint8_t green, uint8_t blue)
-{
-	if (!HAS_ANY_FLAGS(g_rgb_leds[index].flags, rgb_matrix_get_flags()))
-	{ return; }
-
-	rgb_matrix_set_color(index, red, green, blue);
-}
 
 void rgb_matrix_indicators_user(void)
 {
