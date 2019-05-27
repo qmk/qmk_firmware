@@ -67,6 +67,6 @@ You can have the firmware send *sequences of keys* to use the [software Unicode 
 
 Yet, it does come with multiple disadvantages:
 
- - Tied to a specific OS a a time (need recompilation when changing OS);
+ - Tied to a specific OS at a time (need recompilation when changing OS);
  - Within a given OS, does not work in all software;
  - Limited to a subset of Unicode on some systems.
