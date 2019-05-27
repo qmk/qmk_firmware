@@ -586,8 +586,10 @@ static void mousekey_param_print(void)
     print("2: interval(ms): "); pdec(mk_interval); print("\n");
     print("3: max_speed: "); pdec(mk_max_speed); print("\n");
     print("4: time_to_max: "); pdec(mk_time_to_max); print("\n");
-    print("5: wheel_max_speed: "); pdec(mk_wheel_max_speed); print("\n");
-    print("6: wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
+    print("5: wheel_delay(*10ms): "); pdec(mk_wheel_delay); print("\n");
+    print("6: wheel_interval(ms): "); pdec(mk_wheel_interval); print("\n");
+    print("7: wheel_max_speed: "); pdec(mk_wheel_max_speed); print("\n");
+    print("8: wheel_time_to_max: "); pdec(mk_wheel_time_to_max); print("\n");
 #endif /* !NO_PRINT */
 
 }
@@ -626,13 +628,27 @@ static void mousekey_param_inc(uint8_t param, uint8_t inc)
             PRINT_SET_VAL(mk_time_to_max);
             break;
         case 5:
+            if (mk_wheel_delay + inc < UINT8_MAX)
+                mk_wheel_delay += inc;
+            else
+                mk_wheel_delay = UINT8_MAX;
+            PRINT_SET_VAL(mk_wheel_delay);
+            break;
+        case 6:
+            if (mk_wheel_interval + inc < UINT8_MAX)
+                mk_wheel_interval += inc;
+            else
+                mk_wheel_interval = UINT8_MAX;
+            PRINT_SET_VAL(mk_wheel_interval);
+            break;
+        case 7:
             if (mk_wheel_max_speed + inc < UINT8_MAX)
                 mk_wheel_max_speed += inc;
             else
                 mk_wheel_max_speed = UINT8_MAX;
             PRINT_SET_VAL(mk_wheel_max_speed);
             break;
-        case 6:
+        case 8:
             if (mk_wheel_time_to_max + inc < UINT8_MAX)
                 mk_wheel_time_to_max += inc;
             else
@@ -674,13 +690,27 @@ static void mousekey_param_dec(uint8_t param, uint8_t dec)
             PRINT_SET_VAL(mk_time_to_max);
             break;
         case 5:
+            if (mk_wheel_delay > dec)
+                mk_wheel_delay -= dec;
+            else
+                mk_wheel_delay = 0;
+            PRINT_SET_VAL(mk_wheel_delay);
+            break;
+        case 6:
+            if (mk_wheel_interval > dec)
+                mk_wheel_interval -= dec;
+            else
+                mk_wheel_interval = 0;
+            PRINT_SET_VAL(mk_wheel_interval);
+            break;
+        case 7:
             if (mk_wheel_max_speed > dec)
                 mk_wheel_max_speed -= dec;
             else
                 mk_wheel_max_speed = 0;
             PRINT_SET_VAL(mk_wheel_max_speed);
             break;
-        case 6:
+        case 8:
             if (mk_wheel_time_to_max > dec)
                 mk_wheel_time_to_max -= dec;
             else
@@ -698,8 +728,10 @@ static void mousekey_console_help(void)
           "2:	interval(ms)\n"
           "3:	max_speed\n"
           "4:	time_to_max\n"
-          "5:	wheel_max_speed\n"
-          "6:	wheel_time_to_max\n"
+          "5:	wheel_delay(*10ms)\n"
+          "6:	wheel_interval(ms)\n"
+          "7:	wheel_max_speed\n"
+          "8:	wheel_time_to_max\n"
           "\n"
           "p:	print values\n"
           "d:	set defaults\n"
@@ -758,6 +790,8 @@ static bool mousekey_console(uint8_t code)
             mk_interval = MOUSEKEY_INTERVAL;
             mk_max_speed = MOUSEKEY_MAX_SPEED;
             mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
+            mk_wheel_delay = MOUSEKEY_WHEEL_DELAY/10;
+            mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
             mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
             mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
             print("set default\n");

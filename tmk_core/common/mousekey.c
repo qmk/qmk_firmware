@@ -63,6 +63,8 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
 //int8_t mk_curve = 0;
 /* wheel params */
+uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY/10;
+uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
@@ -120,7 +122,7 @@ void mousekey_task(void) {
       mousekey_send_mouse();
     }
   }
-  if (timer_elapsed(last_wheel_timer) >= (mousekey_wheel_repeat ? mk_interval : mk_delay*10)) {
+  if (timer_elapsed(last_wheel_timer) >= (mousekey_wheel_repeat ? mk_wheel_interval : mk_wheel_delay*10)) {
     if (mouse_wheel_report.v || mouse_wheel_report.h) {
       if (mousekey_wheel_repeat != UINT8_MAX) mousekey_wheel_repeat++;
       if (mouse_wheel_report.v > 0) mouse_wheel_report.v = wheel_unit();
