@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,        KC_Q,          KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,              KC_BSPC, \
    CTL_T(KC_ESC), KC_A,          KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    TD(TD_SEMI_COLON), KC_QUOT, \
    KC_LSFT,       KC_Z,          KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH,           KC_ENT , \
-   RALT(KC_SPC),  RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY  \
+   RALT(KC_SPC),  RGUI(KC_BSLS), KC_LALT, KC_LCMD, _LOWER, KC_SPC, KC_SPC, _RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY  \
 ),
 
 /* Colemak
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,        KC_Q,          KC_W,    KC_F,    KC_P,  KC_G,   KC_J,   KC_L,  KC_U,    KC_Y,    TD(TD_SEMI_COLON), KC_BSPC, \
   CTL_T(KC_ESC), KC_A,          KC_R,    KC_S,    KC_T,  KC_D,   KC_H,   KC_N,  KC_E,    KC_I,    KC_O,              KC_QUOT, \
   KC_LSFT,       KC_Z,          KC_X,    KC_C,    KC_V,  KC_B,   KC_K,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH,           KC_ENT , \
-  RALT(KC_SPC),  RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY  \
+  RALT(KC_SPC),  RGUI(KC_BSLS), KC_LALT, KC_LCMD, _LOWER, KC_SPC, KC_SPC, _RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY  \
 ),
 
 /* Dvorak
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,        KC_QUOT,           KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_BSPC, \
   CTL_T(KC_ESC), KC_A,              KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_SLSH, \
   KC_LSFT,       TD(TD_SEMI_COLON), KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,    KC_ENT , \
-  RALT(KC_SPC),  RGUI(KC_BSLS),     KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
+  RALT(KC_SPC),  RGUI(KC_BSLS),     KC_LALT, KC_LCMD, _LOWER, KC_SPC, KC_SPC, _RAISE, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 ),
 
 /* Lower
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD,      KC_EXLM,       KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   KC_F1,        KC_F2,         KC_F3,   KC_F4,   KC_F5,  KC_F6,   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   KC_F7,        KC_F8,         KC_F9,   KC_F10,  KC_F11, KC_F12,  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
-  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER,  KC_SPC,  KC_SPC,  RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
+  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, _LOWER,  KC_SPC,  KC_SPC,  _RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 ),
 
 /* Raise
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,       KC_1,          KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_DEL, \
   KC_DEL,       _______,       _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, KC_BSLS, \
   _______,      _______,       _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, \
-  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_MNXT, KC_VOLD, KC_VOLU,  KC_MPLY  \
+  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, _LOWER,   KC_SPC,  KC_SPC,  _RAISE,   KC_MNXT, KC_VOLD, KC_VOLU,  KC_MPLY  \
 ),
 
 /* Adjust (Lower + Raise)
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------   ------------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
-  _______, RESET,   _______, _______, _______, _______, _______,   QWERTY,    COLEMAK,   DVORAK,    LCA(KC_7), LCA(KC_8), \
+  _______, RESET,   _______, _______, _______, _______, _______,   _QWERTY,    _COLEMAK,   _DVORAK,    LCA(KC_7), LCA(KC_8), \
   _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, LCA(KC_H), LCA(KC_J), LCA(KC_K), LCA(KC_L), LCA(KC_U), LCA(KC_I), \
   _______, _______, _______, _______, _______, _______, _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   LCA(KC_ENT), \
   _______, _______, _______, _______, _______, _______, _______,   _______,   RGB_M_K,   RGB_M_B,   RGB_TOG,   _______ \
@@ -172,7 +172,7 @@ void set_adjust(void){
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case _QWERTY:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
           set_qwerty();
@@ -180,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
-    case COLEMAK:
+    case _COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
@@ -188,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
-    case DVORAK:
+    case _DVORAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
@@ -196,7 +196,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
-    case LOWER:
+    case _LOWER:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
           set_lower();
@@ -211,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-    case RAISE:
+    case _RAISE:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
           set_raise();
@@ -226,7 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-    case ADJUST:
+    case _ADJUST:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
           set_adjust();
