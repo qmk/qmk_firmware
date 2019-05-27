@@ -14,8 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef RAINE_H
-#define RAINE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -32,4 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K311,  KC_NO, K312,  K313,  K314,  K315 }, \
 	{ K400,  KC_NO,  K402,  KC_NO, K404,  K405,  KC_NO, K407,  K408,  K409,  K410,  KC_NO, K412,  K413,  K414,  K415 }  \
 }
-#endif

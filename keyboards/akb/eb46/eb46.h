@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef eb46_H
-#define eb46_H
-
+#pragma once
 #include "quantum.h"
 
 /* This a shortcut to help you visually see your layout.
@@ -40,5 +38,3 @@
 	{k200, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, xxx},\
 	{k300, k30, k31, k32, k33, xxx, xxx, k36, xxx, k38, k39, k3a, xxx} \
 }
-
-#endif
