@@ -85,7 +85,7 @@
     E__NOTE(_CS7),     \
     E__NOTE(_E6 ),     \
     E__NOTE(_A6 ),     \
-    M__NOTE(_CS7, 20),
+    M__NOTE(_CS7, 21),
 
 #define PREONIC_SOUND \
     M__NOTE(_B5, 20),  \
