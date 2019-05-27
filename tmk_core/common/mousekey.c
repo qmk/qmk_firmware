@@ -36,6 +36,7 @@ static report_mouse_t mouse_wheel_report = {0};
 static void mousekey_debug(void);
 static uint8_t mousekey_accel = 0;
 static uint8_t mousekey_repeat =  0;
+static uint8_t mousekey_wheel_repeat = 0;
 static uint16_t last_timer = 0;
 static uint16_t last_wheel_timer = 0;
 
@@ -91,19 +92,19 @@ static uint8_t wheel_unit(void) {
     unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
   } else if (mousekey_accel & (1<<2)) {
     unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
-  } else if (mousekey_repeat == 0) {
+  } else if (mousekey_wheel_repeat == 0) {
     unit = MOUSEKEY_WHEEL_DELTA;
-  } else if (mousekey_repeat >= mk_wheel_time_to_max) {
+  } else if (mousekey_wheel_repeat >= mk_wheel_time_to_max) {
     unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
   } else {
-    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_wheel_repeat) / mk_wheel_time_to_max;
   }
   return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
 void mousekey_task(void) {
   if (timer_elapsed(last_timer) >= (mousekey_repeat ? mk_interval : mk_delay*10)) {
-    if (mouse_report.x || mouse_report.y || mouse_report.v || mouse_report.h) {
+    if (mouse_report.x || mouse_report.y) {
       if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
       if (mouse_report.x > 0) mouse_report.x = move_unit();
       if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
@@ -116,11 +117,17 @@ void mousekey_task(void) {
         mouse_report.y = times_inv_sqrt2(mouse_report.y);
         if (mouse_report.y == 0) { mouse_report.y = 1; }
       }
+      mousekey_send_mouse();
+    }
+  }
+  if (timer_elapsed(last_wheel_timer) >= (mousekey_wheel_repeat ? mk_interval : mk_delay*10)) {
+    if (mouse_wheel_report.v || mouse_wheel_report.h) {
+      if (mousekey_wheel_repeat != UINT8_MAX) mousekey_wheel_repeat++;
       if (mouse_wheel_report.v > 0) mouse_wheel_report.v = wheel_unit();
       if (mouse_wheel_report.v < 0) mouse_wheel_report.v = wheel_unit() * -1;
       if (mouse_wheel_report.h > 0) mouse_wheel_report.h = wheel_unit();
       if (mouse_wheel_report.h < 0) mouse_wheel_report.h = wheel_unit() * -1;
-      mousekey_send();
+      mousekey_send_wheel();
     }
   }
 }
@@ -161,8 +168,10 @@ void mousekey_off(uint8_t code) {
   else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
   else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
   else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
-  if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
+  if (mouse_report.x == 0 && mouse_report.y == 0)
     mousekey_repeat = 0;
+  if (mouse_report.v == 0 && mouse_report.h == 0)
+    mousekey_wheel_repeat = 0;
 }
 
 
@@ -309,6 +318,7 @@ void mousekey_clear(void) {
   mouse_report = (report_mouse_t){};
   mouse_wheel_report = (report_mouse_t){};
   mousekey_repeat = 0;
+  mousekey_wheel_repeat = 0;
   mousekey_accel = 0;
 }
 
