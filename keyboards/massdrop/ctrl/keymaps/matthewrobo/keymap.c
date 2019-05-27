@@ -217,7 +217,7 @@ void rgb_matrix_indicators_user(void)
 void matrix_init_user(void)
 {
 	autoshift_disable();
-	rgb_matrix_sethsv(128, 255, 255)
+	rgb_matrix_sethsv(128, 255, 255);
 	// rgb_matrix_sethsv(192, 112, 255);
 	// rgb_matrix_mode(4);
 };
