@@ -77,165 +77,75 @@ bool glissando = true;
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
-static void gpt_cb8(GPTDriver *gptp);
-
 #define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #define DAC_SAMPLE_MAX  65535U
 #endif
 
-#define START_CHANNEL_1() gptStart(&GPTD6, &gpt6cfg1); \
-    gptStartContinuous(&GPTD6, 2U)
-#define START_CHANNEL_2() gptStart(&GPTD7, &gpt7cfg1); \
-    gptStartContinuous(&GPTD7, 2U)
-#define STOP_CHANNEL_1() gptStopTimer(&GPTD6)
-#define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
-#define RESTART_CHANNEL_1() STOP_CHANNEL_1(); \
-    START_CHANNEL_1()
-#define RESTART_CHANNEL_2() STOP_CHANNEL_2(); \
-    START_CHANNEL_2()
-#define UPDATE_CHANNEL_1_FREQ(freq) gpt6cfg1.frequency = freq * DAC_BUFFER_SIZE; \
-    RESTART_CHANNEL_1()
-#define UPDATE_CHANNEL_2_FREQ(freq) gpt7cfg1.frequency = freq * DAC_BUFFER_SIZE; \
-    RESTART_CHANNEL_2()
-#define GET_CHANNEL_1_FREQ (uint16_t)(gpt6cfg1.frequency * DAC_BUFFER_SIZE)
-#define GET_CHANNEL_2_FREQ (uint16_t)(gpt7cfg1.frequency * DAC_BUFFER_SIZE)
-
-
-/*
- * GPT6 configuration.
- */
-// static const GPTConfig gpt6cfg1 = {
-//   .frequency    = 1000000U,
-//   .callback     = NULL,
-//   .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-//   .dier         = 0U
-// };
-
 GPTConfig gpt6cfg1 = {
-  .frequency    = 440U*DAC_BUFFER_SIZE,
+  .frequency    = 44100U,
   .callback     = NULL,
   .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
   .dier         = 0U
 };
 
-GPTConfig gpt7cfg1 = {
-  .frequency    = 440U*DAC_BUFFER_SIZE,
-  .callback     = NULL,
-  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-  .dier         = 0U
-};
-
-GPTConfig gpt8cfg1 = {
-  .frequency    = 10,
-  .callback     = gpt_cb8,
-  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-  .dier         = 0U
-};
-
-
-/*
- * DAC test buffer (sine wave).
- */
-// static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
-//   2047, 2082, 2118, 2154, 2189, 2225, 2260, 2296, 2331, 2367, 2402, 2437,
-//   2472, 2507, 2542, 2576, 2611, 2645, 2679, 2713, 2747, 2780, 2813, 2846,
-//   2879, 2912, 2944, 2976, 3008, 3039, 3070, 3101, 3131, 3161, 3191, 3221,
-//   3250, 3278, 3307, 3335, 3362, 3389, 3416, 3443, 3468, 3494, 3519, 3544,
-//   3568, 3591, 3615, 3637, 3660, 3681, 3703, 3723, 3744, 3763, 3782, 3801,
-//   3819, 3837, 3854, 3870, 3886, 3902, 3917, 3931, 3944, 3958, 3970, 3982,
-//   3993, 4004, 4014, 4024, 4033, 4041, 4049, 4056, 4062, 4068, 4074, 4078,
-//   4082, 4086, 4089, 4091, 4092, 4093, 4094, 4093, 4092, 4091, 4089, 4086,
-//   4082, 4078, 4074, 4068, 4062, 4056, 4049, 4041, 4033, 4024, 4014, 4004,
-//   3993, 3982, 3970, 3958, 3944, 3931, 3917, 3902, 3886, 3870, 3854, 3837,
-//   3819, 3801, 3782, 3763, 3744, 3723, 3703, 3681, 3660, 3637, 3615, 3591,
-//   3568, 3544, 3519, 3494, 3468, 3443, 3416, 3389, 3362, 3335, 3307, 3278,
-//   3250, 3221, 3191, 3161, 3131, 3101, 3070, 3039, 3008, 2976, 2944, 2912,
-//   2879, 2846, 2813, 2780, 2747, 2713, 2679, 2645, 2611, 2576, 2542, 2507,
-//   2472, 2437, 2402, 2367, 2331, 2296, 2260, 2225, 2189, 2154, 2118, 2082,
-//   2047, 2012, 1976, 1940, 1905, 1869, 1834, 1798, 1763, 1727, 1692, 1657,
-//   1622, 1587, 1552, 1518, 1483, 1449, 1415, 1381, 1347, 1314, 1281, 1248,
-//   1215, 1182, 1150, 1118, 1086, 1055, 1024,  993,  963,  933,  903,  873,
-//    844,  816,  787,  759,  732,  705,  678,  651,  626,  600,  575,  550,
-//    526,  503,  479,  457,  434,  413,  391,  371,  350,  331,  312,  293,
-//    275,  257,  240,  224,  208,  192,  177,  163,  150,  136,  124,  112,
-//    101,   90,   80,   70,   61,   53,   45,   38,   32,   26,   20,   16,
-//     12,    8,    5,    3,    2,    1,    0,    1,    2,    3,    5,    8,
-//     12,   16,   20,   26,   32,   38,   45,   53,   61,   70,   80,   90,
-//    101,  112,  124,  136,  150,  163,  177,  192,  208,  224,  240,  257,
-//    275,  293,  312,  331,  350,  371,  391,  413,  434,  457,  479,  503,
-//    526,  550,  575,  600,  626,  651,  678,  705,  732,  759,  787,  816,
-//    844,  873,  903,  933,  963,  993, 1024, 1055, 1086, 1118, 1150, 1182,
-//   1215, 1248, 1281, 1314, 1347, 1381, 1415, 1449, 1483, 1518, 1552, 1587,
-//   1622, 1657, 1692, 1727, 1763, 1798, 1834, 1869, 1905, 1940, 1976, 2012
-// };
-
-// static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
-//     12,    8,    5,    3,    2,    1,    0,    1,    2,    3,    5,    8,
-//     12,   16,   20,   26,   32,   38,   45,   53,   61,   70,   80,   90,
-//    101,  112,  124,  136,  150,  163,  177,  192,  208,  224,  240,  257,
-//    275,  293,  312,  331,  350,  371,  391,  413,  434,  457,  479,  503,
-//    526,  550,  575,  600,  626,  651,  678,  705,  732,  759,  787,  816,
-//    844,  873,  903,  933,  963,  993, 1024, 1055, 1086, 1118, 1150, 1182,
-//   1215, 1248, 1281, 1314, 1347, 1381, 1415, 1449, 1483, 1518, 1552, 1587,
-//   1622, 1657, 1692, 1727, 1763, 1798, 1834, 1869, 1905, 1940, 1976, 2012,
-//   2047, 2082, 2118, 2154, 2189, 2225, 2260, 2296, 2331, 2367, 2402, 2437,
-//   2472, 2507, 2542, 2576, 2611, 2645, 2679, 2713, 2747, 2780, 2813, 2846,
-//   2879, 2912, 2944, 2976, 3008, 3039, 3070, 3101, 3131, 3161, 3191, 3221,
-//   3250, 3278, 3307, 3335, 3362, 3389, 3416, 3443, 3468, 3494, 3519, 3544,
-//   3568, 3591, 3615, 3637, 3660, 3681, 3703, 3723, 3744, 3763, 3782, 3801,
-//   3819, 3837, 3854, 3870, 3886, 3902, 3917, 3931, 3944, 3958, 3970, 3982,
-//   3993, 4004, 4014, 4024, 4033, 4041, 4049, 4056, 4062, 4068, 4074, 4078,
-//   4082, 4086, 4089, 4091, 4092, 4093, 4094, 4093, 4092, 4091, 4089, 4086,
-//   4082, 4078, 4074, 4068, 4062, 4056, 4049, 4041, 4033, 4024, 4014, 4004,
-//   3993, 3982, 3970, 3958, 3944, 3931, 3917, 3902, 3886, 3870, 3854, 3837,
-//   3819, 3801, 3782, 3763, 3744, 3723, 3703, 3681, 3660, 3637, 3615, 3591,
-//   3568, 3544, 3519, 3494, 3468, 3443, 3416, 3389, 3362, 3335, 3307, 3278,
-//   3250, 3221, 3191, 3161, 3131, 3101, 3070, 3039, 3008, 2976, 2944, 2912,
-//   2879, 2846, 2813, 2780, 2747, 2713, 2679, 2645, 2611, 2576, 2542, 2507,
-//   2472, 2437, 2402, 2367, 2331, 2296, 2260, 2225, 2189, 2154, 2118, 2082,
-//   2047, 2012, 1976, 1940, 1905, 1869, 1834, 1798, 1763, 1727, 1692, 1657,
-//   1622, 1587, 1552, 1518, 1483, 1449, 1415, 1381, 1347, 1314, 1281, 1248,
-//   1215, 1182, 1150, 1118, 1086, 1055, 1024,  993,  963,  933,  903,  873,
-//    844,  816,  787,  759,  732,  705,  678,  651,  626,  600,  575,  550,
-//    526,  503,  479,  457,  434,  413,  391,  371,  350,  331,  312,  293,
-//    275,  257,  240,  224,  208,  192,  177,  163,  150,  136,  124,  112,
-//    101,   90,   80,   70,   61,   53,   45,   38,   32,   26,   20,   16
-// };
-
-// squarewave
 static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
   // First half is max, second half is 0
-  [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
-  [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
+  // [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
+  // [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
+
+  // max 65535
+  // 0x8000,0x8809,0x900a,0x97fc,0x9fd4,0xa78d,0xaf1e,0xb67f,
+  // 0xbda9,0xc495,0xcb3c,0xd196,0xd79e,0xdd4e,0xe29f,0xe78d,
+  // 0xec12,0xf02a,0xf3d0,0xf702,0xf9bb,0xfbfa,0xfdbb,0xfefd,
+  // 0xffbe,0xffff,0xffbe,0xfefd,0xfdbb,0xfbfa,0xf9bb,0xf702,
+  // 0xf3d0,0xf02a,0xec12,0xe78d,0xe29f,0xdd4e,0xd79e,0xd196,
+  // 0xcb3c,0xc495,0xbda9,0xb67f,0xaf1e,0xa78d,0x9fd4,0x97fc,
+  // 0x900a,0x8809,0x8000,0x77f6,0x6ff5,0x6803,0x602b,0x5872,
+  // 0x50e1,0x4980,0x4256,0x3b6a,0x34c3,0x2e69,0x2861,0x22b1,
+  // 0x1d60,0x1872,0x13ed,0xfd5,0xc2f,0x8fd,0x644,0x405,
+  // 0x244,0x102,0x41,0x0,0x41,0x102,0x244,0x405,
+  // 0x644,0x8fd,0xc2f,0xfd5,0x13ed,0x1872,0x1d60,0x22b1,
+  // 0x2861,0x2e69,0x34c3,0x3b6a,0x4256,0x4980,0x50e1,0x5872,
+  // 0x602b,0x6803,0x6ff5,0x77f6
+
+
+  // max 4095
+  0x800,0x880,0x900,0x97f,0x9fd,0xa78,0xaf1,0xb67,
+  0xbda,0xc49,0xcb3,0xd19,0xd79,0xdd4,0xe29,0xe78,
+  0xec0,0xf02,0xf3c,0xf6f,0xf9b,0xfbf,0xfdb,0xfef,
+  0xffb,0xfff,0xffb,0xfef,0xfdb,0xfbf,0xf9b,0xf6f,
+  0xf3c,0xf02,0xec0,0xe78,0xe29,0xdd4,0xd79,0xd19,
+  0xcb3,0xc49,0xbda,0xb67,0xaf1,0xa78,0x9fd,0x97f,
+  0x900,0x880,0x800,0x77f,0x6ff,0x680,0x602,0x587,
+  0x50e,0x498,0x425,0x3b6,0x34c,0x2e6,0x286,0x22b,
+  0x1d6,0x187,0x13f,0xfd,0xc3,0x90,0x64,0x40,
+  0x24,0x10,0x4,0x0,0x4,0x10,0x24,0x40,
+  0x64,0x90,0xc3,0xfd,0x13f,0x187,0x1d6,0x22b,
+  0x286,0x2e6,0x34c,0x3b6,0x425,0x498,0x50e,0x587,
+  0x602,0x680,0x6ff,0x77f
 };
 
-// squarewave
-static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
-  // opposite of dac_buffer above
-  [0                 ... DAC_BUFFER_SIZE/2-1] = 0,
-  [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = DAC_SAMPLE_MAX,
-};
+dacsample_t dac_buffer_lr[1];
+
+int dac_i = 0;
+int dac_j = 0;
 
 /*
  * DAC streaming callback.
  */
-size_t nx = 0, ny = 0, nz = 0;
-static void end_cb1(DACDriver *dacp, dacsample_t *buffer, size_t n) {
+static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t pos) {
 
   (void)dacp;
+  (void)pos;
 
-  nz++;
-  if (dac_buffer == buffer) {
-    nx += n;
-  }
-  else {
-    ny += n;
-  }
+  //for (uint8_t i = 0; i < DAC_BUFFER_SIZE; i++) {
+    samples[0] = (dac_buffer[dac_i] + dac_buffer[dac_j]) / 2;
+  //}
 
-  if ((nz % 1000) == 0) {
-    // palTogglePad(GPIOD, GPIOD_LED3);
-  }
+  dac_i = (dac_i + (uint32_t)round(880.0 / 300)) % DAC_BUFFER_SIZE;
+  dac_j = (dac_j + (uint32_t)round(2217.46 / 300)) % DAC_BUFFER_SIZE;
+
 }
 
 /*
@@ -261,18 +171,6 @@ static const DACConversionGroup dacgrpcfg1 = {
   .trigger      = DAC_TRG(0)
 };
 
-static const DACConfig dac1cfg2 = {
-  .init         = DAC_SAMPLE_MAX,
-  .datamode     = DAC_DHRM_12BIT_RIGHT
-};
-
-static const DACConversionGroup dacgrpcfg2 = {
-  .num_channels = 1U,
-  .end_cb       = end_cb1,
-  .error_cb     = error_cb1,
-  .trigger      = DAC_TRG(0)
-};
-
 void audio_init() {
 
   if (audio_initialized) {
@@ -292,26 +190,15 @@ void audio_init() {
   #endif
 #endif // ARM EEPROM
 
-  /*
-   * Starting DAC1 driver, setting up the output pin as analog as suggested
-   * by the Reference Manual.
-   */
-  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
-  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
+  palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL );
+  palSetPad(GPIOA, 5);
+
   dacStart(&DACD1, &dac1cfg1);
-  dacStart(&DACD2, &dac1cfg2);
+  dacStartConversion(&DACD1, &dacgrpcfg1, dac_buffer_lr, 1);
 
-  /*
-   * Starting GPT6/7 driver, it is used for triggering the DAC.
-   */
-  START_CHANNEL_1();
-  START_CHANNEL_2();
-
-  /*
-   * Starting a continuous conversion.
-   */
-  dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE);
-  dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
+  gptStart(&GPTD6, &gpt6cfg1);
+  gptStartContinuous(&GPTD6, 2U);
 
   audio_initialized = true;
 
@@ -331,8 +218,6 @@ void stop_all_notes() {
     }
     voices = 0;
 
-    gptStopTimer(&GPTD6);
-    gptStopTimer(&GPTD7);
     gptStopTimer(&GPTD8);
 
     playing_notes = false;
@@ -376,8 +261,6 @@ void stop_note(float freq) {
       voice_place = 0;
     }
     if (voices == 0) {
-      STOP_CHANNEL_1();
-      STOP_CHANNEL_2();
       gptStopTimer(&GPTD8);
       frequency = 0;
       frequency_alt = 0;
@@ -406,196 +289,6 @@ float vibrato(float average_freq) {
 
 #endif
 
-static void gpt_cb8(GPTDriver *gptp) {
-  float freq;
-
-  if (playing_note) {
-    if (voices > 0) {
-
-      float freq_alt = 0;
-      if (voices > 1) {
-        if (polyphony_rate == 0) {
-          if (glissando) {
-            if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
-              frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
-            } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
-              frequency_alt = frequency_alt * pow(2, -440/frequency_alt/12/2);
-            } else {
-              frequency_alt = frequencies[voices - 2];
-            }
-          } else {
-            frequency_alt = frequencies[voices - 2];
-          }
-
-          #ifdef VIBRATO_ENABLE
-            if (vibrato_strength > 0) {
-              freq_alt = vibrato(frequency_alt);
-            } else {
-              freq_alt = frequency_alt;
-            }
-          #else
-            freq_alt = frequency_alt;
-          #endif
-        }
-
-        if (envelope_index < 65535) {
-          envelope_index++;
-        }
-
-        freq_alt = voice_envelope(freq_alt);
-
-        if (freq_alt < 30.517578125) {
-          freq_alt = 30.52;
-        }
-
-        if (GET_CHANNEL_2_FREQ != (uint16_t)freq_alt) {
-          UPDATE_CHANNEL_2_FREQ(freq_alt);
-        } else {
-          RESTART_CHANNEL_2();
-        }
-        //note_timbre;
-      }
-
-      if (polyphony_rate > 0) {
-        if (voices > 1) {
-          voice_place %= voices;
-          if (place++ > (frequencies[voice_place] / polyphony_rate)) {
-            voice_place = (voice_place + 1) % voices;
-            place = 0.0;
-          }
-        }
-
-        #ifdef VIBRATO_ENABLE
-          if (vibrato_strength > 0) {
-              freq = vibrato(frequencies[voice_place]);
-          } else {
-              freq = frequencies[voice_place];
-          }
-        #else
-          freq = frequencies[voice_place];
-        #endif
-      } else {
-        if (glissando) {
-          if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
-            frequency = frequency * pow(2, 440/frequency/12/2);
-          } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
-            frequency = frequency * pow(2, -440/frequency/12/2);
-          } else {
-            frequency = frequencies[voices - 1];
-          }
-        } else {
-          frequency = frequencies[voices - 1];
-        }
-
-        #ifdef VIBRATO_ENABLE
-          if (vibrato_strength > 0) {
-            freq = vibrato(frequency);
-          } else {
-            freq = frequency;
-          }
-        #else
-          freq = frequency;
-        #endif
-      }
-
-      if (envelope_index < 65535) {
-        envelope_index++;
-      }
-
-      freq = voice_envelope(freq);
-
-      if (freq < 30.517578125) {
-        freq = 30.52;
-      }
-
-
-      if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-        UPDATE_CHANNEL_1_FREQ(freq);
-      } else {
-        RESTART_CHANNEL_1();
-      }
-      //note_timbre;
-    }
-  }
-
-  if (playing_notes) {
-    if (note_frequency > 0) {
-      #ifdef VIBRATO_ENABLE
-        if (vibrato_strength > 0) {
-          freq = vibrato(note_frequency);
-        } else {
-          freq = note_frequency;
-        }
-      #else
-        freq = note_frequency;
-      #endif
-
-      if (envelope_index < 65535) {
-        envelope_index++;
-      }
-      freq = voice_envelope(freq);
-
-
-      if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-        UPDATE_CHANNEL_1_FREQ(freq);
-        UPDATE_CHANNEL_2_FREQ(freq);
-      }
-      //note_timbre;
-    } else {
-        // gptStopTimer(&GPTD6);
-        // gptStopTimer(&GPTD7);
-    }
-
-    note_position++;
-    bool end_of_note = false;
-    if (GET_CHANNEL_1_FREQ > 0) {
-      if (!note_resting)
-        end_of_note = (note_position >= (note_length*8 - 1));
-      else
-        end_of_note = (note_position >= (note_length*8));
-    } else {
-      end_of_note = (note_position >= (note_length*8));
-    }
-
-    if (end_of_note) {
-      current_note++;
-      if (current_note >= notes_count) {
-        if (notes_repeat) {
-          current_note = 0;
-        } else {
-          STOP_CHANNEL_1();
-          STOP_CHANNEL_2();
-          // gptStopTimer(&GPTD8);
-          playing_notes = false;
-          return;
-        }
-      }
-      if (!note_resting) {
-        note_resting = true;
-        current_note--;
-        if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-          note_frequency = 0;
-          note_length = 1;
-        } else {
-          note_frequency = (*notes_pointer)[current_note][0];
-          note_length = 1;
-        }
-      } else {
-        note_resting = false;
-        envelope_index = 0;
-        note_frequency = (*notes_pointer)[current_note][0];
-        note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-      }
-
-      note_position = 0;
-    }
-  }
-
-  if (!audio_config.enable) {
-    playing_notes = false;
-    playing_note = false;
-  }
-}
 
 void play_note(float freq, int vol) {
 
@@ -622,10 +315,6 @@ void play_note(float freq, int vol) {
       voices++;
     }
 
-    gptStart(&GPTD8, &gpt8cfg1);
-    gptStartContinuous(&GPTD8, 2U);
-    RESTART_CHANNEL_1();
-    RESTART_CHANNEL_2();
   }
 
 }
@@ -656,10 +345,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
     note_position = 0;
 
-    gptStart(&GPTD8, &gpt8cfg1);
-    gptStartContinuous(&GPTD8, 2U);
-    RESTART_CHANNEL_1();
-    RESTART_CHANNEL_2();
   }
 }
 
