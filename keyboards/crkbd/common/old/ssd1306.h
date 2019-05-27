@@ -1,10 +1,12 @@
-#ifndef SSD1306_H
-#define SSD1306_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdio.h>
 #include "pincontrol.h"
 #include "action.h"
+#ifdef PROTOCOL_LUFA
+  #include "lufa.h"
+#endif
 
 enum ssd1306_cmds {
   DisplayOff = 0xAE,
@@ -85,9 +87,8 @@ void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
+void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_P(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
 
 bool process_record_gfx(uint16_t keycode, keyrecord_t *record);
-
-#endif

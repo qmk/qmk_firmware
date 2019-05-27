@@ -80,8 +80,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#ifdef SSD1306OLED
 #define USE_I2C
-#endif
-
 #define USE_SERIAL

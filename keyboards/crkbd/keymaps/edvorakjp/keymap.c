@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-#ifdef PROTOCOL_LUFA
-  #include "split_util.h"
-#endif
 #ifdef SSD1306OLED
   #include "oled.h"
 #endif
@@ -67,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_keymap(void) {
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef MASTER_RIGHT
-  iota_gfx_init(has_usb()); // turns on the display
+  iota_gfx_init(is_master); // turns on the display
 #else
-  iota_gfx_init(!has_usb());
+  iota_gfx_init(!is_master);
 #endif // MASTER_RIGHT
 }
 

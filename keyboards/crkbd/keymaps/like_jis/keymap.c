@@ -1,17 +1,14 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 #include "oled_helper.h"
 
 extern keymap_config_t keymap_config;
 
-extern uint8_t is_master;
+extern bool is_master;
+
+#ifdef RGBLIGHT_ENABLE
+//Following line allows macro to read current RGB settings
+extern rgblight_config_t rgblight_config;
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -240,7 +237,7 @@ void matrix_init_user(void) {
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb()); // turns on the display
+    iota_gfx_init(!is_master); // turns on the display
   #endif
 }
 

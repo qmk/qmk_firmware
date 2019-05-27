@@ -28,5 +28,5 @@ ifeq ($(strip $(Link_Time_Optimization)),yes)
 endif
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/glcdfont.c \
+SRC += ./common/old/ssd1306.c \
         oled_helper.c \

@@ -1,6 +1,6 @@
 #ifdef SSD1306OLED
 #include QMK_KEYBOARD_H
-#include "ssd1306.h"
+#include "./common/old/ssd1306.h"
 
 void render_logo(struct CharacterMatrix *matrix) {
 

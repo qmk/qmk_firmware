@@ -1,12 +1,7 @@
 #ifdef SSD1306OLED
 #include QMK_KEYBOARD_H
-#include "ssd1306.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
 
-extern uint8_t is_master;
+extern bool is_master;
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
@@ -47,7 +42,7 @@ void update_keymap_status(void) {
 #endif
 
 void matrix_init_user(void) {
-  iota_gfx_init(!has_usb()); // turns on the display
+  iota_gfx_init(!is_master); // turns on the display
   update_keymap_status();
 }
 
