@@ -13,19 +13,14 @@ extern keymap_config_t keymap_config;
 #define _RAISE 4
 #define _ADJUST 16
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-  ADJUST,
-  SH_GOUP,
+enum layer_names {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 //Tap Dance Declarations
 enum {
