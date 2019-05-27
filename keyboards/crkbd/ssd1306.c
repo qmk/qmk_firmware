@@ -1,7 +1,7 @@
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "print.h"
 #ifdef ADAFRUIT_BLE_ENABLE
@@ -26,7 +26,7 @@ extern const unsigned char font[] PROGMEM;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 
 // 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
+// so this must be less than 65535
 #define ScreenOffInterval 60000 /* milliseconds */
 #if DEBUG_TO_SCREEN
 static uint8_t displaying;
@@ -40,24 +40,24 @@ static bool force_dirty = true;
 static inline bool _send_cmd1(uint8_t cmd) {
   bool res = false;
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_start(SSD1306_ADDRESS, 100)) {
     xprintf("failed to start write to %d\n", SSD1306_ADDRESS);
     goto done;
   }
 
-  if (i2c_master_write(0x0 /* command byte follows */)) {
+  if (i2c_write(0x0 /* command byte follows */, 100)) {
     print("failed to write control byte\n");
 
     goto done;
   }
 
-  if (i2c_master_write(cmd)) {
+  if (i2c_write(cmd, 100)) {
     xprintf("failed to write command %d\n", cmd);
     goto done;
   }
   res = true;
 done:
-  i2c_master_stop();
+  i2c_stop();
   return res;
 }
 
@@ -94,23 +94,23 @@ static void clear_display(void) {
   send_cmd3(PageAddr, 0, (DisplayHeight / 8) - 1);
   send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_start(SSD1306_ADDRESS, 100)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_write(0x40, 100)) {
     // Data mode
     goto done;
   }
   for (uint8_t row = 0; row < MatrixRows; ++row) {
     for (uint8_t col = 0; col < DisplayWidth; ++col) {
-      i2c_master_write(0);
+      i2c_write(0, 100);
     }
   }
 
   display.dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_stop();
 }
 
 #if DEBUG_TO_SCREEN
@@ -129,7 +129,7 @@ static int8_t capture_sendchar(uint8_t c) {
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
-  i2c_master_init();
+  i2c_init();
   send_cmd1(DisplayOff);
   send_cmd2(SetDisplayClockDiv, 0x80);
   send_cmd2(SetMultiPlex, DisplayHeight - 1);
@@ -284,10 +284,10 @@ void matrix_render(struct CharacterMatrix *matrix) {
   send_cmd3(PageAddr, 0, MatrixRows - 1);
   send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_write(SSD1306_ADDRESS, 100)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_write(0x40, 100)) {
     // Data mode
     goto done;
   }
@@ -298,7 +298,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
+        i2c_write(colBits, 100);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
@@ -309,7 +309,7 @@ void matrix_render(struct CharacterMatrix *matrix) {
   matrix->dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_stop();
 #if DEBUG_TO_SCREEN
   --displaying;
 #endif
