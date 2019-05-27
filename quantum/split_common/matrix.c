@@ -235,7 +235,7 @@ void matrix_post_scan(void) {
     if (is_keyboard_master()) {
         static uint8_t error_count;
 
-        if (!transport_master(matrix + thatHand)) {
+        if (!transport_master(matrix + thisHand, matrix + thatHand)) {
             error_count++;
 
             if (error_count > ERROR_DISCONNECT_COUNT) {
@@ -250,11 +250,8 @@ void matrix_post_scan(void) {
 
         matrix_scan_quantum();
     } else {
-        transport_slave(matrix + thisHand);
-#ifdef ENCODER_ENABLE
-        encoder_read();
-#endif
-        matrix_slave_scan_user();
+        transport_slave(matrix + thatHand, matrix + thisHand);
+        matrix_scan_quantum();
     }
 }
 

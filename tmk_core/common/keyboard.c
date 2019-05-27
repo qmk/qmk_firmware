@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #include "keycode.h"
 #include "timer.h"
+#include "sync_timer.h"
 #include "print.h"
 #include "debug.h"
 #include "command.h"
@@ -213,12 +214,22 @@ void keyboard_setup(void) {
  */
 __attribute__((weak)) bool is_keyboard_master(void) { return true; }
 
+/** \brief is_keyboard_left
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak))
+bool is_keyboard_left(void) {
+    return true;
+}
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
  */
 void keyboard_init(void) {
     timer_init();
+    sync_timer_init();
     matrix_init();
 #ifdef VIA_ENABLE
     via_init();
@@ -292,7 +303,7 @@ void keyboard_task(void) {
     matrix_scan();
 #endif
 
-    if (is_keyboard_master()) {
+    //if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
             matrix_row    = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
@@ -321,7 +332,7 @@ void keyboard_task(void) {
                 }
             }
         }
-    }
+    //}
     // call with pseudo tick event when no real key event.
 #ifdef QMK_KEYS_PER_SCAN
     // we can get here with some keys processed now.
