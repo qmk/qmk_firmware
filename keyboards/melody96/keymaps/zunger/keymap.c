@@ -173,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // These are where we remember the values of lock states.
   static bool shift_lock = false;
-  static uint32_t layer_lock = _QWERTY;
+  static int layer_lock = _QWERTY;
 
   // Process any modifier key presses.
   if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
@@ -192,7 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // Now, handle the lock keys. We store next_layer_lock in a local variable so that we can
   // determine the layer to pick right now before we update layer_lock.
-  uint32_t next_layer_lock = layer_lock;
+  int next_layer_lock = layer_lock;
   if (keycode == KC_CAPS) {
     // If we're in QWERTY mode, caps lock is already going to be managed by the host OS, but by
     // tracking it ourselves we can also usefully apply it to the GREEK and CADET layers.
@@ -215,7 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // We can compute our new base layer. Remember that the CADET and GREEK keys act as their own
   // antonyms if they match the layer lock -- e.g., if you have CADET locked, then CADET+X generates
   // QWERTY-X.
-  uint32_t base_layer;
+  int base_layer;
   if (cadet_request) {
     base_layer = (layer_lock == _CADET ? _QWERTY : _CADET);
   } else if (greek_request) {
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   const bool shifted = (shift_held != shift_lock);
-  uint32_t actual_layer;
+  int actual_layer;
   if (base_layer == _CADET) {
     actual_layer = (shifted ? _SHIFTCADET : _CADET);
   } else if (base_layer == _GREEK) {
@@ -238,7 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // And now we can update the layer lock and the actual firmware layer selector.
   layer_lock = next_layer_lock;
-  uint32_t new_layer_state = (layer_state & LAYER_MASK) | (1UL << actual_layer);
+  layer_state_t new_layer_state = (layer_state & LAYER_MASK) | (1UL << actual_layer);
   if (new_layer_state != layer_state) {
     layer_state_set(new_layer_state);
   }
