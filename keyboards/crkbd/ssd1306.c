@@ -1,9 +1,15 @@
+
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
+#ifndef LOCAL_GLCDFONT
+#include "common/glcdfont.c"
+#else
+#include <helixfont.h>
+#endif
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif
@@ -12,8 +18,6 @@
 #endif
 #include "sendchar.h"
 #include "timer.h"
-
-extern const unsigned char font[] PROGMEM;
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
@@ -236,12 +240,6 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
     matrix_write_char(matrix, *data);
     ++data;
   }
-}
-
-void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  char data_ln[strlen(data)+2];
-  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
-  matrix_write(matrix, data_ln);
 }
 
 void iota_gfx_write(const char *data) {

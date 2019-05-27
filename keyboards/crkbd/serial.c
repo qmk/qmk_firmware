@@ -71,8 +71,8 @@
 #endif
 
 //////////////// for backward compatibility ////////////////////////////////
-#ifndef SERIAL_USE_MULTI_TRANSACTION
-/* --- USE Simple API (OLD API, compatible with let's split serial.c) */
+#if !defined(SERIAL_USE_SINGLE_TRANSACTION) && !defined(SERIAL_USE_MULTI_TRANSACTION)
+/* --- USE OLD API (compatible with let's split serial.c) */
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
   uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
   #endif
@@ -112,7 +112,7 @@ int serial_update_buffers()
     return result;
 }
 
-#endif // end of Simple API (OLD API, compatible with let's split serial.c)
+#endif // end of OLD API (compatible with let's split serial.c)
 ////////////////////////////////////////////////////////////////////////////
 
 #define ALWAYS_INLINE __attribute__((always_inline))

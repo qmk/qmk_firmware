@@ -15,31 +15,36 @@
 //                                               //  4: about 26kbps
 //                                               //  5: about 20kbps
 //
-// //// USE Simple API (OLD API, compatible with let's split serial.c)
+// //// USE OLD API (compatible with let's split serial.c)
 // ex.
 //  #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
 //  #define SERIAL_MASTER_BUFFER_LENGTH 1
 //
-// //// USE flexible API (using multi-type transaction function)
-//  #define SERIAL_USE_MULTI_TRANSACTION
+// //// USE NEW API
+//    //// USE simple API (using signle-type transaction function)
+//      #define SERIAL_USE_SINGLE_TRANSACTION
+//    //// USE flexible API (using multi-type transaction function)
+//      #define SERIAL_USE_MULTI_TRANSACTION
 //
 // /////////////////////////////////////////////////////////////////
 
 
-#ifndef SERIAL_USE_MULTI_TRANSACTION
-/* --- USE Simple API (OLD API, compatible with let's split serial.c) */
-#if SERIAL_SLAVE_BUFFER_LENGTH > 0
-extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
-#endif
-#if SERIAL_MASTER_BUFFER_LENGTH > 0
-extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
-#endif
+//////////////// for backward compatibility ////////////////////////////////
+#if !defined(SERIAL_USE_SINGLE_TRANSACTION) && !defined(SERIAL_USE_MULTI_TRANSACTION)
+/* --- USE OLD API (compatible with let's split serial.c) */
+ #if SERIAL_SLAVE_BUFFER_LENGTH > 0
+ extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
+ #endif
+ #if SERIAL_MASTER_BUFFER_LENGTH > 0
+ extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
+ #endif
 
-void serial_master_init(void);
-void serial_slave_init(void);
-int serial_update_buffers(void);
+ void serial_master_init(void);
+ void serial_slave_init(void);
+ int serial_update_buffers(void);
 
-#endif // USE Simple API
+#endif // end of USE OLD API
+////////////////////////////////////////////////////////////////////////////
 
 // Soft Serial Transaction Descriptor
 typedef struct _SSTD_t  {

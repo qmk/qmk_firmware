@@ -7,14 +7,16 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
+#include "config.h"
 
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else
-#  include "split_scomm.h"
+#  include "serial.h"
 #endif
 
 volatile bool isLeftHand = true;
+bool is_master;
 
 static void setup_handedness(void) {
   #ifdef EE_HANDS
@@ -30,7 +32,11 @@ static void setup_handedness(void) {
 }
 
 static void keyboard_master_setup(void) {
-
+#ifdef USE_I2C
+#ifdef SSD1306OLED
+    matrix_master_OLED_init ();
+#endif
+#endif
 #ifdef USE_MATRIX_I2C
     i2c_master_init();
 #else
@@ -39,7 +45,6 @@ static void keyboard_master_setup(void) {
 }
 
 static void keyboard_slave_setup(void) {
-
 #ifdef USE_MATRIX_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
 #else
@@ -58,13 +63,27 @@ void split_keyboard_setup(void) {
 
    if (has_usb()) {
       keyboard_master_setup();
+      is_master = true;
    } else {
       keyboard_slave_setup();
+      is_master = false;
    }
    sei();
+}
+
+void keyboard_slave_loop(void) {
+   matrix_init();
+
+   while (1) {
+      matrix_slave_scan();
+   }
 }
 
 // this code runs before the usb and keyboard is initialized
 void matrix_setup(void) {
     split_keyboard_setup();
+
+    if (!has_usb()) {
+        keyboard_slave_loop();
+    }
 }

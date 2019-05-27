@@ -7,7 +7,7 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
+extern bool is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -26,6 +26,7 @@ enum custom_keycodes {
   BACKLIT,
   RGBRST
 };
+
 
 #define CTLTB CTL_T(KC_TAB)
 #define GUIEI GUI_T(KC_LANG2)
@@ -73,14 +74,69 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
 }
 
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_master) {
+        return OLED_ROTATION_270;
+    } else {
+        return rotation;
+    }
+}
+
+void render_crkbd_logo(void) {
+    static const char PROGMEM crkbd_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(crkbd_logo, false);
+}
+
+#define KEYLOG_LEN 5
+char keylog_str[KEYLOG_LEN] = {};
+uint8_t keylogs_str_idx = 0;
+uint16_t log_timer = 0;
+
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+
+void add_keylog(uint16_t keycode) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
+
+    for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
+        keylog_str[i] = keylog_str[i - 1];
+    }
+    if (keycode < 60) {
+        keylog_str[0] = code_to_name[keycode];
+    }
+    keylog_str[KEYLOG_LEN - 1] = 0;
+
+    log_timer = timer_read();
+}
+
+void update_log(void) {
+    if (timer_elapsed(log_timer) > 750) {
+        add_keylog(0);
+    }
+}
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_DRIVER_ENABLE
+    if (record->event.pressed) {  add_keylog(keycode); }
+#endif
 
   switch (keycode) {
     case QWERTY:

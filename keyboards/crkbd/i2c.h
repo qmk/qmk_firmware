@@ -1,4 +1,5 @@
-#pragma once
+#ifndef I2C_H
+#define I2C_H
 
 #include <stdint.h>
 
@@ -44,3 +45,5 @@ extern unsigned char i2c_readNak(void);
 extern unsigned char i2c_read(unsigned char ack);
 
 #define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak();
+
+#endif
