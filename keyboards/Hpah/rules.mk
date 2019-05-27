@@ -44,7 +44,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+BOOTLOADER = qmk-dfu 
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in 
@@ -65,3 +65,5 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+
+LAYOUTS = ortho_5x4
