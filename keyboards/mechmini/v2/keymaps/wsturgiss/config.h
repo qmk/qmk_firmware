@@ -6,3 +6,6 @@
 #define RSPC_KEY KC_0
 #define DISABLE_SPACE_CADET_ROLLOVER
 
+/* leader stuff */
+#define LEADER_TIMEOUT 300
+#define LEADER_PER_KEY_TIMING 300
