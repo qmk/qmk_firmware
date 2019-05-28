@@ -33,6 +33,7 @@ float frequency_alt = 0;
 int volume = 0;
 long position = 0;
 systime_t last_note_played_at;
+virtual_timer_t play_note_timer;
 
 float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
@@ -82,7 +83,9 @@ float startup_song[][2] = STARTUP_SONG;
 static void gpt_cb8(GPTDriver *gptp);
 static bool should_shutoff_dac(void);
 static void shutoff_dac(void);
+static void shutoff_dac_callback(void *arg);
 
+#define PLAY_NOTE_TIMEOUT MS2ST(5)
 #define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #define DAC_SAMPLE_MAX  65535U
@@ -422,6 +425,8 @@ static void gpt_cb8(GPTDriver *gptp) {
 
   if (playing_note) {
     last_note_played_at = chVTGetSystemTime();
+    chVTReset(&play_note_timer);
+    chVTSet(&play_note_timer, PLAY_NOTE_TIMEOUT, shutoff_dac_callback, NULL);
     if (voices > 0) {
 
       float freq_alt = 0;
@@ -626,6 +631,12 @@ void shutoff_dac() {
   dac_on = false;
 }
 
+void shutoff_dac_callback(void *args) {
+  if(!playing_note) {
+    shutoff_dac();
+  }
+}
+
 void play_note(float freq, int vol) {
 
   dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
@@ -655,6 +666,8 @@ void play_note(float freq, int vol) {
     gptStartContinuous(&GPTD8, 2U);
     RESTART_CHANNEL_1();
     RESTART_CHANNEL_2();
+    chVTReset(&play_note_timer);
+    chVTSet(&play_note_timer, PLAY_NOTE_TIMEOUT, shutoff_dac_callback, NULL);
   }
 
 }
