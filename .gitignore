@@ -56,7 +56,7 @@ util/Win_Check_Output.txt
 .vscode/temp.sql
 .stfolder
 .tags
-.ipch
+*.ipch
 
 # ignore image files
 *.png
