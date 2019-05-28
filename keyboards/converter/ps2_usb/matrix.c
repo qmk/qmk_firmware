@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "ps2.h"
 #include "host.h"
-#include "led.h"
 #include "matrix.h"
 
 static void matrix_make(uint8_t code);

@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
+#include "led.h"
 /*         ,-----------------------------------------------.
  *         |F13|F14|F15|F16|F17|F18|F19|F20|F21|F22|F23|F24|
  * ,---.   |-----------------------------------------------|     ,-----------.     ,-----------.
