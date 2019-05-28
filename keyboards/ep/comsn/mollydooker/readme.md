@@ -1,9 +1,9 @@
 # mollydooker
 
-A southpaw extended 65 replacement PCB with RGB
+A southpaw extended 65 replacement PCB with per key RGB
 
-Keyboard Maintainer: Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23), [/u/e11i0t23](https://reddit.com/u/e11i0t23)  
-Hardware Supported: mollydooker
+Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23), [/u/e11i0t23](https://reddit.com/u/e11i0t23)  
+Hardware Supported: mollydooker  
 Hardware Availability: None
 
 Make example for this keyboard (after setting up your build environment):

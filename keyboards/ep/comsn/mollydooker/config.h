@@ -19,14 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x9696
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Elliot Powell
-#define PRODUCT         mollydooker
-#define DESCRIPTION     Custom southpaw replacement PCB
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x9696
+#define DEVICE_VER 0x0001
+#define MANUFACTURER Elliot Powell
+#define PRODUCT mollydooker
+#define DESCRIPTION Custom southpaw replacement PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -41,9 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/
-#define MATRIX_ROW_PINS { F4, F5, F6, F7, D2 }
-#define MATRIX_COL_PINS { B1, B2, B3, E6, B7, F1, F0, D0, D1, D7, D5, D4, D6, B4, B5, D3, B6, C6, C7 }
+ */
+#define MATRIX_ROW_PINS \
+  { F4, F5, F6, F7, D2 }
+#define MATRIX_COL_PINS \
+  { B1, B2, B3, E6, B7, F1, F0, D0, D1, D7, D5, D4, D6, B4, B5, D3, B6, C6, C7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
@@ -52,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -73,8 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-
-
 
 /*
  * Force NKRO

@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MOLLYDOOKER_H
-#define MOLLYDOOKER_H
-
+#pragma once
 #include "quantum.h"
 
 /* This a shortcut to help you visually see your layout.
@@ -41,5 +39,3 @@
     {K400, K401, K402, k403, k404, k405, k406, k407, k408, k409, k410, k411, k412, k413, k414, xxxx, k416, k417, k418}, \
     {K500, xxxx, K502, xxxx, k504, k505, k506, xxxx, xxxx, k509, xxxx, xxxx, xxxx, k513, k514, xxxx, k516, k517, k518}  \
 }
-
-#endif

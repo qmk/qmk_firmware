@@ -3,7 +3,7 @@
 Hotswap 68% deisnged for the Kayak
 
 Keyboard Maintainer: [e11i0t23](https://github.com/e11i0t23)  
-Hardware Supported: ephs68 pcb. Kayak case kits
+Hardware Supported: ephs68 pcb. Kayak case kits  
 Hardware Availability: None
 
 Make example for this keyboard (after setting up your build environment):

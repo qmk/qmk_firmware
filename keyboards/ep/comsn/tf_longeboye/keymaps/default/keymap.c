@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-  SNIP
-};
-// Defines the keycodes used by our macros in process_record_user
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
 

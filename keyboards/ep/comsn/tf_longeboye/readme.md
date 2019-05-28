@@ -1,7 +1,7 @@
 # TF Longeboye
 
-Keyboard Maintainer: Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23), [/u/e11i0t23](https://reddit.com/u/e11i0t23)  
-Hardware Supported: TF Longeboye
+Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23), [/u/e11i0t23](https://reddit.com/u/e11i0t23)  
+Hardware Supported: TF Longeboye  
 Hardware Availability: None
 
 Make example for this keyboard (after setting up your build environment):

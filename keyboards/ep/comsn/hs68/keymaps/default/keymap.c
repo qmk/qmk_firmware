@@ -25,5 +25,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPACE,                  KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_RIGHT\
     ),
 };
-
-// place overrides here

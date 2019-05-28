@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HS68_H
-#define HS68_H
+#pragma once
 
 #include "quantum.h"
 
@@ -41,5 +40,3 @@
   { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, K3E }, \
   { K40, K41, K42, xxx, xxx, xxx, K46, xxx, xxx, xxx, K4A, K4B, K4C, K4D, K4E }  \
 }
-
-#endif

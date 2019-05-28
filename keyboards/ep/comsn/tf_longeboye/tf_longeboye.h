@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TF_LONGEBOY_H
-#define TF_LONGEBOY_H
+#pragma once
 
 #include "quantum.h"
 
@@ -39,5 +38,3 @@
 	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311, K313,  K314,  K315,  K316, K318,  K319,  }, \
 	{ K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  KC_NO, K410,  K411, K413,  K414,  K415,  K416, K418,  KC_NO, }  \
 }
-
-#endif
