@@ -142,10 +142,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
-  rgblight_enable();
-  rgblight_sethsv_noeeprom(255, 0, 160);
+  rgblight_enable_noeeprom();
+  layer_state_set_user(layer_state);
   #endif
 }
 void set_qwerty(void){
