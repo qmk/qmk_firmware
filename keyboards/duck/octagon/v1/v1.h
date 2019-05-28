@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_75_ansi( \
     K5A, K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M, K5N, K5O, K5P, \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N,      K4P, \
     K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M, K3N,      K3P, \
@@ -32,5 +32,3 @@
   { K1A, K1C, K1D, K1E,   K1F,   K1G, K1H,   K1I,   K1J, K1K, K1L, KC_NO, K1M,   K1N, KC_NO, K1P }, \
   { K0A, K0B, K0C, KC_NO, KC_NO, K0G, KC_NO, KC_NO, K0J, K0K, K0L, KC_NO, K0M,   K0N, KC_NO, K0P }  \
 }
-
-#define LAYOUT_75_ansi LAYOUT
