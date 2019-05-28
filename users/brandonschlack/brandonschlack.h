@@ -3,14 +3,14 @@
 #include "quantum.h"
 
 // Define layer names
-enum layer_names {
-    LB_MAC = 0,
-    LF_MAC,
-    LB_WIN,
-    LF_WIN,
-    LB_NIX,
-    LF_NIX,
-    LK_MGC,
+enum bs_layers {
+    _MAC = 0,
+    _MACFN,
+    _WIN,
+    _WINFN,
+    _NIX,
+    _NIXFN,
+    _ADJUST,
 };
 
 // Config
@@ -31,14 +31,14 @@ enum custom_keycodes {
 
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
-#define TG_MAGC   TG(LK_MGC)
+#define TG_ADJT   TG(_ADJUST)
 // Media Mod-Tap
 #define MM_LCTL   LCTL_T(KC_MRWD)
 #define MM_LALT   LALT_T(KC_MPLY)
 #define MM_LGUI   LGUI_T(KC_MFFD)
-#define MM_FN_M   LT(LF_MAC, KC_MPLY)
-#define MM_FN_W   LT(LF_WIN, KC_MPLY)
-#define MM_FN_X   LT(LF_NIX, KC_MPLY)
+#define MM_FN_M   LT(_MACFN, KC_MPLY)
+#define MM_FN_W   LT(_WINFN, KC_MPLY)
+#define MM_FN_X   LT(_NIXFN, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
