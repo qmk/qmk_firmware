@@ -1,16 +1,14 @@
 {
   "keyboard_name": "2% Milk",
   "keyboard_folder": "2_milk",
-  "url": "N/A",
+  "url": "",
   "maintainer": "rionlion100",
   "width": 1,
   "height": 2,
   "layouts": {
     "LAYOUT": {
       "key_count": 2,
-      "layout": [ 
-        { "w": 1, "x": 0, "y": 0 }, 
-        { "w": 1, "x": 0, "y": 1 }]
+      "layout": [ { "w": 1, "x": 0, "y": 1 }, { "w": 1, "x": 0, "y": 2 }]
     }
 }
 
