@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-  rgblight_sethsv(255, 0, 160);
+  rgblight_sethsv_noeeprom(255, 0, 160);
   #endif
 }
 void set_qwerty(void){
-  rgblight_sethsv(255, 0, 160);
+  rgblight_sethsv_noeeprom(255, 0, 160);
 }
 void set_lower(void){
   rgblight_sethsv_master(255, 255, 255);
