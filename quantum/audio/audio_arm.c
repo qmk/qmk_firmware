@@ -84,14 +84,20 @@ static void gpt_cb8(GPTDriver *gptp);
 #define DAC_SAMPLE_MAX  65535U
 #endif
 
-#define START_CHANNEL_1() gptStart(&GPTD6, &gpt6cfg1); \
-    gptStartContinuous(&GPTD6, 2U); \
-    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
+#define START_CHANNEL_1() dacStart(&DACD1, &dac1cfg1); \
+  dacStart(&DACD2, &dac1cfg2); \
+  dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE); \
+  dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE); \
+  gptStart(&GPTD6, &gpt6cfg1); \
+  gptStartContinuous(&GPTD6, 2U); \
+  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
 #define START_CHANNEL_2() gptStart(&GPTD7, &gpt7cfg1); \
     gptStartContinuous(&GPTD7, 2U)
 #define STOP_CHANNEL_1() gptStopTimer(&GPTD6); \
-    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL); \
-    palSetPad(GPIOA, 5);
+  dacStopConversion(&DACD2); \
+  dacStop(&DACD2); \
+  palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL ); \
+  palSetPad(GPIOA, 5)
 #define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
 #define RESTART_CHANNEL_1() STOP_CHANNEL_1(); \
     START_CHANNEL_1()
