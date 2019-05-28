@@ -1,6 +1,3 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
-// Add overrides here 
-#endif
+// place overrides here

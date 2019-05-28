@@ -4,7 +4,9 @@ This page describes setting up the build environment for QMK. These instructions
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
-Note: If it is your first time here, Check out the "Complete Newbs guide" instead
+**Note:** If this is your first time here, check out the [Complete Newbs Guide](newbs.md) page.
+
+Before continuing, double check that your submodules (third-party libraries) are up to date by running `make git-submodule`.
 
 ## Linux
 
@@ -44,9 +46,7 @@ Fedora / Red Hat example:
     
 Arch / Manjaro example:
 
-    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
-
-(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
 
 ## Nix
 

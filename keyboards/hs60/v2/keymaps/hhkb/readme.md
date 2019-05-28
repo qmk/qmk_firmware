@@ -1,5 +1,5 @@
-The default keymap for HHKB HS60 V2
-===================================
+The default keymap for HHKB HS60 V2. VIA support disabled.
+==========================================================
 
 ![Layout image](https://imgur.com/usbrQWL.png)
 

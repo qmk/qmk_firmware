@@ -15,7 +15,7 @@ or just:
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Note that running `make` with `sudo` is generally *not* a good idea, and you should use one of the former methods, if possible.
+Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
 ### Linux `udev` Rules
 On Linux, you'll need proper privileges to access the MCU. You can either use
@@ -36,6 +36,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+
+```
+# Input Club keyboard bootloader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
 
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
@@ -47,7 +53,12 @@ If you're using Windows to flash your keyboard, and you are running into issues,
 
 Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUS(libusb-1.0)` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.
+If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUSB` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.  If that doesn't work, try all of the options, until one works. 
+
+?> There isn't a best option for which driver should be used here.  Some options work better on some systems than others.  libUSB and WinUSB seem to be the best options here.
+
+If the bootloader doesn't show up in the list for devices, you may need to enable the "List all devices" option in the `Options` menu, and then find the bootloader in question. 
+
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
