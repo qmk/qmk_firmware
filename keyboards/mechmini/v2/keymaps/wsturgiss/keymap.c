@@ -80,15 +80,6 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 };
 
-enum function_id {
-    SHIFT_ESC,
-};
-
-//I think this is to cancel space cadet stuff
-const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(SHIFT_ESC),
-};
-
 //Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
