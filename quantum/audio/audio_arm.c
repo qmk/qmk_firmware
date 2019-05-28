@@ -77,13 +77,15 @@ bool glissando = true;
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
-#define DAC_BUFFER_SIZE 100
+#define DAC_BUFFER_SIZE 100U
 #ifndef DAC_SAMPLE_MAX
-#define DAC_SAMPLE_MAX  65535U
+#define DAC_SAMPLE_MAX  4095U
 #endif
 
-GPTConfig gpt6cfg1 = {
-  .frequency    = 44100U,
+#define DAC_SAMPLE_RATE 30000U
+
+GPTConfig gpt7cfg1 = {
+  .frequency    = DAC_SAMPLE_RATE,
   .callback     = NULL,
   .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
   .dier         = 0U
@@ -93,22 +95,6 @@ static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
   // First half is max, second half is 0
   // [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
   // [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
-
-  // max 65535
-  // 0x8000,0x8809,0x900a,0x97fc,0x9fd4,0xa78d,0xaf1e,0xb67f,
-  // 0xbda9,0xc495,0xcb3c,0xd196,0xd79e,0xdd4e,0xe29f,0xe78d,
-  // 0xec12,0xf02a,0xf3d0,0xf702,0xf9bb,0xfbfa,0xfdbb,0xfefd,
-  // 0xffbe,0xffff,0xffbe,0xfefd,0xfdbb,0xfbfa,0xf9bb,0xf702,
-  // 0xf3d0,0xf02a,0xec12,0xe78d,0xe29f,0xdd4e,0xd79e,0xd196,
-  // 0xcb3c,0xc495,0xbda9,0xb67f,0xaf1e,0xa78d,0x9fd4,0x97fc,
-  // 0x900a,0x8809,0x8000,0x77f6,0x6ff5,0x6803,0x602b,0x5872,
-  // 0x50e1,0x4980,0x4256,0x3b6a,0x34c3,0x2e69,0x2861,0x22b1,
-  // 0x1d60,0x1872,0x13ed,0xfd5,0xc2f,0x8fd,0x644,0x405,
-  // 0x244,0x102,0x41,0x0,0x41,0x102,0x244,0x405,
-  // 0x644,0x8fd,0xc2f,0xfd5,0x13ed,0x1872,0x1d60,0x22b1,
-  // 0x2861,0x2e69,0x34c3,0x3b6a,0x4256,0x4980,0x50e1,0x5872,
-  // 0x602b,0x6803,0x6ff5,0x77f6
-
 
   // max 4095
   0x800,0x880,0x900,0x97f,0x9fd,0xa78,0xaf1,0xb67,
@@ -126,10 +112,9 @@ static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
   0x602,0x680,0x6ff,0x77f
 };
 
-dacsample_t dac_buffer_lr[1];
+dacsample_t dac_buffer_lr[1] = { DAC_SAMPLE_MAX / 2 };
 
-int dac_i = 0;
-int dac_j = 0;
+float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 /*
  * DAC streaming callback.
@@ -138,14 +123,23 @@ static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t pos) {
 
   (void)dacp;
   (void)pos;
-
   //for (uint8_t i = 0; i < DAC_BUFFER_SIZE; i++) {
-    samples[0] = (dac_buffer[dac_i] + dac_buffer[dac_j]) / 2;
+  //samples[0] = (dac_buffer[dac_i] + dac_buffer[dac_j]) / 2;
   //}
 
-  dac_i = (dac_i + (uint32_t)round(880.0 / 300)) % DAC_BUFFER_SIZE;
-  dac_j = (dac_j + (uint32_t)round(2217.46 / 300)) % DAC_BUFFER_SIZE;
+  uint16_t sample_sum = 0;
+  for (int i = 0; i < voices; i++) {
+    dac_if[i] = dac_if[i] + ((frequencies[i]*(float)DAC_BUFFER_SIZE)/(float)DAC_SAMPLE_RATE*1.5);
+    while(dac_if[i] >= DAC_BUFFER_SIZE)
+      dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
+    sample_sum += dac_buffer[(uint8_t)round(dac_if[i]) % DAC_BUFFER_SIZE] / voices;
+  }
 
+  if (voices > 0) {
+    samples[0] = sample_sum;
+  } else {
+    samples[0] = DAC_SAMPLE_MAX;
+  }
 }
 
 /*
@@ -190,15 +184,20 @@ void audio_init() {
   #endif
 #endif // ARM EEPROM
 
-  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
-  palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL );
-  palSetPad(GPIOA, 5);
+  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG );
+  // palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
+  palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL );
+  palSetPad(GPIOA, 4);
 
-  dacStart(&DACD1, &dac1cfg1);
-  dacStartConversion(&DACD1, &dacgrpcfg1, dac_buffer_lr, 1);
+  // dacStart(&DACD1, &dac1cfg1);
+  // dacStartConversion(&DACD1, &dacgrpcfg1, dac_buffer_lr, 1);
+  dacStart(&DACD2, &dac1cfg1);
+  dacStartConversion(&DACD2, &dacgrpcfg1, dac_buffer_lr, 1);
 
-  gptStart(&GPTD6, &gpt6cfg1);
+  gptStart(&GPTD6, &gpt7cfg1);
   gptStartContinuous(&GPTD6, 2U);
+  // gptStart(&GPTD7, &gpt7cfg1);
+  // gptStartContinuous(&GPTD7, 2U);
 
   audio_initialized = true;
 
@@ -261,7 +260,6 @@ void stop_note(float freq) {
       voice_place = 0;
     }
     if (voices == 0) {
-      gptStopTimer(&GPTD8);
       frequency = 0;
       frequency_alt = 0;
       volume = 0;
