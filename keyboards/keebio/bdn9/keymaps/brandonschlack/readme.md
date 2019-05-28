@@ -5,12 +5,21 @@ I built this pad to match my Lightroom photo editing workflow using
 
 
 ## Keypad Layer
-This layer is used to send keypad keys, meant to be remapped based on current app with Karabiner
+This layer is used to send keypad keys, meant to be remapped based on current app with [Karabiner](https://pqrs.org/osx/karabiner/)
 |   |   |   |
 |:-:|:-:|:-:|
 | +/-<br>**1** | 2 | =/.<br>**3**  |
 | 4 | 5 | 6 |
 | 7 | 8 | 9 |
+---
+
+## Media Layer
+This layer is used for media controls. Player button is a hotkey to focus the current media player with [BeardedSpice](https://beardedspice.github.io/)
+|   |   |   |
+|:-:|:-:|:-:|
+| Volume Up/Down<br>**Mute** | Current Player | Next/Prev Track<br>**Play/Pause**  |
+| Home | Up | End |
+| Left | Down | Right|
 ---
 
 ## Navigation Layer
@@ -44,6 +53,6 @@ This layer is used for editing photos in the Develop Module
 This layer is used as a meta layer for the pad. This layer is accessed by holding key in Row 1, Col 0
 |   |   |   |
 |:-:|:-:|:-:|
-| RESET | FLASH | MAKE |
-| ___ | **Keypad** Layer |  |
+| FLASH |  | MAKE |
+| ___ | **Keypad** Layer | **Media** Layer |
 | **Review** Layer | **Navigation** Layer | **Edit** Layer |

@@ -3,6 +3,7 @@
 
 enum bdn9_layers {
     _KEYPAD,
+    _MEDIA,
     _LR_NAV,
     _LR_REVIEW,
     _LR_EDIT,
@@ -11,6 +12,7 @@ enum bdn9_layers {
 
 enum bdn9_keycodes {
     TG_KYPD = KEYMAP_SAFE_RANGE,
+    TG_MEDA,
     TG_NAV,
     TG_REVW,
     TG_EDIT,
@@ -33,6 +35,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P1, KC_P2, KC_P3,
         LT(_ADJUST, KC_P4), KC_P5, KC_P6,
         KC_P7, KC_P8, KC_P9
+    ),
+    /*
+        Layer: Media
+        | Knob 1: Vol +/-       |      | Knob 2: Track Prv/Nxt |
+        | Press: Mute           | Plyr | Press: Play/Pause     |
+        | Home, Hold: BD Layer  | Up   | End                   |
+        | Left                  | Down | Right                 |
+     */
+    [_MEDIA] = LAYOUT(
+        KC_MUTE, MC_PLYR, KC_MPLY,
+        LT(_ADJUST, KC_HOME), KC_UP, KC_END,
+        KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
         Layer: Navigation
@@ -72,13 +86,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: BDN9
-        | RST                   | FSH  | MAKE                  |
-        | ___                   | Kyp  | XXX                   |
+        | FLASH                 | XXX  | MAKE                  |
+        | ___                   | Kyp  | Media                 |
         | Review                | Nav  | Edit                  |
      */
     [_ADJUST] = LAYOUT(
-        RESET,   KC_FLSH, KC_MAKE,
-        _______, TG_KYPD, XXXXXXX,
+        KC_FLSH, XXXXXXX, KC_MAKE,
+        _______, TG_KYPD, TG_MEDA,
         TG_REVW, TG_NAV,  TG_EDIT
     ),
 };
@@ -91,6 +105,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_PPLS);
                 } else {
                     tap_code(KC_PMNS);
+                }
+                break;
+            case _MEDIA:
+                if (!clockwise) {
+                    tap_code(KC_VOLU);
+                } else {
+                    tap_code(KC_VOLD);
                 }
                 break;
             case _LR_NAV:
@@ -125,6 +146,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_PDOT);
                 }
                 break;
+            case _MEDIA:
+                if (!clockwise) {
+                    tap_code(KC_MFFD);
+                } else {
+                    tap_code(KC_MRWD);
+                }
+                break;
             case _LR_NAV:
                 if (!clockwise) {
                     tap_code(KC_PGUP);
@@ -155,6 +183,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         case TG_KYPD:
             if (record->event.pressed) {
                 layer_move(_KEYPAD);
+            }
+            break;
+        case TG_MEDA:
+            if (record->event.pressed) {
+                layer_move(_MEDIA);
             }
             break;
         case TG_NAV:
