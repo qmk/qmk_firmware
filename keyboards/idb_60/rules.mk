@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u2
 
 # Processor frequency.
@@ -45,6 +44,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
+BOOTLOADER = atmel-dfu
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 

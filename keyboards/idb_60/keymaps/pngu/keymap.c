@@ -31,9 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_scan_user(void) {
 
 //Layer LED indicators
-    uint32_t layer = layer_state;
+    layer_state_t layer = layer_state;
 
-    if ((layer & (1<<1)) || (layer & (1<<2))) {
+    if (layer_state_is(1) || layer_state_is(2)) {
         _idb_60_esc_led_on();
     } else {
         _idb_60_esc_led_off();
