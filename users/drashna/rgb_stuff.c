@@ -248,6 +248,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_rgb(void) {
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
+    bool is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) { rgblight_enable_noeeprom(); }
     if (rgblight_config.enable) {
         layer_state_set_user(layer_state);
@@ -259,6 +260,8 @@ void keyboard_post_init_rgb(void) {
             wait_ms(10);
         }
     }
+    if (!is_enabled) { rgblight_disable_noeeprom(); }
+
 #endif
     layer_state_set_user(layer_state);
 }
