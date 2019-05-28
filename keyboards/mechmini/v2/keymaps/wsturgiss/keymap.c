@@ -4,7 +4,6 @@
 #define base 0
 #define raise 1 
 #define lower 2
-#define game 3
 
 //Tap Dance Declarations
 enum {
@@ -47,14 +46,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,    KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     _______,
 		_______,    RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_VAD,  _______,  _______,  KC_4,     KC_5,     KC_6,   KC_KP_PLUS, _______,
 		_______,    RGB_SAI,  RGB_SAD,  RGB_HUI,  RGB_HUD,  _______,  _______,  KC_1,     KC_2,     KC_3,  KC_KP_MINUS, _______,
-		_______,    _______,  _______,  _______,  _______,      _______,        _______,  KC_0,     _______,  _______,  _______),
+		_______,    TBL_FLP,  _______,  _______,  _______,      _______,        _______,  KC_0,     _______,  _______,  _______)
 
 
-	[game] = LAYOUT_2u_space_ortho(
-		KC_TAB,     KC_Q,     KC_W,     KC_UP,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
-		KC_ESC,     KC_A,     KC_LEFT,  KC_DOWN,   KC_RIGHT, KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     TD(0),    KC_ENT,
-		KC_LSFT,    KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,     KC_N,     KC_M,     TD(1),    TD(2),    TD(3),    KC_RSFT,
-		KC_LCTL,    _______,  KC_LALT,  KC_LGUI,   _______,       KC_SPC,        _______,  KC_VOLD,  KC_MPLY,  KC_VOLU,  KC_GRV),
 };
 
 //change colors and rgb modes on layer change
@@ -68,10 +62,6 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_mode(1);
         rgblight_setrgb(0x00, 0xa3, 0x0d);
         break;
-    case game:
-        rgblight_mode(1);
-        rgblight_setrgb_red ();
-        break;
     default: // for any other layers, or the default layer
         rgblight_mode(5);
         rgblight_setrgb(0xFF, 0xB6, 0x00);
@@ -81,11 +71,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 //Macros
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case TBL_FLP:
       if (record->event.pressed) {
         // when keycode tableflip is pressed
+        set_unicode_input_mode(UC_OSX);
         send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
       } else {
         // when keycode tableflip is released
