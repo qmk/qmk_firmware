@@ -128,14 +128,17 @@ static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t pos) {
   //}
 
   uint16_t sample_sum = 0;
-  for (int i = 0; i < voices; i++) {
+  int working_voices = voices;
+  if (working_voices > 3)
+    working_voices = 3;
+  for (int i = 0; i < working_voices; i++) {
     dac_if[i] = dac_if[i] + ((frequencies[i]*(float)DAC_BUFFER_SIZE)/(float)DAC_SAMPLE_RATE*1.5);
     while(dac_if[i] >= DAC_BUFFER_SIZE)
       dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
-    sample_sum += dac_buffer[(uint8_t)round(dac_if[i]) % DAC_BUFFER_SIZE] / voices;
+    sample_sum += dac_buffer[(uint8_t)round(dac_if[i]) % DAC_BUFFER_SIZE] / working_voices;
   }
 
-  if (voices > 0) {
+  if (working_voices > 0) {
     samples[0] = sample_sum;
   } else {
     samples[0] = DAC_SAMPLE_MAX;
