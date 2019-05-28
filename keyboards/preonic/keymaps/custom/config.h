@@ -4,9 +4,23 @@
 #include "config_common.h"
 
 // Must raise 5 halftones
+/* #define CUSTOM_STARTUP \ */
+/*  Q__NOTE(_FS7), \ */
+/*  W__NOTE(_B7), */
+
+#undef MUSICAL_NOTE
+#define MUSICAL_NOTE(note, duration) {((NOTE##note) * 1.3348398541700344), duration}
+
 #define CUSTOM_STARTUP \
- Q__NOTE(_FS7), \
- W__NOTE(_B7),
+    QD_NOTE(_A6),  \
+    QD_NOTE(_C7),  \
+    QD_NOTE(_A7),  \
+    QD_NOTE(_F7),  \
+    QD_NOTE(_G7),  \
+    HD_NOTE(_C8),
+
+#undef MUSICAL_NOTE
+#define MUSICAL_NOTE(note, duration) {(NOTE##note), duration}
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(CUSTOM_STARTUP)
