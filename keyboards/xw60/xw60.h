@@ -1,4 +1,4 @@
-#ifndef XW60_H
+#pragma once
 
 #include "quantum.h"
 
