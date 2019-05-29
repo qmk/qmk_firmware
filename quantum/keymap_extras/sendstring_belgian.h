@@ -68,7 +68,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
  /* SPACE  !     "      #        $     %     &      '                 */
     KC_SPC, BE_EXLM, BE_QUOT, BE_QUOT, BE_DLR,BE_UGRV,BE_AMP, BE_APOS ,
   /*  (      )     *      +        ,        -        .       /        */
-    BE_LPRN, BE_RPRN, BE_DLR,BE_EQL, BE_COMM, BE_MINS, BE_SCLN, BE_EQL,
+    BE_LPRN, BE_RPRN, BE_DLR,BE_EQL, BE_COMM, BE_MINS, BE_SCLN, BE_COLN,
   /*   0     1     2     3     4     5    6     7                     */
     KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
   /*   8     9      :       ;         <        =       >       ?      */
