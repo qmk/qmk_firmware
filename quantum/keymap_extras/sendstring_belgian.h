@@ -33,7 +33,7 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 0, 0, 0, 1,
-    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
@@ -52,7 +52,7 @@ const bool ascii_to_altgr_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 0
@@ -82,7 +82,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*   X     Y     Z      [         \       ]       ^      _          */
     KC_X, KC_Y, BE_Z, BE_CIRC, BE_LESS, BE_DLR, BE_CIRC, BE_MINS,
   /*   `       a     b     c     d     e     f     g                  */
-    0, BE_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    BE_MU, BE_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
   /*   h     i     j     k     l     m     n     o                    */
     KC_H, KC_I, KC_J, KC_K, KC_L, BE_M, KC_N, KC_O,
   /*    p    q     r     s     t     u     v     w                    */
