@@ -7,7 +7,7 @@ enum bdn9_layers {
     _LR_NAV,
     _LR_REVIEW,
     _LR_EDIT,
-    _ADJUST
+    _FUNC
 };
 
 enum bdn9_keycodes {
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_KEYPAD] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
-        LT(_ADJUST, KC_P4), KC_P5, KC_P6,
+        LT(_FUNC, KC_P4), KC_P5, KC_P6,
         KC_P7, KC_P8, KC_P9
     ),
     /*
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
-        LT(_ADJUST, KC_HOME), KC_UP, KC_END,
+        LT(_FUNC, KC_HOME), KC_UP, KC_END,
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_NAV] = LAYOUT(
         TG_REVW, KC_J, TG_EDIT,
-        LT(_ADJUST, KC_HOME), KC_UP, KC_END,
+        LT(_FUNC, KC_HOME), KC_UP, KC_END,
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_REVIEW] = LAYOUT(
         TG_NAV, KC_7, TG_EDIT,
-        LT(_ADJUST, KC_0), KC_8, KC_U,
+        LT(_FUNC, KC_0), KC_8, KC_U,
         KC_LEFT, KC_6, KC_RGHT
     ),
     /*
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_NAV,
-        LT(_ADJUST, KC_X), MC_UNDO, KC_P,
+        LT(_FUNC, KC_X), MC_UNDO, KC_P,
         KC_LEFT, MC_REDO, KC_RGHT
     ),
     /*
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | ___                   | Kyp  | Media                 |
         | Review                | Nav  | Edit                  |
      */
-    [_ADJUST] = LAYOUT(
+    [_FUNC] = LAYOUT(
         KC_FLSH, XXXXXXX, KC_MAKE,
         _______, TG_KYPD, TG_MEDA,
         TG_REVW, TG_NAV,  TG_EDIT
