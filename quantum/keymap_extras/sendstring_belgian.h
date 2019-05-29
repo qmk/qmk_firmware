@@ -70,11 +70,11 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*  (      )     *      +        ,        -        .       /        */
     BE_LPRN, BE_RPRN, BE_DLR,BE_EQL, BE_COMM, BE_MINS, BE_SCLN, BE_COLN,
   /*   0     1     2     3     4     5    6     7                     */
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    BE_AGRV, BE_AMP, BE_EACU, BE_QUOT, BE_APOS, BE_LPRN, BE_PARA, BE_EGRV,
   /*   8     9      :       ;         <        =       >       ?      */
-    KC_8, KC_9, BE_COLN, BE_SCLN, BE_LESS,    BE_EQL, BE_LESS, BE_COMM,
+    BE_EXLM, BE_CCED, BE_COLN, BE_SCLN, BE_LESS,    BE_EQL, BE_LESS, BE_COMM,
   /*   @     A     B     C     D     E     F     G                    */
-    KC_2, BE_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    BE_EACU, BE_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
   /*   H     I     J     K     L     M     N     O                    */
     KC_H, KC_I, KC_J, KC_K, KC_L, BE_M, KC_N, KC_O,
   /*   P     Q     R     S     T     U     V     W                    */
@@ -88,7 +88,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*    p    q     r     s     t     u     v     w                    */
     KC_P, BE_Q, KC_R, KC_S, KC_T, KC_U, KC_V, BE_W,
   /*    x    y     z      {        |        }        ~    DELETE      */
-    KC_X, KC_Y, BE_Z, KC_9, KC_1, KC_0, BE_EQL, KC_DEL
+    KC_X, KC_Y, BE_Z, BE_CCED, BE_AMP, BE_AGRV, BE_EQL, KC_DEL
 };
 
 #endif
