@@ -37,12 +37,6 @@
 
 // Note: You can only use basic keycodes here!
 // P() is just a wrapper to make your life easier.
-// PC() applies the mapping to all of the StenoLayers.
-//   To overload, declare it with P() first.
-//   Be sure to enable in rules.mk and see colemak-dh for usage 
-//
-// FN is unavailable. That is reserved for system use.
-// Chords containing PWR are always available, even in steno mode.
 //
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
@@ -140,7 +134,7 @@ uint32_t processQwerty(bool lookup) {
     P( RZ,          SEND(KC_ESC));
 
     // Symbols and Numbers
- 	P( PWR | RE | RU,      SEND(KC_ENT));
+    P( PWR | RE | RU,      SEND(KC_ENT));
     P( PWR | LA | LO,      SEND(KC_SPC));
     P( PWR | LP | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
     P( PWR | LH | LR,      SEND(KC_LSFT); SEND(KC_0));       // )
@@ -174,10 +168,6 @@ uint32_t processQwerty(bool lookup) {
     P( PWR | RE,           SEND(KC_SCLN));
     P( PWR | RU,           SEND(KC_BSLS));
     P( PWR | LNO,          SEND(KC_BSLS));
-    P( PWR | RF | RR,      SEND(KC_LEFT));
-    P( PWR | RP | RB,      SEND(KC_DOWN));
-    P( PWR | RL | RG,      SEND(KC_UP));
-    P( PWR | RT | RS,      SEND(KC_RIGHT));
 
     // Letters
     P( LSU | LSD,    SEND(KC_A));
@@ -227,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [STENO_LAYER] = LAYOUT_georgi(
         STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,       STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
         STN_PWR, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,       STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-                                   STN_N1,  STN_A,   STN_O,         STN_E,   STN_U,   STN_N7
+                                   STN_A,   STN_O,   STN_N1,        STN_N7,  STN_E,   STN_U
     ),
     // Gaming layer with Numpad, Very limited
     [GAMING] = LAYOUT_georgi(
