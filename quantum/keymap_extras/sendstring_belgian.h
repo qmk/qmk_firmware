@@ -51,7 +51,7 @@ const bool ascii_to_altgr_lut[0x80] PROGMEM = {
     1, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0,
     1, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -80,7 +80,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*   P     Q     R     S     T     U     V     W                    */
     KC_P, BE_Q, KC_R, KC_S, KC_T, KC_U, KC_V, BE_W,
   /*   X     Y     Z      [         \       ]       ^      _          */
-    KC_X, KC_Y, BE_Z, BE_CIRC, BE_LESS, BE_DLR, BE_CIRC, BE_MINS,
+    KC_X, KC_Y, BE_Z, BE_CIRC, BE_LESS, BE_DLR, BE_PARA, BE_MINS,
   /*   `       a     b     c     d     e     f     g                  */
     BE_MU, BE_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
   /*   h     i     j     k     l     m     n     o                    */
