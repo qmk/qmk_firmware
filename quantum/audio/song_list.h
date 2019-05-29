@@ -1,7 +1,7 @@
 /* Any song or sound without a license explicitly stated is:
  *
  * Copyright 2016 Jack Humbert
- * Copyright 2019 Zach White
+ * Copyright 2017 Zach White
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
