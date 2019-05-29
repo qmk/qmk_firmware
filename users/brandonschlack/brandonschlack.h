@@ -10,7 +10,7 @@ enum bs_layers {
     _WINFN,
     _NIX,
     _NIXFN,
-    _ADJUST,
+    _MAGIC = 15,
 };
 
 // Config
@@ -31,7 +31,7 @@ enum custom_keycodes {
 
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
-#define TG_ADJT   TG(_ADJUST)
+#define TG_MAGC   TG(_MAGIC)
 // Media Mod-Tap
 #define MM_LCTL   LCTL_T(KC_MRWD)
 #define MM_LALT   LALT_T(KC_MPLY)

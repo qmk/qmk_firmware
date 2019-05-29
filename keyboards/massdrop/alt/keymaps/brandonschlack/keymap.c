@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |     |   |   |   |DFU|   |   |   |   |   |F13|F14|F15|  LHP|End|
      * |---------------------------------------------------------------|
-     * |      |   |   |   |   |   |   |   |   |   |   |   | TgAdjst|VlU|
+     * |      |   |   |   |   |   |   |   |   |   |   |   | TgMagic|VlU|
      * |---------------------------------------------------------------|
      * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Plr|MutSft|PgU|VlD|
      * |---------------------------------------------------------------|
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MACFN] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  MC_SLPD, \
         _______, _______, _______, _______, MD_BOOT, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_END,  \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_ADJT, KC_VOLU, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC, KC_VOLU, \
         _______, RGB_TOG, _______, _______, _______, _______, _______, MD_MAKE, KC_MRWD, KC_MFFD, MC_PLYR, MM_RSFT,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |     |   |   |   |DFU|   |   |   |   |   |PtS|SLk|Pau|  TSK|End|
      * |---------------------------------------------------------------|
-     * |      |   |   |   |   |   |   |   |   |   |   |   | TgAdjst|VlU|
+     * |      |   |   |   |   |   |   |   |   |   |   |   | TgMagic|VlU|
      * |---------------------------------------------------------------|
      * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Stp|MutSft|PgU|VlD|
      * |---------------------------------------------------------------|
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WINFN] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  WN_LOCK, \
         _______, _______, _______, _______, MD_BOOT, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, WN_TSKM, KC_END,  \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_ADJT, KC_VOLU, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC, KC_VOLU, \
         _______, RGB_TOG, _______, _______, _______, _______, _______, MD_MAKE, KC_MPRV, KC_MNXT, KC_MSTP, MM_RSFT,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
@@ -113,17 +113,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |     |RS-|RB+|RS+|RH+|RS+|   |UAD|GCR|   |   |   |   |     |   |
      * |---------------------------------------------------------------|
-     * |      |RM-|RB-|RM+|RH-|RS-|   |   |   |   |   |   | TgAdjst|   |
+     * |      |RM-|RB-|RM+|RH-|RS-|   |   |   |   |   |   | TgMagic|   |
      * |---------------------------------------------------------------|
      * |        |RTO|   |   |   |   |KRO|   |Mac|Win|   |      |   |   |
      * |---------------------------------------------------------------|
      * |    |    |    |                       |    |    |  |   |   |   |
      * `---------------------------------------------------------------'
      */
-    [_ADJUST] = LAYOUT(
+    [_MAGIC] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
         XXXXXXX, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, XXXXXXX, U_T_AUTO,U_T_AGCR,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-        XXXXXXX, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJT, XXXXXXX, \
+        XXXXXXX, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_MAGC, XXXXXXX, \
         XXXXXXX, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_NKRO, XXXXXXX, OS_MAC,  OS_WIN,  XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, \
         XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
     ),
