@@ -1,5 +1,4 @@
 #ifndef XW60_H
-#define XW60_H
 
 #include "quantum.h"
 
