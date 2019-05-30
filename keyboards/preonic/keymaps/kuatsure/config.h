@@ -3,9 +3,6 @@
 
 #include "config_common.h"
 
-#define NO_AUTO_SHIFT_SPECIAL
-#define NO_AUTO_SHIFT_ALPHA
-
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)

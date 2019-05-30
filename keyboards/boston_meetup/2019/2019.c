@@ -19,20 +19,18 @@
 #include "haptic.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#include "rgblight.h"
+#include "rgb_matrix.h"
 
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
-  /*{row | col << 4}
-    |             {x=0..224, y=0..64}
-    |              |         modifier
-    |              |         | */
-  {{1|(3<<4)},    {188, 16}, 0},
-  {{3|(3<<4)},    {187, 48}, 0},
-  {{4|(2<<4)},    {149, 64}, 0},
-  {{4|(1<<4)},    {112, 64}, 0},
-  {{3|(0<<4)},    {37,  48}, 0},
-  {{1|(0<<4)},    {38, 16}, 0}
-};
+led_config_t g_led_config = { {
+  {   5, NO_LED, NO_LED,   0 },
+  { NO_LED, NO_LED, NO_LED, NO_LED },
+  {   4, NO_LED, NO_LED,   1 },
+  {   3, NO_LED, NO_LED,   2 }
+}, {
+    { 188,  16 }, { 187,  48 }, { 149,  64 }, { 112,  64 }, {  37,  48 }, {  38,  16 }
+}, {
+    4, 4, 4, 4, 4, 4
+} };
 #endif
 
 uint8_t *o_fb;
@@ -48,12 +46,12 @@ uint16_t counterst = 0;
 #define ScreenOffInterval 60000 /* milliseconds */
 static uint16_t last_flush;
 
-volatile uint8_t led_numlock = false; 
-volatile uint8_t  led_capslock = false; 
+volatile uint8_t led_numlock = false;
+volatile uint8_t  led_capslock = false;
 volatile uint8_t  led_scrolllock = false;
 
 static uint8_t layer;
-static bool queue_for_send = false; 
+static bool queue_for_send = false;
 static uint8_t encoder_value = 32;
 
 __attribute__ ((weak))
@@ -64,13 +62,13 @@ void draw_ui(void) {
 
 /* Boston MK title is 55 x 10 pixels */
 #define NAME_X 0
-#define NAME_Y 0 
+#define NAME_Y 0
 
   draw_string(NAME_X + 1, NAME_Y + 2, "BOSTON MK", PIXEL_ON, NORM, 0);
 
 /* Layer indicator is 41 x 10 pixels */
 #define LAYER_INDICATOR_X 60
-#define LAYER_INDICATOR_Y 0 
+#define LAYER_INDICATOR_Y 0
 
   draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
@@ -88,7 +86,7 @@ void draw_ui(void) {
       draw_pixel(MATRIX_DISPLAY_X + y + y + 3, MATRIX_DISPLAY_Y + x + x + 3,(matrix_get_row(x) & (1 << y)) > 0, NORM);
 
     }
-  } 
+  }
   draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 12, 12, PIXEL_ON, NORM);
   /* hadron oled location on thumbnail */
   draw_rect_filled_soft(MATRIX_DISPLAY_X + 5, MATRIX_DISPLAY_Y + 2, 6, 2, PIXEL_ON, NORM);
@@ -195,7 +193,7 @@ void matrix_init_kb(void) {
   queue_for_send = true;
 	matrix_init_user();
 }
-            
+
 void matrix_scan_kb(void) {
 if (queue_for_send) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
