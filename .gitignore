@@ -69,3 +69,5 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+.vscode/ipch/b9f57f596f4ca68d/matrix.ipch
+.vscode/ipch/8b449eabf03b4ca2/ps2_usb.ipch
