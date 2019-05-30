@@ -41,8 +41,8 @@ copy_templates() {
     echo " done"
 
     echo -n "Renaming keyboard files..."
-    mv "${keyboard_dir}/template.c" "${keyboard_dir}/${keyboard_name}.c"
-    mv "${keyboard_dir}/template.h" "${keyboard_dir}/${keyboard_name}.h"
+    mv "${keyboard_dir}/template.c" "${keyboard_dir}/${keyboard_base_name}.c"
+    mv "${keyboard_dir}/template.h" "${keyboard_dir}/${keyboard_base_name}.h"
     echo " done"
 }
 
@@ -75,10 +75,10 @@ replace_keyboard_placeholders() {
     local replace_keyboard_filenames=(
         "${keyboard_dir}/config.h"
         "${keyboard_dir}/readme.md"
-        "${keyboard_dir}/${keyboard_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.c"
         "${keyboard_dir}/keymaps/default/readme.md"
     )
-    replace_placeholders "%KEYBOARD%" "$keyboard_name" "${replace_keyboard_filenames[@]}"
+    replace_placeholders "%KEYBOARD%" "$keyboard_base_name" "${replace_keyboard_filenames[@]}"
 }
 
 # Replace %YOUR_NAME% with the username.
@@ -86,8 +86,8 @@ replace_name_placeholders() {
     local replace_name_filenames=(
         "${keyboard_dir}/config.h"
         "${keyboard_dir}/readme.md"
-        "${keyboard_dir}/${keyboard_name}.c"
-        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/${keyboard_base_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.h"
         "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
@@ -122,6 +122,7 @@ echo
 while [ -z "$keyboard_name" ]; do
     prompt "Keyboard Name" ""
     keyboard_name=$prompt_return
+    keyboard_base_name=$(basename $keyboard_name)
 done
 
 keyboard_dir="keyboards/$keyboard_name"
