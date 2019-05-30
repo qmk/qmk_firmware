@@ -38,7 +38,7 @@ or `keymap.c`:
         } else {
           tap_code(KC_PGUP);
         }
-      } else if (index == 1) { /* Second encoder
+      } else if (index == 1) { /* Second encoder */  
         if (clockwise) {
           tap_code(KC_UP);
         } else {
