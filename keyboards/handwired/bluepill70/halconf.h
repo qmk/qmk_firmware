@@ -146,7 +146,7 @@
  * @brief   Enables the SPI subsystem.
  */
 #if !defined(HAL_USE_SPI) || defined(__DOXYGEN__)
-#define HAL_USE_SPI                 FALSE
+#define HAL_USE_SPI                 TRUE
 #endif
 
 /**
@@ -312,9 +312,8 @@
  * @note    The default is 64 bytes for both the transmission and receive
  *          buffers.
  */
-//  Modified by Xydane
 #if !defined(SERIAL_USB_BUFFERS_SIZE) || defined(__DOXYGEN__)
-#define SERIAL_USB_BUFFERS_SIZE     256
+#define SERIAL_USB_BUFFERS_SIZE     1
 #endif
 
 /*===========================================================================*/

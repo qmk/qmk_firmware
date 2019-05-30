@@ -9,7 +9,7 @@ Hardware Availability: Everywhere
 
 Make example for BluePill70 (after setting up your build environment):
 
-    make handwired/bluepill/bluepill70:default
+    make handwired/bluepill70:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -29,10 +29,6 @@ If you want to use the Bluepill USB port, it's very likely that you need to sold
 ## No bootloader
 
 Neither Xydane or I used the bootloader, the code for it is commented and you can use it if you want. I didn't achieve to run it and just used a serial programmer (FTDI, ST-LINK).
-
-## Adding layouts and revisions
-
-If you want to create new layouts just add them to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c (I tried to divide the project even more but it didn't worked).
 
 ## Pinout
 
@@ -55,6 +51,6 @@ ANSI
 It also uses:  
 PC13: Caps Lock led.
 
-Backlight dual color leds, my version is for common anode that's more common, for leds with common anode just replace the palSetPad with palClearPad and viceversa.  
+Backlight dual color leds, my version is for common anode that's more common, for leds with common anode just replace the writePinHigh with writePinLow and viceversa.  
 PA1: Backlight color A.  
 PA0: Backlight color B.
