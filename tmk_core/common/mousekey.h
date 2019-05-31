@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "host.h"
 
-#ifndef MK_3_SPEED
-
 /* max value on report descriptor */
 #ifndef MOUSEKEY_MOVE_MAX
   #define MOUSEKEY_MOVE_MAX       127
@@ -36,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif MOUSEKEY_WHEEL_MAX > 127
   #error MOUSEKEY_WHEEL_MAX needs to be smaller than 127
 #endif
+
+#ifndef MK_3_SPEED
 
 #ifndef MOUSEKEY_MOVE_DELTA
 #define MOUSEKEY_MOVE_DELTA     5
@@ -106,6 +106,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #else /* #ifndef MK_3_SPEED */
 
+/* Backward compatiblity: Emulate constant speed mode */
+
 #ifndef MK_C_OFFSET_UNMOD
 #define MK_C_OFFSET_UNMOD 16
 #endif
@@ -154,6 +156,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifndef MK_W_INTERVAL_2
 #define MK_W_INTERVAL_2 20
+#endif
+
+#define MOUSEKEY_MOVE_DELTA  1
+#define MOUSEKEY_WHEEL_DELTA 1
+
+#define MOUSEKEY_DELAY       0
+#define MOUSEKEY_MAX_SPEED   MK_C_OFFSET_UNMOD
+#define MOUSEKEY_TIME_TO_MAX 0
+#define MOUSEKEY_INTERVAL    MK_C_INTERVAL_UNMOD
+#define MOUSEKEY_INTERVAL_0  MK_C_INTERVAL_0
+#define MOUSEKEY_INTERVAL_1  MK_C_INTERVAL_1
+#define MOUSEKEY_INTERVAL_2  MK_C_INTERVAL_2
+#define MOUSEKEY_SPEED_0     MK_C_OFFSET_0
+#define MOUSEKEY_SPEED_1     MK_C_OFFSET_1
+#define MOUSEKEY_SPEED_2     MK_C_OFFSET_2
+
+#define MOUSEKEY_WHEEL_DELAY       0
+#define MOUSEKEY_WHEEL_MAX_SPEED   MK_W_OFFSET_UNMOD
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+#define MOUSEKEY_WHEEL_INTERVAL    MK_W_INTERVAL_UNMOD
+#define MOUSEKEY_WHEEL_INTERVAL_0  MK_W_INTERVAL_0
+#define MOUSEKEY_WHEEL_INTERVAL_1  MK_W_INTERVAL_1
+#define MOUSEKEY_WHEEL_INTERVAL_2  MK_W_INTERVAL_2
+#define MOUSEKEY_WHEEL_SPEED_0     MK_W_OFFSET_0
+#define MOUSEKEY_WHEEL_SPEED_1     MK_W_OFFSET_1
+#define MOUSEKEY_WHEEL_SPEED_2     MK_W_OFFSET_2
+
+#ifndef MK_MOMENTARY_ACCEL
+#define MOUSEKEY_PERSISTENT_ACCEL
 #endif
 
 #endif /* #ifndef MK_3_SPEED */
