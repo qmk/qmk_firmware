@@ -22,7 +22,7 @@ Here are a few that could be implemented:
 sym_g.c
 sym_pk.c
 sym_pr.c
-sym_pr_cycles.c //currently used in ergo-dox
+sym_pr_cycles.c 
 eager_g.c
 eager_pk.c
 eager_pr.c //could be used in ergo-dox!
