@@ -44,7 +44,13 @@ static inline void send_combo(uint16_t action, bool pressed) {
       unregister_code16(action);
     }
   } else {
+    #ifdef COMBO_ONLY_SEND_LONGEST_COMBO
+    if (!pressed) {
+      process_combo_event(current_combo_index, pressed);
+    }
+    #else
     process_combo_event(current_combo_index, pressed);
+    #endif
   }
 }
 
@@ -141,6 +147,9 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     timer = timer_read();
     dump_key_buffer(false);
   } else if (!is_combo_key) {
+    #ifdef COMBO_ONLY_SEND_LONGEST_COMBO
+      send_longest_active_combo();
+    #endif
     /* if no combos claim the key we need to emit the keybuffer */
     dump_key_buffer(true);
 
@@ -165,6 +174,35 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
   return !is_combo_key;
 }
 
+#ifdef COMBO_ONLY_SEND_LONGEST_COMBO
+void send_longest_active_combo(void) {
+  uint8_t longest_combo_index = -1;
+  uint8_t longest_combo_count = 0;
+
+  for (current_combo_index = 0; current_combo_index < COMBO_COUNT;
+       ++current_combo_index) {
+
+    combo_t *combo = &key_combos[current_combo_index];
+
+    // Find count of keys in the combo
+    uint8_t count = 0;
+    for (const uint16_t *keys = combo->keys;; ++count) {
+      uint16_t key = pgm_read_word(&keys[count]);
+      if (COMBO_END == key) { break; }
+    }
+
+    if(ALL_COMBO_KEYS_ARE_DOWN && count > longest_combo_count) {
+      longest_combo_count = count;
+      longest_combo_index = current_combo_index;
+    }
+  }
+
+  if (longest_combo_index != -1) {
+    process_combo_event(longest_combo_index, true);
+  }
+}
+#endif
+
 void matrix_scan_combo(void) {
   if (is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
 
@@ -173,5 +211,9 @@ void matrix_scan_combo(void) {
      */
     is_active = false;
     dump_key_buffer(true);
+
+    #ifdef COMBO_ONLY_SEND_LONGEST_COMBO
+      send_longest_active_combo();
+    #endif
   }
 }
