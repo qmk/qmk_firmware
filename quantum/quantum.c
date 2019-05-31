@@ -1011,6 +1011,7 @@ void matrix_scan_quantum() {
   #endif
 
   matrix_scan_kb();
+    
 }
 #if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
 
