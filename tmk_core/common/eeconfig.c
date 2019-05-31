@@ -2,13 +2,13 @@
 #include <stdbool.h>
 #include "eeprom.h"
 #include "eeconfig.h"
+#include "action_layer.h"
 
 #ifdef STM32_EEPROM_ENABLE
 #    include "hal.h"
 #    include "eeprom_stm32.h"
 #endif
 
-extern uint32_t default_layer_state;
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
