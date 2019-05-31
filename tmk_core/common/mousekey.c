@@ -161,9 +161,15 @@ void mousekey_on(uint8_t code) {
   else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
   else if (code == KC_MS_BTN4)     mouse_report.buttons |= MOUSE_BTN4;
   else if (code == KC_MS_BTN5)     mouse_report.buttons |= MOUSE_BTN5;
+ #ifndef MOUSEKEY_PERSISTENT_ACCEL
   else if (code == KC_MS_ACCEL0)   mousekey_set_accel(mousekey_accel | (1<<0));
   else if (code == KC_MS_ACCEL1)   mousekey_set_accel(mousekey_accel | (1<<1));
   else if (code == KC_MS_ACCEL2)   mousekey_set_accel(mousekey_accel | (1<<2));
+ #else
+  else if (code == KC_MS_ACCEL0)   mousekey_set_accel(1<<0);
+  else if (code == KC_MS_ACCEL1)   mousekey_set_accel(1<<1);
+  else if (code == KC_MS_ACCEL2)   mousekey_set_accel(1<<2);
+ #endif
 }
 
 void mousekey_off(uint8_t code) {
@@ -180,9 +186,11 @@ void mousekey_off(uint8_t code) {
   else if (code == KC_MS_BTN3) mouse_report.buttons &= ~MOUSE_BTN3;
   else if (code == KC_MS_BTN4) mouse_report.buttons &= ~MOUSE_BTN4;
   else if (code == KC_MS_BTN5) mouse_report.buttons &= ~MOUSE_BTN5;
+ #ifndef MOUSEKEY_PERSISTENT_ACCEL
   else if (code == KC_MS_ACCEL0) mousekey_set_accel(mousekey_accel & ~(1<<0));
   else if (code == KC_MS_ACCEL1) mousekey_set_accel(mousekey_accel & ~(1<<1));
   else if (code == KC_MS_ACCEL2) mousekey_set_accel(mousekey_accel & ~(1<<2));
+ #endif
   if (mouse_report.x == 0 && mouse_report.y == 0)
     mousekey_repeat = 0;
   if (mouse_report.v == 0 && mouse_report.h == 0)
@@ -334,11 +342,13 @@ void mousekey_clear(void) {
   mouse_wheel_report = (report_mouse_t){};
   mousekey_repeat = 0;
   mousekey_wheel_repeat = 0;
+ #ifndef MOUSEKEY_PERSISTENT_ACCEL
   mousekey_accel = 0;
   mk_interval = MOUSEKEY_INTERVAL;
   mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
   mk_max_speed = MOUSEKEY_MAX_SPEED;
   mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+ #endif
 }
 
 static void mousekey_debug(void) {
