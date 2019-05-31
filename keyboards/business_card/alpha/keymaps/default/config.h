@@ -17,5 +17,6 @@
 #pragma once
 
 // place overrides here
-#define USE_I2C
-#define SSD1306OLED
+#ifdef RGB_DI_PIN
+   #define RGBLIGHT_ANIMATIONS
+#endif

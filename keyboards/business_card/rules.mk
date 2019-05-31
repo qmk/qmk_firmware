@@ -80,8 +80,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
-COMMON_VPATH += keyboards/helix
-SRC = i2c.c
-SRC += ssd1306.c
-
 DEFAULT_FOLDER = business_card/beta
