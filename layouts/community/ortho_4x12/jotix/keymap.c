@@ -55,6 +55,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) { 
+  case _RAISE:
+    // activar led
+    break;
+  case _LOWER:
+    // activar led
+    break;
+  }
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
