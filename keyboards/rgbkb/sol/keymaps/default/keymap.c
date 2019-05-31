@@ -129,20 +129,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_ENABLE
+const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
+    [_QWERTY] = ENCODER_LAYOUT( \
+        KC_VOLU, KC_VOLD,
+        KC_VOLU, KC_VOLD
+    ),
+    [_COLEMAK] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    ),
+    [_FN] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    ),
+    [_ADJ] = ENCODER_LAYOUT( \
+        _______, _______,
+        _______, _______
+    )
+};
+
 void encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-  } else if (index == 1) { /* Second encoder*/
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
+  uint8_t layer = biton32(layer_state);
+  uint16_t keycode = encoders[layer][index][clockwise];
+  while (keycode == KC_TRANSPARENT && layer > 0)
+  {
+    layer--;
+    if ((layer_state & (1 << layer)) != 0)
+        keycode = encoders[layer][index][clockwise];
   }
+  if (keycode != KC_TRANSPARENT)
+    tap_code16(keycode);
 }
 #endif
 
