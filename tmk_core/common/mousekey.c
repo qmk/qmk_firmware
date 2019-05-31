@@ -125,15 +125,23 @@ void mousekey_task(void) {
 void mousekey_set_accel(uint8_t accel) {
   mousekey_accel = accel;
   if (accel & (1 << 2)) {
+    mk_interval = MOUSEKEY_INTERVAL_2;
+    mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL_2;
     mk_max_speed = MOUSEKEY_SPEED_2;
     mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_2;
   } else if (accel & (1 << 1)) {
+    mk_interval = MOUSEKEY_INTERVAL_1;
+    mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL_1;
     mk_max_speed = MOUSEKEY_SPEED_1;
     mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_1;
   } else if (accel) {
+    mk_interval = MOUSEKEY_INTERVAL_0;
+    mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL_0;
     mk_max_speed = MOUSEKEY_SPEED_0;
     mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_0;
   } else {
+    mk_interval = MOUSEKEY_INTERVAL;
+    mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
     mk_max_speed = MOUSEKEY_MAX_SPEED;
     mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
   }
@@ -327,6 +335,8 @@ void mousekey_clear(void) {
   mousekey_repeat = 0;
   mousekey_wheel_repeat = 0;
   mousekey_accel = 0;
+  mk_interval = MOUSEKEY_INTERVAL;
+  mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
   mk_max_speed = MOUSEKEY_MAX_SPEED;
   mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 }
