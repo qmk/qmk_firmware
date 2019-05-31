@@ -250,14 +250,15 @@ void rgb_matrix_indicators_user(void) {
             case _WINFN:
                 rgb_matrix_hsv_layer(HSV_CYAN);
                 break;
-            default:
+            case _MAGIC:
                 rgb_matrix_hsv_layer(HSV_WHITE);
+                break;
 		}
 
         if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
-	        rgb_matrix_set_color(30, RGB_GREEN);
+	        rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, RGB_GREEN);
 	    } else {
-            rgb_matrix_set_color(30, 0, 0, 0);
+            rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, 0, 0, 0);
         }
 	}
 }
