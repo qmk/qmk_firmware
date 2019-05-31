@@ -21,7 +21,6 @@ script:
   - git rev-parse --short HEAD
   - bash util/travis_test.sh
   - bash util/travis_build.sh
-  - bash util/travis_docs.sh
 addons:
   apt:
     packages:
