@@ -22,7 +22,7 @@ Within the folder `keyboards`, its subfolder `handwired` and its vendor and manu
 * `<keyboardName>.h`: This file is where the keyboard layout is defined against the keyboard's switch matrix.
 * `<keyboardName>.c`: This file is where you can find custom code for the keyboard.  
 
-For more information on project structure see [QMK Keyboard Guidelines](hardware_keyboard_guidelines.md).
+For more information on project structure, see [QMK Keyboard Guidelines](hardware_keyboard_guidelines.md).
 
 ### Keymap Structure
 
