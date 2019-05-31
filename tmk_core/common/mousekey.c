@@ -70,16 +70,10 @@ uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
 static uint8_t move_unit(void) {
   uint16_t unit;
-  if (mousekey_accel & (1<<0)) {
-    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/4;
-  } else if (mousekey_accel & (1<<1)) {
-    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
-  } else if (mousekey_accel & (1<<2)) {
-    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+  if (mousekey_accel || mousekey_repeat >= mk_time_to_max) {
+    unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
   } else if (mousekey_repeat == 0) {
     unit = MOUSEKEY_MOVE_DELTA;
-  } else if (mousekey_repeat >= mk_time_to_max) {
-    unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
   } else {
     unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
   }
@@ -88,16 +82,10 @@ static uint8_t move_unit(void) {
 
 static uint8_t wheel_unit(void) {
   uint16_t unit;
-  if (mousekey_accel & (1<<0)) {
-    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/4;
-  } else if (mousekey_accel & (1<<1)) {
-    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
-  } else if (mousekey_accel & (1<<2)) {
-    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
+  if (mousekey_accel || mousekey_wheel_repeat >= mk_wheel_time_to_max) {
+    unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
   } else if (mousekey_wheel_repeat == 0) {
     unit = MOUSEKEY_WHEEL_DELTA;
-  } else if (mousekey_wheel_repeat >= mk_wheel_time_to_max) {
-    unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
   } else {
     unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_wheel_repeat) / mk_wheel_time_to_max;
   }
@@ -134,6 +122,23 @@ void mousekey_task(void) {
   }
 }
 
+void mousekey_set_accel(uint8_t accel) {
+  mousekey_accel = accel;
+  if (accel & (1 << 2)) {
+    mk_max_speed = MOUSEKEY_SPEED_2;
+    mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_2;
+  } else if (accel & (1 << 1)) {
+    mk_max_speed = MOUSEKEY_SPEED_1;
+    mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_1;
+  } else if (accel) {
+    mk_max_speed = MOUSEKEY_SPEED_0;
+    mk_wheel_max_speed = MOUSEKEY_WHEEL_SPEED_0;
+  } else {
+    mk_max_speed = MOUSEKEY_MAX_SPEED;
+    mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+  }
+}
+
 void mousekey_on(uint8_t code) {
   if      (code == KC_MS_UP)       mouse_report.y = move_unit() * -1;
   else if (code == KC_MS_DOWN)     mouse_report.y = move_unit();
@@ -148,9 +153,9 @@ void mousekey_on(uint8_t code) {
   else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
   else if (code == KC_MS_BTN4)     mouse_report.buttons |= MOUSE_BTN4;
   else if (code == KC_MS_BTN5)     mouse_report.buttons |= MOUSE_BTN5;
-  else if (code == KC_MS_ACCEL0)   mousekey_accel |= (1<<0);
-  else if (code == KC_MS_ACCEL1)   mousekey_accel |= (1<<1);
-  else if (code == KC_MS_ACCEL2)   mousekey_accel |= (1<<2);
+  else if (code == KC_MS_ACCEL0)   mousekey_set_accel(mousekey_accel | (1<<0));
+  else if (code == KC_MS_ACCEL1)   mousekey_set_accel(mousekey_accel | (1<<1));
+  else if (code == KC_MS_ACCEL2)   mousekey_set_accel(mousekey_accel | (1<<2));
 }
 
 void mousekey_off(uint8_t code) {
@@ -167,9 +172,9 @@ void mousekey_off(uint8_t code) {
   else if (code == KC_MS_BTN3) mouse_report.buttons &= ~MOUSE_BTN3;
   else if (code == KC_MS_BTN4) mouse_report.buttons &= ~MOUSE_BTN4;
   else if (code == KC_MS_BTN5) mouse_report.buttons &= ~MOUSE_BTN5;
-  else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
-  else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
-  else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
+  else if (code == KC_MS_ACCEL0) mousekey_set_accel(mousekey_accel & ~(1<<0));
+  else if (code == KC_MS_ACCEL1) mousekey_set_accel(mousekey_accel & ~(1<<1));
+  else if (code == KC_MS_ACCEL2) mousekey_set_accel(mousekey_accel & ~(1<<2));
   if (mouse_report.x == 0 && mouse_report.y == 0)
     mousekey_repeat = 0;
   if (mouse_report.v == 0 && mouse_report.h == 0)
@@ -322,6 +327,8 @@ void mousekey_clear(void) {
   mousekey_repeat = 0;
   mousekey_wheel_repeat = 0;
   mousekey_accel = 0;
+  mk_max_speed = MOUSEKEY_MAX_SPEED;
+  mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 }
 
 static void mousekey_debug(void) {

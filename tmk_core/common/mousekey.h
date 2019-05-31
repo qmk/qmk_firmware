@@ -52,6 +52,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_MAX_SPEED 10
 #endif
+#ifndef MOUSEKEY_SPEED_0
+#define MOUSEKEY_SPEED_0 (MOUSEKEY_MAX_SPEED / 4)
+#endif
+#ifndef MOUSEKEY_SPEED_1
+#define MOUSEKEY_SPEED_1 (MOUSEKEY_MAX_SPEED / 2)
+#endif
+#ifndef MOUSEKEY_SPEED_2
+#define MOUSEKEY_SPEED_2 MOUSEKEY_MAX_SPEED
+#endif
 #ifndef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 20
 #endif
@@ -63,6 +72,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifndef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 8
+#endif
+#ifndef MOUSEKEY_WHEEL_SPEED_0
+#define MOUSEKEY_WHEEL_SPEED_0 (MOUSEKEY_WHEEL_MAX_SPEED / 4)
+#endif
+#ifndef MOUSEKEY_WHEEL_SPEED_1
+#define MOUSEKEY_WHEEL_SPEED_1 (MOUSEKEY_WHEEL_MAX_SPEED / 2)
+#endif
+#ifndef MOUSEKEY_WHEEL_SPEED_2
+#define MOUSEKEY_WHEEL_SPEED_2 MOUSEKEY_WHEEL_MAX_SPEED
 #endif
 #ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
