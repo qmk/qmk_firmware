@@ -49,9 +49,3 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
-
-void matrix_scan_kb(void)
-{
-  matrix_scan_user();
-}
-

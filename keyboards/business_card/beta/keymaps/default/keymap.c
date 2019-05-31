@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-#include <math.h>
 #include "rgblight_list.h"
 #include "oled_driver.h"
 
@@ -32,9 +30,8 @@ LAYOUT(/* Base */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
 void matrix_init_user(void) {
-    eeconfig_update_rgblight_default();
-    rgblight_enable();
-    rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
 }
 
 void matrix_scan_user(void) {}
