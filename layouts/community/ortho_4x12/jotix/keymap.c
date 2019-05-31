@@ -9,8 +9,8 @@ enum layers {
     _ADJUST,
 };
 
-#define LOWER   MO(_LOWER)
-#define RAISE   MO(_RAISE)
+#define LOWER TT(_LOWER)
+#define RAISE TT(_RAISE)
 
 #define FN_LAYER LAYOUT_ortho_4x12 (\
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,\
