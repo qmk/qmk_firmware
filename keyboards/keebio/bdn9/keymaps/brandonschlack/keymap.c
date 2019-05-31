@@ -180,29 +180,29 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_KYPD:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 layer_move(_KEYPAD);
             }
             break;
         case TG_MEDA:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 layer_move(_MEDIA);
             }
             break;
         case TG_NAV:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 tap_code(KC_G);
                 layer_move(_LR_NAV);
             }
             break;
         case TG_REVW:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 tap_code(KC_E);
                 layer_move(_LR_REVIEW);
             }
             break;
         case TG_EDIT:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 tap_code(KC_D);
                 layer_move(_LR_EDIT);
             }
