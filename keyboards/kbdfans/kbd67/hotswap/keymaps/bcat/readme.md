@@ -10,4 +10,8 @@ cluster.
 
 ## Function layer
 
+<<<<<<< HEAD
 ![Function layer layout](https://i.imgur.com/K5Z5qbw.png)
+=======
+![Function layer layout](https://i.imgur.com/urDnuTC.png)
+>>>>>>> master

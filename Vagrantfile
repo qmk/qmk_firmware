@@ -7,6 +7,8 @@ Vagrant.configure(2) do |config|
 
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
   config.vm.box = "generic/debian9"
+  
+  config.vm.synced_folder '.', '/vagrant'
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
@@ -64,7 +66,7 @@ Vagrant.configure(2) do |config|
   # If this causes issues you can run a 'vagrant destroy' and then
   # add a # before ,run: (or change "always" to "once") and run 'vagrant up' to get a working
   # non-updated box and then attempt to troubleshoot or open a Github issue
-  config.vm.provision "shell", inline: "/bin/sh -c 'yes | /vagrant/util/qmk_install.sh'", run: "always"
+  config.vm.provision "shell", inline: "/vagrant/util/qmk_install.sh", run: "always"
 
   config.vm.post_up_message = <<-EOT
 
