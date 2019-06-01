@@ -195,6 +195,16 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
           music_sequence_interval+=10;
           return false;
         }
+
+        if (keycode == KC_LEFT) {
+            music_offset--;
+            return false;
+        }
+
+        if (keycode == KC_RIGHT) {
+            music_offset++;
+            return false;
+        }
       }
 
       uint8_t note = 36;
