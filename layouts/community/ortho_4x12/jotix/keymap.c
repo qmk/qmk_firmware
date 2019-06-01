@@ -60,10 +60,11 @@ uint32_t layer_state_set_user(uint32_t state) {
   #ifdef JOTANCK_LEDS
   switch (biton32(state)) { 
   case _LOWER:
-    writePinHigh(JOTANCK_LED2);
-    break;
-  case _RAISE:
     writePinHigh(JOTANCK_LED1);
+    writePinLow(JOTANCK_LED2);
+  case _RAISE:
+    writePinLow(JOTANCK_LED1);
+    writePinHigh(JOTANCK_LED2);
     break;
   case _ADJUST:
     writePinHigh(JOTANCK_LED1);
