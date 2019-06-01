@@ -48,7 +48,7 @@ float    note_frequency = 0;
 float    note_length = 0;
 uint8_t  note_tempo = TEMPO_DEFAULT;
 float    note_timbre = TIMBRE_DEFAULT;
-uint16_t note_position = 0;
+uint32_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
@@ -235,6 +235,31 @@ static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t rows) {
       samples[s] = DAC_OFF_VALUE;
     }
   }
+
+  if (playing_notes) {
+    note_position += rows;
+
+    // end of the note
+    if ((note_position >= (note_length*420))) {
+      stop_note((*notes_pointer)[current_note][0]);
+      current_note++;
+      if (current_note >= notes_count) {
+        if (notes_repeat) {
+          current_note = 0;
+        } else {
+          playing_notes = false;
+          return;
+        }
+      }
+      play_note((*notes_pointer)[current_note][0], 15);
+      envelope_index = 0;
+      note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+
+      note_position = note_position - (note_length*420);
+      // note_position = 0;
+    }
+  }
+
 }
 
 /*
@@ -394,9 +419,9 @@ void play_note(float freq, int vol) {
   if (audio_config.enable && voices < 8) {
 
      // Cancel notes if notes are playing
-    if (playing_notes) {
-      stop_all_notes();
-    }
+    // if (playing_notes) {
+    //   stop_all_notes();
+    // }
 
     playing_note = true;
 
@@ -419,11 +444,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
   if (audio_config.enable) {
 
-    // Cancel note if a note is playing
-    if (playing_note) {
-      stop_all_notes();
-    }
-
     playing_notes = true;
 
     notes_pointer = np;
@@ -433,9 +453,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     place = 0;
     current_note = 0;
 
-    note_frequency = (*notes_pointer)[current_note][0];
     note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
     note_position = 0;
+
+    play_note((*notes_pointer)[current_note][0], 15);
 
   }
 }
