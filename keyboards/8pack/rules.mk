@@ -54,3 +54,5 @@ BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
 AUDIO_ENABLE     = no
 RGBLIGHT_ENABLE  = yes
 OLED_DRIVER_ENABLE = no
+
+DEFAULT_FOLDER = 8pack/rev12
