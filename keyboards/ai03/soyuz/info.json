@@ -5,7 +5,7 @@
     "width": 4, 
     "height": 5, 
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_5x4": {
             "layout": [
 				{"x":0, "y":0},
 				{"x":1, "y":0},
