@@ -59,11 +59,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 
   #ifdef JOTANCK_LEDS
   switch (biton32(state)) { 
-  case _RAISE:
-    writePinHigh(JOTANCK_LED1);
-    break;
   case _LOWER:
     writePinHigh(JOTANCK_LED2);
+    break;
+  case _RAISE:
+    writePinHigh(JOTANCK_LED1);
     break;
   case _ADJUST:
     writePinHigh(JOTANCK_LED1);
@@ -73,10 +73,9 @@ uint32_t layer_state_set_user(uint32_t state) {
     writePinLow(JOTANCK_LED1);
     writePinLow(JOTANCK_LED2);
     break; 
-  }
+  };
   #endif
-
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return state;
 }
 
 void matrix_init_user(void) {
