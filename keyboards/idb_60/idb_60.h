@@ -3,23 +3,24 @@
 #include "quantum.h"
 
 inline void _idb_60_caps_led_on(void) {
-    setPinOutput(C5);
     writePinLow(C5);
 }
 
 inline void _idb_60_esc_led_on(void) {
-    setPinOutput(C4);
     writePinLow(C4);
 }
 
 inline void _idb_60_caps_led_off(void) {
-    setPinInput(C5);
     writePinLow(C5);
 }
 
 inline void _idb_60_esc_led_off(void) {
-    setPinInput(C4);
     writePinLow(C4);
+}
+
+inline void keyboarb_pre_init_kb(void) {
+    setPinOutput(C4);
+    setPinOutput(C5);
 }
 
 #define LAYOUT( \
