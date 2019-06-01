@@ -20,6 +20,7 @@
 #define UNUSED_PINS
 
 /* leds */
+#define JOTANCK_LEDS
 #define JOTANCK_LED1 B4
 #define JOTANCK_LED2 B5
 
