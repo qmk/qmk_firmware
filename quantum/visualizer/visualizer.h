@@ -30,6 +30,7 @@ SOFTWARE.
 
 #include "config.h"
 #include "gfx.h"
+#include "action_layer.h"
 
 #ifdef LCD_BACKLIGHT_ENABLE
 #include "lcd_backlight.h"
