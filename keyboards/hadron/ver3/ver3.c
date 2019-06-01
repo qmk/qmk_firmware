@@ -16,8 +16,30 @@
 #include "ver3.h"
 #include "qwiic.h"
 #include "action_layer.h"
-#include "matrix.h"
 #include "haptic.h"
+
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+
+led_config_t g_led_config = { {
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED,   6, NO_LED, NO_LED,   7, NO_LED, NO_LED,   8, NO_LED, NO_LED,   9, NO_LED, NO_LED,   0, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED,   5, NO_LED, NO_LED,   4, NO_LED, NO_LED,   3, NO_LED, NO_LED,   2, NO_LED, NO_LED,   1, NO_LED }
+}, {
+    { 195,   3 }, { 195,  16 }, { 150,  16 }, { 105,  16 }, {  60,  16 }, {  15,  16 }, {  15,   3 }, {  60,   3 }, { 105,   3 }, { 150,   3 }
+}, {
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4
+} };
+
+#endif
+
+uint8_t *o_fb;
+
+uint16_t counterst = 0;
+
+
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
@@ -26,12 +48,12 @@
 #define ScreenOffInterval 60000 /* milliseconds */
 static uint16_t last_flush;
 
-volatile uint8_t led_numlock = false; 
-volatile uint8_t  led_capslock = false; 
+volatile uint8_t led_numlock = false;
+volatile uint8_t  led_capslock = false;
 volatile uint8_t  led_scrolllock = false;
 
 static uint8_t layer;
-static bool queue_for_send = false; 
+static bool queue_for_send = false;
 static uint8_t encoder_value = 32;
 
 __attribute__ ((weak))
@@ -41,22 +63,22 @@ void draw_ui(void) {
   send_command(DISPLAYON);
 
 /* Layer indicator is 41 x 10 pixels */
-#define LAYER_INDICATOR_X 0
-#define LAYER_INDICATOR_Y 0 
+#define LAYER_INDICATOR_X 5
+#define LAYER_INDICATOR_Y 0
 
   draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
   draw_char(LAYER_INDICATOR_X + 34, LAYER_INDICATOR_Y + 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
 /* Matrix display is 19 x 9 pixels */
-#define MATRIX_DISPLAY_X 0
+#define MATRIX_DISPLAY_X 5
 #define MATRIX_DISPLAY_Y 18
 
   for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
     for (uint8_t y = 0; y < MATRIX_COLS; y++) {
       draw_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
     }
-  } 
+  }
   draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
   /* hadron oled location on thumbnail */
   draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
@@ -135,7 +157,7 @@ void read_host_led_state(void) {
     if (led_capslock == false){
     led_capslock = true;}
     } else {
-    if (led_capslock == true){  
+    if (led_capslock == true){
     led_capslock = false;}
     }
   if (leds & (1 << USB_LED_SCROLL_LOCK)) {
@@ -170,7 +192,7 @@ void matrix_init_kb(void) {
   queue_for_send = true;
 	matrix_init_user();
 }
-            
+
 void matrix_scan_kb(void) {
 if (queue_for_send) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
@@ -184,5 +206,10 @@ if (queue_for_send) {
   send_command(DISPLAYOFF);      /* 0xAE */
   }
 #endif
+  if (counterst == 0) {
+    //testPatternFB(o_fb);
+  }
+  counterst = (counterst + 1) % 1024;
+  //rgblight_task();
 	matrix_scan_user();
 }

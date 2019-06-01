@@ -42,3 +42,7 @@
     { R26, R25, R24, R23, R22, R21, R20 }, \
     { ___, ___, ___, ___, R32, ___, ___ }  \
 }
+
+#ifdef USE_I2C
+  #error "I2C not Supported"
+#endif
