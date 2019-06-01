@@ -30,7 +30,14 @@ const uint16_t PROGMEM td_keymaps[TD_MAX - TD_MIN][2] = {
     [TD_DOT - TD_MIN]  = { KC_DOT, KC_GRAVE }
 };
 
-void do_tap_dance_double(uint16_t keycode, keyrecord_t *record)
+void run_tap_dance_double(uint8_t i)
+{
+  tap_code16(pgm_read_word(&td_keymaps[td_keycode - TD_MIN][i]));
+  td_keycode = KC_TRANSPARENT;
+  td_timer = timer_read() + TAPPING_TERM;
+}
+
+void process_tap_dance_double(uint16_t keycode, keyrecord_t *record)
 {
   if (td_keycode != keycode || timer_read() - td_timer < 0x8000) {
     td_keycode = keycode;
@@ -38,16 +45,12 @@ void do_tap_dance_double(uint16_t keycode, keyrecord_t *record)
     return;
   }
 
-  tap_code16(pgm_read_word(&td_keymaps[td_keycode - TD_MIN][1]));
-  td_keycode = KC_TRANSPARENT;
-  td_timer = timer_read() + TAPPING_TERM;
+  run_tap_dance_double(1);
 }
 
 void matrix_scan_user(void) {
   if (td_keycode != KC_TRANSPARENT && timer_read() - td_timer < 0x8000) {
-    tap_code16(pgm_read_word(&td_keymaps[td_keycode - TD_MIN][0]));
-    td_keycode = KC_TRANSPARENT;
-    td_timer = timer_read() + TAPPING_TERM;
+    run_tap_dance_double(0);
   }
 }
 #endif
@@ -58,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef TAP_DANCE_ENABLE
   if (TD_MIN <= keycode && keycode < TD_MAX) {
     if (record->event.pressed) {
-      do_tap_dance_double(keycode, record);
+      process_tap_dance_double(keycode, record);
     }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -68,9 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   if (td_keycode != KC_TRANSPARENT) {
-    tap_code16(pgm_read_word(&td_keymaps[td_keycode - TD_MIN][0]));
-    td_keycode = KC_TRANSPARENT;
-    td_timer = timer_read() + TAPPING_TERM;
+    run_tap_dance_double(0);
   }
 #endif
 
