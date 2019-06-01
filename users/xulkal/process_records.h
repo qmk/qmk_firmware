@@ -22,22 +22,14 @@
 enum {
   COMM_QUOT = 0,
   BACKSPACE,
-  TAP_TAB,
-  CTRL_MINUS,
-  CTRL_PLUS
+  DELETE,
+  DOT
 };
 
 #define TD_COMM TD(COMM_QUOT)
 #define TD_BSPC TD(BACKSPACE)
-#define TD_TAB TD(TAP_TAB)
-#define TD_LCTL TD(CTRL_MINUS)
-#define TD_RCTL TD(CTRL_PLUS)
-#else
-#define TD_COMM KC_COMM
-#define TD_BSPC KC_BSPACE
-#define TD_TAB KC_TAB
-#define TD_LCTL KC_LCTL
-#define TD_RCTL KC_RCTL
+#define TD_DEL TD(DELETE)
+#define TD_DOT TD(DOT)
 #endif
 
 enum layer_number {
@@ -53,7 +45,16 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  RGBRST = SAFE_RANGE
+  RGBRST = SAFE_RANGE,
+#ifndef TAP_DANCE_ENABLE
+  TD_MIN,
+  TD_COMM = TD_MIN,
+  TD_BSPC,
+  TD_DEL,
+  TD_DOT,
+  TD_MAX,
+#endif
+  KEYMAP_SAFE_RANGE
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);

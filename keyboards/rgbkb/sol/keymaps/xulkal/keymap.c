@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L3_________________,  KC_GRV,   KC_QUOT,  _________________QWERTY_R3_________________, \
     _________________QWERTY_L4_________________,  RGB_TOG,  RGBRST,   _________________QWERTY_R4_________________, \
     _________________QWERTY_L5_________________,  RGB_RMOD, RGB_MOD,  _________________QWERTY_R5_________________, \
-                                         KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC \
+                                         KC_SPC,  TD_DEL,   KC_ENT,   KC_SPC \
   ),
 
 #ifndef GAMELAYER_DISABLE
