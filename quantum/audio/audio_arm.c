@@ -77,20 +77,32 @@ bool glissando = true;
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
+/** Size of the dac_buffer arrays. All must be the same size. */
 #define DAC_BUFFER_SIZE 256U
 
+/** Highest value allowed by our 12bit DAC */
 #ifndef DAC_SAMPLE_MAX
   #define DAC_SAMPLE_MAX  4095U
 #endif
 
+/** Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
+ *  lower will sacrifice perceptible audio quality. Any higher will limit the
+ *  number of simultaneous voices.
+ */
 #ifndef DAC_SAMPLE_RATE
   #define DAC_SAMPLE_RATE 44100U
 #endif
 
+/** The number of voices (in polyphony) that are supported. Certain voices will
+ *  glitch out at different values - most (the look-ups) survive 5.
+ */
 #ifndef DAC_VOICES_MAX
   #define DAC_VOICES_MAX 5
 #endif
 
+/** The default value of the DAC when not playing anything. Certain hardware
+ *  setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
+ */
 #ifndef DAC_OFF_VALUE
   #define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
 #endif
