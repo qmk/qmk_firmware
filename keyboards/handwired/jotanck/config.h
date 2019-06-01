@@ -21,8 +21,8 @@
 
 /* leds */
 #define JOTANCK_LEDS
-#define JOTANCK_LED1 B4
-#define JOTANCK_LED2 B5
+#define JOTANCK_LED1 B5
+#define JOTANCK_LED2 B4
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
