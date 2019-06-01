@@ -44,14 +44,14 @@ static uint16_t debouncing_time = 0;
 
 void matrix_init(void)
 {
-    /* Column(sense) */
+    /* Row(sense) */
     palSetPadMode(GPIOD, 1,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 4,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 5,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 6,  PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOD, 7,  PAL_MODE_INPUT_PULLDOWN);
 
-    /* Row(strobe) */
+    /* Column(strobe) */
     palSetPadMode(GPIOB, 2,  PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 3,  PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 18, PAL_MODE_OUTPUT_PUSHPULL);

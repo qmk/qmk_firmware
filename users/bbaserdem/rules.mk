@@ -1,13 +1,15 @@
 SRC += bbaserdem.c
-EXTRAFLAGS += -flto
+EXTRAFLAGS += -flto			# Used to make code smaller
 
 # ENABLE
-UNICODE_ENABLE = yes		# Used for unicode character emulation
-EXTRAKEY_ENABLE = yes		# OS signals like volume control
+UNICODE_ENABLE = yes	# Used for unicode character emulation
+EXTRAKEY_ENABLE = yes 	# OS signals like volume control
 
 # DISABLE
-BLUETOOTH_ENABLE = no 		# No bluetooth
-COMMAND_ENABLE = no			# Some bootmagic thing
+ifndef BLUETOOTH_ENABLE 
+	BLUETOOTH_ENABLE = no 	# No bluetooth
+endif
+COMMAND_ENABLE = no			# Some bootmagic thing i dont use
 BOOTMAGIC_ENABLE = no 		# Access to EEPROM settings, not needed
 CONSOLE_ENABLE = no			# Allows console output with a command
 SLEEP_LED_ENABLE = no  		# Breathes LED's when computer is asleep. Untested.
@@ -18,5 +20,5 @@ KEY_LOCK_ENABLE = no 		# Allows locking any key. Not used
 API_SYSEX_ENABLE = no 		# Allows OS to send signals.
 KEY_LOCK_ENABLE = no 		# Allows locking any key. Not used
 
-# Disabling this makes it compile, prob bad upstream code
+# Disabling this makes it compile, i dont know why
 # VARIABLE_TRACE = no 		# Allows debugging variables

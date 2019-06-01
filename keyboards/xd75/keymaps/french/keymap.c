@@ -1,5 +1,5 @@
 #include "keymap_french.c"
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 
 // Layer shorthand
@@ -54,7 +54,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { RESET,	FR_EMPT,	FR_EMPT,	FR_TRANS,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_EMPT,  	FR_EMPT,  	FR_0,   	FR_DOT,  	FR_ENTK,  	FR_EMPT,	BL_STEP	},
  },
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-};
-

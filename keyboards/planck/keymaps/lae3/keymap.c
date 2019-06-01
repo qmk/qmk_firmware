@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -30,10 +31,6 @@ enum planck_keycodes {
     LOWER,
     RAISE,
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define KC_MUP KC_MS_UP
 #define KC_MDN KC_MS_DOWN

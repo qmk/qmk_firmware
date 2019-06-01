@@ -18,10 +18,6 @@ extern keymap_config_t keymap_config;
 #define DVORAK M(_DV)
 #define COLEMAK M(_CM)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /*
@@ -115,10 +111,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_END,  _______, _______, _______, _______,                   _______,
     QWERTY,  DVORAK,  COLEMAK,                   _______,                                     _______, _______, _______, _______
   ),
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

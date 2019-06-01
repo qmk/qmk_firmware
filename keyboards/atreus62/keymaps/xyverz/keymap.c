@@ -63,10 +63,6 @@ enum atreus52_keycodes {
   RAISE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
 
@@ -127,8 +123,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
+void matrix_init_user(void) {
+#ifdef BOOTLOADER_CATERINA
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+#endif
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

@@ -59,6 +59,8 @@ This is a C header file that is one of the first things included, and will persi
   * define is matrix has ghost (unlikely)
 * `#define DIODE_DIRECTION COL2ROW`
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
+* `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * pins mapped to rows and columns, from left to right. Defines a matrix where each switch is connected to a separate pin and ground.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
 * `#define C4_AUDIO`
@@ -68,11 +70,11 @@ This is a C header file that is one of the first things included, and will persi
 * `#define C6_AUDIO`
   * enables audio on pin C6
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B5 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B6 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
 * `#define BACKLIGHT_LEVELS 3`
@@ -87,10 +89,12 @@ This is a C header file that is one of the first things included, and will persi
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
   * tries to keep switch state consistent with keyboard LED state
-* `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
+* `#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))`
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define SCL_CLOCK 100000L`
+  * sets the SCL_CLOCK speed for split keyboards. The default is `100000L` but some boards can be set to `400000L`.
 
 ## Features That Can Be Disabled
 
@@ -107,9 +111,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
 * `#define NO_ACTION_MACRO`
-  * disable all macro handling
+  * disable old style macro handling: MACRO() & action_get_macro
 * `#define NO_ACTION_FUNCTION`
-  * disable the action function (deprecated)
+  * disable calling of action_function() from the fn_actions array (deprecated)
 
 ## Features That Can Be Enabled
 
@@ -117,27 +121,41 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
-* `#define PREVENT_STUCK_MODIFIERS`
-  * stores the layer a key press came from so the same layer is used when the key is released, regardless of which layers are enabled
+* `#define STRICT_LAYER_RELEASE`
+  * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold
+  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+* `#define TAPPING_TERM_PER_KEY`
+  * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
-  * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+  * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
+  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
+* `#define IGNORE_MOD_TAP_INTERRUPT`
+  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
+  * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
+* `#define TAPPING_FORCE_HOLD`
+  * makes it possible to use a dual role key as modifier shortly after having been tapped
+  * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
+  * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
+    * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
+* `#define LEADER_PER_KEY_TIMING`
+  * sets the timer for leader key chords to run on each key press rather than overall
+* `#define LEADER_KEY_STRICT_KEY_PROCESSING`
+  * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
 * `#define QMK_KEYS_PER_SCAN 4`
   * Allows sending more than one key per scan. By default, only one key event gets
     sent via `process_record()` per scan. This has little impact on most typing, but
@@ -147,15 +165,29 @@ If you define these options you will enable the associated feature, which may in
     going to produce the 500 keystrokes a second needed to actually get more than a
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
+* `#define COMBO_COUNT 2`
+  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
+* `#define COMBO_TERM 200`
+  * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define TAP_CODE_DELAY 100`
+  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+* `#define TAP_HOLD_CAPS_DELAY 200`
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 200ms if not defined. 
 
 ## RGB Light Configuration
 
 * `#define RGB_DI_PIN D7`
-  * pin the DI on the ws2812 is hooked-up to
+  * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_ANIMATIONS`
   * run RGB animations
-* `#define RGBLED_NUM 15`
+* `#define RGBLED_NUM 12`
   * number of LEDs
+* `#define RGBLIGHT_SPLIT`
+  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
+* `#define RGBLED_SPLIT { 6, 6 }`
+  * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
+  * First value indicates number of LEDs for left half, second value is for the right half
+  * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
@@ -173,6 +205,62 @@ If you define these options you will enable the associated feature, which may in
 * `#define MOUSEKEY_MAX_SPEED 7`
 * `#define MOUSEKEY_WHEEL_DELAY 0`
 
+## Split Keyboard Options
+
+Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
+
+* `SPLIT_TRANSPORT = custom`
+  * Allows replacing the standard split communication routines with a custom one. ARM based split keyboards must use this at present.
+
+### Setting Handedness
+
+One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.
+
+There are a few different ways to set handedness for split keyboards (listed in order of precedence):
+
+1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
+2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+   * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
+   * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
+3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
+4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
+#### Defines for handedness
+
+* `#define SPLIT_HAND_PIN B7`
+  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
+
+* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
+  * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
+
+* `#define MASTER_RIGHT`
+  * Master half is defined to be the right half.
+
+### Other Options
+
+* `#define USE_I2C`
+  * For using I2C instead of Serial (defaults to serial)
+
+* `#define SOFT_SERIAL_PIN D0`
+  * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
+
+* `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
+* `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
+  * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define RGBLED_SPLIT { 6, 6 }`
+  * See [RGB Light Configuration](#rgb-light-configuration)
+
+* `#define SELECT_SOFT_SERIAL_SPEED <speed>` (default speed is 1)
+  * Sets the protocol speed when using serial communication
+  * Speeds:
+    * 0: about 189kbps (Experimental only)
+    * 1: about 137kbps (default)
+    * 2: about 75kbps
+    * 3: about 39kbps
+    * 4: about 26kbps
+    * 5: about 20kbps
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
@@ -181,6 +269,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
+* `FIRMWARE_FORMAT`
+  * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LAYOUTS`
@@ -214,15 +304,62 @@ Use these to enable or disable building certain features. The more you have enab
   * Console for debug(+400)
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
+* `COMBO_ENABLE`
+  * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
+* `LEADER_ENABLE`
+  * Enable leader key chording
 * `MIDI_ENABLE`
   * MIDI controls
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Enable Bluetooth with the Adafruit EZ-Key HID
+  * Legacy option to Enable Bluetooth with the Adafruit EZ-Key HID. See BLUETOOTH
+* `BLUETOOTH`
+  * Current options are AdafruitEzKey, AdafruitBLE, RN42
+* `SPLIT_KEYBOARD`
+  * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `CUSTOM_MATRIX`
+  * Allows replacing the standard matrix scanning routine with a custom one.
+* `DEBOUNCE_TYPE`
+  * Allows replacing the standard key debouncing routine with an alternative or custom one.
+* `WAIT_FOR_USB`
+  * Forces the keyboard to wait for a USB connection to be established before it starts up
+* `NO_USB_STARTUP_CHECK`
+  * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
+
+## USB Endpoint Limitations
+
+In order to provide services over USB, QMK has to use USB endpoints.
+These are a finite resource: each microcontroller has only a certain number.
+This limits what features can be enabled together.
+If the available endpoints are exceeded, a build error is thrown.
+
+The following features can require separate endpoints:
+
+* `MOUSEKEY_ENABLE`
+* `EXTRAKEY_ENABLE`
+* `CONSOLE_ENABLE`
+* `NKRO_ENABLE`
+* `MIDI_ENABLE`
+* `RAW_ENABLE`
+* `VIRTSER_ENABLE`
+
+In order to improve utilisation of the endpoints, the HID features can be combined to use a single endpoint.
+By default, `MOUSEKEY`, `EXTRAKEY`, and `NKRO` are combined into a single endpoint.
+
+The base keyboard functionality can also be combined into the endpoint,
+by setting `KEYBOARD_SHARED_EP = yes`.
+This frees up one more endpoint,
+but it can prevent the keyboard working in some BIOSes,
+as they do not implement Boot Keyboard protocol switching.
+
+Combining the mouse also breaks Boot Mouse compatibility.
+The mouse can be uncombined by setting `MOUSE_SHARED_EP = no` if this functionality is required.

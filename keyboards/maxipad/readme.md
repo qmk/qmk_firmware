@@ -1,29 +1,27 @@
-Maxipad keyboard firmware
+# Maxipad
 
-## Quantum MK Firmware
+![Maxipad](https://images.bigcartel.com/product_images/193297217/product_image.jpg)
 
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
+5 x 6 Gamepad/Macropad PCBs from /u/wootpatoot
 
-If you are using a pro micro then make sure to enable USE_PRO_MICRO in the makefile
-Change the config.h pinout to match your mcu!!
+- Multiple layouts supported
+  - Full-grid
+  - 2u thumb-key (the 2u only works in the bottom right position).
+- Multiple controllers supported
+  - Pro Micro
+  - PJRC Teensy 2.0
 
-Download or clone the whole firmware and navigate to the keyboards/maxipad folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Maxipad PCB  
+Hardware Availability: [switchtop](http://www.switchtop.com/product/gamepad-macropad-pcbs)
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+Make example for this keyboard (after setting up your build environment):
 
-### Default
+    make maxipad:default
 
-To build with the default keymap, simply run `make`.
+If you would like to use one of the alternative controllers:
 
+    make maxipad/promicro:default
+    make maxipad/teensy2:default
 
-### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top readme.md) and existent keymap files.
-
-
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
-
-```
-$ make [default|jack|<name>]
-```
-
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -24,10 +24,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to keep the keymap tidy
 #define GUIBSPC GUI_T(KC_BSPC) // GUI when held, BSPC when tapped.
 #define RGB_SWR RGB_M_SW // Swirl Animation alias
@@ -174,6 +170,16 @@ void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
+
+void matrix_init_user(void) {
+#ifdef BOOTLOADER_CATERINA
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+#endif
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

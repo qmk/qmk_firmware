@@ -40,6 +40,9 @@
 #define JP_HENK KC_INT4 // henkan
 #define JP_KANA KC_INT2 // katakana/hiragana|ro-mazi
 
+#define JP_MKANA KC_LANG1 //kana on MacOSX
+#define JP_MEISU KC_LANG2 //eisu on MacOSX
+
 
 //Aliases for shifted symbols
 #define JP_DQT  LSFT(KC_2)    // "

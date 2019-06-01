@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "i2cmaster.h"
-
 
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
@@ -24,9 +22,8 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 
 extern inline void ergodox_led_all_set(uint8_t n);
 
-
 bool i2c_initialized = 0;
-uint8_t mcp23018_status = 0x20;
+i2c_status_t mcp23018_status = 0x20;
 
 void matrix_init_kb(void) {
    // keyboard LEDs (see "PWM on ports OC1(A|B|C)" in "teensy-2-0.md")
@@ -114,30 +111,33 @@ uint8_t init_mcp23018(void) {
     // uint8_t sreg_prev;
     // sreg_prev=SREG;
     // cli();
+
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
         i2c_initialized = true;
         _delay_ms(1000);
     }
+    // i2c_init(); // on pins D(1,0)
+    // _delay_ms(1000);
 
     // set pin direction
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
     i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
     i2c_stop();
@@ -164,18 +164,18 @@ uint8_t ergodox_left_leds_update(void) {
     // - unused  : hi-Z : 1
     // - input   : hi-Z : 1
     // - driving : hi-Z : 1
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(OLATA);
+    mcp23018_status = i2c_write(OLATA, ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
-                                & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT)
-                                );
+                                & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT),
+                                ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
                                 & ~(ergodox_left_led_2<<LEFT_LED_2_SHIFT)
-                                & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT)
-                                );
+                                & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT),
+                                ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
 
  out:
@@ -206,4 +206,102 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,1}, {1,1}, {2,1}, {3,1}, {4,1}, {5,1}},
     {{0,0}, {1,0}, {2,0}, {3,0}, {4,0}, {5,0}},
 };
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+/*   driver
+ *   |  R location
+ *   |  |      G location
+ *   |  |      |      B location
+ *   |  |      |      | */
+    {0, C3_1,  C2_1,  C4_1}, // LED1 on right
+    {0, C6_1,  C5_1,  C7_1}, // LED2
+    {0, C4_2,  C3_2,  C5_2}, // LED3
+    {0, C7_2,  C6_2,  C8_2}, // LED4
+    {0, C2_3,  C1_3,  C3_3}, // LED5
+    {0, C5_3,  C4_3,  C6_3}, // LED6
+    {0, C8_3,  C7_3,  C9_3}, // LED7
+    {0, C2_4,  C1_4,  C3_4}, // LED8
+    {0, C6_4,  C5_4,  C7_4}, // LED9
+    {0, C2_5,  C1_5,  C3_5}, // LED10
+    {0, C7_5,  C6_5,  C8_5}, // LED11
+    {0, C2_6,  C1_6,  C3_6}, // LED12
+    {0, C5_6,  C4_6,  C6_6}, // LED13
+    {0, C8_6,  C7_6,  C9_6}, // LED14
+    {0, C2_7,  C1_7,  C3_7}, // LED15
+    {0, C5_7,  C4_7,  C6_7}, // LED16
+    {0, C2_8,  C1_8,  C3_8}, // LED17
+    {0, C5_8,  C4_8,  C6_8}, // LED18
+
+    {0, C3_9,  C2_9,  C4_9}, // LED19
+    {0, C6_9,  C5_9,  C7_9}, // LED20
+    {0, C4_10, C3_10, C5_10}, // LED21
+    {0, C7_10, C6_10, C8_10}, // LED22
+    {0, C2_11, C1_11, C3_11}, // LED23
+    {0, C5_11, C4_11, C6_11}, // LED24
+
+    {1, C3_1,  C2_1,  C4_1}, // LED1 on left
+    {1, C6_1,  C5_1,  C7_1}, // LED2
+    {1, C4_2,  C3_2,  C5_2}, // LED3
+    {1, C7_2,  C6_2,  C8_2}, // LED4
+    {1, C2_3,  C1_3,  C3_3}, // LED5
+    {1, C5_3,  C4_3,  C6_3}, // LED6
+    {1, C8_3,  C7_3,  C9_3}, // LED7
+    {1, C2_4,  C1_4,  C3_4}, // LED8
+    {1, C6_4,  C5_4,  C7_4}, // LED9
+    {1, C2_5,  C1_5,  C3_5}, // LED10
+    {1, C7_5,  C6_5,  C8_5}, // LED11
+    {1, C2_6,  C1_6,  C3_6}, // LED12
+    {1, C5_6,  C4_6,  C6_6}, // LED13
+    {1, C8_6,  C7_6,  C9_6}, // LED14
+    {1, C2_7,  C1_7,  C3_7}, // LED15
+    {1, C5_7,  C4_7,  C6_7}, // LED16
+    {1, C2_8,  C1_8,  C3_8}, // LED17
+    {1, C5_8,  C4_8,  C6_8}, // LED18
+
+    {1, C3_9,  C2_9,  C4_9}, // LED19
+    {1, C6_9,  C5_9,  C7_9}, // LED20
+    {1, C4_10, C3_10, C5_10}, // LED21
+    {1, C7_10, C6_10, C8_10}, // LED22
+    {1, C2_11, C1_11, C3_11}, // LED23
+    {1, C5_11, C4_11, C6_11} // LED24
+};
+
+
+led_config_t g_led_config = { {
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    {  28,  33,  38,  43,  47, NO_LED },
+    {  27,  32,  37,  42,  46, NO_LED },
+    {  26,  31,  36,  41,  45, NO_LED },
+    {  25,  30,  35,  40,  44, NO_LED },
+    {  24,  29,  34,  39, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    {   0,   5,  10,  15, NO_LED, NO_LED },
+    {   1,   6,  11,  16,  20, NO_LED },
+    {   2,   7,  12,  17,  21, NO_LED },
+    {   3,   8,  13,  18,  22, NO_LED },
+    {   4,   9,  14,  19,  23, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
+}, {
+    { 137,   0 }, { 154,   0 }, { 172,   0 }, { 189,   0 }, { 206,   0 }, { 137,  12 },
+    { 154,  12 }, { 172,  12 }, { 189,  12 }, { 206,  12 }, { 137,  25 }, { 154,  25 },
+    { 172,  25 }, { 189,  25 }, { 206,  25 }, { 137,  38 }, { 154,  38 }, { 172,  38 },
+    { 189,  38 }, { 206,  38 }, { 154,  51 }, { 172,  51 }, { 189,  51 }, { 206,  51 },
+    {  86,   0 }, {  68,   0 }, {  51,   0 }, {  34,   0 }, {  17,   0 }, {  86,  12 },
+    {  68,  12 }, {  51,  12 }, {  34,  12 }, {  17,  12 }, {  86,  25 }, {  68,  25 },
+    {  51,  25 }, {  34,  25 }, {  17,  25 }, {  86,  38 }, {  68,  38 }, {  51,  38 },
+    {  34,  38 }, {  17,  38 }, {  68,  51 }, {  51,  51 }, {  34,  51 }, {  17,  51 }
+}, {
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 1, 1, 1, 1,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4,
+    4, 4, 1, 1, 1, 1
+} };
+
 #endif
