@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [LanceMercado](https://github.com/yourusername)  
+Keyboard Maintainer: [LanceMercado](https://github.com/LanceMercado)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
