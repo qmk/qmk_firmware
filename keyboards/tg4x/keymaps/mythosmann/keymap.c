@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 #define _BL 0
 #define _FL 1
-#define _OL 2
+#define _ADJUST 2
 #define KC_X0 RGB_TOG
 #define KC_X1 RGB_MOD
 // Defines the keycodes used by macros in process_record_user
@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |---------'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----------|
 |  Shift     |   z   |   x   |   c   |   v   |   b   |   n   |   m   |   ,   |   .   |   /   |   Shift  |
 |-------,----'--,----'--,----'-------'-------'-------'-------'-------'--,----'--,----'--,----'--,-------|
-|  Ctl  |  Alt  |  Fn   |                                               | TgFn  | Left  |  Up   | Right |
+|  Ctl  |  Alt  |  Fn   |                                               |  Fn   | Left  |  Up   | Right |
 `-------'-------'-------'-----------------------------------------------'-------'-------'-------'-------'*/
-  [_BL] = LAYOUT_TG3( /* Base */
+  [_BL] = LAYOUT( /* Base */
 //,-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.
    KC_ESC , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  , KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_SCLN,KC_BSPC, \
 //|-------'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-------------|
@@ -57,33 +57,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.
 |   `   |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |   -   |  Del  |
 |-------'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-------|
-|  Caps   | Home  | PgUp  |       | RGB   |       |       |   [   |   ]   |   =   |   \   |    Enter    |
+|  Caps   | Home  | PgUp  |       |       | MsUp  |       |   [   |   ]   |   =   |   \   |    Enter    |
 |---------'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----------|
-|  Shift     |  End  | PgDn  |       |       |       |       |       |       |       |  Up   |   Shift  |
+|  Shift     |  End  | PgDn  |  MsL  | MsDn  |  MsR  |       |       |       |       |       |   Shift  |
 |-------,----'--,----'--,----'-------'-------'-------'-------'-------'--,----'--,----'--,----'--,-------|
 |  Ctl  |  Alt  |  Win  |                                               |  Fn   | Left  | Down  | Right |
 `-------'-------'-------'-----------------------------------------------'-------'-------'-------'-------'*/
-  [_FL] = LAYOUT_TG3( /* Function */
+  [_FL] = LAYOUT( /* Function */
 //,-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.
    KC_GRV , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,KC_DEL , \
 //|-------'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-------------|
-   KC_TRNS  ,KC_HOME,KC_PGUP,KC_TRNS,RGB_TOG,KC_TRNS,KC_TRNS,KC_LBRC,KC_RBRC,KC_EQL ,KC_BSLS,    KC_ENT   , \
+   RGB_TOG  ,KC_HOME,KC_PGUP,KC_TRNS,KC_F5,KC_TRNS,KC_TRNS,KC_LBRC,KC_RBRC,KC_EQL ,KC_BSLS,    KC_ENT   , \
 //|---------'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----------|
     KC_TRNS    ,KC_END ,KC_PGDN,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UP, KC_RSFT  , \
 //|-------,----'--,----'--,----'-------'-------'-------'-------'-------'--,----'--,----'--,----'--,-------|
    KC_TRNS,KC_TRNS,KC_TRNS,         KC_SPC                                ,KC_TRNS,KC_LEFT,KC_DOWN,KC_RGHT  \
 //`-------'-------'-------'-----------------------------------------------'-------'-------'-------'-------'
-),
-[_OL] = LAYOUT_SPLIT_ANSI( /* Other Function */
-//,-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.-------.
- KC_GRV , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,KC_F12 , \
-//|-------'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-----'-,-------------|
- RGB_TOG  ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,    KC_ENT   , \
-//|---------'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----'--,----------|
-  KC_TRNS    ,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UP  , RESET    , \
-//|---------,--'------,'-------',------'-------'-------',------'-------',------'--,----'--,----'--,-------|
-  KC_TRNS , KC_TRNS , KC_TRNS ,         KC_SPC                          ,KC_TRNS  ,KC_TRNS,KC_TRNS,KC_TRNS  \
-//`---------'---------'---------'-----------------------'---------------'---------'-------'-------'-------'
 ),
 };
 
@@ -125,22 +114,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void update_led(void) {
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { //if caps lock is on
-    rgblight_sethsv_at(0,255,255, 0); //turns the first led red
+  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    //if caps lock is on
+    rgblight_sethsv_at(0,255,255, 0);
+    //turns the first led green
     switch (biton32(layer_state)) {
-      case _BL: //when the base layer is active, turns the LEDs red
-        rgblight_sethsv_range(0,255,255,1,7);
+      case _BL:
+      //when the base layer is active, turns the LEDs teal
+        rgblight_sethsv_range(50,190,125,1,7);
         break;
-      case _FL: //when the function layer is active, turns the LEDs cyan
-        rgblight_sethsv_range(180,255,255,1,7);
+      case _FL:
+      //when the function layer is active, turns the LEDs purple
+        rgblight_sethsv_range(205,150,240,1,7);
         break;
-      default: //if anything else is active, turns the LEDs off. isn't in use, mostly a fallback
+      default:
+      //if anything else is active, turns the LEDs off. isn't in use, mostly a fallback
         rgblight_sethsv(0,0,0);
         break;
     }
-  } else { //if caps lock isn't on
+  } else {
+    //if caps lock isn't on
         rgblight_sethsv_at(0,0,0, 0);
-        switch (biton32(layer_state)) { //same code as above
+        switch (biton32(layer_state)) {
+          //same code as above
           case _BL:
             rgblight_sethsv_range(50,190,125,1,7);
             break;

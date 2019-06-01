@@ -13,16 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#ifdef KEYBOARD_tg4x_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev21
-    #include "rev21.h"
-#endif
+// place overrides here
+/* Use I2C or Serial, not both */
+#define USE_SERIAL
+// #define USE_I2C
 
-#include "quantum.h"
+/* Select hand configuration */
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS

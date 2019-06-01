@@ -1,5 +1,5 @@
 /*
-Copyright 2018 REPLACE_WITH_YOUR_NAME
+Copyright 2019 u/mythosmann
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,12 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    You
-#define PRODUCT         blaq
-#define DESCRIPTION     heck the police
+#define PRODUCT         macropolo
+#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -41,27 +41,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, D0 }
-#define MATRIX_COL_PINS { D7, B4, B5, B6, F7, F6, F5, F4, F1, F0, C6, D3, D6, D2, D1 }
+#define MATRIX_ROW_PINS { D5, D4, D3 }
+#define MATRIX_COL_PINS { B1, B2, B3, B4 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
+/*Encoder options*/
+#define NUMBER_OF_ENCODERS 4
+#define ENCODERS_PAD_A { F7, F5, F1, D6 }
+//F7, F5, F1, D6
+#define ENCODERS_PAD_B { F6, F4, F0, D7 }
+//F6, F4, F0, D7
+#define ENCODER_RESOLUTION 4
+#define TAP_CODE_DELAY 50
+
+/*
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ */
+//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
- #define RGB_DI_PIN C7
- #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 18
-   #define RGBLIGHT_HUE_STEP 8
-   #define RGBLIGHT_SAT_STEP 8
-   #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-   #define RGBLIGHT_ANIMATIONS
+#define RGB_DI_PIN B0
+#ifdef RGB_DI_PIN
+  #define RGBLED_NUM 7
+  #define RGBLIGHT_HUE_STEP 5
+  #define RGBLIGHT_SAT_STEP 5
+  #define RGBLIGHT_VAL_STEP 5
+  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+//  #define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -72,7 +86,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
- #endif
+#endif
+
+#define C6_AUDIO
+#define AUDIO_CLICKY
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5

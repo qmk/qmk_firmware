@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 REPLACE_WITH_YOUR_NAME
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,23 @@
  */
 #pragma once
 
-#ifdef KEYBOARD_tg4x_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev21
-    #include "rev21.h"
-#endif
-
 #include "quantum.h"
+
+/* This a shortcut to help you visually see your layout.
+ *
+ * The first section contains all of the arguments representing the physical
+ * layout of the board and position of the keys.
+ *
+ * The second converts the arguments into a two-dimensional array which
+ * represents the switch matrix.
+ */
+#define LAYOUT( \
+    K00, K01, K02, K03, \
+    K10, K11, K12, K13, \
+    K20, K21, K22, K23 \
+) \
+{ \
+    { K00, K01, K02, K03 }, \
+    { K10, K11, K12, K13 }, \
+    { K20, K21, K22, K23 }, \
+}

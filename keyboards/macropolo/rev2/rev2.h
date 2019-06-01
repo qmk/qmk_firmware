@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 REPLACE_WITH_YOUR_NAME
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,6 @@
  */
 #pragma once
 
-#ifdef KEYBOARD_tg4x_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_tg4x_rev21
-    #include "rev21.h"
-#endif
+#include "macropolo.h"
 
 #include "quantum.h"
