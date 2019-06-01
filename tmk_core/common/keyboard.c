@@ -275,23 +275,21 @@ void keyboard_task(void)
                 if (debug_matrix) matrix_print();
                 for (uint8_t c = 0; c < MATRIX_COLS; c++) {
                     if (matrix_change & ((matrix_row_t)1<<c)) {
-                        if (keymap_key_to_keycode(layer_switch_get_layer((keypos_t){r, c}), (keypos_t){r, c}) == KC_NO) {
-                          matrix_prev[r] ^= ((matrix_row_t)1<<c);
-                          goto MATRIX_LOOP_END;
-                        }
-                        action_exec((keyevent_t){
-                            .key = (keypos_t){ .row = r, .col = c },
-                            .pressed = (matrix_row & ((matrix_row_t)1<<c)),
-                            .time = (timer_read() | 1) /* time should not be 0 */
-                        });
                         // record a processed key
                         matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                        if (keymap_key_to_keycode(layer_switch_get_layer((keypos_t){r, c}), (keypos_t){r, c}) != KC_NO) {
+                            action_exec((keyevent_t){
+                                .key = (keypos_t){ .row = r, .col = c },
+                                .pressed = (matrix_row & ((matrix_row_t)1<<c)),
+                                .time = (timer_read() | 1) /* time should not be 0 */
+                            });
 #ifdef QMK_KEYS_PER_SCAN
-                        // only jump out if we have processed "enough" keys.
-                        if (++keys_processed >= QMK_KEYS_PER_SCAN)
+                            // only jump out if we have processed "enough" keys.
+                            if (++keys_processed >= QMK_KEYS_PER_SCAN)
 #endif
-                        // process a key per task call
-                        goto MATRIX_LOOP_END;
+                            // process a key per task call
+                            goto MATRIX_LOOP_END;
+                        }
                     }
                 }
             }
