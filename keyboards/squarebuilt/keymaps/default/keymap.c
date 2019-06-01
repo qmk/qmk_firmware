@@ -23,7 +23,6 @@ enum custom_keycodes {
   QMKBEST = SAFE_RANGE,
   LOWER,
   RAISE,
-  ADJUST,
   QMKURL
 };
 
