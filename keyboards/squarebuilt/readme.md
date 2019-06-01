@@ -1,6 +1,6 @@
 # squarebuilt
 
-![squarebuilt](imgur.com image replace me!)
+![squarebuilt](https://i0.wp.com/lancemercado.com/wp-content/uploads/2019/06/img_20190504_165635.jpg?resize=525%2C700&ssl=1)
 
 A short description of the keyboard/project
 
