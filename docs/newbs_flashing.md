@@ -131,6 +131,16 @@ If you have any issues with this, you may need to this:
 
     sudo make <my_keyboard>:<my_keymap>:dfu
 
+#### DFU commands
+
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
+
+* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
+* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
+* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+
+
 ### Caterina 
 
 For Arduino boards and their clones (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
@@ -199,6 +209,14 @@ If you have any issues with this, you may need to this:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
+
+Additionally, if you want to flash multiple boards, use the following command:
+
+    make <keyboard>:<keymap>:avrdude-loop
+
+When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
+
+
 ## HalfKay
 
 For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
@@ -226,12 +244,61 @@ Waiting for Teensy device...
 
  ```
  Found HalfKay Bootloader
-Read "./.build/ergodox_ez_drashna.hex": 28532 bytes, 88.5% usage
+Read "./.build/ergodox_ez_xyverz.hex": 28532 bytes, 88.5% usage
 Programming............................................................................................................................................................................
 ...................................................
 Booting
 ```
 
+## STM32 (ARM)
+
+For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:dfu-util
+
+For example, if your keymap is named "xyverz" and you're building a keymap for the Planck Revision 6 keyboard, you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
+
+    make planck/rev6:xyverz:dfu-util
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/planck_rev6_xyverz.elf                                                             [OK]
+Creating binary load file for flashing: .build/planck_rev6_xyverz.bin                               [OK]
+Creating load file for flashing: .build/planck_rev6_xyverz.hex                                     [OK]
+
+Size after:
+   text    data     bss     dec     hex filename
+      0   41820       0   41820    a35c .build/planck_rev6_xyverz.hex
+
+Copying planck_rev6_xyverz.bin to qmk_firmware folder                                              [OK]
+dfu-util 0.9
+
+Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
+Copyright 2010-2016 Tormod Volden and Stefan Schmidt
+This program is Free Software and has ABSOLUTELY NO WARRANTY
+Please report bugs to http://sourceforge.net/p/dfu-util/tickets/
+
+Invalid DFU suffix signature
+A valid DFU suffix will be required in a future dfu-util release!!!
+Opening DFU capable USB device...
+ID 0483:df11
+Run-time device DFU version 011a
+Claiming USB DFU Interface...
+Setting Alternate Setting #0 ...
+Determining device status: state = dfuERROR, status = 10
+dfuERROR, clearing status
+Determining device status: state = dfuIDLE, status = 0
+dfuIDLE, continuing
+DFU mode device DFU version 011a
+Device returned transfer size 2048
+DfuSe interface name: "Internal Flash  "
+Downloading to address = 0x08000000, size = 41824
+Download        [=========================] 100%        41824 bytes
+Download done.
+File downloaded successfully
+Transitioning to dfuMANIFEST state
+```
 
 ## Test It Out!
 

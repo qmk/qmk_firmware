@@ -19,11 +19,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     zip \
     && rm -rf /var/lib/apt/lists/*
 
-ENV KEYBOARD=ergodox_ez
-ENV KEYMAP=default
-
 VOLUME /qmk_firmware
 WORKDIR /qmk_firmware
 COPY . .
 
-CMD make $KEYBOARD:$KEYMAP
+CMD make all:default
