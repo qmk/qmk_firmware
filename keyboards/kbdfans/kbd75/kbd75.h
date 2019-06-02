@@ -1,5 +1,4 @@
-#ifndef KBD75_H
-#define KBD75_H
+#pragma once
 
 #include "quantum.h"
 
@@ -12,4 +11,3 @@
     #include "rev2.h"
 #endif
 
-#endif

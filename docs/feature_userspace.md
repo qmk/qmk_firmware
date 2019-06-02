@@ -110,7 +110,7 @@ QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum
 However, you can actually add support for keymap version, so that you can use it in both your userspace and your keymap! 
 
 
-For instance, lets looks at the `layer_state_set_user` function.  Lets enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionalitly to all of our boards, and then still have your `keymap.c` still able to use this functionality. 
+For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
@@ -201,27 +201,51 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case KC_MAKE:
-    if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-       ":dfu "
-#elif defined(BOOTLOADER_HALFKAY)
-      ":teensy "
-#elif defined(BOOTLOADER_CATERINA)
-       ":avrdude "
-#endif
-        SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
+    case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            uint8_t temp_osm = get_oneshot_mods();
+            clear_mods(); clear_oneshot_mods();
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+    #ifndef FLASH_BOOTLOADER
+            if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT ) 
+    #endif
+            { // 
+                #if defined(__arm__)  // only run for ARM boards
+                    SEND_STRING(":dfu-util");
+                #elif defined(BOOTLOADER_DFU) // only run for DFU boards
+                    SEND_STRING(":dfu");
+                #elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
+                    SEND_STRING(":teensy");
+                #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
+                    SEND_STRING(":avrdude");
+                #endif // bootloader options
+            }
+            if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) { 
+                SEND_STRING(" -j8 --output-sync"); 
+            }
+            SEND_STRING(SS_TAP(X_ENTER));
+            set_mods(temp_mod);
+        }
+        break;
+
   }
   return process_record_keymap(keycode, record);
 }
 ```
 
+For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option.  To do that, add the following to the `rules.mk` in your userspace folder: 
+
+```make 
+ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
+    OPT_DEFS += -DFLASH_BOOTLOADER
+endif
+```
+
 This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
-Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
+Also, holding `shift` will add the appropriate flashing command (`:dfu`, `:teensy`, `:avrdude`, `:dfu-util`) for a majority of keyboards.  Holding `control` will add some commands that will speed up compiling time by processing multiple files at once. 
 
+And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
+?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely. And this doesn't support BootloadHID or mdloader. 

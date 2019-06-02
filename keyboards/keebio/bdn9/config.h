@@ -28,15 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     3x3 Macropad with Rotary Encoders
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 3
 
 /* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { NO_PIN }
-#define MATRIX_COL_PINS { D2, D4, F4, D7, B1, B3, E6, B4, B2 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
+#define DIRECT_PINS { \
+    { D2, D4, F4 }, \
+    { D7, B1, B3 }, \
+    { E6, B4, B2 } \
+}
 
 #define NUMBER_OF_ENCODERS 2
 #define ENCODERS_PAD_A { D1, F5 }

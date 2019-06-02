@@ -35,7 +35,7 @@ else
 fi
 if [ -n "$target" ]; then
 	if [ "$(uname)" = "Linux" ] || docker-machine active >/dev/null 2>&1; then
-		usb_args="--privileged -v /dev/bus/usb:/dev/bus/usb"
+		usb_args="--privileged -v /dev:/dev"
 	else
 		echo "Error: target requires docker-machine to work on your platform" >&2
 		echo "See http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos" >&2

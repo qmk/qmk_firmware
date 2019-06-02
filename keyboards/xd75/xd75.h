@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef XD75_H
-#define XD75_H
+#pragma once
 
 #include "quantum.h"
 
@@ -22,7 +21,7 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+#define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E,\
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E,\
@@ -36,7 +35,7 @@
     { K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K4C, K4D, K4E }  \
 }
 
-#define KC_KEYMAP( \
+#define LAYOUT_kc( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E,\
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E,\
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E,\
@@ -50,7 +49,7 @@
     { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_##K47, KC_##K48, KC_##K49, KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E }  \
 }
 
-#define LAYOUT_ortho_5x15 KEYMAP
+#define LAYOUT_ortho_5x15 LAYOUT
 
 void capslock_led_init(void);
 void capslock_led_off(void);
@@ -67,5 +66,3 @@ void gp103_led_on(void);
 void keycaps_led_init(void);
 void keycaps_led_off(void);
 void keycaps_led_on(void);
-
-#endif
