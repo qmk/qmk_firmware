@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
+                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
+                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC, CTLBS,   CMDENT,SFTSPC, RAISE \
+                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
                               //`--------------------'  `--------------------'
   ),
 

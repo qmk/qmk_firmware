@@ -30,11 +30,13 @@ enum custom_keycodes {
   NUMLOC,
   EISU,
   KANA,
+  EUCALYNM,
 };
 
 // Layers
 enum kepmap_layers {
   _EUCALYN,
+  _EUCALYNM,
   _SHIFT,
 // 薙刀式
   _NAGINATA,
@@ -76,7 +78,7 @@ const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
 #else
 const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
 #endif
-const uint16_t PROGMEM login_combo[] = {KC_B, KC_DEL, COMBO_END};
+const uint16_t PROGMEM login_combo[] = {KC_Q, KC_W, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
@@ -99,23 +101,35 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_LPRN,   KC_Q,   KC_W,   KC_M,   KC_R,KC_LEFT,KC_LGUI,  KC_F2,KC_RGHT,KC_BSPC,   KC_D,   KC_Y,   KC_P,JP_MINS, \
+     KC_ESC,   KC_Q,   KC_W,   KC_M,   KC_R,KC_LEFT,  KC(S), KC_DEL,KC_RGHT,KC_BSPC,   KC_D,   KC_Y,   KC_P,JP_MINS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_RPRN,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U, KC_ESC,  KC(S),   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,JP_PLUS, \
+     KC_TAB,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,JP_LPRN,JP_RPRN,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,JP_PLUS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_QUOT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F, KC_TAB, KC_DEL,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,JP_COLN, \
+    KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,JP_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCTL, NUMLOC,KC_LALT,KC_LSFT,  LOWER,  LSHFT, ALTSPC, CTLENT,  LSHFT,  RAISE,   KC_0, KC_DOT,KC_COMM,KC_RCTL  \
+    KC_LCTL, NUMLOC,KC_LALT,  KC_F2,  LOWER,  LSHFT, KC_SPC, KC_ENT,  LSHFT,  RAISE,   KC_0, KC_DOT,JP_QUOT,KC_RCTL  \
+// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  ),
+
+  [_EUCALYNM] = LAYOUT( /* Base */
+// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+     KC_ESC,   KC_Q,   KC_W,   KC_M,   KC_R,KC_LEFT,  KC(S), KC_DEL,KC_RGHT,KC_BSPC,   KC_D,   KC_Y,   KC_P,KC_MINS, \
+// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+     KC_TAB,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,KC_LPRN,KC_RPRN,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,KC_PLUS, \
+// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+    KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,KC_COLN, \
+// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+    KC_LCMD, NUMLOC,KC_LCTL,  KC_F2,  LOWER,KC_LSFT, KC_SPC, KC_ENT,KC_RSFT,  RAISE,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
   [_SHIFT] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_LCBR,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_UNDS, \
+      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_UNDS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    JP_RCBR,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____, JP_EQL, \
+      _____,  _____,  _____,  _____,  _____,  _____,JP_LCBR,JP_RCBR,  _____,  _____,  _____,  _____,  _____, JP_EQL, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-     JP_DQT,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_SCLN, \
+      _____,  _____,  _____,  _____,  _____,  _____,  JP_LT,  JP_GT,  _____,  _____,  _____,  _____,  _____,JP_SCLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -160,13 +174,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               <       >       :
-    JP_LCBR,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX, KS(UP),  KC_UP,  XXXXX,    UP5,KC_PGUP,\
+      _____,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX, KS(UP),  KC_UP,  XXXXX,    UP5,KC_PGUP,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               (       )       {       }
-    JP_RCBR,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,  _____,  _____,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  DOWN5,KC_PGDN,\
+      _____,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  DOWN5,KC_PGDN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               [       ]
-      XXXXX,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,  XXXXX,\
+      _____,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,JP_SCLN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  KANA,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -175,13 +189,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                !       @       #       $       %
-    JP_LBRC,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
+      _____,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               ^       &       '       "       ~
-    JP_RBRC,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
+      _____,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `               ¥
-      XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
+      _____,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -202,9 +216,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_HUI,RGB_HUD,KC_WAKE,  XXXXX,  RESET,  XXXXX,KC_BRIU,RGB_TOG,KC_MYCM,  XXXXX,KC_WSCH,  XXXXX, KC_PWR,  XXXXX,\
+    RGB_HUI,RGB_HUD,KC_WAKE,  XXXXX,  RESET,  XXXXX,KC_BRIU,RGB_TOG,KC_MYCM,  XXXXX,KC_WSCH,  XXXXX, KC_PWR,EUCALYN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_SAI,RGB_SAD,  XXXXX,  XXXXX,EEP_RST,  XXXXX,KC_BRID,RGB_MOD,KC_MAIL,KC_WBAK,KC_WHOM,KC_WFWD,  XXXXX,  XXXXX,\
+    RGB_SAI,RGB_SAD,  XXXXX,  XXXXX,EEP_RST,  XXXXX,KC_BRID,RGB_MOD,KC_MAIL,KC_WBAK,KC_WHOM,KC_WFWD,  XXXXX,EUCALYNM,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     RGB_VAI,RGB_VAD,KC_SLEP,KC_CALC,  XXXXX,  XXXXX,RGBRST,RGB_RMOD,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -223,12 +237,14 @@ void update_led() {
     rgblight_sethsv_range(0, 0, 0, 0, 56);
   }
   if (naginata_state()) {
+    rgblight_sethsv_at(150, 200, 255, 0);
     rgblight_sethsv_at(150, 200, 200, 17);
     rgblight_sethsv_at(150, 200, 200, 38);
     rgblight_sethsv_at(150, 200, 200, 20);
     rgblight_sethsv_at(150, 200, 200, 35);
     // rgblight_setrgb_range(10, 10, 10, 56, 71);
   } else {
+    rgblight_sethsv_at(50, 200, 0, 0);
     rgblight_sethsv_at(150, 200, 0, 17);
     rgblight_sethsv_at(150, 200, 0, 38);
   }
@@ -253,6 +269,12 @@ void update_led() {
     rgblight_sethsv_at(100, 200, 200, 41);
     rgblight_sethsv_at(100, 200, 200, 46);
   }
+}
+
+
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -318,7 +340,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       update_led();
       return false;
       break;
-  }
+    case EUCALYN:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_EUCALYN);
+      }
+      return false;
+      break;
+    case EUCALYNM:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_EUCALYNM);
+      }
+      return false;
+      break;
+    }
 
   // 薙刀式
   bool a = true;
