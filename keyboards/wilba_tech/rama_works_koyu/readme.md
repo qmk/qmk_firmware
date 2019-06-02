@@ -1,6 +1,6 @@
-# RAMA KOYU
+# RAMA WORKS KOYU
 
-![RAMA KOYU](https://static1.squarespace.com/static/563c788ae4b099120ae219e2/t/5b8bd6e6b8a045c95eac2003/1535891375794/RW-KOYU-A-RENDER-04-TOP.1335.jpg?format=1500w)
+![RAMA WORKS KOYU](https://static1.squarespace.com/static/563c788ae4b099120ae219e2/t/5b8bd6e6b8a045c95eac2003/1535891375794/RW-KOYU-A-RENDER-04-TOP.1335.jpg?format=1500w)
 
 The 'wait' for something isn't the most conscious desire, but that anticipation creates nostalgia.   
 
@@ -13,11 +13,11 @@ This is the sound of Rama Works. Never too busy-a feeling of delightful modern w
 [More info at RAMA WORKS](https://rama.works/koyu/)
 
 Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: RAMA KOYU PCB  
+Hardware Supported: RAMA WORKS KOYU PCB  
 Hardware Availability: [RAMA WORKS Store](https://ramaworks.store/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rama/koyu:default
+    make wilba_tech/rama_works_koyu:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
