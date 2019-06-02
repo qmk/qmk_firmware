@@ -26,12 +26,12 @@
  * represents the switch matrix.
  */
 #define LAYOUT_numpad_6x4( \
-               k00, k01, k02, k03,              \
-               k10, k11, k12, k13,              \
-               k20, k21, k22, k23,              \
-               k30, k31, k32, k23,              \
-               k40, k41, k42,                  \
-                 k51,    k52,  K43       \
+               k00, k01, k02, k03,      \
+               k10, k11, k12, k13,      \
+               k20, k21, k22,           \
+               k30, k31, k32, k23,      \
+               k40, k41, k42,           \
+                 k51,    k52, k43       \
 ) \
 { \
   { KC_NO, k51,   k52 , KC_NO},  \
