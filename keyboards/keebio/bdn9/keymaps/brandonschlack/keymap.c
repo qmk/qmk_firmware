@@ -2,17 +2,21 @@
 #include "brandonschlack.h"
 
 enum bdn9_layers {
-    _KEYPAD,
+    _NAVIGATION,
+    _REEDER,
     _MEDIA,
+    _KEYPAD,
     _LR_NAV,
     _LR_REVIEW,
     _LR_EDIT
 };
 
 enum bdn9_keycodes {
-    TG_KYPD = KEYMAP_SAFE_RANGE,
+    TG_NAV = KEYMAP_SAFE_RANGE,
+    TG_REDR,
     TG_MEDA,
-    TG_NAV,
+    TG_KYPD,
+    TG_LNAV,
     TG_REVW,
     TG_EDIT,
     MC_UNDO,
@@ -24,16 +28,28 @@ enum bdn9_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-        Layer: Keypad/Karabiner
-        | Knob 1: +/-           |      | Knob 2: =/.           |
-        | Press: 1              | 2    | 3                     |
-        | 4, Hold: BD Layer     | 5    | 6                     |
-        | 7                     | 8    | 9                     |
+        Layer: Navigation
+        | Knob 1: Scroll Up/Dn  |      | Knob 2: Shft+Cmd ]/[  |
+        | Press: XXX            | CmTb | Cmd+W                 |
+        | PgDn, Hold: BD Layer  | Up   | PgUp                  |
+        | Left                  | Down | Right                 |
      */
-    [_KEYPAD] = LAYOUT(
-        KC_P1, KC_P2, KC_P3,
-        LT(_MAGIC, KC_P4), KC_P5, KC_P6,
-        KC_P7, KC_P8, KC_P9
+    [_NAVIGATION] = LAYOUT(
+        XXXXXXX, G(KC_TAB), G(KC_W),
+        LT(_MAGIC, KC_PGDN), KC_UP, KC_P6,
+        KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+    /*
+        Layer: Reeder
+        | Knob 1: j/k           |      | Knob 2: n/p           |
+        | Press: H              | S    | R                     |
+        | Cmd+Tab Hold: BD Layer| M    | L                     |
+        | Cmd+1                 | Cmd+2| Cmd+3                 |
+     */
+    [_REEDER] = LAYOUT(
+        KC_H, KC_S, KC_R,
+        LT(_MAGIC, G(KC_TAB)), KC_M, KC_L,
+        G(KC_1), G(KC_2), G(KC_3)
     ),
     /*
         Layer: Media
@@ -46,6 +62,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE, MC_PLYR, KC_MPLY,
         LT(_MAGIC, KC_HOME), KC_UP, KC_END,
         KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+    /*
+        Layer: Keypad/Karabiner
+        | Knob 1: +/-           |      | Knob 2: =/.           |
+        | Press: 1              | 2    | 3                     |
+        | 4, Hold: BD Layer     | 5    | 6                     |
+        | 7                     | 8    | 9                     |
+     */
+    [_KEYPAD] = LAYOUT(
+        KC_P1, KC_P2, KC_P3,
+        LT(_MAGIC, KC_P4), KC_P5, KC_P6,
+        KC_P7, KC_P8, KC_P9
     ),
     /*
         Layer: Navigation
@@ -67,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Left                  | 9    | Right                 |
      */
     [_LR_REVIEW] = LAYOUT(
-        TG_NAV, KC_7, TG_EDIT,
+        TG_LNAV, KC_7, TG_EDIT,
         LT(_MAGIC, KC_0), KC_8, KC_U,
         KC_LEFT, KC_6, KC_RGHT
     ),
@@ -79,31 +107,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Left                  | Redo | Right                 |
      */
     [_LR_EDIT] = LAYOUT(
-        TG_REVW, KC_BSLS, TG_NAV,
+        TG_REVW, KC_BSLS, TG_LNAV,
         LT(_MAGIC, KC_X), MC_UNDO, KC_P,
         KC_LEFT, MC_REDO, KC_RGHT
     ),
     /*
         Layer: Magic
-        | FLASH                 | XXX  | MAKE                  |
-        | ___                   | Kyp  | Media                 |
-        | Review                | Nav  | Edit                  |
+        | FLASH                 | Nav  | MAKE                  |
+        | ___                   | Redr | Media                 |
+        | Review                | LNav | Edit                  |
      */
     [_MAGIC] = LAYOUT(
-        KC_FLSH, XXXXXXX, KC_MAKE,
-        _______, TG_KYPD, TG_MEDA,
-        TG_REVW, TG_NAV,  TG_EDIT
+        KC_FLSH, TG_NAV,  KC_MAKE,
+        _______, TG_REDR, TG_MEDA,
+        TG_REVW, TG_LNAV, TG_EDIT
     ),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
-            case _KEYPAD:
+            case _NAVIGATION:
                 if (!clockwise) {
-                    tap_code(KC_PPLS);
+                    tap_code(KC_WH_U);
                 } else {
-                    tap_code(KC_PMNS);
+                    tap_code(KC_WH_D);
+                }
+                break;
+            case _REEDER:
+                if (!clockwise) {
+                    tap_code(KC_J);
+                } else {
+                    tap_code(KC_K);
                 }
                 break;
             case _MEDIA:
@@ -111,6 +146,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
+                }
+                break;
+            case _KEYPAD:
+                if (!clockwise) {
+                    tap_code(KC_PPLS);
+                } else {
+                    tap_code(KC_PMNS);
                 }
                 break;
             case _LR_NAV:
@@ -138,11 +180,18 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (index == 1) {
         switch (biton32(layer_state)) {
-            case _KEYPAD:
+            case _NAVIGATION:
                 if (!clockwise) {
-                    tap_code(KC_PEQL);
+                    tap_code16(S(G(KC_RBRC)));
                 } else {
-                    tap_code(KC_PDOT);
+                    tap_code16(S(G(KC_LBRC)));
+                }
+                break;
+            case _REEDER:
+                if (!clockwise) {
+                    tap_code(KC_J);
+                } else {
+                    tap_code(KC_K);
                 }
                 break;
             case _MEDIA:
@@ -150,6 +199,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_MFFD);
                 } else {
                     tap_code(KC_MRWD);
+                }
+                break;
+            case _KEYPAD:
+                if (!clockwise) {
+                    tap_code(KC_PEQL);
+                } else {
+                    tap_code(KC_PDOT);
                 }
                 break;
             case _LR_NAV:
@@ -179,9 +235,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TG_KYPD:
+        case TG_NAV:
             if (!record->event.pressed) {
-                layer_move(_KEYPAD);
+                layer_move(_NAVIGATION);
+            }
+            break;
+        case TG_REDR:
+            if (!record->event.pressed) {
+                layer_move(_REEDER);
             }
             break;
         case TG_MEDA:
@@ -189,7 +250,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 layer_move(_MEDIA);
             }
             break;
-        case TG_NAV:
+        case TG_KYPD:
+            if (!record->event.pressed) {
+                layer_move(_KEYPAD);
+            }
+            break;
+        case TG_LNAV:
             if (!record->event.pressed) {
                 tap_code(KC_G);
                 layer_move(_LR_NAV);

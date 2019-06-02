@@ -1,16 +1,24 @@
-# brandonschlack's Lightroom layout for BDN9
+# brandonschlack's Macropad/Lightroom layout for BDN9
 ##### 2 encoders required
 I built this pad to match my Lightroom photo editing workflow using
-[Lightroom Classic Keyboard shortcuts](https://helpx.adobe.com/lightroom-classic/help/keyboard-shortcuts.html)
+[Lightroom Classic Keyboard shortcuts](https://helpx.adobe.com/lightroom-classic/help/keyboard-shortcuts.html), and added on general macropad layers along the way.
 
-
-## Keypad Layer
-This layer is used to send keypad keys, meant to be remapped based on current app with [Karabiner](https://pqrs.org/osx/karabiner/)
+## Navigation Layer
+This layer is used for general window navigation around macOS
 |   |   |   |
 |:-:|:-:|:-:|
-| +/-<br>**1** | 2 | =/.<br>**3**  |
-| 4 | 5 | 6 |
-| 7 | 8 | 9 |
+| Scroll Up/Down<br>**NA** | Command+Tab | Next/Prev Tab<br>**Close Tab**  |
+| Page Down | Up | Page Up |
+| Left | Down | Right|
+---
+
+## Reeder Layer
+This layer is used for browsing [Reeder](https://reederapp.com/), and awesome RSS reader for Mac
+|   |   |   |
+|:-:|:-:|:-:|
+| Next/Prev Item<br>**Open Item in Browser** | Star Item/Save for Later | Next/Prev Subscription<br>**Sync**  |
+| Command+Tab | Toggle Read Status | Clear Read Items |
+| Starred Items | Unread Items | All Items |
 ---
 
 ## Media Layer
@@ -22,7 +30,16 @@ This layer is used for media controls. Player button is a hotkey to focus the cu
 | Left | Down | Right|
 ---
 
-## Navigation Layer
+## Keypad Layer
+This layer is used to send keypad keys, meant to be remapped based on current app with [Karabiner](https://pqrs.org/osx/karabiner/)
+|   |   |   |
+|:-:|:-:|:-:|
+| +/-<br>**1** | 2 | =/.<br>**3**  |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
+---
+
+## Ligthroom Navigation Layer
 This layer is used for navigating Grid View in the Library Module.
 |   |   |   |
 |:-:|:-:|:-:|
@@ -31,7 +48,7 @@ This layer is used for navigating Grid View in the Library Module.
 | Left | Down | Right|
 ---
 
-## Review Layer
+## Lightroom Review Layer
 This layer is used for Reviewing, Rating, and Culling images with the Loupe View in the Library Module.
 |   |   |   |
 |:-:|:-:|:-:|
@@ -40,7 +57,7 @@ This layer is used for Reviewing, Rating, and Culling images with the Loupe View
 | Left | Blue Label | Right|
 ---
 
-## Edit Layer
+## Lightroom Edit Layer
 This layer is used for editing photos in the Develop Module
 |   |   |   |
 |:-:|:-:|:-:|
@@ -53,6 +70,6 @@ This layer is used for editing photos in the Develop Module
 This layer is used as a meta layer for the pad. This layer is accessed by holding key in Row 1, Col 0
 |   |   |   |
 |:-:|:-:|:-:|
-| FLASH |  | MAKE |
-| ___ | **Keypad** Layer | **Media** Layer |
-| **Review** Layer | **Navigation** Layer | **Edit** Layer |
+| FLASH | **Navigation** Layer | MAKE |
+| ___ | **Reeder** Layer | **Media** Layer |
+| **Lightroom Review** Layer | **Lightroom Navigation** Layer | **Lightroom Edit** Layer |
