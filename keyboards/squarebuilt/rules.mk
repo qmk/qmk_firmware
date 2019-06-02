@@ -1,7 +1,7 @@
 CTPC = yes
 # MCU name
 #MCU = at90usb1286
-MCU = atmega32u4
+
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -77,6 +77,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE = no           # Audio output on port C6
+AUDIO_ENABLE = yes           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
+TAP_DANCE_ENABLE = yes      # enable Tap Dance
