@@ -58,6 +58,8 @@ enum kepmap_layers {
 #define ALTBS   ALT_T(KC_BSPC)
 #define CMDSPC  CMD_T(KC_SPC)
 #define CTLENT  CTL_T(KC_ENT)
+#define CTLSPC  CTL_T(KC_SPC)
+#define CMDENT  CMD_T(KC_ENT)
 #define CTLBS   CTL_T(KC_BSPC)
 #define LSHFT LM(_SHIFT,MOD_LSFT)
 // 薙刀式
@@ -70,33 +72,25 @@ enum kepmap_layers {
 // 薙刀式
 enum combo_events {
   NAGINATA_ON_CMB,
+  NAGINATA_OFF_CMB,
   LOGIN_CMB,
 };
 
 #if defined(EUCALYN) || defined(EUCALYNKAI)
 const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
 #else
 const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
 #endif
 const uint16_t PROGMEM login_combo[] = {KC_Q, KC_W, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
   [LOGIN_CMB] = COMBO_ACTION(login_combo),
 };
 // 薙刀式
-
-//Tap Dance Declarations
-enum {
-  TDVC = 0,
-  TDHD,
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TDVC]  = ACTION_TAP_DANCE_DOUBLE(KC_V, KC_COMM),
-  [TDHD]  = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_DOT),
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( /* Base */
@@ -107,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,JP_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCTL, NUMLOC,KC_LALT,  KC_F2,  LOWER,  LSHFT, KC_SPC, KC_ENT,  LSHFT,  RAISE,   KC_0, KC_DOT,JP_QUOT,KC_RCTL  \
+    KC_LCTL, NUMLOC,KC_LALT,  KC_F2,  LOWER,  LSHFT, ALTSPC, CTLENT,  LSHFT,  RAISE,   KC_0, KC_DOT,JP_QUOT,KC_RCTL  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -119,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,KC_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCMD, NUMLOC,KC_LCTL,  KC_F2,  LOWER,KC_LSFT, KC_SPC, KC_ENT,KC_RSFT,  RAISE,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
+    KC_LCMD, NUMLOC,KC_LCTL,  KC_F2,  LOWER,KC_LSFT, CTLSPC, CMDENT,KC_RSFT,  RAISE,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -189,10 +183,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                !       @       #       $       %
-      _____,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
+      _____,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,  _____,  _____,  _____,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               ^       &       '       "       ~
-      _____,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
+      _____,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,  _____,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `               ¥
       _____,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
@@ -204,9 +198,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                                        $       %
-      _____,  _____,  _____,  KC_UP, JP_DLR,JP_PERC,  _____,  _____,JP_LPRN,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
+      _____,  _____,  _____,  KC_UP, JP_DLR,JP_PERC,  _____,KC_BSPC,  _____,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,KC_LEFT,KC_DOWN,KC_RGHT,JP_TILD,  _____,  _____,JP_RPRN,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
+      _____,  _____,KC_LEFT,KC_DOWN,KC_RGHT,JP_TILD,  _____,  _____,  _____,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,JP_PERC, JP_EQL,   KC_1,   KC_2,   KC_3, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -379,6 +373,12 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_ON_CMB:
       if (pressed && !naginata_state()) {
         naginata_on();
+        update_led();
+      }
+      break;
+    case NAGINATA_OFF_CMB:
+      if (pressed && naginata_state()) {
+        naginata_off();
         update_led();
       }
       break;
