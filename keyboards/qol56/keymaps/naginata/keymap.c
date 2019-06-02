@@ -228,7 +228,7 @@ void update_led(void);
 void update_led() {
   rgblight_set_effect_range(56, 15);
 
-  if (!layer_state_is(_NUMPAD) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
+  if (!layer_state_is(_NUMPAD) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE) && !layer_state_is(_NUMPAD)) {
     rgblight_sethsv_range(0, 0, 0, 0, 56);
   }
   if (naginata_state()) {
@@ -244,6 +244,7 @@ void update_led() {
     rgblight_sethsv_at(150, 200, 0, 38);
   }
   if (layer_state_is(_NUMPAD)) {
+    rgblight_sethsv_at(240, 200, 255, 0);
     rgblight_sethsv_at(150, 200, 200, 4);
     rgblight_sethsv_range(150, 200, 200, 40, 43);
     rgblight_sethsv_range(150, 200, 200, 45, 51);
