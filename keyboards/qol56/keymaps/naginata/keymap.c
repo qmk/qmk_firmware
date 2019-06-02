@@ -379,13 +379,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
     case NAGINATA_ON_CMB:
-      if (pressed && !naginata_state()) {
+      if (pressed) {
         naginata_on();
         update_led();
       }
       break;
     case NAGINATA_OFF_CMB:
-      if (pressed && naginata_state()) {
+      if (pressed) {
         naginata_off();
         update_led();
       }
