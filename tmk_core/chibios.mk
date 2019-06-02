@@ -260,6 +260,19 @@ dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
+
+# Autodetect teensy loader
+ifndef TEENSY_LOADER_CLI
+    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
+    else
+        TEENSY_LOADER_CLI ?= teensy_loader_cli
+    endif
+endif
+
+teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
+
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
 		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
