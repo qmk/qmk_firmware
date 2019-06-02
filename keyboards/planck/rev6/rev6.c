@@ -16,7 +16,9 @@
 #include "rev6.h"
 
 void matrix_init_kb(void) {
-	matrix_init_user();
+    palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL );
+    palSetPad(GPIOA, 4);
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {

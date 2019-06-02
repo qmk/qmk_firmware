@@ -26,18 +26,53 @@
 
 // -----------------------------------------------------------------------------
 
+/**
+ * Size of the dac_buffer arrays. All must be the same size.
+ */
+#define DAC_BUFFER_SIZE 256U
+
+/**
+ * Highest value allowed by our 12bit DAC.
+ */
+#ifndef DAC_SAMPLE_MAX
+  #define DAC_SAMPLE_MAX  4095U
+#endif
+
+/**
+ * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
+ * lower will sacrifice perceptible audio quality. Any higher will limit the
+ * number of simultaneous voices. In most situations, a tenth (1/10) of the
+ * sample rate is where notes become unbearable.
+ */
+#ifndef DAC_SAMPLE_RATE
+  #define DAC_SAMPLE_RATE 44100U
+#endif
+
+/**
+ * The number of voices (in polyphony) that are supported. If too high a value
+ * is used here, the keyboard will freeze and glitch-out when that many voices
+ * are being played.
+ */
+#ifndef DAC_VOICES_MAX
+  #define DAC_VOICES_MAX 2
+#endif
+
+/**
+ * The default value of the DAC when not playing anything. Certain hardware
+ * setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
+ */
+#ifndef DAC_OFF_VALUE
+  #define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
+#endif
+
 int voices = 0;
 int voice_place = 0;
 float frequency = 0;
 float frequency_alt = 0;
-int volume = 0;
-long position = 0;
 
 float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 bool sliding = false;
-
-float place = 0;
 
 uint8_t * sample;
 uint16_t sample_length = 0;
@@ -77,43 +112,6 @@ bool glissando = true;
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
-/** Size of the dac_buffer arrays. All must be the same size. */
-#define DAC_BUFFER_SIZE 256U
-
-/** Highest value allowed by our 12bit DAC */
-#ifndef DAC_SAMPLE_MAX
-  #define DAC_SAMPLE_MAX  4095U
-#endif
-
-/** Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
- *  lower will sacrifice perceptible audio quality. Any higher will limit the
- *  number of simultaneous voices.
- */
-#ifndef DAC_SAMPLE_RATE
-  #define DAC_SAMPLE_RATE 44100U
-#endif
-
-/** The number of voices (in polyphony) that are supported. Certain voices will
- *  glitch out at different values - most (the look-ups) survive 5.
- */
-#ifndef DAC_VOICES_MAX
-  #define DAC_VOICES_MAX 5
-#endif
-
-/** The default value of the DAC when not playing anything. Certain hardware
- *  setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
- */
-#ifndef DAC_OFF_VALUE
-  #define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
-#endif
-
-GPTConfig gpt7cfg1 = {
-  .frequency    = DAC_SAMPLE_RATE,
-  .callback     = NULL,
-  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-  .dier         = 0U
-};
-
 static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
   // 256 values, max 4095
   0x800,0x832,0x864,0x896,0x8c8,0x8fa,0x92c,0x95e,
@@ -137,12 +135,12 @@ static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
   0x4f0,0x4c2,0x494,0x467,0x43a,0x40e,0x3e3,0x3b8,
   0x38e,0x365,0x33c,0x314,0x2ed,0x2c6,0x2a0,0x27c,
   0x258,0x235,0x212,0x1f1,0x1d1,0x1b1,0x193,0x175,
-  0x159,0x13e,0x123,0x10a,0xf2,0xdb,0xc5,0xb0,
-  0x9c,0x89,0x78,0x67,0x58,0x4a,0x3d,0x32,
-  0x27,0x1e,0x16,0xf,0xa,0x6,0x2,0x1,
-  0x0,0x1,0x2,0x6,0xa,0xf,0x16,0x1e,
-  0x27,0x32,0x3d,0x4a,0x58,0x67,0x78,0x89,
-  0x9c,0xb0,0xc5,0xdb,0xf2,0x10a,0x123,0x13e,
+  0x159,0x13e,0x123,0x10a,0xf2, 0xdb, 0xc5, 0xb0,
+  0x9c, 0x89, 0x78, 0x67, 0x58, 0x4a, 0x3d, 0x32,
+  0x27, 0x1e, 0x16, 0xf,  0xa,  0x6,  0x2,  0x1,
+  0x0,  0x1,  0x2,  0x6,  0xa,  0xf,  0x16, 0x1e,
+  0x27, 0x32, 0x3d, 0x4a, 0x58, 0x67, 0x78, 0x89,
+  0x9c, 0xb0, 0xc5, 0xdb, 0xf2, 0x10a,0x123,0x13e,
   0x159,0x175,0x193,0x1b1,0x1d1,0x1f1,0x212,0x235,
   0x258,0x27c,0x2a0,0x2c6,0x2ed,0x314,0x33c,0x365,
   0x38e,0x3b8,0x3e3,0x40e,0x43a,0x467,0x494,0x4c2,
@@ -152,7 +150,7 @@ static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
 
 static const dacsample_t dac_buffer_triangle[DAC_BUFFER_SIZE] = {
   // 256 values, max 4095
-  0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0x100,
+  0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0, 0x100,
   0x120,0x140,0x160,0x180,0x1a0,0x1c0,0x1e0,0x200,
   0x220,0x240,0x260,0x280,0x2a0,0x2c0,0x2e0,0x300,
   0x320,0x340,0x360,0x380,0x3a0,0x3c0,0x3e0,0x400,
@@ -183,64 +181,68 @@ static const dacsample_t dac_buffer_triangle[DAC_BUFFER_SIZE] = {
   0x3e0,0x3c0,0x3a0,0x380,0x360,0x340,0x320,0x300,
   0x2e0,0x2c0,0x2a0,0x280,0x260,0x240,0x220,0x200,
   0x1e0,0x1c0,0x1a0,0x180,0x160,0x140,0x120,0x100,
-  0xe0,0xc0,0xa0,0x80,0x60,0x40,0x20,0x0
+  0xe0, 0xc0, 0xa0, 0x80, 0x60, 0x40, 0x20, 0x0
 };
 
-// static const dacsample_t dac_buffer_square[DAC_BUFFER_SIZE] = {
-//   // First half is max, second half is 0
-//   [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
-//   [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
-// };
+static const dacsample_t dac_buffer_square[DAC_BUFFER_SIZE] = {
+  // First half is max, second half is 0
+  [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
+  [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
+};
 
-dacsample_t dac_buffer_lr[DAC_BUFFER_SIZE] = { DAC_OFF_VALUE };
+static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = { DAC_OFF_VALUE };
 
 float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-/*
- * DAC streaming callback.
+/**
+ * DAC streaming callback. Does all of the main computing for sound synthesis.
  */
-static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t rows) {
+static void dac_end(DACDriver * dacp, dacsample_t * sample_p, size_t sample_count) {
 
   (void)dacp;
   (void)dac_buffer;
+  // (void)dac_buffer_triangle;
+  (void)dac_buffer_square;
 
   uint8_t working_voices = voices;
   if (working_voices > DAC_VOICES_MAX)
     working_voices = DAC_VOICES_MAX;
 
-  for (uint8_t s = 0; s < rows; s++) {
+  for (uint8_t s = 0; s < sample_count; s++) {
     if (working_voices > 0) {
       uint16_t sample_sum = 0;
       for (uint8_t i = 0; i < working_voices; i++) {
-        dac_if[i] = dac_if[i] + ((frequencies[i]*(float)DAC_BUFFER_SIZE)/(float)DAC_SAMPLE_RATE*1.5);
+        dac_if[i] = dac_if[i] + ((frequencies[i]*DAC_BUFFER_SIZE)/DAC_SAMPLE_RATE);
 
         // Needed because % doesn't work with floats
         // 0.5 less than the size because we use round() later
-        while(dac_if[i] >= (DAC_BUFFER_SIZE - 0.5))
+        while (dac_if[i] >= (DAC_BUFFER_SIZE))
           dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
 
+        uint16_t dac_i = (uint16_t)dac_if[i];
         // Wavetable generation/lookup
-        // sine
-        // sample_sum += dac_buffer[(uint16_t)round(dac_if[i])] / working_voices;
-        // triangle wave (5 voices)
-        sample_sum += dac_buffer_triangle[(uint16_t)round(dac_if[i])] / working_voices;
-        // rising triangle (4 voices)
+        // SINE
+        sample_sum += dac_buffer[dac_i] / working_voices / 3;
+        // TRIANGLE
+        sample_sum += dac_buffer_triangle[dac_i] / working_voices / 3;
+        // RISING TRIANGLE
         // sample_sum += (uint16_t)round((dac_if[i] * DAC_SAMPLE_MAX) / DAC_BUFFER_SIZE / working_voices );
-        // square (max 5 voices)
+        // SQUARE
         // sample_sum += ((dac_if[i] > (DAC_BUFFER_SIZE / 2)) ? DAC_SAMPLE_MAX / working_voices: 0);
+        sample_sum += dac_buffer_square[dac_i] / working_voices / 3;
 
       }
-      samples[s] = sample_sum;
+      sample_p[s] = sample_sum;
     } else {
-      samples[s] = DAC_OFF_VALUE;
+      sample_p[s] = DAC_OFF_VALUE;
     }
   }
 
   if (playing_notes) {
-    note_position += rows;
+    note_position += sample_count;
 
-    // end of the note
-    if ((note_position >= (note_length*420))) {
+    // End of the note - 35 is arbitary here, but gets us close to AVR's timing
+    if ((note_position >= (note_length*DAC_SAMPLE_RATE/35))) {
       stop_note((*notes_pointer)[current_note][0]);
       current_note++;
       if (current_note >= notes_count) {
@@ -255,34 +257,52 @@ static void end_cb1(DACDriver * dacp, dacsample_t * samples, size_t rows) {
       envelope_index = 0;
       note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
 
-      note_position = note_position - (note_length*420);
-      // note_position = 0;
+      // Skip forward in the next note's length if we've over shot the last, so
+      // the overall length of the song is the same
+      note_position = note_position - (note_length*DAC_SAMPLE_RATE/35);
     }
   }
-
 }
 
-/*
- * DAC error callback.
- */
-static void error_cb1(DACDriver *dacp, dacerror_t err) {
+static void dac_error(DACDriver *dacp, dacerror_t err) {
 
   (void)dacp;
   (void)err;
 
-  chSysHalt("DAC failure");
+  chSysHalt("DAC failure. halp");
 }
 
-static const DACConfig dac1cfg1 = {
+static const GPTConfig gpt6cfg1 = {
+  .frequency    = DAC_SAMPLE_RATE * 3,
+  .callback     = NULL,
+  .cr2          = TIM_CR2_MMS_1,       /* MMS = 010 = TRGO on Update Event.  */
+  .dier         = 0U
+};
+
+static const DACConfig dac_conf = {
   .init         = DAC_SAMPLE_MAX,
   .datamode     = DAC_DHRM_12BIT_RIGHT
 };
 
-static const DACConversionGroup dacgrpcfg1 = {
+/**
+ * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered
+ * on the rising edge after 3 APB1 clock cycles, causing our gpt6cfg1.frequency
+ * to be a third of what we expect.
+ *
+ * Here are all the values for DAC_TRG (TSEL in the ref manual)
+ * TIM15_TRGO 0b011
+ * TIM2_TRGO  0b100
+ * TIM3_TRGO  0b001
+ * TIM6_TRGO  0b000
+ * TIM7_TRGO  0b010
+ * EXTI9      0b110
+ * SWTRIG     0b111
+ */
+static const DACConversionGroup dac_conv_cfg = {
   .num_channels = 1U,
-  .end_cb       = end_cb1,
-  .error_cb     = error_cb1,
-  .trigger      = DAC_TRG(0)
+  .end_cb       = dac_end,
+  .error_cb     = dac_error,
+  .trigger      = DAC_TRG(0b000)
 };
 
 void audio_init() {
@@ -304,20 +324,20 @@ void audio_init() {
   #endif
 #endif // ARM EEPROM
 
+
+#if defined(A4_AUDIO)
+  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
+  dacStart(&DACD1, &dac_conf);
+  dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
+#endif
+#if defined(A5_AUDIO)
   palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG );
-  // palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
-  palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL );
-  palSetPad(GPIOA, 4);
+  dacStart(&DACD2, &dac_conf);
+  dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
+#endif
 
-  // dacStart(&DACD1, &dac1cfg1);
-  // dacStartConversion(&DACD1, &dacgrpcfg1, dac_buffer_lr, 1);
-  dacStart(&DACD2, &dac1cfg1);
-  dacStartConversion(&DACD2, &dacgrpcfg1, dac_buffer_lr, DAC_BUFFER_SIZE);
-
-  gptStart(&GPTD6, &gpt7cfg1);
+  gptStart(&GPTD6, &gpt6cfg1);
   gptStartContinuous(&GPTD6, 2U);
-  // gptStart(&GPTD7, &gpt7cfg1);
-  // gptStartContinuous(&GPTD7, 2U);
 
   audio_initialized = true;
 
@@ -337,13 +357,10 @@ void stop_all_notes() {
     }
     voices = 0;
 
-    gptStopTimer(&GPTD8);
-
     playing_notes = false;
     playing_note = false;
     frequency = 0;
     frequency_alt = 0;
-    volume = 0;
 
     for (uint8_t i = 0; i < 8; i++)
     {
@@ -382,7 +399,6 @@ void stop_note(float freq) {
     if (voices == 0) {
       frequency = 0;
       frequency_alt = 0;
-      volume = 0;
       playing_note = false;
     }
   }
@@ -428,6 +444,7 @@ void play_note(float freq, int vol) {
     if (freq > 0) {
       envelope_index = 0;
       frequencies[voices] = freq;
+      dac_if[voices] = 0.0f;
       volumes[voices] = vol;
       voices++;
     }
@@ -450,7 +467,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     notes_count = n_count;
     notes_repeat = n_repeat;
 
-    place = 0;
     current_note = 0;
 
     note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);

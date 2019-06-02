@@ -51,6 +51,9 @@
 #undef AUDIO_VOICES
 #undef C6_AUDIO
 
+#define A5_AUDIO
+#define DAC_OFF_VALUE 4095
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
 
