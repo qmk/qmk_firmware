@@ -45,9 +45,6 @@ if [ -n "$target" ]; then
 fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
-# Mount usb args everytime
-usb_args="--privileged -v /dev:/dev"
-
 # Run container and build firmware
 docker run --rm -it $usb_args -v "$dir":/qmk_firmware qmkfm/qmk_firmware \
-	make "$keyboard${keymap:+:$keymap}${target:+:$target}:avrdude"
+	make "$keyboard${keymap:+:$keymap}${target:+:$target}"
