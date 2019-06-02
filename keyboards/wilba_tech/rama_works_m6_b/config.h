@@ -21,9 +21,9 @@
 #define VENDOR_ID       0x5241 // "RW"
 #define PRODUCT_ID      0x006B // 6-B
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA.WORKS
-#define PRODUCT         RAMA M6-B
-#define DESCRIPTION     RAMA M6-B Macropad
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS M6-B
+#define DESCRIPTION     RAMA WORKS M6-B
 
 /* key matrix size */
 #define MATRIX_ROWS 1

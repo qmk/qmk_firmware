@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x5241 // "RW"
 #define PRODUCT_ID      0x00AB // 10-B
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA.WORKS
-#define PRODUCT         RAMA M10-B
-#define DESCRIPTION     RAMA M10-B
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS M10-B
+#define DESCRIPTION     RAMA WORKS M10-B
 
 /* key matrix size */
 #define MATRIX_ROWS 1

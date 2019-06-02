@@ -21,9 +21,9 @@
 #define VENDOR_ID       0x5241 // "RW"
 #define PRODUCT_ID      0x060A // 60-A
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA.WORKS
-#define PRODUCT         RAMA M60-A
-#define DESCRIPTION     RAMA M60-A Keyboard
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS M60-A
+#define DESCRIPTION     RAMA WORKS M60-A
 
 // key matrix size
 #define MATRIX_ROWS 5

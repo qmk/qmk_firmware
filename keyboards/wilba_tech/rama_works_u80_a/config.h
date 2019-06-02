@@ -22,9 +22,9 @@
 #define VENDOR_ID       0x5241 // "RW"
 #define PRODUCT_ID      0x080A // 80-A
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA.WORKS
-#define PRODUCT         RAMA U80-A
-#define DESCRIPTION     RAMA U80-A Keyboard
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS U80-A
+#define DESCRIPTION     RAMA WORKS U80-A
 
 /* key matrix size */
 #define MATRIX_ROWS 6

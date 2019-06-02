@@ -21,9 +21,9 @@
 #define VENDOR_ID       0x5241 // "RW"
 #define PRODUCT_ID      0x4B59 // "KY"
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RAMA.WORKS
-#define PRODUCT         RAMA KOYU
-#define DESCRIPTION     RAMA KOYU Keyboard
+#define MANUFACTURER    RAMA WORKS
+#define PRODUCT         RAMA WORKS KOYU
+#define DESCRIPTION     RAMA WORKS KOYU
 
 
 
