@@ -89,6 +89,9 @@ uint8_t matrix_scan(void) {
       bool curr_bit = rows & (1<<row);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
+        if (debouncing) {
+            dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
+        }
         debouncing = DEBOUNCING_DELAY;
       }
     }
@@ -120,18 +123,15 @@ void matrix_print(void) {
   }
 }
 
-/* Row pin configuration
- * row: 0    1    2    3    4    5
- * pin: PB7  PD0  PD1  PD2  PD3  PD5
+/* Row pin configuration - diode connected
+ * row: 0    1    2    3    4
+ * pin: PD0  PD1  PD2  PD3  PD5
  *
- * Esc uses its own pin PE2
+ * Caps Lock uses its own pin PE2 on the column pin, row pin is grounded
  */
 static void init_rows(void) {
     DDRD  &= ~0b00101111;
     PORTD &= ~0b00101111;
-
-    DDRB  &= ~0b10000000;
-    PORTB &= ~0b10000000;
 
     DDRE  &= ~0b00000100;
     PORTE |=  0b00000100;
@@ -139,12 +139,11 @@ static void init_rows(void) {
 
 static uint8_t read_rows(uint8_t col) {
 
-    return (PIND&(1<<0) ? (1<<0) : 0) |
+    return (PIND&(1<<0) ? (1<<0) : 0)  |
             (PIND&(1<<1) ? (1<<1) : 0) |
             (PIND&(1<<2) ? (1<<2) : 0) |
             (PIND&(1<<3) ? (1<<3) : 0) |
             (PIND&(1<<5) ? (1<<4) : 0) |
-            (PINB&(1<<7) ? (1<<5) : 0) |
             (col==0 ? ((PINE&(1<<2) ? 0 : (1<<2))) : 0);
     
 }
@@ -155,24 +154,31 @@ uint8_t read_fwkey(void)
 }
 
 /* Columns 0 - 15
+ *
+ * atmega32u4   decoder    pin
+ *    PC6       U1         E3
+ *    PB6       U2         E3    
+ *    PF0       U1, U2     A0
+ *    PF1       U1, U2     A1
+ *    PC7       U1, U2     A2
+ * 
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
- * col / pin:    PC6  PB6  PF0  PF1  PC7
- * 0:             1    0    0    0    0
- * 1:             1    0    1    0    0
- * 2:             1    0    0    1    0
- * 3:             1    0    1    1    0
- * 4:             1    0    0    0    1
- * 5:             1    0    1    0    1
- * 6:             1    0    0    1    1
- * 7:             1    0    1    1    1
- * 8:             0    1    0    0    0
- * 9:             0    1    1    0    0
- * 10:            0    1    0    1    0
- * 11:            0    1    1    1    0
- * 12:            0    1    0    0    1
- * 13:            0    1    1    0    1
- * 14:            0    1    0    1    1
- * 15:            0    1    1    1    1
+ * col / pin:    PC6  PB6  PF0  PF1  PC7 Decoder  Pin
+ * 0:             1    0    0    0    0    U1     Y0
+ * 1:             1    0    1    0    0    U1     Y1
+ * 2:             1    0    0    1    0    U1     Y2
+ * 3:             1    0    1    1    0    U1     Y3
+ * 4:             1    0    0    0    1    U1     Y4
+ * 5:             1    0    1    0    1    U1     Y5
+ * 6:             1    0    0    1    1    U1     Y6
+ * 7:             1    0    1    1    1    U1     Y7
+ * 8:             0    1    0    0    0    U2     Y0
+ * 9:             0    1    1    0    0    U2     Y1
+ * 10:            0    1    0    1    0    U2     Y2
+ * 11:            0    1    1    1    0    U2     Y3
+ * 12:            0    1    0    0    1    U2     Y4
+ * 13:            0    1    1    0    1    U2     Y5
+ * 14:            0    1    0    1    1    U2     Y6
  *
  */
 static void unselect_cols(void) {
@@ -246,11 +252,6 @@ static void select_col(uint8_t col) {
         case 14:
             PORTB |= 0b01000000;
             PORTF |= 0b00000010;
-            PORTC |= 0b10000000;
-            break;
-        case 15:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000011;
             PORTC |= 0b10000000;
             break;
     }

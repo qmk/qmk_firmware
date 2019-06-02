@@ -14,6 +14,7 @@
 #define STRIKE      TD(TD_STRK_SHOT)
 #define HYPHEN      TD(TD_HYPH_UNDR)
 #define CEDILLA     TD(TD_C_CED)
+#define GAME        TD(TD_GAME)
 
 #define RAISE       MO(1)
 #define LOWER       MO(2)
@@ -40,6 +41,7 @@ enum {
   _MEDIA,
   _FUNCT,
   _KEEB,
+  _GAMING,
 };
 
 typedef enum {
@@ -92,6 +94,7 @@ enum tapdances {
   TD_BRCK_PARN_O,
   TD_BRCK_PARN_C,
   TD_LALT_RALT,
+  TD_GAME,
 };
 
 void velocikey_accelerate(void);
@@ -129,6 +132,7 @@ void dance_quot (qk_tap_dance_state_t *state, void *user_data);
 void dance_strk (qk_tap_dance_state_t *state, void *user_data);
 void dance_3 (qk_tap_dance_state_t *state, void *user_data);
 void dance_c (qk_tap_dance_state_t *state, void *user_data);
+void dance_game (qk_tap_dance_state_t *state, void *user_data);
 
 int cur_dance (qk_tap_dance_state_t *state);
 void spc_finished (qk_tap_dance_state_t *state, void *user_data);
