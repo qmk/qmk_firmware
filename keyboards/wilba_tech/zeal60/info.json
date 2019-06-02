@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Zeal60", 
-    "url": "", 
+    "url": "https://zealpc.net", 
     "maintainer": "Wilba", 
-    "bootloader": "DFU", 
+    "bootloader": "atmel-dfu", 
     "width": 15, 
     "height": 5, 
     "layouts": {

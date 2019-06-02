@@ -1,7 +1,7 @@
 {
-  "keyboard_name": "m6-b",
-  "url": "",
-  "maintainer": "qmk",
+  "keyboard_name": "RAMA WORKS M6-B",
+  "url": "http://rama.works",
+  "maintainer": "Wilba",
   "width": 3,
   "height": 2,
   "layouts": {

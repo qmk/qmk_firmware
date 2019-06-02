@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "KOYU", 
-    "url": "", 
+    "keyboard_name": "RAMA WORKS KOYU", 
+    "url": "http://rama.works", 
     "maintainer": "Wilba", 
-    "bootloader": "DFU", 
+    "bootloader": "atmel-dfu", 
     "width": 16, 
     "height": 5, 
     "layouts": {

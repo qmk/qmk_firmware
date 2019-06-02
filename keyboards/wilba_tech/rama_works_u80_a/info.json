@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "RAMA U80-A", 
-    "url": "https://rama.works/#/tkl-a/", 
+    "keyboard_name": "RAMA WORKS U80-A", 
+    "url": "http://rama.works", 
     "maintainer": "Wilba", 
     "bootloader": "atmel-dfu", 
     "width": 18.25, 
