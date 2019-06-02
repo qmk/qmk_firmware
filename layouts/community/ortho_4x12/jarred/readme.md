@@ -1,8 +1,12 @@
-# Jarred's Plaid Layout
+# Jarred's ortho 4x12 keymap
 
-Check out [user space readme](../../../../users/jarred/readme.md) for more info
+[User space](../../../../users/jarred/readme.md)
 
-# Build
+Boards used on:
+- [Planck](../../../../keyboards/planck/readme.md)
+- [Plaid](../../../../keyboards/plaid/readme.md)
+
+# Plaid build notes
 
 Enter Bootloader:
 Press Reset / Press Boot / Release Reset / Release Boot
@@ -10,9 +14,7 @@ Press Reset / Press Boot / Release Reset / Release Boot
 Install libusbK driver for usbasp:
 https://zadig.akeo.ie/
 
-```
 make plaid:jarred:program
-```
 
 Press Reset
 
