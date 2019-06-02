@@ -31,6 +31,7 @@ enum custom_keycodes {
   EISU,
   KANA,
   EUCALYNM,
+  EURO,
 };
 
 // Layers
@@ -189,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _____,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,  _____,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `               ¥
-      _____,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
+      _____,   EURO,JP_PIPE, JP_GRV,JP_UNDS, JP_YEN,  _____,  _____,JP_PERC, KC_DOT,   KC_1,   KC_2,   KC_3, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -345,6 +346,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_EUCALYNM);
       }
       return false;
+      break;
+    case EURO:
+      if (record->event.pressed) {
+        send_string("(e)");
+        return false;
+      }
       break;
     }
 
