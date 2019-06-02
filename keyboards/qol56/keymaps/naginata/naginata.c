@@ -161,6 +161,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_M        , .kana = "."},
   {.key = B_SHFT|B_COMM     , .kana = "mu"},
   {.key = B_SHFT|B_DOT      , .kana = "hu"},
+  {.key = B_SHFT|B_SLSH     , .kana = "?"},
 
   // 濁音
   {.key = B_J|B_W           , .kana = "ba"},
