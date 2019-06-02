@@ -15,7 +15,7 @@
  */
 #pragma once
 
-enum backlight_config_value
+enum wt_rgb_backlight_config_value
 {
 	id_use_split_backspace = 0x01,
 	id_use_split_left_shift = 0x02,

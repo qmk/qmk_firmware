@@ -29,9 +29,9 @@
 #endif
 
 #include "quantum.h"
-#include "rgb_backlight.h"
-#include "rgb_backlight_api.h"
-#include "rgb_backlight_keycodes.h"
+#include "wt_rgb_backlight.h"
+#include "wt_rgb_backlight_api.h"
+#include "wt_rgb_backlight_keycodes.h"
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65)
 #include <avr/io.h>

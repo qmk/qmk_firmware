@@ -16,8 +16,8 @@
 #pragma once
 
 #include "quantum.h"
-#include "../../zeal60/rgb_backlight_keycodes.h"
-#include "../../zeal60/zeal60_keycodes.h"
+#include "keyboards/wilba_tech/wt_rgb_backlight_keycodes.h"
+#include "keyboards/wilba_tech/via_keycodes.h"
 
 #define XXX KC_NO
 

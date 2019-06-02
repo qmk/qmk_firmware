@@ -1,5 +1,5 @@
 # project specific files
-SRC =	keyboards/zeal60/zeal60.c
+SRC =	keyboards/wilba_tech/wt_main.c
 
 # MCU name
 MCU = atmega32u4

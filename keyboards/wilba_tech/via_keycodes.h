@@ -20,7 +20,7 @@
 // Need to keep checking 0x5F10 is still in the safe range.
 // TODO: merge this into quantum_keycodes
 // Backlight keycodes are in range 0x5F00-0x5F0F
-enum zeal60_keycodes {
+enum via_keycodes {
 	FN_MO13 = 0x5F10,
 	FN_MO23,
 	MACRO00,
@@ -60,10 +60,10 @@ enum user_keycodes {
   USER15,
 };
 
-// Zeal60 specific "action functions"
+// VIA specific "action functions", introduced with Zeal60
 // These are only valid IDs in action_function()
 // Use FN_TT13, FN_TT23, etc. in keymaps
-enum zeal60_action_functions {
+enum via_action_functions {
 	TRIPLE_TAP_1_3 = 0x31,
 	TRIPLE_TAP_2_3 = 0x32
 };

@@ -17,7 +17,7 @@
 
 #define PROTOCOL_VERSION 0x0008
 
-enum zeal60_command_id
+enum via_command_id
 {
 	id_get_protocol_version = 0x01, // always 0x01
 	id_get_keyboard_value,
@@ -41,7 +41,7 @@ enum zeal60_command_id
 	id_unhandled = 0xFF,
 };
 
-enum zeal60_keyboard_value_id
+enum via_keyboard_value_id
 {
   id_uptime = 0x01,
   id_firmware_version
