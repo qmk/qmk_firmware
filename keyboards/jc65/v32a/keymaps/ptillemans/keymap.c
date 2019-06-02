@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool shift_pressed(void) {
-  return (keyboard_report->mods & (MOD_BIT(KC_LSFT)))
+  return get_mods() & MOD_MASK_SHIFT;
     ||(keyboard_report->mods & (MOD_BIT(KC_RSFT)));
 }
 
