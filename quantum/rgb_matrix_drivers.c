@@ -34,7 +34,7 @@ static void init( void )
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
 #elif defined(IS31FL3733)
-    IS31FL3733_init( DRIVER_ADDR_1 );
+    IS31FL3733_init( DRIVER_ADDR_1, 0 );
 #else
     IS31FL3737_init( DRIVER_ADDR_1 );
 #endif
@@ -53,7 +53,8 @@ static void init( void )
 #ifdef IS31FL3731
     IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 #elif defined(IS31FL3733)
-    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, 0 );
+    IS31FL3733_update_led_control_registers( DRIVER_ADDR_2, 1 );
 #else
     IS31FL3737_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 #endif
@@ -74,7 +75,8 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #elif defined(IS31FL3733)
 static void flush( void )
 {
-    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, 0);
+    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_2, 1);
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
@@ -97,4 +99,25 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 #endif
 
+#elif defined(WS2812)
+
+extern LED_TYPE led[DRIVER_LED_TOTAL];
+
+  static void flush( void )
+  {
+    // Assumes use of RGB_DI_PIN
+    ws2812_setleds(led, DRIVER_LED_TOTAL);
+  }
+
+  static void init( void )
+  {
+
+  }
+
+  const rgb_matrix_driver_t rgb_matrix_driver = {
+      .init = init,
+      .flush = flush,
+      .set_color = ws2812_setled,
+      .set_color_all = ws2812_setled_all,
+  };
 #endif
