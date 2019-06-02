@@ -1,7 +1,11 @@
 CTPC = yes
 # MCU name
+<<<<<<< HEAD
 #MCU = at90usb1286
 
+=======
+MCU = atmega32u4
+>>>>>>> 701b8a81b205bef4fc7485a814053d2bd6e20f43
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -63,7 +67,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = full
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
