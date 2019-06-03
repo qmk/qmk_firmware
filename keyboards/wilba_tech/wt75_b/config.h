@@ -1,4 +1,4 @@
-/* Copyright 2018 Jason Williams (Wilba)
+/* Copyright 2019 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +20,15 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x080A // 80-A
+#define PRODUCT_ID      0x075B // 75-B
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT80-A
-#define DESCRIPTION     wilba.tech WT80-A
+#define PRODUCT         wilba.tech WT75-B
+#define DESCRIPTION     wilba.tech WT75-B
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 17
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -41,10 +41,10 @@
  *
 */
 #define MATRIX_ROW_PINS { F1, F0, E6, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4, B7, B0 }
+#define MATRIX_COL_PINS { F5, D5, B1, B7, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, B2, D4 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
  
 // #define BACKLIGHT_PIN B7
@@ -196,7 +196,7 @@
 
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*6*17*2)) = (35+816)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 851
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 173
+// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 803
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 221
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
