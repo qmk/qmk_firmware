@@ -16,14 +16,15 @@
 #include "dimple.h"
 
 void dimple_led_on() {
-  DDRE |= (1 << 6); PORTE &= ~(1 << 6);
+  writePinHigh(E6);
 }
 
 void dimple_led_off() {
-  DDRE &= ~(1 << 6); PORTE &= ~(1 << 6);
+  writePinLow(E6);
 }
 
-void keyboard_post_init_kb(void) {
-  dimple_led_off();
-  keyboard_post_init_user();
+void keyboard_pre_init_kb(void) {
+  // Initialize Caps Lock LED
+  setPinOutput(E6);
+  keyboard_pre_init_user();
 }
