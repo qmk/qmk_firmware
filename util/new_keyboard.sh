@@ -32,10 +32,10 @@ set_git_username() {
 
 # Copy the template files to the new keyboard directory.
 copy_templates() {
-    mkdir -p "$(dirname $keyboard_dir)"
+    mkdir -p "$keyboard_dir"
 
     echo -n "Copying base template files..."
-    cp -r "quantum/template/base" "${keyboard_dir}"
+    cp -r "quantum/template/base/." "${keyboard_dir}"
     echo " done"
 
     echo -n "Copying $keyboard_type template files..."
