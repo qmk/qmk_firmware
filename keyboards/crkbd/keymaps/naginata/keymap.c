@@ -45,23 +45,24 @@ enum keymap_layers {
 // 薙刀式
 enum combo_events {
   NAGINATA_ON_CMB,
-  // NAGINATA_OFF_CMB,
+  NAGINATA_OFF_CMB,
 };
 
 #if defined(EUCALYN) || defined(EUCALYNKAI)
-const uint16_t PROGMEM ngon_combo[]  = {KC_G, KC_T, COMBO_END};
-// const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
 #else
-const uint16_t PROGMEM ngon_combo[]  = {KC_H, KC_J, COMBO_END};
-// const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
+const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
 #endif
 
 combo_t key_combos[COMBO_COUNT] = {
-  [NAGINATA_ON_CMB]  = COMBO_ACTION(ngon_combo),
-  // [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
+  [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
+  [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
 };
 
-// IME ON/OFFのcombo
+// 薙刀式
+// IME ONのcombo
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
     case NAGINATA_ON_CMB:
@@ -70,12 +71,12 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         update_led();
       }
       break;
-    // case NAGINATA_OFF_CMB:
-    //   if (pressed) {
-    //     naginata_off();
-    //     update_led();
-    //   }
-    //   break;
+    case NAGINATA_OFF_CMB:
+      if (pressed) {
+        naginata_off();
+        update_led();
+      }
+      break;
   }
 }
 // 薙刀式
