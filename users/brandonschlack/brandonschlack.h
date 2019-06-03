@@ -11,8 +11,6 @@ enum bs_layers {
     _MACFN,
     _WIN,
     _WINFN,
-    _NIX,
-    _NIXFN,
     _MAGIC = 15,
 };
 
@@ -27,7 +25,6 @@ enum custom_keycodes {
   MD_MAKE,
   OS_MAC,
   OS_WIN,
-  OS_NIX,
   WN_SLPD,
   KEYMAP_SAFE_RANGE
 };
@@ -41,7 +38,6 @@ enum custom_keycodes {
 #define MM_LGUI   LGUI_T(KC_MFFD)
 #define MM_FN_M   LT(_MACFN, KC_MPLY)
 #define MM_FN_W   LT(_WINFN, KC_MPLY)
-#define MM_FN_X   LT(_NIXFN, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
