@@ -379,7 +379,7 @@
                                      PIN_MODE_OUTPUT(GPIOB_UART1_TXD) |           \
                                      PIN_MODE_OUTPUT(GPIOB_UART1_RTS) |           \
                                      PIN_MODE_OUTPUT(GPIOB_UART1_CTS) |           \
-                                     PIN_MODE_OUTPUT(GPIOB_TM0) |           \
+                                     PIN_MODE_INPUT(GPIOB_TM0) |           \
                                      PIN_MODE_INPUT(GPIOB_TM1) |           \
                                      PIN_MODE_INPUT(GPIOB_TM2) |          \
                                      PIN_MODE_INPUT(GPIOB_PIN11) |          \
@@ -411,7 +411,7 @@
                                      PIN_DMASK_DIS(GPIOB_UART1_TXD) |       \
                                      PIN_DMASK_DIS(GPIOB_UART1_RTS) |       \
                                      PIN_DMASK_DIS(GPIOB_UART1_CTS) |       \
-                                     PIN_DMASK_DIS(GPIOB_TM0) |       \
+                                     PIN_DMASK_EN(GPIOB_TM0) |       \
                                      PIN_DMASK_EN(GPIOB_TM1) |       \
                                      PIN_DMASK_EN(GPIOB_TM2) |      \
                                      PIN_DMASK_EN(GPIOB_PIN11) |      \
@@ -427,13 +427,13 @@
                                      PIN_DBNCE_DIS(GPIOB_UART1_TXD) |         \
                                      PIN_DBNCE_DIS(GPIOB_UART1_RTS) |         \
                                      PIN_DBNCE_DIS(GPIOB_UART1_CTS) |         \
-                                     PIN_DBNCE_DIS(GPIOB_TM0) |         \
+                                     PIN_DBNCE_EN(GPIOB_TM0) |         \
                                      PIN_DBNCE_EN(GPIOB_TM1) |         \
                                      PIN_DBNCE_EN(GPIOB_TM2) |        \
                                      PIN_DBNCE_EN(GPIOB_PIN11) |        \
                                      PIN_DBNCE_DIS(GPIOB_CLK0) |        \
                                      PIN_DBNCE_DIS(GPIOB_PIN13) |   \
-                                     PIN_DBNCE_EN(GPIOB_INT0) |  \
+                                     PIN_DBNCE_DIS(GPIOB_INT0) |  \
                                      PIN_DBNCE_EN(GPIOB_INT1))
 #define VAL_GPIOB_IMD               (PIN_IMD_EDGE(GPIOB_UART0_RXD) |             \
                                      PIN_IMD_EDGE(GPIOB_UART0_TXD) |             \

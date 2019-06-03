@@ -1,1 +1,1 @@
-# The default keymap for one2mini (ISO - ANSI to follow)
+# The default keymap for one2mini (ISO & ANSI combined)
