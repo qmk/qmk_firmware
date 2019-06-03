@@ -20,10 +20,13 @@ endif
 override SILENT := false
 
 ifndef SUB_IS_SILENT
-QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
-ifneq ($(QMK_VERSION),)
-$(info QMK Firmware $(QMK_VERSION))
-endif
+    QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
+    ifeq ($(QMK_VERSION),)
+        QMK_VERSION := $(QUANTUM_VERSION)
+    endif
+    ifneq ($(QMK_VERSION),)
+        $(info QMK Firmware $(QMK_VERSION))
+    endif
 endif
 
 ON_ERROR := error_occurred=1

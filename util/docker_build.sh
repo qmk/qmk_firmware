@@ -45,6 +45,23 @@ if [ -n "$target" ]; then
 fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
+mk_mounts=""
+for f in *.mk
+do
+mk_mounts="$mk_mounts -v $dir/$f:/qmk_firmware/$f"
+done
+
+quantum_version="$(git describe --abbrev=0 --tags 2>/dev/null)"
+
 # Run container and build firmware
-docker run --rm -it $usb_args -v "$dir":/qmk_firmware qmkfm/qmk_firmware \
+docker run --rm -it $usb_args \
+    -v "$dir/keyboards/$keyboard":"/qmk_firmware/keyboards/$keyboard" \
+    -v "$dir/drivers":"/qmk_firmware/drivers" \
+    -v "$dir/quantum":"/qmk_firmware/quantum" \
+    -v "$dir/tmk_core":"/qmk_firmware/tmk_core" \
+    -v "$dir/lib":"/qmk_firmware/lib" \
+    -v "$dir/Makefile":"/qmk_firmware/Makefile" \
+    -e QUANTUM_VERSION="$quantum_version" \
+    $mk_mounts \
+    qmkfm/qmk_firmware \
 	make "$keyboard${keymap:+:$keymap}${target:+:$target}"
