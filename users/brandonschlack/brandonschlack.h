@@ -25,6 +25,7 @@ enum custom_keycodes {
   MD_MAKE,
   OS_MAC,
   OS_WIN,
+  CMD_TAB,
   WN_SLPD,
   KEYMAP_SAFE_RANGE
 };

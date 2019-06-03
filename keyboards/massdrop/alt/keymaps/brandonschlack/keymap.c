@@ -145,7 +145,7 @@ void matrix_init_user(void) {
 };
 
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+void matrix_scan_keymap(void) {
 };
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
