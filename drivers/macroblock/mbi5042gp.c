@@ -163,40 +163,50 @@ void MBI5042GP_init( void ) {
         }
     }
 
-    #if (MBI5042GP_GCLK_SRC == PWM0)
-        /* Setup PWM control registers for 2MHz (makes a nice clock)        
-         * and also 50 percentage PWM
+    #if MBI5042GP_GCLK_SRC == PWM0
+        /* Setup PWM0 control registers for 2MHz GCLK
+         * and also 50 percentage PWM duty (makes a nice clock)
          * 
          * Set PWM1 to be used as a 2kHz timer (interrupt but no output pin)
+         * which is used for row refresh/enable.
          */
 
         /* Enable PWM module clock */
-        CLK_EnableModuleClock(PWM01_MODULE);
+        // CLK_EnableModuleClock(PWM01_MODULE);
+        // clks_lld_enable_module_clock(PWM01_MODULE);
+        clks_lld_enable_module_clock(PWM01_ModuleNum);
 
         /* Select PWM module clock source */
-        CLK_SetModuleClock(PWM01_MODULE, CLK_CLKSEL1_PWM01_S_HCLK | CLK_CLKSEL2_PWM01_EXT_HCLK, 0);
+        // CLK_SetModuleClock(PWM01_MODULE, CLK_CLKSEL1_PWM01_S_HCLK | CLK_CLKSEL2_PWM01_EXT_HCLK, 0);
+        // clks_lld_set_module_clock(PWM01_MODULE, CLK_CLKSEL1_PWM01_S_HCLK | CLK_CLKSEL2_PWM01_EXT_HCLK, 0);
+        clks_lld_set_module_clock(PWM01_ModuleNum, CLK_CLKSEL1_PWM01_S_HCLK, 0);
 
         /* Combined method to configure PWM0 */
-        PWM_ConfigOutputChannel(PWMA, PWM_CH0, MBI5042GP_GCLK_SPD, 50);
+        // PWM_ConfigOutputChannel(PWMA, PWM_CH0, MBI5042GP_GCLK_SPD, 50);
+        pwm_lld_config_output_channel(PWMA, PWM_CH0, MBI5042GP_GCLK_SPD, 50);
 
         /* Enable PWM Output path for PWMA channel 0 */
-        PWM_EnableOutput(PWMA, 0x1);
+        // PWM_EnableOutput(PWMA, 0x1);
+        (PWMA)->POE |= PWM_CH1;
 
         /* Set GPIO PA.12/PWM0 to be PWM0 */
         SYS->GPA_MFP |= SYS_GPA_MFP_PA12_PWM0;
 
         /* PWM1 Config */
         /* Combined method to configure PWM1 */
-        PWM_ConfigOutputChannel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
+        // PWM_ConfigOutputChannel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
+        pwm_lld_config_output_channel(PWMA, PWM_CH1, MBI5042GP_REFRESH_SPD, 50);
 
         /* Set interrupt handler */
         nvicEnableVector(PWMA_IRQn, 1);
 
         /* Need an interrupt for PWM1 */
-        PWM_EnablePeriodInt(PWMA, PWM_CH1, PWM_PERIOD_INT_UNDERFLOW);
+        // (PWMA)->PIER = (PWMA)->PIER & ~(PWM_PIER_INT01TYPE_Msk | PWM_PIER_PWMIE1_Msk);
+        pwm_lld_enable_period_int(PWMA, PWM_CH1, PWM_PERIOD_INT_UNDERFLOW);
 
         /* Start PWM0 and PWM1 */
-        PWM_Start(PWMA, (0x1u << PWM_CH0 | 0x1u << PWM_CH1));
+        //PWM_Start(PWMA, (0x1u << PWM_CH0 | 0x1u << PWM_CH1));
+        pwm_lld_start(PWMA, (0x1u << PWM_CH0 | 0x1u << PWM_CH1));
 
     #elif
     #endif
@@ -448,7 +458,7 @@ void MBI5042GP_update_pwm_buffers( void ) {
 /**
  * @brief Write is a zero-output routine to handle the FLUSH from the RGB LED driver calls
  * @details Since the RGB data is recoded every time a colour is changed (by the relevant
- * single of "all" set_color routines), there is no point at which a mass flush of RGB
+ * single or "all" set_color routines), there is no point at which a mass flush of RGB
  * information is needed. The MBI5042GP needs to be fed 16 sets of R, G, or B information
  * for each row on a totally different schedule from the animations that affect the colours.
  */
@@ -558,8 +568,12 @@ OSAL_IRQ_HANDLER(NUC123_PWMA_HANDLER) {
     OSAL_IRQ_PROLOGUE();
 
     /* Check for PWM1 underflow IRQ */
-    if (PWM_GetPeriodIntFlag(PWMA, PWM_CH1) == 1) {
-        PWM_ClearPeriodIntFlag(PWMA, PWM_CH1);
+    // if (PWM_GetPeriodIntFlag(PWMA, PWM_CH1) == 1) {
+    //     PWM_ClearPeriodIntFlag(PWMA, PWM_CH1);
+    //     MBI5042GP_update_pwm_buffers();
+    // }
+    if (pwm_lld_get_period_int(PWMA, PWM_CH1) == 1) {
+        pwm_lld_clear_period_int(PWMA, PWM_CH1);
         MBI5042GP_update_pwm_buffers();
     }
 
