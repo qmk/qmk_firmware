@@ -32,11 +32,8 @@ set_git_username() {
 
 # Copy the template files to the new keyboard directory.
 copy_templates() {
-    if [ ! -d "$keyboard_parent_dir" ]; then
-        echo -n "Creating keyboard's parent directories..."
-        mkdir -p "$keyboard_parent_dir"
-        echo " done"
-    fi
+    mkdir -p "$(dirname $keyboard_dir)"
+
     echo -n "Copying base template files..."
     cp -r "quantum/template/base" "${keyboard_dir}"
     echo " done"
@@ -131,7 +128,6 @@ while [ -z "$keyboard_name" ]; do
 done
 
 keyboard_dir="keyboards/$keyboard_name"
-keyboard_parent_dir="$(dirname $keyboard_dir)"
 
 if [ -d "$keyboard_dir" ]; then
     echo_error "Keyboard $keyboard_name already exists!"
