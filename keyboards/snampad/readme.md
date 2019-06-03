@@ -1,12 +1,20 @@
 # snampad
 
-![snampad](imgur.com image replace me!)
+![snampad](https://imgur.com/gallery/tPDHeB9?s=fbm)
 
-A short description of the keyboard/project
+A small weekend project to create a numeric keypad for the few times I need such a thing.
+I created the schematics in Kicad, 3D printed the case, handwired the prototype, used some
+spare Zealios, Box Royals and SA keycaps.
 
-Keyboard Maintainer: [Peter Tillemans](https://github.com/ptillemans)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+When I get some time I'd like to make a PCB for it.
+
+It uses a promicro controller and the reset button has been made availabe through a hole in the backplate.
+
+
+Keyboard Maintainer: [Peter Tillemans](https://github.com/ptillemans)
+Hardware Supported: Promicros are ubiquitous.
+Hardware Availability: This uses essentially spares from other projects
+
 
 Make example for this keyboard (after setting up your build environment):
 
