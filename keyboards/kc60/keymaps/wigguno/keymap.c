@@ -2,7 +2,7 @@
 // It also moves the reset key off the base layer, as in the default kc60 layout for this firmware.
 // I have swapped FN and RGUI as my rainbow keyset has them in the opposite order.
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -49,10 +49,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_TRNS,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_HOME,  KC_END,   KC_TRNS,  KC_TRNS,  KC_TRNS,   \
       RESET,    KC_TRNS,  KC_TRNS,                      BL_TOGG,                                KC_NO,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS    \
       ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

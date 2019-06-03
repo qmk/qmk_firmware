@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION CUSTOM_MATRIX
+/* COL2ROW, ROW2COL*/
+//#define DIODE_DIRECTION
 
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_LEVELS 10
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 15    // Number of LEDs
 #endif
 

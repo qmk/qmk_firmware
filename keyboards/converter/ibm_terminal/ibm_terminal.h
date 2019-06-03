@@ -19,7 +19,7 @@ void matrix_init_user(void);
  * 17|         |
  *   +---------+
  */
-#define KEYMAP( \
+#define LAYOUT( \
                   K08,K10,K18,K20,K28,K30,K38,K40,K48,K50,K57,K5F,                                         \
                   K07,K0F,K17,K1F,K27,K2F,K37,K3F,K47,K4F,K56,K5E,                                         \
                                                                                                            \
@@ -45,13 +45,13 @@ void matrix_init_user(void);
     { K68,   K69,   K6A,   K6B,   K6C,   K6D,   K6E,   K6F   }, \
     { K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77   }, \
     { K78,   K79,   K7A,   K7B,   K7C,   K7D,   K7E,   KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, K83,   K84,   KC_NO, KC_NO, KC_NO,}, \
+    { KC_NO, KC_NO, KC_NO, K83,   K84,   KC_NO, KC_NO, KC_NO }  \
 }
 
 /*
  * IBM Terminal keyboard 1399625, 101-key
  */
-#define KEYMAP_101( \
+#define LAYOUT_101( \
     K08,    K07,K0F,K17,K1F,K27,K2F,K37,K3F,K47,K4F,K56,K5E,  K57,K5F,K62,                   \
                                                                                              \
     K0E,K16,K1E,K26,K25,K2E,K36,K3D,K3E,K46,K45,K4E,K55,K66,  K67,K6E,K6F,  K76,K77,K7E,K84, \
@@ -76,7 +76,7 @@ void matrix_init_user(void);
     { KC_NO, K69,   K6A,   K6B,   K6C,   K6D,   K6E,   K6F   }, \
     { K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77   }, \
     { KC_NO, K79,   K7A,   KC_NO, K7C,   K7D,   K7E,   KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, K84,   KC_NO, KC_NO, KC_NO,}, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, K84,   KC_NO, KC_NO, KC_NO }  \
 }
 
 #endif

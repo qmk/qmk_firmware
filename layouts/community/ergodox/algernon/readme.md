@@ -3,7 +3,12 @@
 algernon's layout
 =======================
 
-This is an unconventional layout for the [ErgoDox EZ][ez]. For more details about the history of the layout, see my [blog posts about my ErgoDox journey][blog-ergodox].
+This is the layout I used to use on my [ErgoDox EZ][ez], while I was using [QMK][qmk]. I no longer do so, and this repository is obsolete, and not updated anymore. My current firmware is based on [Kaleidoscope][kaleidoscope], and is located [elsewhere][ergodox-sketch]. I'm keeping the repo around for historical and educational purposes.
+
+ [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
+ [ergodox-sketch]: https://git.madhouse-project.org/algernon/ErgoDox-sketch
+
+Nevertheless, this is an unconventional layout for the [ErgoDox EZ][ez]. For more details about the history of the layout, see my [blog posts about my ErgoDox journey][blog-ergodox].
 
  [ez]: https://ergodox-ez.com/
  [blog-ergodox]: https://asylum.madhouse-project.org/blog/tags/ergodox/
@@ -57,6 +62,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
     - `LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
+    - `LEAD r` inputs `Right Alt`, which is the `Compose` key of my choice.
 
 The symbols on the front in the image above have the same color as the key that activates them, with the exception of the **Arrow** layer, which is just black on the front.
 
@@ -128,13 +134,13 @@ $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
             layouts/community/ergodox/algernon_master
-$ make ergodox_ez-algernon_master
+$ make ergodox_ez:algernon_master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make ergodox_ez-algernon
+$ make ergodox_ez:algernon
 ```
 
 ## Using on Windows

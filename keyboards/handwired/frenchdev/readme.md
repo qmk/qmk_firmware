@@ -6,29 +6,28 @@ Concept based on
 with the added possibility to connect up to 6 external switches like pedals,
  and somewhat like the katy, not all keys are on the same level for easier reach.
 
-###Photos
+### Photos
 - [default layout](http://i.imgur.com/r2Nvr4p.png)
 - [editable layout on keyboard layout editor](http://www.keyboard-layout-editor.com/#/gists/4480e3ab8026eb7c710a7e22203ef4aa) (keys placement is NOT precise on this)
 - [the thing when finished](http://imgur.com/a/6FY8v) 
 - [concept and cardboard mockup](http://imgur.com/a/R0vvs)
 
-##Build instructions
+## Build instructions
 
     docker run --rm -e keymap=default -e keyboard=frenchdev --rm -v D:/Repositories/qmk:/qmk:rw edasque/qmk_firmware
     
-##Laser-cuttable file
+## Laser-cuttable file
 There is intentionnaly no hole for the TRRS connector, you are supposed to use a drill for it. 
 This way if you don't want to use the pedals you don't have a useless hole. Plus it's cleaner.
-http://qmk.fm/frenchdev/frenchdev_v1_lasercut_template.svg
 
-##Side stickers
+## Side stickers
 You can find my original file here : http://qmk.fm/frenchdev/example_printable_stickers.svg
 
 I used it when training but now I use blanks and the layout is different. 
 I still uploaded it because I think it can be a good jumpstart for any temporary stickers on the 
 side of keycaps.
 
-##List of parts
+## List of parts
 - I2C mcp23018
 - [teensy 2](https://www.pjrc.com/store/teensy.html)
 - 3 LED, 5mm tall with flat head
@@ -43,13 +42,13 @@ side of keycaps.
 - 20 R2 keys
 - 22 R1 keys
 
-if you fancy adding pedals :
+If you fancy adding pedals :
 [these are good enough and cheap](https://www.amazon.fr/gp/product/B00V7WITKI/ref=oh_aui_detailpage_o04_s00?ie=UTF8&psc=1). You also need a RCA connector for each of those to replace the included cable
 
 If you (or your coworkers) find them too loud you can replace the switch inside them. 
 For once we don't really care about what's inside :) 
 
-##Various indications
+## Various indications
 
 The PHYSICAL rows and columns are connected as such :
 
@@ -96,7 +95,7 @@ and on left hand (main) :
 
 We use pull up resistor for SCL and VDA, see https://github.com/ErgoDox-EZ/docs/blob/master/ErgoDox%20EZ%20Schematic.pdf for example
 
-the connector is a standard TRRS (jack with audio + mic)
+The connector is a standard TRRS (jack with audio + mic)
 
 Diode direction is row to column
 

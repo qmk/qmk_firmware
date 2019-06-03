@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 
@@ -37,7 +38,6 @@ enum planck_keycodes {
 };
 
 // keycode aliases
-#define _______ KC_TRNS
 #define ___x___ KC_NO
 #define KC_EUR LALT(S(KC_2))
 #define KC_SEC LALT(KC_6)

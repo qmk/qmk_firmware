@@ -9,7 +9,7 @@
 //void promicro_bootloader_jmp(bool program);
 //matrix is defined in a weird way here; the layout on both sides are asymmetrical, but the "matrix" is symmetrical but with empty gaps
 //the last column is defined as a separate row because the firmware currently doesnt support more than 8 columns (this layout has 9 columns per side) K45 and K110 are the Bs on both sides; K53 and K106 are extra keys for ISO
-#define KEYMAP_V2( \
+#define LAYOUT_v2( \
 	K00,   K01,   K02,   K03,   K04,   K05,   K06,       K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77,   K132, \
 	K10,   K11,   K12,   K13,   K14,   K15,   K16,       K80,   K81,   K82,   K83,   K84,   K85,   K86,   K87,   K133, \
 	K20,   K21,   K22,   K23,   K24,   K25,              K90,   K91,   K92,   K93,   K94,   K95,   K96,   K97,   K134, \
@@ -34,7 +34,7 @@
 		{ KC_NO, KC_NO, K132,  K133,  K134,  K135,  K136,  K137} \
 	}
 
-#define KEYMAP_PROTOSPLIT( \
+#define LAYOUT_protosplit( \
 	K00,   K01,   K02,   K03,   K04,   K05,   K06,       K70,   K71,   K72,   K73,   K74,   K75,   K76,   K77,   K132, \
 	K10,   K11,   K12,   K13,   K14,   K15,   K16,       K80,   K81,   K82,   K83,   K84,   K85,   K86,   K87,   K133, \
 	K20,   K21,   K22,   K23,   K24,   K25,              K90,   K91,   K92,   K93,   K94,   K95,   K96,   K97,   K134, \

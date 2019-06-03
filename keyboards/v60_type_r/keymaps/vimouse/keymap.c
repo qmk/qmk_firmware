@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 benlyall, MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v60_type_r.h"
+#include QMK_KEYBOARD_H
 
 #define _____ KC_TRNS
 #define XXXXX KC_NO
@@ -95,9 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _____, RGB_RD,  RGB_GD,  RGB_BD,  RGB_HUD, RGB_SAD, RGB_VAD,   _____,   _____,   _____,   _____,   _____,           _____,          \
         _____,   _____,   _____,   _____,   _____,   _____,   _____,   _____,   _____,   _____,   _____,   _____,           _____,  _____,  \
         _____,   _____,   _____,               _____,                                                      _____,   _____,  _____,  _____),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

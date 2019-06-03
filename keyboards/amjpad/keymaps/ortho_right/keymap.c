@@ -1,4 +1,4 @@
-#include "amjpad.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
@@ -10,8 +10,6 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
-
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -29,15 +27,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Rght| Ret| "  |Bspc|
    * `-------------------'
    */
-
-[_BL] = MAXKEYMAP(
-
-  KC_SPACE, KC_N,     KC_H,      KC_Y, \
-  MO(1),    KC_M,     KC_J,      KC_U, \
-  KC_LEFT,  KC_COMM,  KC_K,      KC_I, \
-  KC_DOWN,  KC_DOT,   KC_L,      KC_O, \
-  KC_UP,    KC_SLASH, KC_SCLN,   KC_P, \
-  KC_RIGHT, KC_ENT,   KC_QUOT,   KC_BSPC),
+  [_BL] = LAYOUT_ortho_6x4(
+    KC_SPACE, KC_N,     KC_H,      KC_Y,   \
+    MO(1),    KC_M,     KC_J,      KC_U,   \
+    KC_LEFT,  KC_COMM,  KC_K,      KC_I,   \
+    KC_DOWN,  KC_DOT,   KC_L,      KC_O,   \
+    KC_UP,    KC_SLASH, KC_SCLN,   KC_P,   \
+    KC_RIGHT, KC_ENT,   KC_QUOT,   KC_BSPC
+  ),
 
   /* Keymap _FL: Function Layer
    * ,-------------------.
@@ -54,12 +51,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Rght| Ret| \  | Del|
    * `-------------------'
    */
-[_FL] = MAXKEYMAP(
-
-  _______, KC_F12,  KC_F6,   KC_6, \
-  _______, _______, KC_MINS, KC_7, \
-  _______, _______, KC_EQL,  KC_8, \
-  _______, _______, KC_LBRC, KC_9, \
-  _______, _______, KC_RBRC, KC_0, \
-  _______, _______, KC_BSLS, KC_DEL),
+  [_FL] = LAYOUT_ortho_6x4(
+    _______, KC_F12,  KC_F6,   KC_6,  \
+    _______, _______, KC_MINS, KC_7,  \
+    _______, _______, KC_EQL,  KC_8,  \
+    _______, _______, KC_LBRC, KC_9,  \
+    _______, _______, KC_RBRC, KC_0,  \
+    _______, _______, KC_BSLS, KC_DEL
+  ),
 };

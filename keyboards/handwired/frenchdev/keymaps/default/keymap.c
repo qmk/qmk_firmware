@@ -1,8 +1,5 @@
-#include "frenchdev.h"
-#include "mousekey.h"
-#include "action.h"
-#include "action_layer.h"
-#include "keymap_extras/keymap_bepo.h"
+#include QMK_KEYBOARD_H
+#include "keymap_bepo.h"
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -16,7 +13,7 @@
 #define KEY_DELAY 130
 
 enum macros {
-    M_LP,   // left pedal
+    M_LP = SAFE_RANGE,   // left pedal
     M_RP,   // right pedal
     M_SF,   // shift
     M_SFS,  // shift and space
@@ -65,19 +62,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------|  /   |------|  ,   | space|------|------|------  ..  ------|------|------| L1/sp| LEFT |------|  UP  |------+------| *
  * | CTRL | win  |------/      \-------------| L1   | alt  |        ..        | CAPS | L1   |-------------/      \------| :    | CTRL | *
  * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
- *M(M_LP)
  */
-[_BASE] = KEYMAP(
+[_BASE] = LAYOUT(
            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     \
   KC_ESC,  BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_DTRM,                                        BP_DCRC, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
   KC_TAB,  BP_B,    BP_ECUT, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
   BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_APOS, \
-  M(M_SF), BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRACKET,    M(M_SFS), BP_CBSP, M(L2INS), M(L2LOC), BP_CDEL, M(M_SFS),BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M(M_SF), \
-  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M(M_L1E), KC_LALT,                     KC_CAPS, M(M_L1E),KC_SPACE,KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
+  M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRC, M_SFS,   BP_CBSP, L2INS,        L2LOC, BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF, \
+  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,   KC_LALT,                     KC_CAPS, M_L1E,  KC_SPACE,  KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
   //left pedals
-  M(M_LP), M(M_RP), KC_TRNS, \
+  M_LP, M_RP, KC_TRNS, \
   //right pedals
-  M(M_LP), M(M_RP), KC_TRNS \
+  M_LP, M_RP, KC_TRNS \
 ),
 
  /* Larer 1 for symbols.
@@ -99,12 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
   *
   */
-[_SYMBOLS] = KEYMAP(
+[_SYMBOLS] = LAYOUT(
            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
   KC_TRNS, BP_DCUR, BP_PARG, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_DCAR, BP_LEQL, BP_GEQL, BP_PSMS, BP_OBEL, BP_TIMS, KC_TRNS, \
   KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_DIFF, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PMIL, KC_TRNS, \
   KC_TRNS, BP_EQL,  BP_UGRV, BP_LPRN, BP_RPRN, BP_PLUS, BP_COLN,                                       BP_QEST, BP_CCED, BP_LESS, BP_GRTR, BP_AMPR, BP_UNDS, KC_TRNS, \
-  KC_TRNS, M(M_UN), M(M_CUT),M(M_CP), M(M_PS), M(M_SE), KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS, \
+  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    M_SE,    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS, \
   KC_TRNS, KC_TRNS, BP_BSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS,  \
   //left pedals
   KC_TRNS, KC_BTN1, KC_TRNS, \
@@ -131,17 +127,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
   *
   */
-[_MEDIA] = KEYMAP(
+[_MEDIA] = LAYOUT(
            RESET,   KC_SLCK, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NLCK,          \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS, \
-  KC_TRNS, M(M_UN), M(M_CUT),M(M_CP), M(M_PS), KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS, \
+  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_PDOT, BP_DOT,  BP_COMM, KC_TRNS,  \
   //left pedals
-  KC_BTN3, M(M_RP), KC_TRNS, \
+  KC_BTN3, M_RP,    KC_TRNS, \
   //right pedals
-  KC_BTN3, M(M_RP), KC_TRNS  \
+  KC_BTN3, M_RP,    KC_TRNS  \
 ),
 
 /* TRNS - skeleton for laters
@@ -163,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 
-[_TRNS] = KEYMAP(
+[_TRNS] = LAYOUT(
            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
@@ -171,15 +167,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   //left pedals
-  KC_BTN3, M(M_RP), KC_TRNS, \
+  KC_BTN3, M_RP,    KC_TRNS, \
   //right pedals
-  KC_BTN3, M(M_RP), KC_TRNS  \
+  KC_BTN3, M_RP,    KC_TRNS  \
 ),
-
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 
@@ -198,28 +189,52 @@ void release_shift(void) {
 
 void press_space(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code (KC_SPACE);
-  unregister_code (KC_SPACE);
+  tap_code(KC_SPACE);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
 void press_enter(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code (KC_ENT);
-  unregister_code (KC_ENT);
+  tap_code (KC_ENT);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
 void press_underscore(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code ((unsigned char) BP_UNDS);
-  unregister_code ((unsigned char) BP_UNDS);
+  tap_code ((unsigned char) BP_UNDS);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  switch(id) {
+void matrix_init_user(void) {
+}
+
+// Bleah globals need to be initialized.
+uint8_t old_layer=_BASE;
+
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    frenchdev_led_1_off();
+    frenchdev_led_2_off();
+    switch (layer) {
+        case _BASE:
+            frenchdev_led_2_on();
+            break;
+        case _SYMBOLS:
+            frenchdev_led_1_on();
+            break;
+        case _MEDIA:
+           frenchdev_led_1_on();
+           frenchdev_led_2_on();
+        default:
+            // none
+            break;
+    }
+}
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
     case M_LP: //left pedal
       if (record->event.pressed) {
         layer_on(1);
@@ -227,25 +242,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
-           mousekey_on (KC_BTN2);
-           mousekey_send();
-           mousekey_off (KC_BTN2);
-           mousekey_send();
+           tap_code (KC_BTN2);
         }
         unregister_code (KC_SLCK);
         layer_off(1);
       }
-    break;
+      break;
     case M_RP: //right pedal
       if (record->event.pressed) {
         layer_on(2);
         key_timer_right_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_right_pedal) < PEDAL_DELAY) {
-           mousekey_on (KC_BTN1);
-           mousekey_send();
-           mousekey_off (KC_BTN1);
-           mousekey_send();
+           tap_code (KC_BTN1);
         }
         layer_off(2);
       }
@@ -296,13 +305,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         key_timer_2 = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_2) < KEY_DELAY) {
-           register_code (KC_INS);
-           unregister_code (KC_INS);
+           tap_code (KC_INS);
         }
         l2_locked = 0;
         layer_off(2);
       }
-    break;
+      break;
     case L2LOC: //lock L2
       if (record->event.pressed) {
         key_timer_2 = timer_read(); // if the key is being pressed, we start the timer.
@@ -316,84 +324,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           layer_off(2);
         }
       }
-    break;
+      break;
     case M_UN: // undo
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_Z);
-        unregister_code(BP_Z);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_Z));
       }
-    break;
+      break;
     case M_CUT: // cut
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_X);
-        unregister_code(BP_X);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_X));
       }
-    break;
+      break;
     case M_CP: // copy
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_C);
-        unregister_code(BP_C);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_C));
       }
-    break;
+      break;
     case M_PS: // paste
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_V);
-        unregister_code(BP_V);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_V));
       }
-    break;
+      break;
     case M_SE: // search
       if (record->event.pressed) {
-        register_code(KC_LCTL);
-        register_code(BP_F);
-        unregister_code(BP_F);
-        unregister_code(KC_LCTL);
+        tap_code16(C(BP_F));
       }
-    break;
+      break;
   }
-  return MACRO_NONE;
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-}
-
-void matrix_init_user(void) {
-}
-
-// Bleah globals need to be initialized.
-uint8_t old_layer=_BASE;
-
-void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
-
-    frenchdev_led_1_off();
-    frenchdev_led_2_off();
-    switch (layer) {
-        case _BASE:
-            frenchdev_led_2_on();
-            break;
-        case _SYMBOLS:
-            frenchdev_led_1_on();
-            break;
-        case _MEDIA:
-           frenchdev_led_1_on();
-           frenchdev_led_2_on();
-        default:
-            // none
-            break;
-    }
-}
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
@@ -405,5 +362,3 @@ void led_set_user(uint8_t usb_led) {
   }
   return ;
 }
-
-

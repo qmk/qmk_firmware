@@ -1,11 +1,5 @@
-#include "lets_split.h"
-#include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -49,10 +43,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 

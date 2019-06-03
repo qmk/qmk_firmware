@@ -1,26 +1,13 @@
 #!/bin/bash
 
-TRAVIS_BRANCH="${TRAVIS_BRANCH:master}"
-TRAVIS_PULL_REQUEST="${TRAVIS_PULL_REQUEST:false}"
-TRAVIS_COMMIT_MESSAGE="${TRAVIS_COMMIT_MESSAGE:-none}"
-TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
+source util/travis_push.sh
 
 set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
+echo "Using git hash ${rev}"
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
-
-git config --global user.name "QMK Bot"
-git config --global user.email "hello@qmk.fm"
-
-openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in secrets.tar.enc -out secrets.tar -d
-tar xvf secrets.tar
-
-chmod 600 id_rsa_qmk_firmware
-chmod 600 id_rsa_qmk.fm
-eval `ssh-agent -s`
-ssh-add id_rsa_qmk_firmware
 
 # convert to unix line-endings
 git checkout master
@@ -34,7 +21,7 @@ increment_version ()
   part[2]=$((part[2] + 1))
   new="${part[*]}"
   echo -e "${new// /.}"
-} 
+}
 
 git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 
@@ -63,18 +50,38 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	ssh-add -D
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
-	
+
 	# don't delete files in case not all keyboards are built
 	# rm -f compiled/*.hex
 
 	# ignore errors here
-	for file in ../qmk_firmware/keyboards/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	# In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
+	mv ../qmk_firmware/*_default.*{hex,bin} ./compiled/ || true
+
+	# get the list of keyboards
+	readarray -t keyboards < .keyboards
+
+	# replace / with _
+	keyboards=("${keyboards[@]//[\/]/_}")
+
+	# remove all binaries that don't belong to a keyboard in .keyboards
+	for file in "./compiled"/* ; do
+		match=0
+		for keyboard in "${keyboards[@]}" ; do
+			if [[ ${file##*/} = "${keyboard}_default.bin" ]] || [[ ${file##*/} = "${keyboard}_default.hex" ]]; then
+				match=1
+				break
+			fi
+		done
+		if [[ $match = 0 ]]; then
+			echo "Removing deprecated binary: $file"
+			rm "$file"
+		fi
+	done
+
 	bash _util/generate_keyboard_page.sh
 	git add -A
-	git commit -m "generated from qmk/qmk_firmware@${rev}" 
+	git commit -m "generated from qmk/qmk_firmware@${rev}"
 	git push git@github.com:qmk/qmk.fm.git
 
 fi
