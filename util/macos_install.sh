@@ -24,3 +24,10 @@ brew tap PX4/homebrew-px4
 brew update
 brew install avr-gcc@8 gcc-arm-none-eabi dfu-programmer avrdude dfu-util python3
 brew link --force avr-gcc@8
+
+# curl -fsLS https://github.com/zsa/wally/releases/download/1.0.0/wally-osx.dmg
+wget -O /tmp/wally.dmg https://github.com/zsa/wally/releases/download/1.0.0/wally-osx.dmg
+open /tmp/wally.dmg
+sleep 5
+cp -R /Volumes/Wally/Wally.app /Volumes/Wally/Applications
+cp /Volumes/Wally/wally-cli /usr/bin/local/
