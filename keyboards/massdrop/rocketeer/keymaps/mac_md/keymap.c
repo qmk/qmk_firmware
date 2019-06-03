@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum ctrl_keycodes {
+enum rocketeer_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
     L_BRD,              //LED Brightness Decrease
     L_EDG_I,            //LED Edge Brightness Increase
@@ -137,20 +137,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case L_T_ONF:
             if (record->event.pressed) {
-                led_enabled = !led_enabled;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(!I2C3733_Control_Get());
             }
             return false;
         case L_ON:
             if (record->event.pressed) {
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(1);
             }
             return false;
         case L_OFF:
             if (record->event.pressed) {
-                led_enabled = 0;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(0);
             }
             return false;
         case L_T_BR:
@@ -207,8 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 led_animation_breathing = 0;
                 led_animation_id = 7; //led_programs.c led_setups leds_white index
                 gcr_desired = LED_GCR_MAX;
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(1);
             }
             return false;
         case DBG_TOG:
@@ -248,3 +244,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void rgb_matrix_init_user(void) {
     led_lighting_mode = LED_MODE_INDICATORS_ONLY; //Start Rocketeer with only indicator lights
 }
+
+led_instruction_t led_instructions[] = {
+    //Please see ../default_md/keymap.c for examples
+
+    //All LEDs use the user's selected pattern (this is the factory default)
+     { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+
+    //end must be set to 1 to indicate end of instruction set
+     { .end = 1 }
+};

@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum ctrl_keycodes {
+enum rocketeer_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
     L_BRD,              //LED Brightness Decrease
     L_EDG_I,            //LED Edge Brightness Increase
@@ -31,38 +31,26 @@ keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_INS,  KC_HOME, KC_PGUP, KC_PAUS, \
-                                                                                                                                               KC_DEL,  KC_END,  KC_PGDN, KC_SLCK, \
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_NLCK, KC_PSLS, KC_PAST, KC_PSCR, \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_P7,   KC_P8,   KC_P9,   KC_PMNS, \
-        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                            KC_P1,   KC_P2,   KC_P3,            \
-                                                                                                                             KC_UP,                                       KC_PENT, \
-        KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPC,                             KC_RGUI, MO(1),                                                KC_P0,   KC_PDOT,          \
-                                                                                                                    KC_LEFT, KC_DOWN, KC_RGHT                                      \
+        KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
+        KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  \
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                   KC_RSFT, \
+        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(1),   KC_RGUI,          KC_RCTL  \
     ),
     [1] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   KC_MPLY, KC_MSTP, KC_VOLU, KC_MUTE, \
-                                                                                                                                               KC_MPRV, KC_MNXT, KC_VOLD, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, _______, _______, _______, _______,          _______, _______, _______, _______, \
-        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, \
-        _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,                            _______, _______, _______,          \
-                                                                                                                             _______,                                     _______, \
-        _______, _______, _______,                   DBG_FAC,                            KC_APP,  _______,                                     _______, _______,                   \
-                                                                                                                    _______, _______, _______                                      \
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_UP,   _______, _______, U_T_AGCR,\
+        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   _______, _______, KC_INS,  KC_HOME, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT,          _______, \
+        _______, L_T_MD,  L_T_ONF, _______, _______, MD_BOOT, TG_NKRO, KC_END,  KC_PGDN, KC_VOLD, KC_VOLU,                   _______, \
+        _______, _______, _______,                   DBG_FAC,                            KC_MUTE, _______, KC_APP,           _______  \
     ),
     /*
     [X] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, \
-                                                                                                                                               _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______,          \
-                                                                                                                             _______,                                     _______, \
-        _______, _______, _______,                   _______,                            _______, _______,                                     _______, _______,                   \
-                                                                                                                    _______, _______, _______                                      \
+        _______  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______, \
+        _______, _______, _______,                   _______,                            _______, _______, _______,          _______  \
     ),
     */
 };
@@ -149,20 +137,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case L_T_ONF:
             if (record->event.pressed) {
-                led_enabled = !led_enabled;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(!I2C3733_Control_Get());
             }
             return false;
         case L_ON:
             if (record->event.pressed) {
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(1);
             }
             return false;
         case L_OFF:
             if (record->event.pressed) {
-                led_enabled = 0;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(0);
             }
             return false;
         case L_T_BR:
@@ -219,8 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 led_animation_breathing = 0;
                 led_animation_id = 7; //led_programs.c led_setups leds_white index
                 gcr_desired = LED_GCR_MAX;
-                led_enabled = 1;
-                I2C3733_Control_Set(led_enabled);
+                I2C3733_Control_Set(1);
             }
             return false;
         case DBG_TOG:
@@ -256,3 +240,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true; //Process all other keycodes normally
     }
 }
+
+void rgb_matrix_init_user(void) {
+    led_lighting_mode = LED_MODE_INDICATORS_ONLY; //Start Rocketeer with only indicator lights
+}
+
+led_instruction_t led_instructions[] = {
+    //LEDs are normally inactive, no processing is performed on them
+    //Flags are used in matching criteria for an LED to be active and indicate how to color it
+    //Flags can be found in tmk_core/protocol/arm_atsam/led_matrix.h (prefixed with LED_FLAG_)
+    //LED IDs can be found in config_led.h in the keyboard's directory
+    //Examples are below
+    
+    //All LEDs use the user's selected pattern (this is the factory default)
+     { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+
+    //Specific LEDs use the user's selected pattern while all others are off
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN, .id0 = 0xFFFFFFFF, .id1 = 0xAAAAAAAA, .id2 = 0x55555555, .id3 = 0x11111111 },
+
+    //Specific LEDs use specified RGB values while all others are off
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFF, .id1 = 0x00FF, .id2 = 0x0000FF00, .id3 = 0xFF000000, .r = 75, .g = 150, .b = 225 },
+    
+    //All LEDs use the user's selected pattern
+    //On layer 1, all key LEDs (except the top row which keeps active pattern) are red while all edge LEDs are green
+    //When layer 1 is active, key LEDs use red    (id0  32 -  17: 1111 1111 1111 1111 0000 0000 0000 0000 = 0xFFFF0000) (except top row 16 - 1)
+    //When layer 1 is active, key LEDs use red    (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //When layer 1 is active, key LEDs use red    (id2  87 -  65: 0000 0000 0111 1111 1111 1111 1111 1111 = 0x007FFFFF)
+    //When layer 1 is active, edge LEDs use green (id2  95 -  88: 1111 1111 1000 0000 0000 0000 0000 0000 = 0xFF800000)
+    //When layer 1 is active, edge LEDs use green (id3 119 -  96: 0000 0000 1111 1111 1111 1111 1111 1111 = 0x00FFFFFF)
+    // { .flags = LED_FLAG_USE_ROTATE_PATTERN },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFF0000, .id1 = 0xFFFFFFFF, .id2 = 0x007FFFFF, .r = 255, .layer = 1 },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id2 = 0xFF800000, .id3 = 0x00FFFFFF, .g = 127, .layer = 1 },
+
+    //All key LEDs use red while edge LEDs use the active pattern
+    //All key LEDs use red     (id0  32 -   1: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //All key LEDs use red     (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
+    //All key LEDs use red     (id2  87 -  65: 0000 0000 0111 1111 1111 1111 1111 1111 = 0x007FFFFF)
+    //Edge uses active pattern (id2  95 -  88: 1111 1111 1000 0000 0000 0000 0000 0000 = 0xFF800000)
+    //Edge uses active pattern (id3 119 -  96: 0000 0000 1111 1111 1111 1111 1111 1111 = 0x00FFFFFF)
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0x007FFFFF, .r = 255 },
+    // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN , .id2 = 0xFF800000, .id3 = 0x00FFFFFF },
+
+    //end must be set to 1 to indicate end of instruction set
+     { .end = 1 }
+};

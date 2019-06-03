@@ -147,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case L_OFF:
             if (record->event.pressed) {
-                I2C3733_Control_Set(1);
+                I2C3733_Control_Set(0);
             }
             return false;
         case L_T_BR:

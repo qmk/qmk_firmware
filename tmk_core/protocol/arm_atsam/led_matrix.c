@@ -351,9 +351,9 @@ void led_matrix_indicators(void)
             #endif //KANA
             (0))
             {
-                led_buffer[i].r = 255 - led_buffer[i].r;
-                led_buffer[i].g = 255 - led_buffer[i].g;
-                led_buffer[i].b = 255 - led_buffer[i].b;
+                led_buffer[i].r = 255 - led_buffer[i].r; //TODO: Issue here with keeping the LED lit, static value works
+                led_buffer[i].g = 255 - led_buffer[i].g; //TODO: Issue here with keeping the LED lit, static value works
+                led_buffer[i].b = 255 - led_buffer[i].b; //TODO: Issue here with keeping the LED lit, static value works
 
                 //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.r > 127) *led_cur->rgb.r = 0;
                 //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.r = 255;
@@ -498,14 +498,6 @@ static void led_matrix_massdrop_config_override(int i)
     uint8_t highest_active_layer = biton32(layer_state);
 
     if (led_animation_circular) {
-        //disp.width
-        //disp.left
-        //disp.height
-        //disp.bottom
-        //disp.max_distance
-        //TODO: led_animation_circular needs fixing
-        //For reference, the old function was
-        //po = sqrtf((powf(fabsf((disp.width / 2) - ((float)g_rgb_leds[i].point.x - disp.left)), 2) + powf(fabsf((disp.height / 2) - ((float)g_rgb_leds[i].point.y - disp.bottom)), 2))) / disp.max_distance * 100;
         po = sqrtf((powf(fabsf((224 / 2) - (float)g_rgb_leds[i].point.x), 2) + powf(fabsf((64 / 2) - (float)g_rgb_leds[i].point.y), 2))) / RGB_MAX_DISTANCE * 100;
     } else {
         if (led_animation_orientation) {
