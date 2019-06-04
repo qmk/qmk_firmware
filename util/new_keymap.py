@@ -11,8 +11,8 @@ import sys
 from distutils.dir_util import copy_tree
 
 
-usage_message = "./%(prog)s <keyboard_path> <username>\n" + \
-                "Example: ./%(prog)s 1upkeyboards/1up60hse yourname"
+usage_message = "./new_keymap.py <keyboard_path> <username>\n" + \
+                "Example: ./new_keymap.py 1upkeyboards/1up60hse yourname"
 
 
 def get_args(argv):
@@ -122,7 +122,9 @@ def main(argv=sys.argv[1:]):
 
 if __name__ == "__main__":
     # maintain similar new_keymap.sh behavior when called without arguments
-    assert len(sys.argv[1:]), sys.exit("Usage: " + usage_message)
+    if not len(sys.argv[1:]):
+        print("Usage: " + usage_message)
+        sys.exit()
         
     main()
 
