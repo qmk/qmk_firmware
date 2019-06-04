@@ -26,14 +26,50 @@
 #include "ch.h"
 #include <hal.h>
 
-#ifndef I2C1_BANK
-    #define I2C1_BANK GPIOB
+#ifdef I2C1_BANK
+    #define I2C1_SCL_BANK I2C1_BANK
+    #define I2C1_SDA_BANK I2C1_BANK
 #endif
+
+#ifndef I2C1_SCL_BANK
+    #define I2C1_SCL_BANK GPIOB
+#endif
+
+#ifndef I2C1_SDA_BANK
+    #define I2C1_SDA_BANK GPIOB
+#endif
+
 #ifndef I2C1_SCL
     #define I2C1_SCL 6
 #endif
 #ifndef I2C1_SDA
     #define I2C1_SDA 7
+#endif
+
+// The default PAL alternate modes are used to signal that the pins are used for I2C
+#ifndef I2C1_SCL_PAL_MODE
+    #define I2C1_SCL_PAL_MODE 4
+#endif
+#ifndef I2C1_SDA_PAL_MODE
+    #define I2C1_SDA_PAL_MODE 4
+#endif
+
+// The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
+// For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
+#ifndef I2C1_TIMINGR_PRESC
+    #define I2C1_TIMINGR_PRESC 15U
+#endif
+#ifndef I2C1_TIMINGR_SCLDEL
+    #define I2C1_TIMINGR_SCLDEL 4U
+#endif
+#ifndef I2C1_TIMINGR_SDADEL
+    #define I2C1_TIMINGR_SDADEL 2U
+#endif
+#ifndef I2C1_TIMINGR_SCLH
+    #define I2C1_TIMINGR_SCLH 15U
+#endif
+#ifndef I2C1_TIMINGR_SCLL
+    #define I2C1_TIMINGR_SCLL 21U
 #endif
 
 #ifndef I2C_DRIVER
