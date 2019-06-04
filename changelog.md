@@ -27,3 +27,4 @@
 05-29-2019 - Fix TO() and DF() calling layer_state_set_[kb,user] twice (qmk#6003)   
 05-29-2019 - Fixing matrix_scan so it properly returns changed status  
 05-29-2019 - Add belgian layour for sendstring (qmk#6008)  
+06-03-2019 - Overhaul of AutoShift feature (qmk#6067)  
