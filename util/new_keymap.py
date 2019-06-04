@@ -122,7 +122,7 @@ def main(argv=sys.argv[1:]):
     create_keymap_directory(keymap_path_default, keymap_path)
 
     # end message to user
-    print(f"{username} keymap directory created in: {kb_path}\n")
+    print(f"{username} keymap directory created in: {keymap_path}\n")
     print("Compile a firmware file with your new keymap by typing: \n")
     print(f"make {keyboard}:{username}\n")
     print("from the qmk_firmware directory")
