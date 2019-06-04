@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Script to make a new keymap for a keyboard of your choosing.
 This script automates the copying of the default keymap into your own keymap.
@@ -15,28 +15,36 @@ usage_message = "./new_keymap.py <keyboard_path> <username>\n" + \
                 "Example: ./new_keymap.py 1upkeyboards/1up60hse yourname"
 
 
+def print_error(message):
+    """Print a message, prefixed with the word "ERROR" in red."""
+    print("[\033[0;91mERROR\033[m] " + message, file=sys.stderr)
+    exit(1)
+
+
 def get_args(argv):
     """
     Gets script arguments provided in terminal
     """
     # define usage and description
     parser = argparse.ArgumentParser(description=__doc__, usage=usage_message)
-    parser.add_argument("input", type=str, nargs=2,
-                        help="specified keyboard & username. See usage above")
-    parser.add_argument("--debug", dest="debug", action="store_true",
+    parser.add_argument("--debug",
+                        dest="debug",
+                        action="store_true",
                         help="specify to turn on debugging messages")
-
     return parser.parse_args(argv)
 
 
-def set_logs(debug=None):
+def set_logging(debug=None):
     """
     Sets logging level.
 
     :debug: bool, True to set logging level to DEBUG & print debug messages
     """
     if debug:
-        logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
+        logging.basicConfig(format="%(levelname)s: %(message)s",
+                            level=logging.DEBUG)
+        return
+    logging.basicConfig(format="%(levelname)s: %(message)s")
 
 
 def exists(path):
@@ -59,12 +67,13 @@ def check_directories(kb_path, keymap_path_default, keymap_path):
     :keymap_path_default: str, default keymap directory for the keyboard
     :keymap_path: str, new keymap directory that will be created
     """
-    assert exists(kb_path), "Error! {} does not exist!".format(kb_path)
-    assert exists(keymap_path_default), \
-        "Error! {} does not exist!".format(keymap_path_default)
+    if not exists(kb_path):
+        print_error(f"{kb_path} does not exist!")
+    if not exists(keymap_path_default):
+        print_error(f"{keymap_path_default} does not exist!")
 
-    assert exists(keymap_path) is False, \
-        "Error! {} already exists!".format(keymap_path)
+    if exists(keymap_path):
+        print_error(f"{keymap_path} already exists!")
 
 
 def create_keymap_directory(keymap_path_default, keymap_path):
@@ -82,31 +91,30 @@ def create_keymap_directory(keymap_path_default, keymap_path):
 
 
 def main(argv=sys.argv[1:]):
-    # get script args
-    args = get_args(argv)
-
     # set logging level to debug mode if specified
-    set_logs(args.debug)
-
-    logging.debug("script args = {}".format(args))
+    args = get_args(argv)
+    set_logging(args.debug)
 
     # change current directory up 1 level if in 'util/'
     current_directory = os.path.abspath(os.curdir)
-    logging.debug("Current directory is {}".format(current_directory))
+    logging.debug(f"Current directory is {current_directory}")
     if os.path.basename(current_directory) == "util":
         os.chdir("..")
         current_directory = os.path.abspath(os.curdir)
-        logging.debug("Changed to directory {}".format(current_directory))
+        logging.debug(f"Changed to directory {current_directory}")
+
+    # get keyboard
+    keyboard = input("Keyboard Name: ")
+    # get username
+    username = input("New Username: ")
 
     # format inputs into directories
-    kb_path = os.path.join(current_directory, "keyboards/{}".format(args.input[0]))
+    kb_path = os.path.join(current_directory, f"keyboards/{keyboard}")
     keymap_path_default = os.path.join(kb_path, "keymaps/default")
-    keymap_path = os.path.join(kb_path, "keymaps/{}".format(args.input[1]))
-    logging.debug(
-        "kb_path = {}".format(kb_path) +
-        "keymap_path_default = {}".format(keymap_path_default) +
-        "keymap_path = {}".format(keymap_path)
-    )
+    keymap_path = os.path.join(kb_path, f"keymaps/{username}")
+    logging.debug(f"kb_path = {kb_path}\n" +
+                  f"keymap_path_default = {keymap_path_default}\n" +
+                  f"keymap_path = {keymap_path}\n")
 
     # check directories
     check_directories(kb_path, keymap_path_default, keymap_path)
@@ -114,17 +122,12 @@ def main(argv=sys.argv[1:]):
     create_keymap_directory(keymap_path_default, keymap_path)
 
     # end message to user
-    print("{} keymap directory created in: {}\n".format(args.input[1], kb_path))
+    print(f"{username} keymap directory created in: {kb_path}\n")
     print("Compile a firmware file with your new keymap by typing: \n")
-    print("make {}:{}\n".format(args.input[0], args.input[1]))
+    print(f"make {keyboard}:{username}\n")
     print("from the qmk_firmware directory")
 
 
 if __name__ == "__main__":
-    # maintain similar new_keymap.sh behavior when called without arguments
-    if not len(sys.argv[1:]):
-        print("Usage: " + usage_message)
-        sys.exit()
-        
     main()
 
