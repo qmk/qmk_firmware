@@ -22,4 +22,5 @@
 05-06-2019 - More readable fix of Mousekeys issue  
 05-06-2019 - Changes to Split Common and OLED code  
 05-16-2019 - Add RGB Light Effect Range functionality   
-05-26-2019 - Add Solus support for Linux install script
+05-26-2019 - Update templates to use proper debounce define  
+05-26-2019 - Add Solus support for Linux install script  
