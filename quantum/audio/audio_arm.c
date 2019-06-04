@@ -38,6 +38,33 @@
   #define DAC_SAMPLE_MAX  4095U
 #endif
 
+#define DAC_LOW_QUALITY
+
+/**
+ * These presets allow you to quickly switch between quality/voice settings for
+ * the DAC. The sample rate and number of voices roughly has an inverse
+ * relationship - slightly higher sample rates may be possible.
+ */
+#ifdef DAC_VERY_LOW_QUALITY
+  #define DAC_SAMPLE_RATE 11025U
+  #define DAC_VOICES_MAX 8
+#endif
+
+#ifdef DAC_LOW_QUALITY
+  #define DAC_SAMPLE_RATE 22050U
+  #define DAC_VOICES_MAX 4
+#endif
+
+#ifdef DAC_HIGH_QUALITY
+  #define DAC_SAMPLE_RATE 44100U
+  #define DAC_VOICES_MAX 2
+#endif
+
+#ifdef DAC_VERY_HIGH_QUALITY
+  #define DAC_SAMPLE_RATE 88200U
+  #define DAC_VOICES_MAX 1
+#endif
+
 /**
  * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
  * lower will sacrifice perceptible audio quality. Any higher will limit the
@@ -66,16 +93,8 @@
 #endif
 
 int voices = 0;
-int voice_place = 0;
-float frequency = 0;
-float frequency_alt = 0;
-
 float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-bool sliding = false;
-
-uint8_t * sample;
-uint16_t sample_length = 0;
 
 bool     playing_notes = false;
 bool     playing_note = false;
@@ -87,10 +106,8 @@ uint32_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
-bool     note_resting = false;
 
 uint16_t current_note = 0;
-uint8_t rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
 float vibrato_counter = 0;
@@ -192,50 +209,80 @@ static const dacsample_t dac_buffer_square[DAC_BUFFER_SIZE] = {
 
 static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = { DAC_OFF_VALUE };
 
+#include "wavetable.h"
+
 float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+uint8_t dac_voice = 0;
+uint8_t dac_voice_flipped = 0;
+uint16_t dac_voice_counter = 0;
+float dac_voice_count_flipped = 0;
 
 /**
- * DAC streaming callback. Does all of the main computing for sound synthesis.
+ * Generation of the sample being passed to the callback. Declared weak so users
+ * can override it with their own waveforms/noises.
  */
-static void dac_end(DACDriver * dacp, dacsample_t * sample_p, size_t sample_count) {
-
-  (void)dacp;
-  (void)dac_buffer;
-  // (void)dac_buffer_triangle;
-  (void)dac_buffer_square;
-
+__attribute__ ((weak))
+uint16_t generate_sample(void) {
+  uint16_t sample = DAC_OFF_VALUE;
   uint8_t working_voices = voices;
   if (working_voices > DAC_VOICES_MAX)
     working_voices = DAC_VOICES_MAX;
 
-  for (uint8_t s = 0; s < sample_count; s++) {
-    if (working_voices > 0) {
-      uint16_t sample_sum = 0;
-      for (uint8_t i = 0; i < working_voices; i++) {
-        dac_if[i] = dac_if[i] + ((frequencies[i]*DAC_BUFFER_SIZE)/DAC_SAMPLE_RATE);
+  if (working_voices > 0) {
+    uint16_t sample_sum = 0;
+    for (uint8_t i = 0; i < working_voices; i++) {
+      dac_if[i] = dac_if[i] + ((frequencies[i]*DAC_BUFFER_SIZE)/DAC_SAMPLE_RATE);
 
-        // Needed because % doesn't work with floats
-        // 0.5 less than the size because we use round() later
-        while (dac_if[i] >= (DAC_BUFFER_SIZE))
-          dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
+      // Needed because % doesn't work with floats
+      // 0.5 less than the size because we use round() later
+      while (dac_if[i] >= (DAC_BUFFER_SIZE))
+        dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
 
-        uint16_t dac_i = (uint16_t)dac_if[i];
-        // Wavetable generation/lookup
-        // SINE
-        sample_sum += dac_buffer[dac_i] / working_voices / 3;
-        // TRIANGLE
-        sample_sum += dac_buffer_triangle[dac_i] / working_voices / 3;
-        // RISING TRIANGLE
-        // sample_sum += (uint16_t)round((dac_if[i] * DAC_SAMPLE_MAX) / DAC_BUFFER_SIZE / working_voices );
-        // SQUARE
-        // sample_sum += ((dac_if[i] > (DAC_BUFFER_SIZE / 2)) ? DAC_SAMPLE_MAX / working_voices: 0);
-        sample_sum += dac_buffer_square[dac_i] / working_voices / 3;
+      (void)dac_buffer;
+      (void)dac_buffer_square;
+      (void)dac_buffer_triangle;
 
-      }
-      sample_p[s] = sample_sum;
-    } else {
-      sample_p[s] = DAC_OFF_VALUE;
+      #define DAC_MORPH_SPEED 3000
+      #define DAC_SAMPLE_CUSTOM_LENGTH 64
+      #define DAC_MORPH_SPEED_COMPUTED (DAC_SAMPLE_RATE / DAC_SAMPLE_CUSTOM_LENGTH * DAC_MORPH_SPEED / 1000)
+
+      uint16_t dac_i = (uint16_t)dac_if[i];
+      // Wavetable generation/lookup
+      // SINE
+      // sample_sum += dac_buffer[dac_i] / working_voices / 3;
+      // TRIANGLE
+      // sample_sum += dac_buffer_triangle[dac_i] / working_voices / 3;
+      // RISING TRIANGLE
+      // sample_sum += (uint16_t)round((dac_if[i] * DAC_SAMPLE_MAX) / DAC_BUFFER_SIZE / working_voices );
+      // SQUARE
+      // sample_sum += ((dac_if[i] > (DAC_BUFFER_SIZE / 2)) ? DAC_SAMPLE_MAX / working_voices: 0);
+      // sample_sum += dac_buffer_square[dac_i] / working_voices / 3;
+      // sample_sum += dac_buffer_custom[dac_voice_flipped][dac_i] / working_voices / 2 * ((dac_voice >= 63) ? 6400 - dac_voice_counter : dac_voice_counter) / 6400;
+      // sample_sum += dac_buffer_custom[dac_voice_flipped + 1][dac_i] / working_voices / 2 * ((dac_voice >= 63) ? dac_voice_counter : 6400 - dac_voice_counter) / 6400;
+      sample_sum += dac_buffer_custom[dac_voice][dac_i] / working_voices / 2 * (DAC_MORPH_SPEED_COMPUTED - dac_voice_counter) / DAC_MORPH_SPEED_COMPUTED;
+      sample_sum += dac_buffer_custom[dac_voice + 1][dac_i] / working_voices / 2 * dac_voice_counter / DAC_MORPH_SPEED_COMPUTED;
     }
+    sample = sample_sum;
+    dac_voice_counter++;
+    if (dac_voice_counter >= DAC_MORPH_SPEED_COMPUTED) {
+      dac_voice_counter = 0;
+      // dac_voice = (dac_voice + 1) % 125;
+      // dac_voice_flipped = ((dac_voice >= 63) ? (125 - dac_voice) : dac_voice);
+      dac_voice = (dac_voice + 1) % (DAC_SAMPLE_CUSTOM_LENGTH - 1);
+    }
+  }
+  return sample;
+}
+
+/**
+ * DAC streaming callback. Does all of the main computing for playing songs.
+ */
+static void dac_end(DACDriver * dacp, dacsample_t * sample_p, size_t sample_count) {
+
+  (void)dacp;
+
+  for (uint8_t s = 0; s < sample_count; s++) {
+    sample_p[s] = generate_sample();
   }
 
   if (playing_notes) {
@@ -359,8 +406,6 @@ void stop_all_notes() {
 
     playing_notes = false;
     playing_note = false;
-    frequency = 0;
-    frequency_alt = 0;
 
     for (uint8_t i = 0; i < 8; i++)
     {
@@ -393,12 +438,7 @@ void stop_note(float freq) {
     if (voices < 0) {
       voices = 0;
     }
-    if (voice_place >= voices) {
-      voice_place = 0;
-    }
     if (voices == 0) {
-      frequency = 0;
-      frequency_alt = 0;
       playing_note = false;
     }
   }
