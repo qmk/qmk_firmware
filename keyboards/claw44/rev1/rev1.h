@@ -50,10 +50,3 @@ uint8_t is_master;
     KC_##L20, KC_##L21, KC_##L22, KC_##L23, KC_##L24, KC_##L25,                     KC_##R20, KC_##R21, KC_##R22, KC_##R23, KC_##R24, KC_##R25, \
                                   KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##R30, KC_##R31, KC_##R32, KC_##R33 \
   )
-
-enum layer_number {
-  _QWERTY = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-};
