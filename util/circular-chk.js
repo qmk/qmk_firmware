@@ -18,9 +18,13 @@ const walk = function(dir, filter) {
     });
     return results;
 };
+const regexExclude = /keymaps\/(.*)via\//g;
 const containsSRC = [];
 const filesToScan = walk("./keyboards", "rules.mk");
 for (const f of filesToScan) {
+    if(regexExclude.test(f)){
+        continue;
+    }
     let content = fs.readFileSync(f, "utf-8");
     content = content.replace(/\\\n/g, "");
     const lines = content.split("\n");
