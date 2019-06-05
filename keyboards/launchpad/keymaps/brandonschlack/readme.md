@@ -25,7 +25,7 @@ This layer is used to send keypad keys, meant to be remapped based on current ap
 This layer is used as a meta layer for the pad. This layer is accessed by holding key in Row 3, Col 0
 |   |   |
 |:-:|:-:|
-| FLASH | RESET |
+| MAKE | RESET |
 | **Media** Layer | **Keypad** Layer|
 | XXX | XXX |
 | ___ | XXX |

@@ -70,6 +70,6 @@ This layer is used for editing photos in the Develop Module
 This layer is used as a meta layer for the pad. This layer is accessed with a double tap of the bottom right key via [tap dance](https://docs.qmk.fm/#/feature_tap_dance).
 |   |   |   |
 |:-:|:-:|:-:|
-| FLASH | **Navigation** Layer | MAKE |
+| MAKE | **Navigation** Layer | RESET |
 | **Reeder** Layer | **Media** Layer | **Keypad** Layer |
 | **Lightroom Review** Layer | **Lightroom Navigation** Layer | **Lightroom Edit** Layer |

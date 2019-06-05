@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Magic
  * ,-------------.
- * | Flsh | Rset |
+ * | Make | Rset |
  * |------+------|
  * | Mdia | Kypd |
  * |------+------|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_MAGIC] = LAYOUT( \
-    KC_FLSH, RESET, \
+    KC_MAKE, RESET, \
     TG_MEDA, TG_KYPD, \
     XXXXXXX, XXXXXXX, \
     _______, XXXXXXX \

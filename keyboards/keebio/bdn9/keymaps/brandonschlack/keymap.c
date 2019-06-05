@@ -117,12 +117,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Magic
-        | FLASH                 | Nav  | MAKE                  |
+        | MAKE                  | Nav  | RESET                 |
         | Reeder                | Meda | Keypad                |
         | Review                | LNav | Edit                  |
      */
     [_MAGIC] = LAYOUT(
-        KC_FLSH, TG_NAVI, KC_MAKE,
+        KC_MAKE, TG_NAVI, RESET,
         TG_REDR, TG_MEDA, TG_KYPD,
         TG_REVW, TG_LNAV, TG_EDIT
     ),
