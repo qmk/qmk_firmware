@@ -23,9 +23,6 @@
 #define _COLOUR 2       // RGB key layer
 #define _CLR _COLOUR
 
-#define MO_FN MO(1)
-#define MO_CLR MO(2)
-
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   DK_SW1,
