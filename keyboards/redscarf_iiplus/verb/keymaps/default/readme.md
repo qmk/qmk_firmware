@@ -1,1 +1,1 @@
-# The default ANSI keymap for the Wasdat
+# The default keymap for the Red Scarf II+
