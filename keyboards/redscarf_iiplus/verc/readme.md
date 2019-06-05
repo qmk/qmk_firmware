@@ -12,7 +12,7 @@ Please note that when QMK firmware is flashed, the remote will cease to control 
 
 The flashing is sub-optimal. 
 
-Flashing the Red Scarf involves using Google Chrome, downloading an extensions, and then flashing. For more detailed instructions please refer to [kairyu.gitbooks.io](https://kairyu.gitbooks.io/red-scarf-ii-plus-user-guide-how-to-custom-layout/content/online_reflash.html)
+Flashing the Red Scarf involves using Google Chrome, downloading an extension, and then flashing. For more detailed instructions please refer to [kairyu.gitbooks.io](https://kairyu.gitbooks.io/red-scarf-ii-plus-user-guide-how-to-custom-layout/content/online_reflash.html)
 
 ---
 
