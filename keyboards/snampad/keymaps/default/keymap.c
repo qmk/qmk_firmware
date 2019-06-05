@@ -1,10 +1,4 @@
-/*
- * light weight WS2812 lib include
- *
- * Version 2.3  - Nev 29th 2015
- * Author: Tim (cpldcpu@gmail.com)
- *
- * Please do not change this file! All configuration is handled in "ws2812_config.h"
+/* Copyright 2019 Peter Tillemans
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,29 +13,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#ifndef RGBLIGHT_TYPES
-#define RGBLIGHT_TYPES
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = LAYOUT_numpad_6x4( /* Base */
+               KC_F1   , KC_F2  ,  KC_F3, KC_F4,
+               KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK , KC_KP_MINUS,
+               KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_PLUS,
+               KC_KP_4, KC_KP_5, KC_KP_6,
+               KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_ENTER,
+                    KC_KP_0, KC_KP_DOT
 
-#ifdef __AVR__
-  #include <avr/io.h>
-#endif
+  ),
+};
 
-#ifdef RGBW
-  #define LED_TYPE struct cRGBW
-#else
-  #define LED_TYPE struct cRGB
-#endif
+void matrix_init_user(void) {
 
+}
 
-/*
- *  Structure of the LED array
- *
- * cRGB:     RGB  for WS2812S/B/C/D, SK6812, SK6812Mini, SK6812WWA, APA104, APA106
- * cRGBW:    RGBW for SK6812RGBW
- */
+void matrix_scan_user(void) {
 
-struct cRGB  { uint8_t g; uint8_t r; uint8_t b; };
-struct cRGBW { uint8_t g; uint8_t r; uint8_t b; uint8_t w;};
+}
 
-#endif
+void led_set_user(uint8_t usb_led) {
+
+}
