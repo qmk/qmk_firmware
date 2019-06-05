@@ -79,9 +79,9 @@ void keyboard_post_init_user(void) {
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 	layer_state_set_user(layer_state);
 	uint16_t user_hue = rgblight_get_hue();
-	for (uint16_t i = 0; i < 360; ++i) {
-		rgblight_sethsv_noeeprom( (i + user_hue) % 360, 255, 255);
-		wait_ms(4);
+	for (uint16_t i = 0; i < 256; ++i) {
+		rgblight_sethsv_noeeprom( (i + user_hue) % 256, 255, 255);
+		wait_ms(5);
 	}
 	layer_state_set_user(layer_state);
 };
@@ -89,11 +89,11 @@ void keyboard_post_init_user(void) {
 // Turn on RGB underglow according to active layer
 uint32_t layer_state_set_user(uint32_t state) {
 	switch (biton32(state)) {
-		case FCTN: rgblight_sethsv_noeeprom(136, 255, 255); break;
-		case NUMP: rgblight_sethsv_noeeprom(228, 255, 255); break;
+		case FCTN: rgblight_sethsv_noeeprom(96, 255, 255); break;
+		case NUMP: rgblight_sethsv_noeeprom(162, 255, 255); break;
 		case SYMB:
-		case SYSH: rgblight_sethsv_noeeprom(320, 255, 255); break;
-		default: rgblight_sethsv_noeeprom(19, 255, 255); break;
+		case SYSH: rgblight_sethsv_noeeprom(227, 255, 255); break;
+		default: rgblight_sethsv_noeeprom(13, 255, 255); break;
 	}
 	return state;
 };
