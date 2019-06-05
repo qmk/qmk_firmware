@@ -1,5 +1,7 @@
 #pragma once
 
+uint8_t is_master;
+
 #include "../claw44.h"
 
 //void promicro_bootloader_jmp(bool program);
