@@ -1,4 +1,4 @@
-/* Copyright 2016 Jack Humbert
+/* Copyright 2016-2019 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,75 +26,8 @@
 
 // -----------------------------------------------------------------------------
 
-/**
- * Size of the dac_buffer arrays. All must be the same size.
- */
-#define DAC_BUFFER_SIZE 256U
-
-/**
- * Highest value allowed by our 12bit DAC.
- */
-#ifndef DAC_SAMPLE_MAX
-  #define DAC_SAMPLE_MAX  4095U
-#endif
-
-#define DAC_LOW_QUALITY
-
-/**
- * These presets allow you to quickly switch between quality/voice settings for
- * the DAC. The sample rate and number of voices roughly has an inverse
- * relationship - slightly higher sample rates may be possible.
- */
-#ifdef DAC_VERY_LOW_QUALITY
-  #define DAC_SAMPLE_RATE 11025U
-  #define DAC_VOICES_MAX 8
-#endif
-
-#ifdef DAC_LOW_QUALITY
-  #define DAC_SAMPLE_RATE 22050U
-  #define DAC_VOICES_MAX 4
-#endif
-
-#ifdef DAC_HIGH_QUALITY
-  #define DAC_SAMPLE_RATE 44100U
-  #define DAC_VOICES_MAX 2
-#endif
-
-#ifdef DAC_VERY_HIGH_QUALITY
-  #define DAC_SAMPLE_RATE 88200U
-  #define DAC_VOICES_MAX 1
-#endif
-
-/**
- * Effective bitrate of the DAC. 44.1khz is the standard for most audio - any
- * lower will sacrifice perceptible audio quality. Any higher will limit the
- * number of simultaneous voices. In most situations, a tenth (1/10) of the
- * sample rate is where notes become unbearable.
- */
-#ifndef DAC_SAMPLE_RATE
-  #define DAC_SAMPLE_RATE 44100U
-#endif
-
-/**
- * The number of voices (in polyphony) that are supported. If too high a value
- * is used here, the keyboard will freeze and glitch-out when that many voices
- * are being played.
- */
-#ifndef DAC_VOICES_MAX
-  #define DAC_VOICES_MAX 2
-#endif
-
-/**
- * The default value of the DAC when not playing anything. Certain hardware
- * setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
- */
-#ifndef DAC_OFF_VALUE
-  #define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
-#endif
-
-int voices = 0;
-float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int volumes[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+uint8_t dac_voices = 0;
+float dac_frequencies[8] = { 0.0 };
 
 bool     playing_notes = false;
 bool     playing_note = false;
@@ -129,7 +62,7 @@ bool glissando = true;
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
-static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
+static const dacsample_t dac_buffer_sine[DAC_BUFFER_SIZE] = {
   // 256 values, max 4095
   0x800,0x832,0x864,0x896,0x8c8,0x8fa,0x92c,0x95e,
   0x98f,0x9c0,0x9f1,0xa22,0xa52,0xa82,0xab1,0xae0,
@@ -209,69 +142,40 @@ static const dacsample_t dac_buffer_square[DAC_BUFFER_SIZE] = {
 
 static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = { DAC_OFF_VALUE };
 
-#include "wavetable.h"
-
-float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-uint8_t dac_voice = 0;
-uint8_t dac_voice_flipped = 0;
-uint16_t dac_voice_counter = 0;
-float dac_voice_count_flipped = 0;
+static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 /**
- * Generation of the sample being passed to the callback. Declared weak so users
+ * Generation of the waveform being passed to the callback. Declared weak so users
  * can override it with their own waveforms/noises.
  */
 __attribute__ ((weak))
-uint16_t generate_sample(void) {
-  uint16_t sample = DAC_OFF_VALUE;
-  uint8_t working_voices = voices;
+uint16_t dac_value_generate(void) {
+  uint16_t value = DAC_OFF_VALUE;
+  uint8_t working_voices = dac_voices;
   if (working_voices > DAC_VOICES_MAX)
     working_voices = DAC_VOICES_MAX;
 
   if (working_voices > 0) {
-    uint16_t sample_sum = 0;
+    uint16_t value_avg = 0;
     for (uint8_t i = 0; i < working_voices; i++) {
-      dac_if[i] = dac_if[i] + ((frequencies[i]*DAC_BUFFER_SIZE)/DAC_SAMPLE_RATE);
+      dac_if[i] = dac_if[i] + ((dac_frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
 
       // Needed because % doesn't work with floats
-      // 0.5 less than the size because we use round() later
       while (dac_if[i] >= (DAC_BUFFER_SIZE))
         dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
 
-      (void)dac_buffer;
-      (void)dac_buffer_square;
-      (void)dac_buffer_triangle;
-
-      #define DAC_MORPH_SPEED 3000
-      #define DAC_SAMPLE_CUSTOM_LENGTH 64
-      #define DAC_MORPH_SPEED_COMPUTED (DAC_SAMPLE_RATE / DAC_SAMPLE_CUSTOM_LENGTH * DAC_MORPH_SPEED / 1000)
-
-      uint16_t dac_i = (uint16_t)dac_if[i];
       // Wavetable generation/lookup
+      uint16_t dac_i = (uint16_t)dac_if[i];
       // SINE
-      // sample_sum += dac_buffer[dac_i] / working_voices / 3;
+      value_avg += dac_buffer_sine[dac_i] / working_voices / 3;
       // TRIANGLE
-      // sample_sum += dac_buffer_triangle[dac_i] / working_voices / 3;
-      // RISING TRIANGLE
-      // sample_sum += (uint16_t)round((dac_if[i] * DAC_SAMPLE_MAX) / DAC_BUFFER_SIZE / working_voices );
+      value_avg += dac_buffer_triangle[dac_i] / working_voices / 3;
       // SQUARE
-      // sample_sum += ((dac_if[i] > (DAC_BUFFER_SIZE / 2)) ? DAC_SAMPLE_MAX / working_voices: 0);
-      // sample_sum += dac_buffer_square[dac_i] / working_voices / 3;
-      // sample_sum += dac_buffer_custom[dac_voice_flipped][dac_i] / working_voices / 2 * ((dac_voice >= 63) ? 6400 - dac_voice_counter : dac_voice_counter) / 6400;
-      // sample_sum += dac_buffer_custom[dac_voice_flipped + 1][dac_i] / working_voices / 2 * ((dac_voice >= 63) ? dac_voice_counter : 6400 - dac_voice_counter) / 6400;
-      sample_sum += dac_buffer_custom[dac_voice][dac_i] / working_voices / 2 * (DAC_MORPH_SPEED_COMPUTED - dac_voice_counter) / DAC_MORPH_SPEED_COMPUTED;
-      sample_sum += dac_buffer_custom[dac_voice + 1][dac_i] / working_voices / 2 * dac_voice_counter / DAC_MORPH_SPEED_COMPUTED;
+      value_avg += dac_buffer_square[dac_i] / working_voices / 3;
     }
-    sample = sample_sum;
-    dac_voice_counter++;
-    if (dac_voice_counter >= DAC_MORPH_SPEED_COMPUTED) {
-      dac_voice_counter = 0;
-      // dac_voice = (dac_voice + 1) % 125;
-      // dac_voice_flipped = ((dac_voice >= 63) ? (125 - dac_voice) : dac_voice);
-      dac_voice = (dac_voice + 1) % (DAC_SAMPLE_CUSTOM_LENGTH - 1);
-    }
+    value = value_avg;
   }
-  return sample;
+  return value;
 }
 
 /**
@@ -282,7 +186,7 @@ static void dac_end(DACDriver * dacp, dacsample_t * sample_p, size_t sample_coun
   (void)dacp;
 
   for (uint8_t s = 0; s < sample_count; s++) {
-    sample_p[s] = generate_sample();
+    sample_p[s] = dac_value_generate();
   }
 
   if (playing_notes) {
@@ -402,15 +306,13 @@ void stop_all_notes() {
     if (!audio_initialized) {
         audio_init();
     }
-    voices = 0;
+    dac_voices = 0;
 
     playing_notes = false;
     playing_note = false;
 
-    for (uint8_t i = 0; i < 8; i++)
-    {
-        frequencies[i] = 0;
-        volumes[i] = 0;
+    for (uint8_t i = 0; i < 8; i++) {
+        dac_frequencies[i] = 0;
     }
 }
 
@@ -422,23 +324,20 @@ void stop_note(float freq) {
       audio_init();
     }
     for (int i = 7; i >= 0; i--) {
-      if (frequencies[i] == freq) {
-        frequencies[i] = 0;
-        volumes[i] = 0;
+      if (dac_frequencies[i] == freq) {
+        dac_frequencies[i] = 0;
         for (int j = i; (j < 7); j++) {
-          frequencies[j] = frequencies[j+1];
-          frequencies[j+1] = 0;
-          volumes[j] = volumes[j+1];
-          volumes[j+1] = 0;
+          dac_frequencies[j] = dac_frequencies[j+1];
+          dac_frequencies[j+1] = 0;
         }
         break;
       }
     }
-    voices--;
-    if (voices < 0) {
-      voices = 0;
+    dac_voices--;
+    if (dac_voices < 0) {
+      dac_voices = 0;
     }
-    if (voices == 0) {
+    if (dac_voices == 0) {
       playing_note = false;
     }
   }
@@ -472,25 +371,19 @@ void play_note(float freq, int vol) {
       audio_init();
   }
 
-  if (audio_config.enable && voices < 8) {
-
-     // Cancel notes if notes are playing
-    // if (playing_notes) {
-    //   stop_all_notes();
-    // }
-
+  if (audio_config.enable && dac_voices < 8) {
     playing_note = true;
-
     if (freq > 0) {
       envelope_index = 0;
-      frequencies[voices] = freq;
-      dac_if[voices] = 0.0f;
-      volumes[voices] = vol;
-      voices++;
+      dac_frequencies[dac_voices] = freq;
+      dac_voices++;
     }
-
   }
+}
 
+__attribute__ ((weak))
+void dac_setup_note(void) {
+  dac_if[dac_voices] = 0.0f;
 }
 
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
@@ -515,6 +408,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     play_note((*notes_pointer)[current_note][0], 15);
 
   }
+}
+
+bool is_playing_note(void) {
+  return playing_note;
 }
 
 bool is_playing_notes(void) {
@@ -623,4 +520,12 @@ void increase_tempo(uint8_t tempo_change) {
   } else {
     note_tempo -= tempo_change;
   }
+}
+
+uint8_t dac_number_of_voices(void) {
+  return dac_voices;
+}
+
+float dac_get_frequency(uint8_t index) {
+  return dac_frequencies[index];
 }
