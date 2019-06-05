@@ -11,12 +11,10 @@ import sys
 from distutils.dir_util import copy_tree
 
 
-usage_message = "./new_keymap.py <keyboard_path> <username>\n" + \
-                "Example: ./new_keymap.py 1upkeyboards/1up60hse yourname"
-
-
 def print_error(message):
-    """Print a message, prefixed with the word "ERROR" in red."""
+    """
+    Print a message, prefixed with the word "ERROR" in red.
+    """
     print("[\033[0;91mERROR\033[m] " + message, file=sys.stderr)
     exit(1)
 
@@ -26,7 +24,7 @@ def get_args(argv):
     Gets script arguments provided in terminal
     """
     # define usage and description
-    parser = argparse.ArgumentParser(description=__doc__, usage=usage_message)
+    parser = argparse.ArgumentParser(description=__doc__, usage="./new_keymap.py")
     parser.add_argument("--debug",
                         dest="debug",
                         action="store_true",
