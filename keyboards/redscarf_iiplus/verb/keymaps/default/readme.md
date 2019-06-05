@@ -1,1 +1,1 @@
-# The default keymap for the Red Scarf II+
+# The default keymap for the Red Scarf II+ ver B.
