@@ -22,18 +22,25 @@
 
 打开`keymaps`文件夹后，您将需要创建`default`文件夹的副本。我们强烈建议您将文件夹命名为与Github用户名相同的名称，但您也可以使用任何您想使用的名称，只要它只包含小写字母、数字和下划线字符。
 
-要自动执行此过程，您还可以选择运行`new_keymap.sh`脚本。
-
-导航到`qmk_firmware/util` 目录然后输入以下命令：
+要自动执行此过程，您还可以选择运行`new_keymap.sh`脚本。 例如，一个名字叫ymzcdg的用户要创建1up60hse的布局，他需要输入:
 
 ```
-./new_keymap.sh <keyboard path> <username>
-```
+$ ./util/new_keymap.sh
+Generating a new QMK keymap
 
-例如，一个名字叫ymzcdg的用户要创建1up60hse的布局，他需要输入
+Keyboard Name: 1upkeyboards/1up60hse
+Keymap Name [ymzcdg]: 
 
-```
-./new_keymap.sh 1upkeyboards/1up60hse ymzcdg
+Copying default keymap to ymzcdg... done
+
+Created a new keymap for 1upkeyboards/1up60hse called ymzcdg.
+
+To start working on things, cd into keyboards/1upkeyboards/1up60hse/keymaps/ymzcdg,
+or open the directory in your favourite text editor.
+
+Compile a firmware file with your new keymap by running:
+    make 1upkeyboards/1up60hse:ymzcdg
+from the qmk_firmware directory.
 ```
 
 ## 在你最钟爱的文本编辑器中打开`keymap.c`

@@ -22,18 +22,25 @@ Start by navigating to the `keymaps` folder for your keyboard.
 
 Once you have the `keymaps` folder open you will want to create a copy of the `default` folder. We highly recommend you name your folder the same as your GitHub username, but you can use any name you want as long as it contains only lower case letters, numbers, and the underscore character.
 
-To automate the process, you also have the option to run the `new_keymap.sh` script. 
-
-Navigate to the `qmk_firmware/util` directory and type the following:
+To automate the process, you also have the option to run the `new_keymap.sh` script. For example, for a user named John, trying to make a new keymap for the 1up60hse, they would type in:
 
 ```
-./new_keymap.sh <keyboard path> <username>
-```
+$ ./util/new_keymap.sh
+Generating a new QMK keymap
 
-For example, for a user named John, trying to make a new keymap for the 1up60hse, they would type in
+Keyboard Name: 1upkeyboards/1up60hse
+Keymap Name [john]: 
 
-```
-./new_keymap.sh 1upkeyboards/1up60hse john
+Copying default keymap to john... done
+
+Created a new keymap for 1upkeyboards/1up60hse called john.
+
+To start working on things, cd into keyboards/1upkeyboards/1up60hse/keymaps/john,
+or open the directory in your favourite text editor.
+
+Compile a firmware file with your new keymap by running:
+    make 1upkeyboards/1up60hse:john
+from the qmk_firmware directory.
 ```
 
 ## Open `keymap.c` In Your Favorite Text Editor
