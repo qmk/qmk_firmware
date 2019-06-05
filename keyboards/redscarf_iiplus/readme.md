@@ -2,10 +2,10 @@
 
 The Red Scarf II+ is an improved version of the Red Scarf II and is available in four different sizes. 
 
-Ver A: 60% + Numpad on right, and Macro Keys on Left. (Model F)  
-Ver B: 65% + Macro Keys on the left.  
-Ver C: 65%.  
-Ver D: 60% + Numpad on right.  
+Ver A (RS Model F): 60% + Numpad on right, and Macro Keys on the left.  
+Ver B (RS78): 65% + Macro Keys on the left.  
+Ver C (RS68): 65%.  
+Ver D (RS77): 60% + Numpad on right.  
 
 For more information please consult [Geekhack](https://geekhack.org/index.php?topic=74400.0)  
 

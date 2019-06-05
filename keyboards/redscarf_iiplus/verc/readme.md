@@ -1,9 +1,9 @@
-# Red Scarf II+ ver C
+# Red Scarf II+ Ver.C (RS68)
 
 A 65% custom keyboard.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Redscarf II+  
+Hardware Supported: Ver.C RS68  
 Hardware Availability: [Drop](https://drop.com/buy/red-scarf-ii-ver-b-custom-mechanical-keyboard-kit)
 
 Please note that when QMK firmware is flashed, the remote will cease to control the underglow LEDs. 

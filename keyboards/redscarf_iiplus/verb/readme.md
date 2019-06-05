@@ -1,9 +1,9 @@
-# Red Scarf II+ ver B
+# Red Scarf II+ Ver.B (RS78)
 
 A 65% keyboard with two function columns on the left.
 
 Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)  
-Hardware Supported: Redscarf II+  
+Hardware Supported: Ver.B (RS78), Ver.C (RS68)  
 Hardware Availability: [Drop](https://drop.com/buy/red-scarf-ii-ver-b-custom-mechanical-keyboard-kit)
 
 Please note that when QMK firmware is flashed, the remote will cease to control the underglow LEDs. 
