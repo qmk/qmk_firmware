@@ -666,16 +666,7 @@ void rgblight_set(void) {
 }
 #endif
 
-#ifndef RGBLIGHT_USE_TIMER
-
-__attribute__ ((weak))
-void rgblight_task_user (void) { return; }
-
-void rgblight_task (void) {
-  rgblight_task_user();
-}
-
-#else
+#ifdef RGBLIGHT_USE_TIMER
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {
