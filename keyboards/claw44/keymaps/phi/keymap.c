@@ -104,7 +104,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 #include "../../lib/host_led_state_reader.c"
-#include "../../lib/timelogger.c"
 #include "../../lib/logo_reader.c"
 
 void oled_task_user(void) {
@@ -116,9 +115,6 @@ void oled_task_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_timelog();
-  }
   return true;
 }
 #endif
