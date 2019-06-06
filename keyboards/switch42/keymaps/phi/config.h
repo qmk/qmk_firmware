@@ -50,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED   1 /* times faster */
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
-#define MOUSEKEY_ACCEL0_SPEED 0.66
-#define MOUSEKEY_ACCEL0_WHEEL_SPEED 0.25
+#define MOUSEKEY_ACL_MAX_SPEED 16
+#define MOUSEKEY_ACL_WHEEL_MAX_SPEED 4
 
 #define TAPPING_TERM 180
 
