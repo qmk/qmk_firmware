@@ -33,7 +33,6 @@
 
 ### Function
 
--   Caps does not work. Might be an issue with my laptop, not JJ40 specific.
 -   Backlight breathing does not work.
 -   **Term** button is bound to `Calculator`. I have set this button as a shortcut to open a terminal.
 -   **Lock** is a shortcut for `Alt + L`
