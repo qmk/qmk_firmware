@@ -14,9 +14,9 @@ enum layers {
 #define TAB_ADJ LT(_ADJUST, KC_TAB)
 
 #define FN_LAYER LAYOUT_ortho_4x12 (\
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,\
-    KC_CAPS, KC_VOLD, KC_MUTE, KC_VOLU, KC_HOME, KC_PGUP, KC_LBRC, KC_RBRC, KC_BSLS, KC_QUOT, _______, _______,\
-    _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,  KC_PGDN, KC_MINS, KC_EQL,  _______, _______, _______, _______,\
+    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,\
+    _______, KC_VOLD, KC_MUTE, KC_VOLU, KC_HOME, KC_PGUP, KC_LBRC, KC_RBRC, KC_BSLS, KC_QUOT, _______, _______,\
+    _______, KC_GRV,  KC_TILD, KC_CAPS, KC_END,  KC_PGDN, KC_MINS, KC_EQL,  _______, _______, _______, _______,\
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______\
 ),
 
