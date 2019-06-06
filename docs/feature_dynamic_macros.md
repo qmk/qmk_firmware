@@ -6,11 +6,13 @@ You can store one or two macros and they may have a combined total of 128 keypre
 
 To enable them, first include `DYNAMIC_MACRO_ENABLE = yes` in your `rules.mk`. Then, add the following keys to your keymap:
 
-* `DYN_REC_START1` — start recording the macro 1,
-* `DYN_REC_START2` — start recording the macro 2,
-* `DYN_MACRO_PLAY1` — replay the macro 1,
-* `DYN_MACRO_PLAY2` — replay the macro 2,
-* `DYN_REC_STOP` — finish the macro that is currently being recorded.
+|Key               |Alias     |Description                                        |
+|------------------|----------|---------------------------------------------------|
+|`DYN_REC_START1`  |`DM_REC1` |Start recording Macro 1                            |
+|`DYN_REC_START2`  |`DM_REC2` |Start recording Macro 2                            |
+|`DYN_MACRO_PLAY1` |`DM_PLY1` |Replay Macro 1                                     |
+|`DYN_MACRO_PLAY2` |`DM_PLY2` |Replay Macro 2                                     |
+|`DYN_REC_STOP`    |`DM_RSTP` |Finish the macro that is currently being recorded. |
 
 That should be everything necessary. 
 
