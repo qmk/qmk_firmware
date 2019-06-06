@@ -3,8 +3,8 @@ bool rgb_overriden = false;
 void rgb_set_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     LED_TYPE from, to;
 
-    sethsv(h, s, 255, &from);
-    sethsv(h2, s2, 255, &to);
+    sethsv(h * 256 / 360, s, 255, &from);
+    sethsv(h2 * 256 / 360, s2, 255, &to);
 
     for (int i = 0; i < RGBLED_NUM; i++) {
         rgblight_setrgb_at(
