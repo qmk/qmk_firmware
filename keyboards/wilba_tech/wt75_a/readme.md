@@ -1,11 +1,9 @@
-# WILBA.TECH WT75-A
-
-![WILBA.TECH WT75-A](https://wilba.tech)
+# wilba.tech WT75-A
 
 WT75-A is a keyboard PCB supporting 75% layout with 0.25U blocker. [More info at wilba.tech](https://wilba.tech/)
 
 Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: WILBA.TECH WT75-A  
+Hardware Supported: wilba.tech WT75-A  
 Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):

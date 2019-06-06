@@ -8,7 +8,7 @@ F_USB = $(F_CPU)
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 ifeq ($(strip $(KEYBOARD)), iris/rev3)
-    BOOTLOADER = dfu
+    BOOTLOADER = qmk-dfu
 else
     BOOTLOADER = caterina
 endif
