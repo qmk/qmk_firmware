@@ -10,6 +10,11 @@
 
 /* KEYCODE DEFINITIONS */
 
+enum custom_keycodes {
+    KC_ACEL = SAFE_RANGE,
+    KC_WEEL
+};
+
 /* invalid / blank keys */
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
@@ -18,7 +23,6 @@
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
-#define KC_WEEL   MO(WHEEL)
 #define KC_ESC_FN LT(FUNCTION, KC_ESC)
 
 /* aliases */
@@ -74,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+----------------------------------.             ,-----------------------------------------.
     ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    ____ , ____ , WEEL , ____ , ACL0 , ____ , XXXX , XXXX , MLFT , MDN  , MUP  , MRGT , ____ , ____ , \
+    ____ , ____ , WEEL , ____ , ACEL , ____ , XXXX , XXXX , MLFT , MDN  , MUP  , MRGT , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , BTN1 , BTN2 , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
@@ -95,3 +99,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+extern uint8_t mk_time_to_max, mk_wheel_time_to_max, mk_max_speed, mk_wheel_max_speed, mk_delay, mk_interval;
+
+bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case KC_ACEL:
+        if (record->event.pressed) {
+            mk_max_speed = MOUSEKEY_ACL_MAX_SPEED;
+            mk_wheel_max_speed = MOUSEKEY_ACL_WHEEL_MAX_SPEED;
+            mk_time_to_max = 0;
+            mk_wheel_time_to_max = 0;
+        } else {
+            mk_max_speed = MOUSEKEY_MAX_SPEED;
+            mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+            mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
+            mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+        }
+        return false;
+      case KC_WEEL:
+        if (record->event.pressed) {
+            mk_delay = MOUSEKEY_WHEEL_DELAY / 10;
+            mk_interval = MOUSEKEY_WHEEL_INTERVAL;
+            layer_on(WHEEL);
+        } else {
+            mk_delay = MOUSEKEY_DELAY / 10;
+            mk_interval = MOUSEKEY_INTERVAL;
+            layer_off(WHEEL);
+        }
+        return false;
+    }
+    return true;
+}
