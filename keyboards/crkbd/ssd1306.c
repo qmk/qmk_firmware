@@ -13,7 +13,7 @@
 #include "sendchar.h"
 #include "timer.h"
 
-static const unsigned char font[] PROGMEM;
+extern const unsigned char font[] PROGMEM;
 
 //static uint16_t last_battery_update;
 //static uint32_t vbat;

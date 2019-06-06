@@ -87,7 +87,9 @@ enum quantum_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
     QK_UNICODEMAP         = 0x8000,
-    QK_UNICODEMAP_MAX     = 0x83FF,
+    QK_UNICODEMAP_MAX     = 0xBFFF,
+    QK_UNICODEMAP_PAIR    = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 #endif
 
     // Loose keycodes - to be used directly
@@ -422,6 +424,9 @@ enum quantum_keycodes {
     RGB_MODE_GRADIENT,
     RGB_MODE_RGBTEST,
 
+    //Momentum matching toggle
+    VLK_TOG,
+
     // Left shift, open paren
     KC_LSPO,
 
@@ -446,36 +451,47 @@ enum quantum_keycodes {
     KC_LOCK,
 #endif
 
-    #ifdef TERMINAL_ENABLE
-        TERM_ON,
-        TERM_OFF,
-    #endif
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
+#endif
 
-        EEPROM_RESET,
+    EEPROM_RESET,
 
-        UNICODE_MODE_FORWARD,
-        UNICODE_MODE_REVERSE,
+    UNICODE_MODE_FORWARD,
+    UNICODE_MODE_REVERSE,
+    UNICODE_MODE_OSX,
+    UNICODE_MODE_LNX,
+    UNICODE_MODE_WIN,
+    UNICODE_MODE_BSD,
+    UNICODE_MODE_WINC,
 
-        UNICODE_MODE_OSX,
-        UNICODE_MODE_LNX,
-        UNICODE_MODE_WIN,
-        UNICODE_MODE_BSD,
-        UNICODE_MODE_WINC,
+    HPT_ON,
+    HPT_OFF,
+    HPT_TOG,
+    HPT_RST,
+    HPT_FBK,
+    HPT_BUZ,
+    HPT_MODI,
+    HPT_MODD,
+    HPT_DWLI,
+    HPT_DWLD,
 
-        HPT_ON,
-        HPT_OFF,
-        HPT_TOG,
-        HPT_RST,
-        HPT_FBK,
-        HPT_BUZ,
-        HPT_MODI,
-        HPT_MODD,
-        HPT_DWLI,
-        HPT_DWLD,
+    // Left control, open paren
+    KC_LCPO,
 
-        // always leave at the end
-        SAFE_RANGE
-    };
+    // Right control, close paren
+    KC_RCPC,
+
+    // Left control, open paren
+    KC_LAPO,
+
+    // Right control, close paren
+    KC_RAPC,
+
+    // always leave at the end
+    SAFE_RANGE
+};
 
 // Ability to use mods in layouts
 #define LCTL(kc) (QK_LCTL | (kc))
@@ -698,7 +714,8 @@ enum quantum_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
   // Allows Unicode input up to 0x10FFFF, requires unicode_map
-  #define X(i) (QK_UNICODEMAP | (i))
+  #define X(i)     (QK_UNICODEMAP | (i))
+  #define XP(i, j) (QK_UNICODEMAP_PAIR | ((i) & 0x7F) | (((j) & 0x7F) << 7)) // 127 max i and j
 #endif
 
 #define UC_MOD  UNICODE_MODE_FORWARD
