@@ -1,5 +1,4 @@
-#ifndef RUNNER3680_H
-#define RUNNER3680_H
+#pragma once
 
 #include "quantum.h"
 
@@ -37,6 +36,4 @@
 
 #ifdef KEYBOARD_runner3680_3x6
   #include "3x6.h"
-#endif
-
 #endif

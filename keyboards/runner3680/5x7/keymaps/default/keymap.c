@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -9,8 +7,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 rgblight_config_t RGB_current_config;
 #endif
-
-extern uint8_t is_master;
 
 enum layer_number {
     _QWERTY = 0,
@@ -24,8 +20,6 @@ enum custom_keycodes {
 };
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define EISU LALT(KC_GRV)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,11 +67,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
       case QWERTY:
@@ -85,7 +74,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            print("mode just switched to qwerty and this is a huge string\n");
           set_single_persistent_default_layer(_QWERTY);
         }
-        return false;
         break;
 
       case ADJUST:
@@ -94,7 +82,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_off(_ADJUST);
         }
-        return false;
         break;
 
       case RGBRST:
