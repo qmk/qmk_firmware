@@ -53,9 +53,6 @@ The default speed for controlling the mouse with the keyboard is intentionally s
 #define MOUSEKEY_TIME_TO_MAX       20
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-#define MOUSEKEY_ACCEL0_SPEED      4
-#define MOUSEKEY_ACCEL1_SPEED      2
-#define MOUSEKEY_ACCEL2_SPEED      1
 ```
 
 
@@ -82,7 +79,3 @@ The top speed for scrolling movements.
 ### `MOUSEKEY_WHEEL_TIME_TO_MAX`
 
 How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickly your scrolling will accelerate.
-
-### `MOUSEKEY_ACCEL*_SPEED`, `MOUSEKEY_ACCEL*_WHEEL_SPEED`
-
-How movement (scroll) is accelerated with acceleration keys (`KC_ACL*`). When set `2` for example, it gets half of the max speed immediately after `KC_ACL*` is pressed.

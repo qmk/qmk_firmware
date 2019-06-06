@@ -44,14 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 300
 #endif
-#ifndef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 300
-#endif
 #ifndef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 50
-#endif
-#ifndef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 50
 #endif
 #ifndef MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_MAX_SPEED 10
@@ -66,25 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
 
-#ifndef MOUSEKEY_ACCEL0_SPEED
-#define MOUSEKEY_ACCEL0_SPEED 4
-#endif
-#ifndef MOUSEKEY_ACCEL1_SPEED
-#define MOUSEKEY_ACCEL1_SPEED 2
-#endif
-#ifndef MOUSEKEY_ACCEL2_SPEED
-#define MOUSEKEY_ACCEL2_SPEED 1
-#endif
-
-#ifndef MOUSEKEY_ACCEL0_WHEEL_SPEED
-#define MOUSEKEY_ACCEL0_WHEEL_SPEED 4
-#endif
-#ifndef MOUSEKEY_ACCEL1_WHEEL_SPEED
-#define MOUSEKEY_ACCEL1_WHEEL_SPEED 2
-#endif
-#ifndef MOUSEKEY_ACCEL2_WHEEL_SPEED
-#define MOUSEKEY_ACCEL2_WHEEL_SPEED 1
-#endif
 
 #ifdef __cplusplus
 extern "C" {

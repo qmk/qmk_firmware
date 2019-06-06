@@ -24,7 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 
 
+
+static report_mouse_t mouse_report = {};
+static uint8_t mousekey_repeat =  0;
 static uint8_t mousekey_accel = 0;
+
+static void mousekey_debug(void);
+
 
 /*
  * Mouse keys  acceleration algorithm
@@ -40,19 +46,14 @@ uint8_t mk_interval = MOUSEKEY_INTERVAL;
 uint8_t mk_max_speed = MOUSEKEY_MAX_SPEED;
 /* number of events (count) accelerating to steady speed (0-255) */
 uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
-static uint8_t mouse_repeat = 0;
-static report_mouse_t mouse_report = {};
-static uint16_t last_mouse_timer = 0;
-
+/* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
+//int8_t mk_curve = 0;
 /* wheel params */
-uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
-uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
 uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
-static uint8_t wheel_repeat = 0;
-static report_mouse_t wheel_report = {};
-static uint16_t last_wheel_timer = 0;
 
+
+static uint16_t last_timer = 0;
 
 inline int8_t times_inv_sqrt2(int8_t x)
 {
@@ -67,17 +68,17 @@ static uint8_t move_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL0_SPEED;
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/4;
     } else if (mousekey_accel & (1<<1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL1_SPEED;
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL2_SPEED;
-    } else if (mouse_repeat == 0) {
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+    } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mouse_repeat >= mk_time_to_max) {
+    } else if (mousekey_repeat >= mk_time_to_max) {
         unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mouse_repeat) / mk_time_to_max;
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
@@ -86,50 +87,32 @@ static uint8_t wheel_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL0_WHEEL_SPEED;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/4;
     } else if (mousekey_accel & (1<<1)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL1_WHEEL_SPEED;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL2_WHEEL_SPEED;
-    } else if (wheel_repeat == 0) {
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
+    } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (wheel_repeat >= mk_wheel_time_to_max) {
+    } else if (mousekey_repeat >= mk_wheel_time_to_max) {
         unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
     } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * wheel_repeat) / mk_wheel_time_to_max;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
     }
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
-void mouse_send(void)
+void mousekey_task(void)
 {
-    host_mouse_send(&mouse_report);
-    last_mouse_timer = timer_read();
-}
-
-void wheel_send(void)
-{
-    host_mouse_send(&wheel_report);
-    last_wheel_timer = timer_read();
-}
-
-void mousekey_send(void)
-{
-    wheel_report.buttons = mouse_report.buttons;
-    mouse_send();
-    wheel_send();
-}
-
-void mouse_task(void)
-{
-    if (mouse_report.x == 0 && mouse_report.y == 0)
+    if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay*10))
         return;
 
-    if (timer_elapsed(last_mouse_timer) < (mouse_repeat ? mk_interval : mk_delay*10))
+    if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
         return;
 
-    if (mouse_repeat != UINT8_MAX)
-        mouse_repeat++;
+    if (mousekey_repeat != UINT8_MAX)
+        mousekey_repeat++;
+
 
     if (mouse_report.x > 0) mouse_report.x = move_unit();
     if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
@@ -144,32 +127,12 @@ void mouse_task(void)
         mouse_report.y = mouse_report.y == 0 ? 1 : mouse_report.y;
     }
 
-    mouse_send();
-}
+    if (mouse_report.v > 0) mouse_report.v = wheel_unit();
+    if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
+    if (mouse_report.h > 0) mouse_report.h = wheel_unit();
+    if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
 
-void wheel_task(void)
-{
-    if (wheel_report.v == 0 && wheel_report.h == 0)
-        return;
-
-    if (timer_elapsed(last_wheel_timer) < (wheel_repeat ? mk_wheel_interval : mk_wheel_delay*10))
-        return;
-
-    if (wheel_repeat != UINT8_MAX)
-        wheel_repeat++;
-
-    if (wheel_report.v > 0) wheel_report.v = wheel_unit();
-    if (wheel_report.v < 0) wheel_report.v = wheel_unit() * -1;
-    if (wheel_report.h > 0) wheel_report.h = wheel_unit();
-    if (wheel_report.h < 0) wheel_report.h = wheel_unit() * -1;
-
-    wheel_send();
-}
-
-void mousekey_task(void)
-{
-    mouse_task();
-    wheel_task();
+    mousekey_send();
 }
 
 void mousekey_on(uint8_t code)
@@ -178,10 +141,10 @@ void mousekey_on(uint8_t code)
     else if (code == KC_MS_DOWN)     mouse_report.y = move_unit();
     else if (code == KC_MS_LEFT)     mouse_report.x = move_unit() * -1;
     else if (code == KC_MS_RIGHT)    mouse_report.x = move_unit();
-    else if (code == KC_MS_WH_UP)    wheel_report.v = wheel_unit();
-    else if (code == KC_MS_WH_DOWN)  wheel_report.v = wheel_unit() * -1;
-    else if (code == KC_MS_WH_LEFT)  wheel_report.h = wheel_unit() * -1;
-    else if (code == KC_MS_WH_RIGHT) wheel_report.h = wheel_unit();
+    else if (code == KC_MS_WH_UP)    mouse_report.v = wheel_unit();
+    else if (code == KC_MS_WH_DOWN)  mouse_report.v = wheel_unit() * -1;
+    else if (code == KC_MS_WH_LEFT)  mouse_report.h = wheel_unit() * -1;
+    else if (code == KC_MS_WH_RIGHT) mouse_report.h = wheel_unit();
     else if (code == KC_MS_BTN1)     mouse_report.buttons |= MOUSE_BTN1;
     else if (code == KC_MS_BTN2)     mouse_report.buttons |= MOUSE_BTN2;
     else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
@@ -198,10 +161,10 @@ void mousekey_off(uint8_t code)
     else if (code == KC_MS_DOWN     && mouse_report.y > 0) mouse_report.y = 0;
     else if (code == KC_MS_LEFT     && mouse_report.x < 0) mouse_report.x = 0;
     else if (code == KC_MS_RIGHT    && mouse_report.x > 0) mouse_report.x = 0;
-    else if (code == KC_MS_WH_UP    && wheel_report.v > 0) wheel_report.v = 0;
-    else if (code == KC_MS_WH_DOWN  && wheel_report.v < 0) wheel_report.v = 0;
-    else if (code == KC_MS_WH_LEFT  && wheel_report.h < 0) wheel_report.h = 0;
-    else if (code == KC_MS_WH_RIGHT && wheel_report.h > 0) wheel_report.h = 0;
+    else if (code == KC_MS_WH_UP    && mouse_report.v > 0) mouse_report.v = 0;
+    else if (code == KC_MS_WH_DOWN  && mouse_report.v < 0) mouse_report.v = 0;
+    else if (code == KC_MS_WH_LEFT  && mouse_report.h < 0) mouse_report.h = 0;
+    else if (code == KC_MS_WH_RIGHT && mouse_report.h > 0) mouse_report.h = 0;
     else if (code == KC_MS_BTN1) mouse_report.buttons &= ~MOUSE_BTN1;
     else if (code == KC_MS_BTN2) mouse_report.buttons &= ~MOUSE_BTN2;
     else if (code == KC_MS_BTN3) mouse_report.buttons &= ~MOUSE_BTN3;
@@ -211,18 +174,33 @@ void mousekey_off(uint8_t code)
     else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
     else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
 
-    if (mouse_report.x == 0 && mouse_report.y == 0)
-        mouse_repeat = 0;
+    if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
+        mousekey_repeat = 0;
+}
 
-    if (wheel_report.v == 0 && wheel_report.h == 0)
-        wheel_repeat = 0;
+void mousekey_send(void)
+{
+    mousekey_debug();
+    host_mouse_send(&mouse_report);
+    last_timer = timer_read();
 }
 
 void mousekey_clear(void)
 {
     mouse_report = (report_mouse_t){};
-    wheel_report = (report_mouse_t){};
-    mouse_repeat = 0;
-    wheel_repeat = 0;
+    mousekey_repeat = 0;
     mousekey_accel = 0;
+}
+
+static void mousekey_debug(void)
+{
+    if (!debug_mouse) return;
+    print("mousekey [btn|x y v h](rep/acl): [");
+    phex(mouse_report.buttons); print("|");
+    print_decs(mouse_report.x); print(" ");
+    print_decs(mouse_report.y); print(" ");
+    print_decs(mouse_report.v); print(" ");
+    print_decs(mouse_report.h); print("](");
+    print_dec(mousekey_repeat); print("/");
+    print_dec(mousekey_accel); print(")\n");
 }
