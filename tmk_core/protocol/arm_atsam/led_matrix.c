@@ -270,7 +270,7 @@ int8_t shimmer_dir[ISSI3733_LED_COUNT];
 uint8_t led_animation_shimmer;
 float shimmer_mult;
 
-uint8_t custom_enabled = 0;
+uint8_t custom_enabled = 1;
 //end vars
 
 
@@ -508,7 +508,7 @@ uint8_t led_matrix_init(void)
 
     led_enabled = 1;
     led_animation_id = 0;
-    led_lighting_mode = LED_MODE_NORMAL;
+    led_lighting_mode = LED_MODE_NORMAL+1;
     led_animation_speed = 4.0f;
     led_animation_direction = 0;
     led_animation_orientation = 0;

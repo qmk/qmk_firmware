@@ -73,15 +73,22 @@ float led_animation_pool_matrix[ISSI3733_LED_COUNT];
 int8_t pool_dir[ISSI3733_LED_COUNT];
 int8_t pool_speed[ISSI3733_LED_COUNT];
 float pool_mult;
-uint8_t c_templates[][2][3] = {{{24, 215, 204}, {255, 60, 118}}, {{24, 0, 204}, {255, 0, 118}}, {{57, 167, 142}, {57, 255, 50}}};
+
+uint8_t c_templates[][2][3] = {
+{{255, 255, 0}, {0, 250, 200}}
+{{24, 0, 204}, {255, 0, 118}},
+{{57, 167, 142}, {57, 255, 50}}
+{{24, 215, 204}, {255, 60, 118}},
+};
+
 uint8_t CS = 0; //current schema
 uint8_t schemaCount = 3;
 
 uint16_t count = 1;
 uint8_t colorSelect = 0;
 
-uint8_t led_pool_enabled = 0;
-uint8_t led_wave_enabled = 0;
+uint8_t led_pool_enabled = 1;
+uint8_t led_wave_enabled = 1;
 
 uint8_t getRow(uint8_t id) {
 	if(id <= 15)
@@ -182,8 +189,6 @@ void run_pool(issi3733_led_t *cur, float* r, float* g, float* b) {
 void run_led(issi3733_led_t *cur, float* r,float* g, float* b) {
 	if(led_pool_enabled)
 		run_pool(cur, r, g, b);
-	if(led_wave_enabled) {
-	}
 }
 
 //end effect handlers
