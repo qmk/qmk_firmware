@@ -40,6 +40,27 @@ def set_logging(debug=None):
     logging.basicConfig(format="%(levelname)s: %(message)s")
 
 
+def cd_qmk_root(expected_files):
+    """Recursively move up in path until we are at QMK root (which will contain the
+    expected files)
+    """
+    current_directory = os.path.abspath(os.curdir)
+    logging.debug("Current directory is " + current_directory)
+
+    # end script with error if at root directory
+    if current_directory in {'/', '\\'}:
+        print_error("Please execute this script from the qmk_firmware directory")
+
+    # get folders in curdir
+    files_found = {name for name in os.listdir(current_directory)}
+    # move up one directory if expected files are not found
+    if expected_files - files_found:
+        os.chdir("..")
+        cd_qmk_root(expected_files)
+
+    return os.path.abspath(os.curdir)
+
+
 def exists(path):
     """Checks if a path exists.
     """
@@ -78,13 +99,10 @@ def main(argv=sys.argv[1:]):
     args = get_args(argv)
     set_logging(args.debug)
 
-    # change current directory up 1 level if in 'util/'
-    current_directory = os.path.abspath(os.curdir)
-    logging.debug("Current directory is " + current_directory)
-    if os.path.basename(current_directory) == "util":
-        os.chdir("..")
-        current_directory = os.path.abspath(os.curdir)
-        logging.debug("Changed to directory " + current_directory)
+
+    # recursively change current directory up 1 level until at QMK root
+    qmk_root_dirs = {'drivers', 'util', 'tests', 'keyboards'}
+    current_directory = cd_qmk_root(qmk_root_dirs)
 
     # get keyboard
     keyboard = input("Keyboard Name: ")
