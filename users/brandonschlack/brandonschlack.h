@@ -11,6 +11,7 @@ enum bs_layers {
     _MACFN,
     _WIN,
     _WINFN,
+    _LIGHT = 14,
     _MAGIC = 15,
 };
 
