@@ -40,7 +40,8 @@ enum planck_keycodes {
   AUTO_SQ,
   AUTO_PA,
   AUTO_CB,
-  SHRUG
+  SHRUG,
+  F4R
 };
 
 #define LOWER MO(_LOWER)
@@ -175,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_EMOJI] = LAYOUT_planck_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
+    _______, _______, _______, F4R, _______, _______, _______, _______, _______,  _______, _______, _______,
     KC_TRNS, _______, _______, SHRUG, _______, _______, _______, _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
@@ -297,6 +298,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SHRUG:
       if (record->event.pressed) {
         SEND_STRING("/shrugSS_TAP(X_ENT)");
+      }
+      return false;
+      break;
+    case F4R:
+      if (record->event.pressed) {
+        SEND_STRING(":f-for-respects:");
       }
       return false;
       break;
