@@ -61,42 +61,43 @@ static uint8_t n_editr = 0; // 押しているFGキーの数
 static uint16_t ninputs[NGBUFFER];
 
 // キーコードとキービットの対応
-const uint32_t PROGMEM ng_key[] = {
-  [KC_Q]    = B_Q,
-  [KC_W]    = B_W,
-  [KC_E]    = B_E,
-  [KC_R]    = B_R,
-  [KC_T]    = B_T,
+// メモリ削減のため配列はNG_Qを0にしている
+const uint32_t ng_key[] = {
+  [NG_Q - NG_Q]    = B_Q,
+  [NG_W - NG_Q]    = B_W,
+  [NG_E - NG_Q]    = B_E,
+  [NG_R - NG_Q]    = B_R,
+  [NG_T - NG_Q]    = B_T,
 
-  [KC_Y]    = B_Y,
-  [KC_U]    = B_U,
-  [KC_I]    = B_I,
-  [KC_O]    = B_O,
-  [KC_P]    = B_P,
+  [NG_Y - NG_Q]    = B_Y,
+  [NG_U - NG_Q]    = B_U,
+  [NG_I - NG_Q]    = B_I,
+  [NG_O - NG_Q]    = B_O,
+  [NG_P - NG_Q]    = B_P,
 
-  [KC_A]    = B_A,
-  [KC_S]    = B_S,
-  [KC_D]    = B_D,
-  [KC_F]    = B_F,
-  [KC_G]    = B_G,
+  [NG_A - NG_Q]    = B_A,
+  [NG_S - NG_Q]    = B_S,
+  [NG_D - NG_Q]    = B_D,
+  [NG_F - NG_Q]    = B_F,
+  [NG_G - NG_Q]    = B_G,
 
-  [KC_H]    = B_H,
-  [KC_J]    = B_J,
-  [KC_K]    = B_K,
-  [KC_L]    = B_L,
-  [KC_SCLN] = B_SCLN,
+  [NG_H - NG_Q]    = B_H,
+  [NG_J - NG_Q]    = B_J,
+  [NG_K - NG_Q]    = B_K,
+  [NG_L - NG_Q]    = B_L,
+  [NG_SCLN - NG_Q] = B_SCLN,
 
-  [KC_Z]    = B_Z,
-  [KC_X]    = B_X,
-  [KC_C]    = B_C,
-  [KC_V]    = B_V,
-  [KC_B]    = B_B,
+  [NG_Z - NG_Q]    = B_Z,
+  [NG_X - NG_Q]    = B_X,
+  [NG_C - NG_Q]    = B_C,
+  [NG_V - NG_Q]    = B_V,
+  [NG_B - NG_Q]    = B_B,
 
-  [KC_N]    = B_N,
-  [KC_M]    = B_M,
-  [KC_COMM] = B_COMM,
-  [KC_DOT]  = B_DOT,
-  [KC_SLSH] = B_SLSH,
+  [NG_N - NG_Q]    = B_N,
+  [NG_M - NG_Q]    = B_M,
+  [NG_COMM - NG_Q] = B_COMM,
+  [NG_DOT - NG_Q]  = B_DOT,
+  [NG_SLSH - NG_Q] = B_SLSH,
 };
 
 // 薙刀式カナ変換テーブル
@@ -161,6 +162,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_M        , .kana = "."},
   {.key = B_SHFT|B_COMM     , .kana = "mu"},
   {.key = B_SHFT|B_DOT      , .kana = "hu"},
+  {.key = B_SHFT|B_SLSH     , .kana = "?"},
 
   // 濁音
   {.key = B_J|B_W           , .kana = "ba"},
@@ -319,7 +321,6 @@ bool naginata_state(void) {
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
-  uint32_t bkey; // PROGMEM buffer
   naginata_keymap bngmap; // PROGMEM buffer
 
   bool douji = false; // 同時押しか連続押しか
@@ -328,8 +329,7 @@ void naginata_type(void) {
   if (ng_shift) keycomb |= B_SHFT; // シフトキー状態を反映
 
   for (int i = 0; i < ng_chrcount; i++) {
-    memcpy_P(&bkey, &ng_key[ninputs[i]], sizeof bkey);
-    keycomb |= bkey; // バッファにあるキー状態を合成する
+    keycomb |= ng_key[ninputs[i] - NG_Q]; // バッファにあるキー状態を合成する
   }
 
   switch (keycomb) {
@@ -351,10 +351,9 @@ void naginata_type(void) {
       // 連続押しの場合
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
-          memcpy_P(&bkey, &ng_key[ninputs[j]], sizeof bkey);
           for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
             memcpy_P(&bngmap, &ngmap[i], sizeof bngmap);
-            if (bkey == bngmap.key) {
+            if (ng_key[ninputs[i] - NG_Q] == bngmap.key) {
               send_string(bngmap.kana);
               break;
             }
@@ -416,15 +415,15 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
     // 編集モードに入るかチェック
     if (record->event.pressed) {
       switch (keycode) {
-        case KC_D:
-        case KC_F:
+        case NG_D:
+        case NG_F:
           n_editr++;
           if (n_editr >= 2) {
             naginata_edit_right_on();
           }
           break;
-        case KC_J:
-        case KC_K:
+        case NG_J:
+        case NG_K:
           n_editl++;
           if (n_editl >= 2) {
             naginata_edit_left_on();
@@ -433,10 +432,10 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
       }
     } else {
       switch (keycode) {
-        case KC_D:
-        case KC_F:
-        case KC_J:
-        case KC_K:
+        case NG_D:
+        case NG_F:
+        case NG_J:
+        case NG_K:
           n_editl = 0;
           n_editr = 0;
           naginata_edit_off();
@@ -453,11 +452,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
   if (record->event.pressed) {
     switch (keycode) {
-      case KC_A ... KC_Z:
-      case KC_SLSH:
-      case KC_DOT:
-      case KC_COMM:
-      case KC_SCLN:
+      case NG_Q ... NG_SLSH:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         ng_space = false;
@@ -474,11 +469,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     }
   } else { // key release
     switch (keycode) {
-      case KC_A ... KC_Z:
-      case KC_SLSH:
-      case KC_DOT:
-      case KC_COMM:
-      case KC_SCLN:
+      case NG_Q ... NG_SLSH:
         // 3文字入力していなくても、どれかキーを離したら処理を開始する
         if (ng_chrcount > 0) {
           naginata_type();
@@ -577,6 +568,14 @@ bool process_naginata_edit(uint16_t keycode, keyrecord_t *record) {
         break;
       case DOWN5:
         repeatkey(KC_DOWN, 5);
+        return false;
+        break;
+      case UP10:
+        repeatkey(KC_UP, 10);
+        return false;
+        break;
+      case DOWN10:
+        repeatkey(KC_DOWN, 10);
         return false;
         break;
       }
