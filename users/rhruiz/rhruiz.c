@@ -128,17 +128,23 @@ void raw_hid_receive( uint8_t *data, uint8_t length ) {
     }
 
     case id_rgblight_reset: {
+#ifdef RGBLIGHT_ENABLE
       rhruiz_rgblight_reset();
+#endif
       break;
     }
 
     case id_backlight_toggle: {
+#ifdef BACKLIGHT_ENABLE
       backlight_toggle();
+#endif
       break;
     }
 
     case id_rgblight_toggle: {
+#ifdef RGBLIGHT_ENABLE
       rgblight_toggle();
+#endif
       break;
     }
   }
