@@ -140,8 +140,8 @@ For now, you need to rollback avr-gcc to 7 in brew.
 
 ```
 brew uninstall --force avr-gcc
-brew install avr-gcc@7
-brew link --force avr-gcc@7
+brew install avr-gcc@8
+brew link --force avr-gcc@8
 ```
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
