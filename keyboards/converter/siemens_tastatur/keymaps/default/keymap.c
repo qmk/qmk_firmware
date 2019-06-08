@@ -37,9 +37,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         // When keycode DCAPS is pressed.
         // This is needed for mac.
-        SEND_STRING(SS_DOWN(X_CAPSLOCK));
-        wait_ms(200);
-        SEND_STRING(SS_UP(X_CAPSLOCK));
+        tap_code(KC_CAPS)
       } else {
         // When keycode DCAPS is released.
       }

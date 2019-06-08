@@ -10,7 +10,7 @@ Hardware Availability: Custom PCB available, contact me
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/siemens_tastatur:default
+    make converter/siemens_tastatur:default
 
 Unplugging and replugging the keyboard is necessary after a firmware update.
 
