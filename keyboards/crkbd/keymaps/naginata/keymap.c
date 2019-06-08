@@ -97,6 +97,8 @@ enum custom_keycodes {
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
+#define _____ KC_TRNS
+#define XXXXX KC_NO
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -163,13 +165,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // 薙刀式
   // デフォルトレイヤーに関係なくQWERTYで
-  [_NAGINATA] = LAYOUT_kc( \
+  [_NAGINATA] = LAYOUT( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____,     Q,     W,     E,     R,  LEFT,                   RGHT,     U,     I,     O,     P, _____,\
+      _____,  NG_Q,  NG_W,  NG_E,  NG_R,KC_LEFT,               KC_RGHT,  NG_U,  NG_I,  NG_O,  NG_P, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN, _____,\
+      _____,  NG_A,  NG_S,  NG_D,  NG_F,  NG_G,                   NG_H,  NG_J,  NG_K,  NG_L,NG_SCLN, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH, _____,\
+      _____,  NG_Z,  NG_X,  NG_C,  NG_V,  NG_B,                   NG_N,  NG_M,NG_COMM,NG_DOT,NG_SLSH, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____,NGSHFT, _____,    _____,NGSHFT, _____ \
                               //`--------------------'  `--------------------'
