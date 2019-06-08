@@ -1,0 +1,9 @@
+- Disable VIA
+- Tsangan bottom row
+- Split Backspace
+- Split Right shift
+- RESET on layer and F keys
+- Capslock -> LCTL_T(KC_ESC)
+- Bootmagic lite
+- Command enabled
+- Console enabled
