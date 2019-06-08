@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise - new
  * ,-----------------------------------------------------------------------------------.
- * |   `  |  F1  |  F2  |  F3  |  F4  |  {}  |   7  |   8  |   9  |   -  |   +  | Bksp |
+ * |   `  |  F1  |  F2  |  F3  |  F4  |  {}  |   7  |   8  |   9  |   -  |   *  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F5  |  F6  |  F7  |  F8  |  ()  |   4  |   5  |   6  |   +  |   /  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_GRV,  KC_F1,   KC_F2,    KC_F3,    KC_F4,   AUTO_CB,  KC_7,  KC_8, KC_9,  KC_MINS, KC_PLUS, KC_BSPC,
+    KC_GRV,  KC_F1,   KC_F2,    KC_F3,    KC_F4,   AUTO_CB,  KC_7,  KC_8, KC_9,  KC_MINS, KC_ASTR, KC_BSPC,
     KC_DEL,  KC_F5,   KC_F6,    KC_F7,    KC_F8,   AUTO_PA,  KC_4,  KC_5, KC_6,  KC_PLUS, KC_SLSH, KC_BSLS,
     _______, KC_F9,   KC_F10,   KC_F11,   KC_F12,  AUTO_SQ,  KC_1,  KC_2, KC_3,  KC_PGUP, KC_VOLU, _______,
     _______, _______, _______, _______, _______, KC_0, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
@@ -328,19 +328,15 @@ void encoder_update(bool clockwise) {
   } else {
     if (clockwise) {
       #ifdef MOUSEKEY_ENABLE
-        register_code(KC_MS_WH_DOWN);
-        unregister_code(KC_MS_WH_DOWN);
+        tap_code(KC_MS_WH_DOWN);
       #else
-        register_code(KC_PGDN);
-        unregister_code(KC_PGDN);
+        tap_code(KC_PGDN);
       #endif
     } else {
       #ifdef MOUSEKEY_ENABLE
-        register_code(KC_MS_WH_UP);
-        unregister_code(KC_MS_WH_UP);
+        tap_code(KC_MS_WH_UP);
       #else
-        register_code(KC_PGUP);
-        unregister_code(KC_PGUP);
+        tap_code(KC_PGUP);
       #endif
     }
   }
