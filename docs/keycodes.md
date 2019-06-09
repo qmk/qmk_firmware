@@ -256,6 +256,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |----------------------------------|---------|------------------------------------|
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control     |
 |`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control          |
+|`MAGIC_SWAP_CONTROL_LGUI`         |         |Swap Left Control and GUI           |
 |`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI               |
 |`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI              |
 |`MAGIC_NO_GUI`                    |         |Disable the GUI key                 |
@@ -265,6 +266,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides      |
 |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control   |
 |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control  |
+|`MAGIC_UNSWAP_CONTROL_LGUI`       |         |Unswap Left Control and GUI         |
 |`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI             |
 |`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI            |
 |`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                  |
