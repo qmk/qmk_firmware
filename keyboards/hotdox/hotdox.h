@@ -244,4 +244,4 @@ LAYOUT_ergodox_pretty( \
     KC_##L40,KC_##L41,KC_##L42,KC_##L43,KC_##L44,                                                          KC_##R42,KC_##R43,KC_##R44,KC_##R45,KC_##R46,    \
                                                           KC_##L55,KC_##L56,    KC_##R50,KC_##R51,                                                          \
                                                                    KC_##L54,    KC_##R52,                                                                   \
-                                                 KC_##L51,KC_##L52,KC_##L53,    KC_##R53,KC_##R54,KC_##R56)
+                                                 KC_##L51,KC_##L52,KC_##L53,    KC_##R53,KC_##R54,KC_##R55)
