@@ -1085,7 +1085,11 @@ void matrix_scan_quantum() {
 #      define OCIExA OCIE1A
 #      define TOIEx  TOIE1
 #      define ICRx   ICR1
-#      define TIMSKx TIMSK1
+#      if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+#        define TIMSKx TIMSK
+#      else
+#        define TIMSKx TIMSK1
+#      endif
 #    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
 #pragma message "Using hardware timer 3 with software PWM"
 // timer 3 is not used by audio, backlight can use it
