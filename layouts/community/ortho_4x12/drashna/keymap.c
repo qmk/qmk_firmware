@@ -280,7 +280,7 @@ void encoder_update(bool clockwise) {
             break;
         case _LOWER:
 #ifdef RGB_MATRIX_ENABLE
-            clockwise ? rgb_matrix_step() : rgblight_step_reverse();
+            clockwise ? rgb_matrix_step() : rgb_matrix_step_reverse();
 #else
             clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
 #endif
