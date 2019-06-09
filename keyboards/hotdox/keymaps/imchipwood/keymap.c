@@ -26,6 +26,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KC_LOME TD(TD_LEFT_HOME)
 #define KC_RCAP TD(TD_RSFT_CAPS)
 
+
+// Custom per-key tapping term
+uint16_t get_tapping_term(uint16_t keycode) {
+	switch (keycode) {
+		case KC_CAPS:
+			return TAPPING_TERM + 125;
+		default:
+			return TAPPING_TERM;
+		}
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *

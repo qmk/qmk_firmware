@@ -9,4 +9,8 @@
 #endif
 #define TAPPING_TERM    175
 
+#ifndef TAPPING_TERM_PER_KEY
+#define TAPPING_TERM_PER_KEY
+#endif
+
 #endif
