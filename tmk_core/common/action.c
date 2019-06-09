@@ -412,7 +412,7 @@ void process_action(keyrecord_t *record, action_t action)
                         case OP_BIT_AND: default_layer_and(bits | mask); break;
                         case OP_BIT_OR:  default_layer_or(bits | mask);  break;
                         case OP_BIT_XOR: default_layer_xor(bits | mask); break;
-                        case OP_BIT_SET: default_layer_and(mask); default_layer_or(bits); break;
+                        case OP_BIT_SET: default_layer_set(bits | mask); break;
                     }
                 }
             } else {
@@ -426,7 +426,7 @@ void process_action(keyrecord_t *record, action_t action)
                         case OP_BIT_AND: layer_and(bits | mask); break;
                         case OP_BIT_OR:  layer_or(bits | mask);  break;
                         case OP_BIT_XOR: layer_xor(bits | mask); break;
-                        case OP_BIT_SET: layer_and(mask); layer_or(bits); break;
+                        case OP_BIT_SET: layer_state_set(bits | mask); break;
                     }
                 }
             }

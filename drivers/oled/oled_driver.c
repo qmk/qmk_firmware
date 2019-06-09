@@ -63,6 +63,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COM_SCAN_DEC            0xC8
 #define DISPLAY_OFFSET          0xD3
 #define COM_PINS                0xDA
+#define COM_PINS_SEQ            0x02
+#define COM_PINS_ALT            0x12
+#define COM_PINS_SEQ_LR         0x22
+#define COM_PINS_ALT_LR         0x32
 
 // Timing & Driving Commands
 #define DISPLAY_CLOCK           0xD5
@@ -182,7 +186,7 @@ bool oled_init(uint8_t rotation) {
 
   static const uint8_t PROGMEM display_setup2[] = {
     I2C_CMD,
-    COM_PINS, 0x02,
+    COM_PINS, OLED_COM_PINS,
     CONTRAST, 0x8F,
     PRE_CHARGE_PERIOD, 0xF1,
     VCOM_DETECT, 0x40,
