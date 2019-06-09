@@ -21,10 +21,12 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum layer_names {
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -33,10 +35,6 @@ enum custom_keycodes {
   ADJUST,
   BACKLIT,
   RGBRST
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
 };
 
 #define KC_ KC_TRNS
@@ -64,51 +62,51 @@ enum macro_keycodes {
 #define KC_ALTDL ALT_T(KC_DEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc( \
+  [_QWERTY] = LAYOUT_kc(
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
+        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  QUOT,\
+      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  QUOT,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,   ENT,\
+       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,   ENT,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  ALTSP, LOWER, GUIEN,    SFTJP, RAISE, ALTDL \
+                                  ALTSP, LOWER, GUIEN,    SFTJP, RAISE, ALTDL
                               //`--------------------'  `--------------------'
   ),
 
-  [_LOWER] = LAYOUT_kc( \
+  [_LOWER] = LAYOUT_kc(
   //,-----------------------------------------.                ,-----------------------------------------.
-           ,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,      ,\
+           ,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,      ,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-           ,  HOME,   END,  PGDN,  PGUP,   F11,                   LEFT,  DOWN,    UP,  RGHT,   F12,  PIPE,\
+           ,  HOME,   END,  PGDN,  PGUP,   F11,                   LEFT,  DOWN,    UP,  RGHT,   F12,  PIPE,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-           ,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,      ,\
+           ,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,      ,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                       ,      ,      ,         ,      ,       \
+                                       ,      ,      ,         ,      ,       
                               //`--------------------'  `--------------------'
   ),
 
-  [_RAISE] = LAYOUT_kc( \
+  [_RAISE] = LAYOUT_kc(
   //,-----------------------------------------.                ,-----------------------------------------.
-           ,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,      ,\
+           ,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,      ,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-           , XXXXX, XXXXX, XXXXX, XXXXX,  PSCR,                    GRV,  MINS,  PLUS,  LCBR,  RCBR,  BSLS,\
+           , XXXXX, XXXXX, XXXXX, XXXXX,  PSCR,                    GRV,  MINS,  PLUS,  LCBR,  RCBR,  BSLS,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-           , XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   TILD,  UNDS,   EQL,  LBRC,  RBRC,      ,\
+           , XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   TILD,  UNDS,   EQL,  LBRC,  RBRC,      ,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                       ,      ,      ,         ,      ,       \
+                                       ,      ,      ,         ,      ,       
                               //`--------------------'  `--------------------'
   ),
 
-  [_ADJUST] = LAYOUT_kc( \
+  [_ADJUST] = LAYOUT_kc(
   //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
+                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN 
                               //`--------------------'  `--------------------'
   )
 };
