@@ -1,8 +1,4 @@
 /*
-Note for ErgoDox EZ customizers: Here be dragons!
-This is not a file you want to be messing with.
-All of the interesting stuff for you is under keymaps/ :)
-Love, Erez
 
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
