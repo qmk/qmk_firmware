@@ -20,13 +20,13 @@ On for any keypress as long as the key is pressed
 Carriage Mode:
 Turns on when enter is pressed, turns off when any next key is pressed
 
-q = Toggle Red LED state, deactivates any other modes
-w = Toggle Green LED state, deactivates any other modes
-e = Set RED LED to modifier mode
-r = Set GREEN LED to modifier mode
-t = Set RED LED to Blinkinlights mode
-y = set GREEN LED to Blinkinlights mode
-u = set RED LED to Keypress mode
-i = set GREEN LED to Keypress mode
-o = set RED LED to Carriage mode
-p = set GREEN LED to Carriage mode
+* q = Toggle Red LED state, deactivates any other modes
+* w = Toggle Green LED state, deactivates any other modes
+* e = Set RED LED to modifier mode
+* r = Set GREEN LED to modifier mode
+* t = Set RED LED to Blinkinlights mode
+* y = set GREEN LED to Blinkinlights mode
+* u = set RED LED to Keypress mode
+* i = set GREEN LED to Keypress mode
+* o = set RED LED to Carriage mode
+* p = set GREEN LED to Carriage mode
