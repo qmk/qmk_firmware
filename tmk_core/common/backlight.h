@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 typedef union {
     uint8_t raw;
     struct {
-        bool    enable :1;
-        uint8_t level  :7;
+        bool    enable    :1;
+        bool    breathing :1;
+        uint8_t level     :6;
     };
 } backlight_config_t;
 
@@ -40,3 +41,11 @@ void backlight_set(uint8_t level);
 void backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
 
+#ifdef BACKLIGHT_BREATHING
+void backlight_toggle_breathing(void);
+void backlight_enable_breathing(void);
+void backlight_disable_breathing(void);
+bool is_backlight_breathing(void);
+void breathing_enable(void);
+void breathing_disable(void);
+#endif
