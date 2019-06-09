@@ -1,23 +1,11 @@
 #include QMK_KEYBOARD_H
-#include "hotdox.h"
-#include "quantum.h"
-#include "version.h"
-
-extern keymap_config_t keymap_config;
 
 #define KC____  KC_TRNS // three underscores "___" for transparent
 
 // Layer names
-#define _QWERTY 0 // default layer
-#define _NUMB   1 // symbols
-#define _MDIA   2 // media keys
-
-
-/*enum custom_keycodes {
-	QWERTY = SAFE_RANGE,
-	NUMB,
-	MDIA,
-};*/
+#define _QWERTY 	0 // default layer
+#define _NUMBERS   	1 // numbers/etc.
+#define _MEDIA   	2 // media keys
 
 // Tap Dance Declarations 
 enum {
@@ -26,36 +14,29 @@ enum {
 	TD_RSFT_CAPS,
 };
 
-// Tap Dance Definitions 
+// Tap Dance actions
 qk_tap_dance_action_t tap_dance_actions[] = {
+	// Double tap right -> END
 	[TD_RIGHT_END] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_END),
+	// Double tap left -> HOME
 	[TD_LEFT_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_HOME),
+	// Double tap right shift -> CAPS LOCK
 	[TD_RSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
 };
 
-#define KC_REND TD(TD_RIGHT_END)
-#define KC_LOME TD(TD_LEFT_HOME)
-#define KC_RTCAP TD(TD_RSFT_CAPS)
+// KC_-prefixed macros for quantum actions to work with KC_-less layouts
+#define KC_REND 	TD(TD_RIGHT_END)
+#define KC_LOME 	TD(TD_LEFT_HOME)
+#define KC_RTCAP 	TD(TD_RSFT_CAPS)
 
-#define KC_TGNB TG(_NUMB)
-#define KC_TGMD TG(_MDIA)
-#define KC_MONB MO(_NUMB)
-#define KC_MOMD MO(_MDIA)
-#define KC_RESET RESET
-
-
-// Custom per-key tapping term
-uint16_t get_tapping_term(uint16_t keycode) {
-	switch (keycode) {
-		case KC_CAPS:
-			return TAPPING_TERM + 125;
-		default:
-			return TAPPING_TERM;
-		}
-}
+#define KC_TGNB 	TG(_NUMBERS)
+#define KC_TGMD 	TG(_MEDIA)
+#define KC_MONB 	MO(_NUMBERS)
+#define KC_MOMD 	MO(_MEDIA)
+#define KC_RESET 	RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = LAYOUT_ergodox_pretty_kc(
+	[_QWERTY] = LAYOUT_ergodox_pretty_kc(
 /* Keymap 0: Basic layer
  *
  * 		  ,--------------------------------------------------.           		  ,--------------------------------------------------.
@@ -97,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 											ENT, 	MONB, 	END, 		PGDN, 	BSPC, 	SPC
 //											  `-----------------------'   `-----------------------'
 	),
-[_NUMB] = LAYOUT_ergodox_pretty_kc(
-/* Keymap 1: Symbol Layer
+	[_NUMBERS] = LAYOUT_ergodox_pretty_kc(
+/* Keymap 1: Numpad, function keys, and some convenience keys
  *
  * 		  ,---------------------------------------------------.           		  ,--------------------------------------------------.
  * 		  |         |  F1  |  F2  |  F3  |  F4  |  F5  |      |           		  |  F12 |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
@@ -139,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 											ENT, 	___, 	___, 		___, 	DEL, 	ESC
 //											  `-----------------------'   `-----------------------'
 	),
-[_MDIA] = LAYOUT_ergodox_pretty_kc(
+	[_MEDIA] = LAYOUT_ergodox_pretty_kc(
 /* Keymap 2: Media and mouse keys
  *
  * 	  	   ,--------------------------------------------------.           		  ,--------------------------------------------------.
