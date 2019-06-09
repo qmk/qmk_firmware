@@ -60,3 +60,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,    _______,      _______,  _______,  _______,  _______,  _______,  _______,  _______
   )
 };
+
+void matrix_init_user(void) {
+  setPinOutput(B0);
+  writePinHigh(B0);
+
+  setPinOutput(D5);
+  writePinHigh(D5);
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  return rhruiz_layer_state_set_user(state);
+}
