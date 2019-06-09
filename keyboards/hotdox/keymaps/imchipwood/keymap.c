@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "hotdox.h"
 #include "quantum.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "version.h"
 
 extern keymap_config_t keymap_config;

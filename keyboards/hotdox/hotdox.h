@@ -185,8 +185,9 @@ void ergodox_blink_all_leds(void);
     { KC_NO,L51,L52,L53,L54,L55,L56,          R50,R51,R52,R53,R54,R55,KC_NO }  \
    }
 
-#define LAYOUT_ergodox_kc(                                                              \
-                                                                                        \
+// Hotdox layout without needing KC_ prefix on all keys
+#define LAYOUT_ergodox_kc(                                      \
+                                                                \
                                                                 \
     k00,k01,k02,k03,k04,k05,k06,                                \
     k10,k11,k12,k13,k14,k15,k16,                                \
@@ -209,12 +210,11 @@ void ergodox_blink_all_leds(void);
         KC_##k00,   KC_##k01,   KC_##k02,   KC_##k03,   KC_##k04,   KC_##k05,   KC_##k06,               \
         KC_##k10,   KC_##k11,   KC_##k12,   KC_##k13,   KC_##k14,   KC_##k15,   KC_##k16,               \
         KC_##k20,   KC_##k21,   KC_##k22,   KC_##k23,   KC_##k24,   KC_##k25,                           \
-        KC_##k30,   KC_##k32,   KC_##k32,   KC_##k33,   KC_##k34,   KC_##k35,   KC_##k36,               \
+        KC_##k30,   KC_##k31,   KC_##k32,   KC_##k33,   KC_##k34,   KC_##k35,   KC_##k36,               \
         KC_##k40,   KC_##k41,   KC_##k42,   KC_##k43,   KC_##k44,                                       \
                                                                                 KC_##k55,   KC_##k56,   \
                                                                                             KC_##k54,   \
                                                                     KC_##k51,   KC_##k52,   KC_##k53,   \
-                                                                                                        \
                     KC_##k07,   KC_##k08,   KC_##k09,   KC_##k0A,   KC_##k0B,   KC_##k0C,   KC_##k0D,   \
                     KC_##k17,   KC_##k18,   KC_##k19,   KC_##k1A,   KC_##k1B,   KC_##k1C,   KC_##k1D,   \
                                 KC_##k28,   KC_##k29,   KC_##k2A,   KC_##k2B,   KC_##k2C,   KC_##k2D,   \
@@ -224,3 +224,24 @@ void ergodox_blink_all_leds(void);
         KC_##k59,                                                                                       \
         KC_##k5A,   KC_##k5B,   KC_##k5C                                                                \
     )
+
+
+#define LAYOUT_ergodox_pretty_kc(                                                  \
+                                                                                \
+    L00,L01,L02,L03,L04,L05,L06,               R00,R01,R02,R03,R04,R05,R06,     \
+    L10,L11,L12,L13,L14,L15,L16,               R10,R11,R12,R13,R14,R15,R16,     \
+    L20,L21,L22,L23,L24,L25,                       R21,R22,R23,R24,R25,R26,     \
+    L30,L31,L32,L33,L34,L35,L36,               R30,R31,R32,R33,R34,R35,R36,     \
+    L40,L41,L42,L43,L44,                               R42,R43,R44,R45,R46,     \
+                            L55,L56,       R50,R51,                             \
+                                L54,       R52,                                 \
+                        L51,L52,L53,       R53,R54,R55 )                        \
+LAYOUT_ergodox_pretty( \
+    KC_##L00,KC_##L01,KC_##L02,KC_##L03,KC_##L04,KC_##L05,KC_##L06,                      KC_##R00,KC_##R01,KC_##R02,KC_##R03,KC_##R04,KC_##R05,KC_##R06,    \
+    KC_##L10,KC_##L11,KC_##L12,KC_##L13,KC_##L14,KC_##L15,KC_##L16,                      KC_##R10,KC_##R11,KC_##R12,KC_##R13,KC_##R14,KC_##R15,KC_##R16,    \
+    KC_##L20,KC_##L21,KC_##L22,KC_##L23,KC_##L24,KC_##L25,                                        KC_##R21,KC_##R22,KC_##R23,KC_##R24,KC_##R25,KC_##R26,    \
+    KC_##L30,KC_##L31,KC_##L32,KC_##L33,KC_##L34,KC_##L35,KC_##L36,                      KC_##R30,KC_##R31,KC_##R32,KC_##R33,KC_##R34,KC_##R34,KC_##R36,    \
+    KC_##L40,KC_##L41,KC_##L42,KC_##L43,KC_##L44,                                                          KC_##R42,KC_##R43,KC_##R44,KC_##R45,KC_##R46,    \
+                                                          KC_##L55,KC_##L56,    KC_##R50,KC_##R51,                                                          \
+                                                                   KC_##L54,    KC_##R52,                                                                   \
+                                                 KC_##L51,KC_##L52,KC_##L53,    KC_##R53,KC_##R54,KC_##R56)
