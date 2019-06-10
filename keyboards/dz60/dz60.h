@@ -465,6 +465,7 @@
     { k20, KC_NO, k22,   k23, k24, k25,   k26, k27,   k28, k29,   k2a, k2b, k2c,   k2d, KC_NO }, \
     { k30, KC_NO, k32,   k33, k34, k35,   k36, k37,   k38, k39,   k3a, k3b, KC_NO, k3d, k3e   }, \
     { k40, k41,   KC_NO, k43, k44, KC_NO, k46, KC_NO, k48, KC_NO, k4a, k4b, KC_NO, k4d, k4e   }  \
+}
 
 /* LAYOUT_60_iso_split_space_bs_rshift
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
