@@ -8,6 +8,7 @@ Tested combinations:
 | IC driver |   Size | Keyboard Platform | Notes                    |
 |-----------|--------|-------------------|--------------------------|
 | SSD1306   | 128x32 | AVR               | Primary support          |
+| SSD1306   | 128x64 | AVR               | Verified working         |
 | SSD1306   | 128x32 | ARM               |                          |
 | SH1106    | 128x64 | AVR               | No rotation or scrolling |
 
