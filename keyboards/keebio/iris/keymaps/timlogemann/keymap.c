@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 //Tap Dance Declarations
+/*
 enum
 {
   TD_SHIFT_CAPS = 0,
@@ -14,6 +15,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Other declarations would go here, separated by commas, if you have them
     // [TD_TAB_HYPER] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
+*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
