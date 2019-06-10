@@ -18,5 +18,5 @@ endif
 
 # Generate the keymap.c
 ifneq ("$(KEYMAP_JSON)","")
-    _ = $(shell bin/json2keymap -f $(KEYMAP_JSON) -o $(KEYMAP_C))
+    _ = $(shell bin/qmk-json-keymap -f $(KEYMAP_JSON) -o $(KEYMAP_C))
 endif

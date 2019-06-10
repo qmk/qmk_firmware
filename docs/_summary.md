@@ -34,6 +34,8 @@
   * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
   * [Config Options](config_options.md)
   * [Keycodes](keycodes.md)
+  * [Coding Conventions - C](coding_conventions_c.md)
+  * [Coding Conventions - Python](coding_conventions_python.md)
   * [Documentation Best Practices](documentation_best_practices.md)
   * [Documentation Templates](documentation_templates.md)
   * [Glossary](reference_glossary.md)

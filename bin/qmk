@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+"""CLI wrapper for running QMK commands.
+"""
+import os
+import sys
+from importlib import import_module
+
+# Add the QMK python libs to our path
+script_dir = os.path.dirname(os.path.realpath(__file__))
+qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
+python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
+sys.path.append(python_lib_dir)
+
+# If we were invoked as `qmk <cmd>` massage sys.argv into `qmk-<cmd>`.
+# This means we can't accept arguments to the qmk script itself.
+script_name = os.path.basename(sys.argv[0])
+if script_name == 'qmk':
+    script_name = '-'.join((script_name, sys.argv[1]))
+    if len(sys.argv) > 1:
+        sys.argv = [script_name] + sys.argv[2:]
+    else:
+        sys.argv = [script_name]
+
+# Setup the environment
+from milc import cli
+
+# Look for which module to import
+if script_name == 'qmk':
+    cli.print_help()
+    exit(0)
+elif not script_name.startswith('qmk-'):
+    cli.log.error('Invalid symlink, must start with "qmk-": %s', script_name)
+else:
+    subcommand = script_name.replace('-', '.')
+    try:
+        import_module(subcommand)
+    except ModuleNotFoundError:
+        cli.log.error('[!] Invalid symlink! Could not import %s.', subcommand)
+        exit(1)
+
+# Change to the root of our checkout
+os.environ['ORIG_CWD'] = os.getcwd()
+os.chdir(qmk_dir)
+
+
+if __name__ == '__main__':
+    cli()
