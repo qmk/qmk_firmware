@@ -12,3 +12,7 @@ endif
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
+
+ifeq ($(strip $(IS_MACROPAD)), yes)
+    OPT_DEFS += -DIS_MACROPAD
+endif
