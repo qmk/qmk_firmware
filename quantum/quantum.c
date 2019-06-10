@@ -618,8 +618,11 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_CAPSLOCK_TO_CONTROL:
             keymap_config.capslock_to_control = true;
             break;
-          case MAGIC_SWAP_CONTROL_LGUI:
-            keymap_config.swap_control_lgui = true;
+          case MAGIC_SWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = true;
+            break;
+          case MAGIC_SWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = true;
             break;
           case MAGIC_SWAP_LALT_LGUI:
             keymap_config.swap_lalt_lgui = true;
@@ -652,8 +655,11 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_UNCAPSLOCK_TO_CONTROL:
             keymap_config.capslock_to_control = false;
             break;
-          case MAGIC_UNSWAP_CONTROL_LGUI:
-            keymap_config.swap_control_lgui = false;
+          case MAGIC_UNSWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = false;
+            break;
+          case MAGIC_UNSWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = false;
             break;
           case MAGIC_UNSWAP_LALT_LGUI:
             keymap_config.swap_lalt_lgui = false;

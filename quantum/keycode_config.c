@@ -31,7 +31,7 @@ uint16_t keycode_config(uint16_t keycode) {
             if (keymap_config.swap_control_capslock) {
                 return KC_CAPSLOCK;
             }
-            if (keymap_config.swap_control_lgui) {
+            if (keymap_config.swap_lctl_lgui) {
                 if (keymap_config.no_gui) {
                     return KC_NO;
                 }
@@ -50,13 +50,21 @@ uint16_t keycode_config(uint16_t keycode) {
             if (keymap_config.swap_lalt_lgui) {
                 return KC_LALT;
             }
-            if (keymap_config.swap_control_lgui) {
+            if (keymap_config.swap_lctl_lgui) {
               return KC_LCTRL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
             }
             return KC_LGUI;
+        case KC_RCTL:
+            if (keymap_config.swap_rctl_rgui) {
+                if (keymap_config.no_gui) {
+                    return KC_NO;
+                }
+                return KC_RGUI;
+            }
+            return KC_RCTL;
         case KC_RALT:
             if (keymap_config.swap_ralt_rgui) {
                 if (keymap_config.no_gui) {
@@ -68,6 +76,9 @@ uint16_t keycode_config(uint16_t keycode) {
         case KC_RGUI:
             if (keymap_config.swap_ralt_rgui) {
                 return KC_RALT;
+            }
+            if (keymap_config.swap_rctl_rgui) {
+              return KC_RCTL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
