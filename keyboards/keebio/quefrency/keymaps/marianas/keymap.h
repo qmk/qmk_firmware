@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#undef DEBOUNCE
-#define DEBOUNCE 15
 
 
 
