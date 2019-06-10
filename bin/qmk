@@ -42,6 +42,5 @@ else:
 os.environ['ORIG_CWD'] = os.getcwd()
 os.chdir(qmk_dir)
 
-
 if __name__ == '__main__':
     cli()

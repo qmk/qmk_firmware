@@ -47,7 +47,7 @@ def template(keyboard, keymap):
 
     return DEFAULT_KEYMAP_C.replace('__KEYMAP_GOES_HERE__', keymap)
 
-    
+
 def generate(keyboard, layout, layers):
     """Generate the keymap source code.
     """
@@ -93,7 +93,7 @@ def compile_firmware(keyboard, keymap, layout, layers):
         'returncode': -2,
         'output': '',
         'firmware': None,
-        'firmware_filename': ''
+        'firmware_filename': '',
     }
 
     try:
@@ -106,8 +106,10 @@ def compile_firmware(keyboard, keymap, layout, layers):
             logging.error('Unknown keyboard: %s', keyboard)
             return {'returncode': -1, 'command': '', 'output': 'Unknown keyboard!', 'firmware': None}
 
-        for pathname in ('qmk_firmware/keyboards/%s/keymaps/%s' % (keyboard, keymap),
-                         'qmk_firmware/keyboards/%s/../keymaps/%s' % (keyboard, keymap)):
+        for pathname in (
+            'qmk_firmware/keyboards/%s/keymaps/%s' % (keyboard, keymap),
+            'qmk_firmware/keyboards/%s/../keymaps/%s' % (keyboard, keymap),
+        ):
             if os.path.exists(pathname):
                 logging.error('Name collision! %s already exists! This should not happen!', pathname)
                 return {'returncode': -1, 'command': '', 'output': 'Keymap name collision! %s already exists!' % (pathname), 'firmware': None}

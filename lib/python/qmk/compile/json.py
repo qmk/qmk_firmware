@@ -8,6 +8,7 @@ import subprocess
 import qmk.keymap
 from milc import cli
 
+
 @cli.argument('-f', '--filename', help='Configurator JSON export', required=True)  # FIXME: This should be positional
 @cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
 def main(cli):

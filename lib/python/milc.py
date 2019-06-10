@@ -36,7 +36,6 @@ except ImportError:
 import argcomplete
 import colorama
 
-
 # Log Level Representations
 EMOJI_LOGLEVELS = {
     'CRITICAL': '{bg_red}{fg_white}¬_¬{style_reset_all}',
@@ -48,7 +47,6 @@ EMOJI_LOGLEVELS = {
 }
 EMOJI_LOGLEVELS['FATAL'] = EMOJI_LOGLEVELS['CRITICAL']
 EMOJI_LOGLEVELS['WARN'] = EMOJI_LOGLEVELS['WARNING']
-
 
 # ANSI Color setup
 # Regex was gratefully borrowed from kfir on stackoverflow:
@@ -68,10 +66,14 @@ ansi_regex = r'\x1b(' \
              r'(\[\?\d;\d0c)|' \
              r'(\d;\dR))'
 ansi_escape = re.compile(ansi_regex, flags=re.IGNORECASE)
+ansi_styles = (
+    ('fg', colorama.ansi.AnsiFore()),
+    ('bg', colorama.ansi.AnsiBack()),
+    ('style', colorama.ansi.AnsiStyle()),
+)
 ansi_colors = {}
-for prefix, obj in (('fg', colorama.ansi.AnsiFore()),
-                    ('bg', colorama.ansi.AnsiBack()),
-                    ('style', colorama.ansi.AnsiStyle())):
+
+for prefix, obj in ansi_styles:
     for color in [x for x in obj.__dict__ if not x.startswith('_')]:
         ansi_colors[prefix + '_' + color.lower()] = getattr(obj, color)
 
@@ -88,6 +90,7 @@ def format_ansi(text):
 class ANSIFormatter(logging.Formatter):
     """A log formatter that inserts ANSI color.
     """
+
     def format(self, record):
         msg = super(ANSIFormatter, self).format(record)
         return format_ansi(msg)
@@ -96,6 +99,7 @@ class ANSIFormatter(logging.Formatter):
 class ANSIEmojiLoglevelFormatter(ANSIFormatter):
     """A log formatter that makes the loglevel an emoji.
     """
+
     def format(self, record):
         record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
         return super(ANSIEmojiLoglevelFormatter, self).format(record)
@@ -104,6 +108,7 @@ class ANSIEmojiLoglevelFormatter(ANSIFormatter):
 class ANSIStrippingFormatter(ANSIFormatter):
     """A log formatter that strips ANSI.
     """
+
     def format(self, record):
         msg = super(ANSIStrippingFormatter, self).format(record)
         return ansi_escape.sub('', msg)
@@ -115,6 +120,7 @@ class Configuration(object):
     This class never raises IndexError, instead it will return None if a
     section or option does not yet exist.
     """
+
     def __contains__(self, key):
         return self._config.__contains__(key)
 
@@ -154,8 +160,8 @@ class Configuration(object):
 
     def __delitem__(self, key):
         if key in self.__dict__ and key[0] != '_':
-            del(self.__dict__[key])
-        del(self._config[key])
+            del self.__dict__[key]
+        del self._config[key]
 
 
 class ConfigurationOption(Configuration):
@@ -197,6 +203,7 @@ def handle_store_boolean(self, *args, **kwargs):
 class SubparserWrapper(object):
     """Wrap subparsers so we can populate the normal and the shadow parser.
     """
+
     def __init__(self, cli, submodule, subparser):
         self.cli = cli
         self.submodule = submodule
@@ -215,7 +222,7 @@ class SubparserWrapper(object):
         if kwargs.get('add_dest', True):
             kwargs['dest'] = self.submodule + '_' + self.cli.get_argument_name(*args, **kwargs)
         if 'add_dest' in kwargs:
-            del(kwargs['add_dest'])
+            del kwargs['add_dest']
 
         if 'action' in kwargs and kwargs['action'] == 'store_boolean':
             return handle_store_boolean(self, *args, **kwargs)
@@ -224,7 +231,7 @@ class SubparserWrapper(object):
         self.subparser.add_argument(*args, **kwargs)
 
         if 'default' in kwargs:
-            del(kwargs['default'])
+            del kwargs['default']
         if 'action' in kwargs and kwargs['action'] == 'store_false':
             kwargs['action'] == 'store_true'
         self.cli.subcommands_default[self.submodule].add_argument(*args, **kwargs)
@@ -234,6 +241,7 @@ class SubparserWrapper(object):
 class MILC(object):
     """MILC - An Opinionated Batteries Included Framework
     """
+
     def __init__(self):
         """Initialize the MILC object.
         """
@@ -286,7 +294,7 @@ class MILC(object):
         """
         kwargs = {
             'fromfile_prefix_chars': '@',
-            'conflict_handler': 'resolve'
+            'conflict_handler': 'resolve',
         }
 
         self.acquire_lock()
@@ -314,7 +322,7 @@ class MILC(object):
         if kwargs.get('add_dest', True):
             kwargs['dest'] = 'general_' + self.get_argument_name(*args, **kwargs)
         if 'add_dest' in kwargs:
-            del(kwargs['add_dest'])
+            del kwargs['add_dest']
 
         if 'action' in kwargs and kwargs['action'] == 'store_boolean':
             return handle_store_boolean(self, *args, **kwargs)
@@ -324,7 +332,7 @@ class MILC(object):
 
         # Populate the shadow parser
         if 'default' in kwargs:
-            del(kwargs['default'])
+            del kwargs['default']
         if 'action' in kwargs and kwargs['action'] == 'store_false':
             kwargs['action'] == 'store_true'
         self._arg_defaults.add_argument(*args, **kwargs)
@@ -581,6 +589,7 @@ class MILC(object):
     def subcommand(self, description, **kwargs):
         """Decorator to register a subcommand.
         """
+
         def subcommand_function(handler):
             return self.add_subcommand(handler, description, **kwargs)
 
@@ -654,50 +663,49 @@ class MILC(object):
 cli = MILC()
 
 if __name__ == '__main__':
-        @cli.argument('-c', '--comma', help='comma in output', default=True, action='store_boolean')
-        @cli.entrypoint('My useful CLI tool with subcommands.')
-        def main(cli):
-            comma = ',' if cli.config.general.comma else ''
-            cli.log.info('{bg_green}{fg_red}Hello%s World!', comma)
 
-        @cli.argument('-n', '--name', help='Name to greet', default='World')
-        @cli.subcommand('Description of hello subcommand here.')
-        def hello(cli):
-            comma = ',' if cli.config.general.comma else ''
-            cli.log.info('{fg_blue}Hello%s %s!', comma, cli.config.hello.name)
+    @cli.argument('-c', '--comma', help='comma in output', default=True, action='store_boolean')
+    @cli.entrypoint('My useful CLI tool with subcommands.')
+    def main(cli):
+        comma = ',' if cli.config.general.comma else ''
+        cli.log.info('{bg_green}{fg_red}Hello%s World!', comma)
 
-        def goodbye(cli):
-            comma = ',' if cli.config.general.comma else ''
-            cli.log.info('{bg_red}Goodbye%s %s!', comma, cli.config.goodbye.name)
+    @cli.argument('-n', '--name', help='Name to greet', default='World')
+    @cli.subcommand('Description of hello subcommand here.')
+    def hello(cli):
+        comma = ',' if cli.config.general.comma else ''
+        cli.log.info('{fg_blue}Hello%s %s!', comma, cli.config.hello.name)
 
-        @cli.argument('-n', '--name', help='Name to greet', default='World')
-        @cli.subcommand('Think a bit before greeting the user.')
-        def thinking(cli):
-            comma = ',' if cli.config.general.comma else ''
-            spinner = cli.spinner(text='Just a moment...', spinner='earth')
-            spinner.start()
+    def goodbye(cli):
+        comma = ',' if cli.config.general.comma else ''
+        cli.log.info('{bg_red}Goodbye%s %s!', comma, cli.config.goodbye.name)
+
+    @cli.argument('-n', '--name', help='Name to greet', default='World')
+    @cli.subcommand('Think a bit before greeting the user.')
+    def thinking(cli):
+        comma = ',' if cli.config.general.comma else ''
+        spinner = cli.spinner(text='Just a moment...', spinner='earth')
+        spinner.start()
+        sleep(2)
+        spinner.stop()
+
+        with cli.spinner(text='Almost there!', spinner='moon'):
             sleep(2)
-            spinner.stop()
 
-            with cli.spinner(text='Almost there!', spinner='moon'):
-                sleep(2)
+        cli.log.info('{fg_cyan}Hello%s %s!', comma, cli.config.thinking.name)
 
-            cli.log.info('{fg_cyan}Hello%s %s!', comma, cli.config.thinking.name)
+    @cli.subcommand('Show off our ANSI colors.')
+    def pride(cli):
+        cli.echo('{bg_red}                    ')
+        cli.echo('{bg_lightred_ex}                    ')
+        cli.echo('{bg_lightyellow_ex}                    ')
+        cli.echo('{bg_green}                    ')
+        cli.echo('{bg_blue}                    ')
+        cli.echo('{bg_magenta}                    ')
 
-        @cli.subcommand('Show off our ANSI colors.')
-        def pride(cli):
-            cli.echo('{bg_red}                    ')
-            cli.echo('{bg_lightred_ex}                    ')
-            cli.echo('{bg_lightyellow_ex}                    ')
-            cli.echo('{bg_green}                    ')
-            cli.echo('{bg_blue}                    ')
-            cli.echo('{bg_magenta}                    ')
+    # You can register subcommands using decorators as seen above, or using functions like like this:
+    cli.add_subcommand(goodbye, 'This will show up in --help output.')
+    cli.goodbye.add_argument('-n', '--name', help='Name to bid farewell to', default='World')
 
-        if __name__ == '__main__':
-            # You can register subcommands using decorators as seen above,
-            # or using functions like like this:
-            cli.add_subcommand(goodbye, 'This will show up in --help output.')
-            cli.goodbye.add_argument('-n', '--name', help='Name to bid farewell to', default='World')
-
-            cli()  # Automatically picks between main(), hello() and goodbye()
-            print(sorted(ansi_colors.keys()))
+    cli()  # Automatically picks between main(), hello() and goodbye()
+    print(sorted(ansi_colors.keys()))
