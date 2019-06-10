@@ -4,13 +4,15 @@
 extern keymap_config_t keymap_config;
 
 enum launchpad_layers {
+    _NAVI,
     _REEDER,
     _MEDIA,
     _KEYPAD
 };
 
 enum launchpad_keycodes {
-    TG_REDR = KEYMAP_SAFE_RANGE,
+    TG_NAVI = KEYMAP_SAFE_RANGE,
+    TG_REDR,
     TG_MEDA,
     TG_KYPD
 };
@@ -22,6 +24,24 @@ enum launchpad_dances {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+/* Navigation
+ * ,-------------.
+ * | PTab | NTab |
+ * |------+------|
+ * | Left |  Up  |
+ * |------+------|
+ * | Rght |  Dn  |
+ * |------+------|
+ * | PgUp | PgDn |
+ * `-------------'
+ */
+[_NAVI] = LAYOUT( \
+    S(G(KC_LBRC)), S(G(KC_RBRC)), \
+    KC_P, KC_K, \
+    KC_N, KC_J, \
+    TD(TD_LGHT), TD(TD_MAGC) \
+),
 
 /* Reeder
  * ,-------------.
@@ -99,17 +119,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------.
  * | Make | Rset |
  * |------+------|
- * | Redr | Meda |
+ * | Navi | Redr |
  * |------+------|
- * | Kypd | XXXX |
+ * | Meda | Kypd |
  * |------+------|
  * | Lght | XXXX |
  * `-------------'
  */
 [_MAGIC] = LAYOUT( \
     KC_MAKE, RESET, \
-    TG_REDR, TG_MEDA, \
-    TG_KYPD, XXXXXXX, \
+    TG_NAVI, TG_REDR, \
+    TG_MEDA, TG_KYPD, \
     TG(_LIGHT), XXXXXXX \
 )
 
@@ -121,6 +141,11 @@ void matrix_init_user(void) {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case TG_NAVI:
+            if (!record->event.pressed) {
+                layer_move(_NAVI);
+            }
+            break;
         case TG_REDR:
             if (!record->event.pressed) {
                 layer_move(_REEDER);
@@ -148,6 +173,9 @@ void dance_light_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
         layer_on(_LIGHT);
     } else {
         switch (biton32(layer_state)) {
+            case _NAVI:
+                register_code(KC_PGDN);
+                break;
             case _REEDER:
                 register_code(KC_L);
                 break;
@@ -164,6 +192,9 @@ void dance_light_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
     } else {
         switch (biton32(layer_state)) {
+            case _NAVI:
+                unregister_code(KC_PGDN);
+                break;
             case _REEDER:
                 unregister_code(KC_L);
                 break;
@@ -182,6 +213,9 @@ void dance_magic_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
         layer_on(_MAGIC);
     } else {
         switch (biton32(layer_state)) {
+            case _NAVI:
+                register_code(KC_PGUP);
+                break;
             case _REEDER:
                 register_code(KC_S);
                 break;
@@ -198,6 +232,9 @@ void dance_magic_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
     } else {
         switch (biton32(layer_state)) {
+            case _NAVI:
+                register_code(KC_PGUP);
+                break;
             case _REEDER:
                 unregister_code(KC_S);
                 break;
