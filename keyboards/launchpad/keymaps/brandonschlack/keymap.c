@@ -139,6 +139,12 @@ void matrix_init_user(void) {
 
 }
 
+// Runs once after keyboard initializes
+void keyboard_post_init_user(void) {
+    rgblight_sethsv(HSV_LSR_PURPLE);
+};
+
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_NAVI:
@@ -163,6 +169,27 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _REEDER:
+        rgblight_sethsv_noeeprom(HSV_LSR_PINK);
+        break;
+    case _MEDIA:
+        rgblight_sethsv_noeeprom(HSV_LSR_BLUE);
+        break;
+    case _KEYPAD:
+        rgblight_sethsv_noeeprom(HSV_LSR_CYAN);
+        break;
+    case _MAGIC:
+        rgblight_sethsv_noeeprom(HSV_GREEN);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_sethsv_noeeprom(HSV_LSR_PURPLE);
+        break;
+    }
+  return state;
 }
 
 /**
