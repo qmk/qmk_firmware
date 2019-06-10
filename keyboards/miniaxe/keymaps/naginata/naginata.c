@@ -353,7 +353,7 @@ void naginata_type(void) {
         for (int j = 0; j < ng_chrcount; j++) {
           for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
             memcpy_P(&bngmap, &ngmap[i], sizeof bngmap);
-            if (ng_key[ninputs[i] - NG_Q] == bngmap.key) {
+            if (ng_key[ninputs[j] - NG_Q] == bngmap.key) {
               send_string(bngmap.kana);
               break;
             }
