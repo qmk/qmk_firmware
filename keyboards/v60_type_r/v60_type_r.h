@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 benlyall, MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef V60_TYPE_R_H
-#define V60_TYPE_R_H
+#pragma once
 
 #include "quantum.h"
 
@@ -106,4 +105,3 @@ enum my_keycodes {
       { k40, k41, k42, k43,   k44, k45,   k46, k47 } \
   }
 
-#endif
