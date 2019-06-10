@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-//Define a clearer 'transparent' key code
-#define _______ KC_TRNS
-
 enum keymap_layout {
     VANILLA = 0,
     FUNC,
@@ -60,12 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,          _______,          _______,          _______,          _______, _______, _______, RGB_SAD, RGB_HUD, RGB_SAI  \
   ),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(LFK_CLEAR),                               // FN0 - reset layers
-    ACTION_FUNCTION(LFK_ESC_TILDE),                           // FN1 - esc+shift = ~, else escape
-  };
-
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

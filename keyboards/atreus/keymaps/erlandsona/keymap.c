@@ -11,11 +11,6 @@
 #define NUMS 1
 #define MOUS 2
 
-// Some quick aliases, just to make it look pretty
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT( /* Qwerty */
     KC_Q       , KC_W   , KC_E   , KC_R   ,  KC_T   ,                 KC_Y  ,  KC_U   , KC_I   , KC_O   , KC_P          ,

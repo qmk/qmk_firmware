@@ -19,7 +19,6 @@ combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
 This will send "Escape" if you hit the A and B keys.
 
 !> This method only supports [basic keycodes](keycodes_basic.md). See the examples for more control.
-!> You cannot reuse (share) keys in combos. Each key should only belong to a single combo.  
 
 ## Examples
 
@@ -29,7 +28,8 @@ If you want to add a list, then you'd use something like this:
 enum combos {
   AB_ESC,
   JK_TAB
-}
+};
+
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 
@@ -45,7 +45,7 @@ For a more complicated implementation, you can use the `process_combo_event` fun
 enum combo_events {
   ZC_COPY,
   XV_PASTE
-  };
+};
 
 const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};

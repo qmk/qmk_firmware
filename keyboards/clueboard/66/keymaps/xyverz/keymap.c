@@ -1,7 +1,7 @@
 // Xyverz' keymap.
 // It's based on the default keymap, but Dvorak!
 
-#include "66.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -24,8 +24,6 @@ enum planck_keycodes {
 };
 
 // Useful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define FN_CAPS     LT(_FL, KC_CAPS)            // Tap for Caps Lock, Hold for Function Layer
 

@@ -12,10 +12,6 @@
 #define _FL   1
 #define _RGBL 2
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // See base_layer.png and rgb_layer.png for layout reference

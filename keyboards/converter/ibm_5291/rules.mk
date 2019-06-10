@@ -39,7 +39,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = halfkay
 
@@ -62,11 +62,9 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 API_SYSEX_ENABLE = no
 SPLIT_KEYBOARD = no
 WAIT_FOR_USB = yes
-
+LAYOUTS_HAS_RGB = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-LAYOUTS_HAS_RGB = NO
-
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
+
 SRC = matrix.c

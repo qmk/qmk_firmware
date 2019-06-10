@@ -29,4 +29,4 @@ Flashing on Windows can be accomplished by downloading [HIDBootFlash](http://vus
 
 To put the PS2AVRGB board into reset, hold down the left control key while plugging in the keyboard. 
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

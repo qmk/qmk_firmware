@@ -76,10 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,               KC_TRNS,          KC_TRNS,                   KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,   KC_NO),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 

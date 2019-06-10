@@ -23,12 +23,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5  // 5 is default
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+#define DEBOUNCE 5  // 5 is default
 
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "meira.h"
+#include QMK_KEYBOARD_H
 #include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -160,10 +160,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
                 _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
         )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 // Setting ADJUST layer RGB back to default

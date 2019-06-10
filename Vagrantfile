@@ -2,8 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  # VMware/Virtualbox 64 bit
-  config.vm.box = "phusion/ubuntu-14.04-amd64"
+  # define a name instead of just 'default'
+  config.vm.define "qmk_firmware"
+
+  # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
+  config.vm.box = "generic/debian9"
+  
+  config.vm.synced_folder '.', '/vagrant'
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
@@ -15,13 +20,16 @@ Vagrant.configure(2) do |config|
     # your Teensy via the VM rather than your host OS
     #vb.customize ['modifyvm', :id, '--usb', 'on']
     #vb.customize ['usbfilter', 'add', '0',
-    #    	  '--target', :id,
-    #    	  '--name', 'teensy',
-    #    	  '--vendorid', '0x16c0',
-    #    	  '--productid','0x0478'
-    #		 ]
+    #         '--target', :id,
+    #         '--name', 'teensy',
+    #         '--vendorid', '0x16c0',
+    #         '--productid','0x0478'
+    #        ]
     # Customize the amount of memory on the VM:
     vb.memory = "512"
+    # Uncomment the below lines if you have time sync
+    # issues with make and incremental builds
+    #vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 1000 ]
   end
 
   # This section allows you to customize the VMware VM
@@ -49,26 +57,25 @@ Vagrant.configure(2) do |config|
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.image = "jesselang/debian-vagrant:stretch"
     docker.has_ssh = true
   end
 
   # This script ensures the required packages for AVR programming are installed
   # It also ensures the system always gets the latest updates when powered on
   # If this causes issues you can run a 'vagrant destroy' and then
-  # add a # before ,args: and run 'vagrant up' to get a working
+  # add a # before ,run: (or change "always" to "once") and run 'vagrant up' to get a working
   # non-updated box and then attempt to troubleshoot or open a Github issue
-
-  config.vm.provision "shell", run: "always", path: "./util/qmk_install.sh", args: "-update"
+  config.vm.provision "shell", inline: "/vagrant/util/qmk_install.sh", run: "always"
 
   config.vm.post_up_message = <<-EOT
 
   Log into the VM using 'vagrant ssh'. QMK directory synchronized with host is
   located at /vagrant
-  To compile the .hex files use make command inside this directory.
+  To compile the .hex files use make command inside this directory, e.g.
+     cd /vagrant
+     make <keyboard>:default
 
-  QMK's make format recently changed to use folder locations and colons:
-     make project_folder:keymap[:target]
   Examples:
      make planck/rev4:default:dfu
      make planck:default

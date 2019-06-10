@@ -42,17 +42,12 @@
 #define DIODE_DIRECTION COL2ROW
 
 // Set 0 if debouncing isn't needed
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 #define LOCKING_SUPPORT_ENABLE
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
-
-// key combination for command
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options
@@ -91,8 +86,18 @@
 // disable backlight after timeout in minutes, 0 = no timeout
 #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default brightness
+#define RGB_BACKLIGHT_BRIGHTNESS 255
+
 // the default effect (RGB test)
 #define RGB_BACKLIGHT_EFFECT 255
+
+// the default effect speed (0-3)
+#define RGB_BACKLIGHT_EFFECT_SPEED 0
+
+// the default color1 and color2
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
@@ -104,6 +109,11 @@
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0101000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111110000000011
+
+#define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
@@ -126,4 +136,3 @@
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 666
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 358
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
-

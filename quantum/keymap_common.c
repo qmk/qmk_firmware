@@ -29,10 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "quantum.h"
 
-#ifdef SPLIT_KEYBOARD
-    #include "split_flags.h"
-#endif
-
 #ifdef MIDI_ENABLE
 	#include "process_midi.h"
 #endif
@@ -120,14 +116,14 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX: ;
             // OSM(mod) - One-shot mod
-            mod = keycode & 0xFF;
+            mod = mod_config(keycode & 0xFF);
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            mod = keycode & 0xF;
+            mod = mod_config(keycode & 0xF);
             action_layer = (keycode >> 4) & 0xF;
             action.code = ACTION_LAYER_MODS(action_layer, mod);
             break;
@@ -138,39 +134,21 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     #ifdef BACKLIGHT_ENABLE
         case BL_ON:
             action.code = ACTION_BACKLIGHT_ON();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
         case BL_OFF:
             action.code = ACTION_BACKLIGHT_OFF();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
         case BL_DEC:
             action.code = ACTION_BACKLIGHT_DECREASE();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
         case BL_INC:
             action.code = ACTION_BACKLIGHT_INCREASE();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
         case BL_TOGG:
             action.code = ACTION_BACKLIGHT_TOGGLE();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
         case BL_STEP:
             action.code = ACTION_BACKLIGHT_STEP();
-            #ifdef SPLIT_KEYBOARD
-                BACKLIT_DIRTY = true;
-            #endif
             break;
     #endif
     #ifdef SWAP_HANDS_ENABLE

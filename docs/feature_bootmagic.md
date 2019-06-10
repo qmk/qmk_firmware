@@ -127,7 +127,9 @@ Additionally, you may want to specify which key to use.  This is especially usef
 
 By default, these are set to 0 and 0, which is usually the "ESC" key on a majority of keyboards.
 
-And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key. 
+And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
+
+!> Using bootmagic lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
 
 ## Advanced Bootmagic Lite
 
@@ -138,7 +140,7 @@ To replace the function, all you need to do is add something like this to your c
 ```c
 void bootmagic_lite(void) {
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY * 2);
+    wait_ms(DEBOUNCE * 2);
     matrix_scan();
 
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {

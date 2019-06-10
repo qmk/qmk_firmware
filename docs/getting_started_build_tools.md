@@ -4,7 +4,9 @@ This page describes setting up the build environment for QMK. These instructions
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
-Note: If it is your first time here, Check out the "Complete Newbs guide" instead
+**Note:** If this is your first time here, check out the [Complete Newbs Guide](newbs.md) page.
+
+Before continuing, double check that your submodules (third-party libraries) are up to date by running `make git-submodule`.
 
 ## Linux
 
@@ -41,6 +43,10 @@ Debian / Ubuntu example:
 Fedora / Red Hat example:
 
     sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+    
+Arch / Manjaro example:
+
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
 
 ## Nix
 
@@ -56,14 +62,14 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
     brew update
-    brew install avr-gcc@7
-    brew link --force avr-gcc@7
+    brew install avr-gcc@8
+    brew link --force avr-gcc@8
     brew install dfu-programmer
     brew install dfu-util
     brew install gcc-arm-none-eabi
     brew install avrdude
 
-This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@7` can take over 20 minutes and exhibit high CPU usage.
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@8` can take over 20 minutes and exhibit high CPU usage.
 
 ## Windows with msys2 (recommended)
 
@@ -123,12 +129,12 @@ If you have trouble and want to ask for help, it is useful to generate a *Win_Ch
 
 ## Docker
 
-If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
+If this is a bit complex for you, Docker might be the turnkey solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
 ```bash
-util/docker_build.sh keyboard:keymap 
+util/docker_build.sh keyboard:keymap
 # For example: util/docker_build.sh ergodox_ez:steno
 ```
-This will compile the targeted keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
+This will compile the desired keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
 
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 ```bash
@@ -141,7 +147,7 @@ There is also support for building _and_ flashing the keyboard straight from Doc
 util/docker_build.sh keyboard:keymap:target
 # For example: util/docker_build.sh planck/rev6:default:dfu-util
 ```
-If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use QMK Toolbox instead.
+If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use [QMK Toolbox](https://github.com/qmk/qmk_toolbox) instead.
 
 !> Docker for Windows requires [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) to be enabled. This means that it cannot work on versions of Windows which don't have Hyper-V, such as Windows 7, Windows 8 and **Windows 10 Home**.
 
