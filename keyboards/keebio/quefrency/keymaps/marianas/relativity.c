@@ -384,7 +384,7 @@ bool processSmartMacroTap(uint16_t kc)
 bool shifted = false;
 bool isShifted()
 {
-  return shifted;
+  return  ( get_mods() | get_weak_mods() ) & MOD_MASK_SHIFT;
 }
 
 void setShifted(bool val)
