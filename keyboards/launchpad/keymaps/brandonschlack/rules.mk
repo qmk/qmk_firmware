@@ -5,4 +5,5 @@ BOOTLOADER = atmel-dfu
 FLASH_BOOTLOADER = yes
 # Build Options
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
+MOUSEKEY_ENABLE = yes        # Use mouse keys for scrolling.
 TAP_DANCE_ENABLE = yes       # Use tap dance

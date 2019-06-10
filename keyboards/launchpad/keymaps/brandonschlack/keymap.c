@@ -29,17 +29,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------.
  * | PTab | NTab |
  * |------+------|
- * | Left |  Up  |
+ * | SclL | SclU |
  * |------+------|
- * | Rght |  Dn  |
+ * | SclR | SclD |
  * |------+------|
- * | PgUp | PgDn |
+ * |LstTab|ClsTab|
  * `-------------'
  */
 [_NAVI] = LAYOUT( \
     S(G(KC_LBRC)), S(G(KC_RBRC)), \
-    KC_P, KC_K, \
-    KC_N, KC_J, \
+    MC_WH_L, MC_WH_U, \
+    MC_WH_R, MC_WH_D, \
     TD(TD_LGHT), TD(TD_MAGC) \
 ),
 
@@ -201,7 +201,7 @@ void dance_light_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
     } else {
         switch (biton32(layer_state)) {
             case _NAVI:
-                register_code(KC_PGDN);
+                register_code16(S(G(KC_T)));
                 break;
             case _REEDER:
                 register_code(KC_L);
@@ -220,7 +220,7 @@ void dance_light_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
     } else {
         switch (biton32(layer_state)) {
             case _NAVI:
-                unregister_code(KC_PGDN);
+                unregister_code16(S(G(KC_T)));
                 break;
             case _REEDER:
                 unregister_code(KC_L);
@@ -241,7 +241,7 @@ void dance_magic_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
     } else {
         switch (biton32(layer_state)) {
             case _NAVI:
-                register_code(KC_PGUP);
+                register_code16(G(KC_W));
                 break;
             case _REEDER:
                 register_code(KC_S);
@@ -260,7 +260,7 @@ void dance_magic_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
     } else {
         switch (biton32(layer_state)) {
             case _NAVI:
-                register_code(KC_PGUP);
+                unregister_code16(G(KC_W));
                 break;
             case _REEDER:
                 unregister_code(KC_S);

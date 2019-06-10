@@ -46,6 +46,11 @@ enum custom_keycodes {
 #define MC_MSSN   LCTL(KC_UP)          // Mission Control
 #define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
+// Reverse scrolling for using with macOS Natural Scrolling.
+#define MC_WH_U   KC_WH_D
+#define MC_WH_D   KC_WH_U
+#define MC_WH_L   KC_WH_R
+#define MC_WH_R   KC_WH_L
 // Windows
 #define WN_LOCK   LGUI(KC_L)           // Lock Computer
 #define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)
