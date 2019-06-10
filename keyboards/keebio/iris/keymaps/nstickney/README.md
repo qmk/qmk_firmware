@@ -2,6 +2,8 @@
  
  > Familiar layout for users who regularly switch between Iris and more standard layouts.
 
+[![Keymap](https://i.imgur.com/hKs7fYr.jpg)](http://www.keyboard-layout-editor.com/#/gists/aa6093ea2eb9c750ab941b92adae7036)
+
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
 ## Install
@@ -15,11 +17,11 @@ $ make keebio/iris/rev2:nstickney:avrdude
 ## Usage
 
 0. QWERTY `BASE` layer.
-	* `/`, `\\`, ` `, `[ENTER]`, `-`, and `=` on the thumb clusters.
+	* `/`, `\`, ` `, `[ENTER]`, `-`, and `=` on the thumb clusters.
 	* `CAPSLOCK` replaced by `ESC`; hold it down for `CTRL`. `'` can also be held for `CTRL`.
-	* [Space-Cadet Shift](/docs/docs/feature_space_cadet_shift.md) is enabled, so the `SHIFT` keys send `(` and `)` when tapped.
+	* [Space-Cadet Shift](https://docs.qmk.fm/#/feature_space_cadet_shift) is enabled, so the `SHIFT` keys send `(` and `)` when tapped.
 	* Hold down `/` or `=` for `ALT`.
-	* Hold down `\\` or `-` to access the functions layer.
+	* Hold down `\` or `-` to access the functions layer.
 	* Upper-center thumb keys are `GUI` and `MENU`.
 		* Tapping `GUI` 2, 3, or 4 times will toggle `NUMLOCK`, `CAPSLOCK`, or `SCROLLLOCK`, respectively.
 		* Tapping `MENU` 2, 3, or 4 times will toggle the `NUMP`, `SYMB`, and `SYSH` layers, respectively.
@@ -39,7 +41,6 @@ $ make keebio/iris/rev2:nstickney:avrdude
 ## Contribute
 
 If you are using this layout and think you've found a better way to do something, I'd appreciate an [issue](https://github.com/nstickney/qmk_firmware/issues), or better yet a [pull request](https://github.com/nstickney/qmk_firmware/pulls).
-
 
 ## License
 
