@@ -19,6 +19,10 @@ On for any keypress as long as the key is pressed
 **Carriage Mode:**  
 Turns on when enter is pressed, turns off when any next key is pressed
 
+To set the behavior of an LED, and save it to eeprom, hold the
+raise/lower keys together to access the adjust layer, then use
+the keys indicated below to set the behaviors
+
 * q = Toggle Red LED state, deactivates any other modes
 * w = Toggle Green LED state, deactivates any other modes
 * e = Set RED LED to modifier mode

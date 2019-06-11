@@ -7,16 +7,23 @@ ctrl key in the bottom left corner. It includes an adjust layer (6)
 accessible by holding the lower and raise modifiers (MO3 and MO4) together.
 The adjustment layer is used to set the behavior of the two LEDs:
 
-* Modifier Mode: Activates when any modifier (shift, alt, os, MO) key is held
+**Modifier Mode:**   
+Activates when any modifier (shift, alt, os, MO) key is held
 down.  LED turns off when key is release
 
-* Blinkinlights Mode: Random chance of state change on each keystroke.
+**Blinkinlights Mode:**  
+Random chance of state change on each keystroke.
 
-* Keypress Mode: On for any keypress as long as the key is pressed
+**Keypress Mode:**  
+On for any keypress as long as the key is pressed
 
-* Carriage Mode: Turns on when enter is pressed, turns off when any next key is pressed
+**Carriage Mode:**  
+Turns on when enter is pressed, turns off when any next key is pressed
 
-The top row in the adjust layer sets the modes of the two LEDs:
+To set the behavior of an LED, and save it to eeprom, hold the
+raise/lower keys together to access the adjust layer, then use
+the keys indicated below to set the behaviors
+
 * q = Toggle Red LED state, deactivates any other modes
 * w = Toggle Green LED state, deactivates any other modes
 * e = Set RED LED to modifier mode
@@ -27,4 +34,3 @@ The top row in the adjust layer sets the modes of the two LEDs:
 * i = set GREEN LED to Keypress mode
 * o = set RED LED to Carriage mode
 * p = set GREEN LED to Carriage mode
-
