@@ -108,10 +108,11 @@ void oled_task_user(void) {
 |`OLED_DISPLAY_CUSTOM`  |*Not defined*  |Changes the display defines for use with custom displays.<br />Requires user to implement the below defines. |
 |`OLED_DISPLAY_WIDTH`   |`128`          |The width of the OLED display.                                   |
 |`OLED_DISPLAY_HEIGHT`  |`32`           |The height of the OLED display.                                  |
-|`OLED_MATRIX_SIZE`     |`512`          |The local buffer size to allocate.<br />`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`|
-|`OLED_BLOCK_TYPE`      |`uint16_t`     |The unsigned integer type to use for dirty rendering.|
-|`OLED_BLOCK_COUNT`     |`16`           |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`|
-|`OLED_BLOCK_SIZE`      |`32`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`|
+|`OLED_MATRIX_SIZE`     |`512`          |The local buffer size to allocate.<br />`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`. |
+|`OLED_BLOCK_TYPE`      |`uint16_t`     |The unsigned integer type to use for dirty rendering. |
+|`OLED_BLOCK_COUNT`     |`16`           |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`. |
+|`OLED_BLOCK_SIZE`      |`32`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`. |
+|`OLED_COM_PINS`        |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br />Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`. |
 |`OLED_SOURCE_MAP`      |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
 |`OLED_TARGET_MAP`      |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
 

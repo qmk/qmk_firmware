@@ -1,3 +1,8 @@
+/* Delay between tap_code register and unregister to fix flaky media keys. */
+#undef TAP_CODE_DELAY
+
+#define TAP_CODE_DELAY 10
+
 /* Turn off RGB lighting when the host goes to sleep. */
 #define RGBLIGHT_SLEEP
 
