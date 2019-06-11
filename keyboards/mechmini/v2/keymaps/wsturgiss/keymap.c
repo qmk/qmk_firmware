@@ -10,9 +10,7 @@ enum {
   TD_SEMI_QUOT = 0,
   TD_COMM_MINUS = 1,
   TD_DOT_EQUAL = 2,
-  TD_SLASH_BACKSLASH = 3,
-  TBL_FLP = SAFE_RANGE,
-  RST
+  TD_SLASH_BACKSLASH = 3
 };
 
 //Tap Dance Definitions
@@ -52,23 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-//Macros
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case TBL_FLP:
-      if (record->event.pressed) {
-        // when keycode tableflip is pressed - currently using leader for this instead
-        set_unicode_input_mode(UC_OSX);
-        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-      } else {
-        // when keycode tableflip is released
-      }
-      break;
-  }
-  return true;
-};
-
 //Leader maps
 
 
@@ -83,19 +64,23 @@ void matrix_scan_user(void) {
       // Anything you can do in a macro.
       SEND_STRING("QMK is awesome.");
     }
+    //tableflip (LEADER - TF)
     SEQ_TWO_KEYS(KC_T, KC_F) {
         set_unicode_input_mode(UC_OSX);
         send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
     }
+    //screencap (LEADER - SC)
+    SEQ_TWO_KEYS(KC_S, KC_C) {
+      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_4))));
+    }
+    //screencap (LEADER - TM)
+    SEQ_TWO_KEYS(KC_T, KC_M) {
+        set_unicode_input_mode(UC_OSX);
+        send_unicode_hex_string("2122");
+    }
     /*
     SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
       SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
-    }
-    SEQ_TWO_KEYS(KC_A, KC_S) {
-      register_code(KC_LGUI);
-      register_code(KC_S);
-      unregister_code(KC_S);
-      unregister_code(KC_LGUI);
     }
     */
   }
