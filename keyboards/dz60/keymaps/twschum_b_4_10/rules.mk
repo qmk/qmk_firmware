@@ -12,3 +12,5 @@ BACKLIGHT_ENABLE = no  # Enable per-key LEDs
 #AUDIO_ENABLE = no
 #RGBLIGHT_ENABLE = yes
 KEY_LOCK_ENABLE = yes  # Enables use of KC_LOCK
+
+USER_NAME := twschum
