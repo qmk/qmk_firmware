@@ -1,8 +1,9 @@
-# The default keymap for plaid
+# Brickbots keymap for plaid
 Original copyright 2019 Takuya Urakawa (dm9records.com)
-LED Support added  by Richard Sutherland (rich@brickbots.com)
+LED Support added by Richard Sutherland (rich@brickbots.com)
 
-This layout is based on the Planck layout, and includes an adjust layer (6)
+This layout is based on the Planck layout, with esc/tab swapped and an extra
+ctrl key in the bottom left corner. It includes an adjust layer (6)
 accessible by holding the lower and raise modifiers (MO3 and MO4) together.
 The adjustment layer is used to set the behavior of the two LEDs:
 
