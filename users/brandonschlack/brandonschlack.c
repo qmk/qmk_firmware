@@ -18,7 +18,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_mods(); clear_oneshot_mods();
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
 
-                #if !defined(FLASH_BOOTLOADER) || !defined(IS_MACROPAD)
+                #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT )
                 #endif
                 { //
@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     SEND_STRING(" -j8 --output-sync");
                 }
                 SEND_STRING(SS_TAP(X_ENTER));
-                #if !defined(FLASH_BOOTLOADER) || !defined(IS_MACROPAD)
+                #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT )
                 #endif
                 {
