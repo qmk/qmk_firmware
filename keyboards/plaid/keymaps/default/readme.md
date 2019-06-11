@@ -6,18 +6,17 @@ This layout is based on the Planck layout, and includes an adjust layer (6)
 accessible by holding the lower and raise modifiers (MO3 and MO4) together.
 The adjustment layer is used to set the behavior of the two LEDs:
 
-Modifier Mode: 
-
+**Modifier Mode:**   
 Activates when any modifier (shift, alt, os, MO) key is held
 down.  LED turns off when key is release
 
-Blinkinlights Mode:
+**Blinkinlights Mode:**  
 Random chance of state change on each keystroke.
 
-Keypress Mode:
+**Keypress Mode:**  
 On for any keypress as long as the key is pressed
 
-Carriage Mode:
+**Carriage Mode:**  
 Turns on when enter is pressed, turns off when any next key is pressed
 
 * q = Toggle Red LED state, deactivates any other modes
