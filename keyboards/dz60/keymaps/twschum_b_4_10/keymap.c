@@ -48,7 +48,7 @@ enum DZ60_B_4_10_Layers {
     L_Fn,
     L_Nav,
     L_Num,
-    L_RGB,
+    L_Cfg,
     L_None
 };
 
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-              MO(1),    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
+            MO(L_Fn),  KC_LALT,    KC_LGUI,         KC_SPC,           TT(L_Nav),     MO(L_Fn),     TG(L_Num),TT(L_Cfg), KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
@@ -170,27 +170,6 @@ static void send_n_keys(int n, ...) {
     va_end(keys);
 }
 #define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
-
-#define  MAXBRIGHT    180
-#define  OFF          0,    0,    0
-#define  WHITE        0,    0,    MAXBRIGHT
-#define  RED          0,    255,  MAXBRIGHT
-#define  CORAL        16,   176,  MAXBRIGHT
-#define  ORANGE       39,   255,  MAXBRIGHT
-#define  GOLDENROD    43,   218,  218
-#define  GOLD         51,   255,  MAXBRIGHT
-#define  YELLOW       60,   255,  MAXBRIGHT
-#define  CHARTREUSE   90,   255,  MAXBRIGHT
-#define  GREEN        120,  255,  MAXBRIGHT
-#define  SPRINGGREEN  150,  255,  MAXBRIGHT
-#define  TURQUOISE    174,  90,   112
-#define  TEAL         180,  255,  MAXBRIGHT
-#define  CYAN         180,  255,  MAXBRIGHT
-#define  AZURE        186,  102,  MAXBRIGHT
-#define  BLUE         240,  255,  MAXBRIGHT
-#define  PURPLE       270,  255,  MAXBRIGHT
-#define  MAGENTA      300,  255,  MAXBRIGHT
-#define  PINK         330,  128,  MAXBRIGHT
 
 static bool rgb_layers_enabled = true;
 static bool rgb_L0_enabled = false;
@@ -351,6 +330,8 @@ void suspend_wakeup_init_user(void) {
 }
 
 
+// add to quantum/rgblight_list.h
+#define  HSV_OFF          0,    0,    0
 /* Use RGB underglow to indicate layer
  * https://docs.qmk.fm/reference/customizing-functionality
  */
@@ -361,26 +342,26 @@ uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case L_Base:
         if (rgb_L0_enabled) {
-            rgblight_sethsv_noeeprom(PINK);
+            rgblight_sethsv_noeeprom(HSV_WHITE);
         }
         else {
-            rgblight_sethsv_noeeprom(OFF);
+            rgblight_sethsv_noeeprom(HSV_OFF);
         }
         break;
     case L_Fn:
-        rgblight_sethsv_noeeprom(GREEN);
+        rgblight_sethsv_noeeprom(HSV_GREEN);
         break;
     case L_Nav:
-        rgblight_sethsv_noeeprom(AZURE);
+        rgblight_sethsv_noeeprom(HSV_AZURE);
         break;
     case L_Num:
-        rgblight_sethsv_noeeprom(GOLD);
+        rgblight_sethsv_noeeprom(HSV_GOLD);
         break;
-    case L_RGB:
-        rgblight_sethsv_noeeprom(RED);
+    case L_Cfg:
+        rgblight_sethsv_noeeprom(HSV_RED);
         break;
     case L_None:
-        rgblight_sethsv_noeeprom(WHITE);
+        rgblight_sethsv_noeeprom(HSV_WHITE);
         break;
     }
     return state;
