@@ -20,10 +20,10 @@ Hardware Availability: [Mercado Libre](https://articulo.mercadolibre.com.ar/MLA-
 | Arduino pin | A3 | A2 | A1 | A0 | 15 | 14 | TX0 | RXI | 2  | 3  | 4  | 5  |
 | QMK pin     | F4 | F5 | F6 | F7 | B1 | B3 | D3  | D2  | D1 | D0 | D4 | C6 |
 
-|             | QMK led   | Backlight |
-|-------------|-----------|-----------|
-| Arduino pin | 8         | 9         |
-| QMK pin     | B4        | B5        |
+|             | LED1 | LED2 |
+|-------------|------|------|
+| Arduino pin | 8    | 9    |
+| QMK pin     | B5   | B4   |
 
 ### Compiling the Firmware
 
