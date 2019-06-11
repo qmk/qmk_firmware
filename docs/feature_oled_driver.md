@@ -2,7 +2,17 @@
 
 ## OLED Supported Hardware
 
-128x32 OLED modules using SSD1306 driver IC over I2C. Supported on AVR based keyboards. Possible but untested hardware includes ARM based keyboards and other sized OLED modules using SSD1306 over I2C, such as 128x64. 
+OLED modules using SSD1306 or SH1106 driver ICs, communicating over I2C.
+Tested combinations:
+
+| IC driver |   Size | Keyboard Platform | Notes                    |
+|-----------|--------|-------------------|--------------------------|
+| SSD1306   | 128x32 | AVR               | Primary support          |
+| SSD1306   | 128x64 | AVR               | Verified working         |
+| SSD1306   | 128x32 | ARM               |                          |
+| SH1106    | 128x64 | AVR               | No rotation or scrolling |
+
+Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
 !> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses i2c to communication between sides this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. 
 
@@ -86,17 +96,17 @@ void oled_task_user(void) {
 
  ## Basic Configuration
 
-|Define                 |Default        |Description                                     |
-|-----------------------|---------------|------------------------------------------------|
-|`OLED_DISPLAY_ADDRESS` |`0x3C`         |The i2c address of the OLED Display             |
-|`OLED_FONT_H`          |`"glcdfont.c"` |The font code file to use for custom fonts      |
-|`OLED_FONT_START`      |`0`            |The starting characer index for custom fonts    |
-|`OLED_FONT_END`        |`224`          |The ending characer index for custom fonts      |
-|`OLED_FONT_WIDTH`      |`6`            |The font width                                  |
-|`OLED_FONT_HEIGHT`     |`8`            |The font height (untested)                      |
-|`OLED_DISABLE_TIMEOUT` |*Not defined*  |Disables the built in OLED timeout feature. Useful when implementing custom timeout rules.|
-
-
+| Define                 | Default           | Description                                                                                                                |
+|------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `OLED_DISPLAY_ADDRESS` | `0x3C`            | The i2c address of the OLED Display                                                                                        |
+| `OLED_FONT_H`          | `"glcdfont.c"`    | The font code file to use for custom fonts                                                                                 |
+| `OLED_FONT_START`      | `0`               | The starting characer index for custom fonts                                                                               |
+| `OLED_FONT_END`        | `224`             | The ending characer index for custom fonts                                                                                 |
+| `OLED_FONT_WIDTH`      | `6`               | The font width                                                                                                             |
+| `OLED_FONT_HEIGHT`     | `8`               | The font height (untested)                                                                                                 |
+| `OLED_DISABLE_TIMEOUT` | *Not defined*     | Disables the built in OLED timeout feature. Useful when implementing custom timeout rules.                                 |
+| `OLED_IC`              | `OLED_IC_SSD1306` | Set to `OLED_IC_SH1106` if you're using the SH1106 OLED controller.                                                        |
+| `OLED_COLUMN_OFFSET`   | `0`               | (SH1106 only.) Shift output to the right this many pixels.<br />Useful for 128x64 displays centered on a 132x64 SH1106 IC. |
 
  ## 128x64 & Custom sized OLED Displays
 
@@ -118,6 +128,8 @@ void oled_task_user(void) {
 
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo 
+
+!> Rotation is unsupported on the SH1106.
 
 ```C
 // OLED Rotation enum values are flags
@@ -249,6 +261,8 @@ uint8_t oled_max_chars(void);
 // Returns the maximum number of lines that will fit on the OLED
 uint8_t oled_max_lines(void);
 ```
+
+!> Scrolling and rotation are unsupported on the SH1106.
 
 ## SSD1306.h driver conversion guide
 
