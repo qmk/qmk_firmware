@@ -44,7 +44,6 @@ doxygen/
 .project
 .settings/
 .idea
-.vscode
 *.iml
 .browse.VC.db*
 *.stackdump
