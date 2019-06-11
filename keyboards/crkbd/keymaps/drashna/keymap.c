@@ -117,11 +117,11 @@ void matrix_init_keymap(void) {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_master) {
+    // if (is_master) {
         return OLED_ROTATION_270;
-    } else {
-        return rotation;
-    }
+    // } else {
+        // return OLED_ROTATION_90;
+    // }
 }
 
 void render_crkbd_logo(void) {
@@ -250,12 +250,12 @@ void render_status(void) {
 
 
 void oled_task_user(void) {
-    if (is_master) {
+    // if (is_master) {
         render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        render_crkbd_logo();
-        oled_scroll_left();  // Turns on scrolling
-    }
+    // } else {
+        // render_crkbd_logo();
+        // oled_scroll_left();  // Turns on scrolling
+    // }
 }
 
 void matrix_scan_keymap(void) { update_log(); }
