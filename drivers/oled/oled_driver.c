@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // defined(__AVR__)
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
+// for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
+
 // Fundamental Commands
 #define CONTRAST                0x81
 #define DISPLAY_ALL_ON          0xA5
@@ -40,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NORMAL_DISPLAY          0xA6
 #define DISPLAY_ON              0xAF
 #define DISPLAY_OFF             0xAE
+#define NOP                     0xE3
 
 // Scrolling Commands
 #define ACTIVATE_SCROLL         0x2F
@@ -53,6 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MEMORY_MODE             0x20
 #define COLUMN_ADDR             0x21
 #define PAGE_ADDR               0x22
+#define PAM_SETCOLUMN_LSB       0x00
+#define PAM_SETCOLUMN_MSB       0x10
+#define PAM_PAGE_ADDR           0xB0 // 0xb0 -- 0xb7
 
 // Hardware Configuration Commands
 #define DISPLAY_START_LINE      0x40
@@ -158,7 +164,11 @@ bool oled_init(uint8_t rotation) {
     DISPLAY_OFFSET, 0x00,
     DISPLAY_START_LINE | 0x00,
     CHARGE_PUMP, 0x14,
-    MEMORY_MODE, 0x00, }; // Horizontal addressing mode
+#if (OLED_IC != OLED_IC_SH1106)
+    // MEMORY_MODE is unsupported on SH1106 (Page Addressing only)
+    MEMORY_MODE, 0x00, // Horizontal addressing mode
+#endif
+  };
   if (I2C_TRANSMIT_P(display_setup1) != I2C_STATUS_SUCCESS) {
     print("oled_init cmd set 1 failed\n");
     return false;
@@ -219,10 +229,25 @@ void oled_clear(void) {
 
 static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
 {
-  cmd_array[1] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_WIDTH;
-  cmd_array[4] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_WIDTH;
+  // Calculate commands to set memory addressing bounds.
+  uint8_t start_page = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_WIDTH;
+  uint8_t start_column = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_WIDTH;
+#if (OLED_IC == OLED_IC_SH1106)
+  // Commands for Page Addressing Mode. Sets starting page and column; has no end bound.
+  // Column value must be split into high and low nybble and sent as two commands.
+  cmd_array[0] = PAM_PAGE_ADDR | start_page;
+  cmd_array[1] = PAM_SETCOLUMN_LSB | ((OLED_COLUMN_OFFSET + start_column) & 0x0f);
+  cmd_array[2] = PAM_SETCOLUMN_MSB | ((OLED_COLUMN_OFFSET + start_column) >> 4 & 0x0f);
+  cmd_array[3] = NOP;
+  cmd_array[4] = NOP;
+  cmd_array[5] = NOP;
+#else
+  // Commands for use in Horizontal Addressing mode.
+  cmd_array[1] = start_column;
+  cmd_array[4] = start_page;
   cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) % OLED_DISPLAY_WIDTH + cmd_array[1];
   cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1;
+#endif
 }
 
 static void calc_bounds_90(uint8_t update_start, uint8_t* cmd_array)

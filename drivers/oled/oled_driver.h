@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+// an enumeration of the chips this driver supports
+#define OLED_IC_SSD1306 0
+#define OLED_IC_SH1106  1
 
 #if defined(OLED_DISPLAY_CUSTOM)
   // Expected user to implement the necessary defines
@@ -100,7 +103,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
 #endif // defined(OLED_DISPLAY_CUSTOM)
 
-// Address to use for tthe i2d oled communication
+#if !defined(OLED_IC)
+  #define OLED_IC OLED_IC_SSD1306
+#endif
+
+// the column address corresponding to the first column in the display hardware
+#if !defined(OLED_COLUMN_OFFSET)
+  #define OLED_COLUMN_OFFSET 0
+#endif
+
+// Address to use for the i2c oled communication
 #if !defined(OLED_DISPLAY_ADDRESS)
   #define OLED_DISPLAY_ADDRESS 0x3C
 #endif
