@@ -1,4 +1,5 @@
-SRC += brandonschlack.c
+SRC += brandonschlack.c \
+       process_records.c
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_bs.c

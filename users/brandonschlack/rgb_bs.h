@@ -5,6 +5,9 @@
   #include "rgb_matrix.h"
 #endif
 
+// Define Layer for Lighting functions
+#define _LIGHT 14
+
 // RGB Colors
 #define RGB_LSR_PURPLE   0x3C, 0x16, 0x8C
 #define RGB_LSR_PINK     0xF2, 0x1B, 0x7F

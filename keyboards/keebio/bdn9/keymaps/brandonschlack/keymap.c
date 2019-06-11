@@ -2,21 +2,13 @@
 #include "brandonschlack.h"
 
 enum bdn9_layers {
-    _NAVI,
-    _REEDER,
-    _MEDIA,
-    _KEYPAD,
-    _LR_NAV,
+    _LR_NAV = KEYMAP_LAYERS,
     _LR_REVIEW,
     _LR_EDIT
 };
 
 enum bdn9_keycodes {
-    TG_NAVI = KEYMAP_SAFE_RANGE,
-    TG_REDR,
-    TG_MEDA,
-    TG_KYPD,
-    TG_LNAV,
+    TG_LNAV = KEYMAP_SAFE_RANGE,
     TG_REVW,
     TG_EDIT,
     MC_UNDO,
@@ -245,26 +237,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
  */
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TG_NAVI:
-            if (!record->event.pressed) {
-                layer_move(_NAVI);
-            }
-            break;
-        case TG_REDR:
-            if (!record->event.pressed) {
-                layer_move(_REEDER);
-            }
-            break;
-        case TG_MEDA:
-            if (!record->event.pressed) {
-                layer_move(_MEDIA);
-            }
-            break;
-        case TG_KYPD:
-            if (!record->event.pressed) {
-                layer_move(_KEYPAD);
-            }
-            break;
         case TG_LNAV:
             if (!record->event.pressed) {
                 tap_code(KC_G);

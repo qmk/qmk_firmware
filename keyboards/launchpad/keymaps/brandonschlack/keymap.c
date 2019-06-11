@@ -3,19 +3,7 @@
 
 extern keymap_config_t keymap_config;
 
-enum launchpad_layers {
-    _NAVI,
-    _REEDER,
-    _MEDIA,
-    _KEYPAD
-};
-
-enum launchpad_keycodes {
-    TG_NAVI = KEYMAP_SAFE_RANGE,
-    TG_REDR,
-    TG_MEDA,
-    TG_KYPD
-};
+// Layers defined in brandonschlack.h
 
 enum launchpad_dances {
     TD_LGHT = 0,
@@ -152,33 +140,6 @@ void matrix_init_user(void) {
 void keyboard_post_init_user(void) {
     rgblight_sethsv(HSV_LSR_PURPLE);
 };
-
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TG_NAVI:
-            if (!record->event.pressed) {
-                layer_move(_NAVI);
-            }
-            break;
-        case TG_REDR:
-            if (!record->event.pressed) {
-                layer_move(_REEDER);
-            }
-            break;
-        case TG_MEDA:
-            if (!record->event.pressed) {
-                layer_move(_MEDIA);
-            }
-            break;
-        case TG_KYPD:
-            if (!record->event.pressed) {
-                layer_move(_KEYPAD);
-            }
-            break;
-    }
-    return true;
-}
 
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
