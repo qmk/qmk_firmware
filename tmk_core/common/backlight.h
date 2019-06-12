@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifndef BACKLIGHT_LEVELS
+  #define BACKLIGHT_LEVELS 3
+#elif BACKLIGHT_LEVELS > 15
+  #error "Maximum value of BACKLIGHT_LEVELS is 15"
+#endif
+
 typedef union {
     uint8_t raw;
     struct {
