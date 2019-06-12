@@ -90,7 +90,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case raise:
         rgblight_mode_noeeprom(1);
-        rgblight_setrgb_purple ();
+        rgblight_setrgb(0xc7, 0x00, 0xf4);
         break;
     case lower:
         rgblight_mode_noeeprom(1);
