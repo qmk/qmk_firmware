@@ -44,16 +44,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc/C|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Leader| Game | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * |Leader| Game | Alt  | GUI  |Lower |  Ent | Spc  |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid_wrapper(
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
-    KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT ,
-    KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,       KC_SPC, KC_SPC,      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+    KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_BSLS,
+    KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,       KC_ENT, KC_SPC,      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Game
