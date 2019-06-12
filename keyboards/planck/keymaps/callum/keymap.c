@@ -3,240 +3,191 @@
 
 extern keymap_config_t keymap_config;
 
-#define AC(X) A(C(X))
-#define SC(X) S(C(X))
+#define powr KC_POWER
+#define rset RESET
+#define XXXX KC_NO
+#define ____ KC_TRNS
+#define a KC_A
+#define b KC_B
+#define back G(KC_LBRC)
+#define bspc KC_BSPC
+#define c KC_C
+#define clft C(KC_LEFT)
+#define crgt C(KC_RGHT)
+#define caps KC_CAPS
+#define comm KC_COMM
+#define d KC_D
+#define dash A(KC_MINS)
+#define del KC_DEL
+#define dot KC_DOT
+#define down KC_DOWN
+#define e KC_E
+#define end KC_END
+#define ent KC_ENT
+#define esc KC_ESC
+#define f KC_F
+#define f1 KC_F1
+#define f10 KC_F10
+#define f11 KC_F11
+#define f12 KC_F12
+#define f13 KC_F13
+#define f14 KC_F14
+#define f15 KC_F15
+#define f16 KC_F16
+#define f17 KC_F17
+#define f18 KC_F18
+#define f19 KC_F19
+#define f2 KC_F2
+#define f20 KC_F20
+#define f21 KC_F21
+#define f22 KC_F22
+#define f23 KC_F23
+#define f24 KC_F24
+#define f3 KC_F3
+#define f4 KC_F4
+#define f5 KC_F5
+#define f6 KC_F6
+#define f7 KC_F7
+#define f8 KC_F8
+#define f9 KC_F9
+#define fwd G(KC_RBRC)
+#define g KC_G
+#define gbp A(KC_3)
+#define h KC_H
+#define home KC_HOME
+#define i KC_I
+#define j KC_J
+#define k KC_K
+#define l KC_L
+#define lalt KC_LALT
+#define lcmd KC_LCMD
+#define lctl KC_LCTL
+#define left KC_LEFT
+#define lsft KC_LSFT
+#define m KC_M
+#define mins KC_MINS
+#define mute KC_MUTE
+#define n KC_N
+#define n0 KC_0
+#define n1 KC_1
+#define n2 KC_2
+#define n3 KC_3
+#define n4 KC_4
+#define n5 KC_5
+#define n6 KC_6
+#define n7 KC_7
+#define n8 KC_8
+#define n9 KC_9
+#define next KC_MNXT
+#define o KC_O
+#define p KC_P
+#define pgdn KC_PGDN
+#define pgup KC_PGUP
+#define play KC_MPLY
+#define prev KC_MPRV
+#define q KC_Q
+#define quot KC_QUOT
+#define r KC_R
+#define ralt KC_RALT
+#define rcmd KC_RCMD
+#define rctl KC_RCTL
+#define rght KC_RGHT
+#define rsft KC_RSFT
+#define s KC_S
+#define scln KC_SCLN
+#define slsh KC_SLSH
+#define spc KC_SPC
+#define t KC_T
+#define tab KC_TAB
+#define u KC_U
+#define up KC_UP
+#define v KC_V
+#define vold KC_VOLD
+#define volu KC_VOLU
+#define w KC_W
+#define x KC_X
+#define y KC_Y
+#define z KC_Z
 
 enum planck_layers {
-    _COLEMAK,
-    _QWERTY,
+    _BASE,
     _SYMB,
     _MOVE,
     _FUNC,
-    _MOUSE,
 };
 
 enum planck_keycodes {
-    COLEMAK = SAFE_RANGE,
-    QWERTY,
-    SYMB,
+    SYMB = SAFE_RANGE,
     MOVE,
     FUNC,
-    MOUSE,
+
+    ATAB,
+    CTAB,
+    GTAB,
+    aTAB,
+    cTAB,
+    gTAB,
+
+    ampr,
+    astr,
+    at,
+    bsls,
+    circ,
+    dlr,
+    eql,
+    exlm,
+    grv,
+    hash,
+    lbrc,
+    lcbr,
+    lprn,
+    perc,
+    pipe,
+    plus,
+    rbrc,
+    rcbr,
+    rprn,
+    tild,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    /* COLEMAK
-     * ,-----------------------------------------------------------------------.
-     * |Tab  |  Q  |  W  |  F  |  P  |  G  |  J  |  L  |  U  |  Y  |  ;  |  -  |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Bksp |  A  |  R  |  S  |  T  |  D  |  H  |  N  |  E  |  I  |  O  |  '  |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Shift|  Z  |  X  |  C  |  V  |  B  |  K  |  M  |  ,  |  .  |  /  |Shift|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Func |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
-     * `-----------------------------------------------------------------------'
-     */
-    [_COLEMAK] = LAYOUT_planck_grid(
-        KC_TAB,       KC_Q,         KC_W,         KC_F,
-        KC_P,         KC_G,         KC_J,         KC_L,
-        KC_U,         KC_Y,         KC_SCLN,      KC_MINS,
-
-        KC_BSPC,      KC_A,         KC_R,         KC_S,
-        KC_T,         KC_D,         KC_H,         KC_N,
-        KC_E,         KC_I,         KC_O,         KC_QUOT,
-
-        KC_LSFT,      KC_Z,         KC_X,         KC_C,
-        KC_V,         KC_B,         KC_K,         KC_M,
-        KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT,
-
-        FUNC,         KC_LCTL,      KC_LALT,      KC_LGUI,
-        SYMB,         KC_ENT,       KC_SPC,       MOVE,
-        KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
+    [_BASE] = LAYOUT_planck_grid(
+         tab,    q,    w,    f,    p,    g,    j,    l,    u,    y, scln, mins,
+        bspc,    a,    r,    s,    t,    d,    h,    n,    e,    i,    o, quot,
+        lsft,    z,    x,    c,    v,    b,    k,    m, comm,  dot, slsh, rsft,
+        FUNC, lctl, lalt, lcmd, MOVE,  ent,  spc, SYMB, rcmd, ralt, rctl, FUNC
     ),
 
-    /* QWERTY
-     * ,-----------------------------------------------------------------------.
-     * |Tab  |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  -  |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Bksp |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Shift|  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |Shift|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Func |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
-     * `-----------------------------------------------------------------------'
-     */
-    [_QWERTY] = LAYOUT_planck_grid(
-        KC_TAB,       KC_Q,         KC_W,         KC_E,
-        KC_R,         KC_T,         KC_Y,         KC_U,
-        KC_I,         KC_O,         KC_P,         KC_MINS,
-
-        KC_BSPC,      KC_A,         KC_S,         KC_D,
-        KC_F,         KC_G,         KC_H,         KC_J,
-        KC_K,         KC_L,         KC_SCLN,      KC_QUOT,
-
-        KC_LSFT,      KC_Z,         KC_X,         KC_C,
-        KC_V,         KC_B,         KC_N,         KC_M,
-        KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT,
-
-        FUNC,         KC_LCTL,      KC_LALT,      KC_LGUI,
-        SYMB,         KC_ENT,       KC_SPC,       MOVE,
-        KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
-    ),
-
-    /* SYMB
-     * ,-----------------------------------------------------------------------.
-     * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |ndash|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * | Del |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |  £  |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |  ~  |  `  |  +  |  =  |  |  |  \  |  [  |  ]  |  {  |  }  |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |     |     |     |     |     |
-     * `-----------------------------------------------------------------------'
-     */
     [_SYMB] = LAYOUT_planck_grid(
-        KC_ESC,       KC_1,         KC_2,         KC_3,
-        KC_4,         KC_5,         KC_6,         KC_7,
-        KC_8,         KC_9,         KC_0,         A(KC_MINS),
-
-        KC_DEL,       KC_EXLM,      KC_AT,        KC_HASH,
-        KC_DLR,       KC_PERC,      KC_CIRC,      KC_AMPR,
-        KC_ASTR,      KC_LPRN,      KC_RPRN,      A(KC_3),
-
-        _______,      KC_TILD,      KC_GRV,       KC_PLUS,
-        KC_EQL,       KC_PIPE,      KC_BSLS,      KC_LBRC,
-        KC_RBRC,      KC_LCBR,      KC_RCBR,      _______,
-
-        _______,      _______,      _______,      _______,
-        _______,      _______,      _______,      _______,
-        _______,      _______,      _______,      _______
+         esc,   n1,   n2,   n3,   n4,   n5,   n6,   n7,   n8,   n9,   n0, dash,
+         del, exlm,   at, hash,  dlr, perc, circ, ampr, astr, lprn, rprn,  gbp,
+        caps, tild,  grv, plus,  eql, pipe, bsls, lbrc, rbrc, lcbr, rcbr, caps,
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
-    /* MOVE
-     * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |CtrUp|Home | Up  | End |Caps |Mouse|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |CtrL |Left |Down |Right|CtrR |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |CtrDn|PgDn |PgUp |TabL |TabR |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |     |     |     |     |     |
-     * `-----------------------------------------------------------------------'
-     */
     [_MOVE] = LAYOUT_planck_grid(
-        AC(KC_A),     AC(KC_B),     AC(KC_C),     AC(KC_D),
-        AC(KC_E),     AC(KC_F),     C(KC_UP),     KC_HOME,
-        KC_UP,        KC_END,       KC_CAPS,      MOUSE,
-
-        AC(KC_G),     AC(KC_H),     AC(KC_I),     AC(KC_J),
-        AC(KC_K),     AC(KC_L),     C(KC_LEFT),   KC_LEFT,
-        KC_DOWN,      KC_RGHT,      C(KC_RIGHT),  XXXXXXX,
-
-        _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
-        AC(KC_P),     AC(KC_Q),     C(KC_DOWN),   KC_PGDN,
-        KC_PGUP,      SC(KC_TAB),   C(KC_TAB),    _______,
-
-        _______,      _______,      _______,      _______,
-        _______,      _______,      _______,      _______,
-        _______,      _______,      _______,      _______
+         esc, XXXX, XXXX, CTAB, cTAB, XXXX, XXXX, home,   up,  end, XXXX, XXXX,
+         del, back,  fwd, GTAB, gTAB, XXXX, XXXX, left, down, rght, XXXX, XXXX,
+        ____, XXXX, XXXX, ATAB, aTAB, XXXX, XXXX, pgdn, pgup, clft, crgt, ____,
+        ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
-    /* FUNC
-     * ,-----------------------------------------------------------------------.
-     * |Reset| F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 |VolUp|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Power| F11 | F12 | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 |VolDn|
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |     |     |Clmak|Qwrty|     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |Prev |Mute |Play |Next |     |     |     |     |
-     * `-----------------------------------------------------------------------'
-     */
     [_FUNC] = LAYOUT_planck_grid(
-        RESET,        KC_F1,        KC_F2,        KC_F3,
-        KC_F4,        KC_F5,        KC_F6,        KC_F7,
-        KC_F8,        KC_F9,        KC_F10,       KC_VOLU,
-
-        KC_POWER,     KC_F11,       KC_F12,       KC_F13,
-        KC_F14,       KC_F15,       KC_F16,       KC_F17,
-        KC_F18,       KC_F19,       KC_F20,       KC_VOLD,
-
-        _______,      XXXXXXX,      KC_HOME,      SC(KC_TAB),
-        C(KC_TAB),    KC_END,       XXXXXXX,      XXXXXXX,
-        XXXXXXX,      COLEMAK,      QWERTY,       _______,
-
-        _______,      _______,      _______,      _______,
-        KC_MPRV,      KC_MUTE,      KC_MPLY,      KC_MNXT,
-        _______,      _______,      _______,      _______
+        rset,   f1,   f2,   f3,   f4,   f5,   f6,   f7,   f8,   f9,  f10, volu,
+        powr,  f11,  f12,  f13,  f14,  f15,  f16,  f17,  f18,  f19,  f20, vold,
+        ____, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, ____,
+        ____, ____, ____, ____, prev, mute, play, next, ____, ____, ____, ____
     ),
-
-    /* MOUSE
-     * ,-----------------------------------------------------------------------.
-     * |     |     |CtrL |CtrU |CtrR | B5  |CtrU | ScL |Up   | ScR |     |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     | Ac0 | Ac1 | Ac2 | B4  |CtrL |Left |Down |Right|CtrR |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |Home | End | B3  |CtrD | ScD | ScU |TabL |TabR |     |
-     * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     | B2  | B1  |     |     |     |     |     |
-     * `-----------------------------------------------------------------------'
-     */
-    [_MOUSE] = LAYOUT_planck_grid(
-        _______,      XXXXXXX,      C(KC_LEFT),   C(KC_UP),
-        C(KC_RIGHT),  KC_BTN5,      C(KC_UP),     KC_WH_R,
-        KC_MS_U,      KC_WH_L,      XXXXXXX,      XXXXXXX,
-
-        _______,      XXXXXXX,      KC_ACL0,      KC_ACL1,
-        KC_ACL2,      KC_BTN4,      C(KC_LEFT),   KC_MS_L,
-        KC_MS_D,      KC_MS_R,      C(KC_RIGHT),  XXXXXXX,
-
-        _______,      XXXXXXX,      XXXXXXX,      KC_HOME,
-        KC_END,       KC_BTN3,      C(KC_DOWN),   KC_WH_U,
-        KC_WH_D,      SC(KC_TAB),   C(KC_TAB),    _______,
-
-        _______,      _______,      _______,      _______,
-        _______,      KC_BTN2,      KC_BTN1,      _______,
-        _______,      _______,      _______,      _______
-    )
 };
 
-#ifdef AUDIO_ENABLE
-float colemak_song[][2] = SONG(COLEMAK_SOUND);
-float qwerty_song[][2] = SONG(QWERTY_SOUND);
-#endif
-
-void set_colemak(void) {
-#ifdef AUDIO_ENABLE
-    stop_all_notes();
-    PLAY_SONG(colemak_song);
-#endif
-    set_single_persistent_default_layer(_COLEMAK);
-}
-
-void set_qwerty(void) {
-#ifdef AUDIO_ENABLE
-    stop_all_notes();
-    PLAY_SONG(qwerty_song);
-#endif
-    set_single_persistent_default_layer(_QWERTY);
-}
+bool is_gui_tabbing = false;
+bool is_alt_tabbing = false;
+bool is_ctl_tabbing = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_colemak();
-            }
-            return false;
-        case QWERTY:
-            if (record->event.pressed) {
-                set_qwerty();
-            }
-            return false;
         case SYMB:
             if (record->event.pressed) {
-                layer_off(_MOUSE);
                 layer_on(_SYMB);
             } else {
                 layer_off(_SYMB);
@@ -244,86 +195,164 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MOVE:
             if (record->event.pressed) {
-                layer_off(_MOUSE);
                 layer_on(_MOVE);
             } else {
+                if (is_gui_tabbing) {
+                    unregister_code(KC_LGUI);
+                    is_gui_tabbing = false;
+                }
+                if (is_alt_tabbing) {
+                    unregister_code(KC_LALT);
+                    is_alt_tabbing = false;
+                }
+                if (is_ctl_tabbing) {
+                    unregister_code(KC_LCTL);
+                    is_ctl_tabbing = false;
+                }
                 layer_off(_MOVE);
             }
             return false;
         case FUNC:
             if (record->event.pressed) {
-                layer_off(_MOUSE);
                 layer_on(_FUNC);
             } else {
                 layer_off(_FUNC);
             }
             return false;
-        case MOUSE:
+
+        case gTAB:
             if (record->event.pressed) {
-                layer_on(_MOUSE);
+                if (!is_gui_tabbing) {
+                    is_gui_tabbing = true;
+                    register_code(KC_LGUI);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            return false;
+        case GTAB:
+            if (record->event.pressed) {
+                if (!is_gui_tabbing) {
+                    is_gui_tabbing = true;
+                    register_code(KC_LGUI);
+                }
+                register_code(KC_LSFT);
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case aTAB:
+            if (record->event.pressed) {
+                if (!is_alt_tabbing) {
+                    is_alt_tabbing = true;
+                    register_code(KC_LALT);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            return false;
+        case ATAB:
+            if (record->event.pressed) {
+                if (!is_alt_tabbing) {
+                    is_alt_tabbing = true;
+                    register_code(KC_LALT);
+                }
+                register_code(KC_LSFT);
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+                unregister_code(KC_LSFT);
+            }
+            return false;
+        case cTAB:
+            if (record->event.pressed) {
+                if (!is_ctl_tabbing) {
+                    is_ctl_tabbing = true;
+                    register_code(KC_LCTL);
+                }
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            return false;
+        case CTAB:
+            if (record->event.pressed) {
+                if (!is_ctl_tabbing) {
+                    is_ctl_tabbing = true;
+                    register_code(KC_LCTL);
+                }
+                register_code(KC_LSFT);
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+                unregister_code(KC_LSFT);
             }
             return false;
 
         // Override the defualt auto shifted symbols to use SEND_STRING
         // See https://github.com/qmk/qmk_firmware/issues/4072
-        case KC_EXLM:
+        case exlm:
             if (record->event.pressed) { SEND_STRING("!"); }
             return false;
-        case KC_AT:
+        case at:
             if (record->event.pressed) { SEND_STRING("@"); }
             return false;
-        case KC_HASH:
+        case hash:
             if (record->event.pressed) { SEND_STRING("#"); }
             return false;
-        case KC_DLR:
+        case dlr:
             if (record->event.pressed) { SEND_STRING("$"); }
             return false;
-        case KC_PERC:
+        case perc:
             if (record->event.pressed) { SEND_STRING("%"); }
             return false;
-        case KC_CIRC:
+        case circ:
             if (record->event.pressed) { SEND_STRING("^"); }
             return false;
-        case KC_AMPR:
+        case ampr:
             if (record->event.pressed) { SEND_STRING("&"); }
             return false;
-        case KC_ASTR:
+        case astr:
             if (record->event.pressed) { SEND_STRING("*"); }
             return false;
-        case KC_LPRN:
+        case lprn:
             if (record->event.pressed) { SEND_STRING("("); }
             return false;
-        case KC_RPRN:
+        case rprn:
             if (record->event.pressed) { SEND_STRING(")"); }
             return false;
-        case KC_TILD:
+        case tild:
             if (record->event.pressed) { SEND_STRING("~"); }
             return false;
-        case KC_GRV:
+        case grv:
             if (record->event.pressed) { SEND_STRING("`"); }
             return false;
-        case KC_PLUS:
+        case plus:
             if (record->event.pressed) { SEND_STRING("+"); }
             return false;
-        case KC_EQL:
+        case eql:
             if (record->event.pressed) { SEND_STRING("="); }
             return false;
-        case KC_PIPE:
+        case pipe:
             if (record->event.pressed) { SEND_STRING("|"); }
             return false;
-        case KC_BSLS:
+        case bsls:
             if (record->event.pressed) { SEND_STRING("\\"); }
             return false;
-        case KC_LBRC:
+        case lbrc:
             if (record->event.pressed) { SEND_STRING("["); }
             return false;
-        case KC_RBRC:
+        case rbrc:
             if (record->event.pressed) { SEND_STRING("]"); }
             return false;
-        case KC_LCBR:
+        case lcbr:
             if (record->event.pressed) { SEND_STRING("{"); }
             return false;
-        case KC_RCBR:
+        case rcbr:
             if (record->event.pressed) { SEND_STRING("}"); }
             return false;
     }
