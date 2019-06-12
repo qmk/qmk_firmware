@@ -9,6 +9,5 @@
 #define RGBLIGHT_VAL_STEP 17
 
 /* Mouse Keys Configuration */
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_WHEEL_MAX_SPEED 1
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+#define MK_3_SPEED
+#define MK_W_INTERVAL_UNMOD 20
