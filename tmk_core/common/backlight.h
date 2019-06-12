@@ -25,7 +25,7 @@ typedef union {
     struct {
         bool    enable    :1;
         bool    breathing :1;
-        uint8_t level     :6;
+        uint8_t level     :4;
     };
 } backlight_config_t;
 
