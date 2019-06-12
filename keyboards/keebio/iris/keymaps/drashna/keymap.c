@@ -131,4 +131,5 @@ void keyboard_post_init_keymap(void) {
         breathing_enable();
     #endif
 #endif
+    rgblight_disable();
 }
