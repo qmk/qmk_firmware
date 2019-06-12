@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
 	  * | LSHIFT | Z      | X      | C      | V      | B      | N     | M      | ,      | .      | /      | \      | RSHIFT | UP    | SAVE     |
 	  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
-	  * | LALT   | LGUI   | LALT   |  FIND  | CMD T	 | SPACE | SPACE  | WOX		 | FN-MO  | RALT   | RGUI   | RCTRL  | LEFT  | DOWN   | RIGHT    |
+	  * | LALT   | LGUI   | LALT   |  FIND  | CMD T	 | SPACE | SPACE  | START	 | FN-MO  | RALT   | RGUI   | RCTRL  | LEFT  | DOWN   | RIGHT    |
 	  * '--------------------------------------------------------------------------------------------------------------------------------------'
 	  */
 
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	KC_TAB,   KC_Q,     KC_W,     KC_E,     		KC_R,     	KC_T, 	KC_Y,   KC_U,   			KC_I,     KC_O,     KC_P,     KC_LCBR,     KC_RCBR,    LCTL(KC_C),  LCTL(KC_V), \
   	KC_CAPS,  KC_A,     KC_S,     KC_D,     		KC_F,     	KC_G, 	KC_H,   KC_J,   			KC_K,     KC_L,     KC_SCLN,  KC_QUOT,     LCTL(KC_R), KC_NO,       KC_ENT, \
   	KC_LSFT,  KC_Z,     KC_X,     KC_C,     		KC_V,     	KC_B, 	KC_N,   KC_M,   			KC_COMM,  KC_DOT,   KC_SLSH,  KC_BSLS,     KC_RSFT,    KC_UP,       LCTL(KC_S), \
-  	KC_LCTL,  KC_LALT,  KC_LGUI,  LCTL(KC_F), 	LCTL(KC_T), KC_SPC, KC_NO,	LALT(KC_SPC),	MO(_FN), 	KC_RGUI,  KC_RALT,  KC_RCTL,     KC_LEFT,    KC_DOWN,     KC_RGHT \
+  	KC_LCTL,  KC_LALT,  KC_LGUI,  LCTL(KC_F), 	LCTL(KC_T), KC_SPC, KC_NO,	KC_LGUI,	MO(_FN), 	KC_RGUI,  KC_RALT,  KC_RCTL,     KC_LEFT,    KC_DOWN,     KC_RGHT \
  	),
 
 	/* FUNCTION
