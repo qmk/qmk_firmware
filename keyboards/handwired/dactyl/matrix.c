@@ -82,10 +82,6 @@ uint32_t matrix_scan_count;
 #endif
 
 #define ROW_SHIFTER ((matrix_row_t)1)
-#if (DIODE_DIRECTION == COL2ROW)
-// bitmask to ensure the row state from the expander only applies to its columns
-#define EXPANDER_MASK ((matrix_row_t)0b00111111)
-#endif
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -369,7 +365,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         expander_status = i2c_write(GPIOA);          if (expander_status) goto out;
         expander_status = i2c_start(I2C_ADDR_READ);  if (expander_status) goto out;
 
-        current_matrix[current_row] |= (~i2c_readNak()) & EXPANDER_MASK;
+        current_matrix[current_row] |= (~i2c_readNak()) & expander_input_pin_mask;
 
         out:
             i2c_stop();
