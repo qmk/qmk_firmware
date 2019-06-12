@@ -34,6 +34,7 @@ void tmux_pane_zoom(void);
 #define LEADER_TIMEOUT 300
 
 #define LAYOUT_preonic_grid_wrapper(...)   LAYOUT_preonic_grid(__VA_ARGS__)
+#define LAYOUT_planck_grid_wrapper(...)   LAYOUT_planck_grid(__VA_ARGS__)
 
 #define _________________NUMBER_L1_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R1_________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
