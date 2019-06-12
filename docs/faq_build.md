@@ -36,6 +36,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+
+```
+# Input Club keyboard bootloader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
 
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
@@ -134,8 +140,8 @@ For now, you need to rollback avr-gcc to 7 in brew.
 
 ```
 brew uninstall --force avr-gcc
-brew install avr-gcc@7
-brew link --force avr-gcc@7
+brew install avr-gcc@8
+brew link --force avr-gcc@8
 ```
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)

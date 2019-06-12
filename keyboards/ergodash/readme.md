@@ -9,16 +9,17 @@ Hardware Availability: Order your own [yourself](https://github.com/omkbd/ErgoDa
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ergodash/rev2:default
+    make ergodash/rev1:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Install Example: (for pro micro)
-    `make ergodash/rev2:default:avrdude`
-  
+    `make ergodash/rev1:default:avrdude`
+
 Note:  
-  "rev2" is for PCB ver 1.1,1.2  
-  "rev1" is from earlier pcb
+  "rev1" is for PCB ver 1.0,1.1,1.2  
+  **The original Rev 1 was owned only by the designer. Therefore, Rev1 has been removed. Since the current PCB is Rev1, we changed Rev2 to Rev1 to match the firmware version.**
+
 
 # Layout
 ![layout](https://github.com/omkbd/picture/blob/master/ergodash-layout.png)
