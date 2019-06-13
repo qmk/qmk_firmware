@@ -194,9 +194,9 @@ void render_status_main(void) {
     /* Show Alt-Gui Swap options */
     oled_write("BTMGK", false);
     oled_write(" ", false);
-    oled_write_ln("Win", !keymap_config.swap_lalt_lgui);
+    oled_write_ln("Win", !keymap_config.swap_lctl_lgui);
     oled_write(" ", false);
-    oled_write_ln("Mac", keymap_config.swap_lalt_lgui);
+    oled_write_ln("Mac", keymap_config.swap_lctl_lgui);
 
 #    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     /* Show RGB Options */
