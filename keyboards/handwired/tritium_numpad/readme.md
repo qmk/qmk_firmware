@@ -12,6 +12,7 @@ Wiring is accomplished on the Pro Micro board using the following pins as rows:
 * D5 : Row 4
 * D6 : Row 5
 * D7 : Row 6
+
 and the following pins as columns:
 * A3 : Col 1
 * A1 : Col 2
