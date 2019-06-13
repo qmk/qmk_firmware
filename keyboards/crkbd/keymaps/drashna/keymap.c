@@ -272,9 +272,15 @@ void render_status_secondary(void) {
     oled_write(" ", false); oled_write_ln( "ALT", ( modifiers & MOD_MASK_ALT   ) );
     oled_write(" ", false); oled_write_ln( "GUI", ( modifiers & MOD_MASK_GUI   ) );
 
-
     /* Show logged Keys */
     oled_write(keylog_str, false);
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    oled_write_ln("RGB:", false);
+    static char secondary_temp[21] = {0};
+    snprintf(secondary_temp, sizeof(secondary_temp), "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h,  rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+    oled_write(secondary_temp, false);
+#endif
 }
 
 
