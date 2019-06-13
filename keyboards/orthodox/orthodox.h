@@ -1,5 +1,6 @@
-#ifndef ORTHODOX_H
-#define ORTHODOX_H
+#pragma once
+
+#include "quantum.h"
 
 #ifdef KEYBOARD_orthodox_rev1
     #include "rev1.h"
@@ -25,7 +26,3 @@
 		{ KC_##LR18, KC_##LR17, KC_##LR16, KC_##LR15, KC_##LR14, KC_##LR13, KC_##LR12, KC_NO, KC_##LR10 }, \
 		{ KC_##LR28, KC_##LR27, KC_##LR26, KC_##LR25, KC_##LR24, KC_##LR23, KC_##LR22, KC_##LR21, KC_##LR20 } \
 	}
-
-#include "quantum.h"
-
-#endif

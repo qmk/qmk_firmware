@@ -195,6 +195,49 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
+## Advanced Example: 
+
+### Super ALT↯TAB
+
+This macro will register `KC_LALT` and tap `KC_TAB`, then wait for 1000ms. If the key is tapped again, it will send another `KC_TAB`; if there is no tap, `KC_LALT` will be unregistered, thus allowing you to cycle through windows. 
+
+```c
+bool is_alt_tab_active = false;    # ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        # we will be using them soon.
+
+enum custom_keycodes {             # Make sure have the awesome keycode ready
+  ALT_TAB = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {               # This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        } 
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     # The very important timer. 
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+}
+```
+
+---
 
 ##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
 
@@ -273,7 +316,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ```
 
 
-### Advanced Example: Single-Key Copy/Paste
+## Advanced Example: 
+
+### Single-Key Copy/Paste
 
 This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 
