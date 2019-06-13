@@ -159,9 +159,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_SYMB] = LAYOUT_planck_grid(
-         esc,   n1,   n2,   n3,   n4,   n5,   n6,   n7,   n8,   n9,   n0, dash,
-         del, exlm,   at, hash,  dlr, perc, circ, ampr, astr, lprn, rprn,  gbp,
-        caps, tild,  grv, plus,  eql, pipe, bsls, lbrc, rbrc, lcbr, rcbr, caps,
+         esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
+         del, exlm,   at, hash,  dlr, perc, circ, ampr, astr,  eql, plus,  gbp,
+        caps, tild,  grv, lprn, rprn, pipe, bsls, rcbr, lcbr, rbrc, lbrc, caps,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
