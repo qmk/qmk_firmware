@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,JP_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCTL, NUMLOC,KC_LALT,  KC_F2,  LOWER,  LSHFT, CTLSPC, CTLENT,  LSHFT,  RAISE,   KC_0, KC_DOT,JP_QUOT,KC_RCTL  \
+    KC_LCTL,KC_LALT,  KC_F2, NUMLOC,  LOWER,  LSHFT, CTLSPC, CTLENT,  LSHFT,  RAISE,   KC_0, KC_DOT,JP_QUOT,KC_RCTL  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -171,13 +171,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               <       >       :
-      _____,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX,  XXXXX,  KC_UP, KS(UP),    UP5,KC_PGUP,\
+      _____,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,  _____,  _____,  XXXXX,  XXXXX,  KC_UP,  XXXXX,   UP10,KC_PGUP,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               (       )       {       }
-      _____,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  DOWN5,KC_PGDN,\
+      _____,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT, DOWN10,KC_PGDN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               [       ]
-      _____,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,JP_SCLN,\
+      _____,JP_LBRC,JP_RBRC,  XXXXX,KC_COMM,  XXXXX,  _____,  _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX, XXXXX,JP_SCLN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  KANA,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -275,16 +275,27 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+static bool num_toggle = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-  switch (keycode) {
-    case NUMLOC:
-      if (record->event.pressed) {
+  // tap=toggle layer, hold=momentally layer on
+  if (keycode == NUMLOC) {
+    if (record->event.pressed) {
+      num_toggle = true;
+      layer_invert(_NUMPAD);
+    } else {
+      if (layer_state_is(_NUMPAD) && num_toggle == false) {
         layer_invert(_NUMPAD);
       }
-      update_led();
-      return false;
-      break;
+    }
+    update_led();
+    return false;
+  } else {
+    num_toggle = false;
+  }
+
+  switch (keycode) {
     case RGBRST:
       if (record->event.pressed) {
         eeconfig_update_rgblight_default();
@@ -352,7 +363,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case EURO:
       if (record->event.pressed) {
-        send_string("(e)");
+        send_string("*e(");
         return false;
       }
       break;
