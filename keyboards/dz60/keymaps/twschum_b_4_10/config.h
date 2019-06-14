@@ -1,9 +1,16 @@
 #pragma once
 
+// number of taps for TT Tap-Toggle keys to toggle
 #ifdef TAPPING_TOGGLE
 #undef TAPPING_TOGGLE
 #endif
 #define TAPPING_TOGGLE 2
+
+// time in ms that counts as a "tap" for various features
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 100
 
 // https://docs.qmk.fm/features/mouse-keys#configuring-the-behavior-of-mousekeys
 #define MOUSEKEY_DELAY        0
