@@ -8,6 +8,7 @@
  */
 
 /* Features Wishlist:
+ * TODO: provide a standalone B_4_10 layout
  * Dynamic macros
  * Leader functions
  * Unicode leader commands??? (symbolic unicode)
