@@ -209,7 +209,7 @@ void render_status_main(void) {
 
     oled_write_ln("RGB:", false);
     static char temp[20] = {0};
-    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h,  rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hue,  rgb_matrix_config.sat, rgb_matrix_config.val);
     oled_write(temp, false);
 #endif
 
@@ -278,9 +278,9 @@ void render_status_secondary(void) {
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     oled_write_ln("RGB:", false);
-    static char secondary_temp[21] = {0};
-    snprintf(secondary_temp, sizeof(secondary_temp), "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h,  rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-    oled_write(secondary_temp, false);
+    static char temp[20] = {0};
+    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hue,  rgb_matrix_config.sat, rgb_matrix_config.val);
+    oled_write(temp, false);
 #endif
 }
 
