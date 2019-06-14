@@ -149,6 +149,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void render_rgb_status(void) {
+    oled_write_ln("RGB:", false);
+    static char temp[20] = {0};
+    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hue,  rgb_matrix_config.sat, rgb_matrix_config.val);
+    oled_write(temp, false);
+}
+
 void render_status_main(void) {
 
     /* Show Keyboard Layout  */
@@ -195,11 +202,7 @@ void render_status_main(void) {
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     /* Show RGB Options */
-
-    oled_write_ln("RGB:", false);
-    static char temp[20] = {0};
-    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hue,  rgb_matrix_config.sat, rgb_matrix_config.val);
-    oled_write(temp, false);
+    render_rgb_status();
 #endif
 
     oled_write(keylog_str, false);
@@ -262,15 +265,13 @@ void render_status_secondary(void) {
     oled_write(" ", false); oled_write_ln( "ALT", ( modifiers & MOD_MASK_ALT   ) );
     oled_write(" ", false); oled_write_ln( "GUI", ( modifiers & MOD_MASK_GUI   ) );
 
-    /* Show logged Keys */
-    oled_write(keylog_str, false);
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    oled_write_ln("RGB:", false);
-    static char temp[20] = {0};
-    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hue,  rgb_matrix_config.sat, rgb_matrix_config.val);
-    oled_write(temp, false);
+    render_rgb_status();
 #endif
+
+    /* Show logged Keys */
+    oled_write(keylog_str, false);
 }
 
 
