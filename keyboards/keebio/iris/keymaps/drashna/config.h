@@ -30,12 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #   undef  RGBLED_NUM
-#   define RGBLED_NUM 9     // Number of LEDs
+#   define RGBLED_NUM 18     // Number of LEDs
 #   undef  RGBLED_SPLIT
-// #   define RGBLED_SPLIT { 9, 9 }
-#   define RGBLIGHT_HUE_STEP 12
-#   define RGBLIGHT_SAT_STEP 12
-#   define RGBLIGHT_VAL_STEP 12
+#   define RGBLED_SPLIT { 9, 9 }
+#   define RGBLIGHT_HUE_STEP 8
+#   define RGBLIGHT_SAT_STEP 8
+#   define RGBLIGHT_VAL_STEP 8
 #   define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #   define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 
