@@ -23,8 +23,8 @@
 #define PRODUCT_ID      0xAE65 // AEboards EXT65
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         Ext65
-#define DESCRIPTION     Southpaw Left Handed Keyboard
+#define PRODUCT         AEboards Ext65
+#define DESCRIPTION     AEboards Ext65
 
 /* key matrix size */
 #define MATRIX_ROWS 10
