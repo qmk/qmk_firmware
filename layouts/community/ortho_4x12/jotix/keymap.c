@@ -96,25 +96,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_LCTL:
-      if (record->event.pressed) {
-        is_ctl_pressed = true;
-      } else {
-        is_ctl_pressed = false;
-      }
+      is_ctl_pressed = record->event.pressed;
       break;
     case KC_ESC:
-      if (record->event.pressed) {
-        is_esc_pressed = true;
-      } else {
-        is_esc_pressed = false;
-      }
+      is_esc_pressed = record->event.pressed;
       break;
     case KC_BSPC:
-      if (record->event.pressed) {
-        is_bspc_pressed = true;
-      } else {
-        is_bspc_pressed = false;
-      }
+      is_bspc_pressed = record->event.pressed;
       break;
   };
   return true;
