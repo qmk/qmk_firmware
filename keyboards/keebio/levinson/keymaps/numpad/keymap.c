@@ -31,36 +31,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Numpad
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |   0  |   1  |   4  |   7  |  Esc | Mute |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |   ,  |   2  |   5  |   8  |   /  | Vol- |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |   .  |   3  |   6  |   9  |   *  | Vol+ |
+ * |   0  |   1  |   4  |   7  | BkSp |OSL(1)|      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |    Enter    |   +  |   -  |   ?  |   ~  |
+ * |   ,  |   2  |   5  |   8  |   /  | Down |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |   .  |   3  |   6  |   9  |   *  | Up   |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |    Enter    |   +  |   -  |   ?  | Tab  |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [0] = LAYOUT_ortho_4x12( \
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_KP_0,     KC_KP_1,     KC_KP_4,    KC_KP_7,     KC_ESC,         KC_BSPC, \
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_KP_COMMA, KC_KP_2,     KC_KP_5,    KC_KP_8,     KC_KP_SLASH,    KC_A,    \
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_KP_DOT,   KC_KP_3,     KC_KP_6,    KC_KP_9,     KC_KP_ASTERISK, KC_B,    \
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_KP_ENTER, KC_KP_ENTER, KC_KP_PLUS, KC_KP_MINUS, KC_QUESTION,    KC_C     \
+    KC_KP_0,     KC_KP_1, KC_KP_4,    KC_KP_7,     KC_BACKSPACE,   OSL(1),  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_COMMA,    KC_KP_2, KC_KP_5,    KC_KP_8,     KC_KP_SLASH,    KC_DOWN, KC_NO, KC_A,  KC_B,  KC_C,  KC_D,  KC_NO, \
+    KC_KP_DOT,   KC_KP_3, KC_KP_6,    KC_KP_9,     KC_KP_ASTERISK, KC_UP,   KC_NO, KC_E,  KC_F,  KC_G,  KC_H,  KC_NO, \
+    KC_KP_ENTER, KC_NO,   KC_KP_PLUS, KC_KP_MINUS, KC_QUESTION,    KC_TAB,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
 ),
-/* Macro layer - use the number keys as macros
+/* Macro layer - the number keys are macros,
+ * other functions on remaining keys
  * ,-----------------------------------------.
- * |      |      |      |      |      |OSL(1)|
+ * | M(0) | M(1) | M(4) | M(7) |      | Esc  |
  * |------+------+------+------+------+------|
- * |      |      |      |      |      |      |
+ * | Left | M(2) | M(5) | M(8) |      |      |
  * |------+------+------+------+------+------|
- * |      |      |      |      |      |      |
+ * | Right| M(3) | M(6) | M(9) |      |      |
  * |------+------+------+------+------+------|
  * |   NumLock   |      |      |      |      |
  * `-----------------------------------------'
  */
 [1] = LAYOUT_ortho_4x12( \
     M(M0),      M(M1), M(M4), M(M7), KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_NO,      M(M2), M(M5), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_NO,      M(M3), M(M6), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_LEFT,    M(M2), M(M5), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_RIGHT,   M(M3), M(M6), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
     KC_NUMLOCK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
 )
 };
