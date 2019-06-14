@@ -1,2 +1,2 @@
-# The VIA Aegis Layout
+# The VIA Ext65 Layout
 
