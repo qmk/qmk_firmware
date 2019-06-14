@@ -121,8 +121,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 
-#define KEYLOG_LEN (int)(32 / OLED_FONT_WIDTH)
-char keylog_str[KEYLOG_LEN] = {};
+char keylog_str[5] = {};
 uint8_t keylogs_str_idx = 0;
 uint16_t log_timer = 0;
 
@@ -138,13 +137,13 @@ void add_keylog(uint16_t keycode) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
         (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
 
-    for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
+    for (uint8_t i = 4; i > 0; i--) {
         keylog_str[i] = keylog_str[i - 1];
     }
     if (keycode < 60) {
         keylog_str[0] = code_to_name[keycode];
     }
-    keylog_str[KEYLOG_LEN] = 0;
+    keylog_str[5] = 0;
 
     log_timer = timer_read();
 }
@@ -209,10 +208,12 @@ void render_status_main(void) {
     /* Show RGB Options */
 
     oled_write_ln("RGB:", false);
-    static char temp[21] = {0};
-    snprintf(temp, sizeof(temp), "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h,  rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
+    static char temp[20] = {0};
+    snprintf(temp, sizeof(temp)+1, "M:%3dH:%3dS:%3dV:%3d", rgb_matrix_config.mode, rgb_matrix_config.hsv.h,  rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     oled_write(temp, false);
 #endif
+
+    oled_write(keylog_str, false);
 }
 
 void render_status_secondary(void) {
