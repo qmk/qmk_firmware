@@ -39,7 +39,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Layer 0: basic qwerty */
+    /* base 60% qwerty */
     KEYMAP(
        // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||------2.0-------|
             KC_ESC,   KC_1,    KC_2,    KC_3,   KC_4,   KC_5,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_MINS, KC_EQL,      KC_BSPC,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
-             KC_LSHIFT,         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,  KC_COMM, KC_DOT,   SFT_T(KC_SLSH),  KC_UP,  KC_HYPR,
+             KC_LSHIFT,         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,  KC_COMM, KC_DOT,   SFT_T(KC_SLSH),  KC_UP, VIM_START,
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
@@ -62,42 +62,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
-    /* Layer 1: primary fn layer */
+    /* vim mode */
+    KEYMAP(
+            _______,   _______, _______, _______, _______, _______, _______, _______, _______,   _______,    _______, _______, _______, _______,
+            _______,   _______, VIM_W,   VIM_E,   KC_R,    _______, VIM_Y,   VIM_U,   VIM_I,     VIM_O,      VIM_P,   _______, _______, _______,
+            _______,   VIM_A,   VIM_S,   VIM_D,   _______, VIM_G,   VIM_H,   VIM_J,   VIM_K,     VIM_L,      _______, _______, _______,
+            VIM_SHIFT, _______, VIM_X,   VIM_C,   VIM_V,   VIM_B,   _______, _______, VIM_COMMA, VIM_PERIOD, _______, _______, VIM_ESC,
+            _______,   _______, _______, _______, _______, _______, _______, _______, _______,   _______,    _______
+          ),
+
+    /* primary fn layer */
     KEYMAP(
             KC_GRV,   KC_F1,      KC_F2,          KC_F3,                KC_F4,            KC_F5,      KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
             KC_TAB,   KC_NO,      KC_HOME,        KC_UP,                KC_END,           KC_NO,      KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    LESS_PD,  KC_NO,    KC_NO,    KC_NO,
             KC_CAPS,  SALT_CMD,   KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
             KC_LSFT,  MEDIA_RWD,  KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  MEDIA_FWD,  KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_LOCK,  KC_PGUP,  KC_INS,
-            KC_MEH,   KC_LALT,    KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRNS,          KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_HOME,   KC_PGDN,    KC_END
+            KC_MEH,   KC_LALT,    KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  _______,          _______,    _______,  _______,  KC_HOME,   KC_PGDN,    KC_END
           ),
 
-    /* Layer 2: mouse navigation */
+    /* mouse navigation */
     KEYMAP(
-            TO(L_Base), KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,   KC_NO,    KC_NO,  KC_NO,
-            KC_NO,      KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,    KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,   KC_NO,    KC_NO,  KC_NO,
-            KC_LCTL,    KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,   KC_NO,    KC_NO,
-            KC_LSHIFT,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,   KC_TRNS,  KC_NO,
-            KC_NO,      KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRNS,      KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_TRNS,      KC_TRNS,         KC_TRNS
+            TO(L_Base), KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_NO,       KC_NO,   KC_NO,         KC_NO,         KC_NO,       KC_NO,          KC_NO,  KC_NO,   KC_NO, KC_NO,
+            KC_NO,      KC_NO,        KC_MS_BTN2,   KC_MS_UP,     KC_MS_BTN1,  KC_NO,   KC_NO,         KC_NO,         KC_PGDN,     KC_PGUP,        KC_NO,  KC_NO,   KC_NO, KC_NO,
+            KC_LCTL,    KC_MS_BTN3,   KC_MS_LEFT,   KC_MS_DOWN,   KC_MS_RIGHT, KC_NO,   KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, KC_NO,  KC_NO,   KC_NO,
+            KC_LSHIFT,  KC_NO,        KC_NO,        KC_NO,        KC_NO,       KC_NO,   KC_NO,         KC_NO,         KC_NO,       KC_NO,          KC_NO,  _______, KC_NO,
+            KC_NO,      KC_NO,        KC_NO,        KC_MS_BTN1,   _______,     _______, _______,       _______,       _______,     _______,        _______
           ),
 
-    /* Layer 3: numpad */
+    /* numpad layer */
     KEYMAP(
-            KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_BSPC,
-            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
-            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_ENT,
-            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
-            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRNS,  KC_TRNS,  KC_NO,    KC_NO,        KC_NO
-          ),
-    /* Layer 4: RGB lighting controls and keyboard config, reset */
+            _______, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,          KC_NO, KC_NO,  KC_BSPC,
+            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_MINUS, KC_KP_PLUS,     KC_NO, KC_NO,  KC_NO,
+            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_SLASH, KC_KP_ASTERISK, KC_NO, KC_ENT,
+            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_DOT,   KC_KP_ENTER,    KC_NO, KC_NO,
+            KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_KP_0, _______, _______, KC_NO,   KC_NO,       KC_NO
+    ),
+
+
+    /* RGB lighting controls and keyboard config, reset */
     KEYMAP(
-            KC_TRNS,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    TG_L0_RGB,       KC_NO,             KC_NO,      TO(L_None),
+            _______,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    TG_L0_RGB,       KC_NO,             KC_NO,      TO(L_None),
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  RESET,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
             EN_CTRL_SHORTCUTS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    TG_LAYER_RGB, RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
-            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
-            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  RGB_SAD,  RGB_VAD,  RGB_SAI
+            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MAKE,  KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
+            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  _______,  RGB_SAD,  RGB_VAD,  RGB_SAI
           ),
 
-    /* Layer 5: soft "off" state where none of the keystroke register */
+    /* soft "off" state where none of the keystroke register */
     KEYMAP(
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
@@ -107,3 +118,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           ),
 };
 
+uint8_t vim_cmd_layer(void) {
+    return L_Vim;
+}

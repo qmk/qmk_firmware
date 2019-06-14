@@ -1,8 +1,10 @@
 #include "twschum.h"
 
-static bool rgb_layers_enabled = true;
-static bool rgb_L0_enabled = false;
+// util for detecting simultanious shifts
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
+
+#ifdef TWSCHUM_TAPPING_CTRL_PREFIX
 // state for the great state machine of custom actions!
 #define TIMEOUT_DELAY 150 // ms
 static uint16_t idle_timer;
@@ -93,10 +95,118 @@ static inline bool tap_ctrl_other_pressed(void) {
     }
     return true; // safe default
 }
+#endif /* TWSCHUM_TAPPING_CTRL_PREFIX */
 
-/* Return True to continue processing keycode, false to stop further processing */
+
+/* Use RGB underglow to indicate layer
+ * https://docs.qmk.fm/reference/customizing-functionality
+ */
+// add to quantum/rgblight_list.h
+#ifdef RGBLIGHT_ENABLE
+#define  HSV_OFF          0,    0,    0
+static bool rgb_layers_enabled = true;
+static bool rgb_L0_enabled = false;
+
+uint32_t layer_state_set_user(uint32_t state) {
+    if (!rgb_layers_enabled) {
+        return state;
+    }
+    switch (biton32(state)) {
+    case L_Base:
+        if (rgb_L0_enabled) {
+            rgblight_sethsv_noeeprom(L_Base_HSV_ON);
+        }
+        else {
+            rgblight_sethsv_noeeprom(L_Base_HSV_OFF);
+        }
+        break;
+    case L_Vim:
+        rgblight_sethsv_noeeprom(L_Vim_HSV);
+        break;
+    case L_Fn:
+        rgblight_sethsv_noeeprom(L_Fn_HSV);
+        break;
+    case L_Nav:
+        rgblight_sethsv_noeeprom(L_Nav_HSV);
+        break;
+    case L_Num:
+        rgblight_sethsv_noeeprom(L_Num_HSV);
+        break;
+    case L_Cfg:
+        rgblight_sethsv_noeeprom(L_Cfg_HSV);
+        break;
+    case L_None:
+        rgblight_sethsv_noeeprom(L_None_HSV);
+        break;
+    }
+    return state;
+}
+#endif /* RGBLIGHT_ENABLE */
+
+/* process_record_vimlayer: handles the VIM_ keycodes from xtonhasvim's vim
+ * emulation layer
+ * add process_record_keymap to allow specific keymap to still add keys
+ * Makes the callstack look like:
+ * process_record_
+ *  _quantum
+ *    _kb
+ *      _user
+ *        _keymap
+ *        _vimlayer
+ */
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+/* Return True to continue processing keycode, false to stop further processing
+ * process_record_keymap to be call by process_record_user in the vim addon */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  /* keymap gets first whack, then vimlayer */
+  if(!process_record_keymap(keycode, record)) return false;
+  if(!process_record_vimlayer(keycode, record)) return false;
+
     switch (keycode) {
+        /* KC_MAKE is a keycode to be used with any keymap
+         * Outputs `make <keyboard>:<keymap>`
+         * Holding shift will add the appropriate flashing command (:dfu,
+         *   :teensy, :avrdude, :dfu-util) for a majority of keyboards.
+         * Holding control will add some commands that will speed up compiling
+         *   time by processing multiple files at once
+         * For the boards that lack a shift key, or that you want to always
+         *   attempt the flashing part, you can add FLASH_BOOTLOADER = yes to the
+         *   rules.mk of that keymap.
+         */
+        case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            uint8_t temp_osm = get_oneshot_mods();
+            clear_mods(); clear_oneshot_mods();
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+        #ifndef FLASH_BOOTLOADER
+            if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT )
+        #endif
+            { //
+                #if defined(__arm__)  // only run for ARM boards
+                    SEND_STRING(":dfu-util");
+                #elif defined(BOOTLOADER_DFU) // only run for DFU boards
+                    SEND_STRING(":dfu");
+                #elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
+                    SEND_STRING(":teensy");
+                #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
+                    SEND_STRING(":avrdude");
+                #endif // bootloader options
+            }
+            if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) {
+                SEND_STRING(" -j8 --output-sync");
+            }
+            SEND_STRING(SS_TAP(X_ENTER));
+            set_mods(temp_mod);
+        }
+        break;
+
+        #ifdef RGBLIGHT_ENABLE
         case TG_LAYER_RGB:
             if (record->event.pressed) {
                 rgb_layers_enabled = !rgb_layers_enabled;
@@ -107,6 +217,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_L0_enabled = !rgb_L0_enabled;
             }
             return false;
+        #endif
+
+        case SALT_CMD:
+            if (!record->event.pressed) {
+                SEND_STRING(SALT_CMD_MACRO);
+            }
+            return false;
+        case LESS_PD:
+            if (!record->event.pressed) {
+                SEND_STRING(LESS_PD_MACRO);
+            }
+            return false;
+
+        #ifdef TWSCHUM_TAPPING_CTRL_PREFIX
         case EN_CTRL_SHORTCUTS:
             if (record->event.pressed) {
                 ctrl_shortcuts_enabled_g = !ctrl_shortcuts_enabled_g;
@@ -117,28 +241,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return tap_ctrl_event(&special_keys_g[1], record);
         case CTRL_B:
             return tap_ctrl_event(&special_keys_g[0], record);
-        case SALT_CMD:
-            if (!record->event.pressed) {
-                SEND_STRING("sudo salt \\* cmd.run ''"SS_TAP(X_LEFT));
-            }
-            return false;
-        case LESS_PD:
-            if (!record->event.pressed) {
-                SEND_STRING("sudo less /pipedream/cache/");
-            }
-            return false;
         default:
             if (record->event.pressed) {
                 return tap_ctrl_other_pressed();
             }
+        #endif
     }
     return true;
 }
 
+#ifdef RGBLIGHT_ENABLE
 void matrix_init_user(void) {
     // called once on board init
     rgblight_enable();
 }
+#endif
 
 void suspend_power_down_user(void) {
     // TODO shut off backlighting
@@ -146,41 +263,4 @@ void suspend_power_down_user(void) {
 
 void suspend_wakeup_init_user(void) {
     // TODO turn on backlighting
-}
-
-// add to quantum/rgblight_list.h
-#define  HSV_OFF          0,    0,    0
-/* Use RGB underglow to indicate layer
- * https://docs.qmk.fm/reference/customizing-functionality
- */
-uint32_t layer_state_set_user(uint32_t state) {
-    if (!rgb_layers_enabled) {
-        return state;
-    }
-    switch (biton32(state)) {
-    case L_Base:
-        if (rgb_L0_enabled) {
-            rgblight_sethsv_noeeprom(HSV_WHITE);
-        }
-        else {
-            rgblight_sethsv_noeeprom(HSV_OFF);
-        }
-        break;
-    case L_Fn:
-        rgblight_sethsv_noeeprom(HSV_GREEN);
-        break;
-    case L_Nav:
-        rgblight_sethsv_noeeprom(HSV_AZURE);
-        break;
-    case L_Num:
-        rgblight_sethsv_noeeprom(HSV_GOLD);
-        break;
-    case L_Cfg:
-        rgblight_sethsv_noeeprom(HSV_RED);
-        break;
-    case L_None:
-        rgblight_sethsv_noeeprom(HSV_WHITE);
-        break;
-    }
-    return state;
 }

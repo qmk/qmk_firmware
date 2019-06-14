@@ -1,37 +1,85 @@
 #pragma once
-
 #include <stdarg.h>
 #include "quantum.h"
+#include "xtonhasvim.h"
 
-
-/* Features Wishlist:
+/**************************
+ * QMK Features Used
+ **************************
+ * RGBLIGHT_ENABLE
+ *  - Adds layer indication via RGB underglow
+ *  - see the `layer_definitions` enum and following L_*_HSV #defines
+ *
+ *
+ *
+ **************************
+ * Custom Feature Flags
+ **************************
+ *
+ * TWSCHUM_TAPPING_CTRL_PREFIX
+ * - Adds feature that makes sending nested sequences of C-a, C-b[, C-b, ...]
+ *   as simple as C-a b [b ...]
+ * - Not necessarily super useful outside specialized nested tmux sessions,
+ *   but it was a fun state-machine to build
+ *
+ * TWSCHUM_VIM_LAYER
+ * - Fork of xtonhasvim, adding vim-emulation
+ *
+ * TWSCHUM_IS_MAC
+ * - Flag for handling media keys and other settings between OSX and Win/Unix
+ *   without having to include bootmagic
+ *
+ **************************
+ * Features Wishlist
+ **************************
+ * use VIM_Q as macro recorder!
  * Dynamic macros
  * Leader functions
- * Unicode leader commands??? (symbolic unicode)
+ * Uniicode leader commands??? (symbolic unicode)
  * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here
  *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
 
-enum Layer_defs {
+/* Each layer gets a color, overwritable per keyboard */
+enum layers_definitions {
     L_Base,
+    L_Vim,
     L_Fn,
     L_Nav,
     L_Num,
     L_Cfg,
-    L_None
+    L_None,
 };
+#ifdef RGBLIGHT_ENABLE
+#define L_Base_HSV_ON  HSV_WHITE
+#define L_Base_HSV_OFF HSV_OFF
+#define L_Vim_HSV      HSV_ORANGE
+#define L_Fn_HSV       HSV_GREEN
+#define L_Nav_HSV      HSV_AZURE
+#define L_Num_HSV      HSV_GOLD
+#define L_Cfg_HSV      HSV_RED
+#define L_None_HSV     HSV_WHITE
+#endif
 
 enum extra_keycodes {
-    CTRL_A = SAFE_RANGE,
+    TWSCHUM_START = VIM_SAFE_RANGE,
+    KC_MAKE, // types the make command for this keyboard
+#ifdef TWSCHUM_TAPPING_CTRL_PREFIX
+    CTRL_A,
     CTRL_B,
     EN_CTRL_SHORTCUTS,
+#endif
+#ifdef RGBLIGHT_ENABLE
     TG_LAYER_RGB, // Toggle between standard RGB underglow, and RGB underglow to do layer indication
     TG_L0_RGB, // Toggle color on or off of layer0
+#endif
     SALT_CMD, // macro
     LESS_PD, // macro
+    KEYMAP_SAFE_RANGE, // range to start for the keymap
 };
+#define SALT_CMD_MACRO "sudo salt \\* cmd.run ''"SS_TAP(X_LEFT)
+#define LESS_PD_MACRO "sudo less /pipedream/cache/"
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 /* PP_NARG macro returns the number of arguments passed to it.
  * https://groups.google.com/forum/#!topic/comp.std.c/d-6Mj5Lko_s

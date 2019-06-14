@@ -19,3 +19,6 @@
 #define MOUSEKEY_TIME_TO_MAX  15
 #define MOUSEKEY_WHEEL_MAX_SPEED   1
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 255
+
+// flags from user/twschum/
+#define TWSCHUM_TAPPING_CTRL_PREFIX 1
