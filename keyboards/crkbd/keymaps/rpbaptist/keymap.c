@@ -34,7 +34,6 @@ extern uint8_t is_master;
 #define KC_T_NAV TT(10)
 #define KC_S_NAV MO(10)
 
-#define KC_NV_ENT LT(_NAV, KC_ENT)
 #define KC_FNESC LT(_FN, KC_ESC)
 #define KC_UTTAB LT(_UTIL, KC_TAB)
 #define KC_SMSPC LT(_SYM, KC_SPC)
