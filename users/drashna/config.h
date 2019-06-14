@@ -2,6 +2,12 @@
 
 
 #ifdef AUDIO_ENABLE
+#   if __GNUC__ > 7
+#       if __has_include("drashna_song_list.h")
+#           include "drashna_song_list.h"
+#       endif // if file exists
+#   endif // __GNUC__
+
 #   define AUDIO_CLICKY
 #   define STARTUP_SONG SONG(RICK_ROLL)
 #   define GOODBYE_SONG  SONG(SONIC_RING)
@@ -18,7 +24,6 @@
 #   define UNICODE_SONG_WIN SONG(RICK_ROLL)
 #   define UNICODE_SONG_BSD SONG(RICK_ROLL)
 #   define UNICODE_SONG_WINC SONG(RICK_ROLL)
-
 #endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
