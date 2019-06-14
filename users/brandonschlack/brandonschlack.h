@@ -26,9 +26,12 @@ enum macropad_layers {
 #endif
 #define _MAGIC 15
 
+void keyboard_post_init_keymap(void);
+void shutdown_keymap(void);
+void suspend_power_down_keymap(void);
+void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
 layer_state_t layer_state_set_keymap (layer_state_t state);
-// layer_state_t default_layer_state_set_keymap (layer_state_t state);
 
 // typedef union {
 //     uint32_t raw;

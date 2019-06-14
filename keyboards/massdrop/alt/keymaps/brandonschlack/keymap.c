@@ -143,9 +143,7 @@ void matrix_init_user(void) {
 };
 
 // Runs once after keyboard initializes
-void keyboard_post_init_user(void) {
-    rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+void keyboard_post_init_keymap(void) {
 };
 
 // Runs constantly in the background, in a loop.
