@@ -34,12 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define FORCE_NKRO
 
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 16
-#define RGBLIGHT_VAL_STEP 16
+#ifdef RGBLIGHT_ENABLE
+  #undef RGBLED_NUM
+  #define RGBLIGHT_ANIMATIONS
+  #define RGBLED_NUM 12
+  #define RGBLIGHT_HUE_STEP 10
+  #define RGBLIGHT_SAT_STEP 16
+  #define RGBLIGHT_VAL_STEP 16
+#endif
 
 #define TAPPING_TERM 170
 // #define PERMISSIVE_HOLD
@@ -63,9 +65,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_ONESHOT
 
+#define DISABLE_LEADER
+
 #ifndef NO_DEBUG
-#define NO_DEBUG
+  #define NO_DEBUG
 #endif // !NO_DEBUG
+
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
+  #define NO_PRINT
 #endif // !NO_PRINT
