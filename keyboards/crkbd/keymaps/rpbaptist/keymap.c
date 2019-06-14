@@ -31,32 +31,26 @@ extern uint8_t is_master;
 #define KC_QWERT DF(1)
 #define KC_GAME DF(3)
 
-// #define KC_T_SYM TT(8)
-// #define KC_S_SYM MO(8)
-
 #define KC_T_NAV TT(10)
 #define KC_S_NAV MO(10)
 
 #define KC_NV_ENT LT(_NAV, KC_ENT)
-#define KC_FN_ESC LT(_FN, KC_ESC)
-#define KC_UT_TAB LT(_UTIL, KC_TAB)
-#define KC_SYMSPC LT(_SYM, KC_SPC)
+#define KC_FNESC LT(_FN, KC_ESC)
+#define KC_UTTAB LT(_UTIL, KC_TAB)
+#define KC_SMSPC LT(_SYM, KC_SPC)
 
 #define KC_GMSPC LT(_GAME_EXT, KC_SPC)
 
 #define KC_LCTLT LCTL_T(KC_LT)
 
-#define KC_CTRGUI LCTL_T(KC_LGUI)
-#define KC_CTLENT RCTL_T(KC_ENT)
+#define KC_CTGUI LCTL_T(KC_LGUI)
+#define KC_CTENT RCTL_T(KC_ENT)
 
 #define KC_ALTBR LALT_T(KC_LBRACKET)
 #define KC_GUIBR RGUI_T(KC_RBRACKET)
 
-// #define KC_ALSPC LALT_T(KC_SPC)
-// #define KC_ALTSF LALT(KC_LSFT)
-
-#define KC_TABFWD LCTL(KC_TAB)
-#define KC_TABBCK LCTL(LSFT(KC_TAB))
+#define KC_TBFWD LCTL(KC_TAB)
+#define KC_TBBCK LCTL(LSFT(KC_TAB))
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
@@ -78,13 +72,13 @@ extern uint8_t is_master;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-     FN_ESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
+      FNESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-     UT_TAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
+      UTTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-     CTRGUI,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, CTLENT,\
+      CTGUI,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, CTENT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  ALTBR,  LSPO, SYMSPC,   T_NAV,  RSPC, GUIBR \
+                                  ALTBR,  LSPO, SMSPC,   T_NAV,  RSPC, GUIBR \
                               //`--------------------'  `--------------------'
   ),
 
@@ -138,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,  WH_U,TABBCK,  MS_U,TABFWD,  BTN2,                   PGUP,  HOME,    UP,   END, XXXXX,   DEL,\
+        GRV,  WH_U, TBBCK,  MS_U, TBFWD,  BTN2,                   PGUP,  HOME,    UP,   END, XXXXX,   DEL,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
         TAB,  WH_D,  MS_L,  MS_D,  MS_R,  BTN1,                   PGDN,  LEFT,  DOWN,  RGHT, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
