@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL_PD2
 
-#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-
 #define FORCE_NKRO
 
 #undef RGBLED_NUM
@@ -62,8 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCPO_KEYS KC_LCTL, KC_RSFT, KC_COMM
 #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_DOT
 
-#define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+#define NO_ACTION_MACRO
+#define NO_ACTION_ONESHOT
 
 #ifndef NO_DEBUG
 #define NO_DEBUG
