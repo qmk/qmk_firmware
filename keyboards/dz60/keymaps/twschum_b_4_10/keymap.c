@@ -8,6 +8,9 @@
  * http://www.keyboard-layout-editor.com/#/gists/225f0f4dcf6671405f744fabe314627c
  */
 
+/* TODO: provide a standalone B_4_10 layout
+ */
+
 #undef KEYMAP
 #define KEYMAP( \
         K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, \
