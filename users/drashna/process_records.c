@@ -54,7 +54,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY); }
 #ifdef RGB_MATRIX_SPLIT_RIGHT
-            send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
+            send_string_with_delay_P(PSTR(" RGB_MATRIX_SPLIT_RIGHT=yes"), TAP_CODE_DELAY);
+#   ifndef OLED_DRIVER_ENABLE
+            send_string_with_delay_P(PSTR(" OLED_DRIVER_ENABLE=no"), TAP_CODE_DELAY);
+#   endif
 #endif
             send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
         }
