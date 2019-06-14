@@ -20,7 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4145 // "AE"
-#define PRODUCT_ID      0x0807 // 1800 -> 0x0708 -> 0x0807 ;-)
+#define PRODUCT_ID      0xAE65 // AEboards EXT65
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
 #define PRODUCT         Ext65
