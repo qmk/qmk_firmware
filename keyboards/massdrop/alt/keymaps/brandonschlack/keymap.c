@@ -201,28 +201,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             return false;
         case RGB_TOG:
             if (record->event.pressed) {
-              switch (rgb_matrix_get_flags()) {
-                case LED_FLAG_ALL: {
-                    rgb_matrix_set_flags(LED_FLAG_KEYLIGHT);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_KEYLIGHT: {
-                    rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                case LED_FLAG_UNDERGLOW: {
-                    rgb_matrix_set_flags(LED_FLAG_MODIFIER);
-                    rgb_matrix_set_color_all(0, 0, 0);
-                  }
-                  break;
-                default: {
-                    rgb_matrix_set_flags(LED_FLAG_ALL);
-                    rgb_matrix_enable_noeeprom();
-                  }
-                  break;
-              }
+                rgb_matrix_cycle_flag();
             }
             return false;
         default:
@@ -230,39 +209,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void rgb_matrix_hsv_layer (uint8_t hue, uint8_t sat, uint8_t val) {
-    rgb_matrix_sethsv_noeeprom(hue, sat, val);
-    if (rgb_matrix_get_flags() == LED_FLAG_MODIFIER) {
-        rgb_matrix_set_color(30, 0, 0, 0);
-    }
-}
-
 void rgb_matrix_indicators_user(void) {
-	uint8_t this_led = host_keyboard_leds();
-
-	if (!g_suspend_state && rgb_matrix_config.enable) {
-		switch (biton32(layer_state)) {
-            case _MAC:
-                rgb_matrix_hsv_layer(HSV_PURPLE);
-                break;
-            case _MACFN:
-                rgb_matrix_hsv_layer(HSV_PINK);
-                break;
-            case _WIN:
-                rgb_matrix_hsv_layer(HSV_MAGENTA);
-                break;
-            case _WINFN:
-                rgb_matrix_hsv_layer(HSV_CYAN);
-                break;
-            case _MAGIC:
-                rgb_matrix_hsv_layer(HSV_WHITE);
-                break;
-		}
-
-        if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
-	        rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, RGB_GREEN);
-	    } else {
-            rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, 0, 0, 0);
-        }
-	}
+    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, RGB_GREEN);
+    } else if (!HAS_ANY_FLAGS(rgb_matrix_get_flags(), LED_FLAG_ALL_KEYS)){
+        rgb_matrix_set_color(USB_LED_CAPS_LOCK_SCANCODE, 0, 0, 0);
+    }
 }

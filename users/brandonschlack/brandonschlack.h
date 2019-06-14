@@ -27,3 +27,14 @@ enum macropad_layers {
 #define _MAGIC 15
 
 void matrix_scan_keymap(void);
+layer_state_t layer_state_set_keymap (layer_state_t state);
+// layer_state_t default_layer_state_set_keymap (layer_state_t state);
+
+// typedef union {
+//     uint32_t raw;
+//     struct {
+//         uint8_t  os_mode          :4;
+//     };
+// } userspace_config_t;
+
+// extern userspace_config_t userspace_config;

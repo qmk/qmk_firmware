@@ -1,6 +1,5 @@
 #pragma once
 #include "quantum.h"
-#include "rgblight_list.h"
 #ifdef RGB_MATRIX_ENABLE
   #include "rgb_matrix.h"
 #endif
@@ -22,8 +21,14 @@
 #define HSV_LSR_CYAN     HSV_CYAN
 #define HSV_LSR_MAGENTA  HSV_MAGENTA
 
-// layer_state_t layer_state_set_rgb(layer_state_t state);
-// layer_state_t default_layer_state_set_rgb(layer_state_t state);
+#ifdef RGB_MATRIX_ENABLE
+#define LED_FLAG_ALL_KEYS 0x05
 
-// void rgb_matrix_hsv_layer (uint8_t hue, uint8_t sat, uint8_t val);
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, uint8_t led_type);
+void rgb_matrix_layer_helper(uint8_t red, uint8_t green, uint8_t blue, uint8_t led_type);
+void rgb_matrix_cycle_flag(void);
+#endif
+
+void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val);
+
+layer_state_t layer_state_set_rgb(layer_state_t state);
+// layer_state_t default_layer_state_set_rgb(layer_state_t state);

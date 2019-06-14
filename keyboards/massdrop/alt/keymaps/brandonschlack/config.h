@@ -42,6 +42,10 @@
 
 // #define RGB_MATRIX_KEYRELEASES
 
+// Use RGB Indicators over LED
+#undef USB_LED_INDICATOR_ENABLE
+#define USB_LED_CAPS_LOCK_SCANCODE      30
+
 
 // Speed
 #define NO_ACTION_MACRO
