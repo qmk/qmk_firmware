@@ -5,7 +5,7 @@ A replacement PCB for Omnikey keyboards. (In theory) supports 101, 102, Plus, Ul
 
 Keyboard Maintainer: QMK Community and Henrik O. Sørensen  
 Hardware Supported: Omnikey(-ish) PCB  
-Hardware Availability: insert kicad file url here
+Hardware Availability: https://github.com/henrikosorensen/keyboard_pcbs/tree/master/omnikeyish_pcb
 
 Make example for this keyboard (after setting up your build environment):
 
