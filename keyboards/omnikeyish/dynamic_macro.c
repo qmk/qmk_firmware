@@ -1,6 +1,7 @@
 #include "config.h"
 #include "quantum.h"
 #include "dynamic_macro.h"
+#include <string.h>
 
 void dynamic_macro_init(void)
 {

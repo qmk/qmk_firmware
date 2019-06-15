@@ -21,8 +21,6 @@
 #include "action.h"
 #include "action_layer.h"
 
-#include <string.h>
-
 #ifndef DYNAMIC_MACRO_COUNT
 #define DYNAMIC_MACRO_COUNT 2
 #endif 
