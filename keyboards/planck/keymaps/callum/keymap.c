@@ -3,8 +3,7 @@
 
 extern keymap_config_t keymap_config;
 
-#define powr KC_POWER
-#define rset RESET
+#define CTAB S(C(KC_TAB))
 #define XXXX KC_NO
 #define ____ KC_TRNS
 #define a KC_A
@@ -12,10 +11,12 @@ extern keymap_config_t keymap_config;
 #define back G(KC_LBRC)
 #define bspc KC_BSPC
 #define c KC_C
-#define clft C(KC_LEFT)
-#define crgt C(KC_RGHT)
+#define cTAB C(KC_TAB)
 #define caps KC_CAPS
+#define clft C(KC_LEFT)
+#define cmdw G(KC_W)
 #define comm KC_COMM
+#define crgt C(KC_RGHT)
 #define d KC_D
 #define dash A(KC_MINS)
 #define del KC_DEL
@@ -84,6 +85,7 @@ extern keymap_config_t keymap_config;
 #define pgdn KC_PGDN
 #define pgup KC_PGUP
 #define play KC_MPLY
+#define powr KC_POWER
 #define prev KC_MPRV
 #define q KC_Q
 #define quot KC_QUOT
@@ -92,6 +94,7 @@ extern keymap_config_t keymap_config;
 #define rcmd KC_RCMD
 #define rctl KC_RCTL
 #define rght KC_RGHT
+#define rset RESET
 #define rsft KC_RSFT
 #define s KC_S
 #define scln KC_SCLN
@@ -122,10 +125,8 @@ enum planck_keycodes {
     FUNC,
 
     ATAB,
-    CTAB,
     GTAB,
     aTAB,
-    cTAB,
     gTAB,
 
     ampr,
@@ -160,13 +161,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYMB] = LAYOUT_planck_grid(
          esc,   n7,   n5,   n3,   n1,   n9,   n8,   n0,   n2,   n4,   n6, dash,
-         del, exlm,   at, hash,  dlr, perc, circ, ampr, astr,  eql, plus,  gbp,
-        caps, tild,  grv, lprn, rprn, pipe, bsls, rcbr, lcbr, rbrc, lbrc, caps,
+         del, bsls, hash, astr,  eql, pipe,   at, rprn, lprn,  dlr, ampr,  gbp,
+        caps,  grv, exlm, lbrc, rbrc, circ, tild, rcbr, lcbr, plus, perc, caps,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
     [_MOVE] = LAYOUT_planck_grid(
-         esc, XXXX, XXXX, CTAB, cTAB, XXXX, XXXX, home,   up,  end, XXXX, XXXX,
+         esc, XXXX, cmdw, CTAB, cTAB, XXXX, XXXX, home,   up,  end, XXXX, XXXX,
          del, back,  fwd, GTAB, gTAB, XXXX, XXXX, left, down, rght, XXXX, XXXX,
         ____, XXXX, XXXX, ATAB, aTAB, XXXX, XXXX, pgdn, pgup, clft, crgt, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
@@ -182,7 +183,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool is_gui_tabbing = false;
 bool is_alt_tabbing = false;
-bool is_ctl_tabbing = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -204,10 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (is_alt_tabbing) {
                     unregister_code(KC_LALT);
                     is_alt_tabbing = false;
-                }
-                if (is_ctl_tabbing) {
-                    unregister_code(KC_LCTL);
-                    is_ctl_tabbing = false;
                 }
                 layer_off(_MOVE);
             }
@@ -260,30 +256,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!is_alt_tabbing) {
                     is_alt_tabbing = true;
                     register_code(KC_LALT);
-                }
-                register_code(KC_LSFT);
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-                unregister_code(KC_LSFT);
-            }
-            return false;
-        case cTAB:
-            if (record->event.pressed) {
-                if (!is_ctl_tabbing) {
-                    is_ctl_tabbing = true;
-                    register_code(KC_LCTL);
-                }
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false;
-        case CTAB:
-            if (record->event.pressed) {
-                if (!is_ctl_tabbing) {
-                    is_ctl_tabbing = true;
-                    register_code(KC_LCTL);
                 }
                 register_code(KC_LSFT);
                 register_code(KC_TAB);
