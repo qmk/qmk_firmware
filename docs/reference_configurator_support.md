@@ -89,7 +89,7 @@ Once the layout is as desired, move to the Raw Data tab in KLE, and copy the con
 
 To convert this data into our JSON, go to the [QMK KLE-JSON Converter](https://qmk.fm/converter/), paste the Raw Data into the Input field, and click the Convert button. After a moment, our JSON data will appear in the Output field. Copy the contents to a new text document, and name the document `info.json`, saving it in the same folder that contains `numpad.h`.
 
-Use the `keyboard_name` object to set the name of the keyboard. The `bootloader` object is deprecated, so it can be deleted. For instruction purposes, we will put each key's object on its own line. This is only to make the file more human-readable, and does not affect the Configurator's functionality.
+Use the `keyboard_name` object to set the name of the keyboard. For instruction purposes, we will put each key's object on its own line. This is only to make the file more human-readable, and does not affect the Configurator's functionality.
 
 ```json
 {
