@@ -3,6 +3,8 @@
 
 #include "config_common.h"
 
+#define MOUSEKEY_MAX_SPEED         8
+
 // Must raise 5 halftones
 /* #define CUSTOM_STARTUP \ */
 /*  Q__NOTE(_FS7), \ */
@@ -60,7 +62,5 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-#define MOUSEKEY_MAX_SPEED         6
 
 #endif
