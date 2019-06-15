@@ -242,4 +242,5 @@ void eeconfig_init_user(void) {
     eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
   #endif
     eeconfig_init_keymap();
+    keyboard_init();
 }
