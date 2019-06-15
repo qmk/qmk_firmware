@@ -35,7 +35,7 @@ def set_logging(debug=None):
     """
     if debug:
         logging.basicConfig(format="%(levelname)s: %(message)s",
-                            level=logging.DEBUG)
+                level=logging.DEBUG)
         return
     logging.basicConfig(format="%(levelname)s: %(message)s")
 
@@ -59,7 +59,7 @@ def check_directories(kb_path, keymap_path_default, keymap_path):
         print_error(keymap_path_default + " does not exist!")
 
     if exists(keymap_path):
-        print_error(f"{keymap_path} already exists!")
+        print_error("%s already exists!" % (keymap_path))
 
 
 def create_keymap_directory(keymap_path_default, keymap_path):
@@ -91,13 +91,13 @@ def main(argv=sys.argv[1:]):
     # get username
     username = input("New Username: ")
 
-    # format inputs into directories
+    # %  inputs into directories
     kb_path = os.path.join(current_directory, "keyboards/" + keyboard)
     keymap_path_default = os.path.join(kb_path, "keymaps/default")
     keymap_path = os.path.join(kb_path, "keymaps/" + username)
-    logging.debug("kb_path = {}".format(kb_path))
-    logging.debug("keymap_path_default = {}".format(keymap_path_default))
-    logging.debug("keymap_path = {}".format(keymap_path))
+    logging.debug("kb_path = %s" % (kb_path,))
+    logging.debug("keymap_path_default = %s"% (keymap_path_default,))
+    logging.debug("keymap_path = %s" % (keymap_path,))
 
     # check directories
     check_directories(kb_path, keymap_path_default, keymap_path)
@@ -105,9 +105,9 @@ def main(argv=sys.argv[1:]):
     create_keymap_directory(keymap_path_default, keymap_path)
 
     # end message to user
-    print("{} keymap directory created in: {}\n".format(username, keymap_path))
+    print("%s keymap directory created in: %s\n" % (username, keymap_path,))
     print("Compile a firmware file with your new keymap by typing: \n")
-    print("make {}:{}\n".format(keyboard, username))
+    print("make %s:%s\n" % (keyboard, username,))
     print("from the qmk_firmware directory")
 
 
