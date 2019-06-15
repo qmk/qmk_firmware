@@ -82,9 +82,6 @@ void dynamic_macro_record_key(uint8_t macro_id, keyrecord_t *record)
         return;
     }
 
-    /* The other end of the other macro is the last buffer element it
-     * is safe to use before overwriting the other macro.
-     */
     if (length < DYNAMIC_MACRO_SIZE)
     {
         macro->events[length] = *record;
