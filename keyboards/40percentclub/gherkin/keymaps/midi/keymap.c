@@ -1,10 +1,7 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 enum layer_number {
-  _BASE = 0,
-  _IONIAN,
+  _IONIAN = 0,
   _DORIAN,
   _PHRYGIAN,
   _LYDIAN,
@@ -15,8 +12,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  BASE = SAFE_RANGE,
-  IONIAN,
+  IONIAN = SAFE_RANGE,
   DORIAN,
   PHRYGIAN,
   LYDIAN,
@@ -28,17 +24,10 @@ enum custom_keycodes {
 #define MENU MO(_MENU)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // Basic controls like octave and transpose
-  [_BASE] = LAYOUT_ortho_3x10(
-    _______, _______, _______, _______, _______, _______, _______, _______, MI_OCTD,  MI_OCTU,
-    _______, _______, _______, _______, _______, _______, _______, _______, MI_TRNSD, MI_TRNSU,
-    _______, _______, _______, _______, _______, _______, _______, _______, MI_SUS,   MENU
-  ),
-
   [_IONIAN] = LAYOUT_ortho_3x10(
-    MI_C_1,  MI_F_1,  MI_B_1,  MI_E_2,  MI_A_2,  MI_D_3,  MI_G_3,  MI_C_4,  _______, _______,
-    MI_D_1,  MI_G_1,  MI_C_2,  MI_F_2,  MI_B_2,  MI_E_3,  MI_A_3,  MI_D_4,  _______, _______,
-    MI_E_1,  MI_A_1,  MI_D_2,  MI_G_2,  MI_C_3,  MI_F_3,  MI_B_3,  MI_E_4,  _______, _______
+    MI_C_1,  MI_F_1,  MI_B_1,  MI_E_2,  MI_A_2,  MI_D_3,  MI_G_3,  MI_C_4,  MI_OCTD,  MI_OCTU,
+    MI_D_1,  MI_G_1,  MI_C_2,  MI_F_2,  MI_B_2,  MI_E_3,  MI_A_3,  MI_D_4,  MI_TRNSD, MI_TRNSU,
+    MI_E_1,  MI_A_1,  MI_D_2,  MI_G_2,  MI_C_3,  MI_F_3,  MI_B_3,  MI_E_4,  MI_SUS, MENU
   ),
 
   [_DORIAN] = LAYOUT_ortho_3x10(
@@ -84,54 +73,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void persistent_default_layer_set(uint16_t default_layer){
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case IONIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_IONIAN);
+        set_single_persistent_default_layer(_IONIAN);
       }
-      return false;
       break;
     case DORIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DORIAN);
+        set_single_persistent_default_layer(_DORIAN);
       }
-      return false;
       break;
     case PHRYGIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_PHRYGIAN);
+        set_single_persistent_default_layer(_PHRYGIAN);
       }
-      return false;
       break;
     case LYDIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_LYDIAN);
+        set_single_persistent_default_layer(_LYDIAN);
       }
-      return false;
       break;
     case MIXOLYDIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_MIXOLYDIAN);
+        set_single_persistent_default_layer(_MIXOLYDIAN);
       }
-      return false;
       break;
     case AEOLIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_AEOLIAN);
+        set_single_persistent_default_layer(_AEOLIAN);
       }
-      return false;
       break;
     case LOCRIAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_LOCRIAN);
+        set_single_persistent_default_layer(_LOCRIAN);
       }
-      return false;
       break;
   }
   return true;

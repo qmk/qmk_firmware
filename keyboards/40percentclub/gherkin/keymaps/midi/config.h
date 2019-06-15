@@ -15,16 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
-
+#pragma once
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 190
 
 #define MUSIC_MASK (keycode != KC_NO)
 #define MIDI_ADVANCED
-
-#endif
