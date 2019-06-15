@@ -18,4 +18,6 @@
 
 #   define RGBLIGHT_EFFECT_KNIGHT_OFFSET 3
 #   define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 14
+#   define B7_AUDIO
+#   define NO_MUSIC_MODE
 #endif
