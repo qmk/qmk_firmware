@@ -27,9 +27,14 @@ void keyboard_post_init_user(void)
     //debug_keyboard=true;
     //debug_mouse=true;
 
+    // Restore macros from eeprom
 #if DYNAMIC_MACRO_EEPROM_STORAGE
     dynamic_macro_load_eeprom_all();
 #endif
+
+    // Send numlock keycode to attempt to force numlock back on.
+    register_code(KC_NUMLOCK);
+    unregister_code(KC_NUMLOCK);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) 
@@ -51,8 +56,9 @@ void led_set_user(uint8_t usb_led)
     else
     {
         writePinLow(NUMLOCKLEDPIN);
+
     }
-    
+
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) 
     {
         writePinHigh(CAPSLOCKLEDPIN);
