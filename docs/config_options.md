@@ -83,7 +83,7 @@ This is a C header file that is one of the first things included, and will persi
   * enables backlight breathing (only works with backlight pins B5, B6 and B7)
 * `#define BREATHING_PERIOD 6`
   * the length of one backlight "breath" in seconds
-* `#define DEBOUNCING_DELAY 5`
+* `#define DEBOUNCE 5`
   * the delay when reading the value of the pin (5 is default)
 * `#define LOCKING_SUPPORT_ENABLE`
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
