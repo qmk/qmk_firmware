@@ -28,7 +28,7 @@
 #include "quantum.h"
 #include <math.h>
 #if defined(PROTOCOL_CHIBIOS)
-  #include "audio_arm.h"
+  #include "audio_chibios_dac.h"
 #endif
 
 // Largely untested PWM audio mode (doesn't sound as good)
