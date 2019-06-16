@@ -3,8 +3,8 @@
 extern keymap_config_t keymap_config;
 
 #define _BASE 0
-#define _L 1
-#define _R 2
+#define _R 1
+#define _L 2
 #define _A 4
 
 enum custom_keycodes {
@@ -69,20 +69,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+void keyboard_post_init_user(void) {
+  rgblight_sethsv_noeeprom(HSV_BLUE);
+}
+
 uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-    case _BASE:
-        rgblight_setrgb(0x00,  0x00, 0xFF);
-        break;
-    case _L:
-        rgblight_setrgb (0xFF,  0xFF, 0x00);
-        break;
-    case _R:
-        rgblight_setrgb (0x00,  0xFF, 0x00);
-        break;
-    case _A:
-        rgblight_setrgb (0x7A,  0x00, 0xFF);
-        break;
-    }
+  switch (biton32(state)) {
+  case _BASE:
+    rgblight_sethsv_noeeprom(HSV_BLUE);
+    break;
+  case _L:
+    rgblight_sethsv_noeeprom (HSV_CORAL);
+    break;
+  case _R:
+    rgblight_sethsv_noeeprom (HSV_MAGENTA);
+    break;
+  case _A:
+    rgblight_sethsv_noeeprom (HSV_WHITE);
+    break;
+  }
   return state;
 }
