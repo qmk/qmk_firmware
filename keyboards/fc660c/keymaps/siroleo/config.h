@@ -1,4 +1,4 @@
-/* Copyright 2017 Balz Guenat
+/* Copyright 2019 Khader Syed
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
