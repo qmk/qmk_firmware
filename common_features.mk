@@ -29,11 +29,15 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    AUDIO_DRIVER ?= pwm
+    ifeq ($(PLATFORM),CHIBIOS)
+        AUDIO_DRIVER ?= dac
+    endif
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
-    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY).c
+    SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY)_$(AUDIO_DRIVER).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
