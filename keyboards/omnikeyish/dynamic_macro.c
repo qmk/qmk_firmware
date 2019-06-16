@@ -16,10 +16,10 @@ void dynamic_macro_led_blink(void)
     backlight_toggle();
     wait_ms(100);
     backlight_toggle();
-#else   
-    led_set_user(USB_LED_NUM_LOCK | USB_LED_CAPS_LOCK | USB_LED_SCROLL_LOCK);
+#else
+    led_set(host_keyboard_leds() ^ 0xFF);
     wait_ms(100);
-    led_set_user(host_keyboard_leds());
+    led_set(host_keyboard_leds());
 #endif
 }
 
@@ -148,6 +148,8 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record)
         /* Program key pressed to request programming mode */
         if (keycode == DYN_MACRO_PROG && record->event.pressed)
         {
+            dynamic_macro_led_blink();
+
             recording_state = STATE_RECORD_KEY_PRESSED;
             dprintf("dynamic macro: programming key pressed, waiting for macro slot selection. %d\n", recording_state);
 
