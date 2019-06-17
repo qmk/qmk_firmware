@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,      KC_V,    KC_Y,    KC_D,    KC_COMM, KC_QUOT, KC_INT1, KC_J,    KC_M,    KC_L,    KC_U,    KC_LBRC, KC_RBRC, KC_ENT,        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_MHEN,       KC_A,    KC_T,    KC_H,    KC_E,    KC_B,    KC_MINS, KC_C,    KC_S,    KC_N,    KC_O,    KC_I,    KC_EQL,               KC_P4,   KC_P5,   KC_P6,              KC_PGUP, KC_INS,  KC_PGDN,
         KC_LSFT,   KC_GRV,  KC_P,    KC_K,    KC_G,    KC_W,    KC_Q,    KC_X,    KC_R,    KC_F,    KC_DOT,  KC_Z,    KC_RSFT,                  KC_P1,   KC_P2,   KC_P3,   KC_PENT,   KC_HOME, KC_UP,   KC_END,
-        KC_LCTL,   KC_LWIN,   KC_LALT,   KC_SPC,                                                KC_RALT, KC_RWIN, LT(_FN,KC_MENU), KC_RCTL,     KC_P0,            KC_PDOT,            KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL,   KC_LWIN,   KC_LALT,   KC_SPC,                                                KC_RALT, KC_RWIN, LT(_FN,KC_APP), KC_RCTL,      KC_P0,            KC_PDOT,            KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FN] = LAYOUT(
 		_______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______,   KC_SYSREQ, _______, _______, _______,
