@@ -1,5 +1,4 @@
-#ifndef JOPR_H
-#define JOPR_H
+#pragma once
 
 #include "quantum.h"
 
@@ -23,5 +22,3 @@
     { MX_A8, MX_B8, MX_C8, MX_D8, MX_E8, MX_F8, MX_G8, MX_H8, MX_I8, MX_J8, MX_K8 }, \
     { MX_A9, MX_B9, MX_C9, KC_NO, MX_E9, MX_F9, MX_G9, MX_H9, MX_I9, MX_J9, MX_K9 } \
 }
-
-#endif
