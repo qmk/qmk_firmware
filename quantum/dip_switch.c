@@ -18,19 +18,16 @@
 
 #include "dip_switch.h"
 
-// for memcpy
+// for mmcpy
 #include <string.h>
 
-
-#ifndef NUMBER_OF_DIP_SWITCHES
-#   error "Number of DIP switches not defined by NUMBER_OF_DIP_SWITCHES"
-#endif
 
 #if !defined(DIP_SWITCH_PINS)
 #   error "No DIP switch pads defined by DIP_SWITCH_PINS"
 #endif
 
-static pin_t dip_switch_pad[NUMBER_OF_DIP_SWITCHES] = DIP_SWITCH_PINS;
+#define NUMBER_OF_DIP_SWITCHES (sizeof(dip_switch_pad)/sizeof(pin_t))
+static pin_t dip_switch_pad[] = DIP_SWITCH_PINS;
 static bool dip_switch_state[NUMBER_OF_DIP_SWITCHES] = { 0 };
 static bool last_dip_switch_state[NUMBER_OF_DIP_SWITCHES] = { 0 };
 

@@ -36,7 +36,6 @@
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
 
-#define NUMBER_OF_DIP_SWITCHES 4
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
 
 #define MUSIC_MAP

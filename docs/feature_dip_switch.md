@@ -7,10 +7,8 @@ DIP switches are supported by adding this to your `rules.mk`:
 and this to your `config.h`:
 
 ```c
-#define NUMBER_OF_DIP_SWITCHES 4
 #define DIP_SWITCH_PINS { B14, A15, A10, B9 }
 ```
-
 
 ## Callbacks
 
