@@ -1,6 +1,6 @@
-# Dip Switches
+# DIP Switches
 
-Dip switches are supported by adding this to your `rules.mk`:
+DIP switches are supported by adding this to your `rules.mk`:
 
     DIP_SWITCH_ENABLE = yes
 
@@ -57,4 +57,4 @@ void dip_switch_update_user(uint8_t index, bool active) {
 
 ## Hardware
 
-For the dip switches, one side should be wired directly to the pin on the MCU, and the other side to ground.  It should not matter which side is connected to which, as it should be functionally the same. 
+For the DIP switches, one side should be wired directly to the pin on the MCU, and the other side to ground.  It should not matter which side is connected to which, as it should be functionally the same. 
