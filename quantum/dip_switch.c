@@ -23,11 +23,11 @@
 
 
 #ifndef NUMBER_OF_DIP_SWITCHES
-#   error "Number of dip switches not defined by NUMBER_OF_DIP_SWITCHES"
+#   error "Number of DIP switches not defined by NUMBER_OF_DIP_SWITCHES"
 #endif
 
 #if !defined(DIP_SWITCH_PINS)
-#   error "No dip switch pads defined by DIP_SWITCH_PINS"
+#   error "No DIP switch pads defined by DIP_SWITCH_PINS"
 #endif
 
 static pin_t dip_switch_pad[NUMBER_OF_DIP_SWITCHES] = DIP_SWITCH_PINS;
