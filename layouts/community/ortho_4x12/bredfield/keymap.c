@@ -3,17 +3,15 @@
 extern keymap_config_t keymap_config;
 
 // Keymap layers
-#define _BASE_LAYER 0
-#define _RAISE_LAYER 1
-#define _LOWER_LAYER 2
-#define _NUMPAD_LAYER 3
-#define _NAVIGATION_LAYER 4
-#define _UI_LAYER 5
-#define _KEYBOARD_LAYER 6
-
-// Key aliases
-#define _______ KC_TRNS
-#define ___X___ KC_NO
+enum layer_names {
+    _BASE_LAYER,
+    _RAISE_LAYER,
+    _LOWER_LAYER,
+    _NUMPAD_LAYER,
+    _NAVIGATION_LAYER,
+    _UI_LAYER,
+    _KEYBOARD_LAYER,
+};
 
 // Layer switches aliases
 #define L_LOWER MO(_LOWER_LAYER)
@@ -46,10 +44,6 @@ extern keymap_config_t keymap_config;
 #define GUI_GRV LGUI(KC_GRV) // window toggle
 #define GUI_SSF LGUI(LSFT(KC_3)) // Full screen shot
 #define GUI_SST LGUI(LSFT(KC_4)) // Targetted screen shot
-
-// Actions
-const uint16_t PROGMEM fn_actions[] = {
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -85,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER_LAYER] = LAYOUT_ortho_4x12(
     KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_EQL,  _______,
     _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_COMM, KC_DOT,  KC_SLSH, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, _______,
     _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______
 ),
 
@@ -102,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE_LAYER] = LAYOUT_ortho_4x12(
     KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_7,    KC_F8,   KC_F9,   KC_F10,  KC_UNDS,
-    _______, ___X___, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RBRC, KC_RCBR, ___X___, KC_PIPE,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, _______,
+    _______, XXXXXXX, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RBRC, KC_RCBR, XXXXXXX, KC_PIPE,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______
 ),
 
@@ -119,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------------------'
  */
 [_NUMPAD_LAYER] = LAYOUT_ortho_4x12(
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_7,    KC_8,    KC_9,    KC_ASTR, ___X___,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_4,    KC_5,    KC_6,    KC_MINS, ___X___,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_1,    KC_2,    KC_3,    KC_PLUS, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_ASTR, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_4,    KC_5,    KC_6,    KC_MINS, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PLUS, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_0,    KC_DOT,  KC_SLSH, _______, _______
 ),
 
@@ -137,9 +131,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------------------'
  */
 [_NAVIGATION_LAYER] = LAYOUT_ortho_4x12(
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_HOME, KC_UP,   KC_END,  ___X___, ___X___,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, KC_LEFT, KC_DOWN, KC_RGHT, ___X___, ___X___,
-    _______, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     _______, _______, _______, _______, KC_ENT,  _______, _______, KC_DEL,  _______, _______, _______, _______
 ),
 
@@ -155,10 +149,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------------------'
  */
 [_UI_LAYER] = LAYOUT_ortho_4x12(
-    GUI_TAB, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, GUI_MIN, GUI_EQL, ___X___,
-    GUI_GRV, GUI_1,   GUI_2,   GUI_3,   GUI_4,   GUI_5,   GUI_6,   GUI_7,   ___X___, GUI_LBR, GUI_RBR, ___X___,
-    _______, GUI_SSF, GUI_SST, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___,
-    _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_BRID, _______, _______, KC_BRIU, KC_MUTE, KC_VOLD, KC_VOLU, _______
+    GUI_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GUI_MIN, GUI_EQL, XXXXXXX,
+    GUI_GRV, GUI_1,   GUI_2,   GUI_3,   GUI_4,   GUI_5,   GUI_6,   GUI_7,   XXXXXXX, GUI_LBR, GUI_RBR, XXXXXXX,
+    _______, GUI_SSF, GUI_SST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLD, KC_MUTE, KC_MUTE, KC_VOLU, _______, _______, _______, _______
 ),
 
 /* Keyboard
@@ -173,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------------------'
  */
 [_KEYBOARD_LAYER] = LAYOUT_ortho_4x12(
-    ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, RESET,
-    ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, DEBUG,
-    ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___,
-    _______, _______, _______, _______, _______, ___X___, ___X___, _______, _______, _______, _______, _______
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DEBUG,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, _______, _______, _______
 ),
 };
