@@ -111,13 +111,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 7    // Number of LEDs
-//#define RGBLIGHT_ANIMATIONS //not working with splits right now
+#define RGBLIGHT_ANIMATIONS //not working with splits right now
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 100
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_SPLIT
 
 /*
  * Feature disable options
