@@ -130,7 +130,7 @@ bool  sliding        = false;
 
 float place = 0;
 
-uint8_t* sample;
+uint8_t *sample;
 uint16_t sample_length = 0;
 
 bool     playing_notes  = false;
@@ -324,145 +324,102 @@ float vibrato(float average_freq) {
 
 #endif
 
-#ifdef CPIN_AUDIO
-ISR(TIMER3_AUDIO_vect) {
-    float freq;
+/* out of a possibly polyphonic setup, retrieve the frequency for a single voice
+   to calculate the pwm period and duty-cycle from, relative to the cpy-frequency
+*/
+float pwm_audio_get_single_voice_frequency(uint8_t voice) {
+    float frequency = 0.0;
 
+    if (voice > voices) return frequency;
+
+    if (glissando) {
+        if (frequency != 0 && frequency < frequencies[voices - voice] && frequency < frequencies[voices - voice] * pow(2, -440 / frequencies[voices - voice] / 12 / 2)) {
+            frequency = frequency * pow(2, 440 / frequency / 12 / 2);
+        } else if (frequency != 0 && frequency > frequencies[voices - voice] && frequency > frequencies[voices - voice] * pow(2, 440 / frequencies[voices - voice] / 12 / 2)) {
+            frequency = frequency * pow(2, -440 / frequency / 12 / 2);
+        } else {
+            frequency = frequencies[voices - voice];
+        }
+    } else {
+        frequency = frequencies[voices - voice];
+    }
+
+#ifdef VIBRATO_ENABLE
+    if (vibrato_strength > 0) {
+        frequency = vibrato(frequency);
+    }
+#endif
+
+    if (envelope_index < 65535) {
+        envelope_index++;
+    }
+
+    frequency = voice_envelope(frequency);
+
+    if (frequency < 30.517578125) {
+        frequency = 30.52;
+    }
+
+    return frequency;
+}
+
+void pwm_audio_timer_task(float *freq, float *freq_alt) {
     if (playing_note) {
         if (voices > 0) {
-#    ifdef BPIN_AUDIO
-            float freq_alt = 0;
-            if (voices > 1) {
-                if (polyphony_rate == 0) {
-                    if (glissando) {
-                        if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, 440 / frequency_alt / 12 / 2);
-                        } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, -440 / frequency_alt / 12 / 2);
-                        } else {
-                            frequency_alt = frequencies[voices - 2];
-                        }
-                    } else {
-                        frequency_alt = frequencies[voices - 2];
-                    }
-
-#        ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq_alt = vibrato(frequency_alt);
-                    } else {
-                        freq_alt = frequency_alt;
-                    }
-#        else
-                    freq_alt = frequency_alt;
-#        endif
-                }
-
-                if (envelope_index < 65535) {
-                    envelope_index++;
-                }
-
-                freq_alt = voice_envelope(freq_alt);
-
-                if (freq_alt < 30.517578125) {
-                    freq_alt = 30.52;
-                }
-
-                TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
-                TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
-            }
-#    endif
+#ifdef BPIN_AUDIO
+            *freq_alt = pwm_audio_get_single_voice_frequency(2);
+#else
+            *freq_alt = 0.0f;
+#endif
 
             if (polyphony_rate > 0) {
                 if (voices > 1) {
                     voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place       = 0.0;
-                    }
+                    //                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
+                    //                        voice_place = (voice_place + 1) % voices;
+                    //                        place = 0.0;
+                    //                    }
                 }
 
-#    ifdef VIBRATO_ENABLE
+#ifdef VIBRATO_ENABLE
                 if (vibrato_strength > 0) {
-                    freq = vibrato(frequencies[voice_place]);
+                    *freq = vibrato(frequencies[voice_place]);
                 } else {
-                    freq = frequencies[voice_place];
+                    *freq = frequencies[voice_place];
                 }
-#    else
-                freq = frequencies[voice_place];
-#    endif
+#else
+                *freq = frequencies[voice_place];
+#endif
             } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-#    ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequency);
-                } else {
-                    freq = frequency;
-                }
-#    else
-                freq = frequency;
-#    endif
+                *freq = pwm_audio_get_single_voice_frequency(1);
             }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
         }
     }
 
     if (playing_notes) {
         if (note_frequency > 0) {
-#    ifdef VIBRATO_ENABLE
+#ifdef VIBRATO_ENABLE
             if (vibrato_strength > 0) {
-                freq = vibrato(note_frequency);
+                *freq = vibrato(note_frequency);
             } else {
-                freq = note_frequency;
+                *freq = note_frequency;
             }
-#    else
-            freq = note_frequency;
-#    endif
+#else
+            *freq = note_frequency;
+#endif
 
             if (envelope_index < 65535) {
                 envelope_index++;
             }
-            freq = voice_envelope(freq);
-
-            TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        } else {
-            TIMER_3_PERIOD     = 0;
-            TIMER_3_DUTY_CYCLE = 0;
+            *freq = voice_envelope(*freq);
         }
 
         note_position++;
         bool end_of_note = false;
-        if (TIMER_3_PERIOD > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
-            else
-                end_of_note = (note_position >= (note_length));
-        } else {
-            end_of_note = (note_position >= (note_length));
-        }
+        if (!note_resting)
+            end_of_note = (note_position >= (note_length * 8 - 1));
+        else
+            end_of_note = (note_position >= (note_length * 8));
 
         if (end_of_note) {
             current_note++;
@@ -470,8 +427,6 @@ ISR(TIMER3_AUDIO_vect) {
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
-                    DISABLE_AUDIO_COUNTER_3_ISR;
-                    DISABLE_AUDIO_COUNTER_3_OUTPUT;
                     playing_notes = false;
                     return;
                 }
@@ -495,11 +450,44 @@ ISR(TIMER3_AUDIO_vect) {
 
             note_position = 0;
         }
+
+        if (!audio_config.enable) {
+            playing_notes = false;
+            playing_note  = false;
+        }
+    }
+}
+
+#ifdef CPIN_AUDIO
+ISR(TIMER3_AUDIO_vect) {
+    float freq, freq_alt;
+    pwm_audio_timer_task(&freq, &freq_alt);
+
+#    ifdef BPIN_AUDIO
+    if (freq > 0) {
+        TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
+        TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
+    } else {
+        TIMER_1_PERIOD     = 0;
+        TIMER_1_DUTY_CYCLE = 0;
+    }
+#    endif
+
+    if (freq > 0) {
+        TIMER_3_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+        TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+    } else {
+        TIMER_3_PERIOD     = 0;
+        TIMER_3_DUTY_CYCLE = 0;
     }
 
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note  = false;
+    if (!playing_notes) {
+        DISABLE_AUDIO_COUNTER_3_ISR;
+        DISABLE_AUDIO_COUNTER_3_OUTPUT;
+#    ifdef BPIN_AUDIO
+        DISABLE_AUDIO_COUNTER_1_ISR;
+        DISABLE_AUDIO_COUNTER_1_OUTPUT;
+#    endif
     }
 }
 #endif
@@ -507,138 +495,20 @@ ISR(TIMER3_AUDIO_vect) {
 #ifdef BPIN_AUDIO
 ISR(TIMER1_AUDIO_vect) {
 #    if defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
-    float freq = 0;
+    float freq, freq_alt;
+    pwm_audio_timer_task(&freq, &freq_alt);
 
-    if (playing_note) {
-        if (voices > 0) {
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place       = 0.0;
-                    }
-                }
-
-#        ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequencies[voice_place]);
-                } else {
-                    freq = frequencies[voice_place];
-                }
-#        else
-                freq = frequencies[voice_place];
-#        endif
-            } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-#        ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequency);
-                } else {
-                    freq = frequency;
-                }
-#        else
-                freq = frequency;
-#        endif
-            }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        }
+    if (freq > 0) {
+        TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+        TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+    } else {
+        TIMER_1_PERIOD     = 0;
+        TIMER_1_DUTY_CYCLE = 0;
     }
 
-    if (playing_notes) {
-        if (note_frequency > 0) {
-#        ifdef VIBRATO_ENABLE
-            if (vibrato_strength > 0) {
-                freq = vibrato(note_frequency);
-            } else {
-                freq = note_frequency;
-            }
-#        else
-            freq = note_frequency;
-#        endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
-
-            TIMER_1_PERIOD     = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        } else {
-            TIMER_1_PERIOD     = 0;
-            TIMER_1_DUTY_CYCLE = 0;
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (TIMER_1_PERIOD > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
-            else
-                end_of_note = (note_position >= (note_length));
-        } else {
-            end_of_note = (note_position >= (note_length));
-        }
-
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    DISABLE_AUDIO_COUNTER_1_ISR;
-                    DISABLE_AUDIO_COUNTER_1_OUTPUT;
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length    = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length    = 1;
-                }
-            } else {
-                note_resting   = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-    }
-
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note  = false;
+    if (!playing_notes) {
+        DISABLE_AUDIO_COUNTER_1_ISR;
+        DISABLE_AUDIO_COUNTER_1_OUTPUT;
     }
 #    endif
 }
