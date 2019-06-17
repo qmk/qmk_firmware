@@ -25,6 +25,8 @@ void matrix_scan_cmd_tab(void);
 #define MM_LCTL   LCTL_T(KC_MRWD)
 #define MM_LALT   LALT_T(KC_MPLY)
 #define MM_LGUI   LGUI_T(KC_MFFD)
+#define MM_RGUI   RGUI_T(KC_MRWD)
+#define MM_RALT   RALT_T(KC_MFFD)
 #define MM_FN_M   LT(_MACFN, KC_MPLY)
 #define MM_FN_W   LT(_WINFN, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
