@@ -14,6 +14,22 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
+static bool backlight_was_toggled = false;
+
+void suspend_power_down_kb(void) {
+    if (is_backlight_enabled()) {
+        backlight_disable();
+        backlight_was_toggled = true;
+    }
+}
+
+void suspend_wakeup_init_kb(void) {
+    if (backlight_was_toggled) {
+        backlight_enable();
+        backlight_was_toggled = false;
+    }
+}
+
 #ifdef PHYSICAL_LEDS_ENABLE
 void led_init_kb(void)
 {
