@@ -43,9 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void led_set_user(uint8_t usb_led) {
 
     /*if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-        DDRF |= (1 << 4); PORTF &= ~(1 << 4);
-    } else {
-        DDRF &= ~(1 << 4); PORTF &= ~(1 << 4);
+		setPinOutput(F4);
+        writePinLow(F4);
+	} else {
+		setPinInput(F4);
+        writePinLow(F4);
     }*/
 
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
