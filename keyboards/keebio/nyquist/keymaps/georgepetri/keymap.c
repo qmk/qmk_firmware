@@ -3,9 +3,8 @@
 extern keymap_config_t keymap_config;
 
 #define _BASE 0
-#define _R 1
-#define _L 2
-#define _A 4
+#define _L 1
+#define _R 2
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE
@@ -22,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,   KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_ENT , \
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    MO(_A) , KC_LCTL, KC_LALT, KC_LGUI, MO(_L) , KC_SPC ,   KC_SPC , TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT  \
+    KC_CAPS, KC_LCTL, KC_LALT, KC_LGUI, MO(_L) , KC_SPC ,   KC_SPC , TG(_R) , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT  \
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
   ),
   
@@ -52,20 +51,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
     _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______  \
 //└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
-  ),
-  
-  [_A] =  LAYOUT( \
-//┌────────┬────────┬────────┬────────┬────────┬────────┐ ┌────────┬────────┬────────┬────────┬────────┬────────┐
-    _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, \
-//├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,   RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
-//├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,   AG_SWAP, _______, _______, _______, _______, _______, \
-//├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, \
-//├────────┼────────┼────────┼────────┼────────┼────────┤ ├────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______  \
-//└────────┴────────┴────────┴────────┴────────┴────────┘ └────────┴────────┴────────┴────────┴────────┴────────┘
   )
 };
 
@@ -73,20 +58,29 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom(HSV_BLUE);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-  case _BASE:
-    rgblight_sethsv_noeeprom(HSV_BLUE);
-    break;
-  case _L:
-    rgblight_sethsv_noeeprom (HSV_CORAL);
-    break;
-  case _R:
-    rgblight_sethsv_noeeprom (HSV_MAGENTA);
-    break;
-  case _A:
-    rgblight_sethsv_noeeprom (HSV_WHITE);
-    break;
+void update_led(void) {
+    switch (biton32(layer_state)) {
+    case _BASE:
+      rgblight_sethsv_noeeprom(HSV_BLUE);
+      break;
+    case _L:
+      rgblight_sethsv_noeeprom(HSV_CORAL);
+      break;
+    case _R:
+      rgblight_sethsv_noeeprom(HSV_MAGENTA);
+      break;
+    }
+  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    rgblight_sethsv_range(HSV_WHITE,0,3);
+    rgblight_sethsv_range(HSV_WHITE,9,12);
   }
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  update_led();
   return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+  update_led();
 }
