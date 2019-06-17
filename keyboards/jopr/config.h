@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -36,7 +35,7 @@
 
 /* Locking resynchronize hack */
 /* #define LOCKING_RESYNC_ENABLE */
-#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+/* #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) */
 #define NO_ACTION_ONESHOT
 #define TAPPING_TOGGLE 3
 
@@ -47,6 +46,4 @@
 #define RGBLIGHT_HUE_STEP 1
 #define RGBLIGHT_SAT_STEP 1
 #define RGBLIGHT_VAL_STEP 1
-#endif
-
 #endif
