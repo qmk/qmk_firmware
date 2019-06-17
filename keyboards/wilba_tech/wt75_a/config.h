@@ -46,13 +46,13 @@
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -196,7 +196,7 @@
 
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 635
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 389
+// Dynamic macro starts after dynamic keymaps (35+(4*6*15*2)) = (35+720)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 755
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 269
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

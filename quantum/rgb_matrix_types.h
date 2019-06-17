@@ -59,26 +59,22 @@ typedef struct PACKED {
 	uint8_t y;
 } point_t;
 
-typedef union {
-  uint8_t raw;
-  struct {
-    uint8_t row:4; // 16 max
-    uint8_t col:4; // 16 max
-  };
-} matrix_co_t;
+#define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
+#define HAS_ANY_FLAGS(bits, flags) ((bits & flags) != 0x00)
+
+#define LED_FLAG_ALL 0xFF
+#define LED_FLAG_NONE 0x00
+#define LED_FLAG_MODIFIER 0x01
+#define LED_FLAG_UNDERGLOW 0x02
+#define LED_FLAG_KEYLIGHT 0x04
+
+#define NO_LED 255
 
 typedef struct PACKED {
-	matrix_co_t matrix_co;
-	point_t point;
-	uint8_t modifier:1;
-} rgb_led;
-
-typedef enum {
-  RGB_ZONE_OFF = 0,
-  RGB_ZONE_ALL,
-  RGB_ZONE_KEYS,
-  RGB_ZONE_UNDER,
-} rgb_zone_t;
+  uint8_t matrix_co[MATRIX_ROWS][MATRIX_COLS];
+  point_t point[DRIVER_LED_TOTAL];
+  uint8_t flags[DRIVER_LED_TOTAL];
+} led_config_t;
 
 typedef union {
   uint32_t raw;
