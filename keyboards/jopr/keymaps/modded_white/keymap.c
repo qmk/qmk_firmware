@@ -35,8 +35,7 @@ void led_set_user(uint8_t usb_led) {
 	} else {
         writePinLow(F0);
     }
-}
-void led_set_keymap(uint8_t usb_led) {
+    
     if (!(IS_LED_ON(usb_led, USB_LED_NUM_LOCK))) {
         tap_code(KC_NUMLOCK);
     }
