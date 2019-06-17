@@ -20,47 +20,23 @@
 
 #include <string.h>
 #include "print.h"
-#include "keymap.h"
 
-#include "eeconfig.h"
+//TODO: move into audio-common state
+extern bool playing_notes;
+extern uint8_t voices;
+extern float frequencies[8];
+extern uint32_t note_position;
+extern float note_length;
+extern float (* notes_pointer)[][2];
+extern uint16_t current_note;
+extern bool     notes_repeat;
+extern uint16_t notes_count;
+extern uint8_t  note_tempo;
+extern uint16_t envelope_index;
 
 // -----------------------------------------------------------------------------
 
-uint8_t dac_voices = 0;
-float dac_frequencies[8] = { 0.0 };
 
-bool     playing_notes = false;
-bool     playing_note = false;
-float    note_frequency = 0;
-float    note_length = 0;
-uint8_t  note_tempo = TEMPO_DEFAULT;
-float    note_timbre = TIMBRE_DEFAULT;
-uint32_t note_position = 0;
-float (* notes_pointer)[][2];
-uint16_t notes_count;
-bool     notes_repeat;
-
-uint16_t current_note = 0;
-
-#ifdef VIBRATO_ENABLE
-float vibrato_counter = 0;
-float vibrato_strength = .5;
-float vibrato_rate = 0.125;
-#endif
-
-float polyphony_rate = 0;
-
-static bool audio_initialized = false;
-
-audio_config_t audio_config;
-
-uint16_t envelope_index = 0;
-bool glissando = true;
-
-#ifndef STARTUP_SONG
-    #define STARTUP_SONG SONG(STARTUP_SOUND)
-#endif
-float startup_song[][2] = STARTUP_SONG;
 
 static const dacsample_t dac_buffer_sine[DAC_BUFFER_SIZE] = {
   // 256 values, max 4095
@@ -151,14 +127,14 @@ static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 __attribute__ ((weak))
 uint16_t dac_value_generate(void) {
   uint16_t value = DAC_OFF_VALUE;
-  uint8_t working_voices = dac_voices;
+  uint8_t working_voices = voices;
   if (working_voices > DAC_VOICES_MAX)
     working_voices = DAC_VOICES_MAX;
 
   if (working_voices > 0) {
     uint16_t value_avg = 0;
     for (uint8_t i = 0; i < working_voices; i++) {
-      dac_if[i] = dac_if[i] + ((dac_frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
+      dac_if[i] = dac_if[i] + ((frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
 
       // Needed because % doesn't work with floats
       while (dac_if[i] >= (DAC_BUFFER_SIZE))
@@ -256,25 +232,7 @@ static const DACConversionGroup dac_conv_cfg = {
   .trigger      = DAC_TRG(0b000)
 };
 
-void audio_init() {
-
-  if (audio_initialized) {
-    return;
-  }
-
-  // Check EEPROM
-#ifdef EEPROM_ENABLE
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-    audio_config.raw = eeconfig_read_audio();
-#else // ARM EEPROM
-    audio_config.enable = true;
-  #ifdef AUDIO_CLICKY_ON
-    audio_config.clicky_enable = true;
-  #endif
-#endif // ARM EEPROM
-
+void audio_initialize_hardware() {
 
 #if defined(A4_AUDIO)
   palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
@@ -290,242 +248,29 @@ void audio_init() {
   gptStart(&GPTD6, &gpt6cfg1);
   gptStartContinuous(&GPTD6, 2U);
 
-  audio_initialized = true;
-
-  if (audio_config.enable) {
-    PLAY_SONG(startup_song);
-  } else {
-    stop_all_notes();
-  }
-
 }
 
-void stop_all_notes() {
-    dprintf("audio stop all notes");
 
-    if (!audio_initialized) {
-        audio_init();
-    }
-    dac_voices = 0;
-
-    playing_notes = false;
-    playing_note = false;
-
-    for (uint8_t i = 0; i < 8; i++) {
-        dac_frequencies[i] = 0;
-    }
+void audio_stop_hardware(void) {
 }
 
-void stop_note(float freq) {
-  dprintf("audio stop note freq=%d", (int)freq);
-
-  if (playing_note) {
-    if (!audio_initialized) {
-      audio_init();
-    }
-    for (int i = 7; i >= 0; i--) {
-      if (dac_frequencies[i] == freq) {
-        dac_frequencies[i] = 0;
-        for (int j = i; (j < 7); j++) {
-          dac_frequencies[j] = dac_frequencies[j+1];
-          dac_frequencies[j+1] = 0;
-        }
-        break;
-      }
-    }
-    dac_voices--;
-    if (dac_voices < 0) {
-      dac_voices = 0;
-    }
-    if (dac_voices == 0) {
-      playing_note = false;
-    }
-  }
+void audio_start_hardware(void) {
 }
 
-#ifdef VIBRATO_ENABLE
-
-float mod(float a, int b) {
-  float r = fmod(a, b);
-  return r < 0 ? r + b : r;
-}
-
-float vibrato(float average_freq) {
-  #ifdef VIBRATO_STRENGTH_ENABLE
-    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-  #else
-    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-  #endif
-  vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
-  return vibrated_freq;
-}
-
-#endif
 
 
-void play_note(float freq, int vol) {
 
-  dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
 
-  if (!audio_initialized) {
-      audio_init();
-  }
-
-  if (audio_config.enable && dac_voices < 8) {
-    playing_note = true;
-    if (freq > 0) {
-      envelope_index = 0;
-      dac_frequencies[dac_voices] = freq;
-      dac_voices++;
-    }
-  }
-}
 
 __attribute__ ((weak))
 void dac_setup_note(void) {
-  dac_if[dac_voices] = 0.0f;
-}
-
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
-
-  if (!audio_initialized) {
-    audio_init();
-  }
-
-  if (audio_config.enable) {
-
-    playing_notes = true;
-
-    notes_pointer = np;
-    notes_count = n_count;
-    notes_repeat = n_repeat;
-
-    current_note = 0;
-
-    note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-    note_position = 0;
-
-    play_note((*notes_pointer)[current_note][0], 15);
-
-  }
-}
-
-bool is_playing_note(void) {
-  return playing_note;
-}
-
-bool is_playing_notes(void) {
-  return playing_notes;
-}
-
-bool is_audio_on(void) {
-  return (audio_config.enable != 0);
-}
-
-void audio_toggle(void) {
-  audio_config.enable ^= 1;
-  eeconfig_update_audio(audio_config.raw);
-  if (audio_config.enable) {
-    audio_on_user();
-  }
-}
-
-void audio_on(void) {
-  audio_config.enable = 1;
-  eeconfig_update_audio(audio_config.raw);
-  audio_on_user();
-}
-
-void audio_off(void) {
-  stop_all_notes();
-  audio_config.enable = 0;
-  eeconfig_update_audio(audio_config.raw);
-}
-
-#ifdef VIBRATO_ENABLE
-
-// Vibrato rate functions
-
-void set_vibrato_rate(float rate) {
-  vibrato_rate = rate;
-}
-
-void increase_vibrato_rate(float change) {
-  vibrato_rate *= change;
-}
-
-void decrease_vibrato_rate(float change) {
-  vibrato_rate /= change;
-}
-
-#ifdef VIBRATO_STRENGTH_ENABLE
-
-void set_vibrato_strength(float strength) {
-  vibrato_strength = strength;
-}
-
-void increase_vibrato_strength(float change) {
-  vibrato_strength *= change;
-}
-
-void decrease_vibrato_strength(float change) {
-  vibrato_strength /= change;
-}
-
-#endif  /* VIBRATO_STRENGTH_ENABLE */
-
-#endif /* VIBRATO_ENABLE */
-
-// Polyphony functions
-
-void set_polyphony_rate(float rate) {
-  polyphony_rate = rate;
-}
-
-void enable_polyphony() {
-  polyphony_rate = 5;
-}
-
-void disable_polyphony() {
-  polyphony_rate = 0;
-}
-
-void increase_polyphony_rate(float change) {
-  polyphony_rate *= change;
-}
-
-void decrease_polyphony_rate(float change) {
-  polyphony_rate /= change;
-}
-
-// Timbre function
-
-void set_timbre(float timbre) {
-  note_timbre = timbre;
-}
-
-// Tempo functions
-
-void set_tempo(uint8_t tempo) {
-  note_tempo = tempo;
-}
-
-void decrease_tempo(uint8_t tempo_change) {
-  note_tempo += tempo_change;
-}
-
-void increase_tempo(uint8_t tempo_change) {
-  if (note_tempo - tempo_change < 10) {
-    note_tempo = 10;
-  } else {
-    note_tempo -= tempo_change;
-  }
+  dac_if[voices] = 0.0f;
 }
 
 uint8_t dac_number_of_voices(void) {
-  return dac_voices;
+  return voices;
 }
 
 float dac_get_frequency(uint8_t index) {
-  return dac_frequencies[index];
+  return frequencies[index];
 }

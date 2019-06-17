@@ -37,6 +37,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     MUSIC_ENABLE = yes
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
+    SRC += $(QUANTUM_DIR)/audio/audio.c ## common audio code, hardware agnostic
     SRC += $(QUANTUM_DIR)/audio/audio_$(PLATFORM_KEY)_$(AUDIO_DRIVER).c
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c

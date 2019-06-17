@@ -48,10 +48,18 @@ typedef union {
     };
 } audio_config_t;
 
+// implementation in the audio_avr/arm_* parts
+void audio_initialize_hardware(void);
+void audio_start_hardware(void);
+void audio_stop_hardware(void);
+
 bool is_audio_on(void);
 void audio_toggle(void);
 void audio_on(void);
 void audio_off(void);
+
+float pwm_audio_get_single_voice(uint8_t voice);
+void pwm_audio_timer_task(float *freq, float *freq_alt);
 
 // Vibrato rate functions
 
