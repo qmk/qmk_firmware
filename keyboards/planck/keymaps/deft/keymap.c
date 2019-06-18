@@ -15,7 +15,7 @@
  * Flashing:
  *
  * Rev 5 or earlier:
- * make planck/revX:mersault:dfu
+ * make planck/revX:deft:dfu
  *
  * Rev 6:
  * make planck/rev6:mersault:dfu-util
