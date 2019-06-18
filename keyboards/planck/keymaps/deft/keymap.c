@@ -1,4 +1,24 @@
 /*
+ * The Deft layout for the Planck Keyboard
+ * Version 1.0
+ *
+ * A keyboard layout deisgned for effeciency in programming and transferability between ortholinear boards.
+ * Deft is currently supported on the following boards:
+ * Planck (12x4)
+ *
+ * The Deft keyboard layout was designed by Michael Speiser. You can find other Deft layouts at my Github:
+ * https://github.com/Speiserm
+ *
+ * For questions, issues, or feedback, feel free to email me at Speiserm@pm.me.
+ *
+ *
+ * Flashing:
+ *
+ * Rev 5 or earlier:
+ * make planck/revX:mersault:dfu
+ *
+ * Rev 6:
+ * make planck/rev6:mersault:dfu-util
  *
  *
  *
@@ -10,24 +30,13 @@
  *
  *
  *
- * Copyright 2015-2017 Jack Humbert
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Follow my cat:
+ * https://twitter.com/CatBucha
+ * https://www.instagram.com/buchathecat/
  *
- * https://imgur.com/K3G7MYl
- *
- * make planck/rev4:mersault:dfu
  */
 
 #include QMK_KEYBOARD_H
