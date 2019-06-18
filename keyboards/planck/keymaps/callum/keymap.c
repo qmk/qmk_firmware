@@ -98,7 +98,9 @@ extern keymap_config_t keymap_config;
 #define rsft KC_RSFT
 #define s KC_S
 #define scln KC_SCLN
+#define sldn S(A(KC_DOWN))
 #define slsh KC_SLSH
+#define slup S(A(KC_UP))
 #define spc KC_SPC
 #define t KC_T
 #define tab KC_TAB
@@ -168,8 +170,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOVE] = LAYOUT_planck_grid(
          esc, XXXX, cmdw, CTAB, cTAB, XXXX, XXXX, home,   up,  end, XXXX, volu,
-         del, back,  fwd, GTAB, gTAB, XXXX, XXXX, left, down, rght, XXXX, vold,
-        ____, XXXX, XXXX, ATAB, aTAB, XXXX, XXXX, pgdn, pgup, clft, crgt, ____,
+         del, back,  fwd, GTAB, gTAB, slup, XXXX, left, down, rght, XXXX, vold,
+        ____, XXXX, XXXX, ATAB, aTAB, sldn, XXXX, pgdn, pgup, clft, crgt, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
