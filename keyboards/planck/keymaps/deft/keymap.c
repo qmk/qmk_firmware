@@ -2,7 +2,7 @@
  * The Deft layout for the Planck Keyboard
  * Version 1.0
  *
- * A keyboard layout deisgned for effeciency in programming and transferability between ortholinear boards.
+ * A keyboard layout designed for efficiency in programming and transferability between ortholinear boards.
  * Deft is currently supported on the following boards:
  * Planck (12x4)
  *
