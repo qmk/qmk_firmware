@@ -1,7 +1,7 @@
-# George Petri's Quefrency 65 layout
+# George Petri's Nyquist layout
 
 ```
-make keebio/quefrency:georgepetri
+make keebio/nyquist/rev2:georgepetri
 ```
 
 Features a dedicated navigation layer on rise and current layer status on rgb underglow.  
