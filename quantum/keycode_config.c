@@ -128,6 +128,24 @@ uint8_t mod_config(uint8_t mod) {
             mod |= MOD_RGUI;
         }
     }
+    if (keymap_config.swap_lctl_lgui) {
+      if ((mod & MOD_RGUI) == MOD_LGUI) {
+        mod &= ~MOD_LGUI;
+        mod |= MOD_LCTL;
+      } else if ((mod & MOD_RCTL) == MOD_LCTL) {
+        mod &= ~MOD_LCTL;
+        mod |= MOD_LGUI;
+      }
+    }
+    if (keymap_config.swap_rctl_rgui) {
+      if ((mod & MOD_RGUI) == MOD_RGUI) {
+        mod &= ~MOD_RGUI;
+        mod |= MOD_RCTL;
+      } else if ((mod & MOD_RCTL) == MOD_RCTL) {
+        mod &= ~MOD_RCTL;
+        mod |= MOD_RGUI;
+      }
+    }
     if (keymap_config.no_gui) {
         mod &= ~MOD_LGUI;
         mod &= ~MOD_RGUI;
