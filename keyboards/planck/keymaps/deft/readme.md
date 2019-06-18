@@ -1,13 +1,3 @@
----
-title: "The Deft Planck Layout"
-author: "SpeiserM"
-date: "6/18/19"
-output: 
-html_document:
-css: css/style.css
-self_contained: no
-
----
 # The Deft Planck Layout
 
 ![Deft layout for the Planck keyboard](https://imgur.com/K3G7MYl)
