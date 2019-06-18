@@ -7,15 +7,16 @@ The Deft Planck layout is deisgned for effeciency in programming and transferabi
 The strangely placed Enter key is meant to be closer to your thumb and moving it allows for proper arrow key placement without disturbing our layout too much. I wanted to separate the enter key from the forward slash key anyway, as I was commonly pressing enter when I meant to type a question mark. You get used to it pretty fast.
 
 Follow my cat:
+
 https://twitter.com/CatBucha
+
 https://www.instagram.com/buchathecat/
+
 
 ## Flashing:
 | Rev 5 or earlier: | Rev 6: |
 |-|-|
 | make planck/revX:deft:dfu | make planck/rev6:deft:dfu-util |
-
----
 
 ## Layout:
 
