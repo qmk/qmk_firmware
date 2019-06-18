@@ -3,7 +3,6 @@
 
 extern keymap_config_t keymap_config;
 
-#define CTAB S(C(KC_TAB))
 #define XXXX KC_NO
 #define ____ KC_TRNS
 #define a KC_A
@@ -13,16 +12,14 @@ extern keymap_config_t keymap_config;
 #define c KC_C
 #define cTAB C(KC_TAB)
 #define caps KC_CAPS
-#define clft C(KC_LEFT)
-#define cmdw G(KC_W)
 #define comm KC_COMM
-#define crgt C(KC_RGHT)
 #define d KC_D
 #define dash A(KC_MINS)
 #define del KC_DEL
 #define dot KC_DOT
 #define down KC_DOWN
 #define e KC_E
+#define e_ra RALT_T(KC_E)
 #define end KC_END
 #define ent KC_ENT
 #define esc KC_ESC
@@ -57,13 +54,14 @@ extern keymap_config_t keymap_config;
 #define h KC_H
 #define home KC_HOME
 #define i KC_I
+#define i_rc RCTL_T(KC_I)
 #define j KC_J
 #define k KC_K
 #define l KC_L
 #define lalt KC_LALT
-#define lcmd KC_LCMD
 #define lctl KC_LCTL
 #define left KC_LEFT
+#define lgui KC_LGUI
 #define lsft KC_LSFT
 #define m KC_M
 #define mins KC_MINS
@@ -79,6 +77,7 @@ extern keymap_config_t keymap_config;
 #define n7 KC_7
 #define n8 KC_8
 #define n9 KC_9
+#define n_rg RGUI_T(KC_N)
 #define next KC_MNXT
 #define o KC_O
 #define p KC_P
@@ -90,19 +89,22 @@ extern keymap_config_t keymap_config;
 #define q KC_Q
 #define quot KC_QUOT
 #define r KC_R
+#define r_lc LCTL_T(KC_R)
 #define ralt KC_RALT
-#define rcmd KC_RCMD
 #define rctl KC_RCTL
 #define rght KC_RGHT
+#define rgui KC_RGUI
 #define rset RESET
 #define rsft KC_RSFT
 #define s KC_S
+#define s_la LALT_T(KC_S)
 #define scln KC_SCLN
 #define sldn S(A(KC_DOWN))
 #define slsh KC_SLSH
 #define slup S(A(KC_UP))
 #define spc KC_SPC
 #define t KC_T
+#define t_lg LGUI_T(KC_T)
 #define tab KC_TAB
 #define u KC_U
 #define up KC_UP
@@ -113,6 +115,7 @@ extern keymap_config_t keymap_config;
 #define x KC_X
 #define y KC_Y
 #define z KC_Z
+
 
 enum planck_layers {
     _BASE,
@@ -125,11 +128,6 @@ enum planck_keycodes {
     SYMB = SAFE_RANGE,
     MOVE,
     FUNC,
-
-    ATAB,
-    GTAB,
-    aTAB,
-    gTAB,
 
     ampr,
     astr,
@@ -156,9 +154,9 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_planck_grid(
          tab,    q,    w,    f,    p,    g,    j,    l,    u,    y, scln, mins,
-        bspc,    a,    r,    s,    t,    d,    h,    n,    e,    i,    o, quot,
+        bspc,    a, r_lc, s_la, t_lg,    d,    h, n_rg, e_ra, i_rc,    o, quot,
         lsft,    z,    x,    c,    v,    b,    k,    m, comm,  dot, slsh, rsft,
-        FUNC, lctl, lalt, lcmd, MOVE,  ent,  spc, SYMB, rcmd, ralt, rctl, FUNC
+        XXXX, XXXX, XXXX, FUNC, MOVE,  ent,  spc, SYMB, FUNC, XXXX, XXXX, XXXX
     ),
 
     [_SYMB] = LAYOUT_planck_grid(
@@ -169,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_MOVE] = LAYOUT_planck_grid(
-         esc, XXXX, cmdw, CTAB, cTAB, XXXX, XXXX, home,   up,  end, XXXX, volu,
-         del, back,  fwd, GTAB, gTAB, slup, XXXX, left, down, rght, XXXX, vold,
-        ____, XXXX, XXXX, ATAB, aTAB, sldn, XXXX, pgdn, pgup, clft, crgt, ____,
+         esc, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, home,   up,  end, XXXX, XXXX,
+         del, XXXX, lctl, lalt, lgui, XXXX, XXXX, left, down, rght, XXXX, XXXX,
+        ____, XXXX, XXXX, back,  fwd, XXXX, XXXX, pgdn, pgup, XXXX, XXXX, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 
@@ -182,9 +180,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ____, ____, ____, ____, prev, mute, play, next, ____, ____, ____, ____
     ),
 };
-
-bool is_gui_tabbing = false;
-bool is_alt_tabbing = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -199,14 +194,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 layer_on(_MOVE);
             } else {
-                if (is_gui_tabbing) {
-                    unregister_code(KC_LGUI);
-                    is_gui_tabbing = false;
-                }
-                if (is_alt_tabbing) {
-                    unregister_code(KC_LALT);
-                    is_alt_tabbing = false;
-                }
                 layer_off(_MOVE);
             }
             return false;
@@ -215,55 +202,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_FUNC);
             } else {
                 layer_off(_FUNC);
-            }
-            return false;
-
-        case gTAB:
-            if (record->event.pressed) {
-                if (!is_gui_tabbing) {
-                    is_gui_tabbing = true;
-                    register_code(KC_LGUI);
-                }
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false;
-        case GTAB:
-            if (record->event.pressed) {
-                if (!is_gui_tabbing) {
-                    is_gui_tabbing = true;
-                    register_code(KC_LGUI);
-                }
-                register_code(KC_LSFT);
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-                unregister_code(KC_LSFT);
-            }
-            return false;
-        case aTAB:
-            if (record->event.pressed) {
-                if (!is_alt_tabbing) {
-                    is_alt_tabbing = true;
-                    register_code(KC_LALT);
-                }
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false;
-        case ATAB:
-            if (record->event.pressed) {
-                if (!is_alt_tabbing) {
-                    is_alt_tabbing = true;
-                    register_code(KC_LALT);
-                }
-                register_code(KC_LSFT);
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-                unregister_code(KC_LSFT);
             }
             return false;
 
