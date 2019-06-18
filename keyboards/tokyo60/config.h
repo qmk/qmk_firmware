@@ -26,7 +26,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Set power consumption to work with mobile devices */
 #define USB_MAX_POWER_CONSUMPTION 100
