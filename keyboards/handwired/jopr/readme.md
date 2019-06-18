@@ -1,8 +1,11 @@
-# jopr-106-Nl2SR-Cl2nL
+# jopr-106-Nl2SR-Cl2MH
 
-![jopr-106-default](https://raw.githubusercontent.com/joelproko/keyboard_layout_jopr/master/keycode_layout_default.png)
+106-key based on ISO 105-key, NumLock to SysReq, CapsLock to Muhenkan/ROYA
 
-A short description of the keyboard/project
+![jopr-106-default](https://raw.githubusercontent.com/joelproko/keyboard_layout_jopr/master/keycode_layout_default.png)  
+![jopr-106-modded_white](https://raw.githubusercontent.com/joelproko/keyboard_layout_jopr/master/keycap_layout_modded_white.png)
+
+Inspired by [KeyBored](https://github.com/itractus/KeyBored) and [white_keyboard_layout](https://github.com/mw8/white_keyboard_layout)
 
 Keyboard Maintainer: [joelproko](https://github.com/joelproko)  
 Hardware: https://github.com/joelproko/keyboard_layout_jopr
