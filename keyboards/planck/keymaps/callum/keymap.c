@@ -5,6 +5,7 @@ extern keymap_config_t keymap_config;
 
 #define ____ KC_TRNS
 #define a LSFT_T(KC_A)
+#define astr TD(_astr)
 #define b KC_B
 #define back G(KC_LBRC)
 #define bspc KC_BSPC
@@ -15,11 +16,13 @@ extern keymap_config_t keymap_config;
 #define d KC_D
 #define dash A(KC_MINS)
 #define del KC_DEL
+#define dlr TD(_dlr)
 #define dot KC_DOT
 #define down KC_DOWN
 #define e RALT_T(KC_E)
 #define end KC_END
 #define ent KC_ENT
+#define eql TD(_eql)
 #define esc KC_ESC
 #define f KC_F
 #define f1 KC_F1
@@ -51,6 +54,7 @@ extern keymap_config_t keymap_config;
 #define g KC_G
 #define gbp A(KC_3)
 #define h KC_H
+#define hash TD(_hash)
 #define home KC_HOME
 #define i RCTL_T(KC_I)
 #define j KC_J
@@ -60,6 +64,7 @@ extern keymap_config_t keymap_config;
 #define lctl KC_LCTL
 #define left KC_LEFT
 #define lgui KC_LGUI
+#define lprn TD(_lprn)
 #define lsft KC_LSFT
 #define m KC_M
 #define mins KC_MINS
@@ -91,6 +96,7 @@ extern keymap_config_t keymap_config;
 #define rctl KC_RCTL
 #define rght KC_RGHT
 #define rgui KC_RGUI
+#define rprn TD(_rprn)
 #define rset RESET
 #define rsft KC_RSFT
 #define s LALT_T(KC_S)
@@ -102,6 +108,8 @@ extern keymap_config_t keymap_config;
 #define symb MO(SYMB)
 #define t LGUI_T(KC_T)
 #define tab KC_TAB
+#define tabl S(C(KC_TAB))
+#define tabr C(KC_TAB)
 #define u KC_U
 #define up KC_UP
 #define v KC_V
@@ -112,12 +120,6 @@ extern keymap_config_t keymap_config;
 #define xxxx KC_NO
 #define y KC_Y
 #define z KC_Z
-#define hash TD(_hash)
-#define astr TD(_astr)
-#define eql TD(_eql)
-#define rprn TD(_rprn)
-#define lprn TD(_lprn)
-#define dlr TD(_dlr)
 
 enum planck_layers {
     BASE,
@@ -191,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_planck_grid(
-         esc, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, home,   up,  end, xxxx, xxxx,
+         esc, xxxx, xxxx, tabl, tabr, xxxx, xxxx, home,   up,  end, xxxx, xxxx,
          del, lsft, lctl, lalt, lgui, xxxx, xxxx, left, down, rght, xxxx, xxxx,
         ____, xxxx, xxxx, back,  fwd, xxxx, xxxx, pgdn, pgup, xxxx, xxxx, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
