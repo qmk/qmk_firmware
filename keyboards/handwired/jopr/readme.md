@@ -1,6 +1,6 @@
 # jopr-106-Nl2SR-Cl2MH
 
-106-key based on ISO 105-key, NumLock to SysReq, CapsLock to Muhenkan/ROYA
+106-key based on ISO 105-key, NumLock to SysReq, CapsLock to Muhenkan/ROYA, NumLock state forced on
 
 ![jopr-106-default](https://raw.githubusercontent.com/joelproko/keyboard_layout_jopr/master/keycode_layout_default.png)  
 ![jopr-106-modded_white](https://raw.githubusercontent.com/joelproko/keyboard_layout_jopr/master/keycap_layout_modded_white.png)
