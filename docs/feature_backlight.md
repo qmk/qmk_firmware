@@ -34,13 +34,14 @@ Hardware PWM is only supported on certain pins of the MCU, so if the backlightin
 
 Hardware PWM is supported according to the following table:
 
-| Backlight Pin | Hardware timer |
-|---------------|----------------|
-|`B5`           | Timer 1        |
-|`B6`           | Timer 1        |
-|`B7`           | Timer 1        |
-|`C6`           | Timer 3        |
-| other         | Software PWM   |
+| Backlight Pin | Hardware timer          |
+|---------------|-------------------------|
+|`B5`           | Timer 1                 |
+|`B6`           | Timer 1                 |
+|`B7`           | Timer 1                 |
+|`C6`           | Timer 3                 |
+|`D4`           | Timer 1 (ATmega32A only)|
+| other         | Software PWM            |
 
 The [audio feature](feature_audio.md) also uses hardware timers. Please refer to the following table to know what hardware timer the software PWM will use depending on the audio configuration:
 
