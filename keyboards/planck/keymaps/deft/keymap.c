@@ -18,7 +18,7 @@
  * make planck/revX:deft:dfu
  *
  * Rev 6:
- * make planck/rev6:mersault:dfu-util
+ * make planck/rev6:deft:dfu-util
  *
  *
  *
