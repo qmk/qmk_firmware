@@ -1,6 +1,6 @@
 # The Deft Planck Layout
 
-![Deft layout for the Planck keyboard](https://i.imgur.com/JIDMATD.png)
+![Deft layout for the Planck keyboard](https://i.imgur.com/VtUkAyh.png)
 
 The Deft Planck layout is deisgned for effeciency in programming and transferability between ortholinear boards. It features a fairly standard default layer with properly placed arrow keys, a lower layer with a usable numpad and symbols, and a raise layer for numbers, f-keys, and music controls. The code is also cut down to only what you need. The result is a very usable Planck that can easily replace fullsize layouts.
 
