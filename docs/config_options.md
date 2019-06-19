@@ -76,14 +76,14 @@ This is a C header file that is one of the first things included, and will persi
 * `#define B7_AUDIO`
   * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
-  * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
+  * pin of the backlight - `B5`, `B6`, `B7` and `C6` (and `D4` on ATmega32A) use hardware PWM, others use software implementation
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
   * enables backlight breathing (only works with backlight pins B5, B6 and B7)
 * `#define BREATHING_PERIOD 6`
   * the length of one backlight "breath" in seconds
-* `#define DEBOUNCING_DELAY 5`
+* `#define DEBOUNCE 5`
   * the delay when reading the value of the pin (5 is default)
 * `#define LOCKING_SUPPORT_ENABLE`
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
