@@ -2,7 +2,7 @@
 
 /* Underlight Configuration */
 #define RGB_DI_PIN F4
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING // Only have Breathing Animation
 #define RGBLED_NUM 2  // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
