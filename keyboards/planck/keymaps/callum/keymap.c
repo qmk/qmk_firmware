@@ -4,7 +4,7 @@
 extern keymap_config_t keymap_config;
 
 #define ____ KC_TRNS
-#define a LSFT_T(KC_A)
+#define a KC_A
 #define astr TD(_astr)
 #define b KC_B
 #define back G(KC_LBRC)
@@ -82,7 +82,7 @@ extern keymap_config_t keymap_config;
 #define n8 KC_8
 #define n9 KC_9
 #define next KC_MNXT
-#define o LSFT_T(KC_O)
+#define o KC_O
 #define p KC_P
 #define pgdn KC_PGDN
 #define pgup KC_PGUP
