@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_NAVI] = LAYOUT( \
-    S(G(KC_LBRC)), S(G(KC_RBRC)), \
+    PRV_TAB, NXT_TAB, \
     MC_WH_L, MC_WH_U, \
     MC_WH_R, MC_WH_D, \
     TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_REEDER] = LAYOUT( \
-    CMD_TAB, TD(TD_REDR_H), \
+    MC_CMTB, TD(TD_REDR_H), \
     KC_P, KC_K, \
     KC_N, KC_J, \
     TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
@@ -134,7 +134,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
         case _LIGHT:
             switch (biton32(layer_state)) {
                 case _NAVI:
-                    keycode = S(G(KC_T));
+                    keycode = REO_TAB;
                     break;
                 case _REEDER:
                     keycode = KC_L;
@@ -150,7 +150,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
         case _MAGIC:
             switch (biton32(layer_state)) {
                 case _NAVI:
-                    keycode = G(KC_W);
+                    keycode = CLS_TAB;
                     break;
                 case _REEDER:
                     keycode = KC_S;
