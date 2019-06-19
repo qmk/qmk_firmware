@@ -20,15 +20,10 @@ enum my_keycodes {
     KI_11,
     KI_12,
     KI_ESC,
-		KI_KI,
-		KI_KI2,
-		WG_PHON,
-		KI_SIG,
     KI_BKSP,
     KI_BSLS,
     KI_WLFT,
     KI_WRGT,
-    KI_ININ
     };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,16 +38,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_all(
 		KC_GRV,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-		_______, KI_ININ, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,
-		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,,
+		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,
+		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,,
 		_______, _______, XXXXXXX, KC_ENT,  KC_ENT,  KC_ENT,  _______, _______, _______, _______, RESET),
 
 	LAYOUT_all(
-		KI_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  WG_PHON, KI_BKSP,
-		XXXXXXX, KI_1,    KI_2,    KI_3,    KI_4,    KI_5,    KI_6,    KI_7,    KI_8,    KI_9,    KI_10,   KI_11,   KI_12,   KI_BSLS,
+		KI_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KI_BKSP,
+		_______, KI_1,    KI_2,    KI_3,    KI_4,    KI_5,    KI_6,    KI_7,    KI_8,    KI_9,    KI_10,   KI_11,   KI_12,   KI_BSLS,
 		KC_CAPS, XXXXXXX, XXXXXXX, KI_SIG,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,,
-		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KI_KI2,  _______, KI_KI,   _______, KI_WLFT, KI_WRGT, _______, _______, _______, _______,
-		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX,),
+		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, KI_WLFT, KI_WRGT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+		_______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX,),
 
 	LAYOUT_all(
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -64,20 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KI_BKSP:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTRL)"v"SS_UP(X_LCTRL)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_BSPACE)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_BSPACE)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_BSPACE)SS_TAP(X_BSPACE)SS_TAP(X_BSPACE)SS_TAP(X_BSPACE));
-      } else {
-        
-      }
-      return false; // Skip all further processing of this key
-    case KI_BSLS:
-      if (record->event.pressed) {
-        SEND_STRING("https://apps.mypurecloud.com/directory/#/engage/admin/interactions/"SS_DOWN(X_LCTRL)"v"SS_UP(X_LCTRL));
-      } else {
-        
-      }
-      return false; // Skip all further processing of this key
+    // Keycodes Starting with KI_ are place holders for my personal macros. They are set below. Most are simple SEND_STRINGS().
     case KI_ESC:
       if (record->event.pressed) {
         SEND_STRING("");
@@ -85,53 +67,112 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       }
       return false; // Skip all further processing of this key
-
-    case KI_KI:
+    case KI_1:
       if (record->event.pressed) {
-        SEND_STRING("ki.finnsson");
+        SEND_STRING("");
+      } else {
+        
+      }
+    case KI_2:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+    case KI_3:
+      if (record->event.pressed) {
+        SEND_STRING("");
       } else {
         
       }
       return false; // Skip all further processing of this key
-    case KI_KI2:
+    case KI_4:
       if (record->event.pressed) {
-        SEND_STRING("Ki Finnsson");
+        SEND_STRING("");
       } else {
         
       }
+      return false; // Skip all further processing of this key
+    case KI_5:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_6:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_7:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_8:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
     case KI_9:
       if (record->event.pressed) {
-        SEND_STRING("98741236");
+        SEND_STRING("");
       } else {
         
       }
       return false; // Skip all further processing of this key
-    case KI_ININ:
+    case KI_9:
       if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_TAB)SS_TAP(X_TAB)SS_TAP(X_TAB)"98741236"SS_TAP(X_TAB)SS_TAP(X_TAB)"98741236"SS_TAP(X_TAB)SS_TAP(X_DELETE));
-      } else {
-        
-      }
-      return false; // Skip all further processing of this key      
-    case WG_PHON:
-      if (record->event.pressed) {
-        SEND_STRING("1-877-435-7948");
+        SEND_STRING("");
       } else {
         
       }
       return false; // Skip all further processing of this key
-    case KI_SIG:
+    case KI_10:
       if (record->event.pressed) {
-        SEND_STRING("Ki Finnsson"SS_TAP(X_ENTER));
-				SEND_STRING("IT Service Improvement Specialist"SS_TAP(X_ENTER));
-				SEND_STRING("Western Governors University"SS_TAP(X_ENTER)SS_TAP(X_ENTER));
-				SEND_STRING("4001 South 700 East, Suite 700"SS_TAP(X_ENTER));
-				SEND_STRING("Salt Lake City, UT 84107"SS_TAP(X_ENTER));
-				SEND_STRING("P: 877.435.7948"SS_TAP(X_ENTER));
+        SEND_STRING("");
       } else {
         
       }
       return false; // Skip all further processing of this key
+    case KI_11:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_12:
+      if (record->event.pressed) {
+        SEND_STRING("");
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_BKSP:
+      if (record->event.pressed) {
+        SEND_STRING("")
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+    case KI_BSLS:
+      if (record->event.pressed) {
+        SEND_STRING("")
+      } else {
+        
+      }
+      return false; // Skip all further processing of this key
+
+    //Windows Win+Left tap to move window without resetting KC_LGUI
+    //Additional code is in matrix_scan_user()
     case KI_WLFT:
       if (record->event.pressed) {
         if (!is_lgui_active) {
@@ -144,6 +185,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       }
       return false;
+    //Windows Win+Right tap to move window without resetting KC_LGUI
+    //Additional code is in matrix_scan_user()
     case KI_WRGT:
       if (record->event.pressed) {
         if (!is_lgui_active) {
@@ -161,6 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+//Check if KC_LGUI is active in KI_WLFT and KI_WRGT
 void matrix_scan_user(void) { 
   if (is_lgui_active) {
     if (timer_elapsed(lgui_timer) > 1000) {
