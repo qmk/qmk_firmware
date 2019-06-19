@@ -1,5 +1,5 @@
 /*
-Copyright 2012-2018 Jun Wako, Jack Humbert, Yiancar
+Copyright 2012-2019 Jun Wako, Jack Humbert, Yiancar
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "quantum.h"
 #include "i2c_master.h"
-
-//i2c_status_t expander_status;
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -157,19 +155,18 @@ static void unselect_rows(void)
 }
 
 static void init_pins(void) {
-  unselect_rows();
-  // Set I/O
-  uint8_t send_data = 0x07;
-  i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
-  // // Set Pull-up
-  i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
-  // send_data = 0xFF;
-  // i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &send_data, 1, 20);
-  for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    if ( (x > 0) && (x < 12) ) {
-      setPinInputHigh(col_pins[x]);
+    unselect_rows();
+    // Set I/O
+    uint8_t send_data = 0x07;
+    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x00, &send_data, 1, 20);
+    // // Set Pull-up
+    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x06, &send_data, 1, 20);
+
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        if ( (x > 0) && (x < 12) ) {
+        setPinInputHigh(col_pins[x]);
+        }
     }
-  }
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
@@ -189,20 +186,20 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         uint8_t pin_state;
         // Select the col pin to read (active low)
         switch (col_index) {
-          case 0 :
-            i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-            pin_state = pin_state & 0x01;
-            break;
-          case 12 :
-            i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-            pin_state = pin_state & (1 << 2);
-            break;
-          case 13 :
-            i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
-            pin_state = pin_state & (1 << 1);
-            break;
-          default :
-            pin_state = readPin(col_pins[col_index]);
+            case 0 :
+                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                pin_state = pin_state & 0x01;
+                break;
+            case 12 :
+                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                pin_state = pin_state & (1 << 2);
+                break;
+            case 13 :
+                i2c_readReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &pin_state, 1, 20);
+                pin_state = pin_state & (1 << 1);
+                break;
+            default :
+                pin_state = readPin(col_pins[col_index]);
         }
 
         // Populate the matrix row with the state of the col pin
@@ -236,15 +233,15 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-  bool changed = false;
+    bool changed = false;
 
-  // Set row, read cols
-  for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-    changed |= read_cols_on_row(raw_matrix, current_row);
-  }
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        changed |= read_cols_on_row(raw_matrix, current_row);
+    }
 
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
-  matrix_scan_quantum();
-  return 1;
+    matrix_scan_quantum();
+    return 1;
 }

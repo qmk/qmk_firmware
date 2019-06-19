@@ -19,7 +19,6 @@ PROTOCOL = VUSB
 #     software delays.
 F_CPU = 16000000
 
-
 #
 # LUFA specific
 #
@@ -42,7 +41,6 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -53,7 +51,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #
 # This uses usbaspbootloader
 # BOOTLOADER = atmel-dfu
-
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
@@ -69,15 +66,13 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 # You can use plaid:default:program
 PROGRAM_CMD = avrdude -c usbasp -p m328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
-
 # disable debug code
 OPT_DEFS = -DDEBUG_LEVEL=0
-
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no        # Console for debug(+400)
@@ -99,7 +94,3 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
 CUSTOM_MATRIX           = yes
-
-
-LAYOUTS = ortho_4x12 planck_mit
-LAYOUTS_HAS_RGB = no

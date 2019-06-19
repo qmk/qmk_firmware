@@ -14,30 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "gingham.h"
+#include "i2c_master.h"
+
+uint8_t send_data;
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // Due to the way the port expander is setup both LEDs are already outputs. This is set n matrix.copy
+    //Turn the red LED on as power indicator.
+    send_data = 0x10;
+    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &send_data, 1, 20);
 
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
+    matrix_init_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    // Bit 3 is Green LED, bit 4 is Red LED.
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        send_data = 0x18;
+    } else {
+        send_data = 0x10;
+    }
+    i2c_writeReg((PORT_EXPANDER_ADDRESS << 1), 0x09, &send_data, 1, 20);
 
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }
