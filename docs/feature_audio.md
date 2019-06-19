@@ -1,25 +1,41 @@
 # Audio
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
+To activate this feature, add `AUDIO_ENABLE = yes` to your `rules.mk`.
+
+## AVR based boards
 Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
 
-Timer 3, on one of these pins:
+the primary voice, with Timer 3 on one of these pins:
 `#define C4_AUDIO`
 `#define C5_AUDIO`
 `#define C6_AUDIO`
 
-Timer 1, on one of these pins:
+and *optionally*, a secondary voice, using Timer 1, on one of these pins:
 `#define B5_AUDIO`
 `#define B6_AUDIO`
 `#define B7_AUDIO`
 
-for a single audio voice: set *one* out of the Cx_AUDIO or Bx_AUDIO defines
-for two: set one Cx_AUDIO - which will be the primary voice - and one Bx_AUDIO, which will be the secondary
+
+## ARM based boards
+STM32F2 upwards can use the builtin DAC unit, to drive Pins A4 or A5, set either:
+`#define A4_AUDIO`
+OR
+`#define A5_AUDIO`
+
+STM32F1xx have to fall back to using PWM (on the up side: with any pin you choose), either:
+`#define ARM_PWM_USE_PIN_ALTERNATE 1`
+which is the default. Pin PA8 will be used, which is directly connected to the hardware PWM (TIM1_CH1 = PA8)
+OR
+`#define ARM_PWM_USE_PIN_ALTERNATE 0`
+`#define ARM_PWM_AUDIO_PORT GPIOC`
+`#define ARM_PWM_AUDIO_PIN 13`
+to have any other pin output a pwm signal, generated from a timer callback (e.g. toggled in software)
 
 
-If you add `AUDIO_ENABLE = yes` to your `rules.mk`, there's a couple different sounds that will automatically be enabled without any other configuration:
-
+## Songs
+There's a couple different sounds that will automatically be enabled without any other configuration:
 ```
 STARTUP_SONG // plays when the keyboard starts up (audio.c)
 GOODBYE_SONG // plays when you press the RESET key (quantum.c)

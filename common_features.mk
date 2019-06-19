@@ -31,7 +31,11 @@ endif
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     AUDIO_DRIVER ?= pwm
     ifeq ($(PLATFORM),CHIBIOS)
-        AUDIO_DRIVER ?= dac
+        ifeq ($(MCU_SERIES),STM32F1xx)
+            AUDIO_DRIVER ?= pwm
+        else ## stm32f2 and f3 have a DAC unit, f1 do not
+            AUDIO_DRIVER ?= dac
+        endif
     endif
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE = yes
