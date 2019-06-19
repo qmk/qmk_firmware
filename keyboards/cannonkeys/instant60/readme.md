@@ -5,6 +5,8 @@ Instant60 Keyboard
 Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan1)  
 Hardware Supported: STM32F072CBT6  
 
+[PCB Support Docs](https://docs.cannonkeys.com/instant60/)
+
 Make example for this keyboard (after setting up your build environment):
 
     make cannonkeys/instant60:default
