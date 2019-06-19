@@ -151,7 +151,37 @@ x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
 y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 ```
 
-Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout. 
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+
+For more complex layouts there is a tool ./utils/rgb_matrix_tool.py which can be used to generate the position matrix, though you'll have to reorder the elements if your LED's are not sequential.
+This uses the RAWDATA from the KeyboardLayoutEditor, to generate an accurate matrix from the key positions.
+
+```C
+./utils/rgb_matrix_tool.py keyboard.rawdata
+```
+e.g. if keyboard.rawdata contains:
+```C
+["F1","F2","F3","F4"],
+[{y:0.25},"Num Lock","/","*","-"],
+["7\nHome","8\n↑","9\nPgUp",{h:2},"+"],
+["4\n←","5","6\n→"],
+["1\nEnd","2\n↓","3\nPgDn",{h:2},"Enter"],
+[{w:2},"0\nIns",".\nDel"]
+```
+rgb_matrix_tool.py would generate:
+```C
+Keyboard dimension: 4.0 x 6.25
+Keyboard key count: 21
+
+         /*    0    */ /*    1    */ /*    2    */ /*    3    */
+/*  0 */ {   0,   0 }, {  75,   0 }, { 149,   0 }, { 224,   0 },
+/*  1 */ {   0,  15 }, {  75,  15 }, { 149,  15 }, { 224,  15 },
+/*  2 */ {   0,  27 }, {  75,  27 }, { 149,  27 }, { 224,  34 },
+/*  3 */ {   0,  40 }, {  75,  40 }, { 149,  40 },
+/*  4 */ {   0,  52 }, {  75,  52 }, { 149,  52 }, { 224,  58 },
+/*  5 */ {  37,  64 }, { 149,  64 },
+
+```
 
 As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
