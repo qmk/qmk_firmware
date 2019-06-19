@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FUNC] = LAYOUT_planck_grid(
         rset,   f1,   f2,   f3,   f4,   f5,   f6,   f7,   f8,   f9,  f10, volu,
         powr,  f11,  f12,  f13,  f14,  f15,  f16,  f17,  f18,  f19,  f20, vold,
-        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, play, next, prev, mute, ____,
+        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, play, prev, next, mute, ____,
         ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____
     ),
 };
