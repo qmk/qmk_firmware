@@ -1,6 +1,10 @@
 SRC += brandonschlack.c \
        process_records.c
 
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += tap_dances.c
+endif
+
 ifeq ($(strip $(BOOTLOADER)), mdloader)
     OPT_DEFS += -DBOOTLOADER_MDLOADER
     DISABLE_LTO = yes

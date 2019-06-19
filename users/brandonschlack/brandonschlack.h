@@ -3,6 +3,9 @@
 #include "quantum.h"
 #include "eeprom.h"
 #include "process_records.h"
+#ifdef TAP_DANCE_ENABLE
+#   include "tap_dances.h"
+#endif // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #   include "rgb_bs.h"
 #endif

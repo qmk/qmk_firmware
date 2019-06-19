@@ -5,21 +5,6 @@ extern keymap_config_t keymap_config;
 
 // Layers defined in brandonschlack.h
 
-enum launchpad_dances {
-    TD_LGHT = 0,
-    TD_MAGC,
-    TD_CMTB
-};
-
-typedef enum {
-    SINGLE_TAP,
-    SINGLE_HOLD,
-    DOUBLE_SINGLE_TAP
-} td_state_t;
-static td_state_t td_state;
-
-int cur_dance (qk_tap_dance_state_t *state);
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
@@ -37,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     S(G(KC_LBRC)), S(G(KC_RBRC)), \
     MC_WH_L, MC_WH_U, \
     MC_WH_R, MC_WH_D, \
-    TD(TD_LGHT), TD(TD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
 ),
 
 /* Reeder
@@ -52,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_REEDER] = LAYOUT( \
-    TD(TD_CMTB), KC_H, \
+    CMD_TAB, TD(TD_REDR_H), \
     KC_P, KC_K, \
     KC_N, KC_J, \
-    TD(TD_LGHT), TD(TD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
 ),
 
 /* Media
@@ -73,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MUTE, KC_MPLY, \
     KC_VOLU, KC_MFFD, \
     KC_VOLD, KC_MRWD, \
-    TD(TD_LGHT), TD(TD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
 ),
 
 /* Keypad
@@ -91,25 +76,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,     KC_P2, \
     KC_P3,     KC_P4, \
     KC_P5,     KC_P6, \
-    TD(TD_LGHT), TD(TD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
 ),
 
 /* Lights
  * ,-------------.
- * | Mode-| Mode+|
- * |------+------|
  * | HUE- | HUE+ |
  * |------+------|
  * | SAT- | SAT+ |
  * |------+------|
- * | Magc |RGBTOG|
+ * | VAL- | VAL+ |
+ * |------+------|
+ * | XXXX | Mode+|
  * `-------------'
  */
 [_LIGHT] = LAYOUT( \
-    RGB_RMOD, RGB_MOD, \
-    RGB_HUD,  RGB_HUI, \
-    RGB_SAD,  RGB_SAI, \
-    TG(_MAGIC), RGB_TOG \
+    RGB_HUD, RGB_HUI, \
+    RGB_SAD, RGB_SAI, \
+    RGB_VAD, RGB_VAI, \
+    XXXXXXX, RGB_MOD \
 ),
 
 /* Magic
@@ -143,148 +128,45 @@ void keyboard_post_init_keymap(void) {
 /**
  * Tap Dances
  */
-int cur_dance (qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) {
-            return SINGLE_TAP;
-        } else {
-            return SINGLE_HOLD;
-        }
+void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
+    uint16_t keycode = 0;
+    switch (toggle_layer) {
+        case _LIGHT:
+            switch (biton32(layer_state)) {
+                case _NAVI:
+                    keycode = S(G(KC_T));
+                    break;
+                case _REEDER:
+                    keycode = KC_L;
+                    break;
+                case _MEDIA:
+                    keycode = KC_SPC;
+                    break;
+                case _KEYPAD:
+                    keycode = KC_P7;
+                    break;
+            }
+            break;
+        case _MAGIC:
+            switch (biton32(layer_state)) {
+                case _NAVI:
+                    keycode = G(KC_W);
+                    break;
+                case _REEDER:
+                    keycode = KC_S;
+                    break;
+                case _MEDIA:
+                    keycode = MC_PLYR;
+                    break;
+                case _KEYPAD:
+                    keycode = KC_P8;
+                    break;
+            }
+            break;
     }
-    if (state->count == 2) {
-        return DOUBLE_SINGLE_TAP;
+    if (!reset) {
+        register_code16(keycode);
     } else {
-        return 3;
+        unregister_code16(keycode);
     }
 }
-
-void dance_light_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case DOUBLE_SINGLE_TAP:
-            layer_on(_LIGHT);
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _NAVI:
-                    register_code16(S(G(KC_T)));
-                    break;
-                case _REEDER:
-                    register_code(KC_L);
-                    break;
-                case _MEDIA:
-                    register_code(KC_SPC);
-                    break;
-                case _KEYPAD:
-                    register_code(KC_P7);
-                    break;
-            }
-            break;
-    }
-}
-void dance_light_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case DOUBLE_SINGLE_TAP:
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _NAVI:
-                    unregister_code16(S(G(KC_T)));
-                    break;
-                case _REEDER:
-                    unregister_code(KC_L);
-                    break;
-                case _MEDIA:
-                    unregister_code(KC_SPC);
-                    break;
-                case _KEYPAD:
-                    unregister_code(KC_P7);
-                    break;
-            }
-            break;
-    }
-}
-
-void dance_magic_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case SINGLE_HOLD:
-            layer_on(_MAGIC);
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _NAVI:
-                    register_code16(G(KC_W));
-                    break;
-                case _REEDER:
-                    register_code(KC_S);
-                    break;
-                case _MEDIA:
-                    register_code16(MC_PLYR);
-                    break;
-                case _KEYPAD:
-                    register_code(KC_P8);
-                    break;
-            }
-            break;
-    }
-}
-void dance_magic_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case SINGLE_HOLD:
-            layer_off(_MAGIC);
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _NAVI:
-                    unregister_code16(G(KC_W));
-                    break;
-                case _REEDER:
-                    unregister_code(KC_S);
-                    break;
-                case _MEDIA:
-                    unregister_code16(MC_PLYR);
-                    break;
-                case _KEYPAD:
-                    unregister_code(KC_P8);
-                    break;
-            }
-            break;
-    }
-}
-
-void dance_command_tab_finished (qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case DOUBLE_SINGLE_TAP:
-            register_code(KC_R);
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _REEDER:
-                    register_code16(G(KC_TAB));
-                    break;
-            }
-            break;
-    }
-}
-void dance_command_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case DOUBLE_SINGLE_TAP:
-            unregister_code(KC_R);
-            break;
-        default:
-            switch (biton32(layer_state)) {
-                case _REEDER:
-                    unregister_code16(G(KC_TAB));
-                    break;
-            }
-            break;
-    }
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_LGHT] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_light_layer_finished, dance_light_layer_reset),
-    [TD_MAGC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_magic_layer_finished, dance_magic_layer_reset),
-    [TD_CMTB] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_command_tab_finished, dance_command_tab_reset)
-};

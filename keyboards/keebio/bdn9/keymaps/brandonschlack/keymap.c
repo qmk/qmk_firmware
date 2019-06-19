@@ -15,10 +15,6 @@ enum bdn9_keycodes {
     MC_REDO
 };
 
-enum bdn9_dances {
-    TD_MAGC = 0
-};
-
 #define MC_UNDO LGUI(KC_Z)
 #define MC_REDO LSFT(LGUI(KC_Z))
 
@@ -31,9 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Left                  | Down | Right                 |
      */
     [_NAVI] = LAYOUT(
-        XXXXXXX, G(KC_TAB), G(KC_W),
+        XXXXXXX, CMD_TAB, G(KC_W),
         KC_PGDN, KC_UP, KC_P6,
-        KC_LEFT, KC_DOWN, TD(TD_MAGC)
+        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Reeder
@@ -45,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_REEDER] = LAYOUT(
         KC_H, KC_S, KC_R,
         G(KC_TAB), KC_M, KC_L,
-        G(KC_1), G(KC_2), TD(TD_MAGC)
+        G(KC_1), G(KC_2), TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Media
@@ -57,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
         KC_HOME, KC_UP, KC_END,
-        KC_LEFT, KC_DOWN, TD(TD_MAGC)
+        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Keypad/Karabiner
@@ -69,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_KEYPAD] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
         KC_P4, KC_P5, KC_P6,
-        KC_P7, KC_P8, TD(TD_MAGC)
+        KC_P7, KC_P8, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Navigation
@@ -81,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LR_NAV] = LAYOUT(
         TG_REVW, KC_J, TG_EDIT,
         KC_HOME, KC_UP, KC_END,
-        KC_LEFT, KC_DOWN, TD(TD_MAGC)
+        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Review/Rate
@@ -93,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LR_REVIEW] = LAYOUT(
         TG_LNAV, KC_7, TG_EDIT,
         KC_0, KC_8, KC_U,
-        KC_LEFT, KC_6, TD(TD_MAGC)
+        KC_LEFT, KC_6, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Edit/Develop
@@ -105,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_LNAV,
         KC_X, MC_UNDO, KC_P,
-        KC_LEFT, MC_REDO, TD(TD_MAGC)
+        KC_LEFT, MC_REDO, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Magic
@@ -262,49 +258,30 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 /**
  * Tap Dances
  */
-void dance_magc_finished (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 2) {
-        layer_on(_MAGIC);
+void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
+    uint16_t keycode = 0;
+    switch (toggle_layer) {
+        case _MAGIC:
+            switch (biton32(layer_state)) {
+                case _NAVI:
+                case _MEDIA:
+                case _LR_NAV:
+                case _LR_REVIEW:
+                case _LR_EDIT:
+                    keycode = KC_RGHT;
+                    break;
+                case _REEDER:
+                    keycode = G(KC_3);
+                    break;
+                case _KEYPAD:
+                    keycode = KC_P9;
+                    break;
+            }
+            break;
+    }
+    if (!reset) {
+        register_code16(keycode);
     } else {
-        switch (biton32(layer_state)) {
-            case _NAVI:
-            case _MEDIA:
-            case _LR_NAV:
-            case _LR_REVIEW:
-            case _LR_EDIT:
-                register_code(KC_RGHT);
-                break;
-            case _REEDER:
-                register_code16(G(KC_3));
-                break;
-            case _KEYPAD:
-                register_code(KC_P9);
-                break;
-        }
+        unregister_code16(keycode);
     }
 }
-
-void dance_magc_reset (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 2) {
-    } else {
-        switch (biton32(layer_state)) {
-            case _NAVI:
-            case _MEDIA:
-            case _LR_NAV:
-            case _LR_REVIEW:
-            case _LR_EDIT:
-                unregister_code(KC_RGHT);
-                break;
-            case _REEDER:
-                unregister_code16(G(KC_3));
-                break;
-            case _KEYPAD:
-                unregister_code(KC_P9);
-                break;
-        }
-    }
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_MAGC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_magc_finished, dance_magc_reset)
-};
