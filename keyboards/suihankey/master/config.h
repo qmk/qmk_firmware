@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 4
+#define MATRIX_ROWS 8
 #define MATRIX_COLS 5
 
 /*
@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4 }
 #define UNUSED_PINS
+#define USE_I2C
+#undef USE_SERIAL
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -52,6 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+#define SPLIT_HAND_PIN D2
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -59,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 6
+   #define RGBLED_NUM 18
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8
    #define RGBLIGHT_VAL_STEP 8
@@ -241,3 +244,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+// #define RGBLED_SPLIT {18,18}
