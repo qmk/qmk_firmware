@@ -34,7 +34,7 @@ void matrix_scan_cmd_tab(void);
 #define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
 #define MC_CMTB   LGUI(KC_TAB)         // Basic CMD+TAB
 #define CLS_TAB   LGUI(KC_W)           // Cmd+W: Closes Tab
-#define REO_TAB   LGUI(LSFT(KC_W))     // Shift+Cmd+T: Reopen Last Tab
+#define REO_TAB   LSFT(LGUI(KC_T))     // Shift+Cmd+T: Reopen Last Tab
 #define NXT_TAB   LCTL(KC_TAB)         // Control+Tab: Next Tab
 #define PRV_TAB   LCTL(LSFT(KC_TAB))   // Shift+Control+Tab: Previous Tab
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
