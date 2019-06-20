@@ -19,7 +19,8 @@ references:
             docker container run --name $CONTAINER_NAME $CONTAINER_NAME make $BUILD_TARGET
             docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
             docker container rm $CONTAINER_NAME
-            find .build -depth 1 -type d | xargs rm -rf
+            cd .build
+            ls -F | grep / | xargs rm -rf
       - store_artifacts:
           path: .build
 
