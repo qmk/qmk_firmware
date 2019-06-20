@@ -66,3 +66,10 @@ jobs:
       - store_artifacts:
           path: .build
 
+workflows:
+  version: 2
+    build:
+      jobs:
+        - build_helix_luciferous_helix
+        - build_helix_luciferous_helix_02
+        - build_helix_luciferous_helix_03
