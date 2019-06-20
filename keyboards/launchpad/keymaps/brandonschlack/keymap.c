@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------'
  */
 [_REEDER] = LAYOUT( \
-    MC_CMTB, TD(TD_REDR_H), \
+    CMD_TAB, TD(TD_REDR_H), \
     KC_P, KC_K, \
     KC_N, KC_J, \
     TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \

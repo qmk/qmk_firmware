@@ -98,7 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_cmd_tab(void) {
     if (is_cmd_tab_active) {
-        if (timer_elapsed(cmd_tab_timer) > 1000) {
+        if (timer_elapsed(cmd_tab_timer) > 500) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
         }
