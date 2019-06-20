@@ -5,7 +5,7 @@
 
 #define M_PROG DYN_MACRO_PROG
 
-//    COL1     COL2                          COL3     COL4     COL5     COL6     COL7     COL8     COL9     COL10    COL11    COL12    COL13    COL14    COL15    COL16        COL17    COL18    COL19        COL20    COL21    COL22    COL23
+/*    COL1     COL2                          COL3     COL4     COL5     COL6     COL7     COL8     COL9     COL10    COL11    COL12    COL13    COL14    COL15    COL16        COL17    COL18    COL19        COL20    COL21    COL22    COL23 */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = {
     { DYN_MACRO_KEY11, DYN_MACRO_KEY12,      KC_ESC,  XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_PSCR, KC_SLCK, KC_PAUS,     KC_MUTE, KC_VOLD, KC_VOLU, KC_PWR },

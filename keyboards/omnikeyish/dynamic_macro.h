@@ -23,7 +23,7 @@
 
 #ifndef DYNAMIC_MACRO_COUNT
 #define DYNAMIC_MACRO_COUNT 2
-#endif 
+#endif
 
 #ifndef DYNAMIC_MACRO_SIZE
 /* May be overridden with a custom value. Be aware that the effective
@@ -38,63 +38,58 @@
 #define DYNAMIC_MACRO_SIZE 64
 #endif
 
+#ifndef DYNAMIC_MACRO_EEPROM_STORAGE
+#define DYNAMIC_MACRO_EEPROM_STORAGE false
+#endif
+
 /* DYNAMIC_MACRO_RANGE must be set as the last element of user's
  * "planck_keycodes" enum prior to including this header. This allows
  * us to 'extend' it.
  */
-enum dynamic_macro_keycodes
-{
-    DYN_MACRO_PROG = DYNAMIC_MACRO_RANGE,
+enum dynamic_macro_keycodes {
+  DYN_MACRO_PROG = DYNAMIC_MACRO_RANGE,
 
-    /* Requirement: DYN_MACRO_KEYs are in sequence in the enum. */
-    DYN_MACRO_KEY1,
-    DYN_MACRO_KEY2,
-    DYN_MACRO_KEY3,
-    DYN_MACRO_KEY4,
-    DYN_MACRO_KEY5,
-    DYN_MACRO_KEY6,
-    DYN_MACRO_KEY7,
-    DYN_MACRO_KEY8,
-    DYN_MACRO_KEY9,
-    DYN_MACRO_KEY10,
-    DYN_MACRO_KEY11,
-    DYN_MACRO_KEY12    
+  /* Requirement: DYN_MACRO_KEYs are in sequence in the enum. */
+  DYN_MACRO_KEY1,
+  DYN_MACRO_KEY2,
+  DYN_MACRO_KEY3,
+  DYN_MACRO_KEY4,
+  DYN_MACRO_KEY5,
+  DYN_MACRO_KEY6,
+  DYN_MACRO_KEY7,
+  DYN_MACRO_KEY8,
+  DYN_MACRO_KEY9,
+  DYN_MACRO_KEY10,
+  DYN_MACRO_KEY11,
+  DYN_MACRO_KEY12
 };
 
-enum dynamic_macro_recording_state
-{
-    STATE_NOT_RECORDING,
-    STATE_RECORD_KEY_PRESSED,
-    STATE_CURRENTLY_RECORDING
-};
+enum dynamic_macro_recording_state { STATE_NOT_RECORDING, STATE_RECORD_KEY_PRESSED, STATE_CURRENTLY_RECORDING };
 
-typedef struct
-{
-    keyrecord_t events[DYNAMIC_MACRO_SIZE];
-    uint8_t length;
-    uint16_t checksum;
-} dynamic_macro_t; 
+typedef struct {
+  keyrecord_t events[DYNAMIC_MACRO_SIZE];
+  uint8_t     length;
+  uint16_t    checksum;
+} dynamic_macro_t;
 
 dynamic_macro_t dynamic_macros[DYNAMIC_MACRO_COUNT];
 
 #define DYNAMIC_MACRO_CRC_LENGTH (sizeof(dynamic_macro_t) - sizeof(uint16_t))
 
-//char (*__kaboom)[sizeof( dynamic_macro_t )] = 1;
-void dynamic_macro_init(void);
-void dynamic_macro_led_blink(void);
-void dynamic_macro_record_start(uint8_t macro_id);
-void dynamic_macro_play(uint8_t macro_id);
-void dynamic_macro_record_key(uint8_t macro_id, keyrecord_t *record);
-void dynamic_macro_record_end(uint8_t macro_id);
+void     dynamic_macro_init(void);
+void     dynamic_macro_led_blink(void);
+void     dynamic_macro_record_start(uint8_t macro_id);
+void     dynamic_macro_play(uint8_t macro_id);
+void     dynamic_macro_record_key(uint8_t macro_id, keyrecord_t* record);
+void     dynamic_macro_record_end(uint8_t macro_id);
 uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro);
-bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record);
-
-#define DYNAMIC_MACRO_EEPROM_STORAGE true
+bool     process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record);
 
 #if DYNAMIC_MACRO_EEPROM_STORAGE
-#define DYNAMIC_MARCO_EEPROM_MAGIC (uint16_t) 0xDEAD
-#define DYNAMIC_MARCO_EEPROM_MAGIC_ADDR (uint16_t*) 32
-#define DYNAMIC_MARCO_EEPROM_BLOCK0_ADDR (uint8_t*) 34
+#define DYNAMIC_MARCO_EEPROM_MAGIC (uint16_t)0xDEAD
+#define DYNAMIC_MARCO_EEPROM_MAGIC_ADDR (uint16_t*)32
+#define DYNAMIC_MARCO_EEPROM_BLOCK0_ADDR (uint8_t*)34
+
 void dynamic_macro_load_eeprom_all(void);
 void dynamic_macro_load_eeprom(uint8_t macro_id);
 void dynamic_macro_save_eeprom(uint8_t macro_id);
