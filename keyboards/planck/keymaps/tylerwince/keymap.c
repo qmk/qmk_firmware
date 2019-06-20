@@ -39,8 +39,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SEMI_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
 };
 
-
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
@@ -66,12 +64,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           LALT(KC_SPACE), LGUI(KC_BSLASH), _______, _______, _______, _______, KC_NO,   _______,  KC_LEFT,  KC_DOWN, KC_UP,   KC_RIGHT),
 
   [_ADJUST] = LAYOUT_planck_grid(
-          RESET,_______,_______,_______,_______,LALT(LCTL(KC_7)),LALT(LCTL(KC_8)),_______,_______,_______,LALT(LCTL(KC_L)),_______,_______,_______,_______,_______,_______,LALT(LCTL(KC_U)),LALT(LCTL(KC_I)),LALT(LCTL(KC_H)),_______,_______,_______,_______,_______,_______,_______,LALT(LCTL(KC_J)),LALT(LCTL(KC_K)),_______,_______,_______,_______,_______,_______,LALT(LCTL(KC_ENTER)),TO(0),TO(4),_______,_______,_______,_______,KC_NO,_______,KC_AUDIO_VOL_DOWN,KC_F14,KC_F15,KC_AUDIO_VOL_UP),
+          RESET,   _______, _______, _______,          _______,          LALT(LCTL(KC_7)), LALT(LCTL(KC_8)), _______,          _______,           _______, LALT(LCTL(KC_L)), _______, 
+          _______, _______, _______, _______,          _______,          LALT(LCTL(KC_U)), LALT(LCTL(KC_I)), LALT(LCTL(KC_H)), _______,           _______, _______,          _______,          
+          _______, _______, _______, LALT(LCTL(KC_J)), LALT(LCTL(KC_K)), _______,          _______,          _______,          _______,           _______, _______,          LALT(LCTL(KC_ENTER)),
+          TO(0),   TO(4),   _______, _______,          _______,          _______,          KC_NO,            _______,          KC_AUDIO_VOL_DOWN, KC_F14,  KC_F15,           KC_AUDIO_VOL_UP
+          ),
 
-  [_LAYER4] = LAYOUT_planck_grid(KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_QUOTE,LCTL_T(KC_ESCAPE),KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCOLON,KC_BSPACE,_______,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMMA,KC_DOT,KC_SLASH,KC_ENTER,_______,LCTL_T(KC_NO),KC_LALT,KC_LGUI,LOWER,LSFT_T(KC_SPACE),KC_NO,RAISE,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT),
+  [_LAYER4] = LAYOUT_planck_grid(
+          KC_TAB,            KC_Q,          KC_W,    KC_E,    KC_R,  KC_T,             KC_Y,  KC_U,  KC_I,     KC_O,    KC_P,      KC_QUOTE,
+          LCTL_T(KC_ESCAPE), KC_A,          KC_S,    KC_D,    KC_F,  KC_G,             KC_H,  KC_J,  KC_K,     KC_L,    KC_SCOLON, KC_BSPACE,
+          _______,           KC_Z,          KC_X,    KC_C,    KC_V,  KC_B,             KC_N,  KC_M,  KC_COMMA, KC_DOT,  KC_SLASH,  KC_ENTER,
+          _______,           LCTL_T(KC_NO), KC_LALT, KC_LGUI, LOWER, LSFT_T(KC_SPACE), KC_NO, RAISE, KC_LEFT,  KC_DOWN, KC_UP,     KC_RIGHT
+          ),
 
 };
-
 
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
