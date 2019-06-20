@@ -5,11 +5,7 @@ references:
     docker:
       - image: circleci/buildpack-deps:18.04
 
-jobs:
-  build_helix_luciferous_helix:
-    <<: *primary_containers
-    environment:
-      BUILD_TARGET: helix:luciferous_helix
+  build_steps: &build_steps
     steps:
       - checkout
       - setup_remote_docker
@@ -25,9 +21,22 @@ jobs:
             docker container rm $CONTAINER_NAME
       - store_artifacts:
           path: .build
+jobs:
+  build_helix_luciferous_helix:
+    <<: *primary_containers
+    environment:
+      BUILD_TARGET: helix:luciferous_helix
+    <<: *build_steps
+
+  build_helix_default:
+    <<: *primary_containers
+    environment:
+      BUILD_TARGET: helix:default
+    <<: *build_steps
 
 workflows:
   version: 2
   build:
     jobs:
       - build_helix_luciferous_helix
+      - build_helix_default
