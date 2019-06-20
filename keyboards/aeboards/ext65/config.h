@@ -20,19 +20,19 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4145 // "AE"
-#define PRODUCT_ID      0x0807 // 1800 -> 0x0708 -> 0x0807 ;-)
+#define PRODUCT_ID      0xAE65 // AEboards EXT65
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         AEboards Aegis
-#define DESCRIPTION     AEboards Aegis
+#define PRODUCT         AEboards Ext65
+#define DESCRIPTION     AEboards Ext65
 
 /* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 10
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { F5, F6, E6, F7, D1, D0, D6, D4, B4, D7, B6, B5 }
-#define MATRIX_COL_PINS { C7, C6, B7, D2, D3, B3, B2, B1, B0 }
+#define MATRIX_ROW_PINS { C6, C7, B5, B6, D7, B4, D4, D6, B7, E6 }
+#define MATRIX_COL_PINS { B2, B3, B1, B0, F7, F0, F1, F4, F5, F6 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -64,7 +64,8 @@
 
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*12*9*2)) = (35+864)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 899
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 125
+// Dynamic macro starts after dynamic keymaps (35+(4*10*10*2)) = (35+800)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 835
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 189
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
+
