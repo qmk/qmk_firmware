@@ -11,6 +11,9 @@ enum kuatsure_keycodes {
   USER_SAFE_RANGE,
 };
 
+#define ONESHOT_TAP_TOGGLE 2
+#define KT_LSFT OSM(MOD_LSFT)
+
 enum {
   TD_LBRC = 0,
   TD_RBRC,

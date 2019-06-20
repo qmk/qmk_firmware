@@ -1,3 +1,5 @@
+#include "kuatsure.h"
+
 #pragma once
 
 #ifdef AUDIO_ENABLE

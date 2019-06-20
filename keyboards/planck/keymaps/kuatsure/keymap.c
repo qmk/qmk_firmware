@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid_wrapper(
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
-    KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_BSLS,
+    KT_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_BSLS,
     KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,        LOWER, RAISE,       RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
