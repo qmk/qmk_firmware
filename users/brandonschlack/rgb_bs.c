@@ -65,9 +65,6 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
         case _MACFN:
             rgb_layer_helper(HSV_PINK);
             break;
-        case _WINFN:
-            rgb_layer_helper(HSV_CYAN);
-            break;
 #else
         case _REEDER:
             rgb_layer_helper(HSV_PINK);
@@ -87,9 +84,6 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
     #ifndef IS_MACROPAD
                 case _MAC:
                     rgb_layer_helper(HSV_PURPLE);
-                    break;
-                case _WIN:
-                    rgb_layer_helper(HSV_BLUE);
                     break;
     #else
                 case _NAVI:

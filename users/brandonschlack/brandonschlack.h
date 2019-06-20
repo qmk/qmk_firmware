@@ -15,8 +15,6 @@
 enum bs_layers {
     _MAC = 0,
     _MACFN,
-    _WIN,
-    _WINFN
 };
 #else
 enum macropad_layers {
@@ -35,12 +33,3 @@ void suspend_power_down_keymap(void);
 void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
 layer_state_t layer_state_set_keymap (layer_state_t state);
-
-// typedef union {
-//     uint32_t raw;
-//     struct {
-//         uint8_t  os_mode          :4;
-//     };
-// } userspace_config_t;
-
-// extern userspace_config_t userspace_config;

@@ -5,9 +5,6 @@
 enum custom_keycodes {
     KC_MAKE = SAFE_RANGE,
     CMD_TAB,
-    WN_SLPD,
-    OS_MAC,
-    OS_WIN,
     TG_NAVI,
     TG_REDR,
     TG_MEDA,
@@ -24,8 +21,7 @@ void matrix_scan_cmd_tab(void);
 // Media Mod-Tap
 #define MM_RGUI   RGUI_T(KC_MRWD)
 #define MM_RALT   RALT_T(KC_MFFD)
-#define MM_FN_M   LT(_MACFN, KC_MPLY)
-#define MM_FN_W   LT(_WINFN, KC_MPLY)
+#define MM_FNPY   LT(_MACFN, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
@@ -45,6 +41,3 @@ void matrix_scan_cmd_tab(void);
 #define MC_WH_D   KC_WH_U
 #define MC_WH_L   KC_WH_R
 #define MC_WH_R   KC_WH_L
-// Windows
-#define WN_LOCK   LGUI(KC_L)           // Lock Computer
-#define WN_TSKM   LCTL(LALT(KC_DEL))   // Task Manager (Ctrl+Alt+Del)
