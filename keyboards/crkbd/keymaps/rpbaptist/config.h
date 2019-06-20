@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
 
 #ifdef RGBLIGHT_ENABLE
   #undef RGBLED_NUM
