@@ -20,47 +20,7 @@ jobs:
           command: |
             set -x
             docker image build -t $CONTAINER_NAME .
-            docker container run --name qmk_firmware $CONTAINER_NAME make $BUILD_TARGET
-            docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
-            docker container rm $CONTAINER_NAME
-      - store_artifacts:
-          path: .build
-
-  build_helix_luciferous_helix_02:
-    <<: *primary_containers
-    environment:
-      BUILD_TARGET: helix:luciferous_helix
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: build
-          environment:
-            CONTAINER_NAME: qkm_firmware
-          command: |
-            set -x
-            docker image build -t $CONTAINER_NAME .
-            docker container run --name qmk_firmware $CONTAINER_NAME make $BUILD_TARGET
-            docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
-            docker container rm $CONTAINER_NAME
-      - store_artifacts:
-          path: .build
-
-  build_helix_luciferous_helix_03:
-    <<: *primary_containers
-    environment:
-      BUILD_TARGET: helix:luciferous_helix
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: build
-          environment:
-            CONTAINER_NAME: qkm_firmware
-          command: |
-            set -x
-            docker image build -t $CONTAINER_NAME .
-            docker container run --name qmk_firmware $CONTAINER_NAME make $BUILD_TARGET
+            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make $BUILD_TARGET
             docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
             docker container rm $CONTAINER_NAME
       - store_artifacts:
@@ -71,5 +31,3 @@ workflows:
   build:
     jobs:
       - build_helix_luciferous_helix
-      - build_helix_luciferous_helix_02
-      - build_helix_luciferous_helix_03
