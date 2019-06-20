@@ -11,40 +11,24 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
+        case KC_MAKE:
             if (!record->event.pressed) {
+                bool flash = false;
+
+        #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 uint8_t temp_mod = get_mods();
                 uint8_t temp_osm = get_oneshot_mods();
-                clear_mods(); clear_oneshot_mods();
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
-
-                #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
+                clear_mods();
+                clear_oneshot_mods();
                 if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT )
-                #endif
-                { //
-                    #if defined(BOOTLOADER_MDLOADER) // only run for Massdrop boards
-                        SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
-                    #elif defined(__arm__)  // only run for ARM boards
-                        SEND_STRING(":dfu-util");
-                    #elif defined(BOOTLOADER_DFU) // only run for DFU boards
-                        SEND_STRING(":dfu");
-                    #elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
-                        SEND_STRING(":teensy");
-                    #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
-                        SEND_STRING(":avrdude");
-                    #endif // bootloader options
-                }
-                if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) {
-                    SEND_STRING(" -j8 --output-sync");
-                }
-                SEND_STRING(SS_TAP(X_ENTER));
-                #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
-                if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT )
-                #endif
+        #endif
                 {
-                    reset_keyboard();
+                    flash = true;
                 }
+                send_make_command(flash);
+        #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 set_mods(temp_mod);
+        #endif
             }
             break;
         case CMD_TAB:
@@ -91,5 +75,30 @@ void matrix_scan_cmd_tab(void) {
             unregister_code(KC_LGUI);
             is_cmd_tab_active = false;
         }
+    }
+}
+
+/** Send Make Command
+ * adds flash target and resets keyboard if flash_bootloader
+ * set to true
+ */
+void send_make_command(bool flash_bootloader) {
+    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+    if (flash_bootloader) {
+#if defined(BOOTLOADER_MDLOADER) // only run for Massdrop boards
+        SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
+#elif defined(__arm__)  // only run for ARM boards
+        SEND_STRING(":dfu-util");
+#elif defined(BOOTLOADER_DFU) // only run for DFU boards
+        SEND_STRING(":dfu");
+#elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
+        SEND_STRING(":teensy");
+#elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
+        SEND_STRING(":avrdude");
+#endif // bootloader options
+    }
+    SEND_STRING(SS_TAP(X_ENTER));
+    if (flash_bootloader) {
+        reset_keyboard();
     }
 }
