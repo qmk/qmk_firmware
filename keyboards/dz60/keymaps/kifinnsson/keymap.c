@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_all(
 		KI_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KI_BKSP,
 		_______, KI_1,    KI_2,    KI_3,    KI_4,    KI_5,    KI_6,    KI_7,    KI_8,    KI_9,    KI_10,   KI_11,   KI_12,   KI_BSLS,
-		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,,
+		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, KI_WLFT, KI_WRGT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-		_______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX,),
+		_______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX),
 
 	LAYOUT_all(
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -73,12 +73,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         
       }
+      return false; // Skip all further processing of this key
     case KI_2:
       if (record->event.pressed) {
         SEND_STRING("");
       } else {
         
       }
+      return false; // Skip all further processing of this key
     case KI_3:
       if (record->event.pressed) {
         SEND_STRING("");
@@ -128,13 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
       }
       return false; // Skip all further processing of this key
-    case KI_9:
-      if (record->event.pressed) {
-        SEND_STRING("");
-      } else {
-        
-      }
-      return false; // Skip all further processing of this key
     case KI_10:
       if (record->event.pressed) {
         SEND_STRING("");
@@ -158,14 +153,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; // Skip all further processing of this key
     case KI_BKSP:
       if (record->event.pressed) {
-        SEND_STRING("")
+        SEND_STRING("");
       } else {
         
       }
       return false; // Skip all further processing of this key
     case KI_BSLS:
       if (record->event.pressed) {
-        SEND_STRING("")
+        SEND_STRING("");
       } else {
         
       }
@@ -184,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         
       }
-      return false;
+      return false; // Skip all further processing of this key
     //Windows Win+Right tap to move window without resetting KC_LGUI
     //Additional code is in matrix_scan_user()
     case KI_WRGT:
@@ -198,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         
       }
-      return false;
+      return false; // Skip all further processing of this key
     default:
       return true; // Process all other keycodes normally
   }
