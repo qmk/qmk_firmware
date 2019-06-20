@@ -17,3 +17,6 @@
 #pragma once
 
 // place overrides here
+#if RGBLIGHT_ENABLE
+#define RGBLIGHT_ANIMATIONS
+#endif
