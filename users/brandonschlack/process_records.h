@@ -36,8 +36,10 @@ void matrix_scan_cmd_tab(void);
 #define CLS_TAB   LGUI(KC_W)           // Cmd+W: Closes Tab
 #define REO_TAB   LSFT(LGUI(KC_T))     // Shift+Cmd+T: Reopen Last Tab
 #define NXT_TAB   LCTL(KC_TAB)         // Control+Tab: Next Tab
-#define PRV_TAB   LCTL(LSFT(KC_TAB))   // Shift+Control+Tab: Previous Tab
+#define PRV_TAB   LSFT(LCTL(KC_TAB))   // Shift+Control+Tab: Previous Tab
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
+#define MC_UNDO   LGUI(KC_Z)           // Undo
+#define MC_REDO   LSFT(LGUI(KC_Z))     // Redo
 // Reverse scrolling for using with macOS Natural Scrolling.
 #define MC_WH_U   KC_WH_D
 #define MC_WH_D   KC_WH_U

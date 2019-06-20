@@ -10,13 +10,8 @@ enum bdn9_layers {
 enum bdn9_keycodes {
     TG_LNAV = KEYMAP_SAFE_RANGE,
     TG_REVW,
-    TG_EDIT,
-    MC_UNDO,
-    MC_REDO
+    TG_EDIT
 };
-
-#define MC_UNDO LGUI(KC_Z)
-#define MC_REDO LSFT(LGUI(KC_Z))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
