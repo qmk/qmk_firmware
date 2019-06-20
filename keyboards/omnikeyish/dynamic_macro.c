@@ -207,11 +207,11 @@ uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro) {
 #endif /* __AVR__ */
 
 inline void* dynamic_macro_eeprom_macro_addr(uint8_t macro_id) { 
-    return DYNAMIC_MARCO_EEPROM_BLOCK0_ADDR + sizeof(dynamic_macro_t) * macro_id;
+    return DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR + sizeof(dynamic_macro_t) * macro_id;
 }
 
 bool dynamic_macro_header_correct(void) { 
-    return eeprom_read_word(DYNAMIC_MARCO_EEPROM_MAGIC_ADDR) == DYNAMIC_MARCO_EEPROM_MAGIC;
+    return eeprom_read_word(DYNAMIC_MACRO_EEPROM_MAGIC_ADDR) == DYNAMIC_MACRO_EEPROM_MAGIC;
 }
 
 void dynamic_macro_load_eeprom_all(void) {
@@ -243,7 +243,7 @@ void dynamic_macro_load_eeprom(uint8_t macro_id) {
 
 void dynamic_macro_save_eeprom(uint8_t macro_id) {
   if (!dynamic_macro_header_correct()) {
-    eeprom_write_word(DYNAMIC_MARCO_EEPROM_MAGIC_ADDR, DYNAMIC_MARCO_EEPROM_MAGIC);
+    eeprom_write_word(DYNAMIC_MACRO_EEPROM_MAGIC_ADDR, DYNAMIC_MACRO_EEPROM_MAGIC);
     dprintf("dynamic macro: writing magic eeprom header\n");
   }
 

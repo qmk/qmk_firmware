@@ -86,9 +86,9 @@ uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro);
 bool     process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record);
 
 #if DYNAMIC_MACRO_EEPROM_STORAGE
-#define DYNAMIC_MARCO_EEPROM_MAGIC (uint16_t)0xDEAD
-#define DYNAMIC_MARCO_EEPROM_MAGIC_ADDR (uint16_t*)32
-#define DYNAMIC_MARCO_EEPROM_BLOCK0_ADDR (uint8_t*)34
+#define DYNAMIC_MACRO_EEPROM_MAGIC (uint16_t)0xDEAD
+#define DYNAMIC_MACRO_EEPROM_MAGIC_ADDR (uint16_t*)32
+#define DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR (uint8_t*)34
 
 void dynamic_macro_load_eeprom_all(void);
 void dynamic_macro_load_eeprom(uint8_t macro_id);
