@@ -61,6 +61,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
 		arm-none-eabi-newlib \
+		avrdude \
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
