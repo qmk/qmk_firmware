@@ -19,10 +19,6 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   SH_GOUP,
-  AUTO_SQ,
-  AUTO_PA,
-  AUTO_CB,
-  SLACK,
 };
 
 //Tap Dance Declarations
@@ -41,16 +37,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------   -------+------+------+------+------+------|
  * |CTL/Es|   A  |   S  |   D  |   F  |   G  |   |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|   |------+------+------+------+------+------|
- * |      |   Z  |   X  |   C  |   V  |   B  |   |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |Shift |   Z  |   X  |   C  |   V  |   B  |   |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+   +------+------+------+------+------+------|
- * |      |      | alt  | CMD  |Lower |Space |   |Space |Raise | Next | Vol- | Vol+ | Play |
+ * |Things|1PASS | alt  | CMD  |Lower |Space |   |Space |Raise | Next | Vol- | Vol+ | Play |
  * `------------------------------------------   ------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
-   KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,          KC_Y,          KC_U,  KC_I,    KC_O,    KC_P,              KC_BSPC,
-   CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,  KC_G,          KC_H,          KC_J,  KC_K,    KC_L,    TD(TD_SEMI_COLON), KC_QUOT,
-   _______,       KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,          KC_N,          KC_M,  KC_COMM, KC_DOT,  KC_SLSH,           KC_ENT ,
-   _______,       _______, KC_LALT, KC_LCMD, LOWER, SFT_T(KC_SPC), SFT_T(KC_SPC), RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY
+   KC_TAB,        KC_Q,          KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,              KC_BSPC,
+   CTL_T(KC_ESC), KC_A,          KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    TD(TD_SEMI_COLON), KC_QUOT,
+   KC_LSFT,       KC_Z,          KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH,           KC_ENT ,
+   RALT(KC_SPC),  RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE, KC_MNXT, KC_VOLD, KC_VOLU,           KC_MPLY
 ),
 
 /* Colemak
@@ -72,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Dvorak
- ,------------------------------------------   ------------------------------------------.
+ * ,------------------------------------------   ------------------------------------------.
  * | Tab  |   '  |   ,  |   .  |   P  |   Y  |   |   F  |   G  |   C  |   R  |   L  | Bksp |
  * |------+------+------+------+------+-------   -------+------+------+------+------+------|
  * |CTL/Es|   A  |   O  |   E  |   U  |   I  |   |   D  |   H  |   T  |   N  |   S  |  /   |
@@ -83,27 +79,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------   ------------------------------------------'
  */
 [_DVORAK] = LAYOUT_ortho_4x12(
-  KC_TAB,        KC_QUOT,           KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_SLSH,
-  CTL_T(KC_ESC), KC_A,              KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_BSPC,
+  KC_TAB,        KC_QUOT,           KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,    KC_BSPC,
+  CTL_T(KC_ESC), KC_A,              KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,    KC_SLSH,
   KC_LSFT,       TD(TD_SEMI_COLON), KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,    KC_ENT ,
-  RALT(KC_SPC),  RGUI(KC_BSLS),     KC_LALT, KC_LCMD, LOWER, SFT_T(KC_SPC), SFT_T(KC_SPC), RAISE, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+  RALT(KC_SPC),  RGUI(KC_BSLS),     KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Lower
  * ,------------------------------------------   ------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   |   ^  |   &  |   *  |  ()  |      | Del  |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------   -------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   |      |   _  |   +  |  {}  |      |  |   |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   |      |   _  |   +  |   {  |   }  |  |   |
  * +------+------+------+------+------|------+   |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   |      |   -  |   =  |  []  |      |      |
+ * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   |      |   -  |   =  |   [  |   ]  |      |
  * |------+------+------+------+------+------+   +------+------+------+------+------+------|
  * |Things|1PASS | alt  | CMD  |Lower |Space |   |Space |Raise | Next | Vol- | Vol+ | Play |
  * `------------------------------------------   ------------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_4x12(
-  KC_TILD,      KC_EXLM,       KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, AUTO_PA, _______, KC_DEL,
-  KC_F1,        KC_F2,         KC_F3,   KC_F4,   KC_F5,  KC_F6,   _______, KC_UNDS, KC_PLUS, AUTO_CB, _______, KC_PIPE,
-  KC_F7,        KC_F8,         KC_F9,   KC_F10,  KC_F11, KC_F12,  _______, KC_MINS, KC_EQL,  AUTO_SQ, _______, _______,
+  KC_TILD,      KC_EXLM,       KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
+  KC_F1,        KC_F2,         KC_F3,   KC_F4,   KC_F5,  KC_F6,   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+  KC_F7,        KC_F8,         KC_F9,   KC_F10,  KC_F11, KC_F12,  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
   RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER,  KC_SPC,  KC_SPC,  RAISE,   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -111,18 +107,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------   ------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   |   6  |   7  |   8  |   9  |   0  | Del  |
  * |------+------+------+------+------+-------   -------+------+------+------+------+------|
- * | Del  |      | SLACK|      |      |      |   | LEFT | DOWN |  UP  |RIGHT |      |  \   |
+ * | Del  |      |      |      |      |      |   | LEFT | DOWN |  UP  |RIGHT |      |  \   |
  * |------+------+------+------+------+------|   |------+------+------+------+------+------|
- * |      |      |      |      |      | back |   |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |   |      |      |      |      |      |      |
  * |------+------+------+------+------+------+   +------+------+------+------+------+------|
  * |Things|1PASS | alt  | CMD  |Lower |Space |   |Space |Raise | Next | Vol- | Vol+ | Play |
  * `------------------------------------------   ------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
-  KC_GRV,       KC_1,          KC_2,    KC_3,    KC_4,    KC_5,          KC_6,          KC_7,    KC_8,    KC_9,     KC_0,    KC_DEL,
-  KC_DEL,       _______,       SLACK,   _______, _______, _______,       KC_LEFT,       KC_DOWN, KC_UP,   KC_RIGHT, _______, KC_BSLS,
-  _______,      _______,       _______, _______, _______, RGUI(KC_LBRC), RGUI(KC_RBRC), _______, _______, _______,  _______, _______,
-  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER,   KC_SPC,        KC_SPC,        RAISE,   KC_MNXT, KC_VOLD, KC_VOLU,  KC_MPLY
+  KC_GRV,       KC_1,          KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_DEL,
+  KC_DEL,       _______,       _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, KC_BSLS,
+  _______,      _______,       _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+  RALT(KC_SPC), RGUI(KC_BSLS), KC_LALT, KC_LCMD, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_MNXT, KC_VOLD, KC_VOLU,  KC_MPLY
 ),
 
 /* Adjust (Lower + Raise)
@@ -140,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, RESET,   _______, _______, _______, _______, _______,   QWERTY,    COLEMAK,   DVORAK,    LCA(KC_7), LCA(KC_8),
   _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, LCA(KC_H), LCA(KC_J), LCA(KC_K), LCA(KC_L), LCA(KC_U), LCA(KC_I),
   _______, _______, _______, _______, _______, _______, _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   LCA(KC_ENT),
-  _______, _______, _______, _______, _______, _______, _______,   _______,   RGB_M_K,   RGB_M_B,   RGB_M_K,   RGB_TOG
+  _______, _______, _______, _______, _______, _______, _______,   _______,   RGB_M_K,   RGB_M_B,   RGB_TOG,   _______
 )
 
 
@@ -236,34 +232,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_off(_ADJUST);
       }
-      return false;
-    case AUTO_SQ:
-      if (record->event.pressed) {
-        SEND_STRING("[]");
-        SEND_STRING(SS_TAP(X_LEFT));
-      }
-      return false;
-      break;
-    case AUTO_CB:
-      if (record->event.pressed) {
-        SEND_STRING("{}");
-        SEND_STRING(SS_TAP(X_LEFT));
-      }
-      return false;
-      break;
-    case AUTO_PA:
-      if (record->event.pressed) {
-        SEND_STRING("()");
-        SEND_STRING(SS_TAP(X_LEFT));
-      }
-      return false;
-      break;
-    case SLACK:  // Open Slack
-      SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-      _delay_ms(100);
-      SEND_STRING("slack");
-      _delay_ms(100);
-      SEND_STRING(SS_TAP(X_ENTER));
       return false;
   }
   return true;

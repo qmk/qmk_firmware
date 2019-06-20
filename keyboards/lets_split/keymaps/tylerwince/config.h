@@ -25,12 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
-#define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD
-
 /* Select hand configuration */
-// #define MASTER_LEFT
-#define MASTER_RIGHT
+
+#define MASTER_LEFT
+//#define MASTER_RIGHT
 // #define EE_HANDS
 
 #undef RGBLED_NUM
