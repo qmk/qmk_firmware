@@ -80,7 +80,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
-  * enables backlight breathing (only works with backlight pins B5, B6 and B7)
+  * enables backlight breathing
 * `#define BREATHING_PERIOD 6`
   * the length of one backlight "breath" in seconds
 * `#define DEBOUNCE 5`
