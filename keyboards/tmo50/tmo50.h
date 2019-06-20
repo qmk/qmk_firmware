@@ -25,16 +25,30 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
-	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, \
-	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, \
-	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, \
-	K300, K301, K302, K303,       K305,       K307,       K309, K310  \
+
+#define LAYOUT_all( \
+	K00, K31, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
+	K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,      \
+	K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      \
+	K30,      K32, K33,      K35,      K37,      K39, K3A                      \
 ) \
 { \
-	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013 }, \
-	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113 }, \
-	{ K200,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213 }, \
-	{ K300,  K301,  K302,  K303,  KC_NO, K305,  KC_NO, K307,  KC_NO, K309,  K310,  KC_NO, KC_NO, KC_NO }  \
+	{ K00, K01, K02, K03, K04,   K05,  K06,   K07, K08,   K09, K0A, K0B,   K0C,   K0D },   \
+	{ K10, K11, K12, K13, K14,   K15,  K16,   K17, K18,   K19, K1A, K1B,   K1C,   K1D },   \
+	{ K20, K21, K22, K23, K24,   K25,  K26,   K27, K28,   K29, K2A, K2B,   K2C,   K2D },   \
+	{ K30, K31, K32, K33, KC_NO, K35,  KC_NO, K37, KC_NO, K39, K3A, KC_NO, KC_NO, KC_NO }  \
+}
+
+#define LAYOUT_space( \
+	K00, K31, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
+	K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,      \
+	K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      \
+	K30,      K32, K33,                K37,           K3A                      \
+) \
+{ \
+	{ K00, K01, K02, K03, K04,   K05,   K06,   K07, K08,   K09,   K0A, K0B,   K0C,   K0D },   \
+	{ K10, K11, K12, K13, K14,   K15,   K16,   K17, K18,   K19,   K1A, K1B,   K1C,   K1D },   \
+	{ K20, K21, K22, K23, K24,   K25,   K26,   K27, K28,   K29,   K2A, K2B,   K2C,   K2D },   \
+	{ K30, K31, K32, K33, KC_NO, KC_NO, KC_NO, K37, KC_NO, KC_NO, K3A, KC_NO, KC_NO, KC_NO }  \
 }
 

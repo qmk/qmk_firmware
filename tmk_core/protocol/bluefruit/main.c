@@ -42,13 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 int main(void)
-{   
+{
 
     CPU_PRESCALE(0);
 
     // DDRD  = _BV(PD5);
     // DDRB  = _BV(PB0);
-    
+
     // PORTD = _BV(PD5);
     // PORTB = _BV(PB0);
 
@@ -59,22 +59,23 @@ int main(void)
     // while (!usb_configured()) /* wait */
 
 
+    keyboard_setup();
 
     dprintf("Initializing keyboard...\n");
     keyboard_init();
-    
+
     // This implementation is pretty simplistic... if the USB connection
     // is not configured, choose the Bluefruit, otherwise use USB
     // Definitely would prefer to have this driven by an input pin and make
     // it switch dynamically - BCG
     // if (!usb_configured()) {
-    
+
     //     // Send power to Bluefruit... Adafruit says it takes 27 mA, I think
-    //     // the pins should provide 40 mA, but just in case I switch the 
+    //     // the pins should provide 40 mA, but just in case I switch the
     //     // Bluefruit using a transistor - BCG
     //     DDRB   = _BV(PB6);
     //     PORTB |= _BV(PB6);
-    
+
         dprintf("Setting host driver to bluefruit...\n");
         host_set_driver(bluefruit_driver());
 
@@ -131,7 +132,7 @@ int main(void)
 //                     usb_remote_wakeup();
 //                 }
 //             }
-//             keyboard_task(); 
+//             keyboard_task();
 //         }
 //     }
 

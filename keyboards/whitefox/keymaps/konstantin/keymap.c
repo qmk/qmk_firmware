@@ -25,15 +25,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Function layer
    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-   * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Num│Scr│Pau│
+   * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Num│SLk│Pau│
    * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤
    * │ M4  │M2 │M↑ │M1 │M3 │M5 │   │UCM│   │Stp│Ply│Prv│Nxt│Clear│Ins│
    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
    * │      │M← │M↓ │M→ │MW↑│   │   │   │   │   │   │   │        │Top│
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-   * │        │MA0│MA2│MW←│MW→│   │   │   │VoD│VoU│Mut│ App  │PgU│Btm│
+   * │        │MA0│MA2│MW←│MW→│   │   │   │Vo-│Vo+│Mut│ App  │PgU│Btm│
    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-   * │    │Dstp│Dst←│          MW↓           │Dst→│    │ │Hom│PgD│End│
+   * │    │DtPR│DtNA│          MW↓           │    │    │ │Hom│PgD│End│
    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
    */
   [L_FN] = LAYOUT_truefox( \
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            KC_INS,  \
     _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______,          _______,          TOP,     \
     _______,          KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_APP,           KC_PGUP, BOTTOM,  \
-    _______, DESKTOP, DSKTP_L,                            KC_WH_D,                   DSKTP_R, _______,                   KC_HOME, KC_PGDN, KC_END   \
+    _______, DST_P_R, DST_N_A,                            KC_WH_D,                   _______, _______,                   KC_HOME, KC_PGDN, KC_END   \
   ),
 
   /* Numpad layer

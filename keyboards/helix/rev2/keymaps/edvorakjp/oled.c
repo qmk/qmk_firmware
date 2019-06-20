@@ -34,13 +34,7 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLayer: "));
   switch (biton32(layer_state)) {
     case L_BASE:
-      matrix_write_P(matrix,
-          default_layer_state == 1UL<<_EDVORAK ? PSTR("EDVORAK") : PSTR("QWERTY")
-          );
-      break;
-    case _EDVORAKJ1:
-    case _EDVORAKJ2:
-      matrix_write_P(matrix, PSTR("JP_EXT"));
+      matrix_write_P(matrix, PSTR("Default"));
       break;
     case _RAISE:
       matrix_write_P(matrix, PSTR("Raise"));
@@ -48,17 +42,13 @@ void render_status(struct CharacterMatrix *matrix) {
     case _LOWER:
       matrix_write_P(matrix, PSTR("Lower"));
       break;
-    case _ADJUST:
-      matrix_write_P(matrix, PSTR("Adjust"));
-      break;
     default:
       matrix_write(matrix, buf);
   }
 
   // Host Keyboard LED Status
   char led[40];
-  snprintf(led, sizeof(led), "\n%s %s %s %s",
-      get_enable_jp_extra_layer() && get_japanese_mode() ? "EXT" : "   ",
+  snprintf(led, sizeof(led), "\n%s %s %s",
       (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NMLK" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");

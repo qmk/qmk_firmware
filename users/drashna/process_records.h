@@ -13,6 +13,10 @@ enum userspace_custom_keycodes {
   KC_COLEMAK,        // Sets default layer to COLEMAK
   KC_DVORAK,         // Sets default layer to DVORAK
   KC_WORKMAN,        // Sets default layer to WORKMAN
+  KC_NORMAN,         // Sets default layer to NORMAN
+  KC_MALTRON,        // Sets default layer to MALTRON
+  KC_EUCALYN,        // Sets default layer to EUCALYN
+  KC_CARPLAX,        // Sets default layer to CARPLAX
   KC_DIABLO_CLEAR,   // Clears all Diablo Timers
   KC_OVERWATCH,      // Toggles game macro input mode (so in OW, it defaults to game chat)
   KC_SALT,           // See drashna.c for details
@@ -52,6 +56,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define ADJUST MO(_ADJUST)
 #define TG_MODS TG(_MODS)
 #define TG_GAME TG(_GAMEPAD)
+#define OS_LWR OSL(_LOWER)
+#define OS_RSE OSL(_RAISE)
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2

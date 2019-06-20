@@ -7,7 +7,6 @@ enum custom_keycodes {
 
 #include "dynamic_macro.h"
 
-#define _______ KC_TRNS
 #define KC_REC DYN_REC_START1
 #define KC_DONE DYN_REC_STOP
 #define KC_PLAY DYN_MACRO_PLAY1

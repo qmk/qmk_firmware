@@ -35,7 +35,7 @@
 #define MATRIX_COLS 8
 
 // HID Liberation Device uses custom matrix code to accomodate a 74HC238 3 to 8 decoder on pins B1, B2 and B3.
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING

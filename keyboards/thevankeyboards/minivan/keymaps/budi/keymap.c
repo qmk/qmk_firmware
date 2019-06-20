@@ -81,10 +81,6 @@ extern keymap_config_t keymap_config;
 #define XBACK  LGUI(LALT(KC_LEFT))
 #define XFFWD  LGUI(LALT(KC_RIGHT))
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define xxxxxxx KC_NO
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   SWTCH

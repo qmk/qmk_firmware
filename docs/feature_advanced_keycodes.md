@@ -11,17 +11,17 @@ People often define custom names using `#define`. For example:
 #define ALT_TAB LALT(KC_TAB)
 ```
 
-This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
 
 ## Caveats
 
-Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored. If you need to apply modifiers to your tapped keycode, [Tap Dance](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 # Switching and Toggling Layers
 
-These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers) When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
+These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers). When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
@@ -146,7 +146,7 @@ Additionally, hitting keys five times in a short period will lock that key. This
 You can control the behavior of one shot keys by defining these in `config.h`:
 
 ```c
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
+#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 ```
 
@@ -160,6 +160,81 @@ For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` 
 For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+
+## Callbacks
+
+When you'd like to perform custom logic when pressing a one shot key, there are several callbacks you can choose to implement. You could indicate changes in one shot keys by flashing an LED or making a sound, for example.
+
+There is a callback for `OSM(mod)`. It is called whenever the state of any one shot modifier key is changed: when it toggles on, but also when it is toggled off. You can use it like this:
+
+```c
+void oneshot_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot mods off");
+  }
+}
+```
+
+The `mods` argument contains the active mods after the change, so it reflects the current state.
+
+When you use One Shot Tap Toggle (by adding `#define ONESHOT_TAP_TOGGLE 2` in your `config.h` file), you may lock a modifier key by pressing it the specified amount of times. There's a callback for that, too:
+
+```c
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot locked mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot locked mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot locked mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot locked mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot locked mods off");
+  }
+}
+```
+
+Last, there is also a callback for the `OSL(layer)` one shot key:
+
+```c
+void oneshot_layer_changed_user(uint8_t layer) {
+  if (layer == 1) {
+    println("Oneshot layer 1 on");
+  }
+  if (!layer) {
+    println("Oneshot layer off");
+  }
+}
+```
+
+If any one shot layer is switched off, `layer` will be zero. When you're looking to do something on any layer change instead of one shot layer changes, `layer_state_set_user` is a better callback to use.
+
+If you are making your own keyboard, there are also `_kb` equivalent functions:
+
+```c
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layer_changed_kb(uint8_t layer);
+```
+
+As with any callback, be sure to call the `_user` variant to allow for further customizability.
 
 # Tap-Hold Configuration Options
 

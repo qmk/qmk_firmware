@@ -67,7 +67,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*   P     Q     R     S     T     U     V     W                    */
     KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
   /*   X     Y     Z      [         \       ]       ^      _                    */
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, DE_CIRC, DE_MINS,
+    KC_X, DE_Y, DE_Z, KC_LBRC, KC_BSLS, KC_RBRC, DE_CIRC, DE_MINS,
   /*   `       a     b     c     d     e     f     g                    */
     DE_ACUT, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
   /*   h     i     j     k     l     m     n     o                    */
@@ -75,7 +75,7 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
   /*    p    q     r     s     t     u     v     w                      */
     KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
   /*    x    y     z      {        |        }        ~    DELETE                    */
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+    KC_X, DE_Y, DE_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
 
 #endif
