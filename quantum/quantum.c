@@ -707,8 +707,9 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
-      if (record->event.pressed)
+      if (record->event.pressed) {
         breathing_toggle();
+      }
       return false;
     }
 #endif
@@ -1148,13 +1149,13 @@ void backlight_off(uint8_t backlight_pin) {
 #define BACKLIGHT_PIN_INIT BACKLIGHT_PINS
 #endif
 
-#define FOR_EACH_LED(x)                             \
+#define FOR_EACH_LED(x) \
   for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) \
-  {                                                 \
-    uint8_t backlight_pin = backlight_pins[i];      \
+  { \
+    uint8_t backlight_pin = backlight_pins[i]; \
     { \
-      x                         \
-    }                                             \
+      x \
+    } \
   }
 
 static const uint8_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PIN_INIT;
@@ -1233,7 +1234,9 @@ ISR(TIMERx_COMPA_vect) {
 // this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #ifdef BACKLIGHT_BREATHING
-  breathing_task();
+  if(is_breathing()) {
+    breathing_task();
+  }
 #endif
   // for very small values of OCRxx (or backlight level)
   // we can't guarantee this whole code won't execute
