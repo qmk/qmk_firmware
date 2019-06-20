@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 #include "twschum.h"
 
 /* DZ60 layout using following options (from layouts diagram on KBDfans):

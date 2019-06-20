@@ -6,7 +6,7 @@
 
 #ifdef TWSCHUM_TAPPING_CTRL_PREFIX
 // state for the great state machine of custom actions!
-#define TIMEOUT_DELAY 150 // ms
+#define TIMEOUT_DELAY 175 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
@@ -103,7 +103,6 @@ static inline bool tap_ctrl_other_pressed(void) {
  */
 // add to quantum/rgblight_list.h
 #ifdef RGBLIGHT_ENABLE
-#define  HSV_OFF          0,    0,    0
 static bool rgb_layers_enabled = true;
 static bool rgb_L0_enabled = false;
 
