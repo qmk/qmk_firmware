@@ -3,7 +3,7 @@
 
 #include "config_common.h"
 
-#define KEYBOARD_PCB_REV 10
+#define KEYBOARD_PCB_REV 11
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
