@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
-#define AUTO_SHIFT_TIMEOUT 135
-#define NO_AUTO_SHIFT_SPECIAL
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD
 
 /* Select hand configuration */
 // #define MASTER_LEFT
