@@ -15,8 +15,7 @@
  */
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
-#ifndef DYNAMIC_MACROS_H
-#define DYNAMIC_MACROS_H
+#pragma once
 
 #include "action.h"
 #include "action_layer.h"
@@ -39,7 +38,7 @@
 #endif
 
 #ifndef DYNAMIC_MACRO_EEPROM_STORAGE
-#define DYNAMIC_MACRO_EEPROM_STORAGE false
+#define DYNAMIC_MACRO_EEPROM_STORAGE
 #endif
 
 /* DYNAMIC_MACRO_RANGE must be set as the last element of user's
@@ -85,7 +84,7 @@ void     dynamic_macro_record_end(uint8_t macro_id);
 uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro);
 bool     process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record);
 
-#if DYNAMIC_MACRO_EEPROM_STORAGE
+#ifdef DYNAMIC_MACRO_EEPROM_STORAGE
 #define DYNAMIC_MACRO_EEPROM_MAGIC (uint16_t)0xDEAD
 #define DYNAMIC_MACRO_EEPROM_MAGIC_ADDR (uint16_t*)32
 #define DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR (uint8_t*)34
@@ -96,4 +95,3 @@ void dynamic_macro_save_eeprom(uint8_t macro_id);
 bool dynamic_macro_header_correct(void);
 #endif
 
-#endif

@@ -1,6 +1,4 @@
-#include "config.h"
-#include "quantum.h"
-#include "dynamic_macro.h"
+#include QMK_KEYBOARD_H
 #include <string.h>
 
 void dynamic_macro_init(void) {
@@ -105,7 +103,7 @@ void dynamic_macro_record_end(uint8_t macro_id) {
     --events_pointer;
   }
 
-#if DYNAMIC_MACRO_EEPROM_STORAGE
+#ifdef DYNAMIC_MACRO_EEPROM_STORAGE
   macro->checksum = dynamic_macro_calc_crc(macro);
   dynamic_macro_save_eeprom(macro_id);
 #endif

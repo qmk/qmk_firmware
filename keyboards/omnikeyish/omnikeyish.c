@@ -1,16 +1,7 @@
-#include "matrix.h"
-#include "quantum.h"
-#include "config.h"
-
-#include "dynamic_macro.h"
+#include "omnikeyish.h"
 
 void keyboard_pre_init_user(void) {
-  /* Column 1 to 8 uses PORTF, disable JTAG function on it.
-     JTAG disable for PORT F. write JTD bit twice within four cycles. */
-  MCUCR |= (1 << JTD);
-  MCUCR |= (1 << JTD);
-
-  // Configure LED driving pins as output pins
+  /* Configure LED driving pins as output pins */
   setPinOutput(NUMLOCKLEDPIN);
   setPinOutput(CAPSLOCKLEDPIN);
   setPinOutput(SCROLLLOCKLEDPIN);
@@ -19,13 +10,14 @@ void keyboard_pre_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-  /* Customise these values to desired behaviour */
-  debug_enable = true;
-  /* debug_matrix=true;
-     debug_keyboard=true;
-     debug_mouse=true; */
+  /* Customise these values to desired behaviour
 
-#if DYNAMIC_MACRO_EEPROM_STORAGE
+debug_enable = true;
+debug_matrix=true;
+debug_keyboard=true;
+debug_mouse=true; */
+
+#ifdef DYNAMIC_MACRO_EEPROM_STORAGE
   /* Restore macros from eeprom */
   dynamic_macro_load_eeprom_all();
 #endif

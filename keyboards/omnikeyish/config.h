@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -57,12 +56,8 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#define DYNAMIC_MACRO_RANGE SAFE_RANGE + 1
 #define DYNAMIC_MACRO_COUNT 12
 #define DYNAMIC_MACRO_SIZE 48
-#define DYNAMIC_MACRO_EEPROM_STORAGE true
-
-#endif
-
+#define DYNAMIC_MACRO_EEPROM_STORAGE
 
 

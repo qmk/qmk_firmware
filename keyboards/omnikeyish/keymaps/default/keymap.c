@@ -1,7 +1,4 @@
-#include "quantum.h"
-#include "matrix.h"
-#include "config.h"
-#include "dynamic_macro.h"
+#include QMK_KEYBOARD_H
 
 #define M_PROG DYN_MACRO_PROG
 
