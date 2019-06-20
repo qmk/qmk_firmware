@@ -16,21 +16,21 @@ enum bdn9_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Navigation
-        | Knob 1: Scroll Up/Dn  |      | Knob 2: Shft+Cmd ]/[  |
-        | Press: XXX            | CmTb | Cmd+W                 |
+        | Knob 1: Scroll Up/Dn  |      | Knob 2: Tab Prv/Nxt   |
+        | Press: Reopen Tab     | CmTb | Close Tab             |
         | PgDn                  | Up   | PgUp                  |
         | Left                  | Down | Right                 |
      */
     [_NAVI] = LAYOUT(
-        XXXXXXX, CMD_TAB, G(KC_W),
-        KC_PGDN, KC_UP, KC_P6,
+        REO_TAB, CMD_TAB, CLS_TAB,
+        KC_PGDN, KC_UP, KC_PGUP,
         KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Reeder
         | Knob 1: j/k           |      | Knob 2: n/p           |
         | Press: H              | S    | R                     |
-        | Cmd+Tab               | M    | L                     |
+        | CMD+TAB               | M    | L                     |
         | Cmd+1                 | Cmd+2| Cmd+3                 |
      */
     [_REEDER] = LAYOUT(
@@ -42,13 +42,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         Layer: Media
         | Knob 1: Vol +/-       |      | Knob 2: Track Prv/Nxt |
         | Press: Mute           | Plyr | Press: Play/Pause     |
-        | Home                  | Up   | End                   |
-        | Left                  | Down | Right                 |
+        | J                     | K    | L                     |
+        | Left                  | Spce | Right                 |
      */
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
-        KC_HOME, KC_UP, KC_END,
-        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
+        KC_J, KC_K, KC_L,
+        KC_LEFT, KC_SPC, TD(TD_DTAP_MAGC)
     ),
     /*
         Layer: Keypad/Karabiner
@@ -119,9 +119,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case _NAVI:
                 if (!clockwise) {
-                    tap_code(KC_WH_U);
+                    tap_code(MC_WH_D);
                 } else {
-                    tap_code(KC_WH_D);
+                    tap_code(MC_WH_U);
                 }
                 break;
             case _REEDER:
@@ -172,9 +172,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (biton32(layer_state)) {
             case _NAVI:
                 if (!clockwise) {
-                    tap_code16(S(G(KC_RBRC)));
+                    tap_code16(NXT_TAB);
                 } else {
-                    tap_code16(S(G(KC_LBRC)));
+                    tap_code16(PRV_TAB);
                 }
                 break;
             case _REEDER:
