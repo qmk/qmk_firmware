@@ -55,14 +55,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|
  * | Right| M(3) | M(6) | M(9) |      |      |
  * |------+------+------+------+------+------|
- * |   NumLock   |      |      |      |      |
+ * |   NumLock   |      |      |      | Calc |
  * `-----------------------------------------'
  */
 [1] = LAYOUT_ortho_4x12( \
-    M(M0),      M(M1), M(M4), M(M7), KC_NO, KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_LEFT,    M(M2), M(M5), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_RIGHT,   M(M3), M(M6), M(M8), KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
-    KC_NUMLOCK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
+    M(M0),      M(M1), M(M4), M(M7), KC_NO, KC_ESC,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_LEFT,    M(M2), M(M5), M(M8), KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_RIGHT,   M(M3), M(M6), M(M8), KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_NUMLOCK, KC_NO, KC_NO, KC_NO, KC_NO, KC_CALC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  \
 )
 };
 
