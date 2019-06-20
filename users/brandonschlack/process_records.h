@@ -25,6 +25,7 @@ void matrix_scan_cmd_tab(void);
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
+#define MC_SLEP   LALT(LGUI(KC_POWER)) // Mac Sleep
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   LCTL(KC_UP)          // Mission Control
 #define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
