@@ -34,3 +34,6 @@ end_of_line = lf
 # the line endings would be wrong.
 [lib/**]
 end_of_line = unset
+
+[*.yml]
+indent_size = 2
