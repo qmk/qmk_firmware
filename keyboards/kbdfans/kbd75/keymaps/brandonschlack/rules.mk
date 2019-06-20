@@ -1,3 +1,6 @@
+# Add Bootloader define for KC_MAKE command
+BOOTLOADER = atmel-dfu
+
 # Build Options
 #   comment out to disable the options.
 #
