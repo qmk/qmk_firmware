@@ -26,6 +26,7 @@ references:
 
 jobs:
   build_helix_luciferous_helix:
+    <<: *primary_containers
     <<: *build_steps
     environment:
       BUILD_TARGET: helix:luciferous_helix
