@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
 #endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
