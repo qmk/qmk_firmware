@@ -73,22 +73,20 @@ typedef struct {
 
 dynamic_macro_t dynamic_macros[DYNAMIC_MACRO_COUNT];
 
-#define DYNAMIC_MACRO_CRC_LENGTH (sizeof(dynamic_macro_t) - sizeof(uint16_t))
-
 void     dynamic_macro_init(void);
 void     dynamic_macro_led_blink(void);
 void     dynamic_macro_record_start(uint8_t macro_id);
 void     dynamic_macro_play(uint8_t macro_id);
 void     dynamic_macro_record_key(uint8_t macro_id, keyrecord_t* record);
 void     dynamic_macro_record_end(uint8_t macro_id);
-uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro);
 bool     process_record_dynamic_macro(uint16_t keycode, keyrecord_t* record);
+
+#define DYNAMIC_MACRO_CRC_LENGTH (sizeof(dynamic_macro_t) - sizeof(uint16_t))
 
 #ifdef DYNAMIC_MACRO_EEPROM_STORAGE
 #define DYNAMIC_MACRO_EEPROM_MAGIC (uint16_t)0xDEAD
-#define DYNAMIC_MACRO_EEPROM_MAGIC_ADDR (uint16_t*)32
-#define DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR (uint8_t*)34
 
+uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro);
 void dynamic_macro_load_eeprom_all(void);
 void dynamic_macro_load_eeprom(uint8_t macro_id);
 void dynamic_macro_save_eeprom(uint8_t macro_id);

@@ -37,7 +37,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -59,5 +59,5 @@
 #define DYNAMIC_MACRO_COUNT 12
 #define DYNAMIC_MACRO_SIZE 48
 #define DYNAMIC_MACRO_EEPROM_STORAGE
-
-
+#define DYNAMIC_MACRO_EEPROM_MAGIC_ADDR (uint16_t*)32
+#define DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR (uint8_t*)34
