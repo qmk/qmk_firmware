@@ -11,8 +11,8 @@ enum keycodes {
 
 #define ____ KC_NO
 
-/* Every possible switch positions on the PCB */
-#define LAYOUT( \
+/* Every possible switch positions on the PCB. Depending on plate and keycap choice, some of these positions will be blocked by other keys. */
+#define LAYOUT_all( \
 	K101, K102,   K103,       K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, K115, K116,   K117, K118, K119,   K120, K121, K122, K123, \
 	K201, K202,   K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, K215, K216,   K217, K218, K219,   K220, K221, K222, K223, \
 	K301, K302,   K303, K304, K305, K306, K307, K308, K309, K310, K311, K312, K313, K314, K315, K316,   K317, K318, K319,   K320, K321, K322, K323, \
