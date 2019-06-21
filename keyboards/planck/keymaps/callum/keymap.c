@@ -29,11 +29,9 @@
 #define z KC_Z
 
 #define lalt KC_LALT
-#define lcmd KC_LCMD
 #define lctl KC_LCTL
 #define lsft KC_LSFT
 #define ralt KC_RALT
-#define rcmd KC_RCMD
 #define rctl KC_RCTL
 #define rsft KC_RSFT
 
@@ -148,6 +146,8 @@ enum planck_keycodes {
     rcbr,
     rprn,
     tild,
+
+    cmd,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          tab,    q,    w,    f,    p,    g,    j,    l,    u,    y, scln, mins,
         bspc,    a,    r,    s,    t,    d,    h,    n,    e,    i,    o, quot,
         lsft,    z,    x,    c,    v,    b,    k,    m, comm,  dot, slsh, rsft,
-        func, lctl, lalt, lcmd, move,  ent,  spc, symb, rcmd, ralt, rctl, func
+        func, lctl, lalt,  cmd, move,  ent,  spc, symb,  cmd, ralt, rctl, func
     ),
 
     [SYMB] = LAYOUT_planck_grid(
@@ -180,8 +180,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-// Override the defualt auto shifted symbols to use SEND_STRING See
-// https://github.com/qmk/qmk_firmware/issues/4072
 bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     if (record->event.pressed) {
         SEND_STRING(s);
@@ -189,8 +187,12 @@ bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     return false;
 }
 
+int cmd_keys_down = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // Override the defualt auto shifted symbols to use SEND_STRING See
+        // https://github.com/qmk/qmk_firmware/issues/4072
         case ampr:
             return send_string_if_keydown(record, "&");
         case astr:
@@ -231,6 +233,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return send_string_if_keydown(record, ")");
         case tild:
             return send_string_if_keydown(record, "~");
+
+        // cmd + cmd -> cmd + ctl
+        case cmd:
+            if (record->event.pressed) {
+                if (cmd_keys_down == 0) {
+                    register_code(KC_LCMD);
+                } else {
+                    register_code(KC_LCTL);
+                }
+                cmd_keys_down++;
+            } else {
+                if (cmd_keys_down == 1) {
+                    unregister_code(KC_LCMD);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+                cmd_keys_down--;
+            }
+            return false;
     }
     return true;
 }
