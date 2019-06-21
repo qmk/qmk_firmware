@@ -15,4 +15,4 @@
 #define TAPPING_FORCE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 
-  #define EECONFIG_RGB_MATRIX (uint32_t *)16
+#define EECONFIG_RGB_MATRIX (uint32_t *)16
