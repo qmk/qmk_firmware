@@ -16,3 +16,5 @@ This is a layout for the grid planck, built with a few ideals in mind:
 
 - There should be two of every modifier (one on each side), otherwise certain
   long key combinations become hard to make.
+
+![](https://callum-oakley.github.io/images/keymap.png)
