@@ -94,4 +94,3 @@
 void keyboard_pre_init_user(void);
 void matrix_scan_user(void);
 
-#endif
