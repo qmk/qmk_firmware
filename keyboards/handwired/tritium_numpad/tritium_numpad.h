@@ -1,4 +1,4 @@
-#ifndef TRITIUM_NUMPAD_H
+#pragma once
 #define TRITIUM_NUMPAD_H
 
 #include "quantum.h"
