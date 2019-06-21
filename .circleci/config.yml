@@ -1,0 +1,38 @@
+version: 2.1
+
+references:
+  primary_containers: &primary_containers
+    docker:
+      - image: circleci/buildpack-deps:18.04
+
+  build_steps: &build_steps
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build
+          environment:
+            CONTAINER_NAME: qkm_firmware
+          command: |
+            set -x
+            docker image build -t $CONTAINER_NAME .
+            docker container run --name $CONTAINER_NAME $CONTAINER_NAME make $BUILD_TARGET
+            docker container cp $CONTAINER_NAME:/qmk_firmware/.build .
+            docker container rm $CONTAINER_NAME
+            cd .build
+            ls -F | grep / | xargs rm -rf
+      - store_artifacts:
+          path: .build
+
+jobs:
+  build_helix_luciferous_helix:
+    <<: *primary_containers
+    <<: *build_steps
+    environment:
+      BUILD_TARGET: helix:luciferous_helix
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build_helix_luciferous_helix
