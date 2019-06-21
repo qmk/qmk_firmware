@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
 #endif
 
 // Used for SHIFT_ESC
