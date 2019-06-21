@@ -111,31 +111,31 @@ uint32_t layer_state_set_user(uint32_t state) {
         return state;
     }
     switch (biton32(state)) {
-    case L_Base:
+    case _Base:
         if (rgb_L0_enabled) {
-            rgblight_sethsv_noeeprom(L_Base_HSV_ON);
+            rgblight_sethsv_noeeprom(_Base_HSV_ON);
         }
         else {
-            rgblight_sethsv_noeeprom(L_Base_HSV_OFF);
+            rgblight_sethsv_noeeprom(_Base_HSV_OFF);
         }
         break;
-    case L_Vim:
-        rgblight_sethsv_noeeprom(L_Vim_HSV);
+    case _Vim:
+        rgblight_sethsv_noeeprom(_Vim_HSV);
         break;
-    case L_Fn:
-        rgblight_sethsv_noeeprom(L_Fn_HSV);
+    case _Fn:
+        rgblight_sethsv_noeeprom(_Fn_HSV);
         break;
-    case L_Nav:
-        rgblight_sethsv_noeeprom(L_Nav_HSV);
+    case _Nav:
+        rgblight_sethsv_noeeprom(_Nav_HSV);
         break;
-    case L_Num:
-        rgblight_sethsv_noeeprom(L_Num_HSV);
+    case _Num:
+        rgblight_sethsv_noeeprom(_Num_HSV);
         break;
-    case L_Cfg:
-        rgblight_sethsv_noeeprom(L_Cfg_HSV);
+    case _Cfg:
+        rgblight_sethsv_noeeprom(_Cfg_HSV);
         break;
-    case L_None:
-        rgblight_sethsv_noeeprom(L_None_HSV);
+    case _None:
+        rgblight_sethsv_noeeprom(_None_HSV);
         break;
     }
     return state;

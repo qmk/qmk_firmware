@@ -8,7 +8,7 @@
  **************************
  * RGBLIGHT_ENABLE
  *  - Adds layer indication via RGB underglow
- *  - see the `layer_definitions` enum and following L_*_HSV #defines
+ *  - see the `layer_definitions` enum and following _*_HSV #defines
  *
  *
  *
@@ -42,23 +42,23 @@
 
 /* Each layer gets a color, overwritable per keyboard */
 enum layers_definitions {
-    L_Base,
-    L_Vim,
-    L_Fn,
-    L_Nav,
-    L_Num,
-    L_Cfg,
-    L_None,
+    _Base,
+    _Vim,
+    _Fn,
+    _Nav,
+    _Num,
+    _Cfg,
+    _None,
 };
 #ifdef RGBLIGHT_ENABLE
-#define L_Base_HSV_ON  HSV_WHITE
-#define L_Base_HSV_OFF HSV_OFF
-#define L_Vim_HSV      HSV_ORANGE
-#define L_Fn_HSV       HSV_GREEN
-#define L_Nav_HSV      HSV_AZURE
-#define L_Num_HSV      HSV_GOLD
-#define L_Cfg_HSV      HSV_RED
-#define L_None_HSV     HSV_WHITE
+#define _Base_HSV_ON  HSV_WHITE
+#define _Base_HSV_OFF HSV_OFF
+#define _Vim_HSV      HSV_ORANGE
+#define _Fn_HSV       HSV_GREEN
+#define _Nav_HSV      HSV_AZURE
+#define _Num_HSV      HSV_GOLD
+#define _Cfg_HSV      HSV_RED
+#define _None_HSV     HSV_WHITE
 #endif
 
 enum extra_keycodes {
