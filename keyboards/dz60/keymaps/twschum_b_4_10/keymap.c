@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* mouse navigation */
   KEYMAP(
     TO(_Base), KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, XXXXXXX,     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX,   XXXXXXX,      KC_MS_BTN2,   KC_MS_UP,     KC_MS_BTN1,  XXXXXXX, XXXXXXX,       XXXXXXX,       KC_PGDN,     KC_PGUP,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX,   XXXXXXX,      KC_MS_BTN2,   KC_MS_UP,     KC_MS_BTN1,  XXXXXXX, XXXXXXX,       KC_SLEP,       KC_PGDN,     KC_PGUP,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_LCTL,   KC_MS_BTN3,   KC_MS_LEFT,   KC_MS_DOWN,   KC_MS_RIGHT, XXXXXXX, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_LSHIFT, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,     XXXXXXX,        XXXXXXX, _______, XXXXXXX,
     XXXXXXX,   XXXXXXX,      XXXXXXX,      KC_MS_BTN1,   _______,     _______, _______,       _______,       _______,     _______,        _______
