@@ -1,20 +1,14 @@
 SRC += brandonschlack.c \
        process_records.c
 
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-    SRC += tap_dances.c
-endif
+LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 ifeq ($(strip $(BOOTLOADER)), mdloader)
     OPT_DEFS += -DBOOTLOADER_MDLOADER
-    DISABLE_LTO = yes
 endif
 
-ifneq ($(strip $(DISABLE_LTO)), yes)
-  EXTRAFLAGS += -flto
-  OPT_DEFS += -DLINK_TIME_OPTIMIZATION_ENABLE
-  OPT_DEFS += -DNO_ACTION_MACRO
-  OPT_DEFS += -DNO_ACTION_FUNCTION
+ifeq ($(strip $(IS_MACROPAD)), yes)
+    OPT_DEFS += -DIS_MACROPAD
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
@@ -34,10 +28,11 @@ ifdef RGB_THEME
     endif
 endif
 
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += tap_dances.c
+endif
+
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
 
-ifeq ($(strip $(IS_MACROPAD)), yes)
-    OPT_DEFS += -DIS_MACROPAD
-endif
