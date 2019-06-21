@@ -2,7 +2,7 @@ Tritium Numpad
 ===
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: Handwired 6x4 numpads using promicro controller
+Hardware Supported: Handwired 6x4 numpads using promicro controller  
 Hardware Availability: https://www.thingiverse.com/thing:2855938
 
 Wiring is accomplished on the Pro Micro board using the following pins as rows:
