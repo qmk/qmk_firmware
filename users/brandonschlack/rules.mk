@@ -26,6 +26,14 @@ ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
     SRC += rgb_bs.c
 endif
 
+ifdef RGB_THEME
+    ifeq ($(strip $(RGB_THEME)), laser)
+        OPT_DEFS += -DTHEME_LASER
+    else ifeq ($(strip $(RGB_THEME)), granite)
+        OPT_DEFS += -DTHEME_GRANITE
+    endif
+endif
+
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif

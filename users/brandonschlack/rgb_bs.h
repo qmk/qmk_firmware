@@ -1,6 +1,6 @@
 #pragma once
 #include "quantum.h"
-#include "colors_bs.h"
+#include "rgb_theme.h"
 #ifdef RGB_MATRIX_ENABLE
 #   include "rgb_matrix.h"
 #endif

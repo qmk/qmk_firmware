@@ -63,31 +63,31 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
     switch (biton32(state)) {
 #ifndef IS_MACROPAD
         case _MACFN:
-            rgb_layer_helper(HSV_PINK);
+            rgb_layer_helper(HSV_THEME_1);
             break;
 #else
         case _REEDER:
-            rgb_layer_helper(HSV_PINK);
+            rgb_layer_helper(HSV_THEME_1);
             break;
         case _MEDIA:
-            rgb_layer_helper(HSV_BLUE);
+            rgb_layer_helper(HSV_THEME_2);
             break;
         case _KEYPAD:
-            rgb_layer_helper(HSV_CYAN);
+            rgb_layer_helper(HSV_THEME_3);
             break;
 #endif
         case _MAGIC:
-            rgb_layer_helper(HSV_GREEN);
+            rgb_layer_helper(HSV_THEME_M);
             break;
         default:
             switch (biton32(default_layer_state)) {
     #ifndef IS_MACROPAD
                 case _MAC:
-                    rgb_layer_helper(HSV_PURPLE);
+                    rgb_layer_helper(HSV_THEME_0);
                     break;
     #else
                 case _NAVI:
-                    rgb_layer_helper(HSV_PURPLE);
+                    rgb_layer_helper(HSV_THEME_0);
                     break;
     #endif
             }
