@@ -98,6 +98,7 @@ void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 /* Tap Dance: Esc,RGB. Single tap for Esc, Double Tap for RGB toggle. */
 void td_esc_rgb_switch(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
@@ -110,6 +111,7 @@ void td_esc_rgb_switch(qk_tap_dance_state_t *state, void *user_data) {
     }
     reset_tap_dance(state);
 }
+#endif
 
 /* Define Tap Dances */
 qk_tap_dance_action_t tap_dance_actions[] = {
