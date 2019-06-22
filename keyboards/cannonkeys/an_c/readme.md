@@ -2,7 +2,7 @@
 
 AN-C Keyboard
 
-Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan1)  
+Keyboard Maintainer: [Andrew Kannan](https://github.com/awkannan)  
 Hardware Supported: STM32F072CBT6  
 
 Make example for this keyboard (after setting up your build environment):
