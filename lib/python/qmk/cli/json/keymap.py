@@ -32,6 +32,11 @@ def main(cli):
     keymap_c = qmk.keymap.generate(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
 
     if cli.config.general.output:
+        output_dir = os.path.dirname(cli.config.general.output)
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
         with open(cli.config.general.output, 'w') as keymap_fd:
             keymap_fd.write(keymap_c)
 
