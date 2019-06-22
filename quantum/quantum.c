@@ -825,7 +825,7 @@ bool process_record_quantum(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
-const bool ascii_to_shift_lut[0x100] PROGMEM = {
+const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -845,7 +845,27 @@ const bool ascii_to_shift_lut[0x100] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const uint8_t ascii_to_keycode_lut[0x100] PROGMEM = {
+const bool ascii_to_alt_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+__attribute__ ((weak))
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -926,23 +946,21 @@ void send_string_with_delay_P(const char *str, uint8_t interval) {
 
 void send_char(char ascii_code) {
   uint8_t keycode;
+  bool is_shifted;
+  bool is_alted;
+
   keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
-  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
-      register_code(KC_LSFT);
-      register_code(keycode);
-      unregister_code(keycode);
-      unregister_code(KC_LSFT);
-  }
-	if (pgm_read_byte(&ascii_to_altgr_lut[(uint8_t)ascii_code])) {
-      register_code(KC_ALGR);
-      register_code(keycode);
-      unregister_code(keycode);
-      unregister_code(KC_ALGR);
-  }
-   else {
-      register_code(keycode);
-      unregister_code(keycode);
-  }
+  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) { is_shifted = true; } else { is_shifted = false; }
+ if (pgm_read_byte(&ascii_to_alt_lut[(uint8_t)ascii_code])) { is_alted = true; } else { is_alted = false; }
+
+  if (is_shifted) { register_code(KC_LSFT); }
+  if (is_alted) { register_code(KC_RALT); }
+
+  register_code(keycode);
+  unregister_code(keycode);
+
+  if (is_alted) { unregister_code(KC_RALT); }
+  if (is_shifted) { unregister_code(KC_LSFT); }
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {

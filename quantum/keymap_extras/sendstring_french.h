@@ -33,7 +33,7 @@
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- const bool ascii_to_shift_lut[0x100] PROGMEM = {
+ const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -41,21 +41,21 @@
 
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 1, 1, 0, 0, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 1, 1,
+    0, 1, 0, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 0, 1, 0, 0, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 0, 0, 0, 0, 1,
+    1, 1, 1, 0, 0, 0, 0, 0,
     1, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
-    0,0,0,0,0,0,0,0
+//    0,0,1,0,0,0,0,0
 
 };
 
-const bool ascii_to_altgr_lut[0x100] PROGMEM = {
+const bool ascii_to_alt_lut[0x80] PROGMEM = {
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
@@ -65,7 +65,7 @@ const bool ascii_to_altgr_lut[0x100] PROGMEM = {
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
- 0, 0, 0, 0, 0, 0, 0, 0,
+ 1, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 0, 0, 0, 0, 0,
  0, 0, 0, 1, 1, 1, 0, 0,
@@ -78,7 +78,7 @@ const bool ascii_to_altgr_lut[0x100] PROGMEM = {
 
 
 //    modifié quantum.h et quantum.c avec 0x100 pour pouvoir aller au delà de 127. Plus d'erreur, mais il ne prend pas la suite en compte quand même ?
-const uint8_t ascii_to_keycode_lut[0x100] PROGMEM = {
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
 //7
     0, 0, 0, 0, 0, 0, 0, 0,
 //   15
@@ -91,13 +91,13 @@ const uint8_t ascii_to_keycode_lut[0x100] PROGMEM = {
 	/* SPACE       !     "      #        $          %     &      '                    39*/
     KC_SPC, FR_AMP, FR_QUOT, FR_AMP, FR_APOS, FR_LPRN, FR_AMP, FR_QUOT,
 	/*  (           )       *      +        ,        -        .       /                    47*/
-    FR_LPRN, FR_RPRN, FR_ASTR, FR_EQL, FR_COMM, FR_RPRN, FR_SCLN, FR_EXLM,
+    FR_LPRN, FR_RPRN, FR_ASTR, FR_EQL, FR_COMM, FR_RPRN, FR_SCLN, FR_COLN,
 	/*   0        1     2     3     4     5    6     7                    55 */
-    FR_AGRV, FR_AMP, FR_EACU, FR_QUOT, FR_APOS, FR_LPRN, FR_MINS, FR_EGRV,
+    KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_7,
 	/*   8     9      :       ;         <        =       >       ?                     63 */
-    FR_UNDS, FR_CCED, FR_COLN, FR_M, FR_SCLN, FR_EQL, FR_COLN, FR_EXLM,
+    KC_KP_8, KC_KP_9, FR_COLN, FR_M, FR_SCLN, FR_EQL, FR_COLN, FR_EXLM,
 	/*   @     A     B     C     D     E     F     G                    71 */
-    FR_EACU, FR_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    FR_AGRV, FR_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
 	/*   H     I     J     K     L     M     N     O                    79*/
     KC_H, KC_I, KC_J, KC_K, KC_L, FR_M, KC_N, KC_O,
 	/*   P     Q     R     S     T     U     V     W                    87 */
@@ -113,9 +113,9 @@ const uint8_t ascii_to_keycode_lut[0x100] PROGMEM = {
 	  /*    x    y     z      {        |        }        ~    DELETE                    127*/
     KC_X, KC_Y, FR_Z, FR_APOS, FR_MINS, FR_EQL, FR_EACU, KC_DEL,
 
-//    modifié quantum.h et quantum.c avec 0x100 pour pouvoir aller au delà de 127. Plus d'erreur, mais il ne prend pas la suite en compte quand même ?
-    FR_CCED,0,FR_EACU,0,0,FR_AGRV,0,FR_CCED
+
 
 };
+
 
 #endif
