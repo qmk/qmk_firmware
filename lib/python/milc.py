@@ -273,7 +273,7 @@ class MILC(object):
         self._description = self._arg_parser.description = self._arg_defaults.description = value
 
     def echo(self, text, *args, **kwargs):
-        """Print a string to stdout after formatting.
+        """Print colorized text to stdout, as long as stdout is a tty.
 
         ANSI color strings (such as {fg-blue}) will be converted into ANSI
         escape sequences, and the ANSI reset sequence will be added to all
@@ -284,10 +284,11 @@ class MILC(object):
         if args and kwargs:
             raise RuntimeError('You can only specify *args or **kwargs, not both!')
 
-        args = args or kwargs
-        text = format_ansi(text)
+        if sys.stdout.isatty():
+            args = args or kwargs
+            text = format_ansi(text)
 
-        print(text % args)
+            print(text % args)
 
     def initialize_argparse(self):
         """Prepare to process arguments from sys.argv.

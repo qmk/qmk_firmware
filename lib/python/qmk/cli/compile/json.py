@@ -25,12 +25,12 @@ def main(cli):
         user_keymap = json.load(fd)
 
     # Generate the keymap
+    keymap_path = qmk.keymap.find_dir(user_keymap['keyboard'])
+    cli.echo('{fg_blue}[QMK]{style_reset_all} Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
     qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
-    if sys.stdout.isatty():
-        keymap_path = qmk.keymap.find_dir(user_keymap['keyboard'])
-        cli.echo('Wrote keymap to %s/%s/keymap.c.', keymap_path, user_keymap['keymap'])
+    cli.echo('{fg_blue}[QMK]{style_reset_all} Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
     # Compile the keymap
     command = ['make', ':'.join((user_keymap['keyboard'], user_keymap['keymap']))]
-    cli.echo('Compiling keymap with `%s`:', ' '.join(command))
+    cli.echo('{fg_blue}[QMK]{style_reset_all} Compiling keymap with {fg_cyan}%s\n\n', ' '.join(command))
     subprocess.run(command)
