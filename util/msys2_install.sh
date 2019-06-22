@@ -5,6 +5,7 @@ download_dir=~/qmk_utils
 avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
 installflip=false
+util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
 pacman --needed -S base-devel mingw-w64-x86_64-toolchain msys/git msys/p7zip msys/python3 msys/unzip

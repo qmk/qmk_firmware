@@ -13,15 +13,15 @@ Most of our style follows PEP8 with some local modifications to make things less
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * Some of our practices conflict with the wider python community to make our codebase more approachable to non-pythonistas.
 
-# Flake8
+# YAPF
 
-You can use flake8 to check your code for style. We will provide a flake8 config file in the future.
+You can use [yapf](https://github.com/google/yapf) to style your code. We provide a config in [setup.cfg](setup.cfg).
 
 # Imports
 
 We don't have a hard and fast rule for when to use `import ...` vs `from ... import ...`. Understandability and maintainability is our ultimate goal.
 
-Generally we prefer to import specific function and class names from a module to keep code shorter and easier to understand. Sometimes this results in a name that is ambiguous, and in such cases we prefer to import the module instead. You should avoid using the "as" keyword when importing.
+Generally we prefer to import specific function and class names from a module to keep code shorter and easier to understand. Sometimes this results in a name that is ambiguous, and in such cases we prefer to import the module instead. You should avoid using the "as" keyword when importing, unless you are importing a compatability module.
 
 Imports should be one line per module. We group import statements together using the standard python rules- system, 3rd party, local.
 
@@ -154,33 +154,15 @@ Make your try/except blocks as short as possible. If you need a lot of try state
 
 # Tuples
 
-When defining one-item tuples always include a trailing comma so that it is obvious you are using a tuple. Do not rely on implicit one-item tuple unpacking.
+When defining one-item tuples always include a trailing comma so that it is obvious you are using a tuple. Do not rely on implicit one-item tuple unpacking. Better still use a list which is unambiguous.
 
 This is particularly important when using the printf-style format strings that are commonly used.
 
 # Lists and Dictionaries
 
-You should generally prefer to keep the definition on a single line. Break out to multiple lines sooner rather than later to aid readability.
+We have configured YAPF to differentiate between sequence styles with a trailing comma. When a trailing comma is omitted YAPF will format the sequence as a single line. When a trailing comma is included YAPF will format the sequence with one item per line.
 
-When you break it out to multiple lines do so in a way that makes it easier to edit later. Sometimes this means one item per line. Sometimes this means grouping like items together on the same line, so you can easily move them around. Use your best judgement.
-
-# Trailing Commas
-
-It is OK to include trailing commas in sequences.
-
-# Whitespace
-
-Follow standard typographic rules for the use of spaces around punctuation.
-
-No whitespace inside parentheses, brackets or braces.
-
-No whitespace before a comma, semicolon, or colon. Do use whitespace after a comma, semicolon, or colon, except at the end of the line.
-
-No whitespace before the open paren/bracket that starts an argument list, indexing or slicing.
-
-Surround binary operators with a single space on either side for assignment (=), comparisons (==, <, >, !=, <>, <=, >=, in, not in, is, is not), and Booleans (and, or, not). Use your better judgment for the insertion of spaces around arithmetic operators (+, -, *, /, //, %, **, @).
-
-Never use spaces around = when passing keyword arguments or defining a default parameter value
+You should generally prefer to keep short definition on a single line. Break out to multiple lines sooner rather than later to aid readability and maintainability.
 
 # Parentheses
 
@@ -196,6 +178,8 @@ print('Hello, %s!' % (name,))
 ```
 
 This style is used by the logging module, which we make use of extensively, and we have adopted it in other places for consistency. It is also more familiar to C programmers, who are a big part of our casual audience.
+
+Our included CLI module has support for using these without using the percent (%) operator. Look at `cli.echo()` and the various `cli.log` functions (EG, `cli.log.info()`) for more details.
 
 # Comprehensions & Generator Expressions
 
@@ -215,7 +199,7 @@ Conditional expressions are if statements that are in line with code. For exampl
 x = 1 if cond else 2
 ```
 
-It's generally not a good idea to use these as function arguments, list and dictionary items, etc. It's too easy to overlook.
+It's generally not a good idea to use these as function arguments, sequence items, etc. It's too easy to overlook.
 
 # Default Argument Values
 
@@ -327,11 +311,3 @@ FIXME(username): Revisit this code when the frob feature is done.
 # Unit Tests
 
 These are good. We should have some one day.
-
-# Parting Words
-
-BE CONSISTENT.
-
-If you're editing code, take a few minutes to look at the code around you and determine its style. If they use spaces around all their arithmetic operators, you should too. If their comments have little boxes of hash marks around them, make your comments have little boxes of hash marks around them too.
-
-The point of having style guidelines is to have a common vocabulary of coding so people can concentrate on what you're saying rather than on how you're saying it. We present global style rules here so people know the vocabulary, but local style is also important. If code you add to a file looks drastically different from the existing code around it, it throws readers out of their rhythm when they go to read it. Avoid this.

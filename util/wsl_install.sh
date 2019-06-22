@@ -1,6 +1,7 @@
 #!/bin/bash
 
-dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+util_dir=$(dirname "$0")
+dir=$(cd -P -- "$util_dir" && pwd -P)
 pushd "$dir";
 
 if [[ $dir != /mnt/* ]];

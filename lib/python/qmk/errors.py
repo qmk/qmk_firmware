@@ -1,8 +1,4 @@
-class Error(Exception):
-    pass
-
-
-class NoSuchKeyboardError(Error):
+class NoSuchKeyboardError(Exception):
     """Raised when we can't find a keyboard/keymap directory.
     """
 

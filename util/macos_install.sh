@@ -1,5 +1,7 @@
 #!/bin/bash
 
+util_dir=$(dirname "$0")
+
 if ! brew --version 2>&1 > /dev/null; then
 	echo "Error! Homebrew not installed or broken!"
 	echo -n "Would you like to install homebrew now? [y/n] "

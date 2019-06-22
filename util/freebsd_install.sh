@@ -1,4 +1,5 @@
 #!/bin/sh
+util_dir=$(dirname "$0")
 pkg update
 pkg install -y \
 	git \

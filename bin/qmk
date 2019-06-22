@@ -31,7 +31,10 @@ if script_name == 'qmk':
 elif not script_name.startswith('qmk-'):
     cli.log.error('Invalid symlink, must start with "qmk-": %s', script_name)
 else:
-    subcommand = script_name.replace('-', '.')
+    subcommand = script_name.replace('-', '.').replace('_', '.').split('.')
+    subcommand.insert(1, 'cli')
+    subcommand = '.'.join(subcommand)
+
     try:
         import_module(subcommand)
     except ModuleNotFoundError:
