@@ -30,7 +30,7 @@ static void txend1(UARTDriver *uartp) {
  * This callback is invoked when a transmission has physically completed.
  */
 static void txend2(UARTDriver *uartp) {
-  (void)uartp;
+    (void)uartp;
 }
 
 /*
@@ -38,8 +38,8 @@ static void txend2(UARTDriver *uartp) {
  * as parameter.
  */
 static void rxerr(UARTDriver *uartp, uartflags_t e) {
-  (void)uartp;
-  (void)e;
+    (void)uartp;
+    (void)e;
 }
 
 /*
@@ -47,53 +47,53 @@ static void rxerr(UARTDriver *uartp, uartflags_t e) {
  * was not ready to receive it, the character is passed as parameter.
  */
 static void rxchar(UARTDriver *uartp, uint16_t c) {
-  (void)uartp;
-  (void)c;
+    (void)uartp;
+    (void)c;
 }
 
 /*
  * This callback is invoked when a receive buffer has been completely written.
  */
 static void rxend(UARTDriver *uartp) {
-  (void)uartp;
+    (void)uartp;
 }
 
 
 static UARTConfig uart_cfg = {
-  .txend1_cb = txend1,
-  .txend2_cb = txend2,
-  .rxend_cb = rxend,
-  .rxchar_cb = rxchar,
-  .rxerr_cb = rxerr,
-  .speed = 38400,
-  .cr1 = 0,
-  .cr2 = USART_CR2_LINEN,
-  .cr3 = 0
+    .txend1_cb = txend1,
+    .txend2_cb = txend2,
+    .rxend_cb = rxend,
+    .rxchar_cb = rxchar,
+    .rxerr_cb = rxerr,
+    .speed = 38400,
+    .cr1 = 0,
+    .cr2 = USART_CR2_LINEN,
+    .cr3 = 0
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
-        // Send 'next theme' command to lighting controller
+        /* Send 'next theme' command to lighting controller */
         uartStartSend(&UARTD3, 4, "\x09\x04\x05\x01\x00\x00");
     }
     return true;
 }
 
 void matrix_init_kb(void) {
-  // Turn on lighting controller
-  setPinOutput(C15);
-  writePinLow(C15);
-  chThdSleepMilliseconds(100);
-  writePinHigh(C15);
-  chThdSleepMilliseconds(100);
+    /* Turn on lighting controller */
+    setPinOutput(C15);
+    writePinLow(C15);
+    chThdSleepMilliseconds(100);
+    writePinHigh(C15);
+    chThdSleepMilliseconds(100);
 
-  // Initialize the lighting UART
-  uartStart(&UARTD3, &uart_cfg);
-  palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(7));
-  palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
+    /* Initialize the lighting UART */
+    uartStart(&UARTD3, &uart_cfg);
+    palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(7));
+    palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
 
-  // Send 'set theme' command to lighting controller
-  uartStartSend(&UARTD3, 4, "\x09\x02\x01\x01");
+    /* Send 'set theme' command to lighting controller */
+    uartStartSend(&UARTD3, 4, "\x09\x02\x01\x01");
 
-  matrix_init_user();
+    matrix_init_user();
 }
