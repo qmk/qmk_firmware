@@ -234,18 +234,14 @@ void encoder_update(bool clockwise) {
         if (clockwise) {
         #ifdef MOUSEKEY_ENABLE
             tap_code(KC_MS_WH_DOWN);
-            unregister_code(KC_MS_WH_DOWN);
         #else
             tap_code(KC_PGDN);
-            unregister_code(KC_PGDN);
         #endif
         } else {
         #ifdef MOUSEKEY_ENABLE
             tap_code(KC_MS_WH_UP);
-            unregister_code(KC_MS_WH_UP);
         #else
             tap_code(KC_PGUP);
-            unregister_code(KC_PGUP);
         #endif
         }
     }
