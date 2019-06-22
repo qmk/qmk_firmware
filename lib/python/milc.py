@@ -320,7 +320,7 @@ class MILC(object):
     def add_argument(self, *args, **kwargs):
         """Wrapper to add arguments to both the main and the shadow argparser.
         """
-        if kwargs.get('add_dest', True):
+        if kwargs.get('add_dest', True) and args[0][0] == '-':
             kwargs['dest'] = 'general_' + self.get_argument_name(*args, **kwargs)
         if 'add_dest' in kwargs:
             del kwargs['add_dest']
@@ -401,7 +401,10 @@ class MILC(object):
     def get_argument_name(self, *args, **kwargs):
         """Takes argparse arguments and returns the dest name.
         """
-        return self._arg_parser._get_optional_kwargs(*args, **kwargs)['dest']
+        try:
+            return self._arg_parser._get_optional_kwargs(*args, **kwargs)['dest']
+        except ValueError:
+            return self._arg_parser._get_positional_kwargs(*args, **kwargs)['dest']
 
     def argument(self, *args, **kwargs):
         """Decorator to call self.add_argument or self.<subcommand>.add_argument.

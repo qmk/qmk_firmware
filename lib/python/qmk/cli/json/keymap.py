@@ -4,44 +4,45 @@ import json
 import os
 import sys
 
-import qmk.keymap
 from milc import cli
 
+import qmk.keymap
 
-@cli.argument('-f', '--filename', help='Configurator JSON export', required=True)  # FIXME: This should be positional
+
+@cli.argument('filename', help='Configurator JSON file')
 @cli.argument('-o', '--output', help='File to write to')
 @cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
 def main(cli):
     # Error checking
-    if cli.config.general.filename == ('-'):
+    if cli.args.filename == ('-'):
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
-    if not os.path.exists(cli.config.general.filename):
+    if not os.path.exists(cli.args.filename):
         cli.log.error('JSON file does not exist!')
         cli.print_usage()
 
     # Environment processing
-    if cli.config.general.output == ('-'):
-        cli.config.general.output = None
+    if cli.args.output == ('-'):
+        cli.args.output = None
 
     # Parse the configurator json
-    with open(cli.config.general.filename, 'r') as fd:
+    with open(cli.args.filename, 'r') as fd:
         user_keymap = json.load(fd)
 
     # Generate the keymap
     keymap_c = qmk.keymap.generate(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
 
-    if cli.config.general.output:
-        output_dir = os.path.dirname(cli.config.general.output)
+    if cli.args.output:
+        output_dir = os.path.dirname(cli.args.output)
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        with open(cli.config.general.output, 'w') as keymap_fd:
+        with open(cli.args.output, 'w') as keymap_fd:
             keymap_fd.write(keymap_c)
 
         if sys.stdout.isatty():
-            cli.echo('Wrote keymap to %s.', cli.config.general.output)
+            cli.echo('Wrote keymap to %s.', cli.args.output)
 
     else:
         cli.echo(keymap_c)

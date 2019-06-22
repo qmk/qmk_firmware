@@ -5,23 +5,24 @@ import os
 import sys
 import subprocess
 
-import qmk.keymap
 from milc import cli
 
+import qmk.keymap
 
-@cli.argument('-f', '--filename', help='Configurator JSON export', required=True)  # FIXME: This should be positional
+
+@cli.argument('filename', help='Configurator JSON export')
 @cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
 def main(cli):
     # Error checking
-    if cli.config.general.filename == ('-'):
+    if cli.args.filename == ('-'):
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
-    if not os.path.exists(cli.config.general.filename):
+    if not os.path.exists(cli.args.filename):
         cli.log.error('JSON file does not exist!')
         cli.print_usage()
 
     # Parse the configurator json
-    with open(cli.config.general.filename, 'r') as fd:
+    with open(cli.args.filename, 'r') as fd:
         user_keymap = json.load(fd)
 
     # Generate the keymap

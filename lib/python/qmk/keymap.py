@@ -3,7 +3,7 @@ import logging
 import os
 from traceback import format_exc
 
-from .errors import NoSuchKeyboardError
+from qmk.errors import NoSuchKeyboardError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
