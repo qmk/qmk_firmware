@@ -76,7 +76,7 @@
 #define SE_APOS_MAC KC_NUBS  // '
 #define SE_AT_MAC   KC_BSLS  // @
 #define SE_BSLS_MAC ALGR(LSFT(KC_7)) // '\'
-#define SE_DLR_MAC  LSFT(KC_4) // $
+#define SE_DLR_MAC  ALGR(KC_4) // $
 #define SE_GRV_MAC ALGR(SE_BSLS) // `
 #define SE_GRTR_MAC LSFT(KC_GRV)  // >
 #define SE_LCBR_MAC ALGR(LSFT(KC_8))  // {
