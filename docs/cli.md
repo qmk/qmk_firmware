@@ -27,5 +27,5 @@ This command allows you to compile JSON files you have downloaded from <https://
 **Usage**:
 
 ```
-qmk compile-json -f mine.json
+qmk compile-json mine.json
 ```

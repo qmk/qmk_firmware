@@ -1,5 +1,5 @@
 # Python requirements
-# milc FIXME: Included in the repo for now.
+# milc FIXME(skullydazed): Included in the repo for now.
 argcomplete
 colorama
 #halo
