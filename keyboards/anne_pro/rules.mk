@@ -2,7 +2,8 @@
 # the next two should match the directories in
 #  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
-MCU_SERIES = STM32L1xx
+# This is a hack to automatically apply the patch to ChibiOS
+MCU_SERIES = $(shell echo STM32L1xx; cd lib/chibios; git apply ../../keyboards/anne_pro/chibios_stm32l151.patch 2>/dev/null)
 # linker script to use
 # it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
 #  or <this_dir>/ld/
