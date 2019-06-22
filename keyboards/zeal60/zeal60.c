@@ -234,8 +234,8 @@ void bootmagic_lite(void)
 
 	// We need multiple scans because debouncing can't be turned off.
 	matrix_scan();
-	wait_ms(DEBOUNCING_DELAY);
-	wait_ms(DEBOUNCING_DELAY);
+	wait_ms(DEBOUNCE);
+	wait_ms(DEBOUNCE);
 	matrix_scan();
 
 	// If the Esc (matrix 0,0) is held down on power up,
@@ -374,4 +374,3 @@ void suspend_wakeup_init_kb(void)
 	backlight_set_suspend_state(false);
 #endif // RGB_BACKLIGHT_ENABLED
 }
-

@@ -1,3 +1,8 @@
+/* Delay between tap_code register and unregister to fix flaky media keys. */
+#undef TAP_CODE_DELAY
+
+#define TAP_CODE_DELAY 10
+
 /* Turn off RGB lighting when the host goes to sleep. */
 #define RGBLIGHT_SLEEP
 
@@ -8,9 +13,9 @@
 #undef RGBLIGHT_VAL_STEP
 
 #define BACKLIGHT_LEVELS 7
-#define RGVLIGHT_HUE_STEP 8
-#define RGVLIGHT_SAT_STEP 17
-#define RGVLIGHT_VAL_STEP 17
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
 
 /* Make mouse operation smoother. */
 #undef MOUSEKEY_DELAY
