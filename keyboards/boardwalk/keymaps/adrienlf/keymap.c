@@ -75,12 +75,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 
-[_QWERTY] = LAYOUT_ortho_5x14( \
+[_QWERTY] = LAYOUT_ortho_mit( \
   KC_ESC,          KC_1,    KC_2,           KC_3,         KC_4,    KC_5,          KC_6,        KC_7,         KC_8,             KC_9,             KC_0,        KC_MINS,          KC_EQL,     KC_BSPC, \
   KC_TAB,          TD(TD_A),KC_W,           KC_E,         KC_R,    KC_T,          KC_Y,        KC_U,         KC_I,             KC_O,             KC_P,        KC_LBRC,          KC_RBRC,    KC_HOME, \
   REV,             KC_A,    KC_S,           KC_D,         KC_F,    KC_G,          KC_H,        KC_J,         KC_K,             KC_L,             KC_SCLN,     KC_QUOT,          KC_BSLS,    KC_ENT,    \
   TD(SHIFT_PAR_O), KC_Z,    KC_X,           KC_C,         KC_V,    KC_B,          KC_N,        KC_M,         KC_COMM,          KC_DOT,           KC_SLSH,     KC_UP,            FR_LESS,    TD(SHIFT_PAR_C),\
-  TD(CTRL_BRACK_O),KC_LGUI, TD(ALT_CURL_O), SUPER,        CODE,    LOWER,             KC_SPC,   _______,                 RAISE,            TD(ALT_CURL_C),   KC_LEFT,     KC_DOWN,          KC_RGHT,    TD(CTRL_BRACK_C)  \
+  TD(CTRL_BRACK_O),KC_LGUI, TD(ALT_CURL_O), SUPER,        CODE,    LOWER,             KC_SPC,                  RAISE,            TD(ALT_CURL_C),   KC_LEFT,     KC_DOWN,          KC_RGHT,    TD(CTRL_BRACK_C)  \
  ),
 [_LOWER] = LAYOUT_ortho_mit(\
     KC_ESC,        KC_F1,   KC_F2,          KC_F3,        KC_F4,   KC_F5,         KC_F6,       KC_F7,        KC_F8,            KC_F9,            KC_F10,      KC_F11,           KC_F12,     KC_MPLY, \
@@ -139,6 +139,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
        case MAIL1:
+     if (record->event.pressed) {
+        SEND_STRING("sydneywriter@gmail.com" );
+
+      } else {
+        // when keycode QMKURL is released
+      }
+      break;
+
+      case MAIL2:
+     if (record->event.pressed) {
+        SEND_STRING("adrienlefalher.pro@gmail.com");
 
       } else {
         // when keycode QMKURL is released
@@ -147,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
      case MAKE:
      if (record->event.pressed) {
-        SEND_STRING("make keebio/êlevinson:adrienLF_french:dfu");
+        SEND_STRING("make boardwalk:adrienlf:dfu");
 
       } else {
         // when keycode QMKURL is released

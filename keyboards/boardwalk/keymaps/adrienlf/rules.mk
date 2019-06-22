@@ -1,3 +1,5 @@
+
 LAYOUTS = LAYOUT_ortho_mit
 RGBLIGHT_ENABLE = no
 TAP_DANCE_ENABLE = yes
+
