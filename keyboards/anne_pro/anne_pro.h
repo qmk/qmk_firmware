@@ -17,7 +17,7 @@
 #pragma once
 #include "quantum.h"
 
-/* The fully-featured LAYOUT_all() that has every single key available in the matrix.
+/* The fully-featured LAYOUT() that has every single key available in the matrix.
  */
 #define LAYOUT(\
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
