@@ -3,6 +3,7 @@ import logging
 import os
 from traceback import format_exc
 
+import qmk.path
 from qmk.errors import NoSuchKeyboardError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
@@ -21,18 +22,6 @@ __KEYMAP_GOES_HERE__
 
 
 # Helper Functions
-def find_dir(keyboard):
-    """Locate the correct directory for storing a keymap.
-    """
-    for directory in ['.', '..', '../..', '../../..', '../../../..', '../../../../..']:
-        basepath = os.path.normpath(os.path.join('keyboards', keyboard, directory, 'keymaps'))
-        if os.path.exists(basepath):
-            return basepath
-
-    logging.error('Could not find keymaps directory!')
-    raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard)
-
-
 def template(keyboard, keymap):
     """Returns the `keymap.c` template for a keyboard.
 
@@ -68,7 +57,7 @@ def write(keyboard, keymap, layout, layers):
     """Generate the `keymap.c` and write it to disk.
     """
     keymap_c = generate(keyboard, layout, layers)
-    keymap_path = find_dir(keyboard)
+    keymap_path = qmk.path.keymap(keyboard)
     keymap_dir = os.path.join(keymap_path, keymap)
     keymap_file = os.path.join(keymap_dir, 'keymap.c')
 

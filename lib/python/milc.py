@@ -15,7 +15,7 @@ For more details see the MILC documentation:
 from __future__ import division, print_function, unicode_literals
 import argparse
 import logging
-import os.path
+import os
 import re
 import sys
 from decimal import Decimal
@@ -257,7 +257,7 @@ class MILC(object):
         self.config = Configuration()
         self.config_file = None
         self.prog_name = sys.argv[0][:-3] if sys.argv[0].endswith('.py') else sys.argv[0]
-        self.version = 'unknown'
+        self.version = os.environ.get('QMK_VERSION', 'unknown')
         self.release_lock()
 
         # Initialize all the things
@@ -659,7 +659,8 @@ class MILC(object):
         self._inside_context_manager = False
         self.release_lock()
 
-        if exc_type is not None:
+        if exc_type is not None and not isinstance(SystemExit(), exc_type):
+            print(exc_type)
             logging.exception(exc_val)
             exit(255)
 

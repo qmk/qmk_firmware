@@ -9,24 +9,26 @@ from milc import cli
 import qmk.keymap
 
 
-@cli.argument('filename', help='Configurator JSON file')
 @cli.argument('-o', '--output', help='File to write to')
-@cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
+@cli.argument('filename', help='Configurator JSON file')
+@cli.entrypoint('Create a keymap.c from a QMK Configurator export.')
 def main(cli):
     # Error checking
     if cli.args.filename == ('-'):
         cli.log.error('Reading from STDIN is not (yet) supported.')
         cli.print_usage()
-    if not os.path.exists(cli.args.filename):
+        exit(1)
+    if not os.path.exists(qmk.path.normpath(cli.args.filename)):
         cli.log.error('JSON file does not exist!')
         cli.print_usage()
+        exit(1)
 
     # Environment processing
     if cli.args.output == ('-'):
         cli.args.output = None
 
     # Parse the configurator json
-    with open(cli.args.filename, 'r') as fd:
+    with open(qmk.path.normpath(cli.args.filename), 'r') as fd:
         user_keymap = json.load(fd)
 
     # Generate the keymap
@@ -38,11 +40,11 @@ def main(cli):
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        with open(cli.args.output, 'w') as keymap_fd:
+        output_file = qmk.path.normpath(cli.args.output)
+        with open(output_file, 'w') as keymap_fd:
             keymap_fd.write(keymap_c)
 
-        if sys.stdout.isatty():
-            cli.echo('Wrote keymap to %s.', cli.args.output)
+        cli.log.info('Wrote keymap to %s.', cli.args.output)
 
     else:
-        cli.echo(keymap_c)
+        print(keymap_c)

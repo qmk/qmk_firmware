@@ -2,7 +2,10 @@
 """CLI wrapper for running QMK commands.
 """
 import os
+import subprocess
 import sys
+from glob import glob
+from time import strftime
 from importlib import import_module
 
 # Add the QMK python libs to our path
@@ -11,25 +14,49 @@ qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
 python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
 sys.path.append(python_lib_dir)
 
+# Figure out our version
+command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+result = subprocess.run(command, text=True, capture_output=True)
+
+if result.returncode == 0:
+    os.environ['QMK_VERSION'] = 'QMK ' + result.stdout.strip()
+else:
+    os.environ['QMK_VERSION'] = 'QMK ' + strftime('%Y-%m-%d-%H:%M:%S')
+
+# Setup the CLI
+import milc
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}ψ{style_reset_all}'
+
 # If we were invoked as `qmk <cmd>` massage sys.argv into `qmk-<cmd>`.
 # This means we can't accept arguments to the qmk script itself.
 script_name = os.path.basename(sys.argv[0])
 if script_name == 'qmk':
-    script_name = '-'.join((script_name, sys.argv[1]))
-    if len(sys.argv) > 1:
-        sys.argv = [script_name] + sys.argv[2:]
-    else:
-        sys.argv = [script_name]
+    if len(sys.argv) == 1:
+        milc.cli.log.error('No subcommand specified!\n')
 
-# Setup the environment
-from milc import cli
+    if len(sys.argv) == 1 or sys.argv[1] in ['-h', '--help']:
+        milc.cli.echo('usage: qmk <subcommand> [...]')
+        milc.cli.echo('\nsubcommands:')
+        subcommands = glob(os.path.join(qmk_dir, 'bin', 'qmk-*'))
+        for subcommand in sorted(subcommands):
+            subcommand = os.path.basename(subcommand).split('-', 1)[1]
+            milc.cli.echo('\t%s', subcommand)
+        milc.cli.echo('\nqmk <subcommand> --help for more information')
+        exit(1)
+
+    if sys.argv[1] in ['-V', '--version']:
+        milc.cli.echo(os.environ['QMK_VERSION'])
+        exit(0)
+
+    sys.argv[0] = script_name = '-'.join((script_name, sys.argv[1]))
+    del sys.argv[1]
 
 # Look for which module to import
 if script_name == 'qmk':
-    cli.print_help()
+    milc.cli.print_help()
     exit(0)
 elif not script_name.startswith('qmk-'):
-    cli.log.error('Invalid symlink, must start with "qmk-": %s', script_name)
+    milc.cli.log.error('Invalid symlink, must start with "qmk-": %s', script_name)
 else:
     subcommand = script_name.replace('-', '.').replace('_', '.').split('.')
     subcommand.insert(1, 'cli')
@@ -38,7 +65,7 @@ else:
     try:
         import_module(subcommand)
     except ModuleNotFoundError:
-        cli.log.error('[!] Invalid symlink! Could not import %s.', subcommand)
+        milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
         exit(1)
 
 # Change to the root of our checkout
@@ -46,4 +73,4 @@ os.environ['ORIG_CWD'] = os.getcwd()
 os.chdir(qmk_dir)
 
 if __name__ == '__main__':
-    cli()
+    milc.cli()
