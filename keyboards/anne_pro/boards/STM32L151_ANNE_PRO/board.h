@@ -258,8 +258,8 @@
                                      PIN_OSPEED_VERYLOW(GPIOA_PIN8) |       \
                                      PIN_OSPEED_VERYLOW(GPIOA_PIN9) |       \
                                      PIN_OSPEED_VERYLOW(GPIOA_PIN10) |      \
-                                     PIN_OSPEED_HIGH(GPIOA_USB_DM) |      \
-                                     PIN_OSPEED_HIGH(GPIOA_USB_DP) |      \
+                                     PIN_OSPEED_VERYLOW(GPIOA_USB_DM) |      \
+                                     PIN_OSPEED_VERYLOW(GPIOA_USB_DP) |      \
                                      PIN_OSPEED_HIGH(GPIOA_JTAG_TMS) |      \
                                      PIN_OSPEED_HIGH(GPIOA_JTAG_TCK) |      \
                                      PIN_OSPEED_HIGH(GPIOA_JTAG_TDI))
@@ -274,8 +274,8 @@
                                      PIN_PUPDR_PULLUP(GPIOA_PIN8) |         \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN9) |         \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN10) |        \
-                                     PIN_PUPDR_PULLUP(GPIOA_USB_DM) |        \
-                                     PIN_PUPDR_PULLUP(GPIOA_USB_DP) |        \
+                                     PIN_PUPDR_FLOATING(GPIOA_USB_DM) |        \
+                                     PIN_PUPDR_FLOATING(GPIOA_USB_DP) |        \
                                      PIN_PUPDR_PULLUP(GPIOA_JTAG_TMS) |     \
                                      PIN_PUPDR_PULLDOWN(GPIOA_JTAG_TCK) |   \
                                      PIN_PUPDR_PULLUP(GPIOA_JTAG_TDI))
@@ -290,8 +290,8 @@
                                      PIN_ODR_HIGH(GPIOA_PIN8) |             \
                                      PIN_ODR_HIGH(GPIOA_PIN9) |             \
                                      PIN_ODR_HIGH(GPIOA_PIN10) |            \
-                                     PIN_ODR_HIGH(GPIOA_USB_DM) |            \
-                                     PIN_ODR_HIGH(GPIOA_USB_DP) |            \
+                                     PIN_ODR_LOW(GPIOA_USB_DM) |            \
+                                     PIN_ODR_LOW(GPIOA_USB_DP) |            \
                                      PIN_ODR_HIGH(GPIOA_JTAG_TMS) |         \
                                      PIN_ODR_HIGH(GPIOA_JTAG_TCK) |         \
                                      PIN_ODR_HIGH(GPIOA_JTAG_TDI))
@@ -896,31 +896,6 @@
                                      PIN_AFIO_AF(GPIOH_PIN13, 0U) |         \
                                      PIN_AFIO_AF(GPIOH_PIN14, 0U) |         \
                                      PIN_AFIO_AF(GPIOH_PIN15, 0U))
-
-/*
- * USB bus activation macro, required by the USB driver.
- */
-/* The point is that most of the generic STM32F103* boards
-   have a 1.5k resistor connected on one end to the D+ line
-   and on the other end to some pin. Or even a slightly more
-   complicated "USB enable" circuit, controlled by a pin.
-   That should go here.
-
-   However on some boards (e.g. one that I have), there's no
-   such hardware. In which case it's better to not do anything.
-*/
-/*
-#define usb_lld_connect_bus(usbp) palClearPad(GPIOB, GPIOB_USB_DISC)
-*/
-#define usb_lld_connect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_INPUT);
-
-/*
- * USB bus de-activation macro, required by the USB driver.
- */
-/*
-#define usb_lld_disconnect_bus(usbp) palSetPad(GPIOB, GPIOB_USB_DISC)
-*/
-#define usb_lld_disconnect_bus(usbp) while(0) { palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_PUSHPULL); palClearPad(GPIOA, 12); }
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
