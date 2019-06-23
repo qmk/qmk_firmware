@@ -1,9 +1,7 @@
 stages:
   - test
-  - build
-  - deploy
 
-Tests:
+QMK Firmware:
   stage: test
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -12,64 +10,13 @@ Tests:
   image: ubuntu:18.10
   before_script:
     - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi gcc-avr git libnewlib-arm-none-eabi unzip wget zip
+    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi gcc-avr unzip wget zip
     - avr-gcc --version
     - uname -a
   script:
     - make test:all
-    - make planck/rev6:default
-
-QMK Firmware Defaults:
-  stage: deploy
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-  tags:
-    - linux
-  image: ubuntu:18.10
-  before_script:
-    - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi gcc-avr git libnewlib-arm-none-eabi unzip wget zip
-    - avr-gcc --version
-    - uname -a
-  script:
-    - make test:all
-    - make all:default -j16
-
-Drashna Firmware:
-  stage: build
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-  tags:
-    - linux
-  image: ubuntu:18.10
-  before_script:
-    - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi gcc-avr git libnewlib-arm-none-eabi unzip wget zip
-    - avr-gcc --version
-  script:
-    - make iris/rev2:drashna iris/rev2:drashna_old ergodox_ez:drashna ergodox_ez:drashna_glow viterbi/rev1:drashna orthodox/rev1:drashna orthodox/rev3:drashna crkbd:drashna planck/light:drashna planck/rev6:drashna fractal:drashna
-  artifacts:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
-    paths:
-      - ./*.hex
-      - ./*.bin
-    expire_in: 1 month
-
-Firmware Deploy:
-  stage: deploy
-  dependencies:
-    - Drashna Firmware
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-  tags:
-    - linux
-  image: ubuntu:18.10
-  before_script:
-    - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi gcc-avr git libnewlib-arm-none-eabi unzip wget zip
-    - avr-gcc --version
-  script:
-    - make iris/rev2:drashna:production iris/rev2:drashna_old:production ergodox_ez:drashna ergodox_ez:drashna_glow viterbi/rev1:drashna:production orthodox/rev1:drashna:production orthodox/rev3:drashna:production crkbd:drashna:production planck/light:drashna planck/rev6:drashna fractal:drashna:production
+    - make planck/rev6:default planck/rev5:default
+    - make keebio/iris/rev2:drashna keebio/iris/rev2:drashna_old ergodox_ez:drashna ergodox_ez:drashna_glow keebio/viterbi/rev1:drashna orthodox/rev1:drashna orthodox/rev3:drashna crkbd:drashna planck/light:drashna planck/rev6:drashna fractal:drashna primekb/prime_m:drashna -j2 --output-sync
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:

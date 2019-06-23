@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
@@ -56,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B4
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
+#define RGBLED_SPLIT { 6, 6 }
 
 /* Backlight LEDs */
 #define BACKLIGHT_PIN B5

@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-  BA,           // Base        (Balance Twelve mirror varian)
+  BA,           // Base (Balance Twelve mirror variant)
   P1,           // Punctuation (1)
   P2,           // Punctuation (2)
   P3,           // Punctuation (2)

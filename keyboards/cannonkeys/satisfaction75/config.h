@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER QMK
+#define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
 #define DESCRIPTION Satisfaction 75 Keyboard
 
@@ -76,14 +76,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x02
+#define EEPROM_VERSION 0x01
 #define EEPROM_VERSION_ADDR 34
 
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 803
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 221
+
+// Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768) = 803
+
+// I'm also putting my custom stuff after that
+// 1 for enabled encoder modes
+// 1 for custom backlighting controls
+// 1 for OLED default mode
+// 6 for 3x custom encoder settings, left, right, and press (18 total)
+
+#define DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES 803
+#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 804
+#define DYNAMIC_KEYMAP_DEFAULT_OLED 805
+#define DYNAMIC_KEYMAP_CUSTOM_ENCODER 806
+
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 824
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 

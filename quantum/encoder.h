@@ -19,11 +19,13 @@
 
 #include "quantum.h"
 
-#define COUNTRECLOCKWISE 0
-#define CLOCKWISE 1
-
 void encoder_init(void);
 void encoder_read(void);
 
 void encoder_update_kb(int8_t index, bool clockwise);
 void encoder_update_user(int8_t index, bool clockwise);
+
+#ifdef SPLIT_KEYBOARD
+void encoder_state_raw(uint8_t* slave_state);
+void encoder_update_raw(uint8_t* slave_state);
+#endif

@@ -45,6 +45,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -p DF11 -v 0483
 
 # Build Options
 #   comment out to disable the options.
@@ -61,6 +62,6 @@ AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 #SERIAL_LINK_ENABLE = yes
 
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
+RAW_ENABLE = no
+DYNAMIC_KEYMAP_ENABLE = no
 CIE1931_CURVE = yes
