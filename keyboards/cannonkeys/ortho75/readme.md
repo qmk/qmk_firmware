@@ -1,4 +1,4 @@
-# Ortho 74
+# Ortho 75
 
 A Blue Pill STM32F103C8T6-based 15x5 ortholinear keyboard.
 
