@@ -59,6 +59,11 @@ NOTE: If you do a search/replace
 #define _______________MACDVK_R3___________________        KC_B,       KC_M,       MT(MOD_LGUI,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
 #define _______________WINDVK_R3___________________        KC_B,       KC_M,       MT(MOD_LCTL,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
 
+#define __________c39__MACDVK_L3___________________        MT(MOD_LCTL,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LGUI, KC_J), LT(_SYMB,KC_K), TD(TD_XSPC)
+#define __________c39__WINDVK_L3___________________        MT(MOD_LGUI,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LCTL, KC_J), LT(_SYMB,KC_K), TD(TD_XSPC)
+#define __________c39__MACDVK_R3___________________        LT(_NUMB,KC_B),       LT(_SYMB,KC_M),    MT(MOD_LGUI,KC_W),  MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
+#define __________c39__WINDVK_R3___________________        LT(_NUMB,KC_B),       LT(_SYMB,KC_M),    MT(MOD_LCTL,KC_W),  MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
+
 /*
 #define ________________DVORAK_AU_L1_______________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
 #define ________________DVORAK_AU_L2_______________        KC_O,    KC_A,    KC_E,   KC_I,     KC_U
@@ -109,7 +114,7 @@ NOTE: If you do a search/replace
 
 #define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7, KC_8,              KC_9,              KC_COLN
 #define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4, KC_5,              KC_6,              C_S_T(KC_COLN)
-#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1, KC_2,              MT(MOD_LGUI,KC_3), MT(MOD_LCTL,KC_0)
+#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1, MT(MOD_LGUI,KC_2), MT(MOD_LALT,KC_3), MT(MOD_LCTL,KC_0)
 #define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), MT(MOD_LGUI,KC_0)
 #define _________________NUMB_R4___________________       KC_____,       KC_0, KC_0,              KC_____,           KC_____
 /*
@@ -131,7 +136,7 @@ NOTE: If you do a search/replace
 #define _________________PUNC_L3___________________       KC_LBRC,    KC_RBRC,    KC_LPRN,    KC_RPRN,    KC_AMPR
 #define _________________PUNC_L3_ALT_______________       KC_____,    KC_____,    KC_____,    KC_CIRC,    KC_GRV
 
-#define _________________PUNC_R1___________________       TD(TD_MINPLS), KC_DQT,  KC_____, KC_____, KC_____
+#define _________________PUNC_R1___________________       TD(TD_MINPLS), KC_DQT,  KC_EQL,  KC_____, KC_____
 #define _________________PUNC_R2___________________       TD(TD_DIVMLT), KC_ASTR, KC_SLSH, KC_PLUS, KC_MINS
 #define _________________PUNC_R3___________________       TD(TD_DOTEQL), KC_EQL,  KC_BSLS, KC_____, KC_____
 

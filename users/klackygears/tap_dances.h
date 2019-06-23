@@ -30,6 +30,7 @@ enum {
   TD_MCCCPY,
   TD_MCPSTIN,
   TD_ENTAB,
+  TD_XSPC,
 };
 
 

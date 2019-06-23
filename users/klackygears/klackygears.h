@@ -27,7 +27,8 @@ enum layer_number {
     _MNMB,
     _SYMB,
     _FUNC,
-    _MDIA
+    _MDIA,
+    _MEME
 };
 
 enum custom_keycodes {

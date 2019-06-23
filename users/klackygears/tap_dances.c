@@ -268,7 +268,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SCNSP]  = ACTION_TAP_DANCE_FN(SCRNSNP),
   [TD_MCCCPY] = ACTION_TAP_DANCE_FN(mcccpy),
   [TD_MCPSTIN] = ACTION_TAP_DANCE_FN(mcpstin),
-  [TD_ENTAB] = ACTION_TAP_DANCE_FN(enttab)
+  [TD_ENTAB] = ACTION_TAP_DANCE_FN(enttab),
+  [TD_XSPC] = ACTION_TAP_DANCE_DOUBLE(KC_SPACE,KC_X)
 };
 
 

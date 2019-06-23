@@ -45,7 +45,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-BOOTLOADER = qmk-dfu
+BOOTLOADER = caterina
 # Build Options
 #   change yes to no to disable
 #
@@ -66,3 +66,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = no        # RGB Enable / Disable
 
 TAP_DANCE_ENABLE = yes
+
+UNICODEMAP_ENABLE = yes
