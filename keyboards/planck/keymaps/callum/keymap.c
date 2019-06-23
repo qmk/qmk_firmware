@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 cmd_keys_down--;
             }
-            return false;
+            return true;
     }
     return true;
 }
