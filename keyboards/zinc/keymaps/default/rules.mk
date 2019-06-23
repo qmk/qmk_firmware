@@ -21,6 +21,7 @@ define ZINC_CUSTOMISE_MSG
   $(info Zinc customize)
   $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
+  $(info -  LED_BOTH_ENABLE=$(LED_BOTH_ENABLE))
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
 endef
@@ -51,7 +52,8 @@ ifneq ($(strip $(ZINC)),)
     LED_BACK_ENABLE = yes
   else ifeq ($(findstring under,$(ZINC)), under)
     LED_UNDERGLOW_ENABLE = yes
-  else ifeq ($(findstring under,$(ZINC)), both)
+  endif
+  ifeq ($(findstring both,$(ZINC)), both)
     LED_BOTH_ENABLE = yes
   endif
   ifeq ($(findstring na,$(ZINC)), na)
@@ -72,12 +74,14 @@ ifeq ($(strip $(LED_BACK_ENABLE)), yes)
     $(error LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE both 'yes')
   endif
 else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
-  RGBLIGHT_ENABLE = yes
-else ifeq ($(strip $(LED_BOTH_ENABLE)), yes)
+    RGBLIGHT_ENABLE = yes
+else
+    RGBLIGHT_ENABLE = no
+endif
+
+ifeq ($(strip $(LED_BOTH_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
   OPT_DEFS += -DRGBLED_BOTH
-else
-  RGBLIGHT_ENABLE = no
 endif
 
 ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
