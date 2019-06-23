@@ -138,6 +138,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SLSH            , .kana = "re"},
 
   // シフト
+  {.key = B_SHFT|B_Q        , .kana = "vu"},
   {.key = B_SHFT|B_W        , .kana = "mi"},
   {.key = B_SHFT|B_E        , .kana = "ri"},
   {.key = B_SHFT|B_R        , .kana = "me"},
@@ -155,14 +156,16 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_K        , .kana = "mo"},
   {.key = B_SHFT|B_L        , .kana = "tu"},
   {.key = B_SHFT|B_SCLN     , .kana = "ya"},
+  {.key = B_SHFT|B_Z        , .kana = "ho"},
+  {.key = B_SHFT|B_X        , .kana = "hi"},
   {.key = B_SHFT|B_C        , .kana = "wo"},
   {.key = B_SHFT|B_V        , .kana = ","},
   {.key = B_SHFT|B_B        , .kana = "nu"},
   {.key = B_SHFT|B_N        , .kana = "o"},
-  {.key = B_SHFT|B_M        , .kana = "."},
+  {.key = B_SHFT|B_M        , .kana = "."SS_TAP(X_ENTER)},
   {.key = B_SHFT|B_COMM     , .kana = "mu"},
   {.key = B_SHFT|B_DOT      , .kana = "hu"},
-  {.key = B_SHFT|B_SLSH     , .kana = "?"},
+  {.key = B_SHFT|B_SLSH     , .kana = "re"},
 
   // 濁音
   {.key = B_J|B_W           , .kana = "ba"},
@@ -351,9 +354,11 @@ void naginata_type(void) {
       // 連続押しの場合
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
+          keycomb = ng_key[ninputs[j] - NG_Q];
+          if (ng_shift) keycomb |= B_SHFT; // シフトキー状態を反映
           for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
             memcpy_P(&bngmap, &ngmap[i], sizeof bngmap);
-            if (ng_key[ninputs[j] - NG_Q] == bngmap.key) {
+            if (keycomb == bngmap.key) {
               send_string(bngmap.kana);
               break;
             }
