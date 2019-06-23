@@ -32,12 +32,10 @@
 
 static uint8_t i2c_address;
 
-// This configures the I2C clock to 400khz assuming a 72Mhz clock
-// For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
-  STM32_TIMINGR_PRESC(15U) |
-  STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
-  STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
+  STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) |
+  STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) |
+  STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH)  | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL),
   0,
   0
 };
@@ -58,13 +56,13 @@ __attribute__ ((weak))
 void i2c_init(void)
 {
   // Try releasing special pins for a short time
-  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_INPUT);
-  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
   chThdSleepMilliseconds(10);
 
-  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
-  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
+  palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+  palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 
   //i2cInit(); //This is invoked by halInit() so no need to redo it.
 }

@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Set 0 if debouncing isn't needed */
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
 #define COL_SHIFTER ((uint32_t)1)
@@ -83,7 +83,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+    if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
             matrix[i] = matrix_debouncing[i];
         }
