@@ -28,6 +28,7 @@ endef
 # Zinc keyboard customize
 LED_BACK_ENABLE = no        # LED backlight (Enable SK6812mini backlight)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight)
+LED_BOTH_ENABLE = no        # LED backlight and underglow
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 Link_Time_Optimization = no # if firmware size over limit, try this option
@@ -37,7 +38,7 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ### Zinc keyboard 'default' keymap: convenient command line option
 ##    make ZINC=<options> zinc:defualt
-##    option= back | under | na | ios
+##    option= back | under | both | na | ios
 ##    ex.
 ##      make ZINC=under    zinc:defualt
 ##      make ZINC=under,ios zinc:defualt
@@ -50,6 +51,8 @@ ifneq ($(strip $(ZINC)),)
     LED_BACK_ENABLE = yes
   else ifeq ($(findstring under,$(ZINC)), under)
     LED_UNDERGLOW_ENABLE = yes
+  else ifeq ($(findstring under,$(ZINC)), both)
+    LED_BOTH_ENABLE = yes
   endif
   ifeq ($(findstring na,$(ZINC)), na)
     LED_ANIMATIONS = no
@@ -70,6 +73,9 @@ ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   endif
 else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
+else ifeq ($(strip $(LED_BOTH_ENABLE)), yes)
+  RGBLIGHT_ENABLE = yes
+  OPT_DEFS += -DRGBLED_BOTH
 else
   RGBLIGHT_ENABLE = no
 endif
