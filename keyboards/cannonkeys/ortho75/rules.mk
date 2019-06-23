@@ -41,6 +41,7 @@ ARMV = 7
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
 #STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
 
+DFU_ARGS = -d 1eaf:0003 -a 2 -R
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
