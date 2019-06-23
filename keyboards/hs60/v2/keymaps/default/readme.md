@@ -1,5 +1,5 @@
-The default keymap for ISO HS60 V2
-==================================
+The default keymap for ISO HS60 V2. VIA support disabled.
+=========================================================
 
 ![Layout image](https://imgur.com/6go4vQV.png)
 

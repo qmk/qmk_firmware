@@ -6,7 +6,7 @@ arguments, we need a wrapper in order for these definitions to be
 expanded before being used as arguments to the LAYOUT_xxx macro.
 */
 #if (!defined(LAYOUT) && defined(KEYMAP))
-#define LAYOUT KEYMAP
+#   define LAYOUT KEYMAP
 #endif
 
 #define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
@@ -15,6 +15,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x12_wrapper(...)       LAYOUT_ortho_5x12(__VA_ARGS__)
+#define LAYOUT_gergo_wrapper(...)            LAYOUT_gergo(__VA_ARGS__)
 
 /*
 Blocks for each of the four major keyboard layouts

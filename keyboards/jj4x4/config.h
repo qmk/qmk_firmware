@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
 // TODO: share these strings with usbconfig.h
@@ -36,16 +35,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define BACKLIGHT_PIN D4
 #define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+// #define BACKLIGHT_BREATHING  // Requires #4324 to enable hardware pwm for atmega32a
 
-#define TAPPING_TOGGLE 3
+/* RGB underglow */
+// NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
+#define RGBLED_NUM 4
+#define RGBLIGHT_ANIMATIONS
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5
 
 #define NO_UART 1
 
-/* RGB underglow */
-// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
-// The same pin is used on the JJ40, at least.
-#define RGBLED_NUM 5
-#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
-#define RGBLIGHT_ANIMATIONS
+/* key combination for magic key command */
+/* defined by default; to change, uncomment and set to the combination you want */
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
