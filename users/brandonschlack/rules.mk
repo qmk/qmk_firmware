@@ -1,10 +1,10 @@
 SRC += brandonschlack.c \
        process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
-
 ifeq ($(strip $(BOOTLOADER)), mdloader)
     OPT_DEFS += -DBOOTLOADER_MDLOADER
+else
+    LINK_TIME_OPTIMIZATION_ENABLE = yes
 endif
 
 ifeq ($(strip $(IS_MACROPAD)), yes)

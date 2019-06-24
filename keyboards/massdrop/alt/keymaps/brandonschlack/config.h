@@ -46,6 +46,8 @@
 #undef USB_LED_INDICATOR_ENABLE
 #define USB_LED_CAPS_LOCK_SCANCODE      30
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #ifndef NO_DEBUG
 #define NO_DEBUG
