@@ -26,7 +26,7 @@ ARMV = 7
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes # Mouse keys
+MOUSEKEY_ENABLE = no # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 CONSOLE_ENABLE = no  # Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
