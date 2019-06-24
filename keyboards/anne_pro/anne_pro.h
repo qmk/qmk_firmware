@@ -17,6 +17,14 @@
 #pragma once
 #include "quantum.h"
 
+/* Custom keycodes for the lighting control for the Anne Pro */
+enum anne_pro_keycodes {
+    APL_RGB = SAFE_RANGE,
+    APL_RAT,
+    APL_BRT,
+    APL_MOD
+};
+
 /* The fully-featured LAYOUT() that has every single key available in the matrix. */
 #define LAYOUT(\
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
