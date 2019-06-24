@@ -9,3 +9,6 @@ MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 COMMAND_ENABLE = no         # Disable Command, breaks with Mouse Keys set to constant.
 BACKLIGHT_ENABLE = no       # No backlights installed
 TAP_DANCE_ENABLE = yes      # Use tap dance
+
+# Userspace Options
+RGB_THEME = granite	        # Set RGB colors to Granite Theme

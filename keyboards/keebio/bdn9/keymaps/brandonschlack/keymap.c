@@ -282,6 +282,23 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 /**
+ * Layer Switch
+ */
+layer_state_t layer_state_set_keymap (layer_state_t state) {
+    switch (biton32(state)) {
+        case _LR_NAV:
+            rgb_layer_helper(HSV_TEAL);
+            break;
+        case _LR_REVIEW:
+            rgb_layer_helper(HSV_CYAN);
+            break;
+        case _LR_EDIT:
+            rgb_layer_helper(HSV_AZURE);
+            break;
+    }
+}
+
+/**
  * Tap Dances
  */
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
