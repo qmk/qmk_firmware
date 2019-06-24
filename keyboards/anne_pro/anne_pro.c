@@ -30,15 +30,53 @@ static UARTConfig uart_cfg = {
     .cr3 = 0
 };
 
-extern volatile bool leds_enabled;
+/* State of the leds on the keyboard */
+volatile bool leds_enabled = false;
 
-void matrix_init_kb(void) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case APL_RGB:
+        /* Toggle the RGB enabled/disabled */
+        if (record->event.pressed) {
+            leds_enabled = !leds_enabled;
+            if (leds_enabled) {
+                uartStartSend(&UARTD3, 3, "\x09\x01\x01");
+            } else {
+                uartStartSend(&UARTD3, 4, "\x09\x02\x01\x00");
+            }
+        }
+        return false;
+    case APL_RAT:
+        /* Change the animation rate */
+        if (leds_enabled && record->event.pressed) {
+            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x00\x01\x00");
+        }
+        return false;
+    case APL_BRT:
+        /* Change the brightness */
+        if (leds_enabled && record->event.pressed) {
+            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x00\x00\x01");
+        }
+        return false;
+    case APL_MOD:
+        /* Change the lighting mode */
+        if (leds_enabled && record->event.pressed) {
+            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x01\x00\x00");
+        }
+        return false;
+    default:
+        /* Handle other keycodes normally */
+        return true;
+    }
+}
+
+void keyboard_post_init_kb(void) {
     /* Turn on lighting controller */
     setPinOutput(C15);
     writePinLow(C15);
-    chThdSleepMilliseconds(100);
+    chThdSleepMilliseconds(10);
     writePinHigh(C15);
-    chThdSleepMilliseconds(100);
+    chThdSleepMilliseconds(10);
 
     /* Initialize the lighting UART */
     uartStart(&UARTD3, &uart_cfg);
