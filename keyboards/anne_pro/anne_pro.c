@@ -91,13 +91,3 @@ void keyboard_post_init_kb(void) {
 
     matrix_init_user();
 }
-
-/* Instead of doing some magic to get to the bootloader, just press ESC and reset */
-void bootloader_jump(void) {
-    /* Disable interrupts as changing the vector table can mess them up */
-    __disable_irq();
-    /* Move the vector table back to the bootloader */
-    SCB->VTOR = 0x08000000;
-    /* Reset the system into the bootloader */
-    NVIC_SystemReset();
-}
