@@ -12,8 +12,14 @@ import qmk.path
 
 
 @cli.argument('filename', help='Configurator JSON export')
-@cli.entrypoint('Generate a keymap.c from a QMK Configurator export.')
+@cli.entrypoint('Compile a QMK Configurator export.')
 def main(cli):
+    """Compile a QMK Configurator export.
+
+    This command creates a new keymap from a configurator export, overwriting an existing keymap if one exists.
+
+    FIXME(skullydazed): add code to check and warn if the keymap already exists
+    """
     # Error checking
     if cli.args.filename == ('-'):
         cli.log.error('Reading from STDIN is not (yet) supported.')

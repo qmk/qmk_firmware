@@ -5,6 +5,10 @@ import os
 
 def keymap(keyboard):
     """Locate the correct directory for storing a keymap.
+
+    Args:
+        keyboard
+            The name of the keyboard. Example: clueboard/66/rev3
     """
     for directory in ['.', '..', '../..', '../../..', '../../../..', '../../../../..']:
         basepath = os.path.normpath(os.path.join('keyboards', keyboard, directory, 'keymaps'))

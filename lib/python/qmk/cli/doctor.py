@@ -2,15 +2,24 @@
 
 Check up for QMK environment.
 """
-from milc import cli
-
 import shutil
 import platform
 import os
 
+from milc import cli
+
 
 @cli.entrypoint('Basic QMK environment checks')
 def main(cli):
+    """Basic QMK environment checks.
+
+    This is currently very simple, it just checks that all the expected binaries are on your system.
+
+    TODO(unclaimed):
+        * [ ] Run the binaries to make sure they work
+        * [ ] Compile a trivial program with each compiler
+        * [ ] Check for udev entries on linux
+    """
 
     binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc']
 

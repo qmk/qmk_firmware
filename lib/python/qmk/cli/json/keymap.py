@@ -13,6 +13,10 @@ import qmk.keymap
 @cli.argument('filename', help='Configurator JSON file')
 @cli.entrypoint('Create a keymap.c from a QMK Configurator export.')
 def main(cli):
+    """Generate a keymap.c from a configurator export.
+
+    This command uses the `qmk.keymap` module to generate a keymap.c from a configurator export. The generated keymap is written to stdout, or to a file if -o is provided.
+    """
     # Error checking
     if cli.args.filename == ('-'):
         cli.log.error('Reading from STDIN is not (yet) supported.')

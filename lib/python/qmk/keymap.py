@@ -1,3 +1,5 @@
+"""Functions that help you work with QMK keymaps.
+"""
 import json
 import logging
 import os
@@ -21,24 +23,37 @@ __KEYMAP_GOES_HERE__
 """
 
 
-# Helper Functions
-def template(keyboard, keymap):
+def template(keyboard):
     """Returns the `keymap.c` template for a keyboard.
 
     If a template exists in `keyboards/<keyboard>/templates/keymap.c` that
     text will be used instead of `DEFAULT_KEYMAP_C`.
+
+    Args:
+        keyboard
+            The keyboard to return a template for.
     """
     template_name = 'keyboards/%s/templates/keymap.c' % keyboard
 
     if os.path.exists(template_name):
         with open(template_name, 'r') as fd:
-            template_text = fd.read()
+            return fd.read()
 
-    return DEFAULT_KEYMAP_C.replace('__KEYMAP_GOES_HERE__', keymap)
+    return DEFAULT_KEYMAP_C
 
 
 def generate(keyboard, layout, layers):
-    """Generate the keymap source code.
+    """Returns a keymap.c for the specified keyboard, layout, and layers.
+
+    Args:
+        keyboard
+            The name of the keyboard
+
+        layout
+            The LAYOUT macro this keymap uses.
+
+        layers
+            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     layer_txt = []
     for layer_num, layer in enumerate(layers):
@@ -50,11 +65,26 @@ def generate(keyboard, layout, layers):
     keymap = '\n'.join(layer_txt)
     keymap_c = template(keyboard, keymap)
 
-    return keymap_c
+    return keymap_c.replace('__KEYMAP_GOES_HERE__', keymap)
 
 
 def write(keyboard, keymap, layout, layers):
     """Generate the `keymap.c` and write it to disk.
+
+    Returns the filename written to.
+
+    Args:
+        keyboard
+            The name of the keyboard
+
+        keymap
+            The name of the keymap
+
+        layout
+            The LAYOUT macro this keymap uses.
+
+        layers
+            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
     """
     keymap_c = generate(keyboard, layout, layers)
     keymap_path = qmk.path.keymap(keyboard)
@@ -70,7 +100,6 @@ def write(keyboard, keymap, layout, layers):
     return keymap_file
 
 
-# Public functions
 def compile_firmware(keyboard, keymap, layout, layers):
     """Compile a firmware.
     """
