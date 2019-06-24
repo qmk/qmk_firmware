@@ -64,6 +64,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             uartStartSend(&UARTD3, 6, "\x09\x04\x05\x01\x00\x00");
         }
         return false;
+    case AP_RST:
+        /* Reset the keyboard, enter DFU when ESC is pressed */
+        __disable_irq();
+        SCB->VTOR = 0x08000000;
+        NVIC_SystemReset();
+        /* This should not be reached */
+        while(1);
+        return false;
     default:
         /* Handle other keycodes normally */
         return true;
