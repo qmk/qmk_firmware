@@ -91,6 +91,7 @@ void matrix_init(void)
     debug_enable = true;
     ps2_host_init();
 
+
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
@@ -223,7 +224,7 @@ uint8_t matrix_scan(void)
                         break;
                     case 0xAA:  // Self-test passed
                     case 0xFC:  // Self-test failed
-                        printf("BAT %s\n", (code == 0xAA) ? "OK" : "NG");
+                        xprintf("BAT %s\n", (code == 0xAA) ? "OK" : "NG");
                         led_set(host_keyboard_leds());
                         state = PS2_INIT;
                         break;
@@ -428,6 +429,7 @@ uint8_t matrix_key_count(void)
 inline
 static void matrix_make(uint8_t code)
 {
+    xprintf("make %02X\r\n", code);
     if (!matrix_is_on(ROW(code), COL(code))) {
         matrix[ROW(code)] |= 1<<COL(code);
         is_modified = true;
@@ -437,6 +439,7 @@ static void matrix_make(uint8_t code)
 inline
 static void matrix_break(uint8_t code)
 {
+    xprintf("break %02X\r\n", code);
     if (matrix_is_on(ROW(code), COL(code))) {
         matrix[ROW(code)] &= ~(1<<COL(code));
         is_modified = true;

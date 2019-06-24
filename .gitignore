@@ -71,3 +71,6 @@ id_rsa_*
 /.vs
 .vscode/ipch/b9f57f596f4ca68d/matrix.ipch
 .vscode/ipch/8b449eabf03b4ca2/ps2_usb.ipch
+.vscode/ipch/f312d85ded0c3a6f/usb_keyboard.ipch
+.gitignore
+.gitignore
