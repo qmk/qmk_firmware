@@ -78,26 +78,25 @@ void oled_task_user(void) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case BASE:
-      oled_write_P(PSTR("Default\n"), false);
+      oled_write_P(PSTR("Defaultn"), false);
       break;
     case COMMAND:
-      oled_write_P(PSTR("COMMAND\n"), false);
+      oled_write_P(PSTR("COMMANDn"), false);
       break;
     case NUMBER:
-      oled_write_P(PSTR("NUMBER\n"), false);
+      oled_write_P(PSTR("NUMBERn"), false);
       break;
     case SETTING:
-      oled_write_P(PSTR("SETTING\n"), false);
+      oled_write_P(PSTR("SETTINGn"), false);
       break;
     default:
-      // Or use the write_ln shortcut over adding '\n' to the end of your string
+      // Or use the write_ln shortcut over adding 'n' to the end of your string
       oled_write_ln_P(PSTR("Undefined"), false);
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+  oled_write_P(IS_HOST_LED_ON(USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
+  oled_write_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
+  oled_write_P(IS_HOST_LED_ON(USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 #endif
