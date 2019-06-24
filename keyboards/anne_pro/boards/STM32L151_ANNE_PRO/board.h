@@ -32,6 +32,9 @@
 #define BOARD_STM32L151_ANNE_PRO
 #define BOARD_NAME                  "STM32L151 Anne Pro"
 
+/* Address of the bootloader */
+#define STM32_BOOTLOADER_ADDRESS    0x08000000
+
 /*
  * Board oscillators-related settings.
  * NOTE: HSE not fitted.
