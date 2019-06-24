@@ -22,7 +22,8 @@ enum anne_pro_keycodes {
     APL_RGB = SAFE_RANGE,
     APL_RAT,
     APL_BRT,
-    APL_MOD
+    APL_MOD,
+    AP_RST
 };
 
 /* The fully-featured LAYOUT() that has every single key available in the matrix. */
