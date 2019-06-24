@@ -8,6 +8,7 @@ enum bs_dances {
     TD_LGHT_LSFT,
     TD_ESC_RGBTG,
     TD_SHLD_LGHT,
+    TD_DTAP_LGHT,
     TD_SHLD_MAGC,
     TD_DTAP_MAGC,
     TD_REDR_H
@@ -24,9 +25,11 @@ enum tap_dance_states {
 };
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#   define DTP_LGT TD(TD_DTAP_LGHT)
 #   define SFT_LGT TD(TD_LGHT_LSFT)
 #   define ESC_RTG TD(TD_ESC_RGBTG)
 #endif
+#define DTP_MGC TD(TD_DTAP_MAGC)
 
 int cur_dance (qk_tap_dance_state_t *state);
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer);
