@@ -1,5 +1,5 @@
-TA65
-====
+TA-65
+=====
 
 A 65% PCB designed to fit the TADA68, Kayak and others by [maartenwut](https://maartenwut.com).
 

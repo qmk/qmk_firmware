@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x7465
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Maartenwut
-#define PRODUCT         ta-65
+#define PRODUCT         TA-65
 #define DESCRIPTION     A universal 65% PCB with underglow.
 
 /* key matrix size */
@@ -50,11 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* Backlight configuration
  */

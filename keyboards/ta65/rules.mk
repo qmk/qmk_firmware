@@ -1,4 +1,3 @@
-
 # MCU name
 MCU = atmega32u4
 
@@ -45,7 +44,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 BOOTLOADER = qmk-dfu
 
 # Build Options
