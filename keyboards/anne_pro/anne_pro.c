@@ -33,6 +33,7 @@ static UARTConfig uart_cfg = {
 /* State of the leds on the keyboard */
 volatile bool leds_enabled = false;
 
+/* Process the Anne Pro custom keycodes */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case APL_RGB:
@@ -66,10 +67,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     default:
         /* Handle other keycodes normally */
-        return true;
+        return process_record_user(keycode, record);
     }
 }
 
+/* Initialize custom keyboard features */
 void keyboard_post_init_kb(void) {
     /* Turn on lighting controller */
     setPinOutput(C15);
@@ -85,7 +87,7 @@ void keyboard_post_init_kb(void) {
 
     /* Send 'set theme' command to lighting controller */
     leds_enabled = true;
-    uartStartSend(&UARTD3, 4, "\x09\x01\x01");
+    uartStartSend(&UARTD3, 3, "\x09\x01\x01");
 
     matrix_init_user();
 }
