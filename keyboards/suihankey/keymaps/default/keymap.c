@@ -33,7 +33,7 @@ enum layers{
 #define KC_CMD_SP    LT(COMMAND,KC_SPC)
 #define KC_CMD_ET    LT(COMMAND,KC_ENTER)
 #define KC_NUM_ALT   LT(NUMBER,KC_LALT)
-#define KC_NUM_BS   LT(NUMBER,KC_BSPC)
+#define KC_NUM_BS    LT(NUMBER,KC_BSPC)
 #define KC_SET_CTRL  LT(SETTING,KC_LCTRL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_Q,  KC_W,  KC_E, KC_R, KC_T,                 KC_Y,  KC_U,  KC_I, KC_O, KC_P,\
           KC_A,  KC_S,  KC_D, KC_F, KC_G,                 KC_H,  KC_J,  KC_K, KC_L, KC_SCLN,\
           KC_Z,  KC_X,  KC_C, KC_V, KC_B,                 KC_N,  KC_M,  KC_COMMA, KC_DOT, KC_SLASH,\
-    KC_SET_CTRL,  KC_NUM_ALT,  KC_CMD_SP,                 KC_CMD_ET,  KC_BSPC,  KC_LSFT   \
+       KC_SET_CTRL,  KC_NUM_ALT,  KC_CMD_SP,                 KC_CMD_ET,  KC_BSPC,  KC_LSFT   \
   ),
   [COMMAND] = LAYOUT( /* Base */
           KC_Q,  KC_W,  KC_E, KC_R, KC_T,                           KC_Y,  KC_U,  KC_I, KC_O, KC_P,\
@@ -100,15 +100,7 @@ void led_set_user(uint8_t usb_led) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
-static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-                                            0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-                                            0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4, 0};
-
-    oled_write_P(qmk_logo, false);
-}
 void oled_task_user(void) {
-  if (is_keyboard_master()) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case BASE:
@@ -133,9 +125,5 @@ void oled_task_user(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
   oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
-  }
-  else{
-      render_logo();
-  }
 }
 #endif
