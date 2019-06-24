@@ -10,7 +10,8 @@ enum bdn9_layers {
 enum bdn9_keycodes {
     TG_LNAV = KEYMAP_SAFE_RANGE,
     TG_REVW,
-    TG_EDIT
+    TG_EDIT,
+    TG_LGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -23,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_NAVI] = LAYOUT(
         REO_TAB, CMD_TAB, CLS_TAB,
-        KC_PGDN, KC_UP, KC_PGUP,
-        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
+        KC_PGDN, KC_UP, DTP_LGT,
+        KC_LEFT, KC_DOWN, DTP_MGC
     ),
     /*
         Layer: Reeder
@@ -35,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_REEDER] = LAYOUT(
         KC_H, KC_S, KC_R,
-        CMD_TAB, KC_M, KC_L,
-        G(KC_1), G(KC_2), TD(TD_DTAP_MAGC)
+        CMD_TAB, KC_M, DTP_LGT,
+        G(KC_1), G(KC_2), DTP_MGC
     ),
     /*
         Layer: Media
@@ -47,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
-        KC_J, KC_K, KC_L,
-        KC_LEFT, KC_SPC, TD(TD_DTAP_MAGC)
+        KC_J, KC_K, DTP_LGT,
+        KC_LEFT, KC_SPC, DTP_MGC
     ),
     /*
         Layer: Keypad/Karabiner
@@ -59,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_KEYPAD] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
-        KC_P4, KC_P5, KC_P6,
-        KC_P7, KC_P8, TD(TD_DTAP_MAGC)
+        KC_P4, KC_P5, DTP_LGT,
+        KC_P7, KC_P8, DTP_MGC
     ),
     /*
         Layer: Navigation
@@ -71,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_NAV] = LAYOUT(
         TG_REVW, KC_J, TG_EDIT,
-        KC_HOME, KC_UP, KC_END,
-        KC_LEFT, KC_DOWN, TD(TD_DTAP_MAGC)
+        KC_HOME, KC_UP, DTP_LGT,
+        KC_LEFT, KC_DOWN, DTP_MGC
     ),
     /*
         Layer: Review/Rate
@@ -83,8 +84,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_REVIEW] = LAYOUT(
         TG_LNAV, KC_7, TG_EDIT,
-        KC_0, KC_8, KC_U,
-        KC_LEFT, KC_6, TD(TD_DTAP_MAGC)
+        KC_0, KC_8, DTP_LGT,
+        KC_LEFT, KC_6, DTP_MGC
     ),
     /*
         Layer: Edit/Develop
@@ -95,8 +96,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_LNAV,
-        KC_X, MC_UNDO, KC_P,
-        KC_LEFT, MC_REDO, TD(TD_DTAP_MAGC)
+        KC_X, MC_UNDO, DTP_LGT,
+        KC_LEFT, MC_REDO, DTP_MGC
+    ),
+    /*
+        Layer: Light
+        | RGB Toggle            | Nav  | RESET                 |
+        | Reeder                | Meda | Keypad                |
+        | Review                | LNav | Edit                  |
+     */
+    [_LIGHT] = LAYOUT(
+        RGB_TOG, RGB_VAI, TG_LGHT,
+        RGB_RMOD,RGB_VAD, RGB_MOD,
+        RGB_M_P, RGB_M_B, XXXXXXX
     ),
     /*
         Layer: Magic
@@ -105,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         | Review                | LNav | Edit                  |
      */
     [_MAGIC] = LAYOUT(
-        KC_MAKE, TG_NAVI, RESET,
+        KC_MAKE, TG_NAVI, TG_LGHT,
         TG_REDR, TG_MEDA, TG_KYPD,
         TG_REVW, TG_LNAV, TG_EDIT
     ),
@@ -166,6 +178,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_COMM);
                 }
                 break;
+            case _LIGHT:
+                if (!clockwise) {
+                    rgblight_increase_hue();
+                } else {
+                    rgblight_decrease_hue();
+                }
+                break;
         }
     }
     else if (index == 1) {
@@ -219,6 +238,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                     tap_code(KC_MINS);
                 }
                 break;
+            case _LIGHT:
+                if (!clockwise) {
+                    rgblight_increase_sat();
+                } else {
+                    rgblight_decrease_sat();
+                }
+                break;
         }
     }
 }
@@ -246,6 +272,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 layer_move(_LR_EDIT);
             }
             break;
+        case TG_LGHT:
+            if (!record->event.pressed) {
+                layer_invert(_LIGHT);
+            }
+            break;
     }
     return true;
 }
@@ -256,6 +287,26 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
     uint16_t keycode = 0;
     switch (toggle_layer) {
+        case _LIGHT:
+            switch (biton32(layer_state)) {
+                case _NAVI:
+                    keycode = KC_PGUP;
+                case _REEDER:
+                case _MEDIA:
+                    keycode = KC_L;
+                    break;
+                case _KEYPAD:
+                    keycode = KC_P6;
+                    break;
+                case _LR_NAV:
+                    keycode = KC_END;
+                case _LR_REVIEW:
+                    keycode = KC_U;
+                case _LR_EDIT:
+                    keycode = KC_P;
+                    break;
+            }
+            break;
         case _MAGIC:
             switch (biton32(layer_state)) {
                 case _NAVI:
