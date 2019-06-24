@@ -1,6 +1,6 @@
 # suihankey
 
-![suihankey](imgur.com image replace me!)
+![suihankey](https://i.gyazo.com/f798c5967f2ac457dd520ab8ff83b6ac.jpg)
 
 A short description of the keyboard/project
 
