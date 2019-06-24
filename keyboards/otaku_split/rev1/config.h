@@ -43,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS { B5,B4,E6,D7,C6 }
 #define MATRIX_COL_PINS { B6,B2,B3,B1,F7,F6,F5,F4 }
-//#define MATRIX_COL_PINS { F4,F5,F6,F7,B1,B3,B2,B6 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -53,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+#define SPLIT_HAND_PIN D2 //fix pin. HIGH is left, LOW is right
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
