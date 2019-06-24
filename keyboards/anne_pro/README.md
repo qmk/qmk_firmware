@@ -13,10 +13,7 @@ After this build the Anne Pro firmware from the main folder.
 ```
 $ make anne_pro
 ```
-This produces a file `anne_pro_default.bin` in the main folder. To covert this to a DFU file use the script provided.
-```
-./util/dfu-convert.py -b 0x08004000:anne_pro_default.bin anne_pro_default.dfu
-```
+This produces a file `anne_pro_default.bin` in the main folder.
 
 ## Flashing the firmware
 First find the correct device to flash.
@@ -28,7 +25,7 @@ Found DFU: [0483:df11] ver=0200, devnum=30, cfg=1, intf=0, path="20-1.1", alt=1,
 Found DFU: [0483:df11] ver=0200, devnum=30, cfg=1, intf=0, path="20-1.1", alt=0, name="@Internal Flash  /0x08000000/64*256 a,192*256 g", serial="017D37663036"
 ...
 ```
-Then flash the firmware.
+Use the device with `Internal Flash 0x08000000` and specify the interface and alt. To flash use the following command.
 ```
-$ dfu-util --alt 0 --intf 0 --download anne_pro_default.dfu
+$ dfu-util --alt 0 --intf 0 --dfuse-address 0x08004000 --download anne_pro_default.bin
 ```
