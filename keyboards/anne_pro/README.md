@@ -15,7 +15,7 @@ $ make anne_pro
 ```
 This produces a file `anne_pro_default.bin` in the main folder. To covert this to a DFU file use the script provided.
 ```
-./dfu-convert.py -b 0x08004000:anne_pro_default.bin anne_pro_default.dfu
+./util/dfu-convert.py -b 0x08004000:anne_pro_default.bin anne_pro_default.dfu
 ```
 
 ## Flashing the firmware
