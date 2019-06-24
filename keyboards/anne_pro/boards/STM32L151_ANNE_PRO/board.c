@@ -73,6 +73,14 @@ const PALConfig pal_default_config = {
  *          and before any other initialization.
  */
 void __early_init(void) {
+  /* Disable all external interrupt vectors, they are left enabled by the bootloader */
+  nvicDisableVector(EXTI0_IRQn);
+  nvicDisableVector(EXTI1_IRQn);
+  nvicDisableVector(EXTI2_IRQn);
+  nvicDisableVector(EXTI3_IRQn);
+  nvicDisableVector(EXTI4_IRQn);
+  nvicDisableVector(EXTI9_5_IRQn);
+  nvicDisableVector(EXTI15_10_IRQn);
 
   stm32_clock_init();
 }
