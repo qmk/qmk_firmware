@@ -19,9 +19,9 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0006
+#define VENDOR_ID       0x0483
+#define PRODUCT_ID      0xdf11
+#define DEVICE_VER      0x0200
 
 #define MANUFACTURER QMK
 #define PRODUCT Anne Pro

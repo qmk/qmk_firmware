@@ -58,7 +58,6 @@ static void rxend(UARTDriver *uartp) {
     (void)uartp;
 }
 
-
 static UARTConfig uart_cfg = {
     .txend1_cb = txend1,
     .txend2_cb = txend2,
@@ -71,13 +70,7 @@ static UARTConfig uart_cfg = {
     .cr3 = 0
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) {
-        /* Send 'next theme' command to lighting controller */
-        uartStartSend(&UARTD3, 4, "\x09\x04\x05\x01\x00\x00");
-    }
-    return true;
-}
+extern volatile bool leds_enabled;
 
 void matrix_init_kb(void) {
     /* Turn on lighting controller */
@@ -93,7 +86,8 @@ void matrix_init_kb(void) {
     palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
 
     /* Send 'set theme' command to lighting controller */
-    uartStartSend(&UARTD3, 4, "\x09\x02\x01\x01");
+    leds_enabled = true;
+    uartStartSend(&UARTD3, 4, "\x09\x01\x01");
 
     matrix_init_user();
 }
