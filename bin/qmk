@@ -7,12 +7,34 @@ import sys
 from glob import glob
 from time import strftime
 from importlib import import_module
+from importlib.util import find_spec
 
 # Add the QMK python libs to our path
 script_dir = os.path.dirname(os.path.realpath(__file__))
 qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
 python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
 sys.path.append(python_lib_dir)
+
+# Change to the root of our checkout
+os.environ['ORIG_CWD'] = os.getcwd()
+os.chdir(qmk_dir)
+
+# Make sure our modules have been setup
+with open('requirements.txt', 'r') as fd:
+    for line in fd.readlines():
+        line = line.strip().replace('<', '=').replace('>', '=')
+
+        if line[0] == '#':
+            continue
+
+        if '#' in line:
+            line = line.split('#')[0]
+
+        module = line.split('=')[0] if '=' in line else line
+        if not find_spec(module):
+            print('Your QMK build environment is not fully setup!\n')
+            print('Please run `./util/qmk_install.sh` to setup QMK.')
+            exit(255)
 
 # Figure out our version
 command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
@@ -64,13 +86,12 @@ else:
 
     try:
         import_module(subcommand)
-    except ModuleNotFoundError:
+    except ModuleNotFoundError as e:
+        if e.__class__.__name__ != subcommand:
+            raise
+
         milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
         exit(1)
-
-# Change to the root of our checkout
-os.environ['ORIG_CWD'] = os.getcwd()
-os.chdir(qmk_dir)
 
 if __name__ == '__main__':
     milc.cli()
