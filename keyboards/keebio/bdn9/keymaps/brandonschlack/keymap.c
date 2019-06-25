@@ -296,6 +296,7 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
             rgb_layer_helper(HSV_AZURE);
             break;
     }
+    return state;
 }
 
 /**
