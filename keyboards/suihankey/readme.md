@@ -2,11 +2,14 @@
 
 ![suihankey](https://i.gyazo.com/f798c5967f2ac457dd520ab8ff83b6ac.jpg)
 
-A short description of the keyboard/project
+Compact with only 36 keys is a concept keyboard.  
+Supports OLED and RGBLED (optional)
+
+
 
 Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: suihankeyboard_alpha, promicro
+Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
 
