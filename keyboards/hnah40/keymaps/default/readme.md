@@ -1,1 +1,0 @@
-![Hnah40 Layout Image](https://imgur.com/7LT6Vam)

@@ -23,9 +23,7 @@ enum hnah_layers{
 };
 
 enum hnah_keycodes {
-  QWERTY,
-  LOWER,
-  RAISE 
+  QWERTY = SAFE_RANGE
 };
 
 #define LOWER MO(_LOWER)
