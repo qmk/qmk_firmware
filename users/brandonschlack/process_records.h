@@ -27,7 +27,7 @@ void matrix_scan_cmd_tab(void);
 #define MC_POWR   KC_POWER             // Mac Power alias
 #define MC_SLEP   LALT(LGUI(KC_POWER)) // Mac Sleep
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
-#define MC_MSSN   LCTL(KC_UP)          // Mission Control
+#define MC_MSSN   KC_F16               // Mission Control: Configure karabiner for F16 -> mission_control
 #define MC_LHPD   KC_F13               // Launchpad: Configure karabiner for F13 -> Launchpad
 #define MC_CMTB   LGUI(KC_TAB)         // Basic CMD+TAB
 #define CLS_TAB   LGUI(KC_W)           // Cmd+W: Closes Tab
