@@ -9,7 +9,7 @@ This is built as an ISO layout on the left and an ANSI layout on the right. This
 A customizable 60% keyboard.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: DZ60
+Hardware Supported: DZ60  
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/collections/pcb/products/dz60-60-pcb?variant=40971616717)
 
 Make example for this keyboard (after setting up your build environment):
