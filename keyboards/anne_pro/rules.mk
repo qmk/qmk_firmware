@@ -20,6 +20,9 @@ MCU  = cortex-m3
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 7
 
+# Extra arguments for dfu-util to flash to the correct location
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08004000
+
 # Build Options
 #   comment out to disable the options.
 #
