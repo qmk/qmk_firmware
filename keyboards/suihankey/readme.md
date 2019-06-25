@@ -8,7 +8,7 @@ Supports OLED and RGBLED (optional)
 
 
 Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
-Hardware Supported: suihankeyboard_alpha, promicro
+Hardware Supported: suihankeyboard_alpha, promicro  
 Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
