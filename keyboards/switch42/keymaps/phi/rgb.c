@@ -50,8 +50,8 @@ void rgb_set_underglow_cell (uint8_t r, uint8_t g, uint8_t b, int i) {
 void rgb_set_bg_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     LED_TYPE from, to;
 
-    sethsv(h, s, BG_GRADIENT_VALUE, &from);
-    sethsv(h2, s2, BG_GRADIENT_VALUE, &to);
+    sethsv(h * 256 / 360, s, BG_GRADIENT_VALUE, &from);
+    sethsv(h2 * 256 / 360, s2, BG_GRADIENT_VALUE, &to);
 
     for (int i = 0; i < BACKLIGHT_NUM; i++) {
         rgb_set_bg_cell(
@@ -66,8 +66,8 @@ void rgb_set_bg_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
 void rgb_set_underglow_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     LED_TYPE from, to;
 
-    sethsv(h, s, UNDERGLOW_VALUE, &from);
-    sethsv(h2, s2, UNDERGLOW_VALUE, &to);
+    sethsv(h * 256 / 360, s, UNDERGLOW_VALUE, &from);
+    sethsv(h2 * 256 / 360, s2, UNDERGLOW_VALUE, &to);
 
     for (int i = 0; i < UNDERGLOW_NUM; i++) {
         rgb_set_underglow_cell(

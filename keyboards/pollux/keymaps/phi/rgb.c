@@ -21,6 +21,8 @@ void rgb_send (void) {
 }
 
 void rgb_set_bg_cell_hsv (uint16_t h, uint8_t s, uint8_t v, int i) {
+    h = h * 256 / 360;
+
     sethsv(h, s, v, &bg[i]);
 
     if (!fg[i]) {
@@ -53,7 +55,7 @@ void rgb_set_fg_cell (bool value, int i) {
 }
 
 void rgb_set_underglow_cell_hsv (uint16_t h, uint8_t s, uint8_t v, int i) {
-    sethsv(h, s, v, &led[i + BACKLIGHT_NUM]);
+    sethsv(h * 256 / 360, s, v, &led[i + BACKLIGHT_NUM]);
     dirty_led_count = MAX(dirty_led_count, i + BACKLIGHT_NUM + 1);
 }
 

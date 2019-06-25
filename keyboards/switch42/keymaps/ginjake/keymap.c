@@ -168,10 +168,10 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     //キー毎に時間差で色が変化していく
     if (aqours_next_color_timer_count % NEXT_CHANGE_TARGET_TIME == 0) {
       if (target_col < MATRIX_COLS) {
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[11 - target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[12 + target_col]);
-        sethsv(aqours_h[aqours_num], aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[23 - target_col]);
+        sethsv(aqours_h[aqours_num] * 256 / 360, aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[target_col]);
+        sethsv(aqours_h[aqours_num] * 256 / 360, aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[11 - target_col]);
+        sethsv(aqours_h[aqours_num] * 256 / 360, aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[12 + target_col]);
+        sethsv(aqours_h[aqours_num] * 256 / 360, aqours_s[aqours_num], aqours_v[aqours_num], (LED_TYPE *)&led[23 - target_col]);
         target_col++;
         rgblight_set();
       }
@@ -198,9 +198,9 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
                 read_num = read_num - ELECTRIC_BOARD_LENGTH;
             }
             if (electric_board_data[c][read_num]) {
-                sethsv(aqours_h[3], aqours_s[3], aqours_v[3], (LED_TYPE *)&led[i + 6 * c]);
+                sethsv(aqours_h[3] * 256 / 360, aqours_s[3], aqours_v[3], (LED_TYPE *)&led[i + 6 * c]);
             } else {
-                sethsv(aqours_h[4], aqours_s[4], aqours_v[4], (LED_TYPE *)&led[i + 6 * c]);
+                sethsv(aqours_h[4] * 256 / 360, aqours_s[4], aqours_v[4], (LED_TYPE *)&led[i + 6 * c]);
             }
           }
         }

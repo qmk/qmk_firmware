@@ -28,9 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
-
-#define USE_SERIAL_PD2
+#define SOFT_SERIAL_PIN D2
 
 #define TAPPING_TERM 180
 #define IGNORE_MOD_TAP_INTERRUPT
+
+#define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"

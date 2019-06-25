@@ -61,31 +61,35 @@ enum ssd1306_cmds {
 #define MatrixCols (DisplayWidth / FontWidth)
 
 struct CharacterMatrix {
-  uint8_t display[MatrixRows][MatrixCols];
+  uint8_t display[MatrixRows][DisplayWidth];
   uint8_t *cursor;
   bool dirty;
 };
 
 struct CharacterMatrix display;
+struct CharacterMatrix background;
 
 bool iota_gfx_init(bool rotate);
 void iota_gfx_task(void);
 bool iota_gfx_off(void);
 bool iota_gfx_on(void);
 void iota_gfx_flush(void);
-void iota_gfx_write_char(uint8_t c);
-void iota_gfx_write(const char *data);
-void iota_gfx_write_P(const char *data);
 void iota_gfx_clear_screen(void);
 
 void iota_gfx_task_user(void);
 
+void set_overwrite_mode(bool value);
+void set_progmem_mode(bool value);
 void matrix_clear(struct CharacterMatrix *matrix);
-void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c);
-void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);
+void matrix_reset_cursor(struct CharacterMatrix *matrix);
+void matrix_return(struct CharacterMatrix *matrix);
+void matrix_newline(struct CharacterMatrix *matrix);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
+void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
-void matrix_write_P(struct CharacterMatrix *matrix, const char *data);
-void matrix_render(struct CharacterMatrix *matrix);
+void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
+void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg);
+void matrix_push(const struct CharacterMatrix *matrix);
+void matrix_push_background(const struct CharacterMatrix *matrix);
 
 bool process_record_gfx(uint16_t keycode, keyrecord_t *record);
