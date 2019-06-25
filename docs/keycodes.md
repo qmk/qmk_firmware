@@ -298,7 +298,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
 ## [Mouse Keys](feature_mouse_keys.md)
