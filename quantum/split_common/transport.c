@@ -13,7 +13,6 @@
 
 #ifdef BACKLIGHT_ENABLE
 #  include "backlight.h"
-extern backlight_config_t backlight_config;
 #endif
 
 #ifdef ENCODER_ENABLE
@@ -55,7 +54,7 @@ bool transport_master(matrix_row_t matrix[]) {
 
   // write backlight info
 #  ifdef BACKLIGHT_ENABLE
-  uint8_t level = get_backlight_level();
+  uint8_t level = is_backlight_enabled() ? get_backlight_level() : 0;
   if (level != i2c_buffer->backlight_level) {
     if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIGHT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
       i2c_buffer->backlight_level = level;
@@ -75,7 +74,7 @@ bool transport_master(matrix_row_t matrix[]) {
 #  endif
 
 #  ifdef ENCODER_ENABLE
-  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(I2C_slave_buffer_t.encoder_state), TIMEOUT);
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(i2c_buffer->encoder_state), TIMEOUT);
   encoder_update_raw(i2c_buffer->encoder_state);
 #  endif
 
@@ -223,7 +222,7 @@ bool transport_master(matrix_row_t matrix[]) {
 
 #  ifdef BACKLIGHT_ENABLE
   // Write backlight level for slave to read
-  serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
+  serial_m2s_buffer.backlight_level = is_backlight_enabled() ? get_backlight_level() : 0;
 #  endif
 
 #  ifdef ENCODER_ENABLE

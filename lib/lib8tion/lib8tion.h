@@ -167,8 +167,8 @@ Lib8tion is pronounced like 'libation': lie-BAY-shun
 
 #include <stdint.h>
 
-#define LIB8STATIC __attribute__ ((unused)) static inline
-#define LIB8STATIC_ALWAYS_INLINE __attribute__ ((always_inline)) static inline
+#define LIB8STATIC static inline
+#define LIB8STATIC_ALWAYS_INLINE static inline
 
 #if !defined(__AVR__)
 #include <string.h>

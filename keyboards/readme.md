@@ -3,8 +3,6 @@ QMK runs on a diverse range of keyboards. Some of these keyboards are officially
 
 ## Official QMK Keyboards
 
-These keyboards are manufactured by the maintainers of QMK.
-
 ### Ortholinear Keyboards - Jack Humbert
 
 What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and killer tactile feel. These are available through [olkb.com](http://olkb.com) as well as through [Massdrop](http://massdrop.com) from time to time, as easy to assemble kits.
@@ -13,12 +11,6 @@ What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and
 * [Preonic](/keyboards/preonic/) &mdash; Like the Planck, but bigger. 50%.
 * [Atomic](/keyboards/atomic/) &mdash; Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
 
-### ErgoDox EZ - Erez Zukerman
-
-Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing. Available on [ergodox-ez.com](https://ergodox-ez.com).
-
-* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
-
 ### Clueboard - Zach White
 
 Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components, available on [clueboard.co](http://clueboard.co)
@@ -26,6 +18,13 @@ Designed and built in Felton, CA, Clueboards keyboard emphasize quality and loca
 * [Clueboard](/keyboards/clueboard/66/) &mdash; The 66% custom keyboard.
 * [Cluecard](/keyboards/clueboard/card/) &mdash; A small board to help you hack on QMK.
 * [Cluepad](/keyboards/clueboard/17/) &mdash; A mechanical numpad with QMK superpowers.
+
+### ErgoDox EZ and Planck EZ - ZSA Technology Labs
+
+[ZSA Technology Labs](https://ergodox-ez.com) maintains its own [fork of QMK](https://github.com/zsa/qmk_firmware) which feeds its [configurator](https://configure.ergodox-ez.com), for stability and legal purposes. The ZSA boards are:
+
+* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; A powerful split mechanical keyboard.
+* [Planck EZ](/keyboards/planck/ez) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine, which ships fully assembled with a two-year warranty.
 
 
 ## Community-supported QMK Keyboards
