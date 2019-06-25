@@ -15,6 +15,10 @@ Example of flashing this keyboard:
 
     make keebio/iris/rev2:default:avrdude
 
-See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+Note that Iris rev3 uses the `dfu` bootloader:
+
+    make keebio/iris/rev3:default:dfu
+
+See [build environment setup](https://docs.qmk.fm/#/newbs_getting_started) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Linux users should consult options for [`atmel-dfu` `udev` rules](https://docs.qmk.fm/#/faq_build?id=linux-udev-rules).
 
 A build guide for this keyboard can be found here: [Iris Build Guide](https://docs.keeb.io/iris-build-guide.html)
