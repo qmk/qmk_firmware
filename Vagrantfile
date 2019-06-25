@@ -52,28 +52,31 @@ Vagrant.configure(2) do |config|
   end
 
   # Docker provider pulls from hub.docker.com respecting docker.image if
-  # config.vm.box is nil. Note that this bind-mounts from the current dir to
+  # config.vm.box is nil. In this case, we adhoc build util/vagrant/Dockerfile.
+  # Note that this bind-mounts from the current dir to
   # /vagrant in the guest, so unless your UID is 1000 to match vagrant in the
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "qmkfm/base_container"
+    docker.build_dir = "util/vagrant"
     docker.has_ssh = true
   end
 
   # Unless we are running the docker container directly
   #   1. run container detached on vm
   #   2. attach on 'vagrant ssh'
-  unless ARGV.include?("--provider=docker")
-    config.vm.provision "docker" do |d|
-      d.run "qmkfm/base_container",
-        cmd: "tail -f /dev/null",
-        args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
-    end
+  ["virtualbox", "vmware_workstation", "vmware_fusion"].each do |type|
+    config.vm.provider type do |virt, override|
+      override.vm.provision "docker" do |d|
+        d.run "qmkfm/base_container",
+          cmd: "tail -f /dev/null",
+          args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
+      end
 
-    config.vm.provision "shell", inline: <<-SHELL
-      echo 'exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
-    SHELL
+      override.vm.provision "shell", inline: <<-SHELL
+        echo 'exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+      SHELL
+    end
   end
 
   config.vm.post_up_message = <<-EOT
