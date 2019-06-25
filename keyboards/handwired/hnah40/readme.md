@@ -1,6 +1,6 @@
 # hnah40
 
-![Hnah40](https://i.imgur.com/TEC5ZRP.jpg)
+![Hnah40](https://i.imgur.com/nXVmcyc.jpg)
 
 A custom 40% keyboard PCB, insprired by Plaid keyboard from hsgw
 
