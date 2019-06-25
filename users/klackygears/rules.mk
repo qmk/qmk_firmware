@@ -8,6 +8,7 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 
+
 ##ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 ##  SRC += rgb_stuff.c
 ##  ifeq ($(strip $(RGBLIGHT_EFFECT_BEAM)), yes)

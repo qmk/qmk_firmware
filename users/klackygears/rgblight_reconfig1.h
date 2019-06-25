@@ -27,11 +27,9 @@
     defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || \
     defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) ||	\
     defined(RGBLIGHT_EFFECT_SNAKE) ||		\
-    /*
     defined(RGBLIGHT_EFFECT_BEAM)  ||  \
     defined(RGBLIGHT_EFFECT_HYPER)  ||  \
     defined(RGBLIGHT_EFFECT_RAINBOW_SPARKLE) ||	\
-    */
     defined(RGBLIGHT_EFFECT_KNIGHT) ||		\
     defined(RGBLIGHT_EFFECT_CHRISTMAS) ||	\
     defined(RGBLIGHT_EFFECT_RGB_TEST) ||	\

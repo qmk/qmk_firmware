@@ -19,7 +19,7 @@ SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
 VELOCIKEY_ENABLE = no
-
+BOOTLOADER = qmk-dfu
 #LED_ANIMATIONS = yes
 #LED_BACK_ENABLE = yes
 
