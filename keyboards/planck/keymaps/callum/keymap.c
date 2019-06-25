@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     if (record->event.pressed) {
-        SEND_STRING(s);
+        send_string(s);
     }
     return true;
 }
