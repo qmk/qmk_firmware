@@ -57,16 +57,24 @@ Vagrant.configure(2) do |config|
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:stretch"
+    docker.image = "qmkfm/base_container"
     docker.has_ssh = true
   end
 
-  # This script ensures the required packages for AVR programming are installed
-  # It also ensures the system always gets the latest updates when powered on
-  # If this causes issues you can run a 'vagrant destroy' and then
-  # add a # before ,run: (or change "always" to "once") and run 'vagrant up' to get a working
-  # non-updated box and then attempt to troubleshoot or open a Github issue
-  config.vm.provision "shell", inline: "/vagrant/util/qmk_install.sh", run: "always"
+  # Unless we are running the docker container directly
+  #   1. run container detached on vm
+  #   2. attach on 'vagrant ssh'
+  unless ARGV.include?("--provider=docker")
+    config.vm.provision "docker" do |d|
+      d.run "qmkfm/base_container",
+        cmd: "tail -f /dev/null",
+        args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
+    end
+
+    config.vm.provision "shell", inline: <<-SHELL
+      echo 'exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+    SHELL
+  end
 
   config.vm.post_up_message = <<-EOT
 
