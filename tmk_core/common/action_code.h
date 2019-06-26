@@ -202,6 +202,7 @@ typedef union {
  *   bit 4      +----- LR flag(Left:0, Right:1)
  */
 enum mods_bit {
+    MOD_NONE = 0x00,
     MOD_LCTL = 0x01,
     MOD_LSFT = 0x02,
     MOD_LALT = 0x04,
@@ -277,7 +278,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
 #define ACTION_LAYER_ONESHOT(layer)                 ACTION_LAYER_TAP((layer), OP_ONESHOT)
-#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | ((mods)&0x0f))
+#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xc0 | ((mods)&0x1f))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
