@@ -74,15 +74,15 @@ Vagrant.configure(2) do |config|
       end
 
       override.vm.provision "shell", inline: <<-SHELL
-        echo 'exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+        echo 'docker restart qmkfm-base_container && exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
       SHELL
     end
   end
 
   config.vm.post_up_message = <<-EOT
 
-  Log into the VM using 'vagrant ssh'. QMK directory synchronized with host is
-  located at /vagrant
+  Log into the environment using 'vagrant ssh'. QMK directory synchronized with
+  host is located at /vagrant
   To compile the .hex files use make command inside this directory, e.g.
      cd /vagrant
      make <keyboard>:default
