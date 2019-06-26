@@ -5,7 +5,7 @@
 A custom 40% keyboard PCB, insprired by Plaid keyboard from hsgw
 
 
-Keyboard Maintainer: [vuhopkep](https://github.com/vuhopkep) 
+Keyboard Maintainer: [vuhopkep](https://github.com/vuhopkep)  
 Hardware Availability: https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega328p
 
 Make example for this keyboard (after setting up your build environment):
