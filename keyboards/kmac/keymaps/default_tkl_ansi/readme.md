@@ -1,9 +1,6 @@
-# Keymap for the winkeyless version of KMAC
+# Keymap for the winkey version of KMAC
 
-This is the default keymap for the winkeyless version of the PCB. It implements the same features as the official default KMAC firmware.
-
-
-See [keymap.c](keymap.c) for details.
+This is the default keymap for the winkey version of the PCB. It implements the same features as the official default KMAC firmware.
 
 ## Layers
 
@@ -22,7 +19,7 @@ The keymap have two layers. To access the functions on the second layer, hold do
      |-----------------------------------------------------------|     ,---.
      |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
      |-----------------------------------------------------------| ,-----------.
-     |Ctl|Gui|Alt|               Space               |Alt|Fn |Ctl| |Lef|Dow|Rig|
+     |Ctl|Gui|Alt|             Space             |Alt|Gui|Fn |Ctl| |Lef|Dow|Rig|
      `-----------------------------------------------------------' `-----------'
 
 ### Layer 2: Function Layer
@@ -38,7 +35,7 @@ The keymap have two layers. To access the functions on the second layer, hold do
      |-----------------------------------------------------------|     ,---.
      |        |   |   |   |   |   |   |   |   |   |   |          |     |   |
      |-----------------------------------------------------------| ,-----------.
-     |   |   |   |                                   |   |   |   | |   |   |   |
+     |   |   |   |                               |   |   |   |   | |   |   |   |
      `-----------------------------------------------------------' `-----------'
 
 ## Macros
@@ -51,7 +48,3 @@ These are mostly useless and serve more like examples I guess.
 | 2     | Types `Custom`                         |
 | 3     | Types `Keyboard`                       |
 | 4     | Inputs `<Ctrl+c>` `<Right>` `<Ctrl+v>` |
-
-## Building
-
-To build the firmware with the keymap for the winkeyless version, run `make winkeyless`.
