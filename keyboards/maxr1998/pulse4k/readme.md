@@ -1,7 +1,4 @@
 # Pulse 4k
-
-*Image coming soon*
-
 A four-key macropad with two rotary encoders, developed by Maxr1998, [fully open-source](https://github.com/Maxr1998/Pulse_4k).
 
 Keyboard Maintainer: [Maxr1998](https://github.com/Maxr1998)  
