@@ -23,7 +23,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEFAULT] = {
-        { KC_END,  KC_MPLY, KC_MUTE },
+        { KC_END,  KC_UP,   KC_MUTE },
         { KC_LEFT, KC_DOWN, KC_RGHT }
     }
 };
