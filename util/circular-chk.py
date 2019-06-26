@@ -1,7 +1,11 @@
 import glob
 import re
-from sys import exit
+from sys import exit, argv
 from pathlib import Path
+
+strict = False
+if len(argv) > 1 and argv[1] == '--strict' :
+    strict = True
 
 regexExclude = r"keymaps\/(.*)via\/"
 reg = re.compile(regexExclude)
@@ -41,4 +45,7 @@ if len(illegalSRC) > 0:
     for fp in illegalSRC:
         print(str(fp))
     print(f'{len(illegalSRC)} files with illegal imports')
-    exit(1)
+    if strict:
+        exit(1)
+    else:
+        exit(0)
