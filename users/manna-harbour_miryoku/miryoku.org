@@ -431,6 +431,8 @@ Config options.  Automatically included.
 
 // <<header>>
 
+#pragma once
+
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -590,6 +592,7 @@ cd ../.. && make crkbd:manna-harbour_miryoku:avrdude
 ** QMK
 
 - https://qmk.fm/
+- https://docs.qmk.fm/#/getting_started_introduction
 - https://docs.qmk.fm/#/hardware_keyboard_guidelines
 - https://docs.qmk.fm/#/config_options
 - https://docs.qmk.fm/#/keycodes
