@@ -1,6 +1,8 @@
 
 // generated from users/manna-harbour_miryoku/miryoku.org
 
+#pragma once
+
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 
