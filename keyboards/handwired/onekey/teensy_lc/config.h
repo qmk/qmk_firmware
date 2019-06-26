@@ -16,10 +16,9 @@
 
 #pragma once
 
-#include "quantum.h"
+// TODO: including this causes "error: expected identifier before '(' token" errors
+//#include "config_common.h"
 
-#define LAYOUT( \
-    k00 \
-  ) { \
-    { k00 }  \
-}
+#define MATRIX_COL_PINS { D5 }
+#define MATRIX_ROW_PINS { B2 }
+#define UNUSED_PINS

@@ -16,10 +16,8 @@
 
 #pragma once
 
-#include "quantum.h"
+#include "config_common.h"
 
-#define LAYOUT( \
-    k00 \
-  ) { \
-    { k00 }  \
-}
+#define MATRIX_COL_PINS { B2 }
+#define MATRIX_ROW_PINS { B1 }
+#define UNUSED_PINS
