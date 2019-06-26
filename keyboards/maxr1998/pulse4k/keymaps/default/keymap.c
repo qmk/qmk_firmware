@@ -23,8 +23,8 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEFAULT] = {
-        { KC_END,  KC_UP,   KC__MUTE },
-        { KC_LEFT, KC_DOWN, KC_RGHT  }
+        { KC_END,  KC_MPLY, KC_MUTE },
+        { KC_LEFT, KC_DOWN, KC_RGHT }
     }
 };
 
@@ -41,8 +41,8 @@ void encoder_one_update(bool clockwise) {
 
 void encoder_two_update(bool clockwise) {
     if (clockwise) {
-        tap_code(KC__VOLUP);
+        tap_code(KC_VOLU);
     } else {
-        tap_code(KC__VOLDOWN);
+        tap_code(KC_VOLD);
     }
 }
