@@ -432,14 +432,14 @@ void process_action(keyrecord_t *record, action_t action)
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case 0xe0 ... 0xef:
+                case KC_LCTRL ... KC_RGUI:
                     /* layer On/Off with modifiers(left only) */
                     if (event.pressed) {
                         layer_on(action.layer_tap.val);
-                        register_mods(action.layer_tap.code & 0x0f);
+                        register_mods(action.layer_tap.code);
                     } else {
                         layer_off(action.layer_tap.val);
-                        unregister_mods(action.layer_tap.code & 0x0f);
+                        unregister_mods(action.layer_tap.code);
                     }
                     break;
                 case OP_TAP_TOGGLE:
