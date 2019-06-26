@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright (C) 2012-2019  Jun Wako <wakojun@gmail.com>, Maxr1998 <max.rumpf1998@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
