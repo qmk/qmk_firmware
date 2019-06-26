@@ -38,7 +38,7 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-BOOTLOADER = USBasp
+BOOTLOADER = bootloadHID
 
 # Flash program via avrdude, but default command is not suitable.
 # You can use hnah40:default:program
