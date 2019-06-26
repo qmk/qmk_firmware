@@ -14,7 +14,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite    # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 ENCODER_ENABLE = yes       # Rotary encoders
 EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
