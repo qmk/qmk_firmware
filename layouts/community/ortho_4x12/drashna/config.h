@@ -45,7 +45,7 @@
 #       define PRODUCT Drashna Hacked RGB Beacon (Planck Light)
 #   elif defined(KEYBOARD_planck_rev6)
 #       define PRODUCT Drashna Hacked Planck Rev6
-#   elif defined(KEYBOARD_planck_EZ)
+#   elif defined(KEYBOARD_planck_ez)
 #   define PRODUCT Drashna Hacked Planck EZ
 #   endif
 #endif
