@@ -476,6 +476,7 @@ enum quantum_keycodes {
     HPT_MODD,
     HPT_DWLI,
     HPT_DWLD,
+
     // Left control, open paren
     KC_LCPO,
 
@@ -492,6 +493,9 @@ enum quantum_keycodes {
     MAGIC_SWAP_RCTL_RGUI,
     MAGIC_UNSWAP_LCTL_LGUI,
     MAGIC_UNSWAP_RCTL_RGUI,
+    MAGIC_SWAP_CTL_GUI,
+    MAGIC_UNSWAP_CTL_GUI,
+    MAGIC_TOGGLE_CTL_GUI,
 
     // always leave at the end
     SAFE_RANGE
@@ -639,6 +643,10 @@ enum quantum_keycodes {
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
 #define AG_TOGG MAGIC_TOGGLE_ALT_GUI
+
+#define CG_SWAP MAGIC_SWAP_CTL_GUI
+#define CG_NORM MAGIC_UNSWAP_CTL_GUI
+#define CG_TOGG MAGIC_TOGGLE_CTL_GUI
 
 // GOTO layer - 16 layers max
 // when:
