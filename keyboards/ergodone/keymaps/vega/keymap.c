@@ -1,17 +1,18 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer, Dvoark
-#define GREL 1 // Greekl
-#define GREU 2 // GreekU
-#define SYMB 3 // Symbols
-#define MATH 4 // Math
-#define QWER 14 // Qwerty
-#define FNLR 15 // Function
+enum layer_names {
+    BASE,
+    GREL,
+    GREU,
+    SYMB,
+    MATH,
+    QWER,
+    FNLR
+};
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
+  PLACEHOLDER = SAFE_RANGE,
   VRSN,
   RGB_SLD
 };
@@ -436,12 +437,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        KC_NO,KC_F21, KC_F22, KC_F23,KC_F24, KC_NO,
        KC_NO,KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
-          EPRM,TO(8),TO(9),TO(10),TO(11),
+          EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,
        // right hand
-       TO(0), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_M_LN,
+       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_M_LN,
        KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_M_WI,
                 KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
@@ -472,14 +473,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLASH,
 	X(arwr), X(root), X(and), X(imply), X(nexists), X(forall),
 	KC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
-	KC_MS_L, TO(0), TO(0), KC_INS, KC_DEL,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
 	TT(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
 	KC_PGUP, X(plsminus),	X(infin),	X(neleof),	X(equiv),	X(Mq),	KC_EQL,
 	X(sum),	X(emtyset),	X(porp),	X(suprsetof),	X(not),	X(neq),
 	KC_PGDN,	X(subsetof),	X(intersection),	X(angl),	X(nmember),	X(eleof),	KC_RSPC,
-	KC_RCTL, KC_RALT, KC_APP, TO(0), TO(0),
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
@@ -488,7 +489,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	X(boxemp), X(bbstr), X(bbrtr), X(bbrtl), X(bbstl), X(degree), X(brkdn),
 	X(boxchk), X(bbmbl), X(bbml), X(bbmr), X(bbmbr), X(neteen),
 	X(boxX), X(bbsbr), X(bbrbr), X(bbrbl), X(bbsbl), X(uxclm), X(brkup),
-	X(floppy), TO(0), TO(0), X(arwu), X(arwd),
+	X(floppy), TO(BASE), TO(BASE), X(arwu), X(arwd),
 	X(fire), X(lshade), X(mshade), KC_SPC, X(OS), X(dshade),
 
 	X(Ox), X(Of), X(Og), X(Oh), X(Oi), X(OA), X(OB),
@@ -504,14 +505,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(gp), X(gy), KC_SLSH,
 	KC_SLSH, X(ga), X(go), X(ge), X(gu), X(gi),
 	MO(GREU), KC_SCLN, X(gq), X(gj), X(gk), X(gx), KC_AMPR,
-	KC_MS_L, TO(0), TO(0), KC_INS, KC_DEL,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(0), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
+	TO(BASE), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
 	KC_PGUP, X(gf), X(gg), X(gc), X(gr), X(gl), KC_EQL,
 	X(gd), X(gh), X(gt), X(gn), X(gs), KC_MINS,
 	KC_PGDN, X(gb), X(gm), X(gw), X(gv), X(gz), MO(GREU),
-	KC_RCTL, KC_RALT, KC_APP, TO(0), TO(0),
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
@@ -520,52 +521,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(Gp), X(Gy), KC_SLSH,
 	KC_SLSH, X(Ga), X(Go), X(Ge), X(Gu), X(Gi),
 	KC_TRNS, KC_SCLN, X(Gq), X(Gj), X(Gk), X(Gx), KC_AMPR,
-	KC_MS_L, TO(0), TO(0), KC_INS, KC_DEL,
+	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(0), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
+	TO(BASE), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
 	KC_PGUP, X(Gf), X(Gg), X(Gc), X(Gr), X(Gl), KC_EQL,
 	X(Gd), X(Gh), X(Gt), X(Gn), X(Gs), KC_MINS,
 	KC_PGDN, X(Gb), X(Gm), X(Gw), X(Gv), X(Gz), KC_TRNS,
-	KC_RCTL, KC_RALT, KC_APP, TO(0), TO(0),
+	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-        case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
     case RGB_SLD:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -573,7 +549,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       }
       return false;
-      break;
   }
   return true;
 }
