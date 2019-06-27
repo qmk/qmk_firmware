@@ -2,8 +2,6 @@
 
 This is the default keymap for the winkey version of the PCB. It implements the same features as the official default KMAC firmware.
 
-See [keymap.c](keymap.c) for details.
-
 ## Layers
 
 The keymap have two layers. To access the functions on the second layer, hold down `Fn` and press the corresponding key.
@@ -50,7 +48,3 @@ These are mostly useless and serve more like examples I guess.
 | 2     | Types `Custom`                         |
 | 3     | Types `Keyboard`                       |
 | 4     | Inputs `<Ctrl+c>` `<Right>` `<Ctrl+v>` |
-
-## Building
-
-To build the firmware with the default keymap, run `make default`.

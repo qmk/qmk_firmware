@@ -1,5 +1,5 @@
 # Project specific files
-SRC = matrix.c
+SRC += matrix.c
 
 # MCU name
 #MCU = at90usb1287
@@ -42,14 +42,18 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = atmel-dfu
 
+
+# Supported layouts
+LAYOUTS = tkl_ansi
 
 # Build Options
 #   change yes to no to disable

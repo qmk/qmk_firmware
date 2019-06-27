@@ -1,4 +1,4 @@
-/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
+// TODO: including this causes "error: expected identifier before '(' token" errors
+//#include "config_common.h"
 
-// place overrides here
-
-#endif
+#define MATRIX_COL_PINS { D5 }
+#define MATRIX_ROW_PINS { B2 }
+#define UNUSED_PINS
