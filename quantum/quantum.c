@@ -1104,7 +1104,7 @@ void matrix_scan_quantum() {
   #if BACKLIGHT_PIN == D4
     #define COMxx1          COM1B1
     #define OCRxx           OCR1B
-  #elif BACKLIGHT_PIN = D5
+  #elif BACKLIGHT_PIN == D5
     #define COMxx1          COM1A1
     #define OCRxx           OCR1A
   #endif
