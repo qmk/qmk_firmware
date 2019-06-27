@@ -62,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┼───┼───┤RSt│
      * │      │M← │M↓ │M→ │MW↑│   │   │   │   │   │   │   │        │RH-│RS-│RV-│   │
      * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┼───┼───┼───┤
-     * │    │   │MA0│MA2│MW←│MW→│   │   │   │Vo-│Vo+│Mut│      │PgU│RMR│RMS│RMB│   │
+     * │    │   │MA0│MA2│MW←│MW→│   │   │App│Vo-│Vo+│Mut│      │PgU│RMR│RMS│RMB│   │
      * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┼───┼───┤RMP│
-     * │    │DtPR│DtNA│          MW↓           │   │   │App│Hom│PgD│End│RM-│RM+│   │
+     * │    │DtPR│DtNA│          MW↓           │   │   │   │Hom│PgD│End│RM-│RM+│   │
      * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
      */
     [L_FN] = LAYOUT(
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, RGB_TOG, DIVIDE,  TIMES,   MINUS,
         KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______,                   RGB_HUD, RGB_SAD, RGB_VAD, RGB_SET,
-        _______, _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______,          KC_PGUP, RGB_M_R, RGB_M_SN,RGB_M_B, XXXXXXX,
-        _______, DST_P_R, DST_N_A,                            KC_WH_D,                            _______, _______, KC_APP,  KC_HOME, KC_PGDN, KC_END,  RGB_RMOD,RGB_MOD, RGB_M_P
+        _______, _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, KC_APP,  KC_VOLD, KC_VOLU, KC_MUTE, _______,          KC_PGUP, RGB_M_R, RGB_M_SN,RGB_M_B, XXXXXXX,
+        _______, DST_P_R, DST_N_A,                            KC_WH_D,                            _______, _______, _______, KC_HOME, KC_PGDN, KC_END,  RGB_RMOD,RGB_MOD, RGB_M_P
     ),
 };
