@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 - Layer 3 is Backlight control and RESET
     - `Fn2+CAPS` used to toggle Default QWERTY layer on and off
 
-![RGB and RESET Layer](https://imgur.com/1ScpRE4.png)
+![RGB and RESET Layer](https://imgur.com/mMHoJPa.png)
 
 ### Build
 To build the firmware file associated with this keymap, simply run `make your_keyboard:stanrc85`.

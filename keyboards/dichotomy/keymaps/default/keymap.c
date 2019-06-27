@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "dichotomy.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.

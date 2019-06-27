@@ -44,5 +44,5 @@ CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c backlight_ps2avrGB.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/winkeyless/bface/program .build/$(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 

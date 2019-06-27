@@ -44,10 +44,6 @@
     #endif
 #endif
 
-#ifdef SPLIT_KEYBOARD
-    #include "split_flags.h"
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     #include "rgb_matrix.h"
 #endif
@@ -65,10 +61,10 @@
 #include "send_string_keycodes.h"
 #include "suspend.h"
 
-extern uint32_t default_layer_state;
+extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-    extern uint32_t layer_state;
+    extern layer_state_t layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -135,12 +131,20 @@ extern uint32_t default_layer_state;
     #include "process_terminal_nop.h"
 #endif
 
+#ifdef SPACE_CADET_ENABLE
+  #include "process_space_cadet.h"
+#endif
+
 #ifdef HD44780_ENABLE
     #include "hd44780.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
+#endif
+
+#ifdef OLED_DRIVER_ENABLE
+    #include "oled_driver.h"
 #endif
 
 //Function substitutions to ease GPIO manipulation
@@ -191,6 +195,10 @@ extern uint32_t default_layer_state;
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
 
+#define SS_TAP_CODE 1
+#define SS_DOWN_CODE 2
+#define SS_UP_CODE 3
+
 #define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
 #define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
 #define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
@@ -206,6 +214,7 @@ extern uint32_t default_layer_state;
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
+extern const bool ascii_to_altgr_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
@@ -228,6 +237,8 @@ void matrix_init_kb(void);
 void matrix_scan_kb(void);
 void matrix_init_user(void);
 void matrix_scan_user(void);
+uint16_t get_record_keycode(keyrecord_t *record);
+uint16_t get_event_keycode(keyevent_t event);
 bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
@@ -253,8 +264,12 @@ void tap_code16(uint16_t code);
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
 void backlight_task(void);
+void backlight_task_internal(void);
+void backlight_on(uint8_t backlight_pin);
+void backlight_off(uint8_t backlight_pin);
 
 #ifdef BACKLIGHT_BREATHING
+void breathing_task(void);
 void breathing_enable(void);
 void breathing_pulse(void);
 void breathing_disable(void);
