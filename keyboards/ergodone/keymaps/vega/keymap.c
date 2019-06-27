@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
 
 enum layer_names {
     BASE,
@@ -9,12 +8,6 @@ enum layer_names {
     MATH,
     QWER,
     FNLR
-};
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE,
-  VRSN,
-  RGB_SLD
 };
 
 enum unicode_names {
@@ -433,7 +426,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [FNLR] = LAYOUT_ergodox(
        // left hand
-       VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
+       KC_NO,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
        KC_NO,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        KC_NO,KC_F21, KC_F22, KC_F23,KC_F24, KC_NO,
        KC_NO,KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
@@ -533,25 +526,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
-  }
-  return true;
-}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
