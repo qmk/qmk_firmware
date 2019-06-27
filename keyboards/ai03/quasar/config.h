@@ -24,12 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0010
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Ryota Goto
-#define PRODUCT         quasar
+#define PRODUCT         Quasar
 #define DESCRIPTION     SSK Controller
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments

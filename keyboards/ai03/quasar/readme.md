@@ -1,15 +1,15 @@
-# quasar
+# Quasar
 
-![quasar](imgur.com image replace me!)
+![Quasar](https://i.imgur.com/XIbX2Pw.jpg)
 
-A short description of the keyboard/project
+Replacement controller for the IBM Model M Space Saving keyboard
 
-Keyboard Maintainer: [Ryota Goto](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
+Hardware Supported: The Quasar PCB
+Hardware Availability: https://github.com/ai03-2725/Quasar/  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make quasar:default
+    make ai03/quasar:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
