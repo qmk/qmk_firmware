@@ -76,6 +76,10 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and Left GUI              |
 |`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and Right GUI              |
 |`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and Right GUI            |
+|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and Left GUI            |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and Left GUI          |
+|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and Right GUI          |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and Right GUI        |
 
 ## Configuration
 
