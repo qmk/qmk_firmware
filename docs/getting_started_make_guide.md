@@ -83,7 +83,7 @@ This allows the keyboard to tell the host OS that up to 248 keys are held down a
 
 `BACKLIGHT_ENABLE`
 
-This enables your backlight on Timer1 and ports B5, B6, or B7 (for now). You can specify your port by putting this in your `config.h`:
+This enables the in-switch LED backlighting. You can specify the backlight pin by putting this in your `config.h`:
 
     #define BACKLIGHT_PIN B7
 
