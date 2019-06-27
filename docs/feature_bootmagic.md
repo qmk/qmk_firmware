@@ -64,8 +64,11 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
 |`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
 |`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Left Alt and Left GUI              |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Left Alt and GUI swap              |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and Left GUI                   |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap                   |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Alt and Left GUI                   |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Alt and GUI swap                   |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Left Control and Caps Lock           |
