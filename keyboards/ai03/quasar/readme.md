@@ -6,7 +6,7 @@ Replacement controller for the IBM Model M Space Saving keyboard
 
 Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
 Hardware Supported: The Quasar PCB  
-Hardware Availability: https://github.com/ai03-2725/Quasar/  
+Hardware Availability: [Source available on GitHub](https://github.com/ai03-2725/Quasar/)  
 
 Make example for this keyboard (after setting up your build environment):
 
