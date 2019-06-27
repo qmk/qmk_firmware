@@ -1077,7 +1077,7 @@ void matrix_scan_quantum() {
   #define ICRx            ICR1
   #define TCCRxA          TCCR1A
   #define TCCRxB          TCCR1B
-  #define TIMERx_OVR_vect TIMER1_OVF_vect
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
   #define TIMSKx          TIMSK1
   #define TOIEx           TOIE1
 
