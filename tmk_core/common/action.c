@@ -428,20 +428,19 @@ void process_action(keyrecord_t *record, action_t action)
                 }
             }
             break;
+        case ACT_LAYER_MODS:
+            if (event.pressed) {
+                layer_on(action.layer_mods.layer);
+                register_mods(action.layer_mods.mods);
+            } else {
+                unregister_mods(action.layer_mods.mods);
+                layer_off(action.layer_mods.layer);
+            }
+            break;
     #ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case KC_LCTRL ... KC_RGUI:
-                    /* layer On/Off with modifiers(left only) */
-                    if (event.pressed) {
-                        layer_on(action.layer_tap.val);
-                        register_mods(action.layer_tap.code);
-                    } else {
-                        layer_off(action.layer_tap.val);
-                        unregister_mods(action.layer_tap.code);
-                    }
-                    break;
                 case OP_TAP_TOGGLE:
                     /* tap toggle */
                     if (event.pressed) {
@@ -640,6 +639,7 @@ void process_action(keyrecord_t *record, action_t action)
     // if this event is a layer action, update the leds
     switch (action.kind.id) {
         case ACT_LAYER:
+        case ACT_LAYER_MODS:
         #ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
@@ -1001,6 +1001,7 @@ void debug_action(action_t action)
         case ACT_USAGE:             dprint("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          dprint("ACT_MOUSEKEY");          break;
         case ACT_LAYER:             dprint("ACT_LAYER");             break;
+        case ACT_LAYER_MODS:        dprint("ACT_LAYER_MODS");        break;
         case ACT_LAYER_TAP:         dprint("ACT_LAYER_TAP");         break;
         case ACT_LAYER_TAP_EXT:     dprint("ACT_LAYER_TAP_EXT");     break;
         case ACT_MACRO:             dprint("ACT_MACRO");             break;
