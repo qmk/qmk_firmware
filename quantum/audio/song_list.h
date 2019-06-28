@@ -22,11 +22,6 @@
 
 #define NO_SOUND
 
-#define LP_NUMB	\
-	H__NOTE(_CS5), H__NOTE(_E5), H__NOTE(_CS5), WD_NOTE(_FS5), \
-	WD_NOTE(_A5), WD_NOTE(_GS5),   WD_NOTE(_REST),  H__NOTE(_CS5), H__NOTE(_E5), \
-	H__NOTE(_CS5), WD_NOTE(_A5), WD_NOTE(_GS5), WD_NOTE(_E5),
-
 /* Ode to Joy
  * Author: Friedrich Schiller
  + License: Public Domain
@@ -349,3 +344,4 @@
 #define TERRAS_THEME
 #define RENAI_CIRCULATION
 #define PLATINUM_DISCO
+#define LP_NUMB
