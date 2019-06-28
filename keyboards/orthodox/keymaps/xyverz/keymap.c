@@ -35,7 +35,8 @@ enum layer_names {
   _LOWER,
   _RAISE,
   _ADJUST
-}
+};
+
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
