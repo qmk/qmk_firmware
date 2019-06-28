@@ -66,6 +66,9 @@ enum atreus52_keycodes {
 
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = LAYOUT ( /* dvorak */
