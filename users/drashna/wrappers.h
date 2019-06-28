@@ -6,9 +6,10 @@ arguments, we need a wrapper in order for these definitions to be
 expanded before being used as arguments to the LAYOUT_xxx macro.
 */
 #if (!defined(LAYOUT) && defined(KEYMAP))
-#   define LAYOUT KEYMAP
+#    define LAYOUT KEYMAP
 #endif
 
+// clang-format off
 #define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
@@ -179,3 +180,5 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
 #define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 #define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
+
+// clang-format on

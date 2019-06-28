@@ -30,7 +30,7 @@ uint8_t last_led;
 uint8_t last_osm;
 #endif
 
-
+// clang-format off
 #define LAYOUT_orthodox_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -121,6 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
+// clang-format on
 
 void matrix_init_keymap(void) {
 #ifndef CONVERT_TO_PROTON_C

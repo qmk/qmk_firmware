@@ -19,6 +19,7 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
+// clang-format off
 #define LAYOUT_ortho_5x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -135,22 +136,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
-
-
 };
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  }
-  return true;
-};
-
-void matrix_init_keymap(void) {
-#ifdef KEYBOARD_fractal
-    setPinOutput(D5);
-    writePinHigh(D5);
-
-    setPinOutput(B0);
-    writePinHigh(B0);
-#endif
-}
+// clang-format on
