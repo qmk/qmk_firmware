@@ -27,7 +27,7 @@ enum layer_number {
     _COLEMAK,
     _LOWER,
     _RAISE,
-    _ADJ
+    _ADJUST
 };
 
 enum custom_keycodes {
@@ -37,7 +37,7 @@ enum custom_keycodes {
   COLEMAK,
   LOWER,
   RAISE,
-  ADJ,
+  ADJUST,
   BACKLIT,
   RGBRST
 };
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_DEL,  _______, _______, KC_INS \
   ),
 
-  /* ADJ
+  /* ADJUST
    * ,------------------------------------------------.  ,------------------------------------------------.
    * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  | RESET|  |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    `-------------'  `-------------'
    */
 
-  [_ADJ] =  LAYOUT( \
+  [_ADJUST] =  LAYOUT( \
       _______, _______, _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
       KC_CAPS, _______, QWERTY,  COLEMAK, DVORAK,  DESTINY, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
@@ -193,11 +193,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
  */
-    case ADJ:
+    case ADJUST:
         if (record->event.pressed) {
-          layer_on(_ADJ);
+          layer_on(_ADJUST);
         } else {
-          layer_off(_ADJ);
+          layer_off(_ADJUST);
         }
         return false;
         break;

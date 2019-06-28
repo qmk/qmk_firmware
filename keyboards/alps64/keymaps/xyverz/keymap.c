@@ -11,7 +11,8 @@ enum layer_names {
   _QWERTY,
   _COLEMAK,
   _ADJUST
-}
+};
+
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   COLEMAK,
