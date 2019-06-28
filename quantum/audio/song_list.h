@@ -103,6 +103,17 @@
     S__NOTE(_REST),  \
     E__NOTE(_E7  ),
 
+#define WORKMAN_SOUND \
+    E__NOTE(_GS6 ), \
+    E__NOTE(_A6  ), \
+    S__NOTE(_REST), \
+    E__NOTE(_GS6 ), \
+    E__NOTE(_A6  ), \
+    S__NOTE(_REST), \
+    ED_NOTE(_FS7  ), \
+    S__NOTE(_REST), \
+    ED_NOTE(_A7 ),
+
 #define PLOVER_SOUND \
     E__NOTE(_GS6 ),  \
     E__NOTE(_A6  ),  \
