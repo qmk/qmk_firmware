@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
@@ -46,8 +45,6 @@ enum custom_keycodes {
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
-
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = LAYOUT( \
@@ -150,59 +147,26 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-
   switch (keycode) {
     case DVORAK:
-      if(record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break;
-    case DESTINY:
-      if(record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DESTINY);
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
-    case COLEMAK:
-      if(record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJ);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJ);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJ);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJ);
-      }
-      return false;
-      break;
 
 /*
     Commenting this out since I removed the layer, but I want this in here for reference.
@@ -338,9 +302,9 @@ void render_status(struct CharacterMatrix *matrix) {
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+            (IS_HOST_LED_ON(USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+            (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+            (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
 }
 

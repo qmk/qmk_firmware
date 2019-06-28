@@ -5,10 +5,6 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _DVORAK 0
-#define _COLEMAK 1
-#define _QWERTY 2
-#define _ADJUST 16
 
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
@@ -18,6 +14,7 @@ enum custom_keycodes {
 };
 
 // Useful defines
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_DVORAK] = LAYOUT_aek_103( \
@@ -50,39 +47,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		)
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case DVORAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-	layer_on(_ADJUST);
-      } else {
-	layer_off(_ADJUST);
-      }
-      return false;
-      break;
   }
   return true;
 }
