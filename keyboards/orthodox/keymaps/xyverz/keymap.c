@@ -27,13 +27,15 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _DVORAK 0
-#define _QWERTY 1
-#define _COLEMAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
 
+enum layer_names {
+  _DVORAK,
+  _QWERTY,
+  _COLEMAK,
+  _LOWER,
+  _RAISE,
+  _ADJUST
+}
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
@@ -42,6 +44,10 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
 };
+
+#define ADJUST MO(_ADJUST)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -84,68 +90,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
     case DVORAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break;
-    case LOWER:
+    case COLEMAK:
       if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
-    case RAISE:
+    case QWERTY:
       if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
   }
   return true;
 }
