@@ -6,6 +6,8 @@ GENTOO_WARNING="This script will make a USE change in order to ensure that that 
 
 SLACKWARE_WARNING="You will need the following packages from slackbuilds.org:\n\tarm-binutils\n\tarm-gcc\n\tavr-binutils\n\tavr-gcc\n\tavr-libc\n\tavrdude\n\tdfu-programmer\n\tdfu-util\n\tnewlib\nThese packages will be installed with sudo and sboinstall, so ensure that your user is added to sudoers and that sboinstall is configured."
 
+SOLUS_INFO="Your tools are now installed. To start using them, open new terminal or source these scripts:\n\t/usr/share/defaults/etc/profile.d/50-arm-toolchain-path.sh\n\t/usr/share/defaults/etc/profile.d/50-avr-toolchain-path.sh"
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -59,6 +61,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
 		arm-none-eabi-newlib \
+		avrdude \
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
@@ -154,6 +157,26 @@ elif grep ID /etc/os-release | grep -q slackware; then
 	else
 		echo "Quitting..."
 	fi
+
+elif grep ID /etc/os-release | grep -q solus; then
+	sudo eopkg ur
+	sudo eopkg it \
+		-c system.devel \
+		arm-none-eabi-gcc \
+		arm-none-eabi-binutils \
+		arm-none-eabi-newlib \
+		avr-libc \
+		avr-binutils \
+		avr-gcc \
+		avrdude \
+		dfu-util \
+		dfu-programmer \
+		python3 \
+		git \
+		wget \
+		zip \
+		unzip
+	printf "\n$SOLUS_INFO\n"
 
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
