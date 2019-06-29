@@ -9,8 +9,8 @@ This is JP layout based split keyboards.
 
 
 Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: promicro(atmega32u4) on Otaku Split rev.1 PCB 
+Hardware Availability: https://skyhigh-works.booth.pm/items/1398595
 
 Make example for this keyboard (after setting up your build environment):
 
