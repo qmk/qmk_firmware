@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [takashiski](https://github.com/yourusername)  
+Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
