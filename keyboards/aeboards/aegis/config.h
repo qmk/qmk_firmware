@@ -23,8 +23,8 @@
 #define PRODUCT_ID      0x0807 // 1800 -> 0x0708 -> 0x0807 ;-)
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         Aegis
-#define DESCRIPTION     1800 Left Handed Keyboard
+#define PRODUCT         AEboards Aegis
+#define DESCRIPTION     AEboards Aegis
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -39,7 +39,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -68,4 +68,3 @@
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 899
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 125
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
-
