@@ -18,7 +18,7 @@
 #define RGB_DI_PIN D4
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 15    // Number of LEDs
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 255
 #endif
 
 // #ifdef RGB_MATRIX_ENABLE
@@ -35,7 +35,7 @@
 // #define RGB_DI_PIN E2
  #ifdef RGB_DI_PIN
  #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
+
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
  #define RGBLIGHT_VAL_STEP 8
