@@ -149,6 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       if(record->event.pressed) { SEND_STRING("else"); }
       break;
     case HK_COSL:
+      clear_keyboard();
       break;
     case HK_SLP:
       if(record->event.pressed) {
@@ -168,7 +169,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
         layer_invert(AHK_L);
       break;
     default:
-      if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) { SEND_STRING(passwords[keycode - KC_A]); }
+      if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) {
+        SEND_STRING(passwords[keycode - KC_A]);
+        layer_invert(PASS_L);
+        return false;
+      }
   }
   return true;
 };
@@ -193,7 +198,20 @@ int cur_dance(qk_tap_dance_state_t *state) {
 
 void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
 
-void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) { tap_code16(LCTL(KC_BSPACE)); } }
+void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BSPACE)); }
+
+void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
+  int td_state = cur_dance(state);
+  switch(td_state) {
+    case SINGLE_TAP:
+      clear_mods();
+      clear_weak_mods();
+      tap_code(KC_SLSH);
+      break;
+    case DOUBLE_TAP:
+      tap_code(KC_NUBS);
+  }
+}
 
 void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);
@@ -216,9 +234,9 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [FB]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
   [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
   [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
-  [BCK] = ACTION_TAP_DANCE_FN_ADVANCED(back_tap, back_finished, NULL), //each tap, on finished, and reset. Normally register_code on press unregister on reset so keys
-  [DSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_finished, NULL) //can be held down, but in both cases a trigger I'm using is holding them down so no point.
+  [FB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_finished, NULL),
+  [BCK] = ACTION_TAP_DANCE_FN_ADVANCED(back_tap, back_finished, NULL), //each tap, on finished, and reset. Normally register_code on press unregister on reset so keys can be held down.
+  [DSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_finished, NULL)
 };
