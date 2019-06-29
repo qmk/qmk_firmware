@@ -16,8 +16,6 @@ Hey /* Copyright 2015-2017 Jack Humbert
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config;
-
 enum layer_names {
     _BASE,
     _LOWER
