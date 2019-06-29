@@ -34,8 +34,6 @@ enum keymap_layers {
   _EUCALYNK,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
-  _NGEDITL, // 薙刀式編集レイヤー
-  _NGEDITR, // 薙刀式編集レイヤー
 // 薙刀式
   _LOWER,
   _RAISE,
@@ -167,38 +165,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // デフォルトレイヤーに関係なくQWERTYで
   [_NAGINATA] = LAYOUT( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  NG_Q,  NG_W,  NG_E,  NG_R,KC_LEFT,               KC_RGHT,  NG_U,  NG_I,  NG_O,  NG_P, _____,\
+      _____,  NG_Q,  NG_W,  NG_E,  NG_R,  NG_T,                   NG_Y,  NG_U,  NG_I,  NG_O,  NG_P, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,  NG_A,  NG_S,  NG_D,  NG_F,  NG_G,                   NG_H,  NG_J,  NG_K,  NG_L,NG_SCLN, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,  NG_Z,  NG_X,  NG_C,  NG_V,  NG_B,                   NG_N,  NG_M,NG_COMM,NG_DOT,NG_SLSH, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____,NGSHFT, _____,    _____,NGSHFT, _____ \
-                              //`--------------------'  `--------------------'
-  ),
-
-  // 編集モードを追加する場合
-  [_NGEDITL] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____,G(DOWN),G(UP), XXXXX, XXXXX, CHR10,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  C(Y),  C(S),  PGDN,  PGUP, CHR20,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  C(Z),  C(X),  C(C),  C(V), CHR30,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____,NGSHFT, _____,    _____,NGSHFT, _____ \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_NGEDITR] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   HOME,G(DEL), XXXXX,   DEL,   ESC, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,    UP, S(UP),   UP5,    F7, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                    END,  DOWN,S(DOWN),DOWN5,    F6, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____,NGSHFT, _____,    _____,NGSHFT, _____ \
+                                  _____,NG_SHFT, _____,   _____,NG_SHFT, _____ \
                               //`--------------------'  `--------------------'
   ),
 // 薙刀式
@@ -265,9 +238,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
-  #ifdef NAGINATA_EDIT_MODE
-  set_naginata_edit(_NGEDITL, _NGEDITR);
-  #endif
   // 薙刀式
 
   #ifdef RGBLIGHT_ENABLE
@@ -476,12 +446,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     a = process_naginata(keycode, record);
     update_led();
   }
-  #ifdef NAGINATA_EDIT_MODE
-    bool b = process_naginata_edit(keycode, record);
-    return a & b;
-  #else
-    return a;
-  #endif
-  return true;
+  if (a == false) return false;
   // 薙刀式
+
+  return true;
 }
