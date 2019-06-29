@@ -28,22 +28,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     3x14 split keyboard with two thumb keys per side. Supports MX, Alps, and Choc reversible.
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 
+#define MATRIX_ROWS 8 // 4 rows each half
+#define MATRIX_COLS 7
 
 #define MATRIX_ROW_PINS { F7, C6, F6, F5 }
 #define MATRIX_COL_PINS { D4, D7, E6, B3, B2, B6, F4 }
-#define UNUSED_PINS
+// #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define USE_I2C
+#define SOFT_SERIAL_PIN D0
 #define MASTER_LEFT
 
 #define RGB_DI_PIN B5
 #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 10
+   #define RGBLIGHT_SPLIT
+   #define RGBLED_SPLIT { 5, 5 }
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8
    #define RGBLIGHT_VAL_STEP 8
