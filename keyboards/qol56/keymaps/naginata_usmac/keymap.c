@@ -45,8 +45,6 @@ enum kepmap_layers {
   _SHIFT,
 // 薙刀式
   _NAGINATA,
-  _NGEDITL,
-  _NGEDITR,
 // 薙刀式
   _NUMBER,
   _SYMBOL,
