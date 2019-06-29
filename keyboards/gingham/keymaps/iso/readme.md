@@ -1,6 +1,6 @@
-The default keymap for ISO HS60 V2. VIA support disabled.
-=========================================================
+The default keymap for ISO Gingham
+==================================
 
-![Layout image](https://imgur.com/6go4vQV.png)
+![Layout image](https://i.imgur.com/WwOVJTh.jpg)
 
-Default layer is normal ISO and Fn layer is used for RGB functions, Volume control and arrow cluster
+Default layer is normal ISO and Fn layer is used for Volume control and arrow cluster
