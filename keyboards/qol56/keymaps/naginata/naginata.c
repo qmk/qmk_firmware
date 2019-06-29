@@ -1,22 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "naginata.h"
+// for memcpy
+#include <string.h>
 
 #define NGBUFFER 5 // バッファのサイズ
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
 static bool is_naginata = false; // 薙刀式がオンかオフか
-static bool is_naginata_edit = false; // 薙刀式編集モードがオンかオフか
 static uint8_t naginata_layer = 0; // レイヤー番号
-static bool ng_shift = false; // シフトキーの状態
-static bool ng_space = false; // シフトキーかスペース入力か
 static uint8_t n_modifier = 0; // 押しているmodifierキーの数
-
-#ifdef NAGINATA_EDIT_MODE
-static uint8_t naginata_elayerl = 0; // 左編集レイヤー番号
-static uint8_t naginata_elayerr = 0; // 右編集レイヤー番号
-static uint8_t n_editl = 0; // 押しているJKキーの数
-static uint8_t n_editr = 0; // 押しているFGキーの数
-#endif
+static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -63,41 +56,43 @@ static uint16_t ninputs[NGBUFFER];
 // キーコードとキービットの対応
 // メモリ削減のため配列はNG_Qを0にしている
 const uint32_t ng_key[] = {
-  [NG_Q - NG_Q]    = B_Q,
-  [NG_W - NG_Q]    = B_W,
-  [NG_E - NG_Q]    = B_E,
-  [NG_R - NG_Q]    = B_R,
-  [NG_T - NG_Q]    = B_T,
+  [NG_Q    - NG_Q] = B_Q,
+  [NG_W    - NG_Q] = B_W,
+  [NG_E    - NG_Q] = B_E,
+  [NG_R    - NG_Q] = B_R,
+  [NG_T    - NG_Q] = B_T,
 
-  [NG_Y - NG_Q]    = B_Y,
-  [NG_U - NG_Q]    = B_U,
-  [NG_I - NG_Q]    = B_I,
-  [NG_O - NG_Q]    = B_O,
-  [NG_P - NG_Q]    = B_P,
+  [NG_Y    - NG_Q] = B_Y,
+  [NG_U    - NG_Q] = B_U,
+  [NG_I    - NG_Q] = B_I,
+  [NG_O    - NG_Q] = B_O,
+  [NG_P    - NG_Q] = B_P,
 
-  [NG_A - NG_Q]    = B_A,
-  [NG_S - NG_Q]    = B_S,
-  [NG_D - NG_Q]    = B_D,
-  [NG_F - NG_Q]    = B_F,
-  [NG_G - NG_Q]    = B_G,
+  [NG_A    - NG_Q] = B_A,
+  [NG_S    - NG_Q] = B_S,
+  [NG_D    - NG_Q] = B_D,
+  [NG_F    - NG_Q] = B_F,
+  [NG_G    - NG_Q] = B_G,
 
-  [NG_H - NG_Q]    = B_H,
-  [NG_J - NG_Q]    = B_J,
-  [NG_K - NG_Q]    = B_K,
-  [NG_L - NG_Q]    = B_L,
+  [NG_H    - NG_Q] = B_H,
+  [NG_J    - NG_Q] = B_J,
+  [NG_K    - NG_Q] = B_K,
+  [NG_L    - NG_Q] = B_L,
   [NG_SCLN - NG_Q] = B_SCLN,
 
-  [NG_Z - NG_Q]    = B_Z,
-  [NG_X - NG_Q]    = B_X,
-  [NG_C - NG_Q]    = B_C,
-  [NG_V - NG_Q]    = B_V,
-  [NG_B - NG_Q]    = B_B,
+  [NG_Z    - NG_Q] = B_Z,
+  [NG_X    - NG_Q] = B_X,
+  [NG_C    - NG_Q] = B_C,
+  [NG_V    - NG_Q] = B_V,
+  [NG_B    - NG_Q] = B_B,
 
-  [NG_N - NG_Q]    = B_N,
-  [NG_M - NG_Q]    = B_M,
+  [NG_N    - NG_Q] = B_N,
+  [NG_M    - NG_Q] = B_M,
   [NG_COMM - NG_Q] = B_COMM,
-  [NG_DOT - NG_Q]  = B_DOT,
+  [NG_DOT  - NG_Q] = B_DOT,
   [NG_SLSH - NG_Q] = B_SLSH,
+
+  [NG_SHFT - NG_Q] = B_SHFT,
 };
 
 // 薙刀式カナ変換テーブル
@@ -106,12 +101,19 @@ typedef struct {
   char kana[5];
 } naginata_keymap;
 
+typedef struct {
+  uint32_t key;
+  char kana[15];
+} naginata_keymap_long;
+
 const PROGMEM naginata_keymap ngmap[] = {
   // 単独
   {.key = B_Q               , .kana = "vu"},
   {.key = B_W               , .kana = "ha"},
   {.key = B_E               , .kana = "te"},
   {.key = B_R               , .kana = "si"},
+  {.key = B_T               , .kana = SS_TAP(X_LEFT)},
+  {.key = B_Y               , .kana = SS_TAP(X_RIGHT)},
   {.key = B_U               , .kana = SS_TAP(X_BSPACE)},
   {.key = B_I               , .kana = "ru"},
   {.key = B_O               , .kana = "su"},
@@ -136,6 +138,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_COMM            , .kana = "nn"},
   {.key = B_DOT             , .kana = "ra"},
   {.key = B_SLSH            , .kana = "re"},
+  {.key = B_SHFT            , .kana = " "},
 
   // シフト
   {.key = B_SHFT|B_Q        , .kana = "vu"},
@@ -285,6 +288,122 @@ const PROGMEM naginata_keymap ngmap[] = {
 
   // enter
   {.key = B_V|B_M           , .kana = SS_TAP(X_ENTER)},
+
+  // 編集モード1
+  {.key = B_J|B_K|B_E       , .kana = "deli"},
+  {.key = B_J|B_K|B_R       , .kana = ""},
+
+#ifdef NAGINATA_EDIT_WIN
+  {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_INT4)},
+  {.key = B_J|B_K|B_A       , .kana = SS_LCTRL("y")},
+  {.key = B_J|B_K|B_S       , .kana = SS_LCTRL("s")},
+  {.key = B_J|B_K|B_Z       , .kana = SS_LCTRL("z")},
+  {.key = B_J|B_K|B_X       , .kana = SS_LCTRL("x")},
+  {.key = B_J|B_K|B_C       , .kana = SS_LCTRL("c")},
+  {.key = B_J|B_K|B_V       , .kana = SS_LCTRL("v")},
+  {.key = B_D|B_F|B_SCLN    , .kana = SS_LCTRL("i")},
+  {.key = B_D|B_F|B_SLSH    , .kana = SS_LCTRL("u")},
+#endif
+#ifdef NAGINATA_EDIT_MAC
+  {.key = B_D|B_F|B_I       , .kana = SS_TAP(X_LANG1)SS_TAP(X_LANG1)},
+  {.key = B_J|B_K|B_A       , .kana = SS_LGUI("y")},
+  {.key = B_J|B_K|B_S       , .kana = SS_LGUI("s")},
+  {.key = B_J|B_K|B_Z       , .kana = SS_LGUI("z")},
+  {.key = B_J|B_K|B_X       , .kana = SS_LGUI("x")},
+  {.key = B_J|B_K|B_C       , .kana = SS_LGUI("c")},
+  {.key = B_J|B_K|B_V       , .kana = SS_LGUI("v")},
+  {.key = B_D|B_F|B_SCLN    , .kana = SS_LCTRL("k")},
+  {.key = B_D|B_F|B_SLSH    , .kana = SS_LCTRL("j")},
+#endif
+  {.key = B_J|B_K|B_D       , .kana = SS_TAP(X_PGUP)},
+  {.key = B_J|B_K|B_F       , .kana = SS_TAP(X_PGDOWN)},
+
+  {.key = B_D|B_F|B_O       , .kana = SS_TAP(X_DELETE)},
+
+  {.key = B_D|B_F|B_J       , .kana = SS_TAP(X_LEFT)},
+  {.key = B_D|B_F|B_M       , .kana = SS_TAP(X_RIGHT)},
+
+  // 編集モード2
+  {.key = B_M|B_COMM|B_Q    , .kana = ""},
+  {.key = B_M|B_COMM|B_W    , .kana = ":"SS_TAP(X_ENTER)},
+  {.key = B_M|B_COMM|B_E    , .kana = "/"SS_TAP(X_ENTER)},
+  {.key = B_M|B_COMM|B_R    , .kana = ""},
+
+  {.key = B_M|B_COMM|B_A    , .kana = ""},
+  {.key = B_M|B_COMM|B_S    , .kana = ""},
+  {.key = B_M|B_COMM|B_D    , .kana = "!"SS_TAP(X_ENTER)},
+  {.key = B_M|B_COMM|B_F    , .kana = "?"SS_TAP(X_ENTER)},
+
+  {.key = B_M|B_COMM|B_Z    , .kana = ""},
+  {.key = B_M|B_COMM|B_X    , .kana = ""},
+  {.key = B_M|B_COMM|B_C    , .kana = ""},
+  {.key = B_M|B_COMM|B_V    , .kana = "--"SS_TAP(X_ENTER)},
+  {.key = B_M|B_COMM|B_B    , .kana = "   "},
+
+  {.key = B_C|B_V|B_O       , .kana = ""},
+  {.key = B_C|B_V|B_P       , .kana = ""},
+
+  {.key = B_C|B_V|B_J       , .kana = "["SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_K       , .kana = "{"SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_L       , .kana = ""},
+  {.key = B_C|B_V|B_SCLN    , .kana = "("SS_TAP(X_ENTER)},
+
+  {.key = B_C|B_V|B_N       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_M       , .kana = "]"SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_COMM    , .kana = "}"SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_DOT     , .kana = ""},
+  {.key = B_C|B_V|B_SLSH    , .kana = ")"SS_TAP(X_ENTER)},
+
+#ifdef NAGINATA_EDIT_WIN
+  {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
+#endif
+#ifdef NAGINATA_EDIT_MAC
+  {.key = B_C|B_V|B_I       , .kana = ""},
+#endif
+};
+
+const PROGMEM naginata_keymap_long ngmapl[] = {
+  // 編集モード1
+  {.key = B_D|B_F|B_P       , .kana = SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)},
+
+  {.key = B_D|B_F|B_K       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_LEFT)SS_UP(X_LSHIFT)},
+  {.key = B_D|B_F|B_L       , .kana = SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)SS_TAP(X_LEFT)},
+
+  {.key = B_D|B_F|B_COMM    , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_RIGHT)SS_UP(X_LSHIFT)},
+  {.key = B_D|B_F|B_DOT     , .kana = SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)},
+
+#ifdef NAGINATA_EDIT_WIN
+  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_DOWN)SS_UP(X_LCTRL)},
+  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL)},
+  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
+  {.key = B_D|B_F|B_Y       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)},
+  {.key = B_D|B_F|B_N       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
+#endif
+#ifdef NAGINATA_EDIT_MAC
+  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_DOWN)SS_UP(X_LGUI)},
+  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_UP)SS_UP(X_LGUI)},
+  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+  {.key = B_D|B_F|B_Y       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)},
+  {.key = B_D|B_F|B_N       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+#endif
+
+  // 編集モード2
+  {.key = B_C|B_V|B_Y       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)" "},
+  {.key = B_C|B_V|B_H       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)"["},
+
+#ifdef NAGINATA_EDIT_WIN
+  {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)" "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
+  {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)"   "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
+  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+#endif
+#ifdef NAGINATA_EDIT_MAC
+  {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+  {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+#endif
+
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
@@ -295,11 +414,9 @@ void set_naginata(uint8_t layer) {
 // 薙刀式をオンオフ
 void naginata_on(void) {
   is_naginata = true;
+  keycomb = 0UL;
   naginata_clear();
   layer_on(naginata_layer);
-#ifdef NAGINATA_EDIT_MODE
-  naginata_edit_off();
-#endif
 
   tap_code(KC_LANG1); // Mac
   tap_code(KC_HENK); // Win
@@ -307,11 +424,9 @@ void naginata_on(void) {
 
 void naginata_off(void) {
   is_naginata = false;
+  keycomb = 0UL;
   naginata_clear();
   layer_off(naginata_layer);
-#ifdef NAGINATA_EDIT_MODE
-  naginata_edit_off();
-#endif
 
   tap_code(KC_LANG2); // Mac
   tap_code(KC_MHEN); // Win
@@ -322,43 +437,89 @@ bool naginata_state(void) {
   return is_naginata;
 }
 
+
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
   naginata_keymap bngmap; // PROGMEM buffer
+  naginata_keymap_long bngmapl; // PROGMEM buffer
 
   bool douji = false; // 同時押しか連続押しか
-  uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
-
-  if (ng_shift) keycomb |= B_SHFT; // シフトキー状態を反映
-
-  for (int i = 0; i < ng_chrcount; i++) {
-    keycomb |= ng_key[ninputs[i] - NG_Q]; // バッファにあるキー状態を合成する
-  }
+  uint32_t skey = 0; // 連続押しの場合のバッファ
 
   switch (keycomb) {
-    // send_stringできないキーはここで定義
+    // send_stringできないキー、長すぎるマクロはここで定義
     case B_F|B_G:
       naginata_off();
       break;
+    case B_J|B_K|B_T:
+#ifdef NAGINATA_EDIT_WIN
+      register_code(KC_LCTRL);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LCTRL);
+      for (int i = 0; i < 10; i++) tap_code(KC_RGHT);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 10; i++) tap_code(KC_RGHT);
+#endif
+      break;
+    case B_J|B_K|B_G:
+#ifdef NAGINATA_EDIT_WIN
+      register_code(KC_LCTRL);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LCTRL);
+      for (int i = 0; i < 20; i++) tap_code(KC_RGHT);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 20; i++) tap_code(KC_RGHT);
+#endif
+      break;
+    case B_J|B_K|B_B:
+#ifdef NAGINATA_EDIT_WIN
+      register_code(KC_LCTRL);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LCTRL);
+      for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
+#endif
+#ifdef NAGINATA_EDIT_MAC
+      register_code(KC_LGUI);
+      tap_code(KC_LEFT);
+      unregister_code(KC_LGUI);
+      for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
+#endif
+      break;
     default:
       // キーから仮名に変換して出力する。
-      // 同時押しの場合
+      // 同時押しの場合 ngmapに定義されている
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
-        memcpy_P(&bngmap, &ngmap[i], sizeof bngmap);
+        memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
         if (keycomb == bngmap.key) {
           douji = true;
           send_string(bngmap.kana);
           break;
         }
       }
-      // 連続押しの場合
+      for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
+        memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
+        if (keycomb == bngmapl.key) {
+          douji = true;
+          send_string(bngmapl.kana);
+          break;
+        }
+      }
+      // 連続押しの場合 ngmapに定義されていない
       if (!douji) {
         for (int j = 0; j < ng_chrcount; j++) {
-          keycomb = ng_key[ninputs[j] - NG_Q];
-          if (ng_shift) keycomb |= B_SHFT; // シフトキー状態を反映
+          skey = ng_key[ninputs[j] - NG_Q];
+          if ((keycomb & B_SHFT) > 0) skey |= B_SHFT; // シフトキー状態を反映
           for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
-            memcpy_P(&bngmap, &ngmap[i], sizeof bngmap);
-            if (keycomb == bngmap.key) {
+            memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
+            if (skey == bngmap.key) {
               send_string(bngmap.kana);
               break;
             }
@@ -376,14 +537,6 @@ void naginata_clear(void) {
     ninputs[i] = 0;
   }
   ng_chrcount = 0;
-  ng_space = false;
-}
-
-// 同じキーを繰り返し入力
-void repeatkey(uint16_t k, uint8_t n) {
-  for (int i = 0; i < n; i++) {
-    tap_code(k);
-  }
 }
 
 // 入力モードか編集モードかを確認する
@@ -403,9 +556,6 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         n_modifier++;
         layer_off(naginata_layer);
-        #ifdef NAGINATA_EDIT_MODE
-        naginata_edit_off();
-        #endif
       } else {
         n_modifier--;
         if (n_modifier == 0) {
@@ -415,80 +565,33 @@ void naginata_mode(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
-  if (n_modifier == 0) {
-    #ifdef NAGINATA_EDIT_MODE
-    // 編集モードに入るかチェック
-    if (record->event.pressed) {
-      switch (keycode) {
-        case NG_D:
-        case NG_F:
-          n_editr++;
-          if (n_editr >= 2) {
-            naginata_edit_right_on();
-          }
-          break;
-        case NG_J:
-        case NG_K:
-          n_editl++;
-          if (n_editl >= 2) {
-            naginata_edit_left_on();
-          }
-          break;
-      }
-    } else {
-      switch (keycode) {
-        case NG_D:
-        case NG_F:
-        case NG_J:
-        case NG_K:
-          n_editl = 0;
-          n_editr = 0;
-          naginata_edit_off();
-          break;
-      }
-    }
-    #endif
-  }
 }
 
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  if (!is_naginata || is_naginata_edit || n_modifier > 0) return true;
+  // if (!is_naginata || n_modifier > 0) return true;
 
   if (record->event.pressed) {
     switch (keycode) {
-      case NG_Q ... NG_SLSH:
+      case NG_Q ... NG_SHFT:
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
-        ng_space = false;
+        keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+        // 3文字押したら処理を開始
         if (ng_chrcount > 2) {
-          naginata_type(); // 3文字押したら処理を開始
+          naginata_type();
         }
-        return false;
-        break;
-      case NGSHFT:
-        ng_shift = true;
-        if (ng_chrcount == 0) ng_space = true;
         return false;
         break;
     }
   } else { // key release
     switch (keycode) {
-      case NG_Q ... NG_SLSH:
+      case NG_Q ... NG_SHFT:
         // 3文字入力していなくても、どれかキーを離したら処理を開始する
         if (ng_chrcount > 0) {
           naginata_type();
-          return false;
         }
-        break;
-      case NGSHFT:
-        if (ng_space) { // シフト単独押し
-          tap_code(KC_SPC);
-          ng_space = false;
-        } else if (ng_chrcount > 0) { // シフトを先に離すとき
-          naginata_type();
-        }
-        ng_shift = false;
+        keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         return false;
         break;
     }
@@ -496,95 +599,3 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-#ifdef NAGINATA_EDIT_MODE
-
-// 編集モードのレイヤー、マクロ
-void set_naginata_edit(uint8_t layer1, uint8_t layer2) {
-  naginata_elayerl = layer1;
-  naginata_elayerr = layer2;
-}
-
-// 薙刀式編集モードをオンオフ
-void naginata_edit_left_on(void) {
-  is_naginata_edit = true;
-  n_editl = 0;
-  n_editr = 0;
-  if (!layer_state_is(naginata_elayerl)) layer_on(naginata_elayerl);
-  naginata_clear();
-}
-
-void naginata_edit_right_on(void) {
-  is_naginata_edit = true;
-  n_editl = 0;
-  n_editr = 0;
-  if (!layer_state_is(naginata_elayerr)) layer_on(naginata_elayerr);
-  naginata_clear();
-}
-
-void naginata_edit_off(void) {
-  is_naginata_edit = false;
-  n_editl = 0;
-  n_editr = 0;
-  if (layer_state_is(naginata_elayerl))
-    layer_off(naginata_elayerl);
-  if (layer_state_is(naginata_elayerr))
-    layer_off(naginata_elayerr);
-}
-
-// 薙刀式編集モードの状態
-bool naginata_edit_state(void) {
-  return is_naginata_edit;
-}
-
-// 編集モード
-bool process_naginata_edit(uint16_t keycode, keyrecord_t *record) {
-  // if (!is_naginata || !is_naginata_edit) return true;
-
-  if (record->event.pressed) {
-    switch (keycode) {
-      case CHR10:
-        register_code(KC_LCMD);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LCMD);
-        repeatkey(KC_RGHT, 10);
-        return false;
-        break;
-      case CHR20:
-        register_code(KC_LCMD);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LCMD);
-        repeatkey(KC_RGHT, 20);
-        return false;
-        break;
-      case CHR30:
-        register_code(KC_LCMD);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LCMD);
-        repeatkey(KC_RGHT, 30);
-        return false;
-        break;
-      case UP5:
-        repeatkey(KC_UP, 5);
-        return false;
-        break;
-      case DOWN5:
-        repeatkey(KC_DOWN, 5);
-        return false;
-        break;
-      case UP10:
-        repeatkey(KC_UP, 10);
-        return false;
-        break;
-      case DOWN10:
-        repeatkey(KC_DOWN, 10);
-        return false;
-        break;
-      }
-  }
-  return true;
-}
-#endif
