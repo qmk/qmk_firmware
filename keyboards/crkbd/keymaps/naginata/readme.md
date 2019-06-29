@@ -22,6 +22,6 @@ http://oookaworks.seesaa.net/article/456099128.html
 ### 他キーボードへの移植の指針
 
 1. naginata.cとnaginata.hをコピーする。
-2. rules.mkでnicola.cをSRCに追加する。
+2. rules.mkでnaginata.cをSRCに追加する。
 3. 編集モードを使用する場合は、config.hに`#define NAGINATA_EDIT_MODE`を追加する。
 4. keymap.cの`// 薙刀式`で囲まれた部分を移植する。
