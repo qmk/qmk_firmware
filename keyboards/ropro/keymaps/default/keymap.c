@@ -1,4 +1,4 @@
-Hey /* Copyright 2015-2017 Jack Humbert
+/* Copyright 2019 Garret G. (TheRoyalSweatshirt)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ enum layer_names {
     _LOWER
 };
 
+#define LOWER MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
