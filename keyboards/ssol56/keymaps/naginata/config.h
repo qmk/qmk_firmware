@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef PRODUCT
 #define PRODUCT SSOL56 Naginata Style
+#undef MANUFACTURER
+#define MANUFACTURER    eswai
 
 // 薙刀式
 // #define EUCALYN
