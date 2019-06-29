@@ -2,7 +2,6 @@ SRC = matrix.c \
       i2c_master.c
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega328p
 PROTOCOL = VUSB
 
