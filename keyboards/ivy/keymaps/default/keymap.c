@@ -18,17 +18,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 1
  * ,------.
+ * |  1   |
+ * |------|
  * |  2   |
  * |------|
- * |  4   |
- * |------|
- * |  6   |
+ * |  FN  |
  * `------'
  */
 [_L1] = LAYOUT( \
     KC_1, \
     KC_2, \
-    KC_3  \
+    MO(_FUNC)  \
+),
+
+[_FUNC] = LAYOUT( \
+    CALTDEL, \
+    TSKMGR, \
+    _______ \
 )
 
 };

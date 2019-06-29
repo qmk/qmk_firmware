@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0x1337
 #define PRODUCT_ID      0x6012
 #define MANUFACTURER    Maple Computing
-#define PRODUCT         Adron Pad
+#define PRODUCT         Ivy
 #define DESCRIPTION     A 3 key macro pad
 
 /* key matrix size */

@@ -1,7 +1,7 @@
 #ifndef REV1_H
 #define REV1_H
 
-#include "../adron_pad.h"
+#include "../ivy.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
