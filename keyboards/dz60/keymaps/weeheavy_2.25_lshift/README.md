@@ -1,4 +1,4 @@
-![DZ60 ANSI with arrow cluster](https://i.imgur.com/014XWvY.png)
+![DZ60 ANSI with arrow cluster](https://i.imgur.com/hX6rMcm.png)
 
 # weeheavy's DZ60 layout
 
@@ -45,9 +45,9 @@ Specialities:
 
 Specialities:
 
-* F1-F12 keys when holding FN1
-* Movement cluster on the right hand side
+* F1-F12 keys when holding FN
 * Multimedia cluster on the bottom right
 * RGB config on the left hand side
 * Reset key on ESC and backslash location
+* Brightness control top right
 * Additional "B" key (a learning from my mistakes)
