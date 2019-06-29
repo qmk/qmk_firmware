@@ -18,8 +18,11 @@
 
 extern keymap_config;
 
-#define _BASE 0
-#define _LOWER 1
+enum layer_names {
+    _BASE,
+    _LOWER
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
