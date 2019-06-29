@@ -139,15 +139,16 @@ void matrix_init_user(void) {
 #ifdef BOOTLOADER_CATERINA
    // This will disable the red LEDs on the ProMicros
    setPinOutput(D5);
-   writePinLow(D5);
+   writePinHigh(D5);
    setPinOutput(B0);
-   writePinLow(B0);
+   writePinHigh(B0);
 #endif
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case DVORAK:
@@ -177,4 +178,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
-}
+};
