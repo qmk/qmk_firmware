@@ -101,13 +101,13 @@ combo_t key_combos[COMBO_COUNT] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT( /* Base */
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-     KC_ESC,   KC_Q,   KC_W,   KC_M,   KC_R,KC_LEFT,  KG(S), KC_DEL,KC_RGHT,KC_BSPC,   KC_D,   KC_Y,   KC_P,KC_MINS, \
+     KC_ESC,   KC_Q,   KC_W,   KC_M,   KC_R,  KC_UP,  KG(S), KC_DEL,KC_DOWN,KC_BSPC,   KC_D,   KC_Y,   KC_P,KC_MINS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
      KC_TAB,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,KC_LPRN,KC_RPRN,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,KC_PLUS, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,KC_COLN, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCMD, NUMBER,KC_LALT,  KC_F2,   MOVE,  LSHFT, CTLSPC, CMDENT,  LSHFT, SYMBOL,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
+    KC_LCMD,KC_LALT,  KC_F2, NUMBER, SYMBOL,  LSHFT, CTLSPC, CMDENT,  LSHFT,   MOVE,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
@@ -125,45 +125,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAGINATA] = LAYOUT(
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,   NG_Q,   NG_W,   NG_E,   NG_R,KC_LEFT,  _____,  _____,KC_RGHT,   NG_U,   NG_I,   NG_O,   NG_P,  _____, \
+      _____,   NG_Q,   NG_W,   NG_E,   NG_R,   NG_T,  _____,  _____,   NG_Y,   NG_U,   NG_I,   NG_O,   NG_P,  _____, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,   NG_A,   NG_S,   NG_D,   NG_F,   NG_G,  _____,  _____,   NG_H,   NG_J,   NG_K,   NG_L,NG_SCLN,  _____, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,   NG_Z,   NG_X,   NG_C,   NG_V,   NG_B,  _____,  _____,   NG_N,   NG_M,NG_COMM, NG_DOT,NG_SLSH,  _____, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____, NGSHFT,  _____,  _____, NGSHFT,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  ),
-
-  [_NGEDITL] = LAYOUT(
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,KG(DOWN),KG(UP),  XXXXX,  XXXXX,  CHR10,  _____,  _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  KC(Y),  KC(S),KC_PGDN,KC_PGUP,  CHR20,  _____,  _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  KC(Z),  KC(X),  KC(C),  KC(V),  CHR30,  _____,  _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____, NGSHFT,  _____,  _____, NGSHFT,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  ),
-
-  [_NGEDITR] = LAYOUT(
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,KC_HOME,KG(DEL),  XXXXX, KC_DEL, KC_ESC,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,  XXXXX,  KC_UP, KS(UP),    UP5,  KC_F7,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____, KC_END,KC_DOWN,KS(DOWN), DOWN5,  KC_F6,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____, NGSHFT,  _____,  _____, NGSHFT,  _____,  _____,  _____,  _____,  _____ \
+      _____,  _____,  _____,  _____,  _____,NG_SHFT,  _____,  _____,NG_SHFT,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   ),
 
   [_MOVE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX, KS(UP),  XXXXX,  XXXXX,  _____,  _____,  XXXXX,  KC(A),  KC_UP,  KC(E),   UP10,KC_PGUP,\
+      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,  XXXXX,  KC(A),  KC_UP,  KC(E),  XXXXX,KC_PGUP,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,XXXXX,KS(LEFT),KS(DOWN),KS(RGHT), XXXXX,KC_LCBR,KC_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT, DOWN10,KC_PGDN,\
+      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_LCBR,KC_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,KC_PGDN,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,  XXXXX,KA(LEFT), XXXXX,KA(RGHT), XXXXX,  XXXXX,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -180,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _____,KC_CIRC,KC_AMPR,KC_QUOT, KC_DQT,KC_TILD,KC_LBRC,KC_RBRC,  KC_LT,  KC_GT,KC_LPRN,KC_RPRN,  XXXXX,  _____,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `       _       ¥
-      _____,   EURO,KC_PIPE, KC_GRV,KC_UNDS,KC_PIPE,  _____,  _____,  XXXXX,  XXXXX,KC_LBRC,KC_RBRC,  XXXXX,  _____,\
+      _____,   EURO,KC_PIPE, KC_GRV,KC_UNDS,KC_JYEN,  _____,  _____,  XXXXX,  XXXXX,KC_LBRC,KC_RBRC,  XXXXX,  _____,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
       _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -263,16 +239,26 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+static bool num_toggle = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-  switch (keycode) {
-    case NUMBER:
-      if (record->event.pressed) {
+  // tap=toggle layer, hold=momentally layer on
+  if (keycode == NUMBER) {
+    if (record->event.pressed) {
+      num_toggle = true;
+      layer_invert(_NUMBER);
+    } else {
+      if (layer_state_is(_NUMBER) && num_toggle == false) {
         layer_invert(_NUMBER);
       }
-      update_led();
-      return false;
-      break;
+    }
+    return false;
+  } else {
+    num_toggle = false;
+  }
+
+  switch (keycode) {
     case RGBRST:
       if (record->event.pressed) {
         eeconfig_update_rgblight_default();
@@ -366,13 +352,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     naginata_mode(keycode, record);
     a = process_naginata(keycode, record);
     update_led();
+    if (a == false) return false;
   }
-  #ifdef NAGINATA_EDIT_MODE
-    bool b = process_naginata_edit(keycode, record);
-    return a & b;
-  #else
-    return a;
-  #endif
   // 薙刀式
 
   return true;
@@ -411,9 +392,6 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
-  #ifdef NAGINATA_EDIT_MODE
-  set_naginata_edit(_NGEDITL, _NGEDITR);
-  #endif
   // 薙刀式
 }
 

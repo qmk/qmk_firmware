@@ -26,7 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 薙刀式
 // #define EUCALYN
 #define EUCALYNKAI
-#define NAGINATA_EDIT_MODE
+// #define NAGINATA_EDIT_WIN
+#define NAGINATA_EDIT_MAC
 #define COMBO_COUNT 3
 #define COMBO_TERM 300
 // 薙刀式
