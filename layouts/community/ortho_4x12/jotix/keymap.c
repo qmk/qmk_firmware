@@ -94,7 +94,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_user(uint8_t usb_led) {
   if (!(IS_LED_ON(usb_led, USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
+    tap_code(KC_NUMLOCK);
     unregister_code(KC_NUMLOCK);
   }
 }
