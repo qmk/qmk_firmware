@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_MACBASE] = LAYOUT_wrapper( \
-    TD(TD_CAPESC), _______________DVORAK_L1___________________, MO(_FUNC),           _______________DVORAK_R1___________________, KC_BSPC,
+    TD(TD_CAPESC), _______________DVORAK_L1___________________, MO(_MDIA),           _______________DVORAK_R1___________________, KC_BSPC,
     TD(TD_ENTAB),  _______________DVORAK_L2___________________, MO(_MNMB),           _______________DVORAK_R2___________________, LT(_MEME,KC_ENT),
     KC_LSHIFT,     __________c39__MACDVK_L3___________________, MT(MOD_LSFT,KC_SPC), __________c39__MACDVK_R3___________________, KC_RSHIFT
 ),
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_MDIA] =  LAYOUT_wrapper( \
-    KC_____, _________________LYOUT_____________________, KC_____, _________________KC_BLANK__________________, KC_____,
-    KC_____, KC_____, ________MAC_MISSION_CTRL__________, KC_____, _________________KC_BLANK__________________, KC_____,
+    KC_____, _________________LYOUT_____________________, KC_____, _________________RGB_1_____________________, KC_____,
+    KC_____, KC_____, ________MAC_MISSION_CTRL__________, KC_____, _________________RGB_2_____________________, KC_____,
     KC_____, _________________KC_BLANK__________________, KC_____, _________________MEDIA_____________________, KC_____
 ),
 

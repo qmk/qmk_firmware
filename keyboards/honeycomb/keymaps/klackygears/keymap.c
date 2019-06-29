@@ -7,11 +7,11 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
  enum honeycomb_layers {
-	_MEDIA,
+	_NAVI,
 	_NUMPAD,
-    _FUNCTION,
-    _MAUSONE,
-    _MAUSTWO
+    _FUNCTN,
+    _EXCLONE,
+    _EXCLTWO
 };
 
 // Macro definitions for readability
@@ -20,35 +20,35 @@
 extern int8_t encoderValue;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[_MEDIA] = LAYOUT(
-		MO(_FUNCTION), MO(_MAUSONE), MO(_MAUSTWO), KC_MUTE,
-		KC_MPLY,       KC_MRWD,      KC_MFFD,      _______,
+	[_NAVI] = LAYOUT(
+		MO(_FUNCTN),   TO(_NUMPAD),  MO(_EXCLTWO), KC_MUTE,
+		G(S(KC_O)),    A(KC_C),      G(KC_F5),     G(KC_F4),
         KC_LEFT,       KC_UP,        KC_DOWN,      KC_RIGHT,
-		KC_COPY,       KC_PASTE,     KC_SPACE,     TO(_NUMPAD)
+		KC_COPY,       KC_PASTE,     MO(_EXCLTWO), MO(_EXCLONE)
 	),
 
 	[_NUMPAD] = LAYOUT(
-		KC_7, KC_8,          KC_9,   LCTL(KC_UP),
+		KC_7, KC_8,          KC_9,   C(KC_UP),
 		KC_4, KC_5,          KC_6,   TD(TD_MINPLS),
 		KC_1, KC_2,          KC_3,   TD(TD_DIVMLT),
-        KC_0, TD(TD_DOTEQL), KC_ENT, TO(_MEDIA)
+        KC_0, TD(TD_DOTEQL), KC_ENT, TO(_NAVI)
 	),
 
-	[_MAUSONE] = LAYOUT(
-		_______,    _______, _______,  KC_MS_BTN1,
-		KC_MS_BTN1, _______, _______,  KC_MS_BTN1,
-		KC_MS_BTN2, _______, _______,  KC_MS_BTN2,
-		KC_MS_BTN3, _______, _______,  KC_MS_BTN3
+	[_EXCLONE] = LAYOUT(
+		LCTL(KC_A),    TD(TD_CCPY), TD(TD_PSTI),   C(KC_HOME),
+		C(KC_LEFT),    C(KC_UP),    C(KC_DOWN),    C(KC_RIGHT),
+		C(S(KC_LEFT)), C(S(KC_UP)), C(S(KC_DOWN)), C(S(KC_RIGHT)),
+        TD(TD_PTSP),   TD(TD_DDEL), TD(TD_ACCW),   _______
 	),
 
-	[_MAUSTWO] = LAYOUT(
-		_______,    _______, _______,  KC_MS_BTN1,
-		KC_MS_BTN1, _______, _______,  KC_MS_BTN1,
-		KC_MS_BTN2, _______, _______,  KC_MS_BTN2,
-		KC_MS_BTN3, _______, _______,  KC_MS_BTN3
+	[_EXCLTWO] = LAYOUT(
+		_______,    _______, _______,  C(KC_END),
+		A(KC_PGUP), KC_PGUP, KC_PGDN,  A(KC_PGDN),
+		_______, _______, _______,  _______,
+		_______, _______, _______,  _______
 	),
 
-[_FUNCTION] = LAYOUT(
+    [_FUNCTN] = LAYOUT(
 		_______,   _______, _______, LGUI(KC_UP),
 		_______,   _______, _______, KC_FIND,
 		MAKEKF,    _______, _______, _______,
@@ -79,7 +79,7 @@ void matrix_scan_user(void) {
 	*/
 
     switch(biton32(layer_state)) {
-      case _MEDIA:
+      case _NAVI:
         while (encoderValue < 0){
 		tap_code(KC_VOLU);
 		encoderValue++;
@@ -103,7 +103,7 @@ void matrix_scan_user(void) {
 		encoderValue--;
         }
       break;
-      case _FUNCTION:
+      case _FUNCTN:
         while (encoderValue < 0){
         tap_code(KC_PGUP);
 		encoderValue++;
@@ -113,23 +113,33 @@ void matrix_scan_user(void) {
 		encoderValue--;
         }
        break;
-       case _MAUSONE:
+       case _EXCLONE:
         while (encoderValue < 0){
-        tap_code(KC_MS_U);
+        register_code(KC_LCTL);
+        tap_code(KC_PGUP);
+        unregister_code(KC_LCTL);
 		encoderValue++;
 	    }
 	    while (encoderValue > 0){
-		tap_code(KC_MS_D);
+        register_code(KC_LCTL);
+        tap_code(KC_PGDOWN);
+        unregister_code(KC_LCTL);
 		encoderValue--;
         }
        break;
-       case _MAUSTWO:
+       case _EXCLTWO:
         while (encoderValue < 0){
-        tap_code(KC_MS_L);
+        register_code(KC_LCTL);
+        tap_code(KC_F6);
+        unregister_code(KC_LCTL);
 		encoderValue++;
 	    }
 	    while (encoderValue > 0){
-		tap_code(KC_MS_R);
+		register_code(KC_LCTL);
+        register_code(KC_LSFT);
+        tap_code(KC_F6);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LCTL);
 		encoderValue--;
         }
        break;
