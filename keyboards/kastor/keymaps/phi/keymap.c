@@ -29,6 +29,7 @@ enum custom_keycodes {
 #define KC_S_UNDS LSFT_T(KC_UNDS)
 #define KC_V_ARR  LT(ARROW, KC_V)
 #define KC_FN_ENT LT(FUNCTION, KC_ENT)
+#define KC_CTL_TB LCTL_T(KC_TAB)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -42,13 +43,13 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Missing: QUOT, JYEN, MINS, LANG2, ESC, TAB, LANG1 */
+  /* Missing: QUOT, JYEN, MINS, LANG2, ESC, LANG1 */
 
   [BASE] = LAYOUT_kc( \
 //       ,-----------------------------------------. ,-----------------------------------------.
            Q    , W    , E    , R    , T    , LBRC ,   RBRC , Y    , U    , I    , O    , P    , \
 //,------+------+------+------+------+------+------' `------+------+------+------+------+------+------.
-    LCTL , A    , S    ,D_MOUS, F    , G    ,                 H    , J    , K    , L    , SCLN ,FN_ENT, \
+   CTL_TB, A    , S    ,D_MOUS, F    , G    ,                 H    , J    , K    , L    , SCLN ,FN_ENT, \
 //|------+------+------+------+------+------|               |------+------+------+------+------+------|
    S_UNDS, Z    , X    , C    , V_ARR,ALT_SP,                 RAI_B, N    , M    , COMM , DOT  , SLSH   \
 //`-----------------------------------------'               `-----------------------------------------'
