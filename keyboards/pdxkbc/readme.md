@@ -5,7 +5,9 @@
 A macropad made for the Portland Keyboard Club and DEF CON
 
 Keyboard Maintainer: [Franklin Harding](https://github.com/yourusername)  
+
 Hardware Supported: https://github.com/fharding1/pdxkbc-badge
+
 Hardware Availability: https://github.com/fharding1/pdxkbc-badge
 
 Make example for this keyboard (after setting up your build environment):
