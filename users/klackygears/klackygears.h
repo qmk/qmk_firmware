@@ -16,8 +16,15 @@
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 
-extern rgblight_config_t rgblight_config;
+#undef RGBLIGHT_H
+#undef RGBLIGHT_RECONFIG_H
+#undef RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_H "users/klackygears/rgblight.h"
+#define RGBLIGHT_RECONFIG_H "users/klackygears/rgblight_reconfig.h"
+#define RGBLIGHT_ANIMATIONS "users/klackygears/rgblight_reconfig.h"
 
+extern rgblight_config_t rgblight_config;
+ #include "rgblight.h"
 #endif
 
 enum layer_number {
@@ -84,8 +91,3 @@ int RGB_current_mode;
 
 
 //#define OLED_FONT_H "keyboards/crkbd/keymaps/klackygears/glcdfont.c"
-
-#undef RGBLIGHT_H
-#undef RGBLIGHT_RECONFIG_H
-#define RGBLIGHT_H "users/klackygears/rgblight.h"
-#define RGBLIGHT_RECONFIG_H "users/klackygears/rgblight_reconfig.h"
