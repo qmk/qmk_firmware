@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "naginata.h"
-// for memcpy
-#include <string.h>
 
-#define memcpy_P(des, src, len) memcpy(des, src, len)
+#if !defined(__AVR__)
+  #include <string.h>
+  #define memcpy_P(des, src, len) memcpy(des, src, len)
+#endif
 
 #define NGBUFFER 5 // バッファのサイズ
 
