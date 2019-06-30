@@ -54,3 +54,4 @@ RGBLIGHT_ENABLE = yes
 # RAW_ENABLE = yes
 # DYNAMIC_KEYMAP_ENABLE = yes
 
+LAYOUTS = 60_ansi 60_tsangan_hhkb
