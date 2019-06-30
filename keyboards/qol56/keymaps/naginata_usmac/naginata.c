@@ -357,12 +357,6 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_C|B_V|B_DOT     , .kana = ""},
   {.key = B_C|B_V|B_SLSH    , .kana = ")"SS_TAP(X_ENTER)},
 
-#ifdef NAGINATA_EDIT_WIN
-  {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
-#endif
-#ifdef NAGINATA_EDIT_MAC
-  {.key = B_C|B_V|B_I       , .kana = ""},
-#endif
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
@@ -400,11 +394,13 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)" "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)"   "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_C|B_V|B_I       , .kana = ""},
 #endif
 
 };
