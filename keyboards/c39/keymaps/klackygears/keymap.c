@@ -27,14 +27,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MACBASE] = LAYOUT_wrapper( \
     TD(TD_CAPESC), _______________DVORAK_L1___________________, MO(_MDIA),           _______________DVORAK_R1___________________, KC_BSPC,
-    TD(TD_ENTAB),  _______________DVORAK_L2___________________, MO(_MNMB),           _______________DVORAK_R2___________________, LT(_MEME,KC_ENT),
+    TD(TD_ENTAB),  _______________DVORAK_L2___________________, MO(_FUNC),           _______________DVORAK_R2___________________, LT(_MEME,KC_ENT),
     KC_LSHIFT,     __________c39__MACDVK_L3___________________, MT(MOD_LSFT,KC_SPC), __________c39__MACDVK_R3___________________, KC_RSHIFT
 ),
 
 
 [_WINBASE] = LAYOUT_wrapper( \
     TD(TD_CAPESC), _______________DVORAK_L1___________________, MO(_MEME),           _______________DVORAK_R1___________________, KC_BSPC,
-    TD(TD_ENTAB),  _______________DVORAK_L2___________________, MO(_NUMB),           _______________DVORAK_R2___________________, KC_ENT,
+    TD(TD_ENTAB),  _______________DVORAK_L2___________________, MO(_FUNC),           _______________DVORAK_R2___________________, KC_ENT,
     KC_LSHIFT,     __________c39__WINDVK_L3___________________, MT(MOD_LSFT,KC_SPC), __________c39__WINDVK_R3___________________, KC_RSHIFT
 ),
 
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_SYMB] = LAYOUT_wrapper( \
-    KC_____, _________________PUNC_L1_ALT_______________, KC_____, _________________PUNC_R1___________________, KC_____,
+    KC_____, _________________PUNC_L1_ALT_______________, KC_____, _________________PUNC_R1___________________, KC_DEL,
     KC_____, _________________PUNC_L3___________________, KC_____, _________________PUNC_R2___________________, KC_____,
     KC_____, _________________PUNC_L3_ALT_______________, KC_____, _________________PUNC_R3___________________, KC_____
 ),
