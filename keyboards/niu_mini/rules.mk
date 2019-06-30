@@ -44,7 +44,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
