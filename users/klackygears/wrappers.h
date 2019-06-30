@@ -63,7 +63,7 @@ NOTE: If you do a search/replace
 
 #define __________c39__MACDVK_L3___________________        MT(MOD_LCTL,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LGUI, KC_J), LT(_SYMB,KC_K), TD(TD_XSPC)
 #define __________c39__WINDVK_L3___________________        MT(MOD_LGUI,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LCTL, KC_J), LT(_SYMB,KC_K), TD(TD_XSPC)
-#define __________c39__MACDVK_R3___________________        LT(_NUMB,KC_B),       LT(_SYMB,KC_M),    MT(MOD_LGUI,KC_W),  MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
+#define __________c39__MACDVK_R3___________________        LT(_MNMB,KC_B),       LT(_SYMB,KC_M),    MT(MOD_LGUI,KC_W),  MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
 #define __________c39__WINDVK_R3___________________        LT(_NUMB,KC_B),       LT(_SYMB,KC_M),    MT(MOD_LCTL,KC_W),  MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z)
 
 /*
