@@ -4,7 +4,7 @@
 
 A macropad made for the Portland Keyboard Club and DEF CON
 
-Keyboard Maintainer: [Franklin Harding](https://github.com/yourusername)  
+Keyboard Maintainer: [Franklin Harding](https://github.com/fharding1)  
 
 Hardware Supported: https://github.com/fharding1/pdxkbc-badge
 
