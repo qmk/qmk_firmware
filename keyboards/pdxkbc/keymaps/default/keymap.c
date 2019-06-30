@@ -16,7 +16,12 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { PDXKBCREDDIT = SAFE_RANGE, PDXKBCDISCORD, BADGELIFE, HACKTHEPLANET };
+enum custom_keycodes {
+    PDXKBCREDDIT = SAFE_RANGE,
+    PDXKBCDISCORD,
+    BADGELIFE,
+    HACKTHEPLANET
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
