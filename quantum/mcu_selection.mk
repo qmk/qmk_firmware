@@ -25,7 +25,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
 
-  USE_FPU = yes
+  USE_FPU ?= yes
 
   # Vector table for application
   # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
@@ -63,7 +63,7 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
   ARMV ?= 7
 
-  USE_FPU = no
+  USE_FPU ?= no
 
   # Vector table for application
   # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
