@@ -27,6 +27,7 @@ enum custom_keycodes {
 #define KC_RAI_B  LT(RAISE, KC_B)
 #define KC_ARRAI  MO(ARROW_RAISE)
 #define KC_S_UNDS LSFT_T(KC_UNDS)
+#define KC_V_ARR  LT(ARROW, KC_V)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+------+------+------+------+------+------' `------+------+------+------+------+------+------.
     LCTL , A    , S    ,D_MOUS, F    , G    ,                 H    , J    , K    , L    , SCLN , ENT  , \
 //|------+------+------+------+------+------|               |------+------+------+------+------+------|
-   S_UNDS, Z    , X    , C    , V    ,ALT_SP,                 RAI_B, N    , M    , COMM , DOT  , SLSH   \
+   S_UNDS, Z    , X    , C    , V_ARR,ALT_SP,                 RAI_B, N    , M    , COMM , DOT  , SLSH   \
 //`-----------------------------------------'               `-----------------------------------------'
   ),
 
