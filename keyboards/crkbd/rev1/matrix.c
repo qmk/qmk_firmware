@@ -93,6 +93,44 @@ uint8_t matrix_cols(void)
     return MATRIX_COLS;
 }
 
+void tx_rx_leds_init(void)
+{
+#ifndef NO_DEBUG_LEDS
+    TX_RX_LED_INIT;
+    TXLED0;
+    RXLED0;
+#endif
+}
+
+void tx_led_on(void)
+{
+#ifndef NO_DEBUG_LEDS
+    TXLED1;
+#endif
+}
+
+void tx_led_off(void)
+{
+#ifndef NO_DEBUG_LEDS
+    TXLED0;
+#endif
+}
+
+void rx_led_on(void)
+{
+#ifndef NO_DEBUG_LEDS
+    RXLED1;
+#endif
+}
+
+void rx_led_off(void)
+{
+#ifndef NO_DEBUG_LEDS
+    RXLED0;
+#endif
+}
+
+
 void matrix_init(void)
 {
     debug_enable = true;
@@ -102,9 +140,7 @@ void matrix_init(void)
     unselect_rows();
     init_cols();
 
-    TX_RX_LED_INIT;
-    TXLED0;
-    RXLED0;
+    tx_rx_leds_init();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -189,10 +225,10 @@ int serial_transaction(int master_changed) {
     int ret=serial_update_buffers();
 #endif
     if (ret ) {
-        if(ret==2) RXLED1;
+        if(ret==2) rx_led_on();
         return 1;
     }
-    RXLED0;
+    rx_led_off();
     memcpy(&matrix[slaveOffset],
         (void *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH);
     return 0;
@@ -241,7 +277,7 @@ uint8_t matrix_master_scan(void) {
     if( serial_transaction(mchanged) ) {
 #endif
         // turn on the indicator led when halves are disconnected
-        TXLED1;
+        tx_led_on();
 
         error_count++;
 
@@ -254,7 +290,7 @@ uint8_t matrix_master_scan(void) {
         }
     } else {
         // turn off the indicator led on no error
-        TXLED0;
+        tx_led_off();
         error_count = 0;
     }
     matrix_scan_quantum();

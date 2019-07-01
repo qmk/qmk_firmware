@@ -54,6 +54,7 @@ util/Win_Check_Output.txt
 .vscode/tasks.json
 .vscode/last.sql
 .vscode/temp.sql
+.vscode/ipch/
 .stfolder
 .tags
 
