@@ -30,7 +30,8 @@
 
 /* Milk default pinout */
 #define DIRECT_PINS { \
-    { D4, C6 }, \
+    {D4}, \
+    {C6}  \
 }
 #define UNUSED_PINS
 
