@@ -85,3 +85,4 @@ MSG_PYTHON_MISSING = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
 	Python 3 is not installed. It will be required by a future version\n\
 	of qmk_firmware.\n\n\
 	Please run $(BOLD)util/qmk_install.sh$(NO_COLOR) to install all the dependencies QMK requires.\n\n
+MSG_FLASH_BOOTLOADER = This board's bootloader is not supported by the 'flash' target at this time.
