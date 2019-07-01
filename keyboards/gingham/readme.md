@@ -1,6 +1,6 @@
 # Gingham
 
-![plaid](https://i.imgur.com/tTi9yR9h.jpg)
+![gingham](https://yiancar-designs.com/wp-content/uploads/2019/06/IMG_20190625_233619.jpg)
 
 A 60% keyboard with only through hole components.   
 
