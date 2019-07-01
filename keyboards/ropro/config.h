@@ -11,16 +11,16 @@
 #define DESCRIPTION     A 75-key ortholinear keyboard with rotary encoder
 
  /* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 13
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 14
 
 #define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B7 }
 #define ENCODERS_PAD_B { D5 }
 
  /* key matrix pins */
-#define MATRIX_ROW_PINS { F4, F5, F6, F7, B1, F1 }
-#define MATRIX_COL_PINS { F0, D1, D0, D4, C6, D7, E6, B4, B5, B3, B2, B6, D2 }
+#define MATRIX_ROW_PINS { F4, F5, F6, F7, B1, F1, NO_PIN }
+#define MATRIX_COL_PINS { F0, D1, D0, D4, C6, D7, E6, B4, B5, B3, B2, B6, D2, C7 }
 #define UNUSED_PINS
 
  /* COL2ROW or ROW2COL */
