@@ -14,28 +14,29 @@ extern keymap_config_t keymap_config;
 
 extern uint8_t is_master;
 
-#define _COLEMAKDHM 0
-#define _QWERTY 1
-#define _GAME 3
-#define _GAME_EXT 4
-#define _FN 7
-#define _SYM 8
-#define _UTIL 9
-#define _NAV 10
-#define _TEMPLATE 16
+enum layer_names {
+  _COLEMAKDHM,
+  _QWERTY,
+  _GAMING,
+  _GAMING_EXT,
+  _FN,
+  _SYM,
+  _UTIL,
+  _NAV
+};
 
-#define KC_CLMK DF(0)
-#define KC_QWERT DF(1)
-#define KC_GAME DF(3)
+#define KC_CLMK DF(_COLEMAKDHM)
+#define KC_QWERT DF(_QWERTY)
+#define KC_GAME DF(_GAMING)
 
-#define KC_T_NAV TT(10)
-#define KC_S_NAV MO(10)
+#define KC_T_NAV TT(_NAV)
+#define KC_S_NAV MO(_NAV)
 
 #define KC_FNESC LT(_FN, KC_ESC)
 #define KC_UTTAB LT(_UTIL, KC_TAB)
 #define KC_SMSPC LT(_SYM, KC_SPC)
 
-#define KC_GMSPC LT(_GAME_EXT, KC_SPC)
+#define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
 #define KC_FNGRV LT(_FN, KC_GRV)
 
 #define KC_LCTLT LCTL_T(KC_LT)
@@ -51,8 +52,6 @@ extern uint8_t is_master;
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -91,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_GAME] = LAYOUT_kc( \
+  [_GAMING] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -103,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_GAME_EXT] = LAYOUT_kc( \
+  [_GAMING_EXT] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         GRV,     1,     2, _____,     3,     4,                   VOLU,    F1,    F2,    F3,    F4,    F5,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -161,8 +160,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____,   SPC,     KP_0,  PDOT,  BSPC \
                               //`--------------------'  `--------------------'
-  ),
+  )
 
+/*
   [_TEMPLATE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
       _____, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
@@ -174,6 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   )
+*/
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -199,13 +200,13 @@ void render_status(void) {
   // oled_write_P(PSTR("Layout: "), false);
   switch (biton32(default_layer_state)) {
     case _COLEMAKDHM:
-      oled_write_P(PSTR("ORBIT"), false);
+      oled_write_P(PSTR("CLMK"), false);
       break;
-    case _GAME:
+    case _GAMING:
       oled_write_P(PSTR("GAME "), false);
       break;
     case _QWERTY:
-      oled_write_P(PSTR("DELAY"), false);
+      oled_write_P(PSTR("QWERT"), false);
       break;
   }
 
@@ -227,7 +228,7 @@ void render_status(void) {
     case _NAV:
       oled_write_P(PSTR("Gyro "), false);
       break;
-    case _GAME_EXT:
+    case _GAMING_EXT:
       oled_write_P(PSTR("Ext  "), false);
       break;
     default:
