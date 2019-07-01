@@ -25,7 +25,7 @@
 
 typedef struct {
   char *symbol;
-  char *code;
+  uint32_t code[UCIS_MAX_SYMBOL_LENGTH];
 } qk_ucis_symbol_t;
 
 typedef struct {
@@ -36,8 +36,8 @@ typedef struct {
 
 extern qk_ucis_state_t qk_ucis_state;
 
-#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, NULL}}
-#define UCIS_SYM(name, code) {name, #code}
+#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, {}}}
+#define UCIS_SYM(name, ...) {name, {__VA_ARGS__}}
 
 extern const qk_ucis_symbol_t ucis_symbol_table[];
 
@@ -45,5 +45,5 @@ void qk_ucis_start(void);
 void qk_ucis_start_user(void);
 void qk_ucis_symbol_fallback (void);
 void qk_ucis_success(uint8_t symbol_index);
-void register_ucis(const char *hex);
+void register_ucis(const uint32_t *codes);
 bool process_ucis (uint16_t keycode, keyrecord_t *record);

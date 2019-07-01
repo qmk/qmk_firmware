@@ -158,6 +158,26 @@ void register_hex(uint16_t hex) {
   }
 }
 
+void register_hex32(uint32_t hex) {
+  bool onzerostart = true;
+  for(int i = 7; i >= 0; i--) {
+    if (i <= 3) {
+      onzerostart = false;
+    }
+    uint8_t digit = ((hex >> (i*4)) & 0xF);
+    if (digit == 0) {
+      if (!onzerostart) {
+        register_code(hex_to_keycode(digit));
+        unregister_code(hex_to_keycode(digit));
+      }
+    } else {
+      register_code(hex_to_keycode(digit));
+      unregister_code(hex_to_keycode(digit));
+      onzerostart = false;
+    }
+  }
+}
+
 void send_unicode_hex_string(const char *str) {
   if (!str) { return; }
 
@@ -181,6 +201,24 @@ void send_unicode_hex_string(const char *str) {
 
     str += n; // Move to the first ' ' (or '\0') after the current token
   }
+}
+
+void register_unicode(uint32_t code, uint8_t input_mode) {
+  if (code > 0x10FFFF || (code > 0xFFFF && input_mode == UC_WIN)) {
+    // Do nothing, code out of range.
+    return;
+  }
+  unicode_input_start();
+  if (code > 0xFFFF && input_mode == UC_OSX) {
+    // Convert to UTF-16 surrogate pair on Mac
+    code -= 0x10000;
+    uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
+    register_hex32(hi + 0xD800);
+    register_hex32(lo + 0xDC00);
+  } else {
+    register_hex32(code);
+  }
+  unicode_input_finish();
 }
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
