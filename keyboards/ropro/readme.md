@@ -6,7 +6,7 @@ The RoPro
 A Compact 75-Key + Rotary Encoder Ortholinear keyboard by [Garret G.](https://github.com/TheRoyalSweatshirt) a.k.a. [/u/The_Royal](https://www.reddit.com/user/The_Royal)  
 
 Keyboard Maintainer: [Garret G.](https://github.com/TheRoyalSweatshirt)  
-Hardware Supported: The_RoPro rev1.0, rev1.5, rev2.0 PCB; Elite-C & Proton-C Compatable.  
+Hardware Supported: The_RoPro rev1.0, rev1.5, rev2.0 PCB; Elite-C & Proton-C Compatible.  
 Hardware Availability: [Kingly-Keys.xyz](https://kingly-keys.xyz/) - (Through GB or when in stock)
 
 Make example for this keyboard (after setting up your build environment):
