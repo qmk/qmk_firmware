@@ -45,8 +45,8 @@
 #define TAB_SFT LSFT_T(KC_TAB)
 #define SPC_SYM LT(_SYMBOL, KC_SPC)
 #define ENT_THU LT(_THUMB, KC_ENT)
-
 #define FUN_L MO(_FUNCTION)
+
 // HOMEROW SHIFT
 #define T_SFT LSFT_T(KC_T)
 #define N_SFT RSFT_T(KC_N)
@@ -62,15 +62,3 @@
 #define U_GUI LGUI_T(KC_U)
 #define Y_ALT LALT_T(KC_Y)
 #define SCL_CTL LCTL_T(KC_SCLN)
-
-// Homerow tap modifiers 
-// #define A_CTL LCTL_T(KC_A)
-// #define R_ALT LALT_T(KC_R)
-// #define S_GUI LGUI_T(KC_S)
-// #define E_GUI LGUI_T(KC_E)
-// #define I_ALT LALT_T(KC_I)
-// #define O_CTL LCTL_T(KC_O)
-
-// Unicode characters
-#define YEN 0x00A5
-#define YEN_CTL LCTL_T(UC(YEN))
