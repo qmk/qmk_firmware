@@ -22,7 +22,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    rionlion100
 #define PRODUCT         2% Milk
-#define DESCRIPTION     A m ilk themed 2% Keyboard
+#define DESCRIPTION     A milk themed 2% Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 2
