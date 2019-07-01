@@ -1,14 +1,8 @@
 #pragma once
 
-#ifdef MANUFACTURER
 #undef MANUFACTURER
-#endif
-#ifdef PRODUCT
 #undef PRODUCT
-#endif
-#ifdef DESCRIPTION
 #undef DESCRIPTION
-#endif
 
 #define MANUFACTURER    Potato Inc.
 #define PRODUCT         Qt3.14
@@ -30,7 +24,3 @@
 #ifdef BACKLIGHT_PIN
 #define BACKLIGHT_LEVELS 8
 #endif
-
-/* send tap key if no layer key was used even after tap delay */
-#define TAPPING_TERM 250
-#define RETRO_TAPPING
