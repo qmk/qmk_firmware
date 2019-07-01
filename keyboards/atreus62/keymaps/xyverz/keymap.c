@@ -138,10 +138,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
 #ifdef BOOTLOADER_CATERINA
    // This will disable the red LEDs on the ProMicros
-   setPinOutput(D5);
-   writePinHigh(D5);
-   setPinOutput(B0);
-   writePinHigh(B0);
+   setPinInput(D5);
+   writePinLow(D5);
+   setPinInput(B0);
+   writePinLow(B0);
 #endif
 };
 
