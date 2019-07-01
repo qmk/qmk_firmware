@@ -6,7 +6,7 @@ Otaku Split is Japanese layout based keyboard.
 rev.0 is prototype. it has MDF color plate Iron Black and Ayanami blue.
 
 Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
-Hardware Supported: promicro(atmega32u4)
+Hardware Supported: promicro(atmega32u4)  
 Hardware Availability: https://skyhigh-works.booth.pm/items/1365150
 
 Make example for this keyboard (after setting up your build environment):
