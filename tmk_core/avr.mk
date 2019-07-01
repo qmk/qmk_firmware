@@ -326,5 +326,5 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(call EXEC_DFU)
 else
-	echo "&(MSG_FLASH_BOOTLOADER)"
+	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
 endif

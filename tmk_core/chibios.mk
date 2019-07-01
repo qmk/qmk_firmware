@@ -290,5 +290,5 @@ else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
 	$(call EXEC_DFU_UTIL)
 else
-	echo "$(MSG_FLASH_BOOTLOADER)"
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
