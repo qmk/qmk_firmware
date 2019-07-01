@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 #ifdef MANUFACTURER
 #undef MANUFACTURER
@@ -34,13 +31,6 @@
 #define BACKLIGHT_LEVELS 8
 #endif
 
-/* turn off RGB when computer sleeps */
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_SLEEP
-#endif
-
 /* send tap key if no layer key was used even after tap delay */
 #define TAPPING_TERM 250
 #define RETRO_TAPPING
-
-#endif

@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define X KC_NO
-
 enum layers {
 	_QWERTY,
 	_FUNC,
@@ -83,12 +80,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRB |= (1 << 2); PORTB &= ~(1 << 2);
+	if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+		setPinOutput(B2);
+		writePinLow(B2);
 		//rgblight_sethsv_noeeprom(145, 200, 200);
 		//rgblight_enable_noeeprom();
 	} else {
-		DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
+		setPinInput(B2);
+		writePinLow(B2);
 		//rgblight_sethsv_noeeprom(0, 0, 0);
 		//rgblight_disable_noeeprom();
 	}
