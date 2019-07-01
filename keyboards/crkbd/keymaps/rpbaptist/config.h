@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
   #undef RGBLED_NUM
   #define RGBLIGHT_ANIMATIONS
-  #define RGBLED_NUM 12
+  #define RGBLED_NUM 27
   #define RGBLIGHT_HUE_STEP 10
   #define RGBLIGHT_SAT_STEP 16
   #define RGBLIGHT_VAL_STEP 16
