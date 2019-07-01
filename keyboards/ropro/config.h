@@ -1,3 +1,5 @@
+#pragma once 
+
 /* Copyright 2019 Garret G. (TheRoyalSweatshirt)
  *
  * This program is free software: you can redistribute it and/or modify
