@@ -68,7 +68,8 @@ Then define a table like this in your keymap file:
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9), // 💩
     UCIS_SYM("rofl", 0x1F923), // 🤣
-    UCIS_SYM("kiss", 0x1F619)  // 😙
+    UCIS_SYM("kiss", 0x1F619), // 😙
+    UCIS_SYM("poops", 0x1F4A9, 0x1F4A9) // 💩💩 
 );
 ```
 
@@ -90,7 +91,7 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with Unicode Map).
+* **`UC_MAC`**: macOS built-in Unicode hex input. Supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with another keycode.

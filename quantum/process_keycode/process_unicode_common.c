@@ -243,6 +243,24 @@ void send_unicode_string(const char *str) {
     }
 }
 
+void register_unicode(uint32_t code, uint8_t input_mode) {
+    if (code > 0x10FFFF || (code > 0xFFFF && input_mode == UC_WIN)) {
+        // Do nothing, code out of range.
+        return;
+    }
+    unicode_input_start();
+    if (code > 0xFFFF && input_mode == UC_OSX) {
+        // Convert to UTF-16 surrogate pair on Mac
+        code -= 0x10000;
+        uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
+        register_hex32(hi + 0xD800);
+        register_hex32(lo + 0xDC00);
+    } else {
+        register_hex32(code);
+    }
+    unicode_input_finish();
+}
+
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {

@@ -60,31 +60,12 @@ __attribute__((weak)) void qk_ucis_symbol_fallback(void) {
 
 __attribute__((weak)) void qk_ucis_cancel(void) {}
 
-void register_ucis(const char *hex) {
-    for (int i = 0; hex[i]; i++) {
-        uint8_t kc = 0;
-        char    c  = hex[i];
-
-        switch (c) {
-            case '0':
-                kc = KC_0;
-                break;
-            case '1' ... '9':
-                kc = c - '1' + KC_1;
-                break;
-            case 'a' ... 'f':
-                kc = c - 'a' + KC_A;
-                break;
-            case 'A' ... 'F':
-                kc = c - 'A' + KC_A;
-                break;
-        }
-
-        if (kc) {
-            register_code(kc);
-            unregister_code(kc);
-            wait_ms(UNICODE_TYPE_DELAY);
-        }
+void register_ucis(const uint32_t *codes) {
+    uint8_t input_mode = get_unicode_input_mode();
+    for(int i = 0; i < UCIS_MAX_CODE_LENGTH && codes[i]; i++) {
+        uint32_t code = codes[i];
+        register_unicode(code, input_mode);
+        wait_ms (UNICODE_TYPE_DELAY);
     }
 }
 
@@ -127,18 +108,16 @@ bool process_ucis(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
 
-        unicode_input_start();
         for (i = 0; ucis_symbol_table[i].symbol; i++) {
             if (is_uni_seq(ucis_symbol_table[i].symbol)) {
                 symbol_found = true;
-                register_ucis(ucis_symbol_table[i].code + 2);
+                register_ucis(ucis_symbol_table[i].code);
                 break;
             }
         }
         if (!symbol_found) {
             qk_ucis_symbol_fallback();
         }
-        unicode_input_finish();
 
         if (symbol_found) {
             qk_ucis_success(i);
