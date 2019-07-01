@@ -256,10 +256,10 @@ If you press a Mod Tap key, tap another key (press and release) and then release
 
 For Instance:
 
-- `SHFT_T(KC_A)` Down
+- `SFT_T(KC_A)` Down
 - `KC_X` Down
 - `KC_X` Up
-- `SHFT_T(KC_A)` Up
+- `SFT_T(KC_A)` Up
 
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`). 
 
@@ -279,9 +279,9 @@ Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_
 
 For Instance:
 
-- `SHFT_T(KC_A)` Down
+- `SFT_T(KC_A)` Down
 - `KC_X` Down
-- `SHFT_T(KC_A)` Up
+- `SFT_T(KC_A)` Up
 - `KC_X` Up
 
 Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
@@ -303,11 +303,11 @@ When the user holds a key after tap, this repeats the tapped key rather to hold 
 
 Example:
 
-- SHFT_T(KC_A) Down
-- SHFT_T(KC_A) Up
-- SHFT_T(KC_A) Down
+- SFT_T(KC_A) Down
+- SFT_T(KC_A) Up
+- SFT_T(KC_A) Down
 - wait more than tapping term...
-- SHFT_T(KC_A) Up
+- SFT_T(KC_A) Up
 
 With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto repeat function.
 
