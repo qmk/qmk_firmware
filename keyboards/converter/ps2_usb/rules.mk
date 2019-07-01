@@ -44,12 +44,12 @@ BOOTLOADER = caterina # Pro Micro
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite   # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE  = no  # Mouse keys(+4700)
-EXTRAKEY_ENABLE  = no  # Audio control and System control(+450)
+EXTRAKEY_ENABLE  = yes  # Audio control and System control(+450)
 CONSOLE_ENABLE   = yes  # Console for debug(+400)
 COMMAND_ENABLE   = yes  # Commands for debug and configuration
-NKRO_ENABLE      = no  # USB Nkey Rollover
+NKRO_ENABLE      = yes  # USB Nkey Rollover
 CUSTOM_MATRIX    = yes
 #PS2_USE_INT    = yes #use for soarer's converter
 PS2_USE_USART = yes #use if using Hasu converter.
