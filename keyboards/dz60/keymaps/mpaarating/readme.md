@@ -3,6 +3,7 @@
 ![dz60](https://i.imgur.com/nVOX9Gb.jpg)
 
 ### Layout
+**Note:** Layer 2 does not exist currently
 ![layer 0](https://i.imgur.com/uXFTNBs.png)
 ![layer 1](https://i.imgur.com/f7uTkDU.png)
 
