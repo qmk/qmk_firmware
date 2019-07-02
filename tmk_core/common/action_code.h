@@ -269,8 +269,8 @@ enum layer_param_tap_op {
     OP_SET_CLEAR,
     OP_ONESHOT,
 };
-#define ACTION_LAYER_BITOP(op, part, bits, on)      (ACT_LAYER<<12 | (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
-#define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
+#define ACTION_LAYER_BITOP(op, part, bits, on)      ACTION(ACT_LAYER, (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
+#define ACTION_LAYER_TAP(layer, key)                ACTION(ACT_LAYER_TAP, (layer)<<8 | (key))
 /* Default Layer */
 #define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
 /* Layer Operation */
@@ -285,7 +285,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
 #define ACTION_LAYER_ONESHOT(layer)                 ACTION_LAYER_TAP((layer), OP_ONESHOT)
-#define ACTION_LAYER_MODS(layer, mods)              (ACT_LAYER_MODS<<12 | (layer) << 8 | (mods))
+#define ACTION_LAYER_MODS(layer, mods)              ACTION(ACT_LAYER_MODS, (layer) << 8 | (mods))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
