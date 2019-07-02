@@ -42,11 +42,11 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 ```C
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
-    *   driver
-    *   |  R location
-    *   |  |      G location
-    *   |  |      |      B location
-    *   |  |      |      | */
+ *   driver
+ *   |  R location
+ *   |  |      G location
+ *   |  |      |      B location
+ *   |  |      |      | */
     {0, C1_3,  C2_3,  C3_3},
     ....
 }
@@ -93,11 +93,11 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 ```C
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
-    *   driver
-    *   |  R location
-    *   |  |       G location
-    *   |  |       |       B location
-    *   |  |       |       | */
+ *   driver
+ *   |  R location
+ *   |  |       G location
+ *   |  |       |       B location
+ *   |  |       |       | */
     {0, B_1,    A_1,    C_1},
     ....
 }

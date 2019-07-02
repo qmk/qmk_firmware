@@ -4,6 +4,10 @@
     #define RGBLIGHT_SPLIT
   #endif
 
+  #ifndef F_SCL
+    #define F_SCL 100000UL  // SCL frequency
+  #endif
+
 #else  // use serial
   // When using serial, the user must define RGBLIGHT_SPLIT explicitly
   //  in config.h as needed.

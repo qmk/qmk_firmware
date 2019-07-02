@@ -1,6 +1,6 @@
 # Jotix ortho 4x12 keymap
 
-![keymap](https://i.imgur.com/aQQo4eb.jpg)
+![keymap](https://i.imgur.com/CpZCcuy.png)
 
 Tested on:
 
