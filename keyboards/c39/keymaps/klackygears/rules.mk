@@ -66,4 +66,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes       # RGB Enable / Disable
 TAP_DANCE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
-VELOCIKEY_ENABLE = no
+VELOCIKEY_ENABLE = yes
