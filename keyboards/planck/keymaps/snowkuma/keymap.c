@@ -22,14 +22,10 @@
  *
  * https://github.com/snowkuma
  *
- * Colemak is the default layer and I'll add some notes for other changes as I 
- * go along.
- * 
  * version 0.1
 */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
 #include "custom_keycodes.h"
 #include "my_strings.h"
