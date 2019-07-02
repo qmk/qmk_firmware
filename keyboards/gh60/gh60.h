@@ -1,5 +1,4 @@
-#ifndef GH60_H
-#define GH60_H
+#pragma once
 
 #include "quantum.h"
 #include "led.h"
@@ -102,5 +101,3 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
     { K30, KC_NO,    K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D }, \
     { K40, K41, K42, KC_NO,    KC_NO,    K45, KC_NO,    KC_NO,    KC_NO,    KC_NO, K4A, K4B, K4C, K4D }  \
 }
-
-#endif
