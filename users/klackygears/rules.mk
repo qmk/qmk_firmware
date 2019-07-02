@@ -26,7 +26,3 @@ endif
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
 endif
-
-#ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-#  SRC += rgblight.c
-#endif

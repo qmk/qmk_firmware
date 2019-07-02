@@ -28,6 +28,10 @@
 #include "led_tables.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "lib/lib8tion/lib8tion.h"
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #ifndef RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
