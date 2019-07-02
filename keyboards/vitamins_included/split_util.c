@@ -26,7 +26,7 @@ bool is_rev2(void) // Input with pullup, if rev2, pin is pulled down with 220R r
 void matrix_setup(void) {
   if(is_rev2()){
     setPinInputHigh(B4);
-    isLeftHand = readPin(B4);
+    isLeftHand = !readPin(B4);
     setPinInput(B4);
   }
   else{
