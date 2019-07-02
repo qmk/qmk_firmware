@@ -17,6 +17,10 @@
 
 volatile bool isLeftHand = true;
 
+#ifdef MASTER_CHECK_USB_ENUMERATED
+    volatile bool contacted_by_master;
+#endif
+
 __attribute__((weak))
 bool is_keyboard_left(void) {
   #if defined(SPLIT_HAND_PIN)
@@ -32,35 +36,39 @@ bool is_keyboard_left(void) {
   return is_keyboard_master();
 }
 
-bool is_keyboard_master(void) {
+int is_keyboard_master(void) {
 #ifdef __AVR__
-  static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
+  static enum { UNKNOWN = -1, SLAVE = 0, MASTER = 1 } usbstate = UNKNOWN;
 
   // only check once, as this is called often
   if (usbstate == UNKNOWN) {
     // Set half to master if it's been assigned a usb address
     // Set device to slave if it's been contacted by a master half
     #ifdef MASTER_CHECK_USB_ENUMERATED
-        // This will be true if a USB connection has been established
-        usbstate = (UDADDR & _BV(ADDEN)) ? MASTER : UNKNOWN;
-        usbstate = contacted_by_master ? SLAVE : UNKNOWN;
+      // This will be true if a USB connection has been established
+      usbstate = (UDADDR & _BV(ADDEN)) ? MASTER : UNKNOWN;
+      usbstate = contacted_by_master ? SLAVE : UNKNOWN;
 
     // Rely on checking VBUS PAD
     #else
-        USBCON |= (1 << OTGPADE);  // enables VBUS pad
-        wait_us(5);
+      USBCON |= (1 << OTGPADE);  // enables VBUS pad
+      wait_us(5);
 
-        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+      usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
     #endif
   }
 
-  return (usbstate == MASTER);
+  #ifdef MASTER_CHECK_USB_ENUMERATED
+    return usbstate;
+  #else
+    return (usbstate == MASTER);
+  #endif
 #else
   return true;
 #endif
 }
 
-static void keyboard_master_setup(void) {
+void keyboard_master_setup(void) {
 #if defined(USE_I2C) || defined(EH)
   #ifdef SSD1306OLED
     matrix_master_OLED_init ();
@@ -69,7 +77,7 @@ static void keyboard_master_setup(void) {
   transport_master_init();
 }
 
-static void keyboard_slave_setup(void)
+void keyboard_slave_setup(void)
 {
   transport_slave_init();
 }
@@ -89,6 +97,7 @@ void matrix_setup(void)
   }
 #endif
 
+#ifndef MASTER_CHECK_USB_ENUMERATED
   if (is_keyboard_master())
   {
     keyboard_master_setup();
@@ -97,4 +106,5 @@ void matrix_setup(void)
   {
     keyboard_slave_setup();
   }
+#endif
 }

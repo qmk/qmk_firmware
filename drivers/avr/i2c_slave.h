@@ -12,6 +12,10 @@
 
 extern volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
+#ifdef MASTER_CHECK_USB_ENUMERATED
+    extern volatile bool contacted_by_master;
+#endif
+
 void i2c_slave_init(uint8_t address);
 void i2c_slave_stop(void);
 

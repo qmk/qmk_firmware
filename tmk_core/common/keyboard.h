@@ -68,7 +68,11 @@ void keyboard_task(void);
 /* it runs when host LED status is updated */
 void keyboard_set_leds(uint8_t leds);
 /* it runs whenever code has to behave differently on a slave */
-bool is_keyboard_master(void);
+#ifdef MASTER_CHECK_USB_ENUMERATED
+    int is_keyboard_master(void);
+#else
+    bool is_keyboard_master(void);
+#endif
 
 void keyboard_pre_init_kb(void);
 void keyboard_pre_init_user(void);

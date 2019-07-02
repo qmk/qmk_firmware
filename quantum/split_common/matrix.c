@@ -246,11 +246,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #endif
 
 void matrix_init(void) {
-#ifdef DISABLE_JTAG
-  // JTAG disable for PORT F. write JTD bit twice within four cycles.
-  MCUCR |= (1<<JTD);
-  MCUCR |= (1<<JTD);
-#endif
   debug_enable = true;
   debug_matrix = true;
   debug_mouse  = true;
@@ -285,6 +280,20 @@ void matrix_init(void) {
   debounce_init(ROWS_PER_HAND);
 
   matrix_init_quantum();
+
+#ifdef MASTER_CHECK_USB_ENUMERATED
+  while(is_keyboard_master() == -1) {}
+
+  if(is_keyboard_master())
+  {
+    keyboard_master_setup();
+  }
+  else
+  {
+    keyboard_slave_setup();
+  }
+#endif
+
 }
 
 uint8_t _matrix_scan(void) {

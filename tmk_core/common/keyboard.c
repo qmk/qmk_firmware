@@ -194,9 +194,15 @@ void keyboard_setup(void) {
  * FIXME: needs doc
  */
 __attribute__((weak))
-bool is_keyboard_master(void) {
-    return true;
-}
+#ifdef MASTER_CHECK_USB_ENUMERATED
+    int is_keyboard_master(void) {
+        return true;
+    }
+#else
+    bool is_keyboard_master(void) {
+        return true;
+    }
+#endif
 
 /** \brief keyboard_init
  *

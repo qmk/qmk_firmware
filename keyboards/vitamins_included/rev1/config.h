@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 #define EE_HANDS
+#define MASTER_CHECK_USB_ENUMERATED // rev1 doesn't have a diode to vbus pad
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xBEE5

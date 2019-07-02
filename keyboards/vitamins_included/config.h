@@ -22,6 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+#define DISABLE_JTAG // vitamins included uses jtag pins for the matrix
 
-
-
+#define SOFT_SERIAL_PIN D0
