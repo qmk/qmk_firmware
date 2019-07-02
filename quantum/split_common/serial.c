@@ -415,7 +415,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   } else {
       *trans->status = TRANSACTION_ACCEPTED;
   }
-
+  contacted_by_master = true;
   sync_recv(); //weit initiator output to high
 }
 

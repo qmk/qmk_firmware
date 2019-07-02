@@ -31,6 +31,7 @@ bool is_keyboard_left(void) {
 
   return is_keyboard_master();
 }
+#define __AVR__
 
 bool is_keyboard_master(void)
 {
@@ -40,10 +41,9 @@ bool is_keyboard_master(void)
   // only check once, as this is called often
   if (usbstate == UNKNOWN)
   {
-    USBCON |= (1 << OTGPADE);  // enables VBUS pad
-    wait_us(5);
-
-    usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+        // This will be true if a USB connection has been established
+        (UDADDR & _BV(ADDEN)) ? MASTER : UNKNOWN;
+        contacted_by_master ? SLAVE : UNKNOWN;
   }
 
   return (usbstate == MASTER);

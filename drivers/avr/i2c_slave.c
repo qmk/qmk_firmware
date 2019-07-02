@@ -68,4 +68,5 @@ ISR(TWI_vect){
 
     // Reset i2c state machine to be ready for next interrupt
     TWCR |= (1 << TWIE) | (1 << TWINT) | (ack << TWEA) | (1 << TWEN);
+    contacted_by_master = true;
 }
