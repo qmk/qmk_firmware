@@ -25,4 +25,6 @@ SLEEP_LED_ENABLE   = no    # Breathing sleep LED during USB suspend
 
 BOOTLOADER       = qmk-dfu
 
+# RGB_MATRIX_ENABLE = WS2812
+
 OLED_DRIVER_ENABLE = yes
