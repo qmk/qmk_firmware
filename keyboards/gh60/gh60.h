@@ -12,17 +12,17 @@
  *   B2 Capslock LED
  *   B0 not connected
  */
-inline void gh60_caps_led_on(void)      { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
-inline void gh60_poker_leds_on(void)    { DDRF |=  (1<<4); PORTF &= ~(1<<4); }
-inline void gh60_fn_led_on(void)        { DDRF |=  (1<<5); PORTF &= ~(1<<5); }
-inline void gh60_esc_led_on(void)       { DDRF |=  (1<<6); PORTF &= ~(1<<6); }
-inline void gh60_wasd_leds_on(void)     { DDRF |=  (1<<7); PORTF &= ~(1<<7); }
+inline void gh60_caps_led_on(void)      { setPinOutput(B2); writePinLow(B2); }
+inline void gh60_poker_leds_on(void)    { setPinOutput(F4); writePinLow(F4); }
+inline void gh60_fn_led_on(void)        { setPinOutput(F5); writePinLow(F5); }
+inline void gh60_esc_led_on(void)       { setPinOutput(F6); writePinLow(F6); }
+inline void gh60_wasd_leds_on(void)     { setPinOutput(F7); writePinLow(F7); }
 
-inline void gh60_caps_led_off(void)     { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
-inline void gh60_poker_leds_off(void)   { DDRF &= ~(1<<4); PORTF &= ~(1<<4); }
-inline void gh60_fn_led_off(void)       { DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
-inline void gh60_esc_led_off(void)      { DDRF &= ~(1<<6); PORTF &= ~(1<<6); }
-inline void gh60_wasd_leds_off(void)    { DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
+inline void gh60_caps_led_off(void)     { setPinInput(B2); writePinLow(B2); }
+inline void gh60_poker_leds_off(void)   { setPinInput(F4); writePinLow(F4); }
+inline void gh60_fn_led_off(void)       { setPinInput(F5); writePinLow(F5); }
+inline void gh60_esc_led_off(void)      { setPinInput(F6); writePinLow(F6); }
+inline void gh60_wasd_leds_off(void)    { setPinInput(F7); writePinLow(F7); }
 
 /* GH60 keymap definition macro
  * K2C, K31 and  K3C are extra keys for ISO
