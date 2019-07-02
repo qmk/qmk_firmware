@@ -46,7 +46,7 @@ enum planck_layers {
 
 enum planck_keycodes {
   COLEMAK = SAFE_RANGE,
-  EMAIL,
+  EMAIL = SAFE_RANGE,
   EMOJI,
   EXT_PLV,
   ITERM,
