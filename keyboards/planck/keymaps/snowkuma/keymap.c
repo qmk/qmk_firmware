@@ -297,12 +297,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
     case EMAIL:
         if (record->event.pressed) {
             SEND_STRING(MY_EMAIL);
