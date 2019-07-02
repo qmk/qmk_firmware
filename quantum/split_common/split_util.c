@@ -31,7 +31,6 @@ bool is_keyboard_left(void) {
 
   return is_keyboard_master();
 }
-#define __AVR__
 
 bool is_keyboard_master(void)
 {
