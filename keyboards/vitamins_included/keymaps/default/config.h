@@ -20,17 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-#define USE_SERIAL
-// #define USE_I2C
-
-/* Select hand configuration */
-
-//#define MASTER_LEFT
-// #define MASTER_RIGHT
-#define EE_HANDS
-
 #ifdef AUDIO_ENABLE
   #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                 SONG(DVORAK_SOUND), \
