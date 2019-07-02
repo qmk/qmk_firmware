@@ -32,17 +32,26 @@ bool is_keyboard_left(void) {
   return is_keyboard_master();
 }
 
-bool is_keyboard_master(void)
-{
+bool is_keyboard_master(void) {
 #ifdef __AVR__
   static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
   // only check once, as this is called often
-  if (usbstate == UNKNOWN)
-  {
+  if (usbstate == UNKNOWN) {
+    // Set half to master if it's been assigned a usb address
+    // Set device to slave if it's been contacted by a master half
+    #ifdef MASTER_CHECK_USB_ENUMERATED
         // This will be true if a USB connection has been established
-        (UDADDR & _BV(ADDEN)) ? MASTER : UNKNOWN;
-        contacted_by_master ? SLAVE : UNKNOWN;
+        usbstate = (UDADDR & _BV(ADDEN)) ? MASTER : UNKNOWN;
+        usbstate = contacted_by_master ? SLAVE : UNKNOWN;
+
+    // Rely on checking VBUS PAD
+    #else
+        USBCON |= (1 << OTGPADE);  // enables VBUS pad
+        wait_us(5);
+
+        usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+    #endif
   }
 
   return (usbstate == MASTER);
