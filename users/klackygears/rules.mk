@@ -8,9 +8,9 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-     SRC += rgblight.c
-endif
+# ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+#      SRC += rgblight.c
+# endif
 
 
 ifeq ($(strip $(MACROS_ENABLED)), yes)
