@@ -33,10 +33,6 @@
 #define SC_CAPF LGUI(LSFT(KC_3))  // Capture the full screen to file
 #define SC_CAPP LGUI(LSFT(KC_4))  // Capture portion of screen to file
  
-// Convenience Keycodes
-#define ___x___ KC_NO
-#define ___f___ KC_TRNS
-
 // Special Layer keycodes
 #define ESC_NUM LT(_NUMBER, KC_ESC)
 #define BSP_REG LT(_REGEX, KC_BSPC)
