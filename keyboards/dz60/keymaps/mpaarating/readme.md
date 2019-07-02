@@ -1,6 +1,6 @@
 # DZ60
 
-[dz60](https://i.imgur.com/nVOX9Gb.jpg)
+![dz60](https://i.imgur.com/nVOX9Gb.jpg)
 
 A customizable 60% keyboard.
 
@@ -10,8 +10,8 @@ Hardware Supported: DZ60
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/collections/pcb/products/dz60-60-pcb?variant=40971616717)
 
 ### Layout
-[layer 0](https://i.imgur.com/uXFTNBs.png)
-[layer 1](https://i.imgur.com/f7uTkDU.png)
+![layer 0](https://i.imgur.com/uXFTNBs.png)
+![layer 1](https://i.imgur.com/f7uTkDU.png)
 
 Make example for this keyboard (after setting up your build environment):
 
