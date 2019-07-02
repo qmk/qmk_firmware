@@ -10,6 +10,7 @@ Hardware Supported: DZ60
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/collections/pcb/products/dz60-60-pcb?variant=40971616717)
 
 ### Layout
+**Note:** Layer 2 does not exist currently
 ![layer 0](https://i.imgur.com/uXFTNBs.png)
 ![layer 1](https://i.imgur.com/f7uTkDU.png)
 
