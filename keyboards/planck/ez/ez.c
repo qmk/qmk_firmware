@@ -127,19 +127,18 @@ void matrix_scan_kb(void) {
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-
   palClearPad(GPIOB, 8);
   palClearPad(GPIOB, 9);
   state = layer_state_set_user(state);
   uint8_t layer = biton32(state);
   switch (layer) {
-      case 3:
+      case EZ_LEFT_LED_LAYER:
         palSetPad(GPIOB, 9);
         break;
-      case 4:
+      case EZ_RIGHT_LED_LAYER:
         palSetPad(GPIOB, 8);
         break;
-      case 6:
+      case EZ_BOTH_LED_LAYER:
         palSetPad(GPIOB, 9);
         palSetPad(GPIOB, 8);
         break;
@@ -148,3 +147,4 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
     return state;
 }
+

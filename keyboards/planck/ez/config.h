@@ -138,3 +138,9 @@
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_KEYPRESSES
+
+
+/* Configure the layer numbers which should trigger left, right, or both layer leds to light */
+#define EZ_LEFT_LED_LAYER 3
+#define EZ_RIGHT_LED_LAYER 4
+#define EZ_BOTH_LED_LAYER 6

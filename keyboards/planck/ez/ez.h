@@ -50,3 +50,4 @@ LAYOUT_planck_1x2uC( \
 #define KEYMAP LAYOUT_ortho_4x12
 #define LAYOUT_planck_mit LAYOUT_planck_1x2uC
 #define LAYOUT_planck_grid LAYOUT_ortho_4x12
+
