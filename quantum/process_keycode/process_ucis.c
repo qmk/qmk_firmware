@@ -66,7 +66,7 @@ void qk_ucis_symbol_fallback (void) {
 
 void register_ucis(const uint32_t *codes) {
   uint8_t input_mode = get_unicode_input_mode();
-  for(int i = 0; i < UCIS_MAX_SYMBOL_LENGTH && codes[i]; i++) {
+  for(int i = 0; i < UCIS_MAX_CODE_LENGTH && codes[i]; i++) {
     uint32_t code = codes[i];
     register_unicode(code, input_mode);
     wait_ms (UNICODE_TYPE_DELAY);

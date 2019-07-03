@@ -23,9 +23,13 @@
 #define UCIS_MAX_SYMBOL_LENGTH 32
 #endif
 
+#ifndef UCIS_MAX_CODE_LENGTH
+#define UCIS_MAX_CODE_LENGTH 3
+#endif
+
 typedef struct {
   char *symbol;
-  uint32_t code[UCIS_MAX_SYMBOL_LENGTH];
+  uint32_t code[UCIS_MAX_CODE_LENGTH];
 } qk_ucis_symbol_t;
 
 typedef struct {
