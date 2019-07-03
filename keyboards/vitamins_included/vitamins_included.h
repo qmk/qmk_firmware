@@ -1,5 +1,4 @@
 #pragma once
-#define DISABLE_JTAG // The keyboard uses PF4, PF5 and PF7, which are used by JTAG.
 
 #include "quantum.h"
 
