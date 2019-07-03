@@ -4,8 +4,12 @@ Let's Split Vitamins Included
 
 This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 
-
 **Hardware files for the Let's Split vitamins included are stored [here](http://github.com/duckle29/let-s-Split-v2/tree/onboardMCU)**
+
+## REV2
+
+This readme applies to rev1 only.  
+Revision 2 is documented [on qmk.fm](https://qmk.fm/keyboards/vitamins_included/)
 
 ## First Time Setup
 
