@@ -589,7 +589,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .Audio_ControlInterface_SPC =
         {
-            .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
 
             .ACSpecification          = VERSION_BCD(1,0,0),
@@ -617,7 +617,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .Audio_StreamInterface_SPC =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
 
             .AudioSpecification       = VERSION_BCD(1,0,0),
@@ -629,7 +629,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_In_Jack_Emb =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
             .JackType                 = MIDI_JACKTYPE_Embedded,
@@ -640,7 +640,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_In_Jack_Ext =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
             .JackType                 = MIDI_JACKTYPE_External,
@@ -651,7 +651,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_Out_Jack_Emb =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
             .JackType                 = MIDI_JACKTYPE_Embedded,
@@ -666,7 +666,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_Out_Jack_Ext =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = AUDIO_DTYPE_CSInterface},
             .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
             .JackType                 = MIDI_JACKTYPE_External,
@@ -697,7 +697,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_In_Jack_Endpoint_SPC =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = AUDIO_DTYPE_CSEndpoint},
             .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
             .TotalEmbeddedJacks       = 0x01,
@@ -722,7 +722,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
     .MIDI_Out_Jack_Endpoint_SPC =
         {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = AUDIO_DTYPE_CSEndpoint},
             .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
             .TotalEmbeddedJacks       = 0x01,
