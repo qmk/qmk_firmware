@@ -8,7 +8,7 @@
 #include "eeprom_stm32.h"
 #endif
 
-extern uint32_t  default_layer_state;
+extern uint32_t default_layer_state;
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
