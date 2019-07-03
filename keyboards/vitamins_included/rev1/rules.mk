@@ -1,11 +1,8 @@
-BACKLIGHT_ENABLE = no
-AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = yes
-DEBUG_ENABLE = no
-CONSOLE_ENABLE = no
+SRC += matrix.c \
+	   i2c.c \
+	   split_util.c \
+	   serial.c \
+	   ssd1306.c
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+CUSTOM_MATRIX = yes
 BOOTLOADER = caterina
