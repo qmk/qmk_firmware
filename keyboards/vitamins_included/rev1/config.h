@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define EE_HANDS
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xBEE5
 #define PRODUCT_ID      0xF33D
