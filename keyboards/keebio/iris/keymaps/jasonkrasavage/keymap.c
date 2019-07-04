@@ -17,12 +17,6 @@ enum custom_keycodes {
 };
 
 
-void_matrix_init_kb(void) {
-    
-    backlight_level(3);
-    matrix_init_user();
-}
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
