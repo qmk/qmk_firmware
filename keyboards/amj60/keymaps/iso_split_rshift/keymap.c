@@ -30,10 +30,6 @@
 #define GER_BRC_L RALT(KC_8)    // [
 #define GER_BRC_R RALT(KC_9)    // ]
 
-// increase readability 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _DEF: Default Layer
      * ,-----------------------------------------------------------.
@@ -111,19 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SFX] = LAYOUT_iso_splitrshift(
         RESET,   _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9, _______, _______, _______, KC_BSPC, \
         _______, _______, _______, _______, _______, _______, _______, KC_4,    KC_5,    KC_6, _______, _______, _______, KC_BSLS, \
-        _______, F(2),    F(3),    _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,  \
-        _______, F(4),    F(5),    F(6),    F(7),    F(8),    F(9),    _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______, \
+        _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3, _______, _______, XXXXXXX, KC_ENT,  \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_0, _______, KC_SLSH, KC_UP,   _______, \
         _______, _______, _______,                            _______,                         _______, KC_LEFT, KC_DOWN, KC_RGHT),
-};
-
-enum function_id {
-    LAUNCH,
-    RGBLED_TOGGLE,
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1]  = ACTION_FUNCTION(LAUNCH),
-    [10] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ENT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

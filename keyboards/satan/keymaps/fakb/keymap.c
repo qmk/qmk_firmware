@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LCTL_MA LCTL_T(KC_UP)
 #define LSFT_MA LSFT_T(KC_DOWN)
 #define RSFT_MA SFT_T(KC_DOWN)

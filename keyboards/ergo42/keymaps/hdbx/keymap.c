@@ -26,9 +26,6 @@ enum custom_keycodes {
 // Use Dynamic macro
 #include "dynamic_macro.h"
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_LOWR LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
 #define KC_RASE LT(_RAISE, KC_HENK)    // タップで変換       ホールドでRaise
 #define KC_LSLB MT(MOD_LSFT, JP_LBRC)  // タップで[          ホールドで左Shift

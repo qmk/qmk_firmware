@@ -25,11 +25,8 @@ enum tv44_keycodes {
   EXT_MOUSE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
 #define LOWER F(_LOWER)
 #define RAISE F(_RAISE)
-#define XXXXXXX KC_NO
 #define WINDOW_SHORTCUT MO(_WINDOW_SHORTCUT)
 #define MAC_SHORTCUT MO(_MAC_SHORTCUT)
 

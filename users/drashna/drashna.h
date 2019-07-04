@@ -22,38 +22,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wrappers.h"
 #include "process_records.h"
 #ifdef TAP_DANCE_ENABLE
-  #include "tap_dances.h"
+#   include "tap_dances.h"
 #endif // TAP_DANCE_ENABLE
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  #include "rgb_stuff.h"
+#   include "rgb_stuff.h"
 #endif
-
+#if defined(AUDIO_ENABLE) && __GNUC__ > 7
+#   if __has_include("drashna_song_list.h")
+#       include "drashna_song_list.h"
+#   endif
+#endif
 
 /* Define layer names */
 enum userspace_layers {
-  _QWERTY = 0,
-  _NUMLOCK = 0,
-  _COLEMAK,
-  _DVORAK,
-  _WORKMAN,
-  _MODS,
-  _GAMEPAD,
-  _DIABLO,
-  _MACROS,
-  _MEDIA,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
+    _QWERTY = 0,
+    _NUMLOCK = 0,
+    _COLEMAK,
+    _DVORAK,
+    _WORKMAN,
+    _NORMAN,
+    _MALTRON,
+    _EUCALYN,
+    _CARPLAX,
+    _MODS, /* layer 8 */
+    _GAMEPAD,
+    _DIABLO,
+    _MACROS,
+    _MEDIA,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
  */
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-
 
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
@@ -64,19 +67,20 @@ void shutdown_keymap(void);
 void suspend_power_down_keymap(void);
 void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
-uint32_t layer_state_set_keymap (uint32_t state);
-uint32_t default_layer_state_set_keymap (uint32_t state);
+layer_state_t layer_state_set_keymap (layer_state_t state);
+layer_state_t default_layer_state_set_keymap (layer_state_t state);
 void led_set_keymap(uint8_t usb_led);
 void eeconfig_init_keymap(void);
 
 typedef union {
-  uint32_t raw;
-  struct {
-    bool     rgb_layer_change :1;
-    bool     is_overwatch     :1;
-    bool     nuke_switch      :1;
-    uint8_t  unicode_mod      :4;
-  };
+    uint32_t raw;
+    struct {
+        bool     rgb_layer_change :1;
+        bool     is_overwatch     :1;
+        bool     nuke_switch      :1;
+        uint8_t  unicode_mod      :4;
+        bool     swapped_numbers  :1;
+    };
 } userspace_config_t;
 
 extern userspace_config_t userspace_config;
@@ -88,13 +92,13 @@ But since TD() doesn't work when tap dance is disabled
 We use custom codes here, so we can substitute the right stuff
 */
 #ifdef TAP_DANCE_ENABLE
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
+#   define KC_D3_1 TD(TD_D3_1)
+#   define KC_D3_2 TD(TD_D3_2)
+#   define KC_D3_3 TD(TD_D3_3)
+#   define KC_D3_4 TD(TD_D3_4)
 #else // TAP_DANCE_ENABLE
-#define KC_D3_1 KC_1
-#define KC_D3_2 KC_2
-#define KC_D3_3 KC_3
-#define KC_D3_4 KC_4
+#   define KC_D3_1 KC_1
+#   define KC_D3_2 KC_2
+#   define KC_D3_3 KC_3
+#   define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE

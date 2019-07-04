@@ -20,10 +20,6 @@ enum planck_keycodes {
   ADJUST
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases for some other things I want to try out
 #define RAI_ESC LT(_RAISE, KC_ESC)
 #define LOW_QUQ LT(_LOWER, KC_QUOT)

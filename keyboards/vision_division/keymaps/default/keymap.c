@@ -1,12 +1,5 @@
-#include "vision_division.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "led.h"
-
-#ifdef AUDIO_ENABLE
-    #include "audio.h"
-    #include "song_list.h"
-#endif
 
 enum keyboard_layers {
   LAYER_QWERTY = 0,
@@ -121,7 +114,7 @@ enum keyboard_macros {
 
 #define M_CP_CT             M(MACRO_COPY_CUT)
 
-#define M_COPY              KC_FN1
+#define M_COPY              MACROTAP(MACRO_COPY_CUT)
 
 #define SC_UNDO             LCTL(KC_Z)
 #define SC_REDO             LCTL(KC_Y)
@@ -135,10 +128,8 @@ enum keyboard_macros {
 #define SC_CCLS             LCTL(KC_F4)
 
 #define TG_NKRO             MAGIC_TOGGLE_NKRO
-#define OS_SHFT             KC_FN0
+#define OS_SHFT             OSM(MOD_LSFT)
 
-#define _______             KC_TRNS
-#define XXXXXXX             KC_NO
 #define ________________    _______, _______
 #define XXXXXXXXXXXXXXXX    XXXXXXX, XXXXXXX
 
@@ -304,11 +295,6 @@ void persistent_default_layer_set(uint16_t default_layer)
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_MODS_ONESHOT(MOD_LSFT),
-  [1] = ACTION_MACRO_TAP(MACRO_COPY_CUT),
-};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
