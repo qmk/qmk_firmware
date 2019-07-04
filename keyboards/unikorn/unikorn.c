@@ -1,4 +1,4 @@
-/* Copyright 2018 amnesia0287
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,42 +13,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rgblight.h"
+// #include "rgblight.h"
 #include "i2c_master.h"
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
+// #ifdef RGBLIGHT_ENABLE
+// extern rgblight_config_t rgblight_config;
 
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-        }
-    }
+// void rgblight_set(void) {
+//     if (!rgblight_config.enable) {
+//         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+//             led[i].r = 0;
+//             led[i].g = 0;
+//             led[i].b = 0;
+//         }
+//     }
 
-    i2c_init();
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-}
-#endif
+//     i2c_init();
+//     i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+// }
+// #endif
 
 void matrix_init_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    if (rgblight_config.enable) {
-        i2c_init();
-        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-    }
-#endif
+// #ifdef RGBLIGHT_ENABLE
+//     if (rgblight_config.enable) {
+//         i2c_init();
+//         i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+//     }
+// #endif
     // call user level keymaps, if any
     matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_task();
-#endif
+// #ifdef RGBLIGHT_ENABLE
+//     rgblight_task();
+// #endif
     matrix_scan_user();
     /* Nothing else for now. */
 }
