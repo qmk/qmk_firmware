@@ -1,6 +1,6 @@
 # Unikorn 60
 
-60% Custom Keyboard. 
+60% PCB made for the TGR x SINGA Unikorn60. 
 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
@@ -12,9 +12,21 @@ Make example for this keyboard (after setting up your build environment):
 
     make unikorn:default
 
+This PCB supports RGB underglow. There are pads on the bottom of the PCB for the controller chip and for 17 RGB underglow LEDs. The Unikorn 60 case does not have acrylic pieces to properly display underglow effects. 
+
+To enable RGB lighting support, install the necessary components and set RGBLIGHT features in `rules.mk` like so:
+
+```
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_CUSTOM_DRIVER = yes
+```
+
+
 Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
+
+**Reset Key:** Short the two holes labeled `FW_JP` beside the Tab key. At this time there is no reset key to press.   
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
