@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make unikorn:default
 
-This PCB supports RGB underglow. There are pads on the bottom of the PCB for the controller chip and for 17 RGB underglow LEDs. The Unikorn 60 case does not have acrylic pieces to properly display underglow effects. 
+This PCB can support RGB underglow. There are pads on the bottom of the PCB for the LED controller chip and for 17 RGB underglow LEDs. The Unikorn 60 case does not have acrylic pieces to properly display underglow effects. 
 
 To enable RGB lighting support, install the necessary components and set RGBLIGHT features in `rules.mk` like so:
 
@@ -54,4 +54,4 @@ macOS:
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
