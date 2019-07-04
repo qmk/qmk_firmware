@@ -127,7 +127,7 @@ void matrix_print(void) {
  * row: 0    1    2    3    4    5
  * pin: PB7  PD0  PD1  PD2  PD3  PD5
  *
- * Esc uses its own pin PE2
+ * Reset Key uses its own pin PE2
  */
 static void init_rows(void) {
     DDRD  &= ~0b00101111;
@@ -158,25 +158,28 @@ uint8_t read_fwkey(void)
   return PINE&(1<<2) ? 0 : (1<<0);
 }
 
-/* Columns 0 - 15
+/* Columns 0 - G
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
- * col / pin:    PC6  PB6  PF0  PF1  PC7
- * 0:             1    0    0    0    0
- * 1:             1    0    1    0    0
- * 2:             1    0    0    1    0
- * 3:             1    0    1    1    0
- * 4:             1    0    0    0    1
- * 5:             1    0    1    0    1
- * 6:             1    0    0    1    1
+ *
+ * col 0: B4
+ * col 1: D7
+ * col G: B5
+ *
+ * col / pin:    PC6  PB6  PF1  PF4  PC7
+ * 2:             1    0    0    0    0
+ * 3:             1    0    0    1    0
+ * 4:             1    0    1    1    0
+ * 5:             1    0    0    0    1
+ * 6:             1    0    1    0    1
  * 7:             1    0    1    1    1
  * 8:             0    1    0    0    0
  * 9:             0    1    1    0    0
- * 10:            0    1    0    1    0
- * 11:            0    1    1    1    0
- * 12:            0    1    0    0    1
- * 13:            0    1    1    0    1
- * 14:            0    1    0    1    1
- * 15:            0    1    1    1    1
+ * A:             0    1    0    1    0
+ * B:             0    1    1    1    0
+ * C:             0    1    0    0    1
+ * D:             0    1    1    0    1
+ * E:             0    1    0    1    1
+ * F:             0    1    1    1    1
  *
  */
 static void unselect_cols(void) {
@@ -186,34 +189,32 @@ static void unselect_cols(void) {
   DDRC  |=  0b11000000;
   PORTC &= ~0b11000000;
 
-  DDRF  |=  0b00000011;
-  PORTF &= ~0b00000011;
+  DDRF  |=  0b00010010;
+  PORTF &= ~0b00010010;
 }
 
 static void select_col(uint8_t col) {
  
    switch (col) {
         case 0:
-            PORTC |= 0b01000000;
+            PORTB |= 0b00010000;
             break;
         case 1:
-            PORTC |= 0b01000000;
-            PORTF |= 0b00000001;
+            PORTD |= 0b10000000;
             break;
         case 2:
             PORTC |= 0b01000000;
-            PORTF |= 0b00000010;
             break;
         case 3:
             PORTC |= 0b01000000;
-            PORTF |= 0b00000011;
+            PORTF |= 0b00010000;
             break;
         case 4:
-            PORTC |= 0b11000000;
+            PORTC |= 0b01000000;
+            PORTF |= 0b00010010;
             break;
         case 5:
             PORTC |= 0b11000000;
-            PORTF |= 0b00000001;
             break;
         case 6:
             PORTC |= 0b11000000;
@@ -221,22 +222,22 @@ static void select_col(uint8_t col) {
             break;
         case 7:
             PORTC |= 0b11000000;
-            PORTF |= 0b00000011;
+            PORTF |= 0b00010010;
             break;
         case 8:
             PORTB |= 0b01000000;
             break;
         case 9:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000001;
+            PORTF |= 0b00000010;
             break;
         case 10:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000010;
+            PORTF |= 0b00010000;
             break;
         case 11:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000011;
+            PORTF |= 0b00010010;
             break;
         case 12:
             PORTB |= 0b01000000;
@@ -244,18 +245,21 @@ static void select_col(uint8_t col) {
             break;
         case 13:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000001;
             PORTC |= 0b10000000;
+            PORTF |= 0b00000010;
             break;
         case 14:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000010;
             PORTC |= 0b10000000;
+            PORTF |= 0b00010000;
             break;
         case 15:
             PORTB |= 0b01000000;
-            PORTF |= 0b00000011;
             PORTC |= 0b10000000;
+            PORTF |= 0b00010010;
+            break;
+        case 16:
+            PORTB |= 0b00100000;
             break;
     }
 }
