@@ -306,7 +306,10 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
-	make -C lib/lufa/Bootloaders/DFU/
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	FLASH_SIZE_KB=$(eval $(MAX_SIZE / 1024))
+	BOOT_SECTION_SIZE_KB=$(eval $(BOOTLOADER_SIZE / 1024))
+	make -C lib/lufa/Bootloaders/DFU/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
