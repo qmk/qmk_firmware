@@ -14,6 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_space_cadet.h"
+#ifdef TAPPING_TERM_PER_KEY
+#   include "action_tapping.h"
+#endif
 
 #ifndef TAPPING_TERM
 #    define TAPPING_TERM 200
@@ -89,14 +92,17 @@ void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, u
     if (record->event.pressed) {
         sc_last  = holdMod;
         sc_timer = timer_read();
-#ifdef SPACE_CADET_MODIFIER_CARRYOVER
-        sc_mods = get_mods();
-#endif
+        
         if (IS_MOD(holdMod)) {
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM) {
+#ifdef TAPPING_TERM_PER_KEY
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(keycode))
+#else
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
+#endif
+        {
             if (holdMod != tapMod) {
                 if (IS_MOD(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
