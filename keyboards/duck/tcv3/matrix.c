@@ -121,7 +121,7 @@ void matrix_print(void) {
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
     xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
   }
-}oppppp
+}
 /* Row pin configuration
  * row: 0    1    2    3    4    5
  * pin: PB7  PD0  PD1  PD2  PD3  PD5
@@ -277,6 +277,5 @@ static void select_col(uint8_t col) {
         case 18:
             PORTB |= 0b00100000;
             break;
-
     }
 }
