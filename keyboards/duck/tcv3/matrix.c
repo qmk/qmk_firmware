@@ -54,14 +54,14 @@ void matrix_scan_user(void) {
 
 void backlight_init_ports(void)
 {
-  DDRD  |=  0b11010000;
-  PORTD &= ~0b01010000;
-  PORTD |=  0b10000000;
-  DDRB  |=  0b00011111;
-  PORTB &= ~0b00001110;
-  PORTB |=  0b00010001;
-  DDRE  |=  0b01000000;
-  PORTE &= ~0b01000000;
+  // DDRD  |=  0b11010000;
+  // PORTD &= ~0b01010000;
+  // PORTD |=  0b10000000;
+  // DDRB  |=  0b00011111;
+  // PORTB &= ~0b00001110;
+  // PORTB |=  0b00010001;
+  // DDRE  |=  0b01000000;
+  // PORTE &= ~0b01000000;
 }
 
 void matrix_init(void) {
@@ -121,8 +121,7 @@ void matrix_print(void) {
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
     xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
   }
-}
-
+}oppppp
 /* Row pin configuration
  * row: 0    1    2    3    4    5
  * pin: PB7  PD0  PD1  PD2  PD3  PD5
@@ -161,26 +160,34 @@ uint8_t read_fwkey(void)
 /* Columns 0 - G
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
  *
+ * atmega32u4    decoder    pin
+ *    C6           U1       E2
+ *    B6           U2       E2
+ *    F4          U1, U2    A0
+ *    F1          U1, U2    A1
+ *    C7          U1, U2    A2
+ *
  * col 0: B4
  * col 1: D7
- * col H: B5
+ * col I: B5
  *
- * col / pin:    PC6  PB6  PF1  PF4  PC7
- * 2:             1    0    0    0    0
- * 3:             1    0    1    0    0
- * 4:             1    0    0    1    0
- * 5:             1    0    1    1    0
- * 6:             1    0    0    0    1
- * 7:             1    0    1    0    1
- * 8:             1    0    1    1    1
- * 9:             0    1    0    0    0
- * A:             0    1    1    0    0
- * B:             0    1    0    1    0
- * C:             0    1    1    1    0
- * D:             0    1    0    0    1
- * E:             0    1    1    0    1
- * F:             0    1    0    1    1
- * G:             0    1    1    1    1
+ * col / pin:    PC6  PB6  PF4  PF1  PC7  Decoder Pin
+ * 2:             1    0    0    0    0     U1    Y0
+ * 3:             1    0    1    0    0     U1    Y1
+ * 4:             1    0    0    1    0     U1    Y2
+ * 5:             1    0    1    1    0     U1    Y3
+ * 6:             1    0    0    0    1     U1    Y4
+ * 7:             1    0    1    0    1     U1    Y5
+ * 8:             1    0    0    1    1     U1    Y6
+ * 9:             1    0    1    1    1     U1    Y7
+ * A:             0    1    0    0    0     U2    Y0
+ * B:             0    1    1    0    0     U2    Y1
+ * C:             0    1    0    1    0     U2    Y2
+ * D:             0    1    1    1    0     U2    Y3
+ * E:             0    1    0    0    1     U2    Y4
+ * F:             0    1    1    0    1     U2    Y5
+ * G:             0    1    0    1    1     U2    Y6
+ * H:             0    1    1    1    1     U2    Y7
  *
  */
 static void unselect_cols(void) {
@@ -203,68 +210,73 @@ static void select_col(uint8_t col) {
         case 1:
             PORTD |= 0b10000000;
             break;
-        case 2:
+        case 2: // U1 Y0
             PORTC |= 0b01000000;
             break;
-        case 3:
-            PORTC |= 0b01000000;
-            PORTF |= 0b00000010;
-            break;
-        case 4:
+        case 3: // U1 Y1
             PORTC |= 0b01000000;
             PORTF |= 0b00010000;
             break;
-        case 5:
+        case 4: // U1 Y2
+            PORTC |= 0b01000000;
+            PORTF |= 0b00000010;
+            break;
+        case 5: // U1 Y3
             PORTC |= 0b01000000;
             PORTF |= 0b00010010;
             break;
-        case 6:
+        case 6: // U1 Y4
             PORTC |= 0b11000000;
             break;
-        case 7:
+        case 7: // U1 Y5
+            PORTC |= 0b11000000;
+            PORTF |= 0b00010000;
+            break;
+        case 8: // U1 Y6
             PORTC |= 0b11000000;
             PORTF |= 0b00000010;
             break;
-        case 8:
-            PORTC |= 0b11000000;
+        case 9: // U1 Y7
+            PORTB |= 0b11000000;
             PORTF |= 0b00010010;
             break;
-        case 9:
+        case 10: // U2 Y0
             PORTB |= 0b01000000;
             break;
-        case 10:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000010;
-            break;
-        case 11:
+        case 11: // U2 Y1
             PORTB |= 0b01000000;
             PORTF |= 0b00010000;
             break;
-        case 12:
+        case 12: // U2 Y2
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000010;
+            break;
+        case 13: // U2 Y3
             PORTB |= 0b01000000;
             PORTF |= 0b00010010;
             break;
-        case 13:
+        case 14: // U2 Y4
             PORTB |= 0b01000000;
             PORTC |= 0b10000000;
             break;
-        case 14:
+        case 15: // U2 Y5
+            PORTB |= 0b01000000;
+            PORTC |= 0b11000000;
+            PORTF |= 0b00010000;
+            break;
+        case 16: // U2 Y6
             PORTB |= 0b01000000;
             PORTC |= 0b10000000;
             PORTF |= 0b00000010;
             break;
-        case 15:
-            PORTB |= 0b01000000;
-            PORTC |= 0b10000000;
-            PORTF |= 0b00010000;
-            break;
-        case 16:
+        case 17: // U2 Y7
             PORTB |= 0b01000000;
             PORTC |= 0b10000000;
             PORTF |= 0b00010010;
             break;
-        case 17:
+        case 18:
             PORTB |= 0b00100000;
             break;
+
     }
 }
