@@ -29,10 +29,6 @@ LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET) $(BOOT_API_LD_FLAG
 FLASH_SIZE_KB         ?= 32
 BOOT_SECTION_SIZE_KB  ?= 4
 
-$(warning MCU is $(MCU))
-$(warning F_CPU is $(F_CPU))
-$(warning FLASH_SIZE_KB is $(FLASH_SIZE_KB))
-$(warning BOOT_SECTION_SIZE_KB is $(BOOT_SECTION_SIZE_KB))
 # Bootloader address calculation formulas
 # Do not modify these macros, but rather modify the dependent values above.
 CALC_ADDRESS_IN_HEX   = $(shell printf "0x%X" $$(( $(1) )) )
