@@ -6,14 +6,14 @@ Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1 Qmk
 
 |Board                                                           |Bluetooth Protocol          |Connection Type |Rules.mk                   |Bluetooth Chip|
 |----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-|[Adafruit EzKey HID]("https://www.adafruit.com/product/1535")   |Bluetooth Classic           | UART           | BLUETOOTH = AdafruitEZKey |              |
+|[Adafruit EzKey HID](https://www.adafruit.com/product/1535)   |Bluetooth Classic           | UART           | BLUETOOTH = AdafruitEZKey |              |
 |Rover Networks RN-42 (Sparkfun Bluesmirf)                       |Bluetooth Classic           | UART           | BLUETOOTH = RN42          | RN-42        |
 |[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy        | SPI            | BLUETOOTH = AdafruitBLE   | nRF5182      |
 
 Not Supported Yet but possible:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479). [Possible tmk implementation found in](https://github.com/tmk/tmk_keyboard/issues/514)
 * HC-05 boards flashed with RN-42 firmware. They apparently both use the CSR BC417 Chip. Flashing it with RN-42 firmware gives it HID capability.
-* [Sparkfun Bluetooth mate](https://www.sparkfun.com/products/14839)
+* [Sparkfun Bluetooth Mate](https://www.sparkfun.com/products/14839)
 * HM-13 based boards
 
 ### Adafruit BLE SPI Friend
