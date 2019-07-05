@@ -88,17 +88,18 @@ static uint16_t sc_timer = 0;
 static uint8_t sc_mods = 0;
 #endif
 
-void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
-    if (record->event.pressed) {
-        sc_last  = holdMod;
-        sc_timer = timer_read();
-        
-        if (IS_MOD(holdMod)) {
-            register_mods(MOD_BIT(holdMod));
-        }
-    } else {
+
+void perform_space_cadet(keyrecord_t *record, uint16_t og_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
+  if (record->event.pressed) {
+    sc_last = holdMod;
+    sc_timer = timer_read ();
+    if (IS_MOD(holdMod)) {
+      register_mods(MOD_BIT(holdMod));
+    }
+  }
+  else {
 #ifdef TAPPING_TERM_PER_KEY
-        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(keycode))
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(og_keycode))
 #else
         if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM)
 #endif
@@ -130,33 +131,34 @@ void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, u
 }
 
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+
+  switch(keycode) {
         case KC_LSPO: {
-            perform_space_cadet(record, LSPO_KEYS);
+            perform_space_cadet(record, keycode, LSPO_KEYS);
             return false;
         }
         case KC_RSPC: {
-            perform_space_cadet(record, RSPC_KEYS);
+            perform_space_cadet(record, keycode, RSPC_KEYS);
             return false;
         }
         case KC_LCPO: {
-            perform_space_cadet(record, LCPO_KEYS);
+            perform_space_cadet(record, keycode, LCPO_KEYS);
             return false;
         }
         case KC_RCPC: {
-            perform_space_cadet(record, RCPC_KEYS);
+            perform_space_cadet(record, keycode, RCPC_KEYS);
             return false;
         }
         case KC_LAPO: {
-            perform_space_cadet(record, LAPO_KEYS);
+            perform_space_cadet(record, keycode, LAPO_KEYS);
             return false;
         }
         case KC_RAPC: {
-            perform_space_cadet(record, RAPC_KEYS);
+            perform_space_cadet(record, keycode, RAPC_KEYS);
             return false;
         }
         case KC_SFTENT: {
-            perform_space_cadet(record, SFTENT_KEYS);
+            perform_space_cadet(record, keycode, SFTENT_KEYS);
             return false;
         }
         default: {
