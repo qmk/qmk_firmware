@@ -94,6 +94,8 @@ void led_set_kb(uint8_t usb_led) {
     } else {
         writePinLow(B6);
     }
+
+    led_set_user(usb_led);
 }
 
 bool encoder_update_keymap(int8_t index, bool clockwise) {
