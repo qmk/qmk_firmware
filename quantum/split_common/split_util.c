@@ -23,6 +23,10 @@ bool is_keyboard_left(void) {
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
+  #elif defined(SPLIT_HAND_PIN_WITH_PULLUP)
+    // Test pin SPLIT_HAND_PIN_WITH_PULLUP for Open/Low, if low it's right hand
+    setPinInputHigh(SPLIT_HAND_PIN_WITH_PULLUP);
+    return readPin(SPLIT_HAND_PIN_WITH_PULLUP);
   #elif defined(EE_HANDS)
     return eeprom_read_byte(EECONFIG_HANDEDNESS);
   #elif defined(MASTER_RIGHT)
