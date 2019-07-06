@@ -1,28 +1,29 @@
-FROM debian:jessie
-MAINTAINER Erik Dasque <erik@frenchguys.com>
+FROM debian:9
 
-RUN apt-get update && apt-get install --no-install-recommends -y build-essential \
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    avr-libc \
+    avrdude \
+    binutils-arm-none-eabi \
+    binutils-avr \
+    build-essential \
+    dfu-programmer \
+    dfu-util \
     gcc \
+    gcc-avr \
+    git \
+    libnewlib-arm-none-eabi \
+    software-properties-common \
     unzip \
     wget \
     zip \
-    gcc-avr \
-    binutils-avr \
-    avr-libc \
-    dfu-programmer \
-    dfu-util \
-    gcc-arm-none-eabi \
-    binutils-arm-none-eabi \
-    libnewlib-arm-none-eabi \
-    git \
-    software-properties-common \
-    avrdude \
     && rm -rf /var/lib/apt/lists/*
 
-ENV keyboard=ergodox
-ENV subproject=ez
-ENV keymap=default
+# upgrade gcc-arm-none-eabi from the default 5.4.1 to 6.3.1 due to ARM runtime issues
+RUN wget -q https://developer.arm.com/-/media/Files/downloads/gnu-rm/6-2017q2/gcc-arm-none-eabi-6-2017-q2-update-linux.tar.bz2 -O - | \
+    tar xj --strip-components=1 -C /
 
-VOLUME /qmk
-WORKDIR /qmk
-CMD make clean ; make keyboard=${keyboard} subproject=${subproject} keymap=${keymap}
+VOLUME /qmk_firmware
+WORKDIR /qmk_firmware
+COPY . .
+
+CMD make all:default

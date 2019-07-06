@@ -15,14 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HOST_H
-#define HOST_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "report.h"
 #include "host_driver.h"
 
+#define IS_LED_ON(leds, led_name)   ( (leds) & (1 << (led_name)))
+#define IS_LED_OFF(leds, led_name)  (~(leds) & (1 << (led_name)))
+
+#define IS_HOST_LED_ON(led_name)    IS_LED_ON(host_keyboard_leds(), led_name)
+#define IS_HOST_LED_OFF(led_name)   IS_LED_OFF(host_keyboard_leds(), led_name)
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,7 +34,6 @@ extern "C" {
 
 extern uint8_t keyboard_idle;
 extern uint8_t keyboard_protocol;
-
 
 /* host driver */
 void host_set_driver(host_driver_t *driver);
@@ -48,6 +51,4 @@ uint16_t host_last_consumer_report(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

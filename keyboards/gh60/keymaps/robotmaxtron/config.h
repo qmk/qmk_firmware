@@ -53,7 +53,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -98,11 +98,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS true
@@ -161,26 +156,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /*
  * RGB Underglow
  * These settings are for the F4 by default:
- * 
  *
- * #define ws2812_PORTREG  PORTF
- * #define ws2812_DDRREG   DDRF
+ *
  * #define ws2812_pin PF4
  * #define RGBLED_NUM 14     // Number of LEDs
  * #define RGBLIGHT_HUE_STEP 10
  * #define RGBLIGHT_SAT_STEP 17
  * #define RGBLIGHT_VAL_STEP 17
  *
- * The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects. 
- * To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations. 
+ * The firmware supports 5 different light effects, and the color (hue, saturation, brightness) can be customized in most effects.
+ * To control the underglow, you need to modify your keymap file to assign those functions to some keys/key combinations.
  * For details, please check this keymap. keyboard/planck/keymaps/yang/keymap.c
 */
 
-/* Deprecated code below
-#define ws2812_PORTREG  PORTF 
-#define ws2812_DDRREG   DDRF
-#define ws2812_pin PF4
-*/ 
 #define RGB_DI_PIN F4
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8         // Number of LEDs

@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include "host.h"
 #include "host_driver.h"
-#include "serial.h"
+#include "../serial.h"
 #include "rn42.h"
 #include "print.h"
 #include "timer.h"

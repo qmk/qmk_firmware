@@ -6,6 +6,10 @@ the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
 
+####Flashing
+Rev <=5: sudo make planck:ajp10304:dfu
+Rev 6: sudo make planck/rev6:ajp10304:dfu-util
+
 ##### Main Qwerty Layer
 
 * Tab: when held, operates as shift.

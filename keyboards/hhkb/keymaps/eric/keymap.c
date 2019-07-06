@@ -53,10 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_UNDS, KC_PLUS, KC_LPRN, KC_RPRN, KC_PIPE, KC_TRNS, KC_TRNS, KC_PGDN, KC_END, KC_DOWN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)};
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     // MACRODOWN only works in this function

@@ -134,6 +134,9 @@ UDC_DESC_STORAGE udc_desc_t udc_desc = {
 #ifdef EXK
   .hid_exk                   = UDI_HID_EXK_DESC,
 #endif
+#ifdef CON
+  .hid_con                   = UDI_HID_CON_DESC,
+#endif
 #ifdef NKRO
   .hid_nkro                  = UDI_HID_NKRO_DESC,
 #endif
@@ -154,6 +157,9 @@ UDC_DESC_STORAGE udi_api_t *udi_apis[USB_DEVICE_NB_INTERFACE] = {
   #endif
   #ifdef EXK
     &udi_api_hid_exk,
+  #endif
+  #ifdef CON
+    &udi_api_hid_con,
   #endif
   #ifdef NKRO
     &udi_api_hid_nkro,

@@ -18,10 +18,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define KC_LOWR LOWER
 #define KC_RASE RAISE
 #define KC_RST  RESET

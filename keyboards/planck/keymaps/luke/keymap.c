@@ -44,10 +44,6 @@
 #pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 // Layers
 #define _COLEMAK 0
 #define _QWERTY 1
@@ -273,10 +269,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 
 void matrix_init_user(){
   set_unicode_input_mode(UC_LNX);

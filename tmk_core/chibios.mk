@@ -39,9 +39,13 @@ include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 endif
 include $(PLATFORM_MK)
 
@@ -197,11 +201,16 @@ DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
+DFU_SUFFIX_ARGS ?=
+
+ST_LINK_ARGS ?=
 
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+DFU_SUFFIX ?= dfu-suffix
+ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -230,5 +239,42 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
+
+ifneq ($(strip $(TIME_DELAY)),)
+  TIME_DELAY = $(strip $(TIME_DELAY))
+else
+  TIME_DELAY = 10
+endif
+dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
+  COUNTDOWN=$(TIME_DELAY) ;\
+  while [[ $$COUNTDOWN -ge 1 ]] ; do \
+        echo "Flashing in $$COUNTDOWN ..."; \
+        sleep 1 ;\
+        ((COUNTDOWN = COUNTDOWN - 1)) ; \
+  done; \
+  echo "Flashing $(TARGET).bin" ;\
+  sleep 1 ;\
+  $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
+
+
+# Autodetect teensy loader
+ifndef TEENSY_LOADER_CLI
+    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
+    else
+        TEENSY_LOADER_CLI ?= teensy_loader_cli
+    endif
+endif
+
+teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
+
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
+		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
+	fi
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

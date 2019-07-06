@@ -67,4 +67,6 @@ SPLIT_KEYBOARD = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
+LAYOUTS = ortho_4x12
+
 DEFAULT_FOLDER = lets_split_eh/eh

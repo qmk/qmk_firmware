@@ -3,8 +3,6 @@ QMK runs on a diverse range of keyboards. Some of these keyboards are officially
 
 ## Official QMK Keyboards
 
-These keyboards are manufactured by the maintainers of QMK.
-
 ### Ortholinear Keyboards - Jack Humbert
 
 What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and killer tactile feel. These are available through [olkb.com](http://olkb.com) as well as through [Massdrop](http://massdrop.com) from time to time, as easy to assemble kits.
@@ -12,12 +10,6 @@ What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and
 * [Planck](/keyboards/planck/) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine.
 * [Preonic](/keyboards/preonic/) &mdash; Like the Planck, but bigger. 50%.
 * [Atomic](/keyboards/atomic/) &mdash; Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
-
-### ErgoDox EZ - Erez Zukerman
-
-Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing. Available on [ergodox-ez.com](https://ergodox-ez.com).
-
-* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
 
 ### Clueboard - Zach White
 
@@ -27,6 +19,13 @@ Designed and built in Felton, CA, Clueboards keyboard emphasize quality and loca
 * [Cluecard](/keyboards/clueboard/card/) &mdash; A small board to help you hack on QMK.
 * [Cluepad](/keyboards/clueboard/17/) &mdash; A mechanical numpad with QMK superpowers.
 
+### ErgoDox EZ and Planck EZ - ZSA Technology Labs
+
+[ZSA Technology Labs](https://ergodox-ez.com) maintains its own [fork of QMK](https://github.com/zsa/qmk_firmware) which feeds its [configurator](https://configure.ergodox-ez.com), for stability and legal purposes. The ZSA boards are:
+
+* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; A powerful split mechanical keyboard.
+* [Planck EZ](/keyboards/planck/ez) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine, which ships fully assembled with a two-year warranty.
+
 
 ## Community-supported QMK Keyboards
 
@@ -35,9 +34,10 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [9key](/keyboards/9key) &mdash; A 9-key minipad sold by Bishop Keyboards.
 * [Alps64](/keyboards/alps64) &mdash; A 60% keyboard for Alps keyswitches.
 * [AMJ60](/keyboards/amj60) &mdash; DIY/Assembled compact 60% keyboard.
-* [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
+* [Arrow Pad](/keyboards/handwired/arrow_pad) &mdash; A custom creation by IBNobody.
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
+* [DataHand](/keyboards/handwired/datahand) &mdash; DataHand keyboard converted to use a Teensy board.
 * [Ergodox Infinity](/keyboards/ergodox_infinity) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
@@ -52,7 +52,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [The Kitten Paw](/keyboards/kitten_paw) &mdash; A replacement controller (2016 revision) for the Filco Majestouch by [Bathroom Epiphanies](https://github.com/BathroomEpiphanies).
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
-* [Retro Refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
+* [Retro Refit](/keyboards/handwired/retro_refit) &mdash; Another creation by IBNobody.
 * [S60-x](/keyboards/s60_x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
 * [Satan](/keyboards/satan) &mdash; A GH60 variant.
 * [SixKeyBoard](/keyboards/sixkeyboard) &mdash; A 6-key keyboard made by TechKeys.
