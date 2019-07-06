@@ -1,6 +1,6 @@
 # My Iris Layout
 
-![My IRIS Rev3](https://imgur.com/a/FgcAPeZ)
+![My Iris Rev3](https://imgur.com/a/FgcAPeZ)
 
 - mouse keys enabled
 - WASD as arrow keys, and same ones for media
