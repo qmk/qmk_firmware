@@ -1,11 +1,9 @@
-# My Iris layout
-==============================================
+# My Iris Layout
 
 ![My IRIS Rev3](https://imgur.com/a/FgcAPeZ)
-=======
 
-- mouse keys
+- mouse keys enabled
 - WASD as arrow keys, and same ones for media
-- keys that I need, while removing keys that I don't use
+- keys that I need, while removing keys that I don't
 
 See keymap.c for layouts
