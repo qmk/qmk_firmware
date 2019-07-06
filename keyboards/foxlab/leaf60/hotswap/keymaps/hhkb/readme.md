@@ -1,1 +1,1 @@
-# The default keymap for Fox Lab Hotswap Leaf60
+# The default HHKB keymap for Fox Lab Hotswap Leaf60
