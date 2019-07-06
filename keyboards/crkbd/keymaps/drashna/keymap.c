@@ -106,6 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
+uint16_t oled_timer;
 
 char     keylog_str[5]   = {};
 uint8_t  keylogs_str_idx = 0;
@@ -144,6 +145,7 @@ void update_log(void) {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         add_keylog(keycode);
+        oled_timer = timer_read();
     }
     return true;
 }
@@ -279,6 +281,10 @@ void render_status_secondary(void) {
 }
 
 void oled_task_user(void) {
+    if (timer_elapsed(oled_timer) > 60000) {
+        oled_off();
+        return;
+    }
     if (is_master) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
