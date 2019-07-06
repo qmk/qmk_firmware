@@ -53,12 +53,6 @@ enum layers {
 #define I_SEARCH    LCTL(LSFT(KC_F))
 
 
-enum custom_keycodes {
-  EPRM = SAFE_RANGE,
-  VRSN,
-  RGB_SLD
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Colemak MacOS Spanish layer
  * ,--------------------------------------------------.           ,--------------------------------------------------.
