@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT( /* Mouse layer, including buttons for clicking. */
   _______, _______, _______, _______, _______, _______,        KC_VOLU, KC_HOME, KC_WH_U, KC_PGUP, _______, _______,
-  _______, _______, MS_BTN2, MS_BTN3, MS_BTN1, _______,        _______, MS_BTN1, MS_BTN3, MS_BTN2, _______, _______,
-  _______, _______, _______, _______, _______, _______,        KC_VOLD, KC_END,  KC_WH_D, KC_PGDN, _______, _______,
+  _______, _______, MS_BTN2, MS_BTN3, MS_BTN1, _______,        KC_VOLD, MS_BTN1, MS_BTN3, MS_BTN2, _______, _______,
+  _______, _______, _______, _______, _______, _______,        KC_HOME, KC_END,  KC_WH_D, KC_PGDN, _______, _______,
                              _______, KC_UP,   _______,        _______, KC_UP,   _______,
                     _______, KC_LEFT, KC_DOWN, KC_RGHT,        KC_LEFT, KC_DOWN, KC_RGHT, _______
   )
