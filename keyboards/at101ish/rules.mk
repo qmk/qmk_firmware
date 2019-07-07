@@ -1,6 +1,3 @@
-# keyboard specific files
-SRC += 
-
 # MCU name
 MCU = atmega32u4
 
