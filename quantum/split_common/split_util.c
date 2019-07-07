@@ -15,6 +15,9 @@
 #include "rgblight.h"
 #endif
 
+#define AVR_GPIO_INPUT_PULLUP_CHARGE_TIME  10 // micro sec
+#define WAIT_GPIO_PULLUP_CHARGE(ratio)  wait_us((ratio)*AVR_GPIO_INPUT_PULLUP_CHARGE_TIME)
+
 volatile bool isLeftHand = true;
 
 __attribute__((weak))
@@ -26,6 +29,7 @@ bool is_keyboard_left(void) {
   #elif defined(SPLIT_HAND_PIN_WITH_PULLUP)
     // Test pin SPLIT_HAND_PIN_WITH_PULLUP for Open/Low, if low it's right hand
     setPinInputHigh(SPLIT_HAND_PIN_WITH_PULLUP);
+    WAIT_GPIO_PULLUP_CHARGE(1);
     return readPin(SPLIT_HAND_PIN_WITH_PULLUP);
   #elif defined(EE_HANDS)
     return eeprom_read_byte(EECONFIG_HANDEDNESS);
