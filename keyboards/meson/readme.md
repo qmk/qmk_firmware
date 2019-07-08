@@ -3,7 +3,7 @@
 A 3x14 split keyboard with two thumb keys on each half. Supports MX, Alps, and Choc reversible.
 
 Keyboard Maintainer: [PyroL](https://github.com/PyrooL)  
-Hardware Supported: Meson PCBs, Pro Micro
+Hardware Supported: Meson PCBs, Pro Micro  
 Hardware Availability: [open source at PyroL's Github](https://github.com/PyrooL/Meson)
 
 Make example for this keyboard (after setting up your build environment):
