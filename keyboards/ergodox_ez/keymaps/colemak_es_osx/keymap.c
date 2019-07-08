@@ -358,15 +358,9 @@ void led_3_on(void) {
     ergodox_right_led_3_set(max_led_value);
 }
 
-static uint32_t current_layer_state = 0;
-// Is the layer momentarily active?
-#define M_LAYER_ON(layer) (current_layer_state & (1<<layer))
-
-//
 uint32_t layer_state_set_user(uint32_t state) {
-    current_layer_state = state;
 
-    if(M_LAYER_ON(IDEA)) {
+    if(layer_state_cmp(state ,IDEA)) {
         led_1_on();
         led_3_on();
     } else {
@@ -377,8 +371,6 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 };
 
-#define LAYER_ON(layer) (default_layer_state & (1<<layer))
-
 void matrix_scan_user(void) {
 
     ergodox_board_led_off();
@@ -386,20 +378,20 @@ void matrix_scan_user(void) {
     led_2_off();
     led_3_off();
 
-    if(LAYER_ON(QWERTY)) {
+    if(layer_state_cmp(default_layer_state, QWERTY)) {
         led_3_on();
     }
 
-    if(LAYER_ON(FN)) {
+    if(layer_state_cmp(default_layer_state, FN)) {
         led_2_on();
     }
 
-    if(LAYER_ON(NUM)) {
+    if(layer_state_cmp(default_layer_state, NUM)) {
         led_2_on();
         led_3_on();
     }
 
-    if(LAYER_ON(MOUSE)) {
+    if(layer_state_cmp(default_layer_state, MOUSE)) {
         led_1_on();
     }
 };
