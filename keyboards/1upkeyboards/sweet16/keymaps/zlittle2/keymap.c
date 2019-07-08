@@ -18,10 +18,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        COLLAPSE_METHODS_LINUX, LCTL(LSFT(KC_EQUAL)), LINUX, MO(2)
    ),
    [1] = LAYOUT_ortho_4x4(
-        KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,   KC_AUDIO_MUTE,  TO(2),
+        LGUI(KC_C), LCTL(LSFT(KC_V)),   LCTL(KC_A),  TO(2),
         LCTL(LALT(KC_L)), LSFT(KC_F10),   LCTL(LALT(KC_5)),   LSFT(KC_F6),
         LCTL(KC_E), LCTL(KC_O),  LCTL(KC_SPACE),   LCTL(KC_0),
-        COLLAPSE_METHODS_MAC, LCTL(LSFT(KC_EQUAL)), MAC, MO(2)
+        COLLAPSE_METHODS_MAC, LSFT(LCTL(KC_EQUAL)), MAC, MO(2)
     ),
   [2] = LAYOUT_ortho_4x4(
         KC_7, KC_8,   KC_9,  TO(0),
@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       	    break;
           case COLLAPSE_METHODS_MAC:
       	    if (record->event.pressed) {
-          		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_KP_ASTERISK)))"1");
+          		SEND_STRING(SS_LALT(SS_LCTRL(SS_TAP(X_KP_ASTERISK)))"1");
       	    }
       	    return false;
       	    break;
