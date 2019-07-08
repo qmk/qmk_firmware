@@ -55,8 +55,7 @@
           {"label": "", "x": 10.5, "y": 3}
         ]
       }
-    }
-"LAYOUT_2u": {
+    "LAYOUT_2u": {
         "layout": [
           {"label": "", "x": 0, "y": 0},
           {"label": "", "x": 1, "y": 0},
