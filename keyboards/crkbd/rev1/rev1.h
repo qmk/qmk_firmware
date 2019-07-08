@@ -1,13 +1,17 @@
 #pragma once
 
-#include "../crkbd.h"
+#include "crkbd.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
+#ifdef PROTOCOL_LUFA
+  #include "lufa.h"
+  #include "split_util.h"
+#endif
+
+#ifdef SSD1306OLED
+  #include "ssd1306.h"
 #endif
 
 #ifdef USE_I2C
