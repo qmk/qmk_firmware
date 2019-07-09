@@ -5,6 +5,10 @@
 #define FN_ESC  LT(L_FN, KC_ESC)
 #define FN_FNLK TT(L_FN)
 
+#define MV_UP   LCTL(KC_UP)
+#define MV_DOWN LCTL(KC_DOWN)
+#define MV_LEFT LCTL(KC_LEFT)
+#define MV_RGHT LCTL(KC_RGHT)
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
 
@@ -42,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_FN] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NLCK, KC_SLCK, KC_PAUS, \
         _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, _______, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,   KC_INS,  \
-        _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______, TOP,     \
+        _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, MV_LEFT, KC_DOWN, KC_UP,   MV_RGHT, _______, _______,          _______, TOP,     \
         _______, KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,          _______, KC_PGUP, BOTTOM,  \
         _______, _______, _______,                   KC_WH_D,                            _______, _______,          KC_HOME, KC_PGDN, KC_END   \
     ),
