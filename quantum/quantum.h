@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QUANTUM_H
-#define QUANTUM_H
+#pragma once
 
 #if defined(__AVR__)
     #include <avr/pgmspace.h>
@@ -285,5 +284,3 @@ void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 
 void api_send_unicode(uint32_t unicode);
-
-#endif
