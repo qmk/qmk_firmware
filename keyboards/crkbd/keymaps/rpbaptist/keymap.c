@@ -1,9 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
 extern keymap_config_t keymap_config;
 
