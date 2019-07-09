@@ -18,8 +18,4 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
-NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
-UNICODEMAP_ENABLE = yes
-
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
