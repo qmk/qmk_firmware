@@ -24,7 +24,7 @@ enum layer_names {
   _FN,
   _SYM,
   _NAV,
-  _ADJUST
+  _UTIL
 };
 
 #define KC_CLMK DF(_COLEMAKDHM)
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_ADJUST] = LAYOUT_kc( \
+  [_UTIL] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -165,8 +165,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, _SYM, _NAV, _ADJUST);
-  return update_tri_layer_state(state, _GAMING_EXT, _NAV, _ADJUST);
+  return update_tri_layer_state(state, _SYM, _NAV, _UTIL);
+  return update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -217,7 +217,7 @@ void render_status(void) {
     case _GAMING_EXT:
       oled_write_P(PSTR("Ext  "), false);
       break;
-    case _ADJUST:
+    case _UTIL:
       oled_write_P(PSTR("Exec "), false);
       break;
     default:
