@@ -47,4 +47,3 @@
 }
 
 #define LAYOUT LAYOUT_numpad_5x4
-#define KEYMAP LAYOUT_numpad_5x4
