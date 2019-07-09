@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000MCU
+#define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    LanceMercado
 #define PRODUCT         squarebuilt
@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { B4, B2, B5, B6 }
+#define MATRIX_ROW_PINS { B4, B2, B5, F4 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, E6, D7, C6, D4, D0 }
 #define UNUSED_PINS
 
