@@ -42,7 +42,7 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 ```
 
-For example: `X(BANG)`, `X(SNEK)` etc.
+Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
 
 ### Lower and Upper Case
 
