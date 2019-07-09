@@ -28,6 +28,7 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #endif
 
 #define debounce_counter_t uint8_t
+static bool                matrix_need_update;
 
 static debounce_counter_t *debounce_counters;
 static bool                counters_need_update;
@@ -53,7 +54,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     update_debounce_counters(num_rows, current_time);
   }
 
-  if (changed || (needed_update && !counters_need_update)) {
+  if (changed || (needed_update && !counters_need_update) || matrix_need_update) {
     transfer_matrix_values(raw, cooked, num_rows, current_time);
   }
 }
@@ -76,18 +77,22 @@ void update_debounce_counters(uint8_t num_rows, uint8_t current_time) {
 
 // upload from raw_matrix to final matrix;
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
+  matrix_need_update = false;
   debounce_counter_t *debounce_pointer = debounce_counters;
   for (uint8_t row = 0; row < num_rows; row++) {
     matrix_row_t existing_row = cooked[row];
     matrix_row_t raw_row      = raw[row];
 
     // determine new value basd on debounce pointer + raw value
-    if (*debounce_pointer == DEBOUNCE_ELAPSED && (existing_row != raw_row)) {
-      *debounce_pointer    = current_time;
-      cooked[row]          = raw_row;
-      counters_need_update = true;
+    if (existing_row != raw_row) {
+      if (*debounce_pointer == DEBOUNCE_ELAPSED) {
+        *debounce_pointer    = current_time;
+        cooked[row]          = raw_row;
+        counters_need_update = true;
+      } else {
+        matrix_need_update = true;
+      }
     }
-
     debounce_pointer++;
   }
 }

@@ -39,6 +39,7 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 
 static debounce_counter_t *debounce_counters;
 static bool                counters_need_update;
+static bool                matrix_need_update;
 
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
@@ -63,7 +64,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     update_debounce_counters(num_rows, current_time);
   }
 
-  if (changed) {
+  if (changed || matrix_need_update) {
     transfer_matrix_values(raw, cooked, num_rows, current_time);
   }
 }
@@ -88,16 +89,21 @@ void update_debounce_counters(uint8_t num_rows, uint8_t current_time) {
 
 // upload from raw_matrix to final matrix;
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time) {
+  matrix_need_update = false;
   debounce_counter_t *debounce_pointer = debounce_counters;
   for (uint8_t row = 0; row < num_rows; row++) {
     matrix_row_t delta        = raw[row] ^ cooked[row];
     matrix_row_t existing_row = cooked[row];
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
       matrix_row_t col_mask = (ROW_SHIFTER << col);
-      if ((delta & col_mask) && *debounce_pointer == DEBOUNCE_ELAPSED) {
-        *debounce_pointer    = current_time;
-        counters_need_update = true;
-        existing_row ^= col_mask;  // flip the bit.
+      if (delta & col_mask) {
+        if (*debounce_pointer == DEBOUNCE_ELAPSED) {
+          *debounce_pointer    = current_time;
+          counters_need_update = true;
+          existing_row ^= col_mask;  // flip the bit.
+        } else {
+          matrix_need_update = true;
+        }
       }
       debounce_pointer++;
     }
