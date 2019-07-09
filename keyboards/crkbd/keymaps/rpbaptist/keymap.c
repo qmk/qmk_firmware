@@ -52,9 +52,14 @@ enum layer_names {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LSMOD RGB_SMOD
-#define KC_LFMOD  RGB_MOD
-#define KC_LRMOD  RGB_RMOD
+
+#define KC_LFMOD  RGB_MODE_FORWARD
+#define KC_LRMOD  RGB_MODE_REVERSE
+
+#define KC_RGBST RGB_MODE_PLAIN
+#define KC_RGBBR RGB_MODE_BREATHE
+#define KC_RGBRB RGB_MODE_RAINBOW
+#define KC_RGBGR RGB_MODE_GRADIENT
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
