@@ -45,11 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_MOMENTARY(1),
-  [2] = ACTION_LAYER_MOMENTARY(1),
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   // MACRODOWN only works in this function
   switch(id) {
