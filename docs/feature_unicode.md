@@ -6,7 +6,7 @@ There are three different methods available in QMK:
 
 ## Basic Unicode
 
-This method supports Unicode codepoints up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
+This method supports Unicode code points up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
 
 Add the following to your `rules.mk`:
 
@@ -14,11 +14,11 @@ Add the following to your `rules.mk`:
 UNICODE_ENABLE = yes
 ```
 
-Then add your `UC(c)` keycodes to your keymap, where _c_ is the codepoint (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+Then add your `UC(c)` keycodes to your keymap, where _c_ is the code point (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
 
 ## Unicode Map
 
-This method supports all possible codepoints (up to `0x10FFFF`), however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
+This method supports all possible code points (up to `0x10FFFF`), however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
 
 Add the following to your `rules.mk`:
 
@@ -54,7 +54,7 @@ Due to keycode size constraints, _i_ and _j_ can each only refer to one of the f
 
 ## UCIS
 
-This method also supports all codepoints. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
+This method also supports all possible code points. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
 
 Add the following to your `rules.mk`:
 
