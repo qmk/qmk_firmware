@@ -17,7 +17,7 @@
 #ifndef KEYMAP_BR_ABNT2_H
 #define KEYMAP_BR_ABNT2_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 /* Scan codes for the Brazilian ABNT2 keyboard layout */
 
