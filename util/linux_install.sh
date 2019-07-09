@@ -19,6 +19,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-gcc \
 		avr-libc \
 		binutils-avr32-linux-gnu \
+		clang \
 		dfu-util \
 		dfu-programmer \
 		diffutils \
@@ -44,6 +45,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		avr-libc \
 		binutils-arm-none-eabi \
 		binutils-avr \
+		clang-format \
 		dfu-programmer \
 		dfu-util \
 		diffutils \
@@ -68,6 +70,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-libc \
 		avr-gcc \
 		base-devel \
+		clang \
 		dfu-util \
 		diffutils \
 		gcc \
@@ -96,6 +99,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			dev-embedded/avrdude \
 			dev-lang/python:3.5 \
 			net-misc/wget \
+			sys-devel/clang \
 			sys-devel/gcc \
 			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
@@ -112,6 +116,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		dev-embedded/avrdude \
 		dev-lang/python \
 		net-misc/wget \
+		sys-devel/clang \
 		sys-devel/gcc \
 		sys-devel/crossdev
 	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
@@ -126,6 +131,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	fi
 	sudo zypper install \
 		avr-libc \
+		clang \
 		$CROSS_AVR_GCC \
 		$CROSS_ARM_GCC \
 		cross-avr-binutils \
