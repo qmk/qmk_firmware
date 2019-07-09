@@ -1,6 +1,6 @@
 # KeyHive Maypad
 
-![Maypad Layout](https://imgur.com/B7WXcfy)
+![Maypad Layout](https://i.imgur.com/B7WXcfy.png)
 
 A budget-friendly, exposed-component numpad from [KeyHive](https://www.keyhive.xyz)
 
