@@ -1,6 +1,6 @@
 # wulkan
 
-Handwired 40% keyboard buildt with Proton C.
+Handwired 40% keyboard build with Proton C.
 
 Keyboard Maintainer: [Napoleon Wulkan](https://github.com/wulkan)  
 Hardware Supported: Proton C  
