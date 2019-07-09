@@ -10,6 +10,11 @@
 #define R_ALT KC_RAPC
 #define TAB_DANCE LT(2, KC_TAB)
 #define _ KC_NO
+#define VOLDOWN KC__VOLDOWN
+#define VOLUP KC__VOLUP
+#define PLPS KC_MEDIA_PLAY_PAUSE
+#define FWD KC_MEDIA_FAST_FORWARD
+#define RWD KC_MEDIA_REWIND
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -29,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_2L] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_GESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TO(_3L),                              _,       _,        _,    KC_LBRC, KC_RBRC, KC_DEL,
+     KC_GESC,     _,      _,      _,      _,      TO(_3L),                              _,       _,        _,    KC_LBRC, KC_RBRC, KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRNS, KC_TRNS,   KC_4,    KC_5,   KC_6,   KC_LBRC,                            KC_RBRC,   _,     KC_UP,     _,     KC_TRNS, KC_MINUS,
+     KC_TRNS,   RWD,    VOLDOWN,   PLPS,   VOLUP,   FWD,                            KC_RBRC,   _,     KC_UP,     _,     KC_TRNS, KC_MINUS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS,  KC_TRNS,  KC_7,    KC_8,   KC_9,   KC_LPRN,                            KC_RPRN,  KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_PAST,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
