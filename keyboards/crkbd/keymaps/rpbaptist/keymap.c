@@ -23,7 +23,6 @@ enum layer_names {
   _GAMING_EXT,
   _FN,
   _SYM,
-  _UTIL,
   _NAV,
   _ADJUST
 };
@@ -34,12 +33,10 @@ enum layer_names {
 #define KC_T_NAV TT(_NAV)
 #define KC_S_NAV MO(_NAV)
 
-#define KC_FNESC LT(_FN, KC_ESC)
-#define KC_UTTAB LT(_UTIL, KC_TAB)
+#define KC_FNTAB LT(_FN, KC_TAB)
 #define KC_SMSPC LT(_SYM, KC_SPC)
 
 #define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
-#define KC_FNGRV LT(_FN, KC_GRV)
 
 #define KC_LCTLT LCTL_T(KC_LT)
 
@@ -70,9 +67,9 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      FNESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
+        ESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      UTTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
+      FNTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTGUI,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, CTENT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -130,23 +127,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,   F11,\
+        ESC,    F1,    F2,    F3,    F4,    F5,                   NLCK,  KP_7,  KP_8,  KP_9,  PSLS,  PAST,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-        RST, XXXXX, XXXXX, XXXXX,  SLEP,  WAKE,                   LTOG, LFMOD,  LHUI,  LSAI,  LVAI,   F12,\
+      _____,    F6,    F7,    F8,    F9,   F10,                   CAPS,  KP_4,  KP_5,  KP_6,  PMNS,  PPLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, LRMOD,  LHUD,  LSAD,  LVAD, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____,   SPC,    XXXXX, _____, _____ \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_UTIL] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC, XXXXX,  MSTP,  VOLU,  MNXT,  PAUS,                   NLCK,  KP_7,  KP_8,  KP_9,  PSLS,  PAST,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX,  MPRV,  VOLD,  MPLY,   INS,                   CAPS,  KP_4,  KP_5,  KP_6,  PMNS,  PPLS,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX,  MUTE, XXXXX,  PSCR,                   SLCK,  KP_1,  KP_2,  KP_3,  PEQL,  PENT,\
+      _____,   F11,   F12, PAUSE,   INS,  PSCR,                   SLCK,  KP_1,  KP_2,  KP_3,  PEQL,  PENT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____,   SPC,     KP_0,  PDOT,  BSPC \
                               //`--------------------'  `--------------------'
@@ -154,11 +139,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      XXXXX, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+        RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                   LTOG, LFMOD,  LHUI,  LSAI,  LVAI, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX,  CLMK,  GAME, XXXXX, XXXXX, XXXXX,                  XXXXX, LRMOD,  LHUD,  LSAD,  LVAD, _____,\
+      XXXXX,  CLMK,  GAME, XXXXX, XXXXX, XXXXX,                      Q, LRMOD,  LHUD,  LSAD,  LVAD, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
@@ -221,13 +206,10 @@ void render_status(void) {
       oled_write_P(PSTR("     "), false);
       break;
     case _FN:
-      oled_write_P(PSTR("Abort"), false);
+      oled_write_P(PSTR("Stage"), false);
       break;
     case _SYM:
       oled_write_P(PSTR("Comm "), false);
-      break;
-    case _UTIL:
-      oled_write_P(PSTR("Stage"), false);
       break;
     case _NAV:
       oled_write_P(PSTR("Gyro "), false);
