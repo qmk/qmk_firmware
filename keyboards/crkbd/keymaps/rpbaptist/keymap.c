@@ -225,7 +225,7 @@ void render_status(void) {
       oled_write_P(PSTR("Ext  "), false);
       break;
     case _UTIL:
-      oled_write_P(PSTR("Exec "), false);
+      oled_write_P(PSTR("Util "), false);
       break;
     default:
       oled_write_P(PSTR("Unkn "), false);
