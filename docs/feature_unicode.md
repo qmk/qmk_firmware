@@ -14,7 +14,7 @@ Add the following to your `rules.mk`:
 UNICODE_ENABLE = yes
 ```
 
-Then add your `UC(c)` keycodes to your keymap, where _c_ is the code point (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+Then add `UC(c)` keycodes to your keymap, where _c_ is the code point (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
 
 ## Unicode Map
 
