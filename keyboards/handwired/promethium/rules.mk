@@ -47,7 +47,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
+#   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
@@ -62,7 +62,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = yes
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
 API_SYSEX_ENABLE = no
@@ -76,3 +76,5 @@ SRC += ws2812.c
 SRC += rgbsps.c
 SRC += analog.c
 SRC += matrix.c
+
+LINK_TIME_OPTIMIZATION_ENABLE = yes

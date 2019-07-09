@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QUANTUM_H
-#define QUANTUM_H
+#pragma once
 
 #if defined(__AVR__)
     #include <avr/pgmspace.h>
@@ -24,9 +23,11 @@
 #if defined(PROTOCOL_CHIBIOS)
     #include "hal.h"
 #endif
+
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
+
 #ifdef BACKLIGHT_ENABLE
     #ifdef LED_MATRIX_ENABLE
         #include "ledmatrix.h"
@@ -34,14 +35,13 @@
         #include "backlight.h"
     #endif
 #endif
-#ifdef RGBLIGHT_ENABLE
-  #include "rgblight.h"
-#else
-    #ifdef RGB_MATRIX_ENABLE
-        /* dummy define RGBLIGHT_MODE_xxxx */
-        #define RGBLIGHT_H_DUMMY_DEFINE
-        #include "rgblight.h"
-    #endif
+
+#if defined(RGBLIGHT_ENABLE)
+    #include "rgblight.h"
+#elif defined(RGB_MATRIX_ENABLE)
+    // Dummy define RGBLIGHT_MODE_xxxx
+    #define RGBLIGHT_H_DUMMY_DEFINE
+    #include "rgblight.h"
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -50,16 +50,16 @@
 
 #include "action_layer.h"
 #include "eeconfig.h"
-#include <stddef.h>
 #include "bootloader.h"
 #include "timer.h"
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
-#include <stdlib.h>
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 extern layer_state_t default_layer_state;
 
@@ -67,18 +67,16 @@ extern layer_state_t default_layer_state;
     extern layer_state_t layer_state;
 #endif
 
-#ifdef MIDI_ENABLE
-#ifdef MIDI_ADVANCED
+#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     #include "process_midi.h"
 #endif
-#endif // MIDI_ENABLE
 
 #ifdef AUDIO_ENABLE
     #include "audio.h"
     #include "process_audio.h"
     #ifdef AUDIO_CLICKY
         #include "process_clicky.h"
-    #endif // AUDIO_CLICKY
+    #endif
 #endif
 
 #ifdef STENO_ENABLE
@@ -106,7 +104,7 @@ extern layer_state_t default_layer_state;
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-  #include "process_tap_dance.h"
+    #include "process_tap_dance.h"
 #endif
 
 #ifdef PRINTING_ENABLE
@@ -132,7 +130,7 @@ extern layer_state_t default_layer_state;
 #endif
 
 #ifdef SPACE_CADET_ENABLE
-  #include "process_space_cadet.h"
+    #include "process_space_cadet.h"
 #endif
 
 #ifdef HD44780_ENABLE
@@ -147,50 +145,38 @@ extern layer_state_t default_layer_state;
     #include "oled_driver.h"
 #endif
 
-//Function substitutions to ease GPIO manipulation
-#ifdef __AVR__
-    #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+// Function substitutions to ease GPIO manipulation
+#if defined(__AVR__)
+    typedef uint8_t pin_t;
 
-    #define pin_t uint8_t
-    #define setPinInput(pin) PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF)
-    #define setPinInputHigh(pin) ({\
-            PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF);\
-            PIN_ADDRESS(pin, 2) |=   _BV(pin & 0xF);\
-            })
-    #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
-    #define setPinOutput(pin) PIN_ADDRESS(pin, 1) |= _BV(pin & 0xF)
+    #define PIN_ADDRESS(p, offset)  (_SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset)))
+    #define setPinInput(pin)        (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF))
+    #define setPinInputHigh(pin)    (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF), \
+                                     PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
+    #define setPinInputLow(pin)     _Static_assert(0, "AVR processors cannot implement an input as pull low")
+    #define setPinOutput(pin)       (PIN_ADDRESS(pin, 1) |=  _BV((pin) & 0xF))
 
-    #define writePinHigh(pin) PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF)
-    #define writePinLow(pin) PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF)
-    static inline void writePin(pin_t pin, uint8_t level){
-        if (level){
-            PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF);
-        } else {
-            PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF);
-        }
-    }
+    #define writePinHigh(pin)       (PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
+    #define writePinLow(pin)        (PIN_ADDRESS(pin, 2) &= ~_BV((pin) & 0xF))
+    #define writePin(pin, level)    ((level) ? writePinHigh(pin) : writePinLow(pin))
 
-    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
+    #define readPin(pin)            ((bool)(PIN_ADDRESS(pin, 0) & _BV((pin) & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
-    #define pin_t ioline_t
-    #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-    #define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-    #define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-    #define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
+    typedef ioline_t pin_t;
 
-    #define writePinHigh(pin) palSetLine(pin)
-    #define writePinLow(pin) palClearLine(pin)
-    static inline void writePin(pin_t pin, uint8_t level){
-        if (level){
-            palSetLine(pin);
-        } else {
-            palClearLine(pin);
-        }
-    }
+    #define setPinInput(pin)        palSetLineMode(pin, PAL_MODE_INPUT)
+    #define setPinInputHigh(pin)    palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
+    #define setPinInputLow(pin)     palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
+    #define setPinOutput(pin)       palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
 
-    #define readPin(pin) palReadLine(pin)
+    #define writePinHigh(pin)       palSetLine(pin)
+    #define writePinLow(pin)        palClearLine(pin)
+    #define writePin(pin, level)    ((level) ? writePinHigh(pin) : writePinLow(pin))
+
+    #define readPin(pin)            palReadLine(pin)
 #endif
 
+// Send string macros
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
@@ -203,6 +189,7 @@ extern layer_state_t default_layer_state;
 #define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
 #define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
 
+// `string` arguments must not be parenthesized
 #define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
 #define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
 #define SS_LCMD(string) SS_LGUI(string)
@@ -212,10 +199,12 @@ extern layer_state_t default_layer_state;
 #define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
 #define SS_ALGR(string) SS_RALT(string)
 
-#define SEND_STRING(str) send_string_P(PSTR(str))
+#define SEND_STRING(string) send_string_P(PSTR(string))
+
 extern const bool ascii_to_shift_lut[0x80];
 extern const bool ascii_to_altgr_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
+
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
 void send_string_P(const char *str);
@@ -244,10 +233,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
-  #define BOOTMAGIC_LITE_COLUMN 0
+    #define BOOTMAGIC_LITE_COLUMN 0
 #endif
 #ifndef BOOTMAGIC_LITE_ROW
-  #define BOOTMAGIC_LITE_ROW 0
+    #define BOOTMAGIC_LITE_ROW 0
 #endif
 
 void bootmagic_lite(void);
@@ -268,7 +257,7 @@ void backlight_task_internal(void);
 void backlight_on(uint8_t backlight_pin);
 void backlight_off(uint8_t backlight_pin);
 
-#ifdef BACKLIGHT_BREATHING
+    #ifdef BACKLIGHT_BREATHING
 void breathing_task(void);
 void breathing_enable(void);
 void breathing_pulse(void);
@@ -282,9 +271,9 @@ void breathing_period_default(void);
 void breathing_period_set(uint8_t value);
 void breathing_period_inc(void);
 void breathing_period_dec(void);
+    #endif
 #endif
 
-#endif
 void send_dword(uint32_t number);
 void send_word(uint16_t number);
 void send_byte(uint8_t number);
@@ -295,5 +284,3 @@ void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 
 void api_send_unicode(uint32_t unicode);
-
-#endif
