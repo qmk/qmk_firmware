@@ -165,8 +165,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, _SYM, _NAV, _UTIL);
-  return update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
+  state = update_tri_layer_state(state, _SYM, _NAV, _UTIL);
+  state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
+  return state;
 }
 
 #ifdef OLED_DRIVER_ENABLE
