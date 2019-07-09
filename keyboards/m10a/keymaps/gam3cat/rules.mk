@@ -22,4 +22,3 @@ FAUXCLICKY_ENABLE = no      # Uses buzzer to emulate clicky switches.  By defaul
 API_SYSEX_ENABLE = no       # This enables using the Quantum SYSEX API to send strings(+5390)
 KEY_LOCK_ENABLE = no        # This enables key lock(+260)
 SPLIT_KEYBOARD = no         # This enables split keyboard support and includes all necessary files located at quantum/split_common
-
