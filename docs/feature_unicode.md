@@ -2,7 +2,7 @@
 
 Unicode characters can be input straight from your keyboard! There are some limitations, however.
 
-There are three different methods available in QMK:
+QMK has three different methods for enabling Unicode input and defining keycodes:
 
 ## Basic Unicode
 
