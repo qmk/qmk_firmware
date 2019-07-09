@@ -18,7 +18,7 @@ Then add `UC(c)` keycodes to your keymap, where _c_ is the code point (preferabl
 
 ## Unicode Map
 
-This method supports all possible code points (up to `0x10FFFF`), however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
+This method supports all possible code points (up to `0x10FFFF`); however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
 
 Add the following to your `rules.mk`:
 
