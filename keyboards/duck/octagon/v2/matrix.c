@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
-static uint8_t debouncing = DEBOUNCING_DELAY;
+static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -92,7 +92,7 @@ uint8_t matrix_scan(void) {
         if (debouncing) {
             dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
         }
-        debouncing = DEBOUNCING_DELAY;
+        debouncing = DEBOUNCE;
       }
     }
     unselect_cols();

@@ -61,6 +61,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		arm-none-eabi-binutils \
 		arm-none-eabi-gcc \
 		arm-none-eabi-newlib \
+		avrdude \
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
@@ -117,7 +118,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	CROSS_AVR_GCC=cross-avr-gcc8
 	CROSS_ARM_GCC=cross-arm-none-gcc8
-	if grep ID /etc/os-release | grep -q "15.0"; then
+	if grep ID /etc/os-release | grep -q "15."; then
 		CROSS_AVR_GCC=cross-avr-gcc7
 		CROSS_ARM_GCC=cross-arm-none-gcc7
 	fi

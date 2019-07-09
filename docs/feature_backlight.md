@@ -34,13 +34,14 @@ Hardware PWM is only supported on certain pins of the MCU, so if the backlightin
 
 Hardware PWM is supported according to the following table:
 
-| Backlight Pin | Hardware timer |
-|---------------|----------------|
-|`B5`           | Timer 1        |
-|`B6`           | Timer 1        |
-|`B7`           | Timer 1        |
-|`C6`           | Timer 3        |
-| other         | Software PWM   |
+| Backlight Pin | Hardware timer          |
+|---------------|-------------------------|
+|`B5`           | Timer 1                 |
+|`B6`           | Timer 1                 |
+|`B7`           | Timer 1                 |
+|`C6`           | Timer 3                 |
+|`D4`           | Timer 1 (ATmega32A only)|
+| other         | Software PWM            |
 
 The [audio feature](feature_audio.md) also uses hardware timers. Please refer to the following table to know what hardware timer the software PWM will use depending on the audio configuration:
 
@@ -63,11 +64,17 @@ To change the behaviour of the backlighting, `#define` these in your `config.h`:
 |Define               |Default      |Description                                                                                                  |
 |---------------------|-------------|-------------------------------------------------------------------------------------------------------------|
 |`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
-|`BACKLIGHT_PINS`     |*Not defined*|experimental: see below for more information|
+|`BACKLIGHT_PINS`     |*Not defined*|experimental: see below for more information                                                                 |
 |`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 15 excluding off)                                                   |
 |`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
-|`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                                          |
+|`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                                                     |
 |`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                                              |
+|`BACKLIGHT_ON_STATE` |`0`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                        |
+
+## Backlight On State
+
+Most backlight circuits are driven by an N-channel MOSFET or NPN transistor. This means that to turn the transistor *on* and light the LEDs, you must drive the backlight pin, connected to the gate or base, *low*.
+Sometimes, however, a P-channel MOSFET, or a PNP transistor is used. In this case you must `#define BACKLIGHT_ON_STATE 1`, so that when the transistor is on, the pin is driven *high* instead.
 
 ## Multiple backlight pins
 
