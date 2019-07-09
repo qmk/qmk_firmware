@@ -1,11 +1,14 @@
 #include "keymap.h"
 
+#define KC_MO1 MO(1)
+#define KC_MO2 MO(2)
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP( /* Jack */
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   TAB,  A,    S,    D,    F,    G,    H,    J,    K,    L,    DOT,  ENT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SCLN, DEL,
-  LCTL, ENT,  LALT, CAPS, FN2,    SPC,      FN1,  LEFT, DOWN, UP,   RGHT),
+  LCTL, ENT,  LALT, CAPS, MO2,    SPC,      MO1,  LEFT, DOWN, UP,   RGHT),
 [1] = KEYMAP( /* Jack RAISE */
   TRNS, F1,   F2,   F3,   F4,   NO,   FN11, FN9,  FN12, NO,   FN14, TRNS,
   TRNS, F5,   F6,   F7,   F8,   FN16, SLSH, MINS, EQL,  LBRC, FN8,  TRNS,
@@ -18,9 +21,6 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TRNS, TRNS, TRNS, TRNS, TRNS,    TRNS,    TRNS, TRNS, TRNS, TRNS, TRNS),
 };
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
-    [2] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay
-
     [8]  = ACTION_MODS_KEY(MOD_LSFT, KC_SLSH),
     [9]  = ACTION_MODS_KEY(MOD_LSFT, KC_QUOT),
     [10] = ACTION_MODS_KEY(MOD_LSFT, KC_1),
