@@ -96,12 +96,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
   _______, RESET,   _______, _______, _______, _______, _______,    KC_MS_UP,   _______,     _______,                   XP(SE_AA_LOW, SE_AA_HIGH), KC_DEL,
-  _______, _______, _______, _______, _______, _______, KC_MS_LEFT, _______,    KC_MS_RIGHT, XP(SE_OE_LOW, SE_OE_HIGH), XP(SE_AE_LOW, SE_AE_HIGH), _______,
-  _______, _______, _______, _______, _______, _______, KC_MS_BTN1, KC_MS_DOWN, KC_MS_BTN3,  _______,                   _______,                   _______,
+  _______, _______, _______, _______, _______, _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XP(SE_OE_LOW, SE_OE_HIGH), XP(SE_AE_LOW, SE_AE_HIGH), _______,
+  _______, _______, _______, _______, _______, _______, KC_MS_BTN1, _______,    KC_MS_BTN3,  _______,                   _______,                   _______,
   _______, _______, _______, _______, _______, _______, _______,    _______,    _______,     _______,                   _______,                   _______
 )
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
 }
