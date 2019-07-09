@@ -62,10 +62,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-extern uint32_t default_layer_state;
+extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-    extern uint32_t layer_state;
+    extern layer_state_t layer_state;
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -258,7 +258,7 @@ void backlight_task_internal(void);
 void backlight_on(uint8_t backlight_pin);
 void backlight_off(uint8_t backlight_pin);
 
-#ifdef BACKLIGHT_BREATHING
+    #ifdef BACKLIGHT_BREATHING
 void breathing_task(void);
 void breathing_enable(void);
 void breathing_pulse(void);
@@ -272,7 +272,7 @@ void breathing_period_default(void);
 void breathing_period_set(uint8_t value);
 void breathing_period_inc(void);
 void breathing_period_dec(void);
-#endif
+    #endif
 #endif
 
 void send_dword(uint32_t number);

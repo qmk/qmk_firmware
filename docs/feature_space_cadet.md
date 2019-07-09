@@ -20,7 +20,7 @@ Firstly, in your keymap, do one of the following:
 |`KC_RCPC`  |Right Control when held, `)` when tapped   |
 |`KC_LAPO`  |Left Alt when held, `(` when tapped        |
 |`KC_RAPC`  |Right Alt when held, `)` when tapped       |
-|`KC_SFTENT`|Right Shift when held, `Enter` when tapped |
+|`KC_SFTENT`|Right Shift when held, Enter when tapped   |
 
 ## Caveats
 
@@ -38,16 +38,17 @@ By default Space Cadet assumes a US ANSI layout, but if your layout uses differe
 |----------------|-------------------------------|---------------------------------------------------------------------------------|
 |`LSPO_KEYS`     |`KC_LSFT, LSPO_MOD, LSPO_KEY`  |Send `KC_LSFT` when held, the mod and  key defined by `LSPO_MOD` and `LSPO_KEY`. |
 |`RSPC_KEYS`     |`KC_RSFT, RSPC_MOD, RSPC_KEY`  |Send `KC_RSFT` when held, the mod and  key defined by `RSPC_MOD` and `RSPC_KEY`. |
-|`LCPO_KEYS`     |`KC_LCTL, KC_LCTL, KC_9`       |Send `KC_LCTL` when held, the mod `KC_LCTL` with the key `KC_9` when tapped.     |
-|`RCPO_KEYS`     |`KC_RCTL, KC_RCTL, KC_0`       |Send `KC_RCTL` when held, the mod `KC_RCTL` with the key `KC_0` when tapped.     |
-|`LAPO_KEYS`     |`KC_LALT, KC_LALT, KC_9`       |Send `KC_LALT` when held, the mod `KC_LALT` with the key `KC_9` when tapped.     |
-|`RAPO_KEYS`     |`KC_RALT, KC_RALT, KC_0`       |Send `KC_RALT` when held, the mod `KC_RALT` with the key `KC_0` when tapped.     |
+|`LCPO_KEYS`     |`KC_LCTL, KC_LSFT, KC_9`       |Send `KC_LCTL` when held, the mod `KC_LSFT` with the key `KC_9` when tapped.     |
+|`RCPC_KEYS`     |`KC_RCTL, KC_RSFT, KC_0`       |Send `KC_RCTL` when held, the mod `KC_RSFT` with the key `KC_0` when tapped.     |
+|`LAPO_KEYS`     |`KC_LALT, KC_LSFT, KC_9`       |Send `KC_LALT` when held, the mod `KC_LSFT` with the key `KC_9` when tapped.     |
+|`RAPC_KEYS`     |`KC_RALT, KC_RSFT, KC_0`       |Send `KC_RALT` when held, the mod `KC_RSFT` with the key `KC_0` when tapped.     |
 |`SFTENT_KEYS`   |`KC_RSFT, KC_TRNS, SFTENT_KEY` |Send `KC_RSFT` when held, no mod with the key `SFTENT_KEY` when tapped.          |
+|`SPACE_CADET_MODIFIER_CARRYOVER`   |*Not defined* |Store current modifiers before the hold mod is pressed and use them with the tap mod and keycode. Useful for when you frequently release a modifier before triggering Space Cadet.  |
 
 
 ## Obsolete Configuration
 
-These defines are used in the above defines internally to support backwards compatibility, so you may continue to use them, however the above defines open up a larger range of flexibility than before. As an example, say you want to not send any modifier when you tap just `KC_LSPO`, with the old defines you had an all or nothing choice of using the `DISABLE_SPACE_CADET_MODIFIER` define. Now you can define that key as: `#define KC_LSPO_KEYS KC_LSFT, KC_TRNS, KC_9`. This tells the system to set Left Shift if held or used with other keys, then on tap send no modifier (transparent) with the `KC_9`
+These defines are used in the above defines internally to support backwards compatibility, so you may continue to use them, however the above defines open up a larger range of flexibility than before. As an example, say you want to not send any modifier when you tap just `KC_LSPO`, with the old defines you had an all or nothing choice of using the `DISABLE_SPACE_CADET_MODIFIER` define. Now you can define that key as: `#define LSPO_KEYS KC_LSFT, KC_TRNS, KC_9`. This tells the system to set Left Shift if held or used with other keys, then on tap send no modifier (transparent) with the `KC_9`.
 
 |Define                        |Default      |Description                                                       |
 |------------------------------|-------------|------------------------------------------------------------------|
