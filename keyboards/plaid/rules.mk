@@ -97,5 +97,5 @@ NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
 
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no

@@ -17,8 +17,13 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-__attribute__ ((weak))
-void action_function_keymap(keyrecord_t *record, uint8_t id, uint8_t opt) {}
+void matrix_init_user(void) {
+  matrix_init_keymap();
+}
+
+void matrix_scan_user(void) {
+  matrix_scan_keymap();
+}
 
 void keyboard_pre_init_user(void) {
   /* Set NUMLOCK indicator pin as output */
