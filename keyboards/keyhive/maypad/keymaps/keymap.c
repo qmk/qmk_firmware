@@ -15,22 +15,16 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	KEYMAP(
+	LAYOUT_ortho_5x4(
 		KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, 
 		KC_P7, KC_P8, KC_P9, KC_PPLS, 
 		KC_P4, KC_P5, KC_P6, KC_PPLS, 
 		KC_P1, KC_P2, KC_P3, KC_ENT, 
 		KC_P0, KC_P0, KC_PDOT, KC_ENT),
 
-	KEYMAP(
+	LAYOUT_ortho_5x4(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -39,27 +33,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
 
 void matrix_init_user(void) {
 

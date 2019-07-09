@@ -1,16 +1,13 @@
 /*
 Copyright 2019 codybender
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -224,9 +221,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
 #define LCD_LINES           2     //< number of visible lines of the display
 #define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
 #define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
 #if LCD_IO_MODE
 #define LCD_PORT         PORTB        //< port for the LCD lines
 #define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0

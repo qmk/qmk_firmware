@@ -10,13 +10,10 @@ void pointing_device_task(void){
 	/*report_mouse_t currentReport = {};
     SERIAL_UART_INIT();
     uint32_t timeout = 0;
-
     //the m character requests the RF slave to send the mouse report
     SERIAL_UART_DATA = 'm';
-
     //trust the external inputs completely, erase old data
     uint8_t uart_data[5] = {0};
-
     //there are 10 bytes corresponding to 10 columns, and an end byte
     for (uint8_t i = 0; i < 5; i++) {
         //wait for the serial data, timeout if it's been too long
@@ -32,7 +29,6 @@ void pointing_device_task(void){
 	xprintf("\r\nGOT DATA for %d",i);
         uart_data[i] = SERIAL_UART_DATA;
     }
-
     //check for the end packet, bytes 1-4 are movement and scroll
     //but byte 5 has bits 0-3 for the scroll button state
 	//(1000 if pressed, 0000 if not) and bits 4-7 are always 1
