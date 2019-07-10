@@ -127,9 +127,7 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-{% hint style='warn' %}
-If you have any issues with this, such as `dfu-programmer: no device present`, you may need to use sudo: 
-{% endhint %}
+?> If you have any issues with this, such as `dfu-programmer: no device present`, you may need to use sudo: 
 
     sudo make <my_keyboard>:<my_keymap>:dfu
 
