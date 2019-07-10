@@ -145,8 +145,11 @@ void keyboard_pre_init_kb(void) {
 /* Turn on the lighting when init is finished */
 void keyboard_post_init_kb(void) {
     /* Send 'set theme' command to lighting controller */
+    uart_tx_ringbuf_write(&led_uart_ringbuf, 4, "\x09\x02\x01\x0e");
+    /* Send 'set speed and brightness' command to lighting controller */
+    uart_tx_ringbuf_write(&led_uart_ringbuf, 6, "\x09\x04\x02\x80\x01\x00");
+    /* Mark LEDs as enabled */
     leds_enabled = true;
-    uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
 
     keyboard_post_init_user();
 }
