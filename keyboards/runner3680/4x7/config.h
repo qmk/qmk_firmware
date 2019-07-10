@@ -51,9 +51,9 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 28
+#define RGBLED_NUM 56
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 14, 14 }    // Number of LEDs
+#define RGBLED_SPLIT { 28, 28 }    // Number of LEDs
 #define RGBLIGHT_LIMIT_VAL 100
 
 #define SOFT_SERIAL_PIN D2
