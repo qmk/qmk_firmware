@@ -1,5 +1,12 @@
 #include QMK_KEYBOARD_H
-#include rgblight_list.h
+#include <rgblight_list.h>
+#include "dz60rgb.h"
+
+#define _LAYER0 0
+#define _LAYER1 1
+#define _LAYER2 2
+#define _LAYER3 3
+#define _LAYER4 4
 
 #define RGB_OFF 0x00, 0x00, 0x00
 
