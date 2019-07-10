@@ -29,14 +29,12 @@
     #endif
   #endif
 
-  #define setPinInputHigh(pin) do {\
-          DDRx_ADDRESS(pin)  &= ~_BV(pin & 0xF);\
-          PORTx_ADDRESS(pin) |=  _BV(pin & 0xF);\
-          } while(0)
-  #define setPinOutput(pin) DDRx_ADDRESS(pin)  |=  _BV(pin & 0xF)
-  #define writePinHigh(pin) PORTx_ADDRESS(pin) |=  _BV(pin & 0xF)
-  #define writePinLow(pin)  PORTx_ADDRESS(pin) &= ~_BV(pin & 0xF)
-  #define readPin(pin) ((bool)(PINx_ADDRESS(pin) & _BV(pin & 0xF)))
+  #define setPinInputHigh(pin)    (DDRx_ADDRESS(pin)  &= ~_BV((pin) & 0xF), \
+                                   PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
+  #define setPinOutput(pin)       (DDRx_ADDRESS(pin)  |=  _BV((pin) & 0xF))
+  #define writePinHigh(pin)       (PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
+  #define writePinLow(pin)        (PORTx_ADDRESS(pin) &= ~_BV((pin) & 0xF))
+  #define readPin(pin)            ((bool)(PINx_ADDRESS(pin) & _BV((pin) & 0xF)))
 
   #if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
     #if SOFT_SERIAL_PIN == D0
