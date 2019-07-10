@@ -85,4 +85,3 @@
 #define SE_RCBR_MAC ALGR(LSFT(KC_9))  // }
 
 #endif
-
