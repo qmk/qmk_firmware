@@ -155,6 +155,7 @@ void bootloader_jump(void) {
         while(1) {} // wait for watchdog timer to trigger
 
     #elif defined(BOOTLOADER_USBASP)
+        // Taken with permission of Stephan Baerwolf from https://github.com/tinyusbboard/API/blob/master/apipage.c
         wdt_enable(WDTO_15MS);
         wdt_reset();
         asm volatile (
