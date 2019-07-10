@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <stdio.h>
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -24,6 +25,8 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
     KC_A,  KC_1,  KC_H, \
+      KC_TAB,  KC_SPC,   \
+    KC_B,  KC_2,  KC_H, \
       KC_TAB,  KC_SPC   \
   ),
 };
@@ -47,11 +50,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
+  printf("Hello");
   return true;
 }
 
 void matrix_init_user(void) {
-
+  //iota_gfx_init(false);
+  debug_enable = true;
+ // eeconfig_update_rgblight_default();
+  //rgblight_enable();
+  //rgblight_sethsv_white();
+  //rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
 }
 
 void matrix_scan_user(void) {
@@ -60,4 +69,13 @@ void matrix_scan_user(void) {
 
 void led_set_user(uint8_t usb_led) {
 
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+  printf("Hello");
 }
