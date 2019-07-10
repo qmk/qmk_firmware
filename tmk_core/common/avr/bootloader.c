@@ -65,6 +65,11 @@
 #define BOOT_SIZE_1024 0b010
 #define BOOT_SIZE_2048 0b000
 
+#ifndef MCUCSR 
+    //compatibility between ATMega8 and ATMega88
+    #define MCUCSR MCUSR
+#endif
+
 /** \brief Entering the Bootloader via Software
  *
  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.html
@@ -149,6 +154,38 @@ void bootloader_jump(void) {
 
         while(1) {} // wait for watchdog timer to trigger
 
+    #elif defined(BOOTLOADER_USBASP)
+        wdt_enable(WDTO_15MS);
+        wdt_reset();
+        asm volatile (
+            "cli                    \n\t"
+            "ldi    r29 ,       %[ramendhi] \n\t"
+            "ldi    r28 ,       %[ramendlo] \n\t"
+            #if (FLASHEND>131071)
+                "ldi    r18 ,       %[bootaddrhi]   \n\t"
+                "st     Y+,         r18     \n\t"
+            #endif
+            "ldi    r18 ,       %[bootaddrme]   \n\t"
+            "st     Y+,     r18     \n\t"
+            "ldi    r18 ,       %[bootaddrlo]   \n\t"
+            "st     Y+,     r18     \n\t"
+            "out    %[mcucsrio],    __zero_reg__    \n\t"
+            "bootloader_startup_loop%=:         \n\t"
+            "rjmp bootloader_startup_loop%=     \n\t"
+            : 
+            : [mcucsrio]    "I" (_SFR_IO_ADDR(MCUCSR)),
+            #if (FLASHEND>131071)
+                [ramendhi]    "M" (((RAMEND - 2) >> 8) & 0xff),
+                [ramendlo]    "M" (((RAMEND - 2) >> 0) & 0xff),
+                [bootaddrhi]  "M" ((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >>16) & 0xff),
+            #else
+                [ramendhi]    "M" (((RAMEND - 1) >> 8) & 0xff),
+                [ramendlo]    "M" (((RAMEND - 1) >> 0) & 0xff),
+            #endif
+            [bootaddrme]  "M" ((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 8) & 0xff),
+            [bootaddrlo]  "M" ((((FLASH_SIZE - BOOTLOADER_SIZE) >> 1) >> 0) & 0xff)
+        );
+
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
         #if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__)) // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
@@ -171,11 +208,6 @@ void bootloader_jump(void) {
     #endif
 
 }
-
-#ifdef __AVR_ATmega32A__
-    // MCUSR is actually called MCUCSR in ATmega32A
-    #define MCUSR MCUCSR
-#endif
 
 /* this runs before main() */
 void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, section (".init3")));
