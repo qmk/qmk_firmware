@@ -52,7 +52,7 @@ void ws2812_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pin
 void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
 /*
- * This function is needed to allow ARM mcu to initiate pins for w2812. AVR needs empty function to avoid compile error
+ * This function is needed to allow ARM mcu to initiate pins for ws2812. AVR needs empty function to avoid compile error
  */
 void ws2812_init(void);
 
