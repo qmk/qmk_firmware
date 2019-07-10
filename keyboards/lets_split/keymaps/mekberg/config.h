@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// Define some configuration for modtap behavior
+// #define TAPPING_TERM 150
+#define PERMISSIVE_HOLD
+
  // place overrides here
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                               SONG(COLEMAK_SOUND), \
