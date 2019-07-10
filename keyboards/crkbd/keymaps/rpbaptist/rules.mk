@@ -29,4 +29,6 @@ BOOTLOADER       = qmk-dfu
 
 OLED_DRIVER_ENABLE = yes
 
-RGB_MATRIX_SPLIT_RIGHT=yes
+ifneq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    RGB_MATRIX_SPLIT_RIGHT=yes
+endif
