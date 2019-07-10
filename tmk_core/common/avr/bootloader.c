@@ -65,9 +65,11 @@
 #define BOOT_SIZE_1024 0b010
 #define BOOT_SIZE_2048 0b000
 
-#ifndef MCUCSR 
-    //compatibility between ATMega8 and ATMega88
-    #define MCUCSR MCUSR
+//compatibility between ATMega8 and ATMega88
+#if !defined (MCUCSR)
+    #if defined (MCUSR)
+        #define MCUCSR MCUSR
+    #endif
 #endif
 
 /** \brief Entering the Bootloader via Software
@@ -215,14 +217,14 @@ void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, sec
 void bootloader_jump_after_watchdog_reset(void)
 {
     #ifndef BOOTLOADER_HALFKAY
-        if ((MCUSR & (1<<WDRF)) && reset_key == BOOTLOADER_RESET_KEY) {
+        if ((MCUCSR & (1<<WDRF)) && reset_key == BOOTLOADER_RESET_KEY) {
             reset_key = 0;
 
             // My custom USBasploader requires this to come up.
-            MCUSR = 0;
+            MCUCSR = 0;
 
             // Seems like Teensy halfkay loader requires clearing WDRF and disabling watchdog.
-            MCUSR &= ~(1<<WDRF);
+            MCUCSR &= ~(1<<WDRF);
             wdt_disable();
 
 
@@ -235,29 +237,3 @@ void bootloader_jump_after_watchdog_reset(void)
         }
     #endif
 }
-
-
-#if 0
-    /*
-     * USBaspLoader - I'm not sure if this is used at all in any projects
-     *                would love to support it if it is -Jack
-     */
-#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__) || defined(__AVR_ATmega328P__)
-    // This makes custom USBasploader come up.
-    MCUSR = 0;
-
-    // initialize ports
-    PORTB = 0; PORTC= 0; PORTD = 0;
-    DDRB = 0; DDRC= 0; DDRD = 0;
-
-    // disable interrupts
-    EIMSK = 0; EECR = 0; SPCR = 0;
-    ACSR = 0; SPMCSR = 0; WDTCSR = 0; PCICR = 0;
-    TIMSK0 = 0; TIMSK1 = 0; TIMSK2 = 0;
-    ADCSRA = 0; TWCR = 0; UCSR0B = 0;
-#endif
-
-    // This is compled into 'icall', address should be in word unit, not byte.
-    ((void (*)(void))(BOOTLOADER_START/2))();
-}
-#endif
