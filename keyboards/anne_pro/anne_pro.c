@@ -15,12 +15,37 @@
  */
 
 #include "anne_pro.h"
+#include "uart_tx_ringbuf.h"
 #include "ch.h"
 #include "hal.h"
 
-static UARTDriver *LED_UART = &UARTD3;
+#define LED_UART (&UARTD3)
+/* UART transmission ringbuffer for the LED UART */
+static uint8_t led_uart_tx_buffer[256] = {0};
+static uart_tx_ringbuf_t led_uart_ringbuf = {
+    .buf = led_uart_tx_buffer,
+    .uart = LED_UART,
+    .size = sizeof(led_uart_tx_buffer),
+    .sending_elements = 0,
+    .head = 0,
+    .tail = 0,
+};
+
+/* Should the main loop try a transmission, used when transmission finishes
+   to send any data that might have been added to the buffer while the
+   transmission was in progress.
+*/
+static volatile bool led_uart_try_transmission = false;
+
+/* Handler for finsihed LED UART transmissions */
+static void led_uart_txend(UARTDriver *uart) {
+    uart_tx_ringbuf_finish_transmission(&led_uart_ringbuf);
+    led_uart_try_transmission = true;
+}
+
+/* LED UART configuration */
 static UARTConfig led_uart_cfg = {
-    .txend1_cb = NULL,
+    .txend1_cb = led_uart_txend,
     .txend2_cb = NULL,
     .rxend_cb = NULL,
     .rxchar_cb = NULL,
@@ -32,13 +57,13 @@ static UARTConfig led_uart_cfg = {
 };
 
 /* State of the leds on the keyboard */
-volatile bool leds_enabled = false;
+static volatile bool leds_enabled = false;
 
 /* Buffer for the keystate packet */
 static uint8_t keystate[12] = {9, 10, 7, 0};
 
-/* Process the Anne Pro custom keycodes */
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+/* Update the dynamic lighting packet based on a keypress */
+void update_dynamic_lighting(keyrecord_t *record) {
     /* Only update dynamic lighting modes when leds are enabled */
     if (leds_enabled) {
         /* Calculate the position of the key that was pressed */
@@ -56,8 +81,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         }
 
         /* Send the keystate to the LED controller */
-        uartStartSend(LED_UART, 12, keystate);
+        uart_tx_ringbuf_write(&led_uart_ringbuf, 12, keystate);
     }
+}
+
+/* Process the Anne Pro custom keycodes */
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    update_dynamic_lighting(record);
 
     switch (keycode) {
     case APL_RGB:
@@ -65,28 +95,28 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             leds_enabled = !leds_enabled;
             if (leds_enabled) {
-                uartStartSend(LED_UART, 3, "\x09\x01\x01");
+                uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
             } else {
-                uartStartSend(LED_UART, 4, "\x09\x02\x01\x00");
+                uart_tx_ringbuf_write(&led_uart_ringbuf, 4, "\x09\x02\x01\x00");
             }
         }
         return false;
     case APL_RAT:
         /* Change the animation rate */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(LED_UART, 6, "\x09\x04\x05\x00\x01\x00");
+            uart_tx_ringbuf_write(&led_uart_ringbuf, 6, "\x09\x04\x05\x00\x01\x00");
         }
         return false;
     case APL_BRT:
         /* Change the brightness */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(LED_UART, 6, "\x09\x04\x05\x00\x00\x01");
+            uart_tx_ringbuf_write(&led_uart_ringbuf, 6, "\x09\x04\x05\x00\x00\x01");
         }
         return false;
     case APL_MOD:
         /* Change the lighting mode */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(LED_UART, 6, "\x09\x04\x05\x01\x00\x00");
+            uart_tx_ringbuf_write(&led_uart_ringbuf, 6, "\x09\x04\x05\x01\x00\x00");
         }
         return false;
     default:
@@ -96,7 +126,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* Initialize custom keyboard features */
-void keyboard_post_init_kb(void) {
+void keyboard_pre_init_kb(void) {
     /* Turn on lighting controller */
     setPinOutput(C15);
     writePinLow(C15);
@@ -109,9 +139,25 @@ void keyboard_post_init_kb(void) {
     palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(7));
     palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
 
+    keyboard_pre_init_user();
+}
+
+/* Turn on the lighting when init is finished */
+void keyboard_post_init_kb(void) {
     /* Send 'set theme' command to lighting controller */
     leds_enabled = true;
-    uartStartSend(LED_UART, 4, "\x09\x02\x01\x01");
+    uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
 
-    matrix_init_user();
+    keyboard_post_init_user();
+}
+
+/* Start transmissions when the flag is set */
+void matrix_scan_kb(void) {
+    if (led_uart_try_transmission) {
+        uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
+        led_uart_try_transmission = false;
+    }
+
+    /* Run matrix_scan_user code */
+    matrix_scan_user();
 }
