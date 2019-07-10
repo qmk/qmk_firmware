@@ -4,6 +4,8 @@
 #define KC_MO2 MO(2)
 #define KC_MO3 MO(3)
 
+#define KC_BLTG BL_TOGG
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_kc(
         ESC, Q, W, F, P, G, J, L, U, Y, SCLN, QUOT, BSPC,
@@ -19,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, 7, 8, 9, 0, TRNS, TRNS,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, LBRC, 4, 5, 6, DOT, TRNS,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, RBRC, 1, 2, 3, BSLS, TRNS,
-        TRNS, FN29, TRNS, TRNS, TRNS, PAUSE, EQL, MINS, TRNS, TRNS),
+        TRNS, BLTG, TRNS, TRNS, TRNS, PAUSE, EQL, MINS, TRNS, TRNS),
     [3] = LAYOUT_kc(
         TRNS, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
@@ -29,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, 7, 8, 9, 0, TRNS, TRNS,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, LBRC, 4, 5, 6, DOT, TRNS,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, RBRC, 1, 2, 3, BSLS, TRNS,
-        TRNS, FN29, TRNS, TRNS, TRNS, PAUSE, EQL, MINS, TRNS, TRNS),
+        TRNS, BLTG, TRNS, TRNS, TRNS, PAUSE, EQL, MINS, TRNS, TRNS),
 };
 
 enum macro_id
@@ -49,12 +51,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
     [10] = ACTION_MACRO(PSWD1),
     [11] = ACTION_MACRO(PSWD2),
-    [12] = ACTION_MACRO(PSWD3),
-
-    [29] = ACTION_BACKLIGHT_TOGGLE(),
-    [30] = ACTION_BACKLIGHT_INCREASE(),
-    [31] = ACTION_BACKLIGHT_DECREASE()
-
+    [12] = ACTION_MACRO(PSWD3)
 };
 
 /*

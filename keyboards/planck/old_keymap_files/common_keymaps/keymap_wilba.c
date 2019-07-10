@@ -2,10 +2,13 @@
 
 #define KC_MO2 MO(2)
 #define KC_MO3 MO(3)
+#define KC_BLTG BL_TOGG
+#define KC_BLIN BL_INC
+#define KC_BLDE BL_DEC
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP( /* Wilba */
-  FN27, FN28, FN29, E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
+  BLTG, BLIN, BLDE, E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   TAB,  A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, ENT,
   LCTL, LGUI, LALT, RSFT, MO2,  SPC,        MO3,  LEFT, DOWN, UP,   RGHT),
@@ -47,10 +50,5 @@ const uint16_t PROGMEM fn_actions[] = {
     [24] = ACTION_MODS_KEY(MOD_LSFT, KC_RBRC), // }
     [25] = ACTION_MODS_KEY(MOD_LSFT, KC_BSLS), // |
 
-    [26] = ACTION_MODS_KEY(MOD_LSFT | MOD_RSFT, KC_PAUSE),
-    
-    [27] = ACTION_BACKLIGHT_TOGGLE(),
-    [28] = ACTION_BACKLIGHT_INCREASE(),
-    [29] = ACTION_BACKLIGHT_DECREASE()
-    
+    [26] = ACTION_MODS_KEY(MOD_LSFT | MOD_RSFT, KC_PAUSE)
 };
