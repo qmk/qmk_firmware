@@ -1,3 +1,8 @@
+#include QMK_KEYBOARD_H
+#include rgblight_list.h
+
+#define RGB_OFF 0x00, 0x00, 0x00
+
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
