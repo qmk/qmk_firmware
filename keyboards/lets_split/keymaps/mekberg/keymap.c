@@ -1,15 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-// #define _DEF 0
-// #define _SYM 1
-// #define _NUM 2
-// #define _SPC 3
-// #define _MOV 4
-
 #define SYMBOL MO(1)
 #define NUMBER MO(2)
 #define SPECIAL MO(3)
@@ -20,6 +10,48 @@
 #define SFTENT RSFT_T(KC_ENT)
 // Tab => Ctrl when held
 #define CTLTAB LCTL_T(KC_TAB)
+
+// ISO keycodes with Swedish layout names
+#define SE_PLUS KC_MINS     // +
+#define SE_QSTM S(SE_PLUS)  // Question mark
+#define SE_TCK KC_EQL       // Fronttick
+#define SE_BTCK S(SE_TCK)   // Backtick
+#define SE_UML KC_RBRC      // Umlaut (¨)
+#define SE_TAK S(SE_UML)    // Caret (^)
+#define SE_TILD A(SE_UML)   // Tilde (~)
+#define SE_QUT KC_NUHS      // Singlequote
+#define SE_DQUT S(KC_2)     // Doublequote
+#define SE_AST S(SE_QUT)    // Asterisk
+#define SE_AUML KC_QUOT     // Ä
+#define SE_ARNG KC_LBRC     // Å
+#define SE_OUML KC_SCLN     // Ö
+#define SE_LT KC_NUBS       // <
+#define SE_GT S(SE_LT)      // >
+#define SE_DASH KC_SLSH     // -
+#define SE_USCR S(SE_DASH)  // _
+#define AP_SLS S(KC_7)      // /
+#define AP_PIPE LALT(KC_7)  // |
+#define AP_BSLS A(AP_SLS)   // Backslash
+#define AP_LCBR A(AP_LPAR)  // {
+#define AP_RCBR A(AP_RPAR)  // }
+#define AP_LBR A(KC_8)      // [
+#define AP_RBR A(KC_9)      // ]
+#define AP_LPAR S(KC_8)     // (
+#define AP_RPAR S(KC_9)     // )
+#define SE_AT RALT(KC_2)    // @
+#define SE_EXCL S(KC_1)     // !
+#define SE_HASH S(KC_3)     // #
+#define SE_USD RALT(KC_4)   // $
+#define SE_PCNT S(KC_5)     // %
+#define SE_AMP S(KC_6)      // &
+#define SE_EQLS S(KC_0)     // =
+
+// My common shortcuts
+#define MY_PREV KC_MRWD
+#define MY_NEXT KC_MFFD
+#define MY_PLAY KC_MPLY
+#define MY_VOLU KC__VOLUP
+#define MY_VOLD KC__VOLDOWN
 
 /*
 Let's Split physical layout
@@ -39,10 +71,10 @@ Let's Split physical layout
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
 0 DEFAULT
-Main layout for alphas and modifiers
-Tab => Ctrl when held
-Esc => MOVEMENT layer when held
-Enter => Shift when held
+   Main layout for alphas and modifiers
+   Tab => Ctrl when held
+   Esc => MOVEMENT layer when held
+   Enter => Shift when held
                              LEFT                                                     RIGHT
    ,-----------------------------------------------------.   ,-----------------------------------------------------.
    |Esc/MOVE|   Q    |   W    |   E    |   R    |   T    |   |   Y    |   U    |   I    |   O    |   P    |   Å    |
@@ -55,9 +87,9 @@ Enter => Shift when held
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [0] = LAYOUT_ortho_4x12(
-    MOVE,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-    CTLTAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFTENT,
+    MOVE,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
+    CTLTAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    SE_OUML, SE_AUML,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_DASH, SFTENT,
     SPECIAL, KC_LCTL, KC_LALT, KC_LGUI, NUMBER,  KC_SPC,      KC_BSPC, SYMBOL,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
@@ -75,10 +107,10 @@ Enter => Shift when held
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [1] = LAYOUT_ortho_4x12(
-    S(KC_EQL),S(KC_1),RALT(KC_2),S(A(KC_8)),S(A(KC_9)),S(KC_6),_______,_______, _______, _______, _______, KC_EQL,
-    A(KC_RBRC),S(KC_RBRC),A(KC_4),S(KC_8),S(KC_9),KC_NUHS,    _______, _______, _______, _______, _______, KC_RBRC,
-    A(KC_7), S(KC_3), S(KC_5), A(KC_8), A(KC_9), S(KC_2),     _______, _______, _______, _______, _______, _______,
-    _______, S(KC_MINS),S(A(KC_7)),KC_NUBS,S(KC_NUBS),S(KC_7),KC_DEL,  _______, _______, _______, _______, _______
+    SE_EQLS, SE_EXCL, SE_AT,   AP_LCBR, AP_RCBR, SE_AMP,      _______, _______, _______, _______, _______, SE_TCK,
+    SE_TILD, SE_TAK,  SE_USD,  AP_LPAR, AP_RPAR, SE_QUT,      _______, _______, _______, _______, _______, SE_UML,
+    AP_PIPE, SE_HASH, SE_PCNT, AP_LBR,  AP_RBR,  SE_DQUT,     _______, _______, _______, _______, _______, _______,
+    _______, SE_QSTM, AP_BSLS, SE_LT,   SE_GT,   AP_SLS,      KC_DEL,  _______, _______, _______, _______, _______
 ),
 
 /*
@@ -95,9 +127,9 @@ Enter => Shift when held
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [2] = LAYOUT_ortho_4x12(
-    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,    _______, KC_7,    KC_8,    KC_9,    S(KC_NUHS),_______,
-    _______,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,    _______, KC_4,    KC_5,    KC_6,    KC_MINS, _______,
-    _______,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,    _______, KC_1,    KC_2,    KC_3,    S(KC_0), _______,
+    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,    _______, KC_7,    KC_8,    KC_9,    SE_AST,  _______,
+    _______,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,    _______, KC_4,    KC_5,    KC_6,    SE_PLUS, _______,
+    _______,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,    _______, KC_1,    KC_2,    KC_3,    SE_EQLS, _______,
     _______,  _______, _______, _______, _______, _______,    KC_DEL,  _______, KC_0,    _______, _______, _______
 ),
 
@@ -115,10 +147,10 @@ Enter => Shift when held
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [3] =  LAYOUT_ortho_4x12(
-    RESET,   EEP_RST, _______, _______, _______, _______,     _______, _______, KC__VOLUP,_______,_______, KC_BSPC,
-    _______, _______, _______, _______, _______, _______,     _______, KC_MRWD, KC_MPLY, KC_MFFD, _______, _______,
-    _______, _______, _______, _______, _______, _______,     _______, _______, KC__VOLDOWN,_______,_______,_______,
-    _______, _______, _______, _______, _______, _______,     KC__MUTE,_______, _______, _______, _______, _______
+    RESET,   EEP_RST, _______, _______, _______, _______,     _______, _______, MY_VOLU, _______, _______, KC_BSPC,
+    _______, _______, _______, _______, _______, _______,     _______, MY_PREV, MY_PLAY, MY_NEXT, _______, _______,
+    _______, _______, _______, _______, _______, _______,     _______, _______, MY_VOLD, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,     KC_MUTE, _______, _______, _______, _______, _______
 ),
 
 /*
@@ -143,10 +175,6 @@ Enter => Shift when held
 
 
 };
-
-// uint32_t layer_state_set_user(uint32_t state) {
-//   return update_tri_layer_state(state, _SYM, _NUM, _SPC);
-// }
 
 
 
