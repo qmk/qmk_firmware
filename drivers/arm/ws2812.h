@@ -18,7 +18,7 @@
 #pragma once
 
 #include "hal.h"
-#include "rgblight_types.h"
+#include "color.h"
 
 #define sign(x) (( x > 0 ) - ( x < 0 ))
 
