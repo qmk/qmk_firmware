@@ -34,8 +34,31 @@ static UARTConfig led_uart_cfg = {
 /* State of the leds on the keyboard */
 volatile bool leds_enabled = false;
 
+/* Buffer for the keystate packet */
+static uint8_t keystate[12] = {9, 10, 7, 0};
+
 /* Process the Anne Pro custom keycodes */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    /* Only update dynamic lighting modes when leds are enabled */
+    if (leds_enabled) {
+        /* Calculate the position of the key that was pressed */
+        uint8_t row = record->event.key.row;
+        uint8_t col = record->event.key.col;
+        int position = row * MATRIX_COLS + col;
+        int index = position / 8;
+        int bit = position % 8;
+
+        /* Update the keystate based on the location */
+        if (record->event.pressed) {
+            keystate[3 + index] |= (1 << bit);
+        } else {
+            keystate[3 + index] &= ~(1 << bit);
+        }
+
+        /* Send the keystate to the LED controller */
+        uartStartSend(LED_UART, 12, keystate);
+    }
+
     switch (keycode) {
     case APL_RGB:
         /* Toggle the RGB enabled/disabled */
@@ -88,49 +111,7 @@ void keyboard_post_init_kb(void) {
 
     /* Send 'set theme' command to lighting controller */
     leds_enabled = true;
-    uartStartSend(LED_UART, 3, "\x09\x01\x01");
+    uartStartSend(LED_UART, 4, "\x09\x02\x01\x01");
 
     matrix_init_user();
-}
-
-/* Current state of the matrix */
-static matrix_row_t matrix_status[MATRIX_ROWS];
-/* Buffer for the keystate packet */
-static uint8_t keystate[12] = {9, 10, 7, 0};
-
-/* Update the reactive lighting on every keymatrix scan when lighting is enabled */
-void matrix_scan_kb(void) {
-    matrix_row_t matrix_row = 0;
-    matrix_row_t matrix_change = 0;
-
-    /* Determine if the matrix state has changed, and update the state */
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row = matrix_get_row(r);
-        matrix_change |= matrix_row ^ matrix_status[r];
-        matrix_status[r] = matrix_row;
-    }
-
-    /* If the leds are enabled and the state changed */
-    if (leds_enabled && matrix_change) {
-        /* Go through every scan position */
-        for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-            for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                int position = r * MATRIX_COLS + c;
-                int index = position / 8;
-                int bit = position % 8;
-
-                /* Update the keystate based on the state of the matrix */
-                if (matrix_status[r] & (1 << c)) {
-                    keystate[3 + index] |= (1 << bit);
-                } else {
-                    keystate[3 + index] &= ~(1 << bit);
-                }
-            }
-        }
-        /* Send the keystate to the LED controller */
-        uartStartSend(LED_UART, 12, keystate);
-    }
-
-    /* Run matrix_scan_user code */
-    matrix_scan_user();
 }
