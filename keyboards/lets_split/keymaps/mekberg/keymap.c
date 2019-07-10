@@ -23,7 +23,7 @@ Let's Split physical layout
 #define MOVE LT(4, KC_ESC)      // Esc => MOVEMENT layer when held
 
 // Modifiers
-#define SFTENT RSFT_T(KC_ENT)   // Enter => Shift when held
+// #define SFTENT RSFT_T(KC_ENT)   // Enter => Shift when held
 #define CTLTAB LCTL_T(KC_TAB)   // Tab => Ctrl when held
 
 // ISO keycodes with Swedish layout names
@@ -70,7 +70,7 @@ Let's Split physical layout
 #define MY_VOLU KC__VOLUP       // Media: Volume Up
 #define MY_VOLD KC__VOLDOWN     // Media: Volume Down
 #define MY_MUTE KC__MUTE        // Media: Mute
-#define MY_SLEP G(A(KC_POWER)) // Mac: Sleep
+#define MY_SLEP G(A(KC_POWER))  // Mac: Sleep
 #define MY_LOCK C(A(KC_L))      // Mac: Lock
 
 
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_ortho_4x12(
     MOVE,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
     CTLTAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    SE_OUML, SE_AUML,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_DASH, SFTENT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_DASH, KC_SFTENT,
     SPECIAL, KC_LCTL, KC_LALT, KC_LGUI, NUMBER,  KC_SPC,      KC_BSPC, SYMBOL,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
