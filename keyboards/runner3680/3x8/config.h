@@ -54,6 +54,7 @@
 #define RGBLED_NUM 48
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 24, 24 }    // Number of LEDs
+#define RGBLIGHT_LIMIT_VAL 100
 
 #define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1
