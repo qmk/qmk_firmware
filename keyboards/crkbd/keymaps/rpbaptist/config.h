@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+  // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
   #define RGBLED_NUM 27
   #define RGBLIGHT_LIMIT_VAL 120
