@@ -18,7 +18,8 @@
 #include "ch.h"
 #include "hal.h"
 
-static UARTConfig uart_cfg = {
+static UARTDriver *LED_UART = &UARTD3;
+static UARTConfig led_uart_cfg = {
     .txend1_cb = NULL,
     .txend2_cb = NULL,
     .rxend_cb = NULL,
@@ -41,28 +42,28 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             leds_enabled = !leds_enabled;
             if (leds_enabled) {
-                uartStartSend(&UARTD3, 3, "\x09\x01\x01");
+                uartStartSend(LED_UART, 3, "\x09\x01\x01");
             } else {
-                uartStartSend(&UARTD3, 4, "\x09\x02\x01\x00");
+                uartStartSend(LED_UART, 4, "\x09\x02\x01\x00");
             }
         }
         return false;
     case APL_RAT:
         /* Change the animation rate */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x00\x01\x00");
+            uartStartSend(LED_UART, 6, "\x09\x04\x05\x00\x01\x00");
         }
         return false;
     case APL_BRT:
         /* Change the brightness */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x00\x00\x01");
+            uartStartSend(LED_UART, 6, "\x09\x04\x05\x00\x00\x01");
         }
         return false;
     case APL_MOD:
         /* Change the lighting mode */
         if (leds_enabled && record->event.pressed) {
-            uartStartSend(&UARTD3, 6, "\x09\x04\x05\x01\x00\x00");
+            uartStartSend(LED_UART, 6, "\x09\x04\x05\x01\x00\x00");
         }
         return false;
     default:
@@ -81,13 +82,13 @@ void keyboard_post_init_kb(void) {
     chThdSleepMilliseconds(10);
 
     /* Initialize the lighting UART */
-    uartStart(&UARTD3, &uart_cfg);
+    uartStart(LED_UART, &led_uart_cfg);
     palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(7));
     palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
 
     /* Send 'set theme' command to lighting controller */
     leds_enabled = true;
-    uartStartSend(&UARTD3, 3, "\x09\x01\x01");
+    uartStartSend(LED_UART, 3, "\x09\x01\x01");
 
     matrix_init_user();
 }
@@ -127,7 +128,7 @@ void matrix_scan_kb(void) {
             }
         }
         /* Send the keystate to the LED controller */
-        uartStartSend(&UARTD3, 12, keystate);
+        uartStartSend(LED_UART, 12, keystate);
     }
 
     /* Run matrix_scan_user code */
