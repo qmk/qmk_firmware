@@ -59,6 +59,7 @@ enum layer_names {
 #define KC_RGBST RGB_MODE_PLAIN
 #define KC_RGBBR RGB_MODE_BREATHE
 #define KC_RGBRB RGB_MODE_RAINBOW
+#define KC_RGBSW RGB_MODE_SWIRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
@@ -137,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                   CLMK,  GAME, XXXXX, XXXXX,  LHUD,  LHUI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                   LTOG, RGBST, RGBBR, RGBRB,  LSAD,  LSAI,\
+      XXXXX, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  RGBST, RGBBR, RGBRB, RGBSW,  LSAD,  LSAI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX,  LVAD,  LVAI,\
+      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   LTOG, XXXXX, XXXXX, XXXXX,  LVAD,  LVAI,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
