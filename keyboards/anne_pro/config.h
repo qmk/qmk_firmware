@@ -35,7 +35,7 @@
 #define MATRIX_COL_PINS { A5, A6, A7, B0, B1, B12, B13, B14, A8, A9, A15, B3, B4, B5 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+#define DEBOUNCE 5
 
 /*
  * Force NKRO
