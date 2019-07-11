@@ -46,4 +46,16 @@
     { k40, KC_NO, k42, KC_NO }  \
 }
 
-#define LAYOUT LAYOUT_numpad_5x4
+#define LAYOUT_ortho_5x4( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13,     \
+    k20, k21, k22, k14, \
+    k30, k31, k32, k15,     \
+    k40, k41,     k42, k33  \
+) { \
+    { k00, k01,   k02, k03   }, \
+    { k10, k11,   k12, k13   }, \
+    { k20, k21,   k22, k14 }, \
+    { k30, k31,   k32, k15   }, \
+    { k40, k41, k42, k33 }  \
+}
