@@ -4,10 +4,6 @@
 
 #define RGB_OFF 0x00, 0x00, 0x00
 
-// TODO: possibly change _LAYER defines to an enum, in keymap.c
-// TODO: determine how to get access to that enum from keymap.c
-
-// TODO: change out color RGB values for their constants to aid readability
 // TODO: add proper defines so people can turn this all on and off
 // TODO: find a way to allow the user to customize colors (another enum?)
 
