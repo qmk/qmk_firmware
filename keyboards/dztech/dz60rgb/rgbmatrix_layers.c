@@ -2,12 +2,6 @@
 #include <rgblight_list.h>
 #include "dz60rgb.h"
 
-#define _LAYER0 0
-#define _LAYER1 1
-#define _LAYER2 2
-#define _LAYER3 3
-#define _LAYER4 4
-
 #define RGB_OFF 0x00, 0x00, 0x00
 
 // TODO: possibly change _LAYER defines to an enum, in keymap.c
@@ -30,13 +24,13 @@ void rgb_matrix_indicators_user(void) {
     if (!g_suspend_state) {
         switch (biton32(layer_state)) {
             case _LAYER1:
-            rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+            rgb_matrix_layer_helper(RGB_RED, false); break;
             case _LAYER2:
-            rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+            rgb_matrix_layer_helper(RGB_GREEN, false); break;
             case _LAYER3:
-            rgb_matrix_layer_helper(0x00, 0x00, 0xFF, false); break;
+            rgb_matrix_layer_helper(RGB_BLUE, false); break;
             case _LAYER4:
-            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+            rgb_matrix_layer_helper(RGB_YELLOW, false); break;
         }
     }
     if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
