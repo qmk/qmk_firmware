@@ -34,6 +34,6 @@ void rgb_matrix_indicators_user(void) {
         }
     }
     if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
+        rgb_matrix_set_color(40, RGB_WHITE);
     }
 }

@@ -1,5 +1,4 @@
 #pragma once
-#define dzrgb60_hhkb
 
 enum KEYMAP_LAYERS {
     _LAYER0,
