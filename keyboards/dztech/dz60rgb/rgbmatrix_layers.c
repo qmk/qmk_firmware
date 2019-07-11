@@ -10,6 +10,13 @@
 
 #define RGB_OFF 0x00, 0x00, 0x00
 
+// TODO: possibly change _LAYER defines to an enum, in keymap.c
+// TODO: determine how to get access to that enum from keymap.c
+
+// TODO: change out color RGB values for their constants to aid readability
+// TODO: add proper defines so people can turn this all on and off
+// TODO: find a way to allow the user to customize colors (another enum?)
+
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
