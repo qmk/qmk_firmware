@@ -325,6 +325,8 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(call EXEC_DFU)
+else ifeq ($(strip $(BOOTLOADER)), USBasp)
+	avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 else
 	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
 endif
