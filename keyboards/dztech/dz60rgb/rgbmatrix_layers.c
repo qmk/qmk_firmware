@@ -11,6 +11,9 @@
 // TODO: add proper defines so people can turn this all on and off
 // TODO: find a way to allow the user to customize colors (another enum?)
 
+
+// set weakly, can be overridden
+__attribute__ ((weak))
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
@@ -19,6 +22,8 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool def
     }
 }
 
+// set weakly, can be overridden
+__attribute__ ((weak))
 void rgb_matrix_indicators_user(void) {
     uint8_t this_led = host_keyboard_leds();
     if (!g_suspend_state) {
