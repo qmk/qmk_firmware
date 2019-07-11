@@ -4,7 +4,7 @@ RGB_MATRIX_EFFECT(BAND_SAT)
 
 static void BAND_SAT_math(HSV* hsv, uint8_t i, uint8_t time) {
     int16_t s = rgb_matrix_config.sat - abs(scale8(g_led_config.point[i].x, 228) + 28 - time) * 8;
-    hsv->s = s < 0 ? 0 : s;
+    hsv->s = scale8(s < 0 ? 0 : s, rgb_matrix_config.sat);
 }
 
 bool BAND_SAT(effect_params_t* params) {
