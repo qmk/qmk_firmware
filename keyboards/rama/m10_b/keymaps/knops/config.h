@@ -19,6 +19,7 @@
 
 #include "../../config.h"
 
-// place overrides here
+#undef RAW_ENABLE
+#undef DYNAMIC_KEYMAP_ENABLE
 
 #endif

@@ -1,4 +1,4 @@
-﻿#include "ergotravel.h"
+#include "ergotravel.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "mousekey.h"
@@ -26,7 +26,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_ADJT MO(_ADJUST)
 #define KC_RST RESET

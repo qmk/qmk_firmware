@@ -137,7 +137,7 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error */
         if (++mcp23018_reset_loop == 0) {
             /* since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
@@ -190,7 +190,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -246,7 +246,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     wait_us(30);
 
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error */
         return 0;
     } else {
@@ -279,7 +279,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_row(uint8_t row)
 {
-    if (mcp23018_status) { 
+    if (mcp23018_status) {
         /* if there was an error do nothing */
     } else {
         /* set active row low  : 0

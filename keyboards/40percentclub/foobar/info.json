@@ -2,10 +2,12 @@
     "keyboard_name": "foobar",
     "url": "",
     "maintainer": "qmk",
-    "width": 6,
-    "height": 2,
+    "width": 10,
+    "height": 3,
     "layouts": {
         "LAYOUT_macro": {
+            "width": 5,
+            "height": 3,
             "key_count": 15,
             "layout": [
               {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0},

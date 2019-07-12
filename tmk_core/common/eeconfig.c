@@ -33,7 +33,7 @@ void eeconfig_init_kb(void) {
  */
 void eeconfig_init_quantum(void) {
 #ifdef STM32_EEPROM_ENABLE
-    EEPROM_format();
+    EEPROM_Erase();
 #endif
   eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
   eeprom_update_byte(EECONFIG_DEBUG,          0);
@@ -45,6 +45,8 @@ void eeconfig_init_quantum(void) {
   eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
   eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
+  eeprom_update_dword(EECONFIG_HAPTIC,        0);
+  eeprom_update_byte(EECONFIG_VELOCIKEY,      0);
 
   eeconfig_init_kb();
 }
@@ -74,7 +76,7 @@ void eeconfig_enable(void)
 void eeconfig_disable(void)
 {
 #ifdef STM32_EEPROM_ENABLE
-    EEPROM_format();
+    EEPROM_Erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
@@ -175,5 +177,13 @@ uint32_t eeconfig_read_user(void)      { return eeprom_read_dword(EECONFIG_USER)
  * FIXME: needs doc
  */
 void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
+
+
+uint32_t eeconfig_read_haptic(void)      { return eeprom_read_dword(EECONFIG_HAPTIC); }
+/** \brief eeconfig update user
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_haptic(uint32_t val) { eeprom_update_dword(EECONFIG_HAPTIC, val); }
 
 

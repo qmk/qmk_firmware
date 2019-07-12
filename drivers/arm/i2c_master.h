@@ -26,6 +26,16 @@
 #include "ch.h"
 #include <hal.h>
 
+#ifndef I2C1_BANK
+    #define I2C1_BANK GPIOB
+#endif
+#ifndef I2C1_SCL
+    #define I2C1_SCL 6
+#endif
+#ifndef I2C1_SDA
+    #define I2C1_SDA 7
+#endif
+
 #ifndef I2C_DRIVER
   #define I2C_DRIVER I2CD1
 #endif
@@ -37,4 +47,4 @@ uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t ti
 uint8_t i2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length);
 uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
 uint8_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t length, uint16_t timeout);
-uint8_t i2c_stop(uint16_t timeout);
+uint8_t i2c_stop(void);

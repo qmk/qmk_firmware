@@ -1,12 +1,8 @@
-
-OPT_DEFS += -DCOMET46_ORTHO_===PROMICRO
-COMET46_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
-
 # # project specific files
-SRC = matrix.c
-
-
+SRC += matrix.c \
+       i2c.c \
+       ssd1306.c 
+       
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -24,8 +20,6 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
-
-#
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
@@ -48,7 +42,7 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = caterina
+# BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT

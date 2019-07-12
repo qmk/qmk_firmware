@@ -19,18 +19,19 @@ from __future__ import print_function
 import os
 import sys
 import time
+import argparse
 import usb
 
 
-def checkForKeyboardInNormalMode():
+def check_keyboard_normal_mode(vendor, product):
     """Returns a device if a ps2avrGB device in normal made (that is in keyboard mode) or None if it is not found."""
-    return usb.core.find(idVendor=0x20A0, idProduct=0x422D)
+    return usb.core.find(idVendor=vendor, idProduct=product)
 
-def checkForKeyboardInBootloaderMode():
+def check_keyboard_bootloader_mode():
     """Returns True if a ps2avrGB device in bootloader (flashable) mode is found and False otherwise."""
     return (usb.core.find(idVendor=0x16c0, idProduct=0x05df) is not None)
 
-def flashKeyboard(firmware_file):
+def flash_keyboard(firmware_file):
     """Calls bootloadHID to flash the given file to the device."""
     print('Flashing firmware to device ...')
     if os.system('bootloadHID -r "%s"' % firmware_file) == 0:
@@ -38,7 +39,7 @@ def flashKeyboard(firmware_file):
     else:
         print('\nbootloadHID returned an error.')
 
-def printDeviceInfo(dev):
+def print_device_info(dev):
     """Prints all infos for a given USB device"""
     print('Device Information:')
     print('  idVendor: %d (0x%04x)' % (dev.idVendor, dev.idVendor))
@@ -47,15 +48,15 @@ def printDeviceInfo(dev):
     print('Serial: %s' % (dev.iSerialNumber))
     print('Product: %s' % (dev.iProduct), end='\n\n')
 
-def sendDeviceToBootloaderMode(dev):
+def send_device_to_bootloader_mode(dev):
     """Tries to send a given ps2avrGB keyboard to bootloader mode to allow flashing."""
     try:
         dev.set_configuration()
 
         request_type = usb.util.build_request_type(
-                usb.util.CTRL_OUT,
-                usb.util.CTRL_TYPE_CLASS,
-                usb.util.CTRL_RECIPIENT_DEVICE)
+            usb.util.CTRL_OUT,
+            usb.util.CTRL_TYPE_CLASS,
+            usb.util.CTRL_RECIPIENT_DEVICE)
 
         USBRQ_HID_SET_REPORT = 0x09
         HID_REPORT_OPTION = 0x0301
@@ -65,16 +66,21 @@ def sendDeviceToBootloaderMode(dev):
         # for some reason I keep getting USBError, but it works!
         pass
 
+def auto_int(value):
+    """Helper for argparse to enable auto base detection"""
+    return int(value, 0)
 
-if len(sys.argv) < 2:
-    print('Usage: %s <firmware.hex>' % sys.argv[0])
-    sys.exit(1)
+parser = argparse.ArgumentParser(description='Flash bootloadHID device')
+parser.add_argument('--vendor', type=auto_int, default=0x20A0, help='Non bootloader idVendor to search for (default: 0x%(default)04x)')
+parser.add_argument('--product', type=auto_int, default=0x422D, help='Non bootloader idProduct to search for (default: 0x%(default)04x)')
+parser.add_argument('firmware_hex', type=argparse.FileType('r'), help='Firmware hex file to flash')
+args = parser.parse_args()
 
-kb = checkForKeyboardInNormalMode()
+kb = check_keyboard_normal_mode(args.vendor, args.product)
 
 if kb is not None:
     print('Found a keyboard in normal mode. Attempting to send it to bootloader mode ...', end='')
-    sendDeviceToBootloaderMode(kb)
+    send_device_to_bootloader_mode(kb)
     print(' done.')
     print("Hint: If your keyboard can't be set to bootloader mode automatically, plug it in while pressing the bootloader key to do so manually.")
     print("      You can find more infos about this here: https://github.com/qmk/qmk_firmware/tree/master/keyboards/ps2avrGB#setting-the-board-to-bootloader-mode")
@@ -84,9 +90,9 @@ found = False
 for attempt in range(1, attempts + 1):
     print("Searching for keyboard in bootloader mode (%i/%i) ... " % (attempt, attempts), end='')
 
-    if checkForKeyboardInBootloaderMode():
+    if check_keyboard_bootloader_mode():
         print('Found', end='\n\n')
-        flashKeyboard(sys.argv[1])
+        flash_keyboard(args.firmware_hex.name)
         found = True
         break
     else:
@@ -102,4 +108,3 @@ for attempt in range(1, attempts + 1):
 if not found:
     print("Couldn't find a flashable keyboard. Aborting.")
     sys.exit(2)
-

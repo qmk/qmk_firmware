@@ -1,8 +1,10 @@
-A 4 x 3 macropad.
+# Puck
 
-Keyboard Maintainer: [john-pettigrew](https://github.com/john-pettigrew)
-Hardware Supported: Puck PCB.
-Hardware Availability: [OkKeebs.com](https://okkeebs.com/products/puck-pcb)
+A 4x3 macropad.
+
+Keyboard Maintainer: [John Pettigrew](https://github.com/john-pettigrew)  
+Hardware Supported: Puck PCB  
+Hardware Availability: [OKKeebs.com](https://okkeebs.com/products/puck-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 

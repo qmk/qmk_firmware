@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 #include "keymap_german.h"
 
 #define ________ KC_TRNS

@@ -159,7 +159,7 @@ void send_consumer(uint16_t data)
 
 void main_subtask_usb_state(void)
 {
-    static uint32_t fsmstate_on_delay = 0;                          //Delay timer to be sure USB is actually operating before bringing up hardware
+    static uint64_t fsmstate_on_delay = 0;                          //Delay timer to be sure USB is actually operating before bringing up hardware
     uint8_t fsmstate_now = USB->DEVICE.FSMSTATUS.reg;               //Current state from hardware register
 
     if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val)         //If USB SUSPENDED
@@ -188,9 +188,9 @@ void main_subtask_usb_state(void)
         {
             if (fsmstate_on_delay == 0)                             //If ON delay timer is cleared
             {
-                fsmstate_on_delay = CLK_get_ms() + 250;             //Set ON delay timer
+                fsmstate_on_delay = timer_read64() + 250;             //Set ON delay timer
             }
-            else if (CLK_get_ms() > fsmstate_on_delay)              //Else if ON delay timer is active and timed out
+            else if (timer_read64() > fsmstate_on_delay)              //Else if ON delay timer is active and timed out
             {
                 suspend_wakeup_init();                              //Run wakeup routine
                 g_usb_state = fsmstate_now;                         //Save current USB state
@@ -203,25 +203,20 @@ void main_subtask_usb_state(void)
     }
 }
 
-void main_subtask_led(void)
-{
-    if (g_usb_state != USB_FSMSTATUS_FSMSTATE_ON_Val) return; //Only run LED tasks if USB is operating
-
-    led_matrix_task();
-}
-
 void main_subtask_power_check(void)
 {
     static uint64_t next_5v_checkup = 0;
 
-    if (CLK_get_ms() > next_5v_checkup)
+    if (timer_read64() > next_5v_checkup)
     {
-        next_5v_checkup = CLK_get_ms() + 5;
+        next_5v_checkup = timer_read64() + 5;
 
         v_5v = adc_get(ADC_5V);
         v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
 
+#ifdef RGB_MATRIX_ENABLE
         gcr_compute();
+#endif
     }
 }
 
@@ -229,9 +224,9 @@ void main_subtask_usb_extra_device(void)
 {
     static uint64_t next_usb_checkup = 0;
 
-    if (CLK_get_ms() > next_usb_checkup)
+    if (timer_read64() > next_usb_checkup)
     {
-        next_usb_checkup = CLK_get_ms() + 10;
+        next_usb_checkup = timer_read64() + 10;
 
         USB_HandleExtraDevice();
     }
@@ -240,15 +235,19 @@ void main_subtask_usb_extra_device(void)
 void main_subtasks(void)
 {
     main_subtask_usb_state();
-    main_subtask_led();
     main_subtask_power_check();
     main_subtask_usb_extra_device();
 }
 
 int main(void)
 {
-    led_ena;
-    m15_ena;
+    DBG_LED_ENA;
+    DBG_1_ENA;
+    DBG_1_OFF;
+    DBG_2_ENA;
+    DBG_2_OFF;
+    DBG_3_ENA;
+    DBG_3_OFF;
 
     debug_code_init();
 
@@ -256,9 +255,11 @@ int main(void)
 
     ADC0_init();
 
-    SPI_Init();
+    SR_EXP_Init();
 
+#ifdef RGB_MATRIX_ENABLE
     i2c1_init();
+#endif // RGB_MATRIX_ENABLE
 
     matrix_init();
 
@@ -274,11 +275,9 @@ int main(void)
 
     while (USB2422_Port_Detect_Init() == 0) {}
 
-    led_off;
-    m15_off;
+    DBG_LED_OFF;
 
-    led_matrix_init();
-
+#ifdef RGB_MATRIX_ENABLE
     while (I2C3733_Init_Control() != 1) {}
     while (I2C3733_Init_Drivers() != 1) {}
 
@@ -288,6 +287,7 @@ int main(void)
 
     for (uint8_t drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++)
         I2C_LED_Q_ONOFF(drvid); //Queue data
+#endif // RGB_MATRIX_ENABLE
 
     keyboard_setup();
 
@@ -321,9 +321,9 @@ int main(void)
         keyboard_task();
 
 #ifdef CONSOLE_ENABLE
-        if (CLK_get_ms() > next_print)
+        if (timer_read64() > next_print)
         {
-            next_print = CLK_get_ms() + 250;
+            next_print = timer_read64() + 250;
             //Add any debug information here that you want to see very often
             //dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }

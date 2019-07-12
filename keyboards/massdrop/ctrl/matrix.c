@@ -75,11 +75,9 @@ void matrix_init(void)
         PORT->Group[col_ports[col]].DIRSET.reg = 1 << col_pins[col]; //Output
         PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col]; //Low
     }
-    
+
     matrix_init_quantum();
 }
-
-#define MATRIX_SCAN_DELAY 10   //Delay after setting a col to output (in us)
 
 uint64_t mdebouncing = 0;
 uint8_t matrix_scan(void)
@@ -89,9 +87,7 @@ uint8_t matrix_scan(void)
     uint8_t col;
     uint32_t scans[2]; //PA PB
 
-    if (CLK_get_ms() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
-
-    //m15_off; //Profiling scans
+    if (timer_read64() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
 
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t)); //Zero the result buffer
 
@@ -99,7 +95,7 @@ uint8_t matrix_scan(void)
     {
         PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col]; //Set col output
 
-        CLK_delay_us(MATRIX_SCAN_DELAY); //Delay for output
+        wait_us(1); //Delay for output
 
         scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA]; //Read PA row pins data
         scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB]; //Read PB row pins data
@@ -132,10 +128,8 @@ uint8_t matrix_scan(void)
     else
     {
         //Begin or extend debounce on change
-        mdebouncing = CLK_get_ms() + DEBOUNCING_DELAY;
+        mdebouncing = timer_read64() + DEBOUNCING_DELAY;
     }
-
-    //m15_on; //Profiling scans
 
     matrix_scan_quantum();
 

@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 amnesia0287
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,32 +13,57 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
-
-#include <avr/pgmspace.h>
-#include "action_layer.h"
-#include "i2c.h"
+#include "rgblight.h"
+#include "i2c_master.h"
 #include "quantum.h"
 
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
 
-// for keyboard subdirectory level init functions
-// @Override
-void matrix_init_kb(void) {
-  // call user level keymaps, if any
-  matrix_init_user();
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
+
+    i2c_init();
+    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
 }
+#endif
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-  /* Nothing else for now. */
-}
-
-__attribute__((weak)) // overridable
-void matrix_init_user(void) {
-
-}
-
-__attribute__((weak)) // overridable
+__attribute__ ((weak))
 void matrix_scan_user(void) {
+}
 
+void backlight_init_ports(void) {
+    // initialize pins D0, D1, D4 and D6 as output
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D4);
+    setPinOutput(D6);
+
+    // turn RGB LEDs on
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(D4);
+    writePinHigh(D6);
+}
+
+void backlight_set(uint8_t level) {
+	if (level == 0) {
+        // turn RGB LEDs off
+        writePinLow(D0);
+        writePinLow(D1);
+        writePinLow(D4);
+        writePinLow(D6);
+	} else {
+        // turn RGB LEDs on
+        writePinHigh(D0);
+        writePinHigh(D1);
+        writePinHigh(D4);
+        writePinHigh(D6);
+	}
 }

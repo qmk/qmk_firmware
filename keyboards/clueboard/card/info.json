@@ -1,0 +1,20 @@
+{
+  "keyboard_name": "Cluecard",
+  "keyboard_folder": "clueboard/card",
+  "url": "",
+  "maintainer": "skullydazed",
+  "width": 10,
+  "height": 7,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"label":"ON/OFF", "x":0, "y":0}, {"label":"SAT+", "x":4, "y":0}, {"label":"BRIGHT+", "x":8, "y":0},
+        {"label":"HUE-", "x":2, "y":1}, {"label":"HUE+", "x":6, "y":1},
+        {"label":"MODE", "x":0, "y":2}, {"label":"SAT-", "x":4, "y":2}, {"label":"BRIGHT-", "x":8, "y":2},
+        {"label":"LAYER", "x":2, "y":4},
+
+        {"label":"MX1", "x":4, "y":6, "w":2, "h":2}, {"label":"MX2", "x":6, "y":6, "w":2, "h":2}, {"label":"MX3", "x":8, "y":6, "w":2, "h":2}
+      ]
+    }
+  }
+}

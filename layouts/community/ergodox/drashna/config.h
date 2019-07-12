@@ -1,7 +1,5 @@
 #pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
-
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 12

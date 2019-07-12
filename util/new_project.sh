@@ -43,7 +43,11 @@ GIT=$(whereis git)
 if [ "$GIT" != "" ]; then
   IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
   if [ "$IS_GIT_REPO" -eq 0 ]; then
-    ID="'$($GIT config --get user.name)'"
+    ID="$($GIT config --get user.name)"
+    read -rp "What is your name? [$ID] " YOUR_NAME
+    if [ -n "$YOUR_NAME" ]; then
+      ID=$YOUR_NAME
+    fi
     echo "Using $ID as user name"
 
     for i in "$NEW_KBD/config.h" \
@@ -52,7 +56,7 @@ if [ "$GIT" != "" ]; then
              "$NEW_KBD/keymaps/default/config.h" \
              "$NEW_KBD/keymaps/default/keymap.c"
     do
-      awk -v id="$ID" '{sub(/REPLACE_WITH_YOUR_NAME/,id); print}' < "$i" > "$i.$$"
+      awk -v id="$ID" '{sub(/%YOUR_NAME%/,id); print}' < "$i" > "$i.$$"
       mv "$i.$$" "$i"
     done
   fi

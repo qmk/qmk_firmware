@@ -15,15 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6050
-#define DEVICE_VER      0x0104
+#define VENDOR_ID       0x444B // Duck ("DK")
+#define PRODUCT_ID      0x4F31 // Octagon V1 ("O1")
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Duck
 #define PRODUCT         Octagon V1
 #define DESCRIPTION     Duck Octagon V1
@@ -40,15 +39,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 1
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D6
 #define RGBLED_NUM 17
 
-#define TAPPING_TERM 200
+/* Set to top left most key */
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 10
 
-#endif
+#define TAPPING_TERM 200

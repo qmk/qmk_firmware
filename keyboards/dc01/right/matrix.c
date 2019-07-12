@@ -195,14 +195,14 @@ uint8_t matrix_scan(void)
             debouncing = false;
         }
 #   endif
-        
+
         if (USB_DeviceState != DEVICE_STATE_Configured){
-            txbuffer[1] = 0x55;
+            i2c_slave_reg[1] = 0x55;
             for (uint8_t i = 0; i < MATRIX_ROWS; i++){
-                txbuffer[i+2] = matrix[i]; //send matrix over i2c
+                i2c_slave_reg[i+2] = matrix[i]; //send matrix over i2c
             }
         }
-    
+
     matrix_scan_quantum();
     return 1;
 }
@@ -218,7 +218,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -396,9 +396,9 @@ static void unselect_cols(void)
 
 //this replases tmk code
 void matrix_setup(void){
-    
+
     if (USB_DeviceState != DEVICE_STATE_Configured){
-        i2c_init(SLAVE_I2C_ADDRESS); //setup address of slave i2c
+        i2c_slave_init(SLAVE_I2C_ADDRESS); //setup address of slave i2c
         sei(); //enable interupts
     }
 }

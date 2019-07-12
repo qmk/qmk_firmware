@@ -35,7 +35,9 @@ void suspend_power_down_kb(void) {
  */
 void suspend_power_down(void)
 {
+#ifdef RGB_MATRIX_ENABLE
     I2C3733_Control_Set(0); //Disable LED driver
+#endif
 
     suspend_power_down_kb();
 }
@@ -75,10 +77,9 @@ void suspend_wakeup_init_kb(void) {
  * FIXME: needs doc
  */
 void suspend_wakeup_init(void) {
-    /* If LEDs are set to enabled, enable the hardware */
-    if (led_enabled) {
-        I2C3733_Control_Set(1);
-    }
+#ifdef RGB_MATRIX_ENABLE
+    I2C3733_Control_Set(1);
+#endif
 
     suspend_wakeup_init_kb();
 }

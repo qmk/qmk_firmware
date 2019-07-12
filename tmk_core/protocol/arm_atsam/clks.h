@@ -77,9 +77,8 @@ void CLK_oscctrl_init(void);
 void CLK_reset_time(void);
 uint32_t CLK_set_gclk_freq(uint8_t gclkn, uint32_t freq);
 uint32_t CLK_enable_timebase(void);
-uint32_t CLK_get_ms(void);
-uint64_t CLK_get_us(void);
-void CLK_delay_us(uint16_t usec);
+uint64_t timer_read64(void);
+void CLK_delay_us(uint32_t usec);
 void CLK_delay_ms(uint64_t msec);
 
 uint32_t CLK_set_spi_freq(uint8_t sercomn, uint32_t freq);

@@ -21,10 +21,6 @@ static matrix_col_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
-static uint8_t encoder_state = 0;
-static int8_t encoder_value = 0;
-static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
-
 static bool dip_switch[4] = {0, 0, 0, 0};
 
 __attribute__ ((weak))
@@ -52,12 +48,6 @@ void matrix_init(void) {
     palSetPadMode(GPIOA, 15, PAL_MODE_INPUT_PULLUP);
     palSetPadMode(GPIOA, 10, PAL_MODE_INPUT_PULLUP);
     palSetPadMode(GPIOB, 9,  PAL_MODE_INPUT_PULLUP);
-
-    // encoder setup
-    palSetPadMode(GPIOB, 12, PAL_MODE_INPUT_PULLUP);
-    palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP);
-
-    encoder_state = (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
 
     // actual matrix setup
     palSetPadMode(GPIOB, 11, PAL_MODE_OUTPUT_PUSHPULL);
@@ -109,18 +99,6 @@ uint8_t matrix_scan(void) {
         dip_update(i, dip_switch[i]);
     }
     memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
-
-    // encoder on B12 and B13
-    encoder_state <<= 2;
-    encoder_state |= (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
-    encoder_value += encoder_LUT[encoder_state & 0xF];
-    if (encoder_value >= ENCODER_RESOLUTION) {
-        encoder_update(0);
-    }
-    if (encoder_value <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
-        encoder_update(1);
-    }
-    encoder_value %= ENCODER_RESOLUTION;
 
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {

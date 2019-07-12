@@ -8,6 +8,3 @@ MOUSEKEY_ENABLE   = no
 
 EXTRAFLAGS        = -flto
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

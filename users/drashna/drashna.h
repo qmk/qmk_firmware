@@ -36,7 +36,11 @@ enum userspace_layers {
   _COLEMAK,
   _DVORAK,
   _WORKMAN,
-  _MODS,
+  _NORMAN,
+  _MALTRON,
+  _EUCALYN,
+  _CARPLAX,
+  _MODS, /* layer 8 */
   _GAMEPAD,
   _DIABLO,
   _MACROS,
@@ -49,11 +53,6 @@ enum userspace_layers {
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
  */
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-
 
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
@@ -76,6 +75,7 @@ typedef union {
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
     uint8_t  unicode_mod      :4;
+    bool     swapped_numbers  :1;
   };
 } userspace_config_t;
 

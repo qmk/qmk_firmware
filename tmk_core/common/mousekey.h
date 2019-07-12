@@ -16,23 +16,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef MOUSEKEY_H
-#define  MOUSEKEY_H
+#define MOUSEKEY_H
+#endif
 
 #include <stdbool.h>
 #include "host.h"
 
+#ifndef MK_3_SPEED
 
 /* max value on report descriptor */
 #ifndef MOUSEKEY_MOVE_MAX
-    #define MOUSEKEY_MOVE_MAX       127
+  #define MOUSEKEY_MOVE_MAX       127
 #elif MOUSEKEY_MOVE_MAX > 127
-    #error MOUSEKEY_MOVE_MAX needs to be smaller than 127
+  #error MOUSEKEY_MOVE_MAX needs to be smaller than 127
 #endif
 
 #ifndef MOUSEKEY_WHEEL_MAX
-    #define MOUSEKEY_WHEEL_MAX      127
+  #define MOUSEKEY_WHEEL_MAX      127
 #elif MOUSEKEY_WHEEL_MAX > 127
-    #error MOUSEKEY_WHEEL_MAX needs to be smaller than 127
+  #error MOUSEKEY_WHEEL_MAX needs to be smaller than 127
 #endif
 
 #ifndef MOUSEKEY_MOVE_DELTA
@@ -60,6 +62,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
 
+#else /* #ifndef MK_3_SPEED */
+
+#ifndef MK_C_OFFSET_SLOW
+#define MK_C_OFFSET_SLOW 1
+#endif
+#ifndef MK_C_INTERVAL_SLOW
+#define MK_C_INTERVAL_SLOW 100
+#endif
+#ifndef MK_C_OFFSET_MED
+#define MK_C_OFFSET_MED 4
+#endif
+#ifndef MK_C_INTERVAL_MED
+#define MK_C_INTERVAL_MED 16
+#endif
+#ifndef MK_C_OFFSET_FAST
+#define MK_C_OFFSET_FAST 12
+#endif
+#ifndef MK_C_INTERVAL_FAST
+#define MK_C_INTERVAL_FAST 16
+#endif
+
+#ifndef MK_W_OFFSET_SLOW
+#define MK_W_OFFSET_SLOW 1
+#endif
+#ifndef MK_W_INTERVAL_SLOW
+#define MK_W_INTERVAL_SLOW 400
+#endif
+#ifndef MK_W_OFFSET_MED
+#define MK_W_OFFSET_MED 1
+#endif
+#ifndef MK_W_INTERVAL_MED
+#define MK_W_INTERVAL_MED 200
+#endif
+#ifndef MK_W_OFFSET_FAST
+#define MK_W_OFFSET_FAST 1
+#endif
+#ifndef MK_W_INTERVAL_FAST
+#define MK_W_INTERVAL_FAST 100
+#endif
+
+#endif /* #ifndef MK_3_SPEED */
 
 #ifdef __cplusplus
 extern "C" {
@@ -72,7 +115,6 @@ extern uint8_t mk_time_to_max;
 extern uint8_t mk_wheel_max_speed;
 extern uint8_t mk_wheel_time_to_max;
 
-
 void mousekey_task(void);
 void mousekey_on(uint8_t code);
 void mousekey_off(uint8_t code);
@@ -81,6 +123,4 @@ void mousekey_send(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

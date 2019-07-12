@@ -1,4 +1,4 @@
-# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+# Copyright 2019 Luiz Ribeiro <luizribeiro@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,9 +42,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC += i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

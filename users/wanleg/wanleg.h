@@ -11,72 +11,33 @@ enum userspace_layers {
   gETC,
   _GK,
   _QW,
-  QW75,
-  GK75,
   ONE,
   SUB,
   SUP,
   NUM,
   DIR,
   ETC,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
+  _FN,
   PAD,
-  GK50,
-};
-#elif KEYBOARD_xd75
-enum userspace_layers {
-  GK75 = 0,
-  QW75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
-  gGK,
-  _GK,
-  _QW,
-  PAD,
-  ONE,
-  SUB,
-  SUP,
-  NUM,
-  DIR,
-  ETC,
-  gNUM,
-  gDIR,
-  gETC,
   GK50,
 };
 #elif KEYBOARD_40percentclub_5x5
 enum userspace_layers {
   GK50 = 0,
+  _GK,
+  _QW,
+  PAD,
   gNUM,
   gDIR,
   gETC,
-  GK75,
-  QW75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
-  PAD,
   gGK,
-  _GK,
-  _QW,
   ONE,
   SUB,
   SUP,
   NUM,
   DIR,
   ETC,
+  _FN,
 };
 #else
   enum userspace_layers {
@@ -93,14 +54,7 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
-  QW75,
-  GK75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
+  _FN,
   GK50,
 };
 #endif
@@ -109,8 +63,6 @@ enum userspace_custom_keycodes {
   gGHERKIN = SAFE_RANGE,
   GHERKIN,
   QWERTY,
-  QWERTY75,
-  GHERKIN75,
   ONEHAND,
   SUBTER,
   SUPRA,
@@ -120,12 +72,7 @@ enum userspace_custom_keycodes {
   gNUMBER,
   gDIRECTION,
   gETCETERA,
-  SUBTER75,
-  SUPRA75,
-  NUMBER75,
-  DIRECTION75,
-  ETCETERA75,
-  FUNCTION75,
+  FUNCTION,
   NUMPAD,
   GHERKIN50,
 
@@ -215,14 +162,14 @@ enum {
 
 /* Et Cetera
  * .-----------------------------------------------------------------------------------------.
- * |  `     | mUP    |        |        | RESET  | SHIFT  | mScrUp | mScrDn |        |  \     |
+ * |  `     | mUP    |        |        | RESET  | SHIFT  | mScrDn | mScrUp |        |  \     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_U, KC_WH_D, _______, KC_BSLS
+#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
 #define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 

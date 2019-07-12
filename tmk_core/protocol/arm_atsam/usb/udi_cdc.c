@@ -1227,9 +1227,9 @@ uint32_t cdc_tx_send_time_next;
 
 void CDC_send(void)
 {
-    while (CLK_get_ms() < cdc_tx_send_time_next);
+    while (timer_read64() < cdc_tx_send_time_next);
     udi_cdc_tx_send(0);
-    cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
+    cdc_tx_send_time_next = timer_read64() + CDC_SEND_INTERVAL;
 }
 
 uint32_t CDC_print(char *printbuf)
@@ -1238,7 +1238,7 @@ uint32_t CDC_print(char *printbuf)
     char *buf = printbuf;
     char c;
 
-    if (CLK_get_ms() < 5000) return 0;
+    if (timer_read64() < 5000) return 0;
 
     while ((c = *buf++) != 0 && !(count >= MAX_PRINT))
     {
@@ -1339,7 +1339,7 @@ void CDC_init(void)
     inbuf.count = 0;
     inbuf.lastcount = 0;
     printbuf[0] = 0;
-    cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
+    cdc_tx_send_time_next = timer_read64() + CDC_SEND_INTERVAL;
 }
 
 #else //CDC line 62

@@ -87,6 +87,3 @@ AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = no
 API_SYSEX_ENABLE = no
 
-#ifndef QUANTUM_DIR
-#	include ../../../Makefile
-#endif

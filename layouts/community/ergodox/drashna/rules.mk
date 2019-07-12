@@ -1,6 +1,6 @@
 TAP_DANCE_ENABLE  = yes
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
-COMMAND_ENABLE    = yes  # Commands for debug and configuration
+COMMAND_ENABLE    = no  # Commands for debug and configuration
 ifneq (,$(findstring ergodox_ez,$(KEYBOARD)))
   RGBLIGHT_ENABLE = yes
   RGB_MATRIX_ENABLE = no

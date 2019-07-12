@@ -78,9 +78,11 @@ RGB hsv_to_rgb( HSV hsv )
 			break;
 	}
 
+#ifdef USE_CIE1931_CURVE
 	rgb.r = pgm_read_byte( &CIE1931_CURVE[rgb.r] );
 	rgb.g = pgm_read_byte( &CIE1931_CURVE[rgb.g] );
 	rgb.b = pgm_read_byte( &CIE1931_CURVE[rgb.b] );
+#endif
 
 	return rgb;
 }

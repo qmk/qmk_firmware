@@ -28,3 +28,12 @@ ifeq ($(strip $(BT)), yes)
   COMMAND_ENABLE = no 		# Commands for debug and configuration
   RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 endif
+
+#move numpad to Left/Centre/Right(default) on 5x15 boards
+#example usage: make 4x4:wanleg padc=yes
+ifeq ($(strip $(padc)), yes)
+	OPT_DEFS += -DPADC
+endif
+ifeq ($(strip $(padl)), yes)
+	OPT_DEFS += -DPADL
+endif

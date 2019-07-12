@@ -20,10 +20,6 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ALGR(kc) RALT(kc)
-#define SI_ALGR KC_RALT
-
 //Swapped Z and Y
 #define SI_Z KC_Y
 #define SI_Y KC_Z

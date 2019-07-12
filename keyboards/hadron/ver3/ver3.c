@@ -17,7 +17,7 @@
 #include "qwiic.h"
 #include "action_layer.h"
 #include "matrix.h"
-#include "DRV2605L.h"
+#include "haptic.h"
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
@@ -167,20 +167,12 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void matrix_init_kb(void) {
-#ifdef DRV2605L
-  DRV_init();
-#endif
   queue_for_send = true;
 	matrix_init_user();
 }
             
 void matrix_scan_kb(void) {
-
 if (queue_for_send) {
-  #ifdef DRV2605L
-    DRV_EFFECT play_eff = strong_click; 
-    DRV_pulse(play_eff);
-  #endif
 #ifdef QWIIC_MICRO_OLED_ENABLE
    read_host_led_state();
    draw_ui();

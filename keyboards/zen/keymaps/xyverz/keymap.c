@@ -41,10 +41,6 @@ enum atreus52_keycodes {
   RAISE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap clearer.
 #define CTLBSPC CTL_T(KC_BSPC) // CTRL when held, BSPC when tapped.
 #define RGB_SWR RGB_M_SW // Swirl Animation alias
