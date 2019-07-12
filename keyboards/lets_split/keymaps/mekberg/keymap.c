@@ -17,9 +17,13 @@ Let's Split physical layout
 */
 
 // Layers
-#define RAISE MO(1)
-#define LOWER MO(2)
-#define SPECIAL MO(3)
+#define _DEFAULT 0
+#define _RAISE 1
+#define RAISE MO(_RAISE)
+#define _LOWER 2
+#define LOWER MO(_LOWER)
+#define _SPECIAL 3
+#define SPECIAL MO(_SPECIAL)
 
 // Modifiers
 #define SFTENT KC_SFTENT        // Enter => Shift when held
@@ -75,11 +79,11 @@ Let's Split physical layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
-0 DEFAULT
-   Main layout for alphas and modifiers
-   Tab => Ctrl when held
-   Esc => MOVEMENT layer when held
-   Enter => Shift when held
+DEFAULT
+    Main layout for alphas and modifiers
+    Tab => Ctrl when held
+    Esc => MOVEMENT layer when held
+    Enter => Shift when held
                              LEFT                                                     RIGHT
    ,-----------------------------------------------------.   ,-----------------------------------------------------.
    |   Esc  |   Q    |   W    |   E    |   R    |   T    |   |   Y    |   U    |   I    |   O    |   P    |   Å    |
@@ -91,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    | SPECIAL|  Ctrl  |  Alt   |  Cmd   | LOWER  | Space  |   | Backspc| RAISE  |  Left  |  Down  |   Up   | Right  |
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
-[0] = LAYOUT_ortho_4x12(
+[_DEFAULT] = LAYOUT_ortho_4x12(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    SE_ARNG,
     CTLTAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    SE_OUML, SE_AUML,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  SE_DASH, SFTENT,
@@ -99,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /*
-1 RAISE
-This layer focuses on symbols and special characters.
+RAISE
+    This layer focuses on symbols and special characters.
 
                              LEFT                                                     RIGHT
    ,-----------------------------------------------------.   ,-----------------------------------------------------.
@@ -113,7 +117,7 @@ This layer focuses on symbols and special characters.
    |        |        |        |        |        |        |   |  Del   |XXXXXXXX|        |        |        |        |
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
-[1] = LAYOUT_ortho_4x12(
+[_RAISE] = LAYOUT_ortho_4x12(
     _______, SE_EXCL, SE_AT,   AP_LCBR, AP_RCBR, SE_AMP,      SE_QSTM, SE_TILD, SE_BTCK, SE_TCK,  _______, KC_BSPC,
     _______, SE_TAK,  SE_USD,  AP_LPAR, AP_RPAR, SE_DQUT,     AP_PIPE, AP_SLS,  AP_BSLS, SE_UML,  _______, _______,
     _______, SE_HASH, SE_PCNT, AP_LBR,  AP_RBR,  SE_QUT,      _______, SE_LT,   SE_GT,   _______, _______, _______,
@@ -121,8 +125,8 @@ This layer focuses on symbols and special characters.
 ),
 
 /*
-2 LOWER
-This layer focuses on numbers and math.
+LOWER
+    This layer focuses on numbers and math.
                              LEFT                                                     RIGHT
    ,-----------------------------------------------------.   ,-----------------------------------------------------.
    |        |  F1    |  F2    |  F3    |  F4    |        |   |        |   7    |   8    |   9    |   *    | Backspc|
@@ -134,7 +138,7 @@ This layer focuses on numbers and math.
    |        |        |        |        |XXXXXXXX|        |   |  Del   |        |   0    |        |   =    |        |
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
-[2] = LAYOUT_ortho_4x12(
+[_LOWER] = LAYOUT_ortho_4x12(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,     _______, KC_7,    KC_8,    KC_9,    SE_AST,  KC_BSPC,
     _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,     _______, KC_4,    KC_5,    KC_6,    SE_DASH, _______,
     _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,     _______, KC_1,    KC_2,    KC_3,    SE_PLUS, _______,
@@ -142,8 +146,8 @@ This layer focuses on numbers and math.
 ),
 
 /*
-3 SPECIAL
-This layer focuses on special functions, media controls and movement keys.
+SPECIAL
+    This layer focuses on special functions, media controls and movement keys.
                              LEFT                                                     RIGHT
    ,-----------------------------------------------------.   ,-----------------------------------------------------.
    | Reset  |        |        | VolUp  |        |        |   |  Ins   |  Home  |   Up   |  End   |  PgUp  | Backspc|
@@ -155,160 +159,11 @@ This layer focuses on special functions, media controls and movement keys.
    |XXXXXXXX|        |        |        |        |  Play  |   |  Del   |        |        |        |        | Sleep  |
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
-[3] = LAYOUT_ortho_4x12(
+[_SPECIAL] = LAYOUT_ortho_4x12(
     RESET,   _______, _______, MY_VOLU, _______, _______,     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_BSPC,
     EEP_RST, _______, MY_PREV, MY_VOLD, MY_NEXT, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
     _______, _______, _______, MY_MUTE, _______, _______,     MY_LOCK, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, MY_PLAY,     KC_DEL,  _______, _______, _______, _______, MY_SLEP
 )
 
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// KANINMATS LAYOUT
-
-// #include QMK_KEYBOARD_H
-// #include "kaninmat.h"
-//
-// extern keymap_config_t keymap_config;
-//
-// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-// 	/* QWERTY
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * | Ctrl | <|>  | Win  | Alt  |Lower |Space |VIM_W |Raise | Left | Down |  Up  |Right |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_QWERTY] = LAYOUT(
-// 		KC_TAB           , KC_Q    , KC_W    , KC_E    , KC_R  , KC_T   , KC_Y  , KC_U  , KC_I    , KC_O    , KC_P    , KC_BSPC ,
-// 		LT(_NAVI,KC_ESC) , KC_A    , KC_S    , KC_D    , KC_F  , KC_G   , KC_H  , KC_J  , KC_K    , KC_L    , KC_SCLN , KC_QUOT ,
-// 		KC_LSFT          , KC_Z    , KC_X    , KC_C    , KC_V  , KC_B   , KC_N  , KC_M  , KC_COMM , KC_DOT  , KC_SLSH , KC_ENT  ,
-// 		KC_LCTL          , KC_NUBS , KC_LGUI , KC_LALT , LOWER , KC_SPC , VIM_W , RAISE , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT),
-//
-// 	/* Navigational
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |      |      |      |      |      |      |      |TAP_G |      |      |      | Del  |
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * |      |  F1  |  F2  |  F3  |  F4  |  F5  | Left | Down |  Up  |Right |      |      |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |      |      |      |      |      | Mute | Mute |      | Home | End  | PgDn | PgUp |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_NAVI] = LAYOUT(
-// 		_______ , _______ , _______ , _______ , _______ , _______ , _______ , TD(TAP_G) , _______ , _______  , _______ , KC_DEL  ,
-// 		_______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_LEFT , KC_DOWN   , KC_UP   , KC_RIGHT , _______ , _______ ,
-// 		_______ , KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12  , _______   , _______ , _______  , _______ , _______ ,
-// 		_______ , _______ , _______ , _______ , _______ , KC_MUTE , KC_MUTE , _______   , KC_HOME , KC_END   , KC_PGDN , KC_PGUP),
-//
-// 	/* Lower
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * |Pause |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |   :  |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | Home | End  | PSCR |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |      |      |      |  App |      | DIFF |VIM_CP|      | Home | End  | PgDn | PgUp |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_LOWER] = LAYOUT(
-// 		KC_TILD , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL    ,
-// 		KC_PAUS , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   , KC_UNDS , KC_PLUS , KC_LCBR , KC_RCBR , KC_PIPE   ,
-// 		_______ , KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12  , _______ , _______ , KC_HOME , KC_END  , KC_PSCREEN,
-// 		_______ , _______ , _______ , KC_APP  , _______ , MY_DIFF , VIM_CP  , _______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END)   ,
-//
-// 	/* Raise
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * | RCtl |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  ;   |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | PgUp | PgDn |Insert|
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |      |      |      |      |      | PLAY |VIM_CN|      | Home | PgDn | PgUp | End  |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_RAISE] = LAYOUT(
-// 		KC_GRV  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6   , KC_7    , KC_8    , KC_9    , KC_0    , KC_DEL ,
-// 		KC_RCTL , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6  , KC_MINS , KC_EQL  , KC_LBRC , KC_RBRC , KC_BSLS,
-// 		_______ , KC_F7   , KC_F8   , KC_F9   , KC_F10  , KC_F11  , KC_F12 , MY_BSLS , MY_PIPE , KC_PGUP , KC_PGDN , KC_INS ,
-// 		_______ , _______ , _______ , _______ , _______ , KC_MPLY , VIM_CN , _______ , KC_HOME , KC_PGDN , KC_PGUP , KC_END),
-//
-// 	/* Adjust (Lower + Raise)
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |  `   | Build| Clean|      |      |      |      |      |      |      |      |RESET |
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * |VIM_W |   @  |      |  €   |  µ   |      |      |      |      |      |      |MY_NT |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |VIM_CP|      |      |      |      |      |      |      |      |      |      |  MD  |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |VIM_CN|      |      |      |      |      |      |      |      |VIM_BP|VIM_BN| Game |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_ADJUST] = LAYOUT(
-// 		MY_APO , CLEAN   , BUILD   , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , RESET     ,
-// 		VIM_W  , MY_AT   , _______ , MY_EURO , MY_MICR , _______ , _______ , _______ , _______ , _______ , _______ , MY_NT     ,
-// 		VIM_CP , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , MY_MD     ,
-// 		VIM_CN , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , VIM_BP  , VIM_BN  , TO(_GAME)),
-//
-// 	/* Game
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |QWERTY|   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |QWERTY|
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * |      |   A  |   S  |   D  |   F  |   G  |   H  |   I  |   O  |   P  |      |SCRSH |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |      |   X  |  Up  |   C  |      |      |      |      |      |      |      |      |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |      | Left | Down | Right| GFN  |      |      |      |      |      |      |      |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_GAME] = LAYOUT(
-// 		TO(_QWERTY) , KC_1    , KC_2    , KC_3    , KC_4     , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , TO(_QWERTY),
-// 		_______     , KC_A    , KC_S    , KC_D    , KC_F     , KC_G    , KC_H    , KC_I    , KC_O    , KC_P    , _______ , MY_SCRSH   ,
-// 		_______     , KC_X    , KC_UP   , KC_C    , _______  , _______ , _______ , _______ , _______ , _______ , _______ , _______    ,
-// 		_______     , KC_LEFT , KC_DOWN , KC_RGHT , MO(_GFN) , _______ , _______ , _______ , _______ , _______ , _______ , _______)   ,
-//
-// 	/* Game Fn-layer
-// 	 * ,-----------------------------------------------------------------------------------.
-// 	 * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |QWERTY|
-// 	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-// 	 * |      |   A  |   S  |   D  |   F  |   G  |   H  |   I  |   O  |   P  |      |      |
-// 	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-// 	 * |      |   X  |  Up  |   C  |      |      |      |      |      |      |      |      |
-// 	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-// 	 * |      | Left | Down | Right|      |      |      |      |      |      |      |      |
-// 	 * `-----------------------------------------------------------------------------------'
-// 	 */
-// 	[_GFN] = LAYOUT(
-// 		_______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , TO(_QWERTY),
-// 		_______ , KC_A    , KC_S    , KC_D    , KC_F    , KC_F    , KC_G    , KC_H    , KC_I    , KC_O    , KC_P    , _______    ,
-// 		_______ , KC_X    , KC_UP   , KC_C    , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______    ,
-// 		_______ , KC_LEFT , KC_DOWN , KC_RGHT , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______)
-// };
