@@ -29,7 +29,7 @@ NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
-	lasttag=$(git tag --sort=-creatordate --no-column --list '*.*.*' | grep -E -m1 '^[0-9]+.[0-9]+.[0-9]+$')
+	lasttag=$(git tag --sort=-creatordate --no-column --list '*.*.*' | grep -E -m1 '^[0-9]+\.[0-9]+\.[0-9]+$')
 	newtag=$(increment_version $lasttag)
 	until git tag $newtag; do
 		newtag=$(increment_version $newtag)
