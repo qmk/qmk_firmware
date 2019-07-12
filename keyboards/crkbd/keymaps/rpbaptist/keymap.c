@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  RGBST, RGBBR, RGBRB, RGBSW,  LSAD,  LSAI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   LTOG, XXXXX, XXXXX, XXXXX,  LVAD,  LVAI,\
+      XXXXX,  SLEP,  WAKE, XXXXX, XXXXX, XXXXX,                   LTOG, XXXXX, XXXXX, XXXXX,  LVAD,  LVAI,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
