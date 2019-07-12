@@ -20,5 +20,5 @@ const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {20, 50, 100};
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {20, 50, 100};
 #endif
 
-const hsv_t GODSPEED_BLUE   = { .h = 280, .s = 68,  .v = RGBLIGHT_LIMIT_VAL };
-const hsv_t GODSPEED_YELLOW = { .h = 38,  .s = 153, .v = RGBLIGHT_LIMIT_VAL };
+const HSV GODSPEED_BLUE   = { .h = 198, .s = 68,  .v = RGBLIGHT_LIMIT_VAL };
+const HSV GODSPEED_YELLOW = { .h = 27,  .s = 153, .v = RGBLIGHT_LIMIT_VAL };
