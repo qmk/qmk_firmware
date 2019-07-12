@@ -106,11 +106,6 @@ typedef struct {
   char kana[5];
 } nicola_keymap;
 
-typedef struct {
-  uint32_t key;
-  char kana[15];
-} nicola_keymap_long;
-
 const PROGMEM nicola_keymap ngmap[] = {
   // 単独
   {.key = B_Q               , .kana = "."},
@@ -337,7 +332,7 @@ bool process_nicola(uint16_t keycode, keyrecord_t *record) {
   } else { // key release
     switch (keycode) {
       case NG_Q ... NG_SHFTR:
-        // 3文字入力していなくても、どれかキーを離したら処理を開始する
+        // 2文字入力していなくても、どれかキーを離したら処理を開始する
         if (ng_chrcount > 0) {
           nicola_type();
         }
