@@ -1,6 +1,9 @@
-# crkbd用 親指シフトキーマップ (NICOLA配列)
+# (旧)crkbd用 親指シフトキーマップ (NICOLA配列)
 
 ソフトウェアをインストールせずにキーボードのみで親指シフトするためのキーマップです。
+
+薙刀式のコードをベースに親指シフトを書き直しました。
+[新NICOLA親指シフトキーマップ](https://github.com/eswai/qmk_firmware/tree/master/keyboards/crkbd/keymaps/nicola2)
 
 ### 主な機能
 
