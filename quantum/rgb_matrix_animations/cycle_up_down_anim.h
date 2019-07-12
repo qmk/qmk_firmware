@@ -2,8 +2,9 @@
 RGB_MATRIX_EFFECT(CYCLE_UP_DOWN)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void CYCLE_UP_DOWN_math(HSV* hsv, uint8_t i, uint8_t time) {
-    hsv->h = g_led_config.point[i].y - time;
+static HSV CYCLE_UP_DOWN_math(HSV hsv,  uint8_t i, uint8_t time) {
+    hsv.h = g_led_config.point[i].y - time;
+    return hsv;
 }
 
 bool CYCLE_UP_DOWN(effect_params_t* params) {

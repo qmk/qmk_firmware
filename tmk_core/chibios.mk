@@ -201,7 +201,6 @@ DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
-DFU_SUFFIX_ARGS ?=
 
 ST_LINK_ARGS ?=
 
@@ -209,7 +208,6 @@ ST_LINK_ARGS ?=
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
-DFU_SUFFIX ?= dfu-suffix
 ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
@@ -274,7 +272,3 @@ teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
-	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
-		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
-	fi
-	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

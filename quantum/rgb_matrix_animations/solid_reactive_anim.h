@@ -3,8 +3,9 @@
 RGB_MATRIX_EFFECT(SOLID_REACTIVE)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void SOLID_REACTIVE_math(HSV* hsv, uint16_t offset) {
-    hsv->h = rgb_matrix_config.hue + qsub8(130, offset);
+static HSV SOLID_REACTIVE_math(HSV hsv,  uint16_t offset) {
+    hsv.h += qsub8(130, offset);
+    return hsv;
 }
 
 bool SOLID_REACTIVE(effect_params_t* params) {
