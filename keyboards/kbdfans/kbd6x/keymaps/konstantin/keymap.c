@@ -10,6 +10,7 @@ enum layers_keymap {
 };
 
 void eeconfig_init_keymap(void) {
+    rgblight_sethsv(MODERN_DOLCH_RED.h, MODERN_DOLCH_RED.s, MODERN_DOLCH_RED.v);
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }
 
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
      * │      │Mv←│Mv↓│Mv→│TNx│   │   │   │   │   │   │   │        │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
-     * │        │RTg│RV-│RV+│   │   │   │   │M4 │M5 │   │      │   │
+     * │        │RTg│RV-│RV+│RMd│   │   │   │M4 │M5 │   │      │   │
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
      *       │DPR│DstNA│                           │     │   │
      *       └───┴─────┴───────────────────────────┴─────┴───┘
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CLEAR,
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______, _______, _______, KC_BTN4, KC_BTN5, _______, _______, _______,
+        _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, KC_BTN4, KC_BTN5, _______, _______, _______,
         XXXXXXX, DST_P_R, DST_N_A,                   _______,                   _______, _______, XXXXXXX
     ),
 };
