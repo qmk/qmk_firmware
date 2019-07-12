@@ -27,8 +27,6 @@ led_instruction_t led_instructions[] = { { .end = 1 } };
 static void led_matrix_massdrop_config_override(int i);
 #endif // USE_MASSDROP_CONFIGURATOR
 
-extern rgb_config_t rgb_matrix_config;
-extern rgb_counters_t g_rgb_counters;
 
 void SERCOM1_0_Handler( void )
 {
@@ -498,18 +496,24 @@ static void led_matrix_massdrop_config_override(int i)
     uint8_t highest_active_layer = biton32(layer_state);
 
     if (led_animation_circular) {
-        po = sqrtf((powf(fabsf((224 / 2) - (float)g_rgb_leds[i].point.x), 2) + powf(fabsf((64 / 2) - (float)g_rgb_leds[i].point.y), 2))) / RGB_MAX_DISTANCE * 100;
+        po = sqrtf((powf(fabsf((224 / 2) - (float)g_led_config.point[i].x), 2) + powf(fabsf((64 / 2) - (float)g_led_config.point[i].y), 2))) / RGB_MAX_DISTANCE * 100;
     } else {
         if (led_animation_orientation) {
-            po = (float)g_rgb_leds[i].point.y / 64.f * 100;
+            po = (float)g_led_config.point[i].y / 64.f * 100;
         } else {
-            po = (float)g_rgb_leds[i].point.x / 224.f * 100;
+            po = (float)g_led_config.point[i].x / 224.f * 100;
         }
     }
 
     if (led_lighting_mode == LED_MODE_KEYS_ONLY && LED_IS_EDGE(led_map[i].scan)) {
         //Do not act on this LED
     } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !LED_IS_EDGE(led_map[i].scan)) {
+// TODO: sort this out
+/*
+    if (led_lighting_mode == LED_MODE_KEYS_ONLY && HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+        //Do not act on this LED
+    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && !HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
+*/
         //Do not act on this LED
     } else if (led_edge_mode == LED_EDGE_MODE_ALTERNATE && LED_IS_EDGE_ALT(led_map[i].scan)) {
         //Do not act on this LED (Edge alternate lighting mode)

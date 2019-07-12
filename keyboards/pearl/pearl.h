@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PEARL_H
-#define PEARL_H
+#pragma once
 
 #include "quantum.h"
 #include "pearl.h"
@@ -56,6 +55,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { K20, K21, K22,   K23,   K24, K25, K26,   K27,   K28,   K29, K2A, K2B,   KC_NO}, \
   { K30, K31, KC_NO, KC_NO, KC_NO, K35, KC_NO, KC_NO, KC_NO, K39, K3A, KC_NO, KC_NO}, \
 }
-
-
-#endif

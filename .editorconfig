@@ -5,7 +5,7 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # We recommend you to keep these unchanged
 charset = utf-8
@@ -19,9 +19,11 @@ indent_size = 4
 # Make these match what we have in .gitattributes
 [*.mk]
 end_of_line = lf
+indent_style = tab
 
 [Makefile]
 end_of_line = lf
+indent_style = tab
 
 [*.sh]
 end_of_line = lf

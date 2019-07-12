@@ -76,14 +76,14 @@ This is a C header file that is one of the first things included, and will persi
 * `#define B7_AUDIO`
   * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
-  * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
+  * pin of the backlight - `B5`, `B6`, `B7` and `C6` (and `D4` on ATmega32A) use hardware PWM, others use software implementation
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
-  * enables backlight breathing (only works with backlight pins B5, B6 and B7)
+  * enables backlight breathing
 * `#define BREATHING_PERIOD 6`
   * the length of one backlight "breath" in seconds
-* `#define DEBOUNCING_DELAY 5`
+* `#define DEBOUNCE 5`
   * the delay when reading the value of the pin (5 is default)
 * `#define LOCKING_SUPPORT_ENABLE`
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
@@ -93,8 +93,8 @@ This is a C header file that is one of the first things included, and will persi
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
-* `#define SCL_CLOCK 100000L`
-  * sets the SCL_CLOCK speed for split keyboards. The default is `100000L` but some boards can be set to `400000L`.
+* `#define F_SCL 100000L`
+  * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
 ## Features That Can Be Disabled
 
@@ -171,6 +171,8 @@ If you define these options you will enable the associated feature, which may in
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+* `#define TAP_HOLD_CAPS_DELAY 200`
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 200ms if not defined. 
 
 ## RGB Light Configuration
 
@@ -180,10 +182,12 @@ If you define these options you will enable the associated feature, which may in
   * run RGB animations
 * `#define RGBLED_NUM 12`
   * number of LEDs
+* `#define RGBLIGHT_SPLIT`
+  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
   * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
-  * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
+  * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
@@ -328,6 +332,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
 
 ## USB Endpoint Limitations
 

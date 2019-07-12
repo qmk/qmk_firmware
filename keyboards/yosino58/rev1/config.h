@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x0F6A
-#define PRODUCT_ID      0x01B8 
+#define PRODUCT_ID      0x01B8
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    sakuranbo0046
 #define PRODUCT         yosino58
-#define DESCRIPTION     yosino58 is 6Å~4+5keys column-staggered split keyboard.
+#define DESCRIPTION     yosino58 is 6x4+5keys column-staggered split keyboard.
 
 /* key matrix size */
 // Rows are doubled-up
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
