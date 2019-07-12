@@ -221,7 +221,7 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds)
   #endif
 }
 
-void ws2812_init(){
+void ws2812_init(void){
 
 };
 
