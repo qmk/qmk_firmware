@@ -1,7 +1,7 @@
-#include "d51_util.h"
+#include "arm_atsam_protocol.h"
 
 static volatile uint32_t w;
-    
+
 //Display unsigned 32-bit number by port toggling DBG_1 (to view on a scope)
 //Read as follows: 1230 = |    | |    | | |    ||  (note zero is fast double toggle)
 #define DBG_PAUSE 5

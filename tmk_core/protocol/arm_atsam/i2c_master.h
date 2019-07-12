@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ DmacDescriptor dmac_desc_wb;
 uint8_t I2C3733_Init_Control(void);
 uint8_t I2C3733_Init_Drivers(void);
 void I2C3733_Control_Set(uint8_t state);
+uint8_t I2C3733_Control_Get(void);
 void I2C_DMAC_LED_Init(void);
 
 #define I2C_Q_SIZE              100

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,19 +15,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _ARM_ATSAM_PROTOCOL_H_
-#define _ARM_ATSAM_PROTOCOL_H_
+#pragma once
 
 #include "samd51j18a.h"
-#include "md_bootloader.h"
 
-#include "timer.h"
+#ifdef MD_BOOTLOADER
+
+#include <stdlib.h> //For abs()
+#include "config.h" //From keyboard's directory
+
+#endif
+
+#include "md_bootloader.h"
 #include "d51_util.h"
-#include "clks.h"
+
+#include "quantum.h"
+#include "timer.h"
 #include "wait.h"
+
+#include "clks.h"
 #include "adc.h"
 #include "i2c_master.h"
 #include "spi.h"
+#include "power.h"
 
 #include "./usb/usb2422.h"
 
@@ -44,6 +54,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "./usb/udi_cdc.h"
 
 #endif //MD_BOOTLOADER
-
-#endif //_ARM_ATSAM_PROTOCOL_H_
-

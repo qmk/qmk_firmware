@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,20 +18,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _ADC_H_
 #define _ADC_H_
 
-#define ADC_5V_START_LEVEL              2365
+#include "config_adc.h" //From keyboard's directory
 
-#define ADC_5V     ADC_INPUTCTRL_MUXPOS_AIN12_Val
-#define ADC_CON1   ADC_INPUTCTRL_MUXPOS_AIN14_Val
-#define ADC_CON2   ADC_INPUTCTRL_MUXPOS_AIN13_Val
+#define ADC_NA                  -1      //Value to mark an ADC as not available for use and return from an acquire
+#define ADC_5V_START_LEVEL      4.75f   //In volts, system will wait until voltage is greater than this
 
-extern uint16_t v_5v;
-extern uint16_t v_5v_avg;
-extern uint16_t v_con_1;
-extern uint16_t v_con_2;
-extern uint16_t v_con_1_boot;
-extern uint16_t v_con_2_boot;
+extern uint16_t g_v_5v;
+extern float g_v_5v_avg;
 
 void ADC0_clock_init(void);
-void ADC0_init(void);
+void ADC_init(void);
+void ADC_configure(uint8_t adc_index);
+uint16_t adc_get(uint8_t adc_id);
 
 #endif //_ADC_H_

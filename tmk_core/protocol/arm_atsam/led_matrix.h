@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ typedef struct issi3733_driver_s {
     uint8_t onoff[ISSI3733_PG_ONOFF_BYTES]; //PG0 - LED Control Register - LED On/Off Register
     uint8_t open[ISSI3733_PG_OR_BYTES];     //PG0 - LED Control Register - LED Open Register
     uint8_t shrt[ISSI3733_PG_SR_BYTES];     //PG0 - LED Control Register - LED Short Register
-    uint8_t pwm[ISSI3733_PG_PWM_BYTES];     //PG1 - PWM Register
+    uint8_t pwm[ISSI3733_PG_PWM_BYTES];     //PG1 - PWM Register for working data
     uint8_t abm[ISSI3733_PG_ABM_BYTES];     //PG2 - Auto Breath Mode Register
     uint8_t conf[ISSI3733_PG_FN_BYTES];     //PG3 - Function Register
 } issi3733_driver_t;
@@ -142,16 +142,30 @@ extern uint8_t led_animation_breathing;
 extern uint8_t led_animation_id;
 extern float led_animation_speed;
 extern uint8_t led_lighting_mode;
-extern uint8_t led_enabled;
 extern uint8_t led_animation_breathe_cur;
 extern uint8_t led_animation_direction;
 extern uint8_t breathe_dir;
+extern uint8_t led_animation_orientation;
+extern uint8_t led_animation_circular;
+extern float led_edge_brightness;
+extern uint8_t led_edge_mode;
 
-#define LED_MODE_NORMAL             0   //Must be 0
+#define LED_MODE_NORMAL             0                               //Must be 0
 #define LED_MODE_KEYS_ONLY          1
 #define LED_MODE_NON_KEYS_ONLY      2
 #define LED_MODE_INDICATORS_ONLY    3
-#define LED_MODE_MAX_INDEX          LED_MODE_INDICATORS_ONLY   //Must be highest value
+#define LED_MODE_MAX_INDEX          LED_MODE_INDICATORS_ONLY        //Must be highest valued LED mode
+
+#define LED_EDGE_MODE_ALL           0                               //All edge LEDs are active (Must be 0)
+#define LED_EDGE_MODE_ALTERNATE     1                               //Alternate mode of edge LEDs are active (Intention is for 'only every other edge LED' to be active)
+#define LED_EDGE_MODE_MAX           LED_EDGE_MODE_ALTERNATE         //Must be the highest valued LED edge mode
+
+#define LED_EDGE_FULL_MODE          255                             //LEDs configured with this scan code will always be on for edge lighting modes
+#define LED_EDGE_ALT_MODE           254                             //LEDs configured with this scan code will turn off in edge alternating mode
+#define LED_EDGE_MIN_SCAN           254                             //LEDs configured with scan code >= to this are assigned as edge LEDs
+
+#define LED_IS_EDGE(scan)           (scan >= LED_EDGE_MIN_SCAN)     //Return true if an LED's scan value indicates an edge LED
+#define LED_IS_EDGE_ALT(scan)       (scan == LED_EDGE_ALT_MODE)     //Return true if an LED's scan value indicates an alternate edge mode LED
 
 #endif // USE_MASSDROP_CONFIGURATOR
 

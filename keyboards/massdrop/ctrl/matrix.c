@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "clks.h"
 #include <string.h>
 
+#define MCU_PORTS_USED  2 //PA, PB
+
 matrix_row_t mlatest[MATRIX_ROWS];
 matrix_row_t mlast[MATRIX_ROWS];
 matrix_row_t mdebounced[MATRIX_ROWS];
@@ -30,7 +32,7 @@ uint8_t row_ports[] = { MATRIX_ROW_PORTS };
 uint8_t row_pins[] = { MATRIX_ROW_PINS };
 uint8_t col_ports[] = { MATRIX_COL_PORTS };
 uint8_t col_pins[] = { MATRIX_COL_PINS };
-uint32_t row_masks[2]; //NOTE: If more than PA PB used in the future, adjust code to accomodate
+uint32_t row_masks[MCU_PORTS_USED]; //Array size must match number of unique MCU ports used for reads (PA, PB, PC, etc)
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -56,9 +58,9 @@ void matrix_init(void)
     memset(mlast, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(mdebounced, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
-    row_masks[PA] = 0;
-    row_masks[PB] = 0;
+    memset(row_masks, 0, sizeof(row_masks));
 
+    //Inputs
     uint8_t row;
     for (row = 0; row < MATRIX_ROWS; row++)
     {
@@ -69,6 +71,7 @@ void matrix_init(void)
         row_masks[row_ports[row]] |= 1 << row_pins[row]; //Add pin to proper row mask
     }
 
+    //Outputs
     uint8_t col;
     for (col = 0; col < MATRIX_COLS; col++)
     {
@@ -85,7 +88,7 @@ uint8_t matrix_scan(void)
     uint8_t mchanged;
     uint8_t row;
     uint8_t col;
-    uint32_t scans[2]; //PA PB
+    uint32_t scans[MCU_PORTS_USED]; //Array size must match number of unique MCU ports used for reads (PA, PB, PC, etc)
 
     if (timer_read64() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
 
@@ -93,14 +96,16 @@ uint8_t matrix_scan(void)
 
     for (col = 0; col < MATRIX_COLS; col++)
     {
-        PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col]; //Set col output
+        //Set output
+        PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col];        //Set col output
+        wait_us(1);                                                         //Delay for output
 
-        wait_us(1); //Delay for output
+        //Read input (add unique ports as needed, PA, PB, PC, etc)
+        scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA];                 //Read PA row pins data
+        scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB];                 //Read PA row pins data
 
-        scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA]; //Read PA row pins data
-        scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB]; //Read PB row pins data
-
-        PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col]; //Clear col output
+        //Clear output
+        PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col];        //Clear col output
 
         for (row = 0; row < MATRIX_ROWS; row++)
         {

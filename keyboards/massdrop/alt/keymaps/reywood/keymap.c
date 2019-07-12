@@ -14,7 +14,6 @@ enum alt_keycodes {
   L_OFF,              //LED Off
   L_T_BR,             //LED Toggle Breath Effect
   L_T_PTD,            //LED Toggle Scrolling Pattern Direction
-  U_T_AUTO,           //USB Extra Port Toggle Auto Detect / Always Active
   U_T_AGCR,           //USB Toggle Automatic GCR control
   DBG_TOG,            //DEBUG Toggle On / Off
   DBG_MTRX,           //DEBUG Toggle Matrix Prints
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT(
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
-    _______, _______, _______,  KC_UP,  _______, _______, _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
+    _______, _______, _______,  KC_UP,  _______, _______, _______, _______, U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
     _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
     _______, _______, _______, _______, _______, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,          KC_VOLU, _______, \
     _______, _______, _______,                            KC_MPLY,                              MO(2), _______, KC_MRWD, KC_VOLD, KC_MFFD  \
@@ -144,11 +143,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case L_T_PTD:
       if (record->event.pressed) {
         led_animation_direction = !led_animation_direction;
-      }
-      return false;
-    case U_T_AUTO:
-      if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-        TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
       }
       return false;
     case U_T_AGCR:

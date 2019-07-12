@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -290,6 +290,9 @@ void clk_enable_sercom_apbmask(int sercomn)
             break;
         case 3:
             pmclk->APBBMASK.bit.SERCOM3_ = 1;
+            break;
+        case 4:
+            pmclk->APBDMASK.bit.SERCOM4_ = 1;
             break;
         default:
             break;

@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef _SPI_H_
 #define _SPI_H_
+
+#include "config_spi.h"
+
+/* Various macros for use in this header */
+#define SPI_MACRO_CONCAT(str,var) str ## var
+#define SPI_MACRO_EXPAND(str,var) SPI_MACRO_CONCAT(str,var)
+
+/* Macros to define Shift Register macro (Ex: SERCOM2) */
+#define SR_EXP_SERCOM SPI_MACRO_EXPAND(SERCOM,SR_EXP_SERCOM_NUM)
+
+/* Macros to define Shift Register Peripheral ID (Ex: ID_SERCOM2) */
+#define SR_EXP_SERCOM_PID SPI_MACRO_EXPAND(ID_SERCOM,SR_EXP_SERCOM_NUM)
 
 /* Macros for Shift Register control */
 #define SR_EXP_RCLK_LO PORT->Group[SR_EXP_RCLK_PORT].OUTCLR.reg = (1 << SR_EXP_RCLK_PIN)
@@ -38,33 +50,72 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SR_EXP_SCLK_MUX_SEL PMUXO
 #endif
 
-/* Data structure to define Shift Register output expander hardware */
-/* This structure gets shifted into registers LSB first */
-typedef union {
-  struct {
-    uint16_t RSVD4:1;          /*!< bit:      0                                               */
-    uint16_t RSVD3:1;          /*!< bit:      1                                               */
-    uint16_t RSVD2:1;          /*!< bit:      2                                               */
-    uint16_t RSVD1:1;          /*!< bit:      3                                               */
-    uint16_t SDB_N:1;          /*!< bit:      4  SHUTDOWN THE CHIP WHEN 0, RUN WHEN 1         */
-    uint16_t IRST:1;           /*!< bit:      5  RESET THE IS3733 I2C WHEN 1, RUN WHEN 0      */
-    uint16_t SRC_2:1;          /*!< bit:      6  ADVERTISE A SOURCE TO USBC-2 CC              */
-    uint16_t SRC_1:1;          /*!< bit:      7  ADVERTISE A SOURCE TO USBC-1 CC              */
-    uint16_t E_VBUS_2:1;       /*!< bit:      8  ENABLE 5V OUT TO USBC-2 WHEN 1               */
-    uint16_t E_VBUS_1:1;       /*!< bit:      9  ENABLE 5V OUT TO USBC-1 WHEN 1               */
-    uint16_t E_DN1_N:1;        /*!< bit:     10  ENABLE DN1 1:2 MUX WHEN 0                    */
-    uint16_t S_DN1:1;          /*!< bit:     11  SELECT DN1 PATH 0:USBC-1, 1:USBC-2           */
-    uint16_t E_UP_N:1;         /*!< bit:     12  ENABLE SUP 1:2 MUX WHEN 0                    */
-    uint16_t S_UP:1;           /*!< bit:     13  SELECT UP PATH 0:USBC-1, 1:USBC-2            */
-    uint16_t HUB_RESET_N:1;    /*!< bit:     14  RESET USB HUB WHEN 0, RUN WHEN 1             */
-    uint16_t HUB_CONNECT:1;    /*!< bit:     15  SIGNAL VBUS CONNECT TO USB HUB WHEN 1        */
-  } bit;                       /*!< Structure used for bit access                             */
-  uint16_t reg;                /*!< Type      used for register access                        */
-} sr_exp_t;
+//Note: sr_exp_t struct defined in keyboard's config_spi.h
 
 extern sr_exp_t sr_exp_data;
 
 void SR_EXP_WriteData(void);
 void SR_EXP_Init(void);
+void SR_EXP_Init_kb(void);
+
+//For devices which use two shift registers for key matrix column drive
+#ifdef SR_KC_SERCOM_NUM
+
+/* Macros to define Shift Register macro (Ex: SERCOM4) */
+#define SR_KC_SERCOM SPI_MACRO_EXPAND(SERCOM,SR_KC_SERCOM_NUM)
+
+/* Macros to define Shift Register Peripheral ID (Ex: ID_SERCOM2) */
+#define SR_KC_SERCOM_PID SPI_MACRO_EXPAND(ID_SERCOM,SR_KC_SERCOM_NUM)
+
+/* Macros for Shift Register control */
+#define SR_KC_RCLK_LO PORT->Group[SR_KC_RCLK_PORT].OUTCLR.reg = (1 << SR_KC_RCLK_PIN)
+#define SR_KC_RCLK_HI PORT->Group[SR_KC_RCLK_PORT].OUTSET.reg = (1 << SR_KC_RCLK_PIN)
+#define SR_KC_OE_N_ENA PORT->Group[SR_KC_OE_N_PORT].OUTCLR.reg = (1 << SR_KC_OE_N_PIN)
+#define SR_KC_OE_N_DIS PORT->Group[SR_KC_OE_N_PORT].OUTSET.reg = (1 << SR_KC_OE_N_PIN)
+
+/* Determine bits to set for mux selection */
+#if SR_KC_DATAOUT_PIN % 2 == 0
+#define SR_KC_DATAOUT_MUX_SEL PMUXE
+#else
+#define SR_KC_DATAOUT_MUX_SEL PMUXO
+#endif
+
+/* Determine bits to set for mux selection */
+#if SR_KC_SCLK_PIN % 2 == 0
+#define SR_KC_SCLK_MUX_SEL PMUXE
+#else
+#define SR_KC_SCLK_MUX_SEL PMUXO
+#endif
+
+/* Data structure to define Shift Register output for key matrix column drive */
+/* This structure gets shifted into registers MSB first */
+typedef union {
+  struct {
+    uint16_t KC1:1;            /*!< bit:      0  Key matrix column 1 drive                    */
+    uint16_t KC2:1;            /*!< bit:      1  Key matrix column 2 drive                    */
+    uint16_t KC3:1;            /*!< bit:      2  Key matrix column 3 drive                    */
+    uint16_t KC4:1;            /*!< bit:      3  Key matrix column 4 drive                    */
+    uint16_t KC5:1;            /*!< bit:      4  Key matrix column 5 drive                    */
+    uint16_t KC6:1;            /*!< bit:      5  Key matrix column 6 drive                    */
+    uint16_t KC7:1;            /*!< bit:      6  Key matrix column 7 drive                    */
+    uint16_t KC8:1;            /*!< bit:      7  Key matrix column 8 drive                    */
+    uint16_t KC9:1;            /*!< bit:      8  Key matrix column 9 drive                    */
+    uint16_t KC10:1;           /*!< bit:      9  Key matrix column 10 drive                   */
+    uint16_t KC11:1;           /*!< bit:     10  Key matrix column 11 drive                   */
+    uint16_t KC12:1;           /*!< bit:     11  Key matrix column 12 drive                   */
+    uint16_t KC13:1;           /*!< bit:     12  Key matrix column 13 drive                   */
+    uint16_t KC14:1;           /*!< bit:     13  Key matrix column 14 drive                   */
+    uint16_t KC15:1;           /*!< bit:     14  Key matrix column 15 drive                   */
+    uint16_t KC16:1;           /*!< bit:     15  Key matrix column 16 drive                   */
+  } bit;                       /*!< Structure used for bit access                             */
+  uint16_t reg;                /*!< Type      used for register access                        */
+} sr_kc_t;
+
+extern sr_kc_t sr_kc_data;
+
+void SR_KC_WriteData(void);
+void SR_KC_Init(void);
+
+#endif //SR_KC_SERCOM
 
 #endif //_SPI_H_

@@ -1,6 +1,8 @@
 # project specific files
 SRC = matrix.c
 SRC += config_led.c
+SRC += spi.c
+SRC += usb.c
 
 #For platform and packs
 ARM_ATSAM = SAMD51J18A

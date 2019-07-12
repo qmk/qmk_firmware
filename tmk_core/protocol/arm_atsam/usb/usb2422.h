@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Massdrop Inc.
+Copyright 2019 Massdrop Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef _USB2422_H_
 #define _USB2422_H_
+
+#include "config_usb.h" //From keyboard's directory
 
 #define REV_USB2422        0x100
 
@@ -372,33 +374,81 @@ typedef struct {
 } Usb2422;
 #endif
 
-#define PORT_DETECT_RETRY_INTERVAL      2000
+//When testing for USB enumeration, retry after this many ms
+#define PORT_DETECT_RETRY_START             2000
+#define PORT_DETECT_RETRY_INCREMENT         2000
+#define PORT_DETECT_RETRY_MAX               10000
 
-#define USB_EXTRA_ADC_THRESHOLD         900
+//Onboard ports must have an even number
+//External ports must have an odd number
+//The only exception is the unknown state
+#define USB_HOST_PORT_1                     0
+#define USB_HOST_PORT_1_EXT                 1
+#define USB_HOST_PORT_2                     2
+#define USB_HOST_PORT_2_EXT                 3
+#define USB_HOST_PORT_UNKNOWN               4
 
-#define USB_EXTRA_STATE_DISABLED                0
-#define USB_EXTRA_STATE_ENABLED                 1
-#define USB_EXTRA_STATE_UNKNOWN                 2
-#define USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG   3
+//Macros to check host port assignment
+#define USB_HOST_IS_1(host)                 (host == USB_HOST_PORT_1 || host == USB_HOST_PORT_1_EXT)
+#define USB_HOST_IS_2(host)                 (host == USB_HOST_PORT_2 || host == USB_HOST_PORT_2_EXT)
 
-#define USB_HOST_PORT_1             0
-#define USB_HOST_PORT_2             1
-#define USB_HOST_PORT_UNKNOWN       2
+//Macros to test if the sink device is connected to the onboard or external port
+//Note: USBC_IS_SINK defined in the keyboard's config_adc.h
+#define USBC_IS_SINK_ONB(a5, b5)            (ADC_USBC_IS_ONB(g_usb_host_port) && USBC_IS_SINK(a5, b5))
+#define USBC_IS_SINK_EXT(a5, b5)            (ADC_USBC_IS_EXT(g_usb_host_port) && USBC_IS_SINK(a5, b5))
 
-extern uint8_t usb_host_port;
+//Note: Due to the way timers are implemented, waits will always be slightly longer than defined
+#define USBC_TIMER_ATTACH_WAIT              0
+#define USBC_TIMER_DETACH                   1       //tCCDebounce
+#define USBC_CFG_PERIOD                     5       //How often the extra USB port is checked (ms)(This multiple affects the accuracy of USB timers)
+#define USBC_CFG_TCCDEBOUNCE                150     //tCCDebounce - Time a port shall wait before it can determine it is attached (ms)
+#define USBC_CFG_TSRCDISCONNECT             0       //tSRCDisconnect - Time a Source shall detect the SRC.Open state (As fast as possible)(ms)
+#define USBC_CFG_TVCONNDISCHARGE            100     //UnattachedWait time for VCONN discharge
+#define USBC_CFG_TDISABLED                  100     //Minimum time to wait after state machine disabled
+
+#define USB_STATE_UNKNOWN                   0       //Custom state for init
+#define USB_STATE_UNATTACHED_SRC            1       //Directed from any state
+                                                    //From USB_STATE_UNATTACHED_WAIT_SRC after Discharge Complete and Vconn Off
+                                                    //From USB_STATE_ATTACHED_SRC if Sink Removed and Vconn was Off
+                                                    //From USB_STATE_ATTACH_WAIT_SRC if Connection Removed
+#define USB_STATE_ATTACH_WAIT_SRC           2       //From USB_STATE_UNATTACHED_SRC when Connection detected
+#define USB_STATE_ATTACHED_SRC              3       //From USB_STATE_ATTACHWAIT_SRC when Vbus at vSafe0V and Sink Detected for tCCDebounce
+#define USB_STATE_UNATTACHED_WAIT_SRC       4       //From USB_STATE_ATTACHED_SRC when Sink Removed and Vconn was On
+#define USB_STATE_DISABLED_WAIT             100     //Custom state for USB 5V Bus discharge then to USB_STATE_DISABLED_WAIT
+#define USB_STATE_DISABLED                  101     //Directed from any state
+#define USB_STATE_DISABLED_UNTIL_DETACH     102     //Custom state for when USB 5V Bus overloads and device must be detached before use
+
+//USB Type-C State machine for a SOURCE
+typedef struct usbc_s {
+    uint8_t state;
+    uint16_t timer;
+} usbc_t;
+
+extern uint8_t g_usb_host_port;
 extern uint8_t usb_extra_state;
-extern uint8_t usb_extra_manual;
 extern uint8_t usb_gcr_auto;
+extern usbc_t usbc;
+extern uint16_t usbc_cc_a5_v;
+extern uint16_t usbc_cc_b5_v;
+extern float usbc_cc_a5_v_avg;
+extern float usbc_cc_b5_v_avg;
 
 void USB2422_init(void);
 void USB_reset(void);
 void USB_configure(void);
 uint16_t USB_active(void);
-void USB_set_host_by_voltage(void);
-uint16_t adc_get(uint8_t muxpos);
+uint8_t USB_detect_host(void);
 uint8_t USB2422_Port_Detect_Init(void);
 void USB_HandleExtraDevice(void);
-void USB_ExtraSetState(uint8_t state);
+void usbc_enable(void);
+void usbc_disable(void);
+void usbc_task(void);
+
+//Keyboard defined functions
+void usb_set_host_kb(uint8_t con, uint8_t rp_best_index);
+void usb_set_extra_kb(uint8_t con);
+void usb_init_host_detection_kb(void);
+uint8_t usb_attach_port_configure_kb(uint8_t g_usb_host_port, uint16_t usbc_cc_a5_v, uint16_t usbc_cc_b5_v);
 
 #endif //_USB2422_H_
 
