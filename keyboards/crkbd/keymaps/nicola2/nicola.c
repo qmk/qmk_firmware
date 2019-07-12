@@ -327,8 +327,8 @@ bool process_nicola(uint16_t keycode, keyrecord_t *record) {
         ninputs[ng_chrcount] = keycode; // キー入力をバッファに貯める
         ng_chrcount++;
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // 3文字押したら処理を開始
-        if (ng_chrcount > 2) {
+        // 2文字押したら処理を開始
+        if (ng_chrcount > 1) {
           nicola_type();
         }
         return false;
