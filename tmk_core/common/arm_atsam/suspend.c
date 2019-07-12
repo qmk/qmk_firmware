@@ -78,7 +78,14 @@ void suspend_wakeup_init_kb(void) {
  */
 void suspend_wakeup_init(void) {
 #ifdef RGB_MATRIX_ENABLE
+#ifdef USE_MASSDROP_CONFIGURATOR
+    // TODO: need to re-add led_enabled?
+    // if (I2C3733_Control_Get()) {
+        I2C3733_Control_Set(1);
+    // }
+#else
     I2C3733_Control_Set(1);
+#endif
 #endif
 
     suspend_wakeup_init_kb();

@@ -5,6 +5,7 @@
 #include "rgb_matrix.h"
 #include "config_led.h"
 
+// TODO: convert this
 const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
   { { 0|(0<<4) }, { 6, 5 }, 0 },
   { { 0|(1<<4) }, { 29, 5 }, 0 },
