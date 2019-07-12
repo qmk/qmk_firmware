@@ -221,6 +221,11 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds)
   #endif
 }
 
+void ws2812_init(){
+
+};
+
+
 void ws2812_sendarray(uint8_t *data,uint16_t datlen)
 {
   ws2812_sendarray_mask(data,datlen,_BV(RGB_DI_PIN & 0xF));
