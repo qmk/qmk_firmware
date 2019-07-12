@@ -32,16 +32,9 @@ static uart_tx_ringbuf_t led_uart_ringbuf = {
     .tail = 0,
 };
 
-/* Should the main loop try a transmission, used when transmission finishes
-   to send any data that might have been added to the buffer while the
-   transmission was in progress.
-*/
-static volatile bool led_uart_try_transmission = false;
-
 /* Handler for finsihed LED UART transmissions */
 static void led_uart_txend(UARTDriver *uart) {
     uart_tx_ringbuf_finish_transmission(&led_uart_ringbuf);
-    led_uart_try_transmission = true;
 }
 
 /* LED UART configuration */
@@ -97,14 +90,14 @@ void anne_pro_lighting_update_dynamic(keyrecord_t *record) {
 
         /* Send the keystate to the LED controller */
         uart_tx_ringbuf_write(&led_uart_ringbuf, 12, keystate);
+        uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
 }
 
 /* Update lighting, should be called every matrix scan */
 void anne_pro_lighting_update(void) {
-    if (led_uart_try_transmission) {
+    if (!uart_tx_ringbuf_empty(&led_uart_ringbuf)) {
         uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
-        led_uart_try_transmission = false;
     }
 }
 
@@ -120,12 +113,14 @@ void anne_pro_lighting_toggle(void) {
 /* Turn the lighting on */
 void anne_pro_lighting_on(void) {
     uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
+    uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     leds_enabled = true;
 }
 
 /* Turn the lighting off */
 void anne_pro_lighting_off(void) {
     uart_tx_ringbuf_write(&led_uart_ringbuf, 4, "\x09\x02\x01\x00");
+    uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     leds_enabled = false;
 }
 

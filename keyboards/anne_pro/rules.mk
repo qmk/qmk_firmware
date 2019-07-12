@@ -24,7 +24,7 @@ ARMV = 7
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08004000
 
 # Extra source files
-SRC += anne_pro_lighting.c
+SRC += uart_tx_ringbuf.c anne_pro_lighting.c
 
 # Build Options
 #   comment out to disable the options.
