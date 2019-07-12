@@ -1,12 +1,12 @@
 # angel64
 
-![angel64](imgur.com image replace me!)
+![angel64](https://i.gyazo.com/6e2ea6c58d3253c496dc0518f2641ff9.jpg)
 
-A short description of the keyboard/project
+Keyboard for tablets.
 
-Keyboard Maintainer: [kakunpc](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
+Hardware Supported: angel64_alpha, promicro  
+Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
 
