@@ -199,19 +199,17 @@ void combo_enable(void) {
 }
 
 void combo_disable(void) {
-    is_combo_enable = false;
-    is_active = false;
+    is_combo_enable = is_active = false;
     timer = 0;
     dump_key_buffer(true);
 
 }
 
 void combo_toggle(void) {
-    is_combo_enable ^= true;
-    if (!is_combo_enable) {
-        is_active = false;
-        timer = 0;
-        dump_key_buffer(true);
+    if (is_combo_enable) {
+        combo_disable();
+    } else {
+        combo_enable();
     }
 }
 
