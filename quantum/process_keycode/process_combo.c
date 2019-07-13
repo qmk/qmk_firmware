@@ -28,6 +28,7 @@ static uint16_t timer = 0;
 static uint8_t current_combo_index = 0;
 static bool drop_buffer = false;
 static bool is_active = false;
+static bool is_combo_enable = true; // defaults to enabled
 
 static uint8_t buffer_size = 0;
 #ifdef COMBO_ALLOW_ACTION_KEYS
@@ -128,6 +129,23 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
   drop_buffer = false;
   bool no_combo_keys_pressed = true;
 
+  if (keycode == COMBO_ON && record->event.pressed) {
+    combo_enable();
+    return true;
+  }
+
+  if (keycode == COMBO_OFF && record->event.pressed) {
+    combo_disable();
+    return true;
+  }
+
+  if (keycode == COMBO_TOG && record->event.pressed) {
+    combo_toggle();
+    return true;
+  }
+
+  if (!get_combo_enable()) { return true; }
+
   for (current_combo_index = 0; current_combo_index < COMBO_COUNT;
        ++current_combo_index) {
     combo_t *combo = &key_combos[current_combo_index];
@@ -166,7 +184,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_combo(void) {
-  if (is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
+  if (is_combo_enable && is_active && timer && timer_elapsed(timer) > COMBO_TERM) {
 
     /* This disables the combo, meaning key events for this
      * combo will be handled by the next processors in the chain
@@ -174,4 +192,29 @@ void matrix_scan_combo(void) {
     is_active = false;
     dump_key_buffer(true);
   }
+}
+
+void combo_enable(void) {
+    is_combo_enable = true;
+}
+
+void combo_disable(void) {
+    is_combo_enable = false;
+    is_active = false;
+    timer = 0;
+    dump_key_buffer(true);
+
+}
+
+void combo_toggle(void) {
+    is_combo_enable ^= true;
+    if (!is_combo_enable) {
+        is_active = false;
+        timer = 0;
+        dump_key_buffer(true);
+    }
+}
+
+bool get_combo_enable(void) {
+    return is_combo_enable;
 }
