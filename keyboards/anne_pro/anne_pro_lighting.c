@@ -55,11 +55,8 @@ static volatile bool leds_enabled = false;
 
 void anne_pro_lighting_init(void) {
     /* Turn on lighting controller */
-    setPinOutput(C15);
     writePinLow(C15);
-    chThdSleepMilliseconds(10);
-    writePinHigh(C15);
-    chThdSleepMilliseconds(10);
+    setPinOutput(C15);
 
     /* Initialize the lighting UART */
     uartStart(LED_UART, &led_uart_cfg);
@@ -112,6 +109,10 @@ void anne_pro_lighting_toggle(void) {
 
 /* Turn the lighting on */
 void anne_pro_lighting_on(void) {
+    /* Wake up the LED controller */
+    writePinHigh(C15);
+    chThdSleepMilliseconds(50);
+    /* Send turn light on command */
     uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
     uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     leds_enabled = true;
@@ -119,9 +120,12 @@ void anne_pro_lighting_on(void) {
 
 /* Turn the lighting off */
 void anne_pro_lighting_off(void) {
+    /* Send turn light off command */
     uart_tx_ringbuf_write(&led_uart_ringbuf, 4, "\x09\x02\x01\x00");
     uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     leds_enabled = false;
+    /* Sleep the LED controller */
+    writePinLow(C15);
 }
 
 /* Select the next effect rate */
