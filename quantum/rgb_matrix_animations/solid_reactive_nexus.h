@@ -11,7 +11,7 @@ RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTINEXUS)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void SOLID_REACTIVE_NEXUS_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static HSV SOLID_REACTIVE_NEXUS_math(HSV hsv,  int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick - dist;
     if (effect > 255)
         effect = 255;
@@ -19,8 +19,9 @@ static void SOLID_REACTIVE_NEXUS_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t 
         effect = 255;
     if ((dx > 8 || dx < -8) && (dy > 8 || dy < -8))
         effect = 255;
-    hsv->v = qadd8(hsv->v, 255 - effect);
-    hsv->h = rgb_matrix_config.hue + dy / 4;
+    hsv.v = qadd8(hsv.v, 255 - effect);
+    hsv.h = rgb_matrix_config.hsv.h + dy / 4;
+    return hsv;
 }
 
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
