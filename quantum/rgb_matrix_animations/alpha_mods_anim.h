@@ -1,14 +1,12 @@
-#pragma once
 #ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
-
-extern led_config_t g_led_config;
-extern rgb_config_t rgb_matrix_config;
+RGB_MATRIX_EFFECT(ALPHAS_MODS)
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 // alphas = color1, mods = color2
-bool rgb_matrix_alphas_mods(effect_params_t* params) {
+bool ALPHAS_MODS(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-  HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+  HSV hsv = rgb_matrix_config.hsv;
   RGB rgb1 = hsv_to_rgb(hsv);
   hsv.h += rgb_matrix_config.speed;
   RGB rgb2 = hsv_to_rgb(hsv);
@@ -24,4 +22,5 @@ bool rgb_matrix_alphas_mods(effect_params_t* params) {
   return led_max < DRIVER_LED_TOTAL;
 }
 
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 #endif // DISABLE_RGB_MATRIX_ALPHAS_MODS

@@ -140,7 +140,7 @@ To replace the function, all you need to do is add something like this to your c
 ```c
 void bootmagic_lite(void) {
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY * 2);
+    wait_ms(DEBOUNCE * 2);
     matrix_scan();
 
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {

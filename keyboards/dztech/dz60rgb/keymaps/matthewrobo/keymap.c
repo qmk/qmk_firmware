@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern bool g_suspend_state;
 
 enum dz60rgb_layers {
 	_QWERTY,
@@ -26,7 +25,6 @@ enum dz60rgb_keycodes {
 #define _V_V_V_ KC_TRNS
 #define LT_CAPS LT(_NAV, KC_CAPS)
 #define LT_DEL  LT(_RGB, KC_DEL)
-extern rgb_config_t rgb_matrix_config;
 extern bool autoshift_enabled;
 #define MT_SLSH RSFT_T(KC_SLSH)
 #define MT_APP  RALT_T(KC_APP)
@@ -148,7 +146,7 @@ void rgb_matrix_indicators_user(void)
 			break;
 
 		case _RGB: {
-			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+			HSV hsv = { rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
 			HSV hui = hsv;
 			HSV hud = hsv;
 			HSV sai = hsv;

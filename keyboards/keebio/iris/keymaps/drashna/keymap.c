@@ -13,7 +13,7 @@
      KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
      KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
      OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                      \
+                             KC_GRV, KC_SPC,  LT(_LOWER,KC_BSPC),         LT(_RAISE,KC_DEL),  KC_ENT,  RAISE                           \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
 
