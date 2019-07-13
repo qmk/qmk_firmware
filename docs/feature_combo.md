@@ -85,27 +85,19 @@ You may also be able to enable action keys by defining `COMBO_ALLOW_ACTION_KEYS`
 
 You can enable, disable and toggle the Combo feature on the fly.  This is useful if you need to disable them temporarily, such as for a game. 
 
-
-```
-* `CMB_ON` - Turn combo Feature on
-* `CMB_OFF` - Turn Combo Feature off
-* `CMB_TOG` - Toggles Combo Feature state
-```
+|Keycode   |Description                      |
+|----------|---------------------------------|
+|`CMB_ON`  |Turns on Combo feature           |
+|`CMB_OFF` |Turns off Combo feature          |
+|`CMB_TOG` |Toggles Combo feature on and off |
 
 ## User callbacks
 
 In addition to the keycodes, there are a few functions that you can use to set the status, or check it:
 
-```c 
-/* Enables Combos */
-void combo_enable(void);
-
-/* Disables Combos */
-void combo_disable(void);
-
-/* Toggles Combo feature state */
-void combo_toggle(void);
-
-/* Gets Combo feature enabled state */
-bool is_combo_enabled(void);
-```
+|Function   |Description                                                         |
+|-----------|--------------------------------------------------------------------|
+| `combo_enable()`     | Enables the combo feature                               |
+| `combo_disable()`    | Disables the combo feature, and clears the combo buffer |
+| `combo_toggle()`     | Toggles the state of the combo feature                  |
+| `is_combo_enabled()` | Returns the status of the combo feature state (true or false) |
