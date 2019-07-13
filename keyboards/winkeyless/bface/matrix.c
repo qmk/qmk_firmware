@@ -99,8 +99,9 @@ uint8_t matrix_scan(void) {
             }
         }
     }
-
+#ifdef RGBLIGHT_ENABLE
     matrix_scan_user();
+#endif
 
     return 1;
 }

@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c.h"
 #include "quantum.h"
 
+#ifdef RGBLIGHT_ENABLE
+
 extern rgblight_config_t rgblight_config;
 
 void rgblight_set(void) {
@@ -44,3 +46,5 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
     rgblight_task();
 }
+
+#endif
