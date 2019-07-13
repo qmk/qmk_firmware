@@ -103,7 +103,7 @@ const uint32_t ng_key[] = {
 // 親指シフトカナ変換テーブル
 typedef struct {
   uint32_t key;
-  char kana[5];
+  char kana[4];
 } nicola_keymap;
 
 const PROGMEM nicola_keymap ngmap[] = {
@@ -118,6 +118,7 @@ const PROGMEM nicola_keymap ngmap[] = {
   {.key = B_I               , .kana = "ku"},
   {.key = B_O               , .kana = "tu"},
   {.key = B_P               , .kana = ","},
+
   {.key = B_A               , .kana = "u"},
   {.key = B_S               , .kana = "si"},
   {.key = B_D               , .kana = "te"},
@@ -128,6 +129,7 @@ const PROGMEM nicola_keymap ngmap[] = {
   {.key = B_K               , .kana = "ki"},
   {.key = B_L               , .kana = "i"},
   {.key = B_SCLN            , .kana = "nn"},
+
   {.key = B_Z               , .kana = "."},
   {.key = B_X               , .kana = "hi"},
   {.key = B_C               , .kana = "su"},
@@ -140,68 +142,72 @@ const PROGMEM nicola_keymap ngmap[] = {
   {.key = B_SLSH            , .kana = "/"},
 
   // 左シフト
-  {.key = B_SHFTL|B_Q        , .kana = "la"},
-  {.key = B_SHFTL|B_W        , .kana = "e"},
-  {.key = B_SHFTL|B_E        , .kana = "ri"},
-  {.key = B_SHFTL|B_R        , .kana = "lya"},
-  {.key = B_SHFTL|B_T        , .kana = "re"},
-  {.key = B_SHFTL|B_Y        , .kana = "pa"},
-  {.key = B_SHFTL|B_U        , .kana = "di"},
-  {.key = B_SHFTL|B_I        , .kana = "gu"},
-  {.key = B_SHFTL|B_O        , .kana = "du"},
-  {.key = B_SHFTL|B_P        , .kana = "pi"},
-  {.key = B_SHFTL|B_A        , .kana = "wo"},
-  {.key = B_SHFTL|B_S        , .kana = "a"},
-  {.key = B_SHFTL|B_D        , .kana = "na"},
-  {.key = B_SHFTL|B_F        , .kana = "lyu"},
-  {.key = B_SHFTL|B_G        , .kana = "mo"},
-  {.key = B_SHFTL|B_H        , .kana = "ba"},
-  {.key = B_SHFTL|B_J        , .kana = "do"},
-  {.key = B_SHFTL|B_K        , .kana = "gi"},
-  {.key = B_SHFTL|B_L        , .kana = "po"},
-  {.key = B_SHFTL|B_SCLN     , .kana = ""},
-  {.key = B_SHFTL|B_Z        , .kana = "lu"},
-  {.key = B_SHFTL|B_X        , .kana = "-"},
-  {.key = B_SHFTL|B_C        , .kana = "ro"},
-  {.key = B_SHFTL|B_V        , .kana = "ya"},
-  {.key = B_SHFTL|B_B        , .kana = "li"},
-  {.key = B_SHFTL|B_N        , .kana = "pu"},
-  {.key = B_SHFTL|B_M        , .kana = "zo"},
-  {.key = B_SHFTL|B_COMM     , .kana = "pe"},
-  {.key = B_SHFTL|B_DOT      , .kana = "bo"},
-  {.key = B_SHFTL|B_SLSH     , .kana = "?"},
+  {.key = B_SHFTL|B_Q       , .kana = "la"},
+  {.key = B_SHFTL|B_W       , .kana = "e"},
+  {.key = B_SHFTL|B_E       , .kana = "ri"},
+  {.key = B_SHFTL|B_R       , .kana = "lya"},
+  {.key = B_SHFTL|B_T       , .kana = "re"},
+  {.key = B_SHFTL|B_Y       , .kana = "pa"},
+  {.key = B_SHFTL|B_U       , .kana = "di"},
+  {.key = B_SHFTL|B_I       , .kana = "gu"},
+  {.key = B_SHFTL|B_O       , .kana = "du"},
+  {.key = B_SHFTL|B_P       , .kana = "pi"},
+
+  {.key = B_SHFTL|B_A       , .kana = "wo"},
+  {.key = B_SHFTL|B_S       , .kana = "a"},
+  {.key = B_SHFTL|B_D       , .kana = "na"},
+  {.key = B_SHFTL|B_F       , .kana = "lyu"},
+  {.key = B_SHFTL|B_G       , .kana = "mo"},
+  {.key = B_SHFTL|B_H       , .kana = "ba"},
+  {.key = B_SHFTL|B_J       , .kana = "do"},
+  {.key = B_SHFTL|B_K       , .kana = "gi"},
+  {.key = B_SHFTL|B_L       , .kana = "po"},
+  {.key = B_SHFTL|B_SCLN    , .kana = ""},
+
+  {.key = B_SHFTL|B_Z       , .kana = "lu"},
+  {.key = B_SHFTL|B_X       , .kana = "-"},
+  {.key = B_SHFTL|B_C       , .kana = "ro"},
+  {.key = B_SHFTL|B_V       , .kana = "ya"},
+  {.key = B_SHFTL|B_B       , .kana = "li"},
+  {.key = B_SHFTL|B_N       , .kana = "pu"},
+  {.key = B_SHFTL|B_M       , .kana = "zo"},
+  {.key = B_SHFTL|B_COMM    , .kana = "pe"},
+  {.key = B_SHFTL|B_DOT     , .kana = "bo"},
+  {.key = B_SHFTL|B_SLSH    , .kana = "?"},
 
   // 右シフト
-  {.key = B_SHFTR|B_Q        , .kana = ""},
-  {.key = B_SHFTR|B_W        , .kana = "ga"},
-  {.key = B_SHFTR|B_E        , .kana = "da"},
-  {.key = B_SHFTR|B_R        , .kana = "go"},
-  {.key = B_SHFTR|B_T        , .kana = "za"},
-  {.key = B_SHFTR|B_Y        , .kana = "yo"},
-  {.key = B_SHFTR|B_U        , .kana = "ni"},
-  {.key = B_SHFTR|B_I        , .kana = "ru"},
-  {.key = B_SHFTR|B_O        , .kana = "ma"},
-  {.key = B_SHFTR|B_P        , .kana = "le"},
-  {.key = B_SHFTR|B_A        , .kana = "vu"},
-  {.key = B_SHFTR|B_S        , .kana = "zi"},
-  {.key = B_SHFTR|B_D        , .kana = "de"},
-  {.key = B_SHFTR|B_F        , .kana = "ge"},
-  {.key = B_SHFTR|B_G        , .kana = "ze"},
-  {.key = B_SHFTR|B_H        , .kana = "mi"},
-  {.key = B_SHFTR|B_J        , .kana = "o"},
-  {.key = B_SHFTR|B_K        , .kana = "no"},
-  {.key = B_SHFTR|B_L        , .kana = "lyo"},
-  {.key = B_SHFTR|B_SCLN     , .kana = "ltu"},
-  {.key = B_SHFTR|B_Z        , .kana = ""},
-  {.key = B_SHFTR|B_X        , .kana = "bi"},
-  {.key = B_SHFTR|B_C        , .kana = "zu"},
-  {.key = B_SHFTR|B_V        , .kana = "bu"},
-  {.key = B_SHFTR|B_B        , .kana = "be"},
-  {.key = B_SHFTR|B_N        , .kana = "nu"},
-  {.key = B_SHFTR|B_M        , .kana = "yu"},
-  {.key = B_SHFTR|B_COMM     , .kana = "mu"},
-  {.key = B_SHFTR|B_DOT      , .kana = "wa"},
-  {.key = B_SHFTR|B_SLSH     , .kana = "lo"},
+  {.key = B_SHFTR|B_Q       , .kana = ""},
+  {.key = B_SHFTR|B_W       , .kana = "ga"},
+  {.key = B_SHFTR|B_E       , .kana = "da"},
+  {.key = B_SHFTR|B_R       , .kana = "go"},
+  {.key = B_SHFTR|B_T       , .kana = "za"},
+  {.key = B_SHFTR|B_Y       , .kana = "yo"},
+  {.key = B_SHFTR|B_U       , .kana = "ni"},
+  {.key = B_SHFTR|B_I       , .kana = "ru"},
+  {.key = B_SHFTR|B_O       , .kana = "ma"},
+  {.key = B_SHFTR|B_P       , .kana = "le"},
+
+  {.key = B_SHFTR|B_A       , .kana = "vu"},
+  {.key = B_SHFTR|B_S       , .kana = "zi"},
+  {.key = B_SHFTR|B_D       , .kana = "de"},
+  {.key = B_SHFTR|B_F       , .kana = "ge"},
+  {.key = B_SHFTR|B_G       , .kana = "ze"},
+  {.key = B_SHFTR|B_H       , .kana = "mi"},
+  {.key = B_SHFTR|B_J       , .kana = "o"},
+  {.key = B_SHFTR|B_K       , .kana = "no"},
+  {.key = B_SHFTR|B_L       , .kana = "lyo"},
+  {.key = B_SHFTR|B_SCLN    , .kana = "ltu"},
+
+  {.key = B_SHFTR|B_Z       , .kana = ""},
+  {.key = B_SHFTR|B_X       , .kana = "bi"},
+  {.key = B_SHFTR|B_C       , .kana = "zu"},
+  {.key = B_SHFTR|B_V       , .kana = "bu"},
+  {.key = B_SHFTR|B_B       , .kana = "be"},
+  {.key = B_SHFTR|B_N       , .kana = "nu"},
+  {.key = B_SHFTR|B_M       , .kana = "yu"},
+  {.key = B_SHFTR|B_COMM    , .kana = "mu"},
+  {.key = B_SHFTR|B_DOT     , .kana = "wa"},
+  {.key = B_SHFTR|B_SLSH    , .kana = "lo"},
 
 };
 
@@ -236,7 +242,6 @@ bool nicola_state(void) {
   return is_nicola;
 }
 
-
 // キー入力を文字に変換して出力する
 void nicola_type(void) {
   nicola_keymap bngmap; // PROGMEM buffer
@@ -245,6 +250,10 @@ void nicola_type(void) {
   uint32_t skey = 0; // 連続押しの場合のバッファ
 
   switch (keycomb) {
+    // send_stringできないキー、長すぎるマクロはここで定義
+    // case B_F|B_G:
+    //   nicola_off();
+    //   break;
     default:
       // キーから仮名に変換して出力する。
       // 同時押しの場合 ngmapに定義されている

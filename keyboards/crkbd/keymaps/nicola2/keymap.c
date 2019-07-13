@@ -40,8 +40,6 @@ enum keymap_layers {
   _ADJUST,
 };
 
-// NICOLA親指シフト
-
 enum custom_keycodes {
   KC_QWERTY = NG_SAFE_RANGE,
   KC_EUCALYN,
