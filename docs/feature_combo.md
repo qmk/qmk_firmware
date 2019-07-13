@@ -87,9 +87,9 @@ You can enable, disable and toggle the Combo feature on the fly.  This is useful
 
 
 ```
-* `COMBO_ON` - Turn combo Feature on
-* `COMBO_OFF` - Turn Combo Feature off
-* `COMBO_TOG` - Toggles Combo Feature state
+* `CMB_ON` - Turn combo Feature on
+* `CMB_OFF` - Turn Combo Feature off
+* `CMB_TOG` - Toggles Combo Feature state
 ```
 
 ## User callbacks

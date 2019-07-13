@@ -489,9 +489,9 @@ enum quantum_keycodes {
     // Right control, close paren
     KC_RAPC,
 
-    COMBO_ON,
-    COMBO_OFF,
-    COMBO_TOG,
+    CMB_ON,
+    CMB_OFF,
+    CMB_TOG,
     // always leave at the end
     SAFE_RANGE
 };
