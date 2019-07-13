@@ -20,12 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x16C0
+#define PRODUCT_ID      0x27DB
 #define DEVICE_VER      0x0001
+<<<<<<< HEAD
 #define MANUFACTURER    %YOUR_NAME%
 #define PRODUCT         silverbullet44
 #define DESCRIPTION     A custom keyboard
+=======
+#define MANUFACTURER    SwanMatch
+#define PRODUCT         SilverBullet44
+#define DESCRIPTION     Metalical Keyboard
+>>>>>>> d668b2e6b... venderID
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -94,7 +100,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
+#define DEBOUNCE 10
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
