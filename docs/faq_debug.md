@@ -87,6 +87,7 @@ Size after:
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
+
 ## NKRO Doesn't work
 First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
 
