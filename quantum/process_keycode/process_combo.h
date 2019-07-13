@@ -61,6 +61,6 @@ void process_combo_event(uint8_t combo_index, bool pressed);
 void combo_enable(void);
 void combo_disable(void);
 void combo_toggle(void);
-bool get_combo_enable(void);
+bool is_combo_enabled(void);
 
 #endif

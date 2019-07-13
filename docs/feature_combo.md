@@ -107,5 +107,5 @@ void combo_disable(void);
 void combo_toggle(void);
 
 /* Gets Combo feature enabled state */
-bool get_combo_enable(void);
+bool is_combo_enabled(void);
 ```
