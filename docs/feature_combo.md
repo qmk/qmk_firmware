@@ -59,19 +59,12 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
     case ZC_COPY:
       if (pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_C);
-        unregister_code(KC_C);
-        unregister_code(KC_LCTL);
+        tap_code16(LCTL(KC_C));
       }
       break;
-
     case XV_PASTE:
       if (pressed) {
-        register_code(KC_LCTL);
-        register_code(KC_V);
-        unregister_code(KC_V);
-        unregister_code(KC_LCTL);
+        tap_code16(LCTL(KC_V));
       }
       break;
   }
@@ -87,3 +80,32 @@ If you're using long combos, or even longer combos, you may run into issues with
 In this case, you can add either `#define EXTRA_LONG_COMBOS` or `#define EXTRA_EXTRA_LONG_COMBOS` in your `config.h` file.
 
 You may also be able to enable action keys by defining `COMBO_ALLOW_ACTION_KEYS`.
+
+## Keycodes 
+
+You can enable, disable and toggle the Combo feature on the fly.  This is useful if you need to disable them temporarily, such as for a game. 
+
+
+```
+* `COMBO_ON` - Turn combo Feature on
+* `COMBO_OFF` - Turn Combo Feature off
+* `COMBO_TOG` - Toggles Combo Feature state
+```
+
+## User callbacks
+
+In addition to the keycodes, there are a few functions that you can use to set the status, or check it:
+
+```c 
+/* Enables Combos */
+void combo_enable(void);
+
+/* Disables Combos */
+void combo_disable(void);
+
+/* Toggles Combo feature state */
+void combo_toggle(void);
+
+/* Gets Combo feature enabled state */
+bool get_combo_enable(void);
+```
