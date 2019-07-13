@@ -16,8 +16,14 @@
 
 #include "anne_pro.h"
 #include "anne_pro_lighting.h"
+#include "anne_pro_bluetooth.h"
 #include "ch.h"
 #include "hal.h"
+
+#ifdef NKRO_ENABLE
+static bool nkro_enabled_last = false;
+#endif
+static host_driver_t *host_driver_last;
 
 /* Process the Anne Pro custom keycodes */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -49,6 +55,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             anne_pro_lighting_mode_next();
         }
         return false;
+    case APB_TOG:
+        /* Toggle the output driver between USB and Bluetooth */
+        if (record->event.pressed) {
+            if (host_get_driver() != &anne_pro_bluetooth_driver) {
+                clear_keyboard();
+                host_driver_last = host_get_driver();
+#ifdef NKRO_ENABLE
+                nkro_enabled_last = keymap_config.nkro;
+                keymap_config.nkro = false;
+#endif
+                host_set_driver(&anne_pro_bluetooth_driver);
+                anne_pro_bluetooth_on();
+                anne_pro_bluetooth_broadcast();
+            } else {
+                clear_keyboard();
+#ifdef NKRO_ENABLE
+                keymap_config.nkro = nkro_enabled_last;
+#endif
+                host_set_driver(host_driver_last);
+                anne_pro_bluetooth_off();
+            }
+        }
+        return false;
     default:
         /* Handle other keycodes normally */
         return process_record_user(keycode, record);
@@ -59,6 +88,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void keyboard_pre_init_kb(void) {
     /* Initialize the ligthing controller */
     anne_pro_lighting_init();
+    /* Initialize the bluetooth controller */
+    anne_pro_bluetooth_init();
 
     keyboard_pre_init_user();
 }
@@ -79,6 +110,8 @@ void keyboard_post_init_kb(void) {
 void matrix_scan_kb(void) {
     /* Run some update code for the lighting */
     anne_pro_lighting_update();
+    /* Run some update code for the bluetooth */
+    anne_pro_bluetooth_update();
 
     /* Run matrix_scan_user code */
     matrix_scan_user();
