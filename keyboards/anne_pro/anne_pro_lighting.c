@@ -69,6 +69,8 @@ static uint8_t keystate[12] = {9, 10, 7, 0};
 
 /* Update the dynamic lighting packet based on a keypress */
 void anne_pro_lighting_update_dynamic(keyrecord_t *record) {
+    /* Make sure this is actually a keypress event */
+    if (IS_NOEVENT(record->event)) return;
     /* Only update dynamic lighting modes when leds are enabled */
     if (leds_enabled) {
         /* Calculate the position of the key that was pressed */
@@ -116,6 +118,8 @@ void anne_pro_lighting_on(void) {
     uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
     uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     leds_enabled = true;
+    /* Wait for the message to be sent */
+    chThdSleepMilliseconds(10);
 }
 
 /* Turn the lighting off */
@@ -154,6 +158,7 @@ void anne_pro_lighting_mode(uint8_t mode) {
     if (leds_enabled) {
         uint8_t buf[] = {9, 2, 1, mode};
         uart_tx_ringbuf_write(&led_uart_ringbuf, 4, buf);
+        uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
 }
 
@@ -164,5 +169,6 @@ void anne_pro_lighting_rate_brightness(uint8_t rate, uint8_t brightness) {
 
         uint8_t buf[] = {9, 4, 2, rate, brightness, 0};
         uart_tx_ringbuf_write(&led_uart_ringbuf, 6, buf);
+        uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
 }
