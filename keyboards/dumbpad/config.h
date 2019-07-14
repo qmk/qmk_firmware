@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 4
+#define MATRIX_COLS 5
 
 /*
  * Keyboard Matrix Assignments
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
 */
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
