@@ -23,8 +23,8 @@
 #endif
 
 // Keycodes used for starting Unicode input on different platforms
-#ifndef UNICODE_KEY_OSX
-  #define UNICODE_KEY_OSX  KC_LALT
+#ifndef UNICODE_KEY_MAC
+  #define UNICODE_KEY_MAC  KC_LALT
 #endif
 #ifndef UNICODE_KEY_LNX
   #define UNICODE_KEY_LNX  LCTL(LSFT(KC_U))
@@ -50,7 +50,7 @@
 #endif
 
 enum unicode_input_modes {
-  UC_OSX,   // Mac OS X using Unicode Hex Input
+  UC_MAC,   // macOS using Unicode Hex Input
   UC_LNX,   // Linux using IBus
   UC_WIN,   // Windows using EnableHexNumpad
   UC_BSD,   // BSD (not implemented)
