@@ -134,7 +134,7 @@ To ensure compatibility with the USBasploader bootloader, make sure this block i
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with usbasp
+* [avrdude](http://www.nongnu.org/avrdude/) with the `usbasp` programmer
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
