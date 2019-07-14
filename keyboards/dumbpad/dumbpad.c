@@ -56,34 +56,3 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 }
 */
 
-enum dumbpad_layers {
-  BASE,
-  SUB
-};
-
-
-void encoder_update_kb(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    /*
-    if (IS_LAYER_ON(SUB)) {
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-    } else if (IS_LAYER_ON(BASE)) {
-      */
-      if (clockwise) {
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-      }
-    //}
-  } else if (index == 1) {
-    if (clockwise) {
-      tap_code(KC_MS_U);
-    } else {
-      tap_code(KC_MS_D);
-    }
-  }
-}
