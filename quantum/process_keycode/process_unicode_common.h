@@ -58,6 +58,8 @@ enum unicode_input_modes {
   UC__COUNT // Number of available input modes (always leave at the end)
 };
 
+#define UC_OSX UC_MAC // Deprecated alias
+
 typedef union {
   uint32_t raw;
   struct {
