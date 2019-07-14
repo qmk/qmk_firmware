@@ -41,7 +41,7 @@
 #  define CFQ_USER_KEY4 KC_BSPC
 #endif
 #if !defined(CFQ_USER_KEY5)
-#  define CFQ_USER_KEY5 KC_DELT
+#  define CFQ_USER_KEY5 KC_DEL
 #endif
 #if !defined(CFQ_USER_KEY6)
 #  define CFQ_USER_KEY6 KC_CAPS

@@ -43,7 +43,7 @@ Tested with python 2.7 and python 3.4
      |    |    |LGUI|LALT|LCTL|                     !RCTL|RALT|LEFT|DOWN|RGHT|
      '------------------------'                     '------------------------'
                             .-----------. .-----------.
-                            |INS  |TG(2)| !M(UM)|DELT |
+                            |INS  |TG(2)| !M(UM)|DEL  |
                       .-----+-----+-----! !-----+-----+-----.
                       !     !     | APP | ! PGUP|     !     !
                       !     !     !-----! !-----!     !     !
