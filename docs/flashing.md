@@ -123,7 +123,7 @@ Flashing sequence:
 
 USBasploader is a bootloader developed by matrixstorm. It is used in some non-USB AVR chips such as the ATmega328P, which run V-USB.
 
-To ensure compatibility with the USBasploader bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the USBasploader bootloader, make sure this block is present in your `rules.mk`:
 
     # Bootloader
     #     This definition is optional, and if your keyboard supports multiple bootloaders of
