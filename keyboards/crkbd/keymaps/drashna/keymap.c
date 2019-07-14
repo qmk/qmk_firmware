@@ -300,10 +300,25 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
+static bool is_suspended;
+static bool rgb_matrix_enabled;
 
-void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+    if (!is_suspended) {
+        is_suspended = true;
+        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
+        rgb_matrix_disable_noeeprom();
+    }
+}
 
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_set_suspend_state(false);
+    is_suspended = false;
+    if (rgb_matrix_enabled) {
+        rgb_matrix_enable_noeeprom();
+    }
+}
 void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change &&
 #    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
