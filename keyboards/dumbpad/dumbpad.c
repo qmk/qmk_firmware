@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "dumbpad.h"
-#include <print.h>
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -50,9 +49,3 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
-/*
-void encoder_update_kb(uint8_t index, bool clockwise) {
-    encoder_update_user(index, clockwise);
-}
-*/
-

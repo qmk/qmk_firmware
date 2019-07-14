@@ -97,7 +97,7 @@ void led_set_user(uint8_t usb_led) {
 void encoder_update_kb(uint8_t index, bool clockwise) {
   if (index == 0) {
     //uprintf("layer: %u\n", layer_state);
-    if (layer_state | 0x1) {
+    if (layer_state && 0x1) {
       if (clockwise) {
         tap_code(KC_VOLU);
       } else {
