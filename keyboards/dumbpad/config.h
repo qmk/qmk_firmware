@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xDEAF
 #define PRODUCT_ID      0x0913
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Chip
+#define MANUFACTURER    imchipwood
 #define PRODUCT         dumbpad
-#define DESCRIPTION     4x4 numpad with rotary encoder
+#define DESCRIPTION     4x4 macro/numpad with rotary encoder
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -53,12 +53,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { D0 }
 #define ENCODERS_PAD_B { D4 }
 
-#define DEBUG_MATRIX_SCAN_RATE
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5
+
+/* define if matrix has ghost (lacks anti-ghosting diodes) */
+//#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+//#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+//#define LOCKING_RESYNC_ENABLE
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -91,19 +103,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
 // #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

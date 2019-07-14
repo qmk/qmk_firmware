@@ -15,18 +15,22 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  BASE = 0
-};
+#define BASE 0
+#define SUB  1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT( /* Base */
     KC_7,    KC_8,    KC_9,    KC_BSPC, 
     KC_4,    KC_5,    KC_6,    KC_ESC, 
     KC_1,    KC_2,    KC_3,    KC_TAB, 
+    MO(SUB), KC_0,    KC_DOT,  KC_ENT
+  ),
+  [SUB] = LAYOUT( /* Base */
+    KC_7,    KC_8,    KC_9,    RESET, 
+    KC_4,    KC_5,    KC_6,    KC_ESC, 
+    KC_1,    KC_2,    KC_3,    KC_TAB, 
     KC_TRNS, KC_0,    KC_DOT,  KC_ENT
-  )
+  ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
