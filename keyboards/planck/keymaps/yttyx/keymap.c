@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     | Ctl    | Alt    | Sup    | NP     | Spc    | Esc/FC | Sft    | Sft    | Sup    | Alt    | Ctl    |        |
     '--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'
-  */                                                                                                            
-  [_BA] = LAYOUT_planck_grid( 
+  */
+  [_BA] = LAYOUT_planck_grid(
     KC_P,     KC_L,    KC_C,    KC_D,    KC_W,   XXXXXXX,   XXXXXXX, KC_U,    KC_O,    KC_Y,    KC_K,     KC_Q,
     KC_N,     KC_R,    KC_S,    KC_T,    KC_M,   XXXXXXX,   KC_BSPC, KC_A,    KC_E,    KC_I,    KC_H,     KC_V,
     KX_SFT_Z, KC_J,    KC_F,    KC_G,    KC_B,   XXXXXXX,   KC_ENT,  KC_QUOT, KC_COMM, KC_DOT,  KX_SFT_X, XXXXXXX,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Numeric/punctuation
     .--------.--------.--------.--------.--------.--------.--------.--------.--------.--------.--------.--------.
-    | 1 !    | 2 "    | 3 £    | 4 $    | 5 %    | PL     |        | 6 ^    | 7 &    | 8 *    | 9 (    | 0 )    |
+    | 1 !    | 2 "    | 3 Â£    | 4 $    | 5 %    | PL     |        | 6 ^    | 7 &    | 8 *    | 9 (    | 0 )    |
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     | Tab    | Ctl-X  | Ctl-C  | Ctl-V  | Ctl-Z  |        | BS     | [ {    | ] }    | - _    | ; :    | \ |    |
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -69,11 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     | Ctl    | Alt    | Sup    | NP     | Spc    |        | Sft    | Sft    | Sup    | Alt    | Ctl    |        |
     '--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'
-  */                                           
+  */
   [_NP] = LAYOUT_planck_grid(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    PL,      XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     KC_TAB,  C(KC_X), C(KC_C), C(KC_V), C(KC_Z), XXXXXXX, _______, KC_LBRC, KC_RBRC, KC_MINS, KC_SCLN, KC_NUBS,
-    KC_LSFT, XXXXXXX, XXXXXXX, KC_DEL,  KC_INS,  XXXXXXX, XXXXXXX, KC_SLSH, KC_EQL,  KC_NUHS, KC_GRV,  XXXXXXX, 
+    KC_LSFT, XXXXXXX, XXXXXXX, KC_DEL,  KC_INS,  XXXXXXX, XXXXXXX, KC_SLSH, KC_EQL,  KC_NUHS, KC_GRV,  XXXXXXX,
     _______, _______, _______, _______, _______, XXXXXXX, _______, _______, _______, _______, _______, XXXXXXX
   ),
 
@@ -83,15 +83,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     | F6     | F7     | F8     | F9     | F10    |        |        | Left   | Down   | Right  | PgDn   |        |
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-    | Sft    |        |        | F11    | F12    |        |        | PScr   | Break  | ScLk   | Caps   |        |
+    | Sft    |        |        | F11    | F12    |        |        | PScr   | Pause  | ScLk   | Caps   |        |
     |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
     | Ctl    | Alt    | Sup    |        | Spc    |        | Sft    | Sft    | Sup    | Alt    | Ctl    |        |
     '--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'--------'
-  */                                                                                                            
+  */
   [_FC] = LAYOUT_planck_grid(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX,
     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_PSCR, KC_BRK,  KC_SLCK, KC_CAPS, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_PSCR, KC_PAUS, KC_SLCK, KC_CAPS, XXXXXXX,
     _______, _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, XXXXXXX
   )
 
@@ -111,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           stop_all_notes();
           PLAY_SONG(plover_on);
         #endif
-        
+
         layer_off(_NP);
         layer_off(_FC);
         layer_on(_PL);
@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
-        
+
         keymap_config.raw = eeconfig_read_keymap();
         keymap_config.nkro = 1;
         eeconfig_update_keymap(keymap_config.raw);
@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(plover_off);
         #endif
-       
+
         layer_off(_NP);
         layer_off(_PL);
         layer_off(_FC);
