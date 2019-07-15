@@ -16,6 +16,10 @@ Backspace becomes Delete on all other layers. Additionally, Backspace moves to t
 
 The raised layer has all the symbols and special characters predefined. As much as possible, there should be no need to use additional modifiers.
 
+#### macOS / Windows variants
+
+Because macOS and Windows expect quite different keycodes to produce the same special characters (for example '{' or  '|'), there are two different layers, one for each OS. To toggle either macOS (default) and Windows layouts within the RAISE layer, press SPECIAL + W for Windows or SPECIAL + M for macOS.
+
 ### Lower
 
 The lower layer focuses on numbers, with a numpad-like layout on the right and F-keys in a homerow-centric layout on the left.
