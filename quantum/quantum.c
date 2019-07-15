@@ -1103,3 +1103,24 @@ __attribute__((weak)) void startup_user() {}
 __attribute__((weak)) void shutdown_user() {}
 
 //------------------------------------------------------------------------------
+
+
+__attribute__ ((weak))
+void eeconfig_init_user(void) {
+    // Reset user EEPROM value to blank, rather than to a set value
+    eeconfig_update_user(0);
+}
+
+__attribute__ ((weak))
+void eeconfig_init_kb(void) {
+    // Reset Keyboard EEPROM value to blank, rather than to a set value
+    eeconfig_update_kb(0);
+
+    eeconfig_init_user();
+}
+
+void eeconfig_init_quantum(void) {
+    eeconfig_init_kb();
+    // re-initialize everything
+    keyboard_init();
+}

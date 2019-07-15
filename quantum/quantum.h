@@ -287,3 +287,7 @@ void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 
 void api_send_unicode(uint32_t unicode);
+
+void eeconfig_init_quantum(void);
+void eeconfig_init_kb(void);
+void eeconfig_init_user(void);

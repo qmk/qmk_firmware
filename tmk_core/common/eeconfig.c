@@ -8,28 +8,13 @@
 #    include "eeprom_stm32.h"
 #endif
 
-void keyboard_init(void);
 
-/** \brief eeconfig enable
- *
- * FIXME: needs doc
- */
-__attribute__((weak)) void eeconfig_init_user(void) {
-    // Reset user EEPROM value to blank, rather than to a set value
-    eeconfig_update_user(0);
-}
-
-__attribute__((weak)) void eeconfig_init_kb(void) {
-    // Reset Keyboard EEPROM value to blank, rather than to a set value
-    eeconfig_update_kb(0);
-
-    eeconfig_init_user();
-}
-
+__attribute__ ((weak))
+void eeconfig_init_quantum(void) {}
 /*
  * FIXME: needs doc
  */
-void eeconfig_init_quantum(void) {
+void eeconfig_init(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
 #endif
@@ -58,7 +43,7 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_HANDEDNESS, 0);
 #endif
 
-    eeconfig_init_kb();
+    eeconfig_init_quantum();
 
     // re-initialize everything
     keyboard_init();
