@@ -23,6 +23,8 @@ Flashing the firmware can easily be done when the keyboard is in DFU mode:
 
     make anne_pro:default:dfu-util
 
+The default Arrows and macOS keyboard layouts are also included and can be used with `arrow` or `macos` instead of `default`.
+
 To convert the `bin` file to a `dfu` file the following script can be used
 
     ./keyboards/anne_pro/dfuse-pack.py -b 0x08004000:anne_pro_default.bin anne_pro_default.dfu
