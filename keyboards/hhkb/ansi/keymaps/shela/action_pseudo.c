@@ -1,27 +1,42 @@
+/* Copyright 2020 shela
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "quantum.h"
 #include "command.h"
-#include "action_pseudo_lut.h"
+#include "action_pseudo.h"
 
 static uint8_t send_key_shift_bit[SHIFT_BIT_SIZE];
 
 /*
- * Pseudo layout action.
- * This action converts a keycode in order to output the character according to the keymap you specified
- * still your keyboard layout recognized wrongly on your OS.
- * Memo: Using other layer keymap to get keycode
+ * Action Pseudo Process.
+ * Gets the keycode in the same position of the specified layer.
+ * The keycode is sent after conversion according to the conversion keymap.
  */
-void action_pseudo_lut(keyrecord_t *record, uint8_t base_keymap_id, const uint16_t (*keymap)[2]) {
-    uint8_t prev_shift;
+void action_pseudo_process(keyrecord_t *record, uint8_t base_layer, const uint16_t (*keymap)[2]) {
+    uint8_t  prev_shift;
     uint16_t keycode;
     uint16_t pseudo_keycode;
 
-    /* get keycode from keymap you specified */
-    keycode = keymap_key_to_keycode(base_keymap_id, record->event.key);
+    /* Get keycode from specified layer */
+    keycode = keymap_key_to_keycode(base_layer, record->event.key);
 
-    prev_shift = keyboard_report->mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+    prev_shift = get_mods() & MOD_MASK_SHIFT;
 
     if (record->event.pressed) {
-        /* when magic commands entered, keycode does not converted */
+        /* If magic commands entered, keycode is not converted */
         if (IS_COMMAND()) {
             if (prev_shift) {
                 add_shift_bit(keycode);
@@ -38,25 +53,21 @@ void action_pseudo_lut(keyrecord_t *record, uint8_t base_keymap_id, const uint16
             if (IS_LSFT(pseudo_keycode)) {
                 register_code(QK_LSFT ^ pseudo_keycode);
             } else {
-                /* delete shift mod temporarily */
-                del_mods(prev_shift);
-                send_keyboard_report();
+                /* Delete shift mod temporarily */
+                unregister_mods(prev_shift);
                 register_code(pseudo_keycode);
-                add_mods(prev_shift);
-                send_keyboard_report();
+                register_mods(prev_shift);
             }
         } else {
             pseudo_keycode = convert_keycode(keymap, keycode, false);
             dprintf("pressed: %02X, converted: %04X\n", keycode, pseudo_keycode);
 
             if (IS_LSFT(pseudo_keycode)) {
-                add_weak_mods(MOD_BIT(KC_LSFT));
-                send_keyboard_report();
+                register_weak_mods(MOD_LSFT);
                 register_code(QK_LSFT ^ pseudo_keycode);
-                /* on Windows, prevent key repeat to avoid unintended output */
+                /* Prevent key repeat to avoid unintended output on Windows */
                 unregister_code(QK_LSFT ^ pseudo_keycode);
-                del_weak_mods(MOD_BIT(KC_LSFT));
-                send_keyboard_report();
+                unregister_weak_mods(MOD_LSFT);
             } else {
                 register_code(pseudo_keycode);
             }
@@ -78,9 +89,9 @@ void action_pseudo_lut(keyrecord_t *record, uint8_t base_keymap_id, const uint16
     }
 }
 
-uint16_t convert_keycode(const uint16_t (*keymap)[2], uint16_t keycode, bool shift_modded)
-{
-    uint16_t pseudo_keycode;
+/* Convert keycode according to the keymap */
+uint16_t convert_keycode(const uint16_t (*keymap)[2], uint16_t keycode, bool shift_modded) {
+    uint16_t pseudo_keycode = 0x00; /* default value */
 
     switch (keycode) {
         case KC_A ... KC_CAPSLOCK:
@@ -97,23 +108,18 @@ uint16_t convert_keycode(const uint16_t (*keymap)[2], uint16_t keycode, bool shi
                 pseudo_keycode = keymap[keycode][0];
             }
 #endif
-            /* if undefined, use got keycode as it is */
-            if (pseudo_keycode == 0x00) {
-                if (shift_modded) {
-                    pseudo_keycode = S(keycode);
-                } else {
-                    pseudo_keycode = keycode;
-                }
-            }
-            break;
-        default:
-            if (shift_modded) {
-                pseudo_keycode = S(keycode);
-            } else {
-                pseudo_keycode = keycode;
-            }
             break;
     }
+
+    /* If pseudo keycode is the default value, use the keycode as it is */
+    if (pseudo_keycode == 0x00) {
+        if (shift_modded) {
+            pseudo_keycode = S(keycode);
+        } else {
+            pseudo_keycode = keycode;
+        }
+    }
+
     return pseudo_keycode;
 }
 
