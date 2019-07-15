@@ -33,10 +33,6 @@ enum mitosis_macros
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MALT] = LAYOUT( /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */

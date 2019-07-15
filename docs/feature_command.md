@@ -29,9 +29,10 @@ If you would like to change the key assignments for Command, `#define` these in 
 |`MAGIC_KEY_CONSOLE`                 |`C`                                                                        |Enable the Command console                      |
 |`MAGIC_KEY_VERSION`                 |`V`                                                                        |Print the running QMK version to the console    |
 |`MAGIC_KEY_STATUS`                  |`S`                                                                        |Print the current keyboard status to the console|
-|`MAGIC_KEY_HELP1`                   |`H`                                                                        |Print Command help to the console               |
-|`MAGIC_KEY_HELP2`                   |`SLASH`                                                                    |Print Command help to the console (alternate)   |
+|`MAGIC_KEY_HELP`                    |`H`                                                                        |Print Command help to the console               |
+|`MAGIC_KEY_HELP_ALT`                |`SLASH`                                                                    |Print Command help to the console (alternate)   |
 |`MAGIC_KEY_LAYER0`                  |`0`                                                                        |Make layer 0 the default layer                  |
+|`MAGIC_KEY_LAYER0_ALT`              |`GRAVE`                                                                    |Make layer 0 the default layer (alternate)      |
 |`MAGIC_KEY_LAYER1`                  |`1`                                                                        |Make layer 1 the default layer                  |
 |`MAGIC_KEY_LAYER2`                  |`2`                                                                        |Make layer 2 the default layer                  |
 |`MAGIC_KEY_LAYER3`                  |`3`                                                                        |Make layer 3 the default layer                  |
@@ -41,10 +42,10 @@ If you would like to change the key assignments for Command, `#define` these in 
 |`MAGIC_KEY_LAYER7`                  |`7`                                                                        |Make layer 7 the default layer                  |
 |`MAGIC_KEY_LAYER8`                  |`8`                                                                        |Make layer 8 the default layer                  |
 |`MAGIC_KEY_LAYER9`                  |`9`                                                                        |Make layer 9 the default layer                  |
-|`MAGIC_KEY_LAYER0_ALT1`             |`ESC`                                                                      |Make layer 0 the default layer (alternate)      |
-|`MAGIC_KEY_LAYER0_ALT2`             |`GRAVE`                                                                    |Make layer 0 the default layer (alternate)      |
-|`MAGIC_KEY_BOOTLOADER`              |`PAUSE`                                                                    |Enter the bootloader                            |
+|`MAGIC_KEY_BOOTLOADER`              |`B`                                                                        |Jump to bootloader                              |
+|`MAGIC_KEY_BOOTLOADER_ALT`          |`ESC`                                                                      |Jump to bootloader (alternate)                  |
 |`MAGIC_KEY_LOCK`                    |`CAPS`                                                                     |Lock the keyboard so nothing can be typed       |
-|`MAGIC_KEY_EEPROM`                  |`E`                                                                        |Clear the EEPROM                                |
+|`MAGIC_KEY_EEPROM`                  |`E`                                                                        |Print stored EEPROM config to the console       |
+|`MAGIC_KEY_EEPROM_CLEAR`            |`BSPACE`                                                                   |Clear the EEPROM                                |
 |`MAGIC_KEY_NKRO`                    |`N`                                                                        |Toggle N-Key Rollover (NKRO)                    |
 |`MAGIC_KEY_SLEEP_LED`               |`Z`                                                                        |Toggle LED when computer is sleeping            |

@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { C6, B6, C7, F4, E6, B2, D6, D0, D1, D7, D4, D5, D3, F1, D2, B1 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B7
@@ -65,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST

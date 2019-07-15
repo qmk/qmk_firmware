@@ -11,10 +11,6 @@ extern keymap_config_t keymap_config;
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
-#define _______ KC_TRNS
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_5x6(

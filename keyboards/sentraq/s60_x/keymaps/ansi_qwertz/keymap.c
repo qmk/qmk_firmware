@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-//make keymap a little easier to read
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 1
 

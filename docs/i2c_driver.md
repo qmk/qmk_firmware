@@ -12,7 +12,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 |`uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);`                         |Receive data over I2C. Address is the 7-bit slave address without the direction. Saves number of bytes specified by `length` in `data` array. Returns status of transaction. |
 |`uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`       |Same as the `i2c_transmit` function but `regaddr` sets where in the slave the data will be written.                                                                          |
 |`uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`        |Same as the `i2c_receive` function but `regaddr` sets from where in the slave the data will be read.                                                                         |
-|`uint8_t i2c_stop(uint16_t timeout);`                                                                             |Stops the I2C driver.                                                                                                                                                        |
+|`uint8_t i2c_stop(void);`                                                                                         |Ends an I2C transaction.                                                                                                                                                     |
 
 ### Function Return
 
@@ -33,8 +33,8 @@ The following defines can be used to configure the I2C master driver.
 
 |Variable          |Description                                        |Default|
 |------------------|---------------------------------------------------|-------|
-|`#F_SCL`          |Clock frequency in Hz                              |400KHz |
-|`#Prescaler`      |Divides master clock to aid in I2C clock selection |1      |
+|`F_SCL`           |Clock frequency in Hz                              |400KHz |
+|`Prescaler`       |Divides master clock to aid in I2C clock selection |1      |
 
 AVRs usually have set GPIO which turn into I2C pins, therefore no further configuration is required.
 
@@ -63,20 +63,43 @@ Lastly, we need to assign the correct GPIO pins depending on the I2C hardware dr
 
 By default the I2C1 hardware driver is assumed to be used. If another hardware driver is used,  `#define I2C_DRIVER I2CDX` should be added to the `config.h` file with X being the number of hardware driver used. For example is I2C3 is enabled, the `config.h` file should contain `#define I2C_DRIVER I2CD3`. This aligns the QMK I2C driver with the Chibios I2C driver.
 
-STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C.
+STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C. You can use these defines to set your i2c pins:
 
-This can be changed by declaring the `i2c_init` function which intentionally has a weak attribute. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
+| Variable                 | Description                                                                                  | Default |
+|--------------------------|----------------------------------------------------------------------------------------------|---------|
+| `I2C1_SCL_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SCL                                  | `GPIOB` |
+| `I2C1_SDA_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SDA                                  | `GPIOB` |
+| `I2C1_SCL`               | The pin number for the SCL pin (0-9)                                                         | `6`     |
+| `I2C1_SDA`               | The pin number for the SDA pin (0-9)                                                         | `7`     |
+| `I2C1_BANK` (deprecated) | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`), superceded by `I2C1_SCL_BANK`, `I2C1_SDA_BANK` | `GPIOB` |
+
+STM32 MCUs allow for different timing parameters when configuring I2C. These can be modified using the following parameters, using https://www.st.com/en/embedded-software/stsw-stm32126.html as a reference:
+
+| Variable              | Default |
+|-----------------------|---------|
+| `I2C1_TIMINGR_PRESC`  | `15U`   |
+| `I2C1_TIMINGR_SCLDEL` | `4U`    |
+| `I2C1_TIMINGR_SDADEL` | `2U`    |
+| `I2C1_TIMINGR_SCLH`   | `15U`   |
+| `I2C1_TIMINGR_SCLL`   | `21U`   |
+
+STM32 MCUs allow for different "alternate function" modes when configuring GPIO pins. These are required to switch the pins used to I2C mode. See the respective datasheet for the appropriate values for your MCU.
+
+| Variable            | Default |
+|---------------------|---------|
+| `I2C1_SCL_PAL_MODE` | `4`     |
+| `I2C1_SDA_PAL_MODE` | `4`     |
+
+You can also overload the `void i2c_init(void)` function, which has a weak attribute. If you do this the configuration variables above will not be used. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
 
 ```C
 void i2c_init(void)
 {
   setPinInput(B6); // Try releasing special pins for a short time
   setPinInput(B7);
-  chThdSleepMilliseconds(10); // Wait for the release to happen
+  wait_ms(10); // Wait for the release to happen
 
   palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B6 to I2C function
   palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B7 to I2C function
 }
 ```
-
-

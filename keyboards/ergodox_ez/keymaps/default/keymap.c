@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSLS,
   KC_H,         KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), GUI_T(KC_QUOT),
   MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,            CTL_T(KC_SLSH), KC_RSFT,
-  KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC, KC_FN1,
+  KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC, TT(SYMB),
   KC_LALT, CTL_T(KC_ESC),
   KC_PGUP,
   KC_PGDN, KC_TAB, KC_ENT
@@ -135,10 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_WBAK
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

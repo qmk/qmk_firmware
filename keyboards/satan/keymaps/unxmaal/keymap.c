@@ -13,8 +13,6 @@
 #define _AL 1
 #define _FL 2
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
    *  ANSI Base, Mac style
