@@ -189,7 +189,9 @@ void eeconfig_debug_rgblight(void) {
 }
 
 void rgblight_init(void) {
+#ifndef RGBLIGHT_CUSTOM_DRIVER
     ws2812_init();
+#endif
   /* if already initialized, don't do it again.
      If you must do it again, extern this and set to false, first.
      This is a dirty, dirty hack until proper hooks can be added for keyboard startup. */
