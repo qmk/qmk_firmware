@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
-
-#include "../config.h"
+#pragma once
 
 #define DEVICE_VER      0x0001
 
@@ -28,5 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-
-#endif

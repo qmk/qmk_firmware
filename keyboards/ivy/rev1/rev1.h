@@ -1,12 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
-#include "../ivy.h"
-
-//void promicro_bootloader_jmp(bool program);
-#include "quantum.h"
-
-//void promicro_bootloader_jmp(bool program);
+#include "ivy.h"
 
 #define LAYOUT( \
 	K00, \
@@ -18,5 +12,3 @@
 		{ KC_NO, K01, KC_NO }, \
 		{ KC_NO, KC_NO, K02 }, \
 	}
-
-#endif
