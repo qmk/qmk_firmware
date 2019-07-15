@@ -81,11 +81,17 @@
 
 static uint8_t sc_last = 0;
 static uint16_t sc_timer = 0;
+#ifdef SPACE_CADET_MODIFIER_CARRYOVER
+static uint8_t sc_mods = 0;
+#endif
 
 void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
   if (record->event.pressed) {
     sc_last = holdMod;
     sc_timer = timer_read ();
+#ifdef SPACE_CADET_MODIFIER_CARRYOVER
+    sc_mods = get_mods();
+#endif
     if (IS_MOD(holdMod)) {
       register_mods(MOD_BIT(holdMod));
     }
@@ -100,7 +106,13 @@ void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, u
           register_mods(MOD_BIT(tapMod));
         }
       }
+#ifdef SPACE_CADET_MODIFIER_CARRYOVER
+    set_weak_mods(sc_mods);
+#endif
       tap_code(keycode);
+#ifdef SPACE_CADET_MODIFIER_CARRYOVER
+    clear_weak_mods();
+#endif
       if (IS_MOD(tapMod)) {
         unregister_mods(MOD_BIT(tapMod));
       }
