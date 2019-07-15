@@ -53,13 +53,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN B7
+#define BACKLIGHT_PIN B6
 // #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 15
 
-// #define RGB_DI_PIN E2
+#define RGB_DI_PIN B2
 // #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
+  #define RGBLED_NUM 6
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
