@@ -1,4 +1,4 @@
-#include "handwire_101.h"
+#include "exboard.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
