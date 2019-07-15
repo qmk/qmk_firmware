@@ -2,9 +2,9 @@
 RGB_MATRIX_EFFECT(CYCLE_ALL)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void CYCLE_ALL_math(HSV* hsv, uint8_t i, uint8_t time)
-{
-    hsv->h = time;
+static HSV CYCLE_ALL_math(HSV hsv,  uint8_t i, uint8_t time){
+    hsv.h = time;
+    return hsv;
 }
 
 bool CYCLE_ALL(effect_params_t* params) {
