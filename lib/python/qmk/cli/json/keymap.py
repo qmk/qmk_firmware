@@ -28,8 +28,8 @@ def main(cli):
         exit(1)
 
     # Environment processing
-    if cli.args.output == ('-'):
-        cli.args.output = None
+    if cli.config.general.output == ('-'):
+        cli.config.general.output = None
 
     # Parse the configurator json
     with open(qmk.path.normpath(cli.args.filename), 'r') as fd:
@@ -38,17 +38,17 @@ def main(cli):
     # Generate the keymap
     keymap_c = qmk.keymap.generate(user_keymap['keyboard'], user_keymap['layout'], user_keymap['layers'])
 
-    if cli.args.output:
-        output_dir = os.path.dirname(cli.args.output)
+    if cli.config.general.output:
+        output_dir = os.path.dirname(cli.config.general.output)
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        output_file = qmk.path.normpath(cli.args.output)
+        output_file = qmk.path.normpath(cli.config.general.output)
         with open(output_file, 'w') as keymap_fd:
             keymap_fd.write(keymap_c)
 
-        cli.log.info('Wrote keymap to %s.', cli.args.output)
+        cli.log.info('Wrote keymap to %s.', cli.config.general.output)
 
     else:
         print(keymap_c)

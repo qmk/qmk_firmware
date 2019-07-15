@@ -63,7 +63,7 @@ def generate(keyboard, layout, layers):
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, layout, layer_keys))
 
     keymap = '\n'.join(layer_txt)
-    keymap_c = template(keyboard, keymap)
+    keymap_c = template(keyboard)
 
     return keymap_c.replace('__KEYMAP_GOES_HERE__', keymap)
 
