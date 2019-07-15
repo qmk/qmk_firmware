@@ -72,8 +72,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define _______________G_QWERTY_L1_________________        KT_GQ,    KT_GW,    KT_GE,    KT_GR,    KT_GT
 #define _______________G_QWERTY_R1_________________        KT_GQ,    KT_GW,    KT_GE,    KT_GR,    KT_GT
 
-#define LOWER   LT(_LOWER, KC_ENT)
-#define RAISE   LT(_RAISE, KC_SPC)
+#define LOWER   MO(_LOWER)
+#define RAISE   MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
     KT_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_BSLS,
-    KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,        LOWER, RAISE,       RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+    KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,       KC_ENT, KC_SPC,      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 
 /* Game
