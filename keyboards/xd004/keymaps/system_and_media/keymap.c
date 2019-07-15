@@ -41,12 +41,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (!is_alt_f4_active) {
                     is_alt_f4_active = true;
-                    tap_code_16(LALT(KC_F4);  // Alt-F4
+                    tap_code16(LALT(KC_F4));  // Alt-F4
                 } else {
                     tap_code(KC_ENTER);  // Tap enter
                 }
-            } else {
-                unregister_code(KC_TAB);
             }
             alt_f4_timer = timer_read();
             break;
