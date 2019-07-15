@@ -8,6 +8,7 @@
 
 * [QMK Basics](README.md)
   * [QMK Introduction](getting_started_introduction.md)
+  * [QMK CLI](cli.md)
   * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
   * [Getting Help](getting_started_getting_help.md)
@@ -34,6 +35,8 @@
   * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
   * [Config Options](config_options.md)
   * [Keycodes](keycodes.md)
+  * [Coding Conventions - C](coding_conventions_c.md)
+  * [Coding Conventions - Python](coding_conventions_python.md)
   * [Documentation Best Practices](documentation_best_practices.md)
   * [Documentation Templates](documentation_templates.md)
   * [Glossary](reference_glossary.md)
@@ -41,6 +44,7 @@
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
   * [info.json Format](reference_info_json.md)
+  * [Python Development](python_development.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
