@@ -80,7 +80,7 @@ static void render_status(void)
     oled_set_cursor(0, oled_max_lines() - 7);
     oled_write_P(PSTR("-----"), false);
     static char buffer[26] = {0};
-    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d s%3d m%3d\n", rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val, rgb_matrix_config.speed, rgb_matrix_config.mode);
+    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d s%3d m%3d\n", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v, rgb_matrix_config.speed, rgb_matrix_config.mode);
     oled_write(buffer, false);
 #elif defined(RGBLIGHT_ENABLE)
     oled_set_cursor(0, oled_max_lines() - 7);
@@ -137,7 +137,7 @@ static void render_status(void)
 
 #if defined(RGB_MATRIX_ENABLE)
     static char buffer[20] = {0};
-    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val);
+    snprintf(buffer, sizeof(buffer), "    h%3d s%3d v%3d\n", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
     oled_write(buffer, false);
 #elif defined(RGBLIGHT_ENABLE)
     static char buffer[20] = {0};

@@ -13,8 +13,6 @@ env:
   - MAKEFLAGS="-j3 --output-sync"
 services:
   - docker
-before_install:
-  - docker build -t qmkfm/qmk_firmware .
 install:
   - npm install -g moxygen
 script:
