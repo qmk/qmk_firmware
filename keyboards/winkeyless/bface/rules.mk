@@ -40,7 +40,7 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # custom matrix setup
-SRC = i2c.c backlight_ps2avrGB.c
+SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
