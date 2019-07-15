@@ -85,5 +85,6 @@ API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
 RGB_MATRIX_ENABLE = no # enable later
 DEBOUNCE_TYPE = eager_pr
+LINK_TIME_OPTIMIZATION_ENABLE = yes # Otherwise it won't built, see here https://github.com/qmk/qmk_firmware/issues/6335
 
 LAYOUTS = ergodox
