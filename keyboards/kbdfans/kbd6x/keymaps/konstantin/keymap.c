@@ -31,6 +31,36 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+static bool layer_led = false;
+
+uint32_t layer_state_set_keymap(uint32_t state) {
+    if (IS_LAYER_ON_STATE(state, L_FN)) {
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        rgblight_sethsv_noeeprom(MODERN_DOLCH_RED);
+        layer_led = true;
+    } else {
+        rgblight_config_t old = { .raw = eeconfig_read_rgblight() };
+        rgblight_sethsv_noeeprom(old.hue, old.sat, old.val);
+        rgblight_mode_noeeprom(old.mode);
+    }
+
+    return state;
+}
+
+void led_set_keymap(uint8_t usb_led) {
+    if (layer_led) {
+        layer_led = false;
+        return;
+    }
+
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+        rgblight_sethsv_noeeprom(MODERN_DOLCH_CYAN);
+    } else {
+        layer_state_set_keymap(layer_state);
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base layer
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
