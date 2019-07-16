@@ -708,7 +708,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
       if (record->event.pressed) {
-        breathing_toggle();
+        backlight_toggle_breathing();
       }
       return false;
     }
@@ -1196,6 +1196,12 @@ void backlight_init_ports(void)
     setPinOutput(backlight_pin);
     backlight_on(backlight_pin);
   )
+
+  #ifdef BACKLIGHT_BREATHING
+  if (is_backlight_breathing()) {
+    breathing_enable();
+  }
+  #endif
 }
 
 __attribute__ ((weak))
@@ -1500,7 +1506,9 @@ void backlight_init_ports(void)
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
-    breathing_enable();
+    if (is_backlight_breathing()) {
+      breathing_enable();
+    }
   #endif
 }
 
