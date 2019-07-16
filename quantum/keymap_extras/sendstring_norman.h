@@ -1,4 +1,4 @@
-/* Copyright 2016 Jack Humbert
+/* Copyright 2019 Torben Hoffmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Sendstring lookup tables for Colemak layouts
+// Sendstring lookup tables for Norman layouts
 
 #pragma once
 
-#include "keymap_colemak.h"
+#include "keymap_norman.h"
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
@@ -37,21 +37,21 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // 0     1        2        3        4        5        6        7
     KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
     // 8     9        :        ;        <        =        >        ?
-    KC_8,    KC_9,    CM_SCLN, CM_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    KC_8,    KC_9,    NM_SCLN, NM_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
     // @     A        B        C        D        E        F        G
-    KC_2,    CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
+    KC_2,    NM_A,    NM_B,    NM_C,    NM_D,    NM_E,    NM_F,    NM_G,
     // H     I        J        K        L        M        N        O
-    CM_H,    CM_I,    CM_J,    CM_K,    CM_L,    CM_M,    CM_N,    CM_O,
+    NM_H,    NM_I,    NM_J,    NM_K,    NM_L,    NM_M,    NM_N,    NM_O,
     // P     Q        R        S        T        U        V        W
-    CM_P,    CM_Q,    CM_R,    CM_S,    CM_T,    CM_U,    CM_V,    CM_W,
+    NM_P,    NM_Q,    NM_R,    NM_S,    NM_T,    NM_U,    NM_V,    NM_W,
     // X     Y        Z        [        \        ]        ^        _
-    CM_X,    CM_Y,    CM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    NM_X,    NM_Y,    NM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
     // `     a        b        c        d        e        f        g
-    KC_GRV,  CM_A,    CM_B,    CM_C,    CM_D,    CM_E,    CM_F,    CM_G,
+    KC_GRV,  NM_A,    NM_B,    NM_C,    NM_D,    NM_E,    NM_F,    NM_G,
     // h     i        j        k        l        m        n        o
-    CM_H,    CM_I,    CM_J,    CM_K,    CM_L,    CM_M,    CM_N,    CM_O,
+    NM_H,    NM_I,    NM_J,    NM_K,    NM_L,    NM_M,    NM_N,    NM_O,
     // p     q        r        s        t        u        v        w
-    CM_P,    CM_Q,    CM_R,    CM_S,    CM_T,    CM_U,    CM_V,    CM_W,
+    NM_P,    NM_Q,    NM_R,    NM_S,    NM_T,    NM_U,    NM_V,    NM_W,
     // x     y        z        {        |        }        ~        DEL
-    CM_X,    CM_Y,    CM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
+    NM_X,    NM_Y,    NM_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
