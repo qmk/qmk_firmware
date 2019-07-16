@@ -32,24 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-    case CLEAR:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
-        }
-        return false;
-
-    case DST_P_R:
-        (record->event.pressed ? register_code16 : unregister_code16)(
-            (get_mods() & DST_MOD_MASK) ? DST_REM : DST_PRV
-        );
-        return false;
-
-    case DST_N_A:
-        (record->event.pressed ? register_code16 : unregister_code16)(
-            (get_mods() & DST_MOD_MASK) ? DST_ADD : DST_NXT
-        );
-        return false;
-
+        uint16_t kc;
 #ifdef LAYER_FN
         static bool fn_lock;
 
@@ -76,6 +59,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
         }
         return true;
+
+    case CLEAR:
+        if (record->event.pressed) {
+            CLEAN_MODS(
+                SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+            )
+        }
+        return false;
+
+    case DST_P_R:
+        kc = (get_mods() & DST_MOD_MASK) ? DST_REM : DST_PRV;
+        CLEAN_MODS(
+            (record->event.pressed ? register_code16 : unregister_code16)(kc);
+        )
+        return false;
+
+    case DST_N_A:
+        kc = (get_mods() & DST_MOD_MASK) ? DST_ADD : DST_NXT;
+        CLEAN_MODS(
+            (record->event.pressed ? register_code16 : unregister_code16)(kc);
+        )
+        return false;
 
     default:
         return true;
