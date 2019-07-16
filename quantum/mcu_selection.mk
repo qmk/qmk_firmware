@@ -1,4 +1,3 @@
-
 ifneq ($(findstring STM32F303, $(MCU)),)
   ## chip/board settings
   # - the next two should match the directories in
@@ -70,7 +69,9 @@ ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
   F_USB ?= $(F_CPU)
 
   # Interrupt driven control endpoint task
-  OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+  ifeq (,$(filter $(NO_INTERRUPT_CONTROL_ENDPOINT),yes))
+    OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+  endif
 endif
 
 ifneq (,$(filter $(MCU),atmega32a))
@@ -81,12 +82,6 @@ ifneq (,$(filter $(MCU),atmega32a))
   #     processor frequency in Hz. You can then use this symbol in your source code to
   #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
   #     automatically to create a 32-bit value in your source code.
-  #
-  #     This will be an integer division of F_USB below, as it is sourced by
-  #     F_USB after it has run through any CPU prescalers. Note that this value
-  #     does not *change* the processor frequency - it should merely be updated to
-  #     reflect the processor speed set externally so that the code can use accurate
-  #     software delays.
   F_CPU ?= 12000000
 
   # unsupported features for now
@@ -94,5 +89,5 @@ ifneq (,$(filter $(MCU),atmega32a))
   NO_SUSPEND_POWER_DOWN = yes
 
   # Programming options
-  PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
+  PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
 endif
