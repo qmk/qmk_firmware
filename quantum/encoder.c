@@ -25,16 +25,14 @@
   #define ENCODER_RESOLUTION 4
 #endif
 
-#ifndef NUMBER_OF_ENCODERS
-  #error "Number of encoders not defined by NUMBER_OF_ENCODERS"
-#endif
-
 #if !defined(ENCODERS_PAD_A) || !defined(ENCODERS_PAD_B)
   #error "No encoder pads defined by ENCODERS_PAD_A and ENCODERS_PAD_B"
 #endif
 
-static pin_t encoders_pad_a[NUMBER_OF_ENCODERS] = ENCODERS_PAD_A;
-static pin_t encoders_pad_b[NUMBER_OF_ENCODERS] = ENCODERS_PAD_B;
+
+#define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a)/sizeof(pin_t))
+static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 
 static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
 
