@@ -6,7 +6,6 @@ SRC += ssd1306.c
 # CFLAGS += -flto
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -55,7 +54,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration

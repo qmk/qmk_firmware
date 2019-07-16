@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __I2C_H__
-#define __I2C_H__
+#pragma once
 
-void i2c_init(void);
-void i2c_set_bitrate(uint16_t bitrate_khz);
-uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
+// #define USE_I2C
+#define EE_HANDS
 
-#endif
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8

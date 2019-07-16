@@ -40,7 +40,6 @@
   #define NO_MUSIC_MODE
 #endif
 
-#define NUMBER_OF_ENCODERS 2
 #define ENCODERS_PAD_A { D1,F1 }
 #define ENCODERS_PAD_B { D0,F0 }
 

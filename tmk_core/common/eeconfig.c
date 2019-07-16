@@ -47,9 +47,8 @@ void eeconfig_init_quantum(void) {
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
   eeprom_update_dword(EECONFIG_HAPTIC,        0);
   eeprom_update_byte(EECONFIG_VELOCIKEY,      0);
-#ifdef EECONFIG_RGB_MATRIX
   eeprom_update_dword(EECONFIG_RGB_MATRIX,    0);
-#endif
+  eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
 
   eeconfig_init_kb();
 }

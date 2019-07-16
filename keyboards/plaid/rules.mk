@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega328p
 PROTOCOL = VUSB
 

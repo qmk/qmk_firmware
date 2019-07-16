@@ -12,8 +12,8 @@
 #define PEDAL_DELAY 250
 #define KEY_DELAY 130
 
-enum macros {
-    M_LP = SAFE_RANGE,   // left pedal
+enum custom_keycodes {
+    M_LP = SAFE_RANGE, // left pedal
     M_RP,   // right pedal
     M_SF,   // shift
     M_SFS,  // shift and space
