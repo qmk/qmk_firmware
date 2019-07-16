@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B8 }
 
 //LEDS A6, RGB B15
-#define BACKLIGHT_LEVELS 24
+#define BACKLIGHT_LEVELS 15
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 
