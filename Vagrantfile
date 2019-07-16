@@ -52,26 +52,37 @@ Vagrant.configure(2) do |config|
   end
 
   # Docker provider pulls from hub.docker.com respecting docker.image if
-  # config.vm.box is nil. Note that this bind-mounts from the current dir to
+  # config.vm.box is nil. In this case, we adhoc build util/vagrant/Dockerfile.
+  # Note that this bind-mounts from the current dir to
   # /vagrant in the guest, so unless your UID is 1000 to match vagrant in the
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:stretch"
+    docker.build_dir = "util/vagrant"
     docker.has_ssh = true
   end
 
-  # This script ensures the required packages for AVR programming are installed
-  # It also ensures the system always gets the latest updates when powered on
-  # If this causes issues you can run a 'vagrant destroy' and then
-  # add a # before ,run: (or change "always" to "once") and run 'vagrant up' to get a working
-  # non-updated box and then attempt to troubleshoot or open a Github issue
-  config.vm.provision "shell", inline: "/vagrant/util/qmk_install.sh", run: "always"
+  # Unless we are running the docker container directly
+  #   1. run container detached on vm
+  #   2. attach on 'vagrant ssh'
+  ["virtualbox", "vmware_workstation", "vmware_fusion"].each do |type|
+    config.vm.provider type do |virt, override|
+      override.vm.provision "docker" do |d|
+        d.run "qmkfm/base_container",
+          cmd: "tail -f /dev/null",
+          args: "--privileged -v /dev:/dev -v '/vagrant:/vagrant'"
+      end
+
+      override.vm.provision "shell", inline: <<-SHELL
+        echo 'docker restart qmkfm-base_container && exec docker exec -it qmkfm-base_container /bin/bash -l' >> ~vagrant/.bashrc
+      SHELL
+    end
+  end
 
   config.vm.post_up_message = <<-EOT
 
-  Log into the VM using 'vagrant ssh'. QMK directory synchronized with host is
-  located at /vagrant
+  Log into the environment using 'vagrant ssh'. QMK directory synchronized with
+  host is located at /vagrant
   To compile the .hex files use make command inside this directory, e.g.
      cd /vagrant
      make <keyboard>:default
