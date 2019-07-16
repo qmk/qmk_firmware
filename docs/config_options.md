@@ -289,6 +289,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `halfkay`
   * `caterina`
   * `bootloadHID`
+  * `USBasp`
 
 ## Feature Options
 
