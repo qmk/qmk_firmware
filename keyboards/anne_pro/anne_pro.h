@@ -23,7 +23,22 @@ enum anne_pro_keycodes {
     APL_RAT,
     APL_BRT,
     APL_MOD,
-    APB_TOG,
+    APB_OFF,
+    APB_ON,
+    APB_LGC,
+    APB_HLQ,
+    APB_HC1,
+    APB_HC2,
+    APB_HC3,
+    APB_HC4,
+    APB_HS1,
+    APB_HS2,
+    APB_HS3,
+    APB_HS4,
+    APB_HD1,
+    APB_HD2,
+    APB_HD3,
+    APB_HD4,
 };
 
 /* The fully-featured LAYOUT() that has every single key available in the matrix. */

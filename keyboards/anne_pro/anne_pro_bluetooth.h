@@ -24,4 +24,12 @@ void anne_pro_bluetooth_update(void);
 
 void anne_pro_bluetooth_on(void);
 void anne_pro_bluetooth_off(void);
+bool anne_pro_bluetooth_enabled(void);
 void anne_pro_bluetooth_broadcast(void);
+void anne_pro_bluetooth_legacy(bool enable);
+void anne_pro_bluetooth_legacy_toggle(void);
+void anne_pro_bluetooth_host_connect(uint8_t host);
+void anne_pro_bluetooth_host_save(uint8_t host);
+void anne_pro_bluetooth_host_delete(uint8_t host);
+void anne_pro_bluetooth_hostlist_query(void);
+void anne_pro_bluetooth_lighting_update(void);

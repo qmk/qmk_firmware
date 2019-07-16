@@ -132,6 +132,11 @@ void anne_pro_lighting_off(void) {
     writePinLow(C15);
 }
 
+/* Is the lighting enabled? */
+bool anne_pro_lighting_enabled(void) {
+    return leds_enabled;
+}
+
 /* Select the next effect rate */
 void anne_pro_lighting_rate_next(void) {
     if (leds_enabled) {
@@ -162,6 +167,13 @@ void anne_pro_lighting_mode(uint8_t mode) {
     }
 }
 
+/* Set the lighting mode to the last lighting mode */
+void anne_pro_lighting_mode_last(void) {
+    if (leds_enabled) {
+        uart_tx_ringbuf_write(&led_uart_ringbuf, 3, "\x09\x01\x01");
+    }
+}
+
 /* Set the rate and brightness */
 void anne_pro_lighting_rate_brightness(uint8_t rate, uint8_t brightness) {
     if (leds_enabled) {
@@ -171,4 +183,12 @@ void anne_pro_lighting_rate_brightness(uint8_t rate, uint8_t brightness) {
         uart_tx_ringbuf_write(&led_uart_ringbuf, 6, buf);
         uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
+}
+
+/* Set lighting for individual keys, this takes number of keys and a payload
+   that describes which keys and the colors of those keys */
+void anne_pro_lighting_set_keys(uint8_t keys, uint8_t *payload) {
+    uint8_t buf[] = {9, 3 + 5 * keys, 11, 202, keys};
+    uart_tx_ringbuf_write(&led_uart_ringbuf, 5, buf);
+    uart_tx_ringbuf_write(&led_uart_ringbuf, 5 * keys, payload);
 }
