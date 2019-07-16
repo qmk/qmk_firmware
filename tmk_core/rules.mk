@@ -390,6 +390,9 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+objs-size:
+	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
+
 ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 SIZE_MARGIN = 1024
 

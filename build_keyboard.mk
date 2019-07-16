@@ -398,6 +398,7 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 all: build check-size
 build: elf cpfirmware
 check-size: build
+objs-size: build
 
 include show_options.mk
 include $(TMK_PATH)/rules.mk
