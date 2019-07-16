@@ -26,6 +26,9 @@ DFU_ARGS = -d 0483:df11 -a 0 -s 0x08004000
 # Extra source files
 SRC += uart_tx_ringbuf.c anne_pro_lighting.c anne_pro_bluetooth.c
 
+# Required for functionality with Bluetooth
+NO_USB_STARTUP_CHECK = yes
+
 # Build Options
 #   comment out to disable the options.
 #
