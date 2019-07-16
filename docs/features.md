@@ -30,6 +30,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
 * [RGB Matrix](feature_rgb_matrix.md) - RGB Matrix lights for per key lighting.
 * [Space Cadet](feature_space_cadet.md) - Use your left/right shift keys to type parenthesis and brackets.
+* [Split Keyboard](feature_split_keyboard.md) 
 * [Stenography](feature_stenography.md) - Put your keyboard into Plover mode for stenography use.
 * [Swap Hands](feature_swap_hands.md) - Mirror your keyboard for one handed usage.
 * [Tap Dance](feature_tap_dance.md) - Make a single key do as many things as you want.
