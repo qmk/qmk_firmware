@@ -703,8 +703,9 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
-      if (record->event.pressed)
-        breathing_toggle();
+      if (record->event.pressed) {
+        backlight_toggle_breathing();
+      }
       return false;
     }
 #endif
@@ -1070,14 +1071,15 @@ __attribute__ ((weak))
 void backlight_init_ports(void)
 {
   // Setup backlight pin as output and output to on state.
-  // DDRx |= n
-  _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
-  #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-  #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  FOR_EACH_LED(
+    setPinOutput(backlight_pin);
+    backlight_on(backlight_pin);
+  )
+
+  #ifdef BACKLIGHT_BREATHING
+  if (is_backlight_breathing()) {
+    breathing_enable();
+  }
   #endif
 }
 
@@ -1303,7 +1305,9 @@ void backlight_init_ports(void)
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
-    breathing_enable();
+    if (is_backlight_breathing()) {
+      breathing_enable();
+    }
   #endif
 }
 
