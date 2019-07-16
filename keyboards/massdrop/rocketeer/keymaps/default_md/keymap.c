@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_UP,   _______, _______, U_T_AGCR,\
-        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   _______, _______, KC_INS,  KC_HOME, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT,          _______, \
-        _______, L_T_MD,  L_T_ONF, _______, _______, MD_BOOT, TG_NKRO, KC_END,  KC_PGDN, KC_VOLD, KC_VOLU,                   _______, \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_UP,   _______, _______, U_T_AGCR,\
+        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, KC_INS,  KC_HOME, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT,          _______, \
+        _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, TG_NKRO, KC_END,  KC_PGDN, KC_VOLD, KC_VOLU,                   _______, \
         _______, _______, _______,                   DBG_FAC,                            KC_MUTE, _______, KC_APP,           _______  \
     ),
     /*
@@ -251,7 +251,7 @@ led_instruction_t led_instructions[] = {
     //Flags can be found in tmk_core/protocol/arm_atsam/led_matrix.h (prefixed with LED_FLAG_)
     //LED IDs can be found in config_led.h in the keyboard's directory
     //Examples are below
-    
+
     //All LEDs use the user's selected pattern (this is the factory default)
      { .flags = LED_FLAG_USE_ROTATE_PATTERN },
 
@@ -260,7 +260,7 @@ led_instruction_t led_instructions[] = {
 
     //Specific LEDs use specified RGB values while all others are off
     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFF, .id1 = 0x00FF, .id2 = 0x0000FF00, .id3 = 0xFF000000, .r = 75, .g = 150, .b = 225 },
-    
+
     //All LEDs use the user's selected pattern
     //On layer 1, all key LEDs (except the top row which keeps active pattern) are red while all edge LEDs are green
     //When layer 1 is active, key LEDs use red    (id0  32 -  17: 1111 1111 1111 1111 0000 0000 0000 0000 = 0xFFFF0000) (except top row 16 - 1)
