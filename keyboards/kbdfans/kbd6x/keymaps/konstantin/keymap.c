@@ -36,7 +36,7 @@ static bool layer_led = false;
 static void fn_light(uint32_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        rgblight_sethsv_noeeprom(MODERN_DOLCH_RED);
+        rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
         layer_led = true;
     } else {
         rgblight_config_t old = { .raw = eeconfig_read_rgblight() };
@@ -48,7 +48,7 @@ static void fn_light(uint32_t state) {
 static void caps_light(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        rgblight_sethsv_noeeprom(MODERN_DOLCH_CYAN);
+        rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
     } else {
         fn_light(layer_state);
     }

@@ -19,3 +19,8 @@ const uint8_t PROGMEM RGBLED_SNAKE_INTERVALS[] = { 20, 50, 100 };
 #ifdef RGBLIGHT_EFFECT_KNIGHT
 const uint8_t PROGMEM RGBLED_KNIGHT_INTERVALS[] = { 20, 50, 100 };
 #endif
+
+const HSV godspeed_blue     = { GODSPEED_BLUE };
+const HSV godspeed_yellow   = { GODSPEED_YELLOW };
+const HSV modern_dolch_cyan = { MODERN_DOLCH_CYAN };
+const HSV modern_dolch_red  = { MODERN_DOLCH_RED };
