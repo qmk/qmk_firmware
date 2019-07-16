@@ -20,11 +20,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#ifdef NKRO_ENABLE
-static bool nkro_enabled_last = false;
-#endif
-static host_driver_t *host_driver_last;
-
 /* Process the Anne Pro custom keycodes */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     /* Update the key status for the reactive effects */
@@ -55,27 +50,104 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             anne_pro_lighting_mode_next();
         }
         return false;
-    case APB_TOG:
-        /* Toggle the output driver between USB and Bluetooth */
+    case APB_OFF:
+        /* Turn off Bluetooth */
         if (record->event.pressed) {
-            if (host_get_driver() != &anne_pro_bluetooth_driver) {
-                clear_keyboard();
-                host_driver_last = host_get_driver();
-#ifdef NKRO_ENABLE
-                nkro_enabled_last = keymap_config.nkro;
-                keymap_config.nkro = false;
-#endif
-                host_set_driver(&anne_pro_bluetooth_driver);
+            anne_pro_bluetooth_off();
+        }
+        return false;
+    case APB_ON:
+        /* Turn on Bluetooth, if on start broadcasting */
+        if (record->event.pressed) {
+            if (!anne_pro_bluetooth_enabled()) {
                 anne_pro_bluetooth_on();
-                anne_pro_bluetooth_broadcast();
             } else {
-                clear_keyboard();
-#ifdef NKRO_ENABLE
-                keymap_config.nkro = nkro_enabled_last;
-#endif
-                host_set_driver(host_driver_last);
-                anne_pro_bluetooth_off();
+                anne_pro_bluetooth_broadcast();
             }
+        }
+        return false;
+    case APB_LGC:
+        /* Toggle Bluetooth legacy mode */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_legacy_toggle();
+        }
+        return false;
+    case APB_HLQ:
+        /* Query hostlist */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_hostlist_query();
+        }
+        return false;
+    case APB_HC1:
+        /* Connect saved host 1 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_connect(1);
+        }
+        return false;
+    case APB_HC2:
+        /* Connect saved host 2 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_connect(2);
+        }
+        return false;
+    case APB_HC3:
+        /* Connect saved host 3 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_connect(3);
+        }
+        return false;
+    case APB_HC4:
+        /* Connect saved host 4 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_connect(4);
+        }
+        return false;
+    case APB_HS1:
+        /* Save connected host 1 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_save(1);
+        }
+        return false;
+    case APB_HS2:
+        /* Save connected host 2 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_save(2);
+        }
+        return false;
+    case APB_HS3:
+        /* Save connected host 3 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_save(3);
+        }
+        return false;
+    case APB_HS4:
+        /* Save connected host 4 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_save(4);
+        }
+        return false;
+    case APB_HD1:
+        /* Delete saved host 1 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_delete(1);
+        }
+        return false;
+    case APB_HD2:
+        /* Delete saved host 2 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_delete(2);
+        }
+        return false;
+    case APB_HD3:
+        /* Delete saved host 3 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_delete(3);
+        }
+        return false;
+    case APB_HD4:
+        /* Delete saved host 4 */
+        if (record->event.pressed) {
+            anne_pro_bluetooth_host_delete(4);
         }
         return false;
     default:
