@@ -119,6 +119,31 @@ Flashing sequence:
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
+## USBasploader
+
+USBasploader is a bootloader developed by matrixstorm. It is used in some non-USB AVR chips such as the ATmega328P, which run V-USB.
+
+To ensure compatibility with the USBasploader bootloader, make sure this block is present in your `rules.mk`:
+
+    # Bootloader
+    #     This definition is optional, and if your keyboard supports multiple bootloaders of
+    #     different sizes, comment this out, and the correct address will be loaded
+    #     automatically (+60). See bootloader.mk for all options.
+    BOOTLOADER = USBasp
+
+Compatible flashers:
+
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [avrdude](http://www.nongnu.org/avrdude/) with the `usbasp` programmer
+* [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
+
+Flashing sequence:
+
+1. Press the `RESET` keycode, or keep the boot pin shorted to GND while quickly shorting RST to GND
+2. Wait for the OS to detect the device
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
 ## STM32
 
 All STM32 chips come preloaded with a factory bootloader that cannot be modified nor deleted. Some STM32 chips have bootloaders that do not come with USB programming (e.g. STM32F103) but the process is still the same.
