@@ -63,7 +63,7 @@ void td_mod_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 #define ACTION_TAP_DANCE_LAYER_MOD(layer, mod) {                      \
         .fn        = { td_layer_mod_each, NULL, td_layer_mod_reset }, \
-        .user_data = &(qk_tap_dance_layer_mod_t){ layer, mod },       \
+        .user_data = &(qk_tap_dance_layer_mod_t){ layer, mod, 0, 0 }, \
     }
 
 typedef struct {
