@@ -1,7 +1,6 @@
-#ifndef REV1_H
-#define REV1_CONFIG_H
+#pragma once
 
-#include "../naked48.h"
+#include "naked48.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -87,5 +86,3 @@
     {KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO  }   \
   }
 
-
-#endif
