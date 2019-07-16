@@ -10,7 +10,7 @@ enum layers_keymap {
 };
 
 void eeconfig_init_keymap(void) {
-    rgblight_sethsv(MODERN_DOLCH_RED.h, MODERN_DOLCH_RED.s, MODERN_DOLCH_RED.v);
+    rgblight_sethsv(MODERN_DOLCH_RED);
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }
 
