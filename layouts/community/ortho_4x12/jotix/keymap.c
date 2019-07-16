@@ -1,13 +1,18 @@
 #include QMK_KEYBOARD_H
+#include "unicode.c"
 
 enum layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _UNI_LCK
 };
 
-#define LOWER   TT(_LOWER)
-#define RAISE   TT(_RAISE)
+#define LOWER   MO(_LOWER)
+#define RAISE   MO(_RAISE)
+#define UNI_LCK MO(_UNI_LCK)
+#define TGLOWER TG(_LOWER)
+#define TGRAISE TG(_RAISE)
 
 static bool is_ctl_pressed;
 static bool is_esc_pressed;
@@ -23,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LSFT, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  , KC_N  , KC_M  ,KC_COMM, KC_DOT,KC_SLSH, KC_ENT,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_LCTL,KC_LGUI,KC_LALT,KC_RALT, LOWER , KC_SPC, KC_SPC, RAISE ,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT
+    KC_LCTL,KC_LGUI,KC_LALT,UNI_LCK, LOWER , KC_SPC, KC_SPC, RAISE ,KC_LEFT,KC_DOWN, KC_UP ,KC_RGHT
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ), 
 
@@ -47,7 +52,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     _______, KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11, KC_F12,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP, KC_END     
+    _______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP, KC_END
+// └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
+),
+
+[_UNI_LCK] = LAYOUT_ortho_4x12 (
+// ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+     UN_ESC, UN_Q  , UN_W  , UN_E  , UN_R  , UN_T  , UN_Y  , UN_U  , UN_I  , UN_O  , UN_P  ,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______, UN_A  , UN_S  , UN_D  , UN_F  , UN_G  , UN_H  , UN_J  , UN_K  , UN_L  ,UN_SCLN,UN_QUOT,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______, UN_Z  , UN_X  , UN_C  , UN_V  , UN_B  , UN_N  , UN_M  ,UN_COMM, UN_DOT,UN_SLSH,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    UC_M_LN,UC_M_WI,UC_M_OS,_______,TGLOWER,_______,_______,TGRAISE,UN_LEFT,UN_DOWN, UN_UP ,UN_RGHT
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ),
 
@@ -64,6 +81,10 @@ uint32_t layer_state_set_user(uint32_t state) {
     writePinLow(JOTANCK_LED1);
     writePinHigh(JOTANCK_LED2);
     break;
+  case _UNI_LCK:
+    writePinHigh(JOTANCK_LED1);
+    writePinHigh(JOTANCK_LED2);
+    break;
   default:
     writePinLow(JOTANCK_LED1);
     writePinLow(JOTANCK_LED2);
@@ -71,6 +92,10 @@ uint32_t layer_state_set_user(uint32_t state) {
   };
   #endif
   return state;
+}
+
+void keyboard_post_init_user(void) {
+    set_unicode_input_mode(UC_LNX);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
