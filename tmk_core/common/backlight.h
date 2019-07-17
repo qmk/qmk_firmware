@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef BACKLIGHT_LEVELS
   #define BACKLIGHT_LEVELS 3
-#elif BACKLIGHT_LEVELS > 15
-  #error "Maximum value of BACKLIGHT_LEVELS is 15"
+#elif BACKLIGHT_LEVELS > 31
+  #error "Maximum value of BACKLIGHT_LEVELS is 31"
 #endif
 
 typedef union {
@@ -31,7 +31,8 @@ typedef union {
     struct {
         bool    enable    :1;
         bool    breathing :1;
-        uint8_t level     :4;
+        uint8_t reserved  :1; // Reserved for possible future backlight modes
+        uint8_t level     :5;
     };
 } backlight_config_t;
 
