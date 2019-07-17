@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "nicola.h"
 
-static uint8_t ncl_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
+static uint8_t ncl_chrcount = 0; // 文字キー入力のカウンタ (シフトキー含む)
 static uint8_t ncl_keycount = 0; // シフトキーも含めた入力のカウンタ
-static bool ncl_rshift = false; // 右シフトキーの状態  
+static bool ncl_rshift = false; // 右シフトキーの状態
 static bool ncl_lshift = false; // 左シフトキーの状態
 
 // 文字入力バッファ
@@ -18,41 +18,41 @@ typedef struct {
 
 // NICOLA on QWERTY
 const ncl_keymap nmap[] = {
-  [KC_Q]    = {.t = ".",  .l = "la",  .r = ""},   
-  [KC_W]    = {.t = "ka", .l = "e",   .r = "ga"}, 
-  [KC_E]    = {.t = "ta", .l = "ri",  .r = "da"}, 
-  [KC_R]    = {.t = "ko", .l = "lya", .r = "go"}, 
-  [KC_T]    = {.t = "sa", .l = "re",  .r = "za"}, 
+  [KC_Q]    = {.t = ".",  .l = "la",  .r = ""},
+  [KC_W]    = {.t = "ka", .l = "e",   .r = "ga"},
+  [KC_E]    = {.t = "ta", .l = "ri",  .r = "da"},
+  [KC_R]    = {.t = "ko", .l = "lya", .r = "go"},
+  [KC_T]    = {.t = "sa", .l = "re",  .r = "za"},
 
-  [KC_Y]    = {.t = "ra", .l = "pa",  .r = "yo"}, 
-  [KC_U]    = {.t = "ti", .l = "di",  .r = "ni"}, 
-  [KC_I]    = {.t = "ku", .l = "gu",  .r = "ru"}, 
-  [KC_O]    = {.t = "tu", .l = "du",  .r = "ma"}, 
-  [KC_P]    = {.t = ",",  .l = "pi",  .r = "le"}, 
+  [KC_Y]    = {.t = "ra", .l = "pa",  .r = "yo"},
+  [KC_U]    = {.t = "ti", .l = "di",  .r = "ni"},
+  [KC_I]    = {.t = "ku", .l = "gu",  .r = "ru"},
+  [KC_O]    = {.t = "tu", .l = "du",  .r = "ma"},
+  [KC_P]    = {.t = ",",  .l = "pi",  .r = "le"},
 
   [KC_A]    = {.t = "u",  .l = "wo",  .r = "vu"},
-  [KC_S]    = {.t = "si", .l = "a",   .r = "zi"}, 
-  [KC_D]    = {.t = "te", .l = "na",  .r = "de"}, 
-  [KC_F]    = {.t = "ke", .l = "lyu", .r = "ge"}, 
-  [KC_G]    = {.t = "se", .l = "mo",  .r = "ze"}, 
+  [KC_S]    = {.t = "si", .l = "a",   .r = "zi"},
+  [KC_D]    = {.t = "te", .l = "na",  .r = "de"},
+  [KC_F]    = {.t = "ke", .l = "lyu", .r = "ge"},
+  [KC_G]    = {.t = "se", .l = "mo",  .r = "ze"},
 
-  [KC_H]    = {.t = "ha", .l = "ba",  .r = "mi"}, 
-  [KC_J]    = {.t = "to", .l = "do",  .r = "o"},  
-  [KC_K]    = {.t = "ki", .l = "gi",  .r = "no"}, 
+  [KC_H]    = {.t = "ha", .l = "ba",  .r = "mi"},
+  [KC_J]    = {.t = "to", .l = "do",  .r = "o"},
+  [KC_K]    = {.t = "ki", .l = "gi",  .r = "no"},
   [KC_L]    = {.t = "i",  .l = "po",  .r = "lyo"},
   [KC_SCLN] = {.t = "nn", .l = "",    .r = "ltu"},
 
-  [KC_Z]    = {.t = ".",  .l = "lu",  .r = ""},   
-  [KC_X]    = {.t = "hi", .l = "-",   .r = "bi"}, 
-  [KC_C]    = {.t = "su", .l = "ro",  .r = "zu"}, 
-  [KC_V]    = {.t = "hu", .l = "ya",  .r = "bu"}, 
-  [KC_B]    = {.t = "he", .l = "li",  .r = "be"}, 
+  [KC_Z]    = {.t = ".",  .l = "lu",  .r = ""},
+  [KC_X]    = {.t = "hi", .l = "-",   .r = "bi"},
+  [KC_C]    = {.t = "su", .l = "ro",  .r = "zu"},
+  [KC_V]    = {.t = "hu", .l = "ya",  .r = "bu"},
+  [KC_B]    = {.t = "he", .l = "li",  .r = "be"},
 
-  [KC_N]    = {.t = "me", .l = "pu",  .r = "nu"}, 
-  [KC_M]    = {.t = "so", .l = "zo",  .r = "yu"}, 
-  [KC_COMM] = {.t = "ne", .l = "pe",  .r = "mu"}, 
-  [KC_DOT]  = {.t = "ho", .l = "bo",  .r = "wa"}, 
-  [KC_SLSH] = {.t = "/",  .l = "?",    .r = "lo"}, 
+  [KC_N]    = {.t = "me", .l = "pu",  .r = "nu"},
+  [KC_M]    = {.t = "so", .l = "zo",  .r = "yu"},
+  [KC_COMM] = {.t = "ne", .l = "pe",  .r = "mu"},
+  [KC_DOT]  = {.t = "ho", .l = "bo",  .r = "wa"},
+  [KC_SLSH] = {.t = "/",  .l = "?",    .r = "lo"},
 };
 
 // シフトキーの状態に応じて文字をPCへ送る
