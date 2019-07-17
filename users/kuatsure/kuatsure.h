@@ -17,10 +17,32 @@ enum kuatsure_keycodes {
 enum {
   TD_LBRC = 0,
   TD_RBRC,
+
+  TD_GQ,
+  TD_GW,
+  TD_GE,
+  TD_GR,
+  TD_GT,
+  TD_GY,
+  TD_GU,
+  TD_GI,
+  TD_GO,
+  TD_GP,
 };
 
 #define KT_LBRC TD(TD_LBRC)
 #define KT_RBRC TD(TD_RBRC)
+
+#define KT_GQ TD(TD_GQ)
+#define KT_GW TD(TD_GW)
+#define KT_GE TD(TD_GE)
+#define KT_GR TD(TD_GR)
+#define KT_GT TD(TD_GT)
+#define KT_GY TD(TD_GY)
+#define KT_GU TD(TD_GU)
+#define KT_GI TD(TD_GI)
+#define KT_GO TD(TD_GO)
+#define KT_GP TD(TD_GP)
 
 #define TAPPING_TERM 200
 
@@ -52,6 +74,9 @@ void tmux_pane_zoom(void);
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+
+#define _______________G_QWERTY_L1_________________        KT_GQ,   KT_GW,   KT_GE,   KT_GR,   KT_GT
+#define _______________G_QWERTY_R1_________________        KT_GQ,   KT_GW,   KT_GE,   KT_GR,   KT_GT
 
 #define ____________FUNCTION_1____________                 KC_F1,   KC_F2,   KC_F3,   KC_F4
 #define ____________FUNCTION_2____________                 KC_F5,   KC_F6,   KC_F7,   KC_F8

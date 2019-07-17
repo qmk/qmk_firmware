@@ -31,46 +31,7 @@ enum planck_layers {
 enum planck_keycodes {
   QWERTY = USER_SAFE_RANGE,
   GAME,
-
-  TD_GQ,
-  TD_GW,
-  TD_GE,
-  TD_GR,
-  TD_GT,
-  TD_GY,
-  TD_GU,
-  TD_GI,
-  TD_GO,
-  TD_GP
 };
-
-__attribute__ ((weak))
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_GQ] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_1),
-  [TD_GW] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_2),
-  [TD_GE] = ACTION_TAP_DANCE_DOUBLE(KC_E, KC_3),
-  [TD_GR] = ACTION_TAP_DANCE_DOUBLE(KC_R, KC_4),
-  [TD_GT] = ACTION_TAP_DANCE_DOUBLE(KC_T, KC_5),
-  [TD_GY] = ACTION_TAP_DANCE_DOUBLE(KC_Y, KC_6),
-  [TD_GU] = ACTION_TAP_DANCE_DOUBLE(KC_U, KC_7),
-  [TD_GI] = ACTION_TAP_DANCE_DOUBLE(KC_I, KC_8),
-  [TD_GO] = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_9),
-  [TD_GP] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_0),
-};
-
-#define KT_GQ TD(TD_GQ)
-#define KT_GW TD(TD_GW)
-#define KT_GE TD(TD_GE)
-#define KT_GR TD(TD_GR)
-#define KT_GT TD(TD_GT)
-#define KT_GY TD(TD_GY)
-#define KT_GU TD(TD_GU)
-#define KT_GI TD(TD_GI)
-#define KT_GO TD(TD_GO)
-#define KT_GP TD(TD_GP)
-
-#define _______________G_QWERTY_L1_________________        KT_GQ,    KT_GW,    KT_GE,    KT_GR,    KT_GT
-#define _______________G_QWERTY_R1_________________        KT_GQ,    KT_GW,    KT_GE,    KT_GR,    KT_GT
 
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
