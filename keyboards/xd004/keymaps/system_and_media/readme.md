@@ -1,4 +1,4 @@
-# Default Keymap for XD004 PCB
+# Slightly more advanced keymap for XD004 PCB
 
 A somehow more useful keymap, allowing one to move across virtual desktops on Windows, etc.
 

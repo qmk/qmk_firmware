@@ -77,6 +77,7 @@
   * [RGB Lighting](feature_rgblight.md)
   * [RGB Matrix](feature_rgb_matrix.md)
   * [Space Cadet](feature_space_cadet.md)
+  * [Split Keyboard](feature_split_keyboard.md)
   * [Stenography](feature_stenography.md)
   * [Swap Hands](feature_swap_hands.md)
   * [Tap Dance](feature_tap_dance.md)

@@ -56,12 +56,6 @@
 
 #define RGB_MATRIX_TEST_LED_FLAGS() if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
-typedef struct
-{
-	HSV color;
-	uint8_t index;
-} rgb_indicator;
-
 enum rgb_matrix_effects {
   RGB_MATRIX_NONE = 0,
 
@@ -87,10 +81,17 @@ enum rgb_matrix_effects {
   RGB_MATRIX_EFFECT_MAX
 };
 
+void eeconfig_update_rgb_matrix_default(void);
+
+uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t rgb_matrix_map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i);
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
+
+bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
+
+void rgb_matrix_task(void);
 
 // This runs after another backlight effect and replaces
 // colors already set
@@ -99,37 +100,14 @@ void rgb_matrix_indicators_kb(void);
 void rgb_matrix_indicators_user(void);
 
 void rgb_matrix_init(void);
-void rgb_matrix_setup_drivers(void);
 
 void rgb_matrix_set_suspend_state(bool state);
-void rgb_matrix_set_indicator_state(uint8_t state);
-
-
-void rgb_matrix_task(void);
-
-// This should not be called from an interrupt
-// (eg. from a timer interrupt).
-// Call this while idle (in between matrix scans).
-// If the buffer is dirty, it will update the driver with the buffer.
-void rgb_matrix_update_pwm_buffers(void);
-
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
-
-void rgb_matrix_increase(void);
-void rgb_matrix_decrease(void);
-
-// void *backlight_get_key_color_eeprom_address(uint8_t led);
-// void backlight_get_key_color( uint8_t led, HSV *hsv );
-// void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
-
 void rgb_matrix_toggle(void);
 void rgb_matrix_enable(void);
 void rgb_matrix_enable_noeeprom(void);
 void rgb_matrix_disable(void);
 void rgb_matrix_disable_noeeprom(void);
 void rgb_matrix_step(void);
-void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
-void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 void rgb_matrix_step_reverse(void);
 void rgb_matrix_increase_hue(void);
 void rgb_matrix_decrease_hue(void);
@@ -144,6 +122,8 @@ void rgb_matrix_set_flags(led_flags_t flags);
 void rgb_matrix_mode(uint8_t mode);
 void rgb_matrix_mode_noeeprom(uint8_t mode);
 uint8_t rgb_matrix_get_mode(void);
+void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 
 #ifndef RGBLIGHT_ENABLE
 #define rgblight_toggle() rgb_matrix_toggle()
@@ -166,7 +146,6 @@ uint8_t rgb_matrix_get_mode(void);
 #define rgblight_mode(mode) rgb_matrix_mode(mode)
 #define rgblight_mode_noeeprom(mode) rgb_matrix_mode_noeeprom(mode)
 #define rgblight_get_mode() rgb_matrix_get_mode()
-
 #endif
 
 typedef struct {
