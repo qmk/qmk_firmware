@@ -73,8 +73,8 @@ To change the behaviour of the backlighting, `#define` these in your `config.h`:
 
 ## Backlight On State
 
-Most backlight circuits are driven by an N-channel MOSFET or NPN transistor. This means that to turn the transistor *on* and light the LEDs, you must drive the backlight pin, connected to the gate or base, *low*.
-Sometimes, however, a P-channel MOSFET, or a PNP transistor is used. In this case you must `#define BACKLIGHT_ON_STATE 1`, so that when the transistor is on, the pin is driven *high* instead.
+Most backlight circuits are driven by an N-channel MOSFET or NPN transistor. This means that to turn the transistor *on* and light the LEDs, you must drive the backlight pin, connected to the gate or base, *high*.
+Sometimes, however, a P-channel MOSFET, or a PNP transistor is used. In this case you must `#define BACKLIGHT_ON_STATE 0`, so that when the transistor is on, the pin is driven *low* instead.
 
 ## Multiple backlight pins
 
