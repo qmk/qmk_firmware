@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rgblight.h"
 #include "i2c_master.h"
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
+#include "rgblight.h"
 extern rgblight_config_t rgblight_config;
 
 void rgblight_set(void) {
