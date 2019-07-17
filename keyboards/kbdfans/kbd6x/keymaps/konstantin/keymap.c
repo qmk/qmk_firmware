@@ -33,7 +33,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 static bool layer_led = false;
 
-uint32_t layer_state_set_keymap(uint32_t state) {
+static void fn_light(uint32_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         rgblight_sethsv_noeeprom(MODERN_DOLCH_RED);
@@ -43,22 +43,30 @@ uint32_t layer_state_set_keymap(uint32_t state) {
         rgblight_sethsv_noeeprom(old.hue, old.sat, old.val);
         rgblight_mode_noeeprom(old.mode);
     }
-
-    return state;
 }
 
-void led_set_keymap(uint8_t usb_led) {
-    if (layer_led) {
-        layer_led = false;
-        return;
-    }
-
+static void caps_light(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
         rgblight_sethsv_noeeprom(MODERN_DOLCH_CYAN);
     } else {
-        layer_state_set_keymap(layer_state);
+        fn_light(layer_state);
     }
+}
+
+uint32_t layer_state_set_keymap(uint32_t state) {
+    static uint32_t prev_state = L_BASE;
+    if (IS_LAYER_ON_STATE(state, L_FN) != IS_LAYER_ON_STATE(prev_state, L_FN)) {
+        fn_light(state);
+    }
+    return prev_state = state;
+}
+
+void led_set_keymap(uint8_t usb_led) {
+    if (!layer_led) {
+        caps_light(usb_led);
+    }
+    layer_led = false;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
