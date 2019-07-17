@@ -47,6 +47,9 @@
 
 #define LCT_CPS LCTL_T(KC_CAPS)
 
+#define IS_LAYER_ON_STATE(state, layer)  ( (state) & (1UL << (layer)))
+#define IS_LAYER_OFF_STATE(state, layer) (~(state) & (1UL << (layer)))
+
 // Clear mods, perform action, restore mods
 #define CLEAN_MODS(action) {       \
         uint8_t mods = get_mods(); \

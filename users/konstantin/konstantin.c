@@ -96,7 +96,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     state = layer_state_set_keymap(state);
 
 #ifdef LAYER_NUMPAD
-    bool numpad = state & 1UL<<L_NUMPAD;
+    bool numpad = IS_LAYER_ON_STATE(state, L_NUMPAD);
     bool num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
     if (numpad != num_lock) {
         tap_code(KC_NLCK);  // Toggle Num Lock to match Numpad layer state
