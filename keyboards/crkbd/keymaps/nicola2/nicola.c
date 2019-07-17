@@ -8,7 +8,7 @@
 
 #define NGBUFFER 5 // バッファのサイズ
 
-static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキーを除く)
+static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ (シフトキー含む)
 static bool is_nicola = false; // 親指シフトがオンかオフか
 static uint8_t nicola_layer = 0; // レイヤー番号
 static uint8_t n_modifier = 0; // 押しているmodifierキーの数
