@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #define SSD1306OLED
@@ -40,14 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
   #undef RGBLED_NUM
-  // #define RGBLIGHT_ANIMATIONS
-
-  // #undef RGBLIGHT_EFFECT_CHRISTMAS
-  // #undef RGBLIGHT_EFFECT_KNIGHT
-  // #undef RGBLIGHT_EFFECT_RGB_TEST
-  // #undef RGBLIGHT_EFFECT_SNAKE
-
-  // #define RGBLIGHT_EFFECT_ALTERNATING
 
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -74,9 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont.c"
-
-// #define LCPO_KEYS KC_LCTL, KC_RSFT, KC_COMM
-// #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_DOT
 
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_MACRO

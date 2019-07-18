@@ -27,10 +27,7 @@ enum layer_names {
 
 #define KC_FNTAB LT(_FN, KC_TAB)
 #define KC_SMSPC LT(_SYM, KC_SPC)
-
 #define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
-
-#define KC_LCTLT LCTL_T(KC_LT)
 
 #define KC_CTGUI LCTL_T(KC_LGUI)
 #define KC_CTENT RCTL_T(KC_ENT)
