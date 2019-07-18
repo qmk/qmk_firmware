@@ -23,33 +23,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Keymap 0: Basic layer
 	 *
 	 * ,-------------------------------------------.                         ,-------------------------------------------.
-	 * | ALT/tab |   Q  |   W  |   E  |   R  |   T  |                        |  Y   |   U  |   I  |   O  |   P  |  | \   |
+	 * | ALT/ta |   Q  |   W  |   E  |   R  |   T  |                        |  Y   |   U  |   I  |   O  |   P  |  | \   |
 	 * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
-	 * |Ctrl/BS |   A  |   S  |  D   |   F  |   G  | `    |           |      |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+	 * |sup /BS |   A  |   S  |  D   |   F  |   G  | `    |           |      |   H  |   J  |   K  |   L  | ;  : |  ' "   |
 	 * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
-	 * | LSt/esc|   Z  |   X  |   C  |   V  |   B  | LMB  |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
+	 * | LSt    |   Z  |   X  |   C  |   V  |   B  | LMB  |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
 	 * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
 	 *                    .----------.   .-------.                                 .------.   .-----.
-	 *                    |ALT/Ent   |   |Super/Del|                               | BKSP |   | Tab |
+	 *                    |esc       |   |ctrl/Del|                               | ent   |   | Tab |
 	 *                    '----------'   '-------'                                 `------.   '-----'
 	 *                                        ,-------.                      ,-------.
-	 *                                        | esc   |                      | PgDn  |
+	 *                                        | ent   |                      | lock  |
 	 *                                 ,------|-------|                      |-------|------.
 	 *                                 | SYMB |  NUMB |                      | SYMB  | NUMB |
-	 *                                 | Ent  | Space |                      | Ent   |Space |
+	 *                                 |      | Space |                      | Ent   |Space |
 	 *                                 |      |       |                      |       |      |
 	 *                                 `--------------'                      `--------------'
 	 */
 	 [BASE] = LAYOUT_gergo(
-	     MT(MOD_LALT, KC_TAB),       KC_Q,  KC_W,   KC_E,   KC_R, KC_T,                                          KC_Y,    KC_U, KC_I, KC_O,   KC_P,    KC_PIPE,
-	     MT(MOD_LCTL, KC_BSPC),  KC_A,  KC_S,   KC_D,   KC_F, KC_G, KC_GRV,                       KC_TRNS,  KC_H,    KC_J, KC_K, KC_L,   KC_SCLN, KC_QUOT,
-	     MT(MOD_RSFT, KC_ESC),   KC_Z,  KC_X,   KC_C,   KC_V, KC_B, KC_BTN1, KC_ESC,     KC_PGDN, KC_BSPC,  KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
-	    MT(MOD_LALT, KC_ENT), MT(MOD_LGUI, KC_DEL), LT(SYMB, KC_ENT), LT(NUMB, KC_SPC),    LT(SYMB, KC_ENT), LT(NUMB, KC_SPC), KC_TAB, KC_BSPC
+	     MT(MOD_LALT, KC_TAB),  KC_Q,  KC_W,   KC_E,   KC_R, KC_T,                                          KC_Y,    KC_U, KC_I, KC_O,   KC_P,    KC_PIPE,
+	     MT(MOD_LGUI, KC_BSPC),  KC_A,  KC_S,   KC_D,   KC_F, KC_G, KC_GRV,                       KC_TRNS,  KC_H,    KC_J, KC_K, KC_L,   KC_SCLN, KC_QUOT,
+	     KC_LSFT,   KC_Z,  KC_X,   KC_C,   KC_V, KC_B, KC_BTN1, KC_ENT,    						 LSFT(LCTL(KC_Q)), KC_BSPC,  KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+	     KC_ESC, MT(MOD_LCTL, KC_DEL), LT(SYMB, KC_SPC), LT(NUMB, KC_SPC),   					 LT(SYMB, KC_ENT), LT(NUMB, KC_SPC), KC_ENT, KC_TAB
 	     ),
 /* Keymap 1: Symbols layer
  *
  * ,-------------------------------------------.                         ,-------------------------------------------.
- * |        |  !   |  @   |  {   |  }   |  |   |                         |      |   &  |  =   |      |      |  \ |   |
+ * |        |  !   |  @   |  {   |  }   |  |   |                         |      |   &  |  =   |   scn|  scn |  \ |   |
  * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
  * |        |  #   |  $   |  (   |  )   |  `   |      |           |      |   +  |  -   |  /   |  *   |  %   |  ' "   |
  * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------'                     `--------------'
  */
 [SYMB] = LAYOUT_gergo(
-    KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS,
+    KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                            KC_TRNS, KC_AMPR, KC_EQL, LCTL(LSFT(KC_3)), LCTL(LSFT(KC_4)), KC_BSLS,
     KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,  KC_TRNS,                          KC_TRNS, KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,
     KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
                                         KC_TRNS, KC_TRNS, KC_SCLN, KC_EQL,         KC_EQL,  KC_SCLN, KC_PGUP, KC_DEL
