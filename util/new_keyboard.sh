@@ -76,8 +76,8 @@ replace_placeholders() {
 replace_year_placeholders() {
     local replace_year_filenames=(
         "${keyboard_dir}/config.h"
-        "${keyboard_dir}/${keyboard_name}.c"
-        "${keyboard_dir}/${keyboard_name}.h"
+        "${keyboard_dir}/${keyboard_base_name}.c"
+        "${keyboard_dir}/${keyboard_base_name}.h"
         "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
