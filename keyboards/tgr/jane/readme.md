@@ -3,7 +3,7 @@
 TKL Custom Keyboard. 
 
 Keyboard Maintainer: [mechmerlin](https://github.com/mechmerlin)  
-Hardware Supported: TGR Jane (Pontoporia) PCB v1.2  
+Hardware Supported: TGR Jane (Pontoporia) PCB v1.1, v1.2  
 Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=97552.1200)  
 
 
