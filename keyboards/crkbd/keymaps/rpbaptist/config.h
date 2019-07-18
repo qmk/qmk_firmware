@@ -49,6 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 16
 #endif
 
+#define RGBLIGHT_SLEEP
+
 #define TAPPING_TERM 160
 // #define PERMISSIVE_HOLD
 // #define IGNORE_MOD_TAP_INTERRUPT
