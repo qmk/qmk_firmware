@@ -45,7 +45,7 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifndef TAP_HOLD_CAPS_DELAY
-#  define TAP_HOLD_CAPS_DELAY 200
+#  define TAP_HOLD_CAPS_DELAY 80
 #endif
 /** \brief Called to execute an action.
  *
