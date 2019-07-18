@@ -19,6 +19,12 @@ enum layer_names {
   _UTIL
 };
 
+int RGB_current_mode;
+
+enum custom_keycodes {
+  RGBRST = SAFE_RANGE
+};
+
 #define KC_CLMK DF(_COLEMAKDHM)
 #define KC_GAME DF(_GAMING)
 
@@ -48,6 +54,7 @@ enum layer_names {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
+#define KC_LRST  RGBRST
 
 #define KC_LFMOD  RGB_MODE_FORWARD
 #define KC_LRMOD  RGB_MODE_REVERSE
@@ -134,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                   CLMK,  GAME, XXXXX, XXXXX,  LHUD,  LHUI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  RGBST, RGBBR, RGBRB, RGBSW,  LSAD,  LSAI,\
+       LRST, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  RGBST, RGBBR, RGBRB, RGBSW,  LSAD,  LSAI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  SLEP,  WAKE, XXXXX, XXXXX, XXXXX,                   LTOG, XXXXX, XXXXX, XXXXX,  LVAD,  LVAI,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -253,3 +260,18 @@ void oled_task_user(void) {
 }
 #endif
 
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RGBRST:
+      #ifdef RGBLIGHT_ENABLE
+        if (record->event.pressed) {
+          eeconfig_update_rgblight_default();
+          rgblight_enable();
+          RGB_current_mode = rgblight_config.mode;
+        }
+      #endif
+      break;
+  }
+  return true;
+}
