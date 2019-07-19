@@ -19,7 +19,7 @@
 #include "config_common.h"
 
 // wiring of each half
-#define MATRIX_ROW_PINS { F6 }
+#define MATRIX_ROW_PINS { F5 }
 #define MATRIX_COL_PINS { F7 }
 #define SPLIT_HAND_PIN F0
 #define SOFT_SERIAL_PIN D1
