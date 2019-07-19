@@ -3,7 +3,7 @@
 To trigger keypress, short together pins *F5* and *F7*
 
 ## Wiring
-- Add switches to both Pro Micros across F5 and F7 pins
+- Add switches to both Teensy 2s across F5 and F7 pins
 - Add pull-up resistor to left side between VCC and F0
 - Add pull-down resistors to right side between GND and F0
 - Connect the following pins on both sides together: D0, D1, GND, VCC
