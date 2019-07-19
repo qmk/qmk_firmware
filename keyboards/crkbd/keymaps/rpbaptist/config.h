@@ -51,9 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_SLEEP
 
-#define TAPPING_TERM 130
+#define TAPPING_TERM 140
 // #define PERMISSIVE_HOLD
-// #define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #define TAPPING_TOGGLE 2
 
