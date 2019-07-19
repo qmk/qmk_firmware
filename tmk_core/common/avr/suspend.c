@@ -45,19 +45,6 @@ __asm__ __volatile__ (  \
 )
 
 
-/** \brief Suspend idle
- *
- * FIXME: needs doc
- */
-void suspend_idle(uint8_t time) {
-    cli();
-    set_sleep_mode(SLEEP_MODE_IDLE);
-    sleep_enable();
-    sei();
-    sleep_cpu();
-    sleep_disable();
-}
-
 
 // TODO: This needs some cleanup
 
@@ -153,6 +140,33 @@ static void power_down(uint8_t wdto) {
 }
 #endif
 
+#ifdef SUSPEND_MODE_STANDBY
+static void standby(void)
+{
+    set_sleep_mode(SLEEP_MODE_STANDBY);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
+}
+#endif
+
+static void idle(void)
+{
+    set_sleep_mode(SLEEP_MODE_IDLE);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
+}
+
+
+ void suspend_idle(uint8_t time)
+{
+    idle();
+}
+
+
 /** \brief Suspend power down
  *
  * FIXME: needs doc
@@ -161,7 +175,13 @@ void suspend_power_down(void) {
 	suspend_power_down_kb();
 
 #ifndef NO_SUSPEND_POWER_DOWN
+#ifdef SUSPEND_MODE_STANDBY
+    standby();
+#elif defined(SUSPEND_MODE_IDLE)
+    idle();
+#else
     power_down(WDTO_15MS);
+#endif
 #endif
 }
 
