@@ -1079,13 +1079,17 @@ int main(void)
 
     /* wait for Console startup */
     // TODO: long delay often works anyhoo but proper startup would be better
-    uint16_t delay = 2000;
-    while (delay--) {
+#ifdef CONSOLE_ENABLE
+    if (debug_enable) {
+        uint16_t delay = 2000;
+        while (delay--) {
 #ifndef INTERRUPT_CONTROL_ENDPOINT
-        USB_USBTask();
+            USB_USBTask();
 #endif
-        _delay_ms(1);
+            _delay_ms(1);
+        }
     }
+#endif
 
     print("USB configured.\n");
 #else
