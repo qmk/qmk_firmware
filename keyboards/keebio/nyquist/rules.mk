@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -38,8 +37,8 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), nyquist/rev3)
-    BOOTLOADER = dfu
+ifneq (, $(findstring rev3, $(KEYBOARD)))
+    BOOTLOADER = qmk-dfu
 else
     BOOTLOADER = caterina
 endif

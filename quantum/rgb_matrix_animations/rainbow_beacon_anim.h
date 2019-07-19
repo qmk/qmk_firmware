@@ -2,8 +2,9 @@
 RGB_MATRIX_EFFECT(RAINBOW_BEACON)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void RAINBOW_BEACON_math(HSV* hsv, int8_t sin, int8_t cos, uint8_t i, uint8_t time) {
-    hsv->h = ((g_led_config.point[i].y - k_rgb_matrix_center.y) * 2 * cos + (g_led_config.point[i].x - k_rgb_matrix_center.x) * 2 * sin) / 128 + rgb_matrix_config.hue;
+static HSV RAINBOW_BEACON_math(HSV hsv,  int8_t sin, int8_t cos, uint8_t i, uint8_t time) {
+    hsv.h += ((g_led_config.point[i].y - k_rgb_matrix_center.y) * 2 * cos + (g_led_config.point[i].x - k_rgb_matrix_center.x) * 2 * sin) / 128;
+    return hsv;
 }
 
 bool RAINBOW_BEACON(effect_params_t* params) {
