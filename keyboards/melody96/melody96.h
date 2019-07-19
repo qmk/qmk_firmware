@@ -1,5 +1,4 @@
-#ifndef MELODY96_H
-#define MELODY96_H
+#pragma once
 
 #include "quantum.h"
 
@@ -100,5 +99,3 @@
 	{ KA0,    KA1,    KA2,  KC_NO,  KA4,  KA5,    KA6,  KA7,    KA8   }, \
 	{ KB0,    KB1,    KB2,  KB3,    KB4,  KB5,    KB6,  KB7,    KB8   }  \
 }
-
-#endif
