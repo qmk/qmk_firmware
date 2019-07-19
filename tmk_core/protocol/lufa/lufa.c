@@ -338,7 +338,9 @@ void EVENT_USB_Device_Disconnect(void)
  */
 void EVENT_USB_Device_Reset(void)
 {
+#ifdef LUFA_DEBUG
     print("[R]");
+#endif
 }
 
 /** \brief Event USB Device Connect
@@ -347,7 +349,9 @@ void EVENT_USB_Device_Reset(void)
  */
 void EVENT_USB_Device_Suspend()
 {
-    print("[S]");
+ #ifdef LUFA_DEBUG
+   print("[S]");
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif
@@ -359,7 +363,9 @@ void EVENT_USB_Device_Suspend()
  */
 void EVENT_USB_Device_WakeUp()
 {
+#ifdef LUFA_DEBUG
     print("[W]");
+#endif
     suspend_wakeup_init();
 
 #ifdef SLEEP_LED_ENABLE
@@ -406,6 +412,9 @@ void EVENT_USB_Device_StartOfFrame(void)
  */
 void EVENT_USB_Device_ConfigurationChanged(void)
 {
+#ifdef LUFA_DEBUG
+    print("[c]");
+#endif
     bool ConfigSuccess = true;
 
     /* Setup Keyboard HID Report Endpoints */
@@ -498,6 +507,9 @@ void EVENT_USB_Device_ControlRequest(void)
                 /* Write the report data to the control endpoint */
                 Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
                 Endpoint_ClearOUT();
+#ifdef LUFA_DEBUG
+                xprintf("[r%d]", USB_ControlRequest.wIndex);
+#endif
             }
 
             break;
@@ -530,6 +542,9 @@ void EVENT_USB_Device_ControlRequest(void)
 
                     Endpoint_ClearOUT();
                     Endpoint_ClearStatusStage();
+#ifdef LUFA_DEBUG
+                    xprintf("[L%d]", USB_ControlRequest.wIndex);
+#endif
                     break;
                 }
 
@@ -546,6 +561,9 @@ void EVENT_USB_Device_ControlRequest(void)
                     Endpoint_Write_8(keyboard_protocol);
                     Endpoint_ClearIN();
                     Endpoint_ClearStatusStage();
+#ifdef LUFA_DEBUG
+                    print("[p]");
+#endif
                 }
             }
 
@@ -559,6 +577,9 @@ void EVENT_USB_Device_ControlRequest(void)
 
                     keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
+#ifdef LUFA_DEBUG
+                    print("[P]");
+#endif
                 }
             }
 
@@ -570,6 +591,9 @@ void EVENT_USB_Device_ControlRequest(void)
                 Endpoint_ClearStatusStage();
 
                 keyboard_idle = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
+#ifdef LUFA_DEBUG
+                xprintf("[I%d]%d", USB_ControlRequest.wIndex, (USB_ControlRequest.wValue & 0xFF00) >> 8);
+#endif
             }
 
             break;
@@ -581,6 +605,9 @@ void EVENT_USB_Device_ControlRequest(void)
                 Endpoint_Write_8(keyboard_idle);
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
+#ifdef LUFA_DEBUG
+                print("[i]");
+#endif
             }
 
             break;
@@ -666,7 +693,7 @@ static void send_keyboard(report_keyboard_t *report)
 
     keyboard_report_sent = *report;
 }
- 
+
 /** \brief Send Mouse
  *
  * FIXME: Needs doc
@@ -1068,7 +1095,9 @@ int main(void)
     while (1) {
         #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
+#ifdef LUFA_DEBUG
             print("[s]");
+#endif
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
@@ -1112,4 +1141,3 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
 {
   return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
 }
-

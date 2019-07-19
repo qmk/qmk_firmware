@@ -198,6 +198,7 @@ void suspend_wakeup_init_kb(void) {
  */
 void suspend_wakeup_init(void) {
     // clear keyboard state
+    matrix_init();
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
