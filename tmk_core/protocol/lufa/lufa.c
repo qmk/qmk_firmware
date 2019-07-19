@@ -1112,9 +1112,6 @@ int main(void)
     while (1) {
         #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
-#ifdef LUFA_DEBUG
-            print("[s]");
-#endif
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
                     USB_Device_SendRemoteWakeup();
