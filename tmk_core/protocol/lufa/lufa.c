@@ -1062,6 +1062,7 @@ int main(void)
     setup_usb();
     sei();
 
+
 #if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
     serial_init();
 #endif
@@ -1075,6 +1076,7 @@ int main(void)
     #else
             USB_USBTask();
     #endif
+        matrix_scan();
     }
 
     /* wait for Console startup */
