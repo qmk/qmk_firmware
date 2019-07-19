@@ -202,6 +202,7 @@ typedef union {
  *   bit 4      +----- LR flag(Left:0, Right:1)
  */
 enum mods_bit {
+    MOD_NONE = 0x00,
     MOD_LCTL = 0x01,
     MOD_LSFT = 0x02,
     MOD_LALT = 0x04,
