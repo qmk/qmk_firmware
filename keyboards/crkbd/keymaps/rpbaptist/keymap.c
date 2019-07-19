@@ -44,6 +44,8 @@ enum custom_keycodes {
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
 
+#define KC_EUR ALGR(KC_5)
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_RST   RESET
@@ -107,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        TILD,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  MINS,  PLUS,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX,  UNDS,   EQL, _____,\
+      _____, XXXXX, XXXXX, XXXXX,   EUR, XXXXX,                  XXXXX, XXXXX, XXXXX,  UNDS,   EQL, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,    _____, _____, RGUI \
                               //`--------------------'  `--------------------'
