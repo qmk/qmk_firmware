@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSE_BTN3 (1<<2)
 #define MOUSE_BTN4 (1<<3)
 #define MOUSE_BTN5 (1<<4)
+#define MOUSE_BTN6 (1<<5)
+#define MOUSE_BTN7 (1<<6)
+#define MOUSE_BTN8 (1<<7)
 
 /* Consumer Page(0x0C)
  * following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
