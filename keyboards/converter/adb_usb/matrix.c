@@ -166,7 +166,7 @@ uint8_t matrix_scan(void)
         if (timer_elapsed(tick_ms) < 12) return 0;
         tick_ms = timer_read();
 
-        codes = adb_host_kbd_recv();
+        codes = adb_host_kbd_recv(ADB_ADDR_KEYBOARD);
     }
 
     key0 = codes>>8;
