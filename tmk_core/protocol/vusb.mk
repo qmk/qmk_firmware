@@ -10,6 +10,7 @@ SRC +=	$(VUSB_DIR)/main.c \
 
 
 ifdef NO_UART
+OPT_DEFS += -DNO_UART
 SRC +=	$(COMMON_DIR)/sendchar_null.c
 else
 SRC +=	$(COMMON_DIR)/sendchar_uart.c \
