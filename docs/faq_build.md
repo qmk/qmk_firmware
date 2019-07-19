@@ -49,15 +49,13 @@ Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices m
 
 ## Unknown Device for DFU Bootloader
 
-If you're using Windows to flash your keyboard, and you are running into issues, check the Device Manager.  If you see an "Unknown Device" when the keyboard is in "bootloader mode", then you may have a driver issue.
+Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader. 
 
-Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue.
+Re-running the installation script for MSYS2 may help (eg run `util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUSB` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.  If that doesn't work, try all of the options, until one works. 
+If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, and run it on the system.  Then, you will need to reset your board into bootloader mode.  After that, locate the device in question. If the device doesn't show up in the list (or nothing shows up in the list), you may need to enable the `List all devices` option in the `Options` menu.
 
-?> There isn't a best option for which driver should be used here.  Some options work better on some systems than others.  libUSB and WinUSB seem to be the best options here.
-
-If the bootloader doesn't show up in the list for devices, you may need to enable the "List all devices" option in the `Options` menu, and then find the bootloader in question. 
+From here, you will need to know what type of controller the board is using.  You may see it listed in the Device Manager as `ATmega32U4` device (which is an AVR board), or an `STM32` device (Which is an ARM board).  For AVR boards, use `libusb-win32` for the driver. For ARM boards, use the `WinUSB` driver.  Once the correct driver type has been selected, click on the `Replace Driver` button, unplug your board, plug it back in, and reset it again.
 
 
 ## WINAVR is Obsolete
