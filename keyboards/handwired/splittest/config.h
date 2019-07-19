@@ -46,8 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 10
-#define RGBLED_SPLIT { 5, 5 }
+#define RGBLED_NUM 12
+#define RGBLED_SPLIT { 6, 6 }
 
 /*
  * Feature disable options
