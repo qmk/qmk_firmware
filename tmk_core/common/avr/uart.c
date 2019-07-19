@@ -66,7 +66,7 @@
 
 // These buffers may be any size from 2 to 256 bytes.
 #define RX_BUFFER_SIZE 64
-#define TX_BUFFER_SIZE 40
+#define TX_BUFFER_SIZE 256
 
 static volatile uint8_t tx_buffer[TX_BUFFER_SIZE];
 static volatile uint8_t tx_buffer_head;
@@ -95,6 +95,8 @@ void uart_putchar(uint8_t c)
 
 	i = tx_buffer_head + 1;
 	if (i >= TX_BUFFER_SIZE) i = 0;
+	// return immediately to avoid deadlock when interrupt is disabled(called from ISR)
+	if (tx_buffer_tail == i && (SREG & (1<<SREG_I)) == 0) return;
 	while (tx_buffer_tail == i) ; // wait until space in buffer
 	//cli();
 	tx_buffer[i] = c;
