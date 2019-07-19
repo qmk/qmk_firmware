@@ -16,8 +16,3 @@
 #pragma once
 
 // place overrides here
-
-
-#ifdef V60_POLESTAR
-#undef V60_POLESTAR
-#endif
