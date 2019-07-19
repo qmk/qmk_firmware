@@ -174,14 +174,14 @@ static void idle(void)
 void suspend_power_down(void) {
 	suspend_power_down_kb();
 
-#ifndef NO_SUSPEND_POWER_DOWN
-#ifdef SUSPEND_MODE_STANDBY
+#if defined(NO_SUSPEND_POWER_DOWN) ||  defined(SUSPEND_MODE_NOPOWERSAVE)
+    ;
+#elif defined(SUSPEND_MODE_STANDBY)
     standby();
 #elif defined(SUSPEND_MODE_IDLE)
     idle();
 #else
     power_down(WDTO_15MS);
-#endif
 #endif
 }
 

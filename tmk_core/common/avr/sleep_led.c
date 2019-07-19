@@ -57,17 +57,17 @@ void sleep_led_disable(void)
     TIMSK1 &= ~_BV(OCIE1A);
 }
 
-/** \brief Sleep LED toggle
- *
- * FIXME: needs doc
- */
-void sleep_led_toggle(void)
-{
-    /* Disable Compare Match Interrupt */
-    TIMSK1 ^= _BV(OCIE1A);
+__attribute__ ((weak))
+void sleep_led_on(void) {
+    led_set(1<<USB_LED_CAPS_LOCK);
+
 }
 
-
+ __attribute__ ((weak))
+void sleep_led_off(void)
+{
+    led_set(0);
+}
 /** \brief Breathing Sleep LED brighness(PWM On period) table
  *
  * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
@@ -100,7 +100,7 @@ ISR(TIMER1_COMPA_vect)
     } timer = { .row = 0 };
 
     timer.row++;
-    
+
     // LED on
     if (timer.pwm.count == 0) {
         led_set(1<<USB_LED_CAPS_LOCK);
