@@ -149,26 +149,26 @@ float channel_1_get_frequency(void) {
 
 
 
-void channel_1_start(void){
+void planck_ez_right_led_on(void){
     // pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
-void channel_1_stop(void){
+void planck_ez_right_led_off(void){
     // pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 2);
 }
 
 
-void channel_2_start(void){
+void planck_ez_left_led_on(void){
 //    pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
-void channel_2_stop(void){
+void planck_ez_left_led_off(void){
     // pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 3);
@@ -184,32 +184,32 @@ void led_initialize_hardware(void)
     pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 2500));
     palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(2));
 
-    channel_1_stop();
-    channel_2_stop();
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
 }
 
 
-void keyboard_post_init_kb(void) {
+void keyboard_pre_init_kb(void) {
     led_initialize_hardware();
 
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
 
-    channel_1_stop();
-    channel_2_stop();
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
     switch (layer) {
         case 3:
-            channel_2_start();
+            planck_ez_left_led_on();
             break;
         case 4:
-            channel_1_start();
+            planck_ez_right_led_on();
             break;
         case 6:
-            channel_1_start();
-            channel_2_start();
+            planck_ez_right_led_on();
+            planck_ez_left_led_on();
             break;
         default:
             break;
