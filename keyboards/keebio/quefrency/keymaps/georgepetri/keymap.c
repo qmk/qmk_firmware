@@ -2,10 +2,6 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _BASE 0
 #define _FN1 1
 
@@ -42,3 +38,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └──────────┴───────────┴──────────┴───────────┴────────────────────┘        └──────────────────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   )
 };
+
+void keyboard_post_init_user(void) {
+  rgblight_sethsv_noeeprom(HSV_BLUE);
+}
+
+void update_led(void) {
+    switch (biton32(layer_state)) {
+    case _BASE:
+      rgblight_sethsv_noeeprom(HSV_BLUE);
+      break;
+    case _FN1:
+      rgblight_sethsv_noeeprom(HSV_MAGENTA);
+      break;
+    }
+  if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    rgblight_sethsv_range(HSV_WHITE,0,4);
+    rgblight_sethsv_range(HSV_WHITE,12,16);
+  }
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  update_led();
+  return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+  update_led();
+}
