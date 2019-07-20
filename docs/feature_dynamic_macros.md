@@ -22,7 +22,7 @@ To finish the recording, press the `DYN_REC_STOP` layer button.
 
 To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
 
-!> It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.
+It is possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.  You can disable this completly by defining `DYNAMIC_MACRO_NO_NESTING`  in your `config.h` file.
 
 ?> For the details about the internals of the dynamic macros, please read the comments in the `process_dynamic_macro.h` and `process_dynamic_macro.c` files.
 
@@ -32,8 +32,9 @@ There are a number of options added that should allow some additional degree of 
 
 |Define                      |Default         |Description                                                                                                      |
 |----------------------------|----------------|-----------------------------------------------------------------------------------------------------------------|
-|`DYNAMIC_MACRO_SIZE         |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller.  |
+|`DYNAMIC_MACRO_SIZE`        |128             |Sets the amount of memory that Dynamic Macros can use. This is a limited resource, dependent on the controller.  |
 |`DYNAMIC_MACRO_USER_CALL`   |*Not defined*   |Defining this falls back to using the user `keymap.c` file to trigger the macro behavior.                        |
+|`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros).                           | 
 
 
 If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h (default value: 128; please read the comments for it in the header).
