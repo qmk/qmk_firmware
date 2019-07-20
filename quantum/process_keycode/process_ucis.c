@@ -64,6 +64,10 @@ void qk_ucis_symbol_fallback (void) {
   }
 }
 
+__attribute__((weak))
+void qk_ucis_cancel(void) {
+}
+
 void register_ucis(const char *hex) {
   for(int i = 0; hex[i]; i++) {
     uint8_t kc = 0;
@@ -130,6 +134,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == KC_ESC) {
       qk_ucis_state.in_progress = false;
+      qk_ucis_cancel();
       return false;
     }
 

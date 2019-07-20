@@ -4,14 +4,17 @@ extern keymap_config_t keymap_config;
 
 enum layer_names {
     _QWERTY,
+    _WORKMAN,
     _LOWER,
     _RAISE,
     _ADJUST
 };
 
 enum custom_keycodes {
-  LOWER = SAFE_RANGE,
-  RAISE,
+  QWERTY = SAFE_RANGE,
+  WORKMAN,
+  LOWER,
+  RAISE
 };
 
 #define KC_ KC_TRNS
@@ -33,9 +36,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSLS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LCTL, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
+     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,LBRC,     RBRC, N  , M  ,COMM,DOT ,SLSH,RSFT,
+     LECL, Z  , X  , C  , V  , B  ,LBRC,     RBRC, N  , M  ,COMM,DOT ,SLSH,RGHT,
+  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
+                       LGUI,LOWR,ENT ,         SPC ,RASE,RALT
+  //                  `----+----+----'        `----+----+----'
+  ),
+
+    [_WORKMAN] = LAYOUT_kc(
+  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
+     GESC, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+     TAB , Q  , D  , R  , W  , B  ,                J  , F  , U  , P  ,SCLN,BSLS,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+     LSFT, A  , S  , H  , T  , G  ,                Y  , N  , E  , O  ,I   ,QUOT,
+  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
+     LECL, Z  , X  , M  , C  , V  ,LBRC,     RBRC, K  , L  ,COMM,DOT ,SLSH,RGHT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        LGUI,LOWR,ENT ,         SPC ,RASE,RALT
   //                  `----+----+----'        `----+----+----'
@@ -45,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      TILD,EXLM, AT ,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    , UP ,    ,    ,    ,                   ,    ,BTN1,    ,    ,    ,
+         ,    ,    ,    ,    ,    ,                   ,    ,BTN1,    ,    ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,LEFT,DOWN,RGHT,    ,    ,               MS_L,MS_D,MS_U,MS_R,    ,    ,
+         ,    ,    ,    ,    ,    ,               MS_L,MS_D,MS_U,MS_R,    ,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
+         ,    ,    ,    ,    , UP ,    ,         ,    ,    ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             ,    ,   
   //                  `----+----+----'        `----+----+----'
@@ -63,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,MPLY,VOLD,MNXT,    ,LPRN,               RPRN,MINS,EQL ,    ,    ,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
+         ,    ,    ,    ,    ,    ,    ,         ,DOWN,    ,    ,    ,    ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
@@ -71,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //,--------+--------+--------+--------+--------+--------.                          ,--------+--------+--------+--------+--------+--------.
-      _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,  QWERTY,                            WORKMAN, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,                            _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                          |--------+--------+--------+--------+--------+--------|
@@ -91,6 +108,16 @@ float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+    case WORKMAN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_WORKMAN);
+      }
+      return false;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -100,7 +127,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -110,7 +136,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
   }
   return true;
 }
