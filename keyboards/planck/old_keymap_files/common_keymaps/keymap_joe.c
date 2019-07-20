@@ -1,26 +1,30 @@
 #include "keymap.h"
 
+#define KC_MO2 MO(2)
+#define KC_MO3 MO(3)
+#define KC_MO4 MO(4)
+
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP( /* Joe qwerty */
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    MINS,
   BSPC, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENTER,
   FN7,  Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, QUOT,
-  LCTL, LGUI, LALT, LSFT, FN1,    SPC,      FN0,  LEFT, UP,   DOWN, RGHT),
+  LCTL, LGUI, LALT, LSFT, MO3,    SPC,      MO2,  LEFT, UP,   DOWN, RGHT),
 [1] = KEYMAP( /* Joe colemak */
   ESC,  Q,    W,    F,    P,    G,    J,    L,    U,    Y,    SCLN, MINS,
   BSPC, A,    R,    S,    T,    D,    H,    N,    E,    I,    O,    ENTER,
   FN7,  Z,    X,    C,    V,    B,    K,    M,    COMM, DOT,  SLSH, QUOT,
-  LCTL, LGUI, LALT, LSFT, FN1,    SPC,      FN0,  LEFT, UP,   DOWN, RGHT),
+  LCTL, LGUI, LALT, LSFT, MO3,    SPC,      MO2,  LEFT, UP,   DOWN, RGHT),
 [2] = KEYMAP( /* Joe UPPER */
   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,
   DEL,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, MENU, CAPS, INS,  PSCR, TRNS, FN5,  FN6,
-  TRNS, TRNS, TRNS, TRNS, FN2,     TRNS,    FN0,  FN26, FN27, FN28, FN29),
+  TRNS, TRNS, TRNS, TRNS, MO4,     TRNS,    MO2,  FN26, FN27, FN28, FN29),
 [3] = KEYMAP( /* Joe LOWER */
   GRV,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN8,  FN9,  FN30,
   BSPC, 1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    TRNS,
   BSLS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, LBRC, RBRC, TRNS, EQL,
-  TRNS, TRNS, TRNS, TRNS, FN1,     TRNS,    FN2,  HOME, PGUP, PGDN, END),
+  TRNS, TRNS, TRNS, TRNS, MO3,     TRNS,    MO4,  HOME, PGUP, PGDN, END),
 [4] = KEYMAP( /* Joe LOWER + UPPER */
   FN3,  FN4,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, SLEP,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
@@ -35,10 +39,6 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay
-    [1] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay
-    [2] = ACTION_LAYER_MOMENTARY(4),  // to Fn overlay
-
     [3] = ACTION_DEFAULT_LAYER_SET(0), 
     [4] = ACTION_DEFAULT_LAYER_SET(1),
 

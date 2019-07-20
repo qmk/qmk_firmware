@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_NO,  \
     KC_LOCK, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_HOME, KC_ENT, \
     KC_LSFT, KC_BSLS, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_RSFT,\
-    KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    KC_NO,   F(0),    KC_LEFT, KC_DOWN, KC_RGHT),
+    KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    KC_NO,   MO(1),   KC_LEFT, KC_DOWN, KC_RGHT),
   /* 1: fn */
   LAYOUT(
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, \
@@ -46,10 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, MCO_AE,  MCO_SS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_SW,KC_TRNS, KC_GRV,  KC_TRNS,\
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS, KC_TRNS,\
     KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_LAYER_MOMENTARY(1)  // to Fn overlay
 };
 
 void matrix_scan_user(void) {
