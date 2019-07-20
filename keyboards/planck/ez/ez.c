@@ -126,11 +126,13 @@ void matrix_scan_kb(void) {
   matrix_scan_user();
 }
 
+#ifndef PLANCK_EZ_CUSTOM_LEDS
 uint32_t layer_state_set_kb(uint32_t state) {
-
   palClearPad(GPIOB, 8);
   palClearPad(GPIOB, 9);
+
   state = layer_state_set_user(state);
+
   uint8_t layer = biton32(state);
   switch (layer) {
       case 3:
@@ -148,3 +150,4 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
     return state;
 }
+#endif
