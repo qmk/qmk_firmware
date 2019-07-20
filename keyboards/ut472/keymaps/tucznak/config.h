@@ -5,8 +5,8 @@
 #undef DESCRIPTION
 
 #define MANUFACTURER    Potato Inc.
-#define PRODUCT         Trash Panda
-#define DESCRIPTION     Qt3.14 smolkeeb
+#define PRODUCT         Qt3.14
+#define DESCRIPTION     Smolkeeb
 
 /* turn off RGB when computer sleeps */
 #ifdef RGB_DI_PIN

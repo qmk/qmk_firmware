@@ -14,8 +14,9 @@
 #endif
 
 /* send tap key if no layer key was used even after tap delay */
-#define TAPPING_TERM 50
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 250
 #define RETRO_TAPPING
-
-/* disable debug print */
-#define NO_DEBUG
+#define TAPPING_TOGGLE 2
