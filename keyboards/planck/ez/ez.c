@@ -117,7 +117,7 @@ void suspend_power_down_kb(void) {
 /* Left B9   Right B8 */
 
 static PWMConfig pwmCFG = {
-    100000,/* PWM clock frequency  */
+    1000,/* PWM clock frequency  */
     10,/* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
     NULL,
     {
@@ -151,26 +151,26 @@ float channel_1_get_frequency(void) {
 
 void channel_1_start(void){
     // pwmStop(&PWMD4);
-    pwmStart(&PWMD4, &pwmCFG);
+    // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
 void channel_1_stop(void){
-    pwmStop(&PWMD4);
-    pwmStart(&PWMD4, &pwmCFG);
+    // pwmStop(&PWMD4);
+    // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 2);
 }
 
 
 void channel_2_start(void){
 //    pwmStop(&PWMD4);
-    pwmStart(&PWMD4, &pwmCFG);
+    // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
 void channel_2_stop(void){
-    pwmStop(&PWMD4);
-    pwmStart(&PWMD4, &pwmCFG);
+    // pwmStop(&PWMD4);
+    // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 3);
 }
 
