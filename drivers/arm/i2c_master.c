@@ -32,14 +32,18 @@
 
 static uint8_t i2c_address;
 
-// This configures the I2C clock to 400khz assuming a 72Mhz clock
-// For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
-  STM32_TIMINGR_PRESC(15U) |
-  STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
-  STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
+#ifdef USE_I2CV1
+  I2C1_OPMODE,
+  I2C1_CLOCK_SPEED,
+  I2C1_DUTY_CYCLE,
+#else
+  STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) |
+  STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) |
+  STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH)  | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL),
   0,
   0
+#endif
 };
 
 static i2c_status_t chibios_to_qmk(const msg_t* status) {
@@ -58,13 +62,18 @@ __attribute__ ((weak))
 void i2c_init(void)
 {
   // Try releasing special pins for a short time
-  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_INPUT);
-  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
   chThdSleepMilliseconds(10);
 
-  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
-  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
+#ifdef USE_I2CV1
+  palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+  palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+#else
+  palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+  palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
+#endif
 
   //i2cInit(); //This is invoked by halInit() so no need to redo it.
 }
@@ -108,11 +117,11 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
   return chibios_to_qmk(&status);
 }
 
-i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
-  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), regaddr, 1, data, length, MS2ST(timeout));
+  msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), &regaddr, 1, data, length, MS2ST(timeout));
   return chibios_to_qmk(&status);
 }
 

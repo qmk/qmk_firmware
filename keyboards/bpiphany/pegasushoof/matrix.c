@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 
-static uint8_t debouncing = DEBOUNCING_DELAY;
+static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
@@ -90,7 +90,7 @@ uint8_t matrix_scan(void)
 			bool curr_bit = rows & (1<<row);
 			if (prev_bit != curr_bit) {
 				matrix_debouncing[row] ^= (matrix_row_t) 1 << col;
-				debouncing = DEBOUNCING_DELAY;
+				debouncing = DEBOUNCE;
 			}
 		}
 	}

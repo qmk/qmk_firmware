@@ -2,7 +2,6 @@ DEFAULT_FOLDER=hecomi/alpha
 #
 #
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.

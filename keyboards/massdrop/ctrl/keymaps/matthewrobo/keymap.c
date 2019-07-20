@@ -80,14 +80,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*/
 };
 
-extern rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
-void set_color_helper(int index, uint8_t red, uint8_t green, uint8_t blue)
-{
-	if (!HAS_ANY_FLAGS(g_rgb_leds[index].flags, rgb_matrix_get_flags()))
-	{ return; }
-
-	rgb_matrix_set_color(index, red, green, blue);
-}
 
 void rgb_matrix_indicators_user(void)
 {
@@ -143,7 +135,7 @@ void rgb_matrix_indicators_user(void)
 			break;
 
 		case _FNC: {
-			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+			HSV hsv = { rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
 			HSV hui = hsv;
 			HSV hud = hsv;
 			HSV sai = hsv;
@@ -214,7 +206,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(71, 0x00, 0xFF, 0x01); //MAS_GRN
 			rgb_matrix_set_color(72, 0xFF, 0xA5, 0x18); //MAS_CRM
 			rgb_matrix_set_color(60, 0x81, 0x3C, 0xFF); //MAS_PRP
-			rgb_matrix_set_color(26, 0xFF, 0xFF, 0xFF); //MAS_WHT
+			rgb_matrix_set_color(43, 0xFF, 0xFF, 0xFF); //MAS_WHT
 		}
 		break;
 		}
@@ -225,8 +217,9 @@ void rgb_matrix_indicators_user(void)
 void matrix_init_user(void)
 {
 	autoshift_disable();
-	rgb_matrix_sethsv(192, 112, 255);
-	rgb_matrix_mode(4);
+	rgb_matrix_sethsv(128, 255, 255);
+	// rgb_matrix_sethsv(192, 112, 255);
+	// rgb_matrix_mode(4);
 };
 
 // Runs constantly in the background, in a loop.

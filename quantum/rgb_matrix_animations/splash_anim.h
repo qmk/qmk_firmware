@@ -11,12 +11,13 @@ RGB_MATRIX_EFFECT(MULTISPLASH)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-void SPLASH_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+HSV SPLASH_math(HSV hsv,  int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick - dist;
-      if (effect > 255)
+    if (effect > 255)
         effect = 255;
-      hsv->h += effect;
-      hsv->v = qadd8(hsv->v, 255 - effect);
+    hsv.h += effect;
+    hsv.v = qadd8(hsv.v, 255 - effect);
+    return hsv;
 }
 
 #ifndef DISABLE_RGB_MATRIX_SPLASH
