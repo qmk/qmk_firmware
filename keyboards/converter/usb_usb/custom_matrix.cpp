@@ -74,8 +74,6 @@ static bool matrix_is_mod = false;
  * This supports two cascaded hubs and four keyboards
  */
 USB usb_host;
-USBHub hub1(&usb_host);
-USBHub hub2(&usb_host);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd1(&usb_host);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd2(&usb_host);
 HIDBoot<HID_PROTOCOL_KEYBOARD>    kbd3(&usb_host);
@@ -84,6 +82,8 @@ KBDReportParser kbd_parser1;
 KBDReportParser kbd_parser2;
 KBDReportParser kbd_parser3;
 KBDReportParser kbd_parser4;
+USBHub hub1(&usb_host);
+USBHub hub2(&usb_host);
 
 
 extern "C"
