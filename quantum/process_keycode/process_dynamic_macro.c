@@ -249,10 +249,12 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                     macro_id = 0;
                 }
                 return false;
+#ifdef DYNAMIC_MACRO_NO_NESTING
             case DYN_MACRO_PLAY1:
             case DYN_MACRO_PLAY2:
                 dprintln("dynamic macro: ignoring macro play key while recording");
                 return false;
+#endif
             default:
                 /* Store the key in the macro buffer and process it normally. */
                 switch (macro_id) {
