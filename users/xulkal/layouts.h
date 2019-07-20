@@ -23,7 +23,7 @@
 #define _________________QWERTY_R1_________________           KC_6,    KC_7,      KC_8,     KC_9,     KC_0,     TD_BSPC
 #define _________________QWERTY_R2_________________           KC_Y,    KC_U,      KC_I,     KC_O,     KC_P,     KC_BSLS
 #define _________________QWERTY_R3_________________           KC_H,    KC_J,      KC_K,     KC_L,     KC_SCLN,  KC_ENT
-#define _________________QWERTY_R4_________________           KC_N,    KC_M,      TD_COMM,  TD_DOT,   KC_SLASH, KC_RSPC
+#define _________________QWERTY_R4_________________           KC_N,    KC_M,      TD_COMM,  KC_DOT,   KC_SLASH, KC_RSPC
 #define _________________QWERTY_R5_________________           KC_SPC,  KC_LEFT,   KC_UP,    KC_DOWN,  KC_RIGHT, KC_RCPC
 
 

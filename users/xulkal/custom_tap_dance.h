@@ -9,18 +9,15 @@
 enum {
   COMM_QUOT = 0,
   BACKSPACE,
-  DELETE,
-  DOT
+  DELETE
 };
 
 #define TD_COMM TD(COMM_QUOT)
 #define TD_BSPC TD(BACKSPACE)
 #define TD_DEL TD(DELETE)
-#define TD_DOT TD(DOT)
 
 #else
 
-void run_tap_dance_double(uint8_t i);
-bool process_tap_dance_double(uint16_t keycode, keyrecord_t *record);
+bool process_custom_tap_dance(uint16_t keycode, keyrecord_t *record);
 
 #endif

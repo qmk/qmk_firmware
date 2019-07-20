@@ -10,8 +10,14 @@ FULLHAND_ENABLE         = yes       # Enables the additional 24 Full Hand LEDs
 # Misc
 OLED_DRIVER_ENABLE      = yes       # Enable the OLED Driver
 
-
-
+# Not using the encoder for rev1
+ifeq ($(strip $(KEYBOARD)), rgbkb/sol/rev1)
+    ENCODER_ENABLE = no
+	RGB_OLED_MENU = no
+else
+	ENCODER_ENABLE = yes
+	RGB_OLED_MENU = 0
+endif
 
 # Do not edit past here
 
