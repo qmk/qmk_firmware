@@ -115,7 +115,6 @@ void suspend_power_down_kb(void) {
 #endif
 
 /* Left B9   Right B8 */
-static bool layer_4_on;
 
 static PWMConfig pwmCFG = {
     100000,/* PWM clock frequency  */
@@ -141,7 +140,7 @@ void channel_1_set_frequency(float freq) {
 
     pwmcnt_t period = (pwmCFG.frequency / freq);
     pwmChangePeriod(&PWMD4, period);
-    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
 float channel_1_get_frequency(void) {
@@ -151,60 +150,42 @@ float channel_1_get_frequency(void) {
 
 
 void channel_1_start(void){
-    pwmStop(&PWMD4);
+    // pwmStop(&PWMD4);
     pwmStart(&PWMD4, &pwmCFG);
-    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
 }
 
 void channel_1_stop(void){
     pwmStop(&PWMD4);
+    pwmStart(&PWMD4, &pwmCFG);
+    pwmDisableChannel(&PWMD4, 2);
 }
 
-static void gpt_cb8(GPTDriver *gptp);
-GPTConfig gpt4cfg1 = {
-    .frequency    = 10,
-    .callback     = gpt_cb8,
-    .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-    .dier         = 0U
-};
+
+void channel_2_start(void){
+//    pwmStop(&PWMD4);
+    pwmStart(&PWMD4, &pwmCFG);
+    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+}
+
+void channel_2_stop(void){
+    pwmStop(&PWMD4);
+    pwmStart(&PWMD4, &pwmCFG);
+    pwmDisableChannel(&PWMD4, 3);
+}
 
 
-void led_start_hardware(void);
 void led_initialize_hardware(void)
 {
     pwmStart(&PWMD4, &pwmCFG);
 
-    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
-
+    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 2500));
     palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(2));
+    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 2500));
     palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(2));
 
-    led_start_hardware();
-}
-
-void led_start_hardware(void) {
     channel_1_stop();
-    channel_1_start();
-
-    gptStart(&GPTD8, &gpt4cfg1);
-    gptStartContinuous(&GPTD8, 2U);
-}
-
-void led_stop_hardware(void) {
-    channel_1_stop();
-    gptStopTimer(&GPTD8);
-}
-
-/* regular timer task, that checks the note to be currently played, updates the pwm to output that frequency
- */
-static void gpt_cb8(GPTDriver *gptp) {
-    // float freq, freq_alt;
-//    pwm_audio_timer_task(&freq, &freq_alt);
-
-    if (layer_4_on)
-        channel_1_set_frequency(16);
-    else
-        channel_1_stop();
+    channel_2_stop();
 }
 
 
@@ -215,20 +196,20 @@ void keyboard_post_init_kb(void) {
 
 uint32_t layer_state_set_kb(uint32_t state) {
 
-    palClearPad(GPIOB, 8);
-    palClearPad(GPIOB, 9);
+    channel_1_stop();
+    channel_2_stop();
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
     switch (layer) {
         case 3:
-            palSetPad(GPIOB, 8);
+            channel_2_start();
             break;
         case 4:
-            palSetPad(GPIOB, 9);
+            channel_1_start();
             break;
         case 6:
-            palSetPad(GPIOB, 8);
-            palSetPad(GPIOB, 9);
+            channel_1_start();
+            channel_2_start();
             break;
         default:
             break;
