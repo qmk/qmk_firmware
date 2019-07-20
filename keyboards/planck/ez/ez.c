@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ez.h"
+#include "ch.h"
+#include "hal.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
@@ -111,3 +113,158 @@ void suspend_power_down_kb(void) {
     suspend_wakeup_init_user();
 }
 #endif
+
+/* Left B9   Right B8 */
+
+#ifndef ARM_PWM_LED_PORT_RIGHT
+#define ARM_PWM_LED_PORT_RIGHT GPIOB
+#endif
+#ifndef ARM_PWM_LED_PIN_RIGHT
+#define ARM_PWM_LED_PIN_RIGHT 8
+#endif
+
+#define LED_PIN_RIGHT PAL_LINE(ARM_PWM_LED_PORT_RIGHT, ARM_PWM_LED_PIN_RIGHT)
+
+static void pwm_led_period_callback_right(PWMDriver *pwmp);
+static void pwm_led_channel_interrupt_callback_right(PWMDriver *pwmp);
+static bool layer_4_on;
+
+static PWMConfig pwmCFG_right = {
+    100000,/* PWM clock frequency  */
+    10,/* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+    pwm_led_period_callback_right,
+    {
+        {PWM_OUTPUT_DISABLED, NULL}, /* channel 0 -> TIM1-CH1 = PA8 */
+        {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIM1-CH2 = PA9 */
+        {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIM1-CH3 = PA10 */
+        {PWM_OUTPUT_ACTIVE_HIGH, pwm_led_channel_interrupt_callback_right}
+    },
+    0, /* HW dependent part.*/
+    0
+};
+
+static float channel_1_frequency = 0.0f;
+void channel_1_set_frequency(float freq) {
+
+    if (freq == channel_1_frequency)
+        return;
+
+    channel_1_frequency = freq;
+
+    pwmcnt_t period = (pwmCFG_right.frequency / freq);
+    pwmChangePeriod(&PWMD4, period);
+    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+}
+
+float channel_1_get_frequency(void) {
+    return channel_1_frequency;
+}
+
+
+
+void channel_1_start(void){
+    pwmStop(&PWMD4);
+    pwmStart(&PWMD4, &pwmCFG_right);
+    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+
+    pwmEnablePeriodicNotification(&PWMD4); // enable pwm callbacks
+    pwmEnableChannelNotification(&PWMD4, 0);
+}
+
+void channel_1_stop(void){
+    pwmStop(&PWMD4);
+}
+static void pwm_led_period_callback_right(PWMDriver *pwmp) {
+    (void)pwmp;
+    palClearLine(LED_PIN_RIGHT);
+}
+
+static void pwm_led_channel_interrupt_callback_right(PWMDriver *pwmp) {
+    (void)pwmp;
+    palSetLine(LED_PIN_RIGHT); // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+}
+
+static void gpt_cb8(GPTDriver *gptp);
+GPTConfig gpt4cfg1 = {
+    .frequency    = 10,
+    .callback     = gpt_cb8,
+    .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
+    .dier         = 0U
+};
+
+
+void led_start_hardware(void);
+void led_initialize_hardware(void)
+{
+    pwmStart(&PWMD4, &pwmCFG_right);
+
+    pwmEnableChannel(&PWMD4, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+
+    palSetLineMode(LED_PIN_RIGHT, PAL_MODE_OUTPUT_OPENDRAIN);
+    palClearLine(LED_PIN_RIGHT);
+
+    pwmEnablePeriodicNotification(&PWMD4); // enable pwm callbacks
+    pwmEnableChannelNotification(&PWMD4, 0);
+
+    led_start_hardware();
+}
+
+void led_start_hardware(void) {
+    channel_1_stop();
+    channel_1_start();
+
+    gptStart(&GPTD8, &gpt4cfg1);
+    gptStartContinuous(&GPTD8, 2U);
+}
+
+void led_stop_hardware(void) {
+    channel_1_stop();
+    gptStopTimer(&GPTD8);
+}
+
+/* regular timer task, that checks the note to be currently played, updates the pwm to output that frequency
+ */
+static void gpt_cb8(GPTDriver *gptp) {
+    // float freq, freq_alt;
+//    pwm_audio_timer_task(&freq, &freq_alt);
+
+    if (layer_4_on)
+        channel_1_set_frequency(16);
+    else
+        channel_1_stop();
+}
+
+
+void keyboard_post_init_kb(void) {
+    led_initialize_hardware();
+    palSetPadMode(GPIOB, 9, PAL_MODE_OUTPUT_PUSHPULL);
+    palClearPad(GPIOB, 9);
+
+}
+
+uint32_t layer_state_set_kb(uint32_t state) {
+
+  led_stop_hardware();
+  layer_4_on = false;
+  palClearPad(GPIOB, 9);
+  palClearPad(GPIOB, 8);
+  state = layer_state_set_user(state);
+  uint8_t layer = biton32(state);
+  switch (layer) {
+      case 3:
+        palSetPad(GPIOB, 9);
+        break;
+      case 4:
+        led_start_hardware();
+        layer_4_on = true;
+        palSetPad(GPIOB, 8);
+        break;
+      case 6:
+        palSetPad(GPIOB, 9);
+        led_start_hardware();
+        break;
+      default:
+        break;
+    }
+    return state;
+}
