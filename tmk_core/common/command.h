@@ -35,7 +35,7 @@ bool command_proc(uint8_t code);
 #endif
 
 #ifndef IS_COMMAND
-#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 #endif
 
 #ifndef MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
