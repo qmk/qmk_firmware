@@ -10,6 +10,7 @@ enum layers_keymap {
 };
 
 void eeconfig_init_keymap(void) {
+    rgblight_sethsv(MODERN_DOLCH_RED.h, MODERN_DOLCH_RED.s, MODERN_DOLCH_RED.v);
     rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }
 
@@ -56,20 +57,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│PSc│Ins│
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
-     * │     │Hom│ ↑ │End│PgU│   │   │   │   │M1 │M↑ │M3 │M2 │ Del │
+     * │     │Hom│ ↑ │End│PgU│   │   │   │   │M3 │M1 │M↑ │M2 │ Del │
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
-     * │      │ ← │ ↓ │ → │PgD│   │   │   │MW↑│M← │M↓ │M→ │        │
+     * │      │ ← │ ↓ │ → │PgD│   │   │   │   │MW↑│M← │M→ │        │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
-     * │        │Mut│Vo-│Vo+│Ply│Prv│Nxt│MW←│MW→│M4 │M5 │      │   │
+     * │        │Mut│Vo-│Vo+│Ply│Prv│Nxt│App│MW←│MW→│M↓ │      │   │
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
      *       │   │     │            MW↓            │MAcl2│   │
      *       └───┴─────┴───────────────────────────┴─────┴───┘
      */
     [L_FN] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_INS,
-        _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN3, KC_BTN2, KC_DEL,
-        _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_WH_L, KC_WH_R, KC_BTN4, KC_BTN5, _______, _______,
+        _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN3, KC_BTN1, KC_MS_U, KC_BTN2, KC_DEL,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_R, _______,
+        _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_APP,  KC_WH_L, KC_WH_R, KC_MS_D, _______, _______,
         XXXXXXX, _______, _______,                   KC_WH_D,                   KC_ACL2, _______, XXXXXXX
     ),
 
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
      * │      │Mv←│Mv↓│Mv→│TNx│   │   │   │   │   │   │   │        │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
-     * │        │RTg│RV-│RV+│   │   │   │   │   │   │   │      │   │
+     * │        │RTg│RV-│RV+│RMd│   │   │   │M4 │M5 │   │      │   │
      * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
      *       │DPR│DstNA│                           │     │   │
      *       └───┴─────┴───────────────────────────┴─────┴───┘
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CLEAR,
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, RGB_TOG, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, KC_BTN4, KC_BTN5, _______, _______, _______,
         XXXXXXX, DST_P_R, DST_N_A,                   _______,                   _______, _______, XXXXXXX
     ),
 };
