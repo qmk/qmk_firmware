@@ -69,6 +69,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Do something else when release
             }
             return false;  // Skip all further processing of this key
+
+            return true;   // Let QMK send the enter press/release events
+        default:
+            return true;  // Process all other keycodes normally
         case num2:
             if (record->event.pressed) {
                 layer_clear();
