@@ -25,31 +25,39 @@ NGKEYS naginata_keys;
 enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
   EUCALYN,
-  MOVE,
-  SYMBOL,
+  WORKMAN,
+  RAISE,
+  LOWER,
   NUMBER,
-  CONTROL,
+  ADJUST,
   RGBRST,
   EISU,
-  KANA,
-  EUCALYNM,
+  KANA2,
   EURO,
   SSCLN,
   SEQL,
+  DELA,
+  DELE,
+  ALPH,
+  SALPH,
 };
 
 // Layers
 enum kepmap_layers {
   _EUCALYN,
-  _EUCALYNM,
+  _WORKMAN,
   _SHIFT,
 // 薙刀式
   _NAGINATA,
 // 薙刀式
+  _EDIT1R,
+  _EDIT1L,
+  _EDIT2R,
+  _EDIT2L,
   _NUMBER,
-  _SYMBOL,
-  _MOVE,
-  _CONTROL,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
 };
 
 #define _____   KC_TRNS
@@ -78,111 +86,224 @@ enum combo_events {
   NAGINATA_ON_CMB,
   NAGINATA_OFF_CMB,
   LOGIN_CMB,
+  EDITR1_CMB,
+  EDITL1_CMB,
+  EDITR2_CMB,
+  EDITL2_CMB,
+  ENTER_CMB,
 };
 
-#if defined(EUCALYN) || defined(EUCALYNKAI)
+#if defined(DEUCALYN)
 const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
 const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
-#else
-const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
+const uint16_t PROGMEM editr1_combo[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM editl1_combo[] = {KC_T, KC_K, COMBO_END};
+const uint16_t PROGMEM editr2_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM editl2_combo[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {KC_V, KC_H, COMBO_END};
 #endif
-const uint16_t PROGMEM login_combo[] = {KC_Q, KC_W, KC_M, COMBO_END};
+#if defined(DWORKMAN)
+const uint16_t PROGMEM ngon_combo[] = {KC_Y, KC_N, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM editr1_combo[] = {KC_H, KC_T, COMBO_END};
+const uint16_t PROGMEM editl1_combo[] = {KC_N, KC_E, COMBO_END};
+const uint16_t PROGMEM editr2_combo[] = {KC_M, KC_C, COMBO_END};
+const uint16_t PROGMEM editl2_combo[] = {KC_L, KC_COMM, COMBO_END};
+const uint16_t PROGMEM enter_combo[] = {KC_C, KC_L, COMBO_END};
+#endif
+const uint16_t PROGMEM login_combo[] = {KC_Q, KC_D, KC_R, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
   [LOGIN_CMB] = COMBO_ACTION(login_combo),
+  [EDITR1_CMB] = COMBO_ACTION(editr1_combo),
+  [EDITL1_CMB] = COMBO_ACTION(editl1_combo),
+  [EDITR2_CMB] = COMBO_ACTION(editr2_combo),
+  [EDITL2_CMB] = COMBO_ACTION(editl2_combo),
+  [ENTER_CMB] = COMBO(enter_combo, KC_ENT),
 };
 // 薙刀式
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_EUCALYN] = LAYOUT( /* Base */
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-     KC_ESC,   KC_Q,   KC_W,   KC_M,   KC_R,  KC_UP,  KG(S), KC_DEL,KC_DOWN,KC_BSPC,   KC_D,   KC_Y,   KC_P,KC_MINS, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-     KC_TAB,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,KC_LPRN,KC_RPRN,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,KC_PLUS, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F,KC_COMM, KC_DOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,KC_COLN, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCMD,KC_LALT,  KC_F2, NUMBER, SYMBOL,  LSHFT, CTLSPC, CMDENT,  LSHFT,   MOVE,   KC_0, KC_DOT,KC_QUOT,KC_RCMD  \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _EUCALYN
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |ESC   |Q     |W     |M     |R     |,     |      |      |.     |BSPC  |D     |Y     |P     |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |TAB   |A     |O     |E     |I     |U     |      |      |G     |T     |K     |S     |N     |;     |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |ALPH  |Z     |X     |C     |V     |F     |      |      |B     |H     |J     |L     |/     |SALPH |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |LCMD  |      |      |      |LOWER |LSFT  |CTLSPC|ALTENT|RSFT  |RAISE |      |      |      |RCMD  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_EUCALYN] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_W   ,KC_M   ,KC_R   ,KC_COMM,XXXXXXX,XXXXXXX,KC_DOT ,KC_BSPC,KC_D   ,KC_Y   ,KC_P   ,XXXXXXX, \
+    KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,XXXXXXX,XXXXXXX,KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,KC_SCLN, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,XXXXXXX,XXXXXXX,KC_B   ,KC_H   ,KC_J   ,KC_L   ,KC_SLSH,SALPH  , \
+    KC_LCMD,XXXXXXX,XXXXXXX,XXXXXXX,LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_RCMD
   ),
 
-  [_SHIFT] = LAYOUT( /* Base */
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,KC_LCBR,KC_RCBR,  _____,  _____,  _____,  _____,  _____,   SEQL, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  SSCLN, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____  \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _WORKMAN
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |ESC   |Q     |D     |R     |W     |B     |      |      |J     |BSPC  |U     |P     |F     |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |TAB   |A     |S     |H     |T     |G     |      |      |Y     |N     |E     |O     |I     |;     |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |ALPH  |Z     |X     |M     |C     |V     |      |      |K     |L     |,     |.     |/     |SALPH |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |LCMD  |      |      |      |LOWER |LSFT  |CTLSPC|ALTENT|RSFT  |RAISE |      |      |      |RCMD  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_WORKMAN] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,XXXXXXX,XXXXXXX,KC_J   ,KC_BSPC,KC_U   ,KC_P   ,KC_F   ,XXXXXXX, \
+    KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,XXXXXXX,XXXXXXX,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_SCLN, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,XXXXXXX,XXXXXXX,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,SALPH  , \
+    KC_LCMD,XXXXXXX,XXXXXXX,XXXXXXX,LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_RCMD
   ),
 
+/* _NAGINATA
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |NG_Q   |NG_W   |NG_E   |NG_R   |NG_T   |       |       |NG_Y   |NG_U   |NG_I   |NG_O   |NG_P   |__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |NG_A   |NG_S   |NG_D   |NG_F   |NG_G   |       |       |NG_H   |NG_J   |NG_K   |NG_L   |NG_SCLN|__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |ALPH   |NG_Z   |NG_X   |NG_C   |NG_V   |NG_B   |       |       |NG_N   |NG_M   |NG_COMM|NG_DOT |NG_SLSH|SALPH  |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |__     |__     |__     |__     |NG_SHFT|__     |__     |NG_SHFT|__     |__     |__     |__     |__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
   [_NAGINATA] = LAYOUT(
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,   NG_Q,   NG_W,   NG_E,   NG_R,   NG_T,  _____,  _____,   NG_Y,   NG_U,   NG_I,   NG_O,   NG_P,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,   NG_A,   NG_S,   NG_D,   NG_F,   NG_G,  _____,  _____,   NG_H,   NG_J,   NG_K,   NG_L,NG_SCLN,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,   NG_Z,   NG_X,   NG_C,   NG_V,   NG_B,  _____,  _____,   NG_N,   NG_M,NG_COMM, NG_DOT,NG_SLSH,  _____, \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,NG_SHFT,  _____,  _____,NG_SHFT,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+    _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,XXXXXXX,XXXXXXX,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
+    _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,XXXXXXX,XXXXXXX,NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
+    ALPH   ,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,XXXXXXX,XXXXXXX,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,SALPH  , \
+    _______,_______,_______,_______,_______,NG_SHFT,_______,_______,NG_SHFT,_______,_______,_______,_______,_______
   ),
 
-  [_MOVE] = LAYOUT( \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,  XXXXX,  KC(A),  KC_UP,  KC(E),  XXXXX,KC_PGUP,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,KC_LCBR,KC_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,KC_PGDN,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  _____,  _____,  XXXXX,KA(LEFT), XXXXX,KA(RGHT), XXXXX,  XXXXX,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  KANA,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _EDIT1L
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |G(Q) |G(W) |G(N) |     |     |     |     |     |     |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |G(Y) |G(S) |PGDN |PGUP |     |     |     |__   |__   |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |G(Z) |G(X) |G(C) |G(V) |     |     |     |     |     |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_EDIT1L] = LAYOUT(
+    XXXXXXX,G(KC_Q),G(KC_W),G(KC_N),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,G(KC_Y),G(KC_S),KC_PGDN,KC_PGUP,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,G(KC_Z),G(KC_X),G(KC_C),G(KC_V),XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
-  [_SYMBOL] = LAYOUT( \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//               !       @       #       $       %
-      _____,KC_EXLM,  KC_AT,KC_HASH, KC_DLR,KC_PERC,  _____,  _____,  XXXXX,  XXXXX,KC_LCBR,KC_RCBR,  XXXXX,  _____,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//               ^       &       '       "       ~
-      _____,KC_CIRC,KC_AMPR,KC_QUOT, KC_DQT,KC_TILD,KC_LBRC,KC_RBRC,  KC_LT,  KC_GT,KC_LPRN,KC_RPRN,  XXXXX,  _____,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                       |       `       _       ¥
-      _____,   EURO,KC_PIPE, KC_GRV,KC_UNDS,KC_JYEN,  _____,  _____,  XXXXX,  XXXXX,KC_LBRC,KC_RBRC,  XXXXX,  _____,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,   EISU,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _EDIT1R
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |       |       |       |       |       |DELE   |       |       |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |__     |__     |       |       |G(LEFT)|LEFT   |S(LEFT)|LEFT   |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |       |       |       |       |G(RGHT)|RGHT   |S(RGHT)|RGHT   |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_EDIT1R] = LAYOUT(
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,DELE      ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   , \
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   ,_______   ,XXXXXXX   ,XXXXXXX   ,G(KC_LEFT),KC_LEFT   ,S(KC_LEFT),KC_LEFT   ,XXXXXXX   ,XXXXXXX   , \
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,G(KC_RGHT),KC_RGHT   ,S(KC_RGHT),KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
+    _______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
-  [_NUMBER] = LAYOUT( \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-//                                        $       %
-      _____,  _____,  _____,  KC_UP, KC_DLR,KC_PERC,  _____,KC_BSPC,  _____,KC_SLSH,   KC_7,   KC_8,   KC_9,KC_MINS,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,KC_LEFT,KC_DOWN,KC_RGHT,KC_TILD,  _____,  _____,  _____,KC_ASTR,   KC_4,   KC_5,   KC_6,KC_PLUS,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,KC_PERC, KC_EQL,   KC_1,   KC_2,   KC_3, KC_ENT,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____, NUMBER,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,   KC_0, KC_DOT,KC_COMM,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _EDIT2L
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |!    |@    |#    |$    |%    |     |     |     |     |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |\    |^    |&    |!    |?    |~    |     |     |__   |__   |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     ||    |`    |'    |"    |_    |     |     |     |     |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_EDIT2L] = LAYOUT(
+    XXXXXXX,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    KC_BSLS,KC_CIRC,KC_AMPR,KC_EXLM,KC_QUES,KC_TILD,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,KC_PIPE,KC_GRV ,KC_QUOT,KC_DQT ,KC_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
-  [_CONTROL] = LAYOUT( \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_HUI,RGB_HUD,KC_WAKE,  XXXXX,  RESET,  XXXXX,KC_BRIU,RGB_TOG,KC_MYCM,  XXXXX,KC_WSCH,  XXXXX, KC_PWR,EUCALYN,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_SAI,RGB_SAD,  XXXXX,  XXXXX,EEP_RST,  XXXXX,KC_BRID,RGB_MOD,KC_MAIL,KC_WBAK,KC_WHOM,KC_WFWD,  XXXXX,EUCALYNM,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    RGB_VAI,RGB_VAD,KC_SLEP,KC_CALC,  XXXXX,  XXXXX,RGBRST,RGB_RMOD,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,\
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-      _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____,  _____ \
-// +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+/* _EDIT2R
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     |     |     |     |     |     |DELA |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     |__   |__   |     |     |     |(    |[    |{    |<    |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     |     |     |     |     |     |)    |]    |}    |>    |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |__   |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_EDIT2R] = LAYOUT(
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,KC_LPRN,KC_LBRC,KC_LCBR,KC_LT  ,XXXXXXX, \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_RPRN,KC_RBRC,KC_RCBR,KC_GT  ,XXXXXXX, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+  ),
+
+/* _LOWERWER
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     |UP   |     |     |     |/    |7    |8    |9    |-    |:    |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |LEFT |DOWN |RGHT |     |     |*    |4    |5    |6    |+    |.    |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     |     |     |     |     |0    |1    |2    |3    |=    |,    |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |__   |__   |__   |__   |__   |EISU |__   |__   |__   |__   |__   |__   |__   |__   |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_LOWER] = LAYOUT(
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_UP  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_COLN, \
+    XXXXXXX,XXXXXXX,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,XXXXXXX,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,KC_DOT , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,KC_COMM, \
+    _______,_______,_______,_______,_______,EISU   ,_______,_______,_______,_______,_______,_______,_______,_______
+  ),
+
+/* _RAISE
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |       |       |       |       |       |       |UP     |       |       |PGUP   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |       |       |       |       |       |LEFT   |DOWN   |RGHT   |       |PGDN   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |       |       |       |       |       |S(LEFT)|       |S(RGHT)|       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |__     |__     |__     |__     |__     |__     |__     |KANA   |__     |__     |__     |__     |__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_RAISE] = LAYOUT(
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,XXXXXXX   ,KC_PGUP   , \
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,KC_PGDN   , \
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,S(KC_LEFT),XXXXXXX   ,S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+    _______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,KC_KANA   ,_______   ,_______   ,_______   ,_______   ,_______
+  ),
+
+/* _ADJUST
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |KC_WAKE|       |RESET  |       |       |       |       |       |       |       |KC_PWR |EUCALYN|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |EEP_RST|       |       |       |       |       |       |       |       |WORKMAN|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |KC_SLEP|KC_CALC|       |       |       |       |       |       |       |       |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |__     |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_ADJUST] = LAYOUT(
+    XXXXXXX,XXXXXXX,KC_WAKE,XXXXXXX,RESET  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,EUCALYN, \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,EEP_RST,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,WORKMAN, \
+    XXXXXXX,XXXXXXX,KC_SLEP,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
 };
@@ -192,7 +313,7 @@ void update_led(void);
 void update_led() {
   rgblight_set_effect_range(56, 15);
 
-  if (!layer_state_is(_NUMBER) && !layer_state_is(_SYMBOL) && !layer_state_is(_MOVE) && !layer_state_is(_NUMBER)) {
+  if (!layer_state_is(_NUMBER) && !layer_state_is(_LOWER) && !layer_state_is(_RAISE) && !layer_state_is(_NUMBER)) {
     rgblight_sethsv_range(0, 0, 0, 0, 56);
   }
   if (naginata_state()) {
@@ -217,12 +338,12 @@ void update_led() {
     rgblight_sethsv_at(150, 200, 200, 15);
     rgblight_sethsv_at(150, 200, 200, 17);
   }
-  if (layer_state_is(_SYMBOL)) {
+  if (layer_state_is(_LOWER)) {
     // rgblight_sethsv_at(240, 100, 200, 19);
     rgblight_sethsv_range(240, 200, 200, 40, 43);
     rgblight_sethsv_range(240, 200, 200, 45, 51);
   }
-  if (layer_state_is(_MOVE)) {
+  if (layer_state_is(_RAISE)) {
     // rgblight_sethsv_at(100, 100, 200, 36);
     rgblight_sethsv_at(100, 200, 200, 38);
     rgblight_sethsv_at(100, 200, 200, 40);
@@ -238,6 +359,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 static bool num_toggle = false;
+static bool nstate = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -265,38 +387,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       update_led();
       return false;
       break;
-    case CONTROL:
+    case ADJUST:
       if (record->event.pressed) {
-        layer_on(_CONTROL);
+        layer_on(_ADJUST);
       } else {
-        layer_off(_CONTROL);
+        layer_off(_ADJUST);
       }
       update_led();
       return false;
       break;
-    case SYMBOL:
+    case LOWER:
       if (record->event.pressed) {
-        layer_on(_SYMBOL);
-        update_tri_layer(_SYMBOL, _MOVE, _CONTROL);
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
-        layer_off(_SYMBOL);
-        update_tri_layer(_SYMBOL, _MOVE, _CONTROL);
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       update_led();
       return false;
       break;
-    case MOVE:
+    case RAISE:
       if (record->event.pressed) {
-        layer_on(_MOVE);
-        update_tri_layer(_SYMBOL, _MOVE, _CONTROL);
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
-        layer_off(_MOVE);
-        update_tri_layer(_SYMBOL, _MOVE, _CONTROL);
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       update_led();
       return false;
       break;
-    case KANA:
+    case KANA2:
       if (record->event.pressed) {
         naginata_on();
       }
@@ -316,9 +438,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case EUCALYNM:
+    case WORKMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_EUCALYNM);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
@@ -342,6 +464,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+    case ALPH:
+      if (record->event.pressed) {
+        nstate = naginata_state();
+        if (nstate) naginata_off();
+      } else {
+        if (nstate) naginata_on();
+      }
+      break;
+    case SALPH:
+      if (record->event.pressed) {
+        nstate = naginata_state();
+        if (nstate) naginata_off();
+        register_code(KC_LSFT);
+      } else {
+        unregister_code(KC_LSFT);
+        if (nstate) naginata_on();
+      }
+      break;
     }
 
   // 薙刀式
@@ -357,6 +497,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
 // 薙刀式
 // IME ONのcombo
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -364,13 +505,11 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_ON_CMB:
       if (pressed) {
         naginata_on();
-        update_led();
       }
       break;
     case NAGINATA_OFF_CMB:
       if (pressed) {
         naginata_off();
-        update_led();
       }
       break;
     case LOGIN_CMB:
@@ -383,6 +522,35 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         unregister_code (KC_LCTRL);
       }
       break;
+    case EDITR1_CMB:
+      if (pressed) {
+        layer_on(_EDIT1R);
+      } else {
+        layer_off(_EDIT1R);
+      }
+      break;
+    case EDITL1_CMB:
+      if (pressed) {
+        layer_on(_EDIT1L);
+      } else {
+        layer_off(_EDIT1L);
+      }
+      break;
+    case EDITR2_CMB:
+      if (pressed) {
+        layer_on(_EDIT2R);
+      } else {
+        layer_off(_EDIT2R);
+      }
+      break;
+    case EDITL2_CMB:
+      if (pressed) {
+        layer_on(_EDIT2L);
+      } else {
+        layer_off(_EDIT2L);
+      }
+      break;
+
   }
 }
 // 薙刀式
