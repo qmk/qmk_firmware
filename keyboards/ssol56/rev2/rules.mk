@@ -6,7 +6,7 @@ SRC =	matrix.c \
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
 MCU_LDSCRIPT = STM32F103x8_stm32duino_bootloader
 BOARD = GENERIC_STM32_F103
-DFU_ARGS = -a 2 -d 1eaf:0003
+DFU_ARGS = -a 2 -d 1eaf:0003 -R
 
 # GENERIC STM32F103C8T6 board - no bootloader (programmer over serial or SWD)
 # OPT_DEFS =
