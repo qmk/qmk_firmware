@@ -39,6 +39,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_CENTER { 112, 35 }
 
 // Encoder support
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { D2 }
 #define ENCODERS_PAD_B { D6 }

@@ -131,8 +131,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // For RGBRST Keycode
 #if defined(RGB_MATRIX_ENABLE)
-extern void eeconfig_update_rgb_matrix_default(void);
-
 void rgb_matrix_increase_flags(void)
 {
     switch (rgb_matrix_get_flags()) {
@@ -283,7 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_MENU:
 #ifdef RGB_OLED_MENU
       if (record->event.pressed) {
-        if (get_mods() != 0) {
+        if (get_mods() & MOD_MASK_SHIFT) {
           rgb_encoder_state = (rgb_encoder_state - 1);
           if (rgb_encoder_state > 5) {
             rgb_encoder_state = 5;
