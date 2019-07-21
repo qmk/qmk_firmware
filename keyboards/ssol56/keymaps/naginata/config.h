@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    eswai
 
 // 薙刀式
-// #define EUCALYN
-#define EUCALYNKAI
+#define DEUCALYN
+// #define DWORKMAN
 // #define NAGINATA_EDIT_WIN
 #define NAGINATA_EDIT_MAC
 #define COMBO_COUNT 10
