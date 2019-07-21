@@ -17,8 +17,8 @@
 #include "tmk_core/common/eeprom.h"
 
 // HACK
-#include "keyboards/zeal60/zeal60_api.h" // Temporary hack
-#include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
+#include "keyboards/wilba_tech/via_api.h" // Temporary hack
+#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
 
 
 /* Artificial delay added to get media keys to work in the encoder*/
@@ -72,7 +72,7 @@ void eeprom_set_valid(bool valid)
 
 void eeprom_reset(void)
 {
-	// Set the Zeal60 specific EEPROM state as invalid.
+	// Set the VIA specific EEPROM state as invalid.
 	eeprom_set_valid(false);
 	// Set the TMK/QMK EEPROM state as invalid.
 	eeconfig_disable();
