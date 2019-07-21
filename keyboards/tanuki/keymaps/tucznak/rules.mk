@@ -1,3 +1,6 @@
+# screw Caterina
+BOOTLOADER = qmk-dfu
+
 # Build Options
 #   comment out to disable the options.
 #

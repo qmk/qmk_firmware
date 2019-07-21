@@ -8,6 +8,11 @@
 #define PRODUCT         Trash Panda
 #define DESCRIPTION     Qt3.14 smolkeeb
 
+/* for bootloader */
+#define QMK_ESC_OUTPUT B2
+#define QMK_ESC_INPUT D0
+#define QMK_LED B0
+
 /* turn off RGB when computer sleeps */
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_SLEEP
