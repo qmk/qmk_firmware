@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   |TAB   |A     |O     |E     |I     |U     |      |      |G     |T     |K     |S     |N     |;     |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  |LSFT  |Z     |X     |C     |V     |F     |      |      |B     |H     |J     |L     |/     |RSFT  |
+  |ALPH  |Z     |X     |C     |V     |F     |      |      |B     |H     |J     |L     |/     |SALPH |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   |LCMD  |      |      |      |LOWER |LSFT  |CTLSPC|ALTENT|RSFT  |RAISE |      |      |      |RCMD  |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EUCALYN] = LAYOUT(
     KC_ESC ,KC_Q   ,KC_W   ,KC_M   ,KC_R   ,KC_COMM,XXXXXXX,XXXXXXX,KC_DOT ,KC_BSPC,KC_D   ,KC_Y   ,KC_P   ,XXXXXXX, \
     KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,XXXXXXX,XXXXXXX,KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,KC_SCLN, \
-    KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,XXXXXXX,XXXXXXX,KC_B   ,KC_H   ,KC_J   ,KC_L   ,KC_SLSH,KC_RSFT, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,XXXXXXX,XXXXXXX,KC_B   ,KC_H   ,KC_J   ,KC_L   ,KC_SLSH,SALPH  , \
     KC_LCMD,XXXXXXX,XXXXXXX,XXXXXXX,LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_RCMD
   ),
 
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   |TAB   |A     |S     |H     |T     |G     |      |      |Y     |N     |E     |O     |I     |;     |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  |LSFT  |Z     |X     |M     |C     |V     |      |      |K     |L     |,     |.     |/     |RSFT  |
+  |ALPH  |Z     |X     |M     |C     |V     |      |      |K     |L     |,     |.     |/     |SALPH |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   |LCMD  |      |      |      |LOWER |LSFT  |CTLSPC|ALTENT|RSFT  |RAISE |      |      |      |RCMD  |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WORKMAN] = LAYOUT(
     KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,XXXXXXX,XXXXXXX,KC_J   ,KC_BSPC,KC_U   ,KC_P   ,KC_F   ,XXXXXXX, \
     KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,XXXXXXX,XXXXXXX,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_SCLN, \
-    KC_LSFT,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,XXXXXXX,XXXXXXX,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,XXXXXXX,XXXXXXX,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,SALPH  , \
     KC_LCMD,XXXXXXX,XXXXXXX,XXXXXXX,LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE  ,XXXXXXX,XXXXXXX,XXXXXXX,KC_RCMD
   ),
 
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
   |     |!    |@    |#    |$    |%    |     |     |     |     |     |     |     |     |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |^    |&    |!    |?    |~    |\    |     |__   |__   |     |     |     |     |
+  |\    |^    |&    |!    |?    |~    |     |     |__   |__   |     |     |     |     |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
   |     ||    |`    |'    |"    |_    |     |     |     |     |     |     |     |     |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -232,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_EDIT2L] = LAYOUT(
     XXXXXXX,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    XXXXXXX,KC_CIRC,KC_AMPR,KC_EXLM,KC_QUES,KC_TILD,KC_BSLS,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    KC_BSLS,KC_CIRC,KC_AMPR,KC_EXLM,KC_QUES,KC_TILD,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
     XXXXXXX,KC_PIPE,KC_GRV ,KC_QUOT,KC_DQT ,KC_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
@@ -317,6 +317,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 static bool num_toggle = false;
+static bool nstate = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -431,18 +432,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case ALPH:
       if (record->event.pressed) {
-        naginata_off();
+        nstate = naginata_state();
+        if (nstate) naginata_off();
       } else {
-        naginata_on();
+        if (nstate) naginata_on();
       }
       break;
     case SALPH:
       if (record->event.pressed) {
-        naginata_off();
+        nstate = naginata_state();
+        if (nstate) naginata_off();
         register_code(KC_LSFT);
       } else {
         unregister_code(KC_LSFT);
-        naginata_on();
+        if (nstate) naginata_on();
       }
       break;
     }
