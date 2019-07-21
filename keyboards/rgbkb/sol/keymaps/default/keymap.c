@@ -23,7 +23,8 @@ enum layer_number {
 #define ADJ      MO(_ADJ)
 
 enum custom_keycodes {
-  RGBRST = SAFE_RANGE
+  RGBRST = SAFE_RANGE,
+  RGB_MENU
 };
 
 #define FN_ESC   LT(_FN, KC_ESC)
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |Shift |   Z  |   X  |   C  |   V  |   B  |   {  |  |   }  |   N  |   M  |   ,  |   .  |   /  |Enter |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  |  | Enter| Space|  FN  | Left | Down | Up   |Right |
+   * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  | | Enter| Space|  FN  | Left | Down | Up   |Right |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -128,7 +129,83 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+// For RGBRST Keycode
+#if defined(RGB_MATRIX_ENABLE)
+extern void eeconfig_update_rgb_matrix_default(void);
+
+void rgb_matrix_increase_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
+
+void rgb_matrix_decrease_flags(void)
+{
+    switch (rgb_matrix_get_flags()) {
+        case LED_FLAG_ALL: {
+            rgb_matrix_set_flags(LED_FLAG_NONE);
+            rgb_matrix_disable_noeeprom();
+            }
+            break;
+        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
+            rgb_matrix_set_flags(LED_FLAG_ALL);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        case LED_FLAG_UNDERGLOW: {
+            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
+            rgb_matrix_set_color_all(0, 0, 0);
+            }
+            break;
+        default: {
+            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+            rgb_matrix_enable_noeeprom();
+            }
+            break;
+    }
+}
+#endif
+
+#ifdef RGB_OLED_MENU
+uint8_t rgb_encoder_state = 4;
+
+typedef void (*rgb_matrix_f)(void);
+
+const rgb_matrix_f rgb_matrix_functions[6][2] = {
+    { rgb_matrix_increase_hue, rgb_matrix_decrease_hue },
+    { rgb_matrix_increase_sat, rgb_matrix_decrease_sat },
+    { rgb_matrix_increase_val, rgb_matrix_decrease_val },
+    { rgb_matrix_increase_speed, rgb_matrix_decrease_speed },
+    { rgb_matrix_step, rgb_matrix_step_reverse },
+    { rgb_matrix_increase_flags, rgb_matrix_decrease_flags }
+};
+#endif
+
 #ifdef ENCODER_ENABLE
+
+static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
+#define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a)/sizeof(pin_t))
+
 const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
     [_QWERTY] = ENCODER_LAYOUT( \
         KC_VOLU, KC_VOLD,
@@ -149,22 +226,27 @@ const uint16_t PROGMEM encoders[][NUMBER_OF_ENCODERS * 2][2]  = {
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  uint8_t layer = biton32(layer_state);
-  uint16_t keycode = encoders[layer][index][clockwise];
-  while (keycode == KC_TRANSPARENT && layer > 0)
-  {
-    layer--;
-    if ((layer_state & (1 << layer)) != 0)
-        keycode = encoders[layer][index][clockwise];
-  }
-  if (keycode != KC_TRANSPARENT)
-    tap_code16(keycode);
-}
-#endif
+  if (!is_keyboard_master())
+    return;
 
-// For RGBRST Keycode
-#if defined(RGB_MATRIX_ENABLE)
-extern void eeconfig_update_rgb_matrix_default(void);
+#ifdef RGB_OLED_MENU
+  if (index == RGB_OLED_MENU) {
+    (*rgb_matrix_functions[rgb_encoder_state][clockwise])();
+  } else
+#endif
+  {
+    uint8_t layer = biton32(layer_state);
+    uint16_t keycode = encoders[layer][index][clockwise];
+    while (keycode == KC_TRANSPARENT && layer > 0)
+    {
+      layer--;
+      if ((layer_state & (1 << layer)) != 0)
+          keycode = encoders[layer][index][clockwise];
+    }
+    if (keycode != KC_TRANSPARENT)
+      tap_code16(keycode);
+  }
+}
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -191,18 +273,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
       }
       return false;
+#if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_rgbkb_sol_rev2)
+    case RGB_TOG:
+      if (record->event.pressed) {
+        rgb_matrix_increase_flags();
+      }
+      return false;
+#endif
+    case RGB_MENU:
+#ifdef RGB_OLED_MENU
+      if (record->event.pressed) {
+        if (get_mods() != 0) {
+          rgb_encoder_state = (rgb_encoder_state - 1);
+          if (rgb_encoder_state > 5) {
+            rgb_encoder_state = 5;
+          }
+        } else {
+          rgb_encoder_state = (rgb_encoder_state + 1) % 6;
+        }
+      }
+#endif
+      return false;
   }
   return true;
 }
 
-
 // OLED Driver Logic
 #ifdef OLED_DRIVER_ENABLE
-extern keymap_config_t keymap_config;
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!has_usb())
-    return OLED_ROTATION_180;  // flip 180 for offhand
+  if (is_keyboard_master())
+    return OLED_ROTATION_90;
   return rotation;
 }
 
@@ -210,51 +310,54 @@ static void render_logo(void) {
   static const char PROGMEM sol_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
-
+    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
+  };
   oled_write_P(sol_logo, false);
 }
 
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[4][4] = {
-    {0x95,0x96,0x0a,0},
-    {0xb5,0xb6,0x0a,0},
-    {0x97,0x98,0x0a,0},
-    {0xb7,0xb8,0x0a,0} };
+  static const char PROGMEM sol_icon[] = {
+    0x9b,0x9c,0x9d,0x9e,0x9f,
+    0xbb,0xbc,0xbd,0xbe,0xbf,
+    0xdb,0xdc,0xdd,0xde,0xdf,0
+  };
+  oled_write_P(sol_icon, false);
 
-  if (keymap_config.swap_lalt_lgui != false) {
-    oled_write_P(mode_logo[0], false);
-    oled_write_P(mode_logo[1], false);
-  } else {
-    oled_write_P(mode_logo[2], false);
-    oled_write_P(mode_logo[3], false);
-  }
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  oled_write_P(PSTR("Layer: "), false);
+  // Define layers here
+  oled_write_P(PSTR("Layer"), false);
   switch (biton32(layer_state)) {
     case _QWERTY:
-      oled_write_P(PSTR("Default\n"), false);
+      oled_write_P(PSTR("BASE "), false);
       break;
     case _COLEMAK:
-      oled_write_P(PSTR("Colemak\n"), false);
+      oled_write_P(PSTR("CLMK "), false);
       break;
     case _FN:
-      oled_write_P(PSTR("FN\n"), false);
+      oled_write_P(PSTR("FN   "), false);
       break;
     case _ADJ:
-      oled_write_P(PSTR("_ADJ\n"), false);
+      oled_write_P(PSTR("ADJ  "), false);
       break;
     default:
-      oled_write_P(PSTR("Undefined\n"), false);
+      oled_write_P(PSTR("UNDEF"), false);
   }
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    uint8_t led_state = host_keyboard_leds();
+    oled_write_P(PSTR("-----"), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+
+#ifdef RGB_OLED_MENU
+    static char buffer[31] = { 0 };
+    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d s%3d m%3d e%3d ", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v, rgb_matrix_config.speed, rgb_matrix_config.mode, rgb_matrix_get_flags());
+    buffer[4 + rgb_encoder_state * 5] = '<';
+
+    oled_write_P(PSTR("-----"), false);
+    oled_write(buffer, false);
+#endif
 }
 
 void oled_task_user(void) {

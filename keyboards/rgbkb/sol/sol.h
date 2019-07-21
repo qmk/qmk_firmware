@@ -3,6 +3,8 @@
 #include "quantum.h"
 #ifdef KEYBOARD_rgbkb_sol_rev1
 #include "rev1.h"
+#else
+#include "rev2.h"
 #endif
 
 
