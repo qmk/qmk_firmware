@@ -370,17 +370,17 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_D|B_F|B_DOT     , .kana = SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)SS_TAP(X_RIGHT)},
 
 #ifdef NAGINATA_EDIT_WIN
-  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_DOWN)SS_UP(X_LCTRL)},
-  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_UP)SS_UP(X_LCTRL)},
-  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
-  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
-  {.key = B_D|B_F|B_Y       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)},
-  {.key = B_D|B_F|B_N       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
+  {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_END)SS_UP(X_LCTRL)},
+  {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_HOME)SS_UP(X_LCTRL)},
+  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_END)SS_UP(X_LSHIFT)SS_LCTRL("x")},
+  {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)},
+  {.key = B_D|B_F|B_Y       , .kana = SS_TAP(X_HOME)},
+  {.key = B_D|B_F|B_N       , .kana = SS_TAP(X_END)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_DOWN)SS_UP(X_LGUI)},
   {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_UP)SS_UP(X_LGUI)},
-  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
   {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
   {.key = B_D|B_F|B_Y       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)},
   {.key = B_D|B_F|B_N       , .kana = SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
@@ -391,15 +391,15 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
   {.key = B_C|B_V|B_H       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)"["},
 
 #ifdef NAGINATA_EDIT_WIN
-  {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)" "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
-  {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL)"   "SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL)},
-  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
+  {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
+  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_HOME)SS_UP(X_LSHIFT)SS_LCTRL("x")},
   {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
-  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
+  {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
   {.key = B_C|B_V|B_I       , .kana = ""},
 #endif
 
