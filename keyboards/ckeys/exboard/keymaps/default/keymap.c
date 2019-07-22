@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 
   [_BASE] = LAYOUT(
-    KC_KP_7, KC_KP_8,   KC_KP_9,     KC_PSLS, TG(_ADMIN), TG(_LAYERS), \
+    KC_KP_7, KC_KP_8,   KC_KP_9,     KC_PSLS, TG(_ADMIN), KC_KP_1, \
     KC_KP_4, KC_KP_5,   KC_KP_6,     KC_PAST, TG(_MOUSE),             \
     KC_KP_1, KC_KP_2,   KC_KP_3,     KC_PMNS, TG(_MIDI),              \
     KC_KP_0, KC_KP_DOT, KC_KP_EQUAL, KC_PPLS, TG(_MUSIC)              \
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 
   [_MIDI] = LAYOUT(
-    MI_Ds_3, MI_E_3,  MI_F_3, MI_Fs_3, MI_G_3, TG(_BASE),            \
+    MI_Ds_3, MI_E_3,  MI_F_3, MI_Fs_3, MI_G_3, _______,            \
     MI_As_2, MI_B_2,  MI_C_3, MI_Cs_3, MI_D_3, \
     MI_F_2,  MI_Fs_2, MI_G_2, MI_Gs_2, MI_A_2,            \
     MI_C_2,  MI_Cs_2, MI_D_2, MI_Ds_2, MI_E_2 \
