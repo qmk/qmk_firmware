@@ -33,8 +33,8 @@ After this, you'll want to use the `tap_dance_actions` array to specify what act
 * `ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
-* ~~`ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`~~: This functions identically to the `ACTION_TAP_DANCE_FN_ADVANCED` function, but uses a custom tapping term for it, instead of the predefined `TAPPING_TERM`.
-    * This is deprecated in favor of the Per Key Tapping Term functionality, as outlined [here](custom_quantum_functions.md#Custom_Tapping_Term). You'd want to check for the specific `TD()` macro that you want to use (such as `TD(TD_ESC_CAPS)`) instead of using this specific.
+* `ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`: This functions identically to the `ACTION_TAP_DANCE_FN_ADVANCED` function, but uses a custom tapping term for it, instead of the predefined `TAPPING_TERM`.
+
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise. 
 
 !> Keep in mind that only [basic keycodes](keycodes_basic.md) are supported here. Custom keycodes are not supported.
@@ -42,6 +42,8 @@ The first option is enough for a lot of cases, that just want dual roles. For ex
 Similar to the first option, the second option is good for simple layer-switching cases.
 
 For more complicated cases, use the third or fourth options (examples of each are listed below). 
+
+Finally, the fifth option is particularly useful if your non-Tap-Dance keys start behaving weirdly after adding the code for your Tap Dance keys. The likely problem is that you changed the `TAPPING_TERM` time to make your Tap Dance keys easier for you to use, and that this has changed the way your other keys handle interrupts.
 
 ## Implementation Details
 Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!
@@ -506,16 +508,16 @@ void ql_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //Associate our tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
+  [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275)
 };
 ```
 
-This is where the real logic of our tap dance key gets worked out. Since `layer_state_set_user()` is called on any layer switch, we use it to update `active_layer`. Our example is assuming that your `keymap.c` includes 4 layers, with Layer 0 as the default layer, so adjust the switch statement here to fit your actual number of layers.
+The is where the real logic of our tap dance key gets worked out. Since `layer_state_set_user()` is called on any layer switch, we use it to update `active_layer`. Our example is assuming that your `keymap.c` includes 4 layers, so adjust the switch statement here to fit your actual number of layers.
 
 The use of `cur_dance()` and `ql_tap_state` mirrors the above examples.
 
 The `case:SINGLE_TAP` in `ql_finished` is similar to the above examples. The `case:SINGLE_HOLD` works in conjunction with `ql_reset()` to switch to `_MY_LAYER` while the tap dance key is held, and to switch away from `_MY_LAYER` when the key is released. This mirrors the use of `MO(_MY_LAYER)`. The `case:DOUBLE_TAP` works by checking whether `_MY_LAYER` is the active layer, and toggling it on or off accordingly. This mirrors the use of `TG(_MY_LAYER)`.
 
-`tap_dance_actions[]` works similar to the above examples. 
+`tap_dance_actions[]` works similar to the above examples. Note that I used `ACTION_TAP_DANCE_FN_ADVANCED_TIME()` instead of `ACTION_TAP_DANCE_FN_ADVANCED()`. This is because I like my `TAPPING_TERM` to be short (~175ms) for my non-tap-dance keys but find that this is too quick for me to reliably complete tap dance actions - thus the increased time of 275ms here.
 
-Finally, be sure to include `TD(QUOT_LAYR)` in your `keymaps[]`.
+Finally, to get this tap dance key working, be sure to include `TD(QUOT_LAYR)` in your `keymaps[]`.
