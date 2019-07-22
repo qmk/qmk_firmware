@@ -10,9 +10,9 @@ Settings:
 * Del is available as `Fn` + `Backspace`
 * `/ ?` are available when you tap the right shift. Otherwise RShift is shift when held down
 * RESET is available as `Fn`+ ` ESC`
-* Underglow toggle and mode selection are available as `Fn` + `Q` and `Fn` + `S`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
-* Media play/pause doesn't seem to work with anything but iTunes at the moment. FML
-
+* Underglow toggle is available as `Fn` + `Q`. Yes your keyboard has lights even if you didn't get the LEDs. Bonus!
+* vim-style arrow key bindings H J K L in layer 1
+* The `Bkspc` and `\` keys have been swapped, the reach was too great to have backspace on the top row
 
 ### Initial Installation
 
@@ -36,22 +36,22 @@ A hex file `dz60_billiams.hex` will be created in the base qmk_firmware director
 5. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode
 6. If you are using [QMK toolbox](https://github.com/qmk/qmk_toolbox/releases), upload the .hex file you made above, select it and hit the flash button. For the love of all that is good and holy on Earth, don't hit the load button, that will load the default keymap and that's not what you want! Unless it is, in which case click away.
 
-Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. Note that you don't have to unplug the keyboard. 
+Note: If you didn't follow my instructions in 4 and accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootleg mode again, hold the `down arrow` key and `\`. The default layout is Build 1 and sets the `MENU` key on that build to `Fn`. `MENU` corresponds to `down arrow` in build 4. Note that you don't have to unplug the keyboard.
 
 Hope this helps!
 
 ### 0 Qwerty
 ```
 ,-----------------------------------------------------------------------------------------.
-|  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |   Bkspc   |
+|  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |     \     |
 |-----------------------------------------------------------------------------------------+
-| Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+| Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  | Bkspc  |
 |-----------------------------------------------------------------------------------------+
 |   Fn    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
 |-----------------------------------------------------------------------------------------+
 | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | Tap:/ RSh |  U  | ESC |
 |-----------------------------------------------------------------------------------------+
-| Ctrl |  Alt  |  Cmd  |              Space                | Cmd |  Fn  |  L  |  D  |  R  |
+| Ctrl |  Alt  |  Cmd  |              Space                | Alt |  Fn  |  L  |  D  |  R  |
 `-----------------------------------------------------------------------------------------'
 ```
 
@@ -61,13 +61,12 @@ FN Layer
 ,-----------------------------------------------------------------------------------------.
 |  `  |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |    DEL    |
 |-----------------------------------------------------------------------------------------+
-|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+|     |     | MUTE | Vol- | Vol+ |
+|        |RBB T|RGB M| Hue-| Hue+| Sat-| Sat+| Val-| Val+| Mute | Vol-| Vol+| Prev | Next |
 |-----------------------------------------------------------------------------------------+
-|         |     |     |     |     |     |     |     |     |    | Prev | Next | Play/Pause |
+|         |     |     |     |     |     | Left| Down| Up |Right|      |      | Play/Pause |
 |-----------------------------------------------------------------------------------------+
 |           |     |     |     |     |     |     |     |Scr- |Scr+ |         | PG_UP |RESET|
 |-----------------------------------------------------------------------------------------+
 |      |       |       |                                 |     |     | HOME | PG_DN | END |
 `-----------------------------------------------------------------------------------------'
 ```
-

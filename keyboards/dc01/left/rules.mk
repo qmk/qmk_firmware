@@ -1,8 +1,7 @@
 SRC += matrix.c \
-      ../../../drivers/avr/i2c_master.c
+       i2c_master.c
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.

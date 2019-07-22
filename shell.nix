@@ -6,7 +6,10 @@ with pkgs;
 let
   avrbinutils = pkgsCross.avr.buildPackages.binutils;
   avrlibc = pkgsCross.avr.libcCross;
-  gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;
+  gcc-arm-embedded = (import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs-channels/archive/87f146a41c463a64c93022b11cf19716b3a22037.tar.gz";
+    sha256 = "0rk8haf19plw6vyvq0am99rik0hrrysknjw0f2vs7985awngy3q2";
+  }) {}).gcc-arm-embedded;
 
   avr_incflags = [
     "-isystem ${avrlibc}/avr/include"

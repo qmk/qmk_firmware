@@ -19,22 +19,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+// an enumeration of the chips this driver supports
+#define OLED_IC_SSD1306 0
+#define OLED_IC_SH1106  1
 
 #if defined(OLED_DISPLAY_CUSTOM)
   // Expected user to implement the necessary defines
 #elif defined(OLED_DISPLAY_128X64)
   // Double height 128x64
+#ifndef OLED_DISPLAY_WIDTH
   #define OLED_DISPLAY_WIDTH 128
+#endif
+#ifndef OLED_DISPLAY_HEIGHT
   #define OLED_DISPLAY_HEIGHT 64
+#endif
+#ifndef OLED_MATRIX_SIZE
   #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 1024 (compile time mathed)
-  #define OLED_BLOCK_TYPE uint32_t
+#endif
+#ifndef OLED_BLOCK_TYPE
+  #define OLED_BLOCK_TYPE uint16_t
+#endif
+#ifndef OLED_BLOCK_COUNT
   #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
+#endif
+#ifndef OLED_BLOCK_SIZE
   #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
+#endif
+#ifndef OLED_COM_PINS
+  #define OLED_COM_PINS COM_PINS_ALT
+#endif
 
   // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
   // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
-  #define OLED_SOURCE_MAP { 32, 40, 48, 56 }
-  #define OLED_TARGET_MAP { 24, 16, 8, 0 }
+#ifndef OLED_SOURCE_MAP
+  #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+#endif
+#ifndef OLED_TARGET_MAP
+  #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
+#endif
+  // If OLED_BLOCK_TYPE is uint32_t, these tables would look like:
+  // #define OLED_SOURCE_MAP { 32, 40, 48, 56 }
+  // #define OLED_TARGET_MAP { 24, 16, 8, 0 }
   // If OLED_BLOCK_TYPE is uint16_t, these tables would look like:
   // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
   // #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
@@ -43,23 +68,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
 #else // defined(OLED_DISPLAY_128X64)
   // Default 128x32
+#ifndef OLED_DISPLAY_WIDTH
   #define OLED_DISPLAY_WIDTH 128
+#endif
+#ifndef OLED_DISPLAY_HEIGHT
   #define OLED_DISPLAY_HEIGHT 32
+#endif
+#ifndef OLED_MATRIX_SIZE
   #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
+#endif
+#ifndef OLED_BLOCK_TYPE
   #define OLED_BLOCK_TYPE uint16_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
+#endif
+#ifndef OLED_BLOCK_COUNT
   #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
+#endif
+#ifndef OLED_BLOCK_SIZE
   #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
+#endif
+#ifndef OLED_COM_PINS
+  #define OLED_COM_PINS COM_PINS_SEQ
+#endif
 
   // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
   // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+#ifndef OLED_SOURCE_MAP
   #define OLED_SOURCE_MAP { 0, 8, 16, 24 }
+#endif
+#ifndef OLED_TARGET_MAP
   #define OLED_TARGET_MAP { 24, 16, 8, 0 }
+#endif
   // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
   // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
   // #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
 #endif // defined(OLED_DISPLAY_CUSTOM)
 
-// Address to use for tthe i2d oled communication
+#if !defined(OLED_IC)
+  #define OLED_IC OLED_IC_SSD1306
+#endif
+
+// the column address corresponding to the first column in the display hardware
+#if !defined(OLED_COLUMN_OFFSET)
+  #define OLED_COLUMN_OFFSET 0
+#endif
+
+// Address to use for the i2c oled communication
 #if !defined(OLED_DISPLAY_ADDRESS)
   #define OLED_DISPLAY_ADDRESS 0x3C
 #endif
