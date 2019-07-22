@@ -85,8 +85,8 @@ ifneq (,$(filter $(MCU),atmega32a))
   F_CPU ?= 12000000
 
   # unsupported features for now
-  NO_UART = yes
-  NO_SUSPEND_POWER_DOWN = yes
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
 
   # Programming options
   PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
