@@ -14,7 +14,7 @@
 #define QMK_LED B0
 
 /* turn off RGB when computer sleeps */
-#ifdef RGB_DI_PIN
+#ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
 #endif
 
