@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef UNICODE_ENABLE
 #    define UC(x) KC_NO
 #endif
-
-extern userspace_config_t userspace_config;
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+#endif
 
 enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 
