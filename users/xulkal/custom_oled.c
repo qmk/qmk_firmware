@@ -31,16 +31,18 @@ static void render_icon(void)
     };
 #else
     static const char PROGMEM font_icon[] = {
-        0x9b,0x9c,0x9d,0x9e,0x9f,0x0a,
-        0xbb,0xbc,0xbd,0xbe,0xbf,0x0a,
+        // Use \r (0x0d) to jump to the next line without clearing the rest of the current line
+        0x9b,0x9c,0x9d,0x9e,0x9f,0x0d,
+        0xbb,0xbc,0xbd,0xbe,0xbf,0x0d,
         0xdb,0xdc,0xdd,0xde,0xdf,0
     };
 #endif
     oled_write_P(font_icon, false);
 }
 
-static void render_layer(uint8_t layer)
+static void render_layer(void)
 {
+    uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
 #ifdef OLED_90ROTATION
     oled_write_P(PSTR("Layer"), false);
 #else
@@ -75,14 +77,22 @@ static void render_keyboard_leds(void)
 {
     // Host Keyboard LED Status
     uint8_t led_state = host_keyboard_leds();
+#ifdef OLED_90ROTATION
     oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
     oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
     oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+#else
+    oled_write_P(IS_LED_ON(led_state, USB_LED_NUM_LOCK) ? PSTR("NUM  ") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_CAPS_LOCK) ? PSTR("CAPS ") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRL") : PSTR("    "), false);
+#endif
 }
 
 #ifdef RGB_OLED_MENU
 extern uint8_t rgb_encoder_state;
 #endif
+
+#if defined(OLED_90ROTATION)
 
 #ifdef RGB_ENABLE
 static void render_rgb_state(void)
@@ -103,12 +113,10 @@ static void render_rgb_state(void)
 }
 #endif
 
-#if defined(OLED_90ROTATION)
-
 static void render_status(void)
 {
     render_icon();
-    render_layer(biton(layer_state));
+    render_layer();
 
     // Host Keyboard LED Status
     oled_write_P(PSTR("-----"), false);
@@ -134,20 +142,39 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 #else  // OLED_90ROTATION
 
+#ifdef RGB_ENABLE
+static void render_rgb_state(void)
+{
+    // TODO: need to do a bit more handling here for horizontal rendering
+#if defined(RGB_MATRIX_ENABLE)
+    static char buffer[37] = {0};
+    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d       s%3d m%3d e%3d ", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v, rgb_matrix_config.speed, rgb_matrix_config.mode, rgb_matrix_get_flags());
+#elif defined(RGBLIGHT_ENABLE)
+    static char buffer[32] = {0};
+    snprintf(buffer, sizeof(buffer), "h%3d s%3d v%3d       s%3d m%3d ", rgblight_config.hue, rgblight_config.sat, rgblight_config.val, rgblight_config.speed, rgblight_config.mode);
+#endif
+
+#ifdef RGB_OLED_MENU
+    buffer[4 + rgb_encoder_state * 5] = '<';
+#endif
+    oled_write(buffer, false);
+}
+#endif
+
 static void render_status(void)
 {
     render_icon();
 
     // Host Layer Status
-    oled_set_cursor(6, 1);
-    render_layer(biton(layer_state));
+    oled_set_cursor(6, 0);
+    render_layer();
 
     // Host Keyboard LED Status
-    oled_set_cursor(6, 2);
+    oled_set_cursor(6, 1);
     render_keyboard_leds();
 
 #ifdef RGB_ENABLE
-    oled_advance_page(false);
+    oled_set_cursor(6, 2);
     render_rgb_state();
 #endif
 }
