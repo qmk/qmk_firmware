@@ -16,6 +16,8 @@ Delete is available on all non-default layers, positioned on the upper right cor
 
 The raised layer has all the symbols and special characters predefined. As much as possible, there should be no need to use additional modifiers.
 
+Arrow keys have been disabled on this layer to avoid accidental misclicks when pressing the Raise key.
+
 #### macOS / Windows variants
 
 Because macOS and Windows expect quite different keycodes to produce the same special characters (for example '{' or  '|'), there are two different layers, one for each OS. To toggle either macOS (default) and Windows layouts within the RAISE layer, press SPECIAL + W for Windows or SPECIAL + M for macOS.
@@ -41,3 +43,23 @@ N/A
 ### EE_HANDS
 
 Prepared for EEPROM settings and different keymaps depending on USB port connected, but default master side remains left regardless.
+
+## Building
+
+Clean the build environment:
+
+```shell
+make clean
+```
+
+Build and flash left side:
+
+```shell
+make lets_split/rev2:mekberg:avrdude-split-left
+```
+
+Then do the same for the right side:
+
+```shell
+make lets_split/rev2:mekberg:avrdude-split-right
+```

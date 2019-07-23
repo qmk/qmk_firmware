@@ -160,7 +160,7 @@ RAISE - Mac
     _______, SE_EXCL, SE_QSTM, AP_LCBR, AP_RCBR, SE_AMP,      SE_TAK,  AP_PIPE, SE_BTCK, SE_TCK,  _______, KC_DEL,
     _______, SE_HASH, SE_USD,  AP_LPAR, AP_RPAR, SE_DQUT,     SE_TILD, AP_SLS,  AP_BSLS, SE_UML,  _______, _______,
     _______, SE_AT,   SE_PCNT, AP_LBR,  AP_RBR,  SE_QUT,      _______, SE_LT,   SE_GT,   _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______,     _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /*
@@ -182,7 +182,7 @@ RAISE - Windows
     _______, SE_EXCL, SE_QSTM, MS_LCBR, MS_RCBR, SE_AMP,      SE_TAK,  MS_PIPE, SE_BTCK, SE_TCK,  _______, KC_DEL,
     _______, SE_HASH, SE_USD,  MS_LPAR, MS_RPAR, SE_DQUT,     SE_TILD, MS_SLS,  MS_BSLS, SE_UML,  _______, _______,
     _______, SE_AT,   SE_PCNT, MS_LBR,  MS_RBR,  SE_QUT,      _______, SE_LT,   SE_GT,   _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______,     _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /*
