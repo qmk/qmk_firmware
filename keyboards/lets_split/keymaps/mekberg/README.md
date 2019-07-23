@@ -10,7 +10,7 @@ The default layer has normal alpha layout with the addition of Swedish letters, 
 
 2nd row left modifier has been bound to both Ctrl and Tab with modtap (hold for Ctrl, tap for Tab).
 
-Backspace becomes Delete on all other layers. Additionally, Backspace moves to the upper-right corner where it would ordinarily be on a English layout.
+Delete is available on all non-default layers, positioned on the upper right corner key.
 
 ### Raise
 
@@ -38,6 +38,6 @@ This option is used because otherwise modtap functions would fail to trigger. Th
 
 N/A
 
-### MASTER_LEFT
+### EE_HANDS
 
-I will normally be using it on the left, so leaving this the hard-coded default.
+Prepared for EEPROM settings and different keymaps depending on USB port connected, but default master side remains left regardless.
