@@ -650,7 +650,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_Out_Jack_Ext = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_OutputJack_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
         .JackType               = MIDI_JACKTYPE_External,
