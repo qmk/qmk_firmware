@@ -436,4 +436,4 @@ clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start \
 flash dfu-split-left dfu-split-right \
 avrdude-split-left avrdude-split-right \
-avrdude-loop
+avrdude-loop usbasp
