@@ -41,6 +41,7 @@
 void anne_pro_lighting_init(void);
 void anne_pro_lighting_update(void);
 void anne_pro_lighting_update_dynamic(keyrecord_t *record);
+void anne_pro_lighting_update_timeout(keyrecord_t *record);
 void anne_pro_lighting_toggle(void);
 void anne_pro_lighting_on(void);
 void anne_pro_lighting_off(void);

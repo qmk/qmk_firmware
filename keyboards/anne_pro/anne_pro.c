@@ -24,6 +24,7 @@
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     /* Update the key status for the reactive effects */
     anne_pro_lighting_update_dynamic(record);
+    anne_pro_lighting_update_timeout(record);
 
     switch (keycode) {
     case APL_RGB:

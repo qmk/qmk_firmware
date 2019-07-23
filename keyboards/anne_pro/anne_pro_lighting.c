@@ -50,6 +50,19 @@ static UARTConfig led_uart_cfg = {
     .cr3 = 0
 };
 
+/* Timer to keep track of seconds, this allows the backlight timeout */
+static virtual_timer_t seconds_timer;
+static volatile uint32_t seconds_timer_counter = 0;
+
+/* Timer callback to update the seconds timer */
+static void update_seconds_timer(void *p) {
+    chSysLockFromISR();
+    chVTSetI(&seconds_timer, MS2ST(1000), update_seconds_timer, p);
+    chSysUnlockFromISR();
+
+    seconds_timer_counter++;
+}
+
 /* State of the leds on the keyboard */
 static volatile bool leds_enabled = false;
 
@@ -62,6 +75,9 @@ void anne_pro_lighting_init(void) {
     uartStart(LED_UART, &led_uart_cfg);
     palSetPadMode(GPIOB, 10, PAL_MODE_ALTERNATE(7));
     palSetPadMode(GPIOB, 11, PAL_MODE_ALTERNATE(7));
+
+    /* Enable the seconds timer for backlight timeout */
+    chVTSet(&seconds_timer, MS2ST(1000), update_seconds_timer, NULL);
 }
 
 /* Buffer for the keystate packet */
@@ -93,8 +109,38 @@ void anne_pro_lighting_update_dynamic(keyrecord_t *record) {
     }
 }
 
+
+/* Timer keeping track of the last keypress */
+static uint32_t last_keypress_timer = 0;
+/* Was the lighting turned off by the timeout */
+static bool turned_off_by_timeout = false;
+
+/* Update the last keypress timer when a key is pressed */
+void anne_pro_lighting_update_timeout(keyrecord_t *record) {
+    /* Make sure this is actually a keypress event */
+    if (IS_NOEVENT(record->event)) return;
+
+    if (record->event.pressed) {
+        /* Update the last keypress timer */
+        last_keypress_timer = seconds_timer_counter;
+
+        /* If the lighting was turned off by a timeout, turn it back on */
+        if (turned_off_by_timeout) {
+            anne_pro_lighting_on();
+            turned_off_by_timeout = false;
+        }
+    }
+}
+
 /* Update lighting, should be called every matrix scan */
 void anne_pro_lighting_update(void) {
+    /* If the backlight in on, and the last keypress timeout is hit */
+    if (leds_enabled && (seconds_timer_counter - last_keypress_timer) >= BACKLIGHT_TIMEOUT) {
+        /* Turn off the backlight */
+        anne_pro_lighting_off();
+        turned_off_by_timeout = true;
+    }
+
     if (!uart_tx_ringbuf_empty(&led_uart_ringbuf)) {
         uart_tx_ringbuf_start_transmission(&led_uart_ringbuf);
     }
