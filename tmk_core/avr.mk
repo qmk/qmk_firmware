@@ -239,8 +239,12 @@ avrdude-split-left: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
-usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+define EXEC_USBASP
 	avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+endef
+
+usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_USBASP)
 
 
 # Convert hex to bin.
@@ -326,7 +330,7 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(call EXEC_DFU)
 else ifeq ($(strip $(BOOTLOADER)), USBasp)
-	avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+	$(call EXEC_USBASP)
 else
 	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
 endif
