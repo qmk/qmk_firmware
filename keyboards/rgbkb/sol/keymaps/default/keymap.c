@@ -324,8 +324,7 @@ static void render_status(void) {
 
   // Define layers here
   oled_write_P(PSTR("Layer"), false);
-  uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
-  switch (layer) {
+  switch (biton32(layer_state)) {
     case _QWERTY:
       oled_write_P(PSTR("BASE "), false);
       break;
