@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "color.h"
 
 #if defined(__GNUC__)
 #define PACKED __attribute__ ((__packed__))
@@ -81,10 +82,8 @@ typedef union {
   struct PACKED {
     uint8_t  enable  :2;
     uint8_t  mode    :6;
-    uint8_t  hue     :8;
-    uint8_t  sat     :8;
-    uint8_t  val     :8;
-    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
+    HSV      hsv;
+    uint8_t  speed;  //EECONFIG needs to be increased to support this
   };
 } rgb_config_t;
 
