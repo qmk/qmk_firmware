@@ -76,16 +76,16 @@ void oled_task_user(void) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case BASE:
-      oled_write_P(PSTR("Defaultn"), false);
+      oled_write_P(PSTR("Default\n"), false);
       break;
     case COMMAND:
-      oled_write_P(PSTR("COMMANDn"), false);
+      oled_write_P(PSTR("COMMAND\n"), false);
       break;
     case NUMBER:
-      oled_write_P(PSTR("NUMBERn"), false);
+      oled_write_P(PSTR("NUMBER\n"), false);
       break;
     case SETTING:
-      oled_write_P(PSTR("SETTINGn"), false);
+      oled_write_P(PSTR("SETTING\n"), false);
       break;
     default:
       // Or use the write_ln shortcut over adding 'n' to the end of your string
