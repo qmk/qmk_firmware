@@ -97,6 +97,8 @@ The following input modes are available:
 
   !> Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as Option + Left Arrow and Option + Right Arrow.
 
+  !> `UC_OSX` is a deprecated alias of `UC_MAC` that will be removed in a future version of QMK.
+
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
