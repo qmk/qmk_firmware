@@ -1,28 +1,44 @@
 # Unicode Support
 
-There are three Unicode keymap definition methods available in QMK:
+Unicode characters can be input straight from your keyboard! There are some limitations, however.
 
-## `UNICODE_ENABLE`
+QMK has three different methods for enabling Unicode input and defining keycodes:
 
-Supports Unicode up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji. The keycode function is `UC(c)` in the keymap, where _c_ is the code point's number (preferably hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+## Basic Unicode
 
-## `UNICODEMAP_ENABLE`
+This method supports Unicode code points up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table. The table may contain at most 16384 entries.
+Add the following to your `rules.mk`:
 
-You may want to have an enum to make referencing easier. So, you could add something like this to your keymap file:
+```make
+UNICODE_ENABLE = yes
+```
+
+Then add `UC(c)` keycodes to your keymap, where _c_ is the code point (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+
+## Unicode Map
+
+This method supports all possible code points (up to `0x10FFFF`); however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
+
+Add the following to your `rules.mk`:
+
+```make
+UNICODEMAP_ENABLE = yes
+```
+
+Then add `X(i)` keycodes to your keymap, where _i_ is an array index into the mapping table:
 
 ```c
 enum unicode_names {
-  BANG,
-  IRONY,
-  SNEK,
+    BANG,
+    IRONY,
+    SNEK
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [BANG]  = 0x203D,  // ‽
-  [IRONY] = 0x2E2E,  // ⸮
-  [SNEK]  = 0x1F40D, // 🐍
+    [BANG]  = 0x203D,  // ‽
+    [IRONY] = 0x2E2E,  // ⸮
+    [SNEK]  = 0x1F40D, // 🐍
 };
 ```
 
@@ -30,27 +46,33 @@ Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
 
 ### Lower and Upper Case
 
-Characters often come in lower and upper case pairs, for example: å, Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
+Characters often come in lower and upper case pairs, such as å and Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
 
-This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `XP`. This blends Unicode keys in with regular alphas.
+This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `XP()`. This helps blend Unicode keys in with regular alphas.
 
 Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L40) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
 
-## `UCIS_ENABLE`
+## UCIS
 
-Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to add a keycode or function that calls `qk_ucis_start()`. Once this function has been called, you can type the corresponding mnemonic for your character, then hit Space or Enter to complete it, or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode character inserted.
+This method also supports all possible code points. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
 
-For instance, you could define a table like this in your keymap file:
+Add the following to your `rules.mk`:
+
+```make
+UCIS_ENABLE = yes
+```
+
+Then define a table like this in your keymap file:
 
 ```c
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
-  UCIS_SYM("poop", 0x1F4A9), // 💩
-  UCIS_SYM("rofl", 0x1F923), // 🤣
-  UCIS_SYM("kiss", 0x1F619)  // 😙
+    UCIS_SYM("poop", 0x1F4A9), // 💩
+    UCIS_SYM("rofl", 0x1F923), // 🤣
+    UCIS_SYM("kiss", 0x1F619)  // 😙
 );
 ```
 
-To use it, call `qk_ucis_start()`, then type "rofl" and hit Enter. QMK should erase the "rofl" text and insert the laughing emoji.
+To use it, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl"), and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
 
 ### Customization
 
@@ -68,7 +90,7 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_OSX`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
+* **`UC_OSX`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with Unicode Map).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
@@ -112,7 +134,7 @@ You can also switch the input mode by calling `set_unicode_input_mode(x)` in you
 
 ```c
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UC_LNX);
 }
 ```
 
