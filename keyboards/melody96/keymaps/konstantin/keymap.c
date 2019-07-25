@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
-static const HSV *colors[] = { &GODSPEED_BLUE, &GODSPEED_YELLOW };
+static const HSV *colors[] = { &godspeed_blue, &godspeed_yellow };
 static const size_t cnum = sizeof colors / sizeof *colors;
 static size_t cidx = 0;
 
