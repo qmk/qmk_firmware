@@ -17,6 +17,8 @@
 
 #include "quantum.h"
 
+bool encoder_update_user(uint8_t index, bool clockwise);
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -27,24 +29,24 @@
  */
 #ifdef _DUMBPAD_TEST
 #define LAYOUT( \
-         k02, \
+         k01, \
     k10, k11, k12 \
 ) \
 { \
-    { KC_NO, k02, KC_NO }, \
+    { KC_NO, k01, KC_NO }, \
     { k10,   k11, k12, }, \
 }
 #else
 #define LAYOUT( \
-         k00, k01, k02, k03, \
-         k10, k11, k12, k13, \
-         k20, k21, k22, k23, \
-    k39, k30, k31, k32, k33 \
+         k01, k02, k03, k04, \
+         k11, k12, k13, k14, \
+         k21, k22, k23, k24, \
+    k30, k31, k32, k33, k34 \
 ) \
 { \
-    { KC_NO, k00, k01, k02, k03 }, \
-    { KC_NO, k10, k11, k12, k13 }, \
-    { KC_NO, k20, k21, k22, k23 }, \
-    { k39,   k30, k31, k32, k33 }, \
+    { KC_NO, k01, k02, k03, k04 }, \
+    { KC_NO, k11, k12, k13, k14 }, \
+    { KC_NO, k21, k22, k23, k24 }, \
+    { k30,   k31, k32, k33, k34 }, \
 }
 #endif

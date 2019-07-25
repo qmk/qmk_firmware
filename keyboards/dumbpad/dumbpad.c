@@ -19,6 +19,8 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
+void encoder_update_kb(uint8_t index, bool clockwise);
+
 /*
 
 void matrix_init_kb(void) {
@@ -49,3 +51,23 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 */
+
+void encoder_update_kb(uint8_t index, bool clockwise) {
+  if (!encoder_update_user(index, clockwise)) {
+    if (index == 0) {
+      if (layer_state && 0x1) {
+        if (clockwise) {
+          tap_code(KC_VOLU);
+        } else {
+          tap_code(KC_VOLD);
+        }
+      } else {
+        if (clockwise) {
+          tap_code(KC_MS_R);
+        } else {
+          tap_code(KC_MS_L);
+        }
+      }
+    }
+  }
+}
