@@ -17,7 +17,7 @@ enum bdn9_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Navigation
-        | Knob 1: Scroll Up/Dn  |      | Knob 2: Tab Prv/Nxt   |
+        | Knob 1: Scroll Dn/Up  |      | Knob 2: Tab Nxt/Prv   |
         | Press: Reopen Tab     | CmTb | Close Tab             |
         | PgDn                  | Up   | PgUp                  |
         | Left                  | Down | Right                 |
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Media
-        | Knob 1: Vol +/-       |      | Knob 2: Track Prv/Nxt |
+        | Knob 1: Vol +/-       |      | Knob 2: Track Nxt/Prv |
         | Press: Mute           | Plyr | Press: Play/Pause     |
         | J                     | K    | L                     |
         | Left                  | Spce | Right                 |
@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P7, KC_P8, DTP_MGC
     ),
     /*
-        Layer: Navigation
-        | Knob 1: =/-           |      | Knob 2: Page Dn/Up    |
+        Layer: Lightroom Navigation
+        | Knob 1: =/-           |      | Knob 2: Page Up/Dn    |
         | Press: Review         | J    | Press: Edit           |
         | Home, Hold: BD Layer  | Up   | End                   |
         | Left                  | Down | Right                 |
@@ -101,9 +101,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Light
-        | RGB Toggle            | Nav  | RESET                 |
-        | Reeder                | Meda | Keypad                |
-        | Review                | LNav | Edit                  |
+        | Knob 1: Hue +/-       |      | Knob 2: Sat +/-       |
+        | RGB Toggle            | Val+ | Toggle Layer          |
+        | RGB Mode Prev         | Val- | RGB Mode Next         |
+        | RGB Plain             | Brth | XXX                   |
      */
     [_LIGHT] = LAYOUT(
         RGB_TOG, RGB_VAI, TG_LGHT,
@@ -309,6 +310,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
             switch (biton32(layer_state)) {
                 case _NAVI:
                     keycode = KC_PGUP;
+                    break;
                 case _REEDER:
                 case _MEDIA:
                     keycode = KC_L;
