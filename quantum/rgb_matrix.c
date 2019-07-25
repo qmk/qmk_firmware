@@ -66,10 +66,6 @@
   #define RGB_DISABLE_WHEN_USB_SUSPENDED false
 #endif
 
-#ifndef EECONFIG_RGB_MATRIX
-  #define EECONFIG_RGB_MATRIX EECONFIG_RGBLIGHT
-#endif
-
 #if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
   #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
@@ -116,12 +112,12 @@ uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
   static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
-uint32_t eeconfig_read_rgb_matrix(void) {
-  return eeprom_read_dword(EECONFIG_RGB_MATRIX);
+void eeconfig_read_rgb_matrix(void) {
+  eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
 }
 
-void eeconfig_update_rgb_matrix(uint32_t val) {
-  eeprom_update_dword(EECONFIG_RGB_MATRIX, val);
+void eeconfig_update_rgb_matrix(void) {
+  eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
 }
 
 void eeconfig_update_rgb_matrix_default(void) {
@@ -130,7 +126,7 @@ void eeconfig_update_rgb_matrix_default(void) {
   rgb_matrix_config.mode = RGB_MATRIX_STARTUP_MODE;
   rgb_matrix_config.hsv = (HSV){ 0,  UINT8_MAX, RGB_MATRIX_MAXIMUM_BRIGHTNESS };
   rgb_matrix_config.speed = UINT8_MAX / 2;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void eeconfig_debug_rgb_matrix(void) {
@@ -431,12 +427,10 @@ void rgb_matrix_init(void) {
     eeconfig_update_rgb_matrix_default();
   }
 
-  rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
-  rgb_matrix_config.speed = UINT8_MAX / 2; //EECONFIG needs to be increased to support this
+  eeconfig_read_rgb_matrix();
   if (!rgb_matrix_config.mode) {
     dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
     eeconfig_update_rgb_matrix_default();
-    rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
   }
   eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
@@ -448,12 +442,12 @@ void rgb_matrix_set_suspend_state(bool state) {
 void rgb_matrix_toggle(void) {
   rgb_matrix_config.enable ^= 1;
   rgb_task_state = STARTING;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_enable(void) {
   rgb_matrix_enable_noeeprom();
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_enable_noeeprom(void) {
@@ -464,7 +458,7 @@ void rgb_matrix_enable_noeeprom(void) {
 
 void rgb_matrix_disable(void) {
   rgb_matrix_disable_noeeprom();
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_disable_noeeprom(void) {
@@ -478,7 +472,7 @@ void rgb_matrix_step(void) {
   if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX)
     rgb_matrix_config.mode = 1;
   rgb_task_state = STARTING;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_step_reverse(void) {
@@ -486,49 +480,49 @@ void rgb_matrix_step_reverse(void) {
   if (rgb_matrix_config.mode < 1)
     rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
   rgb_task_state = STARTING;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_hue(void) {
   rgb_matrix_config.hsv.h += RGB_MATRIX_HUE_STEP;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_hue(void) {
   rgb_matrix_config.hsv.h -= RGB_MATRIX_HUE_STEP;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_sat(void) {
   rgb_matrix_config.hsv.s = qadd8(rgb_matrix_config.hsv.s, RGB_MATRIX_SAT_STEP);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_sat(void) {
   rgb_matrix_config.hsv.s = qsub8(rgb_matrix_config.hsv.s, RGB_MATRIX_SAT_STEP);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_val(void) {
   rgb_matrix_config.hsv.v = qadd8(rgb_matrix_config.hsv.v, RGB_MATRIX_VAL_STEP);
   if (rgb_matrix_config.hsv.v > RGB_MATRIX_MAXIMUM_BRIGHTNESS)
     rgb_matrix_config.hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_val(void) {
   rgb_matrix_config.hsv.v = qsub8(rgb_matrix_config.hsv.v, RGB_MATRIX_VAL_STEP);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_increase_speed(void) {
   rgb_matrix_config.speed = qadd8(rgb_matrix_config.speed, RGB_MATRIX_SPD_STEP);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_decrease_speed(void) {
   rgb_matrix_config.speed = qsub8(rgb_matrix_config.speed, RGB_MATRIX_SPD_STEP);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
+  eeconfig_update_rgb_matrix();
 }
 
 led_flags_t rgb_matrix_get_flags(void) {
@@ -542,7 +536,7 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 void rgb_matrix_mode(uint8_t mode) {
   rgb_matrix_config.mode = mode;
   rgb_task_state = STARTING;
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_mode_noeeprom(uint8_t mode) {
@@ -555,7 +549,7 @@ uint8_t rgb_matrix_get_mode(void) {
 
 void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_sethsv_noeeprom(hue, sat, val);
-  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+  eeconfig_update_rgb_matrix();
 }
 
 void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {

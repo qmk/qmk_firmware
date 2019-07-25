@@ -89,7 +89,7 @@ This is a C header file that is one of the first things included, and will persi
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
   * tries to keep switch state consistent with keyboard LED state
-* `#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))`
+* `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
@@ -171,8 +171,8 @@ If you define these options you will enable the associated feature, which may in
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
-* `#define TAP_HOLD_CAPS_DELAY 200`
-  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 200ms if not defined. 
+* `#define TAP_HOLD_CAPS_DELAY 80`
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 
 ## RGB Light Configuration
 
@@ -289,6 +289,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `halfkay`
   * `caterina`
   * `bootloadHID`
+  * `USBasp`
 
 ## Feature Options
 

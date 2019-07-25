@@ -2,10 +2,6 @@
 #include "custom_keycodes.h"
 #include "timer_utils.h"
 
-#if defined(RGB_MATRIX_ENABLE)
-extern void eeconfig_update_rgb_matrix_default(void);
-#endif
-
 #ifdef TRILAYER_ENABLED
 uint32_t layer_state_set_user(uint32_t state)
 {
