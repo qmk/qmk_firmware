@@ -55,8 +55,4 @@ void led_set_user(uint8_t usb_led) {
 }
 
 void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_MOOD);
-#endif
 }
