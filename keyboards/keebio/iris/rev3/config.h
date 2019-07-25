@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B7 }
 

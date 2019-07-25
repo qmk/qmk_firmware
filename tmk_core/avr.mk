@@ -245,6 +245,10 @@ avrdude-split-left: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
+usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
+
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
@@ -306,7 +310,11 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
-	make -C lib/lufa/Bootloaders/DFU/
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
+	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
+	make -C lib/lufa/Bootloaders/DFU/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 

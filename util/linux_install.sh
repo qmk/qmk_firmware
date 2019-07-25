@@ -8,6 +8,8 @@ SLACKWARE_WARNING="You will need the following packages from slackbuilds.org:\n\
 
 SOLUS_INFO="Your tools are now installed. To start using them, open new terminal or source these scripts:\n\t/usr/share/defaults/etc/profile.d/50-arm-toolchain-path.sh\n\t/usr/share/defaults/etc/profile.d/50-avr-toolchain-path.sh"
 
+util_dir=$(dirname "$0")
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -183,3 +185,6 @@ else
 	echo
 	echo "https://docs.qmk.fm/#/contributing"
 fi
+
+# Global install tasks
+pip3 install -r ${util_dir}/../requirements.txt
