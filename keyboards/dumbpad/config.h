@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         dumbpad
 #define DESCRIPTION     4x4 macro/numpad with rotary encoder
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 5
 
 /*
  * Keyboard Matrix Assignments
@@ -41,8 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
+#ifdef _DUMBPAD_TEST
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 3
+#define MATRIX_ROW_PINS { F4, F5 }
+#define MATRIX_COL_PINS { E6, B4, B5 }
+#else
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 5
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
+#endif
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/

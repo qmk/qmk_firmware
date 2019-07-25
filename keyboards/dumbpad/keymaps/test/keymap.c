@@ -15,67 +15,38 @@
  */
 #include QMK_KEYBOARD_H
 
+#ifndef _DUMBPAD_TEST
+#define _DUMBPAD_TEST
+#endif
+
 #include <print.h>
 
 #define BASE 0
-#define SUB  1
-
-#define ___ KC_TRNS
-
-#define TAPPING_TOGGLE 2
+#define SUB 1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /*
-        BASE LAYER
-   /-----------------------------------------------------`
-   |             |    7    |    8    |    9    |  Bkspc  |
-   |             |---------|---------|---------|---------|
-   |             |    4    |    5    |    6    |   Esc   |
-   |             |---------|---------|---------|---------|
-   |             |    1    |    2    |    3    |   Tab   |
-   |-------------|---------|---------|---------|---------|
-   | Left mouse  | TapTog  |    0    |    .    |  Enter  |
-   \-----------------------------------------------------'
-  */
   [BASE] = LAYOUT( /* Base */
-                   KC_7,      KC_8,    KC_9,     KC_BSPC, 
-                   KC_4,      KC_5,    KC_6,     KC_ESC, 
-                   KC_1,      KC_2,    KC_3,     KC_TAB, 
-    TT(SUB),       TT(SUB),   KC_0,    KC_DOT,   KC_ENT
+             KC_W,
+    TG(SUB), KC_S, KC_D
   ),
-  /*
-        SUB LAYER
-   /-----------------------------------------------------`
-   |             |         |         |         |  Reset  |
-   |             |---------|---------|---------|---------|
-   |             |         |   Up    |         |  Debug  |
-   |             |---------|---------|---------|---------|
-   |             |  Left   |  Down   |  Right  |         |
-   |-------------|---------|---------|---------|---------|
-   | Right mouse |         |         |         |         |
-   \-----------------------------------------------------'
-  */
-  [SUB] = LAYOUT(
-                   ___,       ___,     ___,      RESET, 
-                   ___,       KC_UP,   ___,      DEBUG, 
-                   KC_LEFT,   KC_DOWN, KC_RIGHT, ___, 
-    TT(BASE),      ___,       ___,     ___,      ___
-  ),
+  [SUB] = LAYOUT( /* Sub layer */
+             KC_S,
+    KC_TRNS, KC_X, KC_C
+  )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
-/*
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif 
-*/
+
   return true;
 }
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  //debug_enable = true;
+  debug_enable = true;
   //debug_matrix = true;
   //debug_keyboard = true;
   //debug_mouse = true;
@@ -93,11 +64,10 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-
 void encoder_update_kb(uint8_t index, bool clockwise) {
   if (index == 0) {
-    //uprintf("layer: %u\n", layer_state);
-    if (layer_state && 0x1) {
+    uprintf("layer: %d, SUB on: %d\n", layer_state, IS_LAYER_ON(SUB));
+    if (IS_LAYER_ON(SUB)) {
       if (clockwise) {
         tap_code(KC_VOLU);
       } else {
