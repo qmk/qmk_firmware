@@ -1,7 +1,16 @@
-#NumAtreus
+NumAtreus
+===
 
-ファイル、フォルダ名称を変更したため、URLが下記に変わりました。
+A small mechanical keyboard that is based around the shape of the human hand.
 
-Here is an old folder. The new URL is below.
 
-https://github.com/yohewi/qmk_firmware/tree/master/keyboards/numatreus
+Keyboard Maintainer: [Phil Hagelberg](https://github.com/technomancy)  
+Hardware Supported: NumAtreus, PCB-based or hand-wired  
+Hardware Availability: 
+
+Make example for this keyboard (after setting up your build environment):
+
+    make numatreus:default:avrdude
+
+Unlike the TMK firmware, this command should be run from the root of
+the repository, not the directory containing this readme.
