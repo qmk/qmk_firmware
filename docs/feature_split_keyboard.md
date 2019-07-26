@@ -188,6 +188,16 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
 
 
+```c
+#define SPLIT_USB_DETECT
+```
+This option changes the startup behavior to detect a USB connection with a timeout when delegating master/slave. This is the default behavior for ARM, and required for AVR Teensy (due to hardware limitations).
+
+```c
+#define SPLIT_USB_TIMEOUT 2500
+```
+This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
+
 ## Additional Resources
 
 Nicinabox has a [very nice and detailed guide](https://github.com/nicinabox/lets-split-guide) for the Let's Split keyboard, that covers most everything you need to know, including troubleshooting information. 
