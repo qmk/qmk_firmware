@@ -1,12 +1,9 @@
-NumAtreus
-===
-
-A small mechanical keyboard that is based around the shape of the human hand.
-
-
-Keyboard Maintainer: [Phil Hagelberg](https://github.com/technomancy)  
-Hardware Supported: NumAtreus, PCB-based or hand-wired  
-Hardware Availability: 
+#NumAtreus(Atreus_numa)
+===  
+  
+NumAtreusは日本国内向け自作キーボードのPCBです。  
+デザインベースはAtreusですが、スイッチの配置、MCU、外形、取付穴等を変えているので  
+注意してください。  
 
 Make example for this keyboard (after setting up your build environment):
 
