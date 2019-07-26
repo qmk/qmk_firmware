@@ -16,24 +16,16 @@
 #include QMK_KEYBOARD_H
 #include "klackygears.h"
 
-// Layer shorthand
-
-
-// Defines the keycodes used by our macros in process_record_user
-// enum custom_keycodes {
-//   QMKBEST = SAFE_RANGE,
-//   QMKURL
-// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_MACBASE] = LAYOUT_wrapper( \
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_GRV,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______, _______________DVORAK_L1___________________,  LCTL(KC_LEFT), LCTL(KC_UP), LCTL(KC_RIGHT), _______________DVORAK_R1___________________, _______,
-    _______, _______________DVORAK_L2___________________,  KC_MUTE, KC_VOLD, KC_VOLU, _______________DVORAK_R2___________________, _______,
-    KC_LSFT, _______________MACDVK_L3___________________,  KC_PGUP, KC_UP,   KC_PGDN, _______________MACDVK_R3___________________, KC_RSFT,
-    RGB_MOD, _______, _______, ________MAC_THUMB_L______,  KC_LEFT, KC_DOWN, KC_RGHT, ________MAC_THUMB_R______, _______, _______, _______
+    _______, _______________DVORAK_L1___________________, LCTL(KC_LEFT), LCTL(KC_UP), LCTL(KC_RIGHT), _______________DVORAK_R1___________________, _______,
+    _______, _______________DVORAK_L2___________________, KC_MUTE, KC_VOLD, KC_VOLU, _______________DVORAK_R2___________________, _______,
+    KC_LSFT, _______________MACDVK_L3___________________, KC_PGUP, KC_UP,   KC_PGDN, _______________MACDVK_R3___________________, KC_RSFT,
+    RGB_MOD, _______, _______, ________MAC_THUMB_L______, KC_LEFT, KC_DOWN, KC_RGHT, ________MAC_THUMB_R______, _______, _______, _______
   ),
 
 
@@ -104,28 +96,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//     case QMKBEST:
-//       if (record->event.pressed) {
-//         // when keycode QMKBEST is pressed
-//         SEND_STRING("QMK is the best thing ever!");
-//       } else {
-//         // when keycode QMKBEST is released
-//       }
-//       break;
-//     case QMKURL:
-//       if (record->event.pressed) {
-//         // when keycode QMKURL is pressed
-//         SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-//       } else {
-//         // when keycode QMKURL is released
-//       }
-//       break;
-//   }
-//   return true;
-// }
-
 // void matrix_init_user(void) {
 
 // }
@@ -137,3 +107,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // void led_set_user(uint8_t usb_led) {
 
 // }
+
+#ifdef RGBLIGHT_EFFECT_SNAKE
+__attribute__ ((weak))
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {35, 25, 15};
+#endif
+
+#ifdef RGBLIGHT_EFFECT_KNIGHT
+__attribute__ ((weak))
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {35, 29, 17};
+#endif

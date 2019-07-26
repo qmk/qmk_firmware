@@ -25,21 +25,8 @@
 #define RGBLED_NUM 4    // Number of LEDs
 #endif
 
-// #ifdef RGB_MATRIX_ENABLE
-// #define RGBLED_NUM 2    // Number of LEDs
-// #define DRIVER_LED_TOTAL RGBLED_NUM
-// #endif
-
-
-
-// #
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-// #define RGB_DI_PIN E2
  #ifdef RGB_DI_PIN
  #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
  #define RGBLIGHT_VAL_STEP 8
