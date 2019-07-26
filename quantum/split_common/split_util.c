@@ -15,7 +15,26 @@
 #    include "rgblight.h"
 #endif
 
+#ifndef SPLIT_USB_TIMEOUT
+  #define SPLIT_USB_TIMEOUT 2500
+#endif
+
 volatile bool isLeftHand = true;
+
+bool waitForUsb(void) {
+    for(uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / 100); i++) {
+        // This will return true of a USB connection has been established
+#if defined(__AVR__)
+        if (UDADDR & _BV(ADDEN)) {
+#else
+        if (usbGetDriverStateI(&USBD1) == USB_ACTIVE) {
+#endif
+            return true;
+        }
+        wait_ms(100);
+    }
+    return false;
+}
 
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
@@ -32,21 +51,23 @@ __attribute__((weak)) bool is_keyboard_left(void) {
 }
 
 __attribute__((weak)) bool is_keyboard_master(void) {
-#ifdef __AVR__
     static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
     // only check once, as this is called often
     if (usbstate == UNKNOWN) {
+#if defined(SPLIT_USB_DETECT) || defined(PROTOCOL_CHIBIOS)
+        usbstate = waitForUsb() ? MASTER : SLAVE;
+#elif defined(__AVR__)
         USBCON |= (1 << OTGPADE);  // enables VBUS pad
         wait_us(5);
 
         usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+#else
+        usbstate = MASTER;
+#endif
     }
 
     return (usbstate == MASTER);
-#else
-    return true;
-#endif
 }
 
 static void keyboard_master_setup(void) {
@@ -60,9 +81,16 @@ static void keyboard_master_setup(void) {
 
 static void keyboard_slave_setup(void) { transport_slave_init(); }
 
+<<<<<<< HEAD
 // this code runs before the usb and keyboard is initialized
 void matrix_setup(void) {
     isLeftHand = is_keyboard_left();
+=======
+// this code runs before the keyboard is fully initialized
+void keyboard_split_setup(void)
+{
+  isLeftHand = is_keyboard_left();
+>>>>>>> Initial split refactor to allow usb master detection
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
