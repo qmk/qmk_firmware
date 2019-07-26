@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
