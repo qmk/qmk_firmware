@@ -17,6 +17,8 @@
 
 #ifdef ENCODER_ENABLE
 #  include "encoder.h"
+static pin_t encoders_pad[] = ENCODERS_PAD_A;
+#  define NUMBER_OF_ENCODERS (sizeof(encoders_pad)/sizeof(pin_t))
 #endif
 
 #if defined(USE_I2C) || defined(EH)
@@ -74,7 +76,7 @@ bool transport_master(matrix_row_t matrix[]) {
 #  endif
 
 #  ifdef ENCODER_ENABLE
-  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(I2C_slave_buffer_t.encoder_state), TIMEOUT);
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(i2c_buffer->encoder_state), TIMEOUT);
   encoder_update_raw(i2c_buffer->encoder_state);
 #  endif
 

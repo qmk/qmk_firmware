@@ -204,6 +204,8 @@
     #define B13 PAL_LINE(GPIOB, 13)
     #define B14 PAL_LINE(GPIOB, 14)
     #define B15 PAL_LINE(GPIOB, 15)
+    #define B16 PAL_LINE(GPIOB, 16)
+    #define B17 PAL_LINE(GPIOB, 17)
     #define C0  PAL_LINE(GPIOC, 0)
     #define C1  PAL_LINE(GPIOC, 1)
     #define C2  PAL_LINE(GPIOC, 2)

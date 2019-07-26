@@ -135,7 +135,7 @@ void rgb_matrix_indicators_user(void)
 			break;
 
 		case _FNC: {
-			HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
+			HSV hsv = { rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
 			HSV hui = hsv;
 			HSV hud = hsv;
 			HSV sai = hsv;
@@ -206,7 +206,7 @@ void rgb_matrix_indicators_user(void)
 			rgb_matrix_set_color(71, 0x00, 0xFF, 0x01); //MAS_GRN
 			rgb_matrix_set_color(72, 0xFF, 0xA5, 0x18); //MAS_CRM
 			rgb_matrix_set_color(60, 0x81, 0x3C, 0xFF); //MAS_PRP
-			rgb_matrix_set_color(26, 0xFF, 0xFF, 0xFF); //MAS_WHT
+			rgb_matrix_set_color(43, 0xFF, 0xFF, 0xFF); //MAS_WHT
 		}
 		break;
 		}

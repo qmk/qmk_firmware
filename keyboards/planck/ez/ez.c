@@ -15,6 +15,7 @@
  */
 #include "ez.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -100,6 +101,16 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
+void suspend_power_down_kb(void) {
+    rgb_matrix_set_suspend_state(true);
+    suspend_power_down_user();
+}
+
+ void suspend_wakeup_init_kb(void) {
+    rgb_matrix_set_suspend_state(false);
+    suspend_wakeup_init_user();
+}
+#endif
 
 void matrix_init_kb(void) {
   matrix_init_user();

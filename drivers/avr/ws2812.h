@@ -28,7 +28,7 @@
 //#include "ws2812_config.h"
 //#include "i2cmaster.h"
 
-#include "rgblight_types.h"
+#include "quantum/color.h"
 
 /* User Interface
  *

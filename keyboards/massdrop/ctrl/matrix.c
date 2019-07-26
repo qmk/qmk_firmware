@@ -128,7 +128,7 @@ uint8_t matrix_scan(void)
     else
     {
         //Begin or extend debounce on change
-        mdebouncing = timer_read64() + DEBOUNCING_DELAY;
+        mdebouncing = timer_read64() + DEBOUNCE;
     }
 
     matrix_scan_quantum();

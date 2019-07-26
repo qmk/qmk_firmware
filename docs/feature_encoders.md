@@ -6,7 +6,6 @@ Basic encoders are supported by adding this to your `rules.mk`:
 
 and this to your `config.h`:
 
-    #define NUMBER_OF_ENCODERS 1
     #define ENCODERS_PAD_A { B12 }
     #define ENCODERS_PAD_B { B13 }
 
@@ -38,7 +37,7 @@ or `keymap.c`:
         } else {
           tap_code(KC_PGUP);
         }
-      } else if (index == 1) { /* Second encoder
+      } else if (index == 1) { /* Second encoder */  
         if (clockwise) {
           tap_code(KC_UP);
         } else {

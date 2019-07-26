@@ -12,10 +12,10 @@ enum layers {
 };
 
 enum custom_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-    QMK_REV,
+    QMK_REV = SAFE_RANGE,
     KC_WEB,
-    KC_SP4
+    KC_SP4,
+    DYNAMIC_MACRO_RANGE
 };
 
 extern backlight_config_t backlight_config;
@@ -259,11 +259,11 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
         case _FL:
             custom_backlight_level(2);
-            rgblight_sethsv_noeeprom(280,255,255);
+            rgblight_sethsv_noeeprom(240,255,255);
             break;
         case _AL:
             custom_backlight_level(3);
-            rgblight_sethsv_noeeprom(350,255,255);
+            rgblight_sethsv_noeeprom(255,255,255);
             break;
         default:
             custom_backlight_level(0);

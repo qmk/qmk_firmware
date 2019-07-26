@@ -132,7 +132,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 #include "ws2812.h"
 #endif
-#include "rgblight_types.h"
+#include "color.h"
 #include "rgblight_list.h"
 
 #if defined(__AVR__)
