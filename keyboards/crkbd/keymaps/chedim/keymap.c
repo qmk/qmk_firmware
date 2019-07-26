@@ -43,6 +43,7 @@ enum macro_keycodes {
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
+#define KC_MEDIA MEDIA
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -65,54 +66,55 @@ enum macro_keycodes {
 #define KC_MNEXT KC_MEDIA_NEXT_TRACK
 #define KC_MPREV KC_MEDIA_PREV_TRACK
 #define KC_MPLPP KC_MEDIA_PLAY_PAUSE
-#define KC_ESCME LT(_MEDIA, KC_ESC)
 #define KC_BRIUP KC_BRIGHTNESS_UP
 #define KC_BRIDN KC_BRIGHTNESS_DOWN 
+#define KC_LBGUI MT(MOD_LGUI, KC_LBRC)
+#define KC_RBGUI MT(MOD_RGUI, KC_RBRC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      ESCME,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
+      GESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN, CTLEN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSPO,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI,  LSPA,  LALT,     RALT,  RSPA,  RGUI \
+                                  LBGUI,  LSPA,  LALT,     RALT,  RSPA, RBGUI \
                               //`--------------------'  `--------------------'
   ),
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR, MINUS, _____,   DEL,\
+      _____, GRAVE,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR, MINUS, _____,   DEL,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,  HOME,  PGDN,  PGUP,   END, XXXXX,                   LEFT,  DOWN,    UP, RIGHT,  QUOT,   EQL,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS,  RBRC,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,    _____, _____, _____ \
+                                  _____, _____, _____,    _____, MEDIA, _____ \
                               //`--------------------'  `--------------------'
   ),
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, _____,\
+      _____,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LBRC,   F11,   F12,   F13,   F14,   F15,                   _____,  _____,  _____, _____,  _____, _____,\
+      _____,   F11,   F12,   F13,   F14,   F15,                   _____,  _____,  _____, _____,  _____, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,    _____, _____, _____ \
+                                  _____, MEDIA, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
   
   [_MEDIA] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      _____, XXXXX, XXXXX,  ACL0,  ACL1,  ACL2,                   WH_L,  WH_D,  WH_U,  WH_R, XXXXX,  BTN2,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG, XXXXX, BRIDN, BRIUP,  LVAI, XXXXX,                  MPREV, VDOWN,   VUP, MNEXT, XXXXX, XXXXX,\
+       LTOG, XXXXX, BRIDN, BRIUP,  LVAI, XXXXX,                   MS_L,  MS_D,  MS_U,  MS_R, XXXXX,  BTN1,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, AMUTE, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  VDOWN, AMUTE,   VUP, MPREV, MNEXT,  BTN3,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, MPLPP, MPLPP,    MPLPP, MPLPP, _____\
                               //`--------------------'  `--------------------'
