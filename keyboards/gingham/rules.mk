@@ -49,7 +49,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   atmega32a    bootloadHID
 #
 # This uses usbaspbootloader
-# BOOTLOADER = atmel-dfu
+BOOTLOADER = USBasp
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
@@ -58,8 +58,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader    4096
 #   LUFA bootloader     4096
 #   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # Flash program via avrdude, but default command is not suitable.
 # You can use plaid:default:program

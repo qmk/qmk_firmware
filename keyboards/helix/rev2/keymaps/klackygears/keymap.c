@@ -43,11 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [_QWERTY] = LAYOUT_wrapper( \
-      KC_GESC,   _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, MO(_MDIA), \
-      KC_TAB,    _________________QWERTY_L1_________________,                   _________________QWERTY_R1_________________, KC_BSLASH, \
-      KC_CAPS,   _________________QWERTY_L2_________________,                   _________________QWERTY_R2_________________, KC_ENT, \
-      KC_LSPO,   _________________QWERTY_L3_________________, KC_____, KC_____, _________________QWERTY_R3_________________, KC_RSPC, \
-      KC_LCTRL,  KC_LALT, KC_LGUI, KC_SPC, __________________MAC_THUMB_CLUSTER_V2______________, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+      KC_GESC,  _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, MO(_MDIA), \
+      KC_TAB,   _________________QWERTY_L1_________________,                   _________________QWERTY_R1_________________, KC_BSLASH, \
+      KC_CAPS,  _________________QWERTY_L2_________________,                   _________________QWERTY_R2_________________, KC_ENT, \
+      KC_LSPO,  _________________QWERTY_L3_________________, KC_____, KC_____, _________________QWERTY_R3_________________, KC_RSPC, \
+      KC_LCTRL, KC_LALT, KC_LGUI, KC_SPC, __________________MAC_THUMB_CLUSTER_V2______________, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
       ),
 
   [_SYMB] = LAYOUT_wrapper( \

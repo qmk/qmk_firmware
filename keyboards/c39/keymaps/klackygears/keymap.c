@@ -96,3 +96,27 @@ const uint32_t PROGMEM unicode_map[] = {
   [SHRG]  = 0x0001F937,
   [FCPLM] = 0xD83E,
 };
+
+
+void matrix_scan_user(void) {
+
+
+    switch(biton32(layer_state)) {
+      case _MNMB:
+        rgblight_setrgb_at(0, 0, 255, 8);
+      break;
+      case _FUNC:
+        rgblight_setrgb_at(255, 0, 0, 9);
+      break;
+      case _SYMB:
+        rgblight_setrgb_at(200, 55, 100, 7);
+      break;
+      case _MDIA:
+        rgblight_setrgb_at(255, 255, 255, 6);
+      break;
+    //   default: //  for any other layers, or the default layer
+    //     rgblight_step();
+    //     break;
+    }
+
+};

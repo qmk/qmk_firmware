@@ -9,7 +9,6 @@
 #define PERMISSIVE_HOLD
 
 #define PREVENT_STUCK_MODIFIERS
-//#define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 150
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -18,34 +17,24 @@
 #define RGB_DI_PIN D4
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 15    // Number of LEDs
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-// #ifdef RGB_MATRIX_ENABLE
-// #define RGBLED_NUM 2    // Number of LEDs
-// #define DRIVER_LED_TOTAL RGBLED_NUM
-// #endif
-
-
-
-// #
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-// #define RGB_DI_PIN E2
  #ifdef RGB_DI_PIN
- #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
+ #undef RGBLIGHT_ANIMATIONS
+
  #define RGBLIGHT_HUE_STEP 8
  #define RGBLIGHT_SAT_STEP 8
  #define RGBLIGHT_VAL_STEP 8
  #endif
 
-#if defined(LED_ANIMATIONS)
    #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+<<<<<<< HEAD
    #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+=======
+>>>>>>> master
 //     #define RGBLIGHT_EFFECT_SNAKE
 //     #undef  RGBLIGHT_EFFECT_SNAKE_LENGTH
 //     #define RGBLIGHT_EFFECT_SNAKE_LENGTH 20
@@ -56,6 +45,13 @@
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
+<<<<<<< HEAD
      #define RGBLIGHT_EFFECT_BEAM
      #define RGBLIGHT_EFFECT_HYPER
 #endif
+=======
+   #define RGBLIGHT_EFFECT_BEAM
+   #define RGBLIGHT_EFFECT_HYPER
+//   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+
+>>>>>>> master

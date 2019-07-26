@@ -14,7 +14,7 @@ Tested combinations:
 
 Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses i2c to communication between sides this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. 
+!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses split common to detect keypresses, so you will need to implement custom timeout logic for non-split common keyboards.
 
 ## Usage
 

@@ -63,7 +63,16 @@ MIDI_ENABLE = no            # MIDI controls
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-RGBLIGHT_ENABLE = yes       # RGB Enable / Disable
 TAP_DANCE_ENABLE = yes
 UNICODEMAP_ENABLE = yes
 VELOCIKEY_ENABLE = yes
+
+RGBLIGHT_ENABLE = no
+
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
+    OPT_DEFS += -DRGBLIGHT_ENABLE
+    SRC += $(QUANTUM_DIR)/color.c \
+        rgblight.c \
+        ws2812.c
+    CIE1931_CURVE = yes
+    LED_BREATHING_TABLE = yes

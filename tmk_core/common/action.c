@@ -44,8 +44,11 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifndef TAP_CODE_DELAY
+#  define TAP_CODE_DELAY 0
+#endif
 #ifndef TAP_HOLD_CAPS_DELAY
-#  define TAP_HOLD_CAPS_DELAY 200
+#  define TAP_HOLD_CAPS_DELAY 80
 #endif
 /** \brief Called to execute an action.
  *
@@ -330,6 +333,9 @@ void process_action(keyrecord_t *record, action_t action)
                         } else {
                             if (tap_count > 0) {
                                 dprint("MODS_TAP: Tap: unregister_code\n");
+                                if (action.layer_tap.code == KC_CAPS) {
+                                  wait_ms(TAP_HOLD_CAPS_DELAY);
+                                }
                                 unregister_code(action.key.code);
                             } else {
                                 dprint("MODS_TAP: No tap: add_mods\n");
@@ -522,7 +528,9 @@ void process_action(keyrecord_t *record, action_t action)
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
-                            }
+                            } else {
+                                wait_ms(TAP_CODE_DELAY);
+                              }
                             unregister_code(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
@@ -618,6 +626,7 @@ void process_action(keyrecord_t *record, action_t action)
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
+                            wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
                             *record = (keyrecord_t){}; // hack: reset tap mode
                         }
@@ -670,8 +679,7 @@ void process_action(keyrecord_t *record, action_t action)
         retro_tapping_counter = 0;
       } else {
         if (retro_tapping_counter == 2) {
-          register_code(action.layer_tap.code);
-          unregister_code(action.layer_tap.code);
+          tap_code(action.layer_tap.code);
         }
         retro_tapping_counter = 0;
       }
@@ -858,12 +866,9 @@ void tap_code(uint8_t code) {
   register_code(code);
   if (code == KC_CAPS) {
     wait_ms(TAP_HOLD_CAPS_DELAY);
-  }
-  #if TAP_CODE_DELAY > 0
-  else {
+  } else {
     wait_ms(TAP_CODE_DELAY);
   }
-  #endif
   unregister_code(code);
 }
 
