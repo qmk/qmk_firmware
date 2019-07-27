@@ -2,11 +2,11 @@
 
 ![is0](https://i.imgur.com/ObiNJ2O.jpg)
 
-no  
+Single-key macropad  
 
 Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
-Hardware Supported: iS0 by illuminati works  
-Hardware Availability: [Here](https://illuminati.works/is0/)
+Hardware Supported: iS0 by Illuminati Works  
+Hardware Availability: [Illuminati Works website](https://illuminati.works/is0/)
 
 Make example for this keyboard (after setting up your build environment):
 
