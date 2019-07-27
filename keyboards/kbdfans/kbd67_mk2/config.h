@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xA103
-#define PRODUCT_ID      0x0005
+#define PRODUCT_ID      0x0013
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDfans
-#define PRODUCT         KBD8X-MKII
-#define DESCRIPTION     TKL Keyboard
+#define PRODUCT         KBD67-MKII
+#define DESCRIPTION     65% Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -41,8 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, D6, D4, D5, D3, D2, D1, D0 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, B0, B1 }
+#define MATRIX_ROW_PINS { B3, D0, D1, D2, D3 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
@@ -57,16 +57,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
-#define RGB_DI_PIN B3
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 20
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+//#define RGB_DI_PIN B3
+//#ifdef RGB_DI_PIN
+//  #define RGBLED_NUM 20
+//  #define RGBLIGHT_HUE_STEP 8
+//  #define RGBLIGHT_SAT_STEP 8
+//  #define RGBLIGHT_VAL_STEP 8
+//  #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
+//  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+//  #define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   /*==== use exp() and sin() ====*/
 //   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif
+//#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
