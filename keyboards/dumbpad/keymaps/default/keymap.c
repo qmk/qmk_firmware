@@ -22,8 +22,6 @@
 
 #define ___ KC_TRNS
 
-#define TAPPING_TOGGLE 2
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
         BASE LAYER
