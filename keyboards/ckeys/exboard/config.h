@@ -26,12 +26,19 @@
 #define PRODUCT exboard
 #define DESCRIPTION An expedition board for keyboard exploration.
 
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { B13 }
+#define ENCODERS_PAD_B { B15 }
+#define ENCODER_RESOLUTION 4
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 6
 
 #define MATRIX_ROW_PINS { A2, A1, A0, B8 }
 #define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0 }
+
+// #define UNUSED_PINS { B14 }
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
@@ -52,6 +59,10 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+#define AUDIO_CLICKY
+
+#define DAC_SAMPLE_MAX 65535U
 
 /*
  * MIDI options
