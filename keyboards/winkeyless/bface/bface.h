@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { K02,   K12,   K22,   K32,   K42,   K52,   KC_NO, KC_NO, KC_NO, KC_NO, KA2,   KB2,   KC_NO, KD2,   KC_NO }, \
   { K03,   K13,   K23,   K33,   K43,   K53,   KC_NO, KC_NO, KC_NO, KC_NO, KA3,   KB3,   KC3,   KD3,   KC_NO }, \
   { K04,   K14,   K24,   K34,   K44,   K54,   KC_NO, KC_NO, KC_NO, KC_NO, KA4,   KB4,   KC4,   KC_NO, KE4   }, \
-  { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+  { K04,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
   { KC_NO, K16,   K26,   K36,   K46,   K56,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KB6,   KC6,   KD6,   KE6   }, \
   { KC_NO, K17,   K27,   K37,   K47,   K57,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KB7,   KC7,   KD7,   KE7   }  \
 }
