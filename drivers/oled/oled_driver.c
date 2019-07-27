@@ -321,7 +321,7 @@ void oled_render(void) {
 
     // Send render data chunk after rotating
     if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
-      print("oled_render data failed\n");
+      print("oled_render90 data failed\n");
       return;
     }
   }
@@ -390,6 +390,11 @@ void oled_write_char(const char data, bool invert) {
   if (data == '\n') {
     // Old source wrote ' ' until end of line...
     oled_advance_page(true);
+    return;
+  }
+
+  if (data == '\r') {
+    oled_advance_page(false);
     return;
   }
 
