@@ -191,7 +191,9 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 ```c
 #define SPLIT_USB_DETECT
 ```
-This option changes the startup behavior to detect a USB connection with a timeout when delegating master/slave. This is the default behavior for ARM, and required for AVR Teensy (due to hardware limitations).
+This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+?> This setting will stop the ability to demo using battery packs.
 
 ```c
 #define SPLIT_USB_TIMEOUT 2500
