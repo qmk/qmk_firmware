@@ -1,4 +1,3 @@
-# The default keymap for KBD8X MKII
+# The default keymap for KBD67 MKII
 
-A typical setup. Nothing special.  
-A nice starting point for customizing.
+A basic 65% keymap.
