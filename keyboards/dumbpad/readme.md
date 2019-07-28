@@ -6,6 +6,8 @@ A 4x4 macro/numpad with rotary encoder.
 
 Keyboard Maintainer: [imchipwood](https://github.com/imchipwood)
 
+PCB repository: https://github.com/imchipwood/dumbpad
+
 Make example for this keyboard (after setting up your build environment):
 
     make dumbpad:default
