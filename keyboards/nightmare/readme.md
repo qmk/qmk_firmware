@@ -1,12 +1,12 @@
 # nightmare
 
-![Crossed Keys Nightmare](imgur.com image replace me!)
+![Crossed Keys Nightmare](https://github.com/cfbender/keyboards/blob/master/nightmare/nightmareRender.png?raw=true)
 
-A short description of the keyboard/project
+A 50% pseudo-TMO50 clone with an adjusted bottom row, designed on the cheap with a Pro Micro and 3D Printed case.
 
-Keyboard Maintainer: [cfbender](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [cfbender](https://github.com/cfbender)  
+Hardware Supported: Nightmare case and PCB  
+Hardware Availability: [Github](https://github.com/cfbender/keyboards/tree/master/nightmare)
 
 Make example for this keyboard (after setting up your build environment):
 
