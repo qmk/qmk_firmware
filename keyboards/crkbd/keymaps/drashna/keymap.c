@@ -319,6 +319,36 @@ void suspend_wakeup_init_keymap(void) {
         rgb_matrix_enable_noeeprom();
     }
 }
+
+void check_default_layer(uint8_t mode, uint8_t type) {
+    switch (biton32(default_layer_state)) {
+        case _QWERTY:
+            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _COLEMAK:
+            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
+            break;
+        case _DVORAK:
+            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
+            break;
+        case _WORKMAN:
+            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
+            break;
+        case _NORMAN:
+            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type);
+            break;
+        case _MALTRON:
+            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type);
+            break;
+        case _EUCALYN:
+            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type);
+            break;
+        case _CARPLAX:
+            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type);
+            break;
+    }
+}
+
 void rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change &&
 #    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
@@ -347,36 +377,11 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (biton32(default_layer_state)) {
-                    case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                    case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                        break;
-                }
+                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
                 break;
             }
         }
+        check_default_layer(0, LED_FLAG_MODIFIER);
     }
 }
 #endif
