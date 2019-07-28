@@ -1,4 +1,4 @@
-# nightmare
+# Crossed Keys Nightmare
 
 ![Crossed Keys Nightmare](https://github.com/cfbender/keyboards/blob/master/nightmare/nightmareRender.png?raw=true)
 
