@@ -38,7 +38,9 @@ enum custom_keycodes {
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
-
+#define BASE 0 // default layer
+#define SYMB 1 // symbols
+#define NUMB 2 // numbers/motion
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
@@ -58,53 +60,79 @@ enum macro_keycodes {
 #define KC_ALTKN ALT_T(KC_LANG1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  QUOT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_LOWER] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,   F11,   F12,   F13,   F14,   F15,                    F16,   F17,   F18,   F19,   F20, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_RAISE] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   MINS,   EQL,  LCBR,  RCBR,  PIPE,   GRV,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS,  TILD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_ADJUST] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
-  )
+  /* Keymap 0: Basic layer
+	 *
+	 * ,-------------------------------------------.                         ,-------------------------------------------.
+	 * | ALT/ta |   Q  |   W  |   E  |   R  |   T  |                        |  Y   |   U  |   I  |   O  |   P  |  | \   |
+	 * |--------+------+------+------+------+------|                        |------+------+------+------+------+--------|
+	 * |sup /BS |   A  |   S  |  D   |   F  |   G  |                        |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+	 * |--------+------+------+------+------+------|                        |------+------+------+------+------+--------|
+	 * | LSt    |   Z  |   X  |   C  |   V  |   B  |                        |   N  |   M  | ,  < | . >  | /  ? |  - _   |
+	 * `--------+------+------+------+------+-------                        -------+------+------+------+------+--------'
+	 *                    .----------.   .-------.                                 .------.   .-----.
+	 *                    |esc       |   |ctrl/Del|                               | ent   |   | Tab |
+	 *                    '----------'   '-------'                                 `------.   '-----'
+	 *                                 ,-----                                ------.
+	 *                                 | SYMB |                             | NUMB |
+	 *                                 |      |                             |Space |
+	 *                                 |      |                             |      |
+	 *                                 `-------                             `------'
+	 */
+	 [BASE] = LAYOUT_kc( \
+	     MT(MOD_LALT, TAB),  Q,  W,   E,   R, T,                   Y,    U, I, O,   P,    PIPE,
+	     MT(MOD_LGUI, BSPC),  A,  S,   D,   F, G,                  H,    J, K, L,   SCLN, QUOT,
+	     LSFT,Z,  X,   C,   V, B,     		            				   N, M, COMM, DOT, SLSH, MINS,
+	     ESC, MT(MOD_LCTL, DEL), LT(SYMB, SPC),                   					 LT(NUMB, SPC), ENT, TAB
+	     ),
+/* Keymap 1: Symbols layer
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |  !   |  @   |  {   |  }   |  |   |                         |      |   &  |  =   |   scn|  scn |  \ |   |
+ * |--------+------+------+------+------+------|                         |------+------+------+------+------+--------|
+ * |        |  #   |  $   |  (   |  )   |  `   |                         |   +  |  -   |  /   |  *   |  %   |  ' "   |
+ * |--------+------+------+------+------+------|                         |------+------+------+------+------+--------|
+ * |        |  %   |  ^   |  [   |  ]   |  ~   |                         |      |      |  ,   |  .   |  / ? | - _    |
+ * `--------+------+------+------+------+-------                          ------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   | DEL |
+ *                        '------'   '------'                                 `------.   '-----'
+ *
+ *                                 ,------                                   ------.
+ *                                 |      |                                 |      |
+ *                                 |   ;  |                                 |   ;  |
+ *                                 |      |                                 |      |
+ *                                 `-------                                 `------'
+ */
+[SYMB] = LAYOUT_kc( \
+    TRNS, EXLM, AT,   LCBR, RCBR, PIPE,                     TRNS, AMPR, EQL, LCTL(LSFT(3)), LCTL(LSFT(4)), BSLS,
+    TRNS, HASH, DLR,  LPRN, RPRN, GRV,                      PLUS, MINS, SLSH, ASTR, PERC, QUOT,
+      TRNS, PERC, CIRC, LBRC, RBRC, TILD,                   AMPR, EQL,  COMM, DOT,  SLSH, MINS,
+                                  TRNS, TRNS, SCLN,                  EQL,  SCLN, DEL
+    ),
+/* Keymap 2: Pad/Function layer
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |   1  |  2   |  3   |  4   |  5   |                         |  6   |  7   |  8   |  9   |  0   | VolUp  |
+ * |--------+------+------+------+------+------|                         |------+------+------+------+------+--------|
+ * |  F1    |  F2  | F3   | F4   | F5   | F6   |                         |      | LEFT | DOWN |  UP  | RIGHT| VolDn  |
+ * |--------+------+------+------+------+------|                         |------+------+------+------+------+--------|
+ * |  F7    |  F8  | F9   | F10  | F11  | F12  |                         | MLFT | MDWN | MUP  | MRGHT|Ply/Pa|  Skip  |
+ * `--------+------+------+------+------+-------                         `------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   |     |
+ *                        '------'   '------'                                 `------.   '-----
+ *                                 ,------|                              ------
+ *                                 |      |                             |       |
+ *                                 |      |                             |       |
+ *                                 |      |                             |       |
+ *                                 `-------                             `--------
+ */
+[NUMB] = LAYOUT_kc( \
+    TRNS, 1, 	  2,    3,    4,    5,                        6,    7,    8,    9,    0,    VOLU,
+    TRNS, F1,   F2,   F3,   F4,   F5,                       TRNS, LEFT, DOWN, UP,   RGHT, VOLD,
+    TRNS, F6,   F7,   F8,   F9,  F10,                      MS_L, MS_D, MS_U, MS_R, MPLY, MNXT,
+                            F11, F12, TRNS,                        TRNS, TRNS, TRNS
+    )
 };
 
 int RGB_current_mode;
@@ -126,6 +154,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
+      rgblight_setrgb_at(111, 0, 211, 13);
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
@@ -192,6 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
+        rgblight_setrgb_at(148, 0, 211, 13);
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -243,6 +273,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+    default:
+    rgblight_enable();
+        if(isLeftHand) {                        // this sets the underside LEDs (1-6) to cyan on both sides and does nothing with the rest.
+          for(int i=0; i < 6; i ++) {           // this also means that if I manually change LED color to red, the bottom 6 LEDS will ALWAYS be cyan.
+            rgblight_setrgb_at(0, 255, 150, i); // it's the only way I found to make it switch back to underglow LEDs after I've used another layer.
+          }
+        } else {
+          for(int j=0; j < 6; j ++) {
+            rgblight_setrgb_at(0, 255, 150, j);
+          }
+        }
+        break;
   }
   return true;
 }
