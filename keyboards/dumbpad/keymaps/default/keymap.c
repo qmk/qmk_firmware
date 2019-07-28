@@ -89,25 +89,20 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  // put your custom code here
-  // change "return false;" to "return true;" if you do anything 
-  // returning false will cause it to use the default
-  /*if (index == 0) {
+void encoder_update_kb(uint8_t index, bool clockwise) {
+  if (index == 0) {
     if (layer_state && 0x1) {
-      if (clockwise) {
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-      }
-    } else {
       if (clockwise) {
         tap_code(KC_VOLU);
       } else {
         tap_code(KC_VOLD);
       }
+    } else {
+      if (clockwise) {
+        tap_code(KC_MS_R);
+      } else {
+        tap_code(KC_MS_L);
+      }
     }
-  }*/
-  return false;
+  }
 }

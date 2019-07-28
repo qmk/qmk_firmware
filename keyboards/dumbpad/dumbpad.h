@@ -17,8 +17,6 @@
 
 #include "quantum.h"
 
-bool encoder_update_user(uint8_t index, bool clockwise);
-
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
