@@ -18,8 +18,6 @@
 #define _BASE 0
 #define _SUB  1
 
-#define ___ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
         BASE LAYER
@@ -52,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_SUB] = LAYOUT(
-                   ___,       ___,     ___,      RESET, 
-                   ___,       ___,     ___,      KC_KP_PLUS, 
-                   ___,       ___,     ___,      KC_KP_MINUS, 
-    KC_LOCK,       ___,       ___,     ___,      KC_EQL
+                 _______,     _______,     _______,      RESET, 
+                 _______,     _______,     _______,      KC_KP_PLUS, 
+                 _______,     _______,     _______,      KC_KP_MINUS, 
+    KC_LOCK,     _______,     _______,     _______,      KC_EQL
   ),
 };
 
