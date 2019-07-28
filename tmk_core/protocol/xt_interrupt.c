@@ -138,7 +138,7 @@ static inline void pbuf_enqueue(uint8_t data)
         pbuf[pbuf_head] = data;
         pbuf_head = next;
     } else {
-        print("pbuf: full\n");
+        dprintf("pbuf: full\n");
     }
     SREG = sreg;
 }
