@@ -32,32 +32,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |             |---------|---------|---------|---------|
    |             |    1    |    2    |    3    |   Tab   |
    |-------------|---------|---------|---------|---------|
-   | Left mouse  | TapTog  |    0    |    .    |  Enter  |
+   | Left mouse  | MO(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
   [BASE] = LAYOUT( /* Base */
                    KC_7,      KC_8,    KC_9,     KC_BSPC, 
                    KC_4,      KC_5,    KC_6,     KC_ESC, 
                    KC_1,      KC_2,    KC_3,     KC_TAB, 
-    KC_BTN1,       TT(SUB),   KC_0,    KC_DOT,   KC_ENT
+    KC_BTN1,       MO(SUB),   KC_0,    KC_DOT,   KC_ENT
   ),
   /*
         SUB LAYER
    /-----------------------------------------------------`
    |             |         |         |         |  Reset  |
    |             |---------|---------|---------|---------|
-   |             |         |   Up    |         |  Debug  |
+   |             |         |         |         |  Debug  |
    |             |---------|---------|---------|---------|
-   |             |  Left   |  Down   |  Right  |         |
+   |             |         |         |         |         |
    |-------------|---------|---------|---------|---------|
-   | Right mouse |         |         |         |         |
+   |             |         |         |         |         |
    \-----------------------------------------------------'
   */
   [SUB] = LAYOUT(
                    ___,       ___,     ___,      RESET, 
-                   ___,       KC_UP,   ___,      DEBUG, 
-                   KC_LEFT,   KC_DOWN, KC_RIGHT, ___, 
-    KC_BTN2,       ___,       ___,     ___,      ___
+                   ___,       ___,     ___,      DEBUG, 
+                   ___,       ___,     ___,      ___, 
+    ___,           ___,       ___,     ___,      ___
   ),
 };
 
@@ -96,5 +96,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   // put your custom code here
   // change "return false;" to "return true;" if you do anything 
   // returning false will cause it to use the default
-  return false;
+  if (index == 0) {
+    //if (layer_state && 0x1) {
+      if (clockwise) {
+        tap_code(KC_MS_R);
+      } else {
+        tap_code(KC_MS_L);
+      }
+    /*} else {
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+    }*/
+  }
+  return true;
 }

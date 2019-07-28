@@ -27,16 +27,6 @@ bool encoder_update_user(uint8_t index, bool clockwise);
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#ifdef _DUMBPAD_TEST
-#define LAYOUT( \
-         k01, \
-    k10, k11, k12 \
-) \
-{ \
-    { KC_NO, k01, KC_NO }, \
-    { k10,   k11, k12, }, \
-}
-#else
 #define LAYOUT( \
          k01, k02, k03, k04, \
          k11, k12, k13, k14, \
@@ -49,4 +39,3 @@ bool encoder_update_user(uint8_t index, bool clockwise);
     { KC_NO, k21, k22, k23, k24 }, \
     { k30,   k31, k32, k33, k34 }, \
 }
-#endif
