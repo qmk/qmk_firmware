@@ -1,6 +1,6 @@
 # dumbpad
 
-![dumbpad](imgur.com image replace me!)
+![dumbpad](https://i.imgur.com/sS3fq1Z.jpg)
 
 A 4x4 macro/numpad with rotary encoder.
 
