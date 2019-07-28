@@ -83,3 +83,4 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 ENCODER_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+KEY_LOCK_ENABLE = yes

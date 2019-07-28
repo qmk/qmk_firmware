@@ -15,10 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-#include <print.h>
-
-#define BASE 0
-#define SUB  1
+#define _BASE 0
+#define _SUB  1
 
 #define ___ KC_TRNS
 
@@ -35,29 +33,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    | Left mouse  | MO(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
-  [BASE] = LAYOUT( /* Base */
+  [_BASE] = LAYOUT( /* Base */
                    KC_7,      KC_8,    KC_9,     KC_BSPC, 
                    KC_4,      KC_5,    KC_6,     KC_ESC, 
                    KC_1,      KC_2,    KC_3,     KC_TAB, 
-    KC_BTN1,       MO(SUB),   KC_0,    KC_DOT,   KC_ENT
+    KC_BTN1,       MO(_SUB),  KC_0,    KC_DOT,   KC_ENTER
   ),
   /*
         SUB LAYER
    /-----------------------------------------------------`
    |             |         |         |         |  Reset  |
    |             |---------|---------|---------|---------|
-   |             |         |         |         |  Debug  |
+   |             |         |         |         |    +    |
    |             |---------|---------|---------|---------|
-   |             |         |         |         |         |
+   |             |         |         |         |    -    |
    |-------------|---------|---------|---------|---------|
-   |             |         |         |         |         |
+   |             |         |  LOCK   |         |    =    |
    \-----------------------------------------------------'
   */
-  [SUB] = LAYOUT(
+  [_SUB] = LAYOUT(
                    ___,       ___,     ___,      RESET, 
-                   ___,       ___,     ___,      DEBUG, 
-                   ___,       ___,     ___,      ___, 
-    ___,           ___,       ___,     ___,      ___
+                   ___,       ___,     ___,      KC_KP_PLUS, 
+                   ___,       ___,     ___,      KC_KP_MINUS, 
+    ___,           ___,       KC_LOCK, ___,      KC_EQL
   ),
 };
 
@@ -96,20 +94,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   // put your custom code here
   // change "return false;" to "return true;" if you do anything 
   // returning false will cause it to use the default
-  if (index == 0) {
-    //if (layer_state && 0x1) {
+  /*if (index == 0) {
+    if (layer_state && 0x1) {
       if (clockwise) {
         tap_code(KC_MS_R);
       } else {
         tap_code(KC_MS_L);
       }
-    /*} else {
+    } else {
       if (clockwise) {
         tap_code(KC_VOLU);
       } else {
         tap_code(KC_VOLD);
       }
-    }*/
-  }
-  return true;
+    }
+  }*/
+  return false;
 }
