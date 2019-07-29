@@ -135,10 +135,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_EUCALYN] = LAYOUT(
-    KC_ESC ,KC_Q   ,KC_W   ,KC_M   ,KC_R   ,KC_COMM,C(KC_S),KC_DEL ,KC_DOT ,KC_BSPC,KC_D   ,KC_Y   ,KC_P   ,KC_QUOT, \
-    KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,KC_LPRN,KC_RPRN,KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,KC_COLN, \
-    ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,KC_MINS,KC_PLUS,KC_B   ,KC_H   ,KC_J   ,KC_L   ,KC_SLSH,SALPH  , \
-    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_SPC ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,KC_DOT ,KC_RALT,KC_RCTL
+    KC_ESC ,KC_Q   ,KC_W   ,KC_M   ,KC_R   ,JP_COMM,C(KC_S),KC_DEL ,JP_DOT ,KC_BSPC,KC_D   ,KC_Y   ,KC_P   ,JP_QUOT, \
+    KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,JP_LPRN,JP_RPRN,KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,JP_COLN, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,JP_MINS,JP_PLUS,KC_B   ,KC_H   ,KC_J   ,KC_L   ,JP_SLSH,SALPH  , \
+    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_SPC ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
   ),
 
 /* _WORKMAN
@@ -153,10 +153,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_WORKMAN] = LAYOUT(
-    KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,C(KC_S),KC_DEL ,KC_J   ,KC_BSPC,KC_U   ,KC_P   ,KC_F   ,KC_QUOT, \
-    KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,KC_LPRN,KC_RPRN,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_COLN, \
-    ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,KC_MINS,KC_PLUS,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,SALPH  , \
-    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_SPC ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,KC_DOT ,KC_RALT,KC_RCTL
+    KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,C(KC_S),KC_DEL ,KC_J   ,KC_BSPC,KC_U   ,KC_P   ,KC_F   ,JP_QUOT, \
+    KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,JP_LPRN,JP_RPRN,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,JP_COLN, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,JP_MINS,JP_PLUS,KC_K   ,KC_L   ,JP_COMM,JP_DOT ,JP_SLSH,SALPH  , \
+    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_SPC ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
   ),
 
 /* _NAGINATA
@@ -225,9 +225,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_EDIT2L] = LAYOUT(
-    KC_TILD,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    DEG    ,KC_CIRC,KC_AMPR,KC_EXLM,KC_QUES,KC_BSLS,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
-    EURO   ,KC_PIPE,KC_GRV ,KC_QUOT,KC_DQT ,KC_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    JP_TILD,JP_EXLM,JP_AT  ,JP_HASH,JP_DLR ,JP_PERC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    DEG    ,JP_CIRC,JP_AMPR,JP_EXLM,JP_QUES,JP_BSLS,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    EURO   ,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQT ,JP_UNDS,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
@@ -243,9 +243,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_EDIT2R] = LAYOUT(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,KC_PLUS,KC_MINS,KC_EQL ,MICRO  , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,KC_COLN,KC_LPRN,KC_LBRC,KC_LCBR,KC_LT  ,DELTA  , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_SCLN,KC_RPRN,KC_RBRC,KC_RCBR,KC_GT  ,NEQL   , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,JP_PLUS,JP_MINS,JP_EQL ,MICRO  , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,JP_COLN,JP_LPRN,JP_LBRC,JP_LCBR,JP_LT  ,DELTA  , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SCLN,JP_RPRN,JP_RBRC,JP_RCBR,JP_GT  ,NEQL   , \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
@@ -261,9 +261,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
   [_LOWER] = LAYOUT(
-    XXXXXXX,XXXXXXX,XXXXXXX,KC_UP  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_SLSH,KC_7   ,KC_8   ,KC_9   ,KC_MINS,KC_COLN, \
-    XXXXXXX,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,XXXXXXX,XXXXXXX,KC_ASTR,KC_4   ,KC_5   ,KC_6   ,KC_PLUS,KC_DOT , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_0   ,KC_1   ,KC_2   ,KC_3   ,KC_EQL ,KC_COMM, \
+    XXXXXXX,XXXXXXX,XXXXXXX,KC_UP  ,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SLSH,KC_7   ,KC_8   ,KC_9   ,JP_MINS,JP_COLN, \
+    XXXXXXX,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,XXXXXXX,XXXXXXX,JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
     _______,_______,_______,_______,_______,EISU   ,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
