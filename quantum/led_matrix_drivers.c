@@ -53,16 +53,16 @@ static void init(void) {
         #endif
     #else
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3733_init(LED_DRIVER_ADDR_1);
+            IS31FL3733_init(LED_DRIVER_ADDR_1, 0 );
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3733_init(LED_DRIVER_ADDR_2);
+            IS31FL3733_init(LED_DRIVER_ADDR_2, 0 );
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3733_init(LED_DRIVER_ADDR_3);
+            IS31FL3733_init(LED_DRIVER_ADDR_3, 0 );
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3733_init(LED_DRIVER_ADDR_4);
+            IS31FL3733_init(LED_DRIVER_ADDR_4, 0 );
         #endif
     #endif
 

@@ -20,16 +20,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
-
 void matrix_init_user(void) {
     // This keymap only has a single base layer, so reset the default if needed
     if(eeconfig_read_default_layer() > 1){

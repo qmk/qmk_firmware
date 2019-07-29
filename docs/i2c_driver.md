@@ -65,12 +65,47 @@ By default the I2C1 hardware driver is assumed to be used. If another hardware d
 
 STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C. You can use these defines to set your i2c pins:
 
-| Variable    | Description                                  | Default |
-|-------------|----------------------------------------------|---------|
-| `I2C1_BANK` | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) | `GPIOB` |
-| `I2C1_SCL`  | The pin number for the SCL pin (0-9)         | `6`     |
-| `I2C1_SDA`  | The pin number for the SDA pin (0-9)         | `7`     |
+| Variable                 | Description                                                                                  | Default |
+|--------------------------|----------------------------------------------------------------------------------------------|---------|
+| `I2C1_SCL_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SCL                                  | `GPIOB` |
+| `I2C1_SDA_BANK`          | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) to use for SDA                                  | `GPIOB` |
+| `I2C1_SCL`               | The pin number for the SCL pin (0-9)                                                         | `6`     |
+| `I2C1_SDA`               | The pin number for the SDA pin (0-9)                                                         | `7`     |
+| `I2C1_BANK` (deprecated) | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`), superceded by `I2C1_SCL_BANK`, `I2C1_SDA_BANK` | `GPIOB` |
 
+The ChibiOS I2C driver configuration depends on STM32 MCU:
+
+    STM32F1xx, STM32F2xx, STM32F4xx, STM32L0xx and STM32L1xx use I2Cv1;
+    STM32F0xx, STM32F3xx, STM32F7xx and STM32L4xx use I2Cv2;
+
+#### I2Cv1
+STM32 MCUs allow for different clock and duty parameters when configuring I2Cv1. These can be modified using the following parameters, using <https://www.playembedded.org/blog/stm32-i2c-chibios/#I2Cv1_configuration_structure> as a reference:
+
+| Variable           | Default          |
+|--------------------|------------------|
+| `I2C1_OPMODE`      | `OPMODE_I2C`     |
+| `I2C1_CLOCK_SPEED` | `100000`         |
+| `I2C1_DUTY_CYCLE`  | `STD_DUTY_CYCLE` |
+
+#### I2Cv2
+STM32 MCUs allow for different timing parameters when configuring I2Cv2. These can be modified using the following parameters, using <https://www.st.com/en/embedded-software/stsw-stm32126.html> as a reference:
+
+| Variable              | Default |
+|-----------------------|---------|
+| `I2C1_TIMINGR_PRESC`  | `15U`   |
+| `I2C1_TIMINGR_SCLDEL` | `4U`    |
+| `I2C1_TIMINGR_SDADEL` | `2U`    |
+| `I2C1_TIMINGR_SCLH`   | `15U`   |
+| `I2C1_TIMINGR_SCLL`   | `21U`   |
+
+STM32 MCUs allow for different "alternate function" modes when configuring GPIO pins. These are required to switch the pins used to I2Cv2 mode. See the respective datasheet for the appropriate values for your MCU.
+
+| Variable            | Default |
+|---------------------|---------|
+| `I2C1_SCL_PAL_MODE` | `4`     |
+| `I2C1_SDA_PAL_MODE` | `4`     |
+
+#### Other
 You can also overload the `void i2c_init(void)` function, which has a weak attribute. If you do this the configuration variables above will not be used. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
 
 ```C

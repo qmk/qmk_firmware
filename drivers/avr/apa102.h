@@ -25,7 +25,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "rgblight_types.h"
+#include "color.h"
 
 
 /* User Interface

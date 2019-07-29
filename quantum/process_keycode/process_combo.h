@@ -58,4 +58,9 @@ bool process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
 void process_combo_event(uint8_t combo_index, bool pressed);
 
+void combo_enable(void);
+void combo_disable(void);
+void combo_toggle(void);
+bool is_combo_enabled(void);
+
 #endif

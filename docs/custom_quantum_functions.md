@@ -267,7 +267,7 @@ You should use this function if you need custom matrix scanning code. It can als
 
 If the board supports it, it can be "idled", by stopping a number of functions.  A good example of this is RGB lights or backlights.   This can save on power consumption, or may be better behavior for your keyboard.
 
-This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system is board is idled and when it wakes up, respectively.
+This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system board is idled and when it wakes up, respectively.
 
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
