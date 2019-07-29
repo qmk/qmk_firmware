@@ -51,7 +51,8 @@ static void init( void )
     }
     // This actually updates the LED drivers
 #ifdef IS31FL3731
-    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, 0 );
+    IS31FL3731_update_led_control_registers( DRIVER_ADDR_2, 1 );
 #elif defined(IS31FL3733)
     IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, 0 );
     IS31FL3733_update_led_control_registers( DRIVER_ADDR_2, 1 );
@@ -63,7 +64,8 @@ static void init( void )
 #ifdef IS31FL3731
 static void flush( void )
 {
-    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, 0 ); 
+    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_2, 1 );
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
