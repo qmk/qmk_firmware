@@ -37,6 +37,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdbool.h>
+#include <stdio.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "xt.h"
@@ -138,7 +139,7 @@ static inline void pbuf_enqueue(uint8_t data)
         pbuf[pbuf_head] = data;
         pbuf_head = next;
     } else {
-        print("pbuf: full\n");
+        dprintf("pbuf: full\n");
     }
     SREG = sreg;
 }
