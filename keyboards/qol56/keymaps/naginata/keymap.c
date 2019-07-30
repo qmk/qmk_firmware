@@ -574,6 +574,7 @@ void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
   // 薙刀式
+  set_unicode_input_mode(UC_WINC);
 }
 
 void matrix_scan_user(void) {
