@@ -18,10 +18,6 @@ enum custom_keycodes {
 #define NAV TO(2)
 #define NUM TO(1)
 #define ALPHA TO(0)
-#define NPLUS KC_KP_PLUS
-#define NMINUS KC_KP_MINUS
-#define NSTAR KC_KP_ASTERISK
-#define NSLASH KC_KP_SLASH
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT(
   //,--------+--------+--------+--------+--------+--------+--------.        ,--------+--------+--------+--------+--------+--------+--------.
-     KC_ESC,   KC_NO,  KC_ACL0, KC_ACL1, KC_ACL2,  KC_WH_L, KC_WH_R,          KC_ESC,   KC_NO,   KC_UP,   NSLASH,  NSTAR,   NMINUS,  NPLUS,
+     KC_ESC,   KC_NO,  KC_ACL0, KC_ACL1, KC_ACL2,  KC_WH_L, KC_WH_R,          KC_ESC,   KC_NO,   KC_UP, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_NO,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_WH_U,                     KC_NO,  KC_LEFT, KC_DOWN, KC_RIGHT,KC_NO,   KC_NO,   KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
