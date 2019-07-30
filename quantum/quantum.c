@@ -1058,16 +1058,20 @@ void matrix_scan_quantum() {
   #define TOIEx           TOIE3
 
   #if BACKLIGHT_PIN == C4
-    // AT90USB64/128
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C4 pin!
+    #endif
+
     #define COMxx1        COM3C1
     #define OCRxx         OCR3C
   #elif BACKLIGHT_PIN == C5
-    // AT90USB64/128
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C5 pin!
+    #endif
+
     #define COMxx1        COM3B1
     #define OCRxx         OCR3B
   #elif BACKLIGHT_PIN == C6
-    // AT90USB64/128
-    // ATmega16/32U4
     #define COMxx1        COM3A1
     #define OCRxx         OCR3A
   #endif
