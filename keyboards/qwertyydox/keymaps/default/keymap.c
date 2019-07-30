@@ -15,11 +15,6 @@ enum custom_keycodes {
   EQL
 };
 
-#define NAV TO(2)
-#define NUM TO(1)
-#define ALPHA TO(0)
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
@@ -30,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTL, KC_LGUI, KC_LALT, qwerty,  KC_ENT,  KC_DEL,  NUM,              NAV,   KC_SPC,  KC_BSPC, KC_LEFT, KC_RALT, KC_RGUI, KC_RCTL
+     KC_LCTL, KC_LGUI, KC_LALT, qwerty,  KC_ENT,  KC_DEL,  TO(1),              TO(2),   KC_SPC,  KC_BSPC, KC_LEFT, KC_RALT, KC_RGUI, KC_RCTL
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'
   ),
 
@@ -42,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_LSFT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                               KC_NO,  KC_PPLS, KC_PMNS,  EQL,    KC_PAST, KC_PSLS,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTL,  KC_ESC, KC_NO,    num,    KC_ENT,  KC_LSFT,  NAV,              ALPHA,   KC_SPC,  KC_BSPC, KC_LEFT, KC_RALT, KC_RGUI, KC_RCTL
+     KC_LCTL,  KC_ESC, KC_NO,    num,    KC_ENT,  KC_LSFT,  TO(2),              TO(0),   KC_SPC,  KC_BSPC, KC_LEFT, KC_RALT, KC_RGUI, KC_RCTL
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'
   ),
 
@@ -54,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_INS,  KC_HOME, KC_PGUP, KC_BTN1, KC_BTN2,  KC_WH_D,                           KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R,  KC_NO,  KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_DEL,  KC_END,  KC_PGDN,  nav,    KC_LCTL, KC_SPC,  ALPHA,            NUM,    KC_LSFT,   KC_BSPC, KC_NO,   KC_NO,   KC_NO,   RESET
+     KC_DEL,  KC_END,  KC_PGDN,  nav,    KC_LCTL, KC_SPC,  TO(0),            TO(1),    KC_LSFT,   KC_BSPC, KC_NO,   KC_NO,   KC_NO,   RESET
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'
   )
 };
