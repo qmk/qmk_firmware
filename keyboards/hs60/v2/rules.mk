@@ -65,3 +65,5 @@ NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plu
 RAW_ENABLE = no
 DYNAMIC_KEYMAP_ENABLE = no
 CIE1931_CURVE = yes
+
+LAYOUTS = 60_ansi 60_iso
