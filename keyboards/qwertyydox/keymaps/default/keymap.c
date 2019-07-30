@@ -12,8 +12,6 @@ enum custom_keycodes {
   EQL
 };
 
-// #define KC_ KC_TRNS
-#define __ KC_NO
 #define NAV TO(2)
 #define NUM TO(1)
 #define ALPHA TO(0)
