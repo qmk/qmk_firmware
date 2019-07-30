@@ -1060,17 +1060,17 @@ void matrix_scan_quantum() {
   #if BACKLIGHT_PIN == C4
     #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
       #error This MCU has no C4 pin!
+    #else
+      #define COMxx1        COM3C1
+      #define OCRxx         OCR3C
     #endif
-
-    #define COMxx1        COM3C1
-    #define OCRxx         OCR3C
   #elif BACKLIGHT_PIN == C5
     #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
       #error This MCU has no C5 pin!
+    #else
+      #define COMxx1        COM3B1
+      #define OCRxx         OCR3B
     #endif
-
-    #define COMxx1        COM3B1
-    #define OCRxx         OCR3B
   #elif BACKLIGHT_PIN == C6
     #define COMxx1        COM3A1
     #define OCRxx         OCR3A
