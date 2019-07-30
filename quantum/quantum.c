@@ -1072,7 +1072,7 @@ void matrix_scan_quantum() {
     #define OCRxx         OCR3A
   #endif
 #elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) \
-  && (BACKLIGHT_PIN == C6 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == B7)
+  && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
   #define HARDWARE_PWM
   #define ICRx            ICR1
   #define TCCRxA          TCCR1A
@@ -1081,15 +1081,15 @@ void matrix_scan_quantum() {
   #define TIMSKx          TIMSK1
   #define TOIEx           TOIE1
 
-  #if BACKLIGHT_PIN == C6
-    #define COMxx1          COM1A1
-    #define OCRxx           OCR1A
+  #if BACKLIGHT_PIN == B7
+    #define COMxx1          COM1C1
+    #define OCRxx           OCR1C
   #elif BACKLIGHT_PIN == C5
     #define COMxx1          COM1B1
     #define OCRxx           OCR1B
-  #elif BACKLIGHT_PIN == B7
-    #define COMxx1          COM1C1
-    #define OCRxx           OCR1C
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1          COM1A1
+    #define OCRxx           OCR1A
   #endif
 #elif defined(__AVR_ATmega32A__) \
   && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
