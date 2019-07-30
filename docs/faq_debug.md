@@ -184,23 +184,6 @@ Pressing any key during sleep should wake host.
 
 Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
-
-## Using PF4-7 Pins of USB AVR?
-You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affected with this.
-
-If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
-
-See this code.
-```
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-```
-https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
-
-And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
-
-
 ## Adding LED Indicators of Lock Keys
 You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
 
