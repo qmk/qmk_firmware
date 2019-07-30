@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include"keymap_jp.h"
+#include "keymap_jp.h"
 
 // 薙刀式
 #include "naginata.h"
@@ -31,16 +31,11 @@ enum custom_keycodes {
   NUMLOC,
   EISU,
   KANA2,
-  EURO,
   SSCLN,
   DELA,
   DELE,
   ALPH,
   SALPH,
-  DEG,
-  DELTA,
-  NEQL,
-  MICRO,
 };
 
 // Layers
@@ -78,6 +73,15 @@ enum kepmap_layers {
 #define KS(A) S(KC_##A)
 #define KG(A) G(KC_##A)
 // 薙刀式
+
+#define DEG   UC(0x00B0)
+#define DELTA UC(0x0394)
+#define NTEQ  UC(0x2260)
+#define NREQ  UC(0x2260)
+#define MICRO UC(0x00B5)
+#define EURO  UC(0x20AC)
+#define LTE   UC(0x2264)
+#define GTE   UC(0x2265)
 
 // 薙刀式
 enum combo_events {
@@ -237,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
   |     |     |     |     | __  | __  |     |     |  :  |  (  |  [  |  {  |  <  |DELTA|
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |     |     |     |     |     |     |     |     |  ;  |  )  |  ]  |  }  |  >  |NEQL |
+  |     |     |     |     |     |     |     |     |  ;  |  )  |  ]  |  }  |  >  |NTEQ |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
   | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
   +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -245,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_EDIT2R] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,DELA   ,JP_PLUS,JP_MINS,JP_EQL ,MICRO  , \
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,_______,XXXXXXX,XXXXXXX,JP_COLN,JP_LPRN,JP_LBRC,JP_LCBR,JP_LT  ,DELTA  , \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SCLN,JP_RPRN,JP_RBRC,JP_RCBR,JP_GT  ,NEQL   , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JP_SCLN,JP_RPRN,JP_RBRC,JP_RCBR,JP_GT  ,NTEQ   , \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
@@ -287,11 +291,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* _ADJUST
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |KC_WAKE|       | RESET |       |       |       |       |       |       |       |KC_PWR |EUCALYN|
+  |       |       | WAKE  |       | RESET |       |       |       |       |       |       |       |  PWR  |EUCALYN|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |       |       |       |       |EEP_RST|       |       |       |       |       |       |       |       |WORKMAN|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |KC_SLEP|KC_CALC|       |       |       |       |       |       |       |       |       |       |
+  |       |       | SLEP  | CALC  |       |       |       |       |       |       |       |       |       |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -440,24 +444,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
-      break;
-    case EURO:
-      if (record->event.pressed) {
-        send_string("20AC"SS_LALT("x"));
-        return false;
-      }
-      break;
-    case DEG:
-      if (record->event.pressed) {
-        send_string("00B0"SS_LALT("x"));
-        return false;
-      }
-      break;
-    case MICRO:
-      if (record->event.pressed) {
-        send_string("00B5"SS_LALT("x"));
-        return false;
-      }
       break;
     case DELTA:
       if (record->event.pressed) {
