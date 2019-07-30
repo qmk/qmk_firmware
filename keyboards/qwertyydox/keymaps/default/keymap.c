@@ -2,9 +2,12 @@
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _NUM 1
-#define _NAV 2
+enum layer_names {
+    _QWERTY,
+    _NUM,
+    _NAV
+};
+
 enum custom_keycodes {
   qwerty = SAFE_RANGE,
   nav,
