@@ -2,8 +2,9 @@
 RGB_MATRIX_EFFECT(CYCLE_PINWHEEL)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void CYCLE_PINWHEEL_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t time) {
-    hsv->h = atan2_8(dy, dx) + time;
+static HSV CYCLE_PINWHEEL_math(HSV hsv,  int16_t dx, int16_t dy, uint8_t time) {
+    hsv.h = atan2_8(dy, dx) + time;
+    return hsv;
 }
 
 bool CYCLE_PINWHEEL(effect_params_t* params) {
