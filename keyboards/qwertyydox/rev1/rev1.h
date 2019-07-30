@@ -1,11 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "qwertyydox.h"
-
-//void promicro_bootloader_jmp(bool program);
-#include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
@@ -14,8 +9,6 @@
     #include <avr/interrupt.h>
 #endif
 #endif
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05, L06,       R00, R01, R02, R03, R04, R05, R06, \
@@ -33,5 +26,3 @@
         { R26, R25, R24, R23, R22, R21, KC_NO, }, \
         { R36, R35, R34, R33, R32, R31, R30 } \
     }
-
-#endif
