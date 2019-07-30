@@ -121,6 +121,18 @@ void DRV_init(void)
   DRV_write(DRV_GO, 0x01);
 }
 
+
+void DRV_rtp_init(void)
+{
+  DRV_write(DRV_RTP_INPUT, 0x05); // arbitrary amplitude
+  DRV_write(DRV_MODE, 0x05); 
+}
+
+void DRV_amplitude(uint8_t amplitude)
+{
+  DRV_write(DRV_RTP_INPUT, amplitude);
+}
+
 void DRV_pulse(uint8_t sequence)
 {
   DRV_write(DRV_GO, 0x00);

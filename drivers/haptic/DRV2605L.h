@@ -171,6 +171,8 @@ void DRV_init(void);
 void DRV_write(const uint8_t drv_register, const uint8_t settings);
 uint8_t DRV_read(const uint8_t regaddress);
 void DRV_pulse(const uint8_t sequence);
+void DRV_rtp_init(void);
+void DRV_amplitude(const uint8_t amplitude);
 
 typedef enum DRV_EFFECT{
   clear_sequence      = 0,
