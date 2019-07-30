@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers{
-    BASE = 0,
+    BASE,
     COMMAND,
     NUMBER,
     SETTING
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SETTING] = LAYOUT( /* Base */
           KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,                 KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,
           KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,                 KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,
-          KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,                 KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,
+          KC_NO,  KC_NO,  KC_NO, KC_NO, RGB_MOD,                 KC_NO,  KC_NO,  KC_NO, KC_NO, KC_NO,
                         KC_NO,  KC_NO,  KC_NO,                 KC_NO,  KC_NO,  KC_NO
   ),
 };
@@ -70,31 +70,3 @@ void matrix_scan_user(void) {
 void led_set_user(uint8_t usb_led) {
 
 }
-
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
-  oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
-    case BASE:
-      oled_write_P(PSTR("Defaultn"), false);
-      break;
-    case COMMAND:
-      oled_write_P(PSTR("COMMANDn"), false);
-      break;
-    case NUMBER:
-      oled_write_P(PSTR("NUMBERn"), false);
-      break;
-    case SETTING:
-      oled_write_P(PSTR("SETTINGn"), false);
-      break;
-    default:
-      // Or use the write_ln shortcut over adding 'n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
-  }
-
-  // Host Keyboard LED Status
-  oled_write_P(IS_HOST_LED_ON(USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(IS_HOST_LED_ON(USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
-}
-#endif
