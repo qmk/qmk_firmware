@@ -209,6 +209,8 @@ const PROGMEM nicola_keymap ngmap[] = {
   {.key = B_SHFTR|B_COMM    , .kana = "mu"},
   {.key = B_SHFTR|B_DOT     , .kana = "wa"},
   {.key = B_SHFTR|B_SLSH    , .kana = "lo"},
+  {.key = B_SHFTR    , .kana = " "},
+  {.key = B_SHFTL    , .kana = " "},
 
 };
 
