@@ -291,9 +291,9 @@ enum custom_keycodes {
 #define CFQ_KC_FN2 MO(2)
 #define CFQ_KC_FN3 MO(3)
 #else
-#define CFQ_KC_FN1 KC_FN1
-#define CFQ_KC_FN2 KC_FN2
-#define CFQ_KC_FN3 KC_FN3
+#define CFQ_KC_FN1 TT(1)
+#define CFQ_KC_FN2 TT(2)
+#define CFQ_KC_FN3 TT(3)
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -488,12 +488,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, K80(L3K2), K80(L3K3),
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_KPAD),               /* FN1 - Momentary Layer 1 (KeyPad) */
-  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media, Mouse) */
-  [3] = ACTION_LAYER_TAP_TOGGLE(LAYER_FKEY),               /* FN3 - Momentary Layer 3 (FKey's & Words) */
 };
 
 #define WITHOUT_MODS(...) \

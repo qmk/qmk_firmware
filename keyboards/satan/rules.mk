@@ -1,6 +1,4 @@
-
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -15,7 +13,6 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
-
 
 #
 # LUFA specific
@@ -39,7 +36,6 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
 #   Teensy++ halfKay 1024
@@ -48,21 +44,20 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
+BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no    # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes   # Audio control and System control(+450)
+CONSOLE_ENABLE = yes    # Console for debug(+400)
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality (+4870)
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE = no 		# MIDI controls
+MIDI_ENABLE = no        # MIDI controls
 AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+UNICODE_ENABLE = no     # Unicode
+BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 
 LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift

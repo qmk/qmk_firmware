@@ -151,17 +151,17 @@ static void command_common_help(void)
 		                            "0-9:	Switch to Layer 0-9\n"
 #endif
 
-		STR(MAGIC_KEY_LAYER0_ALT1 ) ":	Switch to Layer 0 (alternate key 1)\n"
-		STR(MAGIC_KEY_LAYER0_ALT2 ) ":	Switch to Layer 0 (alternate key 2)\n"
-		STR(MAGIC_KEY_BOOTLOADER  ) ":	Jump to Bootloader (Reset)\n"
+		STR(MAGIC_KEY_LAYER0_ALT  ) ":	Switch to Layer 0 (alternate)\n"
+
+		STR(MAGIC_KEY_BOOTLOADER    ) ":	Jump to Bootloader\n"
+		STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
-		STR(MAGIC_KEY_LOCK        ) ":	Lock\n"
+		STR(MAGIC_KEY_LOCK        ) ":	Lock Keyboard\n"
 #endif
 
-#ifdef BOOTMAGIC_ENABLE
 		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"
-#endif
+		STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
 
 #ifdef NKRO_ENABLE
 		STR(MAGIC_KEY_NKRO        ) ":	NKRO Toggle\n"
@@ -265,7 +265,6 @@ static void print_status(void)
 	return;
 }
 
-#ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
 
@@ -305,7 +304,6 @@ static void print_eeconfig(void)
 #endif /* !NO_PRINT */
 
 }
-#endif /* BOOTMAGIC_ENABLE */
 
 static bool command_common(uint8_t code)
 {
@@ -326,14 +324,17 @@ static bool command_common(uint8_t code)
             break;
 #endif
 
-#ifdef BOOTMAGIC_ENABLE
-
 		// print stored eeprom config
         case MAGIC_KC(MAGIC_KEY_EEPROM):
             print("eeconfig:\n");
             print_eeconfig();
             break;
-#endif
+
+		// clear eeprom
+        case MAGIC_KC(MAGIC_KEY_EEPROM_CLEAR):
+            print("Clearing EEPROM\n");
+	    eeconfig_init();
+            break;
 
 #ifdef KEYBOARD_LOCK_ENABLE
 
@@ -352,8 +353,8 @@ static bool command_common(uint8_t code)
 #endif
 
 		// print help
-        case MAGIC_KC(MAGIC_KEY_HELP1):
-        case MAGIC_KC(MAGIC_KEY_HELP2):
+        case MAGIC_KC(MAGIC_KEY_HELP):
+        case MAGIC_KC(MAGIC_KEY_HELP_ALT):
             command_common_help();
             break;
 
@@ -370,6 +371,7 @@ static bool command_common(uint8_t code)
 
         // jump to bootloader
         case MAGIC_KC(MAGIC_KEY_BOOTLOADER):
+        case MAGIC_KC(MAGIC_KEY_BOOTLOADER_ALT):
             clear_keyboard(); // clear to prevent stuck keys
             print("\n\nJumping to bootloader... ");
             #ifdef AUDIO_ENABLE
@@ -453,8 +455,7 @@ static bool command_common(uint8_t code)
 
 		// switch layers
 
-		case MAGIC_KC(MAGIC_KEY_LAYER0_ALT1):
-		case MAGIC_KC(MAGIC_KEY_LAYER0_ALT2):
+		case MAGIC_KC(MAGIC_KEY_LAYER0_ALT):
             switch_default_layer(0);
             break;
 

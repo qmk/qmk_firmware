@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -23,9 +22,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 

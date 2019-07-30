@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,				KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 					KC_TRNS,												KC_TRNS, 			KC_VOLD, 		KC_VOLU, 	KC_MUTE, 	KC_TRNS,
 		BL_TOGG,	BL_STEP,		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
     ),
-	
+
 		[2] = LAYOUT(
 		KC_ESC, 		KC_1, 			KC_2, 			KC_3, 			KC_4, 			KC_F9, 				KC_ESC, 		KC_Q, 			KC_W, 		KC_E, 			KC_R, 		KC_T,				 		KC_Y, 			KC_U, 			KC_I, 			KC_O, 				KC_P, 			KC_BSPC,
 		KC_TAB, 		KC_Q, 			KC_W, 		KC_E, 			KC_R, 			KC_T,					KC_TAB, 		KC_A, 			KC_S, 			KC_D, 			KC_F, 		KC_G,			 	 		KC_H, 			KC_J, 			KC_K, 			KC_L, 				KC_QUOT, 	KC_ENT,
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,		KC_Z,			KC_X,			KC_C,			KC_V,			KC_B,					KC_LCTL, 	KC_LALT, 	KC_LBRC, 	KC_RBRC, 			MO(5),									KC_SPC, 					KC_MINS, 	KC_EQL, 		KC_LGUI, 	MO(4),
 		KC_LCTL,		KC_LALT,	TO(0),			KC_P,			KC_H,			KC_SPC
     ),
-	
+
 		[3] = LAYOUT(
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 				KC_TRNS, 		KC_1, 				KC_2, 				KC_3, 				KC_4, 				KC_5,				 				KC_6, 			KC_7, 			KC_8, 			KC_9, 			KC_0, 			KC_TRNS,
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,				KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS,			 	 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,				KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 					KC_TRNS,												KC_TRNS, 			KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
 		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
     ),
-	
+
 		[4] = LAYOUT(
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 				KC_F1, 			KC_F2, 			KC_F3, 			KC_F4, 			KC_F5, 			KC_F6,				 			KC_F7, 		KC_F8, 		KC_F9, 		KC_F10, 		KC_F11, 		KC_F12,
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,				KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS,			 	 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,				KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 					KC_TRNS,												KC_TRNS, 			KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,
 		KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS,	KC_TRNS
     ),
-	
+
 		[5] = LAYOUT(
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 				KC_GRV, 		KC_1, 				KC_2, 				KC_3, 				KC_4, 				KC_5,				 				KC_TRNS, 	KC_TRNS, 	KC_UP, 			KC_TRNS, 	KC_TRNS, 	KC_DEL,
 		KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS, 	KC_TRNS,				KC_CAPS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS, 		KC_TRNS,			 	 		KC_TRNS, 	KC_LEFT, 	KC_DOWN, 	KC_RGHT, 	KC_SCLN, 	KC_BSLS,
@@ -96,14 +96,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and low
-  DDRC |= (1 << 6);
-  PORTC &= ~(1 << 6);
+  setPinOutput(C6);
+  writePinHigh(C6);
   // set NumLock LED to output and low
-  DDRB |= (1 << 6);
-  PORTB &= ~(1 << 6);
+  setPinOutput(B6);
+  writePinHigh(B6);
   // set ScrollLock LED to output and low
-  DDRB |= (1 << 5);
-  PORTB &= ~(1 << 5);
+  setPinOutput(B5);
+  writePinHigh(B5);
 }
 
 void matrix_scan_user(void) {
@@ -112,21 +112,21 @@ void matrix_scan_user(void) {
 
 
 void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-    PORTB |= (1<<6);
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinHigh(B6);
   } else {
-    PORTB &= ~(1<<6);
+    writePinLow(B6);
   }
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    PORTB |= (1<<5);
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinHigh(B5);
   } else {
-    PORTB &= ~(1<<5);
+    writePinLow(B5);
   }
   /*
-  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    PORTC |= (1<<6);
+  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    writePinHigh(C6);
   } else {
-    PORTC &= ~(1<<6);
+    writePinLow(C6);
   }
   */
 }
@@ -135,9 +135,9 @@ void led_set_user(uint8_t usb_led) {
 uint32_t layer_state_set_user(uint32_t state)
 {
     if (biton32(state) == 2) {
-        PORTC |= (1<<6);
+    writePinHigh(C6);
 	} else {
-		PORTC &= ~(1<<6);
+		writePinLow(C6);
     }
     return state;
 }

@@ -54,7 +54,7 @@ uint16_t notes_count;
 bool     notes_repeat;
 bool     note_resting = false;
 
-uint8_t current_note = 0;
+uint16_t current_note = 0;
 uint8_t rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
@@ -79,7 +79,7 @@ float startup_song[][2] = STARTUP_SONG;
 
 static void gpt_cb8(GPTDriver *gptp);
 
-#define DAC_BUFFER_SIZE 720
+#define DAC_BUFFER_SIZE 100
 #ifndef DAC_SAMPLE_MAX
 #define DAC_SAMPLE_MAX  65535U
 #endif
@@ -98,8 +98,8 @@ static void gpt_cb8(GPTDriver *gptp);
     RESTART_CHANNEL_1()
 #define UPDATE_CHANNEL_2_FREQ(freq) gpt7cfg1.frequency = freq * DAC_BUFFER_SIZE; \
     RESTART_CHANNEL_2()
-#define GET_CHANNEL_1_FREQ gpt6cfg1.frequency
-#define GET_CHANNEL_2_FREQ gpt7cfg1.frequency
+#define GET_CHANNEL_1_FREQ (uint16_t)(gpt6cfg1.frequency * DAC_BUFFER_SIZE)
+#define GET_CHANNEL_2_FREQ (uint16_t)(gpt7cfg1.frequency * DAC_BUFFER_SIZE)
 
 
 /*
@@ -273,19 +273,24 @@ static const DACConversionGroup dacgrpcfg2 = {
   .trigger      = DAC_TRG(0)
 };
 
-void audio_init()
-{
+void audio_init() {
 
-    if (audio_initialized)
-        return;
+  if (audio_initialized) {
+    return;
+  }
 
-    // Check EEPROM
-    // if (!eeconfig_is_enabled())
-    // {
-    //     eeconfig_init();
-    // }
-    // audio_config.raw = eeconfig_read_audio();
+  // Check EEPROM
+  #if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+    if (!eeconfig_is_enabled()) {
+      eeconfig_init();
+    }
+    audio_config.raw = eeconfig_read_audio();
+#else // ARM EEPROM
     audio_config.enable = true;
+  #ifdef AUDIO_CLICKY_ON
+    audio_config.clicky_enable = true;
+  #endif
+#endif // ARM EEPROM
 
   /*
    * Starting DAC1 driver, setting up the output pin as analog as suggested
@@ -308,16 +313,17 @@ void audio_init()
   dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE);
   dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
 
-    audio_initialized = true;
+  audio_initialized = true;
 
-    if (audio_config.enable) {
-        PLAY_SONG(startup_song);
-    }
+  if (audio_config.enable) {
+    PLAY_SONG(startup_song);
+  } else {
+    stop_all_notes();
+  }
 
 }
 
-void stop_all_notes()
-{
+void stop_all_notes() {
     dprintf("audio stop all notes");
 
     if (!audio_initialized) {
@@ -342,347 +348,347 @@ void stop_all_notes()
     }
 }
 
-void stop_note(float freq)
-{
-    dprintf("audio stop note freq=%d", (int)freq);
+void stop_note(float freq) {
+  dprintf("audio stop note freq=%d", (int)freq);
 
-    if (playing_note) {
-        if (!audio_initialized) {
-            audio_init();
-        }
-        for (int i = 7; i >= 0; i--) {
-            if (frequencies[i] == freq) {
-                frequencies[i] = 0;
-                volumes[i] = 0;
-                for (int j = i; (j < 7); j++) {
-                    frequencies[j] = frequencies[j+1];
-                    frequencies[j+1] = 0;
-                    volumes[j] = volumes[j+1];
-                    volumes[j+1] = 0;
-                }
-                break;
-            }
-        }
-        voices--;
-        if (voices < 0)
-            voices = 0;
-        if (voice_place >= voices) {
-            voice_place = 0;
-        }
-        if (voices == 0) {
-            STOP_CHANNEL_1();
-            STOP_CHANNEL_2();
-            gptStopTimer(&GPTD8);
-            frequency = 0;
-            frequency_alt = 0;
-            volume = 0;
-            playing_note = false;
-        }
+  if (playing_note) {
+    if (!audio_initialized) {
+      audio_init();
     }
+    for (int i = 7; i >= 0; i--) {
+      if (frequencies[i] == freq) {
+        frequencies[i] = 0;
+        volumes[i] = 0;
+        for (int j = i; (j < 7); j++) {
+          frequencies[j] = frequencies[j+1];
+          frequencies[j+1] = 0;
+          volumes[j] = volumes[j+1];
+          volumes[j+1] = 0;
+        }
+        break;
+      }
+    }
+    voices--;
+    if (voices < 0) {
+      voices = 0;
+    }
+    if (voice_place >= voices) {
+      voice_place = 0;
+    }
+    if (voices == 0) {
+      STOP_CHANNEL_1();
+      STOP_CHANNEL_2();
+      gptStopTimer(&GPTD8);
+      frequency = 0;
+      frequency_alt = 0;
+      volume = 0;
+      playing_note = false;
+    }
+  }
 }
 
 #ifdef VIBRATO_ENABLE
 
-float mod(float a, int b)
-{
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
+float mod(float a, int b) {
+  float r = fmod(a, b);
+  return r < 0 ? r + b : r;
 }
 
 float vibrato(float average_freq) {
-    #ifdef VIBRATO_STRENGTH_ENABLE
-        float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-    #else
-        float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-    #endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
+  #ifdef VIBRATO_STRENGTH_ENABLE
+    float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
+  #else
+    float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
+  #endif
+  vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
+  return vibrated_freq;
 }
 
 #endif
 
 static void gpt_cb8(GPTDriver *gptp) {
-    float freq;
+  float freq;
 
-    if (playing_note) {
-        if (voices > 0) {
+  if (playing_note) {
+    if (voices > 0) {
 
-            float freq_alt = 0;
-                if (voices > 1) {
-                    if (polyphony_rate == 0) {
-                        if (glissando) {
-                            if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
-                                frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
-                            } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
-                                frequency_alt = frequency_alt * pow(2, -440/frequency_alt/12/2);
-                            } else {
-                                frequency_alt = frequencies[voices - 2];
-                            }
-                        } else {
-                            frequency_alt = frequencies[voices - 2];
-                        }
-
-                        #ifdef VIBRATO_ENABLE
-                            if (vibrato_strength > 0) {
-                                freq_alt = vibrato(frequency_alt);
-                            } else {
-                                freq_alt = frequency_alt;
-                            }
-                        #else
-                            freq_alt = frequency_alt;
-                        #endif
-                    }
-
-                    if (envelope_index < 65535) {
-                        envelope_index++;
-                    }
-
-                    freq_alt = voice_envelope(freq_alt);
-
-                    if (freq_alt < 30.517578125) {
-                        freq_alt = 30.52;
-                    }
-
-                    if (GET_CHANNEL_2_FREQ != (uint16_t)freq_alt) {
-                        UPDATE_CHANNEL_2_FREQ(freq_alt);
-                    } else {
-                        RESTART_CHANNEL_2();
-                    }
-                    //note_timbre;
-                }
-
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place = 0.0;
-                    }
-                }
-
-                #ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq = vibrato(frequencies[voice_place]);
-                    } else {
-                        freq = frequencies[voice_place];
-                    }
-                #else
-                    freq = frequencies[voice_place];
-                #endif
+      float freq_alt = 0;
+      if (voices > 1) {
+        if (polyphony_rate == 0) {
+          if (glissando) {
+            if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
+              frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
+            } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
+              frequency_alt = frequency_alt * pow(2, -440/frequency_alt/12/2);
             } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
-                        frequency = frequency * pow(2, 440/frequency/12/2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
-                        frequency = frequency * pow(2, -440/frequency/12/2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-                #ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq = vibrato(frequency);
-                    } else {
-                        freq = frequency;
-                    }
-                #else
-                    freq = frequency;
-                #endif
+              frequency_alt = frequencies[voices - 2];
             }
+          } else {
+            frequency_alt = frequencies[voices - 2];
+          }
 
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-
-            if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-                UPDATE_CHANNEL_1_FREQ(freq);
+          #ifdef VIBRATO_ENABLE
+            if (vibrato_strength > 0) {
+              freq_alt = vibrato(frequency_alt);
             } else {
-                RESTART_CHANNEL_1();
+              freq_alt = frequency_alt;
             }
-            //note_timbre;
+          #else
+            freq_alt = frequency_alt;
+          #endif
         }
-    }
 
-    if (playing_notes) {
-        if (note_frequency > 0) {
-            #ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(note_frequency);
-                } else {
-                    freq = note_frequency;
-                }
-            #else
-                    freq = note_frequency;
-            #endif
+        if (envelope_index < 65535) {
+          envelope_index++;
+        }
 
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
+        freq_alt = voice_envelope(freq_alt);
 
+        if (freq_alt < 30.517578125) {
+          freq_alt = 30.52;
+        }
 
-            if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-                UPDATE_CHANNEL_1_FREQ(freq);
-                UPDATE_CHANNEL_2_FREQ(freq);
-            }
-            //note_timbre;
+        if (GET_CHANNEL_2_FREQ != (uint16_t)freq_alt) {
+          UPDATE_CHANNEL_2_FREQ(freq_alt);
         } else {
-            // gptStopTimer(&GPTD6);
-            // gptStopTimer(&GPTD7);
+          RESTART_CHANNEL_2();
+        }
+        //note_timbre;
+      }
+
+      if (polyphony_rate > 0) {
+        if (voices > 1) {
+          voice_place %= voices;
+          if (place++ > (frequencies[voice_place] / polyphony_rate)) {
+            voice_place = (voice_place + 1) % voices;
+            place = 0.0;
+          }
         }
 
-        note_position++;
-        bool end_of_note = false;
-        if (GET_CHANNEL_1_FREQ > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length*8 - 1));
-            else
-                end_of_note = (note_position >= (note_length*8));
+        #ifdef VIBRATO_ENABLE
+          if (vibrato_strength > 0) {
+              freq = vibrato(frequencies[voice_place]);
+          } else {
+              freq = frequencies[voice_place];
+          }
+        #else
+          freq = frequencies[voice_place];
+        #endif
+      } else {
+        if (glissando) {
+          if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
+            frequency = frequency * pow(2, 440/frequency/12/2);
+          } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
+            frequency = frequency * pow(2, -440/frequency/12/2);
+          } else {
+            frequency = frequencies[voices - 1];
+          }
         } else {
-            end_of_note = (note_position >= (note_length*8));
+          frequency = frequencies[voices - 1];
         }
 
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    STOP_CHANNEL_1();
-                    STOP_CHANNEL_2();
-                    // gptStopTimer(&GPTD8);
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length = 1;
-                }
-            } else {
-                note_resting = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
+        #ifdef VIBRATO_ENABLE
+          if (vibrato_strength > 0) {
+            freq = vibrato(frequency);
+          } else {
+            freq = frequency;
+          }
+        #else
+          freq = frequency;
+        #endif
+      }
 
-            note_position = 0;
+      if (envelope_index < 65535) {
+        envelope_index++;
+      }
+
+      freq = voice_envelope(freq);
+
+      if (freq < 30.517578125) {
+        freq = 30.52;
+      }
+
+
+      if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
+        UPDATE_CHANNEL_1_FREQ(freq);
+      } else {
+        RESTART_CHANNEL_1();
+      }
+      //note_timbre;
+    }
+  }
+
+  if (playing_notes) {
+    if (note_frequency > 0) {
+      #ifdef VIBRATO_ENABLE
+        if (vibrato_strength > 0) {
+          freq = vibrato(note_frequency);
+        } else {
+          freq = note_frequency;
         }
+      #else
+        freq = note_frequency;
+      #endif
+
+      if (envelope_index < 65535) {
+        envelope_index++;
+      }
+      freq = voice_envelope(freq);
+
+
+      if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
+        UPDATE_CHANNEL_1_FREQ(freq);
+        UPDATE_CHANNEL_2_FREQ(freq);
+      }
+      //note_timbre;
+    } else {
+        // gptStopTimer(&GPTD6);
+        // gptStopTimer(&GPTD7);
     }
 
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note = false;
+    note_position++;
+    bool end_of_note = false;
+    if (GET_CHANNEL_1_FREQ > 0) {
+      if (!note_resting)
+        end_of_note = (note_position >= (note_length*8 - 1));
+      else
+        end_of_note = (note_position >= (note_length*8));
+    } else {
+      end_of_note = (note_position >= (note_length*8));
     }
+
+    if (end_of_note) {
+      current_note++;
+      if (current_note >= notes_count) {
+        if (notes_repeat) {
+          current_note = 0;
+        } else {
+          STOP_CHANNEL_1();
+          STOP_CHANNEL_2();
+          // gptStopTimer(&GPTD8);
+          playing_notes = false;
+          return;
+        }
+      }
+      if (!note_resting) {
+        note_resting = true;
+        current_note--;
+        if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+          note_frequency = 0;
+          note_length = 1;
+        } else {
+          note_frequency = (*notes_pointer)[current_note][0];
+          note_length = 1;
+        }
+      } else {
+        note_resting = false;
+        envelope_index = 0;
+        note_frequency = (*notes_pointer)[current_note][0];
+        note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+      }
+
+      note_position = 0;
+    }
+  }
+
+  if (!audio_config.enable) {
+    playing_notes = false;
+    playing_note = false;
+  }
 }
 
 void play_note(float freq, int vol) {
 
-    dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
+  dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
 
-    if (!audio_initialized) {
-        audio_init();
+  if (!audio_initialized) {
+      audio_init();
+  }
+
+  if (audio_config.enable && voices < 8) {
+
+     // Cancel notes if notes are playing
+    if (playing_notes) {
+      stop_all_notes();
     }
 
-    if (audio_config.enable && voices < 8) {
+    playing_note = true;
 
+    envelope_index = 0;
 
-        // Cancel notes if notes are playing
-        if (playing_notes)
-            stop_all_notes();
-
-        playing_note = true;
-
-        envelope_index = 0;
-
-        if (freq > 0) {
-            frequencies[voices] = freq;
-            volumes[voices] = vol;
-            voices++;
-        }
-
-        gptStart(&GPTD8, &gpt8cfg1);
-        gptStartContinuous(&GPTD8, 2U);
-        RESTART_CHANNEL_1();
-        RESTART_CHANNEL_2();
+    if (freq > 0) {
+      frequencies[voices] = freq;
+      volumes[voices] = vol;
+      voices++;
     }
+
+    gptStart(&GPTD8, &gpt8cfg1);
+    gptStartContinuous(&GPTD8, 2U);
+    RESTART_CHANNEL_1();
+    RESTART_CHANNEL_2();
+  }
 
 }
 
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
-{
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
-    if (!audio_initialized) {
-        audio_init();
+  if (!audio_initialized) {
+    audio_init();
+  }
+
+  if (audio_config.enable) {
+
+    // Cancel note if a note is playing
+    if (playing_note) {
+      stop_all_notes();
     }
 
-    if (audio_config.enable) {
+    playing_notes = true;
 
-        // Cancel note if a note is playing
-        if (playing_note)
-            stop_all_notes();
+    notes_pointer = np;
+    notes_count = n_count;
+    notes_repeat = n_repeat;
 
-        playing_notes = true;
+    place = 0;
+    current_note = 0;
 
-        notes_pointer = np;
-        notes_count = n_count;
-        notes_repeat = n_repeat;
+    note_frequency = (*notes_pointer)[current_note][0];
+    note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+    note_position = 0;
 
-        place = 0;
-        current_note = 0;
-
-        note_frequency = (*notes_pointer)[current_note][0];
-        note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-        note_position = 0;
-
-        gptStart(&GPTD8, &gpt8cfg1);
-        gptStartContinuous(&GPTD8, 2U);
-        RESTART_CHANNEL_1();
-        RESTART_CHANNEL_2();
-    }
-
+    gptStart(&GPTD8, &gpt8cfg1);
+    gptStartContinuous(&GPTD8, 2U);
+    RESTART_CHANNEL_1();
+    RESTART_CHANNEL_2();
+  }
 }
 
 bool is_playing_notes(void) {
-    return playing_notes;
+  return playing_notes;
 }
 
 bool is_audio_on(void) {
-    return (audio_config.enable != 0);
+  return (audio_config.enable != 0);
 }
 
 void audio_toggle(void) {
-    audio_config.enable ^= 1;
-    eeconfig_update_audio(audio_config.raw);
-    if (audio_config.enable)
-        audio_on_user();
+  audio_config.enable ^= 1;
+  eeconfig_update_audio(audio_config.raw);
+  if (audio_config.enable) {
+    audio_on_user();
+  }
 }
 
 void audio_on(void) {
-    audio_config.enable = 1;
-    eeconfig_update_audio(audio_config.raw);
-    audio_on_user();
+  audio_config.enable = 1;
+  eeconfig_update_audio(audio_config.raw);
+  audio_on_user();
 }
 
 void audio_off(void) {
-    audio_config.enable = 0;
-    eeconfig_update_audio(audio_config.raw);
+  stop_all_notes();
+  audio_config.enable = 0;
+  eeconfig_update_audio(audio_config.raw);
 }
 
 #ifdef VIBRATO_ENABLE
@@ -690,29 +696,29 @@ void audio_off(void) {
 // Vibrato rate functions
 
 void set_vibrato_rate(float rate) {
-    vibrato_rate = rate;
+  vibrato_rate = rate;
 }
 
 void increase_vibrato_rate(float change) {
-    vibrato_rate *= change;
+  vibrato_rate *= change;
 }
 
 void decrease_vibrato_rate(float change) {
-    vibrato_rate /= change;
+  vibrato_rate /= change;
 }
 
 #ifdef VIBRATO_STRENGTH_ENABLE
 
 void set_vibrato_strength(float strength) {
-    vibrato_strength = strength;
+  vibrato_strength = strength;
 }
 
 void increase_vibrato_strength(float change) {
-    vibrato_strength *= change;
+  vibrato_strength *= change;
 }
 
 void decrease_vibrato_strength(float change) {
-    vibrato_strength /= change;
+  vibrato_strength /= change;
 }
 
 #endif  /* VIBRATO_STRENGTH_ENABLE */
@@ -722,45 +728,45 @@ void decrease_vibrato_strength(float change) {
 // Polyphony functions
 
 void set_polyphony_rate(float rate) {
-    polyphony_rate = rate;
+  polyphony_rate = rate;
 }
 
 void enable_polyphony() {
-    polyphony_rate = 5;
+  polyphony_rate = 5;
 }
 
 void disable_polyphony() {
-    polyphony_rate = 0;
+  polyphony_rate = 0;
 }
 
 void increase_polyphony_rate(float change) {
-    polyphony_rate *= change;
+  polyphony_rate *= change;
 }
 
 void decrease_polyphony_rate(float change) {
-    polyphony_rate /= change;
+  polyphony_rate /= change;
 }
 
 // Timbre function
 
 void set_timbre(float timbre) {
-    note_timbre = timbre;
+  note_timbre = timbre;
 }
 
 // Tempo functions
 
 void set_tempo(uint8_t tempo) {
-    note_tempo = tempo;
+  note_tempo = tempo;
 }
 
 void decrease_tempo(uint8_t tempo_change) {
-    note_tempo += tempo_change;
+  note_tempo += tempo_change;
 }
 
 void increase_tempo(uint8_t tempo_change) {
-    if (note_tempo - tempo_change < 10) {
-        note_tempo = 10;
-    } else {
-        note_tempo -= tempo_change;
-    }
+  if (note_tempo - tempo_change < 10) {
+    note_tempo = 10;
+  } else {
+    note_tempo -= tempo_change;
+  }
 }

@@ -10,10 +10,6 @@ extern keymap_config_t keymap_config;
 #define _FN     1
 #define _NUMPAD 2
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Some basic macros
 #define TASK    LCTL(LSFT(KC_ESC))
 #define TAB_R   LCTL(KC_TAB)

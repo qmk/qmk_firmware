@@ -2,7 +2,7 @@
 ======================================================
 
 
-![My beloved HeliDox keeb](https://imgur.com/a/t5m6rmW)
+![My beloved HeliDox keeb](https://i.imgur.com/NbVAB3g.jpg)
 
 - media keys and media controls
 - in-switch LED intensity controls (+/-)
@@ -13,3 +13,6 @@
 - arrow keys on one layer(most likely on the ADJUST one)
 
 See keymap.c for layouts
+
+
+P.S> this lil' keeb is so addictive I have no words, really...

@@ -20,6 +20,13 @@
 #define EE_HANDS
 #endif
 
+// set top left key as bootloader mode escape key on Nori
+#if defined(KEYBOARD_40percentclub_nori)
+#define QMK_LED B0
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D3 // usually ROW
+#endif
+
 // set top left key as bootloader mode escape key on 4x4 48key layout
 #if defined(KEYBOARD_40percentclub_4x4) && !defined(PRO_MICRO)
 #define QMK_LED B0

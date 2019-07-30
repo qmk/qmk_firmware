@@ -37,9 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_UNICODEMODE                        (uint8_t *)12
 #define EECONFIG_STENOMODE                          (uint8_t *)13
 // EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS         			        	(uint8_t *)14
+#define EECONFIG_HANDEDNESS                         (uint8_t *)14
 #define EECONFIG_KEYBOARD                          (uint32_t *)15
 #define EECONFIG_USER                              (uint32_t *)19
+#define EECONFIG_VELOCIKEY                          (uint8_t *)23
+
+#define EECONFIG_HAPTIC                            (uint32_t *)24
+#define EECONFIG_RGB_MATRIX                        (uint32_t *)28
+#define EECONFIG_RGB_MATRIX_SPEED                   (uint8_t *)32
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)
@@ -93,5 +98,10 @@ uint32_t eeconfig_read_kb(void);
 void eeconfig_update_kb(uint32_t val);
 uint32_t eeconfig_read_user(void);
 void eeconfig_update_user(uint32_t val);
+
+#ifdef HAPTIC_ENABLE
+uint32_t eeconfig_read_haptic(void);
+void eeconfig_update_haptic(uint32_t val);
+#endif
 
 #endif

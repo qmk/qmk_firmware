@@ -1,6 +1,6 @@
 # tmo50
 
-![tmo50](https://imgur.com/BhRYzl6.jpg)
+![TMO50](https://imgur.com/BhRYzl6.jpg)
 
 TMO50 is a 50% mechanical keyboard with macro column on the left side. Sub60% board without compromises.
 

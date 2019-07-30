@@ -1,5 +1,4 @@
-Sweet16
-===
+# Sweet 16 Macropad
 
 A 4x4 numpad/macro pad sold by 1up Keyboards - designed by Bishop Keyboards
 

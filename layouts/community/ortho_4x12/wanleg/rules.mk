@@ -8,3 +8,8 @@ endif
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
 	AUDIO_ENABLE = yes
 endif
+
+#disable RGB on version 1 of jj40 keyboard (does not exist)
+ifeq ($(strip $(KEYBOARD)), jj40)
+	RGBLIGHT_ENABLE = no
+endif

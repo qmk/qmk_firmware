@@ -31,13 +31,6 @@
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 #endif
 
-#ifndef RATED_VOLTAGE
-#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
-#ifndef V_PEAK
-#define V_PEAK 2.8
-#endif
-#endif
-
 /* LRA specific settings */
 #if FB_ERM_LRA == 1
 #ifndef V_RMS
@@ -49,6 +42,16 @@
 #ifndef F_LRA
 #define F_LRA 205
 #endif
+#ifndef RATED_VOLTAGE
+#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#endif
+#endif
+
+#ifndef RATED_VOLTAGE
+#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#endif
+#ifndef V_PEAK
+#define V_PEAK 2.8
 #endif
 
 /* Library Selection */
@@ -58,6 +61,13 @@
 #else
 #define LIB_SELECTION 1
 #endif
+#endif
+
+#ifndef DRV_GREETING
+#define DRV_GREETING alert_750ms
+#endif
+#ifndef DRV_MODE_DEFAULT
+#define DRV_MODE_DEFAULT strong_click1
 #endif
 
 /* Control 1 register settings */
@@ -161,7 +171,6 @@ void DRV_init(void);
 void DRV_write(const uint8_t drv_register, const uint8_t settings);
 uint8_t DRV_read(const uint8_t regaddress);
 void DRV_pulse(const uint8_t sequence);
-
 
 typedef enum DRV_EFFECT{
   clear_sequence      = 0,
@@ -288,6 +297,7 @@ typedef enum DRV_EFFECT{
   smooth_hum3_30 = 121,
   smooth_hum4_20 = 122,
   smooth_hum5_10 = 123,
+  drv_effect_max = 124,
 } DRV_EFFECT;
 
 /* Register bit array unions */

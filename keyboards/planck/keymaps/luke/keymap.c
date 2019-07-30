@@ -44,10 +44,6 @@
 #pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 // Layers
 #define _COLEMAK 0
 #define _QWERTY 1

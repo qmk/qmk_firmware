@@ -24,11 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Defaults */
 #ifndef BALLSTEP
 #define BALLSTEP 20
-#endif 
+#endif
 
 #ifndef SCROLLSTEP
 #define SCROLLSTEP 1
-#endif 
+#endif
 
 #define VERBOSE
 
@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1307
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    g Heavy Industries 
+#define MANUFACTURER    g Heavy Industries
 #define PRODUCT         Gergo
 #define DESCRIPTION     QMK keyboard firmware for Gergo
 
@@ -65,8 +65,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
+    get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
 #define DEBOUNCE    5

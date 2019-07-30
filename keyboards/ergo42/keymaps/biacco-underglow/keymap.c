@@ -8,10 +8,6 @@ extern keymap_config_t keymap_config;
 #define GAME 3
 #define RGB  4
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;

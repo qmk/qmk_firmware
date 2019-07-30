@@ -100,7 +100,7 @@ void backlight_enable(void)
 	backlight_set(backlight_config.level);
 }
 
-/** /brief Disable backlight
+/** \brief Disable backlight
  *
  * FIXME: needs doc
  */
@@ -162,3 +162,56 @@ uint8_t get_backlight_level(void)
 {
     return backlight_config.level;
 }
+
+#ifdef BACKLIGHT_BREATHING
+/** \brief Backlight breathing toggle
+ *
+ * FIXME: needs doc
+ */
+void backlight_toggle_breathing(void)
+{
+    bool breathing = backlight_config.breathing;
+    dprintf("backlight breathing toggle: %u\n", breathing);
+    if (breathing) 
+        backlight_disable_breathing();
+    else
+        backlight_enable_breathing();
+}
+
+/** \brief Enable backlight breathing
+ *
+ * FIXME: needs doc
+ */
+void backlight_enable_breathing(void)
+{
+    if (backlight_config.breathing) return; // do nothing if breathing is already on
+
+    backlight_config.breathing = true;
+    eeconfig_update_backlight(backlight_config.raw);
+    dprintf("backlight breathing enable\n");
+    breathing_enable();
+}
+
+/** \brief Disable backlight breathing
+ *
+ * FIXME: needs doc
+ */
+void backlight_disable_breathing(void)
+{
+    if (!backlight_config.breathing) return; // do nothing if breathing is already off
+
+    backlight_config.breathing = false;
+    eeconfig_update_backlight(backlight_config.raw);
+    dprintf("backlight breathing disable\n");
+    breathing_disable();
+}
+
+/** \brief Get the backlight breathing status
+ *
+ * FIXME: needs doc
+ */
+bool is_backlight_breathing(void)
+{
+    return backlight_config.breathing;
+}
+#endif

@@ -119,6 +119,8 @@ int main(void) {
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
+  keyboard_setup();
+
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
 

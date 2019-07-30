@@ -2,9 +2,6 @@
 
 #define FORCE_NKRO
 
-#define MAGIC_KEY_LAYER0_ALT1  BSLS
-#define MAGIC_KEY_BOOTLOADER   ESC
-
 #define MOUSEKEY_DELAY              50
 #define MOUSEKEY_INTERVAL           15
 #define MOUSEKEY_MAX_SPEED          4

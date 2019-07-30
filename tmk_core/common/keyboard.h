@@ -70,6 +70,11 @@ void keyboard_set_leds(uint8_t leds);
 /* it runs whenever code has to behave differently on a slave */
 bool is_keyboard_master(void);
 
+void keyboard_pre_init_kb(void);
+void keyboard_pre_init_user(void);
+void keyboard_post_init_kb(void);
+void keyboard_post_init_user(void);
+
 #ifdef __cplusplus
 }
 #endif

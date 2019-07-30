@@ -82,7 +82,7 @@ void suspend_wakeup_init_user(void) { }
  */
 __attribute__ ((weak))
 void suspend_wakeup_init_kb(void) {
-  suspend_power_down_user();
+  suspend_wakeup_init_user();
 }
 
 /** \brief suspend wakeup condition

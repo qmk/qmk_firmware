@@ -9,8 +9,6 @@
 #define CTL_ESC MT(MOD_LCTL,KC_ESC)
 #define GUI_ENT MT(MOD_RGUI, KC_ENT)
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,-----------------------------------------------------------.

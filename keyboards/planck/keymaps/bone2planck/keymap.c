@@ -11,10 +11,6 @@
 #include "..\..\..\..\tmk_core\common\keycode.h"
 */
 
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /* This Layout tries to emulate the Bone2 Variant of Neo2, and is intended to be used with a German QWERTZ Softwarelayout.
 It has "üäöß" as it is optimized for a mix of German & English.
 My favourite features are the placement of the special characters often used for programming right on the home row

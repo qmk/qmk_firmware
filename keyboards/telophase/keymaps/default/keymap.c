@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "telophase.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -15,7 +15,7 @@ enum telophase_layers
 	_ADJUST,
 };
 
-enum telophase_keycodes 
+enum telophase_keycodes
 {
   LOWER = SAFE_RANGE,
   RAISE,
@@ -24,10 +24,6 @@ enum telophase_keycodes
 
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = { /*QWERTY*/
@@ -101,4 +97,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
 		return;
 };
-
