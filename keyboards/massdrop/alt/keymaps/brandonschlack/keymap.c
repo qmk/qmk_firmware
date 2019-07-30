@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------|
      * |      |   |   |   |   |   |   |   |   |   |   |   | TgMagic|VlU|
      * |---------------------------------------------------------------|
-     * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Plr|MutSft|PgU|VlD|
+     * |        |RTO|   |   |   |   |   |MKE|Prv|Nxt|Ply|MutSft|PgU|VlD|
      * |---------------------------------------------------------------|
      * |    |    |    |                       |    |    |  |Hom|PgD|End|
      * `---------------------------------------------------------------'
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  MC_SLPD, \
         _______, _______, _______, _______, MD_BOOT, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_END,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_MAGC, KC_VOLU, \
-        _______, RGB_TOG, _______, _______, _______, _______, _______, KC_MAKE, KC_MRWD, KC_MFFD, MC_PLYR, MM_RSFT,          KC_PGUP, KC_VOLD, \
+        _______, RGB_TOG, _______, _______, _______, _______, _______, KC_MAKE, KC_MRWD, KC_MFFD, KC_MPLY, MM_RSFT,          KC_PGUP, KC_VOLD, \
         _______, _______, _______,                            _______,                            _______, _______, KC_HOME, KC_PGDN, KC_END   \
     ),
     /***********
