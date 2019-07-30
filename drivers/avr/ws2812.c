@@ -158,7 +158,7 @@ void inline ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b)
 
 void ws2812_setled_all  (uint8_t r, uint8_t g, uint8_t b)
 {
-  for (int i = 0; i < RGBLED_NUM; i++) {
+  for (int i = 0; i < sizeof(led)/sizeof(led[0]); i++) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;

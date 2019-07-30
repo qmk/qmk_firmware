@@ -1,11 +1,11 @@
-from sortedcontainers import SortedDict
+# -*- coding: utf-8 -*-
 
 # Add all used Unicode symbols to this list.
 # The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
 # The key is also used in this file to define the layout, so use recognizeable names.
 # The value (e.g. "0x1f40d") is used in keymap.c for "unicode_map" and to automatically generate the "ASCII"-art comments.
 # When adding new Unicode names, use "0x1f40d" until you looked up the correct Unicode code point.
-uc_dict = SortedDict({
+uc_dict = {
     "SNEK": "0x1f40d", ## Error
     ## qwertz
     "ACUTE": "0x00b4",
@@ -329,7 +329,7 @@ uc_dict = SortedDict({
     "NOT_PARA": "0x2226",
     "TIMES_OP": "0x2297",
     "NOT_DIV": "0x2224"
-})
+}
 
 # Add all used Keycodes to this list.
 # The key (e.g. "a") is used in keymap.c to automatically generate the comments. The first 7 chars will show as a keycap legend.
@@ -338,7 +338,7 @@ qmk_dict = {
     # If you find "BAD" in your keymaps, then something went wrong.)
     "a": "BAD", "A": "BAD", "0": "BAD",
     # Basic Keycodes
-    "XXX": "XXXXXXX", "": "KC_TRNS",
+    "XXX": "KC_NO", "": "KC_TRNS",
     "!": "S(KC_1)", "@": "S(KC_2)", "#": "S(KC_3)", "$": "S(KC_4)", "%": "S(KC_5)",
     "^": "S(KC_6)", "&": "S(KC_7)", "*": "S(KC_8)", "(": "S(KC_9)", ")": "S(KC_0)",
     "Enter": "KC_ENT", "Esc": "KC_ESC", "BSpace": "KC_BSPC", "Tab": "KC_TAB",
@@ -350,17 +350,18 @@ qmk_dict = {
     ">": "S(KC_DOT)", "/": "KC_SLSH", "?": "S(KC_SLSH)", "Caps": "KC_CAPS",
     "Pr Scr": "KC_PSCR", "Scr Lck": "KC_SLCK", "Pause": "KC_BRK", "Insert": "KC_INS", "SInsert": "LSFT(KC_INS)",
     "Home": "KC_HOME", "Pg Up": "KC_PGUP", "Del": "KC_DEL", "End": "KC_END",
-    "Pg Down": "KC_PGDN", "> Arrow": "KC_RIGHT", "< Arrow": "KC_LEFT",
+    "Pg Down": "KC_PGDN", "> Arrow": "KC_RGHT", "< Arrow": "KC_LEFT",
     "v Arrow": "KC_DOWN", "^ Arrow": "KC_UP",
     # Keypad keycodes missing
     "App": "KC_APP", "Menu": "KC_MENU",
     # Command keycodes missing (Execute, Help, ..., Find)
     # Basic Keycodes missing from Print Screen onwards, included as fallback
     # random Keycodes
-    "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTRL", "RCtrl": "KC_RCTRL",
+    "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTL", "LCtTEsc": "LCTL_T(KC_ESC)", "RCtrl": "KC_RCTL",
     "LShift(": "KC_LSPO", "RShift)": "KC_RSPC",
-    "L1_ENT": "LT(1, KC_ENT)", "LT6_SPC": "LT(6, KC_SPC)",
-    "CPg Dn": "CTL_T(KC_PGDN)", "CPg Up": "CTL_T(KC_PGUP)",
+    # "LShift(": "LSFT_T(KC_9)", "RShift)": "RSFT_T(RSFT(KC_0))",
+    "L1_ENT": "LT(1, KC_ENT)", "LT2_BSP":  "LT(2,KC_BSPC)", "LT4_DEL":  "LT(4,KC_DEL)", "LT4_ENT":  "LT(4,KC_ENT)", "LT6_SPC": "LT(6,KC_SPC)",
+    "CPg Dn": "LCTL(KC_PGDN)", "CPg Up": "LCTL(KC_PGUP)",
     "S_Enter": "S(KC_ENT)", "S_Tab": "S(KC_TAB)", "Compose": "KC_ALGR",
     "RShift": "KC_RSFT",
     "Vol 0": "KC_MUTE", "Vol +": "KC_VOLU", "Vol -": "KC_VOLD",
@@ -402,7 +403,7 @@ qmk_dict = {
     "Undo": "LCTL(KC_Z)", "Cut": "LCTL(KC_X)", "Copy": "LCTL(KC_C)", "Paste": "LCTL(KC_V)",
     "< Tab": "LCTL(S(KC_TAB))", "> Tab": "LCTL(KC_TAB)",
     "Tab x": "LCTL(KC_W)", "Tab n": "LCTL(KC_T)",
-    "Gui Tab":  "LGUI_T(KC_TAB)", "< Gui":  "LGUI_T(KC_LEFT)", "> Gui":  "LGUI_T(KC_RIGHT)",
+    "Gui Tab":  "LGUI(KC_TAB)", "< Gui":  "LGUI(KC_LEFT)", "> Gui":  "LGUI(KC_RGHT)",
     "C+A+Del": "LCTL(LALT(KC_DEL))", "Mic 0": "LCTL(KC_M)",
     "Power": "KC_PWR", "Sleep": "KC_SLEP",
 
@@ -428,58 +429,58 @@ static = ["NEO", "GREEK", "GREEK", "GREEK", "GREEK", "MOUSE"]
 
 # 0
 qwerty = [
-    ["Tab",     "q",    "w",       "e",       "r",       "t",       "y",       "u",       "i",       "o",       "p",       "["],
-    ["LCtrl",   "a",    "s",       "d",       "f",       "g",       "h",       "j",       "k",       "l",       ";",       "'"],
-    ["LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",       ",",       ".",       "/",       "RShift)"],
-    ["MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl"],
+    "Tab",     "q",    "w",       "e",       "r",       "t",       "y",       "u",       "i",       "o",       "p",       "[",
+    "LCtTEsc", "a",    "s",       "d",       "f",       "g",       "h",       "j",       "k",       "l",       ";",       "'",
+    "LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",        ",",       ".",       "/",       "RShift)",
+    "LCtrl",   "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RAlt",    "RCtrl",
     ]
 
 # 1
 colemak = [
-    ["Tab",     "q",    "w",       "f",       "p",       "g",       "j",       "l",       "u",       "y",       ";",       "["],
-    ["LCtrl",   "a",    "r",       "s",       "t",       "d",       "h",       "n",       "e",       "i",       "o",       "'"],
-    ["LShift(", "z",    "x",       "c",       "v",       "b",       "k",       "m",       ",",       ".",       "/",       "RShift)"],
-    ["MO2",     "LGui", "LAlt",    "TT2",     "LT6_SPC", "TT4",     "Enter",   "Space",   "TT2",     "RAlt",    "RGui",    "RCtrl"],
+    "Tab",     "q",    "w",       "f",       "p",       "g",       "j",       "l",       "u",       "y",       ";",       "[",
+    "LCtTEsc", "a",    "r",       "s",       "t",       "d",       "h",       "n",       "e",       "i",       "o",       "'",
+    "LShift(", "z",    "x",       "c",       "v",       "b",       "k",       "m",       ",",       ".",       "/",       "RShift)",
+    "LCtrl",   "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RAlt",    "RCtrl",
     ]
 
 # 2
 numpad = [
-    ["`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]"],
-    ["",        "DF0",  "DF1",     "XXX",     "XXX",     "MO3",     "4",       "4",       "5",       "6",       "-",       "="],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "MO5",     "1",       "1",       "2",       "3",       "\\",      ""],
-    ["TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        ""],
+    "`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]",
+    "",        "DF0",  "DF1",     "XXX",     "MO3",     "MO3",     "4",       "4",       "5",       "6",       "-",       "=",
+    "",        "MO5",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      "",
+    "TG2",     "",     "",        "",        "",        "Del",     "",        "0",  "BSpace",       "",        "",        "",
     ]
 
 # 3
 fpad = [
-    ["",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX"],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "MO3",     "F4",      "F4",      "F5",      "F6",      "XXX",     "XXX"],
-    ["",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "XXX",     ""],
-    ["TG3",     "",     "",        "",        "",        "",        "F10",     "F11",     "F12",     "",        "",        ""],
+    "",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "MO3",     "MO3",     "F4",      "F4",      "F5",      "F6",      "F11",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "F12",     "",
+    "TG3",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
 
 # 4
 movement = [
-    ["Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc"],
-    ["",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr"],
-    ["",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "XXX",     "v Arrow", "XXX",     "App",     ""],
-    ["TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        ""],
+    "Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc",
+    "",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr",
+    "",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "",        "v Arrow", "XXX",     "App",     "",
+    "TG4",     "",     "",        "",        "",        "Del",     "",        "BSpace",  "",        "",        "",        "",
     ]
 
 # 5
 media = [
-    ["",        "XXX",  "play/ps", "Vol +",   "Vol +",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "_reset",  "Power"],
-    ["",        "XXX",  "|<<",     "Vol 0",   ">>|",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "Sleep"],
-    ["",        "XXX",  "XXX",     "Vol -",   "Vol -",   "MO5",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX"],
-    ["TG5",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    "",        "XXX",  "play/ps", "Vol +",   "Vol +",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "_reset",  "Power",
+    "",        "XXX",  "|<<",     "Vol 0",   ">>|",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "Sleep",
+    "",        "MO5",  "XXX",     "Vol -",   "Vol -",   "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",     "XXX",
+    "TG5",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
 
 # 6
 mouse = [
-    ["",        "acc1", "XXX",     "XXX",     "XXX",     "XXX",     "^ Wheel", "< Wheel", "^ Mouse", "> Wheel", "XXX",     "XXX"],
-    ["",        "acc2", "Mouse 3", "Mouse 2", "Mouse 1", "Mouse 1", "< Mouse", "< Mouse", "v Mouse", "> Mouse", "XXX",     "XXX"],
-    ["",        "acc0", "XXX",     "XXX",     "XXX",     "XXX",     "v Wheel", "XXX",     "v Mouse", "XXX",     "XXX",     ""],
-    ["TG6",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        ""],
+    "",        "acc1", "XXX",     "XXX",     "XXX",     "XXX",     "^ Wheel", "< Wheel", "^ Mouse", "> Wheel", "XXX",     "XXX",
+    "",        "acc2", "Mouse 2", "Mouse 3", "Mouse 1", "Mouse 1", "< Mouse", "< Mouse", "v Mouse", "> Mouse", "XXX",     "XXX",
+    "",        "acc0", "XXX",     "XXX",     "XXX",     "XXX",     "v Wheel", "XXX",     "v Mouse", "XXX",     "XXX",     "",
+    "TG6",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
 
 layers = [

@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega328p
 PROTOCOL = VUSB
 
@@ -97,5 +96,5 @@ NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
 
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no

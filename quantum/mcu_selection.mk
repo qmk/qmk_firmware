@@ -34,6 +34,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS = -p DF11 -v 0483
 endif
 
 ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))

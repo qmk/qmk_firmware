@@ -24,10 +24,6 @@
 #include "outputselect.h"
 #endif
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
-
 #ifndef BREATHING_PERIOD
 #define BREATHING_PERIOD 6
 #endif
@@ -196,30 +192,6 @@ void reset_keyboard(void) {
   bootloader_jump();
 }
 
-// Shift / paren setup
-
-#ifndef LSPO_KEY
-  #define LSPO_KEY KC_9
-#endif
-#ifndef RSPC_KEY
-  #define RSPC_KEY KC_0
-#endif
-
-#ifndef LSPO_MOD
-  #define LSPO_MOD KC_LSFT
-#endif
-#ifndef RSPC_MOD
-  #define RSPC_MOD KC_RSFT
-#endif
-
-// Shift / Enter setup
-#ifndef SFTENT_KEY
-  #define SFTENT_KEY KC_ENT
-#endif
-
-static bool shift_interrupted[2] = {0, 0};
-static uint16_t scs_timer[2] = {0, 0};
-
 /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
@@ -275,12 +247,6 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
-  #if defined(OLED_DRIVER_ENABLE) && !defined(OLED_DISABLE_TIMEOUT)
-    // Wake up oled if user is using those fabulous keys!
-    if (record->event.pressed)
-      oled_on();
-  #endif
-
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -292,7 +258,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef HAPTIC_ENABLE
     process_haptic(keycode, record) &&
   #endif //HAPTIC_ENABLE
-  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
+  #if defined(RGB_MATRIX_ENABLE)
     process_rgb_matrix(keycode, record) &&
   #endif
     process_record_kb(keycode, record) &&
@@ -329,6 +295,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
+  #ifdef SPACE_CADET_ENABLE
+    process_space_cadet(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
@@ -343,8 +312,12 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
     case DEBUG:
       if (record->event.pressed) {
-          debug_enable = true;
+        debug_enable ^= 1;
+        if (debug_enable) {
           print("DEBUG: enabled.\n");
+        } else {
+          print("DEBUG: disabled.\n");
+        }
       }
     return false;
     case EEPROM_RESET:
@@ -685,92 +658,6 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
       break;
-    case KC_LSPO: {
-      if (record->event.pressed) {
-        shift_interrupted[0] = false;
-        scs_timer[0] = timer_read ();
-        register_mods(MOD_BIT(KC_LSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(RSPC_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_LSFT));
-          #else
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(KC_LSFT));
-              register_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-          register_code(LSPO_KEY);
-          unregister_code(LSPO_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if( LSPO_MOD != KC_LSFT ){
-              unregister_mods(MOD_BIT(LSPO_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_LSFT));
-      }
-      return false;
-    }
-
-    case KC_RSPC: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else {
-        #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(LSPO_MOD)) {
-            shift_interrupted[0] = true;
-            shift_interrupted[1] = true;
-          }
-        #endif
-        if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-          #ifdef DISABLE_SPACE_CADET_MODIFIER
-            unregister_mods(MOD_BIT(KC_RSFT));
-          #else
-            if( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(KC_RSFT));
-              register_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-          register_code(RSPC_KEY);
-          unregister_code(RSPC_KEY);
-          #ifndef DISABLE_SPACE_CADET_MODIFIER
-            if ( RSPC_MOD != KC_RSFT ){
-              unregister_mods(MOD_BIT(RSPC_MOD));
-            }
-          #endif
-        }
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
-
-    case KC_SFTENT: {
-      if (record->event.pressed) {
-        shift_interrupted[1] = false;
-        scs_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
-        unregister_mods(MOD_BIT(KC_RSFT));
-        register_code(SFTENT_KEY);
-        unregister_code(SFTENT_KEY);
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
 
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
@@ -820,28 +707,24 @@ bool process_record_quantum(keyrecord_t *record) {
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
-      if (record->event.pressed)
-        breathing_toggle();
+      if (record->event.pressed) {
+        backlight_toggle_breathing();
+      }
       return false;
     }
 #endif
-
-    default: {
-      shift_interrupted[0] = true;
-      shift_interrupted[1] = true;
-      break;
-    }
   }
 
   return process_action_kb(record);
 }
 
 __attribute__ ((weak))
-const bool ascii_to_shift_lut[0x80] PROGMEM = {
+const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+
     0, 1, 1, 1, 1, 1, 1, 0,
     1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -857,11 +740,12 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const bool ascii_to_altgr_lut[0x80] PROGMEM = {
+const bool ascii_to_altgr_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -877,23 +761,40 @@ const bool ascii_to_altgr_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
-    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
-    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
-    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
+    // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // BS    TAB      LF       VT       FF       CR       SO       SI
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // CAN   EM       SUB      ESC      FS       GS       RS       US
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+    //       !        "        #        $        %        &        '
+    KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
+    // (     )        *        +        ,        -        .        /
+    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
+    // 0     1        2        3        4        5        6        7
+    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    // 8     9        :        ;        <        =        >        ?
+    KC_8,    KC_9,    KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    // @     A        B        C        D        E        F        G
+    KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    // H     I        J        K        L        M        N        O
+    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    // P     Q        R        S        T        U        V        W
+    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    // X     Y        Z        [        \        ]        ^        _
+    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    // `     a        b        c        d        e        f        g
+    KC_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    // h     i        j        k        l        m        n        o
+    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    // p     q        r        s        t        u        v        w
+    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    // x     y        z        {        |        }        ~        DEL
+    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
 
 void send_string(const char *str) {
@@ -1093,9 +994,6 @@ void matrix_init_quantum() {
   #ifdef OUTPUT_AUTO_ENABLE
     set_output(OUTPUT_AUTO);
   #endif
-  #ifdef OLED_DRIVER_ENABLE
-    oled_init(OLED_ROTATION_0);
-  #endif
   matrix_init_kb();
 }
 
@@ -1132,10 +1030,6 @@ void matrix_scan_quantum() {
     haptic_task();
   #endif
 
-  #ifdef OLED_DRIVER_ENABLE
-    oled_task();
-  #endif
-
   matrix_scan_kb();
 }
 #if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
@@ -1153,35 +1047,49 @@ void matrix_scan_quantum() {
 #  define TCCRxB TCCR1B
 #  define COMxx1 COM1C1
 #  define OCRxx  OCR1C
+#  define TIMERx_OVF_vect TIMER1_OVF_vect
+#  define TOIEx  TOIE1
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
 #elif BACKLIGHT_PIN == B6
 #  define HARDWARE_PWM
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define COMxx1 COM1B1
 #  define OCRxx  OCR1B
+#  define TIMERx_OVF_vect TIMER1_OVF_vect
+#  define TOIEx  TOIE1
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
 #elif BACKLIGHT_PIN == B5
 #  define HARDWARE_PWM
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define COMxx1 COM1A1
 #  define OCRxx  OCR1A
+#  define TIMERx_OVF_vect TIMER1_OVF_vect
+#  define TOIEx  TOIE1
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
 #elif BACKLIGHT_PIN == C6
 #  define HARDWARE_PWM
 #  define TCCRxA TCCR3A
 #  define TCCRxB TCCR3B
-#  define COMxx1 COM1A1
+#  define COMxx1 COM3A1
 #  define OCRxx  OCR3A
+#  define TIMERx_OVF_vect TIMER3_OVF_vect
+#  define TOIEx  TOIE3
 #  define ICRx   ICR3
+#  define TIMSKx TIMSK3
 #elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define COMxx1 COM1B1
 #  define OCRxx  OCR1B
+#  define TIMERx_OVF_vect TIMER1_OVF_vect
+#  define TOIEx  TOIE1
 #  define ICRx   ICR1
-#  define TIMSK1 TIMSK
+#  define TIMSKx TIMSK1
 #else
 #  if !defined(BACKLIGHT_CUSTOM_DRIVER)
 #    if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
@@ -1192,15 +1100,15 @@ void matrix_scan_quantum() {
 #      define TCCRxA TCCR1A
 #      define TCCRxB TCCR1B
 #      define OCRxx  OCR1A
-#      define OCRxAH OCR1AH
-#      define OCRxAL OCR1AL
 #      define TIMERx_COMPA_vect TIMER1_COMPA_vect
 #      define TIMERx_OVF_vect TIMER1_OVF_vect
 #      define OCIExA OCIE1A
 #      define TOIEx  TOIE1
 #      define ICRx   ICR1
-#      ifndef TIMSK
-#        define TIMSK TIMSK1
+#      if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+#        define TIMSKx TIMSK
+#      else
+#        define TIMSKx TIMSK1
 #      endif
 #    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
 #pragma message "Using hardware timer 3 with software PWM"
@@ -1210,16 +1118,12 @@ void matrix_scan_quantum() {
 #      define TCCRxA TCCR3A
 #      define TCCRxB TCCR3B
 #      define OCRxx OCR3A
-#      define OCRxAH OCR3AH
-#      define OCRxAL OCR3AL
 #      define TIMERx_COMPA_vect TIMER3_COMPA_vect
 #      define TIMERx_OVF_vect TIMER3_OVF_vect
 #      define OCIExA OCIE3A
 #      define TOIEx  TOIE3
 #      define ICRx   ICR1
-#      ifndef TIMSK
-#        define TIMSK TIMSK3
-#      endif
+#      define TIMSKx TIMSK3
 #    else
 #pragma message "Audio in use - using pure software PWM"
 #define NO_HARDWARE_PWM
@@ -1264,13 +1168,13 @@ void backlight_off(uint8_t backlight_pin) {
 #define BACKLIGHT_PIN_INIT BACKLIGHT_PINS
 #endif
 
-#define FOR_EACH_LED(x)                             \
+#define FOR_EACH_LED(x) \
   for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) \
-  {                                                 \
-    uint8_t backlight_pin = backlight_pins[i];      \
+  { \
+    uint8_t backlight_pin = backlight_pins[i]; \
     { \
-      x                         \
-    }                                             \
+      x \
+    } \
   }
 
 static const uint8_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PIN_INIT;
@@ -1292,6 +1196,12 @@ void backlight_init_ports(void)
     setPinOutput(backlight_pin);
     backlight_on(backlight_pin);
   )
+
+  #ifdef BACKLIGHT_BREATHING
+  if (is_backlight_breathing()) {
+    breathing_enable();
+  }
+  #endif
 }
 
 __attribute__ ((weak))
@@ -1331,10 +1241,10 @@ void backlight_task(void) {
 // (which is not possible since the backlight is not wired to PWM pins on the
 // CPU), we do the LED on/off by oursleves.
 // The timer is setup to count up to 0xFFFF, and we set the Output Compare
-// register to the current 16bits backlight level (after CIE correction). 
-// This means the CPU will trigger a compare match interrupt when the counter 
-// reaches the backlight level, where we turn off the LEDs, 
-// but also an overflow interrupt when the counter rolls back to 0, 
+// register to the current 16bits backlight level (after CIE correction).
+// This means the CPU will trigger a compare match interrupt when the counter
+// reaches the backlight level, where we turn off the LEDs,
+// but also an overflow interrupt when the counter rolls back to 0,
 // in which we're going to turn on the LEDs.
 // The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz.
 
@@ -1346,10 +1256,12 @@ ISR(TIMERx_COMPA_vect) {
 }
 
 // Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/65536 =~ 244 Hz 
+// this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #ifdef BACKLIGHT_BREATHING
-  breathing_task();
+  if(is_breathing()) {
+    breathing_task();
+  }
 #endif
   // for very small values of OCRxx (or backlight level)
   // we can't guarantee this whole code won't execute
@@ -1400,8 +1312,8 @@ void backlight_set(uint8_t level) {
   if (level == 0) {
     #ifdef BACKLIGHT_PWM_TIMER
       if (OCRxx) {
-        TIMSK &= ~(_BV(OCIExA));
-        TIMSK &= ~(_BV(TOIEx));
+        TIMSKx &= ~(_BV(OCIExA));
+        TIMSKx &= ~(_BV(TOIEx));
         FOR_EACH_LED(
           backlight_off(backlight_pin);
         )
@@ -1413,8 +1325,8 @@ void backlight_set(uint8_t level) {
   } else {
     #ifdef BACKLIGHT_PWM_TIMER
       if (!OCRxx) {
-        TIMSK |= _BV(OCIExA);
-        TIMSK |= _BV(TOIEx);
+        TIMSKx |= _BV(OCIExA);
+        TIMSKx |= _BV(TOIEx);
       }
     #else
     // Turn on PWM control of backlight pin
@@ -1451,11 +1363,11 @@ bool is_breathing(void) {
 #else
 
 bool is_breathing(void) {
-    return !!(TIMSK1 & _BV(TOIE1));
+    return !!(TIMSKx & _BV(TOIEx));
 }
 
-#define breathing_interrupt_enable() do {TIMSK1 |= _BV(TOIE1);} while (0)
-#define breathing_interrupt_disable() do {TIMSK1 &= ~_BV(TOIE1);} while (0)
+#define breathing_interrupt_enable() do {TIMSKx |= _BV(TOIEx);} while (0)
+#define breathing_interrupt_disable() do {TIMSKx &= ~_BV(TOIEx);} while (0)
 #endif
 
 #define breathing_min() do {breathing_counter = 0;} while (0)
@@ -1537,7 +1449,7 @@ void breathing_task(void)
 /* Assuming a 16MHz CPU clock and a timer that resets at 64k (ICR1), the following interrupt handler will run
  * about 244 times per second.
  */
-ISR(TIMER1_OVF_vect)
+ISR(TIMERx_OVF_vect)
 #endif
 {
   uint16_t interval = (uint16_t) breathing_period * 244 / BREATHING_STEPS;
@@ -1594,7 +1506,9 @@ void backlight_init_ports(void)
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
-    breathing_enable();
+    if (is_backlight_breathing()) {
+      breathing_enable();
+    }
   #endif
 }
 
@@ -1694,23 +1608,6 @@ void led_init_ports(void)
 __attribute__ ((weak))
 void led_set(uint8_t usb_led)
 {
-
-  // Example LED Code
-  //
-    // // Using PE6 Caps Lock LED
-    // if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    // {
-    //     // Output high.
-    //     DDRE |= (1<<6);
-    //     PORTE |= (1<<6);
-    // }
-    // else
-    // {
-    //     // Output low.
-    //     DDRE &= ~(1<<6);
-    //     PORTE &= ~(1<<6);
-    // }
-
 #if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
   // Use backlight as Caps Lock indicator
   uint8_t bl_toggle_lvl = 0;

@@ -38,11 +38,11 @@ extern backlight_config_t backlight_config;
 
 #include "serial.h"
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     static uint16_t debouncing_time;
     static bool debouncing = false;
 #endif
@@ -144,7 +144,7 @@ uint8_t _matrix_scan(void)
 #if (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_cols_on_row(matrix_debouncing+offset, current_row);
 
             if (matrix_changed) {
@@ -161,7 +161,7 @@ uint8_t _matrix_scan(void)
 #elif (DIODE_DIRECTION == ROW2COL)
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_rows_on_col(matrix_debouncing+offset, current_col);
             if (matrix_changed) {
                 debouncing = true;
@@ -174,8 +174,8 @@ uint8_t _matrix_scan(void)
     }
 #endif
 
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
                 matrix[i+offset] = matrix_debouncing[i+offset];
             }

@@ -20,6 +20,8 @@
 #include <string.h>
 
 unicode_config_t unicode_config;
+uint8_t          unicode_saved_mods;
+
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[] = { UNICODE_SELECTED_MODES };
 static uint8_t selected_count = sizeof selected / sizeof *selected;
@@ -75,30 +77,24 @@ void persist_unicode_input_mode(void) {
   eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
 }
 
-static uint8_t saved_mods;
-
 __attribute__((weak))
 void unicode_input_start(void) {
-  saved_mods = get_mods(); // Save current mods
+  unicode_saved_mods = get_mods(); // Save current mods
   clear_mods(); // Unregister mods to start from a clean state
 
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    register_code(UNICODE_OSX_KEY);
+    register_code(UNICODE_KEY_OSX);
     break;
   case UC_LNX:
-    register_code(KC_LCTL);
-    register_code(KC_LSFT);
-    tap_code(KC_U); // TODO: Replace with tap_code16(LCTL(LSFT(KC_U))); and test
-    unregister_code(KC_LSFT);
-    unregister_code(KC_LCTL);
+    tap_code16(UNICODE_KEY_LNX);
     break;
   case UC_WIN:
     register_code(KC_LALT);
     tap_code(KC_PPLS);
     break;
   case UC_WINC:
-    tap_code(UNICODE_WINC_KEY);
+    tap_code(UNICODE_KEY_WINC);
     tap_code(KC_U);
     break;
   }
@@ -110,7 +106,7 @@ __attribute__((weak))
 void unicode_input_finish(void) {
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    unregister_code(UNICODE_OSX_KEY);
+    unregister_code(UNICODE_KEY_OSX);
     break;
   case UC_LNX:
     tap_code(KC_SPC);
@@ -123,7 +119,25 @@ void unicode_input_finish(void) {
     break;
   }
 
-  set_mods(saved_mods); // Reregister previously set mods
+  set_mods(unicode_saved_mods); // Reregister previously set mods
+}
+
+__attribute__((weak))
+void unicode_input_cancel(void) {
+  switch (unicode_config.input_mode) {
+  case UC_OSX:
+    unregister_code(UNICODE_KEY_OSX);
+    break;
+  case UC_LNX:
+  case UC_WINC:
+    tap_code(KC_ESC);
+    break;
+  case UC_WIN:
+    unregister_code(KC_LALT);
+    break;
+  }
+
+  set_mods(unicode_saved_mods); // Reregister previously set mods
 }
 
 __attribute__((weak))

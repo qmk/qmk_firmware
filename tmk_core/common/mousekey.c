@@ -114,7 +114,9 @@ void mousekey_task(void) {
   /* diagonal move [1/sqrt(2)] */
   if (mouse_report.x && mouse_report.y) {
     mouse_report.x = times_inv_sqrt2(mouse_report.x);
+    if (mouse_report.x == 0) { mouse_report.x = 1; }
     mouse_report.y = times_inv_sqrt2(mouse_report.y);
+    if (mouse_report.y == 0) { mouse_report.y = 1; }
   }
   if (mouse_report.v > 0) mouse_report.v = wheel_unit();
   if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
@@ -232,7 +234,9 @@ void adjust_speed(void) {
   // adjust for diagonals
   if (mouse_report.x && mouse_report.y) {
   mouse_report.x = times_inv_sqrt2(mouse_report.x);
+  if (mouse_report.x == 0) { mouse_report.x = 1; }
   mouse_report.y = times_inv_sqrt2(mouse_report.y);
+  if (mouse_report.y == 0) { mouse_report.y = 1; }
   }
   if (mouse_report.h && mouse_report.v) {
   mouse_report.h = times_inv_sqrt2(mouse_report.h);

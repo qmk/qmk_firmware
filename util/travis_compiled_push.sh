@@ -29,8 +29,7 @@ NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
-	#lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
-	lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | sort -V | tail -1)
+	lasttag=$(git tag --sort=-creatordate --no-column --list '*.*.*' | grep -E -m1 '^[0-9]+\.[0-9]+\.[0-9]+$')
 	newtag=$(increment_version $lasttag)
 	until git tag $newtag; do
 		newtag=$(increment_version $newtag)
@@ -55,8 +54,29 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	# rm -f compiled/*.hex
 
 	# ignore errors here
-  # In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
-  mv ../qmk_firmware/*_default.*[hb][ei][xn] ./compiled/ || true
+	# In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
+	mv ../qmk_firmware/*_default.*{hex,bin} ./compiled/ || true
+
+	# get the list of keyboards
+	readarray -t keyboards < .keyboards
+
+	# replace / with _
+	keyboards=("${keyboards[@]//[\/]/_}")
+
+	# remove all binaries that don't belong to a keyboard in .keyboards
+	for file in "./compiled"/* ; do
+		match=0
+		for keyboard in "${keyboards[@]}" ; do
+			if [[ ${file##*/} = "${keyboard}_default.bin" ]] || [[ ${file##*/} = "${keyboard}_default.hex" ]]; then
+				match=1
+				break
+			fi
+		done
+		if [[ $match = 0 ]]; then
+			echo "Removing deprecated binary: $file"
+			rm "$file"
+		fi
+	done
 
 	bash _util/generate_keyboard_page.sh
 	git add -A

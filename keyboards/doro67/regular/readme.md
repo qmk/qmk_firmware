@@ -4,6 +4,10 @@
 
 This is not the PCB with RGB support. Do not flash RGB firmware for this board. 
 
+**REGULAR PCB (AVAILABILITY: CHINA GB ONLY)*
+If you are a non-china buyer, you probably have the multi PCB or rgb PCB. 
+Please look at the "multi" and "rgb" readme files.
+
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Doro67 Regular PCB  
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=97265.0)
