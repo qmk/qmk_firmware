@@ -37,12 +37,11 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "xt.h"
 #include "wait.h"
-#include "print.h"
+#include "debug.h"
 
 static inline uint8_t pbuf_dequeue(void);
 static inline void pbuf_enqueue(uint8_t data);
