@@ -40,7 +40,8 @@ typedef union {
     uint8_t  mode      :7;
     bool     buzz      :1;
     uint8_t  dwell     :7;
-    uint16_t reserved  :16; 
+    bool     cont      :1;
+    uint16_t reserved  :15; 
   };
 } haptic_config_t;
 

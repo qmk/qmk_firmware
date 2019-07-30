@@ -202,6 +202,29 @@ uint8_t haptic_get_dwell(void) {
   return haptic_config.dwell;
 }
 
+void haptic_enable_continuous(void) {
+  haptic_config.cont        = 1;
+  xprintf("haptic_config.cont = %u\n", haptic_config.cont);
+  eeconfig_update_haptic(haptic_config.raw);
+  DRV_rtp_init();
+}
+
+void haptic_disable_continuous(void) {
+  haptic_config.cont        = 0;
+  xprintf("haptic_config.cont = %u\n", haptic_config.cont);
+  eeconfig_update_haptic(haptic_config.raw);
+  DRV_write(DRV_MODE,0x00); 
+}
+
+void haptic_toggle_continuous(void) {
+if (haptic_config.cont) {
+  haptic_disable_continuous();
+  } else {
+  haptic_enable_continuous();
+  }
+  eeconfig_update_haptic(haptic_config.raw);
+}
+
 void haptic_play(void) {
   #ifdef DRV2605L
   uint8_t play_eff = 0;
@@ -224,6 +247,7 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_MODD && record->event.pressed) { haptic_mode_decrease(); }
     if (keycode == HPT_DWLI && record->event.pressed) { haptic_dwell_increase(); }
     if (keycode == HPT_DWLD && record->event.pressed) { haptic_dwell_decrease(); }
+    if (keycode == HPT_CONT && record->event.pressed) { haptic_toggle_continuous(); }
   if (haptic_config.enable) {
     if ( record->event.pressed ) {
 	// keypress
