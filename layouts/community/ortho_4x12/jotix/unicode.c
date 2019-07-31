@@ -148,7 +148,6 @@ const uint32_t PROGMEM unicode_map[] = {
     [DIAMOND_SUIT]  = 0x2665
 };
 
-#define UN_ESC  XP(DEGREE, DEGREE_CELCIUS)
 #define UN_Q    XP(OPEN_EXCML, SUPER_1)
 #define UN_W    XP(SUPER_2, SUPER_3)
 #define UN_E    XP(E_ACUTE, E_ACUTEC)
@@ -169,6 +168,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #define UN_K    XP(BOX_UNION_3, DBOX_UNION_3)
 #define UN_L    XP(BOX_UNION_4, DBOX_UNION_4)
 #define UN_SCLN XP(BOX_HORIZONTAL, DBOX_HORIZONT)
+#define UN_QUOT XP(DEGREE, DEGREE_CELCIUS)
 #define UN_Z    XP(BOX_VERTICAL, DBOX_VERTICAL)
 #define UN_X    XP(BOX_CROSS, DBOX_CROSS)
 #define UN_C    XP(COPYRIGHT, REGISTERED)
