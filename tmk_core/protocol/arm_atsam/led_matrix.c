@@ -349,9 +349,12 @@ void led_matrix_indicators(void)
             #endif //KANA
             (0))
             {
-                led_buffer[i].r = 255 - led_buffer[i].r; //TODO: Issue here with keeping the LED lit, static value works
-                led_buffer[i].g = 255 - led_buffer[i].g; //TODO: Issue here with keeping the LED lit, static value works
-                led_buffer[i].b = 255 - led_buffer[i].b; //TODO: Issue here with keeping the LED lit, static value works
+                led_buffer[i].r = 255;
+                led_buffer[i].g = 255;
+                led_buffer[i].b = 255;
+                //led_buffer[i].r = 255 - led_buffer[i].r; //TODO: Issue here with keeping the LED lit, static value works
+                //led_buffer[i].g = 255 - led_buffer[i].g; //TODO: Issue here with keeping the LED lit, static value works
+                //led_buffer[i].b = 255 - led_buffer[i].b; //TODO: Issue here with keeping the LED lit, static value works
 
                 //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.r > 127) *led_cur->rgb.r = 0;
                 //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.r = 255;

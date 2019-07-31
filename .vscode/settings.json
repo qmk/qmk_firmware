@@ -13,5 +13,6 @@
         "*.cpp": "cpp",
         "*.hpp": "cpp",
         "xstddef": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
