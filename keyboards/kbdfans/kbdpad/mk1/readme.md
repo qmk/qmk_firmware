@@ -3,7 +3,7 @@
 Custom numpad. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: KPDPad MKI  
+Hardware Supported: KBDPad MKI  
 Hardware Availability: No longer available. 
 
 
