@@ -3,8 +3,8 @@
 Custom numpad. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: KPDPad MKI
-Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=97552.1200)  
+Hardware Supported: KPDPad MKI  
+Hardware Availability: No longer available. 
 
 
 Make example for this keyboard (after setting up your build environment):
@@ -15,7 +15,7 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
-**Reset Key:** Hold down the key located at `K00`, commonly programmed as `Esc` while plugging in the keyboard.
+**Reset Key:** Hold down the key located at `K00`, commonly programmed as `0` while plugging in the keyboard.
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
