@@ -1,3 +1,19 @@
+/* Copyright 2018-2019 eswai <@eswai>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
@@ -131,13 +147,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                       /                           -       
+  //             !      @      #      $      %                       /                           -
         ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   SLSH,     7,     8,     9,  MINS,   DEL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "      ~                       *                           +       
+  //             ^      &      '      "      ~                       *                           +
       XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  TILD,                   ASTR,     4,     5,     6,  PLUS,   EQL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      `     _       ¥                                                   .                           
+  //             \      |      `     _       ¥                                                   .
       XXXXX,  ABLS,  PIPE,   GRV,  UNDS,  BSLS,                      0,     1,     2,     3,   DOT,   ENT,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
@@ -146,13 +162,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //                           <      >                                                                          
+  //                           <      >
       _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX,  PGUP,    UP, XXXXX,  PGUP,   DEL,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             (      )      {      }                                                                   
+  //             (      )      {      }
       XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
   //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //                           [      ]                                                     
+  //                           [      ]
       XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX,NICOLA,\
   //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
                                   LOWER, XXXXX,CTLSPC,   CMDENT, XXXXX, RAISE \
