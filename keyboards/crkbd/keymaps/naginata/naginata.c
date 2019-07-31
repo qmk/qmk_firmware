@@ -122,7 +122,7 @@ typedef struct {
 #ifdef NAGINATA_JDOUJI
 const PROGMEM naginata_keymap_ordered ngmapo[] = {
   {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
-  {.key = {NG_E, NG_K, 0}   , .kana = "teli"},
+  {.key = {NG_L, NG_D, 0}   , .kana = "uto"},
 };
 #endif
 
