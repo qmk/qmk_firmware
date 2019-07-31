@@ -809,10 +809,9 @@ void rgblight_task(void) {
     // exit early if we are timedout
     else if (rgblight_idle_timedout) {
         return;
-    } else if (timer_elapsed32(rgblight_idle_timer) >= (RGBLIGHT_IDLE_TIMEOUT * 60000)) {
+    } else if (timer_elapsed32(rgblight_idle_timer) >= (RGBLIGHT_IDLE_TIMEOUT * RGBLIGHT_IDLE_MULTIPLIER)) {
         rgblight_idle_timedout = true;
         rgblight_disable_noeeprom();
-        rgblight_idle_timer = timer_read32();
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_BREATHING

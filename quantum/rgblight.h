@@ -267,6 +267,7 @@ void rgblight_timer_toggle(void);
 // if timeout is set, enable the rgblight idle feature
 #ifdef RGBLIGHT_IDLE_TIMEOUT
   #define RGBLIGHT_IDLE_ENABLE
+  #define RGBLIGHT_IDLE_MULTIPLIER 60000
 #endif
 
 #include "quantum.h"
