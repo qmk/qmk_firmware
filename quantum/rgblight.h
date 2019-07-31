@@ -264,6 +264,14 @@ void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
 
+// if timeout is set, enable the rgblight idle feature
+#ifdef RGBLIGHT_IDLE_TIMEOUT
+  #define RGBLIGHT_IDLE_ENABLE
+#endif
+
+#include "quantum.h"
+bool process_rgblight(uint16_t keycode, keyrecord_t *record);
+
 #ifdef RGBLIGHT_SPLIT
   #define RGBLIGHT_STATUS_CHANGE_MODE (1<<0)
   #define RGBLIGHT_STATUS_CHANGE_HSVS (1<<1)

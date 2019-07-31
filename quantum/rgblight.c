@@ -93,11 +93,15 @@ bool is_rgblight_initialized = false;
 animation_status_t animation_status = {};
 #endif
 
+#ifdef RGBLIGHT_IDLE_ENABLE
+bool rgblight_idle_timedout = false;
+uint32_t rgblight_idle_timer;
+#endif
+
 #ifndef LED_ARRAY
 LED_TYPE led[RGBLED_NUM];
   #define LED_ARRAY led
 #endif
-
 
 static uint8_t clipping_start_pos = 0;
 static uint8_t clipping_num_leds = RGBLED_NUM;
@@ -219,6 +223,10 @@ void rgblight_init(void) {
   if (rgblight_config.enable) {
     rgblight_mode_noeeprom(rgblight_config.mode);
   }
+
+  #ifdef RGBLIGHT_IDLE_ENABLE
+    rgblight_idle_timer = timer_read32();
+  #endif
 
   is_rgblight_initialized = true;
 
@@ -797,6 +805,16 @@ void rgblight_task(void) {
     // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
     }
+#ifdef RGBLIGHT_IDLE_ENABLE
+    // exit early if we are timedout
+    else if (rgblight_idle_timedout) {
+        return;
+    } else if (timer_elapsed32(rgblight_idle_timer) >= (RGBLIGHT_IDLE_TIMEOUT * 60000)) {
+        rgblight_idle_timedout = true;
+        rgblight_disable_noeeprom();
+        rgblight_idle_timer = timer_read32();
+    }
+#endif
 #ifdef RGBLIGHT_EFFECT_BREATHING
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
       // breathing mode
@@ -884,6 +902,21 @@ void rgblight_task(void) {
 }
 
 #endif /* RGBLIGHT_USE_TIMER */
+
+#ifdef RGBLIGHT_USE_PROCESS
+bool process_rgblight(uint16_t keycode, keyrecord_t *record) {
+  #ifdef RGBLIGHT_IDLE_ENABLE
+    if (record->event.pressed) {
+      if (rgblight_idle_timedout) {
+        rgblight_idle_timedout = false;
+        rgblight_enable_noeeprom();
+      }
+      rgblight_idle_timer = timer_read32();
+    }
+  #endif
+  return true;
+}
+#endif
 
 // Effects
 #ifdef RGBLIGHT_EFFECT_BREATHING

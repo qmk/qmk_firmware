@@ -298,6 +298,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef SPACE_CADET_ENABLE
     process_space_cadet(keycode, record) &&
   #endif
+  #ifdef RGBLIGHT_USE_PROCESS
+    process_rgblight(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
