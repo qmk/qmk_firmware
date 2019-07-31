@@ -135,6 +135,12 @@ typedef struct {
   char kana[15];
 } naginata_keymap_long;
 
+// 順序なしUNICODE
+typedef struct {
+  uint32_t key;
+  char kana[10];
+} naginata_keymap_unicode;
+
 #ifdef NAGINATA_JDOUJI
 const PROGMEM naginata_keymap_ordered ngmapo[] = {
   {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
@@ -360,34 +366,14 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_D|B_F|B_M       , .kana = SS_TAP(X_RIGHT)},
 
   // 編集モード2
-  {.key = B_M|B_COMM|B_Q    , .kana = ""},
-  {.key = B_M|B_COMM|B_W    , .kana = ":"SS_TAP(X_ENTER)},
-  {.key = B_M|B_COMM|B_E    , .kana = "/"SS_TAP(X_ENTER)},
-  {.key = B_M|B_COMM|B_R    , .kana = ""},
-
-  {.key = B_M|B_COMM|B_S    , .kana = "<"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_D    , .kana = "!"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_F    , .kana = "?"SS_TAP(X_ENTER)},
-
-  {.key = B_M|B_COMM|B_X    , .kana = ">"SS_TAP(X_ENTER)},
-  {.key = B_M|B_COMM|B_C    , .kana = ""},
-  {.key = B_M|B_COMM|B_V    , .kana = "--"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_B    , .kana = "   "},
 
   {.key = B_C|B_V|B_O       , .kana = ""},
   {.key = B_C|B_V|B_P       , .kana = ""},
 
-  {.key = B_C|B_V|B_J       , .kana = "["SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_K       , .kana = "{"SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_L       , .kana = ""},
-  {.key = B_C|B_V|B_SCLN    , .kana = "("SS_TAP(X_ENTER)},
-
   {.key = B_C|B_V|B_N       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_M       , .kana = "]"SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_COMM    , .kana = "}"SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_DOT     , .kana = ""},
-  {.key = B_C|B_V|B_SLSH    , .kana = ")"SS_TAP(X_ENTER)},
-
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
@@ -423,21 +409,42 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
-  {.key = B_M|B_COMM|B_A    , .kana = SS_LALT("9")SS_TAP(X_ENTER)}, // 【
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
-  {.key = B_M|B_COMM|B_Z    , .kana = SS_LALT("0")SS_TAP(X_ENTER)},// 】
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_HOME)SS_UP(X_LSHIFT)SS_LCTRL("x")},
   {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
-  {.key = B_M|B_COMM|B_A    , .kana = SS_LALT("9")SS_TAP(X_ENTER)}, // 【
   {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
-  {.key = B_M|B_COMM|B_Z    , .kana = SS_LALT("0")SS_TAP(X_ENTER)},// 】
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
   {.key = B_C|B_V|B_I       , .kana = ""},
 #endif
 
+};
+
+const PROGMEM naginata_keymap_unicode ngmapu[] = {
+  // 編集モード2
+  {.key = B_M|B_COMM|B_Q    , .kana = "FF0F"},
+  {.key = B_M|B_COMM|B_W    , .kana = "FF1A"},
+  {.key = B_M|B_COMM|B_E    , .kana = "30FB"},
+  {.key = B_M|B_COMM|B_R    , .kana = "3007"},
+
+  {.key = B_M|B_COMM|B_A    , .kana = "3010"},
+  {.key = B_M|B_COMM|B_Z    , .kana = "3011"},
+  {.key = B_M|B_COMM|B_S    , .kana = "3008"},
+  {.key = B_M|B_COMM|B_X    , .kana = "3009"},
+
+  {.key = B_M|B_COMM|B_C    , .kana = "2026 2026"},
+  {.key = B_M|B_COMM|B_V    , .kana = "2500 2500"},
+
+  {.key = B_C|B_V|B_J       , .kana = "300C"},
+  {.key = B_C|B_V|B_M       , .kana = "300D"},
+  {.key = B_C|B_V|B_K       , .kana = "300E"},
+  {.key = B_C|B_V|B_COMM    , .kana = "300F"},
+  {.key = B_C|B_V|B_L       , .kana = "300A"},
+  {.key = B_C|B_V|B_DOT     , .kana = "300B"},
+  {.key = B_C|B_V|B_SCLN    , .kana = "FF08"},
+  {.key = B_C|B_V|B_SLSH    , .kana = "FF09"},
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
@@ -479,6 +486,7 @@ void naginata_type(void) {
 #endif
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
+  naginata_keymap_unicode bngmapu; // PROGMEM buffer
 
   uint32_t skey = 0; // 連続押しの場合のバッファ
 
@@ -557,6 +565,15 @@ void naginata_type(void) {
         memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
         if (keycomb == bngmapl.key) {
           send_string(bngmapl.kana);
+          naginata_clear();
+          return;
+        }
+      }
+      // 順序なしUNICODE
+      for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
+        memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
+        if (keycomb == bngmapu.key) {
+          send_unicode_hex_string(bngmapu.kana);
           naginata_clear();
           return;
         }

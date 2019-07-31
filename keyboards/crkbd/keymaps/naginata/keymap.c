@@ -254,6 +254,8 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  // set_unicode_input_mode(UC_OSX);
+  set_unicode_input_mode(UC_WINC);
   // 薙刀式
 
   #ifdef RGBLIGHT_ENABLE

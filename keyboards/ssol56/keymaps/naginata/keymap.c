@@ -524,6 +524,8 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  set_unicode_input_mode(UC_OSX);
+  // set_unicode_input_mode(UC_WINC);
   // 薙刀式
 }
 
