@@ -227,7 +227,9 @@ void nicola_on(void) {
   layer_on(nicola_layer);
 
   tap_code(KC_LANG1); // Mac
-  tap_code(KC_HENK); // Win
+  //tap_code(KC_HENK); // Win 英語キーボードモードの場合、効かない
+  //tap_code16(QK_LALT | KC_GRV); // Win
+  tap_code16(QK_LSFT | KC_CAPS); // Win
 }
 
 void nicola_off(void) {
@@ -237,7 +239,9 @@ void nicola_off(void) {
   layer_off(nicola_layer);
 
   tap_code(KC_LANG2); // Mac
-  tap_code(KC_MHEN); // Win
+  // tap_code(KC_MHEN); // Win 英語キーボードモードの場合、効かない
+  tap_code16(QK_LSFT | KC_CAPS); // Win
+  //tap_code16(QK_LALT | KC_GRV); // Win
 }
 
 // 親指シフトの状態
