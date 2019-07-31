@@ -46,5 +46,3 @@ QUANTUM_LIB_SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
-
-LAYOUTS = tkl_ansi tkl_iso
