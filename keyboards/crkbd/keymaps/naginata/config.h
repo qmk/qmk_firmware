@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SELECT_SOFT_SERIAL_SPEED 2
 
 // 薙刀式
+#define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
 // #define EUCALYN
 #define EUCALYNKAI
 // #define NAGINATA_EDIT_WIN

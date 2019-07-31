@@ -100,10 +100,12 @@ const uint32_t ng_key[] = {
 
 // 薙刀式カナ変換テーブル
 // 順序つき
+#ifdef NAGINATA_JDOUJI
 typedef struct {
   uint32_t key[3];
   char kana[5];
 } naginata_keymap_ordered;
+#endif
 
 // 順序なし
 typedef struct {
@@ -117,10 +119,12 @@ typedef struct {
   char kana[15];
 } naginata_keymap_long;
 
+#ifdef NAGINATA_JDOUJI
 const PROGMEM naginata_keymap_ordered ngmapo[] = {
   {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
   {.key = {NG_E, NG_K, 0}   , .kana = "teli"},
 };
+#endif
 
 const PROGMEM naginata_keymap ngmap[] = {
   // 単独
@@ -275,7 +279,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Q|B_L           , .kana = "vyu"},
   {.key = B_Q|B_P           , .kana = "ve"},
   {.key = B_Q|B_N           , .kana = "vo"},
-  // {.key = B_E|B_K           , .kana = "teli"},
+  {.key = B_E|B_K           , .kana = "teli"},
   {.key = B_E|B_L           , .kana = "telu"},
   {.key = B_R|B_P           , .kana = "sye"},
   {.key = B_D|B_L           , .kana = "tolu"},
@@ -454,7 +458,9 @@ bool naginata_state(void) {
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
+#ifdef NAGINATA_JDOUJI
   naginata_keymap_ordered bngmapo; // PROGMEM buffer
+#endif
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
 
@@ -511,6 +517,7 @@ void naginata_type(void) {
       // キーから仮名に変換して出力する。
       // 同時押しの場合 ngmapに定義されている
       // 順序つき
+      #ifdef NAGINATA_JDOUJI
       for (int i = 0; i < sizeof ngmapo / sizeof bngmapo; i++) {
         memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
         if (ninputs[0] == bngmapo.key[0] && ninputs[1] == bngmapo.key[1] && ninputs[2] == bngmapo.key[2]) {
@@ -519,6 +526,7 @@ void naginata_type(void) {
           return;
         }
       }
+      #endif
       // 順序なし
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
         memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));

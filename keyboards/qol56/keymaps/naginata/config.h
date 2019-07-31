@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // 薙刀式
 // #define DEUCALYN
+#define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
 #define DWORKMAN
 #define NAGINATA_EDIT_WIN
 // #define NAGINATA_EDIT_MAC

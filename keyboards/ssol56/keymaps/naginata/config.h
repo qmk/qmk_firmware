@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    eswai
 
 // 薙刀式
+#define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
 // #define DEUCALYN
 #define DWORKMAN
 // #define NAGINATA_EDIT_WIN
