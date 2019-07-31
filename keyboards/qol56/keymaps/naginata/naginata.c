@@ -99,15 +99,28 @@ const uint32_t ng_key[] = {
 };
 
 // 薙刀式カナ変換テーブル
+// 順序つき
+typedef struct {
+  uint32_t key[3];
+  char kana[5];
+} naginata_keymap_ordered;
+
+// 順序なし
 typedef struct {
   uint32_t key;
   char kana[5];
 } naginata_keymap;
 
+// 順序なしロング
 typedef struct {
   uint32_t key;
   char kana[15];
 } naginata_keymap_long;
+
+const PROGMEM naginata_keymap_ordered ngmapo[] = {
+  {.key = {NG_K, NG_E, 0}   , .kana = "ite"},
+  {.key = {NG_E, NG_K, 0}   , .kana = "teli"},
+};
 
 const PROGMEM naginata_keymap ngmap[] = {
   // 単独
@@ -262,7 +275,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Q|B_L           , .kana = "vyu"},
   {.key = B_Q|B_P           , .kana = "ve"},
   {.key = B_Q|B_N           , .kana = "vo"},
-  {.key = B_E|B_K           , .kana = "teli"},
+  // {.key = B_E|B_K           , .kana = "teli"},
   {.key = B_E|B_L           , .kana = "telu"},
   {.key = B_R|B_P           , .kana = "sye"},
   {.key = B_D|B_L           , .kana = "tolu"},
@@ -332,13 +345,11 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_M|B_COMM|B_E    , .kana = "/"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_R    , .kana = ""},
 
-  {.key = B_M|B_COMM|B_A    , .kana = ""},
-  {.key = B_M|B_COMM|B_S    , .kana = ""},
+  {.key = B_M|B_COMM|B_S    , .kana = "<"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_D    , .kana = "!"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_F    , .kana = "?"SS_TAP(X_ENTER)},
 
-  {.key = B_M|B_COMM|B_Z    , .kana = ""},
-  {.key = B_M|B_COMM|B_X    , .kana = ""},
+  {.key = B_M|B_COMM|B_X    , .kana = ">"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_C    , .kana = ""},
   {.key = B_M|B_COMM|B_V    , .kana = "--"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_B    , .kana = "   "},
@@ -392,13 +403,17 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
+  {.key = B_M|B_COMM|B_A    , .kana = SS_LALT("9")SS_TAP(X_ENTER)}, // 【
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
+  {.key = B_M|B_COMM|B_Z    , .kana = SS_LALT("0")SS_TAP(X_ENTER)},// 】
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_HOME)SS_UP(X_LSHIFT)SS_LCTRL("x")},
   {.key = B_C|B_V|B_I       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_BSPACE)SS_UP(X_LCTRL)},
 #endif
 #ifdef NAGINATA_EDIT_MAC
   {.key = B_M|B_COMM|B_T    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)" "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+  {.key = B_M|B_COMM|B_A    , .kana = SS_LALT("9")SS_TAP(X_ENTER)}, // 【
   {.key = B_M|B_COMM|B_G    , .kana = SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)"   "SS_DOWN(X_LGUI)SS_TAP(X_RIGHT)SS_UP(X_LGUI)},
+  {.key = B_M|B_COMM|B_Z    , .kana = SS_LALT("0")SS_TAP(X_ENTER)},// 】
   {.key = B_C|B_V|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_DOWN(X_LGUI)SS_TAP(X_LEFT)SS_UP(X_LGUI)SS_UP(X_LSHIFT)SS_LGUI("x")},
   {.key = B_C|B_V|B_I       , .kana = ""},
 #endif
@@ -439,10 +454,10 @@ bool naginata_state(void) {
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
+  naginata_keymap_ordered bngmapo; // PROGMEM buffer
   naginata_keymap bngmap; // PROGMEM buffer
   naginata_keymap_long bngmapl; // PROGMEM buffer
 
-  bool douji = false; // 同時押しか連続押しか
   uint32_t skey = 0; // 連続押しの場合のバッファ
 
   switch (keycomb) {
@@ -495,33 +510,42 @@ void naginata_type(void) {
     default:
       // キーから仮名に変換して出力する。
       // 同時押しの場合 ngmapに定義されている
+      // 順序つき
+      for (int i = 0; i < sizeof ngmapo / sizeof bngmapo; i++) {
+        memcpy_P(&bngmapo, &ngmapo[i], sizeof(bngmapo));
+        if (ninputs[0] == bngmapo.key[0] && ninputs[1] == bngmapo.key[1] && ninputs[2] == bngmapo.key[2]) {
+          send_string(bngmapo.kana);
+          naginata_clear();
+          return;
+        }
+      }
+      // 順序なし
       for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
         memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
         if (keycomb == bngmap.key) {
-          douji = true;
           send_string(bngmap.kana);
-          break;
+          naginata_clear();
+          return;
         }
       }
+      // 順序なしロング
       for (int i = 0; i < sizeof ngmapl / sizeof bngmapl; i++) {
         memcpy_P(&bngmapl, &ngmapl[i], sizeof(bngmapl));
         if (keycomb == bngmapl.key) {
-          douji = true;
           send_string(bngmapl.kana);
-          break;
+          naginata_clear();
+          return;
         }
       }
       // 連続押しの場合 ngmapに定義されていない
-      if (!douji) {
-        for (int j = 0; j < ng_chrcount; j++) {
-          skey = ng_key[ninputs[j] - NG_Q];
-          if ((keycomb & B_SHFT) > 0) skey |= B_SHFT; // シフトキー状態を反映
-          for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
-            memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
-            if (skey == bngmap.key) {
-              send_string(bngmap.kana);
-              break;
-            }
+      for (int j = 0; j < ng_chrcount; j++) {
+        skey = ng_key[ninputs[j] - NG_Q];
+        if ((keycomb & B_SHFT) > 0) skey |= B_SHFT; // シフトキー状態を反映
+        for (int i = 0; i < sizeof ngmap / sizeof bngmap; i++) {
+          memcpy_P(&bngmap, &ngmap[i], sizeof(bngmap));
+          if (skey == bngmap.key) {
+            send_string(bngmap.kana);
+            break;
           }
         }
       }
