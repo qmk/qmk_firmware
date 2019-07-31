@@ -157,6 +157,10 @@ const PROGMEM nicola_keymap ngmap[] = {
   {.key = B_DOT             , .kana = "ho"},
   {.key = B_SLSH            , .kana = "/"},
 
+  // Shift and space
+  // {.key = B_SHFTL           , .kana = " "},
+  // {.key = B_SHFTR           , .kana = " "},
+
   // 左シフト
   {.key = B_SHFTL|B_Q       , .kana = "la"},
   {.key = B_SHFTL|B_W       , .kana = "e"},
