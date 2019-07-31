@@ -1,11 +1,11 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
-#define _QWERTY 0
-#define _LAYER1 1
-#define _LAYER2 2
-#define _LAYER3 3
+enum layer_names {
+    _QWERTY,
+    _LAYER1,
+    _LAYER2,
+    _LAYER3
+};
 
 #define WM_0     LGUI(KC_ENT)
 #define WM_1     LGUI(KC_BSPC)
