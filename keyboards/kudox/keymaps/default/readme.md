@@ -1,1 +1,1 @@
-# The default keymap for Kudox
+# The default keymap for Kudox Keyboard
