@@ -39,8 +39,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define CATERINA_BOOTLOADER
-
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
