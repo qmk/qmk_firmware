@@ -349,9 +349,60 @@ void led_matrix_indicators(void)
             #endif //KANA
             (0))
             {
+            led_buffer[i].r = 255;
+            led_buffer[i].g = 255;
+            led_buffer[i].b = 255;
+            /*
+            if (led_buffer[i].r > 127)      //TODO:
+            {
+                led_buffer[i].r = 0;
+            }
+            else
+            {
                 led_buffer[i].r = 255;
+            }
+            if (led_buffer[i].g > 127)
+            {
+                led_buffer[i].g = 0;
+            }
+            else
+            {
                 led_buffer[i].g = 255;
+            }
+            if (led_buffer[i].b > 127)
+            {
+                led_buffer[i].b = 0;
+            }
+            else
+            {
                 led_buffer[i].b = 255;
+            }
+
+            if (led_buffer[i].r == 0)
+            {
+                led_buffer[i].r = 255;
+            }
+            if (led_buffer[i].g == 0)
+            {
+                led_buffer[i].g = 255;
+            }
+            if (led_buffer[i].b == 0)
+            {
+                led_buffer[i].b = 255;
+            }
+            if (led_buffer[i].r == 255)
+            {
+                led_buffer[i].r = 255 - led_buffer[i].r;
+            }
+            if (led_buffer[i].g == 255)
+            {
+                led_buffer[i].g = 255 - led_buffer[i].g;
+            }
+            if (led_buffer[i].b == 255)
+            {
+                led_buffer[i].b = 255 - led_buffer[i].b;
+            }
+
                 //led_buffer[i].r = 255 - led_buffer[i].r; //TODO: Issue here with keeping the LED lit, static value works
                 //led_buffer[i].g = 255 - led_buffer[i].g; //TODO: Issue here with keeping the LED lit, static value works
                 //led_buffer[i].b = 255 - led_buffer[i].b; //TODO: Issue here with keeping the LED lit, static value works
@@ -362,6 +413,7 @@ void led_matrix_indicators(void)
                 //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.g = 255;
                 //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.b > 127) *led_cur->rgb.b = 0;
                 //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.b = 255;
+            */
             }
         }
     }

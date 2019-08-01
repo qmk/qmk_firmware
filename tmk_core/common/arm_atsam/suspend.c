@@ -35,11 +35,11 @@ void suspend_power_down_kb(void) {
  */
 void suspend_power_down(void)
 {
-//#ifdef RGB_MATRIX_ENABLE
-//    I2C3733_Control_Set(0); //Disable LED driver
-//#endif
+#ifdef RGB_MATRIX_ENABLE
+    I2C3733_Control_Set(0); //Disable LED driver
+#endif
 
-//    suspend_power_down_kb();
+    suspend_power_down_kb();
 }
 
 __attribute__ ((weak)) void matrix_power_up(void) {}
