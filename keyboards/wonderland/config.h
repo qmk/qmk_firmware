@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xA71C
 #define DEVICE_VER      0x0003
-#define MANUFACTURER    Mrten.dk
+#define MANUFACTURER    Maartenwut
 #define PRODUCT         Wonderland
 #define DESCRIPTION     "QMK Firmware for the Wonderland, a TGR Alice compatible PCB"
 
