@@ -11,8 +11,8 @@ Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_f
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/070a530eedaed36a2d77f3f6fd455677 -->
-![Keyboard Layout Image](https://i.imgur.com/gvlNUpQ.png)
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## Some Of My Keys Are Swapped Or Not Working
 
@@ -151,13 +151,13 @@ This turns right modifier keys into arrow keys when the keys are tapped while st
  */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
-    [0] = KEYMAP( \
+    [0] = LAYOUT( \
         ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
         LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
         FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
-    [1] = KEYMAP( \
+    [1] = LAYOUT( \
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
@@ -211,20 +211,3 @@ here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
-
-## Timer Functionality
-
-It's possible to start timers and read values for time-specific events - here's an example:
-
-```c
-static uint16_t key_timer;
-key_timer = timer_read();
-
-if (timer_elapsed(key_timer) < 100) {
-  // do something if less than 100ms have passed
-} else {
-  // do something if 100ms or more have passed
-}
-```
-
-It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.

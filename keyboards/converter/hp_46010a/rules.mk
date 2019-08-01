@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -39,7 +38,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = halfkay
 
@@ -48,8 +47,8 @@ BOOTLOADER = halfkay
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -62,11 +61,9 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 API_SYSEX_ENABLE = no
 SPLIT_KEYBOARD = no
 WAIT_FOR_USB = yes
-
+LAYOUTS_HAS_RGB = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-LAYOUTS_HAS_RGB = NO
-
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
+
 SRC = matrix.c

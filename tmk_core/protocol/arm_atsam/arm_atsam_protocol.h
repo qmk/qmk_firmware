@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "samd51j18a.h"
 #include "md_bootloader.h"
 
+#include "timer.h"
 #include "d51_util.h"
 #include "clks.h"
+#include "wait.h"
 #include "adc.h"
 #include "i2c_master.h"
 #include "spi.h"
@@ -32,7 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MD_BOOTLOADER
 
 #include "main_arm_atsam.h"
+#ifdef RGB_MATRIX_ENABLE
 #include "led_matrix.h"
+#include "rgb_matrix.h"
+#endif
 #include "issi3733_driver.h"
 #include "./usb/compiler.h"
 #include "./usb/udc.h"

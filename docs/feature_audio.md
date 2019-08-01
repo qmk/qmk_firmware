@@ -61,10 +61,19 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-* `AU_ON` - Turn audio mode on
-* `AU_OFF` - Turn audio mode off
-* `AU_TOG` - Toggle audio mode
+* `AU_ON` - Turn Audio Feature on
+* `AU_OFF` - Turn Audio Feature off
+* `AU_TOG` - Toggle Audio Feature state
 
+!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
+
+## ARM Audio Volume
+
+For ARM devices, you can adjust the DAC sample values. If your board is too loud for you or your coworkers, you can set the max using `DAC_SAMPLE_MAX` in your `config.h`:
+
+```c
+#define DAC_SAMPLE_MAX 65535U
+```
 
 ## Music Mode
 
@@ -91,6 +100,16 @@ In music mode, the following keycodes work differently, and don't pass through:
 * `KC_UP` - speed-up playback
 * `KC_DOWN` - slow-down playback
 
+The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+
+    #define PITCH_STANDARD_A 432.0f
+
+You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
+
+    #define NO_MUSIC_MODE
+
+### Music Mask
+
 By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
 
     #define MUSIC_MASK keycode != KC_NO
@@ -111,13 +130,26 @@ For a more advanced way to control which keycodes should still be processed, you
 
 Things that return false are not part of the mask, and are always processed.
 
-The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+### Music Map
 
-    #define PITCH_STANDARD_A 432.0f
+By default, the Music Mode uses the columns and row to determine the scale for the keys. For a board that uses a rectangular matrix that matches the keyboard layout, this is just fine.  However, for boards that use a more complicated matrix (such as the Planck Rev6, or many split keyboards) this would result in a very skewed experience.  
 
-You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
+However, the Music Map option allows you to remap the scaling for the music mode, so it fits the layout, and is more natural. 
 
-    #define NO_MUSIC_MODE
+To enable this feature, add `#define MUSIC_MAP` to your `config.h` file, and then you will want to add a `uint8_t music_map` to your keyboard's `c` file, or your `keymap.c`.
+
+```c
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
+	36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+	24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
+	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+	 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11
+);
+```
+
+You will want to use whichever `LAYOUT` macro that your keyboard uses here.  This maps it to the correct key location.  Start in  the bottom left of the keyboard layout, and  move to the right, and then upwards.  Fill in all the entries until you have a complete matrix.  
+
+You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e9ace1487887c1f8b4a7e8e6d87c322988bec9ce/keyboards/planck/planck.c#L24-L29) as an example of how to implement this. 
 
 ## Audio Click
 
@@ -143,15 +175,16 @@ You can configure the default, min and max frequencies, the stepping and built i
 | `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio frequency for the clicky sounds. |
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
 | `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
-| `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes. |
+| `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes.  This is a multiplicative factor.  The default steps the frequency up/down by a musical minor third.  |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
+| `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
 
 
 
 
 ## MIDI Functionality
 
-This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
+This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to see what's happening. Enable from the Makefile.
 
 
 ## Audio Keycodes

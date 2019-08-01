@@ -2,18 +2,18 @@
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
+#define _MAC 0
+#define _WINDOWS 1
+#define _TESTMODE 2
 #define _LOWER 3
 #define _RAISE 4
 #define _FKEYS 5
 #define _ADJUST 16
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  MAC = SAFE_RANGE,
+  WINDOWS,
+  TESTMODE,
   LOWER,
   RAISE,
   ADJUST,
@@ -21,7 +21,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
 #define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
@@ -34,11 +33,11 @@ enum custom_keycodes {
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
 #define KC_BL_S BL_STEP
 #define KC_BL_T BL_TOGG
-#define KC_ALLS PLAY_ALLSTAR
+#define KC_RMOD RGB_MOD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc_ortho_4x12(
+  [_MAC] = LAYOUT_kc_ortho_4x12(
   //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
@@ -50,33 +49,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_COLEMAK] = LAYOUT_kc_ortho_4x12(
+  [_WINDOWS] = LAYOUT_kc_ortho_4x12(
   //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
-     TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     ESCC, A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
+     ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH,ENTS,
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
   //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_DVORAK] = LAYOUT_kc_ortho_4x12(
+  [_TESTMODE] = LAYOUT_kc_ortho_4x12(
   //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
-     TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     ESCC, A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
+     RMOD,BL_S, S  , D  , F  , G  ,     RMOD,BL_S, K  , L  ,SCLN,QUOT,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  ,ENTS,
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
   //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
   [_LOWER] = LAYOUT_kc_ortho_4x12(
   //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
-     ALLS, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
+         , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      DEL ,CAPP,LEFT,RGHT, UP ,LBRC,     RBRC, P4 , P5 , P6 ,PLUS,PIPE,
   //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
@@ -123,20 +122,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT_ortho_4x12( \
     _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,          RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
-    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,          AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,          AG_SWAP, MAC,     WINDOWS, TESTMODE,_______, _______, \
     _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______ \
   )
 
 
 };
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float all_star_song[][2]   = SONG(ALL_STAR);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -145,30 +137,21 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case MAC:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_MAC);
       }
       return false;
       break;
-    case COLEMAK:
+    case WINDOWS:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_WINDOWS);
       }
       return false;
       break;
-    case DVORAK:
+    case TESTMODE:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_TESTMODE);
       }
       return false;
       break;
@@ -197,15 +180,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case PLAY_ALLSTAR:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(all_star_song);
-          SEND_STRING("Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. All that glitters is gold. Only shooting stars break the mold.");
-        #endif
       }
       return false;
       break;

@@ -64,6 +64,10 @@ void qk_ucis_symbol_fallback (void) {
   }
 }
 
+__attribute__((weak))
+void qk_ucis_cancel(void) {
+}
+
 void register_ucis(const char *hex) {
   for(int i = 0; hex[i]; i++) {
     uint8_t kc = 0;
@@ -93,7 +97,7 @@ void register_ucis(const char *hex) {
 }
 
 bool process_ucis (uint16_t keycode, keyrecord_t *record) {
-  unicode_input_mode_init();
+  uint8_t i;
 
   if (!qk_ucis_state.in_progress)
     return true;
@@ -122,7 +126,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   if (keycode == KC_ENT || keycode == KC_SPC || keycode == KC_ESC) {
     bool symbol_found = false;
 
-    for (uint8_t i = qk_ucis_state.count; i > 0; i--) {
+    for (i = qk_ucis_state.count; i > 0; i--) {
       register_code (KC_BSPC);
       unregister_code (KC_BSPC);
       wait_ms(UNICODE_TYPE_DELAY);
@@ -130,11 +134,12 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == KC_ESC) {
       qk_ucis_state.in_progress = false;
+      qk_ucis_cancel();
       return false;
     }
 
     unicode_input_start();
-    for (uint8_t i = 0; ucis_symbol_table[i].symbol; i++) {
+    for (i = 0; ucis_symbol_table[i].symbol; i++) {
       if (is_uni_seq (ucis_symbol_table[i].symbol)) {
         symbol_found = true;
         register_ucis(ucis_symbol_table[i].code + 2);

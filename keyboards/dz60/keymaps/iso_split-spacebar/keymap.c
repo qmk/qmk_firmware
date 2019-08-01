@@ -9,11 +9,6 @@
 
 #include QMK_KEYBOARD_H
 
-
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /* 
 * Each layer gets a name for readability.
 * The underscores don't mean anything - you can

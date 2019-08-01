@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -23,9 +22,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
@@ -41,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * `-------------+------+------+------+------+------+------+------+------+------+------+-------------'
- *               |  GUI | Ctrl |Lower |Space | Ctrl |Enter |Space |Raise |  Alt |  GUI |
+ *               |  GUI |  Alt |Lower |Space | Ctrl |Enter |Space |Raise |  Alt |  GUI |
  *               `---------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT( \
@@ -62,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * `-------------+------+------+------+------+------+------+------+------+------+------+-------------'
- *               |  GUI | Ctrl |Lower |Space | Ctrl |Enter |Space |Raise |  Alt | GUI |
+ *               |  GUI |  Alt |Lower |Space | Ctrl |Enter |Space |Raise |  Alt | GUI |
  *               `---------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT( \
@@ -83,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   [  |   ]  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * `-------------+------+------+------+------+------+------+------+------+------+------+-------------'
- *               |  GUI | Ctrl |Lower |Space | Ctrl |Enter |Space |Raise |  Alt |  GUI |
+ *               |  GUI |  Alt |Lower |Space | Ctrl |Enter |Space |Raise |  Alt |  GUI |
  *               `---------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT( \

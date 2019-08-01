@@ -57,11 +57,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c backlight.c
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
 # programming options
-PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
 LAYOUTS = ortho_5x12

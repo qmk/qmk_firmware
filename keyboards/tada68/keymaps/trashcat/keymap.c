@@ -9,8 +9,6 @@
 #define _GM 2
 #define _GF 3
 
-#define _______ KC_TRNS
-
 // Tap dance declarations (These must go above the keymaps)
 enum {
   TD_F1 = 0,

@@ -210,7 +210,7 @@ static inline void udc_detach(void)
 /*! \brief The USB driver sends a resume signal called \e "Upstream Resume"
  * This is authorized only when the remote wakeup feature is enabled by host.
  */
-static inline void udc_remotewakeup(void)
+inline void udc_remotewakeup(void)
 {
     udd_send_remotewakeup();
 }

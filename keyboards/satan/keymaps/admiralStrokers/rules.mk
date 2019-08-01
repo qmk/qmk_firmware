@@ -19,6 +19,4 @@ BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no# Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE = no # This enables using the Quantum SYSEX API to send strings
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+

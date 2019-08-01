@@ -6,7 +6,7 @@ Baguette
 This is a custom keyboard with backlight inspired by France.
 
 Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
-Hardware Supported: ATMEGA 32u4 MCU with backlight support.
+Hardware Supported: ATMEGA 32u4 MCU with backlight support.  
 Hardware Availability: Closed group-buy please contact the runners (Tesletron and Enjoy)
 
 Make example for this keyboard (after setting up your build environment):

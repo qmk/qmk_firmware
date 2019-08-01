@@ -7,8 +7,6 @@
   4. [Function Layers](./readme_ch4.md)
   5. **Other Layers**
 
-### Last updated: September 2, 2018, 1:03 PM UTC-0700
-
 
 ----
 
@@ -36,37 +34,83 @@ Tapping `Esc` exits the Macro layer, if the macro used doesn't do it automatical
 
 ### Macros
 
-[![lavak3DED](https://static-cdn.jtvnw.net/emoticons/v1/821796/1.0)](./keymap.c#L122-L127)  
-Inputs: `lavak3DED `  
-Twitch emote for [a streamer I watch a lot](https://www.twitch.tv/lavak3_).
+#### [T_L3DED](./keymap.c#L122-L126)
 
-[G_PUSH](./keymap.c#L128-L133)  
-Inputs: `git push origin `  
+Output: `lavak3DED `
+
+Twitch emote for [a streamer I watch a lot](https://www.twitch.tv/lavak3_).  
+![lavak3DED](https://static-cdn.jtvnw.net/emoticons/v1/821796/1.0)
+
+#### [G_PUSH](./keymap.c#L127-L131)
+
+Output: `git push origin `
+
 Everything from here down is related to Git or GitHub.
 
-[G_FTCH](./keymap.c#L134-L139)  
-Inputs: `git fetch upstream`
+#### [G_FTCH](./keymap.c#L132-L141)
 
-[G_COMM](./keymap.c#L140-L146)  
-Inputs: `git commit -m ""` `[Left]`  
+| Condition | Output |
+| :-------- | :----- |
+| If <kbd>Shift</kbd> is active | `git pull upstream ` |
+| Otherwise | `git fetch upstream ` |
+
+#### [G_COMM](./keymap.c#L142-L147)
+
+Output: `git commit -m ""` <kbd>Left</kbd>
+
 Readies a `git commit` command, moves the cursor between the quotation marks, then disables the Macro layer.
 
-[G_RST](./keymap.c#L147-L153)  
-Inputs: `git histt -n 10`, Enter, `git reset --soft `  
-Runs a [git alias](./readme_git.md) that shows my last ten commits, then readies a `git reset --soft`. For when I commit something too soon. Disables the Macro layer when complete.
+#### [G_BRCH](./keymap.c#L148-L158)
 
-[G_C10R](./keymap.c#L154-L160)  
-Inputs: `cf/`  
-A branch prefix I use for my current work in QMK. Disables the Macro layer when finished.
+| Condition | Output |
+| :-------- | :----- |
+| If <kbd>Shift</kbd> is active | `master` |
+| Otherwise | `$(git branch-name)` |
 
-[G_BRCH](./keymap.c#L161-L167)  
-Inputs: `$(git branch-name)`  
-A [git alias](./readme_git.md) that returns the name of the current branch. Disables the Macro layer when finished.
+`$(git branch-name)` is a [git alias](./readme_git.md) that returns the name of the current branch. This macro disables the Macro layer when finished.
 
-[SIGNA](./keymap.c#L168-L174)  
-Inputs: `\- @noroadsleft` `[Enter]`  
+#### [SIGNA](./keymap.c#L159-L164)
+
+Output: `\- @noroadsleft` <kbd>Enter</kbd>
+
 Sometimes on GitHub, I sign my comments. Types my GitHub name in Markdown syntax, and then taps the `Enter` key. Disables the Macro layer when finished.
 
+#### [MC_UNDO](./keymap.c#L202-L210)
+
+| Condition | Output |
+| :-------- | :----- |
+| If <kbd>Shift</kbd> is active | <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Z</kbd> |
+| Otherwise | <kbd>Command</kbd> + <kbd>Z</kbd> |
+
+An Undo shortcut that turns to Redo if <kbd>Shift</kbd> is being held. I'm not sure that part is required to get that behavior, but it works as desired, so I'm not messing with it.
+
+#### [MC_PSTE](./keymap.c#L211-L219)
+
+| Condition | Output |
+| :-------- | :----- |
+| If <kbd>Shift</kbd> is active | <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Option</kbd> + <kbd>V</kbd> |
+| Otherwise | <kbd>Command</kbd> + <kbd>V</kbd> |
+
+The program I use this in uses <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Option</kbd> + <kbd>V</kbd> to paste while maintaining formatting (typeface, text size, etc.). Sometimes I want this and sometimes I don't. Using <kbd>Shift</kbd> changes the behavior.
+
+#### [NUBS_Z](./keymap.c#L220-L234)
+
+| Condition | Output |
+| :-------- | :----- |
+| If Right <kbd>Alt</kbd> is active | `KC_NUBS` |
+| Otherwise | `KC_Z` |
+
+Sometimes I type in languages from countries that use ISO layout, but my keyboard is ANSI, so I have one key fewer. This macro simulates the Non-US Backslash key if I use Right Alt + Z.
+
+#### [VRSN](./keymap.c#L235-L239)
+
+Outputs a string that tells me the Git commit from which my flashed firmware was built. Looks something like:
+
+    kc60/noroadsleft @ 0.6.326-6-gae6d7b-dirty
+
+#### [Emulated Numeric Keypad](./keymap.c#L240-L254)
+
+If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output numpad keycodes instead of number row keycodes, enabling quicker access to characters like ™ and °.
 
 ----
 

@@ -69,24 +69,3 @@ const uint16_t fn_actions[] = {
     [7] = ACTION_USAGE_CONSUMER(0x1A0),
 
 };
-
-/* custom action function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  /*
-  (void)opt;
-  switch(id) {
-    case ACTION_LEDS_ALL:
-        if(record->event.pressed) {
-          // signal the LED controller thread
-          chMBPost(&led_mailbox, LED_MSG_GAME_TOGGLE, TIME_IMMEDIATE);
-        }
-      break;
-    case ACTION_LEDS_GAME:
-      if(record->event.pressed) {
-        // signal the LED controller thread
-        chMBPost(&led_mailbox, LED_MSG_ALL_TOGGLE, TIME_IMMEDIATE);
-      }
-      break;
-  }
-  */
-}

@@ -14,11 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 // place overrides here
-
-#endif

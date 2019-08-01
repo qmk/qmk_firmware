@@ -47,12 +47,6 @@
 #ifndef _UI_H_
 #define _UI_H_
 
-extern volatile uint8_t usb_state;
-
-#define USB_STATE_UNKNOWN 0
-#define USB_STATE_POWERDOWN 1
-#define USB_STATE_POWERUP 2
-
 //! \brief Initializes the user interface
 void ui_init(void);
 

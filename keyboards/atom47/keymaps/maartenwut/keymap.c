@@ -9,8 +9,6 @@
 #define _LO 1 //FN1
 #define _RA 2 //FN
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
     CTRLZ = SAFE_RANGE,
     CTRLX,

@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Windows based definitions.
 #define K_SPCFN LT(SYMB, KC_SPACE) // Tap for space, hold for symbols layer
 #define K_PRVWD LCTL(KC_LEFT)      // Previous word
@@ -66,28 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 
 };
-
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(CURS, KC_BSPC),
-    [1] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPACE),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 

@@ -12,13 +12,9 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
-UNICODEMAP_ENABLE = yes		# unicodemap
+UNICODEMAP_ENABLE = yes     # unicodemap
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = yes
 LEADER_ENABLE = yes
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

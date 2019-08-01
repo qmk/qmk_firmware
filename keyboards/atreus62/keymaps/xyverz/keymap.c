@@ -63,10 +63,6 @@ enum atreus52_keycodes {
   RAISE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
 
@@ -135,9 +131,6 @@ void matrix_init_user(void) {
    DDRB &= ~(1<<0);
    PORTB &= ~(1<<0);
 #endif
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

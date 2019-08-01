@@ -39,7 +39,6 @@
 #----------------------------------------------------------------------------
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -105,8 +104,4 @@ NKRO_ENABLE = yes		    # USB Nkey Rollover - if this doesn't work, see here: htt
 # UNICODE_ENABLE = YES		# Unicode
 # BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes    # Enable RGB Underglow
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
 

@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright %YEAR% %YOUR_NAME%
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

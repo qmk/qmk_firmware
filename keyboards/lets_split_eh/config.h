@@ -34,11 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+/* serial.c configuration for split keyboard */
+//#define SOFT_SERIAL_PIN D0
 
 #endif

@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 volatile clk_t system_clks;
 volatile uint64_t ms_clk;
-
-volatile uint8_t us_delay_done;
+uint32_t usec_delay_mult;
+#define USEC_DELAY_LOOP_CYCLES 3 //Sum of instruction cycles in us delay loop
 
 const uint32_t sercom_apbbase[] = {(uint32_t)SERCOM0,(uint32_t)SERCOM1,(uint32_t)SERCOM2,(uint32_t)SERCOM3,(uint32_t)SERCOM4,(uint32_t)SERCOM5};
 const uint8_t sercom_pchan[] = {7, 8, 23, 24, 34, 35};
@@ -72,6 +72,9 @@ void CLK_oscctrl_init(void)
     while (pgclk->SYNCBUSY.bit.GENCTRL0) { DBGC(DC_CLK_OSC_INIT_GCLK_SYNC_GENCTRL0); }
 
     system_clks.freq_gclk[0] = system_clks.freq_dpll[0];
+
+    usec_delay_mult = system_clks.freq_gclk[0] / (USEC_DELAY_LOOP_CYCLES * 1000000);
+    if (usec_delay_mult < 1) usec_delay_mult = 1; //Never allow a multiplier of zero
 
     DBGC(DC_CLK_OSC_INIT_COMPLETE);
 }
@@ -158,23 +161,11 @@ void TC4_Handler()
     }
 }
 
-void TC5_Handler()
-{
-    if (TC5->COUNT16.INTFLAG.bit.MC0)
-    {
-        TC5->COUNT16.INTFLAG.reg = TC_INTENCLR_MC0;
-        us_delay_done = 1;
-        TC5->COUNT16.CTRLA.bit.ENABLE = 0;
-        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
-    }
-}
-
 uint32_t CLK_enable_timebase(void)
 {
     Gclk *pgclk = GCLK;
     Mclk *pmclk = MCLK;
     Tc *ptc4 = TC4;
-    Tc *ptc5 = TC5;
     Tc *ptc0 = TC0;
     Evsys *pevsys = EVSYS;
 
@@ -188,11 +179,6 @@ uint32_t CLK_enable_timebase(void)
     pmclk->APBCMASK.bit.TC4_ = 1;
     pgclk->PCHCTRL[TC4_GCLK_ID].bit.GEN = GEN_TC45;
     pgclk->PCHCTRL[TC4_GCLK_ID].bit.CHEN = 1;
-
-    //unmask TC5 sourcegclk2 to TC5
-    pmclk->APBCMASK.bit.TC5_ = 1;
-    pgclk->PCHCTRL[TC5_GCLK_ID].bit.GEN = GEN_TC45;
-    pgclk->PCHCTRL[TC5_GCLK_ID].bit.CHEN = 1;
 
     //configure TC4
     DBGC(DC_CLK_ENABLE_TIMEBASE_TC4_BEGIN);
@@ -219,30 +205,6 @@ uint32_t CLK_enable_timebase(void)
     ptc4->COUNT16.INTENSET.bit.MC0 = 1;
 
     DBGC(DC_CLK_ENABLE_TIMEBASE_TC4_COMPLETE);
-
-    //configure TC5
-    DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_BEGIN);
-    ptc5->COUNT16.CTRLA.bit.ENABLE = 0;
-    while (ptc5->COUNT16.SYNCBUSY.bit.ENABLE) { DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_SYNC_DISABLE); }
-    ptc5->COUNT16.CTRLA.bit.SWRST = 1;
-    while (ptc5->COUNT16.SYNCBUSY.bit.SWRST) { DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_SYNC_SWRST_1); }
-    while (ptc5->COUNT16.CTRLA.bit.SWRST) { DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_SYNC_SWRST_2); }
-
-    //CTRLA defaults
-    //CTRLB as default, counting up
-    ptc5->COUNT16.CTRLBCLR.reg = 5;
-    while (ptc5->COUNT16.SYNCBUSY.bit.CTRLB) { DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_SYNC_CLTRB); }
-    //ptc5->COUNT16.DBGCTRL.bit.DBGRUN = 1;
-
-    //wave mode
-    ptc5->COUNT16.WAVE.bit.WAVEGEN = 1; //MFRQ match frequency mode, toggle each CC match
-    //generate event for next stage
-    ptc5->COUNT16.EVCTRL.bit.MCEO0 = 1;
-
-    NVIC_EnableIRQ(TC5_IRQn);
-    ptc5->COUNT16.INTENSET.bit.MC0 = 1;
-
-    DBGC(DC_CLK_ENABLE_TIMEBASE_TC5_COMPLETE);
 
     //unmask TC0,1, sourcegclk2 to TC0,1
     pmclk->APBAMASK.bit.TC0_ = 1;
@@ -289,37 +251,27 @@ uint32_t CLK_enable_timebase(void)
     return 0;
 }
 
-uint32_t CLK_get_ms(void)
+void CLK_delay_us(uint32_t usec)
 {
-    return ms_clk;
-}
-
-void CLK_delay_us(uint16_t usec)
-{
-    us_delay_done = 0;
-
-    if (TC5->COUNT16.CTRLA.bit.ENABLE)
-    {
-        TC5->COUNT16.CTRLA.bit.ENABLE = 0;
-        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
-    }
-
-    if (usec < 10) usec = 0;
-    else usec -= 10;
-
-    TC5->COUNT16.CC[0].reg = usec;
-    while (TC5->COUNT16.SYNCBUSY.bit.CC0) {}
-
-    TC5->COUNT16.CTRLA.bit.ENABLE = 1;
-    while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
-
-    while (!us_delay_done) {}
+    asm (
+        "CBZ R0, return\n\t"        //If usec == 0, branch to return label
+    );
+    asm (
+        "MULS R0, %0\n\t"           //Multiply R0(usec) by usec_delay_mult and store in R0
+        ".balign 16\n\t"            //Ensure loop is aligned for fastest performance
+        "loop: SUBS R0, #1\n\t"     //Subtract 1 from R0 and update flags (1 cycle)
+        "BNE loop\n\t"              //Branch if non-zero to loop label (2 cycles)  NOTE: USEC_DELAY_LOOP_CYCLES is the sum of loop cycles
+        "return:\n\t"               //Return label
+        : //No output registers
+        : "r" (usec_delay_mult)     //For %0
+    );
+    //Note: BX LR generated
 }
 
 void CLK_delay_ms(uint64_t msec)
 {
-    msec += CLK_get_ms();
-    while (msec > CLK_get_ms()) {}
+    msec += timer_read64();
+    while (msec > timer_read64()) {}
 }
 
 void clk_enable_sercom_apbmask(int sercomn)

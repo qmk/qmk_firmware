@@ -13,18 +13,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "process_unicode.h"
 #include "action_util.h"
 #include "eeprom.h"
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
-  if (keycode > QK_UNICODE && record->event.pressed) {
-    uint16_t unicode = keycode & 0x7FFF;
-    unicode_input_mode_init();
+  if (keycode >= QK_UNICODE && keycode <= QK_UNICODE_MAX && record->event.pressed) {
     unicode_input_start();
-    register_hex(unicode);
+    register_hex(keycode & 0x7FFF);
     unicode_input_finish();
   }
   return true;
 }
-

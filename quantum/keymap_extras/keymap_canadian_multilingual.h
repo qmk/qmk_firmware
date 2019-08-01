@@ -13,21 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KEYMAP_CANADIAN_MULTILINGUAG_H
-#define KEYMAP_CANADIAN_MULTILINGUAG_H
+#ifndef KEYMAP_CANADIAN_MULTILINGUAL_H
+#define KEYMAP_CANADIAN_MULTILINGUAL_H
 
 #include "keymap.h"
-
-// Alt gr
-#ifndef ALTGR
-#define ALTGR(kc)   RALT(kc)
-#endif
-#ifndef ALGR
-#define ALGR(kc)    ALTGR(kc)
-#endif
-
-#define CSA_ALTGR   KC_RALT
-#define CSA_ALGR    CSA_ALTGR
 
 #ifndef GR2A
 #define GR2A(kc)    RCTL(kc)
@@ -78,43 +67,43 @@
 
 // Alt Gr-ed characters
 // First row
-#define CSA_PIPE                ALTGR(CSA_SLASH)        // |
-#define CSA_CURRENCY            ALTGR(KC_4)             // ¤
+#define CSA_PIPE                ALGR(CSA_SLASH)         // |
+#define CSA_CURRENCY            ALGR(KC_4)              // ¤
 #define CSA_CURR                CSA_CURRENCY
-#define CSA_LEFT_CURLY_BRACE    ALTGR(KC_7)             // {
+#define CSA_LEFT_CURLY_BRACE    ALGR(KC_7)              // {
 #define CSA_LCBR                CSA_LEFT_CURLY_BRACE
-#define CSA_RIGHT_CURLY_BRACE   ALTGR(KC_8)             // }
+#define CSA_RIGHT_CURLY_BRACE   ALGR(KC_8)              // }
 #define CSA_RCBR                CSA_RIGHT_CURLY_BRACE
-#define CSA_LBRACKET            ALTGR(KC_9)             // [
+#define CSA_LBRACKET            ALGR(KC_9)              // [
 #define CSA_LBRC                CSA_LBRACKET
-#define CSA_RBRACKET            ALTGR(KC_0)             // ]
+#define CSA_RBRACKET            ALGR(KC_0)              // ]
 #define CSA_RBRC                CSA_RBRACKET
-#define CSA_NEGATION            ALTGR(KC_EQUAL)         // ¬
+#define CSA_NEGATION            ALGR(KC_EQUAL)          // ¬
 #define CSA_NEGT                CSA_NEGATION
 
 // Second row
 // euro symbol not available on Linux? (X.org)
-#define CSA_EURO        ALTGR(KC_E)                 // €
-#define CSA_DEAD_GRAVE  ALTGR(CSA_DEAD_CIRCUMFLEX)
+#define CSA_EURO        ALGR(KC_E)                  // €
+#define CSA_DEAD_GRAVE  ALGR(CSA_DEAD_CIRCUMFLEX)
 #define CSA_DGRV        CSA_DEAD_GRAVE              // dead `
-#define CSA_DEAD_TILDE  ALTGR(CSA_C_CEDILLA)        // ~
+#define CSA_DEAD_TILDE  ALGR(CSA_C_CEDILLA)         // ~
 #define CSA_DTLD        CSA_DEAD_TILDE
 
 // Third row
-#define CSA_DEGREE  ALTGR(KC_SCOLON)    // °
+#define CSA_DEGREE  ALGR(KC_SCOLON)     // °
 #define CSA_DEGR    CSA_DEGREE
 
 // Fourth row
-#define CSA_LEFT_GUILLEMET      ALTGR(KC_Z)         // «
+#define CSA_LEFT_GUILLEMET      ALGR(KC_Z)          // «
 #define CSA_LGIL                CSA_LEFT_GUILLEMET
-#define CSA_RIGHT_GUILLEMET     ALTGR(KC_X)         // »
+#define CSA_RIGHT_GUILLEMET     ALGR(KC_X)          // »
 #define CSA_RGIL                CSA_RIGHT_GUILLEMET
-#define CSA_LESS                ALTGR(KC_COMMA)     // <
-#define CSA_GREATER             ALTGR(KC_DOT)       // >
+#define CSA_LESS                ALGR(KC_COMMA)      // <
+#define CSA_GREATER             ALGR(KC_DOT)        // >
 #define CSA_GRTR                CSA_GREATER
 
 // Space bar
-#define CSA_NON_BREAKING_SPACE  ALTGR(KC_SPACE)
+#define CSA_NON_BREAKING_SPACE  ALGR(KC_SPACE)
 #define CSA_NBSP                CSA_NON_BREAKING_SPACE
 
 // GR2A-ed characters
@@ -201,7 +190,7 @@
 // nothing on 2
 #define CSA_POUND               GR2A(LSFT(KC_3))    // £
 #define CSA_GBP                 CSA_POUND_SIGN
-// already on ALTGR(KC_E)
+// already on ALGR(KC_E)
 #define CSA_EURO_BIS            GR2A(LSFT(KC_4))    // €
 #define CSA_EURB                CSA_EURO_BIS
 #define CSA_THREE_EIGHTHS       GR2A(LSFT(KC_5))    // ⅜

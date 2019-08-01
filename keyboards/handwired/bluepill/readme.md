@@ -3,15 +3,15 @@
 
 Keyboards using a BluePill controller (generic Chinese STM32F103C8T6) and based on the [KC64 of Xydane](https://github.com/Xydane/qmk_firmware).
 
-Keyboard Maintainer: [FPazos](https://github.com/fpazos), but I hope to leave the project in better hands.
-Hardware Supported: Bluepill STM32F103C8T6 
+Keyboard Maintainer: [FPazos](https://github.com/fpazos), but I hope to leave the project in better hands.  
+Hardware Supported: Bluepill STM32F103C8T6  
 Hardware Availability: Everywhere
 
 Make example for BluePill70 (after setting up your build environment):
 
-make handwired/bluepill/bluepill70:default
+    make handwired/bluepill/bluepill70:default
 
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 Read everything before using it.
 
@@ -47,14 +47,14 @@ That's the pinout;
     A4  LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
 
 And the wiring:
-ISO
+ISO  
 ![Wiring](https://i.imgur.com/ZCaxVzs.jpg)
-ANSI
+ANSI  
 ![Wiring](https://i.imgur.com/dBUJCdD.jpg)
 
-It also uses: 
+It also uses:  
 PC13: Caps Lock led.
 
-Backlight dual color leds, my version is for common anode that's more common, for leds with common anode just replace the palSetPad with palClearPad and viceversa.
-PA1: Backlight color A.
+Backlight dual color leds, my version is for common anode that's more common, for leds with common anode just replace the palSetPad with palClearPad and viceversa.  
+PA1: Backlight color A.  
 PA0: Backlight color B.

@@ -25,27 +25,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCTL,KC_LGUI,KC_LALT,                KC_SPC,                                 KC_RALT,KC_RGUI, KC_APP,  KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT  )
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-
 void matrix_init_user(void) {
 
 }

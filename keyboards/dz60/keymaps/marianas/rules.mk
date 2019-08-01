@@ -15,3 +15,7 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = no
 AUTO_SHIFT_ENABLE = no
+
+
+SRC += relativity.c
+SRC += customLogic.c

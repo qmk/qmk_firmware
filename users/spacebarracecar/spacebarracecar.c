@@ -71,6 +71,11 @@ void timer_timeout(void){
   rshiftp = false;
   #endif
   navesc = false;
+  timer_timeout_keymap();
+}
+
+__attribute__((weak))
+void timer_timeout_keymap(void){
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -96,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       navesc_timer = timer_read();
       layer_on(_NAV);
     } else {
-      if (timer_elapsed(navesc_timer) < 200 && navesc) {
+      if (timer_elapsed(navesc_timer) < TAPPING_TERM && navesc) {
         register_code(KC_ESC);
         unregister_code(KC_ESC);
       }
@@ -134,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       lshift = true;
     } else {
-      if (timer_elapsed(lshift_timer) < 200 && lshiftp && !game) {
+      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_8);
         unregister_code(KC_8);
@@ -154,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       rshift = true;
     } else {
-      if (timer_elapsed(rshift_timer) < 200 && rshiftp && !game) {
+      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_9);
         unregister_code(KC_9);
@@ -211,11 +216,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       timer_timeout();
       if (lshift || rshift){
         unregister_code(KC_LSFT);
-        register_code(DE_ALGR);
+        register_code(KC_ALGR);
         unregister_code(DE_PLUS);
         register_code(DE_PLUS);
         unregister_code(DE_PLUS);
-        unregister_code(DE_ALGR);
+        unregister_code(KC_ALGR);
         register_code(KC_LSFT);
       } else {
         register_code(KC_LSFT);
@@ -339,4 +344,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_keymap(keycode, record);
   }
+}
+
+__attribute__((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
 }

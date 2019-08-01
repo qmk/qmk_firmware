@@ -15,6 +15,10 @@ extern "C" {
 #   include "ch.h"
 #   define wait_ms(ms) chThdSleepMilliseconds(ms)
 #   define wait_us(us) chThdSleepMicroseconds(us)
+#elif defined PROTOCOL_ARM_ATSAM
+#   include "clks.h"
+#   define wait_ms(ms) CLK_delay_ms(ms)
+#   define wait_us(us) CLK_delay_us(us)
 #elif defined(__arm__)
 #   include "wait_api.h"
 #else  // Unit tests

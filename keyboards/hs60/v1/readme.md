@@ -9,10 +9,14 @@ Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](http
 Hardware Supported: HS60 ISO and ANSI PCBs with Atmega 32u4   
 Hardware Availability: https://mechboards.co.uk/shop/all/hs60-pcb/   
 
-Due to the RGB implementation, the HS60 is currently not compatible with community layouts.
+If you're using the [community layouts feature](https://docs.qmk.fm/#/feature_layouts) and using the 60_ansi layout, you need to make sure that you include this on your config.h to ensure that the RGB Matrix is properly configured:
+
+    #ifdef KEYBOARD_hs60
+      #define HS60_ANSI
+    #endif
 
 Make example for this keyboard (after setting up your build environment):
 
     make hs60/v1:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

@@ -26,13 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
          * │ SINS │   ♥  │   ≈  │   ✓  │   ✗  │   ←  │   →  │   €  │   ß  │   Ü  │   Ö  │   Ä  │
          * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-         * │ Powr │ Rset │ BLSt │ Home │ End  │ PgUp │ PgDn │ Left │ Down │  Up  │ Rght │      │
+         * │ Rset │ BLSt │  F1  │ Home │ End  │ PgUp │ PgDn │ Left │ Down │  Up  │ Rght │      │
          * └──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┘
          */
         KC_TILD   , KC_1     , KC_2     , KC_3     , KC_4     , KC_5      , KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , KC_DEL,
         KC_GRV    , KC_EXLM  , KC_AT    , KC_HASH  , KC_DLR   , KC_PERC   , KC_CIRC  , KC_AMPR  , KC_ASTR  , UC(L'ü') , UC(L'ö') , UC(L'ä'),
         S(KC_INS) , UC(L'♥') , UC(L'≈') , UC(L'✓') , UC(L'✗') , UC(L'←')  , UC(L'→') , UC(L'€') , UC(L'ß') , UC(L'Ü') , UC(L'Ö') , UC(L'Ä'),
-        KC_PWR    , RESET    , BL_STEP  , KC_HOME  , KC_END   , KC_PGUP   , KC_PGDN  , KC_LEFT  , KC_DOWN  , KC_UP    , KC_RGHT  , KC_TRNS
+        RESET     , BL_STEP  , KC_F1    , KC_HOME  , KC_END   , KC_PGUP   , KC_PGDN  , KC_LEFT  , KC_DOWN  , KC_UP    , KC_RGHT  , KC_TRNS
     )
 };
 

@@ -14,11 +14,6 @@ extern keymap_config_t keymap_config;
 #define NUMPAD M(_NP)
 #define LAYER1 M(_L1)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NP] = LAYOUT_ortho_4x4( /* Numpad */
     KC_KP_7, KC_KP_8,   KC_KP_9, KC_KP_PLUS, \
@@ -32,10 +27,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LEFT,    KC_DOWN, KC_RIGHT, _______, \
     _______,    _______, _______,  _______
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

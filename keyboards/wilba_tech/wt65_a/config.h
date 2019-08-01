@@ -44,16 +44,15 @@
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -102,11 +101,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -185,3 +179,24 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
+#define WT_MONO_BACKLIGHT
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// EEPROM usage
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 32
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x08
+#define EEPROM_VERSION_ADDR 34
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 635
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 389
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

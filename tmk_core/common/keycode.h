@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
-#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_MRWD)
+#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_BRID)
 
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
 
@@ -45,6 +45,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MOD_BIT(code)            (1 << MOD_INDEX(code))
 #define MOD_INDEX(code)          ((code) & 0x07)
+
+#define MOD_MASK_CTRL            (MOD_BIT(KC_LCTRL)  | MOD_BIT(KC_RCTRL))
+#define MOD_MASK_SHIFT           (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
+#define MOD_MASK_ALT             (MOD_BIT(KC_LALT)   | MOD_BIT(KC_RALT))
+#define MOD_MASK_GUI             (MOD_BIT(KC_LGUI)   | MOD_BIT(KC_RGUI))
+#define MOD_MASK_CS              (MOD_MASK_CTRL  | MOD_MASK_SHIFT)
+#define MOD_MASK_CA              (MOD_MASK_CTRL  | MOD_MASK_ALT)
+#define MOD_MASK_CG              (MOD_MASK_CTRL  | MOD_MASK_GUI)
+#define MOD_MASK_SA              (MOD_MASK_SHIFT | MOD_MASK_ALT)
+#define MOD_MASK_SG              (MOD_MASK_SHIFT | MOD_MASK_GUI)
+#define MOD_MASK_AG              (MOD_MASK_ALT   | MOD_MASK_GUI)
+#define MOD_MASK_CSA             (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_ALT)
+#define MOD_MASK_CSG             (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_GUI)
+#define MOD_MASK_CAG             (MOD_MASK_CTRL  | MOD_MASK_ALT   | MOD_MASK_GUI)
+#define MOD_MASK_SAG             (MOD_MASK_SHIFT | MOD_MASK_ALT   | MOD_MASK_GUI)
+#define MOD_MASK_CSAG            (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 
 #define FN_BIT(code)             (1 << FN_INDEX(code))
 #define FN_INDEX(code)           ((code) - KC_FN0)
@@ -140,6 +156,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LWIN KC_LGUI
 #define KC_RCTL KC_RCTRL
 #define KC_RSFT KC_RSHIFT
+#define KC_ALGR KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
 
@@ -170,6 +187,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WFAV KC_WWW_FAVORITES
 #define KC_MFFD KC_MEDIA_FAST_FORWARD
 #define KC_MRWD KC_MEDIA_REWIND
+#define KC_BRIU KC_BRIGHTNESS_UP
+#define KC_BRID KC_BRIGHTNESS_DOWN
+
+/* System Specific */
+#define KC_BRMU KC_PAUSE
+#define KC_BRMD KC_SCROLLLOCK
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
@@ -457,6 +480,8 @@ enum internal_special_keycodes {
   KC_WWW_FAVORITES,
   KC_MEDIA_FAST_FORWARD,
   KC_MEDIA_REWIND,
+  KC_BRIGHTNESS_UP,
+  KC_BRIGHTNESS_DOWN,
 
   /* Fn keys */
   KC_FN0                  = 0xC0,

@@ -1,5 +1,4 @@
-#ifndef REV2_H
-#define REV2_H
+#pragma once
 
 #include "lets_split.h"
 
@@ -58,5 +57,3 @@
 #endif
 
 #define LAYOUT_ortho_4x12 LAYOUT
-
-#endif

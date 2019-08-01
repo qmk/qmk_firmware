@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Ported to QMK by Peter Roe <pete@13bit.me>
 */
 
-#ifndef KEYMAP_COMMON_H
-#define KEYMAP_COMMON_H
+#ifndef ADB_USB_H
+#define ADB_USB_H
 
 #include "quantum.h"
 
@@ -58,10 +58,10 @@ Ported to QMK by Peter Roe <pete@13bit.me>
     { KC_NO, KC_NO, KC_NO, K4B, K4C,   KC_NO, K4E,   KC_NO, }, \
     { KC_NO, KC_NO, K52,   K53, K54,   K55,   K56,   K57    }, \
     { K58,   K59,   KC_NO, K5B, K5C,   KC_NO, KC_NO, KC_NO, }, \
-    { K60,   K61,   K62,   K63, K64,   K65, KC_NO,   K67    }, \
-    { KC_NO, K69,   KC_NO, K6B, KC_NO, K6D, KC_NO,   K6F    }, \
-    { KC_NO, K71,   K72,   K73, K74,   K75, K76,     K77    }, \
-    { K78,   K79,   K7A,   K7B, K7C,   K7D, KC_NO,   K7F    }  \
+    { K60,   K61,   K62,   K63, K64,   K65,   KC_NO, K67    }, \
+    { KC_NO, K69,   KC_NO, K6B, KC_NO, K6D,   KC_NO, K6F    }, \
+    { KC_NO, K71,   K72,   K73, K74,   K75,   K76,   K77    }, \
+    { K78,   K79,   K7A,   K7B, K7C,   K7D,   KC_NO, K7F    }  \
 }
 
 /* M0116 Apple Standard Keyboard ANSI
