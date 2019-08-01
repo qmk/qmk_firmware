@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xA11C
+#define PRODUCT_ID      0xA71C
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Mrten.dk
 #define PRODUCT         Wonderland
