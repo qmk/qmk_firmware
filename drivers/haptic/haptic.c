@@ -170,10 +170,12 @@ void haptic_set_mode(uint8_t mode) {
 }
 
 void haptic_set_amplitude(uint8_t amp) {
+  #ifdef DRV2605L
   haptic_config.amplitude = amp;
   eeconfig_update_haptic(haptic_config.raw);
   xprintf("haptic_config.amplitude = %u\n", haptic_config.amplitude);
   DRV_amplitude(amp);
+  #endif
 }
 
 void haptic_set_buzz(uint8_t buzz) {
@@ -241,8 +243,9 @@ void haptic_cont_increase(void) {
   if (haptic_config.amplitude >= 120) {
     amp = 120;
   }
+
+  haptic_set_amplitude(amp);
   #endif
-    haptic_set_amplitude(amp);
 }
 
 void haptic_cont_decrease(void) {
@@ -251,8 +254,8 @@ void haptic_cont_decrease(void) {
   if (haptic_config.amplitude < 20) {
     amp = 20;
   }
-  #endif
   haptic_set_amplitude(amp);
+  #endif
 }
 
 
