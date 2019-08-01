@@ -121,11 +121,10 @@ void DRV_init(void)
   DRV_write(DRV_GO, 0x01);
 }
 
-
 void DRV_rtp_init(void)
 {
   DRV_write(DRV_GO, 0x00);
-  DRV_write(DRV_RTP_INPUT, 20); // arbitrary amplitude
+  DRV_write(DRV_RTP_INPUT, 20); //20 is the lowest value I've found where haptics can still be felt. 
   DRV_write(DRV_MODE, 0x05); 
   DRV_write(DRV_GO, 0x01);
 }

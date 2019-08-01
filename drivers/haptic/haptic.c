@@ -224,12 +224,14 @@ void haptic_disable_continuous(void) {
 }
 
 void haptic_toggle_continuous(void) {
+#ifdef DRV2605L
 if (haptic_config.cont) {
   haptic_disable_continuous();
   } else {
-  haptic_enable_continuous();
+    haptic_enable_continuous();
   }
   eeconfig_update_haptic(haptic_config.raw);
+#endif
 }
 
 

@@ -167,16 +167,6 @@
 #define DRV_VBAT_VOLT_MONITOR       0x21
 #define DRV_LRA_RESONANCE_PERIOD    0x22
 
-/* RTP Amplitude Values */
-typedef enum DRV_RTP_AMP{
-  gentle            = 15,
-  slow              = 30,
-  medium            = 70,
-  fast              = 100,
-  drv_rtp_amp_max   = 100,
-}DRV_RTP_AMP;
-
-
 void DRV_init(void);
 void DRV_write(const uint8_t drv_register, const uint8_t settings);
 uint8_t DRV_read(const uint8_t regaddress);
