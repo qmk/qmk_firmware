@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-game.jpg" alt="Kudox Game PCB rev1.0" width="600"/>
+<img src="https://raw.githubusercontent.com/kumaokobo/kudox-keyboard/master/img/kudox-game-pcb.jpg" alt="Kudox Game PCB rev1.0" width="600"/>
 </p>
 
 - Keyboard Maintainer: [Kumao Kobo](https://github.com/kumaokobo)  

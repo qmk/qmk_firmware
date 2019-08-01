@@ -1,1 +1,1 @@
-# The default keymap for Kudox Game
+# The default keymap for Kudox Game Keyboard

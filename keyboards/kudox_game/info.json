@@ -1,9 +1,9 @@
 {
     "keyboard_name": "Kudox Game Keyboard",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "Kumao Kobo",
     "width": 7.5,
-    "height": 5.75,
+    "height": 6.75,
     "layouts": {
         "LAYOUT": {
             "layout": [
