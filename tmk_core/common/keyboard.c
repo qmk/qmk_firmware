@@ -130,7 +130,7 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 #endif
 
 void disable_jtag(void) {
-// To use PF4-7, disable JTAG by writing JTD bit twice within four cycles.
+// To use PF4-7 (PC2-5 on ATmega32A), disable JTAG by writing JTD bit twice within four cycles.
 #if (defined(__AVR_AT90USB646__)  || defined(__AVR_AT90USB647__)  || \
      defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || \
      defined(__AVR_ATmega16U4__)  || defined(__AVR_ATmega32U4__))
