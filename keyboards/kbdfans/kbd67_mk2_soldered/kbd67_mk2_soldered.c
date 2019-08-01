@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "kbd67_mk2.h"
+#include "kbd67_mk2_soldered.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
