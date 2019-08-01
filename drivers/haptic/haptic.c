@@ -170,10 +170,10 @@ void haptic_set_mode(uint8_t mode) {
 }
 
 void haptic_set_amplitude(uint8_t amp) {
-  #ifdef DRV2605L
   haptic_config.amplitude = amp;
   eeconfig_update_haptic(haptic_config.raw);
   xprintf("haptic_config.amplitude = %u\n", haptic_config.amplitude);
+  #ifdef DRV2605L
   DRV_amplitude(amp);
   #endif
 }
@@ -215,14 +215,18 @@ void haptic_enable_continuous(void) {
   haptic_config.cont        = 1;
   xprintf("haptic_config.cont = %u\n", haptic_config.cont);
   eeconfig_update_haptic(haptic_config.raw);
+  #ifdef DRV2605L
   DRV_rtp_init();
+  #endif
 }
 
 void haptic_disable_continuous(void) {
   haptic_config.cont        = 0;
   xprintf("haptic_config.cont = %u\n", haptic_config.cont);
   eeconfig_update_haptic(haptic_config.raw);
+  #ifdef DRV2605L
   DRV_write(DRV_MODE,0x00); 
+  #endif
 }
 
 void haptic_toggle_continuous(void) {
@@ -239,23 +243,18 @@ if (haptic_config.cont) {
 
 void haptic_cont_increase(void) {
   uint8_t amp = haptic_config.amplitude + 10;
-  #ifdef DRV2605L
   if (haptic_config.amplitude >= 120) {
     amp = 120;
   }
-
   haptic_set_amplitude(amp);
-  #endif
 }
 
 void haptic_cont_decrease(void) {
   uint8_t amp = haptic_config.amplitude - 10;
-  #ifdef DRV2605L
   if (haptic_config.amplitude < 20) {
     amp = 20;
   }
   haptic_set_amplitude(amp);
-  #endif
 }
 
 
