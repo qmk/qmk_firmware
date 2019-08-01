@@ -66,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LALT,    KC_LGUI,    KC_LCTL,    MO(_LAYER1),    KC_SPC,        KC_RSFT, KC_BSPC,  LALT(KC_GRV),               KC_MS_L,KC_MS_D,KC_MS_R \
   ),
   [_NICOLA] = LAYOUT( \
-    XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,    KC_BSPC,  \
-    XXXXXXX,    NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,      NG_Y,    NG_U,    NG_I,    NG_O,    NG_P,    KC_LBRC, KC_RBRC, KC_BSLS,  \
-    XXXXXXX,     NG_A,    NG_S,    NG_D,    NG_F,    NG_G,      NG_H,    NG_J,    NG_K,    NG_L,    NG_SCLN, KC_QUOT,        KC_ENT,   \
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,    KC_BSPC,  \
+    KC_TAB,    NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,      NG_Y,    NG_U,    NG_I,    NG_O,    NG_P,    KC_LBRC, KC_RBRC, KC_BSLS,  \
+    KC_CAPS,     NG_A,    NG_S,    NG_D,    NG_F,    NG_G,      NG_H,    NG_J,    NG_K,    NG_L,    NG_SCLN, KC_QUOT,        KC_ENT,   \
     KC_LSFT,       NG_Z,    NG_X,    NG_C,    NG_V,    NG_B,      NG_N,    NG_M,    NG_COMM, NG_DOT,  KC_SLSH, KC_BTN1,   KC_MS_U,  KC_BTN2,   \
     _______,    _______,    _______,    MO(_LAYER1),    NG_SHFTL,        NG_SHFTR, _______,  _______,               KC_MS_L,KC_MS_D,KC_MS_R \
   ),
