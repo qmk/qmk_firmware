@@ -16,6 +16,8 @@
 #include "ez.h"
 #include "ch.h"
 #include "hal.h"
+ keyboard_config_t keyboard_config;
+
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
@@ -150,76 +152,76 @@ static uint32_t planck_ez_right_led_duty;
 static uint32_t planck_ez_left_led_duty;
 
 void planck_ez_right_led_level(uint8_t level) {
-  planck_ez_right_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
-  if (level == 0) {
-      // Turn backlight off
-      pwmDisableChannel(&PWMD4, 2);
-  } else {
-    // Turn backlight on
-    pwmEnableChannel(&PWMD4, 2, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_right_led_duty));
-  }
+    planck_ez_right_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
+    if (level == 0) {
+        // Turn backlight off
+        pwmDisableChannel(&PWMD4, 2);
+    } else {
+        // Turn backlight on
+        pwmEnableChannel(&PWMD4, 2, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_right_led_duty));
+    }
 }
 
 
 void planck_ez_right_led_on(void){
-    // pwmStop(&PWMD4);
-    // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 2, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_right_led_duty));
 }
 
 void planck_ez_right_led_off(void){
-    // pwmStop(&PWMD4);
-    // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 2);
 }
 
 void planck_ez_left_led_level(uint8_t level) {
-  planck_ez_right_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
-  if (level == 0) {
-      // Turn backlight off
+    planck_ez_left_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
+    if (level == 0) {
+        // Turn backlight off
         pwmDisableChannel(&PWMD4, 3);
-  } else {
-    // Turn backlight on
-    pwmEnableChannel(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_left_led_duty));
-  }
+    } else {
+        // Turn backlight on
+        pwmEnableChannel(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_left_led_duty));
+    }
 }
 
 void planck_ez_left_led_on(void){
-//    pwmStop(&PWMD4);
-    // pwmStart(&PWMD4, &pwmCFG);
     pwmEnableChannel(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_left_led_duty));
 }
 
 void planck_ez_left_led_off(void){
-    // pwmStop(&PWMD4);
-    // pwmStart(&PWMD4, &pwmCFG);
     pwmDisableChannel(&PWMD4, 3);
 }
 
 
 void led_initialize_hardware(void) {
     pwmStart(&PWMD4, &pwmCFG);
-    planck_ez_right_led_duty = cie_lightness(0xFFFF);
-    planck_ez_left_led_duty = cie_lightness(0xFFFF);
 
-
-    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, planck_ez_right_led_duty));
+    // set up defaults
+    planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
     palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(2));
-    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, planck_ez_left_led_duty));
+    planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
     palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(2));
 
+
+    // turn LEDs off by default
     planck_ez_left_led_off();
     planck_ez_right_led_off();
 }
 
-
 void keyboard_pre_init_kb(void) {
-    led_initialize_hardware();
+    // read kb settings from eeprom
+    keyboard_config.raw = eeconfig_read_kb();
 
+    // initialize settings for front LEDs
+    led_initialize_hardware();
+}
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.led_level = 4;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
@@ -239,4 +241,23 @@ uint32_t layer_state_set_kb(uint32_t state) {
             break;
     }
     return state;
+}
+
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                 keyboard_config.led_level++;
+                 if (keyboard_config.led_level > 4) {
+                    keyboard_config.led_level = 0;
+                 }
+                 planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 eeconfig_update_kb(keyboard_config.raw);
+                 layer_state_set_kb(layer_state);
+            }
+            break;
+    }
+    return true;
 }
