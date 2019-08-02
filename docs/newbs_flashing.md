@@ -223,7 +223,7 @@ For the PJRC devices (Teensy's), when you're ready to compile and flash your fir
 
 For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
 
-    make erdogox_ez:xyverz:teensy
+    make ergodox_ez:xyverz:teensy
 
 Once the firmware finishes compiling, it will output something like this: 
 
