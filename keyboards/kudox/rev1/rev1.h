@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../kudox.h"
-
+#include "kudox.h"
 #include "quantum.h"
 
 #define LAYOUT( \
