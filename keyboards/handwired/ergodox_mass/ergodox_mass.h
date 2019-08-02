@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include "quantum.h"
+
 #define LAYOUT(                      \
     L00,L01,L02,L03,L04,L05,L06,     \
     L10,L11,L12,L13,L14,L15,L16,     \
