@@ -78,11 +78,12 @@ uint8_t c_templates[][2][3] = {
 {{255, 255, 0}, {0, 250, 200}},
 {{24, 0, 204}, {255, 0, 118}},
 {{57, 167, 142}, {57, 255, 50}},
-{{24, 215, 204}, {255, 60, 118}}
+{{24, 215, 204}, {255, 60, 118}},
+{{255, 0, 0}, {0, 0, 0}}
 };
 
 uint8_t CS = 0; //current schema
-uint8_t schemaCount = 3;
+uint8_t schemaCount = 5;
 
 uint16_t count = 1;
 uint8_t colorSelect = 0;
@@ -184,11 +185,38 @@ void run_pool(issi3733_led_t *cur, float* r, float* g, float* b) {
     *r = c_templates[CS][0][0]*(c1Mult)+c_templates[CS][1][0]*(c2Mult);
     *g = c_templates[CS][0][1]*(c1Mult)+c_templates[CS][1][1]*(c2Mult);
     *b = c_templates[CS][0][2]*(c1Mult)+c_templates[CS][1][2]*(c2Mult);
+    //apply colors
+}
+
+void run_reg(issi3733_led_t *cur, float* r, float* g, float* b) {
+    float wave_val = 0;
+    if(cur->scan != 255)
+    	wave_val = curr[getRow(cur->id)][getCol(cur->id)];
+
+    float c1Mult = wave_val;
+    float c2Mult = (1-wave_val);
+
+    //clamp values
+    c1Mult = (c1Mult < 0) ? 0 : c1Mult;
+    c1Mult = (c1Mult > 1) ? 1 : c1Mult;
+    c2Mult = (c2Mult < 0) ? 0 : c2Mult;
+    c2Mult = (c2Mult > 1) ? 1 : c2Mult;
+
+    //Raise Effect
+    c1Mult = (c1Mult > 0.1) ? 1 : c1Mult;
+    c2Mult = (c1Mult > 0.1) ? 0 : c2Mult;
+
+    //apply colors
+    *r = c_templates[CS][0][0]*(c1Mult)+c_templates[CS][1][0]*(c2Mult);
+    *g = c_templates[CS][0][1]*(c1Mult)+c_templates[CS][1][1]*(c2Mult);
+    *b = c_templates[CS][0][2]*(c1Mult)+c_templates[CS][1][2]*(c2Mult);
 }
 
 void run_led(issi3733_led_t *cur, float* r,float* g, float* b) {
 	if(led_pool_enabled)
 		run_pool(cur, r, g, b);
+	else
+	  run_reg(cur, r, g, b);
 }
 
 //end effect handlers
@@ -312,10 +340,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case L_T_PL:
-			if(record->event.pressed) {
-				led_pool_enabled = !led_pool_enabled;
-			}
-			return false;
+            if(record->event.pressed) {
+              led_pool_enabled = !led_pool_enabled;
+            }
+            return false;
         case L_T_CSTM:
         	if(record->event.pressed) {
         		custom_enabled = !custom_enabled;
@@ -426,6 +454,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         		uint8_t col = record->event.key.col;
         		curr[row][col] = 1;
         	}
-            return true; //Process all other keycodes normally
+          return true; //Process all other keycodes normally
     }
 }
