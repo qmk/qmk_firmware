@@ -87,3 +87,5 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 # unsupported features for now
 NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
+
+LAYOUTS = 65_ansi
