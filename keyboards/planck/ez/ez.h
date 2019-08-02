@@ -53,5 +53,7 @@ LAYOUT_planck_1x2uC( \
 
 void planck_ez_right_led_on(void);
 void planck_ez_right_led_off(void);
+void planck_ez_right_led_level(uint8_t level);
 void planck_ez_left_led_on(void);
 void planck_ez_left_led_off(void);
+void planck_ez_left_led_level(uint8_t level);

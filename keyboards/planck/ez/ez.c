@@ -116,9 +116,25 @@ void suspend_power_down_kb(void) {
 
 /* Left B9   Right B8 */
 
+// See http://jared.geek.nz/2013/feb/linear-led-pwm
+static uint16_t cie_lightness(uint16_t v) {
+  if (v <= 5243) // if below 8% of max
+    return v / 9; // same as dividing by 900%
+  else {
+    uint32_t y = (((uint32_t) v + 10486) << 8) / (10486 + 0xFFFFUL); // add 16% of max and compare
+    // to get a useful result with integer division, we shift left in the expression above
+    // and revert what we've done again after squaring.
+    y = y * y * y >> 8;
+    if (y > 0xFFFFUL) // prevent overflow
+      return 0xFFFFU;
+    else
+      return (uint16_t) y;
+  }
+}
+
 static PWMConfig pwmCFG = {
-    1000,/* PWM clock frequency  */
-    10,/* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+    0xFFFF,/* PWM clock frequency  */
+    256,/* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
     NULL,
     {
         {PWM_OUTPUT_DISABLED, NULL}, /* channel 0 -> TIM1-CH1 = PA8 */
@@ -130,29 +146,25 @@ static PWMConfig pwmCFG = {
     0
 };
 
-static float channel_1_frequency = 0.0f;
-void channel_1_set_frequency(float freq) {
+static uint32_t planck_ez_right_led_duty;
+static uint32_t planck_ez_left_led_duty;
 
-    if (freq == channel_1_frequency)
-        return;
-
-    channel_1_frequency = freq;
-
-    pwmcnt_t period = (pwmCFG.frequency / freq);
-    pwmChangePeriod(&PWMD4, period);
-    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+void planck_ez_right_led_level(uint8_t level) {
+  planck_ez_right_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
+  if (level == 0) {
+      // Turn backlight off
+      pwmDisableChannel(&PWMD4, 2);
+  } else {
+    // Turn backlight on
+    pwmEnableChannel(&PWMD4, 2, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_right_led_duty));
+  }
 }
-
-float channel_1_get_frequency(void) {
-    return channel_1_frequency;
-}
-
 
 
 void planck_ez_right_led_on(void){
     // pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
-    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+    pwmEnableChannel(&PWMD4, 2, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_right_led_duty));
 }
 
 void planck_ez_right_led_off(void){
@@ -161,11 +173,21 @@ void planck_ez_right_led_off(void){
     pwmDisableChannel(&PWMD4, 2);
 }
 
+void planck_ez_left_led_level(uint8_t level) {
+  planck_ez_right_led_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / 255));
+  if (level == 0) {
+      // Turn backlight off
+        pwmDisableChannel(&PWMD4, 3);
+  } else {
+    // Turn backlight on
+    pwmEnableChannel(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_left_led_duty));
+  }
+}
 
 void planck_ez_left_led_on(void){
 //    pwmStop(&PWMD4);
     // pwmStart(&PWMD4, &pwmCFG);
-    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 5000));
+    pwmEnableChannel(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4,0xFFFF,planck_ez_left_led_duty));
 }
 
 void planck_ez_left_led_off(void){
@@ -175,13 +197,15 @@ void planck_ez_left_led_off(void){
 }
 
 
-void led_initialize_hardware(void)
-{
+void led_initialize_hardware(void) {
     pwmStart(&PWMD4, &pwmCFG);
+    planck_ez_right_led_duty = cie_lightness(0xFFFF);
+    planck_ez_left_led_duty = cie_lightness(0xFFFF);
 
-    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 2500));
+
+    pwmEnableChannel(&PWMD4, 2, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, planck_ez_right_led_duty));
     palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(2));
-    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, 2500));
+    pwmEnableChannel(&PWMD4, 3, PWM_PERCENTAGE_TO_WIDTH(&PWMD4, planck_ez_left_led_duty));
     palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(2));
 
     planck_ez_left_led_off();
