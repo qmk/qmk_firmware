@@ -571,6 +571,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Size               = sizeof(USB_Descriptor_Interface_t),
             .Type               = DTYPE_Interface
         },
+
         .InterfaceNumber        = AC_INTERFACE,
         .AlternateSetting       = 0,
         .TotalEndpoints         = 0,
@@ -582,7 +583,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .Audio_ControlInterface_SPC = {
         .Header = {
             .Size               = sizeof(USB_Audio_Descriptor_Interface_AC_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_Header,
         .ACSpecification        = VERSION_BCD(1, 0, 0),
@@ -595,6 +596,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Size               = sizeof(USB_Descriptor_Interface_t),
             .Type               = DTYPE_Interface
         },
+
         .InterfaceNumber        = AS_INTERFACE,
         .AlternateSetting       = 0,
         .TotalEndpoints         = 2,
@@ -606,7 +608,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .Audio_StreamInterface_SPC = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_General,
         .AudioSpecification     = VERSION_BCD(1, 0, 0),
@@ -615,7 +617,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_In_Jack_Emb = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_InputJack_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
         .JackType               = MIDI_JACKTYPE_Embedded,
@@ -625,7 +627,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_In_Jack_Ext = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_InputJack_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
         .JackType               = MIDI_JACKTYPE_External,
@@ -635,7 +637,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_Out_Jack_Emb = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_OutputJack_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
         .JackType               = MIDI_JACKTYPE_Embedded,
@@ -648,7 +650,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_Out_Jack_Ext = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_OutputJack_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = AUDIO_DTYPE_CSInterface
         },
         .Subtype                = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
         .JackType               = MIDI_JACKTYPE_External,
@@ -669,13 +671,14 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .EndpointSize       = MIDI_STREAM_EPSIZE,
             .PollingIntervalMS  = 0x05
         },
+
         .Refresh                = 0,
         .SyncEndpointNumber     = 0
     },
     .MIDI_In_Jack_Endpoint_SPC = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t),
-            .Type               = DTYPE_CSEndpoint
+            .Type               = AUDIO_DSUBTYPE_CSEndpoint_General
         },
         .Subtype                = AUDIO_DSUBTYPE_CSEndpoint_General,
         .TotalEmbeddedJacks     = 0x01,
@@ -692,13 +695,14 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .EndpointSize       = MIDI_STREAM_EPSIZE,
             .PollingIntervalMS  = 0x05
         },
+
         .Refresh                = 0,
         .SyncEndpointNumber     = 0
     },
     .MIDI_Out_Jack_Endpoint_SPC = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t),
-            .Type               = DTYPE_CSEndpoint
+            .Type               = AUDIO_DTYPE_CSEndpoint
         },
         .Subtype                = AUDIO_DSUBTYPE_CSEndpoint_General,
         .TotalEmbeddedJacks     = 0x01,
@@ -738,7 +742,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .CDC_Functional_Header = {
         .Header = {
             .Size               = sizeof(USB_CDC_Descriptor_FunctionalHeader_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = CDC_DTYPE_CSInterface
         },
         .Subtype                = 0x00,
         .CDCSpecification       = VERSION_BCD(1, 1, 0),
@@ -746,7 +750,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .CDC_Functional_ACM = {
         .Header = {
             .Size               = sizeof(USB_CDC_Descriptor_FunctionalACM_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = CDC_DTYPE_CSInterface
         },
         .Subtype                = 0x02,
         .Capabilities           = 0x02,
@@ -754,7 +758,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .CDC_Functional_Union = {
         .Header = {
             .Size               = sizeof(USB_CDC_Descriptor_FunctionalUnion_t),
-            .Type               = DTYPE_CSInterface
+            .Type               = CDC_DTYPE_CSInterface
         },
         .Subtype                = 0x06,
         .MasterInterfaceNumber  = CCI_INTERFACE,
