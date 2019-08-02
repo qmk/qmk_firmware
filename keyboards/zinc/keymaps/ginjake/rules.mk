@@ -21,6 +21,7 @@ define ZINC_CUSTOMISE_MSG
   $(info Zinc customize)
   $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
+  $(info -  LED_BOTH_ENABLE=$(LED_BOTH_ENABLE))
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
 endef
@@ -28,6 +29,7 @@ endef
 # Zinc keyboard customize
 LED_BACK_ENABLE = no        # LED backlight (Enable SK6812mini backlight)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight)
+LED_BOTH_ENABLE = no        # LED backlight and underglow
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 Link_Time_Optimization = no # if firmware size over limit, try this option
@@ -37,7 +39,7 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ### Zinc keyboard 'default' keymap: convenient command line option
 ##    make ZINC=<options> zinc:defualt
-##    option= back | under | na | ios
+##    option= back | under | both | na | ios
 ##    ex.
 ##      make ZINC=under    zinc:defualt
 ##      make ZINC=under,ios zinc:defualt
@@ -51,7 +53,10 @@ ifneq ($(strip $(ZINC)),)
   else ifeq ($(findstring under,$(ZINC)), under)
     LED_UNDERGLOW_ENABLE = yes
   endif
-  ifeq ($(findstring na,$(ZINC)), na)
+  ifeq ($(findstring both,$(ZINC)), both)
+    LED_BOTH_ENABLE = yes
+  endif
+    ifeq ($(findstring na,$(ZINC)), na)
     LED_ANIMATIONS = no
   endif
   ifeq ($(findstring ios,$(ZINC)), ios)
@@ -72,6 +77,11 @@ else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
 else
   RGBLIGHT_ENABLE = no
+endif
+
+ifeq ($(strip $(LED_BOTH_ENABLE)), yes)
+  RGBLIGHT_ENABLE = yes
+  OPT_DEFS += -DRGBLED_BOTH
 endif
 
 ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
