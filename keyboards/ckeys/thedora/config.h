@@ -23,8 +23,8 @@
 #define PRODUCT_ID 0x6060
 #define DEVICE_VER 0x0001
 #define MANUFACTURER ckeys
-#define PRODUCT exboard
-#define DESCRIPTION An expedition board for keyboard exploration.
+#define PRODUCT thedora
+#define DESCRIPTION A board for keyboard exploration.
 
 #define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B13 }
