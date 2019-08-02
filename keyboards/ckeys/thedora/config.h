@@ -26,7 +26,6 @@
 #define PRODUCT thedora
 #define DESCRIPTION A board for keyboard exploration.
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B13 }
 #define ENCODERS_PAD_B { B15 }
 #define ENCODER_RESOLUTION 4
