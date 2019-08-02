@@ -600,8 +600,6 @@ enum quantum_keycodes {
 #define KC_DOUBLE_QUOTE KC_DQT
 #define KC_DQUO KC_DQT
 
-#define KC_DELT KC_DELETE // Del key (four letter code)
-
 // Alias for function layers than expand past FN31
 #define FUNC(kc) (QK_FUNCTION | (kc))
 
