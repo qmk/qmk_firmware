@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Ayden <aydenvis@gmail.com>
+Copyright 2019 Ryota Goto
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,17 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x1256
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    AYDENandDAD Youtube
-#define PRODUCT         QWERTYYdox
-#define DESCRIPTION     Split 45 percent ergonomic keyboard with two Y keys
+#define VENDOR_ID       0xA103
+#define PRODUCT_ID      0x0012
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Illuminati Works
+#define PRODUCT         iS0
+#define DESCRIPTION     no
 
 /* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 7
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 1
 
 /*
  * Keyboard Matrix Assignments
@@ -42,55 +41,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-// wiring of each half
-#define MATRIX_ROW_PINS { B6, B2, B3, B1 }
-#define MATRIX_COL_PINS { F7, F6, F5, C6, D7, D4, D1 }
+#define MATRIX_ROW_PINS { D2 }
+#define MATRIX_COL_PINS { D0 }
+#define UNUSED_PINS
 
-/* COL2ROW or ROW2COL */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0
+#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
-// #define BACKLIGHT_PIN E6
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 5
 
-#define RGB_DI_PIN D6
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 12
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-    /*== all animations enable ==*/
-    #define RGBLIGHT_ANIMATIONS
-    // /*== or choose animations ==*/
-    //     #define RGBLIGHT_EFFECT_BREATHING
-    //     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    //     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    //     #define RGBLIGHT_EFFECT_SNAKE
-    //     #define RGBLIGHT_EFFECT_KNIGHT
-    //     #define RGBLIGHT_EFFECT_CHRISTMAS
-    //     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    //     #define RGBLIGHT_EFFECT_RGB_TEST
-    //     #define RGBLIGHT_EFFECT_ALTERNATING
-    // /*== customize breathing effect ==*/
-    //     /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-    //     #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-    //     /*==== use exp() and sin() ====*/
-    //     #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-    //     #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif
+// #define RGB_DI_PIN E2
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 16
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
+// /*== customize breathing effect ==*/
+//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+//   /*==== use exp() and sin() ====*/
+//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
+// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -137,7 +138,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -176,23 +177,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 
-#define MOUSEKEY_DELAY             150
-#define MOUSEKEY_INTERVAL          20
-#define MOUSEKEY_MAX_SPEED         10
-#define MOUSEKEY_TIME_TO_MAX       10
-#define MOUSEKEY_WHEEL_MAX_SPEED   8
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
 
 /* disable debug print */
-// #define NO_DEBUG
+//#define NO_DEBUG
 
 /* disable print */
-// #define NO_PRINT
+//#define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
