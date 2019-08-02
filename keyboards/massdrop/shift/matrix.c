@@ -95,14 +95,14 @@ void matrix_init(void)
 }
 
 uint64_t mdebouncing = 0;
+bool debouncing = false;
+
 uint8_t matrix_scan(void)
 {
-    uint8_t mchanged;
+    uint64_t timer;
     uint8_t row;
     uint8_t col;
     uint32_t scans[MCU_PORTS_USED]; //Array size must match number of unique MCU ports used for reads (PA, PB, PC, etc)
-
-    if (timer_read64() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
 
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t)); //Zero the result buffer
 
@@ -144,25 +144,26 @@ uint8_t matrix_scan(void)
         }
     }
 
-    mchanged = 0; //Default to no matrix change since last
+    timer = timer_read64();
 
     for (row = 0; row < MATRIX_ROWS; row++)
     {
-        if (mlast[row] != mlatest[row])
-            mchanged = 1;
+        if (mlast[row] != mlatest[row]) {
+            debouncing = true;
+            mdebouncing = timer + DEBOUNCE;
+        }
+
         mlast[row] = mlatest[row];
     }
 
-    if (!mchanged)
+    if (debouncing && timer >= mdebouncing)
     {
-        for (row = 0; row < MATRIX_ROWS; row++)
+        for (row = 0; row < MATRIX_ROWS; row++) {
             mdebounced[row] = mlatest[row];
+        }
+
         mdebouncing = 0;
-    }
-    else
-    {
-        //Begin or extend debounce on change
-        mdebouncing = timer_read64() + DEBOUNCING_DELAY;
+        debouncing = false;
     }
 
     matrix_scan_quantum();
