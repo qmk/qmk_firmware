@@ -122,53 +122,29 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end();
 
-    // Mac Save (Leader -> s)
-    SEQ_ONE_KEY(KC_S) {
-      SEND_STRING(SS_LGUI("s"));
-    }
-
     // Mac copy line down (Leader -> d, d)
     SEQ_TWO_KEYS(KC_D, KC_D) {
+      // Get to end of current line
+      register_code(KC_LGUI);
+      tap(KC_RIGHT);
+      // Select to the beginning of the line
       register_code(KC_LSHIFT);
-      register_code(KC_HOME);
-      unregister_code(KC_HOME);
+      tap(KC_LEFT);
       unregister_code(KC_LSHIFT);
-      SEND_STRING(SS_LGUI("c"));
-      tap(KC_END);
+      // Copy (LGUI is still held)
+      tap(KC_C);
+      // Back to the end
+      tap(KC_RIGHT);
+      unregister_code(KC_LGUI);
+      // Make new line
       tap(KC_ENTER);
+      // Paste
       SEND_STRING(SS_LGUI("v"));
     }
 
-    // Mac copy line up (Leader -> u, u)
-    SEQ_TWO_KEYS(KC_U, KC_U) {
-      register_code(KC_LSHIFT);
-      register_code(KC_HOME);
-      unregister_code(KC_HOME);
-      unregister_code(KC_LSHIFT);
-      SEND_STRING(SS_LGUI("c"));
-      tap(KC_UP);
-      tap(KC_END);
-      tap(KC_ENTER);
-      SEND_STRING(SS_LGUI("v"));
-    }
-
-    // Mac VS Debug
-    SEQ_ONE_KEY(KC_D) {
-      tap(KC_F5);
-    }
-
-    // Mac VS Stop Debug
-    SEQ_TWO_KEYS(KC_S, KC_D) {
-      register_code(KC_LSHIFT);
-      tap(KC_F5);
-      unregister_code(KC_LSHIFT);
-    }
-
-    // Start Diablo 3
-    SEQ_ONE_KEY(KC_3) {
-      SEND_STRING(SS_LCTRL(" "));
-      SEND_STRING("Diablo");
-      tap(KC_ENTER);
+    // XCode one-hand run project (or browser refresh)
+    SEQ_TWO_KEYS(KC_H, KC_R) {
+      SEND_STRING(SS_LGUI("r"));
     }
 
     SEQ_ONE_KEY(KC_B) {

@@ -28,11 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Layer Names */
 enum userspace_layers {
   _WORKMAN = 0,
-  _WINWORKMAN,
-  _QWERTY,
+//   _WINWORKMAN,
+//   _QWERTY,
   _LOWER,
   _ADJUST,
-  _DIABLO,
+//   _DIABLO,
+//   _POE,
 };
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))

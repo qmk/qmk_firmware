@@ -25,24 +25,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_WWRK:
-      if (!record->event.pressed) {
-        set_single_persistent_default_layer(_WINWORKMAN);
-        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-          set_unicode_input_mode(4);
-        #endif
-        layer_move(0);
-        ergodox_blink_all_leds();
-      }
+    //   if (!record->event.pressed) {
+    //     set_single_persistent_default_layer(_WINWORKMAN);
+    //     #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    //       set_unicode_input_mode(4);
+    //     #endif
+    //     layer_move(0);
+    //     ergodox_blink_all_leds();
+    //   }
       break;
     case KC_MQWR:
-      if (!record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-          set_unicode_input_mode(0);
-        #endif
-        layer_move(0);
-        ergodox_blink_all_leds();
-      }
+    //   if (!record->event.pressed) {
+    //     set_single_persistent_default_layer(_QWERTY);
+    //     #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    //       set_unicode_input_mode(0);
+    //     #endif
+    //     layer_move(0);
+    //     ergodox_blink_all_leds();
+    //   }
+      break;
+    case KC_GAME:
+    //   if (!record->event.pressed) {
+        // uint8_t temp_mod = get_mods();
+        // clear_mods();
+        // if (temp_mod & MODS_SHIFT_MASK) {
+        //   layer_move(_DIABLO);
+        // } else {
+        // layer_move(_POE);
+        // }
+        // layer_move(_POE);
+        // set_mods(temp_mod);
+    //   }
       break;
     case MC_LOCK:
       if (!record->event.pressed) {
@@ -53,21 +66,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
       if (!record->event.pressed) {
         uint8_t temp_mod = get_mods();
-        uint8_t temp_osm = get_oneshot_mods();
         clear_mods();
-        clear_oneshot_mods();
+        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
+        /*
         if (biton32(default_layer_state) == _WINWORKMAN) {
-          send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+          send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
         } else {
-          send_string_with_delay_P(PSTR("util/docker_build.sh " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+          send_string_with_delay_P(PSTR("util/docker_build.sh " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
         }
+        */
         if (temp_mod & MODS_SHIFT_MASK) {
-          send_string_with_delay_P(PSTR(":teensy"), 10);
+          send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
         }
         if (temp_mod & MODS_CTRL_MASK) {
-          send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10);
+          send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER);
         }
-        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
         set_mods(temp_mod);
         layer_move(0);
       }
@@ -82,42 +96,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 #endif // TAP_DANCE_ENABLE
       break;
-      case JJ_ARRW:
+    case MC_ARRW:
       if (!record->event.pressed) {
-        SEND_STRING("->");
-      }
-      return false;
-      break;
-    case LM_GRAVE:
-      if (record->event.pressed) {
-        grave_layer_timer = timer_read();
-      } else {
-        if (timer_elapsed(grave_layer_timer) < TAPPING_TERM) {
-          uint8_t temp_mod = get_mods();
-          uint8_t one_shot = get_oneshot_mods();
-          clear_mods();
-          if (temp_mod & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) {
-            register_code(KC_LSFT);
-            tap(KC_GRAVE);
-            unregister_code(KC_LSFT);
-          } else {
-            tap(KC_GRAVE);
-          }
-          set_mods(temp_mod);
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        if (temp_mod & MODS_SHIFT_MASK) {
+          SEND_STRING("=>");
         } else {
-          layer_move(0);
-        }
-      }
-      return false;
-      break;
-    case KC_CCCV:
-      if (record->event.pressed) {
-        copy_paste_timer = timer_read();
-      } else {
-        if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) { // Hold, copy
-          SEND_STRING(SS_LGUI("c"));
-        } else {
-          SEND_STRING(SS_LGUI("v"));
+          SEND_STRING("->");
         }
       }
       return false;
@@ -135,7 +121,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case UC_SHRG: // ¯\_(ツ)_/¯
       if (record->event.pressed) {
-        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F");
+        SEND_STRING("/"); // Because Microsoft Teams sucks and uses UC_OSX+/ as the accessibility key
+        send_unicode_hex_string("00AF");
       }
       break;
     case UC_DISA: // ಠ_ಠ

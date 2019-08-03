@@ -6,6 +6,6 @@ EXTRAKEY_ENABLE = no
 KEY_LOCK_ENABLE = yes
 LEADER_ENABLE = yes
 
-UNICODE_ENABLE    = yes
+UNICODE_ENABLE    = no # enable this one if unicode is desired
 UNICODEMAP_ENABLE = no
 UCIS_ENABLE = no
