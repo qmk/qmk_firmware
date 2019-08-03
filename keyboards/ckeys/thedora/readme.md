@@ -1,8 +1,20 @@
-# The Dora Board
+# theDora Board
 
-This keyboard was built for QMK exploration big and small. What will you discover next?
+![Thedora Board](https://ckeys.org/images/exboard-3.jpg)
 
-![The Dora Board](https://ckeys.org/images/exboard-3.jpg)
+A 4x5 keyboard with rotary encoder, QWIIC connector, and header pinouts for easy access to all pins on the Proton C. This keyboard was built for QMK exploration big and small. What will you discover next?
+
+Keyboard Maintainer: [brandenbyers](https://github.com/brandenbyers)  
+Hardware Supported: theDora  
+Hardware Availability: [cKeys.org](https://ckeys.org)
+
+Make example for this keyboard (after setting up your build environment):
+
+`make ckeys/thedora:default`
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](Complete Newbs Guide).
+
+---
 
 ## Slides
 
