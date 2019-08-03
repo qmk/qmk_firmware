@@ -71,6 +71,12 @@ enum unicode_names {
     TREBOL_SUIT,
     HEART_SUIT,
     DIAMOND_SUIT,
+    NARRAY_SUM,
+    INFINIT_SYMBOL,
+    DIAMOND_BULLET,
+    CIRCLE_BULLET,
+    SMILE_FACE,
+    SAD_FACE
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -142,10 +148,16 @@ const uint32_t PROGMEM unicode_map[] = {
     [DIVISION]      = 0x00F7,
     [SQUARE_ROOT]   = 0x221A,
     [CUBE_ROOT]     = 0x221B,
-    [SPADE_SUIT]    = 0x2660, 
+    [SPADE_SUIT]    = 0x2660,
     [TREBOL_SUIT]   = 0x2663,
     [HEART_SUIT]    = 0x2664,
-    [DIAMOND_SUIT]  = 0x2665
+    [DIAMOND_SUIT]  = 0x2665,
+    [NARRAY_SUM]    = 0x2211,
+    [INFINIT_SYMBOL]= 0x221E,
+    [DIAMOND_BULLET]= 0x2B25,
+    [CIRCLE_BULLET] = 0x2981,
+    [SMILE_FACE]    = 0x263A,
+    [SAD_FACE]      = 0x2639
 };
 
 #define UN_ESC  XP(DEGREE, DEGREE_CELCIUS)
@@ -159,6 +171,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #define UN_I    XP(I_ACUTE, I_ACUTEC)
 #define UN_O    XP(O_ACUTE, O_ACUTEC)
 #define UN_P    XP(POUND, PILCROW)
+#define UN_BSPC XP(BOX_CROSS, DBOX_CROSS)
+#define UN_TAB  XP(DIAMOND_BULLET, CIRCLE_BULLET)
 #define UN_A    XP(A_ACUTE, A_ACUTEC)
 #define UN_S    XP(BOX_CORNER_1, DBOX_CORNER_1)
 #define UN_D    XP(BOX_CORNER_2, DBOX_CORNER_2)
@@ -169,8 +183,9 @@ const uint32_t PROGMEM unicode_map[] = {
 #define UN_K    XP(BOX_UNION_3, DBOX_UNION_3)
 #define UN_L    XP(BOX_UNION_4, DBOX_UNION_4)
 #define UN_SCLN XP(BOX_HORIZONTAL, DBOX_HORIZONT)
-#define UN_Z    XP(BOX_VERTICAL, DBOX_VERTICAL)
-#define UN_X    XP(BOX_CROSS, DBOX_CROSS)
+#define UN_ENT  XP(BOX_VERTICAL, DBOX_VERTICAL)
+#define UN_Z    XP(NARRAY_SUM, INFINIT_SYMBOL)
+#define UN_X    XP(SMILE_FACE, SAD_FACE)
 #define UN_C    XP(COPYRIGHT, REGISTERED)
 #define UN_V    XP(SPADE_SUIT, TREBOL_SUIT)
 #define UN_B    XP(HEART_SUIT, DIAMOND_SUIT)
