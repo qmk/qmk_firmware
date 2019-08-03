@@ -1,6 +1,6 @@
 # DISCIPLINE
 
-![discipline](https://i.imgur.com/RbV5I0g.jpg)
+![discipline](https://i.imgur.com/OqQ1Ko8.jpg)
 
 A 65% keyboard that can be assembled with only through hole components, including usb type-c
 
