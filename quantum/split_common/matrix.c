@@ -252,6 +252,14 @@ void matrix_init(void) {
 
   // Set pinout for right half if pinout for that half is defined
   if (!isLeftHand) {
+#ifdef DIRECT_PINS_RIGHT
+    const pin_t direct_pins_right[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_RIGHT;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+      for (uint8_t j = 0; j < MATRIX_COLS; j++) {
+        direct_pins[i][j] = direct_pins_right[i][j];
+      }
+    }
+#endif
 #ifdef MATRIX_ROW_PINS_RIGHT
     const pin_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
