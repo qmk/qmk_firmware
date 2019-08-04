@@ -15,8 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-//#include "print.h"
-
 #define _BASE     0
 #define _SUB      1
 #define _DBG      2
