@@ -27,12 +27,12 @@ void shutdown_user() {
   writePinLow(LAYER_INDICATOR_LED_1);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
   // Layer LEDs act as binary indication of current layer
   uint8_t layer = biton32(state);
   writePin(LAYER_INDICATOR_LED_0, layer & 0b1);
   writePin(LAYER_INDICATOR_LED_1, (layer >> 1) & 0b1);
-  return state;
+  return layer_state_set_user(state);
 }
 
 // Optional override functions below.

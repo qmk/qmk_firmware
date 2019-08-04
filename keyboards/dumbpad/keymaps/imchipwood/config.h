@@ -1,2 +1,2 @@
-#include "../../config.h"
+#pragma once
 #define TAPPING_TOGGLE 2
