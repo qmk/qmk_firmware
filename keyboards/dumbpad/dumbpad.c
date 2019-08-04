@@ -45,16 +45,16 @@ void matrix_init_kb(void) {
   for (int i = 0; i < 2; i++) {
     writePin(LAYER_INDICATOR_LED_0, true);
     writePin(LAYER_INDICATOR_LED_1, false);
-    _delay_ms(100);
+    wait_ms(100);
     writePin(LAYER_INDICATOR_LED_0, true);
     writePin(LAYER_INDICATOR_LED_1, true);
-    _delay_ms(100);
+    wait_ms(100);
     writePin(LAYER_INDICATOR_LED_0, false);
     writePin(LAYER_INDICATOR_LED_1, true);
-    _delay_ms(100);
+    wait_ms(100);
     writePin(LAYER_INDICATOR_LED_0, false);
     writePin(LAYER_INDICATOR_LED_1, false);
-    _delay_ms(100);
+    wait_ms(100);
   }
 
   matrix_init_user();
