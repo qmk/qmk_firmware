@@ -229,12 +229,31 @@ ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+# backward compat
+ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    BACKLIGHT_ENABLE = custom
+endif
+
+VALID_BACKLIGHT_TYPES := yes custom
+
+BACKLIGHT_ENABLE ?= no
+ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+        $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
+    endif
+
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    endif
+
+    ifeq ($(PLATFORM),AVR)
+        SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+    else
+        SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
     endif
 endif
 
