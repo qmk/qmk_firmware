@@ -107,6 +107,20 @@ inline void ergodox_led_all_set(uint8_t n)
     ergodox_right_led_3_set(n);
 }
 
+enum ergodox_ez_keycodes {
+    LED_LEVEL = SAFE_RANGE,
+    EZ_SAFE_RANGE,
+};
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t    led_level :3;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+
 /*
  *   LEFT HAND: LINES 115-122
  *  RIGHT HAND: LINES 124-131

@@ -22,6 +22,7 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 
 extern inline void ergodox_led_all_set(uint8_t n);
 
+keyboard_config_t keyboard_config;
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
@@ -42,6 +43,9 @@ void matrix_init_kb(void) {
     PORTC |=  (1<<7);
     PORTD |=  (1<<5 | 1<<4);
     PORTE |=  (1<<6);
+
+    keyboard_config.raw = eeconfig_read_kb();
+    ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
 
     ergodox_blink_all_leds();
 
@@ -316,3 +320,28 @@ led_config_t g_led_config = { {
 } };
 
 #endif
+
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LED_LEVEL:
+            if (record->event.pressed) {
+                 keyboard_config.led_level++;
+                 if (keyboard_config.led_level > 4) {
+                    keyboard_config.led_level = 0;
+                 }
+                 ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 eeconfig_update_kb(keyboard_config.raw);
+                 layer_state_set_kb(layer_state);
+            }
+            break;
+    }
+    return process_record_user(keycode, record);
+}
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.led_level = 4;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
+}
