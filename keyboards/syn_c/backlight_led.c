@@ -106,13 +106,13 @@ void breathing_interrupt_enable(void){
 	pwmEnablePeriodicNotification(&PWMD3);
 	pwmEnableChannelI(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF, 0xFFFF));
 	chSysUnlockFromISR();
-	printf("[BL] Startup with callback.\n");
+	printf("[BL] Interrupt driven enable.\n");
 };
 
 void breathing_interrupt_disable(void) {
 	pwmStop(&PWMD3);
 	pwmStart(&PWMD3, &pwmCFG);
-	printf("[BL] Startup without callback.\n");
+	printf("[BL] Interrupt driven reset.\n");
 };
 
 void breathing_enable(void) {
