@@ -4,7 +4,9 @@
 #include <hal.h>
 #include "hal_i2cslave.h"
 
-#define TIMEOUT 500
+#ifndef I2C_SLAVE_TIMEOUT
+  #define I2C_SLAVE_TIMEOUT 500
+#endif
 
 volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 
@@ -22,8 +24,8 @@ static const I2CConfig slaveI2Cconfig = {
 #endif
 };
 
-uint8_t slave_incoming_body[50] = {0};
-uint8_t slave_outgoing_body[1024] = {0};
+uint8_t slave_incoming_body[I2C_SLAVE_REG_COUNT] = {0};
+uint8_t slave_outgoing_body[I2C_SLAVE_REG_COUNT] = {0};
 
 // Forward declare callback funcs
 void slave_catch_error(I2CDriver *i2cp);
@@ -77,13 +79,20 @@ void slave_incoming_message_process(I2CDriver * i2cp) {
     uint8_t * data =  (uint8_t*) &i2c_slave_reg[buffer_address]; // TODO: casting away volitile is a bit nasty....
 
     // TODO: somehow get request size instead of the following hacks
-    uint16_t length = 0;
-    if(buffer_address == 0) {
-      #define ROWS_PER_HAND (MATRIX_ROWS / 2)
-      //matrix_row_t smatrix[ROWS_PER_HAND];
-      //length = sizeof(smatrix);
-      length = sizeof(matrix_row_t) * ROWS_PER_HAND;
-    }
+
+    // Hack v1 - sniff the requested offset and bodge a mapping to expected size
+    //           this incorrectly couples i2c_slave to split transport
+    // uint16_t length = 0;
+    // if(buffer_address == 0) {
+    //   #define ROWS_PER_HAND (MATRIX_ROWS / 2)
+    //   //matrix_row_t smatrix[ROWS_PER_HAND];
+    //   //length = sizeof(smatrix);
+    //   length = sizeof(matrix_row_t) * ROWS_PER_HAND;
+    // }
+
+    // Hack v2 - very inefficiently just return the rest of the buffer
+    //           ARM i2c_master seems to be happy enough getting extra data...
+    uint16_t length = sizeof(i2c_slave_reg) - (buffer_address * sizeof(i2c_slave_reg[0]));
 
     dprintf("i2c slave read len:%d\n", length);
 
@@ -111,7 +120,7 @@ void i2c_slave_init(uint8_t address) {
 
   i2cStart(&I2CD1, &slaveI2Cconfig);
 
-  I2CD1.slaveTimeout = MS2ST(TIMEOUT);
+  I2CD1.slaveTimeout = MS2ST(I2C_SLAVE_TIMEOUT);
   i2cSlaveConfigure(&I2CD1, &slave_incoming_message, &slave_outgoing_message);
   i2cMatchAddress(&I2CD1, (address >> 1));
 }
