@@ -156,7 +156,6 @@
 //#define MAGIC_KEY_SLEEP_LED      Z
 
 // Audio Click
-#define AUDIO_CLICKY
 
 // Music Mode Polyphony
 // NOTE: Must change polyphony_rate to a number higher than 0 in voices.c
