@@ -15,6 +15,13 @@
  */
 #include "dumbpad.h"
 
+uint32_t layer_state_set_user(uint32_t state) {
+    uint8_t layer = biton32(state);
+    writePin(LAYER_LED_0, layer & 0b01);
+    writePin(LAYER_LED_1, (layer >> 1) & 0b1);
+    return state;
+}
+
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
