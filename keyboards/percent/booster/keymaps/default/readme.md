@@ -1,1 +1,1 @@
-# The default keymap for booster
+# The default keymap for Booster
