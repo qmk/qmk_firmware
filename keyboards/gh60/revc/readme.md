@@ -1,5 +1,4 @@
-GH60
-===
+# GH60 Rev C
 
 ![gh60 Rev C PCB](https://i.imgur.com/FejpoNF.jpg)
 
@@ -11,7 +10,9 @@ Hardware Availability: http://blog.komar.be/projects/gh60-programmable-keyboard/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gh60:default
+    make gh60/revc:default
+
+**Note:** This GH60 firmware will not be compatible with the GH60 Satan PCB. Conversely, the GH60 Satan firmware will not be compatible with this PCB. Please ensure you have the correct firmware/pcb combination before flashing. 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
