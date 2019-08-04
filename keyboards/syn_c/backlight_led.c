@@ -93,8 +93,6 @@ void backlight_set(uint8_t level) {
 	printf("[BL] Backlight set. (L:%d) (D:%d)\n", level, duty);
 };
 
-void backlight_task(void) { };
-
 bool is_breathing(void) {
     return PWMD3.config == &pwmCFG_breathing;
 };
@@ -146,6 +144,7 @@ void breathing_self_disable(void)
 		breathing_halt = BREATHING_HALT_OFF;
 	else
 		breathing_halt = BREATHING_HALT_ON;
+	printf("[BL] Breathing disabled by self.\n");
 };
 
 void breathing_toggle(void) {
