@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{ B3, B13, B14 }, \
 	{ B2, B1, B15 } \
 }
-#define UNUSED_PINS
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
@@ -45,12 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B7, A1 }
 #define ENCODER_RESOLUTION 4
 
-#define TAP_CODE_DELAY 18
+#define TAP_CODE_DELAY 20 
 #define TAPPING_TERM 200
 
-#define BACKLIGHT_LEVELS 1
-//#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
+#define BACKLIGHT_LEVELS 8 
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6 
 
 #define RGB_DI_PIN A9
 #ifdef RGB_DI_PIN
