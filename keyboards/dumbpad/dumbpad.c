@@ -32,7 +32,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
   uint8_t layer = biton32(state);
   writePin(LAYER_INDICATOR_LED_0, layer & 0b1);
   writePin(LAYER_INDICATOR_LED_1, (layer >> 1) & 0b1);
-  return state;
+  return layer_state_set_user(state);
 }
 
 // Optional override functions below.
