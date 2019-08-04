@@ -13,3 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+
+void breathing_interrupt_disable(void);
+void breathing_interrupt_enable(void);
+bool is_breathing(void);

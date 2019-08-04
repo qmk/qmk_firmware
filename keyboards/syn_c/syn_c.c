@@ -30,6 +30,9 @@ void matrix_init_kb(void) {
     printf("[SYS] Startup complete.\n");
     LED_ON();
 
+	// start backlight
+	backlight_init_ports();
+
     // continue startup
     matrix_init_user();
 };
