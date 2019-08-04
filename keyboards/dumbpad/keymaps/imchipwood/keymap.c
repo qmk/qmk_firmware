@@ -15,25 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _BASE 0
-#define _SUB  1
+//#include "print.h"
 
-#define TAPPING_TOGGLE 2
-
-// Tap Dance Declarations
-enum {
-    TD_PLUS_MINUS = 0,
-    TD_MUL_DIV,
-};
-
-// Tap Dance actions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_PLUS_MINUS] = ACTION_TAP_DANCE_DOUBLE(KC_KP_PLUS, KC_KP_MINUS),
-    [TD_MUL_DIV]    = ACTION_TAP_DANCE_DOUBLE(KC_KP_ASTERISK, KC_KP_SLASH),
-};
-
-#define KC_TD_PLUS_MINUS TD(TD_PLUS_MINUS)
-#define KC_TD_MUL_DIV    TD(TD_MUL_DIV)
+#define _BASE     0
+#define _SUB      1
+#define _DBG      2
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -42,36 +28,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /-----------------------------------------------------`
    |             |    7    |    8    |    9    |  Bkspc  |
    |             |---------|---------|---------|---------|
-   |             |    4    |    5    |    6    |   Esc   |
+   |             |    4    |    5    |    6    |    +    |
    |             |---------|---------|---------|---------|
-   |             |    1    |    2    |    3    |   Tab   |
+   |             |    1    |    2    |    3    |    *    |
    |-------------|---------|---------|---------|---------|
-   | Left mouse  | TT(SUB) |    0    |    .    |  Enter  |
+   | Play/Pause  | TT(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
   [_BASE] = LAYOUT(
-                   KC_7,      KC_8,    KC_9,     KC_BSPC, 
-                   KC_4,      KC_5,    KC_6,     KC_ESC, 
-                   KC_1,      KC_2,    KC_3,     KC_TAB, 
-    KC_BTN1,       TT(_SUB),  KC_0,    KC_DOT,   KC_ENTER
+                   KC_P7,     KC_P8,   KC_P9,    KC_BSPC, 
+                   KC_P4,     KC_P5,   KC_P6,    KC_KP_PLUS, 
+                   KC_P1,     KC_P2,   KC_P3,    KC_KP_ASTERISK, 
+    KC_MPLY,       TT(_SUB),  KC_P0,   KC_PDOT,  KC_KP_ENTER
   ),
   /*
         SUB LAYER
    /-----------------------------------------------------`
-   |             |         |         |         |  Reset  |
+   |             |         |         |         | Numlock |
    |             |---------|---------|---------|---------|
-   |             |         |         |         |   + -   |
+   |             |         |         |         |    -    |
    |             |---------|---------|---------|---------|
-   |             |         |         |         |   * /   |
+   |             |         |         |         |    /    |
    |-------------|---------|---------|---------|---------|
-   |    LOCK     |         |         |         |    =    |
+   |  MO(_DBG)   |         |         |         |    =    |
    \-----------------------------------------------------'
   */
   [_SUB] = LAYOUT(
+                 _______,     _______,     _______,      KC_LNUM, 
+                 _______,     _______,     _______,      KC_KP_MINUS, 
+                 _______,     _______,     _______,      KC_KP_SLASH, 
+    MO(_DBG),    _______,     _______,     _______,      KC_KP_EQUAL
+  ),
+  /*
+        DEBUG LAYER
+   /-----------------------------------------------------`
+   |             |         |         |         |  Reset  |
+   |             |---------|---------|---------|---------|
+   |             |         |         |         |         |
+   |             |---------|---------|---------|---------|
+   |             |         |         |         |         |
+   |-------------|---------|---------|---------|---------|
+   |             |         |         |         |         |
+   \-----------------------------------------------------'
+  */
+  [_DBG] = LAYOUT(
                  _______,     _______,     _______,      RESET, 
-                 _______,     _______,     _______,      KC_TD_PLUS_MINUS, 
-                 _______,     _______,     _______,      KC_TD_MUL_DIV, 
-    KC_LOCK,     _______,     _______,     _______,      KC_EQUAL
+                 _______,     _______,     _______,      _______, 
+                 _______,     _______,     _______,      _______, 
+    _______,     _______,     _______,     _______,      _______
   ),
 };
 
@@ -107,24 +111,55 @@ void led_set_user(uint8_t usb_led) {
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-  // put your custom code here
-  // change "return false;" to "return true;" if you do anything 
-  // returning false will cause it to use the default
+  /*  Custom encoder control - handles CW/CCW turning of encoder
+   *  Cusotom behavior:
+   *    main layer:
+   *       CW: volume up
+   *      CCW: volume down
+   *    sub layer:
+   *       CW: next media track
+   *      CCW: prev media track
+   *    debug layer:
+   *       CW: brightness up
+   *      CCW: brightness down
+   */
   if (index == 0) {
-    if (layer_state && 0x1) {
-      // sub layer - move mouse left/right
-      if (clockwise) {
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-      }
-    } else {
-      // main layer - volume control
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
+    switch (biton32(layer_state)) {
+      case _BASE:
+        // main layer - volume up (CW) and down (CCW)
+        if (clockwise) {
+          tap_code(KC_VOLU);
+        } else {
+          tap_code(KC_VOLD);
+        }
+        break;
+
+      case _SUB:
+        // sub layer - next track (CW) and previous track (CCW)
+        if (clockwise) {
+          tap_code(KC_MNXT);
+        } else {
+          tap_code(KC_MPRV);
+        }
+        break;
+
+      case _DBG:
+        // debug layer - brightness up (CW) and brightness down (CCW)
+        if (clockwise) {
+          tap_code(KC_BRIU);
+        } else {
+          tap_code(KC_BRID);
+        }
+        break;
+
+      default:
+        // any other layer (shouldn't exist..) - volume up (CW) and down (CCW)
+        if (clockwise) {
+          tap_code(KC_VOLU);
+        } else {
+          tap_code(KC_VOLD);
+        }
+        break;   
     }
   }
 }

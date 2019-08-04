@@ -88,19 +88,34 @@ void led_set_user(uint8_t usb_led) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+  /*  Custom encoder control - handles CW/CCW turning of encoder
+   *  Default behavior:
+   *    main layer:
+   *       CW: move mouse right
+   *      CCW: move mouse left
+   *    other layers:
+   *       CW: volume up
+   *      CCW: volume down
+   */
   if (index == 0) {
-    if (layer_state && 0x1) {
-      if (clockwise) {
-        tap_code(KC_VOLU);
-      } else {
-        tap_code(KC_VOLD);
-      }
-    } else {
-      if (clockwise) {
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-      }
+    switch (biton32(layer_state)) {
+      case _BASE:
+        // main layer - move mouse right (CW) and left (CCW)
+        if (clockwise) {
+          tap_code(KC_MS_R);
+        } else {
+          tap_code(KC_MS_L);
+        }
+        break;
+
+      default:
+        // other layers - volume up (CW) and down (CCW)
+        if (clockwise) {
+          tap_code(KC_VOLU);
+        } else {
+          tap_code(KC_VOLD);
+        }
+        break;
     }
   }
 }
