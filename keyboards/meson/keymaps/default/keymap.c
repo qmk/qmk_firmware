@@ -42,6 +42,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_LGUI,        KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, KC_MPRV, KC_MNXT, KC_MPLY, 
                                        MO(3),   KC_SPC,                           KC_SPC,  MO(2) 
   ),
+    
+  [3] = LAYOUT( /* Reset, other functions if you want */
+    RESET,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+                                         KC_TRNS, KC_TRNS,                      KC_TRNS,  KC_TRNS 
+  ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
