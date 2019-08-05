@@ -2,11 +2,13 @@
 
 ![syn_c](imgur.com image replace me!)
 
-A short description of the keyboard/project
+This is basically a keeb.io BDN9 with a Proton-C strapped to it. 
+Full PWM support for backlight LED on (GPIOB, 0) with code refactored from
+cannonkeys/bluepill.
 
-Keyboard Maintainer: [kratsyn](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [kratsyn](https://github.com/kratsyn)  
+Hardware Supported: BDN9 (keeb.io), QMK Proton-C
+Hardware Availability: https://keeb.io/, https://olkb.com
 
 Make example for this keyboard (after setting up your build environment):
 
