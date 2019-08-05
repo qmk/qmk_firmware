@@ -15,6 +15,7 @@
  */
 #include "syn_c.h"
 #include "hal.h"
+#include "eeconfig.h"
 
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
