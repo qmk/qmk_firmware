@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-};
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -72,7 +72,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             printf("[ENC %u] FALSE\n",index);
         }
     }
-};
+}
 
 void matrix_scan_user(void) {
     // [ALT-TAB] (send tab every 500ms until the key is released
@@ -80,15 +80,15 @@ void matrix_scan_user(void) {
         tap_code(KC_TAB);
         at_clock = timer_read();
     }
-};
+}
 
-void matrix_init_user(void) { };
+void matrix_init_user(void) { }
 
-void led_set_user(uint8_t usb_led) { };
+void led_set_user(uint8_t usb_led) { }
 
 void keyboard_post_init_user(void) {
 	debug_enable=true;
 	debug_matrix=true;
 	//debug_keyboard=true;
 	//debug_mouse=true;
-};
+}

@@ -26,7 +26,6 @@ void matrix_init_kb(void) {
 
     // flash the MCU LED
     blink_led(3);
-
     printf("[SYS] Startup complete.\n");
     LED_ON();
 
@@ -35,24 +34,26 @@ void matrix_init_kb(void) {
 
     // continue startup
     matrix_init_user();
-};
+}
 
-void eeprom_init_kb(void) { };
+void eeprom_init_kb(void) {
+	// TODO
+}
 
 void blink_led(uint8_t times) {
     while ( times ) {
         LED_ON();
-        wait_ms(500);
+        wait_ms(200);
         LED_OFF();
-        wait_ms(500);
+        wait_ms(200);
         times--;
     }
-};
+}
 
 void matrix_scan_kb(void) {
   matrix_scan_user();
-};
+}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   return process_record_user(keycode, record);
-};
+}

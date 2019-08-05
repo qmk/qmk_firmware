@@ -72,14 +72,14 @@ static uint16_t cie_lightness(uint16_t v) {
 	else
 		return (uint16_t) y;
 	}
-};
+}
 
 void backlight_init_ports(void) {
 	palSetLineMode(B0, PAL_MODE_ALTERNATE(2));
 	pwmStart(&PWMD3, &pwmCFG);
 	pwmEnableChannel(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
 	printf("[BL] Startup complete.\n");
-};
+}
 
 void backlight_set(uint8_t level) {
 	uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
@@ -91,11 +91,11 @@ void backlight_set(uint8_t level) {
 		}
 	}
 	printf("[BL] Backlight set. (L:%d) (D:%d)\n", level, duty);
-};
+}
 
 bool is_breathing(void) {
     return PWMD3.config == &pwmCFG_breathing;
-};
+}
 
 void breathing_interrupt_enable(void){
 	pwmStop(&PWMD3);
@@ -105,20 +105,20 @@ void breathing_interrupt_enable(void){
 	pwmEnableChannelI(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF, 0xFFFF));
 	chSysUnlockFromISR();
 	printf("[BL] Interrupt driven enable.\n");
-};
+}
 
 void breathing_interrupt_disable(void) {
 	pwmStop(&PWMD3);
 	pwmStart(&PWMD3, &pwmCFG);
 	printf("[BL] Interrupt driven reset.\n");
-};
+}
 
 void breathing_enable(void) {
 	breathing_counter = 0;
 	breathing_halt = BREATHING_NO_HALT;
 	breathing_interrupt_enable();
 	printf("[BL] Breathing enabled.\n");
-};
+}
 
 void breathing_pulse(void)
 {
@@ -129,14 +129,14 @@ void breathing_pulse(void)
 
 	breathing_halt = BREATHING_HALT_ON;
 	breathing_interrupt_enable();
-};
+}
 
 void breathing_disable(void)
 {
     breathing_interrupt_disable();
     backlight_set(get_backlight_level());
     printf("[BL] Breathing disabled.\n");
-};
+}
 
 void breathing_self_disable(void)
 {
@@ -145,7 +145,7 @@ void breathing_self_disable(void)
 	else
 		breathing_halt = BREATHING_HALT_ON;
 	printf("[BL] Breathing disabled by self.\n");
-};
+}
 
 void breathing_toggle(void) {
 	if (is_breathing()){
@@ -155,28 +155,28 @@ void breathing_toggle(void) {
 		breathing_enable();
 		printf("[BL] Breathing toggled on.\n");
 	}
-};
+}
 
 void breathing_period_set(uint8_t value)
 {
 	if (!value)
 		value = 1;
 	breathing_period = value;
-};
+}
 
 void breathing_period_default(void) {
 	breathing_period_set(BREATHING_PERIOD);
-};
+}
 
 void breathing_period_inc(void)
 {
 	breathing_period_set(breathing_period+1);
-};
+}
 
 void breathing_period_dec(void)
 {
 	breathing_period_set(breathing_period-1);
-};
+}
 
 static const uint8_t breathing_table[BREATHING_STEPS] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10,
@@ -187,11 +187,12 @@ static const uint8_t breathing_table[BREATHING_STEPS] = {
 	235, 231, 225, 220, 213, 207, 200, 193, 185, 178, 170, 162,
 	154, 146, 138, 129, 121, 113, 106, 98, 91, 83, 76, 70, 63,
 	57, 51, 46, 41, 36, 32, 28, 24, 20, 17, 15, 12, 10, 8, 6, 5,
-	4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
 static inline uint16_t scale_backlight(uint16_t v) {
 	return v / BACKLIGHT_LEVELS * get_backlight_level();
-};
+}
 
 static void breathing_callback(PWMDriver *pwmp)
 {
@@ -211,4 +212,4 @@ static void breathing_callback(PWMDriver *pwmp)
 	chSysLockFromISR();
 	pwmEnableChannelI(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF, duty));
 	chSysUnlockFromISR();
-};
+}
