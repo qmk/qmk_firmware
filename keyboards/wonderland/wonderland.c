@@ -31,7 +31,7 @@ void led_set_kb(uint8_t usb_led) {
         DDRB &= ~(1 << 2);
     }
 
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         DDRB |= (1 << 3);
     } else {
         DDRB &= ~(1 << 3);
