@@ -574,6 +574,7 @@ void naginata_type(void) {
         memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
         if (keycomb == bngmapu.key) {
           send_unicode_hex_string(bngmapu.kana);
+          tap_code(KC_ENT);
           naginata_clear();
           return;
         }
