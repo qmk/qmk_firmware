@@ -25,7 +25,7 @@ void led_set_kb(uint8_t usb_led) {
         DDRB &= ~(1 << 1);
     }
 
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         DDRB |= (1 << 2);
     } else {
         DDRB &= ~(1 << 2);
