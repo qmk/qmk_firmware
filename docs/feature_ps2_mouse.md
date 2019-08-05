@@ -92,6 +92,7 @@ In your keyboard config.h:
 
 pretty much any two pins can be used for the (software) interrupt variant on ARM cores, the example below uses A8 for clock, and A9 for data.
 
+NOTE: due to implementation details of the EXT config, "any two pins", is currently limited to the Port-A (see tmk_core/protocol/ps2_interrupt.c)
 
 In rules.mk:
 

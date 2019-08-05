@@ -77,7 +77,6 @@ static inline void    pbuf_clear(void);
 //------------------------------------------------
 // LEGACY EXT driver, for external interrupts
 // (with newer chibios we could use palLineEnableEvent and so forth...)
-#define PS2_INT_INIT() {} while(0)
 
 void ps2_interrupt_service_routine(void);
 void extcb(EXTDriver *extp, expchannel_t channel) {
@@ -88,7 +87,7 @@ void extcb(EXTDriver *extp, expchannel_t channel) {
   16 slots, one for each pin...
   currently configured to listen on external changes on pad A8
  */
-static const EXTConfig extcfg = {
+static EXTConfig extcfg = {
     {
         {EXT_CH_MODE_DISABLED, NULL}, //0
         {EXT_CH_MODE_DISABLED, NULL},
@@ -98,7 +97,7 @@ static const EXTConfig extcfg = {
         {EXT_CH_MODE_DISABLED, NULL}, //5
         {EXT_CH_MODE_DISABLED, NULL},
         {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb}, //GPIOA 8 = clock
+        {EXT_CH_MODE_DISABLED, NULL},
         {EXT_CH_MODE_DISABLED, NULL},
         {EXT_CH_MODE_DISABLED, NULL}, //10
         {EXT_CH_MODE_DISABLED, NULL},
@@ -108,6 +107,11 @@ static const EXTConfig extcfg = {
         {EXT_CH_MODE_DISABLED, NULL}
     }
 };
+static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb}; // NOTE: hardcoded/limited to Port-A
+#define PS2_INT_INIT() { \
+        extStart(&EXTD1, &extcfg); /*activate config, to be able to select the appropriate channel */ \
+        extSetChannelModeI(&EXTD1, PAL_PAD(PS2_LINE_CLOCK), &ext_clock_channel_config); \
+    } while(0)
 #define PS2_INT_ON() { \
         extStart(&EXTD1, &extcfg);              \
     } while(0)
