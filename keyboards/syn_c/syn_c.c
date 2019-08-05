@@ -19,6 +19,16 @@
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
 
+keyboard_config_t keyboard_config;
+
+void keyboard_pre_init_kb(void) {
+    // read kb settings from eeprom
+    keyboard_config.raw = eeconfig_read_kb();
+
+	// start backlight
+	backlight_init_ports();
+}
+
 // initialization overloads
 void matrix_init_kb(void) {
     // Intitialize the pins we need to initialize
@@ -29,15 +39,16 @@ void matrix_init_kb(void) {
     dprintf("[SYS] Startup complete.\n");
     LED_ON();
 
-	// start backlight
-	backlight_init_ports();
 
     // continue startup
     matrix_init_user();
 }
 
-void eeprom_init_kb(void) {
-	// TODO
+void eeconfig_init_kb(void) {
+    keyboard_config.raw = 0;
+    keyboard_config.led_level = 4;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
 
 void blink_led(uint8_t times) {

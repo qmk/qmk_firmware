@@ -36,4 +36,13 @@
 	{ KC1, KC2, KC3 } \
 }
 
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t    led_level :3;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+
 void blink_led(uint8_t times);
