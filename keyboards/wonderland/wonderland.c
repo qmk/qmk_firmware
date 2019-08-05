@@ -19,7 +19,7 @@ void led_init_ports(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+	if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
         DDRB |= (1 << 1);
     } else {
         DDRB &= ~(1 << 1);
