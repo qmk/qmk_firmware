@@ -103,7 +103,7 @@ bool            g_suspend_state = false;
 rgb_config_t    rgb_matrix_config;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
 uint32_t        g_rgb_timer;
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
-  uint8_t       g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+  uint8_t       g_rgb_frame_buffer[DRIVER_LED_TOTAL] = {0};
 #endif // RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   last_hit_t    g_last_hit_tracker;
