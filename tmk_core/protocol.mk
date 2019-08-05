@@ -14,13 +14,21 @@ endif
 
 ifeq ($(strip $(PS2_USE_INT)), yes)
     SRC += protocol/ps2_interrupt.c
+	ifeq ($(PLATFORM),AVR)
     SRC += protocol/ps2_io_avr.c
+	else ifeq ($(PLATFORM),CHIBIOS)
+    SRC += protocol/ps2_io_chibios.c
+	endif
     OPT_DEFS += -DPS2_USE_INT
 endif
 
 ifeq ($(strip $(PS2_USE_USART)), yes)
     SRC += protocol/ps2_usart.c
+	ifeq ($(PLATFORM),AVR)
     SRC += protocol/ps2_io_avr.c
+	else ifeq ($(PLATFORM),CHIBIOS)
+    SRC += protocol/ps2_io_chibios.c
+	endif
     OPT_DEFS += -DPS2_USE_USART
 endif
 

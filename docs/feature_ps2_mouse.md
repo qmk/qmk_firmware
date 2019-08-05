@@ -50,7 +50,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version
+### Interrupt Version (AVR/ATMega32u4)
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
@@ -87,6 +87,31 @@ In your keyboard config.h:
 #define PS2_INT_VECT   INT2_vect
 #endif
 ```
+
+### Interrupt Version (ARM chibios)
+
+pretty much any two pins can be used for the (software) interrupt variant on ARM cores, the example below uses A8 for clock, and A9 for data.
+
+
+In rules.mk:
+
+```
+PS2_MOUSE_ENABLE = yes
+PS2_USE_INT = yes
+```
+
+In your keyboard config.h:
+
+```
+#define PS2_LINE_CLOCK PAL_LINE(GPIOB, 8U)
+#define PS2_LINE_DATA  PAL_LINE(GPIOA, 9U)
+```
+
+And in the chibios specifig halconf.h:
+```
+#define HAL_USE_EXT                 TRUE
+```
+
 
 ### USART Version
 
