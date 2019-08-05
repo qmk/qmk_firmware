@@ -27,12 +27,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ALT_TAB_TICK:
             at_enable = record->event.pressed;
             if (at_enable) {
-                printf("[ALT_TAB] Registered. (%u)\n",at_clock);
+                dprintf("[ALT_TAB] Registered. (%u)\n",at_clock);
                 at_clock = timer_read();
                 register_code(KC_LALT);
                 tap_code(KC_TAB);
             } else {
-                printf("[ALT_TAB] Deregistered. (%u)\n",at_clock);
+                dprintf("[ALT_TAB] Deregistered. (%u)\n",at_clock);
                 unregister_code(KC_LALT);
             }
             break;
@@ -57,19 +57,19 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_WH_D);
-            printf("[ENC %u] TRUE\n",index);
+            dprintf("[ENC %u] TRUE\n",index);
         } else {
             tap_code(KC_WH_U);
-            printf("[ENC %u] FALSE\n",index);
+            dprintf("[ENC %u] FALSE\n",index);
         }
     }
     else if (index == 1) {
         if (clockwise) {
             tap_code(KC_VOLU);
-            printf("[ENC %u] TRUE\n",index);
+            dprintf("[ENC %u] TRUE\n",index);
         } else {
             tap_code(KC_VOLD);
-            printf("[ENC %u] FALSE\n",index);
+            dprintf("[ENC %u] FALSE\n",index);
         }
     }
 }
@@ -88,7 +88,7 @@ void led_set_user(uint8_t usb_led) { }
 
 void keyboard_post_init_user(void) {
 	debug_enable=true;
-	debug_matrix=true;
+	//debug_matrix=true;
 	//debug_keyboard=true;
 	//debug_mouse=true;
 }

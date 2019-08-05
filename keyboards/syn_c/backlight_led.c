@@ -17,7 +17,7 @@
 #include "hal.h"
 #include "backlight.h"
 #include "backlight_led.h"
-#include "printf.h"
+#include "debug.h"
 
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
@@ -78,7 +78,7 @@ void backlight_init_ports(void) {
 	palSetLineMode(B0, PAL_MODE_ALTERNATE(2));
 	pwmStart(&PWMD3, &pwmCFG);
 	pwmEnableChannel(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
-	printf("[BL] Startup complete.\n");
+	dprintf("[BL] Startup complete.\n");
 }
 
 void backlight_set(uint8_t level) {
@@ -90,7 +90,7 @@ void backlight_set(uint8_t level) {
 			pwmEnableChannel(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3,0xFFFF,duty));
 		}
 	}
-	printf("[BL] Backlight set. (L:%d) (D:%d)\n", level, duty);
+	dprintf("[BL] Backlight set. (L:%d) (D:%d)\n", level, duty);
 }
 
 bool is_breathing(void) {
@@ -104,20 +104,20 @@ void breathing_interrupt_enable(void){
 	pwmEnablePeriodicNotification(&PWMD3);
 	pwmEnableChannelI(&PWMD3, 2, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF, 0xFFFF));
 	chSysUnlockFromISR();
-	printf("[BL] Interrupt driven enable.\n");
+	dprintf("[BL] Interrupt driven enable.\n");
 }
 
 void breathing_interrupt_disable(void) {
 	pwmStop(&PWMD3);
 	pwmStart(&PWMD3, &pwmCFG);
-	printf("[BL] Interrupt driven reset.\n");
+	dprintf("[BL] Interrupt driven reset.\n");
 }
 
 void breathing_enable(void) {
 	breathing_counter = 0;
 	breathing_halt = BREATHING_NO_HALT;
 	breathing_interrupt_enable();
-	printf("[BL] Breathing enabled.\n");
+	dprintf("[BL] Breathing enabled.\n");
 }
 
 void breathing_pulse(void)
@@ -135,7 +135,7 @@ void breathing_disable(void)
 {
     breathing_interrupt_disable();
     backlight_set(get_backlight_level());
-    printf("[BL] Breathing disabled.\n");
+    dprintf("[BL] Breathing disabled.\n");
 }
 
 void breathing_self_disable(void)
@@ -144,16 +144,16 @@ void breathing_self_disable(void)
 		breathing_halt = BREATHING_HALT_OFF;
 	else
 		breathing_halt = BREATHING_HALT_ON;
-	printf("[BL] Breathing disabled by self.\n");
+	dprintf("[BL] Breathing disabled by self.\n");
 }
 
 void breathing_toggle(void) {
 	if (is_breathing()){
 		breathing_disable();
-		printf("[BL] Breathing toggled off.\n");
+		dprintf("[BL] Breathing toggled off.\n");
 	} else {
 		breathing_enable();
-		printf("[BL] Breathing toggled on.\n");
+		dprintf("[BL] Breathing toggled on.\n");
 	}
 }
 

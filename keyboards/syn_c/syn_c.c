@@ -26,7 +26,7 @@ void matrix_init_kb(void) {
 
     // flash the MCU LED
     blink_led(3);
-    printf("[SYS] Startup complete.\n");
+    dprintf("[SYS] Startup complete.\n");
     LED_ON();
 
 	// start backlight
