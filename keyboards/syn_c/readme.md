@@ -7,8 +7,8 @@ Full PWM support for backlight LED on (GPIOB, 0) with code refactored from
 cannonkeys/bluepill.
 
 Keyboard Maintainer: [kratsyn](https://github.com/kratsyn)  
-Hardware Supported: BDN9 (keeb.io), QMK Proton-C
-Hardware Availability: https://keeb.io/, https://olkb.com
+Hardware Supported: BDN9 (keeb.io), QMK Proton-C  
+Hardware Availability: https://keeb.io/, https://olkb.com  
 
 Make example for this keyboard (after setting up your build environment):
 
