@@ -228,13 +228,13 @@ uint32_t layer_state_set_kb(uint32_t state) {
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
     switch (layer) {
-        case 3:
+        case 1:
             planck_ez_left_led_on();
             break;
-        case 4:
+        case 2:
             planck_ez_right_led_on();
             break;
-        case 6:
+        case 3:
             planck_ez_right_led_on();
             planck_ez_left_led_on();
             break;
