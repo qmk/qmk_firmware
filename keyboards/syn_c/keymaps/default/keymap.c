@@ -75,7 +75,3 @@ void matrix_scan_user(void) {
         at_clock = timer_read();
     }
 }
-
-void matrix_init_user(void) { }
-
-void led_set_user(uint8_t usb_led) { }

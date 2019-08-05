@@ -41,12 +41,11 @@ void eeprom_init_kb(void) {
 }
 
 void blink_led(uint8_t times) {
-    while ( times ) {
+    while ( times-- ) {
         LED_ON();
         wait_ms(200);
         LED_OFF();
         wait_ms(200);
-        times--;
     }
 }
 

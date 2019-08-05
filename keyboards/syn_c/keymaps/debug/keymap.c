@@ -82,13 +82,9 @@ void matrix_scan_user(void) {
     }
 }
 
-void matrix_init_user(void) { }
-
-void led_set_user(uint8_t usb_led) { }
-
 void keyboard_post_init_user(void) {
 	debug_enable=true;
 	//debug_matrix=true;
-	//debug_keyboard=true;
+	debug_keyboard=true;
 	//debug_mouse=true;
 }
