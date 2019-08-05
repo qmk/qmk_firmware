@@ -3,8 +3,8 @@
 ![syn_c](imgur.com image replace me!)
 
 This is basically a keeb.io BDN9 with a Proton-C strapped to it.  
-Full PWM support for backlight LED on (GPIOB, 0)  
-with code refactored from cannonkeys/bluepill. 
+Full PWM support for backlight LED on (GPIOB, 0) with code  
+refactored from cannonkeys/bluepill. 
 
 Keyboard Maintainer: [kratsyn](https://github.com/kratsyn)  
 Hardware Supported: BDN9 (keeb.io), QMK Proton-C  
