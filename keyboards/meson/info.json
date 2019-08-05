@@ -2,7 +2,7 @@
     "keyboard_name": "Meson",
     "keyboard_folder": "meson",
     "maintainer": "qmk",
-    "width": 14.5,
+    "width": 15.5,
     "height": 4,
     "layouts": {
       "LAYOUT": {
@@ -100,7 +100,7 @@
           {"label": "", "x": 13.5, "y": 2},
           {"label": "", "x": 14.5, "y": 2},
           {"label": "", "x": 4, "y": 3, "w": 2},
-          {"label": "", "x": 9.5, "y": 3, "w": 2},
+          {"label": "", "x": 9.5, "y": 3, "w": 2}
         ]
       }
     }
