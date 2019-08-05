@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_GAMING] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
+      _____, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
         TAB, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -196,7 +196,6 @@ void render_crkbd_logo(void) {
   oled_write_P(crkbd_logo, false);
 }
 
-
 void render_status(void) {
   // oled_write_P(PSTR("Layout: "), false);
   switch (biton32(default_layer_state)) {
@@ -251,7 +250,6 @@ void render_status(void) {
   oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
 }
 
-
 void oled_task_user(void) {
   if (is_master) {
     render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
@@ -261,7 +259,6 @@ void oled_task_user(void) {
   }
 }
 #endif
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
