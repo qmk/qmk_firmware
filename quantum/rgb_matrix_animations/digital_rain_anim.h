@@ -1,77 +1,80 @@
-#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
-RGB_MATRIX_EFFECT(DIGITAL_RAIN)
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_NEW_DIGITAL_RAIN)
+RGB_MATRIX_EFFECT(NEW_DIGITAL_RAIN)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-#ifndef RGB_DIGITAL_RAIN_DROPS
-    // lower the number for denser effect/wider keyboard
-    #define RGB_DIGITAL_RAIN_DROPS 24
-#endif
+// TODO: Create a variable blackboard / scratchpad (memory page) that effects can use
+static uint32_t digital_rain_drop_timer = 0;
+static uint32_t digital_rain_timer = 0;
+static uint8_t previous_drop = UINT8_MAX;
 
-bool DIGITAL_RAIN(effect_params_t* params) {
-  // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
-  const uint8_t drop_ticks           = 28;
-  const uint8_t pure_green_intensity = 0xd0;
-  const uint8_t max_brightness_boost = 0xc0;
-  const uint8_t max_intensity        = 0xff;
+static inline void digital_rain_reset_drop_timer(void) {
+    uint8_t invert_spd = UINT8_MAX - rgb_matrix_config.speed;
+    digital_rain_drop_timer = g_rgb_timer + 250 + ((uint32_t)invert_spd * 3) + rand() % ((uint32_t)invert_spd * 4 + 1);
+}
 
-  static uint8_t drop = 0;
+static inline void digital_rain_reset_timer(void) {
+    uint8_t invert_spd = UINT8_MAX - rgb_matrix_config.speed;
+    digital_rain_timer = g_rgb_timer + 50 + invert_spd / 2;
+}
 
-  if (params->init) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    memset(g_rgb_frame_buffer, 0, sizeof(g_rgb_frame_buffer));
-    drop = 0;
-  }
+bool NEW_DIGITAL_RAIN(effect_params_t* params) {
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+    // Init animation
+    if (params->init && led_min == 0) {
+        rgb_matrix_set_color_all(0, 0, 0);
+        memset(g_rgb_frame_buffer, 0, sizeof(g_rgb_frame_buffer));
+        digital_rain_reset_drop_timer();
+        digital_rain_reset_timer();
+        previous_drop = UINT8_MAX;
+    }
+
+    // New Drop
+    if (led_min == 0 && timer_expired32(g_rgb_timer, digital_rain_drop_timer)) {
+        uint8_t led[LED_HITS_TO_REMEMBER];
+        uint8_t new_drop = rand() % MATRIX_COLS;
+        if (new_drop != previous_drop && rgb_matrix_map_row_column_to_led(0, new_drop, led) > 0) {
+            g_rgb_frame_buffer[led[0]] = UINT8_MAX;
+            digital_rain_reset_drop_timer();
+            previous_drop = new_drop;
+        }
+    }
+
+    // Render & decrease
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-      if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
-        // top row, pixels have just fallen and we're
-        // making a new rain drop in this column
-        g_rgb_frame_buffer[row][col] = max_intensity;
-      }
-      else if (g_rgb_frame_buffer[row][col] > 0 && g_rgb_frame_buffer[row][col] < max_intensity) {
-        // neither fully bright nor dark, decay it
-        g_rgb_frame_buffer[row][col]--;
-      }
-      // set the pixel colour
-      uint8_t led[LED_HITS_TO_REMEMBER];
-      uint8_t led_count = rgb_matrix_map_row_column_to_led(row, col, led);
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            // set the pixel colour
+            uint8_t led[LED_HITS_TO_REMEMBER];
+            if (rgb_matrix_map_row_column_to_led(row, col, led) == 0)
+                continue;
 
-      // TODO: multiple leds are supported mapped to the same row/column
-      if (led_count > 0) {
-        if (g_rgb_frame_buffer[row][col] > pure_green_intensity) {
-          const uint8_t boost = (uint8_t) ((uint16_t) max_brightness_boost * (g_rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
-          rgb_matrix_set_color(led[0], boost, max_intensity, boost);
-        }
-        else {
-          const uint8_t green = (uint8_t) ((uint16_t) max_intensity * g_rgb_frame_buffer[row][col] / pure_green_intensity);
-          rgb_matrix_set_color(led[0], 0, green, 0);
-        }
-      }
-    }
-  }
+            uint8_t val = g_rgb_frame_buffer[led[0]];
+            uint8_t sat = qsub8(rgb_matrix_config.hsv.s, qadd8(qsub8(val, 192) * 4, 64));
+            val = val > 192 ? UINT8_MAX : ((uint16_t)val * (uint16_t)UINT8_MAX) / 192;
 
-  if (++drop > drop_ticks) {
-    // reset drop timer
-    drop = 0;
-    for (uint8_t row = MATRIX_ROWS - 1; row > 0; row--) {
-      for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        // if ths is on the bottom row and bright allow decay
-        if (row == MATRIX_ROWS - 1 && g_rgb_frame_buffer[row][col] == max_intensity) {
-          g_rgb_frame_buffer[row][col]--;
+            HSV hsv = { rgb_matrix_config.hsv.h, sat, scale8(val, rgb_matrix_config.hsv.v) };
+            RGB rgb = hsv_to_rgb(hsv);
+            rgb_matrix_set_color(led[0], rgb.r, rgb.g, rgb.b);
+
+            if (timer_expired32(g_rgb_timer, digital_rain_timer))
+                g_rgb_frame_buffer[led[0]] = qsub8(g_rgb_frame_buffer[led[0]], 1);
+
+            uint8_t led_prev[LED_HITS_TO_REMEMBER];
+            if (row == 0 || rgb_matrix_map_row_column_to_led(row - 1, col, led_prev) == 0)
+                continue;
+
+            if (g_rgb_frame_buffer[led_prev[0]] == 227) {
+                g_rgb_frame_buffer[led[0]] = UINT8_MAX;
+            }
         }
-        // check if the pixel above is bright
-        if (g_rgb_frame_buffer[row - 1][col] == max_intensity) {
-          // allow old bright pixel to decay
-          g_rgb_frame_buffer[row - 1][col]--;
-          // make this pixel bright
-          g_rgb_frame_buffer[row][col] = max_intensity;
-        }
-      }
     }
-  }
-  return false;
+
+    bool remaining = led_max < sizeof(g_rgb_frame_buffer);
+    if (!remaining && timer_expired32(g_rgb_timer, digital_rain_timer)) {
+        digital_rain_reset_timer();
+    }
+    return remaining;
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_NEW_DIGITAL_RAIN)

@@ -216,7 +216,9 @@ enum rgb_matrix_effects {
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
+    RGB_MATRIX_BUBBLING_RAIN,       // Random leds fade in & out 
+    RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM! Has optional define to highlight only
+                                    //     the pressed key: DISABLE_RGB_MATRIX_TYPING_HEATMAP_KEY_SPREAD 
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
 #endif
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)

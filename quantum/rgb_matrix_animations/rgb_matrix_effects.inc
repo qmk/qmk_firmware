@@ -24,7 +24,7 @@
 #include "rgb_matrix_animations/jellybean_raindrops_anim.h"
 #include "rgb_matrix_animations/bubbling_rain_anim.h"
 #include "rgb_matrix_animations/typing_heatmap_anim.h"
-//#include "rgb_matrix_animations/digital_rain_anim.h"
+#include "rgb_matrix_animations/digital_rain_anim.h"
 #include "rgb_matrix_animations/solid_reactive_simple_anim.h"
 #include "rgb_matrix_animations/solid_reactive_anim.h"
 #include "rgb_matrix_animations/solid_reactive_wide.h"

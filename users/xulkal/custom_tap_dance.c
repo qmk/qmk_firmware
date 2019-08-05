@@ -1,6 +1,5 @@
 #include "custom_tap_dance.h"
 #include "custom_keycodes.h"
-#include "timer_utils.h"
 
 #ifdef TAP_DANCE_ENABLE
 
@@ -35,7 +34,7 @@ bool process_custom_tap_dance(uint16_t keycode, keyrecord_t *record)
     {
         if (record->event.pressed)
         {
-            if (td_keycode != keycode || timer_expired(td_timer))
+            if (td_keycode != keycode || timer_expired(timer_read(), td_timer))
             {
                 td_keycode = keycode;
                 td_timer = timer_read() + TAPPING_TERM;
@@ -53,7 +52,7 @@ bool process_custom_tap_dance(uint16_t keycode, keyrecord_t *record)
 
 void matrix_scan_user(void)
 {
-    if (td_keycode != KC_TRANSPARENT && timer_expired(td_timer))
+    if (td_keycode != KC_TRANSPARENT && timer_expired(timer_read(), td_timer))
         run_custom_tap_dance(0);
 }
 
