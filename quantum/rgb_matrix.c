@@ -389,7 +389,7 @@ void rgb_matrix_task(void) {
   g_suspend_state ||
 #endif // RGB_DISABLE_WHEN_USB_SUSPENDED == true
 #if RGB_DISABLE_AFTER_TIMEOUT > 0
-  (rgb_anykey_timer > RGB_DISABLE_AFTER_TIMEOUT * 1000) ||
+  (rgb_anykey_timer > (uint32_t)RGB_DISABLE_AFTER_TIMEOUT * 1000) ||
 #endif // RGB_DISABLE_AFTER_TIMEOUT > 0
   false;
 
