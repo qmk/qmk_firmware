@@ -8,7 +8,7 @@ static uint32_t rain_timer = 0;
 
 static inline void bubbling_rain_reset_drop_timer(void) {
     uint8_t invert_spd = UINT8_MAX - rgb_matrix_config.speed;
-    rain_drop_timer = g_rgb_timer + 10 + rand() % invert_spd / 4;
+    rain_drop_timer = g_rgb_timer + 10 + rand() % (invert_spd / 4 + 1);
 }
 
 static inline void bubbling_rain_reset_timer(void) {
