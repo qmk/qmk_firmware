@@ -49,9 +49,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_PW]  = ACTION_TAP_DANCE_DOUBLE(KC_B, MC_PW),  // pevious word
   [TD_DW]  = ACTION_TAP_DANCE_DOUBLE(KC_W, MC_DW),  // pevious word
 
-  [TD_SPC] = ACTION_TAP_DANCE_FN(td_parenthesis),
-  [TD_PAR] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, MC_PAR), 
-  [TD_SQR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, MC_SQR), 
-  [TD_CUR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_LCBR), MC_CUR),
-  [TD_ABR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_COMM), MC_ABR), 
+  [TD_SPC] = ACTION_TAP_DANCE_FN(td_parenthesis),           // \(, (), [], {}, <>
+  [TD_PAR] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, MC_PAR),      // () 
+  [TD_SQR] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, MC_SQR),      // []
+  [TD_CUR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_LCBR), MC_CUR),// {}
+  [TD_ABR] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_COMM), MC_ABR),// 
 };
