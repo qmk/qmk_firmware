@@ -48,9 +48,9 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   // escape LED on layer 1
   if (IS_LAYER_ON(1)) {
-    writePinHigh(B0);
-  } else {
     writePinLow(B0);
+  } else {
+    writePinHigh(B0);
   }
 }
 
