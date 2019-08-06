@@ -248,6 +248,9 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
 
+* `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
+
 * `#define RGBLED_SPLIT { 6, 6 }`
   * See [RGB Light Configuration](#rgb-light-configuration)
 
