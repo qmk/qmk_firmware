@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 20 
 #define TAPPING_TERM 200
 
-#define BACKLIGHT_LEVELS 8 
+#define BACKLIGHT_LEVELS 5 
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6 
 

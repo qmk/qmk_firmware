@@ -16,18 +16,19 @@
 #include "syn_c.h"
 #include "hal.h"
 #include "eeconfig.h"
+#include "backlight_led.h"
 
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
 
-keyboard_config_t keyboard_config;
+keyboard_config_t	keyboard_config;
 
 void keyboard_pre_init_kb(void) {
     // read kb settings from eeprom
     keyboard_config.raw = eeconfig_read_kb();
 
-	// start backlight
-	backlight_init_ports();
+	// start blt
+	backlight_init();
 }
 
 // initialization overloads
@@ -47,7 +48,9 @@ void matrix_init_kb(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.raw = 0;
-    keyboard_config.led_level = 4;
+    keyboard_config.blt_level = BACKLIGHT_LEVELS;
+	keyboard_config.blt_breath = 1;
+	keyboard_config.blt_enable = 1;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
@@ -61,10 +64,27 @@ void blink_led(uint8_t times) {
     }
 }
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
+    switch (keycode) {
+        case BL_STEP:
+            if (record->event.pressed) {
+                 keyboard_config.blt_level++;
+                 if (keyboard_config.blt_level > BACKLIGHT_LEVELS) {
+                    keyboard_config.blt_level = 0;
+                 }
+                 backlight_level((uint8_t)keyboard_config.blt_level * 255 / BACKLIGHT_LEVELS);
+                 eeconfig_update_kb(keyboard_config.raw);
+            }
+            break;
+		case BL_BRTG:
+			if (record->event.pressed) {
+				if(keyboard_config.blt_breath)
+					keyboard_config.blt_breath = 0;
+				else
+					keyboard_config.blt_breath = 1;
+				eeconfig_update_kb(keyboard_config.raw);
+			}
+			break;
+    }
+    return process_record_user(keycode, record);
 }
