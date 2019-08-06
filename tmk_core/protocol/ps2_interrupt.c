@@ -44,14 +44,10 @@ POSSIBILITY OF SUCH DAMAGE.
 #if defined(__AVR__)
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#define DELAY_MS(x) _delay_ms(x)
-#define DELAY_US(x) _delay_us(x)
 #elif defined(PROTOCOL_CHIBIOS) //TODO: or STM32 ?
 // chibiOS headers
 #include "ch.h"
 #include "hal.h"
-#define DELAY_MS(x) chThdSleepMilliseconds(x)
-#define DELAY_US(x) chThdSleepMicroseconds(x)
 #endif
 
 #include "ps2.h"
@@ -128,7 +124,7 @@ void ps2_host_init(void) {
     PS2_INT_INIT();
     PS2_INT_ON();
     // POR(150-2000ms) plus BAT(300-500ms) may take 2.5sec([3]p.20)
-    //DELAY_MS(2500);
+    //wait_ms(2500);
 }
 
 uint8_t ps2_host_send(uint8_t data) {
@@ -139,7 +135,7 @@ uint8_t ps2_host_send(uint8_t data) {
 
     /* terminate a transmission if we have */
     inhibit();
-    DELAY_US(100); // 100us [4]p.13, [5]p.50
+    wait_us(100); // 100us [4]p.13, [5]p.50
 
     /* 'Request to Send' and Start bit */
     data_lo();
@@ -159,7 +155,7 @@ uint8_t ps2_host_send(uint8_t data) {
     }
 
     /* Parity bit */
-    DELAY_US(15);
+    wait_us(15);
     if (parity) {
         data_hi();
     } else {
@@ -169,7 +165,7 @@ uint8_t ps2_host_send(uint8_t data) {
     WAIT(clock_lo, 50, 5);
 
     /* Stop bit */
-    DELAY_US(15);
+    wait_us(15);
     data_hi();
 
     /* Ack */
@@ -193,7 +189,7 @@ uint8_t ps2_host_recv_response(void) {
     // Command may take 25ms/20ms at most([5]p.46, [3]p.21)
     uint8_t retry = 25;
     while (retry-- && !pbuf_has_data()) {
-        DELAY_MS(1);
+        wait_ms(1);
     }
     return pbuf_dequeue();
 }

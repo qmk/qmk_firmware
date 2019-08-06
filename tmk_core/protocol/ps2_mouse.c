@@ -18,15 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #if defined(__AVR__)
-  #include <avr/io.h>
-  #include <util/delay.h>
-  #define DELAY_MS(x) _delay_ms(x)
-  #define DELAY_US(x) _delay_us(x)
-#elif defined(PROTOCOL_CHIBIOS) //TODO: or STM32 ?
-  // chibiOS headers
-//NOTE: no delays needed in the chibios case
-  #define DELAY_MS(x)
-  #define DELAY_US(x)
+  #include<avr/io.h>
+  #include<util/delay.h>
 #endif
 
 
@@ -54,7 +47,7 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 void ps2_mouse_init(void) {
     ps2_host_init();
 
-    DELAY_MS(PS2_MOUSE_INIT_DELAY);    // wait for powering up
+    wait_ms(PS2_MOUSE_INIT_DELAY);    // wait for powering up
 
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
 
@@ -202,7 +195,7 @@ static inline void ps2_mouse_enable_scrolling(void) {
     PS2_MOUSE_SEND(PS2_MOUSE_SET_SAMPLE_RATE, "Set sample rate");
     PS2_MOUSE_SEND(80, "80");
     PS2_MOUSE_SEND(PS2_MOUSE_GET_DEVICE_ID, "Finished enabling scroll wheel");
-    DELAY_MS(20);
+    wait_ms(20);
 }
 
 #define PRESS_SCROLL_BUTTONS mouse_report->buttons |= (PS2_MOUSE_SCROLL_BTN_MASK)
@@ -244,7 +237,7 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report) {
         if (scroll_state == SCROLL_BTN && timer_elapsed(scroll_button_time) < PS2_MOUSE_SCROLL_BTN_SEND) {
             PRESS_SCROLL_BUTTONS;
             host_mouse_send(mouse_report);
-            DELAY_MS(100);
+            wait_ms(100);
             RELEASE_SCROLL_BUTTONS;
         }
 #endif
