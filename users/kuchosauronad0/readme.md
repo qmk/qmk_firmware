@@ -51,8 +51,8 @@ And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<na
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-/users/drashna/secrets.c
-/users/drashna/secrets.h
+/users/kuchosauronad0/secrets.c
+/users/kuchosauronad0/secrets.h
 ```
 
 Then you can create these files:
@@ -60,7 +60,7 @@ Then you can create these files:
 ### secrets.c
 
 ```c
-#include "drashna.h"  // replace with your keymap's "h" file, or whatever file stores the keycodes
+#include "kuchosauronad0.h"  // replace with your keymap's "h" file, or whatever file stores the keycodes
 
 #if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
