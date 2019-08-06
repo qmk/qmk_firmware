@@ -6,7 +6,7 @@
 #define KC__FN2 MO(_FN2)
 #define KC__CFG MO(_CFG)
 #define KC_CFG1 LT(_CFG, KC_SPC)
-#define KC_CFG2 LT(_CFG, KC_BSPC)
+#define KC_CFG2 LT(_CFG, KC_DEL)
 
 #define KC_RST RESET
 #define KC__VUP KC__VOLUP
