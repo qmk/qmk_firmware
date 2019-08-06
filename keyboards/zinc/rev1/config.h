@@ -39,6 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 //#define USE_MATRIX_I2C
 
+#define SOFT_SERIAL_PIN D2
+
 /* Select hand configuration */
 #define MASTER_LEFT
 //#define MASTER_RIGHT
@@ -69,21 +71,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
-//#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
+
+
 
 // RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
-#ifdef RGBLED_BACK
-  #define RGBLED_NUM 24
-#else
-  #ifdef RGBLED_BOTH
-    #define RGBLED_NUM 30
+#ifdef RGBLIGHT_ENABLE
+  #define RGBLIGHT_SPLIT
+  #ifdef RGBLED_BACK
+    #ifdef RGBLED_CONT
+      #define RGBLED_NUM 48
+      #define RGBLED_SPLIT { 24, 24 }
+    #else
+      #define RGBLED_NUM 24
+    #endif
   #else
-    #define RGBLED_NUM 6
+    #ifdef RGBLED_BOTH
+      #ifdef RGBLED_CONT
+        #define RGBLED_NUM 60
+        #define RGBLED_SPLIT { 30, 30 }
+//      #define RGBLIGHT_LED_MAP {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29}
+      #else
+        #define RGBLED_NUM 30
+      #endif
+    #else
+      #ifdef RGBLED_CONT
+        #define RGBLED_NUM 12
+        #define RGBLED_SPLIT { 6, 6 }
+      #else
+        #define RGBLED_NUM 6
+      #endif
+    #endif
   #endif
 #endif
 
