@@ -7,35 +7,59 @@ void send_unicode_hex_string(const char* str);
 /* use X(n) to call the  */
 #ifdef UNICODEMAP_ENABLE
 enum unicode_name {
-  THINK, // thinking face 🤔
-  GRIN, // grinning face 😊
-  SMRK, // smirk 😏
-  WEARY, // good shit 😩
-  UNAMU, // unamused 😒
-
-  SNEK, // snke 🐍
-  PENGUIN, // 🐧
-  DRAGON, // 🐉
-  MONKEY, // 🐒
-  CHICK, // 🐥
-  BOAR, // 🐗
-
-  OKOK, // 👌
-  EFFU, // 🖕
-  INUP, // 👆
-  THUP, // 👍
-  THDN, // 👎
-
-  BBB, // dat B 🅱
-  POO, // poop 💩
-  HUNDR, // 100 💯
-  EGGPL, // EGGPLANT 🍆
-  WATER, // wet 💦
-  TUMBLER, // 🥃
-
-  LIT, // fire 🔥
-  BANG, // ‽
-  IRONY, // ⸮
-  DEGREE // °
+BANG,     // ‽
+IRONY,    // ⸮
+DEGREE,   // °
+THINK,    // 🤔 
+GRIN,     // �
+MONOCL,   // 🧐
+DRUG0,    // 🤪
+DRUG1,    // 🥴 
+CLOWN,    // 🤡
+MNDBLWN,  // 🤯
+MONEY,    // 🤑
+SHTUP,    // 🤐
+PARTY,    // 🥳
+SMRK,     // 😏
+WEARY,    // 😩
+UNAMU,    // 😒
+SPY,      //🕵
+DAFUQ,    // 👺
+FIST0,    // 🤛
+FIST1,    // 🤜
+FIST2,    // ✊
+FIST3,    // 👊
+WIFIHAND, // 👌
+EFFU,     // 🖕
+SPOCK,    // 🖖
+INUP,     // 👆
+THDN,     // 👎
+THUP,     // 👍
+TUMBLER,  // 🥃
+DRAGON0,  // 🐉
+DRAGON1,  // 🐅
+TIGER1,   // 🐯
+COOL,     // 🆒
+UCHART,   // 📈
+DCHART,   // 📉
+BCHART,   // 📊
+NOPRCY,   // 🕲
+PRCY,     // 🕱
+BBB,      // 🅱
+POO,      // 💩
+HUNDR,    // 💯
+EGGPL,    // 🍆
+WATER,    // 💦
+LIT,      // 🔥
+SNEK,     // 🐍
+PENGUIN,  // 🐧
+BOAR,     // 🐗
+MONKEY,   // 🐒
+CHICK,    // 🐥
+DASH,     // 💨
+DIZZY,    // 💫
+KEEB,     // 🖮
+HOLE,     // 🕳
+SAUCER    // 🛸
 };
 #endif
