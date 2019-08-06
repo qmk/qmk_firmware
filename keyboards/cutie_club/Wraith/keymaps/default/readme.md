@@ -1,1 +1,1 @@
-# The default keymap for Wraith
+# The default keymap for the Wraith
