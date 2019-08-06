@@ -222,11 +222,19 @@ void git_commit(void) {
 }
 
 void git_add(void) {
-  SEND_STRING("git add");
+  SEND_STRING("git add ");
 }
 
 void git_push(void){
   SEND_STRING("git push" SS_TAP(X_ENTER));
+}
+
+void git_lazy(void){
+  git_status();
+  git_add();
+  SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_DOT));
+  git_commit();
+  //TODO: figure out how to use per key timeout for the commit message and then run git_push()
 }
 
 void git_revert(void){
