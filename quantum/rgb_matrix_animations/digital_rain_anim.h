@@ -1,5 +1,5 @@
-#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_NEW_DIGITAL_RAIN)
-RGB_MATRIX_EFFECT(NEW_DIGITAL_RAIN)
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
+RGB_MATRIX_EFFECT(DIGITAL_RAIN)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 // TODO: Create a variable blackboard / scratchpad (memory page) that effects can use
@@ -17,7 +17,7 @@ static inline void digital_rain_reset_timer(void) {
     digital_rain_timer = g_rgb_timer + 50 + invert_spd / 2;
 }
 
-bool NEW_DIGITAL_RAIN(effect_params_t* params) {
+bool DIGITAL_RAIN(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
     // Init animation
@@ -77,4 +77,4 @@ bool NEW_DIGITAL_RAIN(effect_params_t* params) {
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_NEW_DIGITAL_RAIN)
+#endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && !defined(DISABLE_RGB_MATRIX_DIGITAL_RAIN)
