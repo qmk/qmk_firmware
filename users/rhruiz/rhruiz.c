@@ -5,6 +5,11 @@ __attribute__ ((weak))
 void rhruiz_update_layer_colors(void) {
 }
 
+__attribute__ ((weak))
+void rhruiz_on_default_layer(void) {
+  rhruiz_rgblight_reset();
+}
+
 uint32_t rhruiz_layer_state_set_user(uint32_t state) {
   static uint32_t last_state = 0;
 
@@ -15,7 +20,7 @@ uint32_t rhruiz_layer_state_set_user(uint32_t state) {
       case _MOUSE:
       case _KEY_OVERRIDE:
         state = state & (0UL << _VIM_EMACS) & (0UL << _MOUSE) & (0UL << _KEY_OVERRIDE);
-        rhruiz_rgblight_reset();
+        rhruiz_on_default_layer();
         break;
 
       case _FN1:
