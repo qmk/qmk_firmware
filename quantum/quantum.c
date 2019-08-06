@@ -1061,15 +1061,15 @@ void matrix_scan_quantum() {
     #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
       #error This MCU has no C4 pin!
     #else
-      #define COMxx1        COM3C1
-      #define OCRxx         OCR3C
+      #define COMxx1      COM3C1
+      #define OCRxx       OCR3C
     #endif
   #elif BACKLIGHT_PIN == C5
     #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
       #error This MCU has no C5 pin!
     #else
-      #define COMxx1        COM3B1
-      #define OCRxx         OCR3B
+      #define COMxx1      COM3B1
+      #define OCRxx       OCR3B
     #endif
   #elif BACKLIGHT_PIN == C6
     #define COMxx1        COM3A1
@@ -1086,14 +1086,14 @@ void matrix_scan_quantum() {
   #define TOIEx           TOIE1
 
   #if BACKLIGHT_PIN == B7
-    #define COMxx1          COM1C1
-    #define OCRxx           OCR1C
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
   #elif BACKLIGHT_PIN == C5
-    #define COMxx1          COM1B1
-    #define OCRxx           OCR1B
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
   #elif BACKLIGHT_PIN == C6
-    #define COMxx1          COM1A1
-    #define OCRxx           OCR1A
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
   #endif
 #elif defined(__AVR_ATmega32A__) \
   && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
@@ -1106,11 +1106,11 @@ void matrix_scan_quantum() {
   #define TOIEx           TOIE1
 
   #if BACKLIGHT_PIN == D4
-    #define COMxx1          COM1B1
-    #define OCRxx           OCR1B
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
   #elif BACKLIGHT_PIN == D5
-    #define COMxx1          COM1A1
-    #define OCRxx           OCR1A
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
   #endif
 #else
   #if !defined(BACKLIGHT_CUSTOM_DRIVER)
