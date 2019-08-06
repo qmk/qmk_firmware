@@ -53,6 +53,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [MONEY]     = 0x1F911,// 🤑
   [SHTUP]     = 0x1F910,// 🤐
   [FIST0]     = 0x1F91B,// 🤛
+  [FIST1]     = 0x1F91C,// 🤜
   [FIST2]     = 0x270A,// ✊
   [FIST3]     = 0x1F44A,// 👊
   [PARTY]     = 0x1F973,// 🥳
