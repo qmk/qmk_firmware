@@ -3,7 +3,7 @@
 //#ifdef UNICODEMAP_ENABLE
 const uint32_t PROGMEM unicode_map[] = {
   [THINK]     = 0x1F914,// 🤔 
-  [GRIN]      = 0x1F600,//  �
+  [GRIN]      = 0x1F600,// �
   [BBB]       = 0x1F171,// 🅱
   [POO]       = 0x1F4A9,// 💩
   [HUNDR]     = 0x1F4AF,// 💯
