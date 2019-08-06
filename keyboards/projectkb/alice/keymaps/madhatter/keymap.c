@@ -16,20 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 enum layer_names {
     _QWERTY,
     _FNM
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  FNM
-};
-
 #define FNM MO(_FNM)
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_default(
