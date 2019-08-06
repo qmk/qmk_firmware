@@ -40,9 +40,10 @@
 typedef union {
 	uint32_t raw;
 	struct {
-		bool		blt_enable : 1;
-		bool		blt_breath : 1;
-		uint8_t		blt_level : BACKLIGHT_LEVELS;
+		bool		blt_enable 	: 1;
+		bool		blt_breath 	: 1;
+		uint8_t		blt_bsteps	: 8;
+		uint8_t		blt_level 	: 5; // "limited" to 31 by quantum anyway
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;

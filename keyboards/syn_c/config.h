@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 
 #define BACKLIGHT_LEVELS 5 
-#define BACKLIGHT_BREATHING
+#define BACKLIGHT_BREATHING_STEPS 128
 #define BREATHING_PERIOD 6 
 
 #define RGB_DI_PIN A9

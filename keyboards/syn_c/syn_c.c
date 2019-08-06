@@ -48,9 +48,10 @@ void matrix_init_kb(void) {
 
 void eeconfig_init_kb(void) {
     keyboard_config.raw = 0;
-    keyboard_config.blt_level = BACKLIGHT_LEVELS;
-	keyboard_config.blt_breath = 1;
 	keyboard_config.blt_enable = 1;
+    keyboard_config.blt_level = BACKLIGHT_LEVELS;
+	keyboard_config.blt_breath = 0;
+	keyboard_config.blt_bsteps = BACKLIGHT_BREATHING_STEPS;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 	dprint("[SYS] EEPROM Reset to default values.\n");
@@ -80,10 +81,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 		case BL_BRTG:
 			if (record->event.pressed) {
 				if(keyboard_config.blt_breath)
-					keyboard_config.blt_breath = 0;
+					backlight_breathing_off();
 				else
-					keyboard_config.blt_breath = 1;
-				eeconfig_update_kb(keyboard_config.raw);
+					backlight_breathing_on();
 			}
 			break;
     }

@@ -17,6 +17,10 @@
 
 void backlight_init(void);
 void backlight_level(uint8_t level);
+void backlight_enable_cb(void);
+void backlight_disable_cb(void);
 void backlight_on(void);
 void backlight_off(void);
-bool is_breath(void);
+void backlight_breathing_on(void);
+void backlight_breathing_off(void);
+bool is_breathing(void);
