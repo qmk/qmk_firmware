@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         KC_TRNS, KC_ESC,  RESET,
         LGUI(KC_P), KC_PGUP, LCA(KC_DELETE),
-        BL_BRTG, KC_PGDOWN, KC_MNXT
+        EEP_RST, KC_PGDOWN, BL_BRTG 
     ),
 };
 
