@@ -45,7 +45,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
-#		BOOTLOADER = atmel-dfu
+BOOTLOADER = atmel-dfu
 
 
 # If you don't know the bootloader type, then you can specify the
@@ -55,7 +55,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader    4096
 #   LUFA bootloader     4096
 #   USBaspLoader        2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+#   OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
