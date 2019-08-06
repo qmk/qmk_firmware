@@ -17,10 +17,19 @@
 #include QMK_KEYBOARD_H
 #include "brandonschlack.h"
 
-#define _NUMPAD 0
-#define _FN 1
-#define _NUMLOCK 2
-#define _MACRO 3
+enum romac_layers {
+    _NUMPAD = 0,
+    _FN,
+    _NUMLOCK,
+    _MACRO
+};
+
+enum romac_keycodes {
+    DF_NMPD = KEYMAP_SAFE_RANGE,
+    DF_NMLK,
+    DF_MCRO,
+    DF_MAGC
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -34,15 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FN] = LAYOUT(
 		KC_PSLS, KC_PAST, KC_BSPC, \
 		KC_TRNS, KC_TRNS, KC_PMNS, \
-		TG(_NUMLOCK), DF(_MACRO), KC_PPLS, \
-		KC_TRNS, DF(_MAGIC), KC_PENT \
+		DF_NMLK, DF_MCRO, KC_PPLS, \
+		KC_TRNS, DF_MAGC, KC_PENT \
 	),
 
     [_NUMLOCK] = LAYOUT(
 		KC_HOME, KC_UP, KC_PGUP, \
 		KC_LEFT, CMD_TAB, KC_RGHT, \
 		KC_END, KC_DOWN, KC_PGDN, \
-		DF(_NUMPAD), KC_INS, KC_DEL  \
+		DF_NMPD, KC_INS, KC_DEL  \
 	),
 
     [_MACRO] = LAYOUT(
@@ -55,7 +64,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAGIC] = LAYOUT(
 		KC_MAKE, XXXXXXX, XXXXXXX, \
 		XXXXXXX, XXXXXXX, XXXXXXX, \
-		DF(_NUMPAD), DF(_NUMLOCK), DF(_MACRO), \
+		DF_NMPD, DF_NMLK, DF_MCRO, \
 		KC_TRNS, XXXXXXX, XXXXXXX  \
 	)
 };
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DF_NMPD:
+            if (!record->event.pressed) {
+                default_layer_set(_NUMPAD);
+                layer_move(default_layer_state);
+            }
+            break;
+        case DF_NMLK:
+            if (!record->event.pressed) {
+                default_layer_set(_NUMLOCK);
+                layer_move(default_layer_state);
+            }
+            break;
+        case DF_MCRO:
+            if (!record->event.pressed) {
+                default_layer_set(_MACRO);
+                layer_move(default_layer_state);
+            }
+            break;
+        case DF_MAGC:
+            if (!record->event.pressed) {
+                default_layer_set(_MAGIC);
+                layer_move(default_layer_state);
+            }
+            break;
+    }
+    return true;
+}
