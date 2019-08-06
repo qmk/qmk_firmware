@@ -17,7 +17,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-
 #define KC_ KC_TRNS
 
 #define KC_LOWR LOWER
@@ -33,7 +32,6 @@ enum custom_keycodes {
 #define KC_RVAI RGB_VAI
 #define KC_RVAD RGB_VAD
 #define KC_VK VLK_TOG
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
