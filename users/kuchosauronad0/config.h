@@ -34,7 +34,7 @@
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_SNAKE
   #define RGBLIGHT_EFFECT_KNIGHT
-#endif // RGBLIGHT_ENABLE
+#endif // !RGBLIGHT_ENABLE
 
 #ifndef ONESHOT_TAP_TOGGLE
   #define ONESHOT_TAP_TOGGLE 2
@@ -67,7 +67,7 @@
 
 #ifdef TAPPING_TERM
   #undef TAPPING_TERM
-#endif // TAPPING_TERM
+#endif // !TAPPING_TERM
 #if defined(KEYBOARD_ergodox_ez)
   #define TAPPING_TERM 185
 #elif defined(KEYBOARD_crkbd)
@@ -88,6 +88,6 @@
 #if defined(LEADER_ENABLE)
   #define LEADER_PER_KEY_TIMING
   #define LEADER_TIMEOUT 250
-#endif
+#endif // !LEADER_ENABLE 
 
 #define MACRO_TIMER 5
