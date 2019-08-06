@@ -53,6 +53,7 @@ void eeconfig_init_kb(void) {
 	keyboard_config.blt_enable = 1;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
+	dprint("[SYS] EEPROM Reset to default values.\n");
 }
 
 void blink_led(uint8_t times) {

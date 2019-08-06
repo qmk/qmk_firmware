@@ -42,7 +42,7 @@ typedef union {
 	struct {
 		bool		blt_enable : 1;
 		bool		blt_breath : 1;
-		uint8_t		blt_level : BACKLIGHT_LEVLS;
+		uint8_t		blt_level : BACKLIGHT_LEVELS;
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;
