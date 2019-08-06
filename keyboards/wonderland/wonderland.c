@@ -15,26 +15,28 @@ void matrix_scan_kb(void) {
 
 void led_init_ports(void) {
     // * Set our LED pins as output
-    DDRB |= (1 << 1) | (1 << 2) | (1 << 3);
+    setPinOutput(B1);
+    setPinOutput(B2);
+    setPinOutput(B3);
 }
 
 void led_set_kb(uint8_t usb_led) {
 	if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        DDRB |= (1 << 1);
+        writePinLow(B1);
     } else {
-        DDRB &= ~(1 << 1);
+        writePinHigh(B1);
     }
 
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2);
+        writePinLow(B2);
     } else {
-        DDRB &= ~(1 << 2);
+        writePinHigh(B2);
     }
 
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        DDRB |= (1 << 3);
+        writePinLow(B3);
     } else {
-        DDRB &= ~(1 << 3);
+        writePinHigh(B3);
     }
 	led_set_user(usb_led);
 }
