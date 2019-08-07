@@ -4,7 +4,7 @@
 
 This is basically a keeb.io BDN9 with a Proton-C strapped to it.  
 
-Notable additions: 
+Notable additions:  
 	- Native STM32 Backlight PWM
 
 Keyboard Maintainer: [kratsyn](https://github.com/kratsyn)  
