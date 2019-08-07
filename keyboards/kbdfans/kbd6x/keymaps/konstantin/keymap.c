@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
         LCT_CPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
         LSFT_FN, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, FN_FNLK,
-        XXXXXXX, KC_LGUI, KC_LALT,                   KC_SPC,                    RAL_RGU, RCTRL,   XXXXXXX
+        XXXXXXX, KC_LGUI, KC_LALT,                            KC_SPC,                             RAL_RGU, RCTRL,   XXXXXXX
     ),
 
     /* Function layer
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN3, KC_BTN1, KC_MS_U, KC_BTN2, KC_DEL,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_R, _______,
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_APP,  KC_WH_L, KC_WH_R, KC_MS_D, _______, _______,
-        XXXXXXX, _______, _______,                   KC_WH_D,                   KC_ACL2, _______, XXXXXXX
+        XXXXXXX, _______, _______,                            KC_WH_D,                            KC_ACL2, _______, XXXXXXX
     ),
 
     /* RCtrl layer
@@ -132,6 +132,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, TOP,     MV_UP,   BOTTOM,  TAB_PRV, _______, _______, _______, _______, _______, _______, _______, _______, DEL_NXT,
         _______, MV_LEFT, MV_DOWN, MV_RGHT, TAB_NXT, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, _______, _______, _______, KC_BTN4, KC_BTN5, _______, _______, _______,
-        XXXXXXX, DST_P_R, DST_N_A,                   _______,                   _______, _______, XXXXXXX
+        XXXXXXX, DST_P_R, DST_N_A,                            _______,                            _______, _______, XXXXXXX
     ),
 };
