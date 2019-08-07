@@ -31,7 +31,7 @@ void keyboard_pre_init_kb(void) {
 	backlight_init();
 }
 
-// initialization overloads
+// overloads
 void matrix_init_kb(void) {
     // Intitialize the pins we need to initialize
     palSetLineMode(C13, PAL_MODE_OUTPUT_PUSHPULL);
@@ -66,6 +66,7 @@ void eeconfig_init_kb(void) { // EEPROM Reset
 	keyboard_pre_init_kb();
 }
 
+// blink the MCU LED every 200ms 
 void blink_led(uint8_t times) {
     while ( times-- ) {
         LED_ON();
@@ -89,16 +90,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 			break;
 		case BL_INC:
 			if (record->event.pressed) {
+				// true == ++
 				backlight_step(true);
 			}
 			break;
 		case BL_DEC:
 			if (record->event.pressed) {
+				// false == --
 				backlight_step(false);
 			}
 			break;
         case BL_STEP:
             if (record->event.pressed) {
+				// true == ++
 				backlight_step(true);
 			}
             break;

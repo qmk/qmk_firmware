@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x8008
 #define MANUFACTURER    kratsyn
 #define PRODUCT         syn_c
-#define DESCRIPTION     3x3 MacroPad (STM32)
+#define DESCRIPTION     3x3 MacroPad (keeb.io:BDN9 + olkb:Proton-C)
 
 /* key matrix size */
 #define MATRIX_ROWS 3
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_RESOLUTION 4
 
 #define TAP_CODE_DELAY 20 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 300
 
 #define BACKLIGHT_LEVELS 5 
 #define BACKLIGHT_BREATHING_STEPS 128

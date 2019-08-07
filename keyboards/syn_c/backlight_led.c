@@ -48,16 +48,7 @@ static PWMConfig pwmCfg = {
 };
 
 static const uint8_t breathing_table[BACKLIGHT_BREATHING_STEPS] = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10,
-	12, 15, 17, 20, 24, 28, 32, 36, 41, 46, 51, 57, 63, 70, 76,
-	83, 91, 98, 106, 113, 121, 129, 138, 146, 154, 162, 170, 178,
-	185, 193, 200, 207, 213, 220, 225, 231, 235, 240, 244, 247,
-	250, 252, 253, 254, 255, 254, 253, 252, 250, 247, 244, 240,
-	235, 231, 225, 220, 213, 207, 200, 193, 185, 178, 170, 162,
-	154, 146, 138, 129, 121, 113, 106, 98, 91, 83, 76, 70, 63,
-	57, 51, 46, 41, 36, 32, 28, 24, 20, 17, 15, 12, 10, 8, 6, 5,
-	4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 17, 20, 24, 28, 32, 36, 41, 46, 51, 57, 63, 70, 76, 83, 91, 98, 106, 113, 121, 129, 138, 146, 154, 162, 170, 178, 185, 193, 200, 207, 213, 220, 225, 231, 235, 240, 244, 247, 250, 252, 253, 254, 255, 254, 253, 252, 250, 247, 244, 240, 235, 231, 225, 220, 213, 207, 200, 193, 185, 178, 170, 162, 154, 146, 138, 129, 121, 113, 106, 98, 91, 83, 76, 70, 63, 57, 51, 46, 41, 36, 32, 28, 24, 20, 17, 15, 12, 10, 8, 6, 5, 4, 3, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -207,7 +198,7 @@ static void _bl_cb(PWMDriver *pwmp) {
 	if(backlight_is_breathing()) {
 		// determine the interval within the breathing period
 		breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
-		// current breath in interval
+		// current breath 
 		breath_count = (breath_count + 1) % (BREATHING_PERIOD * 256);
 		// index value
 		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
@@ -215,19 +206,21 @@ static void _bl_cb(PWMDriver *pwmp) {
 		// set duty level for current brightness level at breathing interval
 		breath_duty = cie_lightness(backlight_scale(breathing_table[breath_index] * 256));
 		
-		// lock and set new val
+		// lock, set new val, unlock
 		chSysLockFromISR();
 		pwmEnableChannelI(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF, breath_duty));
 		chSysUnlockFromISR();
 	}
 }
 
+/* pwm callback enable */
 void _enable_cb(void) {
 	chSysLockFromISR();
 	pwmEnablePeriodicNotificationI(BL_PWMD);
 	chSysUnlockFromISR();
 }
 
+/* pwm callback disable */
 void _disable_cb(void) {
 	chSysLockFromISR();
 	pwmDisablePeriodicNotificationI(BL_PWMD);
