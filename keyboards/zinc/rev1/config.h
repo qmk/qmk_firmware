@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#ifndef REV1_CONFIG_H
-//#define REV1_CONFIG_H
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x9991
@@ -35,10 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
-//#define USE_I2C
 #define USE_SERIAL
-//#define USE_MATRIX_I2C
-
 #define SOFT_SERIAL_PIN D2
 
 /* Select hand configuration */
@@ -55,12 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 #define MATRIX_COL_PINS { F4, D4, C6, D7, E6, B4 }
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
@@ -71,8 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
-
 
 // RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
@@ -107,10 +93,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 6
+  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
     #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #if RGBLED_NUM <= 16
+    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
       #define RGBLIGHT_LIMIT_VAL 130
     #else
       #define RGBLIGHT_LIMIT_VAL 120
@@ -118,10 +104,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
-  #if RGBLED_NUM <= 6
+  #if (RGBLED_NUM <= 6) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 12))
     #define RGBLIGHT_LIMIT_VAL 90
   #else
-    #if RGBLED_NUM <= 16
+    #if (RGBLED_NUM <= 16) || (defined(RGBLED_CONT) && (RGBLED_NUM <= 32))
       #define RGBLIGHT_LIMIT_VAL 45
     #else
       #define RGBLIGHT_LIMIT_VAL 35
@@ -161,5 +147,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-//#endif
