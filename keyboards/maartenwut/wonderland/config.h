@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Maartenwut
 #define PRODUCT         Wonderland
-#define DESCRIPTION     "QMK Firmware for the Wonderland, a TGR Alice compatible PCB"
+#define DESCRIPTION     "QMK Firmware for the Wonderland"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define RGB_DI_PIN B7
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
+#define RGBLED_NUM 12
 
 #define QMK_ESC_OUTPUT F0 // usually COL
 #define QMK_ESC_INPUT B0 // usually ROW
