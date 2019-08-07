@@ -38,6 +38,7 @@ THUP,     // 👍
 TUMBLER,  // 🥃
 DRAGON0,  // 🐉
 DRAGON1,  // 🐅
+TIGER0,   // 🐅
 TIGER1,   // 🐯
 COOL,     // 🆒
 UCHART,   // 📈
