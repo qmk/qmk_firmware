@@ -16,18 +16,19 @@
 #include "syn_c.h"
 #include "hal.h"
 #include "eeconfig.h"
+#include "backlight_led.h"
 
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
 
-keyboard_config_t keyboard_config;
+keyboard_config_t	keyboard_config;
 
 void keyboard_pre_init_kb(void) {
     // read kb settings from eeprom
     keyboard_config.raw = eeconfig_read_kb();
 
-	// start backlight
-	backlight_init_ports();
+	// start blt
+	backlight_init();
 }
 
 // initialization overloads
@@ -39,17 +40,30 @@ void matrix_init_kb(void) {
     blink_led(3);
     dprintf("[SYS] Startup complete.\n");
     LED_ON();
-
+	
+	// check if we're configured
+	if(keyboard_config.status == 0)
+		eeconfig_init_kb();
 
     // continue startup
     matrix_init_user();
 }
 
-void eeconfig_init_kb(void) {
+void eeconfig_init_kb(void) { // EEPROM Reset
+	// reset the config structure
     keyboard_config.raw = 0;
-    keyboard_config.led_level = 4;
+	keyboard_config.status = 1;
+
+	// set backlight specific values
+	keyboard_config.backlight.enable = 0;
+    keyboard_config.backlight.level = 0;
+	keyboard_config.backlight.breath_enable = 0;
+
+	// write to eeprom
     eeconfig_update_kb(keyboard_config.raw);
-    eeconfig_init_user();
+
+	dprint("[SYS] EEPROM Reset to default values, forcing init again..\n");
+	keyboard_pre_init_kb();
 }
 
 void blink_led(uint8_t times) {
@@ -61,10 +75,43 @@ void blink_led(uint8_t times) {
     }
 }
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
+    switch (keycode) {
+		case BL_ON:
+			if (record->event.pressed) {
+				backlight_on();
+			}
+			break;
+		case BL_OFF:
+			if (record->event.pressed) {
+				backlight_off();
+			}
+			break;
+		case BL_INC:
+			if (record->event.pressed) {
+				backlight_step(true);
+			}
+			break;
+		case BL_DEC:
+			if (record->event.pressed) {
+				backlight_step(false);
+			}
+			break;
+        case BL_STEP:
+            if (record->event.pressed) {
+				backlight_step(true);
+			}
+            break;
+		case BL_BRTG:
+			if (record->event.pressed) {
+				backlight_breathing_toggle();
+			}
+			break;
+		case BL_TOGG:
+			if (record->event.pressed) {
+				backlight_toggle();
+			}
+			break;
+    }
+    return process_record_user(keycode, record);
 }

@@ -37,12 +37,21 @@
 }
 
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t    led_level :3;
-  };
-} keyboard_config_t;
+	uint16_t raw;
+	struct {
+		bool			enable			:1;
+		uint8_t         level       	:8;
+		bool            breath_enable   :1;
+	};
+} keyboard_config_backlight;
 
+typedef union {
+	uint32_t raw;
+	struct {
+		bool						status		:1;
+		keyboard_config_backlight	backlight;
+	};
+} keyboard_config_t;
 extern keyboard_config_t keyboard_config;
 
 void blink_led(uint8_t times);

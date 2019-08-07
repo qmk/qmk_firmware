@@ -42,14 +42,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        BL_STEP,			OSL(1),		KC_MUTE,
-        LCTL(LSFT(KC_ESC)), KC_UP,		ALT_TAB_TICK,
-        KC_LEFT, 			KC_DOWN, 	KC_RGHT
+        BL_TOGG,	OSL(1),		KC_TRNS,
+        BL_ON,		BL_INC,		BL_STEP,
+        BL_OFF,		BL_DEC,		BL_BRTG
     ),
     [1] = LAYOUT(
-        BL_BRTG,	KC_ESC,		BL_TOGG,
-        LGUI(KC_P), KC_PGUP,	LCA(KC_DELETE),
-        EEP_RST, 	KC_PGDOWN,	RESET 
+        KC_TRNS,	KC_ESC,  	KC_TRNS,
+        KC_TRNS,	KC_TRNS, 	KC_TRNS,
+        EEP_RST,	KC_TRNS,	RESET 
     ),
 };
 
