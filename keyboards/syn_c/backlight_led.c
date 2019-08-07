@@ -77,7 +77,6 @@ void backlight_init(void) {
 void backlight_reset_cb(void) {
 	_disable_cb();
 	_enable_cb();
-	dprint("[BL] PWM callback reset.\n");
 }
 
 void backlight_level(uint8_t level) {
@@ -113,7 +112,7 @@ void backlight_step(bool forward) {
 	if (!backlight_is_breathing()) {
 		backlight_level((uint8_t)keyboard_config.backlight.level * 255 / BACKLIGHT_LEVELS);
 	} else {
-		dprintf("[BL] PWM level set. (L:%d)\n", keyboard_config.backlight.level);
+		dprintf("[BL] Breathing level set. (L:%d)\n", keyboard_config.backlight.level);
 	}
 	eeconfig_update_kb(keyboard_config.raw);
 	backlight_reset_cb();
