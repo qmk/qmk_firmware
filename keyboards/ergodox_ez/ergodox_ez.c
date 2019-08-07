@@ -46,6 +46,13 @@ void matrix_init_kb(void) {
 
     keyboard_config.raw = eeconfig_read_kb();
     ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+#ifdef RGB_MATRIX_ENABLE
+    if (keyboard_config.rgb_matrix_enable) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_NONE);
+    }
+#endif
 
     ergodox_blink_all_leds();
 
@@ -319,6 +326,10 @@ led_config_t g_led_config = { {
     4, 4, 1, 1, 1, 1
 } };
 
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
 
 
@@ -335,6 +346,31 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                  layer_state_set_kb(layer_state);
             }
             break;
+#ifdef RGB_MATRIX_ENABLE
+        case TOGGLE_LAYER_COLOR:
+            if (record->event.pressed) {
+                keyboard_config.disable_layer_led ^= 1;
+                eeconfig_update_kb(keyboard_config.raw);
+            }
+            break;
+        case RGB_TOG:
+            if (record->event.pressed) {
+              switch (rgb_matrix_get_flags()) {
+                case LED_FLAG_ALL: {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                    keyboard_config.rgb_matrix_enable = false;
+                  }
+                  break;
+                default: {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                    keyboard_config.rgb_matrix_enable = true;
+                  }
+                  break;
+              }
+              eeconfig_update_kb(keyboard_config.raw);
+            }
+            return false;
+#endif
     }
     return process_record_user(keycode, record);
 }
@@ -342,6 +378,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
     keyboard_config.led_level = 4;
+    keyboard_config.rgb_matrix_enable = true;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
