@@ -16,11 +16,18 @@
 #pragma once
 
 void backlight_init(void);
-void backlight_level(uint8_t level);
 void backlight_enable_cb(void);
 void backlight_disable_cb(void);
+void backlight_reset_cb(void);
+bool backlight_is_enabled(void);
+void backlight_enable(void);
 void backlight_on(void);
 void backlight_off(void);
+void backlight_toggle(void);
+void backlight_step(bool forward);
+void backlight_rstep(void);
+void backlight_level(uint8_t level);
+bool backlight_is_breathing(void);
 void backlight_breathing_on(void);
 void backlight_breathing_off(void);
-bool is_breathing(void);
+void backlight_breathing_toggle(void);

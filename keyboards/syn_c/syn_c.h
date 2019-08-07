@@ -36,14 +36,20 @@
 	{ KC1, KC2, KC3 } \
 }
 
+typedef union {
+	uint16_t raw;
+	struct {
+		bool			enable			:1;
+		uint8_t         level       	:8;
+		bool            breath_enable   :1;
+	};
+} keyboard_config_backlight;
 
 typedef union {
 	uint32_t raw;
 	struct {
-		bool		blt_enable 	: 1;
-		bool		blt_breath 	: 1;
-		uint8_t		blt_bsteps	: 8;
-		uint8_t		blt_level 	: 5; // "limited" to 31 by quantum anyway
+		bool						status		:1;
+		keyboard_config_backlight	backlight;
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;

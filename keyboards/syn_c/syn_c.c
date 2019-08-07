@@ -40,21 +40,30 @@ void matrix_init_kb(void) {
     blink_led(3);
     dprintf("[SYS] Startup complete.\n");
     LED_ON();
-
+	
+	// check if we're configured
+	if(keyboard_config.status == 0)
+		eeconfig_init_kb();
 
     // continue startup
     matrix_init_user();
 }
 
-void eeconfig_init_kb(void) {
+void eeconfig_init_kb(void) { // EEPROM Reset
+	// reset the config structure
     keyboard_config.raw = 0;
-	keyboard_config.blt_enable = 1;
-    keyboard_config.blt_level = BACKLIGHT_LEVELS;
-	keyboard_config.blt_breath = 0;
-	keyboard_config.blt_bsteps = BACKLIGHT_BREATHING_STEPS;
+	keyboard_config.status = 1;
+
+	// set backlight specific values
+	keyboard_config.backlight.enable = 0;
+    keyboard_config.backlight.level = 0;
+	keyboard_config.backlight.breath_enable = 0;
+
+	// write to eeprom
     eeconfig_update_kb(keyboard_config.raw);
-    eeconfig_init_user();
-	dprint("[SYS] EEPROM Reset to default values.\n");
+
+	dprint("[SYS] EEPROM Reset to default values, forcing init again..\n");
+	keyboard_pre_init_kb();
 }
 
 void blink_led(uint8_t times) {
@@ -68,22 +77,39 @@ void blink_led(uint8_t times) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+		case BL_ON:
+			if (record->event.pressed) {
+				backlight_on();
+			}
+			break;
+		case BL_OFF:
+			if (record->event.pressed) {
+				backlight_off();
+			}
+			break;
+		case BL_INC:
+			if (record->event.pressed) {
+				backlight_step(true);
+			}
+			break;
+		case BL_DEC:
+			if (record->event.pressed) {
+				backlight_step(false);
+			}
+			break;
         case BL_STEP:
             if (record->event.pressed) {
-                 keyboard_config.blt_level++;
-                 if (keyboard_config.blt_level > BACKLIGHT_LEVELS) {
-                    keyboard_config.blt_level = 0;
-                 }
-                 backlight_level((uint8_t)keyboard_config.blt_level * 255 / BACKLIGHT_LEVELS);
-                 eeconfig_update_kb(keyboard_config.raw);
-            }
+				backlight_step(true);
+			}
             break;
 		case BL_BRTG:
 			if (record->event.pressed) {
-				if(keyboard_config.blt_breath)
-					backlight_breathing_off();
-				else
-					backlight_breathing_on();
+				backlight_breathing_toggle();
+			}
+			break;
+		case BL_TOGG:
+			if (record->event.pressed) {
+				backlight_toggle();
 			}
 			break;
     }

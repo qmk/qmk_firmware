@@ -20,16 +20,19 @@
 #include "backlight_led.h"
 #include "syn_c.h"
 
-#define BL_PIN		B0
-#define BL_PWMD		&PWMD3
-#define BL_TC		2
+#define BL_PIN		B0		// B0 ALT_MODE(2) (TIM3_3)
+#define BL_PWMD		&PWMD3	// PWM Driver
+#define BL_TC		2		// Timing Channel (MCU Channel - 1)
 
 extern keyboard_config_t keyboard_config;
 
-static void backlight_cb(PWMDriver *pwmp);
-static uint32_t backlight_duty;
-static uint16_t breath_counter = 0;
+static uint32_t backlight_duty = 0;
+static uint16_t breath_intval = 0;
+static uint8_t breath_index = 0;
+static uint32_t breath_duty = 0;
+static uint16_t breath_count = 0;
 
+static void backlight_cb(PWMDriver *pwmp);
 static PWMConfig pwmCfg = {
 	0xFFFF,
 	256,
@@ -76,101 +79,148 @@ void backlight_init(void) {
 	palSetLineMode(BL_PIN, PAL_MODE_ALTERNATE(2));
 	pwmStart(BL_PWMD, &pwmCfg);
 	backlight_enable_cb();
-	backlight_on();
 	dprint("[BL] Startup complete.\n");
 }
 
 void backlight_enable_cb(void) {
-	//chSysLockFromISR();
-	pwmEnablePeriodicNotification(BL_PWMD);
-	//chSysUnlockFromISR();
+	chSysLockFromISR();
+	pwmEnablePeriodicNotificationI(BL_PWMD);
+	chSysUnlockFromISR();
 }
 
 void backlight_disable_cb(void) {
-	//chSysLockFromISR();
-    pwmDisablePeriodicNotification(BL_PWMD);
-    //chSysUnlockFromISR();
+	chSysLockFromISR();
+	pwmDisablePeriodicNotificationI(BL_PWMD);
+	chSysUnlockFromISR();
+}
+
+void backlight_reset_cb(void) {
+	backlight_disable_cb();
+	eeconfig_update_kb(keyboard_config.raw); 
+	backlight_enable_cb();
+	dprint("[BL] PWM callback reset.\n");
 }
 
 void backlight_level(uint8_t level) {
-	backlight_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) keyboard_config.blt_level / BACKLIGHT_LEVELS));
+	backlight_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) keyboard_config.backlight.level / BACKLIGHT_LEVELS));
 	if (level == 0) {
 		backlight_off();
 	} else {
-		if(!is_breathing())
+		if(!backlight_is_breathing()) {
 			pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD,0xFFFF,backlight_duty));
+		} else {
+			keyboard_config.backlight.level = level;
+		}
 	}
-	dprintf("[BL] Backlight set. (L:%d) (D:%d)\n", keyboard_config.blt_level, backlight_duty);
+	dprintf("[BL] Backlight level set. (L:%d) (D:%d)\n", keyboard_config.backlight.level, backlight_duty);
+}
+
+// forward if true, backwards if false
+void backlight_step(bool forward) {
+	if(forward)
+		++keyboard_config.backlight.level;
+	else
+		keyboard_config.backlight.level--;
+	
+	if (keyboard_config.backlight.level == (BACKLIGHT_LEVELS+1)) {
+		keyboard_config.backlight.level =  0;
+	} else if ((keyboard_config.backlight.level > BACKLIGHT_LEVELS)) {
+		keyboard_config.backlight.level = BACKLIGHT_LEVELS;
+	} 
+	
+	if (!backlight_is_breathing()) {
+		backlight_level((uint8_t)keyboard_config.backlight.level * 255 / BACKLIGHT_LEVELS);
+	} else {
+		dprintf("[BL] PWM level set. (L:%d)\n", keyboard_config.backlight.level);
+	}
+	backlight_reset_cb();
+}
+
+bool backlight_is_enabled(void) {
+	if(keyboard_config.backlight.enable)
+		return true;
+	else
+		return false;
+}
+
+void backlight_enable(void) {
+	keyboard_config.backlight.enable = 1;
+	keyboard_config.backlight.level = BACKLIGHT_LEVELS;
+	keyboard_config.backlight.breath_enable = 0;
+	eeconfig_update_kb(keyboard_config.raw);
+	backlight_enable_cb();
+}
+
+void backlight_disable(void) {
+	keyboard_config.backlight.enable = 0;
+	keyboard_config.backlight.level = 0;
+	keyboard_config.backlight.breath_enable = 0;
+	eeconfig_update_kb(keyboard_config.raw);
+	backlight_disable_cb();
 }
 
 void backlight_on(void) {
+	backlight_enable();
 	pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF,cie_lightness(0xFFFF)));
 	dprint("[BL] Backlight turned on.\n");
 }
 
 void backlight_off(void) {
+	backlight_disable();
 	pwmDisableChannel(BL_PWMD, BL_TC);
 	dprint("[BL] Backlight turned off.\n");
 }
 
-bool is_breathing(void) {
-	if(keyboard_config.blt_breath) {
-		dprint("[BL] Breathing is on.\n");
+void backlight_toggle(void) {
+	if(keyboard_config.backlight.enable)
+		backlight_off();
+	else
+		backlight_on();
+}
+
+bool backlight_is_breathing(void) {
+	if(keyboard_config.backlight.breath_enable)
 		return true;
-	} else {
-		dprint("[BL] Breathing is off.\n");
+	else 
 		return false;
-	}
 }
 
 void backlight_breathing_on(void) {
-	keyboard_config.blt_breath = 1;
-	eeconfig_update_kb(keyboard_config.raw);
-
-	/*
-	chSysLockFromISR();
-	pwmEnablePeriodicNotification(BL_PWMD);
-	chSysUnlockFromISR();
-	*/
-
-	dprint("[BL] Breathing enabled.\n");
+	if(backlight_is_enabled()) {
+		keyboard_config.backlight.breath_enable = 1;
+		eeconfig_update_kb(keyboard_config.raw);
+		dprint("[BL] Breathing enabled.\n");
+	}
 }
 
 void backlight_breathing_off(void) {
-	keyboard_config.blt_breath = 0;
-	eeconfig_update_kb(keyboard_config.raw);
+	if(backlight_is_enabled()) {
+		keyboard_config.backlight.breath_enable = 0;
+		eeconfig_update_kb(keyboard_config.raw);
+		dprint("[BL] Breathing disabled.\n");
+	}
+}
 
-	/*
-	chSysLockFromISR();
-	pwmDisablePeriodicNotification(BL_PWMD);
-	chSysUnlockFromISR();
-	*/
-
-	dprint("[BL] Breathing disabled.\n");
+void backlight_breathing_toggle(void) {
+	if(keyboard_config.backlight.breath_enable)
+		backlight_breathing_off();
+	else
+		backlight_breathing_on();
 }
 
 static inline uint16_t backlight_scale(uint16_t value) {
-	return value / BACKLIGHT_LEVELS * keyboard_config.blt_level;
+	return (value / BACKLIGHT_LEVELS * keyboard_config.backlight.level);
 }
 
 static void backlight_cb(PWMDriver *pwmp) {
-	if(is_breathing()) {
-		dprint("[BL] Callback. (true).\n");
-
-		//(void) pwmp; // ??
-
-		uint16_t intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
-		breath_counter = (breath_counter + 1) % (BREATHING_PERIOD * 256);
-		uint8_t index = breath_counter / intval % BACKLIGHT_BREATHING_STEPS;
-
-		uint32_t breath_duty = cie_lightness(backlight_scale(breathing_table[index] * 256));
-
+	if(backlight_is_breathing()) {
+		breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
+		breath_count = (breath_count + 1) % (BREATHING_PERIOD * 256);
+		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
+		breath_duty = cie_lightness(backlight_scale(breathing_table[breath_index] * 256));
+		
 		chSysLockFromISR();
 		pwmEnableChannelI(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF, breath_duty));
 		chSysUnlockFromISR();
-	} else {
-		// nothing to do
-		dprint("[BL] Callback. (false).\n");
 	}
-	return;
 }
