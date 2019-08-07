@@ -28,8 +28,8 @@ extern keyboard_config_t keyboard_config;
 
 static uint32_t backlight_duty = 0;
 static uint16_t breath_intval = 0;
-static uint8_t breath_index = 0;
 static uint32_t breath_duty = 0;
+static uint8_t breath_index = 0;
 static uint16_t breath_count = 0;
 
 static void _bl_cb(PWMDriver *pwmp);
@@ -203,9 +203,9 @@ static void _bl_cb(PWMDriver *pwmp) {
 		// index value
 		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
 
-		// set duty level for current brightness level at breathing interval
+		// set duty level for breath state
 		breath_duty = cie_lightness(backlight_scale(breathing_table[breath_index] * 256));
-		
+	
 		// lock, set new val, unlock
 		chSysLockFromISR();
 		pwmEnableChannelI(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF, breath_duty));
