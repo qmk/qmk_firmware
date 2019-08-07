@@ -154,7 +154,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________LOWER_L3__________________        ___________________BLANK___________________
 
 #define _________________LOWER_R1__________________        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
-#define _________________LOWER_R2__________________        OSL_UNI, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
+#define _________________LOWER_R2__________________        OS_UNI, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
 #define _________________LOWER_R3__________________        TM_X,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 

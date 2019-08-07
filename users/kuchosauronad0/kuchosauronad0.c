@@ -209,6 +209,7 @@ void tmux_pane_switch_repeat(void) {
 }
 
 void tmux_pane_switch(uint16_t keycode) {
+ //TODO: use tap_code(<KC>) instead
   tmux_prefix();
   register_code(KC_Q);
   unregister_code(KC_Q);
@@ -232,7 +233,9 @@ void git_push(void){
 void git_lazy(void){
   git_status();
   git_add();
-  SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_DOT));
+  //SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_DOT));
+  tap_code(KC_ESC);
+  tap_code(KC_DOT);
   git_commit();
   //TODO: figure out how to use per key timeout for the commit message and then run git_push()
 }

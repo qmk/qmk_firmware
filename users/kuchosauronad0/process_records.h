@@ -26,6 +26,7 @@ enum userspace_custom_keycodes{
   KC_SECRET_3,       // test3
   KC_SECRET_4,       // test4
   KC_SECRET_5,       // test5
+  KC_SECRET_6,       // test6
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
   UC_FLIP,           // (ಠ痊ಠ)┻━┻

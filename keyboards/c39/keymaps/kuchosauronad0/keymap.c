@@ -37,14 +37,14 @@ uint8_t last_osm;
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-    MT(MOD_LALT,KC_TAB),  K01,    K02,     K03,      K04,     K05,     LT(RAISE,KC_PGUP),        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
-    SFT_T(KC_ESC),        K11,    K12,     K13,      K14,     K15,     LT(LOWER,KC_PGDN),        K16,     K17,     K18,     K19,     K1A,     SFT_T(KC_ENT), \
-    MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,     K26,     K27,     K28,     K29,     K2A,     KC_LEAD  \
+    MT(MOD_LALT,KC_TAB),  K01,    K02,     K03,      K04,     K05,     LT(RAISE,KC_PGUP),  K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    SFT_T(KC_ESC),        K11,    K12,     K13,      K14,     K15,     LT(LOWER,KC_PGDN),  K16,     K17,     K18,     K19,     K1A,     SFT_T(KC_ENT), \
+    MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,           K26,     K27,     K28,     K29,     K2A,     KC_LEAD  \
   )
 #define LAYOUT_collide39_base_wrapper(...)       LAYOUT_collide39_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
+            
   [_QWERTY] = LAYOUT_collide39_base_wrapper(
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
@@ -124,8 +124,8 @@ void matrix_init_keymap(void) {
   #ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
-
     setPinOutput(B0);
     writePinHigh(B0);
   #endif
 }
+

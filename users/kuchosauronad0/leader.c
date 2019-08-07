@@ -45,7 +45,7 @@ void matrix_scan_user(void){
 
     SEQ_TWO_KEYS(KC_Q, KC_A) {
       // Switch to layer L_A Adjust
-      layer_on(L_A);
+      layer_on(_ADJUST);
     }
 
     SEQ_TWO_KEYS(KC_Q, KC_P){

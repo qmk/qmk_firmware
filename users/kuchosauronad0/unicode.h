@@ -7,6 +7,7 @@ void send_unicode_hex_string(const char* str);
 /* use X(n) to call the  */
 #ifdef UNICODEMAP_ENABLE
 enum unicode_name {
+OKOK,     // 
 BANG,     // ‽
 IRONY,    // ⸮
 DEGREE,   // °
