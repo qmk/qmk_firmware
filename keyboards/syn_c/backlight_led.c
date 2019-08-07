@@ -70,12 +70,12 @@ void backlight_init(void) {
 	palSetLineMode(BL_PIN, PAL_MODE_ALTERNATE(2));
 	pwmStart(BL_PWMD, &pwmCfg);
 	_enable_cb();
+	backlight_level(keyboard_config.backlight.level);
 	dprint("[BL] Startup complete.\n");
 }
 
 void backlight_reset_cb(void) {
 	_disable_cb();
-	eeconfig_update_kb(keyboard_config.raw); 
 	_enable_cb();
 	dprint("[BL] PWM callback reset.\n");
 }
@@ -115,6 +115,7 @@ void backlight_step(bool forward) {
 	} else {
 		dprintf("[BL] PWM level set. (L:%d)\n", keyboard_config.backlight.level);
 	}
+	eeconfig_update_kb(keyboard_config.raw);
 	backlight_reset_cb();
 }
 
