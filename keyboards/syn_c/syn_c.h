@@ -49,7 +49,7 @@ typedef union {
 	uint32_t raw;
 	struct {
 		bool						status		:1;
-		kb_cnfg_backlight			backlight;
+		kb_cfg_backlight			backlight;
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;

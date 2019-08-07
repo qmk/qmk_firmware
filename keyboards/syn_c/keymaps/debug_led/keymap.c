@@ -19,7 +19,7 @@ bool at_enable = false;
 uint32_t at_clock = 0;
 
 enum custom_keycodes {
-    ALT_TAB_TICK,
+    ALT_TAB_TICK = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
