@@ -19,7 +19,6 @@
 
 enum planck_keycodes {
   RGB_SLD = SAFE_RANGE,
-  TOGGLE_LAYER_COLOR,
   EPRM,
 };
 
