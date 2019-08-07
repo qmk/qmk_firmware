@@ -16,8 +16,6 @@
 #pragma once
 
 void backlight_init(void);
-void backlight_enable_cb(void);
-void backlight_disable_cb(void);
 void backlight_reset_cb(void);
 bool backlight_is_enabled(void);
 void backlight_enable(void);
@@ -31,3 +29,5 @@ bool backlight_is_breathing(void);
 void backlight_breathing_on(void);
 void backlight_breathing_off(void);
 void backlight_breathing_toggle(void);
+void _enable_cb(void);
+void _disable_cb(void);

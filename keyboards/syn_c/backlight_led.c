@@ -32,11 +32,11 @@ static uint8_t breath_index = 0;
 static uint32_t breath_duty = 0;
 static uint16_t breath_count = 0;
 
-static void backlight_cb(PWMDriver *pwmp);
+static void _bl_cb(PWMDriver *pwmp);
 static PWMConfig pwmCfg = {
 	0xFFFF,
 	256,
-	backlight_cb,
+	_bl_cb,
 	{
 		{ PWM_OUTPUT_DISABLED, NULL },
 		{ PWM_OUTPUT_DISABLED, NULL },
@@ -78,26 +78,14 @@ static uint16_t cie_lightness(uint16_t v) {
 void backlight_init(void) {
 	palSetLineMode(BL_PIN, PAL_MODE_ALTERNATE(2));
 	pwmStart(BL_PWMD, &pwmCfg);
-	backlight_enable_cb();
+	_enable_cb();
 	dprint("[BL] Startup complete.\n");
 }
 
-void backlight_enable_cb(void) {
-	chSysLockFromISR();
-	pwmEnablePeriodicNotificationI(BL_PWMD);
-	chSysUnlockFromISR();
-}
-
-void backlight_disable_cb(void) {
-	chSysLockFromISR();
-	pwmDisablePeriodicNotificationI(BL_PWMD);
-	chSysUnlockFromISR();
-}
-
 void backlight_reset_cb(void) {
-	backlight_disable_cb();
+	_disable_cb();
 	eeconfig_update_kb(keyboard_config.raw); 
-	backlight_enable_cb();
+	_enable_cb();
 	dprint("[BL] PWM callback reset.\n");
 }
 
@@ -151,7 +139,7 @@ void backlight_enable(void) {
 	keyboard_config.backlight.level = BACKLIGHT_LEVELS;
 	keyboard_config.backlight.breath_enable = 0;
 	eeconfig_update_kb(keyboard_config.raw);
-	backlight_enable_cb();
+	_enable_cb();
 }
 
 void backlight_disable(void) {
@@ -159,7 +147,7 @@ void backlight_disable(void) {
 	keyboard_config.backlight.level = 0;
 	keyboard_config.backlight.breath_enable = 0;
 	eeconfig_update_kb(keyboard_config.raw);
-	backlight_disable_cb();
+	_disable_cb();
 }
 
 void backlight_on(void) {
@@ -215,15 +203,33 @@ static inline uint16_t backlight_scale(uint16_t value) {
 	return (value / BACKLIGHT_LEVELS * keyboard_config.backlight.level);
 }
 
-static void backlight_cb(PWMDriver *pwmp) {
+static void _bl_cb(PWMDriver *pwmp) {
 	if(backlight_is_breathing()) {
+		// determine the interval within the breathing period
 		breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
+		// current breath in interval
 		breath_count = (breath_count + 1) % (BREATHING_PERIOD * 256);
+		// index value
 		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
+
+		// set duty level for current brightness level at breathing interval
 		breath_duty = cie_lightness(backlight_scale(breathing_table[breath_index] * 256));
 		
+		// lock and set new val
 		chSysLockFromISR();
 		pwmEnableChannelI(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF, breath_duty));
 		chSysUnlockFromISR();
 	}
+}
+
+void _enable_cb(void) {
+	chSysLockFromISR();
+	pwmEnablePeriodicNotificationI(BL_PWMD);
+	chSysUnlockFromISR();
+}
+
+void _disable_cb(void) {
+	chSysLockFromISR();
+	pwmDisablePeriodicNotificationI(BL_PWMD);
+	chSysUnlockFromISR();
 }
