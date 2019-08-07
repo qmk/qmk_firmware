@@ -20,6 +20,7 @@ const uint8_t PROGMEM RGBLED_SNAKE_INTERVALS[] = { 20, 50, 100 };
 const uint8_t PROGMEM RGBLED_KNIGHT_INTERVALS[] = { 20, 50, 100 };
 #endif
 
-const HSV GODSPEED_BLUE    = { .h = 198, .s = 68,  .v = 255 };
-const HSV GODSPEED_YELLOW  = { .h = 27,  .s = 153, .v = 255 };
-const HSV MODERN_DOLCH_RED = { .h = 252, .s = 255, .v = 144 };
+const HSV godspeed_blue     = { GODSPEED_BLUE };
+const HSV godspeed_yellow   = { GODSPEED_YELLOW };
+const HSV modern_dolch_cyan = { MODERN_DOLCH_CYAN };
+const HSV modern_dolch_red  = { MODERN_DOLCH_RED };

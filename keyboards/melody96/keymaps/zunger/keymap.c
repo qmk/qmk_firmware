@@ -54,7 +54,6 @@ enum layers_keymap {
 // autogenerate the keymaps for the other layers.
 // TODO: It would also be nice to be able to put the actual code points in here, rather than
 // numbers.
-// TODO: Also add checkmark and dengir.
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -70,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | ∅ |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |  SHIFTCADET
    * |---------------------------------------------------------------------------|
    * | ` | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | + | BKSPC |LCK| / | * | - |
-   * | ` |   |   |   |   |   |   |   |   |   |   | ∝ | ∼ | BKSPC |LCK| ⊘ | ⊙ | ⊖ |
-   * | ` |   |   |   |   |   |   |   |   |   |   |   | ≁ | BKSPC |LCK|   | ⊗ |   |
-   * |   |   |   |   |   |   |   |   |   |   |   |   | ± | BKSPC |LCK|   |   |   |
+   * | ` | ¡ |   | £ |   |   |   |   | ° |   |   | ∝ | ∼ | BKSPC |LCK| ⊘ | ⊙ | ⊖ |
+   * | ` | ¿ |   | € |   |   |   |   |   |   |   |   | ≁ | BKSPC |LCK|   | ⊗ |   |
+   * |   |  ̀ |  ́ |  ̂ |  ̃ |  ̈ |  ̄ |   |   |   |   |   | ± | BKSPC |LCK|   | × |   | [3]
    * |   |   |   |   |   |   |   |   |   |   |   |   | ∓ | BKSPC |LCK|   |   |   |
    * |---------------------------------------------------------------------------|
    * | TAB  | Q | W | E | R | T | Y | U | I | O | P | [ | ] |  \ | 7 | 8 | 9 |   |
@@ -104,6 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * clicks the mouse, and SHIFT+CADET+FIVE right-clicks.
    * [2] The Greek letters in this row are the three modifier keys (GREEK, CADET, FN),
    * not the Unicode Greek letters.
+   * [3] The accent marks in this row are combining accent marks, which may be put after
+   * a character to combine it. In order, they are grave, acute, circumflex, tilde,
+   * diaresis (umlaut), and macron.
   */
   // NB: Using GESC for escape in the QWERTY layer as a temporary hack because I messed up the
   // switch on the KC_GRV key; change back to KC_ESC once this is fixed.
@@ -116,14 +118,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_GREEK,KC_CADET,MO_FN,   KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_PENT),
 	[_GREEK] = LAYOUT_hotswap(
     KC_GRV,  H(00b9), H(00b2), H(00b3), H(2074), H(2075), H(2076), H(2077), H(2078), H(2079), H(2070), H(207b), H(207a), H(207d), H(207e), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, H(221d), H(223c),          _______, _______, H(2298), H(2299), H(2296),
+    KC_GRV,  H(00a1), _______, H(00a3), _______, _______, _______, _______, H(00b0), _______, _______, H(221d), H(223c),          _______, _______, H(2298), H(2299), H(2296),
     _______, H(03b8), H(03c9), H(03b5), H(03c1), H(03c4), H(03c8), H(03c5), H(03b9), H(03bf), H(03c0), KC_LBRC, KC_RBRC,          KC_BSLS, KC_P7,   KC_P8,   KC_P9,
     _______, H(03b1), H(03c3), H(03b4), H(03c6), H(03b3), H(03b7), H(03d1), H(03ba), H(03bb), H(22ef), H(22c5),                   _______, KC_P4,   KC_P5,   KC_P6,   H(2295),
     _______,          H(03b6), H(03be), H(03c7), H(03c2), H(03b2), H(03bd), H(03bc), H(226a), H(226b), H(222b), _______,          _______, KC_P1,   KC_P2,   KC_P3,
     _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_PENT),
 	[_SHIFTGREEK] = LAYOUT_hotswap(
     KC_GRV,  H(2081), H(2082), H(2083), H(2084), H(2085), H(2086), H(2087), H(2088), H(2089), H(2080), H(208b), H(208a), H(208d), H(208e), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, H(2241),          _______, _______, XXXXXXX, H(2297), XXXXXXX,
+    KC_GRV,  H(00bf), _______, H(20ac), _______, _______, _______, _______, _______, _______, _______, XXXXXXX, H(2241),          _______, _______, XXXXXXX, H(2297), XXXXXXX,
     _______, H(0398), H(03a9), H(0395), H(03a1), H(03a4), H(03a8), H(03a5), H(0399), H(039f), H(03a0), KC_LBRC, KC_RBRC,          KC_BSLS, KC_P7,   KC_P8,   KC_P9,
     _______, H(0391), H(03a3), H(0394), H(03a6), H(0393), H(0397), XXXXXXX, H(039a), H(039b), H(2026), H(2234),                   _______, KC_P4,   KC_P5,   KC_P6,   H(2295),
     _______,          H(0396), H(039e), H(03a7), H(2714), H(0392), H(039d), H(039c), H(2272), H(2273), XXXXXXX, _______,          _______, KC_P1,   KC_P2,   KC_P3,
@@ -131,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // TODO: Add mouse keys to keypad.
 	[_CADET] = LAYOUT_hotswap(
     H(00AC), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    KC_GRV,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(00b1),          _______, _______, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_GRV,  H(0300), H(0301), H(0302), H(0303), H(0308), H(0304), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(00b1),          _______, _______, XXXXXXX, H(00d7), XXXXXXX,
     _______, H(2227), H(2228), H(2229), H(222a), H(2282), H(2283), H(2200), H(221e), H(2203), H(2202), H(2208), XXXXXXX,          XXXXXXX, KC_P7,   KC_P8,   KC_P9,
     _______, H(22a5), H(22a4), H(22a2), H(22a3), H(2191), H(2193), H(2190), H(2192), H(2194), XXXXXXX, XXXXXXX,                   _______, KC_P4,   KC_P5,   KC_P6,   XXXXXXX,
     _______,          XXXXXXX, XXXXXXX, H(2260), H(2248), H(2261), H(2264), H(2265), XXXXXXX, XXXXXXX, H(00f7), _______,          _______, KC_P1,   KC_P2,   KC_P3,
@@ -145,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_PENT),
 
   // Function layer is mostly for keyboard meta-control operations. Lots of this is just from the
-  // default layout; TODO make it nicer, add Unicode mode switchers.
+  // default layout; TODO make it nicer.
 	[_FUNCTION] = LAYOUT_hotswap(
     RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
