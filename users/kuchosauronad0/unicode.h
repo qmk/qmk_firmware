@@ -23,7 +23,7 @@ PARTY,    // 🥳
 SMRK,     // 😏
 WEARY,    // 😩
 UNAMU,    // 😒
-SPY,      //🕵
+SPY,      // 🕵
 DAFUQ,    // 👺
 FIST0,    // 🤛
 FIST1,    // 🤜
