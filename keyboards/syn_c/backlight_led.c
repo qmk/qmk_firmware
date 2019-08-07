@@ -117,6 +117,9 @@ void backlight_level(uint8_t level) {
 
 // forward if true, backwards if false
 void backlight_step(bool forward) {
+	if(!backlight_is_enabled())
+		keyboard_config.backlight.enable = 1;
+
 	if(forward)
 		++keyboard_config.backlight.level;
 	else
