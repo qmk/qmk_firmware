@@ -105,7 +105,7 @@ void keyboard_pre_init_user(void) {
 void keyboard_post_init_user(void){
     rgblight_enable_noeeprom(); // enable the RGBs
     rgblight_sethsv_noeeprom_red(); // set to red
-    rgblight_mode_noeeprom(4); // set to breathing
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // set to breathing
 }
 
 void suspend_power_down_user(void){
@@ -171,7 +171,7 @@ uint32_t layer_state_set_user(uint32_t state){
         rgblight_sethsv_noeeprom(HSV_ORANGE);
         break;
       default:
-        rgblight_mode_noeeprom(28);
+        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
         break;
 
     }

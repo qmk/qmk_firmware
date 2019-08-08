@@ -51,8 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // !NO_PRINT
 
 #define NO_MUSIC_MODE
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 // Override caps lock indication from my userspace
 //#undef NORMAL_MODE
