@@ -31,9 +31,9 @@
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
-    // Ranges used in shortucuts - not to be used directly
-    QK_TMK                = 0x0000,
-    QK_TMK_MAX            = 0x00FF,
+    // Ranges used in shortcuts - not to be used directly
+    QK_BASIC              = 0x0000,
+    QK_BASIC_MAX          = 0x00FF,
     QK_MODS               = 0x0100,
     QK_LCTL               = 0x0100,
     QK_LSFT               = 0x0200,
@@ -489,6 +489,9 @@ enum quantum_keycodes {
     // Right control, close paren
     KC_RAPC,
 
+    CMB_ON,
+    CMB_OFF,
+    CMB_TOG,
     // always leave at the end
     SAFE_RANGE
 };
