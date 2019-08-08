@@ -149,7 +149,7 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool oled_init(uint8_t rotation) {
-    oled_rotation = oled_init_user(rotation);
+    oled_rotation = oled_init_kb(rotation);
     if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
         oled_rotation_width = OLED_DISPLAY_WIDTH;
     } else {
@@ -213,6 +213,8 @@ bool oled_init(uint8_t rotation) {
     oled_scrolling   = false;
     return true;
 }
+
+__attribute__((weak)) oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return oled_init_user(rotation); }
 
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return rotation; }
 
@@ -565,5 +567,7 @@ void oled_task(void) {
     }
 #endif
 }
+
+__attribute__((weak)) void oled_task_kb(void) { oled_task_user(); }
 
 __attribute__((weak)) void oled_task_user(void) {}

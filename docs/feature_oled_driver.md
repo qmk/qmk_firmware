@@ -129,7 +129,7 @@ void oled_task_user(void) {
 |`OLED_TARGET_MAP`      |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.         |
 
 
-### 90 Degree Rotation - Technical Mumbo Jumbo 
+### 90 Degree Rotation - Technical Mumbo Jumbo
 
 !> Rotation is unsupported on the SH1106.
 
@@ -143,8 +143,8 @@ typedef enum {
 } oled_rotation_t;
 ```
 
- OLED displays driven by SSD1306 drivers only natively support in hard ware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an `atmega32u4` board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms. 
- 
+ OLED displays driven by SSD1306 drivers only natively support in hard ware 0 degree and 180 degree rendering. This feature is done in software and not free. Using this feature will increase the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an `atmega32u4` board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
+
  90 Degree Rotated Rendering is achieved by using bitwise operations to rotate each 8 block of memory and uses two precalculated arrays to remap buffer memory to OLED memory. The memory map defines are precalculated for remap performance and are calculated based on the OLED Height, Width, and Block Size. For example, in the 128x32 implementation with a `uint8_t` block type, we have a 64 byte block size. This gives us eight 8 byte blocks that need to be rotated and rendered. The OLED renders horizontally two 8 byte blocks before moving down a page, e.g:
 
 |   |   |   |   |   |   |
@@ -180,7 +180,12 @@ typedef enum {
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
 
-// Called at the start of oled_init, weak function overridable by the user
+// Called at the start of oled_init, weak function overridable by the keyboard
+// rotation - the value passed into oled_init
+// Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_kb(oled_rotation_t rotation);
+
+// Normally called at the start of oled_init_kb, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
@@ -240,7 +245,10 @@ bool oled_off(void);
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
-// Called at the start of oled_task, weak function overridable by the user
+// Called at the start of oled_task, weak function overridable by the keyboard
+void oled_task_kb(void);
+
+// Normally called at the start of oled_task_kb, weak function overridable by the user
 void oled_task_user(void);
 
 // Scrolls the entire display right

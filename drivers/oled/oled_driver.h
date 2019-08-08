@@ -162,7 +162,12 @@ typedef enum {
 // Returns true if the OLED was initialized successfully
 bool oled_init(oled_rotation_t rotation);
 
-// Called at the start of oled_init, weak function overridable by the user
+// Called at the start of oled_init, weak function overridable by the keyboard
+// rotation - the value passed into oled_init
+// Return new oled_rotation_t if you want to override default rotation
+oled_rotation_t oled_init_kb(oled_rotation_t rotation);
+
+// Normally called at the start of oled_init_kb, weak function overridable by the user
 // rotation - the value passed into oled_init
 // Return new oled_rotation_t if you want to override default rotation
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
@@ -233,7 +238,10 @@ bool oled_off(void);
 // Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
-// Called at the start of oled_task, weak function overridable by the user
+// Called at the start of oled_task, weak function overridable by the keyboard
+void oled_task_kb(void);
+
+// Normally called at the start of oled_task_kb, weak function overridable by the user
 void oled_task_user(void);
 
 // Scrolls the entire display right
