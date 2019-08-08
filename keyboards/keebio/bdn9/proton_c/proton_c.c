@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "syn_c.h"
+#include "proton_c.h"
 #include "hal.h"
 #include "eeconfig.h"
 #include "backlight_led.h"
@@ -53,11 +53,6 @@ void eeconfig_init_kb(void) { // EEPROM Reset
 	// reset the config structure
     keyboard_config.raw = 0;
 	keyboard_config.status = 1;
-
-	// set backlight specific values
-	keyboard_config.backlight.enable = 0;
-    keyboard_config.backlight.level = 0;
-	keyboard_config.backlight.breathing = 0;
 
 	// write to eeprom
     eeconfig_update_kb(keyboard_config.raw);

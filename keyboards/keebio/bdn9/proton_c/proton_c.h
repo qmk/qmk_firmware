@@ -45,12 +45,12 @@ typedef union {
         uint8_t level     :5;
     };
 } backlight_config_t;
+extern backlight_config_t backlight_config;
 
 typedef union {
 	uint32_t raw;
 	struct {
 		bool				status		:1;
-		backlight_config_t	backlight;
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;

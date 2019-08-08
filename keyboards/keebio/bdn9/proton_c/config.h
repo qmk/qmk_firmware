@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xDEAD
 #define PRODUCT_ID      0xBEEF
 #define DEVICE_VER      0x8008
-#define MANUFACTURER    kratsyn
-#define PRODUCT         syn_c
-#define DESCRIPTION     3x3 MacroPad (keeb.io:BDN9 + olkb:Proton-C)
+#define MANUFACTURER    Keebio
+#define PRODUCT         BDN9 (Proton-C)
+#define DESCRIPTION     3x3 Macropad with Rotary Encoders
 
 /* key matrix size */
 #define MATRIX_ROWS 3
