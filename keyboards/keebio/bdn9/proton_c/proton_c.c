@@ -16,7 +16,6 @@
 #include "proton_c.h"
 #include "hal.h"
 #include "eeconfig.h"
-#include "backlight_led.h"
 
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);

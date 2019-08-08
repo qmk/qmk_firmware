@@ -44,21 +44,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B7, A1 }
 #define ENCODER_RESOLUTION 4
 
-//#define TAP_CODE_DELAY 20 
-//#define TAPPING_TERM 300
-
 #define BACKLIGHT_LEVELS 5 
 #define BACKLIGHT_BREATHING_STEPS 128
 #define BREATHING_PERIOD 6 
 
-#define RGB_DI_PIN A9
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 4
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-  /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
-#endif
+/* No support for SPI on A9 */
+/* No common SPI implementation for ws2812 */
+//#define RGB_DI_PIN A9
+//#ifdef RGB_DI_PIN
+//  #define RGBLED_NUM 4
+//  #define RGBLIGHT_HUE_STEP 8
+//  #define RGBLIGHT_SAT_STEP 8
+//  #define RGBLIGHT_VAL_STEP 8
+//  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+//  /*== all animations enable ==*/
+//  #define RGBLIGHT_ANIMATIONS
+//#endif
