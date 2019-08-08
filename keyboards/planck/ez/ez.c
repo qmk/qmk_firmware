@@ -221,7 +221,7 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_init_user();
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
