@@ -25,9 +25,7 @@ backlight_levels_config_t kb_backlight_config = {
   .level = BACKLIGHT_LEVELS
 };
 
-uint8_t *o_fb;
 
-uint16_t counterst = 0;
 
 void matrix_init_kb(void) {
         matrix_init_user();

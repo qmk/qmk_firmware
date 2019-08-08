@@ -14,7 +14,7 @@ The SteamVan is a 40% PCB that aims to meet the following goals:
 More info on the project, including all of the design files, can be found [here](https://github.com/jmdaly/steamvan).
 
 Keyboard Maintainer: [jmdaly](https://github.com/jmdaly)  
-Hardware Supported: Supports the SteamVan PCB rev1
+Hardware Supported: Supports the SteamVan PCB rev1  
 Hardware Availability: Through group buys.
 
 Make example for this keyboard (after setting up your build environment):
