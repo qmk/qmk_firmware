@@ -17,6 +17,11 @@
 
 #include "quantum.h"
 
+// probably a better way to do this
+#ifndef	BACKLIGHT_ENABLE
+#include "backlight_led.h"
+#endif
+
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical

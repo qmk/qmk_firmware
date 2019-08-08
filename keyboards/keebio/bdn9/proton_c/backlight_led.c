@@ -236,3 +236,12 @@ void _set_cb(bool on) {
 	}
 	chSysUnlockFromISR();
 }
+
+/* kludges to support existing keymaps */
+void backlight_increase(void) {
+	backlight_step(true);
+}
+
+void backlight_decrease(void) {
+	backlight_step(false);
+}

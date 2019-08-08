@@ -30,3 +30,7 @@ void backlight_breathing_on(void);
 void backlight_breathing_off(void);
 void backlight_breathing_toggle(void);
 void _set_cb(bool on);
+
+/* ... */
+void backlight_increase(void);
+void backlight_decrease(void);
