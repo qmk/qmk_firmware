@@ -44,8 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_B { B7, A1 }
 #define ENCODER_RESOLUTION 4
 
-#define TAP_CODE_DELAY 20 
-#define TAPPING_TERM 300
+//#define TAP_CODE_DELAY 20 
+//#define TAPPING_TERM 300
 
 #define BACKLIGHT_LEVELS 5 
 #define BACKLIGHT_BREATHING_STEPS 128
