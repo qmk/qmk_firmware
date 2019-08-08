@@ -212,13 +212,11 @@ static void _bl_cb(PWMDriver *pwmp) {
 
 /* pwm callback toggle */
 void _set_cb(bool on) {
+	chSysLockFromISR();
 	if (on) {
-		chSysLockFromISR();
 		pwmEnablePeriodicNotificationI(BL_PWMD);
-		chSysUnlockFromISR();
 	} else {
-	    chSysLockFromISR();
 	    pwmDisablePeriodicNotificationI(BL_PWMD);
-	    chSysUnlockFromISR();
 	}
+	chSysUnlockFromISR();
 }
