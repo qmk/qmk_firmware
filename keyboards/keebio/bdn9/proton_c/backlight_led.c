@@ -22,7 +22,7 @@
 
 #define BL_PIN		B0		// B0 ALT_MODE(2) (TIM3_3)
 #define BL_PWMD		&PWMD3	// PWM Driver
-#define BL_TC		2		// Timing Channel (MCU Channel - 1)
+#define BL_TC		2		// Timing Channel (MCU specific value - 1)
 
 backlight_config_t backlight_config;
 
@@ -38,10 +38,26 @@ static PWMConfig pwmCfg = {
 	256,
 	_bl_cb,
 	{
+#if BL_TC == 0
+		{ PWM_OUTPUT_ACTIVE_HIGH, NULL },
+#else
 		{ PWM_OUTPUT_DISABLED, NULL },
+#endif
+#if BL_TC == 1
+		{ PWM_OUTPUT_ACTIVE_HIGH, NULL },
+#else
 		{ PWM_OUTPUT_DISABLED, NULL },
-		{ PWM_OUTPUT_ACTIVE_HIGH, NULL }, // GPIOB,0 (TIM3_CH3)
+#endif
+#if BL_TC == 2
+		{ PWM_OUTPUT_ACTIVE_HIGH, NULL },
+#else
+		{ PWM_OUTPUT_DISABLED, NULL },
+#endif
+#if BL_TC == 3
+		{ PWM_OUTPUT_ACTIVE_HIGH, NULL }
+#else
 		{ PWM_OUTPUT_DISABLED, NULL }
+#endif
 	},
 	0,
 	0
