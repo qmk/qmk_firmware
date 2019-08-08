@@ -23,6 +23,17 @@ void matrix_scan_cmd_tab(void);
 #define MM_RALT   RALT_T(KC_MFFD)
 #define MM_FNPY   LT(_MACFN, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
+// Arrow Mod-Tap
+#define MT_RSUP   RSFT_T(KC_UP)
+#define MT_RALT   RALT_T(KC_LEFT)
+#define MT_RFDN   LT(_MACFN, KC_DOWN)
+#define MT_RCRT   RCTL_T(KC_RGHT)
+// Nav Mod-Tap
+#define MT_RSPU   RSFT_T(KC_PGUP)
+#define MT_RAHM   RALT_T(KC_HOME)
+#define MT_RFPD   LT(_MACFN, KC_PGDN)
+#define MT_RCED   RCTL_T(KC_END)
+
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
 #define MC_SLEP   LALT(LGUI(KC_POWER)) // Mac Sleep
