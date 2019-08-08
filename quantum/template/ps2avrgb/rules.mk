@@ -1,13 +1,5 @@
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
-
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# processor frequency
-F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -27,9 +19,4 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
+SRC += i2c_master.c
