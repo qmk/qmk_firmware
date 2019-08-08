@@ -30,11 +30,6 @@
 #define _L2 4
 #define _L3 5
 
-// Macro name shortcuts
-#define QWERTY M(_QW)
-#define DVORAK M(_DV)
-#define COLEMAK M(_CM)
-
 // Curly braces have their own keys. These are defined to make them not mess up
 // the grid in layer 2.
 #define L_CURBR LSFT(KC_LBRC)
@@ -66,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LGUI, _______,                   _______, _______,                   _______, _______, _______
   ),
   [_L2] = LAYOUT_standard( /* LAYER 2 */
-    _______, QWERTY,  DVORAK,  COLEMAK, _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______, DF(_QW), DF(_DV), DF(_CM), _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_0,    _______,
     KC_ESC,  KC_PIPE, KC_DQUO, KC_UNDS, KC_PLUS, L_CURBR, R_CURBR, KC_4,    KC_5,    KC_6,    KC_VOLU, KC_ENT,
     _______, _______, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_VOLD, _______,
     _______, _______, _______,                   _______, _______,                   _______, _______, _______
