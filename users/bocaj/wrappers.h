@@ -9,20 +9,22 @@
 #define LAYOUT_ergodox_pretty_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
 
 #define _________________QWERTY_L1__________________        KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
-#define _________________QWERTY_L2__________________        KC_A,     KC_S,      GUI(KC_D),           KC_F,           KC_G
+#define _________________QWERTY_L2__________________        KC_A,     KC_S,    GUI_CTR(0, KC_D),      KC_F,           KC_G
 #define _________________QWERTY_L3__________________        KC_Z,     KC_X,           KC_C,           KC_V,           KC_B
 
 #define _________________QWERTY_R1__________________        KC_Y,     KC_U,           KC_I,           KC_O,           KC_P
-#define _________________QWERTY_R2__________________        KC_H,     KC_J,      GUI(KC_K),           KC_L,        KC_SCLN
-#define _________________QWERTY_R3__________________        KC_N,     KC_M,        KC_COMM,         KC_DOT,       KC_SLASH
+#define _________________QWERTY_R2__________________        KC_H,     KC_J,    GUI_CTR(0, KC_K),      KC_L,           KC_SCLN
+#define _________________QWERTY_R3__________________        KC_N,     KC_M,           KC_COMM,        KC_DOT,         KC_SLASH
 
 // Hardware Driven Workman
 #define _________________WORKMAN_L1_________________        KC_Q,     KC_D,           KC_R,           KC_W,           KC_B
 #define _________________WORKMAN_L2_________________        KC_A,     KC_S,    GUI_CTR(0, KC_H),      KC_T,           KC_G // GUI_CTR(0, kc) behaves as GUI_T(kc)
+#define ________________WWORKMAN_L2_________________        KC_A,     KC_S,    GUI_CTR(1, KC_H),      KC_T,           KC_G // GUI_CTR(1, kc) behaves as CTR_T(kc)
 #define _________________WORKMAN_L3_________________        KC_Z,     KC_X,           KC_M,           KC_C,           KC_V
 
 #define _________________WORKMAN_R1_________________        KC_J,     KC_F,           KC_U,           KC_P,           KC_SCLN
 #define _________________WORKMAN_R2_________________        KC_Y,     KC_N,    GUI_CTR(0, KC_E),      KC_O,           KC_I // GUI_CTR(0, kc) behaves as GUI_T(kc)
+#define ________________WWORKMAN_R2_________________        KC_Y,     KC_N,    GUI_CTR(1, KC_E),      KC_O,           KC_I // GUI_CTR(1, kc) behaves as CTR_T(kc)
 #define _________________WORKMAN_R3_________________        KC_K,     KC_L,           KC_COMM,        KC_DOT,         KC_SLASH
 
 

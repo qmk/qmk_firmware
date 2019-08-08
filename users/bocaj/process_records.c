@@ -1,19 +1,65 @@
 #include "bocaj.h"
 #include QMK_KEYBOARD_H
 
-uint16_t copy_paste_timer;
-uint16_t grave_layer_timer;
-uint16_t heal_layer_timer;
+uint16_t braces_timer;
+bool is_hyper_active = false;
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+__attribute__ ((weak))
+void matrix_scan_secrets(void) {}
+
 // Defines actions tor my global custom keycodes. Defined in bocaj.h file
 // Then runs the _keymap's record handler if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case MC_PRNS:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            SEND_STRING("()");
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BRCS:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            if (temp_mod & MODS_SHIFT_MASK) {
+                SEND_STRING("{}");
+            } else {
+                SEND_STRING("[]");
+            }
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BPRN:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            SEND_STRING(")(");
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BBRC:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            if (temp_mod & MODS_SHIFT_MASK) {
+                SEND_STRING("}{");
+            } else {
+                SEND_STRING("][");
+            }
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
     case KC_MWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
@@ -25,37 +71,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_WWRK:
-    //   if (!record->event.pressed) {
-    //     set_single_persistent_default_layer(_WINWORKMAN);
-    //     #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    //       set_unicode_input_mode(4);
-    //     #endif
-    //     layer_move(0);
-    //     ergodox_blink_all_leds();
-    //   }
+      if (!record->event.pressed) {
+        set_single_persistent_default_layer(_WINWORKMAN);
+        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+          set_unicode_input_mode(4);
+        #endif
+        layer_move(0);
+        ergodox_blink_all_leds();
+      }
       break;
     case KC_MQWR:
-    //   if (!record->event.pressed) {
-    //     set_single_persistent_default_layer(_QWERTY);
-    //     #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    //       set_unicode_input_mode(0);
-    //     #endif
-    //     layer_move(0);
-    //     ergodox_blink_all_leds();
-    //   }
+      if (!record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+          set_unicode_input_mode(0);
+        #endif
+        layer_move(0);
+        ergodox_blink_all_leds();
+      }
       break;
     case KC_GAME:
-    //   if (!record->event.pressed) {
-        // uint8_t temp_mod = get_mods();
-        // clear_mods();
-        // if (temp_mod & MODS_SHIFT_MASK) {
-        //   layer_move(_DIABLO);
-        // } else {
-        // layer_move(_POE);
-        // }
-        // layer_move(_POE);
-        // set_mods(temp_mod);
-    //   }
+      if (!record->event.pressed) {
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        if (temp_mod & MODS_SHIFT_MASK) {
+          layer_move(_DIABLO);
+        } else {
+          layer_move(_POE);
+        }
+        set_mods(temp_mod);
+      }
       break;
     case MC_LOCK:
       if (!record->event.pressed) {
@@ -96,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 #endif // TAP_DANCE_ENABLE
       break;
-    case MC_ARRW:
+    case JJ_ARRW:
       if (!record->event.pressed) {
         uint8_t temp_mod = get_mods();
         clear_mods();
@@ -105,6 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           SEND_STRING("->");
         }
+        set_mods(temp_mod);
       }
       return false;
       break;
@@ -134,4 +180,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return process_record_keymap(keycode, record);
+}
+
+LEADER_EXTERNS();
+// No global matrix scan code, so just run keymap's matrix
+// scan function
+void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Mac copy line down (Leader -> d, d)
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      // Get to end of current line
+      register_code(KC_LGUI);
+      tap(KC_RIGHT);
+      // Select to the beginning of the line
+      register_code(KC_LSHIFT);
+      tap(KC_LEFT);
+      unregister_code(KC_LSHIFT);
+      // Copy (LGUI is still held)
+      tap(KC_C);
+      // Back to the end
+      tap(KC_RIGHT);
+      unregister_code(KC_LGUI);
+      // Make new line
+      tap(KC_ENTER);
+      // Paste
+      SEND_STRING(SS_LGUI("v"));
+    }
+
+    // XCode one-hand run project (or browser refresh)
+    SEQ_TWO_KEYS(KC_H, KC_R) {
+      SEND_STRING(SS_LGUI("r"));
+    }
+
+    SEQ_TWO_KEYS(KC_V, KC_S) {
+      register_code(KC_LGUI);
+      tap(KC_SPACE);
+      unregister_code(KC_LGUI);
+      send_string_with_delay_P(PSTR("vsc"), MACRO_TIMER);
+      tap(KC_ENTER);
+    }
+
+    SEQ_TWO_KEYS(KC_X, KC_C) {
+      register_code(KC_LGUI);
+      tap(KC_SPACE);
+      unregister_code(KC_LGUI);
+      send_string_with_delay_P(PSTR("xcode"), MACRO_TIMER);
+      tap(KC_ENTER);
+    }
+
+    SEQ_ONE_KEY(KC_B) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " ");
+      tap(KC_ENTER);
+      SEND_STRING ("Built at: " QMK_BUILDDATE);
+    }
+#ifndef NO_SECRETS
+    matrix_scan_secrets();
+#endif // !NO_SECRETS
+  }
+
+#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+  run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+
+  matrix_scan_keymap();
 }

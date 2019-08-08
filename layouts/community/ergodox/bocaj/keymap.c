@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ergodox_pretty_wrapper( \
-      KC_ESC,  __________________NUMBER_LEFT_______________, MC_ARRW,                 KC_MINS,  __________________NUMBER_RIGHT______________, KC_EQUAL,  \
+      KC_ESC,  __________________NUMBER_LEFT_______________, JJ_ARRW,                 KC_MINS,  __________________NUMBER_RIGHT______________, KC_EQUAL,  \
       KC_DEL,  K01,        K02,        K03,        K04, K05, KC_LPRN,                 KC_RPRN,  K06, K07,        K08,        K09,        K0A, KC_BSLASH, \
       KC_NUMS, K11, SFT_T(K12),        K13, ALT_T(K14), K15,                                    K16, ALT_T(K17), K18,     SFT_T(K19),    K1A, KC_QUOT,   \
       KC_LSFT, CTL_T(K21), K22,        K23,        K24, K25, HYP_LBK,                 MEH_RBK,  K26, K27,        K28,        K29, CTL_T(K2A), KC_RSFT,   \
@@ -78,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _________________WORKMAN_L2_________________,         _________________WORKMAN_R2_________________,
                  _________________WORKMAN_L3_________________,         _________________WORKMAN_R3_________________
   ),
-//   [_WINWORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
-//                  _________________WORKMAN_L1_________________,         _________________WORKMAN_R1_________________,
-//                  ________________WWORKMAN_L2_________________,         ________________WWORKMAN_R2_________________,
-//                  _________________WORKMAN_L3_________________,         _________________WORKMAN_R3_________________
-//   ),
+  [_WINWORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
+                 _________________WORKMAN_L1_________________,         _________________WORKMAN_R1_________________,
+                 ________________WWORKMAN_L2_________________,         ________________WWORKMAN_R2_________________,
+                 _________________WORKMAN_L3_________________,         _________________WORKMAN_R3_________________
+  ),
 /* QWERTY - http://www.keyboard-layout-editor.com/#/gists/b6c016a22a9d31381a276a603a42fe5f
                  .---------------------------------------------.                               .---------------------------------------------.
                  |  ESC  |  1  |  2  |  3  |  4  |  5  |   ->  |                               !   -   |  6  |  7  |  8  |  9  |  0  |   =   |
@@ -101,16 +101,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            |       |       | COPY  |                       ! PASTE |       | LOWER |
                                            '-----------------------'                       '-----------------------'
 */
-//   [_QWERTY] = LAYOUT_ergodox_pretty_base_wrapper(
-//                  _________________QWERTY_L1__________________,         _________________QWERTY_R1__________________,
-//                  _________________QWERTY_L2__________________,         _________________QWERTY_R2__________________,
-//                  _________________QWERTY_L3__________________,         _________________QWERTY_R3__________________
-//   ),
+  [_QWERTY] = LAYOUT_ergodox_pretty_base_wrapper(
+                 _________________QWERTY_L1__________________,         _________________QWERTY_R1__________________,
+                 _________________QWERTY_L2__________________,         _________________QWERTY_R2__________________,
+                 _________________QWERTY_L3__________________,         _________________QWERTY_R3__________________
+  ),
   [_LOWER] = LAYOUT_ergodox_pretty_wrapper(
     KC_F11 ,__________________FUNCTION_LEFT_____________, _______,    _______, __________________FUNCTION_RIGHT____________,  KC_F12,
-   KC_GRAVE, _______, _______,  KC_UP, _______,  _______, _______,    _______, _______,   KC_7,    KC_8,    KC_9,   KC_PAST, _______,
+   KC_GRAVE, _______, _______,  KC_UP, _______,  _______, MC_PRNS,    MC_BPRN, _______,   KC_7,    KC_8,    KC_9,   KC_PAST, _______,
     _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT, _______,                      _______,   KC_4,    KC_5,    KC_6,   KC_PPLS, _______,
-    KC_LSFT,____________________BLANK___________________, _______,    _______, _______,   KC_1,    KC_2,    KC_3,   KC_PMNS, _______,
+    KC_LSFT,____________________BLANK___________________, MC_BRCS,    MC_BBRC, _______,   KC_1,    KC_2,    KC_3,   KC_PMNS, _______,
       ____________________BLANK___________________,                                       KC_0,    KC_PDOT, KC_COMM,KC_PEQL, _______,
                                                 _______, _______,      _______, _______,
                                                          _______,      _______,
@@ -143,27 +143,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                   _______, _______,      _______, _______,
                                                            _______,      _______,
                                          _______, _______, _______,      _______, _______, _______
+  ),
+  [_DIABLO] = LAYOUT_ergodox_pretty_wrapper(
+             KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
+             KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_P,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                         KC_NO,    KC_NO,   KC_NO, TO(0), KC_NO,
+                                                             KC_L,    KC_J,                 KC_NO,   KC_NO,
+                                                                      KC_F,                 KC_NO,
+                                     SFT_T(KC_SPACE),  ALT_T(KC_Q),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
+  ),
+  [_POE] = LAYOUT_ergodox_pretty_wrapper(
+             KC_ESC,  KC_P,    KC_C,    KC_I,    KC_U, KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
+             KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4, KC_5,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_LALT,    KC_Q,    KC_W,    KC_E,    KC_R ,KC_T,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_LSFT, CTL_T(KC_Z),    KC_X,    KC_D, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                       KC_NO,    KC_NO,   KC_NO,TO(0), KC_NO,
+                                                             KC_L,    KC_J,                 KC_NO,   KC_NO,
+                                                                      KC_F,                 KC_NO,
+                                            KC_LSFT,  ALT_T(KC_F),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
   )
-//   [_DIABLO] = LAYOUT_ergodox_pretty_wrapper(
-//              KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
-//              KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_P,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                         KC_NO,    KC_NO,   KC_NO, TO(0), KC_NO,
-//                                                              KC_L,    KC_J,                 KC_NO,   KC_NO,
-//                                                                       KC_F,                 KC_NO,
-//                                      SFT_T(KC_SPACE),  ALT_T(KC_Q),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
-//   ),
-//   [_POE] = LAYOUT_ergodox_pretty_wrapper(
-//              KC_ESC,  KC_P,    KC_C,    KC_I,    KC_U, KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
-//              KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4, KC_5,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_LALT,    KC_Q,    KC_W,    KC_E,    KC_R ,KC_T,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_LSFT, CTL_T(KC_Z),    KC_X,    KC_D, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
-//              KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                       KC_NO,    KC_NO,   KC_NO,TO(0), KC_NO,
-//                                                              KC_L,    KC_J,                 KC_NO,   KC_NO,
-//                                                                       KC_F,                 KC_NO,
-//                                             KC_LSFT,  ALT_T(KC_F),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
-//   )
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -185,8 +185,8 @@ void matrix_scan_keymap(void) {
 
   switch (layer) {
     case _WORKMAN:
-    // case _QWERTY:
-    // case _WINWORKMAN:
+    case _QWERTY:
+    case _WINWORKMAN:
       if (modifiers & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
         ergodox_right_led_1_on();
         ergodox_right_led_1_set( 25 );
@@ -213,13 +213,13 @@ void matrix_scan_keymap(void) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set(10);
       break;
-    // case _POE: // The lack of a break in this case is intentional :)
-    //   ergodox_right_led_2_on();
-    //   ergodox_right_led_2_set(5);
-    // case _DIABLO:
-    //   ergodox_right_led_1_on();
-    //   ergodox_right_led_1_set(10);
-    //   break;
+    case _POE: // The lack of a break in this case is intentional :)
+      ergodox_right_led_2_on();
+      ergodox_right_led_2_set(5);
+    case _DIABLO:
+      ergodox_right_led_1_on();
+      ergodox_right_led_1_set(10);
+      break;
     default:
       // none
       break;

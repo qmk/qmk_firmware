@@ -14,7 +14,7 @@ enum userspace_custom_keycodes {
   KC_MQWR,
   KC_GAME,
   KC_VRSN,
-  MC_ARRW,
+  JJ_ARRW,
   MC_LOCK,
   KC_DCLR,
   KC_MAKE,
@@ -22,7 +22,11 @@ enum userspace_custom_keycodes {
   UC_TABL,           // ┬─┬ノ( º _ ºノ)
   UC_SHRG,           // ¯\_(ツ)_/¯
   UC_DISA,           // ಠ_ಠ
-  NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE for keymap specific codes
+  MC_PRNS,
+  MC_BRCS,
+  MC_BPRN,
+  MC_BBRC,
+  NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
@@ -37,6 +41,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_LWEN LT(_LOWER, KC_ENTER)
 #define KC_ADJS TT(_ADJUST)
 #define KC_NUMS TT(_LOWER)
+//#define KC_GAME TT(_DIABLO)
+#define XXXXXXX KC_NO
+#define _______ KC_TRNS
 
 // Other Keycodes
 #define KC_RST RESET
