@@ -106,7 +106,7 @@ static EXTConfig extcfg = {
 static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb}; // NOTE: hardcoded/limited to Port-A
 #define PS2_INT_INIT() { \
         extStart(&EXTD1, &extcfg); /*activate config, to be able to select the appropriate channel */ \
-        extSetChannelModeI(&EXTD1, PAL_PAD(PS2_LINE_CLOCK), &ext_clock_channel_config); \
+        extSetChannelModeI(&EXTD1, PAL_PAD(PS2_CLOCK), &ext_clock_channel_config); \
     } while(0)
 #define PS2_INT_ON() { \
         extStart(&EXTD1, &extcfg);              \

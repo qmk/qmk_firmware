@@ -104,8 +104,8 @@ PS2_USE_INT = yes
 In your keyboard config.h:
 
 ```
-#define PS2_LINE_CLOCK PAL_LINE(GPIOB, 8U)
-#define PS2_LINE_DATA  PAL_LINE(GPIOA, 9U)
+#define PS2_CLOCK A8
+#define PS2_DATA  A9
 ```
 
 And in the chibios specifig halconf.h:
