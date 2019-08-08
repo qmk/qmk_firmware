@@ -128,7 +128,7 @@ bool backlight_is_enabled(void) {
 void backlight_enable(void) {
 	keyboard_config.backlight.enable = 1;
 	keyboard_config.backlight.level = BACKLIGHT_LEVELS;
-	keyboard_config.backlight.breath_enable = 0;
+	keyboard_config.backlight.breathing = 0;
 	eeconfig_update_kb(keyboard_config.raw);
 	_enable_cb();
 }
@@ -136,7 +136,7 @@ void backlight_enable(void) {
 void backlight_disable(void) {
 	keyboard_config.backlight.enable = 0;
 	keyboard_config.backlight.level = 0;
-	keyboard_config.backlight.breath_enable = 0;
+	keyboard_config.backlight.breathing = 0;
 	eeconfig_update_kb(keyboard_config.raw);
 	_disable_cb();
 }
@@ -161,7 +161,7 @@ void backlight_toggle(void) {
 }
 
 bool backlight_is_breathing(void) {
-	if(keyboard_config.backlight.breath_enable)
+	if(keyboard_config.backlight.breathing)
 		return true;
 	else 
 		return false;
@@ -169,7 +169,7 @@ bool backlight_is_breathing(void) {
 
 void backlight_breathing_on(void) {
 	if(backlight_is_enabled()) {
-		keyboard_config.backlight.breath_enable = 1;
+		keyboard_config.backlight.breathing = 1;
 		eeconfig_update_kb(keyboard_config.raw);
 		dprint("[BL] Breathing enabled.\n");
 	}
@@ -177,14 +177,14 @@ void backlight_breathing_on(void) {
 
 void backlight_breathing_off(void) {
 	if(backlight_is_enabled()) {
-		keyboard_config.backlight.breath_enable = 0;
+		keyboard_config.backlight.breathing = 0;
 		eeconfig_update_kb(keyboard_config.raw);
 		dprint("[BL] Breathing disabled.\n");
 	}
 }
 
 void backlight_breathing_toggle(void) {
-	if(keyboard_config.backlight.breath_enable)
+	if(keyboard_config.backlight.breathing)
 		backlight_breathing_off();
 	else
 		backlight_breathing_on();

@@ -37,19 +37,20 @@
 }
 
 typedef union {
-	uint16_t raw;
-	struct {
-		bool 	enable			:1;
-		uint8_t level			:5;
-		bool 	breath_enable	:1;
-	};
-} kb_cfg_backlight;
+    uint8_t raw;
+    struct {
+        bool    enable    :1;
+        bool    breathing :1;
+        uint8_t reserved  :1; // Reserved for possible future backlight modes
+        uint8_t level     :5;
+    };
+} backlight_config_t;
 
 typedef union {
 	uint32_t raw;
 	struct {
 		bool				status		:1;
-		kb_cfg_backlight	backlight;
+		backlight_config_t	backlight;
 	};
 } keyboard_config_t;
 extern keyboard_config_t keyboard_config;

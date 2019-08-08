@@ -57,7 +57,7 @@ void eeconfig_init_kb(void) { // EEPROM Reset
 	// set backlight specific values
 	keyboard_config.backlight.enable = 0;
     keyboard_config.backlight.level = 0;
-	keyboard_config.backlight.breath_enable = 0;
+	keyboard_config.backlight.breathing = 0;
 
 	// write to eeprom
     eeconfig_update_kb(keyboard_config.raw);
