@@ -21,9 +21,9 @@
 #include "proton_c.h"
 #include "backlight_led.h"
 
-#define BL_PIN		B0		// B0 ALT_MODE(2) (TIM3_3)
-#define BL_PWMD		&PWMD3	// PWM Driver
-#define BL_TC		2		// Timing Channel (MCU specific value - 1)
+#define BL_PIN		BACKLIGHT_ARM_PIN
+#define BL_PWMD		BACKLIGHT_PWM_DRIVER
+#define BL_TC		BACKLIGHT_PWM_CHANEL
 
 extern backlight_config_t backlight_config;
 
