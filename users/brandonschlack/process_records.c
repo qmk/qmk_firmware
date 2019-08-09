@@ -95,6 +95,8 @@ void send_make_command(bool flash_bootloader) {
         SEND_STRING(":teensy");
 #elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
         SEND_STRING(":avrdude");
+#elif defined(BOOTLOADER_USBASP) // Run for custom Program CMD
+        SEND_STRING(":program");
 #endif // bootloader options
     }
     SEND_STRING(SS_TAP(X_ENTER));
