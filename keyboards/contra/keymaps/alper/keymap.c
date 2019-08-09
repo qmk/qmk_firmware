@@ -96,14 +96,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 // 0,0 is TAB in this layout because my key for Ctrl/Tab seems to be broken.
 
-// TODO port Dvorak changes to other keyboards
-
-// TODO REMAP ESC To LT() so I can use it to select numbers (_NUMB) and functions more easily?
-// see msiu/keymap.c
-
-// TODO try out tapdance for brackets
-// see ryanm101/keymap.c
-
 // TODO wipe everything except Dvorak and Qwerty
 // see deastiny/keymap.c
 
