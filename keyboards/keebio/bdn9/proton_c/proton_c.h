@@ -17,12 +17,6 @@
 
 #include "quantum.h"
 
-// BACKLIGHT_CUSTOM_DRIVER is bound to BACKLIGHT_ENABLE
-// what if i want to create a drop-in replacement for existing methods?
-#if !defined(BACKLIGHT_ENABLE) && !defined(BACKLIGHT_CUSTOM_DRIVER)
-	#include "backlight_led.h"
-#endif
-
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -41,17 +35,6 @@
 	{ KB1, KB2, KB3 }, \
 	{ KC1, KC2, KC3 } \
 }
-
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable    :1;
-        bool    breathing :1;
-        uint8_t reserved  :1; // Reserved for possible future backlight modes
-        uint8_t level     :5;
-    };
-} backlight_config_t;
-extern backlight_config_t backlight_config;
 
 typedef union {
 	uint32_t raw;

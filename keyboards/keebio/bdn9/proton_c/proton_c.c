@@ -16,6 +16,7 @@
 #include "proton_c.h"
 #include "hal.h"
 #include "eeconfig.h"
+#include "backlight_led.h"
 
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
@@ -27,7 +28,7 @@ void keyboard_pre_init_kb(void) {
     keyboard_config.raw = eeconfig_read_kb();
 
 	// start blt
-	backlight_init();
+	backlight_init_kb();
 }
 
 // overloads
@@ -68,48 +69,4 @@ void blink_led(uint8_t times) {
         LED_OFF();
         wait_ms(200);
     }
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-		case BL_ON:
-			if (record->event.pressed) {
-				backlight_on();
-			}
-			break;
-		case BL_OFF:
-			if (record->event.pressed) {
-				backlight_off();
-			}
-			break;
-		case BL_INC:
-			if (record->event.pressed) {
-				// true == ++
-				backlight_step(true);
-			}
-			break;
-		case BL_DEC:
-			if (record->event.pressed) {
-				// false == --
-				backlight_step(false);
-			}
-			break;
-        case BL_STEP:
-            if (record->event.pressed) {
-				// true == ++
-				backlight_step(true);
-			}
-            break;
-		case BL_BRTG:
-			if (record->event.pressed) {
-				backlight_breathing_toggle();
-			}
-			break;
-		case BL_TOGG:
-			if (record->event.pressed) {
-				backlight_toggle();
-			}
-			break;
-    }
-    return process_record_user(keycode, record);
 }

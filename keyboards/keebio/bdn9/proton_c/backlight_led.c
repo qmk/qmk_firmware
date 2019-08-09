@@ -17,14 +17,15 @@
 #include "hal.h"
 #include "debug.h"
 #include "eeconfig.h"
-#include "backlight_led.h"
+#include "backlight.h"
 #include "proton_c.h"
+#include "backlight_led.h"
 
 #define BL_PIN		B0		// B0 ALT_MODE(2) (TIM3_3)
 #define BL_PWMD		&PWMD3	// PWM Driver
 #define BL_TC		2		// Timing Channel (MCU specific value - 1)
 
-backlight_config_t backlight_config;
+extern backlight_config_t backlight_config;
 
 static uint32_t backlight_duty = 0;
 static uint16_t breath_intval = 0;
@@ -82,12 +83,10 @@ static uint16_t cie_lightness(uint16_t v) {
   }
 }
 
-void backlight_init(void) {
-	backlight_config.raw = eeconfig_read_backlight();
+void backlight_init_kb(void) {
 	palSetLineMode(BL_PIN, PAL_MODE_ALTERNATE(2));
 	pwmStart(BL_PWMD, &pwmCfg);
-	_set_cb(true);
-	backlight_level(backlight_config.level);
+	backlight_reset_callback();
 	dprint("[BL] Startup complete.\n");
 }
 
@@ -96,115 +95,28 @@ void backlight_reset_callback(void) {
 	_set_cb(true);
 }
 
-void backlight_level(uint8_t level) {
+void backlight_set(uint8_t level) {
 	backlight_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) backlight_config.level / BACKLIGHT_LEVELS));
-	if (level == 0) {
-		backlight_off();
-	} else {
-		if(!backlight_is_breathing()) {
-			pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD,0xFFFF,backlight_duty));
-		} else {
-			backlight_config.level = level;
-		}
+
+	if (level == BACKLIGHT_LEVELS + 1 ) {
+		backlight_config.level =  0;
+	} else if (level > BACKLIGHT_LEVELS) {
+		backlight_config.level = BACKLIGHT_LEVELS;
 	}
+
+	if(!is_backlight_breathing()) {
+		pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD,0xFFFF,backlight_duty));
+	}
+	backlight_reset_callback();
 	dprintf("[BL] Backlight level set. (L:%d) (D:%d)\n", backlight_config.level, backlight_duty);
 }
 
-// forward if true, backwards if false
-void backlight_step(bool forward) {
-	if(!backlight_is_enabled())
-		backlight_config.enable = 1;
-
-	if(forward)
-		++backlight_config.level;
-	else
-		backlight_config.level--;
-	
-	if (backlight_config.level == (BACKLIGHT_LEVELS+1)) {
-		backlight_config.level =  0;
-	} else if ((backlight_config.level > BACKLIGHT_LEVELS)) {
-		backlight_config.level = BACKLIGHT_LEVELS;
-	} 
-	
-	if (!backlight_is_breathing()) {
-		backlight_level((uint8_t)backlight_config.level * 255 / BACKLIGHT_LEVELS);
-	} else {
-		dprintf("[BL] Breathing level set. (L:%d)\n", backlight_config.level);
-	}
-	eeconfig_update_backlight(backlight_config.raw);
+void breathing_enable() {
 	backlight_reset_callback();
 }
 
-bool backlight_is_enabled(void) {
-	if(backlight_config.enable)
-		return true;
-	else
-		return false;
-}
-
-void backlight_enable(void) {
-	backlight_config.enable = 1;
-	backlight_config.level = BACKLIGHT_LEVELS;
-	backlight_config.breathing = 0;
-	eeconfig_update_backlight(backlight_config.raw);
-	_set_cb(true);
-}
-
-void backlight_disable(void) {
-	backlight_config.enable = 0;
-	backlight_config.level = 0;
-	backlight_config.breathing = 0;
-	eeconfig_update_backlight(backlight_config.raw);
-	_set_cb(false);
-}
-
-void backlight_on(void) {
-	backlight_enable();
-	pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD, 0xFFFF,cie_lightness(0xFFFF)));
-	dprint("[BL] Backlight turned on.\n");
-}
-
-void backlight_off(void) {
-	backlight_disable();
-	pwmDisableChannel(BL_PWMD, BL_TC);
-	dprint("[BL] Backlight turned off.\n");
-}
-
-void backlight_toggle(void) {
-	if(backlight_config.enable)
-		backlight_off();
-	else
-		backlight_on();
-}
-
-bool backlight_is_breathing(void) {
-	if(backlight_config.breathing)
-		return true;
-	else 
-		return false;
-}
-
-void backlight_breathing_on(void) {
-	if(backlight_is_enabled()) {
-		backlight_config.breathing = 1;
-		eeconfig_update_backlight(backlight_config.raw);
-		dprint("[BL] Breathing enabled.\n");
-	}
-}
-
-void backlight_breathing_off(void) {
-	if(backlight_is_enabled()) {
-		backlight_config.breathing = 0;
-		eeconfig_update_backlight(backlight_config.raw);
-		dprint("[BL] Breathing disabled.\n");
-	}
-}
-
-void backlight_breathing_toggle(void) {
-	if(backlight_config.breathing)
-		backlight_breathing_off();
-	else
-		backlight_breathing_on();
+void breathing_disable() {
+	backlight_reset_callback();
 }
 
 static inline uint16_t backlight_scale(uint16_t value) {
@@ -212,7 +124,7 @@ static inline uint16_t backlight_scale(uint16_t value) {
 }
 
 static void _bl_cb(PWMDriver *pwmp) {
-	if(backlight_is_breathing()) {
+	if(is_backlight_breathing()) {
 		breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
 		breath_count = (breath_count + 1) % (BREATHING_PERIOD * 256);
 		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
@@ -235,13 +147,4 @@ void _set_cb(bool on) {
 	    pwmDisablePeriodicNotificationI(BL_PWMD);
 	}
 	chSysUnlockFromISR();
-}
-
-/* kludges to support existing keymaps */
-void backlight_increase(void) {
-	backlight_step(true);
-}
-
-void backlight_decrease(void) {
-	backlight_step(false);
 }
