@@ -32,6 +32,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes # Custom matrix file
+RGB_MATRIX_ENABLE = WS2812
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 

@@ -27,11 +27,7 @@
 #include <util/delay.h>
 #include "debug.h"
 
-#if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
-// LED color buffer
-LED_TYPE led[DRIVER_LED_TOTAL];
-  #define LED_ARRAY led
-#endif
+static LED_TYPE led_array[RGBLED_NUM];
 
 #ifdef RGBW_BB_TWI
 
@@ -147,24 +143,27 @@ unsigned char I2C_Write(unsigned char c)
 
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-// Set an led in the buffer to a color
-void inline ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b)
-{
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
+// for RGB matrix
+
+void WS2812_init(void) {
+
 }
 
-void ws2812_setled_all  (uint8_t r, uint8_t g, uint8_t b)
-{
-  for (int i = 0; i < sizeof(led)/sizeof(led[0]); i++) {
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
+void WS2812_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
+  led_array[index].r = red;
+  led_array[index].g = green;
+  led_array[index].b = blue;
+}
+
+void WS2812_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+  for (int i = 0; i < RGBLED_NUM; i++) {
+    WS2812_set_color( i, red, green, blue );
   }
 }
-#endif
+
+void inline WS2812_send_colors(void) {
+  ws2812_setleds_pin(led_array, RGBLED_NUM, _BV(RGB_DI_PIN & 0xF));
+}
 
 // Setleds for standard RGB
 void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds)

@@ -132,6 +132,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
+#define WS2812_LED_N RGBLED_NUM
+#define DRIVER_LED_TOTAL RGBLED_NUM
+
+#define RGB_MATRIX_KEYPRESSES
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

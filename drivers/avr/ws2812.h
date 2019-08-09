@@ -20,15 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIGHT_WS2812_H_
-#define LIGHT_WS2812_H_
+#pragma once
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-//#include "ws2812_config.h"
-//#include "i2cmaster.h"
-
 #include "quantum/color.h"
+
+void WS2812_init         (void);
+void WS2812_set_color    (int index, uint8_t red, uint8_t green, uint8_t blue);
+void WS2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void WS2812_send_colors  (void);
 
 /* User Interface
  *
@@ -71,5 +72,3 @@ void ws2812_sendarray_mask(uint8_t *array,uint16_t length, uint8_t pinmask);
 #ifndef CONCAT_EXP
 #define CONCAT_EXP(a, b)   CONCAT(a, b)
 #endif
-
-#endif /* LIGHT_WS2812_H_ */
