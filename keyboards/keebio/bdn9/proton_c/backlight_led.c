@@ -97,6 +97,7 @@ void backlight_reset_callback(void) {
 
 void backlight_stop(void) {
 	pwmDisableChannel(BL_PWMD, BL_TC);
+	_set_cb(false);
 }
 
 void backlight_set(uint8_t level) {
@@ -108,10 +109,11 @@ void backlight_set(uint8_t level) {
 		backlight_config.level = BACKLIGHT_LEVELS;
 	}
 
-	if (backlight_config.level == 0 ) {
+	if ( level == 0 ) {
 		backlight_stop();
 	} else if(!is_backlight_breathing()) {
 		pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD,0xFFFF,backlight_duty));
+	} else {
 		backlight_reset_callback();
 	}
 	dprintf("[BL] Backlight level set. (L:%d) (D:%d)\n", backlight_config.level, backlight_duty);
