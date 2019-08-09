@@ -3,17 +3,21 @@
 #define BL_GREEN OCR1A
 #define BL_BLUE OCR1C
 
-const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
-
-    /*{row | col << 4}
-      |             {x=0..224, y=0..64}
-      |              |                 modifier
-      |              |                 | */
-    {{0|(0<<4)},   {0, 32}, 0},
-    {{0|(1<<4)},   {75, 32}, 0},
-    {{0|(2<<4)},   {150, 32}, 0},
-    {{0|(2<<4)},   {224, 23},  0},
-};
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+  // Key Matrix to LED Index
+  { NO_LED, NO_LED, NO_LED },
+  { NO_LED, NO_LED, NO_LED },
+  { NO_LED, NO_LED,   3    },
+  {   0,      1,      2    },
+}, {
+  // LED Index to Physical Position
+  {0, 32}, {75, 32}, {150, 32}, {224, 32}
+}, {
+  // LED Index to Flag
+  LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+} };
+#endif
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here

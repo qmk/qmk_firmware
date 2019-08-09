@@ -19,3 +19,5 @@ MIDI_ENABLE = no           # MIDI controls
 UNICODE_ENABLE = no        # Unicode
 BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = yes         # Audio output on port C6
+
+#RGB_MATRIX_ENABLE = WS2812 # (can't flash because firmware is to large)
