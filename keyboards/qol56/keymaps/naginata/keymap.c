@@ -27,6 +27,7 @@ enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
   EUCALYN,
   WORKMAN,
+  QGMLWB,
   RAISE, LOWER, ADJUST,
   RGBRST,
   NUMLOC,
@@ -42,6 +43,7 @@ enum custom_keycodes {
 // Layers
 enum kepmap_layers {
   _WORKMAN,
+  _QGMLWB,
   _EUCALYN,
 // 薙刀式
   _NAGINATA,
@@ -138,14 +140,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   | ALPH |  Z   |  X   |  M   |  C   |  V   |  -   |  +   |  K   |  L   |  ,   |  .   |  /   |SALPH |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  | LCTL |NUMLOC|  F2  |      |LOWER |SFTSPC| BSPC | ENT  |SFTSPC|RAISE |  0   |  .   | RALT | RCTL |
+  | LCTL |NUMLOC|  F2  | APP  |LOWER |SFTSPC| BSPC | ENT  |SFTSPC|RAISE |  0   |  .   | LALT | RCTL |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_WORKMAN] = LAYOUT(
     KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,C(KC_S),KC_DEL ,KC_J   ,KC_F   ,KC_U   ,KC_P   ,JP_SCLN,JP_GRV , \
     KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,JP_LPRN,JP_RPRN,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,JP_QUOT, \
     ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,JP_MINS,JP_PLUS,KC_K   ,KC_L   ,JP_COMM,JP_DOT ,JP_SLSH,SALPH  , \
-    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_BSPC,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
+    KC_LCTL,NUMLOC ,KC_F2  ,KC_APP ,LOWER  ,SFTSPC ,KC_BSPC,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_LALT,KC_RCTL
   ),
 
 /* _EDIT1L
@@ -262,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |       |       |       |       |       |       |       |       |       |       |       |       |       |WORKMAN|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       | CALC  |       |       |       |       |       |       |       |       |       |
+  |       |       |       |       | CALC  |       |       |       |       |       |       |       |       |QGMLWB |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -270,26 +272,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     EEP_RST,XXXXXXX,XXXXXXX,RESET  ,KC_WAKE,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,XXXXXXX,EUCALYN, \
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,WORKMAN, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,QGMLWB , \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
 /* _EUCALYN
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  | ESC  |  Q   |  W   |  M   |  R   |  ,   | C(S) | DEL  |  .   | BSPC |  D   |  Y   |  P   |  '   |
+  | ESC  |  Q   |  W   |  ,   |  .   |  ;   | C(S) | DEL  |  M   |  R   |  D   |  Y   |  P   |  '   |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   | TAB  |  A   |  O   |  E   |  I   |  U   |  (   |  )   |  G   |  T   |  K   |  S   |  N   |  :   |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   | ALPH |  Z   |  X   |  C   |  V   |  F   |  -   |  +   |  B   |  H   |  J   |  L   |  /   |SALPH |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  | LCTL |NUMLOC|  F2  |      |LOWER |SFTSPC| SPC  | ENT  |SFTSPC|RAISE |  0   |  .   | RALT | RCTL |
+  | LCTL |NUMLOC|  F2  | LALT |LOWER |SFTSPC| BSPC | ENT  |SFTSPC|RAISE |  0   |  .   | RALT | RCTL |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_EUCALYN] = LAYOUT(
-    KC_ESC ,KC_Q   ,KC_W   ,KC_M   ,KC_R   ,JP_COMM,C(KC_S),KC_DEL ,JP_DOT ,KC_BSPC,KC_D   ,KC_Y   ,KC_P   ,JP_QUOT, \
+    KC_ESC ,KC_Q   ,KC_W   ,JP_COMM,JP_DOT ,JP_SCLN,C(KC_S),KC_DEL ,KC_M   ,KC_R   ,KC_D   ,KC_Y   ,KC_P   ,JP_QUOT, \
     KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,JP_LPRN,JP_RPRN,KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,JP_COLN, \
     ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,JP_MINS,JP_PLUS,KC_B   ,KC_H   ,KC_J   ,KC_L   ,JP_SLSH,SALPH  , \
-    KC_LCTL,NUMLOC ,KC_F2  ,XXXXXXX,LOWER  ,SFTSPC ,KC_SPC ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
+    KC_LCTL,NUMLOC ,KC_F2  ,KC_LALT,LOWER  ,SFTSPC ,KC_BSPC,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
+  ),
+
+/* _QGMLWB
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ESC  |  Q   |  G   |  M   |  L   |  W   | C(S) | DEL  |  B   |  Y   |  U   |  V   |  ;   |  `   |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | TAB  |  D   |  S   |  T   |  N   |  R   |  (   |  )   |  I   |  A   |  E   |  O   |  H   |  '   |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ALPH |  Z   |  X   |  C   |  F   |  J   |  -   |  +   |  K   |  P   |  ,   |  .   |  /   |SALPH |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | LCTL |NUMLOC|  F2  | LALT |LOWER |SFTSPC| BSPC | ENT  |SFTSPC|RAISE |  0   |  .   | RALT | RCTL |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_QGMLWB] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_G   ,KC_M   ,KC_L   ,KC_W   ,C(KC_S),KC_DEL ,KC_B   ,KC_Y   ,KC_U   ,KC_V   ,JP_SCLN,JP_GRV , \
+    KC_TAB ,KC_D   ,KC_S   ,KC_T   ,KC_N   ,KC_R   ,JP_LPRN,JP_RPRN,KC_I   ,KC_A   ,KC_E   ,KC_O   ,KC_H   ,JP_QUOT, \
+    ALPH   ,KC_Z   ,KC_X   ,KC_C   ,KC_F   ,KC_J   ,JP_MINS,JP_PLUS,KC_K   ,KC_P   ,JP_COMM,JP_DOT ,JP_SLSH,SALPH  , \
+    KC_LCTL,NUMLOC ,KC_F2  ,KC_LALT,LOWER  ,SFTSPC ,KC_BSPC,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_RALT,KC_RCTL
   ),
 
 /* _NAGINATA
@@ -445,6 +465,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WORKMAN:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_WORKMAN);
+      }
+      return false;
+      break;
+    case QGMLWB:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_QGMLWB);
       }
       return false;
       break;

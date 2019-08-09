@@ -26,11 +26,11 @@
 #define NAGINATA_EDIT_WIN
 // #define NAGINATA_EDIT_MAC
 #define COMBO_COUNT 10
-#define COMBO_TERM 30
+#define COMBO_TERM 50
 // 薙刀式
 
 // #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 0
+#define TAPPING_TERM 150
 #define PERMISSIVE_HOLD
 #define RETRO_TAPPING
 
