@@ -21,44 +21,17 @@
 #define LED_ON()        palSetLine(C13);
 #define LED_OFF()       palClearLine(C13);
 
-keyboard_config_t	keyboard_config;
-
-void keyboard_pre_init_kb(void) {
-    // read kb settings from eeprom
-    keyboard_config.raw = eeconfig_read_kb();
-
-	// start blt
-	backlight_init_kb();
-}
-
 // overloads
 void matrix_init_kb(void) {
-    // Intitialize the pins we need to initialize
+    // enable status led on C13 and flash it a few times 
     palSetLineMode(C13, PAL_MODE_OUTPUT_PUSHPULL);
-
-    // flash the MCU LED
     blink_led(3);
-    dprintf("[SYS] Startup complete.\n");
-    LED_ON();
-	
-	// check if we're configured
-	if(keyboard_config.status == 0)
-		eeconfig_init_kb();
+
+	// start backlight
+	backlight_init_kb();
 
     // continue startup
     matrix_init_user();
-}
-
-void eeconfig_init_kb(void) { // EEPROM Reset
-	// reset the config structure
-    keyboard_config.raw = 0;
-	keyboard_config.status = 1;
-
-	// write to eeprom
-    eeconfig_update_kb(keyboard_config.raw);
-
-	dprint("[SYS] EEPROM Reset to default values, forcing init again..\n");
-	keyboard_pre_init_kb();
 }
 
 // blink the MCU LED every 200ms 

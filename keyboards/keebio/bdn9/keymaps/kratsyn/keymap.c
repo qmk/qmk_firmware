@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+extern backlight_config_t backlight_config;
+
 bool at_enable = false;
 uint32_t at_clock = 0;
 
@@ -74,4 +76,12 @@ void matrix_scan_user(void) {
         tap_code(KC_TAB);
         at_clock = timer_read();
     }
+}
+
+void eeconfig_init_user(void) { // EEPROM Reset
+	// reset the config structure
+	backlight_config.raw = 0;
+	backlight_init();
+
+	dprint("[SYS] EEPROM Reset to default values.\n");
 }

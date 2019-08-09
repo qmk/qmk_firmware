@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+extern backlight_config_t backlight_config;
+
 bool at_enable = false;
 uint32_t at_clock = 0;
 
@@ -87,4 +89,12 @@ void keyboard_post_init_user(void) {
 	//debug_matrix=true;
 	//debug_keyboard=true;
 	//debug_mouse=true;
+}
+
+void eeconfig_init_user(void) { // EEPROM Reset
+	// reset the config structure
+	backlight_config.raw = 0;
+	backlight_init();
+
+	dprint("[SYS] EEPROM Reset to default values.\n");
 }
