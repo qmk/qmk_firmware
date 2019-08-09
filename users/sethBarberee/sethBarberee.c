@@ -1,4 +1,4 @@
-#include "seth.h"
+#include "sethBarberee.h"
 #ifdef RGBLIGHT_ENABLE
 #ifdef TAP_DANCE_ENABLE
 

@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "seth.h"
+#include "sethBarberee.h"
 
 extern backlight_config_t backlight_config;
 
