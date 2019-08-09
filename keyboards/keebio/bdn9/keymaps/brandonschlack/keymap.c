@@ -17,10 +17,16 @@ enum bdn9_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Navigation
-        | Knob 1: Scroll Dn/Up  |      | Knob 2: Tab Nxt/Prv   |
-        | Press: Reopen Tab     | CmTb | Close Tab             |
-        | PgDn                  | Up   | PgUp                  |
-        | Left                  | Down | Right                 |
+        ┌───────────┐  ┌───────────┐
+        │  Scroll   │  │    Tab    │
+        │  Up   Dn  │  │  Prv  Nxt │
+        ├────────┬──┴──┴──┬────────┤
+        │ ReOTab │ CmdTab │ ClsTab │
+        ├────────┼────────┼────────┤
+        │  PgDn  │   Up   │  PgUp  │
+        ├────────┼────────┼────────┤
+        │  Left  │  Down  │  Rght  │
+        └────────┴────────┴────────┘
      */
     [_NAVI] = LAYOUT(
         REO_TAB, CMD_TAB, CLS_TAB,
@@ -29,10 +35,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Reeder
-        | Knob 1: j/k           |      | Knob 2: n/p           |
-        | Press: H              | S    | R                     |
-        | CMD+TAB               | M    | L                     |
-        | Cmd+1                 | Cmd+2| Cmd+3                 |
+        ┌───────────┐  ┌───────────┐
+        │   Items   │  │    Subs   │
+        │  Prv  Nxt │  │  Prv  Nxt │
+        ├────────┬──┴──┴──┬────────┤
+        │ VwBrsw │  Star  │  Sync  │
+        ├────────┼────────┼────────┤
+        │ CmdTab │ TgRead │  Clear │
+        ├────────┼────────┼────────┤
+        │ VwStard│ VwUnrd │  VwAll │
+        └────────┴────────┴────────┘
      */
     [_REEDER] = LAYOUT(
         KC_H, KC_S, KC_R,
@@ -41,10 +53,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Media
-        | Knob 1: Vol +/-       |      | Knob 2: Track Nxt/Prv |
-        | Press: Mute           | Plyr | Press: Play/Pause     |
-        | J                     | K    | L                     |
-        | Left                  | Spce | Right                 |
+        ┌───────────┐  ┌───────────┐
+        │    Vol    │  │   Track   │
+        │  Prv  Nxt │  │  Prv  Nxt │
+        ├────────┬──┴──┴──┬────────┤
+        │  Mute  │ Player │  Sync  │
+        ├────────┼────────┼────────┤
+        │ YT<10s │ YT Ply │ YT>10s │
+        ├────────┼────────┼────────┤
+        │  Left  │  Spce  │  Rght  │
+        └────────┴────────┴────────┘
      */
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
@@ -53,10 +71,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Keypad/Karabiner
-        | Knob 1: +/-           |      | Knob 2: =/.           |
-        | Press: 1              | 2    | 3                     |
-        | 4                     | 5    | 6                     |
-        | 7                     | 8    | 9                     |
+        ┌───────────┐  ┌───────────┐
+        │           │  │           │
+        │   -    +  │  │   .    =  │
+        ├────────┬──┴──┴──┬────────┤
+        │    1   │    2   │    3   │
+        ├────────┼────────┼────────┤
+        │    4   │    5   │    6   │
+        ├────────┼────────┼────────┤
+        │    7   │    8   │    9   │
+        └────────┴────────┴────────┘
      */
     [_KEYPAD] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
@@ -65,10 +89,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Lightroom Navigation
-        | Knob 1: =/-           |      | Knob 2: Page Up/Dn    |
-        | Press: Review         | J    | Press: Edit           |
-        | Home, Hold: BD Layer  | Up   | End                   |
-        | Left                  | Down | Right                 |
+        ┌───────────┐  ┌───────────┐
+        │ Thumbnail │  │ Scrl Grid │
+        │ Dec   Inc │  │ Up     Dn │
+        ├────────┬──┴──┴──┬────────┤
+        │ TgRevw │CylGrdVw│ TgEdit │
+        ├────────┼────────┼────────┤
+        │  Start │   Up   │  End   │
+        ├────────┼────────┼────────┤
+        │  Left  │  Down  │  Rght  │
+        └────────┴────────┴────────┘
      */
     [_LR_NAV] = LAYOUT(
         TG_REVW, KC_J, TG_EDIT,
@@ -77,10 +107,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Review/Rate
-        | Knob 1: ]/[           |      | Knob 2: G(Up)/G(Dn)   |
-        | Press: Nav            | 7    | Press: Edit           |
-        | 0                     | 8    | U                     |
-        | Left                  | 9    | Right                 |
+        ┌───────────┐  ┌───────────┐
+        │   Stars   │  │   Flag    │
+        │ Dec   Inc │  │ Dec   Inc │
+        ├────────┬──┴──┴──┬────────┤
+        │ TgLNav │ Yellow │ TgEdit │
+        ├────────┼────────┼────────┤
+        │ NoStar │  Green │ UnFlag │
+        ├────────┼────────┼────────┤
+        │  Left  │  Blue  │  Rght  │
+        └────────┴────────┴────────┘
      */
     [_LR_REVIEW] = LAYOUT(
         TG_LNAV, KC_7, TG_EDIT,
@@ -89,10 +125,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Edit/Develop
-        | Knob 1: ./,           |      | Knob 2: =/-           |
-        | Press: Review         | \    | Press: Nav            |
-        | X                     | Undo | P                     |
-        | Left                  | Redo | Right                 |
+        ┌───────────┐  ┌───────────┐
+        │  Sliders  │  │   Value   │
+        │ Prv   Nxt │  │ Dec   Inc │
+        ├────────┬──┴──┴──┬────────┤
+        │ TgRevw │ Bf/Aft │ TgLNav │
+        ├────────┼────────┼────────┤
+        │ FlgRjt │  Undo  │ FlgPkd │
+        ├────────┼────────┼────────┤
+        │  Left  │  Redo  │  Rght  │
+        └────────┴────────┴────────┘
      */
     [_LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_LNAV,
@@ -101,10 +143,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Light
-        | Knob 1: Hue +/-       |      | Knob 2: Sat +/-       |
-        | RGB Toggle            | Val+ | Toggle Layer          |
-        | RGB Mode Prev         | Val- | RGB Mode Next         |
-        | RGB Plain             | Brth | XXX                   |
+        ┌───────────┐  ┌───────────┐
+        │  RGB Hue  │  │  RGB Sat  │
+        │ Prv   Nxt │  │ Dec   Inc │
+        ├────────┬──┴──┴──┬────────┤
+        │ RGBTgl │  Val+  │ TgLNav │
+        ├────────┼────────┼────────┤
+        │  Mode- │  Val-  │  Mode+ │
+        ├────────┼────────┼────────┤
+        │  Plain │ Breath │  XXXX  │
+        └────────┴────────┴────────┘
      */
     [_LIGHT] = LAYOUT(
         RGB_TOG, RGB_VAI, TG_LGHT,
@@ -113,9 +161,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /*
         Layer: Magic
-        | MAKE                  | Nav  | RESET                 |
-        | Reeder                | Meda | Keypad                |
-        | Review                | LNav | Edit                  |
+        ┌───────────┐  ┌───────────┐
+        │    XXXX   │  │   XXXX    │
+        │           │  │           │
+        ├────────┬──┴──┴──┬────────┤
+        │  MAKE  │  Navi  │  RESET │
+        ├────────┼────────┼────────┤
+        │ Reeder │  Media │ Keypad │
+        ├────────┼────────┼────────┤
+        │ LR Rvw │ LR Nav │ LR Edt │
+        └────────┴────────┴────────┘
      */
     [_MAGIC] = LAYOUT(
         KC_MAKE, TG_NAVI, TG_LGHT,

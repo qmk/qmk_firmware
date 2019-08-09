@@ -8,15 +8,15 @@ extern keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
- * ,-------------.
- * | PTab | NTab |
- * |------+------|
- * | SclL | SclU |
- * |------+------|
- * | SclR | SclD |
- * |------+------|
- * |LstTab|ClsTab|
- * `-------------'
+ * ┌──────┬──────┐
+ * │ PTab │ NTab │
+ * ├──────┼──────┤
+ * │ SclL │ SclU │
+ * ├──────┼──────┤
+ * │ SclR │ SclD │
+ * ├──────┼──────┤
+ * │LstTab│ClsTab│
+ * └──────┴──────┘
  */
 [_NAVI] = LAYOUT( \
     PRV_TAB, NXT_TAB, \
@@ -26,15 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Reeder
- * ,-------------.
- * |CMDTAB|  H   |
- * |------+------|
- * |   P  |  K   |
- * |------+------|
- * |   N  |  J   |
- * |------+------|
- * |   L  |  S   |
- * `-------------'
+ * ┌──────┬──────┐
+ * │CmdTab│ View │
+ * ├──────┼──────┤
+ * │PrvSub│PrvItm│
+ * ├──────┼──────┤
+ * │NxtSub│NxtItm│
+ * ├──────┼──────┤
+ * │  Clr │ Sync │
+ * └──────┴──────┘
  */
 [_REEDER] = LAYOUT( \
     CMD_TAB, TD(TD_REDR_H), \
@@ -44,15 +44,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Media
- * ,-------------.
- * | Mute | PlPs |
- * |------+------|
- * | VolU | TrkN |
- * |------+------|
- * | VolD | TrkP |
- * |------+------|
- * | Spc  | Plyr |
- * `-------------'
+ * ┌──────┬──────┐
+ * │ Mute │ Play │
+ * ├──────┼──────┤
+ * │ Vol+ │PrvTrk│
+ * ├──────┼──────┤
+ * │ Vol- │NxtTrk│
+ * ├──────┼──────┤
+ * │ Spce │ Plyr │
+ * └──────┴──────┘
  */
 [_MEDIA] = LAYOUT( \
     KC_MUTE, KC_MPLY, \
@@ -62,15 +62,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Keypad
- * ,-------------.
- * |   1  |  2   |
- * |------+------|
- * |   3  |  4   |
- * |------+------|
- * |   5  |  6   |
- * |------+------|
- * |   7  |  8   |
- * `-------------'
+ * ┌──────┬──────┐
+ * │   1  │  2   │
+ * ├──────┼──────┤
+ * │   3  │  4   │
+ * ├──────┼──────┤
+ * │   5  │  6   │
+ * ├──────┼──────┤
+ * │   7  │  8   │
+ * └──────┴──────┘
  */
 [_KEYPAD] = LAYOUT( \
     KC_P1,     KC_P2, \
@@ -80,15 +80,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Lights
- * ,-------------.
- * | HUE- | HUE+ |
- * |------+------|
- * | SAT- | SAT+ |
- * |------+------|
- * | VAL- | VAL+ |
- * |------+------|
- * | XXXX | Mode+|
- * `-------------'
+ * ┌──────┬──────┐
+ * │ HUE- │ HUE+ │
+ * ├──────┼──────┤
+ * │ SAT- │ SAT+ │
+ * ├──────┼──────┤
+ * │ VAL- │ VAL+ │
+ * ├──────┼──────┤
+ * │ XXXX │ Mde+ │
+ * └──────┴──────┘
  */
 [_LIGHT] = LAYOUT( \
     RGB_HUD, RGB_HUI, \
@@ -98,15 +98,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Magic
- * ,-------------.
- * | Make | Rset |
- * |------+------|
- * | Navi | Redr |
- * |------+------|
- * | Meda | Kypd |
- * |------+------|
- * | Lght | XXXX |
- * `-------------'
+ * ┌──────┬──────┐
+ * │ Make │ Rset │
+ * ├──────┼──────┤
+ * │ Navi │ Redr │
+ * ├──────┼──────┤
+ * │ Meda │ Kypd │
+ * ├──────┼──────┤
+ * │ Lght │ XXXX │
+ * └──────┴──────┘
  */
 [_MAGIC] = LAYOUT( \
     KC_MAKE, RESET, \
@@ -153,7 +153,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                     keycode = CLS_TAB;
                     break;
                 case _REEDER:
-                    keycode = KC_S;
+                    keycode = KC_R;
                     break;
                 case _MEDIA:
                     keycode = MC_PLYR;
