@@ -107,11 +107,13 @@ inline void ergodox_led_all_set(uint8_t n)
     ergodox_right_led_3_set(n);
 }
 
+#ifdef ORYX_CONFIGURATOR
 enum ergodox_ez_keycodes {
     LED_LEVEL = SAFE_RANGE,
     TOGGLE_LAYER_COLOR,
     EZ_SAFE_RANGE,
 };
+#endif
 
 typedef union {
   uint32_t raw;

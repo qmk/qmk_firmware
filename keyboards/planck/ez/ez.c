@@ -222,7 +222,7 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(ORYX_CONFIGURATOR)
 void keyboard_post_init_kb(void) {
     rgb_matrix_enable_noeeprom();
     keyboard_post_init_user();
@@ -237,6 +237,10 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     eeconfig_init_user();
 }
 
+
+#ifdef ORYX_CONFIGURATOR
+
+#ifndef PLANCK_EZ_USER_LEDS
 layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
@@ -258,6 +262,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     }
     return state;
 }
+#endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -304,6 +309,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_user(keycode, record);
 }
+#endif
 
 #ifdef AUDIO_ENABLE
 bool music_mask_kb(uint16_t keycode) {

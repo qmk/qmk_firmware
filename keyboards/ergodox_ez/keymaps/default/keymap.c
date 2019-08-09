@@ -6,7 +6,11 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
+#ifdef ORYX_CONFIGURATOR
+  EPRM = EZ_SAFE_RANGE,
+#else
   EPRM = SAFE_RANGE,
+#endif
   VRSN,
   RGB_SLD
 };

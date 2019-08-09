@@ -326,13 +326,15 @@ void suspend_power_down_kb(void) {
     suspend_wakeup_init_user();
 }
 
+#ifdef ORYX_CONFIGURATOR
 void keyboard_post_init_kb(void) {
     rgb_matrix_enable_noeeprom();
     keyboard_post_init_user();
 }
 #endif
+#endif
 
-
+#ifdef ORYX_CONFIGURATOR
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LED_LEVEL:
@@ -377,6 +379,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_user(keycode, record);
 }
+#endif
 
 void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.raw = 0;
