@@ -57,15 +57,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_BREATHING_STEPS 128
 #define BREATHING_PERIOD 6 
 
-/* Pending DI implementation in PR#6301 */
+//// PR#6301
 //#define RGB_DI_PIN A9
-//#ifdef RGB_DI_PIN
-//  #define RGBLED_NUM 4
-//  #define RGBLIGHT_HUE_STEP 8
-//  #define RGBLIGHT_SAT_STEP 8
-//  #define RGBLIGHT_VAL_STEP 8
-//  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-//  /*== all animations enable ==*/
-//  #define RGBLIGHT_ANIMATIONS
-//#endif
+//#define WS2812_LED_N 2
+//#define RGBLED_NUM WS2812_LED_N
+///#define WS2812_TIM_N 2
+//#define WS2812_TIM_CH 3
+//#define PORT_WS2812     GPIOA
+//#define PIN_WS2812      1
+//#define WS2812_DMA_STREAM STM32_DMA2_STREAM3  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
+//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
+//#define WS2812_EXTERNAL_PULLUP
+
+#ifdef RGB_DI_PIN
+  #define RGBLED_NUM 4
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+  /*== all animations enable ==*/
+  #define RGBLIGHT_ANIMATIONS
+#endif
