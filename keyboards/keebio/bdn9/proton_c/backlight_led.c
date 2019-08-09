@@ -95,19 +95,25 @@ void backlight_reset_callback(void) {
 	_set_cb(true);
 }
 
+void backlight_stop(void) {
+	pwmDisableChannel(BL_PWMD, BL_TC);
+}
+
 void backlight_set(uint8_t level) {
 	backlight_duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) backlight_config.level / BACKLIGHT_LEVELS));
 
-	if (level == BACKLIGHT_LEVELS + 1 ) {
+	if (backlight_config.level == BACKLIGHT_LEVELS + 1 ) {
 		backlight_config.level =  0;
 	} else if (level > BACKLIGHT_LEVELS) {
 		backlight_config.level = BACKLIGHT_LEVELS;
 	}
 
-	if(!is_backlight_breathing()) {
+	if (backlight_config.level == 0 ) {
+		backlight_stop();
+	} else if(!is_backlight_breathing()) {
 		pwmEnableChannel(BL_PWMD, BL_TC, PWM_FRACTION_TO_WIDTH(BL_PWMD,0xFFFF,backlight_duty));
+		backlight_reset_callback();
 	}
-	backlight_reset_callback();
 	dprintf("[BL] Backlight level set. (L:%d) (D:%d)\n", backlight_config.level, backlight_duty);
 }
 
@@ -117,6 +123,7 @@ void breathing_enable() {
 
 void breathing_disable() {
 	backlight_reset_callback();
+	backlight_set(backlight_config.level);
 }
 
 static inline uint16_t backlight_scale(uint16_t value) {

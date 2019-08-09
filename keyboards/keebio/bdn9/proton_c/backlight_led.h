@@ -18,6 +18,7 @@
 void backlight_init_kb(void);
 void backlight_reset_callback(void);
 void backlight_set(uint8_t level);
+void backlight_stop(void);
 void breathing_enable(void);
 void breathing_disable(void);
 void _set_cb(bool on);
