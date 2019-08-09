@@ -5,6 +5,19 @@ extern keymap_config_t keymap_config;
 
 // Layers defined in brandonschlack.h
 
+// Tap Dances
+enum launchpad_dances {
+    TD_SHLD_LGHT = 0,
+    TD_SHLD_MAGC,
+    TD_REDR_H
+};
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_SHLD_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _LIGHT),
+    [TD_SHLD_MAGC] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _MAGIC),
+    [TD_REDR_H] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_R)
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation

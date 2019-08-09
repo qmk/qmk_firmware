@@ -4,16 +4,6 @@
 #   include "process_keycode/process_tap_dance.h"
 #endif
 
-enum bs_dances {
-    TD_LGHT_LSFT,
-    TD_ESC_RGBTG,
-    TD_SHLD_LGHT,
-    TD_DTAP_LGHT,
-    TD_SHLD_MAGC,
-    TD_DTAP_MAGC,
-    TD_REDR_H
-};
-
 enum tap_dance_states {
     SINGLE_TAP = 1,
     SINGLE_HOLD = 2,
@@ -24,12 +14,24 @@ enum tap_dance_states {
     TRIPLE_HOLD = 7
 };
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#   define DTP_LGT TD(TD_DTAP_LGHT)
-#   define SFT_LGT TD(TD_LGHT_LSFT)
-#   define ESC_RTG TD(TD_ESC_RGBTG)
-#endif
-#define DTP_MGC TD(TD_DTAP_MAGC)
-
 int cur_dance (qk_tap_dance_state_t *state);
 void process_tap_dance_keycode (bool reset, uint8_t toggle_layer);
+
+/* Tap Dance: Trigger Layer
+ *
+ * Toggles Layer based on given trigger (Single Hold, Double Tap, Double Hold, etc).
+ * Uses process_tap_dance_keycode() to allow keycode defines based on layer
+ */
+typedef struct {
+    uint8_t  trigger;
+    uint8_t  layer;
+    uint8_t  state;
+} qk_tap_dance_trigger_layer_t;
+
+#define ACTION_TAP_DANCE_TRIGGER_LAYER(trigger, layer) { \
+    .fn = { NULL, td_trigger_layer_finished, td_trigger_layer_reset }, \
+    .user_data = (void *)&((qk_tap_dance_trigger_layer_t) { trigger, layer, 0 }), \
+}
+
+void td_trigger_layer_finished (qk_tap_dance_state_t *state, void *user_data);
+void td_trigger_layer_reset (qk_tap_dance_state_t *state, void *user_data);

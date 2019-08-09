@@ -14,6 +14,20 @@ enum bdn9_keycodes {
     TG_LGHT
 };
 
+// Tap Dances
+enum bdn9_dances {
+    TD_DTAP_LGHT = 0,
+    TD_DTAP_MAGC
+};
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_DTAP_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _LIGHT),
+    [TD_DTAP_MAGC] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _MAGIC),
+};
+// Tap Dance Aliases
+#define DTP_LGT   TD(TD_DTAP_LGHT)
+#define DTP_MGC   TD(TD_DTAP_MAGC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         Layer: Navigation
