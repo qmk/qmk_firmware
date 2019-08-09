@@ -73,7 +73,8 @@ static inline void    pbuf_clear(void);
 //------------------------------------------------
 // LEGACY EXT driver, for external interrupts
 // (with newer chibios we could use palLineEnableEvent and so forth...)
-
+// see: http://www.chibios.com/forum/viewtopic.php?t=3355#p25518 https://www.playembedded.org/blog/buttons-stm32/ 3.2.3 event/callback
+//
 void ps2_interrupt_service_routine(void);
 void extcb(EXTDriver *extp, expchannel_t channel) {
     ps2_interrupt_service_routine();
@@ -103,7 +104,7 @@ static EXTConfig extcfg = {
         {EXT_CH_MODE_DISABLED, NULL}
     }
 };
-static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | EXT_MODE_GPIOA, extcb}; // NOTE: hardcoded/limited to Port-A
+static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | PS2_CLOCK_PORT , extcb};
 #define PS2_INT_INIT() { \
         extStart(&EXTD1, &extcfg); /*activate config, to be able to select the appropriate channel */ \
         extSetChannelModeI(&EXTD1, PAL_PAD(PS2_CLOCK), &ext_clock_channel_config); \

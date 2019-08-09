@@ -92,8 +92,6 @@ In your keyboard config.h:
 
 pretty much any two pins can be used for the (software) interrupt variant on ARM cores, the example below uses A8 for clock, and A9 for data.
 
-NOTE: due to implementation details of the EXT config, "any two pins", is currently limited to the Port-A (see tmk_core/protocol/ps2_interrupt.c)
-
 In rules.mk:
 
 ```
@@ -106,7 +104,9 @@ In your keyboard config.h:
 ```
 #define PS2_CLOCK A8
 #define PS2_DATA  A9
+#define PS2_CLOCK_PORT EXT_MODE_GPIOA
 ```
+the last define is used to select wich port DATA and CLOCK lines are wired to, and therefor the software-pin-interrupt should be configured for (replace the 'A' with your port-of-wiring-choice)
 
 And in the chibios specifig halconf.h:
 ```
