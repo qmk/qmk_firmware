@@ -28,7 +28,7 @@
 extern backlight_config_t backlight_config;
 
 static uint32_t backlight_duty = 0;
-static uint16_t breath_intval = 0;
+static uint16_t breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
 static uint32_t breath_duty = 0;
 static uint8_t breath_index = 0;
 static uint16_t breath_count = 0;
@@ -125,10 +125,8 @@ static inline uint16_t backlight_scale(uint16_t value) {
 
 static void _bl_cb(PWMDriver *pwmp) {
 	if(is_backlight_breathing()) {
-		breath_intval = (uint16_t) BREATHING_PERIOD * 256 / BACKLIGHT_BREATHING_STEPS;
 		breath_count = (breath_count + 1) % (BREATHING_PERIOD * 256);
 		breath_index = breath_count / breath_intval % BACKLIGHT_BREATHING_STEPS;
-
 		breath_duty = cie_lightness(backlight_scale(breathing_table[breath_index] * 256));
 	
 		// lock, set new val, unlock
