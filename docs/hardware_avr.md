@@ -125,7 +125,7 @@ To configure a keyboard where each switch is connected to a separate pin and gro
 
 ### Backlight Configuration
 
-By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are using one of those you can simply enable it here. For more details see the [Backlight Documentation](feature_backlight.md).
+QMK supports backlighting on most GPIO pins. A select few of these can be driven by the MCU in hardware. For more details see the [Backlight Documentation](feature_backlight.md).
 
 ```c
 #define BACKLIGHT_PIN B7
@@ -133,8 +133,6 @@ By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are us
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 ```
-
-?> You can use backlighting on any pin you like, but you will have to do more work to support that. See the [Backlight Documentation](feature_backlight.md) for more details.
 
 ### Other Configuration Options
 
