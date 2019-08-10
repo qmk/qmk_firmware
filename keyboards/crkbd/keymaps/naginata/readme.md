@@ -1,9 +1,11 @@
 # crkbd用 薙刀式日本語入力キーマップ
 
 薙刀式日本語入力をQMKで実現します。薙刀式v11完成版に準拠しています。
-Windows用の編集モードは実装が完了しました。編集モードの記号を入力するためには
+Windows用の編集モード(ただし横書き用に修正)は実装が完了しました。編集モードの記号を入力するためには
+
 1. config.hで`#define NAGINATA_EDIT_MODE_WIN`または`#define NAGINATA_EDIT_MODE_MAC`を選択。
 2. [WinCompose](http://wincompose.info/)をインストール。
+
 macOSでの編集モードは記号の入力は未対応です。
 
 ### 薙刀式とは
