@@ -47,6 +47,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 }
 #endif
 
+
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -346,7 +347,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     
     return true;
-
 }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -361,6 +361,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-
+    
 }
-

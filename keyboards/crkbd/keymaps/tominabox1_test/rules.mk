@@ -1,4 +1,3 @@
-
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
@@ -8,7 +7,7 @@ MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no        # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
@@ -22,16 +21,17 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 RGB_MATRIX_ENABLE = WS2812
 LINK_TIME_OPTIMIZATION_ENABLE = yes
-CFLAGS += -flto
 
-BOOTLOADER = qmk-dfu
+# CFLAGS += -flto
+BOOTLOADER = dfu
+
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/glcdfont.c \
         ./lib/rgb_state_reader.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \
-        #./lib/layer_state_reader.c \
+#./lib/layer_state_reader.c \
         # ./lib/mode_icon_reader.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \
