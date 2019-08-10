@@ -8,6 +8,46 @@
   #include "ssd1306.h"
 #endif
 
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
+
+#ifdef RGB_MATRIX_ENABLE
+
+#    include "lib/lib8tion/lib8tion.h"
+extern led_config_t g_led_config;
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
+    HSV hsv = {hue, sat, val};
+    if (hsv.v > rgb_matrix_config.hsv.v) {
+        hsv.v = rgb_matrix_config.hsv.v;
+    }
+
+    switch (mode) {
+        case 1:  // breathing
+        {
+            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
+            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+            RGB rgb       = hsv_to_rgb(hsv);
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                }
+            }
+            break;
+        }
+        default:  // Solid Color
+        {
+            RGB rgb = hsv_to_rgb(hsv);
+            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+                }
+            }
+            break;
+        }
+    }
+}
+#endif
+
+
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -16,6 +56,10 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 extern uint8_t is_master;
+
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -64,6 +108,7 @@ enum macro_keycodes {
 #define KC_SPC_RSE LT(_RAISE, KC_SPC)
 
 #define KC_EML TD(KC_EMAIL)
+
 
 enum {
     KC_EMAIL = 0,
@@ -306,15 +351,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGBRST:
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
             if (record->event.pressed) {
-                eeconfig_update_rgblight_default();
-                rgblight_enable();
-                RGB_current_mode = rgblight_config.mode;
+                eeconfig_update_rgb_matrix_default();
+                rgb_matrix_enable();
+                RGB_current_mode = rgb_matrix_config.mode;
             }
 #endif
             break;
     }
     return true;
-
+    
 }
