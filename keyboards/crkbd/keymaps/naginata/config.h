@@ -23,10 +23,11 @@
 
 // 薙刀式
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-// #define EUCALYN
-#define EUCALYNKAI
+#define DQWERTY
+// #define DEUCALYN
+// #define DWORKMAN
 // #define NAGINATA_EDIT_WIN // JP106
-#define NAGINATA_EDIT_MAC // US101
+#define NAGINATA_EDIT_MAC // JP106
 #define COMBO_COUNT 2
 #define COMBO_TERM 300
 // 薙刀式

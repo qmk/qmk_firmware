@@ -24,6 +24,8 @@
   #include "ssd1306.h"
 #endif
 
+#include "keymap_jp.h"
+
 // 薙刀式
 #include "naginata.h"
 NGKEYS naginata_keys;
@@ -47,7 +49,7 @@ extern uint8_t is_master;
 enum keymap_layers {
   _QWERTY,
   _EUCALYN,
-  _EUCALYNK,
+  _WORKMAN,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -62,12 +64,17 @@ enum combo_events {
   NAGINATA_OFF_CMB,
 };
 
-#if defined(EUCALYN) || defined(EUCALYNKAI)
-const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
-#else
+#if defined(DQWERTY)
 const uint16_t PROGMEM ngon_combo[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM ngoff_combo[] = {KC_F, KC_G, COMBO_END};
+#endif
+#if defined(DEUCALYN)
+const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
+#endif
+#if defined(DWORKMAN)
+const uint16_t PROGMEM ngon_combo[] = {KC_Y, KC_N, COMBO_END};
+const uint16_t PROGMEM ngoff_combo[] = {KC_T, KC_G, COMBO_END};
 #endif
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -75,7 +82,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
 };
 
-// 薙刀式
 // IME ONのcombo
 void process_combo_event(uint8_t combo_index, bool pressed) {
   switch(combo_index) {
@@ -96,143 +102,157 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 // 薙刀式
 
 enum custom_keycodes {
-  KC_QWERTY = NG_SAFE_RANGE,
-  KC_EUCALYN,
-  KC_EUCALYNK,
-  KC_EISU,
-  KC_LOWER,
-  KC_RAISE,
-  KC_ADJUST,
-  KC_BACKLIT,
-  KC_KANA2,
-  KC_UNDGL,
+  QWERTY = NG_SAFE_RANGE,
+  EUCALYN,
+  WORKMAN,
+  EISU,
+  LOWER,
+  RAISE,
+  ADJUST,
+  BACKLIT,
+  KANA2,
+  UNDGL,
   RGBRST
 };
 
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
-#define _____ KC_TRNS
-#define XXXXX KC_NO
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
-#define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUITB GUI_T(KC_TAB)
-#define KC_RESET RESET
-#define KC_ABLS LALT(KC_BSLS)
-#define KC_CMDENT  CMD_T(KC_ENT)
-#define KC_SFTSPC  LSFT_T(KC_SPC)
-#define KC_CTLSPC  CTL_T(KC_SPC)
-#define KC_ALTSPC  ALT_T(KC_SPC)
-#define KC_CTLBS   CTL_T(KC_BSPC)
-#define KC_CTLENT  CTL_T(KC_ENT)
-// 薙刀式
-// 編集モードを追加する場合
-#define KC_C(A) C(KC_##A)
-#define KC_S(A) S(KC_##A)
-#define KC_G(A) G(KC_##A)
-// 薙刀式
+#define CTLTB CTL_T(KC_TAB)
+#define GUITB GUI_T(KC_TAB)
+#define ABLS    LALT(KC_BSLS)
+#define CMDENT  CMD_T(KC_ENT)
+#define SFTSPC  LSFT_T(KC_SPC)
+#define CTLSPC  CTL_T(KC_SPC)
+#define ALTSPC  ALT_T(KC_SPC)
+#define ALTENT  ALT_T(KC_ENT)
+#define CTLBS   CTL_T(KC_BSPC)
+#define CTLENT  CTL_T(KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  RALT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RCMD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
-                              //`--------------------'  `--------------------'
+/* _QWERTY
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ESC  |  Q   |  W   |  E   |  R   |  T   |      |      |  Y   |  U   |  I   |  O   |  P   | BSPC |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | TAB  |  A   |  S   |  D   |  F   |  G   |      |      |  H   |  J   |  K   |  L   |  ;   | RALT |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | LSFT |  Z   |  X   |  C   |  V   |  B   |      |      |  N   |  M   |  ,   |  .   |  /   | RCTL |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |      |      |      |      |LOWER | LSFT |CTLSPC|ALTENT| RSFT |RAISE |      |      |      |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_QWERTY] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSPC, \
+    KC_TAB ,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                KC_H   ,KC_J   ,KC_K   ,KC_L   ,JP_SCLN,KC_RALT, \
+    KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                KC_N   ,KC_M   ,JP_COMM,JP_DOT ,JP_SLSH,KC_RCTL, \
+                                    LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE
   ),
 
-  [_EUCALYN] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,     Q,     W,  COMM,   DOT,  SCLN,                      M,     R,     D,     Y,     P,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  RALT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
-                              //`--------------------'  `--------------------'
+/* _LOWER
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | ESC |  ~  |  @  |  #  |  $  |  %  |     |     |  /  |  7  |  8  |  9  |  -  |BSPC |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | TAB |  ^  |  &  |  !  |  ?  |  \  |     |     |  *  |  4  |  5  |  6  |  +  |  .  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |LSFT |  |  |  `  |  '  |  "  |  _  |     |     |  0  |  1  |  2  |  3  |  =  |  ,  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |     |     |     |     | __  | __  | __  | __  | __  | __  |     |     |     |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_LOWER] = LAYOUT(
+    KC_ESC ,JP_TILD,JP_AT  ,JP_HASH,JP_DLR ,JP_PERC,                JP_SLSH,KC_7   ,KC_8   ,KC_9   ,JP_MINS,KC_BSPC, \
+    KC_TAB ,JP_CIRC,JP_AMPR,JP_EXLM,JP_QUES,JP_BSLS,                JP_ASTR,KC_4   ,KC_5   ,KC_6   ,JP_PLUS,JP_DOT , \
+    KC_LSFT,JP_PIPE,JP_GRV ,JP_QUOT,JP_DQT ,JP_UNDS,                KC_0   ,KC_1   ,KC_2   ,KC_3   ,JP_EQL ,JP_COMM, \
+                                    _______,_______,_______,_______,_______,_______
   ),
 
-  [_EUCALYNK] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,     Q,     W,     M,     R,  LEFT,                   RGHT,  BSPC,     D,     Y,     P,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  RALT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RCMD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,SFTSPC,CTLSPC,   CMDENT,SFTSPC, RAISE \
-                              //`--------------------'  `--------------------'
+/* _RAISE
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |  ESC  |       |       |       |       |       |       |       |       |       |  UP   |       | PGUP  |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |  TAB  |       |   [   |   {   |   (   |   <   |       |       | HOME  | LEFT  | DOWN  | RGHT  | PGDN  |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  | LSFT  |       |   ]   |   }   |   )   |   >   |       |       |  END  |S(LEFT)|S(DOWN)|S(RGHT)|       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_RAISE] = LAYOUT(
+    KC_ESC    ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,                      XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,KC_PGUP   ,XXXXXXX   , \
+    KC_TAB    ,XXXXXXX   ,JP_LBRC   ,JP_LCBR   ,JP_LPRN   ,JP_LT     ,                      KC_HOME   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,KC_PGDN   ,XXXXXXX   , \
+    KC_LSFT   ,XXXXXXX   ,JP_RBRC   ,JP_RCBR   ,JP_RPRN   ,JP_GT     ,                      KC_END    ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+                                                _______   ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
-// 薙刀式
-  // デフォルトレイヤーに関係なくQWERTYで
-  [_NAGINATA] = LAYOUT( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  NG_Q,  NG_W,  NG_E,  NG_R,  NG_T,                   NG_Y,  NG_U,  NG_I,  NG_O,  NG_P, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  NG_A,  NG_S,  NG_D,  NG_F,  NG_G,                   NG_H,  NG_J,  NG_K,  NG_L,NG_SCLN, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  NG_Z,  NG_X,  NG_C,  NG_V,  NG_B,                   NG_N,  NG_M,NG_COMM,NG_DOT,NG_SLSH, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____,NG_SHFT, _____,   _____,NG_SHFT, _____ \
-                              //`--------------------'  `--------------------'
-  ),
-// 薙刀式
-
-  [_LOWER] = LAYOUT_kc( \
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             !      @      #      $      %                       :     /                           -
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   COLN,  SLSH,     7,     8,     9,  MINS, \
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             ^      &      '      "     `                        ;     *                           +
-      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  GRV,                    SCLN,  ASTR,     4,     5,     6,  PLUS, \
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             \      |      ~     _       ¥
-      XXXXX,  ABLS,  PIPE,  TILD,  UNDS,  BSLS,                    EQL,   DOT,     1,     2,     3,     0, \
-  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
-  //                            +------+------+------+  +------+------+------+
+/* _ADJUST
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |RGB_HUI|RGB_HUD| WAKE  |       | RESET | UNDGL |       |       |RGB_TOG|       |KC_VOLU|       |KC_BRIU|QWERTY|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |RGB_SAI|RGB_SAD|       |       |       |       |       |       |RGB_MOD|KC_MRWD|KC_VOLD|KC_MFFD|KC_BRID|EUCALYN|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |RGB_VAI|RGB_VAD| SLEP  |       |       |       |       |       |RGBRST |       |KC_MPLY|       |       |WORKMAN|
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |       |  |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_ADJUST] = LAYOUT(
+    RGB_HUI,RGB_HUD,KC_WAKE,XXXXXXX,RESET  ,UNDGL  ,                RGB_TOG,XXXXXXX,KC_VOLU,XXXXXXX,KC_BRIU,QWERTY, \
+    RGB_SAI,RGB_SAD,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RGB_MOD,KC_MRWD,KC_VOLD,KC_MFFD,KC_BRID,EUCALYN, \
+    RGB_VAI,RGB_VAD,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,                RGBRST ,XXXXXXX,KC_MPLY,XXXXXXX,XXXXXXX,WORKMAN, \
+                                    _______,_______,_______,_______,_______,_______
   ),
 
-  [_RAISE] = LAYOUT_kc( \
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //                           <      >
-      _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX,  PGUP,    UP, XXXXX,  PGUP,   DEL,\
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             (      )      {      }
-      XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-  //             [      ]
-      XXXXX,  LBRC,  RBRC, XXXXX,  COMM, XXXXX,                  XXXXX,  PGDN, XXXXX, XXXXX, XXXXX, KANA2,\
-  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
-  //                            +------+------+------+  +------+------+------+
+/* _EUCALYN
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ESC  |  Q   |  W   |  ,   |  .   |  ;   |      |      |  M   |  R   |  D   |  Y   |  P   | BSPC |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | TAB  |  A   |  O   |  E   |  I   |  U   |      |      |  G   |  T   |  K   |  S   |  N   | RALT |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | LSFT |  Z   |  X   |  C   |  V   |  F   |      |      |  B   |  H   |  J   |  L   |  /   | RCTL |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |      |      |      |      |LOWER | LSFT |CTLSPC|ALTENT| RSFT |RAISE |      |      |      |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_EUCALYN] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_W   ,JP_COMM,JP_DOT ,JP_SCLN,                KC_M   ,KC_R   ,KC_D   ,KC_Y   ,KC_P   ,KC_BSPC, \
+    KC_TAB ,KC_A   ,KC_O   ,KC_E   ,KC_I   ,KC_U   ,                KC_G   ,KC_T   ,KC_K   ,KC_S   ,KC_N   ,KC_RALT, \
+    KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_F   ,                KC_B   ,KC_H   ,KC_J   ,KC_L   ,JP_SLSH,KC_RCTL, \
+                                    LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE
   ),
 
-  [_ADJUST] = LAYOUT_kc( \
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LHUI,  LHUD,  WAKE, XXXXX, RESET, UNDGL,                   LTOG, XXXXX,  VOLU, XXXXX,  BRIU,QWERTY,\
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LSAI,  LSAD, XXXXX, XXXXX, XXXXX, XXXXX,                   LMOD,  MRWD,  VOLD,  MFFD,  BRID,EUCALYN,\
-  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
-       LVAI,  LVAD,  SLEP, XXXXX, XXXXX, XXXXX,                   LRST, XXXXX,  MPLY, XXXXX, XXXXX,EUCALYNK,\
-  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
-                                  LOWER, XXXXX, CTLBS,   CMDENT, XXXXX, RAISE \
-  //                            +------+------+------+  +------+------+------+
-  )
+/* _WORKMAN
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ESC  |  Q   |  D   |  R   |  W   |  B   |      |      |  J   |  F   |  U   |  P   |  ;   | BSPC |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | TAB  |  A   |  S   |  H   |  T   |  G   |      |      |  Y   |  N   |  E   |  O   |  I   | RALT |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | LSFT |  Z   |  X   |  M   |  C   |  V   |      |      |  K   |  L   |  ,   |  .   |  /   | RCTL |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |      |      |      |      |LOWER | LSFT |CTLSPC|ALTENT| RSFT |RAISE |      |      |      |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+*/
+  [_WORKMAN] = LAYOUT(
+    KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,                KC_J   ,KC_F   ,KC_U   ,KC_P   ,JP_SCLN,KC_BSPC, \
+    KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,                KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_RALT, \
+    KC_LSFT,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,                KC_K   ,KC_L   ,JP_COMM,JP_DOT ,JP_SLSH,KC_RCTL, \
+                                    LOWER  ,KC_LSFT,CTLSPC ,ALTENT ,KC_RSFT,RAISE
+  ),
+
+/* _NAGINATA
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |  __   | NG_Q  | NG_W  | NG_E  | NG_R  | NG_T  |       |       | NG_Y  | NG_U  | NG_I  | NG_O  | NG_P  |  __   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |  __   | NG_A  | NG_S  | NG_D  | NG_F  | NG_G  |       |       | NG_H  | NG_J  | NG_K  | NG_L  |NG_SCLN|  __   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |  __   | NG_Z  | NG_X  | NG_C  | NG_V  | NG_B  |       |       | NG_N  | NG_M  |NG_COMM|NG_DOT |NG_SLSH|  __   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       | LOWER |NG_SHFT|  __   |  __   |NG_SHFT| RAISE |       |       |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+*/
+  [_NAGINATA] = LAYOUT(
+    _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,                NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
+    _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,                NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
+    _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,                NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______, \
+                                    LOWER  ,NG_SHFT,_______,_______,NG_SHFT,RAISE
+  ),
+
 };
 
 int RGB_current_mode;
@@ -254,8 +274,8 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
-  // set_unicode_input_mode(UC_OSX);
-  set_unicode_input_mode(UC_WINC);
+  set_unicode_input_mode(UC_OSX);
+  // set_unicode_input_mode(UC_WINC);
   // 薙刀式
 
   #ifdef RGBLIGHT_ENABLE
@@ -364,32 +384,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case KC_UNDGL:
+    case UNDGL:
       if (record->event.pressed) {
         underglow = !underglow;
       }
       update_led();
       return false;
       break;
-    case KC_QWERTY:
+    case QWERTY:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
-    case KC_EUCALYN:
+    case EUCALYN:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_EUCALYN);
       }
       return false;
       break;
-    case KC_EUCALYNK:
+    case WORKMAN:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_EUCALYNK);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
-    case KC_EISU:
+    case EISU:
       if (record->event.pressed) {
         // 薙刀式
         naginata_off();
@@ -398,7 +418,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_KANA2:
+    case KANA2:
       if (record->event.pressed) {
         // 薙刀式
         naginata_on();
@@ -407,7 +427,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_ADJUST:
+    case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
       } else {
@@ -435,7 +455,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       return false;
       break;
-    case KC_LOWER:
+    case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
       } else {
@@ -445,7 +465,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       update_led();
       return false;
       break;
-    case KC_RAISE:
+    case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
       } else {
