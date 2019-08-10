@@ -7,8 +7,8 @@
 // #define DEUCALYN
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
 #define DWORKMAN
-#define NAGINATA_EDIT_MAC
-// #define NAGINATA_EDIT_MAC
+// #define NAGINATA_EDIT_WIN // JP106
+#define NAGINATA_EDIT_MAC // US101
 #define COMBO_COUNT 10
 #define COMBO_TERM 40
 // 薙刀式

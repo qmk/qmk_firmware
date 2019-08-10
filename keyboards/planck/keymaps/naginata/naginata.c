@@ -370,10 +370,6 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_M|B_COMM|B_F    , .kana = "?"SS_TAP(X_ENTER)},
   {.key = B_M|B_COMM|B_B    , .kana = "   "},
 
-  {.key = B_C|B_V|B_O       , .kana = ""},
-  {.key = B_C|B_V|B_P       , .kana = ""},
-
-  {.key = B_C|B_V|B_N       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)},
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
@@ -389,7 +385,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_J|B_K|B_Q       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_END)SS_UP(X_LCTRL)},
   {.key = B_J|B_K|B_W       , .kana = SS_DOWN(X_LCTRL)SS_TAP(X_HOME)SS_UP(X_LCTRL)},
-  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_END)SS_UP(X_LSHIFT)SS_LCTRL("x")},
+  {.key = B_D|B_F|B_U       , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_END)SS_UP(X_LSHIFT)SS_TAP(X_BSPACE)},
   {.key = B_D|B_F|B_H       , .kana = SS_TAP(X_ENTER)SS_TAP(X_END)},
   {.key = B_D|B_F|B_Y       , .kana = SS_TAP(X_HOME)},
   {.key = B_D|B_F|B_N       , .kana = SS_TAP(X_END)},
@@ -404,8 +400,9 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 #endif
 
   // 編集モード2
-  {.key = B_C|B_V|B_Y       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)" "},
-  {.key = B_C|B_V|B_H       , .kana = "]"SS_TAP(X_ENTER)SS_TAP(X_ENTER)"["},
+  {.key = B_C|B_V|B_Y       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)" "},
+  {.key = B_C|B_V|B_H       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)"]"SS_TAP(X_ENTER)},
+  {.key = B_C|B_V|B_N       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)},
 
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
@@ -437,6 +434,7 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_M|B_COMM|B_C    , .kana = "2026 2026"},
   {.key = B_M|B_COMM|B_V    , .kana = "2500 2500"},
 
+  {.key = B_C|B_V|B_O       , .kana = "FF5C"},
   {.key = B_C|B_V|B_J       , .kana = "300C"},
   {.key = B_C|B_V|B_M       , .kana = "300D"},
   {.key = B_C|B_V|B_K       , .kana = "300E"},
@@ -497,9 +495,7 @@ void naginata_type(void) {
       break;
     case B_J|B_K|B_T:
 #ifdef NAGINATA_EDIT_WIN
-      register_code(KC_LCTRL);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LCTRL);
+      tap_code(KC_HOME);
       for (int i = 0; i < 10; i++) tap_code(KC_RGHT);
 #endif
 #ifdef NAGINATA_EDIT_MAC
@@ -511,9 +507,7 @@ void naginata_type(void) {
       break;
     case B_J|B_K|B_G:
 #ifdef NAGINATA_EDIT_WIN
-      register_code(KC_LCTRL);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LCTRL);
+      tap_code(KC_HOME);
       for (int i = 0; i < 20; i++) tap_code(KC_RGHT);
 #endif
 #ifdef NAGINATA_EDIT_MAC
@@ -525,9 +519,7 @@ void naginata_type(void) {
       break;
     case B_J|B_K|B_B:
 #ifdef NAGINATA_EDIT_WIN
-      register_code(KC_LCTRL);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LCTRL);
+      tap_code(KC_HOME);
       for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
 #endif
 #ifdef NAGINATA_EDIT_MAC
@@ -535,6 +527,16 @@ void naginata_type(void) {
       tap_code(KC_LEFT);
       unregister_code(KC_LGUI);
       for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
+#endif
+      break;
+    case B_C|B_V|B_P:
+#ifdef NAGINATA_EDIT_WIN
+    send_unicode_hex_string("FF5C");
+    tap_code(KC_ENT);
+    tap_code(KC_END);
+    send_unicode_hex_string("300A 300B");
+    tap_code(KC_ENT);
+    tap_code(KC_LEFT);
 #endif
       break;
     default:
