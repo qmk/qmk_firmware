@@ -309,7 +309,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           unregister_code(KC_RSFT);
         }
     }
-    return true;
+    return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.

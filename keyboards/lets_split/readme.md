@@ -33,7 +33,6 @@ lets_split_rev2_default.hex
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
 
-
 ```
 $ make lets_split/rev2:YOUR_KEYMAP_NAME
 ```
