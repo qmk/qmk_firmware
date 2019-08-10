@@ -23,12 +23,14 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-#define _QW 0
-#define _DV 1
-#define _CM 2
-#define _L1 3
-#define _L2 4
-#define _L3 5
+enum layer_names {
+    _QW,
+    _DV,
+    _CM,
+    _L1,
+    _L2,
+    _L3,
+};
 
 // Curly braces have their own keys. These are defined to make them not mess up
 // the grid in layer 2.
