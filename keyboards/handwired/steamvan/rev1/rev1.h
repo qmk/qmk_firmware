@@ -16,6 +16,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "backlight.h"
 
 // This a shortcut to help you visually see your layout.
 // There are a number of variations depending on the layout of your bottom row.
@@ -79,16 +80,7 @@
 }
 
 // Backlighting
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable :1;
-        bool    breathing : 1;
-        uint8_t level  :6;
-    };
-} backlight_levels_config_t;
-
-extern backlight_levels_config_t kb_backlight_config;
+extern backlight_config_t kb_backlight_config;
 extern bool kb_backlight_breathing;
 
 void backlight_init_ports(void);

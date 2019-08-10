@@ -15,11 +15,10 @@
  */
 #include "rev1.h"
 
-#include "backlight.h"
 #include "led.h"
 #include "printf.h"
 
-backlight_levels_config_t kb_backlight_config = {
+backlight_config_t kb_backlight_config = {
   .enable = true,
   .breathing = true,
   .level = BACKLIGHT_LEVELS
