@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -40,10 +38,6 @@ enum planck_keycodes {
 #define ALTC ALT_T(KC_C)
 #define ALTCOMM ALT_T(KC_COMM)
 //#define GUIBSPC GUI_T(KC_BSPC)
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

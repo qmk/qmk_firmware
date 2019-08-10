@@ -1,6 +1,4 @@
-#include "minidox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -11,10 +9,6 @@ extern keymap_config_t keymap_config;
 #define LETTERS 0
 #define SYMBOLS 1
 #define MEDIA 2
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

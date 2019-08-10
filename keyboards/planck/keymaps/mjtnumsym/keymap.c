@@ -1,5 +1,6 @@
 // This is MJT's bastardization of the planck and minivan defaults
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -34,10 +35,6 @@ enum planck_keycodes {
 };
 
 #include "dynamic_macro.h"
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

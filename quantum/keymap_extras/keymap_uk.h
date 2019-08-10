@@ -18,10 +18,6 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ALGR(kc) RALT(kc)
-#define NO_ALGR KC_RALT
-
 // Normal characters
 #define UK_HASH KC_NUHS
 #define UK_BSLS	KC_NUBS
@@ -131,6 +127,25 @@
 #define UK_GRV KC_GRV
 #define UK_ASTR KC_ASTR
 #define UK_QUOT KC_QUOT
+
+#define UK_P1 KC_P1
+#define UK_P2 KC_P2
+#define UK_P3 KC_P3
+#define UK_P4 KC_P4
+#define UK_P5 KC_P5
+#define UK_P6 KC_P6
+#define UK_P7 KC_P7
+#define UK_P8 KC_P8
+#define UK_P9 KC_P9
+#define UK_P0 KC_P0
+#define UK_PDOT KC_PDOT
+#define UK_PCMM KC_PCMM
+#define UK_PSLS KC_PSLS
+#define UK_PAST KC_PAST
+#define UK_PMNS KC_PMNS
+#define UK_PPLS KC_PPLS
+#define UK_PEQL KC_PEQL
+#define UK_PENT KC_PENT
 
 #define UK_TAB KC_TAB
 #define UK_ENT KC_ENT

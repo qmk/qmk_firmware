@@ -25,7 +25,7 @@ $ make ymd75:default:program
 It should detect the keyboard and set it to bootloader mode automatically, prior to flashing firmware.
 I've found that I need to remove the previous build/file before making a new one as it doesn't overwrite it; but this might just be my personal experience.
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
@@ -37,7 +37,7 @@ $ brew cask install crosspack-avr
 $ brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
 ```
 
-In order to use the `./program` script, which can reboot the board into
+In order to use the `./util/atmega32a_program.py` script, which can reboot the board into
 the bootloader, you'll need Python 2 with PyUSB installed:
 
 ```

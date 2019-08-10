@@ -1,5 +1,4 @@
 # Ergodox Spanish Dvorak Layout
- * See spanish dvorak layout [here](http://djelibeibi.unex.es/dvorak/)
  * Software layout must be set to SPANISH QWERTY to work properly
 
 ## Keymap Layers

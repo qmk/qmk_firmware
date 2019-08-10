@@ -113,6 +113,7 @@ void led_set_kb(uint8_t usb_led) {
         setrgb(0, 0, 0, &fleds[0]);
     }
 
+    rgblight_set();
 	led_set_user(usb_led);
 }
 
@@ -182,6 +183,7 @@ void fled_mode_cycle(void)
     
     // Update stored config
     eeprom_update_conf();
+    rgblight_set();
 }
 
 void fled_val_increase(void)
@@ -194,6 +196,7 @@ void fled_val_increase(void)
     
     // Update stored config
     eeprom_update_conf();
+    rgblight_set();
 }
 
 void fled_val_decrease(void)
@@ -206,4 +209,5 @@ void fled_val_decrease(void)
     
     // Update stored config
     eeprom_update_conf();
+    rgblight_set();
 }

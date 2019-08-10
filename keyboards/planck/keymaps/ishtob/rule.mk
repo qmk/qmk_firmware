@@ -1,7 +1,3 @@
-ifeq ($(strip $(SECRETS)),yes)
-	OPT_DEF += -DSECRETS
-endif
-
 # Build Options
 #   comment out to disable the options.
 #
@@ -16,13 +12,9 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
-RGB_MATRIX_ENABLE = yes
 ENCODER_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

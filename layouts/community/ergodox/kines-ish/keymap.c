@@ -298,6 +298,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *  record) {
     }
     return true;
 };
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  // MACRODOWN only works in this function
+      switch(id) {
+        case 0:
+        if (record->event.pressed) {
+          register_code(KC_RSFT);
+        } else {
+          unregister_code(KC_RSFT);
+        }
+    }
+    return true;
+};
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {

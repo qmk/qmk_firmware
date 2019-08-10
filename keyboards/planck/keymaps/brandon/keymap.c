@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -19,7 +20,6 @@ enum planck_layers {
 };
 
 // Key aliases for legibility
-#define _______ KC_TRNS
 #define ___x___ KC_NO
 
 // Macros

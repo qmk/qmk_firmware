@@ -1,22 +1,30 @@
-#ifndef FRED_333
-#define FRED_333
+#pragma once
 
 #include "quantum.h"
+#include "layout_macros.h"
 
 #define BASE 0
 #define CODE 1 // code layer
-#define SYMB 2
-#define MDIA 3 // media keys
-#define VIM  4
-#define GAME 5
+#define CODEFLOW 2
+#define SYMB 3
+#define MDIA 4 // media keys
+#define VIM  5
+#define GAME 6
+#define GAME_ARROW 7
 
 // Tap dance config shared between my keyboards
 enum tap_dance_declarations {
-    TD_SYM_VIM = 0
+    TD_SYM_VIM = 0,
+    TD_COPY_PASTE,
 };
 
-void tap_dance_layer_finished(qk_tap_dance_state_t*, void*);
-void tap_dance_layer_reset(qk_tap_dance_state_t*, void*);
-void tap_dance_process_record(uint16_t);
+enum custom_keys {
+    DLEFT = SAFE_RANGE,
+    DRIGHT,
+    PSCREEN_APP
+};
 
-#endif
+void tap_dance_sym_vim_finished(qk_tap_dance_state_t*, void*);
+void tap_dance_sym_vim_reset(qk_tap_dance_state_t*, void*);
+void tap_dance_process_keycode(uint16_t);
+bool try_handle_macro(uint16_t keycode, keyrecord_t *record);

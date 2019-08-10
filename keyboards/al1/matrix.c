@@ -7,10 +7,10 @@
 #include "util.h"
 #include "matrix.h"
 
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#   define DEBOUNCE 5
 #endif
-static uint8_t debouncing = DEBOUNCING_DELAY;
+static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
@@ -28,6 +28,23 @@ inline uint8_t matrix_cols(void) {
   return MATRIX_COLS;
 }
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+	matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
 
 void matrix_init(void) {
   // initialize row and col
@@ -52,7 +69,7 @@ uint8_t matrix_scan(void) {
       bool curr_bit = rows & (1<<row);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        debouncing = DEBOUNCING_DELAY;
+        debouncing = DEBOUNCE;
       }
     }
     unselect_cols();
@@ -104,7 +121,7 @@ uint8_t matrix_key_count(void) {
 
 /* Row pin configuration
  *
- * row: 0    1    2    3    4    5 
+ * row: 0    1    2    3    4    5
  * pin: C7   B1   B2   C6   B4   B5
  *
  */

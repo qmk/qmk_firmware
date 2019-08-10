@@ -11,7 +11,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 
 ## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Gitter](https://gitter.im/qmk/qmk_firmware).
+If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
 
 Please keep these things in mind:
 
@@ -29,7 +29,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 # Where Can I Go for Help?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on gitter](http://gitter.im/QMK/qmk_firmware).
+If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
 
 # How Do I Make a Contribution?
 
@@ -54,22 +54,10 @@ Never made an open source contribution before? Wondering how contributions work 
 
 # Coding Conventions
 
-Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
+Most of our style is pretty easy to pick up on. If you are familiar with either C or Python you should not have too much trouble with our local styles.
 
-* We indent using two spaces (soft tabs)
-* We use One True Brace Style
-  * Opening Brace: At the end of the same line as the statement that opens the block
-  * Closing Brace: Lined up with the first character of the statement that opens the block
-  * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
-  * Optional Braces: Always include optional braces.
-    * Good: if (condition) { return false; }
-    * Bad: if (condition) return false;
-* We use C style comments: `/* */`
-  * Think of them as a story describing the feature
-  * Use them liberally to explain why particular decisions were made.
-  * Do not write obvious comments
-  * If you not sure if a comment is obvious, go ahead and include it.
-* In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
+* [Coding Conventions - C](coding_conventions_c.md)
+* [Coding Conventions - Python](coding_conventions_python.md)
 
 # General Guidelines
 
@@ -97,6 +85,20 @@ Documentation is one of the easiest ways to get started contributing to QMK. Fin
 
 You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
 
+When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+
+```c
+enum my_layers {
+  _FIRST_LAYER,
+  _SECOND_LAYER
+};
+
+enum my_keycodes {
+  FIRST_LAYER = SAFE_RANGE,
+  SECOND_LAYER
+};
+```
+
 ## Keymaps
 
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
@@ -105,7 +107,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Keyboards
 
@@ -118,13 +120,13 @@ We also ask that you follow these guidelines:
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
 * Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Quantum/TMK Core
 
 Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
-* [Chat on Gitter](https://gitter.im/qmk/qmk_firmware)
+* [Chat on Discord](https://discord.gg/Uq7gcHh)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
 Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.

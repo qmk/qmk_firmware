@@ -33,11 +33,6 @@
 //#define LOCKING_RESYNC_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -55,7 +50,6 @@
 //#define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-#define PREVENT_STUCK_MODIFIERS
 //#define DYNAMIC_MACRO_ENABLE    // Enable if you need to use the macro functionality
 //#define SPACE_CADET             // Parenthesis on L/R shift
 

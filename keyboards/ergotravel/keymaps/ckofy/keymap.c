@@ -1,4 +1,4 @@
-﻿#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -31,7 +31,6 @@ enum {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 #define KC_XXXX KC_NO
 
 #define KC_CMK COLEMAK
@@ -60,7 +59,7 @@ enum {
 #define KC_SVE LCTL(KC_S)
 #define KC_OSH F(F_SFT)
 #define KC_OCTL F(F_CTRL)
-#define KC_NUMP F(F_NUMPAD)
+#define KC_NUMP TT(_NUMPAD)
 #define KC_SHESC MT(MOD_LSFT,KC_ESC)
 #define KC_SHENT MT(MOD_RSFT,KC_ENT)
 //#define KC_NUMP TG(_NUMPAD)  // Toggle layer NUMPAD for use in KC_keymaps
@@ -100,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
            ,    ,    ,    ,    ,    ,    ,          ,COMM, P1 , P2 , P3 ,PLUS,    ,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                    , P0 ,NLCK,    ,    ,    
+           ,    ,    ,    ,    ,    ,                    , P0 ,NLCK,    ,    ,
     //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
   ),
 
@@ -112,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
          ,UDO ,CUT ,CPY ,PST ,XXXX,    ,          ,XXXX,XXXX,COMM,DOT ,SLSH,    ,
   //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,    
+         ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,
   //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
   ),
 
@@ -124,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
            , GRV,TILD,XXXX,EQL ,PLUS,    ,          ,UNDS,MINS,COMM,DOT ,SLSH,ENT ,
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,    
+           ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,
     //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
   ),
 
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|----+----+----+----+----+----+----.     .----+----+----+----+----+----+----|
            ,    ,    ,    ,    ,    ,                    ,    ,    ,VOLD,VOLU,MUTE
     //`----+----+----+--+-+----/----/               \----\----+----+----+----+----'
-  ) 
+  )
 
 };
 
@@ -147,10 +146,7 @@ const uint16_t PROGMEM fn_actions[] = {
   [F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
   ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
   ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
-  ,[F_NUMPAD] = ACTION_LAYER_TAP_TOGGLE(_NUMPAD)
-// ,[F_LOWER] = ACTION_LAYER_TAP_TOGGLE(LOWER)                // FN1 - Momentary Layer 1 (Lower)    
-// ,[F_RAISE] = ACTION_LAYER_TAP_TOGGLE(RAISE)                // FN2 - Momentary Layer 2 (Raise)
-};   
+};
 
 
 

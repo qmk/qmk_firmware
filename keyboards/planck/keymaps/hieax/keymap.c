@@ -67,6 +67,7 @@
 
 
 #include "config.h"
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef STENO_ENABLE
@@ -175,9 +176,7 @@ enum planck_keycodes {
 // keycodes
 #define ___x___ KC_TRNS
 #define ___fn__ KC_TRNS
-#ifdef _______
-#undef _______
-#endif
+#undef  _______
 #define _______ KC_NO
 
 #define COPY    LCTL(KC_C)
