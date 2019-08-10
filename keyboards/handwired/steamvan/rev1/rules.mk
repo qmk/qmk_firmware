@@ -56,4 +56,3 @@ UNICODE_ENABLE = no     # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 LEADER_ENABLE = yes
 
-LAYOUTS = standard arrow command arrow_command
