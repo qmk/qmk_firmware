@@ -24,17 +24,18 @@
 #define DEVICE_VER      0x0006
 #define MANUFACTURER    QMK
 #define PRODUCT         Proton C
-#define DESCRIPTION     A compact ortholinear keyboard
+#define DESCRIPTION     A Proton C custom build
 
 /* key matrix size */
 #define MATRIX_ROWS 1
-#define MATRIX_COLS 1
+#define MATRIX_COLS 26
 
 #define MATRIX_ROW_PINS { B9 }
-#define MATRIX_COL_PINS { B0 }
+#define MATRIX_COL_PINS { B0, B1, B2, B3, B4, B5, B6, B7, A10, A9, B15, B14, B13, B8, A0, A1, A2, A15, A8, A7, A6,  A13, A14, B12, B11, B10 }
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+#define DEBOUNCE 80
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -61,6 +62,11 @@
  *
  */
 //#define FORCE_NKRO
+
+/* key combination for magic key command */
+#define IS_COMMAND() ( \
+  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)
 
 /*
  * Feature disable options
@@ -112,3 +118,4 @@
 // #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
 //#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
 //#define WS2812_EXTERNAL_PULLUP
+
