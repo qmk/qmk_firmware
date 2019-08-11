@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    MINS,    EQL,    LBRC,   RBRC, BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   NO,   NO, SLSH,\
+       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, SLSH,\
   //|------+--- ---+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,   UNDS,  PLUS,  LCBR,  RCBR,   PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,  PLUS,  LEFT,  DOWN,  UP, RGHT,\
+       SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,  PLUS,  NO,  DOT,  NO, SLSH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
