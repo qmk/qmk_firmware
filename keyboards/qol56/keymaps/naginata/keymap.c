@@ -67,6 +67,7 @@ enum kepmap_layers {
 #define CMDSPC  CMD_T(KC_SPC)
 #define CTLENT  CTL_T(KC_ENT)
 #define CTLSPC  CTL_T(KC_SPC)
+#define CTLBSP  CTL_T(KC_BSPC)
 #define CMDENT  CMD_T(KC_ENT)
 #define CTLBS   CTL_T(KC_BSPC)
 #define LSHFT LM(_SHIFT,MOD_LSFT)
@@ -140,14 +141,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
   | ALPH |  Z   |  X   |  M   |  C   |  V   |  -   |  +   |  K   |  L   |  ,   |  .   |  /   |SALPH |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
-  | LCTL |NUMLOC|  F2  | APP  |LOWER |SFTSPC| BSPC | ENT  |SFTSPC|RAISE |  0   |  .   | LALT | RCTL |
+  | LCTL |NUMLOC|  F2  | APP  |LOWER |SFTSPC|CTLBSP| ENT  |SFTSPC|RAISE |  0   |  .   | LALT | RCTL |
   +------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_WORKMAN] = LAYOUT(
     KC_ESC ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,C(KC_S),KC_DEL ,KC_J   ,KC_F   ,KC_U   ,KC_P   ,JP_SCLN,JP_GRV , \
     KC_TAB ,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,JP_LPRN,JP_RPRN,KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,JP_QUOT, \
     ALPH   ,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,JP_MINS,JP_PLUS,KC_K   ,KC_L   ,JP_COMM,JP_DOT ,JP_SLSH,SALPH  , \
-    KC_LCTL,NUMLOC ,KC_F2  ,KC_APP ,LOWER  ,SFTSPC ,KC_BSPC,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_LALT,KC_RCTL
+    KC_LCTL,NUMLOC ,KC_F2  ,KC_APP ,LOWER  ,SFTSPC ,CTLBSP ,KC_ENT ,SFTSPC ,RAISE  ,KC_0   ,JP_DOT ,KC_LALT,KC_RCTL
   ),
 
 /* _EDIT1L
@@ -246,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |       |       |       |       |       |       |       |       |       | LEFT  | DOWN  | RGHT  |       |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       |       |       |S(LEFT)|       |S(RGHT)|       |       |
+  |       |       |       |       |       |       |       |       |       |S(LEFT)|S(DOWN)|S(RGHT)|       |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   | EISU  |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -254,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT(
     XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_UP     ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   , \
     XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
-    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,S(KC_LEFT),XXXXXXX   ,S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
+    XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,S(KC_LEFT),S(KC_DOWN),S(KC_RGHT),XXXXXXX   ,XXXXXXX   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,EISU      ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
@@ -262,17 +263,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |EEP_RST|       |       | RESET | WAKE  | SLEP  |       |       |       |       |       |  PWR  |       |EUCALYN|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |       |       |       |       |       |       |       |       |       |WORKMAN|
+  |       |       |       |       |       |       |       |       |       |       | MYCM  |       |       |WORKMAN|
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       | CALC  |       |       |       |       |       |       |       |       |QGMLWB |
+  |       |       |       | MAIL  | CALC  |       |       |       |       |       |       |       |       |QGMLWB |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_ADJUST] = LAYOUT(
     EEP_RST,XXXXXXX,XXXXXXX,RESET  ,KC_WAKE,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PWR ,XXXXXXX,EUCALYN, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,WORKMAN, \
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,QGMLWB , \
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_MYCM,XXXXXXX,XXXXXXX,WORKMAN, \
+    XXXXXXX,XXXXXXX,XXXXXXX,KC_MAIL,KC_CALC,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,QGMLWB , \
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
   ),
 
