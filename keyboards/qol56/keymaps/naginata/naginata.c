@@ -400,10 +400,6 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 #endif
 
   // 編集モード2
-  {.key = B_C|B_V|B_Y       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)" "},
-  {.key = B_C|B_V|B_H       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)"]"SS_TAP(X_ENTER)},
-  {.key = B_C|B_V|B_N       , .kana = "\\"SS_TAP(X_ENTER)SS_TAP(X_ENTER)},
-
 #ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_T    , .kana = SS_TAP(X_HOME)" "SS_TAP(X_END)},
   {.key = B_M|B_COMM|B_G    , .kana = SS_TAP(X_HOME)"   "SS_TAP(X_END)},
@@ -421,6 +417,7 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
 const PROGMEM naginata_keymap_unicode ngmapu[] = {
   // 編集モード2
+#ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_Q    , .kana = "FF0F"},
   {.key = B_M|B_COMM|B_W    , .kana = "FF1A"},
   {.key = B_M|B_COMM|B_E    , .kana = "30FB"},
@@ -443,6 +440,7 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_C|B_V|B_DOT     , .kana = "300B"},
   {.key = B_C|B_V|B_SCLN    , .kana = "FF08"},
   {.key = B_C|B_V|B_SLSH    , .kana = "FF09"},
+#endif
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
@@ -529,16 +527,34 @@ void naginata_type(void) {
       for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
 #endif
       break;
-    case B_C|B_V|B_P:
 #ifdef NAGINATA_EDIT_WIN
-    send_unicode_hex_string("FF5C");
-    tap_code(KC_ENT);
-    tap_code(KC_END);
-    send_unicode_hex_string("300A 300B");
-    tap_code(KC_ENT);
-    tap_code(KC_LEFT);
-#endif
+    case B_C|B_V|B_P:
+      send_unicode_hex_string("FF5C");
+      tap_code(KC_ENT);
+      tap_code(KC_END);
+      send_unicode_hex_string("300A 300B");
+      tap_code(KC_ENT);
+      tap_code(KC_LEFT);
       break;
+    case B_C|B_V|B_Y:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      tap_code(KC_SPC);
+      break;
+    case B_C|B_V|B_H:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      send_unicode_hex_string("300C");
+      tap_code(KC_ENT);
+      break;
+    case B_C|B_V|B_N:
+      send_unicode_hex_string("300D");
+      tap_code(KC_ENT);
+      tap_code(KC_ENT);
+      break;
+#endif
     default:
       // キーから仮名に変換して出力する。
       // 同時押しの場合 ngmapに定義されている
