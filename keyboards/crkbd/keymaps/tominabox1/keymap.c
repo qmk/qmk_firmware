@@ -115,6 +115,16 @@ enum {
     TD_SFT_CPS,
 };
 
+void suspend_power_down_kb(void)
+{
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_kb(void)
+{
+    rgb_matrix_set_suspend_state(false);
+}
+
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_RSFT);

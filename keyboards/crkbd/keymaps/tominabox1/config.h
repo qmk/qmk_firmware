@@ -52,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_SAT_STEP 8
 #   define RGBLIGHT_VAL_STEP 8
 #   define RGBLIGHT_LIMIT_VAL 100
+#   define RGBLIGHT_SLEEP
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
