@@ -20,8 +20,4 @@ void matrix_init_user(void) {
   // Turn status LED on
   setPinOutput(C13);
   writePinHigh(C13);
-<<<<<<< HEAD
-=======
-
->>>>>>> 5c87e39cd778e2492ea775ea2cef7f2b9e16a9d8
 }
