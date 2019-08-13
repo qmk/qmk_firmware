@@ -67,7 +67,7 @@ enum planck_ez_keycodes {
 typedef union {
   uint32_t raw;
   struct {
-    uint8_t    led_level :3;
+    uint8_t      led_level :3;
     bool         disable_layer_led   :1;
     bool         rgb_matrix_enable   :1;
   };

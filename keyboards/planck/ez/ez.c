@@ -16,8 +16,6 @@
 #include "ez.h"
 #include "ch.h"
 #include "hal.h"
- keyboard_config_t keyboard_config;
-
 
 keyboard_config_t keyboard_config;
 
