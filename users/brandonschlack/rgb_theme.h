@@ -52,31 +52,31 @@ typedef enum {
     GRANITE
 } rgb_theme_name_t;
 
-typedef HSV rgb_theme_color_t;
-
 typedef struct {
     rgb_theme_name_t theme;
-    rgb_theme_color_t colors[];
+    HSV colors[5];
 } rgb_theme_t;
 
-rgb_theme_t user_rgb_theme;
+extern const HSV laser_purple;
+extern const HSV laser_pink;
+extern const HSV laser_blue;
+extern const HSV laser_cyan;
+extern const HSV laser_magenta;
+extern const rgb_theme_t rgb_laser;
 
-static const HSV laser_purple =  { HSV_LSR_PURPLE };
-static const HSV laser_pink =    { HSV_LSR_PINK };
-static const HSV laser_blue =    { HSV_LSR_BLUE };
-static const HSV laser_cyan =    { HSV_LSR_CYAN };
-static const HSV laser_magenta = { HSV_LSR_MAGENTA };
-static const rgb_theme_t rgb_laser = { LASER, { laser_purple, laser_pink, laser_blue, laser_cyan, laser_magenta } };
+extern const HSV granite_white;
+extern const HSV granite_blue;
+extern const HSV granite_red;
+extern const HSV granite_green;
+extern const HSV granite_yellow;
+extern const rgb_theme_t rgb_granite;
 
-static const HSV granite_white =  { HSV_GNT_WHITE };
-static const HSV granite_blue =   { HSV_GNT_BLUE };
-static const HSV granite_red =    { HSV_GNT_RED };
-static const HSV granite_green =  { HSV_GNT_GREEN };
-static const HSV granite_yellow = { HSV_GNT_YELLOW };
-static const rgb_theme_t rgb_granite = { GRANITE, { granite_white, granite_blue, granite_red, granite_green, granite_yellow } };
+extern const HSV default_magic;
 
-void set_rgb_theme(rgb_theme_t theme);
+extern const rgb_theme_t *themes[];
+
+void set_rgb_theme(rgb_theme_name_t theme_name);
 rgb_theme_t get_rgb_theme(void);
 
-HSV get_rgb_theme_color(uint8_t index, rgb_theme_t theme);
+HSV get_rgb_theme_color(uint8_t index);
 #endif

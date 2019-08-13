@@ -27,6 +27,17 @@ enum macropad_layers {
 #endif
 #define _MAGIC 15
 
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_layer_change :1;
+    uint8_t  rgb_theme :2;
+  };
+} user_config_t;
+
+extern user_config_t user_config;
+
+void matrix_init_keymap(void);
 void keyboard_post_init_keymap(void);
 void shutdown_keymap(void);
 void suspend_power_down_keymap(void);

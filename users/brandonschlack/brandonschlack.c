@@ -1,9 +1,25 @@
 #include "brandonschlack.h"
 
+user_config_t user_config;
+
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    user_config.raw = 0;
+    user_config.rgb_layer_change = true;
+    eeconfig_update_user(user_config.raw);
+}
+__attribute__((weak))
+void matrix_init_keymap(void){ }
+
+void matrix_init_user(void) {
+    matrix_init_keymap();
+}
+
 __attribute__((weak))
 void keyboard_post_init_keymap(void){ }
 
 void keyboard_post_init_user(void){
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb();
 #endif

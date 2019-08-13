@@ -9,8 +9,25 @@ extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 
+const HSV default_magic =  { HSV_SPRINGGREEN };
+
+const HSV laser_purple =  { HSV_LSR_PURPLE };
+const HSV laser_pink =    { HSV_LSR_PINK };
+const HSV laser_blue =    { HSV_LSR_BLUE };
+const HSV laser_cyan =    { HSV_LSR_CYAN };
+const HSV laser_magenta = { HSV_LSR_MAGENTA };
+const rgb_theme_t rgb_laser = { LASER, { laser_purple, laser_pink, laser_blue, laser_cyan, laser_magenta } };
+
+const HSV granite_white =  { HSV_GNT_WHITE };
+const HSV granite_blue =   { HSV_GNT_BLUE };
+const HSV granite_red =    { HSV_GNT_RED };
+const HSV granite_green =  { HSV_GNT_GREEN };
+const HSV granite_yellow = { HSV_GNT_YELLOW };
+const rgb_theme_t rgb_granite = { GRANITE, { granite_white, granite_blue, granite_red, granite_green, granite_yellow } };
+
+const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite };
+
 void keyboard_post_init_rgb(void) {
-    set_rgb_theme(rgb_granite);
     layer_state_set_user(layer_state);
 #if defined(RGBLIGHT_ENABLE)
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -19,8 +36,16 @@ void keyboard_post_init_rgb(void) {
 #endif
 }
 
-void set_rgb_theme(rgb_theme_t theme) {
-    user_rgb_theme = theme;
+void set_rgb_theme(rgb_theme_name_t theme_name) {
+    if (!user_config.rgb_layer_change) {
+        user_config.rgb_layer_change = true;
+    }
+    user_config.rgb_theme = theme_name;
+    eeconfig_update_user(user_config.raw);
+}
+
+rgb_theme_t get_rgb_theme(void) {
+    return *themes[user_config.rgb_theme];
 }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -63,20 +88,21 @@ void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
 }
 #endif
 
-HSV get_rgb_theme_color(uint8_t index, rgb_theme_t theme) {
-    // uint8_t MAX = sizeof(theme.colors)/sizeof(theme.colors[0]);
-    // if (index < MAX) {
-    //     rgb_theme_color_t color = theme.colors[index];
-    //     return color;
-    // }
-    rgb_theme_color_t color = theme.colors[index];
+HSV get_rgb_theme_color(uint8_t index) {
+    rgb_theme_t theme = get_rgb_theme();
+    size_t rgb_theme_color_max = sizeof theme.colors / sizeof theme.colors[0];
+    HSV color;
+
+    if (index < rgb_theme_color_max)
+        color = theme.colors[index];
+    else
+        color = default_magic;
     return color;
 };
 
-void rgb_theme_layer(layer_state_t state, rgb_theme_t rgb_theme) {
+void rgb_theme_layer(layer_state_t state) {
     uint8_t rgb_color_index = biton32(state);
-    // uint8_t MAX = sizeof(rgb_theme.colors)/sizeof(rgb_theme.colors[0]);
-    HSV color = get_rgb_theme_color(rgb_color_index, rgb_theme);
+    HSV color = get_rgb_theme_color(rgb_color_index);
 
     // if (index < MAX) {
     //     color = *(rgb_theme.colors[index]);
@@ -154,7 +180,7 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
 //             }
 //             break;
 //     }
-    rgb_theme_layer(state, user_rgb_theme);
+    rgb_theme_layer(state);
 #endif // RGBLIGHT_ENABLE
     return state;
 }
