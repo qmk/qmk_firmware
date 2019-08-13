@@ -4,6 +4,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   comment out to disable the options.
 #
+CONSOLE_ENABLE = yes    # Console for Debug (+400)
 MOUSEKEY_ENABLE = no	# Don't need Mouse Keys
 BACKLIGHT_ENABLE = no   # No backlights installed
 
