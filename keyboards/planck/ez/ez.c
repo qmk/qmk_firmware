@@ -211,7 +211,7 @@ void led_initialize_hardware(void) {
 void keyboard_pre_init_kb(void) {
     // read kb settings from eeprom	    // read kb settings from eeprom
     keyboard_config.raw = eeconfig_read_kb();
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(ORYX_CONFIGURATOR)
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
     } else {
