@@ -241,19 +241,30 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
 #ifdef ORYX_CONFIGURATOR
 
 #ifndef PLANCK_EZ_USER_LEDS
+
+#ifndef PLANCK_EZ_LED_LOWER
+#    define PLANCK_EZ_LED_LOWER 3
+#endif
+#ifndef PLANCK_EZ_LED_RAISE
+#    define PLANCK_EZ_LED_RAISE 4
+#endif
+#ifndef PLANCK_EZ_LED_ADJUST
+#    define PLANCK_EZ_LED_ADJUST 6
+#endif
+
 layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
     uint8_t layer = biton32(state);
     switch (layer) {
-        case 3:
+        case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();
             break;
-        case 4:
+        case PLANCK_EZ_LED_RAISE:
             planck_ez_right_led_on();
             break;
-        case 6:
+        case PLANCK_EZ_LED_ADJUST:
             planck_ez_right_led_on();
             planck_ez_left_led_on();
             break;

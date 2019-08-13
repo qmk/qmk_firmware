@@ -37,6 +37,15 @@ By default, the indicator lights are used for layer indication, expecting the sp
 
 This will remove the default behavior for changing the LEDs based on layer, and allow you to control them manually. 
 
+Alternatively, you can use the following defines in your keymap's `config.h` to control which layers are used. 
+
+```c
+#define PLANCK_EZ_LED_LOWER 3
+#define PLANCK_EZ_LED_RAISE 4
+#define PLANCK_EZ_LED_ADJUST 6
+```
+
+This will allow you to change the layers that are used, without having to add anything code to your `keymap.c`
 
 ### RGB Matrix Features
 
