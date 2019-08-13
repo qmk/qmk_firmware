@@ -18,7 +18,6 @@
 #include "quantum.h"
 
 // 6 cols, 8 rows
-// see ./keyboards/40percentclub/gherkin/gherkin.h
 // top:    topological layout
 // bottom: wiring matrix
 
