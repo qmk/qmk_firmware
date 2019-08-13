@@ -21,5 +21,4 @@ void matrix_init_kb(void) {
   setPinOutput(C13);
   writePinHigh(C13);
 
-  matrix_init_user();
 }
