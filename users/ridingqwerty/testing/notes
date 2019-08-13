@@ -1,0 +1,42 @@
+./users/ridingqwerty/ files overview:
+(when in doubt, peep users/drashna)
+
+NOTE****
+possible collision between usermap and keyboard "secrets" files
+testing by shelving files in usermap/keyboard respective test dir
+
+RESOLVED:  removed local secrets.h from keyboard and corrected char* secrets[] processing order
+
+
+- config.h:
+  define music notes/rgb, tapping term/toggle count, oneshot timeout, etc
+
+- <user>.h:
+  define includes for tapdance/wrappers/process records/rgb_stuff;
+  define layer names, mod masks, user functions, typedefs, tapdance defines
+
+- <user>.c:
+  implementation of user functions in <name>.h
+
+- process_records.h:
+  define userspace custom keycodes, keycode alias defines
+
+- process_records.c:
+  weakly attribute process_record_* functions, ifdef-fenced process_record_user
+
+- send_unicode.h:
+  uniocde_map definitions, etc
+
+- wrapper.h
+  LAYOUT wrappers e.g. so you don't have to type qwerty/colemak/dvorak shit across many boards
+
+-tap_dances.h:
+  define tap dance externs and enums
+
+-tap_dances.c:
+  define tap dance implementations
+
+- rgbstuff -- n/a
+
+- rules.mk:
+  include source files conditionally
