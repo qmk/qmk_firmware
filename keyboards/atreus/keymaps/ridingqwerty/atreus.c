@@ -16,7 +16,7 @@
 
 #include "atreus.h"
 
-void matrix_init_kb(void) {
+void matrix_init_user(void) {
   // Turn status LED on
   setPinOutput(C13);
   writePinHigh(C13);
