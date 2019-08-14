@@ -21,22 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-#define MANUFACTURER    Singa and TGR
-#define PRODUCT         Unikorn 60
+#define MANUFACTURER    EVE
+#define PRODUCT         Meteor
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 14
 
-//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
-#define MATRIX_ROW_PINS { B1, B2, B3, B4, B5 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }
+//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D  
+#define MATRIX_ROW_PINS { B5, B0, B1, B2, B3, B4 }
+#define MATRIX_COL_PINS { C2, C3, C4, C5, C6, C7, A7, A6, A5, A4, A3, A2, A1, A0}
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCE 5
 
 #define BACKLIGHT_LEVELS 1
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 17
-#define RGBLIGHT_ANIMATIONS
-#endif
