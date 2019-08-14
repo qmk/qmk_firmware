@@ -1,10 +1,16 @@
-![Keyboard Picture](https://i.imgur.com/ezWKOdGr.jpg)
-
-![Chris DZ60](https://i.imgur.com/GhprAww.png)
-
 # Chris' DZ60 Layout
 
 This is a custom keymap for the layout of the DZ60.
+
+## Keyboard Picture
+
+![Keyboard Picture](https://i.imgur.com/ezWKOdGr.jpg)
+
+## Keyboard Layout
+
+![Chris DZ60](https://i.imgur.com/GhprAww.png)
+
+## Setup
 
 ``` bash
 #From the qmk_firware directory run
