@@ -20,9 +20,8 @@ TAP_DANCE_ENABLE = yes
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 RGB_MATRIX_ENABLE = WS2812
-LINK_TIME_OPTIMIZATION_ENABLE = yes
+EXTRAFLAGS += -flto
 
-# CFLAGS += -flto
 BOOTLOADER = qmk-dfu
 
 

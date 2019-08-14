@@ -12,6 +12,26 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
 #ifdef RGB_MATRIX_ENABLE
 
+static bool is_suspended;
+static bool rgb_matrix_enabled;
+
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+    if (!is_suspended) {
+        is_suspended = true;
+        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
+        rgb_matrix_disable_noeeprom();
+    }
+}
+
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_set_suspend_state(false);
+    is_suspended = false;
+    if (rgb_matrix_enabled) {
+        rgb_matrix_enable_noeeprom();
+    }
+}
+
 #    include "lib/lib8tion/lib8tion.h"
 extern led_config_t g_led_config;
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
@@ -209,6 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           )
 };
 
+
 int RGB_current_mode;
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -353,6 +374,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_enable();
                 RGB_current_mode = rgb_matrix_config.mode;
             }
+            
 #endif
             break;
     }

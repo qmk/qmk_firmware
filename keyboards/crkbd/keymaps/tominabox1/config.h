@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED E6
 
 #ifdef RGBLIGHT_ENABLE
 #   undef RGBLED_NUM
@@ -103,3 +102,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#   define DISABLE_RGB_MATRIX_SOLID_SPLASH
 //#   define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
+
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
+#define NO_ACTION_ONESHOT
