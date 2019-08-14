@@ -9,7 +9,7 @@ extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 
-const HSV default_magic =  { HSV_SPRINGGREEN };
+const HSV default_magic = { HSV_SPRINGGREEN };
 
 const HSV laser_purple =  { HSV_LSR_PURPLE };
 const HSV laser_pink =    { HSV_LSR_PINK };
@@ -93,10 +93,18 @@ HSV get_rgb_theme_color(uint8_t index) {
     size_t rgb_theme_color_max = sizeof theme.colors / sizeof theme.colors[0];
     HSV color;
 
-    if (index < rgb_theme_color_max)
+    if (index < rgb_theme_color_max) {
         color = theme.colors[index];
-    else
+    } else if (index == _MAGIC) {
         color = default_magic;
+    } else {
+#if defined(RGBLIGHT_ENABLE)
+        rgblight_config.raw = eeconfig_read_rgblight();
+        color = (HSV){ rgblight_config.hue, rgblight_config.sat, rgblight_config.val };
+#elif defined(RGB_MATRIX_ENABLE)
+        color = (HSV){ rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
+#endif
+    }
     return color;
 };
 
