@@ -25,7 +25,14 @@ const HSV granite_green =  { HSV_GNT_GREEN };
 const HSV granite_yellow = { HSV_GNT_YELLOW };
 const rgb_theme_t rgb_granite = { GRANITE, { granite_white, granite_blue, granite_red, granite_green, granite_yellow } };
 
-const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite };
+const HSV oblique_white =  { HSV_OBQ_WHITE };
+const HSV oblique_purple = { HSV_OBQ_PURPLE };
+const HSV oblique_red =    { HSV_OBQ_RED };
+const HSV oblique_orange = { HSV_OBQ_ORANGE };
+const HSV oblique_green =  { HSV_OBQ_GREEN };
+const rgb_theme_t rgb_oblique = { OBLIQUE, { oblique_white, oblique_purple, oblique_red, oblique_orange, oblique_green } };
+
+const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite, &rgb_oblique };
 
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);

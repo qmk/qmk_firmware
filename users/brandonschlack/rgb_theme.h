@@ -17,6 +17,14 @@
 #define HSV_GNT_YELLOW   HSV_YELLOW
 #define HSV_GNT_WHITE    HSV_WHITE
 
+// Oblique Colors
+#define HSV_OBQ_BLUE     130, 215, 255
+#define HSV_OBQ_RED      10,  200, 255
+#define HSV_OBQ_GREEN    58,  199, 255
+#define HSV_OBQ_ORANGE   26,  215, 255
+#define HSV_OBQ_PURPLE   186, 143, 255
+#define HSV_OBQ_WHITE    HSV_WHITE
+
 // Theme Colors
 #if defined(THEME_LASER)
 #   define HSV_THEME_0   HSV_LSR_PURPLE
@@ -49,7 +57,8 @@
 
 typedef enum {
     LASER = 0,
-    GRANITE
+    GRANITE,
+    OBLIQUE
 } rgb_theme_name_t;
 
 typedef struct {
@@ -70,6 +79,13 @@ extern const HSV granite_red;
 extern const HSV granite_green;
 extern const HSV granite_yellow;
 extern const rgb_theme_t rgb_granite;
+
+extern const HSV oblique_white;
+extern const HSV oblique_purple;
+extern const HSV oblique_red;
+extern const HSV oblique_orange;
+extern const HSV oblique_green;
+extern const rgb_theme_t rgb_oblique;
 
 extern const HSV default_magic;
 
