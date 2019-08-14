@@ -17,10 +17,20 @@
 #pragma once
 #include "quantum.h"
 
+// readability
+#define ___ KC_NO
+
+/* The board is divided into regions. North-East, North-West, South-East, and South-West */
 #define LAYOUT_board( \
-  K00, K01, K02, K03, K04, K05, K06, K07, KO8, K09, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K20,  K21, K22, K23, K24, K25  \
+  NE00, NE01, NE02, NE03, NE04, NE05, NE06, NE07, NEO8, NE09, \
+  NW10, NW11, NW12, NW13, NW14, NW15, NW16, NW17, \
+  SE18, SE19, SE20, SE21, \
+  SW22, SW23, SW24, SW25, SW26  \
 ) { \
-  {  K00, K01, K02, K03, K04, K05, K06, K07, KO8, K09, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K20,  K21, K22, K23, K24, K25 }  \
+  {  NE00, NE01, NE02, NE03, NE04, NE05, NE06, NE07, NEO8, NE09 }, \
+  {  NW10, NW11, NW12, NW13, NW14, NW15, NW16, NW17, ___, ___ }, \
+  {  SE18, SE19, SE20, SE21, ___, ___, ___, ___, ___, ___ }, \
+  {  SW22, SW23, SW24, SW25, SW26, ___, ___, ___, ___, ___ }  \
 }
 
 #define LAYOUT_2x2( \

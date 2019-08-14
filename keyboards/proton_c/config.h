@@ -27,11 +27,15 @@
 #define DESCRIPTION     A Proton C custom build
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 26
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 10
 
-#define MATRIX_ROW_PINS { B9 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, B4, B5, B6, B7, A10, A9, B15, B14, B13, B8, A0, A1, A2, A15, A8, A7, A6,  A13, A14, B12, B11, B10 }
+#define DIRECT_PINS { { B0,    B1,     B2,     B3,     B4,     B5,     B6,     B7,     A10,    A9 },     \
+                      { B9,    B15,    B14,    B13,    B8,     A0,     A1,     A2,     NO_PIN, NO_PIN }, \
+                      { A15,   A8,     A7,     A6,     NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }, \
+                      { A13,   A14,    B12,    B11,    B10,    NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }  \
+}
+#define UNUSED_PINS
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
