@@ -1,4 +1,6 @@
-![Chris DZ60](https://i.imgur.com/EfrF09S.png)
+![Keyboard Picture](https://i.imgur.com/ezWKOdGr.jpg)
+
+![Chris DZ60](https://i.imgur.com/GhprAww.png)
 
 # Chris' DZ60 Layout
 
