@@ -62,7 +62,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI,  RESET,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  MC_LHPD,            _______,
         _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      TG_MAGC,  _______,
         _______,  _______,  RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  MM_RSFT,            KC_PGUP,  _______,
-        _______,  _______,  _______,                      _______,  _______,  _______,                      _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_END
+        _______,  _______,  _______,                      _______,  TG(_LIGHT),  _______,                      _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_END
+    ),
+    /* Keyboard Layer: Light
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+     * │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │
+     * ├───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┴───┼───┤
+     * │   │   │   │   │   │   │   │   │   │   │   │   │   │       │   │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │RMod │Hu+│St+│Vl+│RST│   │   │   │   │   │   │   │   │     │   │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │      │Hu-│St-│Vl-│   │   │   │   │   │   │   │   │Magic   │   │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │        │RTg│   │   │   │   │   │   │   │   │   │      │   │   │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴──┬┴──┬┴──┬───┼───┼───┤
+     * │    │    │    │                        │   │   │   │   │   │   │
+     * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
+     */
+    [_LIGHT] = LAYOUT(
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI,  RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
+        XXXXXXX,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                      TG_MAGC,  XXXXXXX,
+        _______,  XXXXXXX,  RGB_TOG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,            XXXXXXX,  XXXXXXX,
+        _______,  _______,  _______,                      XXXXXXX,  TG(_LIGHT),  XXXXXXX,                      _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX
     ),
     /* Keyboard Layer: Magic
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
