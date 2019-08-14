@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
 
 // Layer shorthand
 #define _QW 0
