@@ -23,7 +23,7 @@ RGB_MATRIX_ENABLE = WS2812
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 # CFLAGS += -flto
-BOOTLOADER = dfu
+BOOTLOADER = qmk-dfu
 
 
 # If you want to change the display of OLED, you need to change here

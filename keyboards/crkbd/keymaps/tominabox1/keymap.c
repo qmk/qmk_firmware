@@ -57,10 +57,6 @@ extern rgblight_config_t rgblight_config;
 
 extern uint8_t is_master;
 
-#define QMK_ESC_OUTPUT F4 // usually COL
-#define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED B0
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -114,16 +110,6 @@ enum {
     KC_EMAIL = 0,
     TD_SFT_CPS,
 };
-
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-}
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
