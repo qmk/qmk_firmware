@@ -88,8 +88,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 unregister_mods(MOD_BIT(KC_RGUI));
                 layer_off(_NUMBER);
                 if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    register_code(KC_QUOT);
-                    unregister_code(KC_QUOT);
+                    tap_code(KC_QUOT);
                 }
             }
             return false; break;
