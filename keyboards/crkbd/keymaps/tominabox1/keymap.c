@@ -12,6 +12,26 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
 #ifdef RGB_MATRIX_ENABLE
 
+static bool is_suspended;
+static bool rgb_matrix_enabled;
+
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+    if (!is_suspended) {
+        is_suspended = true;
+        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
+        rgb_matrix_disable_noeeprom();
+    }
+}
+
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_set_suspend_state(false);
+    is_suspended = false;
+    if (rgb_matrix_enabled) {
+        rgb_matrix_enable_noeeprom();
+    }
+}
+
 #    include "lib/lib8tion/lib8tion.h"
 extern led_config_t g_led_config;
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
@@ -56,10 +76,6 @@ extern rgblight_config_t rgblight_config;
 #endif
 
 extern uint8_t is_master;
-
-#define QMK_ESC_OUTPUT F4 // usually COL
-#define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED B0
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -171,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    MINS,    EQL,    LBRC,   RBRC, BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   NO,   NO, SLSH,\
+       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, SLSH,\
   //|------+--- ---+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -183,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,   UNDS,  PLUS,  LCBR,  RCBR,   PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,  PLUS,  LEFT,  DOWN,  UP, RGHT,\
+       SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,  PLUS,  NO,  DOT,  NO, SLSH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -212,6 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             //`--------------------'  `--------------------'
                           )
 };
+
 
 int RGB_current_mode;
 
@@ -357,6 +374,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_enable();
                 RGB_current_mode = rgb_matrix_config.mode;
             }
+            
 #endif
             break;
     }
