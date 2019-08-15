@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +15,9 @@
  */
 
 #pragma once
-#include "quantum.h"
+
+#include "config_common.h"
+
+#define MATRIX_COL_PINS { B4 }
+#define MATRIX_ROW_PINS { B5 }
+#define UNUSED_PINS
