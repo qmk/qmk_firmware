@@ -63,6 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
   ),
 
+#ifdef UNICODEMAP_ENABLE
+  [_UNICODE] = LAYOUT_collide39_base_wrapper(
+    _______________UNICODE_L1__________________, _______________UNICODE_R1__________________,
+    _______________UNICODE_L2__________________, _______________UNICODE_R2__________________,
+    _______________UNICODE_L3__________________, _______________UNICODE_R3__________________
+  ),
+#endif
   [_WORKMAN] = LAYOUT_collide39_base_wrapper(
     _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
     _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
