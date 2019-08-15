@@ -172,3 +172,7 @@ uint32_t eeconfig_read_haptic(void) { return eeprom_read_dword(EECONFIG_HAPTIC);
  * FIXME: needs doc
  */
 void eeconfig_update_haptic(uint32_t val) { eeprom_update_dword(EECONFIG_HAPTIC, val); }
+
+bool eeconfig_read_handedness(void)      { return !!eeprom_read_byte(EECONFIG_HANDEDNESS); }
+
+void eeconfig_update_handedness(bool val) { eeprom_update_byte(EECONFIG_HANDEDNESS, !!val); }
