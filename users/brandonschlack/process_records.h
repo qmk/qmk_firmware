@@ -9,6 +9,9 @@ enum custom_keycodes {
     TG_REDR,
     TG_MEDA,
     TG_KYPD,
+    RGB_LYR,
+    RGB_THEME_FORWARD,
+    RGB_THEME_REVERSE,
     KEYMAP_SAFE_RANGE
 };
 
@@ -53,5 +56,9 @@ void matrix_scan_cmd_tab(void);
 #define MC_WH_D   KC_WH_U
 #define MC_WH_L   KC_WH_R
 #define MC_WH_R   KC_WH_L
+
+// RGB Theme
+#define RGB_THM   RGB_THEME_FORWARD
+#define RGB_RTHM  RGB_THEME_REVERSE
 
 void send_make_command(bool flash_bootloader);

@@ -65,6 +65,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         #endif // IS_MACROPAD
+        #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        case RGB_LYR:
+            if (record->event.pressed) {
+                user_config.rgb_layer_change ^= 1;
+                eeconfig_update_user(user_config.raw);
+                if (user_config.rgb_layer_change) { // if layer state indication is enabled,
+                    layer_state_set(layer_state);   // then immediately update the layer color
+                }
+            }
+            break;
+        case RGB_THEME_FORWARD:
+            if (record->event.pressed) {
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                if(shifted) {
+                    rgb_theme_step_reverse();
+                } else {
+                    rgb_theme_step();
+                }
+            }
+            break;
+        case RGB_THEME_REVERSE:
+            if (record->event.pressed) {
+                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+                if(shifted) {
+                    rgb_theme_step();
+                } else {
+                    rgb_theme_step_reverse();
+                }
+            }
+            break;
+        #endif
     }
     return process_record_keymap(keycode, record);
 }

@@ -165,13 +165,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ├────────┼────────┼────────┤
         │  Mode- │  Val-  │  Mode+ │
         ├────────┼────────┼────────┤
-        │  Plain │ Breath │  XXXX  │
+        │ LyrTgl │ NxtThm │  XXXX  │
         └────────┴────────┴────────┘
      */
     [_LIGHT] = LAYOUT(
         RGB_TOG, RGB_VAI, TG_LGHT,
         RGB_RMOD,RGB_VAD, RGB_MOD,
-        RGB_M_P, RGB_M_B, XXXXXXX
+        RGB_LYR, RGB_THM, XXXXXXX
     ),
     /*
         Layer: Magic
@@ -192,10 +192,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG_REVW, TG_LNAV, TG_EDIT
     ),
 };
-
-void matrix_init_keymap(void) {
-    set_rgb_theme(OBLIQUE);
-}
 
 /**
  * Encoder

@@ -111,7 +111,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                      XXXXXXX,  XXXXXXX,  XXXXXXX,                      _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX
     ),
 };
-
-void matrix_init_keymap(void) {
-    set_rgb_theme(OBLIQUE);
-}

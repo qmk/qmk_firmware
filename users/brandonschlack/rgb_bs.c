@@ -34,6 +34,7 @@ static const HSV oblique_green =  { HSV_OBQ_GREEN };
 static const rgb_theme_t rgb_oblique = { OBLIQUE, { &oblique_white, &oblique_purple, &oblique_red, &oblique_orange, &oblique_green } };
 
 static const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite, &rgb_oblique };
+static const size_t rgb_theme_max = (sizeof themes / sizeof *themes);
 
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
@@ -54,6 +55,18 @@ void set_rgb_theme(rgb_theme_name_t theme_name) {
 
 rgb_theme_t get_rgb_theme(void) {
     return *themes[user_config.rgb_theme];
+}
+
+void rgb_theme_step(void) {
+    rgb_theme_name_t current = user_config.rgb_theme;
+    current = (current + 1) % rgb_theme_max;
+    set_rgb_theme(current);
+}
+
+void rgb_theme_step_reverse(void) {
+    rgb_theme_name_t current = user_config.rgb_theme;
+    current = (current - 1) % rgb_theme_max;
+    set_rgb_theme(current);
 }
 
 #ifdef RGB_MATRIX_ENABLE

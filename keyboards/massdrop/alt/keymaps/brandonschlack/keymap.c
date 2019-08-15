@@ -92,7 +92,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_keymap(void) {
-    set_rgb_theme(LASER);
 };
 
 // Runs once after keyboard initializes

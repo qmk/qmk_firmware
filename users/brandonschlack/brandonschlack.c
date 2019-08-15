@@ -5,6 +5,7 @@ user_config_t user_config;
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
     user_config.raw = 0;
     user_config.rgb_layer_change = true;
+    user_config.rgb_theme = 0;
     eeconfig_update_user(user_config.raw);
 }
 __attribute__((weak))
