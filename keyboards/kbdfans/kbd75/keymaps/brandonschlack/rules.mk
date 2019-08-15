@@ -7,6 +7,3 @@ BOOTLOADER = atmel-dfu
 CONSOLE_ENABLE = yes    # Console for Debug (+400)
 MOUSEKEY_ENABLE = no	# Don't need Mouse Keys
 BACKLIGHT_ENABLE = no   # No backlights installed
-
-# Userspace Options
-RGB_THEME = granite	    # Set RGB colors to Granite Theme

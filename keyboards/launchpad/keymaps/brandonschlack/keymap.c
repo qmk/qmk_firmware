@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lights
  * ┌──────┬──────┐
- * │ HUE- │ HUE+ │
+ * │ THM+ │ HUE+ │
  * ├──────┼──────┤
  * │ SAT- │ SAT+ │
  * ├──────┼──────┤
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └──────┴──────┘
  */
 [_LIGHT] = LAYOUT( \
-    RGB_HUD, RGB_HUI, \
+    RGB_THM, RGB_HUI, \
     RGB_SAD, RGB_SAI, \
     RGB_VAD, RGB_VAI, \
     XXXXXXX, RGB_MOD \
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_user(void) {
+void matrix_init_keymap(void) {
 
 }
 

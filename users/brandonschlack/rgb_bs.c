@@ -1,4 +1,5 @@
 #include "brandonschlack.h"
+#include "rgb_theme.h"
 #include "rgb_bs.h"
 
 #if defined(RGBLIGHT_ENABLE)
@@ -9,6 +10,32 @@ extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 
+static const HSV default_magic = { HSV_SPRINGGREEN };
+
+static const HSV laser_purple =  { HSV_LSR_PURPLE };
+static const HSV laser_pink =    { HSV_LSR_PINK };
+static const HSV laser_blue =    { HSV_LSR_BLUE };
+static const HSV laser_cyan =    { HSV_LSR_CYAN };
+static const HSV laser_magenta = { HSV_LSR_MAGENTA };
+static const rgb_theme_t rgb_laser = { LASER, { &laser_purple, &laser_pink, &laser_blue, &laser_cyan, &laser_magenta } };
+
+static const HSV granite_white =  { HSV_GNT_WHITE };
+static const HSV granite_blue =   { HSV_GNT_BLUE };
+static const HSV granite_red =    { HSV_GNT_RED };
+static const HSV granite_green =  { HSV_GNT_GREEN };
+static const HSV granite_yellow = { HSV_GNT_YELLOW };
+static const rgb_theme_t rgb_granite = { GRANITE, { &granite_white, &granite_blue, &granite_red, &granite_green, &granite_yellow } };
+
+static const HSV oblique_white =  { HSV_OBQ_WHITE };
+static const HSV oblique_purple = { HSV_OBQ_PURPLE };
+static const HSV oblique_red =    { HSV_OBQ_RED };
+static const HSV oblique_orange = { HSV_OBQ_ORANGE };
+static const HSV oblique_green =  { HSV_OBQ_GREEN };
+static const rgb_theme_t rgb_oblique = { OBLIQUE, { &oblique_white, &oblique_purple, &oblique_red, &oblique_orange, &oblique_green } };
+
+static const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite, &rgb_oblique };
+static const size_t rgb_theme_max = (sizeof themes / sizeof *themes);
+
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
 #if defined(RGBLIGHT_ENABLE)
@@ -16,6 +43,30 @@ void keyboard_post_init_rgb(void) {
 #elif defined(RGB_MATRIX_ENABLE)
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 #endif
+}
+
+void set_rgb_theme(rgb_theme_name_t theme_name) {
+    if (!user_config.rgb_layer_change) {
+        user_config.rgb_layer_change = true;
+    }
+    user_config.rgb_theme = theme_name;
+    eeconfig_update_user(user_config.raw);
+}
+
+rgb_theme_t get_rgb_theme(void) {
+    return *themes[user_config.rgb_theme];
+}
+
+void rgb_theme_step(void) {
+    rgb_theme_name_t current = user_config.rgb_theme;
+    current = (current + 1) % rgb_theme_max;
+    set_rgb_theme(current);
+}
+
+void rgb_theme_step_reverse(void) {
+    rgb_theme_name_t current = user_config.rgb_theme;
+    current = (current - 1) % rgb_theme_max;
+    set_rgb_theme(current);
 }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -58,41 +109,27 @@ void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
 }
 #endif
 
-layer_state_t layer_state_set_rgb(layer_state_t state) {
-    #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    switch (biton32(state)) {
-#ifndef IS_MACROPAD
-        case _MACFN:
-            rgb_layer_helper(HSV_THEME_1);
-            break;
-#else
-        case _REEDER:
-            rgb_layer_helper(HSV_THEME_1);
-            break;
-        case _MEDIA:
-            rgb_layer_helper(HSV_THEME_2);
-            break;
-        case _KEYPAD:
-            rgb_layer_helper(HSV_THEME_3);
-            break;
-#endif
-        case _MAGIC:
-            rgb_layer_helper(HSV_THEME_M);
-            break;
-        default:
-            switch (biton32(default_layer_state)) {
-    #ifndef IS_MACROPAD
-                case _MAC:
-                    rgb_layer_helper(HSV_THEME_0);
-                    break;
-    #else
-                case _NAVI:
-                    rgb_layer_helper(HSV_THEME_0);
-                    break;
-    #endif
-            }
-            break;
+HSV get_rgb_theme_color(uint8_t index) {
+    rgb_theme_t theme = get_rgb_theme();
+    size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
+
+    if (index == _MAGIC) {
+        return default_magic;
+    } else {
+        return **(theme.colors + (index % rgb_theme_color_max));
     }
+};
+
+void rgb_theme_layer(layer_state_t state) {
+    uint8_t rgb_color_index = biton32(state);
+    HSV color = get_rgb_theme_color(rgb_color_index);
+
+    rgb_layer_helper( color.h, color.s, color.v );
+}
+
+layer_state_t layer_state_set_rgb(layer_state_t state) {
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    rgb_theme_layer(state);
 #endif // RGBLIGHT_ENABLE
     return state;
 }
