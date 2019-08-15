@@ -11,5 +11,3 @@
 
 #undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS { B5, B4, B3, B2, B1, B0 }
-
-#define TAPPING_TERM 175
