@@ -21,12 +21,11 @@ enum userspace_custom_keycodes{
 
   KC_MAKE,           // Run keyboard's customized make command
   KC_RGB_T,          // Toggles RGB Layer Indication mode
-  KC_SECRET_1,       // test1
-  KC_SECRET_2,       // test2
-  KC_SECRET_3,       // test3
-  KC_SECRET_4,       // test4
-  KC_SECRET_5,       // test5
-  KC_SECRET_6,       // test6
+  KC_SECRET_1,       
+  KC_SECRET_2,       
+  KC_SECRET_3,       
+  KC_SECRET_4,       
+  KC_SECRET_5,       
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
   UC_FLIP,           // (ಠ痊ಠ)┻━┻
@@ -80,6 +79,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_SEC3 KC_SECRET_3
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
+#define KC_SEC6 KC_SECRET_6
 
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
