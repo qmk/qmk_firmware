@@ -1,7 +1,3 @@
-# project specific files
-SRC =	matrix.c \
-	    led.c
-
 ## chip/board settings
 # the next two should match the directories in
 #  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
@@ -33,6 +29,6 @@ ARMV = 6
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
 #STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
 
-# Build Options
-#   comment out to disable the options.
-#
+# Options to pass to dfu-util when flashing
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -p df11 -v 0483
