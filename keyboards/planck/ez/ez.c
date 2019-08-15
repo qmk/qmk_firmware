@@ -207,6 +207,9 @@ void led_initialize_hardware(void) {
 }
 
 void keyboard_pre_init_kb(void) {
+    if (!eeconfig_is_enabled()) {
+      eeconfig_init();
+    }
     // read kb settings from eeprom
     keyboard_config.raw = eeconfig_read_kb();
 #ifdef RGB_MATRIX_ENABLE
