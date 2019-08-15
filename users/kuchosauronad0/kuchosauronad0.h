@@ -9,9 +9,10 @@
 #include "eeprom.h"
 #include "wrappers.h"
 #include "process_records.h"
+
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
-  #define KC_TMX TD(TD_TMX)   // tap1: 't'  tap2: <CTL>+b because I want it on my main layer w/o having to press/hold another button
+  #define KC_TMX TD(TD_TMX)   // tap1: 't'  tap2: <CTL>+b
   #define KC_EOL TD(TD_EOL)   // tap1: 'e'  tap2: <CTL>+e
   #define KC_BOL TD(TD_BOL)   // tap1: 'a'  tap2: <CTL>+a
   #define KC_NW TD(TD_NW)     // tap1: 'f'  tap2: <ALT>+f
@@ -75,14 +76,6 @@ void tmux_pane_last(void);
 void tmux_pane_switch_repeat(void);
 void tmux_pane_switch(uint16_t keycode);
 
-void git_commit(void);
-void git_add(void);
-void git_push(void);
-void git_revert(void);
-void git_log(void);
-void git_status(void);
-
-
 typedef union {
   uint32_t raw;
   struct {
@@ -114,3 +107,5 @@ We use custom codes here, so we can substitute the right stuff
 #endif // TAP_DANCE_ENABLE
 
 #endif // !USERSPACE
+
+/* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et */
