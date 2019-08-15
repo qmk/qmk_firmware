@@ -1,4 +1,4 @@
-/* Copyright 2018 Jack Humbert
+/* Copyright 2017 Benjamin Kesselring
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "proton_c.h"
+#pragma once
 
-void matrix_init_kb(void) {
-  // Turn status LED on
-  setPinOutput(C13);
-  writePinHigh(C13);
-
-  matrix_init_user();
-}
+// place overrides here
