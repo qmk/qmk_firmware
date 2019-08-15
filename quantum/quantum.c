@@ -1034,104 +1034,147 @@ void matrix_scan_quantum() {
 }
 #if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
 
-// The logic is a bit complex, we support 3 setups:
-// 1. hardware PWM when backlight is wired to a PWM pin
-// depending on this pin, we use a different output compare unit
-// 2. software PWM with hardware timers, but the used timer depends
-// on the audio setup (audio wins other backlight)
-// 3. full software PWM
+// This logic is a bit complex, we support 3 setups:
+//
+//   1. Hardware PWM when backlight is wired to a PWM pin.
+//      Depending on this pin, we use a different output compare unit.
+//   2. Software PWM with hardware timers, but the used timer
+//      depends on the Audio setup (Audio wins over Backlight).
+//   3. Full software PWM, driven by the matrix scan, if both timers are used by Audio.
 
-#if BACKLIGHT_PIN == B7
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1C1
-#  define OCRxx  OCR1C
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B5
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1A1
-#  define OCRxx  OCR1A
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == C6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR3A
-#  define TCCRxB TCCR3B
-#  define COMxx1 COM3A1
-#  define OCRxx  OCR3A
-#  define TIMERx_OVF_vect TIMER3_OVF_vect
-#  define TOIEx  TOIE3
-#  define ICRx   ICR3
-#  define TIMSKx TIMSK3
-#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
+#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == B5 || BACKLIGHT_PIN == B6 || BACKLIGHT_PIN == B7)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #elif BACKLIGHT_PIN == B6
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #endif
+#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == C4 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR3
+  #define TCCRxA          TCCR3A
+  #define TCCRxB          TCCR3B
+  #define TIMERx_OVF_vect TIMER3_OVF_vect
+  #define TIMSKx          TIMSK3
+  #define TOIEx           TOIE3
+
+  #if BACKLIGHT_PIN == C4
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C4 pin!
+    #else
+      #define COMxx1      COM3C1
+      #define OCRxx       OCR3C
+    #endif
+  #elif BACKLIGHT_PIN == C5
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C5 pin!
+    #else
+      #define COMxx1      COM3B1
+      #define OCRxx       OCR3B
+    #endif
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM3A1
+    #define OCRxx         OCR3A
+  #endif
+#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) \
+  && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #elif BACKLIGHT_PIN == C5
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
+#elif defined(__AVR_ATmega32A__) \
+  && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == D4
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == D5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
 #else
-#  if !defined(BACKLIGHT_CUSTOM_DRIVER)
-#    if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
-     // timer 1 is not used by audio , backlight can use it
-#pragma message "Using hardware timer 1 with software PWM"
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR1A
-#      define TCCRxB TCCR1B
-#      define OCRxx  OCR1A
-#      define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#      define TIMERx_OVF_vect TIMER1_OVF_vect
-#      define OCIExA OCIE1A
-#      define TOIEx  TOIE1
-#      define ICRx   ICR1
-#      if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
-#        define TIMSKx TIMSK
-#      else
-#        define TIMSKx TIMSK1
-#      endif
-#    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
-#pragma message "Using hardware timer 3 with software PWM"
-// timer 3 is not used by audio, backlight can use it
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR3A
-#      define TCCRxB TCCR3B
-#      define OCRxx OCR3A
-#      define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#      define TIMERx_OVF_vect TIMER3_OVF_vect
-#      define OCIExA OCIE3A
-#      define TOIEx  TOIE3
-#      define ICRx   ICR1
-#      define TIMSKx TIMSK3
-#    else
-#pragma message "Audio in use - using pure software PWM"
-#define NO_HARDWARE_PWM
-#    endif
-#  else
-#pragma message "Custom driver defined - using pure software PWM"
-#define NO_HARDWARE_PWM
-#  endif
+  #if !defined(BACKLIGHT_CUSTOM_DRIVER)
+    #if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
+      // Timer 1 is not in use by Audio feature, Backlight can use it
+      #pragma message "Using hardware timer 1 with software PWM"
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR1A
+      #define TCCRxB            TCCR1B
+      #define TIMERx_COMPA_vect TIMER1_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER1_OVF_vect
+      #if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+        #define TIMSKx          TIMSK
+      #else
+        #define TIMSKx          TIMSK1
+      #endif
+      #define TOIEx             TOIE1
+
+      #define OCIExA            OCIE1A
+      #define OCRxx             OCR1A
+    #elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
+      #pragma message "Using hardware timer 3 with software PWM"
+      // Timer 3 is not in use by Audio feature, Backlight can use it
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR3A
+      #define TCCRxB            TCCR3B
+      #define TIMERx_COMPA_vect TIMER3_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER3_OVF_vect
+      #define TIMSKx            TIMSK3
+      #define TOIEx             TOIE3
+
+      #define OCIExA            OCIE3A
+      #define OCRxx             OCR3A
+    #else
+      #pragma message "Audio in use - using pure software PWM"
+      #define NO_HARDWARE_PWM
+    #endif
+  #else
+    #pragma message "Custom driver defined - using pure software PWM"
+    #define NO_HARDWARE_PWM
+  #endif
 #endif
 
 #ifndef BACKLIGHT_ON_STATE
@@ -1300,7 +1343,7 @@ static uint16_t cie_lightness(uint16_t v) {
 
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) {
-	OCRxx = val;
+  OCRxx = val;
 }
 
 #ifndef BACKLIGHT_CUSTOM_DRIVER

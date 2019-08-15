@@ -19,7 +19,11 @@ Note that running `make` with `sudo` is generally ***not*** a good idea, and you
 
 ### Linux `udev` Rules
 On Linux, you'll need proper privileges to access the MCU. You can either use
-`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`.
+`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`. Once added run the following:
+```console
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
 
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
 ```
@@ -41,6 +45,28 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
 # Input Club keyboard bootloader
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
+
+**/etc/udev/rules.d/55-catalina.rules:**
+```
+# ModemManager should ignore the following devices
+ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
+ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
+```
+
+**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+```console
+sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+sudo systemctl daemon-reload
+sudo systemctl restart ModemManager
+```
+
+**/etc/udev/rules.d/56-dfu-util.rules:**
+```
+# stm32duino
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"
+# Generic stm32
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
