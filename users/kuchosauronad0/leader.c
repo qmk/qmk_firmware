@@ -20,8 +20,8 @@ void matrix_scan_user(void){
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
-    // T is for TMUX
-    // Q is for OS related things
+    // Q is for TMUX
+    // Z is for OS related things
     // other single key sequences are mostly for terminals and vim
 
     SEQ_ONE_KEY(KC_W) {
@@ -31,10 +31,14 @@ void matrix_scan_user(void){
       }
     
     SEQ_ONE_KEY(KC_T) {
+      // Send the Tmux Prefix
+      tmux_prefix();
+    }
+
+    SEQ_ONE_KEY(KC_A) {
       // Send the Tmux Prefix and press 'right' arrow
       tmux_prefix();
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
+      tap_code(KC_RIGHT);
     }
 
     SEQ_TWO_KEYS(KC_T, KC_T) {
@@ -42,22 +46,23 @@ void matrix_scan_user(void){
       tmux_prefix();
       tmux_prefix();
     }
-
     SEQ_TWO_KEYS(KC_Q, KC_A) {
-      // Switch to layer L_A Adjust
-      layer_on(_ADJUST);
+      // Switch pane and repeat last action
+      tmux_pane_switch_repeat();
     }
 
-    SEQ_TWO_KEYS(KC_Q, KC_P){
+    SEQ_TWO_KEYS(KC_Z, KC_P){
       // Press windows key, send string 'plex' and press enter
       register_code(KC_LGUI);
       register_code(KC_S);
       unregister_code(KC_S);
+
       unregister_code(KC_LGUI);
-      SEND_STRING("plex" SS_TAP(X_ENTER));
+      SEND_STRING("plex");
+      tap_code(KC_ENTER);
     }
 
-    SEQ_TWO_KEYS(KC_Q, KC_S) {
+    SEQ_TWO_KEYS(KC_Z, KC_F) {
       // Open a search
       register_code(KC_LGUI);
       register_code(KC_S);
@@ -65,7 +70,7 @@ void matrix_scan_user(void){
       unregister_code(KC_LGUI);
     }
 
-    SEQ_THREE_KEYS(KC_Q, KC_Q, KC_S) {
+    SEQ_TWO_KEYS(KC_Z, KC_Z) {
       SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
     }
 
