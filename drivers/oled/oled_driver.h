@@ -138,6 +138,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_FONT_HEIGHT 8
 #endif
 
+#if !defined(OLED_TIMEOUT)
+  #if defined(OLED_DISABLE_TIMEOUT)
+    #define OLED_TIMEOUT 0
+  #else
+    #define OLED_TIMEOUT 60000
+  #endif
+#endif
+
+#if !defined(OLED_SCROLL_TIMEOUT_FN)
+  #define OLED_SCROLL_TIMEOUT_FN oled_scroll_left
+#endif
+
 // OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,
