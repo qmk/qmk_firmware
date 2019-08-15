@@ -80,3 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
   #define NO_PRINT
 #endif // !NO_PRINT
+
+#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_LGUI
+#define RCPC_KEYS KC_RCTL, KC_TRNS, KC_ENTER
+
+#define LAPO_KEYS KC_LALT, KC_TRNS, KC_LBRACKET
+#define RAPC_KEYS KC_RGUI, KC_TRNS, KC_RBRACKET

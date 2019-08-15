@@ -35,11 +35,12 @@ enum custom_keycodes {
 #define KC_SMSPC LT(_SYM, KC_SPC)
 #define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
 
-#define KC_CTGUI LCTL_T(KC_LGUI)
-#define KC_CTENT RCTL_T(KC_ENT)
+// Obsolete in favor of space cadet keys since those ignore RETRO_TAPPING
+// #define KC_CTGUI LCTL_T(KC_LGUI)
+// #define KC_CTENT RCTL_T(KC_ENT)
 
-#define KC_ALTBR LALT_T(KC_LBRACKET)
-#define KC_GUIBR RGUI_T(KC_RBRACKET)
+// #define KC_ALTBR LALT_T(KC_LBRACKET)
+// #define KC_GUIBR RGUI_T(KC_RBRACKET)
 
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
@@ -73,9 +74,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       FNTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTGUI,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, CTENT,\
+       LCPO,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH,  RCPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  ALTBR,  LSPO, SMSPC,   T_NAV,  RSPC, GUIBR \
+                                   LAPO,  LSPO, SMSPC,   T_NAV,  RSPC,   RAPC \
                               //`--------------------'  `--------------------'
   ),
 
