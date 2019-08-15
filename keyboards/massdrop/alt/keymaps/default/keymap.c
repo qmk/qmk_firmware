@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 key_timer = timer_read32();
             } else {
-                if (timer_elapsed32(key_timer) >= 500) {
+                if (timer_elapsed32(key_timer) >= BOOTKEY_HOLD_MS) {
                     reset_keyboard();
                 }
             }

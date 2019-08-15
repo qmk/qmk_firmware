@@ -647,6 +647,7 @@ bool process_record_quantum(keyrecord_t *record) {
             #endif
             break;
           case MAGIC_TOGGLE_NKRO:
+            clear_keyboard();   // clear first buffer to prevent stuck keys -PS080919
             keymap_config.nkro = !keymap_config.nkro;
             break;
           default:
