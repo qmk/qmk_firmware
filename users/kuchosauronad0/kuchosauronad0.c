@@ -97,10 +97,6 @@ void suspend_wakeup_init_user(void) {
 
 __attribute__ ((weak))
 void matrix_scan_keymap(void) {}
-//
-//#ifdef LEADER_ENABLE
-//LEADER_EXTERNS();
-//#endif
 
 __attribute__ ((weak))
 void matrix_scan_user(void){
@@ -177,77 +173,24 @@ void eeconfig_init_user(void) {
   #endif
 }
 
-// functions to make life easier
 // TMUX stuff
 void tmux_prefix(void) {
   register_code(KC_LCTL);
-  register_code(KC_B);
-
+  tap_code(KC_B);
   unregister_code(KC_LCTL);
-  unregister_code(KC_B);
 }
 
-void tmux_pane_zoom(void) {
-  tmux_prefix();
-  register_code(KC_Z);
-  unregister_code(KC_Z);
-}
 
 void tmux_pane_last(void) {
   tmux_prefix();
-  register_code(KC_SCLN);
-  unregister_code(KC_SCLN);
+  tap_code(KC_SCLN);
 }
 
 void tmux_pane_switch_repeat(void) {
   tmux_pane_last();
-  register_code(KC_UP);
-  unregister_code(KC_UP);
-  register_code(KC_ENT);
-  unregister_code(KC_ENT);
+  tap_code(KC_UP);
+  tap_code(KC_ENT);
   tmux_pane_last();
 }
 
-void tmux_pane_switch(uint16_t keycode) {
- //TODO: use tap_code(<KC>) instead
-  tmux_prefix();
-  register_code(KC_Q);
-  unregister_code(KC_Q);
-  register_code(keycode);
-  unregister_code(keycode);
-}
-
-// git stuff
-void git_commit(void) {
-  SEND_STRING("git commit -m \"\"" SS_TAP(X_RIGHT));
-}
-
-void git_add(void) {
-  SEND_STRING("git add ");
-}
-
-void git_push(void){
-  SEND_STRING("git push" SS_TAP(X_ENTER));
-}
-
-void git_lazy(void){
-  git_status();
-  git_add();
-  //SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_DOT));
-  tap_code(KC_ESC);
-  tap_code(KC_DOT);
-  git_commit();
-  //TODO: figure out how to use per key timeout for the commit message and then run git_push()
-}
-
-void git_revert(void){
-  SEND_STRING("git revert ^HEAD" SS_TAP(X_ENTER));
-}
-
-void git_log(void){
-  SEND_STRING("git log" SS_TAP(X_ENTER));
-}
-
-void git_status(void){
-  SEND_STRING("git status" SS_TAP(X_ENTER));
-}
+/* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et */
