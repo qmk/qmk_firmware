@@ -75,6 +75,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        case RGB_HUI ... RGB_VAD:
+            if (record->event.pressed) {
+                if (user_config.rgb_layer_change) {        // only if this is enabled
+                    user_config.rgb_layer_change = false;  // disable it, and
+                    eeconfig_update_user(user_config.raw); // write the setings to EEPROM
+                }
+            }
         case RGB_THEME_FORWARD:
             if (record->event.pressed) {
                 uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
