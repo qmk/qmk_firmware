@@ -59,99 +59,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case MC_QT1:  // ""
     if(record->event.pressed){
       SEND_STRING("\"\"");
-      register_code(KC_LEFT);
+      tap_code(KC_LEFT);
     }
-    unregister_code(KC_LEFT);
     break;
     case MC_QT2:  // ''
       if(record->event.pressed){
         SEND_STRING("''");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MC_QT3:  // `'
       if(record->event.pressed){
         SEND_STRING("`'");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MC_PAR:  // Parenthesis
       if(record->event.pressed){
         SEND_STRING("()");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MC_CUR:  // Curly bracket
       if(record->event.pressed){
         SEND_STRING("{}");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MC_SQR:  // Square bracket
       if(record->event.pressed){
         SEND_STRING("[]");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MC_ABR:  // Angle bracket
       if(record->event.pressed){
         SEND_STRING("<>");
-        register_code(KC_LEFT);
+        tap_code(KC_LEFT);
       }
-      unregister_code(KC_LEFT);
       break;
     case MCT_NEW: // New Tmux Session
       if(record->event.pressed){
-        register_code(KC_LCTL);
-        register_code(KC_B);
-        unregister_code(KC_B);
-        unregister_code(KC_LCTL);
+        tmux_prefix();
         SEND_STRING(":neww");
-        register_code(KC_ENT);
+        tap_code(KC_ENT);
       }
-      unregister_code(KC_ENT);
       break;
     case MCT_SH:  // Tmux horizontal split
       if(record->event.pressed){
-        register_code(KC_LCTL);
-        register_code(KC_B);
-        unregister_code(KC_B);
-        unregister_code(KC_LCTL);
+        tmux_prefix();
         SEND_STRING("%");
       }
       break;
     case MCT_SV:  // Tmux vertical split
       if(record->event.pressed){
-        register_code(KC_LCTL);
-        register_code(KC_B);
-        unregister_code(KC_B);
-        unregister_code(KC_LCTL);
+        tmux_prefix();
         SEND_STRING("\"");
       }
       break;
     case MCT_ZM:  // Tmux zoom
       if(record->event.pressed){
-        register_code(KC_LCTL);
-        register_code(KC_B);
-        unregister_code(KC_B);
-        unregister_code(KC_LCTL);
-        register_code(KC_Z);
-        unregister_code(KC_Z);
+        tmux_prefix();
+        tap_code(KC_Z);
       }
       break;
     case MCT_SCR: // Tmux scroll mode
       if(record->event.pressed){
-        register_code(KC_LCTL);
-        register_code(KC_B);
-        unregister_code(KC_B);
-        unregister_code(KC_LCTL);
-        register_code(KC_PGUP);
-        unregister_code(KC_PGUP);
+        tmux_prefix();
+        tap_code(KC_PGUP);
       }
       break;
     case MCT_UP:  // Tmux up
@@ -162,40 +137,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MCT_RGT: // Tmux right
       tmux_prefix();
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
+      tap_code(KC_RIGHT);
       break;
     case MCV_B:   // Vim begin of line
       if(record->event.pressed){
-        register_code(KC_0);
-        unregister_code(KC_0);
+        tap_code(KC_0);
       }
       break;
     case MCV_E:   // Vim end of line
       if(record->event.pressed){
         SEND_STRING(":vsplit");
-        register_code(KC_ENT);
+        tap_code(KC_ENT);
       }
-      unregister_code(KC_ENT);
       break;
     case MCT_F:   // Vim for loop
       if(record->event.pressed){
         SEND_STRING(":help");
-        register_code(KC_ENT);
+        tap_code(KC_ENT);
       }
-      unregister_code(KC_ENT);
       break;
-/// FLEDERMAUSLAND
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
       send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
     }
     break;
- //
 // These are a series of gaming macros.
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
-// TODO: TEST ALLIANCE BEST ALLIANCE
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeconfig_update_user(userspace_config.raw); }
@@ -266,7 +234,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       send_unicode_hex_string("0CA0 005F 0CA0");
     }
     break;
-#endif //Unicode
+#endif //!Unicode
 }
   return process_record_keymap(keycode, record) &&
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
