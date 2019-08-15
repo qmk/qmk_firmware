@@ -73,7 +73,7 @@
 #elif defined(KEYBOARD_crkbd)
   #define TAPPING_TERM 200
 #else
-  #define TAPPING_TERM 220
+  #define TAPPING_TERM 150
 #endif
 
 
