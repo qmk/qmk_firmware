@@ -112,103 +112,23 @@ void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
 HSV get_rgb_theme_color(uint8_t index) {
     rgb_theme_t theme = get_rgb_theme();
     size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
-    HSV color;
 
-    if (index < rgb_theme_color_max) {
-        color = *theme.colors[index];
-    } else if (index == _MAGIC) {
-        color = default_magic;
+    if (index == _MAGIC) {
+        return default_magic;
     } else {
-#if defined(RGBLIGHT_ENABLE)
-        rgblight_config.raw = eeconfig_read_rgblight();
-        color = (HSV){ rgblight_config.hue, rgblight_config.sat, rgblight_config.val };
-#elif defined(RGB_MATRIX_ENABLE)
-        color = (HSV){ rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v };
-#endif
+        return **(theme.colors + (index % rgb_theme_color_max));
     }
-    return color;
 };
 
 void rgb_theme_layer(layer_state_t state) {
     uint8_t rgb_color_index = biton32(state);
     HSV color = get_rgb_theme_color(rgb_color_index);
 
-    // if (index < MAX) {
-    //     color = *(rgb_theme.colors[index]);
-    // } else if (rgb_color_index == _MAGIC) {
-    //     color = { HSV_THEME_M };
-    // }
     rgb_layer_helper( color.h, color.s, color.v );
-//     switch (biton32(state)) {
-// #ifndef IS_MACROPAD
-//         case _MACFN:
-//             rgb_layer_helper(HSV_THEME_1);
-//             break;
-// #else
-//         case _REEDER:
-//             rgb_layer_helper(HSV_THEME_1);
-//             break;
-//         case _MEDIA:
-//             rgb_layer_helper(HSV_THEME_2);
-//             break;
-//         case _KEYPAD:
-//             rgb_layer_helper(HSV_THEME_3);
-//             break;
-// #endif
-//         case _MAGIC:
-//             rgb_layer_helper(HSV_THEME_M);
-//             break;
-//         default:
-//             switch (biton32(default_layer_state)) {
-//     #ifndef IS_MACROPAD
-//                 case _MAC:
-//                     rgb_layer_helper(HSV_THEME_0);
-//                     break;
-//     #else
-//                 case _NAVI:
-//                     rgb_layer_helper(HSV_THEME_0);
-//                     break;
-//     #endif
-//             }
-//             break;
-//     }
 }
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
-    #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-//     switch (biton32(state)) {
-// #ifndef IS_MACROPAD
-//         case _MACFN:
-//             rgb_layer_helper(HSV_THEME_1);
-//             break;
-// #else
-//         case _REEDER:
-//             rgb_layer_helper(HSV_THEME_1);
-//             break;
-//         case _MEDIA:
-//             rgb_layer_helper(HSV_THEME_2);
-//             break;
-//         case _KEYPAD:
-//             rgb_layer_helper(HSV_THEME_3);
-//             break;
-// #endif
-//         case _MAGIC:
-//             rgb_layer_helper(HSV_THEME_M);
-//             break;
-//         default:
-//             switch (biton32(default_layer_state)) {
-//     #ifndef IS_MACROPAD
-//                 case _MAC:
-//                     rgb_layer_helper(HSV_THEME_0);
-//                     break;
-//     #else
-//                 case _NAVI:
-//                     rgb_layer_helper(HSV_THEME_0);
-//                     break;
-//     #endif
-//             }
-//             break;
-//     }
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     rgb_theme_layer(state);
 #endif // RGBLIGHT_ENABLE
     return state;
