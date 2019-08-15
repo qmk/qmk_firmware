@@ -1,3 +1,6 @@
+#pragma once
+
+#include "brandonschlack.h"
 #include "color.h"
 #include "rgblight_list.h"
 
@@ -63,33 +66,8 @@ typedef enum {
 
 typedef struct {
     rgb_theme_name_t theme;
-    HSV colors[5];
+    const HSV *colors[5];
 } rgb_theme_t;
-
-extern const HSV laser_purple;
-extern const HSV laser_pink;
-extern const HSV laser_blue;
-extern const HSV laser_cyan;
-extern const HSV laser_magenta;
-extern const rgb_theme_t rgb_laser;
-
-extern const HSV granite_white;
-extern const HSV granite_blue;
-extern const HSV granite_red;
-extern const HSV granite_green;
-extern const HSV granite_yellow;
-extern const rgb_theme_t rgb_granite;
-
-extern const HSV oblique_white;
-extern const HSV oblique_purple;
-extern const HSV oblique_red;
-extern const HSV oblique_orange;
-extern const HSV oblique_green;
-extern const rgb_theme_t rgb_oblique;
-
-extern const HSV default_magic;
-
-extern const rgb_theme_t *themes[];
 
 void set_rgb_theme(rgb_theme_name_t theme_name);
 rgb_theme_t get_rgb_theme(void);
