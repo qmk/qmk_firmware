@@ -48,6 +48,13 @@ void eeconfig_init_quantum(void) {
     eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
     eeprom_update_byte(EECONFIG_RGB_MATRIX_SPEED, 0);
 
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+    //        within the emulated eeprom via dfu-util or another tool
+#ifdef INIT_EE_HANDS_LEFT
+    #pragma message "Faking EE_HANDS for left hand"
+    eeprom_update_byte(EECONFIG_HANDEDNESS,        1);
+#endif
+
     eeconfig_init_kb();
 }
 
