@@ -26,10 +26,15 @@ NOTE: These are all the same length.  If you do a search/replace
   then you need to add/remove underscores to keep the
   lengths consistent.
 */
-
-#define _________________QWERTY_L1_________________        KC_Q,    KC_DW,   KC_EOL,  KC_R,    KC_TMX
-#define _________________QWERTY_L2_________________        KC_BOL,  KC_S,    KC_D,    KC_NW,   KC_G
-#define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_PW
+#ifdef TAP_DANCE_ENABLE
+  #define _________________QWERTY_L1_________________        KC_Q,    KC_DW,   KC_EOL,  KC_R,    KC_TMX
+  #define _________________QWERTY_L2_________________        KC_BOL,  KC_S,    KC_D,    KC_NW,   KC_G
+  #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_PW
+#else
+  #define _________________QWERTY_L1_________________        KC_Q,    KC_W,   KC_E,  KC_R,   KC_T
+  #define _________________QWERTY_L2_________________        KC_A,    KC_S,   KC_D,  KC_F,   KC_G
+  #define _________________QWERTY_L3_________________        KC_Z,    KC_X,   KC_C,  KC_V,   KC_B
+#endif
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
@@ -61,7 +66,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
 #define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
 
-
 #define ________________DVORAK_AU_L1_______________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
 #define ________________DVORAK_AU_L2_______________        KC_O,    KC_A,    KC_E,   KC_I,     KC_U
 #define ________________DVORAK_AU_L3_______________        KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X
@@ -69,6 +73,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ________________DVORAK_AU_R1_______________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
 #define ________________DVORAK_AU_R2_______________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
 #define ________________DVORAK_AU_R3_______________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
+
+
 #define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
 #define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
 #define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
@@ -131,15 +137,25 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _____________CARPLAX_QGMLWY_R2_____________       KC_I,    KC_A,    KC_E,    KC_O,    KC_H
 #define _____________CARPLAX_QGMLWY_R3_____________       KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
 
-//#ifdef UNICODEMAP_ENABLE
-#define _______________UNICODE_L1__________________        X(SMRK),  X(THINK),  X(THUP), X(HUNDR), X(BANG)
-#define _______________UNICODE_L2__________________        X(GRIN),  X(MONKEY), X(OKOK), X(EGGPL), X(LIT)
-#define _______________UNICODE_L3__________________        X(WEARY), X(UNAMU),  X(EFFU), X(WATER), X(IRONY)
+#ifdef UNICODE_ENABLE
+#define _______________UNICODE_L1__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
+#define _______________UNICODE_L2__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
+#define _______________UNICODE_L3__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
 
-#define _______________UNICODE_R1__________________        X(GRIN), X(SMRK), X(WEARY), X(UNAMU), X(OKOK)
-#define _______________UNICODE_R2__________________        X(GRIN), X(SMRK), X(WEARY), X(UNAMU), X(OKOK)
-#define _______________UNICODE_R3__________________        X(GRIN), X(SMRK), X(WEARY), X(UNAMU), X(OKOK)
-//#endif
+#define _______________UNICODE_R1__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#define _______________UNICODE_R2__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#define _______________UNICODE_R3__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#endif
+
+#ifdef UNICODEMAP_ENABLE
+#define _______________UNICODE_L1__________________        X(SMRK),  X(THINK),  X(CLOWN), X(HUNDR), X(BANG)
+#define _______________UNICODE_L2__________________        X(GRIN),  X(MONKEY), X(OKOK), X(EGGPL), X(LIT)
+#define _______________UNICODE_L3__________________        X(WEARY), X(UNAMU),  X(EFFU), X(MONOCL), X(IRONY)
+
+#define _______________UNICODE_R1__________________        X(DRUG0), X(THUP), X(INUP), X(DIZZY), X(COOL)
+#define _______________UNICODE_R2__________________        X(FIST0), X(FIST2),X(FIST3),X(FIST1), X(OKOK)
+#define _______________UNICODE_R3__________________        X(MNDBLWN), X(THDN), X(SPOCK),X(HOLE),  X(DASH)
+#endif
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -176,27 +192,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
 #define _________________ADJUST_R2_________________        _________________FUNC_RIGHT________________
 #define _________________ADJUST_R3_________________        KC_MUTE, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
-//
-//
-//
-//#define _________________RAISE_L1__________________        ________________NUMBER_LEFT________________
-//#define _________________RAISE_L2__________________        ___________________BLANK___________________
-//#define _________________RAISE_L3__________________        ___________________BLANK___________________
-//
-//#define _________________RAISE_R1__________________        ________________NUMBER_RIGHT_______________
-//#define _________________RAISE_R2__________________        OSL(UNICODE), KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
-//#define _________________RAISE_R3__________________        _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END
-//
-//
-//#define _________________ADJUST_L1_________________        ___________________BLANK___________________
-//#define _________________ADJUST_L2_________________        __________________FUNC_LEFT________________
-//#define _________________ADJUST_L3_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
-//
-////
-//#define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
-//#define _________________ADJUST_R2_________________        __________________FUNC_RIGHT_______________
-//#define _________________ADJUST_R3_________________        KC_MUTE, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
-
 
 
 /*
