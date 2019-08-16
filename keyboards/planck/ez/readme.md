@@ -37,7 +37,7 @@ By default, the indicator lights are used for layer indication, expecting the sp
 
 This will remove the default behavior for changing the LEDs based on layer, and allow you to control them manually. 
 
-Alternatively, you can use the following defines in your keymap's `config.h` to control which layers are used. 
+Alternatively, you can use the following defines in your keymap's `config.h` to control which layers are used, as long as you have `ORYX_CONFIGURATOR` defined in your keymap's `config.h` file, as well. 
 
 ```c
 #define PLANCK_EZ_LED_LOWER 3
