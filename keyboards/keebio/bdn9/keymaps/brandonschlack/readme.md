@@ -93,7 +93,7 @@ This layer is used to control lighting for the pad. Currently nothing is saved i
 | --- | --- | --- |
 | RGB Toggle | RGB Value Increase | Toggle Layer Off |
 | RGB Mode Prev | RGB Value Decrease | RGB Mode Next |
-| RGB Mode Plain | RGB Mode Breathing | XXX |
+| RGB Layer Indication | Cycle RGB Themes | XXX |
 
 
 ### Magic Layer
