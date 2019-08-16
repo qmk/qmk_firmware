@@ -167,6 +167,13 @@ This allows you to specify a different set of pins for the matrix on the right s
 This allows you to specify a different set of direct pins for the right side.
 
 ```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+```
+
+This allows you to specify a different set of encoder pins for the right side.
+
+```c
 #define RGBLIGHT_SPLIT
 ```
 
