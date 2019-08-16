@@ -21,7 +21,7 @@
 #define ___ KC_NO
 
 /* The board is divided into regions. North-East, North-West, South-East, and South-West */
-#define LAYOUT_board( \
+#define LAYOUT( \
   NE00, NE01, NE02, NE03, NE04, NE05, NE06, NE07, NEO8, NE09, \
   NW10, NW11, NW12, NW13, NW14, NW15, NW16, NW17, \
   SE18, SE19, SE20, SE21, \
@@ -33,23 +33,3 @@
   {  SW22, SW23, SW24, SW25, SW26, ___, ___, ___, ___, ___ }  \
 }
 
-#define LAYOUT_2x2( \
-  K00, K01, K02, K03 \
-) { \
-  {  K00, K01, K02, K03 }  \
-}
-
-#define LAYOUT_3x1( \
-  K00, K01, K02 \
-) { \
-  {  K00, K01, K02 }  \
-}
-
-#define LAYOUT_2x1( \
-  K00, K01 \
-) { \
-  {  K00, K01}  \
-}
-
-
-#define LAYOUT_1x1( K00 ) { { K00 } }

@@ -5,25 +5,8 @@
   "width": 4,
   "height": 19,
   "layouts": {
-    "LAYOUT_board": {
+    "LAYOUT": {
       "layout": [{"label":"B0", "x":3, "y":7}, {"label":"B1", "x":3, "y":8}, {"label":"B2", "x":3, "y":9}, {"label":"B3", "x":3, "y":10}, {"label":"B4", "x":3, "y":11}, {"label":"B5", "x":3, "y":12}, {"label":"B6", "x":3, "y":13}, {"label":"B7", "x":3, "y":14}, {"label":"A10", "x":3, "y":17}, {"label":"A9", "x":3, "y":18}, {"label":"B9", "x":0, "y":7}, {"label":"B15", "x":0, "y":8}, {"label":"B14", "x":0, "y":9}, {"label":"B13", "x":0, "y":10}, {"label":"B8", "x":0, "y":11}, {"label":"A0", "x":0, "y":12}, {"label":"A1", "x":0, "y":13}, {"label":"A2", "x":0, "y":14}, {"label":"A15", "x":3, "y":0}, {"label":"A8", "x":3, "y":1}, {"label":"A7", "x":3, "y":2}, {"label":"A6", "x":3, "y":3}, {"label":"B13", "x":0, "y":1}, {"label":"B14", "x":0, "y":2}, {"label":"B12", "x":0, "y":3}, {"label":"B11", "x":0, "y":4}, {"label":"B10", "x":0, "y":5}]
     },
-
-    "LAYOUT_3x1": {
-      "layout": [{"label":"B0","x":0, "y":0, "w":1, "h":1}, {"label":"B1","x":1, "y":0, "w":1, "h":1}, {"label":"B2","x":2, "y":0, "w":1, "h":1}]
-    },
-
-    "LAYOUT_2x1": {
-      "layout": [{"label":"B0","x":0, "y":0, "w":1, "h":1}, {"label":"B1","x":1, "y":0, "w":1, "h":1}]
-    },
-
-    "LAYOUT_2x2": {
-      "layout": [{"label":"B0","x":0, "y":1, "w":1, "h":1}, {"label":"B1","x":1, "y":1, "w":1, "h":1}, {"label":"B2","x":0, "y":0, "w":1, "h":1}, {"label":"B3","x":1, "y":0, "w":1, "h":1}]
-    },
-
-    "LAYOUT_1x1": {
-      "layout": [{"label":"B0","x":0, "y":0, "w":4, "h":4}]
-    }
-
   }
 }
