@@ -70,16 +70,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 user_config.rgb_layer_change ^= 1;
                 eeconfig_update_user(user_config.raw);
-                if (user_config.rgb_layer_change) { // if layer state indication is enabled,
-                    layer_state_set(layer_state);   // then immediately update the layer color
+                if (user_config.rgb_layer_change) {
+                    layer_state_set(layer_state);
                 }
             }
             break;
         case RGB_HUI ... RGB_VAD:
             if (record->event.pressed) {
-                if (user_config.rgb_layer_change) {        // only if this is enabled
-                    user_config.rgb_layer_change = false;  // disable it, and
-                    eeconfig_update_user(user_config.raw); // write the setings to EEPROM
+                if (user_config.rgb_layer_change) {
+                    user_config.rgb_layer_change = false;
+                    eeconfig_update_user(user_config.raw);
                 }
             }
         case RGB_THEME_FORWARD:
@@ -90,6 +90,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     rgb_theme_step();
                 }
+                layer_state_set(layer_state);
             }
             break;
         case RGB_THEME_REVERSE:
@@ -100,6 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     rgb_theme_step_reverse();
                 }
+                layer_state_set(layer_state);
             }
             break;
         #endif
