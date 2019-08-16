@@ -328,7 +328,7 @@ void render_status_main(void) {
     
 void oled_task_user(void) {
         if (is_master) {
-            render_logo(); // render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+            render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         } else {
             render_logo();
         }
