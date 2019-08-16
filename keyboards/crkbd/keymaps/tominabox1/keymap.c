@@ -4,9 +4,7 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
+
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
 
@@ -246,16 +244,34 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     return state;
 }
-
+void matrix_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+#endif
+#ifdef OLED_DRIVER_ENABLE
+    oled_init(0);   // turns on the display
+#endif
+}
 
 #ifdef OLED_DRIVER_ENABLE
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
+//oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 uint16_t        oled_timer;
-const char *read_logo(void);
+
+void matrix_scan_user(void) {
+    oled_task();
+}
+
+void render_logo(void) {
+    static const char PROGMEM logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(logo, false);
+}
 
 void render_status_main(void) {
-    void oled_clear(void);
     // Host Keyboard USB Status
     oled_write_P(PSTR("USB: "), false);
     switch (USB_DeviceState) {
@@ -309,16 +325,16 @@ void render_status_main(void) {
     oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 
 }
+    
 void oled_task_user(void) {
-    if (is_master) {
-        oled_write(read_logo(), false);
-//        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-    } else {
-        oled_write(read_logo(), false);
+        if (is_master) {
+            render_logo(); // render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        } else {
+            render_logo();
+        }
     }
-}
 
-#endif
+#endif // OLED_Driver
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
