@@ -1,8 +1,8 @@
 /**
- * QD60RGB.c
+ * qd60rgb.c
  */
 
-#include "QD60RGB.h"
+#include "qd60rgb.h"
 
 #ifdef RGB_MATRIX_ENABLE
 __attribute__ ((weak))

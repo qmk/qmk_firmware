@@ -1,5 +1,5 @@
  /**
-  * e6QD60RGB_rgb.h
+  * qd60rgb.h
   *
   */
 #pragma once

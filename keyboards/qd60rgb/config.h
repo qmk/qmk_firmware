@@ -10,8 +10,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    DEMOS
-#define PRODUCT         QD60RGB
+#define MANUFACTURER    demos
+#define PRODUCT         qd60rgb
 #define DESCRIPTION     60% rgb keyboard
 
 /* key matrix size */
