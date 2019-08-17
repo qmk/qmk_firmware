@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |             |---------|---------|---------|---------|
    |             |    1    |    2    |    3    |   Tab   |
    |-------------|---------|---------|---------|---------|
-   | Left mouse  | MO(SUB) |    0    |    .    |  Enter  |
+   | Left mouse  | TT(SUB) |    0    |    .    |  Enter  |
    \-----------------------------------------------------'
   */
   [_BASE] = LAYOUT(
@@ -94,8 +94,8 @@ void encoder_update_user(uint8_t index, bool clockwise) {
    *       CW: move mouse right
    *      CCW: move mouse left
    *    other layers:
-   *       CW: volume up
-   *      CCW: volume down
+   *       CW: = (equals/plus - increase slider in Adobe products)
+   *      CCW: - (minus/underscore - decrease slider in adobe products)
    */
   if (index == 0) {
     switch (biton32(layer_state)) {
@@ -109,7 +109,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
 
       default:
-        // other layers - volume up (CW) and down (CCW)
+        // other layers - =/+ (quals/plus) (CW) and -/_ (minus/underscore) (CCW)
         if (clockwise) {
           tap_code(KC_EQL);
         } else {
