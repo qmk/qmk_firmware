@@ -19,6 +19,8 @@ void keyboard_pre_init_kb(void) {
   // Set the layer LED IO as outputs
   setPinOutput(LAYER_INDICATOR_LED_0);
   setPinOutput(LAYER_INDICATOR_LED_1);
+  
+  keyboard_pre_init_user();
 }
 
 void shutdown_user() {
