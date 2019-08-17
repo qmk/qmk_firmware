@@ -23,10 +23,6 @@
 // for memcpy
 #include <string.h>
 
-#ifdef SPLIT_KEYBOARD
-#    include "split_util.h"
-#endif
-
 #ifndef ENCODER_RESOLUTION
 #    define ENCODER_RESOLUTION 4
 #endif
