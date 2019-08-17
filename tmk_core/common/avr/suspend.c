@@ -11,9 +11,6 @@
 #include "led.h"
 #include "host.h"
 #include "rgblight_reconfig.h"
-#ifdef SPLIT_KEYBOARD
-  #include "split_flags.h"
-#endif
 
 #ifdef PROTOCOL_LUFA
 	#include "lufa.h"
@@ -135,9 +132,6 @@ static void power_down(uint8_t wdto) {
     is_suspended = true;
     rgblight_enabled = rgblight_config.enable;
     rgblight_disable_noeeprom();
-    #ifdef SPLIT_KEYBOARD
-        RGB_DIRTY = true;
-    #endif
   }
 #endif
   suspend_power_down_kb();
@@ -216,9 +210,6 @@ void suspend_wakeup_init(void) {
       wait_ms(10);
     #endif
     rgblight_enable_noeeprom();
-    #ifdef SPLIT_KEYBOARD
-        RGB_DIRTY = true;
-    #endif
   }
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();

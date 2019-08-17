@@ -25,10 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "split_util.h"
 #include "config.h"
-#include "split_flags.h"
 #include "quantum.h"
 #include "debounce.h"
 #include "transport.h"
+
+#ifdef ENCODER_ENABLE
+  #include "encoder.h"
+#endif
 
 #if (MATRIX_COLS <= 8)
 #  define print_matrix_header() print("\nr/c 01234567\n")
@@ -249,14 +252,22 @@ void matrix_init(void) {
 
   // Set pinout for right half if pinout for that half is defined
   if (!isLeftHand) {
+#ifdef DIRECT_PINS_RIGHT
+    const pin_t direct_pins_right[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_RIGHT;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+      for (uint8_t j = 0; j < MATRIX_COLS; j++) {
+        direct_pins[i][j] = direct_pins_right[i][j];
+      }
+    }
+#endif
 #ifdef MATRIX_ROW_PINS_RIGHT
-    const uint8_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
+    const pin_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
       row_pins[i] = row_pins_right[i];
     }
 #endif
 #ifdef MATRIX_COL_PINS_RIGHT
-    const uint8_t col_pins_right[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
+    const pin_t col_pins_right[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
       col_pins[i] = col_pins_right[i];
     }
@@ -296,7 +307,7 @@ uint8_t _matrix_scan(void) {
 
   debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed);
 
-  return 1;
+  return (uint8_t)changed;
 }
 
 uint8_t matrix_scan(void) {
@@ -321,6 +332,9 @@ uint8_t matrix_scan(void) {
     matrix_scan_quantum();
   } else {
     transport_slave(matrix + thisHand);
+#ifdef ENCODER_ENABLE
+    encoder_read();
+#endif
     matrix_slave_scan_user();
   }
 

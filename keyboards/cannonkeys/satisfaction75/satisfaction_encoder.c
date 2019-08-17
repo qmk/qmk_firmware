@@ -10,6 +10,8 @@ void pre_encoder_mode_change(){
     // timespec.dstflag = last_timespec.dstflag;
     timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
     rtcSetTime(&RTCD1, &timespec);
+  } else if (encoder_mode == ENC_MODE_BACKLIGHT){
+    save_backlight_config_to_eeprom();
   }
 }
 
@@ -26,6 +28,9 @@ void post_encoder_mode_change(){
 
 void change_encoder_mode(bool negative){
   pre_encoder_mode_change();
+  if(enabled_encoder_modes == 0){
+    enabled_encoder_modes = 0x1F;
+  }
   do {
     if(negative){
       if (encoder_mode == 0){
@@ -94,12 +99,14 @@ uint16_t handle_encoder_clockwise(){
       mapped_code = KC_WH_D;
       break;
     case ENC_MODE_BACKLIGHT:
-      // mapped_code = BL_INC;
       kb_backlight_config.level = kb_backlight_config.level + 1;
       if(kb_backlight_config.level > BACKLIGHT_LEVELS){
         kb_backlight_config.level = BACKLIGHT_LEVELS;
       }
       backlight_set(kb_backlight_config.level);
+      if (kb_backlight_config.level != 0){
+        kb_backlight_config.enable = true;
+      }
       break;
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_UP;
@@ -131,6 +138,9 @@ uint16_t handle_encoder_ccw(){
         kb_backlight_config.level = kb_backlight_config.level - 1;
       }
       backlight_set(kb_backlight_config.level);
+      if (kb_backlight_config.level == 0){
+        kb_backlight_config.enable = false;
+      }
       break;
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_DOWN;

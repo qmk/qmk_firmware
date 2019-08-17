@@ -36,12 +36,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D2, D3, D5, D7, D6 }
 #define MATRIX_COL_PINS { F1, F4, F5, F6, D4, B4 }
 #define SPLIT_HAND_PIN F0
-#define QMK_ESC_OUTPUT D2
-#define QMK_ESC_INPUT F1
+#define QMK_ESC_OUTPUT F1
+#define QMK_ESC_INPUT D2
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B7 }
 
@@ -55,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
@@ -71,6 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
 #define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_SPLIT { 6, 6 }
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 

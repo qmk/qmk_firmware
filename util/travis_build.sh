@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# if docker is installed - call make within the qmk docker image
+if command -v docker >/dev/null; then
+  function make() {
+    docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
+  }
+fi
+
 # test force push
 #TRAVIS_COMMIT_RANGE="c287f1bfc5c8...81f62atc4c1d"
 
@@ -17,16 +24,18 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	else
 		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)'  | grep -Ev '^(docs/)' | wc -l)
 		BRANCH=$(git rev-parse --abbrev-ref HEAD)
+		# is this branch master or a "non docs, non keyboards" change 
 		if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo "Making default keymaps for all keyboards"
 			eval $MAKE_ALL
 			: $((exit_code = $exit_code + $?))
 		else
-			MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_\/]+)(?=\/)' | sort -u)
+		    # keyboards project format
+			#  /keyboards/board1/rev/keymaps/
+			#  /keyboards/board2/keymaps/
+			# ensure we strip everything off after and including the keymaps folder to get board and/or revision
+			MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_\/]+)(?=\/)' | sed 's^/keymaps/.*^^' | sort -u)
 			for KB in $MKB ; do
-				if [[ $KB == *keymaps* ]]; then
-					continue
-				fi
 				KEYMAP_ONLY=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/'${KB}'/keymaps/)' | wc -l)
 				if [[ $KEYMAP_ONLY -gt 0 ]]; then
 					echo "Making all keymaps for $KB"

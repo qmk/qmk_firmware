@@ -246,16 +246,11 @@ uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
 }
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL << _COLEMAK);
+        default_layer_set(1UL << _COLEMAK);
         layer_off ( _QWERTY);
         layer_off ( _NUMBERS);
         layer_off ( _NUMBERS2);
@@ -269,7 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case QWERTY:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL << _QWERTY);
+        default_layer_set(1UL << _QWERTY);
         layer_off ( _COLEMAK);
         layer_off ( _NUMBERS);
         layer_off ( _NUMBERS2);

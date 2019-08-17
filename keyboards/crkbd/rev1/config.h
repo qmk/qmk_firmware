@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    foostan
-#define PRODUCT         Crkbd
+#define PRODUCT         Corne Keyboard (crkbd)
 #define DESCRIPTION     A split keyboard with 3x6 vertically staggered keys and 3 thumb keys
 
 /* key matrix size */
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -53,7 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
+#ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 12    // Number of LEDs
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#define RGBLED_NUM 54    // Number of LEDs
+#define DRIVER_LED_TOTAL RGBLED_NUM
+#endif
 
 /*
  * Feature disable options

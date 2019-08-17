@@ -31,9 +31,9 @@
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
-    // Ranges used in shortucuts - not to be used directly
-    QK_TMK                = 0x0000,
-    QK_TMK_MAX            = 0x00FF,
+    // Ranges used in shortcuts - not to be used directly
+    QK_BASIC              = 0x0000,
+    QK_BASIC_MAX          = 0x00FF,
     QK_MODS               = 0x0100,
     QK_LCTL               = 0x0100,
     QK_LSFT               = 0x0200,
@@ -87,7 +87,9 @@ enum quantum_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
     QK_UNICODEMAP         = 0x8000,
-    QK_UNICODEMAP_MAX     = 0x83FF,
+    QK_UNICODEMAP_MAX     = 0xBFFF,
+    QK_UNICODEMAP_PAIR    = 0xC000,
+    QK_UNICODEMAP_PAIR_MAX = 0xFFFF,
 #endif
 
     // Loose keycodes - to be used directly
@@ -475,6 +477,21 @@ enum quantum_keycodes {
     HPT_DWLI,
     HPT_DWLD,
 
+    // Left control, open paren
+    KC_LCPO,
+
+    // Right control, close paren
+    KC_RCPC,
+
+    // Left control, open paren
+    KC_LAPO,
+
+    // Right control, close paren
+    KC_RAPC,
+
+    CMB_ON,
+    CMB_OFF,
+    CMB_TOG,
     // always leave at the end
     SAFE_RANGE
 };
@@ -700,7 +717,8 @@ enum quantum_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
   // Allows Unicode input up to 0x10FFFF, requires unicode_map
-  #define X(i) (QK_UNICODEMAP | (i))
+  #define X(i)     (QK_UNICODEMAP | (i))
+  #define XP(i, j) (QK_UNICODEMAP_PAIR | ((i) & 0x7F) | (((j) & 0x7F) << 7)) // 127 max i and j
 #endif
 
 #define UC_MOD  UNICODE_MODE_FORWARD

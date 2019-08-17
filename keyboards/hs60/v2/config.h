@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -102,8 +102,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // disable backlight after timeout in minutes, 0 = no timeout
 #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default brightness
+#define RGB_BACKLIGHT_BRIGHTNESS 255
+
 // the default effect (RGB test)
 #define RGB_BACKLIGHT_EFFECT 255
+
+// the default effect speed (0-3)
+#define RGB_BACKLIGHT_EFFECT_SPEED 0
+
+// the default color1 and color2
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
 #define DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL 64
@@ -118,6 +128,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0010000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0010000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
+
+#define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
+#define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F

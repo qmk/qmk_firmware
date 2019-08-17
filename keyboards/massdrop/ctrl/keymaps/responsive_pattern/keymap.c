@@ -15,7 +15,6 @@
 
 extern issi3733_led_t *lede;
 extern issi3733_led_t led_map[];
-extern led_disp_t disp;
 
 enum ctrl_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
@@ -238,8 +237,6 @@ void led_matrix_run(void)
     {
         led_cur = led_map;
 
-        disp.frame += 1;
-
         breathe_mult = 1;
 
         if (led_animation_breathing)
@@ -314,7 +311,7 @@ void led_matrix_run(void)
                 }
 
                 float pomod;
-                pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+                pomod = (float)(g_tick % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
                 //Add in any moving effects
                 if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))

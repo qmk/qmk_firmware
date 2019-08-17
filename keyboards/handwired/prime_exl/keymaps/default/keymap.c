@@ -113,20 +113,20 @@ void matrix_scan_user(void) {
 
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinLow(B6);
-  } else {
     writePinHigh(B6);
+  } else {
+    writePinLow(B6);
   }
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(B5);
-  } else {
     writePinHigh(B5);
+  } else {
+    writePinLow(B5);
   }
   /*
   if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinLow(C6);
-  } else {
     writePinHigh(C6);
+  } else {
+    writePinLow(C6);
   }
   */
 }
@@ -135,9 +135,9 @@ void led_set_user(uint8_t usb_led) {
 uint32_t layer_state_set_user(uint32_t state)
 {
     if (biton32(state) == 2) {
-    writePinLow(C6);
+    writePinHigh(C6);
 	} else {
-		writePinHigh(C6);
+		writePinLow(C6);
     }
     return state;
 }
