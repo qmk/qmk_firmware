@@ -33,12 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 1
 
-// wiring of each half
-#define MATRIX_ROW_PINS { B3 }
-#define MATRIX_COL_PINS { B6 }
-#define SPLIT_HAND_PIN F6
-#define SOFT_SERIAL_PIN D1
-
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -51,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
 #define RGBLED_SPLIT { 6, 6 }

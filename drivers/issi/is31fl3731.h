@@ -44,8 +44,8 @@ void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, b
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3731_update_pwm_buffers( uint8_t addr1, uint8_t addr2 );
-void IS31FL3731_update_led_control_registers( uint8_t addr1, uint8_t addr2 );
+void IS31FL3731_update_pwm_buffers( uint8_t addr, uint8_t index  );
+void IS31FL3731_update_led_control_registers( uint8_t addr, uint8_t index );
 
 #define C1_1  0x24
 #define C1_2  0x25

@@ -21,27 +21,27 @@
 extern rgblight_config_t rgblight_config;
 #endif
 
-
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
-  BACKLIT = NEW_SAFE_RANGE,
+    BACKLIT = NEW_SAFE_RANGE,
 };
 #else
-  #define BACKLIT OSM(MOD_LSFT)
+#    define BACKLIT OSM(MOD_LSFT)
 #endif
 
 #ifdef KEYBOARD_planck_ez
-#   define PLNK_1 BK_LWER
-#   define PLNK_2 SP_LWER
-#   define PLNK_3 KC_NO
-#   define PLNK_4 ET_RAIS
+#    define PLNK_1 BK_LWER
+#    define PLNK_2 SP_LWER
+#    define PLNK_3 KC_NO
+#    define PLNK_4 ET_RAIS
 #else
-#   define PLNK_1 SP_LWER
-#   define PLNK_2 BK_LWER
-#   define PLNK_3 DL_RAIS
-#   define PLNK_4 ET_RAIS
+#    define PLNK_1 SP_LWER
+#    define PLNK_2 BK_LWER
+#    define PLNK_3 DL_RAIS
+#    define PLNK_4 ET_RAIS
 #endif
 
+// clang-format off
 #define LAYOUT_ortho_4x12_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -135,17 +135,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
- #ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
-                #ifdef BACKLIGHT_ENABLE
+#    ifdef BACKLIGHT_ENABLE
                 backlight_step();
-                #endif
+#    endif
             } else {
                 unregister_code(KC_RSFT);
             }
@@ -172,6 +172,7 @@ bool music_mask_user(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+// clang-format off
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
 }
@@ -179,98 +180,122 @@ void suspend_power_down_keymap(void) {
 void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
+// clang-format on
 
 void rgb_matrix_indicators_user(void) {
     uint8_t this_mod = get_mods();
     uint8_t this_led = host_keyboard_leds();
     uint8_t this_osm = get_oneshot_mods();
-    bool is_ez;
-    #ifdef KEYBOARD_planck_ez
+    bool    is_ez;
+#    ifdef KEYBOARD_planck_ez
     is_ez = true;
-    #endif
+#    endif
 
-    if ( userspace_config.rgb_layer_change &&
-#ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
+    if (userspace_config.rgb_layer_change &&
+#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
         !g_suspend_state &&
-#endif
-#if defined(RGBLIGHT_ENABLE)
-            (!rgblight_config.enable && rgb_matrix_config.enable)
-#else
-            rgb_matrix_config.enable
-#endif
-        ) {
+#    endif
+#    if defined(RGBLIGHT_ENABLE)
+        (!rgblight_config.enable && rgb_matrix_config.enable)
+#    else
+        rgb_matrix_config.enable
+#    endif
+    ) {
         switch (biton32(layer_state)) {
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
+                break;
             case _RAISE:
-                rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
             case _LOWER:
-                rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
+                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
             case _ADJUST:
-                rgb_matrix_layer_helper(0xFF, 0x00, 0x00, LED_FLAG_MODIFIER); break;
-            default:
+                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                break;
+            default: {
+                bool mods_enabled = IS_LAYER_ON(_MODS);
                 switch (biton32(default_layer_state)) {
-                case _QWERTY:
-                    rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, LED_FLAG_MODIFIER); break;
-                case _COLEMAK:
-                    rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
-                case _DVORAK:
-                    rgb_matrix_layer_helper(0x00, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
-                case _WORKMAN:
-                    rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, LED_FLAG_MODIFIER); break;
-                case _NORMAN:
-                    rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, LED_FLAG_MODIFIER); break;
-                case _MALTRON:
-                    rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, LED_FLAG_MODIFIER); break;
-                case _EUCALYN:
-                    rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, LED_FLAG_MODIFIER); break;
-                case _CARPLAX:
-                    rgb_matrix_layer_helper(0x00, 0x00, 0xFF, LED_FLAG_MODIFIER); break;
+                    case _QWERTY:
+                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _COLEMAK:
+                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _DVORAK:
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _WORKMAN:
+                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _NORMAN:
+                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _MALTRON:
+                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _EUCALYN:
+                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
+                    case _CARPLAX:
+                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        break;
                 }
+                break;
+            }
         }
     }
 
     switch (biton32(default_layer_state)) {
         case _QWERTY:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF); break;
+            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
+            break;
         case _COLEMAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF); break;
+            rgb_matrix_set_color(is_ez ? 41 : 42, 0xFF, 0x00, 0xFF);
+            break;
         case _DVORAK:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00); break;
+            rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0x00);
+            break;
         case _WORKMAN:
-            rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21); break;
+            rgb_matrix_set_color(is_ez ? 41 : 42, 0xD9, 0xA5, 0x21);
+            break;
     }
-    if ( (this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK)) {
+    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
         rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
         rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
     }
-    if ( (this_mod | this_osm) & MOD_MASK_CTRL) {
+    if ((this_mod | this_osm) & MOD_MASK_CTRL) {
         rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
         rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
         rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
-
     }
-    if ( (this_mod | this_osm) & MOD_MASK_GUI) {
+    if ((this_mod | this_osm) & MOD_MASK_GUI) {
         rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
     }
-    if ( (this_mod | this_osm) & MOD_MASK_ALT) {
+    if ((this_mod | this_osm) & MOD_MASK_ALT) {
         rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
     }
 }
 
 void matrix_init_keymap(void) {
-  // rgblight_mode(RGB_MATRIX_MULTISPLASH);
+    // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
-#else //RGB_MATRIX_INIT
+#else  // RGB_MATRIX_INIT
 
 void matrix_init_keymap(void) {
-#if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
+#    if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-#endif
+#    endif
 }
-#endif //RGB_MATRIX_INIT
+#endif  // RGB_MATRIX_INIT
 
 #ifdef ENCODER_ENABLE
 void encoder_update(bool clockwise) {
@@ -279,34 +304,42 @@ void encoder_update(bool clockwise) {
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
             break;
         case _LOWER:
-#ifdef RGB_MATRIX_ENABLE
-            clockwise ? rgb_matrix_step() : rgblight_step_reverse();
-#else
+#    ifdef RGB_MATRIX_ENABLE
+            clockwise ? rgb_matrix_step() : rgb_matrix_step_reverse();
+#    else
             clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
-#endif
+#    endif
             break;
         case _ADJUST:
-#ifdef AUDIO_CLICKY
+#    ifdef AUDIO_CLICKY
             clockwise ? clicky_freq_up() : clicky_freq_down();
-#endif
+#    endif
             break;
         default:
             clockwise ? tap_code(KC_DOWN) : tap_code(KC_UP);
     }
-#ifdef AUDIO_CLICKY
+#    ifdef AUDIO_CLICKY
     clicky_play();
-#endif
+#    endif
 }
-#endif // ENCODER_ENABLE
+#endif  // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
 void dip_update(uint8_t index, bool active) {
     switch (index) {
         case 0:
-            if(active) { audio_on(); } else { audio_off(); }
+            if (active) {
+                audio_on();
+            } else {
+                audio_off();
+            }
             break;
         case 1:
-            if(active) { clicky_on(); } else { clicky_off(); }
+            if (active) {
+                clicky_on();
+            } else {
+                clicky_off();
+            }
             break;
         case 2:
             keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;
@@ -316,11 +349,10 @@ void dip_update(uint8_t index, bool active) {
             break;
     }
 }
-#endif // KEYBOARD_planck_rev6
+#endif  // KEYBOARD_planck_rev6
 
 #ifdef KEYBOARD_planck_ez
 layer_state_t layer_state_set_keymap(layer_state_t state) {
-
     palClearPad(GPIOB, 8);
     palClearPad(GPIOB, 9);
     switch (biton32(state)) {

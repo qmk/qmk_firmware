@@ -709,7 +709,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
       if (record->event.pressed) {
-        breathing_toggle();
+        backlight_toggle_breathing();
       }
       return false;
     }
@@ -720,11 +720,12 @@ bool process_record_quantum(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
-const bool ascii_to_shift_lut[0x80] PROGMEM = {
+const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+
     0, 1, 1, 1, 1, 1, 1, 0,
     1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -740,11 +741,12 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const bool ascii_to_altgr_lut[0x80] PROGMEM = {
+const bool ascii_to_altgr_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
+
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -760,23 +762,40 @@ const bool ascii_to_altgr_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
-    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
-    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
-    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
+    // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // BS    TAB      LF       VT       FF       CR       SO       SI
+    KC_BSPC, KC_TAB,  KC_ENT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // DLE   DC1      DC2      DC3      DC4      NAK      SYN      ETB
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    // CAN   EM       SUB      ESC      FS       GS       RS       US
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+
+    //       !        "        #        $        %        &        '
+    KC_SPC,  KC_1,    KC_QUOT, KC_3,    KC_4,    KC_5,    KC_7,    KC_QUOT,
+    // (     )        *        +        ,        -        .        /
+    KC_9,    KC_0,    KC_8,    KC_EQL,  KC_COMM, KC_MINS, KC_DOT,  KC_SLSH,
+    // 0     1        2        3        4        5        6        7
+    KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,
+    // 8     9        :        ;        <        =        >        ?
+    KC_8,    KC_9,    KC_SCLN, KC_SCLN, KC_COMM, KC_EQL,  KC_DOT,  KC_SLSH,
+    // @     A        B        C        D        E        F        G
+    KC_2,    KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    // H     I        J        K        L        M        N        O
+    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    // P     Q        R        S        T        U        V        W
+    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    // X     Y        Z        [        \        ]        ^        _
+    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_6,    KC_MINS,
+    // `     a        b        c        d        e        f        g
+    KC_GRV,  KC_A,    KC_B,    KC_C,    KC_D,    KC_E,    KC_F,    KC_G,
+    // h     i        j        k        l        m        n        o
+    KC_H,    KC_I,    KC_J,    KC_K,    KC_L,    KC_M,    KC_N,    KC_O,
+    // p     q        r        s        t        u        v        w
+    KC_P,    KC_Q,    KC_R,    KC_S,    KC_T,    KC_U,    KC_V,    KC_W,
+    // x     y        z        {        |        }        ~        DEL
+    KC_X,    KC_Y,    KC_Z,    KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV,  KC_DEL
 };
 
 void send_string(const char *str) {
@@ -1016,104 +1035,147 @@ void matrix_scan_quantum() {
 }
 #if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
 
-// The logic is a bit complex, we support 3 setups:
-// 1. hardware PWM when backlight is wired to a PWM pin
-// depending on this pin, we use a different output compare unit
-// 2. software PWM with hardware timers, but the used timer depends
-// on the audio setup (audio wins other backlight)
-// 3. full software PWM
+// This logic is a bit complex, we support 3 setups:
+//
+//   1. Hardware PWM when backlight is wired to a PWM pin.
+//      Depending on this pin, we use a different output compare unit.
+//   2. Software PWM with hardware timers, but the used timer
+//      depends on the Audio setup (Audio wins over Backlight).
+//   3. Full software PWM, driven by the matrix scan, if both timers are used by Audio.
 
-#if BACKLIGHT_PIN == B7
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1C1
-#  define OCRxx  OCR1C
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B5
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1A1
-#  define OCRxx  OCR1A
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == C6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR3A
-#  define TCCRxB TCCR3B
-#  define COMxx1 COM3A1
-#  define OCRxx  OCR3A
-#  define TIMERx_OVF_vect TIMER3_OVF_vect
-#  define TOIEx  TOIE3
-#  define ICRx   ICR3
-#  define TIMSKx TIMSK3
-#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
+#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == B5 || BACKLIGHT_PIN == B6 || BACKLIGHT_PIN == B7)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #elif BACKLIGHT_PIN == B6
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #endif
+#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == C4 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR3
+  #define TCCRxA          TCCR3A
+  #define TCCRxB          TCCR3B
+  #define TIMERx_OVF_vect TIMER3_OVF_vect
+  #define TIMSKx          TIMSK3
+  #define TOIEx           TOIE3
+
+  #if BACKLIGHT_PIN == C4
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C4 pin!
+    #else
+      #define COMxx1      COM3C1
+      #define OCRxx       OCR3C
+    #endif
+  #elif BACKLIGHT_PIN == C5
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C5 pin!
+    #else
+      #define COMxx1      COM3B1
+      #define OCRxx       OCR3B
+    #endif
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM3A1
+    #define OCRxx         OCR3A
+  #endif
+#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) \
+  && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #elif BACKLIGHT_PIN == C5
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
+#elif defined(__AVR_ATmega32A__) \
+  && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == D4
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == D5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
 #else
-#  if !defined(BACKLIGHT_CUSTOM_DRIVER)
-#    if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
-     // timer 1 is not used by audio , backlight can use it
-#pragma message "Using hardware timer 1 with software PWM"
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR1A
-#      define TCCRxB TCCR1B
-#      define OCRxx  OCR1A
-#      define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#      define TIMERx_OVF_vect TIMER1_OVF_vect
-#      define OCIExA OCIE1A
-#      define TOIEx  TOIE1
-#      define ICRx   ICR1
-#      if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
-#        define TIMSKx TIMSK
-#      else
-#        define TIMSKx TIMSK1
-#      endif
-#    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
-#pragma message "Using hardware timer 3 with software PWM"
-// timer 3 is not used by audio, backlight can use it
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR3A
-#      define TCCRxB TCCR3B
-#      define OCRxx OCR3A
-#      define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#      define TIMERx_OVF_vect TIMER3_OVF_vect
-#      define OCIExA OCIE3A
-#      define TOIEx  TOIE3
-#      define ICRx   ICR1
-#      define TIMSKx TIMSK3
-#    else
-#pragma message "Audio in use - using pure software PWM"
-#define NO_HARDWARE_PWM
-#    endif
-#  else
-#pragma message "Custom driver defined - using pure software PWM"
-#define NO_HARDWARE_PWM
-#  endif
+  #if !defined(BACKLIGHT_CUSTOM_DRIVER)
+    #if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
+      // Timer 1 is not in use by Audio feature, Backlight can use it
+      #pragma message "Using hardware timer 1 with software PWM"
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR1A
+      #define TCCRxB            TCCR1B
+      #define TIMERx_COMPA_vect TIMER1_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER1_OVF_vect
+      #if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+        #define TIMSKx          TIMSK
+      #else
+        #define TIMSKx          TIMSK1
+      #endif
+      #define TOIEx             TOIE1
+
+      #define OCIExA            OCIE1A
+      #define OCRxx             OCR1A
+    #elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
+      #pragma message "Using hardware timer 3 with software PWM"
+      // Timer 3 is not in use by Audio feature, Backlight can use it
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR3A
+      #define TCCRxB            TCCR3B
+      #define TIMERx_COMPA_vect TIMER3_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER3_OVF_vect
+      #define TIMSKx            TIMSK3
+      #define TOIEx             TOIE3
+
+      #define OCIExA            OCIE3A
+      #define OCRxx             OCR3A
+    #else
+      #pragma message "Audio in use - using pure software PWM"
+      #define NO_HARDWARE_PWM
+    #endif
+  #else
+    #pragma message "Custom driver defined - using pure software PWM"
+    #define NO_HARDWARE_PWM
+  #endif
 #endif
 
 #ifndef BACKLIGHT_ON_STATE
@@ -1178,6 +1240,12 @@ void backlight_init_ports(void)
     setPinOutput(backlight_pin);
     backlight_on(backlight_pin);
   )
+
+  #ifdef BACKLIGHT_BREATHING
+  if (is_backlight_breathing()) {
+    breathing_enable();
+  }
+  #endif
 }
 
 __attribute__ ((weak))
@@ -1276,7 +1344,7 @@ static uint16_t cie_lightness(uint16_t v) {
 
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) {
-	OCRxx = val;
+  OCRxx = val;
 }
 
 #ifndef BACKLIGHT_CUSTOM_DRIVER
@@ -1482,7 +1550,9 @@ void backlight_init_ports(void)
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
-    breathing_enable();
+    if (is_backlight_breathing()) {
+      breathing_enable();
+    }
   #endif
 }
 
@@ -1582,23 +1652,6 @@ void led_init_ports(void)
 __attribute__ ((weak))
 void led_set(uint8_t usb_led)
 {
-
-  // Example LED Code
-  //
-    // // Using PE6 Caps Lock LED
-    // if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    // {
-    //     // Output high.
-    //     DDRE |= (1<<6);
-    //     PORTE |= (1<<6);
-    // }
-    // else
-    // {
-    //     // Output low.
-    //     DDRE &= ~(1<<6);
-    //     PORTE &= ~(1<<6);
-    // }
-
 #if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
   // Use backlight as Caps Lock indicator
   uint8_t bl_toggle_lvl = 0;
