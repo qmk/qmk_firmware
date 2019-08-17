@@ -196,8 +196,8 @@ enum rgb_matrix_effects {
     RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue
     RGB_MATRIX_GRADIENT_UP_DOWN,    // Static gradient top to bottom, speed controls how much gradient changes
     RGB_MATRIX_BREATHING,           // Single hue brightness cycling animation
-    RGB_MATRIX_BAND_SAT,        // Single hue band fading saturation scrolling left to right
-    RGB_MATRIX_BAND_VAL,        // Single hue band fading brightness scrolling left to right
+    RGB_MATRIX_BAND_SAT,            // Single hue band fading saturation scrolling left to right
+    RGB_MATRIX_BAND_VAL,            // Single hue band fading brightness scrolling left to right
     RGB_MATRIX_BAND_PINWHEEL_SAT,   // Single hue 3 blade spinning pinwheel fades saturation
     RGB_MATRIX_BAND_PINWHEEL_VAL,   // Single hue 3 blade spinning pinwheel fades brightness
     RGB_MATRIX_BAND_SPIRAL_SAT,     // Single hue spinning spiral fades saturation
@@ -217,8 +217,8 @@ enum rgb_matrix_effects {
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
 #if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_BUBBLING_RAIN,       // Random leds fade in & out 
-    RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM! Has optional define to highlight only
-                                    //     the pressed key: DISABLE_RGB_MATRIX_TYPING_HEATMAP_KEY_SPREAD 
+    RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM! Has optional define for heatmap to spread to nearby
+                                    //     keys (performance heavy): ENABLE_TYPING_HEATMAP_DISTANCE_CHECK 
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
 #endif
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
@@ -266,6 +266,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`         |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`        |
 |`#define DISABLE_RGB_MATRIX_RAINDROPS`                 |Disables `RGB_MATRIX_RAINDROPS`                |
 |`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`       |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`      |
+|`#define DISABLE_RGB_MATRIX_BUBBLING_RAIN`             |Disables `RGB_MATRIX_BUBBLING_RAIN`            |
 |`#define DISABLE_RGB_MATRIX_TYPING_HEATMAP`            |Disables `RGB_MATRIX_TYPING_HEATMAP`           |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`              |Disables `RGB_MATRIX_DIGITAL_RAIN`             |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`            |Disables `RGB_MATRIX_SOLID_REACTIVE`           |

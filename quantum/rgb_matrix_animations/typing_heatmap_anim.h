@@ -2,13 +2,6 @@
 RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-// Array not large enough for PROGMEM to save firmware space on AVR
-const uint8_t k_heatmap_vals[9] = {
-    13, 16, 13,
-    16, 32, 16,
-    13, 16, 13
-};
-
 // TODO: Create a variable blackboard / scratchpad (memory page) that effects can use
 static uint32_t heatmap_timer = 0;
 
@@ -18,22 +11,29 @@ static inline void heatmap_reset_timer(void) {
 }
 
 void process_rgb_matrix_typing_heatmap(keyrecord_t *record) {
-#ifndef DISABLE_RGB_MATRIX_TYPING_HEATMAP_KEY_SPREAD
-    uint8_t rows[] = { record->event.key.row - 1, record->event.key.row, record->event.key.row + 1 };
-    uint8_t cols[] = { record->event.key.col - 1, record->event.key.col, record->event.key.col + 1 };
+#ifndef RGB_MATRIX_KEYRELEASES
+    if (!record->event.pressed) { return; }
+#else
+    if (record->event.pressed) { return; }
+#endif
 
-    for (uint8_t i = 0; i < 9; i++) {
-        uint8_t led[LED_HITS_TO_REMEMBER];
-        uint8_t led_count = rgb_matrix_map_row_column_to_led(rows[i / 3], cols[i % 3], led);
-        for (uint8_t j = 0; j < led_count; j++) {
-            g_rgb_frame_buffer[led[j]] = qadd8(g_rgb_frame_buffer[led[j]], k_heatmap_vals[i]);
+    uint8_t led[LED_HITS_TO_REMEMBER];
+    uint8_t led_count = rgb_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
+
+#ifdef ENABLE_TYPING_HEATMAP_DISTANCE_CHECK
+    // this is expensive as it's a per key distance check.
+    for (uint8_t i = 0; i < led_count; i++) {
+        point_t hit = g_led_config.point[led[i]];
+        for (uint8_t j = 0; j < DRIVER_LED_TOTAL; j++) {
+            int16_t dx = g_led_config.point[j].x - hit.x;
+            int16_t dy = g_led_config.point[j].y - hit.y;
+            uint8_t dist = sqrt16(dx * dx + dy * dy);
+            g_rgb_frame_buffer[j] = qadd8(g_rgb_frame_buffer[j], qsub8(32, qadd8(dist, dist)));
         }
     }
 #else
-    uint8_t led[LED_HITS_TO_REMEMBER];
-    uint8_t led_count = rgb_matrix_map_row_column_to_led(record->event.key.row, record->event.key.col, led);
     for (uint8_t i = 0; i < led_count; i++) {
-        g_rgb_frame_buffer[led[i]] = qadd8(g_rgb_frame_buffer[led[i]], k_heatmap_vals[4]);
+        g_rgb_frame_buffer[led[i]] = qadd8(g_rgb_frame_buffer[led[i]], 32);
     }
 #endif
 }
