@@ -191,7 +191,7 @@ By default, the JTAG debugging interface is disabled as soon as the keyboard sta
 If you would like to keep JTAG enabled, just add the following to your `config.h`:
 
 ```c
-#define JTAG_ENABLE
+#define NO_JTAG_DISABLE
 ```
 
 ## Adding LED Indicators of Lock Keys
