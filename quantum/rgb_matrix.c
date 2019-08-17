@@ -436,7 +436,14 @@ void rgb_matrix_init(void) {
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-  g_suspend_state = state;
+    if (state && RGB_DISABLE_WHEN_USB_SUSPENDED) {
+        /* For some reason, occasionally it renders some of 
+         * the lights still. This is most likely a timing issue
+         * so the simple solution is to clear all of them. 
+         */
+        rgb_matrix_set_color_all(0, 0, 0);
+    }
+    g_suspend_state = state;
 }
 
 void rgb_matrix_toggle(void) {
