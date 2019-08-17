@@ -22,9 +22,6 @@ keyboard_config_t keyboard_config;
 
 #ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_kb(void) {
-#if RGB_DISABLE_WHEN_USB_SUSPENDED == true
-    rgb_matrix_set_color_all(0, 0, 0);
-#endif
     rgb_matrix_set_suspend_state(true);
     suspend_power_down_user();
 }
