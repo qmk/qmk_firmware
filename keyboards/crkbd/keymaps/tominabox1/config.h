@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
+#undef SSD1306OLED
 
 //#undef USE_I2C
 
@@ -110,3 +110,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_PRINT
 #endif // !NO_PRINT
 #define NO_ACTION_ONESHOT
+
+#define OLED_FONT_H "keyboards/crkbd/keymaps/tominabox1/doug.c"

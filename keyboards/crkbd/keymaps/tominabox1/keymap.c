@@ -4,9 +4,7 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
+
 
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
 
@@ -168,6 +166,8 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return TAPPING_TERM;
     }
 }
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
@@ -229,155 +229,127 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           )
 };
 
-
 int RGB_current_mode;
 
 uint32_t layer_state_set_user(uint32_t state) {
     state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
     switch (biton32(state)) {
         case _LOWER:
-            //rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
         case _RAISE:
-            // rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
         case _ADJUST:
-            // rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
-        default:
-            // rgblight_sethsv_noeeprom(HSV_GREEN);
-            break;
+
     }
     return state;
 }
-
 void matrix_init_user(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-    iota_gfx_init(!has_usb());   // turns on the display
+#ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+#endif
+#ifdef OLED_DRIVER_ENABLE
+    oled_init(0);   // turns on the display
 #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
 
-// When add source files to SRC in rules.mk, you can use functions.
-const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
-
-
-char matrix_line_str[24];
-
-const char *read_layer_state(void) {
-    uint8_t layer = biton32(layer_state);
-    
-    strcpy(matrix_line_str, "Layer: ");
-    
-    switch (layer)
-    {
-        case _BASE:
-            strcat(matrix_line_str, "Default");
-            break;
-        case _LOWER:
-            strcat(matrix_line_str, "Lower");
-            break;
-        case _ARROW:
-            strcat(matrix_line_str, "Navigation");
-            break;
-        case _ADJUST:
-            strcat(matrix_line_str, "Adjust");
-            break;
-        case _RAISE:
-            strcat(matrix_line_str, "Raise");
-            break;
-        default:
-            sprintf(matrix_line_str + strlen(matrix_line_str), "Unknown (%d)", layer);
-    }
-    
-    return matrix_line_str;
-}
-
-const char *read_usb_state(void) {
-    
-    strcpy(matrix_line_str, "USB  : ");
-    
-    switch (USB_DeviceState) {
-        case DEVICE_STATE_Unattached:
-            strcat(matrix_line_str, "Unattached");
-            break;
-        case DEVICE_STATE_Suspended:
-            strcat(matrix_line_str, "Suspended");
-            break;
-        case DEVICE_STATE_Configured:
-            strcat(matrix_line_str, "Connected");
-            break;
-        case DEVICE_STATE_Powered:
-            strcat(matrix_line_str, "Powered");
-            break;
-        case DEVICE_STATE_Default:
-            strcat(matrix_line_str, "Default");
-            break;
-        case DEVICE_STATE_Addressed:
-            strcat(matrix_line_str, "Addressed");
-            break;
-        default:
-            strcat(matrix_line_str, "Invalid");
-    }
-    
-    return matrix_line_str;
-}
+//oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
+uint16_t        oled_timer;
 
 void matrix_scan_user(void) {
-    iota_gfx_task();
+    oled_task();
 }
 
-void matrix_render_user(struct CharacterMatrix *matrix) {
-    if (is_master) {
-        matrix_write_ln(matrix, read_layer_state());
-        matrix_write_ln(matrix, read_usb_state());
-        matrix_write_ln(matrix, read_keylogs());
-    } else {
-        matrix_write(matrix, read_logo());
-    }
+void render_logo(void) {
+    static const char PROGMEM logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(logo, false);
 }
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-    if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-        memcpy(dest->display, source->display, sizeof(dest->display));
-        dest->dirty = true;
-    }
-}
-
-void iota_gfx_task_user(void) {
-    struct CharacterMatrix matrix;
-    matrix_clear(&matrix);
-    matrix_render_user(&matrix);
-    matrix_update(&display, &matrix);
-}
-#endif//SSD1306OLED
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        set_keylog(keycode, record);
+void render_status_main(void) {
+    // Host Keyboard USB Status
+    oled_write_P(PSTR("USB: "), false);
+    switch (USB_DeviceState) {
+        case DEVICE_STATE_Unattached:
+            oled_write_P(PSTR("Unattached\n"), false);
+            break;
+        case DEVICE_STATE_Suspended:
+             oled_write_P(PSTR("Suspended\n"), false);
+            break;
+        case DEVICE_STATE_Configured:
+             oled_write_P(PSTR("Connected\n"), false);
+            break;
+        case DEVICE_STATE_Powered:
+             oled_write_P(PSTR("Powered\n"), false);
+            break;
+        case DEVICE_STATE_Default:
+             oled_write_P(PSTR("Default\n"), false);
+            break;
+        case DEVICE_STATE_Addressed:
+             oled_write_P(PSTR("Addressed\n"), false);
+            break;
+        default:
+             oled_write_P(PSTR("Invalid\n"), false);
+        }
+    
+    // Host Keyboard Layer Status
+    oled_write_P(PSTR("Layer: "), false);
+    switch (biton32(layer_state)) {
+        case _BASE:
+            oled_write_P(PSTR("Colemak\n"), false);
+            break;
+        case _RAISE:
+            oled_write_P(PSTR("Numbers\n"), false);
+            break;
+        case _LOWER:
+            oled_write_P(PSTR("Symbols\n"), false);
+            break;
+        case _ADJUST:
+            oled_write_P(PSTR("Adjust\n"), false);
+            break;
+        case _ARROW:
+            oled_write_P(PSTR("Nav\n"), false);
+            break;
+        default:
+            // Or use the write_ln shortcut over adding '\n' to the end of your string
+            oled_write_ln_P(PSTR("Undefined"), false);
     }
     
-    return true;
+    // Host Keyboard LED Status
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
+
 }
+    
+void oled_task_user(void) {
+        if (is_master) {
+            render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        } else {
+            render_logo();
+        }
+    }
+
+#endif // OLED_Driver
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    
     switch (keycode) {
         case RGBRST:
-#ifdef RGB_MATRIX_ENABLE
-            if (record->event.pressed) {
-                eeconfig_update_rgb_matrix_default();
-                rgb_matrix_enable();
-                RGB_current_mode = rgb_matrix_config.mode;
-            }
+            #ifdef RGB_MATRIX_ENABLE
+                if (record->event.pressed) {
+                    eeconfig_update_rgb_matrix_default();
+                    rgb_matrix_enable();
+                    RGB_current_mode = rgb_matrix_config.mode;
+                    }
             
-#endif
-            break;
+            #endif
+        break;
     }
-    return true;
+return true;
     
 }
