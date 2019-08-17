@@ -12,6 +12,7 @@ extern led_config_t g_led_config;
 
 static const HSV default_magic = { HSV_SPRINGGREEN };
 
+// Laser Color Constants
 static const HSV laser_purple =  { HSV_LSR_PURPLE };
 static const HSV laser_pink =    { HSV_LSR_PINK };
 static const HSV laser_blue =    { HSV_LSR_BLUE };
@@ -19,6 +20,7 @@ static const HSV laser_cyan =    { HSV_LSR_CYAN };
 static const HSV laser_magenta = { HSV_LSR_MAGENTA };
 static const rgb_theme_t rgb_laser = { LASER, { &laser_purple, &laser_pink, &laser_blue, &laser_cyan, &laser_magenta } };
 
+// Granite Color Constants
 static const HSV granite_white =  { HSV_GNT_WHITE };
 static const HSV granite_blue =   { HSV_GNT_BLUE };
 static const HSV granite_red =    { HSV_GNT_RED };
@@ -26,13 +28,14 @@ static const HSV granite_green =  { HSV_GNT_GREEN };
 static const HSV granite_yellow = { HSV_GNT_YELLOW };
 static const rgb_theme_t rgb_granite = { GRANITE, { &granite_white, &granite_blue, &granite_red, &granite_green, &granite_yellow } };
 
+// Oblique Color Constants
 static const HSV oblique_white =  { HSV_OBQ_WHITE };
 static const HSV oblique_purple = { HSV_OBQ_PURPLE };
 static const HSV oblique_red =    { HSV_OBQ_RED };
 static const HSV oblique_orange = { HSV_OBQ_ORANGE };
 static const HSV oblique_green =  { HSV_OBQ_GREEN };
 static const rgb_theme_t rgb_oblique = { OBLIQUE, { &oblique_white, &oblique_purple, &oblique_red, &oblique_orange, &oblique_green } };
-
+// Set themes to be included
 static const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite, &rgb_oblique };
 static const size_t rgb_theme_max = (sizeof themes / sizeof *themes);
 
@@ -129,7 +132,9 @@ void rgb_theme_layer(layer_state_t state) {
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    rgb_theme_layer(state);
+    if (user_config.rgb_layer_change) {
+        rgb_theme_layer(state);
+    }
 #endif // RGBLIGHT_ENABLE
     return state;
 }
