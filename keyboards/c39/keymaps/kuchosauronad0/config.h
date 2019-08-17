@@ -22,17 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-
-// #define USE_SERIAL
-//#define USE_I2C
-
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 /* key combination for magic key command */
 #undef IS_COMMAND
 #define IS_COMMAND() ( \
@@ -52,34 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 //#endif // RGBLIGHT_ENABLE
 
-//#ifdef AUDIO_ENABLE
-//#define C6_AUDIO
-//#ifdef RGBLIGHT_ENABLE
-//#define NO_MUSIC_MODE
-//#endif
-//#endif //AUDIO_ENABLE
-
-#undef PRODUCT
-#ifdef KEYBOARD_orthodox_rev1
-#define PRODUCT         Kuchosauronad0 Hacked collide39 Proto.1
-#elif KEYBOARD_orthodox_rev3
-#define PRODUCT         Kuchosauronad0 Hacked collide39 Rev.1
-#endif
-
-//#define QMK_ESC_OUTPUT D7 // usually COL
-//#ifdef KEYBOARD_orthodox_rev1
-//#define QMK_ESC_INPUT D4 // usually ROW
-//#else
-//#define QMK_ESC_INPUT D2 // usually ROW
-//#endif
-//#define QMK_LED B0
-//#define QMK_SPEAKER C6
-//
-//#define SHFT_LED1 5
-//#define SHFT_LED2 10
-//
-//#define CTRL_LED1 6
-//#define CTRL_LED2 9
-//
-//#define GUI_LED1 8
-//#define ALT_LED1 7
