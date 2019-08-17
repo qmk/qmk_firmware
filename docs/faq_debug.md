@@ -184,6 +184,16 @@ Pressing any key during sleep should wake host.
 
 Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
+## Enabling JTAG
+
+By default, the JTAG debugging interface is disabled as soon as the keyboard starts up. JTAG-capable MCUs come from the factory with the `JTAGEN` fuse set, and it takes over certain pins of the MCU that the board may be using for the switch matrix, LEDs, etc.
+
+If you would like to keep JTAG enabled, just add the following to your `config.h`:
+
+```c
+#define JTAG_ENABLE
+```
+
 ## Adding LED Indicators of Lock Keys
 You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
 
