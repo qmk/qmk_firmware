@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     rgblight_setrgb(0, 255, 0);
 }
 
