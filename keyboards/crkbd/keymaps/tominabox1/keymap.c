@@ -255,13 +255,19 @@ void matrix_init_user(void) {
 
 #ifdef OLED_DRIVER_ENABLE
 
+
 //oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 uint16_t        oled_timer;
 
-void matrix_scan_user(void) {
-    oled_task();
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        // add_keylog(keycode); // keep if using OLED key logger
+        oled_timer = timer_read();
+        oled_on();
+    }
+    return true;
+    
 }
-
 void render_logo(void) {
     static const char PROGMEM logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -327,7 +333,7 @@ void render_status_main(void) {
 }
     
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 10000) {
+    if (timer_elapsed(oled_timer) > 20000) {
         oled_off();
         return;
     }
@@ -340,23 +346,4 @@ void oled_task_user(void) {
 
 #endif // OLED_Driver
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        // add_keylog(keycode); // keep if using OLED key logger
-        oled_timer = timer_read();
-    }
-    switch (keycode) {
-        case RGBRST:
-            #ifdef RGB_MATRIX_ENABLE
-                if (record->event.pressed) {
-                    eeconfig_update_rgb_matrix_default();
-                    rgb_matrix_enable();
-                    RGB_current_mode = rgb_matrix_config.mode;
-                    }
-            
-            #endif
-        break;
-    }
-return true;
-    
-}
+
