@@ -117,6 +117,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  switch (keycode) {
+   case KC_C_ALT: case KC_M_ALT:
+    return true;
+   default:
+    return false;
+  }
+}
+
 extern uint8_t mk_time_to_max, mk_wheel_time_to_max, mk_max_speed, mk_wheel_max_speed, mk_delay, mk_interval;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

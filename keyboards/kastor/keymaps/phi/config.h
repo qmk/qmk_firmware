@@ -46,3 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
 #define PERMISSIVE_HOLD
+
+/* Prefer "tap" when "Alt Dn -> A Dn -> Alt Up -> A Up" within the TAPPING_TERM for some keys */
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
