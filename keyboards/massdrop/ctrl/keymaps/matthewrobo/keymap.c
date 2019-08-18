@@ -7,8 +7,7 @@ enum ctrl_layers {
 };
 
 enum ctrl_keycodes {
-	U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
-	U_T_AGCR,              //USB Toggle Automatic GCR control
+	U_T_AGCR = SAFE_RANGE, //USB Toggle Automatic GCR control
 	DBG_TOG,               //DEBUG Toggle On / Off
 	DBG_MTRX,              //DEBUG Toggle Matrix Prints
 	DBG_KBD,               //DEBUG Toggle Keyboard Prints
@@ -236,12 +235,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 	static uint32_t key_timer;
 
 	switch (keycode) {
-	case U_T_AUTO:
-		if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-			TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-		}
-
-		return false;
 
 	case U_T_AGCR:
 		if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {

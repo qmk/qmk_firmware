@@ -2,8 +2,7 @@
 #include "xulkal.h"
 
 enum ctrl_keycodes {
-    U_T_AUTO = SAFE_RANGE, //USB Extra Port Toggle Auto Detect / Always Active
-    U_T_AGCR,              //USB Toggle Automatic GCR control
+    U_T_AGCR = SAFE_RANGE, //USB Toggle Automatic GCR control
     DBG_TOG,               //DEBUG Toggle On / Off
     DBG_MTRX,              //DEBUG Toggle Matrix Prints
     DBG_KBD,               //DEBUG Toggle Keyboard Prints
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_MUTE, _______, _______, \
         _______, RGB_RMOD,RGB_MOD, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   KC_MPLY, KC_MSTP, KC_VOLU, \
-        RGB_SPI, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   QWERTY,  _______, U_T_AUTO,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
+        RGB_SPI, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   QWERTY,  _______, _______,U_T_AGCR,_______, _______, _______, _______, _______,   KC_MPRV, KC_MNXT, KC_VOLD, \
         RGB_SPD, RGB_SAD, RGB_VAD, RGB_HUD, RGBRST,  GAME,    _______, _______, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, _______, TG_NKRO, _______, _______, _______, _______, _______,                              _______, \
         _______, _______, _______,                   _______,                            _______, _______, _______, _______,            _______, _______, _______ \
@@ -62,10 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
-        case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
-                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
-            return false;
         case U_T_AGCR:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL)
                 TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");

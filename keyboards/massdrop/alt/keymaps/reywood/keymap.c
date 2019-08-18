@@ -114,20 +114,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case L_T_ONF:
       if (record->event.pressed) {
-        led_enabled = !led_enabled;
-        I2C3733_Control_Set(led_enabled);
+        I2C3733_Control_Set(!I2C3733_Control_Get());
       }
       return false;
     case L_ON:
       if (record->event.pressed) {
-        led_enabled = 1;
-        I2C3733_Control_Set(led_enabled);
+        I2C3733_Control_Set(1);
       }
       return false;
     case L_OFF:
       if (record->event.pressed) {
-        led_enabled = 0;
-        I2C3733_Control_Set(led_enabled);
+        I2C3733_Control_Set(0);
       }
       return false;
     case L_T_BR:

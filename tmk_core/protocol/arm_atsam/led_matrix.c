@@ -349,16 +349,9 @@ void led_matrix_indicators(void)
             #endif //KANA
             (0))
             {
-                led_buffer[i].r = 255 - led_buffer[i].r; //TODO: Issue here with keeping the LED lit, static value works
-                led_buffer[i].g = 255 - led_buffer[i].g; //TODO: Issue here with keeping the LED lit, static value works
-                led_buffer[i].b = 255 - led_buffer[i].b; //TODO: Issue here with keeping the LED lit, static value works
-
-                //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.r > 127) *led_cur->rgb.r = 0;
-                //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.r = 255;
-                //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.g > 127) *led_cur->rgb.g = 0;
-                //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.g = 255;
-                //TODO: Old code, see if this hard cutoff is better// if (*led_cur->rgb.b > 127) *led_cur->rgb.b = 0;
-                //TODO: Old code, see if this hard cutoff is better// else *led_cur->rgb.b = 255;
+                led_buffer[i].r = 255 - led_buffer[i].r;
+                led_buffer[i].g = 255 - led_buffer[i].g;
+                led_buffer[i].b = 255 - led_buffer[i].b;
             }
         }
     }
@@ -397,20 +390,6 @@ static void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, flo
 
     while (f->end != 1)
     {
-        //OLD-CODE// //TODO: Get this working again if (led_animation_circular) {
-        //OLD-CODE// //TODO: Get this working again     po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
-        //OLD-CODE// //TODO: Get this working again }
-        //OLD-CODE// //TODO: Get this working again else {
-        //OLD-CODE// //TODO: Get this working again     if (led_animation_orientation)
-        //OLD-CODE// //TODO: Get this working again     {
-        //OLD-CODE// //TODO: Get this working again         po = led_cur->py;
-        //OLD-CODE// //TODO: Get this working again     }
-        //OLD-CODE// //TODO: Get this working again     else
-        //OLD-CODE// //TODO: Get this working again     {
-        //OLD-CODE// //TODO: Get this working again         po = led_cur->px;
-        //OLD-CODE// //TODO: Get this working again     }
-        //OLD-CODE// //TODO: Get this working again }
-
         po = pos; //Reset po for new frame
 
         //Add in any moving effects
@@ -496,6 +475,9 @@ static void led_matrix_massdrop_config_override(int i)
     uint8_t highest_active_layer = biton32(layer_state);
 
     if (led_animation_circular) {
+        // TODO: should use min/max values from LED configuration instead of
+        // hard-coded 224, 64
+        // po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
         po = sqrtf((powf(fabsf((224 / 2) - (float)g_led_config.point[i].x), 2) + powf(fabsf((64 / 2) - (float)g_led_config.point[i].y), 2))) / RGB_MAX_DISTANCE * 100;
     } else {
         if (led_animation_orientation) {

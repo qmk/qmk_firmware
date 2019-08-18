@@ -150,6 +150,8 @@ extern uint8_t led_animation_circular;
 extern float led_edge_brightness;
 extern uint8_t led_edge_mode;
 
+uint32_t led_matrix_get_tick(void);
+
 #define LED_MODE_NORMAL             0                               //Must be 0
 #define LED_MODE_KEYS_ONLY          1
 #define LED_MODE_NON_KEYS_ONLY      2
