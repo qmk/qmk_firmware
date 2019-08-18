@@ -220,6 +220,7 @@ void led_matrix_prepare(void)
     }
 }
 
+__attribute__((weak))
 void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b)
 {
     if (i < ISSI3733_LED_COUNT)

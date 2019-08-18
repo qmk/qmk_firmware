@@ -150,6 +150,9 @@ extern uint8_t led_animation_circular;
 extern float led_edge_brightness;
 extern uint8_t led_edge_mode;
 
+extern issi3733_led_t led_map[ISSI3733_LED_COUNT];
+extern RGB led_buffer[ISSI3733_LED_COUNT];
+
 uint32_t led_matrix_get_tick(void);
 
 #define LED_MODE_NORMAL             0                               //Must be 0

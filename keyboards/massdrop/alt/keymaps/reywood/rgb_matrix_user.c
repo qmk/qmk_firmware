@@ -1,15 +1,8 @@
 #include "quantum.h"
 #include "led_matrix.h"
 
-extern issi3733_led_t *led_cur;
-extern uint8_t led_per_run;
-extern issi3733_led_t *lede;
-extern issi3733_led_t led_map[];
-
 static uint16_t last_boost_update;
 static uint8_t led_boosts[ISSI3733_LED_COUNT];
-static uint8_t led_boost_index;
-static uint8_t led_cur_index;
 
 #define LED_BOOST_REFRESH_INTERVAL_IN_MS 40
 #define LED_BOOST_DECAY 0.7
@@ -31,7 +24,8 @@ static uint8_t led_cur_index;
 #define UNDERGLOW_G (UNDERGLOW_RGB >> 8 & 0xff)
 #define UNDERGLOW_B (UNDERGLOW_RGB & 0xff)
 
-#define UNDERGLOW_SCAN_CODE 255
+#define UNDERGLOW_SCAN_CODE_1 255
+#define UNDERGLOW_SCAN_CODE_2 254
 
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -54,45 +48,23 @@ static const keypos_t LED_TO_KEY_MAP[KEY_LED_COUNT] = {
   KP(0, 4), KP(1, 4), KP(2, 4),                               KP(6, 4),                               KP(10, 4), KP(11, 4), KP(12, 4), KP(13, 4), KP(14, 4),
 };
 
-
 static void update_led_boosts(void);
-static void update_led_cur_rgb_values(void);
 static void set_nearest_led_to_max(uint8_t col, uint8_t row);
-static uint8_t calculate_new_color_component_value(uint8_t max, uint8_t min);
+static uint8_t calculate_new_color_component_value(int i, uint8_t max, uint8_t min);
 static void calculate_new_led_boosts(uint8_t new_led_boosts[]);
 static uint8_t calculate_new_led_boost_at(int index);
 static uint8_t get_propagated_boost_from_neighbors(int led_position);
 static uint8_t get_led_boost_at_keypos(uint8_t row, uint8_t col);
 static void set_new_led_boosts(uint8_t* new_led_boosts);
 static uint8_t map_key_position_to_led_index(uint8_t col, uint8_t row);
+void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b);
 
-
-void rgb_matrix_init_user(void) {
+void matrix_init_user(void) {
   for (int i = 0; i < ISSI3733_LED_COUNT; i++) {
     led_boosts[i] = 0;
   }
   last_boost_update = timer_read();
-  led_boost_index = 0;
-  led_cur_index = 0;
-}
-
-void led_matrix_run(void) {
-  uint8_t led_this_run = 0;
-
-  if (led_cur == 0) { //Denotes start of new processing cycle in the case of chunked processing
-    led_cur = led_map;
-    led_cur_index = 0;
-  }
-  update_led_boosts();
-
-  while (led_cur < lede && led_this_run < led_per_run) {
-    update_led_cur_rgb_values();
-
-    led_cur++;
-    led_cur_index++;
-    led_this_run++;
-  }
-}
+};
 
 void rgb_matrix_record_key_press(keyrecord_t *record) {
   if (record->event.pressed) {
@@ -100,7 +72,6 @@ void rgb_matrix_record_key_press(keyrecord_t *record) {
     set_nearest_led_to_max(key.col, key.row);
   }
 }
-
 
 static void update_led_boosts(void) {
   if (timer_elapsed(last_boost_update) > LED_BOOST_REFRESH_INTERVAL_IN_MS) {
@@ -112,15 +83,19 @@ static void update_led_boosts(void) {
   }
 }
 
-static void update_led_cur_rgb_values(void) {
-  if (led_cur->scan == UNDERGLOW_SCAN_CODE) {
-    *led_cur->rgb.r = UNDERGLOW_R;
-    *led_cur->rgb.g = UNDERGLOW_G;
-    *led_cur->rgb.b = UNDERGLOW_B;
+void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b) {
+  if (i == 0) {
+    update_led_boosts();
+  }
+
+  if (led_map[i].scan == UNDERGLOW_SCAN_CODE_1 || led_map[i].scan == UNDERGLOW_SCAN_CODE_2) {
+    led_buffer[i].r = UNDERGLOW_R;
+    led_buffer[i].g = UNDERGLOW_G;
+    led_buffer[i].b = UNDERGLOW_B;
   } else {
-    *led_cur->rgb.r = calculate_new_color_component_value(MAX_R, MIN_R);
-    *led_cur->rgb.g = calculate_new_color_component_value(MAX_G, MIN_G);
-    *led_cur->rgb.b = calculate_new_color_component_value(MAX_B, MIN_B);
+    led_buffer[i].r = calculate_new_color_component_value(i, MAX_R, MIN_R);
+    led_buffer[i].g = calculate_new_color_component_value(i, MAX_G, MIN_G);
+    led_buffer[i].b = calculate_new_color_component_value(i, MAX_B, MIN_B);
   }
 }
 
@@ -131,8 +106,8 @@ static void set_nearest_led_to_max(uint8_t col, uint8_t row) {
   }
 }
 
-static uint8_t calculate_new_color_component_value(uint8_t max, uint8_t min) {
-  uint8_t current_boost = led_boosts[led_cur_index];
+static uint8_t calculate_new_color_component_value(int i, uint8_t max, uint8_t min) {
+  uint8_t current_boost = led_boosts[i];
   return (float)(max - min) * current_boost / LED_BOOST_PEAK + min;
 }
 
