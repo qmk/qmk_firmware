@@ -82,6 +82,8 @@ LINK_TIME_OPTIMIZATION_ENABLE = yes
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
+
+VPATH += drivers/gpio
 SRC += custom_matrix_helper.c pca9555.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 

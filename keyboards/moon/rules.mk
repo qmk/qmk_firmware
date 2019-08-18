@@ -1,5 +1,7 @@
 # Project specific files
-SRC += i2c_master.c pca9555.c matrix.c
+VPATH += drivers/gpio
+SRC += pca9555.c matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
 
 # MCU name
 MCU = atmega32u4
