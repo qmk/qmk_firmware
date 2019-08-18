@@ -18,7 +18,7 @@
 
 #include "debug.h"
 
-#define SLAVE_TO_ADDR(n)   (n<<1)
+#define SLAVE_TO_ADDR(n) (n << 1)
 #define TIMEOUT 100
 
 enum {
@@ -29,7 +29,7 @@ enum {
   CMD_INVERSION_0,
   CMD_INVERSION_1,
   CMD_CONFIG_0,
-  CMD_CONFIG_1
+  CMD_CONFIG_1,
 };
 
 void pca9555_init(uint8_t slave_addr) {
@@ -37,17 +37,17 @@ void pca9555_init(uint8_t slave_addr) {
   if (!s_init) {
     i2c_init();
 
-    s_init=1;
+    s_init = 1;
   }
 
   // TODO: could check device connected
-  //i2c_start(SLAVE_TO_ADDR(slave) | I2C_WRITE);
-  //i2c_stop();
+  // i2c_start(SLAVE_TO_ADDR(slave) | I2C_WRITE);
+  // i2c_stop();
 }
 
 void pca9555_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf) {
   uint8_t addr = SLAVE_TO_ADDR(slave_addr);
-  uint8_t cmd = port ? CMD_OUTPUT_1 : CMD_OUTPUT_0;
+  uint8_t cmd  = port ? CMD_CONFIG_1 : CMD_CONFIG_0;
 
   i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
   if (ret != I2C_STATUS_SUCCESS) {
@@ -57,7 +57,7 @@ void pca9555_set_config(uint8_t slave_addr, uint8_t port, uint8_t conf) {
 
 void pca9555_set_output(uint8_t slave_addr, uint8_t port, uint8_t conf) {
   uint8_t addr = SLAVE_TO_ADDR(slave_addr);
-  uint8_t cmd = port ? CMD_CONFIG_1 : CMD_CONFIG_0;
+  uint8_t cmd  = port ? CMD_OUTPUT_1 : CMD_OUTPUT_0;
 
   i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
   if (ret != I2C_STATUS_SUCCESS) {
@@ -67,10 +67,10 @@ void pca9555_set_output(uint8_t slave_addr, uint8_t port, uint8_t conf) {
 
 uint8_t pca9555_readPins(uint8_t slave_addr, uint8_t port) {
   uint8_t addr = SLAVE_TO_ADDR(slave_addr);
-  uint8_t cmd = port ? CMD_INPUT_1 : CMD_INPUT_0;
+  uint8_t cmd  = port ? CMD_INPUT_1 : CMD_INPUT_0;
 
-  uint8_t data = 0;
-  i2c_status_t ret = i2c_readReg(addr, cmd, &data, sizeof(data), TIMEOUT);
+  uint8_t      data = 0;
+  i2c_status_t ret  = i2c_readReg(addr, cmd, &data, sizeof(data), TIMEOUT);
   if (ret != I2C_STATUS_SUCCESS) {
     print("pca9555_readPins::FAILED\n");
   }
