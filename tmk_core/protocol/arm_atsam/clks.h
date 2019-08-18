@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef MD_BOOTLOADER
 
+#undef LITTLE_ENDIAN  //redefined in samd51j18a.h
 #include "samd51j18a.h"
 
 //From keyboard
