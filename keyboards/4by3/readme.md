@@ -5,7 +5,7 @@
 A 12 key mechanical keypad.
 
 Keyboard Maintainer: [eliassjogreen](https://github.com/eliassjogreen)  
-Hardware Supported: 3by4  
+Hardware Supported: 4by3  
 Hardware Availability: [eliassjogreen/4by3](https://github.com/eliassjogreen/4by3)
 
 Make example for this keyboard (after setting up your build environment):

@@ -6,4 +6,3 @@ NKRO_ENABLE 		= yes
 CONSOLE_ENABLE		= yes
 COMMAND_ENABLE		= yes
 
-LAYOUTS				= horizontal vertical_right vertical_left
