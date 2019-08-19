@@ -63,8 +63,8 @@
 #define gbp A(KC_3)
 
 #define down KC_DOWN
-#define home KC_HOME
-#define end KC_END
+#define home G(KC_LEFT)
+#define end G(KC_RGHT)
 #define up KC_UP
 #define pgdn KC_PGDN
 #define pgup KC_PGUP
