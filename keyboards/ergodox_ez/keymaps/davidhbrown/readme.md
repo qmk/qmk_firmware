@@ -1,6 +1,5 @@
 
 # David H. Brown's ergodox_ez `keymap.c`
-`qmk_firmware/keyboards/ergodox_ez/keymaps/davidhbrown/README.md` 
 The real goal of putting this on GitHub is not because I expect anyone else will want exactly the same layout I do. The key feature is described later in the section about `statusLed.c`. Briefly, I really missed having the usual NumLock status LED and figured out I'd share how I got it back while retaining the use of the keyboard LEDs to indicate the current layer. But I should probably describe the keymap first... 
 
 ## Base layer
@@ -66,3 +65,6 @@ Then, `#define STATUS_LED_*_USB` to which of the five USB Host "LEDs" you wish t
 * `USB_LED_KANA`
   
 After flashing and trying it out, you may wish to come back and tweak the levels of the `STATUS_LED_*_*` #defines. On my keyboard, green is almost too bright and blue is fairly dim compared to the other two.
+
+_[`qmk_firmware/keyboards/ergodox_ez/keymaps/davidhbrown/README.md`](https://github.com/davidhbrown/qmk_firmware/tree/davidhbrown/keyboards/ergodox_ez/keymaps/davidhbrown)_
+_v1.1a; August 20, 2019_
