@@ -127,9 +127,7 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-If you have any issues with this, you may need to this: 
-
-    sudo make <my_keyboard>:<my_keymap>:dfu
+?> If you have any issues with this - such as `dfu-programmer: no device present` - please see the [Frequently Asked Build Questions](faq_build.md).
 
 #### DFU commands
 
@@ -225,7 +223,7 @@ For the PJRC devices (Teensy's), when you're ready to compile and flash your fir
 
 For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
 
-    make erdogox_ez:xyverz:teensy
+    make ergodox_ez:xyverz:teensy
 
 Once the firmware finishes compiling, it will output something like this: 
 
