@@ -76,7 +76,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define B7_AUDIO`
   * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
-  * pin of the backlight - `B5`, `B6`, `B7` and `C6` (and `D4` on ATmega32A) use hardware PWM, others use software implementation
+  * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
@@ -247,6 +247,9 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
 
 * `#define RGBLED_SPLIT { 6, 6 }`
   * See [RGB Light Configuration](#rgb-light-configuration)

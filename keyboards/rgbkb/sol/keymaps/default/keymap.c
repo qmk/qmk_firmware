@@ -300,7 +300,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master())
-    return OLED_ROTATION_90;
+    return OLED_ROTATION_270;
   return rotation;
 }
 
@@ -324,7 +324,8 @@ static void render_status(void) {
 
   // Define layers here
   oled_write_P(PSTR("Layer"), false);
-  switch (biton32(layer_state)) {
+  uint8_t layer = layer_state ? biton(layer_state) : biton32(default_layer_state);
+  switch (layer) {
     case _QWERTY:
       oled_write_P(PSTR("BASE "), false);
       break;

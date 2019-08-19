@@ -88,7 +88,7 @@
 #endif
 
 #if !defined(RGB_MATRIX_STARTUP_MODE)
-  #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
+  #ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
   #else
     // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace

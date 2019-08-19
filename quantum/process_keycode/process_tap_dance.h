@@ -34,7 +34,7 @@ typedef struct
   bool finished;
 } qk_tap_dance_state_t;
 
-#define TD(n) (QK_TAP_DANCE + n)
+#define TD(n) (QK_TAP_DANCE | ((n) & 0xFF))
 
 typedef void (*qk_tap_dance_user_fn_t) (qk_tap_dance_state_t *state, void *user_data);
 

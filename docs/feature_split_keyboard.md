@@ -160,6 +160,18 @@ There are some settings that you may need to configure, based on how the hardwar
 
 This allows you to specify a different set of pins for the matrix on the right side.  This is useful if you have a board with differently-shaped halves that requires a different configuration (such as Keebio's Quefrency).
 
+```c
+#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }
+```
+
+This allows you to specify a different set of direct pins for the right side.
+
+```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+```
+
+This allows you to specify a different set of encoder pins for the right side.
 
 ```c
 #define RGBLIGHT_SPLIT
