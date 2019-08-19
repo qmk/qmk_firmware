@@ -563,7 +563,7 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     #endif
     #endif
-    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
         if (!eeconfig_is_enabled()) {
@@ -635,6 +635,9 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_TOGGLE_NKRO:
+            keymap_config.nkro = !keymap_config.nkro;
+            break;
           case MAGIC_TOGGLE_ALT_GUI:
             keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
             keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
@@ -645,9 +648,6 @@ bool process_record_quantum(keyrecord_t *record) {
                 PLAY_SONG(ag_norm_song);
               }
             #endif
-            break;
-          case MAGIC_TOGGLE_NKRO:
-            keymap_config.nkro = !keymap_config.nkro;
             break;
           default:
             break;
