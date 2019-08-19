@@ -16,14 +16,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VERSION:
       if (!record->event.pressed) {
         send_string_with_delay_P(PSTR(QMK_KEYBOARD ":" QMK_KEYMAP "\nVersion:" QMK_VERSION ", built: " QMK_BUILDDATE), MACRO_TIMER);
-#if defined(UNICODEMAP_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLED) > 2
-  #error "More than one unicode method enabled"
-#elif defined(UCIS_ENABLE) > 0
-  #error "UCIS_ENABLE"
-#elif defined(UNICODE_ENABLE) > 0
-  #error "UNICODE_ENABLE"
-#endif
-        
       }
       return false; break;
     case MAKE:

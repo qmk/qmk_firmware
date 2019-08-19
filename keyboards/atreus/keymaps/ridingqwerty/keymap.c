@@ -94,34 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+/*
 // custom tap/hold keys
 uint16_t key_timer;
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-        case TESTYTEST:   
-            if (!record->event.pressed) {
-                send_string_with_delay_P(PSTR("using: " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-            }
-            break;
-/*
-        case RG_QUOT:   
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                layer_on(_NUMBER);
-                register_mods(MOD_BIT(KC_RGUI));
-            } else {
-                unregister_mods(MOD_BIT(KC_RGUI));
-                layer_off(_NUMBER);
-                if (timer_elapsed(key_timer) < TAPPING_TERM) {
-                    tap_code(KC_QUOT);
-                }
-            }
-            return false; break;
-*/
-    }
     return true;
 };
 
 void matrix_init_keymap() {
     set_unicode_input_mode(UC_LNX);
 }
+*/
