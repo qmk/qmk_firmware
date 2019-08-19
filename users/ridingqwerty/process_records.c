@@ -13,6 +13,25 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
 uint16_t user_key_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
+    case VERSION:
+      if (!record->event.pressed) {
+        send_string_with_delay_P(PSTR(QMK_KEYBOARD ":" QMK_KEYMAP "\nVersion:" QMK_VERSION ", built: " QMK_BUILDDATE), MACRO_TIMER);
+#if defined(UNICODEMAP_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLED) > 2
+  #error "More than one unicode method enabled"
+#elif defined(UCIS_ENABLE) > 0
+  #error "UCIS_ENABLE"
+#elif defined(UNICODE_ENABLE) > 0
+  #error "UNICODE_ENABLE"
+#endif
+        
+      }
+      return false; break;
+    case MAKE:
+      if (!record->event.pressed) {
+        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP ":dfu-util\n"), MACRO_TIMER);
+        reset_keyboard();
+      }
+      return false; break;
     case RG_QUOT:
       if (record->event.pressed) {
         user_key_timer = timer_read();
