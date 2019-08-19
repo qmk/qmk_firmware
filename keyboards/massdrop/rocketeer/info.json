@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ALT",
-    "url": "https://drop.com/buy/massdrop-alt-mechanical-keyboard",
+    "keyboard_name": "Rocketeer",
+    "url": "https://drop.com/buy/massdrop-x-zslane-mercury-rocketeer-mechanical-keyboard",
     "maintainer": "Drop / Massdrop",
-    "width": 16,
+    "width": 15,
     "height": 5,
     "layouts": {
         "LAYOUT": {
@@ -21,7 +21,7 @@
               {"label":"MINUS", "x":11, "y":0},
               {"label":"EQUALS", "x":12, "y":0},
               {"label":"BACKSPACE", "x":13, "y":0, "w":2},
-              {"label":"DELETE", "x":15, "y":0},
+
               {"label":"TAB", "x":0, "y":1, "w":1.5},
               {"label":"Q", "x":1.5, "y":1},
               {"label":"W", "x":2.5, "y":1},
@@ -36,7 +36,7 @@
               {"label":"LEFT BRACKET", "x":11.5, "y":1},
               {"label":"RIGHT BRACKET", "x":12.5, "y":1},
               {"label":"BACK SLASH", "x":13.5, "y":1, "w":1.5},
-              {"label":"HOME", "x":15, "y":1},
+
               {"label":"CAPS LOCK", "x":0, "y":2, "w":1.75},
               {"label":"A", "x":1.75, "y":2},
               {"label":"S", "x":2.75, "y":2},
@@ -50,7 +50,7 @@
               {"label":"SEMICOLON", "x":10.75, "y":2},
               {"label":"SINGLE TICK", "x":11.75, "y":2},
               {"label":"ENTER", "x":12.75, "y":2, "w":2.25},
-              {"label":"PAGE UP", "x":15, "y":2},
+
               {"label":"LEFT SHIFT", "x":0, "y":3, "w":2.25},
               {"label":"Z", "x":2.25, "y":3},
               {"label":"X", "x":3.25, "y":3},
@@ -62,18 +62,16 @@
               {"label":"COMMA", "x":9.25, "y":3},
               {"label":"PERIOD", "x":10.25, "y":3},
               {"label":"FORWARD SLASH", "x":11.25, "y":3},
-              {"label":"RIGHT SHIFT", "x":12.25, "y":3, "w":1.75},
-              {"label":"UP ARROW", "x":14, "y":3},
-              {"label":"PAGE DOWN", "x":15, "y":3},
-              {"label":"LEFT CTRL", "x":0, "y":4, "w":1.25},
-              {"label":"LEFT WIN", "x":1.25, "y":4, "w":1.25},
-              {"label":"LEFT ALT", "x":2.5, "y":4, "w":1.25},
+              {"label":"RIGHT SHIFT", "x":12.25, "y":3, "w":2.75},
+
+              {"label":"LEFT CTRL", "x":0.005, "y":4, "w":1.25},
+              {"label":"LEFT WIN", "x":1.255, "y":4, "w":1.25},
+              {"label":"LEFT ALT", "x":2.505, "y":4, "w":1.25},
               {"label":"SPACEBAR", "x":3.75, "y":4, "w":6.25},
               {"label":"RIGHT ALT", "x":10, "y":4, "w":1.25},
               {"label":"FN", "x":11.25, "y":4, "w":1.25},
-              {"label":"LEFT ARROW", "x":13, "y":4},
-              {"label":"DOWN ARROW", "x":14, "y":4},
-              {"label":"RIGHT ARROW", "x":15, "y":4}
+              {"label":"MENU", "x":12.5, "y":4, "w":1.25},
+              {"label":"RIGHT CTRL", "x":13.75, "y":4, "w":1.25}
             ]
         }
     }
