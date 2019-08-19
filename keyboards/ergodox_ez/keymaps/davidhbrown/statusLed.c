@@ -34,15 +34,15 @@ void statusLed(void) {
     uint8_t layer = biton32(layer_state);
     uint8_t red = 0, green = 0, blue = 0;
 
-    if (layer == MOUS) red = STATUS_LED_RED_HALF;
+    if (layer == STATUS_LED_RED_LAYER) red = STATUS_LED_RED_HALF;
     if (IS_HOST_LED_ON(STATUS_LED_RED_USB)) red = STATUS_LED_RED_DIM;
     if (IS_HOST_LED_ON(STATUS_LED_RED_USB) && layer == STATUS_LED_RED_LAYER) red = STATUS_LED_RED_FULL;
 
-    if (layer == NMPD) green = STATUS_LED_GREEN_HALF;
+    if (layer == STATUS_LED_GREEN_LAYER) green = STATUS_LED_GREEN_HALF;
     if (IS_HOST_LED_ON(STATUS_LED_GREEN_USB)) green = STATUS_LED_GREEN_DIM;
     if (IS_HOST_LED_ON(STATUS_LED_GREEN_USB) && layer == STATUS_LED_GREEN_LAYER) green = STATUS_LED_GREEN_FULL;
 
-    if (layer == FNKY) blue = STATUS_LED_BLUE_HALF;
+    if (layer == STATUS_LED_BLUE_LAYER) blue = STATUS_LED_BLUE_HALF;
     if (IS_HOST_LED_ON(STATUS_LED_BLUE_USB)) blue = STATUS_LED_BLUE_DIM;
     if (IS_HOST_LED_ON(STATUS_LED_BLUE_USB) && layer == STATUS_LED_BLUE_LAYER) blue = STATUS_LED_BLUE_FULL;
 
