@@ -9,7 +9,7 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
-
+// clang-format off
 #define LAYOUT_gergo_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -111,3 +111,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
     */
+// clang-format on

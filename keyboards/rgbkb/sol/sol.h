@@ -3,6 +3,8 @@
 #include "quantum.h"
 #ifdef KEYBOARD_rgbkb_sol_rev1
 #include "rev1.h"
+#else
+#include "rev2.h"
 #endif
 
 
@@ -28,6 +30,32 @@
     { R45, R44, R43, R42, R41, R40, R46 }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, R50, R56 } \
   }
+
+#define ENCODER_LAYOUT( \
+  E10, E11, \
+  E20, E21 \
+) \
+{ \
+  { E10, E11 }, \
+  { E20, E21 } \
+}
+
+#define EXTRA_ENCODER_LAYOUT( \
+  E10, E11, \
+  E20, E21, \
+  E30, E31, \
+  E40, E41, \
+  E50, E51, \
+  E60, E61  \
+) \
+{ \
+  { E10, E11 }, \
+  { E20, E21 }, \
+  { E30, E31 }, \
+  { E40, E41 }, \
+  { E50, E51 }, \
+  { E60, E61 } \
+}
 
 #define KC________ KC_TRNS
 #define KC_RGB_MOD RGB_MOD
