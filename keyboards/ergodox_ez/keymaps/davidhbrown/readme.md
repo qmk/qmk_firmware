@@ -1,15 +1,16 @@
 
-# David H. Brown's ergodox_ez keymap
-The real goal of putting this on GitHub is not because I expect anyone else will want exactly the same layout I do. The more interesting feature is described later in the section about `statusLed.c`. 
+![Base layout image](https://davidhbrown.us/ergodox_ez/0-Base.png)
+# David H. Brown's ErgoDox EZ keymap
+This keymap tries to be easy to learn and switch to-and-from by maximizing the number of standard keys that are at or reasonably near their standard QWERTY locations while providing a few extras for coding. Additional layers provide function keys, an embedded numeric keypad, and mouse/media controls. The CapsLock, NumLock, and ScrollLock USB Host status states are displayed with the indicator LEDs of the keyboard which do double-duty to also indicate activation of the three additional layers.
 
-Briefly, I really missed having the usual NumLock status LED and figured out I'd share how I got it back while retaining the use of the keyboard LEDs to indicate the current layer. At least for up to three additional layers. You are welcome to take that and incorporate it into your own keymaps; instructions for that are below.
+I pulled out the code to show both USB Host status LEDs and layer switches into a separate file; notes on how to add that to your own keymap are described later in the section about `statusLed.c`, below 
 
-# Keymap
-I should probably describe the keymap first. I found this arrangement easier to learn and adjust to than the default layout, especially because I often switch to any of a number of laptop keyboards when I'm not at my desktop machine.
+# Keymap extended description
+I found this arrangement easier to learn and adjust to than the default layout, especially because I often switch to any of a number of laptop keyboards when I'm not at my desktop machine.
 
 If you would like to download a hex file with this layout including the statusLed.c behavior, you can get that from https://davidhbrown.us/ergodox_ez/ergodox_ez_davidhbrown.hex  This works with both my ErgoDox EZ Original and my ErgoDox EZ Shine keyboards.
 
-If you would like to fork the layout in the configurator, go to [https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0](https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0). What you download won't have the statusLed function; that's not part of the configurator. The configrator is what prepared the nice layout images you'll see below.
+If you would like to fork the layout in the configurator, go to [https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0](https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0). What you download won't have the statusLed function; that's not part of the configurator. The configrator is what prepared the nice layout images.
 ## Base layer
 My goal here was to maximize access to standard keys and to place them as close to their usual QWERTY positions as possible. I am writing in English at least 65% of the time and code maybe 35% (wish the code were higher; it's usually more fun, but not the only thing I need to do). 
 ![Base layout image](https://davidhbrown.us/ergodox_ez/0-Base.png)
