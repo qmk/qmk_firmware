@@ -2,11 +2,11 @@
 # David H. Brown's ergodox_ez keymap
 The real goal of putting this on GitHub is not because I expect anyone else will want exactly the same layout I do. The more interesting feature is described later in the section about `statusLed.c`. 
 
-Briefly, I really missed having the usual NumLock status LED and figured out I'd share how I got it back while retaining the use of the keyboard LEDs to indicate the current layer. At least for up to three additional layers. You are welcome to take that and incorporate it into your own keymaps. 
-
-But I should probably describe the keymap first... 
+Briefly, I really missed having the usual NumLock status LED and figured out I'd share how I got it back while retaining the use of the keyboard LEDs to indicate the current layer. At least for up to three additional layers. You are welcome to take that and incorporate it into your own keymaps; instructions for that are below.
 
 # Keymap
+I should probably describe the keymap first. I found this arrangement easier to learn and adjust to than the default layout, especially because I often switch to any of a number of laptop keyboards when I'm not at my desktop machine.
+
 If you would like to download a hex file with this layout including the statusLed.c behavior, you can get that from https://davidhbrown.us/ergodox_ez/ergodox_ez_davidhbrown.hex  This works with both my ErgoDox EZ Original and my ErgoDox EZ Shine keyboards.
 
 If you would like to fork the layout in the configurator, go to [https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0](https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0). What you download won't have the statusLed function; that's not part of the configurator. The configrator is what prepared the nice layout images you'll see below.
@@ -14,7 +14,7 @@ If you would like to fork the layout in the configurator, go to [https://configu
 My goal here was to maximize access to standard keys and to place them as close to their usual QWERTY positions as possible. I am writing in English at least 65% of the time and code maybe 35% (wish the code were higher; it's usually more fun, but not the only thing I need to do). 
 ![Base layout image](https://davidhbrown.us/ergodox_ez/0-Base.png)
 ### left-hand notes
-Relative to the default layout, I restored **Esc** to the upper left and put **Tab** back below it. A fairly standard row of modifier keys begins the bottom row: **Ctrl**, **Fn**, **OS**, and **Alt** to match the notebook keyboards I use when I don't have one of my Ergodoxes available. The numbers extend up through **6** because I can't ever remember which pointer finger I'm supposed to use for that. An extra **Enter** just above the thumb cluster has proved a convenience (especially when my dominant right hand is on my trackpad), and the key above that summons the **Calculator**. "Space Cadet Shift" is enabled: just tapping the left shift produces a **(** while holding it really is Shift. 
+Relative to the default layout, I restored **Esc** to the upper left and put **Tab** back below it. A fairly standard row of modifier keys begins the bottom row: **Ctrl**, **Fn** (more on that in the next layer), **OS**, and **Alt** to match the notebook keyboards I use when I don't have one of my Ergodoxes available. The numbers extend up through **6** because I can't ever remember which pointer finger I'm supposed to use for that. An extra **Enter** just above the thumb cluster has proved a convenience (especially when my dominant right hand is on my trackpad), and the key above that summons the **Calculator**. "Space Cadet Shift" is enabled: just tapping the left shift produces a **(** while holding it really is Shift. 
 
 The latest addition to this layout is putting a **{** where I'd previously just disabled the Caps Lock. Unfortunately, I couldn't figure out a way to get a Shift+{ to produce }, but most of the code editors I use automatically type the closing }, so it should be okay.
 ### right-hand notes
@@ -22,14 +22,17 @@ I very much wanted to retain an inverted-T of directional **arrows** at the lowe
 
 One compromise is that the semicolon (**;:**) key is displaced to retain the customary position of the single/double quote (**'"**) and brackets (**[{** and **]}**) are displaced to the thumb cluster. The numbers **6** through **0** begin the top row --- shifted left one position relative to the default layout to leave room for both **-_** and **=+** near their usual spot. Along with a "Space Cadet Shift" producing a **)**, holding **;** gets you **Alt** and holding **/** is **Ctrl**.
 ## Function keys
-Many notebook keyboards have a blue "Fn" key used to access the function keys F1...Fn from keys normally invoking to system-specific behaviors such as changing the screen brightness. As the Ergodox EZ lacks a row for function keys, I figured I'd adopt the same approach, overlaying the numbers (and -, =) with F1..F12.
-![Function key layer layout](https://davidhbrown.us/ergodox_ez/1-Function.png)
+Many notebook keyboards have a blue "Fn" key used to access the function keys F1...Fn from keys normally invoking to system-specific behaviors such as changing the screen brightness. As the Ergodox EZ lacks a row for function keys, I figured I'd adopt the same approach. To access this layer, hold down the second key on the bottom row of the left-hand keyboard.
+![Function key layer layout](https://davidhbrown.us/ergodox_ez/1-Function.png)On the top row, function keys **F1-F9** match the numbers 1-9; 0 gets **F10**; - is **F11**, = is **F12**. The top left key, Ctrl-Shift-Esc will open the Task Manager on Windows. Fn+Q will send **Alt+F4** which will quit many Windows apps that don't respond to Ctrl+Q; similarly Fn+W sends **Ctrl+F4**, an old way to close a window.
+
+Fn+left Shift toggles **CapsLock**. Fn+{ on the left gets the closing brace **}** as a compromise because I couldn't make it happen with shift. Fn+Delete becomes **Insert**. You can also toggle the numpad (2) and mouse (3) layers.
+
+If you have the **Shine** keyboard, RGB on-off and brightness are on the left thumb cluster with animation and hue on the right.
 ## Embedded numeric keypad
 Some notebooks will "embed" a numeric keypad within the right half of the keyboard. I positioned this one so that 7, 8, and 9 match the labeled keys from the base layer.
-![Numeric keypad layer layout](https://davidhbrown.us/ergodox_ez/2-Numpad.png)
+![Numeric keypad layer layout](https://davidhbrown.us/ergodox_ez/2-Numpad.png)You can toggle this layer with Fn+Calc or Fn+NumLock; those keys are still available where the 6s are in the base layer. The numbers work fine; the positions of 7, 8, and 9 match the base layer. Numpads often have a double-wide 0 at the bottom left, so I use two keys for 0 there, plus an extra at the top right because it matches the base layer. Honestly, I can't remember where I put the numpad-specific punctuation without labeling the keys. (Keycodes for the numeric keypad are different from those corresponding to the main keyboard.) For ease of data entry, I used the vertical key next to the embedded pad as an extra **Tab**. Never had anything better to do with that key, so it's on the base layer. The right-hand enter is remapped to the numpad-specific **Enter**, as is the **\** above it.
 ## Mouse and media layer
-I set this up mostly to have better control of middle-click for working in FreeCAD before I got my Space Mouse.
-![Mouse and media layer layout](https://davidhbrown.us/ergodox_ez/3-MouseMedia.png)
+![Mouse and media layer layout](https://davidhbrown.us/ergodox_ez/3-MouseMedia.png)I usually access this layer by holding the bottom-right key on the left board (a tap is **`~**), and you can toggle this layer by adding the Fn key. Mouse **movement** is on WASD as well as the arrows. All four directions of mouse **wheel** are available in three clusters. I mostly use the **middle click** on this layer because that's an unreliable three-finger tap+drag on my trackpad, so it gets two keys. Starting to appreciate having the **volume** controls when in-game. 
 # How to use `statusLed.c`  in your own keymap
 
 This file defines a `void statusLed(void)` function that uses both the current layer
