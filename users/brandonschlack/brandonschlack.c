@@ -21,7 +21,7 @@ void keyboard_post_init_keymap(void){ }
 void keyboard_post_init_user(void){
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if RGB_ENABLE
     keyboard_post_init_rgb();
 #endif
     keyboard_post_init_keymap();
@@ -82,7 +82,7 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if RGB_ENABLE
     state = layer_state_set_rgb(state);
 #endif // RGBLIGHT_ENABLE
     return layer_state_set_keymap (state);

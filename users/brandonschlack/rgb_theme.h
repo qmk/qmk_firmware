@@ -4,7 +4,7 @@
 #include "color.h"
 #include "rgblight_list.h"
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if RGB_ENABLE
 
 // Laser Colors
 #define HSV_LSR_PURPLE   HSV_PURPLE

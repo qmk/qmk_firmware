@@ -24,7 +24,7 @@ void td_trigger_layer_finished (qk_tap_dance_state_t *state, void *user_data) {
     qk_tap_dance_trigger_layer_t *data = (qk_tap_dance_trigger_layer_t *)user_data;
     data->state = cur_dance(state);
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if RGB_ENABLE
     if ((data->layer == _LIGHT) && ((data->trigger == SINGLE_HOLD && data->state == DOUBLE_TAP) || (data->trigger == DOUBLE_TAP && data->state == TRIPLE_TAP))) {
         rgblight_toggle();
     } else if (data->state == data->trigger) {
