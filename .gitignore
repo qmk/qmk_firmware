@@ -4,7 +4,6 @@
 *.bin
 *.eep
 *.elf
-*.hex
 *.qmk
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
