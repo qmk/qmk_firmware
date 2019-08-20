@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
-#define FNKY 1 // FuNction KeYs
-#define NMPD 2 // embedded NuMeric keyPaD
-#define MOUS 3 // MOUSe and media
+enum layer_names {
+    BASE, // default layer
+    FNKY, // FuNction KeYs
+    NMPD, // embedded NuMeric keyPaD
+    MOUS  // MOUSe and media
+};
 
 #include "statusLed.c"
 

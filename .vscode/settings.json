@@ -13,6 +13,5 @@
         "*.cpp": "cpp",
         "*.hpp": "cpp",
         "xstddef": "c"
-    },
-    "terminal.explorerKind": "external"
+    }
 }

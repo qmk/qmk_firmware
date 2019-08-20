@@ -10,7 +10,7 @@ I found this arrangement easier to learn and adjust to than the default layout, 
 
 If you would like to download a hex file with this layout including the statusLed.c behavior, you can get that from https://davidhbrown.us/ergodox_ez/ergodox_ez_davidhbrown.hex  This works with both my ErgoDox EZ Original and my ErgoDox EZ Shine keyboards.
 
-If you would like to fork the layout in the configurator, go to [https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0](https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0). What you download won't have the statusLed function; that's not part of the configurator. The configrator is what prepared the nice layout images.
+If you would like to fork the layout in the configurator, go to [https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0](https://configure.ergodox-ez.com/ergodox-ez/layouts/LvADM/latest/0). What you download won't have the statusLed function; that's not part of the configurator. The configurator is what prepared the nice layout images.
 ## Base layer
 My goal here was to maximize access to standard keys and to place them as close to their usual QWERTY positions as possible. I am writing in English at least 65% of the time and code maybe 35% (wish the code were higher; it's usually more fun, but not the only thing I need to do). 
 ![Base layout image](https://davidhbrown.us/ergodox_ez/0-Base.png)
