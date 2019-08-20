@@ -127,6 +127,8 @@ enum macro_keycodes {
 enum {
     KC_EMAIL = 0,
     TD_SFT_CPS,
+    KC_BEPIS,
+    KC_BBB
 };
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -152,6 +154,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
+
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case KC_SFT_CPS:
@@ -175,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,     A,     R,     S,     T,     D,                      H,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    SFT_CPS,     Z,     X,     C,     V,     B,                      K,     M,  COMM,   DOT, SLSH,  SLSH,\
+    SFT_CPS,     Z,     X,     C,     V,     B,                      K,     M,  COMM,   DOT, SLSH,  BBB,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -187,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    MINS,    EQL,    LBRC,   RBRC, BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, SLSH,\
+       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, BEPIS,\
   //|------+--- ---+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -264,6 +267,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // add_keylog(keycode); // keep if using OLED key logger
         oled_timer = timer_read();
         oled_on();
+    switch (keycode) {
+            case KC_BBB:
+                if (record->event.pressed) {
+                    // when keycode QMKBEST is pressed
+                    SEND_STRING(":b:");
+                } else {
+                    // when keycode QMKBEST is released
+                }
+                break;
+            case KC_BEPIS:
+                if (record->event.pressed) {
+                    // when keycode QMKBEST is pressed
+                    SEND_STRING("BEPIS");
+                } else {
+                    // when keycode QMKBEST is released
+                }
+                break;
+        }
     }
     return true;
     
