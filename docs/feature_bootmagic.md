@@ -67,7 +67,7 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and Left GUI                   |
 |`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap                   |
 |`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Alt and Left GUI                   |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI                       |
 |`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap                  |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
