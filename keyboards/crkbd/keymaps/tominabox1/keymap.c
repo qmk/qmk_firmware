@@ -127,6 +127,8 @@ enum macro_keycodes {
 enum {
     KC_EMAIL = 0,
     TD_SFT_CPS,
+    KC_BEPIS,
+    KC_BBB
 };
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -152,6 +154,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
+
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case KC_SFT_CPS:
@@ -175,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,     A,     R,     S,     T,     D,                      H,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    SFT_CPS,     Z,     X,     C,     V,     B,                      K,     M,  COMM,   DOT, SLSH,  SLSH,\
+    SFT_CPS,     Z,     X,     C,     V,     B,                      K,     M,  COMM,   DOT, SLSH,  BBB,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -187,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    MINS,    EQL,    LBRC,   RBRC, BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, SLSH,\
+       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, BEPIS,\
   //|------+--- ---+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   LGUI, LALT,   SPC_LOW,      SPC_RSE, ARROW, ENT \
                               //`--------------------'  `--------------------'
@@ -255,13 +258,37 @@ void matrix_init_user(void) {
 
 #ifdef OLED_DRIVER_ENABLE
 
+
 //oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 uint16_t        oled_timer;
 
-void matrix_scan_user(void) {
-    oled_task();
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        // add_keylog(keycode); // keep if using OLED key logger
+        oled_timer = timer_read();
+        oled_on();
+    switch (keycode) {
+            case KC_BBB:
+                if (record->event.pressed) {
+                    // when keycode QMKBEST is pressed
+                    SEND_STRING(":b:");
+                } else {
+                    // when keycode QMKBEST is released
+                }
+                break;
+            case KC_BEPIS:
+                if (record->event.pressed) {
+                    // when keycode QMKBEST is pressed
+                    SEND_STRING("BEPIS");
+                } else {
+                    // when keycode QMKBEST is released
+                }
+                break;
+        }
+    }
+    return true;
+    
 }
-
 void render_logo(void) {
     static const char PROGMEM logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -327,6 +354,10 @@ void render_status_main(void) {
 }
     
 void oled_task_user(void) {
+    if (timer_elapsed(oled_timer) > 20000) {
+        oled_off();
+        return;
+    }
         if (is_master) {
             render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         } else {
@@ -336,20 +367,4 @@ void oled_task_user(void) {
 
 #endif // OLED_Driver
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    
-    switch (keycode) {
-        case RGBRST:
-            #ifdef RGB_MATRIX_ENABLE
-                if (record->event.pressed) {
-                    eeconfig_update_rgb_matrix_default();
-                    rgb_matrix_enable();
-                    RGB_current_mode = rgb_matrix_config.mode;
-                    }
-            
-            #endif
-        break;
-    }
-return true;
-    
-}
+

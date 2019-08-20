@@ -112,3 +112,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/tominabox1/doug.c"
+#define OLED_DISABLE_TIMEOUT
+
