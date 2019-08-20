@@ -4,8 +4,6 @@
 #include "color.h"
 #include "rgblight_list.h"
 
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-
 // Laser Colors
 #define HSV_LSR_PURPLE   HSV_PURPLE
 #define HSV_LSR_PINK     HSV_PINK
@@ -46,4 +44,4 @@ void rgb_theme_step(void);
 void rgb_theme_step_reverse(void);
 
 HSV get_rgb_theme_color(uint8_t index);
-#endif
+void rgb_theme_layer(layer_state_t state);

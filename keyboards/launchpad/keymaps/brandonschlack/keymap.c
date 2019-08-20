@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, RESET, \
     TG_NAVI, TG_REDR, \
     TG_MEDA, TG_KYPD, \
-    TG(_LIGHT), XXXXXXX \
+    TG_LGHT, XXXXXXX \
 )
 
 };
