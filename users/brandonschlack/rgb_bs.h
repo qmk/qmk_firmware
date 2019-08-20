@@ -1,6 +1,8 @@
 #pragma once
 #include "quantum.h"
-#include "rgb_theme.h"
+#ifdef RGB_THEME
+#   include "rgb_theme.h"
+#endif
 #ifdef RGB_MATRIX_ENABLE
 #   include "rgb_matrix.h"
 #endif
@@ -17,7 +19,5 @@ void rgb_matrix_cycle_flag(void);
 
 void keyboard_post_init_rgb(void);
 void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val);
-void rgb_theme_layer(layer_state_t state);
 
 layer_state_t layer_state_set_rgb(layer_state_t state);
-// layer_state_t default_layer_state_set_rgb(layer_state_t state);

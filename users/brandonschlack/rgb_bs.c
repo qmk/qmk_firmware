@@ -10,6 +10,7 @@ extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 
+#if defined(RGB_THEME)
 static const HSV default_magic = { HSV_SPRINGGREEN };
 
 // Laser Color Constants
@@ -38,6 +39,7 @@ static const rgb_theme_t rgb_oblique = { OBLIQUE, { &oblique_white, &oblique_pur
 // Set themes to be included
 static const rgb_theme_t *themes[] = { &rgb_laser, &rgb_granite, &rgb_oblique };
 static const size_t rgb_theme_max = (sizeof themes / sizeof *themes);
+#endif
 
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
@@ -48,6 +50,7 @@ void keyboard_post_init_rgb(void) {
 #endif
 }
 
+#if defined(RGB_THEME)
 void set_rgb_theme(rgb_theme_name_t theme_name) {
     if (!user_config.rgb_layer_change) {
         user_config.rgb_layer_change = true;
@@ -71,6 +74,29 @@ void rgb_theme_step_reverse(void) {
     current = (current - 1) % rgb_theme_max;
     set_rgb_theme(current);
 }
+
+HSV get_rgb_theme_color(uint8_t index) {
+    rgb_theme_t theme = get_rgb_theme();
+    size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
+
+    if (index == _MAGIC) {
+        return default_magic;
+    } else {
+        return **(theme.colors + (index % rgb_theme_color_max));
+    }
+};
+
+void rgb_theme_layer(layer_state_t state) {
+    uint8_t rgb_color_index = biton32(state);
+    HSV color = get_rgb_theme_color(rgb_color_index);
+#if defined(RGBLIGHT_ENABLE)
+    color.v = rgblight_config.val;
+#elif defined(RGB_MATRIX_ENABLE)
+    color.v = rgb_matrix_config.hsv.v;
+#endif
+    rgb_layer_helper( color.h, color.s, color.v );
+}
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, uint8_t led_type) {
@@ -112,30 +138,8 @@ void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
 }
 #endif
 
-HSV get_rgb_theme_color(uint8_t index) {
-    rgb_theme_t theme = get_rgb_theme();
-    size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
-
-    if (index == _MAGIC) {
-        return default_magic;
-    } else {
-        return **(theme.colors + (index % rgb_theme_color_max));
-    }
-};
-
-void rgb_theme_layer(layer_state_t state) {
-    uint8_t rgb_color_index = biton32(state);
-    HSV color = get_rgb_theme_color(rgb_color_index);
-#if defined(RGBLIGHT_ENABLE)
-    color.v = rgblight_config.val;
-#elif defined(RGB_MATRIX_ENABLE)
-    color.v = rgb_matrix_config.hsv.v;
-#endif
-    rgb_layer_helper( color.h, color.s, color.v );
-}
-
 layer_state_t layer_state_set_rgb(layer_state_t state) {
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_THEME)
     if (user_config.rgb_layer_change) {
         rgb_theme_layer(state);
     }

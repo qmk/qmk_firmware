@@ -7,3 +7,7 @@
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLIGHT_SLEEP
 #endif
+
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#   define RGB_THEME
+#endif
