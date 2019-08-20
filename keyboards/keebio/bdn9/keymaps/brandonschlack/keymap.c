@@ -10,8 +10,7 @@ enum bdn9_layers {
 enum bdn9_keycodes {
     TG_LNAV = KEYMAP_SAFE_RANGE,
     TG_REVW,
-    TG_EDIT,
-    TG_LGHT
+    TG_EDIT
 };
 
 // Tap Dances
@@ -340,11 +339,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             if (!record->event.pressed) {
                 tap_code(KC_D);
                 layer_move(_LR_EDIT);
-            }
-            break;
-        case TG_LGHT:
-            if (!record->event.pressed) {
-                layer_invert(_LIGHT);
             }
             break;
     }
