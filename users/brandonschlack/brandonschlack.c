@@ -47,7 +47,9 @@ void suspend_power_down_keymap(void) {}
 
 void suspend_power_down_user(void) {
     #ifdef RGB_MATRIX_ENABLE
+    if (!g_suspend_state) {
         rgb_matrix_set_suspend_state(true);
+    }
     #endif //RGB_MATRIX_ENABLE
     suspend_power_down_keymap();
 }
@@ -57,7 +59,9 @@ void suspend_wakeup_init_keymap(void) {}
 
 void suspend_wakeup_init_user(void) {
     #ifdef RGB_MATRIX_ENABLE
+    if (g_suspend_state) {
         rgb_matrix_set_suspend_state(false);
+    }
     #endif //RGB_MATRIX_ENABLE
     suspend_wakeup_init_keymap();
 }
