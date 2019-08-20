@@ -21,7 +21,7 @@ void matrix_scan_cmd_tab(void);
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
 #define TG_MAGC   TG(_MAGIC)
-#if RGB_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #define TG_LGHT   TG(_LIGHT)
 #endif
 // Media Mod-Tap

@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         #endif // IS_MACROPAD
-        #if RGB_ENABLE
+        #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
         case RGB_LYR:
             if (record->event.pressed) {
                 user_config.rgb_layer_change ^= 1;

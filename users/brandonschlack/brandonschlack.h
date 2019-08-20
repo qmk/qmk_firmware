@@ -10,10 +10,7 @@
 #   include "rgb_bs.h"
 #endif
 
-// Useful Defines
-#define RGB_ENABLE   (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-
-// Layer Names
+// Define layer names
 #ifndef IS_MACROPAD
 enum bs_layers {
     _MAC = 0,
@@ -30,7 +27,6 @@ enum macropad_layers {
 #endif
 #define _MAGIC 15
 
-// User Config
 typedef union {
   uint32_t raw;
   struct {
@@ -38,9 +34,9 @@ typedef union {
     uint8_t  rgb_theme :2;
   };
 } user_config_t;
+
 extern user_config_t user_config;
 
-// Function Handlers for Keymaps
 void matrix_init_keymap(void);
 void keyboard_post_init_keymap(void);
 void shutdown_keymap(void);

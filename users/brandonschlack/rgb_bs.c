@@ -104,7 +104,7 @@ void rgb_matrix_cycle_flag (void) {
 #endif
 
 void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
-#if RGB_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     rgblight_sethsv_noeeprom(hue, sat, val);
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_layer_helper(0, 0, 0, rgb_matrix_get_flags());
@@ -135,7 +135,7 @@ void rgb_theme_layer(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
-#if RGB_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     if (user_config.rgb_layer_change) {
         rgb_theme_layer(state);
     }
