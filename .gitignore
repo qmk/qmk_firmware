@@ -73,3 +73,6 @@ id_rsa_*
 
 # python things
 __pycache__
+keyboards/crkbd/keymaps/tominabox1/hex2img.py
+keyboards/crkbd/keymaps/tominabox1/img2hex.py
+keyboards/crkbd/keymaps/tominabox1/peepo.bmp
