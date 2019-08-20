@@ -75,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
-        case RGB_HUI ... RGB_VAD:
+        case RGB_HUI ... RGB_SAD:
             if (record->event.pressed) {
                 if (user_config.rgb_layer_change) {
                     user_config.rgb_layer_change = false;
