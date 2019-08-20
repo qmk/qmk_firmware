@@ -126,7 +126,11 @@ HSV get_rgb_theme_color(uint8_t index) {
 void rgb_theme_layer(layer_state_t state) {
     uint8_t rgb_color_index = biton32(state);
     HSV color = get_rgb_theme_color(rgb_color_index);
-
+#if defined(RGBLIGHT_ENABLE)
+    color.v = rgblight_config.val;
+#elif defined(RGB_MATRIX_ENABLE)
+    color.v = rgb_matrix_config.hsv.v;
+#endif
     rgb_layer_helper( color.h, color.s, color.v );
 }
 
