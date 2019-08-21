@@ -86,3 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LAPO_KEYS KC_LALT, KC_TRNS, KC_LBRACKET
 #define RAPC_KEYS KC_RGUI, KC_TRNS, KC_RBRACKET
+
+#undef PRODUCT
+#define PRODUCT Corne Keyboard
