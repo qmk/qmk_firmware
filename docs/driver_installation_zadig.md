@@ -10,6 +10,7 @@ Place your keyboard into the bootloader mode, either by hitting the `RESET` keyc
 
 Zadig will automatically detect the bootloader device:
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`.
+ - USBasp bootloaders will appear as `USBasp`.
  - AVR keyboards flashed with the QMK-DFU bootloader will be named `<keyboard name> Bootloader`.
  - For most ARM keyboards, it will be called `STM32 BOOTLOADER`.
 
