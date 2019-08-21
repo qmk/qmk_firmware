@@ -7,9 +7,6 @@
 #   include "rgb_matrix.h"
 #endif
 
-// Define Layer for Lighting functions
-#define _LIGHT 14
-
 #ifdef RGB_MATRIX_ENABLE
 #define LED_FLAG_ALL_KEYS 0x05
 

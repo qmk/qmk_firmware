@@ -11,21 +11,23 @@
 #endif
 
 // Define layer names
-#ifndef IS_MACROPAD
 enum bs_layers {
     _MAC = 0,
     _MACFN,
-};
+#if !defined(IS_MACROPAD)
+    _NAVI,
 #else
-enum macropad_layers {
     _NAVI = 0,
     _REEDER,
     _MEDIA,
-    _KEYPAD,
-    KEYMAP_LAYERS
-};
+    _MACRO,
 #endif
-#define _MAGIC 15
+    KEYMAP_LAYERS,
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+    _LIGHT = 14,
+#endif
+    _MAGIC = 15
+};
 
 typedef union {
   uint32_t raw;

@@ -61,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TG_KYPD:
             if (!record->event.pressed) {
-                layer_move(_KEYPAD);
+                layer_move(_MACRO);
             }
             break;
         #endif // IS_MACROPAD

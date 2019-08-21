@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
 ),
 
-/* Keypad
+/* Macro
  * ┌──────┬──────┐
  * │   1  │  2   │
  * ├──────┼──────┤
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │   7  │  8   │
  * └──────┴──────┘
  */
-[_KEYPAD] = LAYOUT( \
+[_MACRO] = LAYOUT( \
     KC_P1,     KC_P2, \
     KC_P3,     KC_P4, \
     KC_P5,     KC_P6, \
@@ -155,7 +155,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _MEDIA:
                     keycode = KC_SPC;
                     break;
-                case _KEYPAD:
+                case _MACRO:
                     keycode = KC_P7;
                     break;
             }
@@ -171,7 +171,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
                 case _MEDIA:
                     keycode = MC_PLYR;
                     break;
-                case _KEYPAD:
+                case _MACRO:
                     keycode = KC_P8;
                     break;
             }
