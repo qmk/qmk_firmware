@@ -292,7 +292,7 @@
             UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
             sei(); \
         } while(0)
-#   elif defined(__AVR_AT90USB1286__)
+#   elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__))
 #      define SERIAL_UART_BAUD 115200
 #      define SERIAL_UART_DATA UDR1
        /* You want UBRR to be 16 and UCSR1A = (1<<U2X1) as per rn42 documentation */
