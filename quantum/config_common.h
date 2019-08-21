@@ -300,7 +300,7 @@
 #      define SERIAL_UART_RXD_VECT USART1_RX_vect
 #      define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #      define SERIAL_UART_INIT() do { \
-            UCSR1A = (1<<U2X1); \
+            UCSR1A = _BV(U2X1); \
             /* baud rate */ \
             UBRR1L = SERIAL_UART_UBRR; \
             /* baud rate */ \
