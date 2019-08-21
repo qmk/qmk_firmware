@@ -8,7 +8,7 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 
 Place your keyboard into the bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch usually located on the underside of the board. If your keyboard has neither, try holding Escape, or Space+`B`, as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details).
 
-Zadig will automatically detect the bootloader device:
+Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
  - USBasp bootloaders will appear as `USBasp`, with a VID/PID of `16C0:05DC`.
  - AVR keyboards flashed with the QMK-DFU bootloader will be named `<keyboard name> Bootloader` and will also have the VID `03EB`.
