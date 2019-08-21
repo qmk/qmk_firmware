@@ -83,6 +83,8 @@ If that doesn't work, then you may need to grab the [Zadig Utility](https://zadi
 
 From here, you will need to know what type of controller the board is using.  You may see it listed in the Device Manager as `ATmega32U4` device (which is an AVR board), or an `STM32` device (Which is an ARM board).  For AVR boards, use `libusb-win32` for the driver. For ARM boards, use the `WinUSB` driver.  Once the correct driver type has been selected, click on the `Replace Driver` button, unplug your board, plug it back in, and reset it again.
 
+See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
+
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
