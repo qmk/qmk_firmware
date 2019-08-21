@@ -51,10 +51,10 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( /* Qwerty */
-    KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P, 
-    ED(A),    KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,     NM(SCLN),
-    LS(Z),    KC_X,     KC_C,     KC_V,     KC_B,                         KC_N,     KC_M,     KC_COMM,  FK(DOT),  RS(SLSH), 
-    LC(ESC),  LG(TAB),  LA(LBRC), LS(RBRC), NM(BSPC), ED(ESC),  SC(TAB),  SM(SPC),  RS(MINS), RA(EQL),  RG_QUOT,  RC(ENT)
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    ED_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    NM_SCLN,
+    LS_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, FK_DOT,  RS_SLSH,
+    LC_ESC,  LG_TAB,  LA_LBRC, LS_RBRC, NM_BSPC, ED_ESC,  SC_TAB,  SM_SPC,  RS_MINS, RA_EQL,  RG_QUOT, RC_ENT
   ),
   [_EDITOR] = LAYOUT( /* ED_A, ED_ESC */
     KC_GRV,  _______, KC_END,  _______, KC_TAB,                    _______, _______, KC_INS,  _______, KC_PGUP,
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
   [_SECRET] = LAYOUT( /* shhhh... */
-    RESET,   _______, _______, RUSTY,   FUEL,                      KC_F13,  ALPHA,   MINUS,   L_PAREN, VERSION,
-    AR1ST,   SYSNOC,  _______, _______, _______,                   _______, _______, _______, OS_LAB,  MAKE,
+    RESET,   _______, _______, RUSTY,   FUEL,                      KC_F13,  _______, _______, _______, _______,
+    AR1ST,   SYSNOC,  _______, _______, _______,                   _______, _______, _______, OS_LAB,  _______,
     CDLOCAL, _______, C0RE,    VAXIS,   _______,                   _______, MUNKY,   _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
@@ -94,14 +94,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-/*
 // custom tap/hold keys
 uint16_t key_timer;
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case RG_QUOT:   
+            if (record->event.pressed) {
+                key_timer = timer_read();
+                layer_on(_NUMBER);
+                register_mods(MOD_BIT(KC_RGUI));
+            } else {
+                unregister_mods(MOD_BIT(KC_RGUI));
+                layer_off(_NUMBER);
+                if (timer_elapsed(key_timer) < TAPPING_TERM) {
+                    tap_code(KC_QUOT);
+                }
+            }
+            return false; break;
+    }
     return true;
 };
-
-void matrix_init_keymap() {
-    set_unicode_input_mode(UC_LNX);
-}
-*/

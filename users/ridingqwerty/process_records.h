@@ -11,9 +11,7 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 enum userspace_custom_keycodes {
-    VERSION = PLACEHOLDER_SAFE_RANGE,
-    MAKE,
-// do a secrets include guard here
+    FIRST = PLACEHOLDER_SAFE_RANGE,
     RUSTY,
     FUEL,
     C0RE,
@@ -23,8 +21,9 @@ enum userspace_custom_keycodes {
     OS_LAB,
     CDLOCAL,
     SYSNOC,
-// end secret include guard
     RG_QUOT,
-    TESTYTEST,
-    NEW_SAFE_RANGE
+    LAST
 };
+
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
