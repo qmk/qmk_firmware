@@ -341,8 +341,8 @@ There are a number of DFU commands that you can use to flash firmware to a STM32
 * `:dfu-util` - The default command for flashing to STM32 devices. 
 * `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
    * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
-* `:dfu-utilsplit-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
-* `:dfu-utilsplit-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
 
 ## Test It Out!
 
