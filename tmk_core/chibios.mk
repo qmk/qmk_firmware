@@ -234,9 +234,12 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+define EXEC_DFU_UTIL
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+endef
 
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	$(call EXEC_DFU_UTIL)
 
 ifneq ($(strip $(TIME_DELAY)),)
   TIME_DELAY = $(strip $(TIME_DELAY))
@@ -253,7 +256,7 @@ dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
   done; \
   echo "Flashing $(TARGET).bin" ;\
   sleep 1 ;\
-  $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+  $(call EXEC_DFU_UTIL)
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
@@ -268,7 +271,24 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
-teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+define EXEC_TEENSY
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
+endef
+
+teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+	$(call EXEC_TEENSY)
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+
+
+flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+ifeq ($(strip $(BOOTLOADER)),dfu)
+	$(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
+	$(call EXEC_TEENSY)
+else ifeq ($(strip $(MCU_FAMILY)),STM32)
+	$(call EXEC_DFU_UTIL)
+else
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
+endif
