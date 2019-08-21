@@ -109,6 +109,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+#define RGB_MATRIX_LED_PROCESS_LIMIT 5
+#define RGB_MATRIX_LED_FLUSH_LIMIT 26
+
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
 /* #define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00 */
