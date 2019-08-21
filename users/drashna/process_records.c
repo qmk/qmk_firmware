@@ -38,15 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
 #endif
                 {
-#if defined(__arm__)
-                    send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_DFU)
-                    send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_HALFKAY)
-                    send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_CATERINA)
-                    send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
-#endif  // bootloader options
+                    send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
                 }
                 if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
                     send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY);
