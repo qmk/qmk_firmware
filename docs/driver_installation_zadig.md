@@ -7,6 +7,7 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 ## Installation
 
 Place your keyboard into the bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch usually located on the underside of the board. If your keyboard has neither, try holding Escape, or Space+`B`, as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details).
+Some keyboards may have specific instructions for entering the bootloader, for example the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (Escape) might be on a different key, such as Left Control. Refer to the board's README if you are unsure.
 
 Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
