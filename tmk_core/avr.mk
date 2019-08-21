@@ -344,6 +344,8 @@ else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(call EXEC_DFU)
 else ifeq ($(strip $(BOOTLOADER)), USBasp)
 	$(call EXEC_USBASP)
+else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+	$(call EXEC_BOOTLOADHID)
 else
 	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
 endif
