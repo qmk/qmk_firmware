@@ -71,8 +71,8 @@
 #define left KC_LEFT
 #define rght KC_RGHT
 
-#define tabl S(C(KC_TAB))
-#define tabr C(KC_TAB)
+#define tabl G(S(KC_LBRC))
+#define tabr G(S(KC_RBRC))
 #define fwd G(KC_RBRC)
 #define back G(KC_LBRC)
 #define dtl C(KC_LEFT)
