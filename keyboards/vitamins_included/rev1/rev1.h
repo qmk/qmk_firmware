@@ -1,6 +1,5 @@
 #ifndef REV1_H
 #define REV1_H
-#define DISABLE_JTAG // The keyboard uses PF4, PF5 and PF7, which are used by JTAG.
 #define EE_HANDS // This isn't optional for the vitamins included
 
 #include QMK_KEYBOARD_H
