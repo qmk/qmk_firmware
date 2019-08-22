@@ -1,5 +1,6 @@
 import qmk.keymap
 
+
 def test_template_onekey_proton_c():
     templ = qmk.keymap.template('handwired/onekey/proton_c')
     assert templ == qmk.keymap.DEFAULT_KEYMAP_C
