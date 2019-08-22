@@ -132,6 +132,8 @@ void keyboard_post_init_user(void) {
 __attribute__((weak))
 void shutdown_keymap(void) {}
 
+ void rgb_matrix_update_pwm_buffers(void);
+
 void shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
@@ -139,9 +141,9 @@ void shutdown_user(void) {
     rgblight_setrgb_red();
 #endif  // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-    // uint16_t timer_start = timer_read();
-    // rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
-    // while(timer_elapsed(timer_start) < 250) { wait_ms(1); }
+    rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
+    rgb_matrix_update_pwm_buffers();
+
 #endif  // RGB_MATRIX_ENABLE
     shutdown_keymap();
 }
