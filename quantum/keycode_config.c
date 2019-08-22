@@ -18,6 +18,11 @@
 
 extern keymap_config_t keymap_config;
 
+/** \brief keycode_config
+ *
+ * This function is used to check a specific keycode against the bootmagic config,
+ * and will return the corrected keycode, when appropriate.
+ */
 uint16_t keycode_config(uint16_t keycode) {
 
     switch (keycode) {
@@ -108,6 +113,12 @@ uint16_t keycode_config(uint16_t keycode) {
             return keycode;
     }
 }
+
+/** \brief mod_config
+ *
+ *  This function checks the mods passed to it against the bootmagic config,
+ *  and will remove or replace mods, based on that.
+ */
 
 uint8_t mod_config(uint8_t mod) {
     if (keymap_config.swap_lalt_lgui) {

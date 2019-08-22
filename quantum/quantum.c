@@ -613,15 +613,13 @@ bool process_record_quantum(keyrecord_t *record) {
             keymap_config.nkro = true;
             break;
           case MAGIC_SWAP_ALT_GUI:
-            keymap_config.swap_lalt_lgui = true;
-            keymap_config.swap_ralt_rgui = true;
+            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = true;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(ag_swap_song);
             #endif
             break;
           case MAGIC_SWAP_CTL_GUI:
-            keymap_config.swap_lctl_lgui = true;
-            keymap_config.swap_rctl_rgui = true;
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(cg_swap_song);
             #endif
@@ -657,22 +655,20 @@ bool process_record_quantum(keyrecord_t *record) {
             keymap_config.nkro = false;
             break;
           case MAGIC_UNSWAP_ALT_GUI:
-            keymap_config.swap_lalt_lgui = false;
-            keymap_config.swap_ralt_rgui = false;
+            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = false;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(ag_norm_song);
             #endif
             break;
           case MAGIC_UNSWAP_CTL_GUI:
-            keymap_config.swap_lctl_lgui = false;
-            keymap_config.swap_rctl_rgui = false;
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = false;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(cg_norm_song);
             #endif
             break;
           case MAGIC_TOGGLE_ALT_GUI:
             keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
-            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            keymap_config.swap_ralt_rgui = keymap_config.swap_lalt_lgui;
             #ifdef AUDIO_ENABLE
               if (keymap_config.swap_ralt_rgui) {
                 PLAY_SONG(ag_swap_song);
@@ -683,7 +679,7 @@ bool process_record_quantum(keyrecord_t *record) {
             break;
           case MAGIC_TOGGLE_CTL_GUI:
             keymap_config.swap_lctl_lgui = !keymap_config.swap_lctl_lgui;
-            keymap_config.swap_rctl_rgui = !keymap_config.swap_rctl_rgui;
+            keymap_config.swap_rctl_rgui = keymap_config.swap_lctl_lgui;
             #ifdef AUDIO_ENABLE
               if (keymap_config.swap_rctl_rgui) {
                 PLAY_SONG(cg_swap_song);
