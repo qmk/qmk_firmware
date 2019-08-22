@@ -236,7 +236,7 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		echo "Trying again in 5s." ;\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
 	done
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
