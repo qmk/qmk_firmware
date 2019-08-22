@@ -534,8 +534,7 @@ class MILC(object):
         if not self._inside_context_manager:
             # If they didn't use the context manager use it ourselves
             with self:
-                self.__call__()
-                return
+                return self.__call__()
 
         if not self._entrypoint:
             raise RuntimeError('No entrypoint provided!')
