@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _NAVI:
                 if (!clockwise) {
                     tap_code(MC_WH_D);
@@ -257,7 +257,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     else if (index == 1) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _NAVI:
                 if (!clockwise) {
                     tap_code16(NXT_TAB);
@@ -349,7 +349,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
  * Layer Switch
  */
 layer_state_t layer_state_set_keymap (layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case __LR_NAV:
             rgb_layer_helper(HSV_TEAL);
             break;
@@ -370,7 +370,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
     uint16_t keycode = 0;
     switch (toggle_layer) {
         case _LIGHT:
-            switch (biton32(layer_state)) {
+            switch (get_highest_layer(layer_state)) {
                 case _NAVI:
                     keycode = KC_PGUP;
                     break;
@@ -391,7 +391,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
             }
             break;
         case _MAGIC:
-            switch (biton32(layer_state)) {
+            switch (get_highest_layer(layer_state)) {
                 case _NAVI:
                 case _MEDIA:
                 case __LR_NAV:

@@ -145,7 +145,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
     uint16_t keycode = 0;
     switch (toggle_layer) {
         case _LIGHT:
-            switch (biton32(layer_state)) {
+            switch (get_highest_layer(layer_state)) {
                 case _NAVI:
                     keycode = REO_TAB;
                     break;
@@ -161,7 +161,7 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
             }
             break;
         case _MAGIC:
-            switch (biton32(layer_state)) {
+            switch (get_highest_layer(layer_state)) {
                 case _NAVI:
                     keycode = CLS_TAB;
                     break;
