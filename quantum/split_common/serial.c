@@ -29,36 +29,32 @@
     #endif
   #endif
 
+  #define setPinInputHigh(pin)    (DDRx_ADDRESS(pin)  &= ~_BV((pin) & 0xF), \
+                                   PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
+  #define setPinOutput(pin)       (DDRx_ADDRESS(pin)  |=  _BV((pin) & 0xF))
+  #define writePinHigh(pin)       (PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
+  #define writePinLow(pin)        (PORTx_ADDRESS(pin) &= ~_BV((pin) & 0xF))
+  #define readPin(pin)            ((bool)(PINx_ADDRESS(pin) & _BV((pin) & 0xF)))
+
   #if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
-    #define SERIAL_PIN_DDR   DDRD
-    #define SERIAL_PIN_PORT  PORTD
-    #define SERIAL_PIN_INPUT PIND
     #if SOFT_SERIAL_PIN == D0
-      #define SERIAL_PIN_MASK _BV(PD0)
       #define EIMSK_BIT       _BV(INT0)
       #define EICRx_BIT       (~(_BV(ISC00) | _BV(ISC01)))
       #define SERIAL_PIN_INTERRUPT INT0_vect
     #elif  SOFT_SERIAL_PIN == D1
-      #define SERIAL_PIN_MASK _BV(PD1)
       #define EIMSK_BIT       _BV(INT1)
       #define EICRx_BIT       (~(_BV(ISC10) | _BV(ISC11)))
       #define SERIAL_PIN_INTERRUPT INT1_vect
     #elif  SOFT_SERIAL_PIN == D2
-      #define SERIAL_PIN_MASK _BV(PD2)
       #define EIMSK_BIT       _BV(INT2)
       #define EICRx_BIT       (~(_BV(ISC20) | _BV(ISC21)))
       #define SERIAL_PIN_INTERRUPT INT2_vect
     #elif  SOFT_SERIAL_PIN == D3
-      #define SERIAL_PIN_MASK _BV(PD3)
       #define EIMSK_BIT       _BV(INT3)
       #define EICRx_BIT       (~(_BV(ISC30) | _BV(ISC31)))
       #define SERIAL_PIN_INTERRUPT INT3_vect
     #endif
   #elif  SOFT_SERIAL_PIN == E6
-    #define SERIAL_PIN_DDR   DDRE
-    #define SERIAL_PIN_PORT  PORTE
-    #define SERIAL_PIN_INPUT PINE
-    #define SERIAL_PIN_MASK  _BV(PE6)
     #define EIMSK_BIT        _BV(INT6)
     #define EICRx_BIT        (~(_BV(ISC60) | _BV(ISC61)))
     #define SERIAL_PIN_INTERRUPT INT6_vect
@@ -200,33 +196,32 @@ void serial_delay_half2(void) {
 inline static void serial_output(void) ALWAYS_INLINE;
 inline static
 void serial_output(void) {
-  SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
+  setPinOutput(SOFT_SERIAL_PIN);
 }
 
 // make the serial pin an input with pull-up resistor
 inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
 inline static
 void serial_input_with_pullup(void) {
-  SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
-  SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
+  setPinInputHigh(SOFT_SERIAL_PIN);
 }
 
 inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
 inline static
 uint8_t serial_read_pin(void) {
-  return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
+  return !! readPin(SOFT_SERIAL_PIN);
 }
 
 inline static void serial_low(void) ALWAYS_INLINE;
 inline static
 void serial_low(void) {
-  SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK;
+  writePinLow(SOFT_SERIAL_PIN);
 }
 
 inline static void serial_high(void) ALWAYS_INLINE;
 inline static
 void serial_high(void) {
-  SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
+  writePinHigh(SOFT_SERIAL_PIN);
 }
 
 void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size)
@@ -245,7 +240,7 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 
     // Enable INT0-INT3,INT6
     EIMSK |= EIMSK_BIT;
-#if SERIAL_PIN_MASK == _BV(PE6)
+#if SOFT_SERIAL_PIN == E6
     // Trigger on falling edge of INT6
     EICRB &= EICRx_BIT;
 #else
