@@ -113,7 +113,7 @@ void rgb_matrix_cycle_flag (void) {
             rgb_matrix_set_flags(LED_FLAG_ALL_KEYS);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
-        case LED_FLAG_ALL_KEYS:
+        case LED_FLAG_KEYS:
             rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
