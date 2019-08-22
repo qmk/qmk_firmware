@@ -65,9 +65,17 @@ extern backlight_config_t backlight_config;
   #ifndef AG_SWAP_SONG
     #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
   #endif
+  #ifndef CG_NORM_SONG
+    #define CG_NORM_SONG SONG(AG_NORM_SOUND)
+  #endif
+  #ifndef CG_SWAP_SONG
+    #define CG_SWAP_SONG SONG(AG_SWAP_SOUND)
+  #endif
   float goodbye_song[][2] = GOODBYE_SONG;
   float ag_norm_song[][2] = AG_NORM_SONG;
   float ag_swap_song[][2] = AG_SWAP_SONG;
+  float cg_norm_song[][2] = CG_NORM_SONG;
+  float cg_swap_song[][2] = CG_SWAP_SONG;
   #ifdef DEFAULT_LAYER_SONGS
     float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
   #endif
@@ -563,7 +571,8 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     #endif
     #endif
-    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
+    case MAGIC_SWAP_LCTL_LGUI ... MAGIC_TOGGLE_CTL_GUI:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
         if (!eeconfig_is_enabled()) {
@@ -585,6 +594,12 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_SWAP_RALT_RGUI:
             keymap_config.swap_ralt_rgui = true;
             break;
+          case MAGIC_SWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = true;
+            break;
+          case MAGIC_SWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = true;
+            break;
           case MAGIC_NO_GUI:
             keymap_config.no_gui = true;
             break;
@@ -604,6 +619,13 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_swap_song);
             #endif
             break;
+          case MAGIC_SWAP_CTL_GUI:
+            keymap_config.swap_lctl_lgui = true;
+            keymap_config.swap_rctl_rgui = true;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(cg_swap_song);
+            #endif
+            break;
           case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
             keymap_config.swap_control_capslock = false;
             break;
@@ -615,6 +637,12 @@ bool process_record_quantum(keyrecord_t *record) {
             break;
           case MAGIC_UNSWAP_RALT_RGUI:
             keymap_config.swap_ralt_rgui = false;
+            break;
+          case MAGIC_UNSWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = false;
+            break;
+          case MAGIC_UNSWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = false;
             break;
           case MAGIC_UNNO_GUI:
             keymap_config.no_gui = false;
@@ -635,6 +663,13 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_UNSWAP_CTL_GUI:
+            keymap_config.swap_lctl_lgui = false;
+            keymap_config.swap_rctl_rgui = false;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(cg_norm_song);
+            #endif
+            break;
           case MAGIC_TOGGLE_ALT_GUI:
             keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
             keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
@@ -643,6 +678,17 @@ bool process_record_quantum(keyrecord_t *record) {
                 PLAY_SONG(ag_swap_song);
               } else {
                 PLAY_SONG(ag_norm_song);
+              }
+            #endif
+            break;
+          case MAGIC_TOGGLE_CTL_GUI:
+            keymap_config.swap_lctl_lgui = !keymap_config.swap_lctl_lgui;
+            keymap_config.swap_rctl_rgui = !keymap_config.swap_rctl_rgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_rctl_rgui) {
+                PLAY_SONG(cg_swap_song);
+              } else {
+                PLAY_SONG(cg_norm_song);
               }
             #endif
             break;
