@@ -261,6 +261,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |----------------------------------|---------|------------------------------------|
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control     |
 |`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control          |
+|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and GUI           |
+|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and GUI          |
 |`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI               |
 |`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI              |
 |`MAGIC_NO_GUI`                    |         |Disable the GUI key                 |
@@ -268,8 +270,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace              |
 |`MAGIC_HOST_NKRO`                 |         |Force NKRO on                       |
 |`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides      |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Ctrl and GUI on both sides (for macOS)|
 |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control   |
 |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control  |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and GUI         |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and GUI        |
 |`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI             |
 |`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI            |
 |`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                  |
@@ -277,8 +282,10 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI on both sides      |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides  |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap on both sides |
+|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                    |
 
 ## [Bluetooth](feature_bluetooth.md)
 

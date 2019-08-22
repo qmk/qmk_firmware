@@ -66,7 +66,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   EBBBB: bits and extra bit
  *   ee:    on event(01:press, 10:release, 11:both)
  *
- * 1001|xxxx|xxxx xxxx   (reserved)
+ * ACT_LAYER_MODS(1001):
+ * 1001|LLLL| mods       Layer with modifiers held
  *
  * ACT_LAYER_TAP(101x):
  * 101E|LLLL| keycode    On/Off with tap key    (0x00-DF)[TAP]
@@ -110,6 +111,7 @@ enum action_kind_id {
     ACT_SWAP_HANDS      = 0b0110,
     /* Layer Actions */
     ACT_LAYER           = 0b1000,
+    ACT_LAYER_MODS      = 0b1001,
     ACT_LAYER_TAP       = 0b1010, /* Layer  0-15 */
     ACT_LAYER_TAP_EXT   = 0b1011, /* Layer 16-31 */
     /* Extensions */
@@ -153,6 +155,12 @@ typedef union {
         uint8_t  op     :2;
         uint8_t  kind   :4;
     } layer_bitop;
+    struct action_layer_mods
+    {
+        uint8_t  mods   :8;
+        uint8_t  layer  :4;
+        uint8_t  kind   :4;
+    } layer_mods;
     struct action_layer_tap {
         uint8_t  code   :8;
         uint8_t  val    :5;
@@ -261,8 +269,8 @@ enum layer_param_tap_op {
     OP_SET_CLEAR,
     OP_ONESHOT,
 };
-#define ACTION_LAYER_BITOP(op, part, bits, on)      (ACT_LAYER<<12 | (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
-#define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
+#define ACTION_LAYER_BITOP(op, part, bits, on)      ACTION(ACT_LAYER, (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
+#define ACTION_LAYER_TAP(layer, key)                ACTION(ACT_LAYER_TAP, (layer)<<8 | (key))
 /* Default Layer */
 #define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
 /* Layer Operation */
@@ -277,7 +285,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
 #define ACTION_LAYER_ONESHOT(layer)                 ACTION_LAYER_TAP((layer), OP_ONESHOT)
-#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | ((mods)&0x0f))
+#define ACTION_LAYER_MODS(layer, mods)              ACTION(ACT_LAYER_MODS, (layer) << 8 | (mods))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)

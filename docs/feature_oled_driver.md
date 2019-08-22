@@ -31,7 +31,7 @@ This enables the feature and the `OLED_DRIVER_ENABLE` define. Then in your `keym
 void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;

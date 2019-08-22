@@ -65,9 +65,17 @@ extern backlight_config_t backlight_config;
   #ifndef AG_SWAP_SONG
     #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
   #endif
+  #ifndef CG_NORM_SONG
+    #define CG_NORM_SONG SONG(AG_NORM_SOUND)
+  #endif
+  #ifndef CG_SWAP_SONG
+    #define CG_SWAP_SONG SONG(AG_SWAP_SOUND)
+  #endif
   float goodbye_song[][2] = GOODBYE_SONG;
   float ag_norm_song[][2] = AG_NORM_SONG;
   float ag_swap_song[][2] = AG_SWAP_SONG;
+  float cg_norm_song[][2] = CG_NORM_SONG;
+  float cg_swap_song[][2] = CG_SWAP_SONG;
   #ifdef DEFAULT_LAYER_SONGS
     float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
   #endif
@@ -563,7 +571,8 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     #endif
     #endif
-    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
+    case MAGIC_SWAP_LCTL_LGUI ... MAGIC_TOGGLE_CTL_GUI:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
         if (!eeconfig_is_enabled()) {
@@ -585,6 +594,12 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_SWAP_RALT_RGUI:
             keymap_config.swap_ralt_rgui = true;
             break;
+          case MAGIC_SWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = true;
+            break;
+          case MAGIC_SWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = true;
+            break;
           case MAGIC_NO_GUI:
             keymap_config.no_gui = true;
             break;
@@ -598,10 +613,15 @@ bool process_record_quantum(keyrecord_t *record) {
             keymap_config.nkro = true;
             break;
           case MAGIC_SWAP_ALT_GUI:
-            keymap_config.swap_lalt_lgui = true;
-            keymap_config.swap_ralt_rgui = true;
+            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = true;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(ag_swap_song);
+            #endif
+            break;
+          case MAGIC_SWAP_CTL_GUI:
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(cg_swap_song);
             #endif
             break;
           case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
@@ -616,6 +636,12 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_UNSWAP_RALT_RGUI:
             keymap_config.swap_ralt_rgui = false;
             break;
+          case MAGIC_UNSWAP_LCTL_LGUI:
+            keymap_config.swap_lctl_lgui = false;
+            break;
+          case MAGIC_UNSWAP_RCTL_RGUI:
+            keymap_config.swap_rctl_rgui = false;
+            break;
           case MAGIC_UNNO_GUI:
             keymap_config.no_gui = false;
             break;
@@ -629,20 +655,36 @@ bool process_record_quantum(keyrecord_t *record) {
             keymap_config.nkro = false;
             break;
           case MAGIC_UNSWAP_ALT_GUI:
-            keymap_config.swap_lalt_lgui = false;
-            keymap_config.swap_ralt_rgui = false;
+            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = false;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_UNSWAP_CTL_GUI:
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = false;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(cg_norm_song);
+            #endif
+            break;
           case MAGIC_TOGGLE_ALT_GUI:
             keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
-            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            keymap_config.swap_ralt_rgui = keymap_config.swap_lalt_lgui;
             #ifdef AUDIO_ENABLE
               if (keymap_config.swap_ralt_rgui) {
                 PLAY_SONG(ag_swap_song);
               } else {
                 PLAY_SONG(ag_norm_song);
+              }
+            #endif
+            break;
+          case MAGIC_TOGGLE_CTL_GUI:
+            keymap_config.swap_lctl_lgui = !keymap_config.swap_lctl_lgui;
+            keymap_config.swap_rctl_rgui = keymap_config.swap_lctl_lgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_rctl_rgui) {
+                PLAY_SONG(cg_swap_song);
+              } else {
+                PLAY_SONG(cg_norm_song);
               }
             #endif
             break;
@@ -885,9 +927,9 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
   default_layer_set(1U<<default_layer);
 }
 
-uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  uint32_t mask12 = (1UL << layer1) | (1UL << layer2);
-  uint32_t mask3 = 1UL << layer3;
+layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  layer_state_t mask12 = (1UL << layer1) | (1UL << layer2);
+  layer_state_t mask3 = 1UL << layer3;
   return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
 }
 
@@ -1034,104 +1076,147 @@ void matrix_scan_quantum() {
 }
 #if defined(BACKLIGHT_ENABLE) && (defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS))
 
-// The logic is a bit complex, we support 3 setups:
-// 1. hardware PWM when backlight is wired to a PWM pin
-// depending on this pin, we use a different output compare unit
-// 2. software PWM with hardware timers, but the used timer depends
-// on the audio setup (audio wins other backlight)
-// 3. full software PWM
+// This logic is a bit complex, we support 3 setups:
+//
+//   1. Hardware PWM when backlight is wired to a PWM pin.
+//      Depending on this pin, we use a different output compare unit.
+//   2. Software PWM with hardware timers, but the used timer
+//      depends on the Audio setup (Audio wins over Backlight).
+//   3. Full software PWM, driven by the matrix scan, if both timers are used by Audio.
 
-#if BACKLIGHT_PIN == B7
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1C1
-#  define OCRxx  OCR1C
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == B5
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1A1
-#  define OCRxx  OCR1A
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
-#elif BACKLIGHT_PIN == C6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR3A
-#  define TCCRxB TCCR3B
-#  define COMxx1 COM3A1
-#  define OCRxx  OCR3A
-#  define TIMERx_OVF_vect TIMER3_OVF_vect
-#  define TOIEx  TOIE3
-#  define ICRx   ICR3
-#  define TIMSKx TIMSK3
-#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define TIMERx_OVF_vect TIMER1_OVF_vect
-#  define TOIEx  TOIE1
-#  define ICRx   ICR1
-#  define TIMSKx TIMSK1
+#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == B5 || BACKLIGHT_PIN == B6 || BACKLIGHT_PIN == B7)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #elif BACKLIGHT_PIN == B6
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #endif
+#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) \
+  || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) \
+  || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) \
+  && (BACKLIGHT_PIN == C4 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR3
+  #define TCCRxA          TCCR3A
+  #define TCCRxB          TCCR3B
+  #define TIMERx_OVF_vect TIMER3_OVF_vect
+  #define TIMSKx          TIMSK3
+  #define TOIEx           TOIE3
+
+  #if BACKLIGHT_PIN == C4
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C4 pin!
+    #else
+      #define COMxx1      COM3C1
+      #define OCRxx       OCR3C
+    #endif
+  #elif BACKLIGHT_PIN == C5
+    #if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
+      #error This MCU has no C5 pin!
+    #else
+      #define COMxx1      COM3B1
+      #define OCRxx       OCR3B
+    #endif
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM3A1
+    #define OCRxx         OCR3A
+  #endif
+#elif (defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) \
+  && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK1
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == B7
+    #define COMxx1        COM1C1
+    #define OCRxx         OCR1C
+  #elif BACKLIGHT_PIN == C5
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == C6
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
+#elif defined(__AVR_ATmega32A__) \
+  && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
+  #define HARDWARE_PWM
+  #define ICRx            ICR1
+  #define TCCRxA          TCCR1A
+  #define TCCRxB          TCCR1B
+  #define TIMERx_OVF_vect TIMER1_OVF_vect
+  #define TIMSKx          TIMSK
+  #define TOIEx           TOIE1
+
+  #if BACKLIGHT_PIN == D4
+    #define COMxx1        COM1B1
+    #define OCRxx         OCR1B
+  #elif BACKLIGHT_PIN == D5
+    #define COMxx1        COM1A1
+    #define OCRxx         OCR1A
+  #endif
 #else
-#  if !defined(BACKLIGHT_CUSTOM_DRIVER)
-#    if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
-     // timer 1 is not used by audio , backlight can use it
-#pragma message "Using hardware timer 1 with software PWM"
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR1A
-#      define TCCRxB TCCR1B
-#      define OCRxx  OCR1A
-#      define TIMERx_COMPA_vect TIMER1_COMPA_vect
-#      define TIMERx_OVF_vect TIMER1_OVF_vect
-#      define OCIExA OCIE1A
-#      define TOIEx  TOIE1
-#      define ICRx   ICR1
-#      if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
-#        define TIMSKx TIMSK
-#      else
-#        define TIMSKx TIMSK1
-#      endif
-#    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
-#pragma message "Using hardware timer 3 with software PWM"
-// timer 3 is not used by audio, backlight can use it
-#      define HARDWARE_PWM
-#      define BACKLIGHT_PWM_TIMER
-#      define TCCRxA TCCR3A
-#      define TCCRxB TCCR3B
-#      define OCRxx OCR3A
-#      define TIMERx_COMPA_vect TIMER3_COMPA_vect
-#      define TIMERx_OVF_vect TIMER3_OVF_vect
-#      define OCIExA OCIE3A
-#      define TOIEx  TOIE3
-#      define ICRx   ICR1
-#      define TIMSKx TIMSK3
-#    else
-#pragma message "Audio in use - using pure software PWM"
-#define NO_HARDWARE_PWM
-#    endif
-#  else
-#pragma message "Custom driver defined - using pure software PWM"
-#define NO_HARDWARE_PWM
-#  endif
+  #if !defined(BACKLIGHT_CUSTOM_DRIVER)
+    #if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
+      // Timer 1 is not in use by Audio feature, Backlight can use it
+      #pragma message "Using hardware timer 1 with software PWM"
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR1A
+      #define TCCRxB            TCCR1B
+      #define TIMERx_COMPA_vect TIMER1_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER1_OVF_vect
+      #if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+        #define TIMSKx          TIMSK
+      #else
+        #define TIMSKx          TIMSK1
+      #endif
+      #define TOIEx             TOIE1
+
+      #define OCIExA            OCIE1A
+      #define OCRxx             OCR1A
+    #elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
+      #pragma message "Using hardware timer 3 with software PWM"
+      // Timer 3 is not in use by Audio feature, Backlight can use it
+      #define HARDWARE_PWM
+      #define BACKLIGHT_PWM_TIMER
+      #define ICRx              ICR1
+      #define TCCRxA            TCCR3A
+      #define TCCRxB            TCCR3B
+      #define TIMERx_COMPA_vect TIMER3_COMPA_vect
+      #define TIMERx_OVF_vect   TIMER3_OVF_vect
+      #define TIMSKx            TIMSK3
+      #define TOIEx             TOIE3
+
+      #define OCIExA            OCIE3A
+      #define OCRxx             OCR3A
+    #else
+      #pragma message "Audio in use - using pure software PWM"
+      #define NO_HARDWARE_PWM
+    #endif
+  #else
+    #pragma message "Custom driver defined - using pure software PWM"
+    #define NO_HARDWARE_PWM
+  #endif
 #endif
 
 #ifndef BACKLIGHT_ON_STATE
@@ -1300,7 +1385,7 @@ static uint16_t cie_lightness(uint16_t v) {
 
 // range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) {
-	OCRxx = val;
+  OCRxx = val;
 }
 
 #ifndef BACKLIGHT_CUSTOM_DRIVER
