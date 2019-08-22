@@ -45,7 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HAPTIC                            (uint32_t *)24
 #define EECONFIG_RGB_MATRIX                        (uint32_t *)28
 #define EECONFIG_RGB_MATRIX_SPEED                   (uint8_t *)32
-
+// TODO: Combine these into a single word and single block of EEPROM
+#define EECONFIG_KEYMAP_UPPER_BYTE                  (uint8_t *)33
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)
 #define EECONFIG_DEBUG_MATRIX                       (1<<1)
@@ -62,6 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP_SWAP_BACKSLASH_BACKSPACE    (1<<6)
 #define EECONFIG_KEYMAP_NKRO                        (1<<7)
 
+#define EECONFIG_KEYMAP_LOWER_BYTE EECONFIG_KEYMAP
 
 bool eeconfig_is_enabled(void);
 bool eeconfig_is_disabled(void);
@@ -81,8 +83,8 @@ void eeconfig_update_debug(uint8_t val);
 uint8_t eeconfig_read_default_layer(void);
 void eeconfig_update_default_layer(uint8_t val);
 
-uint8_t eeconfig_read_keymap(void);
-void eeconfig_update_keymap(uint8_t val);
+uint16_t eeconfig_read_keymap(void);
+void eeconfig_update_keymap(uint16_t val);
 
 #ifdef BACKLIGHT_ENABLE
 uint8_t eeconfig_read_backlight(void);
