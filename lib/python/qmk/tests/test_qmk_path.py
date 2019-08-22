@@ -2,6 +2,7 @@ import os
 
 import qmk.path
 
+
 def test_keymap_onekey_pytest():
     path = qmk.path.keymap('handwired/onekey/pytest')
     assert path == 'keyboards/handwired/onekey/keymaps'
