@@ -6,3 +6,7 @@
 /* Mouse Keys Configuration */
 #define MK_3_SPEED
 #define MK_W_INTERVAL_UNMOD 20
+
+/* Bootmagic to Top-Middle Key */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1
