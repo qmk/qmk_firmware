@@ -79,7 +79,7 @@
 #elif defined(KEYBOARD_c39)
   #define TAPPING_TERM 200
 #else
-  #define TAPPING_TERM 150
+  #define TAPPING_TERM 180
 #endif
 
 #define TAP_CODE_DELAY 5
