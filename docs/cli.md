@@ -36,3 +36,13 @@ qmk compile <configuratorExport.json>
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
+
+## `qmk cformat`
+
+This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
