@@ -1,11 +1,9 @@
 #ifndef REV1_H
 #define REV1_H
-#define DISABLE_JTAG // The keyboard uses PF4, PF5 and PF7, which are used by JTAG.
 #define EE_HANDS // This isn't optional for the vitamins included
 
 #include QMK_KEYBOARD_H
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
 
@@ -16,8 +14,6 @@
 	#include <avr/interrupt.h>
 #endif
 #endif
-
-//void promicro_bootloader_jmp(bool program);
 
 #define KEYMAP( \
 	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \

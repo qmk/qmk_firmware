@@ -7,11 +7,8 @@
 #   include "rgb_matrix.h"
 #endif
 
-// Define Layer for Lighting functions
-#define _LIGHT 14
-
 #ifdef RGB_MATRIX_ENABLE
-#define LED_FLAG_ALL_KEYS 0x05
+#define LED_FLAG_KEYS (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)
 
 void rgb_matrix_layer_helper(uint8_t red, uint8_t green, uint8_t blue, uint8_t led_type);
 void rgb_matrix_cycle_flag(void);

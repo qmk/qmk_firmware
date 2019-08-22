@@ -30,6 +30,7 @@ SOFTWARE.
 
 #include "config.h"
 #include "gfx.h"
+#include "action_layer.h"
 
 #ifdef LCD_BACKLIGHT_ENABLE
 #include "lcd_backlight.h"
@@ -45,7 +46,7 @@ uint8_t visualizer_get_mods(void);
 // This need to be called once at the start
 void visualizer_init(void);
 // This should be called at every matrix scan
-void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds);
+void visualizer_update(layer_state_t default_state, layer_state_t state, uint8_t mods, uint32_t leds);
 
 // This should be called when the keyboard goes to suspend state
 void visualizer_suspend(void);
@@ -68,8 +69,8 @@ void draw_emulator(void);
 struct keyframe_animation_t;
 
 typedef struct {
-    uint32_t layer;
-    uint32_t default_layer;
+    layer_state_t layer;
+    layer_state_t default_layer;
     uint32_t leds; // See led.h for available statuses
     uint8_t mods;
     bool suspended;

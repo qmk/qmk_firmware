@@ -5,6 +5,7 @@ IS_MACROPAD = yes
 BOOTLOADER = atmel-dfu
 
 # Build Options
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 COMMAND_ENABLE = no         # Disable Command, breaks with Mouse Keys set to constant.
 BACKLIGHT_ENABLE = no       # No backlights installed

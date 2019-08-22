@@ -61,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TG_KYPD:
             if (!record->event.pressed) {
-                layer_move(_KEYPAD);
+                layer_move(_MACRO);
             }
             break;
         #endif // IS_MACROPAD
@@ -127,16 +127,8 @@ void send_make_command(bool flash_bootloader) {
     if (flash_bootloader) {
 #if defined(BOOTLOADER_MDLOADER) // only run for Massdrop boards
         SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
-#elif defined(__arm__)  // only run for ARM boards
-        SEND_STRING(":dfu-util");
-#elif defined(BOOTLOADER_DFU) // only run for DFU boards
-        SEND_STRING(":dfu");
-#elif defined(BOOTLOADER_HALFKAY) // only run for teensy boards
-        SEND_STRING(":teensy");
-#elif defined(BOOTLOADER_CATERINA) // only run for Pro Micros
-        SEND_STRING(":avrdude");
-#elif defined(BOOTLOADER_USBASP) // Run for custom Program CMD
-        SEND_STRING(":program");
+#else
+        SEND_STRING(":flash");
 #endif // bootloader options
     }
     SEND_STRING(SS_TAP(X_ENTER));

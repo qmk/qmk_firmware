@@ -18,10 +18,10 @@
 #include "brandonschlack.h"
 
 enum romac_layers {
-    _NUMPAD = 0,
-    _FN,
-    _NUMLOCK,
-    _MACRO
+    __NUMPAD = 0,
+    __FN,
+    __NUMLOCK,
+    __MACRO
 };
 
 enum romac_keycodes {
@@ -33,28 +33,28 @@ enum romac_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_NUMPAD] = LAYOUT(
+	[__NUMPAD] = LAYOUT(
 		KC_P7, KC_P8, KC_P9, \
 		KC_P4, KC_P5, KC_P6, \
 		KC_P1, KC_P2, KC_P3, \
 		OSL(_FN), KC_P0, KC_PDOT \
 	),
 
-	[_FN] = LAYOUT(
+	[__FN] = LAYOUT(
 		KC_PSLS, KC_PAST, KC_BSPC, \
 		KC_TRNS, KC_TRNS, KC_PMNS, \
 		DF_NMLK, DF_MCRO, KC_PPLS, \
 		KC_TRNS, DF_MAGC, KC_PENT \
 	),
 
-    [_NUMLOCK] = LAYOUT(
+    [__NUMLOCK] = LAYOUT(
 		KC_HOME, KC_UP, KC_PGUP, \
 		KC_LEFT, CMD_TAB, KC_RGHT, \
 		KC_END, KC_DOWN, KC_PGDN, \
 		DF_NMPD, KC_INS, KC_DEL  \
 	),
 
-    [_MACRO] = LAYOUT(
+    [__MACRO] = LAYOUT(
 		KC_F13, KC_F14, KC_F15, \
 		KC_F16, KC_F17, KC_F18, \
 		KC_F19, KC_F20, KC_F21, \
@@ -73,19 +73,19 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DF_NMPD:
             if (!record->event.pressed) {
-                default_layer_set(_NUMPAD);
+                default_layer_set(__NUMPAD);
                 layer_move(default_layer_state);
             }
             break;
         case DF_NMLK:
             if (!record->event.pressed) {
-                default_layer_set(_NUMLOCK);
+                default_layer_set(__NUMLOCK);
                 layer_move(default_layer_state);
             }
             break;
         case DF_MCRO:
             if (!record->event.pressed) {
-                default_layer_set(_MACRO);
+                default_layer_set(__MACRO);
                 layer_move(default_layer_state);
             }
             break;

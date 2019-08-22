@@ -42,8 +42,8 @@ This layer is used for media controls. Player button is a hotkey to focus the cu
 | Left | Space | Right |
 
 
-### Keypad Layer
-This layer is used to send keypad keys, meant to be remapped based on current app with [Karabiner](https://pqrs.org/osx/karabiner/)
+### Macro Layer
+This layer is used to send generic macro keys, meant to be remapped based on current app with [Karabiner](https://pqrs.org/osx/karabiner/)
 
 | +/- | **Knobs** | =/. |
 | --- | --- | --- |

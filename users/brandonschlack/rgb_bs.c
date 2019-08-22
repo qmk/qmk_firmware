@@ -87,7 +87,7 @@ HSV get_rgb_theme_color(uint8_t index) {
 };
 
 void rgb_theme_layer(layer_state_t state) {
-    uint8_t rgb_color_index = biton32(state);
+    uint8_t rgb_color_index = get_highest_layer(state);
     HSV color = get_rgb_theme_color(rgb_color_index);
 #if defined(RGBLIGHT_ENABLE)
     color.v = rgblight_config.val;
@@ -113,7 +113,7 @@ void rgb_matrix_cycle_flag (void) {
             rgb_matrix_set_flags(LED_FLAG_ALL_KEYS);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
-        case LED_FLAG_ALL_KEYS:
+        case LED_FLAG_KEYS:
             rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
