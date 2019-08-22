@@ -20,9 +20,6 @@ void matrix_scan_user(void){
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
-    // T is for TMUX
-    // V is for vim related things
-    // other single key sequences are mostly for terminals and vim
 
     SEQ_ONE_KEY(KC_W) {
       // vim/tmux: Use in command mode in vim: write to file, switch tmux pane in the current session window and repeat the last command
@@ -53,8 +50,8 @@ void matrix_scan_user(void){
 
     SEQ_TWO_KEYS(KC_V, KC_Z){
       // vim: Zoom pane
-      tap_code(LCTL(KC_W));
-      tap_code(LSHFT(KC_BSLS));
+      tap_code16(LCTL(KC_W));
+      tap_code16(LSFT(KC_BSLS));
     }
 
     SEQ_TWO_KEYS(KC_V, KC_R) {
@@ -66,8 +63,8 @@ void matrix_scan_user(void){
 
     SEQ_TWO_KEYS(KC_V, KC_T) {
      // vim: move current pane to new tab
-     tap_code(LCTL(KC_W));
-     tap_code(LSHFT(KC_T));
+     tap_code16(LCTL(KC_W));
+     tap_code16(LSFT(KC_T));
     }
 
     SEQ_THREE_KEYS(KC_BSPC, KC_BSPC, KC_BSPC){
