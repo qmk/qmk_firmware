@@ -131,12 +131,6 @@ uint8_t matrix_cols(void) {
 }
 
 bool has_usb(void) {
-    if(is_rev2()) 
-    {
-        USBCON |= (1 << OTGPADE); //enables VBUS pad
-        _delay_us(5);
-        return (USBSTA & (1<<VBUS));  //checks state of VBUS
-    }
     return UDADDR & _BV(ADDEN); // This will return true if a USB connection has been established
 }
 
