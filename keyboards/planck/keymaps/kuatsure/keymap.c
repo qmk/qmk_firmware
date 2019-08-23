@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KT_MTAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
     KT_CESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
     KT_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_M_______________, KC_ENT,
-    KC_MUTE, KC_LEAD, KC_LALT, KC_LGUI, LOWER,    KC_SPC, KC_SPC,    RAISE, KT_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
+    KC_MPLY, KC_LEAD, KC_LALT, KC_LGUI, LOWER,    KC_SPC, KC_SPC,    RAISE, KT_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Lower
