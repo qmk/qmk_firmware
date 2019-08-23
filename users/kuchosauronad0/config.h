@@ -48,7 +48,16 @@
   #define QMK_KEYS_PER_SCAN 4
 #endif // !QMK_KEYS_PER_SCAN
 
+// Enable Leader key
+#if defined(LEADER_ENABLE)
+  #define LEADER_PER_KEY_TIMING
+  #define LEADER_TIMEOUT 250
+#endif // !LEADER_ENABLE 
 
+#if defined(COMBO_ENABLE)
+  #define COMBO_COUNT 4
+  #define COMBO_TERM 150
+#endif
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
@@ -79,15 +88,10 @@
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #define TAP_CODE_DELAY 5
 
-// Enable Leader key
-#if defined(LEADER_ENABLE)
-  #define LEADER_PER_KEY_TIMING
-  #define LEADER_TIMEOUT 250
-#endif // !LEADER_ENABLE 
 
 #define MACRO_TIMER 5
