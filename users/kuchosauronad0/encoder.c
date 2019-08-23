@@ -51,15 +51,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
   } else if (index == 1){ // second Encoder
       if (clockwise) {
         tap_code(KC_0);
-      //
-      //switch(temp_mod) {
-      //  case MOD_BIT(MOD_MASK_CTRL)://TODO: this does not work
-      //    kc = KC_9;
-      //  case MOD_MASK_ALT://TODO: this does not work
-      //    kc = KC_8;
-      //  default:
-      //    kc = KC_B;
-      //}// !switch
       } else{
         tap_code(KC_1);
       }
