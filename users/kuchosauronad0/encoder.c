@@ -1,6 +1,6 @@
 #include "encoder.h"
 void encoder_update_user(uint8_t index, bool clockwise) {
-  static uint8_t kc;
+  static uint16_t kc;
   uint8_t temp_mod = get_mods();
   if (index == 0) { /* first encoder */
     if (clockwise) {
@@ -46,7 +46,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
       }
         clear_mods();
-        tap_code(kc);
+        tap_code16(kc);
         set_mods(temp_mod);
   } else if (index == 1){ // second Encoder
       if (clockwise) {
@@ -70,5 +70,4 @@ const uint16_t encoder_action[2][9] = { \
 //  None     CTRL     ALT                SHIFT    GUI             CTRL+ALT             CTRL+SHFT ALT+SHFT      HYPER
   { KC_PGDN, KC_DOWN, KC_AUDIO_VOL_UP,   KC_END,  KC_WWW_FORWARD, KC_AUDIO_MUTE,       KC_RIGHT, LSFT(KC_TAB), KC_MEDIA_NEXT_TRACK}, \
   { KC_PGUP, KC_UP,   KC_AUDIO_VOL_DOWN, KC_HOME, KC_WWW_BACK,    KC_MEDIA_PLAY_PAUSE, KC_LEFT,  KC_TAB,       KC_MEDIA_PREV_TRACK}
-  // TODO: ALT+SHIFT LSFT(KC_TAB) is not working
 };
