@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_P7, KC_P8, KC_P9, \
 		KC_P4, KC_P5, KC_P6, \
 		KC_P1, KC_P2, KC_P3, \
-		OSL(_FN), KC_P0, KC_PDOT \
+		OSL(__FN), KC_P0, KC_PDOT \
 	),
 
 	[__FN] = LAYOUT(
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
     [_MAGIC] = LAYOUT(
-		KC_MAKE, XXXXXXX, XXXXXXX, \
+		KC_MAKE, EEP_RST, XXXXXXX, \
 		XXXXXXX, XXXXXXX, XXXXXXX, \
 		DF_NMPD, DF_NMLK, DF_MCRO, \
 		KC_TRNS, XXXXXXX, XXXXXXX  \
