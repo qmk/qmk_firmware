@@ -6,7 +6,11 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
+#ifdef ORYX_CONFIGURATOR
+  EPRM = EZ_SAFE_RANGE,
+#else
   EPRM = SAFE_RANGE,
+#endif
   VRSN,
   RGB_SLD
 };
@@ -164,7 +168,7 @@ void matrix_init_user(void) {
 };
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();

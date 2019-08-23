@@ -149,18 +149,17 @@ extern layer_state_t default_layer_state;
 #if defined(__AVR__)
     typedef uint8_t pin_t;
 
-    #define PIN_ADDRESS(p, offset)  (_SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset)))
-    #define setPinInput(pin)        (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF))
-    #define setPinInputHigh(pin)    (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF), \
-                                     PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
+    #define setPinInput(pin)        (DDRx_ADDRESS(pin)  &= ~_BV((pin) & 0xF))
+    #define setPinInputHigh(pin)    (DDRx_ADDRESS(pin)  &= ~_BV((pin) & 0xF), \
+                                     PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
     #define setPinInputLow(pin)     _Static_assert(0, "AVR processors cannot implement an input as pull low")
-    #define setPinOutput(pin)       (PIN_ADDRESS(pin, 1) |=  _BV((pin) & 0xF))
+    #define setPinOutput(pin)       (DDRx_ADDRESS(pin)  |=  _BV((pin) & 0xF))
 
-    #define writePinHigh(pin)       (PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
-    #define writePinLow(pin)        (PIN_ADDRESS(pin, 2) &= ~_BV((pin) & 0xF))
+    #define writePinHigh(pin)       (PORTx_ADDRESS(pin) |=  _BV((pin) & 0xF))
+    #define writePinLow(pin)        (PORTx_ADDRESS(pin) &= ~_BV((pin) & 0xF))
     #define writePin(pin, level)    ((level) ? writePinHigh(pin) : writePinLow(pin))
 
-    #define readPin(pin)            ((bool)(PIN_ADDRESS(pin, 0) & _BV((pin) & 0xF)))
+    #define readPin(pin)            ((bool)(PINx_ADDRESS(pin) & _BV((pin) & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
     typedef ioline_t pin_t;
 
@@ -213,7 +212,7 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
+layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
