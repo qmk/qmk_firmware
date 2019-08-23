@@ -26,8 +26,8 @@
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
@@ -51,9 +51,10 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 70
+#define RGBLED_NUM 48
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 35, 35 }    // Number of LEDs
+#define RGBLED_SPLIT { 24, 24 }    // Number of LEDs
+#define RGBLIGHT_LIMIT_VAL 100
 
 #define SOFT_SERIAL_PIN D2
 #define SELECT_SOFT_SERIAL_SPEED 1

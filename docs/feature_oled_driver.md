@@ -14,7 +14,7 @@ Tested combinations:
 
 Hardware configurations using ARM-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses i2c to communication between sides this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. 
+!> Warning: This OLED Driver currently uses the new i2c_master driver from split common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest split common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses split common to detect keypresses, so you will need to implement custom timeout logic for non-split common keyboards.
 
 ## Usage
 
@@ -31,7 +31,7 @@ This enables the feature and the `OLED_DRIVER_ENABLE` define. Then in your `keym
 void oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _QWERTY:
       oled_write_P(PSTR("Default\n"), false);
       break;
