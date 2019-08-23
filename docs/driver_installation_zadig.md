@@ -1,6 +1,8 @@
 # Bootloader Driver Installation with Zadig
 
-QMK presents itself to the host as a regular HID keyboard device, and as such requires no special drivers. However, in order to flash your keyboard on Windows, the bootloader device that appears when you reset the board often *does*. There is one notable exception: the Caterina bootloader, usually seen on Pro Micros, appears as a serial port instead, and does not require a driver.
+QMK presents itself to the host as a regular HID keyboard device, and as such requires no special drivers. However, in order to flash your keyboard on Windows, the bootloader device that appears when you reset the board often *does*.
+
+There are two notable exceptions: the Caterina bootloader, usually seen on Pro Micros, and the Halfkay bootloader shipped with PJRC Teensys, appear as a serial port and a generic HID device respectively, and so do not require a driver.
 
 We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with Msys2 or WSL, the `qmk_install.sh` script will have asked if you want it to install the drivers for you.
 
