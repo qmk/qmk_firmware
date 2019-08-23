@@ -10,10 +10,10 @@
 9. [Secret Macros](#secret-macros) [[documentation](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme_secrets.md)]
 
 # [Overview](#overview)
-Thanks to drashna and the people of the discord server and everyone else in the qmk_firmware/users/ directory :)
+Thanks to [drashna](https://github.com/drashna) and the people of the discord server and everyone else in the qmk_firmware/users/ directory :)
 
 ## [Keyboard Layout Templates](#keyboard-layout-temple)
-This borrows from @jola5's "Not quite neo" code. The code of the userspace is shared between all keyboards, so that one can maintain functionality of all keyboards at once by modifying a few files in a central location.
+This borrows from [jola5](https://github.com/jola5)'s "Not quite neo" code. The code of the userspace is shared between all keyboards, so that one can maintain functionality of all keyboards at once by modifying a few files in a central location.
 
 This makes adding tap/hold mods, or other special keycodes or functions to all keyboards super easy, as it's done to all of them at once.
 
@@ -23,7 +23,7 @@ The caveat here is that the keymap needs a processor/wrapper, as it doesn't like
 
 Once that's been done and you've switched the keymaps to use the "wrapper", it will read the substitution blocks just fine.
 
-Credit goes to @jola5 for first implementing this awesome idea.
+Credit goes to [jola5](https://github.com/jola5) for first implementing this awesome idea.
 
 ## [Custom Keycodes](#custom-keycodes)
 Declared in `process_records.h` and `template.h` and defined in `process_record_user` in template.c 
@@ -60,9 +60,9 @@ Press key chord to use.
 
 |Combo|description   | 
 |---|---|
-| CV | Copy   |
+| CV | Paste   |
 | XC | Cut  |
-| ZV | Paste  |
+| ZV | Copy  |
 | QP | KC_SLEEP  |
 
 Combos are defined in *combo.h* and *combo.c*
@@ -101,6 +101,7 @@ Key codes are stored as `uint16_t encoder_actions[2][9]` in *encoder.c*
 
 ## Diablo Layer
 Currently not in use.
+[Back to Top](#table-of-contents)
 
 # [Secret Macros](#secret-macros)
 To enable set `NO_SECRETS = yes` in *rules.mk*.
@@ -213,3 +214,4 @@ endif
 ```
 
 Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your *<name>.c* file, rather than reading from your file.
+[Back to Top](#table-of-contents)
