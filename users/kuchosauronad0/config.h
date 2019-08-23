@@ -51,7 +51,7 @@
 
 #if defined(COMBO_ENABLE)
   #define COMBO_COUNT 4
-  #define COMBO_TERM 200
+  #define COMBO_TERM 150
 #endif // !COMBO_ENABLE 
 
 #if defined(NKRO_ENABLE)
@@ -82,7 +82,9 @@
   #define TAPPING_TERM 150
 #endif
 
+
 #define TAP_CODE_DELAY 5
 
 #define MACRO_TIMER 5 
+
 
