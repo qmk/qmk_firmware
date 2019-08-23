@@ -45,7 +45,7 @@
 	{ K20, K21, K22, K23 }  \
 }
 
-/* LAYOUT_vertical_right
+/* LAYOUT_vertical_left
  *     ┌───┬───┬───┐
  *     │K00│K01│K03│
  *     ├───┼───┼───┤
