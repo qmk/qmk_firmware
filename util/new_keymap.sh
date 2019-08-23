@@ -26,7 +26,7 @@ if [ ! -d "keyboards/$KB_PATH" ]; then
 fi
 
 if [ -d "keyboards/$KB_PATH/keymaps/$USERNAME" ]; then
-	printf "Error! keyboards/%s/keymaps/%s already exists!\n" "$KB_PATH" "$USERNAME"
+	printf "Error! keyboards/%skeymaps/%s already exists!\n" "$KB_PATH" "$USERNAME"
 	exit 1
 fi
 
