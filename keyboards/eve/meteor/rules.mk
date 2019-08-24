@@ -42,7 +42,7 @@ RGBLIGHT_CUSTOM_DRIVER = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-SRC = i2c_master.c
+QUANTUM_LIB_SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
