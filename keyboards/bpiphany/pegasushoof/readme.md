@@ -3,7 +3,7 @@
 A replacement controller that turns your Filco Majestouch 87/88 mechanical keyboard into a fully programmable keyboard.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: Pegasus Hoof
+Hardware Supported: Pegasus Hoof, revisions [20131001](2013/) and [20150108](2015/)  
 Hardware Availability: [1upkeyboards](https://www.1upkeyboards.com/shop/controllers/filco-pegasus-hoof-controller/)
 
 Make example for this keyboard (after setting up your build environment):
