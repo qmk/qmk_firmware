@@ -4,7 +4,6 @@
 
 #include "quantum.h"
 
-
 #ifdef USE_I2C
 #include <stddef.h>
 #ifdef __AVR__
@@ -78,7 +77,6 @@
     { RE1, RE2, KC_NO, RE4, RE5, RE6, RE7, RE8 }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO } \
   }
-
 
 #define LAYOUT_65_with_macro( \
   LA9, LA8, LA1, LA2, LA3, LA4, LA5, LA6, LA7, RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9, \
