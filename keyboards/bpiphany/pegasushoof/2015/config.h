@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2016 Daniel Svensson <dsvensson@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,4 +17,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6050
+#define DEVICE_VER      0x0104
+#define MANUFACTURER    Filco
+#define PRODUCT         Majestouch TKL \\w The Pegasus Hoof 2015
+#define DESCRIPTION     QMK firmware for Majestouch TKL
+
+/* key matrix size */
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 18
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5
+
