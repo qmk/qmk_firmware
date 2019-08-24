@@ -146,10 +146,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #endif
 #endif
 
-#if !defined(OLED_SCROLL_TIMEOUT_FN)
-  #define OLED_SCROLL_TIMEOUT_FN oled_scroll_left
-#endif
-
 // OLED Rotation enum values are flags
 typedef enum {
     OLED_ROTATION_0   = 0,

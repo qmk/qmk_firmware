@@ -579,7 +579,11 @@ void oled_task(void) {
 
 #if OLED_SCROLL_TIMEOUT > 0
   if (!oled_scrolling && timer_expired32(timer_read32(), oled_scroll_timeout)) {
-    OLED_SCROLL_TIMEOUT_FN();
+#ifdef OLED_SCROLL_TIMEOUT_RIGHT
+    oled_scroll_right();
+#else
+    oled_scroll_left();
+#endif
   }
 #endif
 }
