@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](flashing_bootloadhid.md))
 
-    make %KEYBOARD%:default:bootloadHID
+    make %KEYBOARD%:default:flash
 
 **Reset Key**: Hold down the key located at *LOCATION*, commonly programmed as *KEY* while plugging in the keyboard.
 
