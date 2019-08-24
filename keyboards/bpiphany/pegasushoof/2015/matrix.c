@@ -80,7 +80,7 @@ uint8_t matrix_scan(void)
   debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
   matrix_scan_quantum();
 
-  return 1;
+  return (uint8_t)changed;
 }
 
 inline
