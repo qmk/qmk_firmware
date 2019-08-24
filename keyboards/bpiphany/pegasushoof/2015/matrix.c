@@ -53,7 +53,7 @@ void matrix_init(void)
   PORTC |=  0b10000000;
   PORTB |=  0b01111111;
 
-  for (uint8_t i=0; i < MATRIX_ROWS; i++)  {
+  for (uint8_t i=0; i < matrix_rows(); i++)  {
     matrix[i] = 0;
     matrix_debouncing[i] = 0;
   }
@@ -68,7 +68,7 @@ uint8_t matrix_scan(void)
     select_row(col);
     wait_us(30);
     matrix_row_t rows = read_cols();
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    for (uint8_t row = 0; row < matrix_rows(); row++) {
       bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
       bool curr_bit = rows & (1<<row);
       if ((changed |= prev_bit != curr_bit)) {
@@ -77,16 +77,10 @@ uint8_t matrix_scan(void)
     }
   }
 
-  debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
+  debounce(matrix_debouncing, matrix, matrix_rows(), changed);
   matrix_scan_quantum();
 
   return (uint8_t)changed;
-}
-
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-  return matrix[row] & 1 << col;
 }
 
 inline
@@ -98,7 +92,7 @@ matrix_row_t matrix_get_row(uint8_t row)
 void matrix_print(void)
 {
   print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+  for (uint8_t row = 0; row < matrix_rows(); row++) {
     phex(row); print(": ");
     pbin_reverse16(matrix_get_row(row));
     print("\n");
@@ -108,8 +102,8 @@ void matrix_print(void)
 uint8_t matrix_key_count(void)
 {
   uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
+  for (uint8_t i = 0; i < matrix_rows(); i++) {
+    count += bitpop16(matrix_get_row(i));
   }
   return count;
 }
