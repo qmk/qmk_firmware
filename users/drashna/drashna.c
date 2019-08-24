@@ -25,26 +25,7 @@ userspace_config_t userspace_config;
 #    define DRASHNA_UNICODE_MODE 2
 #endif
 
-// This block is for all of the gaming macros, as they were all doing
-// the same thing, but with differring text sent.
-bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
-    if (!record->event.pressed || override) {
-        uint16_t keycode;
-        if (userspace_config.is_overwatch) {
-            keycode = KC_BSPC;
-        } else {
-            keycode = KC_ENTER;
-        }
-        clear_keyboard();
-        tap_code(keycode);
-        wait_ms(TAP_CODE_DELAY);
-        send_string_with_delay(str, TAP_CODE_DELAY);
-        wait_ms(TAP_CODE_DELAY);
-        tap_code(KC_ENTER);
-    }
-    if (override) wait_ms(3000);
-    return false;
-}
+
 
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;

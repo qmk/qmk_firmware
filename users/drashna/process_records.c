@@ -60,44 +60,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-            // These are a serious of gaming macros.
-            // Only enables for the viterbi, basically,
-            // to save on firmware space, since it's limited.
-#ifdef MACROS_ENABLED
-        case KC_OVERWATCH:  // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-            if (record->event.pressed) {
-                userspace_config.is_overwatch ^= 1;
-                eeconfig_update_user(userspace_config.raw);
-            }
-#    ifdef RGBLIGHT_ENABLE
-            userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
-#    endif  // RGBLIGHT_ENABLE
-            break;
-        case KC_SALT:
-            return send_game_macro("Salt, salt, salt...", record, false);
-        case KC_MORESALT:
-            return send_game_macro("Please sir, can I have some more salt?!", record, false);
-        case KC_SALTHARD:
-            return send_game_macro("Your salt only makes me harder, and even more aggressive!", record, false);
-        case KC_GOODGAME:
-            return send_game_macro("Good game, everyone!", record, false);
-        case KC_GLHF:
-            return send_game_macro("Good luck, have fun!!!", record, false);
-        case KC_SYMM:
-            return send_game_macro("Left click to win!", record, false);
-        case KC_JUSTGAME:
-            return send_game_macro("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.", record, false);
-        case KC_TORB:
-            return send_game_macro("That was positively riveting!", record, false);
-        case KC_AIM:
-            send_game_macro("That aim is absolutely amazing. It's almost like you're a machine!", record, true);
-            return send_game_macro("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!", record, false);
-        case KC_C9:
-            return send_game_macro("OMG!!!  C9!!!", record, false);
-        case KC_GGEZ:
-            return send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!", record, false);
-#endif  // MACROS_ENABLED
-
         case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
 #ifdef TAP_DANCE_ENABLE
             if (record->event.pressed) {

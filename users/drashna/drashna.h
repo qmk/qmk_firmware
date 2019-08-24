@@ -49,13 +49,8 @@ enum userspace_layers {
     _ADJUST,
 };
 
-/*
-define modifiers here, since MOD_* doesn't seem to work for these
- */
-
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
-bool          send_game_macro(const char *str, keyrecord_t *record, bool override);
 void          matrix_init_keymap(void);
 void          shutdown_keymap(void);
 void          suspend_power_down_keymap(void);
