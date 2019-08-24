@@ -48,4 +48,5 @@
     )
 
 #define KC_LAYOUT_ortho_4x12 LAYOUT_kc
-#define LAYOUT_ortho_4x12 KEYMAP
+#define LAYOUT_ortho_4x12 LAYOUT
+#define KEYMAP LAYOUT
