@@ -43,28 +43,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_TAB);
             }
             break;
-        #ifdef IS_MACROPAD
-        case TG_NAVI:
-            if (!record->event.pressed) {
-                layer_move(_NAVI);
-            }
-            break;
-        case TG_REDR:
-            if (!record->event.pressed) {
-                layer_move(_REEDER);
-            }
-            break;
-        case TG_MEDA:
-            if (!record->event.pressed) {
-                layer_move(_MEDIA);
-            }
-            break;
-        case TG_KYPD:
-            if (!record->event.pressed) {
-                layer_move(_MACRO);
-            }
-            break;
-        #endif // IS_MACROPAD
         #if defined(RGB_THEME)
         case RGB_LYR:
             if (record->event.pressed) {
@@ -123,15 +101,15 @@ void matrix_scan_cmd_tab(void) {
  * set to true
  */
 void send_make_command(bool flash_bootloader) {
-    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
     if (flash_bootloader) {
 #if defined(BOOTLOADER_MDLOADER) // only run for Massdrop boards
-        SEND_STRING(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP);
-#else
-        SEND_STRING(":flash");
-#endif // bootloader options
+        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), 10);
+#else // use universal flash command
+        send_string_with_delay_P(PSTR(":flash"), 10);
+#endif
     }
-    SEND_STRING(SS_TAP(X_ENTER));
+    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
     if (flash_bootloader) {
         reset_keyboard();
     }

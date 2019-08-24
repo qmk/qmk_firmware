@@ -75,7 +75,19 @@ void matrix_scan_user(void) {
 }
 
 __attribute__ ((weak))
-layer_state_t layer_state_set_keymap (layer_state_t state) {
+layer_state_t default_layer_state_set_keymap(layer_state_t state) {
+    return state;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+#if defined(IS_MACROPAD)
+    layer_move(get_highest_layer(state));
+#endif
+    return default_layer_state_set_keymap(state);
+}
+
+__attribute__ ((weak))
+layer_state_t layer_state_set_keymap(layer_state_t state) {
     return state;
 }
 
@@ -85,5 +97,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     state = layer_state_set_rgb(state);
 #endif // RGBLIGHT_ENABLE
-    return layer_state_set_keymap (state);
+    return layer_state_set_keymap(state);
 }
+
+#if defined(ENCODER_ENABLE)
+__attribute__ ((weak))
+void encoder_update_keymap(uint8_t index, bool clockwise) { }
+
+// Encoders might be reveresed with macOS natural scrolling.
+void encoder_update_user(uint8_t index, bool clockwise) {
+    encoder_update_keymap(index, !clockwise);
+}
+#endif

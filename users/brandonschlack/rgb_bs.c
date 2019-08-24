@@ -11,7 +11,7 @@ extern led_config_t g_led_config;
 #endif
 
 #if defined(RGB_THEME)
-static const HSV default_magic = { HSV_SPRINGGREEN };
+static const HSV default_adjust = { HSV_SPRINGGREEN };
 
 // Laser Color Constants
 static const HSV laser_purple =  { HSV_LSR_PURPLE };
@@ -79,8 +79,8 @@ HSV get_rgb_theme_color(uint8_t index) {
     rgb_theme_t theme = get_rgb_theme();
     size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
 
-    if (index == _MAGIC) {
-        return default_magic;
+    if (index == _ADJUST) {
+        return default_adjust;
     } else {
         return **(theme.colors + (index % rgb_theme_color_max));
     }
