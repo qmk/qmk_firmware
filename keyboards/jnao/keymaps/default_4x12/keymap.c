@@ -1,11 +1,12 @@
 #include QMK_KEYBOARD_H
-#define _QWERTY 0
 
-#define _LOWER 2
-#define _RAISE 3
-
-#define _FUNCTION 15
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _FUNCTION,
+    _ADJUST,
+};
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -122,23 +123,8 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
