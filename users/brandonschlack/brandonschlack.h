@@ -12,21 +12,22 @@
 
 // Define layer names
 enum bs_layers {
-    _MAC = 0,
-    _MACFN,
 #if !defined(IS_MACROPAD)
-    _NAVI,
+    _BASE = 0,
+    _FN = 1,
+    _LOWER = 1,
+    _RAISE,
 #else
-    _NAVI = 0,
-    _REEDER,
+    _REEDER = 0,
     _MEDIA,
+    _NAVI,
     _MACRO,
 #endif
     KEYMAP_LAYERS,
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#if defined(IS_MACROPAD) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
     _LIGHT = 14,
 #endif
-    _MAGIC = 15
+    _ADJUST = 15
 };
 
 typedef union {
@@ -45,4 +46,9 @@ void shutdown_keymap(void);
 void suspend_power_down_keymap(void);
 void suspend_wakeup_init_keymap(void);
 void matrix_scan_keymap(void);
-layer_state_t layer_state_set_keymap (layer_state_t state);
+layer_state_t default_layer_state_set_keymap(layer_state_t state);
+layer_state_t layer_state_set_keymap(layer_state_t state);
+
+#if defined(ENCODER_ENABLE)
+void encoder_update_keymap(uint8_t index, bool clockwise);
+#endif

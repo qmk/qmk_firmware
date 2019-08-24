@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "brandonschlack.h"
 
+// FIXME: Refactor for _LOWER, _RAISE
 #define TT_NAVI TT(_NAVI)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

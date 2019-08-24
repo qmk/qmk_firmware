@@ -5,10 +5,6 @@
 enum custom_keycodes {
     KC_MAKE = SAFE_RANGE,
     CMD_TAB,
-    TG_NAVI,
-    TG_REDR,
-    TG_MEDA,
-    TG_KYPD,
     RGB_LYR,
     RGB_THEME_FORWARD,
     RGB_THEME_REVERSE,
@@ -20,30 +16,31 @@ void matrix_scan_cmd_tab(void);
 
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
-#define TG_MAGC   TG(_MAGIC)
+#define TG_ADJT   TG(_ADJUST)
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #define TG_LGHT   TG(_LIGHT)
 #endif
 // Media Mod-Tap
 #define MM_RGUI   RGUI_T(KC_MRWD)
 #define MM_RALT   RALT_T(KC_MFFD)
-#define MM_FNPY   LT(_MACFN, KC_MPLY)
+#define MM_FNPY   LT(1, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
 // Arrow Mod-Tap
 #define MT_RSUP   RSFT_T(KC_UP)
 #define MT_RALT   RALT_T(KC_LEFT)
-#define MT_RFDN   LT(_MACFN, KC_DOWN)
+#define MT_RFDN   LT(1, KC_DOWN)
 #define MT_RCRT   RCTL_T(KC_RGHT)
 // Nav Mod-Tap
 #define MT_RSPU   RSFT_T(KC_PGUP)
 #define MT_RAHM   RALT_T(KC_HOME)
-#define MT_RFPD   LT(_MACFN, KC_PGDN)
+#define MT_RFPD   LT(1, KC_PGDN)
 #define MT_RCED   RCTL_T(KC_END)
 
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
 #define MC_SLEP   LALT(LGUI(KC_POWER)) // Mac Sleep
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
+#define MC_LOCK   LCTL(LGUI(KC_Q))     // Lock Screen
 #define MC_MSSN   KC_FIND              // Mission Control: Configure karabiner for find -> mission_control
 #define MC_LHPD   KC_MENU              // Launchpad: Configure karabiner for menu -> Launchpad
 #define MC_CMTB   LGUI(KC_TAB)         // Basic CMD+TAB
@@ -59,6 +56,15 @@ void matrix_scan_cmd_tab(void);
 #define MC_WH_D   KC_WH_U
 #define MC_WH_L   KC_WH_R
 #define MC_WH_R   KC_WH_L
+
+// Macropad Defines
+#if defined(IS_MACROPAD)
+// Macropad Default Layer keycodes
+#define DF_REDR   DF(_REEDER)
+#define DF_MEDA   DF(_MEDIA)
+#define DF_NAVI   DF(_NAVI)
+#define DF_MCRO   DF(_MACRO)
+#endif
 
 // RGB Theme
 #define RGB_THM   RGB_THEME_FORWARD

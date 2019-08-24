@@ -8,35 +8,17 @@ extern keymap_config_t keymap_config;
 // Tap Dances
 enum launchpad_dances {
     TD_SHLD_LGHT = 0,
-    TD_SHLD_MAGC,
+    TD_SHLD_ADJT,
     TD_REDR_H
 };
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SHLD_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _LIGHT),
-    [TD_SHLD_MAGC] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _MAGIC),
+    [TD_SHLD_ADJT] = ACTION_TAP_DANCE_TRIGGER_LAYER(SINGLE_HOLD, _ADJUST),
     [TD_REDR_H] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_R)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-/* Navigation
- * ┌──────┬──────┐
- * │ PTab │ NTab │
- * ├──────┼──────┤
- * │ SclL │ SclU │
- * ├──────┼──────┤
- * │ SclR │ SclD │
- * ├──────┼──────┤
- * │LstTab│ClsTab│
- * └──────┴──────┘
- */
-[_NAVI] = LAYOUT( \
-    PRV_TAB, NXT_TAB, \
-    MC_WH_L, MC_WH_U, \
-    MC_WH_R, MC_WH_D, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
-),
 
 /* Reeder
  * ┌──────┬──────┐
@@ -53,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CMD_TAB, TD(TD_REDR_H), \
     KC_P, KC_K, \
     KC_N, KC_J, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
 ),
 
 /* Media
@@ -71,7 +53,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MUTE, KC_MPLY, \
     KC_VOLU, KC_MFFD, \
     KC_VOLD, KC_MRWD, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
+),
+
+/* Navigation
+ * ┌──────┬──────┐
+ * │ PTab │ NTab │
+ * ├──────┼──────┤
+ * │ SclL │ SclU │
+ * ├──────┼──────┤
+ * │ SclR │ SclD │
+ * ├──────┼──────┤
+ * │LstTab│ClsTab│
+ * └──────┴──────┘
+ */
+[_NAVI] = LAYOUT( \
+    PRV_TAB, NXT_TAB, \
+    MC_WH_L, MC_WH_U, \
+    MC_WH_R, MC_WH_D, \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
 ),
 
 /* Macro
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,     KC_P2, \
     KC_P3,     KC_P4, \
     KC_P5,     KC_P6, \
-    TD(TD_SHLD_LGHT), TD(TD_SHLD_MAGC) \
+    TD(TD_SHLD_LGHT), TD(TD_SHLD_ADJT) \
 ),
 
 /* Lights
@@ -110,28 +110,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, RGB_MOD \
 ),
 
-/* Magic
+/* Adjust
  * ┌──────┬──────┐
  * │ Make │ Rset │
  * ├──────┼──────┤
- * │ Navi │ Redr │
+ * │ Redr │ Meda │
  * ├──────┼──────┤
- * │ Meda │ Kypd │
+ * │ Navi │ Mcro │
  * ├──────┼──────┤
  * │ Lght │ XXXX │
  * └──────┴──────┘
  */
-[_MAGIC] = LAYOUT( \
+[_ADJUST] = LAYOUT( \
     KC_MAKE, RESET, \
-    TG_NAVI, TG_REDR, \
-    TG_MEDA, TG_KYPD, \
+    DF_REDR, DF_MEDA, \
+    DF_NAVI, DF_MCRO, \
     TG_LGHT, XXXXXXX \
 )
 
 };
 
 void matrix_init_keymap(void) {
-
 }
 
 // Runs once after keyboard initializes
@@ -146,30 +145,30 @@ void process_tap_dance_keycode (bool reset, uint8_t toggle_layer) {
     switch (toggle_layer) {
         case _LIGHT:
             switch (get_highest_layer(layer_state)) {
-                case _NAVI:
-                    keycode = REO_TAB;
-                    break;
                 case _REEDER:
                     keycode = KC_L;
                     break;
                 case _MEDIA:
                     keycode = KC_SPC;
                     break;
+                case _NAVI:
+                    keycode = REO_TAB;
+                    break;
                 case _MACRO:
                     keycode = KC_P7;
                     break;
             }
             break;
-        case _MAGIC:
+        case _ADJUST:
             switch (get_highest_layer(layer_state)) {
-                case _NAVI:
-                    keycode = CLS_TAB;
-                    break;
                 case _REEDER:
                     keycode = KC_R;
                     break;
                 case _MEDIA:
                     keycode = MC_PLYR;
+                    break;
+                case _NAVI:
+                    keycode = CLS_TAB;
                     break;
                 case _MACRO:
                     keycode = KC_P8;

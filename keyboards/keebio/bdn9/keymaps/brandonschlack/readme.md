@@ -12,16 +12,6 @@ I use macOS, so shortcuts and macros are configured as such. Encoder functionali
 
 ## Macropad Layers
 
-### Navigation Layer
-This layer is used for general window navigation around macOS
-
-| Scroll Up/Down | **Knobs** | Next/Prev Tab |
-| --- | --- | --- |
-| Reopen Tab | Cmd+Tab | Close Tab |
-| Page Down | Up | Page Up |
-| Left | Down | Right |
-
-
 ### Reeder Layer
 This layer is used for browsing [Reeder](https://reederapp.com/), an awesome RSS reader for Mac
 
@@ -40,6 +30,16 @@ This layer is used for media controls. Player button is a hotkey to focus the cu
 | Mute | Current Player | Play/Pause |
 | YouTube Rewind 10s (J) | YouTube Play/Pause (K) | YouTube Forward 10s (L) |
 | Left | Space | Right |
+
+
+### Navigation Layer
+This layer is used for general window navigation around macOS
+
+| Scroll Up/Down | **Knobs** | Next/Prev Tab |
+| --- | --- | --- |
+| Reopen Tab | Cmd+Tab | Close Tab |
+| Page Down | Up | Page Up |
+| Left | Down | Right |
 
 
 ### Macro Layer
@@ -96,12 +96,12 @@ This layer is used to control lighting for the pad. Currently nothing is saved i
 | RGB Layer Indication | Cycle RGB Themes | XXX |
 
 
-### Magic Layer
+### Adjust Layer
 This layer is used as a meta layer for the pad. This layer is accessed with a double tap of the bottom right key via [tap dance](https://docs.qmk.fm/#/feature_tap_dance).
 
 | XXX | **Knobs** | XXX |
 | --- | --- | --- |
-| MAKE | **Navigation** Layer | RESET |
-| **Reeder** Layer | **Media** Layer | **Keypad** Layer |
+| MAKE | **Reeder** Layer | **Light** Layer |
+| **Media** Layer  | **Navigation** Layer | **Keypad** Layer |
 | **Lightroom Review** Layer | **Lightroom Navigation** Layer | **Lightroom Edit** Layer |
 
