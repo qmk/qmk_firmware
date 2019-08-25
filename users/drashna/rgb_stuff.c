@@ -5,12 +5,23 @@
 #if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
 bool                     has_initialized;
-#endif
 
-#ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index); }
 #endif  // RGBLIGHT_ENABLE
 
+#if defined(RGB_MATRIX_ENABLE)
+static uint32_t hypno_timer;
+#    ifdef SPLIT_KEYBOARD
+#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#    else
+#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#    endif
+#endif
+
+/* Custom indicators for modifiers.
+ * This allows for certain lights to be lit up, based on what mods are active, giving some visual feedback.
+ * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
+ */
 #ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
@@ -77,6 +88,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     }
 }
 
+/* Function for the indicators */
 void matrix_scan_indicator(void) {
     if (has_initialized) {
         set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
@@ -89,6 +101,7 @@ static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__((weak)) bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
 
+/* This function checks for used LEDs.  This way, collisions don't occur and cause weird rendering */
 bool rgblight_twinkle_is_led_used(uint8_t index) {
     switch (index) {
 #    ifdef INDICATOR_LIGHTS
@@ -130,6 +143,7 @@ bool rgblight_twinkle_is_led_used(uint8_t index) {
     }
 }
 
+/* Handler for fading/twinkling effect */
 void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rgblight_sethsv is supppppper intensive
     bool litup = false;
     for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
@@ -156,6 +170,9 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
     }
 }
 
+/* Triggers a LED to fade/twinkle.
+ * This function handles the selection of the LED and prepres for it to be used.
+ */
 void start_rgb_light(void) {
     uint8_t indices[RGBLED_NUM];
     uint8_t indices_count  = 0;
@@ -196,10 +213,20 @@ void start_rgb_light(void) {
 #endif
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
+    uint16_t temp_keycode = keycode;
+    // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-        keycode = keycode & 0xFF;
+        temp_keycode &= 0xFF;
     }
-    switch (keycode) {
+
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    hypno_timer = timer_read32();
+    if (rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+    }
+#endif
+
+    switch (temp_keycode) {
 #ifdef RGBLIGHT_TWINKLE
         case KC_A ... KC_SLASH:
         case KC_F1 ... KC_F12:
@@ -267,12 +294,20 @@ void keyboard_post_init_rgb(void) {
 }
 
 void matrix_scan_rgb(void) {
-#ifdef RGBLIGHT_TWINKLE
+#ifdef RGBLIGHT_ENABLE
+#    ifdef RGBLIGHT_TWINKLE
     scan_rgblight_fadeout();
-#endif  // RGBLIGHT_ENABLE
+#    endif  // RGBLIGHT_ENABLE
 
-#ifdef INDICATOR_LIGHTS
+#    ifdef INDICATOR_LIGHTS
     matrix_scan_indicator();
+#    endif
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    if (rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 30000) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+    }
 #endif
 }
 

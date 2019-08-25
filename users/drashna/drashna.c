@@ -159,7 +159,7 @@ void matrix_scan_user(void) {
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb();
 #endif  // RGBLIGHT_ENABLE
 
