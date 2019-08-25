@@ -214,6 +214,7 @@ void start_rgb_light(void) {
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
+    bool is_eeprom_updated;
     // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
         temp_keycode &= 0xFF;
@@ -237,7 +238,6 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 start_rgb_light();
             }
-            return true;
             break;
 #endif                  // RGBLIGHT_TWINKLE
         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
@@ -251,7 +251,6 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
 #endif  // RGBLIGHT_ENABLE
-            return true;
             break;
         case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
@@ -262,20 +261,27 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
             }
 #endif
-            return true;
             break;
-#ifdef RGBLIGHT_ENABLE
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
-            if (record->event.pressed) {              // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
+            if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+                // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
                     userspace_config.rgb_layer_change = false;
-                    xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-                    eeconfig_update_user(userspace_config.raw);
+                    dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+                    is_eeprom_updated = true;
                 }
+#endif
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+                if (userspace_config.rgb_matrix_idle_anim) {
+                    userspace_config.rgb_matrix_idle_anim = false;
+                    dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
+                    is_eeprom_updated = true;
+                }
+#endif
+                if (is_eeprom_updated) { eeconfig_update_user(userspace_config.raw); }
             }
-            return true;
             break;
-#endif  // RGBLIGHT_ENABLE
     }
     return true;
 }
