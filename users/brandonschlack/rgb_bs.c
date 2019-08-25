@@ -110,7 +110,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, uint8_t 
 void rgb_matrix_cycle_flag (void) {
     switch (rgb_matrix_get_flags()) {
         case LED_FLAG_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL_KEYS);
+            rgb_matrix_set_flags(LED_FLAG_KEYS);
             rgb_matrix_set_color_all(0, 0, 0);
             break;
         case LED_FLAG_KEYS:
