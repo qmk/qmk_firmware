@@ -11,7 +11,7 @@ void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight
 
 #if defined(RGB_MATRIX_ENABLE)
 static uint32_t hypno_timer;
-#    ifdef SPLIT_KEYBOARD
+#    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez)
 #       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #    else
 #       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
@@ -261,7 +261,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(userspace_config.raw);
                 if (!userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
             }
-#endif  /
+#endif
             return true;
             break;
 #ifdef RGBLIGHT_ENABLE
