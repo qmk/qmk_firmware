@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pegasushoof.h"
+#include "2015.h"
 
 
 extern inline void ph_caps_led_on(void);
@@ -23,7 +23,6 @@ extern inline void ph_caps_led_off(void);
 
 extern inline void ph_sclk_led_on(void);
 extern inline void ph_sclk_led_off(void);
-
 
 __attribute__ ((weak))
 void matrix_init_user(void) {
