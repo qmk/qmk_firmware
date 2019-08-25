@@ -138,10 +138,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_FONT_HEIGHT 8
 #endif
 
-#define OLED_ROTATION_0 0x00
-#define OLED_ROTATION_90 0x01
-#define OLED_ROTATION_180 0x02
-#define OLED_ROTATION_270 0x03
+#if !defined(OLED_TIMEOUT)
+  #if defined(OLED_DISABLE_TIMEOUT)
+    #define OLED_TIMEOUT 0
+  #else
+    #define OLED_TIMEOUT 60000
+  #endif
+#endif
+
+// OLED Rotation enum values are flags
+typedef enum {
+    OLED_ROTATION_0   = 0,
+    OLED_ROTATION_90  = 1,
+    OLED_ROTATION_180 = 2,
+    OLED_ROTATION_270 = 3, // OLED_ROTATION_90 | OLED_ROTATION_180
+} oled_rotation_t;
 
 // Initialize the oled display, rotating the rendered output based on the define passed in.
 // Returns true if the OLED was initialized successfully
