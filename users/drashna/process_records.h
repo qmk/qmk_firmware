@@ -20,6 +20,7 @@ enum userspace_custom_keycodes {
     KC_DIABLO_CLEAR,                // Clears all Diablo Timers
     KC_MAKE,        // Run keyboard's customized make command
     KC_RGB_T,       // Toggles RGB Layer Indication mode
+    RGB_IDL,        // RGB Idling animations
     KC_SECRET_1,    // test1
     KC_SECRET_2,    // test2
     KC_SECRET_3,    // test3

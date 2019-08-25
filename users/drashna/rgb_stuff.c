@@ -221,7 +221,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     hypno_timer = timer_read32();
-    if (rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
     }
 #endif
@@ -244,14 +244,25 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             if (record->event.pressed) {
                 userspace_config.rgb_layer_change ^= 1;
-                xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+                dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
                 }
             }
 #endif  // RGBLIGHT_ENABLE
-            return false;
+            return true;
+            break;
+        case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+            if (record->event.pressed) {
+                userspace_config.rgb_matrix_idle_anim ^= 1;
+                dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
+                eeconfig_update_user(userspace_config.raw);
+                if (!userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+            }
+#endif  /
+            return true;
             break;
 #ifdef RGBLIGHT_ENABLE
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
@@ -305,7 +316,7 @@ void matrix_scan_rgb(void) {
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    if (rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 30000) {
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 30000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 #endif
