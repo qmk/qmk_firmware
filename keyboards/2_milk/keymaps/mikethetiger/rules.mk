@@ -24,7 +24,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #
 BOOTMAGIC_ENABLE  = no	# Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE  = no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE  = no	# Audio control and System control(+450)
+EXTRAKEY_ENABLE  = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE  = yes	# Console for debug(+400)
 COMMAND_ENABLE  = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
