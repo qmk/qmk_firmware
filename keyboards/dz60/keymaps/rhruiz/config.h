@@ -7,7 +7,7 @@
 
 // Enable key for bootmagic lite.
 #define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
+#define BOOTMAGIC_LITE_COLUMN 0
 
 //mouse settings
 #define MOUSEKEY_DELAY             100
