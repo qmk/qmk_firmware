@@ -1,8 +1,9 @@
-QUANTUM_LIB_SRC += matrix.c \
-	   i2c.c \
+SRC += matrix.c \
 	   split_util.c \
-	   serial.c \
 	   ssd1306.c
+
+QUANTUM_LIB_SRC += i2c.c \
+	   serial.c \
 
 CUSTOM_MATRIX = yes
 BOOTLOADER = caterina
