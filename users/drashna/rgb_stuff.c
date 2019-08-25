@@ -259,7 +259,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 userspace_config.rgb_matrix_idle_anim ^= 1;
                 dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
                 eeconfig_update_user(userspace_config.raw);
-                if (!userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+                if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
             }
 #endif
             return true;
@@ -302,6 +302,9 @@ void keyboard_post_init_rgb(void) {
 
 #endif
     layer_state_set_user(layer_state);
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+        if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+#endif
 }
 
 void matrix_scan_rgb(void) {
