@@ -69,9 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case FN_CAPS:
             if (record->event.pressed) {
-                if (!is_caps_active) {
-                    is_caps_active = true;
-                }
+                is_caps_active = true;
                 caps_timer = timer_read();
             } else {
                 if (timer_elapsed(caps_timer) < CAPS_TERM) {
@@ -86,6 +84,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_off(_SYMB);
                 }
                 is_caps_active = false;
+            }
+            break;
+        default:
+            // Emulate LT behaviour so when another key is pressed
+            // and caps is held, enable the _SYMB layer
+            if (is_caps_active) {
+                layer_on(_SYMB);
             }
             break;
     }
