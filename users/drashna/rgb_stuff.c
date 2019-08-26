@@ -325,7 +325,7 @@ void matrix_scan_rgb(void) {
 #endif
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 30000) {
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 #endif
