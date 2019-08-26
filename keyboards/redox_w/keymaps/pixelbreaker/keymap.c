@@ -36,10 +36,10 @@ bool is_caps_locked = false;
 uint16_t caps_timer = 0;
 
 void led_init_user(void) {
-	DDRD  |= (1<<0) | (1<<1); // Pin to green, set as output
-	PORTD |= (1<<0) | (1<<1); // Turn it off
-	DDRF  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
-	PORTF |= (1<<4) | (1<<5); // Turn them off
+	DDRD  |= (1<<0) | (1<<1);
+	PORTD |= (1<<0) | (1<<1);
+	DDRF  |= (1<<4) | (1<<5);
+	PORTF |= (1<<4) | (1<<5);
 }
 
 void matrix_init_user(void) {
