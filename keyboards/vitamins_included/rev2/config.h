@@ -25,11 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D0
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEE5
-#define PRODUCT_ID      0xBEEB
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    Duckle29
-#define PRODUCT         Vitamins included
 #define DESCRIPTION     A toolless split keyboard for the cheapish makers
 
 /* key matrix size */
