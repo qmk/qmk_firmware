@@ -8,9 +8,8 @@ extern keymap_config_t keymap_config;
 #define _MOUSE 3
 #define _TOGGLE 4
 #define _GAMING 5
-#define _BLANK 6
-#define _LOCK 7
-#define _RESET 8
+#define _LOCK 6
+#define _RESET 7
 
 #define CAPS_TERM 150
 
@@ -36,6 +35,17 @@ bool is_caps_active = false;
 bool is_caps_locked = false;
 uint16_t caps_timer = 0;
 
+void led_init_user(void) {
+	DDRD  |= (1<<0) | (1<<1); // Pin to green, set as output
+	PORTD |= (1<<0) | (1<<1); // Turn it off
+	DDRF  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
+	PORTF |= (1<<4) | (1<<5); // Turn them off
+}
+
+void matrix_init_user(void) {
+    led_init_user();
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _QWERTY:
@@ -45,16 +55,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             set_led_green;
             break;
         case _NAV:
-            set_led_blue;
+            set_led_green;
             break;
         case _MOUSE:
-            set_led_red;
+            set_led_green;
             break;
         case _GAMING:
             set_led_yellow;
-            break;
-        case _BLANK: // CAPS ON
-            set_led_magenta;
             break;
         case _LOCK:
             set_led_red;
@@ -76,9 +83,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_CAPSLOCK);
                     is_caps_locked = is_caps_locked ? false : true;
                     if (is_caps_locked) {
-                        layer_on(_BLANK);
+                        org_led_on;
                     } else {
-                        layer_off(_BLANK);
+                        org_led_off;
                     }
                 } else {
                     layer_off(_SYMB);
@@ -196,13 +203,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,     KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
-
-    [_BLANK] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
     [_LOCK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                               KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
