@@ -1,4 +1,5 @@
 # Copyright 2017 Fred Sundvik
+# Copyright 2019 /u/KeepItUnder
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -116,7 +117,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 MBI5042 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -179,6 +180,12 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     SRC += ws2812.c
 endif
 
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+    OPT_DEFS += -DMBI5042
+    COMMON_VPATH += $(DRIVER_PATH)/macroblock
+    SRC += mbi5042gp.c
+endif
+
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
     OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
 endif
@@ -239,8 +246,13 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
-    OPT_DEFS += -DUSE_CIE1931_CURVE
-    LED_TABLES = yes
+    ifeq ($(strip $(RGB_MATRIX_ENABLE)), MBI5042)
+        OPT_DEFS += -DUSE_CIE1931_16_CURVE
+        LED_TABLES = yes
+    else
+        OPT_DEFS += -DUSE_CIE1931_CURVE
+        LED_TABLES = yes
+    endif
 endif
 
 ifeq ($(strip $(LED_BREATHING_TABLE)), yes)
