@@ -61,3 +61,14 @@ from the qmk_firmware folder. Default being the default keymap.
 The keyboard is supplied with some simple plate cases, alternatively a 3D model for the left half is available [here](https://cad.onshape.com/documents/c6e5ae250d1e24fe46c9ef6c/w/d69f7049c0921df3d2b241f9/e/ecc2b176ab52a6d77bc55051).
 
 Alternatively the flat case for the Rev2 works for the rev1 kit as well, however one of the supports collide with a diode. If printed in thermo-plastics this can be heated and pressed to form a recess for the diode.
+
+## WS2812 RGB
+
+If you wish to add RGB LED strips to your board, then the boards have breakouts for these.  
+You can either have each halfcontrol it's own strip of LEDs, or, if you're using a TRRS cable, you can have one half control the LEDs in both halves. 
+
+To add RGB LEDs to the board, solder the + and - of the >WS2812 headers to the LED strips. Then if you want each half to control it's own set of LEDs seperately, solder the D pad to Din on the strips.
+
+If you instead want to syncronize the halves over a TRRS cable, solder the D pad to Din in the side you want to control the strips, either will work so flip a coin, and then solder the Dout pad to the WS2812> pad on the board. On the other half, solder the WS2812> pad to Din. 
+
+![pad legend](https://i.imgur.com/g6ane0Q.jpg)
