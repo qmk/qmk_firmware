@@ -110,6 +110,8 @@ void ergodox_blink_all_leds(void)
 
     //ergodox_led_all_on();
     //_delay_ms(333);
+    ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4 );
+
     ergodox_led_all_off();
 }
 
