@@ -1,3 +1,5 @@
+# Rev2
+
 Revision 2 is documented [on qmk.fm](https://qmk.fm/keyboards/vitamins_included/)
 
 Key differences between rev1 and rev2:
