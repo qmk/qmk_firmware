@@ -347,5 +347,5 @@ else ifeq ($(strip $(BOOTLOADER)), USBasp)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
 	$(call EXEC_BOOTLOADHID)
 else
-	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
