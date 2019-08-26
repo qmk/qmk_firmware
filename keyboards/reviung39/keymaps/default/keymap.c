@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = REVIUNG39_LAYOUT(\
     RGB_VAI,   RGB_SAI, RGB_HUI,  RGB_MOD,  XXXXXXX,   RGB_TOG,            KC_EJCT,  XXXXXXX,  XXXXXXX,  KC_BRMU,  KC__VOLUP, KC_VOLU,  \
     RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_BRMD,  KC__VOLDOWN,KC_VOLD, \
-    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            RESET,    EEP_RST,  DEBUG,    XXXXXXX,  KC__MUTE,  KC_MUTE,  \
+    XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            RESET,    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC__MUTE,  KC_MUTE,  \
                                                        _______,  XXXXXXX,  _______   \
   ),
 };
