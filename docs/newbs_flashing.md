@@ -248,6 +248,42 @@ Programming.....................................................................
 Booting
 ```
 
+## BootloadHID
+
+For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:bootloaderHID
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+
+    make jj40:xyverz:bootloaderHID
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
+
 ## STM32 (ARM)
 
 For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 

@@ -64,5 +64,4 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 LAYOUTS = tkl_ansi
 
-CUSTOM_MATRIX = yes
-SRC = matrix.c
+DEFAULT_FOLDER=bpiphany/pegasushoof/2013
