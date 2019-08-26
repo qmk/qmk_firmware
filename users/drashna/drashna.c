@@ -104,7 +104,7 @@ __attribute__((weak))
 void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb();
 #endif
     keyboard_post_init_keymap();
@@ -173,7 +173,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     state = layer_state_set_rgb(state);
 #endif  // RGBLIGHT_ENABLE
     return layer_state_set_keymap(state);
@@ -186,7 +186,7 @@ layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     state = default_layer_state_set_keymap(state);
 #if 0
-#    ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   state = default_layer_state_set_rgb(state);
 #    endif  // RGBLIGHT_ENABLE
 #endif
