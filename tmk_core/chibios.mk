@@ -235,28 +235,18 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
 define EXEC_DFU_UTIL
+	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(call EXEC_DFU_UTIL)
 
-ifneq ($(strip $(TIME_DELAY)),)
-  TIME_DELAY = $(strip $(TIME_DELAY))
-else
-  TIME_DELAY = 10
-endif
-dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
-	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
-  COUNTDOWN=$(TIME_DELAY) ;\
-  while [[ $$COUNTDOWN -ge 1 ]] ; do \
-        echo "Flashing in $$COUNTDOWN ..."; \
-        sleep 1 ;\
-        ((COUNTDOWN = COUNTDOWN - 1)) ; \
-  done; \
-  echo "Flashing $(TARGET).bin" ;\
-  sleep 1 ;\
-  $(call EXEC_DFU_UTIL)
+# Legacy alias
+dfu-util-wait: dfu-util
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
