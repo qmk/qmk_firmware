@@ -1,18 +1,6 @@
 ﻿# MCU name
 MCU = atmega32u4
 
-# Processor frequency.
-F_CPU = 16000000
-
-#
-# LUFA specific
-#
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Input clock frequency.
-F_USB = $(F_CPU)
-
 # Bootloader
 BOOTLOADER = caterina
 
