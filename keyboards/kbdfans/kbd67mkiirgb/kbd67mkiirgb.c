@@ -94,6 +94,7 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
+#endif
 
 void matrix_init_kb(void) {
     matrix_init_user();
