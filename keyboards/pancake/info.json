@@ -57,7 +57,7 @@
         { "w": 1, "x": 10, "y": 3 }, 
         { "w": 1, "x": 11, "y": 3 } ]
     },
-		"LAYOUT_GRID": {
+		"LAYOUT_ortho_4x12": {
       "key_count": 48,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
