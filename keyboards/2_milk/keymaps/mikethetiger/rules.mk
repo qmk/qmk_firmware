@@ -1,12 +1,3 @@
-﻿# MCU name
-MCU = atmega32u4
-
-# Bootloader
-BOOTLOADER = caterina
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Build Options
 #   comment out to disable the options.
 #
