@@ -63,21 +63,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  \
     KC_CAPS,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,        KC_ENT,   \
     KC_LSFT,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BTN1,   KC_MS_U,  KC_BTN2,   \
-    KC_LALT,    KC_LGUI,    KC_LCTL,    MO(_LAYER1),    KC_SPC,        KC_RSFT, KC_BSPC,  LALT(KC_GRV),               KC_MS_L,KC_MS_D,KC_MS_R \
+    KC_LCTL,    KC_LALT,    KC_LGUI,    MO(_LAYER1),    KC_SPC,        KC_RSFT, KC_BSPC,  LALT(KC_GRV),               KC_MS_L,KC_MS_D,KC_MS_R \
   ),
   [_NICOLA] = LAYOUT( \
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,    KC_BSPC,  \
     KC_TAB,    NG_Q,    NG_W,    NG_E,    NG_R,    NG_T,      NG_Y,    NG_U,    NG_I,    NG_O,    NG_P,    KC_LBRC, KC_RBRC, KC_BSLS,  \
     KC_CAPS,     NG_A,    NG_S,    NG_D,    NG_F,    NG_G,      NG_H,    NG_J,    NG_K,    NG_L,    NG_SCLN, KC_QUOT,        KC_ENT,   \
-    KC_LSFT,       NG_Z,    NG_X,    NG_C,    NG_V,    NG_B,      NG_N,    NG_M,    NG_COMM, NG_DOT,  KC_SLSH, KC_BTN1,   KC_MS_U,  KC_BTN2,   \
+    KC_LSFT,       NG_Z,    NG_X,    NG_C,    NG_V,    NG_B,      NG_N,    NG_M,    NG_COMM, NG_DOT,  NG_SLSH, KC_BTN1,   KC_MS_U,  KC_BTN2,   \
     _______,    _______,    _______,    MO(_LAYER1),    NG_SHFTL,        NG_SHFTR, _______,  _______,               KC_MS_L,KC_MS_D,KC_MS_R \
   ),
   [_LAYER1] = LAYOUT( \
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,    KC_DEL, \
     RGB_TOG,   RGBRST,  RGB_HUI, RGB_SAI, RGB_VAI, KC_ACL0,   KC_PGUP, KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX,     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_ACL1,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,        XXXXXXX, \
-    _______,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL2,   KC_EISU, KC_KANA2, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_WH_U, _______, \
-    _______,   _______,    _______,    MO(_LAYER1),    XXXXXXX,       _______, KC_DEL, LCTL(KC_F4),                   KC_WH_L, KC_WH_D, KC_WH_R \
+    XXXXXXX,     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_ACL1,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,        LGUI(KC_ENT), \
+    _______,       LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), KC_ACL2,   KC_EISU, KC_KANA2, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_WH_U, _______, \
+    _______,   _______,    _______,    MO(_LAYER1),    KC_EISU,       KC_KANA2, KC_DEL, LGUI(KC_F4),                   KC_WH_L, KC_WH_D, KC_WH_R \
   )
 };
 
