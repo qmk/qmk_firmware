@@ -11,7 +11,7 @@ void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight
 
 #if defined(RGB_MATRIX_ENABLE)
 static uint32_t hypno_timer;
-#    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez)
+#    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
 #       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #    else
 #       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
@@ -22,6 +22,7 @@ static uint32_t hypno_timer;
  * This allows for certain lights to be lit up, based on what mods are active, giving some visual feedback.
  * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
  */
+#ifdef RGBLIGHT_ENABLE
 #ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
@@ -211,10 +212,10 @@ void start_rgb_light(void) {
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
 #endif
+#endif // RGBLIGHT_ENABLE
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
-    bool is_eeprom_updated;
     // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
         temp_keycode &= 0xFF;
@@ -264,6 +265,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
             if (record->event.pressed) {
+                bool is_eeprom_updated = false;
 #ifdef RGBLIGHT_ENABLE
                 // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
@@ -287,7 +289,8 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_post_init_rgb(void) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
+#if defined(RGBLIGHT_ENABLE)
+#   if defined(RGBLIGHT_STARTUP_ANIMATION)
     bool is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
@@ -306,8 +309,9 @@ void keyboard_post_init_rgb(void) {
         rgblight_disable_noeeprom();
     }
 
-#endif
+#   endif
     layer_state_set_user(layer_state);
+#endif
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
         if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
 #endif
