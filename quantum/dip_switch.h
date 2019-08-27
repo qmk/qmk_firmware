@@ -22,6 +22,8 @@
 
 void dip_switch_update_kb(uint8_t index, bool active);
 void dip_switch_update_user(uint8_t index, bool active);
+void dip_switch_update_mask_user(uint32_t state);
+void dip_switch_update_mask_kb(uint32_t state);
 
 void dip_switch_init(void);
 void dip_switch_read(void);

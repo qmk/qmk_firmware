@@ -38,19 +38,34 @@ void dip_switch_update_user(uint8_t index, bool active) {}
 __attribute__((weak))
 void dip_switch_update_kb(uint8_t index, bool active) { dip_switch_update_user(index, active); }
 
+__attribute__((weak))
+void dip_switch_update_mask_user(uint32_t state) {}
+
+__attribute__((weak))
+void dip_switch_update_mask_kb(uint32_t state) { dip_switch_update_mask_user(state); }
+
 void dip_switch_init(void) {
   for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
     setPinInputHigh(dip_switch_pad[i]);
   }
+  dip_switch_read();
 }
 
 
 void dip_switch_read(void) {
+    bool has_dip_state_changed = false;
+    uint32_t dip_switch_mask = 0;
+
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
         dip_switch_state[i] = !readPin(dip_switch_pad[i]);
+        dip_switch_mask |= dip_switch_state[i] << i;
         if (last_dip_switch_state[i] ^ dip_switch_state[i]) {
+            has_dip_state_changed = true;
             dip_switch_update_kb(i, dip_switch_state[i]);
         }
+    }
+    if (has_dip_state_changed) {
+        dip_switch_update_mask_kb(dip_switch_mask);
     }
     memcpy(last_dip_switch_state, dip_switch_state, sizeof(&dip_switch_state));
 }
