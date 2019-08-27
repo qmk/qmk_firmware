@@ -11,8 +11,6 @@ extern keymap_config_t keymap_config;
 #define _LOCK 6
 #define _RESET 7
 
-#define CAPS_TERM 150
-
 //Tap Dance Declarations
 enum tap_dance {
   TD_PRNSL,
@@ -21,20 +19,15 @@ enum tap_dance {
   TD_QMRK
 };
 
-enum custom_keycodes {
-  FN_CAPS = SAFE_RANGE
-};
-
+// Nicer keycode alias for keymap readability
+#define L_SYMB LT(_SYMB,KC_CAPSLOCK)
 #define L_NAV LT(_NAV,KC_TAB)
 #define L_MOUSE LT(_MOUSE,KC_ESC)
 #define L_TOGGLE LT(_TOGGLE,KC_HOME)
 #define L_GAMING TG(_GAMING)
 #define L_LOCK TG(_LOCK)
 
-bool is_caps_active = false;
-bool is_caps_locked = false;
-uint16_t caps_timer = 0;
-
+// Init and switch off the "white" 4th LED
 void led_init_user(void) {
 	DDRD  |= (1<<0) | (1<<1);
 	PORTD |= (1<<0) | (1<<1);
@@ -42,10 +35,20 @@ void led_init_user(void) {
 	PORTF |= (1<<4) | (1<<5);
 }
 
+// Turn the white LED on/off with CAPSLOCK state
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        wht_led_on;
+    } else {
+        wht_led_off;
+    }
+}
+
 void matrix_init_user(void) {
     led_init_user();
 }
 
+// Change the receiver's LEDs based on the current layer
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _QWERTY:
@@ -72,46 +75,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case FN_CAPS:
-            if (record->event.pressed) {
-                is_caps_active = true;
-                caps_timer = timer_read();
-            } else {
-                if (timer_elapsed(caps_timer) < CAPS_TERM) {
-                    tap_code(KC_CAPSLOCK);
-                    is_caps_locked = is_caps_locked ? false : true;
-                    if (is_caps_locked) {
-                        org_led_on;
-                    } else {
-                        org_led_off;
-                    }
-                } else {
-                    layer_off(_SYMB);
-                }
-                is_caps_active = false;
-            }
-            break;
-        default:
-            // Emulate LT behaviour so when another key is pressed
-            // and caps is held, enable the _SYMB layer
-            if (is_caps_active) {
-                layer_on(_SYMB);
-            }
-            break;
-    }
-    return true;
-}
-
-void matrix_scan_user(void) {
-    if (is_caps_active) {
-        if (timer_elapsed(caps_timer) > CAPS_TERM) {
-            layer_on(_SYMB);
-        }
-    }
-}
-
+// Tap dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_PRNSL] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LSFT(KC_LBRC)),
   [TD_PRNSR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LSFT(KC_RBRC)),
@@ -126,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       L_NAV,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_MINS,                           KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TD(TD_PIPE),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  TD(TD_PRNSL),                      TD(TD_PRNSR), KC_H, KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+      L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  TD(TD_PRNSL),                      TD(TD_PRNSR), KC_H, KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  L_TOGGLE,KC_END,          KC_PGUP, KC_PGDN,KC_N,    KC_M,    KC_COMM, KC_DOT,   TD(TD_QMRK), KC_RSPC,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
