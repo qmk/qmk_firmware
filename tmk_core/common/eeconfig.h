@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 
-#define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEEE
+#define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEEF
 #define EECONFIG_MAGIC_NUMBER_OFF                   (uint16_t)0xFFFF
 
 /* EEPROM parameter address */
