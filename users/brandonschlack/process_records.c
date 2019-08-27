@@ -103,7 +103,7 @@ void matrix_scan_cmd_tab(void) {
 void send_make_command(bool flash_bootloader) {
     send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
     if (flash_bootloader) {
-#if defined(BOOTLOADER_MDLOADER) // only run for Massdrop boards
+#if defined(MD_BOOTLOADER) // only run for Massdrop boards
         send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), 10);
 #else // use universal flash command
         send_string_with_delay_P(PSTR(":flash"), 10);

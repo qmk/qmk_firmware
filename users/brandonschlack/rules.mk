@@ -1,10 +1,10 @@
 SRC += brandonschlack.c \
        process_records.c
 
-ifeq ($(strip $(BOOTLOADER)), mdloader)
-    OPT_DEFS += -DBOOTLOADER_MDLOADER
-else
-    LINK_TIME_OPTIMIZATION_ENABLE = yes
+ifneq ($(strip $(DISABLE_LTO)), yes)
+	EXTRAFLAGS += -flto
+	OPT_DEFS += -DNO_ACTION_MACRO
+	OPT_DEFS += -DNO_ACTION_FUNCTION
 endif
 
 ifeq ($(strip $(IS_MACROPAD)), yes)
