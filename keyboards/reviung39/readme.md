@@ -1,12 +1,12 @@
 # reviung39
 
-![reviung39](imgur.com image replace me!)
+![reviung39](https://github.com/gtips/reviung/blob/master/reviung39/image/REVIUNG39-1.jpg)
 
-A short description of the keyboard/project
+The REVIUNG39 is 39-key (37.5%) column staggered keyboard.
 
-Keyboard Maintainer: [gtips](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [gtips](https://github.com/gtips)  
+Hardware Supported: The REVIUNG39 PCBs, Pro Micro supported  
+Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung)  
 
 Make example for this keyboard (after setting up your build environment):
 
