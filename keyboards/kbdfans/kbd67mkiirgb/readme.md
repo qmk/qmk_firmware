@@ -2,7 +2,7 @@
 
 A customizable 65% RGB keyboard.
 
-Keyboard Maintainer: [kbdfans](https://kbdfans.myshopify.com/)
+Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)  
 Hardware Supported: [kbdfans](https://kbdfans.myshopify.com/)
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
 
