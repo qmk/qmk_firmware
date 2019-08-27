@@ -1,4 +1,4 @@
-/* Copyright 2019 %YOUR_NAME%
+/* Copyright %YEAR% %YOUR_NAME%
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
-    KC_A,  KC_1,  KC_H, \
-      KC_TAB,  KC_SPC   \
+    KC_A,  KC_1,  KC_H,
+      KC_TAB,  KC_SPC
   ),
 };
 

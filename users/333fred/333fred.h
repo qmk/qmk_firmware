@@ -1,6 +1,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "layout_macros.h"
 
 #define BASE 0
 #define CODE 1 // code layer

@@ -136,12 +136,6 @@ bool has_usb(void) {
 
 void matrix_init(void)
 {
-#ifdef DISABLE_JTAG
-  // JTAG disable for PORT F. write JTD bit twice within four cycles.
-  MCUCR |= (1<<JTD);
-  MCUCR |= (1<<JTD);
-#endif
-
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();

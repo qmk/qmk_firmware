@@ -54,3 +54,4 @@ RGBLIGHT_ENABLE = yes
 # RAW_ENABLE = yes
 # DYNAMIC_KEYMAP_ENABLE = yes
 
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
