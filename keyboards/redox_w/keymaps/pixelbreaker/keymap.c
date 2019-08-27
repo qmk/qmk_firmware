@@ -49,6 +49,12 @@ enum tap_dance {
 #define PANE_3 LGUI(KC_3)
 #define SORT_LINES KC_F5
 
+uint16_t frame_timer;
+uint16_t anim_timer;
+uint16_t anim_frame = 0;
+int anim_dir = 1;
+bool anim_run = true;
+
 // Init and switch off the "white" 4th LED
 void led_init_user(void) {
 	DDRD  |= (1<<0) | (1<<1);
@@ -66,6 +72,39 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_init_user(void) {
     led_init_user();
+
+    frame_timer = timer_read();
+    anim_timer = timer_read();
+    anim_frame = 0;
+}
+
+void matrix_scan_user(void) {
+    if (anim_run && timer_elapsed(anim_timer) < 1250) {
+        if (timer_elapsed(frame_timer) > 150) {
+            switch (anim_frame) {
+                case 0:
+                    red_led_on; blu_led_off; grn_led_off; wht_led_off;
+                    break;
+                case 1:
+                    red_led_off; blu_led_on; grn_led_off; wht_led_off;
+                    break;
+                case 2:
+                    red_led_off; blu_led_off; grn_led_on; wht_led_off;
+                    break;
+                case 3:
+                    red_led_off; blu_led_off; grn_led_off; wht_led_on;
+                    break;
+            }
+
+            anim_frame = anim_frame + anim_dir;
+            if (anim_dir > 0 && anim_frame == 3) anim_dir = -anim_dir;
+            else if(anim_dir < 0 && anim_frame == 0) anim_dir = -anim_dir;
+            frame_timer = timer_read();
+        }
+    } else if (anim_run) {
+        anim_run = false;
+        red_led_off; blu_led_off; grn_led_off; wht_led_off;
+    }
 }
 
 // Change the receiver's LEDs based on the current layer
@@ -139,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
       x,       x,       x,       x,       x,       x,                                                   x,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _v_,     x,       x,       x,       x,       x,       x,                                 x,      x,       x,       KC_UP,   x,       x,       KC_VOLD,
+      _v_,     x,       x,       x,       x,       x,       x,                                 x,       x,       x,       KC_UP,   x,       x,       KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       x,       x,       x,       x,       x,       x,       x,                                  x,      x,       KC_LEFT, KC_DOWN, KC_RGHT, x,       KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
