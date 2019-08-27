@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 
@@ -10,7 +9,6 @@ MCU = atmega32u4
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
-#BOOTLOADER = atmel-dfu
 BOOTLOADER = caterina
 
 
