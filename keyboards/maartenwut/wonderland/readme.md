@@ -3,7 +3,7 @@ Wonderland USB-c and USB-mini
 
 Only the USB-mini part is compatible with the original Alice case. The USB-c version was created for the Lubrigante, a case designed by Zambumon and a GB run by homerowco.
 
-Keyboard Maintainer: Maartenwut<br>
+Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)<br>
 Hardware Supported: Wonderland-C and Wonderland-Mini<br>
 Hardware Availability: https://maartenwut.com/product/wonderland-mini-usb-only/<br>
 
