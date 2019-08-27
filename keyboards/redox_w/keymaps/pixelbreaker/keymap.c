@@ -2,6 +2,7 @@
 
 extern keymap_config_t keymap_config;
 
+// Layer namesg
 #define _QWERTY 0
 #define _SYMB 1
 #define _NAV 2
@@ -21,7 +22,8 @@ enum tap_dance {
 };
 
 // Nicer keycode alias for keymap readability
-#define xxxxx KC_NO
+#define x KC_NO // No action
+#define _v_ KC_TRNS // Pass through
 #define L_SYMB LT(_SYMB,KC_CAPSLOCK)
 #define L_NAV LT(_NAV,KC_TAB)
 #define L_MOUSE LT(_MOUSE,KC_ESC)
@@ -51,8 +53,6 @@ enum tap_dance {
 void led_init_user(void) {
 	DDRD  |= (1<<0) | (1<<1);
 	PORTD |= (1<<0) | (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
 }
 
 // Turn the white LED on/off with CAPSLOCK state
@@ -100,10 +100,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // Tap dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_PRNSL] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
-  [TD_PRNSR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
-  [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE),
-  [TD_QMRK] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
+  [TD_PRNSL] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR), // [[ -> {
+  [TD_PRNSR] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR), // ]] -> }
+  [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE), // \\ -> |
+  [TD_QMRK] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES), // // -> ?
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  TD(TD_PRNSL),                      TD(TD_PRNSR), KC_H, KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  L_TOGGLE,KC_END,            KC_PGUP, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,TD(TD_QMRK),KC_RSPC,
+      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    L_TOGGLE,KC_END,          KC_PGUP, KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,TD(TD_QMRK),KC_RSPC,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
       KC_LCTL, HYP_MINS,MEH_PLUS,KC_LALT,      KC_LGUI,     KC_SPC,  KC_DEL,          KC_BSPC, KC_ENT,      KC_LGUI,      KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
@@ -123,113 +123,113 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYMB] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+      x,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______,                           _______, KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
+      x,       x,       x,       x,       x,       x,       _v_,                               _v_,     KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, xxxxx,   PANE_1,  PANE_2,  PANE_3,  xxxxx,   _______,                           KC_UNDS, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
+      _v_,     x,       PANE_1,  PANE_2,  PANE_3,  x,       _v_,                               KC_UNDS, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, xxxxx,   xxxxx,   CONSOLE, xxxxx,   xxxxx,   _______, _______,         LINE_UP, LINE_DOWN,KC_AMPR,KC_LT,KC_GT,KC_SLSH, xxxxx,   KC_GRV,
+      _v_,     x,       x,       CONSOLE, x,       x,       _v_,     _v_,             LINE_UP, LINE_DOWN,KC_AMPR,KC_LT,   KC_GT,   KC_SLSH, x,       KC_GRV,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   REDO,    UNDO,         CUT,         COPY,    PASTE,           DEL_LINE,SORT_LINES,  xxxxx,        _______, _______, _______, _______
+      x,       x,       REDO,    UNDO,         CUT,         COPY,    PASTE,           DEL_LINE,SORT_LINES,  x,            _v_,     _v_,     _v_,     _v_
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_NAV] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
+      x,       x,       x,       x,       x,       x,                                                   x,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   xxxxx,   KC_UP,   xxxxx,   xxxxx,   KC_VOLD,
+      _v_,     x,       x,       x,       x,       x,       x,                                 x,      x,       x,       KC_UP,   x,       x,       KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   KC_LEFT, KC_DOWN, KC_RGHT, xxxxx,   KC_MPLY,
+      x,       x,       x,       x,       x,       x,       x,                                  x,      x,       KC_LEFT, KC_DOWN, KC_RGHT, x,       KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,           xxxxx,   xxxxx,   xxxxx,LALT(KC_LEFT),xxxxx,LALT(KC_RGHT),xxxxx,xxxxx,
+      x,       x,       x,       x,       x,       x,       x,       x,               x,       x,       x,    LALT(KC_LEFT),x,    LALT(KC_RGHT),x,   x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           x,       x,               x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_MOUSE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      _______, xxxxx,  xxxxx,   xxxxx,   xxxxx,   xxxxx,                                                xxxxx,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
+      _v_,     x,      x,       x,       x,       x,                                                    x,       KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   KC_WH_U, xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   xxxxx,   KC_MS_U,  xxxxx,  xxxxx,   KC_VOLD,
+      x,       x,       x,       KC_WH_U, x,       x,       x,                                  x,      x,       x,       KC_MS_U,  x,      x,       KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   KC_WH_L, KC_WH_D, KC_WH_R, xxxxx,   xxxxx,                              xxxxx,  xxxxx,   KC_MS_L, KC_MS_D, KC_MS_R, xxxxx,   KC_MPLY,
+      x,       x,       KC_WH_L, KC_WH_D, KC_WH_R, x,       x,                                  x,      x,       KC_MS_L, KC_MS_D, KC_MS_R, x,       KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,           xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,       x,               x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       KC_BTN1, KC_BTN2,         xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           KC_BTN1, KC_BTN2,         x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_TOGGLE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  L_LOCK,
+      x,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  L_LOCK,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   L_GAMING,xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       L_GAMING,x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, MO(_RESET),      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       _v_,     MO(_RESET),      x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           x,       x,               x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_GAMING] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_ESC,  _______, _______, _______, _______, _______,                                             _______, _______, _______, _______, _______, _______,
+      KC_ESC,  _v_,     _v_,     _v_,     _v_,     _v_,                                                 _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_TAB,  _______, _______, _______, _______, _______, KC_Y,                              _______, _______, _______, _______, _______, _______, _______,
+      KC_TAB,  _v_,     _v_,     _v_,     _v_,     _v_,     KC_Y,                              _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_CAPS, _______, _______, _______, _______, _______, KC_H,                              _______, _______, _______, _______, _______, _______, _______,
+      KC_CAPS, _v_,     _v_,     _v_,     _v_,     _v_,     KC_H,                              _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LSFT, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,
+      KC_LSFT, _v_,     _v_,     _v_,     _v_,     _v_,     _v_,      _v_,            _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,     _v_,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______,      _______,     _______, _______,         _______, _______,     _______,      _______, _______, _______, _______
+      KC_LGUI, _v_,     _v_,     _v_,          KC_LCTL,     _v_,     _v_,             _v_,     _v_,         _v_,          _v_,     _v_,     _v_,     _v_
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_LOCK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,                                                   x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   MO(_UNLOCK),xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       MO(_UNLOCK),x,            x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           x,       x,               x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_UNLOCK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   L_UNLOCK,
+      x,       x,       x,       x,       x,       x,                                                   x,       x,       x,       x,       x,       L_UNLOCK,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, xxxxx,           xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       _v_,     x,               x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           x,       x,               x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_RESET] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      RESET,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      RESET,   x,       x,       x,       x,       x,                                                   x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      DEBUG,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      DEBUG,   x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       x,                                 x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, _______,         xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+      x,       x,       x,       x,       x,       x,       _v_,     _v_,             x,       x,       x,       x,       x,       x,       x,       x,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+      x,       x,       x,       x,            x,           x,       x,               x,       x,           x,            x,       x,       x,       x
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 };
