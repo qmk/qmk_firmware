@@ -6,8 +6,8 @@ This readme and most of the code are from the lets split readme
 
 ## Quick links
 
-[REV1](./rev1/README.md)  
-[REV2](./rev2/README.md)
+[REV1](./rev1/readme.md)  
+[REV2](./rev2/readme.md)
 
 ## Hardware
 
