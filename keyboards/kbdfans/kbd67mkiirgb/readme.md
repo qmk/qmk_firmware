@@ -3,7 +3,7 @@
 A customizable 65% RGB keyboard.
 
 Keyboard Maintainer: [moyi4681](https://github.com/moyi4681)  
-Hardware Supported: [kbdfans](https://kbdfans.myshopify.com/)
+Hardware Supported: KBD67 Mk.II RGB  
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
 
 
