@@ -9,7 +9,8 @@ extern keymap_config_t keymap_config;
 #define _TOGGLE 4
 #define _GAMING 5
 #define _LOCK 6
-#define _RESET 7
+#define _UNLOCK 7
+#define _RESET 8
 
 //Tap Dance Declarations
 enum tap_dance {
@@ -26,7 +27,8 @@ enum tap_dance {
 #define L_MOUSE LT(_MOUSE,KC_ESC)
 #define L_TOGGLE LT(_TOGGLE,KC_HOME)
 #define L_GAMING TG(_GAMING)
-#define L_LOCK TG(_LOCK)
+#define L_LOCK TO(_LOCK)
+#define L_UNLOCK TO(_QWERTY)
 #define HYP_MINS ALL_T(KC_MINS)
 #define MEH_EQL MEH_T(KC_EQL)
 #define CUT LGUI(KC_X)
@@ -80,6 +82,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case _MOUSE:
             set_led_red;
+            break;
+        case _TOGGLE:
+            set_led_green;
             break;
         case _GAMING:
             set_led_yellow;
@@ -175,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GAMING] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
       KC_ESC,  _______, _______, _______, _______, _______,                                             _______, _______, _______, _______, _______, _______,
-    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐           ()              ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,  _______, _______, _______, _______, _______, KC_Y,                              _______, _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       KC_CAPS, _______, _______, _______, _______, _______, KC_H,                              _______, _______, _______, _______, _______, _______, _______,
@@ -185,9 +190,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______,      _______,     _______, _______,         _______, _______,     _______,      _______, _______, _______, _______
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
+
     [_LOCK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   MO(_UNLOCK),xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
+    //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
+    //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
+    ),
+
+    [_UNLOCK] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   L_UNLOCK,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
