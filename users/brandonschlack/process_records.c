@@ -9,12 +9,14 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// Consolidated Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:
             if (!record->event.pressed) {
                 bool flash = false;
-
+        // If is a keyboard and auto-flash is not set in rules.mk,
+        // then Shift will trigger the :flash target
         #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
                 uint8_t temp_mod = get_mods();
                 uint8_t temp_osm = get_oneshot_mods();
@@ -87,6 +89,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
+// Super CMD↯TAB
 void matrix_scan_cmd_tab(void) {
     if (is_cmd_tab_active) {
         if (timer_elapsed(cmd_tab_timer) > 500) {
@@ -96,9 +99,12 @@ void matrix_scan_cmd_tab(void) {
     }
 }
 
-/** Send Make Command
- * adds flash target and resets keyboard if flash_bootloader
- * set to true
+/**
+ * Send Make Command
+ *
+ * Sends 'make keyboard:keymap command to compile firmware
+ * Adds :flash target and resets keyboard,
+ * if flash_bootloader set to true
  */
 void send_make_command(bool flash_bootloader) {
     send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);

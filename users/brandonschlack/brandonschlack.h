@@ -12,22 +12,22 @@
 
 // Define layer names
 enum bs_layers {
-#if !defined(IS_MACROPAD)
+#if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
     _FN = 1,
     _LOWER = 1,
     _RAISE,
-#else
+#else // Macropad Layers
     _REEDER = 0,
     _MEDIA,
     _NAVI,
     _MACRO,
 #endif
-    KEYMAP_LAYERS,
+    KEYMAP_LAYERS, // Add more layers in keymaps
 #if defined(IS_MACROPAD) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-    _LIGHT = 14,
+    _LIGHT = 14, // Layer for BLight/RGB controls on macropads
 #endif
-    _ADJUST = 15
+    _ADJUST = 15 // Change keyboard settings
 };
 
 typedef union {
