@@ -20,12 +20,26 @@ enum tap_dance {
 };
 
 // Nicer keycode alias for keymap readability
+#define xxxxx KC_NO
 #define L_SYMB LT(_SYMB,KC_CAPSLOCK)
 #define L_NAV LT(_NAV,KC_TAB)
 #define L_MOUSE LT(_MOUSE,KC_ESC)
 #define L_TOGGLE LT(_TOGGLE,KC_HOME)
 #define L_GAMING TG(_GAMING)
 #define L_LOCK TG(_LOCK)
+#define HYP_MINS ALL_T(KC_MINS)
+#define MEH_EQL MEH_T(KC_EQL)
+#define CUT LGUI(KC_X)
+#define COPY LGUI(KC_C)
+#define PASTE LGUI(KC_V)
+
+// VSCODE keys
+#define PANE_1 LGUI(KC_1)
+#define PANE_2 LGUI(KC_2)
+#define PANE_3 LGUI(KC_3)
+#define CONSOLE LCTL(KC_C)
+#define LINE_UP LALT(KC_UP)
+#define LINE_DOWN LALT(KC_DOWN)
 
 // Init and switch off the "white" 4th LED
 void led_init_user(void) {
@@ -92,106 +106,106 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
       L_SYMB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,  TD(TD_PRNSL),                      TD(TD_PRNSR), KC_H, KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  L_TOGGLE,KC_END,          KC_PGUP, KC_PGDN,KC_N,    KC_M,    KC_COMM, KC_DOT,   TD(TD_QMRK), KC_RSPC,
+      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  L_TOGGLE,KC_END,            KC_PGUP, KC_PGDN,KC_N,    KC_M,    KC_COMM, KC_DOT,   TD(TD_QMRK), KC_RSPC,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-        KC_LCTL, ALL_T(KC_MINS), MEH_T(KC_EQL), KC_LALT, KC_LGUI, KC_SPC, KC_DEL,       KC_BSPC, KC_ENT,      KC_LGUI,    KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
+      KC_LCTL, HYP_MINS,MEH_EQL, KC_LALT,      KC_LGUI,     KC_SPC,  KC_DEL,          KC_BSPC, KC_ENT,      KC_LGUI,    KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_SYMB] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+      xxxxx,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,                           KC_TRNS, KC_EXLM, KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______,                           _______, KC_EXLM,KC_LPRN, KC_RPRN, KC_DLR,  KC_PERC, KC_F12,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_TRNS, KC_NO,  LGUI(KC_1),LGUI(KC_2),LGUI(KC_3), KC_NO, KC_TRNS,                       KC_UNDS, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
+      _______, xxxxx,   PANE_1,  PANE_2,  PANE_3,  xxxxx,   _______,                           KC_UNDS, KC_PIPE, KC_LCBR, KC_RCBR, KC_EQL,  KC_COLN, KC_DQUO,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   LCTL(KC_C), KC_NO,KC_NO,   KC_TRNS, KC_TRNS,        LALT(KC_UP),LALT(KC_DOWN),KC_AMPR,KC_LT,KC_GT,KC_SLSH, KC_NO,   KC_GRV,
+      _______, xxxxx,   xxxxx,   CONSOLE, xxxxx,   xxxxx,   _______, _______,         LINE_UP, LINE_DOWN,KC_AMPR,KC_LT,KC_GT,KC_SLSH, xxxxx,   KC_GRV,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,  KC_NO,         LGUI(KC_X),  LGUI(KC_C),LGUI(KC_V),    MEH(KC_K), KC_F5,     KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,  xxxxx,         CUT,         COPY,    PASTE,           MEH(KC_K), KC_F5,     xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_NAV] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                               KC_NO,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,  KC_NO,   KC_NO,   KC_UP,   KC_NO,   KC_NO,   KC_VOLD,
+      _______, xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   xxxxx,   KC_UP,   xxxxx,   xxxxx,   KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,  KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_MPLY,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   KC_LEFT, KC_DOWN, KC_RGHT, xxxxx,   KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,  KC_NO,   KC_NO,  LALT(KC_LEFT),KC_NO,LALT(KC_RGHT),KC_NO, KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,            xxxxx,  xxxxx,   xxxxx,  LALT(KC_LEFT),xxxxx,LALT(KC_RGHT),xxxxx, xxxxx,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,            KC_NO,  KC_NO,       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,            xxxxx,  xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_MOUSE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                               KC_NO,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
+      _______, xxxxx,  xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   KC_MRWD, KC_MPLY, KC_MFFD, KC__MUTE,KC_VOLU,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_WH_U, KC_NO,   KC_NO,   KC_NO,                              KC_NO,  KC_NO,   KC_NO,   KC_MS_U,  KC_NO,  KC_NO,   KC_VOLD,
+      xxxxx,   xxxxx,   xxxxx,   KC_WH_U, xxxxx,   xxxxx,   xxxxx,                              xxxxx,  xxxxx,   xxxxx,   KC_MS_U,  xxxxx,  xxxxx,   KC_VOLD,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_WH_R, KC_NO,   KC_NO,                              KC_NO,  KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,   KC_MPLY,
+      xxxxx,   xxxxx,   KC_WH_L, KC_WH_D, KC_WH_R, xxxxx,   xxxxx,                              xxxxx,  xxxxx,   KC_MS_L, KC_MS_D, KC_MS_R, xxxxx,   KC_MPLY,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,           xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_BTN1, KC_BTN2,         KC_NO,   KC_NO,       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       KC_BTN1, KC_BTN2,         xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_TOGGLE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  L_LOCK,
+      xxxxx,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                               KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  L_LOCK,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   L_GAMING,KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   L_GAMING,xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, LT(_RESET,KC_TRNS),KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, MO(_RESET),     xxxxx, xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,           KC_NO,   KC_NO,       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_GAMING] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_ESC,  _______, _______, _______, _______, _______,                                             _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_TAB,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_Y,                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TAB,  _______, _______, _______, _______, _______, KC_Y,                              _______, _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_H,                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_CAPS, _______, _______, _______, _______, _______, KC_H,                              _______, _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_LSFT, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS, KC_TRNS,         KC_TRNS, KC_TRNS,     KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+      _______, _______, _______, _______,      _______,     _______, _______,         _______, _______,     _______,      _______, _______, _______, _______
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
     [_LOCK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                               KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NO,           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, xxxxx,           xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,           KC_NO,   KC_NO,       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 
     [_RESET] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                               KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      RESET,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                                               xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      DEBUG,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      DEBUG,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,                             xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   _______, _______,         xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,   xxxxx,
     //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,        KC_NO,       KC_NO,   KC_NO,           KC_NO,   KC_NO,       KC_NO,        KC_NO,   KC_NO,   KC_NO,   KC_NO
+      xxxxx,   xxxxx,   xxxxx,   xxxxx,        xxxxx,       xxxxx,   xxxxx,           xxxxx,   xxxxx,       xxxxx,        xxxxx,   xxxxx,   xxxxx,   xxxxx
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
     ),
 };
