@@ -68,7 +68,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-libc \
 		avr-gcc \
 		base-devel \
-        dfu-programmer \
+		dfu-programmer \
 		dfu-util \
 		diffutils \
 		gcc \
