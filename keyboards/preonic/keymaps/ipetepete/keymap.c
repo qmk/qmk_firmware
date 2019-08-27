@@ -20,6 +20,7 @@
 enum preonic_layers {
   _QWERTY,
   _GAMER,
+  _MAC,
   _LOWER,
   _RAISE,
   _SPCFN,
@@ -29,6 +30,7 @@ enum preonic_layers {
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   GAMER,
+  MAC,
   LOWER,
   RAISE,
   SPCFN,
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,  \
   ESCCTRL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, ENTSFT,  \
-  KC_RALT, KC_LALT, KC_LGUI, KC_LCTRL, LOWER,   KC_SPFN, KC_SPFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_RALT, KC_LALT, KC_LGUI, KC_LCTL, LOWER,   KC_SPFN, KC_SPFN, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 /* Gamer
  * ,-----------------------------------------------------------------------------------.
@@ -86,6 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
+[_MAC] = LAYOUT_preonic_grid( \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  KC_RALT, KC_LCTL, KC_LALT, KC_LGUI,  _______, _______, _______, _______, _______, _______, _______, _______ \
+),
+
 [_SPCFN] = LAYOUT_preonic_grid( \
 _______, _______, _______, _______, _______, _______, _______, _______,_______,KC_MINS,  KC_EQL, KC_DEL,  \
 KC_GRV,  _______, _______, KC_PGUP, _______, KC_LBRC, KC_RBRC, _______, KC_UP,   _______, _______, _______,\
@@ -154,7 +164,7 @@ _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
   _______, QWERTY,  GAMER,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
   _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  MAC, _______, _______, _______, _______, \
   RESET,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DEBUG\
 )
 
@@ -175,13 +185,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-
+        case MAC:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_MAC);
+          }
+          return false;
+          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
-            layer_off(_LOWER);
+          layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
