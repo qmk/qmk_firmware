@@ -52,6 +52,48 @@ void dip_switch_update_user(uint8_t index, bool active) {
 }
 ```
 
+Additionally, we support bit mask functions which allow for more complex handling. 
+
+
+```c
+void dip_switch_update_nask_kb(uint32_t state) { 
+    dip_switch_update_mask_user(state); 
+}
+```
+
+
+or `keymap.c`:
+
+```c
+void dip_switch_update_mask_user(uint32_t state) { 
+    if (state & (1UL<<0)) {
+        if(active) { audio_on(); } else { audio_off(); }
+        break;
+    }
+    if (state & (1UL<<1)) {
+        if(active) { clicky_on(); } else { clicky_off(); }
+        break;
+    }
+    if (state & (1UL<<2)) {
+        if(active) { music_on(); } else { music_off(); }
+        break;
+    }
+    if (state & (1UL<<3)) {
+        if (active) {
+            #ifdef AUDIO_ENABLE
+                PLAY_SONG(plover_song);
+            #endif
+            layer_on(_PLOVER);
+        } else {
+            #ifdef AUDIO_ENABLE
+                PLAY_SONG(plover_gb_song);
+            #endif
+            layer_off(_PLOVER);
+        }
+    }
+}
+```
+
 
 ## Hardware
 
