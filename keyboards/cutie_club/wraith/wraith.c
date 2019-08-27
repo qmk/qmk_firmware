@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "Wraith.h"
+#include "wraith.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -47,6 +47,7 @@ void led_set_kb(uint8_t usb_led) {
         writePinHigh(B3);
     }
 
+    // FOR REVISION 2 PCB
     // if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
     //     writePinLow(B2);
     // } else {
