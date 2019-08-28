@@ -79,8 +79,8 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-    if (anim_run && timer_elapsed(anim_timer) < 1250) {
-        if (timer_elapsed(frame_timer) > 150) {
+    if (anim_run && timer_elapsed(anim_timer) < 1600) {
+        if (timer_elapsed(frame_timer) > 200) {
             switch (anim_frame) {
                 case 0:
                     red_led_on; blu_led_off; grn_led_off; wht_led_off;
