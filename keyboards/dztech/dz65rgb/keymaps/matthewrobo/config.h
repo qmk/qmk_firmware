@@ -52,8 +52,6 @@
 // #define RGB_MATRIX_KEYRELEASES
 
 // some speed shit
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifndef NO_DEBUG
 #define NO_DEBUG
