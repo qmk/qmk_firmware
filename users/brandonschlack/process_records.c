@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_TAB);
             }
             break;
-        #if defined(RGB_THEME)
+        #if defined(RGB_THEME_ENABLE)
         case RGB_LYR:
             if (record->event.pressed) {
                 user_config.rgb_layer_change ^= 1;

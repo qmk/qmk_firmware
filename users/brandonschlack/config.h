@@ -9,5 +9,5 @@
 #endif
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#   define RGB_THEME
+#   define RGB_THEME_ENABLE
 #endif

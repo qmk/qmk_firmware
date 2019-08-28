@@ -10,7 +10,7 @@ extern bool g_suspend_state;
 extern led_config_t g_led_config;
 #endif
 
-#if defined(RGB_THEME)
+#if defined(RGB_THEME_ENABLE)
 static const HSV default_adjust = { HSV_SPRINGGREEN };
 
 // Laser Color Constants
@@ -50,7 +50,7 @@ void keyboard_post_init_rgb(void) {
 #endif
 }
 
-#if defined(RGB_THEME)
+#if defined(RGB_THEME_ENABLE)
 void set_rgb_theme(rgb_theme_name_t theme_name) {
     if (!user_config.rgb_layer_change) {
         user_config.rgb_layer_change = true;
@@ -139,7 +139,7 @@ void rgb_layer_helper(uint8_t hue, uint8_t sat, uint8_t val) {
 #endif
 
 layer_state_t layer_state_set_rgb(layer_state_t state) {
-#if defined(RGB_THEME)
+#if defined(RGB_THEME_ENABLE)
     if (user_config.rgb_layer_change) {
         rgb_theme_layer(state);
     }
