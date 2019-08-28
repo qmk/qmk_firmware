@@ -84,7 +84,7 @@ CTL, GUI, ALT,        SPACEBAR,              ALT, FN, CTL, LFT, DWN, RIT
 */
 void rgb_matrix_indicators_user(void)
 {
-	if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
 		rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
 	}
 
@@ -93,7 +93,7 @@ void rgb_matrix_indicators_user(void)
 	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (biton32(layer_state)) {
 		case _NAV:
-			if (this_led & (1 << USB_LED_NUM_LOCK)) {
+			if (IS_LED_ON(this_led, USB_LED_NUM_LOCK)) {
 				rgb_matrix_set_color(17, 0xFF, 0x00, 0x00);
 				rgb_matrix_set_color(26, 0xFF, 0xFF, 0x00);
 			} else {
