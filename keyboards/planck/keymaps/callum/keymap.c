@@ -66,8 +66,8 @@
 #define home G(KC_LEFT)
 #define end G(KC_RGHT)
 #define up KC_UP
-#define pgdn G(KC_DOWN)
-#define pgup G(KC_UP)
+#define pgdn KC_PGDN
+#define pgup KC_PGUP
 #define left KC_LEFT
 #define rght KC_RGHT
 
