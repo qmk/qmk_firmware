@@ -19,17 +19,34 @@
 #include "keycode_config.h"
 #include "debug.h"
 #include "util.h"
+#include <string.h>
 
+/** \brief has_anykey
+ *
+ * FIXME: Needs doc
+ */
 uint8_t has_anykey(report_keyboard_t* keyboard_report)
 {
     uint8_t cnt = 0;
-    for (uint8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        if (keyboard_report->raw[i])
+    uint8_t *p = keyboard_report->keys;
+    uint8_t lp = sizeof(keyboard_report->keys);
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        p = keyboard_report->nkro.bits;
+        lp = sizeof(keyboard_report->nkro.bits);
+    }
+#endif
+    while (lp--) {
+        if (*p++)
             cnt++;
     }
     return cnt;
 }
 
+/** \brief get_first_key
+ *
+ * FIXME: Needs doc
+ */
 uint8_t get_first_key(report_keyboard_t* keyboard_report)
 {
 #ifdef NKRO_ENABLE
@@ -54,6 +71,10 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report)
 #endif
 }
 
+/** \brief add key byte
+ *
+ * FIXME: Needs doc
+ */
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 {
 #ifdef USB_6KRO_ENABLE
@@ -120,6 +141,10 @@ void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 #endif
 }
 
+/** \brief del key byte
+ *
+ * FIXME: Needs doc
+ */
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 {
 #ifdef USB_6KRO_ENABLE
@@ -157,6 +182,10 @@ void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 }
 
 #ifdef NKRO_ENABLE
+/** \brief add key bit
+ *
+ * FIXME: Needs doc
+ */
 void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 {
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
@@ -166,6 +195,10 @@ void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
     }
 }
 
+/** \brief del key bit
+ *
+ * FIXME: Needs doc
+ */
 void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 {
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
@@ -176,7 +209,11 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 }
 #endif
 
-void add_key_to_report(report_keyboard_t* keyboard_report, int8_t key)
+/** \brief add key to report
+ *
+ * FIXME: Needs doc
+ */
+void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key)
 {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
@@ -187,6 +224,10 @@ void add_key_to_report(report_keyboard_t* keyboard_report, int8_t key)
     add_key_byte(keyboard_report, key);
 }
 
+/** \brief del key from report
+ *
+ * FIXME: Needs doc
+ */
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
 {
 #ifdef NKRO_ENABLE
@@ -198,10 +239,18 @@ void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
     del_key_byte(keyboard_report, key);
 }
 
+/** \brief clear key from report
+ *
+ * FIXME: Needs doc
+ */
 void clear_keys_from_report(report_keyboard_t* keyboard_report)
 {
     // not clear mods
-    for (int8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-        keyboard_report->raw[i] = 0;
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        memset(keyboard_report->nkro.bits, 0, sizeof(keyboard_report->nkro.bits));
+        return;
     }
+#endif
+    memset(keyboard_report->keys, 0, sizeof(keyboard_report->keys));
 }

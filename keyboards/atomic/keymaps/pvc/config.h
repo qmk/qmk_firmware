@@ -15,36 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#undef PRODUCT_ID
 #define PRODUCT_ID      0x0419
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Atomic Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { D0, D5, B5, B6, B3 }
-#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7, D3, D2, D1 }
-#define UNUSED_PINS
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
@@ -55,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -70,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Enable Keyboard Locking via magic key
 #define KEYBOARD_LOCK_ENABLE
-
 
 /*
  * Force NKRO
@@ -104,11 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -170,7 +146,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
 
 //#define VIBRATO_ENABLE
 //#define VIBRATO_STRENGTH_ENABLE

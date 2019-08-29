@@ -18,18 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define PREVENT_STUCK_MODIFIERS
-
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0F0F
+#define VENDOR_ID       0x1c11
+#define PRODUCT_ID      0xb04d
 #define DEVICE_VER      0x0001
-/* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER "Input Club"
-#define USBSTR_MANUFACTURER    'I', '\x00', 'n', '\x00', 'p', '\x00', 'u', '\x00', 't', '\x00', ' ', '\x00', 'C', '\x00', 'l', '\x00', 'u', '\x00', 'b', '\x00'
-#define PRODUCT "WhiteFox/QMK"
-#define USBSTR_PRODUCT         'W', '\x00', 'h', '\x00', 'i', '\x00', 't', '\x00', 'e', '\x00', 'F', '\x00', 'o', '\x00', 'x', '\x00', ' ', '\x00'
+#define MANUFACTURER    Input Club
+#define PRODUCT         WhiteFox/QMK
 
 /* key matrix size */
 #define MATRIX_ROWS 9
@@ -51,11 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* Keymap for Infinity prototype */
 //#define INFINITY_PROTOTYPE

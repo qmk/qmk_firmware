@@ -1,5 +1,4 @@
-
-#MCU = at90usb1287
+# MCU name
 MCU = atmega32u4
 
 # Processor frequency.
@@ -37,20 +36,26 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
 ifdef TEENSY2
+    BOOTLOADER = halfkay
     OPT_DEFS += -DATREUS_TEENSY2
     ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 else
+    BOOTLOADER = caterina
     OPT_DEFS += -DATREUS_ASTAR
-    OPT_DEFS += -DCATERINA_BOOTLOADER
     ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                             avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 endif
+
+
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# MCU name
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
@@ -79,11 +84,4 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
-
-upload: build
-	$(ATREUS_UPLOAD_COMMAND)
 

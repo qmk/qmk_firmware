@@ -1,11 +1,4 @@
-#include "amjpad.h"
-
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
-
-// Used for SHIFT_ESC
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -13,8 +6,6 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
-
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -33,13 +24,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
 
-[_BL] = KEYMAP(
-  KC_ESC,KC_TAB,KC_BSPC,KC_PEQL, \
-  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
-  KC_P7, KC_P8, KC_P9, KC_PPLS,  \
-  KC_P4, KC_P5, KC_P6, \
-  KC_P1, KC_P2, KC_P3, KC_PENT, \
-  KC_P0, LT(_FL,KC_PDOT)),
+  [_BL] = LAYOUT_numpad_6x4(
+    KC_ESC,  KC_TAB,  KC_BSPC, KC_PEQL, \
+    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+    KC_P7,   KC_P8,   KC_P9,   \
+    KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
+    KC_P1,   KC_P2,   KC_P3,   \
+      KC_P0, LT(_FL,KC_PDOT),  KC_PENT  \
+  ),
 
   /* Keymap _FL: Function Layer
    * ,-------------------.
@@ -56,46 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   0     |./FN|    |
    * `-------------------'
    */
-[_FL] = KEYMAP(
-  
-  KC_ESC,KC_TAB,KC_BSPC,KC_PEQL, \
-  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
-  KC_P7, KC_P8, KC_P9, RESET,  \
-  KC_P4, KC_P5, KC_P6, \
-  KC_P1, KC_P2, KC_P3, KC_PENT, \
-  KC_P0, LT(_FL,KC_PDOT)),
+  [_FL] = LAYOUT_numpad_6x4(
+    KC_ESC,  KC_TAB,  KC_BSPC, KC_PEQL, \
+    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+    KC_P7,   KC_P8,   KC_P9,   \
+    KC_P4,   KC_P5,   KC_P6,   RESET,   \
+    KC_P1,   KC_P2,   KC_P3,   \
+      KC_P0, LT(_FL,KC_PDOT),  KC_PENT \
+  ),
 };
-
-enum function_id {
-    SHIFT_ESC,
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(SHIFT_ESC),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t shift_esc_shift_mask;
-  switch (id) {
-    case SHIFT_ESC:
-      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-      if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        if (shift_esc_shift_mask) {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-  }
-}

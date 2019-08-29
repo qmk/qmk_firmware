@@ -14,6 +14,10 @@
 
 keymap_config_t keymap_config;
 
+/** \brief Magic
+ *
+ * FIXME: Needs doc
+ */
 void magic(void)
 {
     /* check signature */
@@ -29,6 +33,6 @@ void magic(void)
 
     uint8_t default_layer = 0;
     default_layer = eeconfig_read_default_layer();
-    default_layer_set((uint32_t)default_layer);
+    default_layer_set((layer_state_t)default_layer);
 
 }

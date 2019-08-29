@@ -1,5 +1,0 @@
-# replicaJunction - Ergodox (EZ) Layout
-
-I designed this layout, along with my complimentary Atreus layout, to address the challenge of having an Ergodox as my primary home keyboard and an Atreus as my primary work board. I wanted a layout that provided symbols in comfortable locations on both keyboards - but didn't require me to learn two separate sets of symbols for the two keyboards.
-
-I had originally used several keys as dual-role keys, where a tap would send a keypress and a long press and hold would trigger a different layer. However, after several months of experimenting with those ideas, I've begun moving away from that design due to performance. It's very hard to strike a balance between the time it takes to press a key normally while typing and the "delay" in the typing motion needed to trigger the alternate layer. I was frequently getting strange characters and artifacts because I pressed the function key + the symbol key too quickly, and the layer never shifted.

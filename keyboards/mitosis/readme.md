@@ -1,33 +1,29 @@
-Mitosis Keyboard Firmware
-======================
+# Mitosis
 
-These configuration files were based off the Atreus keyboard. It assumes a Pro Micro is being used, however retains the 'make upload' feature from the Atreus branch. This keyboard uses a completely different 'matrix scan' system to other keyboards, it relies on an external nRF51822 microcontroller maintaining a matrix of keystates received from the keyboard halves. The matrix.c file contains the code to poll the external microcontroller for the key matrix. As long as this file is not changed, all other QMK features are supported.
+![Mitosis](https://i.imgur.com/JTzXTCD.jpg)
 
-Build log of the keyboard can be found [here](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/)
+A wireless split compact keyboard.
 
-Hardware design files can be found [here](https://github.com/reversebias/mitosis-hardware)
+Keyboard Maintainer: [@reversebias](https://github.com/reversebias)  
+Hardware Supported: Mitosis PCB  
+Hardware Availability: See the [Mitosis keyboard announcement and discussion](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/)
 
-Firmware for the nordic MCUs can be found [here](https://github.com/reversebias/mitosis)
+Make example for this keyboard (after setting up your build environment):
 
-## Quantum MK Firmware
+    make mitosis:default
 
-For the full Quantum feature list, see [the parent readme](/).
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
-## Building
+## Notes
 
-Download or clone the whole firmware and navigate to the keyboards/atreus folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
+Some circuit board manufacturers including [DirtyPCBs](https://dirtypcbs.com/) and [PCBWay](https://www.pcbway.com/) offer a steeply discounted "prototyping" rate for a small quantity of identical circuit boards less than 100x100mm in size. The Mitosis was designed to take advantage of this, so that individuals might affordably manufacture their own without waiting for a group-buy.
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+These configuration files were based off the Atreus keyboard. It assumes a Pro Micro is being used, however retains the 'make upload' feature from the Atreus branch.
 
-### Default
-To build with the default keymap, simply run `make default`.
+This keyboard uses a completely different 'matrix scan' system than most other keyboards supported by QMK. Here, QMK runs in a Pro Micro on a receiver module, and communicates only with an nRF51822 microcontroller module that in turn does wireless communication. The nRF51822 maintains a matrix of keystates received from the same microcontrollers on each of the keyboard halves. The matrix.c file contains the code to make the Pro Micro poll the external wireless microcontroller for the key matrix. As long as this file is not changed, all other QMK features are supported.
 
-### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` and see keymap document (you can find in top readme.md) and existent keymap files.
+[Mitosis keyboard build log](https://imgur.com/a/mwTFj), including many photos and notes about the assembly process.
 
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+[Mitosis keyboard hardware design files](https://github.com/reversebias/mitosis-hardware), including PCB schematics and manufacturing files, parts list, and a laser-cutting template for the neoprene base.
 
-```
-$ make [default|jack|<name>]
-```
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
+[Mitosis keyboard wireless firmware](https://github.com/reversebias/mitosis) for the Nordic microcontrollers.

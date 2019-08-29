@@ -1,6 +1,5 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -33,17 +32,13 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_DEL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
-  {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
-  {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH},
-  {KC_LGUI, _______, _______, KC_LALT, LOWER,   KC_SPC,  KC_ENT,  KC_SPC,  RAISE,   KC_RALT, _______, KC_RGUI}
+  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                 KC_DEL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
+  {KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                 KC_TAB,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
+  {KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                 KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH},
+  {KC_LGUI, _______, _______, KC_LALT, LOWER,   MT(MOD_LSFT, KC_SPC), KC_ENT,  KC_SPC,  RAISE,   KC_RALT, _______, KC_RGUI}
 },
 [_COLEMAK] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
@@ -67,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN},
   {_______, _______, _______, KC_QUOT, KC_MINS, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT},
   {_______, KC_TILD, KC_GRV,  KC_PLUS, KC_EQL,  KC_PIPE, _______, KC_BSLS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MS_BTN3}
 },
 
 [_PLOVER] = {
@@ -110,7 +105,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
@@ -119,7 +114,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+          PLAY_SONG(tone_colemak);
         #endif
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
@@ -128,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+          PLAY_SONG(tone_dvorak);
         #endif
         persistent_default_layer_set(1UL<<_DVORAK);
       }
@@ -169,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
-          PLAY_NOTE_ARRAY(tone_plover, false, 0);
+          PLAY_SONG(tone_plover);
         #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
@@ -187,7 +182,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+          PLAY_SONG(tone_plover_gb);
         #endif
         layer_off(_PLOVER);
       }
@@ -208,12 +203,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -225,7 +220,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif

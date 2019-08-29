@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "command.h"
 #include "action_pseudo_lut.h"
 
 static uint8_t send_key_shift_bit[SHIFT_BIT_SIZE];
@@ -10,7 +11,7 @@ static uint8_t send_key_shift_bit[SHIFT_BIT_SIZE];
  * Memo: Using other layer keymap to get keycode
  */
 void action_pseudo_lut(keyrecord_t *record, uint8_t base_keymap_id, const uint16_t (*keymap)[2]) {
-    static uint8_t prev_shift;
+    uint8_t prev_shift;
     uint16_t keycode;
     uint16_t pseudo_keycode;
 

@@ -71,8 +71,8 @@ void oneshot_enable(void);
 void oneshot_disable(void);
 bool has_oneshot_mods_timed_out(void);
 
-int8_t get_oneshot_locked_mods(void);
-void set_oneshot_locked_mods(int8_t mods);
+uint8_t get_oneshot_locked_mods(void);
+void set_oneshot_locked_mods(uint8_t mods);
 void clear_oneshot_locked_mods(void);
 
 typedef enum {
@@ -88,6 +88,13 @@ void reset_oneshot_layer(void);
 bool is_oneshot_layer_active(void);
 uint8_t get_oneshot_layer_state(void);
 bool has_oneshot_layer_timed_out(void);
+
+void oneshot_locked_mods_changed_user(uint8_t mods);
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_user(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layer_changed_user(uint8_t layer);
+void oneshot_layer_changed_kb(uint8_t layer);
 
 /* inspect */
 uint8_t has_anymod(void);

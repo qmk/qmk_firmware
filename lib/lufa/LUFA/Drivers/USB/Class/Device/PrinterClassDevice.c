@@ -305,7 +305,7 @@ static int PRNT_Device_getchar_Blocking(FILE* Stream)
 }
 #endif
 
-void PRNT_Device_Event_Stub(void)
+void PRNT_Device_Event_Stub(USB_ClassInfo_PRNT_Device_t* const PRNTInterfaceInfo)
 {
 
 }

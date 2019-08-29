@@ -21,6 +21,7 @@
 */
 
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -52,11 +53,6 @@ extern keymap_config_t keymap_config;
 #define PLOVER M(12)
 #define EXT_PLV M(13)
 #define TOG_OUT M(14)
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -190,10 +186,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 #ifdef AUDIO_ENABLE
 
 float tone_startup[][2]    = SONG(STARTUP_SOUND);
@@ -220,7 +212,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+              PLAY_SONG(tone_qwerty);
             #endif
             persistent_default_layer_set(1UL<<_QWERTY);
           }
@@ -228,7 +220,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
             persistent_default_layer_set(1UL<<_COLEMAK);
           }
@@ -236,7 +228,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+              PLAY_SONG(tone_dvorak);
             #endif
             persistent_default_layer_set(1UL<<_DVORAK);
           }
@@ -273,7 +265,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
               stop_all_notes();
-              PLAY_NOTE_ARRAY(tone_plover, false, 0);
+              PLAY_SONG(tone_plover);
             #endif
             layer_off(_RAISE);
             layer_off(_LOWER);
@@ -290,7 +282,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 13:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+              PLAY_SONG(tone_plover_gb);
             #endif
             layer_off(_PLOVER);
           }
@@ -315,12 +307,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -332,7 +324,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif

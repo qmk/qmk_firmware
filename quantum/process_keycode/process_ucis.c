@@ -32,6 +32,10 @@ void qk_ucis_start_user(void) {
   unicode_input_finish();
 }
 
+__attribute__((weak))
+void qk_ucis_success(uint8_t symbol_index) {
+}
+
 static bool is_uni_seq(char *seq) {
   uint8_t i;
 
@@ -58,6 +62,10 @@ void qk_ucis_symbol_fallback (void) {
     unregister_code(code);
     wait_ms(UNICODE_TYPE_DELAY);
   }
+}
+
+__attribute__((weak))
+void qk_ucis_cancel(void) {
 }
 
 void register_ucis(const char *hex) {
@@ -126,6 +134,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == KC_ESC) {
       qk_ucis_state.in_progress = false;
+      qk_ucis_cancel();
       return false;
     }
 
@@ -141,6 +150,10 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
       qk_ucis_symbol_fallback();
     }
     unicode_input_finish();
+
+    if (symbol_found) {
+      qk_ucis_success(i);
+    }
 
     qk_ucis_state.in_progress = false;
     return false;

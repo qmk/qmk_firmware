@@ -8,7 +8,8 @@
       "hints",
       "page-toc",
       "terminal",
-      "toolbar"
+      "toolbar",
+      "bulk-redirect"
     ],
     "pluginsConfig": {
       "edit-link": {
@@ -35,6 +36,10 @@
             "url": "https://github.com/qmk/qmk_firmware"
           }
         ]
+      }, 
+      "bulk-redirect": {
+          "basepath": "/",
+          "redirectsFile": "docs/redirects.json"
       }
     },
     "root": "./docs/"

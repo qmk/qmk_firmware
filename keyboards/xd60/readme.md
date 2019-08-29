@@ -1,17 +1,21 @@
-# QMK Firmware for XIUDI's 60% XD60 PCB
+XD60
+==
+
+Compact 60% with arrows.
 
 ![Top View of a pair of XD60 Keyboard](https://i.imgur.com/3Jq2743.jpg)
 
-## Quantum MK Firmware
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
+Keyboard Maintainer: QMK Community  
+Hardware Supported: XD60 PCB rev2 & rev3  
+Hardware Availability: https://www.massdrop.com/buy/xd60-xd64-custom-mechanical-keyboard-kit?mode=guest_open
 
-## Additional Notes
-The XD60 is essentially a GH60 rev. C, with support for a right-hand arrow cluster. Includes full compatibility with GH60 expansion boards. Board also supports in-switch LEDs (two-pin, single colour), as well as WS2182 LED strips for underglow lighting. Default keymap included, matching configuration on sale page.
+With the implementation of Rev3 you need to specify the Rev you want to build.
+To build for a Rev2 with a default keymap:
 
-Version 2 PCBs include 6 soldered on RGB underglow LEDs on the bottom, and are labelled "XD60v2" on the top. They are otherwise identical to v1 PCBs.
+```make xd60/rev2:default```
 
-## Known Issues
-In-switch backlight LEDs seem to only support 1 brightness level.
+To build for a Rev3 with a default keymap:
 
-## Build
-To build the default keymap, simply run `make xd60-default`.
+```make xd60/rev3:default```
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

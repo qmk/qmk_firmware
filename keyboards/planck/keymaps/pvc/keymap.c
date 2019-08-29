@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -104,8 +105,6 @@ enum keyboard_macros {
 #define TG_NKRO             MAGIC_TOGGLE_NKRO
 #define OS_SHFT             KC_FN0
 
-#define _______             KC_TRNS
-#define XXXXXXX             KC_NO
 #define ________________    _______, _______
 #define XXXXXXXXXXXXXXXX    XXXXXXX, XXXXXXX
 
@@ -316,28 +315,36 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_BREATH_TOGGLE:
             if (record->event.pressed)
             {
+              #ifdef BACKLIGHT_BREATHING
                 breathing_toggle();
+              #endif
             }
             break;
 
         case MACRO_BREATH_SPEED_INC:
             if (record->event.pressed)
             {
-                breathing_speed_inc(1);
+              #ifdef BACKLIGHT_BREATHING
+                breathing_period_inc();
+              #endif
             }
             break;
 
         case MACRO_BREATH_SPEED_DEC:
             if (record->event.pressed)
             {
-                breathing_speed_dec(1);
+              #ifdef BACKLIGHT_BREATHING
+                breathing_period_dec();
+              #endif
             }
             break;
 
         case MACRO_BREATH_DEFAULT:
             if (record->event.pressed)
             {
-                breathing_defaults();
+              #ifdef BACKLIGHT_BREATHING
+                breathing_period_default();
+              #endif
             }
             break;
 
@@ -352,8 +359,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed)
             {
                 layer_on(LAYER_UPPER);
-                breathing_speed_set(2);
-                breathing_pulse();
+                #ifdef BACKLIGHT_BREATHING
+                  breathing_period_set(2);
+                  breathing_pulse();
+                #endif
                 update_tri_layer(LAYER_LOWER, LAYER_UPPER, LAYER_ADJUST);
             }
             else
@@ -367,8 +376,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed)
             {
                 layer_on(LAYER_LOWER);
-                breathing_speed_set(2);
-                breathing_pulse();
+                #ifdef BACKLIGHT_BREATHING
+                  breathing_period_set(2);
+                  breathing_pulse();
+                #endif
                 update_tri_layer(LAYER_LOWER, LAYER_UPPER, LAYER_ADJUST);
             }
             else
@@ -381,14 +392,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_FUNCTION:
             if (record->event.pressed)
             {
-                breathing_speed_set(3);
-                breathing_enable();
+                #ifdef BACKLIGHT_BREATHING
+                  breathing_period_set(3);
+                  breathing_enable();
+                #endif
                 layer_on(LAYER_FUNCTION);
             }
             else
             {
-                breathing_speed_set(1);
-                breathing_self_disable();
+                #ifdef BACKLIGHT_BREATHING
+                  breathing_period_set(1);
+                  breathing_self_disable();
+                #endif
                 layer_off(LAYER_FUNCTION);
             }
             break;
@@ -527,32 +542,32 @@ void led_set_user(uint8_t usb_led)
     if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
     {
             // If CAPS LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
+            PLAY_SONG(tone_caps_on);
     }
     else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
     {
             // If CAPS LK LED is turning off...
-            PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
+            PLAY_SONG(tone_caps_off);
     }
     else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
     {
             // If NUM LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_numlk_on,  false, LEGATO);
+            PLAY_SONG(tone_numlk_on);
     }
     else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
     {
             // If NUM LED is turning off...
-            PLAY_NOTE_ARRAY(tone_numlk_off, false, LEGATO);
+            PLAY_SONG(tone_numlk_off);
     }
     else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
     {
             // If SCROLL LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_scroll_on,  false, LEGATO);
+            PLAY_SONG(tone_scroll_on);
     }
     else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
     {
             // If SCROLL LED is turning off...
-            PLAY_NOTE_ARRAY(tone_scroll_off, false, LEGATO);
+            PLAY_SONG(tone_scroll_off);
     }
     old_usb_led = usb_led;
 }
@@ -561,29 +576,29 @@ void led_set_user(uint8_t usb_led)
 void startup_user()
 {
     _delay_ms(10); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_my_startup, false, STACCATO);
+    PLAY_SONG(tone_my_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_my_goodbye, false, STACCATO);
+    PLAY_SONG(tone_my_goodbye);
     _delay_ms(2000);
     stop_all_notes();
 }
 
 void audio_on_user(void)
 {
-	PLAY_NOTE_ARRAY(tone_audio_on, false, STACCATO);
+	PLAY_SONG(tone_audio_on);
 }
 
 void music_on_user(void)
 {
-	PLAY_NOTE_ARRAY(tone_music_on, false, STACCATO);
+	PLAY_SONG(tone_music_on);
 }
 
 void music_scale_user(void)
 {
-	PLAY_NOTE_ARRAY(music_scale, false, STACCATO);
+	PLAY_SONG(music_scale);
 }
 
 #endif /* AUDIO_ENABLE */

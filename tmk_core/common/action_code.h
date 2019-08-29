@@ -17,10 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ACTION_CODE_H
 #define ACTION_CODE_H
 
-/* Action codes
- * ============
- * 16bit code: action_kind(4bit) + action_parameter(12bit)
+/** \brief Action codes
  *
+ * 16bit code: action_kind(4bit) + action_parameter(12bit)
  *
  * Key Actions(00xx)
  * -----------------
@@ -38,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 001r|mods|0000 00xx    (reserved)
  * 001r|mods| keycode     Modifiers with Tap Key(Dual role)
  *
- *
  * Other Keys(01xx)
  * ----------------
  * ACT_USAGE(0100): TODO: Not needed?
@@ -47,16 +45,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 0100|10| usage(10)     (reserved)
  * 0100|11| usage(10)     (reserved)
  *
- *
  * ACT_MOUSEKEY(0101): TODO: Merge these two actions to conserve space?
  * 0101|xxxx| keycode     Mouse key
  *
  * ACT_SWAP_HANDS(0110):
  * 0110|xxxx| keycode     Swap hands (keycode on tap, or options)
  *
- *
  * 0111|xxxx xxxx xxxx    (reserved)
- *
  *
  * Layer Actions(10xx)
  * -------------------
@@ -71,7 +66,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   EBBBB: bits and extra bit
  *   ee:    on event(01:press, 10:release, 11:both)
  *
- * 1001|xxxx|xxxx xxxx   (reserved)
+ * ACT_LAYER_MODS(1001):
+ * 1001|LLLL| mods       Layer with modifiers held
  *
  * ACT_LAYER_TAP(101x):
  * 101E|LLLL| keycode    On/Off with tap key    (0x00-DF)[TAP]
@@ -83,7 +79,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 101E|LLLL|1111 0100   One Shot Layer         (0xF4)   [TAP]
  * 101E|LLLL|1111 xxxx   Reserved               (0xF5-FF)
  *   ELLLL: layer 0-31(E: extra bit for layer 16-31)
- *
  *
  * Extensions(11xx)
  * ----------------
@@ -116,6 +111,7 @@ enum action_kind_id {
     ACT_SWAP_HANDS      = 0b0110,
     /* Layer Actions */
     ACT_LAYER           = 0b1000,
+    ACT_LAYER_MODS      = 0b1001,
     ACT_LAYER_TAP       = 0b1010, /* Layer  0-15 */
     ACT_LAYER_TAP_EXT   = 0b1011, /* Layer 16-31 */
     /* Extensions */
@@ -126,7 +122,7 @@ enum action_kind_id {
 };
 
 
-/* Action Code Struct
+/** \brief Action Code Struct
  *
  * NOTE:
  * In avr-gcc bit field seems to be assigned from LSB(bit0) to MSB(bit15).
@@ -159,6 +155,12 @@ typedef union {
         uint8_t  op     :2;
         uint8_t  kind   :4;
     } layer_bitop;
+    struct action_layer_mods
+    {
+        uint8_t  mods   :8;
+        uint8_t  layer  :4;
+        uint8_t  kind   :4;
+    } layer_mods;
     struct action_layer_tap {
         uint8_t  code   :8;
         uint8_t  val    :5;
@@ -186,7 +188,7 @@ typedef union {
     } func;
     struct action_swap {
         uint8_t  code   :8;
-        uint8_t  opt   :4;
+        uint8_t  opt    :4;
         uint8_t  kind   :4;
     } swap;
 } action_t;
@@ -198,10 +200,9 @@ typedef union {
 #define ACTION(kind, param)             ((kind)<<12 | (param))
 
 
-/*
- * Key Actions
- */
-/* Mod bits:    43210
+/** \brief Key Actions
+ *
+ * Mod bits:    43210
  *   bit 0      ||||+- Control
  *   bit 1      |||+-- Shift
  *   bit 2      ||+--- Alt
@@ -230,8 +231,7 @@ enum mods_codes {
 #define ACTION_MODS_TAP_TOGGLE(mods)    ACTION(ACT_MODS_TAP, ((mods)&0x1f)<<8 | MODS_TAP_TOGGLE)
 
 
-/*
- * Other Keys
+/** \brief Other Keys
  */
 enum usage_pages {
     PAGE_SYSTEM,
@@ -243,29 +243,34 @@ enum usage_pages {
 
 
 
-/* 
- * Layer Actions
+/** \brief Layer Actions
  */
 enum layer_param_on {
     ON_PRESS    = 1,
     ON_RELEASE  = 2,
     ON_BOTH     = 3,
 };
+
+/** \brief Layer Actions
+ */
 enum layer_param_bit_op {
     OP_BIT_AND = 0,
     OP_BIT_OR  = 1,
     OP_BIT_XOR = 2,
     OP_BIT_SET = 3,
 };
-enum layer_pram_tap_op {
+
+/** \brief Layer Actions
+ */
+enum layer_param_tap_op {
     OP_TAP_TOGGLE = 0xF0,
     OP_ON_OFF,
     OP_OFF_ON,
     OP_SET_CLEAR,
     OP_ONESHOT,
 };
-#define ACTION_LAYER_BITOP(op, part, bits, on)      (ACT_LAYER<<12 | (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
-#define ACTION_LAYER_TAP(layer, key)                (ACT_LAYER_TAP<<12 | (layer)<<8 | (key))
+#define ACTION_LAYER_BITOP(op, part, bits, on)      ACTION(ACT_LAYER, (op)<<10 | (on)<<8 | (part)<<5 | ((bits)&0x1f))
+#define ACTION_LAYER_TAP(layer, key)                ACTION(ACT_LAYER_TAP, (layer)<<8 | (key))
 /* Default Layer */
 #define ACTION_DEFAULT_LAYER_SET(layer)             ACTION_DEFAULT_LAYER_BIT_SET((layer)/4, 1<<((layer)%4))
 /* Layer Operation */
@@ -280,7 +285,7 @@ enum layer_pram_tap_op {
 #define ACTION_LAYER_OFF_ON(layer)                  ACTION_LAYER_TAP((layer), OP_OFF_ON)
 #define ACTION_LAYER_SET_CLEAR(layer)               ACTION_LAYER_TAP((layer), OP_SET_CLEAR)
 #define ACTION_LAYER_ONESHOT(layer)                 ACTION_LAYER_TAP((layer), OP_ONESHOT)
-#define ACTION_LAYER_MODS(layer, mods)              ACTION_LAYER_TAP((layer), 0xe0 | ((mods)&0x0f))
+#define ACTION_LAYER_MODS(layer, mods)              ACTION(ACT_LAYER_MODS, (layer) << 8 | (mods))
 /* With Tapping */
 #define ACTION_LAYER_TAP_KEY(layer, key)            ACTION_LAYER_TAP((layer), (key))
 #define ACTION_LAYER_TAP_TOGGLE(layer)              ACTION_LAYER_TAP((layer), OP_TAP_TOGGLE)
@@ -296,15 +301,15 @@ enum layer_pram_tap_op {
 #define ACTION_DEFAULT_LAYER_BIT_SET(part, bits)    ACTION_LAYER_BITOP(OP_BIT_SET, (part), (bits), 0)
 
 
-/*
- * Extensions
+/** \brief Extensions
  */
 enum backlight_opt {
     BACKLIGHT_INCREASE = 0,
     BACKLIGHT_DECREASE = 1,
     BACKLIGHT_TOGGLE   = 2,
     BACKLIGHT_STEP     = 3,
-    BACKLIGHT_LEVEL    = 4,
+    BACKLIGHT_ON       = 4,
+    BACKLIGHT_OFF      = 5,
 };
 
 /* Macro */
@@ -316,7 +321,8 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_DECREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE << 8)
 #define ACTION_BACKLIGHT_TOGGLE()       ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE << 8)
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
-#define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
+#define ACTION_BACKLIGHT_ON()           ACTION(ACT_BACKLIGHT, BACKLIGHT_ON << 8)
+#define ACTION_BACKLIGHT_OFF()          ACTION(ACT_BACKLIGHT, BACKLIGHT_OFF << 8)
 /* Command */
 #define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (id))
 /* Function */
@@ -327,7 +333,7 @@ enum function_opts {
 #define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | (id))
 #define ACTION_FUNCTION_OPT(id, opt)    ACTION(ACT_FUNCTION, (opt)<<8 | (id))
 /* OneHand Support */
-enum swap_hands_pram_tap_op {
+enum swap_hands_param_tap_op {
     OP_SH_TOGGLE = 0xF0,
     OP_SH_TAP_TOGGLE,
     OP_SH_ON_OFF,

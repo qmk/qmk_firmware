@@ -1,17 +1,14 @@
-## jd40 mkii keyboard firmware
+JD40
+===
 
-    Pins:
-    MATRIX_ROW_PINS { F0, F1, F5, B4 }
-    MATRIX_COL_PINS { F4, D7, B5, B6, C6, C7, D4, D6, D5, D0, D1, D2 }
-    RGB_DI_PIN D3	
-	
-======================
+A compact 40% keyboard.
 
-## Quantum MK Firmware
+Keyboard Maintainer: QMK Community  
+Hardware Supported: JD40 PCB  
+Hardware Availability: [1upkeyboards](https://www.1upkeyboards.com/shop/controllers/jd40-mkii-1up-keyboards-logo-pcb/), [mechanicalkeyboards.com](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=2452), [originative](https://www.originativeco.com/products/jd40-pcb)
 
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
+Make example for this keyboard (after setting up your build environment):
 
-## Building
+    make jd40:default
 
-Download or clone the whole firmware and navigate to the keyboards/jd40 folder. 
-Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Amtel Flip to program your .hex file. 
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

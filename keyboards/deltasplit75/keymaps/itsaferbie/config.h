@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 
 #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 // #define EE_HANDS
 
 
@@ -29,3 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_protosplit
     #include "../../protosplit/config.h"
 #endif
+
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 20
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8

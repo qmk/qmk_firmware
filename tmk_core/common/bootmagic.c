@@ -12,6 +12,10 @@
 
 keymap_config_t keymap_config;
 
+/** \brief Bootmagic
+ *
+ * FIXME: needs doc
+ */
 void bootmagic(void)
 {
     /* check signature */
@@ -95,13 +99,17 @@ void bootmagic(void)
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_7)) { default_layer |= (1<<7); }
     if (default_layer) {
         eeconfig_update_default_layer(default_layer);
-        default_layer_set((uint32_t)default_layer);
+        default_layer_set((layer_state_t)default_layer);
     } else {
         default_layer = eeconfig_read_default_layer();
-        default_layer_set((uint32_t)default_layer);
+        default_layer_set((layer_state_t)default_layer);
     }
 }
 
+/** \brief Scan Keycode
+ *
+ * FIXME: needs doc
+ */
 static bool scan_keycode(uint8_t keycode)
 {
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -117,6 +125,10 @@ static bool scan_keycode(uint8_t keycode)
     return false;
 }
 
+/** \brief Bootmagic Scan Keycode
+ *
+ * FIXME: needs doc
+ */
 bool bootmagic_scan_keycode(uint8_t keycode)
 {
     if (!scan_keycode(BOOTMAGIC_KEY_SALT)) return false;

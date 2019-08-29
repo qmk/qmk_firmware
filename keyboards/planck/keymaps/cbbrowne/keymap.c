@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
@@ -7,7 +8,7 @@
 #include "version.h"
 
 /* Each layer is given a name to aid in readability, which is then
-   used in the keymap matrix below.  The underscores do not denote 
+   used in the keymap matrix below.  The underscores do not denote
    anything - you can have a layer called STUFF or any other name.
 
    Layer names don't all need to be of the same length, obviously, and
@@ -20,7 +21,7 @@
 /* This was originally based on planck/keymaps/default/default.c, and
    then cbbrowne has revised things */
 
-/* Things I did not like about the default mapping 
+/* Things I did not like about the default mapping
 
    - I found control too hard to get to.  I use it more than Tab, so
      switched it there.
@@ -33,18 +34,18 @@
 
    - All of the above are done :-)
 
-   - Dropped out support for Dvorak and friends.  They aren't 
+   - Dropped out support for Dvorak and friends.  They aren't
      improvements to me
 */
 
 
 /* Some interesting things implemented
 
-   - There is a macro that writes out "cbbrowne" to show that I could
+   - There is a macro that writes out "cbbrowne" just to show that I
+     could
    - There is a (somewhat cruddy) linear congruential random number
      generator.
-     - I would like to be seeding it with clock info to make it look
-       more random
+     - I seed it somewhat with clock info to make it look more random
    - There are two macros that use the random number generators
      - one, M_RANDDIGIT, generates a random digit based on state
        of the random number generator
@@ -59,10 +60,12 @@
 
    - Need to think about what zsh and readline actions I use lots
    - Ought to ensure that Control-Alt-Delete is convenient enough
-   - How about Alt-F1 thru Alt-F8?
+   - How about Alt-F1 thru Alt-F8?  Not yet...
    - What's the keystroke to get from X to console these days?
    - A layer for doing console switching would not be a bad idea
-   - I haven't got page-up/page-down, let's have that...
+
+   - I'm messing with jeremy-dev's keymap that shifts everything
+     outwards.  Gotta figure out how to make it sensible...
 */
 
 enum layers {
@@ -71,6 +74,21 @@ enum layers {
   _RAISE, /* Raised layer, where top line has digits 1234567890 */
   _KEYPAD, /* Key pad */
   _ADJUST, /* Special Adjust layer coming via tri-placement */
+
+};
+
+enum my_keycodes {
+  MY_ABVE = SAFE_RANGE,
+  MY_BELW,
+  MY_TERM,
+  MY_DEQL, // /=
+  MY_MEQL, // *=
+  MY_SEQL, // -=
+  MY_PEQL, // +=
+  MY_NEQL, // !=
+  MY_LTGT, // <>
+  MY_DPIP, // ||
+  MY_DAMP, // &&
 };
 
 enum macro_id {
@@ -132,11 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, RANDDIG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   {_______, RANDALP, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______ },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
-}  
-};
-
-/* What is fn_actions actually used for??? */
-const uint16_t PROGMEM fn_actions[] = {
+}
 };
 
 /* This bit of logic seeds a wee linear congruential random number generator */
@@ -159,7 +173,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     } else {
       unregister_code(KC_RSFT);
     }
-    break;	    
+    break;
   case M_USERNAME:
     if (record->event.pressed) {
       SEND_STRING("cbbrowne");
@@ -177,7 +191,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed) {
       /* Here, we mix the LCRNG with low bits from one of the system
          clocks via XOR in the theory that this may be more random
-         than either separately */ 
+         than either separately */
       rval = (random_value ^ clockbyte) % 10;
       /* Note that KC_1 thru KC_0 are a contiguous range */
       register_code (KC_1 + rval);
@@ -189,7 +203,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
        a letter chosen at random */
     /* Here, we mix the LCRNG with low bits from one of the system
        clocks via XOR in the theory that this may be more random
-       than either separately */ 
+       than either separately */
     random_value = ((random_value + randadd) * randmul) % randmod;
     if (record->event.pressed) {
       rval = (random_value ^ clockbyte) % 26;
@@ -201,8 +215,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_RAISE);
-#ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+#ifdef BACKLIGHT_BREATHING
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -217,8 +231,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_LOWER);
-#ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+#ifdef BACKLIGHT_BREATHING
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -229,7 +243,123 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     break;
-    
+
   }
   return MACRO_NONE;
 };
+
+void press_key(uint16_t key) {
+  register_code(key);
+  unregister_code(key);
+}
+
+void press_two_keys(uint16_t key1, uint16_t key2) {
+  register_code(key1);
+  register_code(key2);
+  unregister_code(key2);
+  unregister_code(key1);
+}
+
+void press_three_keys(uint16_t key1, uint16_t key2, uint16_t key3) {
+  register_code(key1);
+  register_code(key2);
+  register_code(key3);
+  unregister_code(key3);
+  unregister_code(key2);
+  unregister_code(key1);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case MY_BELW:
+      if (record->event.pressed) {
+        press_two_keys(KC_LGUI, KC_RGHT);
+        press_key(KC_ENT);
+      }
+
+      return false;
+
+    case MY_ABVE:
+      if (record->event.pressed) {
+        press_two_keys(KC_LGUI, KC_LEFT);
+        press_key(KC_ENT);
+        press_key(KC_UP);
+      }
+
+      return false;
+
+    case MY_TERM:
+      if (record->event.pressed) {
+        press_three_keys(KC_LGUI, KC_LSFT, KC_ENT);
+      }
+
+      return false;
+
+    case MY_DEQL: // /=
+      if (record->event.pressed) {
+        press_key(KC_SLSH);
+        press_key(KC_EQL);
+      }
+
+      return false;
+
+    case MY_MEQL: // *=
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_ASTR);
+        press_key(KC_EQL);
+      }
+
+      return false;
+
+    case MY_SEQL: // -=
+      if (record->event.pressed) {
+        press_key(KC_MINS);
+        press_key(KC_EQL);
+      }
+
+      return false;
+
+    case MY_PEQL: // +=
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_PLUS);
+        press_key(KC_EQL);
+      }
+
+      return false;
+
+    case MY_NEQL: // !=
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_EXLM);
+        press_key(KC_EQL);
+      }
+
+      return false;
+
+    case MY_LTGT: // <>
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_LABK);
+        press_two_keys(KC_LSFT, KC_RABK);
+      }
+
+      return false;
+
+    case MY_DPIP: // ||
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_PIPE);
+        press_two_keys(KC_LSFT, KC_PIPE);
+      }
+
+      return false;
+
+    case MY_DAMP: // &&
+      if (record->event.pressed) {
+        press_two_keys(KC_LSFT, KC_AMPR);
+        press_two_keys(KC_LSFT, KC_AMPR);
+      }
+
+      return false;
+  }
+
+  return true;
+}
+

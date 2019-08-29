@@ -27,6 +27,12 @@
 #include <util/delay.h>
 #include "debug.h"
 
+#if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
+// LED color buffer
+LED_TYPE led[DRIVER_LED_TOTAL];
+  #define LED_ARRAY led
+#endif
+
 #ifdef RGBW_BB_TWI
 
 // Port for the I2C
@@ -128,17 +134,36 @@ unsigned char I2C_Write(unsigned char c)
         c <<= 1;
     }
 
-    
+
     I2C_WriteBit(0);
     _delay_us(I2C_DELAY);
     _delay_us(I2C_DELAY);
-  
+
     // _delay_us(I2C_DELAY);
     //return I2C_ReadBit();
     return 0;
 }
 
 
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+// Set an led in the buffer to a color
+void inline ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b)
+{
+    led[i].r = r;
+    led[i].g = g;
+    led[i].b = b;
+}
+
+void ws2812_setled_all  (uint8_t r, uint8_t g, uint8_t b)
+{
+  for (int i = 0; i < sizeof(led)/sizeof(led[0]); i++) {
+    led[i].r = r;
+    led[i].g = g;
+    led[i].b = b;
+  }
+}
 #endif
 
 // Setleds for standard RGB
