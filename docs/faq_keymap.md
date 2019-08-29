@@ -95,13 +95,6 @@ Even worse, it is not recognized unless the keyboard's VID and PID match that of
 
 See [this issue](https://github.com/qmk/qmk_firmware/issues/2179) for detailed information.
 
-
-## Media Control Keys in Mac OSX
-#### KC_MNXT and KC_MPRV Does Not Work on Mac
-Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of `KC_MNXT` and `KC_MPRV`.
-See https://github.com/tmk/tmk_keyboard/issues/195
-
-
 ## Keys Supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
 
