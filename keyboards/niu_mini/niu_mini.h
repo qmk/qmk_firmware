@@ -1,5 +1,4 @@
-#ifndef NIU_MINI_H
-#define NIU_MINI_H
+#pragma once
 
 #include "quantum.h"
 
@@ -45,5 +44,3 @@
 
 #define LAYOUT LAYOUT_ortho_4x12
 #define LAYOUT_kc_ortho_4x12 LAYOUT_kc
-
-#endif
