@@ -22,7 +22,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		eval $MAKE_ALL
 		: $((exit_code = $exit_code + $?))
 	else
-		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | wc -l)
+		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(lib/python/)' | grep -Ev (^bin/qmk) | wc -l)
 		BRANCH=$(git rev-parse --abbrev-ref HEAD)
 		# is this branch master or a "non docs, non keyboards" change 
 		if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
@@ -52,7 +52,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 			done
 		fi
 		# Check and run python tests if necessary
-		PFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -E '^(lib/python/)' | wc -l)
+		PFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -E -e '^(lib/python/)' -e '^(bin/qmk)' | wc -l)
 		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo
 			echo "Running python tests."
