@@ -1,6 +1,6 @@
 # Caravan
 
-![Caravan](https://imgur.com/a/6hxhN0r)
+![Caravan](https://i.imgur.com/psOWk3I.jpg)
 
 A compact split 44% keyboard.
 
