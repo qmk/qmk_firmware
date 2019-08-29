@@ -2,9 +2,9 @@
 
 # if docker is installed - call make within the qmk docker image
 if command -v docker >/dev/null; then
-  function make() {
-    docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
-  }
+	function make() {
+		docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
+	}
 fi
 
 # test force push
@@ -30,7 +30,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 			eval $MAKE_ALL
 			: $((exit_code = $exit_code + $?))
 		else
-		    # keyboards project format
+			# keyboards project format
 			#  /keyboards/board1/rev/keymaps/
 			#  /keyboards/board2/keymaps/
 			# ensure we strip everything off after and including the keymaps folder to get board and/or revision
@@ -56,7 +56,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo
 			echo "Running python tests."
-			bin/qmk nose2
+			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container bin/qmk nose2
 			: $((exit_code = $exit_code + $?))
 		fi
 	fi
