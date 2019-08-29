@@ -11,63 +11,21 @@ extern led_config_t g_led_config;
 #endif
 
 #if defined(RGB_THEME_ENABLE)
-static const HSV default_adjust = { HSV_SPRINGGREEN };
+// Should be rgb_theme.c
+#define RGB_THEME(name) const rgb_theme_t RGB_##name
+#define RGB_THEME_IMPLS
+#include "rgb_theme_user.inc"
+#undef RGB_THEME_IMPLS
+#undef RGB_THEME
 
-// Laser Color Constants
-// Laser Colors
-#define HSV_LSR_PURPLE   HSV_PURPLE
-#define HSV_LSR_PINK     HSV_PINK
-#define HSV_LSR_BLUE     HSV_BLUE
-#define HSV_LSR_CYAN     HSV_CYAN
-#define HSV_LSR_MAGENTA  HSV_MAGENTA
-static const HSV laser_purple =  { HSV_LSR_PURPLE };
-static const HSV laser_pink =    { HSV_LSR_PINK };
-static const HSV laser_blue =    { HSV_LSR_BLUE };
-static const HSV laser_cyan =    { HSV_LSR_CYAN };
-static const HSV laser_magenta = { HSV_LSR_MAGENTA };
-static const rgb_theme_t rgb_laser = { { &laser_purple, &laser_pink, &laser_blue, &laser_cyan, &laser_magenta } };
-
-// Granite Color Constants
-// Granite Colors
-#define HSV_GNT_BLUE     HSV_BLUE
-#define HSV_GNT_RED      HSV_RED
-#define HSV_GNT_GREEN    HSV_GREEN
-#define HSV_GNT_YELLOW   HSV_YELLOW
-#define HSV_GNT_WHITE    HSV_WHITE
-static const HSV granite_white =  { HSV_GNT_WHITE };
-static const HSV granite_blue =   { HSV_GNT_BLUE };
-static const HSV granite_red =    { HSV_GNT_RED };
-static const HSV granite_green =  { HSV_GNT_GREEN };
-static const HSV granite_yellow = { HSV_GNT_YELLOW };
-static const rgb_theme_t rgb_granite = { { &granite_white, &granite_blue, &granite_red, &granite_green, &granite_yellow } };
-
-// Oblique Color Constants
-// Oblique Colors
-#define HSV_OBQ_BLUE     130, 215, 255
-#define HSV_OBQ_RED      10,  200, 255
-#define HSV_OBQ_GREEN    58,  199, 255
-#define HSV_OBQ_ORANGE   26,  215, 255
-#define HSV_OBQ_PURPLE   186, 143, 255
-#define HSV_OBQ_WHITE    HSV_WHITE
-static const HSV oblique_white =  { HSV_OBQ_WHITE };
-static const HSV oblique_purple = { HSV_OBQ_PURPLE };
-static const HSV oblique_red =    { HSV_OBQ_RED };
-static const HSV oblique_orange = { HSV_OBQ_ORANGE };
-static const HSV oblique_green =  { HSV_OBQ_GREEN };
-static const rgb_theme_t rgb_oblique = { { &oblique_white, &oblique_purple, &oblique_red, &oblique_orange, &oblique_green } };
-
-// Set themes to be included
-enum rgb_themes {
-    LASER = 0,
-    GRANITE,
-    OBLIQUE
+#define RGB_THEME(name) [RGB_THEME_##name] = &RGB_##name,
+const rgb_theme_t *themes[] = {
+    #include "rgb_theme_user.inc"
 };
-const rgb_theme_t *themes[] = { \
-    [LASER] = &rgb_laser, \
-    [GRANITE] = &rgb_granite, \
-    [OBLIQUE] = &rgb_oblique, \
-};
-static const size_t rgb_theme_max = (sizeof themes / sizeof *themes);
+#undef RGB_THEME
+
+// Userspace loose colors
+rgb_theme_color_t default_adjust = { HSV_SPRINGGREEN };
 #endif
 
 void keyboard_post_init_rgb(void) {
@@ -94,17 +52,17 @@ rgb_theme_t get_rgb_theme(void) {
 
 void rgb_theme_step(void) {
     uint8_t current = user_config.rgb_theme;
-    current = (current + 1) % rgb_theme_max;
+    current = (current + 1) % RGB_THEME_MAX;
     set_rgb_theme(current);
 }
 
 void rgb_theme_step_reverse(void) {
     uint8_t current = user_config.rgb_theme;
-    current = (current - 1) % rgb_theme_max;
+    current = (current - 1) % RGB_THEME_MAX;
     set_rgb_theme(current);
 }
 
-HSV get_rgb_theme_color(uint8_t index) {
+rgb_theme_color_t get_rgb_theme_color(uint8_t index) {
     rgb_theme_t theme = get_rgb_theme();
     size_t rgb_theme_color_max = sizeof theme.colors / sizeof *theme.colors;
 
