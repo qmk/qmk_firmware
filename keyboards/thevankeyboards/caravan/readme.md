@@ -4,8 +4,8 @@
 
 A compact split 44% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Caravan PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Caravan PCB  
 Hardware Availability: N/A
 
 Make example for this keyboard (after setting up your build environment):
