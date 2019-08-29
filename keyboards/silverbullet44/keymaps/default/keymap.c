@@ -178,6 +178,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+<<<<<<< HEAD
+=======
+    case S(ALTAB):
+    case ALTAB:
+      if (record->event.pressed) {
+        if (!alt_pressed) {
+          alt_pressed = true;
+          register_code(KC_LALT);
+        }
+        if (keycode == S(ALTAB)) {
+          register_code(KC_LSFT);
+        }
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+        if (keycode == S(ALTAB)) {
+          unregister_code(KC_LSFT);
+        }
+      }
+      return false;
+      break;
+    default:
+      if (alt_pressed) {
+        alt_pressed = false;
+        unregister_code(KC_LALT);
+        if (record->event.pressed) {
+          return false;
+        }
+      }
+    break;
+>>>>>>> 81e9406e6... alt+tab
   }
   return true;
 }
