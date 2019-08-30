@@ -49,12 +49,6 @@ void eeconfig_init(void) {
     keyboard_init();
 }
 
-/** \brief eeconfig initialization
- *
- * FIXME: needs doc
- */
-void eeconfig_init(void) { eeconfig_init_quantum(); }
-
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
