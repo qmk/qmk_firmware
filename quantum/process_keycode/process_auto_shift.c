@@ -16,9 +16,9 @@
 
 #ifdef AUTO_SHIFT_ENABLE
 
-#include <stdio.h>
+#    include <stdio.h>
 
-#include "process_auto_shift.h"
+#    include "process_auto_shift.h"
 
 static bool autoshift_enabled = true;
 static uint16_t autoshift_time = 0;
@@ -34,7 +34,7 @@ void autoshift_timer_report(void) {
 }
 
 void autoshift_on(uint16_t keycode) {
-    autoshift_time = timer_read();
+    autoshift_time    = timer_read();
     autoshift_lastkey = keycode;
 }
 
@@ -54,9 +54,7 @@ void autoshift_flush(void) {
 }
 
 
-void autoshift_enable(void) {
-    autoshift_enabled = true;
-}
+void autoshift_enable(void) { autoshift_enabled = true; }
 void autoshift_disable(void) {
     autoshift_enabled = false;
     autoshift_flush();
