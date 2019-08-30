@@ -52,7 +52,7 @@ void eeconfig_init_quantum(void) {
     //        within the emulated eeprom via dfu-util or another tool
 #ifdef INIT_EE_HANDS_LEFT
     #pragma message "Faking EE_HANDS for left hand"
-    eeprom_update_byte(EECONFIG_HANDEDNESS,        1);
+    eeprom_update_byte(EECONFIG_HANDEDNESS, 1);
 #endif
 
     eeconfig_init_kb();
