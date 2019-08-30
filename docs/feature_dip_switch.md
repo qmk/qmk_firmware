@@ -66,31 +66,21 @@ or `keymap.c`:
 
 ```c
 void dip_switch_update_mask_user(uint32_t state) { 
-    if (state & (1UL<<0)) {
-        if(active) { audio_on(); } else { audio_off(); }
-        break;
-    }
-    if (state & (1UL<<1)) {
-        if(active) { clicky_on(); } else { clicky_off(); }
-        break;
-    }
-    if (state & (1UL<<2)) {
-        if(active) { music_on(); } else { music_off(); }
-        break;
-    }
-    if (state & (1UL<<3)) {
-        if (active) {
-            #ifdef AUDIO_ENABLE
-                PLAY_SONG(plover_song);
-            #endif
-            layer_on(_PLOVER);
-        } else {
-            #ifdef AUDIO_ENABLE
-                PLAY_SONG(plover_gb_song);
-            #endif
-            layer_off(_PLOVER);
-        }
-    }
+  if (state & (1UL<<0) && state & (1UL<<1)) {
+    layer_on(_ADJUST); // C on esc
+  } else {
+    layer_off(_ADJUST);
+  }
+  if (state & (1UL<<0)) {
+    layer_on(_TEST_A); // A on ESC
+  } else {
+    layer_off(_TEST_A);
+  }
+  if (state & (1UL<<1)) {
+    layer_on(_TEST_B); // B on esc
+  } else {
+    layer_off(_TEST_B);
+  }
 }
 ```
 
