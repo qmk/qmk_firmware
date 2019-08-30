@@ -246,6 +246,19 @@ endef
 usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_USBASP)
 
+BOOTLOADHID_PROGRAMMER ?= bootloadHID
+
+define EXEC_BOOTLOADHID
+	# bootloadHid executable has no cross platform detect methods
+	# so keep running bootloadHid if the output contains "The specified device was not found"
+	until $(BOOTLOADHID_PROGRAMMER) -r $(BUILD_DIR)/$(TARGET).hex 2>&1 | tee /dev/stderr | grep -v "device was not found"; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+endef
+
+bootloadHID: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_BOOTLOADHID)
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -331,6 +344,8 @@ else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(call EXEC_DFU)
 else ifeq ($(strip $(BOOTLOADER)), USBasp)
 	$(call EXEC_USBASP)
+else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+	$(call EXEC_BOOTLOADHID)
 else
-	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
