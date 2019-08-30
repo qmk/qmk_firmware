@@ -7,14 +7,6 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
 [![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
-# NOTICE: THIS IS A TESTING BRANCH
-
-This is the `breaking_changes` branch for Aug 2019. You can [read more in the tracking issue](https://github.com/qmk/qmk_firmware/issues/6146).
-
-We encourage you to try this branch out and see if there are any bugs. Our goal is to merge this branch to `master` on Aug 30. Please [report any bugs](https://github.com/qmk/qmk_firmware/issues/new?template=bug_report.md) you find.
-
-Original readme.md continues:
-
 This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the [Clueboard product line](https://clueboard.co).
 
 ## Documentation
