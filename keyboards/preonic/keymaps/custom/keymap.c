@@ -34,7 +34,9 @@ enum preonic_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  KC_CESC,
+  SPC_MOU
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | [    |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | C/ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | SF/EN|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -55,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_preonic_grid( \
   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,  \
-  KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_CESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,  \
-  KC_ENT,   KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  LT(_MOUSE, KC_SPC),  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_ENT,   KC_LCTL, KC_LGUI, KC_LALT, LOWER,   SPC_MOU, KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
 /* Colemak
@@ -189,6 +191,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+static bool cntl_interrupted = 0;
+static uint16_t cntl_timer = 0;
+
+static bool mouse_interrupted = 0;
+static uint16_t mouse_timer = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
@@ -245,6 +253,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #endif
           }
           return false;
+          break;
+
+        case KC_CESC:
+          if (record->event.pressed) {
+           cntl_interrupted = false;
+           cntl_timer = timer_read();
+           register_mods(MOD_BIT(KC_LCTL));
+          } else if (!cntl_interrupted && timer_elapsed(cntl_timer) < TAPPING_TERM) {
+           unregister_mods(MOD_BIT(KC_LCTL));
+           register_code(KC_ESC);
+           unregister_code(KC_ESC);
+          } else {
+           unregister_mods(MOD_BIT(KC_LCTL));
+          }
+          return false;
+          break;
+
+        case SPC_MOU:
+          if (record->event.pressed) {
+           mouse_interrupted = false;
+           mouse_timer = timer_read();
+
+           cntl_interrupted = true;
+           layer_on(_MOUSE);
+          } else if (!mouse_interrupted && timer_elapsed(mouse_timer) < TAPPING_TERM) {
+           layer_off(_MOUSE);
+           register_code(KC_SPC);
+           unregister_code(KC_SPC);
+          } else {
+           layer_off(_MOUSE);
+          }
+          return false;
+          break;
+
+        default:
+          cntl_interrupted = true;
           break;
       }
     return true;

@@ -3,6 +3,8 @@
 
 #include "config_common.h"
 
+#define TAPPING_TERM 200
+
 #define MOUSEKEY_MAX_SPEED         8
 
 // Must raise 5 halftones
