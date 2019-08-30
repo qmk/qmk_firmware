@@ -24,7 +24,6 @@ extern keymap_config_t keymap_config;
  * and will return the corrected keycode, when appropriate.
  */
 uint16_t keycode_config(uint16_t keycode) {
-
     switch (keycode) {
         case KC_CAPSLOCK:
         case KC_LOCKING_CAPS:
@@ -56,7 +55,7 @@ uint16_t keycode_config(uint16_t keycode) {
                 return KC_LALT;
             }
             if (keymap_config.swap_lctl_lgui) {
-              return KC_LCTRL;
+                return KC_LCTRL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
@@ -83,7 +82,7 @@ uint16_t keycode_config(uint16_t keycode) {
                 return KC_RALT;
             }
             if (keymap_config.swap_rctl_rgui) {
-              return KC_RCTL;
+                return KC_RCTL;
             }
             if (keymap_config.no_gui) {
                 return KC_NO;
@@ -140,22 +139,22 @@ uint8_t mod_config(uint8_t mod) {
         }
     }
     if (keymap_config.swap_lctl_lgui) {
-      if ((mod & MOD_RGUI) == MOD_LGUI) {
-        mod &= ~MOD_LGUI;
-        mod |= MOD_LCTL;
-      } else if ((mod & MOD_RCTL) == MOD_LCTL) {
-        mod &= ~MOD_LCTL;
-        mod |= MOD_LGUI;
-      }
+        if ((mod & MOD_RGUI) == MOD_LGUI) {
+            mod &= ~MOD_LGUI;
+            mod |= MOD_LCTL;
+        } else if ((mod & MOD_RCTL) == MOD_LCTL) {
+            mod &= ~MOD_LCTL;
+            mod |= MOD_LGUI;
+        }
     }
     if (keymap_config.swap_rctl_rgui) {
-      if ((mod & MOD_RGUI) == MOD_RGUI) {
-        mod &= ~MOD_RGUI;
-        mod |= MOD_RCTL;
-      } else if ((mod & MOD_RCTL) == MOD_RCTL) {
-        mod &= ~MOD_RCTL;
-        mod |= MOD_RGUI;
-      }
+        if ((mod & MOD_RGUI) == MOD_RGUI) {
+            mod &= ~MOD_RGUI;
+            mod |= MOD_RCTL;
+        } else if ((mod & MOD_RCTL) == MOD_RCTL) {
+            mod &= ~MOD_RCTL;
+            mod |= MOD_RGUI;
+        }
     }
     if (keymap_config.no_gui) {
         mod &= ~MOD_LGUI;
