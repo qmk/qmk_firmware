@@ -4,7 +4,7 @@ This is my attempt to adapt my regular 60% Norwegian ISO layout to the physical 
 
 ## Base layer
 
-![HHKB ISO](https://i.imgur.com/Uqqzrqw.png)
+![HHKB ISO](https://i.imgur.com/8n4Kixw.png)
 
 The following changes have been made from standard HHKB:
 
