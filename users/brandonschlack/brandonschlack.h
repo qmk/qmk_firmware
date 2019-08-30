@@ -1,6 +1,7 @@
 #pragma once
 
 #include "quantum.h"
+#include "version.h"
 #include "eeprom.h"
 #include "process_records.h"
 #ifdef TAP_DANCE_ENABLE

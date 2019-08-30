@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         └────────┴────────┴────────┘
      */
     [_ADJUST] = LAYOUT(
-        KC_MAKE, DF_REDR, TG_LGHT,
+        QM_MAKE, DF_REDR, TG_LGHT,
         DF_MEDA, DF_NAVI, DF_MCRO,
         TG_REVW, TG_LNAV, TG_EDIT
     ),

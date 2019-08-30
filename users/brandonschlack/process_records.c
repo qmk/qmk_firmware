@@ -12,7 +12,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // Consolidated Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MAKE:
+        case QM_MAKE: //
             if (!record->event.pressed) {
                 bool flash = false;
         // If is a keyboard and auto-flash is not set in rules.mk,
@@ -28,12 +28,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     flash = true;
                 }
                 send_make_command(flash);
-        #if !defined(FLASH_BOOTLOADER) && !defined(IS_MACROPAD)
-                set_mods(temp_mod);
-        #endif
             }
             break;
-        case CMD_TAB:
+        case QM_VRSN:  // Prints firmware version
+            if (record->event.pressed) {
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
+            }
+            break;
+        case QM_KYBD:  // Prints keyboard path
+            if (record->event.pressed) {
+                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/"), TAP_CODE_DELAY);
+            }
+            break;
+        case QM_KYMP:  // Prints keymap path
+            if (record->event.pressed) {
+                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c"), TAP_CODE_DELAY);
+            }
+            break;
+        case CMD_TAB: // Super CMD↯TAB
             if (record->event.pressed) {
                 if (!is_cmd_tab_active) {
                     is_cmd_tab_active = true;
@@ -107,15 +119,15 @@ void matrix_scan_cmd_tab(void) {
  * if flash_bootloader set to true
  */
 void send_make_command(bool flash_bootloader) {
-    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
     if (flash_bootloader) {
 #if defined(MD_BOOTLOADER) // only run for Massdrop boards
-        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), 10);
+        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), TAP_CODE_DELAY);
 #else // use universal flash command
-        send_string_with_delay_P(PSTR(":flash"), 10);
+        send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
 #endif
     }
-    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), TAP_CODE_DELAY);
     if (flash_bootloader) {
         reset_keyboard();
     }

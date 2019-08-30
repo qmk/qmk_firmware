@@ -11,3 +11,13 @@
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #   define RGB_THEME_ENABLE
 #endif
+
+#define TAP_CODE_DELAY 5
+
+/* Disable unused and unneeded features to reduce on firmware size */
+#ifdef LOCKING_SUPPORT_ENABLE
+#    undef LOCKING_SUPPORT_ENABLE
+#endif
+#ifdef LOCKING_RESYNC_ENABLE
+#    undef LOCKING_RESYNC_ENABLE
+#endif

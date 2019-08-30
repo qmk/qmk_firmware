@@ -1,4 +1,4 @@
-# Add Bootloader define for KC_MAKE command
+# Add Bootloader define for QM_MAKE command
 BOOTLOADER = atmel-dfu
 
 # Build Options

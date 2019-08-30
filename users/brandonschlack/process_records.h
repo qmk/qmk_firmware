@@ -3,7 +3,10 @@
 
 // Macros
 enum custom_keycodes {
-    KC_MAKE = SAFE_RANGE,
+    QM_MAKE = SAFE_RANGE,
+    QM_VRSN,
+    QM_KYBD,
+    QM_KYMP,
     CMD_TAB,
     RGB_LYR,
     RGB_THEME_FORWARD,

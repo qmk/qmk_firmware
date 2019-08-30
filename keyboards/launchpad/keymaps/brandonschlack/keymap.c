@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └──────┴──────┘
  */
 [_ADJUST] = LAYOUT( \
-    KC_MAKE, RESET, \
+    QM_MAKE, RESET, \
     DF_REDR, DF_MEDA, \
     DF_NAVI, DF_MCRO, \
     TG_LGHT, XXXXXXX \

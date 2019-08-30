@@ -1,4 +1,4 @@
-# Use macropad-specific defines, layers, functions. Flash bootloader with KC_MAKE
+# Use macropad-specific defines, layers, functions. Flash bootloader with QM_MAKE
 IS_MACROPAD = yes
 
 # Use dfu bootloader for Elite-C
