@@ -40,8 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EXPANDER_ROW_REGISTER GPIOB
 #define MATRIX_EXPANDER_COL_PINS {0, 1, 2, 3, 4, 5, 6, 7}
 #define MATRIX_EXPANDER_ROW_PINS {0, 1, 2, 3, 4, 5, 6}
+
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 102
+#define RGBLIGHT_SLEEP
 
 #define MOUSEKEY_INTERVAL     20
 #define MOUSEKEY_DELAY        0
