@@ -81,7 +81,7 @@
 #define IT_MINS KC_SLSH // - and _
 
 // shifted characters
-#define IT_PIPE LSFT(IT_BKSL) // °
+#define IT_GRAD LSFT(IT_AACC) // °
 #define IT_EXLM LSFT(KC_1) // !
 #define IT_DQOT LSFT(KC_2) // "
 #define IT_STRL LSFT(KC_3) // £
