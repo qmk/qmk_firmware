@@ -41,62 +41,62 @@
  *  Header file for Descriptors.c.
  */
 #ifndef _DESCRIPTORS_H_
-    #define _DESCRIPTORS_H_
+#define _DESCRIPTORS_H_
 
-    #include <LUFA/Drivers/USB/USB.h>
+#include <LUFA/Drivers/USB/USB.h>
 
-    #ifdef PROTOCOL_CHIBIOS
-        #include "hal.h"
-    #endif
+#ifdef PROTOCOL_CHIBIOS
+#    include "hal.h"
+#endif
 
 /*
  * USB descriptor structure
  */
 typedef struct {
-    USB_Descriptor_Configuration_Header_t    Config;
+    USB_Descriptor_Configuration_Header_t Config;
 
-    #ifndef KEYBOARD_SHARED_EP
+#ifndef KEYBOARD_SHARED_EP
     // Keyboard HID Interface
-    USB_Descriptor_Interface_t                Keyboard_Interface;
-    USB_HID_Descriptor_HID_t                  Keyboard_HID;
-    USB_Descriptor_Endpoint_t                 Keyboard_INEndpoint;
-    #endif
+    USB_Descriptor_Interface_t Keyboard_Interface;
+    USB_HID_Descriptor_HID_t   Keyboard_HID;
+    USB_Descriptor_Endpoint_t  Keyboard_INEndpoint;
+#endif
 
-    #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     // Mouse HID Interface
-     USB_Descriptor_Interface_t               Mouse_Interface;
-    USB_HID_Descriptor_HID_t                  Mouse_HID;
-    USB_Descriptor_Endpoint_t                 Mouse_INEndpoint;
-    #endif
+    USB_Descriptor_Interface_t Mouse_Interface;
+    USB_HID_Descriptor_HID_t   Mouse_HID;
+    USB_Descriptor_Endpoint_t  Mouse_INEndpoint;
+#endif
 
-    #ifdef SHARED_EP_ENABLE
+#ifdef SHARED_EP_ENABLE
     // Shared Interface
-    USB_Descriptor_Interface_t                Shared_Interface;
-    USB_HID_Descriptor_HID_t                  Shared_HID;
-    USB_Descriptor_Endpoint_t                 Shared_INEndpoint;
-    #endif
+    USB_Descriptor_Interface_t Shared_Interface;
+    USB_HID_Descriptor_HID_t   Shared_HID;
+    USB_Descriptor_Endpoint_t  Shared_INEndpoint;
+#endif
 
-    #ifdef RAW_ENABLE
+#ifdef RAW_ENABLE
     // Raw HID Interface
-    USB_Descriptor_Interface_t                Raw_Interface;
-    USB_HID_Descriptor_HID_t                  Raw_HID;
-    USB_Descriptor_Endpoint_t                 Raw_INEndpoint;
-    USB_Descriptor_Endpoint_t                 Raw_OUTEndpoint;
-    #endif
+    USB_Descriptor_Interface_t Raw_Interface;
+    USB_HID_Descriptor_HID_t   Raw_HID;
+    USB_Descriptor_Endpoint_t  Raw_INEndpoint;
+    USB_Descriptor_Endpoint_t  Raw_OUTEndpoint;
+#endif
 
-    #ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     // Console HID Interface
-    USB_Descriptor_Interface_t                Console_Interface;
-    USB_HID_Descriptor_HID_t                  Console_HID;
-    USB_Descriptor_Endpoint_t                 Console_INEndpoint;
-    USB_Descriptor_Endpoint_t                 Console_OUTEndpoint;
-    #endif
+    USB_Descriptor_Interface_t Console_Interface;
+    USB_HID_Descriptor_HID_t   Console_HID;
+    USB_Descriptor_Endpoint_t  Console_INEndpoint;
+    USB_Descriptor_Endpoint_t  Console_OUTEndpoint;
+#endif
 
-    #ifdef MIDI_ENABLE
-    USB_Descriptor_Interface_Association_t    Audio_Interface_Association;
+#ifdef MIDI_ENABLE
+    USB_Descriptor_Interface_Association_t Audio_Interface_Association;
     // MIDI Audio Control Interface
-    USB_Descriptor_Interface_t                Audio_ControlInterface;
-    USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+    USB_Descriptor_Interface_t          Audio_ControlInterface;
+    USB_Audio_Descriptor_Interface_AC_t Audio_ControlInterface_SPC;
     // MIDI Audio Streaming Interface
     USB_Descriptor_Interface_t                Audio_StreamInterface;
     USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
@@ -108,146 +108,146 @@ typedef struct {
     USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
     USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
     USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
-    #endif
+#endif
 
-    #ifdef VIRTSER_ENABLE
-    USB_Descriptor_Interface_Association_t    CDC_Interface_Association;
+#ifdef VIRTSER_ENABLE
+    USB_Descriptor_Interface_Association_t CDC_Interface_Association;
     // CDC Control Interface
-    USB_Descriptor_Interface_t                CDC_CCI_Interface;
-    USB_CDC_Descriptor_FunctionalHeader_t     CDC_Functional_Header;
-    USB_CDC_Descriptor_FunctionalACM_t        CDC_Functional_ACM;
-    USB_CDC_Descriptor_FunctionalUnion_t      CDC_Functional_Union;
-    USB_Descriptor_Endpoint_t                 CDC_NotificationEndpoint;
+    USB_Descriptor_Interface_t            CDC_CCI_Interface;
+    USB_CDC_Descriptor_FunctionalHeader_t CDC_Functional_Header;
+    USB_CDC_Descriptor_FunctionalACM_t    CDC_Functional_ACM;
+    USB_CDC_Descriptor_FunctionalUnion_t  CDC_Functional_Union;
+    USB_Descriptor_Endpoint_t             CDC_NotificationEndpoint;
     // CDC Data Interface
-    USB_Descriptor_Interface_t                CDC_DCI_Interface;
-    USB_Descriptor_Endpoint_t                 CDC_DataOutEndpoint;
-    USB_Descriptor_Endpoint_t                 CDC_DataInEndpoint;
-    #endif
+    USB_Descriptor_Interface_t CDC_DCI_Interface;
+    USB_Descriptor_Endpoint_t  CDC_DataOutEndpoint;
+    USB_Descriptor_Endpoint_t  CDC_DataInEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
  * Interface indexes
  */
 enum usb_interfaces {
-    #ifndef KEYBOARD_SHARED_EP
+#ifndef KEYBOARD_SHARED_EP
     KEYBOARD_INTERFACE,
-    #else
-        #define KEYBOARD_INTERFACE SHARED_INTERFACE
-    #endif
+#else
+#    define KEYBOARD_INTERFACE SHARED_INTERFACE
+#endif
 
-    // It is important that the Raw HID interface is at a constant
-    // interface number, to support Linux/OSX platforms and chrome.hid
-    // If Raw HID is enabled, let it be always 1.
-    #ifdef RAW_ENABLE
+// It is important that the Raw HID interface is at a constant
+// interface number, to support Linux/OSX platforms and chrome.hid
+// If Raw HID is enabled, let it be always 1.
+#ifdef RAW_ENABLE
     RAW_INTERFACE,
-    #endif
+#endif
 
-    #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     MOUSE_INTERFACE,
-    #endif
+#endif
 
-    #ifdef SHARED_EP_ENABLE
+#ifdef SHARED_EP_ENABLE
     SHARED_INTERFACE,
-    #endif
+#endif
 
-    #ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     CONSOLE_INTERFACE,
-    #endif
+#endif
 
-    #ifdef MIDI_ENABLE
+#ifdef MIDI_ENABLE
     AC_INTERFACE,
     AS_INTERFACE,
-    #endif
+#endif
 
-    #ifdef VIRTSER_ENABLE
+#ifdef VIRTSER_ENABLE
     CCI_INTERFACE,
     CDI_INTERFACE,
-    #endif
+#endif
 
     TOTAL_INTERFACES
 };
 
-    #define NEXT_EPNUM __COUNTER__
+#define NEXT_EPNUM __COUNTER__
 
 /*
  * Endpoint numbers
  */
 enum usb_endpoints {
-    __unused_epnum__ = NEXT_EPNUM, // Endpoint numbering starts at 1
+    __unused_epnum__ = NEXT_EPNUM,  // Endpoint numbering starts at 1
 
-    #ifndef KEYBOARD_SHARED_EP
+#ifndef KEYBOARD_SHARED_EP
     KEYBOARD_IN_EPNUM = NEXT_EPNUM,
-    #else
-        #define KEYBOARD_IN_EPNUM SHARED_IN_EPNUM
-    #endif
+#else
+#    define KEYBOARD_IN_EPNUM SHARED_IN_EPNUM
+#endif
 
-    #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     MOUSE_IN_EPNUM = NEXT_EPNUM,
-    #else
-        #define MOUSE_IN_EPNUM SHARED_IN_EPNUM
-    #endif
+#else
+#    define MOUSE_IN_EPNUM SHARED_IN_EPNUM
+#endif
 
-    #ifdef RAW_ENABLE
-    RAW_IN_EPNUM = NEXT_EPNUM,
+#ifdef RAW_ENABLE
+    RAW_IN_EPNUM  = NEXT_EPNUM,
     RAW_OUT_EPNUM = NEXT_EPNUM,
-    #endif
+#endif
 
-    #ifdef SHARED_EP_ENABLE
+#ifdef SHARED_EP_ENABLE
     SHARED_IN_EPNUM = NEXT_EPNUM,
-    #endif
+#endif
 
-    #ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     CONSOLE_IN_EPNUM = NEXT_EPNUM,
 
-        #ifdef PROTOCOL_CHIBIOS
+#    ifdef PROTOCOL_CHIBIOS
     // ChibiOS has enough memory and descriptor to actually enable the endpoint
     // It could use the same endpoint numbers, as that's supported by ChibiOS
     // But the QMK code currently assumes that the endpoint numbers are different
     CONSOLE_OUT_EPNUM = NEXT_EPNUM,
-        #else
-            #define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
-        #endif
-    #endif
+#    else
+#        define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
+#    endif
+#endif
 
-    #ifdef MIDI_ENABLE
-    MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
+#ifdef MIDI_ENABLE
+    MIDI_STREAM_IN_EPNUM  = NEXT_EPNUM,
     MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
-        #define MIDI_STREAM_IN_EPADDR  (ENDPOINT_DIR_IN  | MIDI_STREAM_IN_EPNUM)
-        #define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
-    #endif
+#    define MIDI_STREAM_IN_EPADDR (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
+#    define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+#endif
 
-    #ifdef VIRTSER_ENABLE
+#ifdef VIRTSER_ENABLE
     CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
-    CDC_IN_EPNUM = NEXT_EPNUM,
-    CDC_OUT_EPNUM = NEXT_EPNUM,
-        #define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN  | CDC_NOTIFICATION_EPNUM)
-        #define CDC_IN_EPADDR           (ENDPOINT_DIR_IN  | CDC_IN_EPNUM)
-        #define CDC_OUT_EPADDR          (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
-    #endif
+    CDC_IN_EPNUM           = NEXT_EPNUM,
+    CDC_OUT_EPNUM          = NEXT_EPNUM,
+#    define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
+#    define CDC_IN_EPADDR (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
+#    define CDC_OUT_EPADDR (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+#endif
 };
 
-    #ifdef PROTOCOL_LUFA
-        // LUFA tells us total endpoints including control
-        #define MAX_ENDPOINTS (ENDPOINT_TOTAL_ENDPOINTS - 1)
-    #elif defined(PROTOCOL_CHIBIOS)
-        // ChibiOS gives us number of available user endpoints, not control
-        #define MAX_ENDPOINTS USB_MAX_ENDPOINTS
-    #endif
+#ifdef PROTOCOL_LUFA
+// LUFA tells us total endpoints including control
+#    define MAX_ENDPOINTS (ENDPOINT_TOTAL_ENDPOINTS - 1)
+#elif defined(PROTOCOL_CHIBIOS)
+// ChibiOS gives us number of available user endpoints, not control
+#    define MAX_ENDPOINTS USB_MAX_ENDPOINTS
+#endif
 
-    // TODO - ARM_ATSAM
+// TODO - ARM_ATSAM
 
-    #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
-        #error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
-    #endif
+#if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
+#    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
+#endif
 
-    #define KEYBOARD_EPSIZE          8
-    #define SHARED_EPSIZE           32
-    #define MOUSE_EPSIZE             8
-    #define RAW_EPSIZE              32
-    #define CONSOLE_EPSIZE          32
-    #define MIDI_STREAM_EPSIZE      64
-    #define CDC_NOTIFICATION_EPSIZE  8
-    #define CDC_EPSIZE              16
+#define KEYBOARD_EPSIZE 8
+#define SHARED_EPSIZE 32
+#define MOUSE_EPSIZE 8
+#define RAW_EPSIZE 32
+#define CONSOLE_EPSIZE 32
+#define MIDI_STREAM_EPSIZE 64
+#define CDC_NOTIFICATION_EPSIZE 8
+#define CDC_EPSIZE 16
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
 #endif
