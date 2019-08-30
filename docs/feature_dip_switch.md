@@ -56,7 +56,7 @@ Additionally, we support bit mask functions which allow for more complex handlin
 
 
 ```c
-void dip_switch_update_nask_kb(uint32_t state) { 
+void dip_switch_update_mask_kb(uint32_t state) { 
     dip_switch_update_mask_user(state); 
 }
 ```

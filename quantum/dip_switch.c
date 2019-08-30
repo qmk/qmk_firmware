@@ -18,7 +18,7 @@
 
 #include "dip_switch.h"
 
-// for mmcpy
+// for memcpy
 #include <string.h>
 
 
