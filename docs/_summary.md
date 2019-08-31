@@ -13,6 +13,9 @@
   * [How to Use Github](getting_started_github.md)
   * [Getting Help](getting_started_getting_help.md)
 
+* [Breaking Changes](breaking_changes.md)
+  * [2019 Aug 30](ChangeLog/20190830.md)
+
 * [FAQ](faq.md)
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
