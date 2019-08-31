@@ -1,6 +1,7 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2019 Mikkel Jeppesen
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,11 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define EE_HANDS
+#define SPLIT_HAND_PIN B4
+#define SOFT_SERIAL_PIN D0
 
-/* USB Device descriptor parameters */
-#define DEVICE_VER      0x0001
-#define DESCRIPTION     A split keyboard for the cheapish makers
+/* USB Device descriptor parameter */
+#define DEVICE_VER      0x0002
+#define DESCRIPTION     A toolless split keyboard for the cheapish makers
 
 /* key matrix size */
 // Rows are doubled-up
@@ -52,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F0
 
-#define RGBLED_NUM 16    // Number of LEDs
+#define RGBLED_NUM 12    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 
 /* Audio settings */
