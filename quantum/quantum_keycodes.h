@@ -115,6 +115,7 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    MAGIC_TOGGLE_ALT_GUI,
     GRAVE_ESC,
 
 // Leader key
