@@ -26,4 +26,4 @@ void dip_switch_update_mask_user(uint32_t state);
 void dip_switch_update_mask_kb(uint32_t state);
 
 void dip_switch_init(void);
-void dip_switch_read(void);
+void dip_switch_read(bool forced);

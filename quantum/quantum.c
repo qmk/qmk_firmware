@@ -1008,7 +1008,7 @@ void matrix_scan_quantum() {
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
-    dip_switch_read();
+    dip_switch_read(false);
 #endif
 
     matrix_scan_kb();

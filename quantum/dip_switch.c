@@ -48,18 +48,18 @@ void dip_switch_init(void) {
   for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
     setPinInputHigh(dip_switch_pad[i]);
   }
-  dip_switch_read();
+  dip_switch_read(true);
 }
 
 
-void dip_switch_read(void) {
+void dip_switch_read(bool forced) {
     bool has_dip_state_changed = false;
     uint32_t dip_switch_mask = 0;
 
     for (uint8_t i = 0; i < NUMBER_OF_DIP_SWITCHES; i++) {
         dip_switch_state[i] = !readPin(dip_switch_pad[i]);
         dip_switch_mask |= dip_switch_state[i] << i;
-        if (last_dip_switch_state[i] ^ dip_switch_state[i]) {
+        if (last_dip_switch_state[i] ^ dip_switch_state[i] || forced) {
             has_dip_state_changed = true;
             dip_switch_update_kb(i, dip_switch_state[i]);
         }
