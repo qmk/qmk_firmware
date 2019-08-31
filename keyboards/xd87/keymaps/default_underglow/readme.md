@@ -1,6 +1,6 @@
 # The default RGB underglow layout for xd87
 
-The RGB underglow feature is disabled by default. This specific keymap enables RGB underglow but disables _command_ and _bootmagic_ in order to save space.
+The RGB Underglow feature is disabled by default. This specific keymap enables RGB Underglow but disables the Command feature in order to save space.
 
 ## Keymap
 
