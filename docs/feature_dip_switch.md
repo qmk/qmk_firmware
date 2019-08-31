@@ -66,21 +66,21 @@ or `keymap.c`:
 
 ```c
 void dip_switch_update_mask_user(uint32_t state) { 
-  if (state & (1UL<<0) && state & (1UL<<1)) {
-    layer_on(_ADJUST); // C on esc
-  } else {
-    layer_off(_ADJUST);
-  }
-  if (state & (1UL<<0)) {
-    layer_on(_TEST_A); // A on ESC
-  } else {
-    layer_off(_TEST_A);
-  }
-  if (state & (1UL<<1)) {
-    layer_on(_TEST_B); // B on esc
-  } else {
-    layer_off(_TEST_B);
-  }
+    if (state & (1UL<<0) && state & (1UL<<1)) {
+        layer_on(_ADJUST); // C on esc
+    } else {
+        layer_off(_ADJUST);
+    }
+    if (state & (1UL<<0)) {
+        layer_on(_TEST_A); // A on ESC
+    } else {
+        layer_off(_TEST_A);
+    }
+    if (state & (1UL<<1)) {
+        layer_on(_TEST_B); // B on esc
+    } else {
+        layer_off(_TEST_B);
+    }
 }
 ```
 
