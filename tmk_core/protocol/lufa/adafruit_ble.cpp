@@ -31,7 +31,9 @@
 
 #ifdef SAMPLE_BATTERY
 #include "analog.c"
-#define BATTERY_LEVEL_PIN 7
+#ifndef BATTERY_LEVEL_PIN
+#    define BATTERY_LEVEL_PIN 7
+#endif
 #endif
 
 static struct {
