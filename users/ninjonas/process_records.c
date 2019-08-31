@@ -75,13 +75,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    // Resets EEPROM
-    case M_EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      break;
-
     // BEGIN: Layer macros
     case QWERTY:
       if (record->event.pressed) {

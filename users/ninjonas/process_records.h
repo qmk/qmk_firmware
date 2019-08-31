@@ -14,7 +14,6 @@ enum custom_keycodes {
   M_FLSH,
   M_VRSN,
   M_CODE,
-  M_EPRM,
 };
 
 #ifdef SSD1306OLED

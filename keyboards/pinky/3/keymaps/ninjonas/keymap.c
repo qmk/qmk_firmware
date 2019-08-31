@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_wrapper( \
   //,---------------------------------------------------------------------.  ,---------------------------------------------------------------------.
-        M_MAKE,   M_EPRM,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  COLEMAK,   DVORAK,   QWERTY,\
+        M_MAKE,  EEP_RST,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  COLEMAK,   DVORAK,   QWERTY,\
   //|---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------|
         M_VRSN,       _____________________XXXXXXX________________________,     XXXXXXX,  _____________________XXXXXXX________________________,\
   //|---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------|

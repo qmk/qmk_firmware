@@ -51,7 +51,6 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |M_VRSN | macro to send QMK version |
 |M_SHFT | Sends  + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
-|M_EPRM | [Resets EEPROM](https://beta.docs.qmk.fm/reference/ref_functions#wiping-the-eeprom-persistent-storage) |
 
 ### [Tap-Dance](tap_dances.h)
 |Code | Description |
