@@ -27,8 +27,8 @@
 #ifndef F_SCL
 #    define F_SCL 400000UL  // SCL frequency
 #endif
-#define Prescaler 1
-#define TWBR_val ((((F_CPU / F_SCL) / Prescaler) - 16) / 2)
+
+#define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
 void i2c_init(void) {
     TWSR = 0; /* no prescaler */
