@@ -24,11 +24,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RCTRL);
             layer_off(L_RCTRL);
         }
-        return false;
-
-    default:
-        return true;
+        break;
     }
+
+    return true;
 }
 
 static bool skip_caps = false;

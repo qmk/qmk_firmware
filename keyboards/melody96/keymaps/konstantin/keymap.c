@@ -20,11 +20,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             cidx = (cidx + 1) % cnum;
             rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
         }
-        return false;
-
-    default:
-        return true;
+        break;
     }
+
+    return true;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
