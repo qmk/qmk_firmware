@@ -74,7 +74,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // When keycode QMKBEST is released
         }
-        return false;
+        break;
 
     case QMKURL:
         if (record->event.pressed) {
@@ -83,9 +83,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             // When keycode QMKURL is released
         }
-        return false;
-    
-    default:
-        return true;
+        break;
     }
+
+    return true;
 }
