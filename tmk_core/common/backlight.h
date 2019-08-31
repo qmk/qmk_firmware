@@ -21,31 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #ifndef BACKLIGHT_LEVELS
-  #define BACKLIGHT_LEVELS 3
+#    define BACKLIGHT_LEVELS 3
 #elif BACKLIGHT_LEVELS > 31
-  #error "Maximum value of BACKLIGHT_LEVELS is 31"
+#    error "Maximum value of BACKLIGHT_LEVELS is 31"
 #endif
 
 typedef union {
     uint8_t raw;
     struct {
-        bool    enable    :1;
-        bool    breathing :1;
-        uint8_t reserved  :1; // Reserved for possible future backlight modes
-        uint8_t level     :5;
+        bool    enable : 1;
+        bool    breathing : 1;
+        uint8_t reserved : 1;  // Reserved for possible future backlight modes
+        uint8_t level : 5;
     };
 } backlight_config_t;
 
-void backlight_init(void);
-void backlight_increase(void);
-void backlight_decrease(void);
-void backlight_toggle(void);
-void backlight_enable(void);
-void backlight_disable(void);
-bool is_backlight_enabled(void);
-void backlight_step(void);
-void backlight_set(uint8_t level);
-void backlight_level(uint8_t level);
+void    backlight_init(void);
+void    backlight_increase(void);
+void    backlight_decrease(void);
+void    backlight_toggle(void);
+void    backlight_enable(void);
+void    backlight_disable(void);
+bool    is_backlight_enabled(void);
+void    backlight_step(void);
+void    backlight_set(uint8_t level);
+void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
 
 #ifdef BACKLIGHT_BREATHING
