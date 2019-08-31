@@ -16,7 +16,7 @@
 #endif
 
 #ifndef SPLIT_USB_TIMEOUT
-  #define SPLIT_USB_TIMEOUT 2500
+#    define SPLIT_USB_TIMEOUT 2500
 #endif
 
 volatile bool isLeftHand = true;
@@ -81,16 +81,9 @@ static void keyboard_master_setup(void) {
 
 static void keyboard_slave_setup(void) { transport_slave_init(); }
 
-<<<<<<< HEAD
-// this code runs before the usb and keyboard is initialized
-void matrix_setup(void) {
-    isLeftHand = is_keyboard_left();
-=======
 // this code runs before the keyboard is fully initialized
-void keyboard_split_setup(void)
-{
-  isLeftHand = is_keyboard_left();
->>>>>>> Initial split refactor to allow usb master detection
+void keyboard_split_setup(void) {
+    isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
