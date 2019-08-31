@@ -29,6 +29,11 @@
 #define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
 
+#ifdef SAMPLE_BATTERY
+#include "analog.c"
+#define BATTERY_LEVEL_PIN 7
+#endif
+
 static struct {
     bool is_connected;
     bool initialized;
@@ -637,9 +642,7 @@ void adafruit_ble_task(void) {
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        if (at_command_P(PSTR("AT+HWVBAT"), resbuf, sizeof(resbuf))) {
-            state.vbat = atoi(resbuf);
-        }
+        state.vbat = analogRead(BATTERY_LEVEL_PIN);
     }
 #endif
 }
