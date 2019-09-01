@@ -638,9 +638,6 @@ void adafruit_ble_task(void) {
     }
 
 #ifdef SAMPLE_BATTERY
-    // I don't know if this really does anything useful yet; the reported
-    // voltage level always seems to be around 3200mV.  We may want to just rip
-    // this code out.
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
