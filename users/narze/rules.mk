@@ -1,0 +1,1 @@
+SRC += narze.c
