@@ -6,42 +6,42 @@
 extern keymap_config_t keymap_config;
 
 enum ergodox_layers {
-  _QWERTY,
-  _COLEMAK,
-  _QWOC,
-  _LOWER,
-  _RAISE,
-  _PLOVER,
-// Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
-  _SUPER,
-  _DUPER,
-  _SUPERDUPER,
-  _MOUSE,
-  _ADJUST,
-  _MDIA,
-  _SYMB,
+    _QWERTY,
+    _COLEMAK,
+    _QWOC,
+    _LOWER,
+    _RAISE,
+    _PLOVER,
+    // Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
+    _SUPER,
+    _DUPER,
+    _SUPERDUPER,
+    _MOUSE,
+    _ADJUST,
+    _MDIA,
+    _SYMB,
 };
 
 enum ergodox_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  QWOC,
-  PLOVER,
-  SUPER,
-  DUPER,
-  SUPERDUPER,
-  MOUSE,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  EXT_PLV,
-  SDTOGG, // Toggle SuperDuper
-  EPRM,
-  VRSN,
-  RGB_SLD,
-  GUI_UNDS,
-  LSFT_LPRN,
-  RSFT_RPRN,
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    QWOC,
+    PLOVER,
+    SUPER,
+    DUPER,
+    SUPERDUPER,
+    MOUSE,
+    LOWER,
+    RAISE,
+    BACKLIT,
+    EXT_PLV,
+    SDTOGG, // Toggle SuperDuper
+    EPRM,
+    VRSN,
+    RGB_SLD,
+    GUI_UNDS,
+    LSFT_LPRN,
+    RSFT_RPRN,
 };
 
 // Narze : Custom Macros
@@ -52,7 +52,7 @@ enum ergodox_keycodes {
 #define GUI_MINS GUI_T(KC_MINS)
 
 enum process_combo_event {
-  CB_SUPERDUPER,
+    CB_SUPERDUPER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -536,144 +536,144 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
 
-        set_superduper_key_combo_layer(_QWERTY);
-      }
-      return false;
+                set_superduper_key_combo_layer(_QWERTY);
+            }
+            return false;
 
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
 
-        set_superduper_key_combo_layer(_COLEMAK);
-      }
-      return false;
+                set_superduper_key_combo_layer(_COLEMAK);
+            }
+            return false;
 
-    case QWOC:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWOC);
+        case QWOC:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWOC);
 
-        set_superduper_key_combo_layer(_QWOC);
-      }
-      return false;
+                set_superduper_key_combo_layer(_QWOC);
+            }
+            return false;
 
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
 
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
 
 #ifndef COMBO_ENABLE
-    case SUPER:
-      if (record->event.pressed) {
-        layer_on(_SUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      } else {
-        layer_off(_SUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      }
-      return false;
+        case SUPER:
+            if (record->event.pressed) {
+                layer_on(_SUPER);
+                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
+            } else {
+                layer_off(_SUPER);
+                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
+            }
+            return false;
 
-    case DUPER:
-      if (record->event.pressed) {
-        layer_on(_DUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      } else {
-        layer_off(_DUPER);
-        update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-      }
-      return false;
+        case DUPER:
+            if (record->event.pressed) {
+                layer_on(_DUPER);
+                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
+            } else {
+                layer_off(_DUPER);
+                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
+            }
+            return false;
 #endif
 
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-      }
-      return false;
+        case BACKLIT:
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+                #ifdef BACKLIGHT_ENABLE
+                    backlight_step();
+                #endif
+            } else {
+                unregister_code(KC_RSFT);
+            }
+            return false;
 
-    case PLOVER:
-      if (record->event.pressed) {
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
+        case PLOVER:
+            if (record->event.pressed) {
+                layer_off(_RAISE);
+                layer_off(_LOWER);
+                layer_off(_ADJUST);
+                layer_on(_PLOVER);
+                if (!eeconfig_is_enabled()) {
+                        eeconfig_init();
+                }
+                keymap_config.raw = eeconfig_read_keymap();
+                keymap_config.nkro = 1;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+            return false;
 
-    case EXT_PLV:
-      if (record->event.pressed) {
-        layer_off(_PLOVER);
-      }
-      return false;
+        case EXT_PLV:
+            if (record->event.pressed) {
+                layer_off(_PLOVER);
+            }
+            return false;
 
-    case SDTOGG:
-      if (record->event.pressed) {
-        toggle_superduper_mode();
-      }
-      return false;
+        case SDTOGG:
+            if (record->event.pressed) {
+                toggle_superduper_mode();
+            }
+            return false;
 
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
+        case VRSN:
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            return false;
 
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
+        case RGB_SLD:
+            if (record->event.pressed) {
+                #ifdef RGBLIGHT_ENABLE
+                    rgblight_mode(1);
+                #endif
+            }
+            return false;
 
-    // Macros
+        // Macros
 
-    // 1. Hold for LGUI, tap for Underscore
-    case GUI_UNDS:
-      perform_mod_tap_with_mod(record, KC_LGUI, KC_LSFT, KC_MINS);
-      return false;
+        // 1. Hold for LGUI, tap for Underscore
+        case GUI_UNDS:
+            perform_mod_tap_with_mod(record, KC_LGUI, KC_LSFT, KC_MINS);
+            return false;
 
-    // 2. Hold for LSHIFT, tap for Parens open
-    case LSFT_LPRN:
-      perform_mod_tap_with_mod(record, KC_LSFT, KC_LSFT, KC_9);
-      return false;
+        // 2. Hold for LSHIFT, tap for Parens open
+        case LSFT_LPRN:
+            perform_mod_tap_with_mod(record, KC_LSFT, KC_LSFT, KC_9);
+            return false;
 
-    // 3. Hold for RSHIFT, tap for Parens close
-    case RSFT_RPRN:
-      perform_mod_tap_with_mod(record, KC_RSFT, KC_RSFT, KC_0);
-      return false;
+        // 3. Hold for RSHIFT, tap for Parens close
+        case RSFT_RPRN:
+            perform_mod_tap_with_mod(record, KC_RSFT, KC_RSFT, KC_0);
+            return false;
 
-  }
-  return true;
+    }
+    return true;
 }
 
 void matrix_init_user(void) {
@@ -681,7 +681,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_setup(void) {
-  set_superduper_key_combos();
+    set_superduper_key_combos();
 }
 
 void matrix_scan_user(void) {
@@ -708,16 +708,16 @@ void matrix_scan_user(void) {
 // Combos
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
-  if (pressed) {
-    switch(combo_index) {
-      case CB_SUPERDUPER:
-        layer_on(_SUPERDUPER);
-        ergodox_board_led_on();
-        break;
+    if (pressed) {
+        switch(combo_index) {
+            case CB_SUPERDUPER:
+                layer_on(_SUPERDUPER);
+                ergodox_board_led_on();
+                break;
+        }
+    } else {
+        layer_off(_SUPERDUPER);
+        ergodox_board_led_off();
+        unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
     }
-  } else {
-    layer_off(_SUPERDUPER);
-    ergodox_board_led_off();
-    unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
-  }
 }
