@@ -34,7 +34,6 @@ The following defines can be used to configure the I2C master driver.
 |Variable          |Description                                        |Default|
 |------------------|---------------------------------------------------|-------|
 |`F_SCL`           |Clock frequency in Hz                              |400KHz |
-|`Prescaler`       |Divides master clock to aid in I2C clock selection |1      |
 
 AVRs usually have set GPIO which turn into I2C pins, therefore no further configuration is required.
 
