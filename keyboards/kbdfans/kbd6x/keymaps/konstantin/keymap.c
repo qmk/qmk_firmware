@@ -41,6 +41,7 @@ static void fn_light(uint32_t state) {
         rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
         rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
         rgblight_mode_noeeprom(saved.mode);
+        skip_caps = false;
     }
     // caps_light will be called automatically after this
 }
