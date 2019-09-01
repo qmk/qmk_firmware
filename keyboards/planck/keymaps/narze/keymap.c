@@ -309,7 +309,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case SDTOGG:
             if (record->event.pressed) {
-                toggle_superduper_mode();
+                bool enabled = toggle_superduper_mode();
+
+                #ifdef AUDIO_ENABLE
+                    if (enabled) {
+                        PLAY_SONG(tone_coin);
+                    } else {
+                        PLAY_SONG(tone_goodbye);
+                    }
+                #endif
             }
             return false;
 

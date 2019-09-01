@@ -30,9 +30,9 @@ combo_t key_combos[COMBO_COUNT] = {
 
 volatile bool superduper_enabled = true;
 
-const uint16_t empty_combo[] = {COMBO_END};
+const uint16_t PROGMEM empty_combo[] = {COMBO_END};
 
-void toggle_superduper_mode(void) {
+bool toggle_superduper_mode(void) {
     superduper_enabled = !superduper_enabled;
 
     if (superduper_enabled) {
@@ -40,6 +40,8 @@ void toggle_superduper_mode(void) {
     } else {
         clear_superduper_key_combos();
     }
+
+    return superduper_enabled;
 }
 
 void set_superduper_key_combo_layer(uint16_t layer) {
