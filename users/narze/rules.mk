@@ -1,1 +1,2 @@
-SRC += narze.c
+SRC += narze.c \
+       superduper.c
