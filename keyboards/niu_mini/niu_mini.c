@@ -12,8 +12,8 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_kb(void) {
     // Turn status LED on
-    DDRE |= (1<<6);
-    PORTE |= (1<<6);
+    setPinOutput(E6);
+    writePinHigh(E6);
 
     matrix_init_user();
 }
