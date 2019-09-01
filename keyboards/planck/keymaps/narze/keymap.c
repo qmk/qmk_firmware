@@ -209,11 +209,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     float tone_plover[][2]     = SONG(PLOVER_SOUND);
     float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
     float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-    float tone_coin[][2]       = SONG(COIN_SOUND);
-    float tone_sonic_ring[][2] = SONG(SONIC_RING);
-
+    float tone_coin[][2]       = SONG(VIOLIN_SOUND);
     float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-    float tone_superduper[][2] = SONG(SUPER_DUPER_SOUND);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -221,36 +218,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QWERTY:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+                    PLAY_SONG(tone_qwerty);
                 #endif
                 set_single_persistent_default_layer(_QWERTY);
 
                 set_superduper_key_combo_layer(_QWERTY);
             }
             return false;
-            break;
+
         case COLEMAK:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+                    PLAY_SONG(tone_colemak);
                 #endif
                 set_single_persistent_default_layer(_COLEMAK);
 
                 set_superduper_key_combo_layer(_COLEMAK);
             }
             return false;
-            break;
+
         case QWOC:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_qwoc, false, 0);
+                    PLAY_SONG(tone_qwoc);
                 #endif
                 set_single_persistent_default_layer(_QWOC);
 
                 set_superduper_key_combo_layer(_QWOC);
             }
             return false;
-            break;
+
         case LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);
@@ -260,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
-            break;
+
         case RAISE:
             if (record->event.pressed) {
                 layer_on(_RAISE);
@@ -270,6 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
             return false;
+
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
@@ -280,11 +278,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_RSFT);
             }
             return false;
+
         case PLOVER:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
                     stop_all_notes();
-                    PLAY_NOTE_ARRAY(tone_plover, false, 0);
+                    PLAY_SONG(tone_plover);
                 #endif
                 layer_off(_RAISE);
                 layer_off(_LOWER);
@@ -298,14 +297,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_keymap(keymap_config.raw);
             }
             return false;
+
         case EXT_PLV:
             if (record->event.pressed) {
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+                    PLAY_SONG(tone_plover_gb);
                 #endif
                 layer_off(_PLOVER);
             }
             return false;
+
         case SDTOGG:
             if (record->event.pressed) {
                 toggle_superduper_mode();
@@ -348,12 +349,12 @@ void matrix_scan_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -365,7 +366,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
@@ -375,10 +376,6 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         switch(combo_index) {
             case CB_SUPERDUPER:
                 layer_on(_SUPERDUPER);
-
-                #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_superduper, false, 0);
-                #endif
                 break;
         }
     } else {
