@@ -1,9 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "narze.h"
-// #include "debug.h"
-#include "action_layer.h"
 #include "version.h"
-#include "eeconfig.h"
 #include "keymap_colemak.h"
 
 extern keymap_config_t keymap_config;
@@ -538,16 +535,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
 
         set_superduper_key_combo_layer(_QWERTY);
       }
@@ -555,7 +547,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case COLEMAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
 
         set_superduper_key_combo_layer(_COLEMAK);
       }
@@ -563,7 +555,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case QWOC:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWOC);
+        set_single_persistent_default_layer(_QWOC);
 
         set_superduper_key_combo_layer(_QWOC);
       }
@@ -646,12 +638,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SDTOGG:
       if (record->event.pressed) {
         toggle_superduper_mode();
-      }
-      return false;
-
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
       }
       return false;
 
