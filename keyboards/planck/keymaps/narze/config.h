@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 /*
  * MIDI options
@@ -37,5 +34,3 @@
 #define SUPER_DUPER_SOUND S__NOTE(_B1)
 
 #define MOUSEKEY_DELAY 100
-
-#endif
