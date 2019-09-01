@@ -29,17 +29,15 @@ Press `S+D` simultaneously and hold, then...
 
 #### Left side
  ```
-docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+util/docker_build.sh ergodox_infinity:narze
 avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_left.bin
 dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_left.bin
 ```
 
 #### Right side
+You have to override `usb_args` in order to pass `MASTER=right` to docker using provided build script.
 ```
-docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox -e MASTER=right --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+usb_args="-e MASTER=right" util/docker_build.sh ergodox_infinity:narze
 avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_right.bin
 dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_right.bin
 ```
-
-## TODO
-- [ ] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl

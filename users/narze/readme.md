@@ -1,3 +1,7 @@
+# TODO
+- [ ] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl
+
+# LICENSE
 Copyright 2019 Manassarn Manoonchai manassarn@gmail.com @narze
 
 This program is free software: you can redistribute it and/or modify

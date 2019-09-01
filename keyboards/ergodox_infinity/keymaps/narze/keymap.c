@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "narze.h"
 // #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
@@ -41,53 +42,22 @@ enum ergodox_keycodes {
   SDTOGG, // Toggle SuperDuper
   EPRM,
   VRSN,
-  RGB_SLD
+  RGB_SLD,
+  GUI_UNDS,
+  LSFT_LPRN,
+  RSFT_RPRN,
 };
-
-enum functions {
-  M_GUI_UNDS, // Simulate GUI_T(KC_UNDS)
-  M_SFT_PO, // SFT_T(KC_LPRN)
-  M_SFT_PC, // SFT_T(KC_RPRN)
-};
-
-// Timer for custom mod tap
-static uint16_t m_gui_unds_timer;
-static uint16_t m_sft_po_timer;
-static uint16_t m_sft_pc_timer;
 
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)
-#define SFT_PO F(M_SFT_PO)
-#define SFT_PC F(M_SFT_PC)
+#define SFT_PO LSFT_LPRN
+#define SFT_PC RSFT_RPRN
 #define GUI_MINS GUI_T(KC_MINS)
-#define GUI_UNDS F(M_GUI_UNDS)
-
-// Combo : SuperDuper layer from S+D (R+S in Colemak)
-// #define COMBO_COUNT 1
-// #define SUPERDUPER_COMBO_COUNT 3
-// #define EECONFIG_SUPERDUPER_INDEX (uint8_t *) 19
 
 // enum process_combo_event {
 //   CB_SUPERDUPER,
 // };
-
-// const uint16_t PROGMEM superduper_combos[SUPERDUPER_COMBO_COUNT][3] = {
-//   [_QWERTY] = {KC_S, KC_D, COMBO_END},
-//   [_COLEMAK] = {KC_R, KC_S, COMBO_END},
-//   [_QWOC] = {CM_S, CM_D, COMBO_END},
-// };
-
-// combo_t PROGMEM key_combos[COMBO_COUNT] = {
-//   [CB_SUPERDUPER] = COMBO_ACTION(superduper_combos[_QWERTY]),
-// };
-
-// volatile bool superduper_enabled = true;
-
-// const uint16_t empty_combo[] = {COMBO_END};
-
-// void set_superduper_key_combos(void);
-// void clear_superduper_key_combos(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -580,29 +550,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_QWERTY);
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWERTY];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWERTY);
+        // set_superduper_key_combo_layer(_QWERTY);
       }
       return false;
-      break;
+
     case COLEMAK:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_COLEMAK);
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_COLEMAK];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _COLEMAK);
+        // set_superduper_key_combo_layer(_COLEMAK);
       }
       return false;
-      break;
+
     case QWOC:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_QWOC);
 
-        // key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWOC];
-        // eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWOC);
+        // set_superduper_key_combo_layer(_QWOC);
       }
       return false;
-      break;
+
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -612,7 +579,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
+
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
@@ -622,7 +589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
+
     case SUPER:
       if (record->event.pressed) {
         layer_on(_SUPER);
@@ -632,7 +599,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
       }
       return false;
-      break;
+
     case DUPER:
       if (record->event.pressed) {
         layer_on(_DUPER);
@@ -642,7 +609,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
       }
       return false;
-      break;
+
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -653,7 +620,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_RSFT);
       }
       return false;
-      break;
+
     case PLOVER:
       if (record->event.pressed) {
         layer_off(_RAISE);
@@ -668,37 +635,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
       }
       return false;
-      break;
+
     case EXT_PLV:
       if (record->event.pressed) {
         layer_off(_PLOVER);
       }
       return false;
-      break;
+
     case SDTOGG:
       if (record->event.pressed) {
-        // superduper_enabled = !superduper_enabled;
-
-        // if (superduper_enabled) {
-        //   set_superduper_key_combos();
-        // } else {
-        //   clear_superduper_key_combos();
-        // }
+        // toggle_superduper_mode();
       }
       return false;
-      break;
+
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
       }
       return false;
-      break;
+
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
+
     case RGB_SLD:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -706,7 +667,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       }
       return false;
-      break;
+
+    // Macros
+
+    // 1. Hold for LGUI, tap for Underscore
+    case GUI_UNDS:
+      perform_mod_tap_with_mod(record, KC_LGUI, KC_LSFT, KC_MINS);
+      return false;
+
+    // 2. Hold for LSHIFT, tap for Parens open
+    case LSFT_LPRN:
+      perform_mod_tap_with_mod(record, KC_LSFT, KC_LSFT, KC_9);
+      return false;
+
+    // 3. Hold for RSHIFT, tap for Parens close
+    case RSFT_RPRN:
+      perform_mod_tap_with_mod(record, KC_RSFT, KC_RSFT, KC_0);
+      return false;
+
   }
   return true;
 }
@@ -718,22 +696,6 @@ void matrix_init_user(void) {
 void matrix_setup(void) {
   // set_superduper_key_combos();
 }
-
-// void set_superduper_key_combos(void) {
-//   uint8_t layer = eeprom_read_byte(EECONFIG_SUPERDUPER_INDEX);
-
-//   switch (layer) {
-//     case _QWERTY:
-//     case _COLEMAK:
-//     case _QWOC:
-//       key_combos[CB_SUPERDUPER].keys = superduper_combos[layer];
-//       break;
-//   }
-// }
-
-// void clear_superduper_key_combos(void) {
-//   key_combos[CB_SUPERDUPER].keys = empty_combo;
-// }
 
 void matrix_scan_user(void) {
   // uint8_t layer = biton32(layer_state);
@@ -772,77 +734,3 @@ void matrix_scan_user(void) {
 //     unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
 //   }
 // }
-
-// Macros
-
-const uint16_t PROGMEM fn_actions[] = {
-  [M_GUI_UNDS] = ACTION_MACRO_TAP(M_GUI_UNDS),
-  [M_SFT_PO] = ACTION_MACRO_TAP(M_SFT_PO),
-  [M_SFT_PC] = ACTION_MACRO_TAP(M_SFT_PC),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
-
-  switch(id) {
-    // Hold for LGUI, tap for Underscore
-    case M_GUI_UNDS:
-      if (record->event.pressed) {
-        m_gui_unds_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_LGUI));
-        }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_gui_unds_timer) < TAPPING_TERM) {
-
-          add_weak_mods(MOD_BIT(KC_LSFT));
-          send_keyboard_report();
-          register_code(KC_MINS);
-          unregister_code(KC_MINS);
-          del_weak_mods(MOD_BIT(KC_LSFT));
-          send_keyboard_report();
-          record->tap.count = 0;  // ad hoc: cancel tap
-        } else {
-          unregister_mods(MOD_BIT(KC_LGUI));
-        }
-      }
-      break;
-    // Hold for LSHIFT, tap for Parens open
-    case M_SFT_PO:
-      if (record->event.pressed) {
-        m_sft_po_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_LSFT));
-        }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_sft_po_timer) < TAPPING_TERM) {
-          record->tap.count = 0;
-          return MACRO(D(RSFT), T(9), U(RSFT), END);
-        } else {
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
-      }
-      break;
-    // Hold for RSHIFT, tap for Parens close
-    case M_SFT_PC:
-      if (record->event.pressed) {
-        m_sft_pc_timer = timer_read();
-
-        if (!tap_not_interrupted) {
-          register_mods(MOD_BIT(KC_RSFT));
-        }
-      } else {
-        if (tap_not_interrupted && timer_elapsed(m_sft_pc_timer) < TAPPING_TERM) {
-          record->tap.count = 0;
-          return MACRO(D(LSFT), T(0), U(LSFT), END);
-        } else {
-          unregister_mods(MOD_BIT(KC_RSFT));
-        }
-      }
-      break;
-  }
-  return MACRO_NONE;
-};
