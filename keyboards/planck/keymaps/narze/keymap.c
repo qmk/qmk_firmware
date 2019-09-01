@@ -1,7 +1,8 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#include "planck.h"
+#include QMK_KEYBOARD_H
+#include "narze.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
@@ -73,7 +74,6 @@ const uint16_t empty_combo[] = {COMBO_END};
 
 void set_superduper_key_combos(void);
 void clear_superduper_key_combos(void);
-void perform_mod_tap_with_mod(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -456,46 +456,4 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     layer_off(_SUPERDUPER);
     unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
   }
-}
-
-// Mod taps does not work with shifted keycodes eg. SFT_T(KC_LPRN)
-// So a macro is needed
-// Implementation copied from process_space_cadet
-
-static uint8_t mtwm_last = 0;
-static uint16_t mtwm_timer = 0;
-static uint8_t mtwm_mods = 0;
-
-void perform_mod_tap_with_mod(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
-    if (record->event.pressed) {
-        mtwm_last  = holdMod;
-        mtwm_timer = timer_read();
-        mtwm_mods = get_mods();
-
-        if (IS_MOD(holdMod)) {
-            register_mods(MOD_BIT(holdMod));
-        }
-    } else {
-        if (mtwm_last == holdMod && timer_elapsed(mtwm_timer) < TAPPING_TERM) {
-            if (holdMod != tapMod) {
-                if (IS_MOD(holdMod)) {
-                    unregister_mods(MOD_BIT(holdMod));
-                }
-                if (IS_MOD(tapMod)) {
-                    register_mods(MOD_BIT(tapMod));
-                }
-            }
-            set_weak_mods(mtwm_mods);
-            tap_code(keycode);
-            clear_weak_mods();
-
-            if (IS_MOD(tapMod)) {
-                unregister_mods(MOD_BIT(tapMod));
-            }
-        } else {
-            if (IS_MOD(holdMod)) {
-                unregister_mods(MOD_BIT(holdMod));
-            }
-        }
-    }
 }
