@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make niu_mini:default
 
-Flashing example for this keyboard (using [QMK Toolbox](https://docs.qmk.fm/#/newbs_flashing?id=flashing-your-keyboard-with-qmk-toolbox) or [via the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
+Flashing example for this keyboard ([using the command line](https://docs.qmk.fm/#/newbs_flashing?id=flash-your-keyboard-from-the-command-line)):
 
     make niu_mini:default:flash
 
