@@ -23,7 +23,8 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-#define TAPPING_TERM 200
+#undef TAPPING_TERM
+#define TAPPING_TERM 100
 
 #define COMBO_TERM 20
 #define COMBO_COUNT 1
