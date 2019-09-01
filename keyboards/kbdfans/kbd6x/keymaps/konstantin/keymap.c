@@ -30,45 +30,60 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-static bool skip_caps = false;
+static inline void fn_light() {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
+}
 
-static void fn_light(uint32_t state) {
+static inline void caps_light() {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
+}
+
+static inline void restore_light() {
+    rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
+    rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
+    rgblight_mode_noeeprom(saved.mode);
+}
+
+static void check_light_layer(uint32_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
-        skip_caps = true;
+        fn_light();
+    } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        caps_light();
     } else {
-        rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
-        rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
-        rgblight_mode_noeeprom(saved.mode);
-        skip_caps = false;
+        restore_light();
     }
-    // caps_light will be called automatically after this
 }
 
-static void caps_light(uint8_t usb_led) {
-    if (skip_caps) {
-        skip_caps = false;
-        return;  // Skip calls triggered by the Fn layer turning on
-    }
+static void check_light_led(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-        rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
+        caps_light();
+    } else if (IS_LAYER_ON(L_FN)) {
+        fn_light();
     } else {
-        fn_light(layer_state);  // Caps is off, check if Fn light should be on
+        restore_light();
     }
 }
+
+static bool skip_led = false;
 
 uint32_t layer_state_set_keymap(uint32_t state) {
     static uint32_t prev_state = L_BASE;
     if (IS_LAYER_ON_STATE(state, L_FN) != IS_LAYER_ON_STATE(prev_state, L_FN)) {
-        fn_light(state);  // Fn state changed since last time
+        check_light_layer(state);  // Fn state changed since last time
+        skip_led = IS_LAYER_ON_STATE(state, L_FN);
+        // led_set_keymap will be called automatically after this
     }
     return prev_state = state;
 }
 
 void led_set_keymap(uint8_t usb_led) {
-    caps_light(usb_led);
+    if (skip_led) {
+        skip_led = false;
+        return;  // Skip calls triggered by the Fn layer turning on
+    }
+    check_light_led(usb_led);
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
