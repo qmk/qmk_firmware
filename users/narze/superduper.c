@@ -1,6 +1,6 @@
-
 #include "superduper.h"
 #include "eeconfig.h"
+#include "eeprom.h"
 #include "keymap_colemak.h"
 
 // SuperDuper
