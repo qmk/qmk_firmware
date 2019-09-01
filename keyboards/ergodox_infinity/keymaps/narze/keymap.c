@@ -4,7 +4,6 @@
 #include "action_layer.h"
 #include "version.h"
 #include "eeconfig.h"
-#include "eeprom.h"
 #include "keymap_colemak.h"
 
 extern keymap_config_t keymap_config;
@@ -55,9 +54,9 @@ enum ergodox_keycodes {
 #define SFT_PC RSFT_RPRN
 #define GUI_MINS GUI_T(KC_MINS)
 
-// enum process_combo_event {
-//   CB_SUPERDUPER,
-// };
+enum process_combo_event {
+  CB_SUPERDUPER,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -550,7 +549,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_QWERTY);
 
-        // set_superduper_key_combo_layer(_QWERTY);
+        set_superduper_key_combo_layer(_QWERTY);
       }
       return false;
 
@@ -558,7 +557,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_COLEMAK);
 
-        // set_superduper_key_combo_layer(_COLEMAK);
+        set_superduper_key_combo_layer(_COLEMAK);
       }
       return false;
 
@@ -566,7 +565,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_QWOC);
 
-        // set_superduper_key_combo_layer(_QWOC);
+        set_superduper_key_combo_layer(_QWOC);
       }
       return false;
 
@@ -590,6 +589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+#ifndef COMBO_ENABLE
     case SUPER:
       if (record->event.pressed) {
         layer_on(_SUPER);
@@ -609,6 +609,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
       }
       return false;
+#endif
 
     case BACKLIT:
       if (record->event.pressed) {
@@ -644,7 +645,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case SDTOGG:
       if (record->event.pressed) {
-        // toggle_superduper_mode();
+        toggle_superduper_mode();
       }
       return false;
 
@@ -694,7 +695,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_setup(void) {
-  // set_superduper_key_combos();
+  set_superduper_key_combos();
 }
 
 void matrix_scan_user(void) {
@@ -720,17 +721,17 @@ void matrix_scan_user(void) {
 
 // Combos
 
-// void process_combo_event(uint8_t combo_index, bool pressed) {
-//   if (pressed) {
-//     switch(combo_index) {
-//       case CB_SUPERDUPER:
-//         layer_on(_SUPERDUPER);
-//         ergodox_board_led_on();
-//         break;
-//     }
-//   } else {
-//     layer_off(_SUPERDUPER);
-//     ergodox_board_led_off();
-//     unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
-//   }
-// }
+void process_combo_event(uint8_t combo_index, bool pressed) {
+  if (pressed) {
+    switch(combo_index) {
+      case CB_SUPERDUPER:
+        layer_on(_SUPERDUPER);
+        ergodox_board_led_on();
+        break;
+    }
+  } else {
+    layer_off(_SUPERDUPER);
+    ergodox_board_led_off();
+    unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
+  }
+}
