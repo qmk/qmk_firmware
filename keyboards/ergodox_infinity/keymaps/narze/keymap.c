@@ -13,8 +13,6 @@ enum ergodox_layers {
     _RAISE,
     _PLOVER,
     // Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
-    _SUPER,
-    _DUPER,
     _SUPERDUPER,
     _MOUSE,
     _ADJUST,
@@ -323,47 +321,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,
              _______,_______, KC_LSFT
     ),
-// Intermediate keymaps for SuperDuper (Combo keys does not work on Infinity yet)
-[_SUPER] = LAYOUT_ergodox(
-        // left hand
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   DUPER,     _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,
-                                                    _______,  _______,
-                                                              _______,
-                                               _______,_______,_______,
-        // right hand
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                      _______,  _______,   _______,  _______,   _______,    _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                                _______,   _______,  _______,   _______,   _______,
-             _______,        _______,
-             _______,
-             _______,_______, _______
-    ),
-[_DUPER] = LAYOUT_ergodox(
-        // left hand
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  SUPER,     _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, _______,  _______,   _______,   _______,
-                                                    _______,  _______,
-                                                              _______,
-                                               _______,_______,_______,
-        // right hand
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                      _______,  _______,   _______,  _______,   _______,    _______,
-             _______, _______,  _______,   _______,  _______,   _______,   _______,
-                                _______,   _______,  _______,   _______,   _______,
-             _______,        _______,
-             _______,
-             _______,_______, _______
-    ),
 
 /* Mouse
  *
@@ -581,28 +538,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-#ifndef COMBO_ENABLE
-        case SUPER:
-            if (record->event.pressed) {
-                layer_on(_SUPER);
-                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-            } else {
-                layer_off(_SUPER);
-                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-            }
-            return false;
-
-        case DUPER:
-            if (record->event.pressed) {
-                layer_on(_DUPER);
-                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-            } else {
-                layer_off(_DUPER);
-                update_tri_layer(_SUPER, _DUPER, _SUPERDUPER);
-            }
-            return false;
-#endif
-
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
@@ -643,7 +578,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case VRSN:
             if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
             }
             return false;
 
