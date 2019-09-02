@@ -24,13 +24,11 @@ enum ergodox_keycodes {
     QWERTY = SAFE_RANGE,
     COLEMAK,
     QWOC,
-    PLOVER,
-    SUPER,
-    DUPER,
-    SUPERDUPER,
-    MOUSE,
     LOWER,
     RAISE,
+    PLOVER,
+    SUPERDUPER,
+    MOUSE,
     BACKLIT,
     EXT_PLV,
     SDTOGG, // Toggle SuperDuper
@@ -556,7 +554,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_ADJUST);
                 layer_on(_PLOVER);
                 if (!eeconfig_is_enabled()) {
-                        eeconfig_init();
+                    eeconfig_init();
                 }
                 keymap_config.raw = eeconfig_read_keymap();
                 keymap_config.nkro = 1;
