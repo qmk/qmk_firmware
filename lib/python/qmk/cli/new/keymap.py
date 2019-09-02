@@ -1,15 +1,8 @@
-#!/usr/bin/env python
 """
 This script automates the copying of the default keymap into your own keymap.
 """
 import os
 import sys
-
-# TODO (orngshdw): need to figure out where this script will be called from to prevent
-#   the "ModuleNotFoundError: No module named 'milc'" error
-#   am executing file from the lib/python/
-path = os.path.abspath(".")
-sys.path.append(path)
 
 from milc import cli
 from qmk.path import keymap, check_directories, create_keymap_directory
@@ -50,9 +43,6 @@ def main(cli):
     ))
     print("from the qmk_firmware directory")
 
-
-if __name__ == '__main__':
-    cli()
 
 # TODO (orngshdw): delete before merging to master
 #   for reference until we decide if we need logging/debugging for this script
