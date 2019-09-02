@@ -59,20 +59,20 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 
-//uint16_t get_tapping_term(uint16_t keycode) {
-//    switch (keycode) {
-////        case KC_SFT_CPS:
-////            return 100;
-////        case SPC_UPR:
-////            return 50;
-//        case SPC_LOW:
+uint16_t get_tapping_term(uint16_t keycode) {
+    switch (keycode) {
+//        case KC_SFT_CPS:
+//            return 100;
+//        case SPC_UPR:
 //            return 50;
-//////        case TD(KC_EML):
-//////            return 50;
-//        default:
-//            return TAPPING_TERM;
-//    }
-//};
+        case SPC_LOW:
+            return 150;
+////        case TD(KC_EML):
+////            return 50;
+        default:
+            return TAPPING_TERM;
+    }
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
