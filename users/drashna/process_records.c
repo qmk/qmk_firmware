@@ -21,9 +21,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // KEYLOGGER_ENABLE
 
     switch (keycode) {
-        case KC_QWERTY ... KC_CARPLAX:
+        case KC_QWERTY ... KC_WORKMAN:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(keycode - KC_QWERTY);
+                uint8_t mods = mod_config(get_mods()|get_oneshot_mods());
+                if (!mods) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY);
+                } else if (mods & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
+                } else if (mods & MOD_MASK_CTRL) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
+                }
             }
             break;
 
