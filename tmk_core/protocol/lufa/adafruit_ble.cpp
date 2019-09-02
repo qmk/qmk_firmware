@@ -10,10 +10,7 @@
 #include "action_util.h"
 #include "ringbuffer.hpp"
 #include <string.h>
-#define SAMPLE_BATTERY
-#ifdef SAMPLE_BATTERY
-#    include "analog.h"
-#endif
+#include "analog.h"
 
 // These are the pin assignments for the 32u4 boards.
 // You may define them to something else in your config.h
@@ -30,6 +27,7 @@
 #    define AdafruitBleIRQPin E6
 #endif
 
+#define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
 
 #ifdef SAMPLE_BATTERY
