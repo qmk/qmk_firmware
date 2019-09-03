@@ -1,11 +1,4 @@
 MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 
 # Bootloader selection
 #   Teensy       halfkay
