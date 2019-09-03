@@ -29,8 +29,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-// RGB EFFECTS
-#define RGBLIGHT_EFFECT_STATIC_LIGHT
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RGB_TEST
+// lower maximum brightness to lower power usage and prevent unresponsiveness
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
