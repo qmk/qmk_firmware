@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤    ┌───┐
      * │LSft│RAG│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │  RShift  │    │ ↑ │
      * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤┌───┼───┼───┐
-     * │LCtl│LGui│LAlt│         Space          │RAlt│RGui│FnLk│RCtl││ ← │ ↓ │ → │
+     * │LCtl│LGui│LAlt│         Space          │RAlt│RGui│FnFL│RCtl││ ← │ ↓ │ → │
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘└───┴───┴───┘
      */
     [L_BASE] = LAYOUT_tkl_iso(
