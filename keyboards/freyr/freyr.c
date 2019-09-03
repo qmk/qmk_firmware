@@ -21,10 +21,6 @@ void matrix_init_kb(void) {
   led_init_ports();
 };
 
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-};
-
 void led_init_ports(void) {
   setPinOutput(B3);     
   setPinOutput(B7);
@@ -45,4 +41,5 @@ void led_set_kb(uint8_t usb_led) {
     // Turn Scroll Lock LED off
     writePinHigh(B7);
   }
+      led_set_user(usb_led);
 }
