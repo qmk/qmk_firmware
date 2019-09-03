@@ -44,6 +44,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B5
 #define RGBLED_NUM 102
 #define RGBLIGHT_SLEEP
+#define LED_LAYOUT( \
+                                                                        \
+    L00,L01,L02,L03,L04,L05,L06,L07,                                            \
+    L10,L11,L12,L13,L14,L15,L16,L17,                                            \
+    L20,L21,L22,L23,L24,L25,L26,L27,                                            \
+    L30,L31,L32,L33,L34,L35,L36,L37,                                            \
+    L40,L41,L42,L43,L44,L45,L46,                                                \
+    L50,L51,L52,L53,L54,L55,                                                \
+                            L56,L47,                                    \
+                                L57,                                    \
+                        L65,L66,L67,                                    \
+                                                                        \
+            L08,L09,L0A,L0B,L0C,L0D,L0E,L0F,                                    \
+            L18,L19,L1A,L1B,L1C,L1D,L1E,L1F,                                    \
+            L28,L29,L2A,L2B,L2C,L2D,L2E,L2F,                                    \
+            L38,L39,L3A,L3B,L3C,L3D,L3E,L3F,                                    \
+                L49,L4A,L4B,L4C,L4D,L4E,L4F,                                    \
+                    L5A,L5B,L5C,L5D,L5E,L5F,                                    \
+    L48,L59,                                                            \
+    L58,                                                                \
+    L68,L69,L6A ) \
 
 #define MOUSEKEY_INTERVAL     20
 #define MOUSEKEY_DELAY        0
