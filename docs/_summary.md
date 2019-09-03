@@ -13,6 +13,9 @@
   * [How to Use Github](getting_started_github.md)
   * [Getting Help](getting_started_getting_help.md)
 
+* [Breaking Changes](breaking_changes.md)
+  * [2019 Aug 30](ChangeLog/20190830.md)
+
 * [FAQ](faq.md)
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
@@ -60,6 +63,7 @@
   * [Combos](feature_combo.md)
   * [Command](feature_command.md)
   * [Debounce API](feature_debounce_type.md)
+  * [DIP Switch](feature_dip_switch.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)

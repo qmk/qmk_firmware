@@ -47,7 +47,7 @@ else:
 
 # Setup the CLI
 import milc
-milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}ψ{style_reset_all}'
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
 # If we were invoked as `qmk <cmd>` massage sys.argv into `qmk-<cmd>`.
 # This means we can't accept arguments to the qmk script itself.
