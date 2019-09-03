@@ -10,6 +10,7 @@
 #include "action_util.h"
 #include "ringbuffer.hpp"
 #include <string.h>
+#include "analog.h"
 
 // These are the pin assignments for the 32u4 boards.
 // You may define them to something else in your config.h
@@ -28,6 +29,12 @@
 
 #define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
+
+#ifdef SAMPLE_BATTERY
+#ifndef BATTERY_LEVEL_PIN
+#    define BATTERY_LEVEL_PIN 7
+#endif
+#endif
 
 static struct {
     bool is_connected;
@@ -631,15 +638,10 @@ void adafruit_ble_task(void) {
     }
 
 #ifdef SAMPLE_BATTERY
-    // I don't know if this really does anything useful yet; the reported
-    // voltage level always seems to be around 3200mV.  We may want to just rip
-    // this code out.
     if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
         state.last_battery_update = timer_read();
 
-        if (at_command_P(PSTR("AT+HWVBAT"), resbuf, sizeof(resbuf))) {
-            state.vbat = atoi(resbuf);
-        }
+        state.vbat = analogRead(BATTERY_LEVEL_PIN);
     }
 #endif
 }
