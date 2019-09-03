@@ -202,13 +202,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-    float tone_startup[][2]    = SONG(STARTUP_SOUND);
-    float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-    float tone_qwoc[][2]       = SONG(DVORAK_SOUND);
-    float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
     float tone_plover[][2]     = SONG(PLOVER_SOUND);
     float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-    float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
     float tone_coin[][2]       = SONG(VIOLIN_SOUND);
     float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
 #endif
@@ -217,9 +212,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                #ifdef AUDIO_ENABLE
-                    PLAY_SONG(tone_qwerty);
-                #endif
                 set_single_persistent_default_layer(_QWERTY);
 
                 set_superduper_key_combo_layer(_QWERTY);
@@ -228,9 +220,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case COLEMAK:
             if (record->event.pressed) {
-                #ifdef AUDIO_ENABLE
-                    PLAY_SONG(tone_colemak);
-                #endif
                 set_single_persistent_default_layer(_COLEMAK);
 
                 set_superduper_key_combo_layer(_COLEMAK);
@@ -239,9 +228,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case QWOC:
             if (record->event.pressed) {
-                #ifdef AUDIO_ENABLE
-                    PLAY_SONG(tone_qwoc);
-                #endif
                 set_single_persistent_default_layer(_QWOC);
 
                 set_superduper_key_combo_layer(_QWOC);
@@ -351,33 +337,6 @@ void matrix_setup(void) {
 
 void matrix_scan_user(void) {
 }
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
     if (pressed) {

@@ -35,3 +35,12 @@
 #define SUPER_DUPER_SOUND S__NOTE(_B1)
 
 #define MOUSEKEY_DELAY 100
+
+#ifdef AUDIO_ENABLE
+    #define STARTUP_SONG SONG(PLANCK_SOUND)
+
+    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                  SONG(COLEMAK_SOUND), \
+                                  SONG(DVORAK_SOUND) \
+                                }
+#endif
