@@ -94,7 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_LAYER_MOMENTARY(_FL),       // Momentary Fn overlay
   [1] = ACTION_LAYER_TOGGLE(_AL),          // Toggle Arrow Layer overlay
   [2] = ACTION_LAYER_TAP_KEY(_FL, KC_CAPS),// Tap to toggle caps lock and hold to activate function layer
   [3] = ACTION_LAYER_TOGGLE(_UL),          // Toggle Underglow Layer overlay

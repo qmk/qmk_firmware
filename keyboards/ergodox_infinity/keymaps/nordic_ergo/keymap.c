@@ -23,7 +23,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
- * 
+ *
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Esc   |   1  |   2  |   3  |   4  |   5  |  §½  |           | PRSC |   6  |   7  |   8  |   9  |   0  |   -    |
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL,  KC_RBRC, KC_NONUS_BSLASH,  KC_LALT,  KC_LGUI,
                                                KC_LEFT, KC_RIGHT,
                                                               KC_HOME,
-                                               KC_SPC,KC_DELT,KC_END,
+                                               KC_SPC,KC_DEL, KC_END,
         // right hand
         KC_PSCREEN,  KC_6,   KC_7,    KC_8,    KC_9,   KC_0,        KC_MINS,
         TG(1),   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,        KC_LBRC,
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap 1: Basic layer with functions
  *
- * 
+ *
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Esc   |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |           | F12 |  F6  |  F7  |  F8  |  F9  |   0  |   -    |
@@ -240,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}  
+}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -249,7 +249,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    
+
     uint8_t layer = biton32(layer_state);
     ergodox_board_led_off();
     ergodox_right_led_1_off();
@@ -265,5 +265,5 @@ void matrix_scan_user(void) {
         default:
             // none
             break;
-    }   
+    }
 };
