@@ -32,4 +32,4 @@
   }
 
 
-#define LAYOUT_ut472_grid LAYOUT
+#define LAYOUT_ut472 LAYOUT
