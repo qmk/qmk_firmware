@@ -22,7 +22,7 @@ using testing::Return;
 
 void TestFixture::SetUpTestCase() {
     TestDriver driver;
-    EXPECT_CALL(driver, send_keyboard_mock(_)).Times(AnyNumber());
+    EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();
 }
 

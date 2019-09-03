@@ -293,6 +293,7 @@ bool process_record_quantum(keyrecord_t *record) {
         case EEPROM_RESET:
             if (record->event.pressed) {
                 eeconfig_init();
+                keyboard_init();
             }
             return false;
 #ifdef FAUXCLICKY_ENABLE
@@ -1121,6 +1122,4 @@ void eeconfig_init_kb(void) {
 
 void eeconfig_init_quantum(void) {
     eeconfig_init_kb();
-    // re-initialize everything
-    keyboard_init();
 }
