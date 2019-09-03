@@ -339,3 +339,6 @@ void inline ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t maskhi
 
     SREG = sreg_prev;
 }
+
+/* stub function to allow cross building avr and arm */
+void ws2812_init(void) { }

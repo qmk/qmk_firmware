@@ -186,6 +186,13 @@ void rgblight_init(void) {
         return;
     }
 
+	/* initilize ws2812 */
+#ifndef RGBLIGHT_CUSTOM_DRIVER
+	#ifndef WS2812_SPI
+	ws2812_init();
+	#endif
+#endif
+
     debug_enable = 1;  // Debug ON!
     dprintf("rgblight_init called.\n");
     dprintf("rgblight_init start!\n");

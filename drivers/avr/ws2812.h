@@ -71,4 +71,6 @@ void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 #    define CONCAT_EXP(a, b) CONCAT(a, b)
 #endif
 
+void ws2812_init(void);
+
 #endif /* LIGHT_WS2812_H_ */
