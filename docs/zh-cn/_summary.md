@@ -54,6 +54,7 @@
   * [热改键](feature_bootmagic.md)
   * [组合](feature_combo)
   * [命令](feature_command.md)
+  * [拨动开关](feature_dip_switch.md)
   * [动态宏指令](feature_dynamic_macros.md)
   * [编码器](feature_encoders.md)
   * [重音号Esc复合键](feature_grave_esc.md)
