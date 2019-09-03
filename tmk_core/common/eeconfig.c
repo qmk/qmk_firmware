@@ -44,9 +44,6 @@ void eeconfig_init(void) {
 #endif
 
     eeconfig_init_quantum();
-
-    // re-initialize everything
-    keyboard_init();
 }
 
 /** \brief eeconfig enable
