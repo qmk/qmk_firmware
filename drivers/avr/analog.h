@@ -19,9 +19,15 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 void    analogReference(uint8_t mode);
 int16_t analogRead(uint8_t pin);
 int16_t adc_read(uint8_t mux);
+#ifdef __cplusplus
+}
+#endif
 
 #define ADC_REF_POWER (1 << REFS0)
 #define ADC_REF_INTERNAL ((1 << REFS1) | (1 << REFS0))
