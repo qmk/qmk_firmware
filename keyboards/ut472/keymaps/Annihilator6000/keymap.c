@@ -21,14 +21,13 @@ extern keymap_config_t keymap_config;
 
 enum ut472_layers {
   _QWERTY,
-  _WORKMAN, /* added this */
+  _WORKMAN,
   _COLEMAK,
   _COLEMAK_MOD_DH,
   _DVORAK,
-  _LOWER, /* was _LOWER - changed back to lower from L1 */
-  _RAISE, /* was _RAISE - change back to raise from L2 */
-  /* _PLOVER, */ /* remove this? */
-  _TAB, /* added this - move above plover? */
+  _LOWER,
+  _RAISE,
+  _TAB,
   _ADJUST
 };
 
@@ -38,9 +37,6 @@ enum ut472_keycodes {
   COLEMAK,
   COLEMAK_MOD_DH,
   DVORAK
-  /* PLOVER, */ /* REMOVE THIS? */
-  /* BACKLIT, */ /* CAN DO BACKLIGHTING MANUALLY */
-  /* EXT_PLV */ /* THIS IS FOR PLOVER ALSO */
 };
 
 #define LOWER MO(_LOWER)
@@ -65,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
   KC_LCTL, KC_LALT, KC_LGUI, KC_APP,  LOWER,      KC_SPC,        RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-), /* LOWER was MO(2) and RAISE was MO(1) */
+),
 
   /* Workman
    * ,-------------------------------------------------------------------------.
@@ -140,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LALT, KC_LGUI, KC_APP,  LOWER,      KC_SPC,        RAISE,  KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT
 ),
 
-  /* FN Layer 1
+  /* FN Layer 1 - LOWER
    * ,-------------------------------------------------------------------------.
    * | ` ~ |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  | Delete|
    * |-------------------------------------------------------------------------+
@@ -151,14 +147,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |     |     |Capsl|      |          |       | Home| PgDn| PgUp| End |
    * `-------------------------------------------------------------------------'
    */
-[_LOWER] = LAYOUT_ut472_grid( /* Right */
+[_LOWER] = LAYOUT_ut472_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DELETE,
   _______, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
   _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
   _______, _______, _______, KC_CAPS, _______,     _______,      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-  /* FN Layer 2
+  /* FN Layer 2 - RAISE
    * ,-------------------------------------------------------------------------.
    * |   ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |Delete|
    * |-------------------------------------------------------------------------+
@@ -169,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |     |     |Capsl|      |          |       | Home| PgDn| PgUp| End |
    * `-------------------------------------------------------------------------'
    */
-[_RAISE] = LAYOUT_ut472_grid( /* Left */
+[_RAISE] = LAYOUT_ut472_grid(
   KC_TILDE, KC_EXCLAIM, KC_AT, KC_HASH, KC_DOLLAR, KC_PERCENT, KC_CIRCUMFLEX, KC_AMPERSAND, KC_ASTERISK, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_DELETE,
   _______, _______, _______, _______, _______, _______, _______, KC_UNDERSCORE, KC_PLUS, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, KC_PIPE,
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
@@ -187,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |     |     |     |      |          |       |MousL|MousD|MousU|MousR|
    * `-------------------------------------------------------------------------'
    */
-[_TAB] = LAYOUT_ut472_grid( /* Hold Tab */
+[_TAB] = LAYOUT_ut472_grid(
   KC_ESC,  KC_CALC, KC_WHOM, KC_MAIL, KC_MYCM, _______, _______, _______, _______, _______, KC_PSCR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -206,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Dbg |     |     |     |      |           |      |     |     |     |     |
    * `-------------------------------------------------------------------------'
    */
-[_ADJUST] = LAYOUT_ut472_grid( /* Hold L1 and L2 together */
+[_ADJUST] = LAYOUT_ut472_grid(
   RESET,   _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL,
   _______, _______, _______, _______, _______, _______, QWERTY,  WORKMAN, COLEMAK, COLEMAK_MOD_DH,   DVORAK,  _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -257,23 +253,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    /* case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
-      }
-      return false;
-      break; */
   }
   return true;
 }
