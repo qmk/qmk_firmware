@@ -13,6 +13,7 @@
 
 #ifdef LAYER_FN
     #define FN      MO(L_FN)
+    #define FNLK    TG(L_FN)
     #define FN_CAPS LT(L_FN, KC_CAPS)
     #define FN_ESC  LT(L_FN, KC_ESC)
     #define FN_FNLK TT(L_FN)
@@ -22,9 +23,8 @@
     #define NUMPAD TG(L_NUMPAD)
 #endif
 
-#define KC_SYSR LALT(KC_PSCR)
-#undef  KC_BRK
-#define KC_BRK  LCTL(KC_PAUS)
+#define BREAK LCTL(KC_PAUS)
+#define SYSRQ LALT(KC_PSCR)
 
 #define MV_UP   LCTL(KC_UP)
 #define MV_DOWN LCTL(KC_DOWN)

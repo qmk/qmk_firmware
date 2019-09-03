@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
      * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │RSfRCt│ ↑ │PgD│
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-     * │LCtl│LGui│LAlt│         Space          │RAlG│FnLk│ │ ← │ ↓ │ → │
+     * │LCtl│LGui│LAlt│         Space          │RAlG│FnFL│ │ ← │ ↓ │ → │
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [L_BASE] = LAYOUT_truefox(
