@@ -36,6 +36,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_WH_L);
+        } else {
+            tap_code(KC_WH_R);
+        }
+    }
+}
+
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_DRIVER_ENABLE
 
