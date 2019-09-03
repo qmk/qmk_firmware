@@ -28,5 +28,5 @@ Press `S+D` simultaneously and hold, then...
   - Planck Light : `util/docker_build.sh planck/light:narze`
 - Flash hex file
   - Using dfu-programmer `dfu-programmer atmega32u4 erase --force && dfu-programmer atmega32u4 flash .build/planck_rev4_narze.hex`
-    - For Planck Light change the target microcontroller `dfu-programmer at90usb1286 erase --force && dfu-programmer atmega32u4 flash .build/planck_light_narze.hex`
+    - For Planck Light change the target microcontroller `dfu-programmer at90usb1286 erase --force && dfu-programmer at90usb1286 flash .build/planck_light_narze.hex`
   - Use [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases)
