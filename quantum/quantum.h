@@ -145,6 +145,11 @@ extern layer_state_t layer_state;
 #    include "oled_driver.h"
 #endif
 
+#ifdef DIP_SWITCH_ENABLE
+    #include "dip_switch.h"
+#endif
+
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
 typedef uint8_t pin_t;
