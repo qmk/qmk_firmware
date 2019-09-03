@@ -18,16 +18,10 @@
 
 #define BACKLIGHT_PIN D3
 
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 #define BACKLIGHT_LEVELS 5
 
 #define DEBOUNCE 5
-
-/* disable debug print */
-#define NO_DEBUG
-
-/* disable print */
-#define NO_PRINT
 
 #endif
