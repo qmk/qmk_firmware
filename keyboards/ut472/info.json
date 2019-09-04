@@ -5,7 +5,7 @@
   "width": 12.5,
   "height": 4,
   "layouts": {
-    "LAYOUT_ut472_grid": {
+    "LAYOUT_ut472": {
       "key_count": 47,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 
