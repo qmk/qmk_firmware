@@ -123,6 +123,8 @@ void send_make_command(bool flash_bootloader) {
     if (flash_bootloader) {
 #if defined(MD_BOOTLOADER) // only run for Massdrop boards
         send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), TAP_CODE_DELAY);
+#elif defined(KEYBOARD_coseyfannitutti_discipline) // only run for Discipline 65
+        send_string_with_delay_P(PSTR(":program"), TAP_CODE_DELAY);
 #else // use universal flash command
         send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
 #endif
