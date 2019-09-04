@@ -38,14 +38,14 @@
 #define WS2812_BLUE_BIT(led, bit)           WS2812_BIT((led), 2, (bit))
 
 #define WS2812_PWM_FREQUENCY    			(STM32_SYSCLK / 2)
-#define WS2812_PWM_PERIOD       			(WS2812_PWM_FREQUENCY / 800000)
-#define WS2812_DUTYCYCLE_0					(WS2812_PWM_FREQUENCY / (1000000000/350))
-#define WS2812_DUTYCYCLE_1					(WS2812_PWM_FREQUENCY /(1000000000/800))
+#define WS2812_PWM_PERIOD       			(WS2812_PWM_FREQUENCY / 80000)
+#define WS2812_DUTYCYCLE_0					(WS2812_PWM_FREQUENCY / (1000000000/385))
+#define WS2812_DUTYCYCLE_1					(WS2812_PWM_FREQUENCY /(1000000000/930))
 
 #define PWMD(n)								CONCAT_EXPANDED_SYMBOLS(PWMD, n)
 #define WS2812_PWMD                         PWMD(WS2812_TIM_N)
 
-static uint32_t led_buf[WS2812_BIT_N + 1];
+static uint32_t led_buf[WS2812_BIT_N];
 
 #if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
 	LED_TYPE led[DRIVER_LED_TOTAL];
@@ -91,7 +91,7 @@ void ws2812_init(void)
 void ws2812_write_led(int index, uint8_t r, uint8_t g, uint8_t b)
 {
 
-	if(index > RGBLED_NUM - 1) {
+	if(index > RGBLED_NUM) {
 		dprintf("ws2812_write_led() attempted to set led outside of range. (i:%d) (r:%d) (g:%d) (b:%d)\n", index, r, g, b);
 		return;
 	}
@@ -102,18 +102,15 @@ void ws2812_write_led(int index, uint8_t r, uint8_t g, uint8_t b)
         led_buf[WS2812_GREEN_BIT(index, bit)]    = ((g >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
         led_buf[WS2812_BLUE_BIT(index, bit)]     = ((b >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
     }
-	dprintf("ws2812_write_led() (i:%d) (r:%d) (g:%d) (b:%d) (pf:%d) (pp:%d) (dc1:%d) (dc0:%d)\n", index, r, g, b, WS2812_PWM_FREQUENCY, WS2812_PWM_PERIOD, WS2812_DUTYCYCLE_1, WS2812_DUTYCYCLE_0);
 }
 
 void ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 	led[i].r = r;
 	led[i].g = g;
 	led[i].b = b;
-	dprintf("ws2812_setled()  (i:%d) (r:%d) (g:%d) (b:%d)\n", i, r, g, b);
 }
 
 void ws2812_setleds(LED_TYPE *led_colors, uint16_t num_leds) {
-	dprint("ws2812_setleds() stub called.\n");
 	for (uint16_t i = 0; i < num_leds; i++) {
 		ws2812_write_led(i, led_colors[i].r, led_colors[i].g, led_colors[i].b);
 	}
@@ -129,5 +126,4 @@ void ws2812_setled_all(uint8_t r, uint8_t g, uint8_t b) {
 		led[i].g = g;
 		led[i].b = b;
 	}
-	dprint("ws2812_setlet_all() stub called.\n");
 }
