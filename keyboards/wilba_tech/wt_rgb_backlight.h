@@ -108,3 +108,9 @@ void backlight_color_2_sat_decrease(void);
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 void backlight_debug_led(bool state);
 
+#ifdef RGB_BACKLIGHT_DAWN60
+void rgblight_set(void);
+void underglow_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void underglow_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+#endif
+
