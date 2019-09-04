@@ -14,6 +14,8 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
+**Reset Key:** Hold down the key located at K00, commonly programmed as left control while plugging in the keyboard.
+
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
 2. Place your keyboard into reset. 
@@ -33,7 +35,7 @@ macOS:
 3. Install the following packages:
     ```
     brew install python
-    brew install pyusb
+    pip3 install pyusb
     brew install --HEAD`https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
     ```
 

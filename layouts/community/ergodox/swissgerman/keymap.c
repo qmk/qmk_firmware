@@ -47,15 +47,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   §    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   '    |
+ * |   Â§    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   '    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Z  |   U  |   I  |   O  |   P  |   ü    |
+ * | Del    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Z  |   U  |   I  |   O  |   P  |   Ã¼    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   | A /L2|   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |ö / L2|ä / Cmd |
+ * | BkSp   | A /L2|   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ã¶ / L2|Ã¤ / Cmd |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |Y/Ctrl|X/Alt |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |./Alt |-/Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |< / L1|   ^  |   $  | Left | Right|                                       |  Up  | Down |AltGr |   ¨  | ~L1  |
+ *   |< / L1|   ^  |   $  | Left | Right|                                       |  Up  | Down |AltGr |   Â¨  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
+        KC_DEL,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
         KC_BSPC,        LT(MDIA, KC_A),KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        CTL_T(KC_Z),  ALT_T(KC_X),   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(SYMB,KC_NONUS_BSLASH), KC_EQL, KC_BSLS,  KC_LEFT,KC_RGHT,
@@ -270,7 +270,7 @@ void send_key(uint16_t keycode) {
 
 void go_back_based_on_tag(char* tag) {
   const int BRACKETS_AND_SLASH_LENGTH = 3;
-  
+
   for (int i=0; i < strlen(tag) + BRACKETS_AND_SLASH_LENGTH; i++) {
     send_key(KC_LEFT);
   }
