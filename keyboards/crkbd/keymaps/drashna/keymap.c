@@ -300,24 +300,12 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-static bool is_suspended;
-static bool rgb_matrix_enabled;
-
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
-    if (!is_suspended) {
-        is_suspended = true;
-        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
-        rgb_matrix_disable_noeeprom();
-    }
 }
 
 void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
-    is_suspended = false;
-    if (rgb_matrix_enabled) {
-        rgb_matrix_enable_noeeprom();
-    }
 }
 
 void check_default_layer(uint8_t mode, uint8_t type) {
@@ -362,19 +350,19 @@ void rgb_matrix_indicators_user(void) {
     ) {
         switch (biton32(layer_state)) {
             case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             default: {
                 check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
