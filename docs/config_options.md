@@ -91,8 +91,10 @@ This is a C header file that is one of the first things included, and will persi
   * tries to keep switch state consistent with keyboard LED state
 * `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
   * key combination that allows the use of magic commands (useful for debugging)
-* `#define USB_MAX_POWER_CONSUMPTION`
+* `#define USB_MAX_POWER_CONSUMPTION 500`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define USB_POLLING_INTERVAL_MS 10`
+  * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
