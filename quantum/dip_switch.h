@@ -1,4 +1,6 @@
-/* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+/*
+ * Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2018 Drashna Jaelre (Christopher Courtney) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,22 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev6.h"
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
+#pragma once
 
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-}
+#include "quantum.h"
 
-#ifdef DIP_SWITCH_ENABLE
-__attribute__((weak))
-void dip_update(uint8_t index, bool active) {}
+void dip_switch_update_kb(uint8_t index, bool active);
+void dip_switch_update_user(uint8_t index, bool active);
+void dip_switch_update_mask_user(uint32_t state);
+void dip_switch_update_mask_kb(uint32_t state);
 
-__attribute__((weak))
-void dip_switch_update_user(uint8_t index, bool active) {
-    dip_update(index, active);
-}
-#endif
+void dip_switch_init(void);
+void dip_switch_read(bool forced);
