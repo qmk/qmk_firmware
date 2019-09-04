@@ -1,17 +1,6 @@
-class DirectoryError(Exception):
-    """Raised when we have generic directory issues
-    """
-    def __init__(self, message):
-        """Default initialization method
-
-        Args
-            message
-                Message to show when exception is raised
-        """
-        self.message = message
-
-
-class NoSuchKeyboardError(DirectoryError):
+class NoSuchKeyboardError(Exception):
     """Raised when we can't find a keyboard/keymap directory.
     """
-    pass
+
+    def __init__(self, message):
+        self.message = message
