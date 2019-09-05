@@ -36,9 +36,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYER_FN
         static bool fn_lock = false;
 
+    case FNLK:
+        if (record->event.pressed) {
+            fn_lock = !IS_LAYER_ON(L_FN);  // Fn layer will be toggled after this
+        }
+        break;
+
     case FN_FNLK:
         if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-            fn_lock = !IS_LAYER_ON(L_FN);  // Fn layer will be toggled after this
+            fn_lock = !IS_LAYER_ON(L_FN);
         }
         break;
 #endif
