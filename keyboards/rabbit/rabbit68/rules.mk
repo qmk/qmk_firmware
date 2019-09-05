@@ -11,32 +11,6 @@ MCU = atmega32u4
 #   atmega32a    bootloadHID
 BOOTLOADER = halfkay
 
-
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=512
-
-# This is a teensy 2.0
-# BOOTLOADER = halfkay
-# running this MCU
-#MCU = atmega32u4
-# Processor frequency.
-F_CPU = 16000000
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-# Input clock frequency.
-F_USB = $(F_CPU)
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-OPT_DEFS += -DBOOTLOADER_SIZE=512
-
 # Build Options
 #   change yes to no to disable
 #
