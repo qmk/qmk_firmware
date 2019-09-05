@@ -10,7 +10,7 @@
 #include "quantum.h"
 #include "hal.h"
 
-// all boards are snowflakes. defaults to olkb board pinouts
+/* values default to olkb boards if not defined */
 #ifndef WS2812_TIM_N
 	#define WS2812_TIM_N	2
 #endif
