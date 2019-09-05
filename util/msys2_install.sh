@@ -5,17 +5,21 @@ download_dir=~/qmk_utils
 avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
 installflip=false
+util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed -S msys/unzip msys/p7zip base-devel msys/git mingw-w64-x86_64-toolchain
+pacman --needed -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
 
 source "$dir/win_shared_install.sh"
 
 function install_avr {
     rm -f -r "$avrtools"
-    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
-    7z x avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
-    rm avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
+    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip"
+    echo "Extracting AVR toolchain..."
+	unzip -q avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip
+	mv avr8-gnu-toolchain-win32_x86/ avr8-gnu-toolchain
+    rm __MACOSX -R
+    rm avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip
     pacman --needed -S mingw-w64-x86_64-avrdude
 }
 
@@ -88,6 +92,8 @@ else
     done
 fi
 popd
+
+pip3 install -r ${util_dir}/../requirements.txt
 
 cp -f "$dir/activate_msys2.sh" "$download_dir/"
 

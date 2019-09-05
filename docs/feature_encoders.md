@@ -6,20 +6,28 @@ Basic encoders are supported by adding this to your `rules.mk`:
 
 and this to your `config.h`:
 
-    #define NUMBER_OF_ENCODERS 1
     #define ENCODERS_PAD_A { B12 }
     #define ENCODERS_PAD_B { B13 }
 
 Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.:
 
     #define ENCODERS_PAD_A { encoder1a, encoder2a }
-    #define ENCODERS_PAD_B { encoder1a, encoder2b }
+    #define ENCODERS_PAD_B { encoder1b, encoder2b }
 
 If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.
 
 Additionally, the resolution can be specified in the same file (the default & suggested is 4):
 
     #define ENCODER_RESOLUTION 4
+
+## Split Keyboards
+
+If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout for the right half like this:
+
+```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+```
 
 ## Callbacks
 
@@ -32,15 +40,19 @@ The callback functions can be inserted into your `<keyboard>.c`:
 or `keymap.c`:
 
     void encoder_update_user(uint8_t index, bool clockwise) {
-        if (index == 0) {
-            if (clockwise) {
-                register_code(KC_PGDN);
-                unregister_code(KC_PGDN);
-            } else {
-                register_code(KC_PGUP);
-                unregister_code(KC_PGUP);
-            }
+      if (index == 0) { /* First encoder */
+        if (clockwise) {
+          tap_code(KC_PGDN);
+        } else {
+          tap_code(KC_PGUP);
         }
+      } else if (index == 1) { /* Second encoder */  
+        if (clockwise) {
+          tap_code(KC_UP);
+        } else {
+          tap_code(KC_DOWN);
+        }
+      }
     }
 
 ## Hardware

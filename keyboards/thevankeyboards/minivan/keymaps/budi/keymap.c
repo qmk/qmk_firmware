@@ -81,10 +81,6 @@ extern keymap_config_t keymap_config;
 #define XBACK  LGUI(LALT(KC_LEFT))
 #define XFFWD  LGUI(LALT(KC_RIGHT))
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define xxxxxxx KC_NO
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   SWTCH
@@ -168,8 +164,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MN] = LAYOUT_arrow(
     ALTESC,  CAG1,    CAG2,    CAG3,    CAG4,    CAG5,    CAG6,    CAG7,    CAG8,    CAG9,    CAG0,    SWTCH,
     ALTX,    ALT1,    ALT2,    ALT3,    ALT4,    ALT5,    ALT6,    ALT7,    ALT8,    ALT9,    ALT0,    _______,
-    ALTEQL,  MEH1,    MEH2,    MEH3,    MEH4,    MEH5,    MEH6,    MEH7,    MEH8,    MEH9,    MEH0,    xxxxxxx,
-    ALTMIN,  xxxxxxx, XBACK,                     ALTL,    ALTR,             XFFWD,   xxxxxxx, xxxxxxx, xxxxxxx
+    ALTEQL,  MEH1,    MEH2,    MEH3,    MEH4,    MEH5,    MEH6,    MEH7,    MEH8,    MEH9,    MEH0,    XXXXXXX,
+    ALTMIN,  XXXXXXX, XBACK,                     ALTL,    ALTR,             XFFWD,   XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
 
@@ -187,9 +183,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_FN] = LAYOUT_arrow(
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-    _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  xxxxxxx,
-    _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PWR,  KC_SLEP, KC_WAKE, xxxxxxx, xxxxxxx, xxxxxxx,
-    _______, KC_CAPS, _______,                   xxxxxxx, SWTCH,            KC_RALT, xxxxxxx, RESET,   _______
+    _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR,  KC_SLEP, KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, KC_CAPS, _______,                   XXXXXXX, SWTCH,            KC_RALT, XXXXXXX, RESET,   _______
   )
 
 

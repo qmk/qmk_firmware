@@ -42,11 +42,11 @@ static uint8_t error_count_arrow = 0;
 
 /* Set 0 if debouncing isn't needed */
 
-#ifndef DEBOUNCING_DELAY
-#    define DEBOUNCING_DELAY 5
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     static uint16_t debouncing_time;
     static bool debouncing = false;
 #endif
@@ -158,7 +158,7 @@ void matrix_init(void) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-    
+
     matrix_init_quantum();
 }
 
@@ -169,7 +169,7 @@ uint8_t matrix_scan(void)
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
 
             if (matrix_changed) {
@@ -187,7 +187,7 @@ uint8_t matrix_scan(void)
 
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#       if (DEBOUNCING_DELAY > 0)
+#       if (DEBOUNCE > 0)
             bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
             if (matrix_changed) {
                 debouncing = true;
@@ -201,15 +201,15 @@ uint8_t matrix_scan(void)
 
 #endif
 
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+#   if (DEBOUNCE > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
                 matrix[i] = matrix_debouncing[i];
             }
             debouncing = false;
         }
 #   endif
-        
+
     if (i2c_transaction(SLAVE_I2C_ADDRESS_RIGHT, 0x3F, 0)){ //error has occured for main right half
         error_count_right++;
         if (error_count_right > ERROR_DISCONNECT_COUNT){ //disconnect half
@@ -220,7 +220,7 @@ uint8_t matrix_scan(void)
    }else{ //no error
         error_count_right = 0;
     }
-    
+
     if (i2c_transaction(SLAVE_I2C_ADDRESS_ARROW, 0X3FFF, 8)){ //error has occured for arrow cluster
         error_count_arrow++;
         if (error_count_arrow > ERROR_DISCONNECT_COUNT){ //disconnect arrow cluster
@@ -249,7 +249,7 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-#if (DEBOUNCING_DELAY > 0)
+#if (DEBOUNCE > 0)
     if (debouncing) return false;
 #endif
     return true;
@@ -258,7 +258,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
@@ -455,10 +455,10 @@ i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset)
         matrix[MATRIX_ROWS - 1] |= ((uint32_t)err << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
 
     } else {
-        i2c_stop(10);
+        i2c_stop();
         return 1;
     }
 
-    i2c_stop(10);
+    i2c_stop();
     return 0;
 }

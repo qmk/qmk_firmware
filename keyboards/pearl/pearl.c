@@ -15,16 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pearl.h"
 #include "rgblight.h"
-#include "backlight.h"
-
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "quantum.h"
 
+#ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 
 void rgblight_set(void) {
@@ -37,23 +32,59 @@ void rgblight_set(void) {
     }
 
     i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+}
+#endif
+
+void matrix_init_kb(void) {
+#ifdef RGBLIGHT_ENABLE
+    if (rgblight_config.enable) {
+        i2c_init();
+        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    }
+#endif
+    // call user level keymaps, if any
+    matrix_init_user();
 }
 
-void backlight_init_ports(void) {
-  DDRD |= (1<<4);
-  PORTD &= ~(1<<4);
-}
-
-void backlight_set(uint8_t level) {
-  if (level > 0) {
-    PORTD |= (1<<4);
-  } else {
-    PORTD &= ~(1<<4);
-  }
+void matrix_scan_kb(void) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_task();
+#endif
+    matrix_scan_user();
+    /* Nothing else for now. */
 }
 
 __attribute__ ((weak))
 void matrix_scan_user(void) {
-    rgblight_task();
+}
+
+void backlight_init_ports(void) {
+    // initialize pins D0, D1, D4 and D6 as output
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D4);
+    setPinOutput(D6);
+
+    // turn backlight LEDs on
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(D4);
+    writePinHigh(D6);
+}
+
+void backlight_set(uint8_t level) {
+	if (level == 0) {
+        // turn backlight LEDs off
+        writePinLow(D0);
+        writePinLow(D1);
+        writePinLow(D4);
+        writePinLow(D6);
+	} else {
+        // turn backlight LEDs on
+        writePinHigh(D0);
+        writePinHigh(D1);
+        writePinHigh(D4);
+        writePinHigh(D6);
+	}
 }

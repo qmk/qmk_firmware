@@ -1,7 +1,4 @@
-SRC += matrix.c
-
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.
@@ -83,6 +80,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 DEBUG_ENABLE = no
-CUSTOM_MATRIX = yes         # Use custom matrix code 
+CUSTOM_MATRIX = no         # Use custom matrix code
 SPLIT_KEYBOARD = yes        # Use shared split_common code
 

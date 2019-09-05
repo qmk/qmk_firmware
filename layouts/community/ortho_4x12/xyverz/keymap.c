@@ -24,10 +24,6 @@ enum custom_keycodes {
   ADJUST
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to keep the keymap tidy
 #define GUIBSPC GUI_T(KC_BSPC) // GUI when held, BSPC when tapped.
 #define RGB_SWR RGB_M_SW // Swirl Animation alias

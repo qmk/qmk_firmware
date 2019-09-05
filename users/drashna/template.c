@@ -50,12 +50,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case EPRM:
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    return false;
-    break;
   case VRSN:
     if (record->event.pressed) {
       SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
@@ -68,11 +62,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   return layer_state_set_keymap (state);
 }
 
@@ -128,4 +122,3 @@ void shutdown_keymap(void) {}
 void shutdown_user (void) {
   shutdown_keymap();
 }
-

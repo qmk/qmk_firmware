@@ -11,8 +11,27 @@ Hardware Availability: http://groupbuys.mechboards.co.uk/shop/hs60-hotswap-60-pc
 
 Due to the RGB implementation, the HS60 is currently not compatible with community layouts.
 
+## Instructions
+
+### Build
+
 Make example for this keyboard (after setting up your build environment):
 
     make hs60/v2:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+
+### Reset
+
+- Unplug
+- Hold Escape
+- Plug In
+- Unplug
+- Release Escape
+
+### Flash
+
+- Unplug
+- Hold Escape
+- Plug In
+- Flash using QMK Toolbox or dfu-util (`make hs60/v2:<keymap>:dfu-util`)

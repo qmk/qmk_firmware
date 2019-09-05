@@ -1,5 +1,14 @@
 #pragma once
 
+#if defined(KEYBOARD_jj40)
+#undef BACKLIGHT_BREATHING
+#undef BACKLIGHT_LEVELS
+#undef BREATHING_PERIOD
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
+#define BREATHING_PERIOD 15
+#endif
+
 //QMK DFU settings (ProMicro boards with QMK bootloader)
 // set top left key as bootloader mode escape key on Lets Split rev2
 #if defined(KEYBOARD_lets_split_rev2)
@@ -11,8 +20,15 @@
 #define EE_HANDS
 #endif
 
+// set top left key as bootloader mode escape key on Nori
+#if defined(KEYBOARD_40percentclub_nori)
+#define QMK_LED B0
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D3 // usually ROW
+#endif
+
 // set top left key as bootloader mode escape key on 4x4 48key layout
-#if defined(KEYBOARD_4x4) && !defined(PRO_MICRO)
+#if defined(KEYBOARD_40percentclub_4x4) && !defined(PRO_MICRO)
 #define QMK_LED B0
 #define QMK_ESC_OUTPUT C6 // usually COL
 #define QMK_ESC_INPUT B2 // usually ROW
@@ -20,7 +36,7 @@
 
 // use alternate settings for 4x4 board using ProMicro instead of Micro
 // usage: make 4x4:wanleg PM=yes
-#if defined(KEYBOARD_4x4) && defined(PRO_MICRO) 
+#if defined(KEYBOARD_40percentclub_4x4) && defined(PRO_MICRO) 
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D1 // usually ROW
 #define QMK_LED B0

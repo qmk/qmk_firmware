@@ -48,10 +48,6 @@ extern keymap_config_t keymap_config;
 #define MACSLEEP LSFT(LCTL(KC_POWER))
 #define WINSLEEP KC_SLEP
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = {
@@ -96,13 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, RESET,   RESET,   _______, _______, _______, _______, _______}
 },
 [_MAC] = { /* Mac */
-  {CYCLWIN,MACSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DELT},
+  {CYCLWIN,MACSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL },
   {_______, MICMUTE, KC_MUTE, KC_VOLD, KC_VOLU, MACPRNT,MACPRNT2, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX},
   {_______, BL_STEP, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX},
   {_______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDOWN,KC_PGUP,KC_END }
 },
 [_WIN] = { /* Windows */
-  {CYCLWIN,WINSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DELT},
+  {CYCLWIN,WINSLEEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_DEL },
   {_______, MICMUTE, KC_MUTE, KC_VOLD, KC_VOLU, WINPRNT,WINPRNT2, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX},
   {_______, BL_STEP, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX},
   {_______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGDOWN,KC_PGUP,KC_END }
@@ -117,9 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 int currentOs = _MAC;
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 #ifdef AUDIO_ENABLE
 
