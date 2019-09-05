@@ -91,3 +91,18 @@ ifneq (,$(filter $(MCU),atmega32a))
   # Programming options
   PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
 endif
+
+ifneq (,$(filter $(MCU),atmega328p))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
+endif
