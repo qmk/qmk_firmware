@@ -12,19 +12,19 @@
 
 /* values default to olkb boards if not defined */
 #ifndef WS2812_TIM_N
-	#define WS2812_TIM_N	2
+	#define WS2812_TIM_N	2						// TIMx
 #endif
 #ifndef WS2812_TIM_CH
-	#define WS2812_TIM_CH	1
+	#define WS2812_TIM_CH	1 						// Channel - 1
 #endif
 #ifndef WS2812_AF
-	#define WS2812_AF		1
+	#define WS2812_AF		1 						// DI Pin's alternate function value
 #endif
 #ifndef WS2812_DMA_STREAM
-	#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+	#define WS2812_DMA_STREAM STM32_DMA1_STREAM2	// DMA Stream for TIMx_UP
 #endif
 #ifndef WS2812_DMA_CHANNEL
-	#define WS2812_DMA_CHANNEL 2
+	#define WS2812_DMA_CHANNEL 2					// DMA Channel for TIMx_UP
 #endif 
 
 
