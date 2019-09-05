@@ -1,6 +1,3 @@
-# project specific files
-SRC =	matrix.c
-
 # Cortex version
 MCU  = STM32F303
 
