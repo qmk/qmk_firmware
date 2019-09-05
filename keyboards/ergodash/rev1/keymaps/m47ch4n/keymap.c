@@ -125,8 +125,8 @@ void update_layer(void) {
         case 5:
         case 4:
         case 3:
-        case 2:
             layer_on(_ADJUST);
+        case 2:
         case 1:
             layer_on(_LOWER);
         case 0:
