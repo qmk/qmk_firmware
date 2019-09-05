@@ -36,7 +36,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   DFU_SUFFIX_ARGS = -p DF11 -v 0483
 endif
 
-ifneq (,$(filter $(MCU),atmega32u2 atmega32u4 at90usb1286))
+ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to
