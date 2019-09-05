@@ -104,7 +104,9 @@ static void flush(void) {
     ws2812_setleds(led, DRIVER_LED_TOTAL);
 }
 
-static void init(void) {}
+static void init(void) {
+	ws2812_init();
+}
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
