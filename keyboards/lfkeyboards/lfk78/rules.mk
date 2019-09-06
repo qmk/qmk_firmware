@@ -21,18 +21,6 @@ OPT_DEFS += -DLFK_REV_STRING=\"Rev$(LFK_REV)\"
 # Extra source files for IS3731 lighting
 SRC = TWIlib.c issi.c lighting.c
 
-# Processor frequency.
-F_CPU = 16000000
-
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Input clock frequency.
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no            # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes           # Audio control and System control(+450)
