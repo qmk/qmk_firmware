@@ -302,6 +302,10 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {.Header           = {.
 #    define USB_MAX_POWER_CONSUMPTION 500
 #endif
 
+#ifndef USB_POLLING_INTERVAL_MS
+#    define USB_POLLING_INTERVAL_MS 10
+#endif
+
 /*
  * Configuration descriptors
  */
@@ -324,7 +328,7 @@ const USB_Descriptor_Configuration_t PROGMEM
 
                                    .InterfaceStrIndex = NO_DESCRIPTOR},
             .Keyboard_HID        = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(KeyboardReport)},
-            .Keyboard_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = KEYBOARD_EPSIZE, .PollingIntervalMS = 0x0A},
+            .Keyboard_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = KEYBOARD_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
@@ -333,7 +337,7 @@ const USB_Descriptor_Configuration_t PROGMEM
              */
             .Mouse_Interface  = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface}, .InterfaceNumber = MOUSE_INTERFACE, .AlternateSetting = 0x00, .TotalEndpoints = 1, .Class = HID_CSCP_HIDClass, .SubClass = HID_CSCP_BootSubclass, .Protocol = HID_CSCP_MouseBootProtocol, .InterfaceStrIndex = NO_DESCRIPTOR},
             .Mouse_HID        = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(MouseReport)},
-            .Mouse_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | MOUSE_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = MOUSE_EPSIZE, .PollingIntervalMS = 0x0A},
+            .Mouse_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | MOUSE_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = MOUSE_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
 #ifdef SHARED_EP_ENABLE
@@ -354,7 +358,7 @@ const USB_Descriptor_Configuration_t PROGMEM
 #    endif
                                  .InterfaceStrIndex = NO_DESCRIPTOR},
             .Shared_HID        = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(SharedReport)},
-            .Shared_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = SHARED_EPSIZE, .PollingIntervalMS = 0x0A},
+            .Shared_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = SHARED_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
 #ifdef RAW_ENABLE
