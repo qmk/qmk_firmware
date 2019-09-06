@@ -289,6 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         default:
           cntl_interrupted = true;
+          mouse_interrupted = true;
           break;
       }
     return true;
