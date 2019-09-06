@@ -80,7 +80,7 @@
 #define EEPROM_VERSION_ADDR 36
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
 // Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 635
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 389    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
