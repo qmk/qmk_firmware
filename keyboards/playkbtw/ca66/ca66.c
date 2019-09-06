@@ -1,5 +1,4 @@
 #include "ca66.h"
-#include "config.h"
 
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
