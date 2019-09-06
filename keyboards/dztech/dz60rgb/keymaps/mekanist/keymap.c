@@ -61,7 +61,7 @@ void rgb_matrix_indicators_user(void)
 {
 	uint8_t this_led = host_keyboard_leds();
 
-	if (!g_suspend_state) {
+	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (biton32(layer_state)) {
 		case _LAYER1:
 			rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
