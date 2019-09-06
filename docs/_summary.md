@@ -63,6 +63,7 @@
   * [Combos](feature_combo.md)
   * [Command](feature_command.md)
   * [Debounce API](feature_debounce_type.md)
+  * [DIP Switch](feature_dip_switch.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)
