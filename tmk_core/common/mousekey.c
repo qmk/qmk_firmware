@@ -103,7 +103,7 @@ static uint8_t wheel_unit(void) {
 }
 
 void mousekey_task(void) {
-// report cursor and scroll movement independently
+    // report cursor and scroll movement independently
     report_mouse_t const tmpmr = mouse_report;
     if ((mouse_report.x || mouse_report.y) &&
         timer_elapsed(last_timer_c) > (mousekey_repeat ? mk_interval : mk_delay * 10)) {
