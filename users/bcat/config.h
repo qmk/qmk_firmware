@@ -3,34 +3,46 @@
 
 #define TAP_CODE_DELAY 20
 
-/* Turn off RGB lighting when the host goes to sleep. */
-#define RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_ENABLE)
+  /* Turn off RGB underglow when the host goes to sleep. */
+  #define RGBLIGHT_SLEEP
 
-/* Keep backlight and RGB level increments consistent across keyboards. */
-#undef BACKLIGHT_LEVELS
-#undef RGBLIGHT_HUE_STEP
-#undef RGBLIGHT_SAT_STEP
-#undef RGBLIGHT_VAL_STEP
+  /* Keep RGB underglow level increments consistent across keyboards. */
+  #undef RGBLIGHT_HUE_STEP
+  #undef RGBLIGHT_SAT_STEP
+  #undef RGBLIGHT_VAL_STEP
 
-#define BACKLIGHT_LEVELS 7
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 17
+  #define RGBLIGHT_VAL_STEP 17
+#endif
 
-/* Make mouse operation smoother. */
-#undef MOUSEKEY_DELAY
-#undef MOUSEKEY_INTERVAL
+#if defined(BACKLIGHT_ENABLE)
+  /* Enable backlight breathing across the board. */
+  #define BACKLIGHT_BREATHING
 
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_INTERVAL 16
+  /* Keep backlight level increments consistent across keyboards. */
+  #undef BACKLIGHT_LEVELS
 
-/* Lower mouse speed to adjust for reduced MOUSEKEY_INTERVAL. */
-#undef MOUSEKEY_MAX_SPEED
-#undef MOUSEKEY_TIME_TO_MAX
-#undef MOUSEKEY_WHEEL_MAX_SPEED
-#undef MOUSEKEY_WHEEL_TIME_TO_MAX
+  #define BACKLIGHT_LEVELS 7
+#endif
 
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_TIME_TO_MAX 150
-#define MOUSEKEY_WHEEL_MAX_SPEED 3
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 150
+#if defined(MOUSEKEY_ENABLE)
+  /* Make mouse operation smoother. */
+  #undef MOUSEKEY_DELAY
+  #undef MOUSEKEY_INTERVAL
+
+  #define MOUSEKEY_DELAY 0
+  #define MOUSEKEY_INTERVAL 16
+
+  /* Lower mouse speed to adjust for reduced MOUSEKEY_INTERVAL. */
+  #undef MOUSEKEY_MAX_SPEED
+  #undef MOUSEKEY_TIME_TO_MAX
+  #undef MOUSEKEY_WHEEL_MAX_SPEED
+  #undef MOUSEKEY_WHEEL_TIME_TO_MAX
+
+  #define MOUSEKEY_MAX_SPEED 7
+  #define MOUSEKEY_TIME_TO_MAX 150
+  #define MOUSEKEY_WHEEL_MAX_SPEED 3
+  #define MOUSEKEY_WHEEL_TIME_TO_MAX 150
+#endif
