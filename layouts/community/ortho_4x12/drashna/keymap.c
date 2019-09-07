@@ -133,8 +133,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
-    TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
-    _______, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, RGB_IDL
+    TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
+    _______, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
   )
 
 };
@@ -281,7 +281,7 @@ void rgb_matrix_indicators_user(void) {
             break;
     }
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+        if (!layer_state_cmp(layer_state, _ADJUST)) { rgb_matrix_set_color(24, 0x00, 0xFF, 0x00); }
         rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {
