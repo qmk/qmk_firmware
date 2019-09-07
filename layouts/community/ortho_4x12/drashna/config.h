@@ -1,7 +1,7 @@
 #pragma once
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
-#    define RGB_DI_PIN B3
+#    define RGB_DI_PIN A0
 #    define RGBLED_NUM 13  // Number of LEDs
 #    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP 12
