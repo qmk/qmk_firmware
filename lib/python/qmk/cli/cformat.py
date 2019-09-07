@@ -7,8 +7,8 @@ from milc import cli
 
 
 @cli.argument('files', nargs='*', help='Filename(s) to format.')
-@cli.entrypoint("Format C code according to QMK's style.")
-def main(cli):
+@cli.subcommand("Format C code according to QMK's style.")
+def cformat(cli):
     """Format C code according to QMK's style.
     """
     clang_format = ['clang-format', '-i']

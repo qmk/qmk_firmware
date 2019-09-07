@@ -11,8 +11,8 @@ from glob import glob
 from milc import cli
 
 
-@cli.entrypoint('Basic QMK environment checks')
-def main(cli):
+@cli.subcommand('Basic QMK environment checks')
+def doctor(cli):
     """Basic QMK environment checks.
 
     This is currently very simple, it just checks that all the expected binaries are on your system.

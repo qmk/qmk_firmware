@@ -181,7 +181,6 @@ class ConfigurationOption(Configuration):
 def handle_store_boolean(self, *args, **kwargs):
     """Does the add_argument for action='store_boolean'.
     """
-    kwargs['add_dest'] = False
     disabled_args = None
     disabled_kwargs = kwargs.copy()
     disabled_kwargs['action'] = 'store_false'
@@ -219,11 +218,6 @@ class SubparserWrapper(object):
         self.subparser.completer = completer
 
     def add_argument(self, *args, **kwargs):
-        if kwargs.get('add_dest', True):
-            kwargs['dest'] = self.submodule + '_' + self.cli.get_argument_name(*args, **kwargs)
-        if 'add_dest' in kwargs:
-            del kwargs['add_dest']
-
         if 'action' in kwargs and kwargs['action'] == 'store_boolean':
             return handle_store_boolean(self, *args, **kwargs)
 
@@ -485,15 +479,18 @@ class MILC(object):
             if argument in ('subparsers', 'entrypoint'):
                 continue
 
-            if '_' not in argument:
-                continue
+            if '_' in argument:
+                section, option = argument.split('_', 1)
+            else:
+                section = self._entrypoint.__name__
+                option = argument
 
-            section, option = argument.split('_', 1)
             if hasattr(self.args_passed, argument):
                 self.config[section][option] = getattr(self.args, argument)
             else:
                 if option not in self.config[section]:
                     self.config[section][option] = getattr(self.args, argument)
+
 
         self.release_lock()
 
@@ -592,7 +589,6 @@ class MILC(object):
     def subcommand(self, description, **kwargs):
         """Decorator to register a subcommand.
         """
-
         def subcommand_function(handler):
             return self.add_subcommand(handler, description, **kwargs)
 
@@ -615,7 +611,7 @@ class MILC(object):
         self.log_file_format = ANSIStrippingFormatter(self.config['general']['log_file_fmt'], self.config['general']['datetime_fmt'])
         self.log_format = self.config['general']['log_fmt']
 
-        if self.config.general.color:
+        if self.config.general.general_color:
             self.log_format = ANSIEmojiLoglevelFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
         else:
             self.log_format = ANSIStrippingFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
@@ -712,4 +708,3 @@ if __name__ == '__main__':
     cli.goodbye.add_argument('-n', '--name', help='Name to bid farewell to', default='World')
 
     cli()  # Automatically picks between main(), hello() and goodbye()
-    print(sorted(ansi_colors.keys()))
