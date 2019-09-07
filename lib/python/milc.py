@@ -17,6 +17,7 @@ import argparse
 import logging
 import os
 import re
+import shlex
 import sys
 from decimal import Decimal
 from tempfile import NamedTemporaryFile
@@ -544,7 +545,7 @@ class MILC(object):
             self.log.warning('Config file saving failed, not replacing %s with %s.', self.config_file, tmpfile.name)
 
         self.release_lock()
-        cli.log.info('Wrote config to "%s".', self.config_file)
+        cli.log.info('Wrote configuration to %s', shlex.quote(self.config_file))
 
     def __call__(self):
         """Execute the entrypoint function.

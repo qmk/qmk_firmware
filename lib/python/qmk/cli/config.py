@@ -6,6 +6,13 @@ import subprocess
 from milc import cli
 
 
+def print_config(section, key):
+    """Print a single config setting to stdout.
+    """
+    cli.echo('%s.%s{fg_cyan}={fg_reset}%s', section, key, cli.config[section][key])
+
+
+@cli.argument('-ro', '--read-only', action='store_true', help='Operate in read-only mode.')
 @cli.argument('configs', nargs='*', arg_only=True, help='Configuration options to read or write.')
 @cli.subcommand("Read and write config settings.")
 def config(cli):
@@ -27,7 +34,12 @@ def config(cli):
         # Walk the config tree
         for section in cli.config:
             for key in cli.config[section]:
-                cli.echo('%s.%s{fg_cyan}={fg_reset}%s', section, key, cli.config[section][key])
+                print_config(section, key)
+
+        return True
+
+    # Process config_tokens
+    save_config = False
 
     for config_token in cli.args.configs:
         # Extract the section, config_key, and value to write from the supplied config_token.
@@ -48,13 +60,28 @@ def config(cli):
             cli.log.error('Config keys may not have more than one period! "%s" is not valid.', config_key)
             return False
 
-        # Do stuff
+        # Do what the user wants
         if section and config_key and value:
-            cli.log.info('Writing %s.%s -> %s', section, config_key, value)
-            # FIXME: Implement
+            # Write a config key
+            log_string = '%s.%s{fg_cyan}:{fg_reset} %s {fg_cyan}->{fg_reset} %s'
+            if cli.args.read_only:
+                log_string += ' {fg_red}(change not written)'
+
+            cli.echo(log_string, section, cli.config[section][config_key], config_key, value)
+
+            if not cli.args.read_only:
+                cli.config[section][config_key] = value
+                save_config = True
+
         elif section and config_key:
-            cli.log.info('Displaying a single key.')
-            # FIXME: Implement
+            # Display a single key
+            print_config(section, config_key)
+
         elif section:
-            cli.log.info('Displaying an entire section.')
-            # FIXME: Implement
+            # Display an entire section
+            for key in cli.config[section]:
+                print_config(section, key)
+
+    # Ending actions
+    if save_config:
+        cli.save_config()
