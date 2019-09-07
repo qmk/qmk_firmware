@@ -5,7 +5,7 @@
 A single switch macropad given out at the Copenhagen Click 2019 meetup.
 
 Keyboard Maintainer: [mini-ninja-64](https://github.com/mini-ninja-64)  
-Hardware Supported: Copenhagen Click Pad V1
+Hardware Supported: Copenhagen Click Pad V1  
 Hardware Availability: Copenhagen Click 2019
 
 Make example for this keyboard (after setting up your build environment):
