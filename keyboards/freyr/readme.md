@@ -2,7 +2,8 @@
 
 ![Freyr](https://i.imgur.com/MeOrzoI.jpg)
 
-Freyr is a tenkeyless keyboard,
+Freyr is a tenkeyless keyboard, support ansi and iso layout. 
+[Full layout here](http://www.keyboard-layout-editor.com/#/gists/438ef0c58c46ec28c80d9894ffcff177)
 
 Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)  
 Hardware Supported: Freyr.revB PCB
