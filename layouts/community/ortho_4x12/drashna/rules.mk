@@ -17,6 +17,7 @@ ifneq (,$(findstring planck/light,$(KEYBOARD))) # Make sure it IS the Planck Lig
     RGB_MATRIX_ENABLE           = yes
     RGBLIGHT_ENABLE             = no
     RGBLIGHT_STARTUP_ANIMATION  = no
+    HAPTIC_ENABLE               += SOLENOID
 endif
 ifneq (,$(findstring planck/ez,$(KEYBOARD))) # Make sure it IS the Planck Light
     RGBLIGHT_ENABLE = no

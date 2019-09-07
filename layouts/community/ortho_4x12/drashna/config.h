@@ -33,11 +33,17 @@
 #    ifdef RGBLIGHT_ENABLE
 #        define NO_MUSIC_MODE
 #    endif                     // RGBLIGHT_ENABLE
+#else
+#    undef QMK_ESC_OUTPUT
 #    define QMK_ESC_OUTPUT E6  // usually COL
-#    define QMK_ESC_INPUT B0   // usually ROW
+#    undef QMK_ESC_INPUT
+#    define QMK_ESC_INPUT B0  // usually ROW
+#    undef QMK_LED
 #    define QMK_LED D6
+#    undef QMK_SPEAKER
 #    define QMK_SPEAKER C6
-#endif  // KEYBOARD_planck_light
+#    define SOLENOID_PIN A1
+#endif      // KEYBOARD_planck_light
 
 #if defined(KEYBOARD_planck)
 #    undef PRODUCT
