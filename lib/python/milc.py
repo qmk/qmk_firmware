@@ -35,6 +35,7 @@ except ImportError:
 
 import argcomplete
 import colorama
+from appdirs import user_config_dir
 
 # Log Level Representations
 EMOJI_LOGLEVELS = {
@@ -47,6 +48,7 @@ EMOJI_LOGLEVELS = {
 }
 EMOJI_LOGLEVELS['FATAL'] = EMOJI_LOGLEVELS['CRITICAL']
 EMOJI_LOGLEVELS['WARN'] = EMOJI_LOGLEVELS['WARNING']
+UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
 
 # ANSI Color setup
 # Regex was gratefully borrowed from kfir on stackoverflow:
@@ -97,11 +99,12 @@ class ANSIFormatter(logging.Formatter):
 
 
 class ANSIEmojiLoglevelFormatter(ANSIFormatter):
-    """A log formatter that makes the loglevel an emoji.
+    """A log formatter that makes the loglevel an emoji on UTF capable terminals.
     """
 
     def format(self, record):
-        record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
+        if UNICODE_SUPPORT:
+            record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
         return super(ANSIEmojiLoglevelFormatter, self).format(record)
 
 
@@ -248,11 +251,15 @@ class MILC(object):
         self._entrypoint = None
         self._inside_context_manager = False
         self.ansi = ansi_colors
+        self.arg_only = []
         self.config = Configuration()
         self.config_file = None
-        self.prog_name = sys.argv[0][:-3] if sys.argv[0].endswith('.py') else sys.argv[0]
         self.version = os.environ.get('QMK_VERSION', 'unknown')
         self.release_lock()
+
+        # Figure out our program name
+        self.prog_name = sys.argv[0][:-3] if sys.argv[0].endswith('.py') else sys.argv[0]
+        self.prog_name = self.prog_name.split('/')[-1]
 
         # Initialize all the things
         self.initialize_argparse()
@@ -390,7 +397,7 @@ class MILC(object):
         if self.args and self.args.general_config_file:
             return self.args.general_config_file
 
-        return os.path.abspath(os.path.expanduser('~/.%s.ini' % self.prog_name))
+        return os.path.join(user_config_dir(appname='qmk', appauthor='QMK'), '%s.ini' % self.prog_name)
 
     def get_argument_name(self, *args, **kwargs):
         """Takes argparse arguments and returns the dest name.
@@ -407,6 +414,11 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         def argument_function(handler):
+            if 'arg_only' in kwargs and kwargs['arg_only']:
+                arg_name = self.get_argument_name(*args, **kwargs)
+                self.arg_only.append(arg_name)
+                del(kwargs['arg_only'])
+
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
 
@@ -485,11 +497,14 @@ class MILC(object):
                 section = self._entrypoint.__name__
                 option = argument
 
-            if hasattr(self.args_passed, argument):
-                self.config[section][option] = getattr(self.args, argument)
-            else:
-                if option not in self.config[section]:
-                    self.config[section][option] = getattr(self.args, argument)
+            if option not in self.arg_only:
+                if hasattr(self.args_passed, argument):
+                    arg_value = getattr(self.args, argument)
+                    if arg_value:
+                        self.config[section][option] = arg_value
+                else:
+                    if option not in self.config[section]:
+                        self.config[section][option] = getattr(self.args, argument)
 
 
         self.release_lock()
@@ -506,6 +521,8 @@ class MILC(object):
         self.acquire_lock()
 
         config = RawConfigParser()
+        config_dir = os.path.dirname(self.config_file)
+
         for section_name, section in self.config._config.items():
             config.add_section(section_name)
             for option_name, value in section.items():
@@ -514,7 +531,10 @@ class MILC(object):
                         continue
                 config.set(section_name, option_name, str(value))
 
-        with NamedTemporaryFile(mode='w', dir=os.path.dirname(self.config_file), delete=False) as tmpfile:
+        if not os.path.exists(config_dir):
+            os.makedirs(config_dir)
+
+        with NamedTemporaryFile(mode='w', dir=config_dir, delete=False) as tmpfile:
             config.write(tmpfile)
 
         # Move the new config file into place atomically
@@ -524,6 +544,7 @@ class MILC(object):
             self.log.warning('Config file saving failed, not replacing %s with %s.', self.config_file, tmpfile.name)
 
         self.release_lock()
+        cli.log.info('Wrote config to "%s".', self.config_file)
 
     def __call__(self):
         """Execute the entrypoint function.
@@ -644,8 +665,9 @@ class MILC(object):
         self.read_config()
         self.setup_logging()
 
-        if self.config.general.save_config:
+        if 'save_config' in self.config.general and self.config.general.save_config:
             self.save_config()
+            exit(0)
 
         return self
 

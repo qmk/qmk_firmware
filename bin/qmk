@@ -15,6 +15,20 @@ qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
 python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
 sys.path.append(python_lib_dir)
 
+# Setup the CLI
+import milc
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
+
+
+@milc.cli.entrypoint('QMK Helper Script')
+def qmk_main(cli):
+    """The function that gets run when no subcommand is provided.
+
+    Right now we just print the help, in the future maybe we do more here?
+    """
+    cli.print_help()
+
+
 # Change to the root of our checkout
 os.environ['ORIG_CWD'] = os.getcwd()
 os.chdir(qmk_dir)
@@ -32,29 +46,18 @@ with open('requirements.txt', 'r') as fd:
 
         module = line.split('=')[0] if '=' in line else line
         if not find_spec(module):
-            print('Your QMK build environment is not fully setup!\n')
-            print('Please run `./util/qmk_install.sh` to setup QMK.')
+            print('Could not find module %s!', module)
+            print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
 
 # Figure out our version
 command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 if result.returncode == 0:
-    os.environ['QMK_VERSION'] = 'QMK ' + result.stdout.strip()
+    os.environ['QMK_VERSION'] = result.stdout.strip()
 else:
-    os.environ['QMK_VERSION'] = 'QMK ' + strftime('%Y-%m-%d-%H:%M:%S')
-
-# Setup the CLI
-import milc
-milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
-
-
-@milc.cli.entrypoint('QMK Helper Script')
-def qmk_main(cli):
-    # If run without a subcommand show the help
-    cli.print_help()
-
+    os.environ['QMK_VERSION'] = 'dirty-nogit-' + strftime('%Y-%m-%d-%H:%M:%S')
 
 # Look for which module to import
 subcommand = None
@@ -71,10 +74,11 @@ if not subcommand:
             if file.endswith('.py') and file != '__init__.py':
                 file = file[:-3]
                 module = '.'.join(dirpath.split('/')[2:]) + '.' + file
+
                 try:
                     import_module(module)
                 except ModuleNotFoundError as e:
-                    if e.__class__.__name__ != module:
+                    if e.name != module:
                         raise
 else:
     # Import only the subcommand module we care about for faster startup
@@ -86,15 +90,21 @@ else:
         if e.name != subcommand:
             raise
 
-        print()
         milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
         exit(1)
 
+
 if __name__ == '__main__':
     return_code = milc.cli()
+
     if return_code is False:
         exit(1)
-    elif return_code is not True and isinstance(return_code, int) and return_code < 256:
+
+    elif isinstance(return_code, int):
+        if return_code < 0 or return_code > 255:
+            milc.cli.log.error('Invalid return_code: %d', return_code)
+            exit(255)
+
         exit(return_code)
-    else:
-        exit(0)
+
+    exit(0)
