@@ -23,6 +23,12 @@ def config(cli):
 
     No validation is done to ensure that the supplied section.key is actually used by qmk scripts.
     """
+    if not cli.args.configs:
+        # Walk the config tree
+        for section in cli.config:
+            for key in cli.config[section]:
+                cli.echo('%s.%s{fg_cyan}={fg_reset}%s', section, key, cli.config[section][key])
+
     for config_token in cli.args.configs:
         # Extract the section, config_key, and value to write from the supplied config_token.
         if '=' in config_token:
@@ -52,6 +58,3 @@ def config(cli):
         elif section:
             cli.log.info('Displaying an entire section.')
             # FIXME: Implement
-
-
-    cli.log.info('sup?')
