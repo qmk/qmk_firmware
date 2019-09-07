@@ -1,6 +1,6 @@
 # CopenhagenClickPad-V1
 
-<!-- ![ClickPad](imgur.com image replace me!) -->
+![ClickPad](https://i.imgur.com/de8Z0wj.jpg)
 
 A single switch macropad given out at the Copenhagen Click 2019 meetup.
 
