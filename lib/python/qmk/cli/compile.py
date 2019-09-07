@@ -14,7 +14,7 @@ import qmk.keymap
 import qmk.path
 
 
-@cli.argument('filename', nargs='?', type=FileType('r'), help='The configurator export to compile')
+@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export to compile')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.subcommand('Compile a QMK Firmware.')

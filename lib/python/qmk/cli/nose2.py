@@ -12,6 +12,7 @@ def nose2(cli):
     """
     try:
         import nose2
+
     except ImportError:
         cli.log.error('Could not import nose2! Please install it with {fg_cyan}pip3 install nose2')
         return False

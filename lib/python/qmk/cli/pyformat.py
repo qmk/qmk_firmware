@@ -12,5 +12,6 @@ def pyformat(cli):
     try:
         subprocess.run(['yapf', '-vv', '-ri', 'bin/qmk', 'lib/python'], check=True)
         cli.log.info('Successfully formatted the python code in `bin/qmk` and `lib/python`.')
+
     except subprocess.CalledProcessError:
         cli.log.error('Error formatting python code!')

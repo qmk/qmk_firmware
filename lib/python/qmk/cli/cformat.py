@@ -6,7 +6,7 @@ import subprocess
 from milc import cli
 
 
-@cli.argument('files', nargs='*', help='Filename(s) to format.')
+@cli.argument('files', nargs='*', arg_only=True, help='Filename(s) to format.')
 @cli.subcommand("Format C code according to QMK's style.")
 def cformat(cli):
     """Format C code according to QMK's style.
