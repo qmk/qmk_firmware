@@ -236,7 +236,7 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		printf "$(MSG_FLASH_BOOTLOADER)" ;\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
 	done
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
