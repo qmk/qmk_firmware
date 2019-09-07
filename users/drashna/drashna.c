@@ -25,26 +25,7 @@ userspace_config_t userspace_config;
 #    define DRASHNA_UNICODE_MODE 2
 #endif
 
-// This block is for all of the gaming macros, as they were all doing
-// the same thing, but with differring text sent.
-bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
-    if (!record->event.pressed || override) {
-        uint16_t keycode;
-        if (userspace_config.is_overwatch) {
-            keycode = KC_BSPC;
-        } else {
-            keycode = KC_ENTER;
-        }
-        clear_keyboard();
-        tap_code(keycode);
-        wait_ms(TAP_CODE_DELAY);
-        send_string_with_delay(str, TAP_CODE_DELAY);
-        wait_ms(TAP_CODE_DELAY);
-        tap_code(KC_ENTER);
-    }
-    if (override) wait_ms(3000);
-    return false;
-}
+
 
 bool mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed) {
     static uint16_t this_timer;
@@ -123,7 +104,7 @@ __attribute__((weak))
 void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     keyboard_post_init_rgb();
 #endif
     keyboard_post_init_keymap();
@@ -132,6 +113,8 @@ void keyboard_post_init_user(void) {
 __attribute__((weak))
 void shutdown_keymap(void) {}
 
+ void rgb_matrix_update_pwm_buffers(void);
+
 void shutdown_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
@@ -139,9 +122,9 @@ void shutdown_user(void) {
     rgblight_setrgb_red();
 #endif  // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-    // uint16_t timer_start = timer_read();
-    // rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
-    // while(timer_elapsed(timer_start) < 250) { wait_ms(1); }
+    rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
+    rgb_matrix_update_pwm_buffers();
+
 #endif  // RGB_MATRIX_ENABLE
     shutdown_keymap();
 }
@@ -176,7 +159,7 @@ void matrix_scan_user(void) {
     run_diablo_macro_check();
 #endif  // TAP_DANCE_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     matrix_scan_rgb();
 #endif  // RGBLIGHT_ENABLE
 
@@ -190,7 +173,7 @@ layer_state_t layer_state_set_keymap(layer_state_t state) { return state; }
 // Then runs keymap's layer change check
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     state = layer_state_set_rgb(state);
 #endif  // RGBLIGHT_ENABLE
     return layer_state_set_keymap(state);
@@ -203,7 +186,7 @@ layer_state_t default_layer_state_set_keymap(layer_state_t state) { return state
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     state = default_layer_state_set_keymap(state);
 #if 0
-#    ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   state = default_layer_state_set_rgb(state);
 #    endif  // RGBLIGHT_ENABLE
 #endif
