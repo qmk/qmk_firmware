@@ -147,7 +147,7 @@ define EXEC_DFU
 		echo "Flashing '$(1)' for EE_HANDS split keyboard support." ;\
 	fi; \
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		printf "$(MSG_FLASH_BOOTLOADER)"" ;\
+		printf "$(MSG_FLASH_BOOTLOADER)" ;\
 		sleep 5 ;\
 	done; \
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
