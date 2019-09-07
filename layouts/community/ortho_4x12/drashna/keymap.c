@@ -298,6 +298,9 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
+#    ifdef KEYBOARD_planck_light
+    writePinLow(D6);
+#    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
 #else  // RGB_MATRIX_INIT
