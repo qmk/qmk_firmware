@@ -10,17 +10,17 @@
 #include "hal.h"
 #include "color.h"
 
-#define CONCAT_SYMBOLS(s1, s2)				s1##s2
-#define CONCAT_EXPANDED_SYMBOLS(s1, s2)		CONCAT_SYMBOLS(s1, s2)
-#define PWMD(n)								CONCAT_EXPANDED_SYMBOLS(PWMD, n)
+#define CONCAT_SYMBOLS(s1, s2)              s1##s2
+#define CONCAT_EXPANDED_SYMBOLS(s1, s2)     CONCAT_SYMBOLS(s1, s2)
+#define PWMD(n)                             CONCAT_EXPANDED_SYMBOLS(PWMD, n)
 
-#define sign(x) (( x > 0 ) - ( x < 0 ))		// why is this here?
+#define sign(x) (( x > 0 ) - ( x < 0 ))     // why is this here?
 
 typedef struct Color Color;
 struct Color {
-	uint8_t	R;
-	uint8_t G;
-	uint8_t B;
+    uint8_t R;
+    uint8_t G;
+    uint8_t B;
 };
 
 void ws2812_init(void);
