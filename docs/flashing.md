@@ -49,6 +49,20 @@ To generate this bootloader, use the `bootloader` target, eg `make planck/rev4:d
 
 To generate a production-ready .hex file (containing the application and the bootloader), use the `production` target, eg `make planck/rev4:default:production`.
 
+Once you have a .hex file, flash them to your board with AVRDUDE with the following command:
+
+    avrdude -c <your programmer id> -p m32u4 -U flash:w:"your_production.hex":a
+
+Where \<your programmer id\> is the name of your programmer from the list available [here](https://www.nongnu.org/avrdude/user-manual/avrdude_4.html)
+
+You also need to set the correct fuses. If your board uses reset source detection, (CHECK_RESET_SOURCE = yes in your rules.mk), then flash the following fuses:
+
+    avrdude -c <your programmer id> -p m32u4 -U lfuse:w:0xDE:m -U hfuse:w:0x98:m -U efuse:w:0xCB:m
+
+Otherwise, your board has to tie PE2 to GND. This is the case with the sparkfun pro micro. In that case you would need the following fuses:
+
+    avrdude -c <your programmer id> -p m32u4 -U lfuse:w:0xDE:m -U hfuse:w:0x99:m -U efuse:w:0xC3:m
+
 ### DFU commands
 
 There are a number of DFU commands that you can use to flash firmware to a DFU device:
