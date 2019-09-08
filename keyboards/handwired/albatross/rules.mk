@@ -83,4 +83,5 @@ UNICODE_ENABLE          = yes # Unicode
 SWAP_HANDS_ENABLE       = no # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE        = no
 API_SYSEX_ENABLE        = no
+RGB_MATRIX_ENABLE		= WS2812
 RGBLIGHT_ENABLE         = yes
