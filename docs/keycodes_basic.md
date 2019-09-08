@@ -191,7 +191,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` keycodes are found in the Generic Desktop page, and the rest are located in the Consumer page.
 
-Note that some of these keycodes are OS-dependent.
+Note that some of these keycodes are OS-dependent. For example, on MacOS supports the keycodes `KC_MEDIA_FAST_FORWARD` and `KC_MEDIA_REWIND` in addition to `KC_MEDIA_NEXT_TRACK` and `KC_MEDIA_PREV_TRACK`: those extra keycodes skip within the current track when held, but skip the entire track like the latter keycodes when tapped.
 
 |Key                    |Aliases  |Description                  |
 |-----------------------|---------|-----------------------------|
