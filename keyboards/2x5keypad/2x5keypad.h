@@ -1,5 +1,4 @@
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 #include "led.h"
@@ -9,7 +8,7 @@
 #define GREEN_LED B6
 
 
-#define KEYMAP( \
+#define LAYOUT( \
 	K00, K01, K02, K03, K04, \
 	K10, K11, K12, K13, K14  \
 ) { \
@@ -17,7 +16,5 @@
 	{ K10,   K11,   K12,   K13,   K14 }  \
 }
 
+
 void keyboard_pre_init_user(void);
-
-
-#endif

@@ -1,3 +1,5 @@
+#pragma once
+
 #include QMK_KEYBOARD_H
 
 #define WIN_TAB LGUI(KC_TAB)
