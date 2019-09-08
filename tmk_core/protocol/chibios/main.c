@@ -47,6 +47,9 @@
 #ifdef STM32_EEPROM_ENABLE
 #    include "eeprom_stm32.h"
 #endif
+#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+#	 include "rgblight.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -206,6 +209,9 @@ int main(void) {
 #endif
 
         keyboard_task();
+#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+		rgblight_task();
+#endif
 #ifdef CONSOLE_ENABLE
         console_task();
 #endif
