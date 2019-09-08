@@ -13,7 +13,7 @@ Keyboard Maintainer: [Jonathan Cameron](https://github.com/jmcameron)
 
 Hardware:
   * Key switch holes cut in blank piece of copper-clad project board
-  * Uses Kailh Box White switches
+  * Uses Kailh Box White switches with relegendable keycaps
   * Chassis is three layers of wood
   * Handwired
   * Uses a Pro Micro
