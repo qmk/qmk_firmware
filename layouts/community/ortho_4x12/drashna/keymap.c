@@ -27,6 +27,9 @@ enum planck_keycodes {
 };
 #else
 #    define BACKLIT OSM(MOD_LSFT)
+enum planck_keycodes {
+    TH_LVL = NEW_SAFE_RANGE,
+};
 #endif
 
 #ifdef KEYBOARD_planck_ez
@@ -48,8 +51,8 @@ enum planck_keycodes {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_ortho_4x12_wrapper( \
-    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
+    KC_TAB,  ALT_T(K11), K12, K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29, RCTL_T(K2A), KC_ENT,  \
     BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, PLNK_1,  PLNK_2,  PLNK_3,  PLNK_4,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
@@ -117,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD, _________________LOWER_L1__________________, _________________LOWER_R1__________________, KC_BSPC,
     KC_DEL,  _________________LOWER_L2__________________, _________________LOWER_R2__________________, KC_PIPE,
     _______, _________________LOWER_L3__________________, _________________LOWER_R3__________________, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
   [_RAISE] = LAYOUT_ortho_4x12_wrapper(
@@ -130,8 +133,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
-    _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NUKE
+    TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
+    _______, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
   )
 
 };
@@ -149,7 +152,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             } else {
                 unregister_code(KC_RSFT);
             }
-            return false;
+            break;
+#endif
+#ifdef KEYBOARD_planck_ez
+        case TH_LVL:
+            if (record->event.pressed) {
+                 keyboard_config.led_level++;
+                 if (keyboard_config.led_level > 4) {
+                    keyboard_config.led_level = 0;
+                 }
+                 planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
+                 eeconfig_update_kb(keyboard_config.raw);
+                 layer_state_set_kb(layer_state);
+            }
             break;
 #endif
     }
@@ -265,7 +281,7 @@ void rgb_matrix_indicators_user(void) {
             break;
     }
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-        rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+        if (!layer_state_cmp(layer_state, _ADJUST)) { rgb_matrix_set_color(24, 0x00, 0xFF, 0x00); }
         rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {
@@ -353,18 +369,18 @@ void dip_update(uint8_t index, bool active) {
 
 #ifdef KEYBOARD_planck_ez
 layer_state_t layer_state_set_keymap(layer_state_t state) {
-    palClearPad(GPIOB, 8);
-    palClearPad(GPIOB, 9);
+    planck_ez_left_led_off();
+    planck_ez_right_led_off();
     switch (biton32(state)) {
         case _LOWER:
-            palSetPad(GPIOB, 9);
+            planck_ez_left_led_on();
             break;
         case _RAISE:
-            palSetPad(GPIOB, 8);
+            planck_ez_right_led_on();
             break;
         case _ADJUST:
-            palSetPad(GPIOB, 9);
-            palSetPad(GPIOB, 8);
+            planck_ez_right_led_on();
+            planck_ez_left_led_on();
             break;
         default:
             break;
