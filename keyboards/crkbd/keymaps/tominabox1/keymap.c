@@ -139,6 +139,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
+#define TAPPING_TERM 200
+
 // Set per-key tapping term
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
@@ -212,6 +214,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
    )
 };
+extern bool oled_initialized;
+
+void matrix_scan_user(void) {
+#ifdef OLED_DRIVER_ENABLE
+    if (!oled_initialized) {
+        oled_init(OLED_ROTATION_0);
+    }
+#endif
+}
 
 int RGB_current_mode;
 
