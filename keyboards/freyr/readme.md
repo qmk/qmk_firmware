@@ -1,15 +1,15 @@
-# DZ60RGB
+# freyr
 
-![dz60rgb](https://cdn.shopify.com/s/files/1/0043/9140/3591/products/TIM_20190130170231_grande.jpg?v=1548839053)
+![Freyr](https://i.imgur.com/MeOrzoI.jpg)
 
-A hotswap 60% RGB keyboard.
+Freyr is a tenkeyless keyboard, support ansi and iso layout. 
+[Full layout here](http://www.keyboard-layout-editor.com/#/gists/438ef0c58c46ec28c80d9894ffcff177)
 
-Keyboard Maintainer: DZtech  
-Hardware Supported: DZtech dz60rgb, dz60rgb-ansi  
-Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
+Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)  
+Hardware Supported: Freyr.revB PCB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dztech/dz60rgb:default
+    make freyr:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
