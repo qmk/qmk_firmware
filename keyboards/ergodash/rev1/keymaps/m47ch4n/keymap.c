@@ -1,12 +1,9 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
-
-extern keymap_config_t keymap_config;
 
 // clang-format off
-enum layers { _QWERTY, _LOWER, _ADJUST };
+enum layers { _QWERTY, _LOWER, _RAISE, _ADJUST };
 
-enum custom_keycodes { JP = SAFE_RANGE, US, SHIFT, LOWER_L, LOWER_R, ADJUST,
+enum custom_keycodes { JP = SAFE_RANGE, US, SHIFT, LOWER, RAISE, ADJUST,
     CSTM_0, CSTM_1, CSTM_2, CSTM_3, CSTM_4, CSTM_5, CSTM_6, CSTM_7, CSTM_8, CSTM_9,
     CIRC, AT, LBRC, RBRC, BSLS, AMPR, QUOT, LPRN, RPRN, EQL, TILD, PIPE, GRV, LCBR,
     PLUS, ASTR, RCBR, UNDS, MINS, SCLN, COMM, DOT, SLSH, EXLM, HASH, DLR, PERC, DEL };
@@ -22,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
      * | Shift|   Z  |   X  |   C  |   V  |   B  | Shift|                    | Shift|   N  |   M  |   ,  |   .  |   /  | Shift|
      * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
-     * | Shift|Adjust|  ALt |  GUI |||||||| Lower| Space|      ||||||||      | Enter| Lower||||||||  GUI |  ALt |Adjust| Shift|
+     * | Shift|Adjust|  ALt |  GUI |||||||| Lower| Space|      ||||||||      | Enter| Raise||||||||  GUI |  ALt |Adjust| Shift|
      * ,----------------------------------------------------------------------------------------------------------------------.
      */
     [_QWERTY] = LAYOUT( \
@@ -30,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX,                        XXXXXXX, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSLS   , \
       KC_LGUI, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,                        XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    SCLN,    QUOT   , \
       SHIFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    SHIFT  ,                        SHIFT,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFT  , \
-      SHIFT,   ADJUST,  KC_LALT, KC_LCTL,          LOWER_L, KC_SPC ,XXXXXXX,        XXXXXXX,KC_ENT , LOWER_R,          KC_LCTL, KC_LALT, ADJUST,  SHIFT    \
+      SHIFT,   ADJUST,  KC_LALT, KC_LCTL,          LOWER,   KC_SPC ,XXXXXXX,        XXXXXXX,KC_ENT , RAISE,            KC_LCTL, KC_LALT, ADJUST,  SHIFT    \
     ),
 
     /* Lower
@@ -41,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
      * |      |   1  |   2  |   3  |   4  |   5  |      |                    |      |   6  |   7  |   8  |   9  |   0  |      |
      * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
-     * |      |      |      |      |   -  |   _  |      |                    |      |   +  |   =  |   [  |   ]  |      |      |
+     * |      ||||||||||||||||||||||   -  |   _  |      |                    |      |   +  |   =  |   [  |   ]  ||||||||      |
      * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
      * |      |      |      |      ||||||||      |  ESC |      ||||||||      | Bksp |      ||||||||      |      |      |      |
      * ,----------------------------------------------------------------------------------------------------------------------.
@@ -50,7 +47,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
       TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   , \
       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______, \
-      _______, _______, LBRC,    RBRC,    MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     LBRC,    RBRC,    _______, _______, \
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     LBRC,    RBRC,    XXXXXXX, _______, \
+      _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______  \
+    ),
+
+    /* Raise
+     * ,----------------------------------------------------------------------------------------------------------------------.
+     * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |      |                    |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
+     * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
+     * |  ~   |   !  |   @  |   #  |   $  |   %  |      |                    |      |   ^  |   &  |   *  |   (  |   )  |  |   |
+     * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
+     * |      |   1  |   2  |   3  |   4  |   5  |      |                    |      |   6  |   7  |   8  |   9  |   0  |      |
+     * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
+     * |      ||||||||   [  |   ]  |   -  |   _  |      |                    |      |   +  |   =  ||||||||||||||||||||||      |
+     * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
+     * |      |      |      |      ||||||||      |  ESC |      ||||||||      | Bksp |      ||||||||      |      |      |      |
+     * ,----------------------------------------------------------------------------------------------------------------------.
+     */
+    [_RAISE] = LAYOUT(
+      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
+      TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   , \
+      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______, \
+      _______, XXXXXXX, LBRC,    RBRC,    MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     XXXXXXX, XXXXXXX, XXXXXXX, _______, \
       _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______  \
     ),
 
@@ -62,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
      * |      | Home |PageDn|PageUp|  End ||||||||      |                    |      | Left | Down |  Up  | Right||||||||      |
      * |------+------+------+------+------+------+---------------------------+------+------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |                    |      |      |      |   {  |   }  |      |      |
+     * |      |      |   {  |   }  |      |      |      |                    |      |      |      |   {  |   }  |      |      |
      * |-------------+------+------+------+------+------+------+------+------+------+------+------+------+------+-------------|
      * |      |      |      |      ||||||||      |      |      ||||||||      |      |      ||||||||      |      |      |      |
      * ,----------------------------------------------------------------------------------------------------------------------.
@@ -71,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, US     ,                        JP,      _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______, \
       _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______,                        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______, \
-      _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, LCBR,    RCBR,    _______, _______, \
+      _______, _______, LCBR,    RCBR,    _______, _______, _______,                        _______, _______, _______, LCBR,    RCBR,    _______, _______, \
       _______, _______, _______, _______,          _______, _______,_______,        _______,_______, _______,          _______, _______, _______, _______  \
     )};
 // clang-format on
@@ -109,31 +127,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
     case CODE:                                  \
         (LAYOUT_STATUS == JP_LAYOUT ? JP : US); \
         return false;
-
-bool pushed_lower_l = false;
-bool pushed_lower_r = false;
-bool pushed_adjust  = false;
-
-void update_layer(void) {
-    int code = (pushed_adjust<<2) + (pushed_lower_r<<1) + (pushed_lower_l<<0);
-
-    layer_off(_ADJUST);
-    layer_off(_LOWER);
-    switch (code) {
-        case 7:
-        case 6:
-        case 5:
-        case 4:
-        case 3:
-            layer_on(_ADJUST);
-        case 2:
-        case 1:
-            layer_on(_LOWER);
-        case 0:
-            break;
-    }
-    return;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -194,31 +187,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case LOWER_L:
+        case LOWER:
             if (record->event.pressed) {
-                pushed_lower_l = true;
+                layer_on(_LOWER);
             } else {
-                pushed_lower_l = false;
+                layer_off(_LOWER);
             }
-            update_layer();
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
             return false;
             break;
-        case LOWER_R:
+        case RAISE:
             if (record->event.pressed) {
-                pushed_lower_r = true;
+                layer_on(_RAISE);
             } else {
-                pushed_lower_r = false;
+                layer_off(_RAISE);
             }
-            update_layer();
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
             return false;
             break;
         case ADJUST:
             if (record->event.pressed) {
-                pushed_adjust = true;
+                layer_on(_ADJUST);
             } else {
-                pushed_adjust = false;
+                layer_off(_ADJUST);
             }
-            update_layer();
             return false;
             break;
     }
