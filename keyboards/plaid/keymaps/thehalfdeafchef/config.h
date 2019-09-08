@@ -1,4 +1,4 @@
-/* Copyright 2019 Takuya Urakawa (dm9records.com)
+/* Copyright 2019 Ian Canino (ian@thecommittedbug.io)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
