@@ -1,4 +1,4 @@
-# %2x5keypad%
+# %KEYBOARD%
 
 ![%2x5keypad%](2x5keypad-small.jpg)
 
