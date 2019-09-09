@@ -17,7 +17,7 @@ Hardware:
   * Chassis is three layers of wood
   * Handwired
   * Uses a Pro Micro
-  * Includes a reset switch accsible by a hole on the bottom
+  * Includes a reset switch accessible by a hole on the bottom
 
 Make example for this keyboard (after setting up your build environment):
 
