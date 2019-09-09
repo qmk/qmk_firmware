@@ -170,7 +170,8 @@ class Configuration(object):
     def __delitem__(self, key):
         if key in self.__dict__ and key[0] != '_':
             del self.__dict__[key]
-        del self._config[key]
+        if key in self._config:
+            del self._config[key]
 
 
 class ConfigurationSection(Configuration):
@@ -284,7 +285,7 @@ class MILC(object):
         self._description = self._arg_parser.description = self._arg_defaults.description = value
 
     def echo(self, text, *args, **kwargs):
-        """Print colorized text to stdout, as long as stdout is a tty.
+        """Print colorized text to stdout.
 
         ANSI color strings (such as {fg-blue}) will be converted into ANSI
         escape sequences, and the ANSI reset sequence will be added to all
@@ -295,11 +296,10 @@ class MILC(object):
         if args and kwargs:
             raise RuntimeError('You can only specify *args or **kwargs, not both!')
 
-        if sys.stdout.isatty():
-            args = args or kwargs
-            text = format_ansi(text)
+        args = args or kwargs
+        text = format_ansi(text)
 
-            print(text % args)
+        print(text % args)
 
     def initialize_argparse(self):
         """Prepare to process arguments from sys.argv.

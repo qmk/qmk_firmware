@@ -10,4 +10,3 @@ from . import hello
 from . import json
 from . import pyformat
 from . import pytest
-from . import subcommands

@@ -4,8 +4,6 @@
 import os
 import subprocess
 import sys
-from glob import glob
-from importlib import import_module
 from importlib.util import find_spec
 from time import strftime
 
@@ -44,9 +42,7 @@ else:
 
 # Setup the CLI
 import milc
-from qmk.path import subcommand_modules
 
-SUBCOMMAND_BLACKLIST = ['qmk.cli.subcommands']
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
 
@@ -73,7 +69,7 @@ def main():
     if return_code is False:
         exit(1)
 
-    elif isinstance(return_code, int):
+    elif return_code is not True and isinstance(return_code, int):
         if return_code < 0 or return_code > 255:
             milc.cli.log.error('Invalid return_code: %d', return_code)
             exit(255)

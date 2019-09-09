@@ -75,7 +75,7 @@ def config(cli):
 
                 if not cli.args.read_only:
                     if value == 'None':
-                        del(cli.config[section][config_key])
+                        del cli.config[section][config_key]
                     else:
                         cli.config[section][config_key] = value
                     save_config = True

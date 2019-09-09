@@ -34,11 +34,3 @@ def normpath(path):
         return os.path.normpath(path)
 
     return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
-
-
-def subcommand_modules():
-    """Returns a list of subcommands
-    """
-    for pkg in walk_packages():
-        if 'qmk.cli.' in pkg.name:
-            yield pkg.name

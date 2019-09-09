@@ -17,4 +17,4 @@ def pytest(cli):
         cli.log.error('Could not import nose2! Please install it with {fg_cyan}pip3 install nose2')
         return False
 
-    nose2.discover(argv=['nose2'])
+    nose2.discover(argv=['nose2', '-v'])
