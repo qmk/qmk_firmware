@@ -9,6 +9,7 @@
 * [QMK Basics](README.md)
   * [QMK Introduction](getting_started_introduction.md)
   * [QMK CLI](cli.md)
+  * [QMK CLI Config](cli_configuration.md)
   * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
   * [Getting Help](getting_started_getting_help.md)
