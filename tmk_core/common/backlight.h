@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef BREATHING_PERIOD
-  #define BREATHING_PERIOD 6
+#    define BREATHING_PERIOD 6
 #endif
 
 typedef union {
