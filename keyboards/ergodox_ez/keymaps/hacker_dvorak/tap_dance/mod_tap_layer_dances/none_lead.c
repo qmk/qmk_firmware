@@ -1,7 +1,7 @@
 //instanalize an instance of 'tap' for the None - Lead tap dance.
 static tap none_lead_state = {
-        .is_press_action = true,
-        .state           = 0
+    .is_press_action = true,
+    .state           = 0
 };
 
 void none_lead_finished(qk_tap_dance_state_t *state, void *user_data) {
