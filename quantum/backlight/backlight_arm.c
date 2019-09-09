@@ -6,6 +6,10 @@
 // TODO: remove short term bodge when refactoring BACKLIGHT_CUSTOM_DRIVER out
 #ifdef BACKLIGHT_PIN
 
+#    if defined(STM32F0XX) || defined(STM32F0xx)
+#        error "Backlight support for STMF072 is not available. Please disable."
+#    endif
+
 #    if defined(STM32F1XX) || defined(STM32F1xx)
 #        define USE_GPIOV1
 #    endif
