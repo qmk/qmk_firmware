@@ -246,7 +246,7 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
         CIE1931_CURVE = yes
     endif
 
-    ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 
