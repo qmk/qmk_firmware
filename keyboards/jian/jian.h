@@ -5,6 +5,10 @@
   #include "handwired.h"
 #endif
 
+#ifdef KEYBOARD_jian_nsrev1
+  #include "nsrev1.h"
+#endif
+
 #ifdef KEYBOARD_jian_rev1
   #include "rev1.h"
 #endif
