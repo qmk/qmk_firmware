@@ -1,6 +1,6 @@
 # 2x5keypad
 
-![2x5keypad](2x5keypad-small.jpg)
+![2x5keypad](http://jmcameron.net/2x5keypad-small.jpg)
 
 This Keypad has 2 rows x 5 columns of keys. It has the top/default layer that
 has a few handy navigation keys as well as one dedicated key to cycle through
