@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "led.h"
 
 #define RED_LED D0
 #define BLUE_LED B5
