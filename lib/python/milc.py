@@ -38,6 +38,9 @@ import argcomplete
 import colorama
 from appdirs import user_config_dir
 
+# Disable logging until we can configure it how the user wants
+logging.basicConfig(filename='/dev/null')
+
 # Log Level Representations
 EMOJI_LOGLEVELS = {
     'CRITICAL': '{bg_red}{fg_white}¬_¬{style_reset_all}',
@@ -424,7 +427,7 @@ class MILC(object):
             if 'arg_only' in kwargs and kwargs['arg_only']:
                 arg_name = self.get_argument_name(*args, **kwargs)
                 self.arg_only.append(arg_name)
-                del(kwargs['arg_only'])
+                del kwargs['arg_only']
 
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
@@ -512,7 +515,6 @@ class MILC(object):
                 else:
                     if option not in self.config[section]:
                         self.config[section][option] = getattr(self.args, argument)
-
 
         self.release_lock()
 
@@ -617,6 +619,7 @@ class MILC(object):
     def subcommand(self, description, **kwargs):
         """Decorator to register a subcommand.
         """
+
         def subcommand_function(handler):
             return self.add_subcommand(handler, description, **kwargs)
 
@@ -626,8 +629,8 @@ class MILC(object):
         """Called by __enter__() to setup the logging configuration.
         """
         if len(logging.root.handlers) != 0:
-            # This is not a design decision. This is what I'm doing for now until I can examine and think about this situation in more detail.
-            raise RuntimeError('MILC should be the only system installing root log handlers!')
+            # MILC is the only thing that should have root log handlers
+            logging.root.handlers = []
 
         self.acquire_lock()
 
