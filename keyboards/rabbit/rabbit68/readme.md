@@ -1,7 +1,7 @@
 Rabbit 68
 ===
 
-![Rabbit 68 Project](https://github.com/kaiec/rabbit68)
+![Rabbit 68 Project](https://raw.githubusercontent.com/kaiec/rabbit68/master/images/rabbit68-rev1-rendered-bg.jpg)
 
 A compact 68 keys ortholinear keyboard.
 
