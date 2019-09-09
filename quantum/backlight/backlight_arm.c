@@ -17,7 +17,7 @@
 
 // GENERIC
 #    ifndef BACKLIGHT_PWM_DRIVER
-#        define BACKLIGHT_PWM_DRIVER PWMD3
+#        define BACKLIGHT_PWM_DRIVER PWMD4
 #    endif
 #    ifndef BACKLIGHT_PWM_CHANNEL
 #        define BACKLIGHT_PWM_CHANNEL 3
