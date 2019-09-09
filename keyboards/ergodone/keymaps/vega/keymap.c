@@ -426,8 +426,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [FNLR] = LAYOUT_ergodox(
        // left hand
-       KC_NO,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
-       KC_NO,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
+       UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
+       UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        KC_NO,KC_F21, KC_F22, KC_F23,KC_F24, KC_NO,
        KC_NO,KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
           EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),

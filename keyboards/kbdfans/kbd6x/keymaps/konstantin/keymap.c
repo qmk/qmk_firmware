@@ -30,17 +30,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-static inline void fn_light() {
+static inline void fn_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_red.h, modern_dolch_red.s, rgblight_get_val());
 }
 
-static inline void caps_light() {
+static inline void caps_light(void) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_sethsv_noeeprom(modern_dolch_cyan.h, modern_dolch_cyan.s, rgblight_get_val());
 }
 
-static inline void restore_light() {
+static inline void restore_light(void) {
     rgblight_config_t saved = { .raw = eeconfig_read_rgblight() };
     rgblight_sethsv_noeeprom(saved.hue, saved.sat, saved.val);
     rgblight_mode_noeeprom(saved.mode);
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_LGUI, KC_LALT,                            KC_SPC,                             RAL_RGU, RCTRL,   XXXXXXX
     ),
 
-    /* Function layer
+    /* Fn layer
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│PSc│Ins│
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
