@@ -139,7 +139,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 250
 
 // Set per-key tapping term
 uint16_t get_tapping_term(uint16_t keycode) {
