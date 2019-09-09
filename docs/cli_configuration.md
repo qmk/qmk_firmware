@@ -105,7 +105,7 @@ Attribute style:
 cli.config.<section>.<key> = <value>
 ```
 
-### Deleting Configuration Values
+## Deleting Configuration Values
 
 You can delete configuration values in the usual ways.
 
@@ -121,8 +121,28 @@ Attribute style:
 del(cli.config.<section>.<key>)
 ```
 
-### Writing The Configuration File
+## Writing The Configuration File
 
 The configuration is not written out when it is changed. Most commands do not need to do this. We prefer to have the user change their configuration deliberitely using `qmk config`.
 
 You can use `cli.save_config()` to write out the configuration.
+
+## Excluding Arguments From Configuration
+
+Some arguments should not be propagated to the configuration file. These can be excluded by adding `arg_only=True` when creating the argument.
+
+Example:
+
+```
+@cli.argument('-o', '--output', arg_only=True, help='File to write to')
+@cli.argument('filename', arg_only=True, help='Configurator JSON file')
+@cli.subcommand('Create a keymap.c from a QMK Configurator export.')
+def json_keymap(cli):
+    pass
+```
+
+You will only be able to access these arguments using `cli.args`. For example:
+
+```
+cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.output)
+```
