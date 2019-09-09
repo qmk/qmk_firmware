@@ -69,6 +69,18 @@ Whole Section Example:
 
     qmk config compile
 
+## Deleting Configuration Values
+
+You can delete a configuration value by setting it to the special string `None`.
+
+Example:
+
+```
+$ qmk config default.keymap=None
+default.keymap: default -> None
+Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
+```
+
 # Scripting Documenting
 
 This section is only relevant to developers working on QMK subcommands. If you are not writing python code for QMK you can skip this, unless it interests you.
