@@ -118,6 +118,8 @@ The breathing effect is the same as in the hardware PWM implementation.
 
 Currently only hardware PWM is supported, and does not provide automatic configuration.
 
+?> STMF072 support is being investigated.
+
 ### ARM Configuration
 
 To change the behavior of the backlighting, `#define` these in your `config.h`:
