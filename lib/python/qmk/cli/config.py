@@ -28,6 +28,8 @@ def config(cli):
 
     If section.key=value is supplied the value for that single key will be set.
 
+    If section.key=None is supplied the key will be deleted.
+
     No validation is done to ensure that the supplied section.key is actually used by qmk scripts.
     """
     if not cli.args.configs:
@@ -41,47 +43,54 @@ def config(cli):
     # Process config_tokens
     save_config = False
 
-    for config_token in cli.args.configs:
-        # Extract the section, config_key, and value to write from the supplied config_token.
-        if '=' in config_token:
-            key, value = config_token.split('=')
-        else:
-            key = config_token
-            value = None
+    for argument in cli.args.configs:
+        # Split on space in case they quoted multiple config tokens
+        for config_token in argument.split(' '):
+            # Extract the section, config_key, and value to write from the supplied config_token.
+            if '=' in config_token:
+                key, value = config_token.split('=')
+            else:
+                key = config_token
+                value = None
 
-        if '.' in key:
-            section, config_key = key.split('.', 1)
-        else:
-            section = key
-            config_key = None
+            if '.' in key:
+                section, config_key = key.split('.', 1)
+            else:
+                section = key
+                config_key = None
 
-        # Validation
-        if config_key and '.' in config_key:
-            cli.log.error('Config keys may not have more than one period! "%s" is not valid.', config_key)
-            return False
+            # Validation
+            if config_key and '.' in config_key:
+                cli.log.error('Config keys may not have more than one period! "%s" is not valid.', key)
+                return False
 
-        # Do what the user wants
-        if section and config_key and value:
-            # Write a config key
-            log_string = '%s.%s{fg_cyan}:{fg_reset} %s {fg_cyan}->{fg_reset} %s'
-            if cli.args.read_only:
-                log_string += ' {fg_red}(change not written)'
+            # Do what the user wants
+            if section and config_key and value:
+                # Write a config key
+                log_string = '%s.%s{fg_cyan}:{fg_reset} %s {fg_cyan}->{fg_reset} %s'
+                if cli.args.read_only:
+                    log_string += ' {fg_red}(change not written)'
 
-            cli.echo(log_string, section, config_key, cli.config[section][config_key], value)
+                cli.echo(log_string, section, config_key, cli.config[section][config_key], value)
 
-            if not cli.args.read_only:
-                cli.config[section][config_key] = value
-                save_config = True
+                if not cli.args.read_only:
+                    if value == 'None':
+                        del(cli.config[section][config_key])
+                    else:
+                        cli.config[section][config_key] = value
+                    save_config = True
 
-        elif section and config_key:
-            # Display a single key
-            print_config(section, config_key)
+            elif section and config_key:
+                # Display a single key
+                print_config(section, config_key)
 
-        elif section:
-            # Display an entire section
-            for key in cli.config[section]:
-                print_config(section, key)
+            elif section:
+                # Display an entire section
+                for key in cli.config[section]:
+                    print_config(section, key)
 
     # Ending actions
     if save_config:
         cli.save_config()
+
+    return True
