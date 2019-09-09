@@ -109,6 +109,7 @@
 #define IT_EURO ALGR(KC_E) 		// €
 #define IT_PIPE LSFT(IT_BKSL) 	// |
 #define	IT_SHRP	ALGR(IT_AACC) 	// #
+#define IT_PLMN KC_LALT(KC_LSFT(IT_IACC)) // ±
 
 #define	IT_X_PLUS	X_RBRACKET 	// #
 
