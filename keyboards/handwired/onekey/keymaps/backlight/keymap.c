@@ -15,6 +15,7 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
       // single tap - step through backlight
       backlight_step();
       break;
+#ifdef BACKLIGHT_BREATHING
     case 2:
       // double tap - toggle breathing
       breathing_toggle();
@@ -22,6 +23,7 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     case 3:
       //tripple tap - do some pulse stuff
       breathing_pulse();
+#endif
     default:
       // more - nothing
       break;
