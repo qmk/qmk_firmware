@@ -81,6 +81,19 @@ default.keymap: default -> None
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
+## Multiple Operations
+
+You can combine multiple read and write operations into a single command. They will be executed and displayed in order:
+
+```
+$ qmk config compile default.keymap=default compile.keymap=None
+compile.keymap=skully
+compile.keyboard=clueboard/66_hotswap/gen1
+default.keymap: None -> default
+compile.keymap: skully -> None
+Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
+```
+
 # Scripting Documenting
 
 This section is only relevant to developers working on QMK subcommands. If you are not writing python code for QMK you can skip this, unless it interests you.
