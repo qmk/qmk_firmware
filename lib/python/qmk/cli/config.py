@@ -67,7 +67,7 @@ def config(cli):
             if cli.args.read_only:
                 log_string += ' {fg_red}(change not written)'
 
-            cli.echo(log_string, section, cli.config[section][config_key], config_key, value)
+            cli.echo(log_string, section, config_key, cli.config[section][config_key], value)
 
             if not cli.args.read_only:
                 cli.config[section][config_key] = value

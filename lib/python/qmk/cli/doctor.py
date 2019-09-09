@@ -36,6 +36,7 @@ def doctor(cli):
         else:
             try:
                 subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, check=True)
+                cli.log.info('Found {fg_cyan}%s', binary)
             except subprocess.CalledProcessError:
                 cli.log.error("{fg_red}Can't run `%s --version`", binary)
                 ok = False

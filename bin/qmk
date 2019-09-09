@@ -5,9 +5,9 @@ import os
 import subprocess
 import sys
 from glob import glob
-from time import strftime
 from importlib import import_module
 from importlib.util import find_spec
+from time import strftime
 
 # Add the QMK python libs to our path
 script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -15,26 +15,8 @@ qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
 python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
 sys.path.append(python_lib_dir)
 
-# Setup the CLI
-import milc
-milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
-
-
-@milc.cli.entrypoint('QMK Helper Script')
-def qmk_main(cli):
-    """The function that gets run when no subcommand is provided.
-
-    Right now we just print the help, in the future maybe we do more here?
-    """
-    cli.print_help()
-
-
-# Change to the root of our checkout
-os.environ['ORIG_CWD'] = os.getcwd()
-os.chdir(qmk_dir)
-
 # Make sure our modules have been setup
-with open('requirements.txt', 'r') as fd:
+with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
     for line in fd.readlines():
         line = line.strip().replace('<', '=').replace('>', '=')
 
@@ -50,51 +32,69 @@ with open('requirements.txt', 'r') as fd:
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
 
-# Figure out our version
-command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+# Setup the CLI
+import milc
+from qmk.path import subcommand_modules
 
-if result.returncode == 0:
-    os.environ['QMK_VERSION'] = result.stdout.strip()
-else:
-    os.environ['QMK_VERSION'] = 'dirty-nogit-' + strftime('%Y-%m-%d-%H:%M:%S')
-
-# Look for which module to import
-subcommand = None
-for count, arg in enumerate(sys.argv[1:]):
-    if arg and arg[0] != '-':
-        sys.argv[count+1] = arg.replace('-', '_')
-        subcommand = arg.replace('-', '.').replace('_', '.')
-        break
-
-if not subcommand:
-    # Import all the subcommand modules so --help works correctly
-    for dirpath, dirnames, filenames in os.walk('lib/python/qmk/cli'):
-        for file in filenames:
-            if file.endswith('.py') and file != '__init__.py':
-                file = file[:-3]
-                module = '.'.join(dirpath.split('/')[2:]) + '.' + file
-
-                try:
-                    import_module(module)
-                except ModuleNotFoundError as e:
-                    if e.name != module:
-                        raise
-else:
-    # Import only the subcommand module we care about for faster startup
-    subcommand = 'qmk.cli.' + subcommand
-
-    try:
-        import_module(subcommand)
-    except ModuleNotFoundError as e:
-        if e.name != subcommand:
-            raise
-
-        milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
-        exit(1)
+SUBCOMMAND_BLACKLIST = ['qmk.cli.subcommands']
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
 
-if __name__ == '__main__':
+@milc.cli.entrypoint('QMK Helper Script')
+def qmk_main(cli):
+    """The function that gets run when no subcommand is provided.
+    """
+    cli.print_help()
+
+
+def main():
+    """Setup our environment and then call the CLI entrypoint.
+    """
+    # Change to the root of our checkout
+    os.environ['ORIG_CWD'] = os.getcwd()
+    os.chdir(qmk_dir)
+
+    # Figure out our version
+    command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+    result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    if result.returncode == 0:
+        os.environ['QMK_VERSION'] = result.stdout.strip()
+    else:
+        os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
+
+    # Look for which module to import
+    subcommand = None
+    for count, arg in enumerate(sys.argv[1:]):
+        if arg and arg[0] != '-':
+            sys.argv[count+1] = subcommand = arg.replace('-', '_')
+            subcommand = subcommand.replace('_', '.')
+            break
+
+    if not subcommand:
+        # Import all the subcommand modules so --help works correctly
+        for subcommand_module in subcommand_modules():
+            if subcommand_module in SUBCOMMAND_BLACKLIST:
+                continue
+
+            try:
+                import_module(subcommand_module)
+            except ModuleNotFoundError as e:
+                if e.name != subcommand_module:
+                    raise
+    else:
+        # Import only the subcommand module we care about for faster startup
+        subcommand = 'qmk.cli.' + subcommand
+
+        try:
+            import_module(subcommand)
+        except ModuleNotFoundError as e:
+            if e.name != subcommand:
+                raise
+
+            milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
+            exit(1)
+
     return_code = milc.cli()
 
     if return_code is False:
@@ -108,3 +108,6 @@ if __name__ == '__main__':
         exit(return_code)
 
     exit(0)
+
+if __name__ == '__main__':
+    main()

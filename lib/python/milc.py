@@ -148,13 +148,15 @@ class Configuration(object):
 
     def __init__(self, *args, **kwargs):
         self._config = {}
-        self.default_container = ConfigurationOption
+
+    def __getattr__(self, key):
+        return self.__getitem__(key)
 
     def __getitem__(self, key):
         """Returns a config section, creating it if it doesn't exist yet.
         """
         if key not in self._config:
-            self.__dict__[key] = self._config[key] = ConfigurationOption()
+            self.__dict__[key] = self._config[key] = ConfigurationSection(self)
 
         return self._config[key]
 
@@ -168,18 +170,21 @@ class Configuration(object):
         del self._config[key]
 
 
-class ConfigurationOption(Configuration):
-    def __init__(self, *args, **kwargs):
-        super(ConfigurationOption, self).__init__(*args, **kwargs)
-        self.default_container = dict
+class ConfigurationSection(Configuration):
+    def __init__(self, parent, *args, **kwargs):
+        super(ConfigurationSection, self).__init__(*args, **kwargs)
+        self.parent = parent
 
     def __getitem__(self, key):
-        """Returns a config section, creating it if it doesn't exist yet.
+        """Returns a config value, pulling from the `default` section as a fallback.
         """
-        if key not in self._config:
-            self.__dict__[key] = self._config[key] = None
+        if key in self._config:
+            return self._config[key]
 
-        return self._config[key]
+        elif key in self.parent.default:
+            return self.parent.default[key]
+
+        return None
 
 
 def handle_store_boolean(self, *args, **kwargs):
@@ -188,6 +193,7 @@ def handle_store_boolean(self, *args, **kwargs):
     disabled_args = None
     disabled_kwargs = kwargs.copy()
     disabled_kwargs['action'] = 'store_false'
+    disabled_kwargs['dest'] = self.get_argument_name(*args, **kwargs)
     disabled_kwargs['help'] = 'Disable ' + kwargs['help']
     kwargs['action'] = 'store_true'
     kwargs['help'] = 'Enable ' + kwargs['help']
@@ -315,20 +321,20 @@ class MILC(object):
         self.release_lock()
 
     def completer(self, completer):
-        """Add an arpcomplete completer to this subcommand.
+        """Add an argcomplete completer to this subcommand.
         """
         self._arg_parser.completer = completer
 
     def add_argument(self, *args, **kwargs):
         """Wrapper to add arguments to both the main and the shadow argparser.
         """
+        if 'action' in kwargs and kwargs['action'] == 'store_boolean':
+            return handle_store_boolean(self, *args, **kwargs)
+
         if kwargs.get('add_dest', True) and args[0][0] == '-':
             kwargs['dest'] = 'general_' + self.get_argument_name(*args, **kwargs)
         if 'add_dest' in kwargs:
             del kwargs['add_dest']
-
-        if 'action' in kwargs and kwargs['action'] == 'store_boolean':
-            return handle_store_boolean(self, *args, **kwargs)
 
         self.acquire_lock()
         self._arg_parser.add_argument(*args, **kwargs)
@@ -633,7 +639,7 @@ class MILC(object):
         self.log_file_format = ANSIStrippingFormatter(self.config['general']['log_file_fmt'], self.config['general']['datetime_fmt'])
         self.log_format = self.config['general']['log_fmt']
 
-        if self.config.general.general_color:
+        if self.config.general.color:
             self.log_format = ANSIEmojiLoglevelFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
         else:
             self.log_format = ANSIStrippingFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
