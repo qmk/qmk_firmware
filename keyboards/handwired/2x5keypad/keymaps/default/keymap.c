@@ -1,6 +1,15 @@
 #include QMK_KEYBOARD_H
 
-#include "keymap.h"
+#define WIN_TAB LGUI(KC_TAB)
+#define WIN_LOCK LGUI(KC_L)
+
+enum layers {
+  NORMAL_LAYER = 0,
+  MEDIA_LAYER,
+  TBD_LAYER2,
+  TBD_LAYER3
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
