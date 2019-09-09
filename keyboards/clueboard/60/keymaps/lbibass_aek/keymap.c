@@ -1,4 +1,4 @@
-#include "60.h"
+#include QMK_KEYBOARD_H
 
 
 enum keyboard_layers {
