@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "host_driver.h"
 
-
 host_driver_t *bluefruit_driver(void);
 
 #endif

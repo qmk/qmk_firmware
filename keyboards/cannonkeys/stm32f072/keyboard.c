@@ -12,8 +12,8 @@
 #include "tmk_core/common/eeprom.h"
 
 // HACK
-#include "keyboards/zeal60/zeal60_api.h" // Temporary hack
-#include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
+#include "keyboards/wilba_tech/via_api.h" // Temporary hack
+#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
 
 
 backlight_config_t kb_backlight_config = {
@@ -162,7 +162,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	}
     #endif //DYNAMIC_KEYMAP_ENABLE
 
-  return true;
+  return process_record_user(keycode, record);;
 }
 
 

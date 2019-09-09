@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "booster",
+    "url": "",
+    "maintainer": "qmk",
+    "width": 4,
+    "height": 5,
+    "layouts": {
+        "LAYOUT": {
+            "key_count": 17,
+            "layout": [
+                {"label":"K00 (D1,C7)", "x":0, "y":0},
+                {"label":"K01 (D1,D4)", "x":1, "y":0},
+                {"label":"K02 (D1,D2)", "x":2, "y":0},
+                {"label":"K03 (D1,D0)", "x":3, "y":0},
+                {"label":"K10 (D6,C7)", "x":0, "y":1},
+                {"label":"K11 (D6,D4)", "x":1, "y":1},
+                {"label":"K12 (D6,D2)", "x":2, "y":1},
+                {"label":"K20 (D7,C7)", "x":0, "y":2},
+                {"label":"K21 (D7,D4)", "x":1, "y":2},
+                {"label":"K22 (D7,D2)", "x":2, "y":2},
+                {"label":"K23 (D7,D0)", "x":3, "y":1, "h":2},
+                {"label":"K30 (B4,C7)", "x":0, "y":3},
+                {"label":"K31 (B4,D4)", "x":1, "y":3},
+                {"label":"K32 (B4,D2)", "x":2, "y":3},
+                {"label":"K40 (B5,C7)", "x":0, "y":4, "w":2},
+                {"label":"K42 (B5,D2)", "x":2, "y":4},
+                {"label":"K33 (B4,D0)", "x":3, "y":3, "h":2}
+            ]
+        }
+    }
+}

@@ -75,3 +75,6 @@ id_rsa_*
 .vscode/ipch/f312d85ded0c3a6f/usb_keyboard.ipch
 .gitignore
 .gitignore
+
+# python things
+__pycache__
