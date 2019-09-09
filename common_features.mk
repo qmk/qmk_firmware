@@ -238,7 +238,7 @@ VALID_BACKLIGHT_TYPES := yes custom
 
 BACKLIGHT_ENABLE ?= no
 ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
-    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_MATRIX_TYPES)),)
+    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
     endif
 
