@@ -125,9 +125,9 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 |Define                  |Default      |Description                                                                                                  |
 |------------------------|-------------|-------------------------------------------------------------------------------------------------------------|
 |`BACKLIGHT_PIN`         |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
-|`BACKLIGHT_PWM_DRIVER`  |`PWMD4`      |TODO|
-|`BACKLIGHT_PWM_CHANNEL` |`3`          |TODO|
-|`BACKLIGHT_PAL_MODE`    |`2`          |TODO|
+|`BACKLIGHT_PWM_DRIVER`  |`PWMD4`      |The PWM driver to use, see ST datasheets for pin to PWM timer mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
+|`BACKLIGHT_PWM_CHANNEL` |`3`          |The PWM channel to use, see ST datasheets for pin to PWM channel mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
+|`BACKLIGHT_PAL_MODE`    |`2`          |The pin alternative function to use, see ST datasheets for pin AF mapping. Unless you are designing your own keyboard, you shouldn't need to change this|
 |`BACKLIGHT_LEVELS`      |`3`          |The number of brightness levels (maximum 31 excluding off)                                                   |
 |`BACKLIGHT_CAPS_LOCK`   |*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
 |`BACKLIGHT_BREATHING`   |*Not defined*|Enable backlight breathing, if supported                                                                     |
