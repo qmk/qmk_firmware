@@ -67,7 +67,7 @@ def main():
     subcommand = None
     for count, arg in enumerate(sys.argv[1:]):
         if arg and arg[0] != '-':
-            sys.argv[count+1] = subcommand = arg.replace('-', '_')
+            sys.argv[count + 1] = subcommand = arg.replace('-', '_')
             subcommand = subcommand.replace('_', '.')
             break
 
@@ -108,6 +108,7 @@ def main():
         exit(return_code)
 
     exit(0)
+
 
 if __name__ == '__main__':
     main()
