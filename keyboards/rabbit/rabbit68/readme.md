@@ -7,7 +7,7 @@ A compact 68 keys ortholinear keyboard.
 
 Keyboard Maintainer: [Kai Eckert](https://github.com/kaiec)  
 Hardware Supported: Rabbit68 PCB rev1  
-Hardware Availability: Open Source 
+Hardware Availability: [Open Source](https://github.com/kaiec/rabbit68) 
 
 Make example for this keyboard (after setting up your build environment):
 
