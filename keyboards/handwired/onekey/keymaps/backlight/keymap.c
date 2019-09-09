@@ -23,6 +23,7 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     case 3:
       //tripple tap - do some pulse stuff
       breathing_pulse();
+      break;
 #endif
     default:
       // more - nothing
