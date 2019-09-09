@@ -7,7 +7,7 @@ from milc import cli
 
 
 @cli.subcommand('QMK Python Unit Tests')
-def nose2(cli):
+def pytest(cli):
     """Use nose2 to run unittests
     """
     try:

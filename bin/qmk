@@ -32,6 +32,16 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
 
+# Figure out our version
+# TODO(skullydazed/anyone): Find a method that doesn't involve git. This is slow in docker and on windows.
+command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
+result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+if result.returncode == 0:
+    os.environ['QMK_VERSION'] = result.stdout.strip()
+else:
+    os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
+
 # Setup the CLI
 import milc
 from qmk.path import subcommand_modules
@@ -54,47 +64,10 @@ def main():
     os.environ['ORIG_CWD'] = os.getcwd()
     os.chdir(qmk_dir)
 
-    # Figure out our version
-    command = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
-    result = subprocess.run(command, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # Import the subcommands
+    import qmk.cli
 
-    if result.returncode == 0:
-        os.environ['QMK_VERSION'] = result.stdout.strip()
-    else:
-        os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
-
-    # Look for which module to import
-    subcommand = None
-    for count, arg in enumerate(sys.argv[1:]):
-        if arg and arg[0] != '-':
-            sys.argv[count + 1] = subcommand = arg.replace('-', '_')
-            subcommand = subcommand.replace('_', '.')
-            break
-
-    if not subcommand:
-        # Import all the subcommand modules so --help works correctly
-        for subcommand_module in subcommand_modules():
-            if subcommand_module in SUBCOMMAND_BLACKLIST:
-                continue
-
-            try:
-                import_module(subcommand_module)
-            except ModuleNotFoundError as e:
-                if e.name != subcommand_module:
-                    raise
-    else:
-        # Import only the subcommand module we care about for faster startup
-        subcommand = 'qmk.cli.' + subcommand
-
-        try:
-            import_module(subcommand)
-        except ModuleNotFoundError as e:
-            if e.name != subcommand:
-                raise
-
-            milc.cli.log.error('Invalid subcommand! Could not import %s.', subcommand)
-            exit(1)
-
+    # Execute
     return_code = milc.cli()
 
     if return_code is False:
