@@ -246,14 +246,19 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
         CIE1931_CURVE = yes
     endif
 
+
+    COMMON_VPATH += $(QUANTUM_DIR)/backlight
+    SRC += backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+
     ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 
     ifeq ($(PLATFORM),AVR)
-        SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+        SRC += backlight_avr.c
     else
-        SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+        SRC += backlight_arm.c
     endif
 endif
 
