@@ -66,9 +66,6 @@ There are some limitations to the local CLI compared to the global CLI:
 * The local CLI always operates on the same `qmk_firmware` tree, even if you have multiple clones
 * The local CLI does not run in a virtualenv, so it's possible that dependencies will conflict
 
-# CLI Configuration
-
-
 # CLI Commands
 
 ## `qmk compile`

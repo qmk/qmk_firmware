@@ -49,7 +49,7 @@
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
   * [info.json Format](reference_info_json.md)
-  * [Python Development](python_development.md)
+  * [Python CLI Development](cli_development.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
