@@ -267,7 +267,8 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-ifneq ($(strip $(HAPTIC_ENABLE)),)
+HAPTIC_ENABLE ?= no
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
 	COMMON_VPATH += $(DRIVER_PATH)/haptic
 	SRC += haptic.c
 	OPT_DEFS += -DHAPTIC_ENABLE
