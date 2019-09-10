@@ -114,6 +114,16 @@ This command examines your environment and alerts you to potential build or flas
 qmk doctor
 ```
 
+## `qmk new-keymap`
+
+This command creates a new keymap based on a keyboard's existing default keymap.
+
+**Usage**:
+
+```
+qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
+```
+
 ## `qmk pyformat`
 
 This command formats python code in `qmk_firmware`.
