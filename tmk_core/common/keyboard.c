@@ -29,8 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "sendchar.h"
 #include "eeconfig.h"
-#include "backlight.h"
 #include "action_layer.h"
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 #ifdef BOOTMAGIC_ENABLE
 #    include "bootmagic.h"
 #else
