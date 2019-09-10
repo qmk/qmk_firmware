@@ -45,7 +45,6 @@
 */
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 
 #ifdef RGB_DI_PIN
