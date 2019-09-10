@@ -248,7 +248,7 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
 
 
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
-    SRC += backlight.c
+    SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
     ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
@@ -256,9 +256,9 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
     endif
 
     ifeq ($(PLATFORM),AVR)
-        SRC += backlight_avr.c
+        SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
     else
-        SRC += backlight_arm.c
+        SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
     endif
 endif
 
