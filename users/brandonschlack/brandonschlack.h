@@ -31,6 +31,7 @@ enum bs_layers {
     _ADJUST = 15 // Change keyboard settings
 };
 
+// EEPROM User Config
 typedef union {
   uint32_t raw;
   struct {
@@ -38,7 +39,6 @@ typedef union {
     uint8_t  rgb_theme :2;
   };
 } user_config_t;
-
 extern user_config_t user_config;
 
 void matrix_init_keymap(void);
