@@ -44,10 +44,6 @@
 )
 */
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
-
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 0
