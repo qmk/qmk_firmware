@@ -11,7 +11,7 @@ The MCU can only supply so much current to its GPIO pins. Instead of powering th
 Most keyboards have backlighting enabled by default if they support it, but if it is not working for you, check that your `rules.mk` includes the following:
 
 ```makefile
-BACKLIGHT_ENABLE = soft # Valid driver values are 'yes,soft,no'
+BACKLIGHT_ENABLE = software # Valid driver values are 'yes,software,no'
 ```
 
 See below for help on individual drivers.
@@ -178,7 +178,7 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 
 TODO: describe. To enable it, add this to your rules.mk:
 ```makefile
-BACKLIGHT_ENABLE = soft
+BACKLIGHT_ENABLE = software
 ```
 
 ### Software PWM Configuration
