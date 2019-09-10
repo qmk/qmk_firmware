@@ -16,3 +16,6 @@
 }
 
 
+
+void turn_off_leds(void);
+void turn_on_led(pin_t pin);
