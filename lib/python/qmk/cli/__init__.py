@@ -8,5 +8,6 @@ from . import config
 from . import doctor
 from . import hello
 from . import json
+from . import new
 from . import pyformat
 from . import pytest
