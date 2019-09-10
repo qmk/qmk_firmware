@@ -44,19 +44,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 */
 
 
-void turn_off_leds(void)
-{
-    writePinLow(RED_LED);
-    writePinLow(BLUE_LED);
-    writePinLow(GREEN_LED);
-}
-
-void turn_on_led(pin_t pin)
-{
-    writePinHigh(pin);
-}
-
-
 layer_state_t layer_state_set_user(layer_state_t state)
 {
     turn_off_leds();

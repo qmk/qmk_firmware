@@ -9,3 +9,17 @@ void matrix_init_kb(void)
     setPinOutput(BLUE_LED);
     setPinOutput(GREEN_LED);
 }
+
+
+
+void turn_off_leds(void)
+{
+    writePinLow(RED_LED);
+    writePinLow(BLUE_LED);
+    writePinLow(GREEN_LED);
+}
+
+void turn_on_led(pin_t pin)
+{
+    writePinHigh(pin);
+}
