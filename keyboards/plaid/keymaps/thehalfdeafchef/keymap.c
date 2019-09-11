@@ -156,7 +156,7 @@ LAYOUT_planck_mit(
 typedef union {
     uint32_t raw;
     struct {
-        uint8_t red_mode :8;
+        bool red_mode :1;
         uint8_t green_mode :8;
     };
 } led_config_t;
