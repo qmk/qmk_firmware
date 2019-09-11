@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _BL 0
 #define _FL 1
 #define _CL 2
@@ -32,18 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT,KC_UP,KC_PGDN, \
   KC_LCTL, KC_LALT,KC_LGUI,                KC_SPC,                        KC_RALT,MO(_FL),KC_RCTRL, KC_LEFT,KC_DOWN,KC_RGHT),
 
-  /* Keymap _FL: Function Layer
-   * ,----------------------------------------------------------------.
-   * |   | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Del    |Ins |
-   * |----------------------------------------------------------------|
-   * |     |   |Up |   |   |   |   |   |   |   |   |   |   |     |Hme |
-   * |----------------------------------------------------------------|
-   * |      |<- |Dn | ->|   |   |   |   |   |   |   |   |        |End |
-   * |----------------------------------------------------------------|
-   * |        |   |   |Bl-|BL |BL+|   |VU-|VU+|MUT|   |   McL|MsU|McR |
-   * |----------------------------------------------------------------|
-   * |    |    |    |                       |   |   |    |MsL|MsD|MsR |
-   * `----------------------------------------------------------------'
+  /* Keymap _FL: Function Layer for FN key
    */
 [_FL] = LAYOUT_ansi(
   KC_GRV,  KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_INS ,  \
@@ -52,27 +37,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,        _______,BL_BRTG,BL_DEC, BL_TOGG,BL_INC, KC_MPLY,KC_VOLD,KC_VOLU,KC_MUTE,_______,_______, _______, _______, \
   _______,_______,_______,                 _______,               _______,_______,_______,_______,_______, _______),
 
- /* Keymap _CL: Function Layer for Caps Lock function
+ /* Keymap _CL: Function Layer for Caps Lock key
   * uses VIM like control with hjkl for arrow keys
-  *
   */
 
 [_CL] = LAYOUT_ansi(
   KC_GRV,  KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_INS ,  \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK,KC_PAUS, _______,KC_HOME, \
-  _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,_______,_______,        _______,KC_END, \
+  _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,_______,_______,         _______, KC_END, \
   _______,        _______,_______,_______,_______,_______,KC_MPLY,KC_VOLD,KC_VOLU,KC_MUTE,_______,_______, _______, _______, \
   _______,_______,_______,                 _______,               _______,_______,_______,_______,_______, _______),
 
  /* Keymap _ML: The Mouse control layer, activated by using both _FL and _CL layers
   * Activates mouse control. Keeps lower layer's control
   */
-
 [_ML] = LAYOUT_ansi(
   KC_ESC ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,_______,  \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_WH_R, KC_WH_L,KC_WH_U, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______, KC_WH_D, \
-  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_BTN1, KC_MS_U, KC_BTN2, \
+  _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_BTN1, KC_MS_U, KC_BTN2, \
   _______,_______,_______,                 _______,               _______,_______,_______,KC_MS_L,KC_MS_D, KC_MS_R),
 
 };
