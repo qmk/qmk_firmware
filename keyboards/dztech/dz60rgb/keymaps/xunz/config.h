@@ -54,5 +54,4 @@
 #define TAPPING_FORCE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// #include "config_led.h"
 // #include "dz60rgb.h"
