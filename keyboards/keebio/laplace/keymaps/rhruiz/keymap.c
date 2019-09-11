@@ -18,6 +18,7 @@
 
 #define KC__M DF(_MOUSE)
 #define KC__BL DF(_BL)
+#define KC_SFQT RSFT_T(KC_QUOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* template
@@ -37,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|----`----`----`----`----`----`----`----`----`----`----`----`----+
     CESC , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN, ENTER  ,
  //|-----`----`----`----`----`----`----`----`----`----`----`--------+
-    LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, RSFT ,
+    LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, SFQT ,
  //|-------`----`----`----`----`----`----`----`----`----`----`------+
     _FN2 ,LALT,LGUI , ,  SPCFN1   , BKSFN2 , RGUI, RALT, _FN1, _M
  //`-----+----+-----+-------------+--------+-----+-----+-----+------'
