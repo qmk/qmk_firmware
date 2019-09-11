@@ -157,7 +157,7 @@ typedef union {
     uint32_t raw;
     struct {
         bool red_mode :1;
-        uint8_t green_mode :8;
+        bool green_mode :1;
     };
 } led_config_t;
 led_config_t led_config;
