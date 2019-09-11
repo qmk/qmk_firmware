@@ -2,7 +2,7 @@
 
 My QMK home. I feel as though I stand on the shoulders of giants, for a lot of my code here is borrowed and adapted from so many contributors here (namely Drashna and Konstantin), and that I hope my code here can help or inspire others.
 
-## Layers, Keycodes, and Handlers
+## Layers, Handlers, and Macros
 ### Layers
 
 I have predefined layer names for keyboards:
@@ -17,3 +17,19 @@ and macropads:
 * **_MACRO**: Generic macro keys, meant to be customized per app with [Karabiner](https://pqrs.org/osx/karabiner/)
 
 ### EEPROM User Config
+
+I have a custom userspace config implemented to save 
+
+### Process Handlers
+
+### Keycode Aliases
+
+### Macros
+
+
+## Tap Dances
+
+### Tap Dance Trigger Layer
+
+## RGB
+### RGB Theme
