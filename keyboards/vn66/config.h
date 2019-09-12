@@ -82,12 +82,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
 
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-
 #define ENCODERS_PAD_A {B0}
 #define ENCODERS_PAD_B {B7}
 #define ENCODER_RESOLUTION 2
