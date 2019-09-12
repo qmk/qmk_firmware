@@ -4,7 +4,7 @@
   {0| Del |  Q  |  W  |  F  |  P  |  G  |  J  |  L  |  U  |  Y  |  K  | Tab |0}
   {0|BkSpc|  A  |  R  |  S  |  T  |  D  |  H  |  N  |  E  |  I  |  O  |Enter|0}
   {0|Shift|  Z  |  X  |  C  |  V  |  B  |  M  | #...| .#..| ..#.| ...#|Shift|0}
-  {0| Ctr | Alt |Print| Esc |Space| Ins |Relax|Reset| Menu| Gui | Alt | Ctr |0}
+  {0| Ctr | Alt | Esc | Menu|Space| Ins |Relax|Reset|Print| Gui | Alt | Ctr |0}
 
   {I|  " with #... "  |I}    {I|  " with #.#. "  |I}    {I|  " with ..#. "  |I}
   {O|  %  ?  !  `     |O}    {O|  #  7  8  9     |O}    {O|  &  |  ~  ^     |O}
