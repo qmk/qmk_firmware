@@ -3,6 +3,7 @@
 ![vn66](https://i.imgur.com/Eo28suI.jpg)
 
 A compact 60% keyboard for VNMK
+
 Keyboard Maintainer: VNMK Community 
 Hardware Supported: VN66 PCB rev.2 
 Hardware Availability: [https://geekhack.org/index.php?topic=101754.0]
