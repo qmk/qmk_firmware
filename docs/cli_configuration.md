@@ -28,7 +28,7 @@ Now I can run `qmk compile` without specifying my keyboard and keymap each time.
 
 ## Setting Defaults
 
-Sometimes you want to share a setting between multiple commands. For example, multiple subcomands take the argument `--keyboard`. Rather than setting this value for every command you can set a default value which will be used by any command that takes that argument.
+Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command you can set a default value which will be used by any command that takes that argument.
 
 Example:
 
