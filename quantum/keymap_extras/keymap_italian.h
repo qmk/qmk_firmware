@@ -102,15 +102,15 @@
 #define IT_UNDS LSFT(IT_MINS) // _
 
 // Alt Gr-ed characters
-#define IT_LCBR ALGR(KC_7) // {
-#define IT_LBRC ALGR(IT_EACC) // [
-#define IT_RBRC ALGR(IT_PLUS) // ]
-#define IT_RCBR ALGR(KC_0) // }
-#define IT_AT   ALGR(IT_OACC) 	// @
-#define IT_EURO ALGR(KC_E) 		// €
-#define IT_PIPE LSFT(IT_BKSL) 	// |
-#define	IT_SHRP	ALGR(IT_AACC) 	// #
-#define IT_PLMN KC_LALT(KC_LSFT(IT_IACC)) // ±
+#define IT_LCBR ALGR(KC_7)          // {
+#define IT_LBRC ALGR(IT_EACC)       // [
+#define IT_RBRC ALGR(IT_PLUS)       // ]
+#define IT_RCBR ALGR(KC_0)          // }
+#define IT_AT   ALGR(IT_OACC)       // @
+#define IT_EURO ALGR(KC_E)          // €
+#define IT_PIPE LSFT(IT_BKSL) 	    // |
+#define	IT_SHRP	ALGR(IT_AACC)       // #
+#define IT_PLMN LALT(LSFT(IT_IACC)) // ±
 
 #define	IT_X_PLUS	X_RBRACKET 	// #
 
