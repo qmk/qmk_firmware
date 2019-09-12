@@ -63,10 +63,10 @@
 
 #define IT_EACC KC_LBRC  // è, é, [, {
 #define IT_PLUS KC_RBRC  // +, *, ], }
-#define IT_OACC KC_SCLN  // ò, §, @,
-#define IT_AACC KC_QUOT  // à , °, #,
+#define IT_OACC KC_SCLN  // ò, ç, @,
+#define IT_AACC KC_QUOT  // à, °, #,
 #define IT_UACC KC_BSLS  // ù, §, ¶,
-#define IT_IACC KC_EQL   // ì, ^, ¿, ±
+#define IT_IACC KC_EQL   // ì, ^, 
 
 #define IT_APOS KC_MINS  // ', ?,
 
