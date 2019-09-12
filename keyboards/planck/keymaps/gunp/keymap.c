@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_DEL,  KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_K, KC_TAB,
   KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_ENT,
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, FN_A, FN_B, FN_C, FN_D, KC_LSFT,
-  KC_LCTL, KC_LALT,    KC_ESC,     KC_APP,     KC_SPC,     KC_INS,
+  KC_LCTL, KC_LALT,    KC_APP,     KC_ESC,     KC_SPC,     KC_INS,
 // change left side of R4 in `LAYOUT_gunp` as well
   RELAX, RESET_CONF, KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL
 ),

@@ -3,6 +3,7 @@
 pushd ~/git-repos/qmk_firmware/
 rm -rf keyboards/planck/keymaps/gunp/
 cp -rf ~/git-repos/gunp-geek-repo/qmk-planck/ keyboards/planck/keymaps/gunp/
+rm -rf keyboards/planck/keymaps/gunp/archive/
 if [[ $2 == "dfu" ]]; then
     sudo make planck/$1:gunp:dfu
 else
