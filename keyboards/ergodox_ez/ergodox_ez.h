@@ -107,6 +107,25 @@ inline void ergodox_led_all_set(uint8_t n)
     ergodox_right_led_3_set(n);
 }
 
+#ifdef ORYX_CONFIGURATOR
+enum ergodox_ez_keycodes {
+    LED_LEVEL = SAFE_RANGE,
+    TOGGLE_LAYER_COLOR,
+    EZ_SAFE_RANGE,
+};
+#endif
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t    led_level :3;
+    bool       disable_layer_led   :1;
+    bool       rgb_matrix_enable   :1;
+  };
+} keyboard_config_t;
+
+extern keyboard_config_t keyboard_config;
+
 /*
  *   LEFT HAND: LINES 115-122
  *  RIGHT HAND: LINES 124-131
