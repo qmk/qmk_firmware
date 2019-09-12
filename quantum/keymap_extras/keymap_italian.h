@@ -75,7 +75,8 @@
 #define IT_BKSL KC_GRAVE // backslash \, |
 
 
-#define IT_ACUT  // accent acute ´ and grave `
+#define IT_ACUT LALT(KC_8) // accent acute ´
+#define IT_GRAV LALT(KC_9) // accent grave `
 
 #define IT_LESS KC_NUBS // < and > and |
 #define IT_MINS KC_SLSH // - and _
