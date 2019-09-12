@@ -1,7 +1,7 @@
 MCU = atmega32u4
 BOOTLOADER = caterina
 
- 
+
 AUDIO_ENABLE = no
 BACKLIGHT_ENABLE = no   # Enable keyboard backlight functionality
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
@@ -13,3 +13,4 @@ NKRO_ENABLE = yes	# USB Nkey Rollover -
 RGBLIGHT_ENABLE = no
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend
 UNICODE_ENABLE = yes
+TAP_DANCE_ENABLE = yes
