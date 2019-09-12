@@ -14,7 +14,7 @@ Each subcommand is a self-contained module with an entrypoint (decorated by `@cl
 
 [MILC](https://github.com/clueboard/milc) is the CLI framework `qmk` uses to handle argument parsing, configuration, logging, and many other features. It lets you focus on writing your tool without wasting your time writing glue code.
 
-Subcomands in the local CLI are always found in `qmk_firmware/lib/python/qmk/cli`. Subcommands in the global CLI are always found in `qmk_cli/qmk_cli/subcommands`. Most subcommands should be located in the local CLI. The global CLI subcommands should be limited to those few needed to setup a `qmk_firmware` environment.
+Subcommands in the local CLI are always found in `qmk_firmware/lib/python/qmk/cli`. Subcommands in the global CLI are always found in `qmk_cli/qmk_cli/subcommands`. Most subcommands should be located in the local CLI. The global CLI subcommands should be limited to those few needed to setup a `qmk_firmware` environment.
 
 Let's start by looking at an example subcommand. This is `lib/python/qmk/cli/hello.py`:
 
