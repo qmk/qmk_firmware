@@ -34,7 +34,7 @@ def hello(cli):
     cli.log.info('Hello, %s!', cli.config.hello.name)
 ```
 
-The first thing we do is import the `cli` object from `milc`. This is how we interact with the user and control the script's behavior. We use `@cli.arguent()` to define a command line flag, `--name`. This also creates a configuration variable named `hello.name` (and the corresponding `default.name`) which the user can set so they don't have to specify the argument. The `cli.subcomand()` decorator designates this function as a subcommand. The name of the subcommand will be taken from the name of the function.
+The first thing we do is import the `cli` object from `milc`. This is how we interact with the user and control the script's behavior. We use `@cli.argument()` to define a command line flag, `--name`. This also creates a configuration variable named `hello.name` (and the corresponding `default.name`) which the user can set so they don't have to specify the argument. The `cli.subcommand()` decorator designates this function as a subcommand. The name of the subcommand will be taken from the name of the function.
 
 Once inside our function we find a typical "Hello, World!" program. We use `cli.log` to access the underlying [Logger Object](https://docs.python.org/3.5/library/logging.html#logger-objects), whose behavior is user controllable. We also access the value for name supplied by the user as `cli.config.hello.name`. The value for `cli.config.hello.name` will be determined by looking at the `--name` argument supplied by the user, if not provided it will use the value in the `qmk.ini` config file, and if neither of those is provided it will fall back to the default supplied in the `cli.argument()` decorator.
 
