@@ -108,7 +108,7 @@ Under the hood QMK uses [ConfigParser](https://docs.python.org/3/library/configp
 
 ## Reading Configuration Values
 
-You can interact with `cli.config` in all the ways you'd normally expect. For example the `qmk compile` comand gets the keyboard name from `cli.config.compile.keyboard`. It does not need to know whether that value came from the command line, an environment variable, or the configuration file.
+You can interact with `cli.config` in all the ways you'd normally expect. For example the `qmk compile` command gets the keyboard name from `cli.config.compile.keyboard`. It does not need to know whether that value came from the command line, an environment variable, or the configuration file.
 
 Iteration is also supported:
 
