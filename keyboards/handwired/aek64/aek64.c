@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
-#define LED_ON()    do { DDRC |= (1<<5); PORTC |= (1<<5); } while (0)
-#define LED_OFF()   do { DDRC &= ~(1<<5); PORTC &= ~(1<<5); } while (0)
-#define LED_TGL()   do { DDRC |= (1<<5); PINC |= (1<<5); } while (0)
-
 /*
  * Hardware function pre initialisation.
  * See https://docs.qmk.fm/#/custom_quantum_functions?id=example-keyboard_pre_init_user-implementation
@@ -35,6 +31,6 @@ void matrix_init_kb(void) {
 
     // Flash the led 1 sec on startup.
     writePinHigh(C3);
-    _delay_ms(1000);
+    wait_ms(1000);
     writePinLow(C3);
 }

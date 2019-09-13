@@ -1,4 +1,4 @@
-# Alps64
+# AEK64
 
 An Alps only 60% handwired ISO AEK based on the original AEK plate.
 

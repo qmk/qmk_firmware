@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef AEK64_H
+#pragma once
 #define AEK64_H
 
 #include "quantum.h"
@@ -33,5 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { k30, k31, k32, k33  , k34  , k35  , k36, k37  , k38  , k39  , k310 , k311, k312, KC_NO }, \
     { k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, KC_NO, k411, k412, k413  }, \
 }
-
-#endif
