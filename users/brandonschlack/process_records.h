@@ -19,6 +19,7 @@ void matrix_scan_cmd_tab(void);
 
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
+#define SF_CAPS   LSFT_T(KC_CAPS)
 #define TG_ADJT   TG(_ADJUST)
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #define TG_LGHT   TG(_LIGHT)
@@ -28,6 +29,8 @@ void matrix_scan_cmd_tab(void);
 #define MM_RALT   RALT_T(KC_MFFD)
 #define MM_FNPY   LT(1, KC_MPLY)
 #define MM_RSFT   RSFT_T(KC_MUTE)
+#define LWR_MUT   LT(_LOWER, KC_MUTE)
+#define RAI_PLY   LT(_RAISE, KC_MPLY)
 // Arrow Mod-Tap
 #define MT_RSUP   RSFT_T(KC_UP)
 #define MT_RALT   RALT_T(KC_LEFT)
