@@ -21,11 +21,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void encoder_update_user(int8_t index, bool clockwise) {
   if (index == 0) {
     if (clockwise) {
-      register_code(KC_VOLU);
-      unregister_code(KC_VOLU);
+     tap_code(KC_VOLU);
     } else {
-      register_code(KC_VOLD);
-      unregister_code(KC_VOLD);
+      tap_code(KC_VOLD);
     }
   }
 }
