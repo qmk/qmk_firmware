@@ -1,6 +1,6 @@
 # 2Key2CrawlPad
 
-![2Key2CrawlPad](https://imgur.com/a/TLMog9R)
+![2Key2CrawlPad](https://i.imgur.com/ON7m7RI.jpg)
 
 A 2x5 macropad/numpad with a rotary encoder, exclusively available at Austin Keycrawl 2018 (12-01-2018).
 
