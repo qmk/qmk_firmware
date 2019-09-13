@@ -121,7 +121,7 @@ void matrix_scan_cmd_tab(void) {
 void send_make_command(bool flash_bootloader) {
     send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
     if (flash_bootloader) {
-#if defined(MD_BOOTLOADER) // only run for Massdrop boards
+#if defined(KEYBOARD_massdrop_alt) // only run for Massdrop ALT
         send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), TAP_CODE_DELAY);
 #elif defined(KEYBOARD_coseyfannitutti_discipline) // only run for Discipline 65
         send_string_with_delay_P(PSTR(":program"), TAP_CODE_DELAY);
