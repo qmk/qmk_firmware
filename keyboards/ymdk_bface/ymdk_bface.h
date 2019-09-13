@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 
-
-
 #define LAYOUT_60_ansi(\
   K04, K14, K24, K34, K44, K54, K64, K74, K84, K94, KA4, KB4, KC4, KE4, \
   K03, K13, K23, K33, K43, K53, K63, K73, K83, K93, KA3, KB3, KC3,    KD3, \
