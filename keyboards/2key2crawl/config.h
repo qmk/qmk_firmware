@@ -36,10 +36,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-//#define IS_COMMAND() ( \
-    false \
-)
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN C6
