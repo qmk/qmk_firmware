@@ -195,60 +195,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
  * Encoder
  */
-void encoder_update_keymap(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (get_highest_layer(layer_state)) {
             case _REEDER:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_J);
                 } else {
                     tap_code(KC_K);
                 }
                 break;
             case _MEDIA:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_VOLU);
                 } else {
                     tap_code(KC_VOLD);
                 }
                 break;
             case _NAVI:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(MC_WH_D);
                 } else {
                     tap_code(MC_WH_U);
                 }
                 break;
             case _MACRO:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_PPLS);
                 } else {
                     tap_code(KC_PMNS);
                 }
                 break;
             case LR_NAV:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_EQL);
                 } else {
                     tap_code(KC_MINS);
                 }
                 break;
             case LR_REVIEW:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_RBRC);
                 } else {
                     tap_code(KC_LBRC);
                 }
                 break;
             case LR_EDIT:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_DOT);
                 } else {
                     tap_code(KC_COMM);
                 }
                 break;
             case _LIGHT:
-                if (clockwise) {
+                if (!clockwise) {
                     rgblight_increase_hue();
                 } else {
                     rgblight_decrease_hue();
@@ -259,56 +259,56 @@ void encoder_update_keymap(uint8_t index, bool clockwise) {
     else if (index == 1) {
         switch (get_highest_layer(layer_state)) {
             case _REEDER:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_N);
                 } else {
                     tap_code(KC_P);
                 }
                 break;
             case _MEDIA:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_MFFD);
                 } else {
                     tap_code(KC_MRWD);
                 }
                 break;
             case _NAVI:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code16(NXT_TAB);
                 } else {
                     tap_code16(PRV_TAB);
                 }
                 break;
             case _MACRO:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_PEQL);
                 } else {
                     tap_code(KC_PDOT);
                 }
                 break;
             case LR_NAV:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_PGUP);
                 } else {
                     tap_code(KC_PGDN);
                 }
                 break;
             case LR_REVIEW:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code16(G(KC_UP));
                 } else {
                     tap_code16(G(KC_DOWN));
                 }
                 break;
             case LR_EDIT:
-                if (clockwise) {
+                if (!clockwise) {
                     tap_code(KC_EQL);
                 } else {
                     tap_code(KC_MINS);
                 }
                 break;
             case _LIGHT:
-                if (clockwise) {
+                if (!clockwise) {
                     rgblight_increase_sat();
                 } else {
                     rgblight_decrease_sat();

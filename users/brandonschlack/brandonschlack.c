@@ -129,15 +129,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif // RGBLIGHT_ENABLE
     return layer_state_set_keymap(state);
 }
-
-#if defined(ENCODER_ENABLE)
-__attribute__ ((weak))
-void encoder_update_keymap(uint8_t index, bool clockwise) { }
-
-/**
- * Encoders might be reveresed with macOS natural scrolling.
- */
-void encoder_update_user(uint8_t index, bool clockwise) {
-    encoder_update_keymap(index, !clockwise);
-}
-#endif
