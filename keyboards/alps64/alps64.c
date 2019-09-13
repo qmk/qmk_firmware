@@ -20,7 +20,7 @@ void keyboard_pre_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
     setPinOutput(C5);
-	keyboard_pre_init_user();
+    keyboard_pre_init_user();
 }
 
 void led_set_kb(uint8_t usb_led)
