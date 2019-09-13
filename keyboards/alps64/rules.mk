@@ -1,10 +1,5 @@
-# Target file name (without extension).
-
 # MCU name
 MCU = atmega32u2
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
@@ -14,7 +9,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 # OPT_DEFS += -DBOOTLOADER_SIZE=4096
 BOOTLOADER = atmel-dfu
-
 
 # Build Options
 #   change to no to disable the options.
