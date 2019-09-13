@@ -1,20 +1,23 @@
-# B.face
+# The YMDK "Bface" PCB
 
-A 60% keyboard with RGB that runs ps2avrgb natively. Please note that the B.face and B.fake have different switch matrices. Firmware on one, will not work on the other. 
+![ymdk_bface](https://ae01.alicdn.com/kf/HTB1i5omc6fguuRjSszcq6zb7FXaO.jpg)
+===
+
+A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has slightly different switch matrix than the origninal B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on Aliexpress.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: B.face PCB   
-Hardware Availability: [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/)   
+Hardware Supported: White Bface Mini USB PCB with no RGB. Sold by Shenzhen YMD Tech Co. (YMDK) 
+Hardware Availability: [Aliexpress](https://www.aliexpress.com/item/32799437588.html?spm=a2g0o.detail.1000060.2.74a86a8aY0zrqH&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.99734.0&scm_id=1007.13339.99734.0&scm-url=1007.13339.99734.0&pvid=c720cc9e-20ec-432f-9d90-605f99dc26d0)  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make winkeyless/bface:default
+    make ymdk_bface:default
 
 Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
-**Reset Key:** Hold down the key located at K00, commonly programmed as left control while plugging in the keyboard.
+This board has a pair of jumper holes on the left edge of the PCB marked "Jb", near TAB and CAPS LOCK. If you short the contacts with tweezers or wire the board will enter into the bootloader and you can flash it.
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
@@ -39,7 +42,7 @@ macOS:
     brew install --HEAD`https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
     ```
 
-4. Place your keyboard into reset. 
+4. Place your keyboard into reset by shorting the jumper on the left edge of the PCB.. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 

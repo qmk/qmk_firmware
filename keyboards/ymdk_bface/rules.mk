@@ -1,4 +1,4 @@
-# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+# Copyright 2019 Ethan Durrant (emdarcher)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,14 +33,11 @@ COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_CUSTOM_DRIVER = yes
 BACKLIGHT_BREATHING = no
-RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes
+RGBLIGHT_ENABLE = no
+RGBLIGHT_CUSTOM_DRIVER = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 BOOTLOADER = bootloadHID
-
-# custom matrix setup
-SRC = i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

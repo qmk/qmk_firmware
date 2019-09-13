@@ -1,6 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-Copyright 2017 Sebastian Kaim <sebastian.kaim@sebb767.de>
+Copyright 2019 Ethan Durrant (emdarcher)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,22 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 // You can edit those at usbconfig.h about line 250. These values will
 // unforunatly be ignored so far
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         b.face
+#define MANUFACTURER    YMDK
+#define PRODUCT         bface
 
-#define WINKEYLESS_BFACE 0
-
-#if WINKEYLESS_BFACE
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-
-//                        0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
-#define UNUSED_PINS
-
-#else
 /* matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -46,13 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B7, B6, B5, B4, B3}
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7}
 #define UNUSED_PINS
-
-#endif
-
-
-
-#define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1
 
