@@ -1,7 +1,6 @@
 # GunP Planck Layout
 
-![screenshot of the following text]
-(https://drive.google.com/uc?export=view&id=1A2z7r_3bhXq0hS4O3yxaO-ZXeJBzlIqB)
+![screenshot of the following text](https://drive.google.com/uc?export=view&id=1A2z7r_3bhXq0hS4O3yxaO-ZXeJBzlIqB)
 
 ```
 
