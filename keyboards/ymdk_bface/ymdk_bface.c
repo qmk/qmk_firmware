@@ -46,17 +46,17 @@ void backlight_init_ports(void) {
 }
 
 void backlight_set(uint8_t level) {
-	if (level == 0) {
+    if (level == 0) {
         // turn backlight LEDs off
         writePinLow(D0);
         writePinLow(D1);
         writePinLow(D4);
         writePinLow(D6);
-	} else {
+    } else {
         // turn backlight LEDs on
         writePinHigh(D0);
         writePinHigh(D1);
         writePinHigh(D4);
         writePinHigh(D6);
-	}
+    }
 }
