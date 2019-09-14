@@ -9,11 +9,12 @@ echo "Using git hash ${rev}"
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
-# convert to unix line-endings
+# fix formatting
 git checkout master
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
-git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
-git commit -m "convert to unix line-endings [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | grep -e '^drivers' -e '^quantum' -e '^tests' -e '^tmk_core' | xargs -0 clang-format
+git diff --diff-filter=AM --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
+git commit -m "format code according to conventions [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
 
 increment_version ()
 {

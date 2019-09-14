@@ -14,6 +14,9 @@ endif
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
      SRC += encoder.c
 endif
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+     SRC += combo.c
+endif
 
 ifeq ($(strip $(LEADER_ENABLE)), yes)
      SRC += leader.c

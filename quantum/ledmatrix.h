@@ -20,46 +20,44 @@
 #ifndef LED_MATRIX_H
 #define LED_MATRIX_H
 
-
 #ifndef BACKLIGHT_ENABLE
-  #error You must define BACKLIGHT_ENABLE with LED_MATRIX_ENABLE
+#    error You must define BACKLIGHT_ENABLE with LED_MATRIX_ENABLE
 #endif
 
-
 typedef struct Point {
-	uint8_t x;
-	uint8_t y;
+    uint8_t x;
+    uint8_t y;
 } __attribute__((packed)) Point;
 
 typedef struct led_matrix {
-	union {
-		uint8_t raw;
-		struct {
-			uint8_t row:4; // 16 max
-			uint8_t col:4; // 16 max
-		};
-	} matrix_co;
-	Point point;
-	uint8_t modifier:1;
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t row : 4;  // 16 max
+            uint8_t col : 4;  // 16 max
+        };
+    } matrix_co;
+    Point   point;
+    uint8_t modifier : 1;
 } __attribute__((packed)) led_matrix;
 
 extern const led_matrix g_leds[LED_DRIVER_LED_COUNT];
 
 typedef struct {
-	uint8_t index;
-	uint8_t value;
+    uint8_t index;
+    uint8_t value;
 } led_indicator;
 
 typedef union {
-  uint32_t raw;
-  struct {
-    bool     enable  :1;
-    uint8_t  mode    :6;
-    uint8_t  hue     :8; // Unused by led_matrix
-    uint8_t  sat     :8; // Unused by led_matrix
-    uint8_t  val     :8;
-    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
-  };
+    uint32_t raw;
+    struct {
+        bool    enable : 1;
+        uint8_t mode : 6;
+        uint8_t hue : 8;  // Unused by led_matrix
+        uint8_t sat : 8;  // Unused by led_matrix
+        uint8_t val : 8;
+        uint8_t speed : 8;  // EECONFIG needs to be increased to support this
+    };
 } led_config_t;
 
 enum led_matrix_effects {
@@ -95,22 +93,22 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record);
 
 uint32_t led_matrix_get_tick(void);
 
-void led_matrix_toggle(void);
-void led_matrix_enable(void);
-void led_matrix_enable_noeeprom(void);
-void led_matrix_disable(void);
-void led_matrix_disable_noeeprom(void);
-void led_matrix_step(void);
-void led_matrix_step_reverse(void);
-void led_matrix_increase_val(void);
-void led_matrix_decrease_val(void);
-void led_matrix_increase_speed(void);
-void led_matrix_decrease_speed(void);
-void led_matrix_mode(uint8_t mode, bool eeprom_write);
-void led_matrix_mode_noeeprom(uint8_t mode);
+void    led_matrix_toggle(void);
+void    led_matrix_enable(void);
+void    led_matrix_enable_noeeprom(void);
+void    led_matrix_disable(void);
+void    led_matrix_disable_noeeprom(void);
+void    led_matrix_step(void);
+void    led_matrix_step_reverse(void);
+void    led_matrix_increase_val(void);
+void    led_matrix_decrease_val(void);
+void    led_matrix_increase_speed(void);
+void    led_matrix_decrease_speed(void);
+void    led_matrix_mode(uint8_t mode, bool eeprom_write);
+void    led_matrix_mode_noeeprom(uint8_t mode);
 uint8_t led_matrix_get_mode(void);
-void led_matrix_set_value(uint8_t mode);
-void led_matrix_set_value_noeeprom(uint8_t mode);
+void    led_matrix_set_value(uint8_t mode);
+void    led_matrix_set_value_noeeprom(uint8_t mode);
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */

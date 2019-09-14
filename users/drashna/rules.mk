@@ -40,10 +40,6 @@ ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 endif
 
 
-ifeq ($(strip $(MACROS_ENABLED)), yes)
-    OPT_DEFS += -DMACROS_ENABLED
-endif
-
 ifdef CONSOLE_ENABLE
     ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
         OPT_DEFS += -DKEYLOGGER_ENABLE
