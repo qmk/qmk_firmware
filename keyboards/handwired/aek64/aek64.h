@@ -15,12 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
-#define AEK64_H
 
 #include "quantum.h"
 
 /* Alps64 physical definition macro */
-#define LAYOUT_qwerty( \
+#define LAYOUT( \
     k00, k01, k02, k03  , k04  , k05  , k06, k07  , k08  , k09  , k010 , k011, k012, k013 , \
     k10, k11, k12, k13  , k14  , k15  , k16, k17  , k18  , k19  , k110 , k111, k112,        \
     k20, k21, k22, k23  , k24  , k25  , k26, k27  , k28  , k29  , k210 , k211, k212, k213 , \
