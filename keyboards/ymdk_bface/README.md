@@ -2,7 +2,7 @@
 
 ![ymdk_bface](https://i.imgur.com/qhFxN0g.jpg)
 
-===
+-------
 
 A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has slightly different switch matrix than the origninal B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on Aliexpress.
 
@@ -19,6 +19,12 @@ Flashing
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
 This board has a pair of jumper holes on the left edge of the PCB marked "Jb", near TAB and CAPS LOCK. If you short the contacts with tweezers or wire the board will enter into the bootloader and you can flash it.
+
+Another method is using the `./util/atmega32a_program.py` program included in QMK. You will need to have python and the pyusb library installed.
+Then you can run this to compile the firmware and flash the board:
+```
+make ymdk_bface:default:program
+```
 
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
