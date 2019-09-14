@@ -1,6 +1,7 @@
 # The YMDK "Bface" PCB
 
-![ymdk_bface](https://ae01.alicdn.com/kf/HTB1i5omc6fguuRjSszcq6zb7FXaO.jpg)
+![ymdk_bface](https://i.imgur.com/qhFxN0g.jpg)
+
 ===
 
 A 60% keyboard that runs ps2avrgb natively and fits the popular GH60 form factor. Another "bfake" or clone of the original B.face PCB by [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/). This PCB has slightly different switch matrix than the origninal B.face, and is also different than the bfake. It commonly comes as the PCB in 60% keyboard kits sold by YMDK on Aliexpress.

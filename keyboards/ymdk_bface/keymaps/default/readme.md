@@ -1,5 +1,8 @@
 # Default Keymap
 
+Base Layer:
+![base](https://i.imgur.com/O7rNtDs.jpg)
+
 Standard ANSI 60% Layout.
 
 - GESC for ESC key.
