@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2018 Sekigon
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,28 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
+#include "ws2812.h"
 
-#include <stdint.h>
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
+  ws2812_setleds_pin(ledarray, number_of_leds, BMPAPI->app.get_config()->led.pin);
+}
 
-// convert to L string
-#define LSTR(s) XLSTR(s)
-#define XLSTR(s) L## #s
-// convert to string
-#define STR(...) XSTR(__VA_ARGS__)
-#define XSTR(...) #__VA_ARGS__
-
-uint8_t bitpop(uint8_t bits);
-uint8_t bitpop16(uint16_t bits);
-uint8_t bitpop32(uint32_t bits);
-
-uint8_t biton(uint8_t bits);
-uint8_t biton16(uint16_t bits);
-uint8_t biton32(uint32_t bits);
-
-uint8_t  bitrev(uint8_t bits);
-uint16_t bitrev16(uint16_t bits);
-uint32_t bitrev32(uint32_t bits);
-
-#endif

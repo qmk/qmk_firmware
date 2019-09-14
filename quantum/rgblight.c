@@ -36,6 +36,10 @@
 #    include "velocikey.h"
 #endif
 
+#ifdef PROTOCOL_NRF
+#include "eeprom.h"
+#endif
+
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard */
 #    define RGBLIGHT_SPLIT_SET_CHANGE_MODE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE

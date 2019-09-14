@@ -1,0 +1,68 @@
+
+#pragma once
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+#include "apidef.h"
+#include "keycode_str_converter.h"
+
+typedef struct
+{
+  uint16_t *keymap;
+  uint32_t keymap_idx;
+  uint32_t keymap_len;
+  KEYMAP_LOCALE locale;
+  char tail[16];
+} json_keymap_convert_inst_t;
+
+typedef struct
+{
+  const uint16_t *keymap;
+  uint32_t keymap_idx;
+  uint32_t keymap_len;
+  KEYMAP_LOCALE locale;
+  uint8_t use_ascii;
+} keymap_json_convert_inst_t;
+
+typedef struct
+{
+  bmp_api_config_t *config;
+  char tail[16];
+} json_config_convert_inst_t;
+
+void keymap_to_json_init(keymap_json_convert_inst_t * const inst,
+    const uint16_t * keymap, uint32_t keymap_len);
+void keymap_to_json_conv(keymap_json_convert_inst_t * const inst,
+    char * json, uint32_t len, uint32_t key_num);
+void keymap_to_json_conv_layout(keymap_json_convert_inst_t * const inst,
+    char * json, uint32_t len, uint8_t const * const layout);
+int32_t config_to_json_conv(bmp_api_config_t const * const config,
+    char* str, uint32_t len);
+
+int32_t is_json_closed(const char * json, uint32_t len);
+void json_to_keymap_init(json_keymap_convert_inst_t * const inst,
+    uint16_t * keymap, uint32_t keymap_len);
+int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
+    const char * json);
+void json_to_config_conv_inst_init(json_config_convert_inst_t* const inst,
+    bmp_api_config_t* const config);
+
+int32_t json_to_config_conv(json_config_convert_inst_t* const inst,
+    const char * json);
+
+int32_t get_config_from_stream(json_config_convert_inst_t* const inst,
+    const char* str,
+    const char last_char, uint32_t len, bool exit_flag);
+
+int32_t get_keymap_from_stream(json_keymap_convert_inst_t* const inst,
+    const char* str,
+    const char last_char, uint32_t len, bool exit_flag);
+
+uint32_t json_to_tapping_term_config_conv(const char* json,
+    bmp_qmk_config_t * conf, KEYMAP_LOCALE locale);
+void tapping_term_config_to_json_conv(bmp_qmk_config_t const * const conf,
+    char* json, uint32_t json_len,
+    KEYMAP_LOCALE locale, bool use_ascii);

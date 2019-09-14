@@ -29,8 +29,8 @@
 #include <stdbool.h>
 #include "util.h"
 
-#if defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
-#    define PSTR(x) x
+#if defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_NRF) || defined(PROTOCOL_ARM_ATSAM)
+#define PSTR(x) x
 #endif
 
 #ifndef NO_PRINT
@@ -101,7 +101,6 @@ extern "C"
 #        endif /* USER_PRINT / NORMAL PRINT */
 
 #    elif defined(PROTOCOL_ARM_ATSAM) /* PROTOCOL_ARM_ATSAM */
-
 #        include "arm_atsam/printf.h"
 
 #        ifdef USER_PRINT /* USER_PRINT */
@@ -127,6 +126,33 @@ extern "C"
 #            define uprintf(fmt, ...) xprintf(fmt, ##__VA_ARGS__)
 
 #        endif /* USER_PRINT / NORMAL PRINT */
+
+#    elif defined(PROTOCOL_NRF)
+
+#        include "nrf/printf.h"
+
+#        ifdef USER_PRINT /* USER_PRINT */
+
+// Remove normal print defines
+#           define print(s)
+#           define println(s)
+#           define xprintf(fmt, ...)
+
+// Create user print defines
+#           define uprint(s)    tfp_printf(s)
+#           define uprintln(s)  tfp_printf(s "\r\n")
+#           define uprintf      tfp_printf
+
+#       else
+
+#           define print(s)     tfp_printf(s)
+#           define println(s)   tfp_printf(s "\r\n")
+#           define xprintf      tfp_printf
+#           define uprint(s)    tfp_printf(s)
+#           define uprintln(s)  tfp_printf(s "\r\n")
+#           define uprintf      tfp_printf
+
+#       endif
 
 #    elif defined(__arm__) /* __arm__ */
 

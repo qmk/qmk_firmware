@@ -32,9 +32,15 @@ set_git_username() {
 
 # Copy the template files to the new keyboard directory.
 copy_templates() {
+    if [ $keyboard_type = "nrf" ];then
+    echo -n "Copying base template files..."
+    cp -r "quantum/template/base_nrf" "${keyboard_dir}"
+    echo " done"
+    else
     echo -n "Copying base template files..."
     cp -r "quantum/template/base" "${keyboard_dir}"
     echo " done"
+    fi
 
     echo -n "Copying $keyboard_type template files..."
     cp -r "quantum/template/${keyboard_type}/." "${keyboard_dir}"
@@ -143,7 +149,7 @@ if [ -d "$keyboard_dir" ]; then
     exit 1
 fi
 
-KEYBOARD_TYPES=("avr" "ps2avrgb")
+KEYBOARD_TYPES=("avr" "ps2avrgb" "nrf")
 
 prompt "Keyboard Type" "avr"
 keyboard_type=$prompt_return

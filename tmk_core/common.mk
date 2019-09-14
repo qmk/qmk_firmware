@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else ifeq ($(PLATFORM),NRF_SDK)
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/nrf
 else ifeq ($(PLATFORM),ARM_ATSAM)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/arm_atsam
 else
@@ -52,6 +54,14 @@ ifeq ($(PLATFORM),CHIBIOS)
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  endif
+endif
+
+ifeq ($(PLATFORM),NRF_SDK)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
 endif
@@ -224,4 +234,7 @@ endif
 VPATH += $(TMK_PATH)/$(COMMON_DIR)
 ifeq ($(PLATFORM),CHIBIOS)
 VPATH += $(TMK_PATH)/$(COMMON_DIR)/chibios
+endif
+ifeq ($(PLATFORM),NRF_SDK)
+VPATH += $(TMK_PATH)/$(COMMON_DIR)/nrf
 endif
