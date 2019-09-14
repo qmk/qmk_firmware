@@ -3,7 +3,7 @@
 Base Layer:
 ![base](https://i.imgur.com/ie5aF7d.jpg)
 
-Uses a tweaked 60% layout with split shift and up/down arrows in the bottom right. Resulted from being used to 65% boards with arrows in bottom right and using the up/down arrows a lot in terminal. 
+Uses a tweaked 60% ANSI layout with split right shift and up/down keys in the bottom right. Resulted from being used to 65% boards with arrow keys in bottom right and using the up/down arrows a lot in terminal.
 
 - Page Up/Down, and Home/End have been mapped to the up/down keys on different layers.
 - The Caps Lock Layer uses VIM style directions on HJKL keys.
