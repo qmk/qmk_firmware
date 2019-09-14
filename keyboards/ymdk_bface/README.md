@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make ymdk_bface:default
 
-Flashing
+Flashing:
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
@@ -46,8 +46,10 @@ macOS:
 4. Place your keyboard into reset by shorting the jumper on the left edge of the PCB.. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
-Another method after you've installed `bootloadHID` is using the `./util/atmega32a_program.py` program included in QMK. You will need to have `python` and the `pyusb` library installed.
-Then you can run this to compile the firmware and flash the board without using the Jumper:
+Another method for Mac or Linux:
+After installing `bootloadHID`, you can use the `./util/atmega32a_program.py` program included in QMK. You will need to have `python` and the `pyusb` library installed.
+
+Then you can run this to compile the firmware and flash the board without using the jumper:
 ```
 make ymdk_bface:default:program
 ```
