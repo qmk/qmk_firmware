@@ -22,12 +22,12 @@
   {O|  ฯ ๆ ฐ ฉ ผ ฝ  |O}    {O|  ๅ ฺ ํ ำ ุ ู  |O}    {O|  ฒ ฆ ฑ ฬ พ ฟ  |O}
 
   {I|          " with .##. "        |I}    {I|          " with .#.. "       |I}
-  {O| S-F7  S-F8  F7  F8  F9  S-F9  |I}    {O|       Home  Up   End   C-Up  |I}
-  {O| S-F4  S-F5  F4  F5  F6  S-F6  |I}    {O| PgUp  Left Down Right C-Down |I}
-  {O| S-F1  S-F2  F1  F2  F3  S-F3  |I}    {O| PgDn  C-S  C-A  C-Z   C-S-Z  |I}
-  {O| S-F10 S-F11 F10 F11 F12 S-F12 |I}    {O|    C-Left  C-F  C-Right      |I}
+  {O| S-F7  S-F8  F7  F8  F9  S-F9  |O}    {O|       Home  Up   End   C-Up  |O}
+  {O| S-F4  S-F5  F4  F5  F6  S-F6  |O}    {O| PgUp  Left Down Right C-Down |O}
+  {O| S-F1  S-F2  F1  F2  F3  S-F3  |O}    {O| PgDn  C-S  C-A  C-Z   C-S-Z  |O}
+  {O| S-F10 S-F11 F10 F11 F12 S-F12 |O}    {O|    C-Left  C-F  C-Right      |O}
   
                        (##..) is (Shift + (.#..)) except C-S C-A C-Z C-S-Z C-F
-   (###.) is (Gui + (.##.))              which change to C-X C-C C-V  C-L  C-R
+   (###.) is (Gui + (.##.))           in which change to C-X C-C C-V  C-L  C-R
 
 ```
