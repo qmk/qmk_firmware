@@ -20,12 +20,6 @@ ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. I
 
 This board has a pair of jumper holes on the left edge of the PCB marked "Jb", near TAB and CAPS LOCK. If you short the contacts with tweezers or wire the board will enter into the bootloader and you can flash it.
 
-Another method is using the `./util/atmega32a_program.py` program included in QMK. You will need to have python and the pyusb library installed.
-Then you can run this to compile the firmware and flash the board:
-```
-make ymdk_bface:default:program
-```
-
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
 2. Place your keyboard into reset. 
@@ -52,5 +46,10 @@ macOS:
 4. Place your keyboard into reset by shorting the jumper on the left edge of the PCB.. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
+Another method after you've installed `bootloadHID` is using the `./util/atmega32a_program.py` program included in QMK. You will need to have `python` and the `pyusb` library installed.
+Then you can run this to compile the firmware and flash the board without using the Jumper:
+```
+make ymdk_bface:default:program
+```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
