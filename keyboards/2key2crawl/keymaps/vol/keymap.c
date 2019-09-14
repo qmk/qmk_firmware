@@ -14,10 +14,6 @@ void matrix_init_user(void) {
   debug_config.enable = 1;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
 void encoder_update_user(int8_t index, bool clockwise) {
   if (index == 0) {
     if (clockwise) {
