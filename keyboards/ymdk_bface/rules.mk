@@ -15,14 +15,6 @@
 
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
-
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# processor frequency
-F_CPU = 12000000
 
 # build options
 BOOTMAGIC_ENABLE = no
@@ -31,14 +23,11 @@ EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
-BACKLIGHT_CUSTOM_DRIVER = yes
+BACKLIGHT_CUSTOM_DRIVER = no
 BACKLIGHT_BREATHING = no
 RGBLIGHT_ENABLE = no
 RGBLIGHT_CUSTOM_DRIVER = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 BOOTLOADER = bootloadHID
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 

@@ -17,46 +17,25 @@
 #include "quantum.h"
 
 
-void matrix_init_kb(void) {
-    // call user level keymaps, if any
-    matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-    /* Nothing else for now. */
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-void backlight_init_ports(void) {
-    // initialize pins D0, D1, D4 and D6 as output
-    setPinOutput(D0);
+void keyboard_pre_init_kb(void){
+    //init the CAPS LOCK LED pin as an output
     setPinOutput(D1);
+    //init the Backlight Pin as an output
     setPinOutput(D4);
-    setPinOutput(D6);
-
-    // turn backlight LEDs on
-    writePinHigh(D0);
-    writePinHigh(D1);
-    writePinHigh(D4);
-    writePinHigh(D6);
+    //call any user initialization code
+    keyboard_pre_init_user();
 }
 
-void backlight_set(uint8_t level) {
-    if (level == 0) {
-        // turn backlight LEDs off
-        writePinLow(D0);
-        writePinLow(D1);
-        writePinLow(D4);
-        writePinLow(D6);
-    } else {
-        // turn backlight LEDs on
-        writePinHigh(D0);
+void led_set_kb(uint8_t usb_led){
+    //control the caps lock LED
+    if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)){
+        //set led pin to high
         writePinHigh(D1);
-        writePinHigh(D4);
-        writePinHigh(D6);
+    } else {
+        //set to low
+        writePinLow(D1);
     }
+    //call any user LED functions
+    led_set_user(usb_led);
 }
+
