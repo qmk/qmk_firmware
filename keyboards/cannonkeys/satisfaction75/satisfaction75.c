@@ -98,47 +98,47 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
             {
                 case id_uptime:
                 {
-                uint32_t value = timer_read32();
-                command_data[1] = (value >> 24 ) & 0xFF;
-                command_data[2] = (value >> 16 ) & 0xFF;
-                command_data[3] = (value >> 8 ) & 0xFF;
-                command_data[4] = value & 0xFF;
-                break;
+                    uint32_t value = timer_read32();
+                    command_data[1] = (value >> 24 ) & 0xFF;
+                    command_data[2] = (value >> 16 ) & 0xFF;
+                    command_data[3] = (value >> 8 ) & 0xFF;
+                    command_data[4] = value & 0xFF;
+                    break;
                 }
                 case id_oled_default_mode:
                 {
-                uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
-                command_data[1] = default_oled;
-                break;
+                    uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+                    command_data[1] = default_oled;
+                    break;
                 }
                 case id_oled_mode:
                 {
-                command_data[1] = oled_mode;
-                break;
+                    command_data[1] = oled_mode;
+                    break;
                 }
                 case id_encoder_modes:
                 {
-                command_data[1] = enabled_encoder_modes;
-                break;
+                    command_data[1] = enabled_encoder_modes;
+                    break;
                 }
                 case id_encoder_custom:
                 {
-                uint8_t custom_encoder_idx = command_data[1];
-                uint16_t keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CW);
-                command_data[2] =  keycode >> 8;
-                command_data[3] = keycode & 0xFF;
-                keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CCW);
-                command_data[4] =  keycode >> 8;
-                command_data[5] = keycode & 0xFF;
-                keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_PRESS);
-                command_data[6] =  keycode >> 8;
-                command_data[7] = keycode & 0xFF;
-                break;
+                    uint8_t custom_encoder_idx = command_data[1];
+                    uint16_t keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CW);
+                    command_data[2] =  keycode >> 8;
+                    command_data[3] = keycode & 0xFF;
+                    keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CCW);
+                    command_data[4] =  keycode >> 8;
+                    command_data[5] = keycode & 0xFF;
+                    keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_PRESS);
+                    command_data[6] =  keycode >> 8;
+                    command_data[7] = keycode & 0xFF;
+                    break;
                 }
                 default:
                 {
-                *command_id = id_unhandled;
-                break;
+                    *command_id = id_unhandled;
+                    break;
                 }
             }
 			break;
@@ -212,12 +212,12 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		case id_dynamic_keymap_macro_get_buffer:
 		{
 			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_macro_get_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_macro_set_buffer:
-		{
+		https://github.com/olivia/via-config-private/pull/14/filesd_data[2]; // size <= 28
+		https://github.com/olivia/via-config-private/pull/14/fileset_buffer( offset, size, &command_data[3] );
+		https://github.com/olivia/via-config-private/pull/14/files
+		}https://github.com/olivia/via-config-private/pull/14/files
+		chttps://github.com/olivia/via-config-private/pull/14/filesro_set_buffer:
+		{https://github.com/olivia/via-config-private/pull/14/files
 			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
 			uint16_t size = command_data[2]; // size <= 28
 			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
