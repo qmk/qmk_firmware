@@ -6,6 +6,7 @@ EXTRAFLAGS += -flto
 SRC +=  ./lib/glcdfont.c \
         ./lib/rgb_state_reader.c \
         layer_state_reader.c \
+        crkbd.c \
         ./lib/logo_reader.c \
         ./lib/keylogger.c \
         # ./lib/mode_icon_reader.c \
