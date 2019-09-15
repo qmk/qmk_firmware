@@ -119,10 +119,8 @@ The breathing effect is the same as in the hardware PWM implementation.
 |`backlight_step()`      |Cycle through backlight levels               |
 |`backlight_increase()`  |Increase the backlight level                 |
 |`backlight_decrease()`  |Decrease the backlight level                 |
-|`backlight_level(x)`    |Sets the backlight level to specified 0-based|
-|                        |level subdivided according to                |
-|                        |`BACKLIGHT_LEVELS` where a lower number is   |
-|                        |dimmer                                       |
+|`backlight_level(x)`    |Sets the backlight level, from 0 to          |
+|                        |`BACKLIGHT_LEVELS`                           |
 |`get_backlight_level()` |Return the current backlight level           |
 |`is_backlight_enabled()`|Return whether the backlight is currently on |
 
