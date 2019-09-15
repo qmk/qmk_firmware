@@ -40,7 +40,7 @@ enum planck_keycodes {
 
 #include "dynamic_macro.h"
 
-// change left side of R4 in `LY_0000` as well
+// note when change: change left side of R4 in `LY_0000` as well
 #define LAYOUT_gunp( \
     k00, k01, k02, k03, k04, k05, \
     k10, k11, k12, k13, k14, k15, \
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_ENT,
   KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_M, FN_A, FN_B, FN_C, FN_D, KC_LSFT,
   KC_LCTL, KC_LALT,    KC_APP,     KC_ESC,     KC_SPC,     KC_INS,
-// change left side of R4 in `LAYOUT_gunp` as well
+//  note when change: change left side of R4 in `LAYOUT_gunp` as well
   RELAX, RESET_CONF, KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL
 ),
 [LY_1000] = LAYOUT_gunp(
@@ -126,6 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   AU_ON, MU_ON,  DYN_REC_START1, XXXXXXX,      DYN_MACRO_PLAY2, RGB_TOG, 
   AU_OFF,MU_OFF, DYN_REC_START2, DYN_REC_STOP, DYN_MACRO_PLAY1, RGB_MOD 
 ),
+// note when change: change `LY_THAI_A`, `LY_THAI_B`, `LY_THAI_C`, as well
 [LY_0101] = LAYOUT_gunp(
   UC(L'ภ'),  UC(L'ฃ'),  UC(L'ข'),  UC(L'ฮ'),  UC(L'ฎ'),  UC(L'ฏ'),  
   UC(L'ถ'),  UC(L'จ'),  UC(L'ก'),  UC(L'อ'),  UC(L'ด'),  UC(L'ต'),  
@@ -145,6 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   UC(L'ฒ'),  UC(L'ฆ'),  UC(L'ฑ'),  UC(L'ฬ'),  UC(L'พ'),  UC(L'ฟ')  
 ),
 /* mapping from US QWERTY to TH Kedmanee */
+// note when change: change `LY_0101`, `LY_0111`, `LY_0011`, as well
 [LY_THAI_A] = LAYOUT_gunp(
   KC_4,     KC_BSLS,  KC_MINS,  S(KC_V),  S(KC_E),  S(KC_D),  
   KC_5,     KC_0,     KC_D,     KC_V,     KC_F,     KC_9,     
