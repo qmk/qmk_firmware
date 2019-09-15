@@ -48,9 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
 
-/* Enable N-key rollover */
-#define NKRO_ENABLE
-
 /* Enable the space-cadet options */
 #define RSPC_KEYS KC_RSFT, KC_TRNS, KC_PGUP
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_PGDOWN
