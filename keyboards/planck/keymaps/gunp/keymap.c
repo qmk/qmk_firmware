@@ -128,42 +128,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 // note when change: change `LY_THAI_A`, `LY_THAI_B`, `LY_THAI_C`, as well
 [LY_0101] = LAYOUT_gunp(
-  UC(L'ภ'),  UC(L'ฃ'),  UC(L'ข'),  UC(L'ฮ'),  UC(L'ฎ'),  UC(L'ฏ'),  
-  UC(L'ถ'),  UC(L'จ'),  UC(L'ก'),  UC(L'อ'),  UC(L'ด'),  UC(L'ต'),  
-  UC(L'ศ'),  UC(L'ษ'),  UC(L'ส'),  UC(L'ห'),  UC(L'บ'),  UC(L'ป'),  
-  UC(L'ฯ'),  UC(L'ๆ'),  UC(L'ฐ'),  UC(L'ฉ'),  UC(L'ผ'),  UC(L'ฝ')  
-),
-[LY_0111] = LAYOUT_gunp(
-  UC(L'็'),  UC(L'์'),  UC(L'่'),  UC(L'้'),  UC(L'๊'), UC(L'๋'),   
-  UC(L'โ'), UC(L'แ'), UC(L'เ'), UC(L'า'), UC(L'ั'), UC(L'ะ'),  
-  UC(L'ใ'), UC(L'ไ'), UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'), UC(L'ื'),   
-  UC(L'ๅ'), UC(L'ฺ'),  UC(L'ํ'),  UC(L'ำ'), UC(L'ุ'), UC(L'ู')   
-),
-[LY_0011] = LAYOUT_gunp(
   UC(L'ฌ'),  UC(L'ฅ'),  UC(L'ค'),  UC(L'ม'),  UC(L'ฤ'),  UC(L'ฦ'),  
   UC(L'ณ'),  UC(L'ว'),  UC(L'ง'),  UC(L'น'),  UC(L'ร'),  UC(L'ล'),  
   UC(L'ญ'),  UC(L'ธ'),  UC(L'ท'),  UC(L'ย'),  UC(L'ช'),  UC(L'ซ'),  
   UC(L'ฒ'),  UC(L'ฆ'),  UC(L'ฑ'),  UC(L'ฬ'),  UC(L'พ'),  UC(L'ฟ')  
 ),
+[LY_0111] = LAYOUT_gunp(
+  UC(L'์'),  UC(L'็'),  UC(L'่'),  UC(L'้'),  UC(L'๊'), UC(L'๋'),   
+  UC(L'โ'), UC(L'แ'), UC(L'เ'), UC(L'า'), UC(L'ั'), UC(L'ะ'),  
+  UC(L'ใ'), UC(L'ไ'), UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'), UC(L'ื'),   
+  UC(L'ๅ'), UC(L'ฺ'),  UC(L'ํ'),  UC(L'ำ'), UC(L'ุ'), UC(L'ู')   
+),
+[LY_0011] = LAYOUT_gunp(
+  UC(L'ภ'),  UC(L'ฃ'),  UC(L'ข'),  UC(L'ฮ'),  UC(L'ฎ'),  UC(L'ฏ'),  
+  UC(L'ถ'),  UC(L'จ'),  UC(L'ก'),  UC(L'อ'),  UC(L'ด'),  UC(L'ต'),  
+  UC(L'ศ'),  UC(L'ษ'),  UC(L'ส'),  UC(L'ห'),  UC(L'บ'),  UC(L'ป'),  
+  UC(L'ฯ'),  UC(L'ๆ'),  UC(L'ฐ'),  UC(L'ฉ'),  UC(L'ผ'),  UC(L'ฝ')  
+),
 /* mapping from US QWERTY to TH Kedmanee */
 // note when change: change `LY_0101`, `LY_0111`, `LY_0011`, as well
 [LY_THAI_A] = LAYOUT_gunp(
-  KC_4,     KC_BSLS,  KC_MINS,  S(KC_V),  S(KC_E),  S(KC_D),  
-  KC_5,     KC_0,     KC_D,     KC_V,     KC_F,     KC_9,     
-  S(KC_L),  S(KC_K),  KC_L,     KC_S,     KC_LBRC,  KC_X,     
-  S(KC_O),  KC_Q,     KC_LCBR,  S(KC_C),  KC_Z,     KC_SLSH  
+  S(KC_G),  KC_PIPE,  KC_8,     KC_COMM,  S(KC_A),  KC_QUES,  
+  S(KC_I),  KC_SCLN,  KC_QUOT,  KC_O,     KC_I,     KC_RBRC,  
+  S(KC_P),  S(KC_T),  KC_M,     KC_P,     KC_EQL,   KC_COLN,  
+  KC_LT,    S(KC_S),  S(KC_R),  KC_GT,    KC_R,     KC_A     
 ),
 [LY_THAI_B] = LAYOUT_gunp(
-  S(KC_H),  S(KC_N),  KC_J,     KC_H,     S(KC_U),  S(KC_J),  
+  S(KC_N),  S(KC_H),  KC_J,     KC_H,     S(KC_U),  S(KC_J),  
   S(KC_F),  KC_C,     KC_G,     KC_K,     KC_Y,     KC_T,     
   KC_DOT,   KC_W,     KC_B,     KC_U,     KC_7,     KC_N,     
   KC_1,     S(KC_B),  S(KC_Y),  KC_E,     KC_6,     KC_CIRC  
 ),
 [LY_THAI_C] = LAYOUT_gunp(
-  S(KC_G),  KC_PIPE,  KC_8,     KC_COMM,  S(KC_A),  KC_QUES,  
-  S(KC_I),  KC_SCLN,  KC_QUOT,  KC_O,     KC_I,     KC_RBRC,  
-  S(KC_P),  S(KC_T),  KC_M,     KC_P,     KC_EQL,   KC_COLN,  
-  KC_LT,    S(KC_S),  S(KC_R),  KC_GT,    KC_R,     KC_A     
+  KC_4,     KC_BSLS,  KC_MINS,  S(KC_V),  S(KC_E),  S(KC_D),  
+  KC_5,     KC_0,     KC_D,     KC_V,     KC_F,     KC_9,     
+  S(KC_L),  S(KC_K),  KC_L,     KC_S,     KC_LBRC,  KC_X,     
+  S(KC_O),  KC_Q,     KC_LCBR,  S(KC_C),  KC_Z,     KC_SLSH  
 ),
 [LY_0001] = UNUSED_LAYER
 [LY_1001] = UNUSED_LAYER

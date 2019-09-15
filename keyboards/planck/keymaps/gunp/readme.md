@@ -16,16 +16,16 @@
   {O|  $  ;  : \"  _  |O}    {O|  0  1  2  3  -  |O}    {O|  }  ]  )  >  \  |O}
 
   {I|  " with .#.# "  |I}    {I|  " with .### "  |I}    {I|  " with ..## "  |I}
-  {O|  ภ ฃ ข ฮ ฎ ฏ  |O}    {O|  ็ ์ ่ ้ ๊ ๋  |O}    {O|  ฌ ฅ ค ม ฤ ฦ  |O}
-  {O|  ถ จ ก อ ด ต  |O}    {O|  โ แ เ า ั ะ  |O}    {O|  ณ ว ง น ร ล  |O}
-  {O|  ศ ษ ส ห บ ป  |O}    {O|  ใ ไ ิ ี ึ ื  |O}    {O|  ญ ธ ท ย ช ซ  |O}
-  {O|  ฯ ๆ ฐ ฉ ผ ฝ  |O}    {O|  ๅ ฺ ํ ำ ุ ู  |O}    {O|  ฒ ฆ ฑ ฬ พ ฟ  |O}
+  {O|  ฌ ฅ ค ม ฤ ฦ  |O}    {O|  ์ ็ ่ ้ ๊ ๋  |O}    {O|  ภ ฃ ข ฮ ฎ ฏ  |O}
+  {O|  ณ ว ง น ร ล  |O}    {O|  โ แ เ า ั ะ  |O}    {O|  ถ จ ก อ ด ต  |O}
+  {O|  ญ ธ ท ย ช ซ  |O}    {O|  ใ ไ ิ ี ึ ื  |O}    {O|  ศ ษ ส ห บ ป  |O}
+  {O|  ฒ ฆ ฑ ฬ พ ฟ  |O}    {O|  ๅ ฺ ํ ำ ุ ู  |O}    {O|  ฯ ๆ ฐ ฉ ผ ฝ  |O}
 
-  {I|          " with .##. "        |I}    {I|          " with .#.. "       |I}
-  {O| S-F7  S-F8  F7  F8  F9  S-F9  |O}    {O|       Home  Up   End   C-Up  |O}
-  {O| S-F4  S-F5  F4  F5  F6  S-F6  |O}    {O| PgUp  Left Down Right C-Down |O}
-  {O| S-F1  S-F2  F1  F2  F3  S-F3  |O}    {O| PgDn  C-S  C-A  C-Z   C-S-Z  |O}
-  {O| S-F10 S-F11 F10 F11 F12 S-F12 |O}    {O|    C-Left  C-F  C-Right      |O}
+  {I|          " with .##. "        |I}    {8|          " with .#.. "       |8}
+  {O| S-F7  S-F8  F7  F8  F9  S-F9  |O}    {0|       Home  Up   End   C-Up  |0}
+  {O| S-F4  S-F5  F4  F5  F6  S-F6  |O}    {0| PgUp  Left Down Right C-Down |0}
+  {O| S-F1  S-F2  F1  F2  F3  S-F3  |O}    {0| PgDn  C-S  C-A  C-Z   C-S-Z  |0}
+  {O| S-F10 S-F11 F10 F11 F12 S-F12 |O}    {0|    C-Left  C-F  C-Right      |0}
   
                        (##..) is (Shift + (.#..)) except C-S C-A C-Z C-S-Z C-F
    (###.) is (Gui + (.##.))           in which change to C-X C-C C-V  C-L  C-R
