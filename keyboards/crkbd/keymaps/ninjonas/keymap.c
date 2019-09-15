@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------------------------.      ,----------------------------------------------------.
        M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
-       M_VRSN, XXXXXXX, XXXXXXX, RGB_SAI, RGB_HUI, RGB_VAI,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       M_VRSN,  M_MALL, XXXXXXX, RGB_SAI, RGB_HUI, RGB_VAI,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
        M_FLSH, XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_VAD,       RGB_M_P, RGB_M_B, RGB_M_G,RGB_M_SW, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|

@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |M_MAKE |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |M_VRSN |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+ * |M_VRSN |M_MALL|      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
  * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |M_FLSH |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `------------------------------------------/       /     \      \-----------------------------------------'
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_wrapper( \
   EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK,  QWERTY, \
   M_MAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  M_VRSN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  M_VRSN, M_MALL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   M_FLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
                             __________________________________,      __________________________________ \
   ),
