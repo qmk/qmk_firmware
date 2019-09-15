@@ -89,10 +89,10 @@ This is an extension of the accelerated mode. The kinetic mode uses quadratic ac
 |`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
 |`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
 |`MOUSEKEY_ACCELERATED_SPEED`          |3000     |Accelerated cursor speed                                       |
-|`MOUSEKEY_WHEEL_INITIAL_MOVEMENTS`    |32       |Initial number of movements of the mouse wheel                 |
-|`MOUSEKEY_WHEEL_BASE_MOVEMENTS`       |42       |Maximum number of movements at which acceleration stops        |
-|`MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS`|62       |Accelerated wheel movements                                    |
-|`MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS`|20       |Decelerated wheel movements                                    |
+|`MOUSEKEY_WHEEL_INITIAL_MOVEMENTS`    |16       |Initial number of movements of the mouse wheel                 |
+|`MOUSEKEY_WHEEL_BASE_MOVEMENTS`       |32       |Maximum number of movements at which acceleration stops        |
+|`MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS`|48       |Accelerated wheel movements                                    |
+|`MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS`|8        |Decelerated wheel movements                                    |
 
 Tips:
 
