@@ -17,7 +17,6 @@
 
 #define LT1_SPC     LT(1, KC_SPC)
 #define LT2_SPC     LT(2, KC_BSPC)
-#define UNDRSCR     S(KC_MINS)
 #define TSKMNGR     C(S(KC_ESC))
 #define ALT_TAB     A(KC_TAB)
 
