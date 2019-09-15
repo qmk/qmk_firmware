@@ -1,4 +1,4 @@
-/* Copyright 2016 Jack Humbert
+/* Copyright 2016-2019 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,41 +26,26 @@
 
 // -----------------------------------------------------------------------------
 
-int   voices        = 0;
-int   voice_place   = 0;
-float frequency     = 0;
-float frequency_alt = 0;
-int   volume        = 0;
-long  position      = 0;
+uint8_t dac_voices = 0;
+float dac_frequencies[8] = { 0.0 };
 
-float frequencies[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int   volumes[8]     = {0, 0, 0, 0, 0, 0, 0, 0};
-bool  sliding        = false;
-
-float place = 0;
-
-uint8_t *sample;
-uint16_t sample_length = 0;
-
-bool     playing_notes  = false;
-bool     playing_note   = false;
+bool     playing_notes = false;
+bool     playing_note = false;
 float    note_frequency = 0;
-float    note_length    = 0;
-uint8_t  note_tempo     = TEMPO_DEFAULT;
-float    note_timbre    = TIMBRE_DEFAULT;
-uint16_t note_position  = 0;
-float (*notes_pointer)[][2];
+float    note_length = 0;
+uint8_t  note_tempo = TEMPO_DEFAULT;
+float    note_timbre = TIMBRE_DEFAULT;
+uint32_t note_position = 0;
+float (* notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
-bool     note_resting = false;
 
 uint16_t current_note = 0;
-uint8_t  rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
-float vibrato_counter  = 0;
+float vibrato_counter = 0;
 float vibrato_strength = .5;
-float vibrato_rate     = 0.125;
+float vibrato_rate = 0.125;
 #endif
 
 float polyphony_rate = 0;
@@ -70,228 +55,249 @@ static bool audio_initialized = false;
 audio_config_t audio_config;
 
 uint16_t envelope_index = 0;
-bool     glissando      = true;
+bool glissando = true;
 
 #ifndef STARTUP_SONG
-#    define STARTUP_SONG SONG(STARTUP_SOUND)
+    #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 float startup_song[][2] = STARTUP_SONG;
 
-static void gpt_cb8(GPTDriver *gptp);
-
-#define DAC_BUFFER_SIZE 100
-#ifndef DAC_SAMPLE_MAX
-#    define DAC_SAMPLE_MAX 65535U
-#endif
-
-#define START_CHANNEL_1()        \
-    gptStart(&GPTD6, &gpt6cfg1); \
-    gptStartContinuous(&GPTD6, 2U)
-#define START_CHANNEL_2()        \
-    gptStart(&GPTD7, &gpt7cfg1); \
-    gptStartContinuous(&GPTD7, 2U)
-#define STOP_CHANNEL_1() gptStopTimer(&GPTD6)
-#define STOP_CHANNEL_2() gptStopTimer(&GPTD7)
-#define RESTART_CHANNEL_1() \
-    STOP_CHANNEL_1();       \
-    START_CHANNEL_1()
-#define RESTART_CHANNEL_2() \
-    STOP_CHANNEL_2();       \
-    START_CHANNEL_2()
-#define UPDATE_CHANNEL_1_FREQ(freq)              \
-    gpt6cfg1.frequency = freq * DAC_BUFFER_SIZE; \
-    RESTART_CHANNEL_1()
-#define UPDATE_CHANNEL_2_FREQ(freq)              \
-    gpt7cfg1.frequency = freq * DAC_BUFFER_SIZE; \
-    RESTART_CHANNEL_2()
-#define GET_CHANNEL_1_FREQ (uint16_t)(gpt6cfg1.frequency * DAC_BUFFER_SIZE)
-#define GET_CHANNEL_2_FREQ (uint16_t)(gpt7cfg1.frequency * DAC_BUFFER_SIZE)
-
-/*
- * GPT6 configuration.
- */
-// static const GPTConfig gpt6cfg1 = {
-//   .frequency    = 1000000U,
-//   .callback     = NULL,
-//   .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-//   .dier         = 0U
-// };
-
-GPTConfig gpt6cfg1 = {.frequency = 440U * DAC_BUFFER_SIZE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
-
-GPTConfig gpt7cfg1 = {.frequency = 440U * DAC_BUFFER_SIZE,
-                      .callback  = NULL,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
-
-GPTConfig gpt8cfg1 = {.frequency = 10,
-                      .callback  = gpt_cb8,
-                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                      .dier      = 0U};
-
-/*
- * DAC test buffer (sine wave).
- */
-// static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
-//   2047, 2082, 2118, 2154, 2189, 2225, 2260, 2296, 2331, 2367, 2402, 2437,
-//   2472, 2507, 2542, 2576, 2611, 2645, 2679, 2713, 2747, 2780, 2813, 2846,
-//   2879, 2912, 2944, 2976, 3008, 3039, 3070, 3101, 3131, 3161, 3191, 3221,
-//   3250, 3278, 3307, 3335, 3362, 3389, 3416, 3443, 3468, 3494, 3519, 3544,
-//   3568, 3591, 3615, 3637, 3660, 3681, 3703, 3723, 3744, 3763, 3782, 3801,
-//   3819, 3837, 3854, 3870, 3886, 3902, 3917, 3931, 3944, 3958, 3970, 3982,
-//   3993, 4004, 4014, 4024, 4033, 4041, 4049, 4056, 4062, 4068, 4074, 4078,
-//   4082, 4086, 4089, 4091, 4092, 4093, 4094, 4093, 4092, 4091, 4089, 4086,
-//   4082, 4078, 4074, 4068, 4062, 4056, 4049, 4041, 4033, 4024, 4014, 4004,
-//   3993, 3982, 3970, 3958, 3944, 3931, 3917, 3902, 3886, 3870, 3854, 3837,
-//   3819, 3801, 3782, 3763, 3744, 3723, 3703, 3681, 3660, 3637, 3615, 3591,
-//   3568, 3544, 3519, 3494, 3468, 3443, 3416, 3389, 3362, 3335, 3307, 3278,
-//   3250, 3221, 3191, 3161, 3131, 3101, 3070, 3039, 3008, 2976, 2944, 2912,
-//   2879, 2846, 2813, 2780, 2747, 2713, 2679, 2645, 2611, 2576, 2542, 2507,
-//   2472, 2437, 2402, 2367, 2331, 2296, 2260, 2225, 2189, 2154, 2118, 2082,
-//   2047, 2012, 1976, 1940, 1905, 1869, 1834, 1798, 1763, 1727, 1692, 1657,
-//   1622, 1587, 1552, 1518, 1483, 1449, 1415, 1381, 1347, 1314, 1281, 1248,
-//   1215, 1182, 1150, 1118, 1086, 1055, 1024,  993,  963,  933,  903,  873,
-//    844,  816,  787,  759,  732,  705,  678,  651,  626,  600,  575,  550,
-//    526,  503,  479,  457,  434,  413,  391,  371,  350,  331,  312,  293,
-//    275,  257,  240,  224,  208,  192,  177,  163,  150,  136,  124,  112,
-//    101,   90,   80,   70,   61,   53,   45,   38,   32,   26,   20,   16,
-//     12,    8,    5,    3,    2,    1,    0,    1,    2,    3,    5,    8,
-//     12,   16,   20,   26,   32,   38,   45,   53,   61,   70,   80,   90,
-//    101,  112,  124,  136,  150,  163,  177,  192,  208,  224,  240,  257,
-//    275,  293,  312,  331,  350,  371,  391,  413,  434,  457,  479,  503,
-//    526,  550,  575,  600,  626,  651,  678,  705,  732,  759,  787,  816,
-//    844,  873,  903,  933,  963,  993, 1024, 1055, 1086, 1118, 1150, 1182,
-//   1215, 1248, 1281, 1314, 1347, 1381, 1415, 1449, 1483, 1518, 1552, 1587,
-//   1622, 1657, 1692, 1727, 1763, 1798, 1834, 1869, 1905, 1940, 1976, 2012
-// };
-
-// static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
-//     12,    8,    5,    3,    2,    1,    0,    1,    2,    3,    5,    8,
-//     12,   16,   20,   26,   32,   38,   45,   53,   61,   70,   80,   90,
-//    101,  112,  124,  136,  150,  163,  177,  192,  208,  224,  240,  257,
-//    275,  293,  312,  331,  350,  371,  391,  413,  434,  457,  479,  503,
-//    526,  550,  575,  600,  626,  651,  678,  705,  732,  759,  787,  816,
-//    844,  873,  903,  933,  963,  993, 1024, 1055, 1086, 1118, 1150, 1182,
-//   1215, 1248, 1281, 1314, 1347, 1381, 1415, 1449, 1483, 1518, 1552, 1587,
-//   1622, 1657, 1692, 1727, 1763, 1798, 1834, 1869, 1905, 1940, 1976, 2012,
-//   2047, 2082, 2118, 2154, 2189, 2225, 2260, 2296, 2331, 2367, 2402, 2437,
-//   2472, 2507, 2542, 2576, 2611, 2645, 2679, 2713, 2747, 2780, 2813, 2846,
-//   2879, 2912, 2944, 2976, 3008, 3039, 3070, 3101, 3131, 3161, 3191, 3221,
-//   3250, 3278, 3307, 3335, 3362, 3389, 3416, 3443, 3468, 3494, 3519, 3544,
-//   3568, 3591, 3615, 3637, 3660, 3681, 3703, 3723, 3744, 3763, 3782, 3801,
-//   3819, 3837, 3854, 3870, 3886, 3902, 3917, 3931, 3944, 3958, 3970, 3982,
-//   3993, 4004, 4014, 4024, 4033, 4041, 4049, 4056, 4062, 4068, 4074, 4078,
-//   4082, 4086, 4089, 4091, 4092, 4093, 4094, 4093, 4092, 4091, 4089, 4086,
-//   4082, 4078, 4074, 4068, 4062, 4056, 4049, 4041, 4033, 4024, 4014, 4004,
-//   3993, 3982, 3970, 3958, 3944, 3931, 3917, 3902, 3886, 3870, 3854, 3837,
-//   3819, 3801, 3782, 3763, 3744, 3723, 3703, 3681, 3660, 3637, 3615, 3591,
-//   3568, 3544, 3519, 3494, 3468, 3443, 3416, 3389, 3362, 3335, 3307, 3278,
-//   3250, 3221, 3191, 3161, 3131, 3101, 3070, 3039, 3008, 2976, 2944, 2912,
-//   2879, 2846, 2813, 2780, 2747, 2713, 2679, 2645, 2611, 2576, 2542, 2507,
-//   2472, 2437, 2402, 2367, 2331, 2296, 2260, 2225, 2189, 2154, 2118, 2082,
-//   2047, 2012, 1976, 1940, 1905, 1869, 1834, 1798, 1763, 1727, 1692, 1657,
-//   1622, 1587, 1552, 1518, 1483, 1449, 1415, 1381, 1347, 1314, 1281, 1248,
-//   1215, 1182, 1150, 1118, 1086, 1055, 1024,  993,  963,  933,  903,  873,
-//    844,  816,  787,  759,  732,  705,  678,  651,  626,  600,  575,  550,
-//    526,  503,  479,  457,  434,  413,  391,  371,  350,  331,  312,  293,
-//    275,  257,  240,  224,  208,  192,  177,  163,  150,  136,  124,  112,
-//    101,   90,   80,   70,   61,   53,   45,   38,   32,   26,   20,   16
-// };
-
-// squarewave
-static const dacsample_t dac_buffer[DAC_BUFFER_SIZE] = {
-    // First half is max, second half is 0
-    [0 ... DAC_BUFFER_SIZE / 2 - 1]               = DAC_SAMPLE_MAX,
-    [DAC_BUFFER_SIZE / 2 ... DAC_BUFFER_SIZE - 1] = 0,
+static const dacsample_t dac_buffer_sine[DAC_BUFFER_SIZE] = {
+  // 256 values, max 4095
+  0x800,0x832,0x864,0x896,0x8c8,0x8fa,0x92c,0x95e,
+  0x98f,0x9c0,0x9f1,0xa22,0xa52,0xa82,0xab1,0xae0,
+  0xb0f,0xb3d,0xb6b,0xb98,0xbc5,0xbf1,0xc1c,0xc47,
+  0xc71,0xc9a,0xcc3,0xceb,0xd12,0xd39,0xd5f,0xd83,
+  0xda7,0xdca,0xded,0xe0e,0xe2e,0xe4e,0xe6c,0xe8a,
+  0xea6,0xec1,0xedc,0xef5,0xf0d,0xf24,0xf3a,0xf4f,
+  0xf63,0xf76,0xf87,0xf98,0xfa7,0xfb5,0xfc2,0xfcd,
+  0xfd8,0xfe1,0xfe9,0xff0,0xff5,0xff9,0xffd,0xffe,
+  0xfff,0xffe,0xffd,0xff9,0xff5,0xff0,0xfe9,0xfe1,
+  0xfd8,0xfcd,0xfc2,0xfb5,0xfa7,0xf98,0xf87,0xf76,
+  0xf63,0xf4f,0xf3a,0xf24,0xf0d,0xef5,0xedc,0xec1,
+  0xea6,0xe8a,0xe6c,0xe4e,0xe2e,0xe0e,0xded,0xdca,
+  0xda7,0xd83,0xd5f,0xd39,0xd12,0xceb,0xcc3,0xc9a,
+  0xc71,0xc47,0xc1c,0xbf1,0xbc5,0xb98,0xb6b,0xb3d,
+  0xb0f,0xae0,0xab1,0xa82,0xa52,0xa22,0x9f1,0x9c0,
+  0x98f,0x95e,0x92c,0x8fa,0x8c8,0x896,0x864,0x832,
+  0x800,0x7cd,0x79b,0x769,0x737,0x705,0x6d3,0x6a1,
+  0x670,0x63f,0x60e,0x5dd,0x5ad,0x57d,0x54e,0x51f,
+  0x4f0,0x4c2,0x494,0x467,0x43a,0x40e,0x3e3,0x3b8,
+  0x38e,0x365,0x33c,0x314,0x2ed,0x2c6,0x2a0,0x27c,
+  0x258,0x235,0x212,0x1f1,0x1d1,0x1b1,0x193,0x175,
+  0x159,0x13e,0x123,0x10a,0xf2, 0xdb, 0xc5, 0xb0,
+  0x9c, 0x89, 0x78, 0x67, 0x58, 0x4a, 0x3d, 0x32,
+  0x27, 0x1e, 0x16, 0xf,  0xa,  0x6,  0x2,  0x1,
+  0x0,  0x1,  0x2,  0x6,  0xa,  0xf,  0x16, 0x1e,
+  0x27, 0x32, 0x3d, 0x4a, 0x58, 0x67, 0x78, 0x89,
+  0x9c, 0xb0, 0xc5, 0xdb, 0xf2, 0x10a,0x123,0x13e,
+  0x159,0x175,0x193,0x1b1,0x1d1,0x1f1,0x212,0x235,
+  0x258,0x27c,0x2a0,0x2c6,0x2ed,0x314,0x33c,0x365,
+  0x38e,0x3b8,0x3e3,0x40e,0x43a,0x467,0x494,0x4c2,
+  0x4f0,0x51f,0x54e,0x57d,0x5ad,0x5dd,0x60e,0x63f,
+  0x670,0x6a1,0x6d3,0x705,0x737,0x769,0x79b,0x7cd
 };
 
-// squarewave
-static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
-    // opposite of dac_buffer above
-    [0 ... DAC_BUFFER_SIZE / 2 - 1]               = 0,
-    [DAC_BUFFER_SIZE / 2 ... DAC_BUFFER_SIZE - 1] = DAC_SAMPLE_MAX,
+static const dacsample_t dac_buffer_triangle[DAC_BUFFER_SIZE] = {
+  // 256 values, max 4095
+  0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0, 0x100,
+  0x120,0x140,0x160,0x180,0x1a0,0x1c0,0x1e0,0x200,
+  0x220,0x240,0x260,0x280,0x2a0,0x2c0,0x2e0,0x300,
+  0x320,0x340,0x360,0x380,0x3a0,0x3c0,0x3e0,0x400,
+  0x420,0x440,0x460,0x480,0x4a0,0x4c0,0x4e0,0x500,
+  0x520,0x540,0x560,0x580,0x5a0,0x5c0,0x5e0,0x600,
+  0x620,0x640,0x660,0x680,0x6a0,0x6c0,0x6e0,0x700,
+  0x720,0x740,0x760,0x780,0x7a0,0x7c0,0x7e0,0x800,
+  0x81f,0x83f,0x85f,0x87f,0x89f,0x8bf,0x8df,0x8ff,
+  0x91f,0x93f,0x95f,0x97f,0x99f,0x9bf,0x9df,0x9ff,
+  0xa1f,0xa3f,0xa5f,0xa7f,0xa9f,0xabf,0xadf,0xaff,
+  0xb1f,0xb3f,0xb5f,0xb7f,0xb9f,0xbbf,0xbdf,0xbff,
+  0xc1f,0xc3f,0xc5f,0xc7f,0xc9f,0xcbf,0xcdf,0xcff,
+  0xd1f,0xd3f,0xd5f,0xd7f,0xd9f,0xdbf,0xddf,0xdff,
+  0xe1f,0xe3f,0xe5f,0xe7f,0xe9f,0xebf,0xedf,0xeff,
+  0xf1f,0xf3f,0xf5f,0xf7f,0xf9f,0xfbf,0xfdf,0xfff,
+  0xfdf,0xfbf,0xf9f,0xf7f,0xf5f,0xf3f,0xf1f,0xeff,
+  0xedf,0xebf,0xe9f,0xe7f,0xe5f,0xe3f,0xe1f,0xdff,
+  0xddf,0xdbf,0xd9f,0xd7f,0xd5f,0xd3f,0xd1f,0xcff,
+  0xcdf,0xcbf,0xc9f,0xc7f,0xc5f,0xc3f,0xc1f,0xbff,
+  0xbdf,0xbbf,0xb9f,0xb7f,0xb5f,0xb3f,0xb1f,0xaff,
+  0xadf,0xabf,0xa9f,0xa7f,0xa5f,0xa3f,0xa1f,0x9ff,
+  0x9df,0x9bf,0x99f,0x97f,0x95f,0x93f,0x91f,0x8ff,
+  0x8df,0x8bf,0x89f,0x87f,0x85f,0x83f,0x81f,0x800,
+  0x7e0,0x7c0,0x7a0,0x780,0x760,0x740,0x720,0x700,
+  0x6e0,0x6c0,0x6a0,0x680,0x660,0x640,0x620,0x600,
+  0x5e0,0x5c0,0x5a0,0x580,0x560,0x540,0x520,0x500,
+  0x4e0,0x4c0,0x4a0,0x480,0x460,0x440,0x420,0x400,
+  0x3e0,0x3c0,0x3a0,0x380,0x360,0x340,0x320,0x300,
+  0x2e0,0x2c0,0x2a0,0x280,0x260,0x240,0x220,0x200,
+  0x1e0,0x1c0,0x1a0,0x180,0x160,0x140,0x120,0x100,
+  0xe0, 0xc0, 0xa0, 0x80, 0x60, 0x40, 0x20, 0x0
 };
 
-/*
- * DAC streaming callback.
- */
-size_t      nz = 0;
-static void end_cb1(DACDriver *dacp) {
-    (void)dacp;
+static const dacsample_t dac_buffer_square[DAC_BUFFER_SIZE] = {
+  // First half is max, second half is 0
+  [0                 ... DAC_BUFFER_SIZE/2-1] = DAC_SAMPLE_MAX,
+  [DAC_BUFFER_SIZE/2 ... DAC_BUFFER_SIZE  -1] = 0,
+};
 
-    nz++;
-    if ((nz % 1000) == 0) {
-        // palTogglePad(GPIOD, GPIOD_LED3);
+static dacsample_t dac_buffer_empty[DAC_BUFFER_SIZE] = { DAC_OFF_VALUE };
+
+static float dac_if[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+/**
+ * Generation of the waveform being passed to the callback. Declared weak so users
+ * can override it with their own waveforms/noises.
+ */
+__attribute__ ((weak))
+uint16_t dac_value_generate(void) {
+  uint16_t value = DAC_OFF_VALUE;
+  uint8_t working_voices = dac_voices;
+  if (working_voices > DAC_VOICES_MAX)
+    working_voices = DAC_VOICES_MAX;
+
+  if (working_voices > 0) {
+    uint16_t value_avg = 0;
+    for (uint8_t i = 0; i < working_voices; i++) {
+      dac_if[i] = dac_if[i] + ((dac_frequencies[i] * DAC_BUFFER_SIZE) / DAC_SAMPLE_RATE);
+
+      // Needed because % doesn't work with floats
+      while (dac_if[i] >= (DAC_BUFFER_SIZE))
+        dac_if[i] = dac_if[i] - DAC_BUFFER_SIZE;
+
+      // Wavetable generation/lookup
+      uint16_t dac_i = (uint16_t)dac_if[i];
+      // SINE
+      value_avg += dac_buffer_sine[dac_i] / working_voices / 3;
+      // TRIANGLE
+      value_avg += dac_buffer_triangle[dac_i] / working_voices / 3;
+      // SQUARE
+      value_avg += dac_buffer_square[dac_i] / working_voices / 3;
     }
+    value = value_avg;
+  }
+  return value;
 }
 
-/*
- * DAC error callback.
+/**
+ * DAC streaming callback. Does all of the main computing for playing songs.
  */
-static void error_cb1(DACDriver *dacp, dacerror_t err) {
-    (void)dacp;
-    (void)err;
+static void dac_end(DACDriver * dacp, dacsample_t * sample_p, size_t sample_count) {
 
-    chSysHalt("DAC failure");
+  (void)dacp;
+
+  for (uint8_t s = 0; s < sample_count; s++) {
+    sample_p[s] = dac_value_generate();
+  }
+
+  if (playing_notes) {
+    note_position += sample_count;
+
+    // End of the note - 35 is arbitary here, but gets us close to AVR's timing
+    if ((note_position >= (note_length*DAC_SAMPLE_RATE/35))) {
+      stop_note((*notes_pointer)[current_note][0]);
+      current_note++;
+      if (current_note >= notes_count) {
+        if (notes_repeat) {
+          current_note = 0;
+        } else {
+          playing_notes = false;
+          return;
+        }
+      }
+      play_note((*notes_pointer)[current_note][0], 15);
+      envelope_index = 0;
+      note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+
+      // Skip forward in the next note's length if we've over shot the last, so
+      // the overall length of the song is the same
+      note_position = note_position - (note_length*DAC_SAMPLE_RATE/35);
+    }
+  }
 }
 
-static const DACConfig dac1cfg1 = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+static void dac_error(DACDriver *dacp, dacerror_t err) {
 
-static const DACConversionGroup dacgrpcfg1 = {.num_channels = 1U, .end_cb = end_cb1, .error_cb = error_cb1, .trigger = DAC_TRG(0)};
+  (void)dacp;
+  (void)err;
 
-static const DACConfig dac1cfg2 = {.init = DAC_SAMPLE_MAX, .datamode = DAC_DHRM_12BIT_RIGHT};
+  chSysHalt("DAC failure. halp");
+}
 
-static const DACConversionGroup dacgrpcfg2 = {.num_channels = 1U, .end_cb = end_cb1, .error_cb = error_cb1, .trigger = DAC_TRG(0)};
+static const GPTConfig gpt6cfg1 = {
+  .frequency    = DAC_SAMPLE_RATE * 3,
+  .callback     = NULL,
+  .cr2          = TIM_CR2_MMS_1,       /* MMS = 010 = TRGO on Update Event.  */
+  .dier         = 0U
+};
+
+static const DACConfig dac_conf = {
+  .init         = DAC_SAMPLE_MAX,
+  .datamode     = DAC_DHRM_12BIT_RIGHT
+};
+
+/**
+ * @note The DAC_TRG(0) here selects the Timer 6 TRGO event, which is triggered
+ * on the rising edge after 3 APB1 clock cycles, causing our gpt6cfg1.frequency
+ * to be a third of what we expect.
+ *
+ * Here are all the values for DAC_TRG (TSEL in the ref manual)
+ * TIM15_TRGO 0b011
+ * TIM2_TRGO  0b100
+ * TIM3_TRGO  0b001
+ * TIM6_TRGO  0b000
+ * TIM7_TRGO  0b010
+ * EXTI9      0b110
+ * SWTRIG     0b111
+ */
+static const DACConversionGroup dac_conv_cfg = {
+  .num_channels = 1U,
+  .end_cb       = dac_end,
+  .error_cb     = dac_error,
+  .trigger      = DAC_TRG(0b000)
+};
 
 void audio_init() {
-    if (audio_initialized) {
-        return;
-    }
 
-// Check EEPROM
+  if (audio_initialized) {
+    return;
+  }
+
+  // Check EEPROM
 #ifdef EEPROM_ENABLE
     if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+      eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
-#else  // ARM EEPROM
-    audio_config.enable        = true;
-#    ifdef AUDIO_CLICKY_ON
+#else // ARM EEPROM
+    audio_config.enable = true;
+  #ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
-#    endif
-#endif  // ARM EEPROM
+  #endif
+#endif // ARM EEPROM
 
-    /*
-     * Starting DAC1 driver, setting up the output pin as analog as suggested
-     * by the Reference Manual.
-     */
-    palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
-    palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG);
-    dacStart(&DACD1, &dac1cfg1);
-    dacStart(&DACD2, &dac1cfg2);
 
-    /*
-     * Starting GPT6/7 driver, it is used for triggering the DAC.
-     */
-    START_CHANNEL_1();
-    START_CHANNEL_2();
+#if defined(A4_AUDIO)
+  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG );
+  dacStart(&DACD1, &dac_conf);
+  dacStartConversion(&DACD1, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
+#endif
+#if defined(A5_AUDIO)
+  palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_ANALOG );
+  dacStart(&DACD2, &dac_conf);
+  dacStartConversion(&DACD2, &dac_conv_cfg, dac_buffer_empty, DAC_BUFFER_SIZE);
+#endif
 
-    /*
-     * Starting a continuous conversion.
-     */
-    dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE);
-    dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
+  gptStart(&GPTD6, &gpt6cfg1);
+  gptStartContinuous(&GPTD6, 2U);
 
-    audio_initialized = true;
+  audio_initialized = true;
 
-    if (audio_config.enable) {
-        PLAY_SONG(startup_song);
-    } else {
-        stop_all_notes();
-    }
+  if (audio_config.enable) {
+    PLAY_SONG(startup_song);
+  } else {
+    stop_all_notes();
+  }
+
 }
 
 void stop_all_notes() {
@@ -300,403 +306,226 @@ void stop_all_notes() {
     if (!audio_initialized) {
         audio_init();
     }
-    voices = 0;
-
-    gptStopTimer(&GPTD6);
-    gptStopTimer(&GPTD7);
-    gptStopTimer(&GPTD8);
+    dac_voices = 0;
 
     playing_notes = false;
-    playing_note  = false;
-    frequency     = 0;
-    frequency_alt = 0;
-    volume        = 0;
+    playing_note = false;
 
     for (uint8_t i = 0; i < 8; i++) {
-        frequencies[i] = 0;
-        volumes[i]     = 0;
+        dac_frequencies[i] = 0;
     }
 }
 
 void stop_note(float freq) {
-    dprintf("audio stop note freq=%d", (int)freq);
+  dprintf("audio stop note freq=%d", (int)freq);
 
-    if (playing_note) {
-        if (!audio_initialized) {
-            audio_init();
-        }
-        for (int i = 7; i >= 0; i--) {
-            if (frequencies[i] == freq) {
-                frequencies[i] = 0;
-                volumes[i]     = 0;
-                for (int j = i; (j < 7); j++) {
-                    frequencies[j]     = frequencies[j + 1];
-                    frequencies[j + 1] = 0;
-                    volumes[j]         = volumes[j + 1];
-                    volumes[j + 1]     = 0;
-                }
-                break;
-            }
-        }
-        voices--;
-        if (voices < 0) {
-            voices = 0;
-        }
-        if (voice_place >= voices) {
-            voice_place = 0;
-        }
-        if (voices == 0) {
-            STOP_CHANNEL_1();
-            STOP_CHANNEL_2();
-            gptStopTimer(&GPTD8);
-            frequency     = 0;
-            frequency_alt = 0;
-            volume        = 0;
-            playing_note  = false;
-        }
+  if (playing_note) {
+    if (!audio_initialized) {
+      audio_init();
     }
+    for (int i = 7; i >= 0; i--) {
+      if (dac_frequencies[i] == freq) {
+        dac_frequencies[i] = 0;
+        for (int j = i; (j < 7); j++) {
+          dac_frequencies[j] = dac_frequencies[j+1];
+          dac_frequencies[j+1] = 0;
+        }
+        break;
+      }
+    }
+    dac_voices--;
+    if (dac_voices < 0) {
+      dac_voices = 0;
+    }
+    if (dac_voices == 0) {
+      playing_note = false;
+    }
+  }
 }
 
 #ifdef VIBRATO_ENABLE
 
 float mod(float a, int b) {
-    float r = fmod(a, b);
-    return r < 0 ? r + b : r;
+  float r = fmod(a, b);
+  return r < 0 ? r + b : r;
 }
 
 float vibrato(float average_freq) {
-#    ifdef VIBRATO_STRENGTH_ENABLE
+  #ifdef VIBRATO_STRENGTH_ENABLE
     float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#    else
+  #else
     float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#    endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
-    return vibrated_freq;
+  #endif
+  vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
+  return vibrated_freq;
 }
 
 #endif
 
-static void gpt_cb8(GPTDriver *gptp) {
-    float freq;
-
-    if (playing_note) {
-        if (voices > 0) {
-            float freq_alt = 0;
-            if (voices > 1) {
-                if (polyphony_rate == 0) {
-                    if (glissando) {
-                        if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, 440 / frequency_alt / 12 / 2);
-                        } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440 / frequencies[voices - 2] / 12 / 2)) {
-                            frequency_alt = frequency_alt * pow(2, -440 / frequency_alt / 12 / 2);
-                        } else {
-                            frequency_alt = frequencies[voices - 2];
-                        }
-                    } else {
-                        frequency_alt = frequencies[voices - 2];
-                    }
-
-#ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq_alt = vibrato(frequency_alt);
-                    } else {
-                        freq_alt = frequency_alt;
-                    }
-#else
-                    freq_alt = frequency_alt;
-#endif
-                }
-
-                if (envelope_index < 65535) {
-                    envelope_index++;
-                }
-
-                freq_alt = voice_envelope(freq_alt);
-
-                if (freq_alt < 30.517578125) {
-                    freq_alt = 30.52;
-                }
-
-                if (GET_CHANNEL_2_FREQ != (uint16_t)freq_alt) {
-                    UPDATE_CHANNEL_2_FREQ(freq_alt);
-                } else {
-                    RESTART_CHANNEL_2();
-                }
-                // note_timbre;
-            }
-
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place       = 0.0;
-                    }
-                }
-
-#ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequencies[voice_place]);
-                } else {
-                    freq = frequencies[voice_place];
-                }
-#else
-                freq = frequencies[voice_place];
-#endif
-            } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, 440 / frequency / 12 / 2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440 / frequencies[voices - 1] / 12 / 2)) {
-                        frequency = frequency * pow(2, -440 / frequency / 12 / 2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-#ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(frequency);
-                } else {
-                    freq = frequency;
-                }
-#else
-                freq = frequency;
-#endif
-            }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-                UPDATE_CHANNEL_1_FREQ(freq);
-            } else {
-                RESTART_CHANNEL_1();
-            }
-            // note_timbre;
-        }
-    }
-
-    if (playing_notes) {
-        if (note_frequency > 0) {
-#ifdef VIBRATO_ENABLE
-            if (vibrato_strength > 0) {
-                freq = vibrato(note_frequency);
-            } else {
-                freq = note_frequency;
-            }
-#else
-            freq = note_frequency;
-#endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
-
-            if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
-                UPDATE_CHANNEL_1_FREQ(freq);
-                UPDATE_CHANNEL_2_FREQ(freq);
-            }
-            // note_timbre;
-        } else {
-            // gptStopTimer(&GPTD6);
-            // gptStopTimer(&GPTD7);
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (GET_CHANNEL_1_FREQ > 0) {
-            if (!note_resting)
-                end_of_note = (note_position >= (note_length * 8 - 1));
-            else
-                end_of_note = (note_position >= (note_length * 8));
-        } else {
-            end_of_note = (note_position >= (note_length * 8));
-        }
-
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    STOP_CHANNEL_1();
-                    STOP_CHANNEL_2();
-                    // gptStopTimer(&GPTD8);
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length    = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length    = 1;
-                }
-            } else {
-                note_resting   = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-    }
-
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note  = false;
-    }
-}
 
 void play_note(float freq, int vol) {
-    dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
 
-    if (!audio_initialized) {
-        audio_init();
+  dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
+
+  if (!audio_initialized) {
+      audio_init();
+  }
+
+  if (audio_config.enable && dac_voices < 8) {
+    playing_note = true;
+    if (freq > 0) {
+      envelope_index = 0;
+      dac_frequencies[dac_voices] = freq;
+      dac_voices++;
     }
+  }
+}
 
-    if (audio_config.enable && voices < 8) {
-        // Cancel notes if notes are playing
-        if (playing_notes) {
-            stop_all_notes();
-        }
-
-        playing_note = true;
-
-        envelope_index = 0;
-
-        if (freq > 0) {
-            frequencies[voices] = freq;
-            volumes[voices]     = vol;
-            voices++;
-        }
-
-        gptStart(&GPTD8, &gpt8cfg1);
-        gptStartContinuous(&GPTD8, 2U);
-        RESTART_CHANNEL_1();
-        RESTART_CHANNEL_2();
-    }
+__attribute__ ((weak))
+void dac_setup_note(void) {
+  dac_if[dac_voices] = 0.0f;
 }
 
 void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
-    if (!audio_initialized) {
-        audio_init();
-    }
 
-    if (audio_config.enable) {
-        // Cancel note if a note is playing
-        if (playing_note) {
-            stop_all_notes();
-        }
+  if (!audio_initialized) {
+    audio_init();
+  }
 
-        playing_notes = true;
+  if (audio_config.enable) {
 
-        notes_pointer = np;
-        notes_count   = n_count;
-        notes_repeat  = n_repeat;
+    playing_notes = true;
 
-        place        = 0;
-        current_note = 0;
+    notes_pointer = np;
+    notes_count = n_count;
+    notes_repeat = n_repeat;
 
-        note_frequency = (*notes_pointer)[current_note][0];
-        note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-        note_position  = 0;
+    current_note = 0;
 
-        gptStart(&GPTD8, &gpt8cfg1);
-        gptStartContinuous(&GPTD8, 2U);
-        RESTART_CHANNEL_1();
-        RESTART_CHANNEL_2();
-    }
+    note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+    note_position = 0;
+
+    play_note((*notes_pointer)[current_note][0], 15);
+
+  }
 }
 
-bool is_playing_notes(void) { return playing_notes; }
+bool is_playing_note(void) {
+  return playing_note;
+}
 
-bool is_audio_on(void) { return (audio_config.enable != 0); }
+bool is_playing_notes(void) {
+  return playing_notes;
+}
+
+bool is_audio_on(void) {
+  return (audio_config.enable != 0);
+}
 
 void audio_toggle(void) {
-    audio_config.enable ^= 1;
-    eeconfig_update_audio(audio_config.raw);
-    if (audio_config.enable) {
-        audio_on_user();
-    }
+  audio_config.enable ^= 1;
+  eeconfig_update_audio(audio_config.raw);
+  if (audio_config.enable) {
+    audio_on_user();
+  }
 }
 
 void audio_on(void) {
-    audio_config.enable = 1;
-    eeconfig_update_audio(audio_config.raw);
-    audio_on_user();
+  audio_config.enable = 1;
+  eeconfig_update_audio(audio_config.raw);
+  audio_on_user();
 }
 
 void audio_off(void) {
-    stop_all_notes();
-    audio_config.enable = 0;
-    eeconfig_update_audio(audio_config.raw);
+  stop_all_notes();
+  audio_config.enable = 0;
+  eeconfig_update_audio(audio_config.raw);
 }
 
 #ifdef VIBRATO_ENABLE
 
 // Vibrato rate functions
 
-void set_vibrato_rate(float rate) { vibrato_rate = rate; }
+void set_vibrato_rate(float rate) {
+  vibrato_rate = rate;
+}
 
-void increase_vibrato_rate(float change) { vibrato_rate *= change; }
+void increase_vibrato_rate(float change) {
+  vibrato_rate *= change;
+}
 
-void decrease_vibrato_rate(float change) { vibrato_rate /= change; }
+void decrease_vibrato_rate(float change) {
+  vibrato_rate /= change;
+}
 
-#    ifdef VIBRATO_STRENGTH_ENABLE
+#ifdef VIBRATO_STRENGTH_ENABLE
 
-void set_vibrato_strength(float strength) { vibrato_strength = strength; }
+void set_vibrato_strength(float strength) {
+  vibrato_strength = strength;
+}
 
-void increase_vibrato_strength(float change) { vibrato_strength *= change; }
+void increase_vibrato_strength(float change) {
+  vibrato_strength *= change;
+}
 
-void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
+void decrease_vibrato_strength(float change) {
+  vibrato_strength /= change;
+}
 
-#    endif /* VIBRATO_STRENGTH_ENABLE */
+#endif  /* VIBRATO_STRENGTH_ENABLE */
 
 #endif /* VIBRATO_ENABLE */
 
 // Polyphony functions
 
-void set_polyphony_rate(float rate) { polyphony_rate = rate; }
+void set_polyphony_rate(float rate) {
+  polyphony_rate = rate;
+}
 
-void enable_polyphony() { polyphony_rate = 5; }
+void enable_polyphony() {
+  polyphony_rate = 5;
+}
 
-void disable_polyphony() { polyphony_rate = 0; }
+void disable_polyphony() {
+  polyphony_rate = 0;
+}
 
-void increase_polyphony_rate(float change) { polyphony_rate *= change; }
+void increase_polyphony_rate(float change) {
+  polyphony_rate *= change;
+}
 
-void decrease_polyphony_rate(float change) { polyphony_rate /= change; }
+void decrease_polyphony_rate(float change) {
+  polyphony_rate /= change;
+}
 
 // Timbre function
 
-void set_timbre(float timbre) { note_timbre = timbre; }
+void set_timbre(float timbre) {
+  note_timbre = timbre;
+}
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo) { note_tempo = tempo; }
+void set_tempo(uint8_t tempo) {
+  note_tempo = tempo;
+}
 
-void decrease_tempo(uint8_t tempo_change) { note_tempo += tempo_change; }
+void decrease_tempo(uint8_t tempo_change) {
+  note_tempo += tempo_change;
+}
 
 void increase_tempo(uint8_t tempo_change) {
-    if (note_tempo - tempo_change < 10) {
-        note_tempo = 10;
-    } else {
-        note_tempo -= tempo_change;
-    }
+  if (note_tempo - tempo_change < 10) {
+    note_tempo = 10;
+  } else {
+    note_tempo -= tempo_change;
+  }
+}
+
+uint8_t dac_number_of_voices(void) {
+  return dac_voices;
+}
+
+float dac_get_frequency(uint8_t index) {
+  return dac_frequencies[index];
 }

@@ -27,6 +27,9 @@
 #include "voices.h"
 #include "quantum.h"
 #include <math.h>
+#if defined(PROTOCOL_CHIBIOS)
+  #include "audio_arm.h"
+#endif
 
 // Largely untested PWM audio mode (doesn't sound as good)
 // #define PWM_AUDIO
@@ -102,6 +105,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 #define PLAY_SONG(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
 #define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
+bool is_playing_note(void);
 bool is_playing_notes(void);
 
 #endif
