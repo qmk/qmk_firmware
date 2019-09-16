@@ -74,7 +74,6 @@
 
 #define IT_BKSL KC_GRAVE // backslash \, |
 
-
 #define IT_ACUT LALT(KC_8) // accent acute ´
 #define IT_GRAV LALT(KC_9) // accent grave `
 
@@ -102,10 +101,10 @@
 #define IT_UNDS LSFT(IT_MINS) // _
 
 // Alt Gr-ed characters
-#define IT_LCBR ALGR(KC_7)     // {
 #define IT_LBRC ALGR(IT_EACC)  // [
+#define IT_LCBR LSFT(IT_LBRC)  // {
 #define IT_RBRC ALGR(IT_PLUS)  // ]
-#define IT_RCBR ALGR(KC_0)     // }
+#define IT_RCBR LSFT(RBRC)     // }
 #define IT_AT   ALGR(IT_OACC)  // @
 #define IT_EURO ALGR(KC_E)     // ¿
 #define IT_PIPE LSFT(IT_BKSL)  // |
