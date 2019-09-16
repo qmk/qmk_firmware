@@ -226,7 +226,7 @@ uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
     uint16_t keycode = eeprom_read_byte(addr) << 8;
     keycode |= eeprom_read_byte(addr + 1);
     return keycode;
-#elif
+#else
     return 0;
 #endif
 }
