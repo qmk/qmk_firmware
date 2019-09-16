@@ -267,20 +267,21 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+HAPTIC_ENABLE ?= no
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
+	COMMON_VPATH += $(DRIVER_PATH)/haptic
+	SRC += haptic.c
+	OPT_DEFS += -DHAPTIC_ENABLE
+endif
+
+ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
     SRC += DRV2605L.c
     QUANTUM_LIB_SRC += i2c_master.c
-    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DDRV2605L
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
     SRC += solenoid.c
-    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
@@ -357,4 +358,10 @@ SPACE_CADET_ENABLE ?= yes
 ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
   SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
   OPT_DEFS += -DSPACE_CADET_ENABLE
+endif
+
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
