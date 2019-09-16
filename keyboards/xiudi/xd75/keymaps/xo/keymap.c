@@ -15,7 +15,7 @@
 
 // You might want to alter this to something that matches the keycap LED colors
 // you installed.
-#define BASE_COLOR RGB_ORANGE
+#define BASE_COLOR RGB_BLUE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
@@ -62,7 +62,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       rgblight_setrgb(BASE_COLOR);
       break;
     case 1:
-      rgblight_setrgb(RGB_AZURE);
+      rgblight_setrgb(RGB_GREEN);
       break;
     case 2:
       rgblight_setrgb(RGB_PURPLE);
