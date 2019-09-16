@@ -72,13 +72,13 @@
 
 
 
-#define IT_BKSL KC_GRAVE // backslash \, |
+#define IT_BKSL KC_NUBS  // \, |
 
 #define IT_ACUT LALT(KC_8) // accent acute ´
 #define IT_GRAV LALT(KC_9) // accent grave `
 
-#define IT_LESS KC_NUBS // < and > and |
-#define IT_MINS KC_SLSH // - and _
+#define IT_LESS KC_GRAVE // < and >
+#define IT_MINS KC_SLSH  // - and _
 
 // shifted characters
 #define IT_DEGR LSFT(IT_AACC) // °
