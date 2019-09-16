@@ -71,7 +71,7 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 |`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
 |`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if supported                                                                     |
 |`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                                              |
-|`BACKLIGHT_ON_STATE` |`0`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                        |
+|`BACKLIGHT_ON_STATE` |`1`          |The state of the backlight pin when the backlight is "on" - `1` for high, `0` for low                        |
 
 ### Backlight On State
 
