@@ -694,8 +694,8 @@ uint8_t modbit2prefix(uint8_t mod, char* str, uint8_t len) {
   uint8_t found = 1;
   switch (mod)
   {
-  case_mod2prefix(LSFT);
   case_mod2prefix(LCTL);
+  case_mod2prefix(LSFT);
   case_mod2prefix(LALT);
   case_mod2prefix(LGUI);
   case_mod2prefix(RSFT);
@@ -1127,12 +1127,12 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
       PREFIX_PAIR(RGB),
       PREFIX_PAIR(MAGIC),
       PREFIX_PAIR(ANY),
-      PREFIX_PAIR(LSFT),
       PREFIX_PAIR(LCTL),
+      PREFIX_PAIR(LSFT),
       PREFIX_PAIR(LALT),
       PREFIX_PAIR(LGUI),
-      PREFIX_PAIR(RSFT),
       PREFIX_PAIR(RCTL),
+      PREFIX_PAIR(RSFT),
       PREFIX_PAIR(RALT),
       PREFIX_PAIR(RGUI),
       PREFIX_PAIR(LCA),
@@ -1194,7 +1194,7 @@ uint16_t str2quantum_keycode_locale(const char* str, uint32_t len,
     }
 	return kc;
     break;
-  case LSFT...RGUI:
+  case LCTL...RGUI:
 	  return convert_kc_with_single_mod(str + prefix_len, len-prefix_len, prefix_idx - (int)LCTL, locale);
   case LCA...C_S:
 	  return convert_kc_with_mods(str + prefix_len, len-prefix_len, prefix_idx, locale);
