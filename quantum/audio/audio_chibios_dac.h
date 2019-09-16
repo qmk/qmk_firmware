@@ -26,7 +26,7 @@
  * Highest value allowed by our 12bit DAC.
  */
 #ifndef DAC_SAMPLE_MAX
-  #define DAC_SAMPLE_MAX  4095U
+#    define DAC_SAMPLE_MAX 4095U
 #endif
 
 // #define DAC_LOW_QUALITY
@@ -37,23 +37,23 @@
  * relationship - slightly higher sample rates may be possible.
  */
 #ifdef DAC_VERY_LOW_QUALITY
-  #define DAC_SAMPLE_RATE 11025U
-  #define DAC_VOICES_MAX 8
+#    define DAC_SAMPLE_RATE 11025U
+#    define DAC_VOICES_MAX 8
 #endif
 
 #ifdef DAC_LOW_QUALITY
-  #define DAC_SAMPLE_RATE 22050U
-  #define DAC_VOICES_MAX 4
+#    define DAC_SAMPLE_RATE 22050U
+#    define DAC_VOICES_MAX 4
 #endif
 
 #ifdef DAC_HIGH_QUALITY
-  #define DAC_SAMPLE_RATE 44100U
-  #define DAC_VOICES_MAX 2
+#    define DAC_SAMPLE_RATE 44100U
+#    define DAC_VOICES_MAX 2
 #endif
 
 #ifdef DAC_VERY_HIGH_QUALITY
-  #define DAC_SAMPLE_RATE 88200U
-  #define DAC_VOICES_MAX 1
+#    define DAC_SAMPLE_RATE 88200U
+#    define DAC_VOICES_MAX 1
 #endif
 
 /**
@@ -63,7 +63,7 @@
  * sample rate is where notes become unbearable.
  */
 #ifndef DAC_SAMPLE_RATE
-  #define DAC_SAMPLE_RATE 44100U
+#    define DAC_SAMPLE_RATE 44100U
 #endif
 
 /**
@@ -72,7 +72,7 @@
  * are being played.
  */
 #ifndef DAC_VOICES_MAX
-  #define DAC_VOICES_MAX 2
+#    define DAC_VOICES_MAX 2
 #endif
 
 /**
@@ -80,18 +80,18 @@
  * setups may require a high (DAC_SAMPLE_MAX) or low (0) value here.
  */
 #ifndef DAC_OFF_VALUE
-  #define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
+#    define DAC_OFF_VALUE DAC_SAMPLE_MAX / 2
 #endif
 
 /**
  * choose pins for the speaker
  */
 #ifndef A4_AUDIO
-  #define A4_AUDIO
+#    define A4_AUDIO
 //#define A5_AUDIO
 #endif
 
-uint8_t dac_number_of_voices(void);
-float dac_get_frequency(uint8_t index);
+uint8_t  dac_number_of_voices(void);
+float    dac_get_frequency(uint8_t index);
 uint16_t dac_value_generate(void);
-void dac_setup_note(void);
+void     dac_setup_note(void);

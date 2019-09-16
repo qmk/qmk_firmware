@@ -28,7 +28,7 @@
 #include "quantum.h"
 #include <math.h>
 #if defined(PROTOCOL_CHIBIOS)
-  #include "audio_chibios_dac.h"
+#    include "audio_chibios_dac.h"
 #endif
 
 // Largely untested PWM audio mode (doesn't sound as good)
@@ -59,7 +59,7 @@ void audio_on(void);
 void audio_off(void);
 
 float pwm_audio_get_single_voice(uint8_t voice);
-void pwm_audio_timer_task(float *freq, float *freq_alt);
+void  pwm_audio_timer_task(float *freq, float *freq_alt);
 
 // Vibrato rate functions
 
