@@ -1,5 +1,4 @@
-#ifndef REV2_H
-#define REV2_H
+#pragma once
 
 #include "quantum.h"
 #include "../kbd75.h"
@@ -21,5 +20,3 @@
 	{ K400,  K401,  K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  KC_NO, K413,  K414,  K415 }, \
 	{ K500,  K501,  KC_NO, K503,  K504,  KC_NO, K506,  KC_NO, K508,  K509,  K510,  K511,  K512,  K513,  K514,  K515 }  \
 }
-
-#endif
