@@ -104,7 +104,7 @@
 #define IT_LBRC ALGR(IT_EACC)  // [
 #define IT_LCBR LSFT(IT_LBRC)  // {
 #define IT_RBRC ALGR(IT_PLUS)  // ]
-#define IT_RCBR LSFT(RBRC)     // }
+#define IT_RCBR LSFT(IT_RBRC)  // }
 #define IT_AT   ALGR(IT_OACC)  // @
 #define IT_EURO ALGR(KC_E)     // €
 #define IT_PIPE LSFT(IT_BKSL)  // |
