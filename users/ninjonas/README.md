@@ -6,7 +6,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 - ninjonas [QMK user configuration](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_userspace.md)
 - On `keymap.c` include `ninjonas.h`
   ```c
-  #include "ninjonas.h"     
+  #include "ninjonas.h"
   ```
 
 ## Features
@@ -15,8 +15,9 @@ See: https://docs.qmk.fm/#/feature_userspace
 |---|---|
 |K_LOCK | MacOS shortcut to execute lock command  + ctrl + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
+|K_MDSH | MacOS shortcut to get em-dash `–` |
 
-### [Layers](ninjonas.h#L48)
+### [Layers](ninjonas.h#L49)
 |Code | Description |
 |---|---|
 |LT_LOW | Tap for ENTER, hold for RAISE |
@@ -26,7 +27,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 |LT_LOW + LT_RAI | Hold for ADJUST  |
 |L_LOWER | Dedicated key to momentarily toggle to use LOWER layer |
 
-### [Layout Blocks](ninjonas.h#L57)
+### [Layout Blocks](ninjonas.h#L58)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |
@@ -69,7 +70,7 @@ There's times where you have macros you don't want to share like emails, passwor
 
 ```c
 // secrets.c
-#include "ninjonas.h" 
+#include "ninjonas.h"
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

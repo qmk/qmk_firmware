@@ -44,6 +44,7 @@
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
 #define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
+#define K_MDSH LSFT(LALT(KC_MINS))
 
 // Layer Keys
 #define L_LOWER MO(_LOWER)
