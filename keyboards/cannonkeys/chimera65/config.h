@@ -64,10 +64,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 // Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600) = 635
 // start + layer * rows * col * 2
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-#define EEPROM_CUSTOM_BACKLIGHT 676
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 677
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+#define EEPROM_CUSTOM_BACKLIGHT 678
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 679
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 202
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 /*
