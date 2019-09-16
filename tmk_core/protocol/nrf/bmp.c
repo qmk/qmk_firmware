@@ -263,6 +263,7 @@ void parse_and_save_config(void)
     {
         if (BMPAPI->app.set_config(&config) == BMP_OK)
         {
+            matrix_init();
             BMPAPI->logger.info("Update config");
             BMPAPI->app.save_file(0);
         }
