@@ -212,13 +212,6 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		case id_dynamic_keymap_macro_get_buffer:
 		{
 			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-		https://github.com/olivia/via-config-private/pull/14/filesd_data[2]; // size <= 28
-		https://github.com/olivia/via-config-private/pull/14/fileset_buffer( offset, size, &command_data[3] );
-		https://github.com/olivia/via-config-private/pull/14/files
-		}https://github.com/olivia/via-config-private/pull/14/files
-		chttps://github.com/olivia/via-config-private/pull/14/filesro_set_buffer:
-		{https://github.com/olivia/via-config-private/pull/14/files
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
 			uint16_t size = command_data[2]; // size <= 28
 			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
 			break;
