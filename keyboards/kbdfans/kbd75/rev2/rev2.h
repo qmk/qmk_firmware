@@ -1,7 +1,6 @@
 #pragma once
 
-#include "quantum.h"
-#include "../kbd75.h"
+#include "kbd75.h"
 
 
 // LAYOUT for all possible switch positions on a KBD75 rev 2

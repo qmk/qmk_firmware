@@ -1,7 +1,6 @@
 #pragma once
 
-#include "quantum.h"
-#include "../kbd75.h"
+#include "kbd75.h"
 
 /* LAYOUT
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
