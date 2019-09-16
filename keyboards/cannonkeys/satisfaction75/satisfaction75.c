@@ -98,12 +98,12 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
             {
                 case id_uptime:
                 {
-                    uint32_t value = timer_read32();
-                    command_data[1] = (value >> 24 ) & 0xFF;
-                    command_data[2] = (value >> 16 ) & 0xFF;
-                    command_data[3] = (value >> 8 ) & 0xFF;
-                    command_data[4] = value & 0xFF;
-                    break;
+                uint32_t value = timer_read32();
+                command_data[1] = (value >> 24 ) & 0xFF;
+                command_data[2] = (value >> 16 ) & 0xFF;
+                command_data[3] = (value >> 8 ) & 0xFF;
+                command_data[4] = value & 0xFF;
+                break;
                 }
                 case id_oled_default_mode:
                 {
