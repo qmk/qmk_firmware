@@ -115,7 +115,6 @@ uint16_t handle_encoder_clockwise(){
 #ifdef DYNAMIC_KEYMAP_ENABLE
     case ENC_MODE_CUSTOM0:
       mapped_code = retrieve_custom_encoder_config(0, ENC_CUSTOM_CW);
-      printf("Read %d from eeprom for encoder\n", mapped_code);
       break;
     case ENC_MODE_CUSTOM1:
       mapped_code = retrieve_custom_encoder_config(1, ENC_CUSTOM_CW);
@@ -234,7 +233,6 @@ uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 
 void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    printf("Setting new code %d\t%d\t%d", encoder_idx, behavior, new_code);
     void* addr = (void*)(DYNAMIC_KEYMAP_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
     eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
     eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
