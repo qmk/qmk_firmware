@@ -4,15 +4,19 @@ Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any
 
 Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
 
-Timer 1:
+Timer 3, on one of these pins:
+`#define C4_AUDIO`
+`#define C5_AUDIO`
+`#define C6_AUDIO`
+
+Timer 1, on one of these pins:
 `#define B5_AUDIO`
 `#define B6_AUDIO`
 `#define B7_AUDIO`
 
-Timer 3:
-`#define C4_AUDIO`
-`#define C5_AUDIO`
-`#define C6_AUDIO`
+for a single audio voice: set *one* out of the Cx_AUDIO or Bx_AUDIO defines
+for two: set one Cx_AUDIO - which will be the primary voice - and one Bx_AUDIO, which will be the secondary
+
 
 If you add `AUDIO_ENABLE = yes` to your `rules.mk`, there's a couple different sounds that will automatically be enabled without any other configuration:
 

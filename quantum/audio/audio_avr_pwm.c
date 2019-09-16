@@ -40,78 +40,78 @@ extern uint8_t voices;
 
 //Currently we support timers 1 and 3 used at the sime time, channels A-C,
 //pins PB5, PB6, PB7, PC4, PC5, and PC6
-#if defined(C6_AUDIO)
-    #define CPIN_AUDIO
-    #define CPIN_SET_DIRECTION DDRC |= _BV(PORTC6);
-    #define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
-    #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3A)
-    #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3A)
-    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3A1);
-    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
-    #define TIMER_3_PERIOD     ICR3
-    #define TIMER_3_DUTY_CYCLE OCR3A
-    #define TIMER3_AUDIO_vect TIMER3_COMPA_vect
-#endif
-#if defined(C5_AUDIO)
-    #define CPIN_AUDIO
-    #define CPIN_SET_DIRECTION DDRC |= _BV(PORTC5);
-    #define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3B1) | (0 << COM3B0) | (1 << WGM31) | (0 << WGM30);
-    #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3B)
-    #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3B)
-    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3B1);
-    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3B1) | _BV(COM3B0));
-    #define TIMER_3_PERIOD     ICR3
-    #define TIMER_3_DUTY_CYCLE OCR3B
-    #define TIMER3_AUDIO_vect TIMER3_COMPB_vect
-#endif
-#if defined(C4_AUDIO)
-    #define CPIN_AUDIO
-    #define CPIN_SET_DIRECTION DDRC |= _BV(PORTC4);
-    #define INIT_AUDIO_COUNTER_3 TCCR3A = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
-    #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3C)
-    #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3C)
-    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3C1);
-    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3C1) | _BV(COM3C0));
-    #define TIMER_3_PERIOD     ICR3
-    #define TIMER_3_DUTY_CYCLE OCR3C
-    #define TIMER3_AUDIO_vect TIMER3_COMPC_vect
+#if defined(C4_AUDIO) || defined(C5_AUDIO) || defined(C6_AUDIO)
+    #define AUDIO_VOICE_A
+    #define VOICE_A_TIMER_PERIOD     ICR3
+
+    #if defined(C6_AUDIO)
+        #define VOICE_A_SET_PIN_DIRECTION DDRC |= _BV(PORTC6);
+        #define VOICE_A_INIT_COUNTER TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+        #define VOICE_A_ENABLE_COUNTER_ISR TIMSK3 |= _BV(OCIE3A)
+        #define VOICE_A_DISABLE_COUNTER_ISR TIMSK3 &= ~_BV(OCIE3A)
+        #define VOICE_A_ENABLE_COUNTER_OUTPUT TCCR3A |= _BV(COM3A1);
+        #define VOICE_A_DISABLE_COUNTER_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
+        #define VOICE_A_TIMER_DUTY_CYCLE OCR3A
+        #define VOICE_A_TIMER_ISR_vect TIMER3_COMPA_vect
+    #elif defined(C5_AUDIO)
+        #define VOICE_A_SET_PIN_DIRECTION DDRC |= _BV(PORTC5);
+        #define VOICE_A_INIT_COUNTER TCCR3A = (0 << COM3B1) | (0 << COM3B0) | (1 << WGM31) | (0 << WGM30);
+        #define VOICE_A_ENABLE_COUNTER_ISR TIMSK3 |= _BV(OCIE3B)
+        #define VOICE_A_DISABLE_COUNTER_ISR TIMSK3 &= ~_BV(OCIE3B)
+        #define VOICE_A_ENABLE_COUNTER_OUTPUT TCCR3A |= _BV(COM3B1);
+        #define VOICE_A_DISABLE_COUNTER_OUTPUT TCCR3A &= ~(_BV(COM3B1) | _BV(COM3B0));
+        #define VOICE_A_TIMER_DUTY_CYCLE OCR3B
+        #define VOICE_A_TIMER_ISR_vect TIMER3_COMPB_vect
+    #elif defined(C4_AUDIO)
+        #define VOICE_A_SET_PIN_DIRECTION DDRC |= _BV(PORTC4);
+        #define VOICE_A_INIT_COUNTER TCCR3A = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
+        #define VOICE_A_ENABLE_COUNTER_ISR TIMSK3 |= _BV(OCIE3C)
+        #define VOICE_A_DISABLE_COUNTER_ISR TIMSK3 &= ~_BV(OCIE3C)
+        #define VOICE_A_ENABLE_COUNTER_OUTPUT TCCR3A |= _BV(COM3C1);
+        #define VOICE_A_DISABLE_COUNTER_OUTPUT TCCR3A &= ~(_BV(COM3C1) | _BV(COM3C0));
+        #define VOICE_A_TIMER_DUTY_CYCLE OCR3C
+        #define VOICE_A_TIMER_ISR_vect TIMER3_COMPC_vect
+    #endif
 #endif
 
-#if defined(B5_AUDIO)
-    #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB5);
-    #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
-    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
-    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
-    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1A1);
-    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
-    #define TIMER_1_PERIOD     ICR1
-    #define TIMER_1_DUTY_CYCLE OCR1A
-    #define TIMER1_AUDIO_vect TIMER1_COMPA_vect
+#if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+    #define AUDIO_VOICE_B
+    #define VOICE_B_TIMER_PERIOD     ICR1
+
+    #if defined(B5_AUDIO)
+        #define VOICE_B_SET_PIN_DIRECTION DDRB |= _BV(PORTB5);
+        #define VOICE_B_INIT_COUNTER TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+        #define VOICE_B_ENABLE_COUNTER_ISR TIMSK1 |= _BV(OCIE1A)
+        #define VOICE_B_DISABLE_COUNTER_ISR TIMSK1 &= ~_BV(OCIE1A)
+        #define VOICE_B_ENABLE_COUNTER_OUTPUT TCCR1A |= _BV(COM1A1);
+        #define VOICE_B_DISABLE_COUNTER_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
+        #define VOICE_B_TIMER_DUTY_CYCLE OCR1A
+        #define VOICE_B_TIMER_ISR_vect TIMER1_COMPA_vect
+    #elif defined(B6_AUDIO)
+        #define AUDIO_VOICE_B
+        #define VOICE_B_SET_PIN_DIRECTION DDRB |= _BV(PORTB6);
+        #define VOICE_B_INIT_COUNTER TCCR1A = (0 << COM1B1) | (0 << COM1B0) | (1 << WGM11) | (0 << WGM10);
+        #define VOICE_B_ENABLE_COUNTER_ISR TIMSK1 |= _BV(OCIE1B)
+        #define VOICE_B_DISABLE_COUNTER_ISR TIMSK1 &= ~_BV(OCIE1B)
+        #define VOICE_B_ENABLE_COUNTER_OUTPUT TCCR1A |= _BV(COM1B1);
+        #define VOICE_B_DISABLE_COUNTER_OUTPUT TCCR1A &= ~(_BV(COM1B1) | _BV(COM1B0));
+        #define VOICE_B_TIMER_DUTY_CYCLE OCR1B
+        #define VOICE_B_TIMER_ISR_vect TIMER1_COMPB_vect
+    #elif defined(B7_AUDIO)
+        #define AUDIO_VOICE_B
+        #define VOICE_B_SET_PIN_DIRECTION DDRB |= _BV(PORTB7);
+        #define VOICE_B_INIT_COUNTER TCCR1A = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
+        #define VOICE_B_ENABLE_COUNTER_ISR TIMSK1 |= _BV(OCIE1C)
+        #define VOICE_B_DISABLE_COUNTER_ISR TIMSK1 &= ~_BV(OCIE1C)
+        #define VOICE_B_ENABLE_COUNTER_OUTPUT TCCR1A |= _BV(COM1C1);
+        #define VOICE_B_DISABLE_COUNTER_OUTPUT TCCR1A &= ~(_BV(COM1C1) | _BV(COM1C0));
+        #define VOICE_B_TIMER_DUTY_CYCLE OCR1C
+        #define VOICE_B_TIMER_ISR_vect TIMER1_COMPC_vect
+    #endif
 #endif
-#if defined(B6_AUDIO)
-    #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB6);
-    #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1B1) | (0 << COM1B0) | (1 << WGM11) | (0 << WGM10);
-    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1B)
-    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1B)
-    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1B1);
-    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1B1) | _BV(COM1B0));
-    #define TIMER_1_PERIOD     ICR1
-    #define TIMER_1_DUTY_CYCLE OCR1B
-    #define TIMER1_AUDIO_vect TIMER1_COMPB_vect
-#endif
-#if defined(B7_AUDIO)
-    #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB7);
-    #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
-    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
-    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
-    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1C1);
-    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1C1) | _BV(COM1C0));
-    #define TIMER_1_PERIOD     ICR1
-    #define TIMER_1_DUTY_CYCLE OCR1C
-    #define TIMER1_AUDIO_vect TIMER1_COMPC_vect
+
+#if !defined(AUDIO_VOICE_A) && !defined(AUDIO_VOICE_B)
+#error "audio feature enabled, but no pin selected - see docs/feature_audio for defines to set"
 #endif
 
 #if !defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
@@ -128,13 +128,13 @@ float place = 0;
 void audio_initialize_hardware() {
 
        // Set audio ports as output
-        #ifdef CPIN_AUDIO
-          CPIN_SET_DIRECTION
-          DISABLE_AUDIO_COUNTER_3_ISR;
+        #ifdef AUDIO_VOICE_A
+          VOICE_A_SET_PIN_DIRECTION
+          VOICE_A_DISABLE_COUNTER_ISR;
         #endif
-        #ifdef BPIN_AUDIO
-          BPIN_SET_DIRECTION
-          DISABLE_AUDIO_COUNTER_1_ISR;
+        #ifdef AUDIO_VOICE_B
+          VOICE_B_SET_PIN_DIRECTION
+          VOICE_B_DISABLE_COUNTER_ISR;
         #endif
 
         // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers TCCR3A/TCCR3B, TCCR1A/TCCR1B
@@ -155,98 +155,98 @@ void audio_initialize_hardware() {
         //   OCR1C - PB7
 
         // Clock Select (CS3n) = 0b010 = Clock / 8
-        #ifdef CPIN_AUDIO
-            INIT_AUDIO_COUNTER_3
+        #ifdef AUDIO_VOICE_A
+            VOICE_A_INIT_COUNTER
             TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
-            TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
+            VOICE_A_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            VOICE_A_TIMER_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
         #endif
-        #ifdef BPIN_AUDIO
-            INIT_AUDIO_COUNTER_1
+        #ifdef AUDIO_VOICE_B
+            VOICE_B_INIT_COUNTER
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
-            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
+            VOICE_B_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            VOICE_B_TIMER_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
         #endif
 
 }
 
 void audio_stop_hardware() {
 
-    #ifdef CPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-        DISABLE_AUDIO_COUNTER_3_OUTPUT;
+    #ifdef AUDIO_VOICE_A
+        VOICE_A_DISABLE_COUNTER_ISR;
+        VOICE_A_DISABLE_COUNTER_OUTPUT;
     #endif
 
-    #ifdef BPIN_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-        DISABLE_AUDIO_COUNTER_1_OUTPUT;
+    #ifdef AUDIO_VOICE_B
+        VOICE_B_DISABLE_COUNTER_ISR;
+        VOICE_B_DISABLE_COUNTER_OUTPUT;
     #endif
 }
 
 void audio_start_hardware(void) {
 
-        #ifdef CPIN_AUDIO
-            ENABLE_AUDIO_COUNTER_3_ISR;
-            ENABLE_AUDIO_COUNTER_3_OUTPUT;
+        #ifdef AUDIO_VOICE_A
+            VOICE_A_ENABLE_COUNTER_ISR;
+            VOICE_A_ENABLE_COUNTER_OUTPUT;
         #endif
-        #ifdef BPIN_AUDIO
-            #ifdef CPIN_AUDIO
+        #ifdef AUDIO_VOICE_B
+            #ifdef AUDIO_VOICE_A
             if (voices > 1) {
-                ENABLE_AUDIO_COUNTER_1_ISR;
-                ENABLE_AUDIO_COUNTER_1_OUTPUT;
+                VOICE_B_ENABLE_COUNTER_ISR;
+                VOICE_B_ENABLE_COUNTER_OUTPUT;
             }
             #else
-            ENABLE_AUDIO_COUNTER_1_ISR;
-            ENABLE_AUDIO_COUNTER_1_OUTPUT;
+            VOICE_B_ENABLE_COUNTER_ISR;
+            VOICE_B_ENABLE_COUNTER_OUTPUT;
             #endif
         #endif
 }
 
-#ifdef CPIN_AUDIO
-ISR(TIMER3_AUDIO_vect) {
+#ifdef AUDIO_VOICE_A
+ISR(VOICE_A_TIMER_ISR_vect) {
 
     float freq, freq_alt;
     pwm_audio_timer_task(&freq, &freq_alt);
 
-    #ifdef BPIN_AUDIO
-    TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
-    TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
+    #ifdef AUDIO_VOICE_B
+    VOICE_B_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
+    VOICE_B_TIMER_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
     #endif
 
     if (freq>0) {
-        TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-        TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+        VOICE_A_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+        VOICE_A_TIMER_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
     } else {
-        TIMER_3_PERIOD = 0;
-        TIMER_3_DUTY_CYCLE = 0;
+        VOICE_A_TIMER_PERIOD = 0;
+        VOICE_A_TIMER_DUTY_CYCLE = 0;
     }
 
     if (!playing_notes) {
-        DISABLE_AUDIO_COUNTER_3_ISR;
-        DISABLE_AUDIO_COUNTER_3_OUTPUT;
+        VOICE_A_DISABLE_COUNTER_ISR;
+        VOICE_A_DISABLE_COUNTER_OUTPUT;
     }
 
 }
 #endif
 
-#ifdef BPIN_AUDIO
-ISR(TIMER1_AUDIO_vect) {
+#ifdef AUDIO_VOICE_B
+ISR(VOICE_B_TIMER_ISR_vect) {
 
-    #if defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
+    #if defined(AUDIO_VOICE_B) && !defined(AUDIO_VOICE_A)
     float freq, freq_alt;
     pwm_audio_timer_task(&freq, &freq_alt);
 
     if (freq>0) {
-        TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-        TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+        VOICE_B_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
+        VOICE_B_TIMER_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
     } else {
-        TIMER_1_PERIOD = 0;
-        TIMER_1_DUTY_CYCLE = 0;
+        VOICE_B_TIMER_PERIOD = 0;
+        VOICE_B_TIMER_DUTY_CYCLE = 0;
     }
 
     if (!playing_notes) {
-        DISABLE_AUDIO_COUNTER_1_ISR;
-        DISABLE_AUDIO_COUNTER_1_OUTPUT;
+        VOICE_B_DISABLE_COUNTER_ISR;
+        VOICE_B_DISABLE_COUNTER_OUTPUT;
     }
     #endif
 }
