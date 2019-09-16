@@ -19,36 +19,36 @@
 
 #include "eeconfig.h"
 
-uint8_t voices = 0;
-float frequencies[8] = { 0.0 };
-int volumes[8] = { 0 };
+uint8_t voices         = 0;
+float   frequencies[8] = {0.0};
+int     volumes[8]     = {0};
 
-//float place = 0;
-int voice_place = 0;
-float frequency = 0;
+// float place = 0;
+int   voice_place   = 0;
+float frequency     = 0;
 float frequency_alt = 0;
-int volume = 0;
-long position = 0;
+int   volume        = 0;
+long  position      = 0;
 
-bool     playing_notes = false;
-bool     playing_note = false;
+bool     playing_notes  = false;
+bool     playing_note   = false;
 float    note_frequency = 0;
-float    note_length = 0;
-uint8_t  note_tempo = TEMPO_DEFAULT;
-float    note_timbre = TIMBRE_DEFAULT;
-uint32_t note_position = 0;
-float (* notes_pointer)[][2];
+float    note_length    = 0;
+uint8_t  note_tempo     = TEMPO_DEFAULT;
+float    note_timbre    = TIMBRE_DEFAULT;
+uint32_t note_position  = 0;
+float (*notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
 bool     note_resting = false;
 
 uint16_t current_note = 0;
-uint8_t rest_counter = 0;
+uint8_t  rest_counter = 0;
 
 #ifdef VIBRATO_ENABLE
-float vibrato_counter = 0;
+float vibrato_counter  = 0;
 float vibrato_strength = .5;
-float vibrato_rate = 0.125;
+float vibrato_rate     = 0.125;
 #endif
 
 float polyphony_rate = 0;
@@ -58,41 +58,39 @@ static bool audio_initialized = false;
 audio_config_t audio_config;
 
 uint16_t envelope_index = 0;
-bool glissando = true;
+bool     glissando      = true;
 
 #ifndef STARTUP_SONG
-    #define STARTUP_SONG SONG(STARTUP_SOUND)
+#    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 #ifndef AUDIO_ON_SONG
-    #define AUDIO_ON_SONG SONG(AUDIO_ON_SOUND)
+#    define AUDIO_ON_SONG SONG(AUDIO_ON_SOUND)
 #endif
 #ifndef AUDIO_OFF_SONG
-    #define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
+#    define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
 #endif
-float startup_song[][2] = STARTUP_SONG;
-float audio_on_song[][2] = AUDIO_ON_SONG;
+float startup_song[][2]   = STARTUP_SONG;
+float audio_on_song[][2]  = AUDIO_ON_SONG;
 float audio_off_song[][2] = AUDIO_OFF_SONG;
 
 void audio_init() {
-
     if (audio_initialized) {
         return;
     }
 
     // Check EEPROM
-//TODO: avr defines?
-    #if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+    // TODO: avr defines?
+#if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
-    #else // ARM EEPROM
-    audio_config.enable = true;
-    #ifdef AUDIO_CLICKY_ON
+#else  // ARM EEPROM
+    audio_config.enable        = true;
+#    ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
-    #endif
-    #endif // ARM EEPROM
-
+#    endif
+#endif  // ARM EEPROM
 
     if (!audio_initialized) {
         audio_initialize_hardware();
@@ -101,12 +99,11 @@ void audio_init() {
 
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
-/*TODO needed? came from where?
-  } else {
-    stop_all_notes();
-*/
+        /*TODO needed? came from where?
+          } else {
+            stop_all_notes();
+        */
     }
-
 }
 
 void stop_all_notes() {
@@ -117,18 +114,17 @@ void stop_all_notes() {
     }
     voices = 0;
 
-  audio_stop_hardware();
+    audio_stop_hardware();
 
     playing_notes = false;
-    playing_note = false;
-    frequency = 0;
+    playing_note  = false;
+    frequency     = 0;
     frequency_alt = 0;
-    volume = 0;
+    volume        = 0;
 
-    for (uint8_t i = 0; i < 8; i++)
-    {
+    for (uint8_t i = 0; i < 8; i++) {
         frequencies[i] = 0;
-        volumes[i] = 0;
+        volumes[i]     = 0;
     }
 }
 
@@ -142,19 +138,18 @@ void stop_note(float freq) {
         for (int i = 7; i >= 0; i--) {
             if (frequencies[i] == freq) {
                 frequencies[i] = 0;
-                volumes[i] = 0;
+                volumes[i]     = 0;
                 for (int j = i; (j < 7); j++) {
-                    frequencies[j] = frequencies[j+1];
-                    frequencies[j+1] = 0;
-                    volumes[j] = volumes[j+1];
-                    volumes[j+1] = 0;
+                    frequencies[j]     = frequencies[j + 1];
+                    frequencies[j + 1] = 0;
+                    volumes[j]         = volumes[j + 1];
+                    volumes[j + 1]     = 0;
                 }
                 break;
             }
         }
         voices--;
-        if (voices < 0)
-            voices = 0;
+        if (voices < 0) voices = 0;
         if (voice_place >= voices) {
             voice_place = 0;
         }
@@ -163,16 +158,15 @@ void stop_note(float freq) {
 
             audio_stop_hardware();
 
-            frequency = 0;
+            frequency     = 0;
             frequency_alt = 0;
-            volume = 0;
-            playing_note = false;
+            volume        = 0;
+            playing_note  = false;
         }
     }
 }
 
 void play_note(float freq, int vol) {
-
     dprintf("audio play note freq=%d vol=%d", (int)freq, vol);
 
     if (!audio_initialized) {
@@ -180,10 +174,8 @@ void play_note(float freq, int vol) {
     }
 
     if (audio_config.enable && voices < 8) {
-
         // Cancel notes if notes are playing
-        if (playing_notes)
-            stop_all_notes();
+        if (playing_notes) stop_all_notes();
 
         playing_note = true;
 
@@ -191,56 +183,44 @@ void play_note(float freq, int vol) {
 
         if (freq > 0) {
             frequencies[voices] = freq;
-            volumes[voices] = vol;
+            volumes[voices]     = vol;
             voices++;
         }
         audio_start_hardware();
     }
-
 }
 
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
-{
-
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     if (!audio_initialized) {
         audio_init();
     }
 
     if (audio_config.enable) {
-
         // Cancel note if a note is playing
-        if (playing_note)
-            stop_all_notes();
+        if (playing_note) stop_all_notes();
 
         playing_notes = true;
 
         notes_pointer = np;
-        notes_count = n_count;
-        notes_repeat = n_repeat;
+        notes_count   = n_count;
+        notes_repeat  = n_repeat;
 
         current_note = 0;
 
         note_frequency = (*notes_pointer)[current_note][0];
-        note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-        note_position = 0;
-
+        note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+        note_position  = 0;
 
         audio_start_hardware();
-    //   play_note((*notes_pointer)[current_note][0], 15);
+        //   play_note((*notes_pointer)[current_note][0], 15);
     }
 }
 
-bool is_playing_note(void) {
-    return playing_note;
-}
+bool is_playing_note(void) { return playing_note; }
 
-bool is_playing_notes(void) {
-    return playing_notes;
-}
+bool is_playing_notes(void) { return playing_notes; }
 
-bool is_audio_on(void) {
-    return (audio_config.enable != 0);
-}
+bool is_audio_on(void) { return (audio_config.enable != 0); }
 
 void audio_toggle(void) {
     audio_config.enable ^= 1;
@@ -273,12 +253,12 @@ float mod(float a, int b) {
 }
 
 float vibrato(float average_freq) {
-#ifdef VIBRATO_STRENGTH_ENABLE
+#    ifdef VIBRATO_STRENGTH_ENABLE
     float vibrated_freq = average_freq * pow(vibrato_lut[(int)vibrato_counter], vibrato_strength);
-#else
+#    else
     float vibrated_freq = average_freq * vibrato_lut[(int)vibrato_counter];
-#endif
-    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0/average_freq)), VIBRATO_LUT_LENGTH);
+#    endif
+    vibrato_counter = mod((vibrato_counter + vibrato_rate * (1.0 + 440.0 / average_freq)), VIBRATO_LUT_LENGTH);
     return vibrated_freq;
 }
 
@@ -287,17 +267,16 @@ float vibrato(float average_freq) {
 /* out of a possibly polyphonic setup, retrieve the frequency for a single voice
    to calculate the pwm period and duty-cycle from, relative to the cpy-frequency
  */
-float pwm_audio_get_single_voice_frequency( uint8_t voice ) {
+float pwm_audio_get_single_voice_frequency(uint8_t voice) {
     float frequency = 0.0;
 
-    if (voice > voices)
-        return frequency;
+    if (voice > voices) return frequency;
 
     if (glissando) {
-        if (frequency != 0 && frequency < frequencies[voices - voice] && frequency < frequencies[voices - voice] * pow(2, -440/frequencies[voices - voice]/12/2)) {
-            frequency = frequency * pow(2, 440/frequency/12/2);
-        } else if (frequency != 0 && frequency > frequencies[voices - voice] && frequency > frequencies[voices - voice] * pow(2, 440/frequencies[voices - voice]/12/2)) {
-            frequency = frequency * pow(2, -440/frequency/12/2);
+        if (frequency != 0 && frequency < frequencies[voices - voice] && frequency < frequencies[voices - voice] * pow(2, -440 / frequencies[voices - voice] / 12 / 2)) {
+            frequency = frequency * pow(2, 440 / frequency / 12 / 2);
+        } else if (frequency != 0 && frequency > frequencies[voices - voice] && frequency > frequencies[voices - voice] * pow(2, 440 / frequencies[voices - voice] / 12 / 2)) {
+            frequency = frequency * pow(2, -440 / frequency / 12 / 2);
         } else {
             frequency = frequencies[voices - voice];
         }
@@ -325,34 +304,32 @@ float pwm_audio_get_single_voice_frequency( uint8_t voice ) {
 }
 
 void pwm_audio_timer_task(float *freq, float *freq_alt) {
-
     if (playing_note) {
         if (voices > 0) {
-
-            #ifdef BPIN_AUDIO
+#ifdef BPIN_AUDIO
             *freq_alt = pwm_audio_get_single_voice_frequency(2);
-            #else
+#else
             *freq_alt = 0.0f;
-            #endif
+#endif
 
             if (polyphony_rate > 0) {
                 if (voices > 1) {
                     voice_place %= voices;
-//                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-//                        voice_place = (voice_place + 1) % voices;
-//                        place = 0.0;
-//                    }
+                    //                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
+                    //                        voice_place = (voice_place + 1) % voices;
+                    //                        place = 0.0;
+                    //                    }
                 }
 
-                #ifdef VIBRATO_ENABLE
+#ifdef VIBRATO_ENABLE
                 if (vibrato_strength > 0) {
                     *freq = vibrato(frequencies[voice_place]);
                 } else {
                     *freq = frequencies[voice_place];
                 }
-                #else
+#else
                 *freq = frequencies[voice_place];
-                #endif
+#endif
             } else {
                 *freq = pwm_audio_get_single_voice_frequency(1);
             }
@@ -361,15 +338,15 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
     if (playing_notes) {
         if (note_frequency > 0) {
-            #ifdef VIBRATO_ENABLE
+#ifdef VIBRATO_ENABLE
             if (vibrato_strength > 0) {
                 *freq = vibrato(note_frequency);
             } else {
                 *freq = note_frequency;
             }
-            #else
+#else
             *freq = note_frequency;
-            #endif
+#endif
 
             if (envelope_index < 65535) {
                 envelope_index++;
@@ -380,9 +357,9 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
         note_position++;
         bool end_of_note = false;
         if (!note_resting)
-            end_of_note = (note_position >= (note_length*8 - 1));
+            end_of_note = (note_position >= (note_length * 8 - 1));
         else
-            end_of_note = (note_position >= (note_length*8));
+            end_of_note = (note_position >= (note_length * 8));
 
         if (end_of_note) {
             current_note++;
@@ -399,16 +376,16 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
                 current_note--;
                 if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
                     note_frequency = 0;
-                    note_length = 1;
+                    note_length    = 1;
                 } else {
                     note_frequency = (*notes_pointer)[current_note][0];
-                    note_length = 1;
+                    note_length    = 1;
                 }
             } else {
-                note_resting = false;
+                note_resting   = false;
                 envelope_index = 0;
                 note_frequency = (*notes_pointer)[current_note][0];
-                note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
+                note_length    = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
             }
 
             note_position = 0;
@@ -416,83 +393,54 @@ void pwm_audio_timer_task(float *freq, float *freq_alt) {
 
         if (!audio_config.enable) {
             playing_notes = false;
-            playing_note = false;
+            playing_note  = false;
         }
     }
 }
-
 
 #ifdef VIBRATO_ENABLE
 
 // Vibrato rate functions
 
-void set_vibrato_rate(float rate) {
-    vibrato_rate = rate;
-}
+void set_vibrato_rate(float rate) { vibrato_rate = rate; }
 
-void increase_vibrato_rate(float change) {
-    vibrato_rate *= change;
-}
+void increase_vibrato_rate(float change) { vibrato_rate *= change; }
 
-void decrease_vibrato_rate(float change) {
-    vibrato_rate /= change;
-}
+void decrease_vibrato_rate(float change) { vibrato_rate /= change; }
 
-#ifdef VIBRATO_STRENGTH_ENABLE
+#    ifdef VIBRATO_STRENGTH_ENABLE
 
-void set_vibrato_strength(float strength) {
-    vibrato_strength = strength;
-}
+void set_vibrato_strength(float strength) { vibrato_strength = strength; }
 
-void increase_vibrato_strength(float change) {
-    vibrato_strength *= change;
-}
+void increase_vibrato_strength(float change) { vibrato_strength *= change; }
 
-void decrease_vibrato_strength(float change) {
-    vibrato_strength /= change;
-}
+void decrease_vibrato_strength(float change) { vibrato_strength /= change; }
 
-#endif  /* VIBRATO_STRENGTH_ENABLE */
+#    endif /* VIBRATO_STRENGTH_ENABLE */
 
 #endif /* VIBRATO_ENABLE */
 
 // Polyphony functions
 
-void set_polyphony_rate(float rate) {
-    polyphony_rate = rate;
-}
+void set_polyphony_rate(float rate) { polyphony_rate = rate; }
 
-void enable_polyphony(void) {
-    polyphony_rate = 5;
-}
+void enable_polyphony(void) { polyphony_rate = 5; }
 
-void disable_polyphony(void) {
-    polyphony_rate = 0;
-}
+void disable_polyphony(void) { polyphony_rate = 0; }
 
-void increase_polyphony_rate(float change) {
-    polyphony_rate *= change;
-}
+void increase_polyphony_rate(float change) { polyphony_rate *= change; }
 
-void decrease_polyphony_rate(float change) {
-    polyphony_rate /= change;
-}
+void decrease_polyphony_rate(float change) { polyphony_rate /= change; }
 
 // Timbre function
 
-void set_timbre(float timbre) {
-    note_timbre = timbre;
-}
+void set_timbre(float timbre) { note_timbre = timbre; }
 
 // Tempo functions
 
-void set_tempo(uint8_t tempo) {
-    note_tempo = tempo;
-}
+void set_tempo(uint8_t tempo) { note_tempo = tempo; }
 
-void decrease_tempo(uint8_t tempo_change) {
-    note_tempo += tempo_change;
-}
+void decrease_tempo(uint8_t tempo_change) { note_tempo += tempo_change; }
 
 void increase_tempo(uint8_t tempo_change) {
     if (note_tempo - tempo_change < 10) {

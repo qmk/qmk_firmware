@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /* STM32F103C Setup:
 halconf.h:
 #define HAL_USE_PWM                 TRUE
@@ -31,30 +30,28 @@ used pin: PA8 (alternate0: Tim1_Ch1)
 #include "ch.h"
 #include "hal.h"
 
-
 #include <string.h>
 #include "print.h"
-
 
 /* either use the direct hardware connection of Timer1-Channel1 to GPIOA.8
    via the pins alternate-function to drive a piezo speaker
    OR set this define to zero and have the timer callbacks toggle your pin of choice
 */
 #ifndef ARM_PWM_USE_PIN_ALTERNATE
-#define ARM_PWM_USE_PIN_ALTERNATE 1
+#    define ARM_PWM_USE_PIN_ALTERNATE 1
 #endif
 
 #ifndef ARM_PWM_AUDIO_PORT
-#define ARM_PWM_AUDIO_PORT GPIOC
+#    define ARM_PWM_AUDIO_PORT GPIOC
 #endif
 #ifndef ARM_PWM_AUDIO_PIN
-#define ARM_PWM_AUDIO_PIN 13
+#    define ARM_PWM_AUDIO_PIN 13
 #endif
 // -----------------------------------------------------------------------------
 
 #define AUDIO_PIN PAL_LINE(ARM_PWM_AUDIO_PORT, ARM_PWM_AUDIO_PIN)
 
-extern int voices;
+extern int  voices;
 extern bool playing_notes;
 
 #if !(ARM_PWM_USE_PIN_ALTERNATE)
@@ -62,35 +59,30 @@ static void pwm_audio_period_callback(PWMDriver *pwmp);
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp);
 #endif
 
-static PWMConfig pwmCFG = {
-    100000,/* PWM clock frequency  */
-    10,/* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
-    #if ARM_PWM_USE_PIN_ALTERNATE
-    NULL,
-    #else
-    pwm_audio_period_callback,
-    #endif
-    {
-        #if ARM_PWM_USE_PIN_ALTERNATE
-        {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* channel 0 -> TIM1-CH1 = PA8 */
-        #else
-        /* on the STM32F104C8B: alternate function of pin */
-        {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIM1-CH1 = PA8 */
-        #endif
-        {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIM1-CH2 = PA9 */
-        {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIM1-CH3 = PA10 */
-        {PWM_OUTPUT_DISABLED, NULL}  /* channel 3 -> TIM1-CH4 = PA11 */
-    },
-    0, /* HW dependent part.*/
-    0
-};
-
+static PWMConfig pwmCFG = {100000, /* PWM clock frequency  */
+                           10,     /* initial PWM period (in ticks) 1S (1/10kHz=0.1mS 0.1ms*10000 ticks=1S) */
+#if ARM_PWM_USE_PIN_ALTERNATE
+                           NULL,
+#else
+                           pwm_audio_period_callback,
+#endif
+                           {
+#if ARM_PWM_USE_PIN_ALTERNATE
+                               {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* channel 0 -> TIM1-CH1 = PA8 */
+#else
+                               /* on the STM32F104C8B: alternate function of pin */
+                               {PWM_OUTPUT_ACTIVE_HIGH, pwm_audio_channel_interrupt_callback}, /* channel 0 -> TIM1-CH1 = PA8 */
+#endif
+                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 1 -> TIM1-CH2 = PA9 */
+                               {PWM_OUTPUT_DISABLED, NULL}, /* channel 2 -> TIM1-CH3 = PA10 */
+                               {PWM_OUTPUT_DISABLED, NULL}  /* channel 3 -> TIM1-CH4 = PA11 */
+                           },
+                           0, /* HW dependent part.*/
+                           0};
 
 static float channel_1_frequency = 0.0f;
-void channel_1_set_frequency(float freq) {
-
-    if (freq == channel_1_frequency)
-        return;
+void         channel_1_set_frequency(float freq) {
+    if (freq == channel_1_frequency) return;
 
     channel_1_frequency = freq;
 
@@ -99,74 +91,63 @@ void channel_1_set_frequency(float freq) {
     pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
 }
 
-float channel_1_get_frequency(void) {
-    return channel_1_frequency;
-}
+float channel_1_get_frequency(void) { return channel_1_frequency; }
 
-
-
-void channel_1_start(void){
+void channel_1_start(void) {
     pwmStop(&PWMD1);
     pwmStart(&PWMD1, &pwmCFG);
     pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
 
-    #if !(ARM_PWM_USE_PIN_ALTERNATE)
-    pwmEnablePeriodicNotification(&PWMD1); // enable pwm callbacks
+#if !(ARM_PWM_USE_PIN_ALTERNATE)
+    pwmEnablePeriodicNotification(&PWMD1);  // enable pwm callbacks
     pwmEnableChannelNotification(&PWMD1, 0);
-    #endif
+#endif
 }
 
-void channel_1_stop(void){
-    pwmStop(&PWMD1);
-}
+void channel_1_stop(void) { pwmStop(&PWMD1); }
 
 #if !(ARM_PWM_USE_PIN_ALTERNATE)
 static void pwm_audio_period_callback(PWMDriver *pwmp) {
     (void)pwmp;
     palClearLine(AUDIO_PIN);
 
-/* hm, using the pwm callback, instead of the gpt timer does not work :-(
-    float freq, freq_alt;
-    pwm_audio_timer_task(&freq, &freq_alt);
+    /* hm, using the pwm callback, instead of the gpt timer does not work :-(
+        float freq, freq_alt;
+        pwm_audio_timer_task(&freq, &freq_alt);
 
-    if (playing_notes)
-        channel_1_set_frequency(freq);
-    else
-        channel_1_stop();
-*/
+        if (playing_notes)
+            channel_1_set_frequency(freq);
+        else
+            channel_1_stop();
+    */
 }
 static void pwm_audio_channel_interrupt_callback(PWMDriver *pwmp) {
     (void)pwmp;
-    palSetLine(AUDIO_PIN); // generate a PWM signal on any pin, not neccessarily the one connected to the timer
+    palSetLine(AUDIO_PIN);  // generate a PWM signal on any pin, not neccessarily the one connected to the timer
 }
 #endif
 
 static void gpt_cb8(GPTDriver *gptp);
-GPTConfig gpt8cfg1 = {
-    .frequency    = 10,
-    .callback     = gpt_cb8,
-    .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
-    .dier         = 0U
-};
+GPTConfig   gpt8cfg1 = {.frequency = 10,
+                      .callback  = gpt_cb8,
+                      .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+                      .dier      = 0U};
 
-
-
-void audio_initialize_hardware(void)
-{
+void audio_initialize_hardware(void) {
     pwmStart(&PWMD1, &pwmCFG);
 
     pwmEnableChannel(&PWMD1, 0, PWM_PERCENTAGE_TO_WIDTH(&PWMD1, 5000));
 
-    #if ARM_PWM_USE_PIN_ALTERNATE
+#if ARM_PWM_USE_PIN_ALTERNATE
     // on STM32F103C8B: PA8.alternate0 = output of TIM1-CH1
     palSetPadMode(GPIOA, 8, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    #else
+#else
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_OPENDRAIN);
     palClearLine(AUDIO_PIN);
 
-    pwmEnablePeriodicNotification(&PWMD1); // enable pwm callbacks
+    pwmEnablePeriodicNotification(&PWMD1);  // enable pwm callbacks
     pwmEnableChannelNotification(&PWMD1, 0);
-    #endif
+#endif
 
     audio_start_hardware();
 }
