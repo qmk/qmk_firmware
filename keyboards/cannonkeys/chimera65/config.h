@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x02
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
