@@ -195,128 +195,164 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
  * Encoder
  */
+const uint16_t PROGMEM encoders[][2][2] = {
+    [_REEDER] = {{ KC_J, KC_K }, { KC_N, KC_P }},
+    [_MEDIA] = {{ KC_VOLU, KC_VOLD }, { KC_MFFD, KC_MRWD }},
+    [_NAVI] = {{ MC_WH_D, MC_WH_U }, { NXT_TAB, PRV_TAB }},
+    [_MACRO] = {{ KC_PPLS, KC_PMNS }, { KC_PEQL, KC_PDOT }},
+    [LR_NAV] = {{ KC_EQL, KC_MINS }, { KC_PGUP, KC_PGDN }},
+    [LR_REVIEW] = {{ KC_RBRC, KC_LBRC }, { G(KC_UP), G(KC_DOWN) }},
+    [LR_EDIT] = {{ KC_DOT, KC_COMM }, { KC_EQL, KC_MINS }},
+};
+
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        switch (get_highest_layer(layer_state)) {
-            case _REEDER:
-                if (!clockwise) {
-                    tap_code(KC_J);
-                } else {
-                    tap_code(KC_K);
-                }
-                break;
-            case _MEDIA:
-                if (!clockwise) {
-                    tap_code(KC_VOLU);
-                } else {
-                    tap_code(KC_VOLD);
-                }
-                break;
-            case _NAVI:
-                if (!clockwise) {
-                    tap_code(MC_WH_D);
-                } else {
-                    tap_code(MC_WH_U);
-                }
-                break;
-            case _MACRO:
-                if (!clockwise) {
-                    tap_code(KC_PPLS);
-                } else {
-                    tap_code(KC_PMNS);
-                }
-                break;
-            case LR_NAV:
-                if (!clockwise) {
-                    tap_code(KC_EQL);
-                } else {
-                    tap_code(KC_MINS);
-                }
-                break;
-            case LR_REVIEW:
-                if (!clockwise) {
-                    tap_code(KC_RBRC);
-                } else {
-                    tap_code(KC_LBRC);
-                }
-                break;
-            case LR_EDIT:
-                if (!clockwise) {
-                    tap_code(KC_DOT);
-                } else {
-                    tap_code(KC_COMM);
-                }
-                break;
-            case _LIGHT:
-                if (!clockwise) {
+    uint8_t layer = get_highest_layer(layer_state);
+
+    if (layer == _LIGHT) {
+        switch (index) {
+            case 0:
+                if (clockwise) {
                     rgblight_increase_hue();
                 } else {
                     rgblight_decrease_hue();
                 }
                 break;
-        }
-    }
-    else if (index == 1) {
-        switch (get_highest_layer(layer_state)) {
-            case _REEDER:
-                if (!clockwise) {
-                    tap_code(KC_N);
-                } else {
-                    tap_code(KC_P);
-                }
-                break;
-            case _MEDIA:
-                if (!clockwise) {
-                    tap_code(KC_MFFD);
-                } else {
-                    tap_code(KC_MRWD);
-                }
-                break;
-            case _NAVI:
-                if (!clockwise) {
-                    tap_code16(NXT_TAB);
-                } else {
-                    tap_code16(PRV_TAB);
-                }
-                break;
-            case _MACRO:
-                if (!clockwise) {
-                    tap_code(KC_PEQL);
-                } else {
-                    tap_code(KC_PDOT);
-                }
-                break;
-            case LR_NAV:
-                if (!clockwise) {
-                    tap_code(KC_PGUP);
-                } else {
-                    tap_code(KC_PGDN);
-                }
-                break;
-            case LR_REVIEW:
-                if (!clockwise) {
-                    tap_code16(G(KC_UP));
-                } else {
-                    tap_code16(G(KC_DOWN));
-                }
-                break;
-            case LR_EDIT:
-                if (!clockwise) {
-                    tap_code(KC_EQL);
-                } else {
-                    tap_code(KC_MINS);
-                }
-                break;
-            case _LIGHT:
-                if (!clockwise) {
+            case 1:
+                if (clockwise) {
                     rgblight_increase_sat();
                 } else {
                     rgblight_decrease_sat();
                 }
                 break;
         }
+    } else {
+        tap_code16(pgm_read_word(&encoders[layer][index][clockwise]));
     }
 }
+
+// void encoder_update_user(uint8_t index, bool clockwise) {
+//     uint8_t layer = get_highest_layer(layer_state);
+//     if (index == 0) {
+//         switch (layer) {
+//             case _REEDER:
+//                 if (!clockwise) {
+//                     tap_code(KC_J);
+//                 } else {
+//                     tap_code(KC_K);
+//                 }
+//                 break;
+//             case _MEDIA:
+//                 if (!clockwise) {
+//                     tap_code(KC_VOLU);
+//                 } else {
+//                     tap_code(KC_VOLD);
+//                 }
+//                 break;
+//             case _NAVI:
+//                 if (!clockwise) {
+//                     tap_code(MC_WH_D);
+//                 } else {
+//                     tap_code(MC_WH_U);
+//                 }
+//                 break;
+//             case _MACRO:
+//                 if (!clockwise) {
+//                     tap_code(KC_PPLS);
+//                 } else {
+//                     tap_code(KC_PMNS);
+//                 }
+//                 break;
+//             case LR_NAV:
+//                 if (!clockwise) {
+//                     tap_code(KC_EQL);
+//                 } else {
+//                     tap_code(KC_MINS);
+//                 }
+//                 break;
+//             case LR_REVIEW:
+//                 if (!clockwise) {
+//                     tap_code(KC_RBRC);
+//                 } else {
+//                     tap_code(KC_LBRC);
+//                 }
+//                 break;
+//             case LR_EDIT:
+//                 if (!clockwise) {
+//                     tap_code(KC_DOT);
+//                 } else {
+//                     tap_code(KC_COMM);
+//                 }
+//                 break;
+//             case _LIGHT:
+//                 if (!clockwise) {
+//                     rgblight_increase_hue();
+//                 } else {
+//                     rgblight_decrease_hue();
+//                 }
+//                 break;
+//         }
+//     }
+//     else if (index == 1) {
+//         switch (get_highest_layer(layer_state)) {
+//             case _REEDER:
+//                 if (!clockwise) {
+//                     tap_code(KC_N);
+//                 } else {
+//                     tap_code(KC_P);
+//                 }
+//                 break;
+//             case _MEDIA:
+//                 if (!clockwise) {
+//                     tap_code(KC_MFFD);
+//                 } else {
+//                     tap_code(KC_MRWD);
+//                 }
+//                 break;
+//             case _NAVI:
+//                 if (!clockwise) {
+//                     tap_code16(NXT_TAB);
+//                 } else {
+//                     tap_code16(PRV_TAB);
+//                 }
+//                 break;
+//             case _MACRO:
+//                 if (!clockwise) {
+//                     tap_code(KC_PEQL);
+//                 } else {
+//                     tap_code(KC_PDOT);
+//                 }
+//                 break;
+//             case LR_NAV:
+//                 if (!clockwise) {
+//                     tap_code(KC_PGUP);
+//                 } else {
+//                     tap_code(KC_PGDN);
+//                 }
+//                 break;
+//             case LR_REVIEW:
+//                 if (!clockwise) {
+//                     tap_code16(G(KC_UP));
+//                 } else {
+//                     tap_code16(G(KC_DOWN));
+//                 }
+//                 break;
+//             case LR_EDIT:
+//                 if (!clockwise) {
+//                     tap_code(KC_EQL);
+//                 } else {
+//                     tap_code(KC_MINS);
+//                 }
+//                 break;
+//             case _LIGHT:
+//                 if (!clockwise) {
+//                     rgblight_increase_sat();
+//                 } else {
+//                     rgblight_decrease_sat();
+//                 }
+//                 break;
+//         }
+//     }
+// }
 
 /**
  * Keycodes
