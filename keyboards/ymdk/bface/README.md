@@ -10,7 +10,7 @@ Hardware Availability: [Shenzhen YMD Tech Co. (YMDK) on Aliexpress](https://www.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ymdk_bface:default
+    make ymdk/bface:default
 
 Flashing:
 
@@ -49,7 +49,7 @@ After installing `bootloadHID`, you can use the `./util/atmega32a_program.py` pr
 
 Then you can run this to compile the firmware and flash the board without using the jumper:
 ```
-make ymdk_bface:default:program
+make ymdk/bface:default:program
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
