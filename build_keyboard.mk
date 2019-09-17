@@ -343,6 +343,9 @@ VPATH += $(USER_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
 
+ifneq ($(strip $(KEYBOARD_LOCAL_FEATURES_MK)),)
+    include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))
+endif
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
