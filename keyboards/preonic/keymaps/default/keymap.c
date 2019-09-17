@@ -274,7 +274,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
             } else {
                 muse_mode = false;
             }
-    xs}
+    }
 }
 
 
