@@ -1,8 +1,8 @@
 # MCU name
 MCU = atmega32u4
 
-# Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Bootloader selection
+BOOTLOADER = atmel-dfu
 
 
 # Build Options
