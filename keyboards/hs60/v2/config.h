@@ -136,19 +136,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+32)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 67
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+// Dynamic keymap starts after backlight config (37+32)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 69
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (67+(4*5*14*2)) = (67+560)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 627
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
+// Dynamic macro starts after dynamic keymaps (69+(4*5*14*2)) = (69+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 629
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 396
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
