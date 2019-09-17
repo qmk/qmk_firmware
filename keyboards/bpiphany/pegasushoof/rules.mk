@@ -36,15 +36,7 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
+BOOTLOADER=atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -64,5 +56,4 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 LAYOUTS = tkl_ansi
 
-CUSTOM_MATRIX = yes
-SRC = matrix.c
+DEFAULT_FOLDER=bpiphany/pegasushoof/2013

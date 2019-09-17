@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤    ┌───┐
      * │LSft│RAG│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │  RShift  │    │ ↑ │
      * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤┌───┼───┼───┐
-     * │LCtl│LGui│LAlt│         Space          │RAlt│RGui│FnLk│RCtl││ ← │ ↓ │ → │
+     * │LCtl│LGui│LAlt│         Space          │RAlt│RGui│FnFL│RCtl││ ← │ ↓ │ → │
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘└───┴───┴───┘
      */
     [L_BASE] = LAYOUT_tkl_iso(
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, FN_FNLK, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    /* Function layer
+    /* Fn layer
      * ┌───┐   ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐ ┌───┬───┬───┬───┐┌───┬───┬───┐
      * │   │   │   │   │   │   │ │   │   │   │   │ │   │   │   │   ││   │Num│   │
      * └───┘   └───┴───┴───┴───┘ └───┴───┴───┴───┘ └───┴───┴───┴───┘└───┴───┴───┘
