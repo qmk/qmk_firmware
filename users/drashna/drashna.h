@@ -49,13 +49,8 @@ enum userspace_layers {
     _ADJUST,
 };
 
-/*
-define modifiers here, since MOD_* doesn't seem to work for these
- */
-
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);
 bool          mod_key_press(uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
-bool          send_game_macro(const char *str, keyrecord_t *record, bool override);
 void          matrix_init_keymap(void);
 void          shutdown_keymap(void);
 void          suspend_power_down_keymap(void);
@@ -69,11 +64,12 @@ void          eeconfig_init_keymap(void);
 typedef union {
     uint32_t raw;
     struct {
-        bool    rgb_layer_change    :1;
-        bool    is_overwatch        :1;
-        bool    nuke_switch         :1;
-        uint8_t unicode_mod         :4;
-        bool    swapped_numbers     :1;
+        bool    rgb_layer_change     :1;
+        bool    is_overwatch         :1;
+        bool    nuke_switch          :1;
+        uint8_t unicode_mod          :4;
+        bool    swapped_numbers      :1;
+        bool    rgb_matrix_idle_anim :1;
     };
 } userspace_config_t;
 
