@@ -22,7 +22,6 @@
 #include "print.h"
 #include "debug.h"
 #include "mousekey.h"
-#include <math.h>
 
 inline int8_t times_inv_sqrt2(int8_t x) {
     // 181/256 is pretty close to 1/sqrt(2)
