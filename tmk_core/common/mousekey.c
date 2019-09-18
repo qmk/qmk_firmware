@@ -36,7 +36,9 @@ static void           mousekey_debug(void);
 static uint8_t        mousekey_accel  = 0;
 static uint8_t        mousekey_repeat = 0;
 static uint16_t       last_timer      = 0;
+#ifdef MK_KINETIC_SPEED
 static uint16_t       mouse_timer     = 0;
+#endif
 
 #ifndef MK_3_SPEED
 
