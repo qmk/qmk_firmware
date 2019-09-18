@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define NO_PRINT
 #endif // !NO_PRINT
 
-#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_LGUI
+#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_BSPACE
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_ENTER
 
 #define LAPO_KEYS KC_LALT, KC_TRNS, KC_LBRACKET
