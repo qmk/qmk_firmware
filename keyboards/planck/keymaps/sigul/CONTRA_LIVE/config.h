@@ -1,5 +1,6 @@
 #pragma once
 
+
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
@@ -9,6 +10,8 @@
                                   SONG(DVORAK_SOUND) \
                                 }
 #endif
+
+#define MUSIC_MASK (keycode != KC_NO)
 
 /*
  * MIDI options
@@ -33,10 +36,5 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-// Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
-
-// My custom configurations
 #define TAPPING_TOGGLE 2
-#define USB_MAX_POWER_CONSUMPTION 100
+#define USB_MAX_POWER_CONSUMPTION 100 // to use the keyboard with the iPad
