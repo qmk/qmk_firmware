@@ -75,7 +75,7 @@
 #define IT_BKSL KC_NUBS  // \, |
 
 #define IT_ACUT LALT(KC_8) // accent acute ´
-#define IT_GRAV LALT(KC_9) // accent grave `
+#define IT_GRAVE LALT(KC_9) // accent grave `
 
 #define IT_LESS KC_GRAVE // < and >
 #define IT_MINS KC_SLSH  // - and _
@@ -113,4 +113,5 @@
 
 #define	IT_X_PLUS X_RBRACKET  // #
 
+#define IT_TILDE LALT(KC_5) // ~
 #endif
