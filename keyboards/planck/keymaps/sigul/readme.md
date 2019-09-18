@@ -31,3 +31,24 @@ OLD NOTES
 - [ ] LCMD_T(kc) command or key
 - [ ] verify if SFT_T(KC_CAPSLOCK) shift when held and caps lock when tapped is a bettere option
 - [ ] add brightness up (KC_BRMU or KC_BRIU) and down (KC_BRMD or KC_BRID)
+
+NOTES FROM DRAFT
+
+- [ ] consider using layer to have just one keymap (see as a reference qmk_firmware/layouts/community/ortho_4x12/bredfield/)
+- [ ] Add Hyper on 
+- [ ] Add MT(MOD_LSFT check, KC_ENT) shift when pressed, enter when tapped
+- [ ] add swap from Mac to Win key code
+- [ ] remap F keys upon numbers 
+- [ ] evaluate to add mods with mod taps on a layer
+- [ ] check audio
+- [ ] Evaluate home row lt and mt 
+- [ ] A key to switch to raise layer until pressed again
+- [ ] Al posto di raise ci andrebbe un livello che sovrascrive i tasti dell’italiano
+- [ ] add arrows on a layer
+- [ ] use TT(layer) - Layer Tap-Toggle for FN keycode
+- [ ] LCAG(kc) con freccia per full screen 
+- [ ] MT(kc) per usare shift come tasto es: MOD_LSFT(LCAG(KC_UP)). ???
+- [ ] SFT_T(KC_CAPSLOCK) shift when held and caps lock when tapped 
+- [ ] Add fn behind spacebar
+- [ ] Move del to a thumb layer
+- [ ] consider adding AUTO_SHIFT_ENABLE = yes in rules.mk to be able to send shifted key depressing a key for twice the time 
