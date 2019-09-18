@@ -3,7 +3,8 @@
 660M keyboard
 
 Keyboard Maintainer: [Adrien Tétar](https://github.com/adrientetar)  
-Hardware Supported: AT-AT 660M
+Hardware Supported: AT-AT 660M  
+Hardware Availability: <https://github.com/adrientetar/660m>
 
 
 Make example for this keyboard (after setting up your build environment):
