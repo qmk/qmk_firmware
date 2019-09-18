@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "split_util.h"
 
 extern keymap_config_t keymap_config;
 
@@ -127,57 +128,118 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case ZEROES:
-      SEND_STRING("00");
+      if (record->event.pressed) {
+        SEND_STRING("``");
+      }
       return false;
       break;
     case STATUS:
-      SEND_STRING("git status" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git status" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case LOG:
-      SEND_STRING("git log" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git log" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case STASH:
-      SEND_STRING("git stash" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git stash" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case POP:
-      SEND_STRING("git stash pop" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git stash pop" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case PULL:
-      SEND_STRING("git pull" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git pull" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case FETCH:
-      SEND_STRING("git fetch" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git fetch" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case REBASE:
-      SEND_STRING("git rebase" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git rebase" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case ADD:
-      SEND_STRING("git add ." SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git add ." SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case COMMIT:
-      SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+      if (record->event.pressed) {
+        SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+      }
       return false;
       break;
     case AMEND:
-      SEND_STRING("git commit --amend" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git commit --amend" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case PUSH:
-      SEND_STRING("git push" SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git push" SS_TAP(X_ENTER));
+      }
       return false;
       break;
     case CHECKOUT:
-      SEND_STRING("git checkout -- ." SS_TAP(X_ENTER));
+      if (record->event.pressed) {
+        SEND_STRING("git checkout -- ." SS_TAP(X_ENTER));
+      }
       return false;
       break;
   }
   return true;
 }
+
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  //if (!is_keyboard_master())
+  return OLED_ROTATION_90;  // flips the display 180 degrees if offhand
+  //return rotation;
+}
+
+static void render_logo(void) {
+  static const char PROGMEM qmk_logo[] = {
+    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+
+  oled_write_P(qmk_logo, false);
+}
+
+static void render_status(void) {
+  // Host Keyboard LED Status
+  uint8_t led_usb_state = host_keyboard_leds();
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
+  oled_write_P(PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
+  oled_write_P(PSTR("     "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+}
+
+void oled_task_user(void) {
+  if (is_keyboard_master()) {
+    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+  } else {
+    render_logo();       // Renders a static logo
+  }
+}
+#endif
