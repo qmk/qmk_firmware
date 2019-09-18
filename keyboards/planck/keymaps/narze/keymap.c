@@ -38,7 +38,6 @@ enum planck_keycodes {
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)
-#define GUI_MINS GUI_T(KC_MINS)
 
 enum process_combo_event {
     CB_SUPERDUPER,
@@ -48,20 +47,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  -   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    |Raise | GUI/-| Alt  | Ctrl | Low/]|
+ * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    | ^/Bs | Bksp | Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
     HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     LSFT_LPRN, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Colemak
@@ -72,22 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI/_|Lower |    Space    |Raise | GUI/-| Alt  | Ctrl | Low/]|
+ * | Brite| Ctrl | Alt  | GUI/_|Lower |    Space    | ^/Bs | Bksp | Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,    KC_BSPC,
+    KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,    KC_MINS,
     HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,       KC_QUOT,
     LSFT_LPRN, LT(_MOUSE, KC_Z),  KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Qwerty on software Colemak : Useful for gaming with qwerty keymaps! */
 [_QWOC] = LAYOUT_planck_grid(
-    KC_TAB,  CM_Q,    CM_W,    CM_E,    CM_R,    CM_T,    CM_Y,    CM_U,    CM_I,    CM_O,    CM_P,    KC_BSPC,
+    KC_TAB,  CM_Q,    CM_W,    CM_E,    CM_R,    CM_T,    CM_Y,    CM_U,    CM_I,    CM_O,    CM_P,    KC_MINS,
     HPR_ESC, CM_A,    CM_S,    CM_D,    CM_F,    CM_G,    CM_H,    CM_J,    CM_K,    CM_L,    CM_SCLN, KC_QUOT,
     LSFT_LPRN, LT(_MOUSE, CM_Z),    CM_X,    CM_C,    CM_V,    CM_B,    CM_N,    CM_M,    CM_COMM, CM_DOT,  LT(_SUPERDUPER, CM_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Lower
