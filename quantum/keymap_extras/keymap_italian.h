@@ -65,23 +65,23 @@
 #define IT_PLUS KC_RBRC  // +, *, ], }
 #define IT_OACC KC_SCLN  // ò, ç, @,
 #define IT_AACC KC_QUOT  // à, °, #,
-#define IT_UACC KC_BSLS  // ù, §,  ,
-#define IT_IACC KC_EQL   // ì, ^,  ,
+#define IT_UACC KC_BSLS  // ù, §, ¶,
+#define IT_IACC KC_EQL   // ì, ^, 
 
-#define IT_APOS KC_MINS  // ', ?,  ,
-
-
-
-#define IT_BKSL KC_GRAVE // backslash \, |
+#define IT_APOS KC_MINS  // ', ?,
 
 
-#define IT_ACUT  // accent acute ´ and grave `
 
-#define IT_LESS KC_NUBS // < and > and |
-#define IT_MINS KC_SLSH // - and _
+#define IT_BKSL KC_NUBS  // \, |
+
+#define IT_ACUT LALT(KC_8) // accent acute ´
+#define IT_GRAV LALT(KC_9) // accent grave `
+
+#define IT_LESS KC_GRAVE // < and >
+#define IT_MINS KC_SLSH  // - and _
 
 // shifted characters
-#define IT_PIPE LSFT(IT_BKSL) // °
+#define IT_DEGR LSFT(IT_AACC) // °
 #define IT_EXLM LSFT(KC_1) // !
 #define IT_DQOT LSFT(KC_2) // "
 #define IT_STRL LSFT(KC_3) // £
@@ -96,20 +96,21 @@
 #define IT_CRC  LSFT(IT_IACC) // ^
 #define IT_ASTR LSFT(IT_PLUS) // *
 #define IT_MORE LSFT(IT_LESS) // >
-#define IT_COLN LSFT(IT_DOT) // :
+#define IT_COLN LSFT(IT_DOT)  // :
 #define IT_SCLN LSFT(IT_COMM) // ;
 #define IT_UNDS LSFT(IT_MINS) // _
 
 // Alt Gr-ed characters
-#define IT_LCBR ALGR(KC_7) // {
-#define IT_LBRC ALGR(IT_EACC) // [
-#define IT_RBRC ALGR(IT_PLUS) // ]
-#define IT_RCBR ALGR(KC_0) // }
-#define IT_AT   ALGR(IT_OACC) 	// @
-#define IT_EURO ALGR(KC_E) 		// €
-#define IT_PIPE LSFT(IT_BKSL) 	// |
-#define	IT_SHRP	ALGR(IT_AACC) 	// #
+#define IT_LBRC ALGR(IT_EACC)  // [
+#define IT_LCBR LSFT(IT_LBRC)  // {
+#define IT_RBRC ALGR(IT_PLUS)  // ]
+#define IT_RCBR LSFT(IT_RBRC)  // }
+#define IT_AT   ALGR(IT_OACC)  // @
+#define IT_EURO ALGR(KC_E)     // €
+#define IT_PIPE LSFT(IT_BKSL)  // |
+#define IT_SHRP ALGR(IT_AACC)  // #
+#define IT_PLMN LALT(LSFT(IT_IACC))  // ±
 
-#define	IT_X_PLUS	X_RBRACKET 	// #
+#define	IT_X_PLUS X_RBRACKET  // #
 
 #endif
