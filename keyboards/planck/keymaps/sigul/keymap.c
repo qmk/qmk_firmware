@@ -18,7 +18,7 @@ enum planck_layers {
   _QWERTY,
   _LOWER, //symbols
   _RAISE, //numbers
-  _ADJUST,
+  _ADJUST, //system
   _NUMPAD,
   _FN, 
   _MOUSE
@@ -26,36 +26,34 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
+  // custom keycodes for personal macros
   DESK,
   VIVERE,
   SVIV,
   SGCOM,
-/* defining keys for Italian shifted layer
- * IT_CMLS = comma and less when combined with shift
- * IT_DTMR = dot and more when combined with shift
- * IT_SLQS = slash and question mark when combined with shift
- * IT_APDQ = apostroph and double quote when combined with shift
- * IT_SCCL = semicolon and colon when combined with shift
- */
-  IT_CMLS,
-  IT_DTMR,
-  IT_SLQS,
-  IT_APDQ,
-  IT_SCCL
+  // custom keycodes for Italian layout
+  IT_CMLS, // comma and less when combined with shift
+  IT_DTMR, //dot and more when combined with shift
+  IT_SLQS, // slash and question mark when combined with shift
+  IT_APDQ, // apostroph and double quote when combined with shift
+  IT_SCCL //semicolon and colon when combined with shift
+
 };
 
 /* defining layer keys */
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+#define QWERTY DF(_QWERTY)
+// #define LOWER MO(_LOWER)
+#define LOWER TT(_LOWER)
+// #define RAISE MO(_RAISE)
+#define RAISE TT(_RAISE)
+#define NUMPAD TG(_NUMPAD)
 #define FN MO(_FN)
 #define MOUSE TG(_MOUSE)
-#define NUMPAD TG(_NUMPAD)
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
-#define QWERTY DF(_QWERTY)
 
 /* settings for a smooth Mouse */
-/* doesn't work  */
+/* unfortunately it seems not working */
 #define MOUSEKEY_INTERVAL 10
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 0
@@ -66,13 +64,12 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
- * NEED TO FIX CMLS
  * ,-----------------------------------------------------------------------------------.
  * |Tab/FN|   Q  |   W  |  E   |  R   |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |Esc/FN|   A  |   S  |  D   |  F   |   G  |   H  |   J  |   K  |   L  |  ;:  |  '"  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |  C   |  V   |   B  |   N  |   M  |  ,<  |  .>  |  /!  |Enter |
+ * | Shift|   Z  |   X  |  C   |  V   |   B  |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | FN   | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -80,49 +77,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ortho_4x12(
     TABFN,   IT_Q,    IT_W,    IT_E,      IT_R,  IT_T,    IT_Y,    IT_U,  IT_I,    IT_O,    IT_P,    KC_BSPC,
     ESCFN,   IT_A,    IT_S,    IT_D,      IT_F,  IT_G,    IT_H,    IT_J,  IT_K,    IT_L,    IT_SCCL, IT_APDQ,
-    KC_LSFT, IT_Z,    IT_X,    IT_C,      IT_V,  IT_B,    IT_N,    IT_M,  IT_CMLS, IT_DTMR, IT_SLQS, KC_ENT ,
+    KC_LSFT, IT_Z,    IT_X,    IT_C,      IT_V,  IT_B,    IT_N,    IT_M,  IT_CMLS, IT_DTMR, IT_SLQS, MT(MOD_RSFT, KC_ENT),
     FN,      KC_LCTL, KC_LALT, KC_LGUI,   LOWER, KC_SPC,  KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
- * added ò and à that were on the default layer
- * NEED TO FIX LSFT(IT_ACUT)
+ * added ò and à that were on the default Planck Querty layer when used with a device with lang set to Italian
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   |      |
+ * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   _  |   =  |  é   |  ò   |  à   |
+ * |      |  F1  |  F2  |  F3  |  F4  | F5   |      |   _  |   =  |  é   |  ò   |  à   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |MOUSE |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
+ * |      |  F6  |  F7  |  F8  |  F9  |MOUSE |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_LOWER] = LAYOUT_ortho_4x12(
-    IT_GRAVE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,       IT_ASTR, IT_LPRN, IT_RPRN, _______,
-    _______,  _______, _______, _______, _______, _______, _______, LSFT(IT_MINS), IT_EQL,  IT_EACC, IT_OACC, IT_AACC,
-    _______,  _______, _______, _______, MOUSE,   NUMPAD,  _______, LSFT(IT_UACC), IT_PLMN, IT_LCBR, IT_RCBR, IT_PIPE,
-    _______,  _______, _______, _______, _______, _______, _______, _______,       KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+    IT_TILDE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,    IT_ASTR, IT_LPRN, IT_RPRN, KC_DEL,
+    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  IT_EACC, IT_OACC, IT_AACC,
+    _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   MOUSE,   NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR, IT_RCBR, IT_PIPE,
+    _______,  _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Raise
- * nothing changed
- * NEED TO FIX KC_TILD, defining IT_TILDE
  * ,-----------------------------------------------------------------------------------.
- * |  ~   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+ * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |  -   |  ì   |  è   |   +  |  ù   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |MOUSE |NUMPAD|      |      |  [   |  ]   |  \   |
+ * | Caps |      |      |      |      |MOUSE |NUMPAD|      |      |  [   |  ]   |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
-    IT_TILDE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,          IT_0,    _______,
-    _______,  _______, _______, _______, _______, _______, _______, IT_MINS, IT_IACC, LSFT(IT_EACC), IT_PLUS, IT_UACC,
-    _______,  _______, _______, _______, _______, MOUSE,   NUMPAD,  _______, _______, IT_LBRC,       IT_RBRC, IT_BKSL,
-    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______, _______
+    IT_GRAVE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,       IT_0,    _______,
+    _______,  _______, _______, _______, _______, _______, _______, IT_MINS, IT_IACC, S(IT_EACC), IT_PLUS, IT_UACC,
+    KC_CAPS,  _______, _______, _______, _______, MOUSE,   NUMPAD,  _______, _______, IT_LBRC,    IT_RBRC, IT_BKSL,
+    _______,  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,    KC_PGUP, KC_END
 ),
 
 /* Numpad
@@ -168,17 +162,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  | F5   | Left | Down |  Up  | Right|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |Capslk|  F6  |  F7  |  F8  |  F9  | F10  |  F1  |  F2  |  F3  |  F4  | F5   |      |
+ * |      |  F6  |  F7  |  F8  |  F9  | F10  |  F1  |  F2  |  F3  |  F4  | F5   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      | RAISE|      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_FN] = LAYOUT_ortho_4x12(
-    _______,     _______, _______, _______, _______, _______, KC_F6,      KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_DEL,
-    _______,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT,    KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
-    KC_CAPSLOCK, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F1,      KC_F2,   KC_F3,   KC_F4,    KC_F5,   _______, 
-    _______,     _______, _______, _______, _______, _______, TG(_RAISE), _______, _______, _______,  _______, _______
+    _______, _______, _______, _______, _______, _______, KC_F6,      KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_DEL,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LEFT,    KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F1,      KC_F2,   KC_F3,   KC_F4,    KC_F5,   _______, 
+    _______, _______, _______, _______, _______, _______, TG(_RAISE), _______, _______, _______,  _______, _______
 ),
 
 /* MOUSE
