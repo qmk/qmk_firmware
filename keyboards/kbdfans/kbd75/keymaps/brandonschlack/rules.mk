@@ -1,6 +1,3 @@
-# Add Bootloader define for QM_MAKE command
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   comment out to disable the options.
 #
