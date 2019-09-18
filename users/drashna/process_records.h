@@ -57,9 +57,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
-#    define KC_C1R3 SH_TT
+#    define KC_C1R3 SH_T(KC_TAB)
 #else  // SWAP_HANDS_ENABLE
-#    define KC_C1R3 KC_BSPC
+#    define KC_C1R3 KC_TAB
 #endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)
