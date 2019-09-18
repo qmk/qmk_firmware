@@ -21,6 +21,8 @@
 // #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
+#    undef RGB_MATRIX_LED_PROCESS_LIMIT
+#    undef RGB_MATRIX_LED_FLUSH_LIMIT
 #endif
 
 #if defined(KEYBOARD_lets_split_rev2)
