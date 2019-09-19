@@ -31,6 +31,8 @@ const hue_sat_pair hue_sat_pairs[][2] = {
   }
 };
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT(
 		KC_GRV,    KC_1,     KC_2,     KC_3,    KC_4,      KC_5,    KC_6,    KC_7,    KC_8,   KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,   KC_PIPE,
@@ -88,6 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,  _______,    _______,      _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______
   ),
 };
+
+// clang-format on
 
 void rhruiz_update_layer_colors() {
   if (biton32(layer_state) < 1UL)  {

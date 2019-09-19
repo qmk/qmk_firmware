@@ -9,6 +9,8 @@
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14(
     KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   ,   KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS,
@@ -66,6 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______
   )
 };
+
+// clang-format on
 
 uint32_t layer_state_set_user(uint32_t state) {
   return rhruiz_layer_state_set_user(state);

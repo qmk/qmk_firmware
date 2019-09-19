@@ -20,6 +20,8 @@
 #define KC__BL DF(_BL)
 #define KC_SFQT RSFT_T(KC_QUOT)
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* template
  //,----+----+----+----+----+----+----+----+----+----+----+----+----.
@@ -116,6 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //`-----+----+-----+-------------+--------+-----+-----+-----+------'
   )
 };
+
+// clang-format on
 
 void matrix_init_user(void) {
   setPinOutput(B0);
