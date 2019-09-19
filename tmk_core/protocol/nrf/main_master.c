@@ -54,7 +54,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cli.h"
 #include "configurator.h"
 #include "bmp.h"
-const uint8_t MAINTASK_INTERVAL=17;
+
+#ifndef MATRIX_SCAN_TIME_MS
+#define MATRIX_SCAN_TIME_MS 17
+#endif
+const uint8_t MAINTASK_INTERVAL=MATRIX_SCAN_TIME_MS;
 
 /* -------------------------
  *   TMK host driver defs

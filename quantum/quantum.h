@@ -177,6 +177,31 @@ typedef ioline_t pin_t;
 #    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
 
 #    define readPin(pin) palReadLine(pin)
+#elif defined(PROTOCOL_NRF)
+typedef uint8_t pin_t;
+#include "apidef.h"
+static const bmp_api_gpio_mode_t bmp_gpio_in_pu = {
+    .dir = BMP_MODE_INPUT,
+    .pull = BMP_PULLUP,
+};
+static const bmp_api_gpio_mode_t bmp_gpio_in_pd = {
+    .dir = BMP_MODE_INPUT,
+    .pull = BMP_PULLDOWN,
+};
+static const bmp_api_gpio_mode_t bmp_gpio_out_pp = {
+    .dir = BMP_MODE_OUTPUT,
+    .pull = BMP_PULL_NONE,
+    .drive = BMP_PIN_S0S1
+};
+#    define setPinInput(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pu)
+#    define setPinInputHigh(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pu)
+#    define setPinInputLow(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_in_pd)
+#    define setPinOutput(pin) BMPAPI->gpio.set_mode(pin, &bmp_gpio_out_pp)
+#    define writePinHigh(pin) BMPAPI->gpio.set_pin(pin)
+#    define writePinLow(pin) BMPAPI->gpio.clear_pin(pin)
+#    define writePin(pin, level) ((level) ? writePinHigh(pin) : writePinLow(pin))
+
+#    define readPin(pin) BMPAPI->gpio.read_pin(pin)
 #endif
 
 // Send string macros
