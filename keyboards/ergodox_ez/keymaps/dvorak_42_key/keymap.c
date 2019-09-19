@@ -52,6 +52,9 @@ enum custom_keycodes {
   CLOUD9_GOTO_LINE,
   CLOUD9_NAVIGATE,
 
+  // Windows 10 macros,
+  WINDOWS10_WORKSPACE_LEFT,
+  WINDOWS10_WORKSPACE_RIGHT,
 };
 
 
@@ -161,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
-                MEH(KC_4),      MEH(KC_5),
+                WINDOWS10_WORKSPACE_LEFT, WINDOWS10_WORKSPACE_RIGHT,
                                 MEH(KC_6),
       MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
 
@@ -639,6 +642,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING(SS_LCTRL("e"));
             return true;
 			break;
+        case WINDOWS10_WORKSPACE_LEFT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_LEFT))));
+            return true;        
+            break;
+        case WINDOWS10_WORKSPACE_RIGHT:
+            SEND_STRING(SS_LGUI(SS_LCTRL(SS_TAP(X_RIGHT))));
+            break;            
 
     }
   }
