@@ -31,7 +31,7 @@
 #endif
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

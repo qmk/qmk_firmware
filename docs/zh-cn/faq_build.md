@@ -137,8 +137,8 @@ brew install avrdude
 
 ```
 brew uninstall --force avr-gcc
-brew install avr-gcc@7
-brew link --force avr-gcc@7
+brew install avr-gcc@8
+brew link --force avr-gcc@8
 ```
 
 ### 我刷新了我的键盘但是键盘不工作/按键没有注册 - 而且还是ARM的 (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)

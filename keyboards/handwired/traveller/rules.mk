@@ -1,5 +1,4 @@
-
-#MCU = at90usb1287
+# MCU name
 MCU = atmega32u4
 
 # Processor frequency.
@@ -57,8 +56,6 @@ endif
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# MCU name
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512

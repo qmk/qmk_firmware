@@ -64,8 +64,11 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
 |`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
 |`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Left Alt and Left GUI              |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Left Alt and GUI swap              |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI                        |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap                   |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Ctrl and GUI on both sides (for macOS)|
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI                       |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap                  |
 |`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
 |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Left Control and Caps Lock           |
@@ -76,6 +79,10 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and Left GUI              |
 |`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and Right GUI              |
 |`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and Right GUI            |
+|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and Left GUI            |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and Left GUI          |
+|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and Right GUI          |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and Right GUI        |
 
 ## Configuration
 
@@ -140,7 +147,7 @@ To replace the function, all you need to do is add something like this to your c
 ```c
 void bootmagic_lite(void) {
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY * 2);
+    wait_ms(DEBOUNCE * 2);
     matrix_scan();
 
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
