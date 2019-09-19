@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_all(
 		KC_PGUP, _______,  KC_END, KC_UP, KC_HOME, _______, _______, _______, KC_F1, KC_F2,    KC_F3,   KC_F4,    _______, _______, _______,
 		KC_PGDN, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, KC_F5, KC_F6,    KC_F7,   KC_F8, _______, _______,
-		KC_PSCREEN, _______, _______, _______, _______, _______, _______, KC_F9, KC_F10, KC_F11, KC_F12, _______, _______, _______,
+		KC_PSCR, _______, _______, _______, _______, _______, _______, KC_F9, KC_F10, KC_F11, KC_F12, _______, _______, _______,
 		KC_RGUI, _______, _______, _______, _______, _______, _______
   ),
   // RGB Control Layer
