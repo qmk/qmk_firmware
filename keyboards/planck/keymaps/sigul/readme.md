@@ -20,21 +20,18 @@ by Silvio Gulizia
 - [x] add shift enter
 - [x] change LSFT to S for more legibility
 - [x] MT(kc) per usare shift come tasto es: MOD_LSFT(LCAG(KC_UP)). ??? MT(MOD_LSFT,KC_CAPS)
+- [x] add macros on _FN to ouput website, email, tel, address, VAT ID credentials
+- [x] remap F keys upon numbers on _FN
 
-- [ ] check audio
-- [ ] Add fn behind spacebar
+- [ ] check audio functionality
+- [ ] Add Hyper on ESC or TAB to be able to use it for custom keyboard shortcuts
+- [ ] Add LT(_FN, IT_D) on D on the Querty layer
+- [ ] consider using layer configuration to have just one keymap (see as a reference qmk_firmware/layouts/community/ortho_4x12/bredfield/)
 - [ ] add brightness up (KC_BRMU or KC_BRIU) and down (KC_BRMD or KC_BRID)
-- [ ] evaluate to add mods with mod taps on the FN layer to use them for nav
-- [ ] Evaluate home row lt and mt 
-- [ ] add _MACRO on _FN to ouput website, email, tel, address, VAT ID credentials
+
 - [ ] add secrets file in user space to add passwords on a password layer
-- [ ] Add Hyper on ESC or TAB
-- [ ] add custom keycode for full screen, half screen left, and half screen right such as ?? LCAG(KC_UP) con freccia per full screen
-- [ ] consider adding LCMD_T(kc) command or key
-- [ ] consider using layer to have just one keymap (see as a reference qmk_firmware/layouts/community/ortho_4x12/bredfield/)
-- [ ] remap F keys upon numbers 
-- [ ] LCAG(kc) con freccia per full screen 
+- [ ] consider adding midi on the planck
 - [ ] consider adding AUTO_SHIFT_ENABLE = yes in rules.mk to be able to send shifted key depressing a key for twice the time 
-- [ ] rename ADJUST layer to SYSTEM
 - [ ] revert IT_ to KC_ where not required
 - [ ] add swap from Mac to Win key code on Adjust layer
+- [ ] evaluate to add auto shift 
