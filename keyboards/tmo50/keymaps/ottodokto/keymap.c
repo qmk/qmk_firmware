@@ -44,4 +44,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, RGB_STA, RGB_BRE, RGB_RAI, RGB_SWI, RGB_SNA, RGB_KNI, RGB_GRA, VLK_TOG, _______, _______, _______, EEP_RST,
 		_______, _______, _______, _______, _______, _______, _______
   )
-}
+};
