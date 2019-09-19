@@ -80,38 +80,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 const hue_sat_pair hue_sat_pairs[] = {
-  [_FN1] = { 2, 255 },
-  [_FN2] = { 275, 255 },
-  [_CFG] = { 110, 255 },
+    [_FN1] = {2, 255},
+    [_FN2] = {275, 255},
+    [_CFG] = {110, 255},
 };
 
-void matrix_init_user(void) {
+void matrix_init_user(void) {}
 
-}
+void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
 
-void matrix_scan_user(void) {
-  rhruiz_update_layer_colors();
-}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-  return rhruiz_layer_state_set_user(state);
-}
+uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }
 
 void rhruiz_update_layer_colors() {
-  if (biton32(layer_state) < 1UL)  {
-    return;
-  }
+    if (biton32(layer_state) < 1UL) {
+        return;
+    }
 
-  uint16_t hue = 1;
-  uint8_t sat = 0;
+    uint16_t hue = 1;
+    uint8_t  sat = 0;
 
-  const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)];
-  hue = hue_sat.hue;
-  sat = hue_sat.sat;
+    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)];
+    hue                        = hue_sat.hue;
+    sat                        = hue_sat.sat;
 
-  rhruiz_change_leds_to(hue, sat);
+    rhruiz_change_leds_to(hue, sat);
 }

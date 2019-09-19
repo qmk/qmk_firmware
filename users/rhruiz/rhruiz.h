@@ -1,15 +1,6 @@
 #pragma once
 
-enum rhruiz_layers {
-  _BL,
-  _VIM_EMACS,
-  _MOUSE,
-  _KEY_OVERRIDE,
-  _FN1,
-  _FN2,
-  _CFG
-};
-
+enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG };
 
 /* mission control */
 #define MISCTRL LCTL(KC_UP)
@@ -33,15 +24,15 @@ enum rhruiz_layers {
 
 /* raw hid */
 #ifdef RAW_ENABLE
-#include "rhruiz_api.h"
-#include "raw_hid.h"
+#    include "rhruiz_api.h"
+#    include "raw_hid.h"
 #endif
 
-void rhruiz_update_layer_colors(void);
-void rhruiz_on_default_layer(void);
-void rhruiz_update_layer_colors(void);
+void     rhruiz_update_layer_colors(void);
+void     rhruiz_on_default_layer(void);
+void     rhruiz_update_layer_colors(void);
 uint32_t rhruiz_layer_state_set_user(uint32_t state);
-bool rhruiz_is_layer_indicator_led(uint8_t index);
+bool     rhruiz_is_layer_indicator_led(uint8_t index);
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);
@@ -49,8 +40,8 @@ void rhruiz_rgblight_reset(void);
 void rhruiz_change_leds_to(uint16_t, uint8_t);
 
 typedef struct {
-  uint16_t hue;
-  uint8_t sat;
+    uint16_t hue;
+    uint8_t  sat;
 } hue_sat_pair;
 
 #endif

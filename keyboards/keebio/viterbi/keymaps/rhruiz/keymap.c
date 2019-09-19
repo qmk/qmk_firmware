@@ -71,6 +71,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-uint32_t layer_state_set_user(uint32_t state) {
-  return rhruiz_layer_state_set_user(state);
-}
+uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }

@@ -122,41 +122,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 void matrix_init_user(void) {
-  setPinOutput(B0);
-  writePinHigh(B0);
+    setPinOutput(B0);
+    writePinHigh(B0);
 
-  setPinOutput(D5);
-  writePinHigh(D5);
+    setPinOutput(D5);
+    writePinHigh(D5);
 }
 
 void rhruiz_update_layer_colors() {
-  switch(biton32(layer_state))  {
-    case _FN1:
-      writePinHigh(B0);
-      writePinLow(D5);
-      break;
+    switch (biton32(layer_state)) {
+        case _FN1:
+            writePinHigh(B0);
+            writePinLow(D5);
+            break;
 
-    case _FN2:
-      writePinLow(B0);
-      writePinHigh(D5);
-      break;
+        case _FN2:
+            writePinLow(B0);
+            writePinHigh(D5);
+            break;
 
-    case _CFG:
-      writePinLow(D5);
-      writePinLow(B0);
-      break;
+        case _CFG:
+            writePinLow(D5);
+            writePinLow(B0);
+            break;
 
-    default:
-      writePinHigh(B0);
-      writePinHigh(D5);
-      break;
-  }
+        default:
+            writePinHigh(B0);
+            writePinHigh(D5);
+            break;
+    }
 }
 
-void matrix_scan_user(void) {
-  rhruiz_update_layer_colors();
-}
+void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  return rhruiz_layer_state_set_user(state);
-}
+uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }

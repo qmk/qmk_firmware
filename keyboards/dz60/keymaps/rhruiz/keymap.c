@@ -3,33 +3,20 @@
 #include "rhruiz.h"
 
 typedef union {
-  uint32_t raw;
-  struct {
-    bool     version_1_1 :1;
-  };
+    uint32_t raw;
+    struct {
+        bool version_1_1 : 1;
+    };
 } user_config_t;
 
-enum rhruiz_keys {
-  KC_KBVSN = SAFE_RANGE
-};
+enum rhruiz_keys { KC_KBVSN = SAFE_RANGE };
 
-user_config_t user_config;
-const hue_sat_pair hue_sat_pairs[][2] = {
-  [_FN1] = {
-    [false] = { 2, 255 },
-    [true] = { 2, 255 }
-  },
+user_config_t      user_config;
+const hue_sat_pair hue_sat_pairs[][2] = {[_FN1] = {[false] = {2, 255}, [true] = {2, 255}},
 
-  [_FN2] = {
-    [false] = { 200, 255 },
-    [true] = { 200, 255 }
-  },
+                                         [_FN2] = {[false] = {200, 255}, [true] = {200, 255}},
 
-  [_CFG] = {
-    [false] = { 80, 255 },
-    [true] = { 80, 255 }
-  }
-};
+                                         [_CFG] = {[false] = {80, 255}, [true] = {80, 255}}};
 
 // clang-format off
 
@@ -94,56 +81,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 void rhruiz_update_layer_colors() {
-  if (biton32(layer_state) < 1UL)  {
-    return;
-  }
+    if (biton32(layer_state) < 1UL) {
+        return;
+    }
 
-  uint16_t hue = 1;
-  uint8_t sat = 0;
+    uint16_t hue = 1;
+    uint8_t  sat = 0;
 
-  const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)][user_config.version_1_1];
-  hue = hue_sat.hue;
-  sat = hue_sat.sat;
+    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)][user_config.version_1_1];
+    hue                        = hue_sat.hue;
+    sat                        = hue_sat.sat;
 
-  rhruiz_change_leds_to(hue, sat);
+    rhruiz_change_leds_to(hue, sat);
 }
 
 void keyboard_post_init_user(void) {
-  // Read the user config from EEPROM
-  user_config.raw = eeconfig_read_user();
+    // Read the user config from EEPROM
+    user_config.raw = eeconfig_read_user();
 }
 
-void matrix_scan_user(void) {
-  rhruiz_update_layer_colors();
-}
+void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
 
 bool rhruiz_is_layer_indicator_led(uint8_t index) {
-  if (user_config.version_1_1) {
-    return index == 0 || index == RGBLED_NUM / 2 - 1;
-  } else {
-    return index == RGBLED_NUM / 2 || index == RGBLED_NUM - 1;
-  }
+    if (user_config.version_1_1) {
+        return index == 0 || index == RGBLED_NUM / 2 - 1;
+    } else {
+        return index == RGBLED_NUM / 2 || index == RGBLED_NUM - 1;
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    case KC_KBVSN: {
-      if (record->event.pressed) {
-        user_config.version_1_1 ^= 1; // Toggles the version
-        eeconfig_update_user(user_config.raw); // Writes version to EEPROM
-      }
-      return false;
+    switch (keycode) {
+        case KC_KBVSN: {
+            if (record->event.pressed) {
+                user_config.version_1_1 ^= 1;           // Toggles the version
+                eeconfig_update_user(user_config.raw);  // Writes version to EEPROM
+            }
+            return false;
+        }
     }
-  }
 
-  return true;
+    return true;
 }
 
 void eeconfig_init_user(void) {
-  user_config.version_1_1 = false;
-  eeconfig_update_user(user_config.raw);
+    user_config.version_1_1 = false;
+    eeconfig_update_user(user_config.raw);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  return rhruiz_layer_state_set_user(state);
-}
+uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }
