@@ -11,7 +11,7 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 Put your keyboard into bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch that's usually located on the underside of the board. If your keyboard has neither, try holding Esc or Space+B as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details). Some boards use [Command](feature_command.md) instead of Bootmagic; in this case, you can enter bootloader mode by hitting LShift+RShift+B or LShift+RShift+Esc at any point while the keyboard is plugged in.
 Some keyboards may have specific instructions for entering the bootloader. For example, the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (default: Esc) might be on a different key, e.g. LCtrl; or the magic combination for Command (default: LShift+RShift) might require you to hold something else, e.g. LCtrl+RCtrl. Refer to the board's README file if you are unsure.
 
-Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
+Zadig will automatically detect the bootloader device. You may sometimes need to check **Options → List All Devices**.
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
  - USBasp bootloaders will appear as `USBasp`, with a VID/PID of `16C0:05DC`.
  - AVR keyboards flashed with the QMK-DFU bootloader will be named `<keyboard name> Bootloader` and will also have the VID `03EB`.
@@ -39,4 +39,4 @@ Right-click it and hit **Uninstall device**. Make sure to tick **Delete the driv
 
 ![The Device Uninstall dialog, with the "delete driver" checkbox ticked](https://i.imgur.com/aEs2RuA.png)
 
-Click **Action -> Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again!
+Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again!
