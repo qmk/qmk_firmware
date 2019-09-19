@@ -5,7 +5,7 @@
 A 17-key numpad that can be assembled with only through hole components, including usb type-c
 
 Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
-Hardware Supported: DISCIPAD, atmega328p 
+Hardware Supported: DISCIPAD, atmega328p  
 Hardware Availability: [cftkb.com](http://www.cftkb.com), [GitHub](https://github.com/coseyfannitutti/discipad)
 
 Make example for this keyboard (after setting up your build environment):
