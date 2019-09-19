@@ -218,26 +218,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case DESK:
       if (record->event.pressed) {
-          SEND_STRING("desk"SS_LALT(X_SCLN)"silviogulizia.com");
+          SEND_STRING("desk" SS_LALT(";") "silviogulizia.com");
       }
       return false;
       break;
     case SGCOM:
       if (record->event.pressed) {
-          SEND_STRING("https"SS_LSFT(X_DOT)SS_LSFT(X_7)SS_LSFT(X_7)"silviogulizia.com");
+          SEND_STRING("https" SS_LSFT(".")SS_LSFT("7")SS_LSFT("7")"silviogulizia.com");
       }
       return false;
       break;
     case VIVERE:
       if (record->event.pressed) {
-          SEND_STRING("https"SS_LSFT(X_DOT)SS_LSFT(X_7)SS_LSFT(X_7)"vivereintenzionalmente.com");
+          SEND_STRING("https" SS_LSFT(".") SS_LSFT("7") SS_LSFT("7") "vivereintenzionalmente.com");
       }
       return false;
       break;
     
     case SVIV:
       if (record->event.pressed) {
-          SEND_STRING("silvio"SS_LALT(X_SCLN)"vivereintenzionalmente.com");
+          SEND_STRING("silvio" SS_LALT(";") "vivereintenzionalmente.com");
       }
       return false;
       break;
