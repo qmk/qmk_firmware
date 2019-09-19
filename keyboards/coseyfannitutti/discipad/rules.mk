@@ -57,7 +57,7 @@ BOOTLOADER = USBasp
 #   USBaspLoader        2048
 
 # Flash program via avrdude, but default command is not suitable.
-# You can use plaid:default:program
+# You can use coseyfannitutti/discipline:default:program
 PROGRAM_CMD = avrdude -c usbasp -p m328p -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 # disable debug code
