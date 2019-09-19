@@ -105,17 +105,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |  -   |  ì   |  è   |   +  |  ù   |
+ * |      |SGCOM | DESK |      |      |      |      |  -   |  ì   |  è   |   +  |  ù   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Caps |      |      |      |      |MOUSE |NUMPAD|      |      |  [   |  ]   |  \   |
+ * | Caps |      |      | SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |  ]   |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12(
     IT_GRAVE, IT_1,    IT_2,    IT_3,	 IT_4,    IT_5,    IT_6,    IT_7,    IT_8,    IT_9,       IT_0,    _______,
-    _______,  _______, _______, _______, _______, _______, _______, IT_MINS, IT_IACC, S(IT_EACC), IT_PLUS, IT_UACC,
-    KC_CAPS,  _______, _______, _______, _______, MOUSE,   NUMPAD,  _______, _______, IT_LBRC,    IT_RBRC, IT_BKSL,
+    _______,  SGCOM,   DESK,    _______, _______, _______, _______, IT_MINS, IT_IACC, S(IT_EACC), IT_PLUS, IT_UACC,
+    KC_CAPS,  _______, _______, SVIV,    VIVERE,  MOUSE,   NUMPAD,  _______, _______, IT_LBRC,    IT_RBRC, IT_BKSL,
     _______,  _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,    KC_PGUP, KC_END
 ),
 
@@ -218,26 +218,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     case DESK:
       if (record->event.pressed) {
-          SEND_STRING("deskATsilviogulizia.com");
+          SEND_STRING("desk"SS_LALT(X_SCLN)"silviogulizia.com");
       }
       return false;
       break;
     case SGCOM:
       if (record->event.pressed) {
-          SEND_STRING("httpssilviogulizia.com");
+          SEND_STRING("https"SS_LSFT(X_DOT)SS_LSFT(X_7)SS_LSFT(X_7)"silviogulizia.com");
       }
       return false;
       break;
     case VIVERE:
       if (record->event.pressed) {
-          SEND_STRING("httpsvivereintenzionalmente.com");
+          SEND_STRING("https"SS_LSFT(X_DOT)SS_LSFT(X_7)SS_LSFT(X_7)"vivereintenzionalmente.com");
       }
       return false;
       break;
     
     case SVIV:
       if (record->event.pressed) {
-          SEND_STRING("silviovivereintenzionalmente.com");
+          SEND_STRING("silvio"SS_LALT(X_SCLN)"vivereintenzionalmente.com");
       }
       return false;
       break;
