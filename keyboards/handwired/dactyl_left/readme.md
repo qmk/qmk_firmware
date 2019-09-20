@@ -5,7 +5,7 @@
 A custom build of an ergodox dactyl using a Teensy. Pins are custom.
 
 Keyboard Maintainer: [RedForty](https://github.com/RedForty)  
-Hardware Supported: Left side of the dactyl only
+Hardware Supported: Left side of the dactyl only  
 Hardware Availability: Custom job
 
 Make example for this keyboard (after setting up your build environment):
