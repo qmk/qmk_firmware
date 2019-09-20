@@ -1,5 +1,4 @@
-#ifndef SUBATOMIC_H
-#define SUBATOMIC_H
+#pragma once
 
 #include "quantum.h"
 
@@ -88,5 +87,3 @@
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
     { k40, k41, k42, k43, k44, k45, XXX, k47, XXX, k49, k4a, k4b, k4c, k4d }  \
 }
-
-#endif
