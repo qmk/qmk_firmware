@@ -1,4 +1,5 @@
 /* Copyright 2015-2017 Jack Humbert
+ * Copyright 2018-2019 Francis St-Amour
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
  */
 
 
-// KC_F13-24 
+// KC_F13-24
 // KC_PSCREEN
 // insert, home
 // cut, copy, paste
