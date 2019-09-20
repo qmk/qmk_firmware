@@ -15,7 +15,6 @@
  */
 #include "discipad.h"
 
-uint8_t send_data;
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
