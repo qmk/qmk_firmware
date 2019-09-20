@@ -11,7 +11,7 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 Place your keyboard into the bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch usually located on the underside of the board. If your keyboard has neither, try holding Escape, or Space+`B`, as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details).
 Some keyboards may have specific instructions for entering the bootloader, for example the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (Escape) might be on a different key, such as Left Control. Refer to the board's README if you are unsure.
 
-To put a device in bootloader mode with USBaspLoader you must follow the following sequence: press and hold `BOOT`, press and hold `RESET`, release `RESET`, release `BOOT`.
+To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
 An alternative method would be to press and hold `BOOT` while inserting the USB cable.
 To exit bootloader mode press only the `RESET` switch.
 
