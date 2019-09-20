@@ -81,7 +81,7 @@
       ]
     },
 
-    "LAYOUT_subatomic_mit": {
+    "LAYOUT_ortho_5x14_1x2uC": {
       "key_count": 69,
       "layout": [
         {"label":"k00", "x":0, "y":0},
@@ -156,7 +156,7 @@
       ]
     },
 
-    "LAYOUT_subatomic_dit": {
+    "LAYOUT_ortho_5x14_2x2u": {
       "key_count": 68,
       "layout": [
         {"label":"k00", "x":0, "y":0},
