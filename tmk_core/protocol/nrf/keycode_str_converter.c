@@ -495,7 +495,7 @@ const key_string_map_t ascii_keys4 = {
 
 const key_string_map_t custom_keys_bmp = {
   .start_kc = SAFE_RANGE,
-  .end_kc = BMP_SAFE_RANGE,
+  .end_kc = BATT_LV,
   .key_strings=
     "BLE_DIS\0"
     "BLE_EN\0"
