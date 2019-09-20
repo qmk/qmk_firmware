@@ -11,9 +11,8 @@ We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have
 Place your keyboard into the bootloader mode, either by hitting the `RESET` keycode (which may be on a different layer), or by pressing the reset switch usually located on the underside of the board. If your keyboard has neither, try holding Escape, or Space+`B`, as you plug it in (see the [Bootmagic](feature_bootmagic.md) docs for more details).
 Some keyboards may have specific instructions for entering the bootloader, for example the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (Escape) might be on a different key, such as Left Control. Refer to the board's README if you are unsure.
 
-To put a device in bootloader mode with USBaspLoader you must follow the following sequence: press and hold `BOOT`, press and hold `RESET`, release `RESET`, release `BOOT`.
-An alternative method would be to press and hold `BOOT` while inserting the USB cable.
-To exit bootloader mode press only the `RESET` switch.
+To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
+Alternatively, hold `BOOT` while inserting the USB cable.
 
 Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
@@ -23,9 +22,7 @@ Zadig will automatically detect the bootloader device. You may sometimes need to
 
 !> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
 
-If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list.
-
-For flashing a USBaspLoader device via command line with msys2, the `libusbk` driver is recommended, otherwise `libusb-win32` will work fine if you are using QMK Toolbox for flashing.
+If the arrow appears green, select the driver, and click **Install Driver**. The `libusb-win32` driver will usually work for AVR, and `WinUSB` for ARM, but if you still cannot flash the board, try installing a different driver from the list. For flashing a USBaspLoader device via command line with msys2, the `libusbk` driver is recommended, otherwise `libusb-win32` will work fine if you are using QMK Toolbox for flashing.
 
 ![Zadig with a bootloader driver correctly installed](https://i.imgur.com/b8VgXzx.png)
 
