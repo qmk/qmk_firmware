@@ -6,7 +6,7 @@
 
 #ifdef TWSCHUM_TAPPING_CTRL_PREFIX
 // state for the great state machine of custom actions!
-#define TIMEOUT_DELAY 175 // ms
+#define TIMEOUT_DELAY 200 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
