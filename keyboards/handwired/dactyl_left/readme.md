@@ -1,5 +1,6 @@
 # dactyl_left
 
+<<<<<<< HEAD
 ![dactyl_left](https://i.imgur.com/PYL3Ca2.png)
 
 A custom build of an ergodox dactyl using a Teensy. Pins are custom.
@@ -7,6 +8,15 @@ A custom build of an ergodox dactyl using a Teensy. Pins are custom.
 Keyboard Maintainer: [RedForty](https://github.com/RedForty)  
 Hardware Supported: Left side of the dactyl only
 Hardware Availability: Custom job
+=======
+![dactyl_left](imgur.com image replace me!)
+
+A short description of the keyboard/project
+
+Keyboard Maintainer: [RedForty](https://github.com/yourusername)  
+Hardware Supported: The PCBs, controllers supported  
+Hardware Availability: links to where you can find this hardware
+>>>>>>> master
 
 Make example for this keyboard (after setting up your build environment):
 
