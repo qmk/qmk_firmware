@@ -13,7 +13,6 @@ Some keyboards may have specific instructions for entering the bootloader, for e
 
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
 Alternatively, hold `BOOT` while inserting the USB cable.
-To exit bootloader mode press only the `RESET` switch.
 
 Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
  - For keyboards with Atmel AVR MCUs, the bootloader will be named something similar to `ATm32U4DFU`, and have a Vendor ID of `03EB`.
