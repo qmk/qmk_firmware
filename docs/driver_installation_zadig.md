@@ -12,7 +12,7 @@ Place your keyboard into the bootloader mode, either by hitting the `RESET` keyc
 Some keyboards may have specific instructions for entering the bootloader, for example the [Bootmagic Lite](feature_bootmagic.md#bootmagic-lite) key (Escape) might be on a different key, such as Left Control. Refer to the board's README if you are unsure.
 
 To put a device in bootloader mode with USBaspLoader, tap the `RESET` button while holding down the `BOOT` button.
-An alternative method would be to press and hold `BOOT` while inserting the USB cable.
+Alternatively, hold `BOOT` while inserting the USB cable.
 To exit bootloader mode press only the `RESET` switch.
 
 Zadig will automatically detect the bootloader device. You may sometimes need to check **Options -> List All Devices**.
