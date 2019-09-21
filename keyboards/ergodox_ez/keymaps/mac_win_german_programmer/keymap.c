@@ -1,6 +1,4 @@
 #include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
 
 
@@ -9,14 +7,12 @@
 #include "keymap_nordic.h"
 
 
-
-enum custom_keycodes {
+ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
   RGB_SLD,
-
-};
+ };
 
 #define MACOS_ALPHA  0
 #define MACOS_SPECIAL  1
@@ -36,7 +32,7 @@ enum custom_keycodes {
 #define RGBLIGHT_COLOR_LAYER_MAC 0x00,0xff,0x00
 
 
-#define EMPTY_LAYER KEYMAP(KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO)
+#define EMPTY_LAYER LAYOUT_ergodox(KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO)
 
 // MacOS, German locale
 #define MAC_DE_LEFT_CURLY_BRACE  DE_LBRC
@@ -68,7 +64,7 @@ bool is_win_layer(uint8_t layer){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [MACOS_ALPHA] = KEYMAP(
+  [MACOS_ALPHA] = LAYOUT_ergodox(
     // Left
     KC_ESCAPE,KC_1,KC_2,KC_3,KC_4,KC_5,MAC_DE_LEFT_SQUARE_BRACE, /* 7 */
     KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,MAC_DE_LEFT_CURLY_BRACE,    /* 7 */
@@ -88,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,KC_NO,KC_PGUP,KC_PGDOWN,KC_ENTER,KC_SPACE
   ),
 
-  [MACOS_SPECIAL] =  KEYMAP(
+  [MACOS_SPECIAL] =  LAYOUT_ergodox(
     // Left
     KC_ESCAPE,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_NO,
     KC_NO,MAC_DE_AT,TO(WIN_ALPHA),KC_NO,KC_NO,KC_NO,KC_NO,
@@ -109,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [MACOS_UMLAUT] = KEYMAP(
+  [MACOS_UMLAUT] = LAYOUT_ergodox(
     // Left
     KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO, // 7
     KC_NO,MAC_DE_AT,KC_NO,DE_EURO,KC_NO,KC_NO,KC_NO,  // 7
@@ -139,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 
-    [WIN_ALPHA] = KEYMAP(
+    [WIN_ALPHA] = LAYOUT_ergodox(
       // Left
       KC_ESCAPE,KC_1,KC_2,KC_3,KC_4,KC_5,DE_LBRC, /* 7 */
       KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,DE_LCBR,    /* 7 */
@@ -159,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LALT,CTL_T(KC_ESCAPE),KC_PGUP,KC_PGDOWN,KC_ENTER,KC_SPACE
     ),
 
-    [WIN_SPECIAL] =  KEYMAP(
+    [WIN_SPECIAL] =  LAYOUT_ergodox(
       // Left
       KC_ESCAPE,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_NO,
       KC_NO,DE_AT,TO(WIN_ALPHA),KC_NO,KC_NO,KC_NO,KC_NO,
@@ -180,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-    [WIN_UMLAUT] = KEYMAP(
+    [WIN_UMLAUT] = LAYOUT_ergodox(
       // Left
       KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO, // 7
       KC_NO,DE_AT,KC_NO,DE_EURO,KC_NO,KC_NO,KC_NO, // 7
@@ -203,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_EMPTY1] = EMPTY_LAYER,
     [WIN_EMPTY2] = EMPTY_LAYER,
 
-  [ALL_MOUSE] = KEYMAP(
+  [ALL_MOUSE] = LAYOUT_ergodox(
     // Left
     KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
     KC_NO,KC_NO,KC_MS_UP,KC_NO,KC_NO,KC_NO,KC_NO,
@@ -222,10 +218,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_AUDIO_MUTE,KC_NO,KC_NO,KC_NO,KC_NO,
     // BLOCK
     KC_NO,KC_NO,KC_NO,KC_WWW_BACK),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
 };
 
 // leaving this in place for compatibilty with old keymaps cloned and re-compiled.
