@@ -29,6 +29,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
+		LUFA_SRC += analog.c
 		LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
 endif
 
@@ -51,6 +52,7 @@ SRC += $(LUFA_SRC)
 # Search Path
 VPATH += $(TMK_PATH)/$(LUFA_DIR)
 VPATH += $(LUFA_PATH)
+VPATH += $(DRIVER_PATH)/avr
 
 # Option modules
 #ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)

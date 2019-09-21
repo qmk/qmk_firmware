@@ -1,11 +1,15 @@
-# MCU details
+# MCU name
 MCU = at90usb1286
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-OPT_DEFS += -DBOOTLOADER_SIZE=1024
 
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = halfkay
 
 # Build Options
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)

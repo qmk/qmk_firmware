@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      CTL_T(KC_SPC),  ALT_T(KC_BSPC),  LT(KEYW, KC_END),
         // right hand
              LSFT(KC_RGHT),   KC_6,            KC_7,            KC_8,      KC_9,       KC_0,             KC_BSPC,
-             MO(SYMB),        KC_Y,            KC_U,            KC_I,      KC_O,       KC_P,             KC_DELT,
+             MO(SYMB),        KC_Y,            KC_U,            KC_I,      KC_O,       KC_P,             KC_DEL,
                               KC_H,            KC_J,            KC_K,      KC_L,       KC_SCLN,          LT(NUMB, KC_ENT),
              MO(EMAC),        LT(MOUS, KC_N),  LT(CRSR, KC_M),  KC_COMM,   KC_DOT,     KC_SLSH,          KC_RSPC,
                                                KC_UP,           KC_DOWN,   KC_MINS,    ALT_T(KC_LBRC),   CTL_T(KC_RBRC),
