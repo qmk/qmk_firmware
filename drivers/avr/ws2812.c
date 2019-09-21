@@ -178,12 +178,24 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
     I2C_Init();
     I2C_Start();
     I2C_Write(0x84);
-    uint16_t datlen = leds << 2;
-    uint8_t  curbyte;
-    uint8_t *data = (uint8_t *)ledarray;
-    while (datlen--) {
-        curbyte = *data++;
-        I2C_Write(curbyte);
+    int i = 0;
+    #if defined(ERGODOX_LED_30)
+    // prevent right-half code from trying to bitbang all 30
+    // so with 30 LEDs, we count from 29 to 15 here, and the
+    // other half does 0 to 14.
+    leds = leds / 2;
+    for (i = leds + leds - 1; i >= leds; --i)
+    #elif defined(ERGODOX_LED_15_MIRROR)
+    for (i = 0; i < leds; ++i)
+    #else // ERGDOX_LED_15 non-mirrored
+    for (i = leds - 1; i >= 0; --i)
+    #endif
+    {
+       uint8_t *data = (uint8_t *) (ledarray + i);
+       I2C_Write(*data++);
+       I2C_Write(*data++);
+       I2C_Write(*data++);
+       I2C_Write(*data++);
     }
     I2C_Stop();
     SREG = sreg_prev;
@@ -194,6 +206,8 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
     // new universal format (DDR)
     _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
 
+    // note, in the 30-LED ergodox case, "leds" was already halved, so
+    // we only send the first half
     ws2812_sendarray_mask((uint8_t *)ledarray, leds << 2, _BV(RGB_DI_PIN & 0xF));
 
 #ifndef RGBW_BB_TWI

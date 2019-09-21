@@ -73,7 +73,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
 #define RGBLIGHT_ANIMATIONS
+
+/* Two sides each with 15 LEDs, so we
+ * can do same thing on each side, mirror the sides,
+ * or treat it as one long list...
+ */
+// #define ERGODOX_LED_30
+// #define ERGODOX_LED_15
+#define ERGODOX_LED_15_MIRROR
+
+#ifdef ERGODOX_LED_30
+#define RGBLED_NUM 30     // Number of LEDs
+#else
 #define RGBLED_NUM 15     // Number of LEDs
+#ifdef ERGODOX_LED_15_MIRROR
+#define RGBW_BB_TWI_MIRROR
+#endif
+#endif
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 255
 #define RGBLIGHT_VAL_STEP 12
@@ -82,6 +98,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_SPACE_CADET_ROLLOVER
 
 #define RGBW_BB_TWI
+
+#ifdef RGBW_BB_TWI
+#if (defined(ERGODOX_LED_30) + defined(ERGODOX_LED_15) + defined(ERGODOX_LED_15_MIRROR)) != 1
+#error "You must define exactly one of the ERGODOX_LED options."
+#endif
+#endif
 
 #define RGBW 1
 
