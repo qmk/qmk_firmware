@@ -50,13 +50,14 @@ We are looking for people to create and maintain a `qmk` package for more operat
 
 # Local CLI
 
-If you do not want to use the global CLI there is a local CLI bundled with `qmk_firmware`. You can find it in `qmk_firmware/bin/qmk`. You can choose to add the `qmk_firmware/bin` directory to your `PATH` if you like. After that you can run the `qmk` command from any directory.
+If you do not want to use the global CLI there is a local CLI bundled with `qmk_firmware`. You can find it in `qmk_firmware/bin/qmk`. You can run the `qmk` command from any directory and it will always operate on that copy of `qmk_firmware`.
+
+**Example**:
 
 ```
-export PATH=$PATH:$HOME/qmk_firmware/bin
+$ ~/qmk_firmware/bin/qmk hello
+Ψ Hello, World!
 ```
-
-You may want to add this to your `.profile`, `.bash_profile`, `.zsh_profile`, or other shell startup scripts.
 
 ## Local CLI Limitations
 

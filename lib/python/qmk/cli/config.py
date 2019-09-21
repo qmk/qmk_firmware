@@ -1,4 +1,4 @@
-"""Format C code according to QMK's style.
+"""Read and write configuration settings
 """
 import os
 import subprocess
@@ -14,7 +14,7 @@ def print_config(section, key):
 
 @cli.argument('-ro', '--read-only', action='store_true', help='Operate in read-only mode.')
 @cli.argument('configs', nargs='*', arg_only=True, help='Configuration options to read or write.')
-@cli.subcommand("Read and write config settings.")
+@cli.subcommand("Read and write configuration settings.")
 def config(cli):
     """Read and write config settings.
 

@@ -180,13 +180,13 @@ class ConfigurationSection(Configuration):
         self.parent = parent
 
     def __getitem__(self, key):
-        """Returns a config value, pulling from the `default` section as a fallback.
+        """Returns a config value, pulling from the `user` section as a fallback.
         """
         if key in self._config:
             return self._config[key]
 
-        elif key in self.parent.default:
-            return self.parent.default[key]
+        elif key in self.parent.user:
+            return self.parent.user[key]
 
         return None
 

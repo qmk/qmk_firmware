@@ -37,5 +37,4 @@ def new_keymap(cli):
 
     # end message to user
     cli.log.info("%s keymap directory created in: %s", username, keymap_path)
-    cli.log.info("Compile a firmware with your new keymap by typing: \n" +
-                 "qmk compile -kb %s -km %s", keyboard, username)
+    cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km %s", keyboard, username)

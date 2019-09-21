@@ -4,17 +4,13 @@ This document has useful information for developers wishing to write new `qmk` s
 
 # Overview
 
-The QMK CLI operates using the subcommand pattern made famous by git. The main `qmk` script is simply there to setup the environment and pick the correct entrypoint to run.
-
-There are actually 2 different `qmk` programs, but they operate in very similar ways. There is an installable `qmk`, also referred to as the global CLI, which can operate on many different `qmk_firmware` repositories. There is also the bundled `bin/qmk`, also referred to the local CLI, which always operates on the `qmk_firmware` it is located in. In both cases the `qmk` script prepares the environment, loads all of the subcommand modules, and then executes the entrypoint designated by the user's CLI command.
-
-Each subcommand is a self-contained module with an entrypoint (decorated by `@cli.subcommand()`) that performs some action and returns a shell returncode, or None.
+The QMK CLI operates using the subcommand pattern made famous by git. The main `qmk` script is simply there to setup the environment and pick the correct entrypoint to run. Each subcommand is a self-contained module with an entrypoint (decorated by `@cli.subcommand()`) that performs some action and returns a shell returncode, or None.
 
 # Subcommands
 
 [MILC](https://github.com/clueboard/milc) is the CLI framework `qmk` uses to handle argument parsing, configuration, logging, and many other features. It lets you focus on writing your tool without wasting your time writing glue code.
 
-Subcommands in the local CLI are always found in `qmk_firmware/lib/python/qmk/cli`. Subcommands in the global CLI are always found in `qmk_cli/qmk_cli/subcommands`. Most subcommands should be located in the local CLI. The global CLI subcommands should be limited to those few needed to setup a `qmk_firmware` environment.
+Subcommands in the local CLI are always found in `qmk_firmware/lib/python/qmk/cli`.
 
 Let's start by looking at an example subcommand. This is `lib/python/qmk/cli/hello.py`:
 
@@ -34,7 +30,7 @@ def hello(cli):
     cli.log.info('Hello, %s!', cli.config.hello.name)
 ```
 
-The first thing we do is import the `cli` object from `milc`. This is how we interact with the user and control the script's behavior. We use `@cli.argument()` to define a command line flag, `--name`. This also creates a configuration variable named `hello.name` (and the corresponding `default.name`) which the user can set so they don't have to specify the argument. The `cli.subcommand()` decorator designates this function as a subcommand. The name of the subcommand will be taken from the name of the function.
+First we import the `cli` object from `milc`. This is how we interact with the user and control the script's behavior. We use `@cli.argument()` to define a command line flag, `--name`. This also creates a configuration variable named `hello.name` (and the corresponding `user.name`) which the user can set so they don't have to specify the argument. The `cli.subcommand()` decorator designates this function as a subcommand. The name of the subcommand will be taken from the name of the function.
 
 Once inside our function we find a typical "Hello, World!" program. We use `cli.log` to access the underlying [Logger Object](https://docs.python.org/3.5/library/logging.html#logger-objects), whose behavior is user controllable. We also access the value for name supplied by the user as `cli.config.hello.name`. The value for `cli.config.hello.name` will be determined by looking at the `--name` argument supplied by the user, if not provided it will use the value in the `qmk.ini` config file, and if neither of those is provided it will fall back to the default supplied in the `cli.argument()` decorator.
 
@@ -46,9 +42,30 @@ MILC and the QMK CLI have several nice tools for interacting with the user. Usin
 
 There are two main methods for outputting text in a subcommand- `cli.log` and `cli.echo()`. They operate in similar ways but you should prefer to use `cli.log.info()` for most general purpose printing.
 
+You can use special tokens to colorize your text, to make it easier to understand the output of your program. See [Colorizing Text](#colorizing-text) below.
+
 Both of these methods support built-in string formatting using python's [printf style string format operations](https://docs.python.org/3.5/library/stdtypes.html#old-string-formatting). You can use tokens such as `%s` and `%d` within your text strings then pass the values as arguments. See our Hello, World program above for an example.
 
 You should never use the format operator (`%`) directly, always pass values as arguments.
+
+### Logging (`cli.log`)
+
+The `cli.log` object gives you access to a [Logger Object](https://docs.python.org/3.5/library/logging.html#logger-objects). We have configured our log output to show the user a nice emoji for each log level (or the log level name if their terminal does not support unicode.) This way the user can tell at a glance which messages are most important when something goes wrong.
+
+The default log level is `INFO`. If the user runs `qmk -v <subcommand>` the default log level will be set to `DEBUG`.
+
+| Function | Emoji |
+|----------|-------|
+| cli.log.critical | `{bg_red}{fg_white}¬_¬{style_reset_all}` |
+| cli.log.error | `{fg_red}☒{style_reset_all}` |
+| cli.log.warning | `{fg_yellow}⚠{style_reset_all}` |
+| cli.log.info | `{fg_blue}Ψ{style_reset_all}` |
+| cli.log.debug | `{fg_cyan}☐{style_reset_all}` |
+| cli.log.notset | `{style_reset_all}¯\\_(o_o)_/¯` |
+
+### Printing (`cli.echo`)
+
+Sometimes you simply need to print text outside of the log system. This is appropriate if you are outputting fixed data or writing out something that should never be logged. Most of the time you should prefer `cli.log.info()` over `cli.echo`.
 
 ### Colorizing Text
 
@@ -80,25 +97,6 @@ ANSI output:
 | {style_reset_all} | Reset all text attributes to default. (This is automatically added to the end of every string.) |
 | {bg_reset} | Reset the background color to the user's default |
 | {fg_reset} | Reset the foreground color to the user's default |
-
-### Logging (`cli.log`)
-
-The `cli.log` object gives you access to a [Logger Object](https://docs.python.org/3.5/library/logging.html#logger-objects). We have configured our log output to show the user a nice emoji for each log level (or the log level name if their terminal does not support unicode.) This way the user can tell at a glance which messages are most important when something goes wrong.
-
-The default log level is `INFO`. If the user runs `qmk -v <subcommand>` the default log level will be set to `DEBUG`.
-
-| Function | Emoji |
-|----------|-------|
-| cli.log.critical | `{bg_red}{fg_white}¬_¬{style_reset_all}`
-| cli.log.error | `{fg_red}☒{style_reset_all}`
-| cli.log.warning | `{fg_yellow}⚠{style_reset_all}`
-| cli.log.info | `{fg_blue}Ψ{style_reset_all}`
-| cli.log.debug | `{fg_cyan}☐{style_reset_all}`
-| cli.log.notset | `{style_reset_all}¯\\_(o_o)_/¯`
-
-### Printing (`cli.echo`)
-
-Sometimes you simply need to print text outside of the log system. This is appropriate if you are outputting fixed data or writing out something that should never be logged. Most of the time you should prefer `cli.log.info()` over `cli.echo`.
 
 # Arguments and Configuration
 

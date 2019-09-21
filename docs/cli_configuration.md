@@ -26,16 +26,16 @@ compile.keymap: None -> default
 
 Now I can run `qmk compile` without specifying my keyboard and keymap each time.
 
-## Setting Defaults
+## Setting User Defaults
 
-Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command you can set a default value which will be used by any command that takes that argument.
+Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command you can set a user value which will be used by any command that takes that argument.
 
 Example:
 
 ```
-$ qmk config default.keyboard=clueboard/66/rev4 default.keymap=default
-default.keyboard: None -> clueboard/66/rev4
-default.keymap: None -> default
+$ qmk config user.keyboard=clueboard/66/rev4 user.keymap=default
+user.keyboard: None -> clueboard/66/rev4
+user.keymap: None -> default
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
@@ -59,15 +59,23 @@ default.keymap: None -> default
 
 ## Reading Configuration Values
 
-You can read configuration values for a single key or for an entire section.
+You can read configuration values for the entire configuration, a single key, or for an entire section. You can also specify multiple keys to display more than one value.
 
-Single Key Example:
+### Entire Configuration Example
+
+    qmk config
+
+### Whole Section Example
+
+    qmk config compile
+
+### Single Key Example
 
     qmk config compile.keyboard
 
-Whole Section Example:
+### Multiple Keys Example
 
-    qmk config compile
+    qmk config user compile.keyboard compile.keymap
 
 ## Deleting Configuration Values
 
@@ -93,3 +101,21 @@ default.keymap: None -> default
 compile.keymap: skully -> None
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
+
+# User Configuration Options
+
+| Key | Default Value | Description |
+|-----|---------------|-------------|
+| user.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
+| user.keymap | None | The keymap name (Example: `default`) |
+| user.name | None | The user's github username. |
+
+# All Configuration Options
+
+| Key | Default Value | Description |
+|-----|---------------|-------------|
+| compile.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
+| compile.keymap | None | The keymap name (Example: `default`) |
+| hello.name | None | The name to greet when run. |
+| new_keyboard.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
+| new_keyboard.keymap | None | The keymap name (Example: `default`) |
