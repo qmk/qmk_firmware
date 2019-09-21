@@ -32,16 +32,18 @@ This feature is distinct from both the [RGB underglow](feature_rgblight.md) and 
 
 Hardware PWM is supported according to the following table:
 
-|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|
-|-------------|-------------|-------------|-------------|---------|
-|`B5`         |Timer 1      |Timer 1      |             |         |
-|`B6`         |Timer 1      |Timer 1      |             |         |
-|`B7`         |Timer 1      |Timer 1      |Timer 1      |         |
-|`C4`         |Timer 3      |             |             |         |
-|`C5`         |Timer 3      |             |Timer 1      |         |
-|`C6`         |Timer 3      |Timer 3      |Timer 1      |         |
-|`D4`         |             |             |             |Timer 1  |
-|`D5`         |             |             |             |Timer 1  |
+|Backlight Pin|AT90USB64/128|ATmega16/32U4|ATmega16/32U2|ATmega32A|ATmega328P|
+|-------------|-------------|-------------|-------------|---------|----------|
+|`B1`         |             |             |             |         |Timer 1   |
+|`B2`         |             |             |             |         |Timer 1   |
+|`B5`         |Timer 1      |Timer 1      |             |         |          |
+|`B6`         |Timer 1      |Timer 1      |             |         |          |
+|`B7`         |Timer 1      |Timer 1      |Timer 1      |         |          |
+|`C4`         |Timer 3      |             |             |         |          |
+|`C5`         |Timer 3      |             |Timer 1      |         |          |
+|`C6`         |Timer 3      |Timer 3      |Timer 1      |         |          |
+|`D4`         |             |             |             |Timer 1  |          |
+|`D5`         |             |             |             |Timer 1  |          |
 
 All other pins will use software PWM. If the [Audio](feature_audio.md) feature is disabled or only using one timer, the backlight PWM can be triggered by a hardware timer:
 
