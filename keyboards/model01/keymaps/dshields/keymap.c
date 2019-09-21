@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "dshields.h"
 
 enum { DEF, FUN };
 enum { DYNAMIC_MACRO_RANGE = SAFE_RANGE };
@@ -29,31 +30,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,                                        _______
     )
 };
-
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-        case DEF:
-            set_all_leds_to(0,0,0);
-            break;
-        case FUN:
-            // TODO light the fn keys
-            // set_led_to(?, 0, 128, 0);
-            // set_led_to(?, 0, 128, 0);
-            break;
-    }
-    return state;
-}
-
-/*
-void matrix_init_user(void) {
-    eeconfig_init();
-};
-*/
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
-    return true;
-}
 
