@@ -1,4 +1,4 @@
-# Booster
+# Canoe
 
 A 65% keyboard with some RGB
 
