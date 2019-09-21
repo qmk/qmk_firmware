@@ -40,7 +40,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #ifdef RGB_MATRIX_TOG_LAYERS
         case RGB_TOG:
             if (record->event.pressed) {
-              rgb_matrix_decrease_flags();
+              rgb_matrix_increase_flags();
             }
             return false;
 #endif
