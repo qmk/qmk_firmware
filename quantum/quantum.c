@@ -1104,6 +1104,22 @@ void matrix_scan_quantum() {
 #            define COMxx1 COM1A1
 #            define OCRxx OCR1A
 #        endif
+#    elif defined(__AVR_ATmega328P__) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
+#        define HARDWARE_PWM
+#        define ICRx ICR1
+#        define TCCRxA TCCR1A
+#        define TCCRxB TCCR1B
+#        define TIMERx_OVF_vect TIMER1_OVF_vect
+#        define TIMSKx TIMSK1
+#        define TOIEx TOIE1
+
+#        if BACKLIGHT_PIN == B1
+#            define COMxx1 COM1A1
+#            define OCRxx OCR1A
+#        elif BACKLIGHT_PIN == B2
+#            define COMxx1 COM1B1
+#            define OCRxx OCR1B
+#        endif
 #    else
 #        if !defined(BACKLIGHT_CUSTOM_DRIVER)
 #            if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
