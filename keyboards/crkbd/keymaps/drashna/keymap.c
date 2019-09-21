@@ -197,19 +197,18 @@ void render_layer_state(void) {
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR("Lock:"), false);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("NUM "), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("CAPS"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("SCRL"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 }
 
 void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("Mods:"), false);
-    oled_write_P(PSTR(" SHFT"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR(" CTRL"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR(" ALT "), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR(" GUI "), (modifiers & MOD_MASK_GUI));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_ln_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_bootmagic_status(void) {
