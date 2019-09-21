@@ -7,8 +7,7 @@
 
 layout.json can be opened in http://www.keyboard-layout-editor.com/
 
-![Layout](https://i.imgur.com/OPoKSXT.png)
-![Legend](https://i.imgur.com/Oa6gn75.png)
+![Layout](https://i.imgur.com/2pV4nY8.png)
 
 # Building
 
