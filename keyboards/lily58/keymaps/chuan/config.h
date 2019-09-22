@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
@@ -45,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }
 
