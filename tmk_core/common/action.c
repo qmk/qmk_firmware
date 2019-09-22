@@ -44,8 +44,11 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifndef TAP_CODE_DELAY
+#  define TAP_CODE_DELAY 0
+#endif
 #ifndef TAP_HOLD_CAPS_DELAY
-#  define TAP_HOLD_CAPS_DELAY 200
+#  define TAP_HOLD_CAPS_DELAY 80
 #endif
 /** \brief Called to execute an action.
  *
@@ -330,6 +333,9 @@ void process_action(keyrecord_t *record, action_t action)
                         } else {
                             if (tap_count > 0) {
                                 dprint("MODS_TAP: Tap: unregister_code\n");
+                                if (action.layer_tap.code == KC_CAPS) {
+                                  wait_ms(TAP_HOLD_CAPS_DELAY);
+                                }
                                 unregister_code(action.key.code);
                             } else {
                                 dprint("MODS_TAP: No tap: add_mods\n");
@@ -431,20 +437,19 @@ void process_action(keyrecord_t *record, action_t action)
                 }
             }
             break;
+        case ACT_LAYER_MODS:
+            if (event.pressed) {
+                layer_on(action.layer_mods.layer);
+                register_mods(action.layer_mods.mods);
+            } else {
+                unregister_mods(action.layer_mods.mods);
+                layer_off(action.layer_mods.layer);
+            }
+            break;
     #ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case 0xe0 ... 0xef:
-                    /* layer On/Off with modifiers(left only) */
-                    if (event.pressed) {
-                        layer_on(action.layer_tap.val);
-                        register_mods(action.layer_tap.code & 0x0f);
-                    } else {
-                        layer_off(action.layer_tap.val);
-                        unregister_mods(action.layer_tap.code & 0x0f);
-                    }
-                    break;
                 case OP_TAP_TOGGLE:
                     /* tap toggle */
                     if (event.pressed) {
@@ -522,7 +527,9 @@ void process_action(keyrecord_t *record, action_t action)
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
-                            }
+                            } else {
+                                wait_ms(TAP_CODE_DELAY);
+                              }
                             unregister_code(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
@@ -618,6 +625,7 @@ void process_action(keyrecord_t *record, action_t action)
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
+                            wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
                             *record = (keyrecord_t){}; // hack: reset tap mode
                         }
@@ -643,6 +651,7 @@ void process_action(keyrecord_t *record, action_t action)
     // if this event is a layer action, update the leds
     switch (action.kind.id) {
         case ACT_LAYER:
+        case ACT_LAYER_MODS:
         #ifndef NO_ACTION_TAPPING
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
@@ -670,8 +679,7 @@ void process_action(keyrecord_t *record, action_t action)
         retro_tapping_counter = 0;
       } else {
         if (retro_tapping_counter == 2) {
-          register_code(action.layer_tap.code);
-          unregister_code(action.layer_tap.code);
+          tap_code(action.layer_tap.code);
         }
         retro_tapping_counter = 0;
       }
@@ -858,12 +866,9 @@ void tap_code(uint8_t code) {
   register_code(code);
   if (code == KC_CAPS) {
     wait_ms(TAP_HOLD_CAPS_DELAY);
-  }
-  #if TAP_CODE_DELAY > 0
-  else {
+  } else {
     wait_ms(TAP_CODE_DELAY);
   }
-  #endif
   unregister_code(code);
 }
 
@@ -952,7 +957,7 @@ bool is_tap_action(action_t action)
         case ACT_LAYER_TAP:
         case ACT_LAYER_TAP_EXT:
             switch (action.layer_tap.code) {
-                case 0x00 ... 0xdf:
+                case KC_NO ... KC_RGUI:
                 case OP_TAP_TOGGLE:
                 case OP_ONESHOT:
                     return true;
@@ -960,7 +965,7 @@ bool is_tap_action(action_t action)
             return false;
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
-                case 0x00 ... 0xdf:
+                case KC_NO ... KC_RGUI:
                 case OP_SH_TAP_TOGGLE:
                     return true;
             }
@@ -1009,6 +1014,7 @@ void debug_action(action_t action)
         case ACT_USAGE:             dprint("ACT_USAGE");             break;
         case ACT_MOUSEKEY:          dprint("ACT_MOUSEKEY");          break;
         case ACT_LAYER:             dprint("ACT_LAYER");             break;
+        case ACT_LAYER_MODS:        dprint("ACT_LAYER_MODS");        break;
         case ACT_LAYER_TAP:         dprint("ACT_LAYER_TAP");         break;
         case ACT_LAYER_TAP_EXT:     dprint("ACT_LAYER_TAP_EXT");     break;
         case ACT_MACRO:             dprint("ACT_MACRO");             break;
