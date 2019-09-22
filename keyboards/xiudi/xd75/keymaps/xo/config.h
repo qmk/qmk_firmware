@@ -15,6 +15,5 @@
 #pragma once
 
 #define TAPPING_TOGGLE 2
-#define PERMISSIVE_HOLD
 #define TAPPING_TERM 150
 #define RGBLIGHT_SLEEP
