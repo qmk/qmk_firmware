@@ -17,8 +17,8 @@
 #include "tmk_core/common/eeprom.h"
 
 // HACK
-#include "keyboards/zeal60/zeal60_api.h" // Temporary hack
-#include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
+#include "keyboards/wilba_tech/via_api.h" // Temporary hack
+#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
 
 
 /* Artificial delay added to get media keys to work in the encoder*/
@@ -72,7 +72,7 @@ void eeprom_set_valid(bool valid)
 
 void eeprom_reset(void)
 {
-	// Set the Zeal60 specific EEPROM state as invalid.
+	// Set the VIA specific EEPROM state as invalid.
 	eeprom_set_valid(false);
 	// Set the TMK/QMK EEPROM state as invalid.
 	eeconfig_disable();
@@ -94,51 +94,53 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		}
 		case id_get_keyboard_value:
 		{
-      switch( command_data[0])
-      {
-        case id_uptime:
-        {
-          uint32_t value = timer_read32();
-          command_data[1] = (value >> 24 ) & 0xFF;
-          command_data[2] = (value >> 16 ) & 0xFF;
-          command_data[3] = (value >> 8 ) & 0xFF;
-          command_data[4] = value & 0xFF;
-          break;
-        }
-        case id_oled_default_mode:
-        {
-          uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
-          command_data[1] = default_oled;
-          break;
-        }
-        case id_oled_mode:
-        {
-          command_data[1] = oled_mode;
-          break;
-
-        }
-        case id_encoder_modes:
-        {
-          command_data[1] = enabled_encoder_modes;
-          break;
-        }
-        case id_encoder_custom:
-        {
-          // uint8_t custom_encoder_idx = command_data[1];
-          // command_data[2] = 0x00;
-          // command_data[3] = 0x00;
-          // command_data[4] = 0x00;
-          // command_data[5] = 0x00;
-          // command_data[6] = 0x00;
-          // command_data[7] = 0x00;
-          break;
-        }
-        default:
-        {
-          *command_id = id_unhandled;
-          break;
-        }
-      }
+            switch( command_data[0])
+            {
+                case id_uptime:
+                {
+                uint32_t value = timer_read32();
+                command_data[1] = (value >> 24 ) & 0xFF;
+                command_data[2] = (value >> 16 ) & 0xFF;
+                command_data[3] = (value >> 8 ) & 0xFF;
+                command_data[4] = value & 0xFF;
+                break;
+                }
+                case id_oled_default_mode:
+                {
+                    uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+                    command_data[1] = default_oled;
+                    break;
+                }
+                case id_oled_mode:
+                {
+                    command_data[1] = oled_mode;
+                    break;
+                }
+                case id_encoder_modes:
+                {
+                    command_data[1] = enabled_encoder_modes;
+                    break;
+                }
+                case id_encoder_custom:
+                {
+                    uint8_t custom_encoder_idx = command_data[1];
+                    uint16_t keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CW);
+                    command_data[2] =  keycode >> 8;
+                    command_data[3] = keycode & 0xFF;
+                    keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_CCW);
+                    command_data[4] =  keycode >> 8;
+                    command_data[5] = keycode & 0xFF;
+                    keycode = retrieve_custom_encoder_config(custom_encoder_idx, ENC_CUSTOM_PRESS);
+                    command_data[6] =  keycode >> 8;
+                    command_data[7] = keycode & 0xFF;
+                    break;
+                }
+                default:
+                {
+                    *command_id = id_unhandled;
+                    break;
+                }
+            }
 			break;
     }
 #ifdef DYNAMIC_KEYMAP_ENABLE
@@ -164,7 +166,10 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
         }
         case id_encoder_custom:
         {
-          // uint8_t custom_encoder_idx = command_data[1];
+          uint8_t custom_encoder_idx = command_data[1];
+          uint8_t encoder_behavior = command_data[2];
+          uint16_t keycode = (command_data[3] << 8) | command_data[4];
+          set_custom_encoder_config(custom_encoder_idx, encoder_behavior, keycode);
           break;
         }
         default:
@@ -205,13 +210,6 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 		case id_dynamic_keymap_macro_get_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_macro_get_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_macro_set_buffer:
 		{
 			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
 			uint16_t size = command_data[2]; // size <= 28
@@ -339,9 +337,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         uint16_t mapped_code = handle_encoder_press();
         uint16_t held_keycode_timer = timer_read();
         if(mapped_code != 0){
-          register_code(mapped_code);
+          register_code16(mapped_code);
           while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
-          unregister_code(mapped_code);
+          unregister_code16(mapped_code);
         }
       } else {
         // Do something else when release
@@ -380,9 +378,9 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
       }
       uint16_t held_keycode_timer = timer_read();
       if(mapped_code != 0){
-        register_code(mapped_code);
+        register_code16(mapped_code);
         while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
-        unregister_code(mapped_code);
+        unregister_code16(mapped_code);
       }
     } else {
       if(clockwise){

@@ -1,5 +1,5 @@
-SRC += i2c_master.c \
-	   leds.c \
+QUANTUM_LIB_SRC += i2c_master.c
+SRC += leds.c \
 	   matrix.c
 
 # MCU name
