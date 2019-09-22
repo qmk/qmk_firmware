@@ -4,7 +4,7 @@ This page describes how to setup and use the QMK CLI.
 
 # Overview
 
-The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to make working with QMK easier and more streamlined.
+The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to simplify and streamline tasks such as obtaining and compiling the QMK firmware, creating keymaps, and more.
 
 * [Global CLI](#global-cli)
 * [Local CLI](#local-cli)
@@ -16,7 +16,7 @@ The CLI requires Python 3.5 or greater. We try to keep the number of requirement
 
 # Global CLI
 
-QMK provides an installable CLI that can be used to setup your QMK build environment, work with QMK, and which makes working with multiple `qmk_firmware` clones easier. We recommend installing and updating this periodically.
+QMK provides an installable CLI that can be used to setup your QMK build environment, work with QMK, and which makes working with multiple copies of `qmk_firmware` easier. We recommend installing and updating this periodically.
 
 ## Install Using Homebrew (macOS, some Linux)
 
