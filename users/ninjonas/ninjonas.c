@@ -21,7 +21,7 @@ layer_state_t layer_state_set_user (layer_state_t state) {
 
 // BEGIN: SSD1306OLED
 // SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA)
+#if defined(KEYBOARD_lily58_rev1) & defined(PROTOCOL_LUFA) & defined(SSD1306OLED)
 extern uint8_t is_master;
 
 void matrix_init_user(void) {
