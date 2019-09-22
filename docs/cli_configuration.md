@@ -41,7 +41,7 @@ user.keymap: None -> default
 
 # CLI Documentation (`qmk config`)
 
-The `qmk config` command is used by users to interact with the underlying configuration. When run with no argument it shows the current configuration. When arguments are supplied they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
+The `qmk config` command is used to interact with the underlying configuration. When run with no argument it shows the current configuration. When arguments are supplied they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
 
     <subcommand|general|default>[.<key>][=<value>]
 

@@ -25,18 +25,18 @@ If you have installed [Homebrew](https://brew.sh) you can tap and install QMK:
 ```
 brew tap qmk/qmk
 brew install qmk
-export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firware`
-qmk setup  # This will clone `qmk/qmk_firmware` and optionally setup your build environment
+export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
+qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
 ## Install Using easy_install or pip
 
-If your system is not listed above you can install qmk manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
+If your system is not listed above you can install QMK manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
 
 ```
 pip3 install qmk
-export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firware`
-qmk setup  # This will clone `qmk/qmk_firmware` and optionally setup your build environment
+export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
+qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
 ## Packaging For Other Operating Systems
@@ -64,7 +64,7 @@ $ ~/qmk_firmware/bin/qmk hello
 There are some limitations to the local CLI compared to the global CLI:
 
 * The local CLI does not support `qmk setup` or `qmk clone`
-* The local CLI always operates on the same `qmk_firmware` tree, even if you have multiple clones
+* The local CLI always operates on the same `qmk_firmware` tree, even if you have multiple repositories cloned.
 * The local CLI does not run in a virtualenv, so it's possible that dependencies will conflict
 
 # CLI Commands
