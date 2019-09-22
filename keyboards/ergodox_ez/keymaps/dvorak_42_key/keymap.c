@@ -16,7 +16,8 @@
 // git push origin dev:dev
 
 // debounce settings
-#define DEBOUNCE 5
+// remove these after getting an new keyboard
+#define DEBOUNCE 3
 #define QMK_KEYS_PER_SCAN 4
 
 
