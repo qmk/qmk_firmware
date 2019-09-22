@@ -147,7 +147,7 @@ define EXEC_DFU
 		echo "Flashing '$(1)' for EE_HANDS split keyboard support." ;\
 	fi; \
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
 	done; \
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
@@ -252,7 +252,7 @@ define EXEC_BOOTLOADHID
 	# bootloadHid executable has no cross platform detect methods
 	# so keep running bootloadHid if the output contains "The specified device was not found"
 	until $(BOOTLOADHID_PROGRAMMER) -r $(BUILD_DIR)/$(TARGET).hex 2>&1 | tee /dev/stderr | grep -v "device was not found"; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
 	done
 endef
@@ -347,5 +347,5 @@ else ifeq ($(strip $(BOOTLOADER)), USBasp)
 else ifeq ($(strip $(BOOTLOADER)), bootloadHID)
 	$(call EXEC_BOOTLOADHID)
 else
-	$(PRINT_OK); $(SILENT) || printf "&(MSG_FLASH_BOOTLOADER)"
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif

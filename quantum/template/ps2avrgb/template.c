@@ -18,38 +18,38 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#include <string.h>
-#include "i2c_master.h"
-#include "rgblight.h"
+#    include <string.h>
+#    include "i2c_master.h"
+#    include "rgblight.h"
 
 extern rgblight_config_t rgblight_config;
 
 void matrix_init_kb(void) {
-  i2c_init();
-  // call user level keymaps, if any
-  matrix_init_user();
+    i2c_init();
+    // call user level keymaps, if any
+    matrix_init_user();
 }
 
 // custom RGB driver
 void rgblight_set(void) {
-  if (!rgblight_config.enable) {
-    memset(led, 0, 3 * RGBLED_NUM);
-  }
+    if (!rgblight_config.enable) {
+        memset(led, 0, 3 * RGBLED_NUM);
+    }
 
-  i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
 }
 
 bool rgb_init = false;
 
 void matrix_scan_kb(void) {
-  // if LEDs were previously on before poweroff, turn them back on
-  if (rgb_init == false && rgblight_config.enable) {
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
-    rgb_init = true;
-  }
+    // if LEDs were previously on before poweroff, turn them back on
+    if (rgb_init == false && rgblight_config.enable) {
+        i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+        rgb_init = true;
+    }
 
-  rgblight_task();
-  matrix_scan_user();
+    rgblight_task();
+    matrix_scan_user();
 }
 
 #endif

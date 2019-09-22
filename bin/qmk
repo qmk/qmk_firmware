@@ -47,7 +47,7 @@ else:
 
 # Setup the CLI
 import milc
-milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}ψ{style_reset_all}'
+milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
 # If we were invoked as `qmk <cmd>` massage sys.argv into `qmk-<cmd>`.
 # This means we can't accept arguments to the qmk script itself.
@@ -94,4 +94,10 @@ else:
         exit(1)
 
 if __name__ == '__main__':
-    milc.cli()
+    return_code = milc.cli()
+    if return_code is False:
+        exit(1)
+    elif return_code is not True and isinstance(return_code, int) and return_code < 256:
+        exit(return_code)
+    else:
+        exit(0)
