@@ -45,10 +45,10 @@
  */
 
 #ifndef ARM_MATH_CM4
- #define ARM_MATH_CM4
+#    define ARM_MATH_CM4
 #endif
 
-#undef LITTLE_ENDIAN  //redefined in samd51j18a.h
+#undef LITTLE_ENDIAN  // redefined in samd51j18a.h
 #include "samd51j18a.h"
 #include "ui.h"
 
@@ -68,37 +68,16 @@ static void ui_wakeup_handler(void)
 }
 #endif
 
-void ui_init(void)
-{
+void ui_init(void) {}
 
-}
+void ui_powerdown(void) {}
 
-void ui_powerdown(void)
-{
+void ui_wakeup_enable(void) {}
 
-}
+void ui_wakeup_disable(void) {}
 
-void ui_wakeup_enable(void)
-{
+void ui_wakeup(void) {}
 
-}
+void ui_process(uint16_t framenumber) {}
 
-void ui_wakeup_disable(void)
-{
-
-}
-
-void ui_wakeup(void)
-{
-
-}
-
-void ui_process(uint16_t framenumber)
-{
-
-}
-
-void ui_kbd_led(uint8_t value)
-{
-
-}
+void ui_kbd_led(uint8_t value) {}

@@ -18,6 +18,3 @@ NKRO_ENABLE       = no
 else
 NKRO_ENABLE       = yes
 endif
-
-
-MACROS_ENABLED    = no

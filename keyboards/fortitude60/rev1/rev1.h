@@ -3,9 +3,7 @@
 
 #include "fortitude60.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
@@ -14,8 +12,6 @@
   #include <avr/interrupt.h>
 #endif
 #endif
-
-//void promicro_bootloader_jmp(bool program);
 
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
