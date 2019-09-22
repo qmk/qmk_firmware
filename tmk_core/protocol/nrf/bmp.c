@@ -67,6 +67,10 @@
   #include "velocikey.h"
 #endif
 
+#ifndef DISABLE_MSC
+#define DISABLE_MSC 0
+#endif
+
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif
@@ -502,7 +506,7 @@ void bmp_init()
   BMPAPI->usb.set_msc_write_cb(msc_write_callback);
   BMPAPI->app.set_state_change_cb(bmp_state_change_cb);
 
-  BMPAPI->usb.init(config, 0);
+  BMPAPI->usb.init(config, DISABLE_MSC);
   BMPAPI->ble.init(config);
 
   BMPAPI->logger.info("usb init");
