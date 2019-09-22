@@ -1,10 +1,6 @@
 #include "leader.h"
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
-//uint8_t old_hue;
-//uint8_t old_sat;
-//uint8_t old_val;
-//uint8_t old_mode;
 #endif
 bool leader_succeed;
 
@@ -77,6 +73,11 @@ void matrix_scan_user(void) {
       tap_code16(KC_RGB_T);
       leader_succeed = true;
     } else
+    SEQ_ONE_KEY(KC_SPC){
+      // One Shot Unicode layer
+//TODO      tap_code16(OS_UNI);
+      leader_succeed = true;
+    } else
     SEQ_TWO_KEYS(KC_SPC, KC_SPC){
       // Toggle _MODS
       tap_code16(TG_MODS);
@@ -94,40 +95,22 @@ void matrix_scan_user(void) {
 
 void leader_start(void) {
 #ifdef RGBLIGHT_ENABLE
-//  old_hue = rgblight_get_hue();
-//  old_val = rgblight_get_val();
-//  old_sat = rgblight_get_sat();
-//  old_mode = rgblight_get_mode();
  rgblight_savebase();
-  rgblight_mode_noeeprom(1);
-  rgblight_sethsv_noeeprom_goldenrod();
+ rgblight_mode_noeeprom(1);
+ rgblight_sethsv_noeeprom_goldenrod();
 #endif
 }
 
 void leader_end(void) {
 // pick color depending of success /fail
-// fade new color from 100 to 0
+// fade leader_start from 100 to 0
+// fade new color from  0 to 100 to 0
 // fade old color from 0 to 100
 #ifdef RGBLIGHT_ENABLE
-  rgblight_enable_noeeprom();
- rgblight_loadbase();
   if (leader_succeed) {
-  //  rgblight_sethsv_noeeprom_green();
     fadeflash_leds(HSV_GREEN);
   } else {
-   // rgblight_sethsv_noeeprom_red();
     fadeflash_leds(HSV_RED);
   }
-//  for (uint8_t index = 0; index <  RGBLIGHT_VAL_STEP ; index++) {
-//    rgblight_decrease_val();
-//    wait_ms(10);
-//  }
-//  rgblight_sethsv_noeeprom(old_hue, old_sat, 0); 
-//  rgblight_mode_noeeprom(old_mode);
-//  for (uint8_t index = 0; index <  RGBLIGHT_VAL_STEP ; index++) {
-//    rgblight_increase_val();
-//    wait_ms(5);
-//  }
-//  fadeflash_leds(HSV_SPRINGGREEN);
 #endif
 }
