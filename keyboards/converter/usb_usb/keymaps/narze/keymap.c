@@ -143,6 +143,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             perform_space_cadet(record, keycode, KC_RSFT, KC_RSFT, KC_0);
             return false;
 
+        // 3. Hold for RSHIFT, tap for Parens close
+        case RSFT_RPRN:
+            perform_space_cadet(record, KC_RSFT, KC_RSFT, KC_0);
+            return false;
+
         default:
             return true;
     }
