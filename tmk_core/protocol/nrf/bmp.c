@@ -67,6 +67,10 @@
   #include "velocikey.h"
 #endif
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
 
 static int sleep_enter_counter = -1;
 
@@ -599,6 +603,8 @@ int load_tapping_term_file()
   BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
   if (p_qmk_config == NULL)
   {
+    bmp_qmk_config.tapping_term[0].qkc = KC_NO;
+    bmp_qmk_config.tapping_term[0].tapping_term = TAPPING_TERM;
     return 1;
   }
   memcpy(&bmp_qmk_config, p_qmk_config, sizeof(bmp_qmk_config));
@@ -627,10 +633,6 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
   return BMPAPI->app.keymap_key_to_keycode(layer, (bmp_api_keypos_t*)&key);
 }
-
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
 
 uint16_t get_tapping_term(uint16_t keycode) {
   for (int i=0;
