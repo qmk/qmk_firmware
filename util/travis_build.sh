@@ -57,7 +57,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo
 			echo "Running python tests."
-			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'pip3 install -r requirements.txt && bin/qmk pytest'
+			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'bin/qmk pytest'
 			: $((exit_code = $exit_code + $?))
 		fi
 	fi
