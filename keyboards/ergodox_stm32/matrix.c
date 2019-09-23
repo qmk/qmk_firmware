@@ -148,7 +148,7 @@ static matrix_row_t read_cols(uint8_t row) {
     uint8_t data = 0xFF;
     if (!mcp23017_status) {
       uint8_t regAddr = I2C_GPIOB;
-      mcp23017_status = i2c_readReg(I2C_ADDR, &regAddr, &data, 1, 10);
+      mcp23017_status = i2c_readReg(I2C_ADDR, regAddr, &data, 1, 10);
     }
     if (mcp23017_status) {
       return 0;

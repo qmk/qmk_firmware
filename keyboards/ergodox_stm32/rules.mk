@@ -1,5 +1,7 @@
-SRC += matrix.c \
-drivers/arm/i2c_master.c
+SRC += matrix.c
+QUANTUM_LIB_SRC += i2c_master.c
+
+CFLAGS += "-Wno-error=deprecated"
 
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx
