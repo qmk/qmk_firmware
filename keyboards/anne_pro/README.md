@@ -10,6 +10,10 @@ Keyboard Maintainer: [Michiel Visser](https://github.com/msvisser)
 Hardware Supported: Anne Pro (this means no support for the _Anne Pro 2_)  
 Hardware Availability: Discontinued, [possible vendors](https://www.reddit.com/r/AnnePro/wiki/vendors)
 
+Make sure you check out the correct branch for this keyboard!
+
+    git checkout anne_pro
+
 Before building the firmware for this keyboard submodules have to be loaded and a patch has to be applied:
 
     make git-submodule
