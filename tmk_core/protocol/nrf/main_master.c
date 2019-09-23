@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bmp.h"
 
 #ifndef MATRIX_SCAN_TIME_MS
-#define MATRIX_SCAN_TIME_MS 17
+#define MATRIX_SCAN_TIME_MS 10
 #endif
 const uint8_t MAINTASK_INTERVAL=MATRIX_SCAN_TIME_MS;
 
