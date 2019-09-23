@@ -1551,20 +1551,14 @@ void backlight_effect_indicators(void)
     }
 
 #if defined(RGB_BACKLIGHT_NK65)
-    if ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) )
-    {
+    if ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) {
         IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
     } else {
         IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
     }
-    if ( g_indicator_state & (1<<USB_LED_SCROLL_LOCK) )
-    {
+    if ( IS_LAYER_ON(1) ) {
         IS31FL3733_set_color( 6+64-1, 255, 0, 255 );
-    } else {
-        IS31FL3733_set_color( 6+64-1, 0, 0, 0 );
-    }
-    if ( g_indicator_state & (1<<USB_LED_NUM_LOCK) )
-    {
+    } else if ( IS_LAYER_ON(2) ) {
         IS31FL3733_set_color( 6+64-1, 0, 255, 0 );
     } else {
         IS31FL3733_set_color( 6+64-1, 0, 0, 0 );
