@@ -1,4 +1,4 @@
-# MCU name
+﻿# MCU name
 MCU = atmega32u4
 
 # Processor frequency.
