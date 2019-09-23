@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "ninjonas.h"		
+#include "ninjonas.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_wrapper( \
 	_____________________FUNC_LEFT______________________,                     _____________________FUNC_RIGHT_____________________, \
-	_______, _______, _________MEDIA_1_________, _______,                     _______________NAV_1______________, _______, _______, \
+	_______, _______, _________MEDIA_1_________, _______,                     _______________NAV_1______________, _______,  K_MDSH, \
 	_______, _______, _________MEDIA_2_________, _______,                     _______________NAV_2______________, K_LOCK,  _______, \
 	M_SHFT,  _______, _________MEDIA_3_________, _______, _______,   _______, _______, _______, _______, _______, M_ZOOM,  M_PYNV, \
 	                           __________________________________,   _______, _______, M_CODE,  _______ \
