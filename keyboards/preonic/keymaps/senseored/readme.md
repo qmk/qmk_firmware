@@ -1,1 +1,1 @@
-# The default Preonic layout - largely based on the Planck's
+# Swedish Preonic layout. Still figuring out what to do with numbers/symbols compared to a Planck-layout.

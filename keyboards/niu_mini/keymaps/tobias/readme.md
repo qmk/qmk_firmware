@@ -1,2 +1,2 @@
-# The Default Planck Layout
+# Swedish 40% Layout
 
