@@ -45,7 +45,6 @@ enum ergodox_keycodes {
 #define SFT_ENT SFT_T(KC_ENT)
 #define SFT_PO LSFT_LPRN
 #define SFT_PC RSFT_RPRN
-#define GUI_MINS GUI_T(KC_MINS)
 
 enum process_combo_event {
     CB_SUPERDUPER,
@@ -63,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       |  Rse | GUI/-|  Alt | Ctrl | Low/]  |
+ *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | Alt  |Ctrl/Esc|
@@ -88,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              MEH_T(KC_NO),KC_N,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       |  Rse | GUI/-|  Alt | Ctrl | Low/]  |
+ *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | Alt  |Ctrl/Esc|
@@ -129,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_J,   KC_L,  KC_U,   KC_Y,   KC_SCLN,       KC_BSLS,
                           KC_H,   KC_N,  KC_E,   KC_I,   KC_O,          KC_QUOT,
              MEH_T(KC_NO),KC_K,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -150,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   CM_Y,   CM_U,  CM_I,   CM_O,   CM_P,             KC_BSLS,
                           CM_H,   CM_J,  CM_K,   CM_L,   CM_SCLN,          KC_QUOT,
              MEH_T(KC_NO),CM_N,   CM_M,  CM_COMM,CM_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
