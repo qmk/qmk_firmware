@@ -21,13 +21,11 @@ See: https://docs.qmk.fm/#/feature_userspace
 |Code | Description |
 |---|---|
 |LT_LOW | Tap for ENTER, hold for RAISE |
-|LT_FUNC | Tap for ENTER, hold for FUNCTIONS |
 |LT_RAI | Tap for SPACE, hold for LOWER |
-|LT_NUM | Tap for SPACE, hold for NUMBERS |
 |LT_LOW + LT_RAI | Hold for ADJUST  |
 |L_LOWER | Dedicated key to momentarily toggle to use LOWER layer |
 
-### [Layout Blocks](ninjonas.h#L58)
+### [Layout Blocks](ninjonas.h#L56)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |

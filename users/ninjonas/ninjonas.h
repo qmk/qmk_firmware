@@ -36,10 +36,6 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
-#ifdef KEYBOARD_pinky_3
-  #define _NUMBERS 6
-  #define _FUNCTIONS 7
-#endif
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
@@ -50,10 +46,6 @@
 #define L_LOWER MO(_LOWER)
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
-#ifdef KEYBOARD_pinky_3
-  #define LT_NUM LT(_NUMBERS, KC_SPC)
-  #define LT_FUNC LT(_FUNCTIONS, KC_ENT)
-#endif
 
 // Layout blocks
 #define _____________________QWERTY_L1______________________ T_TAB, T_Q, T_W, KC_E, KC_R, KC_T
