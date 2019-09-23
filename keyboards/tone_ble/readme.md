@@ -2,12 +2,12 @@
 
 ![TONE_BLE](https://user-images.githubusercontent.com/5952961/59022693-373aac80-8889-11e9-88bb-a40b8aa7cdff.JPG)
 
-"TONE_BLE" is a 2 × 4 key keyboard "TONE" that can be used with Bluetooth connection using "BLE Micro Pro".
+"TONE_BLE" is a 2×4 key keyboard "TONE" that can be used with Bluetooth connection using "BLE Micro Pro".
 
 "TONE" is a keyboard developed by Peraneko.
 
-Keyboard Maintainer: [Peraneko](https://github.com/peraneko/TONE)  
-Hardware Supported: TONE PCB, Pro Micro ATmega32u4  
+Keyboard Maintainer (original): [Peraneko](https://github.com/peraneko/TONE)  
+Hardware Supported (original): TONE PCB, Pro Micro ATmega32u4  
 Hardware Availability: 
 - TONE: 
  - [左手用マクロキーパッドキット『TONE』 - ぺらねこふぁくとりー - BOOTH](https://booth.pm/ja/items/1392390)
@@ -17,6 +17,6 @@ Hardware Availability:
 
 Make example for this keyboard (after setting up your build environment):
 
-    make TONE_BLE:default
+    make TONE_BLE:default:nrfutil
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
