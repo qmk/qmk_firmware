@@ -42,9 +42,11 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer [_WIN]
       MO(_BLESET), LCTL(KC_S), LSFT(KC_TAB),  LT(_BLEADV, KC_TAB),
       TG(_MAC),    LCTL(KC_UP), LCTL(KC_DOWN), LCTL(KC_Z),
+      // TG(_HOGEHOGE),    LCTL(KC_UP), LCTL(KC_DOWN), LCTL(KC_Z),
     // Layer [_MAC]
       MO(_BLESET), LGUI(KC_S), LSFT(KC_TAB),  LT(_BLEADV, KC_TAB),
       KC_TRNS,     LGUI(KC_UP), LGUI(KC_DOWN), LGUI(KC_Z),
+      // KC_Q,    LCTL(KC_UP), LCTL(KC_DOWN), LCTL(KC_Z),
     // Layer [_BLESET]
       KC_TRNS, BATT_LV, BLE_EN, BLE_DIS,  
       ENT_DFU, ENT_SLP, USB_EN, USB_DIS,
