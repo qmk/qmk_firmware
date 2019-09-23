@@ -3,13 +3,43 @@
 extern keymap_config_t keymap_config;
 
 #define BASE 0
-#define META 1
-#define SYMB 2
-#define GAME 3
+#define SYMB 1
+#define NUMB 2
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+enum unicode_names {
+  TNKFC,
+  CRRY,
+  ANGL,
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  switch(id) {
+    case TNKFC:
+      if (record->event.pressed) {
+        // 🤔
+        SEND_STRING(SS_LALT("D83EDD14"));
+      }
+      break;
+    case CRRY:
+      if (record->event.pressed) {
+        // 🍛
+        SEND_STRING(SS_LALT("D83CDF5B"));
+      }
+      break;
+    case ANGL:
+      if (record->event.pressed) {
+        // 😇
+        SEND_STRING(SS_LALT("D83DDE07"));
+      }
+      break;
+    }
+  return MACRO_NONE;
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Check keycodes references at https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
@@ -19,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
          XXXXXXX,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G, XXXXXXX,          XXXXXXX,    KC_H,    KC_J,    KC_K,    KC_L, KC_MINS, XXXXXXX, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,          XXXXXXX,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX, \
+         XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,          XXXXXXX,    KC_N,    KC_M, KC_COMM,  KC_DOT,MO(NUMB), XXXXXXX, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         XXXXXXX,MO(META), XXXXXXX, KC_RALT, KC_LCTL, KC_LGUI, XXXXXXX,          XXXXXXX,  KC_SPC,MO(SYMB), KC_RSFT, XXXXXXX, XXXXXXX, XXXXXXX  \
+         XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT, KC_LCTL, KC_LGUI, XXXXXXX,          XXXXXXX,  KC_SPC,MO(SYMB), KC_RSFT, XXXXXXX, XXXXXXX, XXXXXXX  \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
   ),
 
@@ -29,23 +59,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
          _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, _______,          _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______,  KC_ESC,  KC_GRV, KC_SCLN, KC_QUOT, _______, _______,          _______,  KC_ENT, KC_BSLS,  KC_EQL, KC_LBRC, KC_RBRC, _______, \
+         _______, KC_SLSH,  KC_GRV, KC_SCLN, KC_QUOT, _______, _______,          _______, KC_BSLS, KC_PLUS,  KC_EQL, KC_LBRC, KC_RBRC, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______, KC_BSPC, KC_TILD, KC_COLN,  KC_DQT, _______, _______,          _______,  KC_TAB, KC_PIPE, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
+         _______, KC_QUES, KC_TILD, KC_COLN,  KC_DQT, _______, _______,          _______, KC_PIPE,   KC_LT,   KC_GT, KC_LCBR, KC_RCBR, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
          _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______  \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
   ),
 
-  [META] = LAYOUT( \
+  [NUMB] = LAYOUT( \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______, _______,          _______,   KC_UP,    KC_7,    KC_8,    KC_9, KC_MINS, _______, \
+         _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______, _______,          _______,  KC_ESC,    KC_7,    KC_8,    KC_9, _______, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______, _______,          _______, KC_DOWN,    KC_4,    KC_5,    KC_6, KC_PLUS, _______, \
+         _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_UP, _______,          _______, KC_BSPC,    KC_4,    KC_5,    KC_6, _______, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______, _______,          _______, KC_LEFT,    KC_1,    KC_2,    KC_3, KC_SLSH, _______, \
+         _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_DOWN, _______,          _______,  KC_TAB,    KC_1,    KC_2,    KC_3, _______, _______, \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
-         _______, _______, _______, _______, _______, _______, _______,          _______, KC_RGHT,    KC_0,  KC_DOT, _______, _______, _______  \
+         _______, _______, _______, _______, KC_LEFT, KC_RGHT, _______,          _______,  KC_ENT,    KC_0, _______, _______, _______, _______  \
     // |--------|--------|--------|--------|--------|--------|--------|        |--------|--------|--------|--------|--------|--------|--------|
   )
 };
+
