@@ -1,7 +1,5 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
 
 //#define MUSIC_MASK (keycode != KC_NO)
 
@@ -38,4 +36,3 @@
 #define CTLC LCTL(KC_C)
 #define CTLV LCTL(KC_V)
 
-#endif
