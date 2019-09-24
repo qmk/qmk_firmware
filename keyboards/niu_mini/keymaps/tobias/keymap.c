@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+// extern keymap_config_t keymap_config;
 
 enum layers {
   _QWERTY,
@@ -26,7 +27,7 @@ enum layers {
   _FNL2,
   _ADJUST,
   _GAMEMODE,
-  _FNL3,	  _LOWER2,
+  _FNL3,      _LOWER2,
   _RAISE2
 };
 
@@ -239,32 +240,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case TBMACRO:
                 SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
                 return false;
-			case DGRMCRO:
-				if(!bnumlock) {
-					register_code(KC_NLCK);
-					unregister_code(KC_NLCK);
-					bnumlock = true;
-				}
-			    //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
-			    SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_7) SS_TAP(X_KP_6) SS_UP(X_LALT) );
-				return false;
-				
-			if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-				bnumlock = false;
-				}
-			case WRKMOD:
-				if(!workmode) {
-					workmode = true;
-					return false;
-				}
-				else {
-					workmode = false;
-					return false;		
-				}			
-		}
-		
+            case DGRMCRO:
+                if(!bnumlock) {
+                    //register_code(KC_NLCK);
+                    //unregister_code(KC_NLCK);
+                    tap_code(KC_NLCK);
+                    bnumlock = true;
+                }
+                //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
+                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_7) SS_TAP(X_KP_6) SS_UP(X_LALT) );
+                return false;
+            case WRKMOD:
+                if(!workmode) {
+                    workmode = true;
+                    return false;
+                }
+                else {
+                    workmode = false;
+                    return false;       
+                }           
+        }
+        
     }
     return true;
 }
@@ -278,7 +274,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
         led[i].g = g;
         led[i].b = b;
         break;
-	  /* case 9 ... 11:
+      /* case 9 ... 11:
         // rgblight_setrgb_at(r,g,b,i);
         led[i].r = r;
         led[i].g = g;
@@ -295,74 +291,66 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 //  if(rgblight_get_mode() == 1) {
     switch (biton32(state)) {
-	case _QWERTY:
-		if(!workmode){
-			rgblight_mode(9);
-		}
-		else if(workmode){
-			rgblight_mode(1);
-			rgbflag(0x00,  0x00, 0x00);
-		}
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+    case _QWERTY:
+        if(!workmode){
+            rgblight_mode(9);
+        }
+        else if(workmode){
+            rgblight_mode(1);
+            rgbflag(0x00,  0x00, 0x00);
+        }
+        if(bnumlock) {
+            tap_code(KC_NLCK);
+        }
         break;
     case _LOWER:
-			rgblight_mode(1);
-		if(!bnumlock) {
-			register_code(KC_NLCK);
-			unregister_code(KC_NLCK);
-		}
+            rgblight_mode(1);
+        if(!bnumlock) {
+            tap_code(KC_NLCK);
+        }
         rgbflag(0xFF,  0x00, 0x00);
-		
-		break;
-	case _ADJUST:
-			rgblight_mode(1);
+        
+        break;
+    case _ADJUST:
+        rgblight_mode(1);
         rgbflag(0xFF,  0xFF, 0xFF);
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
-	case _RAISE:
-			rgblight_mode(1);
+    case _RAISE:
+        rgblight_mode(1);
         rgbflag(0x00,  0xFF, 0x00);
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
-	case _FNL1:
-			rgblight_mode(1);
+    case _FNL1:
+        rgblight_mode(1);
         rgbflag(0x00,  0x00, 0xFF);
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
-	case _GAMEMODE:
-			rgblight_mode(1);
-			rgbflag(0xFF,  0x00, 0xFF);
-		break;
-	case _MOUSE:
-			rgblight_mode(1);
+    case _GAMEMODE:
+            rgblight_mode(1);
+            rgbflag(0xFF,  0x00, 0xFF);
+        break;
+    case _MOUSE:
+        rgblight_mode(1);
         rgbflag(0x00,  0xFF, 0xFF);
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
     default: //  for any other layers, or the default layer
-		rgblight_mode(1);
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
-		
+        rgblight_mode(1);
+        if(bnumlock) {
+            tap_code(KC_NLCK);
+        }        
         rgbflag(0xFF,  0xFF, 0xFF);
         break;
     }
@@ -375,15 +363,15 @@ uint32_t layer_state_set_user(uint32_t state) {
     //Layer LED indicators
 
     uint32_t layer = layer_state;
-	
-	
+    
+    
     if (layer & (1<<2)) {
         if(!bnumlock) {
-			numlock_changed = true;
-			register_code(KC_NLCK);
-			unregister_code(KC_NLCK);
-			bnumlock = true;
-		}
+            numlock_changed = true;
+            register_code(KC_NLCK);
+            unregister_code(KC_NLCK);
+            bnumlock = true;
+        }
     }
 } 
  */
@@ -391,35 +379,35 @@ uint32_t layer_state_set_user(uint32_t state) {
  
 void led_set_user(uint8_t usb_led) {
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
         bnumlock = true;
 
-	} else {
+    } else {
         bnumlock = false;
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
+    if (usb_led & (1 << USB_LED_COMPOSE)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_KANA)) {
+    if (usb_led & (1 << USB_LED_KANA)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
 }
