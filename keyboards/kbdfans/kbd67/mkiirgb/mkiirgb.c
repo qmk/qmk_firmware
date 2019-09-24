@@ -1,4 +1,4 @@
-#include "kbd67mkiirgb.h"
+#include "mkiirgb.h"
 #ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	
