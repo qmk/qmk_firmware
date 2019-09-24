@@ -69,6 +69,7 @@ util/Win_Check_Output.txt
 # things travis sees
 secrets.tar
 id_rsa_*
+<<<<<<< HEAD
 /.vs
 <<<<<<< HEAD
 
@@ -77,3 +78,6 @@ __pycache__
 =======
 lib/ugfx
 >>>>>>> f
+=======
+/.vs
+>>>>>>> conflict fix?
