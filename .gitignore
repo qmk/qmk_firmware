@@ -70,6 +70,10 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+<<<<<<< HEAD
 
 # python things
 __pycache__
+=======
+lib/ugfx
+>>>>>>> f
