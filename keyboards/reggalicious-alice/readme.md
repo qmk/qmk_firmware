@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [cfbender](https://github.com/yourusername)  
+Keyboard Maintainer: [cfbender](https://github.com/cfbender)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
