@@ -1,3 +1,8 @@
+<<<<<<< HEAD:keyboards/vn66/rules.mk
+=======
+SRC = matrix.c
+
+>>>>>>> parent of 27f9465aa... owlet60 working oled and led firmware:keyboards/owlet60/rules.mk
 # MCU name
 MCU = atmega32u4
 
@@ -34,12 +39,21 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
+<<<<<<< HEAD:keyboards/vn66/rules.mk
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+=======
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+>>>>>>> parent of 27f9465aa... owlet60 working oled and led firmware:keyboards/owlet60/rules.mk
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
+<<<<<<< HEAD:keyboards/vn66/rules.mk
 ENCODER_ENABLE = yes
+=======
+CUSTOM_MATRIX = yes
+>>>>>>> parent of 27f9465aa... owlet60 working oled and led firmware:keyboards/owlet60/rules.mk
