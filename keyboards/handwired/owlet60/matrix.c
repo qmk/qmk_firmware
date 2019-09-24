@@ -1,6 +1,9 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2017 Cole Markham <cole@ccmcomputing.net>
+Copyright 2019 worthlessowl
+based on work by:
+Jun Wako <wakojun@gmail.com>
+Cole Markham <cole@ccmcomputing.net>
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -169,6 +172,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
         // Select the col pin to read (active low)
         select_col_manual(col_index);
+        wait_us(30);
         uint8_t pin_state = readPin(dat_pin);
 
         // Populate the matrix row with the state of the col pin
@@ -196,6 +200,12 @@ void matrix_init(void) {
     debounce_init(MATRIX_ROWS);
 
     matrix_init_quantum();
+
+    DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
 }
 
 // modified for per col read matrix scan
@@ -242,7 +252,7 @@ static void select_col_manual(uint8_t col) {
         setPinOutput(col_select_pins[1]);
         writePinLow(col_select_pins[1]);
         setPinOutput(col_select_pins[2]);
-        writePinHigh(col_select_pins[2]);
+        writePinLow(col_select_pins[2]);
     }
 
     else if(col == 1)

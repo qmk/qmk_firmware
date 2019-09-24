@@ -72,22 +72,3 @@ void matrix_scan_user(void) {
 void led_set_user(uint8_t usb_led) {
 
 }
-
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
-  // Host Keyboard Layer Status
-  oled_write_P(PSTR("Lyr: "), false);
-  switch (get_highest_layer(layer_state)) {
-    case 0:
-      oled_write_P(PSTR("Alpha\n"), false);
-      break;
-    case 1:
-      oled_write_P(PSTR("FN\n"), false);
-      break;
-    default:
-      // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
-  }
-}
-#endif
-
