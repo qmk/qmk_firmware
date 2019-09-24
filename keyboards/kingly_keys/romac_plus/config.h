@@ -22,7 +22,7 @@
 #define ENCODERS_PAD_B { B2 }
 
 /* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW77777777777777
+#define DIODE_DIRECTION COL2ROW
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 0
