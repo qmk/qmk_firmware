@@ -81,11 +81,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define NO_PRINT
 #endif // !NO_PRINT
 
-// #define LCPO_KEYS KC_LCTL, KC_TRNS, KC_LBRACKET
-// #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_ENTER
-
-// #define LSPO_KEYS KC_LSHIFT, KC_TRNS, KC_SPACE
-// #define RSPC_KEYS KC_RSHIFT, KC_TRNS, KC_BSPACE
-
 #undef PRODUCT
 #define PRODUCT Corne Keyboard
