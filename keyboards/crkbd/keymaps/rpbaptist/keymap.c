@@ -36,7 +36,7 @@ enum custom_keycodes {
 
 #define KC_FNTAB LT(_FN, KC_TAB)
 
-#define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
+#define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCTL, _____, _____, _____, _____, _____,                  _____, _____, _____, _____, _____,  RCTL,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, SPACE,    _____, _____, _____ \
+                                  _____, GMSFT, SPACE,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
