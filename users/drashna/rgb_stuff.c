@@ -5,12 +5,24 @@
 #if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
 bool                     has_initialized;
-#endif
 
-#ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index); }
 #endif  // RGBLIGHT_ENABLE
 
+#if defined(RGB_MATRIX_ENABLE)
+static uint32_t hypno_timer;
+#    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
+#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#    else
+#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#    endif
+#endif
+
+/* Custom indicators for modifiers.
+ * This allows for certain lights to be lit up, based on what mods are active, giving some visual feedback.
+ * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
+ */
+#ifdef RGBLIGHT_ENABLE
 #ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
@@ -77,6 +89,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     }
 }
 
+/* Function for the indicators */
 void matrix_scan_indicator(void) {
     if (has_initialized) {
         set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
@@ -89,6 +102,7 @@ static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__((weak)) bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
 
+/* This function checks for used LEDs.  This way, collisions don't occur and cause weird rendering */
 bool rgblight_twinkle_is_led_used(uint8_t index) {
     switch (index) {
 #    ifdef INDICATOR_LIGHTS
@@ -130,6 +144,7 @@ bool rgblight_twinkle_is_led_used(uint8_t index) {
     }
 }
 
+/* Handler for fading/twinkling effect */
 void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rgblight_sethsv is supppppper intensive
     bool litup = false;
     for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
@@ -156,6 +171,9 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
     }
 }
 
+/* Triggers a LED to fade/twinkle.
+ * This function handles the selection of the LED and prepres for it to be used.
+ */
 void start_rgb_light(void) {
     uint8_t indices[RGBLED_NUM];
     uint8_t indices_count  = 0;
@@ -194,12 +212,23 @@ void start_rgb_light(void) {
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
 #endif
+#endif // RGBLIGHT_ENABLE
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
+    uint16_t temp_keycode = keycode;
+    // Filter out the actual keycode from MT and LT keys.
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-        keycode = keycode & 0xFF;
+        temp_keycode &= 0xFF;
     }
-    switch (keycode) {
+
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    hypno_timer = timer_read32();
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+    }
+#endif
+
+    switch (temp_keycode) {
 #ifdef RGBLIGHT_TWINKLE
         case KC_A ... KC_SLASH:
         case KC_F1 ... KC_F12:
@@ -210,40 +239,58 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 start_rgb_light();
             }
-            return true;
             break;
 #endif                  // RGBLIGHT_TWINKLE
         case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             if (record->event.pressed) {
                 userspace_config.rgb_layer_change ^= 1;
-                xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+                dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                 eeconfig_update_user(userspace_config.raw);
                 if (userspace_config.rgb_layer_change) {
                     layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
                 }
             }
 #endif  // RGBLIGHT_ENABLE
-            return false;
             break;
-#ifdef RGBLIGHT_ENABLE
+        case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+            if (record->event.pressed) {
+                userspace_config.rgb_matrix_idle_anim ^= 1;
+                dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
+                eeconfig_update_user(userspace_config.raw);
+                if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+            }
+#endif
+            break;
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
-            if (record->event.pressed) {              // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
+            if (record->event.pressed) {
+                bool is_eeprom_updated = false;
+#ifdef RGBLIGHT_ENABLE
+                // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
                     userspace_config.rgb_layer_change = false;
-                    xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-                    eeconfig_update_user(userspace_config.raw);
+                    dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+                    is_eeprom_updated = true;
                 }
+#endif
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+                if (userspace_config.rgb_matrix_idle_anim) {
+                    userspace_config.rgb_matrix_idle_anim = false;
+                    dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
+                    is_eeprom_updated = true;
+                }
+#endif
+                if (is_eeprom_updated) { eeconfig_update_user(userspace_config.raw); }
             }
-            return true;
             break;
-#endif  // RGBLIGHT_ENABLE
     }
     return true;
 }
 
 void keyboard_post_init_rgb(void) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_STARTUP_ANIMATION)
+#if defined(RGBLIGHT_ENABLE)
+#   if defined(RGBLIGHT_STARTUP_ANIMATION)
     bool is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
@@ -262,17 +309,31 @@ void keyboard_post_init_rgb(void) {
         rgblight_disable_noeeprom();
     }
 
-#endif
+#   endif
     layer_state_set_user(layer_state);
+#endif
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+        if (userspace_config.rgb_matrix_idle_anim) {
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+        }
+#endif
 }
 
 void matrix_scan_rgb(void) {
-#ifdef RGBLIGHT_TWINKLE
+#ifdef RGBLIGHT_ENABLE
+#    ifdef RGBLIGHT_TWINKLE
     scan_rgblight_fadeout();
-#endif  // RGBLIGHT_ENABLE
+#    endif  // RGBLIGHT_ENABLE
 
-#ifdef INDICATOR_LIGHTS
+#    ifdef INDICATOR_LIGHTS
     matrix_scan_indicator();
+#    endif
+#endif
+
+#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+    }
 #endif
 }
 
