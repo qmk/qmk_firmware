@@ -109,3 +109,5 @@
 #define IT_GRAVE LALT(KC_9)    // `
 #define IT_TILDE LALT(KC_5)    // ~
 #define IT_PLMN LALT(LSFT(IT_IACC))  // ±
+
+#endif
