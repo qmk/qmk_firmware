@@ -37,22 +37,26 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+/* Note: These are not used for arm boards. They're here purely as documentation. */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
 
-#define NUMBER_OF_ENCODERS 1
+#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2 }
+#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
+
+#define UNUSED_PINS
+
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
+
+#define DIP_SWITCH_PINS { B14, A15, A0, B9 }
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef C6_AUDIO
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+// #define DEBOUNCE 6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE

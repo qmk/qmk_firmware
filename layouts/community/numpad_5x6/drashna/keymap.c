@@ -3,6 +3,7 @@
 
 #define F2_MCRO LT(_GAMEPAD, KC_F2)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_NUMLOCK] = LAYOUT_numpad_5x6(
 		KC_F1,   F2_MCRO,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
@@ -20,3 +21,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		RGB_VAI, RGB_VAD,       _______,     _______, _______
   ),
 };
+// clang-format on

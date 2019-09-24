@@ -34,16 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bluefruit.h"
 #include "pjrc.h"
 
-#define CPU_PRESCALE(n)    (CLKPR = 0x80, CLKPR = (n))
+#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 
-#define HOST_DRIVER_NOT_SET     0
-#define BLUEFRUIT_HOST_DRIVER   1
-#define PJRC_HOST_DRIVER        2
+#define HOST_DRIVER_NOT_SET 0
+#define BLUEFRUIT_HOST_DRIVER 1
+#define PJRC_HOST_DRIVER 2
 
-
-int main(void)
-{
-
+int main(void) {
     CPU_PRESCALE(0);
 
     // DDRD  = _BV(PD5);
@@ -57,7 +54,6 @@ int main(void)
     // usb_init();
     // _delay_ms(2000);
     // while (!usb_configured()) /* wait */
-
 
     keyboard_setup();
 
@@ -76,11 +72,11 @@ int main(void)
     //     DDRB   = _BV(PB6);
     //     PORTB |= _BV(PB6);
 
-        dprintf("Setting host driver to bluefruit...\n");
-        host_set_driver(bluefruit_driver());
+    dprintf("Setting host driver to bluefruit...\n");
+    host_set_driver(bluefruit_driver());
 
-        dprintf("Initializing serial...\n");
-        serial_init();
+    dprintf("Initializing serial...\n");
+    serial_init();
 
     // char swpa[] = "+++\r\n";
     // for (int i = 0; i < 5; i++) {
@@ -101,39 +97,38 @@ int main(void)
     //     serial_send(swpa[i]);
     // }
 
-        // wait an extra second for the PC's operating system
-        // to load drivers and do whatever it does to actually
-        // be ready for input
-        _delay_ms(1000);
-        // PORTD = ~_BV(PD5);
-        dprintf("Starting main loop");
-        while (1) {
-            keyboard_task();
-        }
+    // wait an extra second for the PC's operating system
+    // to load drivers and do whatever it does to actually
+    // be ready for input
+    _delay_ms(1000);
+    // PORTD = ~_BV(PD5);
+    dprintf("Starting main loop");
+    while (1) {
+        keyboard_task();
+    }
 
-//     } else {
+    //     } else {
 
-//         // I'm not smart enough to get this done with LUFA - BCG
-//         dprintf("Setting host driver to PJRC...\n");
-//         host_set_driver(pjrc_driver());
-// #ifdef SLEEP_LED_ENABLE
-//     sleep_led_init();
-// #endif
-//         // wait an extra second for the PC's operating system
-//         // to load drivers and do whatever it does to actually
-//         // be ready for input
-//         _delay_ms(1000);
-//         PORTB = ~_BV(PB0);
-//         dprintf("Starting main loop");
-//         while (1) {
-//             while (suspend) {
-//                 suspend_power_down();
-//                 if (remote_wakeup && suspend_wakeup_condition()) {
-//                     usb_remote_wakeup();
-//                 }
-//             }
-//             keyboard_task();
-//         }
-//     }
-
+    //         // I'm not smart enough to get this done with LUFA - BCG
+    //         dprintf("Setting host driver to PJRC...\n");
+    //         host_set_driver(pjrc_driver());
+    // #ifdef SLEEP_LED_ENABLE
+    //     sleep_led_init();
+    // #endif
+    //         // wait an extra second for the PC's operating system
+    //         // to load drivers and do whatever it does to actually
+    //         // be ready for input
+    //         _delay_ms(1000);
+    //         PORTB = ~_BV(PB0);
+    //         dprintf("Starting main loop");
+    //         while (1) {
+    //             while (suspend) {
+    //                 suspend_power_down();
+    //                 if (remote_wakeup && suspend_wakeup_condition()) {
+    //                     usb_remote_wakeup();
+    //                 }
+    //             }
+    //             keyboard_task();
+    //         }
+    //     }
 }

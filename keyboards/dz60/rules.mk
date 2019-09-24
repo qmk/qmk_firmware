@@ -36,10 +36,7 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# Boot Section Size in *bytes*
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
+BOOTLOADER=atmel-dfu
 
 # Build Options
 #   comment out to disable the options.
@@ -55,4 +52,4 @@ BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
-LAYOUTS = 60_ansi 60_iso 60_hhkb
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso

@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * | Sft[ |   Z  |   X  |   C  |  V   |  B   | RGB  |  |RGBRST|  N   |  M   |  ,   |  .   |  /   | Sft] |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctl- |  Win | LOWER| RAISE| Alt  | Space|RGBRMOD| |RGBMOD| Space| Left |  Up  | Down | Right| Ctl= |
+   * | Ctl- |  Win | LOWER| RAISE| Alt  | Space| ENC1 |  | ENC2 | Space| Left |  Up  | Down | Right| Ctl= |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________QWERTY_L2_________________,  KC_LBRC,  KC_RBRC,  _________________QWERTY_R2_________________, \
     _________________QWERTY_L3_________________,  KC_GRV,   KC_QUOT,  _________________QWERTY_R3_________________, \
     _________________QWERTY_L4_________________,  RGB_TOG,  RGBRST,   _________________QWERTY_R4_________________, \
-    _________________QWERTY_L5_________________,  RGB_RMOD, RGB_MOD,  _________________QWERTY_R5_________________, \
+    _________________QWERTY_L5_________________,  KC_ENC1,  KC_ENC2,  _________________QWERTY_R5_________________, \
                                          KC_SPC,  TD_DEL,   KC_ENT,   KC_SPC \
   ),
 
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________GAME_L2_________________,  KC_LBRC,  KC_RBRC,  ___________________GAME_R2_________________, \
     ___________________GAME_L3_________________,  KC_GRV,   KC_QUOT,  ___________________GAME_R3_________________, \
     ___________________GAME_L4_________________,  RGB_TOG,  RGBRST,   ___________________GAME_R4_________________, \
-    ___________________GAME_L5_________________,  RGB_RMOD, RGB_MOD,  ___________________GAME_R5_________________, \
+    ___________________GAME_L5_________________,  KC_ENC1,  KC_ENC2,  ___________________GAME_R5_________________, \
                                          KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC \
   ),
 #endif
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 #ifdef TRILAYER_ENABLED
-  [_RAISE] = EXPAND_LAYOUT( \
+  [_ADJUST] = EXPAND_LAYOUT( \
     _________________ADJUST_L1_________________, _______, _______, _________________ADJUST_R1_________________, \
     _________________ADJUST_L2_________________, _______, _______, _________________ADJUST_R2_________________, \
     _________________ADJUST_L3_________________, _______, _______, _________________ADJUST_R3_________________, \
@@ -75,3 +75,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 #endif
 };
+

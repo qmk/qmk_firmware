@@ -2,6 +2,7 @@ SRC += drashna.c \
        process_records.c
 
 LINK_TIME_OPTIMIZATION_ENABLE = yes
+SPACE_CADET_ENABLE            = no
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
     SRC += secrets.c
@@ -38,10 +39,6 @@ ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
     SRC += rgb_stuff.c
 endif
 
-
-ifeq ($(strip $(MACROS_ENABLED)), yes)
-    OPT_DEFS += -DMACROS_ENABLED
-endif
 
 ifdef CONSOLE_ENABLE
     ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
