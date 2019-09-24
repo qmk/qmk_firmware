@@ -41,9 +41,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BMP_DEFAULT_MODE SINGLE
 
 /* Rotary encoder define*/
-#define ENCODERS_PAD_A { 11 }
-#define ENCODERS_PAD_B { 12 } 
-#define ENCODER_RESOLUTION 4 
+#define ENCODERS_PAD_A      { 11 }
+#define ENCODERS_PAD_B      { 12 }
+#define ENCODER_RESOLUTION  4
+#define MATRIX_SCAN_TIME_MS 10
+
 
 /*
  * Keyboard Matrix Assignments

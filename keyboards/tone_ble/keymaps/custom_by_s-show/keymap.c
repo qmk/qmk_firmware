@@ -46,7 +46,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(_BLESET), LGUI(KC_S), LSFT(KC_TAB),  LT(_BLEADV, KC_TAB),
       KC_TRNS,     LGUI(KC_UP), LGUI(KC_DOWN), LGUI(KC_Z),
     // Layer [_BLESET]
-      KC_TRNS, BATT_LV, BLE_EN, BLE_DIS,  
+      KC_TRNS, BATT_LV, BLE_EN, BLE_DIS,
       ENT_DFU, ENT_SLP, USB_EN, USB_DIS,
     // Layer [_BLEADV]
       ADV_ID0, ADV_ID1, ADV_ID2, KC_TRNS,
@@ -60,8 +60,8 @@ uint32_t keymaps_len() {
 
 /* Rotary encoder settings */
 /* If the response of the rotary encoder is slow, you can make the response
-   faster by reducing the `#define MATRIX_SCAN_TIME_MS 17` value in the 
-   `tmk_core/protocol/nrf/main_master.c`.
+   faster by reducing the `#define MATRIX_SCAN_TIME_MS` value in the
+   `config.h`.
    However, the battery will run out faster. */
 /* The `layer_state_is` function is defined in the `tmk_core/common/action_layer.c` file.
    This function returns true if the current layer is the same as the layer passed as an argument. */
