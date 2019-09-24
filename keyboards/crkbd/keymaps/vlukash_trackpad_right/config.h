@@ -32,4 +32,4 @@
 
 /* ws2812 RGB LED */
 #undef RGB_DI_PIN
-#define RGB_DI_PIN B5
+#define RGB_DI_PIN D3
