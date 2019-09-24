@@ -58,6 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define BACKLIGHT_BREATHING
 //#define BACKLIGHT_LEVELS 3
 
+#ifdef OLED_ENABLE
+  #define SSD1306OLED
+#endif
+
 #define RGB_DI_PIN D0
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 8

@@ -19,14 +19,13 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-
 /*
+
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
   // runs once when the firmware starts up
 
   matrix_init_user();
-  
 }
 
 void matrix_scan_kb(void) {
@@ -34,7 +33,6 @@ void matrix_scan_kb(void) {
   // runs every cycle (a lot)
 
   matrix_scan_user();
-  oled_task_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
