@@ -2,7 +2,7 @@
 
 enum tofu68_layers {
     _QWERTY,
-	_FNM
+    _FNM
 };
 
 #define FNM MO(_FNM)
