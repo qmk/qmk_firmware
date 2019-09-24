@@ -1,23 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-BOOTLOADER = atmel-dfu
-#OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-# Do not put the microcontroller into power saving mode
-# when we get USB suspend event. We want it to keep updating
-# backlight effects.
-#OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
-
 # Build Options
 #   change yes to no to disable
 #
