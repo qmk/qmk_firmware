@@ -1,6 +1,6 @@
 # Wraith
 
-<!-- ![Wraith](imgur.com image replace me!) -->
+![Wraith](https://i.imgur.com/WbfRCg8.jpg)
 
 Custom PCB for the Wraith keyboard.
 
