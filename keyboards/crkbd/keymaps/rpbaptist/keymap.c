@@ -41,6 +41,9 @@ enum custom_keycodes {
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
 
+#define KC_SFSPC LSFT_T(KC_SPACE)
+#define KC_SFBSP RSFT_T(KC_BSPACE)
+
 #define KC_EUR ALGR(KC_5)
 
 #define KC______ KC_TRNS
@@ -72,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCPO,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH,  RCPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LALT, T_SYM,  LSPO,     RSPC, T_NAV,  RGUI \
+                                   LALT, T_SYM, SFSPC,    SFBSP, T_NAV,  RGUI \
                               //`--------------------'  `--------------------'
   ),
 
