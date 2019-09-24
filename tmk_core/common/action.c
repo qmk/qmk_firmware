@@ -44,6 +44,24 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifndef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+  #ifdef IGNORE_MOD_TAP_INTERRUPT
+    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 1
+  #else
+    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 0
+  #endif
+#else
+#define IS_IGNORE_MOD_TAP_INTERRUPT(r) (get_ignore_mod_tap_interrupt(get_event_keycode(r->event)))
+__attribute__ ((weak))
+bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
+  #ifdef IGNORE_MOD_TAP_INTERRUPT
+    return true;
+  #else
+    return false;
+  #endif
+}
+#endif
+
 #ifndef TAP_HOLD_CAPS_DELAY
 #  define TAP_HOLD_CAPS_DELAY 200
 #endif
@@ -311,8 +329,8 @@ void process_action(keyrecord_t *record, action_t action)
                     default:
                         if (event.pressed) {
                             if (tap_count > 0) {
-#ifndef IGNORE_MOD_TAP_INTERRUPT
-                                if (record->tap.interrupted) {
+#if !defined(IGNORE_MOD_TAP_INTERRUPT) && !defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+                                if (!IS_IGNORE_MOD_TAP_INTERRUPT(record) && record->tap.interrupted) {
                                     dprint("mods_tap: tap: cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
                                     record->tap.count = 0;
