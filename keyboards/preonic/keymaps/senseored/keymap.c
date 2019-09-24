@@ -25,7 +25,7 @@ enum preonic_layers {
   _FNL2,
   _ADJUST,
   _GAMEMODE,
-  _FNL3,	  
+  _FNL3,      
   _LOWER2,
   _RAISE2
 };
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|	
+ * |------+------+------+------+------+------+------+------+------+------+------+------|    
  * |   §  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   +  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   ´  |   `  |   @  |   £  |   $  |   €  |   ¨  |   {  |   [  |   ]  |   }  |   \  |
@@ -263,32 +263,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case TBMACRO:
                 SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
                 return false;
-			case DGRMCRO:
-				if(!bnumlock) {
-					register_code(KC_NLCK);
-					unregister_code(KC_NLCK);
-					bnumlock = true;
-				}
-			    //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
-			    SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_7) SS_TAP(X_KP_6) SS_UP(X_LALT) );
-				return false;
-				
-			if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-				bnumlock = false;
-				}
-			case WRKMOD:
-				if(!workmode) {
-					workmode = true;
-					return false;
-				}
-				else {
-					workmode = false;
-					return false;		
-				}			
-		}
-		
+            case DGRMCRO:
+                if(!bnumlock) {
+                    tap_code(KC_NLCK);
+                    bnumlock = true;
+                }
+                //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
+                SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_7) SS_TAP(X_KP_6) SS_UP(X_LALT) );
+                return false;
+                
+            if(bnumlock) {
+                tap_code(KC_NLCK);
+                bnumlock = false;
+                }
+            case WRKMOD:
+                if(!workmode) {
+                    workmode = true;
+                    return false;
+                }
+                else {
+                    workmode = false;
+                    return false;       
+                }           
+        }
+        
     }
     return true;
   switch (keycode) {
@@ -368,45 +366,39 @@ void dip_switch_update_user(uint8_t index, bool active) {
 uint32_t layer_state_set_user(uint32_t state) {
 //  if(rgblight_get_mode() == 1) {
     switch (biton32(state)) {
-	case _QWERTY:
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+    case _QWERTY:
+        if(bnumlock) {
+            tap_code(KC_NLCK);
+        }
         break;
     case _LOWER:
-		if(!bnumlock) {
-			register_code(KC_NLCK);
-			unregister_code(KC_NLCK);
-		}
-		
-		break;
-	case _ADJUST:
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+        if(!bnumlock) {
+            tap_code(KC_NLCK);
+        }
+        
         break;
-	case _RAISE:
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+    case _ADJUST:
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
-	case _FNL1:
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+    case _RAISE:
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
         break;
-	case _GAMEMODE:
-		break;
+    case _FNL1:
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
+        break;
+    case _GAMEMODE:
+        break;
     default: //  for any other layers, or the default layer
-		if(bnumlock) {
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
-		
+        if(bnumlock) {
+                tap_code(KC_NLCK);
+        }
+        
         break;
     }
  // }
