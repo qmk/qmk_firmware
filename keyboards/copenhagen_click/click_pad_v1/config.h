@@ -52,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-<<<<<<< HEAD:keyboards/copenhagen_click/click_pad_v1/config.h
 #define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
 
 #define BACKLIGHT_PIN B5
@@ -69,24 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 // /*== all animations enable ==*/
 //   #define RGBLIGHT_ANIMATIONS
-=======
-//#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
-
-//#define BACKLIGHT_PIN D3
-//#define BACKLIGHT_BREATHING
-//#define BACKLIGHT_LEVELS 3
-
-#define RGB_DI_PIN D0
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 8
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
->>>>>>> parent of 27f9465aa... owlet60 working oled and led firmware:keyboards/owlet60/config.h
 // /*== or choose animations ==*/
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD

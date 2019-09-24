@@ -1,8 +1,3 @@
-<<<<<<< HEAD:keyboards/vn66/rules.mk
-=======
-SRC = matrix.c
-
->>>>>>> parent of 27f9465aa... owlet60 working oled and led firmware:keyboards/owlet60/rules.mk
 # MCU name
 MCU = atmega32u4
 
