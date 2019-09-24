@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID 0x0000
 #define DEVICE_VER 0x0001
 #define MANUFACTURER reggalicious
-#define PRODUCT reggalicious-alice
+#define PRODUCT ergosaurus
 #define DESCRIPTION An ergo Alice clone from Reggalicious
 
 /* key matrix size */
