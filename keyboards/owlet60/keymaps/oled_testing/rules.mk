@@ -1,5 +1,4 @@
 SRC += matrix.c
-SRC += ssd1306.c
 
 # MCU name
 MCU = atmega32u4
