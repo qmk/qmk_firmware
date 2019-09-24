@@ -5,7 +5,7 @@ YouTube channel.
 
 It is used on his   
 [RGB Doro67](https://github.com/qmk/qmk_firmware/tree/master/keyboards/doro67/rgb)     
-[KBD67 mkii](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdfans/kbd67mkiirgb)  
+[KBD67 mkii](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbdfans/kbd67/mkiirgb)  
 
 ### Build
 To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin`.
