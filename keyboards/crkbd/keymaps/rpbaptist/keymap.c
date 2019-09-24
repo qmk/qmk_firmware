@@ -35,7 +35,6 @@ enum custom_keycodes {
 #define KC_S_SYM MO(_SYM)
 
 #define KC_FNTAB LT(_FN, KC_TAB)
-#define KC_SMSPC LT(_SYM, KC_SPC)
 
 #define KC_GMSPC LT(_GAMING_EXT, KC_SPC)
 
