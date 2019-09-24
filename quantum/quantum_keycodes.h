@@ -473,6 +473,9 @@ enum quantum_keycodes {
     HPT_BUZ,
     HPT_MODI,
     HPT_MODD,
+    HPT_CONT,
+    HPT_CONI,
+    HPT_COND,
     HPT_DWLI,
     HPT_DWLD,
 
