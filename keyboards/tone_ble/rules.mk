@@ -13,10 +13,8 @@ ENCODER_ENABLE = yes
 #
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 
-# If I set `MOUSEKEY_ENABLE` to `yes`, I can't use right click when I move the layer.
-# So, `MOUSEKEY_ENABLE` is set to `no`.
-# MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+MOUSE_SHARED_EP = no
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)

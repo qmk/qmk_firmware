@@ -149,6 +149,8 @@ void send_keyboard(report_keyboard_t *report) {
     BMPAPI->usb.send_key((bmp_api_key_report_t*)report);
   }
 }
+_Static_assert(sizeof(report_keyboard_t) == sizeof(bmp_api_key_report_t),
+        "Invalid report definition. Check SHARED_EP options");
 
 void send_mouse(report_mouse_t *report) {
   if (get_ble_enabled()) {
@@ -158,6 +160,8 @@ void send_mouse(report_mouse_t *report) {
     BMPAPI->usb.send_mouse((bmp_api_mouse_report_t*)report);
   }
 }
+_Static_assert(sizeof(report_mouse_t) == sizeof(bmp_api_mouse_report_t),
+        "Invalid report definition. Check MOUSE_SHARED_EP options");
 
 void send_system(uint16_t data) {
   if (get_ble_enabled()) {
