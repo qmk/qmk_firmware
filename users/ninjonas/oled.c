@@ -4,7 +4,15 @@
 
 #ifdef OLED_DRIVER_ENABLE
 
+uint16_t oled_timer;
 extern uint8_t is_master;
+
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) { 
+    if (record->event.pressed) {
+        oled_timer = timer_read();
+    }	    
+    return true;
+}
 
 void render_default_layer_state(void) {
   oled_write_P(PSTR("Layout: "), false);
@@ -31,11 +39,11 @@ void render_layer_state(void) {
 }
 
 void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("\nMods:"), false);
-    oled_write_P(PSTR(" SHFT"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR(" CTRL"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR(" ALT "), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR(" GUI "), (modifiers & MOD_MASK_GUI));
+    oled_write_P(PSTR("\nMods: "), false);
+    oled_write_P(PSTR("SHF "), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("CTL "), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("ALT "), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_status(void){
@@ -55,12 +63,20 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-  if (is_master) {
-    render_status();     
-  } else {
-    render_logo();       
-    oled_scroll_left();  
-  }
+    if (timer_elapsed(oled_timer) > 60000) {
+        oled_off();
+        return;
+    }
+    #ifndef SPLIT_KEYBOARD
+    else { oled_on(); }
+    #endif
+    
+    if (is_master) {
+        render_status();     
+    } else {
+        render_logo();       
+        oled_scroll_left();  
+    }
 }
 
 #endif
