@@ -50,7 +50,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Sends QMK make command to compile all keyboards
     case M_MALL:
      if (record->event.pressed) {
-        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas " SS_TAP(X_ENTER));
+        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas\n");
       }
       break;
 
