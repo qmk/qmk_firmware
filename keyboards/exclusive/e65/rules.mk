@@ -17,3 +17,5 @@ NKRO_ENABLE      = yes  # USB Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE     = no
 RGBLIGHT_ENABLE  = yes
+
+LAYOUTS = 65_ansi_blocker
