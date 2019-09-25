@@ -6,6 +6,7 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
+  _COLEMAK,
   _FN,
   _NUM,
   _LOWER,
@@ -15,7 +16,9 @@ enum planck_layers {
 };
 
 enum planck_keycodes {
-  PLOVER = SAFE_RANGE,
+  QWERTY = SAFE_RANGE,
+  COLEMAK,
+  PLOVER,
   EXT_PLV,
   DYNAMIC_MACRO_RANGE
 };
@@ -65,6 +68,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NP_PGDN, KC_LCTL, KC_LALT, KC_LGUI, LOWER  , FN_SPC , FN_SPC , RAISE  , KC_RSFT, KC_RCTL, KC_BTN1, XXXXXXX
 ),
 
+[_COLEMAK] = LAYOUT_planck_grid(
+    KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+    CAG_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+    LS_PGUP, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, RS_ENT ,
+    NP_PGDN, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   FN_SPC,  FN_SPC,  RAISE,   KC_RSFT, KC_RCTL, KC_BTN1, XXXXXXX
+),
+
 [_FN] = LAYOUT_planck_grid(
     KC_GRV , M_RECD1, M_STOP1, M_PLAY1, KC_MPRV, KC_MPLY, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, XXXXXXX,
     _______, KC_LCTL, KC_LALT, KC_LGUI, M_FIND , M_AGAIN, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, XXXXXXX,
@@ -103,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_planck_grid(
     XXXXXXX, RESET  , DEBUG  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, MU_MOD , AU_ON  , AU_OFF , AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, MU_MOD , AU_ON  , AU_OFF , AG_NORM, AG_SWAP, QWERTY , COLEMAK, XXXXXXX, PLOVER , XXXXXXX,
     XXXXXXX, MUV_DE , MUV_IN , MU_ON  , MU_OFF , MI_ON  , MI_OFF , TERM_ON, TERM_OFF,XXXXXXX, XXXXXXX, XXXXXXX,
     PLOVER , XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
@@ -125,6 +135,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
+      break;
     case PLOVER:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
