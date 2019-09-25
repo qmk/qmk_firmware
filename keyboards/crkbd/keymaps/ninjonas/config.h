@@ -45,4 +45,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif 
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/ninjonas/glcdfont.c"
-#define OLED_TIMEOUT 60000
+#define OLED_DISABLE_TIMEOUT
