@@ -28,6 +28,7 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
+#define RGBLIGHT_SLEEP
 #define TAPPING_TOGGLE 2
 #define ALT_F4 LALT(KC_F4)
 #define CTALDEL LSFT(LCTL(KC_ESC))
