@@ -20,9 +20,11 @@
 #define PRODUCT         QOL56 Naginata Style
 
 // 薙刀式
-// #define DEUCALYN
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-#define DWORKMAN
+// #define DEUCALYN
+#define DQGMLWY
+// #define DQGMLWB
+// #define DWORKMAN
 #define NAGINATA_EDIT_WIN // JP106
 // #define NAGINATA_EDIT_MAC // US101
 #define COMBO_COUNT 10
