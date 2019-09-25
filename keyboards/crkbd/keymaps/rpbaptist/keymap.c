@@ -42,8 +42,6 @@ enum custom_keycodes {
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
 
-#define KC_CTENT RCTL_T(KC_ENTER)
-
 #define KC_RCTBR RCTL_T(KC_RBRACKET)
 #define KC_LCTBR LCTL_T(KC_LBRACKET)
 
