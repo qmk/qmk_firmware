@@ -9,7 +9,7 @@ EXTRAFLAGS += -flto
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \
-        oled.c \
+        logo.c \
         rgb.c \
         # ./lib/glcdfont.c \
         # ./lib/logo_reader.c \

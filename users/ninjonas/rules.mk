@@ -5,7 +5,8 @@ TAP_DANCE_ENABLE = yes      # Enable Tap Dance.
 
 SRC += ninjonas.c \
        process_records.c \
-       tap_dances.c
+       tap_dances.c \
+       oled.c
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
     SRC += secrets.c
