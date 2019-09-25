@@ -34,7 +34,6 @@ enum preonic_keycodes {
   BLANK,
   LOWER,
   RAISE,
-  BACKLIT,
   KC_CESC,
   SPC_MOU
 };
@@ -262,8 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            register_mods(MOD_BIT(KC_LCTL));
           } else if (!cntl_interrupted && timer_elapsed(cntl_timer) < TAPPING_TERM) {
            unregister_mods(MOD_BIT(KC_LCTL));
-           register_code(KC_ESC);
-           unregister_code(KC_ESC);
+           tap_code(KC_ESC);
           } else {
            unregister_mods(MOD_BIT(KC_LCTL));
           }
@@ -279,8 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            layer_on(_MOUSE);
           } else if (!mouse_interrupted && timer_elapsed(mouse_timer) < TAPPING_TERM) {
            layer_off(_MOUSE);
-           register_code(KC_SPC);
-           unregister_code(KC_SPC);
+           tap_code(KC_SPC);
           } else {
            layer_off(_MOUSE);
           }
@@ -318,11 +315,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+      tap_code(KC_PGDN);
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      tap_code(KC_PGUP);
     }
   }
 }
