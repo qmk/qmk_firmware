@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define BASE 0 // default layer
 #define FN 1 // macros/motion
 #define NUMB 2 // numbers
@@ -48,6 +47,6 @@ KC_TRNS, KC_TRNS, KC_F7, KC_F8, KC_F9, KC_TRNS,                   /**/          
 _______, KC_TRNS, KC_F4, KC_F5, KC_F6, KC_TRNS, KC_TRNS,          /**/          KC_TRNS, KC_TRNS, KC_4, KC_5, KC_6, KC_TRNS, KC_TRNS,
 KC_TRNS, KC_TRNS, KC_F1, KC_F2, KC_F3, KC_TRNS, KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_TRNS, KC_TRNS, KC_1, KC_2, KC_3, KC_TRNS, KC_TRNS,
 
-                            KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_TRNS,  KC_0,  KC_DOT,
+                            KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, /**/ KC_DEL , KC_TRNS,  KC_0,  KC_DOT
 )
 };
