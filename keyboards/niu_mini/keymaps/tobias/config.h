@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../config.h"
+//#include "../../config.h"
 
 //#define MUSIC_MASK (keycode != KC_NO)
 
