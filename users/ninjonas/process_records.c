@@ -13,7 +13,7 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    #ifdef SSD1306OLED
+    #ifdef OLED_DRIVER_ENABLE
     process_record_oled(keycode, record);
     #endif
   }

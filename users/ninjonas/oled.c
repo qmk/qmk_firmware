@@ -4,7 +4,7 @@
 
 #ifdef OLED_DRIVER_ENABLE
 
-uint16_t oled_timer;
+static uint16_t oled_timer = 0;
 extern uint8_t is_master;
 
 bool process_record_oled(uint16_t keycode, keyrecord_t *record) { 
@@ -63,7 +63,7 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 60000) {
+    if (timer_elapsed(oled_timer) > 30000) {
         oled_off();
         return;
     }
