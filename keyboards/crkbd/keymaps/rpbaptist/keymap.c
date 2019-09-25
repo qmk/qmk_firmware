@@ -31,10 +31,11 @@ enum custom_keycodes {
 #define KC_T_NAV TT(_NAV)
 #define KC_S_NAV MO(_NAV)
 
-#define KC_T_SYM TT(_SYM)
-#define KC_S_SYM MO(_SYM)
+#define KC_T_NUM TT(_NUM)
+#define KC_S_NUM MO(_NUM)
 
-#define KC_NMTAB LT(_NUM, KC_TAB)
+#define KC_SYMTB LT(_SYM, KC_TAB)
+#define KC_0_NAV LT(_NAV, KC_0)
 
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
@@ -77,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      NMTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
+      SYMTB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTBR,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, RCTBR,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LALT, T_SYM, SFSPC,    SFENT, T_NAV,  RGUI \
+                                   LALT, T_NUM, SFSPC,    SFENT, T_NAV,  RGUI \
                               //`--------------------'  `--------------------'
   ),
 
@@ -117,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, S_SYM, _____,    _____, _____, _____ \
+                                  _____, S_NUM, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
@@ -141,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,    F6,    F7,    F8,    F9,   F10,                    F12,     1,     2,     3,  ASTR, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,    _____,     0,   DOT \
+                                  _____, S_NUM, _____,    _____, 0_NAV,   DOT \
                               //`--------------------'  `--------------------'
   ),
 
@@ -175,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(default_layer_state)) {
     case _COLEMAKDHM:
-      state = update_tri_layer_state(state, _SYM, _NAV, _UTIL);
+      state = update_tri_layer_state(state, _NUM, _NAV, _UTIL);
       break;
     case _GAMING:
       state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
