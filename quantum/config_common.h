@@ -133,7 +133,7 @@
 #    endif
 
 #    ifndef __ASSEMBLER__
-#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+#        define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset))
 // Port X Input Pins Address
 #        define PINx_ADDRESS(p) _PIN_ADDRESS(p, 0)
 // Port X Data Direction Register,  0:input 1:output
