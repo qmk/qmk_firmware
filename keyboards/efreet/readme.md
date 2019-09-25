@@ -5,7 +5,7 @@
 Custom PCB for the Efreet (as4x) keyboard.
 
 Keyboard Maintainer: [Amber Holly](https://github.com/amberstarlight)  
-Hardware Supported: Efreet PCB
+Hardware Supported: Efreet PCB  
 Hardware Availability: private group buy
 
 Make example for this keyboard (after setting up your build environment):
