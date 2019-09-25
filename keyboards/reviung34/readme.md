@@ -1,12 +1,15 @@
 # reviung34
 
-![reviung34](imgur.com image replace me!)
+![REVIUNG34 SPLIT](https://github.com/gtips/reviung/blob/master/reviung34split/image/REVIUNG34-2.jpg)  
 
-A short description of the keyboard/project
+![REVIUNG34 SPLIT](https://github.com/gtips/reviung/blob/master/reviung34split/image/REVIUNG34-5.jpg)
 
-Keyboard Maintainer: [gtips](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+The REVIUNG34 SPLIT is 34-key split ortholinear keyboard.  
+Use a LAN cable to connect the left and right keyboards.
+
+Keyboard Maintainer: [gtips](https://github.com/gtips)  
+Hardware Supported: The REVIUNG34 PCBs, Pro Micro supported  
+Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung)  
 
 Make example for this keyboard (after setting up your build environment):
 
