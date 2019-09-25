@@ -13,7 +13,7 @@ enum layer_names {
   _COLEMAKDHM,
   _GAMING,
   _GAMING_EXT,
-  _FN,
+  _NUM,
   _SYM,
   _NAV,
   _UTIL
@@ -34,7 +34,7 @@ enum custom_keycodes {
 #define KC_T_SYM TT(_SYM)
 #define KC_S_SYM MO(_SYM)
 
-#define KC_FNTAB LT(_FN, KC_TAB)
+#define KC_NMTAB LT(_NUM, KC_TAB)
 
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      FNTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
+      NMTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTBR,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, RCTBR,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -111,11 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSLS,\
+        GRV,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       TILD,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  PIPE,\
+       TILD, XXXXX, XXXXX, XXXXX,   EUR, XXXXX,                  XXXXX,  MINS,  UNDS, PLUS,    EQL,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX,   EUR,  PLUS,                   MINS,  UNDS,    LT,    GT,   EQL, _____,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, S_SYM, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
@@ -133,15 +133,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_FN] = LAYOUT_kc( \
+  [_NUM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,    F1,    F2,    F3,    F4,    F5,                  XXXXX,     7,     8,     9,  SLSH,  ASTR,\
+        ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  SLSH,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,    F6,    F7,    F8,    F9,   F10,                   CAPS,     4,     5,     6,  MINS,  PLUS,\
+      _____,    F1,    F2,    F3,    F4,    F5,                    F11,     4,     5,     6,  MINS,  PLUS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,   F11,   F12, XXXXX, XXXXX,  PSCR,                  XXXXX,     1,     2,     3, XXXXX,   ENT,\
+      _____,    F6,    F7,    F8,    F9,   F10,                    F12,     1,     2,     3,  ASTR, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,        0,   DOT,  COMM \
+                                  _____, _____, _____,    _____,     0,   DOT \
                               //`--------------------'  `--------------------'
   ),
 
@@ -219,7 +219,7 @@ void render_status(void) {
     case 0:
       oled_write_P(PSTR("     "), false);
       break;
-    case _FN:
+    case _NUM:
       oled_write_P(PSTR("Stage"), false);
       break;
     case _SYM:
