@@ -34,6 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 //#define USE_MATRIX_I2C
 
+/* Soft Serial defines */
+#define SOFT_SERIAL_PIN D2
+#define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
+#define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)
+
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT

@@ -26,6 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Helix Alpha
 #define DESCRIPTION     A split keyboard for the cheap makers
 
+#include <serial_config.h>
+
 #define HELIX_ROWS 5
 
 /* key matrix size */
