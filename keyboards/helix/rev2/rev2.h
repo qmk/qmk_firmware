@@ -1,5 +1,4 @@
-#ifndef REV2_H
-#define REV2_CONFIG_H
+#pragma once
 
 #include "../helix.h"
 
@@ -135,6 +134,4 @@
       KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##L36, KC_##R36, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35, \
       KC_##L40, KC_##L41, KC_##L42, KC_##L43, KC_##L44, KC_##L45, KC_##L46, KC_##R46, KC_##R40, KC_##R41, KC_##R42, KC_##R43, KC_##R44, KC_##R45 \
     )
-#endif
-
 #endif

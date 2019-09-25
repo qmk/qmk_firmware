@@ -1,5 +1,4 @@
-#ifndef REV1_H
-#define REV1_CONFIG_H
+#pragma once
 
 #include "../helix.h"
 
@@ -179,4 +178,3 @@
     )
 #endif
 
-#endif
