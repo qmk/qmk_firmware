@@ -544,7 +544,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    endif
 #endif
         case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
-        case MAGIC_SWAP_LCTL_LGUI ... MAGIC_TOGGLE_CTL_GUI:
+        case MAGIC_SWAP_LCTL_LGUI ... MAGIC_EE_HANDS_RIGHT:
             if (record->event.pressed) {
                 // MAGIC actions (BOOTMAGIC without the boot)
                 if (!eeconfig_is_enabled()) {
@@ -661,6 +661,12 @@ bool process_record_quantum(keyrecord_t *record) {
                         break;
                     case MAGIC_TOGGLE_NKRO:
                         keymap_config.nkro = !keymap_config.nkro;
+                        break;
+                    case MAGIC_EE_HANDS_LEFT:
+                        eeconfig_update_handedness(true);
+                        break;
+                    case MAGIC_EE_HANDS_RIGHT:
+                        eeconfig_update_handedness(false);
                         break;
                     default:
                         break;
