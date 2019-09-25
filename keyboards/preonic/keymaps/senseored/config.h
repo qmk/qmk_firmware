@@ -24,7 +24,7 @@
 */
 
 #define MIDI_BASIC
-
+#define RGBLIGHT_SLEEP
 #define TAPPING_TOGGLE 2
 #define ALT_F4 LALT(KC_F4)
 #define CTALDEL LSFT(LCTL(KC_ESC))
