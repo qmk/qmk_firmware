@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CANOE_H
-#define CANOE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -39,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_ }  \
 }
 
-#define LAYOUT( \
+#define LAYOUT_65_ansi_blocker( \
   K0D, K0C, K0B, K0A, K09, K08, K07, K06, K05, K04, K03, K02, K01, K00, K0E, \
   K1D, K1C, K1B, K1A, K19, K18, K17, K16, K15, K14, K13, K12, K11, K10, K1E, \
   K2D, K2C, K2B, K2A, K29, K28, K27, K26, K25, K24, K23, K22,      K21, K2E, \
@@ -56,4 +55,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_, _x_ }  \
 }
 
-#endif
+#define LAYOUT LAYOUT_65_ansi_blocker // added to not break existing checked in keymaps
