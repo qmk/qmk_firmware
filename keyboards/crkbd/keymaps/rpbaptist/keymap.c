@@ -25,30 +25,37 @@ enum custom_keycodes {
   RGBRST = SAFE_RANGE
 };
 
+// Base layers
 #define KC_CLMK DF(_COLEMAKDHM)
 #define KC_GAME DF(_GAMING)
 
+// Layer toggle and switch
 #define KC_T_NAV TT(_NAV)
 #define KC_S_NAV MO(_NAV)
 
 #define KC_T_NUM TT(_NUM)
 #define KC_S_NUM MO(_NUM)
 
+// Layer keys with functionality on tap
 #define KC_FNTAB LT(_FN, KC_TAB)
 #define KC_0_NAV LT(_NAV, KC_0)
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
-#define KC_TBFWD LCTL(KC_TAB)
-#define KC_TBBCK LCTL(LSFT(KC_TAB))
-
-#define KC_CTEQL RCTL_T(KC_EQL)
-
+// Tap/mod keys
 #define KC_RCTBR RCTL_T(KC_RBRACKET)
 #define KC_LCTBR LCTL_T(KC_LBRACKET)
 
 #define KC_SFSPC LSFT_T(KC_SPACE)
 #define KC_SFENT LSFT_T(KC_ENTER)
 
+// Global tab forward and backward
+#define KC_TBFWD LCTL(KC_TAB)
+#define KC_TBBCK LCTL(LSFT(KC_TAB))
+
+// Custom key for NUM layer
+#define KC_CTEQL RCTL_T(KC_EQL)
+
+// €
 #define KC_EUR ALGR(KC_5)
 
 #define KC______ KC_TRNS
