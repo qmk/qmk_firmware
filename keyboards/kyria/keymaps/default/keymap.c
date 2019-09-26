@@ -214,7 +214,7 @@ static void render_kyria_logo(void) {
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,0
   };
-  oled_write_raw(&kyria_logo, sizeof(kyria_logo));
+  oled_write_raw(&kyria_logo[0], sizeof(kyria_logo));
 }
 
 static void render_qmk_logo(void) {
