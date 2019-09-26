@@ -122,6 +122,14 @@ void bootmagic(void) {
         default_layer = eeconfig_read_default_layer();
         default_layer_set((layer_state_t)default_layer);
     }
+
+    /* EE_HANDS handedness */
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_LEFT)) {
+        eeconfig_update_handedness(true);
+    }
+    if (bootmagic_scan_keycode(BOOTMAGIC_KEY_EE_HANDS_RIGHT)) {
+        eeconfig_update_handedness(false);
+    }
 }
 
 /** \brief Scan Keycode

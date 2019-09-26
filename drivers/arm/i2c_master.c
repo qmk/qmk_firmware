@@ -32,6 +32,17 @@
 
 static uint8_t i2c_address;
 
+// ChibiOS uses two initialization structure for v1 and v2/v3 i2c APIs.
+// The F1 series uses the v1 api, which have to initialized this way.
+#ifdef STM32F103xB
+static const I2CConfig i2cconfig = {
+  OPMODE_I2C,
+  400000,
+  FAST_DUTY_CYCLE_2,
+};
+#else
+// This configures the I2C clock to 400khz assuming a 72Mhz clock
+// For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
 #ifdef USE_I2CV1
     I2C1_OPMODE,
@@ -41,6 +52,7 @@ static const I2CConfig i2cconfig = {
     STM32_TIMINGR_PRESC(I2C1_TIMINGR_PRESC) | STM32_TIMINGR_SCLDEL(I2C1_TIMINGR_SCLDEL) | STM32_TIMINGR_SDADEL(I2C1_TIMINGR_SDADEL) | STM32_TIMINGR_SCLH(I2C1_TIMINGR_SCLH) | STM32_TIMINGR_SCLL(I2C1_TIMINGR_SCLL), 0, 0
 #endif
 };
+#endif
 
 static i2c_status_t chibios_to_qmk(const msg_t* status) {
     switch (*status) {
@@ -60,7 +72,6 @@ __attribute__((weak)) void i2c_init(void) {
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
     chThdSleepMilliseconds(10);
-
 #ifdef USE_I2CV1
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
@@ -68,8 +79,6 @@ __attribute__((weak)) void i2c_init(void) {
     palSetPadMode(I2C1_SCL_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(I2C1_SCL_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
     palSetPadMode(I2C1_SDA_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(I2C1_SDA_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN);
 #endif
-
-    // i2cInit(); //This is invoked by halInit() so no need to redo it.
 }
 
 i2c_status_t i2c_start(uint8_t address) {
