@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
-#include "pro_micro.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -90,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
-#define MATRIX_HAS_GHOST
+//#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
 
