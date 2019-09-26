@@ -47,9 +47,11 @@ KEYBOARD_TOP_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-# Build Options
+# QMK Standard Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
+#
+#   See TOP/docs/config_options.md for more information.
 #
 BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no    # Mouse keys(+4700)
