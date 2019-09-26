@@ -13,8 +13,8 @@ enum layer_names {
   _COLEMAKDHM,
   _GAMING,
   _GAMING_EXT,
+  _NUM,
   _FN,
-  _SYM,
   _NAV,
   _UTIL
 };
@@ -31,17 +31,17 @@ enum custom_keycodes {
 #define KC_T_NAV TT(_NAV)
 #define KC_S_NAV MO(_NAV)
 
-#define KC_T_SYM TT(_SYM)
-#define KC_S_SYM MO(_SYM)
+#define KC_T_NUM TT(_NUM)
+#define KC_S_NUM MO(_NUM)
 
 #define KC_FNTAB LT(_FN, KC_TAB)
+#define KC_0_NAV LT(_NAV, KC_0)
+#define KC_CTAST RCTL_T(KC_ASTR)
 
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
 #define KC_TBFWD LCTL(KC_TAB)
 #define KC_TBBCK LCTL(LSFT(KC_TAB))
-
-#define KC_CTENT RCTL_T(KC_ENTER)
 
 #define KC_RCTBR RCTL_T(KC_RBRACKET)
 #define KC_LCTBR LCTL_T(KC_LBRACKET)
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTBR,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, RCTBR,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LALT, T_SYM, SFSPC,    SFENT, T_NAV,  RGUI \
+                                   LALT, T_NUM, SFSPC,    SFENT, T_NAV,  RGUI \
                               //`--------------------'  `--------------------'
   ),
 
@@ -109,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_SYM] = LAYOUT_kc( \
+  [_FN] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSLS,\
+        GRV,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,  BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       TILD,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  PIPE,\
+      _____,   F11,   F12, XXXXX, XXXXX, XXXXX,                  XXXXX,  MINS,  LPRN,  RPRN,  PLUS,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX,   EUR,  PLUS,                   MINS,  UNDS,    LT,    GT,   EQL, _____,\
+      _____, XXXXX, XXXXX, XXXXX,  CAPS,  PSCR,                  XXXXX,  UNDS,    LT,    GT,   EQL, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, S_SYM, _____,    _____, _____, _____ \
+                                  _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
@@ -129,19 +129,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX,  WH_L, XXXXX,  WH_R, XXXXX,                  XXXXX,  ACL0,  ACL1,  ACL2, XXXXX, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+-----+-------|
-                                  _____, _____, SPACE,    _____, S_NAV, _____ \
+                                  _____, _____, _____,    _____, S_NAV, _____ \
                               //`--------------------'  `--------------------'
   ),
 
-  [_FN] = LAYOUT_kc( \
+  [_NUM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,    F1,    F2,    F3,    F4,    F5,                  XXXXX,     7,     8,     9,  SLSH,  ASTR,\
+        GRV,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,    F6,    F7,    F8,    F9,   F10,                   CAPS,     4,     5,     6,  MINS,  PLUS,\
+       TILD,  EXLM,    AT,  HASH,   DLR,  PERC,                   MINS,     4,     5,     6,  PLUS,   EUR,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,   F11,   F12, XXXXX, XXXXX,  PSCR,                  XXXXX,     1,     2,     3, XXXXX,   ENT,\
+      _____,  CIRC,  AMPR,  ASTR,  LPRN,  RPRN,                   SLSH,     1,     2,     3,  ASTR, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,        0,   DOT,  COMM \
+                                  _____, S_NUM, _____,    _____, 0_NAV,   DOT \
                               //`--------------------'  `--------------------'
   ),
 
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(default_layer_state)) {
     case _COLEMAKDHM:
-      state = update_tri_layer_state(state, _SYM, _NAV, _UTIL);
+      state = update_tri_layer_state(state, _NUM, _NAV, _UTIL);
       break;
     case _GAMING:
       state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
@@ -219,14 +219,14 @@ void render_status(void) {
     case 0:
       oled_write_P(PSTR("     "), false);
       break;
+    case _NUM:
+      oled_write_P(PSTR("Comm "), false);
+      break;
     case _FN:
       oled_write_P(PSTR("Stage"), false);
       break;
-    case _SYM:
-      oled_write_P(PSTR("Comm "), false);
-      break;
     case _NAV:
-      oled_write_P(PSTR("Gyro "), false);
+      oled_write_P(PSTR("Fuel "), false);
       break;
     case _GAMING_EXT:
       oled_write_P(PSTR("Ext  "), false);
