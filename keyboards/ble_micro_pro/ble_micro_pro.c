@@ -15,6 +15,10 @@
  */
 #include "ble_micro_pro.h"
 
+void keyboard_post_init_user()
+{
+    debug_enable = false;
+}
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.

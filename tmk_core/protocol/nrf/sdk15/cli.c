@@ -34,6 +34,7 @@ static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_keystr_conv(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_update_file(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
+static MSCMD_USER_RESULT usrcmd_debug_enable(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_dump_memory(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_dump_string(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
 static MSCMD_USER_RESULT usrcmd_led_control(MSOPT *msopt, MSCMD_USER_OBJECT usrobj);
@@ -56,6 +57,7 @@ static const MSCMD_COMMAND_TABLE table[] = {
     {   "conv",     usrcmd_keystr_conv, "Show keymap"     },
     {   "update",     usrcmd_update_file, "Update file"     },
     {   "remove",     usrcmd_remove_file, "Remove file"     },
+    {   "debug",     usrcmd_debug_enable, "Debug print setting"     },
     {   "dump",     usrcmd_dump_memory, "Dump memory"     },
     {   "dumps",     usrcmd_dump_string, "Dump memory"     },
     {   "led",     usrcmd_led_control, "LED control"     },
@@ -173,6 +175,32 @@ extern char config_string[];
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
   cli_puts(config_string);
   return 0;
+}
+
+static MSCMD_USER_RESULT usrcmd_debug_enable(MSOPT *msopt, MSCMD_USER_OBJECT usrobj)
+{
+    char arg[16];
+    if (msopt->argc >= 2)
+    {
+        msopt_get_argv(msopt, 1, arg, sizeof(arg));
+        if (strcmp(arg, "on") == 0)
+        {
+            debug_enable = true;
+            debug_keyboard = true;
+            debug_mouse = true;
+        }
+        else if (strcmp(arg, "off") == 0)
+        {
+            debug_enable = false;
+            debug_keyboard = false;
+            debug_mouse = false;
+        }
+    }
+    else
+    {
+        xprintf("Set debug option [on|off]\r\n");
+    }
+    return 0;
 }
 
 static MSCMD_USER_RESULT usrcmd_dump_memory(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
