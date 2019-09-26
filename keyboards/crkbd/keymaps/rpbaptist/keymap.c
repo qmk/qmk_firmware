@@ -220,13 +220,13 @@ void render_status(void) {
       oled_write_P(PSTR("     "), false);
       break;
     case _NUM:
-      oled_write_P(PSTR("Stage"), false);
-      break;
-    case _FN:
       oled_write_P(PSTR("Comm "), false);
       break;
+    case _FN:
+      oled_write_P(PSTR("Stage"), false);
+      break;
     case _NAV:
-      oled_write_P(PSTR("Gyro "), false);
+      oled_write_P(PSTR("Fuel "), false);
       break;
     case _GAMING_EXT:
       oled_write_P(PSTR("Ext  "), false);
