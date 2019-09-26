@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 2
+#define API_VERSION 3
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -298,6 +298,14 @@ typedef struct
 
 typedef struct
 {
+  bmp_error_t (*init)(uint32_t encoder_scan_ms,
+    const uint8_t * pin_a, const uint8_t * pin_b,
+    uint8_t num_of_enc);
+  int32_t (*get_count)(uint8_t idx);
+} bmp_api_encoder_t;
+
+typedef struct
+{
   int (*init)(bmp_api_i2cm_config_t const * const);
   void (*uninit)(void);
   uint8_t (*transmit)(uint8_t address, uint8_t* data, uint16_t length);
@@ -359,6 +367,7 @@ typedef struct
   bmp_api_ws2812_t ws2812;
   bmp_api_logger_t logger;
   bmp_api_web_config_t web_config;
+  bmp_api_encoder_t encoder;
 } bmp_api_t;
 
 #define BMPAPI ((bmp_api_t*)0xFDE00)

@@ -54,6 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cli.h"
 #include "configurator.h"
 #include "bmp.h"
+#include "bmp_encoder.h"
 
 #ifndef MATRIX_SCAN_TIME_MS
 #define MATRIX_SCAN_TIME_MS 17
@@ -202,7 +203,10 @@ int main(void) {
   rgblight_set_effect_range(0, BMPAPI->app.get_config()->led.num);
 
   BMPAPI->app.main_task_start(main_tasks, MAINTASK_INTERVAL);
-  // Enter main loop.
+#ifdef BMP_ENCODER_ENABLE
+  bmp_encoder_init();
+#endif
+
   for (;;) {
     BMPAPI->usb.process();
     cli_exec();

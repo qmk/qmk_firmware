@@ -6,7 +6,7 @@ MCU = cortex-m4
 CUSTOM_MATRIX = yes # This flag should be on for nrf52
 
 # Use Rotaly Encoder
-ENCODER_ENABLE = yes
+BMP_ENCODER_ENABLE = yes
 
 # Build Options
 #   change yes to no to disable

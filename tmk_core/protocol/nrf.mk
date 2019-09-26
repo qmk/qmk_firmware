@@ -24,6 +24,14 @@ VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/util
 VPATH += $(TMK_PATH)/$(PROTOCOL_DIR)
 VPATH += $(TMK_PATH)/$(NRF_DIR)
 
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+  $(error Use BMP_ENCODER_ENABLE instead of ENCODER_ENABLE)
+endif
+ifeq ($(strip $(BMP_ENCODER_ENABLE)), yes)
+  CFLAGS += -DBMP_ENCODER_ENABLE
+  SRC += $(NRF_DIR)/encoder.c
+endif
+
 ifeq ($(strip $(MIDI_ENABLE)), yes)
   include $(TMK_PATH)/protocol/midi.mk
 endif

@@ -1,5 +1,7 @@
 
 #include "bmp.h"
+#include "bmp_encoder.h"
+
 #include <stdint.h>
 #include "quantum.h"
 #include "keyboard.h"
@@ -104,6 +106,10 @@ void bmp_keyboard_task(void)
     uint8_t ret = matrix_scan();
 #else
     matrix_scan();
+#endif
+
+#ifdef BMP_ENCODER_ENABLE
+    bmp_encoder_read();
 #endif
 
     const bmp_api_config_t *config = BMPAPI->app.get_config();
@@ -448,6 +454,22 @@ static inline void update_tapping_term_string(bmp_api_config_t const * config,
   BMPAPI->usb.create_file("TAPTERM JSN", (uint8_t*)str, strlen(str));
 }
 
+static inline void create_info_file()
+{
+  static char info[] =
+                        "API version: " STR(API_VERSION) "\n"
+                        "Config version: " STR(CONFIG_VERSION) "\n"
+                        "Build from " STR(GIT_HASH) STR(GIT_HAS_DIFF)"\n"
+                        "Build Target: " STR(TARGET);
+  BMPAPI->usb.create_file("VERSION TXT", (uint8_t*)info, strlen(info));
+}
+
+static inline void create_index_html()
+{
+static char index_html[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://github.com/sekigon-gonnoc/BLE-Micro-Pro/tree/master/AboutDefaultFirmware\'\"/>";
+  BMPAPI->usb.create_file("INDEX   HTM", (uint8_t*)index_html, strlen(index_html));
+}
+
 bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
 {
   const bmp_api_config_t * config = BMPAPI->app.get_config();
@@ -459,6 +481,8 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
       update_keymap_string(config, keymap_string, sizeof(keymap_string), &keymap_info);
       update_config_string(config, config_string, sizeof(config_string));
       update_tapping_term_string(config, qmk_config_string, sizeof(qmk_config_string));
+      create_info_file();
+      create_index_html();
       break;
     default:
       break;

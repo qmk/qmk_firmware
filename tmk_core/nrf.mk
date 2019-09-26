@@ -35,6 +35,15 @@ NRF_VER_DIR = sdk$(NRFSDK_VER)
 
 COMMON_VPATH += $(DRIVER_PATH)/nrf52
 
+GIT_HASH = $(shell git log -1 --format="%h")
+CFLAGS += -DGIT_HASH=$(GIT_HASH)
+CFLAGS += -DTARGET=$(TARGET)
+
+ifeq ($(shell git diff --exit-code --quiet; echo $$?), 1)
+  CFLAGS += -DGIT_HAS_DIFF=-*
+else
+  CFLAGS += -DGIT_HAS_DIFF
+endif
 
 ifeq ($(MCU_SERIES), NRF52840)
   NRFSRC +=  $(TOP_DIR)/tmk_core/protocol/nrf/gcc_startup_nrf52840.S \
@@ -296,6 +305,10 @@ nrfutil: $(TARGET).zip
 		echo "Programming Started"; \
 		$(NRFUTIL) dfu usb-serial -pkg $(TARGET).zip -p $$USB; \
 	fi
+
+uf2: $(BUILD_DIR)/$(TARGET).bin
+	./util/uf2conv.py -f nrf52 -b 0x26000 -o $(TARGET).uf2 $(TARGET).bin -c
+	-./util/uf2conv.py -f nrf52 -b 0x26000 $(TARGET).bin
 
 elf: $(NRFLIB)
 
