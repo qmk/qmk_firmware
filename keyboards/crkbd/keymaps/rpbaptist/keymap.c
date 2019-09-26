@@ -14,7 +14,7 @@ enum layer_names {
   _GAMING,
   _GAMING_EXT,
   _NUM,
-  _SYM,
+  _FN,
   _NAV,
   _UTIL
 };
@@ -34,8 +34,9 @@ enum custom_keycodes {
 #define KC_T_NUM TT(_NUM)
 #define KC_S_NUM MO(_NUM)
 
-#define KC_SYMTB LT(_SYM, KC_TAB)
+#define KC_FNTAB LT(_FN, KC_TAB)
 #define KC_0_NAV LT(_NAV, KC_0)
+#define KC_CTAST RCTL_T(KC_ASTR)
 
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
@@ -76,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     F,     P,     B,                      J,     L,    U,     Y,   SCLN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      SYMTB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
+      FNTAB,     A,     R,     S,     T,     G,                      M,     N,     E,     I,     O,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTBR,     Z,     X,     C,     D,     V,                      K,     H,  COMM,   DOT,  SLSH, RCTBR,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -108,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               //`--------------------'  `--------------------'
   ),
 
-  [_SYM] = LAYOUT_kc( \
+  [_FN] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSLS,\
+        GRV,    F1,    F2,    F3,    F4,    F5,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX,   EUR, XXXXX,                  XXXXX,  MINS,  UNDS,  PLUS,   EQL,  PIPE,\
+      _____,    F6,    F7,    F8,    F9,   F10,                  XXXXX,  UNDS,  LPRN,  RPRN,  PLUS,  PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____,\
+      _____,   F11,   F12, XXXXX,  CAPS,  PSCR,                  XXXXX,  MINS,    LT,    GT,   EQL,  PLUS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, S_NUM, _____,    _____, _____, _____ \
+                                  _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
   ),
 
@@ -128,17 +129,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____, XXXXX,  WH_L, XXXXX,  WH_R, XXXXX,                  XXXXX,  ACL0,  ACL1,  ACL2, XXXXX, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+-----+-------|
-                                  _____, _____, SPACE,    _____, S_NAV, _____ \
+                                  _____, _____, _____,    _____, S_NAV, _____ \
                               //`--------------------'  `--------------------'
   ),
 
   [_NUM] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        GRV,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,   F11,\
+        GRV,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       TILD,    F1,    F2,    F3,    F4,    F5,                   SLSH,     4,     5,     6,  MINS,   F12,\
+       TILD,  EXLM,    AT,  HASH,   DLR,  PERC,                    EUR,     4,     5,     6,  MINS,  PLUS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,    F6,    F7,    F8,    F9,   F10,                   ASTR,     1,     2,     3,  PLUS, _____,\
+      _____,  CIRC,  AMPR,  ASTR,  LPRN,  RPRN,                   SLSH,     1,     2,     3,  ASTR, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, S_NUM, _____,    _____, 0_NAV,   DOT \
                               //`--------------------'  `--------------------'
@@ -221,7 +222,7 @@ void render_status(void) {
     case _NUM:
       oled_write_P(PSTR("Stage"), false);
       break;
-    case _SYM:
+    case _FN:
       oled_write_P(PSTR("Comm "), false);
       break;
     case _NAV:
