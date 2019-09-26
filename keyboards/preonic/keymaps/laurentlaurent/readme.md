@@ -1,1 +1,2 @@
-# The default Preonic layout - largely based on the Planck's
+# laurentlaurent's Preonic keyboard
+Largely similar to his ErgoDox EZ's layout
