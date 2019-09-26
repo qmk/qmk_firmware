@@ -130,11 +130,22 @@ $ cd qmk_firmware
 build
 ```
 $ make helix:default
+$ make helix/rev2/back:default  # with backlight
+$ make helix/rev2/under:default # with underglow
+$ make helix/rev2/oled:default  # with oled
+$ make helix/rev2/oled/back:default  # with oled and backlight
+$ make helix/rev2/oled/under:default # with oled and underglow
 ```
 
 flash to keyboard
 ```
 $ make helix:default:avrdude
+$ make helix/rev2/back:default:avrdude  # with backlight
+$ make helix/rev2/under:default:avrdude # with underglow
+$ make helix/rev2/oled:default:avrdude  # with oled
+$ make helix/rev2/oled/back:default:avrdude  # with oled and backlight
+$ make helix/rev2/oled/under:default:avrdude # with oled and underglow
+
 ```
 
 ## Link
