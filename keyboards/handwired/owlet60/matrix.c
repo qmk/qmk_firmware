@@ -201,7 +201,7 @@ void matrix_init(void) {
 
     matrix_init_quantum();
 
-    DDRD &= ~(1<<5);
+    setPinInput(D5);
    writePinLow(D5);
 
    setPinInput(B0);
