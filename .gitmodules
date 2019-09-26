@@ -3,8 +3,7 @@
 	url = https://github.com/qmk/ChibiOS
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/qmk/ChibiOS-Contrib
-	branch = k-type-fix
+	url = https://github.com/drashna/ChibiOS-Contrib
 [submodule "lib/ugfx"]
 	path = lib/ugfx
 	url = https://github.com/qmk/uGFX
