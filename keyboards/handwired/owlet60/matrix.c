@@ -205,7 +205,7 @@ void matrix_init(void) {
    PORTD &= ~(1<<5);
 
    DDRB &= ~(1<<0);
-   PORTB &= ~(1<<0);
+   writePinLow(B0);
 }
 
 // modified for per col read matrix scan
