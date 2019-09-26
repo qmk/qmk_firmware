@@ -113,19 +113,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t temp_mod = get_mods();
         clear_mods();
         send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-        /*
-        if (biton32(default_layer_state) == _WINWORKMAN) {
-          send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-        } else {
-          send_string_with_delay_P(PSTR("util/docker_build.sh " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-        }
-        */
-        if (temp_mod & MODS_SHIFT_MASK) {
-          send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
-        }
-        if (temp_mod & MODS_CTRL_MASK) {
-          send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER);
-        }
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
         set_mods(temp_mod);
         layer_move(0);
@@ -220,26 +207,18 @@ void matrix_scan_user(void) {
       SEND_STRING(SS_LGUI("r"));
     }
 
-    SEQ_TWO_KEYS(KC_V, KC_S) {
-      register_code(KC_LGUI);
-      tap(KC_SPACE);
-      unregister_code(KC_LGUI);
-      send_string_with_delay_P(PSTR("vsc"), MACRO_TIMER);
-      tap(KC_ENTER);
-    }
-
-    SEQ_TWO_KEYS(KC_X, KC_C) {
-      register_code(KC_LGUI);
-      tap(KC_SPACE);
-      unregister_code(KC_LGUI);
-      send_string_with_delay_P(PSTR("xcode"), MACRO_TIMER);
-      tap(KC_ENTER);
-    }
-
     SEQ_ONE_KEY(KC_B) {
       SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " ");
       tap(KC_ENTER);
       SEND_STRING ("Built at: " QMK_BUILDDATE);
+    }
+
+    // Good luck figuring out what this goes to... ;)
+    SEQ_TWO_KEYS(KC_J, KC_J) {
+        SEND_STRING("jj@p.com");
+    }
+    SEQ_TWO_KEYS(KC_Z, KC_Z) {
+        SEND_STRING("Zz$1111111");
     }
 #ifndef NO_SECRETS
     matrix_scan_secrets();
