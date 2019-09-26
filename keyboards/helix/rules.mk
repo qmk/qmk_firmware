@@ -42,6 +42,8 @@ F_USB = $(F_CPU)
 #   atmega32a    bootloadHID
 BOOTLOADER = caterina
 
+KEYBOARD_TOP_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
