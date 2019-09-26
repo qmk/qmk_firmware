@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_DOWN,KC_UP, ALL_T(KC_NO),KC_GRV,   KC_RCTRL,
              KC_F2, TT(MDIA),
              KC_INS,
-             KC_DELT,TT(SYMB), KC_SPC
+             KC_DEL,TT(SYMB), KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *

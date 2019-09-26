@@ -21,7 +21,7 @@ endif
 ifneq (,$(findstring planck/ez,$(KEYBOARD))) # Make sure it IS the Planck Light
     RGBLIGHT_ENABLE = no
     # SERIAL_LINK_ENABLE = yes
-    ENCODER_ENABLE = no
+    ENCODER_ENABLE = yes
     RGB_MATRIX_ENABLE = IS31FL3737
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
@@ -33,6 +33,3 @@ NKRO_ENABLE       = no
 else
 NKRO_ENABLE       = yes
 endif
-
-
-MACROS_ENABLED    = no

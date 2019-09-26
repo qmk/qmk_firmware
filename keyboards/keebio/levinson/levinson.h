@@ -4,8 +4,10 @@
 
 #ifdef KEYBOARD_keebio_levinson_rev1
     #include "rev1.h"
-#else
+#elif KEYBOARD_keebio_levinson_rev2
     #include "rev2.h"
+#elif KEYBOARD_keebio_levinson_rev3
+    #include "rev3.h"
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys

@@ -1,4 +1,6 @@
-# insertsnideremarks' Kinesis Keymap
+## I've changed my folder name to match my GitHub username.  Please see https://github.com/qmk/qmk_firmware/tree/master/keyboards/kinesis/keymaps/tuesdayjohn for my current keymap files.
+
+## insertsnideremarks' Kinesis Keymap
 
 These layouts are derived from what I was using on my Kinesis Contoured keyboards with Hasu's USB-USB TMK converters.  With the move to QMK via Stapelberg replacement controller, I've cleaned up the layouts a bit while adding more functions and layers.
 
