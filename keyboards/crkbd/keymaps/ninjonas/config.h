@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+//#define USE_MATRIX_I2C
+
 /* Select hand configuration */
 
 #define MASTER_LEFT
@@ -27,7 +29,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define USE_SERIAL_PD2
+
 #define TAPPING_FORCE_HOLD
 
-#define OLED_FONT_H "keyboards/lily58/lib/glcdfont.c"
+#ifdef RGBLIGHT_ENABLE
+    #undef RGBLED_NUM
+    #undef RGBLIGHT_ANIMATIONS   // https://docs.qmk.fm/#/feature_rgblight?id=effect-and-animation-toggles
+    #define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLED_NUM 27
+    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_HUE_STEP 10
+    #define RGBLIGHT_SAT_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
+#endif 
+
+#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_DISABLE_TIMEOUT
