@@ -204,7 +204,7 @@ void matrix_init(void) {
     DDRD &= ~(1<<5);
    PORTD &= ~(1<<5);
 
-   DDRB &= ~(1<<0);
+   setPinInput(B0);
    writePinLow(B0);
 }
 
