@@ -36,8 +36,6 @@ enum custom_keycodes {
 
 #define KC_FNTAB LT(_FN, KC_TAB)
 #define KC_0_NAV LT(_NAV, KC_0)
-#define KC_CTAST RCTL_T(KC_ASTR)
-
 #define KC_GMSFT LT(_GAMING_EXT, KC_LSHIFT)
 
 #define KC_TBFWD LCTL(KC_TAB)
@@ -48,7 +46,6 @@ enum custom_keycodes {
 
 #define KC_SFSPC LSFT_T(KC_SPACE)
 #define KC_SFENT LSFT_T(KC_ENTER)
-#define KC_SFBSP RSFT_T(KC_BSPACE)
 
 #define KC_EUR ALGR(KC_5)
 
