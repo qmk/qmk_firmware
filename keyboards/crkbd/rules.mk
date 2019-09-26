@@ -32,8 +32,7 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
-LIB_SRC += ssd1306.c \
-        i2c_master.c
+LIB_SRC += ssd1306.c 
 
 # if firmware size over limit, try this option
 
