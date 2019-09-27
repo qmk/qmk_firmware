@@ -62,8 +62,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
-//        case KC_SFT_CPS:
-//            return 100;
+       case KC_SFT_CPS:
+           return 300;
 //        case SPC_UPR:
 //            return 50;
         case SPC_LOW:
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		RGB_MOD,   RGB_HUI,   RGB_HUD,   RGB_M_SN,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
                        ),
-    
+
     [_FKEY] = LAYOUT(
         KC_NO, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
         RGB_M_P,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F12,   KC_F13,
@@ -188,4 +188,3 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     return state;
 }
-
