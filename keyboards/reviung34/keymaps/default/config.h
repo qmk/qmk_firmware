@@ -17,9 +17,4 @@
 #pragma once
 
 // place overrides here
-<<<<<<< HEAD
-#define TAPPING_TERM 200
-#define IGNOR_MOD_TAP_INTERRUPT
-=======
 
->>>>>>> 17f8b58cd4ef2338649e4eb04442ecd327ddc4f8

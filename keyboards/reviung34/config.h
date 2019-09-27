@@ -25,11 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    gtips
 #define PRODUCT         reviung34
-<<<<<<< HEAD
-#define DESCRIPTION     A 39-key split keyboard
-=======
 #define DESCRIPTION     A 34-key split keyboard
->>>>>>> 17f8b58cd4ef2338649e4eb04442ecd327ddc4f8
 
 /* key matrix size */
 #define MATRIX_ROWS 4
