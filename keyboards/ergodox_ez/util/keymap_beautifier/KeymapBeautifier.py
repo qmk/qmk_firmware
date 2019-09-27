@@ -5,6 +5,7 @@ import pycparser
 import re
 
 class KeymapBeautifier:
+    justify_toward_center = False
     filename_in = None
     filename_out = None
     output_layout = None
@@ -107,8 +108,9 @@ class KeymapBeautifier:
         return [conversion_map.index(i) for i in range(len(conversion_map))]
 
 
-    def __init__(self, source_code = "",  output_layout="LAYOUT_ergodox"):
+    def __init__(self, source_code = "",  output_layout="LAYOUT_ergodox", justify_toward_center = False):
         self.output_layout = output_layout
+        self.justify_toward_center = justify_toward_center
         # determine the conversion map
         #if input_layout == self.output_layout:
         #    conversion_map = [i for i in range(len(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox))]
@@ -301,6 +303,7 @@ class KeymapBeautifier:
             self.get_padded_line(keys, 73, 76, just="left"),
             )
         elif self.output_layout == "LAYOUT_ergodox_pretty":
+            left_half_justification = "right" if self.justify_toward_center else "left"
             formatted_key_symbols = """
 {}      {}
 {}      {}
@@ -312,17 +315,17 @@ class KeymapBeautifier:
 {}      {}
 {}      {}
 """.format(
-            self.get_padded_line(keys,  0,  7, just="left"), self.get_padded_line(keys, 38, 45, just="left"),
-            self.get_padded_line(keys,  7, 14, just="left"), self.get_padded_line(keys, 45, 52, just="left"),
-            self.get_padded_line(keys, 14, 20, just="left"), self.get_padded_line(keys, 52, 58, just="left"),
-            self.get_padded_line(keys, 20, 27, just="left"), self.get_padded_line(keys, 58, 65, just="left"),
-            self.get_padded_line(keys, 27, 32, just="left"), self.get_padded_line(keys, 65, 70, just="left"),
+                self.get_padded_line(keys,  0,  7, just=left_half_justification), self.get_padded_line(keys, 38, 45, just="left"),
+                self.get_padded_line(keys,  7, 14, just=left_half_justification), self.get_padded_line(keys, 45, 52, just="left"),
+                self.get_padded_line(keys, 14, 20, just=left_half_justification), self.get_padded_line(keys, 52, 58, just="left"),
+                self.get_padded_line(keys, 20, 27, just=left_half_justification), self.get_padded_line(keys, 58, 65, just="left"),
+                self.get_padded_line(keys, 27, 32, just=left_half_justification), self.get_padded_line(keys, 65, 70, just="left"),
 
-            self.get_padded_line(keys, 32, 34, just="left"), self.get_padded_line(keys, 70, 72, just="left"),
-            self.get_padded_line(keys, 34, 35, just="left"), self.get_padded_line(keys, 72, 73, just="left"),
-            self.get_padded_line(keys, 35, 38, just="left"), self.get_padded_line(keys, 73, 76, just="left"),
+                self.get_padded_line(keys, 32, 34, just=left_half_justification), self.get_padded_line(keys, 70, 72, just="left"),
+                self.get_padded_line(keys, 34, 35, just=left_half_justification), self.get_padded_line(keys, 72, 73, just="left"),
+                self.get_padded_line(keys, 35, 38, just=left_half_justification), self.get_padded_line(keys, 73, 76, just="left"),
 
-            )
+                )
         else:
             formatted_key_symbols = ""
 
@@ -379,6 +382,7 @@ if __name__ == "__main__":
     parser.add_argument("input_filename", help="input file: c source code file that has the layer keymaps")
     parser.add_argument("-o", "--output-filename", help="output file: beautified c filename. If not given, output to STDOUT.")
     parser.add_argument("-p", "--pretty-output-layout", action="store_true", help="use LAYOUT_ergodox_pretty for output instead of LAYOUT_ergodox")
+    parser.add_argument("-c", "--justify-toward-center", action="store_true", help="for LAYOUT_ergodox_pretty, align right for the left half, and align left for the right half. Default is align left for both halves.")
     args = parser.parse_args()
     if args.pretty_output_layout:
         output_layout="LAYOUT_ergodox_pretty"
@@ -386,7 +390,7 @@ if __name__ == "__main__":
         output_layout="LAYOUT_ergodox"
     with open(args.input_filename) as f:
         source_code = f.read()
-    result = KeymapBeautifier(source_code, output_layout=output_layout).output
+    result = KeymapBeautifier(source_code, output_layout=output_layout, justify_toward_center=args.justify_toward_center).output
     if args.output_filename:
         with open(args.output_filename, "w") as f:
             f.write(result)
