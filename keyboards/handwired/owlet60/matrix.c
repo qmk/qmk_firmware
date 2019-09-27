@@ -214,11 +214,11 @@ void matrix_init(void) {
 
     matrix_init_quantum();
 
-    DDRD &= ~(1<<5);
-   PORTD &= ~(1<<5);
+    setPinInput(D5);
+   writePinLow(D5);
 
-   DDRB &= ~(1<<0);
-   PORTB &= ~(1<<0);
+   setPinInput(B0);
+   writePinLow(B0);
 }
 
 // modified for per col read matrix scan
