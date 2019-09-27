@@ -254,6 +254,10 @@ ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
     OPT_DEFS += -DINIT_EE_HANDS_LEFT
 endif
 
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
+    OPT_DEFS += -DINIT_EE_HANDS_RIGHT
+endif
+
 dfu-util-split-left: dfu-util
 
 dfu-util-split-right: dfu-util
