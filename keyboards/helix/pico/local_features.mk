@@ -7,18 +7,18 @@
 
 define HELIX_CUSTOMISE_MSG
   $(info Helix Spacific Build Options)
-  $(info -  OLED_ENABLE=$(OLED_ENABLE))
-  $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
-  $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
-  $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
-  $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
+  $(info -  OLED_ENABLE          = $(OLED_ENABLE))
+  $(info -  LED_BACK_ENABLE      = $(LED_BACK_ENABLE))
+  $(info -  LED_UNDERGLOW_ENABLE = $(LED_UNDERGLOW_ENABLE))
+  $(info -  LED_ANIMATION        = $(LED_ANIMATIONS))
+  $(info -  IOS_DEVICE_ENABLE    = $(IOS_DEVICE_ENABLE))
   $(info )
 endef
 
   ifneq ($(strip $(HELIX)),)
     ### Helix keyboard keymap: convenient command line option
     ##    make HELIX=<options> helix/pico:<keymap>
-    ##    option= oled | back | under | na | ios
+    ##    option= oled | back | under | no_ani | na | ios | verbose
     ##    ex.
     ##      make HELIX=oled          helix/pico:<keymap>
     ##      make HELIX=oled,back     helix/pico:<keymap>
@@ -37,15 +37,17 @@ endef
     ifeq ($(findstring na,$(HELIX)), na)
       LED_ANIMATIONS = no
     endif
+    ifeq ($(findstring no_ani,$(HELIX)), no_ani)
+      LED_ANIMATIONS = no
+    endif
     ifeq ($(findstring ios,$(HELIX)), ios)
       IOS_DEVICE_ENABLE = yes
     endif
+    ifeq ($(findstring verbose,$(HELIX)), verbose)
+       SHOW_VERBOSE_INFO = yes
+    endif
     SHOW_HELIX_OPTIONS = yes
   endif
-
-ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
-  $(eval $(call HELIX_CUSTOMISE_MSG))
-endif
 
 ########
 # convert Helix-specific options (that represent combinations of standard options)
@@ -87,7 +89,12 @@ ifeq ($(strip $(AUDIO_ENABLE)),yes)
   endif
 endif
 
-# Uncomment these for debugging
-# $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
-# $(info -- OPT_DEFS=$(OPT_DEFS))
-# $(info )
+ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
+  $(eval $(call HELIX_CUSTOMISE_MSG))
+  ifneq ($(strip $(SHOW_VERBOSE_INFO)),)
+     $(info -- RGBLIGHT_ENABLE = $(RGBLIGHT_ENABLE))
+     $(info -- OPT_DEFS        = $(OPT_DEFS))
+     $(info -- LINK_TIME_OPTIMIZATION_ENABLE = $(LINK_TIME_OPTIMIZATION_ENABLE))
+     $(info )
+  endif
+endif
