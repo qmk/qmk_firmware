@@ -37,10 +37,16 @@
 #define LLY_BK LT(_PUNC, KC_BSPACE)
 #define LLY_BS LT(_PUNC, KC_BSLASH)
 #define LLY_ET LT(_EXTRA, KC_ENT)
-
-// Maybe redefine so that Lower and Raise can be used differently
 #define LLY_LW LOWER
 #define LLY_RS RAISE
+
+// ==== Audio ====
+#ifdef AUDIO_ENABLE
+#include "audio.h"
+float tone_macro1_record[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float tone_macro2_record[][2] = SONG(SCROLL_LOCK_ON_SOUND);
+float tone_macro_record_stop[][2] = SONG(SCROLL_LOCK_OFF_SOUND );
+#endif
 
 enum preonic_layers {
   _QWERTY_MAC,
@@ -332,9 +338,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ) //, //Don't forget to add the comma if going to add more layers here
 };
 
+static uint16_t key_timer;
+static uint16_t timer_thresh = 200;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	// For dynamic macros
 	if (!process_record_dynamic_macro(keycode, record)) {
+		// Play sound on Macro stop
+		#ifdef AUDIO_ENABLE
+		switch(keycode) {
+		    case DYN_REC_STOP:
+			  if (record->event.pressed) {
+				PLAY_SONG(tone_macro_record_stop);
+			  }
+			  return false;
+			  break;
+		}
+		#endif
         return false;
     }
 	
@@ -351,6 +370,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+		// Reinstate these cases if COLEMAK, DVORAK are included in the layouts
         /*case COLEMAK:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_COLEMAK);
@@ -366,9 +386,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		  */
         case LOWER:
           if (record->event.pressed) {
+			key_timer = timer_read();
             layer_on(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           } else {
+			  // Backspace on tap
+			  if(timer_elapsed(key_timer) < timer_thresh) {
+				  tap_code(KC_BSPC);
+			  }
             layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
@@ -401,6 +426,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+		#ifdef AUDIO_ENABLE
+		// Play sound on Macro record start
+			case DYN_REC_START1:
+			  if (record->event.pressed) {
+				  
+					PLAY_SONG(tone_macro1_record);
+			  }
+			  return false;
+			  break;
+			case DYN_REC_START2:
+			  if (record->event.pressed) {
+					PLAY_SONG(tone_macro2_record);
+				  
+			  }
+			  return false;
+			  break;
+	    #endif
       }
     return true;
 };
