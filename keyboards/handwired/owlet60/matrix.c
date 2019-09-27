@@ -55,7 +55,20 @@ static const uint8_t dat_pin = MATRIX_COL_DATA_PIN;
 static matrix_row_t raw_matrix[MATRIX_ROWS]; //raw values
 static matrix_row_t matrix[MATRIX_ROWS]; //raw values
 
-static void select_col_manual(uint8_t col);
+/* 2d array containing binary representation of its index */
+static const uint8_t num_in_binary[8][3] = {
+    {0, 0, 0},
+    {0, 0, 1},
+    {0, 1, 0},
+    {0, 1, 1},
+    {1, 0, 0},
+    {1, 0, 1},
+    {1, 1, 0},
+    {1, 1, 1},
+};
+
+static void select_col_analog(uint8_t col);
+static void mux_pin_control(const uint8_t binary[]);
 void debounce_init(uint8_t num_rows);
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed);
 
@@ -171,7 +184,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
 
         // Select the col pin to read (active low)
-        select_col_manual(col_index);
+        select_col_analog(col_index);
         wait_us(30);
         uint8_t pin_state = readPin(dat_pin);
 
@@ -242,82 +255,61 @@ uint8_t matrix_scan(void)
 }
 */
 
-static void select_col_manual(uint8_t col) {
-    // emergency code, just a simple switch statement
-    
-    if(col == 0) 
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinLow(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinLow(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinLow(col_select_pins[2]);
-    }
+static void select_col_analog(uint8_t col) {
+    switch(col) {
 
-    else if(col == 1)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinHigh(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinLow(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinLow(col_select_pins[2]);
+        case 0:
+            mux_pin_control(num_in_binary[0]);
+            break;
+        case 1:
+            mux_pin_control(num_in_binary[1]);
+            break;
+        case 2:
+            mux_pin_control(num_in_binary[2]);
+            break;
+        case 3:
+            mux_pin_control(num_in_binary[3]);
+            break;
+        case 4:
+            mux_pin_control(num_in_binary[4]);
+            break;
+        case 5:
+            mux_pin_control(num_in_binary[5]);
+            break;
+        case 6:
+            mux_pin_control(num_in_binary[6]);
+            break;
+        case 7:
+            mux_pin_control(num_in_binary[7]);
+            break;
+        default:
+            break;
     }
-    else if(col == 2)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinLow(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinHigh(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinLow(col_select_pins[2]);
-    }
-    else if(col == 3)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinHigh(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinHigh(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinLow(col_select_pins[2]);
-    }
-    else if(col == 4)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinLow(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinLow(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinHigh(col_select_pins[2]);
-    }
-    else if(col == 5)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinHigh(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinLow(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinHigh(col_select_pins[2]);
-    }
-    else if(col == 6)
-    {
-        setPinOutput(col_select_pins[0]);
-        writePinLow(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
-        writePinHigh(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
-        writePinHigh(col_select_pins[2]);
-    }
+}
 
-    else if(col == 7)
-    {
-        setPinOutput(col_select_pins[0]);
+static void mux_pin_control(const uint8_t binary[]) {
+    // set pin0
+    setPinOutput(col_select_pins[0]);
+    if(binary[0] == 0) {
+        writePinLow(col_select_pins[0]);
+    }
+    else {
         writePinHigh(col_select_pins[0]);
-        setPinOutput(col_select_pins[1]);
+    }
+    // set pin1
+    setPinOutput(col_select_pins[1]);
+    if(binary[1] == 0) {
+        writePinLow(col_select_pins[1]);
+    }
+    else {
         writePinHigh(col_select_pins[1]);
-        setPinOutput(col_select_pins[2]);
+    }
+    // set pin2
+    setPinOutput(col_select_pins[2]);
+    if(binary[2] == 0) {
+        writePinLow(col_select_pins[2]);
+    }
+    else {
         writePinHigh(col_select_pins[2]);
     }
-    
 }
