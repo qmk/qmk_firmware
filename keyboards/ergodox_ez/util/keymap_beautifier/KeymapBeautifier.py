@@ -41,7 +41,7 @@ class KeymapBeautifier:
      *                                |      |      |  37  |  |  73  |      |      |
      *                                `--------------------'  `--------------------'
      */
-    """
+"""
     KEY_COORDINATES = {
         'LAYOUT_ergodox': [
             # left hand
@@ -79,10 +79,15 @@ class KeymapBeautifier:
                                         (7,4), (7,5), (7,6),   (7,7), (7,8), (7,9)
         ],
     }
-    #
+    current_converted_KEY_COORDINATES = []
+
+    # each column is aligned within each group (tuples of row indexes are inclusive)
     KEY_ROW_GROUPS = {
         'LAYOUT_ergodox': [(0,4),(5,7),(8,12),(13,15)],
-        'LAYOUT_ergodox_pretty': [(0,4),(5,7)],
+        'LAYOUT_ergodox_pretty': [(0,7)],
+        #'LAYOUT_ergodox_pretty': [(0,5),(6,7)],
+        #'LAYOUT_ergodox_pretty': [(0,3),(4,4),(5,7)],
+        #'LAYOUT_ergodox_pretty': [(0,4),(5,7)],
     }
 
 
@@ -97,43 +102,50 @@ class KeymapBeautifier:
                     35,36,37,  73,74,75,
     ]
 
+
     def index_conversion_map_reversed(self, conversion_map):
         return [conversion_map.index(i) for i in range(len(conversion_map))]
 
 
-    def __init__(self, filename_in = None, filename_out = None, output_layout="LAYOUT_ergodox"):
-        self.filename_in = filename_in
-        self.filename_out = filename_out
+    def __init__(self, source_code = "",  output_layout="LAYOUT_ergodox"):
         self.output_layout = output_layout
+        # determine the conversion map
+        #if input_layout == self.output_layout:
+        #    conversion_map = [i for i in range(len(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox))]
+        #conversion_map = self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox
+        if self.output_layout == "LAYOUT_ergodox_pretty":
+            index_conversion_map = self.index_conversion_map_reversed(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)
+        else:
+            index_conversion_map = list(range(len(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)))
+        self.current_converted_KEY_COORDINATES = [
+            self.KEY_COORDINATES[self.output_layout][index_conversion_map[i]]
+            for i in range(len(self.KEY_COORDINATES[self.output_layout]))
+        ]
 
-        self.output = self.beautify_src_file(filename_in)
-        if filename_out:
-            with open(filename_out, "w") as f:
-                f.write(self.output)
+        self.output = self.beautify_source_code(source_code)
 
-    def beautify_src_file(self, filename):
-        # we only use the parser to parse the key definition part
-        # (we don't want to complicate the parsing with the pre-processor)
+    def beautify_source_code(self, source_code):
+        # to keep it simple for the parser, we only use the parser to parse the key definition part
         src = {
             "before": [],
             "keys": [],
             "after": [],
         }
 
-        with open(filename) as f:
-            current_section = "before"
-            for line in f:
-                if current_section == 'before' and line == self.KEYMAP_START:
-                        src[current_section].append("\n")
-                        current_section = 'keys'
-                        src[current_section].append(self.KEYMAP_START_REPLACEMENT)
-                        continue
-                elif current_section == 'keys' and line == self.KEYMAP_END:
-                    src[current_section].append(self.KEYMAP_END)
-                    current_section = 'after'
-                    continue
-                src[current_section].append(line)
-        return src['before'] + self.beautify_keys_section("".join(src['keys'])) + src['after']
+        current_section = "before"
+        for line in source_code.splitlines(True):
+            if current_section == 'before' and line == self.KEYMAP_START:
+                src[current_section].append("\n")
+                current_section = 'keys'
+                src[current_section].append(self.KEYMAP_START_REPLACEMENT)
+                continue
+            elif current_section == 'keys' and line == self.KEYMAP_END:
+                src[current_section].append(self.KEYMAP_END)
+                current_section = 'after'
+                continue
+            src[current_section].append(line)
+        output_lines = src['before'] + self.beautify_keys_section("".join(src['keys'])) + src['after']
+        return "".join(output_lines)
 
     def beautify_keys_section(self, src):
         parsed = self.parser(src)
@@ -143,24 +155,16 @@ class KeymapBeautifier:
         layers = keymap[1]
         for layer in layers.init.exprs:
             input_layout = layer.expr.name.name
-            #print(input_layout)
 
             key_symbols = self.layer_expr(layer)
-            # re-order keys to output_layout
-            # TODO support pretty layout
-            if input_layout != self.output_layout:
-                # converstion needed
-                if input_layout == "LAYOUT_ergodox_pretty":
-                    key_symbols = [key_symbols[i] for i in self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox]
-                else:
-                    # default input_layout is LAYOUT_ergodox
-                    key_symbols = [key_symbols[i] for i in self.index_conversion_map_reversed(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)]
+            # re-order keys from input_layout to regular layout
+            if input_layout == "LAYOUT_ergodox_pretty":
+                key_symbols = [key_symbols[i] for i in self.index_conversion_map_reversed(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)]
 
             padded_key_symbols = self.pad_key_symbols(key_symbols, input_layout)
-            layer_output.append(self.pretty_output_layer(layer.name[0].value, padded_key_symbols))
-
-            # TODO remove this
-            return [",\n\n".join(layer_output) + "\n"]
+            current_pretty_output_layer = self.pretty_output_layer(layer.name[0].value, padded_key_symbols)
+            # strip trailing spaces from padding
+            layer_output.append(re.sub(r" +\n", "\n", current_pretty_output_layer))
 
         return [self.KEYMAP_START + "\n",
                 self.KEY_CHART + "\n",
@@ -176,8 +180,9 @@ class KeymapBeautifier:
 
     def calculate_column_max_widths(self, key_symbols):
         # calculate the max width for each column
+        self.column_max_widths = {}
         for i in range(len(key_symbols)):
-            row_index, column_index = self.KEY_COORDINATES[self.output_layout][i]
+            row_index, column_index = self.current_converted_KEY_COORDINATES[i]
             row_group = self.get_row_group(row_index)
             if (row_group, column_index) in self.column_max_widths:
                 self.column_max_widths[(row_group, column_index)] = max(self.column_max_widths[(row_group, column_index)], len(key_symbols[i]))
@@ -185,26 +190,20 @@ class KeymapBeautifier:
                 self.column_max_widths[(row_group, column_index)] = len(key_symbols[i])
 
 
-    def pad_key_symbols(self, key_symbols, input_layout):
+    def pad_key_symbols(self, key_symbols, input_layout, just='left'):
         self.calculate_column_max_widths(key_symbols)
-        #print(self.column_max_widths)
-
-        # determine the conversion map
-        if input_layout == self.output_layout:
-            conversion_map = [i for i in range(len(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox))]
-        elif input_layout == "LAYOUT_ergodox_pretty":
-            conversion_map = self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox
-        else:
-            conversion_map = self.index_conversion_map_reversed(self.INDEX_CONVERSTION_LAYOUT_ergodox_pretty_to_LAYOUT_ergodox)
 
         padded_key_symbols = []
         # pad each key symbol
         for i in range(len(key_symbols)):
             key = key_symbols[i]
-            # look up column corrdinate to determine number of spaces to pad
-            row_index, column_index = self.KEY_COORDINATES[self.output_layout][conversion_map[i]]
+            # look up column coordinate to determine number of spaces to pad
+            row_index, column_index = self.current_converted_KEY_COORDINATES[i]
             row_group = self.get_row_group(row_index)
-            padded_key_symbols.append(key.ljust(self.column_max_widths[(row_group, column_index)]))
+            if just == 'left':
+                padded_key_symbols.append(key.ljust(self.column_max_widths[(row_group, column_index)]))
+            else:
+                padded_key_symbols.append(key.rjust(self.column_max_widths[(row_group, column_index)]))
         return padded_key_symbols
 
 
@@ -221,24 +220,32 @@ class KeymapBeautifier:
         return self.layer_keys[self.layer_keys_pointer-n_keys:self.layer_keys_pointer]
 
     key_coordinates_counter = 0
-    def get_padded_line(self, keys, key_from, key_to):
-        (from_row, from_column) = self.KEY_COORDINATES[self.output_layout][self.key_coordinates_counter]
+    def get_padded_line(self, source_keys, key_from, key_to, just="left"):
+        if just == "right":
+            keys = [k.strip().rjust(len(k)) for k in source_keys[key_from:key_to]]
+        else:
+            keys = [k for k in source_keys[key_from:key_to]]
+
+        from_row, from_column = self.KEY_COORDINATES[self.output_layout][self.key_coordinates_counter]
         row_group = self.get_row_group(from_row)
         self.key_coordinates_counter += key_to - key_from
-        columns_of_keys = [cor[1] for cor in self.KEY_COORDINATES[self.output_layout] if cor[0] == from_row and cor[1] < from_column]
+        columns_before_key_from = sorted([col for row, col in self.KEY_COORDINATES[self.output_layout] if row == from_row and col < from_column])
+        # figure out which columns in this row needs padding; only pad empty columns to the right of an existing column
+        columns_to_pad = { c: True for c in range(from_column) }
+        if columns_before_key_from:
+            for c in range(max(columns_before_key_from)+1):
+                columns_to_pad[c] = False
+
         # for rows with fewer columns that don't start with column 0, we need to insert leading spaces
         spaces = 0
-        for c in range(from_column):
-            if c in columns_of_keys:
+        for c, v in columns_to_pad.items():
+            if not v:
                 continue
             if (row_group,c) in self.column_max_widths:
                 spaces += self.column_max_widths[(row_group,c)] + len(", ")
             else:
                 spaces += 0
-        leading_spaces = " " * spaces
-
-        #print("|".join(keys[key_from:key_to]))
-        return leading_spaces + ", ".join(keys[key_from:key_to]) + ","
+        return " " * spaces + ", ".join(keys) + ","
 
     def pretty_output_layer(self, layer, keys):
         self.key_coordinates_counter = 0
@@ -273,47 +280,47 @@ class KeymapBeautifier:
 {}
 """.format(
             # left hand
-            self.get_padded_line(keys,  0,  7),
-            self.get_padded_line(keys,  7, 14),
-            self.get_padded_line(keys, 14, 20),
-            self.get_padded_line(keys, 20, 27),
-            self.get_padded_line(keys, 27, 32),
+            self.get_padded_line(keys,  0,  7, just="left"),
+            self.get_padded_line(keys,  7, 14, just="left"),
+            self.get_padded_line(keys, 14, 20, just="left"),
+            self.get_padded_line(keys, 20, 27, just="left"),
+            self.get_padded_line(keys, 27, 32, just="left"),
             # left thumb
-            self.get_padded_line(keys, 32, 34),
-            self.get_padded_line(keys, 34, 35),
-            self.get_padded_line(keys, 35, 38),
+            self.get_padded_line(keys, 32, 34, just="left"),
+            self.get_padded_line(keys, 34, 35, just="left"),
+            self.get_padded_line(keys, 35, 38, just="left"),
             # right hand
-            self.get_padded_line(keys, 38, 45),
-            self.get_padded_line(keys, 45, 52),
-            self.get_padded_line(keys, 52, 58),
-            self.get_padded_line(keys, 58, 65),
-            self.get_padded_line(keys, 65, 70),
+            self.get_padded_line(keys, 38, 45, just="left"),
+            self.get_padded_line(keys, 45, 52, just="left"),
+            self.get_padded_line(keys, 52, 58, just="left"),
+            self.get_padded_line(keys, 58, 65, just="left"),
+            self.get_padded_line(keys, 65, 70, just="left"),
             # right thumb
-            self.get_padded_line(keys, 70, 72),
-            self.get_padded_line(keys, 72, 73),
-            self.get_padded_line(keys, 73, 76),
+            self.get_padded_line(keys, 70, 72, just="left"),
+            self.get_padded_line(keys, 72, 73, just="left"),
+            self.get_padded_line(keys, 73, 76, just="left"),
             )
         elif self.output_layout == "LAYOUT_ergodox_pretty":
             formatted_key_symbols = """
-{}   {}
-{}   {}
-{}   {}
-{}   {}
-{}   {}
+{}      {}
+{}      {}
+{}      {}
+{}      {}
+{}      {}
 
-{}   {}
-{}   {}
-{}   {}
+{}      {}
+{}      {}
+{}      {}
 """.format(
-            self.get_padded_line(keys,  0,  7), self.get_padded_line(keys, 38, 45),
-            self.get_padded_line(keys,  7, 14), self.get_padded_line(keys, 45, 52),
-            self.get_padded_line(keys, 14, 20), self.get_padded_line(keys, 52, 58),
-            self.get_padded_line(keys, 20, 27), self.get_padded_line(keys, 58, 65),
-            self.get_padded_line(keys, 27, 32), self.get_padded_line(keys, 65, 70),
+            self.get_padded_line(keys,  0,  7, just="left"), self.get_padded_line(keys, 38, 45, just="left"),
+            self.get_padded_line(keys,  7, 14, just="left"), self.get_padded_line(keys, 45, 52, just="left"),
+            self.get_padded_line(keys, 14, 20, just="left"), self.get_padded_line(keys, 52, 58, just="left"),
+            self.get_padded_line(keys, 20, 27, just="left"), self.get_padded_line(keys, 58, 65, just="left"),
+            self.get_padded_line(keys, 27, 32, just="left"), self.get_padded_line(keys, 65, 70, just="left"),
 
-            self.get_padded_line(keys, 32, 34), self.get_padded_line(keys, 70, 72),
-            self.get_padded_line(keys, 34, 35), self.get_padded_line(keys, 72, 73),
-            self.get_padded_line(keys, 35, 38), self.get_padded_line(keys, 73, 76),
+            self.get_padded_line(keys, 32, 34, just="left"), self.get_padded_line(keys, 70, 72, just="left"),
+            self.get_padded_line(keys, 34, 35, just="left"), self.get_padded_line(keys, 72, 73, just="left"),
+            self.get_padded_line(keys, 35, 38, just="left"), self.get_padded_line(keys, 73, 76, just="left"),
 
             )
         else:
@@ -364,4 +371,25 @@ class KeymapBeautifier:
     def layer_expr(self, layer):
         transformed = [self.key_expr(k) for k in layer.expr.args.exprs]
         return transformed
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Beautify keymap.c downloaded from ErgoDox-Ez Configurator for easier customization.")
+    parser.add_argument("input_filename", help="input file: c source code file that has the layer keymaps")
+    parser.add_argument("-o", "--output-filename", help="output file: beautified c filename. If not given, output to STDOUT.")
+    parser.add_argument("-p", "--pretty-output-layout", action="store_true", help="use LAYOUT_ergodox_pretty for output instead of LAYOUT_ergodox")
+    args = parser.parse_args()
+    if args.pretty_output_layout:
+        output_layout="LAYOUT_ergodox_pretty"
+    else:
+        output_layout="LAYOUT_ergodox"
+    with open(args.input_filename) as f:
+        source_code = f.read()
+    result = KeymapBeautifier(source_code, output_layout=output_layout).output
+    if args.output_filename:
+        with open(args.output_filename, "w") as f:
+            f.write(result)
+    else:
+        print(result)
 
