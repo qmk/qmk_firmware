@@ -9,7 +9,7 @@ by Silvio Gulizia
 - [x] modify layer ADJUST to simplify remembering commands
 - [x] add custom keycodes ESCFN and TABFN on QUERTY to add the ability to use arrows with hjkl by activating layer FN when held with the definition LT(_FN,KC_ESC) and LT(_FN, KC_TAB)
 - [x] added "#define USB_MAX_POWER_CONSUMPTION 100" in config.h to use the keyboard with the iPad
-- [x] add "#define TAPPING_TOGGLE 2" in config.h to enable tapping toggle with 2 taps on LOWER and RAISE keys
+- [x] add "#define TAPPING_TOGGLE 3" in config.h to enable tapping toggle with 3 taps on LOWER and RAISE keys
 - [x] add tapping toggle to LOWER and RAISE keys
 - [x] add "KEY_LOCK_ENABLE = yes" in rules.mk to enable caps lock
 - [x] add caps lock (KC_CAPS) to RAISE layer on the shift key

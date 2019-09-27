@@ -38,5 +38,5 @@
 #define ENCODER_RESOLUTION 4
 
 // My custom configurations
-#define TAPPING_TOGGLE 2
+#define TAPPING_TOGGLE 3
 #define USB_MAX_POWER_CONSUMPTION 100
