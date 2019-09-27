@@ -10,7 +10,7 @@
 
 #include QMK_KEYBOARD_H
 #include "muse.h"
-#include <keymap_italian.h>
+#include <keymap_italian_osx.h>
 
 extern keymap_config_t keymap_config;
 
