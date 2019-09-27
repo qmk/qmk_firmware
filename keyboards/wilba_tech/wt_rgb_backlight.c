@@ -1551,7 +1551,7 @@ void backlight_effect_indicators(void)
     }
 
 #if defined(RGB_BACKLIGHT_NK65)
-    if ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) {
+    if ( IS_LED_ON(g_indicator_state, USB_LED_CAPS_LOCK) ) {
         IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
     } else {
         IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
