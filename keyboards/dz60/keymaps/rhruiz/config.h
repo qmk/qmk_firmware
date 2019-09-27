@@ -21,7 +21,3 @@
 #define MANUFACTURER rhruiz
 #define PRODUCT rhruiz one
 #define DESCRIPTION rhruiz one keyboard
-
-// disble stuff to reduce size
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
