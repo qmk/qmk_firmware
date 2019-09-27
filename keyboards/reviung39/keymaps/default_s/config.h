@@ -20,7 +20,7 @@
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-  #define RGBLED_NUM 11
+  #define RGBLED_NUM 6
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16
   #define RGBLIGHT_VAL_STEP 16
