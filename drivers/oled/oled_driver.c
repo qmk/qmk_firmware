@@ -432,14 +432,11 @@ void oled_write_ln(const char *data, bool invert) {
 }
 
 void oled_write_raw(const char *data, uint16_t size) {
-    uint16_t remaining = OLED_MATRIX_SIZE - (oled_cursor - &oled_buffer[0]);
-    size = size > remaining ? remaining : size;
+    if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
     for (uint16_t i = 0; i < size; i++) {
-        if (*oled_cursor == *data) continue;
-        *oled_cursor = *data;
-        oled_dirty |= (1 << ((oled_cursor - &oled_buffer[0]) / OLED_BLOCK_SIZE));
-        oled_cursor++;
-        data++;
+        if (oled_buffer[i] == data[i]) continue;
+        oled_buffer[i] = data[i];
+        oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
     }
 }
 
@@ -458,15 +455,12 @@ void oled_write_ln_P(const char *data, bool invert) {
 }
 
 void oled_write_raw_P(const char *data, uint16_t size) {
-    uint16_t remaining = OLED_MATRIX_SIZE - (oled_cursor - &oled_buffer[0]);
-    size = size > remaining ? remaining : size;
+    if (size > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE;
     for (uint16_t i = 0; i < size; i++) {
-        uint8_t  c = pgm_read_byte(data);
-        if (*oled_cursor == c) continue;
-        *oled_cursor = c;
-        oled_dirty |= (1 << ((oled_cursor - &oled_buffer[0]) / OLED_BLOCK_SIZE));
-        oled_cursor++;
-        data++;
+        uint8_t c = pgm_read_byte(++data);
+        if (oled_buffer[i] == c) continue;
+        oled_buffer[i] = c;
+        oled_dirty |= (1 << (i / OLED_BLOCK_SIZE));
     }
 }
 #endif  // defined(__AVR__)
