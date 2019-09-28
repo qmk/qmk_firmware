@@ -37,10 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Fast typing */
 #define IGNORE_MOD_TAP_INTERRUPT
-//#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 //#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 300
+//#define TAPPING_TERM 300
 //#define RETRO_TAPPING
 
 #define QMK_ESC_OUTPUT F4 // usually COL

@@ -78,13 +78,15 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _ADJUST 3
 #define _ARROW 4
+#define _FKEY 5
 
 enum custom_keycodes {
   BASE = SAFE_RANGE,
   LOWER,
   RAISE,
   ADJUST,
-  ARROW
+  ARROW,
+  FKEY
 };
 
 enum macro_keycodes {
@@ -104,10 +106,11 @@ enum macro_keycodes {
 #define KC_LVAD  RGB_VAD
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB) // Tab on tap, ctrl on hold
-#define KC_SFT_CPS TD(TD_SFT_CPS) // Hold for shift, double tap for caps
+#define KC_SFT_CPS MT(MOD_LSFT, KC_CAPS) // Hold for shift, double tap for caps
 #define KC_ENT_LOW LT(_LOWER, KC_ENT) // Return on tap, Lower on hold
 #define KC_SPC_RSE LT(_RAISE, KC_SPC) // Space on tap, raise on hold
 #define KC_EML TD(KC_EMAIL) // Double tap @ for email macro
+#define KC_FKEY LT(_FKEY, KC_ENT) // Return on tap, Fkey on hold
 
 enum {
     KC_EMAIL = 0,
@@ -136,14 +139,16 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
 // Tap Dance functions:
 qk_tap_dance_action_t tap_dance_actions[] = {
     [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-    [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+    // [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
+
+#define TAPPING_TERM 200
 
 // Set per-key tapping term
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case KC_SFT_CPS: // Shift/Caps
-            return 100;
+            return 150;
         case KC_ENT_LOW: // Return/Lower
             return 150;
         default:
@@ -160,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     SFT_CPS,     Z,     X,     C,     V,     B,                      K,     M,  COMM,   DOT,  SLSH,   BBB,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, ENT\
+                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
   ),
 
@@ -168,38 +173,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    MINS,    EQL,    LBRC,   RBRC, BSLS,\
+      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  MINS,   EQL,  LBRC,  RBRC,  BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS,   F7,   F8,   F9,   F10,   F11,                    F12,   NO,   NO,   DOT,   NO, BEPIS,\
-  //|------+--- ---+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, ENT\
+    SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX,    DOT,    NO,BEPIS,\
+  //|------+--- ---+------+------+------+------+------| |------+------+------+------+------+------+------|
+                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
   ),
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  EXLM,    EML,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+        ESC,  EXLM,   EML,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,   UNDS,  PLUS,  LCBR,  RCBR,   PIPE,\
+      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  UNDS,  PLUS,  LCBR,  RCBR,   PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   XXXXX,  PLUS,  NO,  DOT,  NO, SLSH,\
+    SFT_CPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  PLUS, XXXXX,   DOT,    NO,  SLSH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, ENT\
+                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
   ),
 
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+        RST, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                 XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, ENT\
+                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
   ),
-    
+
   [_ARROW] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
       XXXXX, XXXXX,    UP, XXXXX, XXXXX, XXXXX,                  XXXXX,  PGDN,    UP,  PGUP, XXXXX, XXXXX,\
@@ -208,10 +213,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, ENT\
+                                   LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
+   ),
+   [_FKEY] = LAYOUT_kc( \
+   //,-----------------------------------------.                ,-----------------------------------------.
+       XXXXX,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
+   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX,   F11,   F12, XXXXX,\
+   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                    LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
+                               //`--------------------'  `--------------------'
    )
+
 };
+extern bool oled_initialized;
+
+void matrix_scan_user(void) {
+#ifdef OLED_DRIVER_ENABLE
+    if (!oled_initialized) {
+        oled_init(OLED_ROTATION_0);
+    }
+#endif
+}
 
 int RGB_current_mode;
 
@@ -267,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
     return true;
-    
+
 }
 void render_logo(void) {
     static const char PROGMEM logo[] = {
@@ -303,7 +329,7 @@ void render_status_main(void) {
         default:
              oled_write_P(PSTR("Invalid\n"), false);
         }
-    
+
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (biton32(layer_state)) {
@@ -320,18 +346,21 @@ void render_status_main(void) {
             oled_write_P(PSTR("Adjust\n"), false);
             break;
         case _ARROW:
-            oled_write_P(PSTR("Nav\n"), false);
+            oled_write_P(PSTR("Navigation\n"), false);
+            break;
+        case _FKEY:
+            oled_write_P(PSTR("Function\n"), false);
             break;
         default:
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }
-    
+
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
-    
+
 void oled_task_user(void) {
     if (timer_elapsed(oled_timer) > 20000) {
         oled_off();
@@ -345,5 +374,3 @@ void oled_task_user(void) {
     }
 
 #endif // OLED_Driver
-
-

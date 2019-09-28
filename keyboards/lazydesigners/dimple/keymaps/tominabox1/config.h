@@ -51,10 +51,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Fast typing permissive hold */
 #define IGNORE_MOD_TAP_INTERRUPT
-//#define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 //#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 250
+#define TAPPING_TERM 200
 //#define RETRO_TAPPING
 
 /* RBG underglow */
