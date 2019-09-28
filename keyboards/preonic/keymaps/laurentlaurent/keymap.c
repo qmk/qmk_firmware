@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift| WN|Z |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Bksp |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | LY|` | Esc  | Del  |Lower |LY|Bkp|    Space    |LY|ENT|Raise |   [  |   ]  |LY_SW |
+     * | LY|` | Esc  | Del  |LW|Bkp|LY|Bkp|    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      * LY|` 	-> To _NUM
      * LY|; 	-> To _NAV
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift| CT|Z |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Bksp |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | LY|` | Esc  | Del  |Lower |LY|Bk |    Space    |LY|ENT|Raise |   [  |   ]  |LY_SW |
+     * | LY|` | Esc  | Del  |LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_QWERTY_WIN] = LAYOUT_preonic_grid( \
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  =   |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | Ctrl | ESC  |  Alt | Lower| Bksp |    Space    | Enter| Raise|   [  |   ]  |LY_SW |
+     * | Ctrl | ESC  |  Alt |LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_GAMING] = LAYOUT_preonic_grid( \
@@ -199,9 +199,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
+     * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | MRC1 | MRC2 | MRSP |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | CTRL |  Alt |  CMD |      |      |             |      | !!!! |      |      |LY_SW |
+     * | CTRL |  Alt |  CMD |      |      |             |      | !!!! | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_RAISE] = LAYOUT_preonic_grid( \
@@ -238,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | !!!! |  |   |  &   |  {   |   }  |  -   |  -   |  {   |   }  |  {   |   }  | !!!! |
+     * | !!!! |  &   |  |   |  {   |   }  |  -   |  -   |  {   |   }  |  {   |   }  | !!!! |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |  "   |  /   |  *   |  (   |   )  |  +   |  +   |  (   |   )  |  (   |   )  | F12  |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_PUNC] = LAYOUT_preonic_grid( \
         KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11, \
-        _______,  KC_PIPE,  KC_AMPR,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  KC_LCBR,  KC_RCBR,  KC_LCBR,  KC_RCBR,  _______, \
+        _______,  KC_AMPR,  KC_PIPE,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  KC_LCBR,  KC_RCBR,  KC_LCBR,  KC_RCBR,  _______, \
         KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  KC_LPRN,  KC_RPRN,  KC_LPRN,  KC_RPRN,  KC_F12, \
         _______,  KC_BSLS,  KC_PERC,  KC_LBRC,  KC_RBRC,  KC_EQL,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_LBRC,  KC_RBRC,  KC_INS, \
         XXXXXXX,  KC_UNDS,  KC_CIRC,  XXXXXXX,  _______,  _______,  _______,  KC_ENT,   XXXXXXX,  KC_LABK,  KC_RABK,  LLSWIT  \
@@ -263,9 +263,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |      |      |      |      |      |      |      |      |      |      |      |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      |      |      |      |
+     * |      |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | CTRL |  ALT |  CMD |      |      |             |      |      |      |      |LY_SW |
+     * | CTRL |  ALT |  CMD |      |      |             |      |      | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_EXTRA] = LAYOUT_preonic_grid( \
@@ -305,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |      | !!!! | MOLF | MODN | MORT | MOSD | PGDN | Left | Down | Right| !!!! |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |      | MOSL | MOSR | MOB5 | MOB4 |      | MOA2 | MOA0 |      |      |      |
+     * |      |      | MOSL | MOSR | MOB5 | MOB4 |      |      | MOA2 | MOA0 |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | CTRL | ALT  | CMD  |      |      |             |      |      |      |      | QMAC |
      * `-----------------------------------------------------------------------------------'
@@ -388,7 +388,7 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
           */
         case LOWER:
             if (record->event.pressed) {
-                key_timer = timer_read();
+                key_timer = timer_read(); // For Backspace on tap
                 layer_on(_LOWER);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             } else {
@@ -403,9 +403,14 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RAISE:
             if (record->event.pressed) {
+                key_timer = timer_read(); // For Backspace on tap
                 layer_on(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             } else {
+                // Backspace on tap
+                if (timer_elapsed(key_timer) < timer_thresh) {
+                    tap_code(KC_BSPC);
+                }
                 layer_off(_RAISE);
                 update_tri_layer(_LOWER, _RAISE, _ADJUST);
             }
