@@ -5,7 +5,7 @@
 #include "muse.h"
 
 // ==== These keys allows usage of the home row as modifiers (when held) ====
-// Very bad for gaming
+// Very bad for gaming, switch to gaming layout
 
 // For _QWERTY_MAC
 #define LCT_S LCTL_T(KC_S)
@@ -57,7 +57,7 @@ enum preonic_layers {
   _RAISE,
   _ADJUST,
   _PUNC,
-  _EXTRA, 
+  _EXTRA,
   _NUM,
   _NAV,
   _LYSWT
@@ -162,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MUSIC] = LAYOUT_preonic_grid( \
-    KC_ESC ,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-    KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  XXXXXXX,  _______,  _______,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  LLSWIT  \
+  KC_ESC ,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
+  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
+  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
+  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  XXXXXXX,  _______,  _______,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  LLSWIT  \
 ),
 
 /* Lower
@@ -247,11 +247,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = LAYOUT_preonic_grid( \
-    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11, \
-    _______,  KC_PIPE,  KC_AMPR,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  KC_LCBR,  KC_RCBR,  KC_AMPR,  KC_PIPE,  _______, \
-    KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  KC_LPRN,  KC_RPRN,  KC_ASTR,  KC_SLSH,  KC_F12, \
-    _______,  KC_BSLS,  KC_PERC,  KC_LBRC,  KC_RBRC,  KC_EQL,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_PERC,  KC_BSLS,  KC_INS, \
-    XXXXXXX,  KC_UNDS,  KC_CIRC,  XXXXXXX,  _______,  _______,  _______,  KC_ENT,   XXXXXXX,  KC_CIRC,  KC_UNDS,  LLSWIT  \
+  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11, \
+  _______,  KC_PIPE,  KC_AMPR,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  KC_LCBR,  KC_RCBR,  KC_AMPR,  KC_PIPE,  _______, \
+  KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  KC_LPRN,  KC_RPRN,  KC_ASTR,  KC_SLSH,  KC_F12, \
+  _______,  KC_BSLS,  KC_PERC,  KC_LBRC,  KC_RBRC,  KC_EQL,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_PERC,  KC_BSLS,  KC_INS, \
+  XXXXXXX,  KC_UNDS,  KC_CIRC,  XXXXXXX,  _______,  _______,  _______,  KC_ENT,   XXXXXXX,  KC_CIRC,  KC_UNDS,  LLSWIT  \
 ),
 
 /* Extra Layer
@@ -268,11 +268,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_EXTRA] = LAYOUT_preonic_grid( \
-    KC_ESC ,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, \
-    KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT \
+  KC_ESC ,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, \
+  KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT \
 ),
 
 /* Numeric Pad
@@ -356,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		#endif
         return false;
     }
-	
+
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
@@ -430,7 +430,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		// Play sound on Macro record start
 			case DYN_REC_START1:
 			  if (record->event.pressed) {
-				  
+
 					PLAY_SONG(tone_macro1_record);
 			  }
 			  return false;
@@ -438,7 +438,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			case DYN_REC_START2:
 			  if (record->event.pressed) {
 					PLAY_SONG(tone_macro2_record);
-				  
+
 			  }
 			  return false;
 			  break;
