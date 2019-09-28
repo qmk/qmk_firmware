@@ -16,9 +16,9 @@
 // git push origin dev:dev
 
 // debounce settings
-// remove these after getting an new keyboard
-#define DEBOUNCE 3
-#define QMK_KEYS_PER_SCAN 4
+// remove these after getting a new keyboard
+// #define DEBOUNCE 50
+// #define QMK_KEYS_PER_SCAN 4
 
 
 enum custom_keycodes {
