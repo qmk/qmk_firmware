@@ -24,8 +24,18 @@
 #ifdef KEYBOARD_planck_light
     #define LGT_TOG RGB_TOG
     #define LGT_MOD RGB_MOD
-#else
+    #define LGT_BRT _______
+#endif
+#ifdef KEYBOARD_planck_rev3
     #define LGT_TOG BL_TOGG
     #define LGT_MOD BL_STEP
+    #define LGT_BRT BL_BRTG
+#endif
+#ifdef KEYBOARD_planck_rev6
+    #define LGT_TOG _______
+    #define LGT_MOD _______
+    #define LGT_BRT _______
 #endif
 
+enum layers   { DEF, LWR, RSE, FUN };
+enum keycodes { DYNAMIC_MACRO_RANGE = SAFE_RANGE };

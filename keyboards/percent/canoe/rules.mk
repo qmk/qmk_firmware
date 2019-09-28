@@ -41,3 +41,5 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c
+
+LAYOUTS = 65_ansi_blocker
