@@ -223,7 +223,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_J|B_S           , .kana = "gi"},
   {.key = B_J|B_D           , .kana = "do"},
   {.key = B_J|B_F           , .kana = "ga"},
-  {.key = B_J|B_G           , .kana = "du"},
+  {.key = B_J|B_G           , .kana = "di"},
   {.key = B_F|B_H           , .kana = "gu"},
   {.key = B_F|B_L           , .kana = "du"},
   {.key = B_J|B_Z           , .kana = "bo"},
