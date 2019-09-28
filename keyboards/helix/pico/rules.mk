@@ -3,7 +3,7 @@ KEYBOARD_LOCAL_FEATURES_MK := $(dir $(lastword $(MAKEFILE_LIST)))local_features.
 SRC += local_drivers/i2c.c
 SRC += local_drivers/serial.c
 SRC += local_drivers/ssd1306.c
-KEYBOARD_PATHS += $(KEYBOARD_TOP_DIR)/local_drivers
+KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
 
 CUSTOM_MATRIX = yes
 
