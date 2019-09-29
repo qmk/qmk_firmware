@@ -64,7 +64,7 @@
 #define IT_DOT KC_DOT    // . and  :
 #define IT_COMM KC_COMM  // , and  ;
 #define IT_APOS KC_MINS  // ' and  ?
-// #define IT_BKSL KC_NUBS  // \ and  |
+#define IT_BKSL KC_BKSL  // \ and  |
 #define IT_LESS KC_GRAVE // < and  >
 #define IT_MINS KC_SLSH  // - and  _
 
@@ -97,7 +97,7 @@
 #define IT_UNDS LSFT(IT_MINS) // _
 #define IT_LCBR LSFT(IT_LBRC) // {
 #define IT_RCBR LSFT(IT_RBRC) // }
-#define IT_PIPE LSFT(IT_BKSL) // |
+#define IT_PIPE LSFT(KC_BKSL) // |
 
 // Alt -ed characters
 #define IT_LBRC LALT(IT_EACC)  // [
