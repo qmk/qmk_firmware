@@ -11,10 +11,12 @@
    2. Under "Layer definitions" section, define keymaps
    ========================================================================== */
 
-#define L_QWERTY  0 
-#define L_LOWER   1 
-#define L_RAISE   2
-#define L_ADJUST  3  
+enum layer_names {
+    L_QWERTY,
+    L_LOWER,
+    L_RAISE,
+    L_ADJUST,
+};
 
 
 
@@ -45,11 +47,13 @@ enum {
 
 // Layers
 #define LT2_TAB LT(L_RAISE, KC_TAB)     // Tap for tab, hold for RAISE
-#define LT2_ENT LT(L_RAISE, KC_ENT)     // Tap for tab, hold for RAISE
+#define LT2_ENT LT(L_RAISE, KC_ENT)     // Tap for enter, hold for RAISE
 #define LT1_BSP LT(L_LOWER, KC_BSPACE)  // Tap for backspace, hold for LOWER
 #define LT1_SPC LT(L_LOWER, KC_SPC)     // Tap for space, hold for LOWER
 
 // Modifiers
+#define LG_ZMIN LGUI(KC_EQUAL)          // Command + plus (zoom in)
+#define LG_ZMOT LGUI(KC_MINUS)          // Command + minus (zoom out)
 #define MT_SHFT MT(MOD_RSFT, KC_ENT)    // Tap for enter, hold for shift
 #define MT_HILF S(A(KC_LEFT))           // Press for shift + alt + left
 #define MT_HIRT S(A(KC_RGHT))           // Press for shift + alt + right
@@ -79,13 +83,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------
  */
 
-[L_QWERTY] = LAYOUT_preonic_grid( \
+[L_QWERTY] = LAYOUT_preonic_grid(
 /*01          02          03          04          05          06          07          08          09          10          11          12         */
   TD_ESCP,    KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       TD_MINS,    \
   LT2_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       TD_BRAC,    \
   LT1_BSP,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,    \
   KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    MT_SHFT,    \
-  KC_LEAD,    _______,    KC_LCTL,    KC_LALT,    KC_LGUI,    KC_BSPACE,  LT1_SPC,    LT2_ENT,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RGHT     \
+  LG_ZMOT,    LG_ZMIN,    KC_LCTL,    KC_LALT,    KC_LGUI,    KC_BSPACE,  LT1_SPC,    LT2_ENT,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RGHT     \
 ),
 
 
@@ -107,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------'
  */
 
-[L_LOWER] = LAYOUT_preonic_grid( \
+[L_LOWER] = LAYOUT_preonic_grid(
 /*01          02          03          04          05          06          07          08          09          10          11          12         */
   KC_ASTG,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_BSPACE,  \
   MT_UNTB,    _______,    _______,    _______,    _______,    _______,    _______,    KC_MINUS,   KC_PLUS,    KC_PAST,    KC_PSLS,    _______,    \
@@ -134,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |       |       |       |       |       |       |       |       |   0   |   .   |   ,   |       |
  * `-----------------------------------------------------------------------------------------------'
  */
-[L_RAISE] = LAYOUT_preonic_grid( \
+[L_RAISE] = LAYOUT_preonic_grid(
 /*01          02          03          04          05          06          07          08          09          10          11          12         */
   KC_ASTG,    KC_F1,      KC_F2,      KC_VOLU,    KC_VOLD,    _______,    _______,    KC_PSLS,    KC_PAST,    KC_LPRN,    KC_RPRN,    _______,    \
   _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_P7,      KC_P8,      KC_P9,      KC_PLUS,    _______,    \
@@ -163,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------'
  */
 
-[L_ADJUST] = LAYOUT_preonic_grid( \
+[L_ADJUST] = LAYOUT_preonic_grid(
 /*01          02          03          04          05          06          07          08          09          10          11          12         */
   KC_F12,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     \
   _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
@@ -198,7 +202,7 @@ uint32_t layer_state_set_user(uint32_t state) {
  * `-----------------------------------------------------------------------------------------------'
  */
 /* 
-[L_BLANK] = LAYOUT_preonic_grid( \ 
+[L_BLANK] = LAYOUT_preonic_grid( 
   _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
   _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
   _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
@@ -223,94 +227,3 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap once for Grave, tap twice for Escape
   [TD_GV_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_GRAVE, KC_ESCAPE)
 };
-
-
-
-
-
-
-/* ==========================================================================
-   Leader Key
-   ========================================================================== */
-
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-
-    // Zoom Out
-    SEQ_ONE_KEY(TD(TD_MIN)) {
-      register_code(KC_LGUI);
-      register_code(KC_KP_MINUS);
-      unregister_code(KC_KP_MINUS);
-      unregister_code(KC_LGUI);
-    }
-
-    // Zoom In
-    SEQ_TWO_KEYS(TD(TD_MIN), TD(TD_MIN)) {
-      register_code(KC_LGUI);
-      register_code(KC_KP_PLUS);
-      unregister_code(KC_KP_PLUS);      
-      unregister_code(KC_LGUI);
-    }  
-
-    // Go to beginning of line
-    SEQ_ONE_KEY(KC_J) {
-      register_code(KC_LGUI);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LGUI);
-    }
-    // Go to end of line
-    SEQ_ONE_KEY(KC_SCLN) {
-      register_code(KC_LGUI);
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
-      unregister_code(KC_LGUI);
-    }
-    // Select text from cursor, back
-    SEQ_TWO_KEYS(KC_J, KC_J) {
-      register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
-      register_code(KC_LEFT);
-      unregister_code(KC_LEFT);
-      unregister_code(KC_LSHIFT);
-      unregister_code(KC_LGUI);
-    }
-    // Select text from cursor, up
-    SEQ_TWO_KEYS(KC_K, KC_K) {
-      register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
-      register_code(KC_UP);
-      unregister_code(KC_UP);
-      unregister_code(KC_LSHIFT);
-      unregister_code(KC_LGUI);
-    }
-    // Select text from cursor, down
-    SEQ_TWO_KEYS(KC_L, KC_L) {
-      register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
-      register_code(KC_DOWN);
-      unregister_code(KC_DOWN);
-      unregister_code(KC_LSHIFT);
-      unregister_code(KC_LGUI);
-    }
-    // Select text from cursor, down
-    SEQ_TWO_KEYS(KC_SCLN, KC_SCLN) {
-      register_code(KC_LGUI);
-      register_code(KC_LSHIFT);
-      register_code(KC_RIGHT);
-      unregister_code(KC_RIGHT);
-      unregister_code(KC_LSHIFT);
-      unregister_code(KC_LGUI);
-    }
-
-
-    leader_end();
-  }
-}
-
-
-
-

@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -11,9 +10,9 @@
    ========================================================================== */
 
 // Activates the leader key
-#define LEADER_PER_KEY_TIMING
+// #define LEADER_PER_KEY_TIMING
 // resets the timeout after each key is tapped
-#define LEADER_TIMEOUT 240
+// #define LEADER_TIMEOUT 240
 
 
 
@@ -30,7 +29,7 @@
 // #define NO_AUTO_SHIFT_SPECIAL
 
 // Do not Auto Shift numeric keys, zero through nine.
-// #define NO_AUTO_SHIFT_NUMERIC
+#define NO_AUTO_SHIFT_NUMERIC
 
 // Do not Auto Shift alpha characters, which include A through Z.
 // #define NO_AUTO_SHIFT_ALPHA
@@ -53,12 +52,6 @@
 // Toggles the state of the Auto Shift feature
 // KC_ASTG	  
 
-
-
-
-
-
-#include "config_common.h"
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(COIN_SOUND)
@@ -96,4 +89,3 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-#endif
