@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define LAYOUT( \
+#define LAYOUT_all( \
   KG6,      KH4, KI4, KI2, KI6, KP5, KL6, KM2, KM4, KO4, KO5, KO6, KO0,   KN5, KN7, KP7, \
   KG4, KG5, KH5, KI5, KJ5, KJ4, KK4, KK5, KL5, KM5, KF5, KF4, KL4, KO2,   KR4, KC4, KE4, \
   KG2, KG7, KH7, KI7, KJ7, KJ2, KK2, KK7, KL7, KM7, KF7, KF2, KL2, KO3,   KQ4, KC5, KE5, \
@@ -73,6 +73,6 @@ LAYOUT_all( \
   KP4, KN2, KN6,                KQ6,                KN0, KN3, KM0, KP1,   KC0, KQ0, KR0  \
 )
 
-#define LAYOUT_all LAYOUT
+#define LAYOUT LAYOUT_all
 
 #endif
