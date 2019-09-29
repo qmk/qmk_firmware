@@ -64,8 +64,8 @@
 #define IT_DOT KC_DOT    // . and  :
 #define IT_COMM KC_COMM  // , and  ;
 #define IT_APOS KC_MINS  // ' and  ?
-#define IT_BSLS KC_NUBS  // \ and  |
-#define IT_LESS KC_GRV // < and  >
+#define IT_BSLS KC_GRV   // \ and  |
+#define IT_LESS KC_NUBS// < and  >
 #define IT_MINS KC_SLSH  // - and  _
 
 // accented vowels (regular, with shift, with option, with option and shift)
