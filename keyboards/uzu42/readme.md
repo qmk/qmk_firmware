@@ -1,10 +1,10 @@
-Uzu42
+uzu42
 ===
 
 A split keyboard with 4x5 vertically staggered keys and 1 thumb keys.
 
 Keyboard Maintainer: [nrtkbb](https://github.com/nrtkbb/) [@nrtkbb](https://twitter.com/nrtkbb)  
-Hardware Supported: Uzu42 PCB, Pro Micro  
+Hardware Supported: uzu42 PCB, Pro Micro  
 
 Make example for this keyboard (after setting up your build environment):
 

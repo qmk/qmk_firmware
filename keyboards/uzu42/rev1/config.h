@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    nrtkbb
-#define PRODUCT         Uzu42
+#define PRODUCT         uzu42
 #define DESCRIPTION     A split keyboard with 4x5 vertically staggered keys and 1 thumb keys
 
 /* key matrix size */
