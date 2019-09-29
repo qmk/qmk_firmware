@@ -64,7 +64,7 @@
 #define IT_DOT KC_DOT    // . and  :
 #define IT_COMM KC_COMM  // , and  ;
 #define IT_APOS KC_MINS  // ' and  ?
-#define IT_BKSL KC_NUBS  // \ and  |
+// #define IT_BKSL KC_NUBS  // \ and  |
 #define IT_LESS KC_GRAVE // < and  >
 #define IT_MINS KC_SLSH  // - and  _
 
