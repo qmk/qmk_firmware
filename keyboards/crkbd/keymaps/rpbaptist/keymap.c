@@ -72,13 +72,15 @@ enum custom_keycodes {
 #define KC_LVAD  RGB_VAD
 #define KC_LRST  RGBRST
 
+#define KC_LMOD  RGB_MOD
+
 #define KC_LFMOD  RGB_MODE_FORWARD
 #define KC_LRMOD  RGB_MODE_REVERSE
 
-#define KC_RGBST RGB_MODE_PLAIN
-#define KC_RGBBR RGB_MODE_BREATHE
-#define KC_RGBRB RGB_MODE_RAINBOW
-#define KC_RGBSW RGB_MODE_SWIRL
+// #define KC_RGBST RGB_MODE_PLAIN
+// #define KC_RGBBR RGB_MODE_BREATHE
+// #define KC_RGBRB RGB_MODE_RAINBOW
+// #define KC_RGBSW RGB_MODE_SWIRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
@@ -157,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                   CLMK,  GAME, XXXXX, XXXXX,  LHUD,  LHUI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LRST, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  RGBST, RGBBR, RGBRB, RGBSW,  LSAD,  LSAI,\
+       LRST, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                   LMOD, XXXXX, LRMOD, LFMOD,  LSAD,  LSAI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  SLEP, XXXXX,  MUTE, XXXXX, XXXXX,                   LTOG, XXXXX,  LSPD,  LSPI,  LVAD,  LVAI,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
