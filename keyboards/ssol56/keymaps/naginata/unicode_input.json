@@ -10,7 +10,7 @@
             "key_code": "u",
             "modifiers": {
               "mandatory": [
-                "option", "shift"
+                "control", "shift"
               ]
             }
           },
