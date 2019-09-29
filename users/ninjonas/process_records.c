@@ -12,18 +12,16 @@ bool process_record_oled(uint16_t keycode, keyrecord_t *record) { return true; }
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    #ifdef OLED_DRIVER_ENABLE
-    process_record_oled(keycode, record);
-    #endif
-  }
+  #ifdef OLED_DRIVER_ENABLE
+  process_record_oled(keycode, record);
+  #endif
 
   switch (keycode) {
 
     // Sends pyenv to activate 'jira' environment
     case M_PYNV:
       if (record->event.pressed) {
-        SEND_STRING("pyenv activate jira" SS_TAP(X_ENTER));
+        SEND_STRING("pyenv activate jira\n");
       }
       break;
 
