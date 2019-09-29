@@ -16,5 +16,6 @@
 #include <avr/io.h>
 #include <avr/boot.h>
 
+// clang-format off
 // this is not valid C - it's for computing the size available on the chip
 AVR_SIZE: FLASHEND + 1 - BOOTLOADER_SIZE

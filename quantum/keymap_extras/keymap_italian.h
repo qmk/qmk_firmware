@@ -70,15 +70,12 @@
 
 #define IT_APOS KC_MINS  // ', ?,  ,
 
-
-
-#define IT_BKSL KC_GRAVE // backslash \, |
-
+#define IT_BKSL KC_GRAVE  // backslash \, |
 
 #define IT_ACUT  // accent acute ´ and grave `
 
-#define IT_LESS KC_NUBS // < and > and |
-#define IT_MINS KC_SLSH // - and _
+#define IT_LESS KC_NUBS  // < and > and |
+#define IT_MINS KC_SLSH  // - and _
 
 // shifted characters
 #define IT_DEGR LSFT(IT_AACC) // °
@@ -110,6 +107,7 @@
 #define IT_PIPE LSFT(IT_BSLS) 	// |
 #define	IT_SHRP	ALGR(IT_AACC) 	// #
 
+// Deprecated
 #define	IT_X_PLUS	X_RBRACKET 	// #
 
 #endif
