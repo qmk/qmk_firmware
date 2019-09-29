@@ -1,10 +1,13 @@
 /*
  * 
- *
+ * An Italian ANSI layout
+ * Version 0.3 
  * 
  * Created by Silvio Gulizia on the basis of the default Planck keymap.
  * thanks to SomeBuddyOnReddit, gepeirl, fauxpark, BXO511,  ...
  *
+ * based on the original Planck layout
+ * Italian accented vowels "ò" and "à" have been moved from the QWERTY layer to the LOWER layers, while "è" and "ù" remain respectively on RAISE and LOWER.
  *
  */
 
@@ -31,35 +34,26 @@ enum planck_keycodes {
   VIVERE,
   SVIV,
   SGCOM,
-  // custom keycodes for Italian layout
-  IT_CMLS, // comma and less when combined with shift
-  IT_DTMR, //dot and more when combined with shift
-  IT_SLQS, // slash and question mark when combined with shift
-  IT_APDQ, // apostroph and double quote when combined with shift
-  IT_SCCL //semicolon and colon when combined with shift
+  // custom keycodes for an Italian ANSI layout with accented vowels
+  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
+  IT_DTMR, // IT_DOT and IT_MORE when combined with shift
+  IT_SLQS, // IT_SLSH and IT_QST when combined with shift
+  IT_APDQ, // IT_APO and IT_DQOT when combined with shift
+  IT_SCCL  // IT_SMCL and IT_COLN when combined with shift
 
 };
 
-/* defining layer keys */
+// Defining Layer Keycodes
 #define QWERTY DF(_QWERTY)
-// #define LOWER MO(_LOWER)
+// For LOWER and RAISE I use TT instead of MO to be able to lock those layer tapping three times the key (TAPPING_TOGGLE 3 has been added in config.h)
 #define LOWER TT(_LOWER)
-// #define RAISE MO(_RAISE)
 #define RAISE TT(_RAISE)
 #define NUMPAD TG(_NUMPAD)
 #define FN MO(_FN)
-#define MOUSE TG(_MOUSE)
+#define MOUSE TT(_MOUSE)
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
-
-/* settings for a smooth Mouse */
-/* unfortunately it seems not working */
-#define MOUSEKEY_INTERVAL 10
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 0
-#define MOUSEKEY_MAX_SPEED 3
-#define MOUSEKEY_WHEEL_DELAY 0
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+#define FN_D LT(_FN, IT_D)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |Tab/FN|   Q  |   W  |  E   |  R   |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |Esc/FN|   A  |   S  |  D   |  F   |   G  |   H  |   J  |   K  |   L  |  ;:  |  '"  |
+ * |Esc/FN|   A  |   S  | FN/D |  F   |   G  |   H  |   J  |   K  |   L  |  ;:  |  '"  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |  C   |  V   |   B  |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -76,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
     TABFN,   IT_Q,    IT_W,    IT_E,      IT_R,  IT_T,    IT_Y,    IT_U,  IT_I,    IT_O,    IT_P,    KC_BSPC,
-    ESCFN,   IT_A,    IT_S,    IT_D,      IT_F,  IT_G,    IT_H,    IT_J,  IT_K,    IT_L,    IT_SCCL, IT_APDQ,
+    ESCFN,   IT_A,    IT_S,    FN_D,      IT_F,  IT_G,    IT_H,    IT_J,  IT_K,    IT_L,    IT_SCCL, IT_APDQ,
     KC_LSFT, IT_Z,    IT_X,    IT_C,      IT_V,  IT_B,    IT_N,    IT_M,  IT_CMLS, IT_DTMR, IT_SLQS, MT(MOD_RSFT, KC_ENT),
     FN,      KC_LCTL, KC_LALT, KC_LGUI,   LOWER, KC_SPC,  KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
@@ -86,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  ~   |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |  (   |  )   | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  | F5   |      |   _  |   =  |  é   |  ò   |  à   |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   ò  |  é   |  =   |  à   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F6  |  F7  |  F8  |  F9  |MOUSE |NUMPAD|   §  |   ±  |  {   |  }   |  |   |
+ * |      |  F6  |  F7  |  F8  |  F9  | MOUSE|NUMPAD|   §  |   ±  |  {   |  }   |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -96,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_ortho_4x12(
     IT_TILDE, IT_EXLM, IT_AT,   IT_SHRP, IT_DLR,  IT_PERC, IT_CRC,  IT_AMPR,    IT_ASTR, IT_LPRN,    IT_RPRN, KC_DEL,
-    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_EQL,  S(IT_EACC), IT_OACC, IT_AACC,
+    _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, S(IT_MINS), IT_OACC, S(IT_EACC), IT_EQL,  IT_AACC,
     _______,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   MOUSE,   NUMPAD,  S(IT_UACC), IT_PLMN, IT_LCBR,    IT_RCBR, IT_PIPE,
     _______,  _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD,    KC_VOLU, KC_MPLY
 ),
@@ -105,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  `   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | SGCOM| DESK |      |      |      |  -   |  ì   |  è   |   +  |  ù   |
+ * |      |      | SGCOM| DESK |      |      |      |   -  |   ì  |   è  |   +  |  ù   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Caps |      |      | SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |  ]   |  \   |
+ * | Caps |      |      | SVIV |VIVERE|MOUSE |NUMPAD|      |      |  [   |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
@@ -123,17 +117,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |  7   |  8   |  9   |  -   | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |  =   |  4   |  5   |  6   |  +   |      |
+ * |      |      |      |      |      |      |      |  4   |  5   |  6   |  +   |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |NUMPAD|  1   |  2   |  3   | PEnt | Ent  |
+ * |      |      |      |      |      |      |NUMPAD|  1   |  2   |  3   |  =   | Ent  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |  0   |  /   |  *   |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_ortho_4x12(
     _______, _______, _______, _______, _______, _______, _______, IT_7,    IT_8, IT_9,    IT_MINS, KC_BSPC,
-    _______, _______, _______, _______, _______, _______, KC_EQL,  IT_4,    IT_5, IT_6,    IT_PLUS, _______,
-    _______, _______, _______, _______, _______, _______, NUMPAD,  IT_1,    IT_2, IT_3,    KC_PENT, KC_ENT,
+    _______, _______, _______, _______, _______, _______, _______, IT_4,    IT_5, IT_6,    IT_PLUS, _______,
+    _______, _______, _______, _______, _______, _______, NUMPAD,  IT_1,    IT_2, IT_3,    IT_EQL,  KC_ENT,
     _______, _______, _______, _______, _______, _______, _______, _______, IT_0, IT_SLSH, IT_ASTR, _______
 ),
 
