@@ -24,3 +24,6 @@ enum custom_keycodes {
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+#ifdef OLED_DRIVER_ENABLE
+bool process_record_oled(uint16_t keycode, keyrecord_t *record);
+#endif
