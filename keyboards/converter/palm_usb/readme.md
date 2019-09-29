@@ -23,9 +23,10 @@ qmk because  the Arduino softserial library uses different pins from QMK.
 
 I've wired the pro micro  hardware as follows. 
 
-Label| TX0,RX1,GND,GND,2  ,3  ,4  ,5  ,6  ,7
-Palm |    ,   , * ,GND,VCC,RX ,NC ,RTS,nc ,DCD
-MCU  |                ,D1 ,D0 ,   ,C6 ,   ,E6
+| Label | TX0 | RX1 | GND | GND |  2  |  3  |  4  |  5  |  6  |  7  |
+|  ---  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Palm  |     |     |  *  | GND | VCC | RX  | NC  | RTS | NC  | DCD |
+|  MCU  |     |     |     |     | D1  | D0  |     | C6  |     | E6  |
 
 \* The RX line from the keyboard should be conected to a ~10K ohm pull down resistor to ground.
 RX --|--3

@@ -1,9 +1,5 @@
 /*
 
-Note for ErgoDox EZ customizers: Here be dragons!
-This is not a file you want to be messing with.
-All of the interesting stuff for you is under keymaps/ :)
-Love, Erez
 
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
 
@@ -95,7 +91,7 @@ void matrix_init(void) {
   // initialize matrix state: all keys off
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     matrix[i]     = 0;
-    raw_matrix[i] = 0;    
+    raw_matrix[i] = 0;
   }
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
@@ -168,7 +164,7 @@ uint8_t matrix_scan(void) {
 #ifdef LEFT_LEDS
   mcp23018_status = ergodox_left_leds_update();
 #endif  // LEFT_LEDS
-  bool changed = false;  
+  bool changed = false;
   for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
     // select rows from left and right hands
     uint8_t left_index = i;
@@ -178,13 +174,13 @@ uint8_t matrix_scan(void) {
 
     // we don't need a 30us delay anymore, because selecting a
     // left-hand row requires more than 30us for i2c.
-    
+
     changed |= store_raw_matrix_row(left_index);
     changed |= store_raw_matrix_row(right_index);
 
     unselect_rows();
   }
-  
+
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
   matrix_scan_quantum();
 

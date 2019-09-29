@@ -5,9 +5,10 @@ download_dir=~/qmk_utils
 avrtools=avr8-gnu-toolchain
 armtools=gcc-arm-none-eabi
 installflip=false
+util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed -S msys/unzip msys/p7zip base-devel msys/git mingw-w64-x86_64-toolchain
+pacman --needed -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
 
 source "$dir/win_shared_install.sh"
 
@@ -91,6 +92,8 @@ else
     done
 fi
 popd
+
+pip3 install -r ${util_dir}/../requirements.txt
 
 cp -f "$dir/activate_msys2.sh" "$download_dir/"
 

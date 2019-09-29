@@ -15,18 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
+
 #include "quantum.h"
+#define ___ KC_NO
 
 #define LAYOUT( \
-	     K00, K01, \
+	     K01, K02, \
 	K10, K11, K12  \
 ) { \
-	{ K00, K01, K12, K11, K10 }, \
+	{ ___, K01, K02 }, \
+	{ K10, K11, K12 }  \
 }
-
-
-#ifdef BACKLIGHT_ENABLE
-
-void backlight_set_value(uint8_t index, uint8_t level);
-
-#endif

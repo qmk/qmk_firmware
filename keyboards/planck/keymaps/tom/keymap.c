@@ -226,12 +226,10 @@ bool music_mask_user(uint16_t keycode) {
 
 void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
-  rgb_led led;
   switch (biton32(layer_state)) {
     case _RAISE:
       for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_rgb_leds[i];
-        if ( led.modifier ) {
+        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0x6B, 0x00, 0x80);
         } else {
           rgb_matrix_set_color(i, 0x00, 0xFF, 0x00);
@@ -241,8 +239,7 @@ void rgb_matrix_indicators_user(void) {
 
     case _LOWER:
       for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_rgb_leds[i];
-        if ( led.modifier ) {
+        if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
           rgb_matrix_set_color(i, 0xFF, 0xA5, 0x00);
         } else {
           rgb_matrix_set_color(i, 0x00, 0x67, 0xC7);

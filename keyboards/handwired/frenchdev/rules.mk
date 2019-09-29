@@ -15,7 +15,7 @@
 #----------------------------------------------------------------------------
 
 # # project specific files
-SRC = twimaster.c \
+SRC = i2c_master.c \
 	  matrix.c
 
 # MCU name
@@ -64,8 +64,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
-
+BOOTLOADER = halfKay
 
 # Build Options
 #   comment out to disable the options.
@@ -86,4 +85,3 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = no
 API_SYSEX_ENABLE = no
-
