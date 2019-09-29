@@ -24,7 +24,9 @@ extern rgblight_config_t rgblight_config;
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
     BACKLIT = NEW_SAFE_RANGE,
+    TH_LVL,
 };
+
 #else
 #    define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
