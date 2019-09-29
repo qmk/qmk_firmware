@@ -66,6 +66,8 @@ enum custom_keycodes {
 #define KC_LHUD  RGB_HUD
 #define KC_LSAI  RGB_SAI
 #define KC_LSAD  RGB_SAD
+#define KC_LSPI  RGB_SPI
+#define KC_LSPD  RGB_SPD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LRST  RGBRST
