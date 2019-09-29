@@ -107,6 +107,3 @@ endif
 # debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
 # debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
 # debug-off: all
-
-
-TAP_DANCE_ENABLE = yes

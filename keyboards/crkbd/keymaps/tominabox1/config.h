@@ -35,14 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL_PD2
 
-/* Fast typing */
-#define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
-#define TAPPING_TERM_PER_KEY
-//#define TAPPING_FORCE_HOLD
-//#define TAPPING_TERM 300
-//#define RETRO_TAPPING
-
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
 
@@ -113,4 +105,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/tominabox1/doug.c"
 #define OLED_DISABLE_TIMEOUT
-
