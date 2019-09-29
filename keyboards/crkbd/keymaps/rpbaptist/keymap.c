@@ -157,11 +157,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                   CLMK,  GAME, XXXXX, XXXXX,  LHUD,  LHUI,\
+        RST, XXXXX,  MSTP,  VOLU,  MNXT, XXXXX,                   CLMK,  GAME, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LRST, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                   LMOD, XXXXX, LRMOD, LFMOD,  LSAD,  LSAI,\
+       LRST, XXXXX,  MPRV,  VOLD,  MPLY, XXXXX,                  XXXXX, LFMOD,  LSPI,  LHUI,  LSAI,  LVAI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX,  SLEP, XXXXX,  MUTE, XXXXX, XXXXX,                   LTOG, XXXXX,  LSPD,  LSPI,  LVAD,  LVAI,\
+      XXXXX,  SLEP, XXXXX,  MUTE, XXXXX, XXXXX,                   LTOG, LRMOD,  LSPD,  LHUD,  LSAD,  LVAD,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, _____,    _____, _____, _____ \
                               //`--------------------'  `--------------------'
