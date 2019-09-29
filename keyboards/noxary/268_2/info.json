@@ -5,7 +5,7 @@
   "width": 16,
   "height": 5,
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_65_ansi_blocker": {
       "layout": [
         {"x":0, "y":0},
         {"x":1, "y":0},

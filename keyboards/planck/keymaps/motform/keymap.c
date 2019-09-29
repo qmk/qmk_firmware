@@ -31,8 +31,8 @@ enum planck_layers {
 #define RAISE MO(_RAISE)
 
 /* These definitions can be removed once keymap_swe is properly vetted against MacOS */
-#define NO_DLR_MAC_V  ALGR(LALT(KC_4))
-#define NO_AT_MAC_V   ALGR(LALT(KC_2))
+#define SE_DLR_MAC_V  ALGR(LALT(KC_4))
+#define SE_AT_MAC_V   ALGR(LALT(KC_2))
 
 /* Esc when pressed, ctrl when used as a modifier */
 #define KC_ECTL MT(MOD_LCTL, KC_ESC)
@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = LAYOUT_planck_grid
 (
- KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    NO_OSLH, NO_AA,
- KC_ECTL,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    NO_AE,
- KC_SFTENT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  NO_MINS, KC_SFTENT,
+ KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    SE_OSLH, SE_AA,
+ KC_ECTL,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    SE_AE,
+ KC_SFTENT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  SE_MINS, KC_SFTENT,
  KC_ESC,    KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_BSPC, RAISE,   KC_RGUI, KC_RALT, KC_HYPR, KC_MEH
  ),
 
@@ -71,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 [_LOWER] = LAYOUT_planck_grid
 (
- _______, NO_PIPE_MAC, NO_APOS, NO_AT_MAC_V, NO_AMPR,     _______, KC_DOWN, KC_NO,       KC_RGHT,     NO_GRV,  NO_GRV,  NO_TILD,
- _______, KC_EXLM,     NO_QUO2, KC_HASH,     NO_QUES,     KC_PERC, KC_LEFT, NO_SLSH,     NO_BSLS_MAC, NO_EQL,  KC_PPLS, KC_PAST,
- _______, KC_NO,       KC_NO,   NO_LBRC,     NO_LCBR_MAC, KC_NO,   KC_UP,   NO_RCBR_MAC, NO_RBRC,     KC_NO,   KC_NO,   _______,
+ _______, SE_PIPE_MAC, SE_APOS, SE_AT_MAC_V, SE_AMPR,     _______, KC_DOWN, KC_NO,       KC_RGHT,     SE_GRV,  SE_GRV,  SE_TILD,
+ _______, KC_EXLM,     SE_QUO2, KC_HASH,     SE_QUES,     KC_PERC, KC_LEFT, SE_SLSH,     SE_BSLS_MAC, SE_EQL,  KC_PPLS, KC_PAST,
+ _______, KC_NO,       KC_NO,   SE_LBRC,     SE_LCBR_MAC, KC_NO,   KC_UP,   SE_RCBR_MAC, SE_RBRC,     KC_NO,   KC_NO,   _______,
  _______, _______,     _______, _______,     _______,     _______, KC_DEL,  _______,     KC_MNXT,     KC_VOLD, KC_VOLU, KC_MPLY
  ),
 
@@ -91,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid
 (
  KC_F1,   KC_F2,   KC_F3,   KC_F4,       KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,       KC_F10,  KC_F11,  KC_F12,
- NO_CIRC, KC_1,    KC_2,    KC_3,        KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        KC_9,    KC_0,    NO_DLR_MAC_V,
- _______, KC_NO,   KC_NO,   NO_LESS_MAC, NO_LPRN, KC_NO,   KC_NO,   NO_RPRN, NO_GRTR_MAC, KC_PGUP, KC_PGDN, KC_NO,
+ SE_CIRC, KC_1,    KC_2,    KC_3,        KC_4,    KC_5,    KC_6,    KC_7,    KC_8,        KC_9,    KC_0,    SE_DLR_MAC_V,
+ _______, KC_NO,   KC_NO,   SE_LESS_MAC, SE_LPRN, KC_NO,   KC_NO,   SE_RPRN, SE_GRTR_MAC, KC_PGUP, KC_PGDN, KC_NO,
  _______, _______, _______, _______,     _______, _______, _______, _______, KC_MNXT,     KC_VOLD, KC_VOLU, KC_MPLY
  ),
 
