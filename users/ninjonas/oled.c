@@ -7,10 +7,10 @@
 static uint16_t oled_timer = 0;
 extern uint8_t is_master;
 
-bool process_record_oled(uint16_t keycode, keyrecord_t *record) { 
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         oled_timer = timer_read();
-    }	    
+    }
     return true;
 }
 
@@ -48,6 +48,7 @@ void render_mod_status(uint8_t modifiers) {
 
 void render_status(void){
   render_default_layer_state();
+  oled_write_P(PSTR("\n"), false);
   render_layer_state();
   render_mod_status(get_mods()|get_oneshot_mods());
 }
@@ -70,12 +71,13 @@ void oled_task_user(void) {
     #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
     #endif
-    
+
     if (is_master) {
-        render_status();     
+        render_status();
     } else {
-        render_logo();       
-        oled_scroll_left();  
+        oled_write_P(PSTR("\n"), false);
+        render_logo();
+        oled_scroll_left();
     }
 }
 
