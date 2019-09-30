@@ -7,7 +7,7 @@ Use a LAN cable to connect the left and right keyboards.
 
 Keyboard Maintainer: [gtips](https://github.com/gtips)  
 Hardware Supported: The REVIUNG34 PCBs, Pro Micro supported  
-Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung)  
+Hardware Availability: [PCB & Case Data](https://github.com/gtips/reviung/tree/master/reviung34split)  
 
 Make example for this keyboard (after setting up your build environment):
 
