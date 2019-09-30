@@ -5,7 +5,7 @@
 Custom PCB for the Wraith keyboard.
 
 Keyboard Maintainer: [Amber](https://github.com/amberstarlight)  
-Hardware Supported: Wraith PCB
+Hardware Supported: Wraith PCB  
 Hardware Availability: private group buy
 
 Make example for this keyboard (after setting up your build environment):
