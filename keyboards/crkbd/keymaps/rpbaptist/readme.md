@@ -10,7 +10,7 @@ Many thanks to foostan for the keyboard, all QMK contributors and drashna specif
 
 ### COLEMAKDHM
 
-Main typing layer. I really love having SHIFT available on thumbs. I am a left thumb space bar person, so I put SPACE there and ENTER on right. I use CTRL key combos lot in my text editor and desktop environment. That's why I have two of them. I also found them to b a great position for the square brackets. (`[` and `]`)
+Main typing layer. I really love having SHIFT available on thumbs. I am a left thumb space bar person, so I put SPACE there and ENTER on right. I use CTRL key combos lot in my text editor and desktop environment. That's why I have two of them. I also found them to be a great position for the square brackets. (`[` and `]`)
 
 I don't know about you but "lower" and "raise" don't mean that much to me. I named my layers `NUM`, short for numbers and `NAV`, short for navigation.
 
@@ -38,7 +38,7 @@ Sometimes I switch to type in Discord, Steam, or in game chat, so I think it's m
 
 I put movement on FRST (would be ESDF on QWERTY), because it lines up more comfortably with the columnar staggered layout of the Corne. It also gives more easy access to all keys on left half.
 
-Most notable here is that there are no tap and hold differences anymore on left hand side besides the new layer key. This is a differend layer than `NUM`. 
+Most notable here is that there are no tap and hold differences anymore on left hand side besides the new layer key. This is a different layer than `NUM`. 
 
 ### GAMING_EXT
 
