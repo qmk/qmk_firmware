@@ -25,15 +25,16 @@ enum custom_keycodes {
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_C_ALT  LALT_T(KC_C)
 #define KC_M_ALT  LALT_T(KC_M)
-#define KC_N_RAI  LT(RAISE, KC_N)
-#define KC_B_RAI  LT(RAISE, KC_B)
+#define KC_CM_ALT LALT_T(KC_COMM)
+#define KC_M_RAI  LT(RAISE, KC_M)
+#define KC_V_RAI  LT(RAISE, KC_V)
 #define KC_S_UNDS LSFT_T(KC_UNDS)
 #define KC_S_CUR  LT(CURSOR, KC_S)
 #define KC_FN_ENT LT(FUNCTION, KC_ENT)
 #define KC_CTL_TB LCTL_T(KC_TAB)
 #define KC_CACL   MO(CURSOR_ACL)
 #define KC_Z_GUI  LGUI_T(KC_Z)
-#define KC_SL_GUI  LGUI_T(KC_SLSH)
+#define KC_SL_GUI LGUI_T(KC_SLSH)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
    CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN ,FN_ENT, \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z_GUI, X    , C_ALT, V    , B_RAI,   N_RAI, M_ALT, COMM , DOT  ,SL_GUI, SPC    \
+    LSFT , Z_GUI, X    , C_ALT, V_RAI, B    ,   N    , M_RAI,CM_ALT, DOT  ,SL_GUI, SPC    \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 
