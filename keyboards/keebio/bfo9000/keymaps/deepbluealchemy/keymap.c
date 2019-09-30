@@ -183,13 +183,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case COMMIT:
       if (record->event.pressed) {
-        SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+        SEND_STRING("git commit /m @@" SS_TAP(X_LEFT));
       }
       return false;
       break;
     case AMEND:
       if (record->event.pressed) {
-        SEND_STRING("git commit --amend" SS_TAP(X_ENTER));
+        SEND_STRING("git commit //amend" SS_TAP(X_ENTER));
       }
       return false;
       break;
@@ -201,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CHECKOUT:
       if (record->event.pressed) {
-        SEND_STRING("git checkout -- ." SS_TAP(X_ENTER));
+        SEND_STRING("git checkout // ." SS_TAP(X_ENTER));
       }
       return false;
       break;
