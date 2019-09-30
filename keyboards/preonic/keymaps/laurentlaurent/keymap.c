@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * | Shift| CT/Z |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Sh/Bk|
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | LY|` |ESCMEH| LY|DL|LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
+     * | LY|` |MH/ESC| LY|DL|LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_QWERTY_WIN] = LAYOUT_preonic_grid( \
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------------------------------.
      * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | Tab  | Home |  Up  | End  | PGUP | XXXX | XXXX | XXXX | PrSc | Home | PGUP | XXXX |
+     * | Tab  | Home |  Up  | End  | PGUP | XXXX | XXXX | XXXX | PrSc | Home | PGUP | Del  |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |  "   | Left | Down | Right|PGDWN | XXXX | XXXX | XXXX | Pause| End  |PGDWN | F12  |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -243,22 +243,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Raise
      * ,-----------------------------------------------------------------------------------.
-     * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  | XXXX |   &  |   *  |   (  |   )  | Bksp |
+     * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  | SCLK |   &  |   *  |   (  |   )  | Bksp |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | Tab  |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |   &  |   *  |   {  |   }  | Del  |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |  "   |  F1  |  F2  |  F3  |  F4  |  F5  | XXXX |   -  |   =  |   [  |   ]  | XXXX |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |ISO # |ISO \ | MRC1 | MRC2 | MRSP |
+     * | Caps |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |ISO # |ISO \ | MRC1 | MRC2 | MRSP |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | CTRL |  Alt |  CMD |      | Bksp |    Space    | Enter| !!!! | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_RAISE] = LAYOUT_preonic_grid( \
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  XXXXXXX,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_SLCK,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
         KC_TAB,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,  KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_DEL,  \
         KC_DQUO, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX, \
-        _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DYN_REC_START1,   DYN_REC_START2, DYN_REC_STOP, \
+        KC_CLCK, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DYN_REC_START1,   DYN_REC_START2, DYN_REC_STOP, \
         KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DYN_MACRO_PLAY1,  DYN_MACRO_PLAY2, LLSWIT  \
     ),
 
@@ -307,22 +307,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Extra Layer
      * ,-----------------------------------------------------------------------------------.
-     * |  ESC |      |      |      |      |      |      |      |      |      |      |      |
+     * |  ESC |      |      |      |      |      | SCLK |      |      |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      |      |      | Del  |
+     * | Tab  |      |      |      |      |      |      |      |      |      |      | Del  |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      |      |      |      |
+     * |  "   |      |      |      |      |      |      |      |      |      |      |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
+     * | Caps |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | CTRL |  ALT |  CMD | Bksp | Bksp |    Space    | !!!! |      | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_EXTRA] = LAYOUT_preonic_grid( \
-        KC_ESC,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
+        KC_ESC,   _______,  _______,  _______,  _______,  KC_SLCK,  _______,  _______,  _______,  _______,  _______,  _______, \
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL, \
         KC_DQUO,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, \
+        KC_CLCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, \
         KC_LCTL,  KC_LALT,  KC_LGUI,  KC_BSPC,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT \
     ),
 
@@ -355,7 +355,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |      | !!!! | MOLF | MODN | MORT | MOSD | PGDN | Left | Down | Right| !!!! |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |      | MOSL | MOSR | MOB5 | MOB4 | MOA2 | MOA0 | MPRV | MPLY | MNXT |      |
+     * |      |      | MOB4 | MOB5 | MOSL | MOSR | MOA2 | MOA0 | MPRV | MPLY | MNXT |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * | CTRL | ALT  | CMD  |      | Bksp |    Space    | Enter| VILM | VOLD | VOLU | QMAC |
      * `-----------------------------------------------------------------------------------'
@@ -364,7 +364,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,   _______,  _______,  KC_BTN3,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
         _______,  KC_A,     KC_BTN2,  KC_MS_U,  KC_BTN1,  KC_WH_U,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   _______,  KC_DEL,  \
         _______,  __LYB__,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_WH_D,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  __LYB__,  _______, \
-        _______,  _______,  KC_WH_L,  KC_WH_L,  KC_BTN5,  KC_BTN4,  KC_ACL2,  KC_ACL0,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______, \
+        _______,  _______,  KC_BTN4,  KC_BTN5,  KC_WH_L,  KC_WH_R,  KC_ACL2,  KC_ACL0,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______, \
         KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  KC_BSPC,  KC_SPC,   KC_SPC,   KC_ENT,   KC__MUTE, KC_VOLD,  KC_VOLU,  LTO_BS  \
     ),
 
@@ -395,19 +395,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |Brite | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX | XXXX |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * | CTRL | XXXX | XXXX | XXXX | XXXX | GAME | XXXX | XXXX | XXXX | XXXX | NAV  | XXXX |
+     * | XXXX | XXXX | XXXX | XXXX | XXXX | GAME | XXXX | XXXX | XXXX | XXXX | NAV  | XXXX |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * |      | XXXX | XXXX | XXXX | XXXX | QMAC | XXXX | MUSC | XXXX | XXXX | XXXX | XXXX |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | XXXX | ALT  | NUM  |      | XXXX |             | XXXX |      | XXXX | XXXX | !!!! |
+     * | XXXX | XXXX | NUM  | XXXX | XXXX |    XXXXX    | XXXX | XXXX | XXXX | XXXX | !!!! |
      * `-----------------------------------------------------------------------------------'
      */
     [_LYSWT] = LAYOUT_preonic_grid( \
         KC_ESC ,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  	XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
         BACKLIT,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  	XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-        KC_LCTL,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(_GAMING), XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  TO(_NAV), XXXXXXX, \
-        _______,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LTO_BS,   	XXXXXXX, TO(_MUSIC), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
-        XXXXXXX,  KC_LALT,  TO(_NUM),  _______,  XXXXXXX,  _______,  	_______,  XXXXXXX,   _______,  XXXXXXX,  XXXXXXX,  _______  \
+        XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(_GAMING), XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  TO(_NAV), XXXXXXX, \
+        XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  LTO_BS,   	XXXXXXX, TO(_MUSIC), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, \
+        XXXXXXX,   XXXXXXX,  TO(_NUM), XXXXXXX,  XXXXXXX,  XXXXXXX,  	XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  _______  \
     ) //, //Don't forget to add the comma if going to add more layers here
 };
 
