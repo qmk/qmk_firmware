@@ -19,12 +19,6 @@ enum layer_names {
   _UTIL
 };
 
-int RGB_current_mode;
-
-enum custom_keycodes {
-  RGBRST = SAFE_RANGE
-};
-
 // Base layers
 #define KC_CLMK DF(_COLEMAKDHM)
 #define KC_GAME DF(_GAMING)
@@ -75,11 +69,6 @@ enum custom_keycodes {
 
 #define KC_LFMOD  RGB_MODE_FORWARD
 #define KC_LRMOD  RGB_MODE_REVERSE
-
-// #define KC_RGBST RGB_MODE_PLAIN
-// #define KC_RGBBR RGB_MODE_BREATHE
-// #define KC_RGBRB RGB_MODE_RAINBOW
-// #define KC_RGBSW RGB_MODE_SWIRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT_kc( \
