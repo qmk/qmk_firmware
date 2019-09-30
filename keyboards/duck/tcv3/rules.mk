@@ -1,6 +1,14 @@
 # MCU name
 MCU = atmega32u4
 
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 1024
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
+BOOTLOADER = atmel-dfu
+
 # Build Options
 #   change yes to no to disable
 #
