@@ -12,7 +12,7 @@ Many thanks to foostan for the keyboard, all QMK contributors and drashna specif
 
 Main typing layer. I really love having SHIFT available on thumbs. I am a left thumb space bar person, so I put SPACE there and ENTER on right. I use CTRL key combos lot in my text editor and desktop environment. That's why I have two of them. I also found them to be a great position for the square brackets. (`[` and `]`)
 
-I don't know about you but "lower" and "raise" don't mean that much to me. I named my layers `NUM`, short for numbers and `NAV`, short for navigation.
+I don't know about you but "lower" and "raise" don't mean that much to me. I named my layers `NUM`, short for numbers and `NAV`, short for navigation. Holding the key will activate the layer for as long as it is held, double tapping it will switch to it. Single tapping it once will switch to main layer again.
 
 Everything else is pretty standard I'd say.
 
