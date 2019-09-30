@@ -6,6 +6,7 @@
 // entirely and just use numbers.
 enum layer_number {
   BASE = 0,
+  BRACES,
   RAISE,
   CURSOR,
   CURSOR_ACL,
@@ -28,6 +29,7 @@ enum custom_keycodes {
 #define KC_CM_ALT LALT_T(KC_COMM)
 #define KC_M_RAI  LT(RAISE, KC_M)
 #define KC_V_RAI  LT(RAISE, KC_V)
+#define KC_N_RAI  LT(RAISE, KC_N)
 #define KC_S_UNDS LSFT_T(KC_UNDS)
 #define KC_S_CUR  LT(CURSOR, KC_S)
 #define KC_FN_ENT LT(FUNCTION, KC_ENT)
@@ -35,6 +37,11 @@ enum custom_keycodes {
 #define KC_CACL   MO(CURSOR_ACL)
 #define KC_Z_GUI  LGUI_T(KC_Z)
 #define KC_SL_GUI LGUI_T(KC_SLSH)
+
+#define KC_Z_GU   LGUI_T(KC_Z)
+#define KC_DOT_GU LGUI_T(KC_DOT)
+#define KC_X_BR   LT(BRACES, KC_X)
+#define KC_COM_BR LT(BRACES, KC_COMM)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -56,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
    CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN ,FN_ENT, \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z_GUI, X    , C_ALT, V_RAI, B    ,   N    , M_RAI,CM_ALT, DOT  ,SL_GUI, SPC    \
+    LSFT , Z_GU , X_BR , C_ALT, V_RAI, SPC  ,   B    , N_RAI, M_ALT,COM_BR,DOT_GU, SLSH   \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 
@@ -87,6 +94,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , ____ , ____ ,   HOME , PGDN , PGUP , END  , ____ , ____ , \
+//|------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____   \
+//`------+------+------+------+------+------' `------+------+------+------+------+------'
+  ),
+
+  [BRACES] = LAYOUT_kc(                                                 \
+//,-----------------------------------------. ,-----------------------------------------.
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
+//,------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , LCBR , LPRN , LBRC ,   RBRC , RPRN , RCBR , ____ , ____ , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____   \
 //`------+------+------+------+------+------' `------+------+------+------+------+------'
