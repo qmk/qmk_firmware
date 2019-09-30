@@ -51,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-  #define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
   #define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
@@ -73,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
   #define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
   #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
-  #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+  // #define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
   // #define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
   #define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
   #define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
@@ -83,8 +82,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define DISABLE_RGB_MATRIX_RAINDROPS
   #define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 
-  #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-  #define DISABLE_RGB_MATRIX_TYPING_HEATMAP
+  #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+  // #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
+  // #define DISABLE_RGB_MATRIX_TYPING_HEATMAP
+
+  #define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 
   #define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
   #define DISABLE_RGB_MATRIX_SOLID_REACTIVE
