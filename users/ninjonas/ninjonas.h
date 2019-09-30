@@ -81,8 +81,31 @@
 #define _____________________SYM_LEFT_______________________ KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC
 #define _____________________SYM_RIGHT______________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS
 
-#define ____________________________________________________ _______, _______, _______, _______, _______, _______
-#define _____________________XXXXXXX________________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _____________________LOWER_L1_______________________ M_XXX2, M_XXX3, _________MEDIA_1_________, K_CSCN
+#define _____________________LOWER_L2_______________________ M_XXX4, M_XXX5, _________MEDIA_2_________, XXXXXXX
+#define _____________________LOWER_L3_______________________ KC_LSFT, M_SHFT, _________MEDIA_3_________, T_LBRC
+
+#define _____________________LOWER_R1_______________________ _______________NAV_1______________, XXXXXXX, K_MDSH
+#define _____________________LOWER_R2_______________________ _______________NAV_2______________, K_LOCK, XXXXXXX
+#define _____________________LOWER_R3_______________________ T_RBRC, KC_M, XXXXXXX, M_CODE, M_XXX1, M_PYNV
+
+#define _____________________ADJUST_L1______________________ M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#ifdef RGB_MATRIX_ENABLE
+  #define _____________________ADJUST_L2______________________ M_VRSN, M_MALL, RGB_SPI, RGB_SAI, RGB_HUI, RGB_VAI
+  #define _____________________ADJUST_L3______________________ M_FLSH, XXXXXXX, RGB_SPD, RGB_SAD, RGB_HUD, RGB_VAD
+#else
+  #define _____________________ADJUST_L2______________________ M_VRSN, M_MALL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  #define _____________________ADJUST_L3______________________ M_FLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R3______________________ RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#else
+  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R3______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#endif
+#define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _______________NAV_1______________ KC_PGUP, KC_HOME, KC_UP, KC_END
 #define _______________NAV_2______________ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT
@@ -91,7 +114,6 @@
 #define _____________MOUSE_2______________ KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U
 
 #define __________________________________ _______, _______, _______, _______
-#define _____________XXXXXXX______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
