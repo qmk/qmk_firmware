@@ -33,4 +33,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 CUSTOM_MATRIX = yes
 SRC += matrix.c
 
-LAYOUTS = tkl_ansi
+LAYOUTS = tkl_ansi tkl_iso
