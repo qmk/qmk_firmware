@@ -43,3 +43,11 @@ Most notable here is that there are no tap and hold differences anymore on left 
 ### GAMING_EXT
 
 This is the gaming extended layer where movement keys remain the same. This means I can keep moving while accessing second layer keys. All other keys are keys on which I can easily rebind something. Besides that it gives me the function keys and an ENTER key which does not change. This is good when a game requires you to hold ENTER.
+
+## Notes
+
+I am using DFU and have to flash both halves individually.
+
+Left half: `make crkbd/rev1:rpbaptist:dfu-split-left`
+
+Right half: `make crkbd/rev1:rpbaptist:dfu-split-right RGB_MATRIX_SPLIT_RIGHT=yes`

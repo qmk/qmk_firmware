@@ -35,21 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_ESC_INPUT D4 // usually ROW
 #define QMK_LED B0
 
-#ifdef RGBLIGHT_ENABLE
-  #undef RGBLED_NUM
-
-  #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-
-  #define RGBLED_NUM 27
-  #define RGBLIGHT_LIMIT_VAL 120
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 10
-  #define RGBLIGHT_SLEEP
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
   #define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
