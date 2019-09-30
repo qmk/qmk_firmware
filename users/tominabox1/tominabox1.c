@@ -83,7 +83,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case TD(TD_SFT_CPS):
-            return 400;
+            return 300;
         case SPC_LOW:
             return 150;
         default:
