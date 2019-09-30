@@ -31,16 +31,17 @@ Largely similar to his ErgoDox EZ's layout
 * Spacebar acts like a LShift on hold, Spacebar on tap
 * In instances where repeated keys is needed:
     * Tap then tap-hold repeats the key
-    * Lower, Raise (and most other layers) turns off mod-tap
+    * Lower, Raise (and most other layers) turns off mod-tap on most keys
 * Music layer disables all key mappings, Gaming layer disables modtaps
 
 ### Layer Switching
 * Layer switcher key, used to switch layout (allows use of _NAV, _NUM layout without holding their layer keys)
-* Punctuation layer accessible by holding Tab, Backslash or Backspace
-* Grave switches to One-Handed layer on hold
-* Mouse and arrow key layer accessible by holding ; or A
-* Del switches to Numpad on hold
-* Enter switches to Extra layer on hold
+* **Punctuation layer** accessible by holding Tab, Backslash or Backspace
+* Grave switches to **One-Handed layer** on hold
+* **Mouse and arrow key layer** accessible by holding ; or A
+* Del switches to **Numpad** on hold
+* Enter switches to **Extra layer** on hold
+    * Extra layer will be used for applications shortcuts
 
 ## Layers
 
@@ -126,9 +127,9 @@ Largely similar to his ErgoDox EZ's layout
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | Tab  |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |   &  |   *  |   {  |   }  | Del  |
 |------+------+------+------+------+-------------+------+------+------+------+------|
-|  "   |  F1  |  F2  |  F3  |  F4  |  F5  | XXXX |   -  |   =  |   [  |   ]  | XXXX |
+| Caps |  F1  |  F2  |  F3  |  F4  |  F5  | XXXX |   -  |   =  |   [  |   ]  | XXXX |
 |------+------+------+------+------+------|------+------+------+------+------+------|
-| Caps |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |ISO # |ISO \ | MRC1 | MRC2 | MRSP |
+|      |  F7  |  F8  |  F9  |  F10 |  F11 | XXXX |ISO # |ISO \ | MRC1 | MRC2 | MRSP |
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | CTRL |  Alt |  CMD |      | Bksp |    Space    | Enter| !!!! | MPL1 | MPL2 |LY_SW |
 `-----------------------------------------------------------------------------------'
@@ -171,9 +172,9 @@ Largely similar to his ErgoDox EZ's layout
 |------+------+------+------+------+------+------+------+------+------+------+------|
 |  Tab |      |      |      |      |      |      |      |      |      |      | Del  |
 |------+------+------+------+------+-------------+------+------+------+------+------|
-|   "  |      |      |      |      |      |      |      |      |      |      |      |
+| Caps |      |      |      |      |      |      |      |      |      |      |      |
 |------+------+------+------+------+------|------+------+------+------+------+------|
-| Caps |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
+|      |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | CTRL |  ALT |  CMD | Bksp | Bksp |    Space    | !!!! |      | MPL1 | MPL2 |LY_SW |
 `-----------------------------------------------------------------------------------'
@@ -223,6 +224,7 @@ Largely similar to his ErgoDox EZ's layout
 | !!!! |  Esc |  Del |  Ent | Bksp |             | MWLT | MWBT | MWUP | MWRT |LY_SW |
 `-----------------------------------------------------------------------------------'
 ```
+The right hand side of the keyboard contains shortcuts for moving windows on Mac (using Magnet)
 
 ### Layer Switcher
 ```
