@@ -26,7 +26,6 @@ enum layers{
 #define LT_F13 LT(FN, KC_F13)
 #define LT_F14 LT(FN, KC_F14)
 #define KC_LW MO(LW)
-#define KC_SFT(XXX) LSFT(XXX)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DF]=LAYOUT(\
