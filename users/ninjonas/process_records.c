@@ -6,10 +6,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true;
 __attribute__((weak))
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
+#ifdef OLED_DRIVER_ENABLE
+__attribute__((weak))
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) { return true; }
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    #ifdef SSD1306OLED
-    set_keylog(keycode, record);
+    #ifdef OLED_DRIVER_ENABLE
+    process_record_oled(keycode, record);
     #endif
   }
 
@@ -39,6 +44,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case M_MAKE:
      if (record->event.pressed) {
         SEND_STRING("rm -f *.hex && rm -rf .build/ && make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+      }
+      break;
+
+    // Sends QMK make command to compile all keyboards
+    case M_MALL:
+     if (record->event.pressed) {
+        SEND_STRING("rm -f *.hex && rm -rf .build/ && make crkbd:ninjonas lily58:ninjonas hotdox:ninjonas pinky/3:ninjonas\n");
       }
       break;
 

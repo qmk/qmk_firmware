@@ -6,27 +6,35 @@ See: https://docs.qmk.fm/#/feature_userspace
 - ninjonas [QMK user configuration](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_userspace.md)
 - On `keymap.c` include `ninjonas.h`
   ```c
-  #include "ninjonas.h"     
+  #include "ninjonas.h"
   ```
 
+## Supported Keyboards
+- [Crkbd ](../../keyboards/crkbd/keymaps/ninjonas)
+- [Hotdox](../../keyboards/hotdox/keymaps/ninjonas)
+- [Pinky3](../../keyboards/pinky/3/keymaps/ninjonas)
+- [Lily58](../../keyboards/lily58/keymaps/ninjonas)
+
 ## Features
-### [Keys](ninjonas.h#L44)
+### [Keys](ninjonas.h#L40)
 |Code | Description |
 |---|---|
 |K_LOCK | MacOS shortcut to execute lock command  + ctrl + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
+|K_MDSH | MacOS shortcut to get em-dash `–` |
+|K_RAPP | MacOS shortcut to switch apps to the right |
+|K_LAPP | MacOS shortcut to switch apps to the left |
 
-### [Layers](ninjonas.h#L48)
+### [Layers](ninjonas.h#L47)
 |Code | Description |
 |---|---|
 |LT_LOW | Tap for ENTER, hold for RAISE |
-|LT_FUNC | Tap for ENTER, hold for FUNCTIONS |
 |LT_RAI | Tap for SPACE, hold for LOWER |
-|LT_NUM | Tap for SPACE, hold for NUMBERS |
 |LT_LOW + LT_RAI | Hold for ADJUST  |
-|L_LOWER | Dedicated key to momentarily toggle to use LOWER layer |
+|LM_LOW | Dedicated key to momentarily toggle to use LOWER layer |
+|LM_RAI | Dedicated key to momentarily toggle to use RAISE layer |
 
-### [Layout Blocks](ninjonas.h#L57)
+### [Layout Blocks](ninjonas.h#L53)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |
@@ -69,7 +77,7 @@ There's times where you have macros you don't want to share like emails, passwor
 
 ```c
 // secrets.c
-#include "ninjonas.h" 
+#include "ninjonas.h"
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

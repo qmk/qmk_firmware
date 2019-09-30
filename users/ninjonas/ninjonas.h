@@ -36,23 +36,19 @@
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 5
-#ifdef KEYBOARD_pinky_3
-  #define _NUMBERS 6
-  #define _FUNCTIONS 7
-#endif
 
 // Shortcut Keys
 #define K_LOCK LGUI(LCTL(KC_Q)) // Locks screen on MacOS
 #define K_CSCN LGUI(LCTL(LSFT(KC_4))) // Copy a portion of the screen to the clipboard
+#define K_MDSH LSFT(LALT(KC_MINS))
+#define K_LAPP SGUI(KC_TAB) //  + Shift + Tab
+#define K_RAPP LGUI(KC_TAB) //  + Tab
 
 // Layer Keys
-#define L_LOWER MO(_LOWER)
+#define LM_LOW MO(_LOWER)
+#define LM_RAI MO(_RAISE)
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
-#ifdef KEYBOARD_pinky_3
-  #define LT_NUM LT(_NUMBERS, KC_SPC)
-  #define LT_FUNC LT(_FUNCTIONS, KC_ENT)
-#endif
 
 // Layout blocks
 #define _____________________QWERTY_L1______________________ T_TAB, T_Q, T_W, KC_E, KC_R, KC_T
@@ -105,7 +101,7 @@
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-#define ________MOD_RIGHT________ KC_BSPC, KC_DEL, L_LOWER
+#define ________MOD_RIGHT________ KC_BSPC, KC_DEL, LM_LOW
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
