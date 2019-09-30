@@ -11,6 +11,10 @@
 			"*.cpp": "cpp",
 			"*.hpp": "cpp",
 			"xstddef": "c"
+		},
+		"terminal.integrated.env.linux": {
+			"PATH": "/home/lance/.platformio/penv/bin:/home/lance/.platformio/penv:/home/lance/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+			"PLATFORMIO_CALLER": "vscode"
 		}
 	}
 }
