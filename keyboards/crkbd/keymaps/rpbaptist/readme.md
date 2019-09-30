@@ -46,6 +46,10 @@ This is the gaming extended layer where movement keys remain the same. This mean
 
 ## Notes
 
+I use MT3 Godspeed caps and thought it would be fun to theme the OLED output towards it. The slave side has the icon and two planets. The left side refers to modifiers by matching the novelty mod legends.
+
+## Building
+
 I am using DFU and have to flash both halves individually.
 
 Left half: `make crkbd/rev1:rpbaptist:dfu-split-left`
