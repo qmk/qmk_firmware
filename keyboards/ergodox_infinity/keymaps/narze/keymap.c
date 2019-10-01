@@ -14,6 +14,7 @@ enum ergodox_layers {
     _PLOVER,
     // Intermediate layers for SuperDuper (Combo keys does not work on Infinity yet)
     _SUPERDUPER,
+    _DEV,
     _MOUSE,
     _ADJUST,
     _MDIA,
@@ -28,6 +29,7 @@ enum ergodox_keycodes {
     RAISE,
     PLOVER,
     SUPERDUPER,
+    DEV,
     MOUSE,
     BACKLIT,
     EXT_PLV,
@@ -60,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Hp/Esc |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | SD-/ | Sft/)  |
+ * | Sft/(  | Z/Dv |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -77,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   LT(_SYMB, KC_NO),
         HPR_ESC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
+        SFT_PO,         LT(_DEV, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
                                               KC_ENT,  KC_LGUI,
                                                               KC_HOME,
@@ -87,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              MEH_T(KC_NO),KC_N,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Hp/Esc |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |   O  |   '    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | Sft/(  | Z/Mo |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  | SD-/ | Sft/)  |
+ * | Sft/(  | Z/Dv |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  | SD-/ | Sft/)  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Rse/[ | Ctrl |  Alt | Gui/_|  Lwr |                                       | Rse/B| Bksp |  Alt | Ctrl | Low/]  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -118,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   LT(_SYMB, KC_NO),
         HPR_ESC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
-        SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
+        SFT_PO,         LT(_DEV, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
                                               KC_ENT,  KC_LGUI,
                                                               KC_HOME,
@@ -128,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   KC_J,   KC_L,  KC_U,   KC_Y,   KC_SCLN,       KC_BSLS,
                           KC_H,   KC_N,  KC_E,   KC_I,   KC_O,          KC_QUOT,
              MEH_T(KC_NO),KC_K,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -149,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              LT(_SYMB, KC_NO),   CM_Y,   CM_U,  CM_I,   CM_O,   CM_P,             KC_BSLS,
                           CM_H,   CM_J,  CM_K,   CM_L,   CM_SCLN,          KC_QUOT,
              MEH_T(KC_NO),CM_N,   CM_M,  CM_COMM,CM_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
-                                  LT(_RAISE, KC_BSPC), KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
+                                  RAISE, KC_BSPC,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_BSPC, KC_ENT
@@ -317,6 +319,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,        _______,
              _______,
              _______,_______, KC_LSFT
+    ),
+
+/* Dev Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |   -  |   +  |   (  |   )  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|   _  |   [  |   ]  |   {  |   }  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |   =  |   |  |   <  |   >  |   ?  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |        |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      |      |       |      |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[_DEV] = LAYOUT_ergodox(
+        // left hand
+        _______, _______,  _______,   _______,   _______,   _______,   _______,
+        _______, _______,  _______,   _______,   _______,   _______,   _______,
+        _______, _______,  _______,   _______,   _______,   _______,
+        _______, _______,  _______,   _______,   _______,   _______,   _______,
+        _______, _______,  _______,   _______,   _______,
+                                                    _______,  _______,
+                                                              _______,
+                                               _______,_______,_______,
+        // right hand
+             _______, _______,  _______,   _______,  _______,   _______,   _______,
+             _______, _______,  KC_MINS, S(KC_EQL),  S(KC_9),   S(KC_0),   _______,
+                   S(KC_MINS),  KC_LBRC,   KC_RBRC, S(KC_LBRC), S(KC_RBRC),   _______,
+             _______,  KC_EQL, S(KC_BSLASH), S(KC_COMM), S(KC_DOT), S(KC_SLSH),  _______,
+                                _______,   _______,  _______,   _______,   _______,
+             _______,        _______,
+             _______,
+             _______,_______, _______
     ),
 
 /* Mouse
