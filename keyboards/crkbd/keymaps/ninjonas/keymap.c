@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_wrapper(
   //,----------------------------------------------------.      ,----------------------------------------------------.
-     XXXXXXX, XXXXXXX, _________MEDIA_1_________,  K_CSCN,       _______________NAV_1______________,  XXXXXXX, K_MDSH,
+      M_XXX2,  M_XXX3, _________MEDIA_1_________,  K_CSCN,       _______________NAV_1______________,  XXXXXXX, K_MDSH,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
-     XXXXXXX, XXXXXXX, _________MEDIA_2_________, XXXXXXX,       _______________NAV_2______________,   K_LOCK, XXXXXXX,
+      M_XXX4,  M_XXX5, _________MEDIA_2_________, XXXXXXX,       _______________NAV_2______________,   K_LOCK, XXXXXXX,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
-     _______,  M_SHFT, _________MEDIA_3_________,  T_LBRC,         T_RBRC, _______, XXXXXXX,  M_CODE,  M_ZOOM, M_PYNV,
+     KC_LSFT,  M_SHFT, _________MEDIA_3_________,  T_LBRC,         T_RBRC,    KC_M, XXXXXXX,  M_CODE,  M_XXX1, M_PYNV,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
                                     _______,_______,_______,     _______,_______,_______
                                  //`---------------------'      `---------------------'
@@ -66,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------------------------.      ,----------------------------------------------------.
        M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
-       M_VRSN,  M_MALL, XXXXXXX, RGB_SAI, RGB_HUI, RGB_VAI,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       M_VRSN,  M_MALL, RGB_SPI, RGB_SAI, RGB_HUI, RGB_VAI,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
-       M_FLSH, XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_VAD,       RGB_M_P, RGB_M_B,RGB_M_SW, XXXXXXX, XXXXXXX, XXXXXXX,
+       M_FLSH, XXXXXXX, RGB_SPD, RGB_SAD, RGB_HUD, RGB_VAD,       RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+-------|      |--------+--------+--------+--------+--------+-------|
                                     _______,_______,_______,     _______,_______,_______
                                  //`---------------------'      `---------------------'
