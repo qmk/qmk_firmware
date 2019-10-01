@@ -59,6 +59,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |M_VRSN | macro to send QMK version |
 |M_SHFT | Sends  + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
+|M_TERM | Launches Spotlight and calls Terminal |
 |M_XXX1 to M_XXX5 | Reserved for secret macros see [Secrets](#secrets)  |
 
 ### [Tap-Dance](tap_dances.h)
@@ -78,7 +79,7 @@ There's times where you have macros you don't want to share like emails, an addr
 
 ```c
 // secrets.c
-#include "ninjonas.h" 
+#include "ninjonas.h"
 
 static const char * const secret[] = {
   "BLANK1",

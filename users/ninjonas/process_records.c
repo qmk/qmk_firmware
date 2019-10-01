@@ -85,6 +85,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
+    // Opens Terminal
+    case M_TERM:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI));
+        _delay_ms(250);
+        SEND_STRING("terminal\n");
+      }
+      break;
+
     // BEGIN: Layer macros
     case QWERTY:
       if (record->event.pressed) {

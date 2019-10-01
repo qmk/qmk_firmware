@@ -87,7 +87,7 @@
 
 #define _____________________LOWER_R1_______________________ _______________NAV_1______________, XXXXXXX, K_MDSH
 #define _____________________LOWER_R2_______________________ _______________NAV_2______________, K_LOCK, XXXXXXX
-#define _____________________LOWER_R3_______________________ T_RBRC, KC_M, XXXXXXX, M_CODE, M_XXX1, M_PYNV
+#define _____________________LOWER_R3_______________________ T_RBRC, KC_M, M_TERM, M_CODE, M_XXX1, M_PYNV
 
 #define _____________________ADJUST_L1______________________ M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #ifdef RGB_MATRIX_ENABLE
