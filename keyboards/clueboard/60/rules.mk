@@ -1,6 +1,5 @@
 # project specific files
-SRC =	matrix.c \
-	led.c
+SRC =	led.c
 LAYOUTS += 60_ansi 60_ansi_split_bs_rshift 60_iso
 
 ## chip/board settings
@@ -32,8 +31,6 @@ USE_FPU = yes
 
 # Vector table for application
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
-# The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-# OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
 OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
@@ -43,14 +40,10 @@ DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = yes # Custom matrix file
+BOOTMAGIC_ENABLE = no	  # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes	  # Mouse keys
+EXTRAKEY_ENABLE = yes	  # Audio control and System control
+CONSOLE_ENABLE = yes	  # Console for debug
+COMMAND_ENABLE = no     # Commands for debug and configuration
+NKRO_ENABLE = yes	      # USB Nkey Rollover
 AUDIO_ENABLE = yes
-# SERIAL_LINK_ENABLE = yes

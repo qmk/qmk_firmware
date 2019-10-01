@@ -1,0 +1,4 @@
+# Languages
+
+* [English](/)
+* [Chinese](zh/)

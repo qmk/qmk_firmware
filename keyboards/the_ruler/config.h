@@ -155,9 +155,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#define RGBLIGHT_TIMER 
+
 #define RGB_DI_PIN E6     // The pin your RGB strip is wired to
-#define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
 #define RGBLED_NUM 1      // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 10

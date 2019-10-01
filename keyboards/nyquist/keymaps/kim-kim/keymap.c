@@ -1,6 +1,4 @@
-#include "nyquist.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -55,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LW] = LAYOUT( \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______, _______, _______, _______, \
   _______, KC_MPRV, KC_MNXT, KC_VOLU, RGB_TOG, KC_F11,  _______, _______, _______, _______, _______, _______, \
-  _______, KC_MPLY, KC_MSTP, KC_VOLD, RGB_SMOD, _______, _______, _______, _______, _______, _______, _______, \
+  _______, KC_MPLY, KC_MSTP, KC_VOLD, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, KC_MUTE, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),

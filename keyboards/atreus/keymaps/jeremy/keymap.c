@@ -4,8 +4,6 @@
 #include "action_layer.h"
 #include "keymap_colemak.h"
 
-#define PREVENT_STUCK_MODIFIERS
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 #define ALPH 0
 #define NUMS 1
@@ -55,10 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,                   KC_TRNS, KC_F1,   KC_F2,         KC_F3,           KC_F4,
     KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,         KC_TRNS
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

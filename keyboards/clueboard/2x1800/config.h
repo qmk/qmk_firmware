@@ -58,6 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* audio support */
 #define B7_AUDIO
 #define C4_AUDIO
+#define AUDIO_CLICKY
 
 /* number of backlight levels */
 // #define BACKLIGHT_PIN B7

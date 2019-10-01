@@ -1,4 +1,4 @@
-#include "whitefox.h"
+#include QMK_KEYBOARD_H
 
 enum whitefox_layers {
   _QWERTY,
@@ -118,10 +118,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,_______,_______,                   KC_MPLY,                     _______,_______,_______,        KC_MPRV,KC_VOLD,KC_MNXT \
     ),
 };
-
-// const uint16_t fn_actions[] = {
-//     [0] = ACTION_LAYER_MOMENTARY(1),
-// };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

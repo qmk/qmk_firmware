@@ -1,10 +1,11 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
 
-//Simple Keymap where CTRL, WINKEY, and ALT keys are placed in a more familiar location for Windows users. 
+//Simple Keymap where CTRL, WINKEY, and ALT keys are placed in a more familiar location for Windows users.
 //Focus of this particular keymap is to enable easy transition from more traditional keyboards to OLKB Planck.
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -31,10 +32,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC, KC_TRNS},
     {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
   }
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

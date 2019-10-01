@@ -26,13 +26,13 @@ F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = atmel-dfu
 
 # build options
-BOOTMAGIC_ENABLE = yes
-MOUSEKEY_ENABLE = yes
+BOOTMAGIC_ENABLE = full
+MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes

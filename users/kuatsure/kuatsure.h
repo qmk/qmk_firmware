@@ -8,6 +8,8 @@ void tmux_pane_zoom(void);
 void tmux_pane_switch(uint16_t keycode);
 void tmux_window_switch(uint16_t keycode);
 
+#define KT_CESC CTL_T(KC_ESC)
+
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 300
 

@@ -1,7 +1,5 @@
-#include "drashna.h"
-#include "quantum.h"
-#include "action.h"
-#include "version.h"
+#include "template.h"
+
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -10,24 +8,14 @@
 __attribute__ ((weak))
 void matrix_init_keymap(void) {}
 
-__attribute__ ((weak))
-void matrix_scan_keymap(void) {}
-
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-__attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
-  return state;
-}
-__attribute__ ((weak))
-void led_set_keymap(uint8_t usb_led) {}
-
 // Call user matrix init, then call the keymap's init function
 void matrix_init_user(void) {
   matrix_init_keymap();
 }
+
+
+__attribute__ ((weak))
+void matrix_scan_keymap(void) {}
 
 // No global matrix scan code, so just run keymap's matix
 // scan function
@@ -36,11 +24,16 @@ void matrix_scan_user(void) {
 }
 
 
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's recod handier if not processed here,
 // And use "NEWPLACEHOLDER" for new safe range
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  
+
   switch (keycode) {
   case KC_MAKE:
     if (!record->event.pressed) {
@@ -56,18 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_RESET:
-    if (!record->event.pressed) {
-      reset_keyboard();
-    }
-    return false;
-    break;
-  case EPRM:
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    return false;
-    break;
+
   case VRSN:
     if (record->event.pressed) {
       SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
@@ -78,13 +60,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return process_record_keymap(keycode, record);
 }
 
-// Runs state check and changes underglow color and animation
-// on layer change, no matter where the change was initiated
-// Then runs keymap's layer change check
+
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
 uint32_t layer_state_set_user (uint32_t state) {
   return layer_state_set_keymap (state);
 }
 
+
+
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
 void led_set_user(uint8_t usb_led) {
    led_set_keymap(usb_led);
+}
+
+
+
+__attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+void suspend_power_down_user(void)
+{
+    suspend_power_down_keymap();
+}
+
+
+
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
+
+void suspend_wakeup_init_user(void)
+{
+  suspend_wakeup_init_keymap();
+  #ifdef KEYBOARD_ergodox_ez
+  wait_ms(10);
+  #endif
+}
+
+
+
+__attribute__ ((weak))
+void startup_keymap(void) {}
+
+void startup_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb();
+  #endif //RGBLIGHT_ENABLE
+  startup_keymap();
+}
+
+
+
+__attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+void shutdown_user (void) {
+  shutdown_keymap();
 }

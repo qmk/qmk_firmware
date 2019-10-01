@@ -223,7 +223,7 @@ void audio_init()
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
             TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
-        #endif 
+        #endif
 
         audio_initialized = true;
     }
@@ -231,7 +231,7 @@ void audio_init()
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
-    
+
 }
 
 void stop_all_notes()
@@ -464,7 +464,7 @@ ISR(TIMER3_AUDIO_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_3_PERIOD > 0) {
-            if (!note_resting) 
+            if (!note_resting)
                 end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
             else
                 end_of_note = (note_position >= (note_length));
@@ -604,7 +604,7 @@ ISR(TIMER1_AUDIO_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_1_PERIOD > 0) {
-            if (!note_resting) 
+            if (!note_resting)
                 end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
             else
                 end_of_note = (note_position >= (note_length));

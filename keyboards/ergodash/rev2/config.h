@@ -45,12 +45,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+#define C6_AUDIO
+
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE
   #define BACKLIGHT_PIN B6
   #define BACKLIGHT_LEVELS 7
-  #define BACKLIGHT_BREATHING
-  #define BREATHING_PERIOD 4
+//  #define BACKLIGHT_BREATHING
+//  #define BREATHING_PERIOD 4
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -68,10 +70,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 24    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /*
  * Feature disable options

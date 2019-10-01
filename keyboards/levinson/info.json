@@ -1,7 +1,7 @@
 {
   "keyboard_name": "Levinson",
-  "url": "",
-  "maintainer": "qmk",
+  "url": "https://keeb.io",
+  "maintainer": "Keebio",
   "width": 13,
   "height": 4,
   "layouts": {

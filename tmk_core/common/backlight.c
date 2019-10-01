@@ -76,12 +76,51 @@ void backlight_decrease(void)
  */
 void backlight_toggle(void)
 {
-    backlight_config.enable ^= 1;
-    if (backlight_config.raw == 1) // enabled but level = 0
-        backlight_config.level = 1;
-    eeconfig_update_backlight(backlight_config.raw);
-    dprintf("backlight toggle: %u\n", backlight_config.enable);
-    backlight_set(backlight_config.enable ? backlight_config.level : 0);
+	bool enabled = backlight_config.enable;
+	dprintf("backlight toggle: %u\n", enabled);
+	if (enabled) 
+		backlight_disable();
+	else
+		backlight_enable();
+}
+
+/** \brief Enable backlight
+ *
+ * FIXME: needs doc
+ */
+void backlight_enable(void)
+{
+	if (backlight_config.enable) return; // do nothing if backlight is already on
+
+	backlight_config.enable = true;
+	if (backlight_config.raw == 1) // enabled but level == 0
+		backlight_config.level = 1;
+	eeconfig_update_backlight(backlight_config.raw);
+	dprintf("backlight enable\n");
+	backlight_set(backlight_config.level);
+}
+
+/** /brief Disable backlight
+ *
+ * FIXME: needs doc
+ */
+void backlight_disable(void)
+{
+	if (!backlight_config.enable) return; // do nothing if backlight is already off
+
+	backlight_config.enable = false;
+	eeconfig_update_backlight(backlight_config.raw);
+	dprintf("backlight disable\n");
+	backlight_set(0);
+}
+
+/** /brief Get the backlight status
+ *
+ * FIXME: needs doc
+ */
+bool is_backlight_enabled(void)
+{
+	return backlight_config.enable;
 }
 
 /** \brief Backlight step through levels

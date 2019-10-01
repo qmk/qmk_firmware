@@ -30,7 +30,7 @@ Some optional behavior is configurable without editing the code
 using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 
 - `CFQ_USER_KEY0`
-  (0..7) are used for custom-keys
+  (0..8) are used for custom-keys
 - `CFQ_USE_MOMENTARY_LAYER_KEYS`
   is used to prevent layer keys from toggling when tapped.
 - `CFQ_USE_SHIFT_QUOTES`
@@ -122,22 +122,17 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 2: Media, Mouse Keys and Numbers
-
-Notes:
-
-- Numbers are included on this layer since some applications differentiate
-  between numbers top row and keypad.
+## Keymap 2: F-Keys, Media & Mouse Keys
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
+|        |      |      |      |      |      |      |  | Mute |      |  F10 |  F11 |  F12 |      |        |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
-|        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
+|        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |  F7  |  F8  |  F9  |      |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
-|        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
+|        |      |MsLeft|MsDown|MsRght|      |------|  |------|      |  F4  |  F5  |  F6  |      |        |
 |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
-|        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
+|        |      | Rclk | Mclk | Lclk |      |      |  |      |      |  F1  |  F2  |  F3  |      |        |
 '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
   |      |      |      |      |      |                              |      |      |      |      |      |
   '----------------------------------'                              '----------------------------------'
@@ -150,15 +145,20 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 3: F-Keys & User Defined Words
+## Keymap 3: User Defined Words & Numbers
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`
 eg: `-DCFQ_WORD_E=\"my@email.com\"`
 
+Notes:
+
+- Numbers are included on this layer since some applications differentiate
+  between numbers top row and keypad.
+
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |  | F12  |  F6  |  F7  |  F8  |  F9  |  F10 |        |
+|        |   1  |   2  |   3  |   4  |   5  |      |  |      |   6  |   7  |   8  |   9  |   0  |        |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
 |        |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
@@ -178,6 +178,9 @@ eg: `-DCFQ_WORD_E=\"my@email.com\"`
 ```
 
 ## Changelog
+
+- 2018/10/19
+  Move F-Keys to key-pad like layout.
 
 - 2018/05/29
   Add number keys for cases when keypad numbers are handled differently.

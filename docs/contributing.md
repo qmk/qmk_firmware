@@ -11,7 +11,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 
 ## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Gitter](https://gitter.im/qmk/qmk_firmware).
+If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
 
 Please keep these things in mind:
 
@@ -29,7 +29,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 # Where Can I Go for Help?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on gitter](http://gitter.im/QMK/qmk_firmware).
+If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
 
 # How Do I Make a Contribution?
 
@@ -57,19 +57,39 @@ Never made an open source contribution before? Wondering how contributions work 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
 * We indent using two spaces (soft tabs)
-* We use One True Brace Style
+* We use a modified One True Brace Style
   * Opening Brace: At the end of the same line as the statement that opens the block
   * Closing Brace: Lined up with the first character of the statement that opens the block
   * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
   * Optional Braces: Always include optional braces.
     * Good: if (condition) { return false; }
     * Bad: if (condition) return false;
-* We use C style comments: `/* */`
+* We encourage use of C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
   * If you not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
+* We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
+
+Here is an example for easy reference:
+
+```c
+/* Enums for foo */
+enum foo_state {
+  FOO_BAR,
+  FOO_BAZ,
+};
+
+/* Returns a value */
+int foo(void) {
+  if (some_condition) {
+    return FOO_BAR;
+  } else {
+    return -1;
+  }
+}
+```
 
 # General Guidelines
 
@@ -124,7 +144,7 @@ We also ask that you follow these guidelines:
 
 Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
-* [Chat on Gitter](https://gitter.im/qmk/qmk_firmware)
+* [Chat on Discord](https://discord.gg/Uq7gcHh)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
 Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.

@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
-
 #include "edvorakjp.h"
-
-extern edvorakjp_config_t edvorakjp_config;
 
 enum custom_keycodes {
   KC_LOCK = NEW_SAFE_RANGE,
@@ -34,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      GRV ,EXLM, AT ,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     LBRC,RBRC,COMM,DOT , P  , Y  ,                F  , G  , R  , W  , Q  ,BSLS,
+     LBRC,RBRC,COMM,DOT , Y  , P  ,                F  , G  , R  , W  , Q  ,BSLS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      EQL , A  , O  , E  , I  , U  ,                D  , T  , N  , S  , M  ,MINS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
@@ -136,10 +131,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_LOCK:
       if (record->event.pressed) {
-        if (edvorakjp_config.enable_kc_lang) {
+        if (get_enable_kc_lang()) {
           SEND_STRING( SS_LCTRL(SS_LSFT(SS_TAP(X_POWER))) );
         } else {
-          SEND_STRING( SS_LGUI("L") );
+          SEND_STRING( SS_LGUI("l") );
         }
       }
       return false;

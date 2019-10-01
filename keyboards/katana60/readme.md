@@ -12,6 +12,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make katana60:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 There is also ongoing discussion for the extend layer, at the [Colemak Forum](https://forum.colemak.com/topic/2327-developing-an-extend-layer-for-the-katana60/)

@@ -19,10 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* Use I2C or Serial, not both */
 
@@ -48,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
@@ -61,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define C6_AUDIO
 #ifdef RGBLIGHT_ENABLE
 #define NO_MUSIC_MODE
-#endif //RGBLIGHT_ENABLE
+#endif
 #endif //AUDIO_ENABLE
 
 #undef PRODUCT
@@ -72,7 +69,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define QMK_ESC_OUTPUT D7 // usually COL
+#ifdef KEYBOARD_orthodox_rev1
 #define QMK_ESC_INPUT D4 // usually ROW
+#else
+#define QMK_ESC_INPUT D2 // usually ROW
+#endif
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
@@ -83,7 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CTRL_LED1 6
 #define CTRL_LED2 9
 
-#define GUI_LED1 7
-#define GUI_LED2 8
+#define GUI_LED1 8
+#define ALT_LED1 7
 
-#endif

@@ -19,14 +19,7 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ALGR(kc) RALT(kc)
-#define IT_ALGR KC_RALT
-
 // normal characters
-
-
-
 #define IT_A KC_A
 #define IT_B KC_B
 #define IT_C KC_C

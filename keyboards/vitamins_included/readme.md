@@ -104,7 +104,7 @@ If this is the first time you're flashing the boards, you have to flash EEPROM
 2. Run `ls /dev | grep tty` Note down which ports you see
 2. Plug the keyboard in, if it's new, it should enter bootloader, if it's not new, see **Entering bootloader** on how to enter bootloader mode
 4. Right after entering bootloader, run `ls /dev | grep tty` again. There should be a new tty, this is the bootloader TTY, note it down. If nothing shows see **Entering bootloader** on how to enter bootloader mode
-6. For the left hand side, run  `avrdude -c avr109 -p m32u4 -P /dev/ttyS1 -U eeprom:w:"./keyboards/lets_split_vitamins/eeprom-lefthand.eep":a`
+6. For the left hand side, run  `avrdude -c avr109 -p m32u4 -P /dev/ttyS1 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep":a`
 Replace ***/dev/ttyS1*** with the port you noted down earlier. If you're on windows using msys2, replace ***/dev/ttyS1*** with COM2, note that the number is one higher than the tty number.  
 Do the same For the right hand, but change the file to ***eeprom-righthand.eep***
 

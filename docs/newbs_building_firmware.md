@@ -16,11 +16,25 @@ Start by navigating to the `keymaps` folder for your keyboard.
 
 ?> Windows:
 
-    start keyboards/<keyboard_folder>/keymaps
+    start .\\keyboards\\<keyboard_folder>\\keymaps
 
 ## Create a Copy Of The `default` Keymap
 
 Once you have the `keymaps` folder open you will want to create a copy of the `default` folder. We highly recommend you name your folder the same as your GitHub username, but you can use any name you want as long as it contains only lower case letters, numbers, and the underscore character.
+
+To automate the process, you also have the option to run the `new_keymap.sh` script. 
+
+Navigate to the `qmk_firmware/util` directory and type the following:
+
+```
+./new_keymap.sh <keyboard path> <username>
+```
+
+For example, for a user named John, trying to make a new keymap for the 1up60hse, they would type in
+
+```
+./new_keymap.sh 1upkeyboards/1up60hse john
+```
 
 ## Open `keymap.c` In Your Favorite Text Editor
 

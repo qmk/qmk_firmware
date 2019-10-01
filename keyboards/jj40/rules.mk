@@ -57,4 +57,4 @@ SRC = matrix.c i2c.c backlight.c
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
