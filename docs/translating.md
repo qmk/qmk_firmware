@@ -1,6 +1,6 @@
 # How to translate the QMK docs into different languages
 
-All files in the root folder (`docs/`) should be in English - all other languages should be in subfolders with the ISO 639-1 language codes, followed by `-` and the county code where relevant. [A list of common ones can be found here](https://www.andiamo.co.uk/resources/iso-language-codes/). If this folder doesn't exist, you may create it. Each of the translated files should have the same name as the English version, so things can fall back successfully.
+All files in the root folder (`docs/`) should be in English - all other languages should be in subfolders with the ISO 639-1 language codes, followed by `-` and the country code where relevant. [A list of common ones can be found here](https://www.andiamo.co.uk/resources/iso-language-codes/). If this folder doesn't exist, you may create it. Each of the translated files should have the same name as the English version, so things can fall back successfully.
 
 A `_summary.md` file should exist in this folder with a list of links to each file, with a translated name, and link preceded by the language folder:
 
