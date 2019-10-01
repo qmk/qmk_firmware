@@ -260,7 +260,7 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    #PLAY_NOTE_ARRAY(tone_startup, false, 0);
 }
 
 void shutdown_user()
