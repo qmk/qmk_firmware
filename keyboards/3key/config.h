@@ -37,7 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { D4 }
 #define MATRIX_COL_PINS \
   { F4, F5, F6 }
+
+#define C6_AUDIO
+
 #define UNUSED_PINS
+
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#endif
 
 /* ws2812 RGB LED */
 //#define RGB_DI_PIN F7
