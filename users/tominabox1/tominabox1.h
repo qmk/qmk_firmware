@@ -5,6 +5,8 @@
 // #define KC_SFT_CPS MT(MOD_LSFT, KC_CAPS) // Act as Shift on hold and as CapsLock on tap
 #define SPC_LOW LT(_LOWER, KC_ENT) // Left space on tap, LOWER on hold
 #define SPC_UPR LT(_RAISE, KC_SPC) // Left space on tap, UPPER on hold
+#define MOM_TWO MO(_RAISE)
+#define MOM_FVE MO(_FKEY)
 
 extern keymap_config_t keymap_config;
 

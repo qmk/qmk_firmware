@@ -76,22 +76,19 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 void left_tap (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    register_code (KC_LEFT);
-  }
-  if (state->count == 2) {
-    register_code (MO(2));
-  }
-  if (state->count == 3) {
-    register_code (MO(5));
-  }
+    if (!state->pressed) {register_code (KC_LEFT);}
+    else layer_on(_RAISE);
+  } else if (state->count == 2) {layer_on(_FKEY);}
   else{}
 }
 
 void left_tap_stop (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LEFT);
-    unregister_code (MO(2));
-    unregister_code (MO(5));
+  }
+  if (!state->pressed) {
+    layer_off(_FKEY);
+    layer_off(_RAISE);
   }
   else{}
 }
@@ -106,6 +103,8 @@ uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case TD(TD_SFT_CPS):
             return 300;
+        case TD(KC_LFT_NUM_F):
+            return 150;
         case SPC_LOW:
             return 150;
         default:
