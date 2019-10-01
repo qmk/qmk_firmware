@@ -19,14 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "config_common.h"
+#include <serial_config.h>
 
-#ifndef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN D2
-#define SERIAL_USE_MULTI_TRANSACTION
-#endif
+#define USE_I2C
+#define USE_SERIAL
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-// Use the lily version to get the uzu42 logo instead of the qmk logo
-#define OLED_FONT_H "lib/glcdfont_uzu42.c"
+#define DISABLE_LEADER
