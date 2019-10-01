@@ -14,7 +14,7 @@ Once you've finished translating a new language, you'll also need to modify the 
       - [:cn: 中文](/zh-cn/)
 
 * [`docs/index.html`](https://github.com/qmk/qmk_firmware/blob/master/docs/index.html)  
-  Both `placeholder` and `noData` objects should have a dictionay entry for the language folder in a string:  
+  Both `placeholder` and `noData` objects should have a dictionary entry for the language folder in a string:  
   
       '/zh-cn/': '没有结果!',
 
