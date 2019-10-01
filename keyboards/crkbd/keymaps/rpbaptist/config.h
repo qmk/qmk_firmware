@@ -106,8 +106,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont.c"
 
-#define NO_ACTION_FUNCTION
-#define NO_ACTION_MACRO
 #define NO_ACTION_ONESHOT
 
 #undef PRODUCT
