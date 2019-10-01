@@ -2,7 +2,7 @@
 
 ## Preamble: How a Keyboard Matrix Works 
 
-The collapsible section below covers why keyboards are wired in the way outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
+The collapsible section below covers why keyboards are wired the way they are, as outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
 
 <details>
 
