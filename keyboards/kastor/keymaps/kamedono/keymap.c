@@ -7,6 +7,7 @@
 enum layer_number {
   BASE = 0,
   BRACES,
+  ETC,
   RAISE,
   CURSOR,
   CURSOR_ACL,
@@ -24,24 +25,30 @@ enum custom_keycodes {
 #define KC_XXXX   KC_NO
 
 #define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_C_ALT  LALT_T(KC_C)
-#define KC_M_ALT  LALT_T(KC_M)
-#define KC_CM_ALT LALT_T(KC_COMM)
-#define KC_M_RAI  LT(RAISE, KC_M)
-#define KC_V_RAI  LT(RAISE, KC_V)
-#define KC_N_RAI  LT(RAISE, KC_N)
 #define KC_S_UNDS LSFT_T(KC_UNDS)
 #define KC_S_CUR  LT(CURSOR, KC_S)
 #define KC_FN_ENT LT(FUNCTION, KC_ENT)
 #define KC_CTL_TB LCTL_T(KC_TAB)
 #define KC_CACL   MO(CURSOR_ACL)
-#define KC_Z_GUI  LGUI_T(KC_Z)
-#define KC_SL_GUI LGUI_T(KC_SLSH)
+
+#define KC_M_RAI  LT(RAISE, KC_M)
+#define KC_V_RAI  LT(RAISE, KC_V)
+#define KC_N_RAI  LT(RAISE, KC_N)
+
+#define KC_C_ALT  LALT_T(KC_C)
+#define KC_M_ALT  LALT_T(KC_M)
+#define KC_CM_ALT LALT_T(KC_COMM)
 
 #define KC_Z_GU   LGUI_T(KC_Z)
 #define KC_DOT_GU LGUI_T(KC_DOT)
+#define KC_SL_GU LGUI_T(KC_SLSH)
+
 #define KC_X_BR   LT(BRACES, KC_X)
 #define KC_COM_BR LT(BRACES, KC_COMM)
+#define KC_DOT_BR LT(BRACES, KC_DOT)
+
+
+#define KC_N_ETC LT(ETC, KC_N)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -63,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
    CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN ,FN_ENT, \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z_GU , X_BR , C_ALT, V_RAI, SPC  ,   B    , N_RAI, M_ALT,COM_BR,DOT_GU, SLSH   \
+    LSFT , Z_GU , X_BR , C_ALT, V_RAI, B    ,   N_ETC, M_RAI,CM_ALT,DOT_BR, SL_GU, RSFT   \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 
@@ -85,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , CACL , ____ , ____ ,   LEFT , DOWN , UP   , RGHT , ____ , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____   \
+    ____ , ____ , ____ , ____ , ____ , SPC  ,   ____ , ____ , ____ , ____ , ____ , ____   \
 //`------+------+------+------+------+------' `------+------+------+------+------+------'
   ),
 
@@ -105,7 +112,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , LCBR , LPRN , LBRC ,   RBRC , RPRN , RCBR , ____ , ____ , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____   \
+    ____ , ____ , ____ , ____ , ____ , SPC  ,   ____ , ____ , ____ , ____ , ____ , ____   \
+//`------+------+------+------+------+------' `------+------+------+------+------+------'
+  ),
+
+  [ETC] = LAYOUT_kc(                                                 \
+//,-----------------------------------------. ,-----------------------------------------.
+    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
+//,------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____,    ____ , ____ , ____ , ____ , ____ , ____ , \
+//|------+------+------+------+------+------| |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , SPC  ,   ____ , ____ , ____ , ____ , ____ , ____   \
 //`------+------+------+------+------+------' `------+------+------+------+------+------'
   ),
 
