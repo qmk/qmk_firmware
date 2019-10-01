@@ -14,7 +14,6 @@ MCU = atmega32u4
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
-# Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
