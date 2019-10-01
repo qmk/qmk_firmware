@@ -1,19 +1,18 @@
 # Quantum Hand-Wiring Guide
 
-Parts list:
-* *x* keyswitches (MX, Matias, Gateron, etc)
-* *x* diodes
-* Keyboard plate (metal, plastic, cardboard, etc)
-* Wire (strained for wiring to the Teensy, anything for the rows/columns)
-* Soldering iron set at 600ºF or 315ºC (if temperature-controlled)
-* Rosin-cored solder (leaded or lead-free)
-* Adequate ventilation/a fan
-* Tweezers (optional)
-* Wire cutters/snippers
+## Preamble: How a Keyboard Matrix Works 
 
-## How the Matrix Works (Why We Need Diodes)
+The collapsible section below covers why keyboards are wired in the way outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
 
-The microcontroller (in this case, the Teensy 2.0) will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
+<details>
+
+<summary>Click for details</summary>
+
+Without a matrix circuit each switch would require its own wire directly to the controller.
+
+Simply put, when the circuit is arranged in rows and columns, if a key is pressed, a column wire makes contact with a row wire and completes a circuit. The keyboard controller detects this closed circuit and registers it as a key press.
+
+The microcontroller will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
 
         Column 0 being scanned     Column 1 being scanned
                   x                                   x
@@ -100,30 +99,46 @@ Things act as they should! Which will get us the following data:
 
 The firmware can then use this correct data to detect what it should do, and eventually, what signals it needs to send to the OS.
 
-# The Actual Hand-Wiring
+Further reading:
+- [Wikipedia article](https://en.wikipedia.org/wiki/Keyboard_matrix_circuit)
+- [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
+- [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
+- [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
+
+</details>
+
+
+## Parts list
+
+You will need: (where *x* is the number of keys on your planned keyboard)
+
+* QMK compatible microcontroller board (Teensy, Pro-Micro etc.)
+* *x* keyswitches (MX, Matias, Gateron, etc)
+* *x* through hole diodes
+* Keyboard plate and plate mount stabilisers
+* Single core wire
+* Soldering iron
+* Rosin-cored solder
+* Adequate ventilation/a fan
+* Wire cutters/snippers
+* Tweezers and/or small needle nose pliers (optional)
 
 ## Getting Things in Place
 
-When starting this, you should have all of your stabilisers and keyswitches already installed (and optionally keycaps). If you're using a Cherry-type stabiliser (plate-mounted only, obviously), you'll need to install that before your keyswitches. If you're using Costar ones, you can installed them afterwards.
+As this guide is dealing with hand wiring, it assumes you already have a plate.  If you are planning a completely custom layout, tools such as https://kbplate.ai03.me/ and http://builder.swillkb.com/ can help when designing one.
 
-To make things easier on yourself, make sure all of the keyswitches are oriented the same way (if they can be - not all layouts support this). Despite this, it's important to remember that the contacts on the keyswitches are completely symmetrical. We'll be using the keyswitch's left side contact for wiring the rows, and the right side one for wiring the columns.
+Start by installing the switches and stabilisers in the plate. Depending on the thickness and material of the plate this may also involve hot gluing it in place.
+
+Prepare your diodes by bending the legs to on the leg furthest from the black line.
+This makes it easier to keep track of their direction (as current will only travel in one direction through a diode).  This is easily done while it's still on the packaging strip over the edge of a box or sharp table etc.
+
+![Bent diode legs](hand_wire_images/bending_diodes.jpg)
+
+While not required, it is considered good practice to loop any wires (including the diode legs) around the switch pins.  This helps ensure a strong solder joint.
+
+![Looped diode leg](hand_wire_images/looped_diode_leg.jpg)
 
 Get your soldering iron heated-up and collect the rest of the materials from the part list at the beginning of the guide. Place your keyboard so that the bottoms of the keyswitches are accessible - it may be a good idea to place it on a cloth to protect your keyswitches/keycaps.
-
-Before continuing, plan out where you're going to place your Teensy. If you're working with a board that has a large (6.25u) spacebar, it may be a good idea to place it in-between switches against the plate. Otherwise, you may want to trim some of the leads on the keyswitches where you plan on putting it - this will make it a little harder to solder the wire/diodes, but give you more room to place the Teensy.
-
-## Preparing the Diodes
-
-It's a little easier to solder the diodes in place if you bend them at a 90º angle immediately after the black line - this will help to make sure you put them on the right way (direction matters), and in the correct position. The diodes will look like this when bent (with longer leads):
-
-```
-       ┌─────┬─┐
-    ───┤     │ ├─┐
-       └─────┴─┘ │
-                 │
-```
-
-We'll be using the long lead at the bent end to connect it to the elbow (bent part) of the next diode, creating the row.
 
 ## Soldering the Diodes
 
@@ -338,3 +353,10 @@ If you've done all of these things, keep in mind that sometimes you might have h
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
 There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
+
+
+[Brownfox guide on Deskthority]: https://deskthority.net/viewtopic.php?f=7&t=5761&start=
+
+[W]
+
+
