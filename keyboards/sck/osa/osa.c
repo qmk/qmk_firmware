@@ -15,7 +15,7 @@
  */
 #include "osa.h"
 
-//#include "led.h"
+#include "led.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.

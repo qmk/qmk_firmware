@@ -47,7 +47,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
 BOOTLOADER = atmel-dfu
-#BOOTLOADER = qmk-dfu
+
 
 
 # If you don't know the bootloader type, then you can specify the
