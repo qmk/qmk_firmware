@@ -41,12 +41,13 @@ enum custom_keycodes {
 
 #define KC_Z_GU   LGUI_T(KC_Z)
 #define KC_DOT_GU LGUI_T(KC_DOT)
-#define KC_SL_GU LGUI_T(KC_SLSH)
+#define KC_SL_GU  LGUI_T(KC_SLSH)
 
 #define KC_X_BR   LT(BRACES, KC_X)
 #define KC_COM_BR LT(BRACES, KC_COMM)
 #define KC_DOT_BR LT(BRACES, KC_DOT)
 
+#define KC_FUNC   TG(FUNCTION)
 
 #define KC_N_ETC LT(ETC, KC_N)
 
@@ -68,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     GRV  , Q    , W    , E    , R    , T    ,   Y    , U    , I    , O    , P    , MINS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-   CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN ,FN_ENT, \
+   CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN , ENT  , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z_GU , X_BR , C_ALT, V_RAI, B    ,   N_ETC, M_RAI,CM_ALT,DOT_BR, SL_GU, RSFT   \
+    LSFT , Z_GU , X_BR , C_ALT, V_RAI, B    ,   N_ETC, M_RAI,CM_ALT,DOT_BR, SL_GU, FUNC   \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 
