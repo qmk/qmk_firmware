@@ -1,6 +1,6 @@
 # osa
 
-![osa](imgur.com image replace me!)
+![osa](https://imgur.com/U2x7TQ8)
 
 About the OSA:
 
@@ -9,7 +9,7 @@ All case and other design files have been either reworked or created from scratc
 The OSA PCB is an ATMega32u4 powered, USB Type C, Alice compatible PCB and was created specifically for the OSA case, but with considerations to make it compatible with the Lubrigante acrylic cases (except for the Type C connector it should also be compatible with original TGR Alice cases).
 
 Keyboard Maintainer: [jrfhoutx](https://github.com/jrfhoutx)  
-Hardware Supported: OSA PCB by BlindAssassin111, ATMEGA32u4
+Hardware Supported: OSA PCB by BlindAssassin111, ATMEGA32u4  
 Hardware Availability: Currently unavailable outside of the private group buy
 
 Make example for this keyboard (after setting up your build environment):
