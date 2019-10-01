@@ -20,9 +20,9 @@ Once you've finished translating a new language, you'll also need to modify the 
 
 ## Previewing the translations
 
-Before opening a pull request, you can preview your additions if you have Python and SimpleHTTPServer installed by running this command in the `docs/` folder:
+Before opening a pull request, you can preview your additions if you have Python 3 installed by running this command in the `docs/` folder:
 
-    python -m SimpleHTTPServer 9000
+    python -m http.server 9000
 
 and navigating to http://localhost:9000/ - you should be able to select your new language from the "Translations" menu at the top-right.
 
