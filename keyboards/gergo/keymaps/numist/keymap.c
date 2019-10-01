@@ -29,7 +29,7 @@ KC_GRAVE,              KC_Q,  KC_W,   KC_F,   KC_P, KC_B,                  /**/ 
 LT(NUMB, KC_PGUP),     KC_A,  KC_R,   KC_S,   KC_T, KC_G, KC_TAB,          /**/          KC_ENT,  KC_M, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT,
 MT(MOD_LSFT, KC_PGDN), KC_Z,  KC_X,   KC_C,   KC_D, KC_V, KC_ESC, KC_LBRC, /**/ KC_RBRC, KC_BSLS, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
 
-                                     KC_LCTL,  KC_LALT,  KC_LCMD, KC_LSFT, /**/ KC_BSPC, MOD_RSFT,  LT(FN, KC_SPC),  LT(KC_RCTL, KC_DEL)
+                                     KC_LCTL,  KC_LALT,  KC_LCMD, KC_LSFT, /**/ KC_BSPC, KC_RSFT,  LT(FN, KC_SPC),  MT(MOD_RCTL, KC_DEL)
 // TODO: MT taps KC_CAPS too quickly for the key hysteresis imposed by macOS; need to find a different solution for MT(MOD_RSFT, KC_CAPS).
 ),
 
@@ -39,7 +39,7 @@ KC_TRNS, M_RECD1, M_STOP1, M_PLAY1, KC_TRNS, KC_TRNS,                   /**/    
 KC_HOME, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          /**/          KC_MPLY, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
 KC_END,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_MPRV, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, KC_BSLS, KC_PIPE,
 
-                                  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_TRNS,  _______,  KC_TRNS
+                                  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, /**/ KC_TRNS, KC_TRNS,  _______,  RESET
 ),
 // Keymap 2: Numpad/F-key layer
 [NUMB] = LAYOUT_gergo(
