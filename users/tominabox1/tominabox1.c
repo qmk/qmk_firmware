@@ -74,9 +74,31 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void left_tap (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_LEFT);
+  }
+  if (state->count == 2) {
+    register_code (MO(2));
+  }
+  if (state->count == 3) {
+    register_code (MO(5));
+  }
+  else{}
+}
+
+void left_tap_stop (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_LEFT);
+    unregister_code (MO(2));
+    unregister_code (MO(5));
+  }
+  else{}
+}
 //All tap dance functions would go here. Only showing this one.
 qk_tap_dance_action_t tap_dance_actions[] = {
     [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
+    [KC_LFT_NUM_F] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, left_tap, left_tap_stop),
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
