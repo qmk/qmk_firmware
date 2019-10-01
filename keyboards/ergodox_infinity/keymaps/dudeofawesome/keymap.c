@@ -490,6 +490,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
+void matrix_init_user() {
+  backlight_enable();
+  backlight_level(BACKLIGHT_LEVELS);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
