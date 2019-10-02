@@ -148,7 +148,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_master) {
     return OLED_ROTATION_270;
   } else {
-    return OLED_ROTATION_180;
+    return OLED_ROTATION_90;
   }
 }
 
