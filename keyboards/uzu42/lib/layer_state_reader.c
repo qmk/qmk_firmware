@@ -4,10 +4,10 @@
 #include "uzu42.h"
 
 #define L_BASE 0
-#define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+#define L_LOWER 2
+#define L_RAISE 4
+#define L_ADJUST 8
+#define L_ADJUST_TRI 14
 
 char layer_state_str[24];
 

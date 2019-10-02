@@ -34,9 +34,3 @@
     { R35, R34, R33, R32, R31, R30 } \
   }
 
-enum layer_number {
-  _QWERTY = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-};
