@@ -1,5 +1,4 @@
-#ifndef PULSE4K_H
-#define PULSE4K_H
+#pragma once
 
 #include "quantum.h"
 
@@ -17,5 +16,3 @@
       { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b }, \
       { k40, k41, k42, k43, k44,    k45,   k47, k48, k49, k4a, k4b } \
 }
-
-#endif
