@@ -34,7 +34,12 @@ See: https://docs.qmk.fm/#/feature_userspace
 |LM_LOW | Dedicated key to momentarily toggle to use LOWER layer |
 |LM_RAI | Dedicated key to momentarily toggle to use RAISE layer |
 
-### [Layout Blocks](ninjonas.h#L50)
+### [Mod-Taps](ninjonas.h#L50)
+|Code | Description |
+|---|---|
+|MT_DEL | Tap for Delete, hold for ALT |
+
+### [Layout Blocks](ninjonas.h#L53)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |

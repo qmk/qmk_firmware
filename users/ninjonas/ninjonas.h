@@ -47,6 +47,9 @@
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
 
+// Mod-Tap Keys
+#define MT_DEL RALT_T(KC_DEL)
+
 // Layout blocks
 #define _____________________QWERTY_L1______________________ T_TAB, T_Q, T_W, KC_E, KC_R, KC_T
 #define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
@@ -120,7 +123,7 @@
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
 #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-#define ________MOD_RIGHT________ KC_BSPC, KC_DEL, LM_LOW
+#define ________MOD_RIGHT________ KC_BSPC, MT_DEL, LM_LOW
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
