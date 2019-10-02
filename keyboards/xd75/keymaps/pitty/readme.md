@@ -1,1 +1,3 @@
-# The default keymap for xd75, with led controls
+My keymap for the XD75
+
+Including Hungarian characters and layer reactive underglow.
