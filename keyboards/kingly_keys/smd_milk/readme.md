@@ -1,19 +1,21 @@
 # 2% Milk
 
-![2%Milk](https://i.imgur.com/Ud96uXn.png)
+![SMD_MILK](https://cdn.discordapp.com/attachments/527180441950617615/628391976001208360/image0.jpg)
 
-A 2% Meme board themed around a milk carton
+An SMD Version of the 2% Meme board themed around a milk carton and love
 
-Keyboard Maintainer: [Rionlion100](https://github.com/rionlion100)  
-Hardware Availability: [Open Source](https://github.com/Rionlion100/Spaceboards/tree/master/Keyboards/2%25%20Milk)
+Keyboard Maintainer: [Garret G.](https://github.com/TheRoyalSweatshirt) a.k.a. [/u/The_Royal](https://www.reddit.com/user/The_Royal)  
+Hardware Availability: Through GB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 2_milk:default
+    make kingly_keys/smd_milk:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ### Credits
++ Original Concept by rionlion100
 + Case design by Soft
-+ PCB by PyroL
++ Original 2% Milk PCB by PyroL
++ new SMD PCB by The_Royal
 + Name by jetpacktuxedo
