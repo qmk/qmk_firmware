@@ -2,8 +2,6 @@
 
 #include "keymap_german.h"
 
-extern keymap_config_t keymap_config;
-
 enum layers {
   _QWERTZ,
   _SC,
