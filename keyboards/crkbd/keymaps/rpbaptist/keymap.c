@@ -163,7 +163,7 @@ void render_crkbd_logo(void) {
 
 void render_status(void) {
   // oled_write_P(PSTR("Layout: "), false);
-  switch (biton32(default_layer_state)) {
+  switch (get_highest_layer(default_layer_state)) {
     case _COLEMAKDHM:
       oled_write_P(PSTR("CLMK "), false);
       break;
