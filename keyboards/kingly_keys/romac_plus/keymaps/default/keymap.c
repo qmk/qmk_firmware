@@ -43,7 +43,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_task_user(void) {
   // Host Keyboard Layer Status
-  oled_write_P(PSTR("Let's build something, together!"), false);
+  oled_write_P(PSTR("Let's\nbuild\nsome-\nthing\nto-\nget-\nher!"), false);
   switch (get_highest_layer(layer_state)) {
     case BASE:
       oled_write_P(PSTR("\n"), false);
