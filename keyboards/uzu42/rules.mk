@@ -14,9 +14,6 @@ MCU = atmega32u4
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Use split_common libraries
 SPLIT_KEYBOARD = yes
 
