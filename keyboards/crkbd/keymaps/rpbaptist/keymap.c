@@ -175,7 +175,7 @@ void render_status(void) {
 
   oled_write_P(PSTR("\n"), false);
 
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case 0:
       oled_write_P(PSTR("     "), false);
       break;
