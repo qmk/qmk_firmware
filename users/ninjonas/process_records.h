@@ -11,6 +11,7 @@ enum custom_keycodes {
   M_PYNV,
   M_SHFT,
   M_MAKE,
+  M_MALL,
   M_FLSH,
   M_VRSN,
   M_CODE,
