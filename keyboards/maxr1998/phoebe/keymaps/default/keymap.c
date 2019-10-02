@@ -102,6 +102,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_SPC,  XXXXXXX, _______, _______, _______, _______, _______, _______, G_0,     _______, _______, _______}
 }
 };
-
-void matrix_init_user(void) {
-}
