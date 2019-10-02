@@ -53,7 +53,7 @@ void oled_task_user(void) {
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("Undefined"), false);
+      oled_write_ln_P(PSTR("Undef"), false);
   }
 
   // Host Keyboard LED Status
