@@ -280,7 +280,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             KC_MAKE, _______, _______, _______, _______, _______, _______,                 KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
+             KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
              _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
@@ -382,16 +382,14 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void rgb_matrix_indicators_user(void) {
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
+    if (g_suspend_state || !rgb_matrix_config.enable) return;
+
 #    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
+    if (!userspace_config.rgb_layer_change)
 #    else
-        rgb_matrix_config.enable
+    if (userspace_config.rgb_layer_change)
 #    endif
-    ) {
+    {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
