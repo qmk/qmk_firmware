@@ -30,24 +30,6 @@ enum custom_keycodes {
   RGBRST
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-#define KC________ KC_TRNS
-#define KC_XXXXXXX KC_NO
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-#define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LMOD  RGB_MOD
 #define KC_CTES  CTL_T(KC_ESC)
 #define KC_SFSP  SFT_T(KC_SPC)
 #define KC_ALBS  ALT_T(KC_BSPC)
@@ -61,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------|
         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                      KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,\
   //|-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------|
-     KC_LSFT, KC_SPC,KC_LALT,KC_LGUI,KC_LOWER,KC_CTES, KC_SFSP,KC_RAISE,KC_ALBS,KC_RCTL,KC_LGUI,XXXXXXX \
+     KC_LSFT, KC_SPC,KC_LALT,KC_LGUI,  LOWER,KC_CTES,   KC_SFSP,  RAISE,KC_ALBS,KC_RCTL,KC_LGUI,XXXXXXX \
   //|-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------|
   ),
 
@@ -93,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------.                  ,---------------------------------------.
        KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,                     KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,\
   //|-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------|
-      KC_F11, KC_F12, KC_RST,KC_PSCR, KC_INS,                   KC_LTOG,KC_LHUI,KC_LSAI,KC_LVAI,XXXXXXX,\
+      KC_F11, KC_F12,  RESET,KC_PSCR, KC_INS,                   RGB_TOG,RGB_HUI,RGB_SAI,RGB_VAI,XXXXXXX,\
   //|-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------|
-     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                   KC_LMOD,KC_LHUD,KC_LSAD,KC_LVAD,KC_LRST,\
+     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                   RGB_MOD,RGB_HUD,RGB_SAD,RGB_VAD,RGBRST,\
   //|-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------|
      _______,_______,_______,_______,_______,_______,   _______,_______,_______,_______,_______,_______ \
   //|-------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+-------|
