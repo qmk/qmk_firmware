@@ -28,7 +28,7 @@ If you are using windows you need to install this!
 
 ### Programmer/Debugger Drivers
 
-Now its the time to install your programmer's drivers. This tutorial was made using an ST-Link v2 which you can get from almost anywhere.
+Now it's time to install your programmer's drivers. This tutorial was made using an ST-Link v2 which you can get from almost anywhere.
 If you have an ST-Link the drivers can be found [here](https://www.st.com/en/development-tools/stsw-link009.html) otherwise consult the manufacturer of your tool.
 
 ### OpenOCD
