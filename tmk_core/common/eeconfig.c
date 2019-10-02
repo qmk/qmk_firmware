@@ -153,8 +153,8 @@ uint32_t eeconfig_read_kb(void) { return eeprom_read_dword(EECONFIG_KEYBOARD); }
  *
  * FIXME: needs doc
  */
-
 void eeconfig_update_kb(uint32_t val) { eeprom_update_dword(EECONFIG_KEYBOARD, val); }
+
 /** \brief eeconfig read user
  *
  * FIXME: needs doc
@@ -166,9 +166,24 @@ uint32_t eeconfig_read_user(void) { return eeprom_read_dword(EECONFIG_USER); }
  */
 void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
 
+/** \brief eeconfig read haptic
+ *
+ * FIXME: needs doc
+ */
 uint32_t eeconfig_read_haptic(void) { return eeprom_read_dword(EECONFIG_HAPTIC); }
-/** \brief eeconfig update user
+/** \brief eeconfig update haptic
  *
  * FIXME: needs doc
  */
 void eeconfig_update_haptic(uint32_t val) { eeprom_update_dword(EECONFIG_HAPTIC, val); }
+
+/** \brief eeconfig read split handedness
+ *
+ * FIXME: needs doc
+ */
+bool eeconfig_read_handedness(void) { return !!eeprom_read_byte(EECONFIG_HANDEDNESS); }
+/** \brief eeconfig update split handedness
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_handedness(bool val) { eeprom_update_byte(EECONFIG_HANDEDNESS, !!val); }
