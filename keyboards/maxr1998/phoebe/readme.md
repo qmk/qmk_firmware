@@ -1,6 +1,8 @@
 # Phoebe
 A 5x12 ortolinear keyboard, developed by Maxr1998, [fully open-source](https://github.com/Maxr1998/Phoebe_Keyboard).
 
+![Image](https://i.imgur.com/zEZxqZC.jpg)
+
 Keyboard Maintainer: [Maxr1998](https://github.com/Maxr1998)  
 Hardware Availability: DIY from the [open-source design files](https://github.com/Maxr1998/Phoebe), potential official distribution in the future
 
