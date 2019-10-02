@@ -223,13 +223,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// Tap dance function for enable swedish characters on first layer. Unregister to not let tap bleed over to next keypress. 
 // Tap dance 1
 void dance_1_finished(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    register_code(KC_SCLN);
-    unregister_code(KC_SCLN);
+    tap_code(KC_SCLN);
   }
   else
   {
@@ -258,8 +258,7 @@ void dance_2_finished(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    register_code(KC_QUOT);
-    unregister_code(KC_QUOT);
+    tap_code(KC_QUOT);
   }
   else
   {
@@ -289,8 +288,7 @@ void dance_3_finished(qk_tap_dance_state_t *state, void *user_data)
   // if (state->count == 2)
   if (state->count == 2)
   {
-    register_code(KC_SLSH);
-    unregister_code(KC_SLSH);
+    tap_code(KC_SLSH);
   }
   else
   {
