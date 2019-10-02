@@ -51,4 +51,4 @@
 /* ws2812 RGB LED --- DIN Pin Routed to VIA on main PCB marked "RGB" */
 #define RGB_DI_PIN B6
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 4
+#define RGBLED_NUM 3
