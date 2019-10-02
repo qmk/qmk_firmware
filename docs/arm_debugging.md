@@ -12,7 +12,7 @@ The main objective here is to get the MCU Eclipse IDE correctly installed on our
 
 This tool is a software package manager and it is used to help us get the necessary dependencies.
 
-XPM runs using Node.js so grab that form [here](https://nodejs.org/en/). After installation, open a terminal and type `npm -v`. A reply with the version number means that the installation was successful.
+XPM runs using Node.js so grab that from [here](https://nodejs.org/en/). After installation, open a terminal and type `npm -v`. A reply with the version number means that the installation was successful.
 
 XPM installation instructions can be found [here](https://www.npmjs.com/package/xpm) and are OS specific. Entering `xpm --version` to your terminal should return the software version.
 
