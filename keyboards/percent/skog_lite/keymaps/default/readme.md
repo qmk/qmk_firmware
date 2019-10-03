@@ -1,1 +1,1 @@
-# The default keymap for singa
+# The default keymap for Skog Lite
