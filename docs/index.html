@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>QMK Firmware</title>
+  <link rel="icon" type="image/png" href="gitbook/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">  
+  <meta property="og:title" content="QMK Firmware Docs">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="The full documentation of the open-source firmware">
+  <meta property="og:image" content="https://i.imgur.com/svjvIrw.jpg">
+  <meta property="og:url" content="https://docs.qmk.fm">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" title="light">
   <link rel="stylesheet" href="qmk.css" title="dark" disabled>
   <link rel="stylesheet" href="sidebar.css" />
@@ -14,19 +21,50 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
+      alias : {
+        '/en/(.*)': '/$1',
+        '/en-us/(.*)': '/$1',
+        '/en-gb/(.*)': '/$1',
+        '/.*/_langs.md': '/_langs.md',
+      },
+      basePath: '/',
       name: 'QMK Firmware',
-      nameLink: 'https://qmk.fm/',
+      nameLink: '/',
       repo: 'qmk/qmk_firmware',
       loadSidebar: '_summary.md',
+      loadNavbar: '_langs.md',
+      mergeNavbar: true,
       auto2top: true,
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
       search: {
         paths: 'auto',
-        placeholder: 'Search Documentation...',
-        noData: 'We could not find any documents matching your search.',
+        placeholder: {
+          '/zh-cn/': '搜索',
+          '/': 'Search'
+        },
+        noData: {
+          '/zh-cn/': '没有结果!',
+          '/': 'No results!'
+        },
         depth: 6
       },
-      fallbackLanguages: ['zh']
+      plugins: [
+        function (hook, vm) {
+          hook.beforeEach(function (html) {
+            if (/githubusercontent\.com/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
+            } else {
+              url = 'https://github.com/qmk/qmk_firmware/blob/master/docs/' + vm.route.file
+            }
+            var editHtml = '[:memo: Edit Document](' + url + ')\n'
+            return html
+              + '\n\n----\n\n'
+              + editHtml
+          })
+        },
+      ]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

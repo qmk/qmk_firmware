@@ -3,7 +3,6 @@ SRC += serial.c
 SRC += ssd1306.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -38,10 +37,13 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
 BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)

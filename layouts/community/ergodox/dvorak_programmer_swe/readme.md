@@ -16,6 +16,10 @@ Known issues:
 
 
 ## Changelog
+* 2019-03-11
+  * Added currency $, £, € to keymap 3
+  * Added pipe character to keymap 3
+  * Added the acute accent character to keymap 3
 
 * 2019-03-08
   * Switched position on Alt and Alt-shift

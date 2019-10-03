@@ -5,7 +5,6 @@ SRC += matrix.c \
 	   ssd1306.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -44,13 +43,15 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = caterina
+
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

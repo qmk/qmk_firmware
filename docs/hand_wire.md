@@ -198,15 +198,17 @@ From here, you should have a working keyboard once you program a firmware. Befor
 
 To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
-The first thing we're going to do is create a new project using the script in the root directory of the firmware. In your terminal, run this command with `<project_name>` replaced by the name of your project - it'll need to be different from any other project in the `keyboards/` folder:
+The first thing we're going to do is create a new keyboard. In your terminal, run this command, which will ask you some questions and generate a basic keyboard project:
 
 ```
-    util/new_project.sh <project_name>
+./util/new_keyboard.sh
 ```
 
 You'll want to navigate to the `keyboards/<project_name>/` folder by typing, like the print-out from the script specifies:
 
-    cd keyboards/<project_name>
+```
+cd keyboards/<project_name>
+```
 
 ### `config.h`
 
@@ -326,7 +328,7 @@ Carefully flip your keyboard over, open up a new text document, and try typing -
 2. Check the solder joints on the diode - if the diode is loose, part of your row may register, while the other may not.
 3. Check the solder joints on the columns - if your column wiring is loose, part or all of the column may not work.
 4. Check the solder joints on both sides of the wires going to/from the Teensy - the wires need to be fully soldered and connect to both sides.
-5. Check the <project_name>.h file for errors and incorrectly placed `KC_NO`s - if you're unsure where they should be, instead duplicate a k*xy* variable.
+5. Check the `<project_name>.h` file for errors and incorrectly placed `KC_NO`s - if you're unsure where they should be, instead duplicate a k*xy* variable.
 6. Check to make sure you actually compiled the firmware and flashed the Teensy correctly. Unless you got error messages in the terminal, or a pop-up during flashing, you probably did everything correctly.
 
 If you've done all of these things, keep in mind that sometimes you might have had multiple things affecting the keyswitch, so it doesn't hurt to test the keyswitch by shorting it out at the end.
@@ -335,4 +337,4 @@ If you've done all of these things, keep in mind that sometimes you might have h
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
-There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different project (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
+There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)

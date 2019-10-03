@@ -63,9 +63,6 @@ void matrix_init(void)
 #ifdef UART_RGB_ENABLE
     uart_rgb_init();
 #endif
-    // disable JTAG
-    MCUCR = _BV(JTD);
-    MCUCR = _BV(JTD);
 
     // 85 REST
     DDRD |= _BV(PD7);

@@ -1,6 +1,6 @@
 # @noroadsleft's KC60 keymap
 
-### Last updated: February 14, 2019, 3:50 AM UTC-0800
+### Last updated: April 7, 2019, 2:26 AM UTC-0700
 
 ![](https://i.imgur.com/tzhXQYI.jpg)
 

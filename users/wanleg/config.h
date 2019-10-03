@@ -6,9 +6,9 @@
 
 
 //MIGHT HAVE TO SPLIT THIS INTO TWO CONDITIONS
-#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2) || defined(KEYBOARD_iris_rev2)
+#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2) || defined(KEYBOARD_keebio_iris_rev2)
 //Kailh Coppers activate quickly and don't need a long tapping term
-#define TAPPING_TERM 100
+#define TAPPING_TERM 180
 
 #elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_bigswitch)
 #define TAPPING_TERM 700
@@ -38,7 +38,14 @@
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 
-// Disable mod tap interrrupt
-#ifndef IGNORE_MOD_TAP_INTERRUPT
-#define IGNORE_MOD_TAP_INTERRUPT
-#endif // !mod tap interrrupt
+
+#define PERMISSIVE_HOLD
+//// Disable mod tap interrrupt
+//#ifndef IGNORE_MOD_TAP_INTERRUPT
+//#define IGNORE_MOD_TAP_INTERRUPT
+//#endif // !mod tap interrrupt
+
+//set max breathing brightness on kbd6x
+#if defined(KEYBOARD_kbdfans_kbd6x)
+#define RGBLIGHT_EFFECT_BREATHE_MAX 128  // 0-255
+#endif

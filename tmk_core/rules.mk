@@ -223,6 +223,10 @@ $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
+# Add QMK specific flags
+DFU_SUFFIX ?= dfu-suffix
+DFU_SUFFIX_ARGS ?=
+
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
@@ -279,6 +283,10 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_BIN) $@" | $(AWK_CMD)
 	$(eval CMD=$(BIN) $< $@ || exit 0)
 	@$(BUILD_CMD)
+	if [ ! -z "$(DFU_SUFFIX_ARGS)" ]; then \
+		$(DFU_SUFFIX) $(DFU_SUFFIX_ARGS) -a $(BUILD_DIR)/$(TARGET).bin 1>/dev/null ;\
+	fi
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 BEGIN = gccversion sizebefore
 
@@ -331,7 +339,7 @@ $1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.a : $1/%.o
 	@mkdir -p $$(@D)
 	@$(SILENT) || printf "Archiving: $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(AR) $$@ $$<)
+	$$(eval CMD=$$(AR) rcs $$@ $$<)
 	@$$(BUILD_CMD)
 
 $1/force:
@@ -382,19 +390,33 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+objs-size:
+	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
+
 ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
+SIZE_MARGIN = 1024
+
 check-size:
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
 	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
+		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
+		else \
+		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
+			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
+		    else \
+			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
+		    fi \
+		fi \
 	fi
 else
 check-size:
-	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	$(SILENT) || echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
 endif
 
 # Create build directory
@@ -411,4 +433,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 .PHONY : all finish sizebefore sizeafter qmkversion \
 gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start
+program teensy dfu flip dfu-ee flip-ee dfu-start \
+flash dfu-split-left dfu-split-right \
+avrdude-split-left avrdude-split-right \
+avrdude-loop usbasp

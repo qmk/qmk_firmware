@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
-#define NUMBER_OF_ENCODERS 1
 #define ENCODERS_PAD_A { B9 }
 #define ENCODERS_PAD_B { B8 }
 
@@ -72,15 +71,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 40
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x0F
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION_ADDR 42
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 43
 
 // Dynamic macro starts after dynamic keymaps (35+(4*6*16*2)) = (35+768) = 803
 
@@ -90,13 +89,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 1 for OLED default mode
 // 6 for 3x custom encoder settings, left, right, and press (18 total)
 
-#define DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES 803
-#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 804
-#define DYNAMIC_KEYMAP_DEFAULT_OLED 805
-#define DYNAMIC_KEYMAP_CUSTOM_ENCODER 806
+#define DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES 811
+#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 812
+#define DYNAMIC_KEYMAP_DEFAULT_OLED 813
+#define DYNAMIC_KEYMAP_CUSTOM_ENCODER 814
 
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 824
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 832
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 192
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 

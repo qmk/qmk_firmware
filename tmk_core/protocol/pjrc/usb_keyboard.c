@@ -31,34 +31,30 @@
 #include "host.h"
 
 #ifdef NKRO_ENABLE
-  #include "keycode_config.h"
+#    include "keycode_config.h"
 
-  extern keymap_config_t keymap_config;
+extern keymap_config_t keymap_config;
 #endif
-
 
 // protocol setting from the host.  We use exactly the same report
 // either way, so this variable only stores the setting since we
 // are required to be able to report which setting is in use.
-uint8_t keyboard_protocol=1;
+uint8_t keyboard_protocol = 1;
 
 // the idle configuration, how often we send the report to the
 // host (ms * 4) even when it hasn't changed
 // Windows and Linux set 0 while OS X sets 6(24ms) by SET_IDLE request.
-uint8_t keyboard_idle=125;
+uint8_t keyboard_idle = 125;
 
 // count until idle timeout
-uint8_t usb_keyboard_idle_count=0;
+uint8_t usb_keyboard_idle_count = 0;
 
 // 1=num lock, 2=caps lock, 4=scroll lock, 8=compose, 16=kana
-volatile uint8_t usb_keyboard_leds=0;
-
+volatile uint8_t usb_keyboard_leds = 0;
 
 static inline int8_t send_report(report_keyboard_t *report, uint8_t endpoint, uint8_t keys_start, uint8_t keys_end);
 
-
-int8_t usb_keyboard_send_report(report_keyboard_t *report)
-{
+int8_t usb_keyboard_send_report(report_keyboard_t *report) {
     int8_t result = 0;
 
 #ifdef NKRO_ENABLE
@@ -76,41 +72,43 @@ int8_t usb_keyboard_send_report(report_keyboard_t *report)
     return 0;
 }
 
-void usb_keyboard_print_report(report_keyboard_t *report)
-{
+void usb_keyboard_print_report(report_keyboard_t *report) {
     if (!debug_keyboard) return;
     print("keys: ");
-    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) { phex(report->keys[i]); print(" "); }
-    print(" mods: "); phex(report->mods); print("\n");
+    for (int i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        phex(report->keys[i]);
+        print(" ");
+    }
+    print(" mods: ");
+    phex(report->mods);
+    print("\n");
 }
 
-
-static inline int8_t send_report(report_keyboard_t *report, uint8_t endpoint, uint8_t keys_start, uint8_t keys_end)
-{
+static inline int8_t send_report(report_keyboard_t *report, uint8_t endpoint, uint8_t keys_start, uint8_t keys_end) {
     uint8_t intr_state, timeout;
 
     if (!usb_configured()) return -1;
     intr_state = SREG;
     cli();
-    UENUM = endpoint;
+    UENUM   = endpoint;
     timeout = UDFNUML + 50;
     while (1) {
-            // are we ready to transmit?
-            if (UEINTX & (1<<RWAL)) break;
-            SREG = intr_state;
-            // has the USB gone offline?
-            if (!usb_configured()) return -1;
-            // have we waited too long?
-            if (UDFNUML == timeout) return -1;
-            // get ready to try checking again
-            intr_state = SREG;
-            cli();
-            UENUM = endpoint;
+        // are we ready to transmit?
+        if (UEINTX & (1 << RWAL)) break;
+        SREG = intr_state;
+        // has the USB gone offline?
+        if (!usb_configured()) return -1;
+        // have we waited too long?
+        if (UDFNUML == timeout) return -1;
+        // get ready to try checking again
+        intr_state = SREG;
+        cli();
+        UENUM = endpoint;
     }
     for (uint8_t i = keys_start; i < keys_end; i++) {
-            UEDATX = report->raw[i];
+        UEDATX = report->raw[i];
     }
     UEINTX = 0x3A;
-    SREG = intr_state;
+    SREG   = intr_state;
     return 0;
 }

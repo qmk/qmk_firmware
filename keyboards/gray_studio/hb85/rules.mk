@@ -1,4 +1,4 @@
-# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+# Copyright 2019 fcoury <felipe.coury@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,23 +15,19 @@
 
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
 
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# processor frequency
-F_CPU = 12000000
-
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
@@ -42,7 +38,4 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-SRC += i2c.c
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
+SRC += i2c_master.c

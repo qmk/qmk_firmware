@@ -216,6 +216,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
 |`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
 |`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
+|`KC_LCPO`      |           |Left Control when held, `(` when tapped                              |
+|`KC_RCPC`      |           |Right Control when held, `)` when tapped                             |
+|`KC_LAPO`      |           |Left Alt when held, `(` when tapped                                  |
+|`KC_RAPC`      |           |Right Alt when held, `)` when tapped                                 |
+|`KC_SFTENT`    |           |Right Shift when held, Enter when tapped                             |
 |`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
 |`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
 |`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
@@ -252,28 +257,37 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Bootmagic](feature_bootmagic.md)
 
-|Key                               |Aliases  |Description                         |
-|----------------------------------|---------|------------------------------------|
-|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control     |
-|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control          |
-|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI               |
-|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI              |
-|`MAGIC_NO_GUI`                    |         |Disable the GUI key                 |
-|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape  |
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace              |
-|`MAGIC_HOST_NKRO`                 |         |Force NKRO on                       |
-|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides      |
-|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control   |
-|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control  |
-|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI             |
-|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI            |
-|`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                  |
-|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape|
-|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
-|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
-|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
-|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
+|Key                               |Aliases  |Description                                |
+|----------------------------------|---------|-------------------------------------------|
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Caps Lock and Left Control            |
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Control                 |
+|`MAGIC_SWAP_LCTL_LGUI`            |         |Swap Left Control and GUI                  |
+|`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and GUI                 |
+|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and GUI                      |
+|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and GUI                     |
+|`MAGIC_NO_GUI`                    |         |Disable the GUI key                        |
+|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape         |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                     |
+|`MAGIC_HOST_NKRO`                 |         |Force NKRO on                              |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides             |
+|`MAGIC_SWAP_CTL_GUI`              |`CG_SWAP`|Swap Ctrl and GUI on both sides (for macOS)|
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Caps Lock and Left Control          |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Control         |
+|`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and GUI                |
+|`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and GUI               |
+|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and GUI                    |
+|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and GUI                   |
+|`MAGIC_UNNO_GUI`                  |         |Enable the GUI key                         |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape       |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                   |
+|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                             |
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides           |
+|`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI on both sides          |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides      |
+|`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap on both sides     |
+|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                        |
+|`MAGIC_EE_HANDS_LEFT`             |         |Set "Left Hand" for EE_HANDS handedness    |
+|`MAGIC_EE_HANDS_RIGHT`            |         |Set "Right Hand" for EE_HANDS handedness   |
 
 ## [Bluetooth](feature_bluetooth.md)
 
@@ -293,7 +307,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
 ## [Mouse Keys](feature_mouse_keys.md)
@@ -339,23 +353,24 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
 
-|Key         |Aliases                                                          |Description                                            |
-|------------|-----------------------------------------------------------------|-------------------------------------------------------|
-|`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
-|`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`LALT_T(kc)`|`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
-|`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
-|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
-|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
-|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
-|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
-|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
-|`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped       |
-|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
-|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|Key          |Aliases                                                          |Description                                            |
+|-------------|-----------------------------------------------------------------|-------------------------------------------------------|
+|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                      |
+|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
+|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
+|`LALT_T(kc)` |`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
+|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped              |
+|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                |
+|`RALT_T(kc)` |`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
+|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
+|`SGUI_T(kc)` |`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
+|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped       |
+|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
+|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
+|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## [RGB Lighting](feature_rgblight.md)
 
@@ -450,7 +465,15 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Unicode Support](feature_unicode.md)
 
-|Key    |Description                                                                |
-|-------|---------------------------------------------------------------------------|
-|`UC(c)`|Send Unicode code point `c` (`UNICODE_ENABLE`)                             |
-|`X(i)` |Send Unicode code point at index `i` in `unicode_map` (`UNICODEMAP_ENABLE`)|
+|Key                   |Aliases  |Description                                                     |
+|----------------------|---------|----------------------------------------------------------------|
+|`UC(c)`               |         |Send Unicode code point `c`                                     |
+|`X(i)`                |         |Send Unicode code point at index `i` in `unicode_map`           |
+|`XP(i, j)`            |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
+|`UNICODE_MODE_FORWARD`|`UC_MOD` |Cycle through selected input modes                              |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Cycle through selected input modes in reverse                   |
+|`UNICODE_MODE_OSX`    |`UC_M_OS`|Switch to macOS input                                           |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`|Switch to Linux input                                           |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`|Switch to Windows input                                         |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`|Switch to BSD input (not implemented)                           |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`|Switch to Windows input using WinCompose                        |

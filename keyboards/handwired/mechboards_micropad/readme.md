@@ -4,7 +4,7 @@ Mechboards Micropad
 This was a freebie, use me and find out more about me :)
 
 Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
-Hardware Supported: ATMega32u4 
+Hardware Supported: ATMega32u4  
 Hardware Availability: Random mechboards.co.uk order and UK meetups!
 
 Make example for this keyboard (after setting up your build environment):

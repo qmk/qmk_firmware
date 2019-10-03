@@ -14,6 +14,8 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing
 
+**Reset Key:** Hold down the key located at `K40`, commonly programmed as left control while plugging in the keyboard.
+
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
 To put the panc60 into reset, hold left control while plugging in. 
@@ -36,9 +38,9 @@ macOS:
     ```
 3. Install the following packages:
     ```
-    brew install python
-    brew install pyusb
-    brew install --HEAD`https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
+    brew install python3
+    pip3 install pyusb
+    brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
 
 4. Place your keyboard into reset. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
