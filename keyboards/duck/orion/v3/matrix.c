@@ -124,14 +124,17 @@ void matrix_print(void) {
 }
 
 /* Row pin configuration - diode connected
- * row: 0    1    2    3    4
- * pin: PD0  PD1  PD2  PD3  PD5
+ * row: 0    1    2    3    4    5
+ * pin: PD0  PD1  PD2  PD3  PD5  PB7
  *
  * Caps Lock uses its own pin PE2 on the column pin, row pin is grounded
  */
 static void init_rows(void) {
     DDRD  &= ~0b00101111;
     PORTD &= ~0b00101111;
+
+    DDRB  &= ~0b10000000;
+    PORTB &= ~0b10000000;
 
     DDRE  &= ~0b00000100;
     PORTE |=  0b00000100;
@@ -144,6 +147,7 @@ static uint8_t read_rows(uint8_t col) {
             (PIND&(1<<2) ? (1<<2) : 0) |
             (PIND&(1<<3) ? (1<<3) : 0) |
             (PIND&(1<<5) ? (1<<4) : 0) |
+            (PINB&(1<<7) ? (1<<5) : 0) |
             (col==0 ? ((PINE&(1<<2) ? 0 : (1<<2))) : 0);
     
 }
