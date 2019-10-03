@@ -81,7 +81,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk compile`
 
-This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm> or compile keymaps in the repo.
+This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm>, compile keymaps in the repo, or compile the keyboard in the current working directory.
 
 **Usage for Configurator Exports**:
 
@@ -95,7 +95,30 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
-## `qmk flash`
+**Usage in Keyboard Directory**:  
+
+Must be in keyboard directory with a default keymap, or supply one with `--keymap <keymap_name>`
+```
+qmk compile
+```
+
+**Example**:
+```
+$ cd ~/qmk_firmware/keyboards/planck/rev6
+$ qmk compile
+Ψ Compiling keymap with make planck/rev6:default
+...
+```
+or
+
+```
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ qmk compile --keymap 66_iso
+Ψ Compiling keymap with make clueboard/66/rev4:66_iso
+...
+```
+
+## `qmk cformat`
 
 This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
 To specify a different bootloader, use `-bl <bootloader>`. Visit <https://docs.qmk.fm/#/flashing>
