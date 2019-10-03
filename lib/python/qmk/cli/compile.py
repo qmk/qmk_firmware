@@ -42,9 +42,8 @@ def compile(cli):
 
         # If the folder above is "/keyboards/"
         if above_basename == "keyboards":
-            # Set the full path name and get back the full keyboard name
-            path = Path(os.path.normpath(os.path.join(cwd, directory[index-1])))
-            keyboard += str(path.relative_to(os.getcwd() + "/keyboards"))
+            # Get back the full keyboard name
+            keyboard += str(Path(cwd).relative_to(os.getcwd() + "/keyboards"))
             in_keyboard = True
             break
 
