@@ -89,10 +89,6 @@ Let's Split physical layout
 #define MY_PREV KC_MRWD         // Media: Previous
 #define MY_NEXT KC_MFFD         // Media: Next
 #define MY_PLAY KC_MPLY         // Media: Play/Pause
-#define MY_VOLU KC__VOLUP       // Media: Volume Up
-#define MY_VOLD KC__VOLDOWN     // Media: Volume Down
-#define MY_MUTE KC__MUTE        // Media: Mute
-#define MY_SLEP G(A(KC_POWER))  // Mac: Sleep
 #define MY_LOCK C(A(KC_L))      // Mac: Lock
 
 
@@ -221,10 +217,10 @@ SPECIAL
    `-----------------------------------------------------´   `-----------------------------------------------------'
 */
 [_SPECIAL] = LAYOUT_ortho_4x12(
-    RESET,   _______, TO_WIN,  MY_VOLU, _______, _______,     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_DEL,
-    EEP_RST, _______, MY_PREV, MY_VOLD, MY_NEXT, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-    _______, _______, _______, MY_MUTE, _______, _______,     MY_LOCK, TO_MAC,  _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, MY_PLAY,     _______, _______, _______, _______, _______, MY_SLEP
+    RESET,   _______, TO_WIN,  KC_VOLU, _______, _______,     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_DEL,
+    EEP_RST, _______, MY_PREV, KC_VOLD, MY_NEXT, _______,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+    _______, _______, _______, KC_MUTE, _______, _______,     MY_LOCK, TO_MAC,  _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, MY_PLAY,     _______, _______, _______, _______, _______, KC_SLEP
 )
 
 };
