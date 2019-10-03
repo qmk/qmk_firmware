@@ -287,7 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *  record) {
     if ( record->event.pressed) {
         switch(keycode) {
             case CMDER:
-                SEND_STRING(SS_TAP(X_LGUI) "C:\\tools\\cmder\\cmder.exe" SS_TAP(X_ENTER));
+                SEND_STRING(SS_TAP(X_LGUI) "C:\\tools\\cmder\\cmder.exe" SS_LCTRL(SS_LSFT(SS_TAP(X_ENTER))));
                 return false;
                 break;
             case VERT_PASS:
