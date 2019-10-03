@@ -143,7 +143,7 @@ static MSCMD_USER_RESULT usrcmd_help(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
 
 extern char keymap_string[];
 static MSCMD_USER_RESULT usrcmd_keymap(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
-  xprintf("%s", keymap_string);
+  tfp_printf("%s\r\n", keymap_string);
   return 0;
 }
 
@@ -173,7 +173,7 @@ static MSCMD_USER_RESULT usrcmd_remove_file(MSOPT *msopt,
 
 extern char config_string[];
 static MSCMD_USER_RESULT usrcmd_config(MSOPT *msopt, MSCMD_USER_OBJECT usrobj) {
-  cli_puts(config_string);
+  tfp_printf("%s\r\n", config_string);
   return 0;
 }
 
