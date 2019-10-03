@@ -10,11 +10,17 @@ Atmel's DFU bootloader comes on all atmega32u4 chips by default, and is used by 
 
 To ensure compatibility with the DFU bootloader, make sure this block is present your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
 
-    # Bootloader
-    #     This definition is optional, and if your keyboard supports multiple bootloaders of
-    #     different sizes, comment this out, and the correct address will be loaded
-    #     automatically (+60). See bootloader.mk for all options.
-    BOOTLOADER = atmel-dfu
+```make
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
+```
 
 Compatible flashers:
 
@@ -64,11 +70,17 @@ Arduino boards and their clones use the [Caterina bootloader](https://github.com
 
 To ensure compatibility with the Caterina bootloader, make sure this block is present your `rules.mk`:
 
-    # Bootloader
-    #     This definition is optional, and if your keyboard supports multiple bootloaders of
-    #     different sizes, comment this out, and the correct address will be loaded
-    #     automatically (+60). See bootloader.mk for all options.
-    BOOTLOADER = caterina
+```make
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = caterina
+```
 
 Compatible flashers:
 
@@ -100,11 +112,17 @@ Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on al
 
 To ensure compatibility with the Halfkay bootloader, make sure this block is present your `rules.mk`:
 
-    # Bootloader
-    #     This definition is optional, and if your keyboard supports multiple bootloaders of
-    #     different sizes, comment this out, and the correct address will be loaded
-    #     automatically (+60). See bootloader.mk for all options.
-    BOOTLOADER = halfkay
+```make
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = halfkay
+```
 
 Compatible flashers:
 
@@ -125,11 +143,17 @@ USBasploader is a bootloader developed by matrixstorm. It is used in some non-US
 
 To ensure compatibility with the USBasploader bootloader, make sure this block is present in your `rules.mk`:
 
-    # Bootloader
-    #     This definition is optional, and if your keyboard supports multiple bootloaders of
-    #     different sizes, comment this out, and the correct address will be loaded
-    #     automatically (+60). See bootloader.mk for all options.
-    BOOTLOADER = USBasp
+```make
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = USBasp
+```
 
 Compatible flashers:
 
@@ -150,11 +174,17 @@ BootloadHID is a USB bootloader for AVR microcontrollers. The uploader tool requ
 
 To ensure compatibility with the bootloadHID bootloader, make sure this block is present your `rules.mk`:
 
-    # Bootloader
-    #     This definition is optional, and if your keyboard supports multiple bootloaders of
-    #     different sizes, comment this out, and the correct address will be loaded
-    #     automatically (+60). See bootloader.mk for all options.
-    BOOTLOADER = bootloadHID
+```make
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = bootloadHID
+```
 
 Compatible flashers:
 
@@ -202,4 +232,6 @@ Flashing sequence:
 There are a number of DFU commands that you can use to flash firmware to a STM32 device:
 
 * `:dfu-util` - The default command for flashing to STM32 devices.
-* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util.
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
