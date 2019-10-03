@@ -76,7 +76,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define B7_AUDIO`
   * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
-  * pin of the backlight - `B5`, `B6`, `B7` and `C6` (and `D4` on ATmega32A) use hardware PWM, others use software implementation
+  * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
@@ -91,8 +91,10 @@ This is a C header file that is one of the first things included, and will persi
   * tries to keep switch state consistent with keyboard LED state
 * `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
   * key combination that allows the use of magic commands (useful for debugging)
-* `#define USB_MAX_POWER_CONSUMPTION`
+* `#define USB_MAX_POWER_CONSUMPTION 500`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define USB_POLLING_INTERVAL_MS 10`
+  * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
@@ -222,6 +224,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
    * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
    * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
+   * For boards with ARM DFU bootloader (like Proton C), use `:dfu-util-split-left`/`:dfu-util-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
 
@@ -247,6 +250,9 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
 
 * `#define RGBLED_SPLIT { 6, 6 }`
   * See [RGB Light Configuration](#rgb-light-configuration)
