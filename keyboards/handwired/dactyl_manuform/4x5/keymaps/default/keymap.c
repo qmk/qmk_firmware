@@ -20,7 +20,7 @@ extern keymap_config_t keymap_config;
 #define KC_MU KC_MS_UP
 #define KC_MD KC_MS_DOWN
 #define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN1
+#define KC_MB2 KC_MS_BTN2
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
