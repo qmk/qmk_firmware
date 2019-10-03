@@ -157,7 +157,7 @@ uint8_t read_fwkey(void)
   return PINE&(1<<2) ? 0 : (1<<2);
 }
 
-/* Columns 0 - 15
+/* Columns 0 - 7
  *
  * atmega32u4   decoder    pin
  *    PC6       U1         E3
@@ -176,6 +176,7 @@ uint8_t read_fwkey(void)
  * 5:             1    0    1    0    1    U1     Y5
  * 6:             1    0    0    1    1    U1     Y6
  * 7:             1    0    1    1    1    U1     Y7
+ *
  * 8:             0    1    0    0    0    U2     Y0
  * 9:             0    1    1    0    0    U2     Y1
  * 10:            0    1    0    1    0    U2     Y2
@@ -183,6 +184,7 @@ uint8_t read_fwkey(void)
  * 12:            0    1    0    0    1    U2     Y4
  * 13:            0    1    1    0    1    U2     Y5
  * 14:            0    1    0    1    1    U2     Y6
+ * 15:            0    1    1    1    1    U2     Y7       
  *
  */
 static void unselect_cols(void) {
@@ -257,6 +259,14 @@ static void select_col(uint8_t col) {
             PORTB |= 0b01000000;
             PORTF |= 0b00000010;
             PORTC |= 0b10000000;
+            break;
+        case 15:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000011;
+            PORTC |= 0b10000000;
+            break;
+        case 16:
+            PORTB |= 0b00100000;
             break;
     }
 }
