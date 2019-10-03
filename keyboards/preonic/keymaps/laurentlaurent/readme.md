@@ -16,7 +16,7 @@ Largely similar to his ErgoDox EZ's layout
 ### Qwerty Layout improvements
 * Backspace and Enter are on bottom row (next to Space bar)
 * = is where Esc would be expected to be
-* - is where Backspace would be expected to be
+* "-" is where Backspace would be expected to be
 * Grave is where LCTRL would be expected to be
 * Esc is where Alt (on Mac)/Win (on PC) would be expected to be
 * Del is where CMD (on Mac)/Alt (on PC) would be expected to be
@@ -59,6 +59,11 @@ Largely similar to his ErgoDox EZ's layout
 | LY|` |MH/ESC| LY|DL|LW|Bkp|LY|Bkp| Shift/Space |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
 `-----------------------------------------------------------------------------------'
 ```
+* Hold Tab (LY|TB), Backspace (LY|Bkp) or Backslash (LY|\ ) for **Punctuation Layer**
+* Hold Grave (LY|`) for **One-Handed Layer**
+* Hold Del (LY|DL) for **Numpad Layer**
+* Hold A or ; for **Navigation/Mouse Layer**
+* Hold Enter (LY|ENT) for **Extra layer**
 
 ### Win Qwerty
 ```
@@ -74,6 +79,11 @@ Largely similar to his ErgoDox EZ's layout
 | LY|` |ESCMEH| LY|DL|LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
 `-----------------------------------------------------------------------------------'
 ```
+* Hold Tab (LY|TB), Backspace (LY|Bkp) or Backslash (LY|\ ) for **Punctuation Layer**
+* Hold Grave (LY|`) for **One-Handed Layer**
+* Hold Del (LY|DL) for **Numpad Layer**
+* Hold A or ; for **Navigation/Mouse Layer**
+* Hold Enter (LY|ENT) for **Extra layer**
 
 ### Gaming Qwerty
 ```
