@@ -30,22 +30,20 @@ def compile(cli):
 
     """
     # Set CWD as directory command was issued from
-    cwd = os.path.normpath(os.path.join(os.environ['ORIG_CWD']))
-
+    cwd = os.environ['ORIG_CWD']
+    qmk_path = os.getcwd()
     # Initialize boolean to check for being in a keyboard directory and initialize keyboard string
     in_keyboard = False
     keyboard = ""
 
-    # Loop through three levels up to check for keyboards root directory
-    for index, directory in enumerate(['..', '../..', '../../..']):
-        above_basename = os.path.basename(os.path.normpath(os.path.join(cwd, directory)))
+    # Set path for '/keyboards/' directory
+    keyboards_path = os.path.join(qmk_path , "keyboards")
 
-        # If the folder above is "/keyboards/"
-        if above_basename == "keyboards":
-            # Get back the full keyboard name
-            keyboard += str(Path(cwd).relative_to(os.path.join(os.getcwd() , "keyboards")))
-            in_keyboard = True
-            break
+    # if below 'keyboards' and not in 'keyboards', get current keyboard name
+    if cwd.startswith(keyboards_path):
+        if os.path.basename(cwd) != "keyboards":
+            keyboard = str(cwd[len(keyboards_path):])[1:]
+            in_keyboard= True
 
     if cli.args.filename:
         # Parse the configurator json
