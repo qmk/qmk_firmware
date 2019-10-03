@@ -1,5 +1,11 @@
 #pragma once
 
+// Use custom magic number so that when switching branches, EEPROM always gets reset
+#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1337
+
+/* Set Polling rate to 1000Hz */
+#define USB_POLLING_INTERVAL_MS 1
+
 #ifdef AUDIO_ENABLE
 #    if __GNUC__ > 7
 #        if __has_include("drashna_song_list.h")
