@@ -1,1 +1,1 @@
-from . import keymap
+from . import keymap, keyboard

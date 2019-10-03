@@ -191,6 +191,16 @@ This command lists all the keyboards currently defined in `qmk_firmware`
 qmk list-keyboards
 ```
 
+## `qmk new-keyboard`
+
+This command creates a new keyboard.
+
+**Usage**:
+
+```
+qmk new-keyboard [-kb KEYBOARD] [-kbt TYPE] [-un USERNAME]
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
