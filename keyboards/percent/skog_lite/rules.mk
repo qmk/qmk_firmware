@@ -39,3 +39,5 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 OPT_DEFS = -DDEBUG_LEVEL=0
 
 SRC = i2c_master.c
+
+LAYOUTS = tkl_ansi
