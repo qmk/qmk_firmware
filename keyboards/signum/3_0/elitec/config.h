@@ -10,6 +10,9 @@
 #define PRODUCT         Signum
 #define DESCRIPTION     q.m.k. keyboard firmware for Signum 3.0
 
+/* mouse settings */
+#define MK_KINETIC_SPEED
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
@@ -20,7 +23,7 @@
 #define UNUSED_PINS
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

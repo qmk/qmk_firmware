@@ -23,8 +23,8 @@
 #define PRODUCT_ID      0x0807 // 1800 -> 0x0708 -> 0x0807 ;-)
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    AEboards
-#define PRODUCT         Aegis
-#define DESCRIPTION     1800 Left Handed Keyboard
+#define PRODUCT         AEboards Aegis
+#define DESCRIPTION     AEboards Aegis
 
 /* key matrix size */
 #define MATRIX_ROWS 12
@@ -39,7 +39,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -55,17 +55,16 @@
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*12*9*2)) = (35+864)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 899
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 125
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 37
+// Dynamic macro starts after dynamic keymaps (37+(4*12*9*2)) = (37+864)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 901
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 123
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
-

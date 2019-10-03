@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-extern bool g_suspend_state;
 #define _LAYER0 0
 #define _LAYER1 1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

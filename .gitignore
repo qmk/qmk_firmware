@@ -25,7 +25,7 @@ quantum/version.h
 CMakeLists.txt
 cmake-build-debug
 doxygen/
-.DS_STORE
+.DS_Store
 /util/wsl_downloaded
 /util/win_downloaded
 /keyboards/*/Makefile
@@ -70,3 +70,6 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+
+# python things
+__pycache__

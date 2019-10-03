@@ -28,7 +28,7 @@
 //#include "ws2812_config.h"
 //#include "i2cmaster.h"
 
-#include "rgblight_types.h"
+#include "quantum/color.h"
 
 /* User Interface
  *
@@ -43,12 +43,12 @@
  *         - Wait 50�s to reset the LEDs
  */
 #ifdef RGB_MATRIX_ENABLE
-void ws2812_setled      (int index, uint8_t r, uint8_t g, uint8_t b);
-void ws2812_setled_all  (uint8_t r, uint8_t g, uint8_t b);
+void ws2812_setled(int index, uint8_t r, uint8_t g, uint8_t b);
+void ws2812_setled_all(uint8_t r, uint8_t g, uint8_t b);
 #endif
 
-void ws2812_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
 void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
 /*
@@ -58,18 +58,17 @@ void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
  * The length is the number of bytes to send - three per LED.
  */
 
-void ws2812_sendarray     (uint8_t *array,uint16_t length);
-void ws2812_sendarray_mask(uint8_t *array,uint16_t length, uint8_t pinmask);
-
+void ws2812_sendarray(uint8_t *array, uint16_t length);
+void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 
 /*
  * Internal defines
  */
 #ifndef CONCAT
-#define CONCAT(a, b)            a ## b
+#    define CONCAT(a, b) a##b
 #endif
 #ifndef CONCAT_EXP
-#define CONCAT_EXP(a, b)   CONCAT(a, b)
+#    define CONCAT_EXP(a, b) CONCAT(a, b)
 #endif
 
 #endif /* LIGHT_WS2812_H_ */

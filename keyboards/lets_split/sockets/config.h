@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEE5
-#define PRODUCT_ID      0xFEED
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0BEE
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Duckle29
 #define PRODUCT         Lets Split Sockets
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0

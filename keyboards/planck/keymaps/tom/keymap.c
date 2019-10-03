@@ -224,10 +224,6 @@ bool music_mask_user(uint16_t keycode) {
   }
 }
 
-#ifdef RGB_MATRIX_ENABLE
-extern led_config_t g_led_config;
-#endif
-
 void rgb_matrix_indicators_user(void) {
   #ifdef RGB_MATRIX_ENABLE
   switch (biton32(layer_state)) {

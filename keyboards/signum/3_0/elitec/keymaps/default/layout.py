@@ -357,9 +357,10 @@ qmk_dict = {
     # Command keycodes missing (Execute, Help, ..., Find)
     # Basic Keycodes missing from Print Screen onwards, included as fallback
     # random Keycodes
-    "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTL", "LCtTEsc": "LCTL_T(KC_ESC)", "RCtrl": "KC_RCTL",
+    "RGui": "KC_RGUI", "LGui": "KC_LGUI", "LAlt": "KC_LALT", "RLAlt": "LALT_T(KC_RALT)", "RAlt": "KC_RALT", "LShift": "KC_LSFT", "LCtrl": "KC_LCTL", "LCtTBsp": "LCTL_T(KC_BSPC)", "LCtTEsc": "LCTL_T(KC_ESC)", "RCtrl": "KC_RCTL",
     "LShift(": "KC_LSPO", "RShift)": "KC_RSPC",
     # "LShift(": "LSFT_T(KC_9)", "RShift)": "RSFT_T(RSFT(KC_0))",
+    "LCtrl[": "LCTL_T(KC_LBRC)", "RCtrl]": "RCTL_T(KC_RBRC)",
     "L1_ENT": "LT(1, KC_ENT)", "LT2_BSP":  "LT(2,KC_BSPC)", "LT4_DEL":  "LT(4,KC_DEL)", "LT4_ENT":  "LT(4,KC_ENT)", "LT6_SPC": "LT(6,KC_SPC)",
     "CPg Dn": "LCTL(KC_PGDN)", "CPg Up": "LCTL(KC_PGUP)",
     "S_Enter": "S(KC_ENT)", "S_Tab": "S(KC_TAB)", "Compose": "KC_ALGR",
@@ -431,8 +432,8 @@ static = ["NEO", "GREEK", "GREEK", "GREEK", "GREEK", "MOUSE"]
 qwerty = [
     "Tab",     "q",    "w",       "e",       "r",       "t",       "y",       "u",       "i",       "o",       "p",       "[",
     "LCtTEsc", "a",    "s",       "d",       "f",       "g",       "h",       "j",       "k",       "l",       ";",       "'",
-    "LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",        ",",       ".",       "/",       "RShift)",
-    "LCtrl",   "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RAlt",    "RCtrl",
+    "LShift(", "z",    "x",       "c",       "v",       "b",       "n",       "m",       ",",       ".",       "/",       "RShift)",
+    "LCtrl[",  "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RLAlt",    "RCtrl]",
     ]
 
 # 1
@@ -440,21 +441,21 @@ colemak = [
     "Tab",     "q",    "w",       "f",       "p",       "g",       "j",       "l",       "u",       "y",       ";",       "[",
     "LCtTEsc", "a",    "r",       "s",       "t",       "d",       "h",       "n",       "e",       "i",       "o",       "'",
     "LShift(", "z",    "x",       "c",       "v",       "b",       "k",       "m",       ",",       ".",       "/",       "RShift)",
-    "LCtrl",   "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RAlt",    "RCtrl",
+    "LCtrl[",  "LAlt", "LGui",    "TT2",     "LT6_SPC", "LT4_DEL", "LT4_ENT", "Space",   "LT2_BSP", "RGui",    "RLAlt",    "RCtrl]",
     ]
 
 # 2
 numpad = [
     "`",       "1",    "2",       "3",       "4",       "5",       "6",       "7",       "8",       "9",       "0",       "]",
-    "",        "DF0",  "DF1",     "XXX",     "MO3",     "XXX",     "4",       "4",       "5",       "6",       "-",       "=",
+    "",        "DF0",  "DF1",     "XXX",     "MO3",     "MO3",     "4",       "4",       "5",       "6",       "-",       "=",
     "",        "MO5",  "XXX",     "XXX",     "XXX",     "XXX",     "1",       "1",       "2",       "3",       "\\",      "",
-    "TG2",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "0",       "",        "",        "",
+    "TG2",     "",     "",        "",        "",        "Del",     "",        "0",       "BSpace",  "",        "",        "",
     ]
 
 # 3
 fpad = [
     "",        "F1",   "F2",      "F3",      "F4",      "F5",      "F6",      "F7",      "F8",      "F9",      "F10",     "XXX",
-    "",        "XXX",  "XXX",     "XXX",     "MO3",     "XXX",     "F4",      "F4",      "F5",      "F6",      "F11",     "XXX",
+    "",        "XXX",  "XXX",     "XXX",     "MO3",     "MO3",     "F4",      "F4",      "F5",      "F6",      "F11",     "XXX",
     "",        "XXX",  "XXX",     "XXX",     "XXX",     "XXX",     "F1",      "F1",      "F2",      "F3",      "F12",     "",
     "TG3",     "",     "",        "",        "",        "",        "",        "",        "",        "",        "",        "",
     ]
@@ -464,7 +465,7 @@ movement = [
     "Esc",     "Esc",  "Tab x",   "Tab n",   "CPg Dn",  "CPg Dn",  "Pg Down", "Home",    "^ Arrow", "Insert",  "SInsert", "Esc",
     "",        "Caps", "< Gui",   "Gui Tab", "> Gui",   "> Gui",   "< Arrow", "< Arrow", "v Arrow", "> Arrow", "End",     "Pr Scr",
     "",        "XXX",  "XXX",     "XXX",     "CPg Up",  "CPg Up",  "Pg Up",   "",        "v Arrow", "XXX",     "App",     "",
-    "TG4",     "",     "",        "",        "Del",     "",        "",        "BSpace",  "",        "",        "",        "",
+    "TG4",     "",     "",        "",        "",        "Del",     "",        "BSpace",  "",        "",        "",        "",
     ]
 
 # 5

@@ -32,7 +32,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define QMK_ESC_OUTPUT C6 // usually COL
 #define QMK_ESC_INPUT D0 // usually ROW
