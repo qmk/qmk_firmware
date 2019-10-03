@@ -15,7 +15,7 @@
 
 // You might want to alter this to something that matches the keycap LED colors
 // you installed.
-#define BASE_COLOR 154, 255, 255
+#define BASE_COLOR 166, 255, 255
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
