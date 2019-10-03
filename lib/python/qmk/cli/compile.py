@@ -28,6 +28,10 @@ def compile(cli):
     If --keyboard and --keymap are provided this command will build a firmware based on that.
 
     """
+    #set string to define keymaps directory
+    cwd = os.path.normpath(os.path.join(os.environ['ORIG_CWD']))
+    keymaps = cwd + "/keymaps"
+
     if cli.args.filename:
         # Parse the configurator json
         user_keymap = parse_configurator_json(cli.args.filename)
@@ -43,8 +47,15 @@ def compile(cli):
 
     elif cli.config.compile.keyboard and cli.config.compile.keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap)
-
+        command = ['make', ':'.join((cli.config.compile.keyboard, cli.config.compile.keymap))]
+    
+    elif os.path.exists(keymaps):
+        keyboard = os.path.basename(cwd)
+        if os.path.exists(keymaps + "/default"):
+            command = ['make', ':'.join((keyboard, "default"))]
+        else:
+            cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')
+            return False
     else:
         cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')
         return False
