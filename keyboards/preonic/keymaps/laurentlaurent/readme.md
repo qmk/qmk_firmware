@@ -1,5 +1,5 @@
 # laurentlaurent's Preonic keyboard
-Largely similar to his ErgoDox EZ's layout
+Largely similar to his [ErgoDox EZ](https://configure.ergodox-ez.com/ergodox-ez/layouts/jZpmo/latest/0)'s layout
 
 ## Features
 
