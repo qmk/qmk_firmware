@@ -22,8 +22,8 @@ def replace_files(filenames, search, replace):
 
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
-@cli.argument('-kbt', '--type', help='Specify keyboard type. Valid Options: avr or ps2avrgb')
-@cli.argument('-un', '--username', help='Specify username. Example: skullydazed')
+@cli.argument('-t', '--type', help='Specify keyboard type. Valid Options: avr or ps2avrgb')
+@cli.argument('-u', '--username', help='Specify username. Example: skullydazed')
 @cli.subcommand('Creates a new keyboard of your choosing')
 def new_keyboard(cli):
     """Creates a new keyboard of your choosing.
