@@ -29,21 +29,24 @@ def compile(cli):
     If --keyboard and --keymap are provided this command will build a firmware based on that.
 
     """
-    #set string to define CWD
+    # Set CWD as directory command was issued from
     cwd = os.path.normpath(os.path.join(os.environ['ORIG_CWD']))
+
+    # Initialize boolean to check for being in a keyboard directory and initialize keyboard string
     in_keyboard = False
     keyboard = ""
+
+    # Loop through three levels up to check for keyboards root directory
     for index, directory in enumerate(['..', '../..', '../../..']):
         above_basename = os.path.basename(os.path.normpath(os.path.join(cwd, directory)))
+
+        # If the folder above is "/keyboards/"
         if above_basename == "keyboards":
+            # Set the full path name and get back the full keyboard name
             path = Path(os.path.normpath(os.path.join(cwd, directory[index-1])))
-            if path.parts[-2] == "keyboards":
-                keyboard = path.parts[-1]
-            elif path.parts[-3] == "keyboards":
-                keyboard = "/".join(path.parts[-2:])
-            else:
-                keyboard = "/".join(path.parts[-3:])
+            keyboard += str(path.relative_to(os.getcwd() + "/keyboards"))
             in_keyboard = True
+            break
 
     if cli.args.filename:
         # Parse the configurator json
