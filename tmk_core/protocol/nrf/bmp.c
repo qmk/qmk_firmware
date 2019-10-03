@@ -454,9 +454,12 @@ static inline void update_tapping_term_string(bmp_api_config_t const * config,
   BMPAPI->usb.create_file("TAPTERM JSN", (uint8_t*)str, strlen(str));
 }
 
+__attribute__ ((weak))
+void create_user_file() { }
+
 static inline void create_info_file()
 {
-  static char info[] =
+  static const char info[] =
                         "API version: " STR(API_VERSION) "\n"
                         "Config version: " STR(CONFIG_VERSION) "\n"
                         "Build from " STR(GIT_HASH) STR(GIT_HAS_DIFF)"\n"
@@ -466,7 +469,7 @@ static inline void create_info_file()
 
 static inline void create_index_html()
 {
-static char index_html[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://github.com/sekigon-gonnoc/BLE-Micro-Pro/tree/master/AboutDefaultFirmware\'\"/>";
+  static const char index_html[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://github.com/sekigon-gonnoc/BLE-Micro-Pro/tree/master/AboutDefaultFirmware\'\"/>";
   BMPAPI->usb.create_file("INDEX   HTM", (uint8_t*)index_html, strlen(index_html));
 }
 
@@ -483,6 +486,7 @@ bmp_error_t bmp_state_change_cb(bmp_api_event_t event)
       update_tapping_term_string(config, qmk_config_string, sizeof(qmk_config_string));
       create_info_file();
       create_index_html();
+      create_user_file();
       break;
     default:
       break;

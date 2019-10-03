@@ -14,10 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ble_micro_pro.h"
+#include <string.h>
 
 void keyboard_post_init_user()
 {
     debug_enable = false;
+}
+
+void create_user_file()
+{
+  static const char qmk_configurator[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://takashiski.github.io/qmk_configurator\'\"/>";
+  BMPAPI->usb.create_file("MAP_EDITHTM", (uint8_t*)qmk_configurator, strlen(qmk_configurator));
 }
 // Optional override functions below.
 // You can leave any or all of these undefined.
