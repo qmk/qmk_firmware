@@ -4,6 +4,7 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 """
 import subprocess
 from argparse import FileType
+from pathlib import Path
 
 from milc import cli
 from qmk.commands import create_make_command
@@ -28,9 +29,21 @@ def compile(cli):
     If --keyboard and --keymap are provided this command will build a firmware based on that.
 
     """
-    #set string to define keymaps directory
+    #set string to define CWD
     cwd = os.path.normpath(os.path.join(os.environ['ORIG_CWD']))
-    keymaps = cwd + "/keymaps"
+    in_keyboard = False
+    keyboard = ""
+    for index, directory in enumerate(['..', '../..', '../../..']):
+        above_basename = os.path.basename(os.path.normpath(os.path.join(cwd, directory)))
+        if above_basename == "keyboards":
+            path = Path(os.path.normpath(os.path.join(cwd, directory[index-1])))
+            if path.parts[-2] == "keyboards":
+                keyboard = path.parts[-1]
+            elif path.parts[-3] == "keyboards":
+                keyboard = "/".join(path.parts[-2:])
+            else:
+                keyboard = "/".join(path.parts[-3:])
+            in_keyboard = True
 
     if cli.args.filename:
         # Parse the configurator json
@@ -49,15 +62,26 @@ def compile(cli):
         # Generate the make command for a specific keyboard/keymap.
         command = ['make', ':'.join((cli.config.compile.keyboard, cli.config.compile.keymap))]
     
-    elif os.path.exists(keymaps):
-        keyboard = os.path.basename(cwd)
-        if os.path.exists(keymaps + "/default"):
-            command = ['make', ':'.join((keyboard, "default"))]
+    elif in_keyboard:   
+        # Get path for keyboard directory
+        keymap_path = qmk.path.keymap(keyboard) 
+
+        # Check for global keymap config first
+        if cli.config.compile.keymap:
+            command = ['make', ':'.join((keyboard, cli.config.compile.keymap))]
+
+        # Check if keyboard has default layout
+        elif os.path.exists(keymap_path + "/default"):
+            keymap = "default"
+            # Generate the make command for the current directories keyboard
+            command = ['make', ':'.join((keyboard, keymap))]
+
         else:
-            cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')
+            # If no default keymap exists and none provided
+            cli.log.error('This directory does not contain a default keymap. Set one with `qmk config` or supply `--keymap` ')
             return False
     else:
-        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')
+        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`, or be in the root directory for a keyboard.')
         return False
 
     cli.log.info('Compiling keymap with {fg_cyan}%s\n\n', ' '.join(command))
