@@ -23,3 +23,6 @@ The Orion V3 PCB consists of:
 2 74HC237D 3-to-8 line decoders
 1 Atmega32u4 microcontroller
 2 WS2811 LED controller
+
+## Notes
+Special thanks to Marcus aka Keebology for doing this remotely and mapping the matrix. 
