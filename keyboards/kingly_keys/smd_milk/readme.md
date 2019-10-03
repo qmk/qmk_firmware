@@ -1,6 +1,6 @@
 # 2% Milk
 
-![SMD_MILK](https://cdn.discordapp.com/attachments/527180441950617615/628391976001208360/image0.jpg)
+![SMD_MILK](https://i.imgur.com/oAeKSGF.jpg)
 
 An SMD Version of the 2% Meme board themed around a milk carton and love
 
