@@ -14,11 +14,11 @@ import qmk.keymap
 import qmk.path
 
 
-@cli.argument('filename', nargs='?', type=FileType('r'), help='The configurator export to compile')
+@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export to compile')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.entrypoint('Compile a QMK Firmware.')
-def main(cli):
+@cli.subcommand('Compile a QMK Firmware.')
+def compile(cli):
     """Compile a QMK Firmware.
 
     If a Configurator export is supplied this command will create a new keymap, overwriting an existing keymap if one exists.
@@ -41,9 +41,9 @@ def main(cli):
         # Compile the keymap
         command = ['make', ':'.join((user_keymap['keyboard'], user_keymap['keymap']))]
 
-    elif cli.config.general.keyboard and cli.config.general.keymap:
+    elif cli.config.compile.keyboard and cli.config.compile.keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = ['make', ':'.join((cli.config.general.keyboard, cli.config.general.keymap))]
+        command = ['make', ':'.join((cli.config.compile.keyboard, cli.config.compile.keymap))]
 
     else:
         cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`.')

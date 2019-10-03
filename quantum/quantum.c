@@ -544,7 +544,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    endif
 #endif
         case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
-        case MAGIC_SWAP_LCTL_LGUI ... MAGIC_TOGGLE_CTL_GUI:
+        case MAGIC_SWAP_LCTL_LGUI ... MAGIC_EE_HANDS_RIGHT:
             if (record->event.pressed) {
                 // MAGIC actions (BOOTMAGIC without the boot)
                 if (!eeconfig_is_enabled()) {
@@ -661,6 +661,12 @@ bool process_record_quantum(keyrecord_t *record) {
                         break;
                     case MAGIC_TOGGLE_NKRO:
                         keymap_config.nkro = !keymap_config.nkro;
+                        break;
+                    case MAGIC_EE_HANDS_LEFT:
+                        eeconfig_update_handedness(true);
+                        break;
+                    case MAGIC_EE_HANDS_RIGHT:
+                        eeconfig_update_handedness(false);
                         break;
                     default:
                         break;
@@ -1103,6 +1109,22 @@ void matrix_scan_quantum() {
 #        elif BACKLIGHT_PIN == D5
 #            define COMxx1 COM1A1
 #            define OCRxx OCR1A
+#        endif
+#    elif defined(__AVR_ATmega328P__) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
+#        define HARDWARE_PWM
+#        define ICRx ICR1
+#        define TCCRxA TCCR1A
+#        define TCCRxB TCCR1B
+#        define TIMERx_OVF_vect TIMER1_OVF_vect
+#        define TIMSKx TIMSK1
+#        define TOIEx TOIE1
+
+#        if BACKLIGHT_PIN == B1
+#            define COMxx1 COM1A1
+#            define OCRxx OCR1A
+#        elif BACKLIGHT_PIN == B2
+#            define COMxx1 COM1B1
+#            define OCRxx OCR1B
 #        endif
 #    else
 #        if !defined(BACKLIGHT_CUSTOM_DRIVER)

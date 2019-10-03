@@ -473,6 +473,9 @@ enum quantum_keycodes {
     HPT_BUZ,
     HPT_MODI,
     HPT_MODD,
+    HPT_CONT,
+    HPT_CONI,
+    HPT_COND,
     HPT_DWLI,
     HPT_DWLD,
 
@@ -499,6 +502,8 @@ enum quantum_keycodes {
     MAGIC_SWAP_CTL_GUI,
     MAGIC_UNSWAP_CTL_GUI,
     MAGIC_TOGGLE_CTL_GUI,
+    MAGIC_EE_HANDS_LEFT,
+    MAGIC_EE_HANDS_RIGHT,
 
     // always leave at the end
     SAFE_RANGE

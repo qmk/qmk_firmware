@@ -36,7 +36,11 @@ RGB hsv_to_rgb(HSV hsv) {
 
     h = hsv.h;
     s = hsv.s;
+#ifdef USE_CIE1931_CURVE
+    v = pgm_read_byte(&CIE1931_CURVE[hsv.v]);
+#else
     v = hsv.v;
+#endif
 
     region    = h * 6 / 255;
     remainder = (h * 2 - region * 85) * 3;
@@ -78,12 +82,6 @@ RGB hsv_to_rgb(HSV hsv) {
             rgb.b = q;
             break;
     }
-
-#ifdef USE_CIE1931_CURVE
-    rgb.r = pgm_read_byte(&CIE1931_CURVE[rgb.r]);
-    rgb.g = pgm_read_byte(&CIE1931_CURVE[rgb.g]);
-    rgb.b = pgm_read_byte(&CIE1931_CURVE[rgb.b]);
-#endif
 
     return rgb;
 }
