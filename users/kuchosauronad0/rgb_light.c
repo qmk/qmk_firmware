@@ -9,10 +9,10 @@
 # endif
 
 void rgblight_savebase(void) {  // Save the current settings to ram
-    base_hue = rgblight_config.hue;
-    base_sat = rgblight_config.sat;
-    base_val = rgblight_config.val;
-    base_mod = rgblight_config.mode;
+  base_hue = rgblight_config.hue;
+  base_sat = rgblight_config.sat;
+  base_val = rgblight_config.val;
+  base_mod = rgblight_config.mode;
 }
 void rgblight_loadbase(void) {  // Load settings from ram to eeprom
   rgblight_mode( base_mod );
