@@ -97,7 +97,7 @@ qmk compile -kb <keyboard_name> -km <keymap_name>
 
 **Usage in Keyboard Directory**:  
 
-Must be in keyboard directory with a default keymap, or supply one with `--keymap <keymap_name>`
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
 ```
 qmk compile
 ```
@@ -109,12 +109,35 @@ $ qmk compile
 Ψ Compiling keymap with make planck/rev6:default
 ...
 ```
-or
+or with optional keymap argument
 
 ```
 $ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
 $ qmk compile --keymap 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
+...
+```
+or in keymap directory
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile
+Ψ Compiling keymap with make make gh60/satan:colemak
+...
+```
+
+**Usage in Layout Directory**:  
+
+Must be under `qmk_firmware/layouts/`, and in a keymap folder.
+```
+qmk compile --keyboard <keyboard_name>
+```
+
+**Example**:
+```
+$ cd ~/qmk_firmware/layouts/community/60_ansi/mechmerlin-ansi
+$ qmk compile --keyboard dz60
+Ψ Compiling keymap with make dz60:mechmerlin-ansi
 ...
 ```
 
