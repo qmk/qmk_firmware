@@ -45,7 +45,7 @@ void backlight_set(uint8_t level) {
 // Port from backlight_update_state
 void led_set_kb(uint8_t usb_led) {
     bool status[8] = {
-    host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK), /* LED 3 */
+    IS_HOST_LED_ON(USB_LED_SCROLL_LOCK), /* LED 3 */
     host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK),   /* LED 2 */
     host_keyboard_leds() & (1<<USB_LED_NUM_LOCK),    /* LED 1 */
 
