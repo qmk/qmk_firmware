@@ -41,10 +41,11 @@ def compile(cli):
     keyboards_path = os.path.join(qmk_path , "keyboards")
     layouts_path = os.path.join(qmk_path, "layouts")
 
-    # If below 'keyboards' and not in 'keyboards', get current keyboard name
+    # If below 'keyboards' and not in 'keyboards' or 'keymaps', get current keyboard name
     if cwd.startswith(keyboards_path):
         if current_folder != "keyboards" and current_folder != "keymaps":
             if os.path.basename(os.path.abspath(os.path.join(cwd, ".."))) == "keymaps":
+                # If in a keymap folder, set relative path, get everything before /keymaps, and the keymap name
                 relative_path = cwd[len(keyboards_path):][1:]
                 keyboard = str(relative_path).split("/keymaps", 1)[0]
                 keymap = str(relative_path.rsplit("/", 1)[-1])
