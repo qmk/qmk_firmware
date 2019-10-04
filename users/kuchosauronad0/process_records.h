@@ -13,12 +13,7 @@ enum userspace_custom_keycodes{
   KC_COLEMAK,        // Sets default layer to COLEMAK
   KC_DVORAK,         // Sets default layer to DVORAK
   KC_WORKMAN,        // Sets default layer to WORKMAN
-//  KC_NORMAN,         // Sets default layer to NORMAN
-//  KC_MALTRON,        // Sets default layer to MALTRON
-//  KC_EUCALYN,        // Sets default layer to EUCALYN
-//  KC_CARPLAX,        // Sets default layer to CARPLAX
   KC_PLOVER,         // Sets default layer to PLOVER
-//  KC_UNICODE,        // Sets default layer to UNICODE
 
   KC_MAKE,           // Run keyboard's customized make command
   KC_RGB_T,          // Toggles RGB Layer Indication mode
@@ -87,11 +82,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define DVORAK   KC_DVORAK
 #define COLEMAK  KC_COLEMAK
 #define WORKMAN  KC_WORKMAN
-//#define UNICODE  KC_UNICODE
 #define PLOVER   KC_PLOVER
 
 #define KC_RESET RESET
 #define KC_RST   KC_RESET
 
-#define UC_IRNY UC(0x2E2E)
-#define UC_CLUE UC(0x203D)
+#define UC_IRNY  UC(0x2E2E)
+#define UC_CLUE  UC(0x203D)
