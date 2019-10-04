@@ -236,7 +236,7 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 define EXEC_DFU_UTIL
 	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
-		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
 		sleep 5 ;\
 	done
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
@@ -247,6 +247,21 @@ dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 
 # Legacy alias
 dfu-util-wait: dfu-util
+
+# TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+#       within the emulated eeprom via dfu-util or another tool
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
+    OPT_DEFS += -DINIT_EE_HANDS_LEFT
+endif
+
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
+    OPT_DEFS += -DINIT_EE_HANDS_RIGHT
+endif
+
+dfu-util-split-left: dfu-util
+
+dfu-util-split-right: dfu-util
+
 
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst

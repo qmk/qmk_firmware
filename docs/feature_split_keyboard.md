@@ -96,6 +96,8 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:avrdude-split-right`
 * `:dfu-split-left`
 * `:dfu-split-right`
+* `:dfu-util-split-left`
+* `:dfu-util-split-right`
 
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
