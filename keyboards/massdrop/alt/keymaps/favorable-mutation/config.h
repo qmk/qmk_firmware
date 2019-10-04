@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2019 Griffin Rademacher <contact@griffin-rademacher.info>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,36 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
+#pragma once
 
-#include <stdint.h>
+// toggle one-shot layer keys after this many presses
+#define ONESHOT_TAP_TOGGLE 3
 
-// convert to L string
-#define LSTR(s) XLSTR(s)
-#define XLSTR(s) L## #s
-// convert to string
-#define STR(s) XSTR(s)
-#define XSTR(s) #s
+// set time held before Mod-Tap key sends mod code
+#define TAPPING_TERM 1000
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-uint8_t bitpop(uint8_t bits);
-uint8_t bitpop16(uint16_t bits);
-uint8_t bitpop32(uint32_t bits);
-
-uint8_t biton(uint8_t bits);
-uint8_t biton16(uint16_t bits);
-uint8_t biton32(uint32_t bits);
-
-uint8_t  bitrev(uint8_t bits);
-uint16_t bitrev16(uint16_t bits);
-uint32_t bitrev32(uint32_t bits);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+// permissive hold: if holding down a Mod-Tap key while pressing another, it
+// acts as a mod, even within the tapping term
+#define PERMISSIVE_HOLD

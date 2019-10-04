@@ -44,7 +44,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
 
 * Follow best practices for your OS when they conflict with these guidelines
-    * Documment why in a comment when you do deviate
+    * Document why in a comment when you do deviate
 * Install using a virtualenv
 * Instruct the user to set the environment variable `QMK_HOME` to have the firmware source checked out somewhere other than `~/qmk_firmware`.
 

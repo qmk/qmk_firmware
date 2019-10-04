@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2019 Anton Lindström <lindzr@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,36 +15,27 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
+#pragma once
 
-#include <stdint.h>
+/* Use I2C or Serial, not both */
 
-// convert to L string
-#define LSTR(s) XLSTR(s)
-#define XLSTR(s) L## #s
-// convert to string
-#define STR(s) XSTR(s)
-#define XSTR(s) #s
+#define USE_SERIAL
+// #define USE_I2C
 
-#ifdef __cplusplus
-extern "C" {
+/* Select hand configuration */
+
+// #define MASTER_LEFT
+// #define MASTER_RIGHT
+#define EE_HANDS
+
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT_SLEEP // Turn off RGB light when host is asleep.
 #endif
 
-uint8_t bitpop(uint8_t bits);
-uint8_t bitpop16(uint16_t bits);
-uint8_t bitpop32(uint32_t bits);
-
-uint8_t biton(uint8_t bits);
-uint8_t biton16(uint16_t bits);
-uint8_t biton32(uint32_t bits);
-
-uint8_t  bitrev(uint8_t bits);
-uint16_t bitrev16(uint16_t bits);
-uint32_t bitrev32(uint32_t bits);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
