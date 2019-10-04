@@ -7,6 +7,13 @@
 static uint32_t oled_timer = 0;
 extern uint8_t is_master;
 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_master) {
+    return OLED_ROTATION_0;
+  }
+  return OLED_ROTATION_180;
+}
+
 bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         oled_timer = timer_read32();
@@ -75,8 +82,8 @@ void oled_task_user(void) {
     if (is_master) {
         render_status();
     } else {
-        oled_write_P(PSTR("\n"), false);
         render_logo();
+        oled_write_P(PSTR("\n"), false);
         oled_scroll_left();
     }
 }
