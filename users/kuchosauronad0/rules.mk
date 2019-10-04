@@ -4,7 +4,6 @@ SRC += kuchosauronad0.c \
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
-
 ifneq ($(strip $(RGBLIGHT_ENABLE)),yes )
      SRC += rgb_light.c
 endif
