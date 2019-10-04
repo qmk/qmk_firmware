@@ -47,7 +47,7 @@ void led_set_kb(uint8_t usb_led) {
     bool status[8] = {
     IS_HOST_LED_ON(USB_LED_SCROLL_LOCK), /* LED 3 */
     host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK),   /* LED 2 */
-    host_keyboard_leds() & (1<<USB_LED_NUM_LOCK),    /* LED 1 */
+    IS_HOST_LED_ON(USB_LED_NUM_LOCK),    /* LED 1 */
 
     layer_state & (1<<2),                            /* LED 6 */
     layer_state & (1<<1),                            /* LED 5 */
