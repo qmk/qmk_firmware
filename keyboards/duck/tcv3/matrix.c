@@ -191,11 +191,14 @@ uint8_t read_fwkey(void)
  *
  */
 static void unselect_cols(void) {
-  DDRB  |=  0b01000000;
-  PORTB &= ~0b01000000;
+  DDRB  |=  0b01110000;
+  PORTB &= ~0b01110000;
 
   DDRC  |=  0b11000000;
   PORTC &= ~0b11000000;
+
+  DDRD  |=  0b10000000;
+  PORTD &= ~0b10000000;
 
   DDRF  |=  0b00010010;
   PORTF &= ~0b00010010;
