@@ -1,105 +1,105 @@
-# QMK Configurator
+# Configurateur de QMK
 
-The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware hex files.  
+Le [Configurateur de QMK](https://config.qmk.fm) est une interface graphique en ligne permettant de générer des fichiers "hex" du firmware de QMK.
 
-?> **Please follow these steps in order.**
+?> **S'il vous plaît, suivez les étapes suivantes dans l'ordre.**
 
-Watch the [Video Tutorial](https://youtu.be/tx54jkRC9ZY)
+Regardez le [Tutoriel vidéo](https://youtu.be/tx54jkRC9ZY)
 
-The QMK Configurator works best with Chrome/Firefox. 
+Le configurateur de QMK fonctionne mieux avec Chrome et Firefox.
 
+!> **Les ficiers d'autres outils, tels que KLE ou kbfirmware ne seront pas compatibles avec le configurateur QMK. Ne les chargez pas, ne les importez pas. Le configurateur QMK est un outil DIFFERENT. **
 
-!> **Files from other tools such as KLE, or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool. **
+## Sélectionner votre clavier
 
-## Selecting your keyboard
+Cliquez la boîte déroulante et sélectionnez le clavier pour lequel vous voulez créer une keymap.
 
-Click the drop down box and select the keyboard you want to create a keymap for. 
+?> Si votre clavier a plusieurs verisons, faites attention à utiliser la version correcte.
 
-?> If your keyboard has several versions, make sure you select the correct one.** 
+Je vais le répéter, parce que c'est important
 
-I'll say that again because it's important
+!> **FAITES ATTENTION A UTILISER LA BONNE VERSION !**
 
-!> **MAKE SURE YOU SELECT THE RIGHT VERSION!**
+Si votre clavier est annoncé comme étant alimenté par QMK, mais n'est pas dans la liste, il y a des chances que le développeur ne l'ait pas encore fait, ou que nous n'avons pas encore eu le temps de le merger. Ajoutez un problème (issue) sur [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) demandant le support de votre clavier, s'il n'y a pas de [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) ouvert pour lui. Il y a aussi des clavier alimentés par QMK qui sont sur le compte GitHub du fabriquant, il est bon de le vérifier aussi.
 
-If your keyboard has been advertised to be powered by QMK but is not in the list, chances are a developer hasn't gotten to it yet or we haven't had a chance to merge it in yet. File an issue at [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) requesting to support that particular keyboard, if there is no active [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) for it. There are also QMK powered keyboards that are in their manufacturer's own github accounts. Double check for that as well. 
+## Sélectionner la disposition de votre clavier
 
-## Selecting your keyboard layout
+Choisissez la disposition (layout) qui représente le mieux la keymap que vous voulez créer. Certains clavier n'ont pas encore assez de dispositions ou des dispositions incorrectes. Ils seront supportés dans le future.
 
-Choose the layout that best represents the keymap you want to create. Some keyboards do not have enough layouts or correct layouts defined yet. They will be supported in the future. 
+## Nom de la Keymap
 
-## Keymap Name
+Appelez cette keymap comme vous voulez.
 
-Call this keymap what you want. 
+?> Si vous rencontrez des problèmes lors de la compilation, il peut être utile de changer ce nom, il peut déjà exister dans le repositoire du firmware QMK.
 
-?> If you are running into issues when compiling, it may be worth changing this name, as it may already exist in the QMK  Firmware repo.
+## Créer votre keymap
 
-## Creating Your Keymap
+Entrer un keycode peut s'accomplire de 3 façons différentes.
 
-Keycode Entry is accomplished in 3 ways.  
-1. Drag and dropping 
-2. Clicking on an empty spot on the layout and clicking the keycode you desire
-3. Clicking on an empty spot on the layout, pressing the physical key on your keyboard. 
+1. Glisser déposer
+2. Cliquer sur un endroit vide sur le layout et cliquer sur le keycode souhaité
+3. Cliquer sur un endroit vide sur le layout et appuyer sur une touche physique de votre clavier.
 
-Hover your mouse over a key and a short blurb will tell you what that keycode does. For a more verbose description please see    
+Passez votre souris au dessus d'une touche et un affichage vous dira quel est le rôle du keycode. Pour une version plus verbeuse suivre:
 
-[Basic Keycode Reference](https://docs.qmk.fm/#/keycodes_basic)    
-[Advanced Keycode Reference](https://docs.qmk.fm/#/feature_advanced_keycodes)    
+[Référence Keycode basique](https://docs.qmk.fm/#/keycodes_basic)
+[Référence Keycode avancé](https://docs.qmk.fm/#/feature_advanced_keycodes)
 
-In the event that you can't find a layout that supports your keymap, for example three spots for spacebar, or two spots for backspace, or 2 spots for shift etc etc, Fill them ALL up. 
+Dans le cas où vous ne trouvez pas une disposition qui suppore votre keymap, par exemple trois places pour une barre d'espace, ou deux places pour retour clavier, ou deux places pour shift, etc. etc. remplissez les TOUS.
 
-### Example:
+### Exemples
 
-3 spots for spacebar: Fill them ALL with spacebar
+3 places pour la barre d'espace: Remplissez les TOUS avec la barre d'espace
 
-2 spots for backspace: Fill them BOTH with backspace
+2 places pour un retour clavier: Remplissez les DEUX avec un retour clavier
 
-2 spots for right shift: Fill them BOTH with right shift
+2 places pour un shift droit: Remplissez les DEUX avec un shift droit
 
-1 spot for left shift and 1 spot for iso support: Fill them both with left shift
+1 place pour un shift gauche et 1 place pour le support ISO: Remplissez les deux avec un shift gauche
 
-5 spots, but only 4 keys: Guess and check or ask someone who has done it before. 
+5 places, mais seulement 4 touches: Deviner et vérifier, ou demander à quelqu'un qui l'a déjà fait.
 
-## Saving Your Keymap for Future Edits
+## Sauvez votre keymap pour des éditions futures
 
-When you're satisfied with your keymap or just want to work on it later, press the `Export Keymap` button. It will save your keymap as the name you chose above appended with .json. 
+Une fois satisfaits avec votre keymap, ou que vous souhaiter revenir travailler dessus plus tard, appuyez sur le bouton `Export Keymap`. Il vous permettra de sauver votre keymap avec le nom choisi au dessus suivi de .json.
 
-You can then load this .json file in the future by pressing the `Import Keymap` button. 
+Vous pouvez ensuite charger ce fichier .json à nouveau en appuxant sur le bouton `Import Keymap`.
 
-!> **CAUTION:** This is not the same type of .json file used for kbfirmware.com or any other tool. If you try to use this for those tools, or the .json from those tools with QMK Configurator, there is a chance your keyboard will **explode**. 
+!> **ATTENTION** Ce n'est pas le même type de fichier .json utilisé pour kbfirmware.com ou n'importe quel autre outil. Si vous essayez d'utiliser ce fichier pour d'autres outil, ou le fichier .json d'autres outils avec le configurateur QMK, il y a des chances que votre clavier **explose**.
 
-## Generating your firmware file
+## Générer votre fichier firmware
 
-Press the green `Compile` button.
+Appuyez sur le bouton `Compile`.
 
-When the compilation is done, you will be able to press the green `Download Firmware` button. 
+Une fois la compilation terminée, vous pourrez appuyer sur le bouton vert `Download Firmware`.
 
-## Flashing Your Keyboard
+## Ecrire votre firmware sur votre clavier
 
-Please refer to [Flashing Firmware](newbs_flashing.md)
+Merci de vous référer à [Téléverser le Firmware](fr-FR/newbs_flashing.md)
 
-## Troubleshooting
+## Dépannage
 
-#### My .json file is not working
+#### Mon fichier json ne fonctionne pas
 
-If the .json file was generated with QMK Configurator, congratulations you have stumbled upon a bug. File an issue at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Si le fichier .json a été généré par le configurateur QMK, bravo vous avez trouvé un bug. Merci d'ouvrir un problème sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
 
-If not....how did you miss my big bold message at the top saying not to use other .json files? 
+Sinon... vous avez raté mon message écris en gras qui dit de ne pas utiliser d'autres fichiers .json?
 
-#### There are extra spaces in my layout? What do I do? 
+#### Il y a des espaces en trop dans mon alyout? Qu'est-ce que je fais?
 
-If you're referring to having three spots for space bar, the best course of action is to just fill them all with space bar. The same can be done for backspace and shifts
+Si vous voulez dire que vous avez trois places pour une barre d'espace, le mieux est de les remplir tous avec une barre d'espace. Vous pouvez faire de même avec les retour clavier et les shift.
 
-#### What is the keycode for.......
+#### C'est quoi le keycode pour .......
 
-Please see
+Merci de regarder
 
-[Basic Keycode Reference](https://docs.qmk.fm/#/keycodes_basic)    
-[Advanced Keycode Reference](https://docs.qmk.fm/#/feature_advanced_keycodes)    
+[Référence keycode basique](https://docs.qmk.fm/#/keycodes_basic)
+[Référence keycode avancé](https://docs.qmk.fm/#/feature_advanced_keycodes)
 
-#### It won't compile
+#### Ca compile pas
 
-Please double check the other layers of your keymap to make sure there are no random keys present. 
+Merci de vérifier les autres dispositions de votre keymap afin d'être sûr qu'il n'y a pas de touches aléatoires.
 
-## Problems and Bugs
+## Problèmes et Bugs
 
-We are always accepting customer requests and bug reports. Please file them at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Nous acceptons toujours des demandes de clients et des rapports de bugs. Merci de les remplirs sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)

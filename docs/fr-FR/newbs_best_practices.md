@@ -153,7 +153,7 @@ Parce que Git suis *les changements des fichiers*, plutôt que les contenus des 
 
 Maintenant, lancez:
 
-```
+```bash
 git add conflicting_file_1.txt
 git rebase --continue
 ```
