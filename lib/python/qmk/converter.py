@@ -1,4 +1,4 @@
-"""Functions to vonvert to and from qmk formats
+"""Functions to convert to and from qmk formats
 """
 from collections import OrderedDict
 
