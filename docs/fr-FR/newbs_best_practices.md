@@ -1,32 +1,31 @@
-# Best Practices
+# Bonnes Pratiques
 
-## Or, "How I Learned to Stop Worrying and Love Git."
+## Ou, "Comment j'ai appris à ne plus m'en faire et aimer Git."
 
-This document aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them.
+Ce document a pour but d'apprendre aux novices les meilleures solutions pour faciliter la contribution à QMK. Nous allons étudier le processus de contribution à QMK, détaillant quelques moyens de rendre cette tâche plus simple. Ensuite, nous allons casser quelques choses afin de vous apprendre comment les résoudre.
 
-This document assumes a few things:
+Ce document suppose les choses suivantes:
 
-1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account.
-2. You've [set up your build environment](newbs_getting_started.md?id=environment-setup).
+1. Vous avez un compte GitHub, and avez [créé un "fork" pour le repo qmk_firmware](fr-FR/getting_started_github.md) avec votre compte.
+2. Vous avez [configuré votre environnement de compilation](fr-FR/newbs_getting_started.md?id=environment-setup).
 
+## La branche master de votre fork: Mettre à jour souvent, ne jamais commit
 
-## Your fork's master: Update Often, Commit Never
+Il est hautement recommandé pour le développement de QMK, peu importe ce qui est fait ou où, de garder votre branche `master` à jour, mais de ne ***jamais*** commit dessus. A la place, faites tous vos changement dans une branche de développement et crééz des "pull requests" de votre branche lorsque vous développez.
 
-It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing.
+Pour réduire les chances de conflits de fusion (merge) &mdash; des cas où deux ou plus d'utilisateurs ont édité la même section d'un fichier en parallèle &mdash; gardez votre branche `master` relativement à jour et démarrez chaque nouveau développement en créant une nouvelle branche.
 
-To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch.
+### Mettre à jour votre branche master
 
-### Updating your master branch
+Pour garer votre branche `master` à jour, il est recommandé d'ajouter le repository du firmware QMK comme un repository distant (remove) dans git. Pour ce faire, ouvrez votre interface de ligne de commande Git et entrez:
 
-To keep your `master` branch updated, it is recommended to add the QMK Firmware repository ("repo") as a remote repository in git. To do this, open your Git command line interface and enter:
-
-```
+```bash
 git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
-To verify that the repository has been added, run `git remote -v`, which should return the following:
+Pour vérifier que le repositoire a bien été ajouté, lancez la commande `git remote -v`, qui devrait retourner le résultat suivant:
 
-```
+```bash
 $ git remote -v
 origin  https://github.com/<your_username>/qmk_firmware.git (fetch)
 origin  https://github.com/<your_username>/qmk_firmware.git (push)
@@ -34,89 +33,88 @@ upstream        https://github.com/qmk/qmk_firmware.git (fetch)
 upstream        https://github.com/qmk/qmk_firmware.git (push)
 ```
 
-Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags &mdash; collectively referred to as "refs" &mdash; from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK.
+Maintenant que c'est fait, vous pouvez vérifier les mises à jour au repositoire en lançant `git fetch upstream`. Cela récupère les branches et les tags &mdash; appelé de manière générale "refs" &mdash; du repo QMK, qui a maintenant le surnom `upstream`. Nous pouvons maintenant comparer les données sur notre "fork" `origin` à celles contenues par QMK.
 
-To update your fork's master, run the following, hitting the Enter key after each line:
+Pour mettre à jour la branche master de votre "fork", lancez les commandes suivantes (en appuyant sur Enter après chaque ligne):
 
-```
+```bash
 git checkout master
 git fetch upstream
 git pull upstream master
 git push origin master
 ```
 
-This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork.
+Ceci vous passe sur votre branche `master`, récupère les refs du repo QMK, télécharge la branche `master` de QMK sur votre ordinateur, et la télécharge sur votre fork.
 
-### Making Changes
+### Faire des changements
 
-To make changes, create a new branch by entering:
+Pour faire des changements, créez une nouvelle branche en entrant:
 
-```
+```bash
 git checkout -b dev_branch
 git push --set-upstream origin dev_branch
 ```
 
-This creates a new branch named `dev_branch`, checks it out, and then saves the new branch to your fork. The `--set-upstream` argument tells git to use your fork and the `dev_branch` branch every time you use `git push` or `git pull` from this branch. It only needs to be used on the first push; after that, you can safely use `git push` or `git pull`, without the rest of the arguments.
+Ceci crée une branche nommée `dev_branch`, bascule vers cette branche, et ensuite sauve cette nouvelle branche vers votre fork. L'argument `--set-upstream` demande à git d'utiliser votre fork et la branche `dev_branch` à chaque fois que vous utilisez `git push` ou `git pull` depuis cette branche. Il n'a besoin d'être utilisé seulement pour le premier "push", après celà, vous pouvez utiliser sans problème `git push` ou `git pull`, sans le reste des arguments.
 
-!> With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`.
+!> Avec `git push`, vous pouvez utiliser `-u` à la place de `--set-upstream` &mdash; `-u` est un alias pour `--set-upstream`.
 
-You can name your branch nearly anything you want, though it is recommended to name it something related to the changes you are going to make.
+Vous pouvez appeler votre branche à peu prêt comme vous voulez, toutefois il est recommandé d'utiliser un nom qui est lié aux changements que vous allez faire.
 
-By default `git checkout -b` will base your new branch on the branch that is checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command:
+Par défaut, `git checkout -b` va faire de la branche actuelle la branche de base de votre nouvelle branche. Vous pouvez définir la base de votre nouvelle branche comme étant n'importe quelle branche existante qui n'est pas la courante en utilisant la commande:
 
-```
+```bash
 git checkout -b dev_branch master
 ```
 
-Now that you have a development branch, open your text editor and make whatever changes you need to make. It is recommended to make many small commits to your branch; that way, any change that causes issues can be more easily traced and undone if needed. To make your changes, edit and save any files that need to be updated, add them to Git's *staging area*, and then commit them to your branch:
+Maintenant que vous avez une branche de développement, ouvrez votre éditeur de texte et faire les changements que vous devez faire. Il est recommandé de faire beaucoup de petits commits dans votre branche. Ainsi, un changement qui crée un problème peut être plus facilement retracé et annulé si nécessaire. Pour faire un changement, éditer et sauver n'importe quel fichier qui doit être mis à jour, ajoutez les à la *zone de staging* de Git, et commitez les vers votre branche:
 
-```
+```bash
 git add path/to/updated_file
 git commit -m "My commit message."
 ```
 
-`git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance.
+`git add` ajouter des fichiers qui ont été changés dans la *zone de staging* de Git, qui est sa "zone de chargement". Elle contient tous les changements qui vont être *validés* (committed) par `git commit`, qui sauve les changements vers le repo. Utilisez des messages de validation descriptifs afin que vous puissiez savoir ce qui a changé d'un coup d'oeil.
 
-!> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually.
+!> Si vous changez beaucoup de fichiers, mais tous les fichiers font partie du même changement, vous pouvez utiliser `git add .` pour ajouter tous les fichiers changés dans le répertoire courant, plutôt que d'avoir à ajouter chaque fichiers individuellement.
 
-### Publishing Your Changes
+### Publier Vos Changements
 
-The last step is to push your changes to your fork. To do this, enter `git push`. Git now publishes the current state of `dev_branch` to your fork.
+La dernière étape est de pousser vos changements vers votre fork. Pour ce faire, entrez `git push`. Git publie maintenant l'état courant de `dev_branch` vers votre fork.
 
+## Résoudre Les Conflits De Merge
 
-## Resolving Merge Conflicts
+Parfois, lorsque votre travail sur une branche met beaucoup de temps à se compléter, des changements fait par d'autres peuvent rentrer en conflit avec les changements que vous avez fait sur votre branche lorsque vous avez ouvert un pull request. Ceci est appelé un *conflit de merge*, et c'est ce qui arrive lorsque plusieurs personnes modifies les mêmes parties des mêmes fichiers.
 
-Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files.
+### Rebaser Vos Changements
 
-### Rebasing Your Changes
+Un *rebase* est la manière pour Git de prendre les changements qui ont été appliqués à un point, les annuler, et les réappliquer sur un autre point. Dans le cas d'un conflit de merge, vous pouvez rebaser votre branche pour récupérer les changement squi ont été faits entre le moment où vous avez créé votre proche et le présent.
 
-A *rebase* is Git's way of taking changes that were applied at one point, reversing them, and then applying the same changes to another point. In the case of a merge conflict, you can rebase your branch to grab the changes that were made between when you created your branch and the present time.
+Pour démarrer, lancez les commandes suivantes:
 
-To start, run the following:
-
-```
+```bash
 git fetch upstream
 git rev-list --left-right --count HEAD...upstream/master
 ```
 
-The `git rev-list` command entered here returns the number of commits that differ between the current branch and QMK's master branch. We run `git fetch` first to make sure we have the refs that represent the current state of the upstream repo. The output of the `git rev-list` command entered returns two numbers:
+La commande `git rev-list` retourne le nombre de commits qui diffère entre la branche courrante et la branche maste de QMK. Nous lançons `git fetch` en premier afin d'être sûr que les refs qui représentent l'état courant du repositoire upstream soient à jour. Le résultat de la commande `git rev-list` retourne deux nombres:
 
-```
+```bash
 $ git rev-list --left-right --count HEAD...upstream/master
 7       35
 ```
 
-The first number represents the number of commits on the current branch since it was created, and the second number is the number of commits made to `upstream/master` since the current branch was created, and thus, the changes that are not recorded in the current branch.
+Le premier nombre représente le nombre de commits sur la branche courrante depuis qu'elle a été créée, et le second chiffres est le nombre de commits qui ont été faits sur la branche `upstream/master` depuis que la branche a été créée et, ainsi, les changements qui ne son pas enregistrés sur la branche courante.
 
-Now that the current states of both the current branch and the upstream repo are known, we can start a rebase operation:
+Maintenant que l'état courrant d'à la fois la branche courrante et la branche upstream sont connues, nous pouvons maintenant démarrer une opération de rebase:
 
-```
+```bash
 git rebase upstream/master
 ```
 
-This tells Git to undo the commits on the current branch, and then reapply them against QMK's master branch.
+Ceci dit à Git d'annuler les commits de la branche courrante puis de les réappliquer sur la branche master de QMK.
 
-```
+```bash
 $ git rebase upstream/master
 First, rewinding head to replay your work on top of it...
 Applying: Commit #1
@@ -135,9 +133,9 @@ You can instead skip this commit: run "git rebase --skip".
 To abort and get back to the state before "git rebase", run "git rebase --abort".
 ```
 
-This tells us that we have a merge conflict, and gives the name of the file with the conflict. Open the conflicting file in your text editor, and somewhere in the file, you'll find something like this:
+Ceci nous dit que nous avons un conflit de merge, et nous donne le nom du fichier en conflit. Ouvez le fichier conflictuel dans votre éditeur de texte et, quelque part dans le fichier, vous trouverez quelque chose comme ça:
 
-```
+```bash
 <<<<<<< HEAD
 <p>For help with any issues, email us at support@webhost.us.</p>
 =======
@@ -145,19 +143,19 @@ This tells us that we have a merge conflict, and gives the name of the file with
 >>>>>>> Commit #1
 ```
 
-The line `<<<<<<< HEAD` marks the beginning of a merge conflict, and the `>>>>>>> Commit #1` line marks the end, with the conflicting sections separated by `=======`. The part on the `HEAD` side is from the QMK master version of the file, and the part marked with the commit message is from the current branch and commit.
+La ligne `<<<<<<< HEAD` montre le début d'un conflit de merge et la ligne `>>>>>>> Commit #1` indique la fin, avec les sections conflictuelles séparées par `=======`. La partie du côté `HEAD` vient de la version du fichier provenant de la branche master de QMK, et la partie marquée avec le numéro du commit provient de la branche courrante.
 
-Because Git tracks *changes to files* rather than the contents of the files directly, if Git can't find the text that was in the file previous to the commit that was made, it won't know how to edit the file. Re-editing the file will solve the conflict. Make your changes, and then save the file.
+Parce que Git suis *les changements des fichiers*, plutôt que les contenus des fichiers directement, si Git ne peut pas trouver le texte qu'il y avait dans le fichier avant que le commit soit fait, il ne saura pas comment éditer le fichier. Rééditer le fichier va résoudre le conflit. Faites votre changement, et sauvez le fichier.
 
-```
+```bash
 <p>Need help? Email support@webhost.us.</p>
 ```
 
-Now run:
+Maintenant, lancez:
 
 ```
 git add conflicting_file_1.txt
 git rebase --continue
 ```
 
-Git logs the changes to the conflicting file, and continues applying the commits from our branch until it reaches the end.
+Git enregistre le changement dans le fichier conflictuel, et continue à appliquer les commits depuis votre branche jusqu'à ce qu'il arrive à la fin.
