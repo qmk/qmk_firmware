@@ -103,7 +103,7 @@ def compile(cli):
 
 
     else:
-        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`, or be a directory for a keyboard or keymap.')
+        cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         return False
 
     cli.log.info('Compiling keymap with {fg_cyan}%s\n\n', ' '.join(command))
