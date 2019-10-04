@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define HOME 0
-#define MODS 1
-#define MODS2 2
-#define OTHER 3
+enum layer_names {
+    HOME,
+    MODS,
+    MODS2,
+    OTHER,
+};
 
 enum custom_keycodes {
 	MACRO1 = SAFE_RANGE
