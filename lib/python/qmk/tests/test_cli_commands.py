@@ -19,6 +19,8 @@ def test_config():
     assert result.returncode == 0
     assert 'general.color' in result.stdout
 
+def test_convert():
+    assert check_subcommand('convert', 'kle.txt', '-f').returncode == 0
 
 def test_doctor():
     result = check_subcommand('doctor')
