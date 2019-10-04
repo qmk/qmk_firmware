@@ -85,6 +85,33 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
+## `qmk convert`
+
+This command allows you to convert from raw KLE data to qmk configurator json. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+
+**Usage**:
+
+```
+qmk convert [filename] [-f]
+```
+**Examples**:
+
+```
+$ qmk convert ~/github/qmk_firmware/kle.txt 
+☒ File /home/cody/github/qmk_firmware/info.json already exists, use -f or --force to overwrite.
+...
+$ qmk convert ~/github/qmk_firmware/kle.txt -f
+Ψ Wrote keymap to /home/cody/github/qmk_firmware/info.json
+
+```
+
+or if cwd is already `~/github/qmk_firmware/`:
+
+```
+$ qmk convert kle.txt -f
+Ψ Wrote keymap to /home/cody/github/qmk_firmware/info.json
+```
+
 ## `qmk cformat`
 
 This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
