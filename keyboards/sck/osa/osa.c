@@ -42,6 +42,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
   return process_record_user(keycode, record);
 }
+*/
 
 void matrix_init_board(void){
     setPinOutput(C7);
@@ -53,21 +54,20 @@ void led_set_kb(uint8_t usb_led) {
   // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(C7);
-    } else {
         writePinHigh(C7);
+    } else {
+        writePinLow(C7);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(C6);
-    } else {
         writePinHigh(C6);
+    } else {
+        writePinLow(C6);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinLow(B6);
-    } else {
         writePinHigh(B6);
+    } else {
+        writePinLow(B6);
     }
   led_set_user(usb_led);
 }
 
-*/
