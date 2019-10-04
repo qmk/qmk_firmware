@@ -54,6 +54,7 @@ enum planck_keycodes {
 #define TABFN LT(_FN, KC_TAB)
 #define ESCFN LT(_FN, KC_ESC)
 #define FN_D LT(_FN, IT_D)
+#define MS_B LT(_MOUSE, IT_B)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |Esc/FN|   A  |   S  | FN/D |  F   |   G  |   H  |   J  |   K  |   L  |  ;:  |  '"  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |  C   |  V   |   B  |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
+ * | Shift|   Z  |   X  |  C   |  V   | FN/B |   N  |   M  |  ,<  |  .>  |  /!  |S/Ent |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | FN   | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -71,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_ortho_4x12(
     TABFN,   IT_Q,    IT_W,    IT_E,      IT_R,  IT_T,    IT_Y,    IT_U,  IT_I,    IT_O,    IT_P,    KC_BSPC,
     ESCFN,   IT_A,    IT_S,    FN_D,      IT_F,  IT_G,    IT_H,    IT_J,  IT_K,    IT_L,    IT_SCCL, IT_APDQ,
-    KC_LSFT, IT_Z,    IT_X,    IT_C,      IT_V,  IT_B,    IT_N,    IT_M,  IT_CMLS, IT_DTMR, IT_SLQS, MT(MOD_RSFT, KC_ENT),
+    KC_LSFT, IT_Z,    IT_X,    IT_C,      IT_V,  MS_B,    IT_N,    IT_M,  IT_CMLS, IT_DTMR, IT_SLQS, MT(MOD_RSFT, KC_ENT),
     FN,      KC_LCTL, KC_LALT, KC_LGUI,   LOWER, KC_SPC,  KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
