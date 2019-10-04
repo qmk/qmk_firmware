@@ -2,6 +2,7 @@
 
 """
 import json
+import os
 from qmk.kle2xy import KLE2xy
 from milc import cli
 from argparse import FileType
@@ -80,8 +81,5 @@ def convert(cli):
         file = open("info.json","w")
         file.write(keyboard)
         file.close()
-
-
-
-
+        cli.log.info('Wrote keymap to {fg_cyan}%s/info.json', os.getcwd())
 
