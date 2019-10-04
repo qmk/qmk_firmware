@@ -41,7 +41,7 @@ def compile(cli):
     keyboards_path = os.path.join(qmk_path , "keyboards")
     layouts_path = os.path.join(qmk_path, "layouts")
 
-    # if below 'keyboards' and not in 'keyboards', get current keyboard name
+    # If below 'keyboards' and not in 'keyboards', get current keyboard name
     if cwd.startswith(keyboards_path):
         if current_folder != "keyboards" and current_folder != "keymaps":
             if os.path.basename(os.path.abspath(os.path.join(cwd, ".."))) == "keymaps":
@@ -52,8 +52,10 @@ def compile(cli):
                 keyboard = str(cwd[len(keyboards_path):])[1:]
 
             in_keyboard= True
+
+    # If in layouts dir
     if cwd.startswith(layouts_path):
-        if os.path.basename(cwd != "layouts"):
+        if current_folder != "layouts":
             layout = str(cwd[len(keyboards_path):])[1:]
             in_layout=True
 
@@ -92,8 +94,15 @@ def compile(cli):
             # If no default keymap exists and none provided
             cli.log.error('This directory does not contain a default keymap. Set one with `qmk config` or supply `--keymap` ')
             return False
+
+    elif in_layout:
+        if cli.config.compile.keyboard:
+            keymap = current_folder
+            command = ['make', ':'.join((cli.config.compile.keyboard, keymap))]
+
+
     else:
-        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`, or be in the root directory for a keyboard.')
+        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`, or be a directory for a keyboard or keymap.')
         return False
 
     cli.log.info('Compiling keymap with {fg_cyan}%s\n\n', ' '.join(command))
