@@ -4,7 +4,6 @@ You can compile a keymap already in the repo or using a QMK Configurator export.
 """
 import subprocess
 from argparse import FileType
-from pathlib import Path
 
 from milc import cli
 from qmk.commands import create_make_command
@@ -32,18 +31,31 @@ def compile(cli):
     # Set CWD as directory command was issued from
     cwd = os.environ['ORIG_CWD']
     qmk_path = os.getcwd()
+    current_folder = os.path.basename(cwd)
     # Initialize boolean to check for being in a keyboard directory and initialize keyboard string
     in_keyboard = False
     keyboard = ""
+    keymap = "default"
 
     # Set path for '/keyboards/' directory
     keyboards_path = os.path.join(qmk_path , "keyboards")
+    layouts_path = os.path.join(qmk_path, "layouts")
 
     # if below 'keyboards' and not in 'keyboards', get current keyboard name
     if cwd.startswith(keyboards_path):
-        if os.path.basename(cwd) != "keyboards":
-            keyboard = str(cwd[len(keyboards_path):])[1:]
+        if current_folder != "keyboards" and current_folder != "keymaps":
+            if os.path.basename(os.path.abspath(os.path.join(cwd, ".."))) == "keymaps":
+                relative_path = cwd[len(keyboards_path):][1:]
+                keyboard = str(relative_path).split("/keymaps", 1)[0]
+                keymap = str(relative_path.rsplit("/", 1)[-1])
+            else:
+                keyboard = str(cwd[len(keyboards_path):])[1:]
+
             in_keyboard= True
+    if cwd.startswith(layouts_path):
+        if os.path.basename(cwd != "layouts"):
+            layout = str(cwd[len(keyboards_path):])[1:]
+            in_layout=True
 
     if cli.args.filename:
         # Parse the configurator json
@@ -72,7 +84,7 @@ def compile(cli):
 
         # Check if keyboard has default layout
         elif os.path.exists(keymap_path + "/default"):
-            keymap = "default"
+            
             # Generate the make command for the current directories keyboard
             command = ['make', ':'.join((keyboard, keymap))]
 
