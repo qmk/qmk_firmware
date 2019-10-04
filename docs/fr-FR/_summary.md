@@ -1,0 +1,7 @@
+* [Guide pour débutant complet](fr-FR/newbs.md)
+  * [Pour débuter](fr-FR/newbs_getting_started.md)
+  * [Compiler son premier firmware](fr-FR/newbs_building_firmware.md)
+  * [Téléverser le Firmware](fr-FR/newbs_flashing.md)
+  * [Test et Débuggage](fr-FR/newbs_testing_debugging.md)
+  * [Bonnes pratiques Git](fr-FR/newbs_best_practices.md)
+  * [Ressources d'apprentissage](fr-FR/newbs_learn_more_resources.md)
