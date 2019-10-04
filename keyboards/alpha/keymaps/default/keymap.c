@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv#include QMK_KEYBOARD_H
 
 #define HOME 0
 #define MODS 1
@@ -47,3 +47,4 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
 }
+
