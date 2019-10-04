@@ -3,43 +3,17 @@
 """
 import json
 import os
-from qmk.kle2xy import KLE2xy
-from milc import cli
+from pathlib import Path
 from argparse import FileType
-from collections import OrderedDict
 from decimal import Decimal
-from flask.json import JSONEncoder
+from collections import OrderedDict
 
-def kle_to_qmk(kle):
-    """Convert a kle layout to qmk's layout format.
-    """
-    layout = []
+from milc import cli
+from kle2xy import KLE2xy
 
-    for row in kle:
-        for key in row:
-            if key['decal']:
-                continue
+from qmk.converter import kle2qmk
 
-            qmk_key = OrderedDict(
-                label="",
-                x=key['column'],
-                y=key['row'],
-            )
-
-            if key['width'] != 1:
-                qmk_key['w'] = key['width']
-            if key['height'] != 1:
-                qmk_key['h'] = key['height']
-            if 'name' in key and key['name']:
-                qmk_key['label'] = key['name'].split('\n', 1)[0]
-            else:
-                del (qmk_key['label'])
-
-            layout.append(qmk_key)
-
-    return layout
-
-class CustomJSONEncoder(JSONEncoder):
+class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         try:
             if isinstance(obj, Decimal):
@@ -56,6 +30,9 @@ def convert(cli):
     """Convert a KLE layout to QMK's layout format.
     """
     if cli.args.filename:
+        if cli.args.filename.name[0] == "/" or cli.args.filename.name[0] == "./":
+            file_path = Path(cli.args.filename.name)
+            out_path = file_path.parent
         raw_code = str(cli.args.filename.read())
         try:
             kle = KLE2xy(raw_code)
@@ -75,11 +52,14 @@ def convert(cli):
             }},
         )
         keyboard = json.dumps(keyboard, indent=4, separators=(', ', ': '), sort_keys=False, cls=CustomJSONEncoder)
-        layout = json.dumps(kle_to_qmk(kle), separators=(', ', ':'), cls=CustomJSONEncoder)
+        layout = json.dumps(kle2qmk(kle), separators=(', ', ':'), cls=CustomJSONEncoder)
         keyboard = keyboard.replace('"LAYOUT_JSON_HERE"', layout)
 
-        file = open("info.json","w")
+        file = open(str(out_path) + "/info.json","w")
         file.write(keyboard)
         file.close()
-        cli.log.info('Wrote keymap to {fg_cyan}%s/info.json', os.getcwd())
+        cli.log.info('Wrote keymap to {fg_cyan}%s/info.json', str(out_path))
+    else:
+        cli.log.error('You must supply a KLE raw export.')
+        return False
 

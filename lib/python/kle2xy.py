@@ -1,5 +1,9 @@
+""" Original code from https://github.com/skullydazed/kle2xy
+"""
+
 import hjson
 from decimal import Decimal
+
 class KLE2xy(list):
     """Abstract interface for interacting with a KLE layout.
     """
