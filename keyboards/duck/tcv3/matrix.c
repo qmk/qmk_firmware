@@ -171,7 +171,7 @@ uint8_t read_fwkey(void)
  * col 1: D7
  * col I: B5
  *
- * col / pin:    PC6  PB6  PF4  PF1  PC7  Decoder Pin
+ * col / pin:    PC6  PB6  PF0  PF1  PC7  Decoder Pin
  * 2:             1    0    0    0    0     U1    Y0
  * 3:             1    0    1    0    0     U1    Y1
  * 4:             1    0    0    1    0     U1    Y2
@@ -200,8 +200,8 @@ static void unselect_cols(void) {
   DDRD  |=  0b10000000;
   PORTD &= ~0b10000000;
 
-  DDRF  |=  0b00010010;
-  PORTF &= ~0b00010010;
+  DDRF  |=  0b00000011;
+  PORTF &= ~0b00000011;
 }
 
 static void select_col(uint8_t col) {
@@ -218,7 +218,7 @@ static void select_col(uint8_t col) {
             break;
         case 3: // U1 Y1
             PORTC |= 0b01000000;
-            PORTF |= 0b00010000;
+            PORTF |= 0b00000001;
             break;
         case 4: // U1 Y2
             PORTC |= 0b01000000;
@@ -226,14 +226,14 @@ static void select_col(uint8_t col) {
             break;
         case 5: // U1 Y3
             PORTC |= 0b01000000;
-            PORTF |= 0b00010010;
+            PORTF |= 0b00000011;
             break;
         case 6: // U1 Y4
             PORTC |= 0b11000000;
             break;
         case 7: // U1 Y5
             PORTC |= 0b11000000;
-            PORTF |= 0b00010000;
+            PORTF |= 0b00000001;
             break;
         case 8: // U1 Y6
             PORTC |= 0b11000000;
@@ -241,14 +241,14 @@ static void select_col(uint8_t col) {
             break;
         case 9: // U1 Y7
             PORTB |= 0b11000000;
-            PORTF |= 0b00010010;
+            PORTF |= 0b00000011;
             break;
         case 10: // U2 Y0
             PORTB |= 0b01000000;
             break;
         case 11: // U2 Y1
             PORTB |= 0b01000000;
-            PORTF |= 0b00010000;
+            PORTF |= 0b00000001;
             break;
         case 12: // U2 Y2
             PORTB |= 0b01000000;
@@ -256,7 +256,7 @@ static void select_col(uint8_t col) {
             break;
         case 13: // U2 Y3
             PORTB |= 0b01000000;
-            PORTF |= 0b00010010;
+            PORTF |= 0b00000011;
             break;
         case 14: // U2 Y4
             PORTB |= 0b01000000;
@@ -265,7 +265,7 @@ static void select_col(uint8_t col) {
         case 15: // U2 Y5
             PORTB |= 0b01000000;
             PORTC |= 0b11000000;
-            PORTF |= 0b00010000;
+            PORTF |= 0b00000001;
             break;
         case 16: // U2 Y6
             PORTB |= 0b01000000;
@@ -275,7 +275,7 @@ static void select_col(uint8_t col) {
         case 17: // U2 Y7
             PORTB |= 0b01000000;
             PORTC |= 0b10000000;
-            PORTF |= 0b00010010;
+            PORTF |= 0b00000011;
             break;
         case 18:
             PORTB |= 0b00100000;
