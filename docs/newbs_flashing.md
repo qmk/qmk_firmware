@@ -109,7 +109,7 @@ After it gets to this point, the build script will look for the DFU bootloader e
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
