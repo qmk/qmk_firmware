@@ -135,8 +135,8 @@ Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour tél�
 
 * `:dfu` - C'est l'option standard qui attends jusqu'à e qu'un appareil DFU soit disponible, puis téléverse le firmware. Il va vérifier toutes les 5 secondes, afin de voir si un appareil DFU est apparu.
 * `:dfu-ee` - Ceci téléverse un fichier `eep` à la place du standard hex, peu commun.
-* `:dfu-split-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers séparés. _C'est l'option idéale pour les claviers séparés basés sur Elite C._
-* `:dfu-split-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers séparés. _C'est l'option idéale pour les claviers séparés basés sur Elite C._
+* `:dfu-split-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
+* `:dfu-split-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
 
 ### Caterina
 
@@ -338,8 +338,8 @@ Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour tél�
 
 * `:dfu-util` - C'est l'option standard pour téléverer un appareil STM32.
 * `:dfu-util-wait` - Ceci fonctionne comme la commande standard, mais permet de d'avoir une pause (configurable( de 10 secondes avant de téléverser le fimrware. Vous pouvez utiliser `TIME_DELAY=20` à la ligne de commande pour changer le délai.
-* `:dfu-util-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers séparés.
-* `:dfu-util-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers séparés.
+* `:dfu-util-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés.
+* `:dfu-util-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers scindés.
 
 ## Faites l'essai!
 
