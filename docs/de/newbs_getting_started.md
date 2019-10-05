@@ -10,7 +10,7 @@ QMK möchte seine BenutzerInnen in die Lage versetzen simple Aufgaben möglichst
 # Los geht's!
 Bevor Du damit loslegen kannst deine Tastaturbelegung zu erstellen musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist dass das nur einmal erledigt werden muss, egal für wieviele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
 
-Wenn Du es lieber vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du dazu gerne auch direkt mit dem online [QMK Configurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit dem Online GUI erzeugen](newbs_building_firmware_configurator.md)
+Wenn Du es lieber vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du dazu gerne auch direkt mit dem online [QMK Configurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit dem Online GUI erzeugen](de/newbs_building_firmware_configurator.md)
 
 ## Software herunterladen
 
@@ -62,7 +62,7 @@ Du brauchst Git, es ist ziemlich wahrscheinlich dass es bereits installiert ist.
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> Docker ist ebenfalls eine Option für alle Plattformen. [Hier](getting_started_build_tools.md#docker) kannst Du dazu weitere Informationen finden.
+?> Docker ist ebenfalls eine Option für alle Plattformen. [Hier](de/getting_started_build_tools.md#docker) kannst Du dazu weitere Informationen finden.
 
 ## QMK aufsetzen
 Wenn Du damit fertig bist deine Linux/Unix Umgebung zu installieren kannst Du damit fortfahren QMK herunterzuladen. Dafür werden wir mit Git das QMK Repository "klonen". Öffne ein Terminal oder ein MSYS2 MinGW Fenster, dies wirst Du für den Rest der Anleitung benötigen. In diesem Fenster rufst Du nun die beiden folgenden Kommandos auf:
@@ -71,7 +71,7 @@ Wenn Du damit fertig bist deine Linux/Unix Umgebung zu installieren kannst Du da
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
-?> Wenn Du bereits weißt [wie man GitHub benutzt](getting_started_github.md) empfehlen wir dass Du dir ein eigenen Fork erstellst. Wenn Du nicht weißt was das bedeuten soll kannst kannst Du diesen Ratschlag getrost ignorieren.
+?> Wenn Du bereits weißt [wie man GitHub benutzt](de/getting_started_github.md) empfehlen wir dass Du dir ein eigenen Fork erstellst. Wenn Du nicht weißt was das bedeuten soll kannst kannst Du diesen Ratschlag getrost ignorieren.
 
 QMK liefert ein Script mit das helfen soll Dir alles Weitere abzunehmen. Du kannst es mit dem folgenden Befehl aufrufen:
 
@@ -97,5 +97,5 @@ Checking file size of clueboard_66_rev3_default.hex                             
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
-# Deine eigene Tastaturbelegung erstellen
-Du bist nun fertig und in der Lage eigene Tastaturbelegungen zu erstellen. Um fortzufahren folge bitte der nächsten Anleitung unter [Deine erste Firmware erstellen](newbs_building_firmware.md).
+# Eine eigene Tastaturbelegung erstellen
+Du bist nun fertig mit dem Setup der Entwicklungsumgebung und solltest somit in der Lage sein deine eigenen Tastaturbelegungen zu erstellen. Um fortzufahren folge bitte der nächsten Anleitung unter [Die erste Firmware](de/newbs_building_firmware.md).
