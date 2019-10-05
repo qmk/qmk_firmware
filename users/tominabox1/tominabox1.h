@@ -54,3 +54,6 @@ enum custom_keycodes {
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
+
+void          matrix_init_keymap(void);
+void          matrix_scan_keymap(void);

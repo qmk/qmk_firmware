@@ -5,7 +5,10 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 static bool is_suspended;
 static bool rgb_matrix_enabled;
 
-void suspend_power_down_keymap(void) {
+__attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
     if (!is_suspended) {
         is_suspended = true;
@@ -14,7 +17,10 @@ void suspend_power_down_keymap(void) {
     }
 }
 
-void suspend_wakeup_init_keymap(void) {
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
+
+void suspend_wakeup_init_user(void) {
     rgb_matrix_set_suspend_state(false);
     is_suspended = false;
     if (rgb_matrix_enabled) {
@@ -112,14 +118,6 @@ uint16_t get_tapping_term(uint16_t keycode) {
     }
 };
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
-    return true;
-}
-
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
@@ -148,8 +146,16 @@ extern uint8_t is_master;
 
 //oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 uint16_t        oled_timer;
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  #ifdef CONSOLE_ENABLE
+      uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+  #endif
+
     if (record->event.pressed) {
         // add_keylog(keycode); // keep if using OLED key logger
         oled_timer = timer_read();
@@ -241,6 +247,8 @@ void render_status_main(void) {
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
+__attribute__ ((weak))
+void oled_task_keymap(void) {}
 
 void oled_task_user(void) {
     if (timer_elapsed(oled_timer) > 20000) {
@@ -256,25 +264,21 @@ void oled_task_user(void) {
 
 #endif // OLED_Driver
 
-#ifdef KEYBOARD_crkbd
 extern bool oled_initialized;
 
-void matrix_scan_user(void) {
-#ifdef OLED_DRIVER_ENABLE
-    if (!oled_initialized) {
-        oled_init(OLED_ROTATION_0);
-    }
-#endif
-}
-
 int RGB_current_mode;
+
+__attribute__ ((weak))
+void matrix_init_keymap(void) {}
 
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
 #endif
 #ifdef OLED_DRIVER_ENABLE
-    oled_init(0);   // turns on the display
+        oled_init(OLED_ROTATION_0);
+#endif
+#ifdef CONSOLE_ENABLE
+    uprintf("matrix init");
 #endif
 }
-#endif
