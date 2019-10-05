@@ -138,9 +138,24 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
 }
 
-#ifdef KEYBOARD_crkbd
+#ifdef KEYBOARD_crkbd_rev1
+
+__attribute__((weak))
+void matrix_scan_keymap(void) {}
+// No global matrix scan code, so just run keymap's matrix
+// scan function
+extern bool oled_initialized;
+void matrix_scan_user(void) {
+  if(!oled_initialized) {
+        oled_init(0);
+        #ifdef CONSOLE_ENABLE
+              uprintf("matrix init");
+          #endif
+  }
+  matrix_scan_keymap();
+  }
+
 extern uint8_t is_master;
-#endif
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -251,6 +266,7 @@ __attribute__ ((weak))
 void oled_task_keymap(void) {}
 
 void oled_task_user(void) {
+
     if (timer_elapsed(oled_timer) > 20000) {
         oled_off();
         return;
@@ -263,22 +279,4 @@ void oled_task_user(void) {
     }
 
 #endif // OLED_Driver
-
-extern bool oled_initialized;
-
-int RGB_current_mode;
-
-__attribute__ ((weak))
-void matrix_init_keymap(void) {}
-
-void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_config.mode;
-#endif
-#ifdef OLED_DRIVER_ENABLE
-        oled_init(OLED_ROTATION_0);
-#endif
-#ifdef CONSOLE_ENABLE
-    uprintf("matrix init");
-#endif
-}
+#endif // crkbd
