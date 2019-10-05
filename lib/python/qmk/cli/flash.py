@@ -1,7 +1,7 @@
 """Compile and flash QMK Firmware
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
-A bootload must be specified.
+A bootloader must be specified.
 """
 import json
 import os
