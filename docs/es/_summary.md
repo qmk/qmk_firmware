@@ -1,4 +1,4 @@
-* [Complete Newbs Guide](newbs.md)
+* [Guía completa para novatos](newbs.md)
   * [Empezando](newbs_getting_started.md)
   * [Construyendo tu primer firmare](newbs_building_firmware.md)
   * [Flasheando el firmware](newbs_flashing.md)
@@ -30,7 +30,7 @@
   * [Instrucciones de Construcción/Compilado](getting_started_make_guide.md)
   * [Flasheando Firmware](flashing.md)
   * [Personalizando funcionalidad](custom_quantum_functions.md)
-  * [Visión en conjunto del Keymap](keymap.md)
+  * [Visión general del Keymap](keymap.md)
 
 * [Hardware](hardware.md)
   * [Procesadores AVR](hardware_avr.md)
