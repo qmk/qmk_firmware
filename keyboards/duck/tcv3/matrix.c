@@ -163,7 +163,7 @@ uint8_t read_fwkey(void)
  * atmega32u4    decoder    pin
  *    C6           U1       E2
  *    B6           U2       E2
- *    F4          U1, U2    A0
+ *    F0          U1, U2    A0
  *    F1          U1, U2    A1
  *    C7          U1, U2    A2
  *

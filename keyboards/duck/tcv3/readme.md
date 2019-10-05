@@ -9,7 +9,7 @@ Hardware Availability: Wait until GB of the next revision<br>
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tcv3:default
+    make duck/tcv3:default
 
 **Reset Key:** To put the TC-V3 into reset, hold the top second most right key while plugging in. 
 
