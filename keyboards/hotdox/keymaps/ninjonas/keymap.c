@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  [   |           |   ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |       |   N  |   M  |   ,  |   .  |  /   |   =    |
  * `--------+------+------+------+------+-------------'           `--------------+------+------+------+------+--------'
- *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_ZOOM|M_PYNV|
+ *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_XXX1|M_PYNV|
  *   `----------------------------------'                                        `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |  Up  | Down |       | Left | Right|
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  _____________________QWERTY_R1______________________,
                 _____________________QWERTY_R2______________________,
         T_RBRC, _____________________QWERTY_R3______________________,
-                ________MOD_RIGHT________, M_ZOOM, M_PYNV,
+                ________MOD_RIGHT________, M_XXX1, M_PYNV,
                 // RIGHT THUMB
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  [   |           |   ]   |------+------+------+------+------+--------|
  * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |       |   B  |   M  |   W  |   V  |  Z   |   =    |
  * `--------+------+------+------+------+-------------'           `--------------+------+------+------+------+--------'
- *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_ZOOM|M_PYNV|
+ *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_XXX1|M_PYNV|
  *   `----------------------------------'                                        `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |  Up  | Down |       | Left | Right|
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  _____________________DVORAK_R1______________________,
                 _____________________DVORAK_R2______________________,
         T_RBRC, _____________________DVORAK_R3______________________,
-                ________MOD_RIGHT________, M_ZOOM, M_PYNV,
+                ________MOD_RIGHT________, M_XXX1, M_PYNV,
                 // RIGHT THUMB
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  [   |           |   ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |       |   K  |   M  |   ,  |   .  |   /  |   =    |
  * `--------+------+------+------+------+-------------'           `--------------+------+------+------+------+--------'
- *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_ZOOM|M_PYNV|
+ *   |M_SHFT|      | Alt  |     | Ctl  |                                        | BkSP | Del  |LOWER |M_XXX1|M_PYNV|
  *   `----------------------------------'                                        `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |  Up  | Down |       | Left | Right|
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  _____________________COLEMAK_R1_____________________,
                 _____________________COLEMAK_R2_____________________,
         T_RBRC, _____________________COLEMAK_R3_____________________,
-                ________MOD_RIGHT________, M_ZOOM, M_PYNV,
+                ________MOD_RIGHT________, M_XXX1, M_PYNV,
                 // RIGHT THUMB
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
