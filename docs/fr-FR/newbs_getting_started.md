@@ -1,93 +1,92 @@
 # Introduction
 
-Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when buttons are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating the equivalent of an executable program for your keyboard.
+Votre clavier d'ordinateur contient un processeur, proche de celui dasn votre ordinateur. Ce processeur exécute un logiciel responsable de détecter les touches appuyées et envoie des rapports à propos de l'état du clavier lorsque les touches sont appuyées et relâchées. QMK prend le rôle de ce logiciel, détectant les appuis des boutons et passant cette information à l'ordinateur hôte. Lorsque vous construisez votre keymap customisée, vous créez l'équivalent d'un programme exécutable pour votre clavier.
 
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
+QMK essaie de rendre les choses simples faciles, et les choses difficiles possibles. Vous n'avez pas à savoir programmer pour créer des keymaps puissantes - vous devez seulement suivre quelques rêgles de syntaxe simples.
 
-# Getting Started
+# Guide de démarrage
 
-Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for. 
+Avant de pouvoir construire des keymaps, vous devez installer quelques logiciels et configurer votre environnement de compilation. Ceci n'a besoin d'être fait seulement une fois, peu importe le nombre de clavier pour lesquels vous compter compiler un firmware.
 
-If you would prefer a more graphical user interface approach, please consider using the online [QMK Configurator](https://config.qmk.fm). Please refer to [Building Your First Firmware using the online GUI](newbs_building_firmware_configurator.md). 
+Si vous préférez une approche plus proche d'une interface graphique, considérez utiliser l'outil en ligne [QMK Configurator](https://config.qmk.fm). Référez vous à [Construire votre premier firmware en utilisant l'interface graphique en ligne](newbs_building_firmware_configurator.md).
 
+## Logiciels à télécharger
 
-## Download Software
+### Editeur de texte
 
-### Text Editor
+Vous allez avoir besoin d'un programme qui peut éditer et sauvegarder des fichier **plain text**. Si vous êtes sur Windows, vous pouvez utiliser notepad et sur Linux vous pouvez utiliser gedit. Ces deux options sont des éditeurs de texte simples mais fonctionnels. Sur macOS, faites attention avec l'application par défaut TextEdit: elle ne sauvegardera pas les fichiers en mode "plain text" sauf si vous sélectionnez explicitement _Make Plain Text_ à partir du menu _Format_.
 
-You'll need a program that can edit and save **plain text** files. If you're on Windows you can make do with Notepad, and on Linux you can use gedit. Both of these are simple but functional text editors. On macOS, be careful with the default TextEdit app: it will not save plain text files unless you explicitly select _Make Plain Text_ from the _Format_ menu.
+Vous pouvez aussi télécharger et installer un éditeur de texte dédié comme [Sublime Text](https://www.sublimetext.com/) ou [VS Code](https://code.visualstudio.com/). C'est probablement la meilleure solution peu importe la plateforme car ce sont des programmes conçus spécifiquement pour éditer du code.
 
-You can also download and install a dedicated text editor like [Sublime Text](https://www.sublimetext.com/) or [VS Code](https://code.visualstudio.com/). This is probably the best way to go regardless of platform, as these programs are specifically made for editing code.
-
-?> Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
+?> Pas sûr de quel éditeur de texte utiliser? Laurence Bradford a écrit une [excellente introduction](https://learntocodewith.me/programming/basics/text-editors/) au sujet.
 
 ### QMK Toolbox
 
-QMK Toolbox is an optional graphical program for Windows and macOS that allows you to both program and debug your custom keyboard. You will likely find it invaluable for easily flashing your keyboard and viewing debug messages that it prints.
+QMK Toolbox est un programme graphique optionnel pour Windows et macOS qui permet à la fois de programmer et débugger votre clavier customisé. Il vous sera probablement très utile pour facilement téléverser votre clavier et analyser ses messages de débuggage.
 
-[Download the latest release here.](https://github.com/qmk/qmk_toolbox/releases/latest)
+[Télécharger la dernière version ici.](https://github.com/qmk/qmk_toolbox/releases/latest)
 
-* For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
-* For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
+* Pour Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installeur)
+* Pour macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installeur)
 
-## Set Up Your Environment
+## Configurez votre environnement
 
-We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
+Nous avons essayé de rendre QMK aussi simple que possible à configurer. Vous avez uniquement à préparer votre environnment Linux ou Unix et laisser QMK installer le reste.
 
-?> If you haven't worked with the Linux/Unix command line before, there are a few basic concepts and commands you should learn. These resources will teach you enough to be able to work with QMK:<br>
-[Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
-[Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
+?> Si vous n'avez jamais travailé avec la lignde commande Linux/Unix, il y a un certain nombre de concepts basiques et de commandes que vous devriez apprendre. Ces ressources vous apprendrons suffisemment pour travailler avec QMK:<br>
+[Commandes Linux à savoir](https://www.guru99.com/must-know-linux-commands.html)<br>
+[Commandes Unix de base](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### Windows
 
-You will need to install MSYS2 and Git.
+Vous devez installer MSYS2 et Git.
 
-* Follow the installation instructions on the [MSYS2 homepage](http://www.msys2.org).
-* Close any open MSYS2 terminals and open a new MSYS2 MinGW 64-bit terminal.
-* Install Git by running this command: `pacman -S git`.
+* Suivez les instructions d'installation sur la [page de MSYS2](http://www.msys2.org).
+* Fermez tous les terminaux MSYS2 éventuellement ouverts et ouvrez un nouveau terminal MSYS2 MinGW 64-bit.
+* Installez Git en lançant la commande: `pacman -S git`.
 
 ### macOS
 
-You will need to install Homebrew. Follow the instructions on the [Homebrew homepage](https://brew.sh).
+Vous devez installer Homebew. Suivez les instructions sur la [page de Homebrew](https://brew.sh).
 
-After Homebrew is installed, continue with _Set Up QMK_. In that step you will run a script that will install other packages.
+Une fois Homebrew installé, continuez avec _Configurer QMK_. Dans cete étape, nous lancerons un script qui va installer d'autres paquets.
 
 ### Linux
 
-You will need to install Git. It's very likely that you already have it, but if not, one of the following commands should install it:
+Vous devez installer Git. Il est très probable que vous l'ayez déjà installé, mais sinon, une des commandes suivantes devrait l'installer:
 
 * Debian / Ubuntu / Devuan: `apt-get install git`
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> Docker is also an option on all platforms. [Click here for details.](getting_started_build_tools.md#docker)
+?> Docker est aussi une option sur toutes les plateformes. [Appuyez ici pour plus de détail.](getting_started_build_tools.md#docker)
 
-## Set Up QMK
+## Configurer QMK
 
-Once you have set up your Linux/Unix environment, you are ready to download QMK. We will do this by using Git to "clone" the QMK repository. Open a Terminal or MSYS2 MinGW window and leave it open for the remainder of this guide. Inside that window run these two commands:
+Une fois votre environnement Linux/Unix configuré, vous êtes prêt à télécharger QMK. Nous allons le faire en utilisant Git pour "cloner" le repositoire de QMK. Ouvrez un terminal ou une fenêtre MSYS2 MinGW et gardez le ouvert pour le reste de ce guide. Dans ce terminal, lancez ces deux commandes:
 
 ```shell
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-?> If you already know [how to use GitHub](getting_started_github.md), we recommend that you create and clone your own fork instead. If you don't know what that means, you can safely ignore this message.
+?> Si vous savez déjà [comment utiliser GitHub](getting_started_github.md), nous recommandons que vous créez et clonez votre propre fork. Si vous ne savez pas ce que cela veut dire, vous pouvez sans problème ignorer ce message.
 
-QMK comes with a script to help you set up the rest of what you'll need. You should run it now by typing in this command:
+QMK vient avec un script pour vous aider à configurer le reste de ce que vous aurez besoin. Vous devez le lancer en tapant la ligne de commande suivante:
 
     util/qmk_install.sh
 
-## Test Your Build Environment
+## Testez votre environnement de compilation
 
-Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
+Maintenant que votre environnement de compilation de QMK est configuré, vous pouvez compiler un firmware pour votre clavier. Démarrez en compilant la keymap par défaut du clavier. Vous devriez pouvoir le faire avec une commande de ce format:
 
     make <keyboard>:default
 
-For example, to build a firmware for a Clueboard 66% you would use:
+Par exemple, pour compiler un firmware pour une Clueboard 66%, vous utiliserez:
 
     make clueboard/66/rev3:default
 
-When it is done you should have a lot of output that ends similar to this:
+Une fois ceci fait, vous devriez avoir beaucoup d'information dans votre sortie qui devrait se terminer par quelque chose de similaire à ça:
 
 ```
 Linking: .build/clueboard_66_rev3_default.elf                                                       [OK]
@@ -97,6 +96,6 @@ Checking file size of clueboard_66_rev3_default.hex                             
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
-# Creating Your Keymap
+# Créer votre Keymap
 
-You are now ready to create your own personal keymap! Move on to [Building Your First Firmware](newbs_building_firmware.md) for that.
+Vous êtes maintenant prêt à créer votre propre keymap! Passez à l'étape [Compiler votre premier firmware](newbs_building_firmware.md) pour ce faire.
