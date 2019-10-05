@@ -1,22 +1,22 @@
-# How to Use Github with QMK
+# Comment utiliser GitHub avec QMK
 
-Github can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
+GitHub peut être un peu compliqué pour ceux qui n'y sont pas familier. Ce guide va vous expliquer chaque étape de "fork", clone et envoi d'un pull request avec QMK.
 
-?> This guide assumes you're somewhat comfortable with running things at the command line, and have git installed on your system.
+?> Ce guide part du principe que vous êtes suffisamment confortable pour envoyer commandes sur la ligne de commande et que vous avez Git insallé sur votre système.
 
-Start on the [QMK Github page](https://github.com/qmk/qmk_firmware), and you'll see a button in the upper right that says "Fork":
+Commencez par la [page GitHub de QMK](https://github.com/qmk/qmk_firmware), et vous verrez un bouton dans le coin en haut à droite qui indique "Fork":
 
 ![Fork on Github](http://i.imgur.com/8Toomz4.jpg)
 
-If you're a part of an organization, you'll need to choose which account to fork it to. In most circumstances, you'll want to fork it to your personal account. Once your fork is completed (sometimes this takes a little while), click the "Clone or Download" button:
+Si vous faites partie d'une organisation, vous aurez besoin de savoir quel compte utiliser pour le fork. Dans la plupart des cas, vous voudrez créer le fork dans votre compte personnel. Une fois le fork complet (cela peut quelque fois prendre un peu de temps), appuyez sur le bouton "Clone or download":
 
 ![Download from Github](http://i.imgur.com/N1NYcSz.jpg)
 
-And be sure to select "HTTPS", and select the link and copy it:
+Faites attention à sélectionner "HTTPS", et sélectionnez le liens et copiez-le:
 
 ![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
 
-From here, enter `git clone ` into the command line, and then paste your link:
+Ensuite, entrez `git clone` dans la ligne de commande, et collez votre lien:
 
 ```
 user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
@@ -29,7 +29,7 @@ Resolving deltas: 100% (29362/29362), done.
 Checking out files: 100% (2799/2799), done.
 ```
 
-You now have your QMK fork on your local machine, and you can add your keymap, compile it and flash it to your board. Once you're happy with your changes, you can add, commit, and push them to your fork like this:
+Vous avez maintenant votre fork QMK sur votre machine locale, vous pouvez ajouter votre keymap, la compiler et la flasher sur votre board. Une fois heureux avec vos changements, vous pouvez les ajouter, commit, et pousser vers votre fork comme suit:
 
 ```
 user@computer:~$ git add .
@@ -48,12 +48,14 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Your changes now exist on your fork on Github - if you go back there (`https://github.com/<whoeveryouare>/qmk_firmware`), you can create a "New Pull Request" by clicking this button:
+Vos changements existent maintenant dnas votre fork sur GitHub. Si vous allez à cete adresse (`https://github.com/<whoeveryouare>/qmk_firmware`), vous pouvez créer un nouveau "Pull Request" en cliquant sur ce bouton:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 
-Here you'll be able to see exactly what you've committed - if it all looks good, you can finalize it by clicking "Create Pull Request":
+Maintenant, vous pourrez voir exactement ce que vous avez commité. Si ça vous semble bien, vous pouvez le finaliser en cliquant sur "Create Pull Request":
 
 ![Create Pull Request](http://i.imgur.com/Ojydlaj.jpg)
 
-After submitting, we may talk to you about your changes, ask that you make changes, and eventually accept it! Thanks for contributing to QMK :)
+Une fois transmis, nous pourrons vous parler de vos changements, vous demander de faire des changements, et éventuellement de les accepter!
+
+Merci de contribuer à QMK :)
