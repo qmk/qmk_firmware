@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_extras/keymap_hungarian.h" 
+#include "keymap_hungarian.h" 
 
 enum preonic_layers {
   _QWERTY,
