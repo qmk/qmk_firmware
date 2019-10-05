@@ -6,6 +6,7 @@ from . import cformat
 from . import compile
 from . import config
 from . import doctor
+from . import flash
 from . import hello
 from . import json
 from . import list
