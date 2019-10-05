@@ -19,7 +19,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 ### [Keys](ninjonas.h#L37)
 |Code | Description |
 |---|---|
-|K_LOCK | MacOS shortcut to execute lock command  + ctrl + Q |
+|K_LOCK | MacOS shortcut to execute lock command  + CTRL + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
 |K_MDSH | MacOS shortcut to get em-dash `–` |
 |K_RAPP | MacOS shortcut to switch apps to the right |
@@ -37,9 +37,10 @@ See: https://docs.qmk.fm/#/feature_userspace
 ### [Mod-Taps](ninjonas.h#L50)
 |Code | Description |
 |---|---|
-|MT_DEL | Tap for Delete, hold for ALT |
+|MT_DEL | Tap for Delete, hold for  + ALT + SHIFT |
+|MT_EQL | Tap for =, hold for ALT + SHIFT |
 
-### [Layout Blocks](ninjonas.h#L53)
+### [Layout Blocks](ninjonas.h#L54)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |
