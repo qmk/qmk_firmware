@@ -1,6 +1,6 @@
 # osa
 
-![osa](https://i.imgur.com/U2x7TQ8)
+![osa](https://i.imgur.com/U2x7TQ8.jpg)
 
 About the OSA:
 
