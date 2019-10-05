@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "keymap_extras/keymap_hungarian.h" 
+#include "keymap_hungarian.h" 
 
 enum XD75_layers {
   _QWERTY,
