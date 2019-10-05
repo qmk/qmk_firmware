@@ -21,11 +21,14 @@
 #define _NAV 3
 #define _ADJUST 4
 
+uint16_t copy_paste_timer;
+
 enum custom_keycodes {
   LOWER = SAFE_RANGE,
   RAISE,
   NAV,
-  EURO
+  EURO,
+  KC_CCCV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -75,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      | VolUp|      |      |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      | Prev | Play | Next |      |                              | 0 )  | 4 $  | 5 %  | 6 ^  | +    |        |
+ * |        |      | Prev | Play | Next | CCCV |                              | 0 )  | 4 $  | 5 %  | 6 ^  | +    |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      | VolDn| Mute |      |      |      |  |      |      | *    | 1 !  | 2 @  | 3 #  | = +  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -85,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_RAISE] = LAYOUT(
       _______, _______, _______, KC_VOLU, _______, _______,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, _______, \
-      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                                     KC_0,    KC_4,    KC_5,    KC_6, KC_PLUS, _______, \
+      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_CCCV,                                     KC_0,    KC_4,    KC_5,    KC_6, KC_PLUS, _______, \
       _______, _______, _______, KC_VOLD, KC_MUTE, _______, _______, _______, _______, _______, KC_ASTR, KC_1,    KC_2,    KC_3, KC_EQL,  _______, \
                                  _______, _______, _______, _______, _______, _______, _______, KC_COMM, _______, _______
     ),
@@ -179,6 +182,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_RALT(X_5));
             }
             return false;
+            break;
+        case KC_CCCV:  // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                    register_code(KC_LCTL);
+                    tap_code(KC_C);
+                    unregister_code(KC_LCTL);
+                } else { // Tap, paste
+                    register_code(KC_LCTL);
+                    tap_code(KC_V);
+                    unregister_code(KC_LCTL);
+                }
+            }
             break;
     }
     return true;
