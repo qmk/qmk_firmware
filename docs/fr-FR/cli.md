@@ -1,26 +1,26 @@
 # QMK CLI
 
-This page describes how to setup and use the QMK CLI.
+Cette page décrit comment configurer et utiliser la CLI QMK.
 
-# Overview
+# Vue d'ensemble
 
-The QMK CLI makes building and working with QMK keyboards easier. We have provided a number of commands to simplify and streamline tasks such as obtaining and compiling the QMK firmware, creating keymaps, and more.
+La CLI de QMK permet de simplifier la compilation et le travaille avec les clavier QMK. Nous avons définis plusieurs commandes pour simplifier et rationaliser les tâches telles qu'obtenir et compiler le firmware QMK, créer de nouvelles keymaps, et plus.
 
-* [Global CLI](#global-cli)
-* [Local CLI](#local-cli)
-* [CLI Commands](#cli-commands)
+* [CLI globale](#global-cli)
+* [CLI locale](#local-cli)
+* [Les commandes CLI](#cli-commands)
 
-# Requirements
+# Pré-requis
 
-The CLI requires Python 3.5 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
+La CLI nécessite Python 3.5 ou plus récent. Nous essayons de garder le nombre de pré-requis petits, mais vous allez aussi devoir installer les paquets listés dans le fichier [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
 
-# Global CLI
+# CLI globale
 
-QMK provides an installable CLI that can be used to setup your QMK build environment, work with QMK, and which makes working with multiple copies of `qmk_firmware` easier. We recommend installing and updating this periodically.
+QMK définis une CLI installable qui peut être utilisée pour configurer votre environnement de compilation QMK, fonctionne avec QMK, et qui rend l'utilisation de plusieurs copies de `qmk_firmware` plus simple. Nous recommandons d'installer et de mettre à jour ceci régulièrement.
 
-## Install Using Homebrew (macOS, some Linux)
+## Installer en utilisant Homebrew (macOS, quelques Linux)
 
-If you have installed [Homebrew](https://brew.sh) you can tap and install QMK:
+Si vous avez installé [Homebrew](https://brew.sh) vous pouvez entrer ce qui suit et installer QMK:
 
 ```
 brew tap qmk/qmk
@@ -29,9 +29,9 @@ export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
 qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
-## Install Using easy_install or pip
+## Installer en utilisant easy_install ou pip
 
-If your system is not listed above you can install QMK manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
+Si votre système n'est pas listé au dessus, vous pouvez installer QMK manuellement. Premièrement, vérifier que vous ayez bien installé Python 3.5 (ou plus récent) et pip. Ensuite, installez QMK avec cette commande:
 
 ```
 pip3 install qmk
@@ -39,47 +39,47 @@ export QMK_HOME='~/qmk_firmware' # Optional, set the location for `qmk_firmware`
 qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build environment
 ```
 
-## Packaging For Other Operating Systems
+## Paquets pour d'autres systèmes d'exploitation
 
-We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
+Nous recherchons des gens pour créer et maintenir un paquet `qmk` pour plus de systèmes d'exploitation. Si vous voulez créer un paquet pour votre système d'exploitation, suivez ces directives:
 
-* Follow best practices for your OS when they conflict with these guidelines
-    * Document why in a comment when you do deviate
-* Install using a virtualenv
-* Instruct the user to set the environment variable `QMK_HOME` to have the firmware source checked out somewhere other than `~/qmk_firmware`.
+* Suivez les bonnes pratiques pour votre système d'exploitation lorsqu'elles entrent en conflit avec ces directives
+    * Documentez pourquoi dans un commentaire lorsque vous ne les suivez pas
+* Installez en utilisant un virtualenv
+* Expliquez à l'utilisateur de définir la variable d'environnement `QMK_Home` pour "check out" les sources du firmware à un autre endroit que `~/qmk_firmware`.
 
-# Local CLI
+# CLI locale
 
-If you do not want to use the global CLI there is a local CLI bundled with `qmk_firmware`. You can find it in `qmk_firmware/bin/qmk`. You can run the `qmk` command from any directory and it will always operate on that copy of `qmk_firmware`.
+Si vous ne voulez pas utiliser la CLI globale, il y a une CLI locale empaquetée avec `qmk_firmware`. Vous pouvez le trouver dans `qmk_firmware/bin/qmk`. Vous pouvez lancer la commande `qmk` depuis n'importe quel répertoire et elle fonctionnera toujours sur cette copie de `qmk_firmware`.
 
-**Example**:
+**Exemple**:
 
 ```
 $ ~/qmk_firmware/bin/qmk hello
 Ψ Hello, World!
 ```
 
-## Local CLI Limitations
+## Limitations de la CLI locale
 
-There are some limitations to the local CLI compared to the global CLI:
+Il y a quelques limitations à la CLI locale comparé à la globale:
 
-* The local CLI does not support `qmk setup` or `qmk clone`
-* The local CLI always operates on the same `qmk_firmware` tree, even if you have multiple repositories cloned.
-* The local CLI does not run in a virtualenv, so it's possible that dependencies will conflict
+* La CLI locale ne supporte pas `qmk setup` ou `qmk clone`
+* La CLI locale n'opère pas sur le même arbre `qmk_firmware`, même si vous avez plusieurs repositoires clonés.
+* La CLI locale ne s'exécute pas dans un virtualenv, donc il y a des risques que des dépendances seront en conflit
 
-# CLI Commands
+# Les commandes CLI
 
 ## `qmk compile`
 
-This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm> or compile keymaps in the repo.
+Cette commande permet de compiler le firmware de n'importe quel répertoire. Vous pouvez compiler des exports JSON de <https://config.qmk.fm> ou compiler des keymaps du repo.
 
-**Usage for Configurator Exports**:
+**Utilisation pour les exports de configuration**:
 
 ```
 qmk compile <configuratorExport.json>
 ```
 
-**Usage for Keymaps**:
+**Utilisation pour les Keymaps**:
 
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
@@ -87,9 +87,9 @@ qmk compile -kb <keyboard_name> -km <keymap_name>
 
 ## `qmk cformat`
 
-This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+Cette commande formatte le code C en utilisant clang-format. Lancez-la sans arguments pour formatter tout le code core, ou passez les noms de fichiers à la ligne de commande pour la lancer sur des fichiers spécifiques.
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk cformat [file1] [file2] [...] [fileN]
@@ -97,9 +97,9 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk config`
 
-This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
+Cette commande vous permet de configurer le comportement de QMK. Pour la documentation complète de `qmk config`, regardez [Configuration de CLI](cli_configuration.md).
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
@@ -107,9 +107,9 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk doctor`
 
-This command examines your environment and alerts you to potential build or flash problems.
+Cette commande examine votre environnement et vous alertes des potentiels problèmes de compilation ou de flash.
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk doctor
@@ -117,9 +117,9 @@ qmk doctor
 
 ## `qmk new-keymap`
 
-This command creates a new keymap based on a keyboard's existing default keymap.
+Cette commande crée une nouvelle keymap basée sur une keymap par défaut d'un clavier existant.
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
@@ -127,9 +127,9 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 
 ## `qmk pyformat`
 
-This command formats python code in `qmk_firmware`.
+Cette commande formatte le code python dans `qmk_firmware`.
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk pyformat
@@ -137,9 +137,9 @@ qmk pyformat
 
 ## `qmk pytest`
 
-This command runs the python test suite. If you make changes to python code you should ensure this runs successfully.
+Cette commande démarre la suite de test python. Si vous faites des changements dans le code Python, assurez vous que les tests se lancent avec succès.
 
-**Usage**:
+**Utilisation**:
 
 ```
 qmk pytest
