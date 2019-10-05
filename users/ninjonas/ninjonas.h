@@ -123,8 +123,13 @@
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
-#define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-#define ________MOD_RIGHT________ MT_BSP, MT_DEL, LM_LOW
+#ifdef KEYBOARD_crkbd_rev1
+  #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI
+  #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
+#else
+  #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
+  #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, LM_LOW
+#endif
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
