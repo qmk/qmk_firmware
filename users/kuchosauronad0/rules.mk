@@ -5,7 +5,7 @@ LINK_TIME_OPTIMIZATION_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
 ifneq ($(strip $(RGBLIGHT_ENABLE)),yes )
-     SRC += rgb_light.c
+     SRC += rgblight_user.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)

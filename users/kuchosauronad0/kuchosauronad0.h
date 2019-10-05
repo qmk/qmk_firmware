@@ -20,7 +20,7 @@
 #endif //!TAP_DANCE_ENABLE
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#  include "rgb_light.h"
+#  include "rgblight_user.h"
 #endif
 
 #if defined(UNICODEMAP_ENABLE) || defined(UNICODE_ENABLE)

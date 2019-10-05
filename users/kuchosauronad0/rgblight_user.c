@@ -1,12 +1,10 @@
-#include "rgb_light.h"
-# ifdef RGBLIGHT_ENABLE
-  extern rgblight_config_t rgblight_config;
-  bool                     has_initialized;
-  uint8_t                  base_hue;  // Hue value of base state
-  uint8_t                  base_sat;  // Saturation value of base state
-  uint8_t                  base_val;  // Brightness value of base state
-  uint8_t                  base_mod;  // Animation mode of the base state
-# endif
+#include "rgblight_user.h"
+extern rgblight_config_t rgblight_config;
+bool                     has_initialized;
+uint8_t                  base_hue;  // Hue value of base state
+uint8_t                  base_sat;  // Saturation value of base state
+uint8_t                  base_val;  // Brightness value of base state
+uint8_t                  base_mod;  // Animation mode of the base state
 
 void rgblight_savebase(void) {  // Save the current settings to ram
   base_hue = rgblight_config.hue;
