@@ -38,7 +38,7 @@ Par exemple, pour un utilisateur s'appeleant John, essayant de créer une nouvel
 
 ## Ouvrez `keymap.c` dans votre éditeur de texte préféré
 
-OUvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` and `enums` qui rend le clavier plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
+Ouvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` and `enums` qui rend le clavier plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -48,7 +48,7 @@ Cette ligne indique le début d'une liste de couches (layers). En dessous, vous 
 
 ## Customisez le layout à votre goût
 
-Compléter cette étape est entre vos mains. Faites le petit changement qui vous dérange ou retravaillez tout de zéro. Vous pouvez supprimer des couches si vous ne les utilisez pas toutes, ou ajouter des couches jusqu'à un maximum de 32. Vérifiez la documentation suivante pour trouver ce que vous pouvez définir ici:
+Libre à vous de choisir comment compléter cette étape. Faites le petit changement qui vous dérange ou retravaillez tout de zéro. Vous pouvez supprimer des couches si vous ne les utilisez pas toutes, ou ajouter des couches jusqu'à un maximum de 32. Vérifiez la documentation suivante pour trouver ce que vous pouvez définir ici:
 
 * [Keycodes](keycodes.md)
 * [Fonctionnalités](features.md)

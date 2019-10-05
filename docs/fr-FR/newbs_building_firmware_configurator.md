@@ -8,7 +8,7 @@ Regardez le [Tutoriel vidéo](https://youtu.be/tx54jkRC9ZY)
 
 Le configurateur de QMK fonctionne mieux avec Chrome et Firefox.
 
-!> **Les ficiers d'autres outils, tels que KLE ou kbfirmware ne seront pas compatibles avec le configurateur QMK. Ne les chargez pas, ne les importez pas. Le configurateur QMK est un outil DIFFERENT. **
+!> **Les fichiers d'autres outils, tels que KLE ou kbfirmware ne seront pas compatibles avec le configurateur QMK. Ne les chargez pas, ne les importez pas. Le configurateur QMK est un outil DIFFERENT.**
 
 ## Sélectionner votre clavier
 
@@ -20,7 +20,7 @@ Je vais le répéter, parce que c'est important
 
 !> **FAITES ATTENTION A UTILISER LA BONNE VERSION !**
 
-Si votre clavier est annoncé comme étant alimenté par QMK, mais n'est pas dans la liste, il y a des chances que le développeur ne l'ait pas encore fait, ou que nous n'avons pas encore eu le temps de le merger. Ajoutez un problème (issue) sur [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) demandant le support de votre clavier, s'il n'y a pas de [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) ouvert pour lui. Il y a aussi des clavier alimentés par QMK qui sont sur le compte GitHub du fabriquant, il est bon de le vérifier aussi.
+Si votre clavier est annoncé comme fonctionnant grâce à QMK mais n'est pas dans la liste, il y a des chances que le développeur ne l'ait pas encore fait, ou que nous n'avons pas encore eu le temps de le merger. Ajoutez un problème (issue) sur [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) demandant le support de votre clavier, s'il n'y a pas de [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) ouvert pour lui. Il y a aussi des clavier alimentés par QMK qui sont sur le compte GitHub du fabriquant, il est bon de le vérifier aussi.
 
 ## Sélectionner la disposition de votre clavier
 
@@ -34,7 +34,7 @@ Appelez cette keymap comme vous voulez.
 
 ## Créer votre keymap
 
-Entrer un keycode peut s'accomplire de 3 façons différentes.
+Entrer un keycode peut s'accomplir de 3 façons différentes.
 
 1. Glisser déposer
 2. Cliquer sur un endroit vide sur le layout et cliquer sur le keycode souhaité
@@ -61,7 +61,7 @@ Dans le cas où vous ne trouvez pas une disposition qui suppore votre keymap, pa
 
 ## Sauvez votre keymap pour des éditions futures
 
-Une fois satisfaits avec votre keymap, ou que vous souhaiter revenir travailler dessus plus tard, appuyez sur le bouton `Export Keymap`. Il vous permettra de sauver votre keymap avec le nom choisi au dessus suivi de .json.
+Une fois satisfait de votre keymap, ou si vous souhaitez revenir travailler dessus plus tard, appuyez sur le bouton `Export Keymap`. Il vous permettra de sauvegarder votre keymap avec le nom choisi au dessus suivi de .json.
 
 Vous pouvez ensuite charger ce fichier .json à nouveau en appuxant sur le bouton `Import Keymap`.
 
@@ -81,7 +81,7 @@ Merci de vous référer à [Téléverser le Firmware](fr-FR/newbs_flashing.md)
 
 #### Mon fichier json ne fonctionne pas
 
-Si le fichier .json a été généré par le configurateur QMK, bravo vous avez trouvé un bug. Merci d'ouvrir un problème sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Si le fichier .json a été généré par le configurateur QMK, bravo vous avez trouvé un bug. Merci d'ouvrir un ticket sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
 
 Sinon... vous avez raté mon message écris en gras qui dit de ne pas utiliser d'autres fichiers .json?
 
@@ -96,7 +96,7 @@ Merci de regarder
 [Référence keycode basique](https://docs.qmk.fm/#/keycodes_basic)
 [Référence keycode avancé](https://docs.qmk.fm/#/feature_advanced_keycodes)
 
-#### Ca compile pas
+#### Ca ne compile pas?
 
 Merci de vérifier les autres dispositions de votre keymap afin d'être sûr qu'il n'y a pas de touches aléatoires.
 
