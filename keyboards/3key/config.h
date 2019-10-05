@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#    define STARTUP_SONG SONG(IMPERIAL_MARCH)
 #endif
 
 /* ws2812 RGB LED */
