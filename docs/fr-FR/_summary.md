@@ -33,8 +33,8 @@
   * [Guide Vagrant](getting_started_vagrant.md)
   * [Commandes de compilations](getting_started_make_guide.md)
   * [Flasher les firmwares](fr-fr/flashing.md)
-  * [Customiser les fonctionnalités](custom_quantum_functions.md)
-  * [Apercu des fonctionnalités des dispositions](keymap.md)
+  * [Personnaliser les fonctionnalités](custom_quantum_functions.md)
+  * [Aperçu des fonctionnalités des dispositions](keymap.md)
 
 * [Hardware](hardware.md)
   * [Processeurs AVR](hardware_avr.md)
@@ -53,7 +53,7 @@
   * [Fonctions utiles](ref_functions.md)
   * [Support de configuration](reference_configurator_support.md)
   * [Format du fichier info.json](reference_info_json.md)
-  * [Développer du Python en ligne de commande](cli_development.md)
+  * [Développer la CLI en Python](cli_development.md)
 
 * [Fonctionnalités](features.md)
   * [Keycodes basiques](keycodes_basic.md)
@@ -113,7 +113,7 @@
   * [Utiliser Eclipse avec QMK](other_eclipse.md)
   * [Utiliser VSCode avec QMK](other_vscode.md)
   * [Support](support.md)
-  * [Comment ajouter des translations](translating.md)
+  * [Comment ajouter des traductions](translating.md)
 
 * À l’intérieur de QMK (En cours de documentation)
   * [Définitions](internals_defines.md)

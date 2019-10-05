@@ -1,6 +1,6 @@
-# Instructions pour flasher et informatons sur les bootloader
+# Instructions pour flasher et informations sur les bootloader
 
-Les claviers utilisent différents types de bootloaders et certains doivent être flashés différement. Heuresement, certains projets comme la [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) ont pour objectifs de permettre de flasher les différents bootloader sans trop se faire de soucis et ça peut importe les manières de les flasher.
+Les claviers utilisent différents types de bootloaders et certains doivent être flashés différement. Heureusement, certains projets comme la [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) ont pour objectifs de permettre de flasher les différents bootloader sans trop se faire de soucis et ça peut importe les manières de les flasher.
 
 Si vous avez un bootloader sélectionné avec la variable `BOOTLOADER` dans votre fichier `rules.mk` alors QMK vas automatiquement calculer si votre fichier .hex n'est pas trop grand pour être flashé sur votre appareil, et il affichera la taille finale du firmware. Pour vérifier la taille manuellement, vous pouvez aussi compiler le firmware avec l'option `check-size`. Exemple : `make planck/rev4:default:check-size`.
 
@@ -57,7 +57,7 @@ Pour génerer un fichier .hex prêt pour la production qui contiendra tant l'app
 
 ### Commandes DFU
 
-Il y a plusieurs commandes DFU  que vous pouvez utiliser pour flasher le firmware sur un appareil DFU.
+Il y a plusieurs commandes DFU que vous pouvez utiliser pour flasher le firmware sur un appareil DFU.
 
 * `:dfu` - C'est l'option normale qui attend qu'un appareil DFU soit disponible et qui flashe le firmware dès que c'est le cas. Le check sera fait toutes les 5 secondes.
 * `:dfu-ee` - Cette option flash un fichier `.eep` à la place d'un fichier `.hex`. Ce cas est plutôt rare.
@@ -214,7 +214,7 @@ Flashers compatibles :
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandé)
 * [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (utilitaire en ligne de commande recommandé)
 
-Flashing sequence:
+Séquence pour flasher:
 
 1. Entrez dans le bootloader en utilisant l'une de ces méthodes :
     * Utilisez une touche sur laquelle le keycode `RESET` (Cela peut ne pas fonctionner sur les appareils STM32F042)
@@ -224,7 +224,7 @@ Flashing sequence:
 3. Flasher un fichier `.bin`.h
     * Vous allez recevoir un avertissement à propos de la signature DFU. Ignorez-la.
 4. Réinitialisez l'appareil en mode « application ». Cela peut être fait automatiquement.
-    * Si vous êtes en train de travailler en ligne de commande, par exemple avec un `make planck/rev6:default:dfu-util` alors soyez bien sur que l'argument `:leave` est passés aux argument DFU grâce à la variable `DFU_ARGS` à l'intérieur de votre fichier `rules.mk` (Ex : `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) afin que votre appareil redémarre après avoir été flashé.
+    * Si vous êtes en train de travailler en ligne de commande, par exemple avec un `make planck/rev6:default:dfu-util` alors soyez bien sur que l'argument `:leave` est passé aux argument DFU grâce à la variable `DFU_ARGS` à l'intérieur de votre fichier `rules.mk` (Ex : `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) afin que votre appareil redémarre après avoir été flashé.
 
 ### Commandes STM32
 
@@ -232,5 +232,5 @@ Il y a différentes commandes que vous pouvez utiliser pour flasher un firmware 
 
 * `:dfu-util` - La commande par défaut pour flasher un appareil STM32.
 * `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté gauche des paramètres EEPROM sur un clavier scindé.
-* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté droite des paramètres EEPROM sur un clavier scindé.
+* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté droit des paramètres EEPROM sur un clavier scindé.
 * `:st-link-cli` - Cela permet de flasher le firmware avec l'utilitaire en ligne de commande ST-LINK's plutôt que d'utiliser dfu-util.

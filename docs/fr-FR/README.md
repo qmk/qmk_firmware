@@ -1,6 +1,6 @@
 # Quantum Mechanical Keyboard Firmware
 
-[![Version courrante](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
+[![Version courante](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Statut du build](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
 [![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
 [![Statut de la doc](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
@@ -9,11 +9,11 @@
 
 ## Qu'est ce que QMK Firmware ?
 
-QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédiés aux claviers qui est basé sur [tmk\_keyboard](http://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](http://olkb.com), le clavier [ErgoDox EZ](http://www.ergodox-ez.com), et pour les [produits Clueboard](http://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
+QMK (*Quantum Mechanical Keyboard*) est une communauté open source qui maintient le firmware QMK, la QMK Toolbox (*Boite à outil*), qmk.fm et leurs documentations. QMK Firmware est un firmware dédié aux claviers qui est basé sur [tmk\_keyboard](http://github.com/tmk/tmk_keyboard). Il offre des fonctionnalités très utiles pour les contrôleurs Atmel AVR, et, plus spécifiquement pour [les produits d'OLKB](http://olkb.com), le clavier [ErgoDox EZ](http://www.ergodox-ez.com), et pour les [produits Clueboard](http://clueboard.co/). Il prend désormais aussi en charge les processeurs ARM qui utilisent ChibiOS. Vous pouvez l'utiliser pour contrôler un clavier personnalisé soudé à la main ou alors sur un clavier avec un PCB personnalisé.
 
 ## Comment l'obtenir
 
-Si vous souhaitez contribuer à une disposition de clavier (keymap), ou à des fonctionnalités de QMK alors le plus simple est de [forker le dépôt avec Github](https://github.com/qmk/qmk_firmware#fork-destination-box) puis cloner le dépôt localement pour y faire des changements. Vous pourrez pusher vos changements sur github puis ouvrir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) depuis votre fork Github.
+Si vous souhaitez contribuer à une disposition de clavier (keymap), ou à des fonctionnalités de QMK alors le plus simple est de [forker le dépôt avec Github](https://github.com/qmk/qmk_firmware#fork-destination-box) puis cloner le dépôt localement pour y faire des changements. Vous pourrez pousser vos changements sur github puis ouvrir un [Pull Request](https://github.com/qmk/qmk_firmware/pulls) depuis votre fork Github.
 
 Sinon, vous pouvez aussi le télécharger directement en ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), ou le cloner avec git en ssh (`git@github.com:qmk/qmk_firmware.git`), ou https (`https://github.com/qmk/qmk_firmware.git`).
 
