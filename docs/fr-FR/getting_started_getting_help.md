@@ -1,15 +1,15 @@
-# Getting Help
+# Trouver de l'aide
 
-There are a lot of resources for getting help with QMK.
+Il y a beaucoup de ressources pour trouver de l'aide avec QMK.
 
-## Realtime Chat
+## Chat temps-réel
 
-You can find QMK developers and users on our main [Discord server](https://discord.gg/Uq7gcHh). There are specific channels in the server for chatting about the firmware, Toolbox, hardware, and configurator.
+Vous trouverez des développeurs QMK et des utilisateurs sur notre [Serveur Discord](https://discord.gg/Uq7gcHh) principal. Il y a des canaux spécifiques dans le serveurs pour discuter des firmware, toolbox, hardware et configurateurs.
 
-## OLKB Subreddit
+## Sous-Reddit OLKB
 
-The official QMK forum is [/r/olkb](https://reddit.com/r/olkb) on [reddit.com](https://reddit.com).
+Le forum officiel de QMK est [/r/olkb](https://reddit.com/r/olkb) sur [reddit.com](https://reddit.com).
 
-## Github Issues
+## Tickets GitHub
 
-You can open an [issue on GitHub](https://github.com/qmk/qmk_firmware/issues). This is especially handy when your issue will require long-term discussion or debugging.
+Vous pouvez ouvrir un [ticket sur GitHub](https://github.com/qmk/qmk_firmware/issues). Ceci est spécialement pratique lorsque votre problème demande une discussion long terme ou un débugage.
