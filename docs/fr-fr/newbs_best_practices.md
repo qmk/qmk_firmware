@@ -1,4 +1,4 @@
-# Best Practices
+# Best Practices GIT
 
 ## Ou, « Comment j’ai appris à cesser de m’inquiéter et à aimer Git »
 

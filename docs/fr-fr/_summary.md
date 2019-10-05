@@ -1,10 +1,10 @@
 * [Guide pour les newbs](fr-fr/newbs.md)
   * [Pour bien commencer](fr-fr/newbs_getting_started.md)
   * [Créer son propre firmware](fr-fr/newbs_building_firmware.md)
-  * [Flasher le firmware](fr-fr/newbs_flashing.md)
+  * [Flasher votre clavier](fr-fr/newbs_flashing.md)
   * [Tester et déboguer](fr-fr/newbs_testing_debugging.md)
-  * [Les meilleurs pratiques GIT](fr-fr/newbs_best_practices.md)
-  * [Pour en apprendre plus](fr-fr/newbs_learn_more_resources.md)
+  * [Best Practices GIT](fr-fr/newbs_best_practices.md)
+  * [En savoir plus](fr-fr/newbs_learn_more_resources.md)
 
 * [Les bases de QMK](README.md)
   * [Introduction à QMK](getting_started_introduction.md)

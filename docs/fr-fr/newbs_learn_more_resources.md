@@ -1,4 +1,4 @@
-# Ressources d'apprentissage
+# En savoir plus
 
 Ces ressources ont pour objectif de donner aux nouveaux membres un peu plus d'informations que celles données par la doc pour les Newbs.
 

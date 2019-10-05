@@ -1,4 +1,4 @@
-# Fabriquez votre premier firmware
+# Créer son propre firmware
 
 Maintenant que vous avez installé et configuré votre environnement vous êtes désormais prêt à créer votre premier firmware personalisé. Pour cette section du guide nous allons naviguer entre trois différents logiciels : votre éditeur de texte, votre explorateur de fichiers et votre terminal de ligne de commande. Gardez-les ouverts tant que vous n’avez pas terminé et que vous n’êtes pas heureux de votre résultat.
 
