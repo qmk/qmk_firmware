@@ -1,5 +1,4 @@
 #pragma once
-#define CONFIG_USER_H
 
 #include "config_common.h"
 
