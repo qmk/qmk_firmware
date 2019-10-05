@@ -59,7 +59,7 @@ Pour génerer un fichier .hex prêt pour la production qui contiendra tant l'app
 
 Il y a plusieurs commandes DFU que vous pouvez utiliser pour flasher le firmware sur un appareil DFU.
 
-* `:dfu` - C'est l'option normale qui attend qu'un appareil DFU soit disponible et qui flashe le firmware dès que c'est le cas. Le check sera fait toutes les 5 secondes.
+* `:dfu` - C'est l'option normale qui attend qu'un appareil DFU soit disponible et qui flashe le firmware dès que c'est le cas. La vérification sera faite toutes les 5 secondes.
 * `:dfu-ee` - Cette option flash un fichier `.eep` à la place d'un fichier `.hex`. Ce cas est plutôt rare.
 * `:dfu-split-left` - Cette option flashe le firmware normal comme avec l'option (`:dfu`). Mais cela aussi flash le coté gauche du fichier EEPROM pour les claviers scindés. _C'est l'option idéale pour un clavier scindé basé sur le Elite C_
 * `:dfu-split-right` - Cette option flashe le firmware normal comme avec l'option (`:dfu`).  Mais cela aussi flash le coté droite du fichier EEPROM pour les claviers scindés. _C'est l'option idéale pour un clavier scindé basé sur le Elite C_

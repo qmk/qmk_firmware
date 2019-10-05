@@ -102,4 +102,4 @@ Merci de vérifier les autres dispositions de votre keymap afin d'être sûr qu'
 
 ## Problèmes et Bugs
 
-Nous acceptons toujours des demandes de clients et des rapports de bugs. Merci de les remplirs sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Nous acceptons toujours les demandes des clients et les rapports de bugs. Merci de les remplirs sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)

@@ -1,6 +1,6 @@
 # Introduction
 
-Votre clavier d'ordinateur contient un processeur, proche de celui dasn votre ordinateur. Ce processeur exécute un logiciel responsable de détecter les touches appuyées et envoie des rapports à propos de l'état du clavier lorsque les touches sont appuyées et relâchées. QMK prend le rôle de ce logiciel, détectant les appuis des boutons et passant cette information à l'ordinateur hôte. Lorsque vous construisez votre keymap customisée, vous créez l'équivalent d'un programme exécutable pour votre clavier.
+Votre clavier d'ordinateur contient un processeur, proche de celui dans votre ordinateur. Ce processeur exécute un logiciel responsable de détecter les touches appuyées et envoie des rapports à propos de l'état du clavier lorsque les touches sont appuyées et relâchées. QMK prend le rôle de ce logiciel, détectant les appuis des boutons et passant cette information à l'ordinateur hôte. Lorsque vous construisez votre keymap customisée, vous créez l'équivalent d'un programme exécutable pour votre clavier.
 
 QMK essaie de rendre les choses simples faciles, et les choses difficiles possibles. Vous n'avez pas à savoir programmer pour créer des keymaps puissantes - vous devez seulement suivre quelques rêgles de syntaxe simples.
 
