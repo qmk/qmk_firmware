@@ -53,4 +53,4 @@ To do so call `lcd_clrsrc()`.
 
 To now print something to your Display you first call `lcd_gotoxy(column, line)`. To go to the start of the first line you would call `lcd_gotoxy(0, 0)` and then print a string with `lcd_puts("example string")`.
 
-There are more possible methods to control the display. [For in depth documentation please visit the linked page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+There are more methods available to control the display. [For in depth documentation please visit the linked page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
