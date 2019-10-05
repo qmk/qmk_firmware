@@ -15,6 +15,10 @@ import qmk.keymap
 import qmk.path
 
 def print_bootloader_help():
+    """Prints the available bootloaders listed in docs.qmk.fm.
+
+    Called when 'qmk flash' is called with no keyboard, keymap or file, and a string satisfies the required bootloader argument. This should really be listed 'qmk flash -h'
+    """
     cli.log.error('You must supply a configuration file and bootloader,')
     cli.echo('or a -kb keyboard, -km keymap, and bootloader.')
     cli.echo('For example: qmk flash -kb planck/rev6 -km default dfu-util')
