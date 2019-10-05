@@ -92,6 +92,10 @@ void oled_task_user(void) {
       // Or use the write_ln shortcut over adding '\n' to the end of your string
       oled_write_ln_P(PSTR("Undefined"), false);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c23581d985430c2571af958c4aca43499737fb72
   uint8_t led_usb_state = host_keyboard_leds();
   oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
   */
