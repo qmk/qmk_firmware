@@ -6,7 +6,7 @@ Si vous avez un bootloader sélectionné avec la variable `BOOTLOADER` dans votr
 
 ## DFU
 
-Le bootloader pour les processeurs Atmel DFU est fourni par défaut sur tous les processeurs atmega32u4. Celui-ci est utilisé par beaucoup de claviers plus vieux que les OLKB et Clueboard qui ont leur propre ICs sur leurs PCBs. D'autres claviers utilisent le boatloader DFU de LUFA (ou son fork QMK), notamment les nouveaux claviers OLKB. Ce dernier ajoute des fonctionnalités spécifiques sur le matériel.
+Le bootloader pour les processeurs Atmel DFU est fourni par défaut sur tous les processeurs atmega32u4. Celui-ci est utilisé par beaucoup de claviers plus vieux que les OLKB et Clueboard qui ont leur propre ICs sur leurs PCBs. D'autres claviers utilisent le bootloader DFU de LUFA (ou son fork QMK), notamment les nouveaux claviers OLKB. Ce dernier ajoute des fonctionnalités spécifiques sur le matériel.
 
 Pour vérifier la compatibilité avec le bootloader DFU, vérifiez que ce bloc de code est présent dans votre fichier `rules.mk`. Parfois il peut être inscrit `lufa-dfu` ou `qmk-dfu` à la place.
 
@@ -24,7 +24,7 @@ BOOTLOADER = atmel-dfu
 
 Méthodes de flash compatibles :
 
-* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandée)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandé)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` avec QMK (outil en ligne de commande recommandé)
 * [Atmel's Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (non recommandé)
 
@@ -34,7 +34,7 @@ Ordre des actions :
 2. Attendez que l'OS detecte l'appareil.
 3. Éffacez la mémoire, cela peut être fait automatiquement.
 4. Flasher le fichier .hex.
-5. Redemarrez l'appareil en mode « application », cela peut être fait automatiquement.
+5. Redémarrez l'appareil en mode « application », cela peut être fait automatiquement.
 
 Alternativement :
 
@@ -42,7 +42,7 @@ Alternativement :
 
 ### DFU QMK
 
-QMK a un fork du bootloader LUFA DFU qui vous permet de faire un simple scan de la matrice pour quitter le bootloader et retourner à l'application. En même tant que le flash se produira, il est possible de faire flasher un led ou de produire un son via un haut parleur. Pour activer ces fonctionnalités, vous pouvez utiliser ce bloc dans votre fichier `config.h` (La touche permettant de quitter le bootloader a besoin d'être reliée entre les ports définis en INPUT et OUTPUT ici):
+QMK a un fork du bootloader LUFA DFU qui vous permet de faire un simple scan de la matrice pour quitter le bootloader et retourner à l'application. En même temps que le flash se produira, il est possible de faire flasher un led ou de produire un son via un haut parleur. Pour activer ces fonctionnalités, vous pouvez utiliser ce bloc dans votre fichier `config.h` (La touche permettant de quitter le bootloader a besoin d'être reliée entre les ports définis en INPUT et OUTPUT ici):
 
     #define QMK_ESC_OUTPUT F1 // usually COL
     #define QMK_ESC_INPUT D5 // usually ROW
@@ -61,8 +61,8 @@ Il y a plusieurs commandes DFU  que vous pouvez utiliser pour flasher le firmw
 
 * `:dfu` - C'est l'option normale qui attend qu'un appareil DFU soit disponible et qui flashe le firmware dès que c'est le cas. Le check sera fait toutes les 5 secondes.
 * `:dfu-ee` - Cette option flash un fichier `.eep` à la place d'un fichier `.hex`. Ce cas est plutôt rare.
-* `:dfu-split-left` - Cette option flashe le firmware normal comme avec l'option (`:dfu`). Mais cela aussi flash le coté gauche du fichier EEPROM pour les claviers splittés. _C'est l'option idéale pour un clavier splitté basé sur le Elite C_
-* `:dfu-split-right` - Cette option flashe le firmware normal comme avec l'option (`:dfu`).  Mais cela aussi flash le coté droite du fichier EEPROM pour les claviers splittés. _C'est l'option idéale pour un clavier splitté basé sur le Elite C_
+* `:dfu-split-left` - Cette option flashe le firmware normal comme avec l'option (`:dfu`). Mais cela aussi flash le coté gauche du fichier EEPROM pour les claviers scindés. _C'est l'option idéale pour un clavier scindé basé sur le Elite C_
+* `:dfu-split-right` - Cette option flashe le firmware normal comme avec l'option (`:dfu`).  Mais cela aussi flash le coté droite du fichier EEPROM pour les claviers scindés. _C'est l'option idéale pour un clavier scindé basé sur le Elite C_
 
 ## Caterina
 
@@ -90,7 +90,7 @@ Flashers compatibles :
 
 Séquence de flash : 
 
-1. Pressez la touche avec le keycode `RESET`, ou reliez les ports GND et RST. Vous n'avez que 7 secondes pour flasher une fois l'opération a été faite.
+1. Pressez la touche avec le keycode `RESET`, ou reliez les ports GND et RST. Vous n'avez que 7 secondes pour flasher une fois que l'opération a été faite.
 2. Attendez que l'OS détecte l'appareil.
 3. Flasher le fichier .hex.
 4. Attendez que l'appareil redémarre automatiquement.
@@ -134,7 +134,7 @@ Séquence de flash :
 1. Pressez la touche du keycode `RESET`, ou reliez les ports RST et GND rapidement. Vous avez ensuite 7 secondes pour réaliser le flash.
 2. Attendez que l'OS détecte l'appareil.
 3. Flasher le fichier .hex.
-4. Redemarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
+4. Redémarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
 
 ## USBasploader
 
@@ -156,7 +156,7 @@ BOOTLOADER = USBasp
 
 Flashers compatibles :
 
-* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recomandée)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recommandé)
 * [avrdude](http://www.nongnu.org/avrdude/) avec le programmeur `usbasp`.
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
@@ -165,13 +165,13 @@ Séquence de flash :
 1. Pressez la touche du keycode `RESET`, ou reliez le port de boot pendant que RST et GND snt reliés. Cela doit être fait très rapidement.
 2. Attendez que l'OS détecte l'appareil.
 3. Flasher le fichier .hex.
-4. Redemarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
+4. Redémarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
 
 ## BootloadHID
 
-BoatloadHID est un bootloader pour les microcontroleurs AVR. L'utilitaire de téleversement ne demande pas de drivers au niveau du kernel et peut être lancé sans installer aucune DLLs.
+BootloadHID est un bootloader pour les microcontroleurs AVR. L'utilitaire de téleversement ne demande pas de drivers au niveau du kernel et peut être lancé sans installer aucune DLLs.
 
-Pour vérifier la compatibilité avec le boatloader bootloadHID, vérifiez que ce bloc existe dans votre fichier `rules.mk` : 
+Pour vérifier la compatibilité avec le bootloader bootloadHID, vérifiez que ce bloc existe dans votre fichier `rules.mk` : 
 
 ```make
 # Bootloader selection
@@ -187,8 +187,8 @@ BOOTLOADER = bootloadHID
 
 Utilitaires de flash compatibles :
 
-* [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash) (Utilitaire avec interface graphique recomandé)
-* [bootloadhid Command Line](https://www.obdev.at/products/vusb/bootloadhid.html) / `:BootloadHID` avec QMK (utilitaire en ligne de commande recomandé)
+* [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash) (Utilitaire avec interface graphique recommandé)
+* [bootloadhid Command Line](https://www.obdev.at/products/vusb/bootloadhid.html) / `:BootloadHID` avec QMK (utilitaire en ligne de commande recommandé)
 
 Séquence de flash
 
@@ -197,7 +197,7 @@ Séquence de flash
     * Verouillez la touche « Salt » tout en branchant le clavier (Géneralement ce principe est documenté dans le fichier readme du clavier)
 2. Attendez que l'OS détecte l'appareil.
 3. Flasher le fichier .hex.
-4. Redemarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
+4. Redémarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
 
 Ou alors :
 
@@ -205,14 +205,14 @@ Ou alors :
 
 ## STM32
 
-Tous les processeurs STM32 contiennent un bootloader installé en usine qui ne peut pas être modiié ou supprimé. Certains processeurs STM32 ont des bootloaders qui ne peutevent pas être programmés par USB (ex : STM32F103) mais le processus reste le même.
+Tous les processeurs STM32 contiennent un bootloader installé en usine qui ne peut pas être modifié ou supprimé. Certains processeurs STM32 ont des bootloaders qui ne peuvent pas être programmés par USB (ex : STM32F103) mais le processus reste le même.
 
 Pour le moment, aucune variable `BOOTLOADER` n'est nécessaire dans le fichier `rules.mk`.
 
 Flashers compatibles :
 
-* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandée)
-* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (utilitaire en ligne de commande recommandée)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (interface graphique recommandé)
+* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (utilitaire en ligne de commande recommandé)
 
 Flashing sequence:
 
@@ -231,6 +231,6 @@ Flashing sequence:
 Il y a différentes commandes que vous pouvez utiliser pour flasher un firmware dans un appareil STM32  :
 
 * `:dfu-util` - La commande par défaut pour flasher un appareil STM32.
-* `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configuré le coté gauche des paramètres EEPROM sur un clavier splitté.
-* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configuré le coté droite des paramètres EEPROM sur un clavier splitté.
+* `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté gauche des paramètres EEPROM sur un clavier scindé.
+* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté droite des paramètres EEPROM sur un clavier scindé.
 * `:st-link-cli` - Cela permet de flasher le firmware avec l'utilitaire en ligne de commande ST-LINK's plutôt que d'utiliser dfu-util.
