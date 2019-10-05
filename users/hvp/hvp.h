@@ -1,3 +1,6 @@
 #pragma once
-#include "tap_dances.h"
+
+#ifdef TAP_DANCE_ENABLE
+#    include "tap_dances.h"
+#endif
 #include "quantum.h"

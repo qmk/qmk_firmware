@@ -1,2 +1,4 @@
 SRC += hvp.c
-SRC += tap_dances.c
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += tap_dances.c
+endif``
