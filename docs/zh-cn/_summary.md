@@ -13,7 +13,7 @@
   * [获得帮助](./getting_started_getting_help.md)
 
 * [问题解答](./faq.md)
-  * [常见问题](./faq_general.md)
+  * [一般问题](./faq_general.md)
   * [构建/编译](./faq_build.md)
   * [调试/故障排除](./faq_debug.md)
   * [键盘映射](./faq_keymap.md)
