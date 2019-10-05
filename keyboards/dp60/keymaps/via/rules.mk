@@ -11,7 +11,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 BOOTLOADER = atmel-dfu
-#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
