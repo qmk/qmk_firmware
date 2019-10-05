@@ -1,15 +1,14 @@
-# Learning Resources
+# Ressources d'apprentissage
 
-These resources are aimed at giving new members in the QMK community more understanding to the information provided in the Newbs docs.
+Ces ressources permettent de donner aux nouveaux membres de la communauté QMK plus de compréhension aux informations données dans la documentation Newbs.
 
-Git resources:
+Ressources Git:
 
-* [Great General Tutorial](https://www.codecademy.com/learn/learn-git)
-* [Git Game To Learn From Examples](https://learngitbranching.js.org/)
-* [Git Resources to Learn More About Github](getting_started_github.md)
-* [Git Resources Aimed Specifically toward QMK](contributing.md)
+* [Tutoriel général](https://www.codecademy.com/learn/learn-git)
+* [Jeu Git pour apprendre avec des exemples](https://learngitbranching.js.org/)
+* [Des ressources Git pour en savoir plus à propos de GitHub](getting_started_github.md)
+* [Des ressources Git spécifiques à QMK](contributing.md)
 
+Ressources sur les lignes de commande:
 
-Command Line resources:
-
-* [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
+* [Bon tutoriel général sur la ligne de commande](https://www.codecademy.com/learn/learn-the-command-line)
