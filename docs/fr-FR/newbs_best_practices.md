@@ -2,7 +2,7 @@
 
 ## Ou, "Comment j'ai appris à ne plus m'en faire et aimer Git."
 
-Ce document a pour but d'apprendre aux novices les meilleures solutions pour faciliter la contribution à QMK. Nous allons étudier le processus de contribution à QMK, détaillant quelques moyens de rendre cette tâche plus simple. Ensuite, nous allons casser quelques choses afin de vous apprendre comment les résoudre.
+Ce document a pour but d'apprendre aux novices les meilleures solutions pour faciliter la contribution à QMK. Nous allons étudier le processus de contribution à QMK, détaillant quelques moyens de rendre cette tâche plus simple. Nous allons faire quelques erreurs afin de vous apprendre à les résoudre.
 
 Ce document suppose les choses suivantes:
 
