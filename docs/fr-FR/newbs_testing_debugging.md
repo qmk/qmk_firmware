@@ -1,21 +1,21 @@
-# Testing and Debugging
+# Test et débugage
 
-Once you've flashed your keyboard with a custom firmware you're ready to test it out. With a little bit of luck everything will work perfectly, but if not this document will help you figure out what's wrong.
+Une fois votre clavier configué avec un firmware custom, vous êtes prêt à le tester. Avec un peu de chance, tout fonctionne parfaitement bien, mias sinon, ce document vous aidera à trouver où se trouve le problème.
 
-## Testing
+## Tester
 
-Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. There are even programs that will help you make sure that no key is missed.
+Tester votre clavier est normalement assez simple. Appuyez chaque touche de votre clavier et assurez vous qu'il envoie les touces auquel vous vous attendiez. Il existe même des programmes qui vous aideront à vérifier qu'aucune touche ne soit oubliée.
 
-Note: These programs are not provided by or endorsed by QMK.
+Note: ces programmes ne sont ni fournis ni approuvés par QMK.
 
-* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Windows Only)
-* [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
-* [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
-* [Keyboard Checker](http://keyboardchecker.com) (Web Based)
+* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Windows seulement)
+* [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac seulement)
+* [Keyboard Tester](http://www.keyboardtester.com) (Web)
+* [Keyboard Checker](http://keyboardchecker.com) (Web)
 
-## Debugging
+## Débuguer
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Votre clavier va sortir des informations de débugage si vous avec `CONSOLE_ENABLE = yes` dans votre fichier `rules.mk`. Par défaut, la sortie est très limité, mais vous pouvez activer le mode debug pour augmenter la quantité de sortie de débuggage. Utilisez le keycode `DEBUG` dans votre keymap, utilisez la fonction [Commande](feature_command.md) pour activer le mode debug ou ajoutez le code suivant à votre keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -27,48 +27,49 @@ void keyboard_post_init_user(void) {
 }
 ```
 
-### Debugging With QMK Toolbox
+### Débuguer avec QMK Toolbox
 
-For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can be used to display debug messages from your keyboard.
+Pour les plateformes compatibles, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) peut être utilisé pour afficher les message de débugage pour votre clavier.
 
-### Debugging With hid_listen
+### Débuguer avec hid_listen
 
-Prefer a terminal based solution? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
+Vous préférez une solution basée sur le terminal? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), fourni par PJRC, peut aussi être utilisé pour afficher des messages de débugage. Des versions compilées pour Windows, Linux et MacOS sont disponibles.
 
 <!-- FIXME: Describe the debugging messages here. -->
 
-## Sending Your Own Debug Messages
+## Envoyer vos propres messages de débugage
 
-Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
+Parfois, il est utile d'afficher des messages de débugage depuis votre [code custom](custom_quantum_functions.md). Le faire est assez simple. Commencez par ajouter `print.h` au début de votre fichier:
 
     #include <print.h>
 
-After that you can use a few different print functions:
+Une fois fait, vous pouvez utiliser les fonctions print suivantes:
 
-* `print("string")`: Print a simple string.
-* `uprintf("%s string", var)`: Print a formatted string
-* `dprint("string")` Print a simple string, but only when debug mode is enabled
-* `dprintf("%s string", var)`: Print a formatted string, but only when debug mode is enabled
+* `print("string")`: Affiche une simple chaîne de caractères.
+* `uprintf("%s string", var)`: Affiche une chaîne de caractères formattée.
+* `dprint("string")` Affiche une chaîne de caractère simple, mais uniquement lorsque le mode debug est activé.
+* `dprintf("%s string", var)`: Affiche une chaîne de caractère formattée, mais uniquement lorsque le mode debug est activé.
 
-## Debug Examples
+## Exemples de debugage
 
-Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+Si dessous se trouve une collection d'exemples réels de débugage. Pour plus d'information, référez-vous à [Débuguer/Dépanner QMK](faq_debug.md).
 
-### Which matrix position is this keypress?
+### Quelle position de matrix est cet appuis de touche?
 
-When porting, or when attempting to diagnose pcb issues, it can be useful to know if a keypress is scanned correctly. To enable logging for this scenario, add the following code to your keymaps `keymap.c`
+Lors du portage ou lorsque vous essayez de diagnostiquer un problème de PCB, il est utile de savoir si un appui de touche est enregistré correctement. Pour activer le log de ce scénario, ajoutez le code suivant à votre fichier keymaps `keymap.c`.
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
+#endif
   return true;
 }
 ```
 
-Example output
+Exemple de sortie
+
 ```text
 Waiting for device:.......
 Listening:
@@ -80,15 +81,16 @@ KL: kc: 172, col: 2, row: 0, pressed: 1
 KL: kc: 172, col: 2, row: 0, pressed: 0
 ```
 
-### How long did it take to scan for a keypress?
+### Combien de temps cela a pris pour un appui de touche?
 
-When testing performance issues, it can be useful to know the frequency at which the switch matrix is being scanned. To enable logging for this scenario, add the following code to your keymaps `config.h`
+Lorsque vous testez des problèmes de performance, il peut être utile de savoir à quelle fréquence la matrice est scannée. Pour activer le log dans ce scénario, ajoutez la ligne suivante à votre fichier `config.h` de votre keymaps.
 
 ```c
 #define DEBUG_MATRIX_SCAN_RATE
 ```
 
-Example output
+Exemple de sortie
+
 ```text
   > matrix scan frequency: 315
   > matrix scan frequency: 313
