@@ -1,36 +1,36 @@
-# QMK CLI Configuration
+# Configuration de QMK CLI
 
-This document explains how `qmk config` works.
+Ce document explique comment fonctionne la commande `qmk config`.
 
 # Introduction
 
-Configuration for QMK CLI is a key/value system. Each key consists of a subcommand and an argument name separated by a period. This allows for a straightforward and direct translation between config keys and the arguments they set.
+La configuration pour QMK CLI est un système clé/valeur. Chaque clé consiste en une sous-commande et le nom d'un argument séparé par une virgule. Cela permet une traduction simple et directe entre les clés de configuration et l'argument qu'elle définit.
 
-## Simple Example
+## Exemple simple
 
-As an example let's look at the command `qmk compile --keyboard clueboard/66/rev4 --keymap default`.
+Comme exemple, regardons la commande `qmk compile --keyboard clueboard/66/rev4 --keymap default`.
 
-There are two command line arguments that could be read from configuration instead:
+Il y a deux arguments de ligne de commande qui peuvent être lus de la configuration:
 
 * `compile.keyboard`
 * `compile.keymap`
 
-Let's set these now:
+Essayons de les définir:
 
-```
+```shell
 $ qmk config compile.keyboard=clueboard/66/rev4 compile.keymap=default
 compile.keyboard: None -> clueboard/66/rev4
 compile.keymap: None -> default
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
-Now I can run `qmk compile` without specifying my keyboard and keymap each time.
+Maintenant, je peux lancer la commande `qmk compile` sans avoir à spécifier mon clavier et keymap à chaque fois.
 
-## Setting User Defaults
+## Définir les options par défaut
 
-Sometimes you want to share a setting between multiple commands. For example, multiple commands take the argument `--keyboard`. Rather than setting this value for every command you can set a user value which will be used by any command that takes that argument.
+Parfois, il est utile de partager une configuration entre plusieurs commandes. Par exemple, plusieurs commandes prennent un argument `--keyboard`. Plutôt que de devoir définir cette valeur pour chaque commande, vous pouvez définir une valeur d'utilisateur qui sera utilisée par toutes les commandes qui prennent cet argument.
 
-Example:
+Exemple:
 
 ```
 $ qmk config user.keyboard=clueboard/66/rev4 user.keymap=default
@@ -41,15 +41,15 @@ user.keymap: None -> default
 
 # CLI Documentation (`qmk config`)
 
-The `qmk config` command is used to interact with the underlying configuration. When run with no argument it shows the current configuration. When arguments are supplied they are assumed to be configuration tokens, which are strings containing no spaces with the following form:
+La commande `qmk config` est utilisée pour intéragir avec la configuration sous-jacente. Lancée sans argument, elle elle affiche la configuration courante. Lorsque des arguments sont définis, ils sont considérés comme étant des jetons de configuration, qui sont des chaînes de caractère ne contenant aucun espace avec le format suivant:
 
     <subcommand|general|default>[.<key>][=<value>]
 
-## Setting Configuration Values
+## Définir des valeurs de configuration
 
-You can set configuration values by putting an equal sign (=) into your config key. The key must always be the full `<section>.<key>` form.
+Vous pouvez définir des valeurs de configuration en mettant le caractère égal (=) dans votre clé de configuration. La clé doit toujours être dans le format complet `<section>.<key>`.
 
-Example:
+Exemple:
 
 ```
 $ qmk config default.keymap=default
@@ -57,31 +57,31 @@ default.keymap: None -> default
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
-## Reading Configuration Values
+## Lire des valeurs de configuration
 
-You can read configuration values for the entire configuration, a single key, or for an entire section. You can also specify multiple keys to display more than one value.
+Vous pouvez lire les valeurs de configuration pour l'entier de la configuration, une seule clé, ou une section entière. Vous pouvez aussi spécifier plusieurs clés pour afficher plus d'une valeur.
 
-### Entire Configuration Example
+### Exemple de l'entier de la configuration
 
     qmk config
 
-### Whole Section Example
+### Exemple section entière
 
     qmk config compile
 
-### Single Key Example
+### Exemple clé unique
 
     qmk config compile.keyboard
 
-### Multiple Keys Example
+### Exemple plusieurs clés
 
     qmk config user compile.keyboard compile.keymap
 
-## Deleting Configuration Values
+## Supprimer des valeurs de configuration
 
-You can delete a configuration value by setting it to the special string `None`.
+Vous pouvez supprimer une valeur de configuration en la définissant avec la chaîne spéciale `None`.
 
-Example:
+Exemple:
 
 ```
 $ qmk config default.keymap=None
@@ -89,9 +89,9 @@ default.keymap: default -> None
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
-## Multiple Operations
+## Plusieurs opérations
 
-You can combine multiple read and write operations into a single command. They will be executed and displayed in order:
+Vous pouvez combiner plusieures opérations d'écriture et de lecture en une seule commande. Elle sera exécutés et affichée dans l'ordre:
 
 ```
 $ qmk config compile default.keymap=default compile.keymap=None
@@ -102,20 +102,20 @@ compile.keymap: skully -> None
 Ψ Wrote configuration to '/Users/example/Library/Application Support/qmk/qmk.ini'
 ```
 
-# User Configuration Options
+# Options de configuration utilisateur
 
-| Key | Default Value | Description |
+| Clé | Valeur par défaut | Description |
 |-----|---------------|-------------|
-| user.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| user.keymap | None | The keymap name (Example: `default`) |
-| user.name | None | The user's github username. |
+| user.keyboard | None | Le chemin d'accès vers le clavier (Exemple: `clueboard/66/rev4`) |
+| user.keymap | None | Le nom de la keymap (Exemple: `default`) |
+| user.name | None | Le nom d'utilisateur GitHub de l'utilisateur. |
 
-# All Configuration Options
+# Toutes les options de configuration
 
-| Key | Default Value | Description |
+| Clé | Valeur par défaut | Description |
 |-----|---------------|-------------|
-| compile.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| compile.keymap | None | The keymap name (Example: `default`) |
-| hello.name | None | The name to greet when run. |
-| new_keyboard.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
-| new_keyboard.keymap | None | The keymap name (Example: `default`) |
+| compile.keyboard | None | Le chemin d'accès vers le clavier (Exemple: `clueboard/66/rev4`) |
+| compile.keymap | None | Le nom de la keymap (Exemple: `default`) |
+| hello.name | None | Le nom à saluer lorsque démarré. |
+| new_keyboard.keyboard | None | Le chemin d'accès vers le clavier (Exemple: `clueboard/66/rev4`) |
+| new_keyboard.keymap | None | Le nom de la keymap (Example: `default`) |
