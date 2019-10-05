@@ -1,18 +1,18 @@
-# Flashing Your Keyboard 
+# Téléverser votre clavier
 
-Now that you've built a custom firmware file you'll want to flash your keyboard. 
+Maintenant que vous avez compilé un firmware custom, vous allez vouloir le téléverser dans votre clavier.
 
-## Flashing Your Keyboard with QMK Toolbox
+## Téléverser votre clavier avec QMK Toolbox
 
-The simplest way to flash your keyboard will be with the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases). 
+La manière la plus simple de téléverser votre clavier est avec [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases).
 
-However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), you'll have to use the [method outlined below](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+Toutefois, la QMK Toolbox n'est actuellement disponible que pour Windows et macOS. Si vous utilisez Linux (ou préférez téléverser le firmware depuis la ligne de commande), vous devrez utiliser [la métode décrite ci-dessous](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
 
-### Load The File Into QMK Toolbox
+### Charger le fichier dans QMK Toolbox
 
-Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
+Démarrez en ouvrant l'application QMK Toolbox. Cherchez le fichier de firmware dans Finder ou Explorer. Vore firmware de clavier peut être dans un de deux formats `.hex` ou `.bin`. QMK essaye de copier le bon format pour votre clavier du répertoire racine `qmk_firmware`.
 
-?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+?> Si vous êtes sous Windows ou macOS il y a des commandes que vous pouvez utiliser pour facilement ouvrir le répertoire firmware dans Explorer ou Finder.
 
 ?> Windows:
 
@@ -22,38 +22,38 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
     open .
 
-The firmware file always follows this naming format:
+Le fichier firmware suit toujours ce format de nommage:
 
     <keyboard_name>_<keymap_name>.{bin,hex}
 
-For example, the `plank/rev5` with a `default` keymap will have this filename:
+Par exemple, le `plank/rev5` avec une keymap `default` aura ce nom de fichier:
 
     planck_rev5_default.hex
 
-Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
+Une fois que vous aurez trouvé votre fichier de firmware, glissez le dans la boîte "Local file" sur QMK Toolbox, ou cliquez sur "Open" et naviguez où votre firmware est enregistré.
 
-### Put Your Keyboard Into DFU (Bootloader) Mode
+### Mettez votre clavier en mode DFU (Bootloader)
 
-In order to flash your custom firmware you have to put your keyboard into a special flashing mode. While it is in this mode you will not be able to type or otherwise use your keyboard. It is very important that you do not unplug your keyboard or otherwise interrupt the flashing process while the firmware is being written.
+Afin de téléverer votre firmware custom, vous devez mettre votre clavier dans un mode spécial de téléversement. S'il n'est pas dans ce mode, vous ne pourrez pas taper ou utiliser votre clavier. Il est très important que vous ne débranchiez pas votre clavier ou n'arrêtiez pas le processus de téléversage lors de l'écriture du firmware.
 
-Different keyboards have different ways to enter this special mode. If your PCB currently runs QMK or TMK and you have not been given specific instructions try the following, in order:
+Chaque clavier a une manière différente d'entrer dans ce mode spécial. Si votre clavier tourne actuellement QMK ou TMK et vous n'avez pas reçu d'instruction spécifiques, essayez, dans cet ordre:
 
-* Hold down both shift keys and press `Pause`
-* Hold down both shift keys and press `B`
-* Unplug your keyboard, hold down the Spacebar and `B` at the same time, plug in your keyboard and wait a second before releasing the keys
-* Press the physical `RESET` button on the bottom of the PCB
-* Locate header pins on the PCB labeled `BOOT0` or `RESET`, short those together while plugging your PCB in
+* Enfoncez les deux touches shift et appuyez sur `Pause`
+* Enfoncez les deux touches shift et appuyez sur `B`
+* Débranchez votre clavier, gardez shift la barre d'espace et `B` en même temps, branchez votre clavier et attendez une seconde avant de relâcher les touches.
+* Appuyez la touche physique `RESET` en bas du PCB
+* Trouvez les pins sur le PCB marquées `BOOT0` ou `RESET`, court circuitez ces pins en branchant votre PCB
 
-When you are successful you will see a message similar to this in QMK Toolbox:
+Lorsque vous aurez réussi, vous verrez le message suivant dans QMK Toolbox:
 
 ```
 *** Clueboard - Clueboard 66% HotSwap disconnected -- 0xC1ED:0x2390
 *** DFU device connected
 ```
 
-### Flash Your Keyboard
+### Téléversez votre clavier
 
-Click the `Flash` button in QMK Toolbox. You will see output similar to the following:
+Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat similaire à ce qui suit:
 
 ```
 *** Clueboard - Clueboard 66% HotSwap disconnected -- 0xC1ED:0x2390
@@ -71,45 +71,45 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
     Validating...  Success
     0x5600 bytes written into 0x7000 bytes memory (76.79%).
 >>> dfu-programmer atmega32u4 reset
-    
+
 *** DFU device disconnected
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## Flash your Keyboard from the Command Line
+## Téléversez votre clavier de la ligne de commande
 
-First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usually. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmega32u4 chips use DFU. 
+La première chose que vous devez savoir c'est quel bootloader utilise votre clavier. Il y a quatre bootloaders principaux utilisés. Pro-Micro et les clones, utilisent CATERINA, les Teensy utilisent Halfkay, les OLKB utilisent QMK-DFU et les autres chips atmega32u4 utilisent DFU.
 
-You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
+Vous pouvez trouver plus d'information à propos des bootloaders sur la page [Instructions de téléversage et information sur le Bootloader](flashing.md).
 
-If you know what bootloader that you're using, then when compiling the firmware, you can actually add some extra text to the `make` command to automate the flashing process. 
+Si vous savez quel bootloader vous utilisez, lorsque vous compilez le firmware, vous pouvez ajouter quelques options à la commande `make` pour automatiser le processus de téléversage.
 
 ### DFU
 
-For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Pour le bootloader DFU, lorsque vous êtes prêts à compiler et téléverser votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:dfu
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a rev5 planck, you'll use this command:
+Par exemple, si vous keymap s'appelle "xyverz" et vous compilez une keymap pour une planche rev5, vous utiliserez cette commande:
 
     make planck/rev5:xyverz:dfu
 
-Once it finishes compiling, it should output the following:
+Une fois la compilation terminée, le résultat devrait être le suivant:
 
 ```
 Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
 Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
 Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
-Checking file size of planck_rev5_xyverz.hex                                                        
+Checking file size of planck_rev5_xyverz.hex
  * File size is fine - 18574/28672
  ```
 
-After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+Une fois arrivé à ce stade, le script de compilation va checher le bootloader DFU toutes les 5 secondes. Il va répéter les messages suivants jusqu'à ce que l'appareil soit trouvé ou que vous l'annuliez.
 
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+Une fois terminé, vous devrez mettre à zéro le contrôleur. Vous allez voir un résultat similaire à ceci:
 
 ```
 *** Attempting to flash, please don't remove device
@@ -127,29 +127,28 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-?> If you have any issues with this - such as `dfu-programmer: no device present` - please see the [Frequently Asked Build Questions](faq_build.md).
+?> Si vous avez des soucis concerant ceci - comme par exemple `dfu-programmer: no device present` - merci de regarder [Foires Aux Questions de Compilation](faq_build.md).
 
-#### DFU commands
+#### Commandes DFU
 
-There are a number of DFU commands that you can use to flash firmware to a DFU device:
+Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour téléverser un firmware sur un device DFU:
 
-* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
-* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
-* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
-* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu` - C'est l'option standard qui attends jusqu'à e qu'un appareil DFU soit disponible, puis téléverse le firmware. Il va vérifier toutes les 5 secondes, afin de voir si un appareil DFU est apparu.
+* `:dfu-ee` - Ceci téléverse un fichier `eep` à la place du standard hex, peu commun.
+* `:dfu-split-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers séparés. _C'est l'option idéale pour les claviers séparés basés sur Elite C._
+* `:dfu-split-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers séparés. _C'est l'option idéale pour les claviers séparés basés sur Elite C._
 
+### Caterina
 
-### Caterina 
-
-For Arduino boards and their clones (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Pour les planches Arduino et leurs clones (tel que le SparkFun ProMicro), lorsque vous êtes prêt à compiler et téléverser votre firmware, ouvrez votre terminal et lancer la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:avrdude
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a rev2 Lets Split, you'll use this command:
+Par exemple, si votre keymap se nomme "xyverz" et que vous compilez une keymap pour un Lets Split rev2, vous utiliserez la commande suivante:
 
     make lets_split/rev2:xyverz:avrdude
 
-Once the firmware finishes compiling, it will output something like this: 
+Une fois le firmware compilé, vous aurez le résultat suivant:
 
 ```
 Linking: .build/lets_split_rev2_xyverz.elf                                                            [OK]
@@ -159,7 +158,7 @@ Checking file size of lets_split_rev2_xyverz.hex                                
 Detecting USB port, reset your controller now..............
 ```
 
-At this point, reset the board and then the script will detect the bootloader and then flash the board.  The output should look something like this: 
+Une fois ceci fait, réinitialisez votre board et le script va détecter et téléverser le firmware. La sortie devrait ressember à quelque chose comme ça:
 
 ```
 Detected controller on USB port at /dev/ttyS15
@@ -203,29 +202,28 @@ avrdude.exe: safemode: Fuses OK (E:CB, H:D8, L:FF)
 
 avrdude.exe done.  Thank you.
 ```
-If you have any issues with this, you may need to this: 
+
+Si vous avez un soucis, essayez de faire ceci:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
-
-Additionally, if you want to flash multiple boards, use the following command:
+En addition, si vous voulez téléverser plusieurs planches, utilisez la commande suivante:
 
     make <keyboard>:<keymap>:avrdude-loop
 
-When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
-
+Une fois que vous avez terminé téléverser des planches, vous devrez appuyer sur Ctrl + C, ou les touches sur votre système d'exploitation pour arrêter la boucle.
 
 ### HalfKay
 
-For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Pour les composants PJRC (les Teensy), lorsque vous êtes prêts à compiler et téléverser votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation suivante:
 
     make <my_keyboard>:<my_keymap>:teensy
 
-For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
+Par exemple, si vous keymap s'appelle "xyverz" et vous compilez une keymap pour un Ergodox ou un Ergodox EZ, vous utiliserez cette commande:
 
     make ergodox_ez:xyverz:teensy
 
-Once the firmware finishes compiling, it will output something like this: 
+Une fois la compilation du firmware terminée, votre sortie devrait ressembler à ça:
 
 ```
 Linking: .build/ergodox_ez_xyverz.elf                                                               [OK]
@@ -238,7 +236,7 @@ Waiting for Teensy device...
  (hint: press the reset button)
  ```
 
- At this point, reset your board.  Once you've done that, you'll see output like this: 
+Une fois terminé, réinitialisez votre planche. Une fois fait, vous verrez une sortie comme ça:
 
  ```
  Found HalfKay Bootloader
@@ -250,15 +248,15 @@ Booting
 
 ### BootloadHID
 
-For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Pour les planches basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et téléverser le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+Par exemple, si votre keymap s'appelle "xyverz" et que vous compilez une keymap pour un jj40, vous utilisez cette commande:
 
     make jj40:xyverz:bootloaderHID
 
-Once the firmware finishes compiling, it will output something like this: 
+Une fois le firmware compilé, vous aurez cette sortie:
 
 ```
 Linking: .build/jj40_default.elf                                                                   [OK]
@@ -268,14 +266,14 @@ Checking file size of jj40_default.hex                                          
  * The firmware size is fine - 21920/28672 (6752 bytes free)
 ```
 
-After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+A ce stade, le script de build va chercher le bootloader DFU toutes les 5 secondes. Il va répéter la sortie suivante jusqu'à ce que le dispositif soit trouvé ou que vous l'annuliez.
 
 ```
 Error opening HIDBoot device: The specified device was not found
 Trying again in 5s.
 ```
 
-Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+Une fois ce résultat atteint, réinitialisez le contrôleur. Il devrait afficher le résultat suivant:
 
 ```
 Page size   = 128 (0x80)
@@ -286,15 +284,15 @@ Uploading 22016 (0x5600) bytes starting at 0 (0x0)
 
 ### STM32 (ARM)
 
-For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Pour la majorité des planches ARM (incluant les Proton C, Planck Rev 6, et Preonic Rev 3), lorsque vous êtes prêt à compiler et téléverser votre firmware,ouvrez la fenêtre de terminal et lancez la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:dfu-util
 
-For example, if your keymap is named "xyverz" and you're building a keymap for the Planck Revision 6 keyboard, you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
+Par exemple, si votre keymap s'appelle "xyverz" et vous compilez une keymap pour le clavier Plank Revision 6, vous utiliserez cette commande et redémarrerez le clavier vers le bootloader (avant que la compilation soit terminée):
 
     make planck/rev6:xyverz:dfu-util
 
-Once the firmware finishes compiling, it will output something like this: 
+Une fois le firmware compilé, il va afficher quelque chose comme ça:
 
 ```
 Linking: .build/planck_rev6_xyverz.elf                                                             [OK]
@@ -334,18 +332,17 @@ File downloaded successfully
 Transitioning to dfuMANIFEST state
 ```
 
-#### STM32 Commands
+#### Commandes STM32
 
-There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour téléverser un firmware sur un device STM32:
 
-* `:dfu-util` - The default command for flashing to STM32 devices. 
-* `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
-   * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
-* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
-* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:dfu-util` - C'est l'option standard pour téléverer un appareil STM32.
+* `:dfu-util-wait` - Ceci fonctionne comme la commande standard, mais permet de d'avoir une pause (configurable( de 10 secondes avant de téléverser le fimrware. Vous pouvez utiliser `TIME_DELAY=20` à la ligne de commande pour changer le délai.
+* `:dfu-util-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers séparés.
+* `:dfu-util-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers séparés.
 
-## Test It Out!
+## Faites l'essai!
 
-Congrats! Your custom firmware has been programmed to your keyboard!
+Bravo! Votre firmware customisé a été programmé sur votre clavier!
 
-Give it a try and make sure everything works the way you want it to. We've written [Testing and Debugging](newbs_testing_debugging.md) to round out this Newbie Guide, so head over there to learn about how to troubleshoot your custom functionality.
+Essayez-le et vérifiez qu'il fonctionne comme vous le souhaitez. Nous avons écrit [Tester et débugger](newbs_testing_debugging.md) pour compléter le guide du débutant, alors allez voir là-bas pour apprendre comment dépanner vos fonctionnalités custom.
