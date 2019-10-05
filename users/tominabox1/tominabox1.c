@@ -147,10 +147,12 @@ void matrix_scan_keymap(void) {}
 extern bool oled_initialized;
 void matrix_scan_user(void) {
   if(!oled_initialized) {
+    wait_ms(200);
         oled_init(0);
         #ifdef CONSOLE_ENABLE
               uprintf("matrix init");
           #endif
+
   }
   matrix_scan_keymap();
   }
