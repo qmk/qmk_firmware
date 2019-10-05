@@ -149,19 +149,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
 float tone_startup[][2] = SONG(STARTUP_SOUND); 
 float tone_qwerty[][2] = SONG(QWERTY_SOUND);
-float tone_numpad[][2] = SONG(MARIO_THEME);
-float tone_oneshot[][2] = SONG(MARIO_GAMEOVER);
-float tone_dyn_macro_rec[][2] = SONG(ONE_UP_SOUND);
-float tone_dyn_macro_stop[][2] = SONG(COIN_SOUND);
-float music_scale[][2] = SONG(RICK_ROLL);
+float tone_numpad[][2] = SONG(GOODBYE_SOUND);
+float tone_oneshot[][2] = SONG(PLANCK_SOUND);
+float tone_dyn_macro_rec[][2] = SONG(PREONIC_SOUND);
+float tone_dyn_macro_stop[][2] = SONG(COLEMAK_SOUND);
+float music_scale[][2] = SONG(DVORAK_SOUND);
 float tone_goodbye[][2] = SONG(TERMINAL_SOUND);
-float tone_goodbye1[][2] = SONG(IMPERIAL_MARCH);
-float tone_goodbye2[][2] = SONG(MARIO_MUSHROOM);
-float tone_goodbye3[][2] = SONG(ZELDA_TREASURE);
-float tone_goodbye4[][2] = SONG(ZELDA_PUZZLE);
-float tone_goodbye5[][2] = SONG(E1M1_DOOM);
-float tone_goodbye6[][2] = SONG(OVERWATCH_THEME);
-float real_imp_mar[][2]    = {
+float tone_goodbye1[][2] = SONG(WORKMAN_SOUND);
+float tone_goodbye2[][2] = SONG(PLOVER_SOUND);
+float tone_goodbye3[][2] = SONG(VOICE_CHANGE_SOUND);
+float tone_goodbye4[][2] = SONG(MINOR_SOUND);
+float tone_goodbye5[][2] = SONG(UNICODE_WINDOWS);
+float tone_goodbye6[][2] = SONG(PLOVER_GOODBYE_SOUND);
+float real_imp[][2]    = {
   {NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
   {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
   {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
@@ -218,7 +218,7 @@ void matrix_init_user(void) {
 #ifdef AUDIO_ENABLE
 void startup_user()
 {
-    PLAY_SONG(real_imp_mar);
+    PLAY_SONG(real_imp);
 }
 void shutdown_user()
 {
