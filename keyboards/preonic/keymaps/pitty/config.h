@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #undef  TEMPO_DEFAULT
 
