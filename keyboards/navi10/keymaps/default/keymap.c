@@ -24,7 +24,8 @@ typedef struct {
 enum {
     SINGLE_TAP = 1,
     SINGLE_HOLD = 2,
-    DOUBLE_TAP = 3
+    DOUBLE_TAP = 3,
+    TRIPLE_TAP = 4
 };
 
 //tap dance keys
@@ -39,68 +40,53 @@ int cur_dance(qk_tap_dance_state_t *state);
 void tk_finished(qk_tap_dance_state_t *state, void *user_data);
 void tk_reset(qk_tap_dance_state_t *state, void *user_data);
 
-//variable to track current active layer
-int active_layer;
-
 #define INDICATOR_LED   B5
+#define TX_LED          D5
+#define RX_LED          B0
 
-#define _ML0    1
-#define _CL0    2
-#define _ML1    3
-//#define X0 LT( _ML0, KC_NUMLOCK )
-#define X1 TG( _CL0)
+#define _FN0    1
+#define _ML1    2
+#define _CL0    3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
-                 TD(TAPPY_KEY),KC_HOME, KC_PGUP, 
+                 TD(TAPPY_KEY),KC_HOME, KC_PGUP,
                  KC_DEL,    KC_END,     KC_PGDN,
                  
                             KC_UP,
                  KC_LEFT,   KC_DOWN,    KC_RIGHT),
-    [_ML0] = LAYOUT(/* function layer */
-                 KC_TRNS,   KC_PAUS,    KC_VOLU, 
-                 X1,        KC_SLCK,    KC_VOLD,
+    [_FN0] = LAYOUT(/* function layer */
+                 KC_TRNS,   KC_PAUS,    KC_VOLU,
+                 KC_ENTER,  KC_SLCK,    KC_VOLD,
                  
                             KC_TRNS,
                  KC_TRNS,   KC_TRNS,    KC_TRNS),
-    [_CL0] = LAYOUT(/* control layer */
-                 KC_TRNS,   KC_TRNS,    KC_TRNS, 
-                 KC_TRNS,   KC_TRNS,    KC_TRNS,
-                 
-                                LCTL(KC_UP),
-                 LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT) ),
-    [_ML1] = LAYOUT(/* media function layer on tap (uses NUM_LOCK)*/
+    [_ML1] = LAYOUT(/* media function layer on double tap */
                  KC_TRNS,   KC_TRNS,    KC_VOLU, 
                  KC_MUTE,   KC_TRNS,    KC_VOLD,
                  
                             KC_SPC,
                  KC_MRWD,   KC_MPLY,    KC_MFFD),
+    [_CL0] = LAYOUT(/* control layer on single tap */
+                 KC_TRNS,   KC_TRNS,    KC_TRNS,
+                 KC_TRNS,   KC_TRNS,    KC_TRNS,
+
+                                LCTL(KC_UP),
+                 LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT) ),
 };
 
-void matrix_init_user(void) {}
+void matrix_init_user(void) {
+    //init the Pro Micro on-board LEDs
+    setPinOutput(TX_LED);
+    setPinOutput(RX_LED);
+    //set to off
+    writePinHigh(TX_LED);
+    writePinHigh(RX_LED);
+}
 
 void matrix_scan_user(void) {}
 
 void led_set_user(uint8_t usb_led) {}
-
-//update the active layer
-uint32_t layer_state_set_user(uint32_t state){
-    switch(biton32(state)){
-        case 1:
-            active_layer = 1;
-            break;
-        case 2:
-            active_layer = 2;
-            break;
-        case 3:
-            active_layer = 3;
-            break;
-        default:
-            active_layer = 0;
-            break;
-    }
-    return state;
-}
 
 //determine the current tap dance state
 int cur_dance (qk_tap_dance_state_t *state){
@@ -116,7 +102,10 @@ int cur_dance (qk_tap_dance_state_t *state){
     } else if(state->count == 2){
         //if tapped twice, set to double tap
         return DOUBLE_TAP;
-    } else {
+    } else if(state->count == 3){
+        //if tapped thrice, set to triple tap
+        return TRIPLE_TAP;
+    }else {
         return 8;
     }
 }
@@ -133,16 +122,30 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data){
     tk_tap_state.state = cur_dance(state);
     switch(tk_tap_state.state){
         case SINGLE_TAP:
-            //send the code for a single tap
-            tap_code(KC_INS);
+            //toggle desired layer when tapped:
+            if(layer_state_is(_CL0)){
+                //if already active, toggle it to off
+                layer_off(_CL0);
+                //turn off LEDs
+                writePinHigh(TX_LED);
+                writePinHigh(RX_LED);
+            } else {
+                //turn on the command layer
+                layer_on(_CL0);
+                //turn on the LEDs
+                writePinLow(TX_LED);
+                writePinLow(RX_LED);
+            }
             break;
         case SINGLE_HOLD:
             //set to desired layer when held:
             //setting to the function layer
-            layer_on(_ML0);
+            layer_on(_FN0);
             break;
         case DOUBLE_TAP:
-            if(active_layer == _ML1){
+            //set to desired layer when double tapped:
+            //setting to the media layer
+            if(layer_state_is(_ML1)){
                 //if already active, toggle it to off
                 layer_off(_ML1);
                 //turn off the indicator LED
@@ -155,13 +158,22 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data){
                 //set LED pin to LOW to turn it on
                 writePinLow(INDICATOR_LED);
             }
+            break;
+        case TRIPLE_TAP:
+            //reset all layers
+            layer_clear();
+            //set all LEDs off
+            writePinHigh(TX_LED);
+            writePinHigh(RX_LED);
+            writePinHigh(INDICATOR_LED);
+            break;
     }
 }
 
 void tk_reset(qk_tap_dance_state_t *state, void *user_data){
     //if held and released, leave the layer
     if(tk_tap_state.state == SINGLE_HOLD){
-        layer_off(_ML0);
+        layer_off(_FN0);
     }
     //reset the state
     tk_tap_state.state = 0; 
