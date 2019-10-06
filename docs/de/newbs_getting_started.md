@@ -71,7 +71,7 @@ Wenn Du damit fertig bist deine Linux/Unix Umgebung zu installieren kannst Du da
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
-?> Wenn Du bereits weißt [wie man GitHub benutzt](de/getting_started_github.md) empfehlen wir dass Du dir ein eigenen Fork erstellst. Wenn Du nicht weißt was das bedeuten soll kannst kannst Du diesen Ratschlag getrost ignorieren.
+?> Wenn Du bereits weißt [wie man GitHub benutzt](de/getting_started_github.md) empfehlen wir dass Du Dir ein eigenen Fork erstellst. Wenn Du nicht weißt was das bedeuten soll kannst kannst Du diesen Ratschlag getrost ignorieren.
 
 QMK liefert ein Script mit das helfen soll Dir alles Weitere abzunehmen. Du kannst es mit dem folgenden Befehl aufrufen:
 
