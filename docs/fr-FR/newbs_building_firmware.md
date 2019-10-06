@@ -38,7 +38,7 @@ Par exemple, pour un utilisateur s'appeleant John, essayant de créer une nouvel
 
 ## Ouvrez `keymap.c` dans votre éditeur de texte préféré
 
-Ouvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` et `enums` qui rend la keymap plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
+Ouvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` et `enums` qui rendent la keymap plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
