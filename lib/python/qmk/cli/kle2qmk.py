@@ -27,7 +27,7 @@ class CustomJSONEncoder(json.JSONEncoder):
 @cli.argument('filename', nargs='*', help='The KLE raw txt to convert')
 @cli.argument('-f', '--force', action='store_true', help='Flag to overwrite current info.json')
 @cli.subcommand('Convert a KLE layout to a configurator JSON')
-def convert(cli):
+def kle2qmk(cli):
     """Convert a KLE layout to QMK's layout format.
     """
     if cli.args.filename:
