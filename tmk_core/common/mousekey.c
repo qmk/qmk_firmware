@@ -47,7 +47,7 @@ static uint16_t last_timer_c = 0;
 static uint16_t last_timer_w = 0;
 
 /*
- * Mouse keys  acceleration algorithm
+ * Mouse keys acceleration algorithm
  *  http://en.wikipedia.org/wiki/Mouse_keys
  *
  *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
