@@ -1,6 +1,5 @@
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 // Layer names
 enum{
