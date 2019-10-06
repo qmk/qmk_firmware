@@ -8,14 +8,12 @@ If you have closed and reopened your terminal window since following the first p
 
 Start by navigating to the `keymaps` folder for your keyboard.
 
-?> If you are on macOS or Windows there are commands you can use to easily open the keymaps folder.
+If you are on macOS or Windows there are commands you can use to easily open the keymaps folder.
 
-?> macOS:
-
+?> macOS:<br>
     open keyboards/<keyboard_folder>/keymaps
 
-?> Windows:
-
+?> Windows:<br>
     start .\\keyboards\\<keyboard_folder>\\keymaps
 
 ## Create a Copy Of The `default` Keymap
