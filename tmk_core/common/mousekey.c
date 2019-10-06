@@ -43,7 +43,7 @@ static uint16_t       mouse_timer     = 0;
 #ifndef MK_3_SPEED
 
 /*
- * Mouse keys  acceleration algorithm
+ * Mouse keys acceleration algorithm
  *  http://en.wikipedia.org/wiki/Mouse_keys
  *
  *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
