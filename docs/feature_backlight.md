@@ -72,8 +72,6 @@ This functionality is configured at the keyboard level with the `BACKLIGHT_ON_ST
 
 ## AVR driver
 
-TODO: describe "legacy" and refactor in progress
-
 On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. To enable it, add this to your rules.mk:
 ```makefile
 BACKLIGHT_ENABLE = yes
@@ -152,7 +150,7 @@ The breathing effect is the same as in the hardware PWM implementation.
 
 ## ARM Driver
 
-TODO: describe. To enable it, add this to your rules.mk:
+While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. To enable it, add this to your rules.mk:
 ```makefile
 BACKLIGHT_ENABLE = yes
 ```
@@ -176,7 +174,7 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 
 ## Software PWM Driver
 
-TODO: describe. To enable it, add this to your rules.mk:
+Emulation of PWM while running other keyboard tasks, it offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your rules.mk:
 ```makefile
 BACKLIGHT_ENABLE = software
 ```
@@ -185,10 +183,10 @@ BACKLIGHT_ENABLE = software
 
 To change the behavior of the backlighting, `#define` these in your `config.h`:
 
-|Define               |Default      |Description                                                                                                  |
-|---------------------|-------------|-------------------------------------------------------------------------------------------------------------|
-|`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
-|`BACKLIGHT_PINS`     |*Not defined*|experimental: see below for more information                                                                 |
+|Define           |Default      |Description                                                                                                  |
+|-----------------|-------------|-------------------------------------------------------------------------------------------------------------|
+|`BACKLIGHT_PIN`  |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
+|`BACKLIGHT_PINS` |*Not defined*|experimental: see below for more information                                                                 |
 
 ### Multiple backlight pins
 
