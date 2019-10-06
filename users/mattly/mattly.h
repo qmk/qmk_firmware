@@ -26,36 +26,50 @@ enum {
     _FUNCT,
 };
 
+// == Thumbs
 // left hand
 #define ESC_HYP MT(MOD_HYPR, KC_ESC)
-#define BSP_NUM LT(_NAVNUM, KC_BSPC)
-#define ENT_SFT MT(MOD_LSFT, KC_ENT)
+#define TAB_NUM LT(_NAVNUM, KC_TAB)
 #define SPC_SFT MT(MOD_LSFT, KC_SPC)
+#define ENT_SYM LT(_SYMBOL, KC_ENT)
+
 
 // right hand
 #define SPC_SFT MT(MOD_LSFT, KC_SPC)
-#define TAB_SYM LT(_SYMBOL, KC_TAB)
+#define BSP_SYM LT(_SYMBOL, KC_BSPC)
 #define DEL_WRP MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_DEL)
 
 #define NAVLOCK TG(_NAVNUM)
 #define SYMLOCK TG(_SYMBOL)
 
 
-// QWERTY
-
+// == QWERTY
+// left hand home row
 #define A_CTRL  MT(MOD_LCTL, KC_A)
 #define S_ALT   MT(MOD_LALT, KC_S)
 #define D_GUI   MT(MOD_LGUI, KC_D)
 #define F_SHFT  MT(MOD_LSFT, KC_F)
+// left hand aux
+#define W_CTRL MT(MOD_LCTL, KC_W)
+#define E_ALT  MT(MOD_LALT, KC_E)
+#define R_GUI  MT(MOD_LGUI, KC_R)
+
+// right hand home row
 #define J_SHFT  MT(MOD_RSFT, KC_J)
 #define K_GUI   MT(MOD_RGUI, KC_K)
 #define L_ALT   MT(MOD_RALT, KC_L)
 #define MINSCTL MT(MOD_RCTL, KC_MINS)
+// right hand aux
+#define U_GUI   MT(MOD_RGUI, KC_U)
+#define I_ALT   MT(MOD_RALT, KC_I)
+#define O_CTRL  MT(MOD_RCTL, KC_O)
 
+// == OS X default keys
+// movement by word
 #define BWORD   LALT(KC_LEFT)
 #define FWORD   LALT(KC_RIGHT)
 
-// OS X default keys
+// gui navigation
 #define NWIN    LGUI(KC_GRV)        // Next Window
 #define PWIN    LGUI(LSFT(KC_GRV))  // Prev Window
 #define NTAB    LGUI(LSFT(KC_RBRC)) // Next Tab
@@ -70,12 +84,13 @@ enum {
 #define XPRVSPC HYPR(KC_F17)
 #define XNOTIFY HYPR(KC_F18)
 
+// == UNDERGLOW
 #ifdef RGBLIGHT_ENABLE
-#define HSV_CAPS     42, 255, 255
-#define HSV_DEFAULT  30, 218, 255
-#define HSV_SYMBOL   22, 255, 255
-#define HSV_NAVNUM  245, 200, 255
-#define HSV_FUNCT   233, 255, 255
+#define HSV_CAPS     60, 255, 255
+#define HSV_DEFAULT  30, 255, 255
+#define HSV_SYMBOL   18, 255, 255
+#define HSV_NAVNUM  250, 255, 255
+#define HSV_FUNCT   238, 255, 255
 #define HSV_RESET   180, 255, 255
 #endif
 
