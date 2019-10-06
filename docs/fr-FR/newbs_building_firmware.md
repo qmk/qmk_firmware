@@ -62,7 +62,7 @@ Lorsque les changements de votre keymap sont complets, vous allez devoir compile
 
     make <my_keyboard>:<my_keymap>
 
-Par exemple, si votre keymap s'appelle "xyverz" et vous compilez une keymap pour une planche rev5, vous allez utiliser cette commande:
+Par exemple, si votre keymap s'appelle "xyverz" et vous compilez une keymap pour une plank rev5, vous allez utiliser cette commande:
 
     make planck/rev5:xyverz
 

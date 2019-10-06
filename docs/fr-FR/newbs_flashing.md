@@ -236,7 +236,7 @@ Waiting for Teensy device...
  (hint: press the reset button)
  ```
 
-Une fois terminé, réinitialisez votre planche. Une fois fait, vous verrez une sortie comme ça:
+Une fois terminé, réinitialisez votre board. Une fois fait, vous verrez une sortie comme ça:
 
  ```
  Found HalfKay Bootloader
@@ -248,7 +248,7 @@ Booting
 
 ### BootloadHID
 
-Pour les planches basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
+Pour les boards basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
