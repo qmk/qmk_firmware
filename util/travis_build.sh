@@ -25,7 +25,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	else
 		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(lib/python/)' | grep -Ev '^(bin/qmk)' | grep -Ev '^(requirements.txt)' | grep -Ev '^(util/)' | wc -l)
 		BRANCH=$(git rev-parse --abbrev-ref HEAD)
-		# is this branch master or a "non docs, non keyboards" change 
+		# is this branch master or a "non docs, non keyboards" change
 		if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo "Making default keymaps for all keyboards"
 			eval $MAKE_ALL
@@ -57,7 +57,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo
 			echo "Running python tests."
-			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'bin/qmk pytest'
+			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'util/docker_pytest.sh'
 			: $((exit_code = $exit_code + $?))
 		fi
 	fi
