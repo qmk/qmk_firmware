@@ -3,7 +3,7 @@
   * [Die erste Firmware](de/newbs_building_firmware.md)
   * [Firmware flashen](de/newbs_flashing.md)
   * [Testen und Debuggen](de/newbs_testing_debugging.md)
-  * [Git Leitfaden](de/newbs_best_practices.md)
+  * [Git Tips und Tricks](de/newbs_best_practices.md)
   * [Hilfreiche Ressourcen](de/newbs_learn_more_resources.md)
 
 * [QMK Basics](de/README.md)
@@ -12,7 +12,7 @@
   * [QMK CLI Konfiguration](de/cli_configuration.md)
   * [Zu QMK beitragen](de/contributing.md)
   * [Anleitung für Github](de/getting_started_github.md)
-  * [Hilfe kriegen](de/getting_started_getting_help.md)
+  * [Nach Hilfe fragen](de/getting_started_getting_help.md)
 
 * [Breaking Changes](de/breaking_changes.md)
   * [2019 Aug 30](de/ChangeLog/20190830.md)
@@ -29,8 +29,8 @@
   * [Vagrant Guide](de/getting_started_vagrant.md)
   * [Build/Compile Anleitung](de/getting_started_make_guide.md)
   * [Firmware flashen](de/flashing.md)
-  * [Customizing Functionality](de/custom_quantum_functions.md)
-  * [Keymap Overview](de/keymap.md)
+  * [Funktionalität anpassen](de/custom_quantum_functions.md)
+  * [Keymap Überblick](de/keymap.md)
 
 * [Hardware](de/hardware.md)
   * [AVR Prozessoren](de/hardware_avr.md)
@@ -38,7 +38,7 @@
 
 * Referenz
   * [Tastatur Richtlinien](de/hardware_keyboard_guidelines.md)
-  * [Config Options](de/config_options.md)
+  * [Konfigurations Optionen](de/config_options.md)
   * [Keycodes](de/keycodes.md)
   * [Coding Konventionen - C](de/coding_conventions_c.md)
   * [Coding Konventionen - Python](de/coding_conventions_python.md)
@@ -101,7 +101,7 @@
   * [GPIO Controls](de/internals_gpio_control.md)
   * [Proton C Conversion](de/proton_c_conversion.md)
 
-* Für ein tieferes Verständnis
+* Für tieferes Verständnis
   * [Wie Tastaturen funktionieren](de/how_keyboards_work.md)
   * [QMK verstehen](de/understanding_qmk.md)
 
