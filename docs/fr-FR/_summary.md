@@ -11,7 +11,7 @@
 * [Les bases de QMK](fr-FR/README.md)
   * [Indroduction à QMK](fr-FR/getting_started_introduction.md)
   * [QMK CLI](fr-FR/cli.md)
-  * [Configuration de la QMK CLI](fr-FR/cli_configuration.md)
+  * [Configuration de la CLI QMK](fr-FR/cli_configuration.md)
   * [Contribuer à QMK](fr-FR/contributing.md)
   * [Comment utiliser GitHub](fr-FR/getting_started_github.md)
   * [Trouver de l'aide](fr-FR/getting_started_getting_help.md)

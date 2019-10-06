@@ -1,75 +1,75 @@
-# How to Contribute
+# Comment contribuer
 
-👍🎉 First off, thanks for taking the time to read this and contribute! 🎉👍
+👍🎉 Premièrement, merci de prendre le temps de lire ceci et de contribuer! 🎉👍
 
-Third-party contributions help us grow and improve QMK. We want to make the pull request and contribution process useful and easy for both contributors and maintainers. To this end we've put together some guidelines for contributors to help your pull request be accepted without major changes.
+Les contributions de tiers nous aide à améliorer et faire grandir QMK. Nous voulons rendre les pull requests et le processus de contribution utile et simple à la fois pour les contributeurs et les mainteneurs. A cette fin, nous avons mis en places des directives pour les contibuteurs afin que votre pull request puisse être accepté sans changement majeur.
 
-* [Project Overview](#project-overview)
-* [Coding Conventions](#coding-conventions)
-* [General Guidelines](#general-guidelines)
-* [What does the Code of Conduct mean for me?](#what-does-the-code-of-conduct-mean-for-me)
+* [Aperçu du projet](#project-overview)
+* [Conventions de codage](#coding-conventions)
+* [Directives générales](#general-guidelines)
+* [Que veut dire le code de conduite pour moi?](#what-does-the-code-of-conduct-mean-for-me)
 
-## I Don't Want to Read This Whole Thing! I Just Have a Question!
+## Je ne veux pas lire tous ce pavé! J'ai juste une question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
+Si vous voulez poser une question sur QMK, vous pouvez le faire sur le [sous-reddit OLKB](https://reddit.com/r/olkb) ou sur [Discord](https://discord.gg/Uq7gcHh).
 
-Please keep these things in mind:
+Merci de garder ceci en tête:
 
-* It may take several hours for someone to respond to your question. Please be patient!
-* Everyone involved with QMK is donating their time and energy. We don't get paid to work on or answer questions about QMK.
-* Try to ask your question so it's as easy to answer as possible. If you're not sure how to do that these are some good guides:
+* Cela peut prendre plusieurs heures pour que quelqu'un réponde à votre question. Merci d'être patient!
+* Tous ceux impliqués avec QMK fait don de son temps et de son énergie. Nous ne sommes pas payés pour travailler sur ou répondre aux questions concernant QMK.
+* Essayez de poser vos questions de manière à ce qu'elles soient le plus simple à répondre possible. Si vous n'êtes pas sûrs de savoir comment faire, voici quelques bon guides (en anglais):
   * https://opensource.com/life/16/10/how-ask-technical-questions
   * http://www.catb.org/esr/faqs/smart-questions.html
 
-# Project Overview
+# Aperçu du projet
 
-QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](http://www.chibios.com)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
+QMK est majoritairement écrit en C, avec quelques fonctions et parties spécifiques écrites en C++. Il est destiné aux processeurs intégrés que l'on trouve dans des clavier, particulièrement AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) et ARM ([ChibiOS](http://www.chibios.com)). Si vous maîtrisez déjà la programmation sur Arduino, vous trouverez beaucoup de concepts et de limitations familiers. Une expérience préalable avec les Arduino n'est pas nécessaire à contribuer avec succès à QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
-# Where Can I Go for Help?
+# Où trouver de l'aide?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
+Si vous avez besoin d'aide, vous pouvez [ouvrir une issue](https://github.com/qmk/qmk_firmware/issues) ou [un chat sur Discord](https://discord.gg/Uq7gcHh).
 
-# How Do I Make a Contribution?
+# Comment contribuer?
 
-Never made an open source contribution before? Wondering how contributions work in QMK? Here's a quick rundown!
+Vous n'avez encore jamais contribué à un projet open source? Vous vous demandez comment les contributions dans QMK fonctionnent? Voici un aperçu rapide!
 
-0. Sign up for a [GitHub](https://github.com) account.
-1. Put together a keymap to contribute, [find an issue](https://github.com/qmk/qmk_firmware/issues) you are interested in addressing, or [a feature](https://github.com/qmk/qmk_firmware/issues?q=is%3Aopen+is%3Aissue+label%3Afeature) you would like to add.
-2. Fork the repository associated with the issue to your GitHub account. This means that you will have a copy of the repository under `your-GitHub-username/qmk_firmware`.
-3. Clone the repository to your local machine using `git clone https://github.com/github-username/repository-name.git`.
-4. If you're working on a new feature consider opening an issue to talk with us about the work you're about to undertake.
-5. Create a new branch for your fix using `git checkout -b branch-name-here`.
-6. Make the appropriate changes for the issue you are trying to address or the feature that you want to add.
-7. Use `git add insert-paths-of-changed-files-here` to add the file contents of the changed files to the "snapshot" git uses to manage the state of the project, also known as the index.
-8. Use `git commit -m "Insert a short message of the changes made here"` to store the contents of the index with a descriptive message.
-9. Push the changes to your repository on GitHub using `git push origin branch-name-here`.
-10. Submit a pull request to [QMK Firmware](https://github.com/qmk/qmk_firmware/pull/new/master).
-11. Title the pull request with a short description of the changes made and the issue or bug number associated with your change. For example, you can title an issue like so "Added more log outputting to resolve #4352".
-12. In the description of the pull request explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer. It's OK if your pull request is not perfect (no pull request is), the reviewer will be able to help you fix any problems and improve it!
-13. Wait for the pull request to be reviewed by a maintainer.
-14. Make changes to the pull request if the reviewing maintainer recommends them.
-15. Celebrate your success after your pull request is merged!
+0. Enregistrez-vous sur [GitHub](https://github.com).
+1. Définissez une keymap à contribuer, [trouvez une issue](https://github.com/qmk/qmk_firmware/issues) que vous souhaitez corriger, ou [une fonction](https://github.com/qmk/qmk_firmware/issues?q=is%3Aopen+is%3Aissue+label%3Afeature) que vous voulez ajouter.
+2. Créez un fork sur le dépôt associé avec une issue sur votre compte GitHub. Cela veut dire que vous allez avoir une copie du dépôt sous `your-GitHub-username/qmk_firmware`.
+3. Clonez le dépôt sur votre macine locale en utilisant `git clone https://github.com/github-username/repository-name.git`.
+4. Si vous travaillez sur une nouvelle fonctionnalité, pensez à ouvrir une issue pour parler avec nous du travail que vous souhaitez démarrer.
+5. Créez une nouvelle branche pour votre correctif en utilisant `git checkout -b branch-name-here`.
+6. Faites les changements nécessaires pour corriger le problème ou ajouter la fonctionnalité.
+7. Utilisez `git add insert-paths-of-changed-files-here` pour ajouter les contenus des fichiers modifiés au "snapshot" que git utilise pour gérer l'état du projet, appelé aussi l'index.
+8. Utilisez `git commit -m "Insert a short message of the changes made here"` pour enregistrer le contenu de l'index avec un message descriptif.
+9. Poussez les changements vers votre dépôt sur GitHub en utilisant `git push origin branch-name-here`.
+10. Créez un pull request sur [QMK Firmware](https://github.com/qmk/qmk_firmware/pull/new/master).
+11. Donnez un titre à votre pull request en utilisant une description courte des changements que vous avez fait et ajoutez le numéro de l'issue ou du bug associé avec votre changement. Les commentaires de PR devraient se faire en anglais de préférence. Par exemple, vous pouvez utiliser un titre tel que celui-là: "Added more log outputting to resolve #4352".
+12. Dans la description du pull request, expliqez les changements que vous avez fait et tous les problèmes qui existent, selon vous, sur le pull request que vous avez fait. Vous pouvez aussi utiliser la description pour poser des questions au mainteneur. Il n'est pas nécessaire que votre pull request soit parfait (aucun pull request ne l'est), le reviewer sera là pour vous aider à résoudre les problèmes et l'améliorer!
+13. Attendez que le pull request soit revu par un mainteneur.
+14. Faites des changements au pull request si le mainteneur le recommande.
+15. Célébrez votre succès une fois votre pull request fusionné!
 
-# Coding Conventions
+# Conventions de codage
 
-Most of our style is pretty easy to pick up on. If you are familiar with either C or Python you should not have too much trouble with our local styles.
+La grande majorité de notre style est plutôt simple à comprendre. Si vous connaissez C ou Python, vous ne devriez pas avoir trop de difficulté avec notre style.
 
-* [Coding Conventions - C](coding_conventions_c.md)
-* [Coding Conventions - Python](coding_conventions_python.md)
+* [Conventions de codage - C](coding_conventions_c.md)
+* [Conventions de codage - Python](coding_conventions_python.md)
 
-# General Guidelines
+# Directives générales
 
-We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
+Nous avons un certain nombre de type de changements dans QMK, chacun nécessitant un niveau de rigueur différent. Nous voulons que vous gardiez les directives suivantes en tête quel que soit le changement que vous êtes en train de faire.
 
-* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
-* Check for unnecessary whitespace with `git diff --check` before committing.
-* Make sure your code change actually compiles.
-  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
-  * Keyboards: Make sure that `make keyboard:all` does not return any errors
-  * Core: Make sure that `make all` does not return any errors.
-* Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
+* Séparez les PR dans des unités logiques. Par exemple, ne soumettez pas un PR qui couvre deux fonctionnalités spéarées, soumettez plutôt un PR pour chaque fonctionnalité.
+* Vérifiez les espaces blancs non nécessaires avec `git diff --check` avant de commit.
+* Assurez-vous que votre code compile.
+  * Keymaps: Assurez-vous que `make keyboard:your_new_keymap` ne renvoie pas d'erreur.
+  * Claviers: Assurez-vous que `make keyboard:all` ne renvoie pas d'erreur.
+  * Core: Assurez-vous que `make all` ne renvoie pas d'erreur.
+* Assurez-vous que le messages de commit sont compréhensible d'eux-même. Vous devriez écrire une description simple (pas plus de 70 caractères) sur la première ligne, suivi d'une ligne vide, suivi d'un détail de votre commit, si nécessaire. Exemple:
 
 ```
 Adjust the fronzlebop for the kerpleplork
@@ -81,11 +81,11 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 
 ## Documentation
 
-Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please [reach out for help](#where-can-i-go-for-help)!
+La documentation est l'une des manière les plus simples de démarrer la contribution sur QMK. Il est simple de trouver des endroits où la documentation est fausse ou incomplète, et il est tout aussi simple de les corriger! Nous avons aussi grandement besoin de quelqu'un pour éditer notre documentation, donc si vous avez des compétences en édition mais que vous n'êtes pas sûr de savoir où aller, n'hésitez pas [demandez de l'aide](#where-can-i-go-for-help)!
 
-You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
+Vous trouverez toute notre documentation dans le répertoire `qmk_firmware/docs`, ou si vous préférez utiliser des outils web, vous pouvez cliquer sur le bouton "Suggest An Edit" en haut de chaque page sur http://docs.qmk.fm/.
 
-When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+Lorsque vous donnez des exemples de code dans votre documentation, essayez de suivre les conventions de nommage utilisées ailleurs dnas la documentation. Par exemple, standardisez les enums en utilisant `my_layers` ou `my_keycodes` afin de garder une consistance:
 
 ```c
 enum my_layers {

@@ -1,4 +1,4 @@
-# QMK CLI
+# La CLI de QMK
 
 Cette page décrit comment configurer et utiliser la CLI QMK.
 
@@ -12,7 +12,7 @@ La CLI de QMK permet de simplifier la compilation et le travaille avec les clavi
 
 # Pré-requis
 
-La CLI nécessite Python 3.5 ou plus récent. Nous essayons de garder le nombre de pré-requis petits, mais vous allez aussi devoir installer les paquets listés dans le fichier [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
+La CLI nécessite Python 3.5 ou plus récent. Nous essayons de garder le nombre de pré-requis petit, mais vous allez aussi devoir installer les paquets listés dans le fichier [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
 
 # CLI globale
 
@@ -31,7 +31,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 
 ## Installer en utilisant easy_install ou pip
 
-Si votre système n'est pas listé au dessus, vous pouvez installer QMK manuellement. Premièrement, vérifier que vous ayez bien installé Python 3.5 (ou plus récent) et pip. Ensuite, installez QMK avec cette commande:
+Si votre système n'est pas listé ci-dessus, vous pouvez installer QMK manuellement. Premièrement, vérifiez que vous avez bien installé Python 3.5 (ou plus récent) et pip. Ensuite, installez QMK avec cette commande:
 
 ```
 pip3 install qmk
@@ -64,14 +64,14 @@ $ ~/qmk_firmware/bin/qmk hello
 Il y a quelques limitations à la CLI locale comparé à la globale:
 
 * La CLI locale ne supporte pas `qmk setup` ou `qmk clone`
-* La CLI locale n'opère pas sur le même arbre `qmk_firmware`, même si vous avez plusieurs repositoires clonés.
+* La CLI locale n'opère pas sur le même arbre `qmk_firmware`, même si vous avez plusieurs dépôts clonés.
 * La CLI locale ne s'exécute pas dans un virtualenv, donc il y a des risques que des dépendances seront en conflit
 
 # Les commandes CLI
 
 ## `qmk compile`
 
-Cette commande permet de compiler le firmware de n'importe quel répertoire. Vous pouvez compiler des exports JSON de <https://config.qmk.fm> ou compiler des keymaps du repo.
+Cette commande permet de compiler le firmware de n'importe quel répertoire. Vous pouvez compiler des exports JSON de <https://config.qmk.fm> ou compiler des keymaps du dépôt.
 
 **Utilisation pour les exports de configuration**:
 
