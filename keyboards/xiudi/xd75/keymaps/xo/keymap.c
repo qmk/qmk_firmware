@@ -17,6 +17,8 @@
 // you installed.
 #define BASE_COLOR 166, 255, 255
 
+#define DIM_COLOR 22, 200, 150
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_MINS, KC_GRV, KC_EQL, KC_6, KC_7, KC_8, KC_9, KC_0, KC_RBRC,
@@ -38,11 +40,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_RMOD, RGB_MOD, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_VAD, RGB_VAI, RGB_TOG)
 };
 
+void restore_default_rgb(void) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
+    rgblight_sethsv_noeeprom(BASE_COLOR);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    backlight_level(4);
-  } else {
     backlight_level(6);
+  } else {
+    backlight_level(4);
   }
 
   if (IS_MOD(keycode)) {
@@ -50,8 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       rgblight_sethsv_noeeprom(HSV_RED);
     } else {
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
-      rgblight_sethsv_noeeprom(BASE_COLOR);
+      restore_default_rgb();
     }
     rgblight_enable();
   }
@@ -62,8 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case 0:
-      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
-      rgblight_sethsv_noeeprom(BASE_COLOR);
+      restore_default_rgb();;
       break;
     case 1:
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -76,4 +81,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   rgblight_enable();
   return state;
+}
+
+void suspend_power_down_user(void) {
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  rgblight_sethsv_noeeprom(DIM_COLOR);
+}
+
+void suspend_wakeup_init_user(void) {
+  restore_default_rgb();
 }
