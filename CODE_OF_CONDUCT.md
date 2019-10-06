@@ -1,24 +1,21 @@
-# Code Of Conduct
+आचार संहिता
+QMK एक समावेशी, सहिष्णु और स्वागत करने वाला समुदाय बनने का प्रयास करता है। हम उम्र, विकलांगता, जातीयता, लिंग पहचान और अभिव्यक्ति, अनुभव के स्तर, राष्ट्रीयता, व्यक्तिगत उपस्थिति, राजनीतिक विश्वास, जाति, धर्म या यौन पहचान और अभिविन्यास की परवाह किए बिना किसी से भी भागीदारी को प्रोत्साहित करते हैं।
 
-QMK strives to be an inclusive, tolerant, and welcoming community. We encourage participation from anyone regardless of age, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, political belief, race, religion, or sexual identity and orientation.
+"एक कोमल शब्द क्रोध को दूर कर देता है, लेकिन कठोर शब्द क्रोध को बढ़ाता है।"
 
-> “A gentle word turns away wrath, but a harsh word stirs up anger."
+हमारे उपयोगकर्ताओं, योगदानकर्ताओं, और सहयोगियों से अपेक्षा की जाती है कि वे एक-दूसरे के साथ दया और सम्मान के साथ व्यवहार करें, अच्छे इरादों को मानें, और धीरे-धीरे सही करें, जहां संभव हो, बल्कि वृद्धि के साथ प्रतिक्रिया करें। जबकि हमारा लक्ष्य यथासंभव सटीक होना है, दया और समझ शुद्धता से अधिक मूल्यवान है। व्यवहार के कुछ उदाहरण जिन्हें हम बर्दाश्त नहीं करेंगे, उनमें शामिल हैं:
 
-Our users, contributors, and collaborators are expected to treat each other with kindness and respect, to assume good intentions, and to gently correct, where possible, rather than react with escalation. While our goal is to be as accurate as possible, kindness and understanding are more valuable than correctness. Some examples of behavior we will not tolerate include, but is not limited to:
+लैंगिक भाषा या कल्पना का उपयोग
+अवांछित अग्रिम, यौन या अन्यथा
+डराया धमकाया, पीछा करना या पीछा करना
+अपमानजनक या अपमानजनक टिप्पणी, या व्यक्तिगत या राजनीतिक हमले
+स्पष्ट अनुमति के बिना दूसरों की निजी जानकारी प्रकाशित करना
+वार्ता या अन्य घटनाओं का निरंतर व्यवधान
+अन्य आचरण जो एक पेशेवर सेटिंग में उचित रूप से अनुचित माना जा सकता है
+उपरोक्त व्यवहार में से किसी के लिए वकालत करना, या प्रोत्साहित करना
+रिपोर्ट कर रहा है
+यदि कोई इस आचार संहिता का उल्लंघन कर रहा है, तो कृपया hello@qmk.fm पर ईमेल करें या इसे हमारे ध्यान में लाने के लिए किसी एक सहयोगी के पास पहुँचें। सभी शिकायतों की समीक्षा और जांच की जाएगी।
 
-* The use of sexualized language or imagery
-* Unwelcome advances, sexual or otherwise
-* Deliberate intimidation, stalking, or following
-* Insults or derogatory comments, or personal or political attacks
-* Publishing others’ private information without explicit permission
-* Sustained disruption of talks or other events
-* Other conduct which could reasonably be considered inappropriate in a professional setting
-* Advocating for, or encouraging, any of the above behaviour
+QMK किसी समस्या को हल करने के लिए कम से कम दंडात्मक साधनों का उपयोग करना चाहता है। अगर किसी अपराधी को छोड़ने के लिए परिस्थितियों की आवश्यकता होती है, तो हम ऐसा करेंगे।
 
-# Reporting
-
-If someone is violating this Code of Conduct, please email hello@qmk.fm or reach out to one of the Collaborators to bring it to our attention. All complaints will be reviewed and investigated.
-
-QMK will seek to use the least punitive means available to resolve an issue. If the circumstances require asking an offender to leave, we will do that.
-
-Reports will be taken and kept in strict confidence. You will not be required to confront an offender directly.
+रिपोर्ट ली जाएगी और उसे सख्त बनाए रखा जाएगा। आपको सीधे अपराधी का सामना करने की आवश्यकता नहीं होगी।
