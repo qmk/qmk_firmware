@@ -3,16 +3,18 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-import json
 import os
 import sys
 import subprocess
 from argparse import FileType
 
 from milc import cli
+from qmk.commands import create_make_command
+from qmk.commands import parse_configurator_json
+from qmk.commands import compile_configurator_json
 
-import qmk.keymap
 import qmk.path
+
 
 def print_bootloader_help():
     """Prints the available bootloaders listed in docs.qmk.fm.
@@ -52,24 +54,22 @@ def flash(cli):
     A bootloader is always required
 
     """
+    command = []
     if cli.args.filename:
-        # Parse the configurator json
-        file = open(cli.args.filename)
-        user_keymap = json.load(file)
-        file.close()
-
-        # Generate the keymap
+        # Get keymap path to log info
+        user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-        cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
-        qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
-        cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
-        # Compile the keymap
-        command = ['make', ':'.join((user_keymap['keyboard'], user_keymap['keymap'], cli.args.bootloader))]
+        cli.log.info('Creating {fg_cyan}%s{style_reset_all} keymap in {fg_cyan}%s', user_keymap['keymap'], keymap_path)
+
+        # Convert the JSON into a C file and write it to disk.
+        command = compile_configurator_json(cli.args.filename, cli.args.bootloader)
+
+        cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
     elif cli.args.keyboard and cli.args.keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = ['make', ':'.join((cli.args.keyboard, cli.args.keymap, cli.args.bootloader))]
+        command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
 
     else:
         print_bootloader_help()
