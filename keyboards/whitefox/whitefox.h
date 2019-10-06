@@ -110,9 +110,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |---------------------------------------------------------------|
  * |CapsL |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Enter   |PgU|
  * |---------------------------------------------------------------|
- * |Shif|   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Up |PgD|
+ * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Up |PgD|
  * |---------------------------------------------------------------|
- * |Ctrl|Gui |Alt |         Space    |App |Alt |Gui |  |Lef|Dow|Rig|
+ * |Ctrl|GUI |Alt |         Space          |Alt |Ctrl| |Lef|Dow|Rig|
  * `---------------------------------------------------------------'
  */
 
