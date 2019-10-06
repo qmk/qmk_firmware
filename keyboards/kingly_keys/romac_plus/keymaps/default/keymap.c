@@ -46,7 +46,7 @@ void oled_task_user(void) {
   oled_write_P(PSTR("Let's\nbuild\nsome-\nthing\nto-\nget-\nher!"), false);
   switch (get_highest_layer(layer_state)) {
     case BASE:
-      oled_write_P(PSTR("\n"), false);
+      oled_write_ln_P(PSTR(""), false);
       break;
     case FN:
       oled_write_P(PSTR("FN\n"), false);
