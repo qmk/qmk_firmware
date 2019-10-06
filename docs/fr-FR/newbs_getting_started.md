@@ -22,7 +22,7 @@ Vous pouvez aussi télécharger et installer un éditeur de texte dédié comme 
 
 ### QMK Toolbox
 
-QMK Toolbox est un programme graphique optionnel pour Windows et macOS qui permet à la fois de programmer et débugger votre clavier customisé. Il vous sera probablement très utile pour facilement téléverser votre clavier et analyser ses messages de débuggage.
+QMK Toolbox est un programme graphique optionnel pour Windows et macOS qui permet à la fois de programmer et débugger votre clavier customisé. Il vous sera probablement très utile pour facilement flasher votre clavier et analyser ses messages de débugage.
 
 [Télécharger la dernière version ici.](https://github.com/qmk/qmk_toolbox/releases/latest)
 

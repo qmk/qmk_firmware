@@ -1,12 +1,12 @@
-# Téléverser votre clavier
+# Flasher votre clavier
 
-Maintenant que vous avez compilé un firmware custom, vous allez vouloir le téléverser dans votre clavier.
+Maintenant que vous avez compilé un firmware custom, vous allez vouloir le flasher dans votre clavier.
 
-## Téléverser votre clavier avec QMK Toolbox
+## Flasher votre clavier avec QMK Toolbox
 
-La manière la plus simple de téléverser votre clavier est avec [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases).
+La manière la plus simple de flasher votre clavier est avec [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases).
 
-Toutefois, la QMK Toolbox n'est actuellement disponible que pour Windows et macOS. Si vous utilisez Linux (ou préférez téléverser le firmware depuis la ligne de commande), vous devrez utiliser [la métode décrite ci-dessous](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+Toutefois, la QMK Toolbox n'est actuellement disponible que pour Windows et macOS. Si vous utilisez Linux (ou préférez flasher le firmware depuis la ligne de commande), vous devrez utiliser [la métode décrite ci-dessous](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
 
 ### Charger le fichier dans QMK Toolbox
 
@@ -34,7 +34,7 @@ Une fois que vous aurez trouvé votre fichier de firmware, glissez le dans la bo
 
 ### Mettez votre clavier en mode DFU (Bootloader)
 
-Afin de téléverer votre firmware custom, vous devez mettre votre clavier dans un mode spécial de téléversement. S'il n'est pas dans ce mode, vous ne pourrez pas taper ou utiliser votre clavier. Il est très important que vous ne débranchiez pas votre clavier ou n'arrêtiez pas le processus de téléversage lors de l'écriture du firmware.
+Afin de flasher votre firmware custom, vous devez mettre votre clavier dans un mode spécial. Lorsqu'il sera dans ce mode, vous ne pourrez pas taper ou utiliser votre clavier. Il est très important que vous ne débranchiez pas votre clavier ou n'arrêtiez pas le processus d'écriture du firmware.
 
 Chaque clavier a une manière différente d'entrer dans ce mode spécial. Si votre clavier tourne actuellement QMK ou TMK et vous n'avez pas reçu d'instruction spécifiques, essayez, dans cet ordre:
 
@@ -51,7 +51,7 @@ Lorsque vous aurez réussi, vous verrez le message suivant dans QMK Toolbox:
 *** DFU device connected
 ```
 
-### Téléversez votre clavier
+### Flasher votre clavier
 
 Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat similaire à ce qui suit:
 
@@ -76,21 +76,21 @@ Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat simila
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## Téléversez votre clavier de la ligne de commande
+## Flashez votre clavier à l'aide de la ligne de commande
 
-La première chose que vous devez savoir c'est quel bootloader utilise votre clavier. Il y a quatre bootloaders principaux utilisés. Pro-Micro et les clones, utilisent CATERINA, les Teensy utilisent Halfkay, les OLKB utilisent QMK-DFU et les autres chips atmega32u4 utilisent DFU.
+La première chose que vous devez savoir c'est quel bootloader utilise votre clavier. Il y a quatre bootloaders principaux. Pro-Micro et les clones, utilisent CATERINA, les Teensy utilisent Halfkay, les OLKB utilisent QMK-DFU et les autres chips atmega32u4 utilisent DFU.
 
-Vous pouvez trouver plus d'information à propos des bootloaders sur la page [Instructions de téléversage et information sur le Bootloader](flashing.md).
+Vous pouvez trouver plus d'information à propos des bootloaders sur la page [Instructions de flash et information sur le Bootloader](flashing.md).
 
-Si vous savez quel bootloader vous utilisez, lorsque vous compilez le firmware, vous pouvez ajouter quelques options à la commande `make` pour automatiser le processus de téléversage.
+Si vous savez quel bootloader vous utilisez, lorsque vous compilez le firmware, vous pouvez ajouter quelques options à la commande `make` pour automatiser le processus de flash.
 
 ### DFU
 
-Pour le bootloader DFU, lorsque vous êtes prêts à compiler et téléverser votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation:
+Pour le bootloader DFU, lorsque vous êtes prêts à compiler et flasher votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:dfu
 
-Par exemple, si vous keymap s'appelle "xyverz" et vous compilez une keymap pour une planche rev5, vous utiliserez cette commande:
+Par exemple, si vous keymap s'appelle "xyverz" et vous compilez une keymap pour une plank rev5, vous utiliserez cette commande:
 
     make planck/rev5:xyverz:dfu
 
@@ -131,16 +131,16 @@ Une fois terminé, vous devrez mettre à zéro le contrôleur. Vous allez voir u
 
 #### Commandes DFU
 
-Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour téléverser un firmware sur un device DFU:
+Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour flasher un firmware sur un device DFU:
 
-* `:dfu` - C'est l'option standard qui attends jusqu'à e qu'un appareil DFU soit disponible, puis téléverse le firmware. Il va vérifier toutes les 5 secondes, afin de voir si un appareil DFU est apparu.
-* `:dfu-ee` - Ceci téléverse un fichier `eep` à la place du standard hex, peu commun.
-* `:dfu-split-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
-* `:dfu-split-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
+* `:dfu` - C'est l'option standard qui attends jusqu'à e qu'un appareil DFU soit disponible, puis flash le firmware. Il va vérifier toutes les 5 secondes, afin de voir si un appareil DFU est apparu.
+* `:dfu-ee` - Ceci flash un fichier `eep` à la place du standard hex, peu commun.
+* `:dfu-split-left` - Ceci flash le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle flash aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
+* `:dfu-split-right` - Ceci flash le firmware standard, comme la commande standard (`:dfu`). Toutefois, elle flash aussi les fichiers EEPROM du "côté droit" pour les claviers scindés. _C'est l'option idéale pour les claviers scindés basés sur Elite C._
 
 ### Caterina
 
-Pour les planches Arduino et leurs clones (tel que le SparkFun ProMicro), lorsque vous êtes prêt à compiler et téléverser votre firmware, ouvrez votre terminal et lancer la commande de compilation:
+Pour les boards Arduino et leurs clones (tel que le SparkFun ProMicro), lorsque vous êtes prêt à compiler et flasher votre firmware, ouvrez votre terminal et lancer la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:avrdude
 
@@ -158,7 +158,7 @@ Checking file size of lets_split_rev2_xyverz.hex                                
 Detecting USB port, reset your controller now..............
 ```
 
-Une fois ceci fait, réinitialisez votre board et le script va détecter et téléverser le firmware. La sortie devrait ressember à quelque chose comme ça:
+Une fois ceci fait, réinitialisez votre board et le script va détecter et flasher le firmware. La sortie devrait ressember à quelque chose comme ça:
 
 ```
 Detected controller on USB port at /dev/ttyS15
@@ -207,15 +207,15 @@ Si vous avez un soucis, essayez de faire ceci:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
-En addition, si vous voulez téléverser plusieurs planches, utilisez la commande suivante:
+En addition, si vous voulez flasher plusieurs boards, utilisez la commande suivante:
 
     make <keyboard>:<keymap>:avrdude-loop
 
-Une fois que vous avez terminé téléverser des planches, vous devrez appuyer sur Ctrl + C, ou les touches sur votre système d'exploitation pour arrêter la boucle.
+Une fois que vous avez terminé de flasher des boards, vous devrez appuyer sur Ctrl + C, ou les touches correspondantes pour votre système d'exploitation pour arrêter la boucle.
 
 ### HalfKay
 
-Pour les composants PJRC (les Teensy), lorsque vous êtes prêts à compiler et téléverser votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation suivante:
+Pour les composants PJRC (les Teensy), lorsque vous êtes prêts à compiler et flasher votre firmware, ouvrez votre fenêtre de terminal et lancez la commande de compilation suivante:
 
     make <my_keyboard>:<my_keymap>:teensy
 
@@ -248,7 +248,7 @@ Booting
 
 ### BootloadHID
 
-Pour les planches basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et téléverser le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
+Pour les planches basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
@@ -284,7 +284,7 @@ Uploading 22016 (0x5600) bytes starting at 0 (0x0)
 
 ### STM32 (ARM)
 
-Pour la majorité des planches ARM (incluant les Proton C, Planck Rev 6, et Preonic Rev 3), lorsque vous êtes prêt à compiler et téléverser votre firmware,ouvrez la fenêtre de terminal et lancez la commande de compilation:
+Pour la majorité des boards ARM (incluant les Proton C, Planck Rev 6, et Preonic Rev 3), lorsque vous êtes prêt à compiler et flasher votre firmware,ouvrez la fenêtre de terminal et lancez la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:dfu-util
 
@@ -334,12 +334,12 @@ Transitioning to dfuMANIFEST state
 
 #### Commandes STM32
 
-Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour téléverser un firmware sur un device STM32:
+Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour flasher un firmware sur un device STM32:
 
-* `:dfu-util` - C'est l'option standard pour téléverer un appareil STM32.
-* `:dfu-util-wait` - Ceci fonctionne comme la commande standard, mais permet de d'avoir une pause (configurable( de 10 secondes avant de téléverser le fimrware. Vous pouvez utiliser `TIME_DELAY=20` à la ligne de commande pour changer le délai.
-* `:dfu-util-left` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés.
-* `:dfu-util-right` - Ceci téléverse le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle téléverse aussi les fichiers EEPROM du "côté droit" pour les claviers scindés.
+* `:dfu-util` - C'est l'option standard pour flasher un appareil STM32.
+* `:dfu-util-wait` - Ceci fonctionne comme la commande standard, mais permet de d'avoir une pause (configurable( de 10 secondes avant de flasher le fimrware. Vous pouvez utiliser `TIME_DELAY=20` à la ligne de commande pour changer le délai.
+* `:dfu-util-left` - Ceci flasher le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle flasher aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés.
+* `:dfu-util-right` - Ceci flash le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle flash aussi les fichiers EEPROM du "côté droit" pour les claviers scindés.
 
 ## Faites l'essai!
 

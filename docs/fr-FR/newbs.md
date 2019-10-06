@@ -11,7 +11,7 @@ Il y a 7 sections principales dans ce guide:
 * [Pour débuter](fr-FR/newbs_getting_started.md)
 * [Compiler votre premier firmware en utilisant la ligne de commande](fr-FR/newbs_building_firmware.md)
 * [Compiler votre premier firmware en utilisant l'interface graphique en ligne](fr-FR/newbs_building_firmware_configurator.md)
-* [Téléverser le Firmware](fr-FR/newbs_flashing.md)
+* [Flasher le Firmware](fr-FR/newbs_flashing.md)
 * [Test et Débuggage](fr-FR/newbs_testing_debugging.md)
 * [Bonnes pratiques Git](fr-FR/newbs_best_practices.md)
 * [Ressources d'apprentissage](fr-FR/newbs_learn_more_resources.md)
