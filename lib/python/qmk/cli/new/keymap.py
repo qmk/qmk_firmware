@@ -12,14 +12,14 @@ from milc import cli
 def new_keymap(cli):
     """Creates a new keymap for the keyboard of your choosing.
     """
-    # ask for user input if keyboard or username was not provided in the command line
+    # ask for user input if keyboard or keymap was not provided in the command line
     keyboard = cli.config.new_keymap.keyboard if cli.config.new_keymap.keyboard else input("Keyboard Name: ")
     keymap = cli.config.new_keymap.keymap if cli.config.new_keymap.keymap else input("Keymap Name: ")
 
     # generate keymap paths
     kb_path = os.path.join(os.getcwd(), "keyboards", keyboard)
     keymap_path_default = os.path.join(kb_path, "keymaps/default")
-    keymap_path = os.path.join(kb_path, "keymaps/%s" % username)
+    keymap_path = os.path.join(kb_path, "keymaps/%s" % keymap)
 
     # check directories
     if not os.path.exists(kb_path):
@@ -36,5 +36,5 @@ def new_keymap(cli):
     shutil.copytree(keymap_path_default, keymap_path, symlinks=True)
 
     # end message to user
-    cli.log.info("%s keymap directory created in: %s", username, keymap_path)
-    cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km %s", keyboard, username)
+    cli.log.info("%s keymap directory created in: %s", keymap, keymap_path)
+    cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km %s", keyboard, keymap)
