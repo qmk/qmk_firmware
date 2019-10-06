@@ -49,7 +49,7 @@ void oled_task_user(void) {
       oled_write_ln_P(PSTR(""), false);
       break;
     case FN:
-      oled_write_P(PSTR("FN\n"), false);
+      oled_write_ln_P(PSTR("FN"), false);
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
