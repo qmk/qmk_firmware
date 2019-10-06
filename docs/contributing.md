@@ -1,5 +1,5 @@
 # How to Contribute
-
+http://sattamatkarn.com/
 👍🎉 First off, thanks for taking the time to read this and contribute! 🎉👍
 
 Third-party contributions help us grow and improve QMK. We want to make the pull request and contribution process useful and easy for both contributors and maintainers. To this end we've put together some guidelines for contributors to help your pull request be accepted without major changes.
