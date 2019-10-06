@@ -11,12 +11,7 @@ enum userspace_custom_keycodes {
     VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
     KC_QWERTY,                      // Sets default layer to QWERTY
     KC_COLEMAK,                     // Sets default layer to COLEMAK
-    KC_DVORAK,                      // Sets default layer to DVORAK
-    KC_WORKMAN,                     // Sets default layer to WORKMAN
-    KC_DIABLO_CLEAR,                // Clears all Diablo Timers
     KC_MAKE,        // Run keyboard's customized make command
-    KC_RGB_T,       // Toggles RGB Layer Indication mode
-    RGB_IDL,        // RGB Idling animations
     KC_SECRET_1,    // test1
     KC_SECRET_2,    // test2
     KC_SECRET_3,    // test3
@@ -50,8 +45,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
-#define COLEMAK KC_COLEMAK
-#define WORKMAN KC_WORKMAN
 
 #define KC_RESET RESET
 #define KC_RST KC_RESET
