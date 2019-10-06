@@ -37,6 +37,7 @@ macOS:
     brew install python3
     pip3 install pyusb
     brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
+    ```
 
 4. Place your keyboard into reset. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 

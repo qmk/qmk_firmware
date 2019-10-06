@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    error "Maximum value of BACKLIGHT_LEVELS is 31"
 #endif
 
+#ifndef BREATHING_PERIOD
+#    define BREATHING_PERIOD 6
+#endif
+
 typedef union {
     uint8_t raw;
     struct {
