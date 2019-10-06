@@ -4,12 +4,12 @@ We list each subcommand here explicitly because all the reliable ways of searchi
 """
 from . import cformat
 from . import compile
-from . import convert
 from . import config
 from . import doctor
 from . import hello
 from . import json
 from . import list
+from . import kle2qmk
 from . import new
 from . import pyformat
 from . import pytest
