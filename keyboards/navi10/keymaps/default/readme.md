@@ -1,1 +1,1 @@
-# The default keymap for navi10
+# The default keymap for the Navi10
