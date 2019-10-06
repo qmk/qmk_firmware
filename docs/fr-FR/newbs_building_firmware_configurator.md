@@ -14,7 +14,7 @@ Le configurateur de QMK fonctionne mieux avec Chrome et Firefox.
 
 Cliquez la boîte déroulante et sélectionnez le clavier pour lequel vous voulez créer une keymap.
 
-?> Si votre clavier a plusieurs verisons, faites attention à utiliser la version correcte.
+?> Si votre clavier a plusieurs versions, faites attention à utiliser la bonne.
 
 Je vais le répéter, parce que c'est important
 
@@ -30,7 +30,7 @@ Choisissez la disposition (layout) qui représente le mieux la keymap que vous v
 
 Appelez cette keymap comme vous voulez.
 
-?> Si vous rencontrez des problèmes lors de la compilation, il peut être utile de changer ce nom, il peut déjà exister dans le repositoire du firmware QMK.
+?> Si vous rencontrez des problèmes lors de la compilation, il peut être utile de changer ce nom, il peut déjà exister dans le dépôt du firmware QMK.
 
 ## Créer votre keymap
 
@@ -45,11 +45,11 @@ Passez votre souris au dessus d'une touche et un affichage vous dira quel est le
 [Référence Keycode basique](https://docs.qmk.fm/#/keycodes_basic)
 [Référence Keycode avancé](https://docs.qmk.fm/#/feature_advanced_keycodes)
 
-Dans le cas où vous ne trouvez pas une disposition qui suppore votre keymap, par exemple trois places pour une barre d'espace, ou deux places pour retour clavier, ou deux places pour shift, etc. etc. remplissez les TOUS.
+Dans le cas où vous ne trouvez pas une disposition qui supporte votre keymap, par exemple trois places pour une barre d'espace, ou deux places pour retour clavier, ou deux places pour shift, etc. etc. remplissez les TOUTES.
 
 ### Exemples
 
-3 places pour la barre d'espace: Remplissez les TOUS avec la barre d'espace
+3 places pour la barre d'espace: Remplissez les TOUTES avec la barre d'espace
 
 2 places pour un retour clavier: Remplissez les DEUX avec un retour clavier
 
@@ -81,7 +81,7 @@ Merci de vous référer à [Flasher le Firmware](fr-FR/newbs_flashing.md)
 
 #### Mon fichier json ne fonctionne pas
 
-Si le fichier .json a été généré par le configurateur QMK, bravo vous avez trouvé un bug. Merci d'ouvrir un ticket sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Si le fichier .json a été généré par le configurateur QMK, bravo vous avez trouvé un bug. Merci d'ouvrir une issue sur [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
 
 Sinon... vous avez raté mon message écris en gras qui dit de ne pas utiliser d'autres fichiers .json?
 

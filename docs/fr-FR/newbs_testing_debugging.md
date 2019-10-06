@@ -1,6 +1,6 @@
 # Test et débugage
 
-Une fois votre clavier configué avec un firmware custom, vous êtes prêt à le tester. Avec un peu de chance, tout fonctionne parfaitement bien, mias sinon, ce document vous aidera à trouver où se trouve le problème.
+Une fois votre clavier configuré avec un firmware custom, vous êtes prêt à le tester. Avec un peu de chance, tout fonctionne parfaitement bien, dans le cas contraire, ce document vous aidera à trouver où se trouve le problème.
 
 ## Tester
 
@@ -15,7 +15,7 @@ Note: ces programmes ne sont ni fournis ni approuvés par QMK.
 
 ## Débuguer
 
-Votre clavier va sortir des informations de débugage si vous avez `CONSOLE_ENABLE = yes` dans votre fichier `rules.mk`. Par défaut, la sortie est très limitée, mais vous pouvez activer le mode debug pour augmenter la quantité de sortie de débugage. Utilisez le keycode `DEBUG` dans votre keymap, utilisez la fonction [Commande](feature_command.md) pour activer le mode debug ou ajoutez le code suivant à votre keymap.
+Votre clavier va envoyer des informations de débugage si vous avez `CONSOLE_ENABLE = yes` dans votre fichier `rules.mk`. Par défaut, la sortie est très limitée, mais vous pouvez activer le mode debug pour augmenter la quantité de sortie de débugage. Utilisez le keycode `DEBUG` dans votre keymap, utilisez la fonction [Commande](feature_command.md) pour activer le mode debug ou ajoutez le code suivant à votre keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -52,11 +52,11 @@ Une fois fait, vous pouvez utiliser les fonctions print suivantes:
 
 ## Exemples de debugage
 
-Si dessous se trouve une collection d'exemples réels de débugage. Pour plus d'information, référez-vous à [Débuguer/Dépanner QMK](faq_debug.md).
+Si dessous se trouve une liste d'exemples réels de débugage. Pour plus d'information, référez-vous à [Débuguer/Dépanner QMK](faq_debug.md).
 
-### A quelle position de matrice se trouve cet appuis de touche?
+### A quelle position de la matrice se trouve cette activation de touche?
 
-Lors du portage ou lorsque vous essayez de diagnostiquer un problème de PCB, il est utile de savoir si un appui de touche est enregistré correctement. Pour activer le log de ce scénario, ajoutez le code suivant à votre fichier keymaps `keymap.c`.
+Lors du portage ou lorsque vous essayez de diagnostiquer un problème de PCB, il est utile de savoir si une activation de touche est enregistrée correctement. Pour activer le log de ce scénario, ajoutez le code suivant à votre fichier keymaps `keymap.c`.
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -81,7 +81,7 @@ KL: kc: 172, col: 2, row: 0, pressed: 1
 KL: kc: 172, col: 2, row: 0, pressed: 0
 ```
 
-### Combien de temps cela a pris pour un appui de touche?
+### Combien de temps cela a pris pour une activation de touche?
 
 Lorsque vous testez des problèmes de performance, il peut être utile de savoir à quelle fréquence la matrice est scannée. Pour activer le log dans ce scénario, ajoutez la ligne suivante à votre fichier `config.h` de votre keymaps.
 

@@ -63,7 +63,7 @@ Vous devez installer Git. Il est très probable que vous l'ayez déjà installé
 
 ## Configurer QMK
 
-Une fois votre environnement Linux/Unix configuré, vous êtes prêt à télécharger QMK. Nous allons le faire en utilisant Git pour "cloner" le repositoire de QMK. Ouvrez un terminal ou une fenêtre MSYS2 MinGW et gardez le ouvert pour le reste de ce guide. Dans ce terminal, lancez ces deux commandes:
+Une fois votre environnement Linux/Unix configuré, vous êtes prêt à télécharger QMK. Nous allons le faire en utilisant Git pour "cloner" le dépôt de QMK. Ouvrez un terminal ou une fenêtre MSYS2 MinGW et gardez le ouvert pour le reste de ce guide. Dans ce terminal, lancez ces deux commandes:
 
 ```shell
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git

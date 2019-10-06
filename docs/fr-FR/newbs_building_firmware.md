@@ -1,12 +1,12 @@
 # Compiler Votre Premier Firmware
 
-Maintenant que vous avez configuré votre environnement de build, vous être prêts à compiler un firmware customisé. Pour cette section, nous allons utiliser trois programmes différents: votre explorateur de fichier, votre éditeur de texte et votre fenêtre de terminal. Gardez les 3 ouverts jusqu'à ce que vous ayez terminé et content de votre firmware de clavier.
+Maintenant que vous avez configuré votre environnement de build, vous être prêts à compiler un firmware customisé. Pour cette section, nous allons utiliser trois programmes différents: votre explorateur de fichier, votre éditeur de texte et votre fenêtre de terminal. Gardez les 3 ouverts jusqu'à ce que vous ayez terminé et soyez content de votre firmware de clavier.
 
-Si vous avez fermé et rouvert votre fenêtre de terminal depuis le démarrage de ce guide, n'oubliez pas de `cd qmk_firmware` afin que votre terminal soit dans le répertoire correct.
+Si vous avez fermé et rouvert votre fenêtre de terminal depuis le démarrage de ce guide, n'oubliez pas de `cd qmk_firmware` afin que votre terminal soit dans le bon répertoire.
 
 ## Naviguez vers votre répertoire keymaps
 
-Démarrez par naviguer sur le répertoire `keymaps` pour votre clavier.
+Démarrez par naviguer dans le répertoire `keymaps` de votre clavier.
 
 ?> Si vous êtes sous macOS ou Windows, il y a des commandes que vous pouvez utiliser pour facilement ouvrir le dossier keymaps.
 
@@ -20,7 +20,7 @@ Démarrez par naviguer sur le répertoire `keymaps` pour votre clavier.
 
 ## Créez une copie de la keymap `default`
 
-Une fois que vous avez ouvert le dossier `keymaps`, vous allez vouloir créer une copie du répertoire `default`. Nous recommandons grandement de nommer ce répertoire de la même manière que votre nom d'utilisteur GitHub, mais vous pouvez utiliser le nom que vous voulez tant qu'il contient uniquement des lettres minuscules, des nombres et le caractère souligné (_).
+Une fois le dossier `keymaps` ouvert, créez une copie du répertoire `default`. Nous vous recommandons de nommer ce répertoire de la même manière que votre nom d'utilisateur GitHub. Vous pouvez aussi utiliser le nom que vous voulez, tant qu'il contient uniquement des lettres minuscules, des nombres et le caractère souligné (_).
 
 Afin d'automatiser ce processus, vous avez aussi l'option de lancer le script `new_keymap.sh`.
 
@@ -38,17 +38,17 @@ Par exemple, pour un utilisateur s'appeleant John, essayant de créer une nouvel
 
 ## Ouvrez `keymap.c` dans votre éditeur de texte préféré
 
-Ouvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` and `enums` qui rend le clavier plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
+Ouvrez votre fichier `keymap.c`. Dans ce fichier, vous trouverez la structure qui contrôle comment votre clavier se comporte. En haut du fichier `keymap.c` il peut y avoir quelques `defines` et `enums` qui rend la keymap plus simple à lire. Plus bas, vous trouverez une ligne telle que celle-ci:
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-Cette ligne indique le début d'une liste de couches (layers). En dessous, vous trouverez des lignes contenant soit `LAYOUT`, soit `KEYMAP` et ces lignes indiquent le début d'une couche. En dessous de cette ligne se trouve la liste des touches qui comprennent cette couche particulière.
+Cette ligne indique le début d'une liste de calques (layers). En dessous, vous trouverez des lignes contenant soit `LAYOUT`, soit `KEYMAP` et ces lignes indiquent le début d'un calque. En dessous de cette ligne se trouve la liste des touches qui comprennent ce calque particulier.
 
 !> Lorsque vous éditez votre fichier keymap, faites attention à ne pas ajouter ou enlever une virgule. Si vous le faites, vous aller empêcher votre firmware de compiler et il ne sera pas facile de trouver où la virgule est manquante ou en trop.
 
 ## Customisez le layout à votre goût
 
-Libre à vous de choisir comment compléter cette étape. Faites le petit changement qui vous dérange ou retravaillez tout de zéro. Vous pouvez supprimer des couches si vous ne les utilisez pas toutes, ou ajouter des couches jusqu'à un maximum de 32. Vérifiez la documentation suivante pour trouver ce que vous pouvez définir ici:
+Libre à vous de choisir comment compléter cette étape. Faites le petit changement qui vous dérange ou retravaillez tout de zéro. Vous pouvez supprimer des calques si vous ne les utilisez pas tous, ou ajouter des calques jusqu'à un maximum de 32. Vérifiez la documentation suivante pour trouver ce que vous pouvez définir ici:
 
 * [Keycodes](keycodes.md)
 * [Fonctionnalités](features.md)
