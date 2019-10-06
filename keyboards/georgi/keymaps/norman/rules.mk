@@ -21,15 +21,15 @@ ONLY_QWERTY				 = no
 #
 # No touchy, capiche?
 SRC += matrix.c i2c_master.c
-ifeq ($(strip $(DEBUG_MATRIX)), yes)
+ifeq 
     OPT_DEFS += -DDEBUG_MATRIX
 endif
-ifeq ($(strip $(NO_REPEAT)), yes)
+ifeq 
     OPT_DEFS += -DNO_REPEAT
 endif
-ifeq ($(strip $(NO_PRINT)), yes)
+ifeq 
     OPT_DEFS += -DNO_PRINT -DNO_DEBUG
 endif
-ifeq ($(strip $(ONLY_QWERTY)), yes)
+ifeq 
     OPT_DEFS += -DONLYQWERTY
 endif

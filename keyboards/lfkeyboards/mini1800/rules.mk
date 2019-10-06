@@ -7,17 +7,17 @@
 # Set to A or C
 LFK_REV = C
 
-ifeq ($(LFK_REV), A)
+ifeq 
     MCU = at90usb1286
 else
     MCU = at90usb646
 endif
 BOOTLOADER = atmel-dfu
-OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
+OPT_DEFS += -DLFK_TKL_REV_$
 
 # Extra source files for IS3731 lighting
 SRC = TWIlib.c issi.c lighting.c
 
-ifeq ($(strip $(ISSI_ENABLE)), yes)
+ifeq 
     # TMK_COMMON_DEFS += -DISSI_ENABLE
 endif

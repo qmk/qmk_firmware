@@ -5,13 +5,13 @@ LINK_TIME_OPTIMIZATION_ENABLE = yes
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-MOUSEKEY_ENABLE    = yes  # Mouse keys(+4700)
-EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
+MOUSEKEY_ENABLE    = yes  # Mouse keys
+EXTRAKEY_ENABLE    = yes  # Audio control and System control
 NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
 RGBLIGHT_ENABLE    = no  # Enable WS2812 RGB underlight.
-BOOTMAGIC_ENABLE   = no   # Virtual DIP switch configuration(+1000)
-CONSOLE_ENABLE     = no   # Console for debug(+400)
+BOOTMAGIC_ENABLE   = no   # Virtual DIP switch configuration
+CONSOLE_ENABLE     = no   # Console for debug
 COMMAND_ENABLE     = no   # Commands for debug and configuration
 BACKLIGHT_ENABLE   = no   # Enable keyboard backlight functionality
 MIDI_ENABLE        = no   # MIDI controls
@@ -29,6 +29,6 @@ BOOTLOADER       = qmk-dfu
 
 OLED_DRIVER_ENABLE = yes
 
-# ifneq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+# ifneq 
 #     RGB_MATRIX_SPLIT_RIGHT=yes
 # endif

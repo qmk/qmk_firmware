@@ -31,7 +31,7 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+F_USB = $
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -39,20 +39,20 @@ F_USB = $(F_CPU)
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite	# Key at 0,0 makes the keyboard go into bootloader(+1000)
-MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
+BOOTMAGIC_ENABLE = lite	# Key at 0,0 makes the keyboard go into bootloader
+MOUSEKEY_ENABLE = no	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
+RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality 
+BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality 
 MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode

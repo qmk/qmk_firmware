@@ -8,12 +8,12 @@ F_CPU = 16000000
 ARCH = AVR8
 
 # Input clock frequency.
-F_USB = $(F_CPU)
+F_USB = $
 
 # Bootloader
 BOOTLOADER = qmk-dfu
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Custom local font file

@@ -1,7 +1,7 @@
 # Overridden build options from rev1
 
 # RGB Options
-LED_MIRRORED            = no        # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
+LED_MIRRORED            = no        # Mirror LEDs across halves 
 
 # Misc
 OLED_DRIVER_ENABLE      = yes       # Enable the OLED Driver

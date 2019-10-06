@@ -32,9 +32,9 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+F_USB = $
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
@@ -50,10 +50,10 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes		# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes		# Audio control and System control(+450)
-CONSOLE_ENABLE = yes		# Console for debug(+400)
+BOOTMAGIC_ENABLE = yes		# Virtual DIP switch configuration
+MOUSEKEY_ENABLE = yes		# Mouse keys
+EXTRAKEY_ENABLE = yes		# Audio control and System control
+CONSOLE_ENABLE = yes		# Console for debug
 COMMAND_ENABLE = yes		# Commands for debug and configuration
 KEYBOARD_LOCK_ENABLE = yes	# Allow locking of keyboard via magic key
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

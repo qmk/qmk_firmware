@@ -18,25 +18,25 @@ UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = no         # Enable rotary encoder
 OLED_DRIVER_ENABLE = no     # Enable the OLED Driver
-IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
+IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device 
 LINK_TIME_OPTIMIZATION_ENABLE = no      # Enable optimizations to reduce firmware size. Also disables action macros and functions.
 
 # Do not edit past here
 
-ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
+ifeq 
     OPT_DEFS += -DIOS_DEVICE_ENABLE
-else ifeq ($(strip $(RGBLIGHT_FULL_POWER)), yes)
+else ifeq 
     OPT_DEFS += -DRGBLIGHT_FULL_POWER
 endif
 
-ifeq ($(strip $(RGB_MATRIX_KEYPRESSES)), yes)
+ifeq 
     OPT_DEFS += -DRGB_MATRIX_KEYPRESSES
 endif
 
-ifeq ($(strip $(RGBLIGHT_ANIMATIONS)), yes)
+ifeq 
     OPT_DEFS += -DRGBLIGHT_ANIMATIONS
 endif
 
-ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)
+ifeq 
     OPT_DEFS += -DRGBLIGHT_SPLIT_ENABLE
 endif

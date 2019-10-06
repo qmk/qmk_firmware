@@ -1,5 +1,5 @@
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 MOUSEKEY_ENABLE = no
-CONSOLE_ENABLE = no        # Console for debug(+400)
+CONSOLE_ENABLE = no        # Console for debug
 DEBUG_ENABLE = no

@@ -2,7 +2,7 @@ ifdef ASTAR
     MCU = atmega32u4
     CFLAGS = -D ASTAR
     USB = /dev/cu.usbmodem14141
-    SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
+    SCULPT_UPLOAD_COMMAND = while [ ! -r $
 else
     MCU = at90usb1286
     SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
@@ -22,10 +22,10 @@ else
     BOOTLOADER = atmel-dfu
 endif
 
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no       # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend

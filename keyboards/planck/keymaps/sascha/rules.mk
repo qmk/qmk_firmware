@@ -2,11 +2,11 @@ AUTO_SHIFT_ENABLE = yes
 AUTO_SHIFT_MODIFIERS = yes
 UNICODE_ENABLE = yes
 
-ifeq ($(strip $(KEYBOARD)), planck/rev5)
+ifeq 
 BACKLIGHT_ENABLE = yes
 CONSOLE_ENABLE = no
 endif
-ifeq ($(strip $(KEYBOARD)), planck/rev6)
+ifeq 
 BACKLIGHT_ENABLE = no
 CONSOLE_ENABLE = yes
 EXTRALDFLAGS = -Wl,--build-id=none

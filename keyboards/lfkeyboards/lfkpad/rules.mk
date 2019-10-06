@@ -4,18 +4,18 @@ MCU = atmega32u4
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 F_CPU = 16000000
-F_USB = $(F_CPU)
+F_USB = $
 ARCH = AVR8
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 LAYOUTS = numpad_6x4
 
-BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no            # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes           # Audio control and System control(+450)
-CONSOLE_ENABLE = no             # Console for debug(+400)
+BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration
+MOUSEKEY_ENABLE = no            # Mouse keys
+EXTRAKEY_ENABLE = yes           # Audio control and System control
+CONSOLE_ENABLE = no             # Console for debug
 COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = no               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
@@ -32,10 +32,10 @@ ISSI_ENABLE = yes           # If the I2C pullup resistors aren't install this mu
 WATCHDOG_ENABLE = no       # Resets keyboard if matrix_scan isn't run every 250ms
 
 
-ifeq ($(strip $(ISSI_ENABLE)), yes)
+ifeq 
     TMK_COMMON_DEFS += -DISSI_ENABLE
 endif
 
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
+ifeq 
     TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 endif

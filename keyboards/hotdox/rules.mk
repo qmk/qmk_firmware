@@ -52,9 +52,9 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+F_USB = $
 
-# Interrupt driven control endpoint task(+60)
+# Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Boot Section
@@ -65,10 +65,10 @@ BOOTLOADER = atmel-dfu
 #
 CUSTOM_MATRIX           = yes # Custom matrix file for the ErgoDone
 UNICODE_ENABLE          = yes # Unicode
-BOOTMAGIC_ENABLE        = yes # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE         = yes  # Mouse keys(+4700)
-EXTRAKEY_ENABLE         = yes # Audio control and System control(+450)
-CONSOLE_ENABLE          = yes # Console for debug(+400)
+BOOTMAGIC_ENABLE        = yes # Virtual DIP switch configuration
+MOUSEKEY_ENABLE         = yes  # Mouse keys
+EXTRAKEY_ENABLE         = yes # Audio control and System control
+CONSOLE_ENABLE          = yes # Console for debug
 COMMAND_ENABLE          = no  # Commands for debug and configuration
 SLEEP_LED_ENABLE        = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE             = yes # USB Nkey Rollover - not yet supported in LUFA

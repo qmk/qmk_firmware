@@ -13,7 +13,7 @@ DFU_SUFFIX_ARGS ?= -v 1eaf -p 0003
 
 ## chip/board settings
 # the next two should match the directories in
-#  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+#  <chibios>/os/hal/ports/$
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx
 # linker script to use

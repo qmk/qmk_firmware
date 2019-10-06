@@ -10,7 +10,7 @@
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
 # make program = Download the hex file to the device.
-#                Please customize your programmer settings(PROGRAM_CMD)
+#                Please customize your programmer settings
 #
 # make teensy = Download the hex file to the device, using teensy_loader_cli.
 #               (must have teensy_loader_cli installed).
