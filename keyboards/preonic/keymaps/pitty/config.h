@@ -1,13 +1,13 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
+
 float real_imp[][2]    = {
   {NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
   {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
   {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
   {NOTE_REST, 30}
 };
-
 
 #    define STARTUP_SONG real_imp
 #    define GOODBYE_SONG SONG(PREONIC_SOUND)
