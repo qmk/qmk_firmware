@@ -996,6 +996,9 @@ uint16_t convert_jp(const char* str, uint8_t len, uint8_t key_string_map)
     0);
   if (kc != KC_NO) return kc;
 
+  kc = convert_kc(str, len, 0);
+  if (kc != KC_NO) return kc;
+
   return KC_NO;
 }
 
