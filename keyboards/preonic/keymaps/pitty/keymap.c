@@ -172,22 +172,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#ifdef AUDIO_ENABLE
+
+float raise_low[][2] = SONG(TERMINAL_SOUND);
+float gaming[][2] = SONG(AG_SWAP_SOUND);
+float adjust[][2] = SONG(UNICODE_LINUX);
+float my_song[][2] = SONG(NO_SOUND);
+
+#endif
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _RAISE:
-        PLAY_SONG (TERMINAL_SOUND);
+        PLAY_SONG (raise_low);
         break;
     case _LOWER:
-        PLAY_SONG (TERMINAL_SOUND);
+        PLAY_SONG (raise_low);
         break;
     case _GAME:
-        PLAY_SONG (AG_SWAP_SOUND);
+        PLAY_SONG (gaming);
         break;
     case _ADJUST:
-        PLAY_SONG (UNICODE_LINUX);
+        PLAY_SONG (adjust);
         break;
     default: //  for any other layers, or the default layer
-        PLAY_SONG (QWERTY_SOUND);
+        PLAY_SONG (my_song);
         break;
     }
   return state;
