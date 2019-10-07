@@ -14,6 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #Had to disable the first 2 to get the firmware size down enough after enabling the rgb controls.
-MOUSEKEY_ENABLE = no       # Mouse keys
+MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 COMMAND_ENABLE = no        # Commands for debug and configuration
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow

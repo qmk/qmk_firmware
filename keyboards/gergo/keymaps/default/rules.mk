@@ -19,19 +19,19 @@ DEBUG_MATRIX		 = yes
 #
 # No touchy, capiche?
 SRC += matrix.c i2c_master.c
-ifneq 
-    OPT_DEFS += -DTRKSTEP=$
+ifneq ($(strip $(BALLSTEP)),)
+    OPT_DEFS += -DTRKSTEP=$(strip $(BALLSTEP))
 endif
-ifneq 
-    OPT_DEFS += -DSCROLLSTEP=$
+ifneq ($(strip $(SCROLLSTEP)),)
+    OPT_DEFS += -DSCROLLSTEP=$(strip $(SCROLLSTEP))
 endif
-ifeq 
+ifeq ($(strip $(BALLER)), yes)
 	POINTING_DEVICE_ENABLE	= yes
     OPT_DEFS += -DBALLER
 endif
-ifeq 
+ifeq ($(strip $(DEBUG_BALLER)), yes)
     OPT_DEFS += -DDEBUG_BALLER
 endif
-ifeq 
+ifeq ($(strip $(DEBUG_MATRIX)), yes)
     OPT_DEFS += -DDEBUG_MATRIX
 endif

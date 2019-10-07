@@ -2,7 +2,7 @@
 
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F3xx
 
@@ -43,10 +43,10 @@ SRC += led.c
 #   comment out to disable the options.
 #
 BACKLIGHT_ENABLE = yes
-BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes   # Mouse keys
-EXTRAKEY_ENABLE = yes   # Audio control and System control
-CONSOLE_ENABLE = no    # Console for debug
+BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes   # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes   # Audio control and System control(+450)
+CONSOLE_ENABLE = no    # Console for debug(+400)
 COMMAND_ENABLE = no     # Commands for debug and configuration
 NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 AUDIO_ENABLE = no

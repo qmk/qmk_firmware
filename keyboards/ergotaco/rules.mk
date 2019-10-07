@@ -21,6 +21,6 @@ COMMAND_ENABLE		= yes
 #
 # No touchy, capiche?
 SRC += matrix.c i2c_master.c
-ifeq 
+ifeq ($(strip $(DEBUG_MATRIX)), yes)
     OPT_DEFS += -DDEBUG_MATRIX
 endif

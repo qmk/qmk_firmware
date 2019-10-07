@@ -19,7 +19,7 @@ BOARD = GENERIC_STM32_F103
 
 ## chip/board settings
 # the next two should match the directories in
-#  <chibios>/os/hal/ports/$
+#  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx
 # linker script to use

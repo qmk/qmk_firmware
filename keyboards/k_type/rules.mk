@@ -3,7 +3,7 @@ SRC =	matrix.c
 
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 # - For Teensies, FAMILY = KINETIS and SERIES is either
 #   KL2x (LC) or K20x (3.0,3.1,3.2).
 # - For Infinity KB, SERIES = K20x
@@ -65,7 +65,7 @@ BOOTLOADER = dfu
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
-## 
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug

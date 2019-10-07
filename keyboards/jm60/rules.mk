@@ -4,7 +4,7 @@ SRC =	matrix.c \
 
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx
 
@@ -40,7 +40,7 @@ OPT_DEFS =
 #   comment out to disable the options.
 #
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-## 
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = no	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug

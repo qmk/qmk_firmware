@@ -1,4 +1,4 @@
-# Copyright 2019 Ethan Durrant 
+# Copyright 2019 Ethan Durrant (emdarcher)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -4,7 +4,7 @@ LAYOUTS += 66_ansi
 
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F3xx
 
@@ -47,7 +47,7 @@ LED_MATRIX_ENABLE = IS31FL3731
 #
 BACKLIGHT_ENABLE = yes
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-## 
+## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug

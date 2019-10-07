@@ -32,9 +32,9 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $
+F_USB = $(F_CPU)
 
-# Interrupt driven control endpoint task
+# Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
@@ -49,14 +49,14 @@ BOOTLOADER = qmk-dfu
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = no  	# Console for debug
+BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = no  	# Console for debug(+400)
 COMMAND_ENABLE = no     # Commands for debug and configuration
 NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality 
-BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality 
+RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality (+4870)
+BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality (+1150)
 MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode

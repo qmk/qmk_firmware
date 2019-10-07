@@ -1,2 +1,2 @@
-MOUSEKEY_ENABLE = yes       # Mouse keys
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 

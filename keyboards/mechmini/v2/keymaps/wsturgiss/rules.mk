@@ -1,5 +1,5 @@
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-CONSOLE_ENABLE = no	# Console for debug
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
+CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work

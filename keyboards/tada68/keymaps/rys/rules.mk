@@ -2,10 +2,10 @@
 #   change to "no" to disable the options, or define them in the Makefile in 
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = no         # Console for debug(+400)
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 MIDI_ENABLE = no            # MIDI controls
@@ -15,7 +15,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-RYS_PSTOKEN = $
-RYS_QSTOKEN = $
+RYS_PSTOKEN = $(shell security find-generic-password -a qmk -s tada68 -w)
+RYS_QSTOKEN = $(shell security find-generic-password -a qmk -s tada68-2 -w)
 CFLAGS += -DRYS_PSTOKEN=\"$(RYS_PSTOKEN)\"
 CFLAGS += -DRYS_QSTOKEN=\"$(RYS_QSTOKEN)\"

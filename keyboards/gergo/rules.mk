@@ -12,7 +12,7 @@ MCU = atmega32u4
 F_CPU = 16000000
 ARCH = AVR8
 BOOTLOADER = atmel-dfu
-F_USB = $
+F_USB = $(F_CPU)
 
 CUSTOM_MATRIX 		= yes
 EXTRAKEY_ENABLE		= yes

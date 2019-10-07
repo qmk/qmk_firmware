@@ -3,10 +3,10 @@
 #   the appropriate keymap folder that will get included automatically
 #
 
-BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no            # Mouse keys
-EXTRAKEY_ENABLE = yes           # Audio control and System control
-CONSOLE_ENABLE = no             # Console for debug
+BOOTMAGIC_ENABLE = no           # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no            # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes           # Audio control and System control(+450)
+CONSOLE_ENABLE = no             # Console for debug(+400)
 COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = no               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no          # Enable keyboard backlight functionality
@@ -33,10 +33,10 @@ WATCHDOG_ENABLE = no       # Resets keyboard if matrix_scan isn't run every 250m
 # # Set to B, C or D
 # LFK_REV = D
 
-# ifeq 
+# ifeq ($(LFK_REV), B)
 #   MCU = atmega32u4
 # else
 #   MCU = at90usb1286
 # endif
-# OPT_DEFS += -DLFK_REV_$
+# OPT_DEFS += -DLFK_REV_$(LFK_REV)
 # OPT_DEFS += -DUSB_PRODUCT=\"LFK_Rev$(LFK_REV)\"

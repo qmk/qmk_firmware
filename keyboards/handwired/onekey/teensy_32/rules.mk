@@ -1,6 +1,6 @@
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 # - For Teensies, FAMILY = KINETIS and SERIES is either
 #   KL2x (LC) or K20x (3.0,3.1,3.2).
 MCU_FAMILY = KINETIS

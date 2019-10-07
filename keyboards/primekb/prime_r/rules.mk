@@ -31,9 +31,9 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $
+F_USB = $(F_CPU)
 
-# Interrupt driven control endpoint task
+# Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
@@ -44,10 +44,10 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE ?= yes	# Mouse keys
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control
-CONSOLE_ENABLE ?= no	# Console for debug
+BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
+CONSOLE_ENABLE ?= no	# Console for debug(+400)
 COMMAND_ENABLE ?= no    # Commands for debug and configuration
 SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work

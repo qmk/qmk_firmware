@@ -15,20 +15,20 @@ MITOSIS_DATAGROK_SLOWUART = no
 
 AUDIO_ENABLE = no # audio output
 FAUXCLICKY_ENABLE = no
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
-MOUSEKEY_ENABLE = no	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = no	# Console for debug
+BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = no	# Console for debug(+400)
 COMMAND_ENABLE = no	# Commands for debug and configuration
 UNICODE_ENABLE = no	# Unicode
 BACKLIGHT_ENABLE = no	# Enable keyboard backlight functionality
 BLUETOOTH_ENABLE = no	# Enable Bluetooth with the Adafruit EZ-Key HID
 MIDI_ENABLE = no	# MIDI controls
 
-ifeq 
+ifeq ($(strip $(MITOSIS_DATAGROK_BOTTOMSPACE)), yes)
 		OPT_DEFS += -DMITOSIS_DATAGROK_BOTTOMSPACE
 endif
-ifeq 
+ifeq ($(strip $(MITOSIS_DATAGROK_SLOWUART)), yes)
 		OPT_DEFS += -DMITOSIS_DATAGROK_SLOWUART
 endif
 

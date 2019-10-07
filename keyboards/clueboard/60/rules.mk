@@ -4,7 +4,7 @@ LAYOUTS += 60_ansi 60_ansi_split_bs_rshift 60_iso
 
 ## chip/board settings
 # - the next two should match the directories in
-#   <chibios>/os/hal/ports/$
+#   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F3xx
 
