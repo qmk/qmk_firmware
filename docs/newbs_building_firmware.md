@@ -10,11 +10,13 @@ Start by navigating to the `keymaps` folder for your keyboard.
 
 If you are on macOS or Windows there are commands you can use to easily open the keymaps folder.
 
-?> macOS:<br>
-    open keyboards/<keyboard_folder>/keymaps
+### macOS:
 
-?> Windows:<br>
-    start .\\keyboards\\<keyboard_folder>\\keymaps
+``` open keyboards/<keyboard_folder>/keymaps ```
+
+### Windows:
+
+``` start .\\keyboards\\<keyboard_folder>\\keymaps ```
 
 ## Create a Copy Of The `default` Keymap
 
