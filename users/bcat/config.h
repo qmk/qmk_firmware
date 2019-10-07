@@ -3,6 +3,11 @@
 
 #define TAP_CODE_DELAY 20
 
+/* Extend default tap timeout because I'm too slow. :) */
+#undef TAPPING_TERM
+
+#define TAPPING_TERM 250
+
 #if defined(RGBLIGHT_ENABLE)
   /* Turn off RGB underglow when the host goes to sleep. */
   #define RGBLIGHT_SLEEP
