@@ -55,6 +55,7 @@ util/Win_Check_Output.txt
 .vscode/last.sql
 .vscode/temp.sql
 .vscode/ipch/
+.vscode
 .stfolder
 .tags
 
@@ -62,6 +63,7 @@ util/Win_Check_Output.txt
 *.png
 *.jpg
 *.gif
+*.jpeg
 
 # Do not ignore MiniDox left/right hand eeprom files
 !keyboards/minidox/*.eep
@@ -73,3 +75,4 @@ id_rsa_*
 
 # python things
 __pycache__
+.pyc
