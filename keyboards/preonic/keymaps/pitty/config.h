@@ -1,5 +1,10 @@
 #pragma once
 
+#ifdef AUDIO_ENABLE
+#    define STARTUP_SONG STARTUP_SONG
+#    define GOODBYE_SONG SONG(PREONIC_SOUND)
+#    define MUSIC_ON_SONG SONG(TERMINAL_SOUND)
+#endif
 
 #undef  TEMPO_DEFAULT
 
