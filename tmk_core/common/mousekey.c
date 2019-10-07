@@ -36,11 +36,14 @@ static void           mousekey_debug(void);
 static uint8_t        mousekey_accel  = 0;
 static uint8_t        mousekey_repeat = 0;
 static uint16_t       last_timer      = 0;
+#ifdef MK_KINETIC_SPEED
+static uint16_t       mouse_timer     = 0;
+#endif
 
 #ifndef MK_3_SPEED
 
 /*
- * Mouse keys  acceleration algorithm
+ * Mouse keys acceleration algorithm
  *  http://en.wikipedia.org/wiki/Mouse_keys
  *
  *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
@@ -58,6 +61,8 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* wheel params */
 uint8_t mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+
+#ifndef MK_KINETIC_SPEED
 
 static uint8_t move_unit(void) {
     uint16_t unit;
@@ -95,10 +100,82 @@ static uint8_t wheel_unit(void) {
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
+#else /* #ifndef MK_KINETIC_SPEED */
+
+/*
+ * Kinetic movement  acceleration algorithm
+ *
+ *  current speed = I + A * T/50 + A * 0.5 * T^2 | maximum B
+ *
+ * T: time since the mouse movement started
+ * E: mouse events per second (set through MOUSEKEY_INTERVAL, UHK sends 250, the
+ *    pro micro on my Signum 3.0 sends only 125!)
+ * I: initial speed at time 0
+ * A: acceleration
+ * B: base mouse travel speed
+ */
+const uint16_t mk_accelerated_speed = MOUSEKEY_ACCELERATED_SPEED;
+const uint16_t mk_base_speed = MOUSEKEY_BASE_SPEED;
+const uint16_t mk_decelerated_speed = MOUSEKEY_DECELERATED_SPEED;
+const uint16_t mk_initial_speed = MOUSEKEY_INITIAL_SPEED;
+
+static uint8_t move_unit(void) {
+    float speed = mk_initial_speed;
+
+    if (mousekey_accel & ((1<<0) | (1<<2))) {
+        speed = mousekey_accel & (1<<2) ? mk_accelerated_speed : mk_decelerated_speed;
+    } else if (mousekey_repeat && mouse_timer) {
+        const float time_elapsed = timer_elapsed(mouse_timer) / 50;
+        speed = mk_initial_speed +
+            MOUSEKEY_MOVE_DELTA * time_elapsed +
+            MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
+
+        speed = speed > mk_base_speed ? mk_base_speed : speed;
+    }
+
+    /* convert speed to USB mouse speed 1 to 127 */
+    speed = (uint8_t)(speed / (1000.0f / mk_interval));
+    speed = speed < 1 ? 1 : speed;
+
+    return speed > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : speed;
+}
+
+float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
+
+static uint8_t wheel_unit(void) {
+    float speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
+
+    if (mousekey_accel & ((1<<0) | (1<<2))) {
+        speed = mousekey_accel & (1<<2) ? MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS : MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS;
+    } else if (mousekey_repeat && mouse_timer) {
+        if (mk_wheel_interval != MOUSEKEY_WHEEL_BASE_MOVEMENTS) {
+            const float time_elapsed = timer_elapsed(mouse_timer) / 50;
+            speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS +
+                1 * time_elapsed +
+                1 * 0.5 * time_elapsed * time_elapsed;
+        } else {
+            speed = MOUSEKEY_WHEEL_BASE_MOVEMENTS;
+        }
+
+        speed = speed > MOUSEKEY_WHEEL_BASE_MOVEMENTS ? MOUSEKEY_WHEEL_BASE_MOVEMENTS : speed;
+    }
+
+    mk_wheel_interval = 1000.0f / speed;
+
+    return 1;
+}
+
+#endif /* #ifndef MK_KINETIC_SPEED */
+
 void mousekey_task(void) {
     if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay * 10)) {
         return;
     }
+#ifdef MK_KINETIC_SPEED
+    if ((mouse_report.v != 0 || mouse_report.h != 0) && timer_elapsed(last_timer) < (mousekey_repeat ? mk_wheel_interval : mk_delay * 10)) {
+        return;
+    }
+#endif /* #ifdef MK_KINETIC_SPEED */
     if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
         return;
     }
@@ -126,6 +203,12 @@ void mousekey_task(void) {
 }
 
 void mousekey_on(uint8_t code) {
+#ifdef MK_KINETIC_SPEED
+    if (mouse_timer == 0) {
+        mouse_timer = timer_read();
+    }
+#endif /* #ifdef MK_KINETIC_SPEED */
+
     if (code == KC_MS_UP)
         mouse_report.y = move_unit() * -1;
     else if (code == KC_MS_DOWN)
@@ -193,7 +276,13 @@ void mousekey_off(uint8_t code) {
         mousekey_accel &= ~(1 << 1);
     else if (code == KC_MS_ACCEL2)
         mousekey_accel &= ~(1 << 2);
-    if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) mousekey_repeat = 0;
+
+    if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
+        mousekey_repeat = 0;
+#ifdef MK_KINETIC_SPEED
+        mouse_timer = 0;
+#endif /* #ifdef MK_KINETIC_SPEED */
+    }
 }
 
 #else /* #ifndef MK_3_SPEED */
