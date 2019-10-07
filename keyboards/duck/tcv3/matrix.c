@@ -140,7 +140,7 @@ static void init_rows(void) {
 }
 
 static uint8_t read_rows(uint8_t col) {
-  if (col == 17) {
+  if (col == 20) {
     return PINE&(1<<2) ? 0 : (1<<0);
   } else {
       return (PIND&(1<<0) ? (1<<1) : 0) |
