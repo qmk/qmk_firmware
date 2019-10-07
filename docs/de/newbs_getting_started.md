@@ -24,7 +24,7 @@ Ansonsten ist es empfehlenswert einen Editor herunterzuladen der für die Progra
 
 ### QMK Toolbox
 
-QMK Toolbox ist ein optionales grafisches Programm für Windows und macOS das es erleichtern soll deine Tastatur zu programmieren und zu debuggen. Du wirst es höchstwahrscheinlich früher oder später als unverzichtbar ansehen wenn es darum geht eine Tastatur einfach zu flashen oder zu debuggen da es ermöglicht sich debug-Nachrichten direkt anzeigen zu lassen.
+QMK Toolbox ist ein optionales grafisches Programm für Windows und macOS, das es erleichtern soll, deine Tastatur zu programmieren und zu debuggen. Du wirst es höchstwahrscheinlich früher oder später als unverzichtbar ansehen wenn es darum geht eine Tastatur einfach zu flashen oder zu debuggen, da es ermöglicht, sich debug-Nachrichten direkt anzeigen zu lassen.
 
 [Hier kannst Du die aktuelle Version herunterladen.](https://github.com/qmk/qmk_toolbox/releases/latest)
 
