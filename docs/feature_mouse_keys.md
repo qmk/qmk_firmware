@@ -42,7 +42,7 @@ In your keymap you can use the following keycodes to map key presses to mouse ac
 Mouse keys supports three different modes to move the cursor:
 
 * **Accelerated (default):** Holding movement keys accelerates the cursor until it reaches its maximum speed.
-* **Kinetic:** Holding movement keys accelerates the cursor following a quadratic curve until it reaches its maximum speed.
+* **Kinetic:** Holding movement keys accelerates the cursor with its speed following a quadratic curve until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
 * **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
 
