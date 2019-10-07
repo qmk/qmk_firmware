@@ -1,6 +1,6 @@
 # emdarcher's keymap for the Navi10
 
-This is my original keymap for the Navi10, developed for the original Rev0 prototype. It uses Tap Dance extensively on the INSERT key to access different layers.
+This is my personal keymap for the Navi10, developed for the original Rev0 prototype. It uses Tap Dance extensively on the INSERT key to access different layers.
 
 - Base Layer: 
   * Regular Navigation Cluster except for the INSERT key which is for tapping.
