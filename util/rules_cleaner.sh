@@ -27,8 +27,14 @@ set_sed_i() {
         *Darwin*) sed_i=(-i "")
     esac
 }
-
 set_sed_i
-find keyboards -type f -name 'rules.mk' -exec sed "${sed_i[@]}" -e "s/(.*)$/""/g" {} +
+
+# Exclude keyamps/ directories
+files=$(find keyboards -type f -name 'rules.mk' -not \( -path '*/keymaps*' -prune \))
+
+# Edit rules.mk files 
+for file in $files; do
+  sed "${sed_i[@]}" -e "s/(+[0-9].*)$//g" "$file"
+done
 
 echo "Cleaned up rules.mk files."
