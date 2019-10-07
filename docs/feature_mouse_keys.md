@@ -77,7 +77,7 @@ Cursor acceleration uses the same algorithm as the X Window System MouseKeysAcce
 
 ### Kinetic Mode
 
-This is an extension of the accelerated mode. The kinetic mode uses quadratic acceleration which allows precise movements at the beginning and allows to cover large distances by increasing cursor speed quickly thereafter.  You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
+This is an extension of the accelerated mode. The kinetic mode uses a quadratic curve on the cursor speed which allows precise movements at the beginning and allows to cover large distances by increasing cursor speed quickly thereafter.  You can adjust the cursor and scrolling acceleration using the following settings in your keymap’s `config.h` file:
 
 |Define                                |Default  |Description                                                    |
 |--------------------------------------|---------|---------------------------------------------------------------|
