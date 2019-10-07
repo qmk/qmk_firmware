@@ -19,4 +19,4 @@ Diese Anleitung richtet sich an Personen die vorher noch nie Software kompiliert
 
 ## Weitere Ressourcen
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – Ein äußerst hilfreicher Blog eines Community-Mitglieds der einige Grundlagen der QMK-Firmware aus der Sicht des Benutzers erklärt (auf Englisch).
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – Ein äußerst hilfreicher Blog eines Community-Mitglieds, der einige Grundlagen der QMK-Firmware aus der Sicht des Benutzers erklärt (auf Englisch).
