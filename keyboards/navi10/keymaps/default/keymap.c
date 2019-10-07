@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
+//create the tap type
 typedef struct {
     bool is_press_action;
     int state;
@@ -24,8 +25,6 @@ typedef struct {
 enum {
     SINGLE_TAP = 1,
     SINGLE_HOLD = 2,
-    DOUBLE_TAP = 3,
-    TRIPLE_TAP = 4
 };
 
 //tap dance keys
@@ -41,12 +40,9 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data);
 void tk_reset(qk_tap_dance_state_t *state, void *user_data);
 
 #define INDICATOR_LED   B5
-#define TX_LED          D5
-#define RX_LED          B0
 
 #define _FN0    1
 #define _ML1    2
-#define _CL0    3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(/* Base */
@@ -61,28 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  
                             KC_TRNS,
                  KC_TRNS,   KC_TRNS,    KC_TRNS),
-    [_ML1] = LAYOUT(/* media function layer on double tap */
+    [_ML1] = LAYOUT(/* media function layer, toggled on a single tap */
                  KC_TRNS,   KC_TRNS,    KC_VOLU, 
                  KC_MUTE,   KC_TRNS,    KC_VOLD,
                  
                             KC_SPC,
                  KC_MRWD,   KC_MPLY,    KC_MFFD),
-    [_CL0] = LAYOUT(/* control layer on single tap */
-                 KC_TRNS,   KC_TRNS,    KC_TRNS,
-                 KC_TRNS,   KC_TRNS,    KC_TRNS,
-
-                                LCTL(KC_UP),
-                 LCTL(KC_LEFT), LCTL(KC_DOWN), LCTL(KC_RIGHT) ),
 };
 
-void matrix_init_user(void) {
-    //init the Pro Micro on-board LEDs
-    setPinOutput(TX_LED);
-    setPinOutput(RX_LED);
-    //set to off
-    writePinHigh(TX_LED);
-    writePinHigh(RX_LED);
-}
+void matrix_init_user(void) {}
 
 void matrix_scan_user(void) {}
 
@@ -99,17 +82,10 @@ int cur_dance (qk_tap_dance_state_t *state){
             //if still pressed/held down, then it's a single hold
             return SINGLE_HOLD;
         }
-    } else if(state->count == 2){
-        //if tapped twice, set to double tap
-        return DOUBLE_TAP;
-    } else if(state->count == 3){
-        //if tapped thrice, set to triple tap
-        return TRIPLE_TAP;
-    }else {
+    } else {
         return 8;
     }
 }
-
 
 //initialize the tap structure for the tap key
 static tap tk_tap_state = {
@@ -122,28 +98,7 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data){
     tk_tap_state.state = cur_dance(state);
     switch(tk_tap_state.state){
         case SINGLE_TAP:
-            //toggle desired layer when tapped:
-            if(layer_state_is(_CL0)){
-                //if already active, toggle it to off
-                layer_off(_CL0);
-                //turn off LEDs
-                writePinHigh(TX_LED);
-                writePinHigh(RX_LED);
-            } else {
-                //turn on the command layer
-                layer_on(_CL0);
-                //turn on the LEDs
-                writePinLow(TX_LED);
-                writePinLow(RX_LED);
-            }
-            break;
-        case SINGLE_HOLD:
-            //set to desired layer when held:
-            //setting to the function layer
-            layer_on(_FN0);
-            break;
-        case DOUBLE_TAP:
-            //set to desired layer when double tapped:
+            //send desired key when tapped:
             //setting to the media layer
             if(layer_state_is(_ML1)){
                 //if already active, toggle it to off
@@ -159,13 +114,10 @@ void tk_finished(qk_tap_dance_state_t *state, void *user_data){
                 writePinLow(INDICATOR_LED);
             }
             break;
-        case TRIPLE_TAP:
-            //reset all layers
-            layer_clear();
-            //set all LEDs off
-            writePinHigh(TX_LED);
-            writePinHigh(RX_LED);
-            writePinHigh(INDICATOR_LED);
+        case SINGLE_HOLD:
+            //set to desired layer when held:
+            //setting to the function layer
+            layer_on(_FN0);
             break;
     }
 }
@@ -178,7 +130,6 @@ void tk_reset(qk_tap_dance_state_t *state, void *user_data){
     //reset the state
     tk_tap_state.state = 0; 
 }
-
 
 //associate the tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {

@@ -2,9 +2,9 @@
 
 ![navi10](imgur.com image replace me!)
 
-A simple Navigation Cluster format Macropad emphasizing simplicity and symmetry. Uses a Pro Micro and along with through hole components for easy construction and to create a retro Sci-Fi look.
+A simple Navigation Cluster format Macropad emphasizing simplicity and symmetry. Uses a Pro Micro along with through hole components to create a retro Sci-Fi look and ease construction.
 
-Keyboard Maintainer: [Ethan Durrant (emdarcher)](https://github.com/emdarcher)  
+Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
 Hardware Supported: Navi10
 Hardware Availability: links to where you can find this hardware
 
