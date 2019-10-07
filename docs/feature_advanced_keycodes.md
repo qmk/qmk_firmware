@@ -273,9 +273,11 @@ To enable this setting, add this to your `config.h`:
 #define IGNORE_MOD_TAP_INTERRUPT
 ```
 
-Similar to Permissive Hold, this alters how the firmware processes input for fast typist. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the "tapping" function for both keys. This may not be desirable for rolling combo keys. 
+Similar to Permissive Hold, this alters how the firmware processes input for fast typist. Without setting this, the TAPPING_TERM generally accounts for the sum of the time either key is held. 
 
-Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
+In other words, if you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally perform the "hold" function. This might not be desirable for fast typists whose key presses might overlap with each other. 
+
+Setting `Ignore Mod Tap Interrupt` requires holding specifically the first mod key for the `TAPPING_TERM` to trigger the hold function (the mod).
 
 For Instance:
 
@@ -284,12 +286,12 @@ For Instance:
 - `SFT_T(KC_A)` Up
 - `KC_X` Up
 
-Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
+Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, the `SFT_T(KC_A)` key is required for the `TAPPING_TERM` to register the hold action. A quick roll will output `ax` in this case as will holding down the `KC_X` key. Only holding down the `SFT_T(KC_A)` will output `X`  (`SHIFT`+`x`).
 
 
 ?> __Note__: This only concerns modifiers and not layer switching keys.
 
-?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
+?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the second key is released first or if the first key is held longer than the `TAPPING_TERM`.
 
 ## Tapping Force Hold
 
