@@ -101,54 +101,55 @@ enum my_keycodes {
 
 ## Keymaps
 
-Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
+La plupart des contributeurs débutants démarrent avec leurs keymaps personnelles. Nous essayons de garder les standards pour les keymaps pluôt bas(les keymaps reflètent, après tout, la personnalité de leurs créateurs) mais nous demandons que vous suiviez les directives suivantes afin que d'autres puissent découvrir et apprendre de votre keymap.
 
-* Write a `readme.md` using [the template](documentation_templates.md).
-* All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
-* Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
-* Do not include `Makefile`s in your keymap folder (they're no longer used)
-* Update copyrights in file headers (look for `%YOUR_NAME%`)
+* Ecrivez un fichier `readme.md` en utilisant [la template](documentation_templates.md).
+* Tous les PR de keymaps doivent être "squashés", donc si la manière dont vos commits sont squashés vous est important, vous devriez le faire vous-même.
+* Ne regroupez pas des fonctionnalités avec votre PR de keymap. Envoyez d'abord votre fonctionnalité, puis créez un second PR pour la keymap.
+* N'incluez pas de fichier `Makefile` dans votre dossier de keymap (ils ne sont plus utilisés)
+* Mettez à jour les copyrights dans les en-têtes de fichiers (cherchez `%YOUR_NAME%`)
 
-## Keyboards
+## Claviers
 
-Keyboards are the raison d'être for QMK. Some keyboards are community maintained, while others are maintained by the people responsible for making a particular keyboard. The `readme.md` should tell you who maintains a particular keyboard. If you have questions relating to a particular keyboard you can [Open An Issue](https://github.com/qmk/qmk_firmware/issues) and tag the maintainer in your question.
+Les claviers sont la raison d'être de QMK. Certains claviers sont maintenus par la communauté, alors que d'autre ssont maintenus par les gens responsables de la création du clavier. Le fichier `readme.md` devrait vous informer de qui maintient le clavier. Si vous avez des questions concernant un clavier en particulier, vous pouvez [Ouvrir une issue](https://github.com/qmk/qmk_firmware/issues) et tagger le mainteneur dans votre question.
 
-We also ask that you follow these guidelines:
+Nous vous demandons aussi que vous suiviez ces directives:
 
-* Write a `readme.md` using [the template](documentation_templates.md).
-* Keep the number of commits reasonable or we will squash your PR
-* Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
-* Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
-* Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `%YOUR_NAME%`)
+* Ecrivez un fichier `readme.md` en utilisant [la template](documentation_templates.md).
+* Gardez un nombre de commits raisonnable, ou nous squasherons votre PR.
+* Ne regroupez pas des fonctionnalités avec le PR pour votre clavier. Envoyez d'abord votre fonctionnalité, puis créez un second PR pour le clavier.
+* Appelez les fichiers `.c`/`.h` du nom du dossier parent, par exemple `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
+* N'incluez pas
+* N'incluez pas de fichier `Makefile` dans votre dossier de keymap (ils ne sont plus utilisés)
+* Mettez à jour les copyrights dans les en-têtes de fichiers (cherchez `%YOUR_NAME%`)
 
 ## Quantum/TMK Core
 
-Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
+Faites attention d'être sûr d'implémenter votre nouvelle fonctionnalité de la meilleure manière qu'il soit avant d'investir beaucoup de travail à son développement. Vous pouvez apprendre les bases de QMK en lisant [Comprendre QMK](understanding_qmk.md), qui vous donnera une idée du flux du programme QMK. A partir de là, parlez nous afin de définir la meilleure façon d'implémenter votre idée. Il y a deux façons principale de le faire:
 
-* [Chat on Discord](https://discord.gg/Uq7gcHh)
-* [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
+* [Chat sur Discord](https://discord.gg/Uq7gcHh)
+* [Ouvrir une Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
-Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
+Les PR de nouvelles fonctionnalités de de correction de bug affectent tous les claviers. Nous sommes aussi dans un processus de restructuration de QMK. Pour cette raison, il est absolument nécessaire que tout changement important ou significatif soit discuté avant que l'implémentation soit faite. Si vous ouvrez un PR sans nous avoir parlé, préparez vous à faire des refontes significatives si vous changements ne sont pas compatibles avec ce que nous avons planifié.
 
-Here are some things to keep in mind when working on your feature or bug fix.
+Voici quelques choses à garder en tête lorsque vous travaillez sur une fonctionnalité ou un bug fix.
 
-* **Disabled by default** - memory is a pretty limited on most chips QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned **on**, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.
-* **Compile locally before submitting** - hopefully this one is obvious, but things need to compile! Our Travis system will catch any issues, but it's generally faster for you to compile a few keyboards locally instead of waiting for the results to come back.
-* **Consider revisions and different chip-bases** - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.
-* **Explain your feature** - Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.
+* **Désactivé par défaut** - la mémoire est plutôt limitée sur la plupart des chips que QMK supporte, et il est important que les keymaps courrantes ne soient pas cassées. S'il vous plaît faites que vos features doivent être **activées** plutôt que désactivées. Si vous pensez qu'elle devrait être activée par défaut, ou que cela réduit la taille du code, parlez-nous en.
+* **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Notre système Travis devrait attraper les problèmes, mais il est généralement plus rapide de compiler quelques claviers en local plutôt que d'attendre le retour des résultats
+* **Faites attentions aux révisions et différentes bases de chip** - beaucoup de claviers ont des révisions qui permettent de changements de configuration mineurs, voir des bases de chip différentes. Essayez de faire que votre fonctionnalité soit supporté à la fois sur ARM et AVR, ou désactivez-là automatiquement sur les plateformes non supportése.
+* **Expliquez votre fonctionnalité** - Documentez-là dans `docs/`, soit dans un nouveau fichier, ou dans une partie d'un fichier existant. Si vous ne la documentez pas, personne ne pourra bénéficier de votre dur labeur.
 
-We also ask that you follow these guidelines:
+Nous vous demandons aussi de suivre ces ces directives:
 
-* Keep the number of commits reasonable or we will squash your PR
-* Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
-* Write [Unit Tests](unit_testing.md) for your feature
-* Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the [coding conventions](#coding-conventions) above.
+* Gardez un nombre de commits raisonnable, ou nous squasherons votre PR.
+* Ne regroupez pas des claviers ou des keymaps avec des changements core. Soumettez vos changements core en premier.
+* Ecrivez des [Tests Unitaires](unit_testing.md) pour votre fonctionnalité.
+* Suivez le style du fichier que vous modifiez. Si le style n'est pas clair ou qu'il y a un mélange de fichiers, vous devriez vous conformer aux [conventions de codage](#coding-conventions) au dessus.
 
-## Refactoring
+## Refactoriser
 
-To maintain a clear vision of how things are laid out in QMK we try to plan out refactors in-depth and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, [open an issue](https://github.com/qmk/qmk_firmware/issues), we'd love to talk about how QMK can be improved.
+Afin de maintenir une vision claire sur comment les choses sont architectuées dans QMK, nous essayons de planifier des refactorisations en profondeur et qu'un collaborateur fasse le changement. Si vous avez une idée de refactorisation, ou une suggestion, [ouvrez une issue] [open an issue](https://github.com/qmk/qmk_firmware/issues), nous adorons discuter de comment améliorer QMK.
 
-# What Does the Code of Conduct Mean for Me?
+# Que veut dire le code de conduite pour moi?
 
-Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.
+Note [Code De Conduite](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) veut dire que vous avez la responsabilité de traiter tout le monde dans le projet avec respect et courtoisie, peut importe leur identité. Si vous êtes victime d'une attitude ou de commentaires inapropriés, tels que décrit dans notre Code de Conduite, nous sommes là pour vous et nous ferons de notre mieux pour nous assurer que le fautif soit réprimandé, tel que décrit dans notre code.
