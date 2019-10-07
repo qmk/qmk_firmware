@@ -17,7 +17,7 @@
 // you installed.
 #define BASE_COLOR 166, 255, 255
 
-#define DIM_COLOR 22, 200, 150
+#define DIM_COLOR 22, 200, 200
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ortho_5x15(
