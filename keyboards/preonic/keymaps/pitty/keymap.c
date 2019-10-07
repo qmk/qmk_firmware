@@ -146,91 +146,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2] = SONG(STARTUP_SOUND); 
-float tone_qwerty[][2] = SONG(QWERTY_SOUND);
-float tone_numpad[][2] = SONG(GOODBYE_SOUND);
-float tone_oneshot[][2] = SONG(PLANCK_SOUND);
-float tone_dyn_macro_rec[][2] = SONG(PREONIC_SOUND);
-float tone_dyn_macro_stop[][2] = SONG(COLEMAK_SOUND);
-float music_scale[][2] = SONG(DVORAK_SOUND);
-float tone_goodbye[][2] = SONG(TERMINAL_SOUND);
-float tone_goodbye1[][2] = SONG(WORKMAN_SOUND);
-float tone_goodbye2[][2] = SONG(PLOVER_SOUND);
-float tone_goodbye3[][2] = SONG(VOICE_CHANGE_SOUND);
-float tone_goodbye4[][2] = SONG(MINOR_SOUND);
-float tone_goodbye5[][2] = SONG(UNICODE_WINDOWS);
-float tone_goodbye6[][2] = SONG(PLOVER_GOODBYE_SOUND);
-float real_imp[][2]    = {
-  {NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
-  {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
-  {NOTE_F4, 75}   ,{NOTE_C5, 25}   ,{NOTE_A4, 75}   ,{NOTE_REST, 25} ,
-  {NOTE_REST, 30}
-};
-
-#endif
-
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_qwerty);
-            #endif
-          }
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-			#ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_goodbye);
-            #endif
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-			#ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_dyn_macro_rec);
-            #endif
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
-    return true;
-};
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    }
+  return true;
 }
-
-#ifdef AUDIO_ENABLE
-void startup_user()
-{
-    PLAY_SONG(real_imp);
-}
-void shutdown_user()
-{
-    PLAY_SONG(tone_oneshot);
-    stop_all_notes();
-}
-void music_on_user(void)
-{
-    music_scale_user();
-}
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-#endif
