@@ -56,7 +56,7 @@ Nachdem Homebrew erfolgreich installiert ist kannst Du mit _QMK aufsetzen_ fortf
 
 ### Linux
 
-Du brauchst Git, es ist ziemlich wahrscheinlich dass es bereits installiert ist. Sollte dies nicht der Fall sein kannst Du es mit dem folgenden Aufruf installieren:
+Du benötigst Git, aber es ist ziemlich wahrscheinlich, dass es bereits installiert ist. Sollte dies nicht der Fall sein, kannst Du es mit dem folgenden Aufruf installieren:
 
 * Debian / Ubuntu / Devuan: `apt-get install git`
 * Fedora / Red Hat / CentOS: `yum install git`
