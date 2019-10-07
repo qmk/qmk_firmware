@@ -13,22 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#pragma once
+#include "rev2.h"
 
-#include "quantum.h"
+void matrix_init_kb(void) {
+  // put your keyboard start-up code here
+  // runs once when the firmware starts up
 
-#define LAYOUT( \
-    k0, k1, k2, \
-    k3, k4, k5, \
-                \
-        k6, \
-    k7, k8, k9 \
-) \
-{ \
-    {k0, k1, k2}, \
-    {k3, k4, k5}, \
-    {KC_NO, k6, KC_NO}, \
-    {k7, k8, k9}, \
+  //set the indicator LED pin to Output
+  setPinOutput(B5);
+  //set HIGH for off.
+  writePinHigh(B5);
+
+  //call any user functions
+  matrix_init_user();
 }
-
 
