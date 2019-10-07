@@ -101,7 +101,7 @@
   * [GPIO Controls](de/internals_gpio_control.md)
   * [Proton C Conversion](de/proton_c_conversion.md)
 
-* Für tieferes Verständnis
+* Für ein tieferes Verständnis
   * [Wie Tastaturen funktionieren](de/how_keyboards_work.md)
   * [QMK verstehen](de/understanding_qmk.md)
 
