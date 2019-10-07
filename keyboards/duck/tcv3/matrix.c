@@ -260,7 +260,7 @@ static void select_col(uint8_t col) {
             break;
         case 15: // U2 Y5
             PORTB |= 0b01000000;
-            PORTC |= 0b11000000;
+            PORTC |= 0b10000000;
             PORTF |= 0b00000001;
             break;
         case 16: // U2 Y6
