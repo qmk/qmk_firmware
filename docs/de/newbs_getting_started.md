@@ -60,7 +60,7 @@ Du brauchst Git, es ist ziemlich wahrscheinlich dass es bereits installiert ist.
 
 * Debian / Ubuntu / Devuan: `apt-get install git`
 * Fedora / Red Hat / CentOS: `yum install git`
-* Arch: `pacman -S git`
+* Arch Linux: `pacman -S git`
 
 ?> Docker ist ebenfalls eine Option für alle Plattformen. [Hier](de/getting_started_build_tools.md#docker) kannst Du dazu weitere Informationen finden.
 
