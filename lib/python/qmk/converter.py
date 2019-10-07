@@ -2,6 +2,7 @@
 """
 from collections import OrderedDict
 
+
 def kle2qmk(kle):
     """Convert a kle layout to qmk's layout format.
     """
