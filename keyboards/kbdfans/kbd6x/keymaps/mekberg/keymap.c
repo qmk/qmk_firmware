@@ -24,7 +24,8 @@
 #define MY_PREV KC_MRWD         // Media: Previous
 #define MY_NEXT KC_MFFD         // Media: Next
 #define MY_PLAY KC_MPLY         // Media: Play/Pause
-#define MY_LOCK C(A(KC_L))      // Mac: Lock
+// #define MY_LOCK C(A(KC_L))      // Mac: Lock
+#define MY_LOCK C(LCMD(KC_L))      // Mac: Lock (when Alt/Command have been swapped)
 
 /*
 KBD6x ANSI physical layout
