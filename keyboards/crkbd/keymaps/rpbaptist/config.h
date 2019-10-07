@@ -99,8 +99,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MOUSEKEY_DELAY             0
 #define MOUSEKEY_MOVE_DELTA        25
-#define MOUSEKEY_INITIAL_SPEED     250
-#define MOUSEKEY_BASE_SPEED        1500
+#define MOUSEKEY_INITIAL_SPEED     400
+#define MOUSEKEY_BASE_SPEED        1800
+#define MOUSEKEY_DECELERATED_SPEED 300
 #define MOUSEKEY_ACCELERATED_SPEED 2200
 #define MOUSEKEY_TIME_TO_MAX       32
 
