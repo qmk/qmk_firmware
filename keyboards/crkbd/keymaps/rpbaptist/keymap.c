@@ -41,7 +41,7 @@ enum layer_names {
 #define TBBCK LCTL(LSFT(KC_TAB))
 
 // Custom key for NUM layer
-#define CTEQL RCTL_T(KC_EQL)
+#define CT_ASTR RCTL_T(KC_ASTR)
 
 // €
 #define KC_EUR ALGR(KC_5)
@@ -99,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TILD,  KC_EXLM,  KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_SLSH,    KC_4,    KC_5,    KC_6, KC_MINS, KC_PLUS,\
+      KC_TILD,  KC_EXLM,  KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_UNDS,    KC_4,    KC_5,    KC_6, KC_MINS, KC_PLUS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_CIRC, KC_AMPR,  KC_EUR, KC_LPRN, KC_RPRN,                      KC_ASTR,    KC_1,    KC_2,    KC_3, KC_UNDS,   CTEQL,\
+      _______, KC_CIRC, KC_AMPR,  KC_EUR, KC_LPRN, KC_RPRN,                       KC_EQL,    KC_1,    KC_2,    KC_3, KC_SLSH, CT_ASTR,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,   S_NUM, _______,    _______, NAV_0, KC_DOT \
                                       //`--------------------------'  `--------------------------'
