@@ -152,10 +152,6 @@ static uint8_t read_rows(uint8_t col) {
     }
 }
 
-uint8_t read_fwkey(void)
-{
-  return PINE&(1<<2) ? 0 : (1<<0);
-}
 
 /* Columns 0 - G
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
