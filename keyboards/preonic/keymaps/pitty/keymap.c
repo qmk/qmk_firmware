@@ -171,3 +171,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   return true;
 }
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _RAISE:
+        PLAY_SONG (TERMINAL_SOUND);
+        break;
+    case _LOWER:
+        PLAY_SONG (TERMINAL_SOUND);
+        break;
+    case _GAME:
+        PLAY_SONG (AG_SWAP_SOUND);
+        break;
+    case _ADJUST:
+        PLAY_SONG (UNICODE_LINUX);
+        break;
+    default: //  for any other layers, or the default layer
+        PLAY_SONG (QWERTY_SOUND);
+        break;
+    }
+  return state;
+}
