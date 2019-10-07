@@ -93,7 +93,7 @@
   * [Userspace](de/feature_userspace.md)
   * [Velocikey](de/feature_velocikey.md)
 
-* Für Makers und Modders
+* Für Maker und Modder
   * [Hand Wiring Guide](de/hand_wire.md)
   * [ISP Flashing Guide](de/isp_flashing_guide.md)
   * [ARM Debugging Guide](de/arm_debugging.md)
