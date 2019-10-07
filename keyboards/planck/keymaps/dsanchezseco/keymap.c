@@ -1,6 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ESC_CTL LCTL_T(KC_ESC)
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -9,14 +13,6 @@ enum planck_layers {
   _RAISE,
   _ADJUST
 };
-
-enum planck_keycodes {
-  DVORAK = SAFE_RANGE,
-  ESC_CTL = LCTL_T(KC_ESC),
-};
-
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

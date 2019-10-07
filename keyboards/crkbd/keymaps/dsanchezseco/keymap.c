@@ -10,6 +10,10 @@ extern rgblight_config_t rgblight_config;
 
 extern uint8_t is_master;
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ESC_CTL LCTL_T(KC_ESC)
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -20,14 +24,6 @@ enum crkbd_layers {
   _RAISE,
   _ADJUST
 };
-
-enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
-  LOWER = MO(_LOWER),
-  RAISE = MO(_RAISE),
-  ESC_CTL = LCTL_T(KC_ESC),
-};
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = LAYOUT( \
