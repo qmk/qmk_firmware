@@ -16,7 +16,7 @@ Wenn Du es lieber vorziehst mit einer grafischen Oberfläche zu entwickeln kanns
 
 ### Text Editor
 
-Du wirst ein Programm benötigen mit dem Du **plain text** Dateien bearbeiten und speichern kannst. Wenn Du Windows benutzt reicht dafür schon das normale `Notepad` und für Linux z.B. `gedit`. Beide sind sehr rudimentäre Editoren deren Funktionsumfang aber zur Not vollkommen ausreicht. Für macOS' standard `TextEdit` muss man ein bisschen vorsichtig sein und darauf achten beim speichern explizit unter _Format_ die Option _Reiner Text_ auszuwählen.
+Du wirst ein Programm benötigen mit dem Du **plain text** (= reiner Text) Dateien bearbeiten und speichern kannst. Wenn Du Windows benutzt reicht dafür schon das normale `Notepad` und für Linux z.B. `gedit` oder `leafpad`. Beide sind sehr rudimentäre Editoren deren Funktionsumfang aber vollkommen ausreicht. Für macOS' standard `TextEdit` muss man ein bisschen vorsichtig sein und darauf achten beim Speichern explizit unter _Format_ die Option _Reiner Text_ auszuwählen.
 
 Ansonsten ist es empfehlenswert einen Editor herunterzuladen der für die Programmierung und das Bearbeiten von Code ausgelegt ist wie z.b [Notepad++](http://notepad-plus-plus.org/), [Sublime Text](https://www.sublimetext.com/) oder [VS Code](https://code.visualstudio.com/).
 
