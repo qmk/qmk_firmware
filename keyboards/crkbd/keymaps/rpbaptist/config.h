@@ -97,12 +97,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE 2
 
+#define MK_KINETIC_SPEED
+
 #define MOUSEKEY_DELAY             0
-#define MOUSEKEY_INTERVAL          16
-#define MOUSEKEY_MAX_SPEED         6
+#define MOUSEKEY_MOVE_DELTA        25
+#define MOUSEKEY_INITIAL_SPEED     250
+#define MOUSEKEY_BASE_SPEED        1500
+#define MOUSEKEY_ACCELERATED_SPEED 2200
 #define MOUSEKEY_TIME_TO_MAX       32
-#define MOUSEKEY_WHEEL_MAX_SPEED   4
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/rpbaptist/glcdfont.c"
 
