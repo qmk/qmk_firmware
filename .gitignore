@@ -75,4 +75,4 @@ id_rsa_*
 
 # python things
 __pycache__
-.pyc
+*.pyc
