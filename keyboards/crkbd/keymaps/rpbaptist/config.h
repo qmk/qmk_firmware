@@ -91,9 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define TAPPING_TERM 150
-// #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-// #define RETRO_TAPPING
 
 #define TAPPING_TOGGLE 2
 
