@@ -79,7 +79,7 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
 
-!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
+!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
 
 ## Documentation
 
