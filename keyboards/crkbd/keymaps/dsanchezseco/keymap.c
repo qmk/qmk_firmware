@@ -83,7 +83,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!isLeftHand)
-    return OLED_ROTATION_180;  // flips the display 270 to see it from my side
+    return OLED_ROTATION_180;  // flips the display 180 to see it from my side
   return rotation;
 }
 
