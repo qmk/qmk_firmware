@@ -26,7 +26,7 @@
 
 * Guías detalladas
   * [Instalar herramientas construcción](getting_started_build_tools.md)
-  * [Gía Vagrant](getting_started_vagrant.md)
+  * [Guía Vagrant](getting_started_vagrant.md)
   * [Instrucciones de Construcción/Compilado](getting_started_make_guide.md)
   * [Flasheando Firmware](flashing.md)
   * [Personalizando funcionalidad](custom_quantum_functions.md)
