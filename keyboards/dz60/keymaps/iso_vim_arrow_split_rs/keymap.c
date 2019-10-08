@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  LAYOUT_60_stand_stag_all(
+  LAYOUT_60_iso_5x1u_split_bs_rshift_spc(
 //F key layer:
 //  1        2        3        4        5        6        7        8        9        10       11       12       13       14       15
     KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_DEL,
