@@ -41,7 +41,7 @@ enum layer_names {
 #define TBBCK LCTL(LSFT(KC_TAB))
 
 // Custom key for NUM layer
-#define CT_ASTR RCTL_T(KC_ASTR)
+#define CT_ASTR KC_RCPC
 
 // €
 #define KC_EUR ALGR(KC_5)
