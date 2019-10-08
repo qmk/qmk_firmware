@@ -9,7 +9,7 @@ from . import doctor
 from . import hello
 from . import json
 from . import list
-from . import kle2qmk
+from . import kle2json
 from . import new
 from . import pyformat
 from . import pytest
