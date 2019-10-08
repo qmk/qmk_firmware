@@ -1,4 +1,3 @@
-# SRC += i2c.c
 QUANTUM_LIB_SRC += serial.c
 
 # MCU name
