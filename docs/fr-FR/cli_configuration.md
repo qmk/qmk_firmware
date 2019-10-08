@@ -4,13 +4,13 @@ Ce document explique comment fonctionne la commande `qmk config`.
 
 # Introduction
 
-La configuration pour QMK CLI est un système clé/valeur. Chaque clé consiste en une sous-commande et le nom d'un argument séparé par une virgule. Cela permet une traduction simple et directe entre les clés de configuration et l'argument qu'elle définit.
+La configuration pour QMK CLI est un système clé/valeur. Chaque clé est composée d'une sous-commande et d'un argument séparé par une virgule. Cela permet une traduction simple et directe entre les clés de configuration et l'argument qu'elle définit.
 
 ## Exemple simple
 
 Comme exemple, regardons la commande `qmk compile --keyboard clueboard/66/rev4 --keymap default`.
 
-Il y a deux arguments de ligne de commande qui peuvent être lus de la configuration:
+Il y a deux arguments de ligne de commande qui peuvent être lu de la configuration:
 
 * `compile.keyboard`
 * `compile.keymap`
@@ -59,9 +59,9 @@ default.keymap: None -> default
 
 ## Lire des valeurs de configuration
 
-Vous pouvez lire les valeurs de configuration pour l'entier de la configuration, une seule clé, ou une section entière. Vous pouvez aussi spécifier plusieurs clés pour afficher plus d'une valeur.
+Vous pouvez lire les valeurs de configuration pour la totalité de la configuration, une seule clé, ou une section entière. Vous pouvez aussi spécifier plusieurs clés pour afficher plus d'une valeur.
 
-### Exemple avec l'entier de la configuration
+### Exemple avec la totalité de la configuration
 
     qmk config
 

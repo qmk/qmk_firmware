@@ -4,7 +4,7 @@ Cette page décrit comment configurer et utiliser la CLI QMK.
 
 # Vue d'ensemble
 
-La CLI de QMK permet de simplifier la compilation et le travaille avec les clavier QMK. Nous avons définis plusieurs commandes pour simplifier et rationaliser les tâches telles qu'obtenir et compiler le firmware QMK, créer de nouvelles keymaps, et plus.
+La CLI de QMK permet de simplifier la compilation et l'intéraction avec les clavier QMK. Nous avons définis plusieurs commandes pour simplifier et rationaliser les tâches telles qu'obtenir et compiler le firmware QMK, créer de nouvelles keymaps, et plus.
 
 * [CLI globale](#global-cli)
 * [CLI locale](#local-cli)
@@ -12,11 +12,11 @@ La CLI de QMK permet de simplifier la compilation et le travaille avec les clavi
 
 # Pré-requis
 
-La CLI nécessite Python 3.5 ou plus récent. Nous essayons de garder le nombre de pré-requis petit, mais vous allez aussi devoir installer les paquets listés dans le fichier [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
+La CLI nécessite Python 3.5 ou plus récent. Nous essayons de limiter le nombre de pré-requis, mais vous allez aussi devoir installer les paquets listés dans le fichier [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt).
 
 # CLI globale
 
-QMK définis une CLI installable qui peut être utilisée pour configurer votre environnement de compilation QMK, fonctionne avec QMK, et qui rend l'utilisation de plusieurs copies de `qmk_firmware` plus simple. Nous recommandons d'installer et de mettre à jour ceci régulièrement.
+QMK met à disposition une CLI installable qui peut être utilisée pour configurer votre environnement de compilation QMK, fonctionne avec QMK, et qui rend l'utilisation de plusieurs copies de `qmk_firmware` plus simple. Nous recommandons d'installer et de mettre à jour ceci régulièrement.
 
 ## Installer en utilisant Homebrew (macOS, quelques Linux)
 

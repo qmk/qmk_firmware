@@ -2,7 +2,7 @@
 
 GitHub peut être un peu compliqué pour ceux qui n'y sont pas familier. Ce guide va vous expliquer chaque étape de "fork", clone et envoi d'un pull request avec QMK.
 
-?> Ce guide part du principe que vous êtes suffisamment confortable pour envoyer commandes sur la ligne de commande et que vous avez Git insallé sur votre système.
+?> Ce guide part du principe que vous êtes suffisamment à l'aise pour envoyer commandes sur la ligne de commande et que vous avez Git installé sur votre système.
 
 Commencez par la [page GitHub de QMK](https://github.com/qmk/qmk_firmware), et vous verrez un bouton dans le coin en haut à droite qui indique "Fork":
 
@@ -48,7 +48,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Vos changements existent maintenant dnas votre fork sur GitHub. Si vous allez à cete adresse (`https://github.com/<whoeveryouare>/qmk_firmware`), vous pouvez créer un nouveau "Pull Request" en cliquant sur ce bouton:
+Vos changements existent maintenant dans votre fork sur GitHub. Si vous allez à cete adresse (`https://github.com/<whoeveryouare>/qmk_firmware`), vous pouvez créer un nouveau "Pull Request" en cliquant sur ce bouton:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

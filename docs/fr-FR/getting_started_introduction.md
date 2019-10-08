@@ -1,6 +1,6 @@
 # Introduction
 
-Le bug de cette page est d'expliquer les informations de base qui vous serons nécessaire pour travailler sur le projet QMK. Il s'attend à ce que vous soyez familier à la navigation à l'aide d'un shell Unix, mais ne s'attend pas à ce que vous soyez familier avec C ou la compilation en utilisant make.
+Le but de cette page est d'expliquer les informations de base qui vous serons nécessaire pour travailler sur le projet QMK. Il a pour pré-requis que vous soyez familier à la navigation à l'aide d'un shell Unix, mais ne s'attend pas à ce que vous soyez familier avec C ou la compilation en utilisant make.
 
 ## Structure de base de QMK
 
@@ -17,12 +17,12 @@ Dans le dossier `keyboards`, son sous-dossier `handwired` et ses sous-dossiers p
 A l'intérieur, vous trouverez la structure suivante:
 
 * `keymaps/`: différentes keymaps qui peuvent être compilées
-* `rules.mk`: Le fichier qui définis les options "make" par défaut. Ne modifiez pas ce fichier directement, utilisez à la place un `rules.mk` spécifique à la keymap.
-* `config.h`: Le fichier qui définis les options de compilation par défaut. Ne modifiez pas ce fichier directement, utilisez à la place un `config.h` spécifique à la keymap.
+* `rules.mk`: Ce fichier définit les options "make" par défaut. Ne modifiez pas ce fichier directement, utilisez à la place un `rules.mk` spécifique à la keymap.
+* `config.h`: Ce fichier définit les options de compilation par défaut. Ne modifiez pas ce fichier directement, utilisez à la place un `config.h` spécifique à la keymap.
 * `info.json`: Le fichier utilisé pour définir les options de layout de QMK Configurator. Voyez [Support Configurator](reference_configurator_support.md) pour plus d'information.
 * `readme.md`: une brève description du clavier.
-* `<keyboardName>.h`: Ce fichier définis le layout du fichier par rapport à la matrice de commutation.
-* `<keyboardName>.c`: Ce fichier définis du code custom pour le clavier.
+* `<keyboardName>.h`: Ce fichier définit le layout du fichier par rapport à la matrice de commutation.
+* `<keyboardName>.c`: Ce fichier définit du code custom pour le clavier.
 
 Pour plus d'information sur la structure du projet, voyez [Directives clavier QMK](hardware_keyboard_guidelines.md).
 
@@ -31,7 +31,7 @@ Pour plus d'information sur la structure du projet, voyez [Directives clavier QM
 Dans chaque dossier keymap, vous allez trouver les fichiers suivants. Seul le fichier `keymap.c` est nécessaire, et si le reste des fichiers n'existent pas, les options par défaut seront choisies.
 
 * `config.h`: les options de configuration de votre keymap
-* `keymap.c`: tous le code de votre keymap, requis
+* `keymap.c`: tout le code de votre keymap, requis
 * `rules.mk`: les features de QMK qui sont activées
 * `readme.md`: une description de votre keymap, comment d'autres l'utiliseront, et des explications des fonctionnalités. Uploadez les images vers un service comme imgur.
 
@@ -39,7 +39,7 @@ Dans chaque dossier keymap, vous allez trouver les fichiers suivants. Seul le fi
 
 Le fichier `config.h` peut être mis à 3 endroits:
 
-* Clavier (`/keyboards/<keyboard>/config.h`)
+* keyboard (`/keyboards/<keyboard>/config.h`)
 * userspace (`/users/<user>/config.h`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
