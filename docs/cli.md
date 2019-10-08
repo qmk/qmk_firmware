@@ -115,6 +115,16 @@ This command examines your environment and alerts you to potential build or flas
 qmk doctor
 ```
 
+## `qmk list_keyboards`
+
+This command lists all the keyboards currently defined in `qmk_firmware`
+
+**Usage**:
+
+```
+qmk list_keyboards
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
