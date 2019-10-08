@@ -16,6 +16,10 @@
 #include "v3.h"
 #include "indicator_leds.h"
 
+// Alphas PB1
+// Navigation Cluster: PB2
+// Number Row, Mods: PB3
+// Function Row: PE6
 enum BACKLIGHT_AREAS {
   BACKLIGHT_ALPHAS   = 0b00000001,
   BACKLIGHT_NAVI     = 0b00000010,
@@ -23,11 +27,6 @@ enum BACKLIGHT_AREAS {
   BACKLIGHT_FROW     = 0b00001000,
   BACKLIGHT_ALL      = 0b00001111
 };
-
-// Alphas PB1
-// Navigation Cluster: PB2
-// Number Row, Mods: PB3
-// Function Row: PE6
 
 void backlight_set(uint8_t level) {
   // switch(level) {

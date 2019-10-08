@@ -37,7 +37,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+// #define BACKLIGHT_LEVELS 3
+
+#undef BACKLIGHT_PIN
+#define BACKLIGHT_PINS { B1, B2, B3, E6 }
+#define BACKLIGHT_LED_COUNT 4
+#define BACKLIGHT_LEVELS 10
+#define BACKLIGHT_ON_STATE 1
 
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D6
