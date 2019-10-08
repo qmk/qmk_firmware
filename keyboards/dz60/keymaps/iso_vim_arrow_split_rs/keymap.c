@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,            KC_TRNS,                   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
-  LAYOUT_60_stand_stag_all(
+  LAYOUT_60_iso_5x1u_split_bs_rshift_spc(
 //Reset by holding Fn1 and Fn2 and press the D key
 //  1        2        3        4        5        6        7        8        9        10       11       12       13       14       15
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
