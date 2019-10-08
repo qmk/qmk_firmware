@@ -107,7 +107,7 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8080.
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 
 **Usage**:
 
