@@ -1,4 +1,4 @@
-#&nbsp;The&nbsp;salicylic&nbsp;keymap&nbsp;for&nbsp;naked60
+# The salicylic keymap for naked60
 
 Default<br>
 <table>
