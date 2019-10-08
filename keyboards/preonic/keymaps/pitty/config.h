@@ -7,7 +7,6 @@
 #    define GOODBYE_SONG SONG(STARTUP_SOUND)
 #    define MUSIC_ON_SONG SONG(TERMINAL_SOUND)
 #endif
-#endif
 
 #undef  TEMPO_DEFAULT
 
