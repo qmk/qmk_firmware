@@ -1,32 +1,32 @@
 **En Français**
 
-* [Guide pour débutant complet](fr-FR/newbs.md)
-  * [Pour débuter](fr-FR/newbs_getting_started.md)
-  * [Compiler son premier firmware](fr-FR/newbs_building_firmware.md)
-  * [Flasher le Firmware](fr-FR/newbs_flashing.md)
-  * [Test et Débuggage](fr-FR/newbs_testing_debugging.md)
-  * [Bonnes pratiques Git](fr-FR/newbs_best_practices.md)
-  * [Ressources d'apprentissage](fr-FR/newbs_learn_more_resources.md)
+* [Guide pour débutant complet](fr-fr/newbs.md)
+  * [Pour débuter](fr-fr/newbs_getting_started.md)
+  * [Compiler son premier firmware](fr-fr/newbs_building_firmware.md)
+  * [Flasher le Firmware](fr-fr/newbs_flashing.md)
+  * [Test et Débuggage](fr-fr/newbs_testing_debugging.md)
+  * [Bonnes pratiques Git](fr-fr/newbs_best_practices.md)
+  * [Ressources d'apprentissage](fr-fr/newbs_learn_more_resources.md)
 
-* [Les bases de QMK](fr-FR/README.md)
-  * [Indroduction à QMK](fr-FR/getting_started_introduction.md)
-  * [QMK CLI](fr-FR/cli.md)
-  * [Configuration de la CLI QMK](fr-FR/cli_configuration.md)
-  * [Contribuer à QMK](fr-FR/contributing.md)
-  * [Comment utiliser GitHub](fr-FR/getting_started_github.md)
-  * [Trouver de l'aide](fr-FR/getting_started_getting_help.md)
+* [Les bases de QMK](fr-fr/README.md)
+  * [Indroduction à QMK](fr-fr/getting_started_introduction.md)
+  * [QMK CLI](fr-fr/cli.md)
+  * [Configuration de la CLI QMK](fr-fr/cli_configuration.md)
+  * [Contribuer à QMK](fr-fr/contributing.md)
+  * [Comment utiliser GitHub](fr-fr/getting_started_github.md)
+  * [Trouver de l'aide](fr-fr/getting_started_getting_help.md)
 
-* [Breaking changes](fr-FR/breaking_changes.md)
-  * [30 août 2019](fr-FR/ChangeLog/20190830.md)
+* [Breaking changes](fr-fr/breaking_changes.md)
+  * [30 août 2019](fr-fr/ChangeLog/20190830.md)
+
+* [FAQ](fr-fr/faq.md)
+  * [FAQ Générale](fr-fr/faq_general.md)
+  * [Compiler QMK](fr-fr/faq_build.md)
+  * [Débugguer / Dépanner QMK](fr-fr/faq_debug.md)
+  * [Keymap / Disposition](fr-fr/faq_keymap.md)
+  * [Installer les drivers avec Zadig](fr-fr/driver_installation_zadig.md)
 
 **En Anglais**
-
-* [FAQ](faq.md)
-  * [FAQ Générale](faq_general.md)
-  * [Compiler QMK](faq_build.md)
-  * [Débugguer / Dépanner QMK](faq_debug.md)
-  * [Keymap / Disposition](faq_keymap.md)
-  * [Installer les drivers avec Zadig](driver_installation_zadig.md)
 
 * Guides détaillés
   * [Installation des outils de compilation](getting_started_build_tools.md)
