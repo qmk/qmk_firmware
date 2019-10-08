@@ -1,6 +1,6 @@
-#&nbsp;The&nbsp;salicylic_with_setta21&nbsp;keymap&nbsp;for&nbsp;naked60
+# The salicylic_with_setta21 keymap for naked60
 
-Add&nbsp;Setta21&nbsp;maps&nbsp;to&nbsp;the&nbsp;salicylic&nbsp;layout.
+Add Setta21 maps to the salicylic layout.
 
 Default<br>
 <table>

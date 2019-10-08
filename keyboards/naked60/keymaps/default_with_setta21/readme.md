@@ -1,6 +1,6 @@
-#&nbsp;The&nbsp;default_with_setta21&nbsp;keymap&nbsp;for&nbsp;naked60
+# The default_with_setta21 keymap for naked60
 
-Add&nbsp;Setta21&nbsp;maps&nbsp;to&nbsp;the&nbsp;default&nbsp;layout.
+Add Setta21 maps to the default layout.
 
 Default<br>
 <table>

@@ -1,6 +1,6 @@
-#&nbsp;The&nbsp;salicylic_with_nafuda&nbsp;keymap&nbsp;for&nbsp;naked60
+# The salicylic_with_nafuda keymap for naked60
 
-Add&nbsp;Nafuda&nbsp;maps&nbsp;to&nbsp;the&nbsp;salicylic&nbsp;layout.
+Add Nafuda maps to the salicylic layout.
 
 Default<br>
 <table>
