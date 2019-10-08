@@ -36,6 +36,9 @@ def compile(cli):
     in_keyboard = False
     keyboard = ""
     keymap = "default"
+    user_keymap = ""
+    user_keyboard = ""
+
 
     # Set path for '/keyboards/' directory
     keyboards_path = os.path.join(qmk_path , "keyboards")
@@ -53,6 +56,12 @@ def compile(cli):
                 keyboard = str(cwd[len(keyboards_path):])[1:]
 
             in_keyboard= True
+
+    # If user keyboard/keymap or compile keyboard/keymap are supplied, assign those
+    if cli.config.compile.keyboard or cli.config.user.keyboard:
+        user_keyboard = cli.config.user.keyboard if cli.config.user.keyboard else cli.config.compile.keyboard
+    if cli.config.compile.keymap or cli.config.user.keymap:
+        user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap
 
     # If in layouts dir
     if cwd.startswith(layouts_path):
@@ -73,17 +82,17 @@ def compile(cli):
 
         cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
 
-    elif cli.config.compile.keyboard and cli.config.compile.keymap:
+    elif user_keyboard and user_keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = ['make', ':'.join((cli.config.compile.keyboard, cli.config.compile.keymap))]
+        command = ['make', ':'.join((keyboard, keymap))]
     
-    elif in_keyboard:   
+    elif in_keyboard: 
+        keyboard = user_keyboard if user_keyboard else keyboard
         # Get path for keyboard directory
         keymap_path = qmk.path.keymap(keyboard) 
-
         # Check for global keymap config first
-        if cli.config.compile.keymap:
-            command = ['make', ':'.join((keyboard, cli.config.compile.keymap))]
+        if user_keymap:
+            command = ['make', ':'.join((keyboard, user_keymap))]
 
         # Check if keyboard has default layout
         elif os.path.exists(keymap_path + "/default"):
@@ -97,9 +106,9 @@ def compile(cli):
             return False
 
     elif in_layout:
-        if cli.config.compile.keyboard:
+        if user_keyboard:
             keymap = current_folder
-            command = ['make', ':'.join((cli.config.compile.keyboard, keymap))]
+            command = ['make', ':'.join((user_keyboard, keymap))]
 
 
     else:
