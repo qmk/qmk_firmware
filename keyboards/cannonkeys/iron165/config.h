@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
+#define VENDOR_ID       0x5A12
 #define PRODUCT_ID      0x5165
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
@@ -53,21 +53,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // EEPROM usage
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 40
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x02
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 42
 
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 // Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600) = 635
 // start + layer * rows * col * 2
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-#define EEPROM_CUSTOM_BACKLIGHT 676
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 677
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 43
+#define EEPROM_CUSTOM_BACKLIGHT 684
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 685
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 192
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 /*
