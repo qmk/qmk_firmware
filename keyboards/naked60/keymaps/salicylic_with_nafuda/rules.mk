@@ -1,5 +1,4 @@
 RGBLIGHT_ENABLE = yes
-TAP_DANCE_ENABLE = yes
 
 # If your custom naked60 pcb, you can rewrite to yes.
 LED_ANIMATIONS = yes        # LED animations
