@@ -4,7 +4,7 @@ Non official firmware for custom TKL Korean keyboard made by Duck.
 Group buy was run December 2018 via [geekhack](https://geekhack.org/index.php?topic=98581.0) with 100 keyboards total. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Duck Eagle/Viper PCB Ver 2.0, Atmega32u4  
+Hardware Supported: Duck Orion V3 PCB Ver 2.1  
 Hardware Availability: Wait until GB of the next revision
 
 Make example for this keyboard (after setting up your build environment):
@@ -22,9 +22,9 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 The Orion V3 PCB consists of:
 
 ### Microchips
-2 74HC237D 3-to-8 line decoders
+2 74HC237D 3-to-8 line decoders U1, U2
 1 Atmega32u4 microcontroller
-2 WS2811 LED controller
+2 WS2811 LED controller U5, U6
 
 ## Notes
-Special thanks to Marcus aka Keebology for doing this remotely and mapping the matrix. 
+Special thanks to Marcus aka Keebology for doing this remotely and mapping the matrix, indicator LEDs, and backlight LEDs. 
