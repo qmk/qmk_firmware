@@ -322,15 +322,7 @@ void check_default_layer(uint8_t mode, uint8_t type) {
 }
 
 void rgb_matrix_indicators_user(void) {
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
-#    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
-#    else
-        rgb_matrix_config.enable
-#    endif
+    if (
     ) {
         switch (biton32(layer_state)) {
             case _GAMEPAD:
