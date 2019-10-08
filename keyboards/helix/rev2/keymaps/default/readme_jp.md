@@ -90,10 +90,10 @@ qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名
 $ make helix:default
 ```
 
-キーボードへの書き込みまで同時に行うには下記のように`:avrdude`を付けます。
+キーボードへの書き込みまで同時に行うには下記のように`:flash`を付けます。
 
 ```
-$ make helix:default:avrdude
+$ make helix:default:flash
 ```
 
 コンパイル結果と中間生成物を消去したい場合は以下のようにします。
@@ -106,27 +106,27 @@ $ make helix:default:clean
 
 OLED を有効にしてコンパイルしてキーボードへの書き込む。
 ```
-$ make helix/rev2/oled:default:avrdude
+$ make helix/rev2/oled:default:flash
 ```
 
 RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/back:default:avrdude
+$ make helix/rev2/back:default:flash
 ```
 
 RGB Underglow を有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/under:default:avrdude
+$ make helix/rev2/under:default:flash
 ```
 
 OLED とRGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/oled/back:default:avrdude
+$ make helix/rev2/oled/back:default:flash
 ```
 
 OLED とRGB Underglowを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/oled/under:default:avrdude
+$ make helix/rev2/oled/under:default:flash
 ```
 
 ## リンク

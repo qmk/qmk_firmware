@@ -139,13 +139,13 @@ $ make helix/rev2/oled/under:default         # with oled and underglow
 
 flash to keyboard
 ```
-$ make helix:default:avrdude
-$ make helix/rev2/back:default:avrdude       # with backlight
-$ make HELIX=no_ani helix/rev2/back:default:avrdude  # with backlight without animation
-$ make helix/rev2/under:default:avrdude      # with underglow
-$ make helix/rev2/oled:default:avrdude       # with oled
-$ make helix/rev2/oled/back:default:avrdude  # with oled and backlight
-$ make helix/rev2/oled/under:default:avrdude # with oled and underglow
+$ make helix:default:flash
+$ make helix/rev2/back:default:flash               # with backlight
+$ make HELIX=no_ani helix/rev2/back:default:flash  # with backlight without animation
+$ make helix/rev2/under:default:flash              # with underglow
+$ make helix/rev2/oled:default:flash               # with oled
+$ make helix/rev2/oled/back:default:flash          # with oled and backlight
+$ make helix/rev2/oled/under:default:flash         # with oled and underglow
 
 ```
 

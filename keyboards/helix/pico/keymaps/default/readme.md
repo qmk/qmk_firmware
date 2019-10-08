@@ -118,16 +118,14 @@ $ make helix/pico:default
 $ make helix/pico/back:default               # with backlight
 $ make HELIX=no_ani helix/pico/back:default  # with backlight without animation
 $ make helix/pico/under:default              # with underglow
-$ make helix/pico/oled:default               # with oled
 ```
 
 flash to keyboard
 ```
-$ make helix/pico:default:avrdude
-$ make helix/pico/back:default:avrdude       # with backlight
-$ make HELIX=no_ani helix/pico/back:default:avrdude  # with backlight without animation
-$ make helix/pico/under:default:avrdude      # with underglow
-$ make helix/pico/oled:default:avrdude       # with oled
+$ make helix/pico:default:flash
+$ make helix/pico/back:default:flash               # with backlight
+$ make HELIX=no_ani helix/pico/back:default:flash  # with backlight without animation
+$ make helix/pico/under:default:flash              # with underglow
 
 ```
 
