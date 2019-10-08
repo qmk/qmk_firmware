@@ -275,7 +275,7 @@ void check_default_layer(uint8_t mode, uint8_t type) {
             rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
             break;
         case _GAMING:
-            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            rgb_matrix_layer_helper(HSV_RED, mode, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
             break;
     }
 }
@@ -285,7 +285,7 @@ void rgb_matrix_indicators_user(void) {
     {
         switch (biton32(layer_state)) {
             case _GAMING_EXT:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _NUM:
                 rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
@@ -294,7 +294,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_BLUE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _FN:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_TURQUOISE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
                 rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
