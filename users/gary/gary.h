@@ -17,14 +17,6 @@ enum custom_keycodes {
   RAISE,
 };
 
-
-// // Make keymaps more clear
-// #define FC_ENTR LT(FCTN, KC_ENT)
-
-// #define CC_ESC LCTL_T(KC_ESC)
-// #define AC_SLSH LALT_T(KC_SLSH)
-// #define AC_EQL RALT_T(KC_EQL)
-
 #define KC_RST RESET
 #define KC_ KC_TRNS
 
