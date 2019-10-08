@@ -1,6 +1,6 @@
 # Breaking changes
 
-Ce document décrit le processus de QMK pour la gestion des breaking changes. Un breaking change est un changement qui modifie la manière dont QMK fonctionne d'une manière incompatible ou potentiellement dangereux. Nous limitons ces changements afin que les utilisateurs n'aient pas peur de casser leurs keymaps en mettant à jour leur tree QMK.
+Ce document décrit le processus de QMK pour la gestion des breaking changes. Un breaking change est un changement qui modifie la manière dont QMK fonctionne introduisant des incompatibilités ou des comportements dangereux. Nous limitons ces changements afin que les utilisateurs n'aient pas peur de casser leurs keymaps en mettant à jour leur version de QMK.
 
 La période de breaking change est quand nous allons fusionner un PR qui change QMK d'une manière dangereuse ou inattendue. Il y a une période interne de test afin de nous assurer que les problèmes résiduels sont rares ou impossible à prévoir.
 
@@ -19,7 +19,7 @@ Le prochain Breaking Change est planifié pour le 29 novembre.
 * [ ] 01 novembre 2019 - Appel aux testeurs.
 * [ ] 27 novembre 2019 - `master` est bloqué, pas de PRs fusionnés.
 * [ ] 29 novembre 2019 - `future` est fusionné dans `master`.
-* [ ] 30 novembre 2019 - `master` est débloqul. Les PRs peuvent à nouveau être fusionnés.
+* [ ] 30 novembre 2019 - `master` est débloqué. Les PRs peuvent à nouveau être fusionnés.
 
 ## Quels changements seront inclus?
 
@@ -103,5 +103,5 @@ Ceci est fait immédiatement après la fusion de la branche `future` précédent
     * [ ] `git push origin future`
 * Actions sur Github
     * [ ] Crée un PR pour `future`
-    * [ ] S'assurer que Travis ne donne aucun problème
+    * [ ] S'assurer que Travis ne relève aucun problème
     * [ ] Fusion le PR `future`
