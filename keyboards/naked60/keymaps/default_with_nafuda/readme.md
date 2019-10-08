@@ -1,6 +1,6 @@
 # The default_with_nafuda keymap for naked60
 
-Add&nbsp;Nafuda&nbsp;maps&nbsp;to&nbsp;the&nbsp;default&nbsp;layout.<br>
+Add Nafuda maps to the default layout.<br>
 
 Default<br>
 <table>
