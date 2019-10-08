@@ -1,29 +1,28 @@
-// /* Copyright 2019 MechMerlin <mechmerlin@gmail.com>
-//  *
-//  * This program is free software: you can redistribute it and/or modify
-//  * it under the terms of the GNU General Public License as published by
-//  * the Free Software Foundation, either version 2 of the License, or
-//  * (at your option) any later version.
-//  *
-//  * This program is distributed in the hope that it will be useful,
-//  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  * GNU General Public License for more details.
-//  *
-//  * You should have received a copy of the GNU General Public License
-//  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//  */
-// #include "tcv3.h"
-// #include "indicator_leds.h"
+/* Copyright 2019 MechMerlin <mechmerlin@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include "tcv3.h"
+#include "indicator_leds.h"
 
-// enum BACKLIGHT_AREAS {
-//   BACKLIGHT_ALPHA    = 0b0000001,
-//   BACKLIGHT_EXTRA    = 0b0000010,
-//   BACKLIGHT_MODNUM   = 0b0000100,
-//   BACKLIGHT_FROW     = 0b0001000,
-//   BACKLIGHT_RGB      = 0b0010000,
-//   BACKLIGHT_SWITCH   = 0b0001111
-// };
+enum BACKLIGHT_AREAS {
+  BACKLIGHT_ALPHA    = 0b0000001,
+  BACKLIGHT_FROW     = 0b0000010,
+  BACKLIGHT_MOD      = 0b0000100,
+  BACKLIGHT_MACRO    = 0b0001000,
+  BACKLIGHT_SWITCH   = 0b0001111
+};
 
 // uint8_t backlight_rgb_r = 255;
 // uint8_t backlight_rgb_g = 0;
@@ -88,13 +87,17 @@
 //   show();
 // }
 
-// void backlight_set(uint8_t level) {
-//   level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
-//   level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
-//   level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
-//   level & BACKLIGHT_FROW ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
-//   level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
-// }
+// Q5, Q6, Q7 is connected to B1 - alphas
+// Q8, Q9 is connected to B2 - frow
+// Q1, Q2, Q3 is connected to B3 - mods
+// Q4 is connected to E6 - macro keys 
+
+void backlight_set(uint8_t level) {
+  level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
+  level & BACKLIGHT_FROW ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
+  level & BACKLIGHT_MOD ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
+  level & BACKLIGHT_MACRO ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
+}
 
 // // Port from backlight_update_state
 // void led_set_kb(uint8_t usb_led) {
@@ -115,3 +118,4 @@
 // bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 //   return process_record_user(keycode, record);
 // }
+
