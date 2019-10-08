@@ -118,10 +118,10 @@ qmk_firmwareでは各キーボードのコンパイルは、`<キーボード名
 $ make helix/pico:default
 ```
 
-キーボードへの書き込みまで同時に行うには下記のように`:avrdude`を付けます。
+キーボードへの書き込みまで同時に行うには下記のように`:flash`を付けます。
 
 ```
-$ make helix/pico:default:avrdude
+$ make helix/pico:default:flash
 ```
 
 コンパイル結果と中間生成物を消去したい場合は以下のようにします。
@@ -132,19 +132,14 @@ $ make helix/pico:default:clean
 
 上記の、rules.mk によるカスタマイズ項目の一部は下記のようにコマンド上で直接指定することも可能です。
 
-OLED を有効にしてコンパイルしてキーボードへの書き込む。
-```
-$ make helix/pico/oled:default:avrdude
-```
-
 RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/pico/back:default:avrdude
+$ make helix/pico/back:default:flash
 ```
 
 RGB Underglow を有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/pico/under:default:avrdude
+$ make helix/pico/under:default:flash
 ```
 
 ## リンク
