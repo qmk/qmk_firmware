@@ -19,8 +19,8 @@
 
 enum preonic_layers {
   _QWERTY,
-  _MAC,
   _GAMER,
+  _MAC,
   _LOWER,
   _RAISE,
   _SPCFN,
@@ -29,8 +29,8 @@ enum preonic_layers {
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
-  MAC,
   GAMER,
+  MAC,
   LOWER,
   RAISE,
   SPCFN,
