@@ -37,3 +37,11 @@ def test_pyformat():
     result = check_subcommand('pyformat')
     assert result.returncode == 0
     assert 'Successfully formatted the python code' in result.stderr
+
+
+def test_list_keyboards():
+    result = check_subcommand('list_keyboards')
+    assert result.returncode == 0
+    # check to see if a known keyboard is returned
+    # this will fail if handwired/onekey/pytest is removed
+    assert 'handwired/onekey/pytest' in result.stdout
