@@ -10,7 +10,7 @@ La période de breaking change est quand nous allons fusionner un PR qui change 
 
 ## Quand va être le prochain Breaking Change?
 
-Le prochain Braking Change est planifié pour le 29 novembre.
+Le prochain Breaking Change est planifié pour le 29 novembre.
 
 ### Dates importantes
 
