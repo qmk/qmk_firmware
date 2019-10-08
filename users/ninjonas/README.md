@@ -19,7 +19,7 @@ See: https://docs.qmk.fm/#/feature_userspace
 ### [Keys](ninjonas.h#L37)
 |Code | Description |
 |---|---|
-|K_LOCK | MacOS shortcut to execute lock command  + ctrl + Q |
+|K_LOCK | MacOS shortcut to execute lock command  + CTRL + Q |
 |K_CSCN | MacOS shortcut to copy a portion of the screen to the clipboard |
 |K_MDSH | MacOS shortcut to get em-dash `–` |
 |K_RAPP | MacOS shortcut to switch apps to the right |
@@ -34,7 +34,13 @@ See: https://docs.qmk.fm/#/feature_userspace
 |LM_LOW | Dedicated key to momentarily toggle to use LOWER layer |
 |LM_RAI | Dedicated key to momentarily toggle to use RAISE layer |
 
-### [Layout Blocks](ninjonas.h#L50)
+### [Mod-Taps](ninjonas.h#L50)
+|Code | Description |
+|---|---|
+|MT_DEL | Tap for Delete, hold for  + ALT + SHIFT |
+|MT_EQL | Tap for =, hold for ALT + SHIFT |
+
+### [Layout Blocks](ninjonas.h#L54)
 Predefined keyboard layout templates to speed up configuring split keyboards
 
 |Code | Description |
@@ -59,6 +65,7 @@ Predefined keyboard layout templates to speed up configuring split keyboards
 |M_VRSN | macro to send QMK version |
 |M_SHFT | Sends  + alt + shift to a keycode to activate [ShiftIt](https://github.com/fikovnik/ShiftIt) |
 |M_CODE | Opens [Visual Studio Code](https://code.visualstudio.com/) on current directory |
+|M_TERM | Launches Spotlight and calls Terminal |
 |M_XXX1 to M_XXX5 | Reserved for secret macros see [Secrets](#secrets)  |
 
 ### [Tap-Dance](tap_dances.h)
@@ -78,7 +85,7 @@ There's times where you have macros you don't want to share like emails, an addr
 
 ```c
 // secrets.c
-#include "ninjonas.h" 
+#include "ninjonas.h"
 
 static const char * const secret[] = {
   "BLANK1",
