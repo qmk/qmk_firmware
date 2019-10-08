@@ -17,29 +17,37 @@
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
-  BACKLIGHT_ALPHAS   = 0b00000010,
-  BACKLIGHT_MODNUM   = 0b00001000
+  BACKLIGHT_ALPHAS   = 0b00000001,
+  BACKLIGHT_NAVI     = 0b00000010,
+  BACKLIGHT_MODS     = 0b00000100,
+  BACKLIGHT_FROW     = 0b00001000,
+  BACKLIGHT_ALL      = 0b00001111
 };
 
+// Alphas PB1
+// Navigation Cluster: PB2
+// Number Row, Mods: PB3
+// Function Row: PE6
+
 void backlight_set(uint8_t level) {
-  switch(level) {
-  case 0:
-    PORTB |= BACKLIGHT_ALPHAS;
-    PORTB |= BACKLIGHT_MODNUM;
-  break;
-  case 1:
-    PORTB &= ~BACKLIGHT_ALPHAS;
-    PORTB |= BACKLIGHT_MODNUM;
-  break;
-  case 2:
-    PORTB |= BACKLIGHT_ALPHAS;
-    PORTB &= ~BACKLIGHT_MODNUM;
-  break;
-  case 3:
-    PORTB &= ~BACKLIGHT_ALPHAS;
-    PORTB &= ~BACKLIGHT_MODNUM;
-  break;
-  }
+  // switch(level) {
+  // case 0:
+  //   PORTB |= BACKLIGHT_ALPHAS;
+  //   PORTB |= BACKLIGHT_MODNUM;
+  // break;
+  // case 1:
+  //   PORTB &= ~BACKLIGHT_ALPHAS;
+  //   PORTB |= BACKLIGHT_MODNUM;
+  // break;
+  // case 2:
+  //   PORTB |= BACKLIGHT_ALPHAS;
+  //   PORTB &= ~BACKLIGHT_MODNUM;
+  // break;
+  // case 3:
+  //   PORTB &= ~BACKLIGHT_ALPHAS;
+  //   PORTB &= ~BACKLIGHT_MODNUM;
+  // break;
+  // }
 }
 
 // Locking indicator LEDs
