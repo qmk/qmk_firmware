@@ -1,6 +1,5 @@
 # SRC += i2c.c
 QUANTUM_LIB_SRC += serial.c
-# SRC += ssd1306.c
 
 # MCU name
 MCU = atmega32u4
