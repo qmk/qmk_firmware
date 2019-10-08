@@ -54,7 +54,6 @@ def compile(cli):
                 keymap = str(relative_path.rsplit("/", 1)[-1])
             else:
                 keyboard = str(cwd[len(keyboards_path):])[1:]
-                
 
             in_keyboard= True
 
@@ -85,7 +84,7 @@ def compile(cli):
 
     elif user_keyboard and user_keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = ['make', ':'.join((keyboard, keymap))]
+        command = ['make', ':'.join((user_keyboard, user_keymap))]
     
     elif in_keyboard: 
         keyboard = user_keyboard if user_keyboard else keyboard
