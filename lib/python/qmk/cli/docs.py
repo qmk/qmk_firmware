@@ -1,9 +1,13 @@
 """Serve QMK documentation locally
 """
 import http.server
-from os import chdir
 
 from milc import cli
+
+
+class DocsHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory='docs', **kwargs)
 
 
 @cli.argument('-p', '--port', default=8080, help='Port number to use.')
@@ -11,10 +15,8 @@ from milc import cli
 def docs(cli):
     """Spin up a local HTTPServer instance for the QMK docs.
     """
-    cli.log.info("Serving QMK docs locally on port %d.", cli.config.docs.port)
-    cli.log.info("Press Control+C to exit.")
+    with http.server.HTTPServer(('', cli.config.docs.port), DocsHandler) as httpd:
+        cli.log.info("Serving QMK docs locally on port %d.", cli.config.docs.port)
+        cli.log.info("Press Control+C to exit.")
 
-    chdir('docs')
-
-    httpd = http.server.HTTPServer(('', cli.config.docs.port), http.server.SimpleHTTPRequestHandler)
-    httpd.serve_forever()
+        httpd.serve_forever()
