@@ -8,35 +8,6 @@ from qmk.constants import QMK_FIRMWARE, MAX_KEYBOARD_SUBFOLDERS
 from qmk.errors import NoSuchKeyboardError
 
 
-def is_keymap_dir(keymap_path):
-    """Returns True if `keymap_path` is a valid keymap directory.
-    """
-    keymap_path = Path(keymap_path)
-    keymap_c = keymap_path / 'keymap.c'
-    keymap_json = keymap_path / 'keymap.json'
-
-    return any((keymap_c.exists(), keymap_json.exists()))
-
-
-def is_keyboard(keyboard_name):
-    """Returns True if `keyboard_name` is a keyboard we can compile.
-    """
-    keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
-    rules_mk = keyboard_path / 'rules.mk'
-    return rules_mk.exists()
-
-
-def under_qmk_firmware():
-    """Returns a Path object representing the relative path under qmk_firmware, or None.
-    """
-    cwd = Path(os.environ['ORIG_CWD'])
-
-    try:
-        return cwd.relative_to(QMK_FIRMWARE)
-    except ValueError:
-        return None
-
-
 def keymap(keyboard):
     """Locate the correct directory for storing a keymap.
 
@@ -69,16 +40,4 @@ def normpath(path):
 
     return Path(os.environ['ORIG_CWD']) / path
 
-
-def c_source_files(dir_names):
-    """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
-
-    Args:
-
-        dir_names
-            List of directories, relative pathing starts at qmk's cwd
-    """
-    files = []
-    for dir in dir_names:
-        files.extend(file for file in Path(dir).glob('**/*') if file.suffix in ['.c', '.h', '.cpp'])
-    return files
+    return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
