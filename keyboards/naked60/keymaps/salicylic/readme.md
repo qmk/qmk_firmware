@@ -1,67 +1,357 @@
-# The salicylic keymap for naked60
+#&nbsp;The&nbsp;salicylic&nbsp;keymap&nbsp;for&nbsp;naked60
 
-Default
-  //,-----------------------------------------|             |-----------------------------------------.
- ESC(FLock),     1,     2,     3,     4,     5,                   6,     7,     8,     9,     0,  BSPC,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-        TAB,     Q,     W,     E,     R,     T,                   Y,     U,     I,     O,     P,     [,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      LCTRL,     A,     S,     D,     F,     G,                   H,     J,     K,     L,     -,     ],
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                   N,     M,     ,,     .,     /,     \,
-  //|------+------+------+------+------+-------|------+-----+-------+-----+------+------+------|
-              LEFT, RIGHT,  LGUI,  MHEN,Low+Ent,  BSPC,  DEL,Rai+SPC, HENK,  LALT,    UP,  DOWN 
-          //`----------------------------------------------------------------------------------'
+Default<br>
+<table>
+<tr>
+<td>ESC(FLock)</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>0</td>
+<td>BSPC</td>
+</tr><tr>
+<td>TAB</td>
+<td>Q</td>
+<td>W</td>
+<td>E</td>
+<td>R</td>
+<td>T</td>
+<td>Y</td>
+<td>U</td>
+<td>I</td>
+<td>O</td>
+<td>P</td>
+<td>[</td>
+</tr><tr>
+<td>LCTRL</td>
+<td>A</td>
+<td>S</td>
+<td>D</td>
+<td>F</td>
+<td>G</td>
+<td>H</td>
+<td>J</td>
+<td>K</td>
+<td>L</td>
+<td>-</td>
+<td>]</td>
+</tr><tr>
+<td>LSFT</td>
+<td>Z</td>
+<td>X</td>
+<td>C</td>
+<td>V</td>
+<td>B</td>
+<td>N</td>
+<td>M</td>
+<td>,</td>
+<td>.</td>
+<td>/</td>
+<td>\</td>
+</tr><tr>
+<td>LEFT</td>
+<td>RIGHT</td>
+<td>LGUI</td>
+<td>MHEN</td>
+<td>Low+Ent</td>
+<td>BSPC</td>
+<td>DEL</td>
+<td>Rai+SPC</td>
+<td>HENK</td>
+<td>LALT</td>
+<td>UP</td>
+<td>DOWN</td>
+</tr>
+</table>
 
-FLock
-  //,-----------------------------------------|             |-----------------------------------------.
- ESC(FLock),    F2,    F3,    F4,    F5,    F6,                  F7,    F8,    F9,   F10,   F11,   F12,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-        TAB,     Q,     W,     E,     R,     T,                   Y,     U,     I,     O,     P,     [,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      LCTRL,     A,     S,     D,     F,     G,                   H,     J,     K,     L,     -,     ],
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                   N,     M,     ,,     .,     /,     \,
-  //|------+------+------+------+------+-------|------+-----+-------+-----+------+------+------|
-              LEFT, RIGHT,  LGUI,  MHEN,Low+Ent,  BSPC,  DEL,Rai+SPC, HENK,  LALT,    UP,  DOWN 
-          //`----------------------------------------------------------------------------------'
 
-Lower
-  //,-----------------------------------------|             |-----------------------------------------.
-        ESC,    F2,    F3,    F4,    F5,    F6,                  F7,    F8,    F9,   F10,   F11,   F12,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-          :,     !,     ?,     [,     ],     ~,                   6,     7,     8,     9,     *,     /,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-          ',     #,     ",     (,     ),     @,               XXXXX,     4,     5,     6,     -,     =,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-          ^,     %,     &,      ;,    :,     |,                   0,     1,     2,     3,     +,   ENT,
-  //|------+------+------+------+------+------|------+------+------+------+------+------+------|
-              LEFT, RIGHT,  LGUI,  ZKHK, LOWER,  BSPC,   DEL, RAISE,     0,   DOT,    UP,  DOWN 
-          //`----------------------------------------------------------------------------------'
+FLock<br>
+<table>
+<tr>
+<td>ESC(FLock)</td>
+<td>F2</td>
+<td>F3</td>
+<td>F4</td>
+<td>F5</td>
+<td>F6</td>
+<td>F7</td>
+<td>F8</td>
+<td>F9</td>
+<td>F10</td>
+<td>F11</td>
+<td>F12</td>
+</tr><tr>
+<td>TAB</td>
+<td>Q</td>
+<td>W</td>
+<td>E</td>
+<td>R</td>
+<td>T</td>
+<td>Y</td>
+<td>U</td>
+<td>I</td>
+<td>O</td>
+<td>P</td>
+<td>[</td>
+</tr><tr>
+<td>LCTRL</td>
+<td>A</td>
+<td>S</td>
+<td>D</td>
+<td>F</td>
+<td>G</td>
+<td>H</td>
+<td>J</td>
+<td>K</td>
+<td>L</td>
+<td>-</td>
+<td>]</td>
+</tr><tr>
+<td>LSFT</td>
+<td>Z</td>
+<td>X</td>
+<td>C</td>
+<td>V</td>
+<td>B</td>
+<td>N</td>
+<td>M</td>
+<td>,</td>
+<td>.</td>
+<td>/</td>
+<td>\</td>
+</tr><tr>
+<td>LEFT</td>
+<td>RIGHT</td>
+<td>LGUI</td>
+<td>MHEN</td>
+<td>Low+Ent</td>
+<td>BSPC</td>
+<td>DEL</td>
+<td>Rai+SPC</td>
+<td>HENK</td>
+<td>LALT</td>
+<td>UP</td>
+<td>DOWN</td>
+</tr>
+</table>
 
-Raise
-  //,-----------------------------------------|             |-----------------------------------------.
-        ESC,    F2,    F3,    F4,    F5,    F6,                  F7,    F8,    F9,   F10,   F11,   F12,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-        ESC,     1,     2,     3,     4,     5,                   6, XXXXX,    UP, XXXXX,  PGUP,  BSPC,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-   Ctrl F11,    F1,    F2,    F3,    F4,    F5,               XXXXX,  LEFT,  DOWN, RIGHT,  LSFT,   ENT,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-  Shift F12,    F6,    F7,    F8,    F9,   F10,               XXXXX, XXXXX, XXXXX, XXXXX,  PGDN, XXXXX,
-  //|------+------+------+------+------+------|------+------+------+------+------+------+------|
-              LEFT, RIGHT,  LGUI,  ZKHK, LOWER,  BSPC,   DEL, RAISE,     0,   DOT,    UP,  DOWN
-          //`----------------------------------------------------------------------------------'
 
-Adjust
-  //,-----------------------------------------|             |-------------------------------------------.
-        ESC,    F2,    F3,    F4,    F5,    F6,                  F7,    F8,    F9,   F10,   F11,     F12,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+--------|
-        ESC,   RST, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,  BTN1,  MS_U,  BTN2, XXXXX,Alt+PSCR,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+--------|
-        DEL, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,  MS_L,  MS_D,  MS_R, XXXXX,    PSCR,
-  //|------+------+------+------+------+------|             |------+------+------+------+------+--------|
-       LSFT, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,   C+A+D,
-  //|------+------+------+------+------+------|------+------+------+------+------+------+------+--------|
-              LEFT, RIGHT,  LGUI,  ZKHK, LOWER,  BSPC,   DEL, RAISE,     0,   DOT,    UP,  DOWN
-          //`--------------------------------------------------------------------------------------'
-  )
+Lower<br>
+<table>
+<tr>
+<td>ESC</td>
+<td>F2</td>
+<td>F3</td>
+<td>F4</td>
+<td>F5</td>
+<td>F6</td>
+<td>F7</td>
+<td>F8</td>
+<td>F9</td>
+<td>F10</td>
+<td>F11</td>
+<td>F12</td>
+</tr><tr>
+<td>:</td>
+<td>!</td>
+<td>?</td>
+<td>[</td>
+<td>]</td>
+<td>~</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>*</td>
+<td>/</td>
+</tr><tr>
+<td>'</td>
+<td>#</td>
+<td>"</td>
+<td>(</td>
+<td>)</td>
+<td>@</td>
+<td>XXXXX</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>-</td>
+<td>=</td>
+</tr><tr>
+<td>^</td>
+<td>%</td>
+<td>&</td>
+<td>;</td>
+<td>;</td>
+<td>|</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>+</td>
+<td>ENT</td>
+</tr><tr>
+<td>LEFT</td>
+<td>RIGHT</td>
+<td>LGUI</td>
+<td>ZKHK</td>
+<td>LOWER</td>
+<td>BSPC</td>
+<td>DEL</td>
+<td>RAISE</td>
+<td>0</td>
+<td>DOT</td>
+<td>UP</td>
+<td>DOWN</td>
+</tr>
+</table>
+
+
+Raise<br>
+<table>
+<tr>
+<td>ESC</td>
+<td>F2</td>
+<td>F3</td>
+<td>F4</td>
+<td>F5</td>
+<td>F6</td>
+<td>F7</td>
+<td>F8</td>
+<td>F9</td>
+<td>F10</td>
+<td>F11</td>
+<td>F12</td>
+</tr><tr>
+<td>ESC</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>XXXXX</td>
+<td>UP</td>
+<td>XXXXX</td>
+<td>PGUP</td>
+<td>BSPC</td>
+</tr><tr>
+<td>CtrlF11</td>
+<td>F1</td>
+<td>F2</td>
+<td>F3</td>
+<td>F4</td>
+<td>F5</td>
+<td>XXXXX</td>
+<td>LEFT</td>
+<td>DOWN</td>
+<td>RIGHT</td>
+<td>LSFT</td>
+<td>ENT</td>
+</tr><tr>
+<td>ShiftF12</td>
+<td>F6</td>
+<td>F7</td>
+<td>F8</td>
+<td>F9</td>
+<td>F10</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>PGDN</td>
+<td>XXXXX</td>
+</tr><tr>
+<td>LEFT</td>
+<td>RIGHT</td>
+<td>LGUI</td>
+<td>ZKHK</td>
+<td>LOWER</td>
+<td>BSPC</td>
+<td>DEL</td>
+<td>RAISE</td>
+<td>0</td>
+<td>DOT</td>
+<td>UP</td>
+<td>DOWN</td>
+</tr>
+</table>
+
+
+Adjust<br>
+<table>
+<tr>
+<td>ESC</td>
+<td>F2</td>
+<td>F3</td>
+<td>F4</td>
+<td>F5</td>
+<td>F6</td>
+<td>F7</td>
+<td>F8</td>
+<td>F9</td>
+<td>F10</td>
+<td>F11</td>
+<td>F12</td>
+</tr><tr>
+<td>ESC</td>
+<td>RST</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>BTN1</td>
+<td>MS_U</td>
+<td>BTN2</td>
+<td>XXXXX</td>
+<td>Alt+PSCR</td>
+</tr><tr>
+<td>DEL</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>MS_L</td>
+<td>MS_D</td>
+<td>MS_R</td>
+<td>XXXXX</td>
+<td>PSCR</td>
+</tr><tr>
+<td>LSFT</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>C+A+D</td>
+</tr><tr>
+<td>LEFT</td>
+<td>RIGHT</td>
+<td>LGUI</td>
+<td>ZKHK</td>
+<td>LOWER</td>
+<td>BSPC</td>
+<td>DEL</td>
+<td>RAISE</td>
+<td>0</td>
+<td>DOT</td>
+<td>UP</td>
+<td>DOWN</td>
+</tr>
+</table>
+
+)

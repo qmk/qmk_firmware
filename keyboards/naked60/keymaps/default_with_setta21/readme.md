@@ -1,47 +1,139 @@
-# The default_with_setta21 keymap for naked60
+#&nbsp;The&nbsp;default_with_setta21&nbsp;keymap&nbsp;for&nbsp;naked60
 
-Add Setta21 maps to the default layout.
+Add&nbsp;Setta21&nbsp;maps&nbsp;to&nbsp;the&nbsp;default&nbsp;layout.
 
-Default
-  //|-----------------------------------------|
-      Rai+0,     1,     4,     7,Ad+Num,   ESC,
-  //|------+------+------+------+------+------|
-                 2,     5,     8,     /,    F2,
-  //|------+------+------+------+------+------|
-      Low+.,     3,     6,     9,     *,     =,
-  //|-------------+-------------+------+------|
-               ENT,            +,     -,   DEL 
-  //|-----------------------------------------|
+Default<br>
+<table>
+<tr>
+<td>Rai+0</td>
+<td>1</td>
+<td>4</td>
+<td>7</td>
+<td>Ad+Num</td>
+<td>ESC</td>
+</tr><tr>
+<td></td>
+<td>2</td>
+<td>5</td>
+<td>8</td>
+<td>/</td>
+<td>F2</td>
+</tr><tr>
+<td>Low+.</td>
+<td>3</td>
+<td>6</td>
+<td>9</td>
+<td>*</td>
+<td>=</td>
+</tr><tr>
+<td>ENT</td>
+<td></td>
+<td>+</td>
+<td></td>
+<td>-</td>
+<td>DEL</td>
+</tr>
+</table>
 
-Lower
-  //|-----------------------------------------|
-      RAISE,   F11,    F4,    F7,    "=MIN(",   ESC,
-  //|------+------+------+------+-----------+------|
-               F12,    F5,    F8,    "=MAX(",    F2,
-  //|------+------+------+------+-----------+------|
-      LOWER,    F3,    F6,    F9,"=COUNTIF(",     =,
-  //|-------------+-------------+-----------+------|
-                 ),      "=SUM(","=AVERAGE(",   DEL 
-  //|-----------------------------------------|
 
-Raise
-  //|-----------------------------------------|
-      RAISE, XXXXX,  LEFT, XXXXX, XXXXX,   ESC,
-  //|------+------+------+------+------+------|
-              DOWN,  DOWN,    UP,     /,    F2,
-  //|------+------+------+------+------+------|
-      LOWER, XXXXX, RIGHT, XXXXX,     *,     =,
-  //|-------------+-------------+------+------|
-               ENT,            +,     -,   DEL 
-  //|-----------------------------------------|
+Lower<br>
+<table>
+<tr>
+<td>RAISE</td>
+<td>F11</td>
+<td>F4</td>
+<td>F7</td>
+<td>"=MIN("</td>
+<td>ESC</td>
+</tr><tr>
+<td></td>
+<td>F12</td>
+<td>F5</td>
+<td>F8</td>
+<td>"=MAX("</td>
+<td>F2</td>
+</tr><tr>
+<td>LOWER</td>
+<td>F3</td>
+<td>F6</td>
+<td>F9</td>
+<td>=COUNTIF(</td>
+<td>=</td>
+</tr><tr>
+<td>)</td>
+<td></td>
+<td>"=SUM("</td>
+<td></td>
+<td>=AVERAGE(</td>
+<td>DEL</td>
+</tr>
+</table>
 
-Adjust
-  //|------------------------------------------------|
-   LED ON/Off,LED VAD,LED HUD,LED SAD, ADJUST,    ESC,
-  //|--------+-------+-------+-------+-------+-------|
-              LED VAI,LED HUI,LED SAI,  XXXXX,     F2,
-  //|--------+-------+-------+-------+-------+-------|
-        XXXXX,  XXXXX,   XXXXX, XXXXX,  XXXXX,      =,
-  //|----------------+---------------+-------+-------|
-              LED MOD,              +,      -,    DEL 
-  //|------------------------------------------------|
+
+Raise<br>
+<table>
+<tr>
+<td>RAISE</td>
+<td>XXXXX</td>
+<td>LEFT</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>ESC</td>
+</tr><tr>
+<td></td>
+<td>DOWN</td>
+<td>DOWN</td>
+<td>UP</td>
+<td>/</td>
+<td>F2</td>
+</tr><tr>
+<td>LOWER</td>
+<td>XXXXX</td>
+<td>RIGHT</td>
+<td>XXXXX</td>
+<td>*</td>
+<td>=</td>
+</tr><tr>
+<td>ENT</td>
+<td></td>
+<td>+</td>
+<td></td>
+<td>-</td>
+<td>DEL</td>
+</tr>
+</table>
+
+
+Adjust<br>
+<table>
+<tr>
+<td>LEDON/Off</td>
+<td>LEDVAD</td>
+<td>LEDHUD</td>
+<td>LEDSAD</td>
+<td>ADJUST</td>
+<td>ESC</td>
+</tr><tr>
+<td></td>
+<td>LEDVAI</td>
+<td>LEDHUI</td>
+<td>LEDSAI</td>
+<td>XXXXX</td>
+<td>F2</td>
+</tr><tr>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>XXXXX</td>
+<td>=</td>
+</tr><tr>
+<td>LEDMOD</td>
+<td></td>
+<td>+</td>
+<td></td>
+<td>-</td>
+<td>DEL</td>
+</tr>
+</table>
+
