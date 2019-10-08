@@ -1,10 +1,10 @@
-"""Functions to convert to and from qmk formats
+"""Functions to convert to and from QMK formats
 """
 from collections import OrderedDict
 
 
 def kle2qmk(kle):
-    """Convert a kle layout to qmk's layout format.
+    """Convert a KLE layout to QMK's layout format.
     """
     layout = []
 

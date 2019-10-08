@@ -87,7 +87,7 @@ qmk compile -kb <keyboard_name> -km <keymap_name>
 
 ## `qmk kle2json`
 
-This command allows you to convert from raw KLE data to qmk configurator json. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
+This command allows you to convert from raw KLE data to QMK Configurator JSON. It accepts either an absolute file path, or a file name in the current directory. By default it will not overwrite `info.json` if it is already present. Use the `-f` or `--force` flag to overwrite.
 
 **Usage**:
 
