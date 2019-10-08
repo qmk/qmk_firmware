@@ -1,4 +1,4 @@
-#&nbsp;The&nbsp;default&nbsp;keymap&nbsp;for&nbsp;naked60
+# The default keymap for naked60
 
 Default<br>
 <table>
