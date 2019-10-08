@@ -286,23 +286,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Punctuation Layer
      * ,-----------------------------------------------------------------------------------.
-     * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
+     * |  +   |  !   |  @   |  #   |  $   |  %   |  ^   |  &   |  *   |  (   |   )  |  _   |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | !!!! |  &   |  |   |  {   |   }  |  -   |  -   |  {   |   }  |  {   |   }  | !!!! |
+     * | !!!! |  &   |  |   |  {   |   }  |  -   |  -   | XXXX | XXXX |  {   |   }  |  |(!)|
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |  "   |  /   |  *   |  (   |   )  |  +   |  +   |  (   |   )  |  (   |   )  | F12  |
+     * |  "   |  /   |  *   |  (   |   )  |  +   |  +   | XXXX | XXXX |  [   |   ]  |  "   |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |      |  \   |  %   |  [   |   ]  |  =   |  =   |  [   |   ]  |  [   |   ]  | INS  |
+     * |      |  \   |  %   |  [   |   ]  |  =   |  =   | XXXX |   <  |  >   |   ?  | INS  |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | XXXX |  _   |  ^   | XXXX | !!!! |    Space    | Enter| XXXX |  <   |   >  |LY_SW |
+     * |  ~   |  _   |  ^   | Del  | !!!! |    Space    | Enter| XXXX |  [   |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_PUNC] = LAYOUT_preonic_grid( \
-        KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11, \
-        __LYB__,  KC_AMPR,  KC_PIPE,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  KC_LCBR,  KC_RCBR,  KC_LCBR,  KC_RCBR,  __LYB__, \
-        KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  KC_LPRN,  KC_RPRN,  KC_LPRN,  KC_RPRN,  KC_F12, \
-        _______,  KC_BSLS,  KC_PERC,  KC_LBRC,  KC_RBRC,  KC_EQL,   KC_EQL,   KC_LBRC,  KC_RBRC,  KC_LBRC,  KC_RBRC,  KC_INS, \
-        XXXXXXX,  KC_UNDS,  KC_CIRC,  XXXXXXX,  __LYB__,  KC_SPC,   KC_SPC,   KC_ENT,   XXXXXXX,  KC_LABK,  KC_RABK,  LLSWIT  \
+        KC_PLUS,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_UNDS, \
+        __LYB__,  KC_AMPR,  KC_PIPE,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  XXXXXXX,  XXXXXXX,  KC_LCBR,  KC_RCBR,  KC_PIPE, \
+        KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  KC_DQUO, \
+        _______,  KC_BSLS,  KC_PERC,  KC_LBRC,  KC_RBRC,  KC_EQL,   KC_EQL,   XXXXXXX,  KC_LABK,  KC_RABK,  KC_QUES,  KC_INS, \
+        KC_TILDE, KC_UNDS,  KC_CIRC,  KC_DEL,   __LYB__,  KC_SPC,   KC_SPC,   KC_ENT,   XXXXXXX,  KC_LBRC,  KC_RBRC,  LLSWIT  \
     ),
 
     /* Extra Layer
@@ -315,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|------+------+------+------+------+------|
      * |      |      |      |      |      |      |      |      | MRC1 | MRC2 | MRSP |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
-     * | CTRL |  ALT |  CMD | Bksp | Bksp |    Space    | !!!! |      | MPL1 | MPL2 |LY_SW |
+     * | CTRL |  ALT |  CMD |  Del | Bksp |    Space    | !!!! |      | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
     [_EXTRA] = LAYOUT_preonic_grid( \
@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL, \
         KC_CLCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, \
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, \
-        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_BSPC,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT \
+        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT \
     ),
 
     /* Numeric Pad
