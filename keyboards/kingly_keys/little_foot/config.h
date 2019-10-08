@@ -24,15 +24,15 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Kingly-Keys
 #define PRODUCT         The Little Foot
-#define DESCRIPTION     A Mighty Small, 45-Percent, Ortholinear Keyboard. REV1.2
+#define DESCRIPTION     A Mighty Small, 45-Percent, Ortholinear Keyboard.
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 10
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D1, D4, E6, D7, C6 }
-#define MATRIX_COL_PINS { D3, D2, B4, B5, B6, B2, B3, B1, F7, F4 }
+#define MATRIX_ROW_PINS { F6, B6, B2, B3, B1 }
+#define MATRIX_COL_PINS { F5, F7, B5, B4, E6, D7, C6, D4, D0, D1 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -49,7 +49,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN F6
+#define RGB_DI_PIN F4
 #define RGBLED_NUM 10    // Number of LEDs
 
 #define RGBLIGHT_ANIMATIONS
