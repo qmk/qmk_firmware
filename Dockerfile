@@ -4,4 +4,6 @@ VOLUME /qmk_firmware
 WORKDIR /qmk_firmware
 COPY . .
 
-CMD make all:default
+RUN ["pip3", "install", "-r", "requirements.txt"]
+ENTRYPOINT [ "bin/qmk" ]
+CMD [ "compile", "-kb", "all", "-km", "default"]
