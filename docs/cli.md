@@ -113,7 +113,7 @@ or with optional keymap argument
 
 ```
 $ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
-$ qmk compile --km 66_iso
+$ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
 ```
@@ -130,13 +130,13 @@ $ qmk compile
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
-qmk compile --kb <keyboard_name>
+qmk compile -kb <keyboard_name>
 ```
 
 **Example**:
 ```
 $ cd ~/qmk_firmware/layouts/community/60_ansi/mechmerlin-ansi
-$ qmk compile --kb dz60
+$ qmk compile -kb dz60
 Ψ Compiling keymap with make dz60:mechmerlin-ansi
 ...
 ```

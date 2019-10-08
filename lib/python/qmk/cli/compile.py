@@ -34,11 +34,11 @@ def compile(cli):
     current_folder = os.path.basename(cwd)
     # Initialize boolean to check for being in a keyboard directory and initialize keyboard string
     in_keyboard = False
+    in_layout = False
     keyboard = ""
     keymap = "default"
     user_keymap = ""
     user_keyboard = ""
-
 
     # Set path for '/keyboards/' directory
     keyboards_path = os.path.join(qmk_path , "keyboards")
@@ -109,6 +109,9 @@ def compile(cli):
         if user_keyboard:
             keymap = current_folder
             command = ['make', ':'.join((user_keyboard, keymap))]
+        else:
+            cli.log.error('You must supply a keyboard to compile a layout keymap. Set one with `qmk config` or supply `--keyboard` ')
+            return False
 
 
     else:
