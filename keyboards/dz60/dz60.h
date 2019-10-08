@@ -534,7 +534,7 @@
  * │40  │41  │43  │44      │46  │48        │4a │4b │4c │4d │4e │
  * └────┴────┴────┴────────┴────┴──────────┴───┴───┴───┴───┴───┘
 */
-#define LAYOUT_60_stand_stag_all( \
+#define LAYOUT_60_iso_5x1u_split_bs_rshift_spc( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
     k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,      \
     k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k1e, k2d, \
