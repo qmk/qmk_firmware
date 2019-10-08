@@ -237,45 +237,27 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 extern led_config_t g_led_config;
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_type) {
     HSV hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_config.hsv.v) {
         hsv.v = rgb_matrix_config.hsv.v;
     }
 
-    switch (mode) {
-        case 1:  // breathing
-        {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
-            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-            RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
-        default:  // Solid Color
-        {
-            RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
+    RGB rgb = hsv_to_rgb(hsv);
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
     }
 }
 
-void check_default_layer(uint8_t mode, uint8_t type) {
+void check_default_layer(uint8_t type) {
     switch (biton32(default_layer_state)) {
         case _COLEMAKDHM:
-            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            rgb_matrix_layer_helper(HSV_CYAN, LED_FLAG_UNDERGLOW);
             break;
         case _GAMING:
-            rgb_matrix_layer_helper(HSV_RED, mode, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+            rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
             break;
     }
 }
@@ -285,22 +267,22 @@ void rgb_matrix_indicators_user(void) {
     {
         switch (biton32(layer_state)) {
             case _GAMING_EXT:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_YELLOW, LED_FLAG_UNDERGLOW);
                 break;
             case _NUM:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
                 break;
             case _NAV:
-                rgb_matrix_layer_helper(HSV_BLUE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_BLUE, LED_FLAG_UNDERGLOW);
                 break;
             case _FN:
-                rgb_matrix_layer_helper(HSV_TURQUOISE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_TURQUOISE, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
-                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_ORANGE, LED_FLAG_UNDERGLOW);
                 break;
             default: {
-                check_default_layer(0, LED_FLAG_UNDERGLOW);
+                check_default_layer(LED_FLAG_UNDERGLOW);
                 break;
             }
         }
