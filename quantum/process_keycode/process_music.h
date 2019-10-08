@@ -21,18 +21,11 @@
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
-enum music_modes {
-  MUSIC_MODE_CHROMATIC,
-  MUSIC_MODE_GUITAR,
-  MUSIC_MODE_VIOLIN,
-  MUSIC_MODE_MAJOR,
-  NUMBER_OF_MODES
-};
+enum music_modes { MUSIC_MODE_CHROMATIC, MUSIC_MODE_GUITAR, MUSIC_MODE_VIOLIN, MUSIC_MODE_MAJOR, NUMBER_OF_MODES };
 
-
-#ifdef MUSIC_MAP
-	extern const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS];
-#endif
+#    ifdef MUSIC_MAP
+extern const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS];
+#    endif
 
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
@@ -58,14 +51,11 @@ bool music_mask(uint16_t keycode);
 bool music_mask_kb(uint16_t keycode);
 bool music_mask_user(uint16_t keycode);
 
-#ifndef SCALE
-#define SCALE (int8_t []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
-                           0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \
-                           0 + (12*2), 2 + (12*2), 4 + (12*2), 5 + (12*2), 7 + (12*2), 9 + (12*2), 11 + (12*2), \
-                           0 + (12*3), 2 + (12*3), 4 + (12*3), 5 + (12*3), 7 + (12*3), 9 + (12*3), 11 + (12*3), \
-                           0 + (12*4), 2 + (12*4), 4 + (12*4), 5 + (12*4), 7 + (12*4), 9 + (12*4), 11 + (12*4), }
-#endif
+#    ifndef SCALE
+#        define SCALE \
+            (int8_t[]) { 0 + (12 * 0), 2 + (12 * 0), 4 + (12 * 0), 5 + (12 * 0), 7 + (12 * 0), 9 + (12 * 0), 11 + (12 * 0), 0 + (12 * 1), 2 + (12 * 1), 4 + (12 * 1), 5 + (12 * 1), 7 + (12 * 1), 9 + (12 * 1), 11 + (12 * 1), 0 + (12 * 2), 2 + (12 * 2), 4 + (12 * 2), 5 + (12 * 2), 7 + (12 * 2), 9 + (12 * 2), 11 + (12 * 2), 0 + (12 * 3), 2 + (12 * 3), 4 + (12 * 3), 5 + (12 * 3), 7 + (12 * 3), 9 + (12 * 3), 11 + (12 * 3), 0 + (12 * 4), 2 + (12 * 4), 4 + (12 * 4), 5 + (12 * 4), 7 + (12 * 4), 9 + (12 * 4), 11 + (12 * 4), }
+#    endif
 
-#endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+#endif  // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
 #endif
