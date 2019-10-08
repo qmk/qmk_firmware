@@ -228,7 +228,7 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
     oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
     oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
-    oled_write_ln_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
+    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_bootmagic_status(void) {
