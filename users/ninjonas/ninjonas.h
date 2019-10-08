@@ -47,6 +47,10 @@
 #define LT_LOW LT(_LOWER, KC_ENT)
 #define LT_RAI LT(_RAISE, KC_SPC)
 
+// Mod-Tap Keys
+#define MT_DEL MT(MOD_LGUI | MOD_LALT | MOD_LSFT, KC_DEL)
+#define MT_EQL MT(MOD_LALT | MOD_LSFT, KC_EQL)
+
 // Layout blocks
 #define _____________________QWERTY_L1______________________ T_TAB, T_Q, T_W, KC_E, KC_R, KC_T
 #define _____________________QWERTY_L2______________________ T_ESC, KC_A, KC_S, KC_D, KC_F, KC_G
@@ -54,7 +58,7 @@
 
 #define _____________________QWERTY_R1______________________ KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS
 #define _____________________QWERTY_R2______________________ KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT
-#define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_EQL
+#define _____________________QWERTY_R3______________________ KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
 
 #define _____________________DVORAK_L1______________________ T_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y
 #define _____________________DVORAK_L2______________________ T_ESC, KC_A, KC_O, KC_E, KC_U, KC_I
@@ -62,7 +66,7 @@
 
 #define _____________________DVORAK_R1______________________ KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSLS
 #define _____________________DVORAK_R2______________________ KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH
-#define _____________________DVORAK_R3______________________ KC_B, KC_M, T_W, KC_V, KC_Z, KC_EQL
+#define _____________________DVORAK_R3______________________ KC_B, KC_M, T_W, KC_V, KC_Z, MT_EQL
 
 #define _____________________COLEMAK_L1_____________________ T_TAB, T_Q, T_W, KC_F, KC_P, KC_G
 #define _____________________COLEMAK_L2_____________________ T_ESC, KC_A, KC_R, KC_S, KC_T, KC_D
@@ -70,7 +74,7 @@
 
 #define _____________________COLEMAK_R1_____________________ KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS
 #define _____________________COLEMAK_R2_____________________ KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT
-#define _____________________COLEMAK_R3_____________________ KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_EQL
+#define _____________________COLEMAK_R3_____________________ KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, MT_EQL
 
 #define _____________________NUM_LEFT_______________________ T_GRV, KC_1, KC_2, KC_3, KC_4, KC_5
 #define _____________________NUM_RIGHT______________________ KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS
@@ -81,8 +85,31 @@
 #define _____________________SYM_LEFT_______________________ KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC
 #define _____________________SYM_RIGHT______________________ KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS
 
-#define ____________________________________________________ _______, _______, _______, _______, _______, _______
-#define _____________________XXXXXXX________________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _____________________LOWER_L1_______________________ M_XXX2, M_XXX3, _________MEDIA_1_________, K_CSCN
+#define _____________________LOWER_L2_______________________ M_XXX4, M_XXX5, _________MEDIA_2_________, XXXXXXX
+#define _____________________LOWER_L3_______________________ KC_LSFT, M_SHFT, _________MEDIA_3_________, T_LBRC
+
+#define _____________________LOWER_R1_______________________ _______________NAV_1______________, XXXXXXX, K_MDSH
+#define _____________________LOWER_R2_______________________ _______________NAV_2______________, K_LOCK, XXXXXXX
+#define _____________________LOWER_R3_______________________ T_RBRC, KC_M, M_TERM, M_CODE, M_XXX1, M_PYNV
+
+#define _____________________ADJUST_L1______________________ M_MAKE, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#ifdef RGB_MATRIX_ENABLE
+  #define _____________________ADJUST_L2______________________ M_VRSN, M_MALL, RGB_SPI, RGB_SAI, RGB_HUI, RGB_VAI
+  #define _____________________ADJUST_L3______________________ M_FLSH, XXXXXXX, RGB_SPD, RGB_SAD, RGB_HUD, RGB_VAD
+#else
+  #define _____________________ADJUST_L2______________________ M_VRSN, M_MALL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  #define _____________________ADJUST_L3______________________ M_FLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+  #define _____________________ADJUST_R1______________________ RGB_TOG, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R3______________________ RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#else
+  #define _____________________ADJUST_R1______________________ XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK, QWERTY
+  #define _____________________ADJUST_R3______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#endif
+#define _____________________ADJUST_R2______________________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _______________NAV_1______________ KC_PGUP, KC_HOME, KC_UP, KC_END
 #define _______________NAV_2______________ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT
@@ -91,14 +118,18 @@
 #define _____________MOUSE_2______________ KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U
 
 #define __________________________________ _______, _______, _______, _______
-#define _____________XXXXXXX______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 
 #define _________MEDIA_1_________ KC_BRIU, KC_MPLY, KC_MUTE
 #define _________MEDIA_2_________ KC_BRID, KC_MFFD, KC__VOLUP
 #define _________MEDIA_3_________ XXXXXXX, KC_MRWD, KC__VOLDOWN
 
-#define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
-#define ________MOD_RIGHT________ KC_BSPC, KC_DEL, LM_LOW
+#ifdef KEYBOARD_crkbd_rev1
+  #define ________MOD_LEFT_________ T_GUI, KC_LCTL, LT_RAI
+  #define ________MOD_RIGHT________ LT_LOW, KC_BSPC, MT_DEL
+#else
+  #define ________MOD_LEFT_________ KC_LALT, T_GUI, KC_LCTL
+  #define ________MOD_RIGHT________ KC_BSPC, MT_DEL, LM_LOW
+#endif
 
 // Layout wrappers
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
