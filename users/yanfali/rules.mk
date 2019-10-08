@@ -4,9 +4,10 @@ CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 
-ifneq (, $(findstring tokyo60, $(KEYBOARD)))
-    AUDIO_ENABLE = no
-else
+# only enable audio on specific boards
+ifeq ($(strip $(KEYBOARD)), maartenwut/plain60)
     AUDIO_ENABLE = yes
+else
+    AUDIO_ENABLE = no
 endif
 
