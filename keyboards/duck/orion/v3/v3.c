@@ -42,12 +42,35 @@ void backlight_set(uint8_t level) {
   }
 }
 
+// Locking indicator LEDs
+// The Duck Orion V3 has 3 locking indicator LEDs and are located to the right
+// of the Escape key. 
 void led_set_kb(uint8_t usb_led) {
-
   IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) ? writePinLow(B0) : writePinHigh(B0);
-  IS_LED_ON(usb_led, USB_LED_NUM_LOCK) ? writePinLow(B4) | writePinHigh(B4);
+  IS_LED_ON(usb_led, USB_LED_NUM_LOCK) ? writePinLow(B4) : writePinHigh(B4);
   IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK) ? writePinLow(D7) : writePinHigh(D7);
   led_set_user(usb_led);
+}
+
+// Layer number indicator LEDs
+// The Duck Orion V3 only has 5 layer indicator LEDs and are located above the 
+// arrow cluster. 
+uint32_t layer_state_set_kb(uint32_t state) {
+    switch (biton32(state)) {
+    case 0:
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    default: 
+        break;
+    }
+  return state;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
