@@ -54,18 +54,26 @@ void matrix_scan_user(void) {
 
 void backlight_init_ports(void)
 {
-  DDRD  |=  0b11010000;
-  PORTD &= ~0b01010000;
-  PORTD |=  0b10000000;
-  DDRB  |=  0b00011111;
-  PORTB &= ~0b00001110;
-  PORTB |=  0b00010001;
-  DDRE  |=  0b01000000;
-  PORTE &= ~0b01000000;
+  
+}
+
+void indicator_init_ports(void) {
+
+  // Num LED
+  DDRB |=  (1<<4); 
+  PORTB &= ~(1<<4); 
+
+  // Caps Lock
+  DDRB |= (1<<0); 
+  PORTB &= ~(1<<0); 
+
+  // Scroll Lock
+  DDRD |= (1<<7); 
+  PORTD &= ~(1<<7);
 }
 
 void matrix_init(void) {
-  backlight_init_ports();
+  indicator_init_ports();
   unselect_cols();
   init_rows();
 

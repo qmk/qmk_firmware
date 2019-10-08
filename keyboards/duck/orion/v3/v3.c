@@ -42,22 +42,12 @@ void backlight_set(uint8_t level) {
   }
 }
 
-// Port from backlight_update_state
 void led_set_kb(uint8_t usb_led) {
-    bool status[8] = {
-    IS_HOST_LED_ON(USB_LED_SCROLL_LOCK), /* LED 3 */
-    IS_HOST_LED_ON(USB_LED_CAPS_LOCK),   /* LED 2 */
-    IS_HOST_LED_ON(USB_LED_NUM_LOCK),    /* LED 1 */
 
-    layer_state & (1<<2),                            /* LED 6 */
-    layer_state & (1<<1),                            /* LED 5 */
-    layer_state & (1<<0) ? 0: 1,                     /* LED 4 */
-
-    layer_state & (1<<5),                            /* LED 8 */
-    layer_state & (1<<4)                             /* LED 7 */
-  };
-
-  indicator_leds_set(status);
+  IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) ? writePinLow(B0) : writePinHigh(B0);
+  IS_LED_ON(usb_led, USB_LED_NUM_LOCK) ? writePinLow(B4) | writePinHigh(B4);
+  IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK) ? writePinLow(D7) : writePinHigh(D7);
+  led_set_user(usb_led);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
