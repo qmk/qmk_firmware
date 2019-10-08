@@ -8,15 +8,15 @@
   * [Bonnes pratiques Git](fr-FR/newbs_best_practices.md)
   * [Ressources d'apprentissage](fr-FR/newbs_learn_more_resources.md)
 
-**En Anglais**
+* [Les bases de QMK](fr-FR/README.md)
+  * [Indroduction à QMK](fr-FR/getting_started_introduction.md)
+  * [QMK CLI](fr-FR/cli.md)
+  * [Configuration de la CLI QMK](fr-FR/cli_configuration.md)
+  * [Contribuer à QMK](fr-FR/contributing.md)
+  * [Comment utiliser GitHub](fr-FR/getting_started_github.md)
+  * [Trouver de l'aide](fr-FR/getting_started_getting_help.md)
 
-* [Les bases de QMK](README.md)
-  * [Introduction à QMK](getting_started_introduction.md)
-  * [QMK en ligne de commande](cli.md)
-  * [Configurer les lignes de commandes CLI](cli_configuration.md)
-  * [Contribuer à QMK](contributing.md)
-  * [Comment utiliser Github](getting_started_github.md)
-  * [Obtenir de l’aide](getting_started_getting_help.md)
+**En Anglais**
 
 * [Changements non rétro-compatibles](breaking_changes.md)
   * [30 Aout 2019](ChangeLog/20190830.md)
