@@ -28,8 +28,12 @@ enum BACKLIGHT_AREAS {
   BACKLIGHT_ALL      = 0b00001111
 };
 
-void backlight_set(uint8_t level) {
-  // switch(level) {
+// Other than using RGB or LED matrix, QMK cannot turn on specific zones
+// of backlight LEDs. Unfortunately, Duck PCBs do not follow this design
+// and instead use multiple pins connected to each of these zones. QMK is
+// only able to control them ALL with the current default mechanisms. 
+void backlight_set(uint8_t zone) {
+  // switch(zone) {
   // case 0:
   //   PORTB |= BACKLIGHT_ALPHAS;
   //   PORTB |= BACKLIGHT_MODNUM;
