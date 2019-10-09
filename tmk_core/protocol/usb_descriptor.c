@@ -331,6 +331,16 @@ const USB_Descriptor_Configuration_t PROGMEM
             .Keyboard_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = KEYBOARD_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
+#ifdef RAW_ENABLE
+            /*
+             * Raw HID
+             */
+            .Raw_Interface   = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface}, .InterfaceNumber = RAW_INTERFACE, .AlternateSetting = 0x00, .TotalEndpoints = 2, .Class = HID_CSCP_HIDClass, .SubClass = HID_CSCP_NonBootSubclass, .Protocol = HID_CSCP_NonBootProtocol, .InterfaceStrIndex = NO_DESCRIPTOR},
+            .Raw_HID         = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(RawReport)},
+            .Raw_INEndpoint  = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | RAW_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
+            .Raw_OUTEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
             /*
              * Mouse
@@ -359,16 +369,6 @@ const USB_Descriptor_Configuration_t PROGMEM
                                  .InterfaceStrIndex = NO_DESCRIPTOR},
             .Shared_HID        = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(SharedReport)},
             .Shared_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = SHARED_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
-#endif
-
-#ifdef RAW_ENABLE
-            /*
-             * Raw HID
-             */
-            .Raw_Interface   = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface}, .InterfaceNumber = RAW_INTERFACE, .AlternateSetting = 0x00, .TotalEndpoints = 2, .Class = HID_CSCP_HIDClass, .SubClass = HID_CSCP_NonBootSubclass, .Protocol = HID_CSCP_NonBootProtocol, .InterfaceStrIndex = NO_DESCRIPTOR},
-            .Raw_HID         = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(RawReport)},
-            .Raw_INEndpoint  = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | RAW_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
-            .Raw_OUTEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
 #endif
 
 #ifdef CONSOLE_ENABLE
