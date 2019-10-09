@@ -25,4 +25,4 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 SRC += i2c_master.c
 
-LAYOUTS = 65_ansi
+LAYOUTS = 65_ansi 65_iso
