@@ -2,14 +2,14 @@
 
 QMK se présente à l'ordinateur hôte comme un clavier HID standard et, de fait, ne nécessite pas de pilote particulier. Toutefois un pilote est souvent nécessaire, afin de pouvoir flasher votre clavier sous Windows, pour le périphérique de bootloader qui apparaît lorsque vous resettez votre board.
 
-Il existe deux exceptions: le bootloader Caterina, qui se trouve en général sur les Pro Micros, et le bootloader Halfkay, livré avec les Teensy de PJRC. Ils apparaissent respectivement sous la forme d'un port série et d'un périphérique HID générique, ne nécessitant pas de driver.
+Il existe deux exceptions : le bootloader Caterina, qui se trouve en général sur les Pro Micros, et le bootloader Halfkay, livré avec les Teensy de PJRC. Ils apparaissent respectivement sous la forme d'un port série et d'un périphérique HID générique, ne nécessitant pas de driver.
 
 Nous vous recommandons d'utiliser l'utilitaire [Zadig](https://zadig.akeo.ie/). Si vous avez configuré votre environnement de développement avec Msys2 ou WSL, le script `qmk_install.sh` vous aura proposé l'installation des drivers durant le processus.
 
 ## Installation
 
 Passez votre clavier en mode bootloader, soit en appuyant sur le keycode `RESET` (qui peut se trouver dans un calque différent) ou en appuyant sur le bouton reset qui se trouve en général sous la board. Si votre clavier n'a aucune de ces options, essayez de le brancher en maintenant Escape ou Espace+`B` appuyés (voir la documentation de [Bootmagic](feature_bootmagic.md) pour plus de détails). Certaines boards utilisent [Command](feature_command.md) à la place de Bootmagic. Dans ce cas, vous pouvez entrer en mode bootloader en appuyant, à n'importe quel moment lorsque le clavier est branché, sur les combinaisons de touches Shift Gauche+Shift Droit+`B` ou Shift Gauche+Shift Droit+Escape.
-Certains claviers ont des instructions spécifiques pour passer en mode bootloader. Par exemple, la touche [Bootmagic Lite]](feature_bootmagic.md#bootmagic-lite) (défaut: Escape) peut être sur une touche différente telle que Contrôle Gauche. La combinaison pour la Command (défaut: Shift Gauche+Shift Droit) peut être dfférente, par exemple Contrôle Gauche+Contrôle Droit. Référez-vous au fichier README de votre board.
+Certains claviers ont des instructions spécifiques pour passer en mode bootloader. Par exemple, la touche [Bootmagic Lite]](feature_bootmagic.md#bootmagic-lite) (défaut : Escape) peut être sur une touche différente telle que Contrôle Gauche. La combinaison pour la Command (défaut : Shift Gauche+Shift Droit) peut être différente, par exemple Contrôle Gauche+Contrôle Droit. Référez-vous au fichier README de votre board.
 
 Pour mettre un clavier en mode bootloader avec USBaspLoader, appuyez sur le bouton `RESET` tout en maintenant le bouton `BOOT`. Vous pouvez aussi maintenir le bouton `BOOT` en branchant le câble USB.
 
@@ -18,7 +18,7 @@ Zadig détectera automatiquement les périphériques en mode bootloader. Il se p
 
  - Pour les claviers avec des MCUs Atmel AVR, le bootloader aura un nom similaire à `ATm32U4DFU`, et un Vendor ID `03EB`.
  - Les bootloaders USBasp s'appelleront `USBasp`, avec un VID/PID `16C0:05DC`.
- - Les claviers AVR flashé avec le bootloader QMK-DFU s'appelleront `<keyboard name> Bootloader` et auront aussi le VID `03EB`.
+ - Les claviers AVR flashé avec le bootloader QMK-DFU s'appelleront `<nom du clavier> Bootloader` et auront aussi le VID `03EB`.
  - Pour la plupart des claviers ARM, ils s'appelleront `STM32 BOOTLOADER`, et auront un VID/PID `0483:DF11`.
 
 !> Si Zadig affiche certains de vos périphériques avec le driver `HidUsb`, votre clavier n'est probablement pas en mode bootloader. La flèche aura une couleur orange et vous aurez un dialogue de confirmation vous demandant de modifier un driver système. **Ne continuez pas!**
@@ -27,11 +27,11 @@ Si la flèche apparaît en vert, sélectionnez le driver et appuyez sur le bouto
 
 ![Zadig montrant un driver de bootloader installé correctement](https://i.imgur.com/b8VgXzx.png)
 
-Finalement, débranchez et rebranchez le clavier afin de vous assurer que le nouveau driver a bien été chargé. Si vous utilisez QMK Toolbox pour flasher, redémarrez le aussi, il arrive qu'il n'arrive pas à détecter le changement de driver.
+Finalement, débranchez et rebranchez le clavier afin de vous assurer que le nouveau driver a bien été chargé. Si vous utilisez QMK Toolbox pour flasher, redémarrez-le aussi, il arrive qu'il n'arrive pas à détecter le changement de driver.
 
 ## Récupérer l'installation du mauvais périphérique
 
-Si vous n'arrivez plus à taper avec le clavier, il est possible que vous ayez installé le driver sur le clavier au lieu du bootloader. Vous pouvez facilement vérifier ceci dans Zadig. Un clavier fonctionnel a le driver `HidUsb` installé sur toutes ses interfaces:
+Si vous n'arrivez plus à taper avec le clavier, il est possible que vous ayez installé le driver sur le clavier au lieu du bootloader. Vous pouvez facilement vérifier ceci dans Zadig. Un clavier fonctionnel a le driver `HidUsb` installé sur toutes ses interfaces :
 
 ![Un clavier fonctionnel vu par Zadig](https://i.imgur.com/Hx0E5kC.png)
 

@@ -1,25 +1,27 @@
-# Frequently Asked Build Questions
+# Foire aux questions sur la compilation
 
-This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
+Cette page couvre les questions concernant la compilation de QMK. Si vous ne l'avez pas encore fait, vous devriez lire les guides [Configuration de l'environnement de build](getting_started_build_tools.md) et [Instructions pour Make](getting_started_make_guide.md).
 
-## Can't Program on Linux
-You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. If you have issues with `udev`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
+## Je ne peux pas programmer sous Linux
 
-An example of using `sudo`, when your controller is ATMega32u4:
+Vous aurez besoin des permissions appropriées pour utiliser un périphérique. Pour les utilisateurs de Linux, référez-vous aux instructions concernant les règles `udev` ci-dessous. Si `udev` vous pose des problèmes, une alternative est d'utiliser la commande `sudo`. Si vous ne connaissez pas cette commande, vérifiez son manuel en utilisant `man sudo` ou [regardez cette page](https://linux.die.net/man/8/sudo).
+
+Un exemple utilisant `sudo`, lorsque votre contrôleur est un ATMega32u4 :
 
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
 
-or just:
+ou simplement :
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
+Veuilleu noter que lancer `make` avec `sudo` est généralement une **mauvaise** idée, et vous devriez préférez une des méthodes précédente, si possible.
 
-### Linux `udev` Rules
-On Linux, you'll need proper privileges to access the MCU. You can either use
-`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`. Once added run the following:
+### Règles `udev` pour Linux
+
+Sous Linux, vous aurez besoin des permissions appropriées pour accéder le MCU. Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes:
+
 ```console
 sudo udevadm control --reload-rules
 sudo udevadm trigger
@@ -40,6 +42,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+
 **/etc/udev/rules.d/54-input-club-keyboard.rules:**
 
 ```
@@ -54,7 +57,8 @@ ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
 ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+**Note:** Le filtrage utilisant ModemManager fonctionnera uniquement si vous n'êtes pas en mode strict. Les commandes suivantes peuvent changer cette option :
+
 ```console
 sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
 sudo systemctl daemon-reload
@@ -62,6 +66,7 @@ sudo systemctl restart ModemManager
 ```
 
 **/etc/udev/rules.d/56-dfu-util.rules:**
+
 ```
 # stm32duino
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"
@@ -69,36 +74,38 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
-### Serial device is not detected in bootloader mode on Linux
-Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
-Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices may require `USB_SERIAL` and any of its sub options.
+### Le périphérique sériel n'est pas détecté en mode bootloader sous Linux
 
-## Unknown Device for DFU Bootloader
+Assurez-vous que votre kernel ait un support approprié pour votre périphérique. Si votre périphérique utilise USB ACM, par exemple les Pro Micro (AtMega32u4), assurez-vous d'include `CONFIG_USB_ACM=y`. D'autres périphériques peuvent avoir besoin de `USB_SERIAL` et de ses sous-options.
 
-Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
+## Périphérique inconnu pour le bootloader DFU
 
-Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
+Les problèmes rencontrés lorsque l'on flash des claviers sous Windows sont, la plupart du temps, dûs à une installation du mauvais driver, ou un driver manquant.
 
-If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
+Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans répertoire `qmk_firmware`sous MSYS2 ou WSL) ou réinstaller la QMK Toolbox peut résoudre le problème. Une alternative est de télécharger et lancer manuellement le package [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer).
 
-## WINAVR is Obsolete
-It is no longer recommended and may cause some problem.
-See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+Si vous rencontrez toujours des problèmes, essayez de télécharger et lancer Zadig. Voir [Installation du driver du bootloader avec Zadig](driver_installation_zadig.md) pour plus d'informations.
 
-## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
+## WINAVR est obsolète
 
-Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
+Il n'est plus recommandé et peut causer des problème. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
-Also see this.
+## USB VID et PID
+
+Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de collision avec d'autres produits.
+
+La plupart des boards QMK utilisent `0xFEED` comme vendor ID. Vérifiez les autres claviers pour être sûr de choisir un Product ID unique.
+
+Etudiez aussi ceci.
 https://github.com/tmk/tmk_keyboard/issues/150
 
-You can buy a really unique VID:PID here. I don't think you need this for personal use.
+Vous pouvez acheter un VID:PID unique ici. Je ne pense pas que ce soit nécessaire pour un usage personnel.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## Cortex: `cstddef: No such file or directory`
-GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
+
+Ce problème existait avec le GCC 4.8 d'Ubuntu 14.04, la solution a nécessité de mettre à jour vers 4.9 avec ce PPA.
 https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
 
 https://github.com/tmk/tmk_keyboard/issues/212
@@ -106,7 +113,8 @@ https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstdd
 https://developer.mbed.org/forum/mbed/topic/5205/
 
 ## `clock_prescale_set` and `clock_div_1` Not Available
-Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
+
+Votre toolchain est trop vieille pour supporter le MCU. Par exemple, WinAVR 20100110 ne supporte pas ATMega32u2.
 
 ```
 Compiling C: ../../tmk_core/protocol/lufa/lufa.c
@@ -119,9 +127,9 @@ avr-gcc -c -mmcu=atmega32u2 -gdwarf-2 -DF_CPU=16000000UL -DINTERRUPT_CONTROL_END
 make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 ```
 
+## BOOTLOADER_SIZE pour AVR
 
-## BOOTLOADER_SIZE for AVR
-Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
+Notez que la taille du bootloader pour les Teensy2.0++ est de 2048bytes. Quelques Makefiles peuvent avoir le mauvais commentaire
 
 ```
 # Boot Section Size in *bytes*
@@ -133,10 +141,11 @@ Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
-## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
-This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
+## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` sous MacOS
 
-The solution is to remove and reinstall all affected modules.
+C'est un problème de mise à jour avec brew, causée par des symlinks dont dépend avr-gcc qui sont détruits.
+
+La solution est de supprimer et réinstaller tous les modules affectés.
 
 ```
 brew rm avr-gcc
@@ -151,13 +160,13 @@ brew install gcc-arm-none-eabi
 brew install avrdude
 ```
 
-### avr-gcc 8.1 and LUFA
+### avr-gcc 8.1 et LUFA
 
-If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+Si vous avez mis à jour votre avr-gcc au dessus de la version 7, vous risquez de voir des erreurs impliquant LUA. Par exemple :
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-For now, you need to rollback avr-gcc to 7 in brew.
+Pour le moment, vous devrez revenir à la version 7 de avr-gcc dans brew.
 
 ```
 brew uninstall --force avr-gcc
@@ -165,10 +174,11 @@ brew install avr-gcc@8
 brew link --force avr-gcc@8
 ```
 
-### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
-Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
+### Je viens de flasher mon clavier et il ne fait rien/l'appui des touches n'est pas enregistré - c'est aussi un ARM(rev6 plank, clueboard 60, hs60v2, etc.) (Février 2019)
 
-[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
-[Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
+A cause de la manière dont les EEPROM fonctionnent sur les puces ARM, les options sauvegardées peuvent ne plus être valides. Ceci affecte les calques par défaut et *peut*, sous certaines conditions que nous essayons encore de déterminer, rend le clavier inutilisable. Réinitialiser l'EEPROM corrigera le problème.
 
-If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic.md) and keyboard info for specifics on how to do this).
+[Réinitialiser EEPROM sur Planck rev6](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) peut être utilisé pour forcer une réinitialisation d'EEPROM. Une fois cette image flashée, flashez votre firmware normal à nouveau. Celà devrait faire fonctionner votre clavier à nouveau.
+[Réinitialiser EEPROM sur Preonic rev3](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
+
+Si bootmagic est activé dans n'importe quel forme, vous devriez être capable de faire aussi ceci (regardez  [Documentation Bootmagic](feature_bootmagic.md) et les informations spécifiques à votre clavier).
