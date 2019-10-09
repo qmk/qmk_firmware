@@ -13,25 +13,10 @@ enum userspace_custom_keycodes {
     KC_COLEMAK,                     // Sets default layer to COLEMAK
     KC_DVORAK,                      // Sets default layer to DVORAK
     KC_WORKMAN,                     // Sets default layer to WORKMAN
-    KC_NORMAN,                      // Sets default layer to NORMAN
-    KC_MALTRON,                     // Sets default layer to MALTRON
-    KC_EUCALYN,                     // Sets default layer to EUCALYN
-    KC_CARPLAX,                     // Sets default layer to CARPLAX
     KC_DIABLO_CLEAR,                // Clears all Diablo Timers
-    KC_OVERWATCH,                   // Toggles game macro input mode (so in OW, it defaults to game chat)
-    KC_SALT,                        // See drashna.c for details
-    KC_MORESALT,
-    KC_SALTHARD,
-    KC_GOODGAME,
-    KC_SYMM,
-    KC_JUSTGAME,
-    KC_GLHF,
-    KC_TORB,
-    KC_AIM,
-    KC_C9,
-    KC_GGEZ,
     KC_MAKE,        // Run keyboard's customized make command
     KC_RGB_T,       // Toggles RGB Layer Indication mode
+    RGB_IDL,        // RGB Idling animations
     KC_SECRET_1,    // test1
     KC_SECRET_2,    // test2
     KC_SECRET_3,    // test3
