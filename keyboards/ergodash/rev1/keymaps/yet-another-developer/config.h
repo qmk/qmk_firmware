@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Use I2C or Serial, not both */
-
 #define USE_SERIAL
 // #define USE_I2C
 
@@ -31,3 +30,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
+
+#define AUTO_SHIFT_TIMEOUT 210
+
+#define TAPPING_TERM_PER_KEY
+
+// https://beta.docs.qmk.fm/features/feature_leader_key
+//#define LEADER_PER_KEY_TIMING
+//#define LEADER_TIMEOUT 280
+
+// https://docs.qmk.fm/#/feature_mouse_keys
+#define MK_3_SPEED // Constant Speed Mode
+
+#define MOUSEKEY_DELAY 300
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MAX_SPEED 3
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MK_C_OFFSET_0    4
+#define MK_C_INTERVAL_0  28
+#define MK_C_OFFSET_1    8
+#define MK_C_INTERVAL_1  16
+#define MK_C_OFFSET_2    20
+#define MK_C_INTERVAL_2  16
+
+#define MOUSEKEY_WHEEL_MAX_SPEED 4
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
+#define MK_W_OFFSET_0       1
+#define MK_W_INTERVAL_0     120
+#define MK_W_OFFSET_1       1 
+#define MK_W_INTERVAL_1     100
+#define MK_W_OFFSET_2       1
+#define MK_W_INTERVAL_2     60
+
+//#define RETRO_TAPPING
+
+#define NO_SECRETS no
