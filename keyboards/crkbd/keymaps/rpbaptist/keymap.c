@@ -256,7 +256,7 @@ void check_default_layer(uint8_t type) {
             rgb_matrix_layer_helper(HSV_TEAL, LED_FLAG_UNDERGLOW);
             break;
         case _GAMING:
-            rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
+            rgb_matrix_layer_helper(HSV_BLUE, LED_FLAG_UNDERGLOW);
             break;
     }
 }
@@ -266,16 +266,16 @@ void rgb_matrix_indicators_user(void) {
     {
         switch (biton32(layer_state)) {
             case _GAMING_EXT:
-                rgb_matrix_layer_helper(HSV_ORANGE, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
                 break;
             case _FN:
-                rgb_matrix_layer_helper(HSV_GOLDENROD, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_CORAL, LED_FLAG_UNDERGLOW);
                 break;
             case _NUM:
-                rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_GOLDENROD, LED_FLAG_UNDERGLOW);
                 break;
             case _NAV:
-                rgb_matrix_layer_helper(HSV_AZURE, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
                 rgb_matrix_layer_helper(HSV_MAGENTA, LED_FLAG_UNDERGLOW);
