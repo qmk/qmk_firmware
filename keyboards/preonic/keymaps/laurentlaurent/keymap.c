@@ -12,7 +12,7 @@
             DYN_MACRO_PLAY1,
             DYN_MACRO_PLAY2,
         };
-        #define QMK_KEYBOARD_H "config.h"
+        #define QMK_KEYBOARD_H "rev3.h"
     #endif
 
     #include QMK_KEYBOARD_H
