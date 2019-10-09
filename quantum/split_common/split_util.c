@@ -7,7 +7,6 @@
 #include "quantum.h"
 
 #ifdef EE_HANDS
-#    include "tmk_core/common/eeprom.h"
 #    include "eeconfig.h"
 #endif
 
@@ -23,7 +22,7 @@ __attribute__((weak)) bool is_keyboard_left(void) {
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
 #elif defined(EE_HANDS)
-    return eeprom_read_byte(EECONFIG_HANDEDNESS);
+    return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
     return !is_keyboard_master();
 #endif

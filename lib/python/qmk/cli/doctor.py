@@ -11,8 +11,8 @@ from glob import glob
 from milc import cli
 
 
-@cli.entrypoint('Basic QMK environment checks')
-def main(cli):
+@cli.subcommand('Basic QMK environment checks')
+def doctor(cli):
     """Basic QMK environment checks.
 
     This is currently very simple, it just checks that all the expected binaries are on your system.
@@ -36,6 +36,7 @@ def main(cli):
         else:
             try:
                 subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, check=True)
+                cli.log.info('Found {fg_cyan}%s', binary)
             except subprocess.CalledProcessError:
                 cli.log.error("{fg_red}Can't run `%s --version`", binary)
                 ok = False
@@ -49,7 +50,7 @@ def main(cli):
     elif OS == "Linux":
         cli.log.info("Detected {fg_cyan}Linux.")
         if shutil.which('systemctl'):
-            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
             if mm_check.returncode == 0:
                 mm = True
                 for line in mm_check.stdout.split('\n'):

@@ -18,11 +18,12 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	exit_code=0
 	git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 	if [ $? -eq 128 ]; then
-		echo "Making default keymaps for all keyboards"
+		# We don't know what changed so just build the default keymaps
+		echo "Making default keymaps for all keyboards (fallback)"
 		eval $MAKE_ALL
 		: $((exit_code = $exit_code + $?))
 	else
-		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(lib/python/)' | grep -Ev '(^bin/qmk)' | wc -l)
+		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(lib/python/)' | grep -Ev '^(bin/qmk)' | grep -Ev '^(requirements.txt)' | grep -Ev '^(util/)' | wc -l)
 		BRANCH=$(git rev-parse --abbrev-ref HEAD)
 		# is this branch master or a "non docs, non keyboards" change 
 		if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
@@ -56,7 +57,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
 			echo
 			echo "Running python tests."
-			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container bin/qmk nose2
+			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'bin/qmk pytest'
 			: $((exit_code = $exit_code + $?))
 		fi
 	fi
