@@ -6,7 +6,8 @@ You can enable support for HD44780 Displays by setting the `HD44780_ENABLE` flag
 
 ## Configuration
 
-You will need to configure the pins used by your display and its number of lines and collumn in your keyboards `config.h`.
+You will need to configure the pins used by your display, and its number of lines and columns in your keyboard's `config.h`.
+
 
 Uncomment the section labled HD44780 and change the parameters as needed.
 ````
@@ -40,7 +41,7 @@ Should you need to configure other properties you can copy them from `quantum/hd
 
 ## Usage 
 
-To initialize your display call lcd_init() with one of these parameters:
+To initialize your display, call `lcd_init()` with one of these parameters:
 ````
 LCD_DISP_OFF             : display off
 LCD_DISP_ON              : display on, cursor off
@@ -53,4 +54,4 @@ To do so call `lcd_clrsrc()`.
 
 To now print something to your Display you first call `lcd_gotoxy(column, line)`. To go to the start of the first line you would call `lcd_gotoxy(0, 0)` and then print a string with `lcd_puts("example string")`.
 
-There are more posible methods to control the display. [For in depth documentation please visit the linked page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
+There are more methods available to control the display. [For in depth documentation please visit the linked page.](http://homepage.hispeed.ch/peterfleury/doxygen/avr-gcc-libraries/group__pfleury__lcd.html)
