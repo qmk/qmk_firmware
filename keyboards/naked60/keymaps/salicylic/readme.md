@@ -17,7 +17,7 @@
 |  ESC(FLock)|F2|  F3|    F4|    F5|    F6|      |      |    F7|    F8|    F9|   F10|   F11| _____|
 |  TAB |     Q|     W|     E|     R|     T|      |      |     Y|     U|     I|     O|     P|     [|
 |LCTRL |     A|     S|     D|     F|     G|      |      |     H|     J|     K|     L|     -|     ]|
-| LSFT |     Z|     X|     C|     V|     B|      |      |     N|     M|     ,|     .|     /|     \|
+| LSFT |     Z|     X|     C|     V|     B|      |      |     N|     M|     ,|     .|     /|    \ |
 |      |  LEFT| RIGHT|  LGUI|  MHEN|Low+Ent| BSPC|   DEL|Rai+SPC| HENK|  LALT|    UP|  DOWN|      |
 
 
