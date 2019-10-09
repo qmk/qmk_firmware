@@ -4,7 +4,7 @@
 |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  10  |  11  |  12  |  13  |  14  |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | ESC(FLock) |  1|  2|     3|     4|     5|      |      |     6|     7|     8|     9|     0|  BSPC|
-|  TAB |     Q|     W|     E|     R|     T|      |      |     Y|     U|     I|     O|     P|     \|
+|  TAB |     Q|     W|     E|     R|     T|      |      |     Y|     U|     I|     O|     P|    \ |
 | LSFT |     A|     S|     D|     F|     G|      |      |     H|     J|     K|     L|     ;|     '|
 |LCTRL |     Z|     X|     C|     V|     B|      |      |     N|     M|     ,|     .|     /|   ENT|
 |      |ADJUST| LCTRL|  LALT|  LGUI| LOWER|   SPC|   SPC| RAISE|  LEFT|  DOWN|    UP| RIGHT|      |
