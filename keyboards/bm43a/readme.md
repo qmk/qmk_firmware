@@ -1,12 +1,13 @@
 # bm43a
 
-![bm43a](imgur.com image replace me!)
+A 40% mechanical keyboard.  
 
-A short description of the keyboard/project
+This firmware was originally taken from a kbfirmware.json and converted through [kbf_qmk_converter](https://noroadsleft.github.io/kbf_qmk_converter/). You may find the original `.json` files [here](https://drive.google.com/drive/folders/11DowBYrFN_uCNa9Q9bXwuMn91vmZYBcG).  
 
-Keyboard Maintainer: [mechmerlin](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: bm43a PCB    
+Hardware Availability: [KPRepublic](https://kprepublic.com/products/bm43a-bm43-43-keys-40-custom-mechanical-keyboard-pcb-programmed-numpad-layouts-qmk-firmware-with-rgb-bottom-underglow-alps-mx)  
 
 Make example for this keyboard (after setting up your build environment):
 
