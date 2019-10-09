@@ -1,10 +1,10 @@
 #include QMK_KEYBOARD_H
 
 enum keyboard_layers {
-  _BL = 0,
-  _SL = 1,
-  _FL = 2,
-  _CL = 3,
+  _BL,
+  _SL,
+  _FL,
+  _CL,
 };
 
 enum custom_keycodes {
