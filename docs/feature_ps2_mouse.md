@@ -90,7 +90,7 @@ In your keyboard config.h:
 
 ### Interrupt Version (ARM chibios)
 
-pretty much any two pins can be used for the (software) interrupt variant on ARM cores, the example below uses A8 for clock, and A9 for data.
+Pretty much any two pins can be used for the (software) interrupt variant on ARM cores. The example below uses A8 for clock, and A9 for data.
 
 In rules.mk:
 
