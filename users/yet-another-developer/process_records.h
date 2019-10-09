@@ -11,6 +11,8 @@ enum userspace_custom_keycodes {
     VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
     KC_QWERTY,                      // Sets default layer to QWERTY
     KC_COLEMAK,                     // Sets default layer to COLEMAK
+    KC_DVORAK,                      // Sets default layer to DVORAK
+    KC_WORKMAN,                     // Sets default layer to WORKMAN
     KC_MAKE,        // Run keyboard's customized make command
     KC_SECRET_1,    // test1
     KC_SECRET_2,    // test2
@@ -27,13 +29,12 @@ enum userspace_custom_keycodes {
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+bool process_record_keymap( uint16_t keycode, keyrecord_t *record);
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 #define TG_MODS TG(_MODS)
-#define TG_GAME TG(_GAMEPAD)
 #define OS_LWR OSL(_LOWER)
 #define OS_RSE OSL(_RAISE)
 
@@ -45,15 +46,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
+#define COLEMAK KC_COLEMAK
+#define WORKMAN KC_WORKMAN
 
 #define KC_RESET RESET
 #define KC_RST KC_RESET
-
-#ifdef SWAP_HANDS_ENABLE
-#    define KC_C1R3 SH_TT
-#else  // SWAP_HANDS_ENABLE
-#    define KC_C1R3 KC_BSPC
-#endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)
 #define SP_LWER LT(_LOWER, KC_SPC)
@@ -76,8 +73,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_HYPR OSM(MOD_HYPR)
 
 #define ALT_APP ALT_T(KC_APP)
-
-#define MG_NKRO MAGIC_TOGGLE_NKRO
 
 #define UC_IRNY UC(0x2E2E)
 #define UC_CLUE UC(0x203D)
