@@ -101,7 +101,7 @@ PS2_USE_INT = yes
 
 In your keyboard config.h:
 
-```
+```c
 #define PS2_CLOCK A8
 #define PS2_DATA  A9
 #define PS2_CLOCK_PORT EXT_MODE_GPIOA
@@ -109,7 +109,7 @@ In your keyboard config.h:
 the last define is used to select wich port DATA and CLOCK lines are wired to, and therefor the software-pin-interrupt should be configured for (replace the 'A' with your port-of-wiring-choice)
 
 And in the chibios specifig halconf.h:
-```
+```c
 #define HAL_USE_EXT                 TRUE
 ```
 
