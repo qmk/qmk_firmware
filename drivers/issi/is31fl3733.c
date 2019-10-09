@@ -231,5 +231,6 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index) {
             IS31FL3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
     }
-    g_led_control_registers_update_required[index] = false;
+    // This seems counter intuitive but sometimes this page can get corrupted. So update it every time.
+    // g_led_control_registers_update_required[index] = false;
 }
