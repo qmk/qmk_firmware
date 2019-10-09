@@ -253,7 +253,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
 void check_default_layer(uint8_t type) {
     switch (biton32(default_layer_state)) {
         case _COLEMAKDHM:
-            rgb_matrix_layer_helper(HSV_CYAN, LED_FLAG_UNDERGLOW);
+            rgb_matrix_layer_helper(HSV_TEAL, LED_FLAG_UNDERGLOW);
             break;
         case _GAMING:
             rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
@@ -272,10 +272,10 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_GOLDENROD, LED_FLAG_UNDERGLOW);
                 break;
             case _NUM:
-                rgb_matrix_layer_helper(HSV_GREEN, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
                 break;
             case _NAV:
-                rgb_matrix_layer_helper(HSV_BLUE, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_AZURE, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
                 rgb_matrix_layer_helper(HSV_MAGENTA, LED_FLAG_UNDERGLOW);
