@@ -2,138 +2,43 @@
 
 Add Setta21 maps to the salicylic layout.
 
-Default<br>
-<table>
-<tr>
-<td>Rai+0</td>
-<td>1</td>
-<td>4</td>
-<td>7</td>
-<td>Ad+Num</td>
-<td>ESC</td>
-</tr><tr>
-<td></td>
-<td>2</td>
-<td>5</td>
-<td>8</td>
-<td>/</td>
-<td>F2</td>
-</tr><tr>
-<td>Low+.</td>
-<td>3</td>
-<td>6</td>
-<td>9</td>
-<td>*</td>
-<td>=</td>
-</tr><tr>
-<td>ENT</td>
-<td></td>
-<td>+</td>
-<td></td>
-<td>-</td>
-<td>DEL</td>
-</tr>
-</table>
+## Default
+|  1   |  2   |  3   |  4   |
+|:----:|:----:|:----:|:----:|
+|   ESC|    F2|     =|   DEL|
+|Ad+Num|     /|     *|     -|
+|     7|     8|     9|      |
+|     4|     5|     6|     +|
+|     1|     2|     3|      |
+| Rai+0|      | LOW + .|   ENT|
 
+## Lower
+|  1   |  2   |  3   |  4   |
+|:----:|:----:|:----:|:----:|
+|   ESC|    F2|     =|   DEL|
+| =MIN(| =MAX(|=COUNTIF(|=AVERAGE(|
+|    F7|    F8|    F9|      |
+|    F4|    F5|    F6| =SUM(|
+|   F11|   F12|    F3|      |
+| RAISE|      | LOWER|     )|
 
-Lower<br>
-<table>
-<tr>
-<td>RAISE</td>
-<td>F11</td>
-<td>F4</td>
-<td>F7</td>
-<td>"=MIN("</td>
-<td>ESC</td>
-</tr><tr>
-<td></td>
-<td>F12</td>
-<td>F5</td>
-<td>F8</td>
-<td>"=MAX("</td>
-<td>F2</td>
-</tr><tr>
-<td>LOWER</td>
-<td>F3</td>
-<td>F6</td>
-<td>F9</td>
-<td>=COUNTIF(</td>
-<td>=</td>
-</tr><tr>
-<td>)</td>
-<td></td>
-<td>"=SUM("</td>
-<td></td>
-<td>=AVERAGE(</td>
-<td>DEL</td>
-</tr>
-</table>
+## Raise
+|  1   |  2   |  3   |  4   |
+|:----:|:----:|:----:|:----:|
+|   ESC|    F2|     =|   DEL|
+| XXXXX|     /|     *|     -|
+| XXXXX|    UP| XXXXX|      |
+|  LEFT|  DOWN| RIGHT|     +|
+| XXXXX|  DOWN| XXXXX|      |
+| RAISE|      | LOWER|   ENT|
 
-
-Raise<br>
-<table>
-<tr>
-<td>RAISE</td>
-<td>XXXXX</td>
-<td>LEFT</td>
-<td>XXXXX</td>
-<td>XXXXX</td>
-<td>ESC</td>
-</tr><tr>
-<td></td>
-<td>DOWN</td>
-<td>DOWN</td>
-<td>UP</td>
-<td>/</td>
-<td>F2</td>
-</tr><tr>
-<td>LOWER</td>
-<td>XXXXX</td>
-<td>RIGHT</td>
-<td>XXXXX</td>
-<td>*</td>
-<td>=</td>
-</tr><tr>
-<td>ENT</td>
-<td></td>
-<td>+</td>
-<td></td>
-<td>-</td>
-<td>DEL</td>
-</tr>
-</table>
-
-
-Adjust<br>
-<table>
-<tr>
-<td>LEDON/Off</td>
-<td>LEDVAD</td>
-<td>LEDHUD</td>
-<td>LEDSAD</td>
-<td>ADJUST</td>
-<td>ESC</td>
-</tr><tr>
-<td></td>
-<td>LEDVAI</td>
-<td>LEDHUI</td>
-<td>LEDSAI</td>
-<td>XXXXX</td>
-<td>F2</td>
-</tr><tr>
-<td>XXXXX</td>
-<td>XXXXX</td>
-<td>XXXXX</td>
-<td>XXXXX</td>
-<td>XXXXX</td>
-<td>=</td>
-</tr><tr>
-<td>LEDMOD</td>
-<td></td>
-<td>+</td>
-<td></td>
-<td>-</td>
-<td>DEL</td>
-</tr>
-</table>
+## Adjust
+|  1   |  2   |  3   |  4   |
+|:----:|:----:|:----:|:----:|
+|   ESC|    F2|     =|   DEL|
+|ADJUST| XXXXX| XXXXX|     -|
+|LED_SAD|LED_SAI| XXXXX|      |
+|LED_HUD|LED_HUI| XXXXX|     +|
+|LED_VAD|LED_VAI| XXXXX|      |
+|LED_ON/Off|      | XXXXX|LED_MOD|
 
