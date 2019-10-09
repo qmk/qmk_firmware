@@ -1,15 +1,16 @@
-# Frequently Asked Questions
+# Questions fréquemment posées
 
-## What is QMK?
+## Qu'est-ce que QMK ?
 
-[QMK](https://github.com/qmk), short for Quantum Mechanical Keyboard, is a group of people building tools for custom keyboards. We started with the [QMK firmware](https://github.com/qmk/qmk_firmware), a heavily modified fork of [TMK](https://github.com/tmk/tmk_keyboard).
+[QMK](https://github.com/qmk), acronyme pour Quantum Mechanical Keyboard, est un groupe de personnes qui construisent des outils pour des claviers personnalisés. Nous avons commencé par le [firmware QMK](https://github.com/qmk/qmk_firmware), un fork massivement modifié de [TMK](https://github.com/tmk/tmk_keyboard).
 
-## What Differences Are There Between QMK and TMK?
+## Quelles sont les différences entre QMK et TMK ?
 
-TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert](https://github.com/jackhumbert)'s fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.
+TMK a été conçu et développé à l'origine par [Jun Wako](https://github.com/tmk). QMK a démarré comme étant le fork de  [Jack Humbert](https://github.com/jackhumbert) pour le Planck. Au bout d'un moment, le fork de Jack a divergé de manière significative de TMK et, en 2015, Jack a décidé de le renommer QMK.
 
-From a technical standpoint QMK builds upon TMK by adding several new features. Most notably QMK has expanded the number of available keycodes and uses these to implement advanced features like `S()`, `LCTL()`, and `MO()`. You can see a complete list of these keycodes in [Keycodes](keycodes.md).
+D'un point de vue technique, QMK se base sur TMK en lui ajoutant plusieurs nouvelles fonctionnalités. P
+From a technical standpoint QMK builds upon TMK by adding several new features. QMK a notamment augmenté le nombre de keycodes disponibles et les a utilisés pour implémenter des fonctionnalités avancées telles que `S()`, `LCTL()` et `MO()`. Vous pouvez voir une liste complète de ces keycodes dans [Keycodes] (keycodes.md).
 
-From a project and community management standpoint TMK maintains all the officially supported keyboards by himself, with a bit of community support. Separate community maintained forks exist or can be created for other keyboards. Only a few keymaps are provided by default, so users typically don't share keymaps with each other. QMK encourages sharing of both keyboards and keymaps through a centrally managed repository, accepting all pull requests that follow the quality standards. These are mostly community maintained, but the QMK team also helps when necessary.
+D'un point de vue management de projet et communauté, TMK maintient tous les claviers supportés officiellement lui-même, avec un peu de support de la communauté. Il existe ou peuvent être créées d'autres communautés maintenant des fork pour d'autres claviers. Peu de keymaps sont définies par défaut, les utilisateurs ne se partagent donc pas leurs keymaps en général. QMK encourage le partage des claviers et des keymaps à l'aide d'un dépôt géré de manière centrale, acceptant les pull requests qui suivent les standards de qualité. Ceux-ci sont surtout maitenus par la communauté, mais l'équipe de QMK aide aussi lorsque c'est nécessaire.
 
-Both approaches have their merits and their drawbacks, and code flows freely between TMK and QMK when it makes sense.
+Les deux approches ont leurs avantages et leurs inconvénients, et le code passe facilement entre TMK et QMK lorsque cela fait du sens.
