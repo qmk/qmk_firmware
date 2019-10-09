@@ -6,7 +6,7 @@
 | ESC(FLock) |  1|  2|     3|     4|     5|      |      |     6|     7|     8|     9|     0|  BSPC|
 |  TAB |     Q|     W|     E|     R|     T|      |      |     Y|     U|     I|     O|     P|     [|
 |LCTRL |     A|     S|     D|     F|     G|      |      |     H|     J|     K|     L|     -|     ]|
-| LSFT |     Z|     X|     C|     V|     B|      |      |     N|     M|     ,|     .|     /|     \|
+| LSFT |     Z|     X|     C|     V|     B|      |      |     N|     M|     ,|     .|     /|    \ |
 |      |  LEFT| RIGHT|  LGUI|  MHEN|Low+Ent| BSPC|   DEL|Rai+SPC| HENK|  LALT|    UP|  DOWN|      |
 
 
