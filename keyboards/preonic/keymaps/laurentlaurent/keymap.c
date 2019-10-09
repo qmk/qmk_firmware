@@ -365,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_A,     KC_BTN2,  KC_MS_U,  KC_BTN1,  KC_WH_U,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   _______,  KC_DEL,
         _______,  __LYB__,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_WH_D,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  __LYB__,  _______,
         _______,  _______,  KC_BTN4,  KC_BTN5,  KC_WH_L,  KC_WH_R,  KC_ACL2,  KC_ACL0,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______,
-        KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  KC_BSPC,  KC_SPC,   KC_SPC,   KC_ENT,   KC__MUTE, KC_VOLD,  KC_VOLU,  LTO_BS
+        KC_LCTL,  KC_LALT,  KC_LGUI,  _______,  KC_BSPC,  KC_SPC,   KC_SPC,   KC_ENT,   KC_MUTE,  KC_VOLD,  KC_VOLU,  LTO_BS
     ),
 
         /* One-Handed
