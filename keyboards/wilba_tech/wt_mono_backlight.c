@@ -156,10 +156,9 @@ void backlight_effect_cycle_all(void)
 // colors already set
 void backlight_effect_indicators(void)
 {
+#if defined(MONO_BACKLIGHT_WT75_A)
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb = hsv_to_rgb( hsv );
-
-#if defined(MONO_BACKLIGHT_WT75_A)
     // G8, H8, I8 -> (6*8+7) (7*8+7), (8*8+7)
     IS31FL3736_mono_set_brightness(55, rgb.r);
     IS31FL3736_mono_set_brightness(63, rgb.g);
