@@ -1,0 +1,13 @@
+{
+  "keyboard_name": "soap",
+  "url": "https://github.com/TheRoyalSweatshirt/SOAP",
+  "maintainer": "[TheRoyalSweatshirt](https://github.com/TheRoyalSweatshirt)",
+  "width": 4,
+  "height": 2,
+  "layouts": {
+    "LAYOUT": {
+      "key_count": 8,
+      "layout": [{"label":"K00", "x":0, "y":0}, {"label":"K01", "x":1, "y":0}, {"label":"K02", "x":2, "y":0}, {"label":"K03", "x":4, "y":0}, {"label":"K10", "x":0, "y":1}, {"label":"K11", "x":1, "y":1}, {"label":"K12", "x":2, "y":1}, {"label":"K13", "x":4, "y":1}]
+    }
+  }
+}
