@@ -5,6 +5,7 @@ We list each subcommand here explicitly because all the reliable ways of searchi
 from . import cformat
 from . import compile
 from . import config
+from . import docs
 from . import doctor
 from . import hello
 from . import json
