@@ -29,7 +29,7 @@ def parse_rules_mk(keyboard):
     rules_mk_path_wildcard = os.path.join(base_path, "**", "rules.mk")
     paths = [path for path in glob.iglob(rules_mk_path_wildcard, recursive=True) if "keymaps" not in path]
 
-    rules_mk = list()
+    rules_mk = dict()
     for file in paths:
         rules_mk_content = unicode_lines(file)
         parsed_file = dict()
@@ -37,8 +37,17 @@ def parse_rules_mk(keyboard):
             found = re.search(r'^\s*(\w+)\s*=\s*((?:\s*\w+)+)', line)
             if found:
                 parsed_file[found.group(1)] = found.group(2)
-        rules_mk.append(parsed_file)
+        version = file.replace(base_path, "").replace(os.path.sep, "").replace("rules.mk", "")
+        rules_mk[version if version else "base"] = parsed_file
     return rules_mk
+
+def find_keymaps(base_path, name_finder, community = False):
+    path_wildcard = os.path.join(base_path, "**", "keymap.c")
+    if community:
+        paths = [path for path in glob.iglob(path_wildcard, recursive=True)]
+    else:
+        paths = [path for path in glob.iglob(path_wildcard, recursive=True) if 'keymaps' in path]
+    return list(map(name_finder, paths))
 
 @cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
 @cli.subcommand("List the keymaps for a specific keyboard")
@@ -49,33 +58,21 @@ def list_keymaps(cli):
     keyboard = cli.config.list_keymaps.keyboard if cli.config.list_keymaps.keyboard else input("Keyboard Name: ")
 
     kb_base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
-    km_path_wildcard = os.path.join(kb_base_path, "**", "keymap.c")
-
-    # find everywhere we have rules.mk where keymaps isn't in the path
-    km_paths = [path for path in glob.iglob(km_path_wildcard, recursive=True) if 'keymaps' in path]
-
-    # replace the keyboard directory's path prefix with the keyboard's name and remove the keymap.c suffix
     km_find_name = lambda path: path.replace(kb_base_path, keyboard + os.path.sep).replace("/keymaps/", ":").replace(os.path.sep + "keymap.c", "")
-    names = list(map(km_find_name, km_paths))
+    names = find_keymaps(kb_base_path, km_find_name)
 
     # get all the rules.mk files for the keyboard
     rules_mk = parse_rules_mk(keyboard)
 
-    # find all the supported layouts
-    all_supported_layouts = set()
-    for version in rules_mk:
-        if "LAYOUTS" in version:
-            for layout in version["LAYOUTS"].split():
-                all_supported_layouts.add(layout)
-
-    for layout in all_supported_layouts:
-        cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
-        cl_path_wildcard = os.path.join(cl_base_path, "**", "keymap.c")
-        # find all the keymap.c files under the community layouts
-        cl_paths = [path for path in glob.iglob(cl_path_wildcard, recursive=True)]
-        # replace the community layouts directory's path with the keyboard's name and remove the keymap.c suffix
-        cl_find_name = lambda path: path.replace(cl_base_path, keyboard + ":").replace(os.path.sep + "keymap.c", "")
-        names = names + list(map(cl_find_name, cl_paths))
+    for version, data in rules_mk.items():
+        if "LAYOUTS" in data:
+            if version == "base":
+                cl_find_name = lambda path: path.replace(cl_base_path, keyboard + ":").replace(os.path.sep + "keymap.c", "")
+            else:
+                cl_find_name = lambda path: path.replace(cl_base_path, keyboard + os.path.sep + version + ":").replace(os.path.sep + "keymap.c", "")
+            for layout in data["LAYOUTS"].split():
+                cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
+                names = names + find_keymaps(cl_base_path, cl_find_name, community = True)
 
     names.sort()
 
