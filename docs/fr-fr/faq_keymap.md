@@ -129,23 +129,26 @@ Les touches de clavier spécifiques JIS comme `無変換(Muhenkan)`, `変換(Hen
 
 https://pqrs.org/osx/karabiner/seil.html
 
-## RN-42 Bluetooth Doesn't Work with Karabiner
+## RN-42 Bluetooth ne fonctionne pas avec Karabiner
 
-Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
+Karabiner - Outil de Keymapping sous Mac OSX - Ignore les entrées du module RN-42. Vous devez activer cette option pour rendre Karabiner compatible avec votre clavier.
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
-See these for the detail of this problem.
+Plus de détails sur ce problèmes sur les liens suivants.
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
 
+## Esc et <code>&#96;</code> sur une touche simple.
 
-## Esc and <code>&#96;</code> on a Single Key
+Voir la fonctionnalité [Grave Escape](feature_grave_esc.md).
 
-See the [Grave Escape](feature_grave_esc.md) feature.
+## Flèche sur la touche modificateur droit avec le Dual-Role
 
-## Arrow on Right Modifier Keys with Dual-Role
-This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
-```
+Ceci transforme les touches "modificateur droit" en touches fléchées lorsque les touches sont seulement "tapées" tout en restant des modificateurs lorsqu'elles sont maintenues.
+
+Dans TMK la fonction double rôle s'appelle **TAP**.
+
+```C
 
 #include "keymap_common.h"
 
@@ -185,35 +188,37 @@ const uint16_t PROGMEM fn_actions[] = {
 
 ```
 
-Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
+Touches double rôle : https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
+## Eject sur Mac OSX
 
-## Eject on Mac OSX
-`KC_EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
-It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
+Le keycode`KC_EJCT` fonctionne sous OSX. https://github.com/tmk/tmk_keyboard/issues/250
 
-Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+f`) on Mac mode but this is not same as Apple Eject keycode probably.
+Il semble que Windows 10 ignore le code et Linux/Xorg le reconnaît mais n'a pas de mapping par défaut.
 
+Nous ne sommes pas sûr quel keycode est utilisé pour la touche Eject sur les claviers Apple officiels. HHKB utilise `F20` pour la touche Eject (`Fn+f`) lorsqu'il est en mode Mac, mais ce n'est probablement pas la même chose que le keycode Eject d'Apple.
 
-## What's `weak_mods` and `real_mods` in `action_util.c`
+## Qu'est-ce que `weak_mods` et `real_mods` dans `action_util.c`
+
 ___TO BE IMPROVED___
 
-real_mods is intended to retains state of real/physical modifier key state, while
-weak_mods retains state of virtual or temporary modifiers which should not affect state real modifier key.
+real_mods est prévu pour retenir l'état des touches modificateur réelles/physiques, alors que weak_mods ne retient l'état que des modificateurs temporaires ou virtuels qui ne devraient pas affecter l'état des touches modificaterus réelles.
 
-Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A),
+Par exemple, disons que vous maintenez la touche physique "shift gauche" et tapez ACTION_MODS_KEY(LSHIFT, KC_A),
 
-with weak_mods,
-* (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
-* (2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
-* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
-real_mods still keeps modifier state.
+en weak_mods,
 
-without weak mods,
-* (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
-* (2) press ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
-* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
-here real_mods lost state for 'physical left shift'.
+* (1) maintenir shift gauche : real_mods |= MOD_BIT(LSHIFT)
+* (2) appuyer ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
+* (3) lâcher ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
+real_mods garde sur état modificateur.
 
-weak_mods is ORed with real_mods when keyboard report is sent.
+sans weak_mods,
+
+* (1) maintenir shift gauche : real_mods |= MOD_BIT(LSHIFT)
+* (2) appuyer ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
+* (3) lâcher ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
+ici real_mods a perdu son état pour 'shift gauche physique'.
+
+weak_mods est ORed avec real_mods lorsque le rapport du clavier est envoyé.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
