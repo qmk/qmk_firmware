@@ -41,7 +41,6 @@ copy_templates() {
     echo " done"
 
     echo -n "Renaming keyboard files..."
-    find "${keyboard_dir}" -type f -name "*.template" -print0 | while read -d $'\0' f; do mv "$f" "${f%.template}"; done
     mv "${keyboard_dir}/keyboard.c" "${keyboard_dir}/${keyboard_name}.c"
     mv "${keyboard_dir}/keyboard.h" "${keyboard_dir}/${keyboard_name}.h"
     echo " done"
