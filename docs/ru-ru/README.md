@@ -1,4 +1,4 @@
-# Quantum Mechanical Keyboard Прошивка
+# Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
@@ -7,9 +7,9 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
 [![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
-## Что такое QMK Прошивка?
+## Что такое QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) — это open source сообщество, которое разрабатывает QMK Прошивку, QMK Инструменты, qmk.fm и эту документацию. QMK Прошивка — это прошивка для клавиатур, основанная на [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) с множеством полезных функций для Atmel AVR микроконтроллеров, а именно, для продуктов компаний [OLKB](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) и [Clueboard](http://clueboard.co/). Она также была портирована на чипы ARM при помощи ChibiOS. Вы можете использовать ее для своей собранной вручную клавиатуры или имеющей нестандартную печатную плату.
+QMK (*Quantum Mechanical Keyboard*) — это open source сообщество, которое разрабатывает QMK Firmware, QMK Toolbox, qmk.fm и эту документацию. QMK Firmware — это прошивка для клавиатур, основанная на [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) с множеством полезных функций для Atmel AVR микроконтроллеров, а именно, для продуктов компаний [OLKB](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) и [Clueboard](http://clueboard.co/). Она также была портирована на чипы ARM при помощи ChibiOS. Вы можете использовать ее для своей собранной вручную клавиатуры или имеющей нестандартную печатную плату.
 
 ## Как скачать
 
