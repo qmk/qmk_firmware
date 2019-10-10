@@ -17,13 +17,15 @@ Let's Split physical layout
 */
 
 // Layers
-#define _DEFAULT 0
-#define _DEFAULT_MAC 1
-#define _DEFAULT_WIN 2
-#define _RAISE_MAC 3
-#define _RAISE_WIN 4
-#define _LOWER 5
-#define _SPECIAL 6
+enum layer_names {
+    _DEFAULT,
+    _DEFAULT_MAC,
+    _DEFAULT_WIN,
+    _RAISE_MAC,
+    _RAISE_WIN,
+    _LOWER,
+    _SPECIAL,
+};
 
 #define TO_MAC TO(_DEFAULT)
 #define TO_WIN TO(_DEFAULT_WIN)
