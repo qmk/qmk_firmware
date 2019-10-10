@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 // Fillers to make layering more clear
+// The default names have been swapped to make the keymap more readable.
 #define XXXXXX KC_TRNS
 #define ______ KC_NO
 
