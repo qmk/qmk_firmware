@@ -26,7 +26,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __________________DIMPLE1__________________       KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC
 #define __________________DIMPLE2__________________       LCTL_T(KC_TAB), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT
 #define __________________DIMPLE3L_________________       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_UP,  KC_DOT
+#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_UP,  LT(_FKEY,KC_DOT)
 #define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT
 
 

@@ -90,3 +90,5 @@
 
 #define OLED_FONT_H "users/tominabox1/doug.c"
 #define OLED_DISABLE_TIMEOUT
+
+#define TAP_HOLD_CAPS_DELAY 300

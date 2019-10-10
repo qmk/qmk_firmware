@@ -111,7 +111,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return 150;
         // case TD(KC_LFT_NUM_F):
         //     return 150;
-        case SPC_LOW:
+        case LT(_LOWER, KC_ENT):
             return 150;
         default:
             return TAPPING_TERM;
