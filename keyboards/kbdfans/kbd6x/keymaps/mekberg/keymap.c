@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Fillers to make layering more clear
-// Flipped the standarad defines to make the map more readable
-#define ______ KC_TRNS
-#define XXXXXX KC_NO
-
 // My common shortcuts
 #define MY_PREV KC_MRWD         // Media: Previous
 #define MY_NEXT KC_MFFD         // Media: Next
