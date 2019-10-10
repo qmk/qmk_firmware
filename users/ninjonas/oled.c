@@ -4,13 +4,20 @@
 
 #ifdef OLED_DRIVER_ENABLE
 
-static uint16_t oled_timer = 0;
+static uint32_t oled_timer = 0;
 extern uint8_t is_master;
 
-bool process_record_oled(uint16_t keycode, keyrecord_t *record) { 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_master) {
+    return OLED_ROTATION_0;
+  }
+  return OLED_ROTATION_180;
+}
+
+bool process_record_oled(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        oled_timer = timer_read();
-    }	    
+        oled_timer = timer_read32();
+    }
     return true;
 }
 
@@ -48,6 +55,7 @@ void render_mod_status(uint8_t modifiers) {
 
 void render_status(void){
   render_default_layer_state();
+  oled_write_P(PSTR("\n"), false);
   render_layer_state();
   render_mod_status(get_mods()|get_oneshot_mods());
 }
@@ -63,19 +71,20 @@ static void render_logo(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed(oled_timer) > 30000) {
+    if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
         return;
     }
     #ifndef SPLIT_KEYBOARD
     else { oled_on(); }
     #endif
-    
+
     if (is_master) {
-        render_status();     
+        render_status();
     } else {
-        render_logo();       
-        oled_scroll_left();  
+        render_logo();
+        oled_write_P(PSTR("\n"), false);
+        oled_scroll_left();
     }
 }
 

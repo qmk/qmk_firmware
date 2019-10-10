@@ -12,23 +12,31 @@ However, the QMK Toolbox is only available for Windows and macOS currently.  If 
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
-?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
 
-?> Windows:
+#### Windows
 
-    start .
+```
+start .
+```
 
-?> macOS:
+#### macOS
 
-    open .
+```
+open .
+```
 
 The firmware file always follows this naming format:
 
-    <keyboard_name>_<keymap_name>.{bin,hex}
+```
+<keyboard_name>_<keymap_name>.{bin,hex}
+```
 
-For example, the `plank/rev5` with a `default` keymap will have this filename:
+For example, the `planck/rev5` with a `default` keymap will have this filename:
 
-    planck_rev5_default.hex
+```
+planck_rev5_default.hex
+```
 
 Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
 
@@ -109,7 +117,7 @@ After it gets to this point, the build script will look for the DFU bootloader e
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
