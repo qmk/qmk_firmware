@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 
 #define L3_TAB LT(3, KC_TAB)
-#define L5_
 #define KC_LOCK RGUI(KC_L)
 #define L4_SPACE LT(4, KC_SPC)
 #define KC_HYP LCTL(LSFT(LALT(KC_LGUI)))
