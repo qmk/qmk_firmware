@@ -11,6 +11,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 // clang-format off
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
+#define LAYOUT_arrow_wrapper(...) 	     LAYOUT_arrow(__VA_ARGS__)
 
 /*
 Blocks for each of the four major keyboard layouts
@@ -32,9 +33,8 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define __________________MINIVAN1_________________       __________________DIMPLE1__________________
 #define __________________MINIVAN2_________________       __________________DIMPLE2__________________
-#define __________________MINIVAN3_________________       __________________DIMPLE3L_________________, __________________DIMPLE3R_________________
-#define __________________MINIVAN4_________________       __________________DIMPLE4__________________, MO(_FKEY)
-
+#define __________________MINIVAN3_________________       __________________DIMPLE3L_________________, __________________DIMPLE3R_________________, KC_RSFT
+#define __________________MINIVAN4_________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
 
 #define ___________________CRKBD1__________________       __________________DIMPLE1__________________
 #define ___________________CRKBD2__________________       __________________DIMPLE2__________________
