@@ -1,3 +1,4 @@
+<div dir="rtl" markdown="1">
 **בשפה העברית**
 * [בסיס QMK](he-IL/README.md)
 
@@ -124,3 +125,4 @@
   * [Send Functions](internals_send_functions.md)
   * [Sysex Tools](internals_sysex_tools.md)
 
+</div>
