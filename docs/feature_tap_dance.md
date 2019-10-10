@@ -447,9 +447,6 @@ int cur_dance (qk_tap_dance_state_t *state);
 //Functions associated with individual tap dances
 void ql_finished (qk_tap_dance_state_t *state, void *user_data);
 void ql_reset (qk_tap_dance_state_t *state, void *user_data);
-
-//Declare variable to track which layer is active
-int active_layer;
 ```
 
 Towards the bottom of your `keymap.c`, include the following code:
