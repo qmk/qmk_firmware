@@ -24,7 +24,7 @@ Additionally, if at least one right-handed modifier is specified in a Mod Tap or
 These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers). When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
-* `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
+* `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated.
 * `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers: `MOD_LCTL`, `MOD_LSFT`, `MOD_LALT`, `MOD_LGUI` (note the use of `MOD_` constants instead of `KC_`). These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
 * `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](#one-shot-keys) for details and additional functionality.
@@ -40,7 +40,7 @@ Care must be taken when switching layers, it's possible to lock yourself into a 
 
 If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
 
-* Setup layer 0 as your default, "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number). 
+* Setup layer 0 as your default, "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number).
 * Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
 * In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.
 
@@ -153,7 +153,7 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
-Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
+Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.
 
 For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
 
@@ -238,7 +238,7 @@ As with any callback, be sure to call the `_user` variant to allow for further c
 
 # Tap-Hold Configuration Options
 
-While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people. 
+While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people.
 
 These options let you modify the behavior of the Tap-Hold keys.
 
@@ -250,7 +250,7 @@ As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new 
 #define PERMISSIVE_HOLD
 ```
 
-This makes tap and hold keys (like Mod Tap) work better for fast typist, or for high `TAPPING_TERM` settings. 
+This makes tap and hold keys (like Mod Tap) work better for fast typist, or for high `TAPPING_TERM` settings.
 
 If you press a Mod Tap key, tap another key (press and release) and then release the Mod Tap key, all within the tapping term, it will output the "tapping" function for both keys.
 
@@ -261,7 +261,7 @@ For Instance:
 - `KC_X` Up
 - `SFT_T(KC_A)` Up
 
-Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`). 
+Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`).
 
 ?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
@@ -273,35 +273,34 @@ To enable this setting, add this to your `config.h`:
 #define IGNORE_MOD_TAP_INTERRUPT
 ```
 
-Similar to Permissive Hold, this alters how the firmware processes input for fast typist. Without setting this, the TAPPING_TERM generally accounts for the sum of the time either key is held. 
+Similar to Permissive Hold, this alters how the firmware processes input for fast typist.
 
-In other words, if you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally perform the "hold" function. This might not be desirable for fast typists whose key presses might overlap with each other. 
+When this undefined (the default), the `TAPPING_TERM` is more inclusive, accounting for the pressed time of both the Mod Tap key and the second key. This is more friendly to typists who perform rolling combos where you press the Mod Tap key, a second key, and release the Mod Tap key before releasing the second key. Leaving this off makes these rolling combos more easier to register since the entire duration of the combo is checked against `TAPPING_TERM`.
 
-Setting `Ignore Mod Tap Interrupt` requires holding specifically the first mod key for the `TAPPING_TERM` to trigger the hold function (the mod).
+When turned on, only the time the Mod Tap key is held is accounted for `TAPPING_TERM`. This is more friendly to fast typists who tend to trigger false rolling combos when typing and the Mod Tap key and the next key presses overlap.
 
-For Instance:
+For instance, given:
 
 - `SFT_T(KC_A)` Down
 - `KC_X` Down
 - `SFT_T(KC_A)` Up
 - `KC_X` Up
 
-Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, the `SFT_T(KC_A)` key is required for the `TAPPING_TERM` to register the hold action. A quick roll will output `ax` in this case as will holding down the `KC_X` key. Only holding down the `SFT_T(KC_A)` will output `X`  (`SHIFT`+`x`).
-
+and `TAPPING_TERM` was 200, if the time between `SFT_T(KC_A)` down and `KC_X` up took 200ms, this would, by default, send `X` (`SHIFT`+`x`). Even if the time between `SFT_T(KC_A)` down and `SFT_T(KC_A)` up did not take 200ms. With `Ignore Mod Tap Interrupt` enabled, the `SFT_T(KC_A)` itself needs to be held for 200ms for a "hold" to register regardless of how long the `KC_X` key was held.
 
 ?> __Note__: This only concerns modifiers and not layer switching keys.
 
-?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the second key is released first or if the first key is held longer than the `TAPPING_TERM`.
+If you also have `Permissive Hold` enabled, it still doesn't affect rolling combos where the order is key 1 down, key 2 down, key 1 up, key 2 up. But it allows you to perform faster key 1 down, key 2 down, key 2 up, key 1 up "hold" combos in shorter time than `TAPPING_TERM`.
 
 ## Tapping Force Hold
 
-To enable `tapping force hold`, add the following to your `config.h`: 
+To enable `tapping force hold`, add the following to your `config.h`:
 
 ```c
 #define TAPPING_FORCE_HOLD
 ```
 
-When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.  
+When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.
 
 Example:
 
@@ -319,7 +318,7 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 ## Retro Tapping
 
-To enable `retro tapping`, add the following to your `config.h`: 
+To enable `retro tapping`, add the following to your `config.h`:
 
 ```c
 #define RETRO_TAPPING
