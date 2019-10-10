@@ -236,7 +236,7 @@ endif
 
 This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
-Also, holding `shift` will add the flash target (`:flash`) to the command.  Holding `control` will add some commands that will speed up compiling time by processing multiple files at once. 
+Also, holding Shift will add the flash target (`:flash`) to the command.  Holding Control will add some commands that will speed up compiling time by processing multiple files at once. 
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
