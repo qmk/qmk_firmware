@@ -54,7 +54,7 @@ def find_keymaps(base_path, revision = "", community = False):
     return names
 
 @cli.argument("-kb", "--keyboard", help="Specify keyboard name. Example: 1upkeyboards/1up60hse")
-@cli.argument("-rv", "--revision", help="Specify the revison name. All revision if not specified. Example: rev6")
+@cli.argument("-rv", "--revision", help="Specify the revison name. Example: rev6")
 @cli.subcommand("List the keymaps for a specific keyboard")
 def list_keymaps(cli):
     """List the keymaps for a specific keyboard
