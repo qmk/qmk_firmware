@@ -2,6 +2,7 @@
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
+#include "wrappers.h"
 
 // #define KC_SFT_CPS MT(MOD_LSFT, KC_CAPS) // Act as Shift on hold and as CapsLock on tap
 #define SPC_LOW LT(_LOWER, KC_ENT) // Left space on tap, LOWER on hold
