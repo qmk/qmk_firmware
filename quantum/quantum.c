@@ -102,31 +102,11 @@ static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     f(mods_to_send);
 }
 
-static inline void qk_register_weak_mods(uint8_t mods) {
-    add_weak_mods(mods);
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_weak_mods(uint8_t mods) {
-    del_weak_mods(mods);
-    send_keyboard_report();
-}
-
-static inline void qk_register_mods(uint8_t mods) {
-    add_weak_mods(mods);
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_mods(uint8_t mods) {
-    del_weak_mods(mods);
-    send_keyboard_report();
-}
-
 void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_register_mods);
+        do_code16(code, register_mods);
     } else {
-        do_code16(code, qk_register_weak_mods);
+        do_code16(code, register_weak_mods);
     }
     register_code(code);
 }
@@ -134,9 +114,9 @@ void register_code16(uint16_t code) {
 void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_unregister_mods);
+        do_code16(code, unregister_mods);
     } else {
-        do_code16(code, qk_unregister_weak_mods);
+        do_code16(code, unregister_weak_mods);
     }
 }
 
