@@ -7,4 +7,4 @@
 ## Build instructions
 - `cd /path/to/qmk_firmware`
 - Ensure latest libraries are loaded `make git-submodule`
-- Build & flash : `make converter/usb_usb:narze:dfu
+- Build & flash : `make converter/usb_usb:narze:flash`
