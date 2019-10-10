@@ -1,3 +1,4 @@
+<div dir="rtl" markdown="1">
 # קושחה עבור Quantum Mechanical Keyboard
 
 [![גירסה נוכחית](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
@@ -30,3 +31,4 @@ QMK (*Quantum Mechanical Keyboard*) היא קהילת קוד פתוח (open sour
 ## איך להתאים
 
 לQMK יש המון [יכולות](features.md) שאפשר לנווט בהן, וכמות נכבדת של [תיעוד ודוקומנטציה](http://docs.qmk.fm) בה אפשר לנבור. רוב הפיצ׳רים באים לידי ביטוי על ידי שינוי  [מיפוי המקלדת](keymap.md) ושינוי  [קודי המקשים](keycodes.md).
+</div>
