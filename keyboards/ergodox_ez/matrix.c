@@ -31,6 +31,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include QMK_KEYBOARD_H
+
+// Only enable this if console is enabled to print to
+#if defined(DEBUG_MATRIX_SCAN_RATE) && !defined(CONSOLE_ENABLE)
+#    undef DEBUG_MATRIX_SCAN_RATE
+#endif
+
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #  include "timer.h"
 #endif
@@ -46,10 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * something else might be wrong. (Also, the scan speed has improved since
  * that comment was written.)
  */
-
-#ifndef DEBOUNCE
-#  define DEBOUNCE 5
-#endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
