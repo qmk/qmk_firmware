@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# if docker is installed - call make within the qmk docker image
+# if docker is installed - patch calls to within the qmk docker image
 if command -v docker >/dev/null; then
 	function make() {
 		docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
@@ -51,14 +51,6 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 					done
 				fi
 			done
-		fi
-		# Check and run python tests if necessary
-		PFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -E -e '^(lib/python/)' -e '^(bin/qmk)' | wc -l)
-		if [ $PFM -gt 0 -o "$BRANCH" = "master" ]; then
-			echo
-			echo "Running python tests."
-			docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container 'bin/qmk pytest'
-			: $((exit_code = $exit_code + $?))
 		fi
 	fi
 	exit $exit_code
