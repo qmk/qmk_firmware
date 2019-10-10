@@ -22,7 +22,7 @@
 volatile bool isLeftHand = true;
 
 bool waitForUsb(void) {
-    for(uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / 100); i++) {
+    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / 100); i++) {
         // This will return true of a USB connection has been established
 #if defined(__AVR__)
         if (UDADDR & _BV(ADDEN)) {
