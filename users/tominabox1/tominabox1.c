@@ -80,37 +80,37 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void left_tap (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    if (!state->pressed) {register_code (KC_LEFT);}
-    else layer_on(_RAISE);
-  } else if (state->count == 2) {layer_on(_FKEY);}
-  else{}
-}
-
-void left_tap_stop (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_LEFT);
-  }
-  if (!state->pressed) {
-    layer_off(_FKEY);
-    layer_off(_RAISE);
-  }
-  else{}
-}
+// void left_tap (qk_tap_dance_state_t *state, void *user_data) {
+//   if (state->count == 1) {
+//     if (!state->pressed) {register_code (KC_LEFT);}
+//     else layer_on(_RAISE);
+//   } else if (state->count == 2) {layer_on(_FKEY);}
+//   else{}
+// }
+//
+// void left_tap_stop (qk_tap_dance_state_t *state, void *user_data) {
+//   if (state->count == 1) {
+//     unregister_code (KC_LEFT);
+//   }
+//   if (!state->pressed) {
+//     layer_off(_FKEY);
+//     layer_off(_RAISE);
+//   }
+//   else{}
+// }
 //All tap dance functions would go here. Only showing this one.
 qk_tap_dance_action_t tap_dance_actions[] = {
     [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-    [KC_LFT_NUM_F] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, left_tap, left_tap_stop),
+    // [KC_LFT_NUM_F] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, left_tap, left_tap_stop),
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case TD(TD_SFT_CPS):
-            return 300;
-        case TD(KC_LFT_NUM_F):
             return 150;
+        // case TD(KC_LFT_NUM_F):
+        //     return 150;
         case SPC_LOW:
             return 150;
         default:
