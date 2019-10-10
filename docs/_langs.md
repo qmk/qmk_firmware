@@ -2,3 +2,4 @@
   - [:uk: English](/)
   - [:cn: 中文](/zh-cn/)
   - [:fr: Français](/fr-fr/)
+  - [:he: עברית](/he-il/)
