@@ -4,9 +4,9 @@
 
 A 60% tsangan, split bs/rs keyboard designed to support the bluefruit 32u4 ble controller
 
-Keyboard Maintainer: [Yan-Fa Li](https://github.com/yanfali)
-Hardware Supported: [github](https://github.com/yanfali/fruity60)
-Hardware Availability: You can make them yourself by downloading kicad and generating gerbers.
+Keyboard Maintainer: [Yan-Fa Li](https://github.com/yanfali)<br>
+Hardware Supported: [github](https://github.com/yanfali/fruity60)<br>
+Hardware Availability: You can make them yourself by downloading kicad and generating gerbers.<br>
 
 Make example for this keyboard (after setting up your build environment):
 
