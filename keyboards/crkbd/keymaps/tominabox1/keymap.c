@@ -31,11 +31,11 @@ ___________________CRKBD4__________________
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  EXLM,   EML,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+        ESC,  EXLM,   EML,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  DEL,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  UNDS,  PLUS,  LCBR,  RCBR,   PIPE,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    CAPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  PLUS, XXXXX,   DOT,    NO,  SLSH,\
+    CAPS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX,  PLUS, XXXXX,   DOT,    QUES,  SLSH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                    LGUI, LALT,ENT_LOW,  SPC_RSE, ARROW, FKEY\
                               //`--------------------'  `--------------------'
