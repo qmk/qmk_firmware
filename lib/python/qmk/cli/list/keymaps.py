@@ -85,4 +85,4 @@ def list_keymaps(cli):
 
     for name in names:
         # We echo instead of cli.log.info to allow easier piping of this output
-        cli.echo(keyboard_name + os.path.sep + name)
+        cli.echo(keyboard_name + ":" + name)
