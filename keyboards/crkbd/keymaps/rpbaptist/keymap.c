@@ -14,8 +14,19 @@ enum layer_names {
 
 enum custom_keycodes {
   RGB_RST = SAFE_RANGE,
+  RGB_IDL, // RGB Idling animations
   RGB_TUG // Toggle RGB underglow as layer indicator
 };
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_layer_change :1;
+    bool    rgb_matrix_idle_anim :1;
+  };
+} userspace_config_t;
+
+userspace_config_t userspace_config;
 
 // Base layers
 #define COLEMAK DF(_COLEMAKDHM)
@@ -126,9 +137,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, RGB_TUG, RGB_IDL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      RGB_TUG, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
+      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      XXXXXXX, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG,RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -232,6 +243,83 @@ void oled_task_user(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
+
+#define RGB_MATRIX_REST_MODE RGB_MATRIX_DUAL_BEACON
+
+static uint32_t hypno_timer;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint8_t saved_mods = 0;
+  uint16_t temp_keycode = keycode;
+  // Filter out the actual keycode from MT and LT keys.
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+      temp_keycode &= 0xFF;
+  }
+
+  hypno_timer = timer_read32();
+  if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+      rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+  }
+
+  switch (temp_keycode) {
+    case KC_BSPC:
+      if (record->event.pressed) {
+          if (get_mods() & MOD_MASK_SHIFT) {
+              saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
+              del_mods(saved_mods); // Remove any Shifts present
+              register_code(KC_DEL);
+          } else {
+              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+              register_code(KC_BSPC);
+          }
+      } else {
+          add_mods(saved_mods);
+          unregister_code(KC_DEL);
+          unregister_code(KC_BSPC);
+      }
+      return false;
+    case RGB_RST:
+      if (record->event.pressed) {
+        eeconfig_update_rgb_matrix_default();
+        rgb_matrix_enable();
+      }
+      break;
+    case RGB_TUG:  // This allows me to use underglow as layer indication, or as normal
+      if (record->event.pressed) {
+          userspace_config.rgb_layer_change ^= 1;
+          eeconfig_update_user(userspace_config.raw);
+          if (userspace_config.rgb_layer_change) {
+              layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+          }
+      }
+    break;
+    case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
+      if (record->event.pressed) {
+          userspace_config.rgb_matrix_idle_anim ^= 1;
+          eeconfig_update_user(userspace_config.raw);
+          if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+      }
+    break;
+    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
+      if (record->event.pressed) {
+          bool is_eeprom_updated = false;
+          if (userspace_config.rgb_matrix_idle_anim) {
+              userspace_config.rgb_matrix_idle_anim = false;
+              is_eeprom_updated = true;
+          }
+          if (is_eeprom_updated) { eeconfig_update_user(userspace_config.raw); }
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_rgb(void) {
+    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+    }
+}
+
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
 }
@@ -255,6 +343,13 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
+void keyboard_post_init_rgb(void) {
+    layer_state_set_user(layer_state);
+        if (userspace_config.rgb_matrix_idle_anim) {
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+        }
+}
+
 void check_default_layer(uint8_t type) {
     switch (biton32(default_layer_state)) {
         case _COLEMAKDHM:
@@ -264,6 +359,15 @@ void check_default_layer(uint8_t type) {
             rgb_matrix_layer_helper(HSV_BLUE, LED_FLAG_UNDERGLOW);
             break;
     }
+}
+
+void matrix_scan_user(void) {
+    static bool has_ran_yet;
+    if (!has_ran_yet) {
+        has_ran_yet = true;
+        startup_user();
+    }
+    matrix_scan_rgb();
 }
 
 void rgb_matrix_indicators_user(void) {
@@ -293,33 +397,3 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint8_t saved_mods = 0;
-
-  switch (keycode) {
-    case KC_BSPC:
-      if (record->event.pressed) {
-          if (get_mods() & MOD_MASK_SHIFT) {
-              saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
-              del_mods(saved_mods); // Remove any Shifts present
-              register_code(KC_DEL);
-          } else {
-              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
-              register_code(KC_BSPC);
-          }
-      } else {
-          add_mods(saved_mods);
-          unregister_code(KC_DEL);
-          unregister_code(KC_BSPC);
-      }
-      return false;
-    case RGB_RST:
-      if (record->event.pressed) {
-        eeconfig_update_rgb_matrix_default();
-        rgb_matrix_enable();
-      }
-      break;
-  }
-  return true;
-}
