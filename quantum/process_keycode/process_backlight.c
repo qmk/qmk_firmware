@@ -44,8 +44,6 @@ bool process_backlight(uint16_t keycode, keyrecord_t *record) {
                 backlight_toggle_breathing();
                 return false;
 #endif
-            default:
-                break;
         }
     }
 
