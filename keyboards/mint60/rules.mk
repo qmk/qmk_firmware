@@ -4,7 +4,6 @@ SRC += i2c.c \
  	   split_util.c \
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.
@@ -75,4 +74,4 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 CUSTOM_MATRIX = yes
 USE_I2C = yes
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 

@@ -1,6 +1,8 @@
-# insertsnideremarks' Kinesis Keymap
+## I've changed my folder name to match my GitHub username.  Please see https://github.com/qmk/qmk_firmware/tree/master/keyboards/kinesis/keymaps/tuesdayjohn for my current keymap files.
 
-These layouts are derived from what I was using on my Kinesis Contoured keyboards with Hasu's TMK converters.  With the move to QMK via Stapelberg replacement controller, I've cleaned up the layouts a bit while adding more functions and layers.
+## insertsnideremarks' Kinesis Keymap
+
+These layouts are derived from what I was using on my Kinesis Contoured keyboards with Hasu's USB-USB TMK converters.  With the move to QMK via Stapelberg replacement controller, I've cleaned up the layouts a bit while adding more functions and layers.
 
 There are minor changes in the base keywell layout of non-alpha keys (e.g., CapsLock is ESC/Ctl, arrow clusters on one side), while the thumb clusters deviate more from the default layout.
 
@@ -10,43 +12,43 @@ Changes to the thumb clusters include:
 * Backspace have been duplicated on both clusters.
 * The 2u keys serve dual function as momentary layer switchers.
 
-I've largely left the function keys untouched, with the intension of not using them.  They are neither easy to use nor reach due to their locations and size, and, prior to Advantage2, particularly terrible rubber domes were used.  They have since updated the keys with Cherry ML switches on Advantage2, but did not resolve the issues of size or location.  Additionally, leaving the function keys unused here makes it easier for me to adapt the keymaps to my other keyboards, most of which do not have physical function keys.
+I've largely left the function keys untouched, with the intension of not using them.  They are neither easy to use nor reach due to their locations and size, and the rubber domes used were terrible.  They have since replaced the keys with Cherry ML switches on Advantage2, but did not resolve the issues of size or location.  Additionally, leaving the function keys unused here makes it easier for me to adapt the keymaps to my other keyboards, most of which do not have physical function keys.
 
 I use Colemak as my default layout.  I've included QWERTY here as well.
 
-Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have no access to the Function or Numbers layers, thus no dual-role keys with layer access, and are mainly used for gaming.
+Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have limited access to the Function or Numbers/Symbols layers, and are mainly used for gaming.
 
 Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/vanilla Colemak and QWERTY can be set as default layer, but will not be persistent.
 
 ## Future plans
 
-* Add status LEDs to the Stapelberg PCB (usually used for Caps Lock, Num Lock, and Scroll Lock).  May configure it as layer indicator.
+* Add status LEDs to the Stapelberg PCB (usually used for Caps Lock, Num Lock, and Scroll Lock) to use as layer indicators.
 * Add a speaker now that QMK supports additional pins for audio use.
-* Utilize the leftover spots on the key matrix, as well as unused pins on Teensy to run macropad and/or foot pedals.
+* Utilize the leftover spots on the key matrix, as well as unused pins on Teensy++ 2.0 to run macropad and/or foot pedals.
 
 
 ### Colemak
-	(Default layer, keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
-	,-----------------------------------------------------------------------------------------------------------.
-	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
-	`-----------------------------------------------------------------------------------------------------------'
-	,-------------------------------------------.                   ,-------------------------------------------.
-	|    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
-	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
-	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
+    (Default layer; keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
+    ,-----------------------------------------------------------------------------------------------------------.
+    | ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
+    `-----------------------------------------------------------------------------------------------------------'
+    ,-------------------------------------------.                   ,-------------------------------------------.
+    |    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
+    |--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
+    |SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
+    `--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
+             |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
 	                            |Esc/Ctl| Hyper |                   |  RAlt |  RCtl |
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    | Space | Enter |App/Alt|                   |  RGUI | Delete|  Bspc |
 	                    |   /   |   /   |-------|                   |-------|   /   |   /   |
-	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
+	                    |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 	
@@ -71,7 +73,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    | Space | Enter |App/Alt|                   |  RGUI | Delete|  Bspc |
 	                    |   /   |   /   |-------|                   |-------|   /   |   /   |
-	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
+	                    |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 
@@ -109,9 +111,9 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|        |      |      |  Up  |      |      |                   |      |      |  Up  |Ctrl+Y|      |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|        |Ctrl+A| Left | Down | Right|      |                   | PgUp | Right| Down | Left | Home |        |
+	|        |Ctrl+A| Left | Down | Right|C+A+Tb|                   | PgUp | Right| Down | Left | Home |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|        |Ctrl+Z|Ctrl+X|Ctrl+C|Ctrl+V|      |                   | PgDn | Mute | Vol- | Vol+ |  End |        |
+	|        |Ctrl+Z|Ctrl+X|Ctrl+C|Ctrl+V| Bspc |                   | PgDn | Mute | Vol- | Vol+ |  End |        |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |      |      |      |      |                                 | Prev | Play | Next | Stop |
 	         `---------------------------'                                 `---------------------------'
@@ -120,7 +122,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |       |                   |       |       |       |
 	                    |       |       |-------|                   |-------|       |       |
-	                    |       |       |       |                   |C+A+Tab|       |       |
+	                    |       |       |       |                   |       |       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 
@@ -150,7 +152,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	
 
 ### Colemak gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -159,23 +161,23 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Ctrl  |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
+	|  LCtrl |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |  Shift |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
-	                            |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                            |  Esc  |       |                   |  RAlt |  RCtl |
 	                    ,-------|-------|-------|                   |-------+-------+-------.
-	                    |       |       |  LAlt |                   |  RGUI |       |       |
-	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |  LAlt |                   |  RGUI | Delete|  Bspc |
+	                    | Space | Enter |-------|                   |-------|   /   |   /   |
+	                    |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 
 ### QWERTY gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+    (Limited access to Function or Numbers layers; mainly used for gaming; Ent/NS + Delete/Numbers2 to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -184,22 +186,22 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|   Tab  |   Q  |   W  |   E  |   R  |   T  |                   |   Y  |   U  |   I  |   O  |   P  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Ctrl  |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
+	|  LCtrl |   A  |   S  |   D  |   F  |   G  |                   |   H  |   J  |   K  |   L  |   ;  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   N  |   M  |   ,  |   .  |   /  |  Shift |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
 	                            ,---------------.                   ,---------------.
-	                            |Esc/Ctl|TD(ADJ)|                   |  RAlt |  RCtl |
+	                            |  Esc  |       |                   |  RAlt |  RCtl |
 	                    ,-------|-------|-------|                   |-------+-------+-------.
-	                    |       |       |  LAlt |                   |  RGUI |       |       |
-	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |  LAlt |                   |  RGUI | Delete|  Bspc |
+	                    | Space | Enter |-------|                   |-------|   /   |   /   |
+	                    |       |       |  Bspc |                   | Ent/NS|Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 ### Adjust layer
-	(Press Enter/Number + Delete/Number2 together under non-gaming/vanilla layers; Numpad is a toggle)
+	(Press Enter/Number + Delete/Number2 under non-gaming/vanilla layers or press & hold Adjust key on function row; Numpad is a toggle)
 	,-----------------------------------------------------------------------------------------------------------.
 	|     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 	`-----------------------------------------------------------------------------------------------------------'

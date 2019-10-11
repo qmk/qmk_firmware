@@ -14,10 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
+// place overrides here
 
 // place overrides here
 #define MUSIC_MASK (keycode != KC_NO)
@@ -29,6 +28,4 @@
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
-#endif
-
 #endif

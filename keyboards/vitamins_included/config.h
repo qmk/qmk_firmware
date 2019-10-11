@@ -16,20 +16,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
+//#define USE_I2C
+
+/* Common USB Device descriptor parameters */
+#define VENDOR_ID       0x1209
+#define PRODUCT_ID      0xBEE5
+#define MANUFACTURER    Duckle29
+#define PRODUCT         Vitamins included
 
 #include "config_common.h"
 
-#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
-#define NO_DEBUG
+#ifndef NO_ACTION_MACRO
+    #define NO_ACTION_MACRO
+#endif
+#ifndef NO_ACTION_FUNCTION
+    #define NO_ACTION_FUNCTION
+#endif
+#ifndef NO_DEBUG
+    #define NO_DEBUG
 #endif // !NO_DEBUG
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
+    #define NO_PRINT
 #endif // !NO_PRINT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#define DISABLE_LEADER
-
-#endif

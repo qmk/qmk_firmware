@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#define _______ KC_TRNS
 
 /* Layer 0: HHKB JP
 * ,-----------------------------------------------------------.
@@ -43,10 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PSCR, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_LEFT, KC_RGHT, _______, KC_PENT,
         _______, _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

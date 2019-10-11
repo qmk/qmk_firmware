@@ -22,8 +22,6 @@
 #include "version.h"
 #include "keymap_swedish.h"
 
-#define _______ KC_TRNS
-
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
@@ -47,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   L4   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ö / L3|   Ä/L2 |
- * |        |      |      |      |      |      | Hypr/|           | Meh/ |      |      |      |      |      |        |
- * |--------+------+------+------+------+------| Esc  |           | Ent  |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------| Back |           |Forwd |------+------+------+------+------+--------|
  * | LShift/|  Z   |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ;  |   :  |  _   | RShift/|
  * |    (   |      |      |      |      |      |      |           |      |      |      |   ,  |   .  |  -   |   )    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -68,22 +66,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox_80(  // layer 0 : default
     // left hand
-    NO_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
+    SE_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
     KC_TAB,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
     MO(ARRW),         KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
-    KC_LSPO,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_ESC),
-    CTL_T(NO_APOS),   NO_ACUT,        KC_LALT, KC_BSPC, KC_SPC,
-                                                                             NO_LESS,   KC_END,
+    KC_LSPO,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   KC_WBAK,
+    CTL_T(SE_APOS),   SE_ACUT,        KC_LALT,       KC_BSPC, KC_SPC,
+                                                                             SE_LESS,   KC_END,
                                                               KC_LEFT,      KC_RIGHT,  KC_PGDN,
                                                         CTL_T(KC_ENT), ALT_T(KC_ESC),  KC_LGUI,
 
     // right hand
-         TO(ARRW),       KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              NO_PLUS,
-         TG(SYMB),       KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              NO_AA,
-                         KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), LT(SYMB, NO_AE),
-         MEH_T(KC_ENT),  KC_N,   KC_M,   KC_COMM, KC_DOT,  NO_MINS,           KC_RSPC,
-                                 KC_SPC, KC_BSPC, NO_ALGR, NO_ASTR,           CTL_T(NO_TILD),
-        KC_HOME,  NO_CIRC,
+         TO(ARRW),       KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              SE_PLUS,
+         TG(SYMB),       KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              SE_AA,
+                         KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, SE_OSLH), LT(SYMB, SE_AE),
+         KC_WFWD,        KC_N,   KC_M,   KC_COMM, KC_DOT,  SE_MINS,           KC_RSPC,
+                                 KC_SPC, KC_BSPC, KC_ALGR, SE_ASTR,           CTL_T(SE_TILD),
+        KC_HOME,  SE_CIRC,
         KC_PGUP,  KC_UP,         KC_DOWN,
         KC_LGUI,  ALT_T(KC_ESC), CTL_T(KC_ENT)
 ),
@@ -101,33 +99,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |Animat|      |       |Toggle|Solid |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
  *                                 |------|------|------|       |------|------|------|
- *                                 |BNess-|Bness+|      |       |      |Hue-  |Hue+  |
+ *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox_80(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
-       _______,KC_EXLM,NO_AT,  NO_LCBR,NO_RCBR,NO_PIPE,_______,
-       _______,KC_HASH,NO_DLR, NO_LPRN,NO_RPRN,NO_GRV,
-       _______,KC_PERC,NO_CIRC,NO_LBRC,NO_RBRC,NO_TILD,_______,
+       _______,KC_EXLM,SE_AT,  SE_LCBR,SE_RCBR,SE_PIPE,_______,
+       _______,KC_HASH,SE_DLR, SE_LPRN,SE_RPRN,SE_GRV,
+       _______,KC_PERC,SE_CIRC,SE_LBRC,SE_RBRC,SE_TILD,_______,
           EPRM,_______,_______,_______,_______,
-                                       RGB_MOD,_______,
+                                       _______,_______,
                                _______,_______,_______,
-                               RGB_VAD,RGB_VAI,_______,
+                               _______,_______,_______,
        // right hand
        _______, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       _______, KC_UP,   KC_7,   KC_8,    KC_9,    NO_ASTR, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    NO_PLUS, _______,
-       _______, NO_AMPR, KC_1,   KC_2,    KC_3,    NO_MINS, _______,
-                         _______,KC_DOT,  KC_0,    NO_EQL,  _______,
-       RGB_TOG, RGB_SLD,
+       _______, KC_UP,   KC_7,   KC_8,    KC_9,    SE_ASTR, KC_F12,
+                KC_DOWN, KC_4,   KC_5,    KC_6,    SE_PLUS, _______,
+       _______, SE_AMPR, KC_1,   KC_2,    KC_3,    SE_MINS, _______,
+                         _______,KC_DOT,  KC_0,    SE_EQL,  _______,
+       _______, _______,
        _______, _______, _______,
-       _______, RGB_HUD, RGB_HUI
+       _______, _______, _______
 ),
 
 /* Keymap: Media and mouse keys
@@ -183,19 +181,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______,
      // right hand
         TO(BASE),  _______, _______, _______, _______, _______, _______,
-        _______,   _______, KC_BTN4, KC_MS_U, KC_BTN5, _______, _______,
-                   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
         _______,   _______, _______, _______, _______, _______, _______,
-                            KC_BTN1, KC_BTN3, KC_BTN2, _______, _______,
+                   _______, _______, _______, _______, _______, _______,
+        _______,   _______, _______, _______, _______, _______, _______,
+                            _______, _______, _______, _______, _______,
         _______, _______,
         _______, _______, _______,
         _______, _______, _______
 ),
 
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

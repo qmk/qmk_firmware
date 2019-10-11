@@ -39,9 +39,13 @@ include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 
-PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+ifeq ("$(PLATFORM_NAME)","")
+	PLATFORM_NAME = platform
+endif
+
+PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/platform.mk
+PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
 endif
 include $(PLATFORM_MK)
 
@@ -198,10 +202,13 @@ ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
 
+ST_LINK_ARGS ?=
+
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -227,8 +234,66 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+define EXEC_DFU_UTIL
+	until $(DFU_UTIL) -l | grep -q "Found DFU"; do\
+		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
+		sleep 5 ;\
+	done
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+endef
+
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	$(call EXEC_DFU_UTIL)
+
+# Legacy alias
+dfu-util-wait: dfu-util
+
+# TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS
+#       within the emulated eeprom via dfu-util or another tool
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-left))
+    OPT_DEFS += -DINIT_EE_HANDS_LEFT
+endif
+
+ifneq (,$(filter $(MAKECMDGOALS),dfu-util-split-right))
+    OPT_DEFS += -DINIT_EE_HANDS_RIGHT
+endif
+
+dfu-util-split-left: dfu-util
+
+dfu-util-split-right: dfu-util
+
+
+st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
+
+
+# Autodetect teensy loader
+ifndef TEENSY_LOADER_CLI
+    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
+    else
+        TEENSY_LOADER_CLI ?= teensy_loader_cli
+    endif
+endif
+
+define EXEC_TEENSY
+	$(TEENSY_LOADER_CLI) -mmcu=$(MCU_LDSCRIPT) -w -v $(BUILD_DIR)/$(TARGET).hex
+endef
+
+teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+	$(call EXEC_TEENSY)
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+
+
+flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+ifeq ($(strip $(BOOTLOADER)),dfu)
+	$(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
+	$(call EXEC_TEENSY)
+else ifeq ($(strip $(MCU_FAMILY)),STM32)
+	$(call EXEC_DFU_UTIL)
+else
+	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
+endif

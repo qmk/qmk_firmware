@@ -54,32 +54,20 @@ Never made an open source contribution before? Wondering how contributions work 
 
 # Coding Conventions
 
-Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
+Most of our style is pretty easy to pick up on. If you are familiar with either C or Python you should not have too much trouble with our local styles.
 
-* We indent using two spaces (soft tabs)
-* We use One True Brace Style
-  * Opening Brace: At the end of the same line as the statement that opens the block
-  * Closing Brace: Lined up with the first character of the statement that opens the block
-  * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
-  * Optional Braces: Always include optional braces.
-    * Good: if (condition) { return false; }
-    * Bad: if (condition) return false;
-* We use C style comments: `/* */`
-  * Think of them as a story describing the feature
-  * Use them liberally to explain why particular decisions were made.
-  * Do not write obvious comments
-  * If you not sure if a comment is obvious, go ahead and include it.
-* In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
+* [Coding Conventions - C](coding_conventions_c.md)
+* [Coding Conventions - Python](coding_conventions_python.md)
 
 # General Guidelines
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
 
-* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
+* Separate PRs into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
-  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
-  * Keyboards: Make sure that `make keyboard:all` does not return any errors
+  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return any errors.
+  * Keyboards: Make sure that `make keyboard:all` does not return any errors.
   * Core: Make sure that `make all` does not return any errors.
 * Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
 
@@ -91,11 +79,27 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
 
+!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
+
 ## Documentation
 
 Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please [reach out for help](#where-can-i-go-for-help)!
 
 You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
+
+When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+
+```c
+enum my_layers {
+  _FIRST_LAYER,
+  _SECOND_LAYER
+};
+
+enum my_keycodes {
+  FIRST_LAYER = SAFE_RANGE,
+  SECOND_LAYER
+};
+```
 
 ## Keymaps
 
@@ -105,7 +109,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Keyboards
 
@@ -118,7 +122,7 @@ We also ask that you follow these guidelines:
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
 * Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Quantum/TMK Core
 
