@@ -252,6 +252,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
             process_audio(keycode, record) &&
 #endif
+#ifdef BACKLIGHT_ENABLE
+            process_backlight(keycode, record) &&
+#endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
 #endif
@@ -717,15 +720,6 @@ bool process_record_quantum(keyrecord_t *record) {
             send_keyboard_report();
             return false;
         }
-
-#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
-        case BL_BRTG: {
-            if (record->event.pressed) {
-                backlight_toggle_breathing();
-            }
-            return false;
-        }
-#endif
     }
 
     return process_action_kb(record);

@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 #include "command.h"
 #include "led.h"
-#include "backlight.h"
 #include "action_layer.h"
 #include "action_tapping.h"
 #include "action_macro.h"
@@ -547,32 +546,6 @@ void process_action(keyrecord_t *record, action_t action) {
 #ifndef NO_ACTION_MACRO
         case ACT_MACRO:
             action_macro_play(action_get_macro(record, action.func.id, action.func.opt));
-            break;
-#endif
-#if defined(BACKLIGHT_ENABLE) | defined(LED_MATRIX_ENABLE)
-        case ACT_BACKLIGHT:
-            if (!event.pressed) {
-                switch (action.backlight.opt) {
-                    case BACKLIGHT_INCREASE:
-                        backlight_increase();
-                        break;
-                    case BACKLIGHT_DECREASE:
-                        backlight_decrease();
-                        break;
-                    case BACKLIGHT_TOGGLE:
-                        backlight_toggle();
-                        break;
-                    case BACKLIGHT_STEP:
-                        backlight_step();
-                        break;
-                    case BACKLIGHT_ON:
-                        backlight_level(BACKLIGHT_LEVELS);
-                        break;
-                    case BACKLIGHT_OFF:
-                        backlight_level(0);
-                        break;
-                }
-            }
             break;
 #endif
         case ACT_COMMAND:

@@ -238,6 +238,8 @@ VALID_BACKLIGHT_TYPES := yes custom
 
 BACKLIGHT_ENABLE ?= no
 ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
+
     ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
         $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
     endif
