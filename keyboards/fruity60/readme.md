@@ -1,12 +1,12 @@
 # fruity60
 
-![fruity60](imgur.com image replace me!)
+![fruity60](https://github.com/yanfali/fruity60/blob/master/assets/pcb.png)
 
-A short description of the keyboard/project
+A 60% tsangan, split bs/rs keyboard designed to support the bluefruit 32u4 ble controller
 
-Keyboard Maintainer: [Yan-Fa Li](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [Yan-Fa Li](https://github.com/yanfali)
+Hardware Supported: [github](https://github.com/yanfali/fruity60)
+Hardware Availability: You can make them yourself by downloading kicad and generating gerbers.
 
 Make example for this keyboard (after setting up your build environment):
 
