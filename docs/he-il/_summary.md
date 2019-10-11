@@ -1,6 +1,6 @@
 <div dir="rtl" markdown="1">
 **בשפה העברית**
-* [בסיס QMK](he-IL/README.md)
+* [בסיס QMK](he-il/README.md)
 
 **בשפה האנגלית**
 * [המדריך המלא למתחילים](newbs.md)
