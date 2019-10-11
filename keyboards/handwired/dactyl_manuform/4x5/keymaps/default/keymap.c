@@ -20,7 +20,7 @@ extern keymap_config_t keymap_config;
 #define KC_MU KC_MS_UP
 #define KC_MD KC_MS_DOWN
 #define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN1
+#define KC_MB2 KC_MS_BTN2
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    '------+------' '------+------'
  *                                    | TAB  | HOME | | END  | DEL  |
  *                                    '------+------' '------+------'
- *                                    | Lower|  ~   | | GUI  | Raise|
+ *                                    | Raise|  ~   | | GUI  | Lower|
  *                                    '------+------' '------+------'
  */
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------,                             ,----------------------------------,
  * | F1   | F2   | F3   | F4   | F5   |                             |  F6  | F7   |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|                             |-------------+------+------+------|
- * |  1   |  2   |  3   |  4   |  5   |                             |  6   |  7   |  8   |  9   |  10  |
+ * |  1   |  2   |  3   |  4   |  5   |                             |  6   |  7   |  8   |  9   |  0   |
  * |------+------+------+------+------|                             |------|------+------+------+------|
  * |  !   |  @   |  #   |  $   |  %   |                             |  ^   |  &   |  *   |  (   |  )   |
  * |------+------+------+-------------,                             ,-------------+------+------+------,

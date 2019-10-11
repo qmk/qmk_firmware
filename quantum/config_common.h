@@ -175,7 +175,7 @@
 
 // LEDs (only D5/C13 uses an actual LED)
 #        ifdef CONVERT_TO_PROTON_C_RXLED
-#            define D5 PAL_LINE(GPIOC, 13)
+#            define D5 PAL_LINE(GPIOC, 14)
 #            define B0 PAL_LINE(GPIOC, 13)
 #        else
 #            define D5 PAL_LINE(GPIOC, 13)

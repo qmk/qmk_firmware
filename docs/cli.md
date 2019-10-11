@@ -44,7 +44,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 We are looking for people to create and maintain a `qmk` package for more operating systems. If you would like to create a package for your OS please follow these guidelines:
 
 * Follow best practices for your OS when they conflict with these guidelines
-    * Documment why in a comment when you do deviate
+    * Document why in a comment when you do deviate
 * Install using a virtualenv
 * Instruct the user to set the environment variable `QMK_HOME` to have the firmware source checked out somewhere other than `~/qmk_firmware`.
 
@@ -105,6 +105,16 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk docs`
+
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+
+**Usage**:
+
+```
+qmk docs [-p PORT]
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems.
@@ -113,6 +123,16 @@ This command examines your environment and alerts you to potential build or flas
 
 ```
 qmk doctor
+```
+
+## `qmk list_keyboards`
+
+This command lists all the keyboards currently defined in `qmk_firmware`
+
+**Usage**:
+
+```
+qmk list_keyboards
 ```
 
 ## `qmk new-keymap`
