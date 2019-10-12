@@ -18,26 +18,19 @@ import qmk.path
 
 def print_bootloader_help():
     """Prints the available bootloaders listed in docs.qmk.fm.
-
-    Called when 'qmk flash' is called with no keyboard, keymap or file, and a string satisfies the required bootloader argument. This should really be listed 'qmk flash -h'
     """
-    cli.log.error('You must supply a configuration file and bootloader,')
-    cli.echo('or a -kb keyboard, -km keymap, and bootloader.')
-    cli.echo('For example: qmk flash -kb planck/rev6 -km default -bl dfu-util')
-    cli.echo('or qmk flash 1upkeyboards_60hse_default.json -bl dfu-util')
-    cli.echo('If you dont specify a bootloader, :flash is the default.')
+    cli.log.info('Here are the available bootloaders:')
+    cli.echo('\tdfu')
+    cli.echo('\tdfu-ee')
+    cli.echo('\tdfu-split-left')
+    cli.echo('\tdfu-split-right')
+    cli.echo('\tavrdude')
+    cli.echo('\tBootloadHID')
+    cli.echo('\tdfu-util')
+    cli.echo('\tdfu-util-split-left')
+    cli.echo('\tdfu-util-split-right')
+    cli.echo('\tst-link-cli')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
-    cli.echo('Bootloaders:')
-    cli.echo('dfu')
-    cli.echo('dfu-ee')
-    cli.echo('dfu-split-left')
-    cli.echo('dfu-split-right')
-    cli.echo('avrdude')
-    cli.echo('BootloadHID')
-    cli.echo('dfu-util')
-    cli.echo('dfu-util-split-left')
-    cli.echo('dfu-util-split-right')
-    cli.echo('st-link-cli')
 
 @cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
 @cli.argument('filename', nargs='?', arg_only=True, help='The configurator export JSON to compile. Use this if you dont want to specify a keymap and keyboard.')
@@ -58,7 +51,15 @@ def flash(cli):
     """
     command = []
     if cli.args.bootloaders:
+        # Provide usage and list bootloaders
+        cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
         print_bootloader_help()
+        return False
+
+    elif cli.args.keymap and not cli.args.keyboard:
+        # If only a keymap was given but no keyboard, suggest listing keyboards
+        cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
+        cli.log.error('run \'qmk list_keyboards\' to find out the supported keyboards')
         return False
 
     elif cli.args.filename:
@@ -78,6 +79,7 @@ def flash(cli):
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
 
     else:
+        cli.echo('usage: qmk flash [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [-bl BOOTLOADER] [filename]')
         cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`. You can also specify a bootloader with --bootloader. Use --bootloaders to list the available bootloaders.')
         return False
 
