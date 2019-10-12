@@ -1,10 +1,10 @@
-# dweebsminitest
+# dweebsmini
 
-![dweebsminitest](imgur.com image replace me!)
+![dweebsmini](https://i.redd.it/7oa8lp2q6mr31.jpg)
 
-A short description of the keyboard/project
+This is a split Ortho keyboard, inspired by the CRKBD and the ErgoDash Mini
 
-Keyboard Maintainer: [KeyboardDweebs](https://github.com/yourusername)  
+Keyboard Maintainer: [KeyboardDweebs](HTTPS://KeyboardDweebs.com)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
