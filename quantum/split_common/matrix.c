@@ -246,9 +246,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 #endif
 
 void matrix_init(void) {
-    debug_enable = true;
-    debug_matrix = true;
-    debug_mouse  = true;
+    keyboard_split_setup();
 
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
