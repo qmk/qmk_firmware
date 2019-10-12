@@ -41,8 +41,8 @@ void dance_key_two (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-        [TD_KEY_1] = ACTION_TAP_DANCE_FN(dance_key_one),
-        [TD_KEY_2] = ACTION_TAP_DANCE_FN(dance_key_two),
+    [TD_KEY_1] = ACTION_TAP_DANCE_FN(dance_key_one),
+    [TD_KEY_2] = ACTION_TAP_DANCE_FN(dance_key_two),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
