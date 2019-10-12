@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
 
+#define DEBOUNCE 30
+
 #define TAPPING_TOGGLE  1
 
 /* define if matrix has ghost */
@@ -85,6 +87,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBW 1
 
+#define RGBLIGHT_SLEEP
+
 /*
  * The debounce filtering reports a key/switch change directly,
  * without any extra delay. After that the debounce logic will filter
@@ -111,6 +115,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
+
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
