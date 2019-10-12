@@ -79,3 +79,6 @@ keyboards/crkbd/keymaps/tominabox1/peepo.bmp
 keyboards/crkbd/keymaps/tominabox1/hex2img.py
 keyboards/crkbd/keymaps/tominabox1/img2hex.py
 
+users/tominabox1/peepo.bmp
+users/tominabox1/hex2img.py
+users/tominabox1/img2hex.py

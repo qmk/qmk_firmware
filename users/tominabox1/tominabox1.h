@@ -30,7 +30,8 @@ enum custom_keycodes {
     ADJUST,
     ARROW,
     FKEY,
-    KC_LFT_NUM_F
+    KC_LFT_NUM_F,
+    RGBRST
 };
 
 #define KC______ KC_TRNS
