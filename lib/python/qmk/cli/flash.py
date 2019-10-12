@@ -38,7 +38,7 @@ def print_bootloader_help():
     cli.echo('dfu-util-split-right')
     cli.echo('st-link-cli')
 
-@cli.argument('bootloader', arg_only=True, help='The flash command, corresponding to qmk\'s make options of bootloaders.')
+@cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
 @cli.argument('filename', nargs='?', arg_only=True, help='The configurator export JSON to compile. Use this if you dont want to specify a keymap and keyboard.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
@@ -51,7 +51,7 @@ def flash(cli):
 
     If no file is supplied, keymap and keyboard are expected.
 
-    A bootloader is always required
+    If bootloader is omitted, the one according to the rules.mk will be used.
 
     """
     command = []
