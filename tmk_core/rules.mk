@@ -28,13 +28,31 @@ VPATH :=
 
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
-$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
+$(patsubst %.c,$1/%.o,\
+$(patsubst %.c/NO-LTO,$1/%.o,\
+$(patsubst %.c/LIB,$1/%.a,\
+$(patsubst %.cpp,$1/%.o,\
+$(patsubst %.cc,$1/%.o,\
+$(patsubst %.S,$1/%.o,\
+$($1_SRC)))))))
 endef
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(OUTPUT)_OBJ +=$(call OBJ_FROM_SRC,$(OUTPUT))))
 
+# Listing objects that require -fno-lto at compile time.
+NO_LTO_OBJ :=
+define NO_LTO_OBJ_FROM_SRC
+$(patsubst %.c/$1,$2/%.o,$(filter %/$1, $($2_SRC)))
+endef
+#    Listing objects to be stored in library (*.a)
+#    Objects stored in the library must be compile with the -fno-lto option.
+$(foreach OUTPUT,$(OUTPUTS),\
+  $(eval NO_LTO_OBJ +=$(call NO_LTO_OBJ_FROM_SRC,LIB,$(OUTPUT))))
+#    Listing objects specified to compile with the -fno-lto option.
+$(foreach OUTPUT,$(OUTPUTS),\
+  $(eval NO_LTO_OBJ +=$(call NO_LTO_OBJ_FROM_SRC,NO-LTO,$(OUTPUT))))
+
 # Define a list of all objects
 OBJ := $(foreach OUTPUT,$(OUTPUTS),$($(OUTPUT)_OBJ))
-NO_LTO_OBJ := $(filter %.a,$(OBJ))
 
 MASTER_OUTPUT := $(firstword $(OUTPUTS))
 
@@ -217,7 +235,7 @@ ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
 define NO_LTO
-$(patsubst %.a,%.o,$1): NOLTO_CFLAGS += -fno-lto
+$1: NOLTO_CFLAGS += -fno-lto
 endef
 $(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
 
