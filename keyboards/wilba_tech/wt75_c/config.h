@@ -20,15 +20,15 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x080A // 80-A
+#define PRODUCT_ID      0x075C // 75-C
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT80-A
-#define DESCRIPTION     wilba.tech WT80-A
+#define PRODUCT         wilba.tech WT75-C
+#define DESCRIPTION     wilba.tech WT75-C
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 17
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -41,10 +41,10 @@
  *
 */
 #define MATRIX_ROW_PINS { F1, F0, E6, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4, B7, B0 }
+#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, B7, D4 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
 // #define BACKLIGHT_PIN B7
@@ -182,6 +182,9 @@
 // enable the mono backlight
 #define MONO_BACKLIGHT_ENABLED 1
 
+// enable the RGB indicator for WT75-A
+#define MONO_BACKLIGHT_WT75_A
+
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define MONO_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
 
@@ -214,7 +217,7 @@
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR 37
 // Dynamic keymap starts after backlight config (37+7)
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 44
-// Dynamic macro starts after dynamic keymaps (44+(4*6*17*2)) = (44+816)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 860
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 164
+// Dynamic macro starts after dynamic keymaps (44+(4*6*16*2)) = (44+768)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 812
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 212
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
