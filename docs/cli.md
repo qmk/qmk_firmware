@@ -85,6 +85,30 @@ qmk compile <configuratorExport.json>
 qmk compile -kb <keyboard_name> -km <keymap_name>
 ```
 
+## `qmk flash`
+
+This command is similar to `qmk compile`, but can also target a bootloader. The bootloader is optional, and is set to `:flash` by default.
+To specify a different bootloader, use `-bl <bootloader>`. Visit <https://docs.qmk.fm/#/flashing>
+for more details of the available bootloaders.
+
+**Usage for Configurator Exports**:
+
+```
+qmk flash <configuratorExport.json> -bl <bootloader>
+```
+
+**Usage for Keymaps**:
+
+```
+qmk flash -kb <keyboard_name> -km <keymap_name> -bl <bootloader>
+```
+
+**Listing the Bootloaders**
+
+```
+qmk flash -b
+```
+
 ## `qmk cformat`
 
 This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
