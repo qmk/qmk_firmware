@@ -20,7 +20,7 @@ enum custom_keycodes {
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 #define ADJUST MO(_ADJUST)
-#define CTLESC LCTL(KC_ESC)
+#define CTLESC CTL_T(KC_ESC)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
