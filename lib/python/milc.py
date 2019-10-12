@@ -96,7 +96,6 @@ def format_ansi(text):
 class ANSIFormatter(logging.Formatter):
     """A log formatter that inserts ANSI color.
     """
-
     def format(self, record):
         msg = super(ANSIFormatter, self).format(record)
         return format_ansi(msg)
@@ -105,7 +104,6 @@ class ANSIFormatter(logging.Formatter):
 class ANSIEmojiLoglevelFormatter(ANSIFormatter):
     """A log formatter that makes the loglevel an emoji on UTF capable terminals.
     """
-
     def format(self, record):
         if UNICODE_SUPPORT:
             record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
@@ -115,7 +113,6 @@ class ANSIEmojiLoglevelFormatter(ANSIFormatter):
 class ANSIStrippingFormatter(ANSIFormatter):
     """A log formatter that strips ANSI.
     """
-
     def format(self, record):
         msg = super(ANSIStrippingFormatter, self).format(record)
         return ansi_escape.sub('', msg)
@@ -127,7 +124,6 @@ class Configuration(object):
     This class never raises IndexError, instead it will return None if a
     section or option does not yet exist.
     """
-
     def __contains__(self, key):
         return self._config.__contains__(key)
 
@@ -216,7 +212,6 @@ def handle_store_boolean(self, *args, **kwargs):
 class SubparserWrapper(object):
     """Wrap subparsers so we can populate the normal and the shadow parser.
     """
-
     def __init__(self, cli, submodule, subparser):
         self.cli = cli
         self.submodule = submodule
@@ -249,7 +244,6 @@ class SubparserWrapper(object):
 class MILC(object):
     """MILC - An Opinionated Batteries Included Framework
     """
-
     def __init__(self):
         """Initialize the MILC object.
         """
@@ -620,7 +614,6 @@ class MILC(object):
     def subcommand(self, description, **kwargs):
         """Decorator to register a subcommand.
         """
-
         def subcommand_function(handler):
             return self.add_subcommand(handler, description, **kwargs)
 

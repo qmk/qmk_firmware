@@ -116,7 +116,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom pins pinmatrix
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -127,6 +127,20 @@ ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
         SRC += $(QUANTUM_DIR)/led_matrix.c
         SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
     endif
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), pinmatrix)
+    CIE1931_CURVE = yes
+    OPT_DEFS += -DLED_MATRIX_PINMATRIX_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/led
+    SRC += led_matrix_pinmatrix.c
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), pins)
+    CIE1931_CURVE = yes
+    OPT_DEFS += -DLED_MATRIX_PINS_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/led
+    SRC += led_matrix_pins.c
 endif
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
@@ -150,7 +164,7 @@ endif
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	RGB_MATRIX_ENABLE = IS31FL3731
+    RGB_MATRIX_ENABLE = IS31FL3731
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
@@ -293,9 +307,9 @@ endif
 
 HAPTIC_ENABLE ?= no
 ifneq ($(strip $(HAPTIC_ENABLE)),no)
-	COMMON_VPATH += $(DRIVER_PATH)/haptic
-	SRC += haptic.c
-	OPT_DEFS += -DHAPTIC_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    OPT_DEFS += -DHAPTIC_ENABLE
 endif
 
 ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
