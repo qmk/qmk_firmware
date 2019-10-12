@@ -1,11 +1,14 @@
-MCU = atmega32u4       # Teensy 2.0
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
+# MCU name
+MCU = atmega32u4
 
-# Interrupt driven control endpoint task
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = lufa-dfu
 
 # Build Options
