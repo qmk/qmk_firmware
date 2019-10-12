@@ -23,8 +23,9 @@ def print_bootloader_help():
     """
     cli.log.error('You must supply a configuration file and bootloader,')
     cli.echo('or a -kb keyboard, -km keymap, and bootloader.')
-    cli.echo('For example: qmk flash -kb planck/rev6 -km default dfu-util')
-    cli.echo('or qmk flash 1upkeyboards_60hse_default.json dfu-util')
+    cli.echo('For example: qmk flash -kb planck/rev6 -km default -bl dfu-util')
+    cli.echo('or qmk flash 1upkeyboards_60hse_default.json -bl dfu-util')
+    cli.echo('If you dont specify a bootloader, :flash is the default.')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
     cli.echo('Bootloaders:')
     cli.echo('dfu')
@@ -42,7 +43,8 @@ def print_bootloader_help():
 @cli.argument('filename', nargs='?', arg_only=True, help='The configurator export JSON to compile. Use this if you dont want to specify a keymap and keyboard.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
 @cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
-@cli.subcommand('QMK FLash.')
+@cli.argument('-b', '--bootloaders', action='store_true', help='List the available bootloaders.')
+@cli.subcommand('QMK Flash.')
 def flash(cli):
     """Compile and or flash QMK Firmware or keyboard/layout
 
@@ -55,7 +57,11 @@ def flash(cli):
 
     """
     command = []
-    if cli.args.filename:
+    if cli.args.bootloaders:
+        print_bootloader_help()
+        return False
+
+    elif cli.args.filename:
         # Get keymap path to log info
         user_keymap = parse_configurator_json(cli.args.filename)
         keymap_path = qmk.path.keymap(user_keymap['keyboard'])
@@ -72,7 +78,7 @@ def flash(cli):
         command = create_make_command(cli.config.flash.keyboard, cli.config.flash.keymap, cli.args.bootloader)
 
     else:
-        print_bootloader_help()
+        cli.log.error('You must supply a configurator export or both `--keyboard` and `--keymap`. You can also specify a bootloader with --bootloader. Use --bootloaders to list the available bootloaders.')
         return False
 
     cli.log.info('Flashing keymap with {fg_cyan}%s\n\n', ' '.join(command))
