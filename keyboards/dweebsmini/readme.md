@@ -5,8 +5,8 @@
 This is a split Ortho keyboard, inspired by the CRKBD and the ErgoDash Mini
 
 Keyboard Maintainer: [KeyboardDweebs](HTTPS://KeyboardDweebs.com)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: This Keyboard supports the Pro Micro.  
+Hardware Availability: HTTPS://KeyboardDweebs.com
 
 Make example for this keyboard (after setting up your build environment):
 
