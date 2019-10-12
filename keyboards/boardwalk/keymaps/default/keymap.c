@@ -15,19 +15,19 @@
 
 #include QMK_KEYBOARD_H
 
-// Layer shorthand
-enum layer {
-  _1U,
-  _FN,
-  _HHKB,
+// Layer shorthand, replace _1U with whichever default layout (or custom layout you defined in boardwalk.h) from the list below that you want to use
+
+enum layers {
+  _1U = 0,
+  _2X2U,
   _7U,
-  _2UARROW,
-  _625UARROW,
+  _2X2UARROW,
+  _625UARROW
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* 1uGrid
+/* 1u True Ortholinear Grid
  * .-----------------------------------------------------------------------------------------------------------------------------.
  * | ESC    | 1      | 2      | 3      | 4      | 5      | -      | =      | 6      | 7      | 8      | 9      | 0      | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
- [_1U] = LAYOUT_ortho_5x14(
+ [_1U] = ortho_grid(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT, \
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,  \
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LGUI, MO(1),   KC_LALT, KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_RCTL  \
  ),
 
- /* HHKB
+ /* HHKB style
  * .-----------------------------------------------------------------------------------------------------------------------------.
  * | ESC    | 1      | 2      | 3      | 4      | 5      | -      | =      | 6      | 7      | 8      | 9      | 0      | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
@@ -59,19 +59,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | RSHIFT |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |        | LCTRL  | FN     | LALT   | LGUI   |      SPACE      |      SPACE      | LEFT   | DOWN  | UP      | RIGHT  |        |
+ * | N/A    | LCTRL  | FN     | LALT   | LGUI   |      SPACE      |      SPACE      | LEFT   | DOWN  | UP      | RIGHT  | N/A    |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
- [_HHKB] = LAYOUT_ortho_hhkb(
-  KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+ [_2X2U] = ortho_2x2u(
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, _______, KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-           KC_LCTL, MO(1),   KC_LALT, KC_LGUI,       KC_SPC,         KC_SPC,      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT           \
+  KC_NO,   KC_LCTL, MO(1),   KC_LALT, KC_LGUI,       KC_SPC,         KC_SPC,      KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO    \
  ),
 
-  /* 7u HHKB
+  /* 7u HHKB style
  * .-----------------------------------------------------------------------------------------------------------------------------.
  * | ESC    | 1      | 2      | 3      | 4      | 5      | -      | =      | 6      | 7      | 8      | 9      | 0      | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
@@ -81,16 +81,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * | LSHIFT | Z      | X      | C      | V      | B      | END    | PG DN  | N      | M      | ,      | .      | /      | RSHIFT |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |        | LCTRL  | LALT       |                             SPACE                            | RALT        | FN     |        |
+ * | N/A    | LCTRL  | LALT       |                             SPACE                            | RALT        | FN     | N/A    |
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
- [_7U] = LAYOUT_ortho_7u(
-  KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+ [_7U] = ortho_7u(
+  KC_ESC, KC_1,    	KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, _______, KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-           KC_LCTL, KC_LALT,                                KC_SPC,                                 KC_RALT, MO(1)             \
+  KC_NO,   KC_LCTL, KC_LALT,                                KC_SPC,                                 KC_RALT, MO(1),   KC_NO    \
  ),
 
  /* 2x2u Space with Arrows
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
- [_2UARROW] = LAYOUT_2u_arrow(
+ [_2X2UARROW] = arrow_2x2u(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_QUOT, \
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSLS, KC_ENT,  KC_PGUP, \
@@ -129,34 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------------------------------------------------------------------------------------------'
  */
 
- [_625UARROW] = LAYOUT_625u_arrow(
+ [_625UARROW] = arrow_625u(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_QUOT, \
   KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSLS, KC_ENT,  KC_PGUP, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN, \
   KC_LCTL, KC_LGUI, KC_LALT,                          KC_SPC,                      MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT \
- ),
-
-/* FUNCTION
- * .-----------------------------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
- * '-----------------------------------------------------------------------------------------------------------------------------'
- */
-
-
- [_FN] = LAYOUT_ortho_5x14(
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
  )
 };
