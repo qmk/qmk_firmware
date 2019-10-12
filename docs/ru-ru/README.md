@@ -9,13 +9,13 @@
 
 ## Что такое QMK Firmware?
 
-QMK (*Quantum Mechanical Keyboard*) — это open source сообщество, которое разрабатывает QMK Firmware, QMK Toolbox, qmk.fm и эту документацию. QMK Firmware — это прошивка для клавиатур, основанная на [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) с множеством полезных функций для Atmel AVR микроконтроллеров, а именно, для продуктов компаний [OLKB](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) и [Clueboard](http://clueboard.co/). Она также была портирована на чипы ARM при помощи ChibiOS. Вы можете использовать ее для своей собранной вручную клавиатуры или имеющей нестандартную печатную плату.
+QMK (*Quantum Mechanical Keyboard*) — это open source сообщество, которое разрабатывает QMK Firmware, QMK Toolbox, qmk.fm и эту документацию. QMK Firmware — это прошивка для клавиатур, основанная на [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) с множеством полезных функций для микроконтроллеров Atmel AVR, а именно, для продуктов компаний [OLKB](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) и [Clueboard](http://clueboard.co/). Она также была портирована на чипы ARM при помощи ChibiOS. Вы можете использовать ее для своей собранной вручную клавиатуры или имеющей нестандартную печатную плату.
 
 ## Как скачать
 
-Если вы собираетесь добавить раскладку, клавиатуру или новые функции в QMK, самым простым способом реализовать это будет [сделать fork репозитория на GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box), выполнить клонирование вашего репозитория локально для внесения изменений, сделать их push, а затем открыть [Pull Request](https://github.com/qmk/qmk_firmware/pulls) из вашего fork.
+Если вы собираетесь добавить раскладку, клавиатуру или новые функции в QMK, то самый простой путь реализации — это [сделать форк репозитория на GitHub](https://github.com/qmk/qmk_firmware#fork-destination-box), клонировать ваш репозиторий локально для дальнейшего внесения изменений, сделать пуш изменений, а затем открыть [пулреквест](https://github.com/qmk/qmk_firmware/pulls) из вашего форка.
 
-Также вы можете либо скачать напрямую ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), либо клонировать через git (`git@github.com:qmk/qmk_firmware.git`) или https (`https://github.com/qmk/qmk_firmware.git`).
+Также вы можете либо скачать репозиторий ([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master)), либо клонировать его через git (`git@github.com:qmk/qmk_firmware.git`) или https (`https://github.com/qmk/qmk_firmware.git`).
 
 ## Как скомпилировать
 
@@ -29,4 +29,4 @@ QMK (*Quantum Mechanical Keyboard*) — это open source сообщество,
 
 ## Как настроить
 
-QMK обладает множеством [функций](ru-ru/features.md) для исследования, и хорошей отправной точкой для знакомства с ними может стать [справочная документация](http://docs.qmk.fm). Большинством функций можно воспользоваться модифицируя [раскладку](ru-ru/keymap.md) и изменяя [коды клавиш](ru-ru/keycodes.md).
+QMK обладает множеством [функций](ru-ru/features.md) для исследования, и [справочная документация](http://docs.qmk.fm) может стать хорошей отправной точкой для знакомства с ними. Большинством функций можно воспользоваться модифицируя [раскладку](ru-ru/keymap.md) и изменяя [коды клавиш](ru-ru/keycodes.md).
