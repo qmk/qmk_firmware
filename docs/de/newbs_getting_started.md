@@ -79,7 +79,7 @@ QMK liefert ein Script mit, das helfen soll, Dir alles Weitere abzunehmen. Du ka
 
 ## Die Build-Umgebung testen
 
-Nun sollte hoffentlich alles Nötige für eine funktionierende QMK Build-Umgebung installiert sein und Du solltest in der Lage die QMK-Firmware zu kompilieren. Um dies mit einer `default` Tastaturbelegung zu testen kannst Du den folgenden Befehl ausprobieren:
+Nun sollte hoffentlich alles Nötige für eine funktionierende QMK Build-Umgebung installiert sein und Du solltest in der Lage sein, die QMK-Firmware zu kompilieren. Um dies mit einer `default` Tastaturbelegung zu testen, kannst Du den folgenden Befehl ausprobieren:
 
     make <keyboard>:default
 
