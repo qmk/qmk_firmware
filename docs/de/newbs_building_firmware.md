@@ -1,6 +1,6 @@
 # Eine eigene Firmware erstellen 
 
-Nachdem Du nun eine funktionierende Entwicklungsumgebung aufgesetzt hast bist Du nun bereit deine eigene Firmware zu erstellen. Dieses Sektion des Guides wird zwischen drei Programmen hin- und herwechseln: deinem Dateimanager, deinem Texteditor und der Befehlszeile. Lasse diese drei Fenster geöffnet bis Du fertig und zufrieden mit deiner Tastatur-Firmware bist.
+Nachdem Du nun eine funktionierende Entwicklungsumgebung aufgesetzt hast, bist Du nun bereit, deine eigene Firmware zu erstellen. Dieses Sektion des Guides wird zwischen drei Programmen hin- und herwechseln: deinem Dateimanager, deinem Texteditor und der Befehlszeile. Lasse diese drei Fenster geöffnet, bis Du fertig und zufrieden mit deiner Tastatur-Firmware bist.
 
 Solltest Du die Befehlszeile zwischenzeitlich geschlossen haben vergiss nicht wieder in das richtige Verzeichnis zu navigieren, benutze dazu den Befehl `cd qmk_firmware`.
 
