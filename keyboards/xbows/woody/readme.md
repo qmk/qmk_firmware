@@ -1,7 +1,8 @@
 # WOO-DY
 ![WOO-DY](https://github.com/moyi4681/qmk_firmware/blob/master/keyboards/xbows/woody/img1.png)
 
-A hotswap 65% RGB keyboard.
+Woo-dy, A 67 Keys Wooden Mechanical Keyboard.
+At once minimalist and stylish, Woo-dy brings a natural calm and relaxation to your working space. The natural wood base made from real walnut or cherry reduces weight, feels great and adds subtle, natural style to any room.
 
 Keyboard Maintainer: X-BOWS  
 Hardware Supported:  X-BOWS
