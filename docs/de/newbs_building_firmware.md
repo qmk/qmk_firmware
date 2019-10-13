@@ -64,7 +64,7 @@ Wenn deine Tastaturbelegung z.B. "xyverz" heißt und Du die Belegung für ein re
 
     make planck/rev5:xyverz
 
-Währen des Kompiliervorgangs wird viel Text auf dem Bildschirm ausgegeben während die Dateien kompiliert werden. Es sollte am Ende mit etwas enden das ungefähr so aussieht:
+Während des Kompiliervorgangs wird viel Text auf dem Bildschirm ausgegeben. Es sollte am Ende mit etwas enden das ungefähr so aussieht:
 
 ```
 Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
