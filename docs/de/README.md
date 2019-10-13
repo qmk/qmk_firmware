@@ -30,4 +30,4 @@ Dies generiert die Revision `rev4` für eine Tastatur vom Type `planck` mit der 
 
 ## Möglichkeiten der Anpassung
 
-QMK hat viele [Features](de/features.md) die es zu entdecken gibt. In der [Dokumentation](https://docs.qmk.fmk) kannst Du Dir einen Überblick verschaffen. Die meisten Features basieren darauf die [Tastaturbelegung](de/keymap.md) anzupassen und das Verhalten der [Keycodes](de/keycodes.md) zu verändern.
+QMK hat viele [Features](de/features.md), die es zu entdecken gibt. In der [Dokumentation](https://docs.qmk.fmk) kannst Du Dir einen Überblick verschaffen. Die meisten Features basieren darauf, die [Tastaturbelegung](de/keymap.md) anzupassen und das Verhalten der [Keycodes](de/keycodes.md) zu verändern.
