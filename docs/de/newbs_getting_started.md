@@ -87,7 +87,7 @@ Der Befehl um z.B. die Firmware für ein _Clueboard 66%_ zu erzeugen lautet:
 
     make clueboard/66/rev3:default
 
-Wenn es fertig ist sollte der Output ungefähr so Ähnlich wie das Folgende aussehen:
+Wenn es fertig ist, sollte der Output ungefähr so ähnlich wie das Folgende aussehen:
 
 ```
 Linking: .build/clueboard_66_rev3_default.elf                                                       [OK]
