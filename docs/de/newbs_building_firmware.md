@@ -28,7 +28,7 @@ Navigiere dazu in das `qmk_firmware/util` Verzeichnis und gib folgenden Befehl e
 ./new_keymap.sh <keyboard path> <username>
 ```
 
-Um zum Beispiel den Benutzernamen John für die Tastaturbelegung eines 1up60hse zu verwenden würdest Du folgendes eingeben:
+Um zum Beispiel den Benutzernamen John für die Tastaturbelegung eines 1up60hse zu verwenden, würdest Du Folgendes eingeben:
 
 ```
 ./new_keymap.sh 1upkeyboards/1up60hse john
