@@ -15,7 +15,7 @@ Diese Anleitung ist in 7 Abschnitte unterteilt:
 * [Git Leitfaden](newbs_best_practices.md)
 * [Weitere hilfreiche Ressourcen für Anfänger](newbs_learn_more_resources.md)
 
-Diese Anleitung richtet sich an Personen die vorher noch nie Software kompiliert haben. Die Entscheidungen und Empfehlungen basieren auf dieser Grundannahme. Es gibt unterschiedliche Herangehensweisen für viele der Prozeduren und wir unterstützen die meisten Alternativen. Wenn Du mal nicht weiter weißt oder Dir nicht sicher bist wie Du an ein Problem herangehen sollst kannst Du uns gerne [um Hilfe bitten](getting_started_getting_help.md).
+Diese Anleitung richtet sich an Personen, die vorher noch nie Software kompiliert haben. Die Entscheidungen und Empfehlungen basieren auf dieser Grundannahme. Es gibt unterschiedliche Herangehensweisen für viele der Prozeduren und wir unterstützen die meisten Alternativen. Wenn Du mal nicht weiter weißt oder Dir nicht sicher bist, wie Du an ein Problem herangehen sollst, kannst Du uns gerne [um Hilfe bitten](getting_started_getting_help.md).
 
 ## Weitere Ressourcen
 
