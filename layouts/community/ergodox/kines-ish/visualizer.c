@@ -19,8 +19,8 @@ enum _ergodox_layers {
     _QWERTY,
     _COLEMAK,
     // Intermediate layers
-    _SYMB,
     _MDIA_MOUSE,
+    _SYMB,
     _MACRO
 };
 
