@@ -36,7 +36,7 @@ Um zum Beispiel den Benutzernamen John für die Tastaturbelegung eines 1up60hse 
 
 ## Öffne `keymap.c` in deinem bevorzugtem Text Editor
 
-Öffne deine `keymap.c`. In dieser Datei findest Du die Strukturen die das Verhalten deiner Tastatur bestimmen. Oben in der `keymap.c` befinden sich Definitionen (defines) und Aufzählungen (enums) die die Tastaturbelegung leserlicher machen sollen. Weiter unten wirst Du eine Zeile finden die wie folgt aussieht:
+Öffne deine `keymap.c`. In dieser Datei findest Du die Strukturen, die das Verhalten deiner Tastatur bestimmen. Oben in der `keymap.c` befinden sich Definitionen (defines) und Aufzählungen (enums), die die Tastaturbelegung leserlicher machen sollen. Weiter unten wirst Du eine Zeile finden, die wie folgt aussieht:
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
