@@ -18,7 +18,7 @@ Wenn Du macOS oder Windows benutzt, kannst Du einfach in das keymaps Verzeichnis
 
 ## Eine Kopie der `default`  Tastaturbelegung erstellen
 
-Wenn Du den `keymaps` Ordner geöffnet hast solltest Du zuerst eine Kopie des `default` Verzeichnisses erstellen. Wir empfehlen dafür deinen GitHub Benutzernamen zu verweden aber Du kannst auch jeden anderen Namen verwenden solange er nur aus Kleinbuchstaben, Zahlen und Unterstrichen besteht.
+Wenn Du den `keymaps` Ordner geöffnet hast, solltest Du zuerst eine Kopie des `default` Verzeichnisses erstellen. Wir empfehlen dafür deinen GitHub Benutzernamen zu verweden, aber Du kannst auch jeden anderen Namen verwenden solange er nur aus Kleinbuchstaben, Zahlen und Unterstrichen besteht.
 
 Um den Prozess zu automatisieren kannst Du dazu auch das Skript `new_keymap.sh` verwenden.
 
