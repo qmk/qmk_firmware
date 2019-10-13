@@ -1,6 +1,6 @@
 # Lernmaterial
 
-Diese Ressourcen sind darauf ausgerichtet Neulingen der QMK Commmunity mehr Informationen und ein weiterführendes Verständnis zu einzelnen Themen zu bieten.
+Diese Ressourcen sind darauf ausgerichtet, Neulingen der QMK Commmunity mehr Informationen und ein weiterführendes Verständnis zu einzelnen Themen zu bieten.
 
 Git Ressourcen:
 
