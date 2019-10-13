@@ -429,11 +429,12 @@ class MILC(object):
                 self.arg_only.append(arg_name)
                 del kwargs['arg_only']
 
+            name = handler.__name__.replace("_", "-")
             if handler is self._entrypoint:
                 self.add_argument(*args, **kwargs)
 
-            elif handler.__name__ in self.subcommands:
-                self.subcommands[handler.__name__].add_argument(*args, **kwargs)
+            elif name in self.subcommands:
+                self.subcommands[name].add_argument(*args, **kwargs)
 
             else:
                 raise RuntimeError('Decorated function is not entrypoint or subcommand!')
@@ -599,7 +600,7 @@ class MILC(object):
             self.add_subparsers()
 
         if not name:
-            name = handler.__name__
+            name = handler.__name__.replace("_", "-")
 
         self.acquire_lock()
         kwargs['help'] = description
