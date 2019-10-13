@@ -38,7 +38,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Bootloader
 #     This indicates which bootloader is present on the board.
-BOOTLOADER = caterina # Pro Micro
+#BOOTLOADER = caterina # Pro Micro
 BOOTLOADER = halfkay # Teensy
 
 # Build Options
