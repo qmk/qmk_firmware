@@ -1,7 +1,7 @@
 # Anleitung für absolute Beginner
 QMK ist eine mächtige Open Source Firmware für mechanische Tastaturen. Mit QMK kannst Du deine Tastatur sowohl sehr einfach als auch sehr umfangreich anpassen. Menschen unterschiedlichen Wissensstandes - vom kompletten Anfänger bis zum erfahrenen Programmierer - haben ihre Tastaturen mit QMK erfolgreich auf ihre persönlichen Bedürfnisse angepasst. Diese Anleitung soll Dir unabhängig von deinen Vorkenntnissen dabei helfen dies ebenfalls zu bewältigen.
 
-Bist Du unsicher ob deine Tastatur QMK unterstützt? Wenn es eine mechanische Tastatur ist die Du selbst gebaut hast stehen deine Chancen gut. Wir unterstützen eine [Vielzahl](https://qmk.fm/keyboards/) selbst gebauter Tastaturen, sodass selbst wenn deine jetztige Tastatur nicht unterstützt wird Du keine Probleme haben solltest eine für deine Anforderungen zu finden.
+Bist Du unsicher ob deine Tastatur QMK unterstützt? Wenn es eine mechanische Tastatur ist, die Du selbst gebaut hast, stehen deine Chancen gut. Wir unterstützen eine [Vielzahl](https://qmk.fm/keyboards/) selbst gebauter Tastaturen, sodass selbst wenn deine jetzige Tastatur nicht unterstützt wird Du keine Probleme haben solltest eine für deine Anforderungen zu finden.
 
 ## Übersicht
 
