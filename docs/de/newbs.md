@@ -9,7 +9,7 @@ Diese Anleitung ist in 7 Abschnitte unterteilt:
 
 * [Die ersten Schritte](newbs_getting_started.md)
 * [Die erste Firmware auf der Kommandozeile erzeugen](newbs_building_firmware.md)
-* [Die erste Firmware mit dem Online GUI erzeugen](newbs_building_firmware_configurator.md)
+* [Die erste Firmware mit der Online GUI erzeugen](newbs_building_firmware_configurator.md)
 * [Firmware flashen](newbs_flashing.md)
 * [Testen und Debuggen](newbs_testing_debugging.md)
 * [Git Leitfaden](newbs_best_practices.md)

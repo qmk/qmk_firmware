@@ -56,11 +56,11 @@ Wie Du diesen Schritt abschließt ist vollkommen Dir überlassen. Ändere die ei
 
 ## Deine Firmware erzeugen
 
-Wenn Du damit fertig bist deine Tastaturbelegung anzupassen musst Du noch die Firmware erzeugen. Öffne dazu wieder die Befehlszeile und führe folgenden Befehl aus:
+Wenn Du damit fertig bist, deine Tastaturbelegung anzupassen, musst Du noch die Firmware erzeugen. Öffne dazu wieder die Befehlszeile und führe folgenden Befehl aus:
 
     make <my_keyboard>:<my_keymap>
 
-Wenn deine Tastaturbelegung z.B. "xyverz" heißt und Du die Belegung für ein rev5 planck erzeugen möchtest lautet der Befehl:
+Wenn deine Tastaturbelegung z.B. "xyverz" heißt und Du die Belegung für ein rev5 planck erzeugen möchtest, lautet der Befehl:
 
     make planck/rev5:xyverz
 
@@ -75,4 +75,4 @@ Checking file size of planck_rev5_xyverz.hex                                    
 ```
 
 ## Deine Firmware flashen
-Bitte fahre mit [Firmware flashen](de/newbs_flashing.md) fort um zu erfahren wie Du deine neue Firmware auf deine Tastatur flashen kannst.
+Bitte fahre mit [Firmware flashen](de/newbs_flashing.md) fort, um zu erfahren wie Du deine neue Firmware auf deine Tastatur flashen kannst.
