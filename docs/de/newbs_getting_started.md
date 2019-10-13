@@ -98,4 +98,4 @@ Checking file size of clueboard_66_rev3_default.hex                             
 ```
 
 # Eine eigene Tastaturbelegung erstellen
-Du bist nun fertig mit dem Setup der Entwicklungsumgebung und solltest somit in der Lage sein deine eigenen Tastaturbelegungen zu erstellen. Um fortzufahren folge bitte der nächsten Anleitung unter [Die erste Firmware](de/newbs_building_firmware.md).
+Du bist nun fertig mit dem Setup der Entwicklungsumgebung und solltest somit in der Lage sein, deine eigenen Tastaturbelegungen zu erstellen. Um fortzufahren, folge bitte der nächsten Anleitung unter [Die erste Firmware](de/newbs_building_firmware.md).
