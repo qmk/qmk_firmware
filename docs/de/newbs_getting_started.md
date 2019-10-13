@@ -10,7 +10,7 @@ QMK möchte seine BenutzerInnen in die Lage versetzen simple Aufgaben möglichst
 # Los geht's!
 Bevor Du damit loslegen kannst deine Tastaturbelegung zu erstellen musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist dass das nur einmal erledigt werden muss, egal für wie viele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
 
-Wenn Du es lieber vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du dazu gerne auch direkt mit dem online [QMK Configurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit dem Online GUI erzeugen](de/newbs_building_firmware_configurator.md)
+Wenn Du es vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du auch dazu gerne direkt mit dem online [QMK Konfigurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit der Online GUI erzeugen](de/newbs_building_firmware_configurator.md)
 
 ## Software herunterladen
 
