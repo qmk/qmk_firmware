@@ -46,7 +46,7 @@ Diese Zeile markiert den Anfang der Liste der Ebenen (Layers). Darunter befinden
 
 ## Personalisiere die Tastaturbelegung nach deinen Wünschen
 
-Wie Du diesen Schritt abschließt ist vollkommen Dir überlassen. Ändere die eine Sache die Dich stört oder verändere alles von Grund auf. Du kannst Ebenen entfernen die Du nicht brauchst oder Neue hinzufügen, bis zu 32 Stück. Die folgende Dokumentation verrät Dir was Du hier alles definiere kannst: 
+Wie Du diesen Schritt abschließt ist vollkommen Dir überlassen. Ändere die eine Sache die Dich stört oder verändere alles von Grund auf. Du kannst Ebenen entfernen die Du nicht brauchst oder Neue hinzufügen, bis zu 32 Stück. Die folgende Dokumentation verrät Dir was Du hier alles definieren kannst: 
 
 * [Keycodes](de/keycodes.md)
 * [Features](de/features.md)
