@@ -8,7 +8,7 @@ Solltest Du die Befehlszeile zwischenzeitlich geschlossen haben vergiss nicht wi
 
 Beginne damit, in das `keymaps` Verzeichnis für deine Tastatur zu navigieren.
 
-Wenn Du macOS oder Windows benutzt kannst Du einfach in das keymaps Verzeichnis wechseln.
+Wenn Du macOS oder Windows benutzt, kannst Du einfach in das keymaps Verzeichnis wechseln.
 
 ?> macOS:<br>
     open keyboards/<keyboard_folder>/keymaps
