@@ -40,7 +40,7 @@ Um zum Beispiel den Benutzernamen John für die Tastaturbelegung eines 1up60hse 
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-Diese Zeile markiert den Anfang der Liste der Ebenen (Layers). Darunter befinden sich Zeilen die entweder `LAYOUT` oder `KEYMAP` enthalten, das deutet auf den Start einer Ebene hin. Danach folgt eine Liste von Tasten die dieser Ebene zugewiesen sind.
+Diese Zeile markiert den Anfang der Liste der Ebenen (Layers). Darunter befinden sich Zeilen die entweder `LAYOUT` oder `KEYMAP` enthalten, das deutet auf den Start einer Ebene hin. Danach folgt eine Liste von Tasten, die dieser Ebene zugewiesen sind.
 
 !> Beim Bearbeiten einer Tastaturbelegung solltest Du darauf achten keine Kommata hinzuzufügen oder zu entfernen. Ansonsten kann dies dazu führen dass deine Firmware nicht mehr kompiliert und es ist nicht immer einfach festzustellen wo genau ein Komma zuviel oder zu wenig ist. Die letzte Zeile hat am Ende kein Komma, die Zeilen davor jedoch schon.
 
