@@ -20,7 +20,7 @@ Ansonsten kannst Du es als [zip](https://github.com/qmk/qmk_firmware/zipball/mas
 
 ## Anleitung fürs Kompilieren
 
-Bevor Du in der Lage bist die Firmware zu kompilieren musst Du eine [Entwicklungsumgebung](de/getting_started_build_tools.md) für AVR und/oder ARM aufsetzen. Danach kannst Du mit dem `make` Befehl eine Keymap für deine Tastatur erzeugen. Die Notation dafür ist:
+Bevor Du in der Lage bist, die Firmware zu kompilieren, musst Du eine [Entwicklungsumgebung](de/getting_started_build_tools.md) für AVR und/oder ARM aufsetzen. Danach kannst Du mit dem `make` Befehl eine Keymap für deine Tastatur erzeugen. Die Notation dafür ist:
 
     make planck/rev4:default
 
