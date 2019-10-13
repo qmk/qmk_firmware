@@ -82,7 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "velocikey.h"
 #endif
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
+// Only enable this if console is enabled to print to
+#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
 static uint32_t matrix_timer      = 0;
 static uint32_t matrix_scan_count = 0;
 
@@ -97,6 +98,8 @@ void matrix_scan_perf_task(void) {
         matrix_scan_count = 0;
     }
 }
+#else
+#    define matrix_scan_perf_task()
 #endif
 
 #ifdef MATRIX_HAS_GHOST
