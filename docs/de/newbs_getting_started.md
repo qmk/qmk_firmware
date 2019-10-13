@@ -8,7 +8,7 @@ QMK übernimmt die Rolle dieser Software und teilt dem Host-Computer den aktuell
 QMK möchte seine BenutzerInnen in die Lage versetzen simple Aufgaben möglichst einfach zu gestalten und gleichzeitig komplexe Dinge zu ermöglichen die mit normalen Tastaturen ohne zusätzliche Software undenkbar wären. Du musst nicht programmieren können um abgefahrene Tastaturbelegungen zu gestalten - es reicht wenn Du eine Idee hast und ein paar einfache syntaktische Regeln verstehen kannst.
 
 # Los geht's!
-Bevor Du damit loslegen kannst deine Tastaturbelegung zu erstellen musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist dass das nur einmal erledigt werden muss, egal für wieviele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
+Bevor Du damit loslegen kannst deine Tastaturbelegung zu erstellen musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist dass das nur einmal erledigt werden muss, egal für wie viele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
 
 Wenn Du es lieber vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du dazu gerne auch direkt mit dem online [QMK Configurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit dem Online GUI erzeugen](de/newbs_building_firmware_configurator.md)
 
