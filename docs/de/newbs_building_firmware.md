@@ -56,7 +56,6 @@ Wie Du diesen Schritt abschließt ist vollkommen Dir überlassen. Ändere die ei
 
 ## Deine Firmware erzeugen
 
-When your changes to the keymap are complete you will need to build the firmware. To do so go back to your terminal window and run the build command:
 Wenn Du damit fertig bist deine Tastaturbelegung anzupassen musst Du noch die Firmware erzeugen. Öffne dazu wieder die Befehlszeile und führe folgenden Befehl aus:
 
     make <my_keyboard>:<my_keymap>
