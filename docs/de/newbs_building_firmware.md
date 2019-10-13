@@ -52,7 +52,7 @@ Wie Du diesen Schritt abschließt ist vollkommen Dir überlassen. Ändere die ei
 * [Features](de/features.md)
 * [FAQ](de/faq.md)
 
-?> Während Du langsam ein Gefühl dafür kriegst wie Keymaps funktionieren solltest Du darauf achten nicht zuviel auf einmal zu verändern. Größere Änderungen machen es schwieriger Probleme zu debuggen.
+?> Während Du langsam ein Gefühl dafür kriegst wie Keymaps funktionieren, solltest Du darauf achten nicht zuviel auf einmal zu verändern. Größere Änderungen machen es schwieriger, Probleme zu debuggen.
 
 ## Deine Firmware erzeugen
 
