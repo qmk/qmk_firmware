@@ -73,7 +73,7 @@ cd qmk_firmware
 ```
 ?> Wenn Du bereits weißt [wie man GitHub benutzt](de/getting_started_github.md) empfehlen wir dass Du Dir ein eigenen Fork erstellst. Wenn Du nicht weißt was das bedeuten soll kannst Du diesen Ratschlag getrost ignorieren.
 
-QMK liefert ein Script mit das helfen soll Dir alles Weitere abzunehmen. Du kannst es mit dem folgenden Befehl aufrufen:
+QMK liefert ein Script mit, das helfen soll, Dir alles Weitere abzunehmen. Du kannst es mit dem folgenden Befehl aufrufen:
 
     util/qmk_install.sh
 
