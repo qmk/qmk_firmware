@@ -1,57 +1,8 @@
 """List the keymaps for a specific keyboard
 """
-import os
-import re
-import glob
-from bs4 import UnicodeDammit
-
 from milc import cli
-
-def unicode_text(filename):
-    """Returns the contents of filename as a UTF-8 string. Tries to DTRT when it comes to encoding.
-    """
-    with open(filename, "rb") as fd:
-        text = UnicodeDammit(fd.read())
-
-    if text.contains_replacement_characters:
-        log_warning("%s: Could not determine file encoding, some characters were replaced." % (filename,))
-
-    return text.unicode_markup or ""
-
-
-def unicode_lines(filename):
-    """Returns the contents of filename as a UTF-8 string. Tries to DTRT when it comes to encoding.
-    """
-    return unicode_text(filename).split("\n")
-
-def parse_rules_mk(keyboard, revision = ""):
-    base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
-    rules_mk = dict()
-    if os.path.exists(base_path + os.path.sep + revision):
-        rules_mk_path_wildcard = os.path.join(base_path, "**", "rules.mk")
-        rules_mk_regex = re.compile(r"^" + base_path + "(?:" + revision + os.path.sep + ")?rules.mk")
-        paths = [path for path in glob.iglob(rules_mk_path_wildcard, recursive = True) if rules_mk_regex.search(path)]
-
-        config_regex = re.compile(r"^\s*(\S+)\s*=\s*((?:\s*\S+)+)")
-        for file_path in paths:
-            rules_mk_content = unicode_lines(file_path)
-            parsed_file = dict()
-            for line in rules_mk_content:
-                found = config_regex.search(line)
-                if found:
-                    parsed_file[found.group(1)] = found.group(2)
-            version = file_path.replace(base_path, "").replace(os.path.sep, "").replace("rules.mk", "")
-            rules_mk[version if version else "base"] = parsed_file
-    return rules_mk
-
-def find_keymaps(base_path, revision = "", community = False):
-    path_wildcard = os.path.join(base_path, "**", "keymap.c")
-    if community:
-        path_regex = re.compile(r"^" + re.escape(base_path) + "(\S+)" + os.path.sep + "keymap\.c")
-    else:
-        path_regex = re.compile(r"^" + re.escape(base_path) + "(?:" + re.escape(revision) + os.path.sep + ")?keymaps" + os.path.sep + "(\S+)" + os.path.sep + "keymap\.c")
-    names = [path_regex.sub(lambda name: name.group(1), path) for path in glob.iglob(path_wildcard, recursive = True) if path_regex.search(path)]
-    return names
+import qmk.keymap
+from qmk.errors import NoSuchKeyboardError
 
 @cli.argument("-kb", "--keyboard", help="Specify keyboard name. Example: 1upkeyboards/1up60hse")
 @cli.subcommand("List the keymaps for a specific keyboard")
@@ -60,29 +11,10 @@ def list_keymaps(cli):
     """
     # ask for user input if keyboard was not provided in the command line
     keyboard_name = cli.config.list_keymaps.keyboard if cli.config.list_keymaps.keyboard else input("Keyboard Name: ")
-    if os.path.sep in keyboard_name:
-        keyboard, revision = os.path.split(os.path.normpath(keyboard_name))
-    else:
-        keyboard = keyboard_name
-        revision = ""
 
-    # get all the rules.mk files for the keyboard
-    rules_mk = parse_rules_mk(keyboard, revision)
-    names = list()
-
-    if rules_mk:
-        if "base" in rules_mk or revision:
-            kb_base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
-            names = find_keymaps(kb_base_path, revision)
-
-        for rev, data in rules_mk.items():
-            if "LAYOUTS" in data:
-                for layout in data["LAYOUTS"].split():
-                    cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
-                    names = names + find_keymaps(cl_base_path, rev, community = True)
-
-        names.sort()
-
-    for name in names:
-        # We echo instead of cli.log.info to allow easier piping of this output
-        cli.echo(keyboard_name + ":" + name)
+    try:
+        for name in qmk.keymap.list_keymaps(keyboard_name):
+            # We echo instead of cli.log.info to allow easier piping of this output
+            cli.echo(keyboard_name + ":" + name)
+    except NoSuchKeyboardError as e:
+        cli.echo("{fg_red}" + e.message)

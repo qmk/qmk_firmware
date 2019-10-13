@@ -1,8 +1,13 @@
 """Functions that help you work with QMK keymaps.
 """
 import os
+from traceback import format_exc
+import re
+import glob
 
 import qmk.path
+import qmk.makefile
+from qmk.errors import NoSuchKeyboardError
 
 # The `keymap.c` template to use when a keyboard doesn't have its own
 DEFAULT_KEYMAP_C = """#include QMK_KEYBOARD_H
@@ -94,3 +99,57 @@ def write(keyboard, keymap, layout, layers):
         keymap_fd.write(keymap_c)
 
     return keymap_file
+
+def find_keymaps(base_path, revision = "", community = False):
+    """ Find the available keymaps for a keyboard and revision pair.
+
+    Args:
+        base_path: The base path of the keyboard.
+
+        revision: The keyboard's revision.
+
+        community: Set to True for the layouts under layouts/community.
+
+    Returns:
+        a list with whe keymaps's names
+    """
+    path_wildcard = os.path.join(base_path, "**", "keymap.c")
+    if community:
+        path_regex = re.compile(r"^" + re.escape(base_path) + "(\S+)" + os.path.sep + "keymap\.c")
+    else:
+        path_regex = re.compile(r"^" + re.escape(base_path) + "(?:" + re.escape(revision) + os.path.sep + ")?keymaps" + os.path.sep + "(\S+)" + os.path.sep + "keymap\.c")
+    names = [path_regex.sub(lambda name: name.group(1), path) for path in glob.iglob(path_wildcard, recursive = True) if path_regex.search(path)]
+    return names
+
+def list_keymaps(keyboard_name):
+    """ List the available keymaps for a keyboard.
+
+    Args:
+        keyboard_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
+
+    Returns:
+        a list with the names of the available keymaps
+    """
+    if os.path.sep in keyboard_name:
+        keyboard, revision = os.path.split(os.path.normpath(keyboard_name))
+    else:
+        keyboard = keyboard_name
+        revision = ""
+
+    # parse all the rules.mk files for the keyboard
+    rules_mk = qmk.makefile.get_rules_mk(keyboard, revision)
+    names = list()
+
+    if rules_mk:
+        # get the keymaps from the keyboard's directory
+        kb_base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
+        names = find_keymaps(kb_base_path, revision)
+
+        # if community layouts are supported, get them
+        if "LAYOUTS" in rules_mk:
+            for layout in rules_mk["LAYOUTS"]["value"].split():
+                cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
+                names = names + find_keymaps(cl_base_path, revision, community = True)
+
+    names.sort()
+    return names

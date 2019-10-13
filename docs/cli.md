@@ -252,6 +252,16 @@ This command lists all the keyboards currently defined in `qmk_firmware`
 qmk list-keyboards
 ```
 
+## `qmk list_keymaps`
+
+This command lists all the keymaps for a specified keyboard (and revision).
+
+**Usage**:
+
+```
+qmk list_keymaps -kb planck/ez
+```
+
 ## `qmk new-keymap`
 
 This command creates a new keymap based on a keyboard's existing default keymap.
