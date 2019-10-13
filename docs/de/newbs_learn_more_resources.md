@@ -11,4 +11,4 @@ Git Ressourcen:
 
 Mehr über die Arbeit mit der Befehlszeile:
 
-* [Gutes allgemeines Tutorial über die Arbeit mit der Befehlszeile](https://www.codecademy.com/learn/learn-the-command-line)(auf Englisch)
+* [Gutes allgemeines Tutorial über die Arbeit mit der Befehlszeile](https://www.codecademy.com/learn/learn-the-command-line) (auf Englisch)
