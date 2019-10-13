@@ -179,8 +179,6 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-//#define WT_MONO_BACKLIGHT
-
 // IS31FL3731 driver
 #define DRIVER_COUNT 3
 #define DRIVER_LED_TOTAL 108
