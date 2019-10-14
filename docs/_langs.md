@@ -2,4 +2,4 @@
   - [:uk: English](/)
   - [:cn: 中文](/zh-cn/)
   - [:fr: Français](/fr-fr/)
-  - [:th: Thai](/th-th/)
+  - [🇹🇭 ไทย](/th-th/)
