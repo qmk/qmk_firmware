@@ -1,5 +1,3 @@
-F_CPU = 16000000
-
 # Build Options
 #   comment out to disable the options.
 #
