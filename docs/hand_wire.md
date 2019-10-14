@@ -112,25 +112,62 @@ Further reading:
 
 You will need: (where *x* is the number of keys on your planned keyboard)
 
-* QMK compatible microcontroller board (Teensy, Pro-Micro etc.)
+* QMK compatible microcontroller board (Teensy, Pro-Micro, QMK Proton C etc.)
 * *x* keyswitches (MX, Matias, Gateron, etc)
 * *x* through hole diodes
 * Keyboard plate and plate mount stabilisers
-* Single core wire
+* Wire
 * Soldering iron
 * Rosin-cored solder
 * Adequate ventilation/a fan
 * Wire cutters/snippers
 * Tweezers and/or small needle nose pliers (optional)
 
-## Getting Things in Place
+## Starting the build
 
-As this guide is dealing with hand wiring, it assumes you already have a plate.  If you are planning a completely custom layout, tools such as https://kbplate.ai03.me/ and http://builder.swillkb.com/ can help when designing one.
+There are many ways to hand wire a PCB matrix, this guide will describe the fundamentals as well as some recommended ways to go about it.
+
+As we are dealing with hand wiring, it is assumed that you already have a plate.  If you are planning a completely custom layout, tools such as ai03 Plate Generator [ai03 Plate Generator](https://kbplate.ai03.me/) and [Swillkb Plate & Case Builder](http://builder.swillkb.com/) can help when designing one.
 
 Start by installing the switches and stabilisers in the plate. Depending on the thickness and material of the plate this may also involve hot gluing it in place.
 
+## Planning the matrix
+
+What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns).  Then we will attach a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
+
+It is fairly simple to plan for an ortholinear keyboard (like a planck) 
+
+![Example planck layout](hand_wire_images/Planck Matrix Diagram.PNG)
+
+But the larger and more complicated your keyboard, the more coplex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
+
+Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.
+
+| Board         | Controller    | # I/O  |
+| :------------ |:-------------:| ------:|
+| Pro Micro     | ATmega32u4    |     20 |
+| Teensy 2.0    | ATmega32u4    |     25 |
+| Proton C      | STM32F303xC   |     36 |
+| Teensy++ 2.0  | AT90USB1286   |     46 |
+
+ 
+
+## Wiring the matrix
+
+
+
+There is no one right way to do this. 
+
+There are a lot of soldering quides and tips available but here are some of the most useful for a novice:
+
+To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
+
+Tin your soldering iron - this means melting a small amount of solder on the end of the iron and then quickly wiping it off on a wet sponge or wire cleaning pad, this should leave a shiny silvery coating on the end which helps keep oxidisation at bay and helps solder to flow 
+
+Hold the soldering iron against what you are soldering together for a second to heat it, then apply a small amount of solder
+
 Prepare your diodes by bending the legs to on the leg furthest from the black line.
-This makes it easier to keep track of their direction (as current will only travel in one direction through a diode).  This is easily done while it's still on the packaging strip over the edge of a box or sharp table etc.
+This makes it easier to keep track of their direction.  This is easily done while it's still on the packaging strip and you bend it over something straight like the edge of a box, table, or ruler.
 
 ![Bent diode legs](hand_wire_images/bending_diodes.jpg)
 
@@ -139,6 +176,8 @@ While not required, it is considered good practice to loop any wires (including 
 ![Looped diode leg](hand_wire_images/looped_diode_leg.jpg)
 
 Get your soldering iron heated-up and collect the rest of the materials from the part list at the beginning of the guide. Place your keyboard so that the bottoms of the keyswitches are accessible - it may be a good idea to place it on a cloth to protect your keyswitches/keycaps.
+
+Handily, MX (and some other switch types) have offset legs meaning you can essentially
 
 ## Soldering the Diodes
 
@@ -204,8 +243,10 @@ As you move along, be sure that the Teensy is staying in place - recutting and s
 
 If you're more of a visual learner, or want some additional tips and something more to follow along, these two visual step by step guides may be helpful:
 
-- [BrownFox's step by step guide](https://deskthority.net/viewtopic.php?f=7&t=6050)
-- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0)
+- [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050)
+- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0) 
+- [Sasha Solomon's "Building my first Keyboard"](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f)
+- [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)   
 
 # Getting Some Basic Firmware Set Up
 
