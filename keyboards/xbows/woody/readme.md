@@ -1,5 +1,5 @@
 # WOO-DY
-![WOO-DY](https://github.com/moyi4681/qmk_firmware/blob/master/keyboards/xbows/woody/img1.png)
+![WOO-DY](https://ftp.bmp.ovh/imgs/2019/10/cf5ba2fa02a62afc.png)
 
 Woo-dy, A 67 Keys Wooden Mechanical Keyboard.
 At once minimalist and stylish, Woo-dy brings a natural calm and relaxation to your working space. The natural wood base made from real walnut or cherry reduces weight, feels great and adds subtle, natural style to any room.
