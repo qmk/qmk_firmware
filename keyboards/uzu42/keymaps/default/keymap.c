@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "uzu42.h"
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
   #include "split_util.h"
@@ -10,7 +11,6 @@
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
-#include QMK_KEYBOARD_H
 #include <stdio.h>
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -109,6 +109,37 @@ void matrix_init_user(void) {
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
 #ifdef OLED_DRIVER_ENABLE
 
+#define L_BASE 0
+#define L_LOWER (1 << 1)
+#define L_RAISE (1 << 2)
+#define L_ADJUST (1 << 3)
+#define L_ADJUST_TRI (L_ADJUST | L_RAISE | L_LOWER)
+
+char layer_state_str[24];
+
+const char *read_layer_state(void) {
+  switch (layer_state)
+  {
+  case L_BASE:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Default");
+    break;
+  case L_RAISE:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+    break;
+  case L_LOWER:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+    break;
+  case L_ADJUST:
+  case L_ADJUST_TRI:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+    break;
+  default:
+    snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+  }
+
+  return layer_state_str;
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
@@ -116,7 +147,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 // When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
