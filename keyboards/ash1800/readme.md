@@ -6,7 +6,7 @@ ASH-1800 is an attempt to make a cheap g80/g81 clone.
 
 Keyboard Maintainer: [angelbirth](https://github.com/angelbirth)  
 Hardware Supported: ASH-1800, ATMega32u4  
-Hardware Availability: private GB
+Hardware Availability: private GB  
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
+#define PRODUCT_ID 0x1800
 #define DEVICE_VER 0x0001
 #define MANUFACTURER angelbirth
 #define PRODUCT ASH-1800
-#define DESCRIPTION A custom keyboard
+#define DESCRIPTION An attempt to make a cherry g80/g81 clone
 
 /* key matrix size */
 #define MATRIX_ROWS 12
