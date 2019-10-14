@@ -129,11 +129,11 @@ There are many ways to hand wire a PCB matrix, this guide will describe the fund
 
 As we are dealing with hand wiring, it is assumed that you already have a plate.  If you are planning a completely custom layout, tools such as ai03 Plate Generator [ai03 Plate Generator](https://kbplate.ai03.me/) and [Swillkb Plate & Case Builder](http://builder.swillkb.com/) can help when designing one.
 
-Start by installing the switches and stabilisers in the plate. Depending on the thickness and material of the plate this may also involve hot gluing it in place.
+Start by installing the switches and stabilisers in the plate. Depending on the thickness and material this may also involve hot gluing it in place.
 
 ## Planning the matrix
 
-What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns).  Then we will attach a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
+What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
 
 It is fairly simple to plan for an ortholinear keyboard (like a planck) 
 
