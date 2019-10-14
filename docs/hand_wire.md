@@ -137,7 +137,7 @@ What you want to achieve is one leg from each switch being attached to the corre
 
 It is fairly simple to plan for an ortholinear keyboard (like a planck) 
 
-![Example planck layout](hand_wire_images/Planck Matrix Diagram.PNG)
+![Example planck layout](hand_wire_images/Planck_Matrix_Diagram.PNG)
 
 But the larger and more complicated your keyboard, the more coplex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
 
@@ -156,7 +156,7 @@ Also bear in mind that the number of rows plus the number of columns can not exc
 
 
 
-There is no one right way to do this. 
+There is no one right way to do this.  A lot 
 
 There are a lot of soldering quides and tips available but here are some of the most useful for a novice:
 
