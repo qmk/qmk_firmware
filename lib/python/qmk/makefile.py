@@ -16,20 +16,15 @@ def parse_rules_mk(file_path):
     Returns:
         a dictionary with the file's content
     """
-    # regex to match lines with comment at the end
+    # regex to match lines uncommented lines and get the data
     # group(1) = option's name
     # group(2) = operator (eg.: '=', '+=')
     # group(3) = value(s)
-    commented_regex = re.compile(r"^\s*(\w+)\s*([\:\+\-]?=)\s*(.*?)(?=\s*\#)")
-    # regex to match lines without comment at the end
-    # group(1) = option's name
-    # group(2) = operator (eg.: '=', '+=')
-    # group(3) = value(s)
-    uncommented_regex = re.compile(r"^\s*(\w+)\s*([\:\+\-]?=)\s*(.*?)(?=\s*$)")
+    rules_mk_regex = re.compile(r"^\s*(\w+)\s*([\?\:\+\-]?=)\s*(\S.*?)(?=\s*(\#|$))")
     mk_content = qmk.path.unicode_lines(file_path)
     parsed_file = dict()
     for line in mk_content:
-        found = commented_regex.search(line) if "#" in line else uncommented_regex.search(line)
+        found = rules_mk_regex.search(line)
         if found:
             parsed_file[found.group(1)] = dict(operator = found.group(2), value = found.group(3))
     return parsed_file
