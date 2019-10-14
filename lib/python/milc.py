@@ -595,11 +595,12 @@ class MILC(object):
 
         return entrypoint_func
 
-    def add_subcommand(self, handler, description, name=None, **kwargs):
+    def add_subcommand(self, handler, description, name=None, hidden=False, **kwargs):
         """Register a subcommand.
 
         If name is not provided we use `handler.__name__`.
         """
+
         if self._inside_context_manager:
             raise RuntimeError('You must run this before the with statement!')
 
@@ -610,8 +611,9 @@ class MILC(object):
             name = handler.__name__.replace("_", "-")
 
         self.acquire_lock()
-
-        kwargs['help'] = description
+        if not hidden:
+            kwargs['help'] = description
+        self.subcommands_default[name] = self._subparsers_default.add_parser(name, **kwargs)
         self.subcommands[name] = SubparserWrapper(self, name, self._subparsers.add_parser(name, **kwargs))
         self.subcommands[name].set_defaults(entrypoint=handler)
 
@@ -619,11 +621,11 @@ class MILC(object):
 
         return handler
 
-    def subcommand(self, description, **kwargs):
+    def subcommand(self, description, hidden=False, **kwargs):
         """Decorator to register a subcommand.
         """
         def subcommand_function(handler):
-            return self.add_subcommand(handler, description, **kwargs)
+            return self.add_subcommand(handler, description, hidden = hidden, **kwargs)
 
         return subcommand_function
 
