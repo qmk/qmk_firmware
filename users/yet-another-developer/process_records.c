@@ -2,37 +2,148 @@
 
 uint16_t copy_paste_timer;
 
-__attribute__((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
-__attribute__((weak))
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
+__attribute__ ((weak))
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 
-// Defines actions tor my global custom keycodes. Defined in drashna.h file
+// Defines actions for my global custom keycodes. Defined in yet-another-developer.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // If console is enabled, it will print the matrix position and status of each key pressed
+  // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-#    if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
+  #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed);
-#    else
+  #else
     xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#    endif
-#endif  // !KEYLOGGER_ENABLE
+  #endif
+#endif //KEYLOGGER_ENABLE
 
-    switch (keycode) {
-        case KC_QWERTY ... KC_WORKMAN:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(keycode - KC_QWERTY);
-            }
-            break;
+  switch (keycode) {
+  case KC_QWERTY ... KC_UNICODE:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(keycode - KC_QWERTY);
+    }
+    break;
 
         case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
             if (!record->event.pressed) {
                 clear_mods();
                 clear_oneshot_mods();
                 send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
+                {
+                    #if defined(__arm__)
+                    send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
+                    #elif defined(BOOTLOADER_DFU)
+                    send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
+                    #elif defined(BOOTLOADER_HALFKAY)
+                    send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
+                    #elif defined(BOOTLOADER_CATERINA)
+                    send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
+                    #endif // bootloader options
+                }
+            }
+            break;
+
+        /* Tap Dance */
+        case MC_QT1:  // ""
+            if(record->event.pressed){
+            SEND_STRING("\"\"");
+            tap_code(KC_LEFT);
+            }
+            break;
+        case MC_QT2:  // ''
+            if(record->event.pressed){
+                SEND_STRING("''");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MC_QT3:  // `'
+            if(record->event.pressed){
+                SEND_STRING("`'");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MC_PAR:  // Parenthesis
+            if(record->event.pressed){
+                SEND_STRING("()");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MC_CUR:  // Curly bracket
+            if(record->event.pressed){
+                SEND_STRING("{}");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MC_SQR:  // Square bracket
+            if(record->event.pressed){
+                SEND_STRING("[]");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MC_ABR:  // Angle bracket
+            if(record->event.pressed){
+                SEND_STRING("<>");
+                tap_code(KC_LEFT);
+            }
+            break;
+        case MCT_NEW: // New Tmux Session
+            if(record->event.pressed){
+                SEND_STRING(":neww");
+                tap_code(KC_ENT);
+            }
+            break;
+        case MCT_SH:  // Tmux horizontal split
+            if(record->event.pressed){
+                SEND_STRING("%");
+            }
+            break;
+        case MCT_SV:  // Tmux vertical split
+            if(record->event.pressed){
+                SEND_STRING("\"");
+            }
+            break;
+        case MCT_ZM:  // Tmux zoom
+            if(record->event.pressed){
+                tap_code(KC_Z);
+            }
+            break;
+        case MCT_SCR: // Tmux scroll mode
+            if(record->event.pressed){
+                tap_code(KC_PGUP);
+            }
+            break;
+        case MCT_UP:  // Tmux up
+            break;
+        case MCT_DW:  // Tmux down
+            break;
+        case MCT_LFT: // Tmux left
+            break;
+        case MCT_RGT: // Tmux right
+            tap_code(KC_RIGHT);
+            break;
+        case MCV_B:   // Vim begin of line
+            if(record->event.pressed){
+                tap_code(KC_0);
+            }
+            break;
+        case MCV_E:   // Vim end of line
+            if(record->event.pressed){
+                SEND_STRING(":vsplit");
+                tap_code(KC_ENT);
+            }
+            break;
+        case MCT_F:   // Vim for loop
+            if(record->event.pressed){
+                SEND_STRING(":help");
+                tap_code(KC_ENT);
             }
             break;
 
@@ -41,6 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             break;
+
 
         case KC_CCCV:  // One key copy/paste
             if (record->event.pressed) {
@@ -78,9 +190,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_unicode_hex_string("0CA0 005F 0CA0");
             }
             break;
-#endif
+#endif // UNICODE_ENABLE
     }
 
     return process_record_keymap(keycode, record) &&
-           process_record_secrets(keycode, record);
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+        process_record_user_rgb(keycode, record) &&
+#endif // RGBLIGHT_ENABLE
+        process_record_secrets(keycode, record);
 }

@@ -60,14 +60,43 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
 
-#define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
-#define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
-#define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#ifdef TAP_DANCE_ENABLE
+  #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+  #define _________________COLEMAK_L2________________       KC_BOL,    KC_R,    KC_S,    KC_T,    KC_D
+  #define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
-#define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+  #define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+  #define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+  #define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#else
+  #define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+  #define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+  #define _________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
+  #define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+  #define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+  #define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#endif
+
+
+
+
+#define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________DVORAK_L3_________________        KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X
+
+#define _________________DVORAK_R1_________________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
+
+
+#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
+#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
+#define _________________WORKMAN_L3________________       KC_Z,    KC_X,    KC_M,   KC_C,     KC_V
+
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
+#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLASH
 
 // #define _________________WHITE_R1__________________       KC_V,    KC_Y,    KC_D,    KC_COMM, KC_QUOT
 // #define _________________WHITE_R2__________________       KC_A,    KC_T,    KC_H,    KC_E,    KC_B
@@ -77,6 +106,26 @@ NOTE: These are all the same length.  If you do a search/replace
 // #define _________________WHITE_L2__________________       KC_MINS, KC_C,    KC_S,    KC_N,    KC_O  // KC_I
 // #define _________________WHITE_L3__________________       KC_X,    KC_R,    KC_F,    KC_DOT,  KC_Z
 
+
+#ifdef UNICODE_ENABLE
+#define _______________UNICODE_L1__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
+#define _______________UNICODE_L2__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
+#define _______________UNICODE_L3__________________        UC_DISA,UC_DISA, UC_DISA, UC_DISA, UC_DISA
+
+#define _______________UNICODE_R1__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#define _______________UNICODE_R2__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#define _______________UNICODE_R3__________________        UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG, UC_SHRG
+#endif
+
+#ifdef UNICODEMAP_ENABLE
+#define _______________UNICODE_L1__________________        X(SMRK),  X(THINK),  X(CLOWN), X(HUNDR), X(BANG)
+#define _______________UNICODE_L2__________________        X(GRIN),  X(MONKEY), X(OKOK), X(EGGPL), X(LIT)
+#define _______________UNICODE_L3__________________        X(WEARY), X(UNAMU),  X(EFFU), X(MONOCL), X(IRONY)
+
+#define _______________UNICODE_R1__________________        X(DRUG0), X(THUP), X(INUP), X(DIZZY), X(COOL)
+#define _______________UNICODE_R2__________________        X(FIST0), X(FIST2),X(FIST3),X(FIST1), X(OKOK)
+#define _______________UNICODE_R3__________________        X(MNDBLWN), X(THDN), X(SPOCK),X(HOLE),  X(DASH)
+#endif
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -91,7 +140,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________LOWER_L3__________________        _________________FUNC_RIGHT________________
 
 #define _________________LOWER_R1__________________        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
-#define _________________LOWER_R2__________________        _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
+#define _________________LOWER_R2__________________        OS_UNI,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
 #define _________________LOWER_R3__________________        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
@@ -106,12 +155,12 @@ NOTE: These are all the same length.  If you do a search/replace
 
 
 
-#define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  CG_NORM
-#define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, RGB_TOG
+#define _________________ADJUST_L1_________________        ___________________BLANK___________________
+#define _________________ADJUST_L2_________________        _________________FUNC_LEFT_________________
+#define _________________ADJUST_L3_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
-#define _________________ADJUST_R2_________________        CG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
+#define _________________ADJUST_R2_________________        _________________FUNC_RIGHT________________
 #define _________________ADJUST_R3_________________        KC_MUTE, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 
 // clang-format on

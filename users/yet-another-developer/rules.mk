@@ -4,6 +4,20 @@ SRC += yet-another-developer.c \
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+     SRC += tap_dances.c
+endif
+
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+     SRC += combo.c
+endif
+
+
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+     SRC += leader.c
+endif
+
+
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
     SRC += secrets.c
 endif
@@ -11,6 +25,16 @@ endif
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
+endif
+
+
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+     SRC += unicode.c
+endif
+
+
+ifeq ($(strip $(MACROS_ENABLED)), yes)
+     OPT_DEFS += -DMACROS_ENABLED
 endif
 
 

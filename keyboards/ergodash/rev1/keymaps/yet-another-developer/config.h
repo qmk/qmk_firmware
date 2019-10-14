@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_LEFT
+#define MASTER_RIGHT
 // #define EE_HANDS
 
 #define AUTO_SHIFT_TIMEOUT 210
@@ -58,11 +58,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MK_W_OFFSET_0       1
 #define MK_W_INTERVAL_0     120
-#define MK_W_OFFSET_1       1 
+#define MK_W_OFFSET_1       1
 #define MK_W_INTERVAL_1     100
 #define MK_W_OFFSET_2       1
 #define MK_W_INTERVAL_2     60
 
-//#define RETRO_TAPPING
+//#define STARTUP_RESET_EEPROM // EMERGENCY
 
-#define NO_SECRETS no
