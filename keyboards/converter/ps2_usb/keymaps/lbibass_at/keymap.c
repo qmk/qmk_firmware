@@ -1,9 +1,11 @@
+#define MAX 1
 #include QMK_KEYBOARD_H
 #include "ps2.h"
 #define _BL 0
 #define _FN1 2
 #define _NUM 3
 #define _NUMF1 4
+int scroll = 0;
 enum my_keycodes {
   num1 = SAFE_RANGE,
   num2,};
@@ -58,7 +60,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case num1:
@@ -69,6 +70,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Do something else when release
             }
             return false;  // Skip all further processing of this key
+
+            return true;  // Let QMK send the enter press/release events
+        default:
+            return true;  // Process all other keycodes normally
         case num2:
             if (record->event.pressed) {
                 layer_clear();
@@ -80,8 +85,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;  // Skip all further processing of this key
 
             return true;  // Let QMK send the enter press/release events
-        default:
-            return true;  // Process all other keycodes normally
-    }
 
+            return true;  // Process all other keycodes normally
+
+        case KC_INSERT:
+            if (record->event.pressed) {
+                register_code(KC_INSERT);
+                ps2_host_set_led(1);
+                if (scroll == MAX) {
+                    // do something
+                    ps2_host_set_led(0x0);  // clear the led bank.
+
+                    scroll--;  // reset counter to 0
+
+                } else {
+                    scroll++;
+                }
+            } else {
+                unregister_code(KC_INSERT);
+            }
+    }
+    return false;  // Skip all further processing of this key
+
+    return true;  // Let QMK send the enter press/release events
+
+    return true;  // Process all other keycodes normally
 }
