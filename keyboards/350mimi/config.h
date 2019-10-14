@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_COL_PINS { A7, A6, A5, A4, A3, A2, A15, B3, B4 }
-#define MATRIX_ROW_PINS { B13, B12, A8, B15, A10, A9, B9, B8, B1, B0, B10, B2 }
+#define MATRIX_COL_PINS { B4, B5, B8, B3, A15, A3, B15, B14, B13, B12, A4, B10, A5, B0, A6 }
+#define MATRIX_ROW_PINS { B1, A7, B2, B11 }
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
