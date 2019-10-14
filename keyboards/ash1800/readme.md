@@ -1,12 +1,12 @@
 # ash1800
 
-![ash1800](imgur.com image replace me!)
+![ash1800](https://imgur.com/YP173rP)
 
-A short description of the keyboard/project
+ASH-1800 is an attempt to make a cheap g80/g81 clone.
 
-Keyboard Maintainer: [angelbirth](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [angelbirth](https://github.com/angelbirth)  
+Hardware Supported: ASH-1800, ATMega32u4  
+Hardware Availability: private GB
 
 Make example for this keyboard (after setting up your build environment):
 
