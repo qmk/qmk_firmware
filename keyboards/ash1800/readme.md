@@ -1,6 +1,6 @@
 # ash1800
 
-![ash1800](https://imgur.com/YP173rP)
+![ash1800](https://i.imgur.com/YP173rP.jpg)
 
 ASH-1800 is an attempt to make a cheap g80/g81 clone.
 
