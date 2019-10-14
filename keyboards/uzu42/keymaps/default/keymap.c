@@ -10,6 +10,8 @@
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
+#include QMK_KEYBOARD_H
+#include <stdio.h>
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
@@ -206,3 +208,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#ifdef RGBLIGHT_ENABLE
+
+char rbf_info_str[24];
+const char *read_rgb_info(void) {
+
+  snprintf(rbf_info_str, sizeof(rbf_info_str), "%s %2d h%3d s%3d v%3d",
+    rgblight_config.enable ? "on" : "- ", rgblight_config.mode,
+    rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+  return rbf_info_str;
+}
+#endif
