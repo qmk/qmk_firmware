@@ -1,6 +1,6 @@
 # Hand-Wiring Guide
 
-## Preamble: How a Keyboard Matrix Works 
+## Preamble: How a Keyboard Matrix Works (and why we need diodes)
 
 The collapsible section below covers why keyboards are wired the way they are, as outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
 
@@ -143,10 +143,12 @@ What you want to achieve is one leg from each switch being attached to the corre
 
 It is fairly simple to plan for an ortholinear keyboard (like a planck) 
 
-![Example planck layout](hand_wire_images/Planck_Matrix_Diagram.PNG)
+![Example planck matrix](hand_wire_images/Planck_Matrix_Diagram.PNG)
 Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
-But the larger and more complicated your keyboard, the more complex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
+But the larger and more complicated your keyboard, the more complex the matrix.  [Keyboard Firmware Builder](https://kbfirmware.com/) can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
+
+![Example ISO matrix](hand_wire_images/KeyboardFirmwareBuilder.PNG)
 
 Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.
 
@@ -257,15 +259,7 @@ Now that the matrix itself is complete, it's time to connect what you've done to
 
 Place the microcontroller where you want it to be located, give thought to mounting and case alignment.  Bear in mind that the location of the USB socket can be different from the controller by using a short male to female cable if required,.
 
-Find the pinout/documentation for your microcontroller board ([links here](#planning-the-matrix))
-
-Cut wires to the length of the distance from the start of each column/row to the controller.
-
-Ribbon cable can be used to keep this extra tidy.  You may also want to consider routing the wires beneath the exisiting columns/rows.
-
-<img src="hand_wire_images/ribbon_cable.jpg" alt="Ribbon Cable" width="200"/>
-
-
+Find the pinout/documentation for your microcontroller board ([links here](#planning-the-matrix)) and make a note of all the digital I/O pins on it (note that on some controllers, like the teensy, analogue I/O can double as digital) as these are the pins you want to connect your wires to.
 
 <details>
 
@@ -273,30 +267,34 @@ Ribbon cable can be used to keep this extra tidy.  You may also want to consider
 
  There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
 
-The pins you'll absolutely have to avoid are: GND, VCC, AREF, and RST - all the others are usable and accessible in the firmware.
-
-Place the Teensy where you plan to put it - you'll have to cut wires to length in the next step, and you'll want to make sure they reach.
-
-Starting with the first column on the right side, measure out how much wire you'll need to connect it to the first pin on the Teensy - it helps to pick a side that you'll be able to work down, to keep the wires from overlapping too much. It may help to leave a little bit of slack so things aren't too tight. Cut the piece of wire, and solder it to the Teensy, and then the column - you can solder it anywhere along the column, but it may be easiest at the keyswitch. Just be sure the wire doesn't separate from the keyswitch when soldering.
-
-As you move from column to column, it'll be helpful to write the locations of the pins down. We'll use this data to setup the matrix in the future.
-
-When you're done with the columns, start with the rows in the same process, from top to bottom, and write them all down. Again, you can solder anywhere along the row, as long as it's after the diode - soldering before the diode (on the keyswitch side) will cause that row not to work.
-
-As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
+The pins you'll absolutely have to avoid, as with any controller, are: GND, VCC, AREF, and RST - all the others are usable and accessible in the firmware.
 
 </details>
+
+Cut wires to the length of the distance from the a point on each column/row to the controller.  You can solder anywhere along the row, as long as it's after the diode - soldering before the diode (on the keyswitch side) will cause that row not to work.
+
+Ribbon cable can be used to keep this extra tidy.  You may also want to consider routing the wires beneath the exisiting columns/rows.
+
+<img src="hand_wire_images/ribbon_cable.jpg" alt="Ribbon Cable" width="350"/>
+
+As you solder the wires to the controller make a note of which row/column is going to which pin on the controller as we'll use this data to setup the matrix when we create the firmware.
+
+As you move along, be sure that the controller is staying in place - recutting and soldering the wires is a pain!
+
 
 
 # Getting Some Basic Firmware Set Up
 
-From here, you should have a working keyboard once you program a firmware. 
+From here, you should have a working keyboard once you program a firmware.
 
+Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](http://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix).
+
+Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below.
 
 
 <details>
 
-<summary>Creating and compiling your firmware locally</summary>
+<summary>Creating and compiling your firmware locally (old method)</summary>
 
 To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
@@ -422,6 +420,17 @@ Once everything is installed, running `make` in the terminal should get you some
 Once you have your `<project_name>.hex` file, open up the Teensy loader application, and click the file icon. From here, navigate to your `QMK/keyboards/<project_name>/` folder, and select the `<project_name>.hex` file. Plug in your keyboard and press the button on the Teensy - you should see the LED on the device turn off once you do. The Teensy Loader app will change a little, and the buttons should be clickable - click the download button (down arrow), and then the reset button (right arrow), and your keyboard should be ready to go!
 
 </details>
+
+## Flashing the Firmware
+
+Install the [QMK toolbox](https://github.com/qmk/qmk_toolbox).
+
+![QMK Toolbox](hand_wire_images/QMK_toolbox.png)
+
+Under "Local File" navigate to your newly created .hex file.  Under "Microcontroller", select the corresponding one for your controller board (common ones in table in [planning the matrix](#planning-the-matrix)).
+
+Plug in your keyboard and press the reset button (or short the Reset and Ground pins if there is no button) and click the "Flash" button
+
 
 ## Testing Your Firmware
 
