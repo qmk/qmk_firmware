@@ -127,7 +127,7 @@ You will need: (where *x* is the number of keys on your planned keyboard)
 
 There are many ways to hand wire a PCB matrix, this guide will describe the fundamentals as well as some recommended ways to go about it.
 
-As we are dealing with hand wiring, it is assumed that you already have a plate.  If you are planning a completely custom layout, tools such as ai03 Plate Generator [ai03 Plate Generator](https://kbplate.ai03.me/) and [Swillkb Plate & Case Builder](http://builder.swillkb.com/) can help when designing one.
+As we are dealing with hand wiring, it is assumed that you already have a plate.  If you are planning a completely custom layout, tools such as [ai03 Plate Generator](https://kbplate.ai03.me/) and [Swillkb Plate & Case Builder](http://builder.swillkb.com/) can help when designing one.
 
 Start by installing the switches and stabilisers in the plate. Depending on the thickness and material this may also involve hot gluing it in place.
 
@@ -138,6 +138,7 @@ What you want to achieve is one leg from each switch being attached to the corre
 It is fairly simple to plan for an ortholinear keyboard (like a planck) 
 
 ![Example planck layout](hand_wire_images/Planck_Matrix_Diagram.PNG)
+Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
 But the larger and more complicated your keyboard, the more coplex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
 
@@ -155,8 +156,19 @@ Also bear in mind that the number of rows plus the number of columns can not exc
 ## Wiring the matrix
 
 
+There is no one right way to do this.  What you want to achieve is good connection at all of the joints planned and no unintentional shorts.
 
-There is no one right way to do this.  A lot 
+Established materials and techniques include:
+
+| Technique     | Examples | Pros | Cons | Image
+| :-------------| :------- | :--- | :--- | :---
+| Lengths of wire stripped along it | [Sasha Solomon's Dactyl](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f) and [Cribbit's modern hand wire](https://geekhack.org/index.php?topic=87689.0) | Neat and tidy | Some effort in stripping the wire | ![Stripped wire](hand_wire_images/stripped_wire.jpeg)
+| Short lengths of wire | [u/xicolinguada's ortho build](https://www.reddit.com/r/MechanicalKeyboards/comments/c39k4f/my_first_hand_wired_keyboard_its_not_perfect_but/) | easier to strip the wire | more difficult to place | ![individual wire lengths](hand_wire_images/Individual_lengths_wire.jpg)
+| Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (has a thin layer of insulation that burns off with heat) | Appearance? | ![Magnet wire](hand_wire_images/magnet_wire.jpeg)
+| Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | fewer solder joints required | uninsulated | ![Bent diode legs](hand_wire_images/diode_legs.jpg)
+| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | very pretty | effort in bending and positioning rods | ![Hardline hand wire](hand_wire_images/hardline.jpeg)
+| Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](hand_wire_images/insulated_bare_wire.jpg)
+
 
 There are a lot of soldering quides and tips available but here are some of the most useful for a novice:
 
@@ -239,14 +251,8 @@ When you're done with the columns, start with the rows in the same process, from
 
 As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
 
-## Additional guides
 
-If you're more of a visual learner, or want some additional tips and something more to follow along, these two visual step by step guides may be helpful:
 
-- [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050)
-- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0) 
-- [Sasha Solomon's "Building my first Keyboard"](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f)
-- [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)   
 
 # Getting Some Basic Firmware Set Up
 
@@ -395,9 +401,12 @@ Now that you have a working board, it's time to get things in their permanent po
 
 There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
 
+# Links to other guides:
 
-[Brownfox guide on Deskthority]: https://deskthority.net/viewtopic.php?f=7&t=5761&start=
+- [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050) also his website and latest video
+- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0) 
+- [Sasha Solomon's "Building my first Keyboard"](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f)
+- [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)   
 
-[W]
 
 
