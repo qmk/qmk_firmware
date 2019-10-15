@@ -15,7 +15,7 @@ COMMAND_ENABLE    = no       # Commands for debug and configuration
 LEADER_ENABLE     = yes      # default is yes
 TAP_DANCE_ENABLE  = no       #(+1254)
 UNICODE_ENABLE    = no       #(+1134)
-UNICODEMAP_ENABLE = yes
+UNICODEMAP_ENABLE = no
 NKRO_ENABLE       = no
 MACROS_ENABLED    = no
 
