@@ -184,7 +184,7 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-![Looped around rod](hand_wire_images/wire_loop.jpg x100)![Looped diode leg](hand_wire_images/looped_diode_leg.jpg x100)
+![Looped around rod](hand_wire_images/wire_loop.jpg =50%)![Looped diode leg](hand_wire_images/looped_diode_leg.jpg =50%)
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
