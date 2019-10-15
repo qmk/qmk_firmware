@@ -59,9 +59,9 @@ util/Win_Check_Output.txt
 .tags
 
 # ignore image files
-#*.png
-#*.gif
-#*.jpg
+*.png
+*.gif
+*.jpg
 
 # Do not ignore MiniDox left/right hand eeprom files
 !keyboards/minidox/*.eep

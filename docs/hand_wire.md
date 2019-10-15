@@ -143,20 +143,22 @@ What you want to achieve is one leg from each switch being attached to the corre
 
 It is fairly simple to plan for an ortholinear keyboard (like a planck) 
 
-![Example planck matrix](hand_wire_images/Planck_Matrix_Diagram.PNG)
+![Example planck matrix](https://i.imgur.com/FRShcLD.png)
 Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
 But the larger and more complicated your keyboard, the more complex the matrix.  [Keyboard Firmware Builder](https://kbfirmware.com/) can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
 
-![Example ISO matrix](hand_wire_images/KeyboardFirmwareBuilder.PNG)
+![Example ISO matrix](https://i.imgur.com/UlJ4ZDP.png)
 
-Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.
+Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro
+
+#### Common Microcontroller Boards
 
 | Board         | Controller    | # I/O  | Pinout |
 | :------------ |:-------------:| ------:| ------ |
 | Pro Micro     | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro)       |
 | Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
-| Proton C      | STM32F303xC   |     36 | [link 1](/docs/hand_wire_images/proton_C_pinout.jpg), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
+| QMK Proton C      | STM32F303xC   |     36 | [link 1](https://i.imgur.com/RhtrAlc.png), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
 | Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html)       |
 
  
@@ -170,13 +172,13 @@ Established materials and techniques include:
 
 | Technique     | Examples | Pros | Cons | Image
 | :-----------| :------- | :------ | :--- | :---
-| Lengths of wire with stripped segments | [Sasha Solomon's Dactyl](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f) and [Cribbit's modern hand wire](https://geekhack.org/index.php?topic=87689.0) | Neat and tidy | Some effort in stripping the wire | ![Stripped wire](hand_wire_images/stripped_wire.jpeg)
-| Short lengths of wire | [u/xicolinguada's ortho build](https://www.reddit.com/r/MechanicalKeyboards/comments/c39k4f/my_first_hand_wired_keyboard_its_not_perfect_but/) | Easier to strip the wire | More difficult to place | ![individual wire lengths](hand_wire_images/Individual_lengths_wire.jpg)
-| Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (insulation burns off with heat) | Appearance? | ![Magnet wire](hand_wire_images/magnet_wire.jpg)
-| Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | Fewer solder joints required | Uninsulated | ![Bent diode legs](hand_wire_images/diode_legs.jpg)
-| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | Effort in bending and positioning rods | ![Hardline hand wire](hand_wire_images/hardline.jpg)
-| Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](hand_wire_images/insulated_bare_wire.jpg)
-| Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Only really works when your plate/case aligns with the bottom of your switches | ![Copper tape](hand_wire_images/copper_tape.jpg)
+| Lengths of wire with stripped segments | [Sasha Solomon's Dactyl](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f) and [Cribbit's modern hand wire](https://geekhack.org/index.php?topic=87689.0) | Neat and tidy | Some effort in stripping the wire | ![Stripped wire](https://i.imgur.com/0GNIYY0.jpg)
+| Short lengths of wire | [u/xicolinguada's ortho build](https://www.reddit.com/r/MechanicalKeyboards/comments/c39k4f/my_first_hand_wired_keyboard_its_not_perfect_but/) | Easier to strip the wire | More difficult to place | ![individual wire lengths](https://i.imgur.com/mBe5vkL.jpg)
+| Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (insulation burns off with heat) | Appearance? | ![Magnet wire](https://i.imgur.com/b4b7KDb.jpg)
+| Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | Fewer solder joints required | Uninsulated | ![Bent diode legs](https://i.imgur.com/aTnG8TV.jpg)
+| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | More difficult. No physical insulation | ![Hardline hand wire](https://i.imgur.com/CnASmPo.jpg)
+| Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](https://i.imgur.com/AvXZShD.jpg)
+| Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Only really works when your plate/case aligns with the bottom of your switches | ![Copper tape](https://i.imgur.com/RFyNMlL.jpg)
 
 
 Note that these methods can be combined.  Prepare your lengths of wire before moving on to soldering.
@@ -187,11 +189,11 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-<img src="hand_wire_images/wire_loop.jpg" alt="Looped around rod" width="200"/> <img src="hand_wire_images/looped_diode_leg.jpg" alt="Looped diode leg" width="200"/>
+<img src="https://i.imgur.com/eHJjmnU.jpg" alt="Looped around rod" width="200"/> <img src="https://i.imgur.com/8nbxmmr.jpg?1" alt="Looped diode leg" width="200"/>
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
-<img src="hand_wire_images/bending_diodes.jpg" alt="Bent diode legs" width="200"/>
+<img src="https://i.imgur.com/oITudbX.jpg" alt="Bent diode legs" width="200"/>
 
 If your iron has temperature control, set it to 315ºC (600ºF).
 
@@ -259,7 +261,7 @@ Now that the matrix itself is complete, it's time to connect what you've done to
 
 Place the microcontroller where you want it to be located, give thought to mounting and case alignment.  Bear in mind that the location of the USB socket can be different from the controller by using a short male to female cable if required,.
 
-Find the pinout/documentation for your microcontroller board ([links here](#planning-the-matrix)) and make a note of all the digital I/O pins on it (note that on some controllers, like the teensy, analogue I/O can double as digital) as these are the pins you want to connect your wires to.
+Find the pinout/documentation for your microcontroller board ([links here](#common-microcontroller-boards)) and make a note of all the digital I/O pins on it (note that on some controllers, like the teensy, analogue I/O can double as digital) as these are the pins you want to connect your wires to.
 
 <details>
 
@@ -275,7 +277,7 @@ Cut wires to the length of the distance from the a point on each column/row to t
 
 Ribbon cable can be used to keep this extra tidy.  You may also want to consider routing the wires beneath the exisiting columns/rows.
 
-<img src="hand_wire_images/ribbon_cable.jpg" alt="Ribbon Cable" width="350"/>
+<img src="https://i.imgur.com/z2QlKfB.jpg" alt="Ribbon Cable" width="350"/>
 
 As you solder the wires to the controller make a note of which row/column is going to which pin on the controller as we'll use this data to setup the matrix when we create the firmware.
 
@@ -425,9 +427,9 @@ Once you have your `<project_name>.hex` file, open up the Teensy loader applicat
 
 Install the [QMK toolbox](https://github.com/qmk/qmk_toolbox).
 
-![QMK Toolbox](hand_wire_images/QMK_toolbox.png)
+![QMK Toolbox](https://i.imgur.com/86Cz30H.png)
 
-Under "Local File" navigate to your newly created .hex file.  Under "Microcontroller", select the corresponding one for your controller board (common ones in table in [planning the matrix](#planning-the-matrix)).
+Under "Local File" navigate to your newly created .hex file.  Under "Microcontroller", select the corresponding one for your controller board (common ones available [here](#common-microcontroller-boards)).
 
 Plug in your keyboard and press the reset button (or short the Reset and Ground pins if there is no button) and click the "Flash" button
 
@@ -446,7 +448,7 @@ Carefully flip your keyboard over, open up a new text document, and try typing -
 
 If you've done all of these things, keep in mind that sometimes you might have had multiple things affecting the keyswitch, so it doesn't hurt to test the keyswitch by shorting it out at the end.
 
-# Securing the Teensy, Finishing Your Hardware, Getting Fancier Firmware
+# Securing the Controller, Finishing Your Hardware, Getting Fancier Firmware
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
