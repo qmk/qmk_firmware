@@ -104,6 +104,7 @@ Further reading:
 - [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
+- [How keyboards work - QMK documentation](/how_keyboards_work)
 
 </details>
 
@@ -121,6 +122,10 @@ You will need: (where *x* is the number of keys on your planned keyboard)
 * Rosin-cored solder
 * Adequate ventilation/a fan
 * Wire cutters/snippers
+
+Optional but useful:
+
+* Wire strippers/a sharp knife
 * Tweezers and/or small needle nose pliers (optional)
 
 ## Starting the build
@@ -140,16 +145,16 @@ It is fairly simple to plan for an ortholinear keyboard (like a planck)
 ![Example planck layout](hand_wire_images/Planck_Matrix_Diagram.PNG)
 Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
-But the larger and more complicated your keyboard, the more coplex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
+But the larger and more complicated your keyboard, the more complex the matrix.  Keyboard Firmware Builder can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
 
 Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.
 
-| Board         | Controller    | # I/O  |
-| :------------ |:-------------:| ------:|
-| Pro Micro     | ATmega32u4    |     20 |
-| Teensy 2.0    | ATmega32u4    |     25 |
-| Proton C      | STM32F303xC   |     36 |
-| Teensy++ 2.0  | AT90USB1286   |     46 |
+| Board         | Controller    | # I/O  | Pinout |
+| :------------ |:-------------:| ------:| ------ |
+| Pro Micro     | ATmega32u4    |     20 | [link])(https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro)       |
+| Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
+| Proton C      | STM32F303xC   |     36 | [Same as pro micro (plus breakaway)](/hand_wire_images/proton_C_pinout.jpg)       |
+| Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html)       |
 
  
 
@@ -161,35 +166,43 @@ There is no one right way to do this.  What you want to achieve is good connecti
 Established materials and techniques include:
 
 | Technique     | Examples | Pros | Cons | Image
-| :-------------| :------- | :--- | :--- | :---
-| Lengths of wire stripped along it | [Sasha Solomon's Dactyl](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f) and [Cribbit's modern hand wire](https://geekhack.org/index.php?topic=87689.0) | Neat and tidy | Some effort in stripping the wire | ![Stripped wire](hand_wire_images/stripped_wire.jpeg)
+| :-----------| :------- | :------ | :--- | :---
+| Lengths of wire with stripped segments | [Sasha Solomon's Dactyl](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f) and [Cribbit's modern hand wire](https://geekhack.org/index.php?topic=87689.0) | Neat and tidy | Some effort in stripping the wire | ![Stripped wire](hand_wire_images/stripped_wire.jpeg)
 | Short lengths of wire | [u/xicolinguada's ortho build](https://www.reddit.com/r/MechanicalKeyboards/comments/c39k4f/my_first_hand_wired_keyboard_its_not_perfect_but/) | Easier to strip the wire | More difficult to place | ![individual wire lengths](hand_wire_images/Individual_lengths_wire.jpg)
-| Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (has a thin layer of insulation that burns off with heat) | Appearance? | ![Magnet wire](hand_wire_images/magnet_wire.jpeg)
-| Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | fewer solder joints required | uninsulated | ![Bent diode legs](hand_wire_images/diode_legs.jpg)
-| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | very pretty | effort in bending and positioning rods | ![Hardline hand wire](hand_wire_images/hardline.jpg)
+| Magnet/Enamelled wire | [Brett Kosinski's handwired alpha](http://blog.b-ark.ca/Blog-2019-01-27) and [fknraiden's custom board](https://geekhack.org/index.php?topic=74223.0) | Can be directly soldered onto (insulation burns off with heat) | Appearance? | ![Magnet wire](hand_wire_images/magnet_wire.jpg)
+| Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | Fewer solder joints required | Uninsulated | ![Bent diode legs](hand_wire_images/diode_legs.jpg)
+| Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | Effort in bending and positioning rods | ![Hardline hand wire](hand_wire_images/hardline.jpg)
 | Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](hand_wire_images/insulated_bare_wire.jpg)
+| Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Messy, most useful when your plate/case aligns with the bottom of your switches | ![Copper tape](hand_wire_images/copper_tape.jpg)
 
 
-There are a lot of soldering quides and tips available but here are some of the most useful for a novice:
+Note that these methods can be combined.  Prepare your lengths of wire before moving on to soldering.
+
+### Soldering
+
+There are a lot of soldering guides and tips available elsewhere but here are some of the most useful and relevant for hand wiring:
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-Tin your soldering iron - this means melting a small amount of solder on the end of the iron and then quickly wiping it off on a wet sponge or wire cleaning pad, this should leave a shiny silvery coating on the end which helps keep oxidisation at bay and helps solder to flow 
+![Looped around rod](hand_wire_images/wire_loop.jpg)![Looped diode leg](hand_wire_images/looped_diode_leg.jpg)
 
-Hold the soldering iron against what you are soldering together for a second to heat it, then apply a small amount of solder
-
-Prepare your diodes by bending the legs to on the leg furthest from the black line.
-This makes it easier to keep track of their direction.  This is easily done while it's still on the packaging strip and you bend it over something straight like the edge of a box, table, or ruler.
+If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
 ![Bent diode legs](hand_wire_images/bending_diodes.jpg)
 
-While not required, it is considered good practice to loop any wires (including the diode legs) around the switch pins.  This helps ensure a strong solder joint.
+If your iron has a temperature control, set it to 315ºC (600ºF).
 
-![Looped diode leg](hand_wire_images/looped_diode_leg.jpg)
+Once heated, tin your soldering iron - this means melting a small amount of solder on the end of the iron and then quickly wiping it off on a wet sponge or wire cleaning pad, leaving a shiny silvery coating on the end which helps keep oxidisation at bay and helps solder to flow.
 
-Get your soldering iron heated-up and collect the rest of the materials from the part list at the beginning of the guide. Place your keyboard so that the bottoms of the keyswitches are accessible - it may be a good idea to place it on a cloth to protect your keyswitches/keycaps.
+When you come to apply the solder, hold the soldering iron against the two surfaces for a second to heat it, then apply a small amount of solder to join the two peices together.  Heating the surfaces ensures that the solder adheres to it and that it does not cool too quickly.
 
-Handily, MX (and some other switch types) have offset legs meaning you can essentially
+Don't hold the iron on the solder/joint longer than necessary, heat will be conducted through the surfaces and can damage components (melt switch housings etc.) also solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting), the longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which apart from looking bad, may also increase the risk of shorts.
+
+The following collapsible section describes in detail how to solder rows using the bent diode technique and columns using short lengths of wire.
+
+<details>
+
+<summary>Click for details</summary>
 
 ## Soldering the Diodes
 
@@ -235,9 +248,21 @@ Before beginning to solder, it helps to have your wire pre-bent (if using single
 
 If you're not using any insulation, you can try to keep the column wires elevated, and solder them near the tips of the keyswitch contacts - if the wires are sturdy enough, they won't short out to the row wiring an diodes.
 
-## Wiring Things to the Teensy
+</details>
 
-Now that the matrix itself is complete, it's time to connect what you've done to the Teensy. You'll be needing the number of pins equal to your number of columns + your number of rows. There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
+# Wiring up the controller
+
+Now that the matrix itself is complete, it's time to connect what you've done to the microcontroller board.
+
+Place the microcontroller where you want it to be located, give thought to mounting and case alignment.
+
+Find the pinout/documentation for your microcontroller board ([links here](#planning-the-matrix))
+
+Cut wires to the length of the distance from the start of each column/row to the controller.
+
+## Specific instructions for Teensy
+
+ There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
 
 The pins you'll absolutely have to avoid are: GND, VCC, AREF, and RST - all the others are usable and accessible in the firmware.
 
@@ -256,9 +281,15 @@ As you move along, be sure that the Teensy is staying in place - recutting and s
 
 # Getting Some Basic Firmware Set Up
 
-From here, you should have a working keyboard once you program a firmware. Before we attach the Teensy permanently to the keyboard, let's quickly get some firmware loaded onto the Teensy so we can test each keyswitch.
+From here, you should have a working keyboard once you program a firmware. 
 
-To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
+
+
+<details>
+
+<summary>Creating and compiling your firmware locally</summary>
+
+To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
 The first thing we're going to do is create a new keyboard. In your terminal, run this command, which will ask you some questions and generate a basic keyboard project:
 
@@ -381,6 +412,8 @@ Once everything is installed, running `make` in the terminal should get you some
 
 Once you have your `<project_name>.hex` file, open up the Teensy loader application, and click the file icon. From here, navigate to your `QMK/keyboards/<project_name>/` folder, and select the `<project_name>.hex` file. Plug in your keyboard and press the button on the Teensy - you should see the LED on the device turn off once you do. The Teensy Loader app will change a little, and the buttons should be clickable - click the download button (down arrow), and then the reset button (right arrow), and your keyboard should be ready to go!
 
+</details>
+
 ## Testing Your Firmware
 
 Carefully flip your keyboard over, open up a new text document, and try typing - you should get the characters that you put into your keymap. Test each key, and note the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
@@ -403,10 +436,11 @@ There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](htt
 
 # Links to other guides:
 
-- [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050) also his website and latest video
+- [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050) also his [website](https://matt3o.com/hand-wiring-a-custom-keyboard/) and [video guide](https://www.youtube.com/watch?v=LVzpsjFWPP4)
 - [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0) 
 - [Sasha Solomon's "Building my first Keyboard"](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f)
-- [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)   
+- [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
+- [Masterzen's Handwired keyboard build log](http://www.masterzen.fr/2018/12/16/handwired-keyboard-build-log-part-1/)
 
 
 
