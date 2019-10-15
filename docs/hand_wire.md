@@ -184,13 +184,13 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-<img src="hand_wire_images/wire_loop.jpg" alt="drawing" width="200"/>
+<img src="hand_wire_images/wire_loop.jpg" alt="Looped around rod" width="200"/>
 
-![Looped around rod](hand_wire_images/wire_loop.jpg =100x) ![Looped diode leg](hand_wire_images/looped_diode_leg.jpg =100x)
+<img src="hand_wire_images/looped_diode_leg.jpg" alt="Looped diode leg" width="200"/>
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
-![Bent diode legs](hand_wire_images/bending_diodes.jpg)
+<img src="hand_wire_images/bending_diodes.jpg" alt="Bent diode legs" width="200"/>
 
 If your iron has a temperature control, set it to 315ºC (600ºF).
 
@@ -256,11 +256,17 @@ If you're not using any insulation, you can try to keep the column wires elevate
 
 Now that the matrix itself is complete, it's time to connect what you've done to the microcontroller board.
 
-Place the microcontroller where you want it to be located, give thought to mounting and case alignment.
+Place the microcontroller where you want it to be located, give thought to mounting and case alignment.  Bear in mind that the location of the USB socket can be different from the controller by using a short male to female cable if required,.
 
 Find the pinout/documentation for your microcontroller board ([links here](#planning-the-matrix))
 
 Cut wires to the length of the distance from the start of each column/row to the controller.
+
+Ribbon cable can be used to keep this extra tidy.  You may also want to consider routing the wires beneath the exisiting columns/rows.
+
+<img src="hand_wire_images/ribbon_cable.jpg" alt="Ribbon Cable" width="200"/>
+
+
 
 ## Specific instructions for Teensy
 
