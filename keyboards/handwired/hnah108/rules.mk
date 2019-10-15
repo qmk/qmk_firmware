@@ -44,6 +44,3 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = WS2812
-
-# Supported layouts
-LAYOUTS = fullsize_ansi fullsize_iso
