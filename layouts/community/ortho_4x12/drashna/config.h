@@ -43,7 +43,7 @@
 #    undef QMK_LED
 #    define QMK_LED D6
 #    undef QMK_SPEAKER
-#    define QMK_SPEAKER C6
+#    define QMK_SPEAKER B5
 #    define SOLENOID_PIN A1
 #endif      // KEYBOARD_planck_light
 
