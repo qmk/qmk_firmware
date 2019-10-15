@@ -157,7 +157,7 @@ NOTE: These are all the same length.  If you do a search/replace
 
 #define _________________ADJUST_L1_________________        ___________________BLANK___________________
 #define _________________ADJUST_L2_________________        _________________FUNC_LEFT_________________
-#define _________________ADJUST_L3_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
+#define _________________ADJUST_L3_________________        _______, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
 #define _________________ADJUST_R2_________________        _________________FUNC_RIGHT________________
