@@ -46,9 +46,9 @@
 #  undef TAPPING_TERM
 #endif  // !TAPPING_TERM
 #if defined(KEYBOARD_ergodash)
-    #define TAPPING_TERM 190
+    #define TAPPING_TERM 240
 #else
-    #define TAPPING_TERM 175
+    #define TAPPING_TERM 200
 #endif
 
 #define TAP_CODE_DELAY 5 //DEFAULT: 100
