@@ -85,44 +85,28 @@ static void do_code16(uint16_t code, void (*f)(uint8_t)) {
             return;
     }
 
-    if (code & QK_LCTL) f(KC_LCTL);
-    if (code & QK_LSFT) f(KC_LSFT);
-    if (code & QK_LALT) f(KC_LALT);
-    if (code & QK_LGUI) f(KC_LGUI);
+    uint8_t mods_to_send = 0;
 
-    if (code < QK_RMODS_MIN) return;
+    if (code & QK_RMODS_MIN) { // Right mod flag is set
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+    } else {
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+    }
 
-    if (code & QK_RCTL) f(KC_RCTL);
-    if (code & QK_RSFT) f(KC_RSFT);
-    if (code & QK_RALT) f(KC_RALT);
-    if (code & QK_RGUI) f(KC_RGUI);
-}
-
-static inline void qk_register_weak_mods(uint8_t kc) {
-    add_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_weak_mods(uint8_t kc) {
-    del_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_register_mods(uint8_t kc) {
-    add_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_mods(uint8_t kc) {
-    del_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
+    f(mods_to_send);
 }
 
 void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_register_mods);
+        do_code16(code, register_mods);
     } else {
-        do_code16(code, qk_register_weak_mods);
+        do_code16(code, register_weak_mods);
     }
     register_code(code);
 }
@@ -130,9 +114,9 @@ void register_code16(uint16_t code) {
 void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_unregister_mods);
+        do_code16(code, unregister_mods);
     } else {
-        do_code16(code, qk_unregister_weak_mods);
+        do_code16(code, unregister_weak_mods);
     }
 }
 
