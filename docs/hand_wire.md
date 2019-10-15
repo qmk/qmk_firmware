@@ -1,4 +1,4 @@
-# Quantum Hand-Wiring Guide
+# Hand-Wiring Guide
 
 ## Preamble: How a Keyboard Matrix Works 
 
@@ -126,7 +126,8 @@ You will need: (where *x* is the number of keys on your planned keyboard)
 Optional but useful:
 
 * Wire strippers/a sharp knife
-* Tweezers and/or small needle nose pliers (optional)
+* Tweezers and/or small needle nose pliers
+* Soldering station/Helping hands
 
 ## Starting the build
 
@@ -173,7 +174,7 @@ Established materials and techniques include:
 | Bending the legs of the diodes for the rows | [Matt3o's Brownfox](https://deskthority.net/viewtopic.php?f=7&t=6050) | Fewer solder joints required | Uninsulated | ![Bent diode legs](hand_wire_images/diode_legs.jpg)
 | Using ridid wiring (e.g. brass tube) | [u/d_stilgar's invisible hardline](https://www.reddit.com/r/MechanicalKeyboards/comments/8aw5j2/invisible_hardline_keyboard_progress_update_april/) and [u/jonasfasler's first attempt](https://www.reddit.com/r/MechanicalKeyboards/comments/de1jyv/my_first_attempt_at_handwiring_a_keyboard/) | Very pretty | Effort in bending and positioning rods | ![Hardline hand wire](hand_wire_images/hardline.jpg)
 | Bare wire with insulation added after (e.g. kapton tape) | [Matt3o's 65% on his website](https://matt3o.com/hand-wiring-a-custom-keyboard/) | Easier (no wire stripping required) | Not as attractive | ![Bare wire](hand_wire_images/insulated_bare_wire.jpg)
-| Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Messy, most useful when your plate/case aligns with the bottom of your switches | ![Copper tape](hand_wire_images/copper_tape.jpg)
+| Copper tape | [ManuForm Dactyl](https://github.com/tshort/dactyl-keyboard) | Very easy | Only really works when your plate/case aligns with the bottom of your switches | ![Copper tape](hand_wire_images/copper_tape.jpg)
 
 
 Note that these methods can be combined.  Prepare your lengths of wire before moving on to soldering.
@@ -184,15 +185,13 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-<img src="hand_wire_images/wire_loop.jpg" alt="Looped around rod" width="200"/>
-
-<img src="hand_wire_images/looped_diode_leg.jpg" alt="Looped diode leg" width="200"/>
+<img src="hand_wire_images/wire_loop.jpg" alt="Looped around rod" width="200"/> <img src="hand_wire_images/looped_diode_leg.jpg" alt="Looped diode leg" width="200"/>
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
 <img src="hand_wire_images/bending_diodes.jpg" alt="Bent diode legs" width="200"/>
 
-If your iron has a temperature control, set it to 315ºC (600ºF).
+If your iron has temperature control, set it to 315ºC (600ºF).
 
 Once heated, tin your soldering iron - this means melting a small amount of solder on the end of the iron and then quickly wiping it off on a wet sponge or wire cleaning pad, leaving a shiny silvery coating on the end which helps keep oxidisation at bay and helps solder to flow.
 
@@ -268,7 +267,9 @@ Ribbon cable can be used to keep this extra tidy.  You may also want to consider
 
 
 
-## Specific instructions for Teensy
+<details>
+
+<summary>Specific instructions for the Teensy 2.0</summary>
 
  There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
 
@@ -284,7 +285,7 @@ When you're done with the columns, start with the rows in the same process, from
 
 As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
 
-
+</details>
 
 
 # Getting Some Basic Firmware Set Up
@@ -440,7 +441,7 @@ If you've done all of these things, keep in mind that sometimes you might have h
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
-There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
+There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit](http://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/Uq7gcHh) for help!
 
 # Links to other guides:
 
