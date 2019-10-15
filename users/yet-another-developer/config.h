@@ -8,7 +8,7 @@
 #endif  // !ONESHOT_TAP_TOGGLE
 
 #ifndef ONESHOT_TIMEOUT
-    #define ONESHOT_TIMEOUT 3000
+    #define ONESHOT_TIMEOUT 2000
 #endif  // !ONESHOT_TIMEOUT
 
 #ifndef QMK_KEYS_PER_SCAN
