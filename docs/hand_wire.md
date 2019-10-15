@@ -104,7 +104,7 @@ Further reading:
 - [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
-- [How keyboards work - QMK documentation](/how_keyboards_work)
+- [How keyboards work - QMK documentation](/docs/how_keyboards_work)
 
 </details>
 
@@ -153,7 +153,7 @@ Also bear in mind that the number of rows plus the number of columns can not exc
 | :------------ |:-------------:| ------:| ------ |
 | Pro Micro     | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro)       |
 | Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
-| Proton C      | STM32F303xC   |     36 | [link 1](/hand_wire_images/proton_C_pinout.jpg), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
+| Proton C      | STM32F303xC   |     36 | [link 1](/docs/hand_wire_images/proton_C_pinout.jpg), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
 | Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html)       |
 
  
@@ -184,7 +184,7 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the 2 peices of metal you are connecting, a good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-![Looped around rod](hand_wire_images/wire_loop.jpg 50%)![Looped diode leg](hand_wire_images/looped_diode_leg.jpg 50%)
+![Looped around rod](hand_wire_images/wire_loop.jpg 100x)![Looped diode leg](hand_wire_images/looped_diode_leg.jpg 100x)
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
