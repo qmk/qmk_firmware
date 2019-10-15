@@ -82,6 +82,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "velocikey.h"
 #endif
 
+// Only enable this if console is enabled to print to
+#if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
+static uint32_t matrix_timer      = 0;
+static uint32_t matrix_scan_count = 0;
+
+void matrix_scan_perf_task(void) {
+    matrix_scan_count++;
+
+    uint32_t timer_now = timer_read32();
+    if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
+        dprintf("matrix scan frequency: %d\n", matrix_scan_count);
+
+        matrix_timer      = timer_now;
+        matrix_scan_count = 0;
+    }
+}
+#else
+#    define matrix_scan_perf_task()
+#endif
+
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
@@ -300,6 +320,10 @@ void keyboard_task(void) {
         action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    matrix_scan_perf_task();
+#endif
 
 #ifdef QWIIC_ENABLE
     qwiic_task();
