@@ -18,11 +18,11 @@ extern keymap_config_t keymap_config;
      * |--------+--------+------+------+------+-------------|           |------+------+------+------+------+--------+--------|
      * | `      |   K01  |  K02 |  K03 |  K04 |  K05 |   -  |           |  =   |  K06 |  K07 |  K08 |  K09 |  K0A   |   \    |
      * |--------+--------+------+------+------+------|------|           |------|------+------+------+------+--------+--------|
-     * | Tab    |   K11  |  K12 |  K13 |  K14 |  K15 |  Del |           | Bksp |  K16 |  K17 |  K18 |  K19 |  K1A   |   "    |
+     * | Tab    |   K11  |  K12 |  K13 |  K14 |  K15 |   {  |           |  }   |  K16 |  K17 |  K18 |  K19 |  K1A   |   "    |
      * |--------+--------+------+------+------+------|------'           `------|------+------+------+------+--------+--------|
      * | LShift |   K21  |  K22 |  K23 |  K24 |  K25 |                         |  K26 |  K27 |  K28 |  K29 |  K2A   | RShift |
      * |--------+--------+------+------+------+------'                         `------+------+------+------+--------+--------|
-     * | LCtrl  |   GUI  |  Alt | EISU |                                                     | LEFT | DOWN |   UP   | RIGHT  |
+     * | LCtrl  |   GUI  |  Alt |  Alt |                                                     | LEFT | DOWN |   UP   | RIGHT  |
      * `-------------------------------'                                                     `-------------------------------'
      *                                       ,--------------.           ,--------------.
      *                                       | Lower|       |           |      | Raise |
@@ -38,9 +38,9 @@ extern keymap_config_t keymap_config;
   LAYOUT_ergodash_pretty_wrapper( \
       KC_ESC,  ________________NUMBER_LEFT________________, KC_LBRC,                  KC_RBRC, ________________NUMBER_RIGHT_______________, KC_PSCR, \
       KC_GRV,  K01,     K02,     K03,     K04,     K05,     KC_MINS,                  KC_EQL,  K06,    K07,    K08,    K09,    K0A,         KC_BSLS, \
-      KC_TAB,  K11,     K12,     K13,     K14,     K15,     KC_DEL,                   KC_LEAD, K16,    K17,    K18,    K19,    K1A,         KC_QUOT, \
+      KC_TAB,  K11,     K12,     K13,     K14,     K15,     KC_LCBR,                  KC_RCBR, K16,    K17,    K18,    K19,    K1A,         KC_QUOT, \
       OS_LSFT, K21,     K22,     K23,     K24,     K25,                                        K26,    K27,    K28,    K29,    K2A,         OS_RSFT, \
-      KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,                                                                       KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT, \
+      KC_LCTL, KC_LGUI, KC_LALT, KC_LALT,                                                                    KC_LEFT, KC_DOWN, KC_UP,       KC_RIGHT, \
                                               LT(_LOWER, KC_SPC),                         LT(_RAISE, KC_ENT),                                        \
                                       OS_LGUI,LT(_LOWER, KC_SPC),KC_DEL,         KC_BSPC, LT(_RAISE, KC_ENT),  OS_RGUI                               \
     )
