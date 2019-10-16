@@ -20,9 +20,9 @@
 #if RGB_BACKLIGHT_ENABLED
 #include "keyboards/wilba_tech/wt_rgb_backlight.h"
 #endif // RGB_BACKLIGHT_ENABLED
-#ifdef WT_MONO_BACKLIGHT
+#if MONO_BACKLIGHT_ENABLED
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
-#endif // WT_MONO_BACKLIGHT
+#endif // MONO_BACKLIGHT_ENABLED
 #include "keyboards/wilba_tech/via_api.h" // Temporary hack
 #include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
 
@@ -150,7 +150,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 #endif // DYNAMIC_KEYMAP_ENABLE
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		case id_backlight_config_set_value:
 		{
 			backlight_config_set_value(command_data);
@@ -166,7 +166,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			backlight_config_save();
 			break;
 		}
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		case id_eeprom_reset:
 		{
 			eeprom_reset();
@@ -202,16 +202,16 @@ void main_init(void)
 	// If the EEPROM has the magic, the data is good.
 	// OK to load from EEPROM.
 	if (eeprom_is_valid()) {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		backlight_config_load();
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	} else	{
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		// If the EEPROM has not been saved before, or is out of date,
 		// save the default values to the EEPROM. Default values
-		// come from construction of the zeal_backlight_config instance.
+		// come from construction of the backlight_config instance.
 		backlight_config_save();
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 #ifdef DYNAMIC_KEYMAP_ENABLE
 		// This resets the keymaps in EEPROM to what is in flash.
 		dynamic_keymap_reset();
@@ -222,20 +222,13 @@ void main_init(void)
 		eeprom_set_valid(true);
 	}
 	
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 
 	backlight_timer_init();
 	backlight_timer_enable();
-#endif // RGB_BACKLIGHT_ENABLED
-#ifdef WT_MONO_BACKLIGHT
-	// Initialize LED drivers for backlight.
-	backlight_init_drivers();
-
-	backlight_timer_init();
-	backlight_timer_enable();
-#endif // WT_MONO_BACKLIGHT
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 }
 
 void bootmagic_lite(void)
@@ -267,22 +260,18 @@ void matrix_init_kb(void)
 
 void matrix_scan_kb(void)
 {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
-#endif // RGB_BACKLIGHT_ENABLED
-#ifdef WT_MONO_BACKLIGHT
-	// This only updates the LED driver buffers if something has changed.
-	backlight_update_pwm_buffers();
-#endif
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	process_record_backlight(keycode, record);
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 
 	switch(keycode) {
 		case FN_MO13:
@@ -372,22 +361,23 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void led_set_kb(uint8_t usb_led)
 {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	backlight_set_indicator_state(usb_led);
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	led_set_user(usb_led);
 }
 
 void suspend_power_down_kb(void)
 {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	backlight_set_suspend_state(true);
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 }
 
 void suspend_wakeup_init_kb(void)
 {
-#if RGB_BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	backlight_set_suspend_state(false);
-#endif // RGB_BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 }
 
