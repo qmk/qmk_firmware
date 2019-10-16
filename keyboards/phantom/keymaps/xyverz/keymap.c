@@ -1,28 +1,15 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
-
-// Used for SHIFT_ESC
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 enum layer_names {
-  _QW,
-  _DV,
-  _CM,
-  _FL,
+    _QW,
+    _DV,
+    _CM,
+    _FL,
 };
 
-enum planck_keycodes {
-  DVORAK = SAFE_RANGE,
-  QWERTY,
-  COLEMAK
-};
+enum planck_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QW] = LAYOUT_tkl_ansi( /* Layer 0: Qwerty */ \
@@ -62,28 +49,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
+// clang-format on
 
-enum function_id {
-    SHIFT_ESC,
-};
-
- bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-      switch(keycode) {
-        case DVORAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_DV);
-          }
-          return false;
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QW);
-          }
-          return false;
-        case COLEMAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_CM);
-          }
-          return false;
-      }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case DVORAK:
+                set_single_persistent_default_layer(_DV);
+                return false;
+            case QWERTY:
+                set_single_persistent_default_layer(_QW);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_CM);
+                return false;
+        }
+    }
     return true;
 }
