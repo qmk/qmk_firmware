@@ -1,12 +1,12 @@
 # Ploopyco Trackball
 
-![Ploopyco Trackball](imgur.com image replace me!)
+![Ploopyco Trackball](https://i.redd.it/j7z0y83txps31.jpg)
 
 It's a DIY, QMK Powered Trackball!!!!
 
 Keyboard Maintainer: [Drashna Jael're](https://github.com/yourusername)  
 Hardware Supported: ATMega32u4 8MHz(3.3v)  
-Hardware Availability: Reddit
+Hardware Availability: Reddit, [GitHub](https://github.com/ploopyco/mouse)
 
 Make example for this keyboard (after setting up your build environment):
 
