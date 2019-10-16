@@ -31,13 +31,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT
 
 // Dimple Symbol Layer
-#define _________________LOWER_1___________________       KC_TILD, KC_EXLM, TD(KC_EMAIL),   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL
+#define _________________LOWER_1___________________       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC
 #define _________________LOWER_2___________________       KC_DEL,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE
 #define _________________LOWER_3___________________       KC_CAPS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO, KC_PGUP, KC_QUES
 #define _________________LOWER_4___________________       LCA(KC_DEL),   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDN, KC_END
 
 // Dimple Number layer
-#define ___________________RAISE1__________________       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC
+#define ___________________RAISE1__________________       KC_TILD, KC_EXLM, TD(KC_EMAIL),   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL
 #define ___________________RAISE2__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS
 #define ___________________RAISE3__________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
 #define ___________________RAISE4__________________       KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO

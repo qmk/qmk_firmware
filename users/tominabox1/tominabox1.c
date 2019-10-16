@@ -101,7 +101,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
-#define TAPPING_TERM 225
+#define TAPPING_TERM 200
+
 #ifdef KEYBOARD_crkbd_rev1
 #undef TAPPING_TERM
 #define TAPPING_TERM 225
@@ -112,8 +113,10 @@ uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case TD(TD_SFT_CPS):
             return 150;
-        case LT(_LOWER, KC_ENT):
-            return 170;
+        case KC_ENT_LOW:
+            return 130;
+        case KC_SPC_RSE:
+            return(350);
         case LCTL_T(KC_TAB):
             return 300;
         default:
