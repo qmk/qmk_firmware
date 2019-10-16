@@ -16,10 +16,10 @@
   * [Comment utiliser GitHub](fr-FR/getting_started_github.md)
   * [Trouver de l'aide](fr-FR/getting_started_getting_help.md)
 
-**En Anglais**
+* [Breaking changes](fr-FR/breaking_changes.md)
+  * [30 août 2019](fr-FR/ChangeLog/20190830.md)
 
-* [Changements non rétro-compatibles](breaking_changes.md)
-  * [30 Aout 2019](ChangeLog/20190830.md)
+**En Anglais**
 
 * [FAQ](faq.md)
   * [FAQ Générale](faq_general.md)
