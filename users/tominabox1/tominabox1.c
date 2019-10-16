@@ -102,11 +102,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 #define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef KEYBOARD_crkbd_rev1
-#undef TAPPING_TERM
-#define TAPPING_TERM 225
-#define PERMISSIVE_HOLD
+
 #endif // CRKBD
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -116,7 +115,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case KC_ENT_LOW:
             return 130;
         case KC_SPC_RSE:
-            return(350);
+            return(250);
         case LCTL_T(KC_TAB):
             return 300;
         default:
