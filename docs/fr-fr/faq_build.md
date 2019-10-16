@@ -178,7 +178,7 @@ brew link --force avr-gcc@8
 
 A cause de la manière dont les EEPROM fonctionnent sur les puces ARM, les options sauvegardées peuvent ne plus être valides. Ceci affecte les calques par défaut et *peut*, sous certaines conditions que nous essayons encore de déterminer, rend le clavier inutilisable. Réinitialiser l'EEPROM corrigera le problème.
 
-[Réinitialiser EEPROM sur Planck rev6](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) peut être utilisé pour forcer une réinitialisation d'EEPROM. Une fois cette image flashée, flashez votre firmware normal à nouveau. Celà devrait faire fonctionner votre clavier à nouveau.
+[Réinitialiser EEPROM sur Planck rev6](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) peut être utilisé pour forcer une réinitialisation d'EEPROM. Une fois cette image flashée, flashez à nouveau votre firmware standard. Cela devrait rétablir le fonctionnement de votre clavier.
 [Réinitialiser EEPROM sur Preonic rev3](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
 Si bootmagic est activé dans n'importe quel forme, vous devriez être capable de faire aussi ceci (regardez  [Documentation Bootmagic](feature_bootmagic.md) et les informations spécifiques à votre clavier).
