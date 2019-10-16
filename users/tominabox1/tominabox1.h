@@ -20,18 +20,22 @@ enum layers {
 };
 
 enum custom_keycodes {
-    KC_EMAIL = 0,
-    TD_SFT_CPS,
+    BASE = SAFE_RANGE,
     KC_BEPIS,
     KC_BBB,
-    BASE,
     LOWER,
     RAISE,
     ADJUST,
     ARROW,
     FKEY,
     KC_LFT_NUM_F,
-    RGBRST
+    RGBRST,
+    KC_PASTA
+};
+
+enum tap_dance_indexes {
+    KC_EMAIL,
+    TD_SFT_CPS,
 };
 
 #define KC______ KC_TRNS
