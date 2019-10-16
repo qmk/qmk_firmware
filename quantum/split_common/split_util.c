@@ -32,6 +32,12 @@ bool waitForUsb(void) {
         }
         wait_ms(100);
     }
+
+#if defined(__AVR__)
+    // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
+    (USBCON &= ~((1 << USBE) | (1 << OTGPADE)));
+#endif
+
     return false;
 }
 
