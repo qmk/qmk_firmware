@@ -219,3 +219,10 @@ void eeconfig_init_user(void) {
     eeconfig_init_keymap();
     keyboard_init();
 }
+
+bool hasAllBitsInMask(uint8_t value, uint8_t mask) {
+    value &= 0xF;
+    mask &= 0xF;
+
+    return (value & mask) == mask;
+}
