@@ -1,4 +1,4 @@
-
+#pragma once
 
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #    define LAYOUT KEYMAP
