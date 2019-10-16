@@ -1,3 +1,5 @@
+#pragma once
+
 #define MK_3_SPEED
 
 #define QMK_ESC_OUTPUT B4
