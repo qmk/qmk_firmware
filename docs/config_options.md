@@ -224,6 +224,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
    * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
    * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
+   * For boards with ARM DFU bootloader (like Proton C), use `:dfu-util-split-left`/`:dfu-util-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
 
@@ -265,6 +266,14 @@ There are a few different ways to set handedness for split keyboards (listed in 
     * 3: about 39kbps
     * 4: about 26kbps
     * 5: about 20kbps
+
+* `#define SPLIT_USB_DETECT`
+  * Detect (with timeout) USB connection when delegating master/slave
+  * Default behavior for ARM
+  * Required for AVR Teensy
+
+* `#define SPLIT_USB_TIMEOUT 2500`
+  * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 

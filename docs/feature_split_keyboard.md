@@ -96,6 +96,8 @@ However, you'll have to flash the EEPROM files for the correct hand to each cont
 * `:avrdude-split-right`
 * `:dfu-split-left`
 * `:dfu-split-right`
+* `:dfu-util-split-left`
+* `:dfu-util-split-right`
 
 This setting is not changed when re-initializing the EEPROM using the `EEP_RST` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
@@ -187,6 +189,18 @@ This sets how many LEDs are directly connected to each controller.  The first nu
 
 ?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
 
+
+```c
+#define SPLIT_USB_DETECT
+```
+This option changes the startup behavior to detect an active USB connection when delegating master/slave. If this operation times out, then the half is assume to be a slave. This is the default behavior for ARM, and required for AVR Teensy boards (due to hardware limitations).
+
+?> This setting will stop the ability to demo using battery packs.
+
+```c
+#define SPLIT_USB_TIMEOUT 2500
+```
+This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
 
 ## Additional Resources
 

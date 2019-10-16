@@ -232,4 +232,6 @@ Flashing sequence:
 There are a number of DFU commands that you can use to flash firmware to a STM32 device:
 
 * `:dfu-util` - The default command for flashing to STM32 devices.
-* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util.
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 

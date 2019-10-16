@@ -422,7 +422,7 @@ Tap Dance can be used to mimic MO(layer) and TG(layer) functionality. For this e
 
 The first step is to include the following code towards the beginning of your `keymap.c`:
 
-```
+```c
 typedef struct {
   bool is_press_action;
   int state;
@@ -447,41 +447,22 @@ int cur_dance (qk_tap_dance_state_t *state);
 //Functions associated with individual tap dances
 void ql_finished (qk_tap_dance_state_t *state, void *user_data);
 void ql_reset (qk_tap_dance_state_t *state, void *user_data);
-
-//Declare variable to track which layer is active
-int active_layer;
 ```
-
-The above code is similar to that used in previous examples. The one point to note is that you need to declare a variable to keep track of what layer is currently the active layer. We'll see why shortly.
 
 Towards the bottom of your `keymap.c`, include the following code:
 
-```
-//Update active_layer
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-    case 1:
-      active_layer = 1;
-      break;
-    case 2:
-      active_layer = 2;
-      break;
-    case 3:
-      active_layer = 3;
-      break;
-    default:
-      active_layer = 0;
-      break;
-  }
-  return state;
-}
-
+```c
 //Determine the current tap dance state
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
-    if (!state->pressed) {return SINGLE_TAP;}
-    else return SINGLE_HOLD;
-  } else if (state->count == 2) {return DOUBLE_TAP;}
+    if (!state->pressed) {
+      return SINGLE_TAP;
+    } else {
+      return SINGLE_HOLD;
+    }
+  } else if (state->count == 2) {
+    return DOUBLE_TAP;
+  }
   else return 8;
 }
 
@@ -495,16 +476,30 @@ static tap ql_tap_state = {
 void ql_finished (qk_tap_dance_state_t *state, void *user_data) {
   ql_tap_state.state = cur_dance(state);
   switch (ql_tap_state.state) {
-    case SINGLE_TAP: tap_code(KC_QUOT); break;
-    case SINGLE_HOLD: layer_on(_MY_LAYER); break;
+    case SINGLE_TAP: 
+      tap_code(KC_QUOT); 
+      break;
+    case SINGLE_HOLD: 
+      layer_on(_MY_LAYER); 
+      break;
     case DOUBLE_TAP: 
-      if (active_layer==_MY_LAYER) {layer_off(_MY_LAYER);}
-      else layer_on(_MY_LAYER);
+      //check to see if the layer is already set
+      if (layer_state_is(_MY_LAYER)) {
+        //if already set, then switch it off
+        layer_off(_MY_LAYER);
+      } else { 
+        //if not already set, then switch the layer on
+        layer_on(_MY_LAYER);
+      }
+      break;
   }
 }
 
 void ql_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (ql_tap_state.state==SINGLE_HOLD) {layer_off(_MY_LAYER);}
+  //if the key was held down and now is released then switch off the layer
+  if (ql_tap_state.state==SINGLE_HOLD) {
+    layer_off(_MY_LAYER);
+  }
   ql_tap_state.state = 0;
 }
 
@@ -514,7 +509,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-The is where the real logic of our tap dance key gets worked out. Since `layer_state_set_user()` is called on any layer switch, we use it to update `active_layer`. Our example is assuming that your `keymap.c` includes 4 layers, so adjust the switch statement here to fit your actual number of layers.
+The above code is similar to that used in previous examples. The one point to note is that we need to be able to check which layers are active at any time so we can toggle them if needed. To do this we use the `layer_state_is( layer )` function which returns `true` if the given `layer` is active.
 
 The use of `cur_dance()` and `ql_tap_state` mirrors the above examples.
 
