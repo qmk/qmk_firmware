@@ -2,4 +2,6 @@
 
 // place overrides here
 #undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS { PAL_LINE(GPIOA, 3), F4, F5, F6, B1, B3, B2, B6, D7, E6, C6, D2, D3 }
+#define MATRIX_COL_PINS { A3, A2, A1, A0, B13, B14, B15, B9, B3, B2, B4, A10, A9 }
+#undef MATRIX_ROW_PINS
+#define MATRIX_ROW_PINS { B7, B1, B0 }
