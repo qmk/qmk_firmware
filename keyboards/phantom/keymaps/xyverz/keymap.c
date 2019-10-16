@@ -10,15 +10,18 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QW 0
-#define _DV 1
-#define _CM 2
-#define _FL 3
+enum layer_names {
+  _QW,
+  _DV,
+  _CM,
+  _FL,
+};
 
-// Macro name shortcuts
-#define QWERTY M(_QW)
-#define DVORAK M(_DV)
-#define COLEMAK M(_CM)
+enum planck_keycodes {
+  DVORAK = SAFE_RANGE,
+  QWERTY,
+  COLEMAK
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -64,29 +67,23 @@ enum function_id {
     SHIFT_ESC,
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case _DV:
+ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+      switch(keycode) {
+        case DVORAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DV);
+            set_single_persistent_default_layer(_DV);
           }
-          break;
-        case _QW:
+          return false;
+        case QWERTY:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QW);
+            set_single_persistent_default_layer(_QW);
           }
-          break;
-        case _CM:
+          return false;
+        case COLEMAK:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_CM);
+            set_single_persistent_default_layer(_CM);
           }
-          break;
+          return false;
       }
-    return MACRO_NONE;
-};
+    return true;
+}
