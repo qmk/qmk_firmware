@@ -48,6 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_RGB_MATRIX_SPEED (uint8_t *)32
 // TODO: Combine these into a single word and single block of EEPROM
 #define EECONFIG_KEYMAP_UPPER_BYTE (uint8_t *)33
+#define EECONFIG_HOTP (uint32_t *)34 // Uses 8 bytes total
+#define EECONFIG_HOTP_RESERVED (uint32_t *)38
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
 #define EECONFIG_DEBUG_MATRIX (1 << 1)

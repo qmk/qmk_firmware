@@ -275,6 +275,14 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_USB_TIMEOUT 2500`
   * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
+## HOTP Configuration
+
+* `#define HOTP_OUTPUT_DIGITS 6`
+  * Number of HOTP output digits. Typically between 6 and 8.
+
+* `#define HOTP_SECRET {0x00, 0x01, ..., 0xff}`
+  * Your HOTP secret, as a binary array.
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.

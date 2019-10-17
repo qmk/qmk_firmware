@@ -18,6 +18,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Grave Escape](feature_grave_esc.md) - Lets you use a single key for Esc and Grave. 
 * [Haptic Feedback](feature_haptic_feedback.md) - Add haptic feedback drivers to your board.
 * [HD44780 LCD Display](feature_hd44780.md) - Support for LCD character displays using the HD44780 standard.
+* [HOTP](feature_hotp.md) - Support for sending OATH-HOTP two-factor authentication codes.
 * [Key Lock](feature_key_lock.md) - Lock a key in the "down" state.
 * [Layouts](feature_layouts.md) - Use one keymap with any keyboard that supports your layout.
 * [Leader Key](feature_leader_key.md) - Tap the leader key followed by a sequence to trigger custom behavior.

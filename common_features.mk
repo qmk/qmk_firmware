@@ -389,3 +389,10 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
   SRC += $(QUANTUM_DIR)/dip_switch.c
   OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif
+
+ifeq ($(strip $(HOTP_ENABLE)), yes)
+    OPT_DEFS += -DHOTP_ENABLE
+    SRC += $(QUANTUM_DIR)/hotp/hotp.c
+    SRC += $(QUANTUM_DIR)/hotp/crypto/sha1.c
+    SRC += $(QUANTUM_DIR)/hotp/crypto/hmac_sha1.c
+endif

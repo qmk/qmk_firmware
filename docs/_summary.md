@@ -69,6 +69,7 @@
   * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)
   * [Haptic Feedback](feature_haptic_feedback.md)
+  * [HOTP](feature_hotp.md)
   * [HD44780 LCD Controller](feature_hd44780.md)
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
