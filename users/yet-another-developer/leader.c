@@ -2,10 +2,6 @@
 
 LEADER_EXTERNS();
 
-#define TAP_ONCE(code)  \
-  register_code (code); \
-  unregister_code (code)
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void){
   static bool has_ran_yet;
