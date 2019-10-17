@@ -15,12 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-// My common shortcuts
-#define MY_PREV KC_MRWD         // Media: Previous
-#define MY_NEXT KC_MFFD         // Media: Next
-#define MY_PLAY KC_MPLY         // Media: Play/Pause
 // #define MY_LOCK C(A(KC_L))      // Mac: Lock
-#define MY_LOCK C(LCMD(KC_L))      // Mac: Lock (when Alt/Command have been swapped)
+#define MY_LOCK C(LCMD(KC_L))      // Mac: Lock (when Alt/Command have been swapped in macOS)
 
 /*
 KBD6x ANSI physical layout
@@ -72,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RCTL,    KC_VOLD, KC_VOLU, KC_MUTE, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______,       MY_LOCK,
 //  |─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────|
 //  |   1,25u          |        |        |        |        |        |        |        |        |        |        |     1,75u     |        |
-          _______,      BL_TOGG,  BL_INC,  BL_DEC, BL_STEP, _______, _______, _______, MY_PREV, MY_NEXT, _______,    _______,     _______,
+          _______,      BL_TOGG,  BL_INC,  BL_DEC, BL_STEP, _______, _______, _______, KC_MRWD, KC_MFFD, _______,    _______,     _______,
 //  └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 //                   |        |   1,25u    |                                                        |   1,25u    |        |
-         XXXXXXX,     _______,  _______,                          MY_PLAY,                            _______,    _______,      XXXXXXX
+         XXXXXXX,     _______,  _______,                          KC_MPLY,                            _______,    _______,      XXXXXXX
 //                   └────────────────────────────────────────────────────────────────────────────────────────────────────┘
   ),
 
@@ -100,16 +96,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                   └────────────────────────────────────────────────────────────────────────────────────────────────────┘
   ),
 };
-
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
