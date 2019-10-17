@@ -15,4 +15,13 @@ define SEARCH_LAYOUTS
     $$(foreach LAYOUTS_REPO,$$(LAYOUTS_REPOS),$$(eval $$(call SEARCH_LAYOUTS_REPO)))
 endef
 
+ifneq ($(FORCE_LAYOUT),)
+    ifneq (,$(findstring $(FORCE_LAYOUT),$(LAYOUTS)))
+        $(info Forcing layout: $(FORCE_LAYOUT))
+        LAYOUTS := $(FORCE_LAYOUT)
+    else
+        $(error Forced layout does not exist)
+    endif
+endif
+
 $(foreach LAYOUT,$(LAYOUTS),$(eval $(call SEARCH_LAYOUTS)))

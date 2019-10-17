@@ -6,19 +6,13 @@ void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
     matrix_init_user();
-
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
 };
 
-void led_set_kb(uint8_t usb_led)
-{
+void led_set_kb(uint8_t usb_led) {
     print("led_set\n");
 }
 
-void backlight_init_ports(void)
-{
+void backlight_init_ports(void) {
     // Set C7 to output
     DDRC |= (1<<7);
 
@@ -29,8 +23,7 @@ void backlight_init_ports(void)
     TCCR4B = 0b00000001;
 }
 
-void backlight_set(uint8_t level)
-{
+void backlight_set(uint8_t level) {
     // Determine the PWM level
     switch (level)
     {

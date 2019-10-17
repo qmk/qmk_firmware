@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 8   // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 10
