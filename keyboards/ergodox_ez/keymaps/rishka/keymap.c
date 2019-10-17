@@ -11,8 +11,7 @@ enum layers {
   FIRMWARE // Layer to trigger reset/refresh
 };
 enum custom_keycodes {
-  EPRM = SAFE_RANGE,
-  VRSN,
+  VRSN = SAFE_RANGE,
   RGB_SLD
 };
 

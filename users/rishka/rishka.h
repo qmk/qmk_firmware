@@ -25,7 +25,6 @@
 #define OS_HYPR OSM(MOD_HYPR)
 #define MOUSE_L LSFT(KC_WH_D)
 #define MOUSE_R LSFT(KC_WH_U)
-#define _______ KC_TRNS
 #define OSX_LOCK LCTL(LGUI(KC_Q))
 
 // layout parts for easy reuse between keyboard keymaps
