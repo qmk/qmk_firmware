@@ -7,7 +7,7 @@ void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) { // sets the backlighting to come on upon successful load then turn off
   rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(HSV_GOLD);
+  rgblight_sethsv_noeeprom(RGB_RED);
   rgblight_mode_noeeprom(0);
   wait_ms(700);
   rgblight_disable_noeeprom();
@@ -108,10 +108,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
-        case TD(TD_SFT_CPS):
-            return 150;
+        case LSFT_T(KC_CAPS):
+            return 250;
         case KC_ENT_LOW:
-            return 130;
+            return 150;
         case KC_SPC_RSE:
             return(250);
         case LCTL_T(KC_TAB):
