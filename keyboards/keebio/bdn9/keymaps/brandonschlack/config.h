@@ -1,6 +1,5 @@
 #pragma once
 
-#undef TAP_CODE_DELAY
 #define ENCODER_RESOLUTION 4
 
 #undef RGBLIGHT_ANIMATIONS
