@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_WH_U,   TBBCK, KC_MS_U,   TBFWD, KC_BTN2,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,\
+       KC_TAB, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX,                      KC_ACL2, KC_ACL0, XXXXXXX, XXXXXXX, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+-------+---------|
@@ -288,3 +288,28 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint8_t saved_mods = 0;
+
+  switch (keycode) {
+    case KC_BSPC:
+      if (record->event.pressed) {
+          if (get_mods() & MOD_MASK_SHIFT) {
+              saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
+              del_mods(saved_mods); // Remove any Shifts present
+              register_code(KC_DEL);
+          } else {
+              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+              register_code(KC_BSPC);
+          }
+      } else {
+          add_mods(saved_mods);
+          unregister_code(KC_DEL);
+          unregister_code(KC_BSPC);
+      }
+      return false;
+    default:
+      return true;
+  }
+}
