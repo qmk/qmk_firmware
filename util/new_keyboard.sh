@@ -41,8 +41,8 @@ copy_templates() {
     echo " done"
 
     echo -n "Renaming keyboard files..."
-    mv "${keyboard_dir}/template.c" "${keyboard_dir}/${keyboard_name}.c"
-    mv "${keyboard_dir}/template.h" "${keyboard_dir}/${keyboard_name}.h"
+    mv "${keyboard_dir}/keyboard.c" "${keyboard_dir}/${keyboard_name}.c"
+    mv "${keyboard_dir}/keyboard.h" "${keyboard_dir}/${keyboard_name}.h"
     echo " done"
 }
 

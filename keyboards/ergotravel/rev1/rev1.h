@@ -3,9 +3,7 @@
 
 #include "ergotravel.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
@@ -14,8 +12,6 @@
     #include <avr/interrupt.h>
 #endif
 #endif
-
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05, L06,       R00, R01, R02, R03, R04, R05, R06, \
