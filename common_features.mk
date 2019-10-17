@@ -233,7 +233,13 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+
+	
+    COMMON_VPATH += $(QUANTUM_DIR)/backlight
+    SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
