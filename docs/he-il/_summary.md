@@ -12,7 +12,7 @@
   * [למידה ממקורות](newbs_learn_more_resources.md)
 
 * [בסיס QMK](README.md)
-  * [מבוא לQMK](getting_started_introduction.md)
+  * [מבוא לQMK](he-il/getting_started_introduction.md)
   * [QMK CLI](cli.md)
   * [QMK CLI Config](cli_configuration.md)
   * [תרומה ל QMK](contributing.md)
@@ -56,7 +56,7 @@
   * [פורמט info.json](reference_info_json.md)
   * [פיתוח בPython CLI](cli_development.md)
 
-* [Features](features.md)
+* [תכונות](features.md)
   * [Basic Keycodes](keycodes_basic.md)
   * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
   * [Quantum Keycodes](quantum_keycodes.md)
@@ -98,25 +98,25 @@
   * [Userspace](feature_userspace.md)
   * [Velocikey](feature_velocikey.md)
 
-* For Makers and Modders
-  * [Hand Wiring Guide](hand_wire.md)
-  * [ISP Flashing Guide](isp_flashing_guide.md)
-  * [ARM Debugging Guide](arm_debugging.md)
-  * [I2C Driver](i2c_driver.md)
-  * [GPIO Controls](internals_gpio_control.md)
-  * [Proton C Conversion](proton_c_conversion.md)
+* למייקרים ומודרים
+  * [מדריך לכתיבה ידנית](hand_wire.md)
+  * [מדריך לצריבת ISP](isp_flashing_guide.md)
+  * [מדריך לדיבאגינג ARM](arm_debugging.md)
+  * [מנהל התקן I2C](i2c_driver.md)
+  * [בקרת GPIO](internals_gpio_control.md)
+  * [המרת Proton C](proton_c_conversion.md)
 
-* For a Deeper Understanding
-  * [How Keyboards Work](how_keyboards_work.md)
-  * [Understanding QMK](understanding_qmk.md)
+* להבנה עמוקה יותר
+  * [איך עובדות מקלדות](how_keyboards_work.md)
+  * [להבין את QMK](understanding_qmk.md)
 
-* Other Topics
-  * [Using Eclipse with QMK](other_eclipse.md)
-  * [Using VSCode with QMK](other_vscode.md)
-  * [Support](support.md)
-  * [How to add translations](translating.md)
+* נושאים נוספים
+  * [שימוש ב - Eclipse עם QMK](other_eclipse.md)
+  * [שימוש ב - VSCode עם QMK](other_vscode.md)
+  * [תמיכה](support.md)
+  * [כיצד להוסיף תרגום](translating.md)
 
-* QMK Internals (In Progress)
+* QMK מבפנים (בתהליך)
   * [Defines](internals_defines.md)
   * [Input Callback Reg](internals_input_callback_reg.md)
   * [Midi Device](internals_midi_device.md)
