@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
+
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
@@ -43,8 +43,6 @@ enum planck_keycodes {
 };
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define FN MO(_FN)
@@ -91,7 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, XXXXXXX, _______, _______, _______, KC_SPC,  KC_SPC,   _______,  KC_0,    KC_DOT,   KC_EQL,   XXXXXXX
 ),
 
-!£
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   !  |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
@@ -244,20 +241,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
-      return false;
-      break;
+      return true;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
       }
-      return false;
-      break;
+      return true;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
-      return false;
-      break;
+      return true;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -265,16 +259,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           backlight_step();
         #endif
         #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
+          writePinLow(E6);
         #endif
       } else {
         unregister_code(KC_RSFT);
         #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
+          writePinHigh(E6);
         #endif
       }
-      return false;
-      break;
+      return true;
     case PLOVER:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -292,8 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         keymap_config.nkro = 1;
         eeconfig_update_keymap(keymap_config.raw);
       }
-      return false;
-      break;
+      return true;
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -301,8 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_off(_PLOVER);
       }
-      return false;
-      break;
+      return true;
   }
   return true;
 }
@@ -330,11 +321,9 @@ void encoder_update(bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+      tap_code(KC_PGDN);
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      tap_code(KC_PGUP);
     }
   }
 }

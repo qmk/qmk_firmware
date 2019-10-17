@@ -11,7 +11,6 @@ Space function - Navigation and media
 
 ## Main
 ![Main layer layout](https://i.imgur.com/jRbqGUN.png)
-https://i.imgur.com/YmdM1q5.png
 
 ## Lower
 ![Lower layer layout](https://i.imgur.com/YmdM1q5.png)
