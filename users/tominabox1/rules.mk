@@ -5,7 +5,7 @@
 CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
 NKRO_ENABLE = yes
-BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = WS2812
@@ -16,8 +16,8 @@ BOOTMAGIC_ENABLE = no
 endif
 
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes        # Audio control and System control
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 # RGB_MATRIX_ENABLE = WS2812
