@@ -25,7 +25,7 @@ Si se ha anunciado que tu teclado funciona con QMK pero no está en la lista, es
 
 ## Eligiendo el layout de tu teclado
 
-Elige el layout the mejor represente el keymap que quieres crear. Algunos teclados no tienen suficientes layouts o layouts correctos definidos aún. Serán soportados en el futuro. 
+Elige el layout que mejor represente el keymap que quieres crear. Algunos teclados no tienen suficientes layouts o layouts correctos definidos aún. Serán soportados en el futuro. 
 
 ## Nombre del keymap
 
@@ -61,9 +61,9 @@ En el caso de que no puedas encontrar un layout que suporte tu keymap, por ejemp
 
 ## Guardando tu keymap para ediciones futuras
 
-Cuando estes satisfecho con un teclado o quieres trabajar en el después, pulsa el botón `Exportar Keymap`. Guardára tu keymap con el nombre que elijas seguido de .json. 
+Cuando estés satisfecho con un teclado o quieres trabajar en el después, pulsa el botón `Exportar Keymap`. Guardára tu keymap con el nombre que elijas seguido de .json. 
 
-Entonces podrás cargar este fichero .json en el futuro pulsando el botón `Import Keymap`. 
+Entonces podrás cargar este fichero .json en el futuro pulsando el botón `Importar Keymap`. 
 
 !> **PRECAUCIÓN:** No es el mismo tipo de fichero .json usado en kbfirmware.com ni ninguna otra herramienta. Si intentas utilizar un fichero .json de alguna de estas herramientas con QMK Configurator, existe la posibilidad de que tu teclado **explote**. 
 
@@ -98,8 +98,8 @@ Por favor, mira
 
 #### No compila
 
-Por favor, revisa las otras capas de tu keymap para asegurarte de que no hay telcas aleatorias presentes. 
+Por favor, revisa las otras capas de tu keymap para asegurarte de que no hay teclas aleatorias presentes. 
 
 ## Problemas y bugs
 
-Siempre aceptamos peticiones de clientes y reportes de bug. Por favor, indicalos en [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Siempre aceptamos peticiones de clientes y reportes de bug. Por favor, indícalos en [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)

@@ -54,9 +54,9 @@ Después de eso puedes utilzar algunas funciones print diferentes:
 
 Debajo hay una colección de ejemplos de depuración del mundo real. Para información adicional, Dirígete a [Depurando/Encontrando problemas en QMK](faq_debug.md).
 
-### ¿Que posición en la matriz tiene esta plusación de tecla?
+### ¿Que posición en la matriz tiene esta pulsación de tecla?
 
-Cuando estés portando, o intentando diagnosticar problemas en la pcb, puwdw ser útil saber si la pulsación de una tecla es escaneada correctamente. Para hablitar la información de registro en este escenario, añade el siguiente código al `keymap.c` de tus keymaps
+Cuando estés portando, o intentando diagnosticar problemas en la pcb, puede ser útil saber si la pulsación de una tecla es escaneada correctamente. Para hablitar la información de registro en este escenario, añade el siguiente código al `keymap.c` de tus keymaps
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

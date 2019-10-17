@@ -80,7 +80,7 @@ Haz click en el botón `Flash` de QMK Toolbox. Verás una información de salida
 
 Lo primero que tienes que saber es qué bootloader utiliza tu teclado.  Hay cuatro bootloaders pincipales que se usan habitualmente . Pro-Micro y sus clones usan CATERINA, Teensy's usa Halfkay, las placas OLKB usan QMK-DFU, y otros chips atmega32u4 usan DFU. 
 
-Puedes encontrar más información sobre bootloaders en la página [Instrucciones de flaseado e información de Bootloader](flashing.md). 
+Puedes encontrar más información sobre bootloaders en la página [Instrucciones de flasheado e información de Bootloader](flashing.md). 
 
 Si sabes qué bootloader estás usando, en el momento de compilar el firmware, podrás añadir algún texto extra al comando `make` para automatizar el proceso de flasheado. 
 
@@ -275,7 +275,7 @@ Error opening HIDBoot device: The specified device was not found
 Trying again in 5s.
 ```
 
-Una vez que lo haga, querrás reinicar el controlador.  Debería entonces mostrar una información de salira similar a esta: 
+Una vez que lo haga, querrás reinicar el controlador.  Debería entonces mostrar una información de salida similar a esta: 
 
 ```
 Page size   = 128 (0x80)
@@ -341,8 +341,8 @@ Hay un número de comandos DFU que puedes usar para flashear firmware a un dispo
 * `:dfu-util` - El comando por defecto para flashing en dispositivos STM32. 
 * `:dfu-util-wait` - Esto funciona como el comando por defecto, pero te da (configurable) 10 segundos de tiempo antes de que intente flashear el firmware.  Puedes usar `TIME_DELAY=20` desde la líena de comandos para cambiar este tiempo de retardo.
    * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
-* `:dfu-util-split-left` - Flashea el firmware normal, gual que la opción por defecto (`:dfu-util`). Sin embargo, también flashea el fichero EEPROM "Lado Izquierdo" para teclados divididos.
-* `:dfu-util-split-right` - Flashea el firmware normal, gual que la opción por defecto (`:dfu-util`). Sin embargo, también flashea el fichero EEPROM "Lado Derecho" para teclados divididos.
+* `:dfu-util-split-left` - Flashea el firmware normal, igual que la opción por defecto (`:dfu-util`). Sin embargo, también flashea el fichero EEPROM "Lado Izquierdo" para teclados divididos.
+* `:dfu-util-split-right` - Flashea el firmware normal, igual que la opción por defecto (`:dfu-util`). Sin embargo, también flashea el fichero EEPROM "Lado Derecho" para teclados divididos.
 
 ## ¡Pruébalo!
 

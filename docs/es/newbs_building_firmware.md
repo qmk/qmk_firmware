@@ -1,6 +1,6 @@
 # Construyendo tu primer firmware
 
-Ahora que jas configurado tu entorno de construcción estas listo para empezar a construir firmwares personalizados. Para esta sección de la guía alternaremos entre 3 programas - tu gestor de ficheros, tu editor de texto , y tu ventana de terminal. Manten los 3 abiertos hasta que hayas acabado y estés contento con el firmware de tu teclado.
+Ahora que has configurado tu entorno de construcción estas listo para empezar a construir firmwares personalizados. Para esta sección de la guía alternaremos entre 3 programas - tu gestor de ficheros, tu editor de texto , y tu ventana de terminal. Manten los 3 abiertos hasta que hayas acabado y estés contento con el firmware de tu teclado.
 
 Si has cerrado y reabierto la ventana de tu terminal después de seguir el primero paso de esta guía, no olvides hacer `cd qmk_firmware` para que tu terminal esté en el directorio correcto.
 
@@ -42,9 +42,9 @@ Abre tu `keymap.c`. Dentro de este fichero encontrarás la estructura que contro
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-Esta línea indica el comienzo del listado de Capas. Debajo encontrarás líenas que contienen o bien `LAYOUT` o `KEYMAP`, y estas líneas indican el comienzo de una capa. Debajo de esa línea está la lista de teclas que pertenecen a esa capa concreta.
+Esta línea indica el comienzo del listado de Capas. Debajo encontrarás líneas que contienen o bien `LAYOUT` o `KEYMAP`, y estas líneas indican el comienzo de una capa. Debajo de esa línea está la lista de teclas que pertenecen a esa capa concreta.
 
-!> Cuando estés editando tu fichero de keymap ten cuidado con no añadir ni eliminar ninguna coma. Si lo haces el firmware dejarlá de compilar y puede no ser fácil averiguar dónde está la coma faltante o sobrante.
+!> Cuando estés editando tu fichero de keymap ten cuidado con no añadir ni eliminar ninguna coma. Si lo haces el firmware dejará de compilar y puede no ser fácil averiguar dónde está la coma faltante o sobrante.
 
 ## Personaliza el Layout a tu gusto
 
