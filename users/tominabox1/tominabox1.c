@@ -1,5 +1,21 @@
 #include "tominabox1.h"
 
+#ifdef KEYBOARD_lazydesigners_dimple
+#ifdef RGBLIGHT_ENABLE
+__attribute__ ((weak))
+void keyboard_post_init_keymap(void) {}
+
+void keyboard_post_init_user(void) { // sets the backlighting to come on upon successful load then turn off
+  rgblight_enable_noeeprom();
+  rgblight_sethsv_noeeprom(HSV_GOLD);
+  rgblight_mode_noeeprom(0);
+  wait_ms(700);
+  rgblight_disable_noeeprom();
+}
+#endif // RGBLIGHT
+#endif // Dimple
+
+
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
 static bool is_suspended;
@@ -65,8 +81,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_code (KC_RSFT);
-        register_code (KC_2);
+        register_code16(S(KC_2));
     } else {
         SEND_STRING("tom.campie@gmail.com");
     }
@@ -74,8 +89,7 @@ void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        unregister_code (KC_RSFT);
-        unregister_code (KC_2);
+        unregister_code16(S(KC_2));
     } else {
     }
 }
@@ -85,18 +99,21 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
-#define TAPPING_TERM 225
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
+
 #ifdef KEYBOARD_crkbd_rev1
-#undef TAPPING_TERM
-#define TAPPING_TERM 275
+
 #endif // CRKBD
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case TD(TD_SFT_CPS):
             return 150;
-        case LT(_LOWER, KC_ENT):
-            return 170;
+        case KC_ENT_LOW:
+            return 130;
+        case KC_SPC_RSE:
+            return(250);
         case LCTL_T(KC_TAB):
             return 300;
         default:
@@ -128,27 +145,22 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 __attribute__((weak))
 void matrix_scan_keymap(void) {}
-// No global matrix scan code, so just run keymap's matrix
-// scan function
+
 extern bool oled_initialized;
 void matrix_scan_user(void) {
   if(!oled_initialized) {
     wait_ms(200);
-        oled_init(0);
-        #ifdef CONSOLE_ENABLE
-              uprintf("matrix init");
-          #endif
-
+    oled_init(0);
+    return;
   }
   matrix_scan_keymap();
   }
 
 extern uint8_t is_master;
+#endif // CRKBD
 
-#ifdef OLED_DRIVER_ENABLE
-
-//oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 uint16_t        oled_timer;
+
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
@@ -160,32 +172,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #endif
 
     if (record->event.pressed) {
-        // add_keylog(keycode); // keep if using OLED key logger
+      #ifdef OLED_DRIVER_ENABLE
         oled_timer = timer_read();
         oled_on();
+        #endif // OLED_DRIVER_ENABLE
     switch (keycode) {
             case KC_BBB:
                 if (record->event.pressed) {
-                    // when keycode QMKBEST is pressed
                     SEND_STRING(":b:");
-                } else {
-                    // when keycode QMKBEST is released
-                }
+                } else {}
                 break;
             case KC_BEPIS:
                 if (record->event.pressed) {
-                    // when keycode QMKBEST is pressed
                     SEND_STRING("BEPIS");
-                } else {
-                    // when keycode QMKBEST is released
-                }
+                } else {}
                 break;
-
         }
     }
     return true;
 
 }
+#ifdef KEYBOARD_crkbd_rev1
+#ifdef OLED_DRIVER_ENABLE
 void render_logo(void) {
     static const char PROGMEM logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -248,8 +256,8 @@ void render_status_main(void) {
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
+
+    oled_write_ln_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
 __attribute__ ((weak))
 void oled_task_keymap(void) {}
@@ -264,7 +272,9 @@ void oled_task_user(void) {
             render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
         } else {
             render_logo();
+            oled_scroll_left();
         }
+        oled_task_keymap();
     }
 
 #endif // OLED_Driver
