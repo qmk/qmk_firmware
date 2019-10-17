@@ -8,7 +8,8 @@ Testing your keyboard is usually pretty straightforward. Press every single key 
 
 Note: These programs are not provided by or endorsed by QMK.
 
-* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) (Windows Only)
+* [QMK Configurator](https://config.qmk.fm/#/test/) (Web Based)
+* [Switch Hitter](https://web.archive.org/web/20190413233743/https://elitekeyboards.com/switchhitter.php) (Windows Only)
 * [Keyboard Viewer](https://www.imore.com/how-use-keyboard-viewer-your-mac) (Mac Only)
 * [Keyboard Tester](http://www.keyboardtester.com) (Web Based)
 * [Keyboard Checker](http://keyboardchecker.com) (Web Based)
