@@ -1,4 +1,4 @@
-# QMK Configurator
+# Configurador QMK
 
 El [Configurador QMK](https://config.qmk.fm) es un entorno gráfico online que genera ficheros hexadecimales de Firmware QMK.  
 
@@ -9,7 +9,7 @@ Ve el [Video tutorial](https://youtu.be/tx54jkRC9ZY)
 El Configurador QMK functiona mejor con Chrome/Firefox. 
 
 
-!> **Ficheros de otras herramientas como KLE, o kbfirmware no serán compatibles con el Configurador QMK. No las cargues, no las importes. El configurador QMK Configurator es una herramienta DIFERENTE. **
+!> **Ficheros de otras herramientas como KLE, o kbfirmware no serán compatibles con el Configurador QMK. No las cargues, no las importes. El configurador Configurador QMK es una herramienta DIFERENTE. **
 
 ## Seleccionando tu teclado
 
@@ -65,7 +65,7 @@ Cuando estés satisfecho con un teclado o quieres trabajar en el después, pulsa
 
 Entonces podrás cargar este fichero .json en el futuro pulsando el botón `Importar Keymap`. 
 
-!> **PRECAUCIÓN:** No es el mismo tipo de fichero .json usado en kbfirmware.com ni ninguna otra herramienta. Si intentas utilizar un fichero .json de alguna de estas herramientas con QMK Configurator, existe la posibilidad de que tu teclado **explote**. 
+!> **PRECAUCIÓN:** No es el mismo tipo de fichero .json usado en kbfirmware.com ni ninguna otra herramienta. Si intentas utilizar un fichero .json de alguna de estas herramientas con el Configurador QMK, existe la posibilidad de que tu teclado **explote**. 
 
 ## Generando tu fichero de firmware
 
@@ -81,7 +81,7 @@ Por favor, dirígete a la sección de [Flashear firmware](newbs_flashing.md)
 
 #### Mi fichero .json no funciona
 
-Si el fichero .json fue generado con QMK Configurator, enhorabuena, has dado con un bug. Abre una issue en [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+Si el fichero .json fue generado con el Configurador QMK, enhorabuena, has dado con un bug. Abre una issue en [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
 
 Si no....cómo no viste el mensaje en negrita que puse arriba diciendo que no hay que utilizar otros ficheros .json? 
 

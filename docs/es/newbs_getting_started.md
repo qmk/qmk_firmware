@@ -8,7 +8,7 @@ QMK intenta poner un montón de poder en tus manos haciendo que las cosas fácil
 
 Antes de que puedas construir keymaps, necesitarás instalar algun software y configurar tu entorno de construcción. Esto sólo hay que hacerlo una vez sin importar en cuántos teclados planeas configurar el software. 
 
-Si prefieres hacerlo mediante un interfaz gráfico , por favor, considera utilizar [QMK Configurator](https://config.qmk.fm). En ese caso dirígete a [Construyendo tu primer firmware usando la GUI](newbs_building_firmware_configurator.md). 
+Si prefieres hacerlo mediante un interfaz gráfico , por favor, considera utilizar el [Configurador QMK](https://config.qmk.fm). En ese caso dirígete a [Construyendo tu primer firmware usando la GUI](newbs_building_firmware_configurator.md). 
 
 
 ## Descarga el software
