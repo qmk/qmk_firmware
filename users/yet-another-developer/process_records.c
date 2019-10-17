@@ -38,15 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_oneshot_mods();
                 send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
                 {
-                    #if defined(__arm__)
-                    send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
-                    #elif defined(BOOTLOADER_DFU)
-                    send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
-                    #elif defined(BOOTLOADER_HALFKAY)
-                    send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
-                    #elif defined(BOOTLOADER_CATERINA)
-                    send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
-                    #endif // bootloader options
+                    send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
                 }
             }
             break;
