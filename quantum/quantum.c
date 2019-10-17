@@ -24,10 +24,6 @@
 #    include "outputselect.h"
 #endif
 
-#ifndef BREATHING_PERIOD
-#    define BREATHING_PERIOD 6
-#endif
-
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
     extern backlight_config_t backlight_config;
