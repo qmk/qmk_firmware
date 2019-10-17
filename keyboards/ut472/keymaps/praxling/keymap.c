@@ -15,43 +15,34 @@
  */
 #include QMK_KEYBOARD_H
 
+// Custom Layer keycodes
 #define L3_TAB LT(3, KC_TAB)
-#define KC_LOCK RGUI(KC_L)
 #define L4_SPACE LT(4, KC_SPC)
-#define KC_HYP LCTL(LSFT(LALT(KC_LGUI)))
-#define HYP5 LM(5, MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI)
-#define TD_LAYER TD(TD_LAYER_SWAP)
 
 enum custom_keycodes {
-    TOG_OS = SAFE_RANGE,
-    OSM_SHIFT,
+  TOG_OS = SAFE_RANGE,
 
-    // shortcuts
-    UC_COPY,
-    UC_PASTE,
-    UC_CUT,
-    UC_UNDO,
-    KC_COMMENT,
+  // shortcuts
+  UC_LOCK,
+  UC_COPY,
+  UC_PASTE,
+  UC_CUT,
+  UC_UNDO,
+  UC_COMMENT,
 
-    // mouse
-    KC_SCRL_UP,
-    KC_SCRL_DWN
+  // mouse
+  UC_SCRL_UP,
+  UC_SCRL_DWN
 };
 
 //Tap Dance Declarations
 enum tapdance_id {
-    TD_SCLN = 0,
-    TD_COMM,
-    TD_DOT,
-    TD_MINS,
-    TD_QUOT,
-    TD_SFT,
-    TD_LAYER_SWAP
+  TD_SCLN = 0,
+  TD_COMM,
+  TD_DOT,
+  TD_MINS,
+  TD_QUOT
 };
-
-bool is_mac = true;
-bool mod_shift = false;
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,16 +58,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* `-------------------------------------------------------------------------'
 	*/
 	[0] = LAYOUT(
-        KC_ESC, TD(TD_SCLN), TD(TD_COMM), KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC, 
-        L3_TAB, LSFT_T(KC_A), CTL_T(KC_O), ALT_T(KC_E), GUI_T(KC_U), KC_I, KC_D, RGUI_T(KC_H), RALT_T(KC_T), RCTL_T(KC_N), RSFT_T(KC_S), TD(TD_MINS), 
-        OSM(MOD_LSFT), TD(TD_QUOT), KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_SFTENT, 
-        KC_LCTL, KC_LALT, KC_LGUI, HYP5, MO(2), L4_SPACE, MO(1), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
+    KC_ESC, TD(TD_SCLN), TD(TD_COMM), KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC, 
+    L3_TAB, SFT_T(KC_A), CTL_T(KC_O), ALT_T(KC_E), GUI_T(KC_U), KC_I, KC_D, GUI_T(KC_H), ALT_T(KC_T), CTL_T(KC_N), SFT_T(KC_S), TD(TD_MINS), 
+    OSM(MOD_LSFT), TD(TD_QUOT), KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_SFTENT, 
+    KC_LCTL, KC_LALT, KC_LGUI, MO(5), MO(2), L4_SPACE, MO(1), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT),
 
 
 
 	/* FN Layer 1
 	* ,-------------------------------------------------------------------------.
-	* | TOG_OS |  F1  | F2 |  F3  | F4 | F5 | F6 | F7 | F8 | F9 | F10 |  Bspace |
+	* |     |  F1  | F2 |  F3  | F4 | F5 | F6 | F7 | F8 | F9 | F10 |   Bspace   |
 	* |-------------------------------------------------------------------------+
 	* | Capsl | Play | Prv | Next |       | Gui+L | Gui+/ | @ |  !  |  ?  |  /  |
 	* |-------------------------------------------------------------------------+
@@ -86,10 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* `-------------------------------------------------------------------------'
 	*/
 	[1] = LAYOUT(
-        TOG_OS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRNS, 
-        KC_CAPS, KC_MPLY, KC_MRWD, KC_MFFD, KC_F4, KC_NO, KC_LOCK, KC_COMMENT, KC_AT, KC_EXLM, KC_QUES, KC_PSLS, 
-        KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, UC_COPY, UC_PASTE, UC_CUT, UC_UNDO, KC_TRNS, 
-        KC_TRNS, RGB_TOG, RGB_RMOD, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END),
+    KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRNS, 
+    KC_CAPS, KC_MPLY, KC_MRWD, KC_MFFD, KC_NO, KC_NO, UC_LOCK, UC_COMMENT, KC_AT, KC_EXLM, KC_QUES, KC_PSLS, 
+    KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, UC_COPY, UC_PASTE, UC_CUT, UC_UNDO, KC_TRNS, 
+    // KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO, KC_NO, G(KC_C), G(KC_V), G(KC_X), G(KC_Z), KC_TRNS,  
+    KC_TRNS, RGB_TOG, RGB_RMOD, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END),
 
 
 
@@ -105,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* `-------------------------------------------------------------------------'
 	*/
 	[2] = LAYOUT(
-        KC_ESC, KC_PERC, KC_AMPR, KC_HASH, KC_TILD, KC_NO, KC_PMNS, KC_DLR, KC_PIPE, KC_GRV, KC_NO, KC_DEL, 
-        KC_TRNS, KC_LBRC, KC_LCBR, KC_LPRN, KC_EQL, KC_NO, KC_PPLS, KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, 
-        KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, 
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END),
+    KC_ESC, KC_PERC, KC_AMPR, KC_HASH, KC_TILD, KC_NO, KC_PMNS, KC_DLR, KC_PIPE, KC_GRV, KC_NO, KC_DEL, 
+    KC_TRNS, KC_LBRC, KC_LCBR, KC_LPRN, KC_EQL, KC_NO, KC_PPLS, KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC, KC_BSLS, 
+    KC_F9, KC_F10, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, 
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END),
 
 
 
@@ -136,15 +128,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |-------------------------------------------------------------------------+
   * | Hyp | Shift | Ctrl | Alt | Gui |   |   | Left | Down | Up | Right | Del |
   * |-------------------------------------------------------------------------+
-  * |        | Undo | Cut | Copy | Paste |     |     |Home|PgDn|PgUp|End| Ent |
+  * | Reset | TOG_OS |    |    |    |    |    |    |Home|PgDn|PgUp| End | Ent |
   * |-------------------------------------------------------------------------+
   * |     |    |    |    |       |            |       |      |     |    |     |
   * `-------------------------------------------------------------------------'
   */
   [4] = LAYOUT(
-    KC_ESC, KC_NO, KC_SCRL_DWN, KC_SCRL_UP, KC_BTN1, KC_BTN2, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BSPC, 
-    KC_HYP, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_DEL, 
-    KC_TRNS, UC_UNDO, UC_CUT, UC_COPY, UC_PASTE, KC_NO, KC_NO, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_ENT, 
+    KC_ESC, KC_NO, UC_SCRL_DWN, UC_SCRL_UP, KC_BTN1, KC_BTN2, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BSPC, 
+    KC_TRNS, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_DEL,  
+    RESET, CG_TOGG, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_ENT, 
     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO),
 
 
@@ -160,8 +152,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------------------------------------------------------------------------'
   */
   [5] = LAYOUT(
-    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_RGHT, KC_NO, KC_NO, 
-    KC_NO, KC_P1, KC_P2, KC_P3, KC_P4, KC_P5, KC_P6, KC_P7, KC_P8, KC_P9, KC_P0, KC_NO, 
+    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, HYPR(KC_LEFT), HYPR(KC_RGHT), KC_NO, KC_NO, 
+    KC_NO, HYPR(KC_P1), HYPR(KC_P2), HYPR(KC_P3), HYPR(KC_P4), HYPR(KC_P5), HYPR(KC_P6), HYPR(KC_P7), HYPR(KC_P8), HYPR(KC_P9), HYPR(KC_P0), HYPR(KC_NO), 
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),  
 };
@@ -170,99 +162,106 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //Custom functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) { // process on key down
-  	  case TOG_OS:
-        	is_mac = ! is_mac;
-        	return false;
+  switch(keycode) {
+    // case TOG_OS:
+    case CG_TOGG:
+      if (record->event.pressed) {
+        curr_os_is_mac = keymap_config.swap_lctl_lgui;
+      }
+      break;
 
-      case UC_COPY:
-      	if (is_mac) {
-      		SEND_STRING(SS_LGUI("c"));
-      	}
-      	else {
-      		SEND_STRING(SS_LCTRL("c"));
-      	}
-      	return false;
-
-      case UC_PASTE:
-      	if (is_mac) {
-      		SEND_STRING(SS_LGUI("v"));
-      	}
-      	else {
-      		SEND_STRING(SS_LCTRL("v"));
-      	}
-      	return false;
-
-      case UC_CUT:
-      	if (is_mac) {
-      		SEND_STRING(SS_LGUI("x"));
-      	}
-      	else {
-      		SEND_STRING(SS_LCTRL("x"));
-      	}
-      	return false;
-
-      case UC_UNDO:
-      	if (is_mac) {
-      		SEND_STRING(SS_LGUI("z"));
-      	}
-      	else {
-      		SEND_STRING(SS_LCTRL("z"));
-      	}
-      	return false;
-
-      case KC_COMMENT:
-      	if (is_mac) {
-      		SEND_STRING(SS_LGUI("/"));
-      	}
-      	else {
-      		SEND_STRING(SS_LCTRL("/"));
-      	}
-      	return false;
-
-      case KC_SCRL_UP:
-        if (is_mac) {
-          register_code(KC_WH_D);
+    case UC_LOCK:
+      if (record->event.pressed) {
+        if (curr_os_is_mac) {
+          SEND_STRING(SS_LCTRL(SS_LGUI("q")));
+        } else {
+          SEND_STRING(SS_LGUI("l"));
         }
-        else {
+      }
+      return false;
+      break;      
+
+    case UC_COPY:
+      if (record->event.pressed) {
+        register_mods(mod_config(MOD_BIT(KC_LGUI)));
+        tap_code(KC_C);
+        unregister_mods(mod_config(MOD_BIT(KC_LGUI)));
+      }
+      return false;
+      break;
+
+    case UC_PASTE:
+      if (record->event.pressed) {
+        register_mods(mod_config(MOD_BIT(KC_LGUI)));
+        tap_code(KC_V);
+        unregister_mods(mod_config(MOD_BIT(KC_LGUI)));
+      }
+      return false;
+      break;
+
+    case UC_CUT:
+      if (record->event.pressed) {
+        register_mods(mod_config(MOD_BIT(KC_LGUI)));
+        tap_code(KC_X);
+        unregister_mods(mod_config(MOD_BIT(KC_LGUI)));
+      }
+      return false;
+      break;
+
+    case UC_UNDO:
+      if (record->event.pressed) {
+        register_mods(mod_config(MOD_BIT(KC_LGUI)));
+        tap_code(KC_Z);
+        unregister_mods(mod_config(MOD_BIT(KC_LGUI)));
+      }
+      return false;
+      break;
+
+    case UC_COMMENT:
+      if (record->event.pressed) {
+        register_mods(mod_config(MOD_BIT(KC_LGUI)));
+        tap_code(KC_PSLS);
+        unregister_mods(mod_config(MOD_BIT(KC_LGUI)));
+      }
+      return false;
+      break;      
+
+    case UC_SCRL_UP:
+      if (record->event.pressed) {
+        if (curr_os_is_mac) {
+          register_code(KC_WH_D);
+        } else {
           register_code(KC_WH_U);
         }
-        return false;
+      } else {
+        if (curr_os_is_mac) {
+          unregister_code(KC_WH_D);
+        } else {
+          unregister_code(KC_WH_U);
+        }            
+      }
+      return false;
+      break;
 
-      case KC_SCRL_DWN:
-        if (is_mac) {
+    case UC_SCRL_DWN:
+      if (record->event.pressed) {
+        if (curr_os_is_mac) {
           register_code(KC_WH_U);
-        }
-        else {
+        } else {
           register_code(KC_WH_D);
         }
-        return false;
-    }
-  } else {  // process on key up
-    switch(keycode) {
-      case KC_SCRL_UP:
-        if (is_mac) {
-          unregister_code(KC_WH_D);
-        }
-        else {
+      } else {
+        if (curr_os_is_mac) {
           unregister_code(KC_WH_U);
-        }
-        return false;
-
-      case KC_SCRL_DWN:
-        if (is_mac) {
-          unregister_code(KC_WH_U);
-        }
-        else {
+        } else {
           unregister_code(KC_WH_D);
-        }
-        return false;
+        }            
+      }
+      return false;
+      break;
     }
-  }
   return true;
 };
-
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
