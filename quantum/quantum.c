@@ -28,8 +28,10 @@
 #    define BREATHING_PERIOD 6
 #endif
 
-#include "backlight.h"
-extern backlight_config_t backlight_config;
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+    extern backlight_config_t backlight_config;
+#endif
 
 #ifdef FAUXCLICKY_ENABLE
 #    include "fauxclicky.h"

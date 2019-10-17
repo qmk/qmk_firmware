@@ -20,13 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 #include "command.h"
 #include "led.h"
-#include "backlight.h"
 #include "action_layer.h"
 #include "action_tapping.h"
 #include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"

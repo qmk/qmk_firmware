@@ -8,9 +8,12 @@
 #include "action_util.h"
 #include "mousekey.h"
 #include "host.h"
-#include "backlight.h"
 #include "suspend.h"
 #include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 /** \brief suspend idle
  *
