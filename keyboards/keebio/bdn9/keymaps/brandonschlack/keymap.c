@@ -15,16 +15,22 @@ enum bdn9_keycodes {
 
 // Tap Dances
 enum bdn9_dances {
-    TD_DTAP_LGHT = 0,
+    TD_DTAP_ADIO = 0,
+    TD_DTAP_LGHT,
     TD_DTAP_ADJT
 };
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_DTAP_ADIO] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _AUDIO),
     [TD_DTAP_LGHT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _LIGHT),
     [TD_DTAP_ADJT] = ACTION_TAP_DANCE_TRIGGER_LAYER(DOUBLE_TAP, _ADJUST),
 };
 // Tap Dance Aliases
-#define DTP_LGT   TD(TD_DTAP_LGHT)
+#if defined(RGBLIGHT_ENABLE)
+#define DTP_AVC   TD(TD_DTAP_LGHT)
+#elif defined(AUDIO_ENABLE)
+#define DTP_AVC   TD(TD_DTAP_ADIO)
+#endif
 #define DTP_ADJ   TD(TD_DTAP_ADJT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_REEDER] = LAYOUT(
         KC_H, KC_S, KC_R,
-        CMD_TAB, KC_M, DTP_LGT,
+        CMD_TAB, KC_M, DTP_AVC,
         G(KC_1), G(KC_2), DTP_ADJ
     ),
     /*
@@ -61,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MEDIA] = LAYOUT(
         KC_MUTE, MC_PLYR, KC_MPLY,
-        KC_J, KC_K, DTP_LGT,
+        KC_J, KC_K, DTP_AVC,
         KC_LEFT, KC_SPC, DTP_ADJ
     ),
     /*
@@ -79,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_NAVI] = LAYOUT(
         REO_TAB, CMD_TAB, CLS_TAB,
-        KC_PGDN, KC_UP, DTP_LGT,
+        KC_PGDN, KC_UP, DTP_AVC,
         KC_LEFT, KC_DOWN, DTP_ADJ
     ),
     /*
@@ -97,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MACRO] = LAYOUT(
         KC_P1, KC_P2, KC_P3,
-        KC_P4, KC_P5, DTP_LGT,
+        KC_P4, KC_P5, DTP_AVC,
         KC_P7, KC_P8, DTP_ADJ
     ),
     /*
@@ -115,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [LR_NAV] = LAYOUT(
         TG_REVW, KC_J,    TG_EDIT,
-        KC_HOME, KC_UP,   DTP_LGT,
+        KC_HOME, KC_UP,   DTP_AVC,
         KC_LEFT, KC_DOWN, DTP_ADJ
     ),
     /*
@@ -133,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [LR_REVIEW] = LAYOUT(
         TG_LNAV, KC_7,    TG_EDIT,
-        KC_0,    KC_8,    DTP_LGT,
+        KC_0,    KC_8,    DTP_AVC,
         KC_LEFT, KC_6,    DTP_ADJ
     ),
     /*
@@ -151,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [LR_EDIT] = LAYOUT(
         TG_REVW, KC_BSLS, TG_LNAV,
-        KC_X,    MC_UNDO, DTP_LGT,
+        KC_X,    MC_UNDO, DTP_AVC,
         KC_LEFT, MC_REDO, DTP_ADJ
     ),
     /*
@@ -208,25 +214,34 @@ const uint16_t PROGMEM encoders[][2][2] = {
 void encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
 
-    if (layer == _LIGHT) {
-        switch (index) {
-            case 0:
-                if (clockwise) {
-                    rgblight_increase_hue();
-                } else {
-                    rgblight_decrease_hue();
-                }
-                break;
-            case 1:
-                if (clockwise) {
-                    rgblight_increase_sat();
-                } else {
-                    rgblight_decrease_sat();
-                }
-                break;
-        }
-    } else {
-        tap_code16(pgm_read_word(&encoders[layer][index][clockwise]));
+    switch (layer) {
+        case _AUDIO:
+            #ifdef AUDIO_ENABLE
+            #endif
+            break;
+        case _LIGHT:
+            #ifdef RGBLIGHT_ENABLE
+            switch (index) {
+                case 0:
+                    if (clockwise) {
+                        rgblight_increase_hue();
+                    } else {
+                        rgblight_decrease_hue();
+                    }
+                    break;
+                case 1:
+                    if (clockwise) {
+                        rgblight_increase_sat();
+                    } else {
+                        rgblight_decrease_sat();
+                    }
+                    break;
+            }
+            #endif
+            break;
+        default:
+            tap_code16(pgm_read_word(&encoders[layer][index][clockwise]));
+            break;
     }
 }
 
@@ -263,13 +278,21 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_keymap (layer_state_t state) {
     switch (get_highest_layer(state)) {
         case LR_NAV:
+        #if defined(RGBLIGHT_ENABLE)
             rgb_layer_helper(HSV_TEAL);
+        #endif
             break;
         case LR_REVIEW:
+        #if defined(RGBLIGHT_ENABLE)
             rgb_layer_helper(HSV_CYAN);
+        #endif
             break;
         case LR_EDIT:
+        #if defined(RGBLIGHT_ENABLE)
             rgb_layer_helper(HSV_AZURE);
+        #endif
+            break;
+        default:
             break;
     }
     return state;
