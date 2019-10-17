@@ -42,7 +42,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc(
-    GRV , 1   , 2   , 3   , 4   , 5   , BSLS,   6   , 7   , 8   , 9   , 0   , MINS, EQL,
+    GRV , 1   , 2   , 3   , 4   , 5   , 6   ,   6   , 7   , 8   , 9   , 0   , MINS, EQL,
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
     CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
     LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
