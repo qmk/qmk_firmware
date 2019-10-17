@@ -44,6 +44,8 @@ enum tapdance_id {
   TD_QUOT
 };
 
+bool curr_os_is_mac = true;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Base Layer
