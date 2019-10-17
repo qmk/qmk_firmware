@@ -4,11 +4,6 @@ LEADER_EXTERNS();
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void){
-  static bool has_ran_yet;
-  if (!has_ran_yet) {
-    has_ran_yet = true;
-    startup_user();
-  }
 
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
 //  run_diablo_macro_check();
