@@ -25,9 +25,8 @@ enum bs_layers {
     _MACRO,
 #endif
     KEYMAP_LAYERS, // Add more layers in keymaps
-#if defined(IS_MACROPAD) && (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-    _LIGHT = 14, // Layer for BLight/RGB controls on macropads
-#endif
+    _AUDIO = 13, // Layer for Audio controls
+    _LIGHT = 14, // Layer for BLight/RGB controls
     _ADJUST = 15 // Change keyboard settings
 };
 
