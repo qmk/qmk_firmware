@@ -38,10 +38,7 @@ enum tap_dance_indexes {
     TD_SFT_CPS,
 };
 
-#define KC______ KC_TRNS
-#define KC_XXXXX KC_NO
 #define KC_ARROW MO(4)
-#define KC_RST   RESET
 #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI
 #define KC_LHUD  RGB_HUD
