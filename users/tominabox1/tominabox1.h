@@ -57,7 +57,3 @@ enum tap_dance_indexes {
 #define KC_EML TD(KC_EMAIL) // Double tap @ for email macro
 #define KC_FKEY LT(_FKEY, KC_ENT) // Return on tap, Fkey on hold
 #define KC_NUMF TD(KC_LFT_NUM_F)
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};

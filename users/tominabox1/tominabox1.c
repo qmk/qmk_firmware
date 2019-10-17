@@ -81,8 +81,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        register_code (KC_RSFT);
-        register_code (KC_2);
+        register_code16(S(KC_2));
     } else {
         SEND_STRING("tom.campie@gmail.com");
     }
@@ -90,8 +89,7 @@ void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        unregister_code (KC_RSFT);
-        unregister_code (KC_2);
+        unregister_code16(S(KC_2));
     } else {
     }
 }
@@ -258,8 +256,8 @@ void render_status_main(void) {
     }
 
     // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_ln_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
+
+    oled_write_ln_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
 }
 __attribute__ ((weak))
 void oled_task_keymap(void) {}

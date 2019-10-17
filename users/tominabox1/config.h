@@ -8,7 +8,7 @@
 #define OLED_FONT_H "users/tominabox1/doug.c"
 #define OLED_DISABLE_TIMEOUT
 
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 // Setup RGB settings for the Dimple.
 #ifdef KEYBOARD_lazydesigners_dimple
