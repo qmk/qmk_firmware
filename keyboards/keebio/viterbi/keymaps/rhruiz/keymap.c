@@ -11,6 +11,7 @@
 #define KC_____ KC_TRNS
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
+#define KC_RFN1 LT(_FN1, KC_RGHT)
 
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
@@ -45,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
     CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
     LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
-    _FN2, SPC , LCTL, LALT, LGUI, SPC , _FN1,   _FN2, BSPC, RGUI, LEFT, DOWN, UP  , RGHT
+    _FN2, SPC , LCTL, LALT, LGUI, SPC , _FN1,   _FN2, BSPC, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_kc(
