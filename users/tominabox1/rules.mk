@@ -5,7 +5,7 @@
 CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
 NKRO_ENABLE = yes
-BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration(+1000)
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = WS2812
