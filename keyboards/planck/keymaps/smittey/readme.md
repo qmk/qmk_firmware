@@ -1,13 +1,13 @@
 # Planck Layout created by [Smittey](https://github.com/smittey) 
 
-A layout with a focus around coding, utilising the home row for symbols. There is an additional FN layer and Space function layer.
+A layout with a focus around coding, utilising the home row for symbols. There is an additional FN layer and Space function layer
 
-Main - Qwerty with ctrl swapped around and enter changed to be shift on hold.
+Main - Qwerty with ctrl swapped around and enter changed to be shift on hold
 Lower - Numbers and calculations
 Raise - Symbols
 Adjust - Keyboard settings and layout changers
 FN - Function keys
-Space function - Navigation and media
+Space FN - Navigation and media
 
 ## Main
 ![Main layer layout](https://i.imgur.com/jRbqGUN.png)
