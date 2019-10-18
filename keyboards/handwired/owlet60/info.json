@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Owlet60", 
-    "url": "https://https://qmk.fm/keyboards/handwired/owlet60", 
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/owlet60/", 
     "maintainer": "worthlessowl", 
     "width": 19, 
     "height": 5, 
