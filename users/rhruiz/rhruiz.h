@@ -33,6 +33,7 @@ void     rhruiz_on_default_layer(void);
 void     rhruiz_update_layer_colors(void);
 uint32_t rhruiz_layer_state_set_user(uint32_t state);
 bool     rhruiz_is_layer_indicator_led(uint8_t index);
+void     rhruiz_disable_promicro_leds(void);
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);

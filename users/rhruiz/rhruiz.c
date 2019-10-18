@@ -5,6 +5,16 @@ __attribute__((weak)) void rhruiz_update_layer_colors(void) {}
 
 __attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset(); }
 
+void rhruiz_disable_promicro_leds() {
+#ifdef __AVR_ATmega32U4__
+    setPinOutput(B0);
+    writePinHigh(B0);
+
+    setPinOutput(D5);
+    writePinHigh(D5);
+#endif
+}
+
 uint32_t rhruiz_layer_state_set_user(uint32_t state) {
     static uint32_t last_state = 0;
 

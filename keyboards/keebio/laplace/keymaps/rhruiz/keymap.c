@@ -133,13 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-void matrix_init_user(void) {
-    setPinOutput(B0);
-    writePinHigh(B0);
-
-    setPinOutput(D5);
-    writePinHigh(D5);
-}
+void keyoard_post_init_user(void) { rhruiz_disable_promicro_leds(); }
 
 void rhruiz_update_layer_colors() {
     switch (biton32(layer_state)) {
