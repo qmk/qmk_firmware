@@ -50,23 +50,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_planck_grid(
         tild, exlm, at,   hash, dlr,  perc, circ, ampr, astr, lprn, rprn, bspc,
-        ____, f1,   f2,   f3,   f4,   f5,   f6,   unds, plus, lcbr, rcbr, acut,
-        caps, f7,   f8,   f9,   f10,  f11,  f12,  xxxx, ____, ____, pgup, ____,
-        ____, fn,   lgui, lalt, ____, ____, ____, ____, bsls, home, pgdn, end
+        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, unds, plus, lcbr, rcbr, acut,
+        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, mins, eql,  lbrc, rbrc, ____,
+        ____, fn,   lgui, lalt, ____, ____, ____, ____, bsls, pipe, xxxx, xxxx
     ),
 
     [_RAISE] = LAYOUT_planck_grid(
         grv,  n1,   n2,   n3,   n4,   n5,   n6,   n7,   n8,   n9,   n0,   bspc,
-        ____, f1,   f2,   f3,   f4,   f5,   f6,   mins, eql,  lbrc, rbrc, uml,
-        caps, f7,   f8,   f9,   f10,  f11,  f12,  xxxx, ____, ____, pgup, ____,
-        ____, fn,   lgui, lalt, ____, ____, ____, ____, pipe, home, pgdn, end
+        ____, n4,   n5,   n6,   xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, uml,
+        ____, n7,   n8,   n9,   xxxx, xxxx, xxxx, xxxx, ____, ____, volu, ____,
+        ____, fn,   n0,   lalt, ____, ____, ____, ____, ____, next, vold, play
     ),
 
     [_FN] = LAYOUT_planck_grid(
-        tab,  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ins,  xxxx, prnt, aa,
-        del,  xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, ae,   oe,
-        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, volu, del,
-        ____, fn,   lgui, lalt, ____, ____, ____, ____, xxxx, next, vold, play
+        tab,  f1,   f2,   f3,   f4,   xxxx, xxxx, xxxx, ins,  xxxx, prnt, aa,
+        del,  f5,   f6,   f7,   f8,   xxxx, xxxx, xxxx, xxxx, xxxx, ae,   oe,
+        ____, f9,   f10,  f11,  f12,  xxxx, xxxx, xxxx, xxxx, xxxx, pgup, del,
+        ____, fn,   lgui, lalt, ____, ____, ____, ____, xxxx, home, pgdn, end
     ),
 
     [_SYSTEM] = LAYOUT_planck_grid(
