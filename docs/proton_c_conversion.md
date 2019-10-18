@@ -53,12 +53,12 @@ Remove these variables if they exist:
 
 Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 
-| Pro Micro | Proton C | | Proton C | Pro Micro | Comments |
-|-----------|----------|-|----------|-----------|----------|
+| Pro Micro | Proton C | | Proton C | Pro Micro |
+|-----------|----------|-|----------|-----------|
 | `D3` | `A9` | | 5v | RAW (5v) |
 | `D2` | `A10` | | GND | GND |
 | GND | GND | | FLASH | RESET |
-| GND | GND | | 3.3v | VCC | On a Pro Micro VCC can be 3.3v or 5v |
+| GND | GND | | 3.3v | VCC <sup>1</sup> |
 | `D1` | `B7` | | `A2` | `F4` |
 | `D0` | `B6` | | `A1` | `F5` |
 | `D4` | `B5` | | `A0` | `F6` |
@@ -67,15 +67,24 @@ Finally convert all pin assignments in `config.h` to the stm32 equivalents.
 | `E6` | `B2` | | `B14` | `B3` |
 | `B4` | `B1` | | `B15` | `B2` |
 | `B5` | `B0` | | `B9` | `B6` |
-| `B0` (RX LED) | `C13` | | `C13` | `D5` (TX LED) | Use `CONVERT_TO_PROTON_C_RXLED` to control the LED C13 is assigned to.
+| `B0` (RX LED) | `C13` <sup>2</sup> | | `C13` <sup>2</sup> | `D5` (TX LED) |
 
 You can also make use of several new pins on the extended portion of the Proton C:
 
 | Left | | Right | Comments |
 |------|-|-------|----------|
-| `A4` | | `B10` | `A4` is shared with the speaker |
-| `A5` | | `B11` | `A5` is shared with the speaker |
-| `A6` | | `B12` | |
-| `A7` | | `A14` (SWCLK) | `A14` is used for hardware debugging (SWD) |
-| `A8` | | `A13` (SWDIO) | `A13` is used for hardware debugging (SWD) |
-| `A15` | | RESET | Pull RESET high to reboot the MCU. This does not enter bootloader mode like a Pro Micro, it only resets the MCU. |
+| `A4`<sup>3</sup> | | `B10` |
+| `A5`<sup>4</sup> | | `B11` |
+| `A6` | | `B12` |
+| `A7` | | `A14`<sup>5</sup> (SWCLK) |
+| `A8` | | `A13`<sup>5</sup> (SWDIO) |
+| `A15` | | RESET<sup>6</sup> |
+
+Notes:
+
+1. On a Pro Micro VCC can be 3.3v or 5v.
+2. When `CTPC=yes` is used `B0` on the Pro Micro will be assigned to `C13` on the Proton C. If `CONVERT_TO_PROTON_C_RXLED` is defined in `config.h` the `D5` pin will be assigned to `C13` on the Proton C instead.
+3. `A4` is shared with the speaker.
+4. `A5` is shared with the speaker.
+5. `A13` and `A14` are used for hardware debugging (SWD). You can also use them for GPIO, but should use them last.
+6. Short RESET to 3.3v (pull high) to reboot the MCU. This does not enter bootloader mode like a Pro Micro, it only resets the MCU.
