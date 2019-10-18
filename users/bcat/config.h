@@ -8,6 +8,20 @@
 
 #define TAPPING_TERM 250
 
+/*
+ * Treat mod-tap keys as holds even if the mod-tap key and the key being
+ * modified are both relased within TAPPING_TERM. This assumes the mod-tap key
+ * isn't usually pressed in quick succession with other tapped keys, which is
+ * good when the tap keycode is something like KC_ESC rather than a letter.
+ */
+#define PERMISSIVE_HOLD
+
+/*
+ * Turn off key repeat support of the tap keycode for tap-hold keys, enabling
+ * holds to work correctly in quick succession after taps.
+ */
+#define TAPPING_FORCE_HOLD
+
 #if defined(RGBLIGHT_ENABLE)
   /* Turn off RGB underglow when the host goes to sleep. */
   #define RGBLIGHT_SLEEP
