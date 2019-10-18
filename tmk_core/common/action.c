@@ -20,13 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mousekey.h"
 #include "command.h"
 #include "led.h"
-#include "backlight.h"
 #include "action_layer.h"
 #include "action_tapping.h"
 #include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
 #include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 #ifdef DEBUG_ACTION
 #    include "debug.h"
@@ -868,9 +871,9 @@ void tap_code(uint8_t code) {
     unregister_code(code);
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Adds the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * FIXME: Needs documentation.
+ * \param mods A bitfield of modifiers to unregister.
  */
 void register_mods(uint8_t mods) {
     if (mods) {
@@ -879,13 +882,35 @@ void register_mods(uint8_t mods) {
     }
 }
 
-/** \brief Utilities for actions. (FIXME: Needs better description)
+/** \brief Removes the given physically pressed modifiers and sends a keyboard report immediately.
  *
- * FIXME: Needs documentation.
+ * \param mods A bitfield of modifiers to unregister.
  */
 void unregister_mods(uint8_t mods) {
     if (mods) {
         del_mods(mods);
+        send_keyboard_report();
+    }
+}
+
+/** \brief Adds the given weak modifiers and sends a keyboard report immediately.
+ *
+ * \param mods A bitfield of modifiers to register.
+ */
+void register_weak_mods(uint8_t mods) {
+    if (mods) {
+        add_weak_mods(mods);
+        send_keyboard_report();
+    }
+}
+
+/** \brief Removes the given weak modifiers and sends a keyboard report immediately.
+ *
+ * \param mods A bitfield of modifiers to unregister.
+ */
+void unregister_weak_mods(uint8_t mods) {
+    if (mods) {
+        del_weak_mods(mods);
         send_keyboard_report();
     }
 }
