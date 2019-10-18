@@ -154,8 +154,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_W               , .kana = "ha"},
   {.key = B_E               , .kana = "te"},
   {.key = B_R               , .kana = "si"},
-  {.key = B_T               , .kana = SS_TAP(X_LEFT)},
-  {.key = B_Y               , .kana = SS_TAP(X_RIGHT)},
+  {.key = B_T               , .kana = SS_TAP(X_DOWN)},
+  {.key = B_Y               , .kana = SS_TAP(X_UP)},
   {.key = B_U               , .kana = SS_TAP(X_BSPACE)},
   {.key = B_I               , .kana = "ru"},
   {.key = B_O               , .kana = "su"},
@@ -373,6 +373,9 @@ const PROGMEM naginata_keymap ngmap[] = {
 };
 
 const PROGMEM naginata_keymap_long ngmapl[] = {
+  {.key = B_SHFT|B_T        , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_DOWN)SS_UP(X_LSHIFT)},
+  {.key = B_SHFT|B_Y        , .kana = SS_DOWN(X_LSHIFT)SS_TAP(X_UP)SS_UP(X_LSHIFT)},
+
   // 編集モード1
   {.key = B_D|B_F|B_P       , .kana = SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)SS_TAP(X_ESCAPE)},
 
