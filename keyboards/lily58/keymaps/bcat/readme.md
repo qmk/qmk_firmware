@@ -47,7 +47,7 @@ of layer-shift keys to fix a mistake.
 
 ## Lower layer
 
-![Lower layer layout](https://imgur.com/Nuqr61f)
+![Lower layer layout](https://i.imgur.com/Nuqr61f.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11))
 
