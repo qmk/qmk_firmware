@@ -43,7 +43,7 @@
     because they take up a lot of space.  Disable until you can successfully compile your firmware. */
   // #define DISABLE_RGB_MATRIX_ALPHAS_MODS
   // #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-  // #define DISABLE_RGB_MATRIX_BREATHING
+  #define DISABLE_RGB_MATRIX_BREATHING
   // #define DISABLE_RGB_MATRIX_CYCLE_ALL
   // #define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
   // #define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN

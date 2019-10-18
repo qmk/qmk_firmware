@@ -12,7 +12,6 @@ RGB_MATRIX_ENABLE = WS2812
 EXTRAFLAGS += -flto
 BOOTLOADER = qmk-dfu
 OLED_DRIVER_ENABLE = yes
-BOOTMAGIC_ENABLE = no
 endif
 
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)
