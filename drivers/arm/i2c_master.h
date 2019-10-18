@@ -73,19 +73,19 @@
 // The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 #    ifndef I2C1_TIMINGR_PRESC
-#        define I2C1_TIMINGR_PRESC 15U
+#        define I2C1_TIMINGR_PRESC 0U
 #    endif
 #    ifndef I2C1_TIMINGR_SCLDEL
-#        define I2C1_TIMINGR_SCLDEL 4U
+#        define I2C1_TIMINGR_SCLDEL 7U
 #    endif
 #    ifndef I2C1_TIMINGR_SDADEL
-#        define I2C1_TIMINGR_SDADEL 2U
+#        define I2C1_TIMINGR_SDADEL 0U
 #    endif
 #    ifndef I2C1_TIMINGR_SCLH
-#        define I2C1_TIMINGR_SCLH 15U
+#        define I2C1_TIMINGR_SCLH 38U
 #    endif
 #    ifndef I2C1_TIMINGR_SCLL
-#        define I2C1_TIMINGR_SCLL 21U
+#        define I2C1_TIMINGR_SCLL 129U
 #    endif
 #endif
 
