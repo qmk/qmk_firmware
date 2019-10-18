@@ -104,7 +104,7 @@ ou, utilisez :
 Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
 * `: avrdude` - Il s’agit de l’option normale. Le script vas attendre qu’un appareil Caterina soit disponible. Dès que c’est le cas, il flash le firmware. Il attendra de détecter un nouveau port COM pour le flasher.
-* `: avrdude-loop` - Cela fonctionne de la même manière qu'`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers d’un coup. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-loop` - Cela fonctionne de la même manière qu'`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
 * `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 * `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 

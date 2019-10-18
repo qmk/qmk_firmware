@@ -78,7 +78,7 @@ Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat simila
 
 ## Flashez votre clavier à l'aide de la ligne de commande
 
-Cela est désormais relativement simple. Lorsque vous êtes prêt à compiler et à flasher votre micrologiciel, ouvrez la fenêtre de votre terminal et exécutez la commande de build :
+C'est désormais relativement simple. Lorsque vous êtes prêt à compiler et à flasher votre micrologiciel, ouvrez la fenêtre de votre terminal et exécutez la commande de build :
 
     make <my_keyboard>:<my_keymap>:flash
 
@@ -86,9 +86,9 @@ Par exemple, si votre keymap s'appelle "xyverz" et que vous fabriquez une keymap
 
     make planck/rev5:xyverz:flash
 
-La commande vas vérifier la configuration du clavier, puis tentera de le flasher en fonction du bootloader (chargeur d’amorçage) spécifié. Cela signifie que vous n'avez pas besoin de savoir quel bootloader votre clavier utilise. Exécutez simplement la commande et laissez-le faire le gros du travail.
+La commande va vérifier la configuration du clavier, puis tentera de le flasher en fonction du bootloader (chargeur d’amorçage) spécifié. Cela signifie que vous n'avez pas besoin de savoir quel bootloader votre clavier utilise. Exécutez simplement la commande et laissez-le faire le gros du travail.
 
-Cependant, tout dépend du bootloader qui est précisé sur le clavier. Si cette information n’est pas configurée ou si vous tentez de flasher un clavier qui ne permet pas d’être flashé alors vous obtiendrez cette erreur :
+Cependant, tout dépend du bootloader qui est installé sur le clavier. Si cette information n’est pas configurée ou si vous tentez de flasher un clavier qui ne permet pas d’être flashé alors vous obtiendrez cette erreur :
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
@@ -225,10 +225,10 @@ Si vous avez un soucis, essayez de faire ceci:
 
 #### Commandes Caterina 
 
-Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le micrologiciel sur un périphérique DFU:
+Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
 * `: avrdude` - Il s’agit de l’option normale. Elle attend qu’un appareil Caterina soit disponible, puis tente de flasher le firmware. Il attendra de détecter un autre port COM, puis il flashera à nouveau.
-* `: avrdude-loop` - Cela fonctionne de la même manière qu'`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers d’un coup. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-loop` - Cela fonctionne de la même manière qu'`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
 * `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 * `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 
