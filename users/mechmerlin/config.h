@@ -21,17 +21,11 @@
     #ifndef RGBLIGHT_ENABLE
         #define RGBLIGHT_ENABLE
     #endif
-
     #ifndef AUDIO_CLICKY
         #define AUDIO_CLICKY
     #endif
-
 #elif defined(KEYBOARD_clueboard_66_hotswap_gen1)
     #ifndef AUDIO_CLICKY
         #define AUDIO_CLICKY
-    #endif
-#else
-    #ifndef RGBLIGHT_ENABLE
-        #define RGBLIGHT_ENABLE
     #endif
 #endif

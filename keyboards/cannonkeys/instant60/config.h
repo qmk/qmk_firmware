@@ -66,12 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION 0x02
 #define EEPROM_VERSION_ADDR 34
 
-#define EEPROM_CUSTOM_BACKLIGHT 804
 
-
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600) = 635
+// start + layer * rows * col * 2
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+#define EEPROM_CUSTOM_BACKLIGHT 636
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 637
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 200
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
 /*
  * Feature disable options

@@ -21,116 +21,79 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
+#include "rgblight_list.h"
 
 #ifdef IS31FL3731
-    #include "is31fl3731.h"
-#elif defined (IS31FL3733)
-    #include "is31fl3733.h"
+#    include "is31fl3731.h"
+#elif defined(IS31FL3733)
+#    include "is31fl3733.h"
+#elif defined(IS31FL3737)
+#    include "is31fl3737.h"
+#elif defined(WS2812)
+#    include "ws2812.h"
 #endif
 
-typedef struct Point {
-	uint8_t x;
-	uint8_t y;
-} __attribute__((packed)) Point;
+#ifndef RGB_MATRIX_LED_FLUSH_LIMIT
+#    define RGB_MATRIX_LED_FLUSH_LIMIT 16
+#endif
 
-typedef struct rgb_led {
-	union {
-		uint8_t raw;
-		struct {
-			uint8_t row:4; // 16 max
-			uint8_t col:4; // 16 max
-		};
-	} matrix_co;
-	Point point;
-	uint8_t modifier:1;
-} __attribute__((packed)) rgb_led;
+#ifndef RGB_MATRIX_LED_PROCESS_LIMIT
+#    define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
+#endif
 
+#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
+#    define RGB_MATRIX_USE_LIMITS(min, max)                        \
+        uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
+        uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
+        if (max > DRIVER_LED_TOTAL) max = DRIVER_LED_TOTAL;
+#else
+#    define RGB_MATRIX_USE_LIMITS(min, max) \
+        uint8_t min = 0;                    \
+        uint8_t max = DRIVER_LED_TOTAL;
+#endif
 
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
-
-typedef struct
-{
-	HSV color;
-	uint8_t index;
-} rgb_indicator;
-
-typedef union {
-  uint32_t raw;
-  struct {
-    bool     enable  :1;
-    uint8_t  mode    :6;
-    uint16_t hue     :9;
-    uint8_t  sat     :8;
-    uint8_t  val     :8;
-    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
-  };
-} rgb_config_t;
+#define RGB_MATRIX_TEST_LED_FLAGS() \
+    if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
 enum rgb_matrix_effects {
-	RGB_MATRIX_SOLID_COLOR = 1,
-#ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
-    RGB_MATRIX_ALPHAS_MODS,
+    RGB_MATRIX_NONE = 0,
+
+// --------------------------------------
+// -----Begin rgb effect enum macros-----
+#define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_##name,
+#include "rgb_matrix_animations/rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
+
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+#    define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_CUSTOM_##name,
+#    ifdef RGB_MATRIX_CUSTOM_KB
+#        include "rgb_matrix_kb.inc"
+#    endif
+#    ifdef RGB_MATRIX_CUSTOM_USER
+#        include "rgb_matrix_user.inc"
+#    endif
+#    undef RGB_MATRIX_EFFECT
 #endif
-#ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
-    RGB_MATRIX_DUAL_BEACON,
-#endif
-#ifndef DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-    RGB_MATRIX_GRADIENT_UP_DOWN,
-#endif
-#ifndef DISABLE_RGB_MATRIX_RAINDROPS
-    RGB_MATRIX_RAINDROPS,
-#endif
-#ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
-    RGB_MATRIX_CYCLE_ALL,
-#endif
-#ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-    RGB_MATRIX_CYCLE_LEFT_RIGHT,
-#endif
-#ifndef DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-    RGB_MATRIX_CYCLE_UP_DOWN,
-#endif
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_BEACON
-    RGB_MATRIX_RAINBOW_BEACON,
-#endif
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-    RGB_MATRIX_RAINBOW_PINWHEELS,
-#endif
-#ifndef DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
-#endif
-#ifndef DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    RGB_MATRIX_JELLYBEAN_RAINDROPS,
-#endif
-#ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
-    RGB_MATRIX_DIGITAL_RAIN,
-#endif
-#ifdef RGB_MATRIX_KEYPRESSES
-   #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
-       RGB_MATRIX_SOLID_REACTIVE,
-   #endif
-   #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-       RGB_MATRIX_SOLID_REACTIVE_SIMPLE,
-   #endif
-   #ifndef DISABLE_RGB_MATRIX_SPLASH
-       RGB_MATRIX_SPLASH,
-   #endif
-   #ifndef DISABLE_RGB_MATRIX_MULTISPLASH
-       RGB_MATRIX_MULTISPLASH,
-   #endif
-   #ifndef DISABLE_RGB_MATRIX_SOLID_SPLASH
-       RGB_MATRIX_SOLID_SPLASH,
-   #endif
-   #ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-       RGB_MATRIX_SOLID_MULTISPLASH,
-   #endif
-#endif
+    // --------------------------------------
+    // -----End rgb effect enum macros-------
+
     RGB_MATRIX_EFFECT_MAX
 };
 
-void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
-void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
+void eeconfig_update_rgb_matrix_default(void);
+
+uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
+uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
+
+void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+
+bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
+
+void rgb_matrix_task(void);
 
 // This runs after another backlight effect and replaces
 // colors already set
@@ -139,80 +102,57 @@ void rgb_matrix_indicators_kb(void);
 void rgb_matrix_indicators_user(void);
 
 void rgb_matrix_init(void);
-void rgb_matrix_setup_drivers(void);
 
-void rgb_matrix_set_suspend_state(bool state);
-void rgb_matrix_set_indicator_state(uint8_t state);
-
-
-void rgb_matrix_task(void);
-
-// This should not be called from an interrupt
-// (eg. from a timer interrupt).
-// Call this while idle (in between matrix scans).
-// If the buffer is dirty, it will update the driver with the buffer.
-void rgb_matrix_update_pwm_buffers(void);
-
-bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
-
-void rgb_matrix_increase(void);
-void rgb_matrix_decrease(void);
-
-// void *backlight_get_key_color_eeprom_address(uint8_t led);
-// void backlight_get_key_color( uint8_t led, HSV *hsv );
-// void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
-
-uint32_t rgb_matrix_get_tick(void);
-
-void rgb_matrix_toggle(void);
-void rgb_matrix_enable(void);
-void rgb_matrix_enable_noeeprom(void);
-void rgb_matrix_disable(void);
-void rgb_matrix_disable_noeeprom(void);
-void rgb_matrix_step(void);
-void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
-void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
-void rgb_matrix_step_reverse(void);
-void rgb_matrix_increase_hue(void);
-void rgb_matrix_decrease_hue(void);
-void rgb_matrix_increase_sat(void);
-void rgb_matrix_decrease_sat(void);
-void rgb_matrix_increase_val(void);
-void rgb_matrix_decrease_val(void);
-void rgb_matrix_increase_speed(void);
-void rgb_matrix_decrease_speed(void);
-void rgb_matrix_mode(uint8_t mode);
-void rgb_matrix_mode_noeeprom(uint8_t mode);
-uint8_t rgb_matrix_get_mode(void);
+void        rgb_matrix_set_suspend_state(bool state);
+void        rgb_matrix_toggle(void);
+void        rgb_matrix_enable(void);
+void        rgb_matrix_enable_noeeprom(void);
+void        rgb_matrix_disable(void);
+void        rgb_matrix_disable_noeeprom(void);
+void        rgb_matrix_step(void);
+void        rgb_matrix_step_reverse(void);
+void        rgb_matrix_increase_hue(void);
+void        rgb_matrix_decrease_hue(void);
+void        rgb_matrix_increase_sat(void);
+void        rgb_matrix_decrease_sat(void);
+void        rgb_matrix_increase_val(void);
+void        rgb_matrix_decrease_val(void);
+void        rgb_matrix_increase_speed(void);
+void        rgb_matrix_decrease_speed(void);
+led_flags_t rgb_matrix_get_flags(void);
+void        rgb_matrix_set_flags(led_flags_t flags);
+void        rgb_matrix_mode(uint8_t mode);
+void        rgb_matrix_mode_noeeprom(uint8_t mode);
+uint8_t     rgb_matrix_get_mode(void);
+void        rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 
 #ifndef RGBLIGHT_ENABLE
-#define rgblight_toggle() rgb_matrix_toggle()
-#define rgblight_enable() rgb_matrix_enable()
-#define rgblight_enable_noeeprom() rgb_matrix_enable_noeeprom()
-#define rgblight_disable() rgb_matrix_disable()
-#define rgblight_disable_noeeprom() rgb_matrix_disable_noeeprom()
-#define rgblight_step() rgb_matrix_step()
-#define rgblight_sethsv(hue, sat, val) rgb_matrix_sethsv(hue, sat, val)
-#define rgblight_sethsv_noeeprom(hue, sat, val) rgb_matrix_sethsv_noeeprom(hue, sat, val)
-#define rgblight_step_reverse() rgb_matrix_step_reverse()
-#define rgblight_increase_hue() rgb_matrix_increase_hue()
-#define rgblight_decrease_hue() rgb_matrix_decrease_hue()
-#define rgblight_increase_sat() rgb_matrix_increase_sat()
-#define rgblight_decrease_sat() rgb_matrix_decrease_sat()
-#define rgblight_increase_val() rgb_matrix_increase_val()
-#define rgblight_decrease_val() rgb_matrix_decrease_val()
-#define rgblight_increase_speed() rgb_matrix_increase_speed()
-#define rgblight_decrease_speed() rgb_matrix_decrease_speed()
-#define rgblight_mode(mode) rgb_matrix_mode(mode)
-#define rgblight_mode_noeeprom(mode) rgb_matrix_mode_noeeprom(mode)
-#define rgblight_get_mode() rgb_matrix_get_mode()
-
+#    define rgblight_toggle() rgb_matrix_toggle()
+#    define rgblight_enable() rgb_matrix_enable()
+#    define rgblight_enable_noeeprom() rgb_matrix_enable_noeeprom()
+#    define rgblight_disable() rgb_matrix_disable()
+#    define rgblight_disable_noeeprom() rgb_matrix_disable_noeeprom()
+#    define rgblight_step() rgb_matrix_step()
+#    define rgblight_sethsv(hue, sat, val) rgb_matrix_sethsv(hue, sat, val)
+#    define rgblight_sethsv_noeeprom(hue, sat, val) rgb_matrix_sethsv_noeeprom(hue, sat, val)
+#    define rgblight_step_reverse() rgb_matrix_step_reverse()
+#    define rgblight_increase_hue() rgb_matrix_increase_hue()
+#    define rgblight_decrease_hue() rgb_matrix_decrease_hue()
+#    define rgblight_increase_sat() rgb_matrix_increase_sat()
+#    define rgblight_decrease_sat() rgb_matrix_decrease_sat()
+#    define rgblight_increase_val() rgb_matrix_increase_val()
+#    define rgblight_decrease_val() rgb_matrix_decrease_val()
+#    define rgblight_increase_speed() rgb_matrix_increase_speed()
+#    define rgblight_decrease_speed() rgb_matrix_decrease_speed()
+#    define rgblight_mode(mode) rgb_matrix_mode(mode)
+#    define rgblight_mode_noeeprom(mode) rgb_matrix_mode_noeeprom(mode)
+#    define rgblight_get_mode() rgb_matrix_get_mode()
 #endif
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
-
     /* Set the colour of a single LED in the buffer. */
     void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
     /* Set the colour of all LEDS on the keyboard in the buffer. */
@@ -222,5 +162,17 @@ typedef struct {
 } rgb_matrix_driver_t;
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
+
+extern rgb_config_t rgb_matrix_config;
+
+extern bool           g_suspend_state;
+extern rgb_counters_t g_rgb_counters;
+extern led_config_t   g_led_config;
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
+extern last_hit_t g_last_hit_tracker;
+#endif
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+extern uint8_t rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
+#endif
 
 #endif

@@ -1,4 +1,3 @@
-
 ifneq ($(findstring STM32F303, $(MCU)),)
   ## chip/board settings
   # - the next two should match the directories in
@@ -34,9 +33,10 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
+  DFU_SUFFIX_ARGS = -p DF11 -v 0483
 endif
 
-ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
+ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -53,7 +53,7 @@ ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
   # LUFA specific
   #
   # Target architecture (see library "Board Types" documentation).
-  ARCH ?= AVR8
+  ARCH = AVR8
 
   # Input clock frequency.
   #     This will define a symbol, F_USB, in all source code files equal to the
@@ -67,4 +67,42 @@ ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
   #     If no clock division is performed on the input clock inside the AVR (via the
   #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
   F_USB ?= $(F_CPU)
+
+  # Interrupt driven control endpoint task
+  ifeq (,$(filter $(NO_INTERRUPT_CONTROL_ENDPOINT),yes))
+    OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+  endif
+endif
+
+ifneq (,$(filter $(MCU),atmega32a))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 12000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
+
+  # Programming options
+  PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
+endif
+
+ifneq (,$(filter $(MCU),atmega328p))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
 endif

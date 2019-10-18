@@ -1,9 +1,8 @@
-# Custom Tada68 layout for ISO UK with Apple-y tweaks
+# Custom TADA68 layout for ISO UK with Apple-specific tweaks
 
-This layout is based on the [ISO UK](../iso-uk) layout, with the following
-changes:
+This layout is based on the [ISO UK](../iso-uk) layout, with changes to make it
+more user friendly when used on Apple devices, like iPads and the Mac.
 
-Swap Win and Alt on the left side (Option and Command on macOS)
 
 ## Installation
 

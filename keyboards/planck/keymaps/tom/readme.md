@@ -25,6 +25,10 @@ This layout is data-driven: I installed [WhatPulse](https://whatpulse.org/) a fe
 - map brightness up / down to original location of left and up arrows
 - map volume up / down to original location of down and right arrows
 
+### ADJUST
+
+- map to esc key: screenshot region to clipboard - an alias for ctrl + cmd + shift + 4
+
 
 ## RGB LED
 

@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
-
+// clang-format off
 #define LAYOUT_iris_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -11,9 +11,9 @@
   LAYOUT_wrapper( \
      KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS, \
      KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-     KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
-                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                      \
+     KC_C1R3, ALT_T(K11), K12, K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
+                             KC_GRV, KC_SPC,  LT(_LOWER,KC_BSPC),         LT(_RAISE,KC_DEL),  KC_ENT,  RAISE                           \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
 
@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GAMEPAD] = LAYOUT_wrapper(
-     KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_P,                          _______, _______, _______, _______, _______, _______,
+     KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_4,                          _______, _______, _______, _______, _______, _______,
      KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                          _______, _______, _______, _______, _______, _______,
      KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                          _______, _______, _______, _______, _______, _______,
      KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,    TG_GAME,     _______, _______, _______, _______, _______, _______, _______,
-                                       LOWER,   KC_V,    KC_SPC,          _______, _______, _______
+                                       KC_GRV,  KC_V,    KC_SPC,          _______, _______, _______
   ),
 
 
@@ -110,14 +110,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    )
 
 };
-
+// clang-format on
 
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+#ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-  #endif
+#endif
+}
+
+void keyboard_post_init_keymap(void) {
+#if BACKLIGHT_ENABLE
+    backlight_enable();
+    backlight_level(5);
+#    ifdef BACKLIGHT_BREATHING
+    breathing_enable();
+#    endif
+#endif
 }

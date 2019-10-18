@@ -19,7 +19,11 @@ Note that running `make` with `sudo` is generally ***not*** a good idea, and you
 
 ### Linux `udev` Rules
 On Linux, you'll need proper privileges to access the MCU. You can either use
-`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`.
+`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`. Once added run the following:
+```console
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
 
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
 ```
@@ -36,6 +40,34 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+
+```
+# Input Club keyboard bootloader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
+
+**/etc/udev/rules.d/55-catalina.rules:**
+```
+# ModemManager should ignore the following devices
+ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
+ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
+```
+
+**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+```console
+sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
+sudo systemctl daemon-reload
+sudo systemctl restart ModemManager
+```
+
+**/etc/udev/rules.d/56-dfu-util.rules:**
+```
+# stm32duino
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"
+# Generic stm32
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+```
 
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
@@ -43,16 +75,11 @@ Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices m
 
 ## Unknown Device for DFU Bootloader
 
-If you're using Windows to flash your keyboard, and you are running into issues, check the Device Manager.  If you see an "Unknown Device" when the keyboard is in "bootloader mode", then you may have a driver issue.
+Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
 
-Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue.
+Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUSB` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.  If that doesn't work, try all of the options, until one works. 
-
-?> There isn't a best option for which driver should be used here.  Some options work better on some systems than others.  libUSB and WinUSB seem to be the best options here.
-
-If the bootloader doesn't show up in the list for devices, you may need to enable the "List all devices" option in the `Options` menu, and then find the bootloader in question. 
-
+If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
@@ -134,8 +161,8 @@ For now, you need to rollback avr-gcc to 7 in brew.
 
 ```
 brew uninstall --force avr-gcc
-brew install avr-gcc@7
-brew link --force avr-gcc@7
+brew install avr-gcc@8
+brew link --force avr-gcc@8
 ```
 
 ### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)

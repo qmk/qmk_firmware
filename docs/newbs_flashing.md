@@ -12,23 +12,31 @@ However, the QMK Toolbox is only available for Windows and macOS currently.  If 
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
-?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
 
-?> Windows:
+#### Windows
 
-    start .
+```
+start .
+```
 
-?> macOS:
+#### macOS
 
-    open .
+```
+open .
+```
 
 The firmware file always follows this naming format:
 
-    <keyboard_name>_<keymap_name>.{bin,hex}
+```
+<keyboard_name>_<keymap_name>.{bin,hex}
+```
 
-For example, the `plank/rev5` with a `default` keymap will have this filename:
+For example, the `planck/rev5` with a `default` keymap will have this filename:
 
-    planck_rev5_default.hex
+```
+planck_rev5_default.hex
+```
 
 Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
 
@@ -109,7 +117,7 @@ After it gets to this point, the build script will look for the DFU bootloader e
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
@@ -127,9 +135,7 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-If you have any issues with this, you may need to this: 
-
-    sudo make <my_keyboard>:<my_keymap>:dfu
+?> If you have any issues with this - such as `dfu-programmer: no device present` - please see the [Frequently Asked Build Questions](faq_build.md).
 
 #### DFU commands
 
@@ -217,7 +223,7 @@ Additionally, if you want to flash multiple boards, use the following command:
 When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
 
 
-## HalfKay
+### HalfKay
 
 For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
@@ -225,7 +231,7 @@ For the PJRC devices (Teensy's), when you're ready to compile and flash your fir
 
 For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
 
-    make erdogox_ez:xyverz:teensy
+    make ergodox_ez:xyverz:teensy
 
 Once the firmware finishes compiling, it will output something like this: 
 
@@ -250,7 +256,43 @@ Programming.....................................................................
 Booting
 ```
 
-## STM32 (ARM)
+### BootloadHID
+
+For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+
+    make <my_keyboard>:<my_keymap>:bootloaderHID
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+
+    make jj40:xyverz:bootloaderHID
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
+
+### STM32 (ARM)
 
 For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
@@ -299,6 +341,16 @@ Download done.
 File downloaded successfully
 Transitioning to dfuMANIFEST state
 ```
+
+#### STM32 Commands
+
+There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+
+* `:dfu-util` - The default command for flashing to STM32 devices. 
+* `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
+   * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
 
 ## Test It Out!
 

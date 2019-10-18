@@ -45,8 +45,8 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-	[TD_WIN] = ACTION_TAP_DANCE_DOUBLE(KC_CAD, KC_LOCK),
-	[TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
+  [TD_WIN] = ACTION_TAP_DANCE_DOUBLE(KC_CAD, KC_LOCK),
+  [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_copy_finished, ctl_copy_reset)
 };
 
@@ -77,7 +77,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
         set_mods(mods);
       }
-    return false;
+    break;
+  case KC_RDP: //Opens Windows RDP
+    if (!record->event.pressed) {
+      register_code(KC_LGUI);
+      tap_code(KC_R);
+      unregister_code(KC_LGUI);
+      wait_ms(200);
+      send_string_with_delay_P(PSTR("mstsc"), 10);
+      send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+    }
     break;
   }
   return process_record_keymap(keycode, record);

@@ -110,16 +110,16 @@ QMK has a bunch of [functions](custom_quantum_functions.md) that have [`_quantum
 However, you can actually add support for keymap version, so that you can use it in both your userspace and your keymap! 
 
 
-For instance, lets looks at the `layer_state_set_user` function.  Lets enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionalitly to all of our boards, and then still have your `keymap.c` still able to use this functionality. 
+For instance, let's look at the `layer_state_set_user()` function.  You can enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionality on all of your boards, while also retaining the Tri Layer functionality in your `keymap.c` files. 
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
 __attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
+layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user (uint32_t state) {
+layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, 2, 3, 5);
   return layer_state_set_keymap (state);
 }

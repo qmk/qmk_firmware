@@ -103,7 +103,9 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgblight_post_config.h
     OPT_DEFS += -DRGBLIGHT_ENABLE
+    SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
@@ -114,7 +116,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 WS2812 custom
 
 LED_MATRIX_ENABLE ?= no
 ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
@@ -131,10 +133,11 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
     OPT_DEFS += -DIS31FL3731
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731-simple.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
 endif
 
 RGB_MATRIX_ENABLE ?= no
+
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -151,17 +154,37 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
-    SRC += i2c_master.c
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
+    QUANTUM_LIB_SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
+    OPT_DEFS += -DWS2812
+    SRC += ws2812.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -206,12 +229,36 @@ ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+# backward compat
+ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    BACKLIGHT_ENABLE = custom
+endif
+
+VALID_BACKLIGHT_TYPES := yes custom
+
+BACKLIGHT_ENABLE ?= no
+ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
+    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
+        $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
+    endif
+
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+
+
+    COMMON_VPATH += $(QUANTUM_DIR)/backlight
+    SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    endif
+
+    ifeq ($(PLATFORM),AVR)
+        SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+    else
+        SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
     endif
 endif
 
@@ -244,20 +291,21 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+HAPTIC_ENABLE ?= no
+ifneq ($(strip $(HAPTIC_ENABLE)),no)
+	COMMON_VPATH += $(DRIVER_PATH)/haptic
+	SRC += haptic.c
+	OPT_DEFS += -DHAPTIC_ENABLE
+endif
+
+ifneq ($(filter DRV2605L, $(HAPTIC_ENABLE)), )
     SRC += DRV2605L.c
-    SRC += i2c_master.c
-    OPT_DEFS += -DHAPTIC_ENABLE
+    QUANTUM_LIB_SRC += i2c_master.c
     OPT_DEFS += -DDRV2605L
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
-    SRC += haptic.c
+ifneq ($(filter SOLENOID, $(HAPTIC_ENABLE)), )
     SRC += solenoid.c
-    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
@@ -305,6 +353,7 @@ ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    POST_CONFIG_H += $(QUANTUM_DIR)/split_common/post_config.h
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
@@ -320,4 +369,23 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                            i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+    OPT_DEFS += -DOLED_DRIVER_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    QUANTUM_LIB_SRC += i2c_master.c
+    SRC += oled_driver.c
+endif
+
+SPACE_CADET_ENABLE ?= yes
+ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+  OPT_DEFS += -DSPACE_CADET_ENABLE
+endif
+
+
+ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/dip_switch.c
+  OPT_DEFS += -DDIP_SWITCH_ENABLE
 endif

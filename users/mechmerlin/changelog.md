@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.2.2] - 2019-04-22
+### Fixed
+- `config.h` usage of turning on `RGBLIGHT_ENABLE` when it is not enabled on boards other than my two clueboards were causing issues with boards that didn't have RGB underglow on it. 
+
 ## [0.2.1] - 2019-03-01
 ### Fixed
 - `config.h` usage of `#ifdef RGBLIGHT_ENABLE` caused problems for other of my boards that had `RGBLIGHT_ENABLE`.  
