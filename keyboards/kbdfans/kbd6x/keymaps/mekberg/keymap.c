@@ -15,8 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-// #define MY_LOCK C(A(KC_L))      // Mac: Lock
-#define MY_LOCK C(LCMD(KC_L))      // Mac: Lock (when Alt/Command have been swapped in macOS)
+// #define MY_LOCK C(A(KC_L))      // Mac: Custom lock hotkey in BTT
+#define MY_LOCK C(LCMD(KC_L))      // Mac: Custom lock hotkey in BTT (when Alt/Command have been swapped in macOS)
 
 /*
 KBD6x ANSI physical layout
