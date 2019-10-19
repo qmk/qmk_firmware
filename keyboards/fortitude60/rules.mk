@@ -34,6 +34,6 @@ SLEEP_LED_ENABLE = yes    # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 SRC += matrix.c \
        split_util.c \
-       serial.c
+       serial.c/NO-LTO
 
 DEFAULT_FOLDER = fortitude60/rev1
