@@ -6,13 +6,13 @@ Cette page détaille diverses questions fréquemment posées par les utilisateur
 
 ## `hid_listen` ne reconnaît pas de périphérique
 
-Lorsque la console de débugage sur votre périphérique n'est pas prêt, vous verrez quelque chose comme ça :
+Lorsque la console de débugage sur votre périphérique n'est pas prêt, vous obtiendrez un message similaire :
 
 ```
 Waiting for device:.........
 ```
 
-Une fois le périphérique connecté, *hid_listen* le trouve et vous aurez ce message :
+Une fois le périphérique connecté, *hid_listen* le trouve et vous obtiendrez ce message :
 
 ```
 Waiting for new device:.........................
@@ -21,7 +21,7 @@ Listening:
 
 Si vous ne recevez pas ce message `Listening:`, essayez de compiler avec `CONSOLE_ENABLE=yes` dans le [Makefile]
 
-Il se peut que vous ayez besoin de privilèges pour accéder à des périphériques sur des OS comme Linux.
+Il se peut que vous ayez besoin de certains privilèges avancés pour accéder à des périphériques sur des OS comme Linux.
 
 - Essayez `sudo hid_listen`
 
@@ -33,11 +33,11 @@ Vérifiez :
 - Activez le débugage en appuyant sur **Magic**+d. Voir [Commandes Magic](https://github.com/tmk/tmk_keyboard#magic-commands).
 - Définissez `debug_enable=true` en général dans `matrix_init()` du fichier **matrix.c**.
 - Essayez d'utiliser la fonction `print` à la place du debug print. Voir **common/print.h**.
-- Déconnectez tous les autres périphériques avec les fonctions console. Voir [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+- Déconnectez tous les autres périphériques qui utilisent la fonction console. Voir [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
 ## Linux ou les systèmes UNIX nécessitent des privilèges super utilisateur
 
-Utilisez `sudo` pour exécuter *hid_listen* avec des privilèges.
+Utilisez `sudo` pour exécuter *hid_listen* avec des privilèges étendus.
 
 ```
 $ sudo hid_listen
@@ -59,10 +59,10 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 
 Vous ne voulez probablement pas "briquer" votre clavier, rendre impossible d'écrire un firmware dessus. Il y a quelques paramètres qui montrent ce qui est (et n'est probablement pas) trop risqué.
 
-- Si votre map de clavier n'inclut pas de RESET, pour entrer en mode DFU, vous devrez appuyer sur le bouton reset du PCB. Cela implique que vous devrez dévisser le bas.
+- Si votre map de clavier n'inclut pas de RESET, pour entrer en mode DFU, vous devrez appuyer sur le bouton reset du PCB. Cela implique que vous devrez certainement dévisser certaines pièces de votre clavier pour y accéder.
 - Modifier les fichiers tmk_core / common peut rendre le clavier inutilisable
-- Si un fichier .hex trop large cause le problème: `make dfu` supprime le bloque puis teste la taille (oops, mauvais sens!), ce qui donnt une erreur. Au final le flash du clavier aura échoué et il restera en mode DFU.
-- A toute fin, notez que la taille maximale d'un fichier .hex sur un Plank est de 7000h (28672 decimal)
+- Si un fichier .hex trop large est la cause du problème : `make dfu` supprime le bloc puis teste la taille (il ne fait pas les choses dans le bon ordre), ce qui provoque une erreur. En résultat, le flash n’aura pas été fait et le clavier restera en mode DFU.
+- Pour finir, notez que la taille maximale d'un fichier .hex sur un Plank est de 7000h (28672 decimal)
 
 ```
 Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
@@ -77,21 +77,21 @@ Size after:
 - Tant que vous avez un fichier .hex alternatif correct, vous pouvez réessayer en le chargeant
 - Certaines options que vous pouvez spécifier dans votre Makefile consomme de la mémoire supplémentaire. Faites attention aux options BOOTMAGIC_ENABLE, MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE.
 - Les outils DFU **ne** vous permettent **pas** d'écrire dans le bootloader (à moins que vous n'ajoutiez des options spéciales), il n'y a donc peu de risque.
-- Les EEPROM ont environ 100000 cycles d'écriture. Ne réécrivez pas le firmware de manière continue et répétée. Vous allez bruler l'EEPROM.
+- Les EEPROM ont environ 100000 cycles d'écriture. Ne réécrivez pas le firmware de manière continue et répétée. Vous allez détruire définitivement l'EEPROM.
 
-## NKRO ne marche pas
+## NKRO ne fonctionne pas
 
 Premièrement, vous devez compiler le firmware avec l'option de compilation `NKRO_ENABLE` dans le **Makefile**.
 
-Essayez la commande `Magic` **N** (`LShift+RShift+N` par défaut) si **NKRO** ne fonctionne toujours pas. Vous pouvez utiliser cette commande pour basculer temporairement entre le mode **NKRO** et **6KRO**. Sous certaines conditions, **NKRO** ne marche pas et vous devrez basculer en **6KRO**, en particulier lorsque vous êtes dans le BIOS.
+Essayez la commande `Magic` **N** (`LShift+RShift+N` par défaut) si **NKRO** ne fonctionne toujours pas. Vous pouvez utiliser cette commande pour basculer temporairement entre le mode **NKRO** et **6KRO**. Sous certaines conditions, **NKRO** ne fonctionnera pas et vous devrez basculer en **6KRO**, en particulier lorsque vous êtes dans le BIOS.
 
 Si votre firmware est compilé avec `BOOTMAGIC_ENABLE` vous devrez l'activer avec la commande `BootMagic` **N** (`Espace+N` par défaut). Cette option est enregistrées dans l'EEPROM et sera gardé entre deux cycle de démarrage.
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
-## TrackPoint a besoin d'un Reset Circuit (Support de souris PS/2)
+## Le TrackPoint a besoin Circuit de réinitialisation (Support de souris PS/2)
 
-Sans reset circuite vous allez avoir des résultats inconsistants à cause de la mauvaise initialisation du matériel. Regardez le schéma du circuit de TPM754.
+Sans circuit de réinitialisation vous allez avoir des résultats inconsistants à cause de la mauvaise initialisation du matériel. Regardez le schéma du circuit du TPM754.
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
@@ -120,7 +120,7 @@ Configurez correctement la taille du bootloader dans le **Makefile**. Une mauvai
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
 
-La taille de la section de démarrage de AVR est définie par l'option **BOOTSZ** fuse. Vérifiez votre fiche technique du MCU. Veuilez notez que les tailles et adresses sont définies en **Word** (2 octets) dans la fiche technique alors que TMK utilise des **Byte**.
+La taille de la section de démarrage de AVR est définie par l'option **BOOTSZ** fuse. Vérifiez la fiche technique du MCU. Veuilez noter que les tailles et adresses sont définies en **Word** (2 octets) dans la fiche technique alors que TMK utilise des **Byte**.
 
 La section de boot AVR se trouve à la fin de la mémoire flash, comme suit.
 
@@ -156,7 +156,7 @@ https://github.com/tmk/tmk_keyboard/issues/179
 
 Si vous utilisez un TeensyUSB, il y a un [bug connu](https://github.com/qmk/qmk_firmware/issues/164) qui fait que le bouton reset matériel empêche la touche RESET de fonctionner. Débrancher et rebrancher le clavier devrait résoudre le problème.
 
-## Les touches spéciales extra ne fonctionnent pas (Système, touches de contrôle audio)
+## Les touches spéciales ne fonctionnent pas (Touche Système, Touches de contrôle du son)
 
 Vous devez définir `EXTRAKEY_ENABLE` dans le fichier `rules.mk` pour les utiliser dans QMK.
 
@@ -166,13 +166,13 @@ EXTRAKEY_ENABLE = yes          # Audio control and System control
 
 ## Réveiller du mode veille ne fonctionne pas
 
-Sous Windows, activez l'option `Permettre au périphérique d'activer l'ordinateur` dans les paramètres des **Options d'alimentations** du **Gestionnaire de périphériques**. Vérifiez aussi les paramètres du BIOS.
+Sous Windows, activez l'option `Permettre au périphérique de sortir l'ordinateur de veille` dans les paramètres des **Options d'alimentations** du **Gestionnaire de périphériques**. Vérifiez aussi les paramètres du BIOS.
 
-Appuyer sur n'importe quelle touche en mode veille devrait réveiller l'ordinateur.
+Appuyer sur n'importe quelle touche en mode veille devrait sortir l'ordinateur de veille.
 
-## Vous utilisez un Arduino?
+## Vous utilisez un Arduino ?
 
-**Faites attention que le nommage des pin d'un Arduino diffère de la puce**. Par exemple, la pin `D0` n'est pas `PD0`. Vérifiez le circuit avec la fiche technique.
+**Faites attention au fait que le nommage des pin d'un Arduino diffère de la puce**. Par exemple, la pin `D0` n'est pas `PD0`. Vérifiez le circuit avec la fiche technique.
 
 - http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
 - http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
@@ -183,7 +183,7 @@ Les Arduino Leonardo et micro ont des **ATMega32U4** et peuvent être utilisés 
 
 Par défaut, le débugage des interfaces JTAG est désactivé dès que le clavier démarre. Les MCUs compatible JTAG viennent d'usine avec le fusible `JTAGEN` activé, et il prend certaines pins du MCU que la board pourrait utiliser pour la matrice, les LEDs, etc.
 
-Si vous voulez garder JTAG activé, ajouté la ligne suivante à votre fichier `config.h` :
+Si vous voulez garder JTAG activé, ajoutez la ligne suivante à votre fichier `config.h` :
 
 ```c
 #define NO_JTAG_DISABLE
@@ -191,7 +191,7 @@ Si vous voulez garder JTAG activé, ajouté la ligne suivante à votre fichier `
 
 ## Adding LED Indicators of Lock Keys
 
-Si vous souhaitez votre propr indicateur LED pour CapsLock, ScrollLock et NumLock? Lisez ce post.
+Si vous souhaitez votre propre indicateur LED pour CapsLock, ScrollLock et NumLock alors lisez ce post.
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
 
@@ -222,7 +222,7 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 Certaines personnes ont eu des problèmes de fonctionnement de leur clavier dans le BIOS et/ou après des redémarrages.
 
-Pour le moment, la racine du problème n'est pas clair, mais certaines options de compilation semble liées. Dans le Makefile, essayez de désactiver les options comme  `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` et/ou d'autres.
+Pour le moment, l'origine du problème n'est pas comprise, mais certaines options de compilation semble liées. Dans le Makefile, essayez de désactiver les options comme  `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` et/ou d'autres.
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778

@@ -4,7 +4,7 @@ Cette page couvre les questions concernant la compilation de QMK. Si vous ne l'a
 
 ## Je ne peux pas programmer sous Linux
 
-Vous aurez besoin des permissions appropriées pour utiliser un périphérique. Pour les utilisateurs de Linux, référez-vous aux instructions concernant les règles `udev` ci-dessous. Si `udev` vous pose des problèmes, une alternative est d'utiliser la commande `sudo`. Si vous ne connaissez pas cette commande, vérifiez son manuel en utilisant `man sudo` ou [regardez cette page](https://linux.die.net/man/8/sudo).
+Vous aurez besoin des permissions appropriées pour utiliser un périphérique. Pour les utilisateurs de Linux, référez-vous aux instructions concernant les règles `udev` ci-dessous. Si `udev` vous pose des problèmes, une alternative est d'utiliser la commande `sudo`. Si vous ne connaissez pas cette commande, référez vous à son manuel d'utilisation en utilisant `man sudo` ou [regardez cette page](https://linux.die.net/man/8/sudo).
 
 Un exemple utilisant `sudo`, lorsque votre contrôleur est un ATMega32u4 :
 
@@ -16,11 +16,11 @@ ou simplement :
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Veuilleu noter que lancer `make` avec `sudo` est généralement une **mauvaise** idée, et vous devriez préférez une des méthodes précédente, si possible.
+Veuillez noter que lancer `make` avec `sudo` est généralement une **mauvaise** idée, et vous devriez préférez une des méthodes précédente, si possible.
 
 ### Règles `udev` pour Linux
 
-Sous Linux, vous aurez besoin des permissions appropriées pour accéder le MCU. Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes:
+Sous Linux, vous aurez besoin des permissions appropriées pour accéder au MCU (le micro-contrôleur). Vous avez le choix d'utiliser `sudo` en flashant le firmware, ou placer ces fichiers dans `/etc/udev/rules.d`. Une fois ajouté, lancez les commandes suivantes :
 
 ```console
 sudo udevadm control --reload-rules
@@ -76,11 +76,11 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="066
 
 ### Le périphérique sériel n'est pas détecté en mode bootloader sous Linux
 
-Assurez-vous que votre kernel ait un support approprié pour votre périphérique. Si votre périphérique utilise USB ACM, par exemple les Pro Micro (AtMega32u4), assurez-vous d'include `CONFIG_USB_ACM=y`. D'autres périphériques peuvent avoir besoin de `USB_SERIAL` et de ses sous-options.
+Assurez-vous que votre kernel ait un support approprié pour votre périphérique. Si votre périphérique utilise USB ACM, par exemple pour les Pro Micro (AtMega32u4), assurez-vous d'inclure `CONFIG_USB_ACM=y`. D'autres périphériques peuvent avoir besoin de `USB_SERIAL` et de ses sous-options.
 
 ## Périphérique inconnu pour le bootloader DFU
 
-Les problèmes rencontrés lorsque l'on flash des claviers sous Windows sont, la plupart du temps, dûs à une installation du mauvais driver, ou un driver manquant.
+Les problèmes rencontrés lorsque l'on flash des claviers sous Windows sont, la plupart du temps, dûs à une installation du mauvais pilote, ou un pilote manquant.
 
 Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans répertoire `qmk_firmware`sous MSYS2 ou WSL) ou réinstaller la QMK Toolbox peut résoudre le problème. Une alternative est de télécharger et lancer manuellement le package [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer).
 
@@ -88,15 +88,15 @@ Si vous rencontrez toujours des problèmes, essayez de télécharger et lancer Z
 
 ## WINAVR est obsolète
 
-Il n'est plus recommandé et peut causer des problème. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+Il n'est plus recommandé et peut causer des problèmes. Voir [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
 ## USB VID et PID
 
-Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de collision avec d'autres produits.
+Vous pouvez utiliser l'ID de votre choix en modifier `config.h`. Il y a peu de chance de conflit avec d'autres produits.
 
 La plupart des boards QMK utilisent `0xFEED` comme vendor ID. Vérifiez les autres claviers pour être sûr de choisir un Product ID unique.
 
-Etudiez aussi ceci.
+Étudiez aussi ce ticket
 https://github.com/tmk/tmk_keyboard/issues/150
 
 Vous pouvez acheter un VID:PID unique ici. Je ne pense pas que ce soit nécessaire pour un usage personnel.
@@ -114,7 +114,7 @@ https://developer.mbed.org/forum/mbed/topic/5205/
 
 ## `clock_prescale_set` and `clock_div_1` Not Available
 
-Votre toolchain est trop vieille pour supporter le MCU. Par exemple, WinAVR 20100110 ne supporte pas ATMega32u2.
+Votre chaîne d'outils (Toolchain) est trop vieille pour supporter le MCU. Par exemple, WinAVR 20100110 ne supporte pas ATMega32u2.
 
 ```
 Compiling C: ../../tmk_core/protocol/lufa/lufa.c
@@ -129,7 +129,7 @@ make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 
 ## BOOTLOADER_SIZE pour AVR
 
-Notez que la taille du bootloader pour les Teensy2.0++ est de 2048bytes. Quelques Makefiles peuvent avoir le mauvais commentaire
+Notez que la taille du bootloader pour les Teensy2.0++ est de 2048bytes. Quelques Makefiles peuvent contenir une erreur et avoir le mauvais commentaire.
 
 ```
 # Boot Section Size in *bytes*
@@ -143,7 +143,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 ## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` sous MacOS
 
-C'est un problème de mise à jour avec brew, causée par des symlinks dont dépend avr-gcc qui sont détruits.
+C'est un problème de mise à jour avec brew, causée par des liens symboliques (symlinks) dont dépend avr-gcc qui sont détruits.
 
 La solution est de supprimer et réinstaller tous les modules affectés.
 
@@ -176,9 +176,7 @@ brew link --force avr-gcc@8
 
 ### Je viens de flasher mon clavier et il ne fait rien/l'appui des touches n'est pas enregistré - c'est aussi un ARM(rev6 plank, clueboard 60, hs60v2, etc.) (Février 2019)
 
-A cause de la manière dont les EEPROM fonctionnent sur les puces ARM, les options sauvegardées peuvent ne plus être valides. Ceci affecte les calques par défaut et *peut*, sous certaines conditions que nous essayons encore de déterminer, rend le clavier inutilisable. Réinitialiser l'EEPROM corrigera le problème.
+A cause de la manière dont les EEPROM fonctionnent sur les puces ARM, les options sauvegardées peuvent ne plus être valides. Ceci affecte les calques par défaut et *peut*, sous certaines conditions que nous essayons encore de déterminer, rendre le clavier inutilisable. Réinitialiser l'EEPROM corrigera le problème.
 
 [Réinitialiser EEPROM sur Planck rev6](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) peut être utilisé pour forcer une réinitialisation d'EEPROM. Une fois cette image flashée, flashez à nouveau votre firmware standard. Cela devrait rétablir le fonctionnement de votre clavier.
-[Réinitialiser EEPROM sur Preonic rev3](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
-
 Si bootmagic est activé dans n'importe quel forme, vous devriez être capable de faire aussi ceci (regardez  [Documentation Bootmagic](feature_bootmagic.md) et les informations spécifiques à votre clavier).

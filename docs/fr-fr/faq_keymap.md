@@ -1,21 +1,21 @@
 # FAQ Keymap
 
-Cette page couvre les questions souvent posées à propos des keymaps. Si vous ne l'avez pas encore fait, vous devriez lire d'abord [Aperçu des Keymap](keymap.md).
+Cette page couvre les questions souvent posées à propos des keymaps. Si vous ne l'avez pas encore fait, vous devriez commencer par là [Aperçu des Keymap](keymap.md).
 
 ## Quels Keycodes puis-je utiliser ?
 
-Regardez [Keycodes](keycodes.md) pour une liste des keycodes disponibles. Ils sont liés à des documentations plus complète lorsque diponible.
+Regardez [Keycodes](keycodes.md) pour une liste des keycodes disponibles. Certains keycodes spécifiques ont des documentations plus complètes de disponible.
 
 Les keycodes sont définies dans [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
 
 ## Quels sont les keycodes par défaut ?
 
-Il existe 3 configurations de clavier standard utilisées dans le monde: ANSI, ISO et JIS. L'Amérique du Nord utilise principalement l'ANSI, l'Europe et l'Afrique l'ISO et le Japon utilise JIS. Les régions non mentionnées utilisent généralement ANSI ou ISO. Les codes de touches correspondant à ces dispositions sont affichés ici :
+Il existe 3 configurations de clavier standard utilisées dans le monde: ANSI, ISO et JIS. L'Amérique du Nord utilise principalement l'ANSI, l'Europe et l'Afrique l'ISO et le Japon utilise JIS. Les autres régions utilisent généralement ANSI ou ISO. Les keycodes correspondant à ces dispositions spécifiques sont affichés ici :
 
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
-## Certaines de mes touches sont échangées ou ne fonctionnent pas
+## Certaines de mes touches sont permutées ou ne fonctionnent pas
 
 QMK possède deux fonctionnalités, Bootmagic et Command, qui vous permettent de modifier le comportement de votre clavier à la volée. Cela inclut, sans toutefois s'y limiter, l'échange de Ctrl / Majuscules, la désactivation de l'interface graphique, le basculement de Alt/Gui, le basculement de barre d'espacement arrière/barre oblique inversée, la désactivation de toutes les touches et d'autres modifications comportementales.
 
@@ -44,11 +44,11 @@ Le premier n'est reconnu que sur macOS, alors que le dernier, `KC_SLEP` et `KC_W
 
 ## Modificateur "One Shot"
 
-Corrige mon problème personnel lié à 'the'. J'écris souvent 'the' ou 'THe' à la place de 'The?. "One shot" shift corrige cela pour moi.
+Cette fonctionnalité permet de corriger un problème avec la touche Shift. En effet, il arrive de saisir plusieurs majuscules en ne voulant en saisir qu'une sur un mot. Ex : `CEtte` à la place de `Cette`. La fonctionnalité « One shot » shift permet de corriger ça.
 
 https://github.com/tmk/tmk_keyboard/issues/67
 
-## Modificateur / calque bloqué
+## Le modificateur d'un calque reste bloqué
 
 Les touches de modification ou les calques peuvent être bloquées si la commutation de calque n'est pas configurée correctement.
 Pour les touches de modification et les actions de calque, vous devez placer `KC_TRANS` sur la même position du calque de destination afin de désenregistrer la clé de modificateur ou de revenir au calque précédent lors de la libération.
@@ -59,7 +59,7 @@ Pour les touches de modification et les actions de calque, vous devez placer `KC
 
 ## Support de touche à verrouillage mécanique
 
-Cette fonctionnalité est pour *les touches à verrouillage mécanique* comme [celles-ci de chez Alps](http://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h`:
+Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* comme [ces interrupteurs Alps](http://deskthority.net/wiki/Alps_SKCL_Lock). Vous pouvez l'activer en ajoutant ceci à votre `config.h` :
 
 ```
 #define LOCKING_SUPPORT_ENABLE
@@ -68,7 +68,7 @@ Cette fonctionnalité est pour *les touches à verrouillage mécanique* comme [c
 
 Une fois la fonction activée, utilisez les keycodes `KC_LCAP`, `KC_LNUM` et `KC_LSCR` dans votre keymap.
 
-Des vieux claviers mécaniques ont parfois des touches à vérouillage, mais ls claviers modernes n'en sont pas équipés. ***Vous n'avez pas besoin de cette fonction dans la majorité des cas et devez utiliser les keycodes `KC_CAPS`, `KC_NLCK` et `KC_SLCK`.***
+Des vieux claviers mécaniques ont parfois des touches à vérouillage, mais les claviers modernes n'en sont pas équipés. ***Vous n'avez pas besoin de cette fonction dans la majorité des cas et devez utiliser les keycodes `KC_CAPS`, `KC_NLCK` et `KC_SLCK`.***
 
 ## Ajouter des caractères spéciaux autres que ASCII comme la cédille 'Ç'
 
@@ -95,8 +95,8 @@ Et voir ceci pour une entrée **Unicode**.
 
 Contrairement à la plupart des touches Fn, celle des claviers Apple a son propre code d'activation... en quelque sorte. Il remplace le sixième code d'activation dans un rapport de base 6KRO HID - de sorte qu'un clavier Apple ne contient en réalité que 5KRO.
 
-Il est techniquement possible de demander à QMK d’envoyer cette clé. Cependant, cela nécessite une modification du format du rapport pour ajouter l'état de la touche Fn.
-Pire encore, il n'est reconnu que si les VID et PID du clavier correspondent à ceux d'un vrai clavier Apple. Les problèmes juridiques que la prise en charge officielle de QMK pour cette fonctionnalité peuvent créer signifient qu'il est peu probable que cela se produise.
+Il est techniquement possible de demander à QMK d’envoyer ce keycode. Cependant, cela nécessite une modification du format du rapport pour ajouter l'état de la touche Fn.
+Pire encore, ce keycode n'est reconnu que si les identifiants du clavier VID et PID correspondent à ceux d'un vrai clavier Apple. Malheureusement QMK ne peut juridiquement prendre en charge cette fonctionnalité et il y a peu de chance que la situation s'améliore.
 
 Voir [cette issue](https://github.com/qmk/qmk_firmware/issues/2179) pour des informations détaillées.
 
@@ -140,9 +140,11 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc et <code>&#96;</code> sur une touche simple.
 
+Cette fonctionnalité permet d'utiliser une touche à la fois comme touche Échap ou une touche  `§` (En Azerty) selon le cas d’utilisation. Cela est très utile sur un clavier de petite taille.
+
 Voir la fonctionnalité [Grave Escape](feature_grave_esc.md).
 
-## Flèche sur la touche modificateur droit avec le Dual-Role
+## Avoir les touches modificatrices qui ont double usage en flèches directionnelles.
 
 Ceci transforme les touches "modificateur droit" en touches fléchées lorsque les touches sont seulement "tapées" tout en restant des modificateurs lorsqu'elles sont maintenues.
 
