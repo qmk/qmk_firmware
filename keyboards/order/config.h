@@ -248,5 +248,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODERS_PAD_A { C2 }
 #define ENCODERS_PAD_B { C3 }
 #define ENCODER_RESOLUTION 4
-#define RGB_DI_PIN { C5 }
+#define RGB_DI_PIN C5
 #define RGBLED_NUM 16
