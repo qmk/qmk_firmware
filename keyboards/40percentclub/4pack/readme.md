@@ -15,7 +15,6 @@ There were two struggles while I was building this keyboard firmware:
 
 While building, I've used header pins directly instead of sockets as mentioned, also, I've used 1k ohm resistors, along with Gateron greens (my favorite cheap macropad switches). These worked out nicely.
 
-Keyboard Maintainer: [40percentclub](http://www.40percent.club/)
 Firmware Build: [Arda Kilicdagi](http://github.com/ardakilic)
 Hardware Availability: links to where you can find this hardware
 
