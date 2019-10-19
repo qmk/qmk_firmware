@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Order",
+    "url": "https://github.com/FrancTheCat/Order",
+    "maintainer": "Carlos Rödiger",
+    "width": 15,
+    "height": 5,
+    "layouts": {
+        "LAYOUT_ortho_15x5": {
+            "layout": ["\nESC","\n1","\n2","\n3","\n4","\n5","\n6","\n6","\n7","\n8","\n9","\n-","\n=","\nBkspc","\nF13"],
+["\nTab","\nQ","\nW","\nE","\nR","\nT","\nY","\nU","\nI","\nO","\nP","\n[","\n]","\n\\","\nF14"],
+["\nCaps lock","\nA","\nS","\nD","\nF","\nG","\nH","\nJ","\nK","\nL","\n;","\n‘","\nReturn","\nPgUp","\nF15"],
+["\nShift","\nZ","\nX","\nC","\nV","\nB","\nN","\nM","\n,","\n.","\n/","\nShift","\nUp","\nPgDn","\nF16"],
+["\nCtrl","\nWin","\nAlt","\ncopy","\npaste","\nSpace",{a:7},"","",{a:4},"\nRAlt","\nFn","\nRCtrl","\nLeft","\nDown","\nRight","\nF17"]
+
+        },
+   }
+        
