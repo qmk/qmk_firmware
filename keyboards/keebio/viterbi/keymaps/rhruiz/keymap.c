@@ -4,6 +4,8 @@
 
 #define KC__FN1 MO(_FN1)
 #define KC__FN2 MO(_FN2)
+#define KC__DCF LT(_CFG, KC_DEL)
+#define KC_RFN1 LT(_FN1, KC_RGHT)
 #define KC_SFN1 SPCFN1
 #define KC_BFN2 BKSFN2
 #define KC__CFG MO(_CFG)
@@ -13,7 +15,6 @@
 #define KC_____ KC_TRNS
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
-#define KC_RFN1 LT(_FN1, KC_RGHT)
 
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
@@ -72,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, ____, ____, ____, ____, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, ____, ____, SCLN, PENT,
     ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, LT  , GT  , QUES, ____,
-    ____, ____, ____, ____, ____, ____, ____,   ____, DEL , ____, MRWD, MPLY, MFFD, ____
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
   [_FN1] = LAYOUT_kc(
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, LBRC, RBRC, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    _CFG, ____, ____, ____, ____, ____, ____,   _CFG, ____, ____, ____, ____, ____, ____
+    _CFG, ____, ____, ____, ____, ____, ____,   _DCF, _DCF, ____, ____, ____, ____, ____
   ),
 
   [_FN2] = LAYOUT_kc(
