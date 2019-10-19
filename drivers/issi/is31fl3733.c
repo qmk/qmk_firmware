@@ -93,7 +93,7 @@ uint8_t IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
         output = 1;
     }
 #else
-    if (!i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT)) {
+    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT)) {
         output = 1;
     }
 #endif
@@ -124,7 +124,7 @@ uint8_t IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
             output = 1;
         }
 #else
-        if (!i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT)) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT)) {
             output = 1;
         }
 #endif
