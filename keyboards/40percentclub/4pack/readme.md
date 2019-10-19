@@ -2,7 +2,7 @@
 
 ![4pack](https://i.imgur.com/rioXXq5l.jpg)
 
-A 4 Key macropad PCB
+A 4-key macropad PCB with its switch and LED pins wired directly to microcontroller IO pins.
 
 You can find the main blog post about this macropad [here](http://www.40percent.club/2017/07/4-pack.html), also the Gerber files and other documentation is located [here](https://git.40percent.club/di0ib/Misc/src/branch/master/4pack).
 
