@@ -128,5 +128,3 @@ void eeconfig_init_user(void) {
     user_config.version_1_1 = false;
     eeconfig_update_user(user_config.raw);
 }
-
-uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }

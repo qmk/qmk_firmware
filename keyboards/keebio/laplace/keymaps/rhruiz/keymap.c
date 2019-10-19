@@ -160,5 +160,3 @@ void rhruiz_update_layer_colors() {
 }
 
 void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
-
-uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }
