@@ -10,4 +10,4 @@ cluster, and RGB controls in the function layer on the arrow/nav keys.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/0mvzXHG.png)
+![Function layer layout](https://i.imgur.com/PGCbgtS.png)
