@@ -1,0 +1,15 @@
+core:
+  - quantum/**/*
+  - tmk_core/**/*
+  - drivers/**/*
+  - tests/**/*
+keymap:
+  - users/**/*
+  - layouts/**/*
+  - keyboards/**/keymap/**/*
+cli:
+  - bin/qmk
+  - requirements.txt
+  - lib/python/**/*
+documentation:
+  - docs/**/*
