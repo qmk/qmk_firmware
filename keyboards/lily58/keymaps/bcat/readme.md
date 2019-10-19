@@ -41,7 +41,7 @@ of layer-shift keys to fix a mistake.
 
 ## Default layer
 
-![Default layer layout](https://i.imgur.com/Tun8F8A.png)
+![Default layer layout](https://i.imgur.com/TbjGkH1.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/e0eb3af65961e9fd612dcff3ddd88e4f))
 
