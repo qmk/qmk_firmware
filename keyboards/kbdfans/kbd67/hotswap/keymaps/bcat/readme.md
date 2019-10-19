@@ -6,7 +6,7 @@ cluster.
 
 ## Default layer
 
-![Default layer layout](https://i.imgur.com/aHBTKAe.png)
+![Default layer layout](https://i.imgur.com/QNJ0HhY.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/dd675b40cc4df2c7bb78847ac29f5988))
 

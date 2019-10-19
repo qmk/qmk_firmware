@@ -6,10 +6,7 @@ enum layer {
     LAYER_ADJUST,
 };
 
-/* Switch to function layer when held. */
 #define LY_FUNC MO(LAYER_FUNCTION)
-
-/* Switch to adjust layer when held; send menu key when tapped. */
 #define LY_ADJST LT(LAYER_ADJUST, KC_APP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
