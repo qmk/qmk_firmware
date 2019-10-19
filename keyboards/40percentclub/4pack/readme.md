@@ -6,15 +6,6 @@ A 4-key macropad PCB with its switch and LED pins wired directly to microcontrol
 
 You can find the main blog post about this macropad [here](http://www.40percent.club/2017/07/4-pack.html), also the Gerber files and other documentation is located [here](https://git.40percent.club/di0ib/Misc/src/branch/master/4pack).
 
-I've realized this keyboard was missing a QMK firmware, so I've decided to make one to benefit from QMK.
-
-There were two struggles while I was building this keyboard firmware:
-
-1. The pinout didn't have a matrix, pins were directly connected to the io pins. I've realized for the row value, I needed to use `B0` (ground pin) in this case.
-2. Leds' both anode and cathode pins were connected to io pins, so some GPIO commands needed to set them and light them.
-
-While building, I've used header pins directly instead of sockets as mentioned, also, I've used 1k ohm resistors, along with Gateron greens (my favorite cheap macropad switches). These worked out nicely.
-
 Keyboard Maintainer: [Arda Kilicdagi](http://github.com/ardakilic), [The QMK Community](https://github.com/qmk)  
 Hardware Supported: 4 Pack PCB, Pro Micro  
 Hardware Availability: [40percent.club](https://git.40percent.club/di0ib/Misc/src/branch/master/4pack)
