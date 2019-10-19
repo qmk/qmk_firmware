@@ -1,13 +1,11 @@
 # 42
 
-42 keys ergonomic keyboard.
+42-keys ergonomic keyboard running on Adafruit Feather BLE.
 
 ![42](https://github.com/nglgzz/42/raw/master/42.jpg)
 
-A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](http://qmk.fm/planck/)
-
-Keyboard Maintainer: [Angelo Gazzola (nglgzz)](https://github.com/nglgzz)
-Hardware Supported: 42 (rev2, rev3), Feather 32u4 BLE
+Keyboard Maintainer: [Angelo Gazzola (nglgzz)](https://github.com/nglgzz)  
+Hardware Supported: 42 (rev2, rev3), Feather 32u4 BLE  
 Hardware Availability: [GitHub](https://github.com/nglgzz/42/)
 
 Make example for this keyboard (after setting up your build environment):

@@ -30,22 +30,3 @@
   { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B }, \
   { ___, ___, ___, K33, K34, K35, K36, K37, K38, ___, ___, ___ } \
 }
-
-// MOD_KC
-#define CTL_ESC MT(MOD_LCTL, KC_ESCAPE)
-#define CTL_ENT MT(MOD_LCTL, KC_ENTER)
-#define ALT_Z   MT(MOD_LALT, KC_Z)
-#define ALT_SLS MT(MOD_LALT, KC_SLASH)
-#define SU_QUOT MT(MOD_LGUI, KC_QUOTE)
-#define SU_BSLS MT(MOD_LGUI, KC_BSLS)
-#define SFT_DEL MT(MOD_LSFT, KC_DELETE)
-
-// LAYER_KC
-#define L3_SPC  LT(3, KC_SPC)
-#define L2_SPC  LT(2, KC_SPC)
-#define L1_LBRC LT(1, KC_LBRC)
-#define L1_RBRC LT(1, KC_RBRC)
-
-
-#define _______ KC_TRNS
-#define TAPPING_TERM 100
