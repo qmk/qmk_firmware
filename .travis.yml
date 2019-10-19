@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: required
 group: edge
 language: c
 branches:
@@ -13,8 +12,6 @@ env:
   - MAKEFLAGS="-j3 --output-sync"
 services:
   - docker
-before_install:
-  - docker build -t qmkfm/qmk_firmware .
 install:
   - npm install -g moxygen
 script:
@@ -29,7 +26,7 @@ addons:
     - diffutils
     - dos2unix
     - doxygen
-after_success:
+after_script:
   bash util/travis_compiled_push.sh
 notifications:
   webhooks:
