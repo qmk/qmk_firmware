@@ -13,4 +13,6 @@
 #define PRODUCT         DrashnaDox - Hacked ErgoDox EZ Shine
 
 #undef DEBOUNCE
-#define DEBOUNCE 15
+#define DEBOUNCE 30
+
+#define TAPPING_TERM_PER_KEY

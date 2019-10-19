@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -27,31 +26,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Helix Alpha
 #define DESCRIPTION     A split keyboard for the cheap makers
 
+#include <serial_config.h>
+
 #define HELIX_ROWS 5
 
 /* key matrix size */
 // Rows are doubled-up
 #if HELIX_ROWS == 3
   #define MATRIX_ROWS 6
-  #define MATRIX_COLS 6
   #define MATRIX_ROW_PINS { D7, E6, B4 }
 #elif HELIX_ROWS == 4
   #define MATRIX_ROWS 8
-  #define MATRIX_COLS 6
   #define MATRIX_ROW_PINS { D7, E6, B4, B5 }
 #elif HELIX_ROWS == 5
   #define MATRIX_ROWS 10
-  #define MATRIX_COLS 6
   #define MATRIX_ROW_PINS { D7, E6, B4, B5, D4 }
 #else
   #error "expected HELIX_ROWS 3 or 4 or 5"
 #endif
+#define MATRIX_COLS 6
 
 // wiring of each half
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 // #define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 } //uncomment this line and comment line above if you need to reverse left-to-right key order
-
-#define CATERINA_BOOTLOADER
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -88,5 +85,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif
