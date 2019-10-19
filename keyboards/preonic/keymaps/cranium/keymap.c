@@ -213,9 +213,6 @@ void dip_update(uint8_t index, bool active) {
         muse_mode = true;
       } else {
         muse_mode = false;
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-        #endif
       }
    }
 }
@@ -232,6 +229,11 @@ void matrix_scan_user(void) {
         }
       }
       muse_counter = (muse_counter + 1) % muse_tempo;
+    } else {
+      if (muse_counter) {
+        stop_all_notes();
+        muse_counter = 0;
+      }
     }
   #endif
 }
