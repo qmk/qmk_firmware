@@ -11,6 +11,8 @@
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define NUMB 2 // numbers/motion
+#define ONE_HAND 3
+#define ONE_HAND_ALT 4
 
 // Blank template at the bottom
 
@@ -27,10 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
 	 * |sup /BS |   A  |   S  |  D   |   F  |   G  | `    |           |      |   H  |   J  |   K  |   L  | ;  : |  ' "   |
 	 * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
-	 * | LSt    |   Z  |   X  |   C  |   V  |   B  | LMB  |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
+	 * | ENT    |   Z  |   X  |   C  |   V  |   B  | LMB  |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
 	 * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
 	 *                    .----------.   .-------.                                 .------.   .-----.
-	 *                    |esc       |   |ctrl/Del|                               | ent   |   | Tab |
+	 *                    |esc       |   |ctrl/Del|                               | lsft  |   | Tab |
 	 *                    '----------'   '-------'                                 `------.   '-----'
 	 *                                        ,-------.                      ,-------.
 	 *                                        | ent   |                      | lock  |
@@ -42,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
 	 [BASE] = LAYOUT_gergo(
 	     MT(MOD_LALT, KC_TAB),  KC_Q,  KC_W,   KC_E,   KC_R, KC_T,                                          KC_Y,    KC_U, KC_I, KC_O,   KC_P,    KC_PIPE,
-	     MT(MOD_LGUI, KC_BSPC),  KC_A,  KC_S,   KC_D,   KC_F, KC_G, KC_GRV,                       KC_TRNS,  KC_H,    KC_J, KC_K, KC_L,   KC_SCLN, KC_QUOT,
-	     KC_LSFT,   KC_Z,  KC_X,   KC_C,   KC_V, KC_B, KC_BTN1, KC_ENT,    						 LSFT(LCTL(KC_Q)), KC_BSPC,  KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
-	     KC_ESC, MT(MOD_LCTL, KC_DEL), LT(SYMB, KC_SPC), LT(NUMB, KC_SPC),   					 LT(SYMB, KC_ENT), LT(NUMB, KC_SPC), KC_ENT, KC_TAB
+	     MT(MOD_LGUI, KC_BSPC),  KC_A,  KC_S,   KC_D,   KC_F, KC_G, LCTL(LSFT(KC_4)),                       KC_TRNS,  KC_H,    KC_J, KC_K, KC_L,   KC_SCLN, KC_QUOT,
+	     KC_ENT,   KC_Z,  KC_X,   KC_C,   KC_V, KC_B, LCTL(LSFT(KC_3)), KC_ENT,    						 LGUI(LCTL(KC_Q)), KC_BSPC,  KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+	     KC_ESC, MT(MOD_LCTL, KC_DEL), LT(SYMB, KC_SPC), TO(ONE_HAND),   					 LT(SYMB, KC_ENT), LT(NUMB, KC_SPC), KC_LSFT, KC_TAB
 	     ),
 /* Keymap 1: Symbols layer
  *
@@ -67,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------'                     `--------------'
  */
 [SYMB] = LAYOUT_gergo(
-    KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                            KC_TRNS, KC_AMPR, KC_EQL, LCTL(LSFT(KC_3)), LCTL(LSFT(KC_4)), KC_BSLS,
+    TO(ONE_HAND), KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                            KC_TRNS, KC_AMPR, KC_EQL, LCTL(LSFT(KC_3)), LCTL(LSFT(KC_4)), KC_BSLS,
     KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,  KC_TRNS,                          KC_TRNS, KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,
     KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
                                         KC_TRNS, KC_TRNS, KC_SCLN, KC_EQL,         KC_EQL,  KC_SCLN, KC_PGUP, KC_DEL
@@ -98,6 +100,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS,     KC_TRNS, KC_TRNS,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_MPLY, KC_MNXT,
                                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
     ),
+/* Keymap 2: Pad/Function layer
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |   1  |  2   |  3   |  4   |  5   |                         |  6   |  7   |  8   |  9   |  0   | VolUp  |
+ * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
+ * |  F1    |  F2  | F3   | F4   | F5   | F6   | BTN1 |           |      |      | LEFT | DOWN |  UP  | RIGHT| VolDn  |
+ * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
+ * |  F7    |  F8  | F9   | F10  | F11  | F12  | BTN2 |           |      | MLFT | MDWN | MUP  | MRGHT|Ply/Pa|  Skip  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   |     |
+ *                        '------'   '------'                                 `------.   '-----'
+ *                                        ,-------.                     ,-------.
+ *                                        |       |                     | PgUp  |
+ *                                 ,------|-------|                     |-------|------.
+ *                                 |      |       |                     |       |      |
+ *                                 |      |       |                     |       |      |
+ *                                 |      |       |                     |       |      |
+ *                                 `--------------'                     `--------------'
+ */
+[ONE_HAND] = LAYOUT_gergo(
+    TO(BASE), KC_7, 	  KC_8,    KC_9,    KC_MINS,    KC_SLSH,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_VOLU,
+    KC_TRNS, KC_4,   KC_5,   KC_6,   KC_PLUS,   KC_BSLS,   KC_F6,          KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD,
+    KC_TRNS, KC_1, KC_2, KC_3, KC_DOT,  KC_PIPE,  KC_F12,  KC_TRNS,     KC_TRNS, KC_TRNS,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_MPLY, KC_MNXT,
+                KC_0, LT(ONE_HAND_ALT, KC_DEL), KC_TRNS, TO(BASE),         KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+/* Keymap 2: Pad/Function layer
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |   1  |  2   |  3   |  4   |  5   |                         |  6   |  7   |  8   |  9   |  0   | VolUp  |
+ * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
+ * |  F1    |  F2  | F3   | F4   | F5   | F6   | BTN1 |           |      |      | LEFT | DOWN |  UP  | RIGHT| VolDn  |
+ * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
+ * |  F7    |  F8  | F9   | F10  | F11  | F12  | BTN2 |           |      | MLFT | MDWN | MUP  | MRGHT|Ply/Pa|  Skip  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   |     |
+ *                        '------'   '------'                                 `------.   '-----'
+ *                                        ,-------.                     ,-------.
+ *                                        |       |                     | PgUp  |
+ *                                 ,------|-------|                     |-------|------.
+ *                                 |      |       |                     |       |      |
+ *                                 |      |       |                     |       |      |
+ *                                 |      |       |                     |       |      |
+ *                                 `--------------'                     `--------------'
+ */
+[ONE_HAND_ALT] = LAYOUT_gergo(
+	TO(BASE), KC_7, 	  KC_8,    KC_9,    KC_MINS,    KC_SLSH,                                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_VOLU,
+	LCTL(LSFT(KC_4)), KC_4,   KC_5,   KC_6,   KC_PLUS,   KC_BSLS,   KC_F6,                         KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD,
+	KC_TRNS, LCTL(KC_Z),   LCTL(KC_X),   LCTL(KC_C),   LCTL(KC_V),  KC_PIPE,  KC_F12,  KC_TRNS,     KC_TRNS, KC_TRNS,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_MPLY, KC_MNXT,
+																			KC_0, LT(ONE_HAND_ALT, KC_DEL), KC_TRNS, KC_TRNS,         KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS
+	)
 };
 
 #ifdef OLED_DRIVER_ENABLE
@@ -119,6 +173,12 @@ void oled_task_user(void) {
       break;
     case SYMB:
       oled_write_P(PSTR("SYMBOLS\n\n\n"), false);
+      break;
+		case ONE_HAND:
+      oled_write_P(PSTR("ONE HAND\n\n\n"), false);
+      break;
+    case ONE_HAND_ALT:
+      oled_write_P(PSTR("ONE HAND ALT\n\n\n"), false);
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string

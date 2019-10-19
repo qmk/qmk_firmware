@@ -27,22 +27,22 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_ortho_4x4(
-       LCTL(KC_C), LCTL(LSFT(KC_V)),   LCTL(KC_A),  TO(1),
+       LCTL(KC_C), LCTL(KC_V),   LCTL(KC_A),  TO(1),
        LCTL(LALT(KC_L)), LSFT(KC_F10),   LCTL(LALT(KC_5)),   LSFT(KC_F6),
        LCTL(KC_E), LCTL(KC_O),  LCTL(KC_SPACE),   LCTL(KC_0),
        COLLAPSE_METHODS_LINUX, LCTL(LSFT(KC_EQUAL)), LINUX, MO(2)
    ),
    [1] = LAYOUT_ortho_4x4(
-        LGUI(KC_C), LCTL(LSFT(KC_V)),   LCTL(KC_A),  TO(2),
+        LCTL(KC_C), LCTL(KC_V),   LCTL(KC_A),  TO(2),
         LCTL(LALT(KC_L)), LSFT(KC_F10),   LCTL(LALT(KC_5)),   LSFT(KC_F6),
         LCTL(KC_E), LCTL(KC_O),  LCTL(KC_SPACE),   LCTL(KC_0),
-        COLLAPSE_METHODS_MAC, LSFT(LCTL(KC_EQUAL)), MAC, MO(2)
+        COLLAPSE_METHODS_MAC, LSFT(LCTL(KC_EQUAL)), KC_ENT, MO(2)
     ),
   [2] = LAYOUT_ortho_4x4(
         KC_7, KC_8,   KC_9,  TO(3),
         KC_4, KC_5,   KC_6,   KC_SLSH,
         KC_1, KC_2,   KC_3,   KC_MINS,
-        KC_0, KC_ENT, NUMB, MO(0)
+        KC_0, KC_ENT, KC_BSPC, MO(0)
     ),
 
   [3] = LAYOUT_ortho_4x4(
@@ -114,8 +114,10 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_setrgb (RGB_BLUE);
         break;
     case 1:
-        rgblight_setrgb (RGB_CYAN);
-        rgblight_mode (RGBLIGHT_MODE_BREATHING);
+
+        
+        rgblight_setrgb (RGB_TEAL);
+
         break;
     case 2:
         rgblight_mode (RGBLIGHT_MODE_STATIC_LIGHT);
