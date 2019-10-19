@@ -27,7 +27,7 @@ BOOTLOADER = atmel-dfu
 #
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no        # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -44,6 +44,3 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = WS2812
-
-# Supported layouts
-LAYOUTS = fullsize_ansi fullsize_iso
