@@ -35,6 +35,10 @@ activated by the right thumb.
 * Backspace is bound in the same place on every layer to avoid having to let go
 of layer-shift keys to fix a mistake.
 
+* Likewise, the comma and period keys are not rebound on the raise layer to
+allow typing numbers with thousand separators and decimal points without
+releasing the layer key.
+
 * Brackets and braces are on or near the home row for quick access when coding.
 
 * Other than Right Shift (sorry), modifiers aren't rebound on layers.
@@ -47,13 +51,13 @@ of layer-shift keys to fix a mistake.
 
 ## Lower layer
 
-![Lower layer layout](https://i.imgur.com/Nuqr61f.png)
+![Lower layer layout](https://i.imgur.com/zjYwqtv.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/19ad0d3b5d745fbb2818db09740f5a11))
 
 ## Raise layer
 
-![Raise layer layout](https://i.imgur.com/ZQ4DOMT.png)
+![Raise layer layout](https://i.imgur.com/S7S29G6.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/912be7955f781cdaf692cc4d4c0b5823))
 
