@@ -15,7 +15,7 @@ There were two struggles while I was building this keyboard firmware:
 
 While building, I've used header pins directly instead of sockets as mentioned, also, I've used 1k ohm resistors, along with Gateron greens (my favorite cheap macropad switches). These worked out nicely.
 
-Firmware Build: [Arda Kilicdagi](http://github.com/ardakilic)
+Keyboard Maintainer: [Arda Kilicdagi](http://github.com/ardakilic), [The QMK Community](https://github.com/qmk)  
 Hardware Availability: links to where you can find this hardware
 
 Make example for this macropad (after setting up your build environment):
