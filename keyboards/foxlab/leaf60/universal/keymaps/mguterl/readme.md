@@ -7,5 +7,5 @@ This is a pretty standard 60% WKL layout. I add a couple of layers to add
 some conveniences and add vimkeys for navigation.
 
 ```sh
-make foxlab/leaf60/universal:mguterl:dfu
+make foxlab/leaf60/universal:mguterl:flash
 ```

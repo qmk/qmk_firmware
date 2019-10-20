@@ -11,5 +11,5 @@ spacebar and escape, and then plug the keyboard back. This sequence of
 actions will allow you to flash the keyboard.
 
 ```sh
-make wilba_tech/rama_works_m60a:mguterl:dfu-util
+make wilba_tech/rama_works_m60a:mguterl:flash
 ```

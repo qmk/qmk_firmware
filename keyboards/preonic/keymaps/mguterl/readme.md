@@ -14,5 +14,5 @@ At a very high level I use 4 layers:
 * Lower  - Symbols
 
 ```sh
-make preonic/rev3:mguterl:dfu-util
+make preonic/rev3:mguterl:flash
 ```

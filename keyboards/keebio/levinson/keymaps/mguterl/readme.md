@@ -14,5 +14,5 @@ At a very high level I use 4 layers:
 * Lower  - Symbols
 
 ```sh
-make keebio/levinson/rev2:mguterl:dfu-util
+make keebio/levinson/rev2:mguterl:flash
 ```
