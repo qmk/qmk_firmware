@@ -27,7 +27,7 @@ void setLedsOn(void) {
   writePinHigh(F7);
 }
 
-void setLedsLod(void) {
+void setLedsOff(void) {
   writePinLow(F6);
   writePinLow(F7);
 }
