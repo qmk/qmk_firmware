@@ -1,6 +1,6 @@
 # Michael Guterl's M60-A Layout
 
-Check out my [userspace](users/mguterl) for the custom keycodes that are used
+Check out my [userspace](/users/mguterl) for the custom keycodes that are used
 in keymap.c.
 
 This is a pretty standard HHKB layout. I add a couple of layers to add

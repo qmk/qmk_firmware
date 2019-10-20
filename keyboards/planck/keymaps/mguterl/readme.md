@@ -1,9 +1,9 @@
 # Michael Guterl's Planck Layout
 
-I have a very similar [keymap](keyboards/preonic/keymaps/mguterl) for my
+I have a very similar [keymap](/keyboards/preonic/keymaps/mguterl) for my
 Preonic.
 
-Check out my [userspace](users/mguterl) for the custom keycodes that are used
+Check out my [userspace](/users/mguterl) for the custom keycodes that are used
 in keymap.c.
 
 At a very high level I use 4 layers:
