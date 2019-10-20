@@ -6,8 +6,12 @@ cluster.
 
 ## Default layer
 
-![Default layer layout](https://i.imgur.com/iJsG6Z8.png)
+![Default layer layout](https://i.imgur.com/QNJ0HhY.png)
+
+([KLE](http://www.keyboard-layout-editor.com/#/gists/dd675b40cc4df2c7bb78847ac29f5988))
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/eRKdeph.png)
+![Function layer layout](https://i.imgur.com/VQF5RBy.png)
+
+([KLE](http://www.keyboard-layout-editor.com/#/gists/f29128427f674c43777f045e363d1b44))
