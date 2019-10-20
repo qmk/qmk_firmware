@@ -38,7 +38,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, KC_END , KC_MNXT
     ),
 };
-int current_layer = 0;
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
@@ -55,10 +54,11 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             mod = -1;
         }
         int n = 2; //sizeof(PROGMEM);
-        uprintf("current: %d\n", layer_state);
-        layer_on(layer_state );
+        int new_layer = ((layer_state + mod) % n + n) % n;
+        uprintf("new: %d\n", new_layer);
+        layer_on(new_layer);
         for(int i=0; i < n; i++) {
-            if (layer_state  != i) {
+            if (new_layer != i) {
                 layer_off(i);
             }
         }
