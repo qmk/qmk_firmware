@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
     CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
     LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
-    _FN2, LCTL, LALT, LALT, LGUI, SFN1, SFN1,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
+    _FN2, LCTL, LALT, LGUI, _FN1, SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_kc(
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, MS_L, MS_D, MS_R, LCBR, RCBR, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, ____, ____, ____, _CFG, ____,   ____, ____, ____, ____, ____, ____, ____
+    ____, ____, ____, ____, _CFG, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
   [_CFG] = LAYOUT_kc(
