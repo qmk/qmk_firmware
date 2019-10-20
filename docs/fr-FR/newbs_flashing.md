@@ -78,7 +78,7 @@ Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat simila
 
 ## Flashez votre clavier à l'aide de la ligne de commande
 
-C'est désormais relativement simple. Lorsque vous êtes prêt à compiler et à flasher votre micrologiciel, ouvrez la fenêtre de votre terminal et exécutez la commande de build :
+C'est désormais relativement simple. Lorsque vous êtes prêt à compiler et à flasher votre firmware, ouvrez la fenêtre de votre terminal et exécutez la commande de build :
 
     make <my_keyboard>:<my_keymap>:flash
 
@@ -92,7 +92,7 @@ Cependant, tout dépend du bootloader qui est installé sur le clavier. Si cette
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
-Dans ce cas, vous devrez choisir le chargeur de démarrage.
+Dans ce cas, vous devrez choisir le bootloader.
 
 Il y a cinq bootloaders principaux. Les Pro-Micro et les clones utilisent Caterina, les Teensy utilisent Halfkay, les claviers AVR d’OLKB utilisent QMK-DFU, certains controleurs atmega32u4 utilisent DFU et la plupart des controlleurs ARM utilisent ARM DFU.
 
@@ -228,7 +228,7 @@ Si vous avez un soucis, essayez de faire ceci:
 Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
 * `: avrdude` - Il s’agit de l’option normale. Elle attend qu’un appareil Caterina soit disponible, puis tente de flasher le firmware. Il attendra de détecter un autre port COM, puis il flashera à nouveau.
-* `: avrdude-loop` - Cela fonctionne de la même manière qu'`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-loop` - Cela fonctionne de la même manière que `: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
 * `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 * `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 
