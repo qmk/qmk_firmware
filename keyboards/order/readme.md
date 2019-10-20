@@ -1,6 +1,5 @@
 # Order
 
-![Order]
 
 A 5x15 ortholinear keyboard with only through hole components, including usb type-c
 
