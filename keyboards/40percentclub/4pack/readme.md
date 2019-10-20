@@ -12,6 +12,6 @@ Hardware Availability: [40percent.club](https://git.40percent.club/di0ib/Misc/sr
 
 Make example for this macropad (after setting up your build environment):
 
-    make 40percentclub/4pack:default:avrdude
+    make 40percentclub/4pack:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
