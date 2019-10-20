@@ -131,14 +131,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
 };
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(uint32_t state) {
+uint32_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();

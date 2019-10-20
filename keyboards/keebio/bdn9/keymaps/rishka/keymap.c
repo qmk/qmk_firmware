@@ -55,11 +55,10 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             mod = -1;
         }
         int n = 2; //sizeof(PROGMEM);
-        current_layer = ((current_layer + mod) % n + n) % n;
-        uprintf("current: %d\n", current_layer);
-        layer_on(current_layer);
+        uprintf("current: %d\n", layer_state);
+        layer_on(layer_state );
         for(int i=0; i < n; i++) {
-            if (current_layer != i) {
+            if (layer_state  != i) {
                 layer_off(i);
             }
         }
