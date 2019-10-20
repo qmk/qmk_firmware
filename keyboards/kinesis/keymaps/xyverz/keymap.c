@@ -1,22 +1,19 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
-#define _DVORAK 0 // Dvorak layer
-#define _QWERTY 1 // Qwerty layer
-#define _COLEMAK 2 // Colemak layer
-#define _KEYPAD 3 // Keypad Layer
-
-enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
-  QWERTY,
-  COLEMAK,
-  KEYPAD
+enum layer_names {
+    _DVORAK,
+    _QWERTY,
+    _COLEMAK,
+    _KEYPAD,
 };
+
+enum custom_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK, KEYPAD };
 
 // Aliases to make the keymap more uniform
 #define GUI_END GUI_T(KC_END)
 #define KPD_ENT LT(_KEYPAD, KC_ENT)
+
+// clang-format off
 
 /*
 
@@ -214,38 +211,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,
            _______, _______, KC_P0
     )
-
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case DVORAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DVORAK);
-          }
-          return false;
-          break;
-        case QWERTY:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QWERTY);
-          }
-          return false;
-          break;
-        case COLEMAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_COLEMAK);
-          }
-          return false;
-          break;
-      }
+    if (record->event.pressed) {
+        switch (keycode) {
+            case DVORAK:
+                set_single_persistent_default_layer(_DVORAK);
+                return false;
+            case QWERTY:
+                set_single_persistent_default_layer(_QWERTY);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_COLEMAK);
+                return false;
+        }
+    }
     return true;
 };
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
+void matrix_init_user(void){};
