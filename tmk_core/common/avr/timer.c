@@ -32,33 +32,32 @@ volatile uint32_t timer_count;
  */
 void timer_init(void) {
 #if TIMER_PRESCALER == 1
-    uint8_t prescaler = 0x01;
+    uint8_t prescaler = _BV(CS00);
 #elif TIMER_PRESCALER == 8
-    uint8_t prescaler = 0x02;
+    uint8_t prescaler = _BV(CS01);
 #elif TIMER_PRESCALER == 64
-    uint8_t prescaler = 0x03;
+    uint8_t prescaler = _BV(CS00) | _BV(CS01);
 #elif TIMER_PRESCALER == 256
-    uint8_t prescaler = 0x04;
+    uint8_t prescaler = _BV(CS02);
 #elif TIMER_PRESCALER == 1024
-    uint8_t prescaler = 0x05;
+    uint8_t prescaler = _BV(CS00) | _BV(CS02);
 #else
-#    error "Timer prescaler value is NOT vaild."
+#    error "Timer prescaler value is not valid"
 #endif
 
 #ifndef __AVR_ATmega32A__
     // Timer0 CTC mode
-    TCCR0A = 0x02;
-
+    TCCR0A = _BV(WGM01);
     TCCR0B = prescaler;
 
     OCR0A  = TIMER_RAW_TOP;
-    TIMSK0 = (1 << OCIE0A);
+    TIMSK0 = _BV(OCIE0A);
 #else
     // Timer0 CTC mode
-    TCCR0 = (1 << WGM01) | prescaler;
+    TCCR0 = _BV(WGM01) | prescaler;
 
     OCR0  = TIMER_RAW_TOP;
-    TIMSK = (1 << OCIE0);
+    TIMSK = _BV(OCIE0);
 #endif
 }
 

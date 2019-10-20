@@ -36,11 +36,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYER_FN
         static bool fn_lock = false;
 
-    case FN_FNLK:
-        if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+    case FNLK:
+        if (record->event.pressed) {
             fn_lock = !IS_LAYER_ON(L_FN);  // Fn layer will be toggled after this
         }
-        return true;
+        break;
+
+    case FN_FNLK:
+        if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
+            fn_lock = !IS_LAYER_ON(L_FN);
+        }
+        break;
 #endif
 
     case KC_ESC:
@@ -58,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 #endif
         }
-        return true;
+        break;
 
     case CLEAR:
         if (record->event.pressed) {
@@ -66,25 +72,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
             )
         }
-        return false;
+        break;
 
     case DST_P_R:
         kc = (get_mods() & DST_MOD_MASK) ? DST_REM : DST_PRV;
         CLEAN_MODS(
             (record->event.pressed ? register_code16 : unregister_code16)(kc);
         )
-        return false;
+        break;
 
     case DST_N_A:
         kc = (get_mods() & DST_MOD_MASK) ? DST_ADD : DST_NXT;
         CLEAN_MODS(
             (record->event.pressed ? register_code16 : unregister_code16)(kc);
         )
-        return false;
-
-    default:
-        return true;
+        break;
     }
+
+    return true;
 }
 
 __attribute__((weak))

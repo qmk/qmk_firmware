@@ -27,24 +27,16 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2, A3, A6 }
+#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
+#define UNUSED_PINS
 
 #define ENCODERS_PAD_A { B12 }
 #define ENCODERS_PAD_B { B13 }
+
+#define DIP_SWITCH_PINS { B14, A15, A0, B9 }
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES

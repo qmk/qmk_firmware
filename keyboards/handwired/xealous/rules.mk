@@ -1,4 +1,4 @@
-SRC += matrix_scanrate.c matrix.c
+SRC += matrix.c
 
 # MCU name
 MCU = atmega32u4

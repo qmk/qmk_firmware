@@ -62,7 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
@@ -75,19 +74,19 @@ void keyboard_pre_init_user(void) {
 
 void led_set_user(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(D5);
-    } else {
         writePinHigh(D5);
+    } else {
+        writePinLow(D5);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(D3);
-    } else {
         writePinHigh(D3);
+    } else {
+        writePinLow(D3);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinLow(D2);
-    } else {
         writePinHigh(D2);
+    } else {
+        writePinLow(D2);
     }
 }
 

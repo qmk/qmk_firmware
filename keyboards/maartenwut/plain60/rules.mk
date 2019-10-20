@@ -1,4 +1,3 @@
-SRC += keyboards/wilba_tech/wt_main.c
 # MCU name
 MCU = atmega32u4
 
@@ -62,7 +61,6 @@ MIDI_ENABLE = no 		# MIDI controls
 AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
 
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso
+LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_hhkb 60_iso 60_tsangan_hhkb
+

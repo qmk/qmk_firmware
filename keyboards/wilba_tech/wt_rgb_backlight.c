@@ -791,7 +791,7 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
     {208,255}, {39,255}, {23,238}, {235,255}, {235,255}, {33,255}, {19,255}, {255,233}, {224,255}, {160,255}, {164,255}, {169,255}, {188,255},
     {255,255},// LA61 does not exit, dummy
     //LA62..LB5
-    {221,255}, {225,255}, {229,255}, {22,255}, {12,255}, {244,255}, {234,255}, {255,255},
+    {221,255}, {225,255}, {229,255}, {22,255}, {12,255}, {244,255}, {234,255}, {255,255}
 };
 #elif defined(RGB_BACKLIGHT_M6_B)
 // M6-B is really simple:
@@ -1551,20 +1551,14 @@ void backlight_effect_indicators(void)
     }
 
 #if defined(RGB_BACKLIGHT_NK65)
-    if ( g_indicator_state & (1<<USB_LED_CAPS_LOCK) )
-    {
+    if ( IS_LED_ON(g_indicator_state, USB_LED_CAPS_LOCK) ) {
         IS31FL3733_set_color( 7+64-1, 0, 255, 0 );
     } else {
         IS31FL3733_set_color( 7+64-1, 0, 0, 0 );
     }
-    if ( g_indicator_state & (1<<USB_LED_SCROLL_LOCK) )
-    {
+    if ( IS_LAYER_ON(1) ) {
         IS31FL3733_set_color( 6+64-1, 255, 0, 255 );
-    } else {
-        IS31FL3733_set_color( 6+64-1, 0, 0, 0 );
-    }
-    if ( g_indicator_state & (1<<USB_LED_NUM_LOCK) )
-    {
+    } else if ( IS_LAYER_ON(2) ) {
         IS31FL3733_set_color( 6+64-1, 0, 255, 0 );
     } else {
         IS31FL3733_set_color( 6+64-1, 0, 0, 0 );

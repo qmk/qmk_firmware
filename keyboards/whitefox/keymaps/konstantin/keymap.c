@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
      * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │RSfRCt│ ↑ │PgD│
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-     * │LCtl│LGui│LAlt│         Space          │RAlG│FnLk│ │ ← │ ↓ │ → │
+     * │LCtl│LGui│LAlt│         Space          │RAlG│FnFL│ │ ← │ ↓ │ → │
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [L_BASE] = LAYOUT_truefox(
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                    RAL_RGU, FN_FNLK,                   KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    /* Function layer
+    /* Fn layer
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
      * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Num│SLk│Pau│
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤

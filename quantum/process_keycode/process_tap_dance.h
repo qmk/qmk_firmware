@@ -56,13 +56,19 @@ typedef struct {
 typedef struct {
     uint16_t kc;
     uint8_t  layer;
+    void (*layer_function)(uint8_t);
 } qk_tap_dance_dual_role_t;
 
 #    define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
         { .fn = {qk_tap_dance_pair_on_each_tap, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
 
 #    define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) \
-        { .fn = {qk_tap_dance_dual_role_on_each_tap, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset}, .user_data = (void *)&((qk_tap_dance_dual_role_t){kc, layer}), }
+        { .fn = { qk_tap_dance_dual_role_on_each_tap, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset }, .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer, layer_move }),  }
+
+#    define ACTION_TAP_DANCE_TOGGLE_LAYER(kc, layer) \
+        { .fn = { NULL, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset }, .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer, layer_invert }), }
+
+#    define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)
 
 #    define ACTION_TAP_DANCE_FN(user_fn) \
         { .fn = {NULL, user_fn, NULL}, .user_data = NULL, }
@@ -72,6 +78,8 @@ typedef struct {
 
 #    define ACTION_TAP_DANCE_FN_ADVANCED_TIME(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, tap_specific_tapping_term) \
         { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset}, .user_data = NULL, .custom_tapping_term = tap_specific_tapping_term, }
+
+
 
 extern qk_tap_dance_action_t tap_dance_actions[];
 
