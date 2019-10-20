@@ -1,6 +1,9 @@
 #pragma once
 #include "quantum.h"
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
 /* Tap for Tab, hold for Hyper (Super+Ctrl+Shift+Alt) */
 #define HPR_TAB ALL_T(KC_TAB)
 
@@ -36,3 +39,29 @@
 #define GUI_8 LGUI(KC_8)
 #define GUI_9 LGUI(KC_9)
 #define GUI_0 LGUI(KC_0)
+
+/*
+ * Common layers and keycodes that are shared between Planck and Preonic
+ */
+enum ortho_layers {
+  _QWERTY,
+  _GAMING,
+  _UTIL,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _PLOVER,
+  _ADJUST
+};
+
+enum ortho_keycodes {
+  QWERTY = SAFE_RANGE,
+  GAMING,
+  UTIL,
+  COLEMAK,
+  DVORAK,
+  PLOVER,
+  BACKLIT,
+  EXT_PLV
+};
