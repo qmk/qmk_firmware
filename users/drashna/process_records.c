@@ -21,16 +21,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // KEYLOGGER_ENABLE
 
     switch (keycode) {
-        case KC_QWERTY ... KC_CARPLAX:
+        case KC_QWERTY ... KC_WORKMAN:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(keycode - KC_QWERTY);
+                uint8_t mods = mod_config(get_mods()|get_oneshot_mods());
+                if (!mods) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY);
+                } else if (mods & MOD_MASK_SHIFT) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
+                } else if (mods & MOD_MASK_CTRL) {
+                    set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
+                }
             }
             break;
 
         case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
             if (!record->event.pressed) {
-                uint8_t temp_mod = get_mods();
-                uint8_t temp_osm = get_oneshot_mods();
+                uint8_t temp_mod = mod_config(get_mods());
+                uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_mods();
                 clear_oneshot_mods();
                 send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), TAP_CODE_DELAY);
@@ -38,15 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if ((temp_mod | temp_osm) & MOD_MASK_SHIFT)
 #endif
                 {
-#if defined(__arm__)
-                    send_string_with_delay_P(PSTR(":dfu-util"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_DFU)
-                    send_string_with_delay_P(PSTR(":dfu"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_HALFKAY)
-                    send_string_with_delay_P(PSTR(":teensy"), TAP_CODE_DELAY);
-#elif defined(BOOTLOADER_CATERINA)
-                    send_string_with_delay_P(PSTR(":avrdude"), TAP_CODE_DELAY);
-#endif  // bootloader options
+                    send_string_with_delay_P(PSTR(":flash"), TAP_CODE_DELAY);
                 }
                 if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
                     send_string_with_delay_P(PSTR(" -j8 --output-sync"), TAP_CODE_DELAY);
@@ -67,44 +66,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
             }
             break;
-
-            // These are a serious of gaming macros.
-            // Only enables for the viterbi, basically,
-            // to save on firmware space, since it's limited.
-#ifdef MACROS_ENABLED
-        case KC_OVERWATCH:  // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-            if (record->event.pressed) {
-                userspace_config.is_overwatch ^= 1;
-                eeconfig_update_user(userspace_config.raw);
-            }
-#    ifdef RGBLIGHT_ENABLE
-            userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
-#    endif  // RGBLIGHT_ENABLE
-            break;
-        case KC_SALT:
-            return send_game_macro("Salt, salt, salt...", record, false);
-        case KC_MORESALT:
-            return send_game_macro("Please sir, can I have some more salt?!", record, false);
-        case KC_SALTHARD:
-            return send_game_macro("Your salt only makes me harder, and even more aggressive!", record, false);
-        case KC_GOODGAME:
-            return send_game_macro("Good game, everyone!", record, false);
-        case KC_GLHF:
-            return send_game_macro("Good luck, have fun!!!", record, false);
-        case KC_SYMM:
-            return send_game_macro("Left click to win!", record, false);
-        case KC_JUSTGAME:
-            return send_game_macro("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.", record, false);
-        case KC_TORB:
-            return send_game_macro("That was positively riveting!", record, false);
-        case KC_AIM:
-            send_game_macro("That aim is absolutely amazing. It's almost like you're a machine!", record, true);
-            return send_game_macro("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!", record, false);
-        case KC_C9:
-            return send_game_macro("OMG!!!  C9!!!", record, false);
-        case KC_GGEZ:
-            return send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!", record, false);
-#endif  // MACROS_ENABLED
 
         case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
 #ifdef TAP_DANCE_ENABLE

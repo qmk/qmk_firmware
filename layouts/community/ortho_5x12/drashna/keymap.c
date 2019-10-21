@@ -29,10 +29,11 @@
   LAYOUT_ortho_5x12_wrapper( \
     KC_GRV,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
     KC_TAB,  K11,    K12,     K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_BSPC, \
-    KC_ESC,  K21,    K22,     K23,      K24,     K25,     K26,     K27,     K28,     K29,     K2A,     KC_QUOT, \
-    KC_MLSF, CTL_T(K31), K32, K33,      K34,     K35,     K36,     K37,     K38,     K39,  CTL_T(K3A), KC_ENT,  \
+    KC_ESC,  ALT_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29,     K2A, RALT_T(KC_QUOT), \
+    KC_MLSF, CTL_T(K31), K32, K33,      K34,     K35,     K36,     K37,     K38,     K39, RCTL_T(K3A), KC_ENT,  \
     KC_NO,   OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
   )
+
 #define LAYOUT_ortho_5x12_base_wrapper(...)       LAYOUT_ortho_5x12_base(__VA_ARGS__)
 
 
@@ -132,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_5x12_wrapper( \
   KC_MAKE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RST,
   VRSN,    _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, EEP_RST,
-  _______, _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, _______,
+  _______, _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, RGB_IDL,
   _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )

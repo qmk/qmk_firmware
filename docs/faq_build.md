@@ -75,14 +75,11 @@ Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices m
 
 ## Unknown Device for DFU Bootloader
 
-Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader. 
+Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
 
-Re-running the installation script for MSYS2 may help (eg run `util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package.
+Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
 
-If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, and run it on the system.  Then, you will need to reset your board into bootloader mode.  After that, locate the device in question. If the device doesn't show up in the list (or nothing shows up in the list), you may need to enable the `List all devices` option in the `Options` menu.
-
-From here, you will need to know what type of controller the board is using.  You may see it listed in the Device Manager as `ATmega32U4` device (which is an AVR board), or an `STM32` device (Which is an ARM board).  For AVR boards, use `libusb-win32` for the driver. For ARM boards, use the `WinUSB` driver.  Once the correct driver type has been selected, click on the `Replace Driver` button, unplug your board, plug it back in, and reset it again.
-
+If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.

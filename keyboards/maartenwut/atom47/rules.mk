@@ -61,5 +61,5 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
-DEFAULT_FOLDER = atom47/rev3
+DEFAULT_FOLDER = maartenwut/atom47/rev3
 

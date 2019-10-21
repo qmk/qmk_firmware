@@ -18,10 +18,10 @@
 #include "i2c_master.h"
 
 #ifdef QWIIC_JOYSTIIC_ENABLE
-  #include "joystiic.h"
+#    include "joystiic.h"
 #endif
 #ifdef QWIIC_MICRO_OLED_ENABLE
-  #include "micro_oled.h"
+#    include "micro_oled.h"
 #endif
 
 void qwiic_init(void);

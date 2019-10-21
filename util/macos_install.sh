@@ -24,6 +24,6 @@ fi
 brew tap osx-cross/avr
 brew tap PX4/homebrew-px4
 brew update
-brew install avr-gcc@8 gcc-arm-none-eabi dfu-programmer avrdude dfu-util python3
+brew install avr-gcc@8 gcc-arm-none-eabi dfu-programmer avrdude clang-format dfu-util python3
 brew link --force avr-gcc@8
 pip3 install -r ${util_dir}/../requirements.txt

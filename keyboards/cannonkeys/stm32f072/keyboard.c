@@ -86,10 +86,9 @@ void matrix_init_board(void);
 void matrix_init_kb(void){
   	eeprom_init_kb();
       /* MOSI pin*/
+#ifdef RGBLIGHT_ENABLE
     palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(0));
     wait_ms(500);
-
-#ifdef RGBLIGHT_ENABLE
     leds_init();
 #endif
     backlight_init_ports();

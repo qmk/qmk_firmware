@@ -1,16 +1,14 @@
 #pragma once
 
-
 #ifdef AUDIO_ENABLE
   #define AUDIO_CLICKY
   #define STARTUP_SONG SONG(RICK_ROLL)
-  #define GOODBYE_SONG  SONG(SONIC_RING)
+  #define GOODBYE_SONG SONG(SONIC_RING)
   #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                     SONG(COLEMAK_SOUND), \
                                     SONG(DVORAK_SOUND), \
                                     SONG(OVERWATCH_THEME) \
                                   }
-
   #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
   // #ifdef RGBLIGHT_ENABLE
   // #define NO_MUSIC_MODE
@@ -19,13 +17,11 @@
   //   #undef  NOTE_REST
   //   #define NOTE_REST         1.00f
   // #endif // !__arm__
-
-#define UNICODE_SONG_OSX SONG(RICK_ROLL)
-#define UNICODE_SONG_LNX SONG(RICK_ROLL)
-#define UNICODE_SONG_WIN SONG(RICK_ROLL)
-#define UNICODE_SONG_BSD SONG(RICK_ROLL)
-#define UNICODE_SONG_WINC SONG(RICK_ROLL)
-
+  #define UNICODE_SONG_OSX SONG(RICK_ROLL)
+  #define UNICODE_SONG_LNX SONG(RICK_ROLL)
+  #define UNICODE_SONG_WIN SONG(RICK_ROLL)
+  #define UNICODE_SONG_BSD SONG(RICK_ROLL)
+  #define UNICODE_SONG_WINC SONG(RICK_ROLL)
 #endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
@@ -48,7 +44,19 @@
   #define QMK_KEYS_PER_SCAN 4
 #endif // !QMK_KEYS_PER_SCAN
 
+#if defined(LEADER_ENABLE)
+  #define LEADER_PER_KEY_TIMING
+  #define LEADER_TIMEOUT 250
+#endif // !LEADER_ENABLE 
 
+#if defined(COMBO_ENABLE)
+  #define COMBO_COUNT 4
+  #define COMBO_TERM 150
+#endif // !COMBO_ENABLE 
+
+#if defined(NKRO_ENABLE)
+  #define FORCE_NKRO
+#endif // !NKRO_ENABLE
 
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
@@ -59,8 +67,6 @@
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
-#define FORCE_NKRO
-
 #ifndef TAPPING_TOGGLE
   #define TAPPING_TOGGLE  1
 #endif
@@ -68,26 +74,17 @@
 #ifdef TAPPING_TERM
   #undef TAPPING_TERM
 #endif // !TAPPING_TERM
-#if defined(KEYBOARD_ergodox_ez)
+#if defined(KEYBOARD_handwired_kuchosauronad0_planckenstein)
   #define TAPPING_TERM 185
-#elif defined(KEYBOARD_crkbd)
+#elif defined(KEYBOARD_c39)
   #define TAPPING_TERM 200
 #else
-  #define TAPPING_TERM 150
+  #define TAPPING_TERM 180
 #endif
 
 
-// Disable action_get_macro and fn_actions, since we don't use these
-// and it saves on space in the firmware.
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
 #define TAP_CODE_DELAY 5
 
-// Enable Leader key
-#if defined(LEADER_ENABLE)
-  #define LEADER_PER_KEY_TIMING
-  #define LEADER_TIMEOUT 250
-#endif // !LEADER_ENABLE 
+#define MACRO_TIMER 5 
 
-#define MACRO_TIMER 5
+

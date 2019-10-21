@@ -1,10 +1,8 @@
 #ifndef REV1_H
 #define REV1_H
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
-//void promicro_bootloader_jmp(bool program);
 #define XXX KC_NO
 
 #define LAYOUT( \

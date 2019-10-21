@@ -16,14 +16,6 @@
 
 # MCU name
 MCU = atmega32a
-PROTOCOL = VUSB
-
-# unsupported features for now
-NO_UART = yes
-NO_SUSPEND_POWER_DOWN = yes
-
-# processor frequency
-F_CPU = 12000000
 
 # Bootloader selection
 #   Teensy       halfkay
@@ -31,7 +23,8 @@ F_CPU = 12000000
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
 # build options
@@ -59,8 +52,5 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c backlight.c
-
-# programming options
-PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
 LAYOUTS = ortho_5x12

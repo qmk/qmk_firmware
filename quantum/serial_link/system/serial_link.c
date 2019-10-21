@@ -34,45 +34,37 @@ SOFTWARE.
 #include "config.h"
 
 static event_source_t new_data_event;
-static bool serial_link_connected;
-static bool is_master = false;
+static bool           serial_link_connected;
+static bool           is_master = false;
 
 static uint8_t keyboard_leds(void);
-static void send_keyboard(report_keyboard_t *report);
-static void send_mouse(report_mouse_t *report);
-static void send_system(uint16_t data);
-static void send_consumer(uint16_t data);
+static void    send_keyboard(report_keyboard_t* report);
+static void    send_mouse(report_mouse_t* report);
+static void    send_system(uint16_t data);
+static void    send_consumer(uint16_t data);
 
-host_driver_t serial_driver = {
-  keyboard_leds,
-  send_keyboard,
-  send_mouse,
-  send_system,
-  send_consumer
-};
+host_driver_t serial_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
 // Define these in your Config.h file
 #ifndef SERIAL_LINK_BAUD
-#error "Serial link baud is not set"
+#    error "Serial link baud is not set"
 #endif
 
 #ifndef SERIAL_LINK_THREAD_PRIORITY
-#error "Serial link thread priority not set"
+#    error "Serial link thread priority not set"
 #endif
 
-static SerialConfig config = {
-    .sc_speed = SERIAL_LINK_BAUD
-};
+static SerialConfig config = {.sc_speed = SERIAL_LINK_BAUD};
 
 //#define DEBUG_LINK_ERRORS
 
 static uint32_t read_from_serial(SerialDriver* driver, uint8_t link) {
     const uint32_t buffer_size = 16;
-    uint8_t buffer[buffer_size];
-    uint32_t bytes_read = sdAsynchronousRead(driver, buffer, buffer_size);
-    uint8_t* current = buffer;
-    uint8_t* end = current + bytes_read;
-    while(current < end) {
+    uint8_t        buffer[buffer_size];
+    uint32_t       bytes_read = sdAsynchronousRead(driver, buffer, buffer_size);
+    uint8_t*       current    = buffer;
+    uint8_t*       end        = current + bytes_read;
+    while (current < end) {
         byte_stuffer_recv_byte(link, *current);
         current++;
     }
@@ -93,7 +85,6 @@ static void print_error(char* str, eventflags_t flags, SerialDriver* driver) {
         print(str);
         uint32_t size = qSpaceI(&(driver->iqueue));
         xprintf(" Overrun error, queue size %d\n", size);
-
     }
     if (flags & SD_NOISE_ERROR) {
         print(str);
@@ -110,9 +101,7 @@ static void print_error(char* str, eventflags_t flags, SerialDriver* driver) {
 #endif
 }
 
-bool is_serial_link_master(void) {
-    return is_master;
-}
+bool is_serial_link_master(void) { return is_master; }
 
 // TODO: Optimize the stack size, this is probably way too big
 static THD_WORKING_AREA(serialThreadStack, 1024);
@@ -122,18 +111,11 @@ static THD_FUNCTION(serialThread, arg) {
     event_listener_t sd1_listener;
     event_listener_t sd2_listener;
     chEvtRegister(&new_data_event, &new_data_listener, 0);
-    eventflags_t events = CHN_INPUT_AVAILABLE
-            | SD_PARITY_ERROR | SD_FRAMING_ERROR | SD_OVERRUN_ERROR | SD_NOISE_ERROR | SD_BREAK_DETECTED;
-    chEvtRegisterMaskWithFlags(chnGetEventSource(&SD1),
-        &sd1_listener,
-        EVENT_MASK(1),
-        events);
-    chEvtRegisterMaskWithFlags(chnGetEventSource(&SD2),
-        &sd2_listener,
-        EVENT_MASK(2),
-        events);
+    eventflags_t events = CHN_INPUT_AVAILABLE | SD_PARITY_ERROR | SD_FRAMING_ERROR | SD_OVERRUN_ERROR | SD_NOISE_ERROR | SD_BREAK_DETECTED;
+    chEvtRegisterMaskWithFlags(chnGetEventSource(&SD1), &sd1_listener, EVENT_MASK(1), events);
+    chEvtRegisterMaskWithFlags(chnGetEventSource(&SD2), &sd2_listener, EVENT_MASK(2), events);
     bool need_wait = false;
-    while(true) {
+    while (true) {
         eventflags_t flags1 = 0;
         eventflags_t flags2 = 0;
         if (need_wait) {
@@ -162,8 +144,7 @@ static THD_FUNCTION(serialThread, arg) {
 void send_data(uint8_t link, const uint8_t* data, uint16_t size) {
     if (link == DOWN_LINK) {
         sdWrite(&SD1, data, size);
-    }
-    else {
+    } else {
         sdWrite(&SD2, data, size);
     }
 }
@@ -187,13 +168,12 @@ static remote_object_t* remote_objects[] = {
 void init_serial_link(void) {
     serial_link_connected = false;
     init_serial_link_hal();
-    add_remote_objects(remote_objects, sizeof(remote_objects)/sizeof(remote_object_t*));
+    add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*));
     init_byte_stuffer();
     sdStart(&SD1, &config);
     sdStart(&SD2, &config);
     chEvtObjectInit(&new_data_event);
-    (void)chThdCreateStatic(serialThreadStack, sizeof(serialThreadStack),
-                              SERIAL_LINK_THREAD_PRIORITY, serialThread, NULL);
+    (void)chThdCreateStatic(serialThreadStack, sizeof(serialThreadStack), SERIAL_LINK_THREAD_PRIORITY, serialThread, NULL);
 }
 
 void matrix_set_remote(matrix_row_t* rows, uint8_t index);
@@ -204,19 +184,19 @@ void serial_link_update(void) {
     }
 
     matrix_object_t matrix;
-    bool changed = false;
-    for(uint8_t i=0;i<MATRIX_ROWS;i++) {
+    bool            changed = false;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix.rows[i] = matrix_get_row(i);
         changed |= matrix.rows[i] != last_matrix.rows[i];
     }
 
     systime_t current_time = chVTGetSystemTimeX();
-    systime_t delta = current_time - last_update;
+    systime_t delta        = current_time - last_update;
     if (changed || delta > US2ST(5000)) {
-        last_update = current_time;
-        last_matrix = matrix;
+        last_update        = current_time;
+        last_matrix        = matrix;
         matrix_object_t* m = begin_write_keyboard_matrix();
-        for(uint8_t i=0;i<MATRIX_ROWS;i++) {
+        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
             m->rows[i] = matrix.rows[i];
         }
         end_write_keyboard_matrix();
@@ -230,36 +210,19 @@ void serial_link_update(void) {
     }
 }
 
-void signal_data_written(void) {
-    chEvtBroadcast(&new_data_event);
-}
+void signal_data_written(void) { chEvtBroadcast(&new_data_event); }
 
-bool is_serial_link_connected(void) {
-    return serial_link_connected;
-}
+bool is_serial_link_connected(void) { return serial_link_connected; }
 
-host_driver_t* get_serial_link_driver(void) {
-    return &serial_driver;
-}
+host_driver_t* get_serial_link_driver(void) { return &serial_driver; }
 
 // NOTE: The driver does nothing, because the master handles everything
-uint8_t keyboard_leds(void) {
-    return 0;
-}
+uint8_t keyboard_leds(void) { return 0; }
 
-void send_keyboard(report_keyboard_t *report) {
-    (void)report;
-}
+void send_keyboard(report_keyboard_t* report) { (void)report; }
 
-void send_mouse(report_mouse_t *report) {
-    (void)report;
-}
+void send_mouse(report_mouse_t* report) { (void)report; }
 
-void send_system(uint16_t data) {
-    (void)data;
-}
+void send_system(uint16_t data) { (void)data; }
 
-void send_consumer(uint16_t data) {
-    (void)data;
-}
-
+void send_consumer(uint16_t data) { (void)data; }

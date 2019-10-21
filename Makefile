@@ -371,6 +371,9 @@ define PARSE_KEYBOARD
     # The same if all was specified
     else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,all),true)
         $$(eval $$(call PARSE_ALL_KEYMAPS))
+    # List all keymaps for the given keyboard
+    else ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,list-keymaps),true)
+        $$(eval $$(call LIST_ALL_KEYMAPS))
     # Try to match the specified keyamp with the list of known keymaps
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYMAPS)),true)
         $$(eval $$(call PARSE_KEYMAP,$$(MATCHED_ITEM)))
@@ -406,6 +409,16 @@ endef
 #         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$$(SUBPROJECTS)))
 #     endif
 # endef
+
+# Prints a list of all known keymaps for the given keyboard
+define LIST_ALL_KEYMAPS
+    COMMAND_true_LIST_KEYMAPS := \
+        printf "$$(KEYMAPS)\n";
+    COMMAND_false_LIST_KEYMAPS := \
+        printf "$$(MSG_AVAILABLE_KEYMAPS)\n"; \
+        printf "$$(KEYMAPS)\n";
+    COMMANDS += LIST_KEYMAPS
+endef
 
 # $1 Keymap
 # This is the meat of compiling a keyboard, when entering this, everything is known
@@ -548,6 +561,7 @@ ifndef SKIP_GIT
 	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --depth 1 --init lib/chibios; fi
 	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --depth 1 --init lib/chibios-contrib; fi
 	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --depth 1 --init lib/ugfx; fi
+	if [ ! -e lib/lufa ]; then git submodule sync lib/lufa && git submodule update --depth 1 --init lib/lufa; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
