@@ -348,8 +348,8 @@ include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
 
-SRC += $(patsubst %.c/NO-LTO,%.c/LIB,$(patsubst %.c,%.c/LIB,$(LIB_SRC)))
-SRC += $(patsubst %.c/NO-LTO,%.c/LIB,$(patsubst %.c,%.c/LIB,$(QUANTUM_LIB_SRC)))
+SRC += $(patsubst %.c/NO-LTO,%.c/NO-LTO/LIB,$(patsubst %.c,%.c/LIB,$(LIB_SRC)))
+SRC += $(patsubst %.c/NO-LTO,%.c/NO-LTO/LIB,$(patsubst %.c,%.c/LIB,$(QUANTUM_LIB_SRC)))
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
