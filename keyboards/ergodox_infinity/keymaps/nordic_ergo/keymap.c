@@ -1,22 +1,16 @@
 // Nordic layout for Ergodox infinity
-
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "version.h"
 #include "keymap_nordic.h"
 #include "keymap_german.h"
 
-#define BASE 0  // default layer
-#define FUNCL 1 // function layer
-#define SYMB 2  // symbol layer
-#define MDIA 3  // media keys
+#define BASE 0   // default layer
+#define FUNCL 1  // function layer
+#define SYMB 2   // symbol layer
+#define MDIA 3   // media keys
 
-enum custom_keycodes {
-    PLACEHOLDER = SAFE_RANGE,
-    EPRM,
-    VRSN,
-    RGB_SLD
-};
+enum custom_keycodes { PLACEHOLDER = SAFE_RANGE, EPRM, VRSN, RGB_SLD };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -196,59 +190,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     // MACRODOWN only works in this function
-    switch(id) {
+    switch (id) {
         case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            break;
         case 1:
-        if (record->event.pressed) { // For resetting EEPROM
-          eeconfig_init();
-        }
-        break;
+            if (record->event.pressed) {  // For resetting EEPROM
+                eeconfig_init();
+            }
+            break;
     }
     return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
-      break;
-  }
-  return true;
+    switch (keycode) {
+        // dynamically generate these.
+        case EPRM:
+            if (record->event.pressed) {
+                eeconfig_init();
+            }
+            return false;
+            break;
+        case VRSN:
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+            return false;
+            break;
+        case RGB_SLD:
+            if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+                rgblight_mode(1);
+#endif
+            }
+            return false;
+            break;
+    }
+    return true;
 }
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
+void matrix_init_user(void){
 
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();
