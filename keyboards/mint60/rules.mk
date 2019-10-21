@@ -1,5 +1,5 @@
 SRC += i2c.c \
-	   serial.c \
+	   serial.c/NO-LTO \
 		 matrix.c \
  	   split_util.c \
 
