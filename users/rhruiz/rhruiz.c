@@ -12,30 +12,6 @@ __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-        case KC_FN1:
-            if (record->event.pressed) {
-                layer_on(_FN1);
-                update_tri_layer(_FN1, _FN2, _CFG);
-            } else {
-                layer_off(_FN1);
-                update_tri_layer(_FN1, _FN2, _CFG);
-            }
-            return false;
-            break;
-
-        case KC_FN2:
-            if (record->event.pressed) {
-                layer_on(_FN2);
-                update_tri_layer(_FN2, _FN1, _CFG);
-            } else {
-                layer_off(_FN2);
-                update_tri_layer(_FN2, _FN1, _CFG);
-            }
-            return false;
-            break;
-    }
-
     return rhruiz_process_record(keycode, record);
 }
 
@@ -53,6 +29,8 @@ uint32_t rhruiz_layer_state_set_user(uint32_t state) {
     static uint32_t last_state = 0;
 
     if (state != last_state) {
+        state = update_tri_layer_state(state, _FN1, _FN2, _CFG);
+
         switch (biton32(state)) {
             case _BL:
             case _VIM_EMACS:

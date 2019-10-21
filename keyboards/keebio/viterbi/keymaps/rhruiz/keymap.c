@@ -1,11 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
 
-#define KC__DCF LT(_CFG, KC_DEL)
+#define KC__FN1 MO(_FN1)
+#define KC__FN2 MO(_FN2)
+#define KC_DFN2 LT(_FN2, KC_DEL)
 #define KC_RFN1 LT(_FN1, KC_RGHT)
-#define KC_SFN1 SPCFN1
 #define KC_BFN2 BKSFN2
-#define KC__CFG MO(_CFG)
 #define KC_RST RESET
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
     CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
     LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
-    FN2,  LCTL, LALT, LGUI, FN1 , SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
+    _FN2, LCTL, LALT, LGUI, _FN1, SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_kc(
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, MINS, EQL , LBRC, RBRC, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    _CFG, ____, ____, ____, ____, ____, ____,   _DCF, _DCF, ____, ____, ____, ____, ____
+    ____, ____, ____, ____, ____, ____, ____,   DFN2, DFN2, ____, ____, ____, ____, ____
   ),
 
   [_FN2] = LAYOUT_kc(
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, MS_L, MS_D, MS_R, LCBR, RCBR, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, ____, ____, _CFG, ____, ____,   ____, ____, ____, ____, ____, ____, ____
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
   [_CFG] = LAYOUT_kc(
