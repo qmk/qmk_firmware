@@ -92,14 +92,6 @@ void matrix_scan_user(void) {
 
 #ifdef RGBLIGHT_ENABLE
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
-void keyboard_post_init_user(void) {
-    rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user((1<<USB_LED_CAPS_LOCK)|(1<<USB_LED_NUM_LOCK)|(1<<USB_LED_SCROLL_LOCK));
-    wait_ms(300);
-    led_set_user(0);
-}
-
-
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         sethsv_raw(HSV_SOFT_PINK, (LED_TYPE *)&led[0]);
@@ -118,15 +110,5 @@ void led_set_user(uint8_t usb_led) {
     }
     rgblight_set();
 }
-
-void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
-  LED_TYPE tmp_led;
-  sethsv_raw(hue, sat, val, &tmp_led);
-  for (uint8_t i = start; i < end; i++) {
-      led[i] = tmp_led;
-  }
-  rgblight_set();
-}
-
 
 #endif
