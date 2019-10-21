@@ -59,17 +59,17 @@ void led_set_kb(uint8_t usb_led) {
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (usb_led & (_BV(USB_LED_CAPS_LOCK))) {
         sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
     }
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    if (usb_led & (_BV(USB_LED_NUM_LOCK))) {
         sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
     }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    if (usb_led & (_BV(USB_LED_SCROLL_LOCK))) {
         sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
@@ -80,7 +80,7 @@ void led_set_user(uint8_t usb_led) {
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
     rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user((1<<USB_LED_CAPS_LOCK)|(1<<USB_LED_NUM_LOCK)|(1<<USB_LED_SCROLL_LOCK));
+    led_set_user((_BV(USB_LED_CAPS_LOCK))|(_BV(USB_LED_NUM_LOCK))|(_BV(USB_LED_SCROLL_LOCK)));
     wait_ms(300);
     led_set_user(0);
 }
