@@ -19,4 +19,9 @@ def docs(cli):
         cli.log.info("Serving QMK docs at http://localhost:%d/", cli.config.docs.port)
         cli.log.info("Press Control+C to exit.")
 
-        httpd.serve_forever()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            cli.log.info("Stopping HTTP server...")
+        finally:
+            httpd.shutdown()
