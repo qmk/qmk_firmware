@@ -15,5 +15,4 @@
  */
 
 #pragma once
-#include "../../config.h"
 #define ansi
