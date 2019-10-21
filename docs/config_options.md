@@ -310,13 +310,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration(+1000)
+  * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
-  * Mouse keys(+4700)
+  * Mouse keys
 * `EXTRAKEY_ENABLE`
-  * Audio control and System control(+450)
+  * Audio control and System control
 * `CONSOLE_ENABLE`
-  * Console for debug(+400)
+  * Console for debug
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `COMBO_ENABLE`
@@ -348,7 +348,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
 * `LINK_TIME_OPTIMIZATION_ENABLE`
-  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
+  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
 
 ## USB Endpoint Limitations
 
