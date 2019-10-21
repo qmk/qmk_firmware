@@ -14,26 +14,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		    KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS, MAGIC_TOGGLE_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,           KC_VOLU,  KC_MUTE,\
 		    KC_TRNS,       KC_TRNS,  KC_TRNS,                  KC_TRNS,                                      KC_TRNS, KC_TRNS,  KC_MPRV,           KC_VOLD,  KC_MNXT),
 };
-
-void rgb_matrix_indicators_user(void)
-{
-	    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
-	    {
-	      rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
-	    }
-}
-
-void matrix_init_user(void)
-{
-  //user initialization
-}
-
-void matrix_scan_user(void)
-{
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-	  return true;
-}
