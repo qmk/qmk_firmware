@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 
 #define QWER 0
 #define GAMING 1
