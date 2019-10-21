@@ -3,6 +3,7 @@ core:
   - tmk_core/**/*
   - drivers/**/*
   - tests/**/*
+  - util/**/*
 keymap:
   - users/**/*
   - layouts/**/*
@@ -11,5 +12,7 @@ cli:
   - bin/qmk
   - requirements.txt
   - lib/python/**/*
+python:
+  - '**/*.py'
 documentation:
   - docs/**/*
