@@ -37,6 +37,6 @@ CUSTOM_MATRIX = yes			# For providing custom matrix.c (in this case, override re
 
 SRC += split_util.c \
 	   split_flags.c \
-	   serial.c \
+	   serial.c/NO-LTO \
 	   transport.c \
 	   matrix.c
