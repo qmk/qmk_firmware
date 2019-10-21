@@ -104,7 +104,8 @@ static EXTConfig extcfg = {
         {EXT_CH_MODE_DISABLED, NULL}
     }
 };
-static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | PS2_CLOCK_PORT , extcb};
+#define ExtModePort(pin) (((uint32_t)PAL_PORT(pin) & 0x0000FF00U) >> 6)
+static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | ExtModePort(PS2_CLOCK) , extcb};
 #define PS2_INT_INIT() { \
         extStart(&EXTD1, &extcfg); /*activate config, to be able to select the appropriate channel */ \
         extSetChannelModeI(&EXTD1, PAL_PAD(PS2_CLOCK), &ext_clock_channel_config); \
