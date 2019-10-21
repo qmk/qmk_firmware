@@ -47,8 +47,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-//#define WT_MONO_BACKLIGHT
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 // EEPROM usage
