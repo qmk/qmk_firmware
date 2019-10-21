@@ -7,6 +7,38 @@ __attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset
 
 __attribute__((weak)) uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }
 
+__attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case KC_FN1:
+            if (record->event.pressed) {
+                layer_on(_FN1);
+                update_tri_layer(_FN1, _FN2, _CFG);
+            } else {
+                layer_off(_FN1);
+                update_tri_layer(_FN1, _FN2, _CFG);
+            }
+            return false;
+            break;
+
+        case KC_FN2:
+            if (record->event.pressed) {
+                layer_on(_FN2);
+                update_tri_layer(_FN2, _FN1, _CFG);
+            } else {
+                layer_off(_FN2);
+                update_tri_layer(_FN2, _FN1, _CFG);
+            }
+            return false;
+            break;
+    }
+
+    return rhruiz_process_record(keycode, record);
+}
+
 void rhruiz_disable_promicro_leds() {
 #ifdef __AVR_ATmega32U4__
     setPinOutput(B0);

@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
 
-#define KC__FN1 MO(_FN1)
-#define KC__FN2 MO(_FN2)
 #define KC__DCF LT(_CFG, KC_DEL)
 #define KC_RFN1 LT(_FN1, KC_RGHT)
 #define KC_SFN1 SPCFN1
@@ -48,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
     CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
     LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
-    _FN2, LCTL, LALT, LGUI, _FN1, SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
+    FN2,  LCTL, LALT, LGUI, FN1 , SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_kc(
