@@ -15,11 +15,18 @@
  */
 #include "hbcp.h"
 
+// Indicator color definitions
+#define HSV_CAPS  0, 0, 120 // Define caps lock color (H, S, V)
+#define HSV_NLCK  0, 0, 120 // Define num lock color (H, S, V)
+#define HSV_SCRL  0, 0, 120 // Define scroll lock color (H, S, V)
+#define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
+// #define HSV_custom_color H, S, V
+
+
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
 
 void matrix_init_kb(void) {
   // put your keyboard start-up code here
@@ -48,4 +55,44 @@ void led_set_kb(uint8_t usb_led) {
   led_set_user(usb_led);
 }
 
-*/
+#ifdef RGBLIGHT_ENABLE
+
+__attribute__ ((weak))
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
+    } else {
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
+    }
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        sethsv_raw(HSV_NLCK, (LED_TYPE *)&led[1]);
+    } else {
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
+    }
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+        sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
+    } else {
+        sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
+    }
+    rgblight_set();
+}
+
+__attribute__ ((weak))
+void keyboard_post_init_user(void) {
+    rgblight_set_effect_range(3, RGBLED_NUM-3);
+    led_set_user((1<<USB_LED_CAPS_LOCK)|(1<<USB_LED_NUM_LOCK)|(1<<USB_LED_SCROLL_LOCK));
+    wait_ms(300);
+    led_set_user(0);
+}
+
+__attribute__ ((weak))
+void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
+  LED_TYPE tmp_led;
+  sethsv_raw(hue, sat, val, &tmp_led);
+  for (uint8_t i = start; i < end; i++) {
+      led[i] = tmp_led;
+  }
+  rgblight_set();
+}
+
+#endif
