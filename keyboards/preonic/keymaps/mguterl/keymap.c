@@ -257,11 +257,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+      #ifdef MOUSEKEY_ENABLE
+        tap_code(KC_MS_WH_DOWN);
+      #else
+        tap_code(KC_PGDN);
+      #endif
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      #ifdef MOUSEKEY_ENABLE
+        tap_code(KC_MS_WH_UP);
+      #else
+        tap_code(KC_PGUP);
+      #endif
     }
   }
 }
