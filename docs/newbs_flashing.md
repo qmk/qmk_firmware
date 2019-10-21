@@ -12,23 +12,31 @@ However, the QMK Toolbox is only available for Windows and macOS currently.  If 
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
-?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
 
-?> Windows:
+#### Windows
 
-    start .
+```
+start .
+```
 
-?> macOS:
+#### macOS
 
-    open .
+```
+open .
+```
 
 The firmware file always follows this naming format:
 
-    <keyboard_name>_<keymap_name>.{bin,hex}
+```
+<keyboard_name>_<keymap_name>.{bin,hex}
+```
 
-For example, the `plank/rev5` with a `default` keymap will have this filename:
+For example, the `planck/rev5` with a `default` keymap will have this filename:
 
-    planck_rev5_default.hex
+```
+planck_rev5_default.hex
+```
 
 Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
 
@@ -109,7 +117,7 @@ After it gets to this point, the build script will look for the DFU bootloader e
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
@@ -215,7 +223,7 @@ Additionally, if you want to flash multiple boards, use the following command:
 When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
 
 
-## HalfKay
+### HalfKay
 
 For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
@@ -248,7 +256,7 @@ Programming.....................................................................
 Booting
 ```
 
-## BootloadHID
+### BootloadHID
 
 For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
@@ -284,7 +292,7 @@ Uploading 22016 (0x5600) bytes starting at 0 (0x0)
 0x05580 ... 0x05600
 ```
 
-## STM32 (ARM)
+### STM32 (ARM)
 
 For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
@@ -333,6 +341,16 @@ Download done.
 File downloaded successfully
 Transitioning to dfuMANIFEST state
 ```
+
+#### STM32 Commands
+
+There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+
+* `:dfu-util` - The default command for flashing to STM32 devices. 
+* `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
+   * Eg: `make <keyboard>:<keymap>:dfu-util TIME_DELAY=5`
+* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
+* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
 
 ## Test It Out!
 

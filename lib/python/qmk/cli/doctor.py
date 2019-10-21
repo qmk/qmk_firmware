@@ -50,12 +50,12 @@ def doctor(cli):
     elif OS == "Linux":
         cli.log.info("Detected {fg_cyan}Linux.")
         if shutil.which('systemctl'):
-            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
             if mm_check.returncode == 0:
-                mm = True
+                mm = False
                 for line in mm_check.stdout.split('\n'):
                     if 'ModemManager' in line and 'enabled' in line:
-                        mm = False
+                        mm = True
 
                 if mm:
                     cli.log.warn("{bg_yellow}Detected ModemManager. Please disable it if you are using a Pro-Micro.")

@@ -5,6 +5,7 @@
 #define ONESHOT_TAP_TOGGLE        2
 #define ONESHOT_TIMEOUT           3000
 #define RETRO_TAPPING
+#define BACKLIGHT_BREATHING
 
 #define MOUSEKEY_INTERVAL         20
 #define MOUSEKEY_DELAY            0
