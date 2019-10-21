@@ -5,7 +5,7 @@ __attribute__((weak)) void rhruiz_update_layer_colors(void) {}
 
 __attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset(); }
 
-__attribute__((weak)) uint32_t layer_state_set_user(uint32_t state) { return rhruiz_layer_state_set_user(state); }
+__attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { return rhruiz_layer_state_set_user(state); }
 
 __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) {
     return true;
@@ -25,8 +25,8 @@ void rhruiz_disable_promicro_leds() {
 #endif
 }
 
-uint32_t rhruiz_layer_state_set_user(uint32_t state) {
-    static uint32_t last_state = 0;
+layer_state_t rhruiz_layer_state_set_user(layer_state_t  state) {
+    static layer_state_t last_state = 0;
 
     if (state != last_state) {
         state = update_tri_layer_state(state, _FN1, _FN2, _CFG);
