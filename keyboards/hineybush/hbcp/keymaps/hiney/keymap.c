@@ -17,15 +17,16 @@
 
 // Needs to be defined as Hue/Sat/Val at the time being. Working on that :)
 
-#define HSV_SOFT_PINK  255, 110, 100 //define a value for soft pink
-#define HSV_CUSTOM_WHITE  0, 0, 120
-#define HSV_SCRL  0, 0, 120
-#define HSV_BLACK  0, 0, 0
+#define HSV_SOFT_PINK  255, 110, 100 // define a value for soft pink (H, S, V)
+#define HSV_CUSTOM_WHITE  0, 0, 120 // define a value for white (H, S, V)
+#define HSV_SCRL  0, 0, 120 // define a value for scroll lock (H, S, V)
+#define HSV_BLACK  0, 0, 0 // define a value for black (H, S, V)
 
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QMKBEST = SAFE_RANGE,
+  ALTCUT,
   QMKURL
 };
 
@@ -61,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QMKBEST:
+    case ALTCUT:
       if (record->event.pressed) {
         // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
+        send_string_with_delay_P(PSTR(SS_TAP(X_TAB)SS_TAP(X_T)SS_TAP(X_V)SS_TAP(X_B)), 20); // altium macro
       } else {
         // when keycode QMKBEST is released
       }

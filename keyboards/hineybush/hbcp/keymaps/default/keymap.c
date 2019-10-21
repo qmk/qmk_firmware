@@ -15,12 +15,12 @@
  */
 #include QMK_KEYBOARD_H
 
-// Needs to be defined as Hue/Sat/Val at the time being. Working on that :)
 
-#define HSV_CAPS  0, 0, 120
-#define HSV_NLCK  0, 0, 120
-#define HSV_SCRL  0, 0, 120
-#define HSV_BLACK  0, 0, 0
+#define HSV_CAPS  0, 0, 120 // Define caps lock color (H, S, V)
+#define HSV_NLCK  0, 0, 120 // Define num lock color (H, S, V)
+#define HSV_SCRL  0, 0, 120 // Define scroll lock color (H, S, V)
+#define HSV_BLACK  0, 0, 0  // Define black color (H, S, V)
+// #define HSV_custom_color H, S, V
 
 
 // Defines the keycodes used by our macros in process_record_user
