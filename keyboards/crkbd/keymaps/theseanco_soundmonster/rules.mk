@@ -1,0 +1,5 @@
+RGBLIGHT_ENABLE    = yes
+MOUSEKEY_ENABLE    = no
+NKRO_ENABLE        = yes
+OLED_DRIVER_ENABLE = yes
+
