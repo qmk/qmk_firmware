@@ -8,9 +8,9 @@
 
 #include QMK_KEYBOARD_H
 
-#define BASE 0 // default layer
-#define FN 1 // macros/motion
-#define NUMB 2 // numbers
+#define BASE 0  // default layer
+#define FN 1    // macros/motion
+#define NUMB 2  // numbers
 
 // Blank template at the bottom
 

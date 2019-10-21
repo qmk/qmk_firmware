@@ -21,37 +21,36 @@
 #include "dynamic_macro.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return process_record_dynamic_macro(keycode, record);
+    return process_record_dynamic_macro(keycode, record);
 }
 
 void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
+    steno_set_mode(STENO_MODE_GEMINI);  // or STENO_MODE_BOLT
 }
 
 enum {
-  KC_M_FIND,
-  KC_M_AGAIN,
-  KC_M_UNDO,
-  KC_M_CUT,
-  KC_M_COPY,
-  KC_M_PASTE,
+    KC_M_FIND,
+    KC_M_AGAIN,
+    KC_M_UNDO,
+    KC_M_CUT,
+    KC_M_COPY,
+    KC_M_PASTE,
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
-      case KC_M_UNDO:
-        return MACRODOWN( D(LGUI), T(Z), END );
-      case KC_M_CUT:
-        return MACRODOWN( D(LGUI), T(X), END );
-      case KC_M_COPY:
-        return MACRODOWN( D(LGUI), T(C), END );
-      case KC_M_PASTE:
-        return MACRODOWN( D(LGUI), T(V), END );
-      case KC_M_FIND:
-        return MACRODOWN( D(LGUI), T(F), END );
-      case KC_M_AGAIN:
-        return MACRODOWN( D(LGUI), T(G), END );
+        case KC_M_UNDO:
+            return MACRODOWN(D(LGUI), T(Z), END);
+        case KC_M_CUT:
+            return MACRODOWN(D(LGUI), T(X), END);
+        case KC_M_COPY:
+            return MACRODOWN(D(LGUI), T(C), END);
+        case KC_M_PASTE:
+            return MACRODOWN(D(LGUI), T(V), END);
+        case KC_M_FIND:
+            return MACRODOWN(D(LGUI), T(F), END);
+        case KC_M_AGAIN:
+            return MACRODOWN(D(LGUI), T(G), END);
     }
 
     return MACRO_NONE;
@@ -60,20 +59,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* Keymap */
 
 enum {
-  DEF = 0,
-  NUM,
-  FUN,
-  PLV,
+    DEF = 0,
+    NUM,
+    FUN,
+    PLV,
 };
 
 #define CAG_ESC MT(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_ESC)
 
-#define M_FIND  M(KC_M_FIND)
+#define M_FIND M(KC_M_FIND)
 #define M_AGAIN M(KC_M_AGAIN)
-#define M_UNDO  M(KC_M_UNDO)
-#define M_CUT   M(KC_M_CUT)
-#define M_COPY  M(KC_M_COPY)
-#define M_PSTE  M(KC_M_PASTE)
+#define M_UNDO M(KC_M_UNDO)
+#define M_CUT M(KC_M_CUT)
+#define M_COPY M(KC_M_COPY)
+#define M_PSTE M(KC_M_PASTE)
 
 #define M_RECD1 DYN_REC_START1
 #define M_STOP1 DYN_REC_STOP

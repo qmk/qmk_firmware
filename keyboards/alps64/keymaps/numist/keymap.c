@@ -5,38 +5,37 @@
 #include "dynamic_macro.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return process_record_dynamic_macro(keycode, record);
+    return process_record_dynamic_macro(keycode, record);
 }
 
 enum macro_keycodes {
-  KC_M_FIND,
-  KC_M_AGAIN,
-  KC_M_UNDO,
-  KC_M_CUT,
-  KC_M_COPY,
-  KC_M_PASTE,
+    KC_M_FIND,
+    KC_M_AGAIN,
+    KC_M_UNDO,
+    KC_M_CUT,
+    KC_M_COPY,
+    KC_M_PASTE,
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     bool use_cmd = true;
-    if(keymap_config.swap_lalt_lgui == 1) {
-      use_cmd = false;
+    if (keymap_config.swap_lalt_lgui == 1) {
+        use_cmd = false;
     }
 
     switch (id) {
-      case KC_M_FIND:
-        return use_cmd ? MACRODOWN( D(LGUI), T(F), END ) : MACRODOWN( D(LCTRL), T(F), END );
-      case KC_M_AGAIN:
-        return use_cmd ? MACRODOWN( D(LGUI), T(G), END ) : MACRODOWN( D(LCTRL), T(G), END );
-      case KC_M_UNDO:
-        return use_cmd ? MACRODOWN( D(LGUI), T(Z), END ) : MACRODOWN( D(LCTRL), T(Z), END );
-      case KC_M_CUT:
-        return use_cmd ? MACRODOWN( D(LGUI), T(X), END ) : MACRODOWN( D(LCTRL), T(X), END );
-      case KC_M_COPY:
-        return use_cmd ? MACRODOWN( D(LGUI), T(C), END ) : MACRODOWN( D(LCTRL), T(C), END );
-      case KC_M_PASTE:
-        return use_cmd ? MACRODOWN( D(LGUI), T(V), END ) : MACRODOWN( D(LCTRL), T(V), END );
+        case KC_M_FIND:
+            return use_cmd ? MACRODOWN(D(LGUI), T(F), END) : MACRODOWN(D(LCTRL), T(F), END);
+        case KC_M_AGAIN:
+            return use_cmd ? MACRODOWN(D(LGUI), T(G), END) : MACRODOWN(D(LCTRL), T(G), END);
+        case KC_M_UNDO:
+            return use_cmd ? MACRODOWN(D(LGUI), T(Z), END) : MACRODOWN(D(LCTRL), T(Z), END);
+        case KC_M_CUT:
+            return use_cmd ? MACRODOWN(D(LGUI), T(X), END) : MACRODOWN(D(LCTRL), T(X), END);
+        case KC_M_COPY:
+            return use_cmd ? MACRODOWN(D(LGUI), T(C), END) : MACRODOWN(D(LCTRL), T(C), END);
+        case KC_M_PASTE:
+            return use_cmd ? MACRODOWN(D(LGUI), T(V), END) : MACRODOWN(D(LCTRL), T(V), END);
     }
 
     return MACRO_NONE;
@@ -44,8 +43,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 /* Keymap */
 
-#define LC_ESC  CTL_T(KC_ESC)
-#define LC_END  LCTL_T(KC_END)
+#define LC_ESC CTL_T(KC_ESC)
+#define LC_END LCTL_T(KC_END)
 #define LC_PGDN LCTL_T(KC_PGDN)
 
 #define LS_HOME LSFT_T(KC_HOME)
@@ -55,27 +54,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #define RA_DOWN RALT_T(KC_DOWN)
 
-#define RS_UP   RSFT_T(KC_UP)
+#define RS_UP RSFT_T(KC_UP)
 
 #define RG_LEFT RGUI_T(KC_LEFT)
 
 #define RCAG_ENT MT(MOD_RGUI | MOD_RALT | MOD_RCTL, KC_ENT)
 
-#define M_FIND  M(KC_M_FIND)
+#define M_FIND M(KC_M_FIND)
 #define M_AGAIN M(KC_M_AGAIN)
-#define M_UNDO  M(KC_M_UNDO)
-#define M_CUT   M(KC_M_CUT)
-#define M_COPY  M(KC_M_COPY)
-#define M_PSTE  M(KC_M_PASTE)
+#define M_UNDO M(KC_M_UNDO)
+#define M_CUT M(KC_M_CUT)
+#define M_COPY M(KC_M_COPY)
+#define M_PSTE M(KC_M_PASTE)
 
 #define M_RECD1 DYN_REC_START1
 #define M_STOP1 DYN_REC_STOP
 #define M_PLAY1 DYN_MACRO_PLAY1
 
-enum keyboard_layers {
-  _BL = 0,
-  _FL
-};
+enum keyboard_layers { _BL = 0, _FL };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_aek_103(
