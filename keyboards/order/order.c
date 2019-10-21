@@ -24,6 +24,7 @@ void matrix_init_kb(void) {
 }
 
 uint8_t selected_layer = 0;
+__attribute__((weak))
 void encoder_update_user(uint8_t index, bool clockwise) {
   switch (index) {
     case 0:
