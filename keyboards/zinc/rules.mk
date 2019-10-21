@@ -1,5 +1,5 @@
 #SRC += i2c.c
-SRC += serial.c
+SRC += serial.c/NO-LTO
 
 # MCU name
 MCU = atmega32u4
