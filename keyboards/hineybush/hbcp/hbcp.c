@@ -77,7 +77,7 @@ void led_set_user(uint8_t usb_led) {
     rgblight_set();
 }
 
-__attribute__ ((weak))
+/*__attribute__ ((weak))
 void keyboard_post_init_user(void) {
     rgblight_set_effect_range(3, RGBLED_NUM-3);
     led_set_user((1<<USB_LED_CAPS_LOCK)|(1<<USB_LED_NUM_LOCK)|(1<<USB_LED_SCROLL_LOCK));
@@ -93,6 +93,6 @@ void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8
       led[i] = tmp_led;
   }
   rgblight_set();
-}
+}*/
 
 #endif
