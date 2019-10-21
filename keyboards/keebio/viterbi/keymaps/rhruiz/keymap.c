@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-
 #include "rhruiz.h"
 
 #define KC__FN1 MO(_FN1)
