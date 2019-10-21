@@ -11,10 +11,16 @@ key on the bottom row activates an adjust layer to control RGB underglow.
 
 ![Default layer layout](https://i.imgur.com/HM0115k.png)
 
+([KLE](http://www.keyboard-layout-editor.com/#/gists/327b41b5a933b3d44bf60ca9822e85dc))
+
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/8dr5ktH.png)
+![Function layer layout](https://i.imgur.com/XT3AtDl.png)
+
+([KLE](http://www.keyboard-layout-editor.com/#/gists/c7a55e75285d474b6301140eaf53f915))
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/78PBNt6.png)
+![Adjust layer layout](https://i.imgur.com/KxCtI50.png)
+
+([KLE](http://www.keyboard-layout-editor.com/#/gists/6e1068e4f91bbacccaf5ac0acbeec79c))

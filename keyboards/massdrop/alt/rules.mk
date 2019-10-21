@@ -36,3 +36,5 @@ AUTO_SHIFT_ENABLE = no      # Auto Shift
 
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = custom
+
+LAYOUTS = 65_ansi_blocker

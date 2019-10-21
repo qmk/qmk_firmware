@@ -1,6 +1,5 @@
 os: linux
 dist: trusty
-sudo: required
 group: edge
 language: c
 branches:
@@ -27,7 +26,7 @@ addons:
     - diffutils
     - dos2unix
     - doxygen
-after_success:
+after_script:
   bash util/travis_compiled_push.sh
 notifications:
   webhooks:

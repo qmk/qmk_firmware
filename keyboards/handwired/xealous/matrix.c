@@ -30,18 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    #include "matrix_scanrate.h"
-#endif
-
-void matrix_scan_user(void)
-{    
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_check_scan_rate();
-    matrix_time_between_scans();
-#endif        
-    
-}
 
 // Copy this code to split_common/matrix.c,
 // and call it instead of the unoptimized col_reader. Scan-rate jumps from 1200->1920
