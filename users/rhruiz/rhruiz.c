@@ -7,13 +7,9 @@ __attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { return rhruiz_layer_state_set_user(state); }
 
-__attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
+__attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) { return true; }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return rhruiz_process_record(keycode, record);
-}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { return rhruiz_process_record(keycode, record); }
 
 void rhruiz_disable_promicro_leds() {
 #ifdef __AVR_ATmega32U4__
@@ -25,7 +21,7 @@ void rhruiz_disable_promicro_leds() {
 #endif
 }
 
-layer_state_t rhruiz_layer_state_set_user(layer_state_t  state) {
+layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
     static layer_state_t last_state = 0;
 
     if (state != last_state) {

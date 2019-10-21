@@ -28,13 +28,13 @@ enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG };
 #    include "raw_hid.h"
 #endif
 
-void     rhruiz_update_layer_colors(void);
-void     rhruiz_on_default_layer(void);
-void     rhruiz_update_layer_colors(void);
+void          rhruiz_update_layer_colors(void);
+void          rhruiz_on_default_layer(void);
+void          rhruiz_update_layer_colors(void);
 layer_state_t rhruiz_layer_state_set_user(layer_state_t state);
-bool     rhruiz_is_layer_indicator_led(uint8_t index);
-void     rhruiz_disable_promicro_leds(void);
-bool     rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
+bool          rhruiz_is_layer_indicator_led(uint8_t index);
+void          rhruiz_disable_promicro_leds(void);
+bool          rhruiz_process_record(uint16_t keycode, keyrecord_t *record);
 
 /* underglow control */
 void rhruiz_rgblight_reset(void);
