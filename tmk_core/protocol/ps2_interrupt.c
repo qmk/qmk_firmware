@@ -84,26 +84,8 @@ void extcb(EXTDriver *extp, expchannel_t channel) {
   16 slots, one for each pin...
   currently configured to listen on external changes on pad A8
  */
-static EXTConfig extcfg = {
-    {
-        {EXT_CH_MODE_DISABLED, NULL}, //0
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL}, //5
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL}, //10
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL},
-        {EXT_CH_MODE_DISABLED, NULL}
-    }
-};
+static EXTConfig extcfg = {0};
+
 #define ExtModePort(pin) (((uint32_t)PAL_PORT(pin) & 0x0000FF00U) >> 6)
 static EXTChannelConfig ext_clock_channel_config = {EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART | ExtModePort(PS2_CLOCK) , extcb};
 #define PS2_INT_INIT() { \
