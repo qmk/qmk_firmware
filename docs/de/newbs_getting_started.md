@@ -8,7 +8,7 @@ QMK übernimmt die Rolle dieser Software und teilt dem Host-Computer den aktuell
 QMK möchte seine BenutzerInnen in die Lage versetzen, simple Aufgaben möglichst einfach zu gestalten und gleichzeitig komplexe Dinge zu ermöglichen, die mit normalen Tastaturen ohne zusätzliche Software undenkbar wären. Du musst nicht programmieren können, um abgefahrene Tastaturbelegungen zu gestalten - es reicht wenn Du eine Idee hast und ein paar einfache syntaktische Regeln verstehen kannst.
 
 # Los geht's!
-Bevor Du damit loslegen kannst deine Tastaturbelegung zu erstellen musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist dass das nur einmal erledigt werden muss, egal für wie viele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
+Bevor Du damit loslegen kannst, deine Tastaturbelegung zu erstellen, musst Du ein wenig Software installieren und Dir eine Entwicklungsumgebung aufsetzen. Die gute Nachricht ist, dass das nur einmal erledigt werden muss, egal für wie viele verschiedene Tastaturen Du hinterher Firmware entwickeln willst.
 
 Wenn Du es vorziehst mit einer grafischen Oberfläche zu entwickeln kannst Du auch dazu gerne direkt mit dem online [QMK Konfigurator](https://config.qmk.fm) loslegen. Siehe auch: [Firmware mit der Online GUI erzeugen](de/newbs_building_firmware_configurator.md)
 
@@ -34,7 +34,7 @@ QMK Toolbox ist ein optionales grafisches Programm für Windows und macOS, das e
 ## Die Entwicklungsumgebung aufsetzen
 
 
-Wir haben versucht, die Installation der Entwicklungsumgebung für QMK so einfach wie möglich zu gestalten. Alles, was Du tun musst, ist eine Linux oder Unix Umgebung aufzusetzen danach macht QMK den Rest.
+Wir haben versucht, die Installation der Entwicklungsumgebung für QMK so einfach wie möglich zu gestalten. Alles, was Du tun musst, ist eine Linux oder Unix Umgebung aufzusetzen, danach macht QMK den Rest.
 
 ?> Wenn Du das erste Mal mit der Linux/Unix Befehlszeile arbeitest, schadet es nicht, sich mit ein paar Grundlagen und Befehlen vertraut zu machen. Diese Ressourcen sollten ausreichen, um sich das Nötigste anzueignen um mit QMK arbeiten zu können:<br>
 [Erforderliche Linux Grundlagen](https://www.guru99.com/must-know-linux-commands.html)<br>
@@ -42,7 +42,7 @@ Wir haben versucht, die Installation der Entwicklungsumgebung für QMK so einfac
 
 ### Windows
 
-Du wirst MSYS2(o.Ä.) und Git benötigen.
+Du wirst MSYS2 (o.Ä.) und Git benötigen.
 
 * Befolge die Installationsanleitung auf der [MSYS2 Homepage](http://www.msys2.org)
 * Schließe alle offenen MSYS2 Fenster und öffne ein neues MSYS2 MinGW 64-bit Terminal

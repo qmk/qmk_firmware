@@ -75,4 +75,4 @@ Checking file size of planck_rev5_xyverz.hex                                    
 ```
 
 ## Deine Firmware flashen
-Bitte fahre mit [Firmware flashen](de/newbs_flashing.md) fort, um zu erfahren wie Du deine neue Firmware auf deine Tastatur flashen kannst.
+Bitte fahre mit [Firmware flashen](de/newbs_flashing.md) fort, um zu erfahren, wie Du deine neue Firmware auf deine Tastatur flashen kannst.
