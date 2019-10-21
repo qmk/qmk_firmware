@@ -9,18 +9,18 @@
 
 ## Was ist QMK Firmware?
 
-QMK (* Quantum Mechanical Keyboard *) ist eine Open-Source-Community, welche die QMK-Firmware, die QMK-Toolbox, [qmk.fm](https://qmk.fm) und diese Dokumententation betreut. QMK-Firmware ist eine Weiterentwicklung der [tmk\_keyboard](http://github.com/tmk/tmk_keyboard)-Tastatur-Firmware mit vielen nützlichen Zusatzfunktionen für Atmel AVR-Prozessoren. Ursprünglich wurde sie für Produkte von [OLKB](http://olkb.com), das [ErgoDox EZ](http://www.ergodox-ez.com) und das [Clueboard](http://clueboard.co/) entwickelt. Im Laufe der Zeit wurde sie mit Hilfe von [ChibiOS](http://chibios.org) auch für die ARM-Architektur angepasst. Dadurch ist es inzwischen möglich auch handverdrahtete Tastaturen und selbst geätzte PCBs mit QMK zu verwenden.
+QMK (*Quantum Mechanical Keyboard*) ist eine Open-Source-Community, welche die QMK-Firmware, die QMK-Toolbox, [qmk.fm](https://qmk.fm) und diese Dokumententation betreut. QMK-Firmware ist eine Weiterentwicklung der [tmk\_keyboard](http://github.com/tmk/tmk_keyboard)-Tastatur-Firmware mit vielen nützlichen Zusatzfunktionen für Atmel AVR-Prozessoren. Ursprünglich wurde sie für Produkte von [OLKB](http://olkb.com), das [ErgoDox EZ](http://www.ergodox-ez.com) und das [Clueboard](http://clueboard.co/) entwickelt. Im Laufe der Zeit wurde sie mit Hilfe von [ChibiOS](http://chibios.org) auch für die ARM-Architektur angepasst. Außerdem ist es inzwischen möglich, auch handverdrahtete Tastaturen und selbst geätzte PCBs mit QMK zu verwenden.
 
 ## Bezugsquelle für QMK
 
-Wenn Du vorhast deine Tastatur, Tastaturbelegung  oder Features zu QMK beizusteuern geht das am einfachsten indem Du das [Repository auf Github](https://github.com/qmk/qmk_firmware#fork-destination-box) forkst, die Änderungen in deinem lokalen Repo vornimmst und anschließend einen [Pull Request](https://github.com/qmk/qmk_firmware/pulls) einreichst.
+Wenn Du vorhast, deine Tastatur, Tastaturbelegung oder Features zu QMK beizusteuern, geht das am einfachsten, indem Du das [Repository auf Github](https://github.com/qmk/qmk_firmware#fork-destination-box) forkst, die Änderungen in deinem lokalen Repo vornimmst und anschließend einen [Pull Request](https://github.com/qmk/qmk_firmware/pulls) einreichst.
 
 Ansonsten kannst Du es als [zip](https://github.com/qmk/qmk_firmware/zipball/master) oder [tar](https://github.com/qmk/qmk_firmware/tarball/master) herunterladen, oder es direkt via git klonen (`git clone git@github.com:qmk/qmk_firmware.git` bzw. `git clone https://github.com/qmk/qmk_firmware.git`).
 
 
 ## Anleitung fürs Kompilieren
 
-Bevor Du in der Lage bist die Firmware zu kompilieren musst Du eine [Entwicklungsumgebung](de/getting_started_build_tools.md) für AVR und/oder ARM aufsetzen. Danach kannst Du mit dem `make` Befehl eine Keymap für deine Tastatur erzeugen. Die Notation dafür ist:
+Bevor Du in der Lage bist, die Firmware zu kompilieren, musst Du eine [Entwicklungsumgebung](de/getting_started_build_tools.md) für AVR und/oder ARM aufsetzen. Danach kannst Du mit dem `make` Befehl eine Keymap für deine Tastatur erzeugen. Die Notation dafür ist:
 
     make planck/rev4:default
 
@@ -30,4 +30,4 @@ Dies generiert die Revision `rev4` für eine Tastatur vom Type `planck` mit der 
 
 ## Möglichkeiten der Anpassung
 
-QMK hat viele [Features](de/features.md) die es zu entdecken gibt. In der [Dokumentation](https://docs.qmk.fmk) kannst Du Dir einen Überblick verschaffen. Die meisten Features basieren darauf die [Tastaturbelegung](de/keymap.md) anzupassen und das Verhalten der [Keycodes](de/keycodes.md) zu verändern.
+QMK hat viele [Features](de/features.md), die es zu entdecken gibt. In der [Dokumentation](https://docs.qmk.fmk) kannst Du Dir einen Überblick verschaffen. Die meisten Features basieren darauf, die [Tastaturbelegung](de/keymap.md) anzupassen und das Verhalten der [Keycodes](de/keycodes.md) zu verändern.

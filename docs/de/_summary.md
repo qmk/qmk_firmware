@@ -93,7 +93,7 @@
   * [Userspace](de/feature_userspace.md)
   * [Velocikey](de/feature_velocikey.md)
 
-* Für Makers und Modders
+* Für Maker und Modder
   * [Hand Wiring Guide](de/hand_wire.md)
   * [ISP Flashing Guide](de/isp_flashing_guide.md)
   * [ARM Debugging Guide](de/arm_debugging.md)
@@ -101,7 +101,7 @@
   * [GPIO Controls](de/internals_gpio_control.md)
   * [Proton C Conversion](de/proton_c_conversion.md)
 
-* Für tieferes Verständnis
+* Für ein tieferes Verständnis
   * [Wie Tastaturen funktionieren](de/how_keyboards_work.md)
   * [QMK verstehen](de/understanding_qmk.md)
 
