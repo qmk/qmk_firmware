@@ -106,35 +106,35 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 
 void rgb_timer_init(void) {
-    /* Timer1 setup */
+    /* Timer3 setup */
     /* CTC mode */
-    TCCR1B |= (1<<WGM12);
-    /* Clock selelct: clk/8 */
-    TCCR1B |= (1<<CS10);
+    TCCR3B |= _BV(WGM32);
+    /* Clock select: clk/8 */
+    TCCR3B |= _BV(CS30);
     /* Set TOP value */
     uint8_t sreg = SREG;
     cli();
-    OCR1AH = (SOFTPWM_LED_TIMER_TOP >> 8) & 0xff;
-    OCR1AL = SOFTPWM_LED_TIMER_TOP & 0xff;
+    OCR3AH = (SOFTPWM_LED_TIMER_TOP >> 8) & 0xFF;
+    OCR3AL = SOFTPWM_LED_TIMER_TOP & 0xFF;
     SREG = sreg;
 
-    // Enable the compare match interrupt on timer 1
-    TIMSK1 |= (1<<OCIE1A);
+    // Enable the compare match interrupt on timer 3
+    TIMSK3 |= _BV(OCIE3A);
 }
 
 void rgb_init(void) {
-    DDRF  |=  (1<<PF6 | 1<<PF5 | 1<<PF4);
-    PORTF |=  (1<<PF6 | 1<<PF5 | 1<<PF4);
+    DDRF  |= (_BV(PF6) | _BV(PF5) | _BV(PF4));
+    PORTF |= (_BV(PF6) | _BV(PF5) | _BV(PF4));
 
     rgb_timer_init();
 }
 
 void set_rgb_pin_on(uint8_t pin) {
-	PORTF &= ~(1<<pin);
+	PORTF &= ~_BV(pin);
 }
 
 void set_rgb_pin_off(uint8_t pin) {
-	PORTF |= (1<<pin);
+	PORTF |= _BV(pin);
 }
 
 void rgblight_set(void) {
@@ -151,7 +151,7 @@ void rgblight_set(void) {
    //  //xprintf("Red: %u, Green: %u, Blue: %u\n", led[0].r, led[0].g, led[0].b);
 }
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER3_COMPA_vect)
 {
     static uint8_t pwm = 0;
     pwm++;
