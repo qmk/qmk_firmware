@@ -45,4 +45,4 @@ Right-click it and hit **Uninstall device**. Make sure to tick **Delete the driv
 
 Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again!
 
-?> Some users reported that they could fix their lenghty troubleshooting process by rebooting their computers.
+?> A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
