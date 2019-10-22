@@ -53,7 +53,7 @@
             ]
         },
         "LAYOUT_ansi": {
-            "key_count": 40,
+            "key_count": 39,
             "layout": [
                 {"label":"Esc", "x":0, "y":0}, 
                 {"label":"Q", "x":1, "y":0}, 

@@ -5,7 +5,7 @@
 A 40 percent keyboard Hnah40v2 rgb version
 
 Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)  
-Hardware Availability: Hnah40V2
+Hardware Availability: Hnah40V2 RGB
 
 Make example for this keyboard (after setting up your build environment):
 

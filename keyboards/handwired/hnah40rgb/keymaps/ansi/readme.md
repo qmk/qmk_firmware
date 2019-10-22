@@ -1,1 +1,1 @@
-# The default keymap for hnah40rgb
+# The ansi keymap for hnah40rgb
