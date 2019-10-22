@@ -3,6 +3,7 @@
 * [בסיס QMK](he-il/README.md)
     * [מבוא לQMK](he-il/getting_started_introduction.md)
 * [שאלות נפוצות](he-il/faq.md)
+* [חומרה](he-il/hardware.md)
 
 **בשפה האנגלית**
 * [המדריך המלא למתחילים](newbs.md)
