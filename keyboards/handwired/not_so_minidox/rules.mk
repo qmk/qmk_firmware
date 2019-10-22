@@ -1,7 +1,7 @@
 SRC += matrix.c \
 	   i2c.c \
 	   split_util.c \
-	   serial.c/NO-LTO
+	   serial.c
 
 # MCU name
 MCU = atmega32u4
