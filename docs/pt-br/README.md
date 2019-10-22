@@ -21,7 +21,7 @@ Antes de compilar, você precisará [instalar um ambiente específico](getting_s
 
     make planck/rev4:default
 
-Isso criaria a _revision_ `rev4` do` planck` com o mapa de teclas `padrão`. Nem todos os teclados têm _revision_ (também chamadas de _subprojects_ ou _folders_); nesse caso, ele pode ser omitido:
+Isso compilaria a revisão `rev4` do teclado ` planck` com o mapa de teclas `padrão`. Nem todos os teclados têm revisões (também chamadas de _subprojects_ ou _folders_); nesse caso, a revisão pode ser omitida:
 
     make preonic:default
 
