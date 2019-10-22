@@ -1,21 +1,6 @@
 #pragma once
 
-#include "../zinc.h"
-
 #include "quantum.h"
-
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
-#endif
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
 
 // Standard Keymap
 // (TRRS jack on both halves are to the left side)
