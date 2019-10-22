@@ -46,8 +46,8 @@
 |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  10  |  11  |  12  |  13  |  14  |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 |   ESC|    F2|    F3|    F4|    F5|    F6|      |      |    F7|    F8|    F9|   F10|   F11|   F12|
-|  TILD|   RST| XXXXX| XXXXX| XXXXX| XXXXX|      |      | XXXXX|  BTN1|  MS_U|  BTN2| XXXXX|Alt+PSCR|
+|  TILD| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | XXXXX|  BTN1|  MS_U|  BTN2| XXXXX|Alt+PSCR|
 |  LSFT| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | XXXXX|  MS_L|  MS_D|  MS_R| XXXXX|  PSCR|
 | LCTRL| XXXXX| XXXXX| XXXXX| XXXXX| XXXXX|      |      | XXXXX| XXXXX| XXXXX| XXXXX| XXXXX| C+A+D|
-|      |ADJUST| LCTRL|  LALT|  LGUI| LOWER|   SPC|   SPC| RAISE|  MNXT|  VOLD|  VOLU|  MPLY|      |
+|      |ADJUST| LCTRL|  LALT|  LGUI| LOWER| RESET| RESET| RAISE|  MNXT|  VOLD|  VOLU|  MPLY|      |
 

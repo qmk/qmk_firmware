@@ -1,4 +1,4 @@
-/* Copyright 2018 Salicylic_acid3
+/* Copyright 2019 Fox Lab
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,4 @@
 
 #pragma once
 
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-#define USE_SERIAL_PD2
-
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 180
+// place overrides here
