@@ -16,7 +16,7 @@ enum bs_layers {
 #if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
     _FN = 1,
-    _LOWER = 1,
+    _LOWER,
     _RAISE,
 #else // Macropad Layers
     _REEDER = 0,
@@ -25,9 +25,10 @@ enum bs_layers {
     _MACRO,
 #endif
     KEYMAP_LAYERS, // Add more layers in keymaps
-    _AUDIO = 13, // Layer for Audio controls
-    _LIGHT = 14, // Layer for BLight/RGB controls
-    _ADJUST = 15 // Change keyboard settings
+    /* Protected Layer */
+    _AUDIO = 13, // 13: Audio controls
+    _LIGHT = 14, // 14: BLight/RGB controls
+    _ADJUST = 15 // 15: Change keyboard settings
 };
 
 // EEPROM User Config
