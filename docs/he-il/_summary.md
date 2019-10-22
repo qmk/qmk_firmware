@@ -1,6 +1,8 @@
 <div dir="rtl" markdown="1">
 **בשפה העברית**
 * [בסיס QMK](he-il/README.md)
+    * [מבוא לQMK](he-il/getting_started_introduction.md)
+* [שאלות נפוצות](he-il/faq.md)
 
 **בשפה האנגלית**
 * [המדריך המלא למתחילים](newbs.md)
@@ -12,7 +14,7 @@
   * [למידה ממקורות](newbs_learn_more_resources.md)
 
 * [בסיס QMK](README.md)
-  * [מבוא לQMK](he-il/getting_started_introduction.md)
+  * [מבוא לQMK](getting_started_introduction.md)
   * [QMK CLI](cli.md)
   * [QMK CLI Config](cli_configuration.md)
   * [תרומה ל QMK](contributing.md)
