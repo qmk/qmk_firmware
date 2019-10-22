@@ -4,6 +4,8 @@
     * [מבוא לQMK](he-il/getting_started_introduction.md)
 * [שאלות נפוצות](he-il/faq.md)
 * [חומרה](he-il/hardware.md)
+* התייחסויות
+  * [איך לתעד נכון](he-il/documentation_best_practices.md)
 
 **בשפה האנגלית**
 * [המדריך המלא למתחילים](newbs.md)

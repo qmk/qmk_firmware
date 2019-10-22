@@ -1,58 +1,59 @@
-# Documentation Best Practices
+# איך לתעד נכון
 
-This page exists to document best practices when writing documentation for QMK. Following these guidelines will help to keep a consistent tone and style, which will in turn help other people more easily understand QMK.
+עמוד זה קיים כדי לתעד את השיטות הטובות ביותר כאשר כותבים תיעוד עבור QMK. מעקב אחר הוראות אלה יעזור לשמור על סגנון וטון עקביים, אשר בתורם יעזרו לאנשים אחרים להבין טוב יותר את QMK.
 
-# Page Opening
+# פתיחת עמוד
 
-Your documentation page should generally start with an H1 heading, followed by a 1 paragraph description of what the user will find on this page. Keep in mind that this heading and paragraph will sit next to the Table of Contents, so keep the heading short and avoid long strings with no whitespace.
+התיעוד שלך צריך בד״כ להפתח עם כותרת בגודל H1, אחריה פסקה אחת של תיאור של מה המשתמש ימצא בעמוד זה.
+זכור כי כותרת זו והפסקה ימוקמו ליד תוכן העניינים, אז חשוב לשמור על כותרת קצרה ולהמנע ממשפטים ארוכים ללא פיסוק.
 
-Example:
-
-```
-# My Page Title
-
-This page covers my super cool feature. You can use this feature to make coffee, squeeze fresh oj, and have an egg mcmuffin and hashbrowns delivered from your local macca's by drone.
-```
-
-# Headings
-
-Your page should generally have multiple "H1" headings. Only H1 and H2 headings will included in the Table of Contents, so plan them out appropriately. Excess width should be avoided in H1 and H2 headings to prevent the Table of Contents from getting too wide.
-
-# Styled Hint Blocks
-
-You can have styled hint blocks drawn around text to draw attention to it.
-
-### Important
+לדוגמה:
 
 ```
-!> This is important
+# הכותרת שלי
+
+עמוד זה מדבר על היכולת הסופר-מגניבה שלי. אתה יכול להשתמש ביכולת זו כדי להכין קפה, לסחוט תפוזים ולקבל משלוח של ביצים ועוגות מהסופר הקרוב באמצעות רחפן.
 ```
 
-Renders as:
+# כותרות
 
-!> This is important
+עמוד התיעוד צריך לאופן כללי לכלול מס׳ כותרות בגודל "H1". רק כותרות מגודל H1 ו- H2 יכללו בתוכן העניינים, אז חשוב לתכנן אותם בהתאם. הכותרות לא להיות רחבות מידי כדי למנוע מתוכן העניינים להפוך להיות רחב מידי
 
-### General Tips
+# בלוקי רמיזה מעוצבים
+
+ניתן להוסיף בלוקי רמיזה מעוצבים שמצויירים מסביב לטקסט כדי למשוך תשומת לב אליו.
+
+### חשוב
 
 ```
-?> This is a helpful tip.
+!> זה חשוב
 ```
 
-Renders as:
+יתרנדר כ:
 
-?> This is a helpful tip.
+!> זה חשוב
+
+### טיפים כלליים
+
+```
+?> זהו טיפ שימושי.
+```
+
+יתרנדר כ:
+
+?> זהו טיפ שימושי.
 
 
-# Documenting Features
+# תיעוד יכולות ופיצ׳ריםDocumenting Features
 
-If you create a new feature for QMK, create a documentation page for it. It doesn't have to be very long, a few sentences describing your feature and a table listing any relevant keycodes is enough. Here is a basic template:
+אם יוצרים יכולת חדשה ב QMK, צרו עמוד תיעוד עבורה. העמוד לא צריך להיות ארוך במיוחד, מספר משפטים המתארים את היכולת (פיצ׳ר) וטבלה המתארת קודי מקשים רלוונטיים זה מספיק. הנה דוגמה בסיסית:
 
 ```markdown
-# My Cool Feature
+# הפיצ׳ר המגניב שלי
 
-This page describes my cool feature. You can use my cool feature to make coffee and order cream and sugar to be delivered via drone.
+עמוד זה מדבר על היכולת הסופר-מגניבה שלי. אתה יכול להשתמש ביכולת זו כדי להכין קפה, לסחוט תפוזים ולקבל משלוח של ביצים ועוגות מהסופר הקרוב באמצעות רחפן.
 
-## My Cool Feature Keycodes
+## קודי המקשים המגניבים של היכולת שלי
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
@@ -61,4 +62,4 @@ This page describes my cool feature. You can use my cool feature to make coffee 
 |KC_SUGAR||Order Sugar|
 ```
 
-Place your documentation into `docs/feature_<my_cool_feature>.md`, and add that file to the appropriate place in `docs/_sidebar.md`. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.
+מקמו את התיעוד שלכם בתוך  `docs/feature_<my_cool_feature>.md`, והוסיפו קישור לקובץ זה במקום המתאים ב `docs/_sidebar.md`. אם הוספתם קודי מקשים נוספים, תקפידו להוסיף אותם ל-  `docs/keycodes.md` עם לינק לעמוד היכולת שלכם.
