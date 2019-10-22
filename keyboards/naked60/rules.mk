@@ -1,4 +1,4 @@
-QUANTUM_LIB_SRC += serial.c/NO-LTO
+QUANTUM_LIB_SRC += serial.c
 
 # MCU name
 MCU = atmega32u4
