@@ -14,7 +14,7 @@ At a very high level I use 4 layers:
 * Lower  - Symbols
 
 ```sh
-make planck/rev5:mguterl:flash    # For Planck rev5 or earlier and Planck Light
-make planck/rev6:mguterl:flash    # For Planck rev6
-make keebio/levinson/rev2:mguterl # For Levinson rev2
+make planck/rev5:mguterl:flash        # For Planck rev5 or earlier and Planck Light
+make planck/rev6:mguterl:flash        # For Planck rev6
+make keebio/levinson/rev2:mguterl:dfu # For Levinson rev2
 ```
