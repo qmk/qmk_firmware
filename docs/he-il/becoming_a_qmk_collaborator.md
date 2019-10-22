@@ -1,3 +1,4 @@
+<div dir="rtl" markdown="1">
 # Becoming a QMK Collaborator
 
 A QMK collaborator is a keyboard maker or designer that is interested in helping QMK grow and fully support their keyboard(s), and encouraging their users and customers to submit features, ideas, and keymaps. We're always looking to add more keyboards and collaborators, but we ask that they fulfill these requirements:
@@ -7,3 +8,4 @@ A QMK collaborator is a keyboard maker or designer that is interested in helping
 * **Approve and merge keymap pull requests for your keyboard.** We like to encourage users to contribute their keymaps for others to see and work from when creating their own.
 
 If you feel you meet these requirements, shoot us an email at hello@qmk.fm with an introduction and some links to your keyboard!
+</div>

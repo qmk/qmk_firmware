@@ -1,3 +1,4 @@
+<div dir="rtl" markdown="1">
 # קודי מקלדת Quantum
 
 קודי מקלדת Quantum מאפשרים התאמה נוחה יותר של מיפוי המקשים שלך מעבר למה שהבסיסי מאפשר, ללא צורך בהגדרת של פעולות מותאמות אישית.
@@ -26,3 +27,4 @@
 |`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
 |`M(n)`         |           |Call macro `n`                                                       |
 |`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
+</div>
