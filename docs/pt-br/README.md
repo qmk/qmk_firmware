@@ -10,7 +10,7 @@
 ## O que é o firmware QMK?
 QMK (*Quantum Mechanical Keyboard*) é uma comunidade de código aberto que mantém o QMK Firmware, o QMK Toolbox, qmk.fm e essas documentações. O QMK Firmware é um firmware de teclado baseado no [tmk\_keyboard](http://github.com/tmk/tmk_keyboard) com alguns recursos úteis para os controladores Atmel AVR e, mais especificamente, na [linha de produtos OLKB](http://olkb.com), o teclado [ErgoDox EZ](http://www.ergodox-ez.com) e a [linha de produtos Clueboard](http://clueboard.co/). Também foi portado para chips ARM usando o ChibiOS. Você pode usá-lo para alimentar seu próprio PCB de teclado com fio ou personalizado.
 
-## Como conseguir isso
+## Como obter e usar o QMK
 
 Se você planeja contribuir com um mapa de teclas, teclado ou recursos para o QMK, a coisa mais fácil a fazer é [percorrer o repositório através do Github](https://github.com/qmk/qmk_firmware#fork-destination-box) e clonar seu repositório localmente para fazer suas alterações, dê um _push_ nelas e abra uma [_Pull request_](https://github.com/qmk/qmk_firmware/pulls) no seu fork.
 
