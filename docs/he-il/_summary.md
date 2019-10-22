@@ -3,6 +3,7 @@
 * [בסיס QMK](he-il/README.md)
     * [מבוא לQMK](he-il/getting_started_introduction.md)
 * [שאלות נפוצות](he-il/faq.md)
+    * [שאלות נפוצות כלליות](he-il/faq_general.md)
 * [חומרה](he-il/hardware.md)
 * התייחסויות
   * [איך לתעד נכון](he-il/documentation_best_practices.md)
