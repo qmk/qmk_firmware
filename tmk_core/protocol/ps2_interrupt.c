@@ -43,7 +43,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #if defined(__AVR__)
 #include <avr/interrupt.h>
-#include <util/delay.h>
 #elif defined(PROTOCOL_CHIBIOS) //TODO: or STM32 ?
 // chibiOS headers
 #include "ch.h"
@@ -52,7 +51,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "ps2.h"
 #include "ps2_io.h"
-#include "print.h"
+ #include "print.h"
+ #include "wait.h"
 
 #define WAIT(stat, us, err)     \
     do {                        \

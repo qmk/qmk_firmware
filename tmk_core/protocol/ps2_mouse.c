@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(__AVR__)
   #include<avr/io.h>
-  #include<util/delay.h>
 #endif
 
-
 #include "ps2_mouse.h"
+#include "wait.h"
 #include "host.h"
 #include "timer.h"
 #include "print.h"
