@@ -31,7 +31,7 @@ Finally, unplug and replug the keyboard to make sure the new driver has been loa
 
 ## Recovering from Installation to Wrong Device
 
-If you find that you can no longer type with the keyboard, you may have accidentally replaced the driver for the keyboard itself instead of for the bootloader. This usually happens when the keyboard was not in the bootloader mode. You can easily confirm this in Zadig - a healthy keyboard has the `HidUsb` driver installed on all of its interfaces:
+If you find that you can no longer type with the keyboard, you may have accidentally replaced the driver for the keyboard itself instead of for the bootloader. This can happen when the keyboard is not in the bootloader mode. You can easily confirm this in Zadig - a healthy keyboard has the `HidUsb` driver installed on all of its interfaces:
 
 ![A healthy keyboard as seen by Zadig](https://i.imgur.com/Hx0E5kC.png)
 
