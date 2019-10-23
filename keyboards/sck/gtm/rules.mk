@@ -10,7 +10,6 @@ MCU = atmega32u2
 #   atmega32a    bootloadHID
 BOOTLOADER = atmel-dfu
 
-
 # Build Options
 #   comment out to disable the options.
 #
