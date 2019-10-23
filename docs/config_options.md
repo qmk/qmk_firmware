@@ -336,13 +336,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration(+1000)
+  * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
-  * Mouse keys(+4700)
+  * Mouse keys
 * `EXTRAKEY_ENABLE`
-  * Audio control and System control(+450)
+  * Audio control and System control
 * `CONSOLE_ENABLE`
-  * Console for debug(+400)
+  * Console for debug
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `COMBO_ENABLE`
