@@ -2,7 +2,6 @@
 #include "keymap_steno.h"
 #include "muse.h"
 
-extern keymap_config_t keymap_config;
 
 enum planck_layers { _QWERTY, _COLEMAK, _FN, _NUM, _LOWER, _RAISE, _PLOVER, _ADJUST };
 
