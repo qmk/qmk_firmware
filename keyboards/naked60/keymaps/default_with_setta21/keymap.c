@@ -2,11 +2,6 @@
 
 extern keymap_config_t keymap_config;
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -30,20 +25,10 @@ enum custom_keycodes {
   SEND_MIN
 };
 
-enum tapdances{
-  TD_ESFL = 0,
-  TD_ESQW,
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_ESFL] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _FLOCK),
-  [TD_ESQW] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _QWERTY),
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_with_setta21(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-  TD(TD_ESFL),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,LT(_LOWER, KC_P0),KC_P1, KC_P4,  KC_P7,KC_NLCK, KC_ESC,
+       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,LT(_LOWER, KC_P0),KC_P1, KC_P4,  KC_P7,KC_NLCK, KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,                 KC_P2,  KC_P5,  KC_P8,KC_PSLS,  KC_F2,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
@@ -57,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FLOCK] = LAYOUT_with_setta21(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-  TD(TD_ESQW),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,       _______,_______,_______,_______,_______,_______,
+   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,       _______,_______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
       _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,               _______,_______,_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
@@ -85,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_with_setta21(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |------------------------------------------------|
-       KC_ESC,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,       _______, KC_F11,  KC_F4,  KC_F7,SEND_MIN, KC_ESC,
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,       _______, KC_F11,  KC_F4,  KC_F7,SEND_MIN, KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+--------+-------|
       KC_TILD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,                KC_F12,  KC_F5,  KC_F8,SEND_MAX,  KC_F2,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+--------+-------|
@@ -99,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_with_setta21( /* Base */
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-       KC_ESC,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,       _______,RGB_VAD,RGB_HUD,RGB_SAD,XXXXXXX,_______,
+   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,       _______,RGB_VAD,RGB_HUD,RGB_SAD,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),          RGB_VAI,RGB_HUI,RGB_SAI,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
