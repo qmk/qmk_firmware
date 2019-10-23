@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "",
-  "keyboard_folder": "",
-  "url": "",
-  "maintainer": "",
+  "keyboard_name": "SharkPCB",
+  "keyboard_folder": "acheron/shark",
+  "url": "https://gondolindrim.github.io/AcheronDocs/shark/intro.html",
+  "maintainer": "Gondolindrim",
   "width": 12,
   "height": 4,
   "layouts": {
