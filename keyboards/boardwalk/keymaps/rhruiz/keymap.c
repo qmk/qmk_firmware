@@ -17,7 +17,7 @@
 #include "rhruiz.h"
 
 // clang-format off
-#ifndef LAYOYT_kc
+#ifndef LAYOUT_kc
 #define LAYOUT_kc( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
     L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
@@ -41,6 +41,18 @@
 #define KC_DFN2 LT(_FN2, KC_DEL)
 #define KC_BFN2 BKSFN2
 #define KC_CESC CTRLESC
+#define KC_MISS MISCTRL
+#define KC_____ KC_TRNS
+#define KC__VUP KC__VOLUP
+#define KC__VDN KC__VOLDOWN
+#define KC_RST RESET
+#ifdef RGBLIGHT_ENABLE
+#    define KC_RVAD RGB_VAD
+#    define KC_RVAI RGB_VAI
+#else
+#    define KC_RVAD KC_TRNS
+#    define KC_RVAI KC_TRNS
+#endif
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -60,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
-  [_MOUSE] = LAYOUT_KC(
+  [_MOUSE] = LAYOUT_kc(
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
