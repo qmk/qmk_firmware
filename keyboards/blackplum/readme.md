@@ -1,7 +1,7 @@
 # Blackplum
 ![Blackplum](https://i.imgur.com/EOUQk4J.png)
 
-Blackplum a.k.a IMKG68 (which IMKG stands for Indonesian Mechanical Keyboard Group) is an 68% mechanical keyboard with RGB Underglow come with new layout you have ever seen before. Recently the pcb and kits only available for purchase in Indonesia.
+Blackplum a.k.a IMKG68 (which IMKG stands for Indonesian Mechanical Keyboard Group) is an 68% mechanical keyboard with RGB Underglow come with new layout you have never seen before. Recently the pcb and kits only available for purchase in Indonesia.
 
 Keyboard Maintainer: [eriqadams](https://github.com/eriqadams)  
 Hardware Supported: Blackplum PCB, ATMEGA32u4-au MCU  
