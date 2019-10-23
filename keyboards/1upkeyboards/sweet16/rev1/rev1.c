@@ -7,7 +7,7 @@ void led_set_kb(uint8_t usb_led) {
         setPinOutput(B0);
         writePinLow(B0);
     } else {
-        DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
+        setPinInput(B0);
     }
 
     /* Map TXLED to USB_LED_CAPS_LOCK */
