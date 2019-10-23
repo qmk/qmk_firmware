@@ -3,7 +3,7 @@
 A 4x4 numpad/macro pad sold by 1up Keyboards - designed by Clueboard
 
 Keyboard Maintainer: skullydazed
-Hardware Supported: Sweet16 Keyboard PCB  
+Hardware Supported: Sweet16 rev2 PCB Proton C
 Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
