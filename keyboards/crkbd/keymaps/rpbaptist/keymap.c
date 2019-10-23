@@ -170,7 +170,7 @@ void render_status(void) {
   // oled_write_P(PSTR("Layout: "), false);
   switch (get_highest_layer(default_layer_state)) {
     case _COLEMAKDHM:
-      oled_write_P(PSTR("CLMK "), false);
+      oled_write_P(PSTR("TYPE "), false);
       break;
     case _GAMING:
       oled_write_P(PSTR("GAME "), false);
