@@ -1,7 +1,6 @@
 # MCU name
 MCU = atmega32u2
 
-
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
