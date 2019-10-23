@@ -15,7 +15,7 @@ void led_set_kb(uint8_t usb_led) {
         setPinOutput(D5);
         writePinLow(D5);
     } else {
-        DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
+        setPinInput(D5);
     }
 #endif
 }
