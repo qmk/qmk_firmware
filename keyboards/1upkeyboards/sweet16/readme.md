@@ -7,6 +7,6 @@ A 4x4 numpad/macro pad sold by 1up Keyboards.
 * Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
 
 Revisions:
-* [rev1](./rev1/)- The original macropad, designed by Bishop Keyboards
-* [rev2/promicro](./rev2/promicro)- The second macropad built with a Pro Micro, designed by Clueboard
-* [rev2/proton_c](./rev2/proton_c)- The second macropad built with a Proton C, designed by Clueboard
+* [v1](./v1/)- The original macropad, designed by Bishop Keyboards
+* [v2/promicro](./v2/promicro)- The second macropad built with a Pro Micro, designed by Clueboard
+* [v2/proton_c](./v2/proton_c)- The second macropad built with a Proton C, designed by Clueboard

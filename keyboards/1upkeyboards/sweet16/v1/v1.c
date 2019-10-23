@@ -1,4 +1,4 @@
-#include "rev1.h"
+#include "v1.h"
 
 void led_set_kb(uint8_t usb_led) {
 #ifndef CONVERT_TO_PROTON_C
