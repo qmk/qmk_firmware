@@ -4,7 +4,7 @@
 
 A 2x5 macropad/numpad with a rotary encoder, cloned from the 2Key2Crawl macropad that was exclusively available at Austin Keycrawl 2018 (12-01-2018).
 
-Keyboard Maintainer: jrfhoutx
+Keyboard Maintainer: jrfhoutx  
 Keyboard Designer: [jrfhoutx](https://github.com/jrfhoutx)  
 Hardware Supported: GTM Pad
 Hardware Availability: Coming Soon
