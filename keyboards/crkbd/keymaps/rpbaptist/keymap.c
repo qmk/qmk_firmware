@@ -12,6 +12,10 @@ enum layer_names {
   _UTIL
 };
 
+enum custom_keycodes {
+  RGB_RST = SAFE_RANGE
+};
+
 // Base layers
 #define COLEMAK DF(_COLEMAKDHM)
 #define GAMING DF(_GAMING)
@@ -123,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      XXXXXXX, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
+      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      XXXXXXX, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG,RGB_RMOD, RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -309,7 +313,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_BSPC);
       }
       return false;
-    default:
-      return true;
+    case RGB_RST:
+      if (record->event.pressed) {
+        eeconfig_update_rgb_matrix_default();
+        rgb_matrix_enable();
+      }
+      break;
   }
+  return true;
 }
