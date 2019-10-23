@@ -14,7 +14,7 @@ extern "C" {
 #elif defined PROTOCOL_CHIBIOS
 #    include "ch.h"
 // FIXME: This doesn't compile if `NKRO_ENABLED = no`
-#    define wait_ms(ms) chSysPolledDelayX(MS2RTC(STM32_SYSCLK, x))
+#    define wait_ms(ms) chSysPolledDelayX(MS2RTC(STM32_SYSCLK, ms))
 #    define wait_us(us) chSysPolledDelayX(US2RTC(STM32_SYSCLK, x))
 #elif defined PROTOCOL_ARM_ATSAM
 #    include "clks.h"
