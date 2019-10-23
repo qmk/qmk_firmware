@@ -8,7 +8,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
 #define PRODUCT         California Macropad
-#define DESCRIPTION     A 10-key macropad shaped like california
+#define DESCRIPTION     A 10-key macropad shaped like California
 
 /* key matrix pins */
 #define MATRIX_ROWS 6
