@@ -1,12 +1,14 @@
-# tg4x
+# TG4x v2.1
 
-![tg4x](imgur.com image replace me!)
+40% sandwich keyboard driven by a pro micro. 
 
-A short description of the keyboard/project
+For more info please refer to [MythosMann's Github](www.github.com/MythosMann/tg4x).  
 
-Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: TG4x v2.1 PCB  
+Hardware Availability: [Geekhack](https://geekhack.org/index.php?topic=99163.0)  
+
+If soldering in a RGB underglow strip, please use pin D2, the pin labeled RXI on the pro micro.  
 
 Make example for this keyboard (after setting up your build environment):
 
