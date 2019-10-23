@@ -12,6 +12,7 @@
 #define KC_____ KC_TRNS
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
+#define KC_ENTS SFT_T(KC_ENT)
 
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
@@ -43,9 +44,9 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc(
     GRV , 1   , 2   , 3   , 4   , 5   , 6   ,   6   , 7   , 8   , 9   , 0   , MINS, EQL,
-    TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , QUOT,
-    CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, ENT,
-    LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, RSFT,
+    TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , BSLS,
+    CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, QUOT,
+    LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, ENTS,
     _FN2, LCTL, LALT, LGUI, _FN1, SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
@@ -67,16 +68,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEY_OVERRIDE] = LAYOUT_kc(
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
-    ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, ____, ____, ____, ____, DQUO,
-    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, ____, ____, COLN, PENT,
+    ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
+    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
   [_FN1] = LAYOUT_kc(
     ____, F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, MINS, EQL , LBRC, RBRC, ____,   ____, ____, ____, ____, ____, ____, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
+    ____, ____, ____, ____, MINS, EQL , ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   DFN2, DFN2, ____, ____, ____, ____, ____
   ),
