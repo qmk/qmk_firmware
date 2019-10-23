@@ -1,7 +1,7 @@
 # Build Options
 #
 DEFAULT_FOLDER = 1upkeyboards/sweet16/rev1
-#BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration(+1000)
+#BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes  # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes  # Audio control and System control(+450)
 CONSOLE_ENABLE = no    # Console for debug(+400)
