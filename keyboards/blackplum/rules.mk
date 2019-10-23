@@ -71,4 +71,4 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
-LAYOUTS = 68
+LAYOUTS = 68_ansi
