@@ -12,8 +12,6 @@
 #define FN 1    // macros/motion
 #define NUMB 2  // numbers
 
-// Blank template at the bottom
-
 #define DYNAMIC_MACRO_SIZE 256
 #define DYNAMIC_MACRO_RANGE SAFE_RANGE
 #include "dynamic_macro.h"

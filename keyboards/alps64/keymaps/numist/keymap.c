@@ -1,84 +1,11 @@
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    M_FIND = SAFE_RANGE,
-    M_AGAIN,
-    M_UNDO,
-    M_CUT,
-    M_COPY,
-    M_PSTE,
-    DYNAMIC_MACRO_RANGE
-};
-
 #define DYNAMIC_MACRO_SIZE 64
 #define DYNAMIC_MACRO_RANGE SAFE_RANGE
 #include "dynamic_macro.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    bool use_cmd = true;
-    if (keymap_config.swap_lalt_lgui == 1) {
-        use_cmd = false;
-    }
-
-    switch (keycode) {
-        case M_UNDO:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("z"));
-                } else {
-                    SEND_STRING(SS_LCTRL("z"));
-                }
-            }
-            return false;
-        case M_CUT:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("x"));
-                } else {
-                    SEND_STRING(SS_LCTRL("x"));
-                }
-            }
-            return false;
-        case M_COPY:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("c"));
-                } else {
-                    SEND_STRING(SS_LCTRL("c"));
-                }
-            }
-            return false;
-        case M_PSTE:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("v"));
-                } else {
-                    SEND_STRING(SS_LCTRL("v"));
-                }
-            }
-            return false;
-        case M_FIND:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("f"));
-                } else {
-                    SEND_STRING(SS_LCTRL("f"));
-                }
-            }
-            return false;
-        case M_AGAIN:
-            if (record->event.pressed) {
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI("g"));
-                } else {
-                    SEND_STRING(SS_LCTRL("g"));
-                }
-            }
-            return false;
-        default:
-            return process_record_dynamic_macro(keycode, record);
-    }
-    return true;
+    return process_record_dynamic_macro(keycode, record);
 }
 
 /* Keymap */
@@ -117,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FL] = LAYOUT_aek_103(
     KC_ESC , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_DEL ,
     _______, M_RECD1, M_STOP1, M_PLAY1, _______, _______, KC_MPLY, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, _______, _______, RESET  ,
-    M_UNDO , M_CUT  , M_COPY , M_PSTE , M_FIND , M_AGAIN, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______, _______,
-    LS_HOME, AG_SWAP, AG_NORM, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
+    _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______, _______,
+    LS_HOME, CG_SWAP, CG_NORM, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
     LC_END , _______, _______,                            _______                           , _______, _______, _______
   )
 };

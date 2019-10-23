@@ -16,56 +16,12 @@
 #include QMK_KEYBOARD_H
 #include "keymap_steno.h"
 
-enum custom_keycodes {
-    M_FIND = SAFE_RANGE,
-    M_AGAIN,
-    M_UNDO,
-    M_CUT,
-    M_COPY,
-    M_PSTE,
-    DYNAMIC_MACRO_RANGE
-};
-
 #define DYNAMIC_MACRO_SIZE 256
 #define DYNAMIC_MACRO_RANGE SAFE_RANGE
 #include "dynamic_macro.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case M_UNDO:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("z"));
-        }
-        return false;
-    case M_CUT:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("x"));
-        }
-        return false;
-    case M_COPY:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("c"));
-        }
-        return false;
-    case M_PSTE:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("v"));
-        }
-        return false;
-    case M_FIND:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("f"));
-        }
-        return false;
-    case M_AGAIN:
-        if (record->event.pressed) {
-            SEND_STRING(SS_LGUI("g"));
-        }
-        return false;
-    default:
-        return process_record_dynamic_macro(keycode, record);
-    }
-    return true;
+    return process_record_dynamic_macro(keycode, record);
 }
 
 void matrix_init_user() {
@@ -113,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FUN] = LAYOUT(
   RESET  , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                      KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
   _______, M_RECD1, M_STOP1, M_PLAY1, _______, _______, _______,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
-  KC_HOME, M_CUT  , M_COPY , M_PSTE , M_FIND , M_AGAIN, M_UNDO ,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
+  KC_HOME, _______, _______, _______, _______, _______, _______,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
   KC_END , _______, _______, _______, _______, _______, CAG_ESC,    _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
                                          _______,                                 _______,
                                             _______,                           _______,
