@@ -6,7 +6,7 @@ extern keymap_config_t keymap_config;
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xB
+#define PRODUCT_ID      0xFADE
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pixlup
 #define PRODUCT         Blackplum Keeb
