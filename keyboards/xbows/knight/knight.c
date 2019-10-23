@@ -1,20 +1,19 @@
 #include "knight.h"
+void matrix_init_kb(void) {
+    setPinOutput(D1);
+    setPinOutput(E2);
+    matrix_init_user();
+};
 void led_set_kb(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		DDRD |= (1 << 1); PORTD &= ~(1 << 1);
-	} else {
-		DDRD &= ~(1 << 1); PORTD &= ~(1 << 1);
-	}
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRE |= (1 << 2); PORTE &= ~(1 << 2);
-	} else {
-		DDRE &= ~(1 << 2); PORTE &= ~(1 << 2);
-	}
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        writePinHigh(D1);
+    } else {
+        writePinLow(D1);
+    }
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinHigh(E2);
+    } else {
+        writePinLow(E2);
+    }
     led_set_user(usb_led);
 }
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-};
-
-
