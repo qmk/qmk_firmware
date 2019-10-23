@@ -9,7 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu
+BOOTLOADER = caterina
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
