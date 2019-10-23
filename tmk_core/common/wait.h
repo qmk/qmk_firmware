@@ -13,22 +13,9 @@ extern "C" {
 #    define wait_us(us) _delay_us(us)
 #elif defined PROTOCOL_CHIBIOS
 #    include "ch.h"
-#    define wait_ms(ms)                     \
-        do {                                \
-            if (ms != 0) {                  \
-                chThdSleepMilliseconds(ms); \
-            } else {                        \
-                chThdSleepMicroseconds(1);  \
-            }                               \
-        } while (0)
-#    define wait_us(us)                     \
-        do {                                \
-            if (us != 0) {                  \
-                chThdSleepMicroseconds(us); \
-            } else {                        \
-                chThdSleepMicroseconds(1);  \
-            }                               \
-        } while (0)
+// FIXME: This doesn't compile if `NKRO_ENABLED = no`
+#    define wait_ms(ms) chSysPolledDelayX(MS2RTC(STM32_SYSCLK, x))
+#    define wait_us(us) chSysPolledDelayX(US2RTC(STM32_SYSCLK, x))
 #elif defined PROTOCOL_ARM_ATSAM
 #    include "clks.h"
 #    define wait_ms(ms) CLK_delay_ms(ms)
