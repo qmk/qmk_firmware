@@ -6,7 +6,7 @@ A 2x5 macropad/numpad with a rotary encoder, cloned from the 2Key2Crawl macropad
 
 Keyboard Maintainer: jrfhoutx  
 Keyboard Designer: [jrfhoutx](https://github.com/jrfhoutx)  
-Hardware Supported: GTM Pad
+Hardware Supported: GTM Pad  
 Hardware Availability: Coming Soon
 
 Make example for this keyboard (after setting up your build environment):
