@@ -19,7 +19,11 @@ MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-# RGB_MATRIX_ENABLE = WS2812
+RGB_MATRIX_ENABLE = no
+endif
+
+ifeq ($(strip $(KEYBOARD)), thevankeyboards/minivan)
+BACKLIGHT_ENABLE = yes
 endif
 
 

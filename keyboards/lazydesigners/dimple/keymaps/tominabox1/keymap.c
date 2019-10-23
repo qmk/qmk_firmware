@@ -99,11 +99,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	___________________FKEY4___________________
   ),
 };
-
-void led_set_user(uint8_t usb_led) {
-if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-	writePinLow(E6);
-	} else {
-	writePinHigh(E6);
-	}
-}

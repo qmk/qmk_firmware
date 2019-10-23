@@ -1,21 +1,5 @@
 #include "tominabox1.h"
 
-#ifdef KEYBOARD_lazydesigners_dimple
-#ifdef RGBLIGHT_ENABLE
-__attribute__ ((weak))
-void keyboard_post_init_keymap(void) {}
-
-void keyboard_post_init_user(void) { // sets the backlighting to come on upon successful load then turn off
-  rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(RGB_RED);
-  rgblight_mode_noeeprom(0);
-  wait_ms(700);
-  rgblight_disable_noeeprom();
-}
-#endif // RGBLIGHT
-#endif // Dimple
-
-
 #ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type);
 static bool is_suspended;
@@ -102,9 +86,34 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#ifdef KEYBOARD_crkbd_rev1
 
-#endif // CRKBD
+#ifdef KEYBOARD_lazydesigners_dimple
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {
+}
+
+void led_set_user(uint8_t usb_led) {
+	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+		writePinLow(E6);
+	} else{
+		writePinHigh(E6);
+	}
+	}
+#endif // Dimple
+
+#ifdef KEYBOARD_thevankeyboards_minivan
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {
+}
+
+void led_set_user(uint8_t usb_led) {
+	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+		backlight_enable();
+	} else{
+		backlight_disable();
+	}
+	}
+#endif // Minivan
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
@@ -192,6 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 
 }
+
 #ifdef KEYBOARD_crkbd_rev1
 #ifdef OLED_DRIVER_ENABLE
 void render_logo(void) {

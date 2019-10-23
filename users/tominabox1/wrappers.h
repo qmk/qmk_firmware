@@ -11,7 +11,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 // clang-format off
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
-#define LAYOUT_arrow_wrapper(...) 	         LAYOUT_arrow(__VA_ARGS__)
+#define LAYOUT_arrow_wrapper(...) 	         LAYOUT_arrow_command(__VA_ARGS__)
 
 /*
   _____  _                 _
@@ -68,31 +68,31 @@ __  __ _       _
 #define __________________MINIVAN1_________________       __________________DIMPLE1__________________
 #define __________________MINIVAN2_________________       __________________DIMPLE2__________________
 #define __________________MINIVAN3_________________       __________________DIMPLE3L_________________, __________________DIMPLE3R_________________, KC_RSFT
-#define __________________MINIVAN4_________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+#define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
 
 /* Minivan Symbol Layer
 #define _________________LOWER_1___________________
 #define _________________LOWER_2___________________        */
 #define __________________MININUM3_________________       _________________LOWER_3___________________, KC_SLSH
-#define __________________MININUM4_________________       _________________LOWER_4___________________, KC_END
+#define __________________MININUM4_________________       KC_DEL, _________________LOWER_4___________________, KC_END
 
 /* Minvian Number Layer
 #define ___________________RAISE1__________________
 #define ___________________RAISE2__________________       */
 #define ___________________RVAN_3__________________       ___________________RAISE3__________________, KC_NO
-#define ___________________RVAN_4__________________       ___________________RAISE4__________________, KC_NO
+#define ___________________RVAN_4__________________       KC_DEL, ___________________RAISE4__________________, KC_NO
 
 /* Minvian F-key layer
 #define ___________________FKEY1___________________
 #define ___________________FKEY2___________________       */
 #define ___________________FVAN_3__________________       ___________________FKEY3___________________, KC_NO
-#define ___________________FVAN_4__________________       ___________________FKEY4___________________, KC_TRNS
+#define ___________________FVAN_4__________________       KC_DEL, ___________________FKEY4___________________, KC_TRNS
 
 /* Minivan Adjust Layer
 #define ___________________ADJST1__________________
 #define ___________________ADJST2__________________       */
 #define ___________________ADJVAN3_________________       ___________________ADJST3__________________, KC_NO
-#define ___________________ADJVAN4_________________       ___________________ADJST4__________________, KC_TRNS
+#define ___________________ADJVAN4_________________       KC_DEL, ___________________ADJST4__________________, KC_TRNS
 
 /*
   _____ _____  _  ______  _____
