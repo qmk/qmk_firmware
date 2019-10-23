@@ -26,6 +26,7 @@
  * This debouncer uses an overflowing stacked counter cribbed with permission
  * from https://github.com/numist/project-typewriter/blob/master/debounce.h
  */
+#define DEBOUNCE_SAMPLES 4
 typedef struct {
     matrix_row_t db0;    // counter bit 0
     matrix_row_t db1;    // counter bit 1
@@ -44,6 +45,7 @@ static inline matrix_row_t debounce_single_row(debounce_t *d, matrix_row_t sampl
 static debounce_t *debounce_state = 0;
 static uint16_t    timer;
 static bool        primed = false;
+static uint8_t     iter;
 
 void debounce_init(uint8_t num_rows) {
     if (debounce_state) {
@@ -62,8 +64,8 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         primed = true;
     }
 
-    // 2-bit debouncer overflows after 4 samples
-    if (timer_elapsed(timer) > DEBOUNCE / 4) {
+    uint8_t fudge = (iter++ % DEBOUNCE_SAMPLES) < (DEBOUNCE % DEBOUNCE_SAMPLES) ? 1 : 0;
+    if (timer_elapsed(timer) > (DEBOUNCE / DEBOUNCE_SAMPLES + fudge)) {
         for (int i = 0; i < num_rows; i++) {
             debounce_t *d = &debounce_state[i];
             cooked[i] ^= debounce_single_row(d, raw[i]);
