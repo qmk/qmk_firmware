@@ -12,7 +12,8 @@ void led_set_kb(uint8_t usb_led) {
 
     /* Map TXLED to USB_LED_CAPS_LOCK */
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        DDRD |= (1 << 5); PORTD &= ~(1 << 5);
+        setPinOutput(D5);
+        writePinLow(D5);
     } else {
         DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
     }
