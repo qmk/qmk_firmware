@@ -11,17 +11,17 @@
 #define DESCRIPTION     Grand Theft Macro Pad
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 7
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 6
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { C4, C5 }
-#define MATRIX_COL_PINS { B3, B4, B5, B6, B7, C7, B2 }
+#define MATRIX_ROW_PINS { C4, C5, D1 }
+#define MATRIX_COL_PINS { B4, B5, B6, B7, C7, D0 }
 #define UNUSED_PINS
 
 
-#define ENCODERS_PAD_A { D0 }
-#define ENCODERS_PAD_B { D1 }
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D3 }
 #define ENCODER_RESOLUTION 1
 
 /* COL2ROW or ROW2COL */
@@ -38,7 +38,7 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN C6
+#define RGB_DI_PIN B0
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 3
+#define RGBLED_NUM 4
 #endif
