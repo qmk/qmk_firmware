@@ -3,7 +3,7 @@
 A 4x4 numpad/macro pad sold by 1up Keyboards - designed by Bishop Keyboards
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: Sweet16 Keyboard PCB  
+Hardware Supported: Sweet16 rev1 PCB  
 Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
