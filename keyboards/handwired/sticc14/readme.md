@@ -7,6 +7,7 @@ Sticc14 is a simple macropad, designed to be easy to build and affordable.
 Keyboard Maintainer: [ErkHal](https://github.com/erkhal)  
 Hardware Supported: Sticc14  
 Hardware Availability: [Ergorius](https://reddit.com/u/ergorius)  
+
 Make example for this keyboard (after setting up your build environment):
 
     make handwired/sticc14:default
