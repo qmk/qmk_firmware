@@ -6,15 +6,18 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers { _QWERTY, _COLEMAK, _FN, _NUM, _LOWER, _RAISE, _PLOVER, _ADJUST };
 
-enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, PLOVER, EXT_PLV, DYNAMIC_MACRO_RANGE };
-
-enum planck_macros {
-    KC_M_UNDO,
-    KC_M_CUT,
-    KC_M_COPY,
-    KC_M_PASTE,
-    KC_M_FIND,
-    KC_M_AGAIN,
+enum planck_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    PLOVER,
+    EXT_PLV,
+    M_UNDO,
+    M_CUT,
+    M_COPY,
+    M_PSTE,
+    M_FIND,
+    M_AGAIN,
+    DYNAMIC_MACRO_RANGE
 };
 
 #define DYNAMIC_MACRO_SIZE 256
@@ -32,13 +35,6 @@ enum planck_macros {
 #define NP_PGDN LT(_NUM, KC_PGDN)
 
 #define RS_ENT RSFT_T(KC_ENT)
-
-#define M_UNDO M(KC_M_UNDO)
-#define M_CUT M(KC_M_CUT)
-#define M_COPY M(KC_M_COPY)
-#define M_PSTE M(KC_M_PASTE)
-#define M_FIND M(KC_M_FIND)
-#define M_AGAIN M(KC_M_AGAIN)
 
 #define M_RECD1 DYN_REC_START1
 #define M_STOP1 DYN_REC_STOP
@@ -103,19 +99,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    bool use_cmd = true;
+    if (keymap_config.swap_lalt_lgui == 1) {
+        use_cmd = false;
+    }
+
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
-            break;
         case COLEMAK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
             }
             return false;
-            break;
         case PLOVER:
             if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
@@ -131,7 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_keymap(keymap_config.raw);
             }
             return false;
-            break;
         case EXT_PLV:
             if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
@@ -140,7 +138,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_PLOVER);
             }
             return false;
-            break;
+        case M_UNDO:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("z"));
+                } else {
+                    SEND_STRING(SS_LCTRL("z"));
+                }
+            }
+            return false;
+        case M_CUT:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("x"));
+                } else {
+                    SEND_STRING(SS_LCTRL("x"));
+                }
+            }
+            return false;
+        case M_COPY:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("c"));
+                } else {
+                    SEND_STRING(SS_LCTRL("c"));
+                }
+            }
+            return false;
+        case M_PSTE:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("v"));
+                } else {
+                    SEND_STRING(SS_LCTRL("v"));
+                }
+            }
+            return false;
+        case M_FIND:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("f"));
+                } else {
+                    SEND_STRING(SS_LCTRL("f"));
+                }
+            }
+            return false;
+        case M_AGAIN:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("g"));
+                } else {
+                    SEND_STRING(SS_LCTRL("g"));
+                }
+            }
+            return false;
     }
     return true;
 }
@@ -180,22 +231,4 @@ bool music_mask_user(uint16_t keycode) {
         default:
             return true;
     }
-}
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch (id) {
-        case KC_M_UNDO:
-            return MACRODOWN(D(LGUI), T(Z), U(LGUI), END);
-        case KC_M_CUT:
-            return MACRODOWN(D(LGUI), T(X), U(LGUI), END);
-        case KC_M_COPY:
-            return MACRODOWN(D(LGUI), T(C), U(LGUI), END);
-        case KC_M_PASTE:
-            return MACRODOWN(D(LGUI), T(V), U(LGUI), END);
-        case KC_M_FIND:
-            return MACRODOWN(D(LGUI), T(F), U(LGUI), END);
-        case KC_M_AGAIN:
-            return MACRODOWN(D(LGUI), T(G), U(LGUI), END);
-    }
-
-    return MACRO_NONE;
 }

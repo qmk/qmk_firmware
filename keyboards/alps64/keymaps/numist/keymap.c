@@ -1,44 +1,84 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    M_FIND = SAFE_RANGE,
+    M_AGAIN,
+    M_UNDO,
+    M_CUT,
+    M_COPY,
+    M_PSTE,
+    DYNAMIC_MACRO_RANGE
+};
+
 #define DYNAMIC_MACRO_SIZE 64
 #define DYNAMIC_MACRO_RANGE SAFE_RANGE
 #include "dynamic_macro.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return process_record_dynamic_macro(keycode, record);
-}
-
-enum macro_keycodes {
-    KC_M_FIND,
-    KC_M_AGAIN,
-    KC_M_UNDO,
-    KC_M_CUT,
-    KC_M_COPY,
-    KC_M_PASTE,
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     bool use_cmd = true;
     if (keymap_config.swap_lalt_lgui == 1) {
         use_cmd = false;
     }
 
-    switch (id) {
-        case KC_M_FIND:
-            return use_cmd ? MACRODOWN(D(LGUI), T(F), END) : MACRODOWN(D(LCTRL), T(F), END);
-        case KC_M_AGAIN:
-            return use_cmd ? MACRODOWN(D(LGUI), T(G), END) : MACRODOWN(D(LCTRL), T(G), END);
-        case KC_M_UNDO:
-            return use_cmd ? MACRODOWN(D(LGUI), T(Z), END) : MACRODOWN(D(LCTRL), T(Z), END);
-        case KC_M_CUT:
-            return use_cmd ? MACRODOWN(D(LGUI), T(X), END) : MACRODOWN(D(LCTRL), T(X), END);
-        case KC_M_COPY:
-            return use_cmd ? MACRODOWN(D(LGUI), T(C), END) : MACRODOWN(D(LCTRL), T(C), END);
-        case KC_M_PASTE:
-            return use_cmd ? MACRODOWN(D(LGUI), T(V), END) : MACRODOWN(D(LCTRL), T(V), END);
+    switch (keycode) {
+        case M_UNDO:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("z"));
+                } else {
+                    SEND_STRING(SS_LCTRL("z"));
+                }
+            }
+            return false;
+        case M_CUT:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("x"));
+                } else {
+                    SEND_STRING(SS_LCTRL("x"));
+                }
+            }
+            return false;
+        case M_COPY:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("c"));
+                } else {
+                    SEND_STRING(SS_LCTRL("c"));
+                }
+            }
+            return false;
+        case M_PSTE:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("v"));
+                } else {
+                    SEND_STRING(SS_LCTRL("v"));
+                }
+            }
+            return false;
+        case M_FIND:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("f"));
+                } else {
+                    SEND_STRING(SS_LCTRL("f"));
+                }
+            }
+            return false;
+        case M_AGAIN:
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI("g"));
+                } else {
+                    SEND_STRING(SS_LCTRL("g"));
+                }
+            }
+            return false;
+        default:
+            return process_record_dynamic_macro(keycode, record);
     }
-
-    return MACRO_NONE;
+    return true;
 }
 
 /* Keymap */
@@ -59,13 +99,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 #define RG_LEFT RGUI_T(KC_LEFT)
 
 #define RCAG_ENT MT(MOD_RGUI | MOD_RALT | MOD_RCTL, KC_ENT)
-
-#define M_FIND M(KC_M_FIND)
-#define M_AGAIN M(KC_M_AGAIN)
-#define M_UNDO M(KC_M_UNDO)
-#define M_CUT M(KC_M_CUT)
-#define M_COPY M(KC_M_COPY)
-#define M_PSTE M(KC_M_PASTE)
 
 #define M_RECD1 DYN_REC_START1
 #define M_STOP1 DYN_REC_STOP
