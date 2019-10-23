@@ -13,6 +13,7 @@ extern "C" {
 #    define wait_us(us) _delay_us(us)
 #elif defined PROTOCOL_CHIBIOS
 #    include "ch.h"
+#    include "hal.h"
 // FIXME: This doesn't compile if `NKRO_ENABLED = no`
 #    define wait_ms(ms) chSysPolledDelayX(MS2RTC(STM32_SYSCLK, ms))
 #    define wait_us(us) chSysPolledDelayX(US2RTC(STM32_SYSCLK, us))
