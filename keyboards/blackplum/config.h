@@ -2,9 +2,11 @@
 
 #include "config_common.h"
 
+extern keymap_config_t keymap_config;
+
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x0099
-#define PRODUCT_ID      0x6800
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0xB
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Pixlup
 #define PRODUCT         Blackplum Keeb
