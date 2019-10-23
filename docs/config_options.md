@@ -303,6 +303,18 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
     ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
+* `LINK_TIME_OPTIMIZATION_ENABLE`  
+  Enables Link Time Optimization (`LTO`) when compiling the keyboard.
+  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).
+  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
+  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`  
+  Also, rarely some source files will not work properly when compiled with LTO enabled. Such source files should be specified with `/NO-LTO` after the file name.  
+  For example:
+  ```
+  SRC += i2c.c
+  SRC += serial.c/NO-LTO
+  SRC += ssd1306.c
+  ```
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
@@ -361,8 +373,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
-* `LINK_TIME_OPTIMIZATION_ENABLE`
-  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
 
 ## USB Endpoint Limitations
 
