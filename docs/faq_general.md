@@ -4,10 +4,6 @@
 
 [QMK](https://github.com/qmk), short for Quantum Mechanical Keyboard, is a group of people building tools for custom keyboards. We started with the [QMK firmware](https://github.com/qmk/qmk_firmware), a heavily modified fork of [TMK](https://github.com/tmk/tmk_keyboard).
 
-### Why the Name Quantum?
-
-<!-- FIXME -->
-
 ## What Differences Are There Between QMK and TMK?
 
 TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert](https://github.com/jackhumbert)'s fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.

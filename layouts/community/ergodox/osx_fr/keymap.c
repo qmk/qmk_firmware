@@ -35,14 +35,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         FR_MINS,          FR_AMP,      FR_EACU,       FR_QUOT, FR_APOS, FR_LPRN, KC_LEFT,
-        KC_DELT,          FR_A,        FR_Z,          KC_E,    KC_R,    KC_T,    TG(1),
+        KC_DEL,           FR_A,        FR_Z,          KC_E,    KC_R,    KC_T,    TG(1),
         KC_BSPC,          FR_Q,        KC_S,          KC_D,    KC_F,    KC_G,
         KC_LSFT,          CTL_T(FR_W), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
         LT(SYMB,FR_UGRV), FR_LESS,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
             ALT_T(KC_APP), KC_LGUI,
             KC_HOME,
             KC_SPC, KC_BSPC, KC_END,
-            
+
         // right hand
         KC_RGHT,      FR_SECT, FR_EGRV, FR_EXLM,           FR_CCED, FR_AGRV,         FR_RPRN,
         TG(1),        KC_Y,    KC_U,    KC_I,              KC_O,    KC_P,            FR_GRV,

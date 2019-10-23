@@ -4,7 +4,6 @@ SRC += i2c.c \
  	   split_util.c \
 
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.

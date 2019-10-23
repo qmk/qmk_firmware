@@ -1,40 +1,36 @@
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
-#if !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS)
+#    if !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS)
 
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#        ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
 RGB_MATRIX_EFFECT(SOLID_REACTIVE_CROSS)
-#endif
+#        endif
 
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#        ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTICROSS)
-#endif
+#        endif
 
-#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#        ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void SOLID_REACTIVE_CROSS_math(HSV* hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static HSV SOLID_REACTIVE_CROSS_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick + dist;
-    dx = dx < 0 ? dx * -1 : dx;
-    dy = dy < 0 ? dy * -1 : dy;
-    dx = dx * 16 > 255 ? 255 : dx * 16;
-    dy = dy * 16 > 255 ? 255 : dy * 16;
+    dx              = dx < 0 ? dx * -1 : dx;
+    dy              = dy < 0 ? dy * -1 : dy;
+    dx              = dx * 16 > 255 ? 255 : dx * 16;
+    dy              = dy * 16 > 255 ? 255 : dy * 16;
     effect += dx > dy ? dy : dx;
-    if (effect > 255)
-        effect = 255;
-    hsv->v = qadd8(hsv->v, 255 - effect);
+    if (effect > 255) effect = 255;
+    hsv.v = qadd8(hsv.v, 255 - effect);
+    return hsv;
 }
 
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-bool SOLID_REACTIVE_CROSS(effect_params_t* params) {
-    return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_CROSS_math);
-}
-#endif
+#            ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+bool SOLID_REACTIVE_CROSS(effect_params_t* params) { return effect_runner_reactive_splash(qsub8(g_last_hit_tracker.count, 1), params, &SOLID_REACTIVE_CROSS_math); }
+#            endif
 
-#ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) {
-    return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_CROSS_math);
-}
-#endif
+#            ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+bool SOLID_REACTIVE_MULTICROSS(effect_params_t* params) { return effect_runner_reactive_splash(0, params, &SOLID_REACTIVE_CROSS_math); }
+#            endif
 
-#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#endif // !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS)
-#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+#        endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#    endif      // !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS) || !defined(DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS)
+#endif          // RGB_MATRIX_KEYREACTIVE_ENABLED

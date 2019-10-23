@@ -1,5 +1,5 @@
 /*
-Copyright 2019 %YOUR_NAME%
+Copyright %YEAR% %YOUR_NAME%
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    %YOUR_NAME%
-#define PRODUCT         %KEYBOARD%
-#define DESCRIPTION     A custom keyboard
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
+#define MANUFACTURER %YOUR_NAME%
+#define PRODUCT %KEYBOARD%
+#define DESCRIPTION A custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
-*/
+ */
 #define MATRIX_ROW_PINS { D0, D5 }
 #define MATRIX_COL_PINS { F1, F0, B0 }
 #define UNUSED_PINS
@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -90,8 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -138,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for magic key command */
 /* defined by default; to change, uncomment and set to the combination you want */
-// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+// #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

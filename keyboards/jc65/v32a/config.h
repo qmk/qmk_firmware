@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
 
-#define NO_BACKLIGHT_CLOCK
 #define BACKLIGHT_LEVELS 1
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
