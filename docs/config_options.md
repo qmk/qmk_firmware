@@ -287,6 +287,20 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
+* `LIB_SRC`
+  * Used to add files as a library to the compilation/linking list.  
+    The files specified by `LIB_SRC` is linked after the files specified by `SRC`.  
+    For example, if you specify:
+    ```
+    SRC += a.c
+    LIB_SRC += lib_b.c
+    SRC += c.c
+    LIB_SRC += lib_d.c
+    ```
+    The link order is as follows.
+    ```
+     ...  a.o c.o  ...  lib_b.a lib_d.a  ...
+    ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 
