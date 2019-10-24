@@ -47,13 +47,16 @@ In every keymap folder, the following files may be found. Only `keymap.c` is req
 
 מערכת הבילד אוטומטית בוחרת את קובץ ההגדרות לפי הסדר הנ״ל. אם רוצים לדרוס הגדרה מסויימת שהוגדרה בקובץ `config.h` קודם, ראשית תצטרכו להשתמש בקוד מוכן עבור ההגדרות שאתם רוצים לשנות.
 
+<div dir="auto">
 ```
 #pragma once
 ```
+</div>
 
 כדי לדרוס הגדרות מקובץ `config.h` קודם, אתם מוכרחים להשתמש בפקודת `#undef` ואז שוב `#define`.
 
 דוגמה לקוד כזה נראית כך:
+<div dir="auto">
 ```
 #pragma once
 
@@ -61,4 +64,5 @@ In every keymap folder, the following files may be found. Only `keymap.c` is req
 #undef MY_SETTING
 #define MY_SETTING 4
 ```
+</div>
 </div>
