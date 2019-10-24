@@ -5,8 +5,6 @@ import os
 
 from qmk.errors import NoSuchKeyboardError
 
-from bs4 import UnicodeDammit
-
 def keymap(keyboard):
     """Locate the correct directory for storing a keymap.
 
@@ -35,19 +33,14 @@ def normpath(path):
 
     return os.path.normpath(os.path.join(os.environ['ORIG_CWD'], path))
 
-def unicode_text(filename):
-    """Returns the contents of filename as a UTF-8 string. Tries to DTRT when it comes to encoding.
+def file_lines(filename):
+    """ Return a files content, line by line
+
+    Args:
+        filename: path to the file
+
+    Returns:
+        an list, in which each item is a line of the file
     """
-    with open(filename, "rb") as fd:
-        text = UnicodeDammit(fd.read())
-
-    if text.contains_replacement_characters:
-        log_warning("%s: Could not determine file encoding, some characters were replaced." % (filename,))
-
-    return text.unicode_markup or ""
-
-
-def unicode_lines(filename):
-    """Returns the contents of filename as a UTF-8 string. Tries to DTRT when it comes to encoding.
-    """
-    return unicode_text(filename).split("\n")
+    with open(filename, "r") as fd:
+        return fd.readlines()

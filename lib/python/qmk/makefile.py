@@ -21,8 +21,8 @@ def parse_rules_mk(file_path):
     # group(2) = operator (eg.: '=', '+=')
     # group(3) = value(s)
     rules_mk_regex = re.compile(r"^\s*(\w+)\s*([\?\:\+\-]?=)\s*(\S.*?)(?=\s*(\#|$))")
-    mk_content = qmk.path.unicode_lines(file_path)
     parsed_file = dict()
+    mk_content = qmk.path.file_lines(file_path)
     for line in mk_content:
         found = rules_mk_regex.search(line)
         if found:
