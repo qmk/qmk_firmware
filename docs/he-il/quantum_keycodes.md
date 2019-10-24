@@ -9,6 +9,7 @@
 
 ## קודי מקשים של QMK
 <div dir="ltr"  markdown="1">
+
 ```
 |Key            |Aliases    |Description                                                          |
 |---------------|-----------|---------------------------------------------------------------------|
@@ -29,5 +30,6 @@
 |`M(n)`         |           |Call macro `n`                                                       |
 |`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
 ```
+
 </div>
 </div>
