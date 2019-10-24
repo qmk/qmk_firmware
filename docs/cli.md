@@ -104,6 +104,7 @@ qmk compile
 
 **Example**:
 ```
+$ qmk config compile.keymap=default
 $ cd ~/qmk_firmware/keyboards/planck/rev6
 $ qmk compile
 Ψ Compiling keymap with make planck/rev6:default
