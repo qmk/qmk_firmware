@@ -14,9 +14,10 @@ Hardware Availability: [maartenwut.com](https://maartenwut.com)
 - USB-C Connector  
 - Capslock indicator under tab key  
 - Reset button under left shift key  
-- Fully designed by me   
 
 ## Build
 Make example for this keyboard (after setting up your build environment):
+
+    make maartenwut/minitomic:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
