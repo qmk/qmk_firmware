@@ -19,7 +19,7 @@ Github עלול להיות קצת טריקי למי שלא מכיר את העב�
 
 מכאן והלאה, הקיש `git clone ` בשורת הפקודה והדביקו את הלינק שלכם:
 
-<div dir="auto">
+<div dir="ltr" markdown="1">
 ```
 user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
@@ -34,7 +34,7 @@ Checking out files: 100% (2799/2799), done.
 
 כעת, יש לכם את ה-fork של QMK על המכונה המקומית שלכם ואתם יכולים להוסיף את מיפויי המקשים שלכם, לקמפל את הפרוייקט ולצרוב אותו על הלוח שלכם. כשאתם שלמים עם השינוי שעשיתם, תוכלו להוסיף, לבצע פעולת commit ולדחוף את השינויים ל-fork שלכם באופן הבא:
 
-<div dir="ltr">
+<div dir="ltr" markdown="1">
 ```
 user@computer:~$ git add .
 user@computer:~$ git commit -m "adding my keymap"
