@@ -5,6 +5,7 @@ Check up for QMK environment.
 import platform
 import shutil
 import subprocess
+import glob
 
 from milc import cli
 
@@ -46,23 +47,43 @@ def doctor(cli):
 
     elif OS == "Linux":
         cli.log.info("Detected {fg_cyan}Linux.")
-        if shutil.which('systemctl'):
-            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
-            if mm_check.returncode == 0:
-                mm = False
-                for line in mm_check.stdout.split('\n'):
-                    if 'ModemManager' in line and 'enabled' in line:
-                        mm = True
+        # Checking for udev rules
+        udev_dir = "/etc/udev/rules.d/"
+        # These are the recommended udev rules
+        desired_rules = {"dfu": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", MODE:="0666"',
+                                 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", MODE:="0666"',
+                                 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="0666"'},
+                         "tmk": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"'},
+                         "input-club": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"'},
+                         "stm32": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"',
+                                   'SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"'},
+                         "catalina": {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"',
+                                      'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}}
+        if os.path.exists(udev_dir):
+            udev_rules = [rule for rule in glob.iglob(os.path.join(udev_dir, "*.rules")) if os.path.isfile(rule)]
+            # Collect all rules from the config files
+            current_rules = set()
+            for rule in udev_rules:
+                with open(rule, "r") as fd:
+                    for line in fd.readlines():
+                        line = line.strip()
+                        if not line.startswith("#") and len(line):
+                            current_rules.add(line)
 
-                if mm:
-                    cli.log.warn("{bg_yellow}Detected ModemManager. Please disable it if you are using a Pro-Micro.")
-
-            else:
-                cli.log.error('{bg_red}Could not run `systemctl list-unit-files`:')
-                cli.log.error(mm_check.stderr)
-
-        else:
-            cli.log.warn("Can't find systemctl to check for ModemManager.")
+            # Check if the desired rules are among the currently present rules
+            for bootloader, rules in desired_rules.items():
+                if not rules.issubset(current_rules):
+                    # If the rules for catalina are not present, check if ModemManager is running
+                    if bootloader == "catalina":
+                        if shutil.which("systemctl"):
+                            mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
+                            if mm_check.returncode == 0:
+                                ok = False
+                                cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro-Micro.")
+                        else:
+                            cli.log.warn("Can't find systemctl to check for ModemManager.")
+                    else:
+                        cli.log.warn("{bg_yellow}Missing udev rules for '%s' boards. You'll need to use `sudo` in order to flash them.", bootloader)
 
     else:
         cli.log.info("Assuming {fg_cyan}Windows.")
