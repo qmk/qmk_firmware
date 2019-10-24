@@ -36,7 +36,7 @@ def compile(cli):
     in_keyboard = False
     in_layout = False
     keyboard = ""
-    keymap = "default"
+    keymap = ""
     user_keymap = ""
     user_keyboard = ""
 
@@ -57,17 +57,18 @@ def compile(cli):
 
             in_keyboard= True
 
+    # If in layouts dir
+    if cwd.startswith(layouts_path):
+        if current_folder != "layouts":
+            layout = str(cwd[len(layouts_path):])[1:]
+            in_layout=True
+
     # If user keyboard/keymap or compile keyboard/keymap are supplied, assign those
     if cli.config.compile.keyboard or cli.config.user.keyboard:
         user_keyboard = cli.config.user.keyboard if cli.config.user.keyboard else cli.config.compile.keyboard
     if cli.config.compile.keymap or cli.config.user.keymap:
-        user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap
-
-    # If in layouts dir
-    if cwd.startswith(layouts_path):
-        if current_folder != "layouts":
-            layout = str(cwd[len(keyboards_path):])[1:]
-            in_layout=True
+        if not in_layout:
+            user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap 
 
     if cli.args.filename:
         # Parse the configurator json
@@ -85,21 +86,21 @@ def compile(cli):
     elif user_keyboard and user_keymap:
         # Generate the make command for a specific keyboard/keymap.
         command = ['make', ':'.join((user_keyboard, user_keymap))]
-    
-    elif in_keyboard: 
+
+    elif in_keyboard:
         keyboard = user_keyboard if user_keyboard else keyboard
         if not os.path.exists(os.path.join(keyboards_path, keyboard, "rules.mk")):
             cli.log.error('This directory does not contain a rules.mk file. Change directory or supply --keyboard with optional --keymap')
             return False
         # Get path for keyboard directory
-        keymap_path = qmk.path.keymap(keyboard) 
+        keymap_path = qmk.path.keymap(keyboard)
         # Check for global keymap config first
         if user_keymap:
             command = ['make', ':'.join((keyboard, user_keymap))]
 
         # Check if keyboard has default layout
         elif os.path.exists(keymap_path + "/default"):
-            
+
             # Generate the make command for the current directories keyboard
             command = ['make', ':'.join((keyboard, keymap))]
 
@@ -111,6 +112,7 @@ def compile(cli):
     elif in_layout:
         if user_keyboard:
             keymap = current_folder
+            print(keymap)
             command = ['make', ':'.join((user_keyboard, keymap))]
         else:
             cli.log.error('You must supply a keyboard to compile a layout keymap. Set one with `qmk config` or supply `--keyboard` ')
