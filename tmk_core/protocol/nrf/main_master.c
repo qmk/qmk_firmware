@@ -208,6 +208,7 @@ int main(void) {
 #endif
 
   for (;;) {
+    BMPAPI->app.process_task();
     BMPAPI->usb.process();
     cli_exec();
   }

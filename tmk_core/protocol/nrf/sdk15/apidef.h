@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 3
+#define API_VERSION 4
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -17,7 +17,9 @@ typedef enum {
   KEYMAP_RECORD,
   QMK_RECORD,
   QMK_EE_RECORD,
-} CONFIGURATION_RECORD_ID ;
+  BMP_EX_KEYCODE_RECORD,
+  BMP_ENC_RECORD,
+} CONFIGURATION_RECORD_ID;
 
 typedef enum
 {
@@ -94,6 +96,16 @@ typedef enum {
   BLE_DISCONNECTED,
 } bmp_api_event_t;
 
+typedef enum
+{
+  MATRIX_COL2ROW,
+  MATRIX_ROW2COL,
+  MATRIX_COL2ROW_LPME,
+  MATRIX_ROW2COL_LPME,
+  MATRIX_COL2ROW2COL,
+  MATRIX_ROW2COL2ROW,
+} bmp_api_diode_direction_t;
+
 typedef struct {
   uint32_t max_interval;
   uint32_t min_interval;
@@ -150,6 +162,17 @@ typedef struct {
   bmp_tapping_term_setting_t tapping_term[16];
 } bmp_qmk_config_t;
 
+typedef struct {
+  uint8_t pin_a;
+  uint8_t pin_b;
+  uint8_t resolution;
+  uint8_t action[5];
+} bmp_encoder_t;
+
+typedef struct {
+  uint32_t enable;
+  bmp_encoder_t encoder[16];
+} bmp_encoder_config_t;
 
 typedef struct {
   uint8_t modfier;
@@ -200,6 +223,7 @@ typedef struct
   void (*reset)(void);
   void (*enter_sleep_mode)(void);
   void (*main_task_start)(void(*main_task)(void*), uint8_t interval_ms);
+  void (*process_task)(void);
   bmp_error_t (*push_keystate_change)(bmp_api_key_event_t const *  const key);
   uint32_t (*pop_keystate_change)(bmp_api_key_event_t* key, uint32_t len, uint8_t burst_threshold);
   uint16_t (*keymap_key_to_keycode)(uint8_t layer, bmp_api_keypos_t const * const key);

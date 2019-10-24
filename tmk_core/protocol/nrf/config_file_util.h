@@ -8,6 +8,9 @@
 
 #include "apidef.h"
 #include "keycode_str_converter.h"
+#include "bmp_extended_keycode_converter.h"
+#include "bmp_custom_keycode.h"
+
 
 typedef struct
 {
@@ -16,6 +19,9 @@ typedef struct
   uint32_t keymap_len;
   KEYMAP_LOCALE locale;
   char tail[16];
+
+  bmp_ex_keycode_t *bmp_ek;
+  uint16_t ek_num;
 } json_keymap_convert_inst_t;
 
 typedef struct
@@ -25,6 +31,8 @@ typedef struct
   uint32_t keymap_len;
   KEYMAP_LOCALE locale;
   uint8_t use_ascii;
+
+  bmp_ex_keycode_t *bmp_ek;
 } keymap_json_convert_inst_t;
 
 typedef struct

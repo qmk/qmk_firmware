@@ -15,6 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "bmp.h"
+#include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
 
 // Defines the keycodes used by our macros in process_record_user

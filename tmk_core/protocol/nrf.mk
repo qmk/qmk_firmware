@@ -2,7 +2,10 @@ PROTOCOL_DIR = protocol
 NRF_DIR = $(PROTOCOL_DIR)/nrf
 
   SRC += $(NRF_DIR)/matrix.c \
-  				$(NRF_DIR)/io_expander.c \
+		 $(NRF_DIR)/matrix_basic.c \
+		 $(NRF_DIR)/matrix_lpme.c \
+		 $(NRF_DIR)/matrix_duplex.c \
+		 $(NRF_DIR)/lpme.c \
 
  SRC += \
        $(NRF_DIR)/main_master.c \
@@ -16,6 +19,8 @@ NRF_DIR = $(PROTOCOL_DIR)/nrf
        $(NRF_DIR)/keycode_str_converter.c \
        $(NRF_DIR)/config_file_util.c \
        $(NRF_DIR)/bmp.c \
+       $(NRF_DIR)/bmp_extended_keycode_converter.c \
+       $(NRF_DIR)/bmp_process_extended_keycode.c \
 
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/core
 VPATH += $(TMK_PATH)/$(NRF_DIR)/microshell/util

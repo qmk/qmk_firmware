@@ -1,6 +1,9 @@
 
 #include "bmp.h"
 #include "bmp_encoder.h"
+#include "bmp_custom_keycode.h"
+#include "bmp_process_extended_keycode.h"
+#include "keycode_str_converter.h"
 
 #include <stdint.h>
 #include "quantum.h"
@@ -78,6 +81,12 @@
 #endif
 
 
+void bmp_action_exec(keyevent_t event)
+{
+    bmp_action_exec_impl(event);
+    action_exec(event);
+}
+
 static int sleep_enter_counter = -1;
 
 /** \brief Keyboard task: Do keyboard routine jobs
@@ -108,6 +117,8 @@ void bmp_keyboard_task(void)
     matrix_scan();
 #endif
 
+    // bmp_check_timeout_extended_keycode();
+
 #ifdef BMP_ENCODER_ENABLE
     bmp_encoder_read();
 #endif
@@ -126,7 +137,7 @@ void bmp_keyboard_task(void)
                 if (debug_matrix) matrix_print();
                 for (uint8_t c = 0; c < config->matrix.cols; c++) {
                     if (matrix_change & ((matrix_row_t)1<<c)) {
-                        action_exec((keyevent_t){
+                        bmp_action_exec((keyevent_t){
                             .key = (keypos_t){ .row = r, .col = c },
                             .pressed = (matrix_row & ((matrix_row_t)1<<c)),
                             .time = (timer_read() | 1) /* time should not be 0 */
@@ -149,7 +160,7 @@ void bmp_keyboard_task(void)
     // we can get here with some keys processed now.
     if (!keys_processed)
 #endif
-    action_exec(TICK);
+    bmp_action_exec(TICK);
 
 MATRIX_LOOP_END:
 
@@ -239,6 +250,9 @@ char keymap_string[10*1024];
 bmp_qmk_config_t bmp_qmk_config;
 char qmk_config_string[1024];
 
+bmp_ex_keycode_t bmp_ex_keycodes[BMP_EX_KC_LEN];
+uint32_t bmp_ex_keycode_num;
+
 char *strnstr(const char *haystack, const char *needle, size_t len) {
   int i;
   size_t needle_len;
@@ -294,11 +308,18 @@ void parse_and_save_keymap(void)
     json_keymap_convert_inst_t inst;
     json_to_keymap_init(&inst, keymap, sizeof(keymap)/sizeof(keymap[0]));
     inst.locale = BMPAPI->app.get_config()->keymap.locale;
+    inst.bmp_ek = bmp_ex_keycodes;
+    memset(bmp_ex_keycodes, 0, sizeof(bmp_ex_keycodes));
+
     if (json_to_keymap_conv(&inst, keymap_string) == 0)
     {
         xprintf("Update keymap. length:%d\r\n", inst.keymap_idx);
+        xprintf("%d extended keycodes are found\r\n", inst.ek_num);
         BMPAPI->app.set_keymap(keymap, inst.keymap_idx);
+        bmp_ex_keycode_num = inst.ek_num;
         BMPAPI->app.save_file(1);
+
+        save_ex_keycode_file();
     }
     else
     {
@@ -437,6 +458,8 @@ static inline void update_keymap_string(bmp_api_config_t const * config,
   keymap_to_json_init(&keymap_conv_inst, keymap_info->array, keymap_info->len);
   keymap_conv_inst.locale = config->keymap.locale;
   keymap_conv_inst.use_ascii = config->keymap.use_ascii;
+  keymap_conv_inst.bmp_ek = bmp_ex_keycodes;
+
   strcpy(str, "{\"layers\":\r\n");
   keymap_to_json_conv_layout(&keymap_conv_inst, str + 12,
       len-12, config->matrix.layout);
@@ -553,6 +576,7 @@ void bmp_init()
     BMPAPI->ble.set_nus_rcv_cb(nus_rcv_callback);
   }
 
+  load_ex_keycode_file(); // load exkc before tapping_term
   load_tapping_term_file();
   load_eeprom_emulation_file();
 
@@ -589,6 +613,7 @@ int load_eeprom_emulation_file()
   BMPAPI->app.get_file(QMK_EE_RECORD, &eeprom_file, &eeprom_file_length);
   if (eeprom_file == NULL)
   {
+    BMPAPI->app.save_file(QMK_EE_RECORD); // create eeprom file
     return 1;
   }
 
@@ -635,6 +660,7 @@ int load_tapping_term_file()
   BMPAPI->app.get_file(QMK_RECORD, (uint8_t**)&p_qmk_config, &qmk_config_file_len);
   if (p_qmk_config == NULL)
   {
+    BMPAPI->app.save_file(QMK_RECORD);
     bmp_qmk_config.tapping_term[0].qkc = KC_NO;
     bmp_qmk_config.tapping_term[0].tapping_term = TAPPING_TERM;
     return 1;
@@ -660,6 +686,55 @@ int save_tapping_term_file()
 
   return BMPAPI->app.save_file(QMK_RECORD);
 }
+
+int load_ex_keycode_file()
+{
+  bmp_ex_keycode_t *p_ex_keycode;
+  uint32_t ex_keycode_len;
+
+  BMPAPI->app.get_file(BMP_EX_KEYCODE_RECORD,
+     (uint8_t**)&p_ex_keycode, &ex_keycode_len);
+  if (p_ex_keycode == NULL)
+  {
+    bmp_ex_keycodes[0].byte[0] = 0;
+    return 1;
+  }
+  memcpy(&bmp_ex_keycodes[0], p_ex_keycode, sizeof(bmp_ex_keycodes));
+
+  for (bmp_ex_keycode_num=0;
+         bmp_ex_keycode_num<sizeof(bmp_ex_keycodes)/sizeof(bmp_ex_keycodes[0]);
+         bmp_ex_keycode_num++)
+  {
+    if (bmp_ex_keycodes[bmp_ex_keycode_num].byte[0] ==  0)
+    {
+      break;
+    }
+  }
+
+  return 0;
+}
+
+int save_ex_keycode_file()
+{
+  bmp_ex_keycode_t *p_ex_keycode;
+  uint32_t ex_keycode_len;
+
+  BMPAPI->app.get_file(BMP_EX_KEYCODE_RECORD,
+     (uint8_t**)&p_ex_keycode, &ex_keycode_len);
+  if (p_ex_keycode == NULL)
+  {
+    // create new file
+    BMPAPI->app.save_file(BMP_EX_KEYCODE_RECORD);
+    BMPAPI->app.get_file(BMP_EX_KEYCODE_RECORD,
+        (uint8_t**)&p_ex_keycode, &ex_keycode_len);
+
+    if (p_ex_keycode == NULL) { return 1; }
+  }
+
+  memcpy(p_ex_keycode, &bmp_ex_keycodes[0], ex_keycode_len);
+  return BMPAPI->app.save_file(BMP_EX_KEYCODE_RECORD);
+}
+
 
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
@@ -698,10 +773,41 @@ void set_ble_enabled(bool enabled) { ble_enabled = enabled; }
 bool get_usb_enabled() { return usb_enabled; }
 void set_usb_enabled(bool enabled) { usb_enabled = enabled; }
 
-
 bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)
 {
   char str[16];
+
+  switch (keycode) {
+    case xEISU:
+      if (record->event.pressed) {
+        if(keymap_config.swap_lalt_lgui==false){
+          register_code(KC_LANG2);
+        }else{
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG2);
+      }
+      return false;
+      break;
+
+    case xKANA:
+      if (record->event.pressed) {
+        if(keymap_config.swap_lalt_lgui==false){
+          register_code(KC_LANG1);
+        }else{
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG1);
+      }
+      return false;
+      break;
+
+    default:
+      break;
+  }
+
   if (record->event.pressed) {
     switch (keycode) {
       case BLE_DIS:
@@ -714,6 +820,14 @@ bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)
         set_usb_enabled(false);
         return false;
       case USB_EN:
+        set_usb_enabled(true);
+        return false;
+      case SEL_BLE:
+        set_usb_enabled(false);
+        set_ble_enabled(true);
+        return false;
+      case SEL_USB:
+        set_ble_enabled(false);
         set_usb_enabled(true);
         return false;
       case ADV_ID0...ADV_ID7:
@@ -738,6 +852,12 @@ bool process_record_user_bmp(uint16_t keycode, keyrecord_t *record)
         snprintf(str, sizeof(str), "%4dmV", BMPAPI->app.get_vcc_mv());
         send_string(str);
         return false;
+      case SAVE_EE:
+        save_eeprom_emulation_file();
+        return false;
+      case DEL_EE:
+        BMPAPI->app.delete_file(QMK_EE_RECORD);
+        return false;
     }
   }
   else if (!record->event.pressed) {
@@ -755,3 +875,4 @@ __attribute__((weak))uint32_t keymaps_len()
 {
   return 0;
 }
+

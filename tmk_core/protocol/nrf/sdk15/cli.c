@@ -186,6 +186,20 @@ static MSCMD_USER_RESULT usrcmd_debug_enable(MSOPT *msopt, MSCMD_USER_OBJECT usr
         if (strcmp(arg, "on") == 0)
         {
             debug_enable = true;
+        }
+        else if (strcmp(arg, "keyboard") == 0)
+        {
+            debug_enable = true;
+            debug_keyboard = true;
+        }
+        else if (strcmp(arg, "mouse") == 0)
+        {
+            debug_enable = true;
+            debug_mouse = true;
+        }
+        else if (strcmp(arg, "all") == 0)
+        {
+            debug_enable = true;
             debug_keyboard = true;
             debug_mouse = true;
         }

@@ -15,6 +15,9 @@
 #include "keycode_str_converter.h"
 #include "config_file_util.h"
 
+#include "bmp_extended_keycode_converter.h"
+#include "bmp_custom_keycode.h"
+
 void json_to_keymap_init(json_keymap_convert_inst_t * const inst,
     uint16_t * keymap, uint32_t keymap_len)
 {
@@ -25,6 +28,27 @@ void json_to_keymap_init(json_keymap_convert_inst_t * const inst,
   memset(inst->tail, 0, sizeof(inst->tail));
 }
 
+
+static uint16_t register_ex_kc(json_keymap_convert_inst_t* const inst,
+    bmp_ex_keycode_t const * const ek)
+{
+    for (int idx=0; idx<BMP_EX_KC_LEN; idx++)
+    {
+        if (inst->bmp_ek[idx].byte[0] == 0)
+        {
+            memcpy(&inst->bmp_ek[idx], ek, sizeof(bmp_ex_keycode_t));
+            return EXKC_START + idx;
+        }
+        else if (memcmp(&inst->bmp_ek[idx], ek, sizeof(bmp_ex_keycode_t)) ==  0)
+        {
+            return EXKC_START + idx;
+        }
+    }
+
+    return KC_NO;
+}
+
+
 // Return quantum keycode from json strings.
 // inst->tail contains partial string if quotation is not closed
 int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
@@ -33,6 +57,8 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
   const char * str;
   const char * str2;
   const char * str3;
+
+  inst->ek_num = 0;
 
   if ((inst->keymap_idx == 0) && inst->tail[0]=='\0')
   {
@@ -96,6 +122,18 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
 
     uint16_t kc = str2quantum_keycode_locale(str, str2-str, inst->locale);
 
+    if (kc == EXKC_START)
+    {
+        bmp_ex_keycode_t ek;
+        str2bmp_ex_keycode_locale(&ek, str, str2-str, inst->locale);
+        kc = register_ex_kc(inst, &ek);
+        if (kc != KC_NO)
+        {
+            inst->ek_num = inst->ek_num > (kc - EXKC_START + 1) ? inst->ek_num
+                            : (kc - EXKC_START + 1);
+        }
+    }
+
     if (kc == KC_NO && memcmp(str, "author", 6) == 0)
     {
       // layer array is closed. stop parsing
@@ -136,9 +174,18 @@ void keymap_to_json_conv(keymap_json_convert_inst_t * const inst,
       inst->keymap_idx < inst->keymap_len;
       inst->keymap_idx++)
   {
+    uint16_t kc = inst->keymap[inst->keymap_idx];
+    if (EXKC_START <= kc && kc <= EXKC_END)
+    {
+        key_strlen = bmp_ex_keycode2str_locale(&inst->bmp_ek[kc-EXKC_START],
+            str, sizeof(str), inst->locale, inst->use_ascii);
+    }
+    else
+    {
+        key_strlen = quantum_keycode2str_locale(inst->keymap[inst->keymap_idx],
+            str, sizeof(str), inst->locale, inst->use_ascii);
+    }
 
-    key_strlen = quantum_keycode2str_locale(inst->keymap[inst->keymap_idx],
-        str, sizeof(str), inst->locale, inst->use_ascii);
     if (key_strlen + 6> len)
     {
       break;
@@ -147,6 +194,7 @@ void keymap_to_json_conv(keymap_json_convert_inst_t * const inst,
     {
       len -= key_strlen + 2;
     }
+
     if (inst->keymap_idx % (key_num) == 0)
     {
       if (inst->keymap_idx == 0)
@@ -198,13 +246,23 @@ void keymap_to_json_conv_layout(keymap_json_convert_inst_t * const inst,
   char str[64];
   uint8_t key_strlen;
   const uint8_t* matrix_pos = layout;
+  uint16_t kc;
   for ( ;
       inst->keymap_idx < inst->keymap_len;
       inst->keymap_idx++, matrix_pos++)
   {
-
-    key_strlen = quantum_keycode2str_locale(inst->keymap[inst->keymap_idx],
-      str, sizeof(str), inst->locale, inst->use_ascii);
+    kc = inst->keymap[inst->keymap_idx];
+    if (EXKC_START <= kc && kc <= EXKC_END)
+    {
+        key_strlen = bmp_ex_keycode2str_locale(&inst->bmp_ek[kc - EXKC_START],
+                str, sizeof(str),
+                inst->locale, inst->use_ascii);
+    }
+    else
+    {
+        key_strlen = quantum_keycode2str_locale(kc, str, sizeof(str),
+                inst->locale, inst->use_ascii);
+    }
     if (key_strlen + 7> len)
     {
       break;
@@ -555,8 +613,11 @@ int32_t config_to_json_conv(bmp_api_config_t const * const config,
   col_pins[0] = '\0';
 
   str2 = row_pins;
-  for (int i=0; i<config->matrix.device_rows; i++)
+  for (int i=0; i<sizeof(config->matrix.row_pins); i++)
   {
+    if (config->matrix.row_pins[i] == 0) {
+        break;
+    }
     written = snprintf(str2, sizeof(row_pins), "%d,", config->matrix.row_pins[i]);
     str2 += written;
   }
@@ -566,8 +627,11 @@ int32_t config_to_json_conv(bmp_api_config_t const * const config,
   }
 
   str2 = col_pins;
-  for (int i=0; i<config->matrix.device_cols; i++)
+  for (int i=0; i<sizeof(config->matrix.col_pins); i++)
   {
+    if (config->matrix.col_pins[i] == 0) {
+        break;
+    }
     written = snprintf(str2, sizeof(col_pins), "%d,", config->matrix.col_pins[i]);
     str2 += written;
   }
@@ -771,6 +835,7 @@ int32_t is_json_closed(const char * json, uint32_t len)
   }
 }
 
+extern bmp_ex_keycode_t bmp_ex_keycodes[];
 uint32_t json_to_tapping_term_config_conv(const char* json,
     bmp_qmk_config_t * conf, KEYMAP_LOCALE locale)
 {
@@ -792,6 +857,16 @@ uint32_t json_to_tapping_term_config_conv(const char* json,
     if (res == 0)
     {
       conf->tapping_term[i].qkc = str2quantum_keycode_locale(pstr, keylen, locale);
+
+      if (conf->tapping_term[i].qkc == EXKC_START)
+      {
+        bmp_ex_keycode_t ek;
+        json_keymap_convert_inst_t inst;
+        inst.bmp_ek = bmp_ex_keycodes;
+        str2bmp_ex_keycode_locale(&ek, pstr, keylen, locale);
+        conf->tapping_term[i].qkc = register_ex_kc(&inst, &ek);
+      }
+
       pstr = strchr(pstr, ':') + 1;
       conf->tapping_term[i].tapping_term = atoi(pstr);
       pstr2 = pstr;
@@ -810,14 +885,24 @@ void tapping_term_config_to_json_conv(bmp_qmk_config_t const * const conf,
 {
   char key_str[32];
   uint32_t written = 0;
+  uint16_t kc;
 
   written = snprintf(json, json_len,  "{\"tapping_term\":{\r\n\t");
   json += written;
   json_len -= written;
   for (int i=0; i<16 && json_len > 0; i++)
   {
-    quantum_keycode2str_locale(conf->tapping_term[i].qkc, key_str, sizeof(key_str),
-        locale, use_ascii);
+    kc = conf->tapping_term[i].qkc;
+    if (EXKC_START <= kc && kc <= EXKC_END)
+    {
+        bmp_ex_keycode2str_locale(&bmp_ex_keycodes[kc-EXKC_START],
+            key_str, sizeof(key_str), locale, use_ascii);
+    }
+    else
+    {
+        quantum_keycode2str_locale(conf->tapping_term[i].qkc, key_str, sizeof(key_str),
+                locale, use_ascii);
+    }
     written = snprintf(json, json_len,  "\"%s\":%d,\r\n\t", key_str, conf->tapping_term[i].tapping_term);
     json += written;
     json_len -= written;
