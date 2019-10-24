@@ -14,15 +14,11 @@ void matrix_init_user(void) {
   debug_config.enable = 1;
 }
 
-
-
 void encoder_update_user(int8_t index, bool clockwise) {
-  if (index == 0) {
     if (clockwise) {
       tap_code(KC_PGUP);
     } else {
       tap_code(KC_PGDN);
     }
-  }
 }
 

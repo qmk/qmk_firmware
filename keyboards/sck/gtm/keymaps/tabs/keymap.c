@@ -15,12 +15,10 @@ void matrix_init_user(void) {
 }
 
 void encoder_update_user(int8_t index, bool clockwise) {
-  if (index == 0) {
     if (clockwise) {
       tap_code16(C(KC_T));
     } else {
       tap_code16(C(KC_W));
     }
-  }
 }
 
