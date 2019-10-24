@@ -1,2 +1,2 @@
-# Bootloader selection
-BOOTLOADER = USBasp
+# Build options
+
