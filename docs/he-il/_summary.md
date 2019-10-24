@@ -2,6 +2,7 @@
 **בשפה העברית**
 * [בסיס QMK](he-il/README.md)
     * [מבוא לQMK](he-il/getting_started_introduction.md)
+    * [קבלת עזרה](he-il/getting_started_getting_help.md)
 * [שאלות נפוצות](he-il/faq.md)
     * [שאלות נפוצות כלליות](he-il/faq_general.md)
 * [חומרה](he-il/hardware.md)
