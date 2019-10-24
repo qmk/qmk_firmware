@@ -7,6 +7,7 @@ most FFF/FDM printers. It's inspired by the [Viterbi](https://keeb.io/products/v
 [Dactyl Manuform](https://github.com/adereth/dactyl-keyboard) keyboards.
 
 Keyboard Maintainer: [Mike Hix](https://github.com/musl/)
+Case: [https://github.com/musl/chiron-keyboard](https://github.com/musl/chiron-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
