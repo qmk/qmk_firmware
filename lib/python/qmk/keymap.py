@@ -111,7 +111,7 @@ def find_keymaps(base_path, revision = "", community = False):
         community: Set to True for the layouts under layouts/community.
 
     Returns:
-        a list with whe keymaps's names
+        a set with the keymaps's names
     """
     path_wildcard = os.path.join(base_path, "**", "keymap.c")
     if community:
@@ -119,7 +119,7 @@ def find_keymaps(base_path, revision = "", community = False):
     else:
         path_regex = re.compile(r"^" + re.escape(base_path) + "(?:" + re.escape(revision) + os.path.sep + ")?keymaps" + os.path.sep + "(\S+)" + os.path.sep + "keymap\.c")
     names = [path_regex.sub(lambda name: name.group(1), path) for path in glob.iglob(path_wildcard, recursive = True) if path_regex.search(path)]
-    return names
+    return set(names)
 
 def list_keymaps(keyboard_name):
     """ List the available keymaps for a keyboard.
@@ -128,7 +128,7 @@ def list_keymaps(keyboard_name):
         keyboard_name: the keyboards full name with vendor and revision if necessary, example: clueboard/66/rev3
 
     Returns:
-        a list with the names of the available keymaps
+        a set with the names of the available keymaps
     """
     if os.path.sep in keyboard_name:
         keyboard, revision = os.path.split(os.path.normpath(keyboard_name))
@@ -138,7 +138,7 @@ def list_keymaps(keyboard_name):
 
     # parse all the rules.mk files for the keyboard
     rules_mk = qmk.makefile.get_rules_mk(keyboard, revision)
-    names = list()
+    names = set()
 
     if rules_mk:
         # get the keymaps from the keyboard's directory
@@ -151,5 +151,4 @@ def list_keymaps(keyboard_name):
                 cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
                 names = names + find_keymaps(cl_base_path, revision, community = True)
 
-    names.sort()
-    return names
+    return sorted(names)
