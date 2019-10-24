@@ -24,7 +24,6 @@
 #ifdef KEYBOARD_thevankeyboards_minivan
   #define BACKLIGHT_PIN B7
   #define BACKLIGHT_LEVELS 1
-  #define BACKLIGHT_CAPS_LOCK
 #endif // Minivan
 
 // RGB_Matrix settings
