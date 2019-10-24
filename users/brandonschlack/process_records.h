@@ -20,6 +20,7 @@ void matrix_scan_cmd_tab(void);
 
 // Useful Defines
 #define HY_CAPS   ALL_T(KC_CAPS)
+#define HY_ESC    ALL_T(KC_ESC)
 #define SF_CAPS   LSFT_T(KC_CAPS)
 #define TG_ADJT   TG(_ADJUST)
 #define TG_LGHT   TG(_LIGHT)
