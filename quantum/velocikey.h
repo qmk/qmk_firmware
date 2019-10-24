@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifndef TYPING_SPEED_MAX_VALUE
+#   define TYPING_SPEED_MAX_VALUE 200
+#endif
+
 bool    velocikey_enabled(void);
 void    velocikey_toggle(void);
 void    velocikey_accelerate(void);

@@ -27,4 +27,10 @@ Support for LED breathing effects is planned but not available yet.
  As long as Velocikey is enabled, it will control the speed regardless of any other speed setting that your RGB lights are currently on.
 
  ## Configuration
- Velocikey doesn't currently support any configuration via keyboard settings. If you want to adjust something like the speed increase or decay rate, you would need to edit `velocikey.c` and adjust the values there to achieve the kinds of speeds that you like.
+ You are able to configure the top typing speed that Velocikey considers the
+ fastest with the define below. However, the decay rate is currently not
+ configurable.
+|Define               |Default      |Description                                                                  |
+|---------------------|-------------|-----------------------------------------------------------------------------|
+|`TYPING_SPEED_MAX_VALUE`  |`200`         |Top typing speed that Velocikey says is the fastest                              |
+

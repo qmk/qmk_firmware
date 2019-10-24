@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 
+#define TYPING_SPEED_MAX_VALUE 100
 
 #if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
 #define NO_DEBUG
