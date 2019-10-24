@@ -30,7 +30,7 @@ Support for LED breathing effects is planned but not available yet.
  You are able to configure the top typing speed that Velocikey considers the
  fastest with the define below. However, the decay rate is currently not
  configurable.
-|Define               |Default      |Description                                                                  |
-|---------------------|-------------|-----------------------------------------------------------------------------|
-|`TYPING_SPEED_MAX_VALUE`  |`200`         |Top typing speed that Velocikey says is the fastest                              |
+|Define                    |Default      |Description                                                                  |
+|--------------------------|-------------|-----------------------------------------------------------------------------|
+|`TYPING_SPEED_MAX_VALUE`  |`200`        |Top typing speed that Velocikey says is the fastest                          |
 
