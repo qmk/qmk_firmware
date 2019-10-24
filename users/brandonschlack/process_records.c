@@ -36,6 +36,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_make_command(flash);
             }
             break;
+        case QM_FLSH: // Sends Make command with :flash target
+            if (record->event.pressed) {
+                send_make_command(true);
+            }
+            break;
         case QM_VRSN:  // Prints firmware version
             if (record->event.pressed) {
                 send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), SEND_STRING_DELAY);

@@ -4,6 +4,7 @@
 // Macros
 enum custom_keycodes {
     QM_MAKE = SAFE_RANGE,
+    QM_FLSH,
     QM_VRSN,
     QM_KYBD,
     QM_KYMP,
