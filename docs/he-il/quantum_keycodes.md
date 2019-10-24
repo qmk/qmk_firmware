@@ -8,7 +8,8 @@
 בעמודו זה יש לנו את קודי המקשים מתועדים בין `0x00FF` ֿֿ ל- `0xFFFF` אשר משומשים בשביל לממש יכולות מתקדמות של quantum. אם תגדירו קודי מקשים משלכם, הם יתווספו לתוך המרחב הזה גם כן.
 
 ## קודי מקשים של QMK
-<div dir="ltr">
+<div dir="ltr"  markdown="1">
+```
 |Key            |Aliases    |Description                                                          |
 |---------------|-----------|---------------------------------------------------------------------|
 |`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
@@ -27,5 +28,6 @@
 |`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
 |`M(n)`         |           |Call macro `n`                                                       |
 |`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
+```
 </div>
 </div>

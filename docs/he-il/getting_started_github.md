@@ -19,7 +19,8 @@ Github עלול להיות קצת טריקי למי שלא מכיר את העב�
 
 מכאן והלאה, הקיש `git clone ` בשורת הפקודה והדביקו את הלינק שלכם:
 
-<div dir="auto">
+<div dir="ltr" markdown="1">
+
 ```
 user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
@@ -30,11 +31,13 @@ Receiving objects: 100% (46625/46625), 84.47 MiB | 3.14 MiB/s, done.
 Resolving deltas: 100% (29362/29362), done.
 Checking out files: 100% (2799/2799), done.
 ```
+
 </div>
 
 כעת, יש לכם את ה-fork של QMK על המכונה המקומית שלכם ואתם יכולים להוסיף את מיפויי המקשים שלכם, לקמפל את הפרוייקט ולצרוב אותו על הלוח שלכם. כשאתם שלמים עם השינוי שעשיתם, תוכלו להוסיף, לבצע פעולת commit ולדחוף את השינויים ל-fork שלכם באופן הבא:
 
-<div dir="ltr">
+<div dir="ltr" markdown="1">
+
 ```
 user@computer:~$ git add .
 user@computer:~$ git commit -m "adding my keymap"
@@ -51,6 +54,7 @@ remote: Resolving deltas: 100% (1/1), completed with 1 local objects.
 To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
+
 </div>
 
 השינויים שלכם יופיעו ב-fork שלכם ב-GitHub - אם תחזרו לשם  (`https://github.com/<whoeveryouare>/qmk_firmware`), תוכלו ליצור "Pull Request חדש" ע״י הקשה על הכפתור הבא:
