@@ -605,13 +605,14 @@ class MILC(object):
             raise RuntimeError('You must run this before the with statement!')
 
         if self._subparsers is None:
-            self.add_subparsers()
+            self.add_subparsers(metavar="")
 
         if not name:
             name = handler.__name__.replace("_", "-")
 
         self.acquire_lock()
         if not hidden:
+            self._subparsers.metavar = "{%s,%s}" % (self._subparsers.metavar[1:-1], name) if self._subparsers.metavar else "{%s%s}" % (self._subparsers.metavar[1:-1], name)
             kwargs['help'] = description
         self.subcommands_default[name] = self._subparsers_default.add_parser(name, **kwargs)
         self.subcommands[name] = SubparserWrapper(self, name, self._subparsers.add_parser(name, **kwargs))
@@ -625,7 +626,7 @@ class MILC(object):
         """Decorator to register a subcommand.
         """
         def subcommand_function(handler):
-            return self.add_subcommand(handler, description, hidden = hidden, **kwargs)
+            return self.add_subcommand(handler, description, hidden=hidden, **kwargs)
 
         return subcommand_function
 
