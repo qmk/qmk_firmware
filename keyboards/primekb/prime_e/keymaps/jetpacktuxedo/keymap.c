@@ -81,7 +81,7 @@ void matrix_scan_user(void) {
 }
 
 //function for layer indicator LED
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     if (layer_state_cmp(state, 1)) {
         writePinHigh(CAPS_LED_PIN);
     } else {
