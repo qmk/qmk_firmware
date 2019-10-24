@@ -40,7 +40,7 @@ def test_pyformat():
 
 
 def test_list_keyboards():
-    result = check_subcommand('list_keyboards')
+    result = check_subcommand('list-keyboards')
     assert result.returncode == 0
     # check to see if a known keyboard is returned
     # this will fail if handwired/onekey/pytest is removed
