@@ -139,29 +139,31 @@ Start by installing the switches and stabilisers in the plate. Depending on the 
 
 ## Planning the matrix
 
+If you are following a pre-existing handwire guide (e.g. for the keyboards in the [handwire firmware section](/keyboards/handwired/) you can skip this step, just ensure you wire the matrix as described.
+
 What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
 
-It is fairly simple to plan for an ortholinear keyboard (like a planck) 
+It is fairly simple to plan for an ortholinear keyboard (like a Planck).
 
 ![Example planck matrix](https://i.imgur.com/FRShcLD.png)
 Image from [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
 
-But the larger and more complicated your keyboard, the more complex the matrix.  [Keyboard Firmware Builder](https://kbfirmware.com/) can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com)
+But the larger and more complicated your keyboard, the more complex the matrix.  [Keyboard Firmware Builder](https://kbfirmware.com/) can help you plan your matrix layout (shown here with a basic fullsize ISO keyboard imported from [Keyboard Layout Editor](http://www.keyboard-layout-editor.com).
 
 ![Example ISO matrix](https://i.imgur.com/UlJ4ZDP.png)
 
-Also bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro
+ Bear in mind that the number of rows plus the number of columns can not exceed the number of I/O pins on your controller.  So the fullsize matrix shown above would be possible on a Proton C or Teensy++, but not on a regular Teensy or Pro Micro
 
 #### Common Microcontroller Boards
 
 | Board         | Controller    | # I/O  | Pinout |
 | :------------ |:-------------:| ------:| ------ |
-| Pro Micro     | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro)       |
+| Pro Micro*     | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro#Teensy++_2.0)       |
 | Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
-| QMK Proton C      | STM32F303xC   |     36 | [link 1](https://i.imgur.com/RhtrAlc.png), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
-| Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html)       |
+| [QMK Proton C](https://qmk.fm/proton-c/)      | STM32F303xC   |     36 | [link 1](https://i.imgur.com/RhtrAlc.png), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
+| Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html#Teensy_2.0)       |
 
- 
+*Elite C is essentially the same as a pro micro with a USB-C instead of Micro-USB
 
 ## Wiring the matrix
 
@@ -199,9 +201,9 @@ If your iron has temperature control, set it to 315ºC (600ºF).
 
 Once heated, tin your soldering iron - this means melting a small amount of solder on the end of the iron and then quickly wiping it off on a wet sponge or wire cleaning pad, leaving a shiny silvery coating on the end which helps keep oxidisation at bay and helps solder to flow.
 
-When you come to apply the solder, hold the soldering iron against the two surfaces for a second to heat it, then apply a small amount of solder to join the two peices together.  Heating the surfaces ensures that the solder adheres to it and that it does not cool too quickly.
+When you come to apply the solder, hold the soldering iron against the two surfaces for a second to heat it, then apply a small amount of solder to join the two pieces together.  Heating the surfaces ensures that the solder adheres to it and that it does not cool too quickly.
 
-Don't hold the iron on the solder/joint longer than necessary, heat will be conducted through the surfaces and can damage components (melt switch housings etc.) also solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting), the longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which apart from looking bad, may also increase the risk of shorts.
+Don't hold the iron on the solder/joint longer than necessary. Heat will be conducted through the surfaces and can damage components (melt switch housings etc.).  Also, solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting).  The longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which, apart from looking bad, may also increase the risk of electrical shorts.
 
 The following collapsible section describes in detail how to solder rows using the bent diode technique and columns using short lengths of wire.
 
@@ -291,12 +293,12 @@ From here, you should have a working keyboard once you program a firmware.
 
 Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](http://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix).
 
-Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below.
+Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below, or using the more comprehensive [getting started guide.](/docs/newbs_getting_started)
 
 
 <details>
 
-<summary>Creating and compiling your firmware locally (old method)</summary>
+<summary>Creating and compiling your firmware locally (command line method)</summary>
 
 To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
