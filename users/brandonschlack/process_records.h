@@ -22,7 +22,7 @@ void matrix_scan_cmd_tab(void);
 #define HY_CAPS   ALL_T(KC_CAPS)
 #define HY_ESC    ALL_T(KC_ESC)
 #define SF_CAPS   LSFT_T(KC_CAPS)
-#define SFT_ENT   KC_SFTENT
+#define SFT_ENT   RSFT_T(KC_ENT)
 #define TG_ADJT   TG(_ADJUST)
 #define TG_LGHT   TG(_LIGHT)
 // Media Mod-Tap
