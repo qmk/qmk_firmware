@@ -51,7 +51,7 @@
 // When connecting Setta21 to Naked64.
 //////////////////////////////////////////////////////////////////////////////
 
-#define LAYOUT_With_Setta21( \
+#define LAYOUT_with_setta21( \
        L00, L20, L70, L31, L02, L52, L13,    L63, L34, L05, L45, L16, L66, L37,    R00, R01, R02, R03, R04, R05, \
        L10, L30, L01, L41, L12, L62, L23,    L73, L44, L15, L55, L26, L76, L47,         R11, R12, R13, R14, R15, \
             L40, L11, L51, L22, L72, L33,    L04, L54, L25, L65, L36, L07, L57,    R20, R21, R22, R23, R24, R25, \
