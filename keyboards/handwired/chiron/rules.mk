@@ -1,7 +1,6 @@
 # Required Items
 MCU = atmega32u4
 BOOTLOADER = atmel-dfu
-LAYOUTS = chiron
 SPLIT_KEYBOARD = yes
 
 # Stuff to turn off by default
