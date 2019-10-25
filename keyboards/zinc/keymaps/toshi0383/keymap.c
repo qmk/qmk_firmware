@@ -21,14 +21,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-
-//Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
   /* Qwerty
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -109,13 +101,6 @@ bool TOG_STATUS = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
