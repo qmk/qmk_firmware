@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _MOUSE:
       rgblight_sethsv_at(HSV_RED, 0);
       break;
