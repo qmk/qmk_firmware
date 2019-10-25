@@ -275,7 +275,6 @@ void encoder_update(bool clockwise) {
     if (clockwise) {
       #ifdef MOUSEKEY_ENABLE
         register_code(KC_MS_WH_DOWN);
-        unregister_code(KC_MS_WH_DOWN);
       #else
         tap_code(KC_PGDN);
         unregister_code(KC_PGDN);
