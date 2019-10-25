@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 
-enum planck_layers {
+enum aranck_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
