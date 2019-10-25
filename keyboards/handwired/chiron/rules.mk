@@ -1,4 +1,4 @@
-# Required Items
+# MCU name
 MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 SPLIT_KEYBOARD = yes
