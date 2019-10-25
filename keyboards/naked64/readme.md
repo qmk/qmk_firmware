@@ -5,7 +5,7 @@
 This is 64 keys modification Ortholinear keyboard. 
 
 Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)  
-Hardware Supported: Naked64SF PCB, Pro Micro
+Hardware Supported: Naked64SF PCB, Pro Micro  
 Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1418693)
 
 Make example for this keyboard (after setting up your build environment):
