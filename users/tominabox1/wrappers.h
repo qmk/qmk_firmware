@@ -46,13 +46,19 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________FKEY1___________________       KC_PASTA, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO
 #define ___________________FKEY2___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,   KC_F12,   KC_NO
 #define ___________________FKEY3___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
-#define ___________________FKEY4___________________       KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_TRNS,   KC_NO, KC_NO
+#define ___________________FKEY4___________________       KC_NO, KC_NO, KC_NO, KC_NO,   KC_TRNS,   KC_TRNS,   KC_NO, KC_NO
 
 // Dimple Adjust layer
-#define ___________________ADJST1__________________       RESET,RGBRST,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
+#define ___________________ADJST1__________________       RESET,RGBRST,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   TG(_GAMER)
 #define ___________________ADJST2__________________       RGB_M_P,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ___________________ADJST3__________________       RGB_MOD,   RGB_HUI,   RGB_HUD,   RGB_M_SN,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
-#define ___________________ADJST4__________________       RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_TRNS,   KC_NO,   KC_NO
+#define ___________________ADJST4__________________       RGB_VAD, RGB_TOG, RGB_VAI, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_NO,   KC_NO
+
+ // Dimple gaming Layer
+#define ___________________GAMER1__________________       KC_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, TO(_BASE)
+#define ___________________GAMER2__________________       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_NO, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, KC_NO
+#define ___________________GAMER3__________________       KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
+#define ___________________GAMER4__________________       KC_GRV, KC_ESC, KC_LALT, KC_SPC,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_LGUI
 
 /*
 __  __ _       _

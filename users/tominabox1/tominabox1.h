@@ -16,7 +16,8 @@ enum layers {
     _RAISE,
     _ADJUST,
     _ARROW,
-    _FKEY
+    _FKEY,
+    _GAMER
 };
 
 enum custom_keycodes {
