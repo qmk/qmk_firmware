@@ -1,4 +1,4 @@
-﻿# Acheron Aχξρων 40-SM-O-MX-TH-WI (Codename "SharkPCB") QMK firmware
+# Acheron Aχξρων 40-SM-O-MX-TH-WI (Codename "SharkPCB") QMK firmware
 
 <p align="center">
   <img align="middle" src="https://raw.githubusercontent.com/Gondolindrim/acheronLibrary/master/graphics/acheronLong.png"  width="400"> 
