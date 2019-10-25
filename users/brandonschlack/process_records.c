@@ -19,7 +19,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QM_MAKE: //
-            if (!record->event.pressed) {
+            if (record->event.pressed) {
                 bool flash = false;
         // If is a keyboard and auto-flash is not set in rules.mk,
         // then Shift will trigger the :flash target
@@ -38,6 +38,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case QM_FLSH: // Sends Make command with :flash target
             if (record->event.pressed) {
+                clear_mods();
+                clear_oneshot_mods();
                 send_make_command(true);
             }
             break;
