@@ -104,7 +104,7 @@ Further reading:
 - [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
-- [How keyboards work - QMK documentation](/docs/how_keyboards_work)
+- [How keyboards work - QMK documentation](/docs/how_keyboards_work.md)
 
 </details>
 
@@ -165,8 +165,16 @@ But the larger and more complicated your keyboard, the more complex the matrix. 
 
 *Elite C is essentially the same as a pro micro with a USB-C instead of Micro-USB
 
-## Wiring the matrix
+There are also a number of boards designed specifically for handwiring that mount directly to a small number of switches and offer pinouts for the rest.  Though these are generally more expensive and may be more difficult to get hold of.
 
+![Postage board mini mounted in place](https://i.imgur.com/QiA3ta6.jpg)
+
+| Board         | Controller    | # I/O  |
+| [Swiss helper](https://www.reddit.com/r/MechanicalKeyboards/comments/8jg5d6/hand_wiring_this_might_help/) |  ATmega32u4 | 20 |
+| [Postage board](https://github.com/LifeIsOnTheWire/Postage-Board/)| ATmega32u4| 25 |
+| [Postage board mini](https://geekhack.org/index.php?topic=101460.0)| ATmega32u4| 25 |
+
+## Wiring the matrix
 
 There is no one right way to do this.  What you want to achieve is good connection at all of the joints planned and no unintentional shorts.
 
@@ -184,6 +192,12 @@ Established materials and techniques include:
 
 
 Note that these methods can be combined.  Prepare your lengths of wire before moving on to soldering.
+
+
+### A note on split keyboards
+
+If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them.  Further information can be found in the [QMK split keyboard documentation.](/docs/feature_split_keyboard.md)
+
 
 ### Soldering
 
@@ -433,12 +447,12 @@ Install the [QMK toolbox](https://github.com/qmk/qmk_toolbox).
 
 Under "Local File" navigate to your newly created .hex file.  Under "Microcontroller", select the corresponding one for your controller board (common ones available [here](#common-microcontroller-boards)).
 
-Plug in your keyboard and press the reset button (or short the Reset and Ground pins if there is no button) and click the "Flash" button
+Plug in your keyboard and press the reset button (or short the Reset and Ground pins if there is no button) and click the "Flash" button in QMK toolbox.
 
 
 ## Testing Your Firmware
 
-Carefully flip your keyboard over, open up a new text document, and try typing - you should get the characters that you put into your keymap. Test each key, and note the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
+Use a website such as [keyboard tester](https://www.keyboardtester.com/tester.html)/[keyboard checker](http://keyboardchecker.com/) or just open a text editor and try typing - you should get the characters that you put into your keymap. Test each key, and make a note of the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
 
 0. Flip the keyboard back over and short the keyswitch's contacts with a piece wire - this will eliminate the possibility of the keyswitch being bad and needing to be replaced.
 1. Check the solder points on the keyswitch - these need to be plump and whole. If you touch it with a moderate amount of force and it comes apart, it's not strong enough.
@@ -447,22 +461,25 @@ Carefully flip your keyboard over, open up a new text document, and try typing -
 4. Check the solder joints on both sides of the wires going to/from the Teensy - the wires need to be fully soldered and connect to both sides.
 5. Check the `<project_name>.h` file for errors and incorrectly placed `KC_NO`s - if you're unsure where they should be, instead duplicate a k*xy* variable.
 6. Check to make sure you actually compiled the firmware and flashed the Teensy correctly. Unless you got error messages in the terminal, or a pop-up during flashing, you probably did everything correctly.
+7. Use a multimeter to check that the switch is actually closing when actuated (completing the circuit when pressed down).
 
 If you've done all of these things, keep in mind that sometimes you might have had multiple things affecting the keyswitch, so it doesn't hurt to test the keyswitch by shorting it out at the end.
 
-# Securing the Controller, Finishing Your Hardware, Getting Fancier Firmware
+# Finishing up
 
-Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
+Once you have confirmed that the keyboard is working, if you have used a seperate (non handwire specific) controller you will want to secure it in place.  This can be done in many different ways e.g. hot glue, double sided sticky tape, 3D printed caddy, electrical tape.
 
-There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards (Planck, Clueboard, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit](http://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/Uq7gcHh) for help!
+If you found this fullfilling you could experiment by adding additional features such as [in switch LEDs](https://geekhack.org/index.php?topic=94258.0), [in switch RGB](https://www.reddit.com/r/MechanicalKeyboards/comments/5s1l5u/photoskeyboard_science_i_made_a_handwired_rgb/), [RGB underglow](https://medium.com/@DavidNZ/hand-wired-custom-keyboard-cdd14429c7b3#.7a1ovebsk) or even an [OLED display!](https://www.reddit.com/r/olkb/comments/5zy7og/adding_ssd1306_oled_display_to_your_build/) 
+
+There are a lot of possibilities inside the firmware - explore [docs.qmk.fm](http://docs.qmk.fm) for a full feature list, and dive into the different keyboards to see how people use all of them. You can always stop by [the OLKB subreddit](http://reddit.com/r/olkb) or [QMK Discord](https://discord.gg/Uq7gcHh) for help!
 
 # Links to other guides:
 
 - [matt3o's step by step guide (BrownFox build)](https://deskthority.net/viewtopic.php?f=7&t=6050) also his [website](https://matt3o.com/hand-wiring-a-custom-keyboard/) and [video guide](https://www.youtube.com/watch?v=LVzpsjFWPP4)
-- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0) 
+- [Cribbit's "Modern hand wiring guide - stronger, cleaner, easier"](https://geekhack.org/index.php?topic=87689.0) 
 - [Sasha Solomon's "Building my first Keyboard"](https://medium.com/@sachee/building-my-first-keyboard-and-you-can-too-512c0f8a4c5f)
 - [RoastPotatoes' "How to hand wire a Planck"](https://blog.roastpotatoes.co/guide/2015/11/04/how-to-handwire-a-planck/)
-- [Masterzen's Handwired keyboard build log](http://www.masterzen.fr/2018/12/16/handwired-keyboard-build-log-part-1/)
+- [Masterzen's "Handwired keyboard build log"](http://www.masterzen.fr/2018/12/16/handwired-keyboard-build-log-part-1/)
 
 
 
