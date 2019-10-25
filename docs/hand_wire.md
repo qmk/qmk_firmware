@@ -441,7 +441,7 @@ Once you have your `<project_name>.hex` file, open up the Teensy loader applicat
 
 ## Flashing the Firmware
 
-Install the [QMK toolbox](https://github.com/qmk/qmk_toolbox).
+Install [QMK toolbox](https://github.com/qmk/qmk_toolbox).
 
 ![QMK Toolbox](https://i.imgur.com/86Cz30H.png)
 
