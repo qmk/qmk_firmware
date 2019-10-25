@@ -2,6 +2,7 @@
 
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
 #define TAP_HOLD_CAPS_DELAY 200
 
 #ifdef RGBLIGHT_ENABLE
@@ -12,7 +13,9 @@
 #   define RGB_THEME_ENABLE
 #endif
 
-#ifdef BOOTLOADER_USBASP
+#ifdef ENCODER_ENABLE
+#    define TAP_CODE_DELAY 10
+#else
 #    define TAP_CODE_DELAY 5
 #endif
 
