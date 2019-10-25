@@ -167,9 +167,10 @@ But the larger and more complicated your keyboard, the more complex the matrix. 
 
 There are also a number of boards designed specifically for handwiring that mount directly to a small number of switches and offer pinouts for the rest.  Though these are generally more expensive and may be more difficult to get hold of.
 
-![Postage board mini mounted in place](https://i.imgur.com/QiA3ta6.jpg)
+<img src="https://i.imgur.com/QiA3ta6.jpg" alt="Postage board mini mounted in place" width="500"/>
 
 | Board         | Controller    | # I/O  |
+| :------------ |:-------------:| ------:|
 | [Swiss helper](https://www.reddit.com/r/MechanicalKeyboards/comments/8jg5d6/hand_wiring_this_might_help/) |  ATmega32u4 | 20 |
 | [Postage board](https://github.com/LifeIsOnTheWire/Postage-Board/)| ATmega32u4| 25 |
 | [Postage board mini](https://geekhack.org/index.php?topic=101460.0)| ATmega32u4| 25 |
