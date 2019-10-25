@@ -313,6 +313,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_BSPC);
       }
       return false;
+    case KC_ESC:
+      if (record->event.pressed) {
+          if (get_mods() & MOD_MASK_CTRL) {
+              saved_mods = get_mods() & MOD_MASK_CTRL; // Mask off anything that isn't Shift
+              del_mods(saved_mods); // Remove any Shifts present
+              register_code(KC_GRV);
+          } else {
+              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+              register_code(KC_ESC);
+          }
+      } else {
+          add_mods(saved_mods);
+          unregister_code(KC_GRV);
+          unregister_code(KC_ESC);
+      }
+      return false;
     case RGB_RST:
       if (record->event.pressed) {
         eeconfig_update_rgb_matrix_default();
