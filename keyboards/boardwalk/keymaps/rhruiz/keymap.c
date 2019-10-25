@@ -16,6 +16,8 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
 
+const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}};
+
 // clang-format off
 #ifndef LAYOUT_kc
 #define LAYOUT_kc( \
@@ -46,6 +48,7 @@
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
 #define KC_RST RESET
+#define KC_ENTS SFT_T(KC_ENT)
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
 #    define KC_RVAI RGB_VAI
@@ -57,11 +60,11 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc(
-    GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS, EQL,  ESC, \
-    TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    QUOT, \
-    CESC, A,    S,    D,    F,    G,    HOME, PGUP, H,    J,    K,    L,    SCLN, ENT,  \
-    LSFT, Z,    X,    C,    V,    B,    END,  PGDN, N,    M,    COMM, DOT,  SLSH, RSFT, \
-    _FN2, LCTL, LALT, LGUI, _FN1, SPC,  SPC,  BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1 \
+    GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS, EQL,  ESC ,
+    TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
+    CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
+    LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
+    _FN2, LCTL, LALT, LGUI, _FN1, SPC,  SPC,  BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_kc(
@@ -82,35 +85,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEY_OVERRIDE] = LAYOUT_kc(
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
-    ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, ____, ____, ____, ____, DQUO,
-    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, ____, ____, COLN, PENT,
-    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, LT  , GT  , QUES, ____,
+    ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
+    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
+    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
   [_FN1] = LAYOUT_kc(
-    ____, F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
+    ____, EXLM, AT  , HASH, DLR , PERC, CIRC,   AMPR, ASTR, LPRN, RPRN, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, MINS, EQL , LBRC, RBRC, ____,   ____, ____, ____, ____, ____, ____, ____,
+    ____, ____, ____, ____, MINS, EQL , ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   DFN2, DFN2, ____, ____, ____, ____, ____
   ),
 
   [_FN2] = LAYOUT_kc(
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
+    ____, F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
-    ____, MS_L, MS_D, MS_R, LCBR, RCBR, WH_D,   ____, ____, ____, ____, ____, ____, ____,
+    ____, MS_L, MS_D, MS_R, UNDS, PLUS, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
-  [_CFG] = LAYOUT_kc(
-    ESC , SLCK, PAUS, MISS, RVAD, RVAI, RST ,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, RST ,
-    ____, _VUP, _VDN, MUTE, EJCT, ____, ____,   ____, HOME, PGDN, PGUP, END,  ____, ____,
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
+  [_CFG] = LAYOUT_ortho_5x14(
+    KC_ESC , KC_SLCK, KC_PAUS, KC_MISS, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, RESET  ,
+    _______, KC__VUP, KC__VDN, KC_MUTE, KC_EJCT, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
 
 // clang-format on
+
+void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
+
+bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1 || index == RGBLED_NUM / 2 || index == RGBLED_NUM - 1; }
+
+void rhruiz_update_layer_colors() {
+    if (biton32(layer_state) < 1UL) {
+        return;
+    }
+
+    uint16_t hue = 1;
+    uint8_t  sat = 0;
+
+    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)];
+    hue                        = hue_sat.hue;
+    sat                        = hue_sat.sat;
+
+    rhruiz_change_leds_to(hue, sat);
+}

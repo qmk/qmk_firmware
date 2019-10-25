@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc(
     GRV , 1   , 2   , 3   , 4   , 5   , 6   ,   6   , 7   , 8   , 9   , 0   , MINS, EQL,
     TAB , Q   , W   , E   , R   , T   , LBRC,   RBRC, Y   , U   , I   , O   , P   , BSLS,
-    CESC, A   , S   , D   , F   , G   , PGUP,   BSLS, H   , J   , K   , L   , SCLN, QUOT,
-    LSFT, Z   , X   , C   , V   , B   , PGDN,   ENT , N   , M   , COMM, DOT , SLSH, ENTS,
+    CESC, A   , S   , D   , F   , G   , PGUP,   ENT , H   , J   , K   , L   , SCLN, QUOT,
+    LSFT, Z   , X   , C   , V   , B   , PGDN,   BSLS, N   , M   , COMM, DOT , SLSH, ENTS,
     _FN2, LCTL, LALT, LGUI, _FN1, SPC , SPC ,   BFN2, BFN2, RGUI, LEFT, DOWN, UP  , RFN1
   ),
 
@@ -69,13 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_KEY_OVERRIDE] = LAYOUT_kc(
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
     ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
-    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, ____, ____, COLN, DQUO,
-    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, LT  , GT  , QUES, ____,
+    ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
+    ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
   [_FN1] = LAYOUT_kc(
-    ____, F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
+    ____, EXLM, AT  , HASH, DLR , PERC, CIRC,   ____, AMPR, ASTR, LPRN, RPRN, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
     ____, ____, ____, ____, MINS, EQL , ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -83,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN2] = LAYOUT_kc(
-    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
+    ESC , F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
-    ____, MS_L, MS_D, MS_R, LCBR, RCBR, WH_D,   ____, ____, ____, ____, ____, ____, ____,
+    ____, MS_L, MS_D, MS_R, UNDS, PLUS, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
