@@ -277,7 +277,7 @@ void encoder_update(bool clockwise) {
         register_code(KC_MS_WH_DOWN);
         unregister_code(KC_MS_WH_DOWN);
       #else
-        register_code(KC_PGDN);
+        tap_code(KC_PGDN);
         unregister_code(KC_PGDN);
       #endif
     } else {
