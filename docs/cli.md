@@ -198,7 +198,7 @@ This command creates a new keyboard.
 **Usage**:
 
 ```
-qmk new_keyboard [-kb KEYBOARD] [-t TYPE] [-u USERNAME]
+qmk new-keyboard [-kb KEYBOARD] [-t TYPE] [-u USERNAME]
 ```
 
 ## `qmk new-keymap`
