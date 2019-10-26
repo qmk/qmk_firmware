@@ -55,7 +55,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_EQUAL`             |`KC_EQL`                      |`=` and `+`                                    |
 |`KC_LBRACKET`          |`KC_LBRC`                     |`[` and `{`                                    |
 |`KC_RBRACKET`          |`KC_RBRC`                     |`]` and `}`                                    |
-|`KC_BSLASH`            |`KC_BSLS`                     |`\` and <code>&#124;</code>                    |
+|`KC_BSLASH`            |`KC_BSLS`                     |`\` and `\|`                                   |
 |`KC_NONUS_HASH`        |`KC_NUHS`                     |Non-US `#` and `~`                             |
 |`KC_SCOLON`            |`KC_SCLN`                     |`;` and `:`                                    |
 |`KC_QUOTE`             |`KC_QUOT`                     |`'` and `"`                                    |
@@ -106,7 +106,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_KP_9`              |`KC_P9`                       |Keypad `9` and Page Up                         |
 |`KC_KP_0`              |`KC_P0`                       |Keypad `0` and Insert                          |
 |`KC_KP_DOT`            |`KC_PDOT`                     |Keypad `.` and Delete                          |
-|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and <code>&#124;</code>             |
+|`KC_NONUS_BSLASH`      |`KC_NUBS`                     |Non-US `\` and `\|`                            |
 |`KC_APPLICATION`       |`KC_APP`                      |Application (Windows Menu Key)                 |
 |`KC_POWER`             |                              |System Power (macOS)                           |
 |`KC_KP_EQUAL`          |`KC_PEQL`                     |Keypad `=`                                     |
@@ -143,7 +143,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_KP_EQUAL_AS400`    |                              |Keypad `=` on AS/400 keyboards                 |
 |`KC_INT1`              |`KC_RO`                       |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`                     |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and <code>&#124;</code>                |
+|`KC_INT3`              |`KC_JYEN`                     |JIS `¥` and `\|`                               |
 |`KC_INT4`              |`KC_HENK`                     |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`                     |JIS Muhenkan                                   |
 |`KC_INT6`              |                              |JIS Numpad `,`                                 |
@@ -420,29 +420,29 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
-|Key                     |Aliases            |Description        |
-|------------------------|-------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`          |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`          |`!`                |
-|`KC_AT`                 |                   |`@`                |
-|`KC_HASH`               |                   |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`           |`$`                |
-|`KC_PERCENT`            |`KC_PERC`          |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`          |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`          |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`                |
-|`KC_PLUS`               |                   |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`                |
-|`KC_PIPE`               |                   |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`          |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`          |`?`                |
+|Key                     |Aliases            |Description|
+|------------------------|-------------------|-----------|
+|`KC_TILDE`              |`KC_TILD`          |`~`        |
+|`KC_EXCLAIM`            |`KC_EXLM`          |`!`        |
+|`KC_AT`                 |                   |`@`        |
+|`KC_HASH`               |                   |`#`        |
+|`KC_DOLLAR`             |`KC_DLR`           |`$`        |
+|`KC_PERCENT`            |`KC_PERC`          |`%`        |
+|`KC_CIRCUMFLEX`         |`KC_CIRC`          |`^`        |
+|`KC_AMPERSAND`          |`KC_AMPR`          |`&`        |
+|`KC_ASTERISK`           |`KC_ASTR`          |`*`        |
+|`KC_LEFT_PAREN`         |`KC_LPRN`          |`(`        |
+|`KC_RIGHT_PAREN`        |`KC_RPRN`          |`)`        |
+|`KC_UNDERSCORE`         |`KC_UNDS`          |`_`        |
+|`KC_PLUS`               |                   |`+`        |
+|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`          |`{`        |
+|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`          |`}`        |
+|`KC_PIPE`               |                   |`\|`       |
+|`KC_COLON`              |`KC_COLN`          |`:`        |
+|`KC_DOUBLE_QUOTE`       |`KC_DQUO`, `KC_DQT`|`"`        |
+|`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`        |
+|`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
+|`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
