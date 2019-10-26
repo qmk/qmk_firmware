@@ -2,17 +2,17 @@
 
 ## Preamble: How a Keyboard Matrix Works (and why we need diodes)
 
-The collapsible section below covers why keyboards are wired the way they are, as outlined in this guide.  It isn't required reading to make your own hand wired keyboard, but provides background information.
+The collapsible section below covers why keyboards are wired the way they are, as outlined in this guide.  It isn't required reading to make your own hand-wired keyboard but provides background information.
 
 <details>
 
 <summary>Click for details</summary>
 
-Without a matrix circuit each switch would require its own wire directly to the controller.
+Without a matrix circuit, each switch would require its own wire directly to the controller.
 
-Simply put, when the circuit is arranged in rows and columns, if a key is pressed, a column wire makes contact with a row wire and completes a circuit. The keyboard controller detects this closed circuit and registers it as a key press.
+Simply put, when the circuit is arranged in rows and columns, if a key is pressed, a column wire makes contact with a row wire and completes a circuit. The keyboard controller detects this closed circuit and registers it as a keypress.
 
-The microcontroller will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
+The microcontroller will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the key switch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
 
         Column 0 being scanned     Column 1 being scanned
                   x                                   x
@@ -22,9 +22,9 @@ The microcontroller will be setup up via the firmware to send a logical 1 to the
                   |        |                 |        |
         row1 ---(key2)---(key3)    row1 ---(key2)---(key3)
 
-The `x` represents that the column/row associated has a value of 1, or is HIGH. Here, we see that no keys are being pressed, so no rows get an `x`. For one keyswitch, keep in mind that one side of the contacts is connected to its row, and the other, its column.
+The `x` represents that the column/row associated has a value of 1, or is HIGH. Here, we see that no keys are being pressed, so no rows get an `x`. For one key switch, keep in mind that one side of the contacts is connected to its row, and the other, its column.
 
-When we press `key0`, `col0` gets connected to `row0`, so the values that the firmware receives for that row is `0b01` (the `0b` here means that this is a bit value, meaning all of the following digits are bits - 0 or 1 - and represent the keys in that column). We'll use this notation to show when a keyswitch has been pressed, to show that the column and row are being connected:
+When we press `key0`, `col0` gets connected to `row0`, so the values that the firmware receives for that row is `0b01` (the `0b` here means that this is a bit value, meaning all of the following digits are bits - 0 or 1 - and represent the keys in that column). We'll use this notation to show when a key switch has been pressed, to show that the column and row are being connected:
 
         Column 0 being scanned     Column 1 being scanned
                   x                                   x
@@ -60,7 +60,7 @@ The data we get from that is:
             │└row0
             └row1
 
-Which isn't accurate, since we only have 3 keys pressed down, not all 4. This behavior is called ghosting, and only happens in odd scenarios like this, but can be much more common on a bigger keyboard. The way we can get around this is by placing a diode after the keyswitch, but before it connects to its row. A diode only allows current to pass through one way, which will protect our other columns/rows from being activated in the previous example. We'll represent a dioded matrix like this;
+Which isn't accurate, since we only have 3 keys pressed down, not all 4. This behaviour is called ghosting, and only happens in odd scenarios like this, but can be much more common on a bigger keyboard. The way we can get around this is by placing a diode after the keyswitch, but before it connects to its row. A diode only allows current to pass through one way, which will protect our other columns/rows from being activated in the previous example. We'll represent a dioded matrix like this;
 
         Column 0 being scanned     Column 1 being scanned
                     x                                   x
@@ -141,7 +141,7 @@ Start by installing the switches and stabilisers in the plate. Depending on the 
 
 If you are following a pre-existing handwire guide (e.g. for the keyboards in the [handwire firmware section](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired) you can skip this step, just ensure you wire the matrix as described.
 
-What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
+What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, most commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
 
 It is fairly simple to plan for an ortholinear keyboard (like a Planck).
 
@@ -177,7 +177,7 @@ There are also a number of boards designed specifically for handwiring that moun
 
 ## Wiring the matrix
 
-There is no one right way to do this.  What you want to achieve is good connection at all of the joints planned and no unintentional shorts.
+There is no one right way to do this.  What you want to achieve is a good connection at all of the joints planned and no unintentional shorts.
 
 Established materials and techniques include:
 
@@ -218,7 +218,7 @@ Once heated, tin your soldering iron - this means melting a small amount of sold
 
 When you come to apply the solder, hold the soldering iron against the two surfaces for a second to heat it, then apply a small amount of solder to join the two pieces together.  Heating the surfaces ensures that the solder adheres to it and that it does not cool too quickly.
 
-Don't hold the iron on the solder/joint longer than necessary. Heat will be conducted through the surfaces and can damage components (melt switch housings etc.).  Also, solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting).  The longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which, apart from looking bad, may also increase the risk of electrical shorts.
+Don't hold the iron on the solder/joint longer than necessary. The heat will be conducted through the surfaces and can damage components (melt switch housings etc.).  Also, solder contains flux, which aids in ["wetting"](https://en.m.wikipedia.org/wiki/Wetting).  The longer heat is applied to the solder the more flux will evaporate meaning you may end up with a bad solder joint with peaks which, apart from looking bad, may also increase the risk of electrical shorts.
 
 The following collapsible section describes in detail how to solder rows using the bent diode technique and columns using short lengths of wire.
 
@@ -239,11 +239,11 @@ Starting at the top-left switch, place the diode (with tweezers if you have them
      └─────────────
 ```
 
-Letting the diode rest, grab your solder, and touch both it and the soldering iron to the left contact at the same time - the rosin in the solder should make it easy for the solder to flow over both the diode and the keyswitch contact. The diode may move a little, and if it does, carefully position it back it place by grabbing the bent end of the diode - the other end will become hot very quickly. If you find that it's moving too much, using needle-nose pliers of some sort may help to keep the diode still when soldering.
+Letting the diode rest, grab your solder, and touch both it and the soldering iron to the left contact at the same time - the rosin in the solder should make it easy for the solder to flow over both the diode and the keyswitch contact. The diode may move a little, and if it does, carefully position it back in place by grabbing the bent end of the diode - the other end will become hot very quickly. If you find that it's moving too much, using needle-nose pliers of some sort may help to keep the diode still when soldering.
 
-The smoke that the rosin releases is harmful, so be careful not to breath it or get it in your eyes/face.
+The smoke that the rosin releases are harmful so is careful not to breathe it or get it in your eyes/face.
 
-After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face, and cool the solder quicker. You should see the solder develop a matte (not shiny) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blow on it will accelerate this process.
+After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face and cool the solder quicker. You should see the solder develop a matte (not shiny) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blow on it will accelerate this process.
 
 When the first diode is complete, the next one will need to be soldered to both the keyswitch, and the previous diode at the new elbow. That will look something like this:
 
