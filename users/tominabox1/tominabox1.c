@@ -78,9 +78,21 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void dance_esc_tab (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed)  return register_code16(KC_ESC);
+    else return register_code16(KC_TAB);
+  }
+}
+
+void dance_esc_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
+        unregister_code16(KC_ESC);
+        unregister_code16(KC_TAB);
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-    [TD_SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [KC_EMAIL] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, NULL),
+    [TD_TAB_ESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
 };
 
 #define TAPPING_TERM 200
@@ -93,27 +105,13 @@ void led_set_keymap(uint8_t usb_led) {
 }
 
 void led_set_user(uint8_t usb_led) {
-	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-		writePinLow(E6);
-	} else{
-		writePinHigh(E6);
-	}
-	}
-#endif // Dimple
-
-#ifdef KEYBOARD_thevankeyboards_minivan
-__attribute__ ((weak))
-void led_set_keymap(uint8_t usb_led) {
+  if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(E6);
+  } else{
+    writePinHigh(E6);
+  }
 }
-
-void led_set_user(uint8_t usb_led) {
-	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-		backlight_enable();
-	} else{
-		backlight_disable();
-	}
-	}
-#endif // Minivan
+#endif // Dimple
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
@@ -135,19 +133,9 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    switch (biton32(state)) {
-        case _LOWER:
-            break;
-        case _RAISE:
-            break;
-        case _ADJUST:
-            break;
-        default:
-            break;
-    }
-    return state;
+layer_state_t layer_state_set_user (layer_state_t state) {
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return layer_state_set_keymap (state);
 }
 
 #ifdef KEYBOARD_crkbd_rev1
@@ -163,7 +151,7 @@ void matrix_scan_user(void) {
     return;
   }
   matrix_scan_keymap();
-  }
+}
 
 extern uint8_t is_master;
 #endif // CRKBD

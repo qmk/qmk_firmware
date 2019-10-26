@@ -36,7 +36,7 @@ enum custom_keycodes {
 
 enum tap_dance_indexes {
     KC_EMAIL,
-    TD_SFT_CPS,
+    TD_TAB_ESC,
 };
 
 #define KC_ARROW MO(4)
