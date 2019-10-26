@@ -41,7 +41,7 @@ user.keymap: None -> default
 
 # CLI Documentation (`qmk config`)
 
-La commande `qmk config` est utilisée pour intéragir avec la configuration sous-jacente. Lancée sans argument, elle affiche la configuration courante. Lorsque des arguments sont définis, ils sont considérés comme étant des jetons de configuration, qui sont des chaînes de caractère ne contenant aucun espace avec le format suivant:
+La commande `qmk config` est utilisée pour interagir avec la configuration sous-jacente. Lancée sans argument, elle affiche la configuration courante. Lorsque des arguments sont définis, ils sont considérés comme étant des jetons de configuration, qui sont des chaînes de caractère ne contenant aucun espace avec le format suivant:
 
     <subcommand|general|default>[.<key>][=<value>]
 
@@ -91,7 +91,7 @@ default.keymap: default -> None
 
 ## Plusieurs opérations
 
-Vous pouvez combiner plusieures opérations d'écriture et de lecture en une seule commande. Elle seront exécutées et affichées dans l'ordre:
+Vous pouvez combiner plusieurs opérations d'écriture et de lecture en une seule commande. Elles seront exécutées et affichées dans l'ordre:
 
 ```
 $ qmk config compile default.keymap=default compile.keymap=None
