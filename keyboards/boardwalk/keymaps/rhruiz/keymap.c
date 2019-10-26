@@ -16,8 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
 
-const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}};
-
 // clang-format off
 #ifndef LAYOUT_kc
 #define LAYOUT_kc( \
@@ -47,7 +45,6 @@ const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_
 #define KC_____ KC_TRNS
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
-#define KC_RST RESET
 #define KC_ENTS SFT_T(KC_ENT)
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
@@ -56,6 +53,8 @@ const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_
 #    define KC_RVAD KC_TRNS
 #    define KC_RVAI KC_TRNS
 #endif
+
+const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -84,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_KEY_OVERRIDE] = LAYOUT_kc(
-    TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
+    TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, UNDS, PLUS, ____,
     ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
     ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
@@ -100,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN2] = LAYOUT_kc(
-    ____, F1  , F2  , F3  , F4  , F5  , ____,   F6  , F7  , F8  , F9  , F10 , F11 , F12 ,
+    ____, F1  , F2  , F3  , F4  , F5  , F6  ,   F7  , F8  , F9  , F10 , F11 , F12 , ____,
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, MS_L, MS_D, MS_R, UNDS, PLUS, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
