@@ -1,6 +1,6 @@
 # QMK CLI
 
-This page describes how to setup and use the QMK CLI.
+This page describes how to set up and use the QMK CLI.
 
 # Overview
 
@@ -16,7 +16,7 @@ The CLI requires Python 3.5 or greater. We try to keep the number of requirement
 
 # Global CLI
 
-QMK provides an installable CLI that can be used to setup your QMK build environment, work with QMK, and which makes working with multiple copies of `qmk_firmware` easier. We recommend installing and updating this periodically.
+QMK provides an installable CLI that can be used to set up your QMK build environment, work with QMK, and which makes working with multiple copies of `qmk_firmware` easier. We recommend installing and updating this periodically.
 
 ## Install Using Homebrew (macOS, some Linux)
 
@@ -31,7 +31,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 
 ## Install Using easy_install or pip
 
-If your system is not listed above you can install QMK manually. First ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
+If your system is not listed above you can install QMK manually. First, ensure that you have python 3.5 (or later) installed and have installed pip. Then install QMK with this command:
 
 ```
 pip3 install qmk
@@ -97,7 +97,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 ## `qmk config`
 
-This command lets you configure the behavior of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
+This command lets you configure the behaviour of QMK. For the full `qmk config` documentation see [CLI Configuration](cli_configuration.md).
 
 **Usage**:
 
@@ -107,7 +107,7 @@ qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 
 ## `qmk docs`
 
-This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+This command starts a local HTTP server which you can use for browsing or improving the docs. The default port is 8936.
 
 **Usage**:
 
