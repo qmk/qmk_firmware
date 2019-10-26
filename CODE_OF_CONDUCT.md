@@ -17,7 +17,7 @@ Our users, contributors, and collaborators are expected to treat each other with
 
 # Reporting
 
-If someone is violating this Code of Conduct, please email hello@qmk.fm or reach out to one of the Collaborators to bring it to our attention. All complaints will be reviewed and investigated.
+If someone is violating this Code of Conduct, please [email](hello@qmk.fm) or reach out to one of the Collaborators to bring it to our attention. All complaints will be reviewed and investigated.
 
 QMK will seek to use the least punitive means available to resolve an issue. If the circumstances require asking an offender to leave, we will do that.
 
