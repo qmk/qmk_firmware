@@ -1,1 +1,1 @@
-# The default keymap for m0118
+# The default keymap for for the Golden Delicious when used with a M0118
