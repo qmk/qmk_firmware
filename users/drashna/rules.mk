@@ -4,8 +4,13 @@ SRC += drashna.c \
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 SPACE_CADET_ENABLE            = no
 
-ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-    SRC += secrets.c
+ifneq ($(strip $(NO_SECRETS)), yes)
+	ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+    	SRC += secrets.c
+	endif
+	ifeq ($(strip $(NO_SECRETS)), lite)
+		OPT_DEFS += -DNO_SECRETS
+	endif
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -14,9 +19,7 @@ endif
 
 
 
-ifeq ($(strip $(NO_SECRETS)), yes)
-    OPT_DEFS += -DNO_SECRETS
-endif
+
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += rgb_stuff.c

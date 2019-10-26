@@ -129,6 +129,16 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk docs`
+
+This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
+
+**Usage**:
+
+```
+qmk docs [-p PORT]
+```
+
 ## `qmk doctor`
 
 This command examines your environment and alerts you to potential build or flash problems.
@@ -137,6 +147,16 @@ This command examines your environment and alerts you to potential build or flas
 
 ```
 qmk doctor
+```
+
+## `qmk list-keyboards`
+
+This command lists all the keyboards currently defined in `qmk_firmware`
+
+**Usage**:
+
+```
+qmk list-keyboards
 ```
 
 ## `qmk new-keymap`
