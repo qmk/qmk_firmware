@@ -1,1 +1,1 @@
-# The default keymap for NEISO
+# The default keymap for the NEISO Macropad
