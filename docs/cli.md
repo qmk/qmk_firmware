@@ -191,7 +191,7 @@ This command lists all the keyboards currently defined in `qmk_firmware`
 qmk list-keyboards
 ```
 
-## `qmk new_keyboard`
+## `qmk new-keyboard`
 
 This command creates a new keyboard.
 
