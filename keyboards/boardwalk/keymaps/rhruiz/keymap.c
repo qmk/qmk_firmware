@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
 
-bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1 || index == RGBLED_NUM / 2 || index == RGBLED_NUM - 1; }
+bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1; }
 
 void rhruiz_update_layer_colors() {
     if (biton32(layer_state) < 1UL) {
