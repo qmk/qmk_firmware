@@ -9,14 +9,13 @@ A handwired 40% ortholinear keyboard.
 The story: https://imgur.com/a/4QI7ifJ
 
 Keyboard Maintainer: [Arda Kilicdagi](https://github.com/ardakilic)
-
 Hardware Supported: Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
 
     make handwired/aranck:default:flash
 
-You can install the "turkishish" layout (which I'm currently using) like:
+You can flash the "turkishish" layout (which I'm currently using) like:
 
 	make handwired/aranck:turkishish:flash
 
