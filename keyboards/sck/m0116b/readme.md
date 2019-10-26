@@ -1,6 +1,6 @@
 # Golden Delicious aka M0116B
 
-The Golden Delicious, or M0116B, is a replacement PCB for the Apple M0116 and M0118 keyboards, the best keyboard Apple ever made...
+The Golden Delicious (aka M0116B) is a replacement PCB for the Apple M0116 and M0118 keyboards, the best keyboard Apple ever made...
 
 Installation Information:
 
@@ -13,14 +13,15 @@ When installing the PCB assembly back into the case, if you are using the new US
 
 Repo Information:
 
-Keyboard Maintainer: [jrfhoutx](https://github.com/jrfhoutx)  
+Keyboard Maintainer: jrfhoutx  
+Keyboard Designer: [jrfhoutx](https://github.com/jrfhoutx)  
 Hardware Supported: M0116B, ATMEGA32U4  
-Hardware Availability: Wouldn't you like to know
+Hardware Availability: Space City Keyboards
 
 Make example for this keyboard (after setting up your build environment):
 
-    make m0116b:m0116
+    make sck/m0116b:m0116
 
-    make m0116b:m0118
+    make sck/m0116b:m0118
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
