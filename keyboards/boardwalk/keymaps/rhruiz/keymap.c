@@ -120,19 +120,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
 
-bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1; }
+bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == RGBLED_NUM - 1 || index == RGBLED_NUM / 2; }
 
 void rhruiz_update_layer_colors() {
     if (biton32(layer_state) < 1UL) {
         return;
     }
 
-    uint16_t hue = 1;
-    uint8_t  sat = 0;
+    const hue_sat_pair hs = hue_sat_pairs[biton32(layer_state)];
 
-    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)];
-    hue                        = hue_sat.hue;
-    sat                        = hue_sat.sat;
-
-    rhruiz_change_leds_to(hue, sat);
+    rhruiz_change_leds_to(hs.hue, hs.sat);
 }
