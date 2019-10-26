@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "tominabox1.h"
+#include "users/tominabox1/tominabox1.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -72,3 +72,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ___________________FVAN_4__________________
     ),
   };
+
+  void led_set_user(uint8_t usb_led) {
+    if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+      backlight_enable();
+    } else{
+      backlight_disable();
+    }
+  }
