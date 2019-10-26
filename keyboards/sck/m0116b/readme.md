@@ -10,7 +10,6 @@ The daughter boards can easily be snapped off from the main PCB. In order to ele
 
 When installing the PCB assembly back into the case, if you are using the new USB-B daughter boards, you will need to trim a small amount of the support brackets inside the case. This is to fit the new USB-B connectors in place of the original DIN type ADB connectors, since the new USB-B connectors are longer than the original ADB connectors. As can be seen [HERE](https://imgur.com/a/a1zIFUC).
 
-
 Repo Information:
 
 Keyboard Maintainer: jrfhoutx  
@@ -19,6 +18,8 @@ Hardware Supported: M0116B, ATMEGA32U4
 Hardware Availability: Space City Keyboards
 
 Make example for this keyboard (after setting up your build environment):
+
+    make sck/m0116b:default
 
     make sck/m0116b:m0116
 
