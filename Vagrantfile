@@ -1,14 +1,12 @@
-# -*- mode: ruby -*-
+# -*- mode: ruby -*-  //Opens the code
 # vi: set ft=ruby :
-
 Vagrant.configure(2) do |config|
   # define a name instead of just 'default'
-  config.vm.define "qmk_firmware"
-
+  config.vm.define "qmk_firmware"  //defining qmk_firmware
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
   config.vm.box = "generic/debian9"
   
-  config.vm.synced_folder '.', '/vagrant'
+  config.vm.synced_folder '.', '/vagrant' //folder synced
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
