@@ -1,5 +1,7 @@
 <div dir="rtl" markdown="1">
 **בשפה העברית**
+* [המדריך המלא למתחילים](newbs.md)
+  * [מקורות ללמידה](he-il/newbs_learn_more_resources.md)
 * [בסיס QMK](he-il/README.md)
     * [מבוא לQMK](he-il/getting_started_introduction.md)
     * [איך להשתמש בGithub](he-il/getting_started_github.md)
@@ -17,7 +19,7 @@
   * [צריבה של הקושחה](newbs_flashing.md)
   * [בדיקות ודיבאגינג](newbs_testing_debugging.md)
   * [עבודה נכונה ב GIT](newbs_best_practices.md)
-  * [למידה ממקורות](newbs_learn_more_resources.md)
+  * [מקורות ללמידה](newbs_learn_more_resources.md)
 
 * [בסיס QMK](README.md)
   * [מבוא לQMK](getting_started_introduction.md)
