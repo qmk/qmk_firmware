@@ -38,6 +38,9 @@ pip3 install qmk
 export QMK_HOME='~/qmk_firmware' # Optional: setzt den Installationsort für `qmk_firmware`
 qmk setup  # Dies klont `qmk/qmk_firmware` und richtet optional auch Deine Build-Umgebung ein
 ```
+## Installation mit git Repo
+
+`git clone https://github.com/qmk/qmk_cli.git && cd qmk_cli && python3 setup.py install`
 
 ## Packaging für andere Betriebssysteme
 
