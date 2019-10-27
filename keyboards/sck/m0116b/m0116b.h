@@ -25,7 +25,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_M0116( \
+#define LAYOUT_m0116_ansi( \
                                         K06,                                                                   \
     K10,  K11,  K12,  K13,  K14,  K15,  K16, K17,  K18,  K19,  K1A,  K1B,  K1C,  K1D,  K1E,  K1F,  K1G,  K1H,  \
     K20,  K21,  K22,  K23,  K24,  K25,  K26, K27,  K28,  K29,  K2A,  K2B,  K2C,  K2D,  K2E,  K2F,  K2G,  K2H,  \
