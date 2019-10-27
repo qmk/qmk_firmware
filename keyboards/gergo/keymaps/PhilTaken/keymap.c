@@ -30,13 +30,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LShift |   Z  |   X  |   M  |   C  |   V  | LMB  |           |      |   K  |   L  | ,  < | . >  | /  ? |  - _   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *                    .----------.   .-------.                                 .------.   .-----.
- *                    | Super/Del|   |Ent/ALT|                                 | Tab  |   |BKSP |
+ *                    | Super/Del|   |Ent/ALT|                                 |Space |   |BKSP |
  *                    '----------'   '-------'                                 `------.   '-----'
  *                                        ,-------.                      ,-------.
  *                                        | MMB   |                      | PgDn  |
  *                                 ,------|-------|                      |-------|------.
  *                                 | SYMB | NUMB  |                      | SYMB  | NUMB |
- *                                 | Space| Escape|                      | Mod   |Space |
+ *                                 | Space| Escape|                      | Mod   | Tab  |
  *                                 |      |       |                      |       |      |
  *                                 `--------------'                      `--------------'
  */
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     MT(MOD_LGUI, KC_DEL),   MT(MOD_LALT, KC_ENT),
                                                         LT(SYMB, KC_SPC), LT(NUMB, KC_ESC),  
-                                                        LT(SYMB, KC_ENT), LT(NUMB, KC_SPC),                                            KC_TAB, KC_BSPC
+                                                        LT(SYMB, KC_ENT), LT(NUMB, KC_TAB),                                            KC_SPC, KC_BSPC
     ),
 /* Keymap 1: Basic layer
  *
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Symbols layer
  *
  * ,-------------------------------------------.                         ,-------------------------------------------.
- * |        |  !   |  @   |  {   |  }   |  |   |                         |      |      |      |      |      |  \ |   |
+ * |        |  !   |  @   |  {   |  }   |  |   |                         | BASE |QWERTY|      |      |      |  \ |   |
  * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
  * |        |  #   |  $   |  (   |  )   |  `   |      |           |      |   +  |  -   |  /   |  *   |  %   |  ' "   |
  * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
