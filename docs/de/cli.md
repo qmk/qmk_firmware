@@ -16,7 +16,7 @@ Die CLI benötigt Python 3.5 oder höher. Außerdem ist es nötig, die Packages 
 
 # Globale CLI
 
-QMK bietet eine installierbare CLI, die Du zum Einrichten Deiner QMK Build-Umgebung verwenden kannst. Weiters ermöglicht sie Dir das Arbeiten mit QMK, und erleichtert das Arbeiten mit mehreren Kopien der `qmk_firmware`. Wir empfehlen, diese CLI zu installieren und regelmäßig upzudaten.
+QMK bietet ein installierbares CLI, das Du zum Einrichten Deiner QMK Build-Umgebung verwenden kannst. Dieses ermöglicht Dir das Arbeiten mit QMK, und erleichtert das Arbeiten mit mehreren Kopien der `qmk_firmware`. Wir empfehlen, dieses CLI zu installieren und regelmäßig upzudaten.
 
 ## Installation mit Homebrew (macOS, manche Linux)
 
