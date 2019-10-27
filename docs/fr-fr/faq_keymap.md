@@ -68,7 +68,7 @@ Cette fonctionnalité permet l'usage de *touches à verrouillage mécanique* com
 
 Une fois la fonction activée, utilisez les keycodes `KC_LCAP`, `KC_LNUM` et `KC_LSCR` dans votre keymap.
 
-Des vieux claviers mécaniques ont parfois des touches à vérouillage, mais les claviers modernes n'en sont pas équipés. ***Vous n'avez pas besoin de cette fonction dans la majorité des cas et devez utiliser les keycodes `KC_CAPS`, `KC_NLCK` et `KC_SLCK`.***
+Des vieux claviers mécaniques ont parfois des touches à verrouillage, mais les claviers modernes n'en sont pas équipés. ***Vous n'avez pas besoin de cette fonction dans la majorité des cas et devez utiliser les keycodes `KC_CAPS`, `KC_NLCK` et `KC_SLCK`.***
 
 ## Ajouter des caractères spéciaux autres que ASCII comme la cédille 'Ç'
 
@@ -82,7 +82,7 @@ Sous **Windows** vous pouvez utiliser la touche `AltGr` ou **Alt code**.
 * http://en.wikipedia.org/wiki/AltGr_key
 * http://en.wikipedia.org/wiki/Alt_code
 
-Sous **Mac OS** définissez une compinaison de touche `Option`.
+Sous **Mac OS** définissez une combinaison de touche `Option`.
 * http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
 
 Sous **Xorg** vous pouvez utiliser une touche `compose` à la place.
@@ -111,7 +111,7 @@ Voir https://github.com/tmk/tmk_keyboard/issues/195
 
 Vous pouvez connaître les keycodes supportés par OSX en lisant ce code source.
 
-`usb_2_adb_keymap` contient les tableaux des page Keyboard/Keypad vers les scancodes ADB (keycodes interne à OSX).
+`usb_2_adb_keymap` contient les tableaux des pages Keyboard/Keypad vers les scancodes ADB (keycodes interne à OSX).
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c
 
@@ -134,7 +134,7 @@ https://pqrs.org/osx/karabiner/seil.html
 Karabiner - Outil de Keymapping sous Mac OSX - Ignore les entrées du module RN-42. Vous devez activer cette option pour rendre Karabiner compatible avec votre clavier.
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
-Plus de détails sur ce problèmes sur les liens suivants.
+Plus de détails sur ce problème sur les liens suivants.
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
 

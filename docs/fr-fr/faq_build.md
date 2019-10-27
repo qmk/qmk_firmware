@@ -4,7 +4,7 @@ Cette page couvre les questions concernant la compilation de QMK. Si vous ne l'a
 
 ## Je ne peux pas programmer sous Linux
 
-Vous aurez besoin des permissions appropriées pour utiliser un périphérique. Pour les utilisateurs de Linux, référez-vous aux instructions concernant les règles `udev` ci-dessous. Si `udev` vous pose des problèmes, une alternative est d'utiliser la commande `sudo`. Si vous ne connaissez pas cette commande, référez vous à son manuel d'utilisation en utilisant `man sudo` ou [regardez cette page](https://linux.die.net/man/8/sudo).
+Vous aurez besoin des permissions appropriées pour utiliser un périphérique. Pour les utilisateurs de Linux, référez-vous aux instructions concernant les règles `udev` ci-dessous. Si `udev` vous pose des problèmes, une alternative est d'utiliser la commande `sudo`. Si vous ne connaissez pas cette commande, référez-vous à son manuel d'utilisation en utilisant `man sudo` ou [regardez cette page](https://linux.die.net/man/8/sudo).
 
 Un exemple utilisant `sudo`, lorsque votre contrôleur est un ATMega32u4 :
 
@@ -16,7 +16,7 @@ ou simplement :
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Veuillez noter que lancer `make` avec `sudo` est généralement une **mauvaise** idée, et vous devriez préférez une des méthodes précédente, si possible.
+Veuillez noter que lancer `make` avec `sudo` est généralement une **mauvaise** idée, et vous devriez préférer une des méthodes précédente, si possible.
 
 ### Règles `udev` pour Linux
 
@@ -80,7 +80,7 @@ Assurez-vous que votre kernel ait un support approprié pour votre périphériqu
 
 ## Périphérique inconnu pour le bootloader DFU
 
-Les problèmes rencontrés lorsque l'on flash des claviers sous Windows sont, la plupart du temps, dûs à une installation du mauvais pilote, ou un pilote manquant.
+Les problèmes rencontrés lorsque l'on flash des claviers sous Windows sont, la plupart du temps, dus à une installation du mauvais pilote, ou un pilote manquant.
 
 Relancer le script d'installation de QMK (`./util/qmk_install.sh` situé dans répertoire `qmk_firmware`sous MSYS2 ou WSL) ou réinstaller la QMK Toolbox peut résoudre le problème. Une alternative est de télécharger et lancer manuellement le package [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer).
 
@@ -162,7 +162,7 @@ brew install avrdude
 
 ### avr-gcc 8.1 et LUFA
 
-Si vous avez mis à jour votre avr-gcc au dessus de la version 7, vous risquez de voir des erreurs impliquant LUA. Par exemple :
+Si vous avez mis à jour votre avr-gcc au-dessus de la version 7, vous risquez de voir des erreurs impliquant LUA. Par exemple :
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
