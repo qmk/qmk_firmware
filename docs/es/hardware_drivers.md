@@ -1,35 +1,36 @@
-# QMK Hardware Drivers
+# Controladores de hardware QMK
 
-QMK is used on a lot of different hardware. While support for the most common MCU's and matrix configurations is built-in there are a number of drivers that can be added to a keyboard to support additional hardware. Examples include mice and other pointing devices, i/o expanders for split keyboards, bluetooth modules, and LCD, OLED, and TFT screens.
+QMK se utiliza en un montón de hardware diferente. Mientras que el soporte para los  MCUs y las configuraciones de matriz más comunes está integrado, hay una serie de controladores que se pueden a un teclado para soportar hardware adicional. Los ejemplos incluyen ratones y otros dispositivos de apuntamiento, extensores de i/o para teclados divididos, modúlos Bluetooth, y pantallas LCD, OLED y TFT.
 
-<!-- FIXME: This should talk about how drivers are integrated into QMK and how you can add your own driver.
+<!-- FIXME: Esto debe hablar de cómo se integran los controladores en QMK y cómo puedes añadir su propio controlador.
 
-# Driver System Overview
+# Descripción del sistema de controladores
 
 -->
 
-# Available Drivers
+# Controladores disponibles
 
-## ProMicro (AVR Only)
+## ProMicro (Solo AVR)
 
-Support for addressing pins on the ProMicro by their Arduino name rather than their AVR name. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
+Apoyo para direccionar patas en el ProMicro por su nombre Arduino en lugar de su nombre AVR. Esto necesita ser mejor documentado. Si estás tratando de hacer esto y leer el código no ayuda por favor [abrir un problema](https://github.com/qmk/qmk_firmware/issues/new) y podemos ayudarte por el proceso.
 
-## SSD1306 OLED Driver
+## Controlador OLED SSD1306
 
-Support for SSD1306 based OLED displays. For more information see the [OLED Driver Feature](feature_oled_driver.md) page.
+Apoyo para pantallas OLED basadas en SSD1306. Para obtener más información consultes la página de [Característica de Controlador OLED](feature_oled_driver.md).
 
 ## uGFX
 
-You can make use of uGFX within QMK to drive character and graphic LCD's, LED arrays, OLED, TFT, and other display technologies. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
+Puedes hacer uso de uGFX dentro de QMK para manejar LCDs caracteres y gráficos, matrices de LED, OLED, TFT, y otras tecnologías de visualización. Esto necesita ser mejor documentado. Si estás tratando de hacer esto y leer el código no ayuda por favor [abrir un problema](https://github.com/qmk/qmk_firmware/issues/new) y podemos ayudarte por el proceso.
 
-## WS2812 (AVR Only)
+## WS2812 (Solo AVR)
 
-Support for WS2811/WS2812{a,b,c} LED's. For more information see the [RGB Light](feature_rgblight.md) page.
+Apoyo para LEDs WS2811/WS2812{a,b,c}. Para obtener más información consultes la página de [Luz RGB](feature_rgblight.md).
 
 ## IS31FL3731
 
-Support for up to 2 drivers. Each driver impliments 2 charlieplex matrices to individually address LEDs using I2C. This allows up to 144 same color LEDs or 32 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](feature_rgb_matrix.md) page.
+Apoyo para hasta 2 controladores. Cada controlador implementa 2 matrices charlieplex para direccionar LEDs individualmente usando I2C. Esto permite hasta 144 LEDs del mismo color o 32 LEDs RGB. Para obtener más información sobre cómo configurar el controlador, consultes la página de [Matriz RGB](feature_rgb_matrix.md).
 
 ## IS31FL3733
 
-Support for up to a single driver with room for expansion. Each driver can control 192 individual LEDs or 64 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](feature_rgb_matrix.md) page.
+Apoyo para hasta un solo controlador con espacio para expansión. Cada controlador puede controlar 192 LEDs individuales o 64 LEDs RGB. Para obtener más información sobre cómo configurar el controlador, consultes la página de [Matriz RGB](feature_rgb_matrix.md).
+

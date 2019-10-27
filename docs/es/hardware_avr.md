@@ -1,12 +1,12 @@
-# Keyboards with AVR Processors
+# Teclados con Procesodores AVR
 
-This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCU's that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
+Esta página describe el soporte para procesadores AVR en QMK. Procesadores AVR incluyen el atmega32u4, atmega32u2, at90usb1286, y otros procesadores de Corporación Atmel. Procesadores AVR son MCU's de 8-bit que están diseñados para ser fáciles de trabajar con. Los procesadores AVR más comunes en teclados tienen USB a bordo y un montón de GPIO para soportar grandes matrices de teclado. Son el MCU más popular para el uso en los teclados de hoy.
 
-If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines.md) to get a sense of how keyboards fit into QMK.
+Si aún no lo hecho debes leer las [Pautas del teclado](hardware_keyboard_guidelines.md) para tener una idea de cómo teclados encajan en QMK.
 
-## Adding Your AVR Keyboard to QMK
+## Añadir tu Teclado AVR a QMK
 
-QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started, run the `util/new_keyboard.sh` script:
+QMK tiene una seria de características para simplificar el trabajo con teclados AVR. Para la mayoría de los teclados no tienes que escribir una sola línea de código. Para empezar, ejecuta el script `util/new_keyboard.sh`:
 
 ```
 $ ./util/new_keyboard.sh
@@ -28,19 +28,19 @@ To start working on things, cd into keyboards/mycoolkb,
 or open the directory in your favourite text editor.
 ```
 
-This will create all the files needed to support your new keyboard, and populate the settings with default values. Now you just need to customize it for your keyboard.
+Esto creará todos los archivos necesarios para soportar tu nuevo teclado, y rellenar la configuración con valores predeterminados. Ahora sólo tienes que personalizarlo para tu teclado. 
 
 ## `readme.md`
 
-This is where you'll describe your keyboard. Please follow the [Keyboard Readme Template](documentation_templates.md#keyboard-readmemd-template) when writing your `readme.md`. You're encouraged to place an image at the top of your `readme.md`, please use an external service such as [Imgur](http://imgur.com) to host the images.
+Aquí está donde describirás tu teclado. Por favor sigas la [Plantilla Readme de Teclado](documentation_templates.md#keyboard-readmemd-template) al escribir tu `readme.md`. Te animamos a colocar una imagen en la parte superior de tu `readme.md`. Por favor, utilices un servicio externo como [Imgur](http://imgur.com) para alojar las imágenes.
 
 ## `<keyboard>.c`
 
-This is where all the custom logic for your keyboard goes. Many keyboards do not need to put anything at all in here. You can learn more about writing custom logic in [Custom Quantum Functions](custom_quantum_functions.md).
+Aquí está donde va toda la lógica personalizada para tu teclado. Muchos teclados no necesitan poner nada aquí. Puedes aprender más sobre cómo escribir lógica personalizada en [Funciones Quantum Personalizadas](custom_quantum_functions.md).
 
 ## `<keyboard>.h`
 
-This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minimum you should have a `#define LAYOUT` for your keyboard that looks something like this:
+Este es el archivo en el que define tu(s) [Macro(s) de Layout](feature_layouts.md). Por lo menos deberías tener un `#define LAYOUT` para tu teclado que se ve algo como esto:
 
 ```c
 #define LAYOUT(          \
@@ -52,44 +52,44 @@ This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At mi
 }
 ```
 
-The first half of the `LAYOUT` pre-processor macro defines the physical arrangement of keys. The second half of the macro defines the matrix the switches are connected to. This allows you to have a physical arrangement of keys that differs from the wiring matrix.
+La primera mitad de la macro pre-procesador `LAYOUT` define la disposición física de las llaves. La segunda mitad de la macro define la matriz a la que están conectados los interruptores. Esto te permite tener una disposición física de las llaves que difiere de la matriz de cableado.
 
-Each of the `k__` variables needs to be unique, and typically they follow the format `k<row><col>`.
+Cada una de las variables `k__` tiene que ser única, y normalmente siguen el formato `k<row><col>`.
 
-The physical matrix (the second half) must have a number of rows equaling `MATRIX_ROWS`, and each row must have exactly `MATRIX_COLS` elements in it. If you do not have this many physical keys you can use `KC_NO` to fill in the blank spots.
+La matriz física (la segunda mitad) debe tener un número de filas igualando `MATRIX_ROWS`, y cada fila debe tener exactamente `MATRIX_COLS` elementos. Si no tienes tantas teclas físicas puedes usar `KC_NO` para rellenar los espacios en blanco.
 
 ## `config.h`
 
-The `config.h` file is where you configure the hardware and feature set for your keyboard. There are a lot of options that can be placed in that file, too many to list there. For a complete overview of available options see the [Config Options](config_options.md) page.
+El archivo `config.h` está donde configuras el hardware y el conjunto de características para tu teclado. Hay un montón de opciones que se pueden colocar en ese archivo, demasiados para listar allí. Para obtener una visión de conjunto completa de las opciones disponibles consultes la página de [Opciones de Configuración](config_options.md).
 
-### Hardware Configuration
+### Configuración de hardware
 
 
-At the top of the `config.h` you'll find USB related settings. These control how your keyboard appears to the Operating System. If you don't have a good reason to change you should leave the `VENDOR_ID` as `0xFEED`. For the `PRODUCT_ID` you should pick a number that is not yet in use.
+En la parte superior de `config.h` encontrarás ajustes relacionados con USB. Estos controlan la apariencia de tu teclado en el Sistema Operativo. Si no tienes una buena razón para cambiar debes dejar el `VENDOR_ID` como `0xFEED`. Para el `PRODUCT_ID` debes seleccionar un número que todavía no está en uso.
 
-Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately reflect your keyboard.
+Cambies las líneas de `MANUFACTURER`, `PRODUCT`, y `DESCRIPTION` para reflejar con precisión tu teclado.
 
 ```c
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
-#define PRODUCT         my_awesome_keyboard
-#define DESCRIPTION     A custom keyboard
+#define MANUFACTURER    Tú
+#define PRODUCT         mi_teclado_fantastico
+#define DESCRIPTION     Un teclado personalizado
 ```
 
-?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+?> Windows y macOS mostrarán el `MANUFACTURER` y `PRODUCT` en la lista de dispositivos USB. `lsusb` en Linux toma estos de la lista mantenida por el [Repositorio de ID USB](http://www.linux-usb.org/usb-ids.html) por defecto. `lsusb -v` mostrará los valores reportados por el dispositivo, y también están presentes en los registros del núcleo después de conectarlo.
 
-### Keyboard Matrix Configuration
+### Configuración de la matriz del teclado
 
-The next section of the `config.h` file deals with your keyboard's matrix. The first thing you should set is the matrix's size. This is usually, but not always, the same number of rows and columns as the physical key arrangement.
+La siguiente sección del archivo `config.h` trata de la matriz de tu teclado. Lo primero que debes establecer es el tamaño de la matriz. Esto es generalmente, pero no siempre, el mismo número de filas y columnas como la disposición de la llave física.
 
 ```c
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
 ```
 
-Once you've defined the size of your matrix you need to define which pins on your MCU are connected to rows and columns. To do so simply specify the names of those pins:
+Una vez que hayas definido el tamaño de tu matriz, necesitas definir qué patas en tu MCU están conectados a filas y columnas. Para hacerlo simplemente especifiques los nombres de esas patas:
 
 ```c
 #define MATRIX_ROW_PINS { D0, D5 }
@@ -97,16 +97,16 @@ Once you've defined the size of your matrix you need to define which pins on you
 #define UNUSED_PINS
 ```
 
-The number of `MATRIX_ROW_PINS` entries must be the same as the number you assigned to `MATRIX_ROWS`, and likewise for `MATRIX_COL_PINS` and `MATRIX_COLS`. You do not have to specify `UNUSED_PINS`, but you can if you want to document what pins are open.
+El número de entradas debe ser el mismo que el número que asignaste a `MATRIX_ROWS`, y del mismo modo para `MATRIX_COL_PINS` y `MATRIX_COLS`. No tienes que especificar `UNUSED_PINS`, pero puedes si deseas documentar qué patas están abiertos.
 
-Finally, you can specify the direction your diodes point. This can be `COL2ROW` or `ROW2COL`.
+Finalmente, puedes especificar la dirección en la que apuntan tus diodos. Esto puede `COL2ROW` o `ROW2COL`.
 
 ```c
 #define DIODE_DIRECTION COL2ROW
 ```
 
-#### Direct Pin Matrix
-To configure a keyboard where each switch is connected to a separate pin and ground instead of sharing row and column pins, use `DIRECT_PINS`. The mapping defines the pins of each switch in rows and columns, from left to right. Must conform to the sizes within `MATRIX_ROWS` and `MATRIX_COLS`, use `NO_PIN` to fill in blank spaces. Overrides the behaviour of `DIODE_DIRECTION`, `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`.
+#### Matriz de patas directas
+Para configurar un teclado en el que cada interruptor está conectado a una pata y un suelo separados en lugar de compartir las patas de fila y columna, uses `DIRECT_PINS`. La asignación define las patas de cada interruptor en filas y columnas, de izquierda a derecha. Debe ajustarse a los tamaños dentro de `MATRIX_ROWS` y `MATRIX_COLS`. Uses `NO_PIN` para rellenar espacios en blanco. Anula el comportamiento de `DIODE_DIRECTION`, `MATRIX_ROW_PINS` y `MATRIX_COL_PINS`.
 
 ```c
 // #define MATRIX_ROW_PINS { D0, D5 }
@@ -123,9 +123,9 @@ To configure a keyboard where each switch is connected to a separate pin and gro
 //#define DIODE_DIRECTION
 ```
 
-### Backlight Configuration
+### Configuración de retroiluminación
 
-QMK supports backlighting on most GPIO pins. A select few of these can be driven by the MCU in hardware. For more details see the [Backlight Documentation](feature_backlight.md).
+QMK soporta retroiluminación en la mayoría de las patas GPIO. Algunos de ellas pueden ser manejados por el MCU en hardware. Para más detalles, consultes la [Documentación de Retroiluminación](feature_backlight.md).
 
 ```c
 #define BACKLIGHT_PIN B7
@@ -134,17 +134,17 @@ QMK supports backlighting on most GPIO pins. A select few of these can be driven
 #define BREATHING_PERIOD 6
 ```
 
-### Other Configuration Options
+### Otras opciones de configuración
 
-There are a lot of features that can be configured or tuned in `config.h`. You should see the [Config Options](config_options.md) page for more details.
+Hay un montón de características que se pueden configurar o ajustar en `config.h`. Debes consultar la página de [Opciones de Configuración](config_options.md) para más detalles.
 
 ## `rules.mk`
 
-You use the `rules.mk` file to tell QMK what files to build and what features to enable. If you are building around an atmega32u4 you can largely leave these defaults alone. If you are using another MCU you may have to tweak some parameters.
+Usas el archivo `rules.mk` para decirle a QMK qué archivos construir y qué características habilitar. Si estás construyendo alrededor de un atmega32u4 debería puede dejar en gran parte estos valores predeterminados solos. Si estás usando otro MCU es posible que tengas que ajustar algunos parámetros.
 
-### MCU Options
+### Opciones MCU
 
-These options tell the build system what CPU to build for. Be very careful if you change any of these settings, you can render your keyboard inoperable.
+Estas opciones le indican al sistema de compilación para qué CPU construir. Tengas mucho cuidado si cambias cualquiera de estos ajustes. Puedes inutilizar su teclado.
 
 ```make
 MCU = atmega32u4
@@ -154,28 +154,28 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 ```
 
-### Bootloaders
+### Gestores de arranque
 
-The bootloader is a special section of your MCU that allows you to upgrade the code stored on the MCU. Think of it like a Rescue Partition for your keyboard. 
+El gestor de arranque es una sección especial de tu MCU que te permite actualizar el código almacenado en el MCU. Piensas en ello como una partición de aones para tu teclado.
 
-#### Teensy Bootloader Example
+#### Ejemplo de gestor de arranque
 
 ```make
 BOOTLOADER = halfkay
 ```
 
-#### Atmel DFU Loader Example
+#### Ejemplo de cargador DFU Atmel
 
 ```make
 BOOTLOADER = atmel-dfu
 ```
 
-#### Pro Micro Bootloader Example
+#### Ejemplo de gestor de arranque Pro Micro
 
 ```make
 BOOTLOADER = caterina
 ```
 
-### Build Options
+### Opciones de construcción
 
-There are a number of features that can be turned on or off in `rules.mk`. See the [Config Options](config_options.md#feature-options) page for a detailed list and description.
+Hay un serie de características que pueden activar o desactivar en `rules.mk`. Consultes la página de [Opciones de Configuración](config_options.md#feature-options) para obtener una lista detallada y una descripción.
