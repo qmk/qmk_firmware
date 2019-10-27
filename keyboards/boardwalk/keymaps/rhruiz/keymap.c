@@ -46,6 +46,7 @@
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
 #define KC_ENTS SFT_T(KC_ENT)
+#define KC__TGN TG(_NUM)
 #ifdef RGBLIGHT_ENABLE
 #    define KC_RVAD RGB_VAD
 #    define KC_RVAI RGB_VAI
@@ -54,12 +55,12 @@
 #    define KC_RVAI KC_TRNS
 #endif
 
-const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}};
+const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}, [_NUM] = {45, 255}};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_kc(
-    GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS, EQL,  ESC ,
+    GRV,  1,    2,    3,    4,    5,    6,    _TGN, 7,    8,    9,    0,    MINS, EQL,
     TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_KEY_OVERRIDE] = LAYOUT_kc(
-    TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, UNDS, PLUS, ____,
+    TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
     ____, ____, ____, ____, ____, ____, LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
     ____, ____, ____, ____, ____, ____, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
@@ -99,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN2] = LAYOUT_kc(
-    ____, F1  , F2  , F3  , F4  , F5  , F6  ,   F7  , F8  , F9  , F10 , F11 , F12 , ____,
+    ____, F1  , F2  , F3  , F4  , F5  , F6  ,   ____, F7  , F8  , F9  , F10 , F11 , F12 ,
     ____, BTN1, MS_U, BTN2, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, MS_L, MS_D, MS_R, UNDS, PLUS, WH_D,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, WH_U,   ____, ____, ____, ____, ____, ____, ____,
@@ -112,6 +113,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC__VUP, KC__VDN, KC_MUTE, KC_EJCT, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  ),
+
+  [_NUM] = LAYOUT_kc(
+    ____, 1   , 2   , 3   , 4   , 5   , 6   ,   ____, 7   , 8   , 9   , 0   , ____, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, 4   , 5   , 6   , MINS, ____, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, 1   , 2   , 3   , PLUS, ____, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, 0   , DOT , COMM, EQL , ____, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   )
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG };
+enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG, _NUM };
 
 /* mission control */
 #define MISCTRL LCTL(KC_UP)
