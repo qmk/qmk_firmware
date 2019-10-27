@@ -2,7 +2,7 @@
 
 # These are defaults based on what has been implemented for ARM boards
 AUDIO_ENABLE = yes
-RGBLIGHT_ENABLE = no
+WS2812_DRIVER = bitbang
 
 # Force task driven PWM until ARM can provide automatic configuration
 ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
