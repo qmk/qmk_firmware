@@ -57,8 +57,8 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
  // Dimple gaming Layer
 #define ___________________GAMER1__________________       TD(TD_TAB_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, TO(_BASE)
 #define ___________________GAMER2__________________       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_NO, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO, KC_NO
-#define ___________________GAMER3__________________       KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
-#define ___________________GAMER4__________________       KC_GRV, KC_ESC, KC_RALT, KC_SPC,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_LGUI
+#define ___________________GAMER3__________________       KC_LSFT, KC_1,    KC_2,    KC_4,    KC_5,    KC_5, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO
+#define ___________________GAMER4__________________       KC_GRV, KC_ESC, KC_3, KC_SPC,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_LGUI
 
 /*
 __  __ _       _
