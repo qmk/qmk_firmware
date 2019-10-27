@@ -2,7 +2,7 @@
 
 This split ergo layout is standard QWERTY on the default layer, with symbols on
 the lower layer, numbers/navigation on the raise layer, and media keys centered
-around the WASD cluster in the adjust (raise + lower) layer. A few general
+around the ESDF cluster in the adjust (raise + lower) layer. A few general
 principles went into this layout:
 
 * The number row is optional, as are the outermost bottom row keys and the
