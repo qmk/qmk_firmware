@@ -149,6 +149,6 @@ def list_keymaps(keyboard_name):
         if "LAYOUTS" in rules_mk:
             for layout in rules_mk["LAYOUTS"]["value"].split():
                 cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
-                names = names + find_keymaps(cl_base_path, revision, community = True)
+                names = names.union(find_keymaps(cl_base_path, revision, community = True))
 
     return sorted(names)
