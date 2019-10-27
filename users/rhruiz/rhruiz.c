@@ -9,9 +9,11 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { 
 
 __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) { return true; }
 
+__attribute__((weak)) void keyboard_post_init_keymap(void) { }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return rhruiz_process_record(keycode, record); }
 
-void rhruiz_disable_promicro_leds() {
+void keyboard_post_init_user() {
 #ifdef __AVR_ATmega32U4__
     setPinOutput(B0);
     writePinHigh(B0);
@@ -19,6 +21,7 @@ void rhruiz_disable_promicro_leds() {
     setPinOutput(D5);
     writePinHigh(D5);
 #endif
+    keyboard_post_init_keymap();
 }
 
 layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {

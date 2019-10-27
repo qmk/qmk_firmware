@@ -132,31 +132,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // clang-format on
-
-void keyoard_post_init_user(void) { rhruiz_disable_promicro_leds(); }
-
-void rhruiz_update_layer_colors() {
-    switch (biton32(layer_state)) {
-        case _FN1:
-            writePinHigh(B0);
-            writePinLow(D5);
-            break;
-
-        case _FN2:
-            writePinLow(B0);
-            writePinHigh(D5);
-            break;
-
-        case _CFG:
-            writePinLow(D5);
-            writePinLow(B0);
-            break;
-
-        default:
-            writePinHigh(B0);
-            writePinHigh(D5);
-            break;
-    }
-}
-
-void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
