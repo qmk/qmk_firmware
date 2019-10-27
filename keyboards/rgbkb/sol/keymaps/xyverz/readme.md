@@ -128,5 +128,5 @@ $ make sol:xyverz
 
 After the initial flash with AVRdudess, you should be able to flash using this:
 ```
-$ make sol:xyverz:dfu
+$ make sol:xyverz:flash
 ```
