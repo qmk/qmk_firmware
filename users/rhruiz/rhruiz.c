@@ -14,7 +14,8 @@ __attribute__((weak)) void keyboard_post_init_keymap(void) { }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return rhruiz_process_record(keycode, record); }
 
 void keyboard_post_init_user() {
-#ifdef __AVR_ATmega32U4__
+    /* TODO: revisit this check if flashed promicros with dfu */
+#ifdef BOOTLOADER_CATERINA
     setPinOutput(B0);
     writePinHigh(B0);
 
