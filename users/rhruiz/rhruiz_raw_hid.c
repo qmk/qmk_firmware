@@ -29,10 +29,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
 
         case id_rgblight_color: {
+#    ifdef RGBLIGHT_ENABLE
             uint16_t hue = ((uint16_t)command_data[0] << 8) | command_data[1];
             uint8_t  sat = command_data[2];
             rhruiz_change_leds_to(hue, sat);
-
+#    endif
             break;
         }
 
