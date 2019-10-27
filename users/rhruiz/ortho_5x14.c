@@ -21,6 +21,10 @@
 
 // clang-format off
 #ifndef LAYOUT_ortho_5x14_kc
+#ifndef LAYOUT_ortho_5x14
+#error keyboard must define LAYOUT_ortho_5x14
+#endif
+
 #define LAYOUT_ortho_5x14_kc( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
     L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
