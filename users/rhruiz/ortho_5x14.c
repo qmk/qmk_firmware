@@ -21,7 +21,7 @@
 
 // clang-format off
 #ifndef LAYOUT_kc
-#define LAYOUT_kc( \
+#define LAYOUT_ortho_5x14_kc( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
     L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
     L20, L21, L22, L23, L24, L25, L26, R20, R21, R22, R23, R24, R25, R26, \
@@ -38,7 +38,7 @@
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BL] = LAYOUT_kc(
+  [_BL] = LAYOUT_ortho_5x14_kc(
     GRV,  1,    2,    3,    4,    5,    6,    _TGN, 7,    8,    9,    0,    MINS, EQL,
     TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _FN2, LCTL, LALT, LGUI, _FN1, SPC,  SPC,  BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
   ),
 
-  [_VIM_EMACS] = LAYOUT_kc(
+  [_VIM_EMACS] = LAYOUT_ortho_5x14_kc(
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, LEFT, DOWN, UP  , RGHT, ____, ____,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
-  [_MOUSE] = LAYOUT_kc(
+  [_MOUSE] = LAYOUT_ortho_5x14_kc(
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
-  [_KEY_OVERRIDE] = LAYOUT_kc(
+  [_KEY_OVERRIDE] = LAYOUT_ortho_5x14_kc(
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
     ____, ____, ____, ____, UNDS, EQL , LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
     ____, ____, ____, ____, MINS, PLUS, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
-  [_FN1] = LAYOUT_kc(
+  [_FN1] = LAYOUT_ortho_5x14_kc(
     ____, EXLM, AT  , HASH, DLR , PERC, CIRC,   AMPR, ASTR, LPRN, RPRN, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   DFN2, DFN2, ____, ____, ____, ____, ____
   ),
 
-  [_FN2] = LAYOUT_kc(
+  [_FN2] = LAYOUT_ortho_5x14_kc(
     ____, F1  , F2  , F3  , F4  , F5  , F6  ,   ____, F7  , F8  , F9  , F10 , F11 , F12 ,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
-  [_NUM] = LAYOUT_kc(
+  [_NUM] = LAYOUT_ortho_5x14_kc(
     ____, 1   , 2   , 3   , 4   , 5   , 6   ,   ____, 7   , 8   , 9   , 0   , ____, ____,
     ____, BTN1, MS_U, BTN2, WH_D, ____, ____,   ____, 4   , 5   , 6   , MINS, ____, ____,
     ____, MS_L, MS_D, MS_R, WH_U, ____, WH_D,   ____, 1   , 2   , 3   , PLUS, ____, ____,
