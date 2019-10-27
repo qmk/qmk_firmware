@@ -125,14 +125,14 @@ This command examines your environment and alerts you to potential build or flas
 qmk doctor
 ```
 
-## `qmk list_keyboards`
+## `qmk list-keyboards`
 
 This command lists all the keyboards currently defined in `qmk_firmware`
 
 **Usage**:
 
 ```
-qmk list_keyboards
+qmk list-keyboards
 ```
 
 ## `qmk new-keymap`
