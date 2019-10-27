@@ -99,7 +99,7 @@ qmk cformat [file1] [file2] [...] [fileN]
 
 Dieser Befehl konfiguriert das Verhalten von QMK. Für die volle `qmk config`-Dokumentation gehe zu [CLI-Konfiguration](cli_configuration.md).
 
-**Anwenng**:
+**Anwendung**:
 
 ```
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
