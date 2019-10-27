@@ -22,12 +22,6 @@ enum rhruiz_layers { _BL, _VIM_EMACS, _MOUSE, _KEY_OVERRIDE, _FN1, _FN2, _CFG, _
 #define CLUP MT(MOD_RCTL, KC_UP)
 #define CLRIGHT LT(_FN1, KC_RIGHT)
 
-/* raw hid */
-#ifdef RAW_ENABLE
-#    include "rhruiz_api.h"
-#    include "raw_hid.h"
-#endif
-
 void          rhruiz_update_layer_colors(void);
 void          rhruiz_on_default_layer(void);
 void          rhruiz_update_layer_colors(void);
