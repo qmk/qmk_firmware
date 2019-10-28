@@ -1,9 +1,15 @@
 #include "ws2812.h"
 #include "i2c_master.h"
 
-void ws2812_init(void) {
-    i2c_init();
-}
+#ifdef WS2812_ADDRESS
+#    define WS2812_ADDRESS 0xb0
+#endif
+
+#ifdef WS2812_TIMEOUT
+#    define WS2812_TIMEOUT 100
+#endif
+
+void ws2812_init(void) { i2c_init(); }
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
@@ -13,7 +19,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         s_init = true;
     }
 
-    i2c_transmit(0xb0, (uint8_t*)ledarray, sizeof(LED_TYPE) * leds, 100);
+    i2c_transmit(WS2812_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_TIMEOUT);
 }
 
 // Setleds for SK6812RGBW
