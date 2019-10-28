@@ -33,3 +33,5 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 #UNICODEMAP_ENABLE = yes # for emoji user
 #RGBLIGHT_ENABLE = yes # uncomment if you want addressable led strips
+
+DEFAULT_FOLDER = namecard2x4/rev2
