@@ -15,13 +15,13 @@ enum layer_names {
 enum custom_keycodes {
   RGB_RST = SAFE_RANGE,
   RGB_IDL, // RGB Idling animations
-  RGB_TUG // Toggle RGB underglow as layer indicator
+  RGB_UND // Toggle RGB underglow as layer indicator
 };
 
 typedef union {
   uint32_t raw;
   struct {
-    bool     rgb_layer_change :1;
+    bool    rgb_layer_change :1;
     bool    rgb_matrix_idle_anim :1;
   };
 } userspace_config_t;
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, RGB_TUG, RGB_IDL,\
+        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, RGB_UND, RGB_IDL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      XXXXXXX, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -284,7 +284,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_enable();
       }
       break;
-    case RGB_TUG:  // This allows me to use underglow as layer indication, or as normal
+    case RGB_UND:  // This allows me to use underglow as layer indication, or as normal
       if (record->event.pressed) {
           userspace_config.rgb_layer_change ^= 1;
           eeconfig_update_user(userspace_config.raw);
@@ -292,14 +292,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
           }
       }
-    break;
+     break;
     case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
       if (record->event.pressed) {
           userspace_config.rgb_matrix_idle_anim ^= 1;
           eeconfig_update_user(userspace_config.raw);
           if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
       }
-    break;
+     break;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
       if (record->event.pressed) {
           bool is_eeprom_updated = false;
