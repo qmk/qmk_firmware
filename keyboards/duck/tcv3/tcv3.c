@@ -119,3 +119,14 @@ void backlight_set(uint8_t level) {
 //   return process_record_user(keycode, record);
 // }
 
+// U5 Pin 1, 2, 3 connected to top left LEDs
+
+// U6 Pin 1, 2, 3 connected to bottom right leds col of 3
+// U7 Pin 1 connected to row connected to bottom right leds solo LED
+// U7 Pin 2, 3 connected to bottom right leds row of 2
+// U6 Pin 5 connected to U7 Pin 6
+
+// U5 pin 5 connected to U6 Pin 6
+
+// U5, U6, U7 Pin 8 VCC
+// U5, U6, U7 Pin 4 GRND
