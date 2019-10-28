@@ -1,11 +1,11 @@
 #include "ws2812.h"
 #include "i2c_master.h"
 
-#ifdef WS2812_ADDRESS
+#ifndef WS2812_ADDRESS
 #    define WS2812_ADDRESS 0xb0
 #endif
 
-#ifdef WS2812_TIMEOUT
+#ifndef WS2812_TIMEOUT
 #    define WS2812_TIMEOUT 100
 #endif
 
