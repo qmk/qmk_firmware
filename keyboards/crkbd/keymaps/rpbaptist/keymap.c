@@ -24,9 +24,9 @@ typedef union {
     bool    rgb_layer_change :1;
     bool    rgb_matrix_idle_anim :1;
   };
-} userspace_config_t;
+} user_config_t;
 
-userspace_config_t userspace_config;
+user_config_t user_config;
 
 // Base layers
 #define COLEMAK DF(_COLEMAKDHM)
@@ -257,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   hypno_timer = timer_read32();
-  if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+  if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
       rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
   }
 
@@ -286,36 +286,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case RGB_UND:  // This allows me to use underglow as layer indication, or as normal
       if (record->event.pressed) {
-          userspace_config.rgb_layer_change ^= 1;
-          eeconfig_update_user(userspace_config.raw);
-          if (userspace_config.rgb_layer_change) {
+          user_config.rgb_layer_change ^= 1;
+          eeconfig_update_user(user_config.raw);
+          if (user_config.rgb_layer_change) {
               layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
           }
       }
-     break;
-    case RGB_IDL:  // This allows me to use underglow as layer indication, or as normal
+     return false; break;
+    case RGB_IDL:
       if (record->event.pressed) {
-          userspace_config.rgb_matrix_idle_anim ^= 1;
-          eeconfig_update_user(userspace_config.raw);
-          if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+          user_config.rgb_matrix_idle_anim ^= 1;
+          eeconfig_update_user(user_config.raw);
+          if (user_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
       }
-     break;
+     return false; break;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
       if (record->event.pressed) {
           bool is_eeprom_updated = false;
-          if (userspace_config.rgb_matrix_idle_anim) {
-              userspace_config.rgb_matrix_idle_anim = false;
+          if (user_config.rgb_matrix_idle_anim) {
+              user_config.rgb_matrix_idle_anim = false;
               is_eeprom_updated = true;
           }
-          if (is_eeprom_updated) { eeconfig_update_user(userspace_config.raw); }
+          if (is_eeprom_updated) { eeconfig_update_user(user_config.raw); }
       }
-      break;
+      return false; break;
   }
   return true;
 }
 
 void matrix_scan_rgb(void) {
-    if (userspace_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 }
@@ -345,7 +345,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
 
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
-        if (userspace_config.rgb_matrix_idle_anim) {
+        if (user_config.rgb_matrix_idle_anim) {
             rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
         }
 }
@@ -371,7 +371,7 @@ void matrix_scan_user(void) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (!g_suspend_state && rgb_matrix_config.enable)
+  if (user_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable)
     {
         switch (biton32(layer_state)) {
             case _GAMING_EXT:
@@ -397,3 +397,33 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
+
+__attribute__((weak))
+void eeconfig_init_keymap(void) {}
+
+void eeconfig_init_user(void) {
+    user_config.raw              = 0;
+    user_config.rgb_layer_change = true;
+    eeconfig_update_user(user_config.raw);
+    eeconfig_init_keymap();
+    keyboard_init();
+}
+
+void keyboard_post_init_user(void) {
+    user_config.raw = eeconfig_read_user();
+
+    if (user_config.rgb_layer_change) {
+      rgb_matrix_enable_noeeprom();
+    }
+    keyboard_post_init_rgb();
+}
+
+__attribute__((weak))
+void matrix_init_keymap(void) {}
+
+// Call user matrix init, set default RGB colors and then
+// call the keymap's init function
+void matrix_init_user(void) {
+    user_config.raw = eeconfig_read_user();
+    matrix_init_keymap();
+}
