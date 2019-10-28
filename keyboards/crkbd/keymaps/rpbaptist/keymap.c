@@ -15,7 +15,12 @@ enum layer_names {
 enum custom_keycodes {
   RGB_RST = SAFE_RANGE,
   RGB_IDL, // RGB Idling animations
-  RGB_UND // Toggle RGB underglow as layer indicator
+  RGB_UND, // Toggle RGB underglow as layer indicator
+  RGB_SOL, // RGB_MATRIX_SOLID_COLOR
+  RGB_SPL, // RGB_MATRIX_SPLASH
+  RGB_CYC, // RGB_MATRIX_CYCLE_ALL
+  RGB_DUO, // RGB_MATRIX_CYCLE_OUT_IN_DUAL
+  RGB_CHV  // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 };
 
 typedef union {
@@ -139,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, XXXXXXX,                      COLEMAK,  GAMING, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      RGB_UND, RGB_MOD, RGB_IDL, RGB_SPI, RGB_VAI, RGB_VAD,\
+      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY, XXXXXXX,                      RGB_UND, RGB_IDL, RGB_SPL, RGB_SOL, RGB_VAI, RGB_VAD,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG,RGB_RMOD, XXXXXXX, RGB_SPD, RGB_SAI, RGB_SAD,\
+      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_DUO, RGB_CHV, RGB_CYC, RGB_SAI, RGB_SAD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
