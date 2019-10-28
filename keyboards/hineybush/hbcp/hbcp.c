@@ -59,7 +59,7 @@ void led_set_kb(uint8_t usb_led) {
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (_BV(USB_LED_CAPS_LOCK))) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         sethsv_raw(HSV_CAPS, (LED_TYPE *)&led[0]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
