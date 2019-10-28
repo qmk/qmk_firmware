@@ -299,7 +299,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_matrix_enable();
       }
       break;
-    case RGB_UND:  // This allows me to use underglow as layer indication, or as normal
+    case RGB_UND:  // Toggle separate underglow status
       if (record->event.pressed) {
           user_config.rgb_layer_change ^= 1;
           eeconfig_update_user(user_config.raw);
@@ -310,11 +310,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
       }
      break;
-    case RGB_IDL:
+    case RGB_IDL: // Toggle idle/heatmap animation
       if (record->event.pressed) {
           user_config.rgb_matrix_idle_anim ^= 1;
           eeconfig_update_user(user_config.raw);
-          if (user_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+          if (user_config.rgb_matrix_idle_anim) {
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+          }
       }
      break;
     case RGB_MOD:
@@ -402,11 +404,11 @@ void rgb_matrix_indicators_user(void) {
 #endif
 
 void eeconfig_init_user(void) {
-    user_config.raw              = 0;
-    user_config.rgb_layer_change = true;
+    user_config.raw                  = 0;
+    user_config.rgb_layer_change     = true;
+    user_config.rgb_matrix_idle_anim = true;
     eeconfig_update_user(user_config.raw);
-    // eeconfig_init_keymap();
-    keyboard_init();
+      keyboard_init();
 }
 
 void keyboard_post_init_user(void) {
