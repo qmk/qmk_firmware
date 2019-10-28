@@ -80,7 +80,7 @@ void led_set_user(uint8_t usb_led) {
 __attribute__ ((weak))
 void keyboard_post_init_user(void) {
     rgblight_set_effect_range(3, RGBLED_NUM-3);
-    led_set_user((_BV(USB_LED_CAPS_LOCK))|(_BV(USB_LED_NUM_LOCK))|(_BV(USB_LED_SCROLL_LOCK)));
+    led_set_user(_BV(USB_LED_CAPS_LOCK)|_BV(USB_LED_NUM_LOCK)|_BV(USB_LED_SCROLL_LOCK));
     wait_ms(300);
     led_set_user(0);
 }
