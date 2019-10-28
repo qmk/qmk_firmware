@@ -1,25 +1,15 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
+enum layer_names {
+    _QW,
+    _DV,
+    _CM,
+    _FL,
+};
 
+enum planck_keycodes { DVORAK = SAFE_RANGE, QWERTY, COLEMAK };
 
-// Used for SHIFT_ESC
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QW 0
-#define _DV 1
-#define _CM 2
-#define _FL 3
-
-// Macro name shortcuts
-#define QWERTY M(_QW)
-#define DVORAK M(_DV)
-#define COLEMAK M(_CM)
-
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QW] = LAYOUT_tkl_ansi( /* Layer 0: Qwerty */ \
@@ -59,34 +49,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
+// clang-format on
 
-enum function_id {
-    SHIFT_ESC,
-};
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case DVORAK:
+                set_single_persistent_default_layer(_DV);
+                return false;
+            case QWERTY:
+                set_single_persistent_default_layer(_QW);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_CM);
+                return false;
+        }
+    }
+    return true;
 }
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case _DV:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DV);
-          }
-          break;
-        case _QW:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QW);
-          }
-          break;
-        case _CM:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_CM);
-          }
-          break;
-      }
-    return MACRO_NONE;
-};
