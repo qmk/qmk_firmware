@@ -112,7 +112,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-        SRC += ws2812.c
+        WS2812_DRIVER_REQUIRED = yes
     endif
 endif
 
@@ -176,7 +176,7 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     OPT_DEFS += -DWS2812
-    SRC += ws2812.c
+    WS2812_DRIVER_REQUIRED = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
@@ -259,6 +259,26 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
         SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
     else
         SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+    endif
+endif
+
+VALID_WS2812_DRIVER_TYPES := bitbang pwm spi i2c
+
+WS2812_DRIVER ?= bitbang
+ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(WS2812_DRIVER),$(VALID_WS2812_DRIVER_TYPES)),)
+        $(error WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
+    endif
+
+    ifeq ($(strip $(WS2812_DRIVER)), bitbang)
+        SRC += ws2812.c
+    else
+        SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    endif
+
+    # add extra deps
+    ifeq ($(strip $(WS2812_DRIVER)), i2c)
+        QUANTUM_LIB_SRC += i2c_master.c
     endif
 endif
 
