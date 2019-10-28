@@ -304,6 +304,16 @@ void matrix_scan_rgb(void) {
         rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
+    switch (biton32(rgb_matrix_config.mode)) {
+      case RGB_MATRIX_CYCLE_ALL:
+      case RGB_MATRIX_CYCLE_OUT_IN_DUAL:
+      case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
+        break;
+      default: {
+        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_DEFAULT;
+      }
+    }
 }
 
 void matrix_scan_user(void) {

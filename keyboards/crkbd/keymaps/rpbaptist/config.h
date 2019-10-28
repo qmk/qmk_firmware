@@ -93,6 +93,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #define RGB_MATRIX_ANIMATION_SPEED_DEFAULT UINT8_MAX / 2
   #define RGB_MATRIX_ANIMATION_SPEED_SLOW    RGB_MATRIX_ANIMATION_SPEED_DEFAULT / 4
+  #define RGB_MATRIX_ANIMATION_SPEED_SLOWER  RGB_MATRIX_ANIMATION_SPEED_SLOW / 2
 #endif
 
 #define TAPPING_TERM 150
