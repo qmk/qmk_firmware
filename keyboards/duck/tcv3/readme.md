@@ -11,7 +11,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make duck/tcv3:default
 
-**Reset Key:** To put the TC-V3 into reset, hold the top second most right key while plugging in. 
+**Reset Key:** To put the TC-V3 into reset, hold the top second most right key (`K0J`) while plugging in. 
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
