@@ -246,6 +246,21 @@ void oled_task_user(void) {
 
 #define RGB_MATRIX_REST_MODE RGB_MATRIX_DUAL_BEACON
 
+extern led_config_t g_led_config;
+void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_type) {
+    HSV hsv = {hue, sat, val};
+    if (hsv.v > rgb_matrix_config.hsv.v) {
+        hsv.v = rgb_matrix_config.hsv.v;
+    }
+
+    RGB rgb = hsv_to_rgb(hsv);
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+    }
+}
+
 static uint32_t hypno_timer;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -290,17 +305,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           eeconfig_update_user(user_config.raw);
           if (user_config.rgb_layer_change) {
               layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+          } else {
+            rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
           }
       }
-     return false; break;
+     break;
     case RGB_IDL:
       if (record->event.pressed) {
           user_config.rgb_matrix_idle_anim ^= 1;
           eeconfig_update_user(user_config.raw);
           if (user_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
       }
-     return false; break;
-    case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
+     break;
+    case RGB_MOD:
+    case RGB_RMOD:
       if (record->event.pressed) {
           bool is_eeprom_updated = false;
           if (user_config.rgb_matrix_idle_anim) {
@@ -309,7 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           if (is_eeprom_updated) { eeconfig_update_user(user_config.raw); }
       }
-      return false; break;
+      break;
   }
   return true;
 }
@@ -326,21 +344,6 @@ void suspend_power_down_keymap(void) {
 
 void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
-}
-
-extern led_config_t g_led_config;
-void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
-    }
-
-    RGB rgb = hsv_to_rgb(hsv);
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-            rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-        }
-    }
 }
 
 void keyboard_post_init_rgb(void) {
@@ -398,14 +401,14 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif
 
-__attribute__((weak))
-void eeconfig_init_keymap(void) {}
+// __attribute__((weak))
+// void eeconfig_init_keymap(void) {}
 
 void eeconfig_init_user(void) {
     user_config.raw              = 0;
     user_config.rgb_layer_change = true;
     eeconfig_update_user(user_config.raw);
-    eeconfig_init_keymap();
+    // eeconfig_init_keymap();
     keyboard_init();
 }
 
@@ -418,12 +421,12 @@ void keyboard_post_init_user(void) {
     keyboard_post_init_rgb();
 }
 
-__attribute__((weak))
-void matrix_init_keymap(void) {}
+// __attribute__((weak))
+// void matrix_init_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
-void matrix_init_user(void) {
-    user_config.raw = eeconfig_read_user();
-    matrix_init_keymap();
-}
+// void matrix_init_user(void) {
+//     user_config.raw = eeconfig_read_user();
+//     // matrix_init_keymap();
+// }
