@@ -1,6 +1,4 @@
 #pragma once
-#ifndef USERSPACE
-#define USERSPACE
 
 #include "quantum.h"
 
@@ -107,8 +105,6 @@ We use custom codes here, so we can substitute the right stuff
 #  define KC_D3_3 KC_3
 #  define KC_D3_4 KC_4
 #endif // !TAP_DANCE_ENABLE
-
-#endif // !USERSPACE
 
 /* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et */
 
