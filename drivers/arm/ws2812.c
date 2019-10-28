@@ -40,6 +40,7 @@
 #define RES 10000  // Width of the low gap between bits to cause a frame to latch
 
 void sendByte(uint8_t byte) {
+    // WS2812 protocol wants most significant bits first
     for (unsigned char bit = 0; bit < 8; bit++) {
         bool is_one = byte & (1 << (7 - bit));
         if (is_one) {
