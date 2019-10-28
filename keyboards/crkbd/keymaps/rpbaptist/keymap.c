@@ -246,8 +246,6 @@ void oled_task_user(void) {
 
 static uint32_t hypno_timer;
 
-#define RGB_MATRIX_REST_MODE RGB_MATRIX_DUAL_BEACON
-
 extern led_config_t g_led_config;
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_type) {
     HSV hsv = {hue, sat, val};
