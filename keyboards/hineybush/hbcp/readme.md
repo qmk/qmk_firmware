@@ -5,7 +5,7 @@
 A short description of the keyboard/project
 
 Keyboard Maintainer: [hineybush](https://github.com/hineybush)  
-Hardware Supported: HBCP PCB featuring an AT90USB1286
+Hardware Supported: HBCP PCB featuring an AT90USB1286  
 Hardware Availability: Group buy only
 
 Make example for this keyboard (after setting up your build environment):
