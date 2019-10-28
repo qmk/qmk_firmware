@@ -445,10 +445,26 @@ void rgb_matrix_disable_noeeprom(void) {
     rgb_matrix_config.enable = 0;
 }
 
+void rgb_matrix_dynamic_animation_speed(void) {
+  switch (rgb_matrix_config.mode) {
+    case RGB_MATRIX_CYCLE_OUT_IN_DUAL:
+    case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+      rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
+      break;
+    case RGB_MATRIX_CYCLE_ALL:
+      rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+      break;
+    default:
+      rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_DEFAULT;
+      break;
+  }
+}
+
 void rgb_matrix_step(void) {
     rgb_matrix_config.mode++;
     if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX) rgb_matrix_config.mode = 1;
     rgb_task_state = STARTING;
+    rgb_matrix_dynamic_animation_speed();
     eeconfig_update_rgb_matrix();
 }
 
@@ -456,6 +472,7 @@ void rgb_matrix_step_reverse(void) {
     rgb_matrix_config.mode--;
     if (rgb_matrix_config.mode < 1) rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     rgb_task_state = STARTING;
+    rgb_matrix_dynamic_animation_speed();
     eeconfig_update_rgb_matrix();
 }
 
