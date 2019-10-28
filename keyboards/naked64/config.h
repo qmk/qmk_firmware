@@ -1,5 +1,6 @@
 /*
-Copyright 2016 Ethan Apodaca <papodaca@gmail.com>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "led.h"
+#pragma once
 
-void led_set(uint8_t usb_led) {
-  //XT Keyboards do not have LEDs, nothing to do.
-}
+#include "config_common.h"

@@ -104,7 +104,7 @@ Further reading:
 - [Deskthority article](https://deskthority.net/wiki/Keyboard_matrix)
 - [Keyboard Matrix Help by Dave Dribin (2000)](https://www.dribin.org/dave/keyboard/one_html/)
 - [How Key Matrices Works by PCBheaven](http://pcbheaven.com/wikipages/How_Key_Matrices_Works/) (animated examples)
-- [How keyboards work - QMK documentation](/docs/how_keyboards_work.md)
+- [How keyboards work - QMK documentation](how_keyboards_work.md)
 
 </details>
 
@@ -139,7 +139,7 @@ Start by installing the switches and stabilisers in the plate. Depending on the 
 
 ## Planning the matrix
 
-If you are following a pre-existing handwire guide (e.g. for the keyboards in the [handwire firmware section](/keyboards/handwired/) you can skip this step, just ensure you wire the matrix as described.
+If you are following a pre-existing handwire guide (e.g. for the keyboards in the [handwire firmware section](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired) you can skip this step, just ensure you wire the matrix as described.
 
 What you want to achieve is one leg from each switch being attached to the corresponding switches next to it (rows) and the other leg being attached to the switches above and below it (columns) and a diode to one of the legs, mosy commonly this will be the leg attached to the rows, and the diode will face away from it (Column to Row) i.e. with the wire furthest from the black line on the diode connected to the switch (as current will only travel in one direction through a diode)
 
@@ -197,7 +197,7 @@ Note that these methods can be combined.  Prepare your lengths of wire before mo
 
 ### A note on split keyboards
 
-If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](/docs/feature_split_keyboard.md)
+If you are planning a split keyboard (e.g. Dactyl) each half will require a controller and a means of communicating between them (like a TRRS or hardwired cable).  Further information can be found in the [QMK split keyboard documentation.](feature_split_keyboard.md)
 
 
 ### Soldering
@@ -308,7 +308,7 @@ From here, you should have a working keyboard once you program a firmware.
 
 Simple firmware can be created easily using the [Keyboard Firmware Builder](https://kbfirmware.com/) website.  Recreate your layout using [Keyboard Layout Editor](http://www.keyboard-layout-editor.com), import it and recreate the matrix (if not already done as part of [planning the matrix](#planning-the-matrix).
 
-Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below, or using the more comprehensive [getting started guide.](/docs/newbs_getting_started)
+Go through the rest of the tabs, assigning keys until you get to the last one where you can compile and download your firmware.  The .hex file can be flashed straight onto your keyboard, and the .zip of source files can be modified for advanced functionality and compiled locally using the method described in the collapsable section below, or using the more comprehensive [getting started guide.](newbs_getting_started)
 
 
 <details>
