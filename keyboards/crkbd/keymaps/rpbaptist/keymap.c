@@ -323,7 +323,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           bool is_eeprom_updated = false;
           if (user_config.rgb_matrix_idle_anim) {
               user_config.rgb_matrix_idle_anim = false;
-     eeee         is_eeprom_updated = true;
+              is_eeprom_updated = true;
           }
           if (is_eeprom_updated) { eeconfig_update_user(user_config.raw); }
       }
@@ -333,7 +333,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 5000) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 15000) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 }
