@@ -130,3 +130,5 @@ void backlight_set(uint8_t level) {
 
 // U5, U6, U7 Pin 8 VCC
 // U5, U6, U7 Pin 4 GRND
+
+// U5 Pin 6 connected to atmega32u4 D4
