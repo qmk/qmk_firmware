@@ -89,6 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_DUAL_BEACON
   #define RGB_MATRIX_REST_MODE    RGB_MATRIX_DUAL_BEACON
+  #define RGB_MATRIX_IDLE_TIMEOUT 30000
 #endif
 
 #define TAPPING_TERM 150

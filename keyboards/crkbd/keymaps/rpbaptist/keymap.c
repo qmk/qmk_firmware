@@ -300,7 +300,7 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > 30000) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > RGB_MATRIX_IDLE_TIMEOUT) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
     }
 }
