@@ -1,72 +1,80 @@
 """ Functions for working with Makefiles
 """
 import os
-import glob
-import re
 
 import qmk.path
 from qmk.errors import NoSuchKeyboardError
 
-def parse_rules_mk(file_path):
-    """ Parse a rules.mk file
+def parse_rules_mk_file(file, rules_mk=None):
+    """Turn a rules.mk file into a dictionary.
 
     Args:
-        file_path: path to the rules.mk file
+        file: path to the rules.mk file
+        rules_mk: already parsed rules.mk the new file should be merged with
 
     Returns:
         a dictionary with the file's content
     """
-    # regex to match lines uncommented lines and get the data
-    # group(1) = option's name
-    # group(2) = operator (eg.: '=', '+=')
-    # group(3) = value(s)
-    rules_mk_regex = re.compile(r"^\s*(\w+)\s*([\?\:\+\-]?=)\s*(\S.*?)(?=\s*(\#|$))")
-    parsed_file = dict()
-    mk_content = qmk.path.file_lines(file_path)
-    for line in mk_content:
-        found = rules_mk_regex.search(line)
-        if found:
-            parsed_file[found.group(1)] = dict(operator = found.group(2), value = found.group(3))
-    return parsed_file
+    if not rules_mk:
+        rules_mk = {}
 
-def merge_rules_mk_files(base, revision):
-    """ Merge a keyboard revision's rules.mk file with
-    the 'base' rules.mk file
+    if os.path.exists(file):
+        rules_mk_lines = qmk.path.file_lines(file)
 
-    Args:
-        base: the base rules.mk file's content as dictionary
-        revision: the revision's rules.mk file's content as dictionary
+        for line in rules_mk_lines:
+            # Filter out comments
+            if line.strip().startswith("#"):
+                continue
 
-    Returns:
-        a dictionary with the merged content
-    """
-    return {**base, **revision}
+            # Strip in-line comments
+            if '#' in line:
+                line = line[:line.index('#')].strip()
 
-def get_rules_mk(keyboard, revision = ""):
+            if '=' in line:
+                # Append
+                if '+=' in line:
+                    key, value = line.split('+=', 1)
+                    if key.strip() not in rules_mk:
+                        rules_mk[key.strip()] = value.strip()
+                    else:
+                        rules_mk[key.strip()] += ' ' + value.strip()
+                # Set if absent
+                elif "?=" in line:
+                    key, value = line.split('?=', 1)
+                    if key.strip() not in rules_mk:
+                        rules_mk[key.strip()] = value.strip()
+                else:
+                    if ":=" in line:
+                        line.replace(":","")
+                    key, value = line.split('=', 1)
+                    rules_mk[key.strip()] = value.strip()
+
+    return rules_mk
+
+def get_rules_mk(keyboard):
     """ Get a rules.mk for a keyboard
 
     Args:
         keyboard: name of the keyboard
-        revision: revision of the keyboard
+
+    Raises:
+        NoSuchKeyboardError: when the keyboard does not exists
 
     Returns:
         a dictionary with the content of the rules.mk file
     """
-    base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
-    rules_mk = dict()
-    if os.path.exists(base_path + os.path.sep + revision):
-        rules_mk_path_wildcard = os.path.join(base_path, "**", "rules.mk")
-        rules_mk_regex = re.compile(r"^" + base_path + "(?:" + revision + os.path.sep + ")?rules.mk")
-        paths = [path for path in glob.iglob(rules_mk_path_wildcard, recursive = True) if rules_mk_regex.search(path)]
-        for file_path in paths:
-            rules_mk[revision if revision in file_path else "base"] = parse_rules_mk(file_path)
+    # Start with qmk_firmware/keyboards
+    kb_path = os.path.join(os.getcwd(), "keyboards")
+    # walk down the directory tree
+    # and collect all rules.mk files
+    if os.path.exists(os.path.join(kb_path, keyboard)):
+        rules_mk = dict()
+        for directory in keyboard.split(os.path.sep):
+            kb_path = os.path.join(kb_path, directory)
+            rules_mk_path = os.path.join(kb_path, "rules.mk")
+            if os.path.exists(rules_mk_path):
+                rules_mk = parse_rules_mk_file(rules_mk_path, rules_mk)
     else:
         raise NoSuchKeyboardError("The requested keyboard and/or revision does not exist.")
 
-    # if the base or the revision directory does not contain a rules.mk
-    if len(rules_mk) == 1:
-        rules_mk = rules_mk[revision]
-    # if both directories contain rules.mk files
-    elif len(rules_mk) == 2:
-        rules_mk = merge_rules_mk_files(rules_mk["base"], rules_mk[revision])
     return rules_mk
