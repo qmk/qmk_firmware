@@ -2,8 +2,6 @@
 """
 import os
 from traceback import format_exc
-import re
-import glob
 
 import qmk.path
 import qmk.makefile
@@ -100,27 +98,6 @@ def write(keyboard, keymap, layout, layers):
 
     return keymap_file
 
-def find_keymaps(base_path, revision = "", community = False):
-    """ Find the available keymaps for a keyboard and revision pair.
-
-    Args:
-        base_path: The base path of the keyboard.
-
-        revision: The keyboard's revision.
-
-        community: Set to True for the layouts under layouts/community.
-
-    Returns:
-        a set with the keymaps's names
-    """
-    path_wildcard = os.path.join(base_path, "**", "keymap.c")
-    if community:
-        path_regex = re.compile(r"^" + re.escape(base_path) + "(\S+)" + os.path.sep + "keymap\.c")
-    else:
-        path_regex = re.compile(r"^" + re.escape(base_path) + "(?:" + re.escape(revision) + os.path.sep + ")?keymaps" + os.path.sep + "(\S+)" + os.path.sep + "keymap\.c")
-    names = [path_regex.sub(lambda name: name.group(1), path) for path in glob.iglob(path_wildcard, recursive = True) if path_regex.search(path)]
-    return set(names)
-
 def list_keymaps(keyboard_name):
     """ List the available keymaps for a keyboard.
 
@@ -130,25 +107,28 @@ def list_keymaps(keyboard_name):
     Returns:
         a set with the names of the available keymaps
     """
-    if os.path.sep in keyboard_name:
-        keyboard, revision = os.path.split(os.path.normpath(keyboard_name))
-    else:
-        keyboard = keyboard_name
-        revision = ""
-
     # parse all the rules.mk files for the keyboard
-    rules_mk = qmk.makefile.get_rules_mk(keyboard, revision)
+    rules_mk = qmk.makefile.get_rules_mk(keyboard_name)
     names = set()
 
     if rules_mk:
-        # get the keymaps from the keyboard's directory
-        kb_base_path = os.path.join(os.getcwd(), "keyboards", keyboard) + os.path.sep
-        names = find_keymaps(kb_base_path, revision)
+        # qmk_firmware/keyboards
+        keyboards_dir = os.path.join(os.getcwd(), "keyboards")
+        # path to the keyboard's directory
+        kb_path = os.path.join(keyboards_dir, keyboard_name)
+        # walk up the directory tree until keyboards_dir
+        # and collect all directories' name with keymap.c file in it
+        while kb_path != keyboards_dir:
+            keymaps_dir = os.path.join(kb_path, "keymaps")
+            if os.path.exists(keymaps_dir):
+                names = names.union([keymap for keymap in os.listdir(keymaps_dir) if os.path.isfile(os.path.join(keymaps_dir, keymap, "keymap.c"))])
+            kb_path = os.path.dirname(kb_path)
 
         # if community layouts are supported, get them
         if "LAYOUTS" in rules_mk:
-            for layout in rules_mk["LAYOUTS"]["value"].split():
-                cl_base_path = os.path.join(os.getcwd(), "layouts", "community", layout) + os.path.sep
-                names = names.union(find_keymaps(cl_base_path, revision, community = True))
+            for layout in rules_mk["LAYOUTS"].split():
+                cl_path = os.path.join(os.getcwd(), "layouts", "community", layout)
+                if os.path.exists(cl_path):
+                    names = names.union([keymap for keymap in os.listdir(cl_path) if os.path.isfile(os.path.join(cl_path, keymap, "keymap.c"))])
 
     return sorted(names)
