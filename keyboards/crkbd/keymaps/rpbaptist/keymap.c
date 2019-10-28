@@ -323,7 +323,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           bool is_eeprom_updated = false;
           if (user_config.rgb_matrix_idle_anim) {
               user_config.rgb_matrix_idle_anim = false;
-              is_eeprom_updated = true;
+     eeee         is_eeprom_updated = true;
           }
           if (is_eeprom_updated) { eeconfig_update_user(user_config.raw); }
       }
@@ -401,9 +401,6 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif
 
-// __attribute__((weak))
-// void eeconfig_init_keymap(void) {}
-
 void eeconfig_init_user(void) {
     user_config.raw              = 0;
     user_config.rgb_layer_change = true;
@@ -420,13 +417,3 @@ void keyboard_post_init_user(void) {
     }
     keyboard_post_init_rgb();
 }
-
-// __attribute__((weak))
-// void matrix_init_keymap(void) {}
-
-// Call user matrix init, set default RGB colors and then
-// call the keymap's init function
-// void matrix_init_user(void) {
-//     user_config.raw = eeconfig_read_user();
-//     // matrix_init_keymap();
-// }
