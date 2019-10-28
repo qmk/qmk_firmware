@@ -69,7 +69,7 @@ void led_set_user(uint8_t usb_led) {
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
     }
-    if (usb_led & (_BV(USB_LED_SCROLL_LOCK))) {
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         sethsv_raw(HSV_SCRL, (LED_TYPE *)&led[2]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
