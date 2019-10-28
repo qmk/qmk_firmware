@@ -116,7 +116,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < sizeof(led) / sizeof(led[0]); i++) {
-        setled(i, r, b, b);
+        setled(i, r, g, b);
     }
 }
 
