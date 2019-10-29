@@ -120,7 +120,7 @@ Checking file size of planck_rev5_xyverz.hex
  * File size is fine - 18574/28672
  ```
 
-Une fois arrivé à ce stade, le script de compilation va checher le bootloader DFU toutes les 5 secondes. Il va répéter les messages suivants jusqu'à ce que l'appareil soit trouvé ou que vous l'annuliez.
+Une fois arrivé à ce stade, le script de compilation va chercher le bootloader DFU toutes les 5 secondes. Il va répéter les messages suivants jusqu'à ce que l'appareil soit trouvé ou que vous l'annuliez.
 
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
@@ -143,7 +143,7 @@ Une fois terminé, vous devrez mettre à zéro le contrôleur. Vous allez voir u
 >>> dfu-programmer atmega32u4 reset
 ```
 
-?> Si vous avez des soucis concerant ceci - comme par exemple `dfu-programmer: no device present` - merci de regarder [Foires Aux Questions de Compilation](faq_build.md).
+?> Si vous avez des soucis concernant ceci - par exemple `dfu-programmer: no device present` - merci de regarder [Foires Aux Questions de Compilation](faq_build.md).
 
 #### Commandes DFU
 
@@ -174,7 +174,7 @@ Checking file size of lets_split_rev2_xyverz.hex                                
 Detecting USB port, reset your controller now..............
 ```
 
-Une fois ceci fait, réinitialisez votre board et le script va détecter et flasher le firmware. La sortie devrait ressember à quelque chose comme ça:
+Une fois ceci fait, réinitialisez votre board et le script va détecter et flasher le firmware. La sortie devrait ressembler à quelque chose comme ça:
 
 ```
 Detected controller on USB port at /dev/ttyS15
@@ -219,7 +219,7 @@ avrdude.exe: safemode: Fuses OK (E:CB, H:D8, L:FF)
 avrdude.exe done.  Thank you.
 ```
 
-Si vous avez un soucis, essayez de faire ceci:
+Si vous avez un souci, essayez de faire ceci:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
@@ -267,7 +267,7 @@ Booting
 
 ### STM32 (ARM)
 
-Pour la majorité des boards ARM (incluant les Proton C, Planck Rev 6, et Preonic Rev 3), lorsque vous êtes prêt à compiler et flasher votre firmware,ouvrez la fenêtre de terminal et lancez la commande de compilation:
+Pour la majorité des boards ARM (incluant les Proton C, Planck Rev 6, et Preonic Rev 3), lorsque vous êtes prêt à compiler et flasher votre firmware, ouvrez la fenêtre de terminal et lancez la commande de compilation:
 
     make <my_keyboard>:<my_keymap>:dfu-util
 

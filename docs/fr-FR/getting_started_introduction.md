@@ -43,7 +43,7 @@ Le fichier `config.h` peut être mis à 3 endroits:
 * userspace (`/users/<user>/config.h`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
-Le système de compilation cherche automatiquement les fichiers de configuration dans l'ordre au dessus. Si vous souhaitez surcharger une configuration définie par un `config.h` précédent, vous devrez d'abord ajouter le code suivant.
+Le système de compilation cherche automatiquement les fichiers de configuration dans l'ordre au-dessus. Si vous souhaitez surcharger une configuration définie par un `config.h` précédent, vous devrez d'abord ajouter le code suivant.
 
 ```
 #pragma once
@@ -51,7 +51,7 @@ Le système de compilation cherche automatiquement les fichiers de configuration
 
 Ensuite, pour surcharger l'option du fichier `config.h` précédent, vous devez `#undef` puis `#define` l'option à nouveau.
 
-Voici à quoi l'ensemble du code resemble une fois regroupé:
+Voici à quoi l'ensemble du code ressemble une fois regroupé:
 
 ```
 #pragma once
