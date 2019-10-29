@@ -37,7 +37,7 @@ user_config_t user_config;
 
 // Base layers
 #define COLEMAK DF(_COLEMAKDHM)
-#define GAMING DF(_GAMING)
+#define GAMING  DF(_GAMING)
 
 // Layer toggle and switch
 #define T_NAV TT(_NAV)
@@ -48,7 +48,7 @@ user_config_t user_config;
 
 // Layer keys with functionality on tap
 #define FN_TAB LT(_FN, KC_TAB)
-#define NAV_0 LT(_NAV, KC_0)
+#define NAV_0  LT(_NAV, KC_0)
 
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
