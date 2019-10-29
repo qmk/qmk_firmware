@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[ _MOV ] = LAYOUT (
 
-	/* _LTR WLft WUp  WDn  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
-	 * LCtl  MLft MUp  MDn  MRht  xxx  Btn1 Left Up   Down Right RCtl
+	/* _LTR WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
+	 * LCtl  MLft MDn  MUp  MRht  xxx  Btn1 Left Up   Down Right RCtl
 	 * LSht   Btn5 Btn4 Btn3 Butn2 Btn1 Btn2 Acc0 Acc1 Acc2 xxx  RSht
 	 * LAlt   _LTR   ___     ___      ___      ___       _LTR    RAlt
 	 */
