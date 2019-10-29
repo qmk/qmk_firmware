@@ -41,9 +41,6 @@ qmk setup  # Dies klont `qmk/qmk_firmware` und richtet optional auch Deine Build
 ## Installation mit git Repo
 
 `git clone https://github.com/qmk/qmk_cli.git && cd qmk_cli && python3 setup.py install`
-## Installation mit git Repo
-
-`git clone https://github.com/qmk/qmk_cli.git && cd qmk_cli && python3 setup.py install`
 
 ## Packaging für andere Betriebssysteme
 
