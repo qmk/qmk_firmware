@@ -37,7 +37,7 @@ Then place this include at the top of your code:
 |12     |             |`B5`         |         |          |
 |13     |             |`B6`         |         |          |
 
-\* The ATmega328P possesses two extra ADC channels; however, they are not present on the DIP pinout, and are not shared with GPIO pins.
+<sup>\* The ATmega328P possesses two extra ADC channels; however, they are not present on the DIP pinout, and are not shared with GPIO pins. You can use `adc_read()` directly to gain access to these.</sup>
 
 ## Functions
 
