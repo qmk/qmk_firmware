@@ -2,7 +2,7 @@
 
 	/* Escape always goes back to default layer.
 	 * Full set of Ctrl, Alt, Shift almost throughout.
-	 * Using QMK at qmk.thevankeyboards.com, which adds has led support. */
+	 * Using QMK at qmk.thevankeyboards.com, which adds led support. */
 
 #define _LTR 0 // letters (Dvorak)
 #define _NSY 1 // numbers and symbols
