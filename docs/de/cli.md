@@ -67,7 +67,7 @@ $ ~/qmk_firmware/bin/qmk hello
 Hier ein Vergleich mit der globalen CLI:
 
 * Die lokale CLI unterstützt kein `qmk setup` oder `qmk clone`.
-* Die lokale CLI arbeitet immer innerhalb der selben `qmk_firmware`-Baumstruktur, auch wenn Du mehrere Repositories geklont hast.
+* Die lokale CLI arbeitet immer innerhalb der selben `qmk_firmware`-Verzeichnisstruktur, auch wenn Du mehrere Repositories geklont hast.
 * Die lokale CLI läuft nicht in einer virtualenv. Daher ist es möglich, dass Abhängigkeiten (dependencies) miteinander in Konflikt kommen/stehen.
 
 # CLI-Befehle
