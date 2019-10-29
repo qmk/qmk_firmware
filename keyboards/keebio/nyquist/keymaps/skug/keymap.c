@@ -19,23 +19,21 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define BASE 0
-#define GAME 1
-#define SYMB 2
-#define MDIA 3
-#define ARRW 4
-#define _ADJUST 16
-
 #define CT_APOS CTL_T(SE_APOS)
 #define CT_TILD CTL_T(SE_TILD)
 #define MD_OSLH LT(MDIA, SE_OSLH)
 #define SM_AE   LT(SYMB, SE_AE)
 #define SE_LT   SE_LESS
 #define SE_GT   LSFT(SE_LESS)
+
+enum layer_names {
+      BASE,
+      GAME,
+      SYMB,
+      MDIA,
+      ARRW,
+      _ADJUST,
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,
