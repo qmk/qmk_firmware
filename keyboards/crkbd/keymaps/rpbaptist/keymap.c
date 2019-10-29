@@ -304,29 +304,35 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-void set_matrix_rest_mode(void) {
+uint8_t rgb_matrix_get_rest_mode(void) {
+  uint8_t rest_mode;
   switch (biton32(default_layer_state)) {
       case _COLEMAKDHM:
-        if (RGB_MATRIX_REST_MODE != RGB_MATRIX_CYCLE_ALL) {
-          #undef RGB_MATRIX_REST_MODE
-          #define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_ALL
-        }
-        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+        rest_mode = RGB_MATRIX_CYCLE_ALL;
         break;
       case _GAMING:
-        if (RGB_MATRIX_REST_MODE != RGB_MATRIX_DUAL_BEACON) {
-          #undef RGB_MATRIX_REST_MODE
-          #define RGB_MATRIX_REST_MODE RGB_MATRIX_DUAL_BEACON
-        }
+        rest_mode = RGB_MATRIX_DUAL_BEACON;
+        break;
+  }
+  return rest_mode;
+}
+
+void rgb_matrix_set_rest_mode(void) {
+  uint8_t rgb_rest_mode = rgb_matrix_get_rest_mode();
+  switch (rgb_rest_mode) {
+      case RGB_MATRIX_CYCLE_ALL:
+        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+        break;
+      case RGB_MATRIX_DUAL_BEACON:
         rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
         break;
   }
-  rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+  rgb_matrix_mode_noeeprom(rgb_rest_mode);
 }
 
 void matrix_scan_rgb(void) {
     if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > RGB_MATRIX_IDLE_TIMEOUT) {
-        set_matrix_rest_mode();
+        rgb_matrix_set_rest_mode();
     }
 }
 
@@ -350,7 +356,7 @@ void suspend_wakeup_init_keymap(void) {
 void keyboard_post_init_rgb(void) {
     layer_state_set_user(layer_state);
         if (user_config.rgb_matrix_idle_anim) {
-            set_matrix_rest_mode();
+            rgb_matrix_set_rest_mode();
         }
 }
 
@@ -389,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   #ifdef RGB_MATRIX_ENABLE
     hypno_timer = timer_read32();
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_REST_MODE) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == rgb_matrix_get_rest_mode()) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
     }
   #endif
@@ -415,6 +421,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case RGB_RST:
         if (record->event.pressed) {
           eeconfig_update_rgb_matrix_default();
+          user_config.rgb_layer_change     = true;
+          user_config.rgb_matrix_idle_anim = true;
+          rgb_matrix_set_rest_mode();
           rgb_matrix_enable();
         }
         break;
