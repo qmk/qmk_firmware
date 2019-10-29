@@ -2,20 +2,14 @@
 // It's based on the default keymap, but Dvorak!
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
-extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _FL 3
-#define _CL 4
+enum layer_names {
+  _QWERTY,
+  _DVORAK,
+  _COLEMAK,
+  _FL,
+  _CL
+};
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -27,6 +21,7 @@ enum planck_keycodes {
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define FN_CAPS     LT(_FL, KC_CAPS)            // Tap for Caps Lock, Hold for Function Layer
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _QWERTY: Base Layer (Default Layer)
    * ,-----------------------------------------------------------.  ,---.
@@ -107,33 +102,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_SAI,          \
   _______, _______, _______, _______,          RGB_MOD, RGB_MOD,                            _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_HUI),
 };
-
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
-  }
-  return true;
+    if (record->event.pressed) {
+        switch (keycode) {
+            case QWERTY:
+                set_single_persistent_default_layer(_QWERTY);
+                return false;
+            case DVORAK:
+                set_single_persistent_default_layer(_DVORAK);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_COLEMAK);
+                return false;
+        }
+    }
+    return true;
 }
