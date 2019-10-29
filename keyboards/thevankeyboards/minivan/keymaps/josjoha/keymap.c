@@ -2,7 +2,7 @@
 
     /* Escape always goes back to default layer.
      * Full set of Ctrl, Alt, Shift almost throughout.
-     * Using QMK at qmk.thevankeyboards.com, which adds led support. */
+     * (Using QMK at qmk.thevankeyboards.com though, for led support.) */
 
 #define _LTR 0 // letters (Dvorak)
 #define _NSY 1 // numbers and symbols
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /* Layer 1: Numbers and symbols.
-     *
+     *          Numpad with backspace and dot.
      */
 
     [ _NSY ] = LAYOUT (
@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* _LTR  !   @   #   $   %   ^   &   *   (   )        Del
          * LCtl   1   2   3   4   5   \|  =+  /?  [{  ]}  `~+RCtl
          * LSht    0   9   8   7   6    |   +   ?   {   }    RSht
-         * LAlt  Left   ___    ___     ___       ___   Right RAlt
+         * LAlt  Bksp   ___    ___     ___       ___   .     RAlt
          * */
                 
         TG ( _LTR ) , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL          ,
         KC_LCTL      , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL ( KC_GRV ) , 
         KC_LSFT       , KC_0    , KC_9    , KC_8    , KC_7    , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , KC_RSFT         , 
-        KC_LALT        , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_RALT
+        KC_LALT        , KC_BSPC , _______ , _______ , _______ , _______ , KC_DOT  , KC_RALT
                       ) ,
 
 
@@ -61,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _FUN ] = LAYOUT (
     
-        /* _LTR _NSY _FUN _MOV _RAR _RST  xxx  xxx xxx  xxx  xxx    ~
+        /* _LTR _NSY _FUN _MOV _RAR _RST  xxx  xxx xxx  xxx  xxx       ~
          * LCtl   F1   F2   F3   F4   F5   xxx  F11  F12  F13  F14  RCtl
          * LSht    F10  F9   F8   F7   F6   xxx  Tab  Ent  Space -  RSht
-         * LAlt  Left    ___     ___      ___      ___       Right   RAlt
+         * LAlt  Left    ___     ___      ___      ___       Right  RAlt
          */
         
         TG ( _LTR ) , TG ( _NSY ) , TG ( _FUN ) , TG ( _MOV ) , TG ( _RAR ) , TG ( _RST ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX  , KC_TILD ,
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* _LTR WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
          * LCtl  MLft MDn  MUp  MRht  xxx  Btn1 Left Up   Down Right RCtl
          * LSht   Btn5 Btn4 Btn3 Butn2 Btn1 Btn2 Acc0 Acc1 Acc2 xxx  RSht
-         * LAlt   Left   ___     ___      ___      ___       Right    RAlt
+         * LAlt   Left   ___     ___      ___      ___       Right   RAlt
          */
                 
         TG ( _LTR ) , KC_WH_L , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /*  _LTR Power Power Sleep Wake xxx  xxx  xxx  xxx  Pause ScrLk PrtSc
          *  Caps  xxx   xxx   xxx   xxx  xxx  xxx  xxx  xxx  xxx   xxx Insert
          *  NumL   Stop  Play  Prev  Next Vol- Vol+ Mute xxx  xxx   xxx   xxx
-         *  xxx    Left    ___   ___       ___      ___      Right         App
+         *  xxx    Left    ___   ___       ___      ___      Right        App
          */
 
         TG ( _LTR ) , KC_PWR  , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , 
