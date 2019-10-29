@@ -12,6 +12,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 // clang-format off
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_arrow_wrapper(...) 	         LAYOUT_arrow_command(__VA_ARGS__)
+#define LAYOUT_catalyst(...)                 LAYOUT_arrow(__VA_ARGS__)
 
 /*
   _____  _                 _

@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "users/tominabox1/tominabox1.h"
+#include "tominabox1.h"
 
-#define RGBLIGHT_EFFECT_BREATHING
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -11,11 +10,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_BASE] = LAYOUT_arrow_wrapper(
+    [_BASE] = LAYOUT_catalyst(
       __________________MINIVAN1_________________,
       __________________MINIVAN2_________________,
       __________________MINIVAN3_________________,
-      __________________MINIVAN4_________________
+      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
     ),
 
     /*
@@ -25,11 +24,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_LOWER] = LAYOUT_arrow_wrapper(
+    [_LOWER] = LAYOUT_catalyst(
       _________________LOWER_1___________________,
       _________________LOWER_2___________________,
       __________________MININUM3_________________,
-      __________________MININUM4_________________
+      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
     ),
 
     /*
@@ -39,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_RAISE] = LAYOUT_arrow_wrapper(
+    [_RAISE] = LAYOUT_catalyst(
       ___________________RAISE1__________________,
       ___________________RAISE2__________________,
       ___________________RVAN_3__________________,
-      ___________________RVAN_4__________________
+      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
     ),
 
     /*
@@ -53,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |     |       |     |   ENTR   |  SPACE |      |    |    |    |
      */
 
-    [_ADJUST] = LAYOUT_arrow_wrapper(
+    [_ADJUST] = LAYOUT_catalyst(
       ___________________ADJST1__________________,
       ___________________ADJST2__________________,
       ___________________ADJVAN3_________________,
-      ___________________ADJVAN4_________________
+      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
     ),
 
     /*
@@ -67,21 +66,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |     |       |     |          |        | FKEY |    |    |    |
      */
 
-    [_FKEY] = LAYOUT_arrow_wrapper(
+    [_FKEY] = LAYOUT_catalyst(
       ___________________FKEY1___________________,
       ___________________FKEY2___________________,
       ___________________FVAN_3__________________,
-      ___________________FVAN_4__________________
+      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
     ),
   };
 
-  void keyboard_post_init_keymap(void) {
+  void keyboard_post_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       // Set up RGB effects on _only_ the third LED (index 2)
       rgblight_set_effect_range(2, 1);
       // Set LED effects to breathing mode in a tealish blue color
-      rgblight_sethsv_noeeprom(185, 255, 255);
-      rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
+      rgblight_sethsv_noeeprom(185, 255, 50);
+      rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING+3);
 
       // Init the first two LEDs to a static color
       setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
@@ -92,21 +91,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   uint32_t layer_state_set_keymap(uint32_t state){
     #ifdef RGBLIGHT_ENABLE
-      uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-      uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+      if (layer_state_cmp(state, _LOWER)) {
+        led0r = 25;
+        led0g = 25;
+      }
+      if (layer_state_cmp(state, _RAISE)) {
+        led1g = 25;
+        led1b = 25;
+      }
 
-      if (layer_state_cmp(state, 1)) {
-        led0r = 255;
+      if (layer_state_cmp(state, _FKEY)) {
+        led0b = 25;
+        led0r = 25;
+        led1b = 25;
+        led1r = 25;
       }
-      if (layer_state_cmp(state, 2)) {
-        led0g = 255;
-      }
-
-      if (layer_state_cmp(state, 4)) {
-        led1b = 255;
-      }
-      if (layer_state_cmp(state, 5)) {
-        led1r = 255;
+      if (layer_state_cmp(state, _ADJUST)) {
+        led1r = 0;
+        led1b = 25;
       }
 
       setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);

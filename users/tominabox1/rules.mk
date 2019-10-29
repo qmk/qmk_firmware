@@ -23,7 +23,7 @@ RGB_MATRIX_ENABLE = no
 endif
 
 ifeq ($(strip $(KEYBOARD)), thevankeyboards/minivan)
-BACKLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 endif
 
 

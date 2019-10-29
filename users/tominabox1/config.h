@@ -24,6 +24,9 @@
 #ifdef KEYBOARD_thevankeyboards_minivan
   #define BACKLIGHT_PIN B7
   #define BACKLIGHT_LEVELS 1
+  #define RGBLIGHT_EFFECT_BREATHING
+  #define RGBLIGHT_LIMIT_VAL 100
+  #define RGBLIGHT_EFFECT_BREATHE_CENTER 2.7
 #endif // Minivan
 
 // RGB_Matrix settings
