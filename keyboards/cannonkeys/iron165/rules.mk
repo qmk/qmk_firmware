@@ -43,7 +43,7 @@ SRC =	keyboard.c \
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 DFU_SUFFIX_ARGS = -v 0483 -p DF11
 
-#BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = yes	# Console for debug
@@ -53,6 +53,3 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
 # BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
 RGBLIGHT_ENABLE = no
-
-# RAW_ENABLE = yes
-# DYNAMIC_KEYMAP_ENABLE = yes
