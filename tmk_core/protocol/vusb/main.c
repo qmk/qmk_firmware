@@ -100,7 +100,7 @@ int main(void) {
             if (usbConfiguration && usbInterruptIsReady()) {
                 keyboard_task();
 
-#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
                 rgblight_task();
 #endif
             }
