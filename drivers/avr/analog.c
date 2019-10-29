@@ -14,16 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Simple analog to digitial conversion
-
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <stdint.h>
 #include "analog.h"
 
-static uint8_t aref = (1 << REFS0);  // default to AREF = Vcc
+static uint8_t aref = ADC_REF_POWER;
 
-void analogReference(uint8_t mode) { aref = mode & 0xC0; }
+void analogReference(uint8_t mode) {
+    aref = mode & (_BV(REFS1) | _BV(REFS0));
+}
 
 // Arduino compatible pin input
 int16_t analogRead(uint8_t pin) {
@@ -39,20 +39,71 @@ int16_t analogRead(uint8_t pin) {
 #endif
 }
 
-// Mux input
-int16_t adc_read(uint8_t mux) {
-#if defined(__AVR_AT90USB162__)
-    return 0;
-#else
-    uint8_t low;
+int16_t analogReadPin(pin_t pin) {
+    return adc_read(pinToMux(pin));
+}
 
-    ADCSRA = (1 << ADEN) | ADC_PRESCALER;                // enable ADC
-    ADCSRB = (1 << ADHSM) | (mux & 0x20);                // high speed mode
-    ADMUX  = aref | (mux & 0x1F);                        // configure mux input
-    ADCSRA = (1 << ADEN) | ADC_PRESCALER | (1 << ADSC);  // start the conversion
-    while (ADCSRA & (1 << ADSC))
-        ;                      // wait for result
-    low = ADCL;                // must read LSB first
-    return (ADCH << 8) | low;  // must read MSB only once!
+uint8_t pinToMux(pin_t pin) {
+    switch(pin) {
+#if defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
+        case F0: return 0;
+        case F1: return _BV(MUX0);
+        case F2: return _BV(MUX1);
+        case F3: return _BV(MUX1) | _BV(MUX0);
+        case F4: return _BV(MUX2);
+        case F5: return _BV(MUX2) | _BV(MUX0);
+        case F6: return _BV(MUX2) | _BV(MUX1);
+        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
+#elif defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+        case F0: return 0;
+        case F1: return _BV(MUX0);
+        case F4: return _BV(MUX2);
+        case F5: return _BV(MUX2) | _BV(MUX0);
+        case F6: return _BV(MUX2) | _BV(MUX1);
+        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
+        case D4: return _BV(MUX5);
+        case D6: return _BV(MUX5) | _BV(MUX0);
+        case D7: return _BV(MUX5) | _BV(MUX1);
+        case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0);
+        case B5: return _BV(MUX5) | _BV(MUX2);
+        case B6: return _BV(MUX5) | _BV(MUX2) | _BV(MUX0);
+#elif defined(__AVR_ATmega32A__)
+        case A0: return 0;
+        case A1: return _BV(MUX0);
+        case A2: return _BV(MUX1);
+        case A3: return _BV(MUX1) | _BV(MUX0);
+        case A4: return _BV(MUX2);
+        case A5: return _BV(MUX2) | _BV(MUX0);
+        case A6: return _BV(MUX2) | _BV(MUX1);
+        case A7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
+#elif defined(__AVR_ATmega328P__)
+        case C0: return 0;
+        case C1: return _BV(MUX0);
+        case C2: return _BV(MUX1);
+        case C3: return _BV(MUX1) | _BV(MUX0);
+        case C4: return _BV(MUX2);
+        case C5: return _BV(MUX2) | _BV(MUX0);
+        // ADC7:6 not present in DIP package and not shared by GPIO pins
 #endif
+        default:
+            return 0;
+    }
+}
+
+int16_t adc_read(uint8_t mux) {
+    uint8_t low;
+    ADCSRA = _BV(ADEN) | ADC_PRESCALER;                          // enable ADC
+
+#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
+    ADCSRB = _BV(ADHSM) | (mux & _BV(MUX5));                     // high speed mode and ADC8-13
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+    ADCSRB = _BV(ADHSM)                                          // high speed mode only
+#endif
+
+    ADMUX  = aref | (mux & (_BV(MUX2) | _BV(MUX1) | _BV(MUX0))); // configure mux input (mask off MUX4:3, single channel only)
+    ADCSRA |= _BV(ADSC);                                         // start the conversion
+    while (ADCSRA & _BV(ADSC))
+        ;                                                        // wait for result
+    low = ADCL;                                                  // must read LSB first
+    return (ADCH << 8) | low;                                    // must read MSB only once!
 }

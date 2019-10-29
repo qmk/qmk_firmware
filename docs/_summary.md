@@ -55,6 +55,7 @@
   * [Basic Keycodes](keycodes_basic.md)
   * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
   * [Quantum Keycodes](quantum_keycodes.md)
+  * [ADC Driver](feature_adc_driver.md)
   * [Advanced Keycodes](feature_advanced_keycodes.md)
   * [Audio](feature_audio.md)
   * [Auto Shift](feature_auto_shift.md)
