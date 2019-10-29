@@ -4,7 +4,7 @@ Diese Seite beschreibt die Einrichtung und den Umgang mit dem QMK CLI (Kommandoz
 
 # Übersicht
 
-Die QMK CLI vereinfacht das Zusammenbauen und Arbeiten mit QMK Tastaturen. Hier findest Du wichtige Befehle, um beispielsweise das Herunterladen und Compilen der QMK Firmware oder das Erstellen von Keymaps (und vieles mehr) zu erleichtern.
+Die QMK CLI vereinfacht das Zusammenbauen und Arbeiten mit QMK Tastaturen. Hier findest Du wichtige Befehle, um beispielsweise das Herunterladen und Kompilieren der QMK Firmware oder das Erstellen von Tastaturbelegungen (und vieles mehr) zu erleichtern.
 
 * [Globale CLI](#globale-cli)
 * [Lokale CLI](#lokale-cli)
