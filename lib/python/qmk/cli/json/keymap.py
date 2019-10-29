@@ -11,7 +11,7 @@ import qmk.keymap
 
 @cli.argument('-o', '--output', arg_only=True, help='File to write to')
 @cli.argument('filename', arg_only=True, help='Configurator JSON file')
-@cli.subcommand('Create a keymap.c from a QMK Configurator export.')
+@cli.subcommand('Creates a keymap.c from a QMK Configurator export.')
 def json_keymap(cli):
     """Generate a keymap.c from a configurator export.
 
