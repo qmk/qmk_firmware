@@ -1,24 +1,17 @@
 #include QMK_KEYBOARD_H
 
-
 extern uint8_t is_master;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-enum layer_number {
-    _QWERTY = 0,
+enum layer_names {
+    _BASE,
     _LOWER,
     _RAISE,
-    _ADJUST,
+    _ADJUST
 };
 
-enum custom_keycodes {
-  LOWER = SAFE_RANGE,
-  RAISE,
-  ADJUST,
-};
+#define LOWER  MO(_LOWER)
+#define RAISE  MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
   /* Qwerty
@@ -32,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |      |      |      |      |Lower |Enter |             |Enter |Raise |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
-  [_QWERTY] = LAYOUT_ortho_4x12(
+  [_BASE] = LAYOUT_ortho_4x12(
    KC_ESC, KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,             KC_Y,  KC_U,  KC_I, KC_O,   KC_P, KC_BSPACE, \
    KC_TAB, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,             KC_H,  KC_J,  KC_K, KC_L,   KC_RGUI, KC_RSFT, \
    KC_SPC, KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,             KC_N,  KC_M,  KC_RCTL, KC_RGUI, KC_RALT, RGUI(KC_RSFT), \
@@ -94,37 +87,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
       ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-      } else {
-        layer_off(_LOWER);
-      }
-      return false;
-      break;
-
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-      } else {
-        layer_off(_RAISE);
-      }
-      return false;
-      break;
-
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-
-  }
-
-  return true;
-}
