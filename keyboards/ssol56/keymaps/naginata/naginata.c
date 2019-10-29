@@ -417,7 +417,6 @@ const PROGMEM naginata_keymap_long ngmapl[] = {
 
 const PROGMEM naginata_keymap_unicode ngmapu[] = {
   // 編集モード2
-#ifdef NAGINATA_EDIT_WIN
   {.key = B_M|B_COMM|B_Q    , .kana = "FF0F"},
   {.key = B_M|B_COMM|B_W    , .kana = "FF1A"},
   {.key = B_M|B_COMM|B_E    , .kana = "30FB"},
@@ -440,7 +439,6 @@ const PROGMEM naginata_keymap_unicode ngmapu[] = {
   {.key = B_C|B_V|B_DOT     , .kana = "300B"},
   {.key = B_C|B_V|B_SCLN    , .kana = "FF08"},
   {.key = B_C|B_V|B_SLSH    , .kana = "FF09"},
-#endif
 };
 
 // 薙刀式のレイヤー、シフトキーを設定
@@ -527,7 +525,6 @@ void naginata_type(void) {
       for (int i = 0; i < 30; i++) tap_code(KC_RGHT);
 #endif
       break;
-#ifdef NAGINATA_EDIT_WIN
     case B_C|B_V|B_P:
       send_unicode_hex_string("FF5C");
       tap_code(KC_ENT);
@@ -554,7 +551,6 @@ void naginata_type(void) {
       tap_code(KC_ENT);
       tap_code(KC_ENT);
       break;
-#endif
     default:
       // キーから仮名に変換して出力する。
       // 同時押しの場合 ngmapに定義されている
@@ -591,9 +587,24 @@ void naginata_type(void) {
       for (int i = 0; i < sizeof ngmapu / sizeof bngmapu; i++) {
         memcpy_P(&bngmapu, &ngmapu[i], sizeof(bngmapu));
         if (keycomb == bngmapu.key) {
+          #ifdef NAGINATA_EDIT_MAC
+          register_code(KC_LCTL);
+          register_code(KC_LSHIFT);
+          tap_code(KC_U);
+          unregister_code(KC_LSHIFT);
+          unregister_code(KC_LCTL);
+          #endif
+
           send_unicode_hex_string(bngmapu.kana);
+          #ifdef NAGINATA_EDIT_WIN
           tap_code(KC_ENT);
+          #endif
           naginata_clear();
+
+          #ifdef NAGINATA_EDIT_MAC
+          tap_code(KC_LANG1); // Mac
+          #endif
+
           return;
         }
       }

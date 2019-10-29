@@ -1,0 +1,28 @@
+{
+  "title": "Short cut key to Unicode Hex Input",
+  "rules": [
+    {
+      "description": "Short cut key to Unicode Hex Input",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "control", "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "select_input_source": {
+                "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
