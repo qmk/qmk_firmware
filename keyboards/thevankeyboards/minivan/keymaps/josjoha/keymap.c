@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * LAlt   _LTR   ___     ___      ___      ___       _LTR    RAlt
 	 */
 			
-	TG ( _LTR ) , KC_WH_L     , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , XXXXXXX     , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
+	TG ( _LTR ) , KC_WH_L     , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3     , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
        	KC_LCTL      , KC_MS_L     , KC_MS_D , KC_MS_U , KC_MS_R , KC_BTN1 , KC_BTN1     , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
-       	KC_LSFT       , KC_BTN5     , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , XXXXXXX     , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
+       	KC_LSFT       , KC_BTN5     , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , KC_BTN2     , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
        	KC_LALT        , TG ( _LTR ) , _______ , _______ , _______ , _______ , TG ( _LTR ) , KC_RALT
 	           ) ,
 
