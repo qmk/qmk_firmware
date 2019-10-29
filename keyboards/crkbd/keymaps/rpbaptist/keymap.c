@@ -357,11 +357,12 @@ void keyboard_post_init_user(void) {
 }
 #endif
 
-void rgb_matrix_disable_idle_anym(void) {
+void rgb_matrix_disable_idle_anym(uint8_t mode) {
   if (user_config.rgb_matrix_idle_anim) {
       user_config.rgb_matrix_idle_anim = false;
       eeconfig_update_user(user_config.raw);
   }
+  rgb_matrix_mode_noeeprom(mode);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -441,36 +442,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        break;
       case RGB_SOL:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym();
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_SOLID_COLOR);
         }
         break;
       case RGB_SPL:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym();
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_DEFAULT;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_SPLASH);
         }
         break;
       case RGB_CYC:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym();
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_ALL);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_CYCLE_ALL);
         }
         break;
       case RGB_DUO:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym();
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_DUAL_BEACON);
         }
         break;
       case RGB_CHV:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym();
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
         }
         break;
     #endif
