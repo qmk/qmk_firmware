@@ -4,7 +4,13 @@ QMK can read analog values on certain pins. For AVR MCUs, these values are 10-bi
 
 ## Usage
 
-To use this driver, simply add the following to the top of your code:
+To use this driver, add the following to your `rules.mk`:
+
+```make
+SRC += analog.c
+```
+
+Then place this include at the top of your code:
 
 ```c
 #include "analog.h"
