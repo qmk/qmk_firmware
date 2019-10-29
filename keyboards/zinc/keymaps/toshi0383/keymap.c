@@ -95,22 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 
 };
 
-// define variables for reactive RGB
-bool TOG_STATUS = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
       if (record->event.pressed) {
-          //not sure how to have keyboard check mode and set it to a variable, so my work around
-          //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-        }
         layer_on(_LOWER);
       } else {
-        TOG_STATUS = false;
         layer_off(_LOWER);
       }
       return false;
@@ -118,29 +108,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case RAISE:
       if (record->event.pressed) {
-        //not sure how to have keyboard check mode and set it to a variable, so my work around
-        //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-        }
         layer_on(_RAISE);
       } else {
         layer_off(_RAISE);
-        TOG_STATUS = false;
       }
       return false;
       break;
 
     case ADJUST:
-        if (record->event.pressed) {
-          layer_on(_ADJUST);
-        } else {
-          layer_off(_ADJUST);
-        }
-        return false;
-        break;
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
+      }
+      return false;
+      break;
 
   }
+
   return true;
 }
