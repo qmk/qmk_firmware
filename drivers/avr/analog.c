@@ -45,44 +45,44 @@ int16_t analogReadPin(pin_t pin) {
 
 uint8_t pinToMux(pin_t pin) {
     switch(pin) {
-#if defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
-        case F0: return 0;
-        case F1: return _BV(MUX0);
-        case F2: return _BV(MUX1);
-        case F3: return _BV(MUX1) | _BV(MUX0);
-        case F4: return _BV(MUX2);
-        case F5: return _BV(MUX2) | _BV(MUX0);
-        case F6: return _BV(MUX2) | _BV(MUX1);
-        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
+#if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+        case F0: return 0; // ADC0
+        case F1: return _BV(MUX0); // ADC1
+        case F2: return _BV(MUX1); // ADC2
+        case F3: return _BV(MUX1) | _BV(MUX0); // ADC3
+        case F4: return _BV(MUX2); // ADC4
+        case F5: return _BV(MUX2) | _BV(MUX0); // ADC5
+        case F6: return _BV(MUX2) | _BV(MUX1); // ADC6
+        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // ADC7
 #elif defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
-        case F0: return 0;
-        case F1: return _BV(MUX0);
-        case F4: return _BV(MUX2);
-        case F5: return _BV(MUX2) | _BV(MUX0);
-        case F6: return _BV(MUX2) | _BV(MUX1);
-        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
-        case D4: return _BV(MUX5);
-        case D6: return _BV(MUX5) | _BV(MUX0);
-        case D7: return _BV(MUX5) | _BV(MUX1);
-        case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0);
-        case B5: return _BV(MUX5) | _BV(MUX2);
-        case B6: return _BV(MUX5) | _BV(MUX2) | _BV(MUX0);
+        case F0: return 0; // ADC0
+        case F1: return _BV(MUX0); // ADC1
+        case F4: return _BV(MUX2); // ADC4
+        case F5: return _BV(MUX2) | _BV(MUX0); // ADC5
+        case F6: return _BV(MUX2) | _BV(MUX1); // ADC6
+        case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // ADC7
+        case D4: return _BV(MUX5); // ADC8
+        case D6: return _BV(MUX5) | _BV(MUX0); // ADC9
+        case D7: return _BV(MUX5) | _BV(MUX1); // ADC10
+        case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0); //ADC11
+        case B5: return _BV(MUX5) | _BV(MUX2); // ADC12
+        case B6: return _BV(MUX5) | _BV(MUX2) | _BV(MUX0); // ADC13
 #elif defined(__AVR_ATmega32A__)
-        case A0: return 0;
-        case A1: return _BV(MUX0);
-        case A2: return _BV(MUX1);
-        case A3: return _BV(MUX1) | _BV(MUX0);
-        case A4: return _BV(MUX2);
-        case A5: return _BV(MUX2) | _BV(MUX0);
-        case A6: return _BV(MUX2) | _BV(MUX1);
-        case A7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0);
+        case A0: return 0; // ADC0
+        case A1: return _BV(MUX0); // ADC1
+        case A2: return _BV(MUX1); // ADC2
+        case A3: return _BV(MUX1) | _BV(MUX0); // ADC3
+        case A4: return _BV(MUX2); // ADC4
+        case A5: return _BV(MUX2) | _BV(MUX0); // ADC5
+        case A6: return _BV(MUX2) | _BV(MUX1); // ADC6
+        case A7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // ADC7
 #elif defined(__AVR_ATmega328P__)
-        case C0: return 0;
-        case C1: return _BV(MUX0);
-        case C2: return _BV(MUX1);
-        case C3: return _BV(MUX1) | _BV(MUX0);
-        case C4: return _BV(MUX2);
-        case C5: return _BV(MUX2) | _BV(MUX0);
+        case C0: return 0; // ADC0
+        case C1: return _BV(MUX0); // ADC1
+        case C2: return _BV(MUX1); // ADC2
+        case C3: return _BV(MUX1) | _BV(MUX0); // ADC3
+        case C4: return _BV(MUX2); // ADC4
+        case C5: return _BV(MUX2) | _BV(MUX0); // ADC5
         // ADC7:6 not present in DIP package and not shared by GPIO pins
 #endif
         default:
