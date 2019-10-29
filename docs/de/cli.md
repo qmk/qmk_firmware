@@ -1,6 +1,6 @@
 # QMK CLI (Kommandozeile)
 
-Diese Seite beschreibt die Einrichtung und Benützung der QMK CLI (Kommandozeile).
+Diese Seite beschreibt die Einrichtung und den Umgang mit dem QMK CLI (Kommandozeile).
 
 # Übersicht
 
