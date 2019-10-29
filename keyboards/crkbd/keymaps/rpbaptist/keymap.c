@@ -344,29 +344,16 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-void keyboard_post_init_rgb(void) {
-    rgb_matrix_set_defaults();
-    layer_state_set_user(layer_state);
-        if (user_config.rgb_matrix_idle_anim) {
-            rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
-        }
-}
-
 void eeconfig_init_user(void) {
     user_config.raw = 0;
     rgb_matrix_set_defaults();
     rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
-    eeconfig_update_user(user_config.raw);
-      keyboard_init();
+    keyboard_init();
 }
 
 void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
-
-    if (user_config.rgb_layer_change) {
-      rgb_matrix_enable_noeeprom();
-    }
-    keyboard_post_init_rgb();
+    rgb_matrix_enable_noeeprom();
 }
 #endif
 
