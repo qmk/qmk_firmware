@@ -19,7 +19,7 @@ enum custom_keycodes {
   RGB_SOL, // RGB_MATRIX_SOLID_COLOR
   RGB_SPL, // RGB_MATRIX_SPLASH
   RGB_CYC, // RGB_MATRIX_CYCLE_ALL
-  RGB_DUO, // RGB_MATRIX_CYCLE_OUT_IN_DUAL
+  RGB_DUO, // RGB_MATRIX_DUAL_BEACON
   RGB_CHV  // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 };
 
@@ -444,7 +444,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           rgb_matrix_disable_idle_anym();
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_OUT_IN_DUAL);
+          rgb_matrix_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
         }
         break;
       case RGB_CHV:
