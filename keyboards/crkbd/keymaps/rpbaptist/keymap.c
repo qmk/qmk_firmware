@@ -316,7 +316,9 @@ void rgb_matrix_set_defaults(void) {
   user_config.rgb_matrix_idle_anim = true;
   user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
   user_config.rgb_matrix_rest_timeout = 30000;
+
   eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
+  eeconfig_update_user(user_config.raw);
 }
 
 void matrix_scan_rgb(void) {
@@ -413,6 +415,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
           user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
           user_config.rgb_matrix_rest_timeout = 30000;
+          eeconfig_update_user(user_config.raw);
         }
         return true;
       case GAMING:
@@ -420,6 +423,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
           user_config.rgb_matrix_rest_mode = RGB_MATRIX_DUAL_BEACON;
           user_config.rgb_matrix_rest_timeout = 5000;
+          eeconfig_update_user(user_config.raw);
         }
         return true;
       case RGB_RST:
