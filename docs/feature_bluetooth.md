@@ -6,9 +6,9 @@ Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1 Qmk
 
 |Board                                                           |Bluetooth Protocol          |Connection Type |rules.mk                   |Bluetooth Chip|
 |----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-|[Adafruit EZ-Key HID](https://www.adafruit.com/product/1535)   |Bluetooth Classic           | UART           | `BLUETOOTH = AdafruitEZKey` |              |
+|[Adafruit EZ-Key HID](https://www.adafruit.com/product/1535)   |Bluetooth Classic           | UART           |`BLUETOOTH = AdafruitEZKey` |              |
 |Rovering Networks RN-42 (Sparkfun Bluesmirf)                       |Bluetooth Classic           | UART           |`BLUETOOTH = RN42`          | RN-42        |
-|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy        | SPI            | `BLUETOOTH = AdafruitBLE`   | nRF51822      |
+|[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy        | SPI            |`BLUETOOTH = AdafruitBLE`   | nRF51822      |
 
 Not Supported Yet but possible:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479). [Possible tmk implementation found in](https://github.com/tmk/tmk_keyboard/issues/514)
