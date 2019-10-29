@@ -307,9 +307,16 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void rgb_matrix_set_defaults(void) {
+  rgb_matrix_config.enable = 1;
+  rgb_matrix_config.hsv    = (HSV){128, 255, 128}; // TEAL
+  rgb_matrix_config.mode   = RGB_MATRIX_CYCLE_ALL;
+  rgb_matrix_config.speed  = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+
+  user_config.rgb_layer_change     = true;
+  user_config.rgb_matrix_idle_anim = true;
   user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
-  rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
   user_config.rgb_matrix_rest_timeout = 30000;
+  eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
 }
 
 void matrix_scan_rgb(void) {
@@ -344,9 +351,7 @@ void keyboard_post_init_rgb(void) {
 }
 
 void eeconfig_init_user(void) {
-    user_config.raw                  = 0;
-    user_config.rgb_layer_change     = true;
-    user_config.rgb_matrix_idle_anim = true;
+    user_config.raw = 0;
     rgb_matrix_set_defaults();
     rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     eeconfig_update_user(user_config.raw);
@@ -405,21 +410,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef RGB_MATRIX_ENABLE
       case COLEMAK:
         if (record->event.pressed) {
-          rgb_matrix_set_defaults();
+          rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+          user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
+          user_config.rgb_matrix_rest_timeout = 30000;
         }
         return true;
       case GAMING:
         if (record->event.pressed) {
-          user_config.rgb_matrix_rest_mode = RGB_MATRIX_DUAL_BEACON;
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
+          user_config.rgb_matrix_rest_mode = RGB_MATRIX_DUAL_BEACON;
           user_config.rgb_matrix_rest_timeout = 5000;
         }
         return true;
       case RGB_RST:
         if (record->event.pressed) {
-          eeconfig_update_rgb_matrix_default();
-          user_config.rgb_layer_change     = true;
-          user_config.rgb_matrix_idle_anim = true;
           rgb_matrix_set_defaults();
           rgb_matrix_enable();
         }
