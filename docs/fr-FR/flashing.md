@@ -99,11 +99,14 @@ ou, utilisez :
 
     make <keyboard>:<keymap>:avrdude
 
-ou, si vous vous voulez flasher plusieurs claviers, utilisez la commande suivante :
+#### Commandes Caterina 
 
-    make <keyboard>:<keymap>:avrdude-loop
+Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
-Quand vous avez fini de flasher vos claviers, vous aurez besoin d'utiliser Ctrl + C ou alors la touche ayant la fonction similaire sur votre OS pour sortir de la boucle.
+* `: avrdude` - Il s’agit de l’option normale. Le script va attendre qu’un appareil Caterina soit disponible. Dès que c’est le cas, il flash le firmware. Il attendra de détecter un nouveau port COM pour le flasher.
+* `: avrdude-loop` - Cela fonctionne de la même manière que`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
+* `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 
 ## Halfkay
 
@@ -230,7 +233,7 @@ Séquence pour flasher:
 
 Il y a différentes commandes que vous pouvez utiliser pour flasher un firmware dans un appareil STM32  :
 
-* `:dfu-util` - La commande par défaut pour flasher un appareil STM32.
+* `:dfu-util` - C'est l'option standard pour flasher un appareil STM32. Le script attendra qu'un bootloader STM32 soit présent.
 * `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté gauche des paramètres EEPROM sur un clavier scindé.
 * `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté droit des paramètres EEPROM sur un clavier scindé.
 * `:st-link-cli` - Cela permet de flasher le firmware avec l'utilitaire en ligne de commande ST-LINK's plutôt que d'utiliser dfu-util.

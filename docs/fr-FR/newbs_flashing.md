@@ -78,7 +78,23 @@ Appuyez sur le boutton `Flash` dans QMK Toolbox. Vous verrez un résultat simila
 
 ## Flashez votre clavier à l'aide de la ligne de commande
 
-La première chose que vous devez savoir c'est quel bootloader utilise votre clavier. Il y a quatre bootloaders principaux. Pro-Micro et les clones, utilisent CATERINA, les Teensy utilisent Halfkay, les OLKB utilisent QMK-DFU et les autres chips atmega32u4 utilisent DFU.
+C'est désormais relativement simple. Lorsque vous êtes prêt à compiler et à flasher votre firmware, ouvrez la fenêtre de votre terminal et exécutez la commande de build :
+
+    make <my_keyboard>:<my_keymap>:flash
+
+Par exemple, si votre keymap s'appelle "xyverz" et que vous fabriquez une keymap pour un clavier `planck` de version `rev5` vous devrez utiliser cette commande:
+
+    make planck/rev5:xyverz:flash
+
+La commande va vérifier la configuration du clavier, puis tentera de le flasher en fonction du bootloader (chargeur d’amorçage) spécifié. Cela signifie que vous n'avez pas besoin de savoir quel bootloader votre clavier utilise. Exécutez simplement la commande et laissez-le faire le gros du travail.
+
+Cependant, tout dépend du bootloader qui est installé sur le clavier. Si cette information n’est pas configurée ou si vous tentez de flasher un clavier qui ne permet pas d’être flashé alors vous obtiendrez cette erreur :
+
+    WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
+
+Dans ce cas, vous devrez choisir le bootloader.
+
+Il y a cinq bootloaders principaux. Les Pro-Micro et les clones utilisent Caterina, les Teensy utilisent Halfkay, les claviers AVR d’OLKB utilisent QMK-DFU, certains controleurs atmega32u4 utilisent DFU et la plupart des controlleurs ARM utilisent ARM DFU.
 
 Vous pouvez trouver plus d'information à propos des bootloaders sur la page [Instructions de flash et information sur le Bootloader](flashing.md).
 
@@ -207,11 +223,14 @@ Si vous avez un soucis, essayez de faire ceci:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
-En addition, si vous voulez flasher plusieurs boards, utilisez la commande suivante:
+#### Commandes Caterina 
 
-    make <keyboard>:<keymap>:avrdude-loop
+Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
-Une fois que vous avez terminé de flasher des boards, vous devrez appuyer sur Ctrl + C, ou les touches correspondantes pour votre système d'exploitation pour arrêter la boucle.
+* `: avrdude` - Il s’agit de l’option normale. Elle attend qu’un appareil Caterina soit disponible, puis tente de flasher le firmware. Il attendra de détecter un autre port COM, puis il flashera à nouveau.
+* `: avrdude-loop` - Cela fonctionne de la même manière que `: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
+* `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 
 ### HalfKay
 
@@ -244,42 +263,6 @@ Read "./.build/ergodox_ez_xyverz.hex": 28532 bytes, 88.5% usage
 Programming............................................................................................................................................................................
 ...................................................
 Booting
-```
-
-### BootloadHID
-
-Pour les boards basée sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, une fois prêt à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante:
-
-    make <my_keyboard>:<my_keymap>:bootloaderHID
-
-Par exemple, si votre keymap s'appelle "xyverz" et que vous compilez une keymap pour un jj40, vous utilisez cette commande:
-
-    make jj40:xyverz:bootloaderHID
-
-Une fois le firmware compilé, vous aurez cette sortie:
-
-```
-Linking: .build/jj40_default.elf                                                                   [OK]
-Creating load file for flashing: .build/jj40_default.hex                                           [OK]
-Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
-Checking file size of jj40_default.hex                                                             [OK]
- * The firmware size is fine - 21920/28672 (6752 bytes free)
-```
-
-A ce stade, le script de build va chercher le bootloader DFU toutes les 5 secondes. Il va répéter la sortie suivante jusqu'à ce que le dispositif soit trouvé ou que vous l'annuliez.
-
-```
-Error opening HIDBoot device: The specified device was not found
-Trying again in 5s.
-```
-
-Une fois ce résultat atteint, réinitialisez le contrôleur. Il devrait afficher le résultat suivant:
-
-```
-Page size   = 128 (0x80)
-Device size = 32768 (0x8000); 30720 bytes remaining
-Uploading 22016 (0x5600) bytes starting at 0 (0x0)
-0x05580 ... 0x05600
 ```
 
 ### STM32 (ARM)
@@ -336,10 +319,46 @@ Transitioning to dfuMANIFEST state
 
 Il y  aun certain nombre de commandes du DFU que vous pouvez utiliser pour flasher un firmware sur un device STM32:
 
-* `:dfu-util` - C'est l'option standard pour flasher un appareil STM32.
-* `:dfu-util-wait` - Ceci fonctionne comme la commande standard, mais permet de d'avoir une pause (configurable( de 10 secondes avant de flasher le fimrware. Vous pouvez utiliser `TIME_DELAY=20` à la ligne de commande pour changer le délai.
+* `:dfu-util` - C'est l'option standard pour flasher un appareil STM32. Elle attendra qu'un bootloader STM32 soit présent et tentera de l’utiliser.
 * `:dfu-util-left` - Ceci flasher le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle flasher aussi les fichiers EEPROM du "côté gauche" pour les claviers scindés.
 * `:dfu-util-right` - Ceci flash le firmware standard, comme la commande standard (`:dfu-util`). Toutefois, elle flash aussi les fichiers EEPROM du "côté droit" pour les claviers scindés.
+* `:st-link-cli` - Cela permet de flasher le firmware avec l'utilitaire en ligne de commande ST-LINK's plutôt que d'utiliser dfu-util.
+
+### BootloadHID
+
+Pour les claviers basés sur Bootmapper Client(BMC)/bootloadHID/ATmega32A, si vous êtes prêts à compiler et flasher le firmware, ouvrez votre fenêtre de terminal et lancez la commande suivante :
+
+    make <my_keyboard>:<my_keymap>:bootloaderHID
+
+Par exemple, si votre keymap s'appelle "xyverz" et que vous compilez une keymap pour un jj40, utilisez cette commande:
+
+    make jj40:xyverz:bootloaderHID
+
+Une fois le firmware compilé, vous aurez cette sortie:
+
+```
+Linking: .build/jj40_default.elf                                                                   [OK]
+Creating load file for flashing: .build/jj40_default.hex                                           [OK]
+Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
+Checking file size of jj40_default.hex                                                             [OK]
+ * The firmware size is fine - 21920/28672 (6752 bytes free)
+```
+
+A ce stade, le script de build va chercher le bootloader DFU toutes les 5 secondes. Il répétera l ’affichage de ce message jusqu'à ce que l’appareil soit trouvé ou que vous annuliez l'opération```
+
+```
+Error opening HIDBoot device: The specified device was not found
+Trying again in 5s.
+```
+
+Une fois ce résultat obtenu, réinitialisez le contrôleur. Le résultat suivant devrait s’afficher :
+
+```
+Page size   = 128 (0x80)
+Device size = 32768 (0x8000); 30720 bytes remaining
+Uploading 22016 (0x5600) bytes starting at 0 (0x0)
+0x05580 ... 0x05600
+```
 
 ## Faites l'essai!
 
