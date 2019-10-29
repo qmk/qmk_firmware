@@ -53,7 +53,7 @@ Wir suchen nach Freiwilligen, die ein `qmk`-Package für weitere Betriebssysteme
 
 # Lokale CLI
 
-Wenn Du die globale CLI nicht verwenden möchtest, beinhaltet `qmk_firmware` auch eine lokale CLI. Du kannst sie hier finden: `qmk_firmware/bin/qmk`. Du kannst den `qmk`-Befehl aus irgend einem Datei-Verzeichnis ausführen und es wird immer auf dieser Kopie von `qmk_firmware` arbeiten.
+Wenn Du die globale CLI nicht verwenden möchtest, beinhaltet `qmk_firmware` auch eine lokale CLI. Du kannst sie hier finden: `qmk_firmware/bin/qmk`. Du kannst den `qmk`-Befehl aus irgendeinem Datei-Verzeichnis ausführen und es wird immer auf dieser Kopie von `qmk_firmware` arbeiten.
 
 **Beispiel**:
 
