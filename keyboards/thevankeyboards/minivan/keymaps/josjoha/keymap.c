@@ -20,10 +20,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[ _LTR ] = LAYOUT (
 
-	/*  Esc      ´¨  ,<  .>  pP  yY  fF  gG  cC  rR  lL      Bksp
+	/*  Esc      '"  ,<  .>  pP  yY  fF  gG  cC  rR  lL      Bksp
 	 *  Tab+LCtl  aA  oO  eE  uU  iI  dD  hH  tT  nN  sS  -_+RCtl
 	 *  LSht       ;:  qQ  jJ  kK  xX  bB  mM  wW  vV  zZ    RSht
-	 *  LAlt    _MOV  Left Enter+_NSY Space+_NSY Right  _FUN RAlt
+	 *  LAlt    Left _MOV  Enter+_NSY Space+_NSY _FUN  Right RAlt
+	 *               hold   hold        hold    toggle 
 	 */
 
 	KC_ESC           , KC_QUOT     , KC_COMM     , KC_DOT               , KC_P                 , KC_Y         , KC_F        , KC_G    , KC_C , KC_R , KC_L , KC_BSPC          ,
