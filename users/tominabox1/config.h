@@ -2,7 +2,10 @@
 
 // Tapping term settings
 #define TAPPING_TERM_PER_KEY
-//#define TAP_HOLD_CAPS_DELAY 350
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
+
+// Bootmagic
 #define BOOTMAGIC_KEY_SALT KC_BSPACE
 #define BOOTMAGIC_KEY_EEPROM_CLEAR KC_Q
 
