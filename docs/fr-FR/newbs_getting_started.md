@@ -2,19 +2,19 @@
 
 Votre clavier d'ordinateur contient un processeur, proche de celui dans votre ordinateur. Ce processeur exécute un logiciel responsable de détecter les touches appuyées et envoie des rapports à propos de l'état du clavier lorsque les touches sont appuyées et relâchées. QMK prend le rôle de ce logiciel, détectant les appuis des boutons et passant cette information à l'ordinateur hôte. Lorsque vous construisez votre keymap customisée, vous créez l'équivalent d'un programme exécutable pour votre clavier.
 
-QMK essaie de rendre les choses simples faciles, et les choses difficiles possibles. Vous n'avez pas à savoir programmer pour créer des keymaps puissantes - vous devez seulement suivre quelques rêgles de syntaxe simples.
+QMK essaie de rendre les choses simples faciles, et les choses difficiles possibles. Vous n'avez pas à savoir programmer pour créer des keymaps puissantes - vous devez seulement suivre quelques règles de syntaxe simples.
 
 # Guide de démarrage
 
 Avant de pouvoir construire des keymaps, vous devez installer quelques logiciels et configurer votre environnement de compilation. Ceci n'a besoin d'être fait seulement une fois, peu importe le nombre de clavier pour lesquels vous compter compiler un firmware.
 
-Si vous préférez une approche plus proche d'une interface graphique, considérez utiliser l'outil en ligne [QMK Configurator](https://config.qmk.fm). Référez vous à [Construire votre premier firmware en utilisant l'interface graphique en ligne](newbs_building_firmware_configurator.md).
+Si vous préférez une approche plus proche d'une interface graphique, considérez utiliser l'outil en ligne [QMK Configurator](https://config.qmk.fm). Référez-vous à [Construire votre premier firmware en utilisant l'interface graphique en ligne](newbs_building_firmware_configurator.md).
 
 ## Logiciels à télécharger
 
 ### Editeur de texte
 
-Vous allez avoir besoin d'un programme qui peut éditer et sauvegarder des fichier **plain text**. Si vous êtes sur Windows, vous pouvez utiliser notepad et sur Linux vous pouvez utiliser gedit. Ces deux options sont des éditeurs de texte simples mais fonctionnels. Sur macOS, faites attention avec l'application par défaut TextEdit: elle ne sauvegardera pas les fichiers en mode "plain text" sauf si vous sélectionnez explicitement _Make Plain Text_ à partir du menu _Format_.
+Vous allez avoir besoin d'un programme qui peut éditer et sauvegarder des fichiers **plain text**. Si vous êtes sur Windows, vous pouvez utiliser notepad et sur Linux vous pouvez utiliser gedit. Ces deux options sont des éditeurs de texte simples mais fonctionnels. Sur macOS, faites attention avec l'application par défaut TextEdit: elle ne sauvegardera pas les fichiers en mode "plain text" sauf si vous sélectionnez explicitement _Make Plain Text_ à partir du menu _Format_.
 
 Vous pouvez aussi télécharger et installer un éditeur de texte dédié comme [Sublime Text](https://www.sublimetext.com/) ou [VS Code](https://code.visualstudio.com/). C'est probablement la meilleure solution peu importe la plateforme car ce sont des programmes conçus spécifiquement pour éditer du code.
 
@@ -33,7 +33,7 @@ QMK Toolbox est un programme graphique optionnel pour Windows et macOS qui perme
 
 Nous avons essayé de rendre QMK aussi simple que possible à configurer. Vous avez uniquement à préparer votre environnment Linux ou Unix et laisser QMK installer le reste.
 
-?> Si vous n'avez jamais travailé avec la lignde commande Linux/Unix, il y a un certain nombre de concepts basiques et de commandes que vous devriez apprendre. Ces ressources vous apprendrons suffisemment pour travailler avec QMK:<br>
+?> Si vous n'avez jamais travaillé avec la ligne de commande Linux/Unix, il y a un certain nombre de concepts basiques et de commandes que vous devriez apprendre. Ces ressources vous apprendrons suffisemment pour travailler avec QMK:<br>
 [Commandes Linux à savoir](https://www.guru99.com/must-know-linux-commands.html)<br>
 [Commandes Unix de base](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
@@ -49,7 +49,7 @@ Vous devez installer MSYS2 et Git.
 
 Vous devez installer Homebew. Suivez les instructions sur la [page de Homebrew](https://brew.sh).
 
-Une fois Homebrew installé, continuez avec _Configurer QMK_. Dans cete étape, nous lancerons un script qui va installer d'autres paquets.
+Une fois Homebrew installé, continuez avec _Configurer QMK_. Dans cette étape, nous lancerons un script qui va installer d'autres paquets.
 
 ### Linux
 

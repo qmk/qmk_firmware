@@ -4,7 +4,7 @@ Cette page décrit comment configurer et utiliser la CLI QMK.
 
 # Vue d'ensemble
 
-La CLI de QMK permet de simplifier la compilation et l'intéraction avec les clavier QMK. Nous avons définis plusieurs commandes pour simplifier et rationaliser les tâches telles qu'obtenir et compiler le firmware QMK, créer de nouvelles keymaps, et plus.
+La CLI de QMK permet de simplifier la compilation et l'interaction avec les claviers QMK. Nous avons défini plusieurs commandes pour simplifier et rationaliser les tâches telles qu'obtenir et compiler le firmware QMK, créer de nouvelles keymaps, et plus.
 
 * [CLI globale](#global-cli)
 * [CLI locale](#local-cli)
@@ -127,7 +127,7 @@ qmk new-keymap [-kb KEYBOARD] [-km KEYMAP]
 
 ## `qmk pyformat`
 
-Cette commande formatte le code python dans `qmk_firmware`.
+Cette commande formate le code python dans `qmk_firmware`.
 
 **Utilisation**:
 
@@ -137,7 +137,7 @@ qmk pyformat
 
 ## `qmk pytest`
 
-Cette commande démarre la suite de test python. Si vous faites des changements dans le code Python, assurez vous que les tests se lancent avec succès.
+Cette commande démarre la suite de test python. Si vous faites des changements dans le code Python, assurez-vous que les tests se lancent avec succès.
 
 **Utilisation**:
 
