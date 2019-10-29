@@ -1,3 +1,5 @@
+SRC += bcat.c
+
 # Enable Bootmagic Lite to consistently reset to bootloader and clear EEPROM.
 BOOTMAGIC_ENABLE = lite
 
