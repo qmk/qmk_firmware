@@ -107,4 +107,3 @@ We use custom codes here, so we can substitute the right stuff
 #endif // !TAP_DANCE_ENABLE
 
 /* vi: ft=c:tw=80:sw=2:ts=2:sts=2:et */
-
