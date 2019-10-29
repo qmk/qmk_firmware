@@ -26,8 +26,10 @@ enum custom_keycodes {
 typedef union {
   uint32_t raw;
   struct {
-    bool    rgb_layer_change :1;
-    bool    rgb_matrix_idle_anim :1;
+    bool     rgb_layer_change        :1;
+    bool     rgb_matrix_idle_anim    :1;
+    uint8_t  rgb_matrix_rest_mode    :4;
+    uint16_t rgb_matrix_rest_timeout :15;
   };
 } user_config_t;
 
@@ -304,35 +306,15 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-uint8_t rgb_matrix_get_rest_mode(void) {
-  uint8_t rest_mode;
-  switch (biton32(default_layer_state)) {
-      case _COLEMAKDHM:
-        rest_mode = RGB_MATRIX_CYCLE_ALL;
-        break;
-      case _GAMING:
-        rest_mode = RGB_MATRIX_DUAL_BEACON;
-        break;
-  }
-  return rest_mode;
-}
-
-void rgb_matrix_set_rest_mode(void) {
-  uint8_t rgb_rest_mode = rgb_matrix_get_rest_mode();
-  switch (rgb_rest_mode) {
-      case RGB_MATRIX_CYCLE_ALL:
-        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
-        break;
-      case RGB_MATRIX_DUAL_BEACON:
-        rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
-        break;
-  }
-  rgb_matrix_mode_noeeprom(rgb_rest_mode);
+void rgb_matrix_set_defaults(void) {
+  user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
+  rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
+  user_config.rgb_matrix_rest_timeout = 30000;
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > RGB_MATRIX_IDLE_TIMEOUT) {
-        rgb_matrix_set_rest_mode();
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_rest_timeout) {
+        rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     }
 }
 
@@ -354,9 +336,10 @@ void suspend_wakeup_init_keymap(void) {
 }
 
 void keyboard_post_init_rgb(void) {
+    rgb_matrix_set_defaults();
     layer_state_set_user(layer_state);
         if (user_config.rgb_matrix_idle_anim) {
-            rgb_matrix_set_rest_mode();
+            rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
         }
 }
 
@@ -364,6 +347,8 @@ void eeconfig_init_user(void) {
     user_config.raw                  = 0;
     user_config.rgb_layer_change     = true;
     user_config.rgb_matrix_idle_anim = true;
+    rgb_matrix_set_defaults();
+    rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     eeconfig_update_user(user_config.raw);
       keyboard_init();
 }
@@ -395,7 +380,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   #ifdef RGB_MATRIX_ENABLE
     hypno_timer = timer_read32();
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == rgb_matrix_get_rest_mode()) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
     }
   #endif
@@ -418,12 +403,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     #ifdef RGB_MATRIX_ENABLE
+      case COLEMAK:
+        if (record->event.pressed) {
+          rgb_matrix_set_defaults();
+        }
+        return true;
+      case GAMING:
+        if (record->event.pressed) {
+          user_config.rgb_matrix_rest_mode = RGB_MATRIX_DUAL_BEACON;
+          rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOW;
+          user_config.rgb_matrix_rest_timeout = 5000;
+        }
+        return true;
       case RGB_RST:
         if (record->event.pressed) {
           eeconfig_update_rgb_matrix_default();
           user_config.rgb_layer_change     = true;
           user_config.rgb_matrix_idle_anim = true;
-          rgb_matrix_set_rest_mode();
+          rgb_matrix_set_defaults();
           rgb_matrix_enable();
         }
         break;
