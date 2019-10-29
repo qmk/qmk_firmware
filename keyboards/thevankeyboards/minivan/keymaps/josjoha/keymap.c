@@ -2,7 +2,12 @@
 
     /* Escape always goes back to default layer.
      * Full set of Ctrl, Alt, Shift almost throughout.
-     * (Using QMK at qmk.thevankeyboards.com though, for led support.) */
+     * (Using QMK at qmk.thevankeyboards.com though, for led support.)
+     *
+     * (TT key: tap quickly 5 times.
+     *  LT key: once for character, twice then hold for repeat.)
+     *
+     * */
 
 #define _LTR 0 // letters (Dvorak)
 #define _NSY 1 // numbers and symbols
@@ -56,6 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 2: Function keys,
      * Toward any layer by toggle.
      * Keys that are on a tap key somewhere, are repeated/-able here.
+     *   It turns out that tapping the tap-keys twice, turns them repeatable.
+     *   That makes this superfluous (Tab, Ent, Space, -, ~).
      */
 
     [ _FUN ] = LAYOUT (
