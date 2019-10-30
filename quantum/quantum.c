@@ -747,7 +747,6 @@ __attribute__((weak)) uint16_t hex_to_keycode(uint8_t hex) {
     } else {
         return KC_A + (hex - 0xA);
     }
-=======
 }
 
 void api_send_unicode(uint32_t unicode) {
