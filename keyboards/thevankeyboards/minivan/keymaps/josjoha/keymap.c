@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _RAR ] = LAYOUT (
 
-        /*  _LTR Power Power Sleep Wake xxx  xxx  xxx  xxx  Pause ScrLk PrtSc
+        /*  _LTR Power Sleep Wake  xxx  xxx  xxx  xxx  xxx  Pause ScrLk PrtSc
          *  Caps  xxx   xxx   xxx   xxx  xxx  xxx  xxx  xxx  xxx   xxx Insert
          *  NumL   Stop  Play  Prev  Next Vol- Vol+ Mute xxx  xxx   xxx   xxx
          *  xxx    Left    ___   ___       ___      ___      Right        App
