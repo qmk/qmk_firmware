@@ -22,3 +22,33 @@ RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
           _______,          KC_LALT, _______, _______,          _______,                   KC_RALT,                            _______ \
    )
 };
+
+#ifdef USE_LEDS_FOR_LAYERS
+// example of how to use LEDs as layer indicators
+static uint8_t top = 1;
+static uint8_t middle = 0;
+static uint8_t bottom = 0;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    top = middle = bottom = 0;
+    switch (get_highest_layer(state)) {
+    case _BASE:
+        top = 1;
+        break;
+    case _FUNC:
+        middle = 1;
+        break;
+    default: //  for any other layers, or the default layer
+        break;
+    }
+  return state;
+}
+
+// override kb level function
+void led_set_kb(uint8_t usb_led) {
+    top ?  writePinLow(B1) : writePinHigh(B1);
+    middle ? writePinLow(B2): writePinHigh(B2);
+    bottom ? writePinLow(B3) : writePinHigh(B3);
+    led_set_user(usb_led);
+}
+#endif
