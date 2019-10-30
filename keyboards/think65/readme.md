@@ -1,12 +1,10 @@
-# think65
+# Think6.5 Hotswap
 
-![think65](imgur.com image replace me!)
+65% board with 6.5 degree angle ran by Airpotter and Oldcat. PCB Manufactured by DEMO Studio and Keyboard manufactured by Gray Studio. 
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: Think6.5 Hotswap PCB  
+Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=100166.0)
 
 Make example for this keyboard (after setting up your build environment):
 
