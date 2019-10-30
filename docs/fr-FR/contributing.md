@@ -2,7 +2,7 @@
 
 👍🎉 Premièrement, merci de prendre le temps de lire ceci et de contribuer! 🎉👍
 
-Les contributions de tiers nous aide à améliorer et faire grandir QMK. Nous voulons rendre les pull requests et le processus de contribution utile et simple à la fois pour les contributeurs et les mainteneurs. C'est pourquoi nous avons mis en places des directives pour les contibuteurs afin que votre pull request puisse être accepté sans changement majeur.
+Les contributions de tiers nous aide à améliorer et faire grandir QMK. Nous voulons rendre les pull requests et le processus de contribution utile et simple à la fois pour les contributeurs et les mainteneurs. C'est pourquoi nous avons mis en places des directives pour les contributeurs afin que votre pull request puisse être accepté sans changement majeur.
 
 * [Aperçu du projet](#project-overview)
 * [Conventions de codage](#coding-conventions)
@@ -38,7 +38,7 @@ Vous n'avez encore jamais contribué à un projet open source? Vous vous demande
 0. Enregistrez-vous sur [GitHub](https://github.com).
 1. Définissez une keymap à contribuer, [trouvez une issue](https://github.com/qmk/qmk_firmware/issues) que vous souhaitez corriger, ou [une fonction](https://github.com/qmk/qmk_firmware/issues?q=is%3Aopen+is%3Aissue+label%3Afeature) que vous voulez ajouter.
 2. Créez un fork sur le dépôt associé avec une issue sur votre compte GitHub. Cela veut dire que vous allez avoir une copie du dépôt sous `votre-login-GitHub/qmk_firmware`.
-3. Clonez le dépôt sur votre macine locale en utilisant `git clone https://github.com/login-github/repository-name.git`.
+3. Clonez le dépôt sur votre machine locale en utilisant `git clone https://github.com/login-github/repository-name.git`.
 4. Si vous travaillez sur une nouvelle fonctionnalité, pensez à ouvrir une issue pour parler avec nous du travail que vous souhaitez démarrer.
 5. Créez une nouvelle branche pour votre correctif en utilisant `git checkout -b nom-de-branche`.
 6. Faites les changements nécessaires pour corriger le problème ou ajouter la fonctionnalité.
@@ -69,7 +69,7 @@ Nous avons un certain nombre de type de changements dans QMK, chacun nécessitan
   * Keymaps: Assurez-vous que `make keyboard:your_new_keymap` ne renvoie pas d'erreur.
   * Claviers: Assurez-vous que `make keyboard:all` ne renvoie pas d'erreur.
   * Core: Assurez-vous que `make all` ne renvoie pas d'erreur.
-* Assurez-vous que les messages de commit soient compréhensibles d'eux-même. Vous devriez écrire une description simple (pas plus de 70 caractères) sur la première ligne, suivi d'une ligne vide, suivi d'un détail de votre commit, si nécessaire. Exemple:
+* Assurez-vous que les messages de commit soient compréhensibles d'eux-mêmes. Vous devriez écrire une description simple (pas plus de 70 caractères) sur la première ligne, suivi d'une ligne vide, suivi d'un détail de votre commit, si nécessaire. Exemple:
 
 ```
 Adjust the fronzlebop for the kerpleplork
@@ -81,11 +81,11 @@ Limited experimentation on the devices I have available shows that 7 is high eno
 
 ## Documentation
 
-La documentation est l'une des manière les plus simples de démarrer la contribution sur QMK. Il est simple de trouver des endroits où la documentation est fausse ou incomplète, et il est tout aussi simple de la corriger! Nous avons aussi grandement besoin de quelqu'un pour éditer notre documentation, donc si vous avez des compétences en édition mais que vous n'êtes pas sûr de savoir où aller, n'hésitez pas [demandez de l'aide](#where-can-i-go-for-help)!
+La documentation est l'une des manières les plus simples de démarrer la contribution sur QMK. Il est simple de trouver des endroits où la documentation est fausse ou incomplète, et il est tout aussi simple de la corriger! Nous avons aussi grandement besoin de quelqu'un pour éditer notre documentation, donc si vous avez des compétences en édition mais que vous n'êtes pas sûr de savoir où aller, n'hésitez pas [demandez de l'aide](#where-can-i-go-for-help)!
 
 Vous trouverez toute notre documentation dans le répertoire `qmk_firmware/docs`, ou si vous préférez utiliser des outils web, vous pouvez cliquer sur le bouton "Suggest An Edit" en haut de chaque page sur http://docs.qmk.fm/.
 
-Lorsque vous donnez des exemples de code dans la documentation, essayez de suivre les conventions de nommage utilisées ailleurs dnas la documentation. Par exemple, standardisez les enums en utilisant `my_layers` ou `my_keycodes` afin de garder une consistance:
+Lorsque vous donnez des exemples de code dans la documentation, essayez de suivre les conventions de nommage utilisées ailleurs dans la documentation. Par exemple, standardisez les enums en utilisant `my_layers` ou `my_keycodes` afin de garder une consistance:
 
 ```c
 enum my_layers {
@@ -129,16 +129,16 @@ Faites attention d'être sûr d'implémenter votre nouvelle fonctionnalité de l
 * [Chat sur Discord](https://discord.gg/Uq7gcHh)
 * [Ouvrir une Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
-Les PR de nouvelles fonctionnalités de de correction de bug affectent tous les claviers. Nous sommes aussi dans un processus de restructuration de QMK. Pour cette raison, il est absolument nécessaire que tout changement important ou significatif soit discuté avant que l'implémentation soit faite. Si vous ouvrez un PR sans nous avoir parlé, préparez vous à faire des refontes significatives si vous changements ne sont pas compatibles avec ce que nous avons planifié.
+Les PR de nouvelles fonctionnalités de de correction de bug affectent tous les claviers. Nous sommes aussi dans un processus de restructuration de QMK. Pour cette raison, il est absolument nécessaire que tout changement important ou significatif soit discuté avant que l'implémentation soit faite. Si vous ouvrez un PR sans nous avoir parlé, préparez-vous à faire des refontes significatives si vos changements ne sont pas compatibles avec ce que nous avons planifié.
 
 Voici quelques choses à garder en tête lorsque vous travaillez sur une fonctionnalité ou un bug fix.
 
-* **Désactivé par défaut** - la mémoire est plutôt limitée sur la plupart des puces que QMK supporte, et il est important que les keymaps courantes ne soient pas cassées. S'il vous plaît faites que vos features doivent être **activées** plutôt que désactivées. Si vous pensez qu'elle devrait être activée par défaut, ou que cela réduit la taille du code, parlez-nous en.
+* **Désactivé par défaut** - la mémoire est plutôt limitée sur la plupart des puces que QMK supporte, et il est important que les keymaps courantes ne soient pas cassées. S'il vous plaît faites que vos features doivent être **activées** plutôt que désactivées. Si vous pensez qu'elle devrait être activée par défaut, ou que cela réduit la taille du code, parlez-nous-en.
 * **Compilez localement avant de soumettre** - Cela devrait aller sans dire, mais votre code doit compiler! Notre système Travis devrait relever les problèmes, mais il est généralement plus rapide de compiler quelques claviers en local plutôt que d'attendre le retour des résultats
 * **Faites attention aux révisions et différentes bases de puces** - beaucoup de claviers ont des révisions qui permettent des changements de configuration mineurs, voir des bases de chip différentes. Essayez de faire que votre fonctionnalité soit supportée à la fois sur ARM et AVR, ou désactivez-là automatiquement sur les plateformes non supportées.
 * **Expliquez votre fonctionnalité** - Documentez-là dans `docs/`, soit dans un nouveau fichier, ou dans une partie d'un fichier existant. Si vous ne la documentez pas, personne ne pourra bénéficier de votre dur labeur.
 
-Nous vous demandons aussi de suivre ces ces directives:
+Nous vous demandons aussi de suivre ces directives:
 
 * Gardez un nombre de commits raisonnable, ou nous squasherons votre PR.
 * Ne regroupez pas des claviers ou des keymaps avec des changements core. Soumettez vos changements core en premier.
@@ -151,4 +151,4 @@ Afin de maintenir une vision claire sur comment les choses sont architectuées d
 
 # Que veut dire le code de conduite pour moi?
 
-Note [Code De Conduite](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) veut dire que vous avez la responsabilité de traiter tout le monde dans le projet avec respect et courtoisie, peut importe leur identité. Si vous êtes victime d'une attitude ou de commentaires inapropriés, tels que décrit dans notre Code de Conduite, nous sommes là pour vous et nous ferons de notre mieux pour nous assurer que le fautif soit réprimandé, tel que décrit dans notre code.
+Note [Code De Conduite](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) veut dire que vous avez la responsabilité de traiter tout le monde dans le projet avec respect et courtoisie, peu importe leur identité. Si vous êtes victime d'une attitude ou de commentaires inappropriés, tels que décrit dans notre Code de Conduite, nous sommes là pour vous et nous ferons de notre mieux pour nous assurer que le fautif soit réprimandé, tel que décrit dans notre code.

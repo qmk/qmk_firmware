@@ -8,11 +8,11 @@ Commencez par la [page GitHub de QMK](https://github.com/qmk/qmk_firmware), et v
 
 ![Fork on Github](http://i.imgur.com/8Toomz4.jpg)
 
-Si vous faites partie d'une organisation, vous aurez besoin de savoir quel compte utiliser pour le fork. Dans la plupart des cas, vous voudrez créer le fork dans votre compte personnel. Une fois le fork complet (cela peut quelque fois prendre un peu de temps), appuyez sur le bouton "Clone or download":
+Si vous faites partie d'une organisation, vous aurez besoin de savoir quel compte utiliser pour le fork. Dans la plupart des cas, vous voudrez créer le fork dans votre compte personnel. Une fois le fork complet (cela peut quelques fois prendre un peu de temps), appuyez sur le bouton "Clone or download":
 
 ![Download from Github](http://i.imgur.com/N1NYcSz.jpg)
 
-Faites attention à sélectionner "HTTPS", et sélectionnez le liens et copiez-le:
+Faites attention à sélectionner "HTTPS", et sélectionnez le lien et copiez-le:
 
 ![HTTPS link](http://i.imgur.com/eGO0ohO.jpg)
 
@@ -48,7 +48,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Vos changements existent maintenant dans votre fork sur GitHub. Si vous allez à cete adresse (`https://github.com/<whoeveryouare>/qmk_firmware`), vous pouvez créer un nouveau "Pull Request" en cliquant sur ce bouton:
+Vos changements existent maintenant dans votre fork sur GitHub. Si vous allez à cette adresse (`https://github.com/<whoeveryouare>/qmk_firmware`), vous pouvez créer un nouveau "Pull Request" en cliquant sur ce bouton:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

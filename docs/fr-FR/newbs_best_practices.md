@@ -11,7 +11,7 @@ Ce document suppose les choses suivantes:
 
 ## La branche master de votre fork: Mettre à jour souvent, ne jamais commit
 
-Il est hautement recommandé pour le développement de QMK, peu importe ce qui est fait ou où, de garder votre branche `master` à jour, mais de ne ***jamais*** commit dessus. A la place, faites tous vos changement dans une branche de développement et crééz des "pull requests" de votre branche lorsque vous développez.
+Il est hautement recommandé pour le développement de QMK, peu importe ce qui est fait ou où, de garder votre branche `master` à jour, mais de ne ***jamais*** commit dessus. A la place, faites tous vos changements dans une branche de développement et crééz des "pull requests" de votre branche lorsque vous développez.
 
 Pour réduire les chances de conflits de fusion (merge) &mdash; des cas où deux ou plus d'utilisateurs ont édité la même section d'un fichier en parallèle &mdash; gardez votre branche `master` relativement à jour et démarrez chaque nouveau développement en créant une nouvelle branche.
 
@@ -44,7 +44,7 @@ git pull upstream master
 git push origin master
 ```
 
-Cela vous change la branche courante en master, synchronise les données de réferences du dépôt QMK vers votre ordinateur. La commande pull tire les données de réferences vers votre branche courante puis les y téleverse. La commande push permet de pousser la branche courante (master) vers votre fork github.
+Cela vous change la branche courante en master, synchronise les données de références du dépôt QMK vers votre ordinateur. La commande pull tire les données de références vers votre branche courante puis les y téleverse. La commande push permet de pousser la branche courante (master) vers votre fork github.
 
 ### Faire des changements
 
@@ -55,11 +55,11 @@ git checkout -b dev_branch
 git push --set-upstream origin dev_branch
 ```
 
-Ceci crée une branche nommée `dev_branch`, bascule vers cette branche, et ensuite sauvegarde cette nouvelle branche vers votre fork. L'argument `--set-upstream` demande à git d'utiliser votre fork et la branche `dev_branch` à chaque fois que vous utilisez `git push` ou `git pull` depuis cette branche. Vous ne devez l'utiliser que pour le premier "push", après celà, vous pouvez utiliser simplement `git push` ou `git pull`, sans le reste des arguments.
+Ceci crée une branche nommée `dev_branch`, bascule vers cette branche, et ensuite sauvegarde cette nouvelle branche vers votre fork. L'argument `--set-upstream` demande à git d'utiliser votre fork et la branche `dev_branch` à chaque fois que vous utilisez `git push` ou `git pull` depuis cette branche. Vous ne devez l'utiliser que pour le premier "push", après cela, vous pouvez utiliser simplement `git push` ou `git pull`, sans le reste des arguments.
 
 !> Avec `git push`, vous pouvez utiliser `-u` à la place de `--set-upstream` &mdash; `-u` est un alias pour `--set-upstream`.
 
-Vous pouvez appeler votre branche à peu prêt comme vous voulez, toutefois il est recommandé d'utiliser un nom qui est lié aux changements que vous allez faire.
+Vous pouvez appeler votre branche à peu près comme vous voulez, toutefois il est recommandé d'utiliser un nom qui est lié aux changements que vous allez faire.
 
 Par défaut, `git checkout -b` va faire de la branche actuelle la branche de base de votre nouvelle branche. Vous pouvez définir la base de votre nouvelle branche comme étant n'importe quelle branche existante qui n'est pas la courante en utilisant la commande:
 
@@ -76,11 +76,11 @@ git commit -m "My commit message."
 
 `git add` ajoute les fichiers qui ont été changés dans la *zone de staging* de Git, qui est sa "zone de chargement". Elle contient tous les changements qui vont être *validés* (committed) par `git commit`, qui sauvegarde les changements vers le dépôt. Utilisez des messages de validation descriptifs afin que vous puissiez savoir ce qui a changé d'un coup d'oeil.
 
-!> Si vous changez beaucoup de fichiers, mais tous les fichiers font partie du même changement, vous pouvez utiliser `git add .` pour ajouter tous les fichiers changés dans le répertoire courant, plutôt que d'avoir à ajouter chaque fichiers individuellement.
+!> Si vous changez beaucoup de fichiers, mais tous les fichiers font partie du même changement, vous pouvez utiliser `git add .` pour ajouter tous les fichiers changés dans le répertoire courant, plutôt que d'avoir à ajouter chaque fichier individuellement.
 
 ### Publier Vos Changements
 
-La dernière étape est de pousser vos changements vers votre fork. pour se faire, entrez `git push`. Git publie maintenant l'état courant de `dev_branch` vers votre fork.
+La dernière étape est de pousser vos changements vers votre fork. Pour ce faire, entrez `git push`. Git publie maintenant l'état courant de `dev_branch` vers votre fork.
 
 ## Résoudre Les Conflits De Merge
 
@@ -112,7 +112,7 @@ Maintenant que l'état actuel de la branche courante et la branche upstream sont
 git rebase upstream/master
 ```
 
-Ceci dit à Git d'annuler les commits de la branche courrante puis de les réappliquer sur la branche master de QMK.
+Ceci dit à Git d'annuler les commits de la branche courante puis de les réappliquer sur la branche master de QMK.
 
 ```bash
 $ git rebase upstream/master
@@ -133,7 +133,7 @@ You can instead skip this commit: run "git rebase --skip".
 To abort and get back to the state before "git rebase", run "git rebase --abort".
 ```
 
-Ceci nous dit que nous avons un conflit de merge, et nous donne le nom du fichier en conflit. Ouvez le fichier conflictuel dans votre éditeur de texte et, quelque part dans le fichier, vous trouverez quelque chose comme ça:
+Ceci nous dit que nous avons un conflit de merge, et nous donne le nom du fichier en conflit. Ouvrez le fichier conflictuel dans votre éditeur de texte et, quelque part dans le fichier, vous trouverez quelque chose comme ça:
 
 ```bash
 <<<<<<< HEAD

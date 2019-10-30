@@ -99,11 +99,16 @@ or
 
     make <keyboard>:<keymap>:avrdude
 
-or if you want to flash multiple boards, use the following command
 
-    make <keyboard>:<keymap>:avrdude-loop
+#### Caterina commands
 
-When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
+
+* `:avrdude` - This is the normal option which waits until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
+* `:avrdude-loop` - This runs the same command as `:avrdude`, but after each device is flashed, it will attempt to flash again.  This is useful for bulk flashing. _This requires you to manually escape the loop by hitting Ctrl+C._
+* `:avrdude-split-left` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
+* `:avrdude-split-right` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
+
 
 
 ## Halfkay
@@ -231,7 +236,7 @@ Flashing sequence:
 
 There are a number of DFU commands that you can use to flash firmware to a STM32 device:
 
-* `:dfu-util` - The default command for flashing to STM32 devices.
+* `:dfu-util` - The default command for flashing to STM32 devices, and will wait until an STM32 bootloader device is present.
 * `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
 * `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
 * `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
