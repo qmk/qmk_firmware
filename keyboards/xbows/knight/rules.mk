@@ -1,6 +1,16 @@
 # MCU name
 MCU = atmega32u4
+
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
+
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
