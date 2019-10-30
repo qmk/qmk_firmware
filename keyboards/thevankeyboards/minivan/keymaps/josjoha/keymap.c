@@ -14,7 +14,6 @@
 #define _FUN 2 // function keys, layer switcher, repeaters for tap-key symbols
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
-//#define _RST 5 // reseting the board (not needed can use pin underneath)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -60,14 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: Function keys,
      * Toward any layer by toggle.
-     * Keys that are on a tap key somewhere, are repeated/-able here.
-     *   It turns out that tapping the tap-keys twice, turns them repeatable.
-     *   That makes this superfluous (Tab, Ent, Space, -, ~).
      */
 
     [ _FUN ] = LAYOUT (
     
-        /* _LTR _NSY _FUN _MOV _RAR _RST  xxx  F24 F23  F22  F21     xxx
+        /* _LTR _NSY _FUN _MOV _RAR  xxx  xxx  F24 F23  F22  F21     xxx
          * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
          * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
          * LAlt  Left    ___     ___      ___      ___       Right  RAlt
