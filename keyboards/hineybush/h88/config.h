@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards with an extra key in the F-row
 
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 12
