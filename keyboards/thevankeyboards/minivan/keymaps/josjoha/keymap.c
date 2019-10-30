@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* _LTR WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End     xxx
          * LCtl  MLft MDn  MUp  MRht  xxx  Btn1 Left Up   Down Right RCtl
          * LSht   Btn5 Btn4 Btn3 Butn2 Btn1 Btn2 Acc0 Acc1 Acc2  ~   RSht
-         * LAlt   Left   ___     ___      ___      ___       Right   RAlt
+         * LAlt   Left     ___     ___      ___      ___     Right   RAlt
          */
                 
         TO ( _LTR ) , KC_WH_L , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , XXXXXXX ,
@@ -100,13 +100,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _RAR ] = LAYOUT (
 
-        /*  _LTR Power Sleep Wake  xxx  xxx  xxx  xxx  xxx  Pause ScrLk PrtSc
-         *  Caps  xxx   xxx   xxx   xxx  xxx  xxx  xxx  xxx  xxx   xxx Insert
-         *  NumL   Stop  Play  Prev  Next Vol- Vol+ Mute xxx  xxx   xxx   xxx
-         *  xxx    Left    ___   ___       ___      ___      Right        App
+        /*  _LTR xxx  xxx  Pause ScrLk PrtSc xxx  xxx  Power Sleep Wake    xxx   
+         *  CapL  xxx  xxx   xxx   xxx  xxx   xxx  xxx  xxx  xxx    xxx Insert
+         *  NumL   Stop Play  Prev  Next Vol-  Vol+ Mute xxx  xxx   xxx    xxx
+         *  xxx    Left    ___      ___       ___      ___      Right      App
          */
 
-        TO ( _LTR ) , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , 
+        TO ( _LTR ) , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
         KC_CAPS      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
         KC_NLCK       , KC_MSTP , KC_MPLY , KC_MPRV , KC_MNXT , KC_VOLD , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
         XXXXXXX        , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_APP  
