@@ -23,14 +23,12 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-void rhruiz_on_default_layer() {
-    writePinHigh(D5);
-    writePinHigh(B0);
-}
-
 void rhruiz_update_layer_colors(layer_state_t state) {
     if (state & (1 << _NUM)) {
         writePinLow(D5);
         writePinLow(B0);
+    } else {
+        writePinHigh(D5);
+        writePinHigh(B0);
     }
 }

@@ -3,8 +3,6 @@
 
 __attribute__((weak)) void rhruiz_update_layer_colors(layer_state_t state) {}
 
-__attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset(); }
-
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { return rhruiz_layer_state_set_user(state); }
 
 __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) { return true; }
@@ -64,7 +62,6 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
             case _MOUSE:
             case _KEY_OVERRIDE:
                 state = state & (0UL << _VIM_EMACS) & (0UL << _MOUSE) & (0UL << _KEY_OVERRIDE);
-                rhruiz_on_default_layer();
                 break;
 
             case _FN1:
@@ -72,9 +69,10 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
                 state = state | (1UL << _VIM_EMACS) | (1UL << _MOUSE) | (1UL << _KEY_OVERRIDE);
 
             default:
-                rhruiz_update_layer_colors(state);
                 break;
         }
+
+        rhruiz_update_layer_colors(state);
 
         last_state = state;
     }

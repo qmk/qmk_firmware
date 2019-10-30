@@ -90,7 +90,8 @@ void matrix_init_user(void) {}
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
 void rhruiz_update_layer_colors(layer_state_t state) {
-    if (biton32(state) < 1UL) {
+    if (biton32(state) < _FN1) {
+        rhruiz_rgblight_reset();
         return;
     }
 

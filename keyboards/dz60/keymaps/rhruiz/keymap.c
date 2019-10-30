@@ -84,7 +84,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 void rhruiz_update_layer_colors(layer_state_t state) {
-    if (biton32(state) < 1UL) {
+    if (biton32(state) < _FN1) {
+        rhruiz_rgblight_reset();
         return;
     }
 
