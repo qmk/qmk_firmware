@@ -11,7 +11,7 @@
 
 #define _LTR 0 // letters (Dvorak)
 #define _NSY 1 // numbers and symbols
-#define _FUN 2 // function keys, layer switcher, repeaters for tap-key symbols
+#define _FUN 2 // function keys, layer switcher
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
 
@@ -77,8 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /* Layer 3: Movement layer: mouse and hands on navigation
-     * ~ sneaks back in here too, because layer 2 is on a toggle.
-     * Thus trying to avoid a three key press for ~ on layer 1.
+     * Trying to avoid a three key press for ~ on layer 1.
      */
 
     [ _MOV ] = LAYOUT (
@@ -96,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ) ,
 
     /* Layer 4: Dump for various unused keys. Media keys on 2nd row.
-     *          There seem to be more than one Power key variant in some keymaps thus room for two.
+     *   
      */
 
     [ _RAR ] = LAYOUT (
@@ -107,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *  xxx    Left    ___   ___       ___      ___      Right        App
          */
 
-        TO ( _LTR ) , KC_PWR  , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , 
+        TO ( _LTR ) , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , 
         KC_CAPS      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
         KC_NLCK       , KC_MSTP , KC_MPLY , KC_MPRV , KC_MNXT , KC_VOLD , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
         XXXXXXX        , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_APP  
