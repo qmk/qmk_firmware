@@ -32,9 +32,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_ESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_esc_tab, dance_esc_tab_reset),
 };
 
-#define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
-
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
         case LSFT_T(KC_CAPS):

@@ -14,10 +14,12 @@ enum layers {
     _BASE,
     _LOWER,
     _RAISE,
-    _ADJUST,
+    _MACRO,
     _ARROW,
     _FKEY,
-    _GAMER
+    _GAMER,
+    _NP,
+    _ADJUST
 };
 
 enum custom_keycodes {
