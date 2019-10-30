@@ -10,11 +10,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_BASE] = LAYOUT_catalyst(
+    [_BASE] = LAYOUT_arrow_wrapper(
       __________________MINIVAN1_________________,
       __________________MINIVAN2_________________,
       __________________MINIVAN3_________________,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+      __________________MINIVAN4_________________
     ),
 
     /*
@@ -24,11 +24,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_LOWER] = LAYOUT_catalyst(
+    [_LOWER] = LAYOUT_arrow_wrapper(
       _________________LOWER_1___________________,
       _________________LOWER_2___________________,
       __________________MININUM3_________________,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+      __________________MININUM4_________________
     ),
 
     /*
@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |CTRL | WIN   | ALT |   ENTR   |  SPACE | LFT  |DOWN|RGHT|FKEY|
     */
 
-    [_RAISE] = LAYOUT_catalyst(
+    [_RAISE] = LAYOUT_arrow_wrapper(
       ___________________RAISE1__________________,
       ___________________RAISE2__________________,
       ___________________RVAN_3__________________,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+      ___________________RVAN_4__________________
     ),
 
     /*
@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |     |       |     |   ENTR   |  SPACE |      |    |    |    |
      */
 
-    [_ADJUST] = LAYOUT_catalyst(
+    [_ADJUST] = LAYOUT_arrow_wrapper(
       ___________________ADJST1__________________,
       ___________________ADJST2__________________,
       ___________________ADJVAN3_________________,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+      ___________________ADJVAN4_________________
     ),
 
     /*
@@ -66,11 +66,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  |     |       |     |          |        | FKEY |    |    |    |
      */
 
-    [_FKEY] = LAYOUT_catalyst(
+    [_FKEY] = LAYOUT_arrow_wrapper(
       ___________________FKEY1___________________,
       ___________________FKEY2___________________,
       ___________________FVAN_3__________________,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+      ___________________FVAN_4__________________
     ),
   };
 
