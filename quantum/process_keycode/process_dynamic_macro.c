@@ -29,26 +29,20 @@ void dynamic_macro_led_blink(void) {
 
 /* User hooks for Dynamic Macros */
 
-__attribute__((weak))
-void dynamic_macro_record_start_user(void) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_start_user(void) { dynamic_macro_led_blink(); }
 
-__attribute__((weak))
-void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_play_user(int8_t direction) { dynamic_macro_led_blink(); }
 
-__attribute__((weak))
-void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record) { dynamic_macro_led_blink(); }
 
-__attribute__((weak))
-void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
+__attribute__((weak)) void dynamic_macro_record_end_user(int8_t direction) { dynamic_macro_led_blink(); }
 
 /* Convenience macros used for retrieving the debug info. All of them
  * need a `direction` variable accessible at the call site.
  */
 #define DYNAMIC_MACRO_CURRENT_SLOT() (direction > 0 ? 1 : 2)
-#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) \
-    ((int)(direction * ((POINTER) - (BEGIN))))
-#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) \
-    ((int)(direction * ((END2) - (BEGIN)) + 1))
+#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) ((int)(direction * ((POINTER) - (BEGIN))))
+#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) ((int)(direction * ((END2) - (BEGIN)) + 1))
 
 /**
  * Start recording of the dynamic macro.
@@ -119,12 +113,7 @@ void dynamic_macro_record_key(keyrecord_t *macro_buffer, keyrecord_t **macro_poi
         dynamic_macro_record_key_user(direction, record);
     }
 
-    dprintf(
-        "dynamic macro: slot %d length: %d/%d\n",
-        DYNAMIC_MACRO_CURRENT_SLOT(),
-        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer),
-        DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end)
-    );
+    dprintf("dynamic macro: slot %d length: %d/%d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer), DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
 }
 
 /**
@@ -142,14 +131,9 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
         macro_pointer -= direction;
     }
 
-    dprintf(
-        "dynamic macro: slot %d saved, length: %d\n",
-        DYNAMIC_MACRO_CURRENT_SLOT(),
-        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer)
-    );
+    dprintf("dynamic macro: slot %d saved, length: %d\n", DYNAMIC_MACRO_CURRENT_SLOT(), DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer));
 
     *macro_end = macro_pointer;
-
 }
 
 /* Handle the key events related to the dynamic macros. Should be
@@ -209,7 +193,6 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
      * 1,2 - either macro 1 or 2 is being recorded */
     static uint8_t macro_id = 0;
 
-
     if (macro_id == 0) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
@@ -236,8 +219,8 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
             case DYN_REC_STOP:
                 /* Stop the macro recording. */
                 if (record->event.pressed) { /* Ignore the initial release
-                                            * just after the recoding
-                                            * starts. */
+                                              * just after the recoding
+                                              * starts. */
                     switch (macro_id) {
                         case 1:
                             dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);

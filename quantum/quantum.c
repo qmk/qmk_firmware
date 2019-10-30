@@ -26,7 +26,7 @@
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
-    extern backlight_config_t backlight_config;
+extern backlight_config_t backlight_config;
 #endif
 
 #ifdef FAUXCLICKY_ENABLE
@@ -89,7 +89,7 @@ static void do_code16(uint16_t code, void (*f)(uint8_t)) {
 
     uint8_t mods_to_send = 0;
 
-    if (code & QK_RMODS_MIN) { // Right mod flag is set
+    if (code & QK_RMODS_MIN) {  // Right mod flag is set
         if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
         if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
         if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
@@ -567,7 +567,7 @@ bool process_record_quantum(keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = true;
                         break;
                     case MAGIC_HOST_NKRO:
-                        clear_keyboard(); // clear first buffer to prevent stuck keys
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = true;
                         break;
                     case MAGIC_SWAP_ALT_GUI:
@@ -610,7 +610,7 @@ bool process_record_quantum(keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = false;
                         break;
                     case MAGIC_UNHOST_NKRO:
-                        clear_keyboard(); // clear first buffer to prevent stuck keys
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = false;
                         break;
                     case MAGIC_UNSWAP_ALT_GUI:
@@ -648,7 +648,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                         break;
                     case MAGIC_TOGGLE_NKRO:
-                        clear_keyboard(); // clear first buffer to prevent stuck keys
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = !keymap_config.nkro;
                         break;
                     case MAGIC_EE_HANDS_LEFT:
