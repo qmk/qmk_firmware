@@ -20,6 +20,8 @@
 
 #include "keymap_french.h"
 
+// clang-format off
+
 const bool ascii_to_shift_lut[128] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -71,7 +73,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  FR_EXLM, FR_QUOT, FR_QUOT, FR_DLR,  FR_UGRV, FR_AMP,  FR_APOS,
+    KC_SPC,  FR_EXLM, FR_QUOT, FR_QUOT, FR_DLR, FR_UGRV,  FR_AMP,  FR_APOS,
     // (     )        *        +        ,        -        .        /
     FR_LPRN, FR_RPRN, FR_ASTR, FR_EQL,  FR_COMM, FR_MINS, FR_SCLN, FR_COLN,
     // 0     1        2        3        4        5        6        7

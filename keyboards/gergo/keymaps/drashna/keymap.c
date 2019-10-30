@@ -17,7 +17,7 @@
   ) \
   LAYOUT_gergo_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                K06,     K07,     K08,     K09,     K0A,    KC_PIPE,      \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,     _______,                         _______,  K16,     K17,     K18,     K19,     K1A,    KC_QUOT, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,     _______,                         _______,  K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     _______, _______,       _______, _______,  K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT,      \
                                        KC_GRV,   KC_SPC,  BK_LWER, OS_LALT,       OS_RGUI, DL_RAIS, KC_ENT, _______                            \
     )

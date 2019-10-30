@@ -1,12 +1,8 @@
 # project specific files
-SRC =	matrix.c
 LAYOUTS += ortho_4x12
 
 # Cortex version
 MCU  = STM32F303
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -31,9 +27,9 @@ API_SYSEX_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = yes # Custom matrix file
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
+DIP_SWITCH_ENABLE = yes 
 
 LAYOUTS = ortho_4x12 planck_mit
 LAYOUTS_HAS_RGB = no
