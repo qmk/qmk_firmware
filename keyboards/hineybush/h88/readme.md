@@ -37,4 +37,4 @@ The H88 PCB utilizes duplex matrix organization.
     
 
 
-For in-switch indicator LEDs, bridge the center pad of the J1 and J2 3-pad jumpers to the side with a dot. This is also illustrated with a small silk screen line.
+For in-switch indicator LEDs, bridge the center pad of the J1 and J2 3-pad jumpers follwing the small silk screen line.
