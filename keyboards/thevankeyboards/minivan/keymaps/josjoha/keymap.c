@@ -2,10 +2,10 @@
 
     /* Escape always goes back to default layer.
      * Full set of Ctrl, Alt, Shift almost throughout.
-     * (Using QMK at qmk.thevankeyboards.com though, for led support.)
      *
      * (TT key: tap quickly 5 times.
-     *  LT key: once for character, twice then hold for repeat.)
+     *  LT key: once for character, twice then hold for repeat.
+     *  Some layer switch keys need Transparent on target layer.)
      *
      * */
 
@@ -14,7 +14,7 @@
 #define _FUN 2 // function keys, layer switcher, repeaters for tap-key symbols
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
-#define _RST 5 // reseting the board
+#define _RST 5 // reseting the board  // not needed
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *  Tab+LCtl  aA  oO  eE  uU  iI  dD  hH  tT  nN  sS  -_+RCtl
          *  LSht       ;:  qQ  jJ  kK  xX  bB  mM  wW  vV  zZ    RSht
          *  LAlt    Left _MOV  Enter+_NSY Space+_NSY _FUN  Right RAlt
-         *               hold   hold        hold    toggle 
+         *               hold´  hold        hold    toggle 
          */
 
         KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P                  , KC_Y        , KC_F    , KC_G    , KC_C , KC_R , KC_L , KC_BSPC            ,
@@ -40,22 +40,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     /* Layer 1: Numbers and symbols.
-     *          Numpad function (,.Bksp,ent).
+     *          Numpad function (-.Bksp,ent).
      *          (Instead of ~ a ` is printed with RSht, not sure why yet.)
      */
 
     [ _NSY ] = LAYOUT (
        
-        /* _LTR      !   @   #   $   %   ^   &   *   (   )         Del
-         * Bksp+LCtl  1   2   3   4   5   \|  =+  /?  [{  ]}   `~+RCtl
-         * .+LSht      0   9   8   7   6    |   +   ?   {   }   ~+RSht
-         * ,+LAlt    Left   ___    ___     ___     ___ Right  Ent+RAlt
+        /* _LTR      !   @   #   $   %   ^   &   *   (   )            Del
+         * -+LCtl  1   2   3   4   5   \|  =+  /?  [{  ]}         `~+RCtl
+         * .+LSht      0   9   8   7   6    |   +   ?   {   }      ~+RSht
+         * Bksp+LAlt    Left   ___    ___     ___     ___ Right  Ent+RAlt
          * */
                 
         TO ( _LTR )       , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
-        LCTL_T ( KC_BSPC ) , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
+        LCTL_T ( KC_MINS ) , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_DOT )   , KC_0    , KC_9    , KC_8    , KC_7    , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) , 
-        LALT_T ( KC_COMM )   , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT  , RALT_T ( KC_ENT )
+        LALT_T ( KC_BSPC )   , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT  , RALT_T ( KC_ENT )
                       ) ,
 
     /* Layer 2: Function keys,
@@ -67,15 +67,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _FUN ] = LAYOUT (
     
-        /* _LTR _NSY _FUN _MOV _RAR _RST  xxx  xxx xxx  xxx  xxx     xxx
-         * LCtl   F1   F2   F3   F4   F5   xxx  F11  F12  F13  F14  RCtl
-         * LSht    F10  F9   F8   F7   F6   Tab  Ent  Space -   `   RSht
+        /* _LTR _NSY _FUN _MOV _RAR _RST  xxx  F24 F23  F22  F21     xxx
+         * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
+         * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
          * LAlt  Left    ___     ___      ___      ___       Right  RAlt
          */
         
-        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _RST ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
-        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , XXXXXXX , KC_F11  , KC_F12  , KC_F13  , KC_F14  , KC_RCTL ,
-        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_TAB  , KC_ENT  , KC_SPC  , KC_MINS , KC_GRV  , KC_RSFT ,
+        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _RST ) , XXXXXXX , KC_F24 , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
+        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14 , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
+        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
         KC_LALT        , KC_LEFT     , _______     , _______     , _______     , _______     , KC_RGHT , KC_RALT
                       ) ,
 
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          says there are used for programming the board, although it seems unnecessary in this case.
      */
 
-    [ _RST ] = LAYOUT (
+//    [ _RST ] = LAYOUT (
 
         /* to0   to0   to0  to0   to0  to0        to0  to0  pP  Pause to0    to0
          * dD     Debug rR   Reset eE  EEpromReset to0  to0  to0  to0  to0   to0
@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * to0   to0     ___     ___       ___            ___         to0    to0 
          */
 
-        TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_P        , KC_PAUS     , TO ( _LTR ) , TO ( _LTR ) ,
-        KC_D         , DEBUG       , KC_R        , RESET       , KC_E        , EEP_RST     , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) ,
-        KC_LSFT       , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_B        , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_RSFT     ,
-        TO ( _LTR )    , TO ( _LTR ) , _______     , _______     , _______     , _______     , TO ( _LTR ) , TO ( _LTR )
-                      )
+//        TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_P        , KC_PAUS     , TO ( _LTR ) , TO ( _LTR ) ,
+//        KC_D         , DEBUG       , KC_R        , RESET       , KC_E        , EEP_RST     , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) ,
+//        KC_LSFT       , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_B        , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_RSFT     ,
+//        TO ( _LTR )    , TO ( _LTR ) , _______     , _______     , _______     , _______     , TO ( _LTR ) , TO ( _LTR )
+//                      )
 };
