@@ -57,7 +57,7 @@ def doctor(cli):
                          "input-club": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"'},
                          "stm32": {'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"',
                                    'SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"'},
-                         "catalina": {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"',
+                         "caterina": {'ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"',
                                       'ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"'}}
         if os.path.exists(udev_dir):
             udev_rules = [rule for rule in glob.iglob(os.path.join(udev_dir, "*.rules")) if os.path.isfile(rule)]
@@ -74,12 +74,12 @@ def doctor(cli):
             for bootloader, rules in desired_rules.items():
                 if not rules.issubset(current_rules):
                     # If the rules for catalina are not present, check if ModemManager is running
-                    if bootloader == "catalina":
+                    if bootloader == "caterina":
                         if shutil.which("systemctl"):
                             mm_check = subprocess.run(["systemctl", "--quiet", "is-active", "ModemManager.service"], timeout=10)
                             if mm_check.returncode == 0:
                                 ok = False
-                                cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro-Micro.")
+                                cli.log.warn("{bg_yellow}Detected ModemManager without udev rules. Please either disable it or set the appropriate udev rules if you are using a Pro Micro.")
                         else:
                             cli.log.warn("Can't find systemctl to check for ModemManager.")
                     else:
