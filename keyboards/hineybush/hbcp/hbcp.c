@@ -16,7 +16,9 @@
 #include "hbcp.h"
 
 // Indicator color definitions
+#ifndef HSV_CAPS
 #define HSV_CAPS  0, 0, 120 // Define caps lock color (H, S, V)
+#endif
 #define HSV_NLCK  0, 0, 120 // Define num lock color (H, S, V)
 #define HSV_SCRL  0, 0, 120 // Define scroll lock color (H, S, V)
 #define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
