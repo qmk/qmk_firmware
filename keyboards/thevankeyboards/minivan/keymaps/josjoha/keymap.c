@@ -14,7 +14,7 @@
 #define _FUN 2 // function keys, layer switcher, repeaters for tap-key symbols
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
-#define _RST 5 // reseting the board  // not needed
+//#define _RST 5 // reseting the board (not needed can use pin underneath)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * LAlt  Left    ___     ___      ___      ___       Right  RAlt
          */
         
-        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _RST ) , XXXXXXX , KC_F24 , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
-        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14 , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
-        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
-        KC_LALT        , KC_LEFT     , _______     , _______     , _______     , _______     , KC_RGHT , KC_RALT
+        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , XXXXXXX , XXXXXXX , KC_F24 , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
+        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5   , KC_F15  , KC_F14 , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
+        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6   , KC_F16  , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
+        KC_LALT        , KC_LEFT     , _______     , _______     , _______     , _______ , KC_RGHT , KC_RALT
                       ) ,
 
 
@@ -117,25 +117,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX        , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_APP  
                       )  ,
 
-
-    /* Layer 5: Possibly dangerous functions, most keys revert to layer 0 to prevent accidents.
-     *          A letter key precedes the key of interest (Debug, Reset, EepromReset, Pause)
-     *          to give a clue about the next key.
-     *          The keys <b>, both <shifts>, <space> and Pause are added, because QMK documentation
-     *          says there are used for programming the board, although it seems unnecessary in this case.
-     */
-
-//    [ _RST ] = LAYOUT (
-
-        /* to0   to0   to0  to0   to0  to0        to0  to0  pP  Pause to0    to0
-         * dD     Debug rR   Reset eE  EEpromReset to0  to0  to0  to0  to0   to0
-         * LSht    to0   to0  to0   to0  to0        bB   to0  to0  to0  to0 RSht
-         * to0   to0     ___     ___       ___            ___         to0    to0 
-         */
-
-//        TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_P        , KC_PAUS     , TO ( _LTR ) , TO ( _LTR ) ,
-//        KC_D         , DEBUG       , KC_R        , RESET       , KC_E        , EEP_RST     , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) ,
-//        KC_LSFT       , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_B        , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , TO ( _LTR ) , KC_RSFT     ,
-//        TO ( _LTR )    , TO ( _LTR ) , _______     , _______     , _______     , _______     , TO ( _LTR ) , TO ( _LTR )
-//                      )
 };
