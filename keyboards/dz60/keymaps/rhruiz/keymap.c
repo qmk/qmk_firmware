@@ -91,7 +91,7 @@ void rhruiz_update_layer_colors(layer_state_t state) {
     uint16_t hue = 1;
     uint8_t  sat = 0;
 
-    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)][user_config.version_1_1];
+    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(state)][user_config.version_1_1];
     hue                        = hue_sat.hue;
     sat                        = hue_sat.sat;
 
@@ -102,8 +102,6 @@ void keyboard_post_init_keymap(void) {
     // Read the user config from EEPROM
     user_config.raw = eeconfig_read_user();
 }
-
-void matrix_scan_user(void) { rhruiz_update_layer_colors(layer_state); }
 
 bool rhruiz_is_layer_indicator_led(uint8_t index) {
     if (user_config.version_1_1) {

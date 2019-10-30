@@ -87,8 +87,6 @@ const hue_sat_pair hue_sat_pairs[] = {
 
 void matrix_init_user(void) {}
 
-void matrix_scan_user(void) { rhruiz_update_layer_colors(layer_state); }
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
 void rhruiz_update_layer_colors(layer_state_t state) {
@@ -99,7 +97,7 @@ void rhruiz_update_layer_colors(layer_state_t state) {
     uint16_t hue = 1;
     uint8_t  sat = 0;
 
-    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)];
+    const hue_sat_pair hue_sat = hue_sat_pairs[biton32(state)];
     hue                        = hue_sat.hue;
     sat                        = hue_sat.sat;
 

@@ -19,8 +19,6 @@
 
 const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}, [_NUM] = {45, 255}};
 
-void matrix_scan_user(void) { rhruiz_update_layer_colors(layer_state); }
-
 bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == RGBLED_NUM - 1 || index == RGBLED_NUM / 2; }
 
 void rhruiz_update_layer_colors(layer_state_t state) {
@@ -28,7 +26,7 @@ void rhruiz_update_layer_colors(layer_state_t state) {
         return;
     }
 
-    const hue_sat_pair hs = hue_sat_pairs[biton32(layer_state)];
+    const hue_sat_pair hs = hue_sat_pairs[biton32(state)];
 
     rhruiz_change_leds_to(hs.hue, hs.sat);
 }
