@@ -61,6 +61,7 @@ uint8_t pinToMux(pin_t pin) {
         case F5: return _BV(MUX2) | _BV(MUX0); // ADC5
         case F6: return _BV(MUX2) | _BV(MUX1); // ADC6
         case F7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // ADC7
+        default: return _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // 0V
 #elif defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
         case F0: return 0; // ADC0
         case F1: return _BV(MUX0); // ADC1
@@ -74,6 +75,7 @@ uint8_t pinToMux(pin_t pin) {
         case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0); //ADC11
         case B5: return _BV(MUX5) | _BV(MUX2); // ADC12
         case B6: return _BV(MUX5) | _BV(MUX2) | _BV(MUX0); // ADC13
+        default: return _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // 0V
 #elif defined(__AVR_ATmega32A__)
         case A0: return 0; // ADC0
         case A1: return _BV(MUX0); // ADC1
@@ -83,6 +85,7 @@ uint8_t pinToMux(pin_t pin) {
         case A5: return _BV(MUX2) | _BV(MUX0); // ADC5
         case A6: return _BV(MUX2) | _BV(MUX1); // ADC6
         case A7: return _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // ADC7
+        default: return _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // 0V
 #elif defined(__AVR_ATmega328P__)
         case C0: return 0; // ADC0
         case C1: return _BV(MUX0); // ADC1
@@ -91,26 +94,39 @@ uint8_t pinToMux(pin_t pin) {
         case C4: return _BV(MUX2); // ADC4
         case C5: return _BV(MUX2) | _BV(MUX0); // ADC5
         // ADC7:6 not present in DIP package and not shared by GPIO pins
+        default: return _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // 0V
 #endif
-        default:
-            return 0;
     }
 }
 
 int16_t adc_read(uint8_t mux) {
     uint8_t low;
-    ADCSRA = _BV(ADEN) | ADC_PRESCALER;                          // enable ADC
+
+    // Enable ADC and configure prescaler
+    ADCSRA = _BV(ADEN) | ADC_PRESCALER;
 
 #if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
-    ADCSRB = _BV(ADHSM) | (mux & _BV(MUX5));                     // high speed mode and ADC8-13
+    // High speed mode and ADC8-13
+    ADCSRB = _BV(ADHSM) | (mux & _BV(MUX5));
 #elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
-    ADCSRB = _BV(ADHSM)                                          // high speed mode only
+    // High speed mode only
+    ADCSRB = _BV(ADHSM)
 #endif
 
-    ADMUX  = aref | (mux & (_BV(MUX2) | _BV(MUX1) | _BV(MUX0))); // configure mux input (mask off MUX4:3, single channel only)
-    ADCSRA |= _BV(ADSC);                                         // start the conversion
+    // Configure mux input
+#if defined(MUX4)
+    ADMUX  = aref | (mux & (_BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
+#else
+    ADMUX  = aref | (mux & (_BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
+#endif
+
+    // Start the conversion
+    ADCSRA |= _BV(ADSC);
+    // Wait for result
     while (ADCSRA & _BV(ADSC))
-        ;                                                        // wait for result
-    low = ADCL;                                                  // must read LSB first
-    return (ADCH << 8) | low;                                    // must read MSB only once!
+        ;
+    // Must read LSB first
+    low = ADCL;
+    // Must read MSB only once!
+    return (ADCH << 8) | low;
 }
