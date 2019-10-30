@@ -9,9 +9,36 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) { 
 
 __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *record) { return true; }
 
-__attribute__((weak)) void keyboard_post_init_keymap(void) { }
+__attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) { return rhruiz_process_record(keycode, record); }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_MAKE:
+            if (!record->event.pressed) {
+                uint8_t temp_mod = get_mods();
+                uint8_t temp_osm = get_oneshot_mods();
+                clear_mods();
+                clear_oneshot_mods();
+
+                bool should_flash = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
+
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+
+                if (should_flash) {
+                    SEND_STRING(":flash");
+                }
+
+                if ((temp_mod | temp_osm) & MOD_MASK_CTRL) {
+                    SEND_STRING(" -j8 --output-sync");
+                }
+
+                SEND_STRING(SS_TAP(X_ENTER));
+                set_mods(temp_mod);
+            }
+            break;
+    }
+    return rhruiz_process_record(keycode, record);
+}
 
 void keyboard_post_init_user() {
     /* TODO: revisit this check if flashed promicros with dfu */
