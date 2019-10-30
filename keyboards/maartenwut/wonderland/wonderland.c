@@ -1,5 +1,6 @@
 #include "wonderland.h"
 
+__attribute__ ((weak))
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
@@ -7,12 +8,14 @@ void matrix_init_kb(void) {
 	led_init_ports();
 };
 
+__attribute__ ((weak))
 void matrix_scan_kb(void) {
 	// put your looping keyboard code here
 	// runs every cycle (a lot)
 	matrix_scan_user();
 };
 
+__attribute__ ((weak))
 void led_init_ports(void) {
     // * Set our LED pins as output
     setPinOutput(B1);
@@ -20,6 +23,7 @@ void led_init_ports(void) {
     setPinOutput(B3);
 }
 
+__attribute__ ((weak))
 void led_set_kb(uint8_t usb_led) {
 	if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
         writePinLow(B1);
