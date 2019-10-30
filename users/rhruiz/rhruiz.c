@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "quantum.h"
 #include "rhruiz.h"
 
@@ -19,6 +20,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_oneshot_mods();
 
                 bool should_flash = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
+
+#ifndef BOOTLOADER_CATERINA
+                if (should_flash) {
+                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+                    char env[26];
+                    sprintf(env, " && VID=%04hx PID=%04hx ", VENDOR_ID, PRODUCT_ID);
+                    send_string(env);
+                    SEND_STRING("~/dev/keyboard/hid_send/hid_send bootloader && ");
+                }
+#endif
 
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
 
