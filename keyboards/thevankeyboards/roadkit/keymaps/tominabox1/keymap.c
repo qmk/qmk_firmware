@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_MACRO] = LAYOUT_ortho_4x4( /* Numpad */
     KC_MPRV, KC_MPLY,   KC_MNXT,   KC_VOLU, \
-    KC_NO, KC_NO,   KC_NO,   KC_NO,   \
+    KC_NO, KC_NO,   KC_NO,   KC_VOLD,   \
     KC_NO, KC_NO,   KC_NO,   KC_NO, \
     KC_TRNS, KC_NO,   KC_NO, RESET  \
   ),
