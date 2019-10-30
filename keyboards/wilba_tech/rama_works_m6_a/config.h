@@ -109,21 +109,21 @@
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // NOTE: M6-A doesn't use RGB backlight, but we keep this
 // consistent with M6-B which does.
 
 // Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+43)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 78
-// Dynamic macro starts after dynamic keymaps (78+(4*6*2)) = (78+48)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 126
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 898
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+// Dynamic keymap starts after backlight config (37+43)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 80
+// Dynamic macro starts after dynamic keymaps (80+(4*6*2)) = (80+48)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 128
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 896
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

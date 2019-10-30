@@ -13,7 +13,7 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
 
-The docs are hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [GitHub](/docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "suggest an edit" link on any page of the docs.
+The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit Document" link at the bottom of any page.
 
 ## Supported Keyboards
 

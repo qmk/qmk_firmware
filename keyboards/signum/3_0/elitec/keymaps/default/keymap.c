@@ -632,14 +632,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |LShift(|   z   |   x   |   c   |   v   |   b   |               |   n   |   m   |   ,   |   .   |   /   |RShift)|
  * -----------------------------------------------------------------------------------------------------------------
- *   LCtrl   LAlt    LGui          |  TT2  |LT6_SPC|LT4_DEL|LT4_ENT| Space |LT2_BSP|         RGui    RAlt    RCtrl
+ *  LCtrl[   LAlt    LGui          |  TT2  |LT6_SPC|LT4_DEL|LT4_ENT| Space |LT2_BSP|         RGui    RLAlt  RCtrl]
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC,
 		LCTL_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
 		KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
-		KC_LCTL, KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, KC_RALT, KC_RCTL
+		LCTL_T(KC_LBRC), KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, LALT_T(KC_RALT), RCTL_T(KC_RBRC)
 	),
 
 /*
@@ -651,14 +651,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |LShift(|   z   |   x   |   c   |   v   |   b   |               |   k   |   m   |   ,   |   .   |   /   |RShift)|
  * -----------------------------------------------------------------------------------------------------------------
- *   LCtrl   LAlt    LGui          |  TT2  |LT6_SPC|LT4_DEL|LT4_ENT| Space |LT2_BSP|         RGui    RAlt    RCtrl
+ *  LCtrl[   LAlt    LGui          |  TT2  |LT6_SPC|LT4_DEL|LT4_ENT| Space |LT2_BSP|         RGui    RLAlt  RCtrl]
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
 		KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
 		LCTL_T(KC_ESC), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
 		KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
-		KC_LCTL, KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, KC_RALT, KC_RCTL
+		LCTL_T(KC_LBRC), KC_LALT, KC_LGUI, TT(2), LT(6,KC_SPC), LT(4,KC_DEL), LT(4,KC_ENT), KC_SPC, LT(2,KC_BSPC), KC_RGUI, LALT_T(KC_RALT), RCTL_T(KC_RBRC)
 	),
 
 /*

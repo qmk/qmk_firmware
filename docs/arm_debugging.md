@@ -6,15 +6,15 @@ This guide is catered towards advance users and assumes you can compile an ARM c
 
 ## Installing the software
 
-The main objective here is to get the MCU Eclipse IDE correcly installed on our machine. The necesarry instructions are derived from [this](https://gnu-mcu-eclipse.github.io/install/) install guide.
+The main objective here is to get the MCU Eclipse IDE correctly installed on our machine. The necessary instructions are derived from [this](https://gnu-mcu-eclipse.github.io/install/) install guide.
 
 ### The xPack Manager
 
-This tool is a software package manager and it is used to help us get the necesarry depencencies.
+This tool is a software package manager and it is used to help us get the necessary dependencies.
 
-XPM runs using Node.js so grab that form [here](https://nodejs.org/en/). After installation, open a terminal and type `npm -v`. A reply with the version number means that the instalation was successful.
+XPM runs using Node.js so grab that from [here](https://nodejs.org/en/). After installation, open a terminal and type `npm -v`. A reply with the version number means that the installation was successful.
 
-XPM instalation instructions can be found [here](https://www.npmjs.com/package/xpm) and are OS specific. Entering `xpm --version` to your terminal should return the software version.
+XPM installation instructions can be found [here](https://www.npmjs.com/package/xpm) and are OS specific. Entering `xpm --version` to your terminal should return the software version.
 
 ### The ARM Toolchain
 
@@ -26,10 +26,10 @@ If you are using windows you need to install this!
 
 `xpm install --global @gnu-mcu-eclipse/windows-build-tools`
 
-### Programer/Debugger Drivers
+### Programmer/Debugger Drivers
 
-Now its the time to install your programer's drivers. This tutorial was made using an ST-Link v2 which you can get from almost anywhere.
-If you have an ST-Link the drivers can be found [here](https://www.st.com/en/development-tools/stsw-link009.html) otherwise consult the manufuturer of your tool.
+Now it's time to install your programmer's drivers. This tutorial was made using an ST-Link v2 which you can get from almost anywhere.
+If you have an ST-Link the drivers can be found [here](https://www.st.com/en/development-tools/stsw-link009.html) otherwise consult the manufacturer of your tool.
 
 ### OpenOCD
 

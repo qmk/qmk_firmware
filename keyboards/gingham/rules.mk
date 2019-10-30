@@ -10,9 +10,8 @@ MCU = atmega328p
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
-#
-# This uses usbaspbootloader
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
 # Flash program via avrdude, but default command is not suitable.

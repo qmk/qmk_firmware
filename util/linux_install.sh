@@ -77,6 +77,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		gcc \
 		git \
 		python \
+		python-pip \
 		unzip \
 		wget \
 		zip
@@ -183,6 +184,29 @@ elif grep ID /etc/os-release | grep -q solus; then
 		unzip
 	printf "\n$SOLUS_INFO\n"
 
+elif grep ID /etc/os-release | grep -q void; then
+	# musl Void systems don't have glibc cross compilers avaliable in their repos.
+	# glibc Void systems do have musl cross compilers though, for some reason.
+	# So, default to musl, and switch to glibc if it is installed.
+	CROSS_ARM=cross-arm-linux-musleabi
+	if xbps-query glibc > /dev/null; then # Check is glibc if installed
+		CROSS_ARM=cross-arm-linux-gnueabi
+	fi
+
+	sudo xbps-install \
+		avr-binutils \
+		avr-gcc \
+		avr-libc \
+		$CROSS_ARM \
+		dfu-programmer \
+		dfu-util \
+		gcc \
+		git \
+		make \
+		wget \
+		unzip \
+		zip
+
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
@@ -190,4 +214,4 @@ else
 fi
 
 # Global install tasks
-pip3 install -r ${util_dir}/../requirements.txt
+pip3 install --user -r ${util_dir}/../requirements.txt

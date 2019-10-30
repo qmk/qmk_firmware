@@ -14,7 +14,7 @@ The next Breaking Change is scheduled for Nov 29.
 
 ### Important Dates
 
-* [ ] 2019 Oct 04 - `future` is created. It will be rebased weekly.
+* [x] 2019 Sep 21 - `future` is created. It will be rebased weekly.
 * [ ] 2019 Nov 01 - `future` closed to new PR's.
 * [ ] 2019 Nov 01 - Call for testers.
 * [ ] 2019 Nov 27 - `master` is locked, no PR's merged.
@@ -51,7 +51,9 @@ git rebase master
 git push --force
 ```
 
-## 8 Weeks Before Merge
+## Creating the `future` branch
+
+This happens immediately after the previous `future` branch is merged.
 
 * `qmk_firmware` git commands
     * [ ] `git checkout master`
@@ -65,9 +67,6 @@ git push --force
     * [ ] `git tag <next_version>` # Prevent the breakpoint tag from confusing version incrementing
     * [ ] `git push origin future`
     * [ ] `git push --tags`
-* GitHub Actions
-    * [ ] Switch all [breaking_change PR's](https://github.com/qmk/qmk_firmware/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+label%3Abreaking_change) to `future`
-    * [ ] Any that have a ChangeLog entry may be merged immediately.
 
 ## 4 Weeks Before Merge
 
