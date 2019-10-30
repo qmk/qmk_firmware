@@ -28,10 +28,17 @@ void analogReference(uint8_t mode) {
 // Arduino compatible pin input
 int16_t analogRead(uint8_t pin) {
 #if defined(__AVR_ATmega32U4__)
-    static const uint8_t PROGMEM pin_to_mux[] = {0x00, 0x01, 0x04, 0x05, 0x06, 0x07, 0x25, 0x24, 0x23, 0x22, 0x21, 0x20};
+    static const uint8_t PROGMEM pin_to_mux[] = {
+        //A0  A1    A2    A3    A4    A5
+        //F7  F6    F5    F4    F1    F0
+        0x07, 0x06, 0x05, 0x04, 0x01, 0x00,
+        //A6  A7    A8    A9    A10   A11
+        //D4  D7    B4    B5    B6    D6
+        0x20, 0x22, 0x23, 0x24, 0x25, 0x21
+    };
     if (pin >= 12) return 0;
     return adc_read(pgm_read_byte(pin_to_mux + pin));
-#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega328P__)
     if (pin >= 8) return 0;
     return adc_read(pin);
 #else
