@@ -1,7 +1,7 @@
 #include "quantum.h"
 #include "rhruiz.h"
 
-__attribute__((weak)) void rhruiz_update_layer_colors(void) {}
+__attribute__((weak)) void rhruiz_update_layer_colors(layer_state_t state) {}
 
 __attribute__((weak)) void rhruiz_on_default_layer(void) { rhruiz_rgblight_reset(); }
 
@@ -72,7 +72,7 @@ layer_state_t rhruiz_layer_state_set_user(layer_state_t state) {
                 state = state | (1UL << _VIM_EMACS) | (1UL << _MOUSE) | (1UL << _KEY_OVERRIDE);
 
             default:
-                rhruiz_update_layer_colors();
+                rhruiz_update_layer_colors(state);
                 break;
         }
 

@@ -24,9 +24,8 @@ enum custom_keycodes { KC_MAKE = SAFE_RANGE, NEW_SAFE_RANGE };
 #define CLUP MT(MOD_RCTL, KC_UP)
 #define CLRIGHT LT(_FN1, KC_RIGHT)
 
-void          rhruiz_update_layer_colors(void);
+void          rhruiz_update_layer_colors(layer_state_t state);
 void          rhruiz_on_default_layer(void);
-void          rhruiz_update_layer_colors(void);
 layer_state_t rhruiz_layer_state_set_user(layer_state_t state);
 bool          rhruiz_is_layer_indicator_led(uint8_t index);
 void          rhruiz_disable_promicro_leds(void);

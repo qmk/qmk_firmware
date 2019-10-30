@@ -3,6 +3,7 @@
 #include "rhruiz.h"
 #include "rhruiz_api.h"
 #include "raw_hid.h"
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     uint8_t *command_id   = &(data[0]);
     uint8_t *command_data = &(data[1]);

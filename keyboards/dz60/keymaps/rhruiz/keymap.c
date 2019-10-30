@@ -83,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-void rhruiz_update_layer_colors() {
-    if (biton32(layer_state) < 1UL) {
+void rhruiz_update_layer_colors(layer_state_t state) {
+    if (biton32(state) < 1UL) {
         return;
     }
 
@@ -103,7 +103,7 @@ void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
 }
 
-void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
+void matrix_scan_user(void) { rhruiz_update_layer_colors(layer_state); }
 
 bool rhruiz_is_layer_indicator_led(uint8_t index) {
     if (user_config.version_1_1) {

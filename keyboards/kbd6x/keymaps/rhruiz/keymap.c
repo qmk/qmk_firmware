@@ -87,12 +87,12 @@ const hue_sat_pair hue_sat_pairs[] = {
 
 void matrix_init_user(void) {}
 
-void matrix_scan_user(void) { rhruiz_update_layer_colors(); }
+void matrix_scan_user(void) { rhruiz_update_layer_colors(layer_state); }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) { return true; }
 
-void rhruiz_update_layer_colors() {
-    if (biton32(layer_state) < 1UL) {
+void rhruiz_update_layer_colors(layer_state_t state) {
+    if (biton32(state) < 1UL) {
         return;
     }
 
