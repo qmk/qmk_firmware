@@ -38,7 +38,7 @@ int16_t analogRead(uint8_t pin) {
     };
     if (pin >= 12) return 0;
     return adc_read(pgm_read_byte(pin_to_mux + pin));
-#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega328P__)
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega328P__)
     if (pin >= 8) return 0;
     return adc_read(pin);
 #else
@@ -52,7 +52,7 @@ int16_t analogReadPin(pin_t pin) {
 
 uint8_t pinToMux(pin_t pin) {
     switch(pin) {
-#if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+#if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
         case F0: return 0; // ADC0
         case F1: return _BV(MUX0); // ADC1
         case F2: return _BV(MUX1); // ADC2
@@ -103,7 +103,7 @@ int16_t adc_read(uint8_t mux) {
 
 #if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
     ADCSRB = _BV(ADHSM) | (mux & _BV(MUX5));                     // high speed mode and ADC8-13
-#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
     ADCSRB = _BV(ADHSM)                                          // high speed mode only
 #endif
 
