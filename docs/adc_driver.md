@@ -46,5 +46,5 @@ Then place this include at the top of your code:
 |`analogReference(mode)`     |Sets the analog voltage reference source. Must be one of `ADC_REF_EXTERNAL`, `ADC_REF_POWER` or `ADC_REF_INTERNAL`.|
 |`analogRead(pin)`           |Reads the value from the specified Arduino pin, eg. `4` for ADC6 on the ATmega32U4.                                |
 |`analogReadPin(pin)`        |Reads the value from the specified QMK pin, eg. `F6` for ADC6 on the ATmega32U4.                                   |
-|`pinToMux(pin)`             |Translates a given QMK pin to a mux value. **Note that the default `0` is also a valid value.**                    |
+|`pinToMux(pin)`             |Translates a given QMK pin to a mux value. If an unsupported pin is given, returns the mux value for "0V (GND)"    |
 |`adc_read(mux)`             |Reads the value from the ADC according to the specified mux. See your MCU's datasheet for more information.        |
