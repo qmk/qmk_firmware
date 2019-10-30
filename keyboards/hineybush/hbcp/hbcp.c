@@ -16,7 +16,9 @@
 #include "hbcp.h"
 
 // Indicator color definitions
+#ifndef HSV_CAPS
 #define HSV_CAPS  0, 0, 120 // Define caps lock color (H, S, V)
+#endif
 #define HSV_NLCK  0, 0, 120 // Define num lock color (H, S, V)
 #define HSV_SCRL  0, 0, 120 // Define scroll lock color (H, S, V)
 #define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
@@ -86,7 +88,7 @@ void keyboard_post_init_user(void) {
 }
 
 __attribute__ ((weak))
-void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
+void hbcp_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
   LED_TYPE tmp_led;
   sethsv_raw(hue, sat, val, &tmp_led);
   for (uint8_t i = start; i < end; i++) {
