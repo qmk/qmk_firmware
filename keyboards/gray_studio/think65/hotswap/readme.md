@@ -4,7 +4,9 @@
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Think6.5 Hotswap PCB  
-Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=100166.0)
+Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=100166.0)  
+
+**Note:** The `LAYOUT_65_ansi_blocker` LAYOUT macro utilizes the same pins and switch matrix as the soldered (compatible) version. Any firmware made with this LAYOUT macro can be flashed on both the Solder (Compatible) version and the Hotswap version of the Think6.5.  
 
 Make example for this keyboard (after setting up your build environment):
 
