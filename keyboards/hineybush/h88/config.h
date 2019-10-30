@@ -16,12 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x04D8
+#define PRODUCT_ID      0xECA2
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    hineybush
+#define MANUFACTURER    hineybush keyboards
 #define PRODUCT         h88
-#define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards
+#define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards with an extra key in the F-row
 
 #define CONFIG_H
 
