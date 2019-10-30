@@ -107,11 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    return state;
-}
-
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;

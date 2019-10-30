@@ -109,8 +109,3 @@ void led_set_user(uint8_t usb_led) {
         writePinHigh(LED_GREEN);
     }
 }
-
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-    return state;
-}
