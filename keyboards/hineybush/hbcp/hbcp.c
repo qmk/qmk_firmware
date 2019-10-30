@@ -88,7 +88,7 @@ void keyboard_post_init_user(void) {
 }
 
 __attribute__ ((weak))
-void my_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
+void hbcp_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
   LED_TYPE tmp_led;
   sethsv_raw(hue, sat, val, &tmp_led);
   for (uint8_t i = start; i < end; i++) {
