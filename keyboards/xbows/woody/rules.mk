@@ -1,3 +1,4 @@
+# MCU name
 MCU = atmega32u4
 BOOTLOADER = atmel-dfu
 BOOTMAGIC_ENABLE = lite      # Virtual DIP switch configuration(+1000)
