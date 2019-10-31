@@ -105,6 +105,15 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
 ```
 
+## `qmk c2json`
+
+This command converts C keymaps into JSON keymaps, which it outputs to stdout.
+
+**Usage**:
+```
+qmk c2json /path/to/keymap.c
+```
+
 ## `qmk docs`
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
