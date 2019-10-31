@@ -141,6 +141,9 @@ void send_make_command(bool flash_bootloader) {
 #else // use universal flash command
         send_string_with_delay_P(PSTR(":flash"), SEND_STRING_DELAY);
 #endif
+#if defined(FORCE_LAYOUT)
+        send_string_with_delay_P(PSTR(" FORCE_LAYOUT=" FORCE_LAYOUT), SEND_STRING_DELAY);
+#endif
     }
     send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), SEND_STRING_DELAY);
     if (flash_bootloader) {

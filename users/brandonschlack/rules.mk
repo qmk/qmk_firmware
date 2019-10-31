@@ -28,3 +28,6 @@ ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
 
+ifneq ($(FORCE_LAYOUT),)
+    OPT_DEFS += -DFORCE_LAYOUT=\"$(FORCE_LAYOUT)\"
+endif
