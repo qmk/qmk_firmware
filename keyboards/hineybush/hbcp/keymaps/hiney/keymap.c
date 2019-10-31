@@ -93,7 +93,7 @@ void matrix_scan_user(void) {
 #ifdef RGBLIGHT_ENABLE
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (_BV(USB_LED_CAPS_LOCK))) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         sethsv_raw(HSV_SOFT_PINK, (LED_TYPE *)&led[0]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
