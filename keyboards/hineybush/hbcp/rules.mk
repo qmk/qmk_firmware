@@ -2,7 +2,7 @@
 MCU = at90usb1286
 
 # Bootloader selection
-#   Teensy       halfkaygit pu
+#   Teensy       halfkay
 #   Pro Micro    caterina
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
