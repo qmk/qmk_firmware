@@ -1,1 +1,1 @@
-# The default keymap for h87a
+# The wkl keymap for h88a
