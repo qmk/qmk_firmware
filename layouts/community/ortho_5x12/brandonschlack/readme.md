@@ -1,13 +1,10 @@
-# brandonschlack's plaid keymap
-Original copyright 2019 Takuya Urakawa (dm9records.com)
-LED Support added  by Richard Sutherland (rich@brickbots.com)
+# brandonschlack's 5x12 Ortho Keymap
 
-This layout is based on the Planck layout. It is macOS-centric, with Colemak and DVORAK removed as I don't use them.
+This layout takes inspiration from the Preonic and JNAO. It is macOS-centric, with Colemak and DVORAK removed as I don't use them.
 Features include:
 
 * *Enter* acts as *Right Shift* when held
 * On either **LOWER** or **RAISE** layers, tapping *Shift* will toggle *Caps Lock*, hold for Shift.
-  * The Green LED acts as a Caps Lock indicator.
 * Bottom left key is *Hyper* (Shift+Control+Option+Command) which I use to map global shortcuts in macOS.
   * Holding *Esc* will also act as Hyper.
 * **ADJUST** Layer
