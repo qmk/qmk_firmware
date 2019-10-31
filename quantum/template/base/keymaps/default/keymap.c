@@ -19,7 +19,7 @@
 enum layer_names {
     _BASE,
     _FN
-}
+};
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
