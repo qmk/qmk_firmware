@@ -1,4 +1,4 @@
-# Best Practices
+# Git Best Practices for Working with QMK
 
 ## Or, "How I Learned to Stop Worrying and Love Git."
 
