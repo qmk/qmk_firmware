@@ -1,1 +1,1 @@
-# The default keymap for hbcp
+# hineybush's keymap for hbcp
