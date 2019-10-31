@@ -97,7 +97,7 @@ def parse_keymap_c(path):
     # I'm guessing make probably doesn't just put the entire source tree as
     # an include path??
     def subdir_includes(parent: Path):
-        return (f'-I{parent / d}' for d in recursive_subdirs(parent))
+        return ('-I{}'.format(parent / d) for d in recursive_subdirs(parent))
 
     # we need to use the GNU C parser so attributes in system headers and
     # other inconvenient things don't cause our parse to fail
@@ -106,7 +106,7 @@ def parse_keymap_c(path):
         parser=GnuCParser(),
         use_cpp=True,
         cpp_args=[
-            f'-DQMK_KEYBOARD_H="{keyboard_h}"',
+            '-DQMK_KEYBOARD_H="{}"'.format(keyboard_h),
             '-std=gnu99',
             *subdir_includes(keyboard_h.parent),
             *subdir_includes(qmk_root / 'quantum'),
