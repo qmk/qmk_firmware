@@ -5,7 +5,7 @@ KNIGHT, a split87 and pad Mechanical Keyboard.
 X-BOWS Knight, the first ergonomic mechanical keyboard with magnetic connection of detachable numeric keypad on both sides. Revolutionary seamless integrated aluminum alloy body. Original spherical OEM keycaps.  
 
 Keyboard Maintainer: X-BOWS  
-Hardware Supported:  X-BOWS  
+Hardware Supported: X-BOWS Knight  
 Hardware Availability: [X-BOWS](https://x-bows.com/)
 
 Make example for this keyboard (after setting up your build environment):
