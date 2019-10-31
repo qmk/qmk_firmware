@@ -15,7 +15,7 @@
  */
 #include "process_space_cadet.h"
 #ifdef TAPPING_TERM_PER_KEY
-#   include "action_tapping.h"
+#    include "action_tapping.h"
 #endif
 
 #ifndef TAPPING_TERM
@@ -88,16 +88,14 @@ static uint16_t sc_timer = 0;
 static uint8_t sc_mods = 0;
 #endif
 
-
 void perform_space_cadet(keyrecord_t *record, uint16_t og_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode) {
-  if (record->event.pressed) {
-    sc_last = holdMod;
-    sc_timer = timer_read ();
-    if (IS_MOD(holdMod)) {
-      register_mods(MOD_BIT(holdMod));
-    }
-  }
-  else {
+    if (record->event.pressed) {
+        sc_last  = holdMod;
+        sc_timer = timer_read();
+        if (IS_MOD(holdMod)) {
+            register_mods(MOD_BIT(holdMod));
+        }
+    } else {
 #ifdef TAPPING_TERM_PER_KEY
         if (sc_last == holdMod && timer_elapsed(sc_timer) < get_tapping_term(og_keycode))
 #else
@@ -131,8 +129,7 @@ void perform_space_cadet(keyrecord_t *record, uint16_t og_keycode, uint8_t holdM
 }
 
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
-
-  switch(keycode) {
+    switch (keycode) {
         case KC_LSPO: {
             perform_space_cadet(record, keycode, LSPO_KEYS);
             return false;
