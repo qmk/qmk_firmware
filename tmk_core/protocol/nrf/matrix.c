@@ -98,32 +98,42 @@ uint8_t matrix_cols(void)
     return BMPAPI->app.get_config()->matrix.cols;
 }
 
+__attribute__ ((weak))
+const bmp_matrix_func_t * get_matrix_func_user(void) {
+    return NULL;
+}
+
 void matrix_init(void) {
   // initialize row and col
 
-  switch (BMPAPI->app.get_config()->matrix.diode_direction)
+  matrix_func = get_matrix_func_user();
+
+  if (matrix_func == NULL)
   {
-    case MATRIX_COL2ROW:
-        matrix_func = &matrix_func_col2row;
-        break;
-    case MATRIX_ROW2COL:
-        matrix_func = &matrix_func_row2col;
-        break;
-    case MATRIX_COL2ROW_LPME:
-        matrix_func = &matrix_func_col2row_lpme;
-        break;
-    case MATRIX_ROW2COL_LPME:
-        matrix_func = &matrix_func_row2col_lpme;
-        break;
-    case MATRIX_COL2ROW2COL:
-        matrix_func = &matrix_func_col2row2col;
-        break;
-    case MATRIX_ROW2COL2ROW:
-        matrix_func = &matrix_func_row2col2row;
-        break;
-    default:
-        matrix_func = &matrix_func_row2col;
-        break;
+    switch (BMPAPI->app.get_config()->matrix.diode_direction)
+    {
+        case MATRIX_COL2ROW:
+            matrix_func = &matrix_func_col2row;
+            break;
+        case MATRIX_ROW2COL:
+            matrix_func = &matrix_func_row2col;
+            break;
+        case MATRIX_COL2ROW_LPME:
+            matrix_func = &matrix_func_col2row_lpme;
+            break;
+        case MATRIX_ROW2COL_LPME:
+            matrix_func = &matrix_func_row2col_lpme;
+            break;
+        case MATRIX_COL2ROW2COL:
+            matrix_func = &matrix_func_col2row2col;
+            break;
+        case MATRIX_ROW2COL2ROW:
+            matrix_func = &matrix_func_row2col2row;
+            break;
+        default:
+            matrix_func = &matrix_func_row2col;
+            break;
+    }
   }
 
   // initialize matrix state: all keys off
