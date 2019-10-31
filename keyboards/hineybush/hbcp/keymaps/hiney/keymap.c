@@ -15,14 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Needs to be defined as Hue/Sat/Val at the time being. Working on that :)
-
-#define HSV_SOFT_PINK  255, 110, 100 // define a value for soft pink (H, S, V)
-#define HSV_CUSTOM_WHITE  0, 0, 120 // define a value for white (H, S, V)
-#define HSV_SCRL  0, 0, 120 // define a value for scroll lock (H, S, V)
-#define HSV_BLACK  0, 0, 0 // define a value for black (H, S, V)
-
-
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QMKBEST = SAFE_RANGE,
