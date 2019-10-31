@@ -62,6 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_SLEEP
 /*== or choose animations ==*/
   // #define RGBLIGHT_EFFECT_BREATHING
   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
