@@ -15,6 +15,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _MACRO,
+	_NUMPAD,
     _ARROW,
     _FKEY,
     _GAMER,
