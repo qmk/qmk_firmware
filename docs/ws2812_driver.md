@@ -8,6 +8,15 @@ Currently QMK supports the following addressable LEDs (however, the white LED in
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
+## Supported Driver Types
+
+|          | AVR                | ARM                |
+|----------|--------------------|--------------------|
+| bit bang | :heavy_check_mark: | :heavy_check_mark: |
+| I2C      | :heavy_check_mark: |                    |
+| SPI      |                    | Soon™              |
+| PWM      |                    | Soon™              |
+
 ## Driver configuration
 
 ### Bitbang
@@ -16,6 +25,8 @@ Default driver, the absence of configuration assumes this driver. To configure i
 ```make
 WS2812_DRIVER = bitbang
 ```
+
+!> This driver is not hardware accelerated and may not be performant on heavily loaded systems.
 
 ### I2C
 Targeting boards where WS2812 support is offloaded to a 2nd MCU. Currently the driver is limited to AVR given the known consumers are ps2avrGB/BMC. To configure it, add this to your rules.mk:
