@@ -58,26 +58,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c"), SEND_STRING_DELAY);
             }
             break;
-        case LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-            break;
-        case RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-            break;
         case CMD_TAB: // Super CMD↯TAB
             if (record->event.pressed) {
                 if (!is_cmd_tab_active) {
