@@ -1,7 +1,7 @@
 # bcat's Quefrency 65% layout
 
 This is pretty much a stock 65% split keyboard layout, with an HHKB-style
-(split) backspace, media keys in the function layer centered around the WASD
+(split) backspace, media keys in the function layer centered around the ESDF
 cluster, and RGB controls in the function layer on the arrow/nav keys.
 
 ## Default layer
