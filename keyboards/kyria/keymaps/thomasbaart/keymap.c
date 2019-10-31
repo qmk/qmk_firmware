@@ -40,17 +40,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * | LSFT   |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LCTL   |   Z  |   X  |   C  |   V  |   B  |LShift|      |  | Del  |Leader|   N  |   M  | ,  < | . >  | /  ? |  - _   |
+ * | LCTL   |   Z  |   X  |   C  |   V  |   B  | CCCV |      |  | Del  |Leader|   N  |   M  | ,  < | . >  | /  ? |  - _   |
  * `----------------------+------+------+------+------+      |  |------+------+------+------+------+----------------------'
- *                        | GUI  | Del  |      | Space| Enter|  | Bspc | Space|      | Bksp | AltGr|
+ *                        | GUI  | Alt  |      | Space| Enter|  | Bspc | Space|      | Tab  | AltGr|
  *                        |      |      | Lower| Shift| Alt  |  |      | Nav  | Raise|      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
       KC_ESC,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE, \
       KC_LSFT, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,   XXXXXXX, KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS, \
-              KC_LGUI, KC_DEL, LOWER, MT(MOD_LSFT, KC_SPC), MT(MOD_LALT, KC_ENT), KC_BSPC, LT(_NAV, KC_SPC), RAISE,   KC_TAB,  KC_RALT
+      KC_LCTL, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_CCCV,   XXXXXXX, KC_DEL, KC_LEAD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS, \
+              KC_LGUI, KC_LALT,LOWER, MT(MOD_LSFT, KC_SPC), MT(MOD_LALT, KC_ENT), KC_BSPC, LT(_NAV, KC_SPC), RAISE,   KC_TAB,  KC_RALT
     ),
 /*
  * Lower Layer: Numpad, Media
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      |      | VolUp|      |      |                              | / ?  | 7 &  | 8 *  | 9 (  | - _  |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      | Prev | Play | Next | CCCV |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | +      |
+ * |        |      | Prev | Play | Next |      |                              | *    | 4 $  | 5 %  | 6 ^  | , <  | +      |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |      |      | VolDn| Mute |      |      |      |  |      |      | 0 )  | 1 !  | 2 @  | 3 #  | = +  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_LOWER] = LAYOUT(
       _______, _______, _______, KC_VOLU, _______, _______,                                     KC_SLSH, KC_7,    KC_8,    KC_9, KC_MINS, _______, \
-      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_CCCV,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, KC_PLUS, \
+      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                                     KC_ASTR, KC_4,    KC_5,    KC_6, KC_COMM, KC_PLUS, \
       _______, _______, _______, KC_VOLD, KC_MUTE, _______, _______, _______, _______, _______, KC_0,    KC_1,    KC_2,    KC_3, KC_EQL,  _______, \
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Raise Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  !   |  @   |  {   |  }   |  |   |                              |      |      | €    |      |      |  \     |
+ * |        |  !   |  @   |  {   |  }   |  |   |                              |      |  _   |  €   |      |      |  \     |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  #   |  $   |  (   |  )   |  `   |                              |   +  |  -   |  /   |  *   |  %   |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_RAISE] = LAYOUT(
-      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, KC_SCLN, EURO,    _______, _______, KC_BSLS, \
+      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, KC_UNDS, EURO,    _______, _______, KC_BSLS, \
       _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                                      KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT, \
       _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS, \
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -216,7 +216,7 @@ void matrix_scan_user(void) {
             SEND_STRING("`` " SS_TAP(X_LEFT) SS_TAP(X_LEFT));
         }
         SEQ_ONE_KEY(KC_P) { // Invoke Password Manager
-            SEND_STRING(SS_LCTRL("\\"));
+            SEND_STRING(SS_LCTRL(SS_LALT("\\")));
         }
         SEQ_ONE_KEY(KC_S) { // Windows screenshot
             SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)"S"));
@@ -227,14 +227,8 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_E, KC_S) { // Email splitkb
             SEND_STRING("thomas@splitkb.com");
         }
-        SEQ_TWO_KEYS(KC_E, KC_S) { // Email personal
-            SEND_STRING("mail@thomasbaart.nl");
-        }
         SEQ_TWO_KEYS(KC_S, KC_D) { // Splitkb documentation
             SEND_STRING("https://docs.splitkb.com/");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_V) { // Splitkb VAT number
-            SEND_STRING("NL210593349B01");
         }
         SEQ_THREE_KEYS(KC_S, KC_D, KC_K) { // Splitkb Kyria build log
             SEND_STRING("https://docs.splitkb.com/docs/kyria-build-log/");
@@ -279,7 +273,7 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("       Kyria rev1.0\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -305,8 +299,8 @@ static void render_status(void) {
 
     // Host Keyboard LED Status
     uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK)    ? PSTR("NUMLCK ") : PSTR("       "), false);
+    oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK)   ? PSTR("CAPLCK ") : PSTR("       "), false);
     oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
 }
 

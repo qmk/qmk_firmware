@@ -59,6 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLED_SPLIT { 10, 10 }
 #define RGBLED_NUM 20
+#define RGBLIGHT_SPLIT
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
