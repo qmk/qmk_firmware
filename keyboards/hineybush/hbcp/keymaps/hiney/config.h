@@ -17,3 +17,12 @@
 #pragma once
 
 // place overrides here
+
+#ifndef HSV_SOFT_PINK
+    #define HSV_SOFT_PINK  255, 110, 100 // Define custom "soft pink" color
+#endif
+
+#ifndef HSV_BLACK
+    #define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
+#endif
+// not sure why i need to also define this here, as it is already in hbcp.h
