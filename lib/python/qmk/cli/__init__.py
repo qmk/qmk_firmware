@@ -2,6 +2,7 @@
 
 We list each subcommand here explicitly because all the reliable ways of searching for modules are slow and delay startup.
 """
+from . import c2json
 from . import cformat
 from . import compile
 from . import config

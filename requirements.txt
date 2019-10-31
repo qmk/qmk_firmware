@@ -3,3 +3,5 @@
 appdirs
 argcomplete
 colorama
+pycparser
+pycparserext
