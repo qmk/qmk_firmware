@@ -98,10 +98,17 @@ QMK provides methods to read 5 of the LEDs defined in the HID spec:
 * Compose
 * Kana
 
-There are two ways to get the host LED state:
+There are two ways to get the lock LED state:
 
 * by implementing `led_update_kb()` or `_user()`; or
 * by calling `host_keyboard_led_state()`
+
+!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
+
+Two more deprecated functions exist that provide the LED state as a `uint8_t`:
+
+* `led_set_kb()` and `_user()`
+* `host_keyboard_leds()`
 
 ## `led_update_user()`
 
@@ -109,7 +116,7 @@ This function will be called when the state of one of those 5 LEDs changes. It r
 
 You must return either `true` or `false` from this function, depending on whether you want to override the keyboard-level implementation.
 
-!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
+?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
 
 ### Example `led_update_user()` Implementation
 
