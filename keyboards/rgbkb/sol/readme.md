@@ -5,7 +5,7 @@
 Sol is a split ergonomic keyboard with ortholinear alphas and several modifier layouts. It can use up to 180 RGB LEDs, with per-key backlighting, perimeter, and optional underglow. The boards have presoldered components, including type C ports and ATmega32U4. Sol, when used with dual power supplies, is the brightest keyboard on earth.
 
 Keyboard Maintainer: [Legonut](https://github.com/Legonut)  
-Hardware Supported: Sol PCB R1.0, R1.1, R2.0, R2.1
+Hardware Supported: Sol PCB R1.0, R1.1, R2.0, R2.1  
 Hardware Availability: [RGBKB](https://www.rgbkb.net)
 
 Make example for this keyboard (after setting up your build environment):
