@@ -162,10 +162,7 @@ static uint8_t wheel_unit(void) {
             speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS +
                 1 * time_elapsed +
                 1 * 0.5 * time_elapsed * time_elapsed;
-        } else {
-            speed = MOUSEKEY_WHEEL_BASE_MOVEMENTS;
         }
-
         speed = speed > MOUSEKEY_WHEEL_BASE_MOVEMENTS ? MOUSEKEY_WHEEL_BASE_MOVEMENTS : speed;
     }
 
