@@ -98,7 +98,7 @@ Por ejemplo, si tienes un PCB de 60% que soporta ANSI e ISO podría definir los 
 
 En un esfuerzo por mantener el tamaño de repo abajo ya no estamos aceptando archivos binarios de cualquier formato, con pocas excepciones. Alojarlos en otro lugar (por ejemplo <https://imgur.com>) y enlazarlos en el `readme.md` es preferible.
 
-Para archivos de hardware (tales como placas, casos, pcb) puedes contribuir a [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](http://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior), se sirven en `http://qmk.fm/<teclado>/`, y se generan páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (Los archivos .md se generan en archivos .html mediante Jekyll). Echa un vistazo a la carpeta` lets_s ' para ver un ejemplo.
+Para archivos de hardware (tales como placas, casos, pcb) puedes contribuir a [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](http://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior), se sirven en `http://qmk.fm/<teclado>/`, y se generan páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (Los archivos .md se generan en archivos .html mediante Jekyll). Echa un vistazo a la carpeta `lets_split` para ver un ejemplo.
 
 ## Predeterminados de teclado
 
