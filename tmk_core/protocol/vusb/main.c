@@ -22,7 +22,7 @@
 #include "debug.h"
 #include "rgblight_reconfig.h"
 
-#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
