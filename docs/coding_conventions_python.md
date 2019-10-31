@@ -79,7 +79,7 @@ Always use a .py filename extension. Never use dashes.
 
 * single character names except for counters or iterators. You may use "e" as an exception identifier in try/except statements.
 * dashes (-) in any package/module name
-* \_\_double_leading_and_trailing_underscore\_\_ names (reserved by Python)
+* `__double_leading_and_trailing_underscore__` names (reserved by Python)
 
 # Docstrings
 
