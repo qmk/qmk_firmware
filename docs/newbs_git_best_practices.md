@@ -8,3 +8,9 @@ This document assumes a few things:
 
 1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account.
 2. You've [set up your build environment](newbs_getting_started.md#set-up-your-environment).
+
+---
+
+- Part 1: [Your fork's master: Update Often, Commit Never](newbs_git_using_your_master_branch.md)
+- Part 2: [Resolving Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
+- Part 3: [Resynchronizing an Out-of-Sync Git Branch](newbs_git_resynchronize_a_branch.md)
