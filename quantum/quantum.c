@@ -1070,6 +1070,10 @@ __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
 __attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
 
+__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
+
+__attribute__((weak)) bool led_update_kb(led_t led_state) { return led_update_user(led_state); }
+
 __attribute__((weak)) void led_init_ports(void) {}
 
 __attribute__((weak)) void led_set(uint8_t usb_led) {
@@ -1092,6 +1096,7 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 #endif
 
     led_set_kb(usb_led);
+    led_update_kb((led_t) usb_led);
 }
 
 //------------------------------------------------------------------------------

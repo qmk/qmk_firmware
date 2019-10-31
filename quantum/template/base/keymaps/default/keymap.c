@@ -58,6 +58,6 @@ void matrix_scan_user(void) {
 
 }
 
-void led_set_user(uint8_t usb_led) {
-
+bool led_update_user(led_t led_state) {
+    return true;
 }
