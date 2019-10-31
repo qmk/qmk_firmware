@@ -369,17 +369,20 @@ void rgb_matrix_disable_idle_anym(uint8_t mode, uint8_t speed) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint8_t saved_mods = 0;
   uint16_t temp_keycode = keycode;
+
+  #ifdef RGB_MATRIX_ENABLE
+    if (user_config.rgb_matrix_idle_anim) {
+      hypno_timer = timer_read32();
+      if (rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
+          rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+      }
+    }
+  #endif
+
   // Filter out the actual keycode from MT and LT keys.
   if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
       temp_keycode &= 0xFF;
   }
-
-  #ifdef RGB_MATRIX_ENABLE
-    hypno_timer = timer_read32();
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
-    }
-  #endif
 
   switch (temp_keycode) {
     case KC_BSPC:
