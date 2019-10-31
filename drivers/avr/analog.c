@@ -21,19 +21,17 @@
 
 static uint8_t aref = ADC_REF_POWER;
 
-void analogReference(uint8_t mode) {
-    aref = mode & (_BV(REFS1) | _BV(REFS0));
-}
+void analogReference(uint8_t mode) { aref = mode & (_BV(REFS1) | _BV(REFS0)); }
 
 // Arduino compatible pin input
 int16_t analogRead(uint8_t pin) {
 #if defined(__AVR_ATmega32U4__)
     static const uint8_t PROGMEM pin_to_mux[] = {
-        //A0  A1    A2    A3    A4    A5
-        //F7  F6    F5    F4    F1    F0
+        // A0 A1    A2    A3    A4    A5
+        // F7 F6    F5    F4    F1    F0
         0x07, 0x06, 0x05, 0x04, 0x01, 0x00,
-        //A6  A7    A8    A9    A10   A11
-        //D4  D7    B4    B5    B6    D6
+        // A6 A7    A8    A9    A10   A11
+        // D4 D7    B4    B5    B6    D6
         0x20, 0x22, 0x23, 0x24, 0x25, 0x21
     };
     if (pin >= 12) return 0;
@@ -46,12 +44,10 @@ int16_t analogRead(uint8_t pin) {
 #endif
 }
 
-int16_t analogReadPin(pin_t pin) {
-    return adc_read(pinToMux(pin));
-}
+int16_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
 
 uint8_t pinToMux(pin_t pin) {
-    switch(pin) {
+    switch (pin) {
 #if defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__)
         case F0: return 0; // ADC0
         case F1: return _BV(MUX0); // ADC1
@@ -72,7 +68,7 @@ uint8_t pinToMux(pin_t pin) {
         case D4: return _BV(MUX5); // ADC8
         case D6: return _BV(MUX5) | _BV(MUX0); // ADC9
         case D7: return _BV(MUX5) | _BV(MUX1); // ADC10
-        case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0); //ADC11
+        case B4: return _BV(MUX5) | _BV(MUX1) | _BV(MUX0); // ADC11
         case B5: return _BV(MUX5) | _BV(MUX2); // ADC12
         case B6: return _BV(MUX5) | _BV(MUX2) | _BV(MUX0); // ADC13
         default: return _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0); // 0V
@@ -115,9 +111,9 @@ int16_t adc_read(uint8_t mux) {
 
     // Configure mux input
 #if defined(MUX4)
-    ADMUX  = aref | (mux & (_BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
+    ADMUX = aref | (mux & (_BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
 #else
-    ADMUX  = aref | (mux & (_BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
+    ADMUX = aref | (mux & (_BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0)));
 #endif
 
     // Start the conversion
