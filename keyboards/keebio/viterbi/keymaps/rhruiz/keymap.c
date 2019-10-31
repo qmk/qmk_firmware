@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
-#include "ortho_5x14.c"
+#include "users/rhruiz/layouts/ortho_5x14.c"
 
 // clang-format off
 

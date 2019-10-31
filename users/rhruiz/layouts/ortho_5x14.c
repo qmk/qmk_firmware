@@ -1,3 +1,6 @@
+#include "quantum.h"
+#include "rhruiz.h"
+
 #define KC__FN1 MO(_FN1)
 #define KC__FN2 MO(_FN2)
 #define KC_RFN1 LT(_FN1, KC_RGHT)
