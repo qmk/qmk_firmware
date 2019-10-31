@@ -1,4 +1,4 @@
-/* Copyright 2019 Garret G. (TheRoyalSweatshirt)
+/* Copyright 2019 Jonathan Dayton (jdayton3)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
