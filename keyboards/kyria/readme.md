@@ -5,7 +5,7 @@
 An ergonomical 40% split keyboard
 
 Keyboard Maintainer: [splitkb.com](https://github.com/splitkb)  
-Hardware Supported: Pro Micro 5V/16MHz and compatible.
+Hardware Supported: Pro Micro 5V/16MHz and compatible.  
 Hardware Availability: [splitkb.com](https://splitkb.com) and partners.
 
 Make example for this keyboard (after setting up your build environment):
