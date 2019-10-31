@@ -1,6 +1,6 @@
 # Pautas del teclado QMK
 
-Desde sus inicios, QMK ha crecido a pasos agigantados gracias a personas como tú que contribuyes a la creación y mantenimiento de nuestros teclados comunitarios. A medida que hemos crecido hemos descubierto algunos patrones que funcionan bien, y pedimos que ajusta a ellos para que sea más fácil para que otras personas se beneficien de tu duro trabajo.
+Desde sus inicios, QMK ha crecido a pasos agigantados gracias a personas como tú que contribuyes a la creación y mantenimiento de nuestros teclados comunitarios. A medida que hemos crecido hemos descubierto algunos patrones que funcionan bien, y pedimos que te ajustes a ellos para que sea más fácil para que otras personas se beneficien de tu duro trabajo.
 
 
 ## Nombrar tu Teclado/Proyecto
@@ -19,7 +19,7 @@ Ejemplos Válidos:
 
 ## Subcarpetas
 
-QMK utiliza subcarpetas tanto para organización como para compartir código entre las revisiones del mismo teclado. Puede anidar carpetas hasta 4 niveles de profundidad:
+QMK utiliza subcarpetas tanto para organización como para compartir código entre las revisiones del mismo teclado. Puedes anidar carpetas hasta 4 niveles de profundidad:
 
     qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
 
@@ -51,19 +51,19 @@ Su teclado debe estar ubicado en `qmk_firm cuidada/keyboards/` y el nombre de la
 
 ### `readme.md`
 
-Todos los proyectos necesitan tener un archivo `readme.md` que explica lo que es el teclado, quién lo hizo y dónde está disponible. Si es aplicable, también debe contener enlaces a más información, como el sitio web del fabricante. Por favor, siga la [plantilla publicada](documentation_templates.md#keyboard-readmemd-template).
+Todos los proyectos necesitan tener un archivo `readme.md` que explica lo que es el teclado, quién lo hizo y dónde está disponible. Si es aplicable, también debe contener enlaces a más información, como el sitio web del fabricante. Por favor, sigue la [plantilla publicada](documentation_templates.md#keyboard-readmemd-template).
 
 ### `info.json`
 
-Este archivo es utilizado por la [API de QMK](https://github.com/qmk/qmk_api). Contiene la información [configurador de QMK](https://config.qmk.fm/) necesita mostrar una representación de su teclado. También puede establecer metadatos aquí. Para más información, consulte la [página de referencia](reference_info_json.md).
+Este archivo es utilizado por la [API de QMK](https://github.com/qmk/qmk_api). Contiene la información que [configurador de QMK](https://config.qmk.fm/) necesita mostrar en una representación de su teclado. También puede establecer metadatos aquí. Para más información, consulta la [página de referencia](reference_info_json.md).
 
 ### `config.h`
 
-Todos los proyectos necesitan tener un archivo `config.h` que establece las cosas como el tamaño de la matriz, nombre del producto, USB VID/PID, descripción y otros ajustes. En general, uses este archivo para establecer la información esencial y los valores predeterminados para tu teclado que siempre funcionará.
+Todos los proyectos necesitan tener un archivo `config.h` que establece cosas como el tamaño de la matriz, nombre del producto, USB VID/PID, descripción y otros ajustes. En general, usa este archivo para establecer la información esencial y los valores predeterminados para tu teclado que siempre funcionarán.
 
 ### `rules.mk`
 
-La presencia de este archivo significa que la carpeta es un destino de teclado y se puede utilizar en las órdenes `make`. Aquí es donde te estableces el entorno de compilación para tu teclado y te configuras el conjunto predeterminado de características.
+La presencia de este archivo indica que la carpeta es un destino de teclado y se puede utilizar en las órdenes `make`. Aquí es donde estableces el entorno de compilación para tu teclado y configuras el conjunto predeterminado de características.
 
 ### `<keyboard_name.c>`
 
@@ -98,7 +98,7 @@ Por ejemplo, si tienes un PCB de 60% que soporta ANSI e ISO podría definir los 
 
 En un esfuerzo por mantener el tamaño de repo abajo ya no estamos aceptando archivos binarios de cualquier formato, con pocas excepciones. Alojarlos en otro lugar (por ejemplo <https://imgur.com>) y enlazarlos en el `readme.md` es preferible.
 
-Archivos de hardware (tales como placas, casos, pcb) se puede contribuir a la [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](http://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior) que se sirven en `http://qmk.fm/<teclado>/`, y se generan las páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (archivos .md se generan en archivos .html por Jekyll). Echa un vistazo a la carpeta` lets_s ' para un ejemplo.
+Para archivos de hardware (tales como placas, casos, pcb) puedes contribuir a [qmk.fm repo](https://github.com/qmk/qmk.fm) y estarán disponibles en [qmk.fm](http://qmk.fm). Archivos descargables se almacenan en `/<teclado>/` (nombre sigue el mismo formato que el anterior), se sirven en `http://qmk.fm/<teclado>/`, y se generan páginas de `/_pages/<teclado>/` que se sirven en la misma ubicación (Los archivos .md se generan en archivos .html mediante Jekyll). Echa un vistazo a la carpeta` lets_s ' para ver un ejemplo.
 
 ## Predeterminados de teclado
 
