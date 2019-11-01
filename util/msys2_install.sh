@@ -24,11 +24,11 @@ function install_avr {
 
 function install_arm {
     rm -f -r "$armtools"
-    wget -O gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz?revision=ee19688c-d795-49c3-9937-f9b2e5a49b6b&la=en"
+    wget -O gcc-arm-none-eabi-8-2019-q3-update-win32.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-win32.zip?revision=2f0fd855-d015-423c-9c76-c953ae7e730b?product=GNU%20Arm%20Embedded%20Toolchain,ZIP,,Windows,8-2019-q3-update"
     echo "Extracting ARM toolchain..."
-    tar -xf gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz -C .
-    mv gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi gcc-arm-none-eabi
-    rm gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz
+	unzip -q -d . gcc-arm-none-eabi-8-2019-q3-update-win32.zip
+    mv gcc-arm-none-eabi-8-2019-q3-update-win32 gcc-arm-none-eabi
+    rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
 }
 
 function extract_flip {
