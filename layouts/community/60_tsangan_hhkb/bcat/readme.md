@@ -1,9 +1,10 @@
 # bcat's 60% Tsangan HHKB layout
 
 This is a normal Tsangan/HHKB (split backspace, split right shift) layout with
-arrow and navigation keys that match a standard HHKB layout, as well as media
-keys centered around the WASD cluster. Additionally, the redundant right Super
-key on the bottom row actives an adjust layer to control RGB underglow.
+arrow and navigation keys that match a standard HHKB layout. Additionally, the
+redundant right Super key on the bottom row actives an adjust layer with
+controls for RGB underglow and backlight, as well as media keys centered around
+the ESDF cluster.
 
 ## Default layer
 

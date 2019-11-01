@@ -2,10 +2,10 @@
 
 This is a hybrid of an HHKB layout and a standard ANSI bottom row. It's nice if
 you want to fill out a 60% case with no blockers, or just really want a 6.25U
-spacebar. The arrow and navigation keys match a standard HHKB layout (using the
-Fn key next to the right shift key), but the media keys are centered around the
-WASD cluster instead of the usual HHKB layout. Additionally, the redundant Fn
-key on the bottom row activates an adjust layer to control RGB underglow.
+spacebar. The arrow and navigation keys match a standard HHKB layout using the
+Fn key next to the right shift key. Additionally, the redundant Fn key on the
+bottom row activates an adjust layer with controls for RGB underglow and
+backlight, as well as media keys centered around the ESDF cluster.
 
 ## Default layer
 
