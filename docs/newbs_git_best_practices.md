@@ -2,9 +2,9 @@
 
 ## Or, "How I Learned to Stop Worrying and Love Git."
 
-This document aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them.
+This section aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them.
 
-This document assumes a few things:
+This section assumes a few things:
 
 1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account.
 2. You've [set up your build environment](newbs_getting_started.md#set-up-your-environment).
