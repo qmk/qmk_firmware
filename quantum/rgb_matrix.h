@@ -161,8 +161,6 @@ typedef struct {
     void (*flush)(void);
 } rgb_matrix_driver_t;
 
-extern const rgb_matrix_driver_t rgb_matrix_driver;
-
 extern rgb_config_t rgb_matrix_config;
 
 extern bool           g_suspend_state;

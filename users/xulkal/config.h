@@ -12,7 +12,7 @@
 #define RCPC_KEYS KC_RCTL, KC_TRNS, KC_EQL
 
 // Running out of firmware space
-#if defined(__AVR__)
+#if defined(__AVR__) && !defined(RGB_MATRIX_EXTRAS)
 #undef RGB_MATRIX_KEYPRESSES
 #undef RGB_MATRIX_KEYRELEASES
 #undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
