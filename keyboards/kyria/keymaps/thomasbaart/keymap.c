@@ -320,7 +320,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case _QWERTY:
                 // Move whole words. Hold shift to select while moving.
                 if (clockwise) {
-                    SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL));
+                    tap_code16(C(KC_RGHT));
                 } else {
                     tap_code16(C(KC_LEFT));
                 }
