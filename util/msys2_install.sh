@@ -14,19 +14,21 @@ source "$dir/win_shared_install.sh"
 
 function install_avr {
     rm -f -r "$avrtools"
-    wget -O avr8-gnu-toolchain.zip "https://blog.zakkemble.net/download/avr-gcc-8.3.0-x86-mingw.zip"
+    wget "https://blog.zakkemble.net/download/avr-gcc-8.3.0-x86-mingw.zip"
     echo "Extracting AVR toolchain..."
-	unzip -q -d avr8-gnu-toolchain avr8-gnu-toolchain.zip
-    rm avr8-gnu-toolchain.zip
+	unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
+    mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
+    rm avr-gcc-8.3.0-x86-mingw.zip
     pacman --needed -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
     rm -f -r "$armtools"
-    wget -O gcc-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz?revision=ee19688c-d795-49c3-9937-f9b2e5a49b6b&la=en"
+    wget -O gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu-a/8.3-2019.03/binrel/gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz?revision=ee19688c-d795-49c3-9937-f9b2e5a49b6b&la=en"
     echo "Extracting ARM toolchain..."
-    tar -xf gcc-arm-none-eabi.tar.xz
-    rm gcc-arm-none-eabi.tar.xz
+    tar -xf gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz -C .
+    mv gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi gcc-arm-none-eabi
+    rm gcc-arm-8.3-2019.03-i686-mingw32-arm-eabi.tar.xz
 }
 
 function extract_flip {
