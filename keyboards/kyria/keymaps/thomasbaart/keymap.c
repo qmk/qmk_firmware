@@ -219,7 +219,7 @@ void matrix_scan_user(void) {
             SEND_STRING(SS_LCTRL(SS_LALT("\\")));
         }
         SEQ_ONE_KEY(KC_S) { // Windows screenshot
-            SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)"S"));
+            SEND_STRING(SS_LGUI("\nS"));
         }
         SEQ_TWO_KEYS(KC_F, KC_P) { // Fusion Projection prefix
             SEND_STRING("[Projection] ");
