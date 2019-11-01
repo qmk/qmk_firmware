@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include <keycodes.h>
 
 // Implement Super-alt↯tab
 // See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab
@@ -7,7 +8,10 @@ uint16_t alt_tab_timer = 0;
 
 // Defining all the custom keycodes.
 enum custom_keycodes {
-  ALT_TAB = SAFE_RANGE
+  ALT_TAB = SAFE_RANGE,
+  SLC_ROW,
+  SLC_ALL,
+  SLC_WRD
 };
 
 const uint16_t PROGMEM lock_combo[] = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
@@ -57,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * └──────┴──────┴──────┴──────────────────────────────────────────────────────────────┴──────┴──────┴──────┘
    */
   [1] = LAYOUT( \
-    LALT(KC_F4), KC_F1     , KC_F2       , KC_F3       , KC_F4       , KC_F5  , KC_F6     , KC_F7  , KC_F8  , KC_F9   , KC_F10     , KC_F11    , KC_F12    , KC_DEL ,
-    _______    , _______   , _______     , KC_PSCR     , KC_BRIU     , KC_BRID, LCTL(KC_A), KC_HOME, KC_UP  , KC_END  , UC(0x203D) , UC(0x8593), UC(0x2E2E),
-    _______    , _______   , LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), KC_DEL , KC_DEL    , KC_LEFT, KC_DOWN, KC_RIGHT, UC(0x8592) , UC(0x8595), UC(0x8594), _______,
-    _______    , _______   , KC_MUTE     , KC_VOLD     , KC_VOLU     , BL_TOGG, BL_STEP   , BL_BRTG, _______, _______ , _______    , RESET     , _______            ,
-    _______    , _______   , _______     ,                             _______,                                                      _______   , _______   , _______
+    LALT(KC_F4), KC_F1     , KC_F2       , KC_F3       , KC_F4       , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9   , KC_F10 , KC_F11    , KC_F12 , KC_DEL ,
+    _______    , _______   , SLC_ALL     , SLC_ROW     , SLC_WRD     , _______, KC_BSPC, KC_HOME, KC_UP  , KC_END  , KC_BRIU, KC_BRID   , KC_PSCR,
+    _______    , _______   , LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), KC_DEL , KC_ENT , KC_LEFT, KC_DOWN, KC_RIGHT, BL_TOGG, BL_STEP   , BL_BRTG, _______,
+    _______    , _______   , KC_MUTE     , KC_VOLD     , KC_VOLU     , ALT_TAB, _______, _______, _______, _______ , _______, RESET     , _______         ,
+    _______    , _______   , _______     ,                             _______,                                               _______   , _______, _______
   )
 };
 
@@ -87,6 +91,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_TAB);
       }
+      break;
+    case SLC_ALL:
+      select_all(record);
+      break;
+    case SLC_ROW:
+      select_row(record);
+      break;
+    case SLC_WRD:
+      select_word(record);
       break;
   }
   return true;
