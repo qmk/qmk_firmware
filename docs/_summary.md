@@ -4,6 +4,9 @@
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
   * [Git Best Practices](newbs_git_best_practices.md)
+    * [Using Your Fork's Master](newbs_git_using_your_master_branch.md)
+    * [Resolving Merge Conflicts](newbs_git_resolving_merge_conflicts.md)
+    * [Resynchronizing a Branch](newbs_git_resynchronize_a_branch.md)
   * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
