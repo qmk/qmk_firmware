@@ -234,7 +234,7 @@ void matrix_scan_user(void) {
             SEND_STRING("https://docs.splitkb.com/docs/kyria-build-log/");
         }
         SEQ_TWO_KEYS(KC_B, KC_C) { // Discord bongocat
-            SEND_STRING(":bongocat:" SS_TAP(X_ENTER));
+            SEND_STRING(":bongocat:\n");
         }
         SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
             SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
