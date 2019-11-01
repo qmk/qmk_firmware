@@ -329,7 +329,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 // History scrubbing. For Adobe products, hold shift while moving
                 // backward to go forward instead.
                 if (clockwise) {
-                    SEND_STRING(SS_LCTRL("z"));
+                    tap_code16(C(KC_Z));
                 } else {
                     tap_code16(C(KC_Y));
                 }
