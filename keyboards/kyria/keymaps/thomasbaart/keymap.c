@@ -322,7 +322,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                     SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_RIGHT)SS_UP(X_LCTRL));
                 } else {
-                    SEND_STRING(SS_DOWN(X_LCTRL)SS_TAP(X_LEFT)SS_UP(X_LCTRL));
+                    tap_code16(C(KC_LEFT));
                 }
                 break;
             default:
