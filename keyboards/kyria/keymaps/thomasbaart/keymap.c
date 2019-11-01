@@ -331,7 +331,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 if (clockwise) {
                     SEND_STRING(SS_LCTRL("z"));
                 } else {
-                    SEND_STRING(SS_LCTRL("y"));
+                    tap_code16(C(KC_Y));
                 }
                 break;
         }
