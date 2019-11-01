@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 extern uint8_t is_master;
+static uint32_t oled_timer = 0;
 
 enum layer_names {
   _COLEMAKDHM,
@@ -240,6 +241,12 @@ void render_status(void) {
 }
 
 void oled_task_user(void) {
+  if (sync_timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
+      oled_off();
+      return;
+  }
+  else { oled_on(); }
+
   if (is_master) {
     render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
   } else {
@@ -337,10 +344,12 @@ void matrix_scan_user(void) {
 }
 
 void suspend_power_down_keymap(void) {
+    oled_off();
     rgb_matrix_set_suspend_state(true);
 }
 
 void suspend_wakeup_init_keymap(void) {
+    oled_on();
     rgb_matrix_set_suspend_state(false);
 }
 
@@ -369,6 +378,8 @@ void rgb_matrix_disable_idle_anym(uint8_t mode, uint8_t speed) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint8_t saved_mods = 0;
   uint16_t temp_keycode = keycode;
+
+  oled_timer = sync_timer_read32();
 
   #ifdef RGB_MATRIX_ENABLE
     if (user_config.rgb_matrix_idle_anim) {
