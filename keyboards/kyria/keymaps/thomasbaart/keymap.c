@@ -237,7 +237,7 @@ void matrix_scan_user(void) {
             SEND_STRING(":bongocat:" SS_TAP(X_ENTER));
         }
         SEQ_TWO_KEYS(KC_C, KC_B) { // Discord code block
-            SEND_STRING("```c" SS_LSFT(SS_TAP(X_ENTER) SS_TAP(X_ENTER)) "``` " SS_TAP(X_UP));
+            SEND_STRING("```c" SS_LSFT("\n\n") "``` " SS_TAP(X_UP));
         }
     }
 }
