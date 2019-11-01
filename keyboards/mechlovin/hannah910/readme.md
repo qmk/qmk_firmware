@@ -4,9 +4,9 @@
 
 Replacement PCB and plate for TGR 910 keyboard 
 
-Keyboard Maintainer: [HnahKB](https://github.com/vuhopkep)  
-Hardware Supported: TGR910 CE, TGR910 SE
-Hardware Availability: https://geekhack.org/index.php?topic=86047.0
+Keyboard Maintainer: [Mechlovin'](https://github.com/mechlovin)  
+Hardware Supported: TGR910 CE, TGR910 SE 
+Hardware Availability: https://www.reddit.com/r/mechmarket/comments/dhwvbn/gb_1015_update_hannah_910_group_buy_tgr_910/
 
 Make example for this keyboard (after setting up your build environment):
 
