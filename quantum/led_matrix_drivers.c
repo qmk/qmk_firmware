@@ -35,13 +35,24 @@
 #    endif
 
 #    include "i2c_master.h"
+#endif
+
+#ifdef LED_MATRIX_PINMATRIX_ENABLE
+#    include "led_matrix_pinmatrix.h"
+#endif
+
+#ifdef LED_MATRIX_PINS_ENABLE
+#    include "led_matrix_pins.h"
+#endif
 
 static void init(void) {
+#if defined(IS31FL3731) || defined(IS31FL3733)
     i2c_init();
+
 #    ifdef IS31FL3731
 #        ifdef LED_DRIVER_ADDR_1
     IS31FL3731_init(LED_DRIVER_ADDR_1);
-#        endif
+#    endif
 #        ifdef LED_DRIVER_ADDR_2
     IS31FL3731_init(LED_DRIVER_ADDR_2);
 #        endif
@@ -69,11 +80,13 @@ static void init(void) {
     for (int index = 0; index < LED_DRIVER_LED_COUNT; index++) {
 #    ifdef IS31FL3731
         IS31FL3731_set_led_control_register(index, true);
-#    else
+#    endif
+#    ifdef IS31FL3733
         IS31FL3733_set_led_control_register(index, true);
 #    endif
     }
-// This actually updates the LED drivers
+
+    // This actually updates the LED drivers
 #    ifdef IS31FL3731
 #        ifdef LED_DRIVER_ADDR_1
     IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
@@ -101,48 +114,73 @@ static void init(void) {
     IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
 #        endif
 #    endif
+#endif
+
+#ifdef LED_MATRIX_PINMATRIX_ENABLE
+    led_matrix_pinmatrix_init_pins();
+#endif
+
+#ifdef LED_MATRIX_PINS_ENABLE
+    led_matrix_pins_init_pins();
+#endif
 }
 
 static void flush(void) {
-#    ifdef IS31FL3731
-#        ifdef LED_DRIVER_ADDR_1
+#ifdef IS31FL3731
+#    ifdef LED_DRIVER_ADDR_1
     IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
-#        endif
-#    else
-#        ifdef LED_DRIVER_ADDR_1
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
-#        endif
-#        ifdef LED_DRIVER_ADDR_2
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
-#        endif
-#        ifdef LED_DRIVER_ADDR_3
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
-#        endif
-#        ifdef LED_DRIVER_ADDR_4
-    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
-#        endif
 #    endif
+#    ifdef LED_DRIVER_ADDR_2
+    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
+#    endif
+#    ifdef LED_DRIVER_ADDR_3
+    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
+#    endif
+#    ifdef LED_DRIVER_ADDR_4
+    IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
+#    endif
+#endif
+#ifdef IS31FL3733
+#    ifdef LED_DRIVER_ADDR_1
+    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
+#    endif
+#    ifdef LED_DRIVER_ADDR_2
+    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
+#    endif
+#    ifdef LED_DRIVER_ADDR_3
+    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
+#    endif
+#    ifdef LED_DRIVER_ADDR_4
+    IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
+#    endif
+#endif
+
+#ifdef LED_MATRIX_PINMATRIX_ENABLE
+    led_matrix_pinmatrix_flush();
+#endif
+
+#ifdef LED_MATRIX_PINS_ENABLE
+    led_matrix_pins_flush();
+#endif
 }
 
 const led_matrix_driver_t led_matrix_driver = {
     .init  = init,
     .flush = flush,
-#    ifdef IS31FL3731
+#ifdef IS31FL3731
     .set_value     = IS31FL3731_set_value,
     .set_value_all = IS31FL3731_set_value_all,
-#    else
+#endif
+#ifdef IS31FL3133
     .set_value = IS31FL3733_set_value,
     .set_value_all = IS31FL3733_set_value_all,
-#    endif
-};
-
 #endif
+#ifdef LED_MATRIX_PINMATRIX_ENABLE
+    .set_value = led_matrix_pinmatrix_set_value,
+    .set_value_all = led_matrix_pinmatrix_set_value_all,
+#endif
+#ifdef LED_MATRIX_PINS_ENABLE
+    .set_value = led_matrix_pins_set_value,
+    .set_value_all = led_matrix_pins_set_value_all,
+#endif
+};

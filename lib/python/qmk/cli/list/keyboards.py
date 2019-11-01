@@ -6,6 +6,7 @@ import glob
 
 from milc import cli
 
+
 @cli.subcommand("List the keyboards currently defined within QMK")
 def list_keyboards(cli):
     """List the keyboards currently defined within QMK

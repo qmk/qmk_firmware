@@ -17,6 +17,14 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
 
+/* Backlight configuration
+ */
+#define LED_MATRIX_ROWS 4
+#define LED_MATRIX_ROW_PINS { B1, B3, B2, B4 }
+#define LED_MATRIX_COLS 4
+#define LED_MATRIX_COL_PINS { B6, D0, C6, D7 }
+#define LED_DRIVER_LED_COUNT 16
+
 /* Encoder pins */
 #define ENCODERS_PAD_A { F4 }
 #define ENCODERS_PAD_B { F5 }

@@ -22,3 +22,9 @@
     { NO_PIN, B2 } \
 }
 #define UNUSED_PINS
+
+/* Backlight configuration
+ */
+#define BACKLIGHT_LEVELS 10
+#define LED_MATRIX_PINS { A2, B5, A1, B4, B12, B10, A15, A6, B0, B3 }
+#define LED_DRIVER_LED_COUNT 10
