@@ -16,7 +16,7 @@ function install_avr {
     rm -f -r "$avrtools"
     wget "https://blog.zakkemble.net/download/avr-gcc-8.3.0-x86-mingw.zip"
     echo "Extracting AVR toolchain..."
-	unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
+    unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
     mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
     rm avr-gcc-8.3.0-x86-mingw.zip
     pacman --needed -S mingw-w64-x86_64-avrdude
@@ -26,7 +26,7 @@ function install_arm {
     rm -f -r "$armtools"
     wget -O gcc-arm-none-eabi-8-2019-q3-update-win32.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-win32.zip?revision=2f0fd855-d015-423c-9c76-c953ae7e730b?product=GNU%20Arm%20Embedded%20Toolchain,ZIP,,Windows,8-2019-q3-update"
     echo "Extracting ARM toolchain..."
-	unzip -q -d gcc-arm-none-eabi gcc-arm-none-eabi-8-2019-q3-update-win32.zip
+    unzip -q -d gcc-arm-none-eabi gcc-arm-none-eabi-8-2019-q3-update-win32.zip
     rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
 }
 
@@ -46,7 +46,7 @@ fi
 if [ ! -d "$avrtools" ]; then
     echo
     echo "The AVR toolchain is not installed."
-    echo "This is needed for building AVR based keboards."
+    echo "This is needed for building AVR based keyboards."
     install_avr
 else
     while true; do
