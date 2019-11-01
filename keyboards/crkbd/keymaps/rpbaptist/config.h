@@ -25,7 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define EE_HANDS
 
-#undef SSD1306OLED
+#ifdef OLED_DRIVER_ENABLE
+  #undef SSD1306OLED
+  #define OLED_TIMEOUT 180000
+#endif
 
 #define USE_SERIAL_PD2
 
