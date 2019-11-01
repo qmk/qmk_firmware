@@ -322,7 +322,7 @@ void rgb_matrix_set_defaults(void) {
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_rest_timeout) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && sync_timer_elapsed32(hypno_timer) > user_config.rgb_matrix_rest_timeout) {
         rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     }
 }
@@ -372,7 +372,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   #ifdef RGB_MATRIX_ENABLE
     if (user_config.rgb_matrix_idle_anim) {
-      hypno_timer = timer_read32();
+      hypno_timer = sync_timer_read32();
       if (rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
           rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
       }
