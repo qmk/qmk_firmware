@@ -74,6 +74,7 @@ def new_keyboard(cli):
 
     # replace keyboard name placeholders
     replace_files([
+        os.path.join(kb_path, "info.json"),
         os.path.join(kb_path, "config.h"),
         os.path.join(kb_path, "readme.md"),
         os.path.join(kb_path, "%s.c" % keyboard),
@@ -82,6 +83,7 @@ def new_keyboard(cli):
 
     # replace username placeholders
     replace_files([
+        os.path.join(kb_path, "info.json"),
         os.path.join(kb_path, "config.h"),
         os.path.join(kb_path, "readme.md"),
         os.path.join(kb_path, "%s.c" % keyboard),
