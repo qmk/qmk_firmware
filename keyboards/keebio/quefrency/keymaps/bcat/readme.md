@@ -12,6 +12,6 @@ cluster, and RGB controls in the function layer on the arrow/nav keys.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/PGCbgtS.png)
+![Function layer layout](https://i.imgur.com/xE4CuH0.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/59636898946da51f91fb290f8e078b4d))

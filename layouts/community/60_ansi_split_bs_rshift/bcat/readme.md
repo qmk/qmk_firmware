@@ -15,12 +15,12 @@ backlight, as well as media keys centered around the ESDF cluster.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/XT3AtDl.png)
+![Function layer layout](https://i.imgur.com/oLdVfn0.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/c7a55e75285d474b6301140eaf53f915))
 
 ## Adjust layer
 
-![Adjust layer layout](https://i.imgur.com/KxCtI50.png)
+![Adjust layer layout](https://i.imgur.com/bqC6QYS.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/6e1068e4f91bbacccaf5ac0acbeec79c))
