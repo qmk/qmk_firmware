@@ -33,9 +33,7 @@ EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
-RGBLIGHT_ENABLE = no
-RGBLIGHT_CUSTOM_DRIVER = no
+RGBLIGHT_ENABLE = no  # PCB has underglow LEDs, but case doesn't let them show.
+WS2812_DRIVER = i2c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-QUANTUM_LIB_SRC = i2c_master.c

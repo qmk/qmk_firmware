@@ -36,3 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 #define BACKLIGHT_LEVELS 1
+
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 6
