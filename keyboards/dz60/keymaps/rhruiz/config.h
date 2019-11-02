@@ -16,15 +16,15 @@
 #define MOUSEKEY_TIME_TO_MAX 20
 
 #ifdef MANUFACTURER
-#undef MANUFACTURER
+#    undef MANUFACTURER
 #endif
 
 #ifdef PRODUCT
-#undef PRODUCT
+#    undef PRODUCT
 #endif
 
 #ifdef DESCRIPTION
-#undef DESCRIPTION
+#    undef DESCRIPTION
 #endif
 
 #define MANUFACTURER rhruiz

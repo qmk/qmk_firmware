@@ -15,11 +15,11 @@
 #define KC__TGN TG(_NUM)
 
 #ifndef RGBLIGHT_ENABLE
-#define RGB_TOG KC_TRNS
-#define RGB_HUI KC_TRNS
-#define RGB_HUD KC_TRNS
-#define RGB_SAI KC_TRNS
-#define RGB_SAD KC_TRNS
+#    define RGB_TOG KC_TRNS
+#    define RGB_HUI KC_TRNS
+#    define RGB_HUD KC_TRNS
+#    define RGB_SAI KC_TRNS
+#    define RGB_SAD KC_TRNS
 #endif
 
 // clang-format off

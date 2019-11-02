@@ -1,4 +1,7 @@
-#ifdef RAW_ENABLE
+#ifndef RAW_ENABLE
+#    error this file requires RAW_ENABLE
+#endif
+
 #include "quantum.h"
 #include "rhruiz.h"
 #include "rhruiz_api.h"
@@ -30,36 +33,35 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         }
 
         case id_rgblight_color: {
-#    ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
             uint16_t hue = ((uint16_t)command_data[0] << 8) | command_data[1];
             uint8_t  sat = command_data[2];
             rhruiz_change_leds_to(hue, sat);
-#    endif
+#endif
             break;
         }
 
         case id_rgblight_reset: {
-#    ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
             rhruiz_rgblight_reset();
-#    endif
+#endif
             break;
         }
 
         case id_backlight_toggle: {
-#    ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
             backlight_toggle();
-#    endif
+#endif
             break;
         }
 
         case id_rgblight_toggle: {
-#    ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
             rgblight_toggle();
-#    endif
+#endif
             break;
         }
     }
 
     raw_hid_send(data, length);
 }
-#endif
