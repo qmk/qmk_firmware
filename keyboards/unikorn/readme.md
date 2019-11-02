@@ -18,7 +18,6 @@ To enable RGB lighting support, install the necessary components and set RGBLIGH
 
 ```
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes
 ```
 
 
