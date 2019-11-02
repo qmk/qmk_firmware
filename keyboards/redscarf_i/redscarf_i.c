@@ -29,7 +29,7 @@ void keyboard_pre_init_kb(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(F7);
   } else {
     writePinHigh(F7); 
