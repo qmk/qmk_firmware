@@ -17,7 +17,7 @@ endif
 ifeq ($(strip $(KEYBOARD)), lazydesigners/dimple)
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
-BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 endif
 

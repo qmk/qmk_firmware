@@ -22,13 +22,16 @@
     #define RGBLED_NUM 50
     #define DRIVER_LED_TOTAL RGBLED_NUM
   #endif // RGBL_MATRIX_ENABLE
+  #define RGBLIGHT_EFFECT_BREATHING
+  #define RGBLIGHT_LIMIT_VAL 150
+  #define RGBLIGHT_EFFECT_BREATHE_CENTER 2.7
 #endif // KEYBOARD_lazydesigners_dimple
 
 #ifdef KEYBOARD_thevankeyboards_minivan
   #define BACKLIGHT_PIN B7
   #define BACKLIGHT_LEVELS 1
   #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_LIMIT_VAL 100
+  #define RGBLIGHT_LIMIT_VAL 150
   #define RGBLIGHT_EFFECT_BREATHE_CENTER 2.7
 #endif // Minivan
 

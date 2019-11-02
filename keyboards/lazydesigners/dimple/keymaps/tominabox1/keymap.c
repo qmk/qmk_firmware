@@ -119,10 +119,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  ),
 };
 
+void keyboard_post_init_user(void) {
+		// dimple_led_off();
+		rgblight_set_effect_range(24, 1);
+		// Set LED effects to breathing mode in a tealish blue color
+		rgblight_sethsv(0, 0, 0);
+		rgblight_set();
+		writePinHigh(E6);
+}
+
+
 void led_set_user(uint8_t usb_led) {
-  if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinLow(E6);
-  } else{
-    writePinHigh(E6);
-  }
+	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+		rgblight_setrgb_at(196, 255, 0, 24);
+		rgblight_mode_noeeprom(0);
+	} else{
+		rgblight_sethsv_at(196, 255, 0, 24);
+		rgblight_mode_noeeprom(0);
+	}
 }

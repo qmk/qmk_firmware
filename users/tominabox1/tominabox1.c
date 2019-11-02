@@ -54,17 +54,17 @@ layer_state_t layer_state_set_keymap (layer_state_t state) {
 
 layer_state_t layer_state_set_user (layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-        #ifdef KEYBOARD_lazydesigners_dimple
-        switch (biton32(state)) {
-          case _GAMER:
-            rgblight_enable_noeeprom();
-            rgblight_mode(0);
-            rgblight_sethsv_noeeprom(190, 200, 170);
-            break;
-          default:
-            rgblight_disable();
-            break;
-        }
-        #endif // dimple
+        // #ifdef KEYBOARD_lazydesigners_dimple
+        // switch (biton32(state)) {
+        //   case _GAMER:
+        //     rgblight_enable_noeeprom();
+        //     rgblight_mode(0);
+        //     rgblight_sethsv_noeeprom(190, 200, 170);
+        //     break;
+        //   default:
+        //     // ßrgblight_disable();
+        //     break;
+        // }
+        // #endif // dimple
   return layer_state_set_keymap (state);
 }
