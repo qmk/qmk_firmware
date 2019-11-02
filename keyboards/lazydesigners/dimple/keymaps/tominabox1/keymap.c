@@ -119,12 +119,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  ),
 };
 
-
-#ifdef KEYBOARD_lazydesigners_dimple
-__attribute__ ((weak))
-void led_set_keymap(uint8_t usb_led) {
-}
-
 void led_set_user(uint8_t usb_led) {
   if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
     writePinLow(E6);
@@ -132,4 +126,3 @@ void led_set_user(uint8_t usb_led) {
     writePinHigh(E6);
   }
 }
-#endif // Dimple
