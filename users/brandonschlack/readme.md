@@ -24,6 +24,8 @@ I have a custom userspace config implemented to save
 
 ### Keycode Aliases
 
+I am a macOS user and so a lot of my aliases 
+
 ### Macros
 
 

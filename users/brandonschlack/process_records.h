@@ -18,7 +18,11 @@ enum custom_keycodes {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_cmd_tab(void);
 
-// Useful Defines
+/**
+ * QMK Defines
+ * Some meta aliases for QMK features such as Mod-Taps
+ * and for cleaner looking Layer Toggles
+ */
 #define HY_CAPS   ALL_T(KC_CAPS)
 #define HY_ESC    ALL_T(KC_ESC)
 #define SF_CAPS   LSFT_T(KC_CAPS)
@@ -27,23 +31,35 @@ void matrix_scan_cmd_tab(void);
 #define RAISE     MO(_RAISE)
 #define TG_ADJT   TG(_ADJUST)
 #define TG_LGHT   TG(_LIGHT)
-// Media Mod-Tap
-#define MM_RGUI   RGUI_T(KC_MRWD)
-#define MM_RALT   RALT_T(KC_MFFD)
-#define MM_FNPY   LT(1, KC_MPLY)
-#define MM_RSFT   RSFT_T(KC_MUTE)
-#define LWR_MUT   LT(_LOWER, KC_MUTE)
-#define RAI_PLY   LT(_RAISE, KC_MPLY)
-// Arrow Mod-Tap
-#define MT_RSUP   RSFT_T(KC_UP)
-#define MT_RALT   RALT_T(KC_LEFT)
-#define MT_RFDN   LT(1, KC_DOWN)
-#define MT_RCRT   RCTL_T(KC_RGHT)
-// Nav Mod-Tap
-#define MT_RSPU   RSFT_T(KC_PGUP)
-#define MT_RAHM   RALT_T(KC_HOME)
-#define MT_RFPD   LT(1, KC_PGDN)
-#define MT_RCED   RCTL_T(KC_END)
+/**
+ * Media Mod-Tap
+ * Use the Mod-Tap feature for easy media controls
+ * Used with >=65% layouts
+ */
+#define MM_RGUI   RGUI_T(KC_MRWD)      // Tap Right GUI for Prev Track
+#define MM_RALT   RALT_T(KC_MFFD)      // Tap Right Alt for Next Track
+#define MM_FNPY   LT(1, KC_MPLY)       // Tap Fn for Play/Pause
+#define MM_RSFT   RSFT_T(KC_MUTE)      // Tap Right Shift for Mute
+#define LWR_MUT   LT(_LOWER, KC_MUTE)  // Tap Lower for Mute
+#define RAI_PLY   LT(_RAISE, KC_MPLY)  // Tap Raise for Play/Pause
+/**
+ * Arrow Mod-Tap
+ * Use the Mod-Tap feature for arrow keys
+ * Mostly used for 60% layouts
+ */
+#define MT_RSUP   RSFT_T(KC_UP)        // Tap Right Shift for Up
+#define MT_RALT   RALT_T(KC_LEFT)      // Tap Right Alt for Left
+#define MT_RFDN   LT(1, KC_DOWN)       // Tap Fn for Down
+#define MT_RCRT   RCTL_T(KC_RGHT)      // Tap Right Ctrl for Right
+/**
+ * Nav Mod-Tap
+ * Use the Mod-Tap feature for nav keys (Home/End, Page Up/Down)
+ * Mostly used for 60% layouts, on a function layer
+ */
+#define MT_RSPU   RSFT_T(KC_PGUP)      // Tap Right Shift for Page Up
+#define MT_RAHM   RALT_T(KC_HOME)      // Tap Right Alt for Home
+#define MT_RFPD   LT(1, KC_PGDN)       // Tap Fn for Page Down
+#define MT_RCED   RCTL_T(KC_END)       // Tap Right Ctrl for End
 
 // MacOS
 #define MC_POWR   KC_POWER             // Mac Power alias
@@ -63,10 +79,10 @@ void matrix_scan_cmd_tab(void);
 #define MC_UNDO   LGUI(KC_Z)           // Undo
 #define MC_REDO   LSFT(LGUI(KC_Z))     // Redo
 // Reverse scrolling for using with macOS Natural Scrolling.
-#define MC_WH_U   KC_WH_D
-#define MC_WH_D   KC_WH_U
-#define MC_WH_L   KC_WH_R
-#define MC_WH_R   KC_WH_L
+#define MC_WH_U   KC_WH_D              // Mouse Wheel Up
+#define MC_WH_D   KC_WH_U              // Mouse Wheel Down
+#define MC_WH_L   KC_WH_R              // Mouse Wheel Left
+#define MC_WH_R   KC_WH_L              // Mouse Wheel Right
 
 // Macropad Defines
 #if defined(IS_MACROPAD)
