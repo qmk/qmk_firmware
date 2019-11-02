@@ -2,8 +2,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "quantum_keycodes.h"
-
 // This wrapper is required in order to expand the row macro inside the keymap configs.
 #define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)          LAYOUT_ortho_4x12(__VA_ARGS__)

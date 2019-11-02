@@ -1,4 +1,4 @@
-#include "ergodox_ez.h"
+#include QMK_KEYBOARD_H
 
 // Custom user includes
 #include "issmirnov.h"

@@ -1,8 +1,3 @@
-#include QMK_KEYBOARD_H
-
-#include "issmirnov.h"
-#include "quantum_keycodes.h"
-
 #include "tap_tog.h"
 
 #ifdef AUDIO_ENABLE
@@ -14,9 +9,6 @@
 #ifdef RGBLIGHT_ENABLE
   #include "rgb.h"
 #endif
-
-extern keymap_config_t keymap_config;
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -46,7 +38,7 @@ _______ , ___________________BLANK___________________ , _______ , _______ , ____
 
 // Run `./qmk show levinson` from parent dir to see this layer.
 [_OVERWATCH] = LAYOUT_ortho_4x12_wrapper(
-______________OVERWATCH_L1_________________ , TO(0)            , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX          , CLEAR_EEPROM      ,
+______________OVERWATCH_L1_________________ , TO(0)            , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX          , EEP_RST           ,
 ______________OVERWATCH_L2_________________ , RGB_MODE_FORWARD , RGB_MODE_REVERSE , RGB_VAI          , RGB_VAD        , XXXXXXX          , RGB_TOG           ,
 ______________OVERWATCH_L3_________________ , RGB_MODE_PLAIN   , RGB_MODE_BREATHE , RGB_MODE_RAINBOW , RGB_MODE_SWIRL , RGB_MODE_SNAKE   , RGB_MODE_XMAS     ,
 ______________OVERWATCH_L4_________________ , KC_SPACE, RGB_HUI          , RGB_HUD          , RGB_SAI          , RGB_SAD        , RGB_MODE_RGBTEST , RGB_MODE_GRADIENT
@@ -71,22 +63,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true; // Let QMK send the press/release events
       break;
-    case RESET: // TODO: This doesn't actually enter bootloader mode, fix this.
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(song_goodbye);
-        #endif
-      }
-      return true; // Let QMK send the press/release events
-      break;
 
-    case CLEAR_EEPROM:
-      eeconfig_init();
-      #ifdef AUDIO_ENABLE
-        PLAY_SONG(song_goodbye); // TODO write custom song if firmware has space
-      #endif
-      return false; // QMK doesn't know about this keycode
-      break;
     case TAP_TOG_LAYER:
       process_tap_tog(_SYMB,record);
       return false;
@@ -141,19 +118,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 // Runs boot tasks for keyboard.
 // Plays a welcome song and clears RGB state.
 void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(song_startup);
-  #endif
   #ifdef RGBLIGHT_ENABLE
     keyboard_post_init_rgb();
-  #endif
-}
-
-void shutdown_user() {
-  #ifdef AUDIO_ENABLE
-  PLAY_SONG(song_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
   #endif
 }

@@ -3,10 +3,6 @@
 // Allows sending more than one key per scan. Useful for chords.
 #define QMK_KEYS_PER_SCAN 4
 
-// stores the layer a key press came from so the same layer is used when the
-// key is released, regardless of which layers are enabled
-#define PREVENT_STUCK_MODIFIERS
-
 // how long before a tap becomes a hold
 #undef TAPPING_TERM
 #define TAPPING_TERM 100
@@ -18,9 +14,6 @@
 // tap anyway, even after TAPPING_TERM, if there was no other key
 // interruption between press and release
 #define RETRO_TAPPING
-
-// Allows sending more than one key per scan. Useful for chords.
-#define QMK_KEYS_PER_SCAN 4
 
 // how many taps before triggering the toggle
 #undef ONESHOT_TAP_TOGGLE

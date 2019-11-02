@@ -40,7 +40,7 @@ make ergodox_ez:ismirnov
 teensy_loader_cli -mmcu=atmega32u4 -w -v ergodox_ez_ismirnov.hex
 
 # or just
-make ergodox_ez:ismirnov:teensy
+make ergodox_ez:ismirnov:flash
 ```
 
 ## Gotchas

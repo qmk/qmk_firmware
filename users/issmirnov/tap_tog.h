@@ -1,7 +1,6 @@
 #pragma once
 
 #include "issmirnov.h"
-#include QMK_KEYBOARD_H
 
 extern bool tap_tog_layer_other_key_pressed; // set to true if any key pressed while TAP_TOG_LAYER held down
 extern bool tap_tog_layer_toggled_on; // will become true if no keys are pressed while TTL held down
