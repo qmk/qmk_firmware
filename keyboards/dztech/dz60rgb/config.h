@@ -21,6 +21,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define DEBOUNCE 3
+#ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
@@ -35,3 +36,4 @@
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 63
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#endif
