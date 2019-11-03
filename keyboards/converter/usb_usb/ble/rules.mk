@@ -1,5 +1,4 @@
-BLUETOOTH = AdafruitBLE
-ADAFRUIT_BLE_ENABLE = yes
+# Processor frequency
 F_CPU = 8000000
 
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
@@ -19,5 +18,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
+BLUETOOTH = AdafruitBLE
+ADAFRUIT_BLE_ENABLE = yes
 
 EXTRAFLAGS += -flto
