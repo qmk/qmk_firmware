@@ -4,7 +4,7 @@
 
 ## Базовая структура QMK
 
-QMK это форк [Jun Wako](https://github.com/tmk) [tmk_keyboard](https://github.com/tmk/tmk_keyboard) проекта. Оригинальный код TMK с изменениями можно найти в папке `tmk`. Дополнения QMK к проекту можно найти в папке «Quant». Проекты клавиатуры можно найти в папках `handwired` и `keyboard`.
+QMK - это форк [Джуна Вако (Jun Wako)](https://github.com/tmk) проекта [tmk_keyboard](https://github.com/tmk/tmk_keyboard). Оригинальный код TMK с изменениями можно найти в папке `tmk`. Дополнения QMK к проекту можно найти в папке `quantum`. Проекты клавиатур можно найти в папках `handwired` и `keyboard`.
 
 ### Структура пространства пользователя
 
