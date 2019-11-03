@@ -45,7 +45,7 @@ releasing the layer key.
 
 ## Default layer
 
-![Default layer layout](https://i.imgur.com/KlzNei7.png)
+![Default layer layout](https://i.imgur.com/wx1brJV.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/e0eb3af65961e9fd612dcff3ddd88e4f))
 

@@ -20,11 +20,11 @@ Je vais le répéter, parce que c'est important
 
 !> **FAITES ATTENTION A UTILISER LA BONNE VERSION !**
 
-Si votre clavier est annoncé comme fonctionnant grâce à QMK mais n'est pas dans la liste, il y a des chances que le développeur ne l'ait pas encore fait, ou que nous n'avons pas encore eu le temps de le merger. Ajoutez un problème (issue) sur [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) demandant le support de votre clavier, s'il n'y a pas de [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) ouvert pour lui. Il y a aussi des clavier alimentés par QMK qui sont sur le compte GitHub du fabriquant, il est bon de le vérifier aussi.
+Si votre clavier est annoncé comme fonctionnant grâce à QMK mais n'est pas dans la liste, il y a des chances que le développeur ne l'ait pas encore fait, ou que nous n'avons pas encore eu le temps de le merger. Ajoutez un problème (issue) sur [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) demandant le support de votre clavier, s'il n'y a pas de [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) ouvert pour lui. Il y a aussi des claviers alimentés par QMK qui sont sur le compte GitHub du fabricant, il est bon de le vérifier aussi.
 
 ## Sélectionner la disposition de votre clavier
 
-Choisissez la disposition (layout) qui représente le mieux la keymap que vous voulez créer. Certains clavier n'ont pas encore assez de dispositions ou des dispositions incorrectes. Ils seront supportés dans le future.
+Choisissez la disposition (layout) qui représente le mieux la keymap que vous voulez créer. Certains claviers n'ont pas encore assez de dispositions ou des dispositions incorrectes. Ils seront supportés dans le future.
 
 ## Nom de la Keymap
 

@@ -69,6 +69,16 @@ There are some limitations to the local CLI compared to the global CLI:
 
 # CLI Commands
 
+## `qmk cformat`
+
+This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
+
+**Usage**:
+
+```
+qmk cformat [file1] [file2] [...] [fileN]
+```
+
 ## `qmk compile`
 
 This command allows you to compile firmware from any directory. You can compile JSON exports from <https://config.qmk.fm> or compile keymaps in the repo.
@@ -83,16 +93,6 @@ qmk compile <configuratorExport.json>
 
 ```
 qmk compile -kb <keyboard_name> -km <keymap_name>
-```
-
-## `qmk cformat`
-
-This command formats C code using clang-format. Run it with no arguments to format all core code, or pass filenames on the command line to run it on specific files.
-
-**Usage**:
-
-```
-qmk cformat [file1] [file2] [...] [fileN]
 ```
 
 ## `qmk config`
@@ -123,6 +123,16 @@ This command examines your environment and alerts you to potential build or flas
 
 ```
 qmk doctor
+```
+
+## `qmk json-keymap`
+
+Creates a keymap.c from a QMK Configurator export.
+
+**Usage**:
+
+```
+qmk json-keymap [-o OUTPUT] filename
 ```
 
 ## `qmk list-keyboards`
