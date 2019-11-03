@@ -4,7 +4,7 @@ Custom numpad.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: KBDPad MKI  
-Hardware Availability: No longer available. 
+Hardware Availability: [KBDfans](https://kbdfans.com/products/kbdfans-pad-custom-mechanical-keyboard-diy-kit)
 
 
 Make example for this keyboard (after setting up your build environment):
