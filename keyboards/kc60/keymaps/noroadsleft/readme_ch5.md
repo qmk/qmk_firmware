@@ -16,7 +16,7 @@
 
 Puts a Numpad on the right-hand side of the keyboard. A through F included for hexadecimal input. Tapping `Space` returns to the previous Base Layer.
 
-![Numpad layer](https://i.imgur.com/fKVRkGH.png)
+![Numpad layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_10.png)
 
 
 ----
@@ -29,38 +29,38 @@ Has some macros that I use in Git, and some frequently-typed strings.
 
 Tapping `Esc` exits the Macro layer, if the macro used doesn't do it automatically.
 
-![Macro layer](https://i.imgur.com/wgbsluI.png)
+![Macro layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_11.png)
 
 
 ### Macros
 
-#### [T_L3DED](./keymap.c#L122-L126)
+#### [T_L3DED](./keymap.c#L124-L128)
 
 Output: `lavak3DED `
 
 Twitch emote for [a streamer I watch a lot](https://www.twitch.tv/lavak3_).  
 ![lavak3DED](https://static-cdn.jtvnw.net/emoticons/v1/821796/1.0)
 
-#### [G_PUSH](./keymap.c#L127-L131)
+#### [G_PUSH](./keymap.c#L129-L133)
 
 Output: `git push origin `
 
 Everything from here down is related to Git or GitHub.
 
-#### [G_FTCH](./keymap.c#L132-L141)
+#### [G_FTCH](./keymap.c#L134-L143)
 
 | Condition | Output |
 | :-------- | :----- |
 | If <kbd>Shift</kbd> is active | `git pull upstream ` |
 | Otherwise | `git fetch upstream ` |
 
-#### [G_COMM](./keymap.c#L142-L147)
+#### [G_COMM](./keymap.c#L144-L149)
 
 Output: `git commit -m ""` <kbd>Left</kbd>
 
 Readies a `git commit` command, moves the cursor between the quotation marks, then disables the Macro layer.
 
-#### [G_BRCH](./keymap.c#L148-L158)
+#### [G_BRCH](./keymap.c#L150-L160)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -69,13 +69,13 @@ Readies a `git commit` command, moves the cursor between the quotation marks, th
 
 `$(git branch-name)` is a [git alias](./readme_git.md) that returns the name of the current branch. This macro disables the Macro layer when finished.
 
-#### [SIGNA](./keymap.c#L159-L164)
+#### [SIGNA](./keymap.c#L161-L166)
 
 Output: `\- @noroadsleft` <kbd>Enter</kbd>
 
 Sometimes on GitHub, I sign my comments. Types my GitHub name in Markdown syntax, and then taps the `Enter` key. Disables the Macro layer when finished.
 
-#### [MC_UNDO](./keymap.c#L202-L210)
+#### [MC_UNDO](./keymap.c#L204-L212)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -84,7 +84,7 @@ Sometimes on GitHub, I sign my comments. Types my GitHub name in Markdown syntax
 
 An Undo shortcut that turns to Redo if <kbd>Shift</kbd> is being held. I'm not sure that part is required to get that behavior, but it works as desired, so I'm not messing with it.
 
-#### [MC_PSTE](./keymap.c#L211-L219)
+#### [MC_PSTE](./keymap.c#L213-L221)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -93,7 +93,7 @@ An Undo shortcut that turns to Redo if <kbd>Shift</kbd> is being held. I'm not s
 
 The program I use this in uses <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Option</kbd> + <kbd>V</kbd> to paste while maintaining formatting (typeface, text size, etc.). Sometimes I want this and sometimes I don't. Using <kbd>Shift</kbd> changes the behavior.
 
-#### [NUBS_Z](./keymap.c#L220-L234)
+#### [NUBS_Z](./keymap.c#L222-L236)
 
 | Condition | Output |
 | :-------- | :----- |
@@ -102,13 +102,13 @@ The program I use this in uses <kbd>Shift</kbd> + <kbd>Command</kbd> + <kbd>Opti
 
 Sometimes I type in languages from countries that use ISO layout, but my keyboard is ANSI, so I have one key fewer. This macro simulates the Non-US Backslash key if I use Right Alt + Z.
 
-#### [VRSN](./keymap.c#L235-L239)
+#### [VRSN](./keymap.c#L237-L241)
 
 Outputs a string that tells me the Git commit from which my flashed firmware was built. Looks something like:
 
     kc60/noroadsleft @ 0.6.326-6-gae6d7b-dirty
 
-#### [Emulated Numeric Keypad](./keymap.c#L240-L254)
+#### [Emulated Numeric Keypad](./keymap.c#L242-L256)
 
 If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output numpad keycodes instead of number row keycodes, enabling quicker access to characters like ™ and °.
 
@@ -120,7 +120,7 @@ If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output 
 
 This is where I change my keyboard function. Base layer select on `1` through `3`, Backlight controls on `C` through `N`, Reset on `8*`, Debug on `0)`.
 
-![System layer](https://i.imgur.com/95ovTBn.png)
+![System layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/layer_12.png)
 
 
 ----
