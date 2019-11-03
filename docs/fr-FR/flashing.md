@@ -1,6 +1,6 @@
 # Instructions pour flasher et informations sur les bootloader
 
-Les claviers utilisent différents types de bootloaders et certains doivent être flashés différement. Heureusement, certains projets comme la [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) ont pour objectifs de permettre de flasher les différents bootloader sans trop se faire de soucis et ça peut importe les manières de les flasher.
+Les claviers utilisent différents types de bootloaders et certains doivent être flashés différement. Heureusement, certains projets comme la [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) ont pour objectifs de permettre de flasher les différents bootloader sans trop se faire de soucis et ça peu importe les manières de les flasher.
 
 Si vous avez un bootloader sélectionné avec la variable `BOOTLOADER` dans votre fichier `rules.mk` alors QMK vas automatiquement calculer si votre fichier .hex n'est pas trop grand pour être flashé sur votre appareil, et il affichera la taille finale du firmware. Pour vérifier la taille manuellement, vous pouvez aussi compiler le firmware avec l'option `check-size`. Exemple : `make planck/rev4:default:check-size`.
 
@@ -49,7 +49,7 @@ QMK a un fork du bootloader LUFA DFU qui vous permet de faire un simple scan de 
     #define QMK_LED E6
     #define QMK_SPEAKER C6
 
-Le fabriquant et le nom du produit proviennent de vos définitions dans fichier  `config.h`, et la chaîne de caractère « bootloader » est ajoutée au nom du prodruit.
+Le fabricant et le nom du produit proviennent de vos définitions dans fichier  `config.h`, et la chaîne de caractère « bootloader » est ajoutée au nom du produit.
 
 Pour génerer le bootloader, utilisez la cible `bootloader`. Exemple : `make planck/rev4:default:bootloader`.
 
@@ -66,7 +66,7 @@ Il y a plusieurs commandes DFU que vous pouvez utiliser pour flasher le firmware
 
 ## Caterina
 
-Les cartes arduinos et leurs clones utilisent le [bootloader Caterina](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) (tous les claviers utilisant un Pro Micro, ou un clone). Ils utilisent aussi le protocole avr109 pour communiquer en virtuellement en série (serial en Anglais). Les bootloaders comme le [A-Star](https://www.pololu.com/docs/0J61/9) sont basés sur Caterina.
+Les cartes arduinos et leurs clones utilisent le [bootloader Caterina](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) (tous les claviers utilisant un Pro Micro, ou un clone). Ils utilisent aussi le protocole avr109 pour communiquer en virtuellement en série (serial en anglais). Les bootloaders comme le [A-Star](https://www.pololu.com/docs/0J61/9) sont basés sur Caterina.
 
 Pour vérifier la compatibilité avec un bootloader Caterina, vérifiez que ce bloc est présent dans votre fichier `rules.mk` :
 
@@ -84,8 +84,8 @@ BOOTLOADER = caterina
 
 Flashers compatibles :
 
-* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recomandée)
-* [avrdude](http://www.nongnu.org/avrdude/) avec avr109 / `:avrdude` (Outil en ligne de commande recomandé)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (Interface graphique recommandée)
+* [avrdude](http://www.nongnu.org/avrdude/) avec avr109 / `:avrdude` (Outil en ligne de commande recommandé)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Séquence de flash : 
@@ -99,11 +99,14 @@ ou, utilisez :
 
     make <keyboard>:<keymap>:avrdude
 
-ou, si vous vous voulez flasher plusieurs claviers, utilisez la commande suivante :
+#### Commandes Caterina 
 
-    make <keyboard>:<keymap>:avrdude-loop
+Il existe un certain nombre de commandes DFU que vous pouvez utiliser pour mettre à jour le firmware sur un périphérique DFU:
 
-Quand vous avez fini de flasher vos claviers, vous aurez besoin d'utiliser Ctrl + C ou alors la touche ayant la fonction similaire sur votre OS pour sortir de la boucle.
+* `: avrdude` - Il s’agit de l’option normale. Le script va attendre qu’un appareil Caterina soit disponible. Dès que c’est le cas, il flash le firmware. Il attendra de détecter un nouveau port COM pour le flasher.
+* `: avrdude-loop` - Cela fonctionne de la même manière que`: avrdude`, mais une fois que chaque périphérique est flashé, il tentera de flasher à nouveau. Cela peut être utile pour flasher plusieurs claviers à la suite. _Cela implique de sortir manuellement de la boucle en appuyant sur Ctrl + C, Cmd + C ou un raccourci équivalent selon votre OS_
+* `: avrdude-split-left` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté gauche de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
+* `: avrdude-split-right` - Cela fonctionne de la même manière que la fonction (`: avrdude`). Toutefois, cela permet aussi de flasher le coté droite de l'EEPROM des claviers splittés / divisés. C'est donc la méthode recommandée pour les claviers splittés avec Pro Micro.
 
 ## Halfkay
 
@@ -169,7 +172,7 @@ Séquence de flash :
 
 ## BootloadHID
 
-BootloadHID est un bootloader pour les microcontroleurs AVR. L'utilitaire de téleversement ne demande pas de drivers au niveau du kernel et peut être lancé sans installer aucune DLLs.
+BootloadHID est un bootloader pour les microcontrôleurs AVR. L'utilitaire de téleversement ne demande pas de drivers au niveau du kernel et peut être lancé sans installer aucune DLLs.
 
 Pour vérifier la compatibilité avec le bootloader bootloadHID, vérifiez que ce bloc existe dans votre fichier `rules.mk` : 
 
@@ -194,7 +197,7 @@ Séquence de flash
 
 1. Entrez dans le bootloader en utilisant l'une de ces méthodes :
     * Pressez la touche du keycode `RESET` (Cela ne fonctionnera pas sur certains appareils).
-    * Verouillez la touche « Salt » tout en branchant le clavier (Géneralement ce principe est documenté dans le fichier readme du clavier)
+    * Verrouillez la touche « Salt » tout en branchant le clavier (Généralement ce principe est documenté dans le fichier readme du clavier)
 2. Attendez que l'OS détecte l'appareil.
 3. Flasher le fichier .hex.
 4. Redémarrez l'appareil en mode « application ». Cela peut être fait automatiquement.
@@ -224,13 +227,13 @@ Séquence pour flasher:
 3. Flasher un fichier `.bin`.h
     * Vous allez recevoir un avertissement à propos de la signature DFU. Ignorez-la.
 4. Réinitialisez l'appareil en mode « application ». Cela peut être fait automatiquement.
-    * Si vous êtes en train de travailler en ligne de commande, par exemple avec un `make planck/rev6:default:dfu-util` alors soyez bien sur que l'argument `:leave` est passé aux argument DFU grâce à la variable `DFU_ARGS` à l'intérieur de votre fichier `rules.mk` (Ex : `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) afin que votre appareil redémarre après avoir été flashé.
+    * Si vous êtes en train de travailler en ligne de commande, par exemple avec un `make planck/rev6:default:dfu-util` alors soyez bien sur que l'argument `:leave` est passé aux arguments DFU grâce à la variable `DFU_ARGS` à l'intérieur de votre fichier `rules.mk` (Ex : `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) afin que votre appareil redémarre après avoir été flashé.
 
 ### Commandes STM32
 
 Il y a différentes commandes que vous pouvez utiliser pour flasher un firmware dans un appareil STM32  :
 
-* `:dfu-util` - La commande par défaut pour flasher un appareil STM32.
-* `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté gauche des paramètres EEPROM sur un clavier scindé.
-* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précedente mais permet de configurer le coté droit des paramètres EEPROM sur un clavier scindé.
+* `:dfu-util` - C'est l'option standard pour flasher un appareil STM32. Le script attendra qu'un bootloader STM32 soit présent.
+* `:dfu-util-split-left` - Permet de flasher un firmware normalement, tout comme l'option précédente mais permet de configurer le côté gauche des paramètres EEPROM sur un clavier scindé.
+* `:dfu-util-split-right` - Permet de flasher un firmware normalement, tout comme l'option précédente mais permet de configurer le côté droit des paramètres EEPROM sur un clavier scindé.
 * `:st-link-cli` - Cela permet de flasher le firmware avec l'utilitaire en ligne de commande ST-LINK's plutôt que d'utiliser dfu-util.

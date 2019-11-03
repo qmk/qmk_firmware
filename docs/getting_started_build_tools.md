@@ -145,7 +145,7 @@ util/docker_build.sh
 There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:
 ```bash
 util/docker_build.sh keyboard:keymap:target
-# For example: util/docker_build.sh planck/rev6:default:dfu-util
+# For example: util/docker_build.sh planck/rev6:default:flash
 ```
 If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use [QMK Toolbox](https://github.com/qmk/qmk_toolbox) instead.
 

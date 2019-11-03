@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_LOWER] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
         _______,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                      KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
-        _______,  _______,  _______,  _______,  KC_DEL,   _______,                      KC_TILD,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_PIPE,
-        _______,  _______,  _______,  _______,  KC_INS,   _______,  _______,  _______,  KC_GRV,   KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,
+        _______,  _______,  _______,  KC_PIPE,  KC_TILD,  KC_DEL,                       _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  _______,
+        _______,  _______,  _______,  KC_BSLS,  KC_GRV,   KC_INS,   _______,  _______,  _______,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  _______,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
 
@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/8f6a3f08350a9bbe1d414b22bca4e6c7 */
     [LAYER_ADJUST] = LAYOUT(
         _______,  _______,  _______,  _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
-        KC_CAPS,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,                      EEP_RST,  RESET,    KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,
-        _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        KC_CAPS,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,
+        _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,                      _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
 };
