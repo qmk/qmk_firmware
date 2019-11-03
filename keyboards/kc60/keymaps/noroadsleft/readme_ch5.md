@@ -112,6 +112,10 @@ Outputs a string that tells me the Git commit from which my flashed firmware was
 
 If I hold the Right Alt key, the number row (`KC_1` through `KC_0`) will output numpad keycodes instead of number row keycodes, enabling quicker access to characters like ™ and °.
 
+#### [Emulated Extended Function Keys](./keymap.c#L257-L271)
+
+Similar to the emulated numpad, if I hold the Right Alt key with the Fn key, the function row (`KC_F1` through `KC_F12`) will output keycodes `KC_F13` throught `KC_F24`.
+
 ----
 
 ### Layer 12: System layer - `_SY`

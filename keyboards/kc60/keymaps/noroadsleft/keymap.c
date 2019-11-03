@@ -254,6 +254,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
+        case KC_F1 ... KC_F12:
+            if (record->event.pressed) {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    register_code( keycode + 0x2E );
+                } else {
+                    register_code( keycode );
+                }
+            } else {
+                if ( get_mods() & MOD_MASK_RALT ) {
+                    unregister_code( keycode + 0x2E );
+                } else {
+                    unregister_code( keycode );
+                }
+            }
+            return false;
     } // switch()
     return true;
 };
