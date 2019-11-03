@@ -101,7 +101,7 @@ ANSI出力の挙動を変更するために使うことができる制御シー�
 
 QMK は引数の解析と設定の詳細を処理します。新しい引数を追加すると、サブコマンドの名前と引数の長い名前に基づいて設定ツリーに自動的に組み込まれます。attribute-style アクセス (`cli.config.<subcommand>.<argument>`) あるいは dictionary-style アクセス (`cli.config['<subcommand>']['<argument>']`) を使って、`cli.config`内のこの設定にアクセスすることができます。
 
-内部では、QMK は設定を買う脳するために [ConfigParser](https://docs.python.org/3/library/configparser.html) を使います。これにより、人間が編集可能な方法で設定を表す簡単で分かり易い方法を提供します。ConfigParserが通常持たない幾つかの機能を提供するために、この設定へのアクセスをラップしました。
+内部では、QMK は設定を格納するために [ConfigParser](https://docs.python.org/3/library/configparser.html) を使います。これにより、人間が編集可能な方法で設定を表す簡単で分かり易い方法を提供します。ConfigParserが通常持たない幾つかの機能を提供するために、この設定へのアクセスをラップしました。
 
 ## 設定値の読み込み
 
