@@ -52,7 +52,7 @@ QMK это форк [Jun Wako](https://github.com/tmk) [tmk_keyboard](https://gi
 ```
 #pragma once
 
-// Переопределения здесь!
+// Переопределения производятся здесь!
 #undef MY_SETTING
 #define MY_SETTING 4
 ```
