@@ -3,7 +3,11 @@
 # These are defaults based on what has been implemented for ARM boards
 AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = no
-BACKLIGHT_ENABLE = no
+
+# Force task driven PWM until ARM can provide automatic configuration
+ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
+	BACKLIGHT_ENABLE = software
+endif
 
 # The rest of these settings shouldn't change
 
