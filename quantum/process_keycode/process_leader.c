@@ -23,9 +23,15 @@
 #        define LEADER_TIMEOUT 300
 #    endif
 
+#    ifndef LEADER_ABORT
+#        define LEADER_ABORT KC_LEAD
+#    endif
+
 __attribute__((weak)) void leader_start(void) {}
 
 __attribute__((weak)) void leader_end(void) {}
+
+__attribute__((weak)) bool leader_process_user(uint16_t *leader_sequence, bool is_timeout) { return true; }
 
 // Leader key stuff
 bool     leading     = false;
@@ -45,6 +51,14 @@ void qk_leader_start(void) {
     memset(leader_sequence, 0, sizeof(leader_sequence));
 }
 
+void matrix_scan_leader(void) {
+    if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT) {
+        leader_process_user(leader_sequence, true);
+        leading = false;
+        leader_end();
+    }
+}
+
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
     // Leader key set-up
     if (record->event.pressed) {
@@ -55,9 +69,21 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                     keycode = keycode & 0xFF;
                 }
 #    endif  // LEADER_KEY_STRICT_KEY_PROCESSING
+                if (keycode == LEADER_ABORT) {
+                    leading = false;
+                    leader_end();
+                    return false;
+                }
                 if (leader_sequence_size < (sizeof(leader_sequence) / sizeof(leader_sequence[0]))) {
                     leader_sequence[leader_sequence_size] = keycode;
                     leader_sequence_size++;
+#    ifdef LEADER_ON_KEY_PROCESSING
+                    if (!leader_process_user(leader_sequence, false)) {
+                        leading = false;
+                        leader_end();
+                        return false;
+                    }
+#    endif // LEADER_ON_KEY_PROCESSING
                 } else {
                     leading = false;
                     leader_end();
