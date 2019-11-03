@@ -53,6 +53,24 @@ void dance_3_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Tap dance 4
+void dance_4_finished(qk_tap_dance_state_t *state, void *user_data) {
+    // if (state->count == 2)
+    if (state->count == 2) {
+        tap_code(KC_DOT);
+    } else {
+        tap_code16(ALGR(KC_W));
+    }
+}
+
+void dance_4_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+        unregister_code(KC_DOT);
+    } else {
+        unregister_code16(ALGR(KC_W));
+    }
+}
+
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
@@ -60,4 +78,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
     [TD2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_2_finished, dance_2_reset),
 
-    [TD3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_3_finished, dance_3_reset)};
+    [TD3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_3_finished, dance_3_reset),
+
+    [TD4] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_4_finished, dance_4_reset)};
