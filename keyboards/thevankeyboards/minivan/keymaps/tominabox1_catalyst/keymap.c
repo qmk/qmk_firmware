@@ -130,7 +130,6 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
       rgblight_mode_noeeprom(0);
     } else{
       rgblight_set_effect_range(2, 1);
-      // Set LED effects to breathing mode in a tealish blue color
       rgblight_sethsv_noeeprom(0, 255, 75);
       rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING+3);
     }

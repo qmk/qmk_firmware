@@ -15,7 +15,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _MACRO,
-	_NUMPAD,
+	  _NUMPAD,
     _ARROW,
     _FKEY,
     _GAMER,
@@ -38,7 +38,6 @@ enum custom_keycodes {
 };
 
 enum tap_dance_indexes {
-    KC_EMAIL,
     TD_TAB_ESC,
 };
 
@@ -55,6 +54,5 @@ enum tap_dance_indexes {
 #define KC_SFT_CPS TD(TD_SFT_CPS) // Hold for shift, double tap for caps
 #define KC_ENT_LOW LT(_LOWER, KC_ENT) // Return on tap, Lower on hold
 #define KC_SPC_RSE LT(_RAISE, KC_SPC) // Space on tap, raise on hold
-#define KC_EML TD(KC_EMAIL) // Double tap @ for email macro
 #define KC_FKEY LT(_FKEY, KC_ENT) // Return on tap, Fkey on hold
 #define KC_NUMF TD(KC_LFT_NUM_F)

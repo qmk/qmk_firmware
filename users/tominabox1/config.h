@@ -4,6 +4,13 @@
 #define TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
+#define TAP_CODE_DELAY 30
+
+// Combos
+#ifndef KEYBOARD_thevankeyboards_roadkit
+#define COMBO_COUNT 3
+#define COMBO_TERM 45
+#endif
 
 // Bootmagic
 #define BOOTMAGIC_KEY_SALT KC_BSPACE

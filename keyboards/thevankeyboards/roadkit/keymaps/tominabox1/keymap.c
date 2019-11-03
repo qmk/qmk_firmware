@@ -1,7 +1,12 @@
 #include QMK_KEYBOARD_H
-#include "tominabox1.h"
 
 extern keymap_config_t keymap_config;
+
+enum layers {
+    _BASE,
+	  _NUMPAD,
+    _ARROW
+};
 
 enum combo_events {
   NUM_TO_BASE,
