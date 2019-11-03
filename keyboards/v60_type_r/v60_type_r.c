@@ -18,13 +18,7 @@
 #include "quantum.h"
 
 // if we've got an RGB underglow!
-#ifdef V60_POLESTAR
-
-#include "rgblight.h"
-
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
+#ifdef RGBLIGHT_ENABLE
 
 #define SOFTPWM_LED_TIMER_TOP F_CPU/(256*64)
 
@@ -191,4 +185,4 @@ ISR(TIMER3_COMPA_vect)
     	softpwm_buff[2] = led[0].b;
   	}
 }
-#endif // V60_POLESTAR
+#endif // RGBLIGHT_ENABLE
