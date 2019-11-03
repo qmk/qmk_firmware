@@ -12,6 +12,10 @@ EXTRAFLAGS += -flto
 BOOTLOADER = qmk-dfu
 OLED_DRIVER_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = no
+NKRO_ENABLE = no
 SRC += tominabox1.c
 endif
 
@@ -21,6 +25,7 @@ EXTRAKEY_ENABLE = yes        # Audio control and System control
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = yes
+COMBO_ENABLE = yes
 SRC += tominabox1.c
 endif
 

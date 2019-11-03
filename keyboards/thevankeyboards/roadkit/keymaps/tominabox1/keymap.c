@@ -14,7 +14,8 @@ enum combo_events {
   ARROW_TO_BASE,
   BASE_TO_NUM,
   NUM_BACKSPACE,
-  BASE_TO_ARROW
+  BASE_TO_ARROW,
+  NUMPAD_RET
 };
 
 const uint16_t PROGMEM num_to_base[] = {KC_PENT, KC_P0, COMBO_END};
@@ -23,6 +24,7 @@ const uint16_t PROGMEM arrow_to_base[] = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM base_to_num[] = {KC_ENT, LGUI(KC_L), COMBO_END};
 const uint16_t PROGMEM num_back[] = {KC_P9, KC_PAST, COMBO_END};
 const uint16_t PROGMEM base_to_arrow[] = {KC_ENT, C(S(KC_ESC)), COMBO_END};
+const uint16_t PROGMEM numpad_ret[] = {KC_PPLS, KC_PSLS, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [NUM_TO_BASE] = COMBO_ACTION(num_to_base),
@@ -31,6 +33,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BASE_TO_NUM] = COMBO_ACTION(base_to_num),
   [NUM_BACKSPACE] = COMBO_ACTION(num_back),
   [BASE_TO_ARROW] = COMBO_ACTION(base_to_arrow),
+  [NUMPAD_RET] = COMBO_ACTION(numpad_ret),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -63,6 +66,11 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case BASE_TO_ARROW:
     if (pressed) {
       layer_move(_ARROW);
+    }
+    break;
+    case NUMPAD_RET:
+    if (pressed) {
+      tap_code16(KC_PENT);
     }
     break;
   }
