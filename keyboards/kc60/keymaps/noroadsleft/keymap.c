@@ -8,7 +8,7 @@
 /**********************
 ** LAYER DEFINITIONS **
 **********************/
-enum layers_keymap {
+enum layer_names {
     // BASE LAYERS
     _QWERTY = 0,
     _DVORAK,
