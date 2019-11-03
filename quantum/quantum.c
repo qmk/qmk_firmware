@@ -981,7 +981,7 @@ void matrix_scan_quantum() {
 #if defined(BACKLIGHT_ENABLE)
 #    if defined(LED_MATRIX_ENABLE)
     led_matrix_task();
-#    elif defined(BACKLIGHT_PIN)
+#    elif defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
     backlight_task();
 #    endif
 #endif
