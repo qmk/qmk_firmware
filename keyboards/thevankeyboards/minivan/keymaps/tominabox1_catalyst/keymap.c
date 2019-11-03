@@ -115,9 +115,10 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
         led1b = 25;
       }
 
-      setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-      setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+      rgblight_setrgb_at(led0r, led0g, led0b, 0);
+      rgblight_setrgb_at(led1r, led1g, led1b, 1);
       rgblight_set();
+
     #endif //RGBLIGHT_ENABLE
     return state;
   }
