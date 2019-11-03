@@ -398,7 +398,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 ```
-これにより、値が有効になっていた場合のみRGBアンダーグローが変更されます。この値を設定するために、`RGB_LYR`と呼ばれる`process_record_user`の新しいキーコードを作成します。さｒない、通常のRGBコードを使う場合、上記の例を使ってオフにすることを確認します。以下のようになります:
+これにより、値が有効になっていた場合のみRGBアンダーグローが変更されます。この値を設定するために、`RGB_LYR`と呼ばれる`process_record_user`の新しいキーコードを作成します。さらに、通常のRGBコードを使う場合、上記の例を使ってオフにすることを確認します。以下のようになります:
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

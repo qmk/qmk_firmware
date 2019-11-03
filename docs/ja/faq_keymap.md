@@ -14,7 +14,7 @@
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
 ![キーボードのレイアウト イメージ](https://i.imgur.com/5wsh5wM.png)
 
-## 一部のキーが好感されているか動作しない
+## 一部のキーが交換されているか動作しない
 
 QMKは2つの機能、ブートマジックとコマンドを持ち、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Capsの交換、Guiの無効か、Alt/GUIの交換、Backspace/Backslashの交換、全てのキーの無効化 およびその他の動作の変更が含まれますが、これらに限定されません。
 
