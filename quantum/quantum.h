@@ -257,8 +257,8 @@ void tap_code16(uint16_t code);
 void backlight_init_ports(void);
 void backlight_task(void);
 void backlight_task_internal(void);
-void backlight_on(uint8_t backlight_pin);
-void backlight_off(uint8_t backlight_pin);
+void backlight_on(pin_t backlight_pin);
+void backlight_off(pin_t backlight_pin);
 
 #    ifdef BACKLIGHT_BREATHING
 void breathing_task(void);
