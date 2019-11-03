@@ -57,17 +57,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 54    // Number of LEDs
-#   define RGBLED_SPLIT { 27, 27 }
+#    define RGBLED_NUM 54  // Number of LEDs
+#    define RGBLED_SPLIT { 27, 27 }
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define RGBLED_NUM 54    // Number of LEDs
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGBLED_NUM 54  // Number of LEDs
+#    define DRIVER_LED_TOTAL RGBLED_NUM
+#    define RGB_MATRIX_SPLIT { 27, 27 }
 #endif
 
 #ifdef SSD1306OLED
-#   define USE_I2C
+#    define USE_I2C
 #endif
 
 /*
