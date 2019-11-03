@@ -18,6 +18,7 @@ function install_avr {
     echo "Extracting AVR toolchain..."
     unzip -q -d . avr-gcc-8.3.0-x86-mingw.zip
     mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
+    rm avr8-gnu-toolchain/bin/make.exe
     rm avr-gcc-8.3.0-x86-mingw.zip
     pacman --needed -S mingw-w64-x86_64-avrdude
 }
