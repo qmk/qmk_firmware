@@ -1,7 +1,7 @@
 # bcat's KBD67 hotswap layout
 
 This is pretty much a stock 65% split keyboard layout, with an HHKB-style
-(split) backspace and media keys in the function layer centered around the WASD
+(split) backspace and media keys in the function layer centered around the ESDF
 cluster.
 
 ## Default layer
@@ -12,6 +12,6 @@ cluster.
 
 ## Function layer
 
-![Function layer layout](https://i.imgur.com/VQF5RBy.png)
+![Function layer layout](https://i.imgur.com/E7Pf1gS.png)
 
 ([KLE](http://www.keyboard-layout-editor.com/#/gists/f29128427f674c43777f045e363d1b44))

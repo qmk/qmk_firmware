@@ -22,18 +22,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Function layer: http://www.keyboard-layout-editor.com/#/gists/c7a55e75285d474b6301140eaf53f915 */
     [LAYER_FUNCTION] = LAYOUT_60_ansi_split_bs_rshift(
         _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL,
-        KC_CAPS,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_UP,    _______,  _______,
-        _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGUP,  KC_LEFT,  KC_RGHT,            _______,
-        _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  KC_END,   KC_PGDN,  KC_DOWN,  _______,                      _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_UP,    _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGUP,  KC_LEFT,  KC_RGHT,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_END,   KC_PGDN,  KC_DOWN,  _______,                      _______,
         _______,  _______,  _______,                                _______,                                          _______,  _______,  _______,  _______
     ),
 
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/6e1068e4f91bbacccaf5ac0acbeec79c */
     [LAYER_ADJUST] = LAYOUT_60_ansi_split_bs_rshift(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  EEP_RST,  RESET,    _______,  _______,  _______,  RGB_VAI,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_RMOD, RGB_MOD,            RGB_TOG,
-        _______,  _______,  _______,  _______,  _______,  BL_BRTG,  BL_DEC,   BL_INC,   RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,                      _______,
+        KC_CAPS,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  EEP_RST,  RESET,    KC_PSCR,  KC_SLCK,  KC_PAUS,  RGB_VAI,  _______,  _______,
+        _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_RMOD, RGB_MOD,            RGB_TOG,
+        _______,  _______,  _______,  KC_MUTE,  _______,  BL_BRTG,  BL_DEC,   BL_INC,   RGB_HUD,  RGB_SAD,  RGB_VAD,  _______,                      _______,
         _______,  _______,  _______,                                _______,                                          _______,  _______,  _______,  _______
     ),
 };
