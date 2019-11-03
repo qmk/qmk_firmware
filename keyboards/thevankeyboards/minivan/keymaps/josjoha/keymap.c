@@ -120,10 +120,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _REV ] = LAYOUT (
 
-        /* _LTR    End  PgDn PgUp Home  xxx  xxx  xxx  xxx  xxx  xxx     Del
-         * LCtl     Left Down Up   Right xxx  5    4    3    2    1     RCtl
-         * LSht      xxx  xxx  xxx  xxx   xxx  6    7    8    9    0    RSht
-         * Bspc+LAlt Left   Sht(Tab)  ___      ___      Tab     Right   RAlt
+        /* _LTR    End  PgDn PgUp Home  xxx  xxx  xxx  xxx  xxx  xxx      Del
+         * -+LCtl    Left Down Up   Right xxx  5    4    3    2    1     RCtl
+         * .+LSht     xxx  xxx  xxx  xxx   xxx  6    7    8    9    0    RSht
+         * Bspc+LAlt Left   Sht(Tab)  ___      ___      Tab     Right Ent+Alt
          */
                 
         TO ( _LTR )       , KC_END  , KC_PGDN      , KC_PGUP , KC_HOME , XXXXXXX , XXXXXXX , XXXXXXX           , XXXXXXX , XXXXXXX , XXXXXXX , KC_DEL  ,
