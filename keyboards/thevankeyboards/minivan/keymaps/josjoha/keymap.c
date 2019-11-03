@@ -14,7 +14,7 @@
 #define _FUN 2 // function keys, layer switcher
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
-#define _REV 5 // Reversing L1,3: numbers right, navigation left (mirrored.
+#define _REV 5 // Reversing: numbers right, navigation left (mirrored.)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
