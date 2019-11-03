@@ -16,7 +16,6 @@
 
 #include "redscarf_i.h"
 
-
 void keyboard_pre_init_kb(void) {
   // initialize top row leds
   setPinOutput(F7);
@@ -32,7 +31,7 @@ void led_set_kb(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(F7);
   } else {
-    writePinHigh(F7); 
+    writePinHigh(F7);
   }
   led_set_user(usb_led);
 }

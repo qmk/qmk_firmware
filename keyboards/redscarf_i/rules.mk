@@ -1,4 +1,4 @@
-# MCU options
+# MCU selection
 MCU = atmega32u4
 
 # Bootloader selection
