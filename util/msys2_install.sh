@@ -93,7 +93,7 @@ then
 else
         echo
         echo "Adding 'source ~/qmk_utils/activate_msys2.sh' to the end of your"
-        echo ".bashrc file? Without this make won't find the needed utils."
+        echo ".bashrc file. Without this make won't find the needed utils."
         echo "source ~/qmk_utils/activate_msys2.sh" >> ~/.bashrc;
 fi
 
