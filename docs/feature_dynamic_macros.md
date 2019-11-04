@@ -37,7 +37,7 @@ There are a number of options added that should allow some additional degree of 
 |`DYNAMIC_MACRO_NO_NESTING`  |*Not Defined*   |Defining this disables the ability to call a macro from another macro (nested macros).                           | 
 
 
-If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h (default value: 128; please read the comments for it in the header).
+If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by adding the `DYNAMIC_MACRO_SIZE` define in your `config.h` (default value: 128; please read the comments for it in the header).
 
 
 ### DYNAMIC_MACRO_USER_CALL
