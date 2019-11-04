@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_SPL, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD,\
+        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_SPL, XXXXXXX, XXXXXXX, RGB_HUD, RGB_HUI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_CHV, XXXXXXX, RGB_VAI, RGB_VAD,\
+      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_CHV, XXXXXXX, RGB_VAD, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_SOL, RGB_CYC, XXXXXXX, RGB_SAI, RGB_SAD,\
+      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_SOL, RGB_CYC, XXXXXXX, RGB_SAD, RGB_SAI,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
