@@ -2,6 +2,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
+// clang-format off
+
   // Logical Layout
   // Columns
   // Left

@@ -5,14 +5,13 @@
 #include "quantum.h"
 
 #ifdef PROTOCOL_LUFA
-    #include "lufa.h"
-    #include "split_util.h"
+#    include "lufa.h"
+#    include "split_util.h"
 #endif
 
 #ifdef SSD1306OLED
-    #include "ssd1306.h"
+#    include "ssd1306.h"
 #endif
-
 
 #define has_usb() is_keyboard_master()
 uint8_t is_master;
