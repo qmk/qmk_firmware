@@ -3,6 +3,7 @@
 
 #define KC__FN1 MO(_FN1)
 #define KC__FN2 MO(_FN2)
+#define KC_SFN1 LT(_FN1, KC_SPC)
 #define KC_RFN1 LT(_FN1, KC_RGHT)
 #define KC_DFN2 LT(_FN2, KC_DEL)
 #define KC_BFN2 BKSFN2
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
-    _FN2, LCTL, LALT, LGUI, _FN1, SPC,  SPC,  BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
+    _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1, BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
   ),
 
   [_VIM_EMACS] = LAYOUT_ortho_5x14_kc(
