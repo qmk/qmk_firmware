@@ -36,7 +36,7 @@ QMK - это форк [Джуна Вако (Jun Wako)](https://github.com/tmk) �
 
 Существует 3 возможных местоположения `config.h`:
 
-* keyboard (`/keyboards/<keyboard>/config.h`)
+* клавиатура (`/keyboards/<keyboard>/config.h`)
 * пространство пользователя (`/users/<user>/config.h`)
 * раскладка клавиш (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
