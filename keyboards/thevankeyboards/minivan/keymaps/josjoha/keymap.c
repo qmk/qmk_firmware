@@ -1,10 +1,8 @@
 #include QMK_KEYBOARD_H
 
-    /* Escape always goes back to default layer.
+    /* Dvorak keymap for Minivan default layout (44 keys)
      *
-     * (TT key: tap quickly 5 times.
-     *  LT key: once for character, twice then hold for repeat.
-     *  Some layer switch keys need Transparent on target layer.)
+     * Escape always goes back to default layer.
      *
      * */
 
@@ -51,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * Left+LAlt   Del   Sht(tab) ___      tab   ___  Ent  Right+RAlt
          * */
                 
-        TO ( _LTR )       , KC_EXLM , KC_AT        , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
-        LCTL_T ( KC_MINS ) , KC_1    , KC_2         , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_DOT )   , KC_0    , KC_9         , KC_8    , KC_7    , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
+        TO ( _LTR )       , KC_EXLM , KC_AT        , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR  , KC_LPRN , KC_RPRN , KC_BSPC            ,
+        LCTL_T ( KC_MINS ) , KC_1    , KC_2         , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH  , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
+        LSFT_T ( KC_DOT )   , KC_0    , KC_9         , KC_8    , KC_7    , KC_6    , KC_PIPE , KC_PLUS , KC_QUES  , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
         LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
 
@@ -69,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * LAlt  ___     ___     ___      ___      ___       ___    RAlt
          */
         
-        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , XXXXXXX , KC_F24 , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
-        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14 , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
-        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
+        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , XXXXXXX , KC_F24  , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
+        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14  , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
+        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17  , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
         KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______ , KC_RALT
                       ) ,
 
@@ -88,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
          */
                 
-        TO ( _LTR )    , KC_WH_L , KC_WH_D , KC_WH_U      , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
-        KC_LCTL         , KC_MS_L , KC_MS_D , KC_MS_U      , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
-        KC_LSFT          , KC_BTN5 , KC_BTN4 , KC_BTN3      , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
-        LALT_T ( KC_LEFT ), KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB , _______ , _______ , RALT_T ( KC_RGHT )
+        TO ( _LTR )    , KC_WH_L , KC_WH_D , KC_WH_U      , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP  , KC_PGDN , KC_END  , KC_BSPC ,
+        KC_LCTL         , KC_MS_L , KC_MS_D , KC_MS_U      , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP    , KC_DOWN , KC_RGHT , KC_RCTL ,
+        KC_LSFT          , KC_BTN5 , KC_BTN4 , KC_BTN3      , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1  , KC_ACL2 , XXXXXXX , KC_RSFT ,
+        LALT_T ( KC_LEFT ), KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , _______ , _______ , RALT_T ( KC_RGHT )
                       ) ,
 
     /* Layer 4: Dump for various unused keys. Media keys on 2nd row.
