@@ -18,7 +18,12 @@
 #pragma once
 
 /* USB Device descriptor parameter */
+#undef MANUFACTURER
+#define MANUFACTURER    ErgoDox EZ
+#undef PRODUCT
+#define PRODUCT         Planck EZ
 #define DEVICE_VER 0x0000
+#define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
