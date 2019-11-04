@@ -21,6 +21,10 @@
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
 
+#ifdef RGBLED_NUM
+  #undef RGBLED_NUM
+#endif
+
 #define DRIVER_LED_TOTAL 48
 
 #ifdef RGB_MATRIX_ENABLE

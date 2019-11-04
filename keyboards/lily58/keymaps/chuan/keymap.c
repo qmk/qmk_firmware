@@ -176,8 +176,8 @@ void oled_task_user(void) {
     oled_write_ln(encoder_debug, false);
     // oled_write_ln(read_timelog(), false);
   } else {
-    // oled_write(read_logo(), false);
-        oled_write_ln(encoder_debug, false);
+    oled_write(read_logo(), false);
+    // oled_write_ln(encoder_debug, false);
   }
 }
 #endif //OLED_DRIVER_ENABLE
