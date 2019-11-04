@@ -46,7 +46,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14_kc(
-    GRV,  1,    2,    3,    4,    5,    6,    _TGN, 7,    8,    9,    0,    MINS, EQL,
+    GRV,  1,    2,    3,    4,    5,    MINS, _TGN, 6,    7,    8,    9,    0,    EQL,
     TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_KEY_OVERRIDE] = LAYOUT_ortho_5x14_kc(
-    TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
+    TILD, ____, ____, ____, ____, ____, UNDS,   ____, ____, ____, ____, ____, ____, PLUS,
     ____, ____, ____, ____, UNDS, EQL , LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
     ____, ____, ____, ____, MINS, PLUS, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN1] = LAYOUT_ortho_5x14_kc(
-    ____, EXLM, AT  , HASH, DLR , PERC, CIRC,   AMPR, ASTR, LPRN, RPRN, ____, ____, ____,
+    ____, EXLM, AT  , HASH, DLR , PERC, ____,   CIRC, AMPR, ASTR, LPRN, RPRN, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN2] = LAYOUT_ortho_5x14_kc(
-    ____, F1  , F2  , F3  , F4  , F5  , F6  ,   ____, F7  , F8  , F9  , F10 , F11 , F12 ,
+    ____, F1  , F2  , F3  , F4  , F5  , F11 ,   ____, F6,   F7  , F8  , F9  , F10 , F12 ,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
@@ -102,10 +102,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUM] = LAYOUT_ortho_5x14_kc(
-    ____, 1   , 2   , 3   , 4   , 5   , 6   ,   ____, 7   , 8   , 9   , 0   , ____, ____,
-    ____, BTN1, MS_U, BTN2, WH_D, ____, ____,   ____, 4   , 5   , 6   , MINS, ____, ____,
-    ____, MS_L, MS_D, MS_R, WH_U, ____, WH_D,   ____, 1   , 2   , 3   , PLUS, ____, ____,
-    ____, ____, ____, ____, ____, ____, WH_U,   ____, 0   , DOT , COMM, ASTR, ____, ____,
+    ____, 1   , 2   , 3   , 4   , 5   , ____,   ____, ____, 7   , 8   , 9   , 0   , ____,
+    ____, BTN1, MS_U, BTN2, WH_D, ____, ____,   ____, EQL , 4   , 5   , 6   , PLUS, ____,
+    ____, MS_L, MS_D, MS_R, WH_U, ____, WH_D,   ____, ASTR, 1   , 2   , 3   , MINS, ____,
+    ____, ____, ____, ____, ____, ____, WH_U,   ____, PLUS, 0   , ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   )
 };
