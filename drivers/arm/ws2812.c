@@ -43,6 +43,7 @@ void sendByte(uint8_t byte) {
     // WS2812 protocol wants most significant bits first
     for (unsigned char bit = 0; bit < 8; bit++) {
         bool is_one = byte & (1 << (7 - bit));
+        // using something like wait_ns(is_one ? T1L : T0L) here throws off timings
         if (is_one) {
             // 1
             writePinHigh(RGB_DI_PIN);
@@ -73,6 +74,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     chSysLock();
 
     for (uint8_t i = 0; i < leds; i++) {
+        // WS2812 protocol dictates grb order
         sendByte(ledarray[i].g);
         sendByte(ledarray[i].r);
         sendByte(ledarray[i].b);
