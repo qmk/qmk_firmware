@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    ErgoDox EZ
 #define PRODUCT         ErgoDox EZ
 #define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
+#define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 
 /* key matrix size */
 #define MATRIX_ROWS 14
