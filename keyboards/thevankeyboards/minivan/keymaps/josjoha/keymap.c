@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
     /* Escape always goes back to default layer.
-     * Full set of Ctrl, Alt, Shift almost throughout.
      *
      * (TT key: tap quickly 5 times.
      *  LT key: once for character, twice then hold for repeat.
@@ -25,17 +24,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _LTR ] = LAYOUT (
 
-        /*  Esc      '"  ,<  .>  pP  yY  fF  gG  cC  rR  lL      Bksp
-         *  Tab+LCtl  aA  oO  eE  uU  iI  dD  hH  tT  nN  sS  -_+RCtl
-         *  LSht       ;:  qQ  jJ  kK  xX  bB  mM  wW  vV  zZ    RSht
-         *  LAlt    Left _MOV  Enter+_NSY Space+_NSY _FUN  Right RAlt
-         *               hold´  hold        hold    toggle 
+        /*  Esc      '"  ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
+         *  Tab+LCtl  aA  oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
+         *  LSht       ;:  qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
+         *  Left+LAlt   ?  _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
+         *                 toggle    hold          hold toggle 
          */
 
-        KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P                  , KC_Y        , KC_F    , KC_G    , KC_C , KC_R , KC_L , KC_BSPC            ,
-        LCTL_T ( KC_TAB ) , KC_A    , KC_O        , KC_E                 , KC_U                  , KC_I        , KC_D    , KC_H    , KC_T , KC_N , KC_S , RCTL_T ( KC_MINS ) ,
-        KC_LSFT            , KC_SCLN , KC_Q        , KC_J                 , KC_K                  , KC_X        , KC_B    , KC_M    , KC_W , KC_V , KC_Z , KC_RSFT            ,
-        KC_LALT             , KC_LEFT , TG ( _MOV ) ,  LT ( _NSY , KC_ENT ) , LT ( _NSY , KC_SPC ) , TG ( _FUN ) , KC_RGHT , KC_RALT
+        KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P   , KC_Y        , KC_F        , KC_G     , KC_C     , KC_R , KC_L , KC_BSPC ,
+        LCTL_T ( KC_TAB ) , KC_A    , KC_O        , KC_E                 , KC_U   , KC_I        , KC_D        , KC_H     , KC_T     , KC_N , KC_S , KC_MINS ,
+        KC_LSFT            , KC_SCLN , KC_Q        , KC_J                 , KC_K   , KC_X        , KC_B        , KC_M     , KC_W     , KC_V , KC_Z , KC_RSFT ,
+        LALT_T ( KC_LEFT )  , KC_QUES , TG ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , RALT_T ( KC_RIGHT )
                       ) ,
 
 
@@ -46,16 +45,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _NSY ] = LAYOUT (
        
-        /* _LTR      !   @   #   $   %   ^   &   *   (   )            Del
+        /* _LTR      !   @   #   $   %   ^   &   *   (   )           Bspc
          * -+LCtl  1   2   3   4   5   \|  =+  /?  [{  ]}         `~+RCtl
          * .+LSht      0   9   8   7   6    |   +   ?   {   }      ~+RSht
-         * Bksp+LAlt    Left Sht(tab) ___     ___     tab Right  Ent+RAlt
+         * Left+LAlt   Del   Sht(tab) ___      tab   ___  Ent  Right+RAlt
          * */
                 
-        TO ( _LTR )       , KC_EXLM , KC_AT        , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
+        TO ( _LTR )       , KC_EXLM , KC_AT        , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_MINS ) , KC_1    , KC_2         , KC_3    , KC_4    , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_DOT )   , KC_0    , KC_9         , KC_8    , KC_7    , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
-        LALT_T ( KC_BSPC )   , KC_LEFT , S ( KC_TAB ) , _______ , _______ , KC_TAB  , KC_RGHT , RALT_T ( KC_ENT )
+        LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
 
     /* Layer 2: Function keys,
@@ -67,13 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* _LTR _NSY _FUN _MOV _RAR  xxx  xxx  F24 F23  F22  F21     xxx
          * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
          * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
-         * LAlt  Left    ___     ___      ___      ___       Right  RAlt
+         * LAlt  ___     ___     ___      ___      ___       ___    RAlt
          */
         
         TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , XXXXXXX , KC_F24 , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
         KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14 , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
         KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
-        KC_LALT        , KC_LEFT     , _______     , _______     , _______     , _______     , KC_RGHT , KC_RALT
+        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______ , KC_RALT
                       ) ,
 
 
@@ -86,13 +85,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* _LTR    WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
          * LCtl     MLft MDn  MUp  MRht  xxx  Btn1 Left Up   Down Right RCtl
          * LSht      Btn5 Btn4 Btn3 Butn2 Btn1 Btn2 Acc0 Acc1 Acc2 xxx  RSht
-         * Del+LAlt  Left     ___     ___      ___      ___     Right   RAlt
+         * Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
          */
                 
-        TO ( _LTR )   , KC_WH_L , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
-        KC_LCTL        , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
-        KC_LSFT         , KC_BTN5 , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
-        LALT_T ( KC_DEL ), KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_RALT
+        TO ( _LTR )    , KC_WH_L , KC_WH_D , KC_WH_U      , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
+        KC_LCTL         , KC_MS_L , KC_MS_D , KC_MS_U      , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
+        KC_LSFT          , KC_BTN5 , KC_BTN4 , KC_BTN3      , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
+        LALT_T ( KC_LEFT ), KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB , _______ , _______ , RALT_T ( KC_RGHT )
                       ) ,
 
     /* Layer 4: Dump for various unused keys. Media keys on 2nd row.
@@ -101,16 +100,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _RAR ] = LAYOUT (
 
-        /*  _LTR xxx  xxx  Pause ScrLk PrtSc xxx  xxx  Power Sleep Wake    xxx   
-         *  CapL  xxx  xxx   xxx   xxx  xxx   xxx  xxx  xxx  xxx    xxx Insert
-         *  NumL   Stop Play  Prev  Next Vol-  Vol+ Mute xxx  xxx   xxx    xxx
-         *  xxx    Left    ___      ___       ___      ___      Right      App
+        /*  _LTR CapL NumL Pause ScrLk PrtSc xxx  xxx  Power Sleep Wake    xxx   
+         *  tab   xxx  xxx   xxx   xxx  xxx   xxx  xxx  xxx  xxx    xxx Insert
+         *  xxx    Stop Play  Prev  Next Vol-  Vol+ Mute xxx  xxx   xxx    xxx
+         *  xxx    ___     ___      ___       ___      ___      ___        App
          */
 
-        TO ( _LTR ) , XXXXXXX , XXXXXXX , KC_PAUS , KC_SLCK , KC_PSCR , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
-        KC_CAPS      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
-        KC_NLCK       , KC_MSTP , KC_MPLY , KC_MPRV , KC_MNXT , KC_VOLD , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
-        XXXXXXX        , KC_LEFT , _______ , _______ , _______ , _______ , KC_RGHT , KC_APP  
+        TO ( _LTR ) , KC_CAPS , KC_NLCK , KC_PAUS , KC_SLCK , KC_PSCR , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
+        KC_TAB       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
+        XXXXXXX       , KC_MSTP , KC_MPLY , KC_MPRV , KC_MNXT , KC_VOLD , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
+        XXXXXXX        , _______ , _______ , _______ , _______ , _______ , _______ , KC_APP  
                       )  ,
 
 
@@ -120,15 +119,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _REV ] = LAYOUT (
 
-        /* _LTR    End  PgDn PgUp Home  xxx  xxx  xxx  xxx  xxx  xxx      Del
+        /* _LTR    End  PgDn PgUp Home  xxx  xxx  xxx  xxx  xxx  xxx     Bspc
          * -+LCtl    Left Down Up   Right xxx  5    4    3    2    1     RCtl
          * .+LSht     xxx  xxx  xxx  xxx   xxx  6    7    8    9    0    RSht
-         * Bspc+LAlt Left   Sht(Tab)  ___      ___      Tab     Right Ent+Alt
+         * Left+LAlt Del    Sht(Tab)  ___      Tab    ___     Ent   Right+Alt
          */
                 
-        TO ( _LTR )       , KC_END  , KC_PGDN      , KC_PGUP , KC_HOME , XXXXXXX , XXXXXXX , XXXXXXX           , XXXXXXX , XXXXXXX , XXXXXXX , KC_DEL  ,
-        LCTL_T ( KC_MINS ) , KC_LEFT , KC_DOWN      , KC_UP   , KC_RGHT , XXXXXXX , KC_5    , KC_4              , KC_3    , KC_2    , KC_1    , KC_RCTL ,
-        LSFT_T ( KC_DOT )   , XXXXXXX , XXXXXXX      , XXXXXXX , XXXXXXX , XXXXXXX , KC_6    , KC_7              , KC_8    , KC_9    , KC_0    , KC_RSFT ,
-        LALT_T ( KC_BSPC )   , KC_LEFT , S ( KC_TAB ) , _______ , _______ , KC_TAB  , KC_RGHT , RALT_T ( KC_ENT )
+        TO ( _LTR )       , KC_END  , KC_PGDN      , KC_PGUP , KC_HOME , XXXXXXX , XXXXXXX , XXXXXXX            , XXXXXXX , XXXXXXX , XXXXXXX , KC_BSPC ,
+        LCTL_T ( KC_MINS ) , KC_LEFT , KC_DOWN      , KC_UP   , KC_RGHT , XXXXXXX , KC_5    , KC_4               , KC_3    , KC_2    , KC_1    , KC_RCTL ,
+        LSFT_T ( KC_DOT )   , XXXXXXX , XXXXXXX      , XXXXXXX , XXXXXXX , XXXXXXX , KC_6    , KC_7               , KC_8    , KC_9    , KC_0    , KC_RSFT ,
+        LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
 };
