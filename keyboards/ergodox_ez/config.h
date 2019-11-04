@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    ZSA Technology Labs
 #define PRODUCT_ID      0x4974
 #define PRODUCT         ErgoDox EZ
+#define WEBUSB_LANDING_PAGE_URL u8"configure.ergodox-ez.com"
 
 /* key matrix size */
 #define MATRIX_ROWS 14

@@ -330,6 +330,13 @@ bool process_record_quantum(keyrecord_t *record) {
                 oneshot_disable();
                 break;
 #endif
+#ifdef WEBUSB_ENABLE
+            case WEBUSB_PAIR:
+                if (record->event.pressed) {
+                    webusb_state.pairing = true;
+                }
+                return false;
+#endif
         }
     }
 

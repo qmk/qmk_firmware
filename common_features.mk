@@ -451,6 +451,10 @@ ifeq ($(strip $(WPM_ENABLE)), yes)
     OPT_DEFS += -DWPM_ENABLE
 endif
 
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    SRC += $(TMK_DIR)/common/webusb.c
+endif
+
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
