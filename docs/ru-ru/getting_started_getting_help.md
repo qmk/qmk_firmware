@@ -10,6 +10,6 @@
 
 Официальный форум QMK [/r/olkb](https://reddit.com/r/olkb) на [reddit.com](https://reddit.com).
 
-## Github ишью
+## GitHub ишью
 
 Вы можете открыть [ишью на GitHub](https://github.com/qmk/qmk_firmware/issues). Это особенно удобно, когда ваша проблема потребует длительного обсуждения или отладки.
