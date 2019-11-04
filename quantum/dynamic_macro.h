@@ -35,13 +35,6 @@
 #    define DYNAMIC_MACRO_SIZE 128
 #endif
 
-/* DYNAMIC_MACRO_RANGE was the last entry in the enum for custom keycodes.
- * However, because they are in the system core now, it will cause errors.
- * So to avoid potential issues, just set it to something past  SAFE_RANGE
- */
-
-#define DYNAMIC_MACRO_RANGE (SAFE_RANGE + 20)
-
 /* Blink the LEDs to notify the user about some event. */
 void dynamic_macro_led_blink(void) {
 #ifdef BACKLIGHT_ENABLE
