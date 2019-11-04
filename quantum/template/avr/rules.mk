@@ -13,6 +13,7 @@ BOOTLOADER = atmel-dfu
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
+# Otherwise, delete this section
 #   Teensy halfKay      512
 #   Teensy++ halfKay    1024
 #   Atmel DFU loader    4096
