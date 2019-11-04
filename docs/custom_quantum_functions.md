@@ -100,15 +100,15 @@ QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
 There are two ways to get the lock LED state:
 
-* by implementing `led_update_kb()` or `_user()`; or
-* by calling `host_keyboard_led_state()`
+* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
+* by calling `led_t host_keyboard_led_state()`
 
 !> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
 
 Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
-* `led_set_kb()` and `_user()`
-* `host_keyboard_leds()`
+* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
+* `uint8_t host_keyboard_leds()`
 
 ## `led_update_user()`
 
@@ -117,6 +117,41 @@ This function will be called when the state of one of those 5 LEDs changes. It r
 You must return either `true` or `false` from this function, depending on whether you want to override the keyboard-level implementation.
 
 ?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
+
+### Example `led_update_kb()` Implementation
+
+```c
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        if (led_state.num_lock) {
+            writePinLow(B0);
+        } else {
+            writePinHigh(B0);
+        }
+        if (led_state.caps_lock) {
+            writePinLow(B1);
+        } else {
+            writePinHigh(B1);
+        }
+        if (led_state.scroll_lock) {
+            writePinLow(B2);
+        } else {
+            writePinHigh(B2);
+        }
+        if (led_state.compose) {
+            writePinLow(B3);
+        } else {
+            writePinHigh(B3);
+        }
+        if (led_state.kana) {
+            writePinLow(B4);
+        } else {
+            writePinHigh(B4);
+        }
+        return true;
+    }
+}
+```
 
 ### Example `led_update_user()` Implementation
 
