@@ -18,6 +18,7 @@ enum custom_keycodes {
   RGB_IDL, // RGB Idling animations
   RGB_UND, // Toggle RGB underglow as layer indicator
   RGB_SOL, // RGB_MATRIX_SOLID_COLOR
+  RGB_HEA, // RGB_MATRIX_TYPING_HEATMAP
   RGB_SPL, // RGB_MATRIX_SPLASH
   RGB_CYC, // RGB_MATRIX_CYCLE_ALL
   RGB_DUO, // RGB_MATRIX_DUAL_BEACON
@@ -145,11 +146,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UTIL] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_SPL, XXXXXXX, XXXXXXX, RGB_HUD, RGB_HUI,\
+        RESET, XXXXXXX, KC_MSTP, KC_VOLU, KC_MNXT, COLEMAK,                      RGB_IDL, RGB_HEA, RGB_SPL, XXXXXXX, RGB_HUD, RGB_HUI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_DUO, RGB_CHV, XXXXXXX, RGB_VAD, RGB_VAI,\
+      RGB_RST, XXXXXXX, KC_MPRV, KC_VOLD, KC_MPLY,  GAMING,                      RGB_UND, RGB_SOL, RGB_CYC, XXXXXXX, RGB_VAD, RGB_VAI,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_SOL, RGB_CYC, XXXXXXX, RGB_SAD, RGB_SAI,\
+      XXXXXXX, KC_SLEP, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_DUO, RGB_CHV, XXXXXXX, RGB_SAD, RGB_SAI,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
@@ -458,6 +459,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case RGB_SOL:
         if (record->event.pressed) {
           rgb_matrix_disable_idle_anym(RGB_MATRIX_SOLID_COLOR, RGB_MATRIX_ANIMATION_SPEED_DEFAULT);
+        }
+        break;
+      case RGB_HEA:
+        if (record->event.pressed) {
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_TYPING_HEATMAP, RGB_MATRIX_ANIMATION_SPEED_DEFAULT);
         }
         break;
       case RGB_SPL:
