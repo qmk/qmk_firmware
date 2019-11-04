@@ -458,7 +458,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        break;
       case RGB_SOL:
         if (record->event.pressed) {
-          rgb_matrix_disable_idle_anym(RGB_MATRIX_SOLID_COLOR, RGB_MATRIX_ANIMATION_SPEED_DEFAULT);
+          rgb_matrix_disable_idle_anym(RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed);
         }
         break;
       case RGB_HEA:
