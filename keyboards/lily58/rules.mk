@@ -39,12 +39,6 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 OLED_DRIVER_ENABLE=yes      # OLED display
 
-CUSTOM_MATRIX = yes
-
-SRC += i2c.c
-SRC += serial.c
-SRC += ssd1306.c
-
 # if firmware size over limit, try this option
 # CFLAGS += -flto
 
