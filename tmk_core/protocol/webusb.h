@@ -77,13 +77,26 @@ typedef struct {
 #define MS_OS_20_DESCRIPTOR_FUNCTION_HEADER_LENGTH 160
 #define MS_OS_20_DESCRIPTOR_SET_TOTAL_LENGTH 178  // Sum of `.Length`s in MS_OS_20_Descriptor in WebUSB.c
 
-#define MS_OS_20_DESCRIPTOR_COMPATIBILITY_ID u8"WINUSB\0"
+#define MS_OS_20_DESCRIPTOR_COMPATIBILITY_ID { 'W', 'I', 'N', 'U', 'S', 'B', 0, 0 }
 #define MS_OS_20_DESCRIPTOR_SUB_COMPATIBILITY_ID {0, 0, 0, 0, 0, 0, 0, 0}
 
 #define MS_OS_20_PROPERTY_NAME_LENGTH 42
-#define MS_OS_20_PROPERTY_NAME u8"DeviceInterfaceGUIDs\0"
+#define MS_OS_20_PROPERTY_NAME { \
+      'D', 0x00, 'e', 0x00, 'v', 0x00, 'i', 0x00, 'c', 0x00, 'e', 0x00, \
+      'I', 0x00, 'n', 0x00, 't', 0x00, 'e', 0x00, 'r', 0x00, 'f', 0x00, \
+      'a', 0x00, 'c', 0x00, 'e', 0x00, 'G', 0x00, 'U', 0x00, 'I', 0x00, \
+      'D', 0x00, 's', 0x00, 0x00, 0x00 \
+    }
 #define MS_OS_20_PROPERTY_DATA_LENGTH 80
-#define MS_OS_20_PROPERTY_DATA u8"{9D32F82C-1FB2-4486-8501-B6145B5BA336}\0\0"
+#define MS_OS_20_PROPERTY_DATA { \
+      '{', 0x00, '9', 0x00, 'D', 0x00, 'B', 0x00, '7', 0x00, 'F', 0x00, \
+      '1', 0x00, 'F', 0x00, 'D', 0x00, '-', 0x00, '7', 0x00, 'E', 0x00, \
+      '7', 0x00, 'A', 0x00, '-', 0x00, '4', 0x00, '0', 0x00, '0', 0x00, \
+      '8', 0x00, '-', 0x00, '9', 0x00, '3', 0x00, '6', 0x00, 'B', 0x00, \
+      '-', 0x00, '6', 0x00, 'B', 0x00, 'A', 0x00, '6', 0x00, 'C', 0x00, \
+      '1', 0x00, '9', 0x00, 'A', 0x00, '3', 0x00, '0', 0x00, '8', 0x00, \
+      'c', 0x00, '}', 0x00, 0x00, 0x00, 0x00, 0x00 \
+    }
 
 #define MS_OS_20_PLATFORM_UUID 0xdf, 0x60, 0xdd, 0xd8, 0x89, 0x45, 0xc7, 0x4c, 0x9c, 0xd2, 0x65, 0x9d, 0x9e, 0x64, 0x8a, 0x9f
 
