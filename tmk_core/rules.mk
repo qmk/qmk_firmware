@@ -50,12 +50,6 @@ $(foreach OUTPUT,$(OUTPUTS),\
 $(foreach OUTPUT,$(OUTPUTS),\
   $(eval NO_LTO_OBJ +=$(call NO_LTO_OBJ_FROM_SRC,NO-LTO/LIB,$(OUTPUT))))
 
-#    Listing objects to be stored in library (*.a)
-#    The current binutils 'ar' command cannot support lto objects, so force the -fno-lto option.
-#    This is a workaround for the 'ar' command not supporting lto objects.
-#    If the 'ar' command supports lto objects, remove the following line:
-$(foreach OUTPUT,$(OUTPUTS),$(eval NO_LTO_OBJ +=$(call NO_LTO_OBJ_FROM_SRC,LIB,$(OUTPUT))))
-
 # Define a list of all objects
 OBJ := $(foreach OUTPUT,$(OUTPUTS),$($(OUTPUT)_OBJ))
 
