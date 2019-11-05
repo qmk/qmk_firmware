@@ -49,7 +49,7 @@
 #    include "hal.h"
 #endif
 #ifdef WEBUSB_ENABLE
-#include "webusb.h"
+#include "webusb_descriptor.h"
 #endif
 
 /*

@@ -40,7 +40,7 @@
 #include "report.h"
 #include "usb_descriptor.h"
 #ifdef WEBUSB_ENABLE
-#include "webusb.h"
+#include "webusb_descriptor.h"
 #endif
 /*
  * HID report descriptors

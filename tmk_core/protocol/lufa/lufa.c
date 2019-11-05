@@ -90,6 +90,10 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
+#ifdef WEBUSB_ENABLE
+#include "webusb.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -307,7 +311,12 @@ static void webusb_task(void) {
         Endpoint_ClearOUT();
 
         if (data_read) {
-            webusb_receive(data, sizeof(data));
+            if(webusb_state.paired == true) {
+                webusb_receive(data, sizeof(data));
+            }
+            else {
+                webusb_error(WEBUSB_STATUS_NOT_PAIRED);
+            }
         }
     }
 }

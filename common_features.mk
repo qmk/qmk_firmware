@@ -234,7 +234,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
 
-	
+
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
@@ -286,6 +286,10 @@ endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    SRC += $(TMK_DIR)/common/webusb.c
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)

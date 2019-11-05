@@ -37,6 +37,9 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef WEBUSB_ENABLE
+#include "webusb.h"
+#endif
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -880,7 +883,12 @@ void webusb_task(void) {
     do {
         size_t size = chnReadTimeout(&drivers.webusb_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
-            webusb_receive(buffer, size);
+            if(webusb_state.paired == true) {
+                webusb_receive(buffer, size);
+            }
+            else {
+                webusb_error(WEBUSB_STATUS_NOT_PAIRED);
+            }
         }
     } while (size > 0);
 }
