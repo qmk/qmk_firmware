@@ -19,7 +19,7 @@
 
 /* USB Device descriptor parameter */
 #undef MANUFACTURER
-#define MANUFACTURER    ErgoDox EZ
+#define MANUFACTURER    ZSA
 #undef PRODUCT
 #define PRODUCT         Planck EZ
 #define DEVICE_VER 0x0000
