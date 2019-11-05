@@ -303,18 +303,18 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
     ```
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
-* `LINK_TIME_OPTIMIZATION_ENABLE`  
-  Enables Link Time Optimization (`LTO`) when compiling the keyboard.
-  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).
-  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
-  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`  
-  Also, rarely some source files will not work properly when compiled with LTO enabled. Such source files should be specified with `/NO-LTO` after the file name.  
-  For example:
-  ```
-  SRC += i2c.c
-  SRC += serial.c/NO-LTO
-  SRC += ssd1306.c
-  ```
+* `LINK_TIME_OPTIMIZATION_ENABLE`
+  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.
+  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+  * Also, rarely some source files will not work properly when compiled with LTO enabled. Such source files should be specified with `/NO-LTO` after the file name.  
+    For example:
+    ```
+    SRC += i2c.c
+    SRC += serial.c/NO-LTO
+    SRC += ssd1306.c
+    ```
+* `LTO_ENABLE`
+  * It has the same meaning as LINK_TIME_OPTIMIZATION_ENABLE.  You can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`. 
 
 ## AVR MCU Options
 * `MCU = atmega32u4`
