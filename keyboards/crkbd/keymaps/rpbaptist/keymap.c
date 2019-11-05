@@ -238,6 +238,9 @@ void render_status(void) {
   oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
   oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
   oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
+
+  oled_write_P(PSTR("\n"), false);
+  oled_write_P(user_config.rgb_matrix_idle_anim ? PSTR("Anim ") : PSTR("     "), false);
 }
 
 void oled_task_user(void) {
