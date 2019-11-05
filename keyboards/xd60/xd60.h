@@ -1,8 +1,6 @@
-#ifndef XD60_H
-#define XD60_H
+#pragma once
 
 #include "quantum.h"
-#include "led.h"
 
 /* XD60 LEDs
  *   GPIO pads
@@ -61,5 +59,3 @@ inline void xd60_bl_led_off(void)     { DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
     { K30,  K31,  K32,  K33,    K34,    K35,  K36,    K37,    K38,    K39,    K3A,  K3B,  KC_NO,  K3D   }, \
     { K40,  K41,  K42,  KC_NO,  KC_NO,  K45,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  K4A,  K4B,  K4C,    K4D   }  \
 }
-
-#endif
