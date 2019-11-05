@@ -10,39 +10,36 @@
 **********************/
 enum layer_names {
     // BASE LAYERS
+        // SHORT CODES
     _QWERTY = 0,
+        _QW = _QWERTY,
     _DVORAK,
+        _DV = _DVORAK,
     _COLEMAK,
+        _CM = _COLEMAK,
     _MAC,
+        _MC = _MAC,
     _QUAKE2,
+        _Q2 = _QUAKE2,
     _QUAKE2_DVORAK,
+        _QD = _QUAKE2_DVORAK,
     _QUAKE2_CONSOLE,
-
+        _QC = _QUAKE2_CONSOLE,
     // FUNCTION LAYERS
     _FUNCWIN,
+        _FW = _FUNCWIN,
     _FUNCMAC,
+        _FM = _FUNCMAC,
     _FUNCQ2,
-
+        _FQ = _FUNCQ2,
     // OTHER LAYERS
     _NUMPAD,
+        _NP = _NUMPAD,
     _MACROS,
-    _SYSTEM
+        _MA = _MACROS,
+    _SYSTEM,
+        _SY = _SYSTEM,
 };
-
-// LAYER SHORT CODES
-#define _QW _QWERTY
-#define _DV _DVORAK
-#define _CM _COLEMAK
-#define _MC _MAC
-#define _Q2 _QUAKE2
-#define _QD _QUAKE2_DVORAK
-#define _QC _QUAKE2_CONSOLE
-#define _FW _FUNCWIN
-#define _FM _FUNCMAC
-#define _FQ _FUNCQ2
-#define _NP _NUMPAD
-#define _MA _MACROS
-#define _SY _SYSTEM
 
 
 // KEYCODE DEFINITIONS
