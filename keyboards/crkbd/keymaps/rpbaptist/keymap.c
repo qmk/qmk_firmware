@@ -389,6 +389,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       hypno_timer = timer_read32();
       if (rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
           rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+          if (!user_config.rgb_layer_change) {
+            rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+          }
       }
     }
   #endif
