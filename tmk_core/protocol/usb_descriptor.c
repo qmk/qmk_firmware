@@ -476,7 +476,7 @@ const USB_Descriptor_Configuration_t PROGMEM
 
                                       .Refresh            = 0,
                                       .SyncEndpointNumber = 0},
-            .MIDI_In_Jack_Endpoint_SPC  = {.Header = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = AUDIO_DSUBTYPE_CSEndpoint_General}, .Subtype = AUDIO_DSUBTYPE_CSEndpoint_General, .TotalEmbeddedJacks = 0x01, .AssociatedJackID = {0x01}},
+            .MIDI_In_Jack_Endpoint_SPC  = {.Header = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = AUDIO_DTYPE_CSEndpoint}, .Subtype = AUDIO_DSUBTYPE_CSEndpoint_General, .TotalEmbeddedJacks = 0x01, .AssociatedJackID = {0x01}},
             .MIDI_Out_Jack_Endpoint     = {.Endpoint = {.Header = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint}, .EndpointAddress = MIDI_STREAM_IN_EPADDR, .Attributes = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = MIDI_STREAM_EPSIZE, .PollingIntervalMS = 0x05},
 
                                        .Refresh            = 0,
