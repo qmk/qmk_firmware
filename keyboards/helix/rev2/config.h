@@ -100,6 +100,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_NUM 6
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+#    undef RGBLED_NUM
+#    define RGBLED_NUM 64
+#    define DRIVER_LED_TOTAL RGBLED_NUM
+#endif
+
 #ifndef IOS_DEVICE_ENABLE
   #if RGBLED_NUM <= 6
     #define RGBLIGHT_LIMIT_VAL 255
