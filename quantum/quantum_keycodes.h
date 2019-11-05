@@ -503,6 +503,9 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_CTL_GUI,
     MAGIC_TOGGLE_CTL_GUI,
 
+#ifdef WEBUSB_ENABLE
+    WEBUSB_PAIR,
+#endif
     // always leave at the end
     SAFE_RANGE
 };

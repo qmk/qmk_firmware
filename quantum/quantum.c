@@ -57,6 +57,10 @@
 #    include "encoder.h"
 #endif
 
+#ifdef WEBUSB_ENABLE
+#    include "webusb.h"
+#endif
+
 #ifdef AUDIO_ENABLE
 #    ifndef GOODBYE_SONG
 #        define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -712,6 +716,13 @@ bool process_record_quantum(keyrecord_t *record) {
             }
             return false;
         }
+#endif
+#ifdef WEBUSB_ENABLE
+        case WEBUSB_PAIR:
+            if (record->event.pressed) {
+                webusb_state.paired = true;
+            }
+            return false;
 #endif
     }
 
