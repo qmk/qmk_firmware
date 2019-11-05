@@ -258,7 +258,7 @@ void audio_init() {
     }
 
 // Check EEPROM
-#if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+#ifdef EEPROM_ENABLE
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
