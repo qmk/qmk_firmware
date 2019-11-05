@@ -42,7 +42,7 @@ Based on the Windows function layer, but removes some functions that are pointle
 
 Keycode(s) Sent                   | Notes
 :-------------------------------- | :----
-[`Q2_GRV`](./keymap.c#L196-L203)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
+[`Q2_GRV`](./keymap.c#L193-L200)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
 
 
 

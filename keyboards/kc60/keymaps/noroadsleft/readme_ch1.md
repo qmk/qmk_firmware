@@ -12,9 +12,10 @@
 
 ## Layer 0: QWERTY - `_QW`
 
-Standard QWERTY layout, with three QMK features:
+Standard QWERTY layout, with four QMK features:
 
 - The `Menu` key has been replaced by `MO(_FW)`, which moves to my Windows Fn layer when held.
+- The Right `GUI` key has been replaced with a `MO(_MA)` key, which moves to the Macro layer when held.
 - The `Caps Lock` key has been replaced with a dual function `LT()` key, which opens the Windows Fn layer when held, and is `Caps Lock` when tapped
 - The Left `Control` key has been replaced with a `MT(MOD_CTRL, KC_GRV)` key, which is <code>&#96; ~</code> when tapped and `Ctrl` when held.
 
