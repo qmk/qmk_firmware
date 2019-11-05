@@ -20,6 +20,8 @@
 
 #include "keymap_workman.h"
 
+// clang-format off
+
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // NUL   SOH      STX      ETX      EOT      ENQ      ACK      BEL
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

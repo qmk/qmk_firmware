@@ -16,86 +16,65 @@
 #include "process_midi.h"
 
 #ifdef MIDI_ENABLE
-#include <LUFA/Drivers/USB/USB.h>
-#include "midi.h"
-#include "qmk_midi.h"
+#    include <LUFA/Drivers/USB/USB.h>
+#    include "midi.h"
+#    include "qmk_midi.h"
 
-#ifdef MIDI_BASIC
+#    ifdef MIDI_BASIC
 
-void process_midi_basic_noteon(uint8_t note)
-{
-    midi_send_noteon(&midi_device, 0, note, 127);
-}
+void process_midi_basic_noteon(uint8_t note) { midi_send_noteon(&midi_device, 0, note, 127); }
 
-void process_midi_basic_noteoff(uint8_t note)
-{
-    midi_send_noteoff(&midi_device, 0, note, 0);
-}
+void process_midi_basic_noteoff(uint8_t note) { midi_send_noteoff(&midi_device, 0, note, 0); }
 
-void process_midi_all_notes_off(void)
-{
-    midi_send_cc(&midi_device, 0, 0x7B, 0);
-}
+void process_midi_all_notes_off(void) { midi_send_cc(&midi_device, 0, 0x7B, 0); }
 
-#endif // MIDI_BASIC
+#    endif  // MIDI_BASIC
 
-#ifdef MIDI_ADVANCED
+#    ifdef MIDI_ADVANCED
 
-#include "timer.h"
+#        include "timer.h"
 
 static uint8_t tone_status[MIDI_TONE_COUNT];
 
-static uint8_t midi_modulation;
-static int8_t midi_modulation_step;
+static uint8_t  midi_modulation;
+static int8_t   midi_modulation_step;
 static uint16_t midi_modulation_timer;
-midi_config_t midi_config;
+midi_config_t   midi_config;
 
-inline uint8_t compute_velocity(uint8_t setting)
-{
-    return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1));
-}
+inline uint8_t compute_velocity(uint8_t setting) { return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1)); }
 
-void midi_init(void)
-{
-    midi_config.octave = MI_OCT_2 - MIDI_OCTAVE_MIN;
-    midi_config.transpose = 0;
-    midi_config.velocity = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
-    midi_config.channel = 0;
+void midi_init(void) {
+    midi_config.octave              = MI_OCT_2 - MIDI_OCTAVE_MIN;
+    midi_config.transpose           = 0;
+    midi_config.velocity            = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
+    midi_config.channel             = 0;
     midi_config.modulation_interval = 8;
 
-    for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++)
-    {
+    for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++) {
         tone_status[i] = MIDI_INVALID_NOTE;
     }
 
-    midi_modulation = 0;
-    midi_modulation_step = 0;
+    midi_modulation       = 0;
+    midi_modulation_step  = 0;
     midi_modulation_timer = 0;
 }
 
-uint8_t midi_compute_note(uint16_t keycode)
-{
-    return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose;
-}
+uint8_t midi_compute_note(uint16_t keycode) { return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose; }
 
-bool process_midi(uint16_t keycode, keyrecord_t *record)
-{
+bool process_midi(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MIDI_TONE_MIN ... MIDI_TONE_MAX:
-        {
-            uint8_t channel = midi_config.channel;
-            uint8_t tone = keycode - MIDI_TONE_MIN;
+        case MIDI_TONE_MIN ... MIDI_TONE_MAX: {
+            uint8_t channel  = midi_config.channel;
+            uint8_t tone     = keycode - MIDI_TONE_MIN;
             uint8_t velocity = compute_velocity(midi_config.velocity);
             if (record->event.pressed) {
                 uint8_t note = midi_compute_note(keycode);
                 midi_send_noteon(&midi_device, channel, note, velocity);
                 dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
                 tone_status[tone] = note;
-            }
-            else {
+            } else {
                 uint8_t note = tone_status[tone];
-                if (note != MIDI_INVALID_NOTE)
-                {
+                if (note != MIDI_INVALID_NOTE) {
                     midi_send_noteoff(&midi_device, channel, note, velocity);
                     dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
                 }
@@ -137,8 +116,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             if (record->event.pressed && midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
                 const bool positive = midi_config.transpose > 0;
                 midi_config.transpose++;
-                if (positive && midi_config.transpose < 0)
-                    midi_config.transpose--;
+                if (positive && midi_config.transpose < 0) midi_config.transpose--;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
             return false;
@@ -211,8 +189,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             if (record->event.pressed) {
                 midi_config.modulation_interval++;
                 // prevent overflow
-                if (midi_config.modulation_interval == 0)
-                    midi_config.modulation_interval--;
+                if (midi_config.modulation_interval == 0) midi_config.modulation_interval--;
                 dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
             }
             return false;
@@ -226,8 +203,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             if (record->event.pressed) {
                 midi_send_pitchbend(&midi_device, midi_config.channel, -0x2000);
                 dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, -0x2000);
-            }
-            else {
+            } else {
                 midi_send_pitchbend(&midi_device, midi_config.channel, 0);
                 dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0);
             }
@@ -236,8 +212,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             if (record->event.pressed) {
                 midi_send_pitchbend(&midi_device, midi_config.channel, 0x1fff);
                 dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0x1fff);
-            }
-            else {
+            } else {
                 midi_send_pitchbend(&midi_device, midi_config.channel, 0);
                 dprintf("midi pitchbend channel:%d amount:%d\n", midi_config.channel, 0);
             }
@@ -247,35 +222,29 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
     return true;
 }
 
-#endif // MIDI_ADVANCED
+#    endif  // MIDI_ADVANCED
 
-void midi_task(void)
-{
+void midi_task(void) {
     midi_device_process(&midi_device);
-#ifdef MIDI_ADVANCED
-    if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval)
-        return;
+#    ifdef MIDI_ADVANCED
+    if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval) return;
     midi_modulation_timer = timer_read();
 
-    if (midi_modulation_step != 0)
-    {
+    if (midi_modulation_step != 0) {
         dprintf("midi modulation %d\n", midi_modulation);
         midi_send_cc(&midi_device, midi_config.channel, 0x1, midi_modulation);
 
         if (midi_modulation_step < 0 && midi_modulation < -midi_modulation_step) {
-            midi_modulation = 0;
+            midi_modulation      = 0;
             midi_modulation_step = 0;
             return;
         }
 
         midi_modulation += midi_modulation_step;
 
-        if (midi_modulation > 127)
-            midi_modulation = 127;
+        if (midi_modulation > 127) midi_modulation = 127;
     }
-#endif
+#    endif
 }
 
-
-
-#endif // MIDI_ENABLE
+#endif  // MIDI_ENABLE

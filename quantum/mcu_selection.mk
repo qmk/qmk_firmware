@@ -36,7 +36,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   DFU_SUFFIX_ARGS = -p DF11 -v 0483
 endif
 
-ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
+ifneq (,$(filter $(MCU),atmega16u2 atmega32u2 atmega16u4 atmega32u4 at90usb646 at90usb1286))
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -90,4 +90,19 @@ ifneq (,$(filter $(MCU),atmega32a))
 
   # Programming options
   PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
+endif
+
+ifneq (,$(filter $(MCU),atmega328p))
+  PROTOCOL = VUSB
+
+  # Processor frequency.
+  #     This will define a symbol, F_CPU, in all source code files equal to the
+  #     processor frequency in Hz. You can then use this symbol in your source code to
+  #     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+  #     automatically to create a 32-bit value in your source code.
+  F_CPU ?= 16000000
+
+  # unsupported features for now
+  NO_UART ?= yes
+  NO_SUSPEND_POWER_DOWN ?= yes
 endif

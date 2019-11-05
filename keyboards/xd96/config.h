@@ -238,7 +238,3 @@
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
-
-// LTO options
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

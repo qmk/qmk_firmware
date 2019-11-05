@@ -125,18 +125,18 @@
 
 // TODO: refactor with new user EEPROM code (coming soon)
 #define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
+#define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
 #define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#define EEPROM_VERSION_ADDR 36
 
 // Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+31)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
-// Dynamic macro starts after dynamic keymaps (66+(4*5*15*2)) = (66+600)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 666
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 358
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+// Dynamic keymap starts after backlight config (37+31)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 68
+// Dynamic macro starts after dynamic keymaps (68+(4*5*15*2)) = (68+600)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 668
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 356
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

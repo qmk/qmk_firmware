@@ -9,15 +9,20 @@
 * [QMK Basics](README.md)
   * [QMK Introduction](getting_started_introduction.md)
   * [QMK CLI](cli.md)
+  * [QMK CLI Config](cli_configuration.md)
   * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
   * [Getting Help](getting_started_getting_help.md)
+
+* [Breaking Changes](breaking_changes.md)
+  * [2019 Aug 30](ChangeLog/20190830.md)
 
 * [FAQ](faq.md)
   * [General FAQ](faq_general.md)
   * [Build/Compile QMK](faq_build.md)
   * [Debugging/Troubleshooting QMK](faq_debug.md)
   * [Keymap](faq_keymap.md)
+  * [Driver Installation with Zadig](driver_installation_zadig.md)
 
 * Detailed Guides
   * [Install Build Tools](getting_started_build_tools.md)
@@ -44,7 +49,7 @@
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
   * [info.json Format](reference_info_json.md)
-  * [Python Development](python_development.md)
+  * [Python CLI Development](cli_development.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
@@ -59,6 +64,7 @@
   * [Combos](feature_combo.md)
   * [Command](feature_command.md)
   * [Debounce API](feature_debounce_type.md)
+  * [DIP Switch](feature_dip_switch.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)
@@ -92,6 +98,7 @@
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
   * [I2C Driver](i2c_driver.md)
+  * [WS2812 Driver](ws2812_driver.md)
   * [GPIO Controls](internals_gpio_control.md)
   * [Proton C Conversion](proton_c_conversion.md)
 
@@ -103,6 +110,7 @@
   * [Using Eclipse with QMK](other_eclipse.md)
   * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
+  * [How to add translations](translating.md)
 
 * QMK Internals (In Progress)
   * [Defines](internals_defines.md)

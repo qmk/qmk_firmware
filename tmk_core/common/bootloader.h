@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef BOOTLOADER_H
 #define BOOTLOADER_H
 
-
 /* give code for your bootloader to come up if needed */
 void bootloader_jump(void);
 

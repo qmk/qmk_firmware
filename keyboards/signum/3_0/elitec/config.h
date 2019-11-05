@@ -10,6 +10,9 @@
 #define PRODUCT         Signum
 #define DESCRIPTION     q.m.k. keyboard firmware for Signum 3.0
 
+/* mouse settings */
+#define MK_KINETIC_SPEED
+
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12

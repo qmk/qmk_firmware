@@ -1,6 +1,6 @@
 # Keyboards with AVR Processors
 
-This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCU's that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
+This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCUs that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
 
 If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_guidelines.md) to get a sense of how keyboards fit into QMK.
 
@@ -78,7 +78,7 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DESCRIPTION     A custom keyboard
 ```
 
-?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. ?> On Linux these values will not be visible in lsusb by default, since Linux takes the information from the list maintained by [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. lsusb will show the information reported by the device when executed with -v option. It is also present in kernel logs after plugging in the device.
+?> Windows and macOS will display the `MANUFACTURER` and `PRODUCT` in the list of USB devices. `lsusb` on Linux instead takes these from the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. `lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
 
 ### Keyboard Matrix Configuration
 
