@@ -297,6 +297,16 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
 
+## [Dynamic Macros](feature_dynamic_macros.md)
+
+|Key              |Alias    |Description                                       |
+|-----------------|---------|--------------------------------------------------|
+|`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
+|`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
+|`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
+|`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
+|`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
+
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
