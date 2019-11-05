@@ -2,7 +2,11 @@
 
     /* Dvorak keymap for Minivan default layout (44 keys)
      *
-     * Escape always goes back to default layer.
+     * - Basic layers are: letters, numbers and remaining symbols, movement.
+     * - 'Escape' always goes back to default layer.
+     * - All other layers are through the _FUN layer on toggle.
+     * - A lot of the modifiers, Del/Esc, alt-arrows repeat on layers.
+     * - Layer switching by thumb hold keys (except _FUN).
      *
      * */
 
@@ -16,23 +20,25 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  
-    /* Layer 0: Dvorak, layers under thumbs, two arrows (not for normal typing).
+    /* Layer 0: Dvorak
      *
+     * - Dual use keys create a delay in the key (tap/hold keys), therefore
+     *   space is not dual use (most used key), neither is hyphen.
      */ 
 
     [ _LTR ] = LAYOUT (
 
-        /*  Esc      '"  ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
-         *  Tab+LCtl  aA  oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
-         *  LSht       ;:  qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
-         *  Left+LAlt   ?  _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
-         *                 toggle    hold          hold toggle 
+        /*  Esc      '"   ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
+         *  Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
+         *  LSht       ;:   qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
+         *  Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
+         *                  hold      hold          hold toggle 
          */
 
         KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P   , KC_Y        , KC_F        , KC_G     , KC_C     , KC_R , KC_L , KC_BSPC ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O        , KC_E                 , KC_U   , KC_I        , KC_D        , KC_H     , KC_T     , KC_N , KC_S , KC_MINS ,
         KC_LSFT            , KC_SCLN , KC_Q        , KC_J                 , KC_K   , KC_X        , KC_B        , KC_M     , KC_W     , KC_V , KC_Z , KC_RSFT ,
-        LALT_T ( KC_LEFT )  , KC_QUES , TG ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , RALT_T ( KC_RIGHT )
+        LALT_T ( KC_LEFT )  , KC_DEL  , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , RALT_T ( KC_RIGHT )
                       ) ,
 
 
@@ -56,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ) ,
 
     /* Layer 2: Function keys,
-     * Toward any layer by toggle.
+     *          Toward any layer by toggle.
      */
 
     [ _FUN ] = LAYOUT (
