@@ -115,11 +115,6 @@
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
-// Backlight config reuses VIA's EEPROM magic.
-// Bump this independently. Not required for keyboard code
-// that doesn't store its own state to EEPROM.
-#define VIA_EEPROM_EXTRA_MAGIC 0x0000
-
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31

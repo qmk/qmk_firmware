@@ -197,11 +197,6 @@
 // the default effect speed (0-3)
 #define MONO_BACKLIGHT_EFFECT_SPEED 0
 
-// Backlight config reuses VIA's EEPROM magic.
-// Bump this independently. Not required for keyboard code
-// that doesn't store its own state to EEPROM.
-#define VIA_EEPROM_EXTRA_MAGIC 0x0000
-
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
