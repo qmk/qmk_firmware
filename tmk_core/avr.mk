@@ -6,8 +6,13 @@ CC = avr-gcc
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size
-AR = avr-ar
-NM = avr-nm
+ifeq ($(strip $(LINK_TIME_OPTIMIZATION_ENABLE)), yes)
+  AR = avr-gcc-ar
+  NM = avr-gcc-nm
+else
+  AR = avr-ar
+  NM = avr-nm
+endif
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
