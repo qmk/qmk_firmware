@@ -1,12 +1,13 @@
 #include "alice.h"
 
+__attribute__ ((weak))
 void matrix_init_board(void){
     setPinOutput(A0);
     setPinOutput(A1);
     setPinOutput(A2);
 }
 
-
+__attribute__ ((weak))
 void led_set_kb(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
         writePinLow(A0);
