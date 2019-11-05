@@ -1,8 +1,25 @@
 KEYBOARD_LOCAL_FEATURES_MK := $(dir $(lastword $(MAKEFILE_LIST)))local_features.mk
 
-SRC += local_drivers/i2c.c
-SRC += local_drivers/serial.c/NO-LTO
-SRC += local_drivers/ssd1306.c
+ifneq ($(strip $(NO_LTO_SRC_TEST)),)
+  SRC += local_drivers/i2c.c
+  ifeq ($(strip $(NO_LTO_SRC_TEST)),no-lto)
+    SRC += local_drivers/serial.c/NO-LTO
+  else
+    SRC += local_drivers/serial.c
+  endif
+  SRC += local_drivers/ssd1306.c
+  $(info SRC=$(SRC))
+else
+  ifeq ($(strip $(NO_LTO_LIB_TEST)),no-lto)
+    LIB_SRC += local_drivers/serial.c/NO-LTO
+  else
+    LIB_SRC += local_drivers/serial.c
+  endif
+  LIB_SRC += local_drivers/ssd1306.c
+  LIB_SRC += local_drivers/i2c.c
+  $(info LIB_SRC=$(LIB_SRC))
+endif
+
 KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
 
 CUSTOM_MATRIX = yes
