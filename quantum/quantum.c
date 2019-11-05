@@ -79,6 +79,10 @@ float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
 #endif
 
+#ifdef VIA_ENABLE
+#   include "via.h"
+#endif
+
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -234,6 +238,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif  // HAPTIC_ENABLE
 #if defined(RGB_MATRIX_ENABLE)
             process_rgb_matrix(keycode, record) &&
+#endif
+#if defined(VIA_ENABLE)
+            process_record_via(keycode, record) &&
 #endif
             process_record_kb(keycode, record) &&
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)

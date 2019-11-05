@@ -33,18 +33,20 @@
 #include "wt_rgb_backlight_keycodes.h"
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65)
-#include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 #include "drivers/avr/i2c_master.h"
 #else
 #include "ch.h"
 #include "hal.h"
 #include "drivers/arm/i2c_master.h"
-#include "tmk_core/common/eeprom.h"
 #endif
+
 #include "progmem.h"
 #include "quantum/color.h"
+#include "tmk_core/common/eeprom.h"
+
+#include "via.h" // uses only the EEPROM address
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/issi/is31fl3218.h"

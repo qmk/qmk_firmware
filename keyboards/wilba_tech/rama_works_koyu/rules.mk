@@ -20,7 +20,7 @@ OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
@@ -36,8 +36,6 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
 CIE1931_CURVE = yes
 
 # project specific files

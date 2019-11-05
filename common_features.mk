@@ -342,6 +342,14 @@ ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/velocikey.c
 endif
 
+ifeq ($(strip $(VIA_ENABLE)), yes)
+    DYNAMIC_KEYMAP_ENABLE = yes
+    RAW_ENABLE = yes
+    BOOTMAGIC_ENABLE = lite
+    SRC += $(QUANTUM_DIR)/via.c
+    OPT_DEFS += -DVIA_ENABLE
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c

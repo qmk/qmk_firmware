@@ -19,5 +19,5 @@ void backlight_set(uint8_t level);
 bool is_breathing(void);
 void breathing_enable(void);
 void breathing_disable(void);
-void load_custom_config(void);
-void save_backlight_config_to_eeprom(void);
+void backlight_config_load(void);
+void backlight_config_save(void);

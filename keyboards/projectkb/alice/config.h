@@ -58,29 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PIN_WS2812      15
 #define WS2812_SPI SPID2
 
-
-// EEPROM usage
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x01
-#define EEPROM_VERSION_ADDR 34
-
-#define EEPROM_CUSTOM_BACKLIGHT 804
-
-#undef EEPROM_MAGIC_ADDR
-#define EEPROM_MAGIC_ADDR 34
-#undef EEPROM_VERSION_ADDR
-#define EEPROM_VERSION_ADDR 36
-#undef RGB_BACKLIGHT_CONFIG_EEPROM_ADDR
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
-#undef DYNAMIC_KEYMAP_EEPROM_ADDR 
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 68
-#undef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 66
+// Backlight config starts after VIA's EEPROM usage,
+// dynamic keymaps start after this.
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 1
 
 /*
  * Feature disable options
