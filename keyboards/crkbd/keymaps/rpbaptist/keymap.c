@@ -30,7 +30,7 @@ typedef union {
     bool     rgb_layer_change        :1;
     bool     rgb_matrix_idle_anim    :1;
     uint8_t  rgb_matrix_rest_mode    :4;
-    uint16_t rgb_matrix_rest_timeout :15;
+    uint16_t rgb_matrix_rest_timeout :16;
   };
 } user_config_t;
 
@@ -325,7 +325,7 @@ void rgb_matrix_set_defaults(void) {
   user_config.rgb_layer_change     = true;
   user_config.rgb_matrix_idle_anim = true;
   user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
-  user_config.rgb_matrix_rest_timeout = 30000;
+  user_config.rgb_matrix_rest_timeout = 50000;
 
   eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
   eeconfig_update_user(user_config.raw);
@@ -420,7 +420,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           rgb_matrix_config.speed = RGB_MATRIX_ANIMATION_SPEED_SLOWER;
           user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
-          user_config.rgb_matrix_rest_timeout = 30000;
+          user_config.rgb_matrix_rest_timeout = 50000;
           eeconfig_update_user(user_config.raw);
         }
         return true;
