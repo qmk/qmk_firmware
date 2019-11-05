@@ -16,7 +16,7 @@
  */
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
-#include "quantum.h"
+#include "process_dynamic_macro.h"
 
 // default feedback method
 void dynamic_macro_led_blink(void) {
@@ -70,7 +70,7 @@ void dynamic_macro_record_start(keyrecord_t **macro_pointer, keyrecord_t *macro_
 void dynamic_macro_play(keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_t direction) {
     dprintf("dynamic macro: slot %d playback\n", DYNAMIC_MACRO_CURRENT_SLOT());
 
-    uint32_t saved_layer_state = layer_state;
+    layer_state_t saved_layer_state = layer_state;
 
     clear_keyboard();
     layer_clear();
