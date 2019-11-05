@@ -1,9 +1,7 @@
 {
-    "keyboard_name": "Kudox Keyboard",
-    "url": "",
+    "url": "http://kumaokobo.com/",
     "maintainer": "Kumao Kobo",
-    "width": 17,
-    "height": 6,
+    "keyboard_name": "Kudox Keyboard Rev2",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -13,11 +11,13 @@
                 {"label":"3", "x":3, "y":0},
                 {"label":"4", "x":4, "y":0},
                 {"label":"5", "x":5, "y":0},
-                {"label":"6", "x":11, "y":0},
-                {"label":"7", "x":12, "y":0},
-                {"label":"8", "x":13, "y":0},
-                {"label":"9", "x":14, "y":0},
-                {"label":"0", "x":15, "y":0},
+                {"label":"`", "x":6, "y":0},
+                {"label":"6", "x":10, "y":0},
+                {"label":"7", "x":11, "y":0},
+                {"label":"8", "x":12, "y":0},
+                {"label":"9", "x":13, "y":0},
+                {"label":"0", "x":14, "y":0},
+                {"label":"-", "x":15, "y":0},
                 {"label":"\u2190", "x":16, "y":0},
                 {"label":"Tab", "x":0, "y":1, "w":1.25},
                 {"label":"Q", "x":1.25, "y":1},
