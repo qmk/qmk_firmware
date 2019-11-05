@@ -15,11 +15,11 @@
  */
 
 #ifndef RAW_ENABLE
-#error "RAW_ENABLE is not enabled"
+#    error "RAW_ENABLE is not enabled"
 #endif
 
 #ifndef DYNAMIC_KEYMAP_ENABLE
-#error "DYNAMIC_KEYMAP_ENABLE is not enabled"
+#    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
 #endif
 
 #include "quantum.h"
@@ -80,9 +80,7 @@ void bootmagic_lite(void)
 
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
-#if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
-    wait_ms(DEBOUNCING_DELAY * 2);
-#elif defined(DEBOUNCE) && DEBOUNCE > 0
+#if defined(DEBOUNCE) && DEBOUNCE > 0
     wait_ms(DEBOUNCE * 2);
 #else
     wait_ms(30);

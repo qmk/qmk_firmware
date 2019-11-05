@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include <tmk_core/common/eeconfig.h> // for EECONFIG_SIZE
+
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,
 // thus installing firmware built on a different date to the one
@@ -23,7 +25,7 @@
 // The only reason this is important is in case EEPROM usage changes
 // and the EEPROM was not explicitly reset by bootmagic lite.
 #ifndef VIA_EEPROM_MAGIC_ADDR
-#	define VIA_EEPROM_MAGIC_ADDR 34
+#   define VIA_EEPROM_MAGIC_ADDR (EECONFIG_SIZE)
 #endif
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_ADDR (VIA_EEPROM_MAGIC_ADDR+3)

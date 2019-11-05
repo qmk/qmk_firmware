@@ -84,7 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "velocikey.h"
 #endif
 #ifdef VIA_ENABLE
-#   include "via.h"
+#    include "via.h"
 #endif
 
 // Only enable this if console is enabled to print to
@@ -221,7 +221,7 @@ void keyboard_init(void) {
     timer_init();
     matrix_init();
 #ifdef VIA_ENABLE
-	via_init();
+    via_init();
 #endif
 #ifdef QWIIC_ENABLE
     qwiic_init();
