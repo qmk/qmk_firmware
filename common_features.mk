@@ -231,15 +231,16 @@ endif
 
 # backward compat
 ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
-    BACKLIGHT_ENABLE = custom
+    BACKLIGHT_DRIVER = custom
 endif
 
-VALID_BACKLIGHT_TYPES := yes software custom
+VALID_BACKLIGHT_TYPES := pwm software custom
 
 BACKLIGHT_ENABLE ?= no
-ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
-    ifeq ($(filter $(BACKLIGHT_ENABLE),$(VALID_BACKLIGHT_TYPES)),)
-        $(error BACKLIGHT_ENABLE="$(BACKLIGHT_ENABLE)" is not a valid backlight type)
+BACKLIGHT_DRIVER ?= pwm
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
+        $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
     endif
 
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
@@ -250,10 +251,10 @@ ifneq ($(strip $(BACKLIGHT_ENABLE)), no)
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
-    ifeq ($(strip $(BACKLIGHT_ENABLE)), software)
+    ifeq ($(strip $(BACKLIGHT_DRIVER)), software)
         SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
     else
-        ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
             OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
         endif
 
