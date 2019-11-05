@@ -12,8 +12,10 @@
 #define KC__VUP KC__VOLUP
 #define KC__VDN KC__VOLDOWN
 #define KC_____ KC_TRNS
-#define KC_ENTS SFT_T(KC_ENT)
+#define KC_ENTS KC_SFTENT
 #define KC__TGN TG(_NUM)
+#define KC__TAN LCMD(KC_RCBR)
+#define KC__TAP LCMD(KC_LCBR)
 
 #ifndef RGBLIGHT_ENABLE
 #    define RGB_TOG KC_TRNS
@@ -48,7 +50,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14_kc(
     GRV,  1,    2,    3,    4,    5,    MINS, _TGN, 6,    7,    8,    9,    0,    EQL,
-    TAB,  Q,    W,    E,    R,    T,    LBRC, RBRC, Y,    U,    I,    O,    P,    BSLS,
+    TAB,  Q,    W,    E,    R,    T,    _TAP, _TAN, Y,    U,    I,    O,    P,    BSLS,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
     _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1, BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
