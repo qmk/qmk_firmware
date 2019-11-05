@@ -21,7 +21,7 @@ make kudox/rev2:default
 Example of flashing this keyboard:
 
 ```sh
-make kudox/rev2:default:avrdude
+make kudox/rev2:default:flash
 ```
 
 *keymaps/default is for rev2.0. If you want to use rev1.0, you should remove Left-06 key and Right-06 key.*
