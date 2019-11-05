@@ -683,7 +683,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MIDI_In_Jack_Endpoint_SPC = {
         .Header = {
             .Size               = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t),
-            .Type               = AUDIO_DSUBTYPE_CSEndpoint_General
+            .Type               = AUDIO_DTYPE_CSEndpoint
         },
         .Subtype                = AUDIO_DSUBTYPE_CSEndpoint_General,
         .TotalEmbeddedJacks     = 0x01,

@@ -1,3 +1,5 @@
+SRC += bcat.c
+
 # Enable Bootmagic Lite to consistently reset to bootloader and clear EEPROM.
 BOOTMAGIC_ENABLE = lite
 
@@ -16,3 +18,6 @@ SLEEP_LED_ENABLE = no
 UCIS_ENABLE = no
 UNICODE_ENABLE = no
 UNICODEMAP_ENABLE = no
+
+# Enable link-time optimization to reduce binary size.
+LINK_TIME_OPTIMIZATION_ENABLE = yes

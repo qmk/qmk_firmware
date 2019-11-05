@@ -26,7 +26,7 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
 
         module = line.split('=')[0] if '=' in line else line
         if not find_spec(module):
-            print('Could not find module %s!', module)
+            print('Could not find module %s!' % module)
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
             exit(255)
 
