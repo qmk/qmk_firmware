@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,29 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ares.h"
+#pragma once
 
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void) {
-	setPinOutput(D0);
-	setPinOutput(D1);
-	setPinOutput(D4);
-	setPinOutput(D6);
-}
+// #define USE_I2C
+#define EE_HANDS
 
-void backlight_set(uint8_t level) {
-	if (level == 0) {
-		// Turn out the lights
-		writePinLow(D0);
-		writePinLow(D1);
-		writePinLow(D4);
-		writePinLow(D6);
-	} else {
-		// Turn on the lights
-		writePinHigh(D0);
-		writePinHigh(D1);
-		writePinHigh(D4);
-		writePinHigh(D6);
-	}
-}
-#endif
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 2
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+
+#ifndef NO_DEBUG
+#    define NO_DEBUG
+#endif  // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#    define NO_PRINT
+#endif  // !NO_PRINT
