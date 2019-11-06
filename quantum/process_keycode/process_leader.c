@@ -23,10 +23,6 @@
 #        define LEADER_TIMEOUT 300
 #    endif
 
-#    ifndef LEADER_ABORT
-#        define LEADER_ABORT KC_LEAD
-#    endif
-
 __attribute__((weak)) void leader_start(void) {}
 
 __attribute__((weak)) void leader_end(void) {}
@@ -71,11 +67,13 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                     keycode = keycode & 0xFF;
                 }
 #    endif  // LEADER_KEY_STRICT_KEY_PROCESSING
+#    ifdef LEADER_ABORT
                 if (keycode == LEADER_ABORT) {
                     leading = false;
                     leader_end();
                     return false;
                 }
+#    endif  // LEADER_ABORT
                 if (leader_sequence_size < (sizeof(leader_sequence) / sizeof(leader_sequence[0]))) {
                     leader_sequence[leader_sequence_size] = keycode;
                     leader_sequence_size++;
@@ -85,7 +83,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
                         leader_end();
                         return false;
                     }
-#    endif // LEADER_ON_KEY_PROCESSING
+#    endif  // LEADER_ON_KEY_PROCESSING
                 } else {
                     leading = false;
                     leader_end();
