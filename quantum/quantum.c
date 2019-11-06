@@ -982,7 +982,7 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
 #endif
 
-#if defined(LEADER_ENABLE) && defined(LEADER_ON_KEY_PROCESSING)
+#if defined(LEADER_ENABLE)
     matrix_scan_leader();
 #endif
 

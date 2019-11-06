@@ -52,11 +52,13 @@ void qk_leader_start(void) {
 }
 
 void matrix_scan_leader(void) {
+#    ifdef LEADER_ON_KEY_PROCESSING
     if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT) {
         leader_process_user(leader_sequence, true);
         leading = false;
         leader_end();
     }
+#    endif
 }
 
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
