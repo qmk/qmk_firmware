@@ -69,6 +69,8 @@ void matrix_scan_cmd_tab(void);
 #define MC_MSSN   KC_FIND              // Mission Control: Configure karabiner for find -> mission_control
 #define MC_LHPD   KC_MENU              // Launchpad: Configure karabiner for menu -> Launchpad
 #define MC_CMTB   LGUI(KC_TAB)         // Basic CMD+TAB
+#define MC_BACK   LGUI(KC_LBRC)        // Cmd+[: Back
+#define MC_FWRD   LGUI(KC_RBRC)        // Cmd+]: Forward
 #define CLS_TAB   LGUI(KC_W)           // Cmd+W: Closes Tab
 #define REO_TAB   LSFT(LGUI(KC_T))     // Shift+Cmd+T: Reopen Last Tab
 #define NXT_TAB   LCTL(KC_TAB)         // Control+Tab: Next Tab
