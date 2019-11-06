@@ -27,6 +27,9 @@ void led_set_kb(uint8_t usb_led) {
 
 // clang-format off
 led_config_t g_led_config = { {
+  #if MATRIX_ROWS == 8 // HELIX_ROWS == 4
+    #error RGB_MATRIX_ENABLE does not yet support HELIX_ROWS == 4.
+  #else
     // Key Matrix to LED Index
     {  5,  4,  3,  2,  1,  0, NO_LED, },
     {  6,  7,  8,  9, 10, 11, NO_LED, },
@@ -62,12 +65,16 @@ led_config_t g_led_config = { {
     1, 1, 4, 4, 4, 4, 4,
     4, 1, 1, 1, 1, 1, 1,
     1,
+  #endif
 } };
 // clang-format on
 #endif
 
-void matrix_init_kb(void) {
+void rgb_matrix_right_hand_init(void) {
 #ifdef RGB_MATRIX_ENABLE
+  #if MATRIX_ROWS == 8 // HELIX_ROWS == 4
+    #error RGB_MATRIX_ENABLE does not yet support HELIX_ROWS == 4.
+  #else
     if (!isLeftHand) {
         // clang-format off
         g_led_config = (led_config_t){ {
@@ -109,6 +116,11 @@ void matrix_init_kb(void) {
         } };
         // clang-format on
     }
+  #endif
 #endif
+}
+
+void matrix_init_kb(void) {
+    rgb_matrix_right_hand_init();
     matrix_init_user();
 };

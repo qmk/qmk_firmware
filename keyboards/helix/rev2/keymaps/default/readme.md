@@ -109,14 +109,15 @@ see `qmk_firmware/keyboards/helix/rev2/keymaps/default/rules.mk`
 
 ```
 # Helix Spacific Build Options
-# you can uncomment and edit follows 7 Variables
-#  jp: 以下の7つの変数を必要に応じて編集し、コメントアウトをはずします。
+# you can uncomment and edit follows 8 Variables
+#  jp: 以下の8つの変数を必要に応じて編集し、コメントアウトをはずします。
 # HELIX_ROWS = 5              # Helix Rows is 4 or 5
 # OLED_ENABLE = no            # OLED_ENABLE
 # LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-# LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-# LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-# LED_ANIMATIONS = yes        # LED animations
+# LED_BACK_ENABLE = no        # LED backlight (using quantum/rgblight.c)
+# LED_UNDERGLOW_ENABLE = no   # LED underglow (using quantum/rgblight.c)
+# LED_ANIMATIONS = yes        # LED animations (quantum/rgblight.c's option)
+# LED_RGBBACK_ENABLE = no     # LED rgb matrix (using quantum/rgb_matrix.c)
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 ```
 ## Compile
@@ -132,6 +133,7 @@ $ make helix:default
 $ make helix/rev2/back:default               # with backlight
 $ make HELIX=no_ani helix/rev2/back:default  # with backlight without animation
 $ make helix/rev2/under:default              # with underglow
+$ make helix/rev2/rgbback:default            # with RGB matrix backlight
 $ make helix/rev2/oled:default               # with oled
 $ make helix/rev2/oled/back:default          # with oled and backlight
 $ make helix/rev2/oled/under:default         # with oled and underglow
@@ -143,10 +145,10 @@ $ make helix:default:flash
 $ make helix/rev2/back:default:flash               # with backlight
 $ make HELIX=no_ani helix/rev2/back:default:flash  # with backlight without animation
 $ make helix/rev2/under:default:flash              # with underglow
+$ make helix/rev2/rgbback:default:flash            # with RGB matrix backlight
 $ make helix/rev2/oled:default:flash               # with oled
 $ make helix/rev2/oled/back:default:flash          # with oled and backlight
 $ make helix/rev2/oled/under:default:flash         # with oled and underglow
-
 ```
 
 ## Link

@@ -11,6 +11,7 @@ define HELIX_CUSTOMISE_MSG
   $(info -  LED_BACK_ENABLE      = $(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE = $(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATION        = $(LED_ANIMATIONS))
+  $(info -  LED_BACKMTR_ENABLE   = $(LED_BACKMTR_ENABLE))
   $(info -  IOS_DEVICE_ENABLE    = $(IOS_DEVICE_ENABLE))
   $(info )
 endef
@@ -18,7 +19,7 @@ endef
   ifneq ($(strip $(HELIX)),)
     ### Helix keyboard keymap: convenient command line option
     ##    make HELIX=<options> helix:<keymap>
-    ##    option= oled | back | under | na | ios
+    ##    option= oled | back | under | rgbback | na | ios
     ##    ex.
     ##      make HELIX=oled          helix:<keymap>
     ##      make HELIX=oled,back     helix:<keymap>
@@ -29,7 +30,9 @@ endef
     ifeq ($(findstring oled,$(HELIX)), oled)
       OLED_ENABLE = yes
     endif
-    ifeq ($(findstring back,$(HELIX)), back)
+    ifeq ($(findstring rgbback,$(HELIX)), rgbback)
+      LED_BACKMTR_ENABLE = yes
+    else ifeq ($(findstring back,$(HELIX)), back)
       LED_BACK_ENABLE = yes
     else ifeq ($(findstring under,$(HELIX)), under)
       LED_UNDERGLOW_ENABLE = yes
@@ -69,6 +72,8 @@ ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   endif
 else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
+else ifeq ($(strip $(LED_BACKMTR_ENABLE)), yes)
+  RGB_MATRIX_ENABLE = WS2812
 endif
 
 ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
@@ -90,8 +95,9 @@ endif
 ifneq ($(strip $(SHOW_HELIX_OPTIONS)),)
   $(eval $(call HELIX_CUSTOMISE_MSG))
   ifneq ($(strip $(SHOW_VERBOSE_INFO)),)
-     $(info -- RGBLIGHT_ENABLE = $(RGBLIGHT_ENABLE))
-     $(info -- OPT_DEFS        = $(OPT_DEFS))
+     $(info -- RGBLIGHT_ENABLE   = $(RGBLIGHT_ENABLE))
+     $(info -- RGB_MATRIX_ENABLE = $(RGB_MATRIX_ENABLE))
+     $(info -- OPT_DEFS          = $(OPT_DEFS))
      $(info -- LINK_TIME_OPTIMIZATION_ENABLE = $(LINK_TIME_OPTIMIZATION_ENABLE))
      $(info )
   endif
