@@ -14,6 +14,8 @@ If you have any question about this keymap feel free to shoot me a message on re
 #include "debug.h"
 #include "action_layer.h"
 
+#define LT_SPC LT(4, KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Colemak   
     * ,-----------------------------------------------------------------------.
@@ -29,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,   KC_F,    KC_P, KC_G, KC_J, KC_L, KC_U,    KC_Z,    DE_SCLN, DE_MINS},
   {KC_BSPC, KC_A,    KC_R,   KC_S,    KC_T, KC_D, KC_H, KC_N, KC_E,    KC_I,    KC_O,    DE_QUOT},
   {M(0),    KC_Y,    KC_X,   KC_C,    KC_V, KC_B, KC_K, KC_M, DE_COMM, DE_DOT,  DE_SLSH, KC_ENT},
-  {KC_LCTL, KC_LGUI, KC_TAB, KC_LALT, MO(3),F(3), F(3), MO(2),KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LCTL, KC_LGUI, KC_TAB, KC_LALT, MO(3),LT_SPC, LT_SPC, MO(2),KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [1] = { /* Symbols
     * ,-----------------------------------------------------------------------.
@@ -131,7 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [3] = ACTION_LAYER_TAP_KEY(4,KC_SPC),         // to Function
     [4] = ACTION_LAYER_TOGGLE(5),                 // toggle Gaming
 	[5] = ACTION_MODS_TAP_KEY(KC_LSFT, KC_CAPS),  //Shift on press, Caps on tap
 };

@@ -1,27 +1,29 @@
 #include "keymap.h"
 #include "keymap_colemak.h"
 
+#define FN3_ESC LT(6, KC_ESC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = { /* Joe colemak */
-    {F(3),    KC_Q,    KC_W,    KC_F,    KC_P, KC_G,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS},
+    {FN3_ESC, KC_Q,    KC_W,    KC_F,    KC_P, KC_G,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS},
     {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T, KC_D,   KC_H,   KC_N, KC_E,    KC_I,    KC_O,    KC_ENT },
     {F(15),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT},
     {KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}
   },
   [1] = { /* Joe soft Colemak */
-    {F(3),    CM_Q,    CM_W,    CM_F,    CM_P, CM_G,   CM_J,   CM_L, CM_U,    CM_Y,    CM_SCLN, KC_MINS},
+    {FN3_ESC, CM_Q,    CM_W,    CM_F,    CM_P, CM_G,   CM_J,   CM_L, CM_U,    CM_Y,    CM_SCLN, KC_MINS},
     {KC_BSPC, CM_A,    CM_R,    CM_S,    CM_T, CM_D,   CM_H,   CM_N, CM_E,    CM_I,    CM_O,    KC_ENT },
     {F(15),   CM_Z,    CM_X,    CM_C,    CM_V, CM_B,   CM_K,   CM_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT},
     {KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}
   },
   [2] = { /* Joe NUMPAD */
-    {F(3),    KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO,   LSFT(KC_9), LSFT(KC_0), KC_PSLS, KC_P7, KC_P8,   KC_P9  },
+    {FN3_ESC, KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO,   LSFT(KC_9), LSFT(KC_0), KC_PSLS, KC_P7, KC_P8,   KC_P9  },
     {KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,   LSFT(KC_5), KC_PEQL,    KC_PAST, KC_P4, KC_P5,   KC_P6  },
     {F(15),   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,      KC_PCMM,    KC_PMNS, KC_P1, KC_P2,   KC_P3  },
     {KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4), KC_TRNS, KC_TRNS,    MO(5),      KC_PPLS, KC_P0, KC_PDOT, KC_PENT}
   },
   [3] = { /* Joe 1337 haxOr5*/
-    {F(3),    KC_Q,    KC_W,    KC_F,    KC_P, KC_6,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS},
+    {FN3_ESC, KC_Q,    KC_W,    KC_F,    KC_P, KC_6,   KC_J,   KC_L, KC_U,    KC_Y,    KC_SCLN, KC_MINS},
     {KC_BSPC, KC_4,    KC_R,    KC_5,    KC_7, KC_D,   KC_H,   KC_N, KC_3,    KC_1,    KC_0,    KC_ENT },
     {F(15),   KC_Z,    KC_X,    KC_C,    KC_V, KC_B,   KC_K,   KC_M, KC_COMM, KC_DOT,  KC_UP,   KC_QUOT},
     {KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(4),KC_SPC, KC_SPC, MO(5),KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}
@@ -47,9 +49,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    /* ESC on tap, fn3 on hold */
-    [3] = ACTION_LAYER_TAP_KEY(6, KC_ESC),
-
     /* toggle layers */
     [6]  = ACTION_DEFAULT_LAYER_SET(0), 
     [7]  = ACTION_DEFAULT_LAYER_SET(1),

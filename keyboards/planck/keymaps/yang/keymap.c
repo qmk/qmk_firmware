@@ -16,24 +16,26 @@
 #define _RS 4
 #define _RGB 5
 
+#define RGB_SPC LT(_RGB, KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = { /* Qwerty */
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), F(0),    F(0),    MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), RGB_SPC, RGB_SPC, MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_CM] = { /* Colemak */
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), F(0),    F(0),    MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), RGB_SPC, RGB_SPC, MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_DV] = { /* Dvorak */
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), F(0),    F(0),    MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_LW), RGB_SPC, RGB_SPC, MO(_RS), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS] = { /* RAISE */
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
@@ -54,10 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS}
 
 }
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_LAYER_TAP_KEY(_RGB, KC_SPC),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

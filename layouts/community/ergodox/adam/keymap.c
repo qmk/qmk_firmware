@@ -127,13 +127,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-        [1] = ACTION_LAYER_TAP_KEY(FLOCK,KC_F),
-        [2] = ACTION_LAYER_TAP_KEY(JLOCK,KC_J),
-        [11] = ACTION_LAYER_TAP_KEY(FLOCK,LSFT(KC_F)),
-        [12] = ACTION_LAYER_TAP_KEY(JLOCK,LSFT(KC_J))
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
         // MACRODOWN only works in this function

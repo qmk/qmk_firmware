@@ -15,12 +15,20 @@
 #define CUSTOM_MACROS 6 // F(6)
 #define MOUSE 7 // F(7)
 
+#define LT_1A LT(1, KC_A)
+#define LT_2O LT(2, KC_O)
+#define LT_3E LT(3, KC_E)
+#define LT_4U LT(4, KC_U)
+#define LT_5Q LT(5, KC_Q)
+#define LT_6CTL LT(6, KC_LCTL)
+#define LT_7COM LT(7, KC_COMM)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DVORAK] = {
-    {KC_ESC,  KC_QUOTE,  F(7),  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_DELETE},
-    {KC_TAB,  F(1),  F(2),  F(3),  F(4),  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_ENTER},
-    {KC_LSHIFT,  KC_SCOLON,  F(5),   KC_J,   KC_K,  KC_X,   KC_B,   KC_M,   KC_W,  KC_V,  KC_Z,  KC_MINUS},
-    {F(10), F(6),  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPACE,  KC_SPACE,  KC_RCTRL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT},
+    {KC_ESC,  KC_QUOTE,  LT_7COM,  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_DELETE},
+    {KC_TAB,  LT_1A,  LT_2O,  LT_3E,  LT_4U,  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_ENTER},
+    {KC_LSHIFT,  KC_SCOLON,  LT_5Q,   KC_J,   KC_K,  KC_X,   KC_B,   KC_M,   KC_W,  KC_V,  KC_Z,  KC_MINUS},
+    {F(10), LT_6CTL,  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPACE,  KC_SPACE,  KC_RCTRL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT},
   },
 
   [ARROW] = {
@@ -93,15 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // EMACS 5, F(5)
     // MACROS 6, F(6)
     // MOUSE 7, F(7)
-
-    // Layers
-    [1] =  ACTION_LAYER_TAP_KEY(1, KC_A),     // FN1 = Momentary Arrow layer on A.
-    [2] =  ACTION_LAYER_TAP_KEY(2, KC_O),     // FN2 = Momentary symbOl layer on O.
-    [3] =  ACTION_LAYER_TAP_KEY(3, KC_E),     // FN3 = Momentary numbEr layer on E.
-    [4] =  ACTION_LAYER_TAP_KEY(4, KC_U),     // FN4 = Momentary fUnction layer on U.
-    [5] =  ACTION_LAYER_TAP_KEY(5, KC_Q),     // FN5 = Momentary emaQs layer on Q.
-    [6] =  ACTION_LAYER_TAP_KEY(6, KC_LCTRL), // FN6 = Momentary MACROS on ??? key.
-    [7] =  ACTION_LAYER_TAP_KEY(7, KC_COMMA), // FN7 = Momentary MOUSE on , key.
 
     // Special Keys
     [10] =  ACTION_MODS_KEY(KC_LCTRL, KC_LALT), // FN10 = Ctrl + Alt.

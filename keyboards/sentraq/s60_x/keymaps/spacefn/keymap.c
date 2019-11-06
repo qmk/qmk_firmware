@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#define KC_LT1 LT(1, KC_SPC)
+
 /*
  * SpaceFN
  * http://geekhack.org/index.php?topic=51069.0
@@ -23,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT,   NO,  ENT,       \
         LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                FN0,                 RALT, RGUI,  APP, RCTL),
+        LCTL, LGUI, LALT,                LT1,                 RALT, RGUI,  APP, RCTL),
 
     /* Overlay 1: SpaceFN
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -50,6 +52,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Fn action definition
  */
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_TAP_KEY(1, KC_SPACE),
     [1] = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),    // tilde
 };

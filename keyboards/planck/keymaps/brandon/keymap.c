@@ -46,6 +46,11 @@ enum planck_macros {
 #define WM_W    LALT(LGUI(KC_LEFT))
 #define WM_CNTR LALT(LGUI(KC_C))
 
+#define LT_NAVS LT(NAVIGATION_LAYER, KC_SCLN)
+#define LT_NAVO LT(NAVIGATION_LAYER, KC_O)
+#define LT_GUIL LT(GUI_LAYER, KC_LBRC)
+#define LT_GUIR LT(GUI_LAYER, KC_RBRC)
+
 // Special key codes
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -85,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [BASE_QWERTY_LAYER] = {
     {TD(TD_ESC_GRV),  KC_Q,           KC_W,          KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,          KC_P,           KC_QUOT},
-    {F(5),    KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          F(1),           F(6)},
+    {F(5),    KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          LT_NAVS,        F(6)},
     {KC_LSPO, KC_Z,           KC_X,          KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC},
-    {F(3),    ALL_T(KC_RBRC), M(LALT_BRACE), KC_LGUI, LOWER, KC_SPC, KC_BSPC, RAISE, KC_RGUI, M(RALT_BRACE), ALL_T(KC_LBRC), F(4)}
+    {LT_GUIL, ALL_T(KC_RBRC), M(LALT_BRACE), KC_LGUI, LOWER, KC_SPC, KC_BSPC, RAISE, KC_RGUI, M(RALT_BRACE), ALL_T(KC_LBRC), LT_GUIR}
   },
 
   /* Base layer (Colemak)
@@ -103,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [BASE_COLEMAK_LAYER] = {
     {_______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, _______},
-    {_______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    F(2),    _______},
+    {_______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    LT_NAVO, _______},
     {_______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
@@ -141,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {LGUI(KC_GRV), KC_F1,          KC_F2,         KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,         KC_F10,         S(KC_3)},
     {F(5),         KC_1,           KC_2,          KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,          KC_0,           F(6)},
     {KC_LSPO,      KC_MINS,        KC_EQL,        KC_GRV,  KC_BSLS, ___x___, KC_NDSH, KC_MDSH, KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC},
-    {F(3),         ALL_T(KC_LBRC), M(LALT_BRACE), KC_LGUI, LOWER,   KC_BSPC, KC_BSPC, RAISE,   KC_RGUI, M(RALT_BRACE), ALL_T(KC_RBRC), F(4)}
+    {LT_GUIL,      ALL_T(KC_LBRC), M(LALT_BRACE), KC_LGUI, LOWER,   KC_BSPC, KC_BSPC, RAISE,   KC_RGUI, M(RALT_BRACE), ALL_T(KC_RBRC), LT_GUIR}
   },
 
   /* Symbol layer
@@ -177,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [NAVIGATION_LAYER] = {
     {___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
-    {_______, ___x___, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, F(1),    _______},
+    {_______, ___x___, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, LT_NAVS, _______},
     {_______, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, _______},
     {_______, _______, _______, _______, ___x___, ___x___, ___x___, ___x___, _______, _______, _______, _______}
   },
@@ -224,12 +229,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  // Layer switching
-  [1] = ACTION_LAYER_TAP_KEY(NAVIGATION_LAYER, KC_SCOLON),
-  [2] = ACTION_LAYER_TAP_KEY(NAVIGATION_LAYER, KC_O),
-  [3] = ACTION_LAYER_TAP_KEY(GUI_LAYER, KC_LBRACKET),
-  [4] = ACTION_LAYER_TAP_KEY(GUI_LAYER, KC_RBRACKET),
-
   // Modifiers
   [5] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB),
   [6] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ENT),
