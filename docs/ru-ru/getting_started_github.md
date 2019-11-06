@@ -47,7 +47,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Ваши изменения теперь существуют на вашей вилке на Github - если вы вернетесь туда (`https://github.com/<whoeveryouare>/qmk_firmware`), Вы можете создать "New Pull Request" нажатием на кнопку:
+Ваши изменения теперь существуют в вашем форке на GitHub - если вы вернетесь туда (`https://github.com/<whoeveryouare>/qmk_firmware`), вы сможете создать "New Pull Request" нажатием на кнопку:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 
