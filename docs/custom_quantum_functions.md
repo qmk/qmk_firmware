@@ -493,7 +493,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 }
 ```
 
-And you're done.  The RGB layer indication will only work if you want it to. And it will be saved, even after unplugging the board. And if you use any of the RGB codes, it will disable the layer indication, so that it stays on the mode and color that you set it to.
+And you're done.  The RGB layer indication will only work if you want it to. And it will be saved, even after unplugging the board. And if you use any of the RGB codes, it will disable the layer indication, so that it stays on the mode and color that you set it to. 
 
 ### 'EECONFIG' Function Documentation
 
@@ -504,7 +504,7 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 # Custom Tapping Term
 
-By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`. 
 
 To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first. 
 
