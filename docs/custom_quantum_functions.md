@@ -90,68 +90,110 @@ keyrecord_t record {
 
 # LED Control
 
-QMK provides methods to read the 5 LEDs defined as part of the HID spec:
+QMK provides methods to read 5 of the LEDs defined in the HID spec:
 
-* `USB_LED_NUM_LOCK`
-* `USB_LED_CAPS_LOCK`
-* `USB_LED_SCROLL_LOCK`
-* `USB_LED_COMPOSE`
-* `USB_LED_KANA`
+* Num Lock
+* Caps Lock
+* Scroll Lock
+* Compose
+* Kana
 
-These five constants correspond to the positional bits of the host LED state.
-There are two ways to get the host LED state:
+There are two ways to get the lock LED state:
 
-* by implementing `led_set_user()`
-* by calling `host_keyboard_leds()`
+* by implementing `bool led_update_kb(led_t led_state)` or `_user(led_t led_state)`; or
+* by calling `led_t host_keyboard_led_state()`
 
-## `led_set_user()`
+!> `host_keyboard_led_state()` may already reflect a new value before `led_update_user()` is called.
 
-This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a parameter.
-Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macros to check the LED status.
+Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
-!> `host_keyboard_leds()` may already reflect a new value before `led_set_user()` is called.
+* `uint8_t led_set_kb(uint8_t usb_led)` and `_user(uint8_t usb_led)`
+* `uint8_t host_keyboard_leds()`
 
-### Example `led_set_user()` Implementation
+## `led_update_user()`
+
+This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
+
+You must return either `true` or `false` from this function, depending on whether you want to override the keyboard-level implementation.
+
+?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
+
+### Example `led_update_kb()` Implementation
 
 ```c
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
-        writePinLow(B3);
-    } else {
-        writePinHigh(B3);
-    }
-    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-        writePinLow(B4);
-    } else {
-        writePinHigh(B4);
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        if (led_state.num_lock) {
+            writePinLow(B0);
+        } else {
+            writePinHigh(B0);
+        }
+        if (led_state.caps_lock) {
+            writePinLow(B1);
+        } else {
+            writePinHigh(B1);
+        }
+        if (led_state.scroll_lock) {
+            writePinLow(B2);
+        } else {
+            writePinHigh(B2);
+        }
+        if (led_state.compose) {
+            writePinLow(B3);
+        } else {
+            writePinHigh(B3);
+        }
+        if (led_state.kana) {
+            writePinLow(B4);
+        } else {
+            writePinHigh(B4);
+        }
+        return true;
     }
 }
 ```
 
-### `led_set_*` Function Documentation
+### Example `led_update_user()` Implementation
 
-* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
-* Keymap: `void led_set_user(uint8_t usb_led)`
+```c
+bool led_update_user(led_t led_state) {
+    if (led_state.num_lock) {
+        writePinLow(B0);
+    } else {
+        writePinHigh(B0);
+    }
+    if (led_state.caps_lock) {
+        writePinLow(B1);
+    } else {
+        writePinHigh(B1);
+    }
+    if (led_state.scroll_lock) {
+        writePinLow(B2);
+    } else {
+        writePinHigh(B2);
+    }
+    if (led_state.compose) {
+        writePinLow(B3);
+    } else {
+        writePinHigh(B3);
+    }
+    if (led_state.kana) {
+        writePinLow(B4);
+    } else {
+        writePinHigh(B4);
+    }
+    return true;
+}
+```
 
-## `host_keyboard_leds()`
+### `led_update_*` Function Documentation
 
-Call this function to get the last received LED state. This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
-For convenience, you can use the `IS_HOST_LED_ON(led_name)` and `IS_HOST_LED_OFF(led_name)` macros instead of calling and checking `host_keyboard_leds()` directly.
+* Keyboard/Revision: `bool led_update_kb(led_t led_state)`
+* Keymap: `bool led_update_user(led_t led_state)`
+
+## `host_keyboard_led_state()`
+
+Call this function to get the last received LED state as a `led_t`. This is useful for reading the LED state outside `led_update_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
 
 ## Setting Physical LED State
 
