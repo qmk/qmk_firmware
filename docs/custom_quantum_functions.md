@@ -164,33 +164,17 @@ bool led_update_kb(led_t led_state) {
 
 ### Example `led_update_user()` Implementation
 
+This incomplete example, would play a sound if capslock was turned on or off. It returns true, because you also want the LEDs to maintain their state.
+
 ```c
 bool led_update_user(led_t led_state) {
-    if (led_state.num_lock) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
+    #ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        led_state.caps_lock ? PLAY_SONG(SONG(CAPS_LOCK_ON_SOUND)) : PLAY_SONG(SONG(CAPS_LOCK_OFF_SOUND));
+        caps_state = led_state.caps_lock;
     }
-    if (led_state.caps_lock) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-    if (led_state.scroll_lock) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-    if (led_state.compose) {
-        writePinLow(B3);
-    } else {
-        writePinHigh(B3);
-    }
-    if (led_state.kana) {
-        writePinLow(B4);
-    } else {
-        writePinHigh(B4);
-    }
+    #endif
     return true;
 }
 ```
