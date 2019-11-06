@@ -219,11 +219,11 @@ These are the three main initialization functions, listed in the order that they
 
 ## Keyboard Pre Initialization code
 
-This runs very early during startup, even before the USB has been started.
+This runs very early during startup, even before the USB has been started.  
 
 Shortly after this, the matrix is initialized.
 
-For most users, this shouldn't be used, as it's primarily for hardware oriented initialization.
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization.  
 
 However, if you have hardware stuff that you need initialized, this is the best place for it (such as initializing LED pins).
 
@@ -251,9 +251,9 @@ void keyboard_pre_init_user(void) {
 
 ## Matrix Initialization Code
 
-This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized.
+This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized.  
 
-This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started.
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started.  
 
 
 ### `matrix_init_*` Function Documentation
@@ -369,17 +369,17 @@ The `state` is the bitmask of the active layers, as explained in the [Keymap Ove
 
 # Persistent Configuration (EEPROM)
 
-This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM.
+This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM.  
 
 The complicated part here, is that there are a bunch of ways that you can store and access data via EEPROM, and there is no "correct" way to do this.  However, you only have a DWORD (4 bytes) for each function.
 
 Keep in mind that EEPROM has a limited number of writes. While this is very high, it's not the only thing writing to the EEPROM, and if you write too often, you can potentially drastically shorten the life of your MCU.
 
-* If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated.
+* If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated.  
 
 ### Example Implementation
 
-This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work!
+This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work!  
 
 
 In your keymap.c file, add this to the top:
@@ -394,11 +394,11 @@ typedef union {
 user_config_t user_config;
 ```
 
-This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written.
+This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written.  
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything.
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything.  
 
-Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like:
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like:  
 ```c
 void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
