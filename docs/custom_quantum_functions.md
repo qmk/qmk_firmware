@@ -219,11 +219,11 @@ These are the three main initialization functions, listed in the order that they
 
 ## Keyboard Pre Initialization code
 
-This runs very early during startup, even before the USB has been started.  
+This runs very early during startup, even before the USB has been started. 
 
 Shortly after this, the matrix is initialized.
 
-For most users, this shouldn't be used, as it's primarily for hardware oriented initialization.  
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization. 
 
 However, if you have hardware stuff that you need initialized, this is the best place for it (such as initializing LED pins).
 
@@ -251,9 +251,9 @@ void keyboard_pre_init_user(void) {
 
 ## Matrix Initialization Code
 
-This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized.  
+This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized. 
 
-This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started.  
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started. 
 
 
 ### `matrix_init_*` Function Documentation
@@ -369,17 +369,17 @@ The `state` is the bitmask of the active layers, as explained in the [Keymap Ove
 
 # Persistent Configuration (EEPROM)
 
-This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM.  
+This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM. 
 
 The complicated part here, is that there are a bunch of ways that you can store and access data via EEPROM, and there is no "correct" way to do this.  However, you only have a DWORD (4 bytes) for each function.
 
 Keep in mind that EEPROM has a limited number of writes. While this is very high, it's not the only thing writing to the EEPROM, and if you write too often, you can potentially drastically shorten the life of your MCU.
 
-* If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated.  
+* If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated. 
 
 ### Example Implementation
 
-This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work!  
+This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work! 
 
 
 In your keymap.c file, add this to the top:
@@ -394,11 +394,11 @@ typedef union {
 user_config_t user_config;
 ```
 
-This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written.  
+This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written. 
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything.  
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything. 
 
-Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like:  
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
 ```c
 void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
@@ -414,7 +414,7 @@ void keyboard_post_init_user(void) {
   }
 }
 ```
-The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above.
+The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -478,7 +478,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset!
@@ -500,18 +500,18 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keyboard/Revision: `void eeconfig_init_kb(void)`, `uint32_t eeconfig_read_kb(void)` and `void eeconfig_update_kb(uint32_t val)`
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
-The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM.
+The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
 
 # Custom Tapping Term
 
 By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
 
-To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.
+To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first. 
 
 
 ## Example `get_tapping_term` Implementation
 
-To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file:
+To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
 
 ```c
 uint16_t get_tapping_term(uint16_t keycode) {
