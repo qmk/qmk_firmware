@@ -50,8 +50,4 @@ I use MT3 Godspeed caps and thought it would be fun to theme the OLED output tow
 
 ## Building
 
-I am using DFU and have to flash both halves individually.
-
-Left half: `make crkbd/rev1:rpbaptist:dfu-split-left`
-
-Right half: `make crkbd/rev1:rpbaptist:dfu-split-right RGB_MATRIX_SPLIT_RIGHT=yes`
+`make crkbd/rev1:rpbaptist:dfu`
