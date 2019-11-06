@@ -129,8 +129,12 @@ If you have trouble and want to ask for help, it is useful to generate a *Win_Ch
 
 ## Docker
 
-If this is a bit complex for you, Docker might be the turnkey solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
+If this is a bit complex for you, Docker might be the turnkey solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following commands from the `qmk_firmware` directory to build a keyboard/keymap:
 ```bash
+# If this is the first time, ensure your submodules (third-party libraries) are up to date by running:
+util/docker_build.sh git-submodule
+
+# Then run:
 util/docker_build.sh keyboard:keymap
 # For example: util/docker_build.sh ergodox_ez:steno
 ```
