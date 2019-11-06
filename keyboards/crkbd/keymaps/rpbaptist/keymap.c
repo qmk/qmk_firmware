@@ -28,6 +28,7 @@ typedef union {
   struct {
     bool     rgb_layer_change        :1;
     bool     rgb_matrix_idle_anim    :1;
+    uint8_t  rgb_matrix_active_mode  :4;
     uint8_t  rgb_matrix_rest_mode    :4;
     uint16_t rgb_matrix_rest_timeout :16;
   };
@@ -306,6 +307,7 @@ void rgb_matrix_set_defaults(void) {
 
   user_config.rgb_layer_change     = true;
   user_config.rgb_matrix_idle_anim = true;
+  user_config.rgb_matrix_active_mode = RGB_MATRIX_TYPING_HEATMAP;
   user_config.rgb_matrix_rest_mode = RGB_MATRIX_CYCLE_ALL;
   user_config.rgb_matrix_rest_timeout = 50000;
 
@@ -314,7 +316,7 @@ void rgb_matrix_set_defaults(void) {
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == RGB_MATRIX_TYPING_HEATMAP && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_rest_timeout) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_rest_timeout) {
         rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     }
 }
@@ -372,7 +374,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (user_config.rgb_matrix_idle_anim) {
       hypno_timer = timer_read32();
       if (rgb_matrix_get_mode() == user_config.rgb_matrix_rest_mode) {
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+          rgb_matrix_mode_noeeprom(user_config.rgb_matrix_active_mode);
           if (!user_config.rgb_layer_change) {
             rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
           }
@@ -437,7 +439,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (user_config.rgb_matrix_idle_anim) {
               rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
             } else {
-              rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+              rgb_matrix_mode_noeeprom(user_config.rgb_matrix_active_mode);
             }
             user_config.rgb_matrix_idle_anim ^=1;
             eeconfig_update_user(user_config.raw);
