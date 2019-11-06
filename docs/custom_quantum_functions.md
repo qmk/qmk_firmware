@@ -167,11 +167,16 @@ bool led_update_kb(led_t led_state) {
 This incomplete example, would play a sound if capslock was turned on or off. It returns true, because you also want the LEDs to maintain their state.
 
 ```c
+#ifdef AUDIO_ENABLE
+  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
+
 bool led_update_user(led_t led_state) {
     #ifdef AUDIO_ENABLE
     static uint8_t caps_state = 0;
     if (caps_state != led_state.caps_lock) {
-        led_state.caps_lock ? PLAY_SONG(SONG(CAPS_LOCK_ON_SOUND)) : PLAY_SONG(SONG(CAPS_LOCK_OFF_SOUND));
+        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
         caps_state = led_state.caps_lock;
     }
     #endif
