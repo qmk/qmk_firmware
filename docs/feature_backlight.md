@@ -6,15 +6,13 @@ QMK is able to control the brightness of these LEDs by switching them on and off
 
 The MCU can only supply so much current to its GPIO pins. Instead of powering the backlight directly from the MCU, the backlight pin is connected to a transistor or MOSFET that switches the power to the LEDs.
 
-## Driver configuration
+## Feature Configuration
 
 Most keyboards have backlighting enabled by default if they support it, but if it is not working for you, check that your `rules.mk` includes the following:
 
 ```makefile
-BACKLIGHT_ENABLE = software # Valid driver values are 'yes,software,no'
+BACKLIGHT_ENABLE = yes
 ```
-
-See below for help on individual drivers.
 
 ## Keycodes
 Once enabled the following keycodes below can be used to change the backlight level.
@@ -51,6 +49,16 @@ Once enabled the following keycodes below can be used to change the backlight le
 |`breathing_enable()`  |Turns on backlight breathing           |
 |`breathing_disable()` |Turns off backlight breathing          |
 
+## Driver Configuration
+
+To select which driver to use, configure your `rules.mk` with the following:
+
+```makefile
+BACKLIGHT_DRIVER = software # Valid driver values are 'pwm,software,no'
+```
+
+See below for help on individual drivers.
+
 ## Common Driver Configuration
 
 To change the behavior of the backlighting, `#define` these in your `config.h`:
@@ -72,9 +80,9 @@ This functionality is configured at the keyboard level with the `BACKLIGHT_ON_ST
 
 ## AVR driver
 
-On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. To enable it, add this to your rules.mk:
+On AVR boards, the default driver currently sniffs the configuration to pick the best scenario. The driver is configured by default, however the equivalent setting within rules.mk would be:
 ```makefile
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
 ```
 
 ### Caveats
@@ -150,9 +158,9 @@ The breathing effect is the same as in the hardware PWM implementation.
 
 ## ARM Driver
 
-While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. To enable it, add this to your rules.mk:
+While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. The driver is configured by default, however the equivalent setting within rules.mk would be:
 ```makefile
-BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
 ```
 
 ### Caveats
@@ -176,7 +184,7 @@ To change the behavior of the backlighting, `#define` these in your `config.h`:
 
 Emulation of PWM while running other keyboard tasks, it offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your rules.mk:
 ```makefile
-BACKLIGHT_ENABLE = software
+BACKLIGHT_DRIVER = software
 ```
 
 ### Software PWM Configuration
@@ -199,4 +207,30 @@ To activate multiple backlight pins, you need to add something like this to your
 ```c
 #undef BACKLIGHT_PIN
 #define BACKLIGHT_PINS { F5, B2 }
+```
+
+## Custom Driver
+
+To enable, add this to your rules.mk:
+
+```makefile
+BACKLIGHT_DRIVER = custom
+```
+
+When implementing the custom driver API, the provided keyboard hooks are as follows:
+
+```c
+void backlight_init_ports(void) {
+    // Optional - Run on startup
+    //          - usually you want to configure pins here
+}
+void backlight_set(uint8_t level) {
+    // Optional - Run on level change
+    //          - usually you want to respond to the new value
+}
+
+void backlight_task(void) {
+    // Optional - Run periodically
+    //          - long running actions here can cause performance issues
+}
 ```
