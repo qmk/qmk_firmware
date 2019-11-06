@@ -340,13 +340,13 @@ void suspend_wakeup_init_keymap(void) {
 
 void eeconfig_init_user(void) {
     user_config.raw = 0;
-    rgb_matrix_set_defaults();
     rgb_matrix_mode_noeeprom(user_config.rgb_matrix_rest_mode);
     keyboard_init();
 }
 
 void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
+    rgb_matrix_set_defaults();
     rgb_matrix_enable_noeeprom();
 }
 #endif
