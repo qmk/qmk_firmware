@@ -61,8 +61,8 @@ user_config_t user_config;
 #define SFENT LSFT_T(KC_ENTER)
 
 // Global tab forward and backward
-#define TBFWD LCTL(KC_TAB)
-#define TBBCK LCTL(LSFT(KC_TAB))
+#define TAB_FWD LCTL(KC_TAB)
+#define TAB_BCK LCTL(LSFT(KC_TAB))
 
 // Custom key for NUM layer
 #define CT_ASTR KC_RCPC
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX,   TBBCK, XXXXXXX,   TBFWD, XXXXXXX,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, KC_BSPC,\
+      _______, XXXXXXX, TAB_BCK, XXXXXXX, TAB_FWD, XXXXXXX,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
