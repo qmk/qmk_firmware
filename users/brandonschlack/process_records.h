@@ -73,8 +73,8 @@ void matrix_scan_cmd_tab(void);
 #define REO_TAB   LSFT(LGUI(KC_T))     // Shift+Cmd+T: Reopen Last Tab
 #define NXT_TAB   LCTL(KC_TAB)         // Control+Tab: Next Tab
 #define PRV_TAB   LSFT(LCTL(KC_TAB))   // Shift+Control+Tab: Previous Tab
-#define NXT_WIN   LCTL(KC_GRV)         // Control+Grave: Next Window
-#define PRV_WIN   LCTL(KC_TILD)        // Shift+Control+Grave: Previous Window
+#define NXT_WIN   LGUI(KC_GRV)         // Control+Grave: Next Window
+#define PRV_WIN   LGUI(KC_TILD)        // Shift+Control+Grave: Previous Window
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
 #define MC_UNDO   LGUI(KC_Z)           // Undo
 #define MC_REDO   LSFT(LGUI(KC_Z))     // Redo
