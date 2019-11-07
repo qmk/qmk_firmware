@@ -25,7 +25,7 @@ function install_avr {
 
 function install_arm {
     rm -f -r "$armtools"
-    wget -O gcc-arm-none-eabi-8-2019-q3-update-win32.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-win32.zip?revision=2f0fd855-d015-423c-9c76-c953ae7e730b?product=GNU%20Arm%20Embedded%20Toolchain,ZIP,,Windows,8-2019-q3-update"
+    wget -O gcc-arm-none-eabi-8-2019-q3-update-win32.zip "https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-win32.zip"
     echo "Extracting ARM toolchain..."
     unzip -q -d gcc-arm-none-eabi gcc-arm-none-eabi-8-2019-q3-update-win32.zip
     rm gcc-arm-none-eabi-8-2019-q3-update-win32.zip
