@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+extern keymap_config_t keymap_config;
+
+
     /* Dvorak keymap for Minivan default layout (44 keys)
      *
      * - Basic layers are: letters, numbers and remaining symbols, movement.
@@ -135,3 +138,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
 };
+
+// Copied from ../jetpacktuxedo/ (for LEDs)
+
+void keyboard_post_init_user(void) {
+  #ifdef RGBLIGHT_ENABLE
+    // Set up RGB effects on _only_ the third LED (index 2)
+    rgblight_set_effect_range(2, 1);
+    // Set LED effects to breathing mode in a tealish blue color
+    rgblight_sethsv_noeeprom(185, 255, 255);
+    rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
+
+    // Init the first two LEDs to a static color
+    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
+    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+    rgblight_set();
+  #endif //RGBLIGHT_ENABLE
+}
+
+uint32_t layer_state_set_user(uint32_t state){
+  #ifdef RGBLIGHT_ENABLE
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+
+    if (layer_state_cmp(state, 1)) {
+      led1b = 255;
+      led0b = 255;
+    }
+    if (layer_state_cmp(state, 2)) {
+      led1r = 255;
+      led0r = 255;
+    }
+    if (layer_state_cmp(state, 3)) {
+      led1g = 255;
+      led0g = 255;
+    }
+    if (layer_state_cmp(state, 4)) {
+      led1b = 100;
+      led1r = 100;
+      led0r = 100;
+      led0b = 100;
+    }
+    if (layer_state_cmp(state, 5)) {
+      led1g = 200;
+      led0g = 100;
+      led0r = 100;
+    }
+
+    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
+    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+    rgblight_set();
+  #endif //RGBLIGHT_ENABLE
+  return state;
+}
