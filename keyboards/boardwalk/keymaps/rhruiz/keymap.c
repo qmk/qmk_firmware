@@ -15,7 +15,6 @@
 
 #include QMK_KEYBOARD_H
 #include "rhruiz.h"
-#include "users/rhruiz/layouts/ortho_5x14.c"
 
 const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}, [_NUM] = {45, 255}};
 
