@@ -5,16 +5,17 @@
 
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
-#ifndef CYCLES_PER_INSTRUCTION
+#ifndef NOP_FUDGE
 #    if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F0XX) || defined(STM32F0xx) || defined(STM32F3XX) || defined(STM32F3xx) || defined(STM32L0XX) || defined(STM32L0xx)
-#        define CYCLES_PER_INSTRUCTION 0.35
+#        define NOP_FUDGE 0.4
 #    else
-#        error("CYCLES_PER_INSTRUCTION configuration required")
-#        define CYCLES_PER_INSTRUCTION 1  // this just pleases the compile so the above error is easier to spot
+#        error("NOP_FUDGE configuration required")
+#        define NOP_FUDGE 1  // this just pleases the compile so the above error is easier to spot
 #    endif
 #endif
 
-#define CYCLES_PER_SEC (STM32_SYSCLK * CYCLES_PER_INSTRUCTION)
+#define NUMBER_NOPS 6
+#define CYCLES_PER_SEC (STM32_SYSCLK / NUMBER_NOPS * NOP_FUDGE)
 #define NS_PER_SEC (1000000000L)  // Note that this has to be SIGNED since we want to be able to check for negative values of derivatives
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
@@ -22,7 +23,12 @@
 #define wait_ns(x)                                  \
     do {                                            \
         for (int i = 0; i < NS_TO_CYCLES(x); i++) { \
-            __NOP();                                \
+            __asm__ volatile("nop\n\t"              \
+                             "nop\n\t"              \
+                             "nop\n\t"              \
+                             "nop\n\t"              \
+                             "nop\n\t"              \
+                             "nop\n\t");            \
         }                                           \
     } while (0)
 
