@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _NSY ] = LAYOUT (
        
         /* _LTR      !   @   #   $   %   ^   &   *   (   )           Bspc
-         * -+LCtl  1   2   3   4   5   \|  =+  /?  [{  ]}         `~+RCtl
+         * -+LCtl     1   2   3   4   5   \|  =+  /?  [{  ]}      `~+RCtl
          * .+LSht      0   9   8   7   6    |   +   ?   {   }      ~+RSht
          * Left+LAlt   Del   Sht(tab) ___      tab   ___  Ent  Right+RAlt
          * */
@@ -95,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
          */
                 
-        TO ( _LTR )    , KC_WH_L , KC_WH_D , KC_WH_U      , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP  , KC_PGDN , KC_END  , KC_BSPC ,
-        KC_LCTL         , KC_MS_L , KC_MS_D , KC_MS_U      , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP    , KC_DOWN , KC_RGHT , KC_RCTL ,
-        KC_LSFT          , KC_BTN5 , KC_BTN4 , KC_BTN3      , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1  , KC_ACL2 , XXXXXXX , KC_RSFT ,
-        LALT_T ( KC_LEFT ), KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , _______ , _______ , RALT_T ( KC_RGHT )
+        TO ( _LTR )     , KC_WH_L , KC_WH_D , KC_WH_U      , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP  , KC_PGDN , KC_END  , KC_BSPC ,
+        KC_LCTL          , KC_MS_L , KC_MS_D , KC_MS_U      , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP    , KC_DOWN , KC_RGHT , KC_RCTL ,
+        KC_LSFT           , KC_BTN5 , KC_BTN4 , KC_BTN3      , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1  , KC_ACL2 , XXXXXXX , KC_RSFT ,
+        LALT_T ( KC_LEFT ) , KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , _______ , _______ , RALT_T ( KC_RGHT )
                       ) ,
 
     /* Layer 4: Dump for various unused keys. Media keys on 2nd row.
