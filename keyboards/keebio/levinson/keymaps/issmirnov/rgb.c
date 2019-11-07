@@ -4,9 +4,9 @@
 #include <print.h>
 
 // Wired up in layer_state_set_user in keymap.c
-uint32_t layer_state_set_rgb(uint32_t state) {
+layer_state_t layer_state_set_rgb(layer_state_t state) {
   static uint8_t old_layer = 255;
-  uint8_t new_layer = biton32(state);
+  uint8_t new_layer = get_highest_layer(state);
   if (old_layer != new_layer) {
     switch (new_layer) {
       case _QWERTY:
