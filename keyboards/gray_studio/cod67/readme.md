@@ -36,7 +36,7 @@ After putting your COD67 in bootloader mode, it will show up as a drive.
 * Rename the resulting `.bin` file to `COD67.BIN`.
 * Drag the existing `COD67.BIN` file from the drive to the Trash in Finder.
 * Empty the Trash in Finder. It's important you do that due to how macOS handles hidden `.Trashes` on removable drives. It needs to be empty to free up flash space.
-* Drop and drop your new `COD67.BIN` to the drive.
+* Drag and drop your new `COD67.BIN` to the drive.
 * Wait a few seconds for it to write. The caps lock LED flashes rapidly while writing.
 * Press the `Esc` key or eject the drive in Finder to reset the board. You are now ready to type!
 
