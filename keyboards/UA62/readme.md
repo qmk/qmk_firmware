@@ -1,11 +1,11 @@
 # UA62
 
-A Universal pcb for the atreus62
-atreus62 by profet23
-Original atreus by Phil Hagelberg
-Keyboard Maintainer: [NaCly](https://github.com/na-cly)  
-Hardware Supported: UA62 PCB
-Hardware Availability: https://github.com/na-cly/UA62 (Order PCBS)
+* A Universal pcb for the atreus62
+* atreus62 by profet23
+* Original atreus by Phil Hagelberg
+* Keyboard Maintainer: [NaCly](https://github.com/na-cly)  
+* Hardware Supported: UA62 PCB
+* Hardware Availability: https://github.com/na-cly/UA62 (Order PCBS)
 
 Make example for this keyboard (after setting up your build environment):
 
