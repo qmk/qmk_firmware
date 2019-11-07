@@ -161,28 +161,27 @@ uint32_t layer_state_set_user(uint32_t state){
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
 
-    if (layer_state_cmp(state, 1)) {
-      led1b = 255;
+    if (layer_state_cmp(state, 1)) { // symbols and numbers
+      led1b = 255; // blue for symbols, like ink (writing)
       led0b = 255;
     }
-    if (layer_state_cmp(state, 2)) {
-      led1r = 255;
+    if (layer_state_cmp(state, 2)) { // F-keys, and layer toggles
+      led1r = 255; // F-keys is red, because it can mean anything, "be careful"
       led0r = 255;
-    }
-    if (layer_state_cmp(state, 3)) {
-      led1g = 255;
+    } 
+    if (layer_state_cmp(state, 3)) { // movement layer
+      led1g = 255; // movement is green, "go forward"
       led0g = 255;
     }
-    if (layer_state_cmp(state, 4)) {
-      led1b = 100;
+    if (layer_state_cmp(state, 4)) { // weird layer
+      led1b = 100; // some off color for strange keys
       led1r = 100;
       led0r = 100;
       led0b = 100;
     }
-    if (layer_state_cmp(state, 5)) {
-      led1g = 200;
-      led0g = 100;
-      led0r = 100;
+    if (layer_state_cmp(state, 5)) { // reverse hands layer
+      led0g = 255; // green for nagivation left hand
+      led1b = 255; // blue for symbols right hand
     }
 
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
