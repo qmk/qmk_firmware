@@ -46,9 +46,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 // override kb level function
 bool led_update_user(led_t usb_led) {
-    top ?  writePinLow(B1) : writePinHigh(B1);
-    middle ? writePinLow(B2): writePinHigh(B2);
-    bottom ? writePinLow(B3) : writePinHigh(B3);
+    writePin(B1, !top);
+    writePin(B2, !middle);
+    writePin(B3, !bottom);
     return false; // we are using LEDs for something else override kb
 }
 #endif
