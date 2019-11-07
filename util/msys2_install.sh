@@ -8,7 +8,7 @@ installflip=false
 util_dir=$(dirname "$0")
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed --noconfirm -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
+pacman --needed --noconfirm --disable-download-timeout -Sy base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-clang msys/git msys/p7zip msys/python3 msys/unzip
 
 source "$dir/win_shared_install.sh"
 
@@ -20,7 +20,7 @@ function install_avr {
     mv avr-gcc-8.3.0-x86-mingw avr8-gnu-toolchain
     rm avr8-gnu-toolchain/bin/make.exe
     rm avr-gcc-8.3.0-x86-mingw.zip
-    pacman --needed -S mingw-w64-x86_64-avrdude
+    pacman --needed --disable-download-timeout -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
