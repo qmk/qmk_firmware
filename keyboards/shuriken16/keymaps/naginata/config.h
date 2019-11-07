@@ -23,18 +23,16 @@
 
 // 薙刀式
 #define NAGINATA_JDOUJI // 順序つきの同時押しに対応する
-// #define DEUCALYN
-// #define DWORKMAN
-#define DQGMLWY
-// #define NAGINATA_EDIT_WIN // JP106
-#define NAGINATA_EDIT_MAC // US101
+#define DQWERTY
+//#define DQGMLWY
+#define NAGINATA_EDIT_WIN // JP106
+// #define NAGINATA_EDIT_MAC // US101
 #define COMBO_COUNT 10
 #define COMBO_TERM 300
 // 薙刀式
 
-#define TAPPING_FORCE_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 300
+#define TAPPING_TERM 0
 #define PERMISSIVE_HOLD
 #define TAPPING_TOGGLE 2
-
+#define RETRO_TAPPING
