@@ -15,7 +15,7 @@ Certain MCUs which do not have native USB will use [V-USB](https://www.obdev.at/
 
 ## ARM
 
-You can also use any ARM chip that [ChibiOS](http://www.chibios.org) supports. These have plenty of flash. Known to work are:
+You can also use any ARM chip with USB that [ChibiOS](http://www.chibios.org) supports. Most have plenty of flash. Known to work are:
 
 ### STMicroelectronics
 
