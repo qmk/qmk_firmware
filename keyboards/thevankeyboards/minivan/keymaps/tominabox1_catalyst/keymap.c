@@ -114,9 +114,8 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
         led1r = 0;
         led1b = 25;
       }
-
-      rgblight_setrgb_at(led0r, led0g, led0b, 0);
-      rgblight_setrgb_at(led1r, led1g, led1b, 1);
+      setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
+      setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
       rgblight_set();
 
     #endif //RGBLIGHT_ENABLE
@@ -126,11 +125,11 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
   void led_set_user(uint8_t usb_led) {
     if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
       rgblight_set_effect_range(2, 1);
-      rgblight_sethsv_noeeprom(100, 25, 50);
+      rgblight_sethsv_noeeprom(180, 200, 50);
       rgblight_mode_noeeprom(0);
     } else{
       rgblight_set_effect_range(2, 1);
-      rgblight_sethsv_noeeprom(0, 255, 75);
+      rgblight_sethsv_noeeprom(125, 200, 50);
       rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING+3);
     }
   }
