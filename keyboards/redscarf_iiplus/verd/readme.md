@@ -1,10 +1,12 @@
 # Red Scarf II+ Ver.D (RS78)
 
-A 65% keyboard with two function columns on the left.
+A 60% keyboard with a numpad on the right
 
 * Keyboard Maintainer: [Maartenwut](https://github.com/Maartenwut)
 * Hardware Supported: Ver.D (RS77)
 * Hardware Availability: [Drop](https://drop.com/buy/red-scarf-ii-plus-ver-d-custom-mechanical-keyboard-kit)
+
+Port done by Andy Lee <alee@alittlepeacemusic.com>
 
 Please note that when QMK firmware is flashed, the remote will cease to control the underglow LEDs. 
 
