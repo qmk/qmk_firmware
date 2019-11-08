@@ -1,4 +1,4 @@
-# Red Scarf II+ Ver.B (RS78)
+# Red Scarf II+ Ver.D (RS78)
 
 A 65% keyboard with two function columns on the left.
 
