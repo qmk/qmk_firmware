@@ -27,7 +27,7 @@
  * represents the switch matrix.
  */
 // split backspace
-#define LAYOUT_split_bs( \
+#define LAYOUT_68_ansi_split_bs_rshift( \
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012, k013, k113,   k014, k015, \
     k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, k213,         k114, k115, \
     k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212,                           \
@@ -43,7 +43,7 @@
 }
 
 // full backspace
-#define LAYOUT_full_bs( \
+#define LAYOUT_68_ansi_split_rshift( \
     k000, k001, k002, k003, k004, k005, k006, k007, k008, k009, k010, k011, k012,       k113,   k014, k015, \
     k100, k101, k102, k103, k104, k105, k106, k107, k108, k109, k110, k111, k112, k213,         k114, k115, \
     k200, k201, k202, k203, k204, k205, k206, k207, k208, k209, k210, k211, k212,                           \
