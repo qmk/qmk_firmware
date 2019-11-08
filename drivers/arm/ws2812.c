@@ -93,11 +93,3 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 
     chSysUnlock();
 }
-
-// Setleds for SK6812RGBW
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
-// not supported - for now error out if its enabled
-#ifdef RGBW
-#    error "RGBW not supported"
-#endif
-}
