@@ -4,9 +4,9 @@
 
 A 75% ARM STM32F072 keyboard, with WS2812 LEDs.
 
-Keyboard Maintainer: [zvecr](https://github.com/zvecr)  
-Hardware Supported: Retro75 PCB  
-Hardware Availability: Private Group-Buy
+* Keyboard Maintainer: [zvecr](https://github.com/zvecr)
+* Hardware Supported: Retro75 PCB
+* Hardware Availability: Private Group-Buy
 
 Make example for this keyboard (after setting up your build environment):
 
