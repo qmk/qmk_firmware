@@ -8,7 +8,7 @@
 // Combos
 #ifndef KEYBOARD_thevankeyboards_roadkit
 #define COMBO_COUNT 3
-#define COMBO_TERM 40
+#define COMBO_TERM 70
 #endif
 
 // Bootmagic
