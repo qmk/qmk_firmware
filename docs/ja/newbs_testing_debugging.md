@@ -61,7 +61,7 @@ void keyboard_post_init_user(void) {
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // コンソールが有効化されている場合、マトリックス状の位置とキー押下状態を出力します
+  // コンソールが有効化されている場合、マトリックス上の位置とキー押下状態を出力します
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif 
