@@ -68,4 +68,4 @@ This will update the repository on your computer, but your GitHub fork will stil
 
 !> **DO NOT** run `git push --force-with-lease` on a fork to which other users post commits. This will erase their commits.
 
-Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](.md)) and post them as normal.
+Now your GitHub fork, your local files, and QMK's repository are all the same. From here you can make further needed changes ([use a branch!](newbs_git_using_your_master_branch.md#making-changes)) and post them as normal.
