@@ -43,7 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case CTRLMA:
             if (record->event.pressed) {
-		SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_TAB) SS_UP(X_LCTRL) SS_UP(X_LSHIFT));
+		tap_code16(C(S(KC_TAB)));
 		 }
 	    break;
 	case LAYEON:
