@@ -1,9 +1,9 @@
 # Virgo
 
-Flx-Virgo Keyboard
+FLX-Virgo Keyboard
 
-Keyboard Maintainer: [Shaun Mitchell](https://github.com/flexerm,[Discord]Flex#8969)  
-Hardware Supported: FLX_Virgo - PCB 
+Keyboard Maintainer: [Flexerm](https://github.com/flexerm)  
+Hardware Supported: FLX-Virgo - PCB 
 
 Make example for this keyboard (after setting up your build environment):
 
