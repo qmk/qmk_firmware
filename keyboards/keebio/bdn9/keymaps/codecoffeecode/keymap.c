@@ -15,43 +15,66 @@
  */
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+    CTRL_HOME = SAFE_RANGE,
+    CTRL_END
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-        | Knob 1: Vol Dn/Up |      | Knob 2: Page Dn/Up |
-        | Press: Mute       | Home | Press: Play/Pause  |
-        | Hold: Layer 2     | Up   | RGB Mode           |
-        | Left              | Down | Right              |
+        | Knob 1: Scrl Dn/Up |      | Knob 2: Vol Dn/Up  |
+        | Press: Mute        | Up   | Press: Play/Pause  |
+        | Left               | Down | Right              |
+        | Media Previous     | MO(1)| Media Next         |
      */
     [0] = LAYOUT(
-        KC_MUTE, KC_HOME, KC_MPLY,
-        MO(1)  , KC_UP  , RGB_MOD,
-        KC_LEFT, KC_DOWN, KC_RGHT
+        KC_MUTE, KC_UP,   KC_MPLY,
+        KC_LEFT, KC_DOWN, KC_RIGHT,
+        KC_MPRV, MO(1),   KC_MNXT
     ),
     /*
-        | RESET          | N/A  | Media Stop |
-        | Held: Layer 2  | Home | RGB Mode   |
-        | Media Previous | End  | Media Next |
+        |   RESET   | Home | Media Stop |
+        |           | End  |            |
+        |  CTRL_END |      | CTRL_HOME  |
      */
     [1] = LAYOUT(
-        RESET  , BL_STEP, KC_STOP,
-        _______, KC_HOME, RGB_MOD,
-        KC_MPRV, KC_END , KC_MNXT
+        RESET  ,  KC_HOME, KC_STOP,
+        _______,  KC_END,  _______,
+        CTRL_END, _______, CTRL_HOME
     ),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case CTRL_HOME:
+                if (record->event.pressed) {
+                    SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_HOME) SS_UP(X_LCTRL));
+                }
+                break;
+            case CTRL_END:
+                if (record->event.pressed) {
+                    SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_END) SS_UP(X_LCTRL));
+                }
+                break;
+        }
+    }
+    return true;
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code(KC_MS_WH_UP);
         } else {
-            tap_code(KC_VOLD);
+            tap_code(KC_MS_WH_DOWN);
         }
     }
     else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_PGDN);
+            tap_code(KC_VOLU);
         } else {
-            tap_code(KC_PGUP);
+            tap_code(KC_VOLD);
         }
     }
 }
