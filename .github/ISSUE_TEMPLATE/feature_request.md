@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest a new feature or changes to existing features
 title: "[Feature Request]"
-labels: enhancement, help wanted
+labels: enhancement, help wanted, discussion
 assignees: ''
 
 ---
