@@ -31,6 +31,10 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 これらの手順の多くには代替方法があり、これらの代替方法のほとんどをサポートしています。
 タスクを達成する方法について疑問がある場合は、[案内を求めることができます](getting_started_getting_help.md)。
 
-## 追加のリソース
+## 追加のリソース(英語)
 
 * [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 新規ユーザ視点から見た QMK ファームウェアの基本的な使用方法をカバーしたユーザ作成のブログ。
+
+## 追加のリソース(日本語)
+
+_日本語のリソース情報を募集中です。_
