@@ -51,7 +51,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 
-Здесь вы сможете увидеть, что именно совершили, - если все выглядит хорошо, вы можете завершить его, нажав "Create Pull Request":
+Здесь вы сможете увидеть, какие именно изменения были внесены, - если все выглядит хорошо, вы можете завершить его, нажав "Create Pull Request":
 
 ![Create Pull Request](http://i.imgur.com/Ojydlaj.jpg)
 
