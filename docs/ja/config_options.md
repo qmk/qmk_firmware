@@ -181,7 +181,7 @@ scan times?おそらくこれが必要です。
 * `#define RGBLED_NUM 12`
    * LEDの数
 * `#define RGBLIGHT_SPLIT`
-   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
+   * 分割キーボードの左半分の RGB LED の出力を右半分の RGB LED の入力につなげているかわりに、それぞれの側で個別にコントローラの出力ピンが直接に RGB LED の入力に繋がっているときは、この定義が必要です。
 * `#define RGBLED_SPLIT { 6, 6 }`
    * 分割キーボードの各半分の`RGB_DI_PIN`に直接配線されている接続されているLEDの数
    * 最初の値は左半分のLEDの数を示し、2番目の値は右半分です。

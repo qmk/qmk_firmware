@@ -64,7 +64,7 @@ $ ~/qmk_firmware/bin/qmk hello
 グローバル CLI と比較して、ローカル CLI には幾つかの制限があります:
 
 * ローカルCLIは `qmk setup` あるいは `qmk clone` をサポートしません。
-* 複数のリポジトリがクローンっされている場合でも、ローカル CLI は常に `qmk_firmware` ツリー上で動作します。
+* 複数のレポジトリがクローンされている場合でも、ローカル CLI は常に `qmk_firmware` ツリー上で動作します。
 * ローカル CLI は virtualenv で動作しません。そのため依存関係が競合する可能性があります
 
 # CLI コマンド
