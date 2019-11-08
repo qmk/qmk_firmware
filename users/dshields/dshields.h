@@ -1,10 +1,5 @@
 #pragma once
 
-// dynamic macro keys
-#define DM_PLAY DYN_MACRO_PLAY1
-#define DM_STRT DYN_REC_START1
-#define DM_STOP DYN_REC_STOP
-
 // one-shot layer keys
 #define OSL_RSE OSL(RSE)
 #define OSL_LWR OSL(LWR)
@@ -45,4 +40,3 @@
 #endif
 
 enum layers   { DEF, LWR, RSE, FUN };
-enum keycodes { DYNAMIC_MACRO_RANGE = SAFE_RANGE };
