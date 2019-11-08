@@ -1,8 +1,10 @@
 # Compatible Microcontrollers
 
+QMK runs on any USB-capable AVR or ARM microcontroller with enough flash space - generally 32KB or more, though it will *just* squeeze into 16KB with most features disabled.
+
 ## Atmel AVR
 
-QMK runs on any Atmel USB AVR microcontroller with enough flash space - generally 32KB or more, though it will just squeeze into 16KB with most features disabled. The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB stack:
+The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB stack:
 
 * [ATmega16U2](https://www.microchip.com/wwwproducts/en/ATmega16U2) / [ATmega32U2](https://www.microchip.com/wwwproducts/en/ATmega32U2)
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)
