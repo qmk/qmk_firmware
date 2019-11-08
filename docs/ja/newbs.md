@@ -1,0 +1,23 @@
+# QMK 初心者ガイド
+
+QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。 QMK を使用して、シンプルかつ強力な方法でキーボードをカスタマイズできます。 完全な初心者からプログラマーに至るまで、あらゆるスキルレベルの人々が QMK を使用してキーボードをカスタマイズしています。 このガイドは、スキルレベルに関係なく、同じことを行うのに役立ちます。
+
+お使いのキーボードで QMK を実行できるかどうか不明ですか? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](http://qmk.fm/keyboards/), so even if your current keyboard can't run QMK you shouldn't have trouble finding one to suit your needs.
+
+## 概要
+
+このガイドには7つの主要なセクションがあります。
+
+* [はじめに](newbs_getting_started.md)
+* [コマンドラインを使用して初めてのファームウェアを構築する](newbs_building_firmware.md)
+* [オンライン GUI を使用して初めてのファームウェアを構築する](newbs_building_firmware_configurator.md)
+* [ファームウェアを書きこむ](newbs_flashing.md)
+* [テストとデバッグ](newbs_testing_debugging.md)
+* [Git の最良の慣行](newbs_best_practices.md)
+* [さらに学ぶための学習リソース](newbs_learn_more_resources.md)
+
+このガイドは、これまでソフトウェアをコンパイルしたことがない人を支援することに焦点を当てています。 その視点に基づいて選択と推奨を行います。 これらの手順の多くには代替方法があり、これらの代替方法のほとんどをサポートしています。 タスクを達成する方法について疑問がある場合は、[ガイダンスを求めることができます](getting_started_getting_help.md)。
+
+## 追加のリソース
+
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
