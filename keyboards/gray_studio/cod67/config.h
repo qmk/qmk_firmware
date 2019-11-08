@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x0C0D
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gray Studio
 #define PRODUCT         COD67
@@ -49,7 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* D4 is not a PWM pin so the board only supports toggle */
+/* D4 is not a PWM pin, but look at timer assisted software PWM if you want something other than toggle
+ * https://docs.qmk.fm/#/feature_backlight?id=timer-assisted-pwm-implementation
+ */
 #define BACKLIGHT_PIN D4
 
 #define RGB_DI_PIN B2
