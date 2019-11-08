@@ -19,13 +19,13 @@ Certain MCUs which do not have native USB will use [V-USB](https://www.obdev.at/
 
 You can also use any ARM chip with USB that [ChibiOS](http://www.chibios.org) supports. Most have plenty of flash. Known to work are:
 
-### STMicroelectronics
+### STMicroelectronics (STM32)
 
  * [STM32F0x2](https://www.st.com/en/microcontrollers-microprocessors/stm32f0x2.html)
  * [STM32F103](https://www.st.com/en/microcontrollers-microprocessors/stm32f103.html)
  * [STM32F303](https://www.st.com/en/microcontrollers-microprocessors/stm32f303.html)
 
-### Kinetis
+### NXP (Kinetis)
 
  * [MKL26Z64](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/kl-series-cortex-m0-plus/kinetis-kl2x-72-96-mhz-usb-ultra-low-power-microcontrollers-mcus-based-on-arm-cortex-m0-plus-core:KL2x)
  * [MK20DX128](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-50-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-based-on-arm-cortex-m4-core:K20_50)
