@@ -33,4 +33,4 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 
 ## 追加のリソース
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 新規ユーザ視点から見た QMK ファームウェアの基本的な使用方法をカバーしたユーザ作成のブログ。
