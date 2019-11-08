@@ -6,7 +6,6 @@
 #define KC__FN2 MO(_FN2)
 #define KC_SFN1 LT(_FN1, KC_SPC)
 #define KC_RFN1 LT(_FN1, KC_RGHT)
-#define KC_DFN2 LT(_FN2, KC_DEL)
 #define KC_BFN2 BKSFN2
 #define KC_CESC CTRLESC
 #define KC_MISS MISCTRL
@@ -51,7 +50,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14_kc(
     GRV,  1,    2,    3,    4,    5,    MINS, _TGN, 6,    7,    8,    9,    0,    EQL,
-    TAB,  Q,    W,    E,    R,    T,    _TAP, _TAN, Y,    U,    I,    O,    P,    BSLS,
+    TAB,  Q,    W,    E,    R,    T,    _TAP, _TAN, Y,    U,    I,    O,    P,    BSPC,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
     _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1, BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
@@ -75,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEY_OVERRIDE] = LAYOUT_ortho_5x14_kc(
     TILD, ____, ____, ____, ____, ____, UNDS,   ____, ____, ____, ____, ____, ____, PLUS,
-    ____, ____, ____, ____, UNDS, EQL , LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, PIPE,
+    ____, ____, ____, ____, UNDS, EQL , LCBR,   RCBR, ____, LPRN, RPRN, ____, ____, DEL ,
     ____, ____, ____, ____, MINS, PLUS, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, ____, ____, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
@@ -86,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
-    ____, ____, ____, ____, ____, ____, ____,   DFN2, DFN2, ____, ____, ____, ____, ____
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
   ),
 
   [_FN2] = LAYOUT_ortho_5x14_kc(
