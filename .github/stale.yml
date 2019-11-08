@@ -12,17 +12,17 @@ pulls:
   daysUntilClose: 30
   # Comment to post when marking as stale. Set to `false` to disable
   markComment: >
+    Thank you for your contribution!
+
     This pull request has been automatically marked as stale because it has not had
     activity in the last 45 days. It will be closed in 30 days if no further activity occurs.
     Please feel free to give a status update now, or re-open when it's ready.
-
-    Thank you for your contributions!
   # Comment to post when closing a stale Issue or Pull Request.
   closeComment: >
-     This pull request has been automatically closed because it has not had activity in the last 30 days.
-     Please feel free to give a status update now, ping for review, or re-open when it's ready.
+    Thank you for your contribution!
 
-     Thank you for your contributions!
+    This pull request has been automatically closed because it has not had activity in the last 30 days.
+    Please feel free to give a status update now, ping for review, or re-open when it's ready.
   # Limit the number of actions per hour, from 1-30. Default is 30
   limitPerRun: 30
   exemptLabels:
@@ -41,13 +41,9 @@ issues:
     This issue has been automatically marked as resolved because it has not had activity in the
     last 90 days. It will be closed in the next 30 days unless it is tagged properly or other activity
     occurs.
-
-    Thank you for your contributions!
   closeComment: >
     This issue has been automatically closed because it has not had activity in the last 30 days.
-    If this issue is still valid, please ping a maintainer.
-
-    Thank you for your contributions!
+    If this issue is still valid, re-open the issue and let us know..
   exemptLabels:
     - bug
     - in progress
