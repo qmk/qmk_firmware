@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef LED_H
 #define LED_H
 #include "stdint.h"
+#include "stdbool.h"
 
 /* FIXME: Add doxygen comments here. */
 
@@ -31,6 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef union {
+    uint8_t raw;
+    struct {
+        bool num_lock    : 1;
+        bool caps_lock   : 1;
+        bool scroll_lock : 1;
+        bool compose     : 1;
+        bool kana        : 1;
+        uint8_t reserved : 3;
+    };
+} led_t;
 
 void led_set(uint8_t usb_led);
 

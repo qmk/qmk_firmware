@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2019 NaCly
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "ua62.h"
 
-#pragma once
-
-#include "config_common.h"
-
-#define MATRIX_COL_PINS { B0 }
-#define MATRIX_ROW_PINS { A7 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN           A0
-#define BACKLIGHT_PWM_DRIVER    PWMD2
-#define BACKLIGHT_PWM_CHANNEL   1
-
-#define RGB_DI_PIN A1

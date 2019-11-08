@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2019 hineybush
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_COL_PINS { B0 }
-#define MATRIX_ROW_PINS { A7 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN           A0
-#define BACKLIGHT_PWM_DRIVER    PWMD2
-#define BACKLIGHT_PWM_CHANNEL   1
-
-#define RGB_DI_PIN A1
+// place overrides here
