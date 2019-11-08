@@ -128,8 +128,8 @@ void matrix_scan_cmd_tab(void) {
  * Send Make Command
  *
  * Sends 'make keyboard:keymap command to compile firmware
- * Adds :flash target and resets keyboard,
- * if flash_bootloader set to true
+ * Adds :flash target and resets keyboard, if flash_bootloader set to true
+ * Sends FORCE_LAYOUT parameter if built with FORCE_LAYOUT
  */
 void send_make_command(bool flash_bootloader) {
     send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), SEND_STRING_DELAY);

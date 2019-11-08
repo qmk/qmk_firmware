@@ -61,25 +61,29 @@ void matrix_scan_cmd_tab(void);
 #define MT_RFPD   LT(1, KC_PGDN)       // Tap Fn for Page Down
 #define MT_RCED   RCTL_T(KC_END)       // Tap Right Ctrl for End
 
-// MacOS
-#define MC_POWR   KC_POWER             // Mac Power alias
-#define MC_SLEP   LALT(LGUI(KC_POWER)) // Mac Sleep
-#define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
-#define MC_LOCK   LCTL(LGUI(KC_Q))     // Lock Screen
+/**
+ * MacOS
+ * Common shortcuts used in macOS
+ * Reference: https://support.apple.com/en-us/HT201236
+ */
+#define MC_POWR   KC_POWER             // Power (KC_POWER)
+#define MC_SLEP   LALT(LGUI(KC_POWER)) // Sleep (Option-Command-Power)
+#define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display (Control-Shift-Power)
+#define MC_LOCK   LCTL(LGUI(KC_Q))     // Lock Screen (Control-Command-Q)
 #define MC_MSSN   KC_FIND              // Mission Control: Configure karabiner for find -> mission_control
-#define MC_LHPD   KC_MENU              // Launchpad: Configure karabiner for menu -> Launchpad
-#define MC_CMTB   LGUI(KC_TAB)         // Basic CMD+TAB
-#define MC_BACK   LGUI(KC_LBRC)        // Cmd+[: Back
-#define MC_FWRD   LGUI(KC_RBRC)        // Cmd+]: Forward
-#define CLS_TAB   LGUI(KC_W)           // Cmd+W: Closes Tab
-#define REO_TAB   LSFT(LGUI(KC_T))     // Shift+Cmd+T: Reopen Last Tab
-#define NXT_TAB   LCTL(KC_TAB)         // Control+Tab: Next Tab
-#define PRV_TAB   LSFT(LCTL(KC_TAB))   // Shift+Control+Tab: Previous Tab
-#define NXT_WIN   LGUI(KC_GRV)         // Control+Grave: Next Window
-#define PRV_WIN   LGUI(KC_TILD)        // Shift+Control+Grave: Previous Window
+#define MC_LHPD   KC_MENU              // Launchpad: Configure karabiner for menu -> launchpad
+#define MC_CMTB   LGUI(KC_TAB)         // Command-Tab
+#define MC_BACK   LGUI(KC_LBRC)        // Back (Command–Left Bracket)
+#define MC_FWRD   LGUI(KC_RBRC)        // Forward (Command–Right Bracket)
+#define CLS_TAB   LGUI(KC_W)           // Close Tab (Command–W)
+#define REO_TAB   LSFT(LGUI(KC_T))     // Reopen Last Tab (Shift-Command-T)
+#define NXT_TAB   LCTL(KC_TAB)         // Next Tab (Control-Tab)
+#define PRV_TAB   LSFT(LCTL(KC_TAB))   // Previous Tab (Shift-Control-Tab)
+#define NXT_WIN   LGUI(KC_GRV)         // Next Window (Control-Grave)
+#define PRV_WIN   LGUI(KC_TILD)        // Previous Window (Shift-Control-Grave)
 #define MC_PLYR   LGUI(KC_F8)          // Focuses current Media Player
-#define MC_UNDO   LGUI(KC_Z)           // Undo
-#define MC_REDO   LSFT(LGUI(KC_Z))     // Redo
+#define MC_UNDO   LGUI(KC_Z)           // Undo (Command-Z)
+#define MC_REDO   LSFT(LGUI(KC_Z))     // Redo (Shift-Command-Z)
 // Reverse scrolling for using with macOS Natural Scrolling.
 #define MC_WH_U   KC_WH_D              // Mouse Wheel Up
 #define MC_WH_D   KC_WH_U              // Mouse Wheel Down
