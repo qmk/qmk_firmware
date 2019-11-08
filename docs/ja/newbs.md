@@ -2,7 +2,7 @@
 
 QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。 QMK を使用して、シンプルかつ強力な方法でキーボードをカスタマイズできます。 完全な初心者からプログラマーに至るまで、あらゆるスキルレベルの人々が QMK を使用してキーボードをカスタマイズしています。 このガイドは、スキルレベルに関係なく、同じことを行うのに役立ちます。
 
-お使いのキーボードで QMK を実行できるかどうか不明ですか? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](http://qmk.fm/keyboards/), so even if your current keyboard can't run QMK you shouldn't have trouble finding one to suit your needs.
+お使いのキーボードで QMK を実行できるかどうか不明ですか？もし作成したキーボードがメカニカルキーボードの場合、実行できる可能性が高いです。QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポートしているため、もし現在のキーボードで QMK を実行できない場合でも、ニーズに合ったキーボードを見つけるのに問題はないはずです。
 
 ## 概要
 
