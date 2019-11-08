@@ -1,6 +1,6 @@
 /*
 Copyright 2012-2018 Jun Wako, Jack Humbert, Yiancar
-
+Port done by Andy Lee <alee@alittlepeacemusic.com>
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
