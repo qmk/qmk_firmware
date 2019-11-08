@@ -85,7 +85,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_EQUAL`       |`KC_EQL`           |`=` and `+`                                    |
 |`KC_LBRACKET`    |`KC_LBRC`          |`[` and `{`                                    |
 |`KC_RBRACKET`    |`KC_RBRC`          |`]` and `}`                                    |
-|`KC_BSLASH`      |`KC_BSLS`          |`\` and <code>&#124;</code>                    |
+|`KC_BSLASH`      |`KC_BSLS`          |`\` and `\|`                                   |
 |`KC_NONUS_HASH`  |`KC_NUHS`          |Non-US `#` and `~`                             |
 |`KC_SCOLON`      |`KC_SCLN`          |`;` and `:`                                    |
 |`KC_QUOTE`       |`KC_QUOT`          |`'` and `"`                                    |
@@ -93,7 +93,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_COMMA`       |`KC_COMM`          |`,` and `<`                                    |
 |`KC_DOT`         |                   |`.` and `>`                                    |
 |`KC_SLASH`       |`KC_SLSH`          |`/` and `?`                                    |
-|`KC_NONUS_BSLASH`|`KC_NUBS`          |Non-US `\` and <code>&#124;</code>             |
+|`KC_NONUS_BSLASH`|`KC_NUBS`          |Non-US `\` and `\|`                            |
 
 ## Lock Keys
 
@@ -121,26 +121,26 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## International
 
-|Key       |Aliases  |Description                    |
-|----------|---------|-------------------------------|
-|`KC_INT1` |`KC_RO`  |JIS `\` and `_`                |
-|`KC_INT2` |`KC_KANA`|JIS Katakana/Hiragana          |
-|`KC_INT3` |`KC_JYEN`|JIS `¥` and <code>&#124;</code>|
-|`KC_INT4` |`KC_HENK`|JIS Henkan                     |
-|`KC_INT5` |`KC_MHEN`|JIS Muhenkan                   |
-|`KC_INT6` |         |JIS Numpad `,`                 |
-|`KC_INT7` |         |International 7                |
-|`KC_INT8` |         |International 8                |
-|`KC_INT9` |         |International 9                |
-|`KC_LANG1`|`KC_HAEN`|Hangul/English                 |
-|`KC_LANG2`|`KC_HANJ`|Hanja                          |
-|`KC_LANG3`|         |JIS Katakana                   |
-|`KC_LANG4`|         |JIS Hiragana                   |
-|`KC_LANG5`|         |JIS Zenkaku/Hankaku            |
-|`KC_LANG6`|         |Language 6                     |
-|`KC_LANG7`|         |Language 7                     |
-|`KC_LANG8`|         |Language 8                     |
-|`KC_LANG9`|         |Language 9                     |
+|Key       |Aliases  |Description          |
+|----------|---------|---------------------|
+|`KC_INT1` |`KC_RO`  |JIS `\` and `_`      |
+|`KC_INT2` |`KC_KANA`|JIS Katakana/Hiragana|
+|`KC_INT3` |`KC_JYEN`|JIS `¥` and `\|`     |
+|`KC_INT4` |`KC_HENK`|JIS Henkan           |
+|`KC_INT5` |`KC_MHEN`|JIS Muhenkan         |
+|`KC_INT6` |         |JIS Numpad `,`       |
+|`KC_INT7` |         |International 7      |
+|`KC_INT8` |         |International 8      |
+|`KC_INT9` |         |International 9      |
+|`KC_LANG1`|`KC_HAEN`|Hangul/English       |
+|`KC_LANG2`|`KC_HANJ`|Hanja                |
+|`KC_LANG3`|         |JIS Katakana         |
+|`KC_LANG4`|         |JIS Hiragana         |
+|`KC_LANG5`|         |JIS Zenkaku/Hankaku  |
+|`KC_LANG6`|         |Language 6           |
+|`KC_LANG7`|         |Language 7           |
+|`KC_LANG8`|         |Language 8           |
+|`KC_LANG9`|         |Language 9           |
 
 ## Commands
 
@@ -191,7 +191,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` keycodes are found in the Generic Desktop page, and the rest are located in the Consumer page.
 
-Windows and macOS use different keycodes for "next track" and "previous track". Make sure you choose the keycode that corresponds to your OS.
+?> Some of these keycodes may behave differently depending on the OS. For example, on macOS, the keycodes `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` and `KC_MEDIA_PREV_TRACK` skip within the current track when held, but skip the entire track when tapped.
 
 |Key                    |Aliases  |Description                  |
 |-----------------------|---------|-----------------------------|
@@ -201,8 +201,8 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_AUDIO_MUTE`        |`KC_MUTE`|Mute                         |
 |`KC_AUDIO_VOL_UP`      |`KC_VOLU`|Volume Up                    |
 |`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`|Volume Down                  |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track (Windows)         |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track (Windows)     |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track                   |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track               |
 |`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track (Windows)         |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track             |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`|Launch Media Player (Windows)|

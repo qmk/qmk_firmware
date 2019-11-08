@@ -32,6 +32,11 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "printf.h"
+#include "rgblight_reconfig.h"
+
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#    include "rgblight.h"
+#endif
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #endif
@@ -214,6 +219,9 @@ int main(void) {
 #endif
 #ifdef RAW_ENABLE
         raw_hid_task();
+#endif
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
+        rgblight_task();
 #endif
     }
 }

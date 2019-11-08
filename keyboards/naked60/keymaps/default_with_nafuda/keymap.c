@@ -2,11 +2,6 @@
 
 extern keymap_config_t keymap_config;
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -24,61 +19,27 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  FLOCK = SAFE_RANGE,
-  MOUSE,
-  BROWSER,
-  LOWER,
-  RAISE,
-  ADJUST,
-  RGBRST
+  RGB_RST = SAFE_RANGE
 };
-
-enum tapdances{
-  TD_ESFL = 0,
-  TD_ESQW,
-};
-
-// Fillers to make layering more clear
-
-#define KC_CAD LCA(KC_DEL)
-#define KC_APSCR LALT(KC_PSCR)
-
-#define KC_SNUBS S(KC_NUBS)
-#define KC_SNUHS S(KC_NUHS)
-
-#define KC_RTAB LCTL(KC_TAB)
-#define KC_LTAB LCTL(LSFT(KC_TAB))
-#define KC_CTAB LCTL(KC_W)
-#define KC_RETAB LCTL(LSFT(KC_T))
-
-#define KC_TGMO TG(_MOUSE)
-#define KC_TGBR TG(_BROWSER)
-#define KC_BSAD LT(_ADJUST, KC_BSPC)
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_ESFL] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _FLOCK),
-  [TD_ESQW] = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, _QWERTY),
-};
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-  TD(TD_ESFL),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,                 KC_TGMO,
+       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,              TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,        KC_BSAD,   KC_UP, KC_TGBR,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,LT(_ADJUST, KC_BSPC),KC_UP,TG(_BROWSER),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
       KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,        KC_LEFT, KC_DOWN,KC_RIGHT,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
      KC_LCTRL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-                ADJUST,KC_LCTRL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,   RAISE, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT
+           MO(_ADJUST),KC_LCTRL, KC_LALT, KC_LGUI,MO(_LOWER),KC_SPC,KC_SPC,MO(_RAISE), KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT
           //`------------------------------------------------------------------------------------------------------------'
   ),
 
   [_FLOCK] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-  TD(TD_ESQW),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,                 _______,
+   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,                 _______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,        _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
@@ -92,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-  TD(TD_ESFL),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,                 KC_TGMO,
+       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,              TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,        KC_BTN1, KC_MS_U, KC_BTN2,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
@@ -106,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BROWSER] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,                 KC_CTAB,
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,              LCTL(KC_W),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,       KC_RETAB, KC_WH_U, KC_TGBR,
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,LCTL(LSFT(KC_T)),KC_WH_U,TG(_BROWSER),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,        KC_LTAB, KC_WH_D, KC_RTAB,
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,LCTL(LSFT(KC_TAB)), KC_WH_D,LCTL(KC_TAB),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
       _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -120,13 +81,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-       KC_ESC,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 KC_TGMO,
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,               TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                   KC_CIRC, KC_AMPR,  KC_ASTR,KC_LPRN, KC_RPRN,  KC_DEL,        KC_BSAD,   KC_UP, KC_TGBR,
+      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                   KC_CIRC, KC_AMPR,  KC_ASTR,KC_LPRN, KC_RPRN,  KC_DEL,LT(_ADJUST, KC_BSPC),   KC_UP,TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
       _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,        KC_LEFT, KC_DOWN,KC_RIGHT,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
-      _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,                    KC_F12,KC_SNUHS,KC_SNUBS, _______, _______, _______,
+      _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,                    KC_F12,S(KC_NUHS),S(KC_NUBS),_______,_______,_______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
                _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
           //`------------------------------------------------------------------------------------------------------------'
@@ -134,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_with_nafuda(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-       KC_ESC,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 KC_TGMO,
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,               TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      KC_TILD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,        KC_BSAD,   KC_UP, KC_TGBR,
+      KC_TILD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,LT(_ADJUST, KC_BSPC),   KC_UP,TG(_MOUSE),
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
        KC_DEL,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,        KC_LEFT, KC_DOWN,KC_RIGHT,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
@@ -148,39 +109,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_with_nafuda( /* Base */
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |--------------------------|
-       KC_ESC,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 RGB_VAD,
+   TG(_FLOCK),   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                 RGB_VAD,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
-      _______,   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),    ADJUST, RGB_SAD, RGB_VAI,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,LALT(KC_PSCR),   _ADJUST, RGB_SAD, RGB_VAI,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_PSCR,        RGB_MOD, RGB_TOG, RGB_SAI,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |--------------------------|
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,LCA(KC_DEL),
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+               _______, _______, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______
           //`------------------------------------------------------------------------------------------------------------'
   )
 };
-
-static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-
-  pressed ? layer_on(layer1) : layer_off(layer1);
-  IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
-}
 
 int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   bool result = false;
   switch (keycode) {
-    case LOWER:
-      update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
-      break;
-    case RAISE:
-      update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
-        break;
-    case ADJUST:
-      update_change_layer(record->event.pressed, _ADJUST, _RAISE, _LOWER);
-        break;
     #ifdef RGBLIGHT_ENABLE
       case RGB_MOD:
           if (record->event.pressed) {
@@ -189,7 +135,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             RGB_current_mode = rgblight_config.mode;
           }
         break;
-      case RGBRST:
+      case RGB_RST:
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
             rgblight_enable();
@@ -206,7 +152,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  #ifdef RGBLIGHT_ENABLE
-    RGB_current_mode = rgblight_config.mode;
-  #endif
+
 }
