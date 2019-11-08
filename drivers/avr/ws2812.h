@@ -38,4 +38,3 @@
  */
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
 void ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t number_of_leds, uint8_t pinmask);
-void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
