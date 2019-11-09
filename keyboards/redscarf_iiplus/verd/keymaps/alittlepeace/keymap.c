@@ -54,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		tap_code16(C(S(KC_TAB)));
 		 }
 	    break;
-	    case LAYEON:
+	    case TG(1):
            if (record->event.pressed) {
                 tap_code(KC_NUMLOCK);
 		layer_invert(1);
