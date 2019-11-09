@@ -33,6 +33,7 @@
   * [Keymap Overview](keymap.md)
 
 * [Hardware](hardware.md)
+  * [Compatible Microcontrollers](compatible_microcontrollers.md)
   * [AVR Processors](hardware_avr.md)
   * [Drivers](hardware_drivers.md)
 
