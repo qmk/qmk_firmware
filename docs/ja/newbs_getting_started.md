@@ -105,7 +105,7 @@ QMK には、必要な残りの設定を手助けするスクリプトが含ま�
 
     make clueboard/66/rev3:default
 
-次のようなメッセージが大量に表示されます。
+大量の出力の最後に次のように出力されると完了です。
 
 ```
 Linking: .build/clueboard_66_rev3_default.elf                                     [OK]
