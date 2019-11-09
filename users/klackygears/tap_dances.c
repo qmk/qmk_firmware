@@ -248,6 +248,15 @@ void enttab(qk_tap_dance_state_t *state, void *user_data)
 }
 
 
+void rgb_toggle (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    rgblight_step();
+  } else {
+    rgblight_increase_hue();
+  }
+}
+
+
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
 // Other declarations would go here, separated by commas, if you have them
@@ -269,7 +278,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_MCCCPY] = ACTION_TAP_DANCE_FN(mcccpy),
   [TD_MCPSTIN] = ACTION_TAP_DANCE_FN(mcpstin),
   [TD_ENTAB] = ACTION_TAP_DANCE_FN(enttab),
-  [TD_XSPC] = ACTION_TAP_DANCE_DOUBLE(KC_SPACE,KC_X)
+  [TD_XSPC] = ACTION_TAP_DANCE_DOUBLE(KC_SPACE,KC_X),
+  [TD_RGB ] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, rgb_toggle, NULL)
 };
 
 

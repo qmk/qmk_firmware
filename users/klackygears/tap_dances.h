@@ -31,6 +31,7 @@ enum {
   TD_MCPSTIN,
   TD_ENTAB,
   TD_XSPC,
+  TD_RGB,
 };
 
 
