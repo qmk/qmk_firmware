@@ -30,6 +30,7 @@ void led_init_ports(void) {
 	setPinOutput(C7);
 	writePinHigh(C7);
 	setPinOutput(E6);
+	writePinHigh(E6);
 }
 
 void led_set_kb(uint8_t usb_led) {
