@@ -7,15 +7,15 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-  #   or <this_dir>/ld/
+  #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= STM32F303xC
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
   MCU_STARTUP ?= stm32f3xx
 
-  # Board: it should exist either in <chibios>/os/hal/boards/
-  #  or <this_dir>/boards
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F303XC
 
   # Cortex version
