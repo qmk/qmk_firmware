@@ -28,11 +28,6 @@
 #    include <util/delay.h>
 #    include "rgblight.h"
 
-extern uint8_t clipping_start_pos;
-extern uint8_t clipping_num_leds;
-extern uint8_t effect_start_pos;
-extern uint8_t effect_end_pos;
-extern uint8_t effect_num_leds;
 extern rgblight_config_t rgblight_config;
 
 /*

@@ -149,6 +149,14 @@ extern const uint8_t  RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern bool           is_rgblight_initialized;
 
+#ifdef RGBLIGHT_CUSTOM_DRIVER
+extern uint8_t clipping_start_pos;
+extern uint8_t clipping_num_leds;
+extern uint8_t effect_start_pos;
+extern uint8_t effect_end_pos;
+extern uint8_t effect_num_leds;
+#endif
+
 // Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
     uint32_t raw;
