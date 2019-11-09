@@ -6,7 +6,6 @@ A 60% keyboard with a numpad on the right
 * Hardware Supported: Ver.D (RS77)
 * Hardware Availability: [Drop](https://drop.com/buy/red-scarf-ii-plus-ver-d-custom-mechanical-keyboard-kit)
 
-Port done by Andy Lee <alee@alittlepeacemusic.com>
 
 Please note that when QMK firmware is flashed, the remote will cease to control the underglow LEDs. 
 
