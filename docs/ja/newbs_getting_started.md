@@ -30,7 +30,7 @@ Windows の場合、メモ帳が使えます。Linux の場合、gedit が使え
 どちらもシンプルですが機能的なテキストエディタです。
 macOS では、デフォルトのテキストエディットアプリに注意してください。_フォーマット_ メニューから _標準テキストにする_ を選択しない限り、プレーンテキストとして保存されません。
 
-[Sublime Text](https://www.sublimetext.com/) や [VS Code](https://code.visualstudio.com/) のようなエディタも使えます。プログラミングやコード編集には、これがベストだと思います。
+[Sublime Text](https://www.sublimetext.com/) や [VS Code](https://code.visualstudio.com/) のような専用のテキストエディタをダウンロードしてインストールすることもできます。これらのプログラムはコードを編集するために特別に作成されているため、これはプラットフォームに関係なくベストな方法です。
 
 ?> どのエディタを使えば良いか分からない場合、Laurence Bradford が書いたこの記事 [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) を読んでください。
 
