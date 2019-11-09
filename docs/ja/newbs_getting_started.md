@@ -80,7 +80,7 @@ Git のインストールが必要です。既にインストールされてい�
 
 ## QMK の設定
 
-Linx/Unix 環境が準備できたら QMK のダウンロードの準備は完了です、Git の `clone` コマンドを実行して QMK のリポジトリを clone します。ターミナルか MSYS2 を立ち上げて、次の2つのコマンドを実行します。
+Linux/Unix 環境が準備できたら QMK のダウンロードの準備は完了です。Git を使用して QMK のリポジトリを「クローン」することで QMK をダウンロードします。ターミナルか MSYS2 MinGW ウィンドウを開いて、このガイドの残りの部分では開いたままにします。そのウィンドウ内で、次の2つのコマンドを実行します。
 
 ```shell
 git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
