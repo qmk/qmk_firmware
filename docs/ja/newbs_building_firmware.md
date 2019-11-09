@@ -44,7 +44,7 @@ macOS または Windows を使用している場合は、キーマップフォ�
 ./new_keymap.sh 1upkeyboards/1up60hse john
 ```
 
-## あなたの好みのテキストエディタで `keymap.c` を開きます
+## あなたの好みのテキストエディタで `keymap.c` を開く
 
 `keymap.c`を開きます。
 このファイル内には、キーボードの動作を制御する構造があります。
