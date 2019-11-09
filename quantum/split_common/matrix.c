@@ -251,7 +251,14 @@ void matrix_post_scan(void) {
         matrix_scan_quantum();
     } else {
         transport_slave(matrix + thatHand, matrix + thisHand);
+#ifdef SPLIT_TRANSPORT_MIRROR
         matrix_scan_quantum();
+#else
+#    ifdef ENCODER_ENABLE
+        encoder_read();
+#    endif
+        matrix_slave_scan_user();
+#endif
     }
 }
 
