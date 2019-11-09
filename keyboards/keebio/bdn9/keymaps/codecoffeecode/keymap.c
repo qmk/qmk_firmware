@@ -15,11 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-    CTRL_HOME = SAFE_RANGE,
-    CTRL_END
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         | Knob 1: Scrl Dn/Up |      | Knob 2: Vol Dn/Up  |
@@ -33,33 +28,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, MO(1),   KC_MNXT
     ),
     /*
-        |   RESET   | Home | Media Stop |
-        |           | End  |            |
-        |  CTRL_END |      | CTRL_HOME  |
+        |       RESET        | Home |    Media Stop      |
+        |                    | End  |                    |
+        |      CTRL_END      |      |    CTRL_HOME       |
      */
     [1] = LAYOUT(
-        RESET  ,  KC_HOME, KC_STOP,
-        _______,  KC_END,  _______,
-        CTRL_END, _______, CTRL_HOME
+        RESET  ,      KC_HOME, KC_STOP,
+        _______,      KC_END,  _______,
+        LCTL(KC_END), _______, LCTL(KC_HOME)
     ),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case CTRL_HOME:
-                if (record->event.pressed) {
-                    tap_code16(LCTL(KC_HOME));
-                }
-                break;
-            case CTRL_END:
-                if (record->event.pressed) {
-                    tap_code16(LCTL(KC_END));
-                }
-                break;
-        }
-    }
-    return true;
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
