@@ -28,7 +28,9 @@ static pin_t encoders_pad[] = ENCODERS_PAD_A;
 
 typedef struct _I2C_slave_buffer_t {
     uint32_t     sync_time;
+#ifdef SPLIT_TRANSPORT_MIRROR
     matrix_row_t mmatrix[ROWS_PER_HAND];
+#endif
     matrix_row_t smatrix[ROWS_PER_HAND];
     uint8_t      backlight_level;
 #    if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -57,7 +59,9 @@ static I2C_slave_buffer_t *const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_re
 // Get rows from other half over i2c
 bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_SLAVE_START, (void *)slave_matrix, sizeof(i2c_buffer->smatrix), TIMEOUT);
+#ifdef SPLIT_TRANSPORT_MIRROR
     i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_MASTER_START, (void *)master_matrix, sizeof(i2c_buffer->mmatrix), TIMEOUT);
+#endif
 
     // write backlight info
 #    ifdef BACKLIGHT_ENABLE
@@ -95,7 +99,9 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 
     // Copy matrix to I2C buffer
     memcpy((void*)i2c_buffer->smatrix, (void *)slave_matrix, sizeof(i2c_buffer->smatrix));
+#ifdef SPLIT_TRANSPORT_MIRROR
     memcpy((void*)master_matrix, (void *)i2c_buffer->mmatrix, sizeof(i2c_buffer->mmatrix));
+#endif
 
 // Read Backlight Info
 #    ifdef BACKLIGHT_ENABLE
@@ -134,8 +140,9 @@ typedef struct _Serial_s2m_buffer_t {
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
+#ifdef SPLIT_TRANSPORT_MIRROR
     matrix_row_t mmatrix[ROWS_PER_HAND];
-
+#endif
     uint32_t sync_timer;
 
 #    ifdef BACKLIGHT_ENABLE
@@ -233,7 +240,9 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
     // TODO:  if MATRIX_COLS > 8 change to unpack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         slave_matrix[i] = serial_s2m_buffer.smatrix[i];
+#ifdef SPLIT_TRANSPORT_MIRROR
         serial_m2s_buffer.mmatrix[i] = master_matrix[i];
+#endif
     }
 
 #    ifdef BACKLIGHT_ENABLE
@@ -258,7 +267,9 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
     // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_s2m_buffer.smatrix[i] = slave_matrix[i];
+#ifdef SPLIT_TRANSPORT_MIRROR
         master_matrix[i] = serial_m2s_buffer.mmatrix[i];
+#endif
     }
 
 #    ifdef BACKLIGHT_ENABLE

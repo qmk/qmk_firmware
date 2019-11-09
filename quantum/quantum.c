@@ -266,7 +266,7 @@ bool process_record_quantum(keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case RESET:
-#ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_TRANSPORT_MIRROR
                 if (is_keyboard_master())
 #endif
                 reset_keyboard();

@@ -13,6 +13,7 @@ RGBLIGHT_ANIMATIONS = no    # LED animations
 RGBLIGHT_SPLIT_ENABLE = no  # Split RGBLight Support
 RGB_MATRIX_ENABLE = WS2812  # Enable per-key coordinate based RGB effects. Do not enable with RGBlight
 RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects.
+SPLIT_TRANSPORT = mirror    # For split RGB Matrix support
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing

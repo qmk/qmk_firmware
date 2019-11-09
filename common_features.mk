@@ -421,6 +421,9 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
                            i2c_master.c \
                            i2c_slave.c
+        ifeq ($(strip $(SPLIT_TRANSPORT)), mirror)
+            OPT_DEFS += -DSPLIT_TRANSPORT_MIRROR
+        endif
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
