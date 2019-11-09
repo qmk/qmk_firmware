@@ -31,9 +31,13 @@
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_SLEEP
 #    undef RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
+#    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
+#        define RGBLIGHT_EFFECT_BREATHING
+#        define RGBLIGHT_EFFECT_SNAKE
+#        define RGBLIGHT_EFFECT_KNIGHT
+#    else
+#        define RGBLIGHT_ANIMATIONS
+#    endif
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
