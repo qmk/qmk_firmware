@@ -87,7 +87,7 @@ git clone --recurse-submodules https://github.com/qmk/qmk_firmware.git
 cd qmk_firmware
 ```
 
-> 既に [GitHub の使いかた](getting_started_github.md)を知っているなら、clone ではなく fork を勧めます。この一文の意味が分からない場合、このメッセージは無視してかまいません。
+?> 既に [GitHub の使いかた](getting_started_github.md)を知っているなら、clone ではなく fork を勧めます。この一文の意味が分からない場合、このメッセージは無視してかまいません。
 
 QMK には、必要な残りの設定を手助けするスクリプトが含まれています。
 セットアップ作業を完了させるため、次のコマンドを実行します。
