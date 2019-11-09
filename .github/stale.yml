@@ -43,7 +43,7 @@ issues:
     occurs.
   closeComment: >
     This issue has been automatically closed because it has not had activity in the last 30 days.
-    If this issue is still valid, re-open the issue and let us know..
+    If this issue is still valid, re-open the issue and let us know.
   exemptLabels:
     - bug
     - in progress
