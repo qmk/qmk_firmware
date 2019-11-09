@@ -19,7 +19,6 @@
 enum custom_keycodes {
     KC_P00 = SAFE_RANGE,
     CTRLMA,
-    LAYEON,
 
 };
 
