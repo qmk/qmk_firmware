@@ -1,20 +1,3 @@
-/* Copyright 2015-2017 Jack Humbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -159,14 +142,14 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEYBOARD_planck_ez
         case TH_LVL:
             if (record->event.pressed) {
-                 keyboard_config.led_level++;
-                 if (keyboard_config.led_level > 4) {
+                keyboard_config.led_level++;
+                if (keyboard_config.led_level > 4) {
                     keyboard_config.led_level = 0;
-                 }
-                 planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
-                 planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4 );
-                 eeconfig_update_kb(keyboard_config.raw);
-                 layer_state_set_kb(layer_state);
+                }
+                planck_ez_right_led_level((uint8_t)keyboard_config.led_level * 255 / 4);
+                planck_ez_left_led_level((uint8_t)keyboard_config.led_level * 255 / 4);
+                eeconfig_update_kb(keyboard_config.raw);
+                layer_state_set_kb(layer_state);
             }
             break;
 #endif
@@ -283,7 +266,9 @@ void rgb_matrix_indicators_user(void) {
             break;
     }
     if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-        if (!layer_state_cmp(layer_state, _ADJUST)) { rgb_matrix_set_color(24, 0x00, 0xFF, 0x00); }
+        if (!layer_state_cmp(layer_state, _ADJUST)) {
+            rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+        }
         rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
     }
     if ((this_mod | this_osm) & MOD_MASK_CTRL) {

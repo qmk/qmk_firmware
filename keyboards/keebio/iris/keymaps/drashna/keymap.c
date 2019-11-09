@@ -1,5 +1,3 @@
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
 // clang-format off

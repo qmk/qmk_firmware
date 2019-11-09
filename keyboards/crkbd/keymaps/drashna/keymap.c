@@ -1,17 +1,16 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
-extern uint8_t         is_master;
+extern uint8_t is_master;
 
 #ifdef RGBLIGHT_ENABLE
 // Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
 #endif
 #ifdef OLED_DRIVER_ENABLE
-static uint32_t        oled_timer = 0;
-static char     keylog_str[6]   = {};
-static uint16_t log_timer       = 0;
+static uint32_t oled_timer    = 0;
+static char     keylog_str[6] = {};
+static uint16_t log_timer     = 0;
+// clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
@@ -37,7 +36,6 @@ void add_keylog(uint16_t keycode);
 
 enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
 
-// clang-format off
 #define LAYOUT_crkbd_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -168,7 +166,7 @@ void add_keylog(uint16_t keycode) {
 
 void update_log(void) {
     if (timer_elapsed(log_timer) > 750) {
-        //add_keylog(0);
+        // add_keylog(0);
     }
 }
 
@@ -268,7 +266,7 @@ void render_status_secondary(void) {
     /* Show Keyboard Layout  */
     render_default_layer_state();
     render_layer_state();
-    render_mod_status(get_mods()|get_oneshot_mods());
+    render_mod_status(get_mods() | get_oneshot_mods());
 
     render_keylogger_status();
 }
@@ -278,9 +276,11 @@ void oled_task_user(void) {
         oled_off();
         return;
     }
-#ifndef SPLIT_KEYBOARD
-    else { oled_on(); }
-#endif
+#    ifndef SPLIT_KEYBOARD
+    else {
+        oled_on();
+    }
+#    endif
 
     update_log();
     if (is_master) {
@@ -303,13 +303,9 @@ uint16_t get_tapping_term(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_keymap(void) {
-    rgb_matrix_set_suspend_state(true);
-}
+void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
-void suspend_wakeup_init_keymap(void) {
-    rgb_matrix_set_suspend_state(false);
-}
+void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void check_default_layer(uint8_t mode, uint8_t type) {
     switch (biton32(default_layer_state)) {

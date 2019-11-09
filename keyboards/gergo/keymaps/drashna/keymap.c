@@ -1,12 +1,3 @@
-/* Good on you for modifying your layout! if you don't have
- * time to read the QMK docs, a list of keycodes can be found at
- *
- * https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
- *
- * There's also a template for adding new layers at the bottom of this file!
- */
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
 // clang-format off
