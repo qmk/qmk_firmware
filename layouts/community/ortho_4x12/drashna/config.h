@@ -1,9 +1,10 @@
 #pragma once
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
-#    define RGB_DI_PIN A0
-#    define RGBLED_NUM 13  // Number of LEDs
-#    define RGBLIGHT_ANIMATIONS
+#    if defined(KEYBOARD_planck_light)
+#        define RGB_DI_PIN A0
+#        define RGBLED_NUM 13  // Number of LEDs
+#    endif
 #    define RGBLIGHT_HUE_STEP 12
 #    define RGBLIGHT_SAT_STEP 12
 #    define RGBLIGHT_VAL_STEP 12
