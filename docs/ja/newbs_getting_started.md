@@ -16,7 +16,7 @@ QMK は、簡単なことは簡単に、そして、難しいことを可能な�
 # はじめに
 
 キーマップをビルドする前に、いくつかのソフトウェアをインストールしてビルド環境を構築する必要があります。
-この作業を一度実行すれば、どのキーボードのファームウェアもコンパイルできます。
+ファームウェアをコンパイルするキーボードの数に関わらず、この作業を一度だけ実行する必要があります。
 
 もし、GUI で作業をしたい場合、オンラインで作業できる [QMK Configurator](https://config.qmk.fm) を使ってください。
 使い方は [Building Your First Firmware using the online GUI](newbs_building_firmware_configurator.md) を参照してください。
