@@ -87,7 +87,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 #ifdef RGBW
         sendByte(ledarray[i].w);
 #endif
-}
+    }
 
     wait_ns(RES);
 

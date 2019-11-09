@@ -607,9 +607,9 @@ void rgblight_set(void) {
             led[i].r = 0;
             led[i].g = 0;
             led[i].b = 0;
-#ifdef RGBW
+#    ifdef RGBW
             led[i].w = 0;
-#endif
+#    endif
         }
     }
 #    ifdef RGBLIGHT_LED_MAP
@@ -919,9 +919,9 @@ void rgblight_effect_snake(animation_status_t *anim) {
         ledp->r        = 0;
         ledp->g        = 0;
         ledp->b        = 0;
-#ifdef RGBW
+#    ifdef RGBW
         ledp->w        = 0;
-#endif
+#    endif
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
             k = pos + j * increment;
             if (k > RGBLED_NUM) {
@@ -979,9 +979,9 @@ void rgblight_effect_knight(animation_status_t *anim) {
         led[i].r = 0;
         led[i].g = 0;
         led[i].b = 0;
-#ifdef RGBW
+#    ifdef RGBW
         led[i].w = 0;
-#endif
+#    endif
     }
     // Determine which LEDs should be lit up
     for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
@@ -993,9 +993,9 @@ void rgblight_effect_knight(animation_status_t *anim) {
             led[cur].r = 0;
             led[cur].g = 0;
             led[cur].b = 0;
-#ifdef RGBW
+#    ifdef RGBW
             led[cur].w = 0;
-#endif
+#    endif
         }
     }
     rgblight_set();

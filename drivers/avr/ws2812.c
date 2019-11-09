@@ -36,7 +36,6 @@
 void ws2812_sendarray(uint8_t *array, uint16_t length);
 void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 
-
 #ifdef RGBW_BB_TWI
 
 // Port for the I2C
@@ -146,7 +145,7 @@ void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 }
 
 void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask) {
- #ifdef RGBW_BB_TWI
+#ifdef RGBW_BB_TWI
     uint8_t sreg_prev, twcr_prev;
     sreg_prev = SREG;
     twcr_prev = TWCR;
@@ -166,11 +165,11 @@ void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmas
     SREG = sreg_prev;
     TWCR = twcr_prev;
 #endif
-   // ws2812_DDRREG |= pinmask; // Enable DDR
+    // ws2812_DDRREG |= pinmask; // Enable DDR
     // new universal format (DDR)
     _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
 
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds*sizeof(LED_TYPE), pinmask);
+    ws2812_sendarray_mask((uint8_t *)ledarray, leds * sizeof(LED_TYPE), pinmask);
 
 #ifndef RGBW_BB_TWI
 #    ifdef RGBW
@@ -180,8 +179,6 @@ void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmas
 #    endif
 #endif
 }
-
-
 
 void ws2812_sendarray(uint8_t *data, uint16_t datlen) { ws2812_sendarray_mask(data, datlen, _BV(RGB_DI_PIN & 0xF)); }
 
