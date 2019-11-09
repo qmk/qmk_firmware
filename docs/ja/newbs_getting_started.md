@@ -59,7 +59,7 @@ Linux か Unix 環境を用意するだけで、QMK に残りをインストー�
 MSYS2 と Git のインストールが必要です。
 
 * [MSYS2 homepage](http://www.msys2.org) の手順に従って MSYS2 をインストールします。
-* MSYS2 の画面を閉じて、新しい MSYS2 MinGW 64-bit のターミナル画面を開きます。
+* 開いている MSYS2 の全ターミナル画面を閉じて、新しい MSYS2 MinGW 64-bit のターミナル画面を開きます。
 * `pacman -S git` を実行して Git をインストールします。
 
 ### macOS
