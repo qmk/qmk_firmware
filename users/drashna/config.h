@@ -7,7 +7,7 @@
 #define USB_POLLING_INTERVAL_MS 1
 
 #ifdef AUDIO_ENABLE
-#    if __GNUC__ > 7
+#    if __GNUC__ > 5
 #        if __has_include("drashna_song_list.h")
 #            include "drashna_song_list.h"
 #        endif  // if file exists
