@@ -49,7 +49,7 @@ QMK Tookbox は、Windows と macOS で使える GUI を備えたプログラム
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。
 Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。
 
-?> もし、Linux か Unix のコマンドを使ったことがない場合、こちらで各種コマンドや基本的な概念を学んでください。これらの教材で QMK を使うのに必要なことを学ぶことができます。
+?> もし、Linux か Unix のコマンドを使ったことがない場合、こちらで基本的な概念や各種コマンドを学んでください。これらの教材で QMK を使うのに必要なことを学ぶことができます。
 
 [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
 [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
