@@ -49,12 +49,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case CTRL_HOME:
                 if (record->event.pressed) {
-                    SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_HOME) SS_UP(X_LCTRL));
+                    tap_code16(LCTL(KC_HOME));
                 }
                 break;
             case CTRL_END:
                 if (record->event.pressed) {
-                    SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_END) SS_UP(X_LCTRL));
+                    tap_code16(LCTL(KC_END));
                 }
                 break;
         }
