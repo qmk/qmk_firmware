@@ -16,3 +16,5 @@
 #define DEBOUNCE 30
 
 #define TAPPING_TERM_PER_KEY
+
+#define ERGODOX_LED_30
