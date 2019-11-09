@@ -14,8 +14,8 @@ The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, 
 The `<target>` means the following
 * If no target is given, then it's the same as `all` below
 * `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
-* `dfu`, `teensy`, `avrdude`, `dfu-util` or `bootloadHID`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
- * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:dfu`.
+* `flash`, `dfu`, `teensy`, `avrdude`, `dfu-util`, or `bootloadHID` compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
+ * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:flash`.
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
 
 You can also add extra options at the end of the make command line, after the target
@@ -31,7 +31,7 @@ Here are some examples commands
 
 * `make all:all` builds everything (all keyboard folders, all keymaps). Running just `make` from the `root` will also run this.
 * `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard.
-* `make planck/rev4:default:dfu COLOR=false` builds and uploads the keymap without color output.
+* `make planck/rev4:default:flash COLOR=false` builds and uploads the keymap without color output.
 
 ## `rules.mk` Options
 

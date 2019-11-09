@@ -20,6 +20,11 @@
 #include "timer.h"
 #include "uart.h"
 #include "debug.h"
+#include "rgblight_reconfig.h"
+
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
+#    include "rgblight.h"
+#endif
 
 #define UART_BAUD_RATE 115200
 
@@ -94,6 +99,10 @@ int main(void) {
             // To prevent failing to configure NOT scan keyboard during configuration
             if (usbConfiguration && usbInterruptIsReady()) {
                 keyboard_task();
+
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
+                rgblight_task();
+#endif
             }
             vusb_transfer_keyboard();
         }
