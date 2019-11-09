@@ -15,8 +15,10 @@
 
 #include QMK_KEYBOARD_H
 
-#define MT(MOD_LCTL, KC_DEL)  MALT
-
+enum custom_keycodes {
+  TOGGLE_SCREEN_1,
+  TOGGLE_SCREEN_2,
+};
 
 // Layer shorthand
 enum layer {
@@ -49,17 +51,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [BASE] = LAYOUT_ortho_5x14(
-  KC_ESC,                KC_1,    KC_2,    KC_3,    KC_4,                  KC_5,              TO(ONE_HAND),     KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+  KC_ESC,                KC_1,    KC_2,    KC_3,    KC_4,                  KC_5,              TO(ONE_HAND),     KC_SCROLLLOCK,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   MT(MOD_LALT, KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,                  KC_T,              LCTL(LSFT(KC_4)), KC_PGUP, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE, \
   MT(MOD_LGUI, KC_BSPC), KC_A,    KC_S,    KC_D,    KC_F,                  KC_G,              KC_HOME,          KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  \
   KC_ENT,                KC_Z,    KC_X,    KC_C,    KC_V,                  KC_B,              LCTL(LSFT(KC_3)), KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS, \
-  KC_LEFT,               KC_DOWN, KC_UP,   KC_RGHT, MALT,  LT(SYMB, KC_SPC),  KC_SPC,           LT(NUMB, KC_SPC), KC_SPC,  KC_LSFT, KC_TAB,  KC_UP,   KC_RGHT, KC_RCTL  \
+  KC_LEFT,               KC_DOWN, KC_UP,   KC_RGHT, MT(MOD_LCTL, KC_DEL),  LT(SYMB, KC_SPC),  KC_SPC,           LT(NUMB, KC_SPC), KC_SPC,  KC_LSFT, KC_TAB,  KC_UP,   KC_RGHT, KC_RCTL  \
  ),
 
  [SYMB] = LAYOUT_ortho_5x14(
   KC_ESC,                KC_1,             KC_2,    KC_3,    KC_4,                  KC_5,              TO(ONE_HAND),     KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  TO(ONE_HAND),          KC_EXLM,          KC_AT,   KC_LCBR, KC_RCBR,               KC_PIPE,           LCTL(LSFT(KC_4)), KC_PGUP, KC_AMPR, KC_EQL, LCTL(LSFT(KC_3)), LCTL(LSFT(KC_4)), KC_BSLS, \
-  KC_TRNS,               KC_HASH,          KC_DLR,  KC_LPRN, KC_RPRN,               KC_GRV,            KC_HOME,          KC_PGUP, KC_TRNS, KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,  \
+  TO(ONE_HAND),          KC_EXLM,          KC_AT,   KC_LCBR, KC_RCBR,               KC_PIPE,           LCTL(LSFT(KC_4)), KC_PGUP, KC_TRNS, KC_AMPR, KC_EQL, LCTL(LSFT(KC_3)), LCTL(LSFT(KC_4)), KC_BSLS, \
+  KC_TRNS,               KC_HASH,          KC_DLR,  KC_LPRN, KC_RPRN,               KC_GRV,            KC_HOME,          KC_PGUP, KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,  \
   KC_TRNS,               KC_PERC,          KC_CIRC, KC_LBRC, KC_RBRC,               KC_TILD,              LCTL(LSFT(KC_3)), KC_PGDN, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS, \
   KC_LEFT,               KC_DOWN, KC_UP,   KC_RGHT, MT(MOD_LCTL, KC_DEL),  LT(SYMB, KC_SPC),  KC_SPC,           LT(NUMB, KC_SPC), KC_SPC,  KC_LSFT, KC_TAB,  KC_UP,   KC_RGHT, KC_RCTL  \
  ),
@@ -201,6 +203,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case TOGGLE_SCREEN_1:
+      if (record->event.pressed) {
+
+        }
+        return false;
+        break;
+    case TOGGLE_SCREEN_2:
+      if (record->event.pressed) {
+
+        }
+        return false;
+        break;
+      }
   if (record->event.pressed) {
 rgblight_sethsv(120, 100, 85);
   }
