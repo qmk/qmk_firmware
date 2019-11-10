@@ -110,7 +110,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 
 これにより、キーボードの構成が確認され、指定されたブートローダーに基づいてキーボードへの書き込みが試行されます。
 これはあなたがキーボードが使用するブートローダを知る必要がないことを意味します。
-コマンドをただ実行して、コマンド自身に重い処理を任せます。
+コマンドをただ実行して、コマンド自身に難しい処理を任せます。
 
 ただし、これはキーボードごとに設定されているブートローダに依存します。
 If this information is not configured, or you're using a board that doesn't have a supported target to flash it, 次のエラーが表示されます。
