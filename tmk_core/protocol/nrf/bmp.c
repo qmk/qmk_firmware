@@ -667,6 +667,18 @@ int load_tapping_term_file()
   }
   memcpy(&bmp_qmk_config, p_qmk_config, sizeof(bmp_qmk_config));
 
+  // get default tapping term
+  for (int i=0;
+     i<sizeof(bmp_qmk_config.tapping_term)/sizeof(bmp_qmk_config.tapping_term[0]);
+     i++)
+  {
+    if (bmp_qmk_config.tapping_term[i].qkc == KC_NO
+        && bmp_qmk_config.tapping_term[i].tapping_term == 0)
+    {
+        bmp_qmk_config.tapping_term[i].tapping_term = TAPPING_TERM;
+    }
+  }
+
   return 0;
 }
 
