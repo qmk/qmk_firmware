@@ -27,7 +27,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   USE_FPU = yes
 
   # Vector table for application
-  # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
+  # 0x00000000-0x00001000 area is occupied by bootloader.*/
   # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
   # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
 
