@@ -108,6 +108,6 @@ If you're referring to having three spots for space bar, the best course of acti
 
 Please double check the other layers of your keymap to make sure there are no random keys present. 
 
-## Problems and Bugs
+## 問題とバグ
 
 We are always accepting customer requests and bug reports. Please file them at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
