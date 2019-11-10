@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "i2c.h"
 
-static uint8_t debouncing = DEBOUNCING_DELAY;
+static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -70,7 +70,7 @@ uint8_t matrix_scan(void)
             bool curr_bit = cols & (1UL << col);
             if (prev_bit != curr_bit) {
                 matrix_debouncing[row] ^= ((matrix_row_t) 1UL << col);
-                debouncing = DEBOUNCING_DELAY;
+                debouncing = DEBOUNCE;
             }
         }
         reset_rows();

@@ -47,5 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define I2C_BITRATE_KHZ 400
 #define I2C_TARGET_ADDR 0xB0
-
-#endif
