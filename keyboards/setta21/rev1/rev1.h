@@ -4,7 +4,7 @@
 
 //void promicro_bootloader_jmp(bool program);
 
-#define LAYOUT( \
+#define LAYOUT_numpad_6x4( \
        L05, L15, L25, L35, \
        L04, L14, L24, L34, \
        L03, L13, L23,      \
