@@ -73,19 +73,22 @@ void bootmagic_lite(void) {
     }
 }
 
+__attribute__((weak)) void keyboard_pre_init_keymap(void) {}
+
+void keyboard_pre_init_user(void) {
+    userspace_config.raw = eeconfig_read_user();
+    keyboard_pre_init_keymap();
+}
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
 // customization of the keymap.  Use _keymap instead of _user
 // functions in the keymaps
-__attribute__((weak))
-void matrix_init_keymap(void) {}
+__attribute__((weak)) void matrix_init_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-    userspace_config.raw = eeconfig_read_user();
-
-#ifdef BOOTLOADER_CATERINA
+#if defined(BOOTLOADER_CATERINA) && defined(__AVR__)
     DDRD &= ~(1 << 5);
     PORTD &= ~(1 << 5);
 
@@ -100,8 +103,7 @@ void matrix_init_user(void) {
     matrix_init_keymap();
 }
 
-__attribute__((weak))
-void keyboard_post_init_keymap(void) {}
+__attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
