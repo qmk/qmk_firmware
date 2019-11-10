@@ -1,18 +1,20 @@
-BOOTMAGIC_ENABLE  = no       # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE  = lite       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE   = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE   = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE    = no         # Console for debug(+400)
-COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 AUDIO_ENABLE      = yes
 SPACE_CADET_ENABLE = no
 
 ifneq ($(strip $(KEYBOARD)), planck/rev6)
+    CONSOLE_ENABLE    			= no
+    COMMAND_ENABLE    			= no
     RGBLIGHT_ENABLE             = yes
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
 else
+    CONSOLE_ENABLE    			= yes
+    COMMAND_ENABLE    			= yes
     RGBLIGHT_ENABLE             = no
     RGB_MATRIX_ENABLE           = WS2812
 endif
@@ -30,6 +32,8 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
+    CONSOLE_ENABLE    			= yes
+    COMMAND_ENABLE    			= yes
 endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
