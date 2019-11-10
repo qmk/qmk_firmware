@@ -8,7 +8,7 @@ newbs_flashing.md
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
 
-?> **Please follow these steps in order.**
+?> **次の手順を順番に実行してください。**
 
 [Video Tutorial](https://youtu.be/tx54jkRC9ZY) を見てください。
 
