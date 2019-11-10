@@ -13,12 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef FINGER65_H
-#define FINGER65_H
+
+#pragma once
 
 #include "quantum.h"
-#include "action.h"
-#include "led_l3.h"
 
 #define LAYOUT_ANSI( \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N, K4O, K4P,\
@@ -35,4 +33,3 @@
   {   K0A,   K0B,   K0C,   K0D, KC_NO, KC_NO,   K0G, KC_NO,   K0I,   K0J, KC_NO, KC_NO,   K0M,   K0N,   K0O,   K0P, KC_NO, KC_NO, KC_NO, KC_NO}  \
 }
 
-#endif

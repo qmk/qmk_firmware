@@ -40,16 +40,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
-  switch(biton32(state)) {
-  case _FNMS:
-    led_off();
-    rgb_on();
-    break;
-  default:
-    led_off();
-    rgb_off();
-    break;
-  }
-  return state;
-}
+// uint32_t layer_state_set_user(uint32_t state) {
+//   switch(biton32(state)) {
+//   case _FNMS:
+//     led_off();
+//     rgb_on();
+//     break;
+//   default:
+//     led_off();
+//     rgb_off();
+//     break;
+//   }
+//   return state;
+// }
