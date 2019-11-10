@@ -37,11 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 1
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 

@@ -32,4 +32,3 @@
   {   K1A,   K1B,   K1C,   K1D,   K1E,   K1F,   K1G,   K1H,   K1I,   K1J,   K1K,   K1L,   K1M, KC_NO,   K1O,   K1P, KC_NO, KC_NO, KC_NO, KC_NO}, \
   {   K0A,   K0B,   K0C,   K0D, KC_NO, KC_NO,   K0G, KC_NO,   K0I,   K0J, KC_NO, KC_NO,   K0M,   K0N,   K0O,   K0P, KC_NO, KC_NO, KC_NO, KC_NO}  \
 }
-
