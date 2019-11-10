@@ -89,7 +89,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 #### 私の .json ファイルが動きません
 
-.json ファイルが QMK Configurator で作ったものの場合、おめでとうございます。バグに遭遇しました。 [qmk_configurator](https://github.com/qmk/qmk_configurator/issues) で報告します。
+.json ファイルが QMK Configurator で作ったものの場合、おめでとうございます。バグに遭遇しました。 [qmk_configurator](https://github.com/qmk/qmk_configurator/issues) で報告してください。
 
 そうでない場合は、... 他の .json ファイルを使用しないようにという、上に書いた注意書きを見逃してませんか？
 
