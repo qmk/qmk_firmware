@@ -23,7 +23,7 @@ void keyboard_post_init_user()
 
 void create_user_file()
 {
-  static const char qmk_configurator[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://takashiski.github.io/qmk_configurator\'\"/>";
+  static const char qmk_configurator[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://sekigon-gonnoc.github.io/qmk_configurator\'\"/>";
   BMPAPI->usb.create_file("MAP_EDITHTM", (uint8_t*)qmk_configurator, strlen(qmk_configurator));
 }
 // Optional override functions below.
