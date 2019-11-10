@@ -11,4 +11,4 @@ This includes 3 different layers.
     -   Standalone layer only for modifying the lighting on the board. Keys for this purpose are mapped in the locations used by the default dz60 layout.
     -   You can access this layer by holding MO(1) (next to the space bar) followed by holding MO(2) which where the Left Alt key is positioned.
 
-![dz60-iso-keymap](dz60-iso-keymap-image.png)
+![dz60-iso-keymap](./dz60-iso-keymap-image.png)
