@@ -17,4 +17,11 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = no       # Enable Tap Dancing function
-OLED_DRIVER_ENABLE = yes    # Enable OLED
+
+# make keebio/bfo9000:deepbluealchemy:avrdude SPLIT_LEFT=yes
+
+ifeq ($(strip $(SPLIT_LEFT)), yes) 
+    OLED_DRIVER_ENABLE=yes
+else
+    OLED_DRIVER_ENABLE=no
+endif
