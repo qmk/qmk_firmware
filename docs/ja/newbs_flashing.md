@@ -113,7 +113,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 コマンドをただ実行して、コマンド自身に難しい処理を任せます。
 
 ただし、これはキーボードごとに設定されているブートローダに依存します。
-If this information is not configured, or you're using a board that doesn't have a supported target to flash it, 次のエラーが表示されます。
+もしこの情報が設定されていない場合、または使用しているキーボードのファームウェアの書き込みにサポートしていないターゲットが設定されている場合、次のエラーが表示されます。
 
     WARNING: This board's bootloader is not specified or is not supported by the ":flash" target at this time.
 
