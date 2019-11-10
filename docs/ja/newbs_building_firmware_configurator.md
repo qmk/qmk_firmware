@@ -61,7 +61,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 2分割のバックスペース: 両方ともバックスペースで埋めます。
 
-2 spots for right shift: Fill them BOTH with right shift
+2分割の右シフト: 両方とも右シフトで埋めます。
 
 左シフトとISOサポート用に1つずつ: 両方とも左シフトで埋めます。
 
