@@ -2,7 +2,7 @@
 
 <!---
   original document: ed0575fc8:docs/newbs_testing_debugging.md
-  $ git show ed0575fc8:docs/newbs_testing_debugging.md
+  $ git diff ed0575fc8 HEAD docs/newbs_testing_debugging.md
 -->
 
 カスタムファームウェアをキーボードへ書き込んだら、テストする準備が整います。運が良ければ全て問題なく動作しているはずですが、もしそうでなければこのドキュメントがどこが悪いのか調べるのに役立ちます。

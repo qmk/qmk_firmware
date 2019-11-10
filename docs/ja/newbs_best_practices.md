@@ -2,7 +2,7 @@
 
 <!---
   original document: ed0575fc8:docs/newbs_best_practices.md
-  $ git show ed0575fc8:docs/newbs_best_practices.md
+  $ git diff ed0575fc8 HEAD docs/newbs_best_practices.md
 -->
 
 ## Or, "How I Learned to Stop Worrying and Love Git."

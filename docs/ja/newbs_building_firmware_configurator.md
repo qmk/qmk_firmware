@@ -2,8 +2,7 @@
 
 <!---
   original document: ed0575fc8:docs/newbs_building_firmware_configurator.md
-newbs_flashing.md
-  $ git show ed0575fc8:docs/newbs_building_firmware_configurator.md
+  $ git diff ed0575fc8 HEAD docs/newbs_building_firmware_configurator.md
 -->
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。

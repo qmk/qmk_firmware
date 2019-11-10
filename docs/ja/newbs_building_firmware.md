@@ -2,7 +2,7 @@
 
 <!---
   original document: ed0575fc8:docs/newbs_building_firmware.md
-  $ git show ed0575fc8:docs/newbs_building_firmware.md
+  $ git diff ed0575fc8 HEAD docs/newbs_building_firmware.md
 -->
 
 ビルド環境をセットアップしたので、カスタムファームウェアのビルドを開始する準備ができました。

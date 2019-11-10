@@ -1,9 +1,9 @@
+# イントロダクション
+
 <!---
   original document: docs/newbs_getting_started.md
-  $ git show 161d469:docs/newbs_getting_started.md
+  $ git diff 161d469 HEAD docs/newbs_getting_started.md
 -->
-
-# イントロダクション
 
 キーボードにはプロセッサが入っており、それはコンピュータに入っているものと大して違わないものです。
 このプロセッサでは、キーボードのボタンの押し下げの検出を担当しキーボードのどのボタンが押されている/離されているかのレポートをコンピュータに送信するソフトウェアが動作しています。

@@ -2,7 +2,7 @@
 
 <!---
   original document: ed0575fc8:docs/newbs.md
-  $ git show ed0575fc8:docs/newbs.md
+  $ git diff ed0575fc8 HEAD docs/newbs.md
 -->
 
 QMK は、メカニカルキーボード用の強力なオープンソースファームウェアです。
