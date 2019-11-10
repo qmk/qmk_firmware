@@ -34,17 +34,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, KC_PGUP, KC_PAUS,
      _______, _______, _______, _______, _______, _______, _______, _______,  KC_HOME,  KC_PGDN, KC_END),
 };
-
-uint32_t layer_state_set_user(uint32_t state) {
-  switch(biton32(state)) {
-  case _LONE:
-    led_on();
-    rgb_off();
-    break;
-  default:
-    led_off();
-    rgb_off();
-    break;
-  }
-  return state;
-}
