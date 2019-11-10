@@ -14,7 +14,7 @@ where set to indicate the active layer.
 
     - Upper left key always goes back to default layer, then is Escape.
 
-    - The remaining two layers are through the F-function layer on toggle
+    - The remaining layers are through the F-function layer on toggle
       keys top row. Those are seldom used layers (rare keys and reverse 
       hand numbers / navigation).
 
@@ -30,7 +30,7 @@ where set to indicate the active layer.
       modifiers Alt/Shift/Control are on the outside of the board,
       to make it easier to access when using a mouse/tablet and
       reposition hand (things like 3D editing).
-
+ 
     - Usual layer switching by thumb hold keys, allows both hands to
       continue typing better. There are two for layer 1, which has all
       the symbols and numbers, to be able to type left and switch layer
@@ -124,3 +124,12 @@ where set to indicate the active layer.
         .+LSht     xxx  xxx  xxx  xxx   xxx  6    7    8    9    0    RSht
         Left+LAlt Del    Sht(Tab)  ___      Tab    ___     Ent   Right+Alt
         
+
+   Layer 6: Rarely used symbols, using Unicode Ctrl(Shft(u))HEX input (Linux),
+            because AltGr or Compose did not seem to work, I rather not have
+            dead keys, and almost never use accented letters.
+
+        _LTR  xxx  xxx  è  È  xxx ___  👍  👎  xxx xxx    Bspc
+        LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
+        LShft   xxx  xxx  ë  Ë  xxx xxx  🙂  🙁  xxx xxx RShft
+        LALT  Del   ___    ___    ___     ___      ___     ___

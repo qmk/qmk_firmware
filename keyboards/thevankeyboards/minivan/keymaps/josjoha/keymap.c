@@ -10,6 +10,8 @@ extern keymap_config_t keymap_config;
      * - All other layers are through the _FUN layer on toggle.
      * - A lot of the modifiers, Del/Esc, alt-arrows repeat on layers.
      * - Layer switching by thumb hold keys (except _FUN).
+     * - Rather than AltGr or Compose (which for some reason did not work here
+     *   at the moment), RAlt position switches to a symbols layer.
      *
      * */
 
@@ -19,6 +21,140 @@ extern keymap_config_t keymap_config;
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
 #define _REV 5 // Reversing: numbers right, navigation left (mirrored.)
+#define _ACC 6 // Accented letters and unusual symbols, X-server Unicode input (Linux)
+
+
+    /* These are some rarely but existing letters in Dutch, and perhaps some other
+     * additions.
+     */
+
+enum custom_keycodes {
+  CEL_ACU = SAFE_RANGE, // 'C' for Costum 'E' for e, 'L' for lower, "ACU" for acute: é
+  CEL_GRA,              // 'C' for Costum 'E' for e, 'L' for lower, "GRA" for grave: è
+  CEL_DIA,              // 'C' for Costum 'E' for e, 'L' for lower, "DIA" for diaereses: ë
+
+  CEU_ACU,              // 'C' for Costum 'E' for e, 'U' for uuper, "ACU" for acute: É
+  CEU_GRA,              // 'C' for Costum 'E' for e, 'U' for upper, "GRA" for grave: È
+  CEU_DIA,              // 'C' for Costum 'E' for e, 'U' for upper, "DIA" for diaereses: Ë
+
+  CIL_ACU,              // 'C' for Costum 'I' for i, 'L' for lower, "ACU" for acute: 
+  CIU_ACU,              // 'C' for Costum 'I' for i, 'U' for upper, "ACU" for acute: 
+
+  CS_SMIL,              // 'C' for Costum 'S' for symbol, "SMIL"  for <smile> 
+  CS_YAYS,              // 'C' for Costum 'S' for symbol, "YAYS"  for <big smile>
+  CS_SAD,               // 'C' for Costum 'S' for symbol, "SAD"   for  <sad face>
+  CS_SQIG,              // 'C' for Costum 'S' for symbol, "SQIG"  for "Squiggly" face <sad>
+  CS_THUP,              // 'C' for Costum 'S' for symbol, "THUP"  for <thumb up>
+  CS_THDN,              // 'C' for Costum 'S' for symbol, "THDN"  for <thumb down>
+
+};
+
+/* Switches over the costum keycodes. 
+ * Typing Control+Shift+u, then releasing and typing the Unicode hex number followed by
+ * a space, results in the Unicode symbol (Linux)
+ * Unicode hex numbers need to have lower case letters (Debian 10) */
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // E lower case variants
+    case CEL_GRA:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): é (Unicode notation: U+00E8)
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00e8 " ); 
+      } else {  
+        // when keycode QMKBEST is released
+      }
+      break;
+    case CEL_ACU:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): é
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00e9 " ); 
+      }
+      break;
+    case CEL_DIA:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): ë
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00eb " ); 
+      }
+      break;
+
+    // E upper case variants
+    case CEU_GRA:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): È
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00c8 " ); 
+      }
+      break;
+    case CEU_ACU:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): É
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00c9 " ); 
+      }
+      break;
+    case CEU_DIA:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): Ë
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00cb " ); 
+      }
+      break;
+
+    // I acute
+    case CIU_ACU:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): Í
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00cd " ); 
+      }
+      break;
+    case CIL_ACU:
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): í
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00ed " ); 
+      }
+      break;
+
+    // Some Unicode symbols that might be handy
+    // Happy symbols:
+    case CS_THUP: // unicode thumbs up symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): 👍 (Not sure if Unicode like this is ok in a source file, but it worked.)
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f44d " ); 
+      }
+      break;
+    case CS_SMIL: // unicode smiling face symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): 🙂
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f642 " ); 
+      }
+      break;
+    case CS_YAYS: // unicode smiling face symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): 😃
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f603 " ); 
+      }
+      break;
+    //Sad symbols
+    case CS_SAD: // sad face symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): 🙁
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f641 " ); 
+      }
+      break;
+    case CS_SQIG: // sad face symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): ⍨
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "2368 " ); 
+      }
+      break;
+    case CS_THDN: // unicode thumbs down symbol
+      if (record->event.pressed) {
+        // Unicode input in X (Linux): 👎
+        SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f44e " ); 
+      }
+      break;
+     
+  }
+  return true;
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -34,14 +170,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /*  Esc      '"   ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
          *  Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
          *  LSht       ;:   qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
-         *  Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
-         *                  hold      hold          hold toggle 
+         *  Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
+         *                  hold      hold          hold toggle      hold
          */
 
         KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P   , KC_Y        , KC_F        , KC_G     , KC_C     , KC_R , KC_L , KC_BSPC ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O        , KC_E                 , KC_U   , KC_I        , KC_D        , KC_H     , KC_T     , KC_N , KC_S , KC_MINS ,
         KC_LSFT            , KC_SCLN , KC_Q        , KC_J                 , KC_K   , KC_X        , KC_B        , KC_M     , KC_W     , KC_V , KC_Z , KC_RSFT ,
-        LALT_T ( KC_LEFT )  , KC_DEL  , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , RALT_T ( KC_RIGHT )
+        LALT_T ( KC_LEFT )  , KC_DEL  , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , LT ( _ACC , KC_RIGHT )
                       ) ,
 
 
@@ -70,16 +206,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _FUN ] = LAYOUT (
     
-        /* _LTR _NSY _FUN _MOV _RAR  xxx  xxx  F24 F23  F22  F21     xxx
+        /* _LTR _NSY _FUN _MOV _RAR _REV _ACC  F24 F23  F22  F21     xxx
          * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
          * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
          * LAlt  ___     ___     ___      ___      ___       ___    RAlt
          */
         
-        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , XXXXXXX , KC_F24  , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
-        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15  , KC_F14  , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
-        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16  , KC_F17  , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
-        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______ , KC_RALT
+        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , KC_F24  , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
+        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15      , KC_F14  , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
+        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16      , KC_F17  , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
+        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______     , KC_RALT
                       ) ,
 
 
@@ -137,6 +273,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LSFT_T ( KC_DOT )   , XXXXXXX , XXXXXXX      , XXXXXXX , XXXXXXX , XXXXXXX , KC_6    , KC_7               , KC_8    , KC_9    , KC_0    , KC_RSFT ,
         LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
+
+
+    /* Layer 6: Accented and other unusual characters
+     *
+     */ 
+
+    [ _ACC ] = LAYOUT (
+
+        /*  _LTR  xxx  xxx  è  È  xxx ___  👍  👎  xxx xxx    Bspc
+         *  LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
+         *  LShft   xxx  xxx  ë  Ë  xxx xxx  🙂  🙁  xxx xxx RShft
+         *  LALT  Del   ___    ___    ___     ___      ___     ___
+         */
+
+	TO ( _LTR ) , XXXXXXX , XXXXXXX , CEL_GRA , CEU_GRA , XXXXXXX , _______ , CS_THUP , CS_THDN , XXXXXXX , XXXXXXX , KC_BSPC , 
+	KC_LCTL      , XXXXXXX , XXXXXXX , CEL_ACU , CEU_ACU , CIL_ACU , CIU_ACU , CS_YAYS , CS_SQIG , XXXXXXX , XXXXXXX , KC_RCTL , 
+	KC_LSFT       , XXXXXXX , XXXXXXX , CEL_DIA , CEU_DIA , XXXXXXX , XXXXXXX , CS_SMIL , CS_SAD  , XXXXXXX , XXXXXXX , KC_RSFT , 
+	KC_LALT        , KC_DEL  , _______ , _______ , _______ , _______ , _______ , _______
+                      ) ,
 };
 
 // Copied from ../jetpacktuxedo/ (for LEDs)
@@ -174,7 +329,7 @@ uint32_t layer_state_set_user(uint32_t state){
       led0g = 255;
     }
     if (layer_state_cmp(state, 4)) { // weird layer
-      led1b = 100; // some off color for strange keys
+      led1b = 100; // some color for strange keys
       led1r = 100;
       led0r = 100;
       led0b = 100;
@@ -182,6 +337,12 @@ uint32_t layer_state_set_user(uint32_t state){
     if (layer_state_cmp(state, 5)) { // reverse hands layer
       led0g = 255; // green for nagivation left hand
       led1b = 255; // blue for symbols right hand
+    }
+    if (layer_state_cmp(state, 6)) { // Accented symbols and unusual (Unicode input layer)
+      led1b = 100; // With some blue, because it is also a symbol 
+      led1g = 100;
+      led0b = 100;
+      led0g = 100;
     }
 
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
