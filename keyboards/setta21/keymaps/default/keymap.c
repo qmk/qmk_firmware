@@ -13,7 +13,7 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum layer_number {
-  _BASE = 0,
+  _BASE,
   _ARROW,
   _ADJUST,
 };
