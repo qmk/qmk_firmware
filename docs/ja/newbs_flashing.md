@@ -120,7 +120,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 この場合、あなたは明示的にブートローダを指定する方法を使わなければなりません。
 
 ブートローダは主に 5 種類のものが使われています。
-Pro Micro とそのクローンは Caterina を、Teensys は HalfKay を OLKBの AVR ボードは QMK-DFU を、その他の ATmega32U4 ボードは DFU を、そして多くの ARM ボードは ARM DFU を使います。
+Pro Micro とそのクローンは Caterina を、Teensy は HalfKay を、OLKBの AVR ボードは QMK-DFU を、その他の ATmega32U4 ボードは DFU を、そして多くの ARM ボードは ARM DFU を使います。
 
 より詳しいブートローダの情報は、[Flashing Instructions and Bootloader Information](flashing.md) にあります。
 
