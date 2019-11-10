@@ -227,15 +227,15 @@ static void render_status(void) {
   oled_write_P(PSTR("-----"), false);
   oled_write_P(PSTR("LAYER"), false);
   switch (layer_state) {
-  case 1UL << _GIT:
-    oled_write_ln_P(PSTR("Git"), false);
-    break;
-  case 1UL << _GAME:
-    oled_write_ln_P(PSTR("Macro"), false);
-    break;
-  default:
-    oled_write_ln_P(PSTR("Base"), false);
-    break;
+    case 1UL << _GIT:
+      oled_write_ln_P(PSTR("Git"), false);
+      break;
+    case 1UL << _GAME:
+      oled_write_ln_P(PSTR("Macro"), false);
+      break;
+    default:
+      oled_write_ln_P(PSTR("Base"), false);
+      break;
   }
 }
 
