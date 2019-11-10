@@ -28,7 +28,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 キーボードが QMK を搭載していると宣伝されていてもリストにない場合は、chances are a developer hasn't gotten to it yet or we haven't had a chance to merge it in yet. 
 アクティブな [Pull Request](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+is%3Apr+label%3Akeyboard) がない場合、[qmk_firmware](https://github.com/qmk/qmk_firmware/issues)で報告して、その特定のキーボードのサポートをリクエストします。
-メーカー独自の github アカウントにある QMK 搭載キーボードもあります。
+製作者自身の github アカウントにある QMK 搭載キーボードもあります。
 それも再確認してください。
 
 ## キーボードのレイアウトの選択をする
