@@ -109,7 +109,7 @@
    * [EclipseでQMKを使用](other_eclipse.md)
    * [VSCodeでQMKを使用](other_vscode.md)
    * [サポート](support.md)
-   * [翻訳を追加する方法](ja/translating.md)
+   * [翻訳を追加する方法](translating.md)
 
 * QMK Internals (In Progress)
    * [定義](internals_defines.md)
