@@ -11,7 +11,7 @@
 
 キーボードに書き込む最も簡単な方法は [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) を使うことです。
 
-ただし、QMK toolbox は、現在は Windows と macOS でしか使えません。
+ただし、QMK Toolbox は、現在は Windows と macOS でしか使えません。
 Linuxを使用している場合(および、コマンドラインでファームウェアを書き込みたい場合)は、下の方で概説する[方法](newbs_flashing.md#コマンドラインでファームウェアを書き込む)で行なう必要があります。
 
 ### QMK Toolbox にファイルをロードする
