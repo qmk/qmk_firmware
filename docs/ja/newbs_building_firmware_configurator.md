@@ -59,7 +59,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 3分割のスペースバー: 全てスペースバーで埋めます。
 
-2 spots for backspace: Fill them BOTH with backspace
+2分割のバックスペース: 両方ともバックスペースで埋めます。
 
 2 spots for right shift: Fill them BOTH with right shift
 
