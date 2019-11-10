@@ -37,6 +37,9 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Tap dancing params */
+#define TAPPING_TIME 175
+
 /* key combination for command */
 /* DISABLED
 #define IS_COMMAND() ( \
