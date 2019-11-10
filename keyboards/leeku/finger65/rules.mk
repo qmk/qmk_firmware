@@ -27,10 +27,3 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality on B7 by d
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 RGBLIGHT_ENABLE = no
 
-CUSTOM_MATRIX = yes
-
-SRC += matrix.c \
-			 i2c.c \
-			 tinycmd/tinycmdmain.c \
-			 led_l3.c
-
