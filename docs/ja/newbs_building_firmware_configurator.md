@@ -93,7 +93,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 そうでない場合は、... 他の .json ファイルを使用しないようにという、上に書いた注意書きを見逃してませんか？
 
-#### There are extra spaces in my layout? What do I do? 
+#### レイアウトに余分なスペースがありますか？どうすればいいですか？
 
 If you're referring to having three spots for space bar, the best course of action is to just fill them all with space bar. The same can be done for backspace and shifts
 
