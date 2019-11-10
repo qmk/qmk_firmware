@@ -63,7 +63,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 2 spots for right shift: Fill them BOTH with right shift
 
-1 spot for left shift and 1 spot for iso support: Fill them both with left shift
+左シフトとISOサポート用に1つずつ: 両方とも左シフトで埋めます。
 
 5 spots, but only 4 keys: Guess and check or ask someone who has done it before. 
 
