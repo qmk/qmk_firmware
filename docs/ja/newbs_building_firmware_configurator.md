@@ -57,7 +57,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 ### Example:
 
-3 spots for spacebar: Fill them ALL with spacebar
+3分割のスペースバー: 全てスペースバーで埋めます。
 
 2 spots for backspace: Fill them BOTH with backspace
 
