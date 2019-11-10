@@ -73,7 +73,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 後日、`Import Keymap` ボタンを押すことで、この .json ファイルをロードできます。
 
-!> **注意:** このファイルは、kbfirmware.com またはその他のツールに使用される .jsonファイルと同じ形式ではありません。これらのツールにこれを使用したり、QMK Configurator でこれらのツールの .json を使用しようとすると、there is a chance your keyboard will **explode**. 
+!> **注意:** このファイルは、kbfirmware.com またはその他のツールに使用される .jsonファイルと同じ形式ではありません。これらのツールにこれを使用したり、QMK Configurator でこれらのツールの .json を使用しようとすると、キーボードが **爆発** する可能性があります。
 
 ## ファームウェアファイルを生成する
 
