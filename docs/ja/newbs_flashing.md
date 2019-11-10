@@ -60,7 +60,7 @@ planck_rev5_default.hex
 
 * 両方のシフトキーを押しながら、`Pause` キーを押す
 * 両方のシフトキーを押しながら、`B` キーを押す
-* コンピュータからの接続ケーブルをいったんはずし、スペースバーとBを同時に押しながら、キーボードを再び接続し、1秒待ってからキーを放す
+* キーボードのケーブルを抜いて、スペースバーとBを同時に押しながら、キーボードを再び接続し、1秒待ってからキーを放す
 * 基板(PCB)に付けられている物理的な `RESET` ボタンを押す
 * Locate header pins on the PCB labeled `BOOT0` or `RESET`, short those together while plugging your PCB in
 
