@@ -53,6 +53,8 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
