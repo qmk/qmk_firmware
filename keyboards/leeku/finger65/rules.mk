@@ -28,7 +28,6 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality on B7 by d
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 RGBLIGHT_ENABLE = no
 
-NO_SUSPEND_POWER_DOWN = yes
 
 CUSTOM_MATRIX = yes
 
