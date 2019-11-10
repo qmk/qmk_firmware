@@ -110,4 +110,4 @@ Please double check the other layers of your keymap to make sure there are no ra
 
 ## 問題とバグ
 
-We are always accepting customer requests and bug reports. Please file them at [qmk_configurator](https://github.com/qmk/qmk_configurator/issues)
+私たちは利用者の依頼やバグレポートを常に受け入れています。[qmk_configurator](https://github.com/qmk/qmk_configurator/issues) で報告してください。
