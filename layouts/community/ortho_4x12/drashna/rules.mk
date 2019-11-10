@@ -8,29 +8,32 @@ AUDIO_ENABLE      = yes
 SPACE_CADET_ENABLE = no
 
 ifneq ($(strip $(KEYBOARD)), planck/rev6)
-	RGBLIGHT_ENABLE             = yes
-	INDICATOR_LIGHTS            = yes
-	RGBLIGHT_TWINKLE            = yes
-	RGBLIGHT_STARTUP_ANIMATION  = yes
+    RGBLIGHT_ENABLE             = yes
+    INDICATOR_LIGHTS            = yes
+    RGBLIGHT_TWINKLE            = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
+else
+    RGBLIGHT_ENABLE             = no
+    RGB_MATRIX_ENABLE           = WS2812
 endif
 ifeq ($(strip $(KEYBOARD)), planck/light)
-	RGB_MATRIX_ENABLE           = yes
-	RGBLIGHT_ENABLE             = no
-	RGBLIGHT_STARTUP_ANIMATION  = no
-	HAPTIC_ENABLE               += SOLENOID
+    RGB_MATRIX_ENABLE           = yes
+    RGBLIGHT_ENABLE             = no
+    RGBLIGHT_STARTUP_ANIMATION  = no
+    # HAPTIC_ENABLE               += SOLENOID
 endif
 ifeq ($(strip $(KEYBOARD)), planck/ez)
-	RGBLIGHT_ENABLE = no
-	# SERIAL_LINK_ENABLE = yes
-	ENCODER_ENABLE = yes
-	RGB_MATRIX_ENABLE = IS31FL3737
-	INDICATOR_LIGHTS            = yes
-	RGBLIGHT_TWINKLE            = yes
-	RGBLIGHT_STARTUP_ANIMATION  = yes
+    RGBLIGHT_ENABLE = no
+    # SERIAL_LINK_ENABLE = yes
+    ENCODER_ENABLE = yes
+    RGB_MATRIX_ENABLE = IS31FL3737
+    INDICATOR_LIGHTS            = yes
+    RGBLIGHT_TWINKLE            = yes
+    RGBLIGHT_STARTUP_ANIMATION  = yes
 endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
-	NKRO_ENABLE       = no
+    NKRO_ENABLE       = no
 else
-	NKRO_ENABLE       = yes
+    NKRO_ENABLE       = yes
 endif

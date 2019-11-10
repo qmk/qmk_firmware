@@ -173,6 +173,31 @@ bool music_mask_user(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+#    ifdef KEYBOARD_planck_rev6
+// clang-format off
+led_config_t g_led_config = {
+    {
+        // Key Matrix to LED Index
+        { NO_LED,   6,    NO_LED, NO_LED,   5,    NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,   0    },
+        { NO_LED,   7,    NO_LED, NO_LED,   2,    NO_LED },
+        { NO_LED,   4,    NO_LED, NO_LED,   3,    NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED,   1,    NO_LED, NO_LED,   8,    NO_LED }
+    }, {
+        // LED Index to Physical Position
+        {112, 39}, {148, 60}, {206, 53}, {206, 3}, {150, 3}, {74, 3}, {18, 3}, {18, 54}, {77, 60}
+    }, {
+        // LED Index to Flag
+        LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
+        LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
+    }
+};
+// clange-format on
+#    endif
+
 // clang-format off
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);

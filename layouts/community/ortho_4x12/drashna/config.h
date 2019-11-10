@@ -24,6 +24,9 @@
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
 #    undef RGB_MATRIX_LED_PROCESS_LIMIT
 #    undef RGB_MATRIX_LED_FLUSH_LIMIT
+#    ifdef KEYBOARD_planck_rev6
+#        define DRIVER_LED_TOTAL RGBLED_NUM
+#    endif
 #endif
 
 #if defined(KEYBOARD_lets_split_rev2)
