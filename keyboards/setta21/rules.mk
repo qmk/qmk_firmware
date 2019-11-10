@@ -33,3 +33,5 @@ USE_I2C = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 DEFAULT_FOLDER = setta21/rev1
+
+LAYOUTS = numpad_6x4
