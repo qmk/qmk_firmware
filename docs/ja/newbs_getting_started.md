@@ -36,7 +36,7 @@ macOS では、デフォルトのテキストエディットアプリに注意�
 
 ### QMK Toolbox
 
-QMK Tookbox は、Windows と macOS で使える GUI を備えたプログラムで、キーボードのプログラミングとデバッグの両方ができます。
+QMK Toolbox は、Windows と macOS で使える GUI を備えたプログラムで、カスタムキーボードのプログラミングとデバッグの両方ができます。
 このプログラムは、キーボードに簡単にファームウェアを書き込んだり、出力されるデバッグメッセージを確認する際に、かけがえのないものであることがわかるでしょう。
 
 [QMK Toolbox の最新版](https://github.com/qmk/qmk_toolbox/releases/latest)
