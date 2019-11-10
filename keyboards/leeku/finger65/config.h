@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         L3
 #define DESCRIPTION     QMK keyboard firmware for L3
 
+#define RGBLED_NUM 12
+
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 20
