@@ -65,7 +65,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 左シフトとISOサポート用に1つずつ: 両方とも左シフトで埋めます。
 
-5 spots, but only 4 keys: Guess and check or ask someone who has done it before. 
+5分割だが4キーのみ: 以前やったことがある人を推測して確認するか尋ねてください。
 
 ## 後日のためにキーマップを保存する
 
