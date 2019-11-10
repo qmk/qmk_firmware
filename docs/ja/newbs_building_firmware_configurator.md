@@ -104,7 +104,7 @@ If you're referring to having three spots for space bar, the best course of acti
 [Basic Keycode Reference](https://docs.qmk.fm/#/keycodes_basic)    
 [Advanced Keycode Reference](https://docs.qmk.fm/#/feature_advanced_keycodes)    
 
-#### It won't compile
+#### コンパイルできません
 
 Please double check the other layers of your keymap to make sure there are no random keys present. 
 
