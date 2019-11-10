@@ -1,15 +1,16 @@
-# squarebuilt
+Proton C
+===
 
-![squarebuilt](https://i0.wp.com/lancemercado.com/wp-content/uploads/2019/06/img_20190504_165635.jpg?resize=525%2C700&ssl=1)
+![Proton C](https://i.imgur.com/xZrjIqa.jpg)
 
-A short description of the keyboard/project
+A Pro Micro drop-in replacement.
 
-Keyboard Maintainer: [LanceMercado](https://github.com/LanceMercado)  
+Keyboard Maintainer: [Jack Humbert](https://github.com/jackhumbert)  
 Hardware Supported: QMK Proton C  
-Hardware Availability: links to where you can find this hardware
+Hardware Availability: [List of vendors](https://qmk.fm/proton-c)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make squarebuilt:default:dfu-util
+    make proton_c:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
