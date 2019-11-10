@@ -29,9 +29,9 @@
 #endif  // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP
 #    undef RGBLIGHT_ANIMATIONS
 #    if defined(__AVR__) && !defined(__AVR_AT90USB1286__)
+#        define RGBLIGHT_SLEEP
 #        define RGBLIGHT_EFFECT_BREATHING
 #        define RGBLIGHT_EFFECT_SNAKE
 #        define RGBLIGHT_EFFECT_KNIGHT
