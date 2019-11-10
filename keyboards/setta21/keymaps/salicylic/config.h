@@ -21,9 +21,7 @@
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
 
-#undef RGBLED_NUM
-
-#define DRIVER_LED_TOTAL 21
+#define DRIVER_LED_TOTAL RGBLED_NUM
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses

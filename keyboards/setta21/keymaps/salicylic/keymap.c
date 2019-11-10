@@ -199,7 +199,3 @@ void oled_task_user(void) {
 }
 
 #endif
-
-void matrix_init_user(void) {
-
-}

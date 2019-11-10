@@ -67,9 +67,3 @@ LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //`-----------------------------------'
   )
 };
-
-int RGB_current_mode;
-
-void matrix_init_user(void) {
-
-}
