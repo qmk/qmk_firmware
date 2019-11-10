@@ -62,7 +62,7 @@ planck_rev5_default.hex
 * 両方のシフトキーを押しながら、`B` キーを押す
 * キーボードのケーブルを抜いて、スペースバーとBを同時に押しながら、キーボードを再び接続し、1秒待ってからキーを放す
 * 基板(PCB)に付けられている物理的な `RESET` ボタンを押す
-* Locate header pins on the PCB labeled `BOOT0` or `RESET`, short those together while plugging your PCB in
+* PCB 上の `BOOT0` か `RESET` のラベルの付いたヘッダピンを探し、PCB 接続中にそれらを互いにショートする
 
 うまくいけば、QMK Toolboxに次のようなメッセージが表示されます。
 
