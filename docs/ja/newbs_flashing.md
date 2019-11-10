@@ -47,7 +47,7 @@ open .
 planck_rev5_default.hex
 ```
 
-ファームウェアファイルを見つけたら、QMK Toolboxの "Local file" ボックスにドラッグするか、"Open" をクリックしてファームウェアファイルを指定します。
+ファームウェアファイルを見つけたら、QMK Toolbox の "Local file" ボックスにドラッグするか、"Open" をクリックしてファームウェアファイルを指定します。
 
 ### キーボードを DFU (Bootloader) モードにする
 
