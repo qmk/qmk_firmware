@@ -373,7 +373,7 @@ void dip_update(uint8_t index, bool active) {
             }
             break;
         case 2:
-            keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;
+            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = active;
             break;
         case 3:
             userspace_config.nuke_switch = active;
