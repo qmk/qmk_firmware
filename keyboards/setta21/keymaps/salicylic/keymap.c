@@ -34,7 +34,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_numpad_6x4(
       //,-----------------------------------|
            KC_ESC,   KC_F2,  JP_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
