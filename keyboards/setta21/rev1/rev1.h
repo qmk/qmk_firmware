@@ -1,6 +1,5 @@
 #pragma once
 
-#include "setta21.h"
 
 
 #define LAYOUT_numpad_6x4( \
