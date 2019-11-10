@@ -19,7 +19,7 @@ enum layer_number {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_numpad_6x4(
       //,-----------------------------------|
 LT(_ADJUST,KC_ESC),  KC_F2,  KC_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
