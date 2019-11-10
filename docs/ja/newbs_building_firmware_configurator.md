@@ -95,7 +95,7 @@ In the event that you can't find a layout that supports your keymap, for example
 
 #### レイアウトに余分なスペースがありますか？どうすればいいですか？
 
-If you're referring to having three spots for space bar, the best course of action is to just fill them all with space bar. The same can be done for backspace and shifts
+もしスペースバーが3つに分かれている場合は、全てスペースバーで埋めるのが最善の方法です。バックスペースやシフトについても同じことができます。
 
 #### キーコードってなに？
 
