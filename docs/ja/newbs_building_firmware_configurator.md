@@ -53,7 +53,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 [Basic Keycode Reference](https://docs.qmk.fm/#/keycodes_basic)    
 [Advanced Keycode Reference](https://docs.qmk.fm/#/feature_advanced_keycodes)    
 
-In the event that you can't find a layout that supports your keymap, for example three spots for spacebar, or two spots for backspace, or 2 spots for shift etc etc, Fill them ALL up. 
+キーマップをサポートするレイアウトが見つからない場合、例えばスペースバーが3分割されていたり、バックスペースが2分割されていたり、シフトが2分割されているような場合、それらを全て埋めてください。
 
 ### Example:
 
