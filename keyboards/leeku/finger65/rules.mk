@@ -23,7 +23,7 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no            # USB Nkey Rollover
-MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
+MIDI_ENABLE = no            # MIDI support
 RGBLIGHT_ENABLE = yes
 
 WS2812_DRIVER = i2c
