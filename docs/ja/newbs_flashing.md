@@ -263,7 +263,7 @@ avrdude.exe done.  Thank you.
 
 ### HalfKay
 
-PJRC devices (Teensyシリーズ)の場合, ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
+PJRC デバイス(Teensy シリーズ)の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:teensy
 
