@@ -93,7 +93,7 @@
    * [Userspace](feature_userspace.md)
    * [Velocikey](feature_velocikey.md)
 
-* メーカーおよびモッダ―のために
+* メーカーおよびモッダーのために
    * [Hand Wiring Guide](hand_wire.md)
    * [ISP Flashing Guide](isp_flashing_guide.md)
    * [ARM デバッグ ガイド](ja/arm_debugging.md)
@@ -111,7 +111,7 @@
    * [サポート](support.md)
    * [翻訳を追加する方法](translating.md)
 
-* QMK Internals (In Progress)
+* QMK の内部詳細(作成中)
    * [定義](internals_defines.md)
    * [Input Callback Reg](internals_input_callback_reg.md)
    * [Midi ドライバ](internals_midi_device.md)
