@@ -350,7 +350,7 @@ Transitioning to dfuMANIFEST state
 
 * `:dfu-util` - STM32 デバイスに書き込むためのデフォルトコマンドで、STM32 ブートローダが現われるまで待機します。
 * `:dfu-util-split-left` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。 ただし、スプリットキーボードの「左側」EEPROM 設定も行われます。
-* `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。 ただし、スプリットキーボードの「右側」EEPROM 設定も行われます。
+* `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。 ただし、分割キーボードの「右側の」EEPROM の設定も行われます。
 * `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. dfu-utilではなく、ST-LINK の CLIユーティリティを介してファームウェアを書き込めます。
 
 ### BootloadHID
