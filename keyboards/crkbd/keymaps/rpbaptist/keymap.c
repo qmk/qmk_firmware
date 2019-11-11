@@ -56,13 +56,13 @@ user_config_t user_config;
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
 // Tap/mod keys
-#define RCTBR RCTL_T(KC_RBRACKET)
-#define LCTBR LCTL_T(KC_LBRACKET)
+#define RCTL_BR RCTL_T(KC_RBRACKET)
+#define LCTL_BR LCTL_T(KC_LBRACKET)
 
-#define SFSPC LSFT_T(KC_SPACE)
-#define SFENT LSFT_T(KC_ENTER)
+#define SFT_SPC LSFT_T(KC_SPACE)
+#define SFT_ENT LSFT_T(KC_ENTER)
 
-#define SFDEL LSFT_T(KC_DEL)
+#define SFT_DEL LSFT_T(KC_DEL)
 
 // Global tab forward and backward
 #define TAB_FWD LCTL(KC_TAB)
@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        LCTBR,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM, KC_DOT, KC_SLSH,    RCTBR,\
+      LCTL_BR,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM, KC_DOT, KC_SLSH,  RCTL_BR,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   T_NUM,   SFSPC,      SFENT,   T_NAV, KC_RGUI \
+                                          KC_LALT,   T_NUM, SFT_SPC,    SFT_ENT,   T_NAV, KC_RGUI \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX,   SFDEL,\
+       KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, SFT_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
