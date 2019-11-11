@@ -9,11 +9,11 @@
 
 ## QMK ファームウェアとは何か？
 
-QMK (*Quantum Mechanical Keyboard*)はQMKファームウェア、QMK ツールボックス、qmk.fm およびそれらのドキュメントを保守するオープンソースコミュニティです。QMKファームウェアは[tmk\_keyboard](http://github.com/tmk/tmk_keyboard)を元にしたキーボード ファームウェアで、Atmel AVR コントローラ、より具体的には[OLKB product line](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) キーボードおよび [Clueboard product line](http://clueboard.co/)のための幾つかの便利な機能を持ちます。また、ChibiOSを使ってARMチップに移植されています。これを使って独自の手配線あるいはカスタムキーボード PCBに給電するために使うことができます。
+QMK (*Quantum Mechanical Keyboard*)はQMKファームウェア、QMK ツールボックス、qmk.fm およびそれらのドキュメントを保守するオープンソースコミュニティです。QMKファームウェアは[tmk\_keyboard](http://github.com/tmk/tmk_keyboard)を元にしたキーボード ファームウェアで、Atmel AVR コントローラ、より具体的には[OLKB product line](http://olkb.com), [ErgoDox EZ](http://www.ergodox-ez.com) キーボードおよび [Clueboard product line](http://clueboard.co/)のための幾つかの便利な機能を持ちます。また、ChibiOSを使ってARMチップに移植されています。これを使ってあなたの作った手配線のキーボードあるいはカスタムキーボードPCBで作ったキーボードを動かすことができます。
 
 ## 入手方法
 
-キーマップ、キーボードあるいはQMKへの機能に貢献をする予定がある場合、最も簡単なのは、[Githubを介してレポジトリをフォークし](https://github.com/qmk/qmk_firmware#fork-destination-box)、レポジトリをクローンして変更を加え、それらをプッシュし、フォークから[プルリクエスト](https://github.com/qmk/qmk_firmware/pulls)を開くことです。
+キーマップ、キーボードあるいはQMKへの機能に貢献をする予定がある場合、最も簡単なのは、[Githubを介してレポジトリをフォークし](https://github.com/qmk/qmk_firmware#fork-destination-box)、レポジトリをあなたの開発環境にクローンして変更を加え、それらをプッシュし、[プルリクエスト](https://github.com/qmk/qmk_firmware/pulls)を開くことです。
 
 それ以外の場合は、直接ダウンロード([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master))するか、あるいはgit (`git@github.com:qmk/qmk_firmware.git`) または https (`https://github.com/qmk/qmk_firmware.git`)を介してクローンすることができます。
 
