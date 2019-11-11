@@ -1,6 +1,6 @@
 # Leeku Finger 65 PCB
 
-* Keyboard Maintainer: sidcarter
+* Keyboard Maintainer: [sidcarter](https://github.com/sidcarter)
 
 * Hardware Supported: atmega32a 
 
