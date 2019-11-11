@@ -65,13 +65,13 @@ SPLIT_KEYBOARD = yes
 SPLIT_TRANSPORT = custom
 ```
 
-### 利き手の設定
+### 左右の設定
 
 デフォルトでは、ファームウェアはどちら側がどちらであるかを認識しません; 決定するには幾つかの助けが必要です。これを行うには幾つかの方法があり、優先順にリストします。
 
-#### ピンによる利き手
+#### ピンによる左右の設定
 
-利き手を決定するためにコントローラ上のピンを読むようにファームウェアを設定することができます。これを行うには、以下を `config.h` ファイルに追加しまう:
+左右を決定するためにコントローラ上のピンを読むようにファームウェアを設定することができます。これを行うには、以下を `config.h` ファイルに追加しまう:
 
 ```c
 #define SPLIT_HAND_PIN B7
@@ -79,9 +79,9 @@ SPLIT_TRANSPORT = custom
 
 これは指定されたピンを読み込みます。高の場合、コントローラはそれを左手だと仮定し、低の場合、それは右側であると仮定します。
 
-#### EEPROMによる利き手
+#### EEPROMによる左右の設定
 
-このメソッドは永続ストレージ内のフラグを設定することで、キーボードの利き手を設定します (`EEPROM`)。これはコントローラが最初に起動する時にチェックされ、キーボードの半分とキーボードのレイアウトの向きを決定します。
+このメソッドは永続ストレージ内のフラグを設定することで、キーボードの左右を設定します (`EEPROM`)。これはコントローラが最初に起動する時にチェックされ、キーボードの半分とキーボードのレイアウトの向きを決定します。
 
 
 このメソッドを有効にするには、以下を`config.h` ファイルに追加します:
@@ -90,7 +90,7 @@ SPLIT_TRANSPORT = custom
 #define EE_HANDS
 ```
 
-ｔだし、各コントローラの正しい利き手のためにEEPROMファイルをフラッシュする必要があります。You can do this manually, or there are targets for avrdude and dfu to do this, while flashing the firmware:
+ｔだし、各コントローラの正しい左右の設定のためにEEPROMファイルをフラッシュする必要があります。You can do this manually, or there are targets for avrdude and dfu to do this, while flashing the firmware:
 
 * `:avrdude-split-left`
 * `:avrdude-split-right`
