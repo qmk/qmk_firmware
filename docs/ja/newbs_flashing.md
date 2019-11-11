@@ -284,7 +284,7 @@ Waiting for Teensy device...
  (hint: press the reset button)
  ```
 
-この時点で、ボードをリセットします。 すると、次のような出力が表示されます。
+この時点で、キーボードをリセットします。すると、次のような出力が表示されます。
 
  ```
  Found HalfKay Bootloader
