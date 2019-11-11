@@ -107,7 +107,7 @@ Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](
 
 ---
 
-### WS2812 (AVR only)
+### WS2812
 
 There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
 

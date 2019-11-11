@@ -65,21 +65,3 @@
     #define MOUSEKEY_WHEEL_MAX_SPEED 3
     #define MOUSEKEY_WHEEL_TIME_TO_MAX 150
 #endif
-
-#if defined(KEYBOARD_cannonkeys_instant60)
-    /*
-     * Work around EEPROM incompatibility with VIA:
-     * https://github.com/qmk/qmk_firmware/issues/6589#issuecomment-524042457.
-     */
-    #undef EEPROM_MAGIC_ADDR
-    #undef EEPROM_VERSION_ADDR
-    #undef DYNAMIC_KEYMAP_EEPROM_ADDR
-    #undef EEPROM_CUSTOM_BACKLIGHT
-    #undef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-
-    #define EEPROM_MAGIC_ADDR 34
-    #define EEPROM_VERSION_ADDR 36
-    #define DYNAMIC_KEYMAP_EEPROM_ADDR 37
-    #define EEPROM_CUSTOM_BACKLIGHT 637
-    #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 638
-#endif

@@ -1,14 +1,17 @@
-SRC = matrix.c mcp23017.c
-
+# MCU name
 MCU = atmega32u4
+
+# Processor frequency
 F_CPU = 8000000
 
-ARCH = AVR8
-F_USB = $(F_CPU)
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
@@ -31,3 +34,5 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 CUSTOM_MATRIX = yes
 DEBUG_ENABLE = yes
 BLUETOOTH = AdafruitBLE
+
+SRC += matrix.c mcp23017.c
