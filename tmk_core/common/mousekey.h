@@ -43,11 +43,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef MOUSEKEY_WHEEL_DELTA
 #        define MOUSEKEY_WHEEL_DELTA 1
 #    endif
-#    ifndef MOUSEKEY_DELAY
-#        define MOUSEKEY_DELAY 300
+#    ifndef MOUSEKEY_XY_DELAY
+#        define MOUSEKEY_XY_DELAY 300
 #    endif
-#    ifndef MOUSEKEY_INTERVAL
-#        define MOUSEKEY_INTERVAL 50
+#    ifndef MOUSEKEY_WH_DELAY
+#        define MOUSEKEY_WH_DELAY 300
+#    endif
+#    ifndef MOUSEKEY_XY_INTERVAL
+#        define MOUSEKEY_XY_INTERVAL 50
+#    endif
+#    ifndef MOUSEKEY_WH_INTERVAL
+#        define MOUSEKEY_WH_INTERVAL 50
 #    endif
 #    ifndef MOUSEKEY_MAX_SPEED
 #        define MOUSEKEY_MAX_SPEED 10
@@ -120,8 +126,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern uint8_t mk_delay;
-extern uint8_t mk_interval;
+extern uint8_t mk_xy_delay;
+extern uint8_t mk_wh_delay;
+extern uint8_t mk_xy_interval;
+extern uint8_t mk_wh_interval;
 extern uint8_t mk_max_speed;
 extern uint8_t mk_time_to_max;
 extern uint8_t mk_wheel_max_speed;

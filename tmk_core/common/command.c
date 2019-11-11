@@ -584,11 +584,17 @@ static void mousekey_param_print(void) {
 // Print these variables if NO_PRINT or USER_PRINT are not defined.
 #    if !defined(NO_PRINT) && !defined(USER_PRINT)
     print("\n\t- Values -\n");
-    print("1: delay(*10ms): ");
-    pdec(mk_delay);
+    print("1: xy delay(*10ms): ");
+    pdec(mk_xy_delay);
     print("\n");
-    print("2: interval(ms): ");
-    pdec(mk_interval);
+    print("1: wh delay(*10ms): ");
+    pdec(mk_wh_delay);
+    print("\n");
+    print("2: xy interval(ms): ");
+    pdec(mk_xy_interval);
+    print("\n");
+    print("2: wh interval(ms): ");
+    pdec(mk_wh_interval);
     print("\n");
     print("3: max_speed: ");
     pdec(mk_max_speed);
@@ -610,41 +616,55 @@ static void mousekey_param_print(void) {
 static void mousekey_param_inc(uint8_t param, uint8_t inc) {
     switch (param) {
         case 1:
-            if (mk_delay + inc < UINT8_MAX)
-                mk_delay += inc;
+            if (mk_xy_delay + inc < UINT8_MAX)
+                mk_xy_delay += inc;
             else
-                mk_delay = UINT8_MAX;
-            PRINT_SET_VAL(mk_delay);
+                mk_xy_delay = UINT8_MAX;
+            PRINT_SET_VAL(mk_xy_delay);
             break;
         case 2:
-            if (mk_interval + inc < UINT8_MAX)
-                mk_interval += inc;
+            if (mk_wh_delay + inc < UINT8_MAX)
+                mk_wh_delay += inc;
             else
-                mk_interval = UINT8_MAX;
-            PRINT_SET_VAL(mk_interval);
+                mk_wh_delay = UINT8_MAX;
+            PRINT_SET_VAL(mk_wh_delay);
             break;
         case 3:
+            if (mk_xy_interval + inc < UINT8_MAX)
+                mk_xy_interval += inc;
+            else
+                mk_xy_interval = UINT8_MAX;
+            PRINT_SET_VAL(mk_xy_interval);
+            break;
+        case 4:
+            if (mk_wh_interval + inc < UINT8_MAX)
+                mk_wh_interval += inc;
+            else
+                mk_wh_interval = UINT8_MAX;
+            PRINT_SET_VAL(mk_wh_interval);
+            break;
+        case 5:
             if (mk_max_speed + inc < UINT8_MAX)
                 mk_max_speed += inc;
             else
                 mk_max_speed = UINT8_MAX;
             PRINT_SET_VAL(mk_max_speed);
             break;
-        case 4:
+        case 6:
             if (mk_time_to_max + inc < UINT8_MAX)
                 mk_time_to_max += inc;
             else
                 mk_time_to_max = UINT8_MAX;
             PRINT_SET_VAL(mk_time_to_max);
             break;
-        case 5:
+        case 7:
             if (mk_wheel_max_speed + inc < UINT8_MAX)
                 mk_wheel_max_speed += inc;
             else
                 mk_wheel_max_speed = UINT8_MAX;
             PRINT_SET_VAL(mk_wheel_max_speed);
             break;
-        case 6:
+        case 8:
             if (mk_wheel_time_to_max + inc < UINT8_MAX)
                 mk_wheel_time_to_max += inc;
             else
@@ -657,41 +677,55 @@ static void mousekey_param_inc(uint8_t param, uint8_t inc) {
 static void mousekey_param_dec(uint8_t param, uint8_t dec) {
     switch (param) {
         case 1:
-            if (mk_delay > dec)
-                mk_delay -= dec;
+            if (mk_xy_delay > dec)
+                mk_xy_delay -= dec;
             else
-                mk_delay = 0;
-            PRINT_SET_VAL(mk_delay);
+                mk_xy_delay = 0;
+            PRINT_SET_VAL(mk_xy_delay);
             break;
         case 2:
-            if (mk_interval > dec)
-                mk_interval -= dec;
+            if (mk_wh_delay > dec)
+                mk_wh_delay -= dec;
             else
-                mk_interval = 0;
-            PRINT_SET_VAL(mk_interval);
+                mk_wh_delay = 0;
+            PRINT_SET_VAL(mk_wh_delay);
             break;
         case 3:
+            if (mk_xy_interval > dec)
+                mk_xy_interval -= dec;
+            else
+                mk_xy_interval = 0;
+            PRINT_SET_VAL(mk_xy_interval);
+            break;
+        case 4:
+            if (mk_wh_interval > dec)
+                mk_wh_interval -= dec;
+            else
+                mk_wh_interval = 0;
+            PRINT_SET_VAL(mk_wh_interval);
+            break;
+        case 5:
             if (mk_max_speed > dec)
                 mk_max_speed -= dec;
             else
                 mk_max_speed = 0;
             PRINT_SET_VAL(mk_max_speed);
             break;
-        case 4:
+        case 6:
             if (mk_time_to_max > dec)
                 mk_time_to_max -= dec;
             else
                 mk_time_to_max = 0;
             PRINT_SET_VAL(mk_time_to_max);
             break;
-        case 5:
+        case 7:
             if (mk_wheel_max_speed > dec)
                 mk_wheel_max_speed -= dec;
             else
                 mk_wheel_max_speed = 0;
             PRINT_SET_VAL(mk_wheel_max_speed);
             break;
-        case 6:
+        case 8:
             if (mk_wheel_time_to_max > dec)
                 mk_wheel_time_to_max -= dec;
             else
@@ -764,8 +798,10 @@ static bool mousekey_console(uint8_t code) {
             mousekey_param_dec(mousekey_param, 10);
             break;
         case KC_D:
-            mk_delay             = MOUSEKEY_DELAY / 10;
-            mk_interval          = MOUSEKEY_INTERVAL;
+            mk_xy_delay          = MOUSEKEY_XY_DELAY / 10;
+            mk_wh_delay          = MOUSEKEY_WH_DELAY / 10;
+            mk_xy_interval       = MOUSEKEY_XY_INTERVAL;
+            mk_wh_interval       = MOUSEKEY_WH_INTERVAL / 5;
             mk_max_speed         = MOUSEKEY_MAX_SPEED;
             mk_time_to_max       = MOUSEKEY_TIME_TO_MAX;
             mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
