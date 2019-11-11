@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_user (void) {
-  if !(get_host_led_state().num_lock) {
+  if (!get_host_led_state().num_lock) {
       tap_code(KC_NUMLOCK);
   }
 }
