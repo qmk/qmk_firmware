@@ -21,7 +21,7 @@ extern keymap_config_t keymap_config;
 #define _MOV 3 // movement arrows and mouse
 #define _RAR 4 // strange keys never used
 #define _REV 5 // Reversing: numbers right, navigation left (mirrored.)
-#define _ACC 6 // Accented letters and unusual symbols, X-server Unicode input (Linux)
+#define _ACC 6 // Accented letters and unusual symbols
 
 
     /* These are some rarely but existing letters in Dutch, and perhaps some other
