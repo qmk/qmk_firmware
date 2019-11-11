@@ -204,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _FUN ] = LAYOUT (
     
-        /* _LTR _NSY _FUN _MOV _RAR _REV _ACC  F24 F23  F22  F21     xxx
+          /* _LTR _NSY _FUN _MOV _RAR _REV _ACC  F24 F23  F22  F21     xxx
          * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
          * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
          * LAlt  ___     ___     ___      ___      ___       ___    RAlt
@@ -224,8 +224,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _MOV ] = LAYOUT (
 
         /* _LTR    WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
-         * LCtl     MLft MDn  MUp  MRht  xxx  Btn1 Left Up   Down Right RCtl
-         * LSht      Btn5 Btn4 Btn3 Butn2 Btn1 Btn2 Acc0 Acc1 Acc2 xxx  RSht
+         * LCtl     MLft MDn  MUp  MRht  Btn1 Btn1 Left Up   Down Right RCtl
+         * LSht      Btn5 Btn4 Btn3 Butn2 xxx  Btn2 Acc0 Acc1 Acc2 xxx  RSht
          * Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
          */
                 
