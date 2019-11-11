@@ -26,7 +26,7 @@ keymap. By Jos B., <joshb@xs4all.nl>
  
     - Leds: breathing effect on the middle LED, other indicate layer.
 
-    Base layer
+    Base layer (0)
 
         Esc      '"   ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
         Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
@@ -97,4 +97,12 @@ keymap. By Jos B., <joshb@xs4all.nl>
         LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
         LShft   xxx  xxx  ë  Ë  xxx xxx  🙂  🙁  xxx xxx RShft
         LALT  Del   ___    ___    ___     ___      ___     ___
+
+
+   ... keycap color scheme, marks areas home (5), navigation (2+5), numbers (2+5).
+
+                            011111122223
+                            455552155554
+                            622222111116
+                              77877877
 
