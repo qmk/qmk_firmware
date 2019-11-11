@@ -38,7 +38,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Tap dancing params */
-#define TAPPING_TERM 175
+#define TAPPING_TERM 250
 
 /* key combination for command */
 /* DISABLED
