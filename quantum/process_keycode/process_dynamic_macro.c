@@ -205,6 +205,10 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                     dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
                     macro_id = 2;
                     return false;
+            }
+        }
+        if (record->event.pressed) {
+            switch (keycode) {
                 case DYN_MACRO_PLAY1:
                     dynamic_macro_play(macro_buffer, macro_end, +1);
                     return false;
