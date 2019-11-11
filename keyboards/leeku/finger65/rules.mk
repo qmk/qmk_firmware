@@ -11,7 +11,6 @@ MCU = atmega32a
 #   ATmega328P   USBasp
 BOOTLOADER = bootloadHID
 
-
 # Build Options
 #   change yes to no to disable
 #
