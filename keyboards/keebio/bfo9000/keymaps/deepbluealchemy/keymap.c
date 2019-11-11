@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |   00  |   0   |   .   |  CTRL |  APP  |  ALT  |  NOP  | SPACE |  NOP  |          |  NOP  | SPACE |  NOP  | AltGr |   FN  |  Ctrl |  Left |  Down | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_QWERTY] = LAYOUT( \
+[_QWERTY] = LAYOUT(
   KC_NLCK, KC_PSLS, KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_PGUP, KC_PGDN,
   KC_MUTE, KC_VOLD, KC_VOLU, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_NO,  
   KC_P7,   KC_P8,   KC_P9,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_NO,   KC_DEL,    
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  LOG  |   0   |   .   |  CTRL |  APP  |  ALT  |  NOP  | SPACE |  NOP  |          |  NOP  | SPACE |  NOP  | AltGr |   FN  |  Ctrl |  Left |  Down | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_GIT] = LAYOUT( \
+[_GIT] = LAYOUT(
   KC_MPLY, _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   AMEND,   PUSH,    CHECKOUT,_______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |  F13  |  F14  |  F15  |  CTRL |  APP  |  ALT  |  NOP  | SPACE |  NOP  |          |  NOP  | SPACE |  NOP  | AltGr |   FN  |  Ctrl |  Left |  Down | Right |
   `-----------------------------------------------------------------------'          `-----------------------------------------------------------------------'
 */
-[_GAME] = LAYOUT( \
+[_GAME] = LAYOUT(
   _______, _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
   KC_F22,  KC_F23,  KC_F24,  _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -135,49 +135,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case STATUS:
       if (record->event.pressed) {
-        SEND_STRING("git status" SS_TAP(X_ENTER));
+        SEND_STRING("git status\n");
       }
       return false;
       break;
     case LOG:
       if (record->event.pressed) {
-        SEND_STRING("git log" SS_TAP(X_ENTER));
+        SEND_STRING("git log\n");
       }
       return false;
       break;
     case STASH:
       if (record->event.pressed) {
-        SEND_STRING("git stash" SS_TAP(X_ENTER));
+        SEND_STRING("git stash\n");
       }
       return false;
       break;
     case POP:
       if (record->event.pressed) {
-        SEND_STRING("git stash pop" SS_TAP(X_ENTER));
+        SEND_STRING("git stash pop\n");
       }
       return false;
       break;
     case PULL:
       if (record->event.pressed) {
-        SEND_STRING("git pull" SS_TAP(X_ENTER));
+        SEND_STRING("git pull\n");
       }
       return false;
       break;
     case FETCH:
       if (record->event.pressed) {
-        SEND_STRING("git fetch" SS_TAP(X_ENTER));
+        SEND_STRING("git fetch\n");
       }
       return false;
       break;
     case REBASE:
       if (record->event.pressed) {
-        SEND_STRING("git rebase" SS_TAP(X_ENTER));
+        SEND_STRING("git rebase\n");
       }
       return false;
       break;
     case ADD:
       if (record->event.pressed) {
-        SEND_STRING("git add ." SS_TAP(X_ENTER));
+        SEND_STRING("git add .\n");
       }
       return false;
       break;
@@ -189,19 +189,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case AMEND:
       if (record->event.pressed) {
-        SEND_STRING("git commit //amend" SS_TAP(X_ENTER));
+        SEND_STRING("git commit //amend\n");
       }
       return false;
       break;
     case PUSH:
       if (record->event.pressed) {
-        SEND_STRING("git push" SS_TAP(X_ENTER));
+        SEND_STRING("git push\n");
       }
       return false;
       break;
     case CHECKOUT:
       if (record->event.pressed) {
-        SEND_STRING("git checkout // ." SS_TAP(X_ENTER));
+        SEND_STRING("git checkout // .\n");
       }
       return false;
       break;
@@ -219,11 +219,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 static void render_status(void) {
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
+  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false);
   oled_write_P(PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
+  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false);
   oled_write_P(PSTR("     "), false);
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
+  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false);
   oled_write_P(PSTR("-----"), false);
   oled_write_P(PSTR("LAYER"), false);
   switch (layer_state) {
