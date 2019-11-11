@@ -65,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user (void) {
-  if !(get_host_led_state().num_lock) {
+  if (!get_host_led_state().num_lock) {
       tap_code(KC_NUMLOCK);
   }
 }
