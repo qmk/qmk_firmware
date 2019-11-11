@@ -104,11 +104,11 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 
     make <my_keyboard>:<my_keymap>:flash
 
-たとえば、キーマップの名前が xyverzで、rev5 planck のキーマップを作成している場合、次のコマンドを使用します。
+たとえば、キーマップの名前が xyverz で、rev5 planck のキーマップを作成している場合、次のコマンドを使用します。
 
     make planck/rev5:xyverz:flash
 
-これにより、キーボードの構成が確認され、指定されたブートローダーに基づいてキーボードへの書き込みが試行されます。
+これにより、キーボードの構成が確認され、指定されたブートローダに基づいてキーボードへの書き込みが試行されます。
 これはあなたがキーボードが使用するブートローダを知る必要がないことを意味します。
 コマンドをただ実行して、コマンド自身に難しい処理を任せます。
 
@@ -128,30 +128,32 @@ Pro Micro とそのクローンは Caterina を、Teensy は HalfKay を、OLKB�
 
 ### DFU
 
-For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+DFU ブートローダの場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:dfu
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a rev5 planck, you'll use this command:
+たとえば、キーマップの名前が xyverz で、rev5 planck のキーマップを作成している場合、次のコマンドを使用します。
 
     make planck/rev5:xyverz:dfu
 
-Once it finishes compiling, it should output the following:
+コンパイルが終了すると、以下の出力になるはずです。
 
 ```
-Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
-Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
-Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
-Checking file size of planck_rev5_xyverz.hex                                                        
+Linking: .build/planck_rev5_xyverz.elf                                          [OK]
+Creating load file for flashing: .build/planck_rev5_xyverz.hex                  [OK]
+Copying planck_rev5_xyverz.hex to qmk_firmware folder                           [OK]
+Checking file size of planck_rev5_xyverz.hex
  * File size is fine - 18574/28672
  ```
 
-After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+ここまでくると、ビルドスクリプトは5秒ごとに DFU ブートローダを探します。
+デバイスが見つかるか、あなたがキャンセルするまで、以下を繰り返します。
 
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+これを実行したら、コントローラーをリセットする必要があります。
+そして下のような出力が表示されます。
 
 ```
 *** Attempting to flash, please don't remove device
@@ -169,39 +171,39 @@ Once it does this, you'll want to reset the controller.  It should then show out
 >>> dfu-programmer atmega32u4 reset
 ```
 
-?> If you have any issues with this - such as `dfu-programmer: no device present` - please see the [Frequently Asked Build Questions](faq_build.md).
+?> `dfu-programmer：no device present` など、これに関する問題がある場合は、[よくある質問](faq_build.md) を参照してください。
 
-#### DFU commands
+#### DFU コマンド
 
-There are a number of DFU commands that you can use to flash firmware to a DFU device:
+ファームウェアを DFU デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 
-* `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
-* `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
-* `:dfu-split-left` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
-* `:dfu-split-right` - This flashes the normal firmware, just like the default option (`:dfu`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Elite C based split keyboards._
+* `:dfu` - これが通常のオプションで、DFUデバイスが使用可能になるまで待機したのちファームウェアを書き込みます。5秒ごとに、DFUデバイスが存在するかチェックしています。
+* `:dfu-ee` - 通常のファームウェアの代わりに `eep` ファイルが書き込まれます。これを使用するのはまれです。
+* `:dfu-split-left` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、スプリットキーボードの "左側" EEPROMファイルも書き込まれます。_これは、Elite C ベースのスプリットキーボードに最適です。_
+* `:dfu-split-right` - デフォルトオプション (`:dfu`) と同様に、通常のファームウェアが書き込まれます。ただし、スプリットキーボードの "右側" EEPROMファイルも書き込まれます。_これは、Elite C ベースのスプリットキーボードに最適です。_
 
 
 ### Caterina 
 
-For Arduino boards and their clones (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Arduino ボードとそれらのクローンの場合(たとえば SparkFun ProMicro)、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:avrdude
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a rev2 Lets Split, you'll use this command:
+たとえば、キーマップの名前が xyverz で、rev2 Lets Split のキーマップを作成している場合、次のコマンドを使用します。
 
     make lets_split/rev2:xyverz:avrdude
 
-Once the firmware finishes compiling, it will output something like this: 
+ファームウェアのコンパイルが完了すると、以下のように出力されます。
 
 ```
-Linking: .build/lets_split_rev2_xyverz.elf                                                            [OK]
-Creating load file for flashing: .build/lets_split_rev2_xyverz.hex                                    [OK]
-Checking file size of lets_split_rev2_xyverz.hex                                                      [OK]
+Linking: .build/lets_split_rev2_xyverz.elf                                      [OK]
+Creating load file for flashing: .build/lets_split_rev2_xyverz.hex              [OK]
+Checking file size of lets_split_rev2_xyverz.hex                                [OK]
  * File size is fine - 27938/28672
 Detecting USB port, reset your controller now..............
 ```
 
-At this point, reset the board and then the script will detect the bootloader and then flash the board.  The output should look something like this: 
+この時点で、ボードをリセットすると、スクリプトがブートローダを検出し、ボードに書き込みます。出力は次のようになります。
 
 ```
 Detected controller on USB port at /dev/ttyS15
@@ -245,37 +247,36 @@ avrdude.exe: safemode: Fuses OK (E:CB, H:D8, L:FF)
 
 avrdude.exe done.  Thank you.
 ```
-If you have any issues with this, you may need to this: 
+うまくいかない時は、以下のようにする必要があるかもしれません。
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
 
-#### Caterina commands
+#### Caterina コマンド
 
-There are a number of DFU commands that you can use to flash firmware to a DFU device:
+ファームウェアを DFU デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 
-* `:avrdude` - This is the normal option which waits until a Caterina device is available (by detecting a new COM port), and then flashes the firmware.
-* `:avrdude-loop` - This runs the same command as `:avrdude`, but after each device is flashed, it will attempt to flash again.  This is useful for bulk flashing. _This requires you to manually escape the loop by hitting Control+C._
-* `:avrdude-split-left` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Left Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
-* `:avrdude-split-right` - This flashes the normal firmware, just like the default option (`:avrdude`). However, this also flashes the "Right Side" EEPROM file for split keyboards. _This is ideal for Pro Micro based split keyboards._
-
+* `:avrdude` - これが通常のオプションで、Caterinaデバイスが(新しいCOMポートを検出して)使用可能になるまで待機し、ファームウェアを書き込みます。
+* `:avrdude-loop` - これは `:avrdude` と同じです, ただし書き込みが終了すると再び Caterinaデバイスの検知にもどります。これは何台ものデバイスへの書き込みに便利です。_この繰り返しを終了させるには手動で Control+C を押す必要あります。_
+* `:avrdude-split-left` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、スプリットキーボードの "左側" EEPROMファイルもフラッシュされます。 _これは、Pro Microベースのスプリットキーボードに最適です。_
+* `:avrdude-split-right` - デフォルトオプション(`:avrdude`)と同様に通常のファームウェアが書き込まれます。ただし、スプリットキーボードの "右側" EEPROMファイルもフラッシュされます。 _これは、Pro Microベースのスプリットキーボードに最適です。_
 
 ### HalfKay
 
-For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+PJRC devices (Teensyシリーズ)の場合, ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:teensy
 
-For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
+たとえば、キーマップの名前が xyverz で、Ergodox または Ergodox EZ のキーマップを作成している場合、次のコマンドを使用します。
 
     make ergodox_ez:xyverz:teensy
 
-Once the firmware finishes compiling, it will output something like this: 
+ファームウェアのコンパイルが完了すると、以下のように出力されます。
 
 ```
-Linking: .build/ergodox_ez_xyverz.elf                                                               [OK]
-Creating load file for flashing: .build/ergodox_ez_xyverz.hex                                       [OK]
-Checking file size of ergodox_ez_xyverz.hex                                                         [OK]
+Linking: .build/ergodox_ez_xyverz.elf                                            [OK]
+Creating load file for flashing: .build/ergodox_ez_xyverz.hex                    [OK]
+Checking file size of ergodox_ez_xyverz.hex                                      [OK]
  * File size is fine - 25584/32256
  Teensy Loader, Command Line, Version 2.1
 Read "./.build/ergodox_ez_xyverz.hex": 25584 bytes, 79.3% usage
@@ -283,7 +284,7 @@ Waiting for Teensy device...
  (hint: press the reset button)
  ```
 
- At this point, reset your board.  Once you've done that, you'll see output like this: 
+この時点で、ボードをリセットします。 すると、次のような出力が表示されます。
 
  ```
  Found HalfKay Bootloader
@@ -295,26 +296,26 @@ Booting
 
 ### STM32 (ARM)
 
-For a majority of ARM boards (including the Proton C, Planck Rev 6, and Preonic Rev 3), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+主な ARM ボード (含む Proton C, Planck Rev 6, Preonic Rev 3)の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:dfu-util
 
-For example, if your keymap is named "xyverz" and you're building a keymap for the Planck Revision 6 keyboard, you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
+たとえば、キーマップの名前が xyverz で、rev6 planck のキーマップを作成している場合、you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
 
     make planck/rev6:xyverz:dfu-util
 
-Once the firmware finishes compiling, it will output something like this: 
+ファームウェアのコンパイルが完了すると、以下のように出力されます。
 
 ```
-Linking: .build/planck_rev6_xyverz.elf                                                             [OK]
-Creating binary load file for flashing: .build/planck_rev6_xyverz.bin                               [OK]
-Creating load file for flashing: .build/planck_rev6_xyverz.hex                                     [OK]
+Linking: .build/planck_rev6_xyverz.elf                                          [OK]
+Creating binary load file for flashing: .build/planck_rev6_xyverz.bin           [OK]
+Creating load file for flashing: .build/planck_rev6_xyverz.hex                  [OK]
 
 Size after:
    text    data     bss     dec     hex filename
       0   41820       0   41820    a35c .build/planck_rev6_xyverz.hex
 
-Copying planck_rev6_xyverz.bin to qmk_firmware folder                                              [OK]
+Copying planck_rev6_xyverz.bin to qmk_firmware folder                           [OK]
 dfu-util 0.9
 
 Copyright 2005-2009 Weston Schmidt, Harald Welte and OpenMoko Inc.
@@ -343,44 +344,45 @@ File downloaded successfully
 Transitioning to dfuMANIFEST state
 ```
 
-#### STM32 Commands
+#### STM32 コマンド
 
-There are a number of DFU commands that you can use to flash firmware to a STM32 device:
+ファームウェアを STM32 デバイスに書き込むために使用できる DFU コマンドがいくつかあります。
 
-* `:dfu-util` - The default command for flashing to STM32 devices, and will wait until an STM32 bootloader is present. . 
-* `:dfu-util-split-left` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Left Side" EEPROM setting for split keyboards.
-* `:dfu-util-split-right` - This flashes the normal firmware, just like the default option (`:dfu-util`). However, this also configures the "Right Side" EEPROM setting for split keyboards.
-* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. 
-
+* `:dfu-util` - STM32 デバイスに書き込むためのデフォルトコマンドで、STM32 ブートローダが現われるまで待機します。
+* `:dfu-util-split-left` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。 ただし、スプリットキーボードの「左側」EEPROM 設定も行われます。
+* `:dfu-util-split-right` - デフォルトのオプション (`:dfu-util`) と同様に、通常のファームウェアが書き込まれます。 ただし、スプリットキーボードの「右側」EEPROM 設定も行われます。
+* `:st-link-cli` - This allows you to flash the firmware via ST-LINK's CLI utility, rather than dfu-util. dfu-utilではなく、ST-LINK の CLIユーティリティを介してファームウェアを書き込めます。
 
 ### BootloadHID
 
-For Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
+Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
-For example, if your keymap is named "xyverz" and you're building a keymap for a jj40, you'll use this command:
+たとえば、キーマップの名前が xyverz で、jj40 のキーマップを作成している場合、次のコマンドを使用します。
 
     make jj40:xyverz:bootloaderHID
 
-Once the firmware finishes compiling, it will output something like this: 
+ファームウェアのコンパイルが完了すると、以下のように出力されます。
 
 ```
-Linking: .build/jj40_default.elf                                                                   [OK]
-Creating load file for flashing: .build/jj40_default.hex                                           [OK]
-Copying jj40_default.hex to qmk_firmware folder                                                    [OK]
-Checking file size of jj40_default.hex                                                             [OK]
+Linking: .build/jj40_default.elf                                                [OK]
+Creating load file for flashing: .build/jj40_default.hex                        [OK]
+Copying jj40_default.hex to qmk_firmware folder                                 [OK]
+Checking file size of jj40_default.hex                                          [OK]
  * The firmware size is fine - 21920/28672 (6752 bytes free)
 ```
 
-After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+ここまでくると、ビルドスクリプトは5秒ごとに DFU ブートローダを探します。
+デバイスが見つかるか、あなたがキャンセルするまで、以下を繰り返します。
 
 ```
 Error opening HIDBoot device: The specified device was not found
 Trying again in 5s.
 ```
 
-Once it does this, you'll want to reset the controller.  It should then show output similar to this: 
+これを実行したら、コントローラーをリセットする必要があります。
+そして下のような出力が表示されます。
 
 ```
 Page size   = 128 (0x80)
