@@ -56,11 +56,11 @@ user_config_t user_config;
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
 // Tap/mod keys
-#define RCTBR RCTL_T(KC_RBRACKET)
-#define LCTBR LCTL_T(KC_LBRACKET)
+#define RCTL_BR RCTL_T(KC_RBRACKET)
+#define LCTL_BR LCTL_T(KC_LBRACKET)
 
-#define SFSPC LSFT_T(KC_SPACE)
-#define SFENT LSFT_T(KC_ENTER)
+#define SFT_SPC LSFT_T(KC_SPACE)
+#define SFT_ENT LSFT_T(KC_ENTER)
 
 #define SFT_DEL LSFT(KC_DEL)
 
@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        LCTBR,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM, KC_DOT, KC_SLSH,    RCTBR,\
+      LCTL_BR,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM, KC_DOT, KC_SLSH,  RCTL_BR,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,   T_NUM,   SFSPC,      SFENT,   T_NAV, KC_RGUI \
+                                          KC_LALT,   T_NUM, SFT_SPC,    SFT_ENT,   T_NAV, KC_RGUI \
                                       //`--------------------------'  `--------------------------'
   ),
 
