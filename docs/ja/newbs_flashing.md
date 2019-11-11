@@ -203,7 +203,7 @@ Checking file size of lets_split_rev2_xyverz.hex                                
 Detecting USB port, reset your controller now..............
 ```
 
-この時点で、ボードをリセットすると、スクリプトがブートローダを検出し、ボードに書き込みます。出力は次のようになります。
+この時点で、キーボードをリセットすると、スクリプトがブートローダを検出し、キーボードに書き込みます。出力は次のようになります。
 
 ```
 Detected controller on USB port at /dev/ttyS15
