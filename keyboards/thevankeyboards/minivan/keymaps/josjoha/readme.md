@@ -32,7 +32,7 @@ keymap. By Jos B., <joshb@xs4all.nl>
         Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
         LSht       ;:   qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
         Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
-                          hold      hold          hold toggle 
+                        hold     hold           hold toggle 
         
     Layer 1: Numbers and symbols.
 
