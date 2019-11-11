@@ -273,7 +273,7 @@ void check_default_layer(uint8_t type) {
             rgb_matrix_layer_helper(HSV_TEAL, type);
             break;
         case _GAMING:
-            rgb_matrix_layer_helper(HSV_BLUE, type);
+            rgb_matrix_layer_helper(HSV_PURPLE, type);
             break;
     }
 }
@@ -292,7 +292,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
-                rgb_matrix_layer_helper(HSV_MAGENTA, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_CORAL, LED_FLAG_UNDERGLOW);
                 break;
             default: {
                 check_default_layer(LED_FLAG_UNDERGLOW);
