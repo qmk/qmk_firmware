@@ -5,7 +5,6 @@ Leeku Finger 65 PCB
 * Keyboard Maintainer: sidcarter
 
 * Hardware Supported: atmega32a
-
 Make example for this keyboard (after setting up your build environment):
 
     make leeku/finger65:default
