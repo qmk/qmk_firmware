@@ -196,8 +196,8 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW_BB_TWI`
-  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
+* `#define RGBW`
+  * Enables RGBW LED support
 
 ## Mouse Key Options
 
