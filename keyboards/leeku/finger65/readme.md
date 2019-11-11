@@ -1,6 +1,4 @@
-# Leeku Finger 65
-
-Leeku Finger 65 PCB
+# Leeku Finger 65 PCB
 
 * Keyboard Maintainer: sidcarter
 
