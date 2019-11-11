@@ -295,18 +295,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Copied from ../jetpacktuxedo/ (for LEDs)
+// Code and comments edited to use different leds.
 
 void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
-    // Set up RGB effects on _only_ the third LED (index 2)
-    rgblight_set_effect_range(2, 1);
-    // Set LED effects to breathing mode in a tealish blue color
-    rgblight_sethsv_noeeprom(185, 255, 255);
+    // Set up RGB effects on _only_ the first LED 
+    rgblight_set_effect_range(1, 1); // Takes a range: 1st arg is start, 2nd how many
+    // Purple
+    rgblight_sethsv_noeeprom(210, 255, 20);
+    // Set LED effects to breathing mode
     rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 
-    // Init the first two LEDs to a static color
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+    // Init the first and last LEDs to a static color.
+    setrgb(0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
+    setrgb(0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
 }
@@ -345,8 +347,8 @@ uint32_t layer_state_set_user(uint32_t state){
       led0g = 100;
     }
 
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]);
-    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[1]);
+    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
+    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[2]); // Led 2
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
   return state;
