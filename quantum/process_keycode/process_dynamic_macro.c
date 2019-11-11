@@ -217,6 +217,11 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
         /* A macro is being recorded right now. */
         switch (keycode) {
             case DYN_REC_STOP:
+#ifdef DYNAMIC_MACRO_NO_NESTING
+            case DYN_MACRO_PLAY1:
+            case DYN_MACRO_PLAY2:
+                dprintln("dynamic macro: macro play key deteced while recording, but nesting disabled. Stopping macro recording.");
+#endif
                 /* Stop the macro recording. */
                 if (record->event.pressed) { /* Ignore the initial release
                                               * just after the recoding
@@ -232,12 +237,6 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                     macro_id = 0;
                 }
                 return false;
-#ifdef DYNAMIC_MACRO_NO_NESTING
-            case DYN_MACRO_PLAY1:
-            case DYN_MACRO_PLAY2:
-                dprintln("dynamic macro: ignoring macro play key while recording");
-                return false;
-#endif
             default:
                 /* Store the key in the macro buffer and process it normally. */
                 switch (macro_id) {
