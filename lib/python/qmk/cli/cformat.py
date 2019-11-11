@@ -21,7 +21,9 @@ def cformat(cli):
             break
 
     # Find the list of files to format
-    if not cli.args.files:
+    if cli.args.files:
+        cli.args.files = [os.path.join(os.environ['ORIG_DIR'], file) for file in cli.args.files]
+    else:
         for dir in ['drivers', 'quantum', 'tests', 'tmk_core']:
             for dirpath, dirnames, filenames in os.walk(dir):
                 if 'tmk_core/protocol/usb_hid' in dirpath:
