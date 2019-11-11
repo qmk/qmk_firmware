@@ -29,4 +29,4 @@ QMK (*Quantum Mechanical Keyboard*)はQMKファームウェア、QMK ツール�
 
 ## カスタマイズ方法
 
-QMKには、探索するのに多くの[機能](features.md)と、深堀するための[リファレンス ドキュメント](http://docs.qmk.fm)がたくさんあります。ほとんどの機能は[キーマップ](keymap.md)を変更し、[キーコード](keycodes.md)を変更することで活用されます。
+QMK には、探求すべき多くの[機能](features.md)と、深堀りするための[リファレンス ドキュメント](http://docs.qmk.fm)がたくさんあります。ほとんどの機能は[キーマップ](keymap.md)を変更し、[キーコード](keycodes.md)を変更することで活用されます。
