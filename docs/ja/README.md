@@ -15,15 +15,15 @@ QMK (*Quantum Mechanical Keyboard*)はQMKファームウェア、QMK ツール�
 
 キーマップ、キーボードあるいはQMKへの機能に貢献をする予定がある場合、最も簡単なのは、[Githubを介してレポジトリをフォークし](https://github.com/qmk/qmk_firmware#fork-destination-box)、レポジトリをあなたの開発環境にクローンして変更を加え、それらをプッシュし、[プルリクエスト](https://github.com/qmk/qmk_firmware/pulls)を開くことです。
 
-それ以外の場合は、直接ダウンロード([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master))するか、あるいはgit (`git@github.com:qmk/qmk_firmware.git`) または https (`https://github.com/qmk/qmk_firmware.git`)を介してクローンすることができます。
+それ以外の場合は、直接ダウンロード([zip](https://github.com/qmk/qmk_firmware/zipball/master), [tar](https://github.com/qmk/qmk_firmware/tarball/master))するか、あるいは git (`git@github.com:qmk/qmk_firmware.git`) または https (`https://github.com/qmk/qmk_firmware.git`) を介してクローンすることができます。
 
 ## コンパイル方法
 
-コンパイルをする前に、AVR あるいは/および ARM開発のための[環境をインスト―ル](getting_started_build_tools.md)する必要があります。それが完了すると、以下の表記でキーボードとキーマップをビルドするために`make`コマンドを使うことができます。
+コンパイルをする前に、AVR または ARM 開発のための[環境をインスト―ル](getting_started_build_tools.md)する必要があります。それが完了したら、`make` コマンドを使用して、以下の表記でキーボードとキーマップをビルドします。
 
     make planck/rev4:default
 
-これは、`default` のキーマップを持つ `planck` の `rev4` リビジョンをビルドします。全てのキーボードにリビジョン(サブプロジェクトまたはフォルダとも呼ばれます)があるわけではありません。その場合は省略されます:
+これは、`planck` の `rev4` リビジョンを `default` キーマップでビルドします。全てのキーボードにリビジョン(サブプロジェクトまたはフォルダとも呼ばれます)があるわけではありません。その場合は省略されます:
 
     make preonic:default
 
