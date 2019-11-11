@@ -296,7 +296,7 @@ Booting
 
 ### STM32 (ARM)
 
-主な ARM ボード (含む Proton C, Planck Rev 6, Preonic Rev 3)の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
+主な ARM ボード (Proton C, Planck Rev 6, Preonic Rev 3 を含む)の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:dfu-util
 
