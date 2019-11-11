@@ -189,7 +189,6 @@ void rgblight_init(void) {
         return;
     }
 
-    debug_enable = 1;  // Debug ON!
     dprintf("rgblight_init called.\n");
     dprintf("rgblight_init start!\n");
     if (!eeconfig_is_enabled()) {
