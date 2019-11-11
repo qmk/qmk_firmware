@@ -355,7 +355,7 @@ Transitioning to dfuMANIFEST state
 
 ### BootloadHID
 
-Bootmapper Client(BMC)/bootloadHID/ATmega32A based boards の場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
+Bootmapper Client(BMC)/bootloadHID/ATmega32A ベースのキーボードの場合、ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
 
     make <my_keyboard>:<my_keymap>:bootloaderHID
 
