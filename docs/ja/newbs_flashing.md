@@ -300,7 +300,7 @@ Booting
 
     make <my_keyboard>:<my_keymap>:dfu-util
 
-たとえば、キーマップの名前が xyverz で、rev6 planck のキーマップを作成している場合、you'll use this command and then reboot the keyboard to the bootloader (before it finishes compiling):
+たとえば、キーマップの名前が xyverz で、Planck Revision 6 のキーマップを作成している場合、次のコマンドを使用し、(コンパイルが終わる前に)キーボードを再起動してブートローダを起動します:
 
     make planck/rev6:xyverz:dfu-util
 
