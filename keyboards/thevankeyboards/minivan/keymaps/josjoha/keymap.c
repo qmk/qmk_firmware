@@ -49,17 +49,15 @@ enum custom_keycodes {
 
 };
 
-/* Switches over the costum keycodes. 
- * Typing Control+Shift+u, then releasing and typing the Unicode hex number followed by
- * a space, results in the Unicode symbol (Linux)
- * Unicode hex numbers need to have lower case letters (Debian 10) */
+/* Switches over the costum keycodes. */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // E lower case variants
     case CEL_GRA:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): é (Unicode notation: U+00E8)
+        // Unicode input: é (Unicode notation: U+00E8)
+        // Unicode hex numbers need lower case
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00e8 " ); 
       } else {  
         // when keycode QMKBEST is released
@@ -67,13 +65,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CEL_ACU:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): é
+        //  é
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00e9 " ); 
       }
       break;
     case CEL_DIA:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): ë
+        //  ë
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00eb " ); 
       }
       break;
@@ -81,19 +79,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // E upper case variants
     case CEU_GRA:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): È
+        //  È
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00c8 " ); 
       }
       break;
     case CEU_ACU:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): É
+        //  É
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00c9 " ); 
       }
       break;
     case CEU_DIA:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): Ë
+        //  Ë
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00cb " ); 
       }
       break;
@@ -101,13 +99,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // I acute
     case CIU_ACU:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): Í
+        //  Í
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00cd " ); 
       }
       break;
     case CIL_ACU:
       if (record->event.pressed) {
-        // Unicode input in X (Linux): í
+        //  í
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00ed " ); 
       }
       break;
@@ -116,38 +114,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Happy symbols:
     case CS_THUP: // unicode thumbs up symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): 👍 (Not sure if Unicode like this is ok in a source file, but it worked.)
+        //  👍 (Not sure if Unicode like this is ok in a source file.)
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f44d " ); 
       }
       break;
     case CS_SMIL: // unicode smiling face symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): 🙂
+        //  🙂
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f642 " ); 
       }
       break;
     case CS_YAYS: // unicode smiling face symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): 😃
+        //  😃
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f603 " ); 
       }
       break;
     //Sad symbols
     case CS_SAD: // sad face symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): 🙁
+        //  🙁
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f641 " ); 
       }
       break;
     case CS_SQIG: // sad face symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): ⍨
+        //  ⍨
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "2368 " ); 
       }
       break;
     case CS_THDN: // unicode thumbs down symbol
       if (record->event.pressed) {
-        // Unicode input in X (Linux): 👎
+        //  👎
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f44e " ); 
       }
       break;
