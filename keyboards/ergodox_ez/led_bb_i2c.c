@@ -27,6 +27,8 @@
 #    include <avr/io.h>
 #    include <util/delay.h>
 #    include "rgblight.h"
+#    include "i2c_master.h"
+#    include "ergodox_ez.h"
 
 extern rgblight_config_t rgblight_config;
 
@@ -40,103 +42,6 @@ extern rgblight_config_t rgblight_config;
 void ws2812_sendarray(uint8_t *array, uint16_t length);
 void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 
-// Port for the I2C
-#    define I2C_DDR DDRD
-#    define I2C_PIN PIND
-#    define I2C_PORT PORTD
-
-// Pins to be used in the bit banging
-#    define I2C_CLK 0
-#    define I2C_DAT 1
-
-#    define I2C_DATA_HI()           \
-        I2C_DDR &= ~(1 << I2C_DAT); \
-        I2C_PORT |= (1 << I2C_DAT);
-#    define I2C_DATA_LO()          \
-        I2C_DDR |= (1 << I2C_DAT); \
-        I2C_PORT &= ~(1 << I2C_DAT);
-
-#    define I2C_CLOCK_HI()          \
-        I2C_DDR &= ~(1 << I2C_CLK); \
-        I2C_PORT |= (1 << I2C_CLK);
-#    define I2C_CLOCK_LO()         \
-        I2C_DDR |= (1 << I2C_CLK); \
-        I2C_PORT &= ~(1 << I2C_CLK);
-
-#    define I2C_DELAY 1
-
-void I2C_WriteBit(unsigned char c) {
-    if (c > 0) {
-        I2C_DATA_HI();
-    } else {
-        I2C_DATA_LO();
-    }
-
-    I2C_CLOCK_HI();
-    _delay_us(I2C_DELAY);
-
-    I2C_CLOCK_LO();
-    _delay_us(I2C_DELAY);
-
-    if (c > 0) {
-        I2C_DATA_LO();
-    }
-
-    _delay_us(I2C_DELAY);
-}
-
-// Inits bitbanging port, must be called before using the functions below
-//
-void I2C_Init(void) {
-    I2C_PORT &= ~((1 << I2C_DAT) | (1 << I2C_CLK));
-
-    I2C_CLOCK_HI();
-    I2C_DATA_HI();
-
-    _delay_us(I2C_DELAY);
-}
-
-// Send a START Condition
-//
-void I2C_Start(void) {
-    // set both to high at the same time
-    I2C_DDR &= ~((1 << I2C_DAT) | (1 << I2C_CLK));
-    _delay_us(I2C_DELAY);
-
-    I2C_DATA_LO();
-    _delay_us(I2C_DELAY);
-
-    I2C_CLOCK_LO();
-    _delay_us(I2C_DELAY);
-}
-
-// Send a STOP Condition
-//
-void I2C_Stop(void) {
-    I2C_CLOCK_HI();
-    _delay_us(I2C_DELAY);
-
-    I2C_DATA_HI();
-    _delay_us(I2C_DELAY);
-}
-
-// write a byte to the I2C slave device
-//
-unsigned char I2C_Write(unsigned char c) {
-    for (char i = 0; i < 8; i++) {
-        I2C_WriteBit(c & 128);
-
-        c <<= 1;
-    }
-
-    I2C_WriteBit(0);
-    _delay_us(I2C_DELAY);
-    _delay_us(I2C_DELAY);
-
-    // _delay_us(I2C_DELAY);
-    // return I2C_ReadBit();
-    return 0;
-}
 
 
 
@@ -153,15 +58,9 @@ void rgblight_set(void) {
     }
 
 
-    uint8_t sreg_prev, twcr_prev;
     uint8_t led_num = RGBLED_NUM;
-    sreg_prev = SREG;
-    twcr_prev = TWCR;
-    cli();
-    TWCR &= ~(1 << TWEN);
-    I2C_Init();
-    I2C_Start();
-    I2C_Write(0x84);
+    i2c_init();
+    i2c_start(0x84, ERGODOX_EZ_I2C_TIMEOUT);
     int i = 0;
 #    if defined(ERGODOX_LED_30)
     // prevent right-half code from trying to bitbang all 30
@@ -176,16 +75,14 @@ void rgblight_set(void) {
 #    endif
     {
         uint8_t *data = (uint8_t *)(led + i);
-        I2C_Write(*data++);
-        I2C_Write(*data++);
-        I2C_Write(*data++);
+        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
+        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
 #ifdef RGBW
-        I2C_Write(*data++);
+        i2c_write(*data++, ERGODOX_EZ_I2C_TIMEOUT);
 #endif
     }
-    I2C_Stop();
-    SREG = sreg_prev;
-    TWCR = twcr_prev;
+    i2c_stop();
 
     ws2812_setleds(led, RGBLED_NUM);
 }
