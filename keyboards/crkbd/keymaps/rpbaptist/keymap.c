@@ -62,7 +62,7 @@ user_config_t user_config;
 #define SFT_SPC LSFT_T(KC_SPACE)
 #define SFT_ENT LSFT_T(KC_ENTER)
 
-#define SFT_DEL LSFT_T(KC_DEL)
+#define SFT_DEL LSFT(KC_DEL)
 
 // Global tab forward and backward
 #define TAB_FWD LCTL(KC_TAB)
