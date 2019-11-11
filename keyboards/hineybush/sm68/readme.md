@@ -1,6 +1,6 @@
 # sm68
 
-![sm68](imgur.com image replace me!)
+Image TBA
 
 Exact keyboard support TBA by switchmod keyboards
 
