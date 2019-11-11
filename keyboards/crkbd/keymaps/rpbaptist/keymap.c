@@ -279,7 +279,10 @@ void check_default_layer(uint8_t type) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (user_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable)
+  if (
+    user_config.rgb_layer_change && !g_suspend_state && rgb_matrix_config.enable &&
+      (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
+  )
     {
         switch (biton32(layer_state)) {
             case _GAMING_EXT:
@@ -331,7 +334,7 @@ void rgb_matrix_set_defaults(void) {
   rgb_matrix_config.enable = 1;
   rgb_matrix_config.hsv    = (HSV){128, 255, 128}; // TEAL
 
-  user_config.rgb_layer_change        = false;
+  user_config.rgb_layer_change        = true;
   user_config.rgb_matrix_idle_anim    = true;
   user_config.rgb_matrix_idle_timeout = 50000;
 
@@ -343,6 +346,9 @@ void rgb_matrix_set_defaults(void) {
 
 void matrix_scan_rgb(void) {
     if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_idle_timeout) {
+      if (user_config.rgb_layer_change) {
+        rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+      }
       rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode, user_config.rgb_matrix_idle_speed);
     }
 }
@@ -443,7 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             user_config.rgb_layer_change ^= 1;
             eeconfig_update_user(user_config.raw);
             if (user_config.rgb_layer_change) {
-                layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+              layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
             } else {
               rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
             }
