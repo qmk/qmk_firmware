@@ -210,13 +210,13 @@ scan times?おそらくこれが必要です。
 * `SPLIT_TRANSPORT = custom`
    * 標準の分割通信ルーチンをカスタムのものに置き換えることができます。現在、ARMベースの分割キーボードはこれを使わなければなりません。
 
-### 利き手の設定
+### 左右の設定
 
 一つ覚えておかなければならないことは、USBポートが接続されている側が常にマスター側であるということです。USBに接続されていない側はスレーブです。
 
-分割キーボードの利き手を設定するには、幾つかの異なる方法があります (優先度の順にリストされています):
+分割キーボードの左右を設定するには、幾つかの異なる方法があります (優先度の順にリストされています):
 
-1. `SPLIT_HAND_PIN` を設定します: 利き手を決定するためにpinを読み込みます。pinがhighの場合、それが左側です。lowであれば、その半分側が右側であると決定されます。
+1. `SPLIT_HAND_PIN` を設定します: 左右を決定するためにpinを読み込みます。pinがhighの場合、それが左側です。lowであれば、その半分側が右側であると決定されます。
 2. `EE_HANDS` を設定し、各半分に`eeprom-lefthand.eep`/`eeprom-righthand.eep`をフラッシュします
    * DFUブートローダを搭載したボードでは、これらのEEPROMファイルをフラッシュするために`:dfu-split-left`/`:dfu-split-right`を使うことができます
    * Caterina ブートローダを搭載したボード (標準的な Pro Microsなど)では、`:avrdude-split-left`/`:avrdude-split-right` を使ってください
@@ -224,13 +224,13 @@ scan times?おそらくこれが必要です。
 3. `MASTER_RIGHT`を設定します: USBポートに差し込まれた半分はマスターで右側であると決定されます(デフォルトの逆)
 4. デフォルト: USBポートに差し込まれている側がマスターの半分であり、左半分であると見なされます。スレーブ側は右半分です
 
-#### 利き手を定義します
+#### 左右を定義します
 
 * `#define SPLIT_HAND_PIN B7`
-   * high/low ピンを使って利き手を決定します。low = 右手、high = 左手。`B7`を使っているピンと置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準のLet'sが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
+   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7`を使っているピンと置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準のLet'sが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
 * `#define EE_HANDS` (`SPLIT_HAND_PIN`が定義されていない場合のみ動作します)
-   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分にフラッシュされた後で、EEPROM内に格納されている利き手の値を読み込みます。
+   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分にフラッシュされた後で、EEPROM内に格納されている左右の設定の値を読み込みます。
 
 * `#define MASTER_RIGHT`
    * マスターの半分が右半分と定義されます。
