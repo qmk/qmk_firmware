@@ -38,7 +38,8 @@ DEBOUNCE_TYPE = eager_pr
 
 # project specific files
 SRC += matrix.c \
-       ws2812_bb_i2c.c
+       ws2812.c \
+	   led_bb_i2c.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 LAYOUTS = ergodox
