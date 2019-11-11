@@ -105,7 +105,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 #### コンパイルできません
 
-Please double check the other layers of your keymap to make sure there are no random keys present. 
+キーマップの他のレイヤーを再確認して、ランダムなキーが存在しないことを確認してください。
 
 ## 問題とバグ
 
