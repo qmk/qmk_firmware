@@ -112,6 +112,9 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;
+#    ifdef RGBW
+    led[i].w = 0;
+#    endif
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
