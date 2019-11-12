@@ -8,7 +8,10 @@
 ## Or, "How I Learned to Stop Worrying and Love Git."
 
 _Almost the same as #7231:25fdbf2a0:newbs_git_best_practices.md L5_  
-This document aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them.
+<!-- This document aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them. -->
+この文書は、QMK への貢献をスムーズに行なう最もよい方法を初心者に教えることを目的としています。
+QMK に貢献するプロセスを順を追って説明し、この作業を簡単にするいくつかの方法を詳しく説明します。
+その後、意図的に一部を壊してみせて、それらを修正する方法を教えます。
 
 This document assumes a few things:
 
