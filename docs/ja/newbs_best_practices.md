@@ -78,7 +78,8 @@ git push origin master
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L36_  -->
-This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork.
+<!-- This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork. -->
+これにより、`master` ブランチに切り替わり、QMK リポジトリから 'ref' を取得し、現在の QMK の `master` ブランチをコンピュータにダウンロードしてから、あなたのフォークにアップロードします。
 
 ### Making Changes
 
