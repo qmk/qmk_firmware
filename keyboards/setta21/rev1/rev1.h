@@ -1,8 +1,6 @@
 #pragma once
 
-#include "setta21.h"
 
-//void promicro_bootloader_jmp(bool program);
 
 #define LAYOUT_numpad_6x4( \
        L05, L15, L25, L35, \
