@@ -22,12 +22,7 @@
  */
 #ifdef RGBLIGHT_ENABLE
 
-#    include "ws2812.h"
-#    include <avr/interrupt.h>
-#    include <avr/io.h>
-#    include <util/delay.h>
-#    include "rgblight.h"
-#    include "i2c_master.h"
+#    include "ws2812.c"
 #    include "ergodox_ez.h"
 
 extern rgblight_config_t rgblight_config;
