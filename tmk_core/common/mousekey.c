@@ -104,16 +104,7 @@ static uint8_t wheel_unit(void) {
 void mousekey_task(void) {
     bool xyevent, whevent;
     xyevent = false;
-		whevent = false;
-  	// NEED TO CHECK THESE VARIABLES
-	  // mk_delay
-		// mk_interval
-		// mousekey_repeat
-		//
-		// SUSPICIOUS TIMERS:
-	  // last_timer_c
-		// last_timer_w
-		// last_timer
+	whevent = false;
 
     if (timer_elapsed(last_timer_c) >= (mousekey_xy_repeat ? mk_xy_interval : mk_xy_delay * 10)) {
 			if (mouse_report.x != 0 || mouse_report.y != 0) {
@@ -150,7 +141,7 @@ void mousekey_task(void) {
 
     if (xyevent || whevent) {
 			uint16_t tim;
-      mousekey_send();
+      		mousekey_send();
 			tim = timer_read();
 			if (xyevent) last_timer_c = tim;
 			if (whevent) last_timer_w = tim;
@@ -158,22 +149,38 @@ void mousekey_task(void) {
 }
 
 void mousekey_on(uint8_t code) {
-    if (code == KC_MS_UP)
+    if (code == KC_MS_UP) {
         mouse_report.y = move_unit() * -1;
-    else if (code == KC_MS_DOWN)
+		last_timer_c = timer_read();
+	}
+    else if (code == KC_MS_DOWN) {
         mouse_report.y = move_unit();
-    else if (code == KC_MS_LEFT)
+		last_timer_c = timer_read();
+	}
+    else if (code == KC_MS_LEFT) {
         mouse_report.x = move_unit() * -1;
-    else if (code == KC_MS_RIGHT)
+		last_timer_c = timer_read();
+	}
+    else if (code == KC_MS_RIGHT) {
         mouse_report.x = move_unit();
-    else if (code == KC_MS_WH_UP)
+		last_timer_c = timer_read();
+	}
+    else if (code == KC_MS_WH_UP) {
         mouse_report.v = wheel_unit();
-    else if (code == KC_MS_WH_DOWN)
+		last_timer_w = timer_read();
+	}
+    else if (code == KC_MS_WH_DOWN) {
         mouse_report.v = wheel_unit() * -1;
-    else if (code == KC_MS_WH_LEFT)
+		last_timer_w = timer_read();
+	}
+    else if (code == KC_MS_WH_LEFT) {
         mouse_report.h = wheel_unit() * -1;
-    else if (code == KC_MS_WH_RIGHT)
+		last_timer_w = timer_read();
+	}
+    else if (code == KC_MS_WH_RIGHT) {
         mouse_report.h = wheel_unit();
+		last_timer_w = timer_read();
+	}
     else if (code == KC_MS_BTN1)
         mouse_report.buttons |= MOUSE_BTN1;
     else if (code == KC_MS_BTN2)
