@@ -42,3 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 1
+
+#define USB_MAX_POWER_CONSUMPTION 100
