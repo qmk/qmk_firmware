@@ -320,7 +320,7 @@ const key_string_map_t shifted_keys2 = {
   .end_kc = KC_QUES,
   .key_strings =
       "UNDS\0" "PLUS\0" "LCBR\0" "RCBR\0" "PIPE\0"
-      "\0" "COLN\0" "DQT\0" "TILD\0" "LT\0" "RT\0" "QUES\0"
+      "\0" "COLN\0" "DQUO\0" "TILD\0" "LT\0" "RT\0" "QUES\0"
 };
 
 const key_string_map_t jp_keys1 = {
@@ -392,7 +392,7 @@ const key_string_map_t jp_keys3 = {
   .end_kc = JP_QUES,
   .key_strings =
     "EXLM\0"
-    "DQT\0"
+    "DQUO\0"
     "HASH\0"
     "DLR\0"
     "PERC\0"
