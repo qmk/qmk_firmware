@@ -7,7 +7,7 @@ A 60% keyboard with a numpad on the right
 * Hardware Availability: [Drop](https://drop.com/buy/red-scarf-ii-plus-ver-d-custom-mechanical-keyboard-kit)
 
 
-Please note that QMK Firmware does not currently support using the remote to control the underglow LEDs. 
+Please note that QMK Firmware does not currently support controlling the underglow LEDs; however, if your board came with the remote, it can still be used to change the colour.
 
 ## Flashing
 
