@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_WH_DELAY 50
 #    endif
 #    ifndef MOUSEKEY_XY_MAX_SPEED
-#        define MOUSEKEY_XY_MAX_SPEED 3
+#        define MOUSEKEY_XY_MAX_SPEED 15
 #    endif
 #    ifndef MOUSEKEY_XY_TIME_TO_MAX
 #        define MOUSEKEY_XY_TIME_TO_MAX 15
