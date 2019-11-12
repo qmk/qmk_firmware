@@ -32,15 +32,15 @@
          k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e, \
          k40,      k41,      k42, k43, k44,           k45,          k46,  k47,      k48 \
 ) { \
-    { k07, k11, k13, k15, k50, k19, k1b, k1d}, \
-    { k17, k21, k23, k25, k51, k29, k2b, k3d}, \
-    { k27, k31, k33, k35, k52, k39, k3b, k47}, \
-    { k37, k41, k42, k43, k40, k45, k46, k48}, \
-    { k38, k32, k34, k44, k30, k3a, k3c, k3e}, \
-    { k28, k22, k24, k36, k20, k2a, k2c, k2d}, \
-    { k18, k12, k14, k26, k10, k1a, k1c, k1e}, \
-    { k08, k02, k04, k16, k00, k0a, k0c, k0f}, \
-    { k09, k03, k05, k06, k01, k0b, k0d, k0e} \
+    { k50, k11, k13, k15, k07, k19, k1b, k1d}, \
+    { k51, k21, k23, k25, k17, k29, k2b, k3d}, \
+    { k52, k31, k33, k35, k27, k39, k3b, k47}, \
+    { k40, k41, k42, k43, k37, k45, k46, k48}, \
+    { k30, k32, k34, k44, k38, k3a, k3c, k3e}, \
+    { k20, k22, k24, k36, k28, k2a, k2c, k2d}, \
+    { k10, k12, k14, k26, k18, k1a, k1c, k1e}, \
+    { k00, k02, k04, k16, k08, k0a, k0c, k0f}, \
+    { k01, k03, k05, k06, k09, k0b, k0d, k0e} \
 }
 
 #define LAYOUT_owlet60_full_bsp( \
@@ -68,15 +68,15 @@
          k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      \
          k40,      k41,      k42, k43, k44,           k45,                k47      \
 ) { \
-    { k07, k11, k13, k15, k50, k19, k1b, k1d}, \
-    { k17, k21, k23, k25, k51, k29, k2b, k3d}, \
-    { k27, k31, k33, k35, k52, k39, k3b, k47}, \
-    { k37, k41, k42, k43, k40, k45, KC_NO, KC_NO}, \
-    { k38, k32, k34, k44, k30, k3a, k3c, KC_NO}, \
-    { k28, k22, k24, k36, k20, k2a, k2c, KC_NO}, \
-    { k18, k12, k14, k26, k10, k1a, k1c, KC_NO}, \
-    { k08, k02, k04, k16, k00, k0a, k0c, KC_NO}, \
-    { k09, k03, k05, k06, k01, k0b, k0d, k0e} \
+    { k50, k11, k13, k15, k07, k19, k1b, k1d}, \
+    { k51, k21, k23, k25, k17, k29, k2b, k3d}, \
+    { k52, k31, k33, k35, k27, k39, k3b, k47}, \
+    { k40, k41, k42, k43, k37, k45, KC_NO, KC_NO}, \
+    { k30, k32, k34, k44, k38, k3a, k3c, KC_NO}, \
+    { k20, k22, k24, k36, k28, k2a, k2c, KC_NO}, \
+    { k10, k12, k14, k26, k18, k1a, k1c, KC_NO}, \
+    { k00, k02, k04, k16, k08, k0a, k0c, KC_NO}, \
+    { k01, k03, k05, k06, k09, k0b, k0d, k0e} \
 }
 
 #define LAYOUT_owlet60_60_percent_full_bsp( \
@@ -86,13 +86,13 @@
          k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,  \
          k40,      k41,      k42, k43, k44,           k45,                k47  \
 ) { \
-    { k07, k11, k13, k15, k50, k19, k1b, k1d}, \
-    { k17, k21, k23, k25, k51, k29, k2b, k3d}, \
-    { k27, k31, k33, k35, k52, k39, k3b, k47}, \
-    { k37, k41, k42, k43, k40, k45, KC_NO, KC_NO}, \
-    { k38, k32, k34, k44, k30, k3a, k3c, KC_NO}, \
-    { k28, k22, k24, k36, k20, k2a, k2c, KC_NO}, \
-    { k18, k12, k14, k26, k10, k1a, k1c, KC_NO}, \
-    { k08, k02, k04, k16, k00, k0a, k0c, KC_NO}, \
-    { k09, k03, k05, k06, k01, k0b, k0d, KC_NO} \
+    { k50, k11, k13, k15, k07, k19, k1b, k1d}, \
+    { k51, k21, k23, k25, k17, k29, k2b, k3d}, \
+    { k52, k31, k33, k35, k27, k39, k3b, k47}, \
+    { k40, k41, k42, k43, k37, k45, KC_NO, KC_NO}, \
+    { k30, k32, k34, k44, k38, k3a, k3c, KC_NO}, \
+    { k20, k22, k24, k36, k28, k2a, k2c, KC_NO}, \
+    { k10, k12, k14, k26, k18, k1a, k1c, KC_NO}, \
+    { k00, k02, k04, k16, k08, k0a, k0c, KC_NO}, \
+    { k01, k03, k05, k06, k09, k0b, k0d, KC_NO} \
 }
