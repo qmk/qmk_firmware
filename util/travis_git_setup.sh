@@ -22,7 +22,7 @@ echo -e "\nCurrent SHA of qmk:master is $CURRENT_MASTER"
 
 # How many commits are exclusive to the "base" branch $CURRENT_MASTER
 # and to the "head" branch $TRAVIS_PULL_REQUEST_SHA
-git rev-list --left-right --count $CURRENT_MASTER...$TRAVIS_PULL_REQUEST_SHA
+echo -e "This branch contains $(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l) unmerged commits."
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
 # a pull request. Otherwise, the build was triggered by a push.
