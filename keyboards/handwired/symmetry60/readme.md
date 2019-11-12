@@ -1,7 +1,5 @@
 # SYMMETRY60
 
-![SYMMETRY60](imgur.com image replace me!)
-
 A keyboard inspired by Boardwalk
 
 * Keyboard Maintainer: [marhalloweenvt](https://github.com/marhalloweenvt)
