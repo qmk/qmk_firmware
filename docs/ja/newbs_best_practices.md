@@ -67,7 +67,8 @@ upstream        https://github.com/qmk/qmk_firmware.git (push)
 これで、あなたのフォーク `origin` のデータを QMK が保持するデータと比較できます。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L27_  -->
-To update your fork's master, run the following, hitting the Enter key after each line:
+<!-- To update your fork's master, run the following, hitting the Enter key after each line: -->
+あなたのフォークの `master` を更新するには、次を実行します、各行の後にEnterキーを押してください:
 
 ```
 git checkout master
