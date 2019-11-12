@@ -23,7 +23,8 @@ _Same as #7231:25fdbf2a0:newbs_git_best_practices.md L9_
 2. あなたは、[QMK の設定](newbs_getting_started.md#qmk-の設定) を完了している。
 
 
-## Your fork's master: Update Often, Commit Never
+<!-- ## Your fork's master: Update Often, Commit Never -->
+## あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと
 
 _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L3_  
 It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing.
