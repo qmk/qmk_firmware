@@ -7,22 +7,24 @@ echo -e "CURRENT COMMIT HASH = $(git rev-parse --short HEAD)"
 echo -e "CURRENT BRANCH = $(git rev-parse --abbrev-ref HEAD)"
 
 # Add QMK repository as `upstream`
-echo -e "\nAdd QMK repository as \`upstream\`..."
+echo -e "\nAdding the QMK repository as remote \"upstream\"..."
 git remote add upstream https://github.com/qmk/qmk_firmware.git
-
-# Confirm the remote was added
-echo -e "\nRemote repositories:"
-git remote -v
 
 # Fetch the branch being targeted by the pull request (The "base" branch)
 echo -e "\nFetching refs for qmk:master..."
 git fetch upstream master
 CURRENT_MASTER=$(git log -n 1 --pretty=format:"%H" upstream/master)
-echo -e "\nCurrent SHA of qmk:master is $CURRENT_MASTER"
+echo -e "\nThe current SHA of qmk:master is $CURRENT_MASTER"
+UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l)
 
 # How many commits are exclusive to the "base" branch $CURRENT_MASTER
 # and to the "head" branch $TRAVIS_PULL_REQUEST_SHA
-echo -e "This branch contains $(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l) unmerged commits."
+echo -e "  The current branch contains:"
+echo -e "  - $UNMERGED_COMMITS unmerged commits"
+echo -e "  - $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD) edited files"
+
+echo -e "\nEdited files:"
+git diff --name-only HEAD~$UNMERGED_COMMITS HEAD
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
 # a pull request. Otherwise, the build was triggered by a push.
