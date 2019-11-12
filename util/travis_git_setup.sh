@@ -21,7 +21,7 @@ UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse -
 # and to the "head" branch $TRAVIS_PULL_REQUEST_SHA
 echo -e "  The current branch contains:"
 echo -e "  - $UNMERGED_COMMITS unmerged commits"
-echo -e "  - $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD) edited files"
+echo -e "  - $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD | wc -l) edited files"
 
 echo -e "\nEdited files:"
 git diff --name-only HEAD~$UNMERGED_COMMITS HEAD
