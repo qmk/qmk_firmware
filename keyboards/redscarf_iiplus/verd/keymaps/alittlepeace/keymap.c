@@ -54,18 +54,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("00");
                  }
         break;
-	    case TG(1):
-           if (record->event.pressed && host_keyboard_led_state().num_lock) {
+         case TG(1):
+           if (record->event.pressed) {
                 tap_code(KC_NUMLOCK);
 		return true;
 		}
-	    break;
+	   break;
+
     }
     return true;
 }
 
 void matrix_init_user (void) {
-  if (!get_host_led_state().num_lock) {
+  if (!host_keyboard_led_state ().num_lock) {
       tap_code(KC_NUMLOCK);
   }
 }
