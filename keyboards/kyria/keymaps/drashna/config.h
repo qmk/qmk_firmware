@@ -23,12 +23,13 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_LIMIT_VAL 200
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #endif
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 1000
