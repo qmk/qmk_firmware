@@ -16,10 +16,7 @@ install:
   - npm install -g moxygen
 script:
   - git rev-parse --short HEAD
-  - git remote add upstream https://github.com/qmk/qmk_firmware.git
-  - git fetch upstream $TRAVIS_BRANCH
-  - git remote -v
-  - echo -e $TRAVIS_REPO_SLUG / $TRAVIS_BRANCH
+  - bash util/travis_git_setup.sh
   - git diff --name-only HEAD $TRAVIS_BRANCH
 #  - bash util/travis_test.sh
 #  - bash util/travis_build.sh
