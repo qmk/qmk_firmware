@@ -16,10 +16,11 @@ install:
   - npm install -g moxygen
 script:
   - git rev-parse --short HEAD
+  - echo -e $TRAVIS_BRANCH
   - git diff --name-only HEAD $TRAVIS_BRANCH
-  - bash util/travis_test.sh
-  - bash util/travis_build.sh
-  - bash util/travis_docs.sh
+#  - bash util/travis_test.sh
+#  - bash util/travis_build.sh
+#  - bash util/travis_docs.sh
 addons:
   apt:
     packages:
