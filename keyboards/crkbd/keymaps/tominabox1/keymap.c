@@ -217,10 +217,7 @@ void oled_task_user(void) {
     }
         if (is_master) {
             render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-        } else {
-            render_logo();
-            oled_scroll_left();
-        }
+        } else {}
     }
 
 #endif // OLED_Driver
