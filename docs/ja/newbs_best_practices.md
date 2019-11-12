@@ -104,7 +104,7 @@ git push --set-upstream origin dev_branch
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L49_  -->
 <!--  With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`. -->
-!> `git push` では、`-set-upstream` の代わりに `-u` を使用できます、 `-u` は `--set-upstream` のエイリアスです。```
+!> `git push` では、`-set-upstream` の代わりに `-u` を使用できます、 `-u` は `--set-upstream` のエイリアスです。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L51_  -->
 You can name your branch nearly anything you want, though it is recommended to name it something related to the changes you are going to make.
