@@ -96,7 +96,11 @@ git push --set-upstream origin dev_branch
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L47_  -->
-This creates a new branch named `dev_branch`, checks it out, and then saves the new branch to your fork. The `--set-upstream` argument tells git to use your fork and the `dev_branch` branch every time you use `git push` or `git pull` from this branch. It only needs to be used on the first push; after that, you can safely use `git push` or `git pull`, without the rest of the arguments.
+<!-- This creates a new branch named `dev_branch`, checks it out, and then saves the new branch to your fork. The `--set-upstream` argument tells git to use your fork and the `dev_branch` branch every time you use `git push` or `git pull` from this branch. It only needs to be used on the first push; after that, you can safely use `git push` or `git pull`, without the rest of the arguments. -->
+これにより、`dev_branch` という名前の新しいブランチが作成され、チェックアウトされ、新しいブランチがあなたのフォークに保存されます。
+`--set-upstream` 引数は、このブランチから `git push` または `git pull` を使用するたびに、あなたのフォークと `dev_branch` ブランチを使用するように git に指示します。
+この引数は最初のプッシュでのみ使用する必要があります。
+その後、残りの引数なしで `git push` または `git pull` を安全に使用できます。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L49_  -->
 !> With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`.
