@@ -27,7 +27,9 @@ QMK に貢献するプロセスを順を追って説明し、この作業を簡�
 ## あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L3_  -->
-It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing.
+<!-- It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing. -->
+QMKの開発では、regardless of what is being done or where, `master` ブランチを最新の状態に保つことを強くお勧めします、しかし `master` ブランチには***絶対に直接コミットしないでください***。
+代わりに、あなたのすべての変更は開発ブランチで行い、あなたが開発する時にはそのブランチからプルリクエストを発行します。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L5_  -->
 To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch.
