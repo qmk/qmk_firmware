@@ -13,7 +13,8 @@ _Almost the same as #7231:25fdbf2a0:newbs_git_best_practices.md L5_
 QMK に貢献するプロセスを順を追って説明し、この作業を簡単にするいくつかの方法を詳しく説明します。
 その後、意図的に一部を壊してみせて、それらを修正する方法を教えます。
 
-This document assumes a few things:
+<!-- This document assumes a few things: -->
+このドキュメントは以下のことを前提としています:
 
 _Same as #7231:25fdbf2a0:newbs_git_best_practices.md L9_  
 1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account.
