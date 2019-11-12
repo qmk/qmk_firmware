@@ -61,7 +61,7 @@ user_config_t user_config;
 #define LCTL_BR LCTL_T(KC_LBRACKET)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
-#define SFT_ENT LSFT_T(KC_ENTER)
+#define SFT_ENT RSFT_T(KC_ENTER)
 
 #define SFT_DEL LSFT(KC_DEL)
 
