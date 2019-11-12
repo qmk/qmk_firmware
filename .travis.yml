@@ -16,6 +16,7 @@ install:
   - npm install -g moxygen
 script:
   - git rev-parse --short HEAD
+  - git rev-parse --short $TRAVIS_BRANCH
   - echo -e $TRAVIS_REPO_SLUG / $TRAVIS_BRANCH
   - git diff --name-only HEAD $TRAVIS_BRANCH
 #  - bash util/travis_test.sh
