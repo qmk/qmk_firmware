@@ -226,7 +226,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
 #ifdef DYNAMIC_MACRO_NO_NESTING
             case DYN_MACRO_PLAY1:
             case DYN_MACRO_PLAY2:
-                dprintln("dynamic macro: macro play key deteced while recording, but nesting disabled. Stopping macro recording.");
+                dprintln("dynamic macro: macro play key detected while recording, but nesting disabled. Stopping macro recording.");
 #endif
                 /* Stop the macro recording. */
                 if (record->event.pressed) { /* Ignore the initial release
