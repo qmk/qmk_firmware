@@ -67,7 +67,7 @@ Tips:
 
 * Setting `MOUSEKEY_XY_DELAY` too high makes the cursor unresponsive. Setting it too low makes small movements difficult.
 * `MOUSEKEY_XY_INTERVAL` should be set as low as will be visually perceptible. This depends on the refresh rate of your monitor. For a 60Hz monitor, use `16 == floor(1000/60)`.
-* For smoother cursor movements, lower the value of `MOUSEKEY_XY_INTERVAL`. If the refresh rate of your display is 60Hz, you could set it to `16` (1000/60). As this raises the cursor speed significantly, you may want to lower `MOUSEKEY_MAX_SPEED`.
+* Currently, small values of delay will not have any additional effect beyond some minimum value.
 * Setting `MOUSEKEY_XY_TIME_TO_MAX` or `MOUSEKEY_WH_TIME_TO_MAX` to `0` will disable acceleration for the cursor or scrolling respectively. This way you can make one of them constant while keeping the other accelerated, which is not possible in constant speed mode.
 * The first movement of the scroll wheel or cursor will happen immediately. The delay applies between the first movement and the second. (Fine adjustments can be made by tapping the key for a period shorter than the delay period)
 
