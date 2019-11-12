@@ -1,4 +1,5 @@
-# Best Practices
+<!-- # Best Practices -->
+# Git の最良の慣行
 
 <!---
   original document: e75919960:docs/newbs_best_practices.md
