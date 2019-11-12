@@ -49,7 +49,12 @@ enum combo_events {
 
 const uint16_t PROGMEM email[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_reset[] = {KC_W, KC_ESC, COMBO_END};
+#ifdef KEYBOARD_crkbd_rev1
+const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
+#endif
+#ifndef KEYBOARD_crkbd_rev1
 const uint16_t PROGMEM caps_combo[] = {KC_K, KC_V, COMBO_END};
+#endif
 
 combo_t key_combos[COMBO_COUNT] = {
   [EMAIL] = COMBO_ACTION(email),

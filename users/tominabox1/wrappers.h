@@ -114,7 +114,7 @@ __  __ _       _
 #define ___________________CRKBD1__________________       __________________DIMPLE1__________________
 #define ___________________CRKBD2__________________       __________________DIMPLE2__________________
 #define ___________________CRKBD3__________________       __________________DIMPLE3L_________________, KC_K, KC_M,KC_COMM,   KC_DOT,  KC_SLSH,  KC_BBB
-#define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,KC_ENT_LOW,  KC_SPC_RSE, KC_ARROW, KC_FKEY
+#define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,KC_ENT_LOW,  KC_SPC_RSE, MO(_ARROW), KC_FKEY
 
 /* CRKBD Number layer
 #define ___________________RAISE1__________________
