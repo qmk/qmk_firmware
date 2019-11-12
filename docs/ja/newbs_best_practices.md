@@ -48,7 +48,9 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L15_  -->
-To verify that the repository has been added, run `git remote -v`, which should return the following:
+<!-- To verify that the repository has been added, run `git remote -v`, which should return the following: -->
+リポジトリが追加されたことを確認するには、`git remote -v` を実行します。
+次のように表示されます。
 
 ```
 $ git remote -v
