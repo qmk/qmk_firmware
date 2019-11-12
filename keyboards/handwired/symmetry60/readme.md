@@ -6,7 +6,7 @@ A keyboard inspired by Boardwalk
 
 * Keyboard Maintainer: [marhalloweenvt](https://github.com/marhalloweenvt)
 Hardware Supported: Symmetry60 PCB
-Hardware Availability: Symmetry60 PCB
+* Hardware Availability: Symmetry60 PCB
 
 Make example for this keyboard (after setting up your build environment):
 
