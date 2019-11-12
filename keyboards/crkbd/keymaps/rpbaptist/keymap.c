@@ -13,7 +13,8 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  RGB_RST = SAFE_RANGE,
+  BSP_DEL = SAFE_RANGE,
+  RGB_RST,
   RGB_IDL, // RGB Idling animations
   RGB_UND, // Toggle RGB underglow as layer indicator
   RGB_MAP, // RGB_MATRIX_TYPING_HEATMAP
@@ -78,7 +79,7 @@ user_config_t user_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,\
+       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, BSP_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_GAMING] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,\
+      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -412,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (temp_keycode) {
-    case KC_BSPC:
+    case BSP_DEL:
       if (record->event.pressed) {
           if (get_mods() & MOD_MASK_SHIFT) {
               saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
