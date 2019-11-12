@@ -191,10 +191,6 @@ void render_status(void) {
 }
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
     render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
 }
 
