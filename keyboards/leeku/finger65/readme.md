@@ -2,7 +2,7 @@
 
 * Keyboard Maintainer: [sidcarter](https://github.com/sidcarter)
 
-* Hardware Supported: atmega32a 
+* Hardware Supported: LeeKu Finger65 PCB, atmega32a
 
 * Make example for this keyboard (after setting up your build environment):
 
