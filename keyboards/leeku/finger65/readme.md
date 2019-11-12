@@ -1,4 +1,4 @@
-# Leeku Finger 65 PCB
+# Leeku Finger65 PCB
 
 * Keyboard Maintainer: [sidcarter](https://github.com/sidcarter)
 
