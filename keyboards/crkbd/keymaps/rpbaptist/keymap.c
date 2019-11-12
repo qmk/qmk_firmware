@@ -415,18 +415,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (temp_keycode) {
     case BSP_DEL:
       if (record->event.pressed) {
-          if (get_mods() & MOD_MASK_SHIFT) {
-              saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
-              del_mods(saved_mods); // Remove any Shifts present
-              register_code(KC_DEL);
+          saved_mods = get_mods() & MOD_MASK_SHIFT;
+
+          if (saved_mods == MOD_MASK_SHIFT) { // Both shifts pressed
+            register_code(KC_DEL);
+          } else if (saved_mods) { // One shift pressed
+            del_mods(saved_mods); // Remove any Shifts present
+            register_code(KC_DEL);
           } else {
-              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
-              register_code(KC_BSPC);
+            saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+            register_code(KC_BSPC);
           }
       } else {
-          add_mods(saved_mods);
-          unregister_code(KC_DEL);
-          unregister_code(KC_BSPC);
+        add_mods(saved_mods);
+        unregister_code(KC_DEL);
+        unregister_code(KC_BSPC);
       }
       return false;
     #ifdef RGB_MATRIX_ENABLE
