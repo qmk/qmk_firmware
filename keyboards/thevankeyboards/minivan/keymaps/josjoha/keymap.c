@@ -24,28 +24,27 @@ extern keymap_config_t keymap_config;
 #define _ACC 6 // Accented letters and unusual symbols
 
 
-    /* These are some rarely but existing letters in Dutch, and perhaps some other
-     * additions.
+    /* These are some rarely but existing letters in Dutch, and some other additions.
      */
 
 enum custom_keycodes {
   CEL_ACU = SAFE_RANGE, // 'C' for Costum 'E' for e, 'L' for lower, "ACU" for acute: é
-  CEL_GRA,              // 'C' for Costum 'E' for e, 'L' for lower, "GRA" for grave: è
-  CEL_DIA,              // 'C' for Costum 'E' for e, 'L' for lower, "DIA" for diaereses: ë
-
-  CEU_ACU,              // 'C' for Costum 'E' for e, 'U' for uuper, "ACU" for acute: É
-  CEU_GRA,              // 'C' for Costum 'E' for e, 'U' for upper, "GRA" for grave: È
-  CEU_DIA,              // 'C' for Costum 'E' for e, 'U' for upper, "DIA" for diaereses: Ë
-
-  CIL_ACU,              // 'C' for Costum 'I' for i, 'L' for lower, "ACU" for acute: 
-  CIU_ACU,              // 'C' for Costum 'I' for i, 'U' for upper, "ACU" for acute: 
-
-  CS_SMIL,              // 'C' for Costum 'S' for symbol, "SMIL"  for <smile> 
-  CS_YAYS,              // 'C' for Costum 'S' for symbol, "YAYS"  for <big smile>
-  CS_SAD,               // 'C' for Costum 'S' for symbol, "SAD"   for  <sad face>
-  CS_SQIG,              // 'C' for Costum 'S' for symbol, "SQIG"  for "Squiggly" face <sad>
-  CS_THUP,              // 'C' for Costum 'S' for symbol, "THUP"  for <thumb up>
-  CS_THDN,              // 'C' for Costum 'S' for symbol, "THDN"  for <thumb down>
+  CEL_GRA,              //      ''              ''        ''        "GRA" for grave: è
+  CEL_DIA,              //      ''              ''        ''        "DIA" for diaereses: ë
+                                                    
+  CEU_ACU,              //      ''              ''   'U' for uuper, "ACU" for acute: É
+  CEU_GRA,              //      ''              ''        ''        "GRA" for grave: È
+  CEU_DIA,              //      ''              ''        ''        "DIA" for diaereses: Ë
+                                          
+  CIL_ACU,              //      ''         'I' for i, 'L' for lower, ''ACU" for acute: 
+  CIU_ACU,              //      ''              ''    'U' for upper, "ACU" for acute: 
+                                          
+  CS_SMIL,              //      ''         'S' for symbol, ''SMIL"  for <smile> 
+  CS_YAYS,              //      ''              ''          "YAYS"  for <big smile>
+  CS_SAD,               //      ''              ''          "SAD"   for  <sad face>
+  CS_SQIG,              //      ''              ''          "SQIG"  for "Squiggly" face <sad>
+  CS_THUP,              //      ''              ''          "THUP"  for <thumb up>
+  CS_THDN               //      ''              ''          "THDN"  for <thumb down>
 
 };
 
@@ -149,7 +148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "u" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "1f44e " ); 
       }
       break;
-     
+
   }
   return true;
 };
@@ -165,17 +164,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _LTR ] = LAYOUT (
 
-        /*  Esc      '"   ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
-         *  Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
-         *  LSht       ;:   qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
-         *  Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
-         *                  hold      hold          hold toggle      hold
+        /*  Esc      '"       ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
+         *  Tab+LCtl  aA       oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
+         *  LSht       ;:       qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
+         *  Left+LAlt   Del+_FUN _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
+         *                  hold hold        hold        hold toggle      hold
          */
 
-        KC_ESC           , KC_QUOT , KC_COMM     , KC_DOT               , KC_P   , KC_Y        , KC_F        , KC_G     , KC_C     , KC_R , KC_L , KC_BSPC ,
-        LCTL_T ( KC_TAB ) , KC_A    , KC_O        , KC_E                 , KC_U   , KC_I        , KC_D        , KC_H     , KC_T     , KC_N , KC_S , KC_MINS ,
-        KC_LSFT            , KC_SCLN , KC_Q        , KC_J                 , KC_K   , KC_X        , KC_B        , KC_M     , KC_W     , KC_V , KC_Z , KC_RSFT ,
-        LALT_T ( KC_LEFT )  , KC_DEL  , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , LT ( _ACC , KC_RIGHT )
+        KC_ESC           , KC_QUOT              , KC_COMM     , KC_DOT               , KC_P   , KC_Y        , KC_F        , KC_G                   , KC_C , KC_R , KC_L , KC_BSPC ,
+        LCTL_T ( KC_TAB ) , KC_A                 , KC_O        , KC_E                 , KC_U   , KC_I        , KC_D        , KC_H                   , KC_T , KC_N , KC_S , KC_MINS ,
+        KC_LSFT            , KC_SCLN              , KC_Q        , KC_J                 , KC_K   , KC_X        , KC_B        , KC_M                   , KC_W , KC_V , KC_Z , KC_RSFT ,
+        LALT_T ( KC_LEFT )  , LT ( _FUN , KC_DEL ) , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TG ( _FUN ) , LT ( _ACC , KC_RIGHT )
                       ) ,
 
 
@@ -198,22 +197,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT_T ( KC_LEFT )   , KC_DEL  , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
                       ) ,
 
-    /* Layer 2: Function keys,
+    /* Layer 2: Function keys, on the right side with Control+Alt (switch virtual consoles in Linux)
      *          Toward any layer by toggle.
      */
 
     [ _FUN ] = LAYOUT (
     
-          /* _LTR _NSY _FUN _MOV _RAR _REV _ACC  F24 F23  F22  F21     xxx
-         * LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
-         * LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
-         * LAlt  ___     ___     ___      ___      ___       ___    RAlt
+        /* _LTR _NSY  _FUN _MOV _RAR _REV _ACC CAF11 CAF12 F12 F11    xxx
+         * LCtl  CAF1  CAF2 CAF3 CAF4 CAF5 F5   F4    F3    F2  F1   RCtl
+         * LSht   CAF10 CAF9 CAF8 CAF7 CAF6 F6   F7    F8    F9  F10 RSht
+         * LAlt    ___    ___      ___        ___      ___     ___   RAlt
          */
         
-        TO ( _LTR ) , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , KC_F24  , KC_F23 , KC_F22 , KC_F21 , XXXXXXX ,
-        KC_LCTL      , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F15      , KC_F14  , KC_F13 , KC_F12 , KC_F11 , KC_RCTL ,
-        KC_LSFT       , KC_F10      , KC_F9       , KC_F8       , KC_F7       , KC_F6       , KC_F16      , KC_F17  , KC_F18 , KC_F19 , KC_F20 , KC_RSFT ,
-        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______     , KC_RALT
+        TO ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , LCA ( KC_F11 ) , LCA ( KC_F12 ) , KC_F12 , KC_F11 , XXXXXXX ,
+        KC_LCTL      , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4          , KC_F3          , KC_F2  , KC_F1  , KC_RCTL ,
+        KC_LSFT       , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) ,  KC_F6      , KC_F7          ,  KC_F8         , KC_F9  , KC_F10 , KC_RSFT ,
+        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______       , KC_RALT
                       ) ,
 
 

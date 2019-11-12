@@ -8,31 +8,40 @@ QMK on Github, and the LED support was copied from ../jetpacktuxedo/
 keymap. By Jos B., <joshb@xs4all.nl>
 
 
-    - Basic layers are: letters (normal Dvorak layout), numbers with
-      remaining symbols, function keys, and a movement layer
-      (navigation and mouse).
-
-    - The remaining layers are through the F-function layer on toggle
-      keys top row.
+    - Basic layers are: * letters (normal Dvorak layout), (Led: off)
+                        * numbers with remaining symbols, (Led: blue)
+                        * function keys,                  (Led: red)
+                        * and a movement layer            (Led: green)
+      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)
+                    * navigation and numbers other hand,  (Led: green/blue)
+                    * special characters like é.          (Led: cyan)
 
     - Upper left key always goes back to default layer, then is Escape.
+
+    - All layers can be statically active by toggling to the function
+      layer, and then to the desired layer (top row left side).
 
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
       layers.
 
-      The Right Control on the base layer is taken off, because of tap 
-      delay. Right Alt as an AltGr type of thing, switches to a symbols
-      layer instead.
+      Except ... the Right Control on the base layer is taken off,
+      because of tap delay. Right Alt on the base layer is taken off,
+      instead it switches to a symbols layer (a bit like a private subset
+      of AltGr symbols). (QMK allows one to press-hold to the numerical 
+      layer, press a right modifier, release numerical layer, and access
+      the base layer with that modifier; so it is still possible, just
+      not needed.)
+      
  
     - Leds: breathing effect on the middle LED, other indicate layer.
 
     Base layer (0)
 
-        Esc      '"   ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
-        Tab+LCtl  aA   oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
-        LSht       ;:   qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
-        Left+LAlt   Del _MOV  Enter+_NSY Space  _NSY _FUN  Right+RAlt
-                        hold     hold           hold toggle 
+        Esc      '"       ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
+        Tab+LCtl  aA       oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
+        LSht       ;:       qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
+        Left+LAlt   Del+_FUN _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
+                        hold hold        hold        hold toggle      hold
         
     Layer 1: Numbers and symbols.
 
@@ -54,12 +63,15 @@ keymap. By Jos B., <joshb@xs4all.nl>
         Left+LAlt   Del   Sht(tab) ___      tab   ___  Ent  Right+RAlt
          
                 
-     Layer 2: Function keys. Toward any layer by toggle.
+     Layer 2: Toward any layer by toggle (top row left). 
+              Function keys. 
+              The right side works with left held modifiers. The left side has
+              F-keys with Control+Alt pressed, for switching virtual consoles.
     
-        _LTR _NSY _FUN _MOV _RAR _REV _ACC  F24 F23  F22  F21     xxx
-        LCtl   F1   F2   F3   F4   F5   F15  F14  F13  F12  F11  RCtl
-        LSht    F10  F9   F8   F7   F6   F16  F17  F18  F19  F20 RSht
-        LAlt  ___     ___     ___      ___      ___       ___    RAlt
+        _LTR _NSY  _FUN _MOV _RAR _REV _ACC CAF11 CAF12 F12 F11    xxx
+        LCtl  CAF1  CAF2 CAF3 CAF4 CAF5 F5   F4    F3    F2  F1   RCtl
+        LSht   CAF10 CAF9 CAF8 CAF7 CAF6 F6   F7    F8    F9  F10 RSht
+        LAlt    ___    ___      ___        ___      ___     ___   RAlt
         
 
      Layer 3: Movement layer: mouse and hands on navigation
@@ -71,8 +83,8 @@ keymap. By Jos B., <joshb@xs4all.nl>
         Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
         
                 
-    Layer 4: Dump for various unused keys. Media keys on 2nd row. I never
-             use these, but just in case some future program demands them.
+    Layer 4: Place for keys that are not symbols or F-keys, and are found
+             on many keyboards. Media keys on 2nd row. 
 
         _LTR CapL NumL Pause ScrLk PrtSc xxx  xxx  Power Sleep Wake    xxx   
         tab   xxx  xxx   xxx   xxx  xxx   xxx  xxx  xxx  xxx    xxx Insert
@@ -89,9 +101,10 @@ keymap. By Jos B., <joshb@xs4all.nl>
         Left+LAlt Del    Sht(Tab)  ___      Tab    ___     Ent   Right+Alt
         
 
-   Layer 6: Rarely used symbols, using Unicode Ctrl(Shft(u))HEX input,
-            because AltGr or Compose did not seem to work, I rather not have
+   Layer 6: Rarely used symbols, Unicode: <Ctrl(Shft(u))> <HEX input> <space>.
+            AltGr or Compose did not seem to work for me, I rather not have
             dead keys. See https://en.wikipedia.org/wiki/Unicode_input 
+            With tap-dances this could work ok for quite a few accented letters.
 
         _LTR  xxx  xxx  è  È  xxx ___  👍  👎  xxx xxx    Bspc
         LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
@@ -101,8 +114,8 @@ keymap. By Jos B., <joshb@xs4all.nl>
 
    ... keycap color scheme, marks areas home (5), navigation (2+5), numbers (2+5).
 
-                            011111122223
-                            455552155554
-                            622222111116
-                              77877877
+                            x1111112222x
+                            x5555215555x
+                            x2222211111x
+                              xxxxxxxx
 
