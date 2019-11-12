@@ -43,29 +43,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef MOUSEKEY_WHEEL_DELTA
 #        define MOUSEKEY_WHEEL_DELTA 1
 #    endif
-#    ifndef MOUSEKEY_XY_DELAY
-#        define MOUSEKEY_XY_DELAY 300
-#    endif
-#    ifndef MOUSEKEY_WH_DELAY
-#        define MOUSEKEY_WH_DELAY 300
-#    endif
 #    ifndef MOUSEKEY_XY_INTERVAL
-#        define MOUSEKEY_XY_INTERVAL 50
+#        define MOUSEKEY_XY_INTERVAL 10
+#    endif
+#    ifndef MOUSEKEY_XY_DELAY
+#        define MOUSEKEY_XY_DELAY 0
 #    endif
 #    ifndef MOUSEKEY_WH_INTERVAL
-#        define MOUSEKEY_WH_INTERVAL 50
+#        define MOUSEKEY_WH_INTERVAL 100
+#    endif
+#    ifndef MOUSEKEY_WH_DELAY
+#        define MOUSEKEY_WH_DELAY 50
 #    endif
 #    ifndef MOUSEKEY_MAX_SPEED
-#        define MOUSEKEY_MAX_SPEED 10
+#        define MOUSEKEY_MAX_SPEED 3
 #    endif
 #    ifndef MOUSEKEY_TIME_TO_MAX
-#        define MOUSEKEY_TIME_TO_MAX 20
+#        define MOUSEKEY_TIME_TO_MAX 15
 #    endif
 #    ifndef MOUSEKEY_WHEEL_MAX_SPEED
-#        define MOUSEKEY_WHEEL_MAX_SPEED 8
+#        define MOUSEKEY_WHEEL_MAX_SPEED 5
 #    endif
 #    ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
-#        define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+#        define MOUSEKEY_WHEEL_TIME_TO_MAX 30
 #    endif
 
 #else /* #ifndef MK_3_SPEED */
