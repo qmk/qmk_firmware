@@ -801,7 +801,7 @@ static bool mousekey_console(uint8_t code) {
             mk_xy_delay          = MOUSEKEY_XY_DELAY / 10;
             mk_wh_delay          = MOUSEKEY_WH_DELAY / 10;
             mk_xy_interval       = MOUSEKEY_XY_INTERVAL;
-            mk_wh_interval       = MOUSEKEY_WH_INTERVAL / 5;
+            mk_wh_interval       = MOUSEKEY_WH_INTERVAL;
             mk_xy_max_speed      = MOUSEKEY_XY_MAX_SPEED;
             mk_wh_max_speed      = MOUSEKEY_WH_MAX_SPEED;
             mk_xy_time_to_max    = MOUSEKEY_XY_TIME_TO_MAX;
