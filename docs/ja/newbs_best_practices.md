@@ -35,7 +35,8 @@ QMKの開発では、regardless of what is being done or where, `master` ブラ�
 <!-- To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch. -->
 マージの競合の可能性を減らすため &mdash; 2人以上のユーザーがファイルの同じ部分を同時に編集している状態のこと &mdash; `master` ブランチをなるべく最新の状態に保ち、新しいブランチを作成して新しい開発を開始します。
 
-### Updating your master branch
+<!-- ### Updating your master branch -->
+### あなたの master ブランチを更新する
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L9_  -->
 To keep your `master` branch updated, it is recommended to add the QMK Firmware repository ("repo") as a remote repository in git. To do this, open your Git command line interface and enter:
