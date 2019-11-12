@@ -6,7 +6,8 @@
   $ git diff e75919960 HEAD docs/newbs_best_practices.md
 -->
 
-## Or, "How I Learned to Stop Worrying and Love Git."
+<!-- ## Or, "How I Learned to Stop Worrying and Love Git." -->
+## または、如何にして私は心配することをやめて Git を愛することを学んだか。
 
 <!-- _Almost the same as #7231:25fdbf2a0:newbs_git_best_practices.md L5_ -->
 <!-- This document aims to instruct novices in the best ways to have a smooth experience in contributing to QMK. We will walk through the process of contributing to QMK, detailing some ways to make this task easier, and then later we'll break some things in order to teach you how to fix them. -->
