@@ -36,19 +36,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-
-
-void matrix_init_user (void) {
-  if (!get_host_led_state().num_lock) {
-      tap_code(KC_NUMLOCK);
-  }
-}
-
-bool led_update_user(led_t led_state) {
-    if (led_state.num_lock) {
-        layer_on(1);
-    } else {
-        layer_off(1);
-    }
-    return true;
-}
