@@ -87,7 +87,8 @@ git push origin master
 ### 変更を行なう
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L40_  -->
-To make changes, create a new branch by entering:
+<!-- To make changes, create a new branch by entering: -->
+変更するには、以下を入力して新しいブランチを作成します:
 
 ```
 git checkout -b dev_branch
