@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , LCA ( KC_F11 ) , LCA ( KC_F12 ) , KC_F12 , KC_F11 , XXXXXXX ,
         KC_LCTL      , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4          , KC_F3          , KC_F2  , KC_F1  , KC_RCTL ,
         KC_LSFT       , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) ,  KC_F6      , KC_F7          ,  KC_F8         , KC_F9  , KC_F10 , KC_RSFT ,
-        KC_LALT        , _______     , _______     , _______     , _______     , _______     , _______       , KC_RALT
+        KC_LALT        , _______        , _______       , _______       , _______       , _______       , _______     , KC_RALT
                       ) ,
 
 
