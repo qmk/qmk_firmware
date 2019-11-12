@@ -4,7 +4,7 @@
 
 A keyboard inspired by Boardwalk
 
-Keyboard Maintainer: [marhalloweenvt](https://github.com/mechmerlin)  
+* Keyboard Maintainer: [marhalloweenvt](https://github.com/marhalloweenvt)
 Hardware Supported: Symmetry60 PCB
 Hardware Availability: Symmetry60 PCB
 
