@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Marhalloweenvt
 #define PRODUCT         Symmetry60
-#define DESCRIPTION     A Boardwak inspired keyboard
+#define DESCRIPTION     A Boardwalk-inspired keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
