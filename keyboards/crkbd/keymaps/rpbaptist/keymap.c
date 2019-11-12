@@ -13,7 +13,8 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  RGB_RST = SAFE_RANGE,
+  BSP_DEL = SAFE_RANGE,
+  RGB_RST,
   RGB_IDL, // RGB Idling animations
   RGB_UND, // Toggle RGB underglow as layer indicator
   RGB_MAP, // RGB_MATRIX_TYPING_HEATMAP
@@ -60,7 +61,7 @@ user_config_t user_config;
 #define LCTL_BR LCTL_T(KC_LBRACKET)
 
 #define SFT_SPC LSFT_T(KC_SPACE)
-#define SFT_ENT LSFT_T(KC_ENTER)
+#define SFT_ENT RSFT_T(KC_ENTER)
 
 #define SFT_DEL LSFT(KC_DEL)
 
@@ -78,7 +79,7 @@ user_config_t user_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAKDHM] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,\
+       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, BSP_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_GAMING] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,\
+      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -412,20 +413,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (temp_keycode) {
-    case KC_BSPC:
+    case BSP_DEL:
       if (record->event.pressed) {
-          if (get_mods() & MOD_MASK_SHIFT) {
-              saved_mods = get_mods() & MOD_MASK_SHIFT; // Mask off anything that isn't Shift
-              del_mods(saved_mods); // Remove any Shifts present
-              register_code(KC_DEL);
+          saved_mods = get_mods() & MOD_MASK_SHIFT;
+
+          if (saved_mods == MOD_MASK_SHIFT) { // Both shifts pressed
+            register_code(KC_DEL);
+          } else if (saved_mods) { // One shift pressed
+            del_mods(saved_mods); // Remove any Shifts present
+            register_code(KC_DEL);
           } else {
-              saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
-              register_code(KC_BSPC);
+            saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+            register_code(KC_BSPC);
           }
       } else {
-          add_mods(saved_mods);
-          unregister_code(KC_DEL);
-          unregister_code(KC_BSPC);
+        add_mods(saved_mods);
+        unregister_code(KC_DEL);
+        unregister_code(KC_BSPC);
       }
       return false;
     #ifdef RGB_MATRIX_ENABLE
