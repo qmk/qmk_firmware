@@ -54,18 +54,21 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 
 |Define                      |Default|Description                                              |
 |----------------------------|-------|---------------------------------------------------------|
-|`MOUSEKEY_DELAY`            |300    |Delay between pressing a movement key and cursor movement|
-|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements                            |
-|`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
-|`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
-|`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
-|`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
+|`MOUSEKEY_XY_DELAY`         |0      |Delay between the first and subsequent cursor movements  |
+|`MOUSEKEY_WH_DELAY`         |50     |Delay between the first and subsequent wheel scrolls     |
+|`MOUSEKEY_XY_INTERVAL`      |10     |Time between cursor movements                            |
+|`MOUSEKEY_WH_INTERVAL`      |100    |Time between mouse wheel movements                       |
+|`MOUSEKEY_XY_MAX_SPEED`     |3      |Maximum cursor speed at which acceleration stops         |
+|`MOUSEKEY_WH_MAX_SPEED`     |5      |Maximum number of scroll steps per scroll action         |
+|`MOUSEKEY_XY_TIME_TO_MAX`   |15     |Time until maximum cursor speed is reached               |
+|`MOUSEKEY_WH_TIME_TO_MAX`   |30     |Time until maximum scroll speed is reached               |
 
 Tips:
 
-* Setting `MOUSEKEY_DELAY` too low makes the cursor unresponsive. Setting it too high makes small movements difficult.
+* Setting `MOUSEKEY_DELAY` too high makes the cursor unresponsive. Setting it too low makes small movements difficult.
 * For smoother cursor movements, lower the value of `MOUSEKEY_INTERVAL`. If the refresh rate of your display is 60Hz, you could set it to `16` (1/60). As this raises the cursor speed significantly, you may want to lower `MOUSEKEY_MAX_SPEED`.
 * Setting `MOUSEKEY_TIME_TO_MAX` or `MOUSEKEY_WHEEL_TIME_TO_MAX` to `0` will disable acceleration for the cursor or scrolling respectively. This way you can make one of them constant while keeping the other accelerated, which is not possible in constant speed mode.
+* The first movement of the scroll wheel or cursor will happen immediately. The delay applies between the first movement and the second. (Fine adjustments can be made by tapping the key for a period shorter than the delay period)
 
 Cursor acceleration uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 

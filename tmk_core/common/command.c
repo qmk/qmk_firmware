@@ -597,16 +597,16 @@ static void mousekey_param_print(void) {
     pdec(mk_wh_interval);
     print("\n");
     print("3: max_speed: ");
-    pdec(mk_max_speed);
+    pdec(mk_xy_max_speed);
     print("\n");
     print("4: time_to_max: ");
-    pdec(mk_time_to_max);
+    pdec(mk_xy_time_to_max);
     print("\n");
     print("5: wheel_max_speed: ");
-    pdec(mk_wheel_max_speed);
+    pdec(mk_wh_max_speed);
     print("\n");
     print("6: wheel_time_to_max: ");
-    pdec(mk_wheel_time_to_max);
+    pdec(mk_wh_time_to_max);
     print("\n");
 #    endif /* !NO_PRINT */
 }
@@ -644,32 +644,32 @@ static void mousekey_param_inc(uint8_t param, uint8_t inc) {
             PRINT_SET_VAL(mk_wh_interval);
             break;
         case 5:
-            if (mk_max_speed + inc < UINT8_MAX)
-                mk_max_speed += inc;
+            if (mk_xy_max_speed + inc < UINT8_MAX)
+                mk_xy_max_speed += inc;
             else
-                mk_max_speed = UINT8_MAX;
-            PRINT_SET_VAL(mk_max_speed);
+                mk_xy_max_speed = UINT8_MAX;
+            PRINT_SET_VAL(mk_xy_max_speed);
             break;
         case 6:
-            if (mk_time_to_max + inc < UINT8_MAX)
-                mk_time_to_max += inc;
+            if (mk_xy_time_to_max + inc < UINT8_MAX)
+                mk_xy_time_to_max += inc;
             else
-                mk_time_to_max = UINT8_MAX;
-            PRINT_SET_VAL(mk_time_to_max);
+                mk_xy_time_to_max = UINT8_MAX;
+            PRINT_SET_VAL(mk_xy_time_to_max);
             break;
         case 7:
-            if (mk_wheel_max_speed + inc < UINT8_MAX)
-                mk_wheel_max_speed += inc;
+            if (mk_wh_max_speed + inc < UINT8_MAX)
+                mk_wh_max_speed += inc;
             else
-                mk_wheel_max_speed = UINT8_MAX;
-            PRINT_SET_VAL(mk_wheel_max_speed);
+                mk_wh_max_speed = UINT8_MAX;
+            PRINT_SET_VAL(mk_wh_max_speed);
             break;
         case 8:
-            if (mk_wheel_time_to_max + inc < UINT8_MAX)
-                mk_wheel_time_to_max += inc;
+            if (mk_wh_time_to_max + inc < UINT8_MAX)
+                mk_wh_time_to_max += inc;
             else
-                mk_wheel_time_to_max = UINT8_MAX;
-            PRINT_SET_VAL(mk_wheel_time_to_max);
+                mk_wh_time_to_max = UINT8_MAX;
+            PRINT_SET_VAL(mk_wh_time_to_max);
             break;
     }
 }
@@ -705,32 +705,32 @@ static void mousekey_param_dec(uint8_t param, uint8_t dec) {
             PRINT_SET_VAL(mk_wh_interval);
             break;
         case 5:
-            if (mk_max_speed > dec)
-                mk_max_speed -= dec;
+            if (mk_xy_max_speed > dec)
+                mk_xy_max_speed -= dec;
             else
-                mk_max_speed = 0;
-            PRINT_SET_VAL(mk_max_speed);
+                mk_xy_max_speed = 0;
+            PRINT_SET_VAL(mk_xy_max_speed);
             break;
         case 6:
-            if (mk_time_to_max > dec)
-                mk_time_to_max -= dec;
+            if (mk_xy_time_to_max > dec)
+                mk_xy_time_to_max -= dec;
             else
-                mk_time_to_max = 0;
-            PRINT_SET_VAL(mk_time_to_max);
+                mk_xy_time_to_max = 0;
+            PRINT_SET_VAL(mk_xy_time_to_max);
             break;
         case 7:
-            if (mk_wheel_max_speed > dec)
-                mk_wheel_max_speed -= dec;
+            if (mk_wh_max_speed > dec)
+                mk_wh_max_speed -= dec;
             else
-                mk_wheel_max_speed = 0;
-            PRINT_SET_VAL(mk_wheel_max_speed);
+                mk_wh_max_speed = 0;
+            PRINT_SET_VAL(mk_wh_max_speed);
             break;
         case 8:
-            if (mk_wheel_time_to_max > dec)
-                mk_wheel_time_to_max -= dec;
+            if (mk_wh_time_to_max > dec)
+                mk_wh_time_to_max -= dec;
             else
-                mk_wheel_time_to_max = 0;
-            PRINT_SET_VAL(mk_wheel_time_to_max);
+                mk_wh_time_to_max = 0;
+            PRINT_SET_VAL(mk_wh_time_to_max);
             break;
     }
 }
@@ -802,10 +802,10 @@ static bool mousekey_console(uint8_t code) {
             mk_wh_delay          = MOUSEKEY_WH_DELAY / 10;
             mk_xy_interval       = MOUSEKEY_XY_INTERVAL;
             mk_wh_interval       = MOUSEKEY_WH_INTERVAL / 5;
-            mk_max_speed         = MOUSEKEY_MAX_SPEED;
-            mk_time_to_max       = MOUSEKEY_TIME_TO_MAX;
-            mk_wheel_max_speed   = MOUSEKEY_WHEEL_MAX_SPEED;
-            mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+            mk_xy_max_speed      = MOUSEKEY_XY_MAX_SPEED;
+            mk_wh_max_speed      = MOUSEKEY_WH_MAX_SPEED;
+            mk_xy_time_to_max    = MOUSEKEY_XY_TIME_TO_MAX;
+            mk_wh_time_to_max    = MOUSEKEY_WH_TIME_TO_MAX;
             print("set default\n");
             break;
         default:
