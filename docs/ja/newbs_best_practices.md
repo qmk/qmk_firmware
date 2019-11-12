@@ -61,7 +61,10 @@ upstream        https://github.com/qmk/qmk_firmware.git (push)
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L25_  -->
-Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags &mdash; collectively referred to as "refs" &mdash; from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK.
+<!-- Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags &mdash; collectively referred to as "refs" &mdash; from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK. -->
+これが完了すると、`git fetch upstream` を実行してリポジトリの更新を確認できます。
+これは `upstream` (上流)というニックネームを持つ QMK リポジトリからブランチとタグ &mdash; "ref" と総称される &mdash; を取得します。
+これで、あなたのフォーク `origin` のデータを QMK が保持するデータと比較できます。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L27_  -->
 To update your fork's master, run the following, hitting the Enter key after each line:
