@@ -9,11 +9,11 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" == *"[skip build]"* ]]; then
     exit 0
 fi
 
-if [ "$LOCAL_BRANCH" == "master" ] || [ "$NUM_CORE_CHANGES" != "0" ]; then
+#if [ "$LOCAL_BRANCH" == "milc_improvements" ] || [ "$NUM_CORE_CHANGES" != "0" ]; then
     echo "Making default keymaps for all keyboards"
     make all:default
     exit $?
-fi
+#fi
 
 exit_code=0
 

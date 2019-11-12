@@ -16,9 +16,27 @@ QMK_CHANGES=$(git diff --name-only HEAD ${TRAVIS_BRANCH})
 # if docker is installed - patch calls to within the qmk docker image
 if command -v docker >/dev/null; then
     function make() {
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        set
+        echo
+        echo docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
         docker run --rm -e MAKEFLAGS="$MAKEFLAGS" -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container make "$@"
     }
     function qmk() {
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        set
+        echo
+        echo docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container bin/qmk "$@"
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
+        echo DEBUG DEBUG DEBUG DEBUG DEBUG
         docker run --rm -w /qmk_firmware/ -v "$PWD":/qmk_firmware --user $(id -u):$(id -g) qmkfm/base_container bin/qmk "$@"
     }
 fi
