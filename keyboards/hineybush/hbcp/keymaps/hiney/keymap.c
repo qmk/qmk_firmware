@@ -86,17 +86,17 @@ void matrix_scan_user(void) {
 // The first three LEDs are used as indicators for CAPS_LOCK, NUM_LOCK and SCROLL_LOCK.
 void led_set_user(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        sethsv_raw(HSV_SOFT_PINK, (LED_TYPE *)&led[0]);
+        sethsv_raw(HSV_SOFT_RED, (LED_TYPE *)&led[0]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[0]);
     }
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        sethsv_raw(HSV_SOFT_PINK, (LED_TYPE *)&led[1]);
+        sethsv_raw(HSV_WARM_WHITE, (LED_TYPE *)&led[1]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[1]);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        sethsv_raw(HSV_SOFT_PINK, (LED_TYPE *)&led[2]);
+        sethsv_raw(HSV_SOFT_BLUE, (LED_TYPE *)&led[2]);
     } else {
         sethsv(HSV_BLACK, (LED_TYPE *)&led[2]);
     }

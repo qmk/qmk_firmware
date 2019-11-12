@@ -1,12 +1,7 @@
 #include "quantum.h"
 #include "dshields.h"
 
-extern bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record);
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     if (keycode == KC_ESC && record->event.pressed) {
         bool rc = true;
         uint8_t mods = 0;
