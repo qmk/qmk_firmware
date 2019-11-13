@@ -22,7 +22,7 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 | Name      | Description                                           |
 |-----------|-------------------------------------------------------|
 |`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback off                              |
 |`HPT_TOG`  | Toggle haptic feedback on/off                         |
 |`HPT_RST`  | Reset haptic feedback config to default               |
 |`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |

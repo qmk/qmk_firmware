@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source util/travis_utils.sh
 source util/travis_push.sh
 
 set -o errexit -o nounset

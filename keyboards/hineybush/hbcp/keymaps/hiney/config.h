@@ -22,6 +22,22 @@
     #define HSV_SOFT_PINK  255, 110, 100 // Define custom "soft pink" color
 #endif
 
+#ifndef HSV_SOFT_WHITE
+    #define HSV_SOFT_WHITE  0, 0, 90 // Define custom "soft white" color
+#endif
+
+#ifndef HSV_WARM_WHITE
+    #define HSV_WARM_WHITE  41, 105, 90 // Define custom "warm white" color
+#endif
+
+#ifndef HSV_SOFT_RED
+    #define HSV_SOFT_RED  0, 240, 160 // Define custom "soft red" color
+#endif
+
+#ifndef HSV_SOFT_BLUE
+    #define HSV_SOFT_BLUE  159, 180, 160 // Define custom "soft blue" color
+#endif
+
 #ifndef HSV_BLACK
     #define HSV_BLACK  0, 0, 0  // Define 'black' color, more like 'LED off' (H, S, V)
 #endif
