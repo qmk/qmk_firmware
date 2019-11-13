@@ -16,6 +16,7 @@
 #pragma once
 
 /*              RGB COLORS             */
+#define RGB_OFF          0x00, 0x00, 0x00
 #define RGB_WHITE        0xFF, 0xFF, 0xFF
 #define RGB_RED          0xFF, 0x00, 0x00
 #define RGB_CORAL        0xFF, 0x7C, 0x4D
@@ -36,6 +37,7 @@
 #define RGB_PINK         0xFF, 0x80, 0xBF
 
 /*            HSV COLORS            */
+#define HSV_OFF            0,   0,   0
 #define HSV_WHITE          0,   0, 255
 #define HSV_RED            0, 255, 255
 #define HSV_CORAL         11, 176, 255

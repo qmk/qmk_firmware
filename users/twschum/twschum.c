@@ -6,7 +6,7 @@
 
 #ifdef TWSCHUM_TAPPING_CTRL_PREFIX
 // state for the great state machine of custom actions!
-#define TIMEOUT_DELAY 150 // ms
+#define TIMEOUT_DELAY 200 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
@@ -103,7 +103,6 @@ static inline bool tap_ctrl_other_pressed(void) {
  */
 // add to quantum/rgblight_list.h
 #ifdef RGBLIGHT_ENABLE
-#define  HSV_OFF          0,    0,    0
 static bool rgb_layers_enabled = true;
 static bool rgb_L0_enabled = false;
 
@@ -112,31 +111,31 @@ uint32_t layer_state_set_user(uint32_t state) {
         return state;
     }
     switch (biton32(state)) {
-    case L_Base:
+    case _Base:
         if (rgb_L0_enabled) {
-            rgblight_sethsv_noeeprom(L_Base_HSV_ON);
+            rgblight_sethsv_noeeprom(_Base_HSV_ON);
         }
         else {
-            rgblight_sethsv_noeeprom(L_Base_HSV_OFF);
+            rgblight_sethsv_noeeprom(_Base_HSV_OFF);
         }
         break;
-    case L_Vim:
-        rgblight_sethsv_noeeprom(L_Vim_HSV);
+    case _Vim:
+        rgblight_sethsv_noeeprom(_Vim_HSV);
         break;
-    case L_Fn:
-        rgblight_sethsv_noeeprom(L_Fn_HSV);
+    case _Fn:
+        rgblight_sethsv_noeeprom(_Fn_HSV);
         break;
-    case L_Nav:
-        rgblight_sethsv_noeeprom(L_Nav_HSV);
+    case _Nav:
+        rgblight_sethsv_noeeprom(_Nav_HSV);
         break;
-    case L_Num:
-        rgblight_sethsv_noeeprom(L_Num_HSV);
+    case _Num:
+        rgblight_sethsv_noeeprom(_Num_HSV);
         break;
-    case L_Cfg:
-        rgblight_sethsv_noeeprom(L_Cfg_HSV);
+    case _Cfg:
+        rgblight_sethsv_noeeprom(_Cfg_HSV);
         break;
-    case L_None:
-        rgblight_sethsv_noeeprom(L_None_HSV);
+    case _None:
+        rgblight_sethsv_noeeprom(_None_HSV);
         break;
     }
     return state;
@@ -227,6 +226,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LESS_PD:
             if (!record->event.pressed) {
                 SEND_STRING(LESS_PD_MACRO);
+            }
+            return false;
+        case CODE_PASTE:
+            if (!record->event.pressed) {
+                SEND_STRING(CODE_PASTE_MACRO);
             }
             return false;
 
