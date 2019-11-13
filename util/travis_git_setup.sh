@@ -2,6 +2,7 @@
 
 # Git Setup
 echo -e "TRAVIS_REPO_SLUG = $TRAVIS_REPO_SLUG"
+echo -e "LOCAL_BRANCH = $LOCAL_BRANCH"
 echo -e "TRAVIS_BRANCH = $TRAVIS_BRANCH"
 echo -e "TRAVIS_COMMIT_RANGE = $TRAVIS_COMMIT_RANGE"
 echo -e "CURRENT COMMIT HASH = $(git rev-parse --short HEAD)"
