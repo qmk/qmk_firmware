@@ -76,4 +76,4 @@ def kle2json(cli):
     file = open(str(out_path) + "/info.json", "w")
     file.write(keyboard)
     file.close()
-    cli.log.info('Wrote keymap to {fg_cyan}%s/info.json', str(out_path))
+    cli.log.info('Wrote out {fg_cyan}%s/info.json', str(out_path))
