@@ -5,7 +5,7 @@
   "width": 19,
   "height": 5,
   "layouts": {  
-    "LAYOUT_split_0": {
+    "LAYOUT_60_ansi_numpad_split0": {
       "key_count": 79,
       "layout": [
 
@@ -96,7 +96,7 @@
       ]
 
          },
-      "LAYOUT": {
+      "LAYOUT_60_ansi_numpad": {
       "key_count": 78,
       "layout": [
 
