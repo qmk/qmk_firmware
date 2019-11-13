@@ -25,7 +25,7 @@ uint16_t get_tapping_term(uint16_t keycode) {
         case KC_SPC_RSE:
             return 270;
         case LCTL_T(KC_TAB):
-            return 200;
+            return 100;
         default:
             return TAPPING_TERM;
     }
