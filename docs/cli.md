@@ -92,24 +92,19 @@ This command allows you to convert from raw KLE data to QMK Configurator JSON. I
 **Usage**:
 
 ```
-qmk kle2json [filename] [-f]
+qmk kle2json [-f] [filename]
 ```
+
 **Examples**:
 
 ```
-$ qmk kle2json ~/github/qmk_firmware/kle.txt 
-☒ File /home/cody/github/qmk_firmware/info.json already exists, use -f or --force to overwrite.
-...
-$ qmk kle2json ~/github/qmk_firmware/kle.txt -f
-Ψ Wrote keymap to /home/cody/github/qmk_firmware/info.json
-
+$ qmk kle2json kle.txt 
+☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
-or if cwd is already `~/github/qmk_firmware/`:
-
 ```
-$ qmk kle2json kle.txt -f
-Ψ Wrote keymap to /home/cody/github/qmk_firmware/info.json
+$ qmk kle2json -f kle.txt -f
+Ψ Wrote out to info.json
 ```
 
 ## `qmk cformat`
