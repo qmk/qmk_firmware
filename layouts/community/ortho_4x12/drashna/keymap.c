@@ -24,7 +24,9 @@ extern rgblight_config_t rgblight_config;
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
     BACKLIT = NEW_SAFE_RANGE,
+    TH_LVL,
 };
+
 #else
 #    define BACKLIT OSM(MOD_LSFT)
 enum planck_keycodes {
@@ -134,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
     VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
     TH_LVL,  _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
-    _______, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
+    HPT_TOG, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
   )
 
 };
@@ -298,6 +300,9 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
+#    ifdef KEYBOARD_planck_light
+    writePinLow(D6);
+#    endif
     // rgblight_mode(RGB_MATRIX_MULTISPLASH);
 }
 #else  // RGB_MATRIX_INIT

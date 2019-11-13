@@ -78,7 +78,7 @@ extern keymap_config_t keymap_config;
 #    include "virtser.h"
 #endif
 
-#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+#if (defined(RGB_MIDI) || defined(RGBLIGHT_ANIMATIONS)) && defined(RGBLIGHT_ENABLE)
 #    include "rgblight.h"
 #endif
 
@@ -1001,7 +1001,7 @@ int main(void) {
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
         rgblight_task();
 #endif
 

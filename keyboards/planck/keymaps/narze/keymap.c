@@ -15,6 +15,7 @@ enum planck_layers {
     _RAISE,
     _PLOVER,
     _SUPERDUPER,
+    _DEV,
     _MOUSE,
     _ADJUST
 };
@@ -25,6 +26,7 @@ enum planck_keycodes {
     QWOC,
     PLOVER,
     SUPERDUPER,
+    DEV,
     MOUSE,
     LOWER,
     RAISE,
@@ -51,42 +53,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
+ * | Sft/(| Z/Dv |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    | ^/Bs | Bksp | Alt  | Ctrl | Low/]|
+ * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    | Raise| Bksp | Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
     HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    LSFT_LPRN, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LSFT_LPRN, LT(_DEV, KC_Z),   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, RAISE,   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
+ * | Sft/(| Z/Dv |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI/_|Lower |    Space    | ^/Bs | Bksp | Alt  | Ctrl | Low/]|
+ * | Brite| Ctrl | Alt  | GUI/_|Lower |    Space    | Raise| Bksp | Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,    KC_MINS,
     HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,       KC_QUOT,
-    LSFT_LPRN, LT(_MOUSE, KC_Z),  KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LSFT_LPRN, LT(_DEV, KC_Z),   KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT,
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, RAISE,   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Qwerty on software Colemak : Useful for gaming with qwerty keymaps! */
 [_QWOC] = LAYOUT_planck_grid(
     KC_TAB,  CM_Q,    CM_W,    CM_E,    CM_R,    CM_T,    CM_Y,    CM_U,    CM_I,    CM_O,    CM_P,    KC_MINS,
     HPR_ESC, CM_A,    CM_S,    CM_D,    CM_F,    CM_G,    CM_H,    CM_J,    CM_K,    CM_L,    CM_SCLN, KC_QUOT,
-    LSFT_LPRN, LT(_MOUSE, CM_Z),    CM_X,    CM_C,    CM_V,    CM_B,    CM_N,    CM_M,    CM_COMM, CM_DOT,  LT(_SUPERDUPER, CM_SLSH), SFT_ENT,
-    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, LT(_RAISE, KC_BSPC),   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
+    LSFT_LPRN, LT(_DEV, KC_Z),   CM_X,    CM_C,    CM_V,    CM_B,    CM_N,    CM_M,    CM_COMM, CM_DOT,  LT(_SUPERDUPER, CM_SLSH), SFT_ENT,
+    LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC, RAISE,   KC_BSPC, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)
 ),
 
 /* Lower
@@ -160,6 +162,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LALT, _______, _______, KC_BSPC, KC_LGUI, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_DEL, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, KC_LSFT, KC_LSFT, _______, _______, _______, _______, _______
+),
+
+/* Dev Layer
+ * /-----------------------------------------------------------------------------------\
+ * |      |      |      |      |      |      |      |   -  |   +  |   (  |   )  |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   _  |   [  |   ]  |   {  |   }  |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   =  |   |  |   <  |   >  |   ?  |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * \-----------------------------------------------------------------------------------/
+ */
+[_DEV] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, _______, KC_MINS, S(KC_EQL), S(KC_9), S(KC_0), _______,
+    _______, _______, _______, _______, _______, _______, S(KC_MINS), KC_LBRC, KC_RBRC, S(KC_LBRC), S(KC_RBRC), _______,
+    _______, _______, _______, _______, _______, _______,  KC_EQL, S(KC_BSLASH), S(KC_COMM), S(KC_DOT), S(KC_SLSH), _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Mouse

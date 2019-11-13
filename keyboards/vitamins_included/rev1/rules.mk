@@ -1,9 +1,11 @@
-SRC += matrix.c \
-	   split_util.c \
-	   ssd1306.c
-
-QUANTUM_LIB_SRC += i2c.c \
-	   serial.c \
-
-CUSTOM_MATRIX = yes
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
+
+SPLIT_KEYBOARD = yes
