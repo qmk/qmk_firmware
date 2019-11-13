@@ -31,17 +31,17 @@ Here is an example for easy reference:
 ```c
 /* Enums for foo */
 enum foo_state {
-  FOO_BAR,
-  FOO_BAZ,
+    FOO_BAR,
+    FOO_BAZ,
 };
 
 /* Returns a value */
 int foo(void) {
-  if (some_condition) {
-    return FOO_BAR;
-  } else {
-    return -1;
-  }
+    if (some_condition) {
+        return FOO_BAR;
+    } else {
+        return -1;
+    }
 }
 ```
 
