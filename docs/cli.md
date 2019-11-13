@@ -92,7 +92,7 @@ This command allows you to convert from raw KLE data to QMK Configurator JSON. I
 **Usage**:
 
 ```
-qmk kle2json [-f] [filename]
+qmk kle2json [-f] <filename>
 ```
 
 **Examples**:
