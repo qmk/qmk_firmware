@@ -4,6 +4,7 @@
 import hjson
 from decimal import Decimal
 
+
 class KLE2xy(list):
     """Abstract interface for interacting with a KLE layout.
     """
@@ -13,17 +14,7 @@ class KLE2xy(list):
         self.name = name
         self.invert_y = invert_y
         self.key_width = Decimal('19.05')
-        self.key_skel = {
-            'decal': False,
-            'border_color': 'none',
-            'keycap_profile': '',
-            'keycap_color': 'grey',
-            'label_color': 'black',
-            'label_size': 3,
-            'label_style': 4,
-            'width': Decimal('1'), 'height': Decimal('1'),
-            'x': Decimal('0'), 'y': Decimal('0')
-        }
+        self.key_skel = {'decal': False, 'border_color': 'none', 'keycap_profile': '', 'keycap_color': 'grey', 'label_color': 'black', 'label_size': 3, 'label_style': 4, 'width': Decimal('1'), 'height': Decimal('1'), 'x': Decimal('0'), 'y': Decimal('0')}
         self.rows = Decimal(0)
         self.columns = Decimal(0)
 
@@ -34,13 +25,13 @@ class KLE2xy(list):
     def width(self):
         """Returns the width of the keyboard plate.
         """
-        return (Decimal(self.columns) * self.key_width) + self.key_width/2
+        return (Decimal(self.columns) * self.key_width) + self.key_width / 2
 
     @property
     def height(self):
         """Returns the height of the keyboard plate.
         """
-        return (self.rows * self.key_width) + self.key_width/2
+        return (self.rows * self.key_width) + self.key_width / 2
 
     @property
     def size(self):
