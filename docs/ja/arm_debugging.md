@@ -73,7 +73,7 @@ ARM MCU は、クロック (SWCLK) 信号とデータ (SWDIO) 信号で構成さ
 
 QMK フォルダを右クリックし、Debug As -> Debug Configuration を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは stm32f3discovery.cfg と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
 
-注意: 私の場合、この設定スクリプトは reset assertion を無効にするために編集が必要です。スクリプトの場所は、通常はパス `openocd/version/.content/scripts/board` の下の実際の実行可能フィールドの中で見つかります。ここで、私は `reset_config srst_only` を `reset_config none` に編集しました。
+注意: 私の場合、この設定スクリプトはリセット操作を無効にするために編集が必要です。スクリプトの場所は、通常はパス `openocd/version/.content/scripts/board` の下の実際の実行可能フィールドの中で見つかります。ここで、私は `reset_config srst_only` を `reset_config none` に編集しました。
 
 Apply and Close を選択します。
 
