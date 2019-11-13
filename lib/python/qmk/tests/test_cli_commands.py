@@ -7,7 +7,7 @@ def check_subcommand(command, *args):
 
 
 def test_cformat():
-    assert check_subcommand('cformat', 'tmk_core/common/backlight.c').returncode == 0
+    assert check_subcommand('cformat', 'tmk_core/common/keyboard.c').returncode == 0
 
 
 def test_compile():
@@ -18,6 +18,10 @@ def test_config():
     result = check_subcommand('config')
     assert result.returncode == 0
     assert 'general.color' in result.stdout
+
+
+def test_kle2json():
+    assert check_subcommand('kle2json', 'kle.txt', '-f').returncode == 0
 
 
 def test_doctor():
