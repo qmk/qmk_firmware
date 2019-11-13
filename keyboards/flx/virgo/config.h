@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    FLX
-#define PRODUCT         [EDIT_THIS] FLX-V90 Default
+#define PRODUCT         Virgo
 #define DESCRIPTION     [EDIT_THIS] A QMK-powered custom keyboard
 
 /* key matrix size */
