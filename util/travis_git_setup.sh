@@ -24,6 +24,7 @@ echo -e "The current branch contains $(git diff --name-only HEAD~$UNMERGED_COMMI
 
 echo -e "\nEdited files:"
 git diff --name-only HEAD~$UNMERGED_COMMITS HEAD
+echo -e "\n"
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
 # a pull request. Otherwise, the build was triggered by a push.
