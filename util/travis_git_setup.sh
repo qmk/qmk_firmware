@@ -14,14 +14,12 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 echo -e "\nFetching refs for qmk:master..."
 git fetch upstream master
 CURRENT_MASTER=$(git log -n 1 --pretty=format:"%H" upstream/master)
-echo -e "\nThe current SHA of qmk:master is $CURRENT_MASTER"
+echo -e "\nThe current SHA of qmk:master is \e[32m$CURRENT_MASTER\e[0m"
 UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l)
 
 # How many commits are exclusive to the "base" branch $CURRENT_MASTER
 # and to the "head" branch $TRAVIS_PULL_REQUEST_SHA
-echo -e "  The current branch contains:"
-echo -e "  - $UNMERGED_COMMITS unmerged commits"
-echo -e "  - $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD | wc -l) edited files"
+echo -e "The current branch contains $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD | wc -l) edited file(s) from $UNMERGED_COMMITS unmerged commit(s)."
 
 echo -e "\nEdited files:"
 git diff --name-only HEAD~$UNMERGED_COMMITS HEAD
