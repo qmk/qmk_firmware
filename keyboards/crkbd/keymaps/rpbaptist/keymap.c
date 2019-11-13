@@ -68,6 +68,8 @@ user_config_t user_config;
 #define TAB_BCK LCTL(LSFT(KC_TAB))
 #define TAB_CLS LCTL(KC_W)
 
+#define WIN_CLS LALT(KC_F4)
+
 // CTRL become parens keys on NAV and NUM layers
 #define LCT_PRN KC_LCPO
 #define RCT_PRN KC_RCPC
@@ -130,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LCT_PRN,  KC_F11,  KC_F12, KC_NLCK, KC_PSCR, KC_CAPS,                      XXXXXXX, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, RCT_PRN,\
+      LCT_PRN,  KC_F11,  KC_F12, KC_NLCK, KC_PSCR, KC_CAPS,                      WIN_CLS, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, RCT_PRN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+---------|
                                           _______, _______, _______,    _______, S_NAV, _______ \
                                       //`--------------------------'  `--------------------------'
