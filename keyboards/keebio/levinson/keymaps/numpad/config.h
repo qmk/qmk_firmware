@@ -29,3 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 // #define MASTER_RIGHT
 // #define EE_HANDS
+
+/* Time in ms until oneshot layer times out */
+#define ONESHOT_TIMEOUT 3000
