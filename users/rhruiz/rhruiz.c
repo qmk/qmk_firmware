@@ -23,7 +23,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifndef BOOTLOADER_CATERINA
                 if (should_flash) {
-                    SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+                    SEND_STRING(" make " QMK_KEYBOARD ":" QMK_KEYMAP);
                     char env[26];
                     sprintf(env, " && VID=%04hx PID=%04hx ", VENDOR_ID, PRODUCT_ID);
                     send_string(env);
@@ -31,7 +31,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 #endif
 
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+                SEND_STRING(" make " QMK_KEYBOARD ":" QMK_KEYMAP);
 
                 if (should_flash) {
                     SEND_STRING(":flash");
