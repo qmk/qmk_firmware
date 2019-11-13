@@ -23,4 +23,4 @@ endif
 
 # Generate the keymap.c
 $(KEYBOARD_OUTPUT)/src/keymap.c:
-	bin/qmk json-keymap $(KEYMAP_JSON) -o $(KEYMAP_C)
+	bin/qmk json-keymap --quiet --output $(KEYMAP_C) $(KEYMAP_JSON)
