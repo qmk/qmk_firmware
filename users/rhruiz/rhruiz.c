@@ -14,8 +14,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:
             if (!record->event.pressed) {
-                uint8_t temp_mod = get_mods();
-                uint8_t temp_osm = get_oneshot_mods();
+                uint8_t temp_mod = mod_config(get_mods());
+                uint8_t temp_osm = mod_config(get_oneshot_mods());
                 clear_mods();
                 clear_oneshot_mods();
 
