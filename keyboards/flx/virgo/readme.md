@@ -1,8 +1,8 @@
 # virgo
 
-![virgo](imgur.com image replace me!)
+![virgo](https://i.imgur.com/WlWwDLC.jpg)  
 
-A short description of the keyboard/project
+Custom Split TKL
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Virgo PCB
