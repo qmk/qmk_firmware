@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-* Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 * Hardware Supported: Virgo PCB
 * Hardware Availability: GB TBD
 
