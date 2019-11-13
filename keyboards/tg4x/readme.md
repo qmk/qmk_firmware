@@ -4,7 +4,7 @@
 
 For more info please refer to [MythosMann's Github](www.github.com/MythosMann/tg4x).  
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+* Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 Hardware Supported: TG4x v2.1 PCB  
 Hardware Availability: [Geekhack](https://geekhack.org/index.php?topic=99163.0)  
 
