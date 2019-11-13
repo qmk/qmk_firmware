@@ -1,4 +1,4 @@
-/* Copyright 2019 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,8 @@ void matrix_init_kb(void) {
     // runs once when the firmware starts up
 
 	setPinOutput(E6);
-    setPinOutput(B2);
-    matrix_init_user();
+  setPinOutput(B2);
+  matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
@@ -51,7 +51,6 @@ if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
   } else {
     writePinHigh(B2);
   }
-
 	led_set_user(usb_led);
 }
 
