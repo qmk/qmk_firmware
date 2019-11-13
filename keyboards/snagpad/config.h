@@ -48,9 +48,6 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-// Does not use WT_MONO_BACKLIGHT
-// #define WT_MONO_BACKLIGHT
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 // EEPROM usage

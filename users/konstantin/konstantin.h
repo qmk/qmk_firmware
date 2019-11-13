@@ -46,6 +46,7 @@
 #endif
 
 #define LCT_CPS LCTL_T(KC_CAPS)
+#define RSF_SLS RSFT_T(KC_SLSH)
 
 #define IS_LAYER_ON_STATE(state, layer)  ( (state) & (1UL << (layer)))
 #define IS_LAYER_OFF_STATE(state, layer) (~(state) & (1UL << (layer)))

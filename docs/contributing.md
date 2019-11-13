@@ -63,11 +63,11 @@ Most of our style is pretty easy to pick up on. If you are familiar with either 
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
 
-* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
+* Separate PRs into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
-  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
-  * Keyboards: Make sure that `make keyboard:all` does not return any errors
+  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return any errors.
+  * Keyboards: Make sure that `make keyboard:all` does not return any errors.
   * Core: Make sure that `make all` does not return any errors.
 * Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
 
@@ -78,6 +78,8 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
+
+!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
 
 ## Documentation
 

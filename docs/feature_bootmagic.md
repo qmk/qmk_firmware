@@ -34,6 +34,8 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`X`               |Toggle key matrix debugging                  |
 |`K`               |Toggle keyboard debugging                    |
 |`M`               |Toggle mouse debugging                       |
+|`L`               |Set "Left Hand" for EE_HANDS handedness      |
+|`R`               |Set "Right Hand" for EE_HANDS handedness     |
 |Backspace         |Clear the EEPROM                             |
 |Caps Lock         |Toggle treating Caps Lock as Left Control    |
 |Left Control      |Toggle swapping Caps Lock and Left Control   |
@@ -83,6 +85,8 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_UNSWAP_LCTL_LGUI`          |         |Unswap Left Control and Left GUI          |
 |`MAGIC_SWAP_RCTL_RGUI`            |         |Swap Right Control and Right GUI          |
 |`MAGIC_UNSWAP_RCTL_RGUI`          |         |Unswap Right Control and Right GUI        |
+|`MAGIC_EE_HANDS_LEFT`             |         |Set "Left Hand" for EE_HANDS handedness   |
+|`MAGIC_EE_HANDS_RIGHT`            |         |Set "Right Hand" for EE_HANDS handedness  |
 
 ## Configuration
 
@@ -98,6 +102,8 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEBUG_MATRIX`            |`KC_X`       |Toggle matrix debugging                            |
 |`BOOTMAGIC_KEY_DEBUG_KEYBOARD`          |`KC_K`       |Toggle keyboard debugging                          |
 |`BOOTMAGIC_KEY_DEBUG_MOUSE`             |`KC_M`       |Toggle mouse debugging                             |
+|`BOOTMAGIC_KEY_EE_HANDS_LEFT`           |`KC_L`       |Set "Left Hand" for EE_HANDS handedness            |
+|`BOOTMAGIC_KEY_EE_HANDS_RIGHT`          |`KC_R`       |Set "Right Hand" for EE_HANDS handedness           |
 |`BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK`   |`KC_LCTRL`   |Swap Left Control and Caps Lock                    |
 |`BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL`     |`KC_CAPSLOCK`|Toggle treating Caps Lock as Left Control          |
 |`BOOTMAGIC_KEY_SWAP_LALT_LGUI`          |`KC_LALT`    |Toggle swapping Left Alt and Left GUI (for macOS)  |
