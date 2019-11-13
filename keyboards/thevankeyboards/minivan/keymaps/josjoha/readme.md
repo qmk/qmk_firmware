@@ -105,7 +105,8 @@ keymap. By Jos B., <joshb@xs4all.nl>
    Layer 6: Rarely used symbols, Unicode: <Ctrl(Shft(u))> <HEX input> <space>.
             AltGr or Compose did not seem to work for me, I rather not have
             dead keys. See https://en.wikipedia.org/wiki/Unicode_input 
-            With tap-dances this could work ok for quite a few accented letters.
+            With tap-dances this could work ok for quite a few accented letters,
+            but only basic codes supported at time of this writing).
 
         _LTR  xxx  xxx  è  È  xxx ___  👍  👎  xxx xxx    Bspc
         LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
