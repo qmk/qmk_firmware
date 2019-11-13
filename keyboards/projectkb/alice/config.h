@@ -71,7 +71,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EEPROM_CUSTOM_BACKLIGHT 804
 
-
+#undef EEPROM_MAGIC_ADDR
+#define EEPROM_MAGIC_ADDR 34
+#undef EEPROM_VERSION_ADDR
+#define EEPROM_VERSION_ADDR 36
+#undef RGB_BACKLIGHT_CONFIG_EEPROM_ADDR
+#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 37
+#undef DYNAMIC_KEYMAP_EEPROM_ADDR 
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 68
+#undef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 66
 
 /*
  * Feature disable options

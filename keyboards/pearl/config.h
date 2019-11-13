@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION

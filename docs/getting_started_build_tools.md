@@ -62,14 +62,14 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
     brew update
-    brew install avr-gcc@7
-    brew link --force avr-gcc@7
+    brew install avr-gcc@8
+    brew link --force avr-gcc@8
     brew install dfu-programmer
     brew install dfu-util
     brew install gcc-arm-none-eabi
     brew install avrdude
 
-This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@7` can take over 20 minutes and exhibit high CPU usage.
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@8` can take over 20 minutes and exhibit high CPU usage.
 
 ## Windows with msys2 (recommended)
 
@@ -145,7 +145,7 @@ util/docker_build.sh
 There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:
 ```bash
 util/docker_build.sh keyboard:keymap:target
-# For example: util/docker_build.sh planck/rev6:default:dfu-util
+# For example: util/docker_build.sh planck/rev6:default:flash
 ```
 If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use [QMK Toolbox](https://github.com/qmk/qmk_toolbox) instead.
 

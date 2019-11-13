@@ -87,6 +87,7 @@ Size after:
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
+
 ## NKRO Doesn't work
 First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
 
@@ -183,22 +184,15 @@ Pressing any key during sleep should wake host.
 
 Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
+## Enabling JTAG
 
-## Using PF4-7 Pins of USB AVR?
-You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affected with this.
+By default, the JTAG debugging interface is disabled as soon as the keyboard starts up. JTAG-capable MCUs come from the factory with the `JTAGEN` fuse set, and it takes over certain pins of the MCU that the board may be using for the switch matrix, LEDs, etc.
 
-If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
+If you would like to keep JTAG enabled, just add the following to your `config.h`:
 
-See this code.
+```c
+#define NO_JTAG_DISABLE
 ```
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-```
-https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
-
-And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
-
 
 ## Adding LED Indicators of Lock Keys
 You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
