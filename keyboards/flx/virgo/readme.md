@@ -6,7 +6,7 @@ A short description of the keyboard/project
 
 * Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)
 * Hardware Supported: Virgo PCB  
-* Hardware Availability: GB TBD  
+* Hardware Availability: GB TBD
 
 Make example for this keyboard (after setting up your build environment):
 
