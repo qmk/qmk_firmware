@@ -19,6 +19,8 @@ def test_config():
     assert result.returncode == 0
     assert 'general.color' in result.stdout
 
+def test_kle2json():
+    assert check_subcommand('kle2json', 'kle.txt', '-f').returncode == 0
 
 def test_doctor():
     result = check_subcommand('doctor')
