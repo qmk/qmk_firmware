@@ -20,11 +20,14 @@
 
 #ifdef OLED_DRIVER_ENABLE
 #    define OLED_DISPLAY_128X64
+#    define OLED_FONT_H "keyboards/crkbd/keymaps/drashna/glcdfont.c"
+#    define OLED_DISABLE_TIMEOUT
+#    define OLED_SCROLL_TIMEOUT_RIGHT 60000
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_LIMIT_VAL 200
+#    define RGBLIGHT_SLEEP
+#    define RGBLIGHT_LIMIT_VAL 200
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
