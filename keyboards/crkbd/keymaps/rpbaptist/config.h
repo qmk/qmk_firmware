@@ -121,4 +121,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT
 #define PRODUCT Corne Keyboard
 
-#define RCPC_KEYS KC_RCTL, KC_RSFT, KC_8
+#define LCPC_KEYS KC_LCTL, KC_LSFT, KC_9
+#define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0

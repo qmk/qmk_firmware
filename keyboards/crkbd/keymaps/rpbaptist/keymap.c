@@ -68,8 +68,9 @@ user_config_t user_config;
 #define TAB_BCK LCTL(LSFT(KC_TAB))
 #define TAB_CLS LCTL(KC_W)
 
-// Custom key for NUM layer
-#define CT_ASTR KC_RCPC
+// CTRL become parens keys on NAV and NUM layers
+#define LCT_PRN KC_LCPO
+#define RCT_PRN KC_RCPC
 
 // €
 #define KC_EUR ALGR(KC_5)
@@ -117,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_UNDS,    KC_4,    KC_5,    KC_6, KC_MINS, KC_PLUS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_CIRC, KC_AMPR,  KC_EUR, KC_LPRN, KC_RPRN,                       KC_EQL,    KC_1,    KC_2,    KC_3, _______, CT_ASTR,\
+      LCT_PRN, KC_CIRC, KC_AMPR, KC_ASTR, KC_EUR,  XXXXXXX,                       KC_EQL,    KC_1,    KC_2,    KC_3, _______, RCT_PRN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,   S_NUM, _______,    _______,   NAV_0, KC_DOT \
                                       //`--------------------------'  `--------------------------'
@@ -129,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  KC_F11,  KC_F12, KC_NLCK, KC_PSCR, KC_CAPS,                      XXXXXXX, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, _______,\
+      LCT_PRN,  KC_F11,  KC_F12, KC_NLCK, KC_PSCR, KC_CAPS,                      XXXXXXX, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, RCT_PRN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+---------|
                                           _______, _______, _______,    _______, S_NAV, _______ \
                                       //`--------------------------'  `--------------------------'
