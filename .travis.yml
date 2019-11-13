@@ -19,7 +19,7 @@ script:
   - bash util/travis_git_setup.sh
   - git diff --name-only HEAD $TRAVIS_BRANCH
   - bash util/travis_test.sh
-#  - bash util/travis_build.sh
+  - bash util/travis_build.sh
 #  - bash util/travis_docs.sh
 addons:
   apt:
