@@ -169,7 +169,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 #elif (DIODE_DIRECTION == COL2ROW)
 /* Rows 0 - 5
- * These rows use a 74HC237D 3 to 8 bit demultiplexer.
+ * These rows use a 74HC138 3-to-8 demultiplexer.
  *                C    B    A
  * row / pin:    PB0  PB1  PB2
  * 0:             0    0    0
