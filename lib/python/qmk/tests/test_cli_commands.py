@@ -7,7 +7,7 @@ def check_subcommand(command, *args):
 
 
 def test_cformat():
-    assert check_subcommand('cformat', 'tmk_core/common/backlight.c').returncode == 0
+    assert check_subcommand('cformat', 'tmk_core/common/keyboard.c').returncode == 0
 
 
 def test_compile():
@@ -42,7 +42,7 @@ def test_pyformat():
 
 
 def test_list_keyboards():
-    result = check_subcommand('list_keyboards')
+    result = check_subcommand('list-keyboards')
     assert result.returncode == 0
     # check to see if a known keyboard is returned
     # this will fail if handwired/onekey/pytest is removed

@@ -31,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "debounce.h"
 #include QMK_KEYBOARD_H
-#ifdef DEBUG_MATRIX_SCAN_RATE
-#  include "timer.h"
-#endif
 
 /*
  * This constant define not debouncing time in msecs, assuming eager_pr.
@@ -47,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * that comment was written.)
  */
 
-#ifndef DEBOUNCE
-#  define DEBOUNCE 5
-#endif
-
 /* matrix state(1:on, 0:off) */
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
@@ -62,11 +55,6 @@ static void         select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
 // static uint16_t mcp23018_reset_loop;
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
@@ -94,10 +82,6 @@ void matrix_init(void) {
     raw_matrix[i] = 0;
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_timer      = timer_read32();
-  matrix_scan_count = 0;
-#endif
   debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
@@ -112,11 +96,6 @@ void matrix_power_up(void) {
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     matrix[i] = 0;
   }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_timer      = timer_read32();
-  matrix_scan_count = 0;
-#endif
 }
 
 // Reads and stores a row, returning
@@ -146,20 +125,6 @@ uint8_t matrix_scan(void) {
       }
     }
   }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_scan_count++;
-
-  uint32_t timer_now = timer_read32();
-  if (TIMER_DIFF_32(timer_now, matrix_timer) > 1000) {
-    print("matrix scan frequency: ");
-    pdec(matrix_scan_count);
-    print("\n");
-
-    matrix_timer      = timer_now;
-    matrix_scan_count = 0;
-  }
-#endif
 
 #ifdef LEFT_LEDS
   mcp23018_status = ergodox_left_leds_update();
