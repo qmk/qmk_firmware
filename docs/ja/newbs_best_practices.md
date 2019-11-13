@@ -42,7 +42,7 @@ QMK の開発では、何がどこで行われているかにかかわらず、`
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L9_  -->
 <!-- To keep your `master` branch updated, it is recommended to add the QMK Firmware repository ("repo") as a remote repository in git. To do this, open your Git command line interface and enter: -->
-`master` ブランチを最新の状態に保つには、git のリモートリポジトリとして QMK ファームウェアリポジトリ("repo") を追加することをお勧めします。
+`master` ブランチを最新の状態に保つには、git のリモートリポジトリとして QMK ファームウェアのリポジトリ(以降、QMK リポジトリ)を追加することをお勧めします。
 これを行うには、Git コマンドラインインターフェイスを開き、次のように入力します。
 
 ```
