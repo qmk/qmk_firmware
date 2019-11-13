@@ -33,6 +33,7 @@
   * [Keymap Overview](keymap.md)
 
 * [Hardware](hardware.md)
+  * [Compatible Microcontrollers](compatible_microcontrollers.md)
   * [AVR Processors](hardware_avr.md)
   * [Drivers](hardware_drivers.md)
 
@@ -98,6 +99,7 @@
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
   * [I2C Driver](i2c_driver.md)
+  * [WS2812 Driver](ws2812_driver.md)
   * [GPIO Controls](internals_gpio_control.md)
   * [Proton C Conversion](proton_c_conversion.md)
 

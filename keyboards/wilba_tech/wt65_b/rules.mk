@@ -1,10 +1,3 @@
-# project specific files
-SRC =	drivers/issi/is31fl3736.c \
-		drivers/avr/i2c_master.c \
-		quantum/color.c \
-		keyboards/wilba_tech/wt_mono_backlight.c \
-		keyboards/wilba_tech/wt_main.c
-		
 # MCU name
 MCU = atmega32u4
 
@@ -17,7 +10,6 @@ MCU = atmega32u4
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
-
 
 # Build Options
 #   change yes to no to disable
@@ -37,3 +29,10 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+
+# project specific files
+SRC =	drivers/issi/is31fl3736.c \
+		drivers/avr/i2c_master.c \
+		quantum/color.c \
+		keyboards/wilba_tech/wt_mono_backlight.c \
+		keyboards/wilba_tech/wt_main.c

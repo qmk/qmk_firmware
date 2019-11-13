@@ -25,13 +25,16 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "debug.h"
 
-#if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
-// LED color buffer
-LED_TYPE led[DRIVER_LED_TOTAL];
-#    define LED_ARRAY led
-#endif
+/*
+ * Forward declare internal functions
+ *
+ * The functions take a byte-array and send to the data output as WS2812 bitstream.
+ * The length is the number of bytes to send - three per LED.
+ */
+
+void ws2812_sendarray(uint8_t *array, uint16_t length);
+void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
 
 #ifdef RGBW_BB_TWI
 
@@ -135,23 +138,6 @@ unsigned char I2C_Write(unsigned char c) {
 
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-// Set an led in the buffer to a color
-void inline ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
-}
-
-void ws2812_setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(led) / sizeof(led[0]); i++) {
-        led[i].r = r;
-        led[i].g = g;
-        led[i].b = b;
-    }
-}
-#endif
-
 // Setleds for standard RGB
 void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     // ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
@@ -159,16 +145,6 @@ void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 }
 
 void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask) {
-    // ws2812_DDRREG |= pinmask; // Enable DDR
-    // new universal format (DDR)
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
-
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds + leds + leds, pinmask);
-    _delay_us(50);
-}
-
-// Setleds for SK6812RGBW
-void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
 #ifdef RGBW_BB_TWI
     uint8_t sreg_prev, twcr_prev;
     sreg_prev = SREG;
@@ -189,15 +165,18 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds) {
     SREG = sreg_prev;
     TWCR = twcr_prev;
 #endif
-
-    // ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
+    // ws2812_DDRREG |= pinmask; // Enable DDR
     // new universal format (DDR)
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
+    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask;
 
-    ws2812_sendarray_mask((uint8_t *)ledarray, leds << 2, _BV(RGB_DI_PIN & 0xF));
+    ws2812_sendarray_mask((uint8_t *)ledarray, leds * sizeof(LED_TYPE), pinmask);
 
 #ifndef RGBW_BB_TWI
+#    ifdef RGBW
     _delay_us(80);
+#    else
+    _delay_us(50);
+#    endif
 #endif
 }
 

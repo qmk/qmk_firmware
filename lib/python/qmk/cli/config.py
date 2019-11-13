@@ -12,7 +12,7 @@ def print_config(section, key):
     cli.echo('%s.%s{fg_cyan}={fg_reset}%s', section, key, cli.config[section][key])
 
 
-@cli.argument('-ro', '--read-only', action='store_true', help='Operate in read-only mode.')
+@cli.argument('-ro', '--read-only', arg_only=True, action='store_true', help='Operate in read-only mode.')
 @cli.argument('configs', nargs='*', arg_only=True, help='Configuration options to read or write.')
 @cli.subcommand("Read and write configuration settings.")
 def config(cli):
