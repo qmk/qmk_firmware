@@ -1,6 +1,6 @@
-# ISO-BR abnt2 layout
+# BR ABNT2 layout
 
-This is an ISO-BR abnt2 keymap for the DZ60 in a standard ISO layout.
+This is a Brazilian ABNT2 keymap for the DZ60 in a standard layout.
 
 The top-left sends Escape normally, but becomes a quote key when
 tapped whilst either Fn or GUI are held down.
