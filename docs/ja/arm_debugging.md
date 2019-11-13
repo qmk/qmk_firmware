@@ -1,4 +1,4 @@
-# Eclipseを使ったARMデバッグ
+# Eclipse を使った ARM デバッグ
 
 このページでは、SWD アダプタとオープンソース/フリーツールを使って ARM MCU をデバッグするためのセットアップ方法について説明します。このガイドでは、GNU MCU Eclipse IDE for C/C++ Developers および OpenOCD を必要な依存関係と一緒にインストールします。
 
