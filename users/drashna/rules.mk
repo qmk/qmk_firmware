@@ -1,8 +1,8 @@
 SRC += drashna.c \
        process_records.c
 
-LINK_TIME_OPTIMIZATION_ENABLE = yes
-SPACE_CADET_ENABLE            = no
+LTO_ENABLE            = yes
+SPACE_CADET_ENABLE    = no
 
 ifneq ($(strip $(NO_SECRETS)), yes)
 	ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
