@@ -31,7 +31,6 @@ keymap. By Jos B., <joshb@xs4all.nl>
       layer, press a right modifier, release numerical layer, and access
       the base layer with that modifier; so it is still possible, just
       not needed.)
-      
  
     - Leds: breathing effect on the middle LED, other indicate layer.
 
@@ -41,7 +40,9 @@ keymap. By Jos B., <joshb@xs4all.nl>
         Tab+LCtl  aA       oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
         LSht       ;:       qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
         Left+LAlt   Del+_FUN _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
-                        hold hold        hold        hold toggle      hold
+                        hold hold        hold        hold oneshot*)   hold
+  
+        *) One shot: de-activates after next key, tap twice to toggle.
         
     Layer 1: Numbers and symbols.
 
