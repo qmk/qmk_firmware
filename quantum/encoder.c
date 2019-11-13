@@ -110,14 +110,14 @@ void encoder_update_raw(uint8_t* slave_state) {
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         uint8_t index = i + thatHand;
         int8_t delta = slave_state[i] - encoder_value[index];
-        while (delta < 0) {
-            delta++;
-            encoder_value[index]--;
-            encoder_update_kb(index, true);
-        }
         while (delta > 0) {
             delta--;
             encoder_value[index]++;
+            encoder_update_kb(index, false);
+        }
+        while (delta < 0) {
+            delta++;
+            encoder_value[index]--;
             encoder_update_kb(index, true);
         }
     }
