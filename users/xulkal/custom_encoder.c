@@ -65,7 +65,7 @@ void encoder_update_user(uint8_t index, bool clockwise)
 
 #ifdef RGB_OLED_MENU
     if (index == RGB_OLED_MENU)
-        (*rgb_functions[rgb_encoder_state][clockwise])();
+        (*rgb_functions[rgb_encoder_state][!clockwise])();
     else
 #endif // RGB_OLED_MENU
         tap_code16(pgm_read_word(&encoders[index][clockwise]));

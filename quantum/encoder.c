@@ -38,15 +38,15 @@ static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
 static uint8_t encoder_state[NUMBER_OF_ENCODERS] = {0};
-static uint8_t encoder_pulses[NUMBER_OF_ENCODERS] = {0};
+static int8_t encoder_pulses[NUMBER_OF_ENCODERS] = {0};
 
 #ifdef SPLIT_KEYBOARD
 // right half encoders come over as second set of encoders
-static int8_t encoder_value[NUMBER_OF_ENCODERS * 2] = {0};
+static uint8_t encoder_value[NUMBER_OF_ENCODERS * 2] = {0};
 // row offsets for each hand
 static uint8_t thisHand, thatHand;
 #else
-static int8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
+static uint8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 #endif
 
 __attribute__((weak)) void encoder_update_user(int8_t index, bool clockwise) {}
@@ -82,11 +82,11 @@ static void encoder_update(int8_t index, uint8_t state) {
     encoder_pulses[index] += encoder_LUT[state & 0xF];
     if (encoder_pulses[index] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
-        encoder_update_kb(index, false);
+        encoder_update_kb(index, true);
     }
     if (encoder_pulses[index] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
-        encoder_update_kb(index, true);
+        encoder_update_kb(index, false);
     }
     encoder_pulses[index] %= ENCODER_RESOLUTION;
 }
@@ -104,7 +104,7 @@ void encoder_read(void) {
 }
 
 #ifdef SPLIT_KEYBOARD
-void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, encoder_value, sizeof(encoder_value)); }
+void encoder_state_raw(uint8_t* slave_state) { memcpy(slave_state, &encoder_value[thisHand], sizeof(uint8_t) * NUMBER_OF_ENCODERS); }
 
 void encoder_update_raw(uint8_t* slave_state) {
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
@@ -113,12 +113,12 @@ void encoder_update_raw(uint8_t* slave_state) {
         while (delta > 0) {
             delta--;
             encoder_value[index]++;
-            encoder_update_kb(index, false);
+            encoder_update_kb(index, true);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
-            encoder_update_kb(index, true);
+            encoder_update_kb(index, false);
         }
     }
 }
