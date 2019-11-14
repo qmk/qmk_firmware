@@ -155,7 +155,9 @@ Gitは `dev_branch` の現在の状態をフォークに公開します。
 ##  マージの競合の解決
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L3_  -->
-Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files.
+<!-- Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files. -->
+ブランチでの作業の完了に時間がかかる場合、他の人が行った変更が、プルリクエストを開いたときにブランチに加えた変更と競合することがあります。
+これは *マージの競合* と呼ばれ、複数の人が同じファイルの同じ部分を編集すると発生します。
 
 ### Rebasing Your Changes
 
