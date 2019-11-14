@@ -12,6 +12,8 @@ TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
 # Extra variables
 QMK_CHANGES=$(git diff --name-only HEAD ${TRAVIS_BRANCH})
 
+echo -e "QMK_CHANGES = $QMK_CHANGES"
+
 # if docker is installed - patch calls to within the qmk docker image
 if command -v docker >/dev/null; then
     function make() {
