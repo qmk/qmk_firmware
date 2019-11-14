@@ -2,8 +2,9 @@
 # QMK における Git 運用作法
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: e75919960:docs/newbs_best_practices.md
-  $ git diff e75919960 HEAD docs/newbs_best_practices.md
+  git diff e75919960 HEAD docs/newbs_best_practices.md | cat
 -->
 
 <!-- ## Or, "How I Learned to Stop Worrying and Love Git." -->
