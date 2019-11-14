@@ -26,6 +26,10 @@
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 180
 
+#ifdef RGBLED_NUM
+  #undef RGBLED_NUM
+#endif
+
 #define RGBLED_NUM 55    // Number of LEDs
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 48, 7 }

@@ -1,6 +1,3 @@
-# project specific files
-SRC =	keyboards/wilba_tech/wt_main.c
-
 # MCU name
 MCU = atmega32u4
 
@@ -13,7 +10,6 @@ MCU = atmega32u4
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
-
 
 # Build Options
 #   change yes to no to disable
@@ -36,3 +32,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
+
+# project specific files
+SRC =	keyboards/wilba_tech/wt_main.c

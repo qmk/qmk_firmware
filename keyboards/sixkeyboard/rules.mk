@@ -1,5 +1,3 @@
-SRC = matrix.c
-
 # MCU name
 MCU = atmega16u2
 
@@ -29,3 +27,5 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no		# Unicode
 BLUETOOTH_ENABLE = no	# Enable Bluetooth with the Adafruit EZ-Key HID
 CUSTOM_MATRIX = yes
+
+SRC = matrix.c
