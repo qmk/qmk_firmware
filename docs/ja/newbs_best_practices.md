@@ -239,7 +239,7 @@ To abort and get back to the state before "git rebase", run "git rebase --abort"
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L64_  -->
 <!-- The line `<<<<<<< HEAD` marks the beginning of a merge conflict, and the `>>>>>>> Commit #1` line marks the end, with the conflicting sections separated by `=======`. The part on the `HEAD` side is from the QMK master version of the file, and the part marked with the commit message is from the current branch and commit. -->
 行 `<<<<<<< HEAD` はマージ競合の始まりを示し、`>>>>>>> commit #1` 行は終了を示し、競合するセクションは `=======` で区切られます。
-`HEAD` 側の部分はファイルの QMK マスターバージョンからのものであり、コミットメッセージでマークされた部分は現在のブランチとコミットからのものです。
+`HEAD` 側の部分はファイルの QMK master バージョンからのものであり、コミットメッセージでマークされた部分は現在のブランチとコミットからのものです。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L66_  -->
 <!-- Because Git tracks *changes to files* rather than the contents of the files directly, if Git can't find the text that was in the file previous to the commit that was made, it won't know how to edit the file. Re-editing the file will solve the conflict. Make your changes, and then save the file. -->
