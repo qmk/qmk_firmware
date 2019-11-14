@@ -3,10 +3,10 @@
 uint8_t is_master;
 
 #ifdef OLED_DRIVER_ENABLE
-static uint32_t oled_timer    = 0;
-#define KEYLOGGER_LENGTH 10
-static char     keylog_str[KEYLOGGER_LENGTH+1] = { "\n" };
-static uint16_t log_timer     = 0;
+#    define KEYLOGGER_LENGTH 10
+static uint32_t oled_timer                       = 0;
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static uint16_t log_timer                        = 0;
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
@@ -154,9 +154,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-void matrix_init_keymap(void) {
-    is_master = (uint8_t)is_keyboard_master();
-}
+void matrix_init_keymap(void) { is_master = (uint8_t)is_keyboard_master(); }
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
@@ -280,16 +278,17 @@ void render_user_status(void) {
     oled_write_ln_P(PSTR("Nuke"), userspace_config.nuke_switch);
 }
 
+// clang-format off
 void render_logo(void) {
-  static const char PROGMEM qmk_logo[] = {
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
+    static const char PROGMEM qmk_logo[] = {
+        0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+        0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+        0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
 
-  oled_write_P(qmk_logo, false);
+    oled_write_P(qmk_logo, false);
 }
 
-#ifndef SPLIT_TRANSPORT_MIRROR
+#    ifndef SPLIT_TRANSPORT_MIRROR
 void render_kyria_logo(void) {
     static const char PROGMEM kyria_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -303,7 +302,8 @@ void render_kyria_logo(void) {
     };
     oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
 }
-#endif
+#    endif
+// clang-format on
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
@@ -340,11 +340,11 @@ void oled_task_user(void) {
     if (is_master) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
-#ifdef SPLIT_TRANSPORT_MIRROR
+#    ifdef SPLIT_TRANSPORT_MIRROR
         render_status_secondary();
-#else
+#    else
         render_kyria_logo();
-#endif
+#    endif
     }
 }
 

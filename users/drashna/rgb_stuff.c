@@ -12,9 +12,9 @@ void rgblight_sethsv_default_helper(uint8_t index) { rgblight_sethsv_at(rgblight
 #if defined(RGB_MATRIX_ENABLE)
 static uint32_t hypno_timer;
 #    if defined(SPLIT_KEYBOARD) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
-#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#        define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN_DUAL
 #    else
-#       define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
+#        define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #    endif
 #endif
 
@@ -23,68 +23,68 @@ static uint32_t hypno_timer;
  * This is especially useful for One Shot Mods, since it's not always obvious if they're still lit up.
  */
 #ifdef RGBLIGHT_ENABLE
-#ifdef INDICATOR_LIGHTS
+#    ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
     if (userspace_config.rgb_layer_change && get_highest_layer(layer_state) == 0) {
         if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
-#    ifdef SHFT_LED1
+#        ifdef SHFT_LED1
             rgblight_sethsv_at(120, 255, 255, SHFT_LED1);
-#    endif  // SHFT_LED1
-#    ifdef SHFT_LED2
+#        endif  // SHFT_LED1
+#        ifdef SHFT_LED2
             rgblight_sethsv_at(120, 255, 255, SHFT_LED2);
-#    endif  // SHFT_LED2
+#        endif  // SHFT_LED2
         } else {
-#    ifdef SHFT_LED1
+#        ifdef SHFT_LED1
             rgblight_sethsv_default_helper(SHFT_LED1);
-#    endif  // SHFT_LED1
-#    ifdef SHFT_LED2
+#        endif  // SHFT_LED1
+#        ifdef SHFT_LED2
             rgblight_sethsv_default_helper(SHFT_LED2);
-#    endif  // SHFT_LED2
+#        endif  // SHFT_LED2
         }
         if ((this_mod | this_osm) & MOD_MASK_CTRL) {
-#    ifdef CTRL_LED1
+#        ifdef CTRL_LED1
             rgblight_sethsv_at(0, 255, 255, CTRL_LED1);
-#    endif  // CTRL_LED1
-#    ifdef CTRL_LED2
+#        endif  // CTRL_LED1
+#        ifdef CTRL_LED2
             rgblight_sethsv_at(0, 255, 255, CTRL_LED2);
-#    endif  // CTRL_LED2
+#        endif  // CTRL_LED2
         } else {
-#    ifdef CTRL_LED1
+#        ifdef CTRL_LED1
             rgblight_sethsv_default_helper(CTRL_LED1);
-#    endif  // CTRL_LED1
-#    ifdef CTRL_LED2
+#        endif  // CTRL_LED1
+#        ifdef CTRL_LED2
             rgblight_sethsv_default_helper(CTRL_LED2);
-#    endif  // CTRL_LED2
+#        endif  // CTRL_LED2
         }
         if ((this_mod | this_osm) & MOD_MASK_GUI) {
-#    ifdef GUI_LED1
+#        ifdef GUI_LED1
             rgblight_sethsv_at(51, 255, 255, GUI_LED1);
-#    endif  // GUI_LED1
-#    ifdef GUI_LED2
+#        endif  // GUI_LED1
+#        ifdef GUI_LED2
             rgblight_sethsv_at(51, 255, 255, GUI_LED2);
-#    endif  // GUI_LED2
+#        endif  // GUI_LED2
         } else {
-#    ifdef GUI_LED1
+#        ifdef GUI_LED1
             rgblight_sethsv_default_helper(GUI_LED1);
-#    endif  // GUI_LED1
-#    ifdef GUI_LED2
+#        endif  // GUI_LED1
+#        ifdef GUI_LED2
             rgblight_sethsv_default_helper(GUI_LED2);
-#    endif  // GUI_LED2
+#        endif  // GUI_LED2
         }
         if ((this_mod | this_osm) & MOD_MASK_ALT) {
-#    ifdef ALT_LED1
+#        ifdef ALT_LED1
             rgblight_sethsv_at(240, 255, 255, ALT_LED1);
-#    endif  // ALT_LED1
-#    ifdef GUI_LED2
+#        endif  // ALT_LED1
+#        ifdef GUI_LED2
             rgblight_sethsv_at(240, 255, 255, ALT_LED2);
-#    endif  // GUI_LED2
+#        endif  // GUI_LED2
         } else {
-#    ifdef GUI_LED1
+#        ifdef GUI_LED1
             rgblight_sethsv_default_helper(ALT_LED1);
-#    endif  // GUI_LED1
-#    ifdef GUI_LED2
+#        endif  // GUI_LED1
+#        ifdef GUI_LED2
             rgblight_sethsv_default_helper(ALT_LED2);
-#    endif  // GUI_LED2
+#        endif  // GUI_LED2
         }
     }
 }
@@ -95,9 +95,9 @@ void matrix_scan_indicator(void) {
         set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
     }
 }
-#endif  // INDICATOR_LIGHTS
+#    endif  // INDICATOR_LIGHTS
 
-#ifdef RGBLIGHT_TWINKLE
+#    ifdef RGBLIGHT_TWINKLE
 static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__((weak)) bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
@@ -105,40 +105,40 @@ __attribute__((weak)) bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { 
 /* This function checks for used LEDs.  This way, collisions don't occur and cause weird rendering */
 bool rgblight_twinkle_is_led_used(uint8_t index) {
     switch (index) {
-#    ifdef INDICATOR_LIGHTS
-#        ifdef SHFT_LED1
+#        ifdef INDICATOR_LIGHTS
+#            ifdef SHFT_LED1
         case SHFT_LED1:
             return true;
-#        endif  // SHFT_LED1
-#        ifdef SHFT_LED2
+#            endif  // SHFT_LED1
+#            ifdef SHFT_LED2
         case SHFT_LED2:
             return true;
-#        endif  // SHFT_LED2
-#        ifdef CTRL_LED1
+#            endif  // SHFT_LED2
+#            ifdef CTRL_LED1
         case CTRL_LED1:
             return true;
-#        endif  // CTRL_LED1
-#        ifdef CTRL_LED2
+#            endif  // CTRL_LED1
+#            ifdef CTRL_LED2
         case CTRL_LED2:
             return true;
-#        endif  // CTRL_LED2
-#        ifdef GUI_LED1
+#            endif  // CTRL_LED2
+#            ifdef GUI_LED1
         case GUI_LED1:
             return true;
-#        endif  // GUI_LED1
-#        ifdef GUI_LED2
+#            endif  // GUI_LED1
+#            ifdef GUI_LED2
         case GUI_LED2:
             return true;
-#        endif  // GUI_LED2
-#        ifdef ALT_LED1
+#            endif  // GUI_LED2
+#            ifdef ALT_LED1
         case ALT_LED1:
             return true;
-#        endif  // ALT_LED1
-#        ifdef ALT_LED2
+#            endif  // ALT_LED1
+#            ifdef ALT_LED2
         case ALT_LED2:
             return true;
-#        endif  // ALT_LED2
-#    endif      // INDICATOR_LIGHTS
+#            endif  // ALT_LED2
+#        endif      // INDICATOR_LIGHTS
         default:
             return rgblight_twinkle_is_led_used_keymap(index);
     }
@@ -211,8 +211,8 @@ void start_rgb_light(void) {
 
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
-#endif
-#endif // RGBLIGHT_ENABLE
+#    endif
+#endif  // RGBLIGHT_ENABLE
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     uint16_t temp_keycode = keycode;
@@ -259,7 +259,9 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                 userspace_config.rgb_matrix_idle_anim ^= 1;
                 dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
                 eeconfig_update_user(userspace_config.raw);
-                if (userspace_config.rgb_matrix_idle_anim) { rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP); }
+                if (userspace_config.rgb_matrix_idle_anim) {
+                    rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+                }
             }
 #endif
             break;
@@ -281,7 +283,9 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
                     is_eeprom_updated = true;
                 }
 #endif
-                if (is_eeprom_updated) { eeconfig_update_user(userspace_config.raw); }
+                if (is_eeprom_updated) {
+                    eeconfig_update_user(userspace_config.raw);
+                }
             }
             break;
     }
@@ -290,7 +294,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_rgb(void) {
 #if defined(RGBLIGHT_ENABLE)
-#   if defined(RGBLIGHT_STARTUP_ANIMATION)
+#    if defined(RGBLIGHT_STARTUP_ANIMATION)
     bool is_enabled = rgblight_config.enable;
     if (userspace_config.rgb_layer_change) {
         rgblight_enable_noeeprom();
@@ -309,13 +313,13 @@ void keyboard_post_init_rgb(void) {
         rgblight_disable_noeeprom();
     }
 
-#   endif
+#    endif
     layer_state_set_user(layer_state);
 #endif
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
-        if (userspace_config.rgb_matrix_idle_anim) {
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
-        }
+    if (userspace_config.rgb_matrix_idle_anim) {
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_REST_MODE);
+    }
 #endif
 }
 
@@ -340,7 +344,7 @@ void matrix_scan_rgb(void) {
 #ifdef RGBLIGHT_ENABLE
 void rgblight_set_hsv_and_mode(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode) {
     rgblight_sethsv_noeeprom(hue, sat, val);
-    wait_us(175); // Add a slight delay between color and mode to ensure it's processed correctly
+    wait_us(175);  // Add a slight delay between color and mode to ensure it's processed correctly
     rgblight_mode_noeeprom(mode);
 }
 #endif
@@ -411,6 +415,7 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
 #ifdef RGB_MATRIX_ENABLE
 #    include "lib/lib8tion/lib8tion.h"
 extern led_config_t g_led_config;
+
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
     HSV hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_config.hsv.v) {

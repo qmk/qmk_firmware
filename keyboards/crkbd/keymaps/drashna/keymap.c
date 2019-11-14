@@ -7,10 +7,10 @@ extern uint8_t is_master;
 extern rgblight_config_t rgblight_config;
 #endif
 #ifdef OLED_DRIVER_ENABLE
-static uint32_t oled_timer    = 0;
-#define KEYLOGGER_LENGTH 5
-static char     keylog_str[KEYLOGGER_LENGTH+1] = { "\n" };
-static uint16_t log_timer     = 0;
+#    define KEYLOGGER_LENGTH 5
+static uint32_t oled_timer                       = 0;
+static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
+static uint16_t log_timer                        = 0;
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
 //   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
