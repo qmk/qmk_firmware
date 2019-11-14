@@ -40,16 +40,16 @@ keymap.
 
     Base layer (0)
                                         | Right hand
-  pink2    pinky ring  middl index indx2| indx2 index middl ring  pinky pink2    // Keys by finger
+  pink2    pinky ring  middl index indx2| indx2 index middl ring  pinky pink2 
                                         | 
  Esc      '"    ,     .     pP    yY    | fF    gG    cC    rR    lL    Bksp 
- Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -     //  ((syntax highlighting fix))
+ Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -\_   
  LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
- ---------------------------------------------------------------------
- Left+LAlt   Del+-FUN -MOV  Enter+-NSY| Space  -NSY -FUN    Right+-ACC           // -XYZ are layer switches
+ .....................................................................
+ Left+LAlt   Del+-FUN -MOV  Enter+-NSY| Space  -NSY -FUN    Right+-ACC      
                                       | 
-             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
-  1           2        3     4        | 4      3    2       1                    // Keys by number
+             hold     hold  hold      |        hold oneshot hold           
+  1           2        3     4        | 4      3    2       1             
 
   
            One shot: de-activates after next key, tap twice to toggle.
@@ -73,7 +73,7 @@ keymap.
  -LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
  -+LCtl 1     2     3     4     5     | \|    =+    /?    [{    ]}    `~+RCtl
  .+LSht 0     9     8     7     6     | |     +     ?     {     }      ~+RSht
- --------------------------------------------------------
+ ............................................................
  Left+LAlt Del   Sht(tab) ---  | tab   ---   Ent   Right+RAlt
                                | 
   1         2     3        4   | 4     3     2     1   
@@ -91,7 +91,7 @@ keymap.
  -LTR  -NSY  -FUN  -MOV  -RAR  -REV  | -ACC  CAF11 CAF12 F12   F11   -DRA
  LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
  LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
- -----------------------------------------------
+ ...............................................
  LAlt  ---   ---   ---  | ---   ---   ---   RAlt
                         | 
   1     2     3     4   | 4     3     2     1   
@@ -105,7 +105,7 @@ keymap.
  -LTR  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
  LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
  LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
- -------------------------------------------------------------
+ .............................................................
  Left+LAlt Del   ---   Sht(tab) | tab   ---   ---   Right+RAlt
                                 | 
   1         2     3     4       | 4     3     2     1   
@@ -119,7 +119,7 @@ keymap.
  -LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
  Tab   xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx Insert
  xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
- ------------------------------------------------
+ ................................................
  xxx    ---     ---   ---  | ---  ---   ---   App
                            | 
   1      2       3     4   | 4    3     2     1   
@@ -133,7 +133,7 @@ keymap.
  -LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
  -+LCtl Left  Down  Up    Right xxx   | 5     4     3     2     1     RCtl
  .+LSht xxx   xxx   xxx   xxx   xxx   | 6     7     8     9     0     RSht
- ----------------------------------------------------------
+ ..........................................................
  Left+LAlt Del   Sht(Tab) ---  | Tab  ---   Ent   Right+Alt
         
 
@@ -150,7 +150,7 @@ keymap.
  -LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
  LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
  LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
- ---------------------------------------------------------
+ .........................................................
  LAlt+Left Del   Linux Ent  | Spc   ---   ---   RAlt+Right
                             | 
   1         2     3     4   | 4     3     2     1   
@@ -165,7 +165,7 @@ keymap.
  -LTR  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
  LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
  LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
- ---------------------------------------------------------
+ .........................................................
  LAlt+Left Del   ---   Ent  | Spc   ---   ---   RAlt+Right
                             | 
   1         2     3     4   | 4     3     2     1   
