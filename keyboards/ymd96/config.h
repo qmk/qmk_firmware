@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 
 #define NO_UART 1
+#define USB_MAX_POWER_CONSUMPTION 100
 
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
