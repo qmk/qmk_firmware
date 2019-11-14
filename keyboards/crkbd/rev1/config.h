@@ -59,6 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 54  // Number of LEDs
 #    define RGBLED_SPLIT { 27, 27 }
+#    define RGBLIGHT_SPLIT  // apparently needed due to using serial
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
