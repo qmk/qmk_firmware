@@ -111,17 +111,17 @@ keymap.
     
     
     
-     Layer _DRA (DRAwings, whatever else) (Only through _FUN layer)
+     Layer _DRA (DRAwings, whatever else)
 
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>                              ***      // Access on _FUN
-     _LTR  ¡     xxx   xxx   xxx   xxx   | xxx    🙂😃  👍    👎    ⍨🙁   Bspc
+     _LTR  ¡     xxx   xxx   xxx   xxx   | xxx   🙂😃  👍    👎     ⍨🙁   Bspc
      LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
      LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
      ---------------------------------------------------------
      LAlt+Left Del   ___   Ent  | Spc   ___   ___   RAlt+Right
-                               <|>
+               ***             <|>                                         // Accessed by *** (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
    
