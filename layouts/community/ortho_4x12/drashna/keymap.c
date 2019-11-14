@@ -227,7 +227,7 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_config.enable
 #    endif
     ) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
@@ -245,7 +245,7 @@ void rgb_matrix_indicators_user(void) {
                 break;
             default: {
                 bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (biton32(default_layer_state)) {
+                switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
                         rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
@@ -276,7 +276,7 @@ void rgb_matrix_indicators_user(void) {
         }
     }
 
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             rgb_matrix_set_color(is_ez ? 41 : 42, 0x00, 0xFF, 0xFF);
             break;
@@ -330,7 +330,7 @@ void matrix_init_keymap(void) {
 
 #ifdef ENCODER_ENABLE
 void encoder_update(bool clockwise) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _RAISE:
             clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
             break;
@@ -386,7 +386,7 @@ void dip_update(uint8_t index, bool active) {
 layer_state_t layer_state_set_keymap(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             planck_ez_left_led_on();
             break;

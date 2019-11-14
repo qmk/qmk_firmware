@@ -177,7 +177,7 @@ void render_keylogger_status(void) {
 
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
@@ -308,7 +308,7 @@ void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 
 void check_default_layer(uint8_t mode, uint8_t type) {
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
             break;
@@ -347,7 +347,7 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_config.enable
 #    endif
     ) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;

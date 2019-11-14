@@ -25,7 +25,7 @@ static uint32_t hypno_timer;
 #ifdef RGBLIGHT_ENABLE
 #ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
-    if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
+    if (userspace_config.rgb_layer_change && get_highest_layer(layer_state) == 0) {
         if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
 #    ifdef SHFT_LED1
             rgblight_sethsv_at(120, 255, 255, SHFT_LED1);
@@ -154,19 +154,19 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
 
             if (light->life) {
                 light->life -= 1;
-                if (biton32(layer_state) == 0) {
+                if (get_highest_layer(layer_state) == 0) {
                     sethsv(light->hue + rand() % 0xF, 255, light->life, (LED_TYPE *)&led[light_index]);
                 }
                 light->timer = timer_read();
             } else {
-                if (light->enabled && biton32(layer_state) == 0) {
+                if (light->enabled && get_highest_layer(layer_state) == 0) {
                     rgblight_sethsv_default_helper(light_index);
                 }
                 litup = light->enabled = false;
             }
         }
     }
-    if (litup && biton32(layer_state) == 0) {
+    if (litup && get_highest_layer(layer_state) == 0) {
         rgblight_set();
     }
 }

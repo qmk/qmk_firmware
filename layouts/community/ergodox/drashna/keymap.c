@@ -385,7 +385,7 @@ void rgb_matrix_indicators_user(void) {
         rgb_matrix_config.enable
 #    endif
     ) {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
@@ -415,7 +415,7 @@ void rgb_matrix_indicators_user(void) {
                 break;
             default: {
                 bool mods_enabled = IS_LAYER_ON(_MODS);
-                switch (biton32(default_layer_state)) {
+                switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
                         rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;

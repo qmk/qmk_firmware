@@ -192,7 +192,7 @@ void render_keylogger_status(void) {
 
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Layout: "), false);
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _QWERTY:
             oled_write_ln_P(PSTR("Qwerty "), false);
             break;
