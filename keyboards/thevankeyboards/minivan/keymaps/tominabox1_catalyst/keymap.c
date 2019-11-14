@@ -81,8 +81,8 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
       // Set up RGB effects on _only_ the third LED (index 2)
       rgblight_set_effect_range(2, 1);
       // Set LED effects to breathing mode in a tealish blue color
-      rgblight_sethsv_noeeprom(125, 200, 150);
-      rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING+3);
+      rgblight_sethsv_noeeprom(180, 200, 150);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 
       // Init the first two LEDs to a static color
       setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
@@ -126,10 +126,10 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
     if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
       rgblight_set_effect_range(2, 1);
       rgblight_sethsv_noeeprom(180, 200, 150);
-      rgblight_mode_noeeprom(0);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      rgblight_enable();
     } else{
       rgblight_set_effect_range(2, 1);
-      rgblight_sethsv_noeeprom(125, 200, 0);
-      rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING+3);
+      rgblight_disable();
     }
   }
