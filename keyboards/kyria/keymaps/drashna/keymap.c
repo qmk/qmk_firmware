@@ -4,7 +4,8 @@ uint8_t is_master;
 
 #ifdef OLED_DRIVER_ENABLE
 static uint32_t oled_timer    = 0;
-static char     keylog_str[10] = {};
+#define KEYLOGGER_LENGTH 10
+static char     keylog_str[KEYLOGGER_LENGTH+1] = {};
 static uint16_t log_timer     = 0;
 // clang-format off
 static const char PROGMEM code_to_name[0xFF] = {
@@ -167,7 +168,7 @@ void add_keylog(uint16_t keycode) {
         keycode = 0;
     }
 
-    for (uint8_t i = (sizeof(keylog_str)/sizeof(char) - 1); i > 0; --i) {
+    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; i--) {
         keylog_str[i] = keylog_str[i - 1];
     }
 
