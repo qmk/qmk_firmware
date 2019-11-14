@@ -23,7 +23,7 @@ QMK は[多くの趣味のキーボード](http://qmk.fm/keyboards/)をサポー
 * [オンライン GUI を使用して初めてのファームウェアを構築する](newbs_building_firmware_configurator.md)
 * [ファームウェアを書きこむ](newbs_flashing.md)
 * [テストとデバッグ](newbs_testing_debugging.md)
-* [Git の最良の慣行](newbs_best_practices.md)
+* [QMK における Git 運用作法](newbs_best_practices.md)
 * [さらに学ぶための学習リソース](newbs_learn_more_resources.md)
 
 このガイドは、これまでソフトウェアをコンパイルしたことがない人を支援することに特化しています。

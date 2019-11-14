@@ -1,5 +1,5 @@
 <!-- # Best Practices -->
-# Git の最良の慣行
+# QMK における Git 運用作法
 
 <!---
   original document: e75919960:docs/newbs_best_practices.md
@@ -21,9 +21,10 @@ QMK に貢献するプロセスを順を追って説明し、この作業を簡�
 <!-- _Same as #7231:25fdbf2a0:newbs_git_best_practices.md L9_  -->
 <!-- 1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account. -->
 <!-- 2. You've [set up your build environment](newbs_getting_started.md?id=environment-setup). -->
-1. あなたは GitHub アカウントがあり、アカウントに [qmk_firmware リポジトリをフォーク](getting_started_github.md) している。
-2. あなたは、[QMK の設定](newbs_getting_started.md#qmk-の設定) を完了している。
+<!-- #7231:da7d49246: 2. You've set up both [your build environment](newbs_getting_started.md?id=set-up-your-environment) and [QMK](newbs_getting_started.md?id=set-up-qmk). -->
 
+1. あなたは GitHub アカウントがあり、アカウントに [qmk_firmware リポジトリをフォーク](getting_started_github.md) している。
+2. あなたは、[環境構築](newbs_getting_started.md?id=環境構築) と [QMK の設定](newbs_getting_started.md#qmk-の設定) を両方とも完了している。
 
 <!-- ## Your fork's master: Update Often, Commit Never -->
 ## あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと
