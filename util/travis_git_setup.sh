@@ -5,6 +5,7 @@ source util/travis_utils.sh
 # Git Setup
 echo -e "TRAVIS_REPO_SLUG = $TRAVIS_REPO_SLUG"
 echo -e "LOCAL_BRANCH = ${TRAVIS_PULL_REQUEST_BRANCH:-${TRAVIS_BRANCH}}"
+echo -e "QMK_CHANGES = ${QMK_CHANGES}"
 echo -e "TRAVIS_BRANCH = $TRAVIS_BRANCH"
 echo -e "TRAVIS_COMMIT_RANGE = $TRAVIS_COMMIT_RANGE"
 echo -e "CURRENT COMMIT HASH = $(git rev-parse --short HEAD)"
