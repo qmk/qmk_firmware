@@ -10,7 +10,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd60:ansi  # default ansi layout
+    make xd68:ansi  # default ansi layout
     make xd68:iso-uk # default ISO UK layout
 
 ## Layouts 
