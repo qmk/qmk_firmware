@@ -5,6 +5,10 @@ source util/travis_utils.sh
 NUM_CORE_CHANGES=$(echo "$QMK_CHANGES" | grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '(.travis.yml)')
 NUM_PY_CHANGES=$(echo "$QMK_CHANGES" | grep -Ec -e '^(lib/python/)' -e '^(bin/qmk)')
 
+echo -e "NUM_CORE_CHANGES = $NUM_CORE_CHANGES"
+echo -e "NUM_PY_CHANGES = $NUM_PY_CHANGES"
+
+
 if [[ "$TRAVIS_COMMIT_MESSAGE" == *"[skip test]"* ]]; then
     echo "Skipping due to commit message"
     exit 0
