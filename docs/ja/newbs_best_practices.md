@@ -191,7 +191,8 @@ $ git rev-list --left-right --count HEAD...upstream/master
 最初の数字は、現在のブランチが作成されてからのコミット数を表し、2番目の数字は、現在のブランチが作成されてから `upstream/master` に対して行われたコミットの数であり、したがって、現在のブランチに記録されていない変更です。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L27_-->
-Now that the current states of both the current branch and the upstream repo are known, we can start a rebase operation:
+<!-- Now that the current states of both the current branch and the upstream repo are known, we can start a rebase operation: -->
+現在のブランチと upstream リポジトリの両方の現在の状態がわかったので、リベース操作を開始できます:
 
 ```
 git rebase upstream/master
