@@ -22,7 +22,7 @@ keymap.
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_FUN _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC         // _XYZ is to layer
+     Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC         // _XYZ is to layer
                                          <|>
                  hold     hold  hold      |        hold oneshot hold               // Layer switch type
      <1          <2       <3    <4        | 4>     3>   2>      1>                 // Keys by number
