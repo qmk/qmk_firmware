@@ -8,8 +8,10 @@ echo -e "LOCAL_BRANCH = ${TRAVIS_PULL_REQUEST_BRANCH:-${TRAVIS_BRANCH}}"
 echo -e "QMK_CHANGES = ${QMK_CHANGES}"
 echo -e "TRAVIS_BRANCH = $TRAVIS_BRANCH"
 echo -e "TRAVIS_COMMIT_RANGE = $TRAVIS_COMMIT_RANGE"
-echo -e "CURRENT COMMIT HASH = $(git rev-parse --short HEAD)"
+CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
+echo -e "CURRENT_COMMIT_HASH = $(git rev-parse --short HEAD)"
 echo -e "CURRENT BRANCH = $(git rev-parse --abbrev-ref HEAD)"
+echo -e "------------------------------------------------------------"
 
 # Add QMK repository as `upstream`
 echo -e "\nAdding the QMK repository as remote \"upstream\"..."
@@ -18,8 +20,15 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 # Fetch the branch being targeted by the pull request (The "base" branch)
 echo -e "\nFetching refs for qmk:master..."
 git fetch upstream master
+
+# The SHA of qmk:master
 CURRENT_MASTER=$(git log -n 1 --pretty=format:"%H" upstream/master)
 echo -e "\nThe current SHA of qmk:master is \e[32m$CURRENT_MASTER\e[0m"
+
+# The latest common ancestor of qmk:master and our development branch
+BRANCH_BASE=$(git merge-base ${CURRENT_MASTER} ${TRAVIS_BRANCH})
+
+# The number of commits to the development branch that are not merged into qmk:master
 UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l)
 
 # How many commits are exclusive to the "base" branch $CURRENT_MASTER
@@ -27,7 +36,7 @@ UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse -
 echo -e "The current branch contains $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD | wc -l) edited file(s) from $UNMERGED_COMMITS unmerged commit(s)."
 
 echo -e "\nEdited files:"
-git diff --name-only HEAD~$UNMERGED_COMMITS HEAD
+git diff --name-only ${BRANCH_BASE}...${CURRENT_COMMIT_HASH}
 echo -e "\n"
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
