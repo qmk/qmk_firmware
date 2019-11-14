@@ -36,7 +36,7 @@ QMK の開発では、何がどこで行われているかにかかわらず、`
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L5_  -->
 <!-- To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch. -->
-マージの競合の可能性を減らすため &mdash; 2人以上のユーザーがファイルの同じ部分を同時に編集している状態のこと &mdash; `master` ブランチをなるべく最新の状態に保ち、新しいブランチを作成して新しい開発を開始します。
+マージの競合 &mdash; これは 2人以上のユーザーがファイルの同じ部分をそれぞれ異る編集して統合できなくなった状態 &mdash; の可能性を減らすため `master` ブランチをなるべく最新の状態に保ち、新しいブランチを作成して新しい開発を開始します。
 
 <!-- ### Updating your master branch -->
 ### あなたの master ブランチを更新する
@@ -53,7 +53,7 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L15_  -->
 <!-- To verify that the repository has been added, run `git remote -v`, which should return the following: -->
 リポジトリが追加されたことを確認するには、`git remote -v` を実行します。
-次のように表示されます。
+次のように表示されます。(訳注: `upstream` は`上流`という意味です。)
 
 ```
 $ git remote -v
@@ -66,7 +66,7 @@ upstream        https://github.com/qmk/qmk_firmware.git (push)
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L25_  -->
 <!-- Now that this is done, you can check for updates to the repo by running `git fetch upstream`. This retrieves the branches and tags &mdash; collectively referred to as "refs" &mdash; from the QMK repo, which now has the nickname `upstream`. We can now compare the data on our fork `origin` to that held by QMK. -->
 これが完了すると、`git fetch upstream` を実行してリポジトリの更新を確認できます。
-これは `upstream` (上流)というニックネームを持つ QMK リポジトリからブランチとタグ &mdash; "ref" と総称される &mdash; を取得します。
+このコマンドは `upstream` というニックネームを持つ QMK リポジトリから、ブランチとタグ &mdash; "refs" と総称されます &mdash; を取得します。
 これで、あなたのフォーク `origin` のデータを QMK が保持するデータと比較できます。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L27_  -->
