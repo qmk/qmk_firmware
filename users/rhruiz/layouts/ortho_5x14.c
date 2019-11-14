@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_CFG] = LAYOUT_ortho_5x14(
     KC_ESC , KC_SLCK, KC_PAUS, KC_MISS, RGB_VAD, RGB_VAI, _______, KC_MAKE, _______, _______, _______, _______, _______, _______,
-    _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, RESET  ,
+    RESET  , RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, RESET  ,
     _______, KC__VUP, KC__VDN, KC_MUTE, KC_EJCT, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END , _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
