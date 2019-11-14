@@ -213,6 +213,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      * - Dual use keys create a delay in the key (tap/hold keys), therefore
      *   space is not dual use (most used key), neither is hyphen.
+     *
+     * - If _ACC right hand or _RAR is much used, an obvious choice is to 
+     *   change the layer switched to by the Delete key, or copy the more
+     *   used keys to the _DRA layer, etc. Perhaps ;: could be a layer
+     *   switch key as well, if not much used; or space as many do.
      */ 
 
     [ _LTR ] = LAYOUT (
@@ -224,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
 // ---------------------------------------------------------------------
-// Left+LAlt   Del+_FUN _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC           // _XYZ are layer switches
+// Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC           // _XYZ are layer switches
 //                                     <|>
 //             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
 // <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
@@ -236,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _FUN , KC_DEL ) , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , OSL ( _FUN ) , LT ( _ACC , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _DRA , KC_DEL ) , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , OSL ( _FUN ) , LT ( _ACC , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -432,10 +437,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                              that right hand side: a on the right, o on the left.
      *                           ¡ and ¿ had no more room on this layer, therefore,
      *                              and because they are unusual, they are on the 
-     *                              _DRA(wings) layer. To reach them right now is not
-     *                              too comfortable, since that layer is only on a
-     *                              toggle. Switching some things around may be better
-     *                              for frequent use. They are located under the keys
+     *                              _DRA(wings) layer. They are located under the keys
      *                              that also have ! and ?, respectively.
      *
      *       As the time of this writing it seems a one-shot layer cannot
