@@ -115,7 +115,7 @@ git push --set-upstream origin dev_branch
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L53_  -->
 <!-- By default `git checkout -b` will base your new branch on the branch that is checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command: -->
 デフォルトでは、`git checkout -b`は、今チェックアウトされているブランチに基づいて新しいブランチを作成します。
-コマンド末尾に既存のブランチの名前を追加指定することにより、チェックアウトされていない既存のブランチに新しいブランチを作成できます:
+コマンド末尾に既存のブランチの名前を追加指定することにより、チェックアウトされていない既存のブランチを基にして新しいブランチを作成できます:
 
 ```
 git checkout -b dev_branch master
