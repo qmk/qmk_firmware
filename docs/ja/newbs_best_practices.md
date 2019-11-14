@@ -143,7 +143,7 @@ git commit -m "My commit message."
 <!-- !> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually. -->
 !> 多くのファイルを変更したが、すべてのファイルが同じ変更の一部である場合、各ファイルを個別に追加するのではなく、 `git add .` を使用して、現在のディレクトリにあるすべての変更されたファイルを追加できます。
 
-<!— ### Publishing Your Changes —>
+<!—- ### Publishing Your Changes -—>
 ### 変更を公開する
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L72_  -->
@@ -151,7 +151,7 @@ git commit -m "My commit message."
 最後のステップは、変更をフォークにプッシュすることです。これを行うには、`git push`と入力します。
 Gitは `dev_branch` の現在の状態をフォークに公開します。
 
-<!— ## Resolving Merge Conflicts —>
+<!-— ## Resolving Merge Conflicts -—>
 ##  マージの競合の解決
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L3_  -->
@@ -159,7 +159,8 @@ Gitは `dev_branch` の現在の状態をフォークに公開します。
 ブランチでの作業の完了に時間がかかる場合、他の人が行った変更が、プルリクエストを開いたときにブランチに加えた変更と競合することがあります。
 これは *マージの競合* と呼ばれ、複数の人が同じファイルの同じ部分を編集すると発生します。
 
-### Rebasing Your Changes
+<!-- ### Rebasing Your Changes -->
+### 変更のリベース
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L9_  -->
 <!-- A *rebase* is Git's way of taking changes that were applied at one point, reversing them, and then applying the same changes to another point. In the case of a merge conflict, you can rebase your branch to grab the changes that were made between when you created your branch and the present time. -->
