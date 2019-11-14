@@ -1,0 +1,26 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+    - master
+    - future
+  pull_request:
+    paths:
+    - 'quantum/**'
+    - 'tmk_core/**'
+    - 'tests/**'
+    - '*.mk'
+    - 'Makefile'
+    - '.github/workflows/unit_test.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/base_container
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: make test:all
