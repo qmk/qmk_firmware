@@ -345,6 +345,15 @@ const PROGMEM uchar mouse_hid_report[] = {
     0xc0,                      // END_COLLECTION
 };
 
+#ifndef USB_MAX_POWER_CONSUMPTION
+#    define USB_MAX_POWER_CONSUMPTION 500
+#endif
+
+// TODO: change this to 10ms to match LUFA
+#ifndef USB_POLLING_INTERVAL_MS
+#    define USB_POLLING_INTERVAL_MS 1
+#endif
+
 /*
  * Descriptor for compite device: Keyboard + Mouse
  *
@@ -366,7 +375,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
 #    else
     (1 << 7), /* attributes */
 #    endif
-    USB_CFG_MAX_BUS_POWER / 2, /* max USB current in 2mA units */
+    USB_MAX_POWER_CONSUMPTION / 2, /* max USB current in 2mA units */
 
     /*
      * Keyboard interface
@@ -393,7 +402,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     (char)0x81,                      /* IN endpoint number 1 */
     0x03,                            /* attrib: Interrupt endpoint */
     8, 0,                            /* maximum packet size */
-    USB_CFG_INTR_POLL_INTERVAL,      /* in ms */
+    USB_POLLING_INTERVAL_MS,         /* in ms */
 #    endif
 
     /*
@@ -424,7 +433,7 @@ const PROGMEM char usbDescriptorConfiguration[] = {
     (char)(0x80 | USB_CFG_EP3_NUMBER), /* IN endpoint number 3 */
     0x03,                              /* attrib: Interrupt endpoint */
     8, 0,                              /* maximum packet size */
-    USB_CFG_INTR_POLL_INTERVAL,        /* in ms */
+    USB_POLLING_INTERVAL_MS,           /* in ms */
 #    endif
 };
 #endif
