@@ -143,7 +143,8 @@ git commit -m "My commit message."
 <!-- !> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually. -->
 !> 多くのファイルを変更したが、すべてのファイルが同じ変更の一部である場合、各ファイルを個別に追加するのではなく、 `git add .` を使用して、現在のディレクトリにあるすべての変更されたファイルを追加できます。
 
-### Publishing Your Changes
+<!— ### Publishing Your Changes —>
+### 変更を公開する
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L72_  -->
 <!-- The last step is to push your changes to your fork. To do this, enter `git push`. Git now publishes the current state of `dev_branch` to your fork. -->
