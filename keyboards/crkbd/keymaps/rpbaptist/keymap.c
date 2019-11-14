@@ -273,7 +273,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
 }
 
 void check_default_layer(uint8_t type) {
-    switch (biton32(default_layer_state)) {
+    switch (get_highest_layer(default_layer_state)) {
         case _COLEMAKDHM:
             rgb_matrix_layer_helper(HSV_TEAL, type);
             break;
@@ -289,7 +289,7 @@ void rgb_matrix_indicators_user(void) {
       (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
   )
     {
-        switch (biton32(layer_state)) {
+        switch (get_highest_layer(layer_state)) {
             case _GAMING_EXT:
                 rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
                 break;
