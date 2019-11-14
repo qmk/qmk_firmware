@@ -1,7 +1,7 @@
 # Overridden build options from rev1 & rev2
 
 # Debug Options
-CONSOLE_ENABLE          = no        # Console for debug(+400)
+CONSOLE_ENABLE          = no        # Console for debug
 
 # RGB Options
 RGBLIGHT_ENABLE         = no        # Enable global lighting effects. Do not enable with RGB Matrix
