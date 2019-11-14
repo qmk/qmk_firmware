@@ -25,36 +25,23 @@ NGKEYS naginata_keys;
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
   QWERTY = NG_SAFE_RANGE,
-  EUCALYN,
-  WORKMAN,
-  QGMLWB,
   QGMLWY,
   RAISE, LOWER, ADJUST,
-  RGBRST,
   NUMLOC,
   EISU,
   KANA2,
-  SSCLN,
-  DELA,
-  DELE,
   ALPH,
   SALPH,
 };
 
 // Layers
 enum kepmap_layers {
-  _WORKMAN,
   _QGMLWY,
-  _QGMLWB,
-  _EUCALYN,
+  _QWERTY,
   _SHIFT,
 // 薙刀式
   _NAGINATA,
 // 薙刀式
-  _EDIT1R,
-  _EDIT1L,
-  _EDIT2R,
-  _EDIT2L,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -95,51 +82,11 @@ enum combo_events {
   NAGINATA_ON_CMB,
   NAGINATA_OFF_CMB,
   LOGIN_CMB,
-  EDIT1R_CMB,
-  EDIT1L_CMB,
-  EDIT2R_CMB,
-  EDIT2L_CMB,
-  ENTER_CMB,
 };
 
-#if defined(DEUCALYN)
-const uint16_t PROGMEM ngon_combo[] = {KC_G, KC_T, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_I, KC_U, COMBO_END};
-const uint16_t PROGMEM edit1r_combo[] = {KC_E, KC_I, COMBO_END};
-const uint16_t PROGMEM edit1l_combo[] = {KC_T, KC_K, COMBO_END};
-const uint16_t PROGMEM edit2r_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM edit2l_combo[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_V, KC_H, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {KC_Q, KC_W, KC_M, COMBO_END};
-#endif
-#if defined(DWORKMAN)
-const uint16_t PROGMEM ngon_combo[] = {KC_Y, KC_N, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_T, KC_G, COMBO_END};
-const uint16_t PROGMEM edit1r_combo[] = {KC_H, KC_T, COMBO_END};
-const uint16_t PROGMEM edit1l_combo[] = {KC_N, KC_E, COMBO_END};
-const uint16_t PROGMEM edit2r_combo[] = {KC_M, KC_C, COMBO_END};
-const uint16_t PROGMEM edit2l_combo[] = {KC_L, KC_COMM, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_C, KC_L, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {KC_Q, KC_D, KC_R, COMBO_END};
-#endif
-#if defined(DQGMLWB)
-const uint16_t PROGMEM ngon_combo[] = {KC_I, KC_A, COMBO_END};
-const uint16_t PROGMEM ngoff_combo[] = {KC_N, KC_R, COMBO_END};
-const uint16_t PROGMEM edit1r_combo[] = {KC_T, KC_N, COMBO_END};
-const uint16_t PROGMEM edit1l_combo[] = {KC_A, KC_E, COMBO_END};
-const uint16_t PROGMEM edit2r_combo[] = {KC_C, KC_F, COMBO_END};
-const uint16_t PROGMEM edit2l_combo[] = {KC_P, KC_COMM, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM login_combo[] = {KC_Q, KC_G, KC_M, COMBO_END};
-#endif
 #if defined(DQGMLWY)
 const uint16_t PROGMEM ngon_combo[] = {KC_I, KC_A, COMBO_END};
 const uint16_t PROGMEM ngoff_combo[] = {KC_N, KC_R, COMBO_END};
-const uint16_t PROGMEM edit1r_combo[] = {KC_T, KC_N, COMBO_END};
-const uint16_t PROGMEM edit1l_combo[] = {KC_A, KC_E, COMBO_END};
-const uint16_t PROGMEM edit2r_combo[] = {KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM edit2l_combo[] = {KC_H, KC_P, COMBO_END};
-const uint16_t PROGMEM enter_combo[] = {KC_V, KC_H, COMBO_END};
 const uint16_t PROGMEM login_combo[] = {KC_Q, KC_G, KC_M, COMBO_END};
 #endif
 
@@ -147,34 +94,29 @@ combo_t key_combos[COMBO_COUNT] = {
   [NAGINATA_ON_CMB] = COMBO_ACTION(ngon_combo),
   [NAGINATA_OFF_CMB] = COMBO_ACTION(ngoff_combo),
   [LOGIN_CMB] = COMBO_ACTION(login_combo),
-  [EDIT1R_CMB] = COMBO_ACTION(edit1r_combo),
-  [EDIT1L_CMB] = COMBO_ACTION(edit1l_combo),
-  [EDIT2R_CMB] = COMBO_ACTION(edit2r_combo),
-  [EDIT2L_CMB] = COMBO_ACTION(edit2l_combo),
-  [ENTER_CMB] = COMBO(enter_combo, KC_ENT),
 };
 // 薙刀式
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* _BASE
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |HOME |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  [  |  ]  |  ;  |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | ESC |  Q  |  G  |  M  |  L  |  W  |  :  |     |  Y  |  F  |  U  |  B  |  ,  |BSPC |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  | TAB |  D  |  S  |  T  |  N  |  R  |  \  |     |  I  |  A  |  E  |  O  |  '  | ENT |     |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |CTRL |  Z  |  X  |  C  |  V  |  J  |  -  |  +  |  K  |  H  |  P  |  .  |  ?  | UP  | DEL |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
-  |LSHFT|     |     |RCTRL|LOWER| SPC | ENT |     | SPC |RAISE|RALT |     |LEFT | DN  |RGHT |
-  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+/* _QGMLWY
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |  F2  |  `   |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |  -   |  +   |  =   |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | ESC  |  Q   |  G   |  M   |  L   |  W   |  :   |      |  Y   |  F   |  U   |  B   |  ,   | BSPC |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | TAB  |  D   |  S   |  T   |  N   |  R   |  \   |      |  I   |  A   |  E   |  O   |  '   | ENT  |      |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  | LCTL |  Z   |  X   |  C   |  V   |  J   |  (   |  )   |  K   |  H   |  P   |  .   |  ?   |  UP  | DEL  |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
+  |LSHFT |      |      | LCMD |LOWER |SFTSPC| ENT  |      |SFTSPC|RAISE | LALT |      | LEFT | DOWN | RGHT |
+  +------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+
 */
   [_QGMLWY] = LAYOUT(
-    KC_HOME,JP_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,JP_LBRC,JP_RBRC,JP_SCLN, \
-    KC_ESC ,KC_Q   ,KC_G   ,KC_M   ,KC_L   ,KC_W   ,JP_COLN,        KC_Y   ,KC_F   ,KC_U   ,KC_B   ,JP_COMM,KC_BSPC,         \
-    KC_TAB ,KC_D   ,KC_S   ,KC_T   ,KC_N   ,KC_R   ,JP_BSLS,        KC_I   ,KC_A   ,KC_E   ,KC_O   ,JP_QUOT,KC_ENT ,         \
-    KC_RCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_J   ,JP_MINS,JP_PLUS,KC_K   ,KC_H   ,KC_P   ,JP_DOT ,JP_QUES,KC_UP  ,KC_DEL , \
-    LSHFT  ,                KC_RCTL,LOWER  ,KC_SPC ,KC_ENT ,        KC_SPC ,RAISE  ,KC_RALT,        KC_LEFT,KC_DOWN,KC_RGHT
+    KC_F2  ,KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_PLUS,KC_EQL , \
+    KC_ESC ,KC_Q   ,KC_G   ,KC_M   ,KC_L   ,KC_W   ,KC_COLN,        KC_Y   ,KC_F   ,KC_U   ,KC_B   ,KC_COMM,KC_BSPC     , \
+    KC_TAB ,KC_D   ,KC_S   ,KC_T   ,KC_N   ,KC_R   ,KC_BSLS,        KC_I   ,KC_A   ,KC_E   ,KC_O   ,KC_QUOT,KC_ENT      , \
+    KC_LCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_J   ,KC_LPRN,KC_RPRN,KC_K   ,KC_H   ,KC_P   ,KC_DOT ,KC_QUES,KC_UP  ,KC_DEL , \
+    LSHFT  ,                KC_LCMD,LOWER  ,SFTSPC ,KC_ENT ,        SFTSPC ,RAISE  ,KC_LALT,        KC_LEFT,KC_DOWN,KC_RGHT
   ),
 
 /* _NAGINATA
@@ -185,64 +127,125 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   | NG_A  | NG_S  | NG_D  | NG_F  | NG_G  |  __   |       | NG_H  | NG_J  | NG_K  | NG_L  |NG_SCLN|  __   |       |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |  __   | NG_Z  | NG_X  | NG_C  | NG_V  | NG_B  |  __   |  __   | NG_N  | NG_M  |NG_COM |NG_DOT |NG_SLSH|  __   |  __   |
+  |  __   | NG_Z  | NG_X  | NG_C  | NG_V  | NG_B  |  __   |  __   | NG_N  | NG_M  |NG_COMM|NG_DOT |NG_SLSH|  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |  __   |       |       |  __   |  __   |NG_SHFT|  __   |       |NG_SHFT|  __   |  __   |       |  __   |  __   |  __   |
   +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_NAGINATA] = LAYOUT(
     _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
-    _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,_______,        NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______,         \
-    _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,_______,        NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______,         \
+    _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,_______,        NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______     , \
+    _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,_______,        NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______     , \
     _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,_______,_______,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______,_______, \
     _______,                _______,_______,NG_SHFT,_______,        NG_SHFT,_______,_______,        _______,_______,_______
   ),
 
+/* _LOWER
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  |  [  |  ]  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |     |     | __  | __  | __  | __  |     | __  | __  | __  |     | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_LOWER] = LAYOUT(
+    _______,_______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,_______, \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,KC_LBRC,KC_RBRC,_______,_______,_______,_______,_______,_______,_______, \
+    _______,                _______,_______,_______,_______,        _______,_______,_______,        _______,_______,_______
+  ),
+
+/* _RAISE
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |  /  |  *  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  |PGUP | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  |C(A) |PGDN |C(E) | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  |  {  |  }  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |     |     | __  | __  | __  | __  |     | __  | __  | __  |     | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_RAISE] = LAYOUT(
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_SLSH,KC_ASTR,_______, \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,KC_PGUP,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,_______,        _______,C(KC_A),KC_PGDN,C(KC_E),_______,_______     , \
+    _______,_______,_______,_______,_______,_______,KC_LCBR,KC_RCBR,_______,_______,_______,_______,_______,_______,_______, \
+    _______,                _______,_______,_______,_______,        _______,_______,_______,        _______,_______,_______
+  ),
+
+/* _ADJUST
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  |RESET| __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |     |     | __  | __  | __  | __  |     | __  | __  | __  |     | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_ADJUST] = LAYOUT(
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,RESET  ,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
+    _______,                _______,_______,_______,_______,        _______,_______,_______,        _______,_______,_______
+  ),
+
+/* _SHIFT
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |  {  |  }  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  |     | __  | __  | __  | __  | __  | __  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | __  |     |     | __  | __  | __  | __  |     | __  | __  | __  |     | __  | __  | __  |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_SHIFT] = LAYOUT(
+    _______,KC_TILD,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR ,KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_LCBR,KC_RCBR,_______, \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,_______,_______     , \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, \
+    _______,                _______,_______,_______,_______,        _______,_______,_______,        _______,_______,_______
+  ),
+
+/* _QWERTY
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |HOME |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  [  |  ]  |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | ESC |  Q  |  W  |  E  |  R  |  T  |  :  |     |  Y  |  U  |  I  |  O  |  P  |BSPC |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  | TAB |  A  |  S  |  D  |  F  |  G  |  \  |     |  H  |  J  |  K  |  L  |  ;  | ENT |     |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |LCTL |  Z  |  X  |  C  |  V  |  B  |  -  |  +  |  N  |  M  |  ,  |  .  |  /  | UP  | DEL |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+  |LSHFT|     |     |RCTL |LOWER| SPC | ENT |     | SPC |RAISE|RALT |     |LEFT |DOWN |RGHT |
+  +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+  [_QWERTY] = LAYOUT(
+    KC_HOME,KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_LBRC,KC_RBRC,XXXXXXX, \
+    KC_ESC ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,KC_COLN,        KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSPC     , \
+    KC_TAB ,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_BSLS,        KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_ENT      , \
+    KC_LCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MINS,KC_PLUS,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_UP  ,KC_DEL , \
+    LSHFT  ,                KC_RCTL,LOWER  ,KC_SPC ,KC_ENT ,        KC_SPC ,RAISE  ,KC_RALT,        KC_LEFT,KC_DOWN,KC_RGHT
+  ),
+
 };
-
-void update_led(void);
-
-void update_led() {
-  rgblight_set_effect_range(56, 15);
-
-  if (!layer_state_is(_LOWER) && !layer_state_is(_RAISE)) {
-    rgblight_sethsv_range(0, 0, 0, 0, 56);
-  }
-  if (naginata_state()) {
-    rgblight_sethsv_at(150, 200, 255, 0);
-    rgblight_sethsv_at(150, 200, 200, 17);
-    rgblight_sethsv_at(150, 200, 200, 38);
-    rgblight_sethsv_at(150, 200, 200, 20);
-    rgblight_sethsv_at(150, 200, 200, 35);
-    // rgblight_setrgb_range(10, 10, 10, 56, 71);
-  } else {
-    rgblight_sethsv_at(50, 200, 0, 0);
-    rgblight_sethsv_at(150, 200, 0, 17);
-    rgblight_sethsv_at(150, 200, 0, 38);
-  }
-  if (layer_state_is(_LOWER)) {
-    rgblight_sethsv_at(240, 200, 255, 0);
-    rgblight_sethsv_at(150, 200, 200, 4);
-    rgblight_sethsv_range(150, 200, 200, 40, 43);
-    rgblight_sethsv_range(150, 200, 200, 45, 51);
-    rgblight_sethsv_at(150, 200, 200, 9);
-    rgblight_sethsv_at(150, 200, 200, 14);
-    rgblight_sethsv_at(150, 200, 200, 15);
-    rgblight_sethsv_at(150, 200, 200, 17);
-  }
-  if (layer_state_is(_LOWER)) {
-    // rgblight_sethsv_at(240, 100, 200, 19);
-    rgblight_sethsv_range(240, 200, 200, 40, 43);
-    rgblight_sethsv_range(240, 200, 200, 45, 51);
-  }
-  if (layer_state_is(_RAISE)) {
-    // rgblight_sethsv_at(100, 100, 200, 36);
-    rgblight_sethsv_at(100, 200, 200, 38);
-    rgblight_sethsv_at(100, 200, 200, 40);
-    rgblight_sethsv_at(100, 200, 200, 41);
-    rgblight_sethsv_at(100, 200, 200, 46);
-  }
-}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -264,28 +267,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_invert(_LOWER);
       }
     }
-    update_led();
     return false;
   } else {
     num_toggle = false;
   }
 
   switch (keycode) {
-    case RGBRST:
-      if (record->event.pressed) {
-        eeconfig_update_rgblight_default();
-        rgblight_enable();
-      }
-      update_led();
-      return false;
-      break;
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
       }
-      update_led();
       return false;
       break;
     case LOWER:
@@ -296,7 +289,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
-      update_led();
       return false;
       break;
     case RAISE:
@@ -307,38 +299,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
-      update_led();
       return false;
       break;
     case KANA2:
       if (record->event.pressed) {
         naginata_on();
       }
-      update_led();
       return false;
       break;
     case EISU:
       if (record->event.pressed) {
         naginata_off();
-      }
-      update_led();
-      return false;
-      break;
-    case EUCALYN:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_EUCALYN);
-      }
-      return false;
-      break;
-    case WORKMAN:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_WORKMAN);
-      }
-      return false;
-      break;
-    case QGMLWB:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_QGMLWB);
       }
       return false;
       break;
@@ -347,34 +318,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistent_default_layer_set(1UL<<_QGMLWY);
       }
       return false;
-      break;
-    case SSCLN:
-      if (record->event.pressed) {
-        unregister_code(KC_LSFT);
-        tap_code(KC_SCLN);
-        return false;
-      }
-      break;
-    case DELA:
-      if (record->event.pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_HOME);
-        unregister_code(KC_LSFT);
-        register_code(KC_LCTRL);
-        tap_code(KC_X);
-        unregister_code(KC_LCTRL);
-        return false;
-      }
-      break;
-    case DELE:
-      if (record->event.pressed) {
-        register_code(KC_LSFT);
-        tap_code(KC_END);
-        unregister_code(KC_LSFT);
-        register_code(KC_LCTRL);
-        tap_code(KC_X);
-        unregister_code(KC_LCTRL);
-      }
       break;
     case ALPH:
       if (record->event.pressed) {
@@ -401,7 +344,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (naginata_state()) {
     naginata_mode(keycode, record);
     a = process_naginata(keycode, record);
-    update_led();
   }
   return a;
   // 薙刀式
@@ -416,13 +358,11 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     case NAGINATA_ON_CMB:
       if (pressed) {
         naginata_on();
-        update_led();
       }
       break;
     case NAGINATA_OFF_CMB:
       if (pressed) {
         naginata_off();
-        update_led();
       }
       break;
     case LOGIN_CMB:
@@ -433,34 +373,6 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         unregister_code (KC_DEL);
         unregister_code (KC_LALT);
         unregister_code (KC_LCTRL);
-      }
-      break;
-    case EDIT1R_CMB:
-      if (pressed) {
-        layer_on(_EDIT1R);
-      } else {
-        layer_off(_EDIT1R);
-      }
-      break;
-    case EDIT1L_CMB:
-      if (pressed) {
-        layer_on(_EDIT1L);
-      } else {
-        layer_off(_EDIT1L);
-      }
-      break;
-    case EDIT2R_CMB:
-      if (pressed) {
-        layer_on(_EDIT2R);
-      } else {
-        layer_off(_EDIT2R);
-      }
-      break;
-    case EDIT2L_CMB:
-      if (pressed) {
-        layer_on(_EDIT2L);
-      } else {
-        layer_off(_EDIT2L);
       }
       break;
   }

@@ -46,7 +46,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
-BOOTLOADER = caterina
+BOOTLOADER = qmk-dfu
 
 
 # If you don't know the bootloader type, then you can specify the
