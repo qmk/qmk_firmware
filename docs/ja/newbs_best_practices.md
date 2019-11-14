@@ -175,7 +175,10 @@ git rev-list --left-right --count HEAD...upstream/master
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L18_  -->
-The `git rev-list` command entered here returns the number of commits that differ between the current branch and QMK's master branch. We run `git fetch` first to make sure we have the refs that represent the current state of the upstream repo. The output of the `git rev-list` command entered returns two numbers:
+<!-- The `git rev-list` command entered here returns the number of commits that differ between the current branch and QMK's master branch. We run `git fetch` first to make sure we have the refs that represent the current state of the upstream repo. The output of the `git rev-list` command entered returns two numbers: -->
+ここに入力された `git rev-list` コマンドは、現在のブランチとQMKのマスターブランチで異なるコミットの数を返します。
+最初に `git fetch` を実行して、upstream リポジトリの現在の状態を表す refs があることを確認します。
+入力された `git rev-list` コマンドの出力は2つの数値を返します:
 
 ```
 $ git rev-list --left-right --count HEAD...upstream/master
