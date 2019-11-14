@@ -24,7 +24,7 @@ QMK に貢献するプロセスを順を追って説明し、この作業を簡�
 <!-- #7231:da7d49246: 2. You've set up both [your build environment](newbs_getting_started.md?id=set-up-your-environment) and [QMK](newbs_getting_started.md?id=set-up-qmk). -->
 
 1. あなたは GitHub アカウントがあり、アカウントに [qmk_firmware リポジトリをフォーク](getting_started_github.md) している。
-2. あなたは、[環境構築](newbs_getting_started.md?id=環境構築) と [QMK の設定](newbs_getting_started.md#qmk-の設定) を両方とも完了している。
+2. あなたは、[環境構築](newbs_getting_started.md#環境構築) と [QMK の設定](newbs_getting_started.md#qmk-の設定) を両方とも完了している。
 
 <!-- ## Your fork's master: Update Often, Commit Never -->
 ## あなたのフォークの master ブランチ: 更新は頻繁に、コミットはしないこと
@@ -109,16 +109,23 @@ git push --set-upstream origin dev_branch
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L51_  -->
 You can name your branch nearly anything you want, though it is recommended to name it something related to the changes you are going to make.
+ブランチにはほぼ任意の名前を付けることができますが、あなたが行なう変更を表す名前を付けることをお勧めします。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L53_  -->
-By default `git checkout -b` will base your new branch on the branch that is checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command:
+<!-- By default `git checkout -b` will base your new branch on the branch that is checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command: -->
+デフォルトでは、`git checkout -b`は、今チェックアウトされているブランチに基づいて新しいブランチを作成します。
+コマンド末尾に既存のブランチの名前を追加指定することにより、チェックアウトされていない既存のブランチに新しいブランチを作成できます:
 
 ```
 git checkout -b dev_branch master
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L59_  -->
-Now that you have a development branch, open your text editor and make whatever changes you need to make. It is recommended to make many small commits to your branch; that way, any change that causes issues can be more easily traced and undone if needed. To make your changes, edit and save any files that need to be updated, add them to Git's *staging area*, and then commit them to your branch:
+<!-- Now that you have a development branch, open your text editor and make whatever changes you need to make. It is recommended to make many small commits to your branch; that way, any change that causes issues can be more easily traced and undone if needed. To make your changes, edit and save any files that need to be updated, add them to Git's *staging area*, and then commit them to your branch: -->
+これで開発ブランチができたのでテキストエディタを開き必要な変更を加えます。
+ブランチに対して多くの小さなコミットを行うことをお勧めします。
+そうすることで、問題を引き起こす変更をより簡単に特定し必要に応じて元に戻すことができます。
+変更を加えるには、更新が必要なファイルを編集して保存し、Gitの *ステージングエリア* に追加してから、ブランチにコミットします:
 
 ```
 git add path/to/updated_file
@@ -126,10 +133,15 @@ git commit -m "My commit message."
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L66_  -->
-`git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance.
+<!-- `git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance. -->
+`git add`は、変更されたファイルを Git の *ステージングエリア* に追加します。
+これは、Gitの「ロードゾーン」です。
+これには、`git commit` によって *コミット* される変更が含まれており、リポジトリへの変更が保存されます。
+変更内容が一目でわかるように、説明的なコミットメッセージを使用します。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L68_  -->
-!> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually.
+<!-- !> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually. -->
+!> 多くのファイルを変更したが、すべてのファイルが同じ変更の一部である場合、各ファイルを個別に追加するのではなく、 `git add .` を使用して、現在のディレクトリにあるすべての変更されたファイルを追加できます。
 
 ### Publishing Your Changes
 
