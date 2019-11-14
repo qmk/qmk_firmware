@@ -37,7 +37,7 @@ QMK の開発では、何がどこで行われているかにかかわらず、`
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L5_  -->
 <!-- To reduce the chances of merge conflicts &mdash; instances where two or more users have edited the same part of a file concurrently &mdash; keep your `master` branch relatively up-to-date, and start any new developments by creating a new branch. -->
-マージの競合 &mdash; これは 2人以上のユーザーがファイルの同じ部分をそれぞれ異る編集して統合できなくなった状態 &mdash; の可能性を減らすため `master` ブランチをなるべく最新の状態に保ち、新しいブランチを作成して新しい開発を開始します。
+マージの競合 &mdash; これは 2人以上のユーザーがファイルの同じ部分をそれぞれ異なる編集をして統合できなくなった状態 &mdash; の可能性を減らすため `master` ブランチをなるべく最新の状態に保ち、新しいブランチを作成して新しい開発を開始します。
 
 <!-- ### Updating your master branch -->
 ### あなたの master ブランチを更新する
