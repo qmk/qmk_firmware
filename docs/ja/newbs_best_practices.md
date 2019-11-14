@@ -150,7 +150,7 @@ git commit -m "My commit message."
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L72_  -->
 <!-- The last step is to push your changes to your fork. To do this, enter `git push`. Git now publishes the current state of `dev_branch` to your fork. -->
 最後のステップは、変更をフォークにプッシュすることです。これを行うには、`git push`と入力します。
-Gitは `dev_branch` の現在の状態をフォークに公開します。
+Git は `dev_branch` の現在の状態をフォークに公開します。
 
 <!-- ## Resolving Merge Conflicts -->
 ##  マージの競合の解決
