@@ -58,7 +58,7 @@ const uint16_t PROGMEM sdjk_combo[] = {KC_J, KC_K, KC_S, KC_D, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
 	// Horizontal Chords
   [WE] = COMBO(we_combo, KC_ESC),
-  //[AS] = COMBO(as_combo, KC_ENT),
+  [AS] = COMBO(as_combo, KC_TAB),
   [SD] = COMBO(sd_combo, KC_BSPC),
   [DF] = COMBO(df_combo, KC_ENT),
   [XC] = COMBO(xc_combo, KC_MINS),
