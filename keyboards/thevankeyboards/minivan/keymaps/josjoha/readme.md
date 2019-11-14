@@ -16,16 +16,16 @@ keymap.
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-     ***                                   <|>                                       // *** Access from all layers
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> // Keys by finger
+     ***                                   <|>                                     // *** Access from all
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_FUN _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC           // _XYZ are layer switches
+     Left+LAlt   Del+_FUN _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC         // _XYZ is to layer
                                          <|>
-                 hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
-     <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
+                 hold     hold  hold      |        hold oneshot hold               // Layer switch type
+     <1          <2       <3    <4        | 4>     3>   2>      1>                 // Keys by number
 
 
      Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
