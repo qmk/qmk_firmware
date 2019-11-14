@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -12,10 +10,12 @@ extern rgblight_config_t rgblight_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
+enum crkbd_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         GUIEI,    LOWER,   KC_SPC,  KC_ENT,  RAISE,   ALTKN
   ),
 
-  [_RAISE] = LAYOUT( \
+  [_RAISE] = LAYOUT(
     KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
     CTLTB,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_ADJUST] = LAYOUT( \
+  [_ADJUST] = LAYOUT(
     RESET,   RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -130,7 +130,81 @@ void update_log(void) {
         add_keylog(0);
     }
 }
+
+void render_keylogger_status(void) {
+    oled_write_P(PSTR("KLogr"), false);
+    oled_write(keylog_str, false);
+}
+
+void render_default_layer_state(void) {
+    oled_write_P(PSTR("Lyout"), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            oled_write_P(PSTR(" QRTY"), false);
+            break;
+    }
+}
+
+void render_layer_state(void) {
+    oled_write_P(PSTR("LAYER"), false);
+    oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
+    oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
+}
+
+void render_keylock_status(uint8_t led_usb_state) {
+    oled_write_P(PSTR("Lock:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+}
+
+void render_mod_status(uint8_t modifiers) {
+    oled_write_P(PSTR("Mods:"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
+}
+
+void render_bootmagic_status(void) {
+    /* Show Ctrl-Gui Swap options */
+    static const char PROGMEM logo[][2][3] = {
+        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
+        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
+    };
+    oled_write_P(PSTR("BTMGK"), false);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
+    oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
+    oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
+    oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
+}
+
+void render_status_main(void) {
+    /* Show Keyboard Layout  */
+    render_default_layer_state();
+    render_keylock_status(host_keyboard_leds());
+    render_mod_status(get_mods());
+    render_bootmagic_status();
+
+    render_keylogger_status();
+}
+
+void oled_task_user(void) {
+    update_log();
+    if (is_master) {
+        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_crkbd_logo();
+    }
+}
+
 #endif
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_DRIVER_ENABLE
