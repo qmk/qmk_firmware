@@ -162,7 +162,9 @@ Gitは `dev_branch` の現在の状態をフォークに公開します。
 ### Rebasing Your Changes
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L9_  -->
-A *rebase* is Git's way of taking changes that were applied at one point, reversing them, and then applying the same changes to another point. In the case of a merge conflict, you can rebase your branch to grab the changes that were made between when you created your branch and the present time.
+<!-- A *rebase* is Git's way of taking changes that were applied at one point, reversing them, and then applying the same changes to another point. In the case of a merge conflict, you can rebase your branch to grab the changes that were made between when you created your branch and the present time. -->
+*rebase* は、ある時点で適用された変更を取得し、それらを元に戻し、次に同じ変更を別のポイントに適用する Git の方法です。
+マージの競合が発生した場合、ブランチをリベースして、ブランチを作成してから現在までに行われた変更を取得できます。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L11_  -->
 To start, run the following:
