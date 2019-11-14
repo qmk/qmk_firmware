@@ -257,4 +257,5 @@ git rebase --continue
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L79_  -->
-Git logs the changes to the conflicting file, and continues applying the commits from our branch until it reaches the end.
+<!-- Git logs the changes to the conflicting file, and continues applying the commits from our branch until it reaches the end. -->
+Git は、競合するファイルへの変更をログに記録し、ブランチのコミットが最後に達するまで適用し続けます。
