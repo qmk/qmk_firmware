@@ -187,7 +187,8 @@ $ git rev-list --left-right --count HEAD...upstream/master
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L25_  -->
-The first number represents the number of commits on the current branch since it was created, and the second number is the number of commits made to `upstream/master` since the current branch was created, and thus, the changes that are not recorded in the current branch.
+<!-- The first number represents the number of commits on the current branch since it was created, and the second number is the number of commits made to `upstream/master` since the current branch was created, and thus, the changes that are not recorded in the current branch. -->
+最初の数字は、現在のブランチが作成されてからのコミット数を表し、2番目の数字は、現在のブランチが作成されてから `upstream/master` に対して行われたコミットの数であり、したがって、現在のブランチに記録されていない変更です。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L27_-->
 Now that the current states of both the current branch and the upstream repo are known, we can start a rebase operation:
