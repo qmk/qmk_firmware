@@ -1,11 +1,14 @@
 # Dvorak on the Minivan
 
 This is a Dvorak layout for the Minivan 40% keyboard, default hardware
-configuration (44 keys).
+configuration (44 keys). The accented characters would likely cover
+Dutch, German, French, Finnish, Norwegian, Swedish, Italian and Spanish,
+besides English.
 
 This keymap.c was edited from the default provided with this version of
 QMK on Github, and the LED support was copied from ../jetpacktuxedo/
-keymap. By Jos B., <joshb@xs4all.nl>
+keymap. 
+          By Jos B., <joshb@xs4all.nl>
 
 
     - Basic layers are: * letters (normal Dvorak layout), (Led: off)
@@ -15,6 +18,7 @@ keymap. By Jos B., <joshb@xs4all.nl>
       Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)
                     * navigation and numbers other hand,  (Led: green/blue)
                     * special characters like é.          (Led: cyan)
+                    * Unicode symbols and whatever else   (Led: white)
 
     - Upper left key always goes back to default layer, then is Escape.
 
@@ -35,14 +39,20 @@ keymap. By Jos B., <joshb@xs4all.nl>
     - Leds: breathing effect on the middle LED, other indicate layer.
 
     Base layer (0)
+                                        | Right hand
+  pink2    pinky ring  middl index indx2| indx2 index middl ring  pinky pink2    // Keys by finger
+                                       <|>
+ Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
+ Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -     //  ((syntax highlighting fix))
+ LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
+ ---------------------------------------------------------------------
+ Left+LAlt   Del+-FUN -MOV  Enter+-NSY| Space  -NSY -FUN    Right+-ACC           // -XYZ are layer switches
+                                     <|>
+             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
+ <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
 
-        Esc      '"       ,<  .>  pP  yY  fF  gG  cC  rR  lL         Bksp
-        Tab+LCtl  aA       oO  eE  uU  iI  dD  hH  tT  nN  sS          -_
-        LSht       ;:       qQ  jJ  kK  xX  bB  mM  wW  vV  zZ       RSht
-        Left+LAlt   Del+_FUN _MOV  Enter+_NSY Space  _NSY _FUN  Right+_ACC
-                        hold hold        hold        hold oneshot*)   hold
   
-        *) One shot: de-activates after next key, tap twice to toggle.
+           One shot: de-activates after next key, tap twice to toggle.
         
     Layer 1: Numbers and symbols.
 
@@ -58,10 +68,16 @@ keymap. By Jos B., <joshb@xs4all.nl>
              second row keys are not programmable (MWVZ). Hence they
              are programmed with superfluous symbols.
 
-        _LTR      !   @   #   $   %   ^   &   *   (   )           Bspc
-        -+LCtl     1   2   3   4   5   \|  =+  /?  [{  ]}      `~+RCtl
-        .+LSht      0   9   8   7   6    |   +   ?   {   }      ~+RSht
-        Left+LAlt   Del   Sht(tab) ___      tab   ___  Ent  Right+RAlt
+  pink2  pinky ring  middl index indx2| indx2 index middl ring  pinky pink2 
+                                     <|>
+ -LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
+ -+LCtl 1     2     3     4     5     | \|    =+    /?    [{    ]}    `~+RCtl
+ .+LSht 0     9     8     7     6     | |     +     ?     {     }      ~+RSht
+ --------------------------------------------------------
+ Left+LAlt Del   Sht(tab) ---  | tab   ---   Ent   Right+RAlt
+                              <|>
+ <1        <2    <3       <4   | 4>    3>    2>    1>  
+
          
                 
      Layer 2: Toward any layer by toggle (top row left). 
@@ -69,49 +85,90 @@ keymap. By Jos B., <joshb@xs4all.nl>
               The right side works with left held modifiers. The left side has
               F-keys with Control+Alt pressed, for switching virtual consoles.
     
-        _LTR _NSY  _FUN _MOV _RAR _REV _ACC CAF11 CAF12 F12 F11    xxx
-        LCtl  CAF1  CAF2 CAF3 CAF4 CAF5 F5   F4    F3    F2  F1   RCtl
-        LSht   CAF10 CAF9 CAF8 CAF7 CAF6 F6   F7    F8    F9  F10 RSht
-        LAlt    ___    ___      ___        ___      ___     ___   RAlt
+  pink2 pinky ring  middl index indx2| indx2 index middl ring  pinky pink2 
+ toggl toggl toggl toggl toggl toggl | toggl                         toggl      // Type of layer switch
+                                    <|>
+ -LTR  -NSY  -FUN  -MOV  -RAR  -REV  | -ACC  CAF11 CAF12 F12   F11   -DRA
+ LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
+ LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
+ -----------------------------------------------
+ LAlt  ---   ---   ---  | ---   ---   ---   RAlt
+                       <|>
+ <1    <2    <3    <4   | 4>    3>    2>    1>  
         
 
      Layer 3: Movement layer: mouse and hands on navigation
               Also delete/backspace, to navigate and delete together.
 
-        _LTR    WLft WDn  WUp  WRht  xxx  Btn3 Home PgUp PgDn End    Bksp
-        LCtl     MLft MDn  MUp  MRht  Btn1 Btn1 Left Up   Down Right RCtl
-        LSht      Btn5 Btn4 Btn3 Butn2 xxx  Btn2 Acc0 Acc1 Acc2 xxx  RSht
-        Left+LAlt  Del      ___  Sht(tab)  tab    ___    ___   Right+RAlt
+  pink2 pinky ring  middl index indx2| indx2 index middl ring  pinky pink2
+                                    <|>
+ -LTR  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
+ LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+ LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
+ -------------------------------------------------------------
+ Left+LAlt Del   ---   Sht(tab) | tab   ---   ---   Right+RAlt
+                               <|>
+ <1        <2    <3    <4       | 4>    3>    2>    1>  
         
                 
     Layer 4: Place for keys that are not symbols or F-keys, and are found
              on many keyboards. Media keys on 2nd row. 
 
-        _LTR CapL NumL Pause ScrLk PrtSc xxx  xxx  Power Sleep Wake    xxx   
-        tab   xxx  xxx   xxx   xxx  xxx   xxx  xxx  xxx  xxx    xxx Insert
-        xxx    Stop Play  Prev  Next Vol-  Vol+ Mute xxx  xxx   xxx    xxx
-        xxx    ___     ___      ___       ___      ___      ___        App
+  pink2 pinky ring  middl index indx2| indx2 index middl ring  pinky pink2
+                                    <|>
+ -LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
+ Tab   xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx Insert
+ xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
+ ------------------------------------------------
+ xxx    ---     ---   ---  | ---  ---   ---   App
+                          <|>
+ <1     <2      <3    <4   | 4>   3>    2>    1>  
         
 
     Layer 5: Reversing hands layer numbers and navigation, for one hand
              on keyboard use.  
     
-        _LTR    End  PgDn PgUp Home  xxx  xxx  xxx  xxx  xxx  xxx     Bspc
-        -+LCtl    Left Down Up   Right xxx  5    4    3    2    1     RCtl
-        .+LSht     xxx  xxx  xxx  xxx   xxx  6    7    8    9    0    RSht
-        Left+LAlt Del    Sht(Tab)  ___      Tab    ___     Ent   Right+Alt
+  pink2  pinky ring  middl index indx2| indx2 index middl ring  pinky pink2
+                                     <|>
+ -LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
+ -+LCtl Left  Down  Up    Right xxx   | 5     4     3     2     1     RCtl
+ .+LSht xxx   xxx   xxx   xxx   xxx   | 6     7     8     9     0     RSht
+ ----------------------------------------------------------
+ Left+LAlt Del   Sht(Tab) ---  | Tab  ---   Ent   Right+Alt
         
 
-   Layer 6: Rarely used symbols, Unicode: <Ctrl(Shft(u))> <HEX input> <space>.
-            AltGr or Compose did not seem to work for me, I rather not have
-            dead keys. See https://en.wikipedia.org/wiki/Unicode_input 
-            With tap-dances this could work ok for quite a few accented letters,
-            but only basic codes supported at time of this writing).
+   Layer 6: Accented characters. See source file comments for placement
+            logic, although it should be fairly obvious ? Should most 
+            western European languages.
+            Uses https://en.wikipedia.org/wiki/Unicode_input 
 
-        _LTR  xxx  xxx  è  È  xxx ___  👍  👎  xxx xxx    Bspc
-        LCtrl  xxx  xxx  é  É   í  Í    😃   ⍨  xxx xxx  RCtrl
-        LShft   xxx  xxx  ë  Ë  xxx xxx  🙂  🙁  xxx xxx RShft
-        LALT  Del   ___    ___    ___     ___      ___     ___
+            Note that you need the right input mode for your system
+            This is set for Linux, third key on the bottom row.
+
+  pink2 pinky ring  middl index indx2| indx2 index middl ring  pinky pink2
+                                    <|>
+ -LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
+ LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
+ LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+ ---------------------------------------------------------
+ LAlt+Left Del   Linux Ent  | Spc   ---   ---   RAlt+Right
+                           <|>
+ <1        <2    <3    <4   | 4>    3>    2>    1>  
+
+
+   Layer 7: Unicode drawings and whatever else.
+
+            Note that you need the right input mode for your system.
+
+  pink2 pinky ring  middl index indx2| indx2 index middl ring  pinky pink2
+                                    <|>
+ -LTR  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
+ LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
+ LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
+ ---------------------------------------------------------
+ LAlt+Left Del   ---   Ent  | Spc   ---   ---   RAlt+Right
+                           <|>
+ <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 
    ... keycap color scheme, marks areas home (5), navigation (2+5), numbers (2+5).
