@@ -5,7 +5,8 @@ source util/travis_utils.sh
 # Git Setup
 echo -e "TRAVIS_REPO_SLUG = $TRAVIS_REPO_SLUG"
 echo -e "LOCAL_BRANCH = ${TRAVIS_PULL_REQUEST_BRANCH:-${TRAVIS_BRANCH}}"
-echo -e "QMK_CHANGES = ${QMK_CHANGES}"
+#disabled because it's null at this point
+#echo -e "QMK_CHANGES = ${QMK_CHANGES}"
 echo -e "TRAVIS_BRANCH = $TRAVIS_BRANCH"
 echo -e "TRAVIS_COMMIT_RANGE = $TRAVIS_COMMIT_RANGE"
 CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -17,7 +18,8 @@ echo -e "------------------------------------------------------------"
 echo -e "\nAdding the QMK repository as remote \"upstream\"..."
 git remote add upstream https://github.com/qmk/qmk_firmware.git
 
-# Fetch the branch being targeted by the pull request (The "base" branch)
+# Fetch the branch being targeted by the pull request (The "base"
+# branch)
 echo -e "\nFetching refs for qmk:master..."
 git fetch upstream master
 
@@ -27,17 +29,19 @@ echo -e "\nThe current SHA of qmk:master is \e[32m$CURRENT_MASTER\e[0m"
 
 # The latest common ancestor of qmk:master and our development branch
 BRANCH_BASE=$(git merge-base ${CURRENT_MASTER} ${TRAVIS_BRANCH})
+echo -e "\nThe latest common ancestor of qmk:master and this branch is \e[32m$BRANCH_BASE\e[0m"
 
-# The number of commits to the development branch that are not merged into qmk:master
-UNMERGED_COMMITS=$(git rev-list --left-right $CURRENT_MASTER...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l)
+# The number of commits to the development branch that are not merged
+# into qmk:master
+UNMERGED_COMMITS=$(git rev-list --left-right $BRANCH_BASE...$(git rev-parse --short HEAD) | grep -E '^>' | wc -l)
 
-# How many commits are exclusive to the "base" branch $CURRENT_MASTER
-# and to the "head" branch $TRAVIS_PULL_REQUEST_SHA
-echo -e "The current branch contains $(git diff --name-only HEAD~$UNMERGED_COMMITS HEAD | wc -l) edited file(s) from $UNMERGED_COMMITS unmerged commit(s)."
+# Branch summary
+echo -e "The current branch contains $(git diff --name-only $BRANCH_BASE HEAD | wc -l) edited file(s) from $UNMERGED_COMMITS unmerged commit(s)."
 
+# List the files edited by this branch
 echo -e "\nEdited files:"
 git diff --name-only ${BRANCH_BASE}...${CURRENT_COMMIT_HASH}
-echo -e "\n"
+echo
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
 # a pull request. Otherwise, the build was triggered by a push.
