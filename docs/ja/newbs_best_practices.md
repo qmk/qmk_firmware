@@ -222,7 +222,9 @@ To abort and get back to the state before "git rebase", run "git rebase --abort"
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L54_  -->
-This tells us that we have a merge conflict, and gives the name of the file with the conflict. Open the conflicting file in your text editor, and somewhere in the file, you'll find something like this:
+<!-- This tells us that we have a merge conflict, and gives the name of the file with the conflict. Open the conflicting file in your text editor, and somewhere in the file, you'll find something like this: -->
+これにより、マージの競合があることがわかり、競合のあるファイルの名前が示されます。
+テキストエディタで競合するファイルを開くと、ファイルのどこかに次のようなラインがあります:
 
 ```
 <<<<<<< HEAD
