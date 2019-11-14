@@ -15,7 +15,7 @@ QMK (*Quantum Mechanical Keyboard*) is an open source community that maintains Q
 
 If you plan on contributing a keymap, keyboard, or features to QMK, the easiest thing to do is [fork the repo through Github](https://github.com/qmk/qmk_firmware#fork-destination-box), and clone your repo locally to make your changes, push them, then open a [Pull Request](https://github.com/qmk/qmk_firmware/pulls) from your fork.
 
-Otherwise, you can clone it directly with `git clone https://github.com/qmk/qmk_firmware`. Do not download the zip or tar files; git is required to download the submodules.
+Otherwise, you can clone it directly with `git clone https://github.com/qmk/qmk_firmware`. Do not download the zip or tar files; a git repository is required to download the submodules in order to compile.
 
 ## How to Compile
 
