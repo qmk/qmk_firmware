@@ -151,7 +151,7 @@ git commit -m "My commit message."
 最後のステップは、変更をフォークにプッシュすることです。これを行うには、`git push`と入力します。
 Gitは `dev_branch` の現在の状態をフォークに公開します。
 
-<!-— ## Resolving Merge Conflicts -—>
+<!-- ## Resolving Merge Conflicts -->
 ##  マージの競合の解決
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L3_  -->
