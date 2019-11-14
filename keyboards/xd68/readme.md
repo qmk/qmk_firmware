@@ -6,7 +6,7 @@
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: XD68
-* Hardware Availability: [KPRepublic on AliExpress](://kprepublic.com/products/xiudi-xd68-pcb-65-custom-mechanical-keyboard-support-tkg-tools-underglow-rgb-pcb-programmed-kle-lots-of-layouts)
+* Hardware Availability: [KPRepublic on AliExpress](http://kprepublic.com/products/xiudi-xd68-pcb-65-custom-mechanical-keyboard-support-tkg-tools-underglow-rgb-pcb-programmed-kle-lots-of-layouts)
 
 Make example for this keyboard (after setting up your build environment):
 
