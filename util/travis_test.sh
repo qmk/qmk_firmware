@@ -12,14 +12,14 @@ fi
 
 exit_code=0
 
-if [ "$LOCAL_BRANCH" == "master" ] || [ "$NUM_CORE_CHANGES" != "0" ]; then
+if [ "$NUM_CORE_CHANGES" != "0" ]; then
     echo "Running tests."
     make test:all
     : $((exit_code = $exit_code + $?))
 
 fi
 
-if [ "$LOCAL_BRANCH" == "master" ] || [ "$NUM_PY_CHANGES" != "0" ]; then
+if [ "$NUM_PY_CHANGES" != "0" ]; then
     echo "Running python tests."
     qmk pytest
     : $((exit_code = $exit_code + $?))
