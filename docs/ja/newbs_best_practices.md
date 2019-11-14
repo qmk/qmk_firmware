@@ -136,7 +136,7 @@ git commit -m "My commit message."
 <!-- _Same as #7231:25fdbf2a0:newbs_git_using_your_master_branch.md L66_  -->
 <!-- `git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance. -->
 `git add`は、変更されたファイルを Git の *ステージングエリア* に追加します。
-これは、Gitの「ロードゾーン」です。
+これは、Git の「ロードゾーン」です。
 これには、`git commit` によって *コミット* される変更が含まれており、リポジトリへの変更が保存されます。
 変更内容が一目でわかるように、説明的なコミットメッセージを使用します。
 
