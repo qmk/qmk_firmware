@@ -151,7 +151,8 @@ git commit -m "My commit message."
 最後のステップは、変更をフォークにプッシュすることです。これを行うには、`git push`と入力します。
 Gitは `dev_branch` の現在の状態をフォークに公開します。
 
-## Resolving Merge Conflicts
+<!— ## Resolving Merge Conflicts —>
+##  マージの競合の解決
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L3_  -->
 Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files.
