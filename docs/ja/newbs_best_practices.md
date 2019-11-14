@@ -240,7 +240,10 @@ To abort and get back to the state before "git rebase", run "git rebase --abort"
 `HEAD` 側の部分はファイルの QMK マスターバージョンからのものであり、コミットメッセージでマークされた部分は現在のブランチとコミットからのものです。
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L66_  -->
-Because Git tracks *changes to files* rather than the contents of the files directly, if Git can't find the text that was in the file previous to the commit that was made, it won't know how to edit the file. Re-editing the file will solve the conflict. Make your changes, and then save the file.
+<!-- Because Git tracks *changes to files* rather than the contents of the files directly, if Git can't find the text that was in the file previous to the commit that was made, it won't know how to edit the file. Re-editing the file will solve the conflict. Make your changes, and then save the file. -->
+Git はファイルの内容ではなく *ファイルへの変更* を直接追跡するため、Git がコミットの前にファイル内にあったテキストを見つけられない場合、ファイルの編集方法がわかりません。
+ファイルを再編集すると、競合が解決します。
+変更を加えてから、ファイルを保存します。
 
 ```
 <p>Need help? Email support@webhost.us.</p>
