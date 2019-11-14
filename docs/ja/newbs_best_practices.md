@@ -199,7 +199,8 @@ git rebase upstream/master
 ```
 
 <!-- _Same as #7231:25fdbf2a0:newbs_git_resolving_merge_conflicts.md L33_  -->
-This tells Git to undo the commits on the current branch, and then reapply them against QMK's master branch.
+<!-- This tells Git to undo the commits on the current branch, and then reapply them against QMK's master branch. -->
+これにより、Git は現在のブランチのコミットを取り消してから、QMK のマスターブランチに対してコミットを再適用します。
 
 ```
 $ git rebase upstream/master
