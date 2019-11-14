@@ -44,8 +44,9 @@ FILES_EDITED=$(git diff --name-only ${BRANCH_BASE}...${CURRENT_COMMIT_HASH})
 echo -e "$FILES_EDITED"
 echo
 
-# NUM_CORE_CHANGES=$(echo "$QMK_CHANGES" | grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '(.travis.yml)')
-#										 grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '(.travis.yml)'
+NUM_CORE_CHANGES=$(echo "$FILES_EDITED" | grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '(.travis.yml)')
+echo -e "$NUM_CORE_CHANGES"
+echo -e "$(echo "$FILES_EDITED" | grep -Ev -e '^(docs/)' -e '^(keyboards/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '(.travis.yml)')"
 
 # If $TRAVIS_PULL_REQUEST is not false, then the build was triggered by
 # a pull request. Otherwise, the build was triggered by a push.
