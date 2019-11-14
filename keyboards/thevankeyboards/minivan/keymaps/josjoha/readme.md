@@ -116,7 +116,7 @@ keymap.
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>                              ***      // Access on _FUN
-     _LTR  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
+     _LTR  ¡     xxx   xxx   xxx   xxx   | xxx    🙂😃  👍    👎    ⍨🙁   Bspc
      LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
      LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
      ---------------------------------------------------------
