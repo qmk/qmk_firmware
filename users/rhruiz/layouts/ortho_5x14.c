@@ -50,7 +50,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT_ortho_5x14_kc(
     GRV,  1,    2,    3,    4,    5,    6,    _TGN, 7,    8,    9,    0,    MINS, EQL,
-    TAB,  Q,    W,    E,    R,    T,    _TAP, _TAN, Y,    U,    I,    O,    P,    BSPC,
+    TAB,  Q,    W,    E,    R,    T,    LBRC, _TAN, Y,    U,    I,    O,    P,    BSPC,
     CESC, A,    S,    D,    F,    G,    PGUP, ENT , H,    J,    K,    L,    SCLN, QUOT,
     LSFT, Z,    X,    C,    V,    B,    PGDN, BSLS, N,    M,    COMM, DOT,  SLSH, ENTS,
     _FN2, _FN1, LCTL, LALT, LGUI, SFN1, SFN1, BFN2, BFN2, RGUI, LEFT, DOWN, UP,   RFN1
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_KEY_OVERRIDE] = LAYOUT_ortho_5x14_kc(
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
-    ____, ____, ____, ____, UNDS, EQL , ____,   ____, ____, LPRN, RPRN, ____, ____, DEL ,
+    ____, ____, ____, ____, UNDS, EQL , RBRC,   _TAP, ____, LPRN, RPRN, ____, ____, DEL ,
     ____, ____, ____, ____, MINS, PLUS, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
     ____, ____, ____, ____, PIPE, BSLS, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN1] = LAYOUT_ortho_5x14_kc(
     ____, EXLM, AT  , HASH, DLR , PERC, CIRC,   ____, AMPR, ASTR, LPRN, RPRN, ____, ____,
-    ____, ____, ____, ____, ____, ____, _TAN,   RBRC, ____, ____, ____, LBRC, RBRC, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LBRC, RBRC, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN2] = LAYOUT_ortho_5x14_kc(
     ____, F1  , F2  , F3  , F4  , F5  , F6  ,   ____, F7  , F8  , F9  , F10 , F1  , F12 ,
-    ____, ____, ____, ____, ____, ____, LBRC,   _TAP, ____, ____, ____, LCBR, RCBR, ____,
+    ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, LCBR, RCBR, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, ____, ____
