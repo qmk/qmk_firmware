@@ -251,7 +251,7 @@ Git はファイルの内容ではなく *ファイルへの変更* を直接追
 <p>Need help? Email support@webhost.us.</p>
 ```
 
-Now run:
+そしてコマンド実行:
 
 ```
 git add conflicting_file_1.txt
