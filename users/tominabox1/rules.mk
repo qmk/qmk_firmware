@@ -47,3 +47,13 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 endif
+
+ifeq ($(strip $(KEYBOARD)), hhkb)
+MOUSEKEY_ENABLE = no        # Mouse keys
+EXTRAKEY_ENABLE = yes        # Audio control and System control
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
+TAP_DANCE_ENABLE = no
+COMBO_ENABLE = yes
+BOOTLOADER = halfkay
+endif
