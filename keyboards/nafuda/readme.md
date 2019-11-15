@@ -5,7 +5,7 @@
 This is 7 keys cursor macropad. 
 
 * Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)
-Hardware Supported: Nafuda PCB, Pro Micro  
+* Hardware Supported: Nafuda PCB, Pro Micro
 Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1271706)
 
 Make example for this keyboard (after setting up your build environment):
