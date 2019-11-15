@@ -65,7 +65,7 @@ git commit -m "My commit message."
 
 `git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance.
 
-!> If you've changed a lot of files, but all the files are part of the same change, you can use `git add .` to add all the changed files that are in your current directory, rather than having to add each file individually.
+!> If you've changed multiple files, you can use `git add -- path/to/file1 path/to/file2 ...` to add all your desired files.
 
 ## Publishing Your Changes
 
