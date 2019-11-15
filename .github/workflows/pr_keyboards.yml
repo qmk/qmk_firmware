@@ -14,8 +14,6 @@ jobs:
     container: qmkfm/base_container
 
     steps:
-      env:
-        MAKEFLAGS: '-j --output-sync'
     - uses: actions/checkout@v1
       with:
         submodules: recursive
@@ -24,4 +22,6 @@ jobs:
         git rev-parse --short HEAD
         git diff remotes/origin/${{ github.base_ref }} --name-only
     - name: Run build
+      env:
+        MAKEFLAGS: '-j --output-sync'
       run: make all:default
