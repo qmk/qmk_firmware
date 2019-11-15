@@ -164,7 +164,7 @@ bool led_update_kb(led_t led_state) {
 
 ### Example `led_update_user()` Implementation
 
-This incomplete example, would play a sound if capslock was turned on or off. It returns true, because you also want the LEDs to maintain their state.
+This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
 
 ```c
 #ifdef AUDIO_ENABLE
