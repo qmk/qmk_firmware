@@ -26,9 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Sol
 #define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
+/* ws2812 RGB LED */
+#define RGB_DI_PIN B3
+
 #ifdef LED_MIRRORED
   #define RGBLED_NUM 35
 #else
   #define RGBLED_NUM 70
 #endif
 #define DRIVER_LED_TOTAL  RGBLED_NUM
+
+#define RGB_MATRIX_CENTER { 112, 35 }
+
+// Encoder support
+#define ENCODERS_PAD_A { D2 }
+#define ENCODERS_PAD_B { D6 }

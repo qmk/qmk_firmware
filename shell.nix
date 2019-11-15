@@ -1,14 +1,33 @@
-# dfu-programmer doesn't have darwin on it's list of supported platforms
-{ pkgs ? import <nixpkgs> { config = { allowUnsupportedSystem = true; }; }
-, avr ? true, arm ? true, teensy ? true }:
+{ avr ? true, arm ? true, teensy ? true }:
+
+let
+  overlay = self: super:
+    let addDarwinSupport = pkg: pkg.overrideAttrs (oldAttrs: {
+      meta.platforms = (oldAttrs.meta.platforms or []) ++ self.lib.platforms.darwin;
+    });
+    in {
+      dfu-programmer = addDarwinSupport super.dfu-programmer;
+      teensy-loader-cli = addDarwinSupport super.teensy-loader-cli;
+
+      avrgcc = super.avrgcc.overrideAttrs (oldAttrs: rec {
+        name = "avr-gcc-8.1.0";
+        src = super.fetchurl {
+          url = "mirror://gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz";
+          sha256 = "0lxil8x0jjx7zbf90cy1rli650akaa6hpk8wk8s62vk2jbwnc60x";
+        };
+      });
+    };
+
+  nixpkgs = builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/0260747427737b980f0.tar.gz";
+    sha256 = "1p2yc6b40xvvxvmlqd9wb440pkrimnlc2wsbpa5rddlpx1dn8qmf";
+  };
+
+  pkgs = import nixpkgs { overlays = [ overlay ]; };
+in
 
 with pkgs;
-let
-  avrbinutils = pkgsCross.avr.buildPackages.binutils;
-  avrlibc = pkgsCross.avr.libcCross;
-  gcc-arm-embedded = pkgsCross.arm-embedded.buildPackages.gcc;
-
-  avr_incflags = [
+let avr_incflags = [
     "-isystem ${avrlibc}/avr/include"
     "-B${avrlibc}/avr/lib/avr5"
     "-L${avrlibc}/avr/lib/avr5"
@@ -17,19 +36,11 @@ let
     "-B${avrlibc}/avr/lib/avr51"
     "-L${avrlibc}/avr/lib/avr51"
   ];
-  avrgcc = pkgsCross.avr.buildPackages.gcc.overrideAttrs (oldAttrs: rec {
-    name = "avr-gcc-8.1.0";
-    src = fetchurl {
-      url = "mirror://gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz";
-      sha256 = "0lxil8x0jjx7zbf90cy1rli650akaa6hpk8wk8s62vk2jbwnc60x";
-    };
-  });
 in
-
 stdenv.mkDerivation {
   name = "qmk-firmware";
 
-  buildInputs = [ dfu-programmer dfu-util diffutils git ]
+  buildInputs = [ dfu-programmer dfu-util diffutils git python3 ]
     ++ lib.optional avr [ avrbinutils avrgcc avrlibc avrdude ]
     ++ lib.optional arm [ gcc-arm-embedded ]
     ++ lib.optional teensy [ teensy-loader-cli ];

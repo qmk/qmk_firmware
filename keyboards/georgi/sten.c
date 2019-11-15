@@ -11,6 +11,18 @@ uint32_t pChord 		= 0;		// Previous Chord
 int		 pChordIndex 	= 0;		// Keys in previousachord
 uint32_t pChordState[32];			// Previous chord sate 
 uint32_t stickyBits = 0;			// Or'd with every incoming press
+#ifndef NO_DEBUG
+char debugMsg[32];
+#endif
+
+// StenoLayer
+uint32_t releasedChord	= 0;		// Keys released from current chord
+uint32_t tChord			= 0;		// Protects state of cChord
+
+#ifndef STENOLAYERS
+uint32_t stenoLayers[] = { PWR };
+size_t 	 stenoLayerCount = sizeof(stenoLayers)/sizeof(stenoLayers[0]);
+#endif
 
 // Mode state
 enum MODE { STENO = 0, QWERTY, COMMAND };
@@ -241,7 +253,7 @@ uint32_t processFakeSteno(bool lookup) {
 	P( RB,				SEND(KC_K););
 	P( RG,				SEND(KC_L););
 	P( RS,				SEND(KC_SCLN););
-	P( RZ,				SEND(KC_COMM););
+	P( RZ,				SEND(KC_QUOT););
 	P( LNO,				SEND(KC_1););
 	P( RNO,				SEND(KC_1););
 

@@ -77,3 +77,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void keyboard_post_init_user(void) {
     keyboard_post_init_user_local();
 }
+
+
+// default functions
+__attribute__ ((weak))
+void keyboard_post_init_user_local(void) {}
+
+__attribute__ ((weak))
+uint32_t layer_state_set_user_local(uint32_t state) {
+    return state;
+}

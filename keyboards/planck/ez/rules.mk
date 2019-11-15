@@ -1,8 +1,5 @@
-# Cortex version
-MCU  = STM32F303
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+# MCU name
+MCU = STM32F303
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in

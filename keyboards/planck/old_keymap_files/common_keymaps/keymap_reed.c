@@ -1,5 +1,8 @@
 #include "keymap.h"
 
+#define KC_MO2 MO(2)
+#define KC_MO3 MO(3)
+
 /*
  * BUILD:
  * Simply run the command below in the keyboards/planck directory
@@ -23,30 +26,27 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   TAB,  A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, FN5,
-  LCTL, CAPS, LALT, LGUI, FN2, FN7,  SPC,  FN1,   LEFT, DOWN, UP,  RGHT),
+  LCTL, CAPS, LALT, LGUI, MO3, FN7,  SPC,  MO2,   LEFT, DOWN, UP,  RGHT),
 
 [1] = KEYMAP_GRID( /* Reed EXTREME GAMING */
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   TAB,  A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, FN5,
-  LCTL, 1,    2,    3,    4,   SPC,  FN2,  FN1,   LEFT, DOWN, UP,  RGHT),
+  LCTL, 1,    2,    3,    4,   SPC,  MO3,  MO2,   LEFT, DOWN, UP,  RGHT),
 
 [2] = KEYMAP_GRID( /* Reed RAISE */
   GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    BSPC,
   TRNS, FN3, FN4, PAUSE, TRNS, TRNS, TRNS, MINS, EQL,  LBRC, RBRC,  BSLS,
   TRNS, F1,   F2,    F3,   F4,   F5,   F6,   F7,  F8,    F9,  F10,  TRNS,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN1, MNXT, VOLD, VOLU, MPLY),
+  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, MO2, MNXT, VOLD, VOLU, MPLY),
 
 [3] = KEYMAP_GRID( /* Reed LOWER */
   TRNS,  FN10, FN11, FN12, FN13, FN14, FN15, FN16, FN17, FN18, FN19, DEL,
   TRNS,  TRNS, INS, HOME, PGUP, TRNS, TRNS, FN20, FN21, FN23, FN24, FN28,
   TRNS,  TRNS, DEL,  END, PGDN,  F11,  F12,  F13,  TRNS, VOLD, VOLU, TRNS,
-  TRNS,  TRNS, TRNS, TRNS, FN2,  TRNS, TRNS, TRNS, MPRV, MUTE, MPLY, MNXT),
+  TRNS,  TRNS, TRNS, TRNS, MO3,  TRNS, TRNS, TRNS, MPRV, MUTE, MPLY, MNXT),
 };
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay - RAISE
-    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay - LOWER
-
     [3] = ACTION_DEFAULT_LAYER_SET(0),
     [4] = ACTION_DEFAULT_LAYER_SET(1),
 	// Actions for the tap/hold modifiers listed above

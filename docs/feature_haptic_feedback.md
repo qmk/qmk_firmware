@@ -22,13 +22,16 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 | Name      | Description                                           |
 |-----------|-------------------------------------------------------|
 |`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback off                              |
 |`HPT_TOG`  | Toggle haptic feedback on/off                         |
 |`HPT_RST`  | Reset haptic feedback config to default               |
 |`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
 |`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
 |`HPT_MODI` | Go to next DRV2605L waveform                          |
 |`HPT_MODD` | Go to previous DRV2605L waveform                      |
+|`HPT_CONT` | Toggle continuous haptic mode on/off                  |
+|`HPT_CONI` | Increase DRV2605L continous haptic strength           |
+|`HPT_COND` | Decrease DRV2605L continous haptic strength           |
 |`HPT_DWLI` | Increase Solenoid dwell time                          |
 |`HPT_DWLD` | Decrease Solenoid dwell time                          |
 
@@ -145,3 +148,7 @@ If haptic feedback is enabled, the keyboard will vibrate to a specific sqeuence 
 #define DRV_MODE_DEFAULT *sequence name or number*
 ```
 This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.
+
+### DRV2605L Continuous Haptic Mode
+
+This mode sets continuous haptic feedback with the option to increase or decrease strength. 
