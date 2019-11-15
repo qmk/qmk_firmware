@@ -24,4 +24,4 @@ jobs:
     - name: Run build
       env:
         MAKEFLAGS: '-j --output-sync'
-      run: make all:default
+      run: git diff remotes/origin/${{ github.base_ref }} --name-only | ./util/build_changes.sh
