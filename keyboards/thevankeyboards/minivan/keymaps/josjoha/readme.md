@@ -64,7 +64,7 @@ keymap.
      LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------
-     Left+LAlt Del   ___   Sht(tab) | tab   ___   ___   Right+RAlt
+     Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
                      -*-           <|>                                        // Accessed by -*- (hold)
      <1        <2    <3    <4       | 4>    3>    2>    1>  
     
@@ -105,7 +105,7 @@ keymap.
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------------------
-     LAlt+Left Del   Linux Ent  | Spc   ___   ___   RAlt+Right
+     LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                  -*-                    // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
