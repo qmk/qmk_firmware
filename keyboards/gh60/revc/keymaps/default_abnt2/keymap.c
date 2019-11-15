@@ -64,9 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_scan_user(void) {
 
-//Layer LED indicators
-    uint32_t layer = layer_state;
-
     if (layer_state_is(_FL)) {
         gh60_wasd_leds_on();
         gh60_fn_led_on();
