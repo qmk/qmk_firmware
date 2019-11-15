@@ -110,7 +110,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     if (!rgb_layers_enabled) {
         return state;
     }
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _Base:
         if (rgb_L0_enabled) {
             rgblight_sethsv_noeeprom(_Base_HSV_ON);
