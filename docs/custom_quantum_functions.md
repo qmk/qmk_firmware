@@ -122,7 +122,7 @@ Some examples include:
   - overriding the LEDs to use them for something else like layer indication
     - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
   - play a sound when an LED turns on or off.
-    - return true because you want the `_kb` function to run and this is in addition to the default LED behavior.
+    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
 
 ?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
 
