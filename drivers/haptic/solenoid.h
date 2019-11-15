@@ -29,10 +29,6 @@
 #    define SOLENOID_MIN_DWELL 4
 #endif
 
-#ifndef SOLENOID_ACTIVE
-#    define SOLENOID_ACTIVE false
-#endif
-
 #ifndef SOLENOID_PIN
 #    error SOLENOID_PIN not defined
 #endif
