@@ -185,7 +185,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
         #ifndef FLASH_BOOTLOADER
             if ( (temp_mod | temp_osm) & MOD_MASK_SHIFT ) {
-                SEND_STRING(":flash")
+                SEND_STRING(":flash");
             }
         #endif
             if ( (temp_mod | temp_osm) & MOD_MASK_CTRL) {
