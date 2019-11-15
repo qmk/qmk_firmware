@@ -105,7 +105,7 @@ keymap.
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------------------
-     LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   RAlt+Right
+     LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   ___
                                <|>                  -*-                    // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
