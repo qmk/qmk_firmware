@@ -1,6 +1,6 @@
 #include "kinesis.h"
 
-// begin section origin  https://github.com/alvicstep/tmk_keyboard 
+// begin section origin  https://github.com/alvicstep/tmk_keyboard
 
 void all_led_off(void)
 {
@@ -63,7 +63,7 @@ void blink_all_leds(void)
         all_led_off();
 }
 
-// End section origin  https://github.com/alvicstep/tmk_keyboard 
+// End section origin  https://github.com/alvicstep/tmk_keyboard
 
  void matrix_init_kb(void) {
 	  blink_all_leds();
@@ -74,7 +74,7 @@ void blink_all_leds(void)
 void matrix_scan_kb(void) {
 	// put your looping keyboard code here
 	// runs every cycle (a lot)
-	
+
 	matrix_scan_user();
 }
 

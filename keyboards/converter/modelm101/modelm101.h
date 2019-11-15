@@ -20,7 +20,7 @@
 /* This a shortcut to help you visually see your layout.
  * The first section contains "names" for physical keys of the keyboard
  * and defines their position on the board.
- * The second section defines position of the keys on the switch matrix 
+ * The second section defines position of the keys on the switch matrix
  * (where COLUMNS and ROWS crosses). */
 
 #define LAYOUT( \

@@ -40,25 +40,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,   KC_NO,               KC_ENT,    \
       KC_LSFT,  KC_LGUI, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,  KC_UP,     MO(1),     \
       KC_LCTL,  TD(0),   KC_LALT,                            KC_SPC ,                             KC_RALT,  KC_RCTRL,  KC_LEFT,  KC_DOWN,   KC_RIGHT),
-                                                                                                                                           
-  // 1: Function 1 Layers                                                                                                                  
-  LAYOUT_all(                                                                                                                                  
+
+  // 1: Function 1 Layers
+  LAYOUT_all(
       RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_PAUS,   KC_PSCR,    \
       KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,    \
       KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT,  KC_MSTP,  KC_TRNS,   KC_NO,               KC_TRNS,    \
       KC_TRNS, F(2),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,  KC_PGUP,   KC_TRNS,    \
       KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN, KC_END),
-                                                                                                                                           
-  // 2: GUI/Function 2 Layer                                                                                                                   
-  LAYOUT_all(                                                                                                                                  
+
+  // 2: GUI/Function 2 Layer
+  LAYOUT_all(
       KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_PAUS,    KC_PSCR,   \
       KC_TRNS, KC_TRNS, AC_G_W,  AC_G_E,  KC_TRNS, AC_G_T,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,              KC_TRNS,   \
       KC_TRNS, KC_TRNS, AC_G_S,  AC_G_D,  KC_TRNS, KC_TRNS, AC_G_H,  KC_TRNS, KC_TRNS, AC_G_L,   KC_TRNS,  KC_TRNS,   KC_NO,                KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_PGUP,    KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS,                            AC_G_SPC,                            KC_TRNS,  KC_TRNS,   KC_HOME,  KC_PGDOWN,  KC_END),
-                                                                                                                                           
-  // 3: NumPad/Function 3 Toggle Layer                                                                                                                   
-  LAYOUT_all(                                                                                                                                  
+
+  // 3: NumPad/Function 3 Toggle Layer
+  LAYOUT_all(
       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_7,    KC_8,    KC_9,     KC_PSLS,  KC_PMNS,   KC_PPLS,  KC_TRNS,    KC_TRNS,   \
       KC_TRNS, KC_NO,   KC_NO,   RGB_HUI, RGB_SAI, RGB_VAI, KC_NO,   KC_4,    KC_5,    KC_6,     KC_PAST,  KC_NO,     KC_NO,                KC_NO,     \
       KC_TRNS, KC_NO,   KC_NO,   RGB_HUD, RGB_SAD, RGB_VAD, KC_NO,   KC_1,    KC_2,    KC_3,     KC_PMNS,  KC_PENT,   KC_NO,                KC_TRNS,   \
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_NO,   KC_TRNS, KC_NO,                              KC_TRNS,                             KC_PENT,  KC_PENT,   KC_TRNS,  KC_TRNS,    KC_TRNS)  ,
 
 // TRaNSparent layer for reference
-/*  LAYOUT_all(                                                                                                                                  
+/*  LAYOUT_all(
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,              KC_TRNS,   \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,                KC_TRNS,   \
@@ -178,8 +178,8 @@ static bool del_blocked = false; // Static as to not be defined elsewhere
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode){
     #ifdef ISOLIKE_ALT_ENTER
-    // RALT + ENT is the same as RALT+BSLS. 
-    // For logical placement of *{* and *}* (the former being RALT+BSLS) with ANSI enter on 
+    // RALT + ENT is the same as RALT+BSLS.
+    // For logical placement of *{* and *}* (the former being RALT+BSLS) with ANSI enter on
     // ISO-based Canadian Multilingual layout (or any other ISO layout on ANSI keyboards).
     case KC_ENT:    return special_mods(KC_BSLS, record, KC_RALT);  // RALT + ENT -> RALT + BSLS            // See comment above
     #endif

@@ -14,9 +14,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License.
  * You may obtain a copy of the Licence at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -101,7 +101,7 @@
 
 /* ========== Instance parameters for HMATRIX peripheral ========== */
 #define HMATRIX_CLK_AHB_ID          5        // Index of AHB Clock in MCLK.AHBMASK register (MASK may be tied to 1 depending on chip integration)
-#define HMATRIX_DEFINED                     
+#define HMATRIX_DEFINED
 /* ========== Instance parameters for HMATRIX ========== */
 #define HMATRIX_SLAVE_FLASH         0
 #define HMATRIX_SLAVE_FLASH_ALT     1

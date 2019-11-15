@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LCTRL  | DEL    | LALT   | WIN    | FN1    | SPACE  | LEFT   | DOWN   | RIGHT  | SPACE  | FN2    | LEFT   | DOWN   | UP     | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_QW] = { /* QWERTY */
   { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_GRV,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC  },
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_BSLS, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_ENT   },
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_UP,   KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC  },
   { KC_LCTL, KC_DEL,  KC_LALT, KC_LGUI, MO(_FN1),KC_SPC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,  MO(_FN2),KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT },
  },
- 
+
 /* NUMPAD
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        | /      | *      | -      |        |        |        |        |        |        |
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        | 0      | +      | .      |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
- */  
+ */
 
   [_NP] = { /* NUMPAD */
   { _______, _______, _______, _______, _______, _______, KC_SLSH, KC_ASTR, KC_MINS, _______, _______, _______, _______, _______, _______  },
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |RGB MODE|RGB MODE|        |        | PREV   | VOL UP |VOL DOWN| NEXT   |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_FN1] = { /* FUNCTION1 */
   { KC_GRV , KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC  },
   { KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,   RESET, RGB_HUD, RGB_HUI, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL   },
@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |RGB MODE|RGB MODE|        |        | PREV   | VOL UP |VOL DOWN| NEXT   |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
- */    
- 
+ */
+
  [_FN2] = { /* FUNCTION2 */
   {  KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______, _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC  },
   {  KC_GRV, _______, _______,   KC_UP, _______, _______,   RESET, RGB_HUD, RGB_HUI, TG(_NP), _______, _______, _______, _______, KC_DEL   },

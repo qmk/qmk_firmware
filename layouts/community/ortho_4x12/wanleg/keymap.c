@@ -30,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [PAD] = LAYOUT_ortho_4x4_wrapper(
-  _______________NUMPAD_Row__0_______________, 
-  _______________NUMPAD_Row__1_______________, 
-  _______________NUMPAD_Row__2_______________, 
+  _______________NUMPAD_Row__0_______________,
+  _______________NUMPAD_Row__1_______________,
+  _______________NUMPAD_Row__2_______________,
   _______________NUMPAD_Row__3_______________
 ),
 

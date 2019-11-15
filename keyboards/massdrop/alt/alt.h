@@ -33,4 +33,4 @@
         } \
     }
 
-#define LAYOUT LAYOUT_65_ansi_blocker // Ensure that user made existing keymaps do not break. 
+#define LAYOUT LAYOUT_65_ansi_blocker // Ensure that user made existing keymaps do not break.

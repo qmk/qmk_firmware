@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),BL_TOGG, BL_INC, BL_DEC, \
 		_______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
 		),
-	
+
 	/* Function Layer 1 HHKB style
      * ,-----------------------------------------------------------.
      * |Caps|    |MSel| ⏮ | ⏯ | ⏭ |PSCR|SkLk|Paus|  ↑ | Ins| Del|
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, KC_DEL, \
 		_______, KC_TRNS, _______, KC_TRNS, KC_TRNS, _______, _______, RGB_TOG \
 		),
-	
+
 	/* Function Layer 1 HHKB style
      * ,-----------------------------------------------------------.
      * |Caps|    |MSel| ⏮ | ⏯ | ⏭ |PSCR|SkLk|Paus|  ↑ | Ins| Del|
@@ -94,14 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_SYSTEM_SLEEP, _______, _______, _______, _______, _______, _______, _______ \
 		),
 
-    
+
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- 
+
   switch (keycode) {
-    
+
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

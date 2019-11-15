@@ -21,7 +21,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TRNS, TRNS, TRNS, TRNS, MO3,    TRNS,     TRNS, TRNS, TRNS, TRNS, TRNS),
 };
 const uint16_t PROGMEM fn_actions[] = {
-    [3] = ACTION_DEFAULT_LAYER_SET(0),  
+    [3] = ACTION_DEFAULT_LAYER_SET(0),
     [4] = ACTION_DEFAULT_LAYER_SET(1),
 
     [10] = ACTION_MODS_KEY(MOD_LSFT, KC_1),

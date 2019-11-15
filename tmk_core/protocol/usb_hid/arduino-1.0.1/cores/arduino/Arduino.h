@@ -45,8 +45,8 @@ extern "C"{
 #define DEFAULT 0
 #define EXTERNAL 1
 #define INTERNAL 2
-#else  
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1284P__) 
+#else
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1284P__)
 #define INTERNAL1V1 2
 #define INTERNAL2V56 3
 #else
@@ -135,7 +135,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 // Get the bit location within the hardware port of the given virtual pin.
 // This comes from the pins_*.c file for the active board configuration.
-// 
+//
 // These perform slightly better as macros compared to inline functions
 //
 #define digitalPinToPort(P) ( pgm_read_byte( digital_pin_to_port_PGM + (P) ) )
@@ -178,7 +178,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #define TIMER4A 11
 #define TIMER4B 12
 #define TIMER4C 13
-#define TIMER4D 14	
+#define TIMER4D 14
 #define TIMER5A 15
 #define TIMER5B 16
 #define TIMER5C 17

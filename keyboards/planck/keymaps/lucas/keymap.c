@@ -1,7 +1,7 @@
-/* 
+/*
 This is the keymap of /u/deepshitgoeshere!
 Layer 1 exists so I can have the symbol positions of QWERTY while having my system in german.
-The second layer has all the german umlauts I need and with capital and small letters on the 
+The second layer has all the german umlauts I need and with capital and small letters on the
 same layer there is no need to press shift+lower.
 This keymap is made to work with software implemented QWERTZ.
 The "Gaming" layer is mainly customized for CS:GO.
@@ -15,7 +15,7 @@ If you have any question about this keymap feel free to shoot me a message on re
 #include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = { /* Colemak   
+[0] = { /* Colemak
     * ,-----------------------------------------------------------------------.
     * | Esc | q   | w   | f   | p   | g   | j   | l   | u   | y   | ;   |  -  |
     * |-----------------------------------------------------------------------|
@@ -63,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_MSTP,  KC_MPRV,  KC_MNXT, RALT(KC_F11)},
   {KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_MUTE,  KC_VOLD,  KC_VOLU, KC_MPLY}
 },
-[3] = { /* Lower 
+[3] = { /* Lower
     * ,-----------------------------------------------------------------------.
     * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |  +  |
-    * |-----------------------------------------------------------------------| 
+    * |-----------------------------------------------------------------------|
     * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  =  |
     * |-----------------------------------------------------------------------|
     * |     |     |     |  |  |  [  |  ]  |  {  |  }  |  €  |     |  \  | Ent |
@@ -85,9 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----------------------------------------------------------------------|
     * | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |
     * |-----------------------------------------------------------------------|
-    * |     |     |     |     |     | KP- | KP+ |     |     |     |     |Reset| 
+    * |     |     |     |     |     | KP- | KP+ |     |     |     |     |Reset|
     * |-----------------------------------------------------------------------|
-    * |     |Light|BL DN|BL UP|     |     |     |     |Mute |Vol- |Vol+ | P/P | 
+    * |     |Light|BL DN|BL UP|     |     |     |     |Mute |Vol- |Vol+ | P/P |
     * `-----------------------------------------------------------------------'
     */
   {KC_F13, KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24},
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LCTL, KC_LSFT, KC_Y,   KC_X,    KC_C,  KC_V,   KC_B,   KC_N,         KC_M,    DE_DOT,  KC_UP,   DE_SLSH},
   {KC_NO,   KC_NO,   KC_TAB, KC_LALT, KC_NO, KC_SPC, KC_SPC, LCTL(KC_SPC), KC_LGUI, KC_LEFT, KC_DOWN, KC_RGHT}
 },
-[6] = { /* Gaming 
+[6] = { /* Gaming
          * CS:GO buy binds
     * ,-----------------------------------------------------------------------.
     * |     |     |     |     |     |     |     |     |  7  |  8  |  9  |     |
@@ -136,7 +136,7 @@ const uint16_t PROGMEM fn_actions[] = {
 	[5] = ACTION_MODS_TAP_KEY(KC_LSFT, KC_CAPS),  //Shift on press, Caps on tap
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   switch(id) {
     case 0: // M(0)
@@ -147,7 +147,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(1);
             unregister_code(KC_LSFT);
         }
-        break;       
+        break;
     case 1: // M(1)
         if (record->event.pressed) {
             unregister_code(KC_LSFT);
@@ -155,8 +155,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         } else {
             unregister_code(DE_LESS);
         }
-        break;    
+        break;
   }
   return MACRO_NONE;
 
-};          
+};

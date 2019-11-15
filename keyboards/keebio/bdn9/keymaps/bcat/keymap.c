@@ -27,7 +27,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         case 0:
             tap_code(clockwise ? KC_VOLU : KC_VOLD);
             break;
-    
+
         /* Top-right encoder (backlight brightness) */
         case 1:
             if (clockwise) {

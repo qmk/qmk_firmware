@@ -58,7 +58,7 @@ static uint8_t matrix          [MATRIX_ROWS] = {0};
 
 #if ( DEBOUNCE > 0 )
 static uint8_t matrix_debounce [MATRIX_ROWS] = {0};
-#endif 
+#endif
 
 static
 inline
@@ -144,18 +144,18 @@ inline
 uint8_t matrix_strobe(uint8_t col_index) {
     uint8_t strobe_pin = MATRIX_STROBE_PIN ;
     uint8_t data_pin   = MATRIX_DATA_PIN   ;
-    
+
     // set strobe pin low
     _SFR_IO8((strobe_pin >> 4) + 2) &=  ~_BV(strobe_pin & 0xF);
-    
+
     wait_us(30) ;
-    
-    // read data 
+
+    // read data
     uint8_t data = (_SFR_IO8(data_pin >> 4) & _BV(data_pin & 0xF)) ;
-    
+
     // set strobe pin hi
     _SFR_IO8((strobe_pin >> 4) + 2) |= _BV(strobe_pin & 0xF);
-    
+
     uint8_t out = data ? (1 << col_index) : 0 ;
     return out ;
 }
@@ -174,7 +174,7 @@ bool matrix_read(uint8_t current_matrix[], uint8_t current_row) {
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; ++col_index) {
 
         select_col(col_index) ;
-        
+
         // strobe the matrix
         // Populate the matrix row with the state of the data pin
         current_matrix[current_row] |= matrix_strobe(col_index) ;
@@ -195,7 +195,7 @@ void matrix_scan_quantum(void) {
 }
 
 __attribute__ ((weak))
-void matrix_init_kb(void) {    
+void matrix_init_kb(void) {
     matrix_init_user();
 }
 
@@ -228,12 +228,12 @@ uint8_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_init(void) {
-    init_led()    ;   
+    init_led()    ;
     init_rows()   ;
     init_cols()   ;
     init_data()   ;
     init_strobe() ;
-    
+
     // initialize matrix state: all keys off
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix[i]            = 0;
@@ -245,21 +245,21 @@ void matrix_init(void) {
     matrix_init_quantum() ;
 }
 
-uint8_t matrix_scan(void) { 
+uint8_t matrix_scan(void) {
     for ( uint8_t current_row = 0; current_row < MATRIX_ROWS; ++current_row ) {
 #       if (DEBOUNCE > 0)
             bool matrix_changed = matrix_read(matrix_debounce, current_row);
-            
+
             if (matrix_changed) {
                 debouncing      = true        ;
                 debouncing_time = timer_read();
             }
-                        
+
 #       else
             matrix_read(matrix, current_row);
 #       endif
     }
-    
+
 #   if (DEBOUNCE > 0)
         if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCE)) {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {

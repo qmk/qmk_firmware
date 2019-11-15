@@ -93,10 +93,10 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
       PLAY_SONG(tone_qwerty);
     } else if (state == 1UL<<_NUMPAD) {
       PLAY_SONG(tone_numpad);
-    }    
+    }
     return state;
 }
 #endif
 
-void led_set_keymap(uint8_t usb_led) {  
+void led_set_keymap(uint8_t usb_led) {
 }

@@ -25,7 +25,7 @@ enum xt_keycodes
     , XT_F9                // F9 / F11
     , XT_F10               // F10 / F12
     } ;
-    
+
 static bool shift_pressed   = false ,
             alt_pressed     = false ,
             ctrl_pressed    = false ,
@@ -48,7 +48,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
         break;
-        
+
     case KC_LALT:
         if (record->event.pressed) {
             alt_pressed = true ;
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
         break;
-        
+
     case KC_LCTL:
         if (record->event.pressed) {
             ctrl_pressed = true ;
@@ -66,7 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
         break;
-    
+
     case XT_PAST:
         if (record->event.pressed) {
             if (shift_pressed) {
@@ -85,7 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-      
+
     case XT_SLCK:
         if (record->event.pressed) {
             if (ctrl_pressed) {
@@ -104,7 +104,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    
+
     case XT_F6:
         if (record->event.pressed) {
             if (shift_pressed) {
@@ -123,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    
+
     case XT_F5:
         if (record->event.pressed) {
             if (shift_pressed) {
@@ -150,7 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    
+
     case XT_F9:
         if (record->event.pressed) {
             if (shift_pressed) {
@@ -169,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    
+
     case XT_F10:
         if (record->event.pressed) {
             if (shift_pressed) {
@@ -188,16 +188,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    
+
     default:
         return true;
         break;
   }
-  
+
   return true;
 }
 */
-    
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // default layout is the standard XT layout
 /*
@@ -216,18 +216,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
     [0] = LAYOUT (
         KC_F1,KC_F2, KC_ESC, KC_1,   KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,      KC_NLCK,       XT_SLCK,
-        KC_F3,KC_F4, KC_TAB, KC_Q,   KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,   KC_P,   KC_LBRC,KC_RBRC,        KC_P7,KC_P8,  KC_P9, KC_PMNS, 
-        XT_F5,XT_F6, KC_LCTL,KC_A,   KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,   KC_SCLN,KC_QUOT,KC_GRV, KC_ENT, KC_P4,KC_P5,  KC_P6,           
-        KC_F7,KC_F8, KC_LSFT,KC_BSLS,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,XT_PAST,KC_P1,KC_P2,  KC_P3, KC_PPLS, 
-        XT_F9,XT_F10,KC_LALT,                              KC_SPACE,                                    KC_CAPS,      KC_P0,  KC_PDOT           
+        KC_F3,KC_F4, KC_TAB, KC_Q,   KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,   KC_P,   KC_LBRC,KC_RBRC,        KC_P7,KC_P8,  KC_P9, KC_PMNS,
+        XT_F5,XT_F6, KC_LCTL,KC_A,   KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,   KC_SCLN,KC_QUOT,KC_GRV, KC_ENT, KC_P4,KC_P5,  KC_P6,
+        KC_F7,KC_F8, KC_LSFT,KC_BSLS,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,XT_PAST,KC_P1,KC_P2,  KC_P3, KC_PPLS,
+        XT_F9,XT_F10,KC_LALT,                              KC_SPACE,                                    KC_CAPS,      KC_P0,  KC_PDOT
     )
 */
     [0] = LAYOUT (
         KC_F1,KC_F2, KC_ESC, KC_1,   KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,      KC_NLCK,       KC_SLCK,
-        KC_F3,KC_F4, KC_TAB, KC_Q,   KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,   KC_P,   KC_LBRC,KC_RBRC,        KC_P7,KC_P8,  KC_P9, KC_PMNS, 
-        KC_F5,KC_F6, KC_LCTL,KC_A,   KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,   KC_SCLN,KC_QUOT,KC_GRV, KC_ENT, KC_P4,KC_P5,  KC_P6,           
-        KC_F7,KC_F8, KC_LSFT,KC_BSLS,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_PAST,KC_P1,KC_P2,  KC_P3, KC_PPLS, 
-        KC_F9,KC_F10,KC_LALT,                              KC_SPACE,                                    KC_CAPS,      KC_P0,  KC_PDOT           
+        KC_F3,KC_F4, KC_TAB, KC_Q,   KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,   KC_P,   KC_LBRC,KC_RBRC,        KC_P7,KC_P8,  KC_P9, KC_PMNS,
+        KC_F5,KC_F6, KC_LCTL,KC_A,   KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,   KC_SCLN,KC_QUOT,KC_GRV, KC_ENT, KC_P4,KC_P5,  KC_P6,
+        KC_F7,KC_F8, KC_LSFT,KC_BSLS,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_PAST,KC_P1,KC_P2,  KC_P3, KC_PPLS,
+        KC_F9,KC_F10,KC_LALT,                              KC_SPACE,                                    KC_CAPS,      KC_P0,  KC_PDOT
     )
 } ;
 

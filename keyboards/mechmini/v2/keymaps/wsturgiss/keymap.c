@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #define base 0
-#define raise 1 
+#define raise 1
 #define lower 2
 
 //Tap Dance Declarations
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[raise] = LAYOUT_2u_space_ortho(
 		_______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_DEL,
 		_______,    _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT, KC_QUOT,  _______,
-		_______,    KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,  
+		_______,    KC_HOME,  KC_END,   _______,  _______,  _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,
 		_______,    _______,  _______,  _______,  _______,      _______,        _______,  KC_MPRV,  _______,  KC_MNXT,  EEP_RST),
 
 	[lower] = LAYOUT_2u_space_ortho(

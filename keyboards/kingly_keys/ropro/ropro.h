@@ -12,9 +12,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * Note:  Matrix is a little wacky with the rotary encoder click mapping being
- * on the opposite side of the board.  Remember to pay attention to 
+ * on the opposite side of the board.  Remember to pay attention to
  * the 13th column where the lone key mapped for rotary encoder click (K132).
 */
 

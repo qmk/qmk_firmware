@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |symbol|N-Lock| End   |       | PgDn |       |      |
  *                                 `---------------------'       `---------------------'
  */
-[0] = LAYOUT_ergodox(  // layer 0 : default 
+[0] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,        KC_5,        KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_F,       KC_P,        KC_G,        TG(3),
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[1] = LAYOUT_ergodox(  // layer 1: QWERTY layer (games) 
+[1] = LAYOUT_ergodox(  // layer 1: QWERTY layer (games)
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_TRNS,
        KC_TRNS,        KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRNS,    KC_TRNS,
                                    KC_TRNS,
        KC_TRNS,        KC_TRNS,    KC_TRNS,
-       
+
     // right hand
        KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
        KC_TRNS,        KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_TRNS,

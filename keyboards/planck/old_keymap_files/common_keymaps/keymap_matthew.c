@@ -50,7 +50,7 @@ const uint16_t PROGMEM fn_actions[] = {
     // lower row1
     [17] = ACTION_MODS_KEY(MOD_LSFT, KC_5),        // %
     [18] = ACTION_MODS_KEY(MOD_LSFT, KC_SLASH),    // ?
-    
+
     // raise row0
     [19] = ACTION_MODS_KEY(MOD_LSFT, KC_2),        // @
     [20] = ACTION_MODS_KEY(MOD_LSFT, KC_BSLASH),   // |
@@ -58,7 +58,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [22] = ACTION_MODS_KEY(MOD_LSFT, KC_8),        // *
     [23] = ACTION_MODS_KEY(MOD_LSFT, KC_3),        // #
     [24] = ACTION_MODS_KEY(MOD_LSFT, KC_4),        // $
-    
+
     // raise row1
     [10] = ACTION_MODS_KEY(MOD_LSFT, KC_7),        // &
     [11] = ACTION_MODS_KEY(MOD_LSFT, KC_LBRACKET), // {

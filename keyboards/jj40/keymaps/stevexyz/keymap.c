@@ -87,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------|------+------+------+------+------+
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |      |      |   Z  |   X  |   C  |   V  |   B  |   N  |   M  | Space|      |      |
- * |      |      | Ctrl |  Alt | FnNav|NumSym| Shift|  Alt | Ctrl | Shift|      |      | 
+ * |      |      | Ctrl |  Alt | FnNav|NumSym| Shift|  Alt | Ctrl | Shift|      |      |
  * `-----------------------------------------------------------------------------------'
  */
   [LAYER_HOME] = LAYOUT_ortho_4x12(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-         XXXXXXX, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, XXXXXXX, 
+         XXXXXXX, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, XXXXXXX,
          XXXXXXX, MT(MOD_LSFT, KC_A), LT(LAYER_FUNC, KC_S), LT(LAYER_NUMSYM, KC_D), KC_F, MT(MOD_LGUI, KC_G), MT(MOD_RGUI, KC_H), KC_J, LT(LAYER_FUNC, KC_K), LT(LAYER_NUMSYM, KC_L), MT(MOD_RSFT, KC_ENT), XXXXXXX,
          XXXXXXX, XXXXXXX, MT(MOD_LCTL, KC_Z), MT(MOD_LALT, KC_X), LT(LAYER_FUNC, KC_C), LT(LAYER_NUMSYM, KC_V), MT(MOD_LSFT, KC_B), MT(MOD_RALT, KC_N), MT(MOD_RCTL, KC_M), MT(MOD_RSFT, KC_SPC), XXXXXXX, XXXXXXX ),
 
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------|------+------+------+------+------+
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |      |      | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |      |      |
- * |      |      | Ctrl |  Alt |xxxxxx|SysLay| Shift|  Alt | Ctrl | Shift|      |      | 
+ * |      |      | Ctrl |  Alt |xxxxxx|SysLay| Shift|  Alt | Ctrl | Shift|      |      |
  * `-----------------------------------------------------------------------------------'
  */
   [LAYER_FUNC] = LAYOUT_ortho_4x12(

@@ -149,7 +149,7 @@ static uint8_t read_rows(uint8_t col) {
             (PIND&(1<<5) ? (1<<4) : 0) |
             (PINB&(1<<7) ? (1<<5) : 0) |
             (col== 17 ? ((PINE&(1<<2) ? 0 : (1<<1))) : 0);
-    
+
 }
 
 uint8_t read_fwkey(void)
@@ -161,11 +161,11 @@ uint8_t read_fwkey(void)
  *
  * atmega32u4   decoder    pin
  *    PC6       U1         E3
- *    PB6       U2         E3    
+ *    PB6       U2         E3
  *    PF0       U1, U2     A0
  *    PF1       U1, U2     A1
  *    PC7       U1, U2     A2
- * 
+ *
  * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
  * col / pin:    PC6  PB6  PF0  PF1  PC7 Decoder  Pin
  * 0:             1    0    0    0    0    U1     Y0
@@ -184,7 +184,7 @@ uint8_t read_fwkey(void)
  * 12:            0    1    0    0    1    U2     Y4
  * 13:            0    1    1    0    1    U2     Y5
  * 14:            0    1    0    1    1    U2     Y6
- * 15:            0    1    1    1    1    U2     Y7       
+ * 15:            0    1    1    1    1    U2     Y7
  *
  */
 static void unselect_cols(void) {
@@ -199,7 +199,7 @@ static void unselect_cols(void) {
 }
 
 static void select_col(uint8_t col) {
- 
+
    switch (col) {
         case 0:
             PORTC |= 0b01000000;

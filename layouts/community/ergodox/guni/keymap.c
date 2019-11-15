@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RALT , KC_DOWN,KC_UP,  KC_NO  ,KC_RGUI,
         KC_NO  , KC_NO,
         KC_NO  ,
-        KC_FN29,KC_ENT ,KC_SPC 
+        KC_FN29,KC_ENT ,KC_SPC
     ),
 
     LAYOUT_ergodox(  // layer 1 : function and symbol keys
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS
     ),
 
-    LAYOUT_ergodox(  // layer 2: navigation 
+    LAYOUT_ergodox(  // layer 2: navigation
         // left hand
         KC_NO,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_PGUP,KC_HOME,KC_UP ,KC_END,KC_NO ,KC_TRNS,
@@ -121,16 +121,16 @@ enum function_id {
  */
 const uint16_t PROGMEM fn_actions[] = {
    	[0]   =  ACTION_FUNCTION(TEENSY_KEY),                    // FN0 - Teensy key
-	[1]   =  ACTION_LAYER_SET(0, ON_PRESS),              
+	[1]   =  ACTION_LAYER_SET(0, ON_PRESS),
        	//[11]  =  ACTION_MODS_KEY(MOD_LSFT, KC_COMM),
 	//[12]  =  ACTION_MODS_KEY(MOD_LSFT, KC_DOT),
-	
+
 	//[14]  =  ACTION_MODS_KEY(MOD_LSFT, KC_SLSH),
 	//[17]  =  ACTION_MODS_KEY(MOD_LSFT, KC_SCLN),
 	//[20]  =  ACTION_MODS_KEY(MOD_LSFT, KC_5),
 	//[21]  =  ACTION_MODS_KEY(MOD_LSFT, KC_QUOT),
 	[23]  =  ACTION_LAYER_SET(3, ON_PRESS),
-        [24]  =  ACTION_LAYER_SET(2, ON_PRESS),   
+        [24]  =  ACTION_LAYER_SET(2, ON_PRESS),
 	[25]  =  ACTION_MODS_TAP_KEY(MOD_LCTL, KC_TAB),
 	[26]  =  ACTION_LAYER_SET(1, ON_PRESS),
 	[27]  =	 ACTION_LAYER_TAP_KEY(1, KC_CAPS),
@@ -165,7 +165,7 @@ void matrix_init_user(void) {
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
-   
+
     if (id == TEENSY_KEY) {
         clear_keyboard();
         print("\n\nJump to bootloader... ");

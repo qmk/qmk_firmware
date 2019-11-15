@@ -48,12 +48,12 @@
 #if defined(LEADER_ENABLE)
 #  define LEADER_PER_KEY_TIMING
 #  define LEADER_TIMEOUT 250
-#endif // !LEADER_ENABLE 
+#endif // !LEADER_ENABLE
 
 #if defined(COMBO_ENABLE)
 #  define COMBO_COUNT 4
 #  define COMBO_TERM 150
-#endif // !COMBO_ENABLE 
+#endif // !COMBO_ENABLE
 
 #if defined(NKRO_ENABLE)
 #  define FORCE_NKRO
@@ -86,5 +86,5 @@
 
 #define TAP_CODE_DELAY 5
 
-#define MACRO_TIMER 5 
+#define MACRO_TIMER 5
 

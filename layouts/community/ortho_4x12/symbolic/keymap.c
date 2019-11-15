@@ -118,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* RaisePressed function */
     /* called RaiseSwitch  */
-void RaisePressed ( keyevent_t *event, bool brother_state ){ 
-  
+void RaisePressed ( keyevent_t *event, bool brother_state ){
+
   if( brother_state ) { return; }
 
   layer_on( _RAISE );
@@ -131,8 +131,8 @@ void RaisePressed ( keyevent_t *event, bool brother_state ){
 
   /* RaiseReleased function */
     /* called RaiseSwitch   */
-void RaiseReleased ( bool brother_state ){ 
-  
+void RaiseReleased ( bool brother_state ){
+
   if( brother_state ) { return; }
 
   layer_off( _RAISE );
@@ -143,7 +143,7 @@ void RaiseReleased ( bool brother_state ){
 
   /* RaiseSwitch function         */
     /* called process_record_user */
-bool RaiseSwitch ( keyrecord_t *record, bool *key_state, bool brother ){ 
+bool RaiseSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
 
   if( record -> event.pressed ) {
     *key_state = true;
@@ -176,7 +176,7 @@ void LowerPressed ( bool brother_state ){
 
   /* LowerReleased function  */
     /* call from LowerSwitch */
-void LowerReleased ( bool brother_state ){ 
+void LowerReleased ( bool brother_state ){
 
   if( brother_state ) { return; }
 
@@ -187,7 +187,7 @@ void LowerReleased ( bool brother_state ){
 
   /* LowerSwitch function            */
     /* call from process_record_user */
-bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){ 
+bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
   if ( record -> event.pressed ) {
     *key_state = true;
     LowerPressed( brother );

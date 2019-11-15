@@ -39,17 +39,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+-------+-------+--------|
     * |SHRUG |DISFACE| HRTFAC| HAPPYF |
     * |------+-------+-------+--------|
-    * | ENTER|       |LEDCNTR| tapland| 
+    * | ENTER|       |LEDCNTR| tapland|
     * `-------------------------------'
     */
       //purple
     [_EMOJI] = LAYOUT_ortho_4x4(
-       TFLIP,   TFLIP2,   KC_NO,      FU , 
-       CLOUD,   KC_NO,  KC_NO,      CMDCLEAR, 
-       SHRUG,   DISFACE,  HEARTFACE,    HAPPYFACE, 
+       TFLIP,   TFLIP2,   KC_NO,      FU ,
+       CLOUD,   KC_NO,  KC_NO,      CMDCLEAR,
+       SHRUG,   DISFACE,  HEARTFACE,    HAPPYFACE,
        KC_ENT,  RGB_TOG,  MO(_LEDCNTL), MO(_TAPLAND)
     ),
- 
+
     /* TapLand //
     * ,-------------------------------.
     * | str1 | str2  |  str3 |   str4 |
@@ -58,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+-------+-------+--------|
     * |      |       |       |        |
     * |------+-------+-------+--------|
-    * |      |       |       |        | 
+    * |      |       |       |        |
     * `-------------------------------'
     */
     //blue
     [_TAPLAND] = LAYOUT_ortho_4x4(
-       TD(TD_EXAMPLE1), TD(TD_EXAMPLE2),  TD(TD_EXAMPLE3), TD(TD_EXAMPLE4), 
-       KC_NO,         KC_NO,          KC_NO,         KC_NO, 
-       KC_NO,         KC_NO,          KC_NO,         KC_NO, 
+       TD(TD_EXAMPLE1), TD(TD_EXAMPLE2),  TD(TD_EXAMPLE3), TD(TD_EXAMPLE4),
+       KC_NO,         KC_NO,          KC_NO,         KC_NO,
+       KC_NO,         KC_NO,          KC_NO,         KC_NO,
        KC_NO,         KC_NO,          KC_NO,         KC_NO
     ),
     /* LEDControl Pad
@@ -76,14 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+-------+-------+--------|
     * |kngrdr|  Val- | Sat-  |   HUE- |
     * |------+-------+-------+--------|
-    * | swirl| PLAIN |       | ON/OFF | 
+    * | swirl| PLAIN |       | ON/OFF |
     * `-------------------------------'
     */
     //blue
     [_LEDCNTL] = LAYOUT_ortho_4x4(
-        RGB_M_SN, RGB_M_B,    RGB_M_R,     RGB_M_G, 
-        RGB_M_X,  RGB_VAI,    RGB_SAI,     RGB_HUI, 
-        RGB_M_K,  RGB_VAD,    RGB_SAD,     RGB_HUD, 
+        RGB_M_SN, RGB_M_B,    RGB_M_R,     RGB_M_G,
+        RGB_M_X,  RGB_VAI,    RGB_SAI,     RGB_HUI,
+        RGB_M_K,  RGB_VAD,    RGB_SAD,     RGB_HUD,
         RGB_M_SW, RGB_M_P,    KC_NO,     RGB_TOG
      ),
 };
@@ -102,53 +102,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     SEND_STRING("t(-_-t)");
                 }
                 return false;
-                break;  
-            case HAPPYFACE:       // ʘ‿ʘ 
+                break;
+            case HAPPYFACE:       // ʘ‿ʘ
                 if(record->event.pressed){
                      send_unicode_hex_string("0298 203F 0298");
                 }
                 return false;
-                break; 
+                break;
             case CMDCLEAR:
                 if (record->event.pressed) {
                     register_code(KC_LGUI);
-                    tap_code(KC_A);                 
+                    tap_code(KC_A);
                     unregister_code(KC_LGUI);
-                    tap_code(KC_DEL);                 
+                    tap_code(KC_DEL);
                 }
                 return false;
-                break;  
+                break;
             case SHRUG: // ¯\_(ツ)_/¯
                 if (record->event.pressed) {
                     send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
                 }
-                return false; 
+                return false;
                 break;
             case HEARTFACE:       // ♥‿♥
                 if(record->event.pressed){
                     send_unicode_hex_string("2665 203F 2665");
                 }
                 return false;
-                break;  
-            case DISFACE:       // ಠ_ಠ 
+                break;
+            case DISFACE:       // ಠ_ಠ
                 if(record->event.pressed){
                     send_unicode_hex_string("0CA0 005F 0CA0");
                 }
                 return false;
                 break;
-            case TFLIP:         // (╯°□°)╯ ︵ ┻━┻ 
+            case TFLIP:         // (╯°□°)╯ ︵ ┻━┻
                 if(record->event.pressed){
                     send_unicode_hex_string("0028 256F 00B0 25A1 00B0 0029 256F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;
-            case TFLIP2:         // ┻━┻︵ \(°□°)/ ︵ ┻━┻  
+            case TFLIP2:         // ┻━┻︵ \(°□°)/ ︵ ┻━┻
                 if(record->event.pressed){
                     send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;
-                } 
+                }
     }
     return true;
 }

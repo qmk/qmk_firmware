@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0002
 #define MANUFACTURER HnahKB
 #define PRODUCT Hnah108
-#define DESCRIPTION Fullsize PCB keyboard 
+#define DESCRIPTION Fullsize PCB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 10

@@ -51,7 +51,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [3] = ACTION_LAYER_TAP_KEY(6, KC_ESC),
 
     /* toggle layers */
-    [6]  = ACTION_DEFAULT_LAYER_SET(0), 
+    [6]  = ACTION_DEFAULT_LAYER_SET(0),
     [7]  = ACTION_DEFAULT_LAYER_SET(1),
     [8]  = ACTION_DEFAULT_LAYER_SET(2),
     [9]  = ACTION_DEFAULT_LAYER_SET(3),

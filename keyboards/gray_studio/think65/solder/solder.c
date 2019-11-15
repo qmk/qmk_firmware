@@ -25,7 +25,7 @@ void matrix_init_kb(void) {
   // runs once when the firmware starts up
 
   setPinOutput(C7);
-  
+
   matrix_init_user();
 }
 

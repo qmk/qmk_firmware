@@ -14,9 +14,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License.
  * You may obtain a copy of the Licence at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -75,6 +75,6 @@
 
 /* ========== Instance parameters for PDEC peripheral ========== */
 #define PDEC_CC_NUM                 2        // Number of Compare Channels units
-#define PDEC_GCLK_ID                31      
+#define PDEC_GCLK_ID                31
 
 #endif /* _SAMD51_PDEC_INSTANCE_ */

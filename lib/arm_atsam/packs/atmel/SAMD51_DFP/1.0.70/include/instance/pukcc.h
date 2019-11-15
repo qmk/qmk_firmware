@@ -50,8 +50,8 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for PUKCC peripheral ========== */
-#define PUKCC_CLK_AHB_ID            20      
-#define PUKCC_RAM_ADDR_SIZE         12      
-#define PUKCC_ROM_ADDR_SIZE         16      
+#define PUKCC_CLK_AHB_ID            20
+#define PUKCC_RAM_ADDR_SIZE         12
+#define PUKCC_ROM_ADDR_SIZE         16
 
 #endif /* _SAMD51_PUKCC_INSTANCE_ */

@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    XeaLouS
 #define PRODUCT         XeaL60
-#define DESCRIPTION     A split keyboard 
+#define DESCRIPTION     A split keyboard
 
 /* key matrix size */
 // Rows are doubled-up
@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 // Ascii art of pro micro. Pin names PD3, PD2, etc.
 //Usage| Name | Label      Label| Name | Usage
-//                   PORT          
+//                   PORT
 //     | PD3    TX0        RAW       |
 //     | PD2    RX1        GND       |SerGnd
 //     |        GND        RESET     |

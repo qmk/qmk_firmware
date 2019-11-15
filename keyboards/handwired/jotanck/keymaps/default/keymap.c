@@ -31,10 +31,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  * | lshift |    Z   |    X   |    C   |    V   |    B   |    N   |    M   |    ,   |    .   |    /   |  enter |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
- * |  lctrl |  lgui  |  lalt  |  ralt  |  lower |  space |  space |  raise |  left  |  down  |   up   |  right | 
+ * |  lctrl |  lgui  |  lalt  |  ralt  |  lower |  space |  space |  raise |  left  |  down  |   up   |  right |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+
  */
-[_QWERTY] = LAYOUT_ortho_4x12 ( 
+[_QWERTY] = LAYOUT_ortho_4x12 (
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
-    
+
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -93,7 +93,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   default:
     writePinLow(JOTANCK_LED1);
     writePinLow(JOTANCK_LED2);
-    break; 
+    break;
   };
   #endif
   return state;

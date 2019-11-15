@@ -17,11 +17,11 @@ enum userspace_custom_keycodes{
 
   KC_MAKE,           // Run keyboard's customized make command
   KC_RGB_T,          // Toggles RGB Layer Indication mode
-  KC_SECRET_1,       
-  KC_SECRET_2,       
-  KC_SECRET_3,       
-  KC_SECRET_4,       
-  KC_SECRET_5,       
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
   UC_FLIP,           // (ಠ痊ಠ)┻━┻

@@ -202,7 +202,7 @@ uint8_t matrix_scan(void) {
         case 0x18FEB: matrix[3] = 0x10000; break;
         case 0x3FF69: matrix[3] = 0x20000; break;
         case 0x3A37B: matrix[3] = 0x40000; break;
-        default: 
+        default:
                  if ((portb_buffer & 0x1000) == 0) { matrix[1] = 0x4000; break; }
                  if ((portb_buffer & 0x2000) == 0) { matrix[3] = 0x4000; break; }
                  if ((portb_buffer & 0x4000) == 0) { matrix[0] = 0x4000; break; }

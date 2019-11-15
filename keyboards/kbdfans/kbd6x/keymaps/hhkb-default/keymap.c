@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-// stock hhkb as referenced by https://i.imgur.com/QoBTDHf.png 
+// stock hhkb as referenced by https://i.imgur.com/QoBTDHf.png
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(

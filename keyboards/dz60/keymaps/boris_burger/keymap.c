@@ -70,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             else {
                 if(bspc_mods & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTL))) {
                     // if Shift or Ctrl was pressed with Backspace, than that was intepreted as Del, so we need
-                    // to unregister the Del key 
+                    // to unregister the Del key
                     del_key(KC_DEL);
                 } else {
                     // Either Backspace was pressed without mods, or with a modifier other than Shift or Ctrl

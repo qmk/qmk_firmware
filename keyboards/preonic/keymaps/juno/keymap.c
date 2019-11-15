@@ -9,7 +9,7 @@ enum preonic_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-    
+
   _FN1,
   _DPAD
 };
@@ -21,7 +21,7 @@ enum preonic_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
-    
+
   FN1,
   DP_ON,
   DP_OFF
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_ADJUST] = LAYOUT_preonic_grid( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
@@ -205,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-  
+
   float caps_song_on[][2] 	= SONG(NUM_LOCK_ON_SOUND);
   float caps_song_off[][2] 	= SONG(SCROLL_LOCK_ON_SOUND);
 
@@ -266,10 +266,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-		 
-		 
-		 
-		// Additional personal custom functions	  
+
+
+
+		// Additional personal custom functions
 
 		case KC_CAPS:
 			if (record->event.pressed) {
@@ -283,31 +283,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return true; // process the actual function of Caps Lock
 			//break;
-			
+
 		case DP_ON:
 			if (record->event.pressed) {
-				
+
 			} else {
 				// activated upon release
 				#ifdef AUDIO_ENABLE
 				PLAY_SONG(dpad_song_on);
 				#endif
-				
+
 				layer_off(_FN1);
 				layer_on(_DPAD);
 			}
-			
+
 		case DP_OFF:
 			if (record->event.pressed) {
 				// deactivated upon pressdown
-				#ifdef AUDIO_ENABLE	
+				#ifdef AUDIO_ENABLE
 				PLAY_SONG(dpad_song_off);
 				#endif
-				
+
 				//layer_off(_FN1); // do not put in this line
-				layer_off(_DPAD);	
+				layer_off(_DPAD);
 			}
-		 
+
       }
     return true;
 };

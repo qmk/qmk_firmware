@@ -9,7 +9,7 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 16
-#define MATRIX_COLS  8 
+#define MATRIX_COLS  8
 
 /*
  * Keyboard Matrix Assignments
@@ -24,12 +24,12 @@
 //Passed through the port multipler, so 4 pins =16
 #define MATRIX_ROW_PINS { F0,F1, F2, F3  }
 
-// May be upside down. 
+// May be upside down.
 #define MATRIX_COL_PINS { B0,B1, B2, B3, B4, B5, B6, B7 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
- 
+
 
 #endif

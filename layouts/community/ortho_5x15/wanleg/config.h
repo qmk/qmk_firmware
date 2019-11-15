@@ -12,5 +12,5 @@
 
 //get rid of description - too long to show properly in Windows
 #undef DESCRIPTION
-#define DESCRIPTION 
+#define DESCRIPTION
 #endif

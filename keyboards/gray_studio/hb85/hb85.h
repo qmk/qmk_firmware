@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-// Generic layout enabling splits, and all positions available in STT, Basic, and AOP. 
+// Generic layout enabling splits, and all positions available in STT, Basic, and AOP.
 
 #define LAYOUT_all( \
   K0C, K0B, K0A, K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0E,                     \

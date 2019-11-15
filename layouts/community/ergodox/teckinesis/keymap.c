@@ -26,13 +26,13 @@
 
 /*
  * teckinesis layout for ErgoDox (EZ)
- * 
+ *
  * Modifications from The Ordinary Layout v4 by Will Wolff-Myren willwm@gmail.com
  * Modifications from default by Nicholas Keene ergodoxez@nicholaskeene.com
  *
  * No rights reserved. This software is in the public domain.
  * Credit me if you are friendly but if you're a jerk don't bother.
- * 
+ *
  * Details: readme.md
  *          https://github.com/willwm/qmk_firmware/tree/master/keyboard/ergodox_ez/keymaps/teckinesis
  */
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_TRNS ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_ESC
 ,KC_TRNS ,KC_EXLM ,KC_AT   ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
-,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV 
+,KC_TRNS ,KC_HASH ,KC_DLR  ,KC_LPRN ,KC_RPRN ,KC_GRV
 ,KC_TRNS ,KC_PERC ,KC_CIRC ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
 ,KC_LCTL ,KC_MEH  ,KC_HYPR ,KC_LALT ,KC_LGUI
                                              ,KC_LEFT ,KC_RGHT
@@ -420,7 +420,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             // none
             break;
     }
-    
+
     return MACRO_NONE;
 };
 

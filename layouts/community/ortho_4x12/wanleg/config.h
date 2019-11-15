@@ -36,7 +36,7 @@
 
 // use alternate settings for 4x4 board using ProMicro instead of Micro
 // usage: make 4x4:wanleg PM=yes
-#if defined(KEYBOARD_40percentclub_4x4) && defined(PRO_MICRO) 
+#if defined(KEYBOARD_40percentclub_4x4) && defined(PRO_MICRO)
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D1 // usually ROW
 #define QMK_LED B0

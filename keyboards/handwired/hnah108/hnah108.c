@@ -24,7 +24,7 @@ led_config_t g_led_config = { {
   {19,    NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED},
   {NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED},
   {20,    NO_LED,NO_LED,NO_LED,NO_LED,24    ,NO_LED,NO_LED,26    ,NO_LED,NO_LED},
-  {    21,    22,    23,    25,    27,NO_LED,    28,    29,NO_LED,     0,     1},    
+  {    21,    22,    23,    25,    27,NO_LED,    28,    29,NO_LED,     0,     1},
   {    11,    10,NO_LED,     9,NO_LED,     8,NO_LED,     7,     6,NO_LED,     5},
   {NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,     4},
   {NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,NO_LED,     3},

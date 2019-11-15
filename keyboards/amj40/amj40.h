@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-// readability  
+// readability
 #define XXX KC_NO
 
 /* AMJ40 ver2.0 layout1 配列一

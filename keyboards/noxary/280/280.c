@@ -65,6 +65,6 @@ void led_set_kb(uint8_t usb_led) {
     } else {
       writePinHigh(D0);
     }
-     
+
     led_set_user(usb_led);
 }

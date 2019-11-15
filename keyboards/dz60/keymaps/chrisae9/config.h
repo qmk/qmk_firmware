@@ -3,7 +3,7 @@
 
 /* Light Config */
 #undef RGBLIGHT_HUE_STEP
-#define RGBLIGHT_HUE_STEP 1 
+#define RGBLIGHT_HUE_STEP 1
 #undef RGBLIGHT_SAT_STEP
 #define RGBLIGHT_SAT_STEP 8
 #undef RGBLIGHT_VAL_STEP

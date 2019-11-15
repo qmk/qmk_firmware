@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case ADMIN:       
+    case ADMIN:
       if (record->event.pressed) {
         SEND_STRING("Administrator");
       }

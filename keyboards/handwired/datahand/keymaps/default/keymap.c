@@ -190,7 +190,7 @@ static void set_nas(bool on) {
 
 static void set_tenkey(bool on) {
   tenkey_enabled = on;
-  
+
   /* We have to be on the NAS layer in order to be able to toggle TK.
    * Re-toggle it on so that we move to the right layer (and set the right LED).
    */
@@ -200,7 +200,7 @@ static void set_tenkey(bool on) {
 static void toggle_numlock(void) {
   numlock_enabled = !numlock_enabled;
   lock_led_set(numlock_enabled, LED_NUM_LOCK);
-  
+
   if (layer_state_is(NAS)) {
     /* If we're already in NAS, re-set it so that we activate the numlock layer. */
     set_nas(true);
@@ -225,7 +225,7 @@ static void set_mouse_enabled(bool on) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
-  
+
   switch(keycode) {
     case N:
     if (pressed) {
@@ -239,14 +239,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     set_nas(pressed);
     break;
-    
+
     case NSL:
     if (pressed) {
       nas_locked = true;
       set_nas(true);
     }
     break;
-    
+
     case NLK:
     if (pressed) {
       toggle_numlock();
@@ -255,19 +255,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_UP(X_NUMLOCK));
     }
     break;
-    
+
     case FN:
     if (pressed) {
       set_function();
     }
     break;
-    
+
     case TK0:
     if (pressed) {
       set_tenkey(false);
     }
     break;
-    
+
     case TK1:
     if (pressed) {
       set_tenkey(true);
@@ -285,7 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       set_mouse_enabled(false);
     }
     break;
-    
+
     case DZ:
     if (pressed) {
       SEND_STRING(SS_TAP(X_KP_0) SS_TAP(X_KP_0));

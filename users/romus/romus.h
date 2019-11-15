@@ -22,7 +22,7 @@
 #define CUT     LCTL(KC_X)
 #define PASTE   LCTL(KC_V)
 #define EXIT    LALT(KC_F4)
-#define	CAPS	SFT_T(KC_CAPS)	
+#define	CAPS	SFT_T(KC_CAPS)
 
 
 // Rename mouse keys with 7 letters
@@ -161,10 +161,10 @@ enum {
  * | ' " |  ,  |  .  |  P  |  Y  | Esc || Del |  F  |  G  |  C  |  R  |  L  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  A  |  O  |  E  |  U  |  I  | Bkp || Ent |  D  |  H  |  T  |  N  |  S  |
- * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|	
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | ; : |  Q  |  J  |  K  |  X  | Spc || SET |  B  |  M  |  W  |  V  |  Z  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | Ctrl|  OS | Alt | Tab | Cps | ACH || SYM | Spc | Lft |  Up | Dwn | Rght| 
+ * | Ctrl|  OS | Alt | Tab | Cps | ACH || SYM | Spc | Lft |  Up | Dwn | Rght|
  * `------------------------------------------------------------------------' */
 #define DVORAK \
     KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,	KC_ESC,	KC_DEL,	KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    \
@@ -219,7 +219,7 @@ enum {
     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,	_______,K_LOCK,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    \
     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,_______,KC_VOLU,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, \
     KC_PIPE,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
-	
+
 /* Settings layer
  * ,------------------------------------------------------------------------.
  * |BLLed|  F1 |  F2 |  F3 |  F4 | Lin || Win | Wake|     |Hue -|Hue +|Reset|

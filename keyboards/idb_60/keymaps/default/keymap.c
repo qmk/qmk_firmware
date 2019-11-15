@@ -27,6 +27,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     } else {
         _idb_60_esc_led_off();
     }
-	
+
 	return state;
 }

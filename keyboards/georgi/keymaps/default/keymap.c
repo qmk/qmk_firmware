@@ -39,7 +39,7 @@
 // P() is just a wrapper to make your life easier.
 // PC() applies the mapping to all of the StenoLayers.
 //   To overload, declare it with P() first.
-//   Be sure to enable in rules.mk and see colemak-dh for usage 
+//   Be sure to enable in rules.mk and see colemak-dh for usage
 //
 // FN is unavailable. That is reserved for system use.
 // Chords containing PWR are always available, even in steno mode.

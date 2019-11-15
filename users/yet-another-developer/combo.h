@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include "quantum.h"
 enum combo_events {
   ZV_COPY,

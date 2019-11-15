@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Remove features i don't use
 #define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
- 
+
 // Override the rev2 config.h BACKLIGHT_LEVELS setting
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 125

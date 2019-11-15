@@ -6,7 +6,7 @@ char modifier_state_str[22];
 const char *read_modifier_state(void) {
   uint8_t modifiers = get_mods();
   uint8_t one_shot = get_oneshot_mods();
-  
+
   snprintf(modifier_state_str, sizeof(modifier_state_str), "Mod: %s%s%s%s",
     (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) ? "CTL " : "",
     (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) ? "GUI " : "",

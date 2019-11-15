@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    SftLck , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGDN, KC_UP  , KC_ENT , KC_K,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, SftEnt ,
    KC_DEL , KC_LGUI, KC_LCTL, KC_LALT, KC_LGUI, BS_GUI, KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC, MO(3) , KC_RGUI, KC_RALT, KC_RCTL, BL_STEP
  ),
-    
+
 // Windows Layer: essentially swaps Control and GUI
 
  [_PC] = LAYOUT_ortho_5x15( /* WINDOWS */
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_LALT, KC_LCTL, KC_Z   , KC_X   , KC_C   , KC_V   , KC_F1  , KC_F2  , KC_F3  , KC_N   , KC_M   , _______, _______, _______, KC_ENT ,
    _______, _______, _______, KC_G   , KC_B   , KC_SPC , KC_I   , KC_M   , _______, _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______
  ),
-    
+
 /* SYMBOL
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | F12    | F1     | F2     | F3     | F4     | F5     |        |        |        | F6     | F7     | F8     | F9     | F10    | F11    |
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, A_BSPC , _______, _______, _______, _______, _______, _______, _______, _______, _______
  ),
 
- 
+
  [_NAV] = LAYOUT_ortho_5x15( /* NAVIGATION for Mac */
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, C_TAB  , A_LEFT,  KC_UP,   A_RGHT , KC_DEL , _______,
@@ -147,7 +147,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 /* Template for future layers
- [_LAYER_NAME] = { 
+ [_LAYER_NAME] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},

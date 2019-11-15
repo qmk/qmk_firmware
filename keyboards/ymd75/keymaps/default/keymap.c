@@ -26,7 +26,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    
+
     /* 0: Main Layer
      * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
      * │ ESC │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │PRSCR│ DEL │ FN  │
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,       KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,    KC_RSFT,              KC_UP,    KC_PGDN,
         KC_LCTL,  KC_LGUI,  KC_LALT,                  KC_SPC,                                    KC_RALT,  KC_RGUI,  KC_RCTL,          KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
-    
+
     /* 1: Function Layer
      * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
      * │R_TOG│R_MOD│R_HUI│R_SAI│R_VAI│R_HUD│R_SAD│R_VAD│     │     │     │VOL- │VOL+ │     │     │     │

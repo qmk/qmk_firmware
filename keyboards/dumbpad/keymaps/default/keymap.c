@@ -32,9 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_BASE] = LAYOUT(
-                   KC_7,      KC_8,    KC_9,     KC_BSPC, 
-                   KC_4,      KC_5,    KC_6,     KC_ESC, 
-                   KC_1,      KC_2,    KC_3,     KC_TAB, 
+                   KC_7,      KC_8,    KC_9,     KC_BSPC,
+                   KC_4,      KC_5,    KC_6,     KC_ESC,
+                   KC_1,      KC_2,    KC_3,     KC_TAB,
     KC_BTN1,       TT(_SUB),  KC_0,    KC_DOT,   KC_ENTER
   ),
   /*
@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_SUB] = LAYOUT(
-                 _______,     _______,     _______,      RESET, 
-                 _______,     _______,     _______,      KC_KP_PLUS, 
-                 _______,     _______,     _______,      KC_KP_MINUS, 
+                 _______,     _______,     _______,      RESET,
+                 _______,     _______,     _______,      KC_KP_PLUS,
+                 _______,     _______,     _______,      KC_KP_MINUS,
     KC_LOCK,     _______,     _______,     _______,      KC_EQL
   ),
 };
@@ -62,7 +62,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
+#endif
 */
   return true;
 }

@@ -11,8 +11,8 @@ A layout based on neo2
 #include "nqn-keys-on-quertz-de-latin1.h"
 #include "nqn-basic-layout.h"
 
-// Since our quirky block definitions are basically a list of comma separated 
-// arguments, we need a wrapper in order for these definitions to be 
+// Since our quirky block definitions are basically a list of comma separated
+// arguments, we need a wrapper in order for these definitions to be
 // expanded before being used as arguments to the LAYOUT_xxx macro.
 #define LAYOUT_ergodox_wrapper(...) LAYOUT_ergodox(__VA_ARGS__)
 

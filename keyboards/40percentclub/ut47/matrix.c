@@ -69,7 +69,7 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-  
+
 #ifdef LED_ENABLE
     serial_init();
 #endif

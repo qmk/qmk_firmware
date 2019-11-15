@@ -78,24 +78,24 @@ uint8_t matrix_cols(void)
 void matrix_init(void)
 {
     //debug_enable = true;
-    
+
     //dprint("matrix_init"); dprintln();
     // output high (leds)
     DDRD    = 0xFF;
     PORTD   = 0xFF;
-    
+
     // output low (multiplexers)
     DDRF    = 0xFF;
     PORTF   = 0x00;
-    
+
     // input with pullup (matrix)
     DDRB    = 0x00;
     PORTB   = 0xFF;
-    
+
     // input with pullup (program and keypad buttons)
     DDRC    = 0x00;
     PORTC   = 0xFF;
-    
+
     // initialize row and col
     unselect_rows();
 
@@ -104,7 +104,7 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-	
+
 }
 
 uint8_t matrix_scan(void)
@@ -204,16 +204,16 @@ PF1		B
 PF2		C
 PF3		G	0 = U4, 1 = U5
 
-				4y0	4y1	4y2	4y3	4y4	4y5	4y6	4y7	5y0	5y1	5y2	5y3	5y4	5y5	5y6	5y7	
-				r1	r2	 r3 r4	r5	r6	r7	r8	r9	r10	r11	r12	r13	r14	r15	r16	
-PB0		21	c1	f6	f8	f7	5	4	3	2	1	=+								
-PB1		22	c2	f3	f5	f4	t	r	e	w	q	TAB								
-PB2		23	c3	ESC	f2	f1	g	f	d	s	a	CL								
-PB3		24	c4	f9	f11	f10	b	v	c	x	z	LS	UP		DN		[{	]}		
-PB4		25	c5  f12	SL	PS	RT		LT	§±	`~		6	7	8		9	0	-_ 	
-PB5		26	c6	PB	PGM	KPD							y	u	i		o	p	\	
-PB6		27	c7  			LC	DL	BS	RC	EN	SP	h	j	k		l	;:	'"	
-PB7		28	c8					RA		PU		PD	n	m	,<		.>	/?	RS	
+				4y0	4y1	4y2	4y3	4y4	4y5	4y6	4y7	5y0	5y1	5y2	5y3	5y4	5y5	5y6	5y7
+				r1	r2	 r3 r4	r5	r6	r7	r8	r9	r10	r11	r12	r13	r14	r15	r16
+PB0		21	c1	f6	f8	f7	5	4	3	2	1	=+
+PB1		22	c2	f3	f5	f4	t	r	e	w	q	TAB
+PB2		23	c3	ESC	f2	f1	g	f	d	s	a	CL
+PB3		24	c4	f9	f11	f10	b	v	c	x	z	LS	UP		DN		[{	]}
+PB4		25	c5  f12	SL	PS	RT		LT	§±	`~		6	7	8		9	0	-_
+PB5		26	c6	PB	PGM	KPD							y	u	i		o	p	\
+PB6		27	c7  			LC	DL	BS	RC	EN	SP	h	j	k		l	;:	'"
+PB7		28	c8					RA		PU		PD	n	m	,<		.>	/?	RS
  */
 
 

@@ -32,9 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  |  ~`  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |    0 |    - |    = |    BkSpc    |NumLck|   /  |   *  |   -   |
    *  |   Tab   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |    P |    { |    } |     \    |  7   |   8  |   9  |       |
    *  |   Ctrl    |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |    ; |   '  |     Return     |  4   |   5  |   6  |   +   |
-   *  |    LShft     |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |       RShft       |  1   |   2  |   3  |       | 
+   *  |    LShft     |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |       RShft       |  1   |   2  |   3  |       |
    *  | Ctrl  |  Alt  |  Win  |                  Space                      |  Win  |  Fn   |  Alt  |   Ctrl   |      0      |   .  | Enter |
-   * 
+   *
    * Layout is inspired on Model F.
    * Extra keys on top right, as well as some seldom-used keys, are media keys in default layer.
    * Num Lock toogles layer, so the numeric block works as a Model F navigation block in a Mac.
@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LALT,KC_LGUI,                     KC_SPC,                   KC_RGUI, KC_NO, MO(_RAISE), KC_RALT,  KC_RCTL,                  KC_P0,   KC_P0,   KC_PDOT  \
   ),
 
-  /* Layer 1, Num Lock activated 
+  /* Layer 1, Num Lock activated
    *  ...
-   *  ... 
+   *  ...
    *  ... | Home |  Up  | Pg Up |       |
    *  ... | Left | (no) | Right |   +   |
    *  ... | End  | Down | Pg Dn |       |
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  | Caps Lck | RGB Mode - | RGB Brgt- | RGB Brgt+   |   |   |   |   |   |   |   |   |     |                |      |      |      |       |
    *  |              |      |      |      |      |      |      |      |      |      |      |                   |      |      |      |       |
    *  |       |       |       |                                             | Win Menu  |      |        |      |             |      |       |
-   */ 
+   */
   [_RAISE] = KEYMAP(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_PAUS,  KC_SLCK, KC_MUTE, KC_MSTP, KC_DEL, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,            KC_NLCK, _______, _______, _______, \

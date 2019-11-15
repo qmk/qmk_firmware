@@ -1,5 +1,5 @@
 /*
-Copyright 2018 milestogo 
+Copyright 2018 milestogo
 with elements Copyright 2014 cy384 under a modified BSD license
 building on qmk structure Copyright 2012 Jun Wako <wakojun@gmail.com>
 
@@ -43,13 +43,13 @@ static uint8_t matrix[MATRIX_ROWS];
 
 // we're going to need a sleep timer
 static uint16_t last_activity ;
-// and a byte to track duplicate up events signalling all keys up. 
+// and a byte to track duplicate up events signalling all keys up.
 static uint16_t last_upKey ;
-// serial device can disconnect. Check every MAXDROP characters. 
+// serial device can disconnect. Check every MAXDROP characters.
 static uint16_t disconnect_counter = 0;
 
 
-// bitmath masks. 
+// bitmath masks.
 #define KEY_MASK 0b10000000
 #define COL_MASK 0b00000111
 #define ROW_MASK 0b01111000
@@ -93,7 +93,7 @@ uint8_t matrix_cols(void)
 
 
 void pins_init(void) {
- // set pins for pullups, Rts , power &etc. 
+ // set pins for pullups, Rts , power &etc.
 
     //print ("pins setup\n");
     pinMode(VCC_PIN, PinDirectionOutput);
@@ -110,16 +110,16 @@ void pins_init(void) {
 #endif
 
     pinMode(DCD_PIN, PinDirectionInput);
-    pinMode(RTS_PIN, PinDirectionInput); 
+    pinMode(RTS_PIN, PinDirectionInput);
 #endif
 
-/* check that the other side isn't powered up. 
+/* check that the other side isn't powered up.
     test=digitalRead(DCD_PIN);
     xprintf("b%02X:", test);
     test=digitalRead(RTS_PIN);
     xprintf("%02X\n", test);
 */
- 
+
 }
 
 uint8_t rts_reset(void) {
@@ -136,12 +136,12 @@ uint8_t rts_reset(void) {
 
     if (firstread == PinLevelHigh) {
         digitalWrite(RTS_PIN, PinLevelLow);
-    } 
+    }
      _delay_ms(10);
-    digitalWrite(RTS_PIN, PinLevelHigh);  
-    
+    digitalWrite(RTS_PIN, PinLevelHigh);
 
-/* the future is Arm 
+
+/* the future is Arm
     if (palReadPad(RTS_PIN_IOPRT) == PinLevelLow)
   {
     _delay_ms(10);
@@ -159,7 +159,7 @@ uint8_t rts_reset(void) {
 */
 
 
- _delay_ms(5);  
+ _delay_ms(5);
  //print("rts\n");
  return 1;
 }
@@ -168,7 +168,7 @@ uint8_t get_serial_byte(void) {
     static uint8_t code;
     while(1) {
         code = serial_recv();
-        if (code) { 
+        if (code) {
             debug_hex(code); debug(" ");
             return code;
         }
@@ -176,12 +176,12 @@ uint8_t get_serial_byte(void) {
 }
 
 uint8_t palm_handshake(void) {
-    // assumes something has seen DCD go high, we've toggled RTS 
-    // and we now need to verify handshake. 
-    // listen for up to 4 packets before giving up. 
+    // assumes something has seen DCD go high, we've toggled RTS
+    // and we now need to verify handshake.
+    // listen for up to 4 packets before giving up.
     // usually I get the sequence FF FA FD
     static uint8_t codeA=0;
- 
+
     for (uint8_t i=0; i < 5; i++) {
         codeA=get_serial_byte();
         if ( 0xFA == codeA) {
@@ -195,12 +195,12 @@ uint8_t palm_handshake(void) {
 
 uint8_t palm_reset(void) {
     print("@");
-    rts_reset();  // shouldn't need to power cycle. 
+    rts_reset();  // shouldn't need to power cycle.
 
     if ( palm_handshake() ) {
         last_activity = timer_read();
         return 1;
-    } else { 
+    } else {
         print("failed reset");
         return 0;
     }
@@ -208,10 +208,10 @@ uint8_t palm_reset(void) {
 }
 
 uint8_t handspring_handshake(void) {
-    // should be sent 15 ms after power up. 
-    // listen for up to 4 packets before giving up. 
+    // should be sent 15 ms after power up.
+    // listen for up to 4 packets before giving up.
     static uint8_t codeA=0;
- 
+
     for (uint8_t i=0; i < 5; i++) {
         codeA=get_serial_byte();
         if ( 0xF9 == codeA) {
@@ -232,9 +232,9 @@ uint8_t handspring_reset(void) {
         last_activity = timer_read();
         disconnect_counter=0;
         return 1;
-    } else { 
+    } else {
         print("-HSreset");
-        return 0;   
+        return 0;
     }
 }
 
@@ -242,40 +242,40 @@ void matrix_init(void)
 {
     debug_enable = true;
     //debug_matrix =true;
-    
-    serial_init(); // arguments all #defined 
- 
+
+    serial_init(); // arguments all #defined
+
 #if (HANDSPRING == 0)
-    pins_init(); // set all inputs and outputs. 
+    pins_init(); // set all inputs and outputs.
 #endif
 
     print("power up\n");
     digitalWrite(VCC_PIN, PinLevelHigh);
 
-    // wait for DCD strobe from keyboard - it will do this 
+    // wait for DCD strobe from keyboard - it will do this
     // up to 3 times, then the board needs the RTS toggled to try again
-  
+
 #if ( HANDSPRING == 1)
     if ( handspring_handshake() ) {
         last_activity = timer_read();
-    } else { 
+    } else {
         print("failed handshake");
         _delay_ms(1000);
-        //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
+        //BUG /should/ power cycle or toggle RTS & reset, but this usually works.
     }
 
 #else  /// Palm / HP  device with DCD
-    while( digitalRead(DCD_PIN) != PinLevelHigh ) {;} 
+    while( digitalRead(DCD_PIN) != PinLevelHigh ) {;}
     print("dcd\n");
 
-    rts_reset(); // at this point the keyboard should think all is well. 
+    rts_reset(); // at this point the keyboard should think all is well.
 
     if ( palm_handshake() ) {
         last_activity = timer_read();
-    } else { 
+    } else {
         print("failed handshake");
         _delay_ms(1000);
-        //BUG /should/ power cycle or toggle RTS & reset, but this usually works. 
+        //BUG /should/ power cycle or toggle RTS & reset, but this usually works.
     }
 
 #endif
@@ -285,8 +285,8 @@ void matrix_init(void)
 
     matrix_init_quantum();
     return;
-    
-    
+
+
 }
 
 
@@ -295,14 +295,14 @@ uint8_t matrix_scan(void)
     uint8_t code;
     code = serial_recv();
     if (!code) {
-/*         
+/*
         disconnect_counter ++;
         if (disconnect_counter > MAXDROP) {
             //  set all keys off
-             for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00; 
+             for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
         }
 */
-        // check if the keyboard is asleep. 
+        // check if the keyboard is asleep.
         if (timer_elapsed(last_activity) > SLEEP_TIMEOUT) {
 #if(HANDSPRING ==0 )
             palm_reset();
@@ -310,12 +310,12 @@ uint8_t matrix_scan(void)
             handspring_reset();
 #endif
             return 0;
-        } 
+        }
 
     }
 
    last_activity = timer_read();
-   disconnect_counter=0; // if we are getting serial data, we're connected. 
+   disconnect_counter=0; // if we are getting serial data, we're connected.
 
     debug_hex(code); debug(" ");
 
@@ -331,10 +331,10 @@ uint8_t matrix_scan(void)
 
     if (KEYUP(code)) {
         if (code == last_upKey) {
-            // all keys are not pressed. 
-            // Manual says to disable all modifiers left open now. 
-            // but that could defeat sticky keys. 
-            // BUG? dropping this byte. 
+            // all keys are not pressed.
+            // Manual says to disable all modifiers left open now.
+            // but that could defeat sticky keys.
+            // BUG? dropping this byte.
             last_upKey=0;
             return 0;
         }

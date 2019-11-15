@@ -116,13 +116,13 @@ static int8_t toneBegin(uint8_t _pin)
 {
   int8_t _timer = -1;
 
-  // if we're already using the pin, the timer should be configured.  
+  // if we're already using the pin, the timer should be configured.
   for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
     if (tone_pins[i] == _pin) {
       return pgm_read_byte(tone_pin_to_timer_PGM + i);
     }
   }
-  
+
   // search for an unused timer.
   for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
     if (tone_pins[i] == 255) {
@@ -131,7 +131,7 @@ static int8_t toneBegin(uint8_t _pin)
       break;
     }
   }
-  
+
   if (_timer != -1)
   {
     // Set timer specific stuff
@@ -240,7 +240,7 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   {
     // Set the pinMode as OUTPUT
     pinMode(_pin, OUTPUT);
-    
+
     // if we are using an 8 bit timer, scan through prescalars to find the best fit
     if (_timer == 0 || _timer == 2)
     {
@@ -331,7 +331,7 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 #endif
 
     }
-    
+
 
     // Calculate the toggle count
     if (duration > 0)
@@ -467,14 +467,14 @@ void disableTimer(uint8_t _timer)
 void noTone(uint8_t _pin)
 {
   int8_t _timer = -1;
-  
+
   for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
     if (tone_pins[i] == _pin) {
       _timer = pgm_read_byte(tone_pin_to_timer_PGM + i);
       tone_pins[i] = 255;
     }
   }
-  
+
   disableTimer(_timer);
 
   digitalWrite(_pin, 0);

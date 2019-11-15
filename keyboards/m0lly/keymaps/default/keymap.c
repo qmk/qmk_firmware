@@ -35,7 +35,7 @@ static char layer_lookup[][14] = {"Base","Function"};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: (Base Layer) Default Layer
-   * 
+   *
    * ,-----------------------------------------------------------. .-------------------.
    * | ~ | 1 |  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |NumL| /  | *  | -  |
    * |-----------------------------------------------------------| |-------------------|
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                        KC_RALT, KC_RWIN, MO(FUNCTION), KC_RCTL,                   KC_P0,   XXXXXXX, KC_PDOT, KC_PENT  \
   ),
   /* Keymap FUNCTION: (Function Layer)
-   * 
+   *
    * ,-----------------------------------------------------------. .-------------------.
    * |   |   |   |   |   |   |   |   |   |   |   |   |   | RESET | |    |    |    |    |
    * |-----------------------------------------------------------| |-------------------|

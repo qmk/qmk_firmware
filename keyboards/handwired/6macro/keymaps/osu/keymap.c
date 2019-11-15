@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  
+
   /* LAYER 0
   * ,-----------------------.
   * |  ESC  |   ~   | SPC/FN|  Hold for FN
@@ -52,5 +52,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RESET, RGB_RMOD, KC_NO, \
     RGB_HUD, RGB_VAD, KC_TRNS  \
   )
-  
+
 };

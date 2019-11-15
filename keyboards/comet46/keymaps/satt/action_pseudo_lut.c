@@ -84,7 +84,7 @@ uint16_t convert_keycode(const uint16_t (*keymap)[2], uint16_t keycode, bool shi
 
   switch (keycode) {
     case KC_A ... KC_CAPSLOCK:
-      #if defined(__AVR__) 
+      #if defined(__AVR__)
         if (shift_modded) {
           pseudo_keycode = pgm_read_word(&keymap[keycode][1]);
         } else {

@@ -15,13 +15,13 @@
  */
 #include "kbd8x_mk2.h"
 
-void matrix_init_kb(void) {  
+void matrix_init_kb(void) {
 
   // Indicator pins
   // B2 - Scroll Lock
   // E6 - Caps Lock
   // Sinking setup - 5V -> LED/Resistor -> Pin
-  
+
   setPinOutput(B2);
   setPinOutput(E6);
 
@@ -29,16 +29,16 @@ void matrix_init_kb(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-  
+
   // Toggle indicator LEDs
   // Since they are a sinking setup, write HIGH to DISABLE, LOW to ENABLE
-  
+
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
     writePinLow(E6);
   } else {
     writePinHigh(E6);
   }
-  
+
   if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
     writePinLow(B2);
   } else {

@@ -16,19 +16,19 @@
 #include "kbdpad_mk2.h"
 
 void matrix_init_kb(void) {
-	
+
   // Num Lock LED = B4
   // Sinking setup (5V -> LED/Res -> Pin)
-  
+
   setPinOutput(B4);
 
   matrix_init_user();
 }
 
 void led_set_kb(uint8_t usb_led) {
-  
+
   // Sinking setup. Write HIGH to turn OFF, LOW to turn ON.
-  
+
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(B4);
   } else {

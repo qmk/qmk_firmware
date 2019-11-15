@@ -1,21 +1,21 @@
 /*
  Print.cpp - Base class that provides print() and println()
  Copyright (c) 2008 David A. Mellis.  All right reserved.
- 
+
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
  License as published by the Free Software Foundation; either
  version 2.1 of the License, or (at your option) any later version.
- 
+
  This library is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  Lesser General Public License for more details.
- 
+
  You should have received a copy of the GNU Lesser General Public
  License along with this library; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- 
+
  Modified 23 November 2006 by David A. Mellis
  */
 
@@ -222,10 +222,10 @@ size_t Print::printNumber(unsigned long n, uint8_t base) {
   return write(str);
 }
 
-size_t Print::printFloat(double number, uint8_t digits) 
-{ 
+size_t Print::printFloat(double number, uint8_t digits)
+{
   size_t n = 0;
-  
+
   // Handle negative numbers
   if (number < 0.0)
   {
@@ -237,7 +237,7 @@ size_t Print::printFloat(double number, uint8_t digits)
   double rounding = 0.5;
   for (uint8_t i=0; i<digits; ++i)
     rounding /= 10.0;
-  
+
   number += rounding;
 
   // Extract the integer part of the number and print it
@@ -247,7 +247,7 @@ size_t Print::printFloat(double number, uint8_t digits)
 
   // Print the decimal point, but only if there are digits beyond
   if (digits > 0) {
-    n += print("."); 
+    n += print(".");
   }
 
   // Extract digits from the remainder one at a time
@@ -256,8 +256,8 @@ size_t Print::printFloat(double number, uint8_t digits)
     remainder *= 10.0;
     int toPrint = int(remainder);
     n += print(toPrint);
-    remainder -= toPrint; 
-  } 
-  
+    remainder -= toPrint;
+  }
+
   return n;
 }

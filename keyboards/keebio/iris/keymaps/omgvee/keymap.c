@@ -23,13 +23,13 @@ enum custom_keycodes {
 #define KC_HWCT TT(_HWCT) // double tab toggle hardware control layer
 #define MS_L KC_MS_LEFT
 #define MS_R KC_MS_RIGHT
-#define MS_U KC_MS_UP 
-#define MS_D KC_MS_DOWN 
-#define MS_B1 KC_MS_BTN1 
+#define MS_U KC_MS_UP
+#define MS_D KC_MS_DOWN
+#define MS_B1 KC_MS_BTN1
 #define MS_B2 KC_MS_BTN2
-#define MW_U KC_MS_WH_UP 
-#define MW_D KC_MS_WH_DOWN 
-#define MW_L KC_MS_WH_LEFT 
+#define MW_U KC_MS_WH_UP
+#define MW_D KC_MS_WH_DOWN
+#define MW_L KC_MS_WH_LEFT
 #define MW_R KC_MS_WH_RIGHT
 
 //// only uncomment the below line when you enable leader key in rules.mk
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______, _______,                    KC_DEL, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
- 
+
   [_RAISE] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,

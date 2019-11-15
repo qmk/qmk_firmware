@@ -11,7 +11,7 @@ struct GamePadEventData
       uint32_t x : 10;
       uint32_t y : 10;
       uint32_t hat : 4;
-      uint32_t twist : 8;      
+      uint32_t twist : 8;
     };
   };
   uint8_t buttons_a;

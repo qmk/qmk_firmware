@@ -10,4 +10,4 @@
     { k05, k06, k07, k08 } \
 }
 
-#define LAYOUT LAYOUT_ortho_2x4 
+#define LAYOUT LAYOUT_ortho_2x4

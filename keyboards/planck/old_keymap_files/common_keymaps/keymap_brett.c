@@ -4,7 +4,7 @@
 #define KC_MO2 MO(2)
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP( 
+[0] = KEYMAP(
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, ENT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, RSFT,

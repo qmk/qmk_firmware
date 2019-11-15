@@ -49,7 +49,7 @@ unsigned char i2c_start(unsigned char address)
 
   /* send START condition */
   TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
- 
+
   /* wait until transmission completed */
   while(!(TWCR & (1<<TWINT)));
 
@@ -115,7 +115,7 @@ void i2c_start_wait(unsigned char address)
 
           continue;
       }
-      
+
       break;
      }
 

@@ -14,7 +14,7 @@ void matrix_scan_user(void) {
   }
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
 //  run_diablo_macro_check();
-#endif 
+#endif
 #ifdef RGBLIGHT_ENABLE
   matrix_scan_rgb();
 #endif

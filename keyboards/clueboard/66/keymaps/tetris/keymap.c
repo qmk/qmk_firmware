@@ -65,7 +65,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         tetris_running = 0;
         return;
       }
-      
+
       /* Handle the combined Grave/Esc key
        */
       mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
@@ -145,7 +145,7 @@ void matrix_scan_user(void) {
       }
       tetris_timer = 0;
     }
-  }      
+  }
 }
 
 void send_keycode(uint16_t keycode) {

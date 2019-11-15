@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "sten.h"
-/* 	 	
+/*
  *  Key names are inherited from steno machines
  *  .-----------------------------------------------------.
  *	| LSU | LFT | LP | LH | ST1 | RF | RP | RL | RT | RD  |
@@ -11,19 +11,19 @@
  */
 
 // Function prefixes
-#define MEDIA 	(LSD | LK  | LW | LR)	
-#define FUNCT 	(LSD | LK  | LP | LH)	
-#define MOVE	(LSU | LFT | LP | LH)	
-#define SYMB	(RD  | RZ)	
-#define NUMA    (LW  | LR)	
-#define NUMB    (RR  | RB)	
+#define MEDIA 	(LSD | LK  | LW | LR)
+#define FUNCT 	(LSD | LK  | LP | LH)
+#define MOVE	(LSU | LFT | LP | LH)
+#define SYMB	(RD  | RZ)
+#define NUMA    (LW  | LR)
+#define NUMB    (RR  | RB)
 
 // QMK Layer Numbers
  #define BASE 0
  #define GAME 1
 
 // Do not change QMK Layer 0! This is your main keyboard.
-// Make your QMK modifications to the later layers, to add 
+// Make your QMK modifications to the later layers, to add
 // keys/customize on the first layer modify processQwerty():
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_butter(

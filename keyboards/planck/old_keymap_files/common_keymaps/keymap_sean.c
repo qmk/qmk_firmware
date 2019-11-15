@@ -25,7 +25,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Sft  | Ctl  | Alt  | Gui  |Lower |    Space    |Raise |   <  |   v  |   ^  |   >  |
  * `-----------------------------------------------------------------------------------'
  */
-    [_DVRK] = KEYMAP( 
+    [_DVRK] = KEYMAP(
       QUOT, COMM,  DOT,    P,    Y, SLSH,  EQL,    F,    G,    C,    R,    L,
          A,    O,    E,    U,    I,  ESC, BSPC,    D,    H,    T,    N,    S,
       SCLN,    Q,    J,    K,    X,  TAB,  ENT,    B,    M,    W,    V,    Z,
@@ -33,7 +33,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * | F1   |  F2  |  F3  |  F4  |  F5  |  {   |  }   |  F6  |  F7  |  F8  |  F9  | F10  | 
+ * | F1   |  F2  |  F3  |  F4  |  F5  |  {   |  }   |  F6  |  F7  |  F8  |  F9  | F10  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  1   |   2  |   3  |   4  |   5  |  [   |  ]   |   6  |   7  |   8  |   9  |  0   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -50,7 +50,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * | F11  |  F12 |  F13 |  F14 |  F15 |  -   |  _   |  F16 |  F17 |  F18 |  F19 | F20  | 
+ * | F11  |  F12 |  F13 |  F14 |  F15 |  -   |  _   |  F16 |  F17 |  F18 |  F19 | F20  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  !   |   @  |   #  |   $  |   %  |      |      |   ^  |   &  |   *  |   (  |  )   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -75,7 +75,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |             |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = KEYMAP( 
+[_ADJUST] = KEYMAP(
          NO, RESET, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO,
          PWR, EJCT, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO,
          CAPS,  NO, NO, NO, NO, NO, NO, NO, NO, NO, NO, NO,
@@ -83,7 +83,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [3] = ACTION_DEFAULT_LAYER_SET(_DVRK), 
+    [3] = ACTION_DEFAULT_LAYER_SET(_DVRK),
     [11] = ACTION_MODS_KEY(MOD_LSFT, KC_1),     //!
     [12] = ACTION_MODS_KEY(MOD_LSFT, KC_2),     //@
     [13] = ACTION_MODS_KEY(MOD_LSFT, KC_3),     //#

@@ -1,5 +1,5 @@
 /* tapdance */
-#define TAPPING_TERM 180 
+#define TAPPING_TERM 180
 
 /* space cadet stuff */
 #define LSPO_KEY KC_9

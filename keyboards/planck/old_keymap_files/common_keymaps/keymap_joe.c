@@ -39,7 +39,7 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [3] = ACTION_DEFAULT_LAYER_SET(0), 
+    [3] = ACTION_DEFAULT_LAYER_SET(0),
     [4] = ACTION_DEFAULT_LAYER_SET(1),
 
     [5] = ACTION_MODS_KEY(MOD_LCTL, KC_PGUP),

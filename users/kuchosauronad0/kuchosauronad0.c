@@ -1,5 +1,5 @@
 /*
-Copyright 2019 Andre Poley <andre.poley@mailbox.org> 
+Copyright 2019 Andre Poley <andre.poley@mailbox.org>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

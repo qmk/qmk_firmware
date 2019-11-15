@@ -1,6 +1,6 @@
 #pragma once
 
-#include "quantum.h" 
+#include "quantum.h"
 
 enum keycodes {
 	QWERTY = SAFE_RANGE,
@@ -28,7 +28,7 @@ enum keycodes {
 	{ K601, K602,   K603, K604, K605, ____, ____, ____, ____, K610, ____, ____, K613, K614, K615, K616,   K617, K618, K619,   K620, ____, K622, ____ } \
 }
 
-/* Northgate Factory Plates. Most are based on internet research, user beware. */ 
+/* Northgate Factory Plates. Most are based on internet research, user beware. */
 #define LAYOUT_101( \
 					K103,       K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, K115, K116,   K117, K118, K119, \
 					K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, K215, K216,   K217, K218, K219,   K220, K221, K222, K223, \

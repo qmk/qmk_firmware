@@ -14,9 +14,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License.
  * You may obtain a copy of the Licence at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -110,7 +110,7 @@
 #define OSCCTRL_GCLK_ID_FDPLL132K   3        // Index of Generic Clock for DPLL1 32K
 #define OSCCTRL_OSC16M_IMPLEMENTED  0        // OSC16M implemented
 #define OSCCTRL_OSC48M_IMPLEMENTED  0        // OSC48M implemented
-#define OSCCTRL_OSC48M_NUM          1       
+#define OSCCTRL_OSC48M_NUM          1
 #define OSCCTRL_RCOSCS_NUM          1        // Number of RCOSCs (min 1)
 #define OSCCTRL_XOSCS_NUM           2        // Number of XOSCs
 #define OSCCTRL_XOSC0_CFD_CLK_SELECT_SIZE 4        // Clock fail prescaler size
@@ -123,8 +123,8 @@
 #define OSCCTRL_XOSC1_IMPLEMENTED   1        // XOSC1 implemented
 #define OSCCTRL_XOSC1_ONDEMAND_RESET_VALUE 1        // Run oscillator always or only when requested
 #define OSCCTRL_XOSC1_RUNSTDBY_RESET_VALUE 0        // Run oscillator even if standby mode
-#define OSCCTRL_DFLL48M_VERSION     0x100   
-#define OSCCTRL_FDPLL_VERSION       0x100   
-#define OSCCTRL_XOSC_VERSION        0x100   
+#define OSCCTRL_DFLL48M_VERSION     0x100
+#define OSCCTRL_FDPLL_VERSION       0x100
+#define OSCCTRL_XOSC_VERSION        0x100
 
 #endif /* _SAMD51_OSCCTRL_INSTANCE_ */

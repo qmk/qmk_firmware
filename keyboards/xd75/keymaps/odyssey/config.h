@@ -1,5 +1,5 @@
 #pragma once
-#define MK_3_SPEED 
+#define MK_3_SPEED
 #define TAPPING_TERM 20
 #define MOUSEKEY_DELAY 100
 #define MOUSEKEY_INTERVAL 20

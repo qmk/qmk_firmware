@@ -135,7 +135,7 @@ void matrix_scan_indicator(void) {
 #endif // !INDICATOR_LIGHTS
 
 void rgblight_fade_helper(bool direction){
-  // true: increase val = fade in 
+  // true: increase val = fade in
   // false: decrease val = fade out
   for (uint8_t index = 0; index <  RGBLIGHT_VAL_STEP ; index++) {
     direction ? rgblight_increase_val()  : rgblight_decrease_val();
@@ -147,10 +147,10 @@ void fadeflash_leds(uint8_t hue, uint8_t sat, uint8_t val){
   // fade out, set new hue and saturation, fade in, fade out, set old color, fade in
   // this is used in leader.c
   // TODO: come up with a better name maybe
-  rgblight_fade_helper(false); 
-  rgblight_sethsv_noeeprom(hue, sat, 0); 
-  rgblight_fade_helper(true); 
-  rgblight_fade_helper(false); 
-  rgblight_sethsv_noeeprom(base_hue, base_sat, 0); 
-  rgblight_fade_helper(true); 
+  rgblight_fade_helper(false);
+  rgblight_sethsv_noeeprom(hue, sat, 0);
+  rgblight_fade_helper(true);
+  rgblight_fade_helper(false);
+  rgblight_sethsv_noeeprom(base_hue, base_sat, 0);
+  rgblight_fade_helper(true);
 }

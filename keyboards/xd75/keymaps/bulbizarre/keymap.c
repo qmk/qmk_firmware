@@ -106,7 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_on(_FN);
             gp100_led_on();
         } else {
-            if (timer_elapsed(lt12_timer) > 200) {  
+            if (timer_elapsed(lt12_timer) > 200) {
             layer_off(_FN);
             gp100_led_off();
             }
@@ -119,7 +119,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_on(_FS);
             gp100_led_on();
         } else {
-            if (timer_elapsed(lt12_timer) > 200) {  
+            if (timer_elapsed(lt12_timer) > 200) {
             layer_off(_FS);
             gp100_led_off();
             }

@@ -165,7 +165,7 @@ static void unselect_cols(void) {
 }
 
 static void select_col(uint8_t col) {
- 
+
    switch (col) {
         case 0:
             PORTC |= 0b01000000; // PC6 high

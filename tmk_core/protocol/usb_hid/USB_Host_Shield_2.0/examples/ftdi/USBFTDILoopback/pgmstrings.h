@@ -4,10 +4,10 @@
 #define LOBYTE(x) ((char*)(&(x)))[0]
 #define HIBYTE(x) ((char*)(&(x)))[1]
 #define BUFSIZE 256    //buffer size
- 
+
 
 /* Print strings in Program Memory */
-const char Gen_Error_str[] PROGMEM = "\r\nRequest error. Error code:\t"; 
+const char Gen_Error_str[] PROGMEM = "\r\nRequest error. Error code:\t";
 const char Dev_Header_str[] PROGMEM ="\r\nDevice descriptor: ";
 const char Dev_Length_str[] PROGMEM ="\r\nDescriptor Length:\t";
 const char Dev_Type_str[] PROGMEM ="\r\nDescriptor type:\t";
@@ -48,5 +48,5 @@ const char Unk_Header_str[] PROGMEM = "\r\nUnknown descriptor:";
 const char Unk_Length_str[] PROGMEM ="\r\nLength:\t\t";
 const char Unk_Type_str[] PROGMEM ="\r\nType:\t\t";
 const char Unk_Contents_str[] PROGMEM ="\r\nContents:\t";
- 
+
 #endif // __PGMSTRINGS_H__

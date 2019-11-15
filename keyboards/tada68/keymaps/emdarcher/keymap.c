@@ -5,7 +5,7 @@
 #define _CL 2
 #define _ML 3
 
-#define KC_X0   LT(_CL, KC_CAPS)   
+#define KC_X0   LT(_CL, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer

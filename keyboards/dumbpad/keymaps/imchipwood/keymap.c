@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_BASE] = LAYOUT(
-                   KC_P7,     KC_P8,   KC_P9,    KC_BSPC, 
-                   KC_P4,     KC_P5,   KC_P6,    KC_KP_PLUS, 
-                   KC_P1,     KC_P2,   KC_P3,    KC_KP_ASTERISK, 
+                   KC_P7,     KC_P8,   KC_P9,    KC_BSPC,
+                   KC_P4,     KC_P5,   KC_P6,    KC_KP_PLUS,
+                   KC_P1,     KC_P2,   KC_P3,    KC_KP_ASTERISK,
     KC_MPLY,       TT(_SUB),  KC_P0,   KC_PDOT,  KC_KP_ENTER
   ),
   /*
@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_SUB] = LAYOUT(
-                 _______,     _______,     _______,      KC_NLCK, 
-                 _______,     _______,     _______,      KC_KP_MINUS, 
-                 _______,     _______,     _______,      KC_KP_SLASH, 
+                 _______,     _______,     _______,      KC_NLCK,
+                 _______,     _______,     _______,      KC_KP_MINUS,
+                 _______,     _______,     _______,      KC_KP_SLASH,
     MO(_DBG),    _______,     _______,     _______,      KC_KP_EQUAL
   ),
   /*
@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    \-----------------------------------------------------'
   */
   [_DBG] = LAYOUT(
-                 _______,     _______,     _______,      RESET, 
-                 _______,     _______,     _______,      _______, 
-                 _______,     _______,     _______,      _______, 
+                 _______,     _______,     _______,      RESET,
+                 _______,     _______,     _______,      _______,
+                 _______,     _______,     _______,      _______,
     _______,     _______,     _______,     _______,      _______
   ),
 };
@@ -82,7 +82,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#endif 
+#endif
 */
   return true;
 }
@@ -157,7 +157,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         } else {
           tap_code(KC_VOLD);
         }
-        break;   
+        break;
     }
   }
 }

@@ -14,11 +14,11 @@ extern keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_DEFAULT] = LAYOUT_ortho_1x4 (
-    LOWER,  KC_P0,  KC_PDOT,KC_PAST 
+    LOWER,  KC_P0,  KC_PDOT,KC_PAST
 ),
 
 /* Lower */
-[_LOWER] = LAYOUT_ortho_1x4 ( 
-    _______,_______,_______,_______ 
+[_LOWER] = LAYOUT_ortho_1x4 (
+    _______,_______,_______,_______
 ),
 };

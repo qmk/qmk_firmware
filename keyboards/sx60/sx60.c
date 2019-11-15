@@ -16,7 +16,7 @@ uint8_t init_mcp23018(void) {
         _delay_ms(1000);
     }
 
-    /* B Pins are Row, A pins are Columns 
+    /* B Pins are Row, A pins are Columns
        Set them to output */
     mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(IODIRA);            if (mcp23018_status) goto out;

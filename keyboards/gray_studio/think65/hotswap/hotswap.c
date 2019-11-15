@@ -27,7 +27,7 @@ void matrix_init_kb(void) {
   setPinOutput(C6);
   setPinOutput(C7);
   setPinOutput(F7);
-  
+
   matrix_init_user();
 }
 

@@ -74,17 +74,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //,------+-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------+-------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC,XXXXXXX,      XXXXXXX, KC_RBRC, KC_1,  KC_2, KC_3,   KC_ASTR,  KC_ENT,
     //|-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS, KC_SPC,                  KC_LSFT, KC_0,  KC_0, KC_DOT, KC_SLASH, XXXXXXX 
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS, KC_SPC,                  KC_LSFT, KC_0,  KC_0, KC_DOT, KC_SLASH, XXXXXXX
     //`-------+-------+-------+-------+-------/-------/                     \------\-------+-------+-------+-------+-------'
   )
 
 };
 
-   
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    
+
   }
   return true;
 }

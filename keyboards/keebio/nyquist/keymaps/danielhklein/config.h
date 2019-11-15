@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#define TAPPING_TERM 150 
+#define TAPPING_TERM 150
 #define USE_SERIAL
 #define EE_HANDS
 #define BOOTMAGIC_KEY_SALT KC_ENT

@@ -170,8 +170,8 @@ void transport_master_init(void)
 { soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
 
 void transport_slave_init(void)
-{ 
-	soft_serial_target_init(transactions, TID_LIMIT(transactions)); 
+{
+	soft_serial_target_init(transactions, TID_LIMIT(transactions));
 	slave_layer_cache = 255;
 	slave_nlock_cache = 255;
 	slave_clock_cache = 255;
@@ -214,12 +214,12 @@ void transport_slave(matrix_row_t matrix[]) {
   #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
   // Add serial implementation for RGB here
   #endif
-  
-  if (slave_layer_cache != serial_m2s_buffer.current_layer) {  
+
+  if (slave_layer_cache != serial_m2s_buffer.current_layer) {
 	slave_layer_cache = serial_m2s_buffer.current_layer;
 	set_layer_indicators(slave_layer_cache);
   }
-  
+
   if (slave_nlock_cache != serial_m2s_buffer.nlock_led) {
 	slave_nlock_cache = serial_m2s_buffer.nlock_led;
 	led_toggle(3, slave_nlock_cache);
@@ -232,7 +232,7 @@ void transport_slave(matrix_row_t matrix[]) {
 	slave_slock_cache = serial_m2s_buffer.slock_led;
 	led_toggle(5, slave_slock_cache);
   }
-  
+
 }
 
 #endif

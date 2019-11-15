@@ -22,7 +22,7 @@ void matrix_init_kb(void) {
 };
 
 void led_init_ports(void) {
-  setPinOutput(B3);     
+  setPinOutput(B3);
   setPinOutput(B7);
 }
 

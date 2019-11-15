@@ -35,7 +35,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */ 
+  [0] = LAYOUT( /* Base */
     TEST_A1,  TEST_A2,  TEST_A3,
     TEST_B1,  TEST_B2,  TEST_B3,
     TEST_C1,  TEST_C2,  TEST_C3,

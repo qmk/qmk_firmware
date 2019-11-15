@@ -63,7 +63,7 @@ void led_set_user(uint8_t usb_led) {
       PORTD &= ~CAPSLOCK_PORT;
     }
 
-  /* YMD96 does not have scroll lock led  
+  /* YMD96 does not have scroll lock led
    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
       DDRD  |= SCROLLLOCK_PORT;
       PORTD |= SCROLLLOCK_PORT;

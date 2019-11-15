@@ -19,7 +19,7 @@
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
-#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN	
+#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #define DISABLE_RGB_MATRIX_BAND_SAT
 #define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
 #define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT

@@ -7,15 +7,15 @@ void send_unicode_hex_string(const char* str);
 /* use X(n) to call the  */
 #ifdef UNICODEMAP_ENABLE
 enum unicode_name {
-OKOK,     // 
+OKOK,     //
 BANG,     // ‽
 IRONY,    // ⸮
 DEGREE,   // °
-THINK,    // 🤔 
+THINK,    // 🤔
 GRIN,     // �
 MONOCL,   // 🧐
 DRUG0,    // 🤪
-DRUG1,    // 🥴 
+DRUG1,    // 🥴
 CLOWN,    // 🤡
 MNDBLWN,  // 🤯
 MONEY,    // 🤑

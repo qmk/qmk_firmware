@@ -25,7 +25,7 @@ enum planck_layers {
   _RAISE,
   _FUNCTION,
   _ADJUST
-  
+
 };
 
 enum planck_keycodes {
@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_FUNCTION);
       }
       return false;
-	  break;	  	  
+	  break;
   }
   return true;
 }

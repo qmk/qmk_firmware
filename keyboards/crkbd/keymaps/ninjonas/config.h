@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_SAT_STEP 10
     #define RGB_MATRIX_VAL_STEP 10
     #define RGB_MATRIX_SPD_STEP 10
-    // #define RGB_MATRIX_KEYPRESSES 
+    // #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-    
+
     // BEGIN: Disable RGB Effects
     //#define DISABLE_RGB_MATRIX_SOLID_COLOR
     //#define DISABLE_RGB_MATRIX_ALPHAS_MODS
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
     // END: RGB_MATRIX_KEYPRESSES
     // END: Disable RGB Effects
-#endif 
+#endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_DISABLE_TIMEOUT

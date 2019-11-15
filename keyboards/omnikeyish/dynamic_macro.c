@@ -204,11 +204,11 @@ uint16_t dynamic_macro_calc_crc(dynamic_macro_t* macro) {
 }
 #endif /* __AVR__ */
 
-inline void* dynamic_macro_eeprom_macro_addr(uint8_t macro_id) { 
+inline void* dynamic_macro_eeprom_macro_addr(uint8_t macro_id) {
     return DYNAMIC_MACRO_EEPROM_BLOCK0_ADDR + sizeof(dynamic_macro_t) * macro_id;
 }
 
-bool dynamic_macro_header_correct(void) { 
+bool dynamic_macro_header_correct(void) {
     return eeprom_read_word(DYNAMIC_MACRO_EEPROM_MAGIC_ADDR) == DYNAMIC_MACRO_EEPROM_MAGIC;
 }
 

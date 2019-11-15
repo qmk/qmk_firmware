@@ -15,7 +15,7 @@
  */
 
 // TODO: Add Alt-Tab to nav + W layer
- 
+
 #ifndef USERSPACE
 #define USERSPACE
 
@@ -25,7 +25,7 @@ enum userspace_custom_keycodes {
   VRSN = SAFE_RANGE,               // Prints QMK Firmware and board info
   ALT_TAB,
   CTL_TAB,
-  
+
   // Layer keys
   NAVI,
   LOWER,
@@ -112,8 +112,8 @@ enum {
 
 #define NUMPAD_R1                                                        DF(_QW),DF(_GAME), _______, _______, _______,   RESET
 #define NUMPAD_R2                                                        _______, _______, _______, _______, _______, _______
-#define NUMPAD_R3                                                           VRSN, _______, _______, _______, _______, _______ 
-#define NUMPAD_R4                                                        _______, _______, _______, _______, _______, _______ 
+#define NUMPAD_R3                                                           VRSN, _______, _______, _______, _______, _______
+#define NUMPAD_R4                                                        _______, _______, _______, _______, _______, _______
 
 #define NUMPAD_4_DOX                          _______, _______, _______, _______, _______, _______
 

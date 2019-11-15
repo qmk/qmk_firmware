@@ -266,7 +266,7 @@ uint32_t processQwerty(bool lookup) {
 	PC( RE | RU,			SEND(KC_TAB));
 	PC( RE,					SEND(KC_SPC));
 	PC( RU,					SEND(KC_LGUI));
-   
+
 	PC( PWR,				SEND(KC_BSPC));
 	PC( RD,					SEND(KC_LCTL));
 	P( RZ,					SEND(KC_DEL));

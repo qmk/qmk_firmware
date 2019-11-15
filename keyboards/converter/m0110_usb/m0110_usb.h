@@ -23,7 +23,7 @@ Ported to QMK by Techsock <info@techsock.com>
 #include "quantum.h"
 
 /* Common layout for M0110 and M0110A
- * This keymap works with both keyboards. As you can see, the M0110A is 
+ * This keymap works with both keyboards. As you can see, the M0110A is
  * a superset of M0110 keyboard, only one exception is 'Enter'(34) of M0110
  * does not exist on the M0110A.
  *

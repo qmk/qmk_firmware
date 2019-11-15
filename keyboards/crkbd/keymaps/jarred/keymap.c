@@ -37,28 +37,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QWERTY_3_12,
     QWERTY_4_DOX
   ),
-  
+
   [_LW] = LAYOUT_crkbd_wrapper(
     LOWER_1_12,
     LOWER_2_12,
     LOWER_3_12,
     LOWER_4_DOX
   ),
-  
+
   [_NV] = LAYOUT_crkbd_wrapper(
     NAV_1_12,
     NAV_2_12,
     NAV_3_12,
     NAV_4_DOX
   ),
-  
+
   [_NP] = LAYOUT_crkbd_wrapper(
     NUMPAD_1_12,
     NUMPAD_2_12,
     NUMPAD_3_12,
     NUMPAD_4_DOX
   ),
-  
+
   [_MS] = LAYOUT_crkbd_wrapper(
     MOUSE_1_12,
     MOUSE_2_12,
@@ -87,9 +87,9 @@ char matrix_line_str[24];
 
 const char *read_layer_state(void) {
   uint8_t layer = biton32(layer_state);
-  
+
   strcpy(matrix_line_str, "Layer: ");
-  
+
   switch (layer)
   {
     case _QW:
@@ -115,9 +115,9 @@ const char *read_layer_state(void) {
 }
 
 const char *read_usb_state(void) {
-  
+
   strcpy(matrix_line_str, "USB  : ");
-  
+
   switch (USB_DeviceState) {
     case DEVICE_STATE_Unattached:
       strcat(matrix_line_str, "Unattached");

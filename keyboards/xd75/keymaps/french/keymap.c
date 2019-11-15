@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | RESET  |        |        | FN     |        |        |        |        |        |        | 0      | .      | PENT   |        | LEDLVL |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- 
+
  [_FN] = { /* FUNCTION */
   { FR_EMPT,	FR_F1,		FR_F2,		FR_F3,		FR_F4,		FR_F5,		FR_F6,  	FR_F7,		FR_F8,    	FR_F9,		FR_F10, 	FR_F11,  	FR_F12,   	FR_PSCR,	BL_TOGG },
   { FR_EMPT,	FR_MPRV,	FR_MPLY,	FR_MNXT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_NUML,  	FR_7,     	FR_8,   	FR_9,    	FR_MULT,  	FR_EMPT,	BL_INC	},

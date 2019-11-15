@@ -400,10 +400,10 @@ void tetris_start(uint8_t seed) {
   init();
 
   game_over = 0;
-  
+
   r = seed;
   score = 0;
-  
+
   copy_piece_from_to(empty_piece, piece);
   x = 0;
   y = 0;
@@ -419,9 +419,9 @@ int tetris_tick(int ms_since_previous_tick) {
   if (game_over) {
     return 0;
   }
-      
+
   time += ms_since_previous_tick;
-  
+
   if (first_run || time > next_down) {
     if (first_run || is_piece_hitting(board, piece, x, y + 1)) {
       first_run = 0;
@@ -433,12 +433,12 @@ int tetris_tick(int ms_since_previous_tick) {
       if (down_delay < 100) {
         down_delay = 100;
       }
-        
+
       rotation = 0;
       shape = r % 7;
       r = myrandom(r);
       set_piece(piece, shape, rotation);
-      
+
       x = 1;
       y = - get_piece_min_y(piece);
       draw_piece_moved(get_shape_char(shape), 1 + x, y, piece, 0, 0);
@@ -460,7 +460,7 @@ int tetris_tick(int ms_since_previous_tick) {
     }
     next_down = time + down_delay;
   } else {
-      
+
     switch (tetris_get_keypress()) {
     case 1: { // up
       int oldrotation = rotation;

@@ -26,8 +26,8 @@
  * represents the switch matrix.
  */
 
-// LAYOUT_all ignores the key often coded as ~# to the left of Enter on ISO layouts. 
-// This is done as it shares the same row AND col as the pipe key. 
+// LAYOUT_all ignores the key often coded as ~# to the left of Enter on ISO layouts.
+// This is done as it shares the same row AND col as the pipe key.
 
 #define LAYOUT_all( \
     k50, k41, k42, k43, k44, k45, k61, k68, k78, k71, k49, k48, k47, k52, k4A, \

@@ -5,7 +5,7 @@
 #define UM 0
 
 #define L0   0      // layer_0
-#define L1   1      // layer_1  
+#define L1   1      // layer_1
 #define L2   2      // layer_2
 #define L3   3      // layer_3
 #define L4   4      // layer_4

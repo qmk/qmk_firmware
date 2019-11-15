@@ -39,25 +39,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  KC_NO,  KC_LSFT, MO(_COMMAND),            KC_ENT,  KC_SPC, KC_NO
 ),
 [_SYMBOL] = LAYOUT(
-   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-   KC_TRNS,  KC_EQL,    KC_9,    KC_8,    KC_7, KC_PLUS,                    KC_HASH, KC_UNDS, KC_MCBR, KC_RCBR, KC_TRNS, KC_TRNS, 
-   KC_TRNS,    KC_0,    KC_6,    KC_5,    KC_4, KC_MINS,                    KC_CIRC, KC_AMPR, KC_MPRN, KC_RPRN, KC_RBRC, KC_TRNS, 
-   KC_TRNS, KC_SLSH,    KC_3,    KC_2,    KC_1, KC_ASTR, KC_TRNS,  KC_TRNS, KC_EXLM, KC_DLR,  KC_MABK, KC_TRNS, KC_TRNS, KC_TRNS, 
-                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS 
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+   KC_TRNS,  KC_EQL,    KC_9,    KC_8,    KC_7, KC_PLUS,                    KC_HASH, KC_UNDS, KC_MCBR, KC_RCBR, KC_TRNS, KC_TRNS,
+   KC_TRNS,    KC_0,    KC_6,    KC_5,    KC_4, KC_MINS,                    KC_CIRC, KC_AMPR, KC_MPRN, KC_RPRN, KC_RBRC, KC_TRNS,
+   KC_TRNS, KC_SLSH,    KC_3,    KC_2,    KC_1, KC_ASTR, KC_TRNS,  KC_TRNS, KC_EXLM, KC_DLR,  KC_MABK, KC_TRNS, KC_TRNS, KC_TRNS,
+                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 [_COMMAND] = LAYOUT(
-    KC_APP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-   KC_TRNS, KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                    KC_SLCK,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_TRNS, 
-   KC_TRNS, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                    KC_CAPS,   KC_F5,   KC_F6,   KC_F7,   KC_F8, KC_TRNS, 
-   KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_MUTE, KC_TRNS,  KC_TRNS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, KC_TRNS, 
-                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS 
+    KC_APP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+   KC_TRNS, KC_PGUP, KC_HOME,   KC_UP,  KC_END, KC_VOLU,                    KC_SLCK,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_TRNS,
+   KC_TRNS, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                    KC_CAPS,   KC_F5,   KC_F6,   KC_F7,   KC_F8, KC_TRNS,
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_PSCR, KC_TRNS, KC_MUTE, KC_TRNS,  KC_TRNS, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,   KC_F4, KC_TRNS,
+                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 [_MEH] = LAYOUT(
-   LALT(KC_F4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET, 
-   KC_TRNS, MEH(KC_Q), LCTL(KC_W), LSFT(KC_TAB), KC_DEL, MEH(KC_T),          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-   KC_TRNS, MEH(KC_A),LSFT(LCTL(KC_TAB)),KC_TAB,LCTL(KC_TAB),MEH(KC_G),      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-   KC_TRNS,MEH(KC_Z),MEH(KC_X),MEH(KC_C),MEH(KC_V),MEH(KC_B),KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS 
+   LALT(KC_F4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
+   KC_TRNS, MEH(KC_Q), LCTL(KC_W), LSFT(KC_TAB), KC_DEL, MEH(KC_T),          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+   KC_TRNS, MEH(KC_A),LSFT(LCTL(KC_TAB)),KC_TAB,LCTL(KC_TAB),MEH(KC_G),      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+   KC_TRNS,MEH(KC_Z),MEH(KC_X),MEH(KC_C),MEH(KC_V),MEH(KC_B),KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                 KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,  KC_TRNS,  KC_TRNS
 )
 
 };
@@ -65,40 +65,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t code_timer;
   switch (keycode) {
-  case KC_MCBR:                                  
+  case KC_MCBR:
     if(record->event.pressed){
       code_timer= timer_read();
       SEND_STRING("{");
     } else {
       if (timer_elapsed(code_timer) > TAPPING_TERM) {
         SEND_STRING("}" SS_TAP(X_LEFT));
-      } 
+      }
     }
     return false;
     break;
-  case KC_MBRC:                                  
+  case KC_MBRC:
     if(record->event.pressed){
       code_timer= timer_read();
       SEND_STRING("[");
     } else {
       if (timer_elapsed(code_timer) > TAPPING_TERM) {
         SEND_STRING("]" SS_TAP(X_LEFT));
-      } 
+      }
     }
     return false;
     break;
-  case KC_MPRN:                                  
+  case KC_MPRN:
     if(record->event.pressed){
       code_timer= timer_read();
       SEND_STRING("(");
     } else {
       if (timer_elapsed(code_timer) > TAPPING_TERM) {
         SEND_STRING(")" SS_TAP(X_LEFT));
-      } 
+      }
     }
     return false;
     break;
-  case KC_MABK:                                  
+  case KC_MABK:
     if(record->event.pressed){
       code_timer= timer_read();
       if (get_mods() & MODS_SHIFT_MASK){
@@ -111,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (get_mods()  & MODS_SHIFT_MASK){
           SEND_STRING(">" SS_TAP(X_LEFT));
         }
-      } 
+      }
     }
     return false;
     break;

@@ -30,7 +30,7 @@ const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 // Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
 enum custom_keycodes {
-  MY_KEYCODE = NEW_SAFE_RANGE, 
+  MY_KEYCODE = NEW_SAFE_RANGE,
 };
 
 

@@ -28,7 +28,7 @@ public:
     TestDriver();
     ~TestDriver();
     void set_leds(uint8_t leds) { m_leds = leds; }
-    
+
     MOCK_METHOD1(send_keyboard_mock, void (report_keyboard_t&));
     MOCK_METHOD1(send_mouse_mock, void (report_mouse_t&));
     MOCK_METHOD1(send_system_mock, void (uint16_t));

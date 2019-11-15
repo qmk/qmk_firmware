@@ -224,7 +224,7 @@ void haptic_disable_continuous(void) {
   xprintf("haptic_config.cont = %u\n", haptic_config.cont);
   eeconfig_update_haptic(haptic_config.raw);
   #ifdef DRV2605L
-  DRV_write(DRV_MODE,0x00); 
+  DRV_write(DRV_MODE,0x00);
   #endif
 }
 
@@ -300,16 +300,16 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_DWLD && record->event.pressed) {
         haptic_dwell_decrease();
     }
-    if (keycode == HPT_CONT && record->event.pressed) { 
-        haptic_toggle_continuous(); 
+    if (keycode == HPT_CONT && record->event.pressed) {
+        haptic_toggle_continuous();
     }
-    if (keycode == HPT_CONI && record->event.pressed) { 
-        haptic_cont_increase(); 
+    if (keycode == HPT_CONI && record->event.pressed) {
+        haptic_cont_increase();
     }
-    if (keycode == HPT_COND && record->event.pressed) { 
-        haptic_cont_decrease(); 
+    if (keycode == HPT_COND && record->event.pressed) {
+        haptic_cont_decrease();
     }
-      
+
     if (haptic_config.enable) {
         if (record->event.pressed) {
             // keypress

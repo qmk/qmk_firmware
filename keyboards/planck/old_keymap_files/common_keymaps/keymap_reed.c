@@ -52,7 +52,7 @@ const uint16_t PROGMEM fn_actions[] = {
 	// Actions for the tap/hold modifiers listed above
     [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [7] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),
-	
+
     [10] = ACTION_MODS_KEY(MOD_LSFT, KC_1),
     [11] = ACTION_MODS_KEY(MOD_LSFT, KC_2),
     [12] = ACTION_MODS_KEY(MOD_LSFT, KC_3),

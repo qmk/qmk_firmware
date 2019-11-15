@@ -60,7 +60,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           SEND_STRING("M804" SS_TAP(X_ENTER));
       }
-      break; 
+      break;
     case M805:
       if (record->event.pressed) {
           SEND_STRING("M805" SS_TAP(X_ENTER));

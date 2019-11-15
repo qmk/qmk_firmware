@@ -61,7 +61,7 @@ void activateRelativity(void)
 }
 
 bool deactivateRelativity(void)
-{  
+{
   rgblight_mode(9);
   eraseKeyCodes();
   eraseTableAbbreviation();
@@ -482,7 +482,7 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
           tempOff = true;
           return true;
         }
-        
+
 
       case KC_SPC:
         printTableAbbreviation();

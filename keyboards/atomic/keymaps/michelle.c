@@ -174,6 +174,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 0:
       return MACRODOWN(TYPE(KC_T), END);
       break;
-  } 
+  }
   return MACRO_NONE;
 };

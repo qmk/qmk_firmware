@@ -6,7 +6,7 @@ enum {
   TD_RESET = 0,
   TD_SPC,  // for special function td_parenthesis testing
   TD_NUM1, // compact gaming numpad
-  TD_NUM2, // 
+  TD_NUM2, //
   TD_NUM3, //
   TD_TMX,  // tmux control sequence
   TD_EOL,  // end of line

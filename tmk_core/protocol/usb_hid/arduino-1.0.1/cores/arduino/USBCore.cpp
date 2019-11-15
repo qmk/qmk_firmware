@@ -1,19 +1,19 @@
 
 
-/* Copyright (c) 2010, Peter Barrett  
-**  
-** Permission to use, copy, modify, and/or distribute this software for  
-** any purpose with or without fee is hereby granted, provided that the  
-** above copyright notice and this permission notice appear in all copies.  
-** 
-** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL  
-** WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED  
-** WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR  
-** BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES  
-** OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,  
-** WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,  
-** ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS  
-** SOFTWARE.  
+/* Copyright (c) 2010, Peter Barrett
+**
+** Permission to use, copy, modify, and/or distribute this software for
+** any purpose with or without fee is hereby granted, provided that the
+** above copyright notice and this permission notice appear in all copies.
+**
+** THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
+** WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED
+** WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR
+** BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES
+** OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+** WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+** ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+** SOFTWARE.
 */
 
 #include "Platform.h"
@@ -51,7 +51,7 @@ const u16 STRING_LANGUAGE[2] = {
 
 const u16 STRING_IPRODUCT[17] = {
 	(3<<8) | (2+2*16),
-#if USB_PID == 0x8036	
+#if USB_PID == 0x8036
 	'A','r','d','u','i','n','o',' ','L','e','o','n','a','r','d','o'
 #else
 	'U','S','B',' ','I','O',' ','B','o','a','r','d',' ',' ',' ',' '
@@ -117,9 +117,9 @@ void Recv(volatile u8* data, u8 count)
 {
 	while (count--)
 		*data++ = UEDATX;
-	
+
 	RXLED1;					// light the RX LED
-	RxLEDPulse = TX_RX_LED_PULSE_MS;	
+	RxLEDPulse = TX_RX_LED_PULSE_MS;
 }
 
 static inline u8 Recv8()
@@ -127,7 +127,7 @@ static inline u8 Recv8()
 	RXLED1;					// light the RX LED
 	RxLEDPulse = TX_RX_LED_PULSE_MS;
 
-	return UEDATX;	
+	return UEDATX;
 }
 
 static inline void Send8(u8 d)
@@ -227,7 +227,7 @@ int USB_Recv(u8 ep, void* d, int len)
 {
 	if (!_usbConfiguration || len < 0)
 		return -1;
-	
+
 	LockEP lock(ep);
 	u8 n = FifoByteCount();
 	len = min(n,len);
@@ -237,7 +237,7 @@ int USB_Recv(u8 ep, void* d, int len)
 		*dst++ = Recv8();
 	if (len && !FifoByteCount())	// release empty buffer
 		ReleaseRX();
-	
+
 	return len;
 }
 
@@ -310,10 +310,10 @@ int USB_Send(u8 ep, const void* d, int len)
 }
 
 extern const u8 _initEndpoints[] PROGMEM;
-const u8 _initEndpoints[] = 
+const u8 _initEndpoints[] =
 {
 	0,
-	
+
 #ifdef CDC_ENABLED
 	EP_TYPE_INTERRUPT_IN,		// CDC_ENDPOINT_ACM
 	EP_TYPE_BULK_OUT,			// CDC_ENDPOINT_OUT
@@ -442,7 +442,7 @@ static
 bool SendConfiguration(int maxlen)
 {
 	//	Count and measure interfaces
-	InitControl(0);	
+	InitControl(0);
 	int interfaces = SendInterfaces();
 	ConfigDescriptor config = D_CONFIG(_cmark + sizeof(ConfigDescriptor),interfaces);
 
@@ -480,7 +480,7 @@ bool SendDescriptor(Setup& setup)
 	{
 		if (setup.wValueL == 0)
 			desc_addr = (const u8*)&STRING_LANGUAGE;
-		else if (setup.wValueL == IPRODUCT) 
+		else if (setup.wValueL == IPRODUCT)
 			desc_addr = (const u8*)&STRING_IPRODUCT;
 		else if (setup.wValueL == IMANUFACTURER)
 			desc_addr = (const u8*)&STRING_IMANUFACTURER;
@@ -606,7 +606,7 @@ ISR(USB_GEN_vect)
 		while (USB_Available(CDC_RX))	// Handle received bytes (if any)
 			Serial.accept();
 #endif
-		
+
 		// check whether the one-shot period has elapsed.  if so, turn off the LED
 		if (TxLEDPulse && !(--TxLEDPulse))
 			TXLED0;
@@ -650,7 +650,7 @@ void USBDevice_::attach()
 	USBCON = ((1<<USBE)|(1<<OTGPADE));	// start USB clock
 	UDIEN = (1<<EORSTE)|(1<<SOFE);		// Enable interrupts for EOR (End of Reset) and SOF (start of frame)
 	UDCON = 0;							// enable attach resistor
-	
+
 	TX_RX_LED_INIT;
 }
 

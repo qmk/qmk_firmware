@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_NLCK, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PAST, _______,
         _______, _______, _______, _______, _______,     _______,      KC_KP_0, KC_DOT,  KC_PPLS, KC_PMNS, _______
     ),
-	
+
 	/* Function layer (4)
      * Backlighting, keyboard controls, music etc.
      * ,-------------------------------------------------------------------------.

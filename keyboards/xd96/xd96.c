@@ -31,7 +31,7 @@ void led_set_kb(uint8_t usb_led) {
   } else {
     writePinHigh(CAPS_PIN);
   }
-  
+
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(NUMLOCK_PIN);
   } else {

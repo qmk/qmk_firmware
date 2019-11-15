@@ -44,7 +44,7 @@
                                       OS_LGUI,LT(_LOWER, KC_SPC),KC_DEL,               KC_BSPC, LT(_RAISE, KC_ENT),  OS_RGUI                               \
     )
 
-#define LAYOUT_ergodash_pretty_base_wrapper(...)       LAYOUT_ergodash_pretty_base(__VA_ARGS__) 
+#define LAYOUT_ergodash_pretty_base_wrapper(...)       LAYOUT_ergodash_pretty_base(__VA_ARGS__)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

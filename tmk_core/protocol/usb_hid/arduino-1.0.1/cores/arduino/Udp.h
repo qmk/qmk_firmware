@@ -4,7 +4,7 @@
  * NOTE: UDP is fast, but has some important limitations (thanks to Warren Gray for mentioning these)
  * 1) UDP does not guarantee the order in which assembled UDP packets are received. This
  * might not happen often in practice, but in larger network topologies, a UDP
- * packet can be received out of sequence. 
+ * packet can be received out of sequence.
  * 2) UDP does not guard against lost packets - so packets *can* disappear without the sender being
  * aware of it. Again, this may not be a concern in practice on small local networks.
  * For more information, see http://www.cafeaulait.org/course/week12/35.html
@@ -17,10 +17,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -45,7 +45,7 @@ public:
   virtual void stop() =0;  // Finish with the UDP socket
 
   // Sending UDP packets
-  
+
   // Start building up a packet to send to the remote host specific in ip and port
   // Returns 1 if successful, 0 if there was a problem with the supplied IP address or port
   virtual int beginPacket(IPAddress ip, uint16_t port) =0;

@@ -122,7 +122,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   return MACRO_NONE;
 }
 
-// initialize matrix 
+// initialize matrix
 void matrix_init_user(void) {
 }
 

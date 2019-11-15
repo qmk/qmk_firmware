@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 10
 
-//#define BACKLIGHT_PIN F4 
+//#define BACKLIGHT_PIN F4
 //#define BACKLIGHT_BREATHING
 //#define BACKLIGHT_LEVELS 1
 

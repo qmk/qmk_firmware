@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
- 
+
 #ifdef USE_I2C
 #include <stddef.h>
 #ifdef __AVR__

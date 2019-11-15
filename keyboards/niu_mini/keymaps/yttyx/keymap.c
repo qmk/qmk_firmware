@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     '--------'-------'-------+-------+--------+-----.               .-----+-------+-------+-------'-------'------'
                              | BS P1 | Spc P2 | P3  |               |     | Sft   |       |
                              '-------'--------'-----'               '-----'-------'-------'
-  */                                                               
-  [BA] = LAYOUT(                                                   
+  */
+  [BA] = LAYOUT(
     KC_P,     KC_L,     KC_C,     KC_D,       KC_W,      XXXXXXX,   XXXXXXX, KC_U,    KC_O,       KC_Y,        KC_K,     KC_Q,
     KC_N,     KC_R,     KC_S,     KC_T,       KC_M,      XXXXXXX,   XXXXXXX, KC_A,    KC_E,       KC_I,        KC_H,     KC_V,
     KX_SFT_Z, KX_CTL_J, KX_ALT_F, KC_G,       KC_B,      XXXXXXX,   XXXXXXX, KC_COMM, KX_ALT_DOT, KX_CTL_SCLN, KX_SFT_X, KC_LGUI,
@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              | P1    |       |     |                  |     | Sft  |       |
                              '-------'-------'-----'                  '-----'------'-------'
   */
-  [P1] = LAYOUT(       
-    KC_ESC,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KX_PIPE, KC_SLSH, KC_CIRC, KC_HASH, KX_TILDA,  
+  [P1] = LAYOUT(
+    KC_ESC,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KX_PIPE, KC_SLSH, KC_CIRC, KC_HASH, KX_TILDA,
     KC_TAB,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KC_AMPR, KC_NUBS, KC_GRV,  KC_DLR,  KC_ENT,
     KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     XXXXXXX,    XXXXXXX, XXXXXXX, KC_PERC, KC_LALT, KC_LCTL, KC_LSFT, _______,
     XXXXXXX, XXXXXXX,    XXXXXXX,    _______,    XXXXXXX,    XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

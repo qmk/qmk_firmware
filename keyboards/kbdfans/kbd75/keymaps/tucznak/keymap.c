@@ -49,7 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_dynamic_macro(keycode, record)) {
         return false;
     }
-    
+
     switch (keycode) {
         case MACRO1:
             if (record->event.pressed) {
@@ -57,25 +57,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 _delay_ms(50);
                 SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_TAB) SS_UP(X_LALT) SS_TAP(X_TAB));
             } else {
-                
+
             }
             break;
         case MACRO2:
             if (record->event.pressed) {
                 SEND_STRING("GGWP");
             } else {
-                
+
             }
             break;
         case MACROTAB:
             if (record->event.pressed) {
                 SEND_STRING("    ");
             } else {
-                
+
             }
             break;
     }
-    
+
     return true;
 }
 

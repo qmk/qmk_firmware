@@ -14,9 +14,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License.
  * You may obtain a copy of the Licence at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -142,10 +142,10 @@
 #define SERCOM1_DMAC_ID_RX          6        // Index of DMA RX trigger
 #define SERCOM1_DMAC_ID_TX          7        // Index of DMA TX trigger
 #define SERCOM1_FIFO_DEPTH_POWER    1        // 2^FIFO_DEPTH_POWER gives rx FIFO depth.
-#define SERCOM1_GCLK_ID_CORE        8       
-#define SERCOM1_GCLK_ID_SLOW        3       
-#define SERCOM1_INT_MSB             6       
-#define SERCOM1_PMSB                3       
+#define SERCOM1_GCLK_ID_CORE        8
+#define SERCOM1_GCLK_ID_SLOW        3
+#define SERCOM1_INT_MSB             6
+#define SERCOM1_PMSB                3
 #define SERCOM1_RETENTION_SUPPORT   0        // Retention supported?
 #define SERCOM1_SE_CNT              1        // SE counter included?
 #define SERCOM1_SPI                 1        // SPI mode implemented?

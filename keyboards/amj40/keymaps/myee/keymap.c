@@ -37,14 +37,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______, KC_LPRN, KC_RPRN, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______,          \
 		_______, _______, _______, _______, _______, _______, _______, _______                                     \
 		),
-	
+
     [_RAISE] = LAYOUT( \
         KC_GRV,  KC_LPRN, KC_RPRN, KC_DQUO, KC_QUOT, KC_SCLN, KC_COLON,KC_UNDS, KC_PLUS, _______, _______, KC_BSPC, \
 		_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,             \
 		_______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______, _______, _______, _______,          \
 		_______, _______, _______, _______, _______, _______, BL_INC,  BL_DEC                                      \
 		),
-	
+
     [_ADJUST] = LAYOUT( \
         _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         \
@@ -69,14 +69,14 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     // MACRODOWN only works in this function
-   
+
     return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- 
+
   switch (keycode) {
-    
+
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

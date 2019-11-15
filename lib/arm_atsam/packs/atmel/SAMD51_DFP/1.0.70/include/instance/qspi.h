@@ -14,9 +14,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License.
  * You may obtain a copy of the Licence at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -64,9 +64,9 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for QSPI peripheral ========== */
-#define QSPI_DMAC_ID_RX             83      
-#define QSPI_DMAC_ID_TX             84      
-#define QSPI_HADDR_MSB              23      
-#define QSPI_OCMS                   1       
+#define QSPI_DMAC_ID_RX             83
+#define QSPI_DMAC_ID_TX             84
+#define QSPI_HADDR_MSB              23
+#define QSPI_OCMS                   1
 
 #endif /* _SAMD51_QSPI_INSTANCE_ */

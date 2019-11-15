@@ -1,5 +1,5 @@
 /* Setup to approximate a Kinesis Advantage with an eye to use in a
- * Mac/OSX environment 
+ * Mac/OSX environment
  * This version adds a hand swap feature to flip the keyboard */
 #include QMK_KEYBOARD_H
 #include "debug.h"

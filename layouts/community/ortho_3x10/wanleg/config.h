@@ -2,14 +2,14 @@
 
 //QMK DFU settings (ProMicro boards)
 // set top left key as bootloader mode escape key on Gherkin
-#if defined(KEYBOARD_40percentclub_gherkin) && !defined(FLIP) 
+#if defined(KEYBOARD_40percentclub_gherkin) && !defined(FLIP)
 #define QMK_LED B0
 #define QMK_ESC_OUTPUT B4 // usually COL
 #define QMK_ESC_INPUT F7 // usually ROW
 #endif
 
 //change gherkin orientation (i.e. move USB port from right side to left side)
-#if defined(KEYBOARD_40percentclub_gherkin) && defined(FLIP) 
+#if defined(KEYBOARD_40percentclub_gherkin) && defined(FLIP)
 //need to fix QMKdfu setting:
 #define QMK_ESC_OUTPUT B6 // usually COL
 #define QMK_ESC_INPUT D0 // usually ROW

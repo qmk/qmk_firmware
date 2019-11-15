@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define SET_BIT(var, pos) (var |= (1UL << pos))
 #define CLEAR_BIT(var, pos) (var &= ~(1UL << pos))
 #define TOGGLE_BIT(var, pos) (var ^= (1UL << pos))
-#define CHECK_BIT(var, pos) (var & (1U << pos)) 
+#define CHECK_BIT(var, pos) (var & (1U << pos))
 
 static uint8_t keyboard_state = 0;
 // bit 0 = function layer status (on/off)
@@ -116,11 +116,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     // acts like a momentary function layer press
     case FUN_LAY:
-      if (record->event.pressed) { 
+      if (record->event.pressed) {
         layer_on(_FUNC);
         if (CHECK_BIT(keyboard_state, 1)) {
           layer_on(_MOUSE);
-        } 
+        }
         else {
           layer_off(_MOUSE);
         }
@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           else {
             layer_off(_MOUSE);
-          } 
+          }
         }
       }
       break;
@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return false;
         }
         // key released
-        else { 
+        else {
           SEND_STRING(SS_UP(X_LGUI));
           return false;
         }

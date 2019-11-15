@@ -28,7 +28,7 @@ enum french_key {
 	FR_X,
 	FR_Y,
 	FR_W,
-	FR_AMP,  
+	FR_AMP,
 	FR_EACU,
 	FR_QUOT,		/* 0x20 */
 	FR_APOS,

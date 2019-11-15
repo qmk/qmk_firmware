@@ -18,5 +18,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,_______,_______,KC_LSFT,KC_LCTL,KC_ENT ,_______,KC_LEFT,KC_DOWN,KC_RGHT,KC_DEL ,KC_DEL ,        _______, \
   _______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_PGDN,_______,_______,_______, \
   _______,_______,_______,                 _______,                       _______,_______,  RESET, _______),
-  
+
 };

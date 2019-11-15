@@ -175,7 +175,7 @@ void matrix_scan_user(void) {
    }
 
   if(keyboard_report->mods & MOD_BIT(KC_LSFT))
-  { 
+  {
       ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_1_on ();
   } else {
@@ -200,7 +200,7 @@ void matrix_scan_user(void) {
   }
 
   if(keyboard_report->mods & MOD_BIT(KC_LCTRL))
-  { 
+  {
       ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_3_on ();
   } else {
@@ -213,7 +213,7 @@ void matrix_scan_user(void) {
 };
 
 void led_set_user(uint8_t usb_led){
- if (usb_led & (1 << USB_LED_CAPS_LOCK)) 
+ if (usb_led & (1 << USB_LED_CAPS_LOCK))
    {
       capsOn = true;
    }else {

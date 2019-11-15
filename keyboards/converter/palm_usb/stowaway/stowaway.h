@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  based on matrix from http://www.splorp.com/pdf/stowawayhwref.pdf
 
     1,    2,    3,    4,    5,    6,    7,    8,    9,    0,   MINS, EQL,   BACK         APP0,
-    TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,   P,    LBRC,  RBRC, BSLS,  APP1,  
-    CAPS, A,    S,    D,    F,    G,    H,    J,    K,    L,   SCLN, QUOT,  ENT,         APP2,  
-    LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT, SLSH, RSFT,  UP,          APP3, 
-    LCTL, FN,   LALT, CMD,  SPACE,SPACE,GRAVE,DONE, DEL, LEFT, DOWN, RIGHT     
+    TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,   P,    LBRC,  RBRC, BSLS,  APP1,
+    CAPS, A,    S,    D,    F,    G,    H,    J,    K,    L,   SCLN, QUOT,  ENT,         APP2,
+    LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT, SLSH, RSFT,  UP,          APP3,
+    LCTL, FN,   LALT, CMD,  SPACE,SPACE,GRAVE,DONE, DEL, LEFT, DOWN, RIGHT
 
 */
 #define LAYOUT(                                                         \

@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     MT(MOD_LCTL,KC_DEL),  K21,    K22,     K23,      K24,     K25,     KC_SPACE,           K26,     K27,     K28,     K29,     K2A,     KC_LEAD  \
   )
 
-/* 
+/*
  * ,------. ,----------------------------------------------------------------------------. ,------.
  * |ALTTAB| |   Q  |   W  |   E  |   R  |   T  |RSE/PU|   Y  |   U  |   I  |   O  |   P  | | BSPC |
  * |------| |------+------+------+------+------+------+------+------+------+------+------+ |------|
@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-            
+
   [_QWERTY] = LAYOUT_collide39_base_wrapper(
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,

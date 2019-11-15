@@ -16,7 +16,7 @@
 
 // EEPROM management code taken from Wilba6582
 // https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/zeal_eeprom.h
- 
+
 #ifndef MXSS_FRONTLED_H
 #define MXSS_FRONTLED_H
 
@@ -58,7 +58,7 @@ typedef union {
 
 // Structure to store hue and saturation values
 typedef struct _hs_set {
-    uint16_t hue; 
+    uint16_t hue;
     uint8_t sat;
 } hs_set;
 

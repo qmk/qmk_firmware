@@ -26,7 +26,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 ////In Layer declaration, add tap dance item in place of a key code
 //TD(TD_WIN_LOCK)
 
-// Double Tap Fn button to get caps. FN + Tab to get to number layer -> Maybe switch to FN + space?. 
+// Double Tap Fn button to get caps. FN + Tab to get to number layer -> Maybe switch to FN + space?.
 // Press fn+GUI once to lock, double tap to unlock.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

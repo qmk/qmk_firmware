@@ -49,9 +49,9 @@ static void HID_setup()
         debug("HID init: failed\n");
         LED_TX_OFF;
     }
-  
+
     _delay_ms(200);
-      
+
     kbd.SetReportParser(0, (HIDReportParser*)&kbd_parser);
 }
 
@@ -77,7 +77,7 @@ int main(void)
     }
 
     HID_setup();
-    
+
     debug("init: done\n");
     for (;;) {
         usb_host.Task();
@@ -87,6 +87,6 @@ int main(void)
         USB_USBTask();
 #endif
     }
-        
+
     return 0;
 }

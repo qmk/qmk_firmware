@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_CAPS, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, _______, KC_PGUP, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, KC_APP,  KC_HOME, KC_PGDN, KC_END
     ),
-    
+
      /* Raise layer (2)
      * National characters, special characters
      * ,-----------------------------------------------------------------------------------.
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, LSFT(KC_MINS), KC_MINS, KC_BSLS, LSFT(KC_BSLS), KC_SLSH, LSFT(KC_SLSH),
         _______, _______, _______, _______, _______, _______, _______,       _______, _______, _______,       _______, _______
     ),
-    
+
     /* Numbers layer - numpad (3)
      * ,-----------------------------------------------------------------------------------.
      * |      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |  8   |  9   |  0   |      |
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_NLCK, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PAST, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_DOT,  KC_KP_0, KC_PPLS, KC_PMNS, _______
     ),
-    
+
     /* Function layer (4)
      * Backlighting, keyboard controls, etc.
      * m_ - music, r_ - RGB + backlight, f_ - macro
@@ -114,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_user(void) {
-    
+
 }
 
 void matrix_scan_user(void) {
-    
+
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -129,5 +129,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-    
+
 }

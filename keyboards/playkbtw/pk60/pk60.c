@@ -22,7 +22,7 @@ void led_init_ports(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-    
+
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
       // Turn capslock on
       PORTF &= ~(1 << 4);

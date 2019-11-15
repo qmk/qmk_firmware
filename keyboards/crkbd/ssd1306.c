@@ -26,7 +26,7 @@ extern const unsigned char font[] PROGMEM;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 
 // 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
+// so this must be less than 65535
 #define ScreenOffInterval 60000 /* milliseconds */
 #if DEBUG_TO_SCREEN
 static uint8_t displaying;
