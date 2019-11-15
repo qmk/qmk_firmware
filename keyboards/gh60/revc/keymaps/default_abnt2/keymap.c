@@ -67,7 +67,7 @@ void matrix_scan_user(void) {
 //Layer LED indicators
     uint32_t layer = layer_state;
 
-    if (layer & (1<<1)) {
+     if (layer_state_is(_FL)) {
         gh60_wasd_leds_on();
         gh60_fn_led_on();
     } else {
@@ -75,7 +75,7 @@ void matrix_scan_user(void) {
         gh60_fn_led_off();
     }
 
-    if (layer & (1<<2)) {
+    if (layer_state_is(_CL)) {
         gh60_poker_leds_on();
         gh60_esc_led_on();
     } else {
