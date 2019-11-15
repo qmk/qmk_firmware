@@ -106,7 +106,7 @@ static inline bool tap_ctrl_other_pressed(void) {
 static bool rgb_layers_enabled = true;
 static bool rgb_L0_enabled = false;
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     if (!rgb_layers_enabled) {
         return state;
     }
