@@ -18,7 +18,7 @@
 
 const hue_sat_pair hue_sat_pairs[] = {[_FN1] = {2, 255}, [_FN2] = {200, 255}, [_CFG] = {80, 255}, [_NUM] = {45, 255}};
 
-bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == RGBLED_NUM - 1 || index == RGBLED_NUM / 2; }
+bool rhruiz_is_layer_indicator_led(uint8_t index) { return index >= RGBLED_NUM / 2; }
 
 void rhruiz_update_layer_colors(layer_state_t state) {
     if (biton32(state) < _FN1) {
