@@ -115,6 +115,11 @@ void led_set_user(uint8_t usb_led) {
 #endif
 
 #ifdef KEYBOARD_planck_rev6
+#ifdef AUDIO_ENABLE
+    float plover_song[][2]     = SONG(PLOVER_SOUND);
+    float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#endif
+
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
