@@ -223,8 +223,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [JPXON] = LAYOUT_ergodox(
-	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
-	   KC_NO, KC_NO,    M(JPXE),        KC_NO,    M(JPXKE),   KC_NO, KC_NO,
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_NO,    M(JPXE),        KC_NO,    M(JPXKE),   KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,          M(JPXKA),      KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
@@ -232,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_NO,
                                   KC_NO, KC_TRNS, KC_TRNS,
     // right hand
-	   KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+       KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,  M(JPXYA), KC_NO, M(JPXTU), M(JPXO), KC_NO, KC_NO,
                  M(JPXA), M(JPXYO), M(JPXYU), KC_NO, M(JPXU), KC_NO,
        KC_NO,  KC_NO,KC_NO, KC_NO, M(JPXI), KC_NO, KC_NO,
@@ -266,8 +266,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [JPKAZARI] = LAYOUT_ergodox(
-	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
-	   KC_NO, KC_NO,    M(JPGO),        M(JPZA),    M(JPBE), M(JPGE), KC_NO,
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_NO,    M(JPGO),        M(JPZA),    M(JPBE), M(JPGE), KC_NO,
        KC_NO, M(JPDO),    M(JPJI),        M(JPGA),    M(JPGI), M(JPZU),
        KC_NO, KC_NO,    M(JPZO),        M(JPBI),    M(JPDI), KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
@@ -275,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_NO,
                                   M(SHIFT), KC_NO, KC_TRNS,
     // right hand
-	   KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+       KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,  M(JPBU), M(JPZE), M(JPDU), M(JPGU), KC_NO, KC_NO,
                  KC_NO, M(JPBA), M(JPDE), M(JPDA), M(JPVU), KC_NO,
        KC_NO,  KC_NO, KC_NO, M(JPBO), KC_NO, KC_NO, KC_NO,
@@ -309,8 +309,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [JPTOPROW] = LAYOUT_ergodox(
-	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO,   KC_NO, KC_NO,
-	   KC_NO, KC_NO,    KC_E,       KC_MINS,  M(JPRE), KC_NO, KC_NO,
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO,   KC_NO, KC_NO,
+       KC_NO, KC_NO,    KC_E,       KC_MINS,  M(JPRE), KC_NO, KC_NO,
        KC_NO, M(JPRA),  M(JPRI),       M(JPNA),  M(JPNO), M(JPMI),
        KC_NO, KC_NO, KC_NO,    KC_NO,  KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
@@ -318,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_NO,
                                   KC_TRNS, KC_NO, KC_NO,
     // right hand
-	   KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+       KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,  M(JPYA), M(JPNE), M(JPRU), KC_O, KC_NO, KC_NO,
                  M(JPWA), M(JPYO), M(JPYU), M(JPNI), M(JPNN), KC_NO,
        KC_NO,  KC_NO, M(JPMO), M(JPRO), M(JPWO), KC_NO, KC_NO,
@@ -353,8 +353,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 [JPTRKZ] = LAYOUT_ergodox(
-	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
-	   KC_NO, KC_NO,    KC_NO,        KC_NO,    M(JPPE),KC_NO,  KC_NO,
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_NO,    KC_NO,        KC_NO,    M(JPPE),KC_NO,  KC_NO,
        KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,        M(JPPI),    KC_NO, KC_NO, KC_NO,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_NO,
@@ -362,7 +362,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_NO,
                                   KC_TRNS, KC_NO, KC_NO,
     // right hand
-	   KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+       KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,  M(JPPU), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                  KC_NO, M(JPPA), KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,  KC_NO, KC_NO, M(JPPO), KC_NO, KC_NO, KC_NO,
@@ -395,8 +395,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Numbers
 [NUM] = LAYOUT_ergodox(
        // left hand
-	   KC_NO, KC_F1,      KC_F2,          KC_F3,      KC_F4,   KC_F5,   KC_NO,
-	   KC_NO, KC_NO,    KC_NO,        JP_DQT,    KC_RBRACKET,   KC_BSPC, KC_SCLN,
+       KC_NO, KC_F1,      KC_F2,          KC_F3,      KC_F4,   KC_F5,   KC_NO,
+       KC_NO, KC_NO,    KC_NO,        JP_DQT,    KC_RBRACKET,   KC_BSPC, KC_SCLN,
        KC_NO, KC_NO,    KC_SLSH,        JP_PLUS,    LSFT(KC_RBRACKET),   JP_RCBR,
        KC_NO, KC_NO,    JP_ASTR,        KC_MINS,    LSFT(KC_8), LSFT(KC_9), JP_COLN,
        KC_TRNS, KC_NO,    KC_NO,        KC_NO,    KC_HASH,
@@ -419,504 +419,504 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
   // MACRO only works in this function
-	switch(id) {
-		case 0:
-			if (record->event.pressed) {
-				register_code(KC_RSFT);
-			} else {
-				unregister_code(KC_RSFT);
-			}
-			break;
-		case CTLSHFT:
-			if (record->event.pressed) {
-				return MACRO( D(LSFT), D(LCTL), END);
-			} else {
-				return MACRO( U(LSFT), U(LCTL), END);
-			}
-			break;
-		case CUTCOPY:
-			if (record->event.pressed) {
-				start = timer_read();
-			} else {
-				if (timer_elapsed(start) > 150) {
-					return MACRO( D(LCTL), T(X), U(LCTL), END);
-				} else {
-					return MACRO( D(LCTL), T(C), U(LCTL), END);
-				}
-			}
-			break;
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+            } else {
+                unregister_code(KC_RSFT);
+            }
+            break;
+        case CTLSHFT:
+            if (record->event.pressed) {
+                return MACRO( D(LSFT), D(LCTL), END);
+            } else {
+                return MACRO( U(LSFT), U(LCTL), END);
+            }
+            break;
+        case CUTCOPY:
+            if (record->event.pressed) {
+                start = timer_read();
+            } else {
+                if (timer_elapsed(start) > 150) {
+                    return MACRO( D(LCTL), T(X), U(LCTL), END);
+                } else {
+                    return MACRO( D(LCTL), T(C), U(LCTL), END);
+                }
+            }
+            break;
 
-		// kana macros start here
+        // kana macros start here
 
-		case JPVU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(V), T(U), END);
-			}
-			break;
-		case JPNU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(U), END);
-			}
-			break;
-		case JPKO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(K), T(O), END);
-			}
-			break;
-		case JPSA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(A), END);
-			}
-			break;
-		case JPKE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(K), T(E), END);
-			}
-			break;
-		case JPHE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(H), T(E), END);
-			}
-			break;
-		case JPSHI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(I), END);
-			}
-			break;
-			case JPKA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(K), T(A), END);
-			}
-			break;
-		case JPKI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(K), T(I), END);
-			}
-			break;
-		case JPSU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(U), END);
-			}
-			break;
-		case JPSO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(O), END);
-			}
-			break;
-		case JPHI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(H), T(I), END);
-			}
-			break;
-		case JPCHI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(I), END);
-			}
-			break;
-		case JPFU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(F), T(U), END);
-			}
-			break;
-		case JPSE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(E), END);
-			}
-			break;
-		case JPTSU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(U), END);
-			}
-			break;
-		case JPKU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(K), T(U), END);
-			}
-			break;
-		case JPTE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(E), END);
-			}
-			break;
-		case JPTA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(A), END);
-			}
-			break;
-		case JPTO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(O), END);
-			}
-			break;
-		case JPHA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(H), T(A), END);
-			}
-			break;
-		case JPHO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(H), T(O), END);
-			}
-			break;
-		case JPXKE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(K), T(E), END);
-			}
-			break;
-		case JPXU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(U), END);
-			}
-			break;
-		case JPXKA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(K), T(A), END);
-			}
-			break;
-		case JPXA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(A), END);
-			}
-			break;
-		case JPXO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(O), END);
-			}
-			break;
-		case JPGO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(G), T(O), END);
-			}
-			break;
-		case JPZA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Z), T(A), END);
-			}
-			break;
-		case JPGE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(G), T(E), END);
-			}
-			break;
-		case JPBE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(B), T(E), END);
-			}
-			break;
-		case JPYU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Y), T(U), END);
-			}
-			break;
-		case JPJI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(J), T(I), END);
-			}
-			break;
-		case JPGA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(G), T(A), END);
-			}
-			break;
-		case JPGI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(G), T(I), END);
-			}
-			break;
-		case JPZU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Z), T(U), END);
-			}
-			break;
-		case JPZO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Z), T(O), END);
-			}
-			break;
-		case JPBI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(B), T(I), END);
-			}
-			break;
-		case JPDI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(D), T(I), END);
-			}
-			break;
-		case JPZE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Z), T(E), END);
-			}
-			break;
-		case JPDU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(D), T(U), END);
-			}
-			break;
-		case JPGU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(G), T(U), END);
-			}
-			break;
-		case JPYA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Y), T(A), END);
-			}
-			break;
-		case JPYO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(Y), T(O), END);
-			}
-			break;
-		case JPDE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(D), T(E), END);
-			}
-			break;
-		case JPDA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(D), T(A), END);
-			}
-			break;
-		case JPDO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(D), T(O), END);
-			}
-			break;
-		case JPBA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(B), T(A), END);
-			}
-			break;
-		case JPBO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(B), T(O), END);
-			}
-			break;
-		case JPRI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(R), T(I), END);
-			}
-			break;
-		case JPRE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(R), T(E), END);
-			}
-			break;
-		case JPRA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(R), T(A), END);
-			}
-			break;
-		case JPNA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(A), END);
-			}
-			break;
-		case JPNO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(O), END);
-			}
-			break;
-		case JPMI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(M), T(I), END);
-			}
-			break;
-		case JPMU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(M), T(U), END);
-			}
-			break;
-		case JPME:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(M), T(E), END);
-			}
-			break;
-		case JPNE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(E), END);
-			}
-			break;
-		case JPMA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(M), T(A), END);
-			}
-			break;
-		case JPXTU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(T), T(U), END);
-			}
-			break;
-		case JPWA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(W), T(A), END);
-			}
-			break;
-		case JPRU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(R), T(U), END);
-			}
-			break;
-		case JPWO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(W), T(O), END);
-			}
-			break;
-		case JPNI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(I), END);
-			}
-			break;
-		case JPNN:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(N), T(N), END);
-			}
-			break;
-		case JPMO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(M), T(O), END);
-			}
-			break;
-		case JPRO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(R), T(O), END);
-			}
-			break;
-		case JPXE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(E), END);
-			}
-			break;
-		case JPXI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(I), END);
-			}
-			break;
-		case JPXYU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(Y), T(U), END);
-			}
-			break;
-		case JPXYA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(Y), T(A), END);
-			}
-			break;
-		case JPXYO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(X), T(Y), T(O), END);
-			}
-			break;
-		case JPPE:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(P), T(E), END);
-			}
-			break;
-		case JPPU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(P), T(U), END);
-			}
-			break;
-		case JPPI:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(P), T(I), END);
-			}
-			break;
-		case JPPA:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(P), T(A), END);
-			}
-			break;
-		case JPPO:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(P), T(O), END);
-			}
-			break;
-		case JPBU:
-			if (record->event.pressed) {
-				return MACRO( I(1), T(B), T(U), END);
-			}
-			break;
+        case JPVU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(V), T(U), END);
+            }
+            break;
+        case JPNU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(U), END);
+            }
+            break;
+        case JPKO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(K), T(O), END);
+            }
+            break;
+        case JPSA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(S), T(A), END);
+            }
+            break;
+        case JPKE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(K), T(E), END);
+            }
+            break;
+        case JPHE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(H), T(E), END);
+            }
+            break;
+        case JPSHI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(S), T(I), END);
+            }
+            break;
+            case JPKA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(K), T(A), END);
+            }
+            break;
+        case JPKI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(K), T(I), END);
+            }
+            break;
+        case JPSU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(S), T(U), END);
+            }
+            break;
+        case JPSO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(S), T(O), END);
+            }
+            break;
+        case JPHI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(H), T(I), END);
+            }
+            break;
+        case JPCHI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(T), T(I), END);
+            }
+            break;
+        case JPFU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(F), T(U), END);
+            }
+            break;
+        case JPSE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(S), T(E), END);
+            }
+            break;
+        case JPTSU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(T), T(U), END);
+            }
+            break;
+        case JPKU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(K), T(U), END);
+            }
+            break;
+        case JPTE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(T), T(E), END);
+            }
+            break;
+        case JPTA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(T), T(A), END);
+            }
+            break;
+        case JPTO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(T), T(O), END);
+            }
+            break;
+        case JPHA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(H), T(A), END);
+            }
+            break;
+        case JPHO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(H), T(O), END);
+            }
+            break;
+        case JPXKE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(K), T(E), END);
+            }
+            break;
+        case JPXU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(U), END);
+            }
+            break;
+        case JPXKA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(K), T(A), END);
+            }
+            break;
+        case JPXA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(A), END);
+            }
+            break;
+        case JPXO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(O), END);
+            }
+            break;
+        case JPGO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(G), T(O), END);
+            }
+            break;
+        case JPZA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Z), T(A), END);
+            }
+            break;
+        case JPGE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(G), T(E), END);
+            }
+            break;
+        case JPBE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(B), T(E), END);
+            }
+            break;
+        case JPYU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Y), T(U), END);
+            }
+            break;
+        case JPJI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(J), T(I), END);
+            }
+            break;
+        case JPGA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(G), T(A), END);
+            }
+            break;
+        case JPGI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(G), T(I), END);
+            }
+            break;
+        case JPZU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Z), T(U), END);
+            }
+            break;
+        case JPZO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Z), T(O), END);
+            }
+            break;
+        case JPBI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(B), T(I), END);
+            }
+            break;
+        case JPDI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(D), T(I), END);
+            }
+            break;
+        case JPZE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Z), T(E), END);
+            }
+            break;
+        case JPDU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(D), T(U), END);
+            }
+            break;
+        case JPGU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(G), T(U), END);
+            }
+            break;
+        case JPYA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Y), T(A), END);
+            }
+            break;
+        case JPYO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(Y), T(O), END);
+            }
+            break;
+        case JPDE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(D), T(E), END);
+            }
+            break;
+        case JPDA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(D), T(A), END);
+            }
+            break;
+        case JPDO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(D), T(O), END);
+            }
+            break;
+        case JPBA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(B), T(A), END);
+            }
+            break;
+        case JPBO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(B), T(O), END);
+            }
+            break;
+        case JPRI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(R), T(I), END);
+            }
+            break;
+        case JPRE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(R), T(E), END);
+            }
+            break;
+        case JPRA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(R), T(A), END);
+            }
+            break;
+        case JPNA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(A), END);
+            }
+            break;
+        case JPNO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(O), END);
+            }
+            break;
+        case JPMI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(M), T(I), END);
+            }
+            break;
+        case JPMU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(M), T(U), END);
+            }
+            break;
+        case JPME:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(M), T(E), END);
+            }
+            break;
+        case JPNE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(E), END);
+            }
+            break;
+        case JPMA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(M), T(A), END);
+            }
+            break;
+        case JPXTU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(T), T(U), END);
+            }
+            break;
+        case JPWA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(W), T(A), END);
+            }
+            break;
+        case JPRU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(R), T(U), END);
+            }
+            break;
+        case JPWO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(W), T(O), END);
+            }
+            break;
+        case JPNI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(I), END);
+            }
+            break;
+        case JPNN:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(N), T(N), END);
+            }
+            break;
+        case JPMO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(M), T(O), END);
+            }
+            break;
+        case JPRO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(R), T(O), END);
+            }
+            break;
+        case JPXE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(E), END);
+            }
+            break;
+        case JPXI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(I), END);
+            }
+            break;
+        case JPXYU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(Y), T(U), END);
+            }
+            break;
+        case JPXYA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(Y), T(A), END);
+            }
+            break;
+        case JPXYO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(X), T(Y), T(O), END);
+            }
+            break;
+        case JPPE:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(P), T(E), END);
+            }
+            break;
+        case JPPU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(P), T(U), END);
+            }
+            break;
+        case JPPI:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(P), T(I), END);
+            }
+            break;
+        case JPPA:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(P), T(A), END);
+            }
+            break;
+        case JPPO:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(P), T(O), END);
+            }
+            break;
+        case JPBU:
+            if (record->event.pressed) {
+                return MACRO( I(1), T(B), T(U), END);
+            }
+            break;
 
-			// kana macros end here
+            // kana macros end here
 
-			break;
-		case SHIFT:
-		if (record->event.pressed) {
-			start = timer_read();
-			if (layer_state == (1<<JPKAZARI)) {
-				layer_state = (1<<JPTOPROW)| (1<<JPTRKZ);
-			} else {
-				layer_state = (1<<JPTOPROW);
-			}
+            break;
+        case SHIFT:
+        if (record->event.pressed) {
+            start = timer_read();
+            if (layer_state == (1<<JPKAZARI)) {
+                layer_state = (1<<JPTOPROW)| (1<<JPTRKZ);
+            } else {
+                layer_state = (1<<JPTOPROW);
+            }
       } else {
-			layer_state = (0<<JPTOPROW);
-			clear_keyboard_but_mods();
-			if (timer_elapsed(start) < 100) {
-				return MACRO( I(1), T(SPC), END);
-			}
+            layer_state = (0<<JPTOPROW);
+            clear_keyboard_but_mods();
+            if (timer_elapsed(start) < 100) {
+                return MACRO( I(1), T(SPC), END);
+            }
       }
       break;
-		case KAZARI:
-		if (record->event.pressed) {
-			start = timer_read();
-			if (layer_state == (1<<JPTOPROW)) {
-				layer_state = (1<<JPKAZARI)| (1<<JPTRKZ);
-			} else {
-				layer_state = (1<<JPKAZARI);
-			}
-			break;
+        case KAZARI:
+        if (record->event.pressed) {
+            start = timer_read();
+            if (layer_state == (1<<JPTOPROW)) {
+                layer_state = (1<<JPKAZARI)| (1<<JPTRKZ);
+            } else {
+                layer_state = (1<<JPKAZARI);
+            }
+            break;
       } else {
-		  	layer_state = (0<<JPKAZARI);
-			layer_state = (0<<JPTRKZ);
-		if (timer_elapsed(start) < 100) {
+            layer_state = (0<<JPKAZARI);
+            layer_state = (0<<JPTRKZ);
+        if (timer_elapsed(start) < 100) {
           return MACRO( T(ENTER), END);
         }
       }
       break;
-		case JPFN:
-			if (record->event.pressed) {
-				start = timer_read();
-				layer_state = (1<<JPXON);
-			} else {
-				layer_state = (0<<JPXON);
-				if (timer_elapsed(start) < 100) {
-					return MACRO( T(F7), END);
-				}
-			}
+        case JPFN:
+            if (record->event.pressed) {
+                start = timer_read();
+                layer_state = (1<<JPXON);
+            } else {
+                layer_state = (0<<JPXON);
+                if (timer_elapsed(start) < 100) {
+                    return MACRO( T(F7), END);
+                }
+            }
       break;
-		case TOJPLOUT:
-			if (record->event.pressed) {
-				if (default_layer_state == (1<<JP)) {
-					default_layer_state = (0<<JP);
-				} else {
-					default_layer_state = (1<<JP);
-				}
-				return MACRO( T(ZKHK), END);
-			}
-			break;
+        case TOJPLOUT:
+            if (record->event.pressed) {
+                if (default_layer_state == (1<<JP)) {
+                    default_layer_state = (0<<JP);
+                } else {
+                    default_layer_state = (1<<JP);
+                }
+                return MACRO( T(ZKHK), END);
+            }
+            break;
 /*
-		// TOJPL and TOENL switch keyboard language.
-		// The Ctrl+[] commands here load the appropriate ibus-anthy input engine via a WM shortcut
-		// The first key pressed in the new engine is missed, thus the space key
-		// TOJPLOUT works in the same way but is used for switching engines on external systems.
-		case TOJPL:
-			if (record->event.pressed) {
-				default_layer_state = (1<<JP);
-				return MACRO( D(LCTL), T(END), U(LCTL), END);
-				//return MACRO( D(LCTL), T(END), U(LCTL), W(250), W(250), W(250), T(SPACE), END);
-			}
-			break;
-		case TOENL:
-			if (record->event.pressed) {
-				default_layer_state = (1<<BASE);
-				return MACRO( D(LCTL), T(HOME), U(LCTL), END);
-			//return MACRO( D(LCTL), T(HOME), U(LCTL), W(250), W(250), W(250), T(SPACE), END);
-			}
-			break;
+        // TOJPL and TOENL switch keyboard language.
+        // The Ctrl+[] commands here load the appropriate ibus-anthy input engine via a WM shortcut
+        // The first key pressed in the new engine is missed, thus the space key
+        // TOJPLOUT works in the same way but is used for switching engines on external systems.
+        case TOJPL:
+            if (record->event.pressed) {
+                default_layer_state = (1<<JP);
+                return MACRO( D(LCTL), T(END), U(LCTL), END);
+                //return MACRO( D(LCTL), T(END), U(LCTL), W(250), W(250), W(250), T(SPACE), END);
+            }
+            break;
+        case TOENL:
+            if (record->event.pressed) {
+                default_layer_state = (1<<BASE);
+                return MACRO( D(LCTL), T(HOME), U(LCTL), END);
+            //return MACRO( D(LCTL), T(HOME), U(LCTL), W(250), W(250), W(250), T(SPACE), END);
+            }
+            break;
 */
-		}
+        }
     return MACRO_NONE;
 };
 
@@ -927,32 +927,32 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-	uint8_t layer = biton32(layer_state);
+    uint8_t layer = biton32(layer_state);
    uint8_t deflayer = biton32(default_layer_state);
 
-	ergodox_board_led_off();
-	ergodox_right_led_1_off();
-	ergodox_right_led_2_off();
-	ergodox_right_led_3_off();
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
 
 
-	switch (layer) {
-		case 0:
-			//none
-			break;
-//		case 1:
-//			ergodox_right_led_2_on();
-//			break;
-		case 6:
-			ergodox_right_led_3_on();
-			break;
+    switch (layer) {
+        case 0:
+            //none
+            break;
+//      case 1:
+//          ergodox_right_led_2_on();
+//          break;
+        case 6:
+            ergodox_right_led_3_on();
+            break;
     }
     switch (deflayer) {
-		 case 0:
-		 ergodox_right_led_1_off();
-		 break;
-		 case 1:
-		 ergodox_right_led_1_on();
-		 break;
-	}
+         case 0:
+         ergodox_right_led_1_off();
+         break;
+         case 1:
+         ergodox_right_led_1_on();
+         break;
+    }
 };

@@ -100,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Function
  * ,-----------------------------------------------------------------------------------.
- * | Vol- | Mute | Vol+ | 	   | 	  |      |      |   #  |  7   |  8   |  9   | Bksp |
+ * | Vol- | Mute | Vol+ |      |      |      |      |   #  |  7   |  8   |  9   | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Prev | Play | Next | 	   | 	  |      |      |   +  |  4   |  5   |  6   |  -   |
+ * | Prev | Play | Next |      |      |      |      |   +  |  4   |  5   |  6   |  -   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | CALC |  MWU |  M1  |MouseU|  M2  |      |      |   $  |  1   |  2   |  3   | Enter|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -132,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case LOWER:
+    case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -152,14 +152,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case FUNCTION:
+    case FUNCTION:
       if (record->event.pressed) {
         layer_on(_FUNCTION);
       } else {
         layer_off(_FUNCTION);
       }
       return false;
-	  break;
+      break;
   }
   return true;
 }

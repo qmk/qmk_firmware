@@ -34,7 +34,7 @@ uint8_t init_mcp23018(void);
     L00,L01,L02,L03,L04,L05,                   R00,R01,R02,R03,R04,R05)  \
                                                                          \
    /* matrix positions */                                                \
-    {			\
+    {           \
     {R00},     \
     {R01},     \
     {R02},     \

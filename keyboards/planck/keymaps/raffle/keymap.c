@@ -197,19 +197,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // my macros
     case R_ASGN:
       if (record->event.pressed) {
-	SEND_STRING(" <- ");
+    SEND_STRING(" <- ");
       }
       return false;
       break;
     case R_PIPE:
       if (record->event.pressed) {
-	SEND_STRING(" %>%\n");
+    SEND_STRING(" %>%\n");
       }
       return false;
       break;
     case R_CMLN:
       if (record->event.pressed) {
-	SEND_STRING("################################################################################");
+    SEND_STRING("################################################################################");
       }
       return false;
       break;

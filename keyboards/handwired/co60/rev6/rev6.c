@@ -30,10 +30,10 @@ uint8_t *o_fb;
 uint16_t counterst = 0;
 
 void matrix_init_kb(void) {
-	matrix_init_user();
+    matrix_init_user();
         backlight_init_ports();
 }
 
 void matrix_scan_kb(void) {
-	matrix_scan_user();
+    matrix_scan_user();
 }

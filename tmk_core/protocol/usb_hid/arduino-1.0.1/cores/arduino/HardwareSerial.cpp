@@ -90,7 +90,7 @@ inline void store_char(unsigned char c, ring_buffer *buffer)
 #else
 #if !defined(USART_RX_vect) && !defined(SIG_USART0_RECV) && \
     !defined(SIG_UART0_RECV) && !defined(USART0_RX_vect) && \
-	!defined(SIG_UART_RECV)
+    !defined(SIG_UART_RECV)
   #error "Don't know what the Data Received vector is called for the first UART"
 #else
   void serialEvent() __attribute__((weak));
@@ -193,7 +193,7 @@ ISR(USART_UDRE_vect)
 #endif
 {
   if (tx_buffer.head == tx_buffer.tail) {
-	// Buffer empty, so disable interrupts
+    // Buffer empty, so disable interrupts
 #if defined(UCSR0B)
     cbi(UCSR0B, UDRIE0);
 #else
@@ -221,7 +221,7 @@ ISR(USART_UDRE_vect)
 ISR(USART1_UDRE_vect)
 {
   if (tx_buffer1.head == tx_buffer1.tail) {
-	// Buffer empty, so disable interrupts
+    // Buffer empty, so disable interrupts
     cbi(UCSR1B, UDRIE1);
   }
   else {
@@ -238,7 +238,7 @@ ISR(USART1_UDRE_vect)
 ISR(USART2_UDRE_vect)
 {
   if (tx_buffer2.head == tx_buffer2.tail) {
-	// Buffer empty, so disable interrupts
+    // Buffer empty, so disable interrupts
     cbi(UCSR2B, UDRIE2);
   }
   else {
@@ -255,7 +255,7 @@ ISR(USART2_UDRE_vect)
 ISR(USART3_UDRE_vect)
 {
   if (tx_buffer3.head == tx_buffer3.tail) {
-	// Buffer empty, so disable interrupts
+    // Buffer empty, so disable interrupts
     cbi(UCSR3B, UDRIE3);
   }
   else {
@@ -399,7 +399,7 @@ size_t HardwareSerial::write(uint8_t c)
 }
 
 HardwareSerial::operator bool() {
-	return true;
+    return true;
 }
 
 // Preinstantiate Objects //////////////////////////////////////////////////////

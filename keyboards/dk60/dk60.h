@@ -5,10 +5,10 @@
     #include <util/delay.h>
 
     inline void dk60_caps_led_on(void)      {  PORTE |= (1<<6); }
-    inline void dk60_esc_led_on(void)    	{  PORTF |= (1<<0); }
+    inline void dk60_esc_led_on(void)       {  PORTF |= (1<<0); }
 
     inline void dk60_caps_led_off(void)     { PORTE &= ~(1<<6); }
-    inline void dk60_esc_led_off(void)   	{ PORTF &= ~(1<<0); }
+    inline void dk60_esc_led_off(void)      { PORTF &= ~(1<<0); }
 
     inline void dk60_led_all_on(void)
     {

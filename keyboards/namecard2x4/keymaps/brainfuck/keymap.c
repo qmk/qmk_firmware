@@ -18,26 +18,26 @@
 
 enum Layer
 {
-	JP,
-	EN,
-	CONFIG
+    JP,
+    EN,
+    CONFIG
 };
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [JP] = LAYOUT(
-		JP_LT,JP_GT,JP_PLUS,JP_MINS,\
-		LT(CONFIG,JP_DOT),JP_COMM,JP_LBRC,LT(CONFIG,JP_RBRC)\
-		),
+        JP_LT,JP_GT,JP_PLUS,JP_MINS,\
+        LT(CONFIG,JP_DOT),JP_COMM,JP_LBRC,LT(CONFIG,JP_RBRC)\
+        ),
 [EN] = LAYOUT(
-		KC_LT,KC_GT,KC_PLUS,KC_MINS,\
-		LT(CONFIG,KC_DOT),KC_COMM,KC_LBRC,LT(CONFIG,KC_RBRC)\
-		),
+        KC_LT,KC_GT,KC_PLUS,KC_MINS,\
+        LT(CONFIG,KC_DOT),KC_COMM,KC_LBRC,LT(CONFIG,KC_RBRC)\
+        ),
 [CONFIG]= LAYOUT(
-		KC_NO,DF(JP),DF(JP),KC_NO,\
-		KC_TRNS,DF(EN),DF(JP),KC_TRNS\
-		)
+        KC_NO,DF(JP),DF(JP),KC_NO,\
+        KC_TRNS,DF(EN),DF(JP),KC_TRNS\
+        )
 
 };
 

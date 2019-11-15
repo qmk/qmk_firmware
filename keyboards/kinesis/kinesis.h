@@ -2,10 +2,10 @@
 #define KINESIS_H
 
 #ifdef KEYBOARD_kinesis_alvicstep
-	#include "alvicstep.h"
+    #include "alvicstep.h"
 #endif
 #ifdef KEYBOARD_kinesis_stapelberg
-	#include "stapelberg.h"
+    #include "stapelberg.h"
 #endif
 
 #include "quantum.h"

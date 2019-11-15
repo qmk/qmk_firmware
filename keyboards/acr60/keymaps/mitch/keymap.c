@@ -145,14 +145,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * See https://docs.qmk.fm/feature_rgblight.html#rgblight-keycodes for details about
  * RGB codes. Quick summary, though:
  *
- *    RGB_MODE_PLAIN         RGB_M_P	    Switch to the static no animation mode
- *    RGB_MODE_BREATHE       RGB_M_B	    Switch to the breathing mode
- *    RGB_MODE_RAINBOW       RGB_M_R	    Switch to the rainbow mode (cycles through colors)
- *    RGB_MODE_SWIRL         RGB_M_SW	  Switch to the swirl mode (like an animated gradient)
- *    RGB_MODE_SNAKE         RGB_M_SN	  Switch to the snake mode
- *    RGB_MODE_KNIGHT        RGB_M_K	    Switch to the knight animation
- *    RGB_MODE_XMAS          RGB_M_X	    Switch to the Christmas animation
- *    RGB_MODE_GRADIENT      RGB_M_G	    Switch to the static gradient mode
+ *    RGB_MODE_PLAIN         RGB_M_P        Switch to the static no animation mode
+ *    RGB_MODE_BREATHE       RGB_M_B        Switch to the breathing mode
+ *    RGB_MODE_RAINBOW       RGB_M_R        Switch to the rainbow mode (cycles through colors)
+ *    RGB_MODE_SWIRL         RGB_M_SW     Switch to the swirl mode (like an animated gradient)
+ *    RGB_MODE_SNAKE         RGB_M_SN     Switch to the snake mode
+ *    RGB_MODE_KNIGHT        RGB_M_K        Switch to the knight animation
+ *    RGB_MODE_XMAS          RGB_M_X        Switch to the Christmas animation
+ *    RGB_MODE_GRADIENT      RGB_M_G        Switch to the static gradient mode
  *
  *    Note that there are more animation variations, usually timer-based variations, by using the
  *    "S" key to cycle through modes. Use one of the deciated keys to get to

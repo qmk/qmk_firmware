@@ -32,13 +32,13 @@ void led_init_ports(void) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-	if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-		// Turn capslock on
-		dk60_caps_led_on();
-	} else {
-		// Turn capslock off
-		dk60_caps_led_off();
-	}
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // Turn capslock on
+        dk60_caps_led_on();
+    } else {
+        // Turn capslock off
+        dk60_caps_led_off();
+    }
 
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

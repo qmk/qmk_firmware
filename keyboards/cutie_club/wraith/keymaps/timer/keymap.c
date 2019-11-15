@@ -52,19 +52,19 @@ void matrix_scan_user(void) {
   prev_loop_time = timer_read(); //start counting the time to check at the next iteration
 
   if (layer_time_remaining <= 0) {
-  	// once timer run out
-  	layer_off(LAYER_SWITCH);
+    // once timer run out
+    layer_off(LAYER_SWITCH);
   }
 
   // escape LED on layer 1
   if (IS_LAYER_ON(LAYER_SWITCH)) {
     if (layer_time_remaining <= TIMEOUT_WARNING) {
       if ((int)(layer_time_remaining/GET_FLASH_PERIOD % 2 == 0)) {
-		    // if even led on
-		    writePinLow(B0);
-		  } else {
-		    writePinHigh(B0);
-		  }
+            // if even led on
+            writePinLow(B0);
+          } else {
+            writePinHigh(B0);
+          }
     } else {
       writePinLow(B0);
     }
@@ -76,10 +76,10 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case TIME_TOGGLE:
-			// get the time when time toggle pressed
-			layer_time_remaining = LAYER_TIMEOUT;
-			// set the layer
-			layer_on(LAYER_SWITCH);
+            // get the time when time toggle pressed
+            layer_time_remaining = LAYER_TIMEOUT;
+            // set the layer
+            layer_on(LAYER_SWITCH);
     break;
   }
   return true;

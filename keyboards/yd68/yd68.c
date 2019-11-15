@@ -16,50 +16,50 @@
 #include "yd68.h"
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
 
-	//Capslock LED Output Low
-	DDRD |= (1<<4);
+    //Capslock LED Output Low
+    DDRD |= (1<<4);
     PORTD &= ~(1<<4);
 
-	//Backlight LEDs Output Low
-	DDRD |= (1<<6);
+    //Backlight LEDs Output Low
+    DDRD |= (1<<6);
     PORTD &= ~(1<<6);
 
-	//RGB power output low
-	DDRE |= (1<<2);
+    //RGB power output low
+    DDRE |= (1<<2);
     PORTE &= ~(1<<2);
 
-	//Bluetooth power output high
-	DDRB |= (1<<2);
+    //Bluetooth power output high
+    DDRB |= (1<<2);
     PORTB |= (1<<2);
 
-	//RGB data output low
-	DDRB |= (1<<3);
-	PORTB &= ~(1<<3);
+    //RGB data output low
+    DDRB |= (1<<3);
+    PORTB &= ~(1<<3);
 
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
+    // put your per-action keyboard code here
+    // runs for every action, just before processing by the firmware
 
-	return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
-	if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // output low
         DDRD |= (1<<4);
         PORTD &= ~(1<<4);
@@ -69,5 +69,5 @@ void led_set_kb(uint8_t usb_led) {
         PORTD |= (1<<4);
     }
 
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

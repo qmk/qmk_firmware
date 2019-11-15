@@ -72,7 +72,7 @@ uint8_t matrix_scan(void)
       bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
       bool curr_bit = rows & (1<<row);
       if ((changed |= prev_bit != curr_bit)) {
-	    matrix_debouncing[row] ^= (matrix_row_t) 1 << col;
+        matrix_debouncing[row] ^= (matrix_row_t) 1 << col;
       }
     }
   }

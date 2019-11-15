@@ -83,32 +83,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(record->event.pressed) {
     switch (keycode) {
-		// Cloud9 macros
-		case CLOUD9_TAB_LEFT:
+        // Cloud9 macros
+        case CLOUD9_TAB_LEFT:
             SEND_STRING(SS_LCTRL("["));
             return true;
-			break;
-		case CLOUD9_TAB_RIGHT:
+            break;
+        case CLOUD9_TAB_RIGHT:
             SEND_STRING(SS_LCTRL("]"));
             return true;
-			break;
-		case CLOUD9_TAB_CLOSE:
+            break;
+        case CLOUD9_TAB_CLOSE:
             SEND_STRING(SS_LALT("w"));
             return true;
-			break;
-		case CLOUD9_GOTO_SYMBOL:
+            break;
+        case CLOUD9_GOTO_SYMBOL:
             SEND_STRING(SS_LSFT(SS_LCTRL("e")));
             return true;
-			break;
-		case CLOUD9_GOTO_LINE:
+            break;
+        case CLOUD9_GOTO_LINE:
             SEND_STRING(SS_LCTRL("g"));
             return true;
-			break;
-		case CLOUD9_NAVIGATE:
+            break;
+        case CLOUD9_NAVIGATE:
             SEND_STRING(SS_LCTRL("e"));
             return true;
-			break;
-	}
+            break;
+    }
   }
 
   return true;

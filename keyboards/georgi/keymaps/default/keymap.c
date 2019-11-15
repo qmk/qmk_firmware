@@ -140,7 +140,7 @@ uint32_t processQwerty(bool lookup) {
     P( RZ,          SEND(KC_ESC));
 
     // Symbols and Numbers
- 	P( PWR | RE | RU,      SEND(KC_ENT));
+    P( PWR | RE | RU,      SEND(KC_ENT));
     P( PWR | LA | LO,      SEND(KC_SPC));
     P( PWR | LP | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
     P( PWR | LH | LR,      SEND(KC_LSFT); SEND(KC_0));       // )

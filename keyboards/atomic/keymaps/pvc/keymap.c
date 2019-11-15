@@ -593,17 +593,17 @@ void shutdown_user()
 
 void audio_on_user(void)
 {
-	PLAY_SONG(tone_audio_on);
+    PLAY_SONG(tone_audio_on);
 }
 
 void music_on_user(void)
 {
-	PLAY_SONG(tone_music_on);
+    PLAY_SONG(tone_music_on);
 }
 
 void music_scale_user(void)
 {
-	PLAY_SONG(music_scale);
+    PLAY_SONG(music_scale);
 }
 
 #endif /* AUDIO_ENABLE */

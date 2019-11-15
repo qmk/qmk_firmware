@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "alps64.h"
 
 void keyboard_pre_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
     setPinOutput(C5);
     keyboard_pre_init_user();
 }

@@ -40,7 +40,7 @@ extern keymap_config_t keymap_config;
 #define _NAVPC 5
 
 enum {
-//	SFT_LCK //tapdance declarations
+//  SFT_LCK //tapdance declarations
     COLEMAK = 0,
     PC,
     GAME,
@@ -54,7 +54,7 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_COLEMAK] = LAYOUT_kc(
+    [_COLEMAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|

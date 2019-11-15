@@ -163,9 +163,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_SPACE,
         KC_LALT,      KC_GRV,      KC_QUOT,  KC_LEFT,KC_RGHT,
-										        KC_LCTL,  KC_LALT,
-										                       KC_HOME,
-										        KC_BSPC,KC_DEL,KC_END,
+                                                KC_LCTL,  KC_LALT,
+                                                               KC_HOME,
+                                                KC_BSPC,KC_DEL,KC_END,
         // right hand
              KC_ESC,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_NO,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
@@ -215,9 +215,9 @@ void matrix_scan_user(void) {
         case 2:
             ergodox_right_led_2_on();
             break;
-		case 3:
-			ergodox_right_led_3_on();
-			break;
+        case 3:
+            ergodox_right_led_3_on();
+            break;
         default:
             // none
             break;

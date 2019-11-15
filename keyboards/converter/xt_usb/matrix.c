@@ -248,7 +248,7 @@ XT Scancodes
 01-53: Normal codes used in original XT keyboard
 54-7F: Not used in original XT keyboard
 
-	0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+    0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
     50  -   -   -   -   *   *   x   x   x   x   *   *   *   o   o   o
     60  *   *   *   *   x   x   x   x   x   x   x   x   x   x   x   *
     70  x   *   *   x   *   *   x   *   *   x   *   x   *   x   x   *

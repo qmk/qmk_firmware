@@ -252,63 +252,63 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_HELP_1:
             if (record->event.pressed)
             {
-				uprintf("1");
+                uprintf("1");
             }
             break;
 
         case MACRO_HELP_2:
             if (record->event.pressed)
             {
-				uprintf("2");
+                uprintf("2");
             }
             break;
 
         case MACRO_HELP_3:
             if (record->event.pressed)
             {
-				uprintf("3");
+                uprintf("3");
             }
             break;
 
         case MACRO_HELP_4:
             if (record->event.pressed)
             {
-				uprintf("4");
+                uprintf("4");
             }
             break;
 
         case MACRO_HELP_5:
             if (record->event.pressed)
             {
-				uprintf("5");
+                uprintf("5");
             }
             break;
 
         case MACRO_HELP_6:
             if (record->event.pressed)
             {
-				uprintf("6");
+                uprintf("6");
             }
             break;
 
         case MACRO_HELP_7:
             if (record->event.pressed)
             {
-				uprintf("7");
+                uprintf("7");
             }
             break;
 
         case MACRO_HELP_8:
             if (record->event.pressed)
             {
-				uprintf("8");
+                uprintf("8");
             }
             break;
 
         case MACRO_HELP_9:
             if (record->event.pressed)
             {
-				uprintf("9");
+                uprintf("9");
             }
             break;
 
@@ -410,11 +410,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 
 #ifdef BACKLIGHT_ENABLE
-		case MACRO_BACKLIGHT:
-			if (record->event.pressed)
-			{
-				backlight_step();
-			}
+        case MACRO_BACKLIGHT:
+            if (record->event.pressed)
+            {
+                backlight_step();
+            }
 #endif
 
 #ifdef MOUSEKEY_ENABLE
@@ -588,17 +588,17 @@ void shutdown_user()
 
 void audio_on_user(void)
 {
-	PLAY_SONG(tone_audio_on);
+    PLAY_SONG(tone_audio_on);
 }
 
 void music_on_user(void)
 {
-	PLAY_SONG(tone_music_on);
+    PLAY_SONG(tone_music_on);
 }
 
 void music_scale_user(void)
 {
-	PLAY_SONG(music_scale);
+    PLAY_SONG(music_scale);
 }
 
 #endif /* AUDIO_ENABLE */

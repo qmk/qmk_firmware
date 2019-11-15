@@ -7,10 +7,10 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _LOWER 3																/* Symbols, Media */
-#define _RAISE 4																/* Numbers, Arrows */
-#define _FUNC  5																/* Function Keys */
-#define _NUMS  6																/* Numpad */
+#define _LOWER 3                                                                /* Symbols, Media */
+#define _RAISE 4                                                                /* Numbers, Arrows */
+#define _FUNC  5                                                                /* Function Keys */
+#define _NUMS  6                                                                /* Numpad */
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -81,12 +81,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_QWERTY] = LAYOUT_ortho_4x12(
-								HPR_TAB, KC_Q   , KC_W   , KC_E   , KC_R , KC_T   ,    KC_Y   , KC_U , KC_I   , KC_O   , KC_P   , KC_BSPC,
-								CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F , KC_G   ,    KC_H   , KC_J , KC_K   , KC_L   , KC_SCLN, CTL_QOT,
-								SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V , KC_B   ,    KC_N   , KC_M , KC_COMM, KC_DOT , KC_SLSH, SFT_ENT,
-								NUMPAD , KC_MEH , KC_LGUI, KC_LALT, LOWER, CTL_SPC,    KC_SPC, RAISE, KC_RALT, KC_RGUI, KC_HYPR, MO(_FUNC)
-								),
+                [_QWERTY] = LAYOUT_ortho_4x12(
+                                HPR_TAB, KC_Q   , KC_W   , KC_E   , KC_R , KC_T   ,    KC_Y   , KC_U , KC_I   , KC_O   , KC_P   , KC_BSPC,
+                                CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F , KC_G   ,    KC_H   , KC_J , KC_K   , KC_L   , KC_SCLN, CTL_QOT,
+                                SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V , KC_B   ,    KC_N   , KC_M , KC_COMM, KC_DOT , KC_SLSH, SFT_ENT,
+                                NUMPAD , KC_MEH , KC_LGUI, KC_LALT, LOWER, CTL_SPC,    KC_SPC, RAISE, KC_RALT, KC_RGUI, KC_HYPR, MO(_FUNC)
+                                ),
 
 
 /* Raise
@@ -100,12 +100,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_RAISE] = LAYOUT_kc_ortho_4x12(
-								HPR_GRV, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,       ,
+                [_RAISE] = LAYOUT_kc_ortho_4x12(
+                                HPR_GRV, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,       ,
                ,LEFT, UP ,DOWN,RGHT,LPRN,     RPRN,MINS, EQL,LBRC,RBRC,CTL_PIP,
-								       ,COLN,QUOT,ASTR,COMM,LCBR,     RCBR,UNDS,PLUS,    ,    ,       ,
-								       ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-								),
+                                       ,COLN,QUOT,ASTR,COMM,LCBR,     RCBR,UNDS,PLUS,    ,    ,       ,
+                                       ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
+                                ),
 
 /* Lower
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -118,48 +118,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_LOWER] = LAYOUT_kc_ortho_4x12(
-								HPR_TIL,EXLM, AT ,HASH,DLR , PERC  ,     CIRC,AMPR,ASTR,LPRN,RPRN,       ,
-								CTL_DEL,VOLU,MUTE,MPLY,PGUP, COLN  ,     QUOT,MINS, EQL,LBRC,RBRC,CTL_BSL,
-								       ,VOLD,MPRV,MNXT,PGDN, SCLN  ,     DQUO,PIPE,COMM, DOT,SLSH,       ,
-								       ,    ,    ,    ,    ,       ,         ,    ,    ,    ,    ,
-								),
+                [_LOWER] = LAYOUT_kc_ortho_4x12(
+                                HPR_TIL,EXLM, AT ,HASH,DLR , PERC  ,     CIRC,AMPR,ASTR,LPRN,RPRN,       ,
+                                CTL_DEL,VOLU,MUTE,MPLY,PGUP, COLN  ,     QUOT,MINS, EQL,LBRC,RBRC,CTL_BSL,
+                                       ,VOLD,MPRV,MNXT,PGDN, SCLN  ,     DQUO,PIPE,COMM, DOT,SLSH,       ,
+                                       ,    ,    ,    ,    ,       ,         ,    ,    ,    ,    ,
+                                ),
 
-				[_FUNC] = LAYOUT_kc_ortho_4x12(
+                [_FUNC] = LAYOUT_kc_ortho_4x12(
 // ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-								, F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 , F10,    ,
+                                , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 , F10,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								, F11, F12, F13, F14, F15,      F16, F17, F18, F19, F20,    ,
+                                , F11, F12, F13, F14, F15,      F16, F17, F18, F19, F20,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								, F21, F22, F23, F24, NO ,      NO , NO , NO , NO , NO ,    ,
+                                , F21, F22, F23, F24, NO ,      NO , NO , NO , NO , NO ,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
+                                ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
 // `----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-				[_NUMS] = LAYOUT_kc_ortho_4x12(
+                [_NUMS] = LAYOUT_kc_ortho_4x12(
 // ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-								, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  ,SLSH,    ,
+                                , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  ,SLSH,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,CAPS, INS,HOME,PGUP,LPRN,     RPRN, 4  , 5  , 6  ,ASTR,    ,
+                                ,CAPS, INS,HOME,PGUP,LPRN,     RPRN, 4  , 5  , 6  ,ASTR,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,NLCK, DEL, END,PGDN,SCLN,     COMM, 1  , 2  , 3  ,MINS,    ,
+                                ,NLCK, DEL, END,PGDN,SCLN,     COMM, 1  , 2  , 3  ,MINS,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
-								,    ,    ,    ,    ,    ,         , 0  ,DOT ,EQL ,PLUS,
+                                ,    ,    ,    ,    ,    ,         , 0  ,DOT ,EQL ,PLUS,
 // `----+----+----+----+----+----'    `----+----+----+----+----+----'
-								),
+                                ),
 
-				[_ADJUST] = LAYOUT_ortho_4x12(
+                [_ADJUST] = LAYOUT_ortho_4x12(
 // ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
-		   RESET , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL , \
+           RESET , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL , \
 // |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-			 _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,    BL_TOGG, BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+             _______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,    BL_TOGG, BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
 // |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-		  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+          _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
 // |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
-		  _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______  \
+          _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______  \
 // `-------+--------+--------+--------+--------+--------'   `-------+--------+--------+--------+--------+--------,
-		)
+        )
 
 /*
  * ,-----------------------------------------.    ,-----------------------------------------.

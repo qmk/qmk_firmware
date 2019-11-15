@@ -9,12 +9,12 @@
 // entirely and just use numbers.
 enum chimera_lets_split_layers
 {
-	_QWERTY,
-	_CAPS,
-	_NUMPAD,
-	_SYMBOLS,
-	_MACROS,
-	_NAV
+    _QWERTY,
+    _CAPS,
+    _NUMPAD,
+    _SYMBOLS,
+    _MACROS,
+    _NAV
 };
 
 #define KC_NMPD TG(_NUMPAD)

@@ -6,8 +6,8 @@
 
 enum custom_keycodes {
     M_EXAMPLE1 = SAFE_RANGE,
-	M_EXAMPLE2,
-	DYNAMIC_MACRO_RANGE,
+    M_EXAMPLE2,
+    DYNAMIC_MACRO_RANGE,
 };
 
 #include "dynamic_macro.h"
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------------------------|
  * | CAPS   | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      | ENTER  |        | 4      | 5      | 6      | =      |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------------------------|
- * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | SHIFT  |        | UP     | 1	  | 2      | 3      | ENTER  |
+ * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | SHIFT  |        | UP     | 1      | 2      | 3      | ENTER  |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------------------------|
  * | LCTRL  | LGUI   | LALT   |        |        | SPACE  |        |        |        | RALT   | RCTRL  |        | LEFT   | DOWN   | RIGHT  | 0      | .      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------------------------'
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (!process_record_dynamic_macro(keycode, record)) {
+    if (!process_record_dynamic_macro(keycode, record)) {
         return false;
     }
     if (record->event.pressed) {

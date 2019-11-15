@@ -102,48 +102,48 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [L1] = LAYOUT(
-	KC_LGUI,       KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                     KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_RGUI,
-	KC_TAB,        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         TD_DQT_AO,
-	KC_BSPC,       KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                     KC_H,         KC_J,         KC_K,         KC_L,         TD_SCLN_OE,   TD_QUOT_AE,
-	OSM_LSFT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                     KC_N,         KC_M,         KC_COMM,      KC_DOT,       NO_MINS,      OSM_RSFT,
-	CTL_ESC,       MO_L5,        KC_TAB,       OSM_LALT,     MO_L4,        OSL_L3,       KC_SPC,       KC_ENT,       OSL_L3,       MO_L4,        OSM_LALT,     NO_EQL,       NO_PLUS,      KC_RCTL
+    KC_LGUI,       KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                     KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_RGUI,
+    KC_TAB,        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         TD_DQT_AO,
+    KC_BSPC,       KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                     KC_H,         KC_J,         KC_K,         KC_L,         TD_SCLN_OE,   TD_QUOT_AE,
+    OSM_LSFT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                     KC_N,         KC_M,         KC_COMM,      KC_DOT,       NO_MINS,      OSM_RSFT,
+    CTL_ESC,       MO_L5,        KC_TAB,       OSM_LALT,     MO_L4,        OSL_L3,       KC_SPC,       KC_ENT,       OSL_L3,       MO_L4,        OSM_LALT,     NO_EQL,       NO_PLUS,      KC_RCTL
   ),
   [L2] = LAYOUT(
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      NO_DQT,
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      NO_SCLN,      NO_QUOT,
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
-	_______,       _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______
+    _______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
+    _______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      NO_DQT,
+    _______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      NO_SCLN,      NO_QUOT,
+    _______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
+    _______,       _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______
   ),
   [L3] = LAYOUT(
-	NO_LBRC,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_RBRC,
-	NO_LCBR,       XXXXXXX,      XXXXXXX,      NO_AT,        XXXXXXX,      NO_TILD,                                  NO_QUES,      NO_EXLM,      NO_PIPE,      XXXXXXX,      XXXXXXX,      NO_RCBR,
-	_______,       NO_ASTR,      NO_BSLS,      NO_DLR,       NO_HASH,      XXXXXXX,                                  NO_HAT,       XXXXXXX,      NO_COLN,      NO_SLSH,      NO_SCLN,      NO_QUOT,
-	NO_PO,         KC_0,         NO_SECT,      NO_PERC,      XXXXXXX,      NO_GRAV,                                  NO_AND,       NO_UMLA,      NO_LT,        NO_GT,        NO_UNDS,      NO_PC,
-	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      _______,      _______,      XXXXXXX
+    NO_LBRC,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_RBRC,
+    NO_LCBR,       XXXXXXX,      XXXXXXX,      NO_AT,        XXXXXXX,      NO_TILD,                                  NO_QUES,      NO_EXLM,      NO_PIPE,      XXXXXXX,      XXXXXXX,      NO_RCBR,
+    _______,       NO_ASTR,      NO_BSLS,      NO_DLR,       NO_HASH,      XXXXXXX,                                  NO_HAT,       XXXXXXX,      NO_COLN,      NO_SLSH,      NO_SCLN,      NO_QUOT,
+    NO_PO,         KC_0,         NO_SECT,      NO_PERC,      XXXXXXX,      NO_GRAV,                                  NO_AND,       NO_UMLA,      NO_LT,        NO_GT,        NO_UNDS,      NO_PC,
+    XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      _______,      _______,      XXXXXXX
   ),
   [L4] = LAYOUT(
-	KC_ESC,        KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,                                    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       KC_F6,        KC_F7,        KC_F8,        KC_F9,        KC_F10,                                   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       XXXXXXX,      XXXXXXX,
-	_______,       KC_F11,       KC_F12,       KC_F13,       KC_F14,       KC_F15,                                   KC_LEFT,      KC_DOWN,      KC_UP,        KC_RIGHT,     XXXXXXX,      KC_DEL,
-	XXXXXXX,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,                                   XXXXXXX,      KC_APP,       XXXXXXX,      XXXXXXX,      KC_VOLD,      XXXXXXX,
-	OSM_LCTL,      _______,      XXXXXXX,      _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      OSM_RALT,     KC_MUTE,      KC_VOLU,      OSM_RCTL
+    KC_ESC,        KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,                                    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+    XXXXXXX,       KC_F6,        KC_F7,        KC_F8,        KC_F9,        KC_F10,                                   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       XXXXXXX,      XXXXXXX,
+    _______,       KC_F11,       KC_F12,       KC_F13,       KC_F14,       KC_F15,                                   KC_LEFT,      KC_DOWN,      KC_UP,        KC_RIGHT,     XXXXXXX,      KC_DEL,
+    XXXXXXX,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,                                   XXXXXXX,      KC_APP,       XXXXXXX,      XXXXXXX,      KC_VOLD,      XXXXXXX,
+    OSM_LCTL,      _______,      XXXXXXX,      _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      OSM_RALT,     KC_MUTE,      KC_VOLU,      OSM_RCTL
   ),
   [L5] = LAYOUT(
-	XXXXXXX,       TO(L1),       TO(L2),       TO(L3),       TO(L4),       XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      KC_CAPS,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
+    XXXXXXX,       TO(L1),       TO(L2),       TO(L3),       TO(L4),       XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+    XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+    XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+    XXXXXXX,       XXXXXXX,      XXXXXXX,      KC_CAPS,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+    XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
   )
 };
 
 //TODO: Is there productivity gain in the use of unicode?
-//	- Won't work in xterm.
-//	Create a layer for macros and/or unicode?
-//	Are macros useful?
-//	- Found no gain in having sendstring for commands.
-//	- Find repeated tasks that cannot be done easily on the OS.
-//	- Most other keymaps have macros for game/fun stuff, hard to find "serious" onces.
-//	Screw Norwegian layout, switch to US with unicode æøå or US/English International?
-//	- Will be different from laptop keyboard, requiring a switch on the OS side when only using the laptop.
+//  - Won't work in xterm.
+//  Create a layer for macros and/or unicode?
+//  Are macros useful?
+//  - Found no gain in having sendstring for commands.
+//  - Find repeated tasks that cannot be done easily on the OS.
+//  - Most other keymaps have macros for game/fun stuff, hard to find "serious" onces.
+//  Screw Norwegian layout, switch to US with unicode æøå or US/English International?
+//  - Will be different from laptop keyboard, requiring a switch on the OS side when only using the laptop.

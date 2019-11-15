@@ -64,12 +64,12 @@
 #define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
 #define SERIAL_UART_RXD_PRESENT (UCSR1A & _BV(RXC1))
 #define SERIAL_UART_INIT() do { \
-    	/* baud rate */ \
-    	UBRR1L = SERIAL_UART_UBRR; \
-    	/* baud rate */ \
-    	UBRR1H = SERIAL_UART_UBRR >> 8; \
-    	/* enable TX and RX */ \
-    	UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
-    	/* 8-bit data */ \
-    	UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
-  	} while(0)
+        /* baud rate */ \
+        UBRR1L = SERIAL_UART_UBRR; \
+        /* baud rate */ \
+        UBRR1H = SERIAL_UART_UBRR >> 8; \
+        /* enable TX and RX */ \
+        UCSR1B = _BV(TXEN1) | _BV(RXEN1); \
+        /* 8-bit data */ \
+        UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
+    } while(0)

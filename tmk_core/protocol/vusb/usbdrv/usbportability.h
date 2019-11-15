@@ -33,7 +33,7 @@ Thanks to Oleg Semyonov for his help with the IAR tools port!
 /* ------------------------------------------------------------------------- */
 
 #ifndef ENABLE_BIT_DEFINITIONS
-#   define ENABLE_BIT_DEFINITIONS	1   /* Enable bit definitions */
+#   define ENABLE_BIT_DEFINITIONS   1   /* Enable bit definitions */
 #endif
 
 /* Include IAR headers */

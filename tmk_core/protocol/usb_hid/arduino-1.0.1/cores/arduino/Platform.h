@@ -15,9 +15,9 @@ typedef unsigned long u32;
 #include "Arduino.h"
 
 #if defined(USBCON)
-	#include "USBDesc.h"
-	#include "USBCore.h"
-	#include "USBAPI.h"
+    #include "USBDesc.h"
+    #include "USBCore.h"
+    #include "USBAPI.h"
 #endif /* if defined(USBCON) */
 
 #endif

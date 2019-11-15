@@ -114,9 +114,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_TAP(UC(0x253B));
         SEND_TAP(UC(0x2501));
         SEND_TAP(UC(0x253B));
-			}
-			return false;
-			break;*/
+            }
+            return false;
+            break;*/
 
   return true;
   break;

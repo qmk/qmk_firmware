@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_SYM);
       } else {
-		layer_off(_SYM);
+        layer_off(_SYM);
       }
      return false;
      break;
@@ -188,12 +188,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 #ifdef USE_BABLPASTE
 
    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
-   		if (record->event.pressed)  { // is there a case where this isn't desired?
+        if (record->event.pressed)  { // is there a case where this isn't desired?
 
-   			babblePaste ( record,  id );
-   			return MACRO_NONE;
-   		}
-   	}
+            babblePaste ( record,  id );
+            return MACRO_NONE;
+        }
+    }
 #endif
 
 
@@ -209,34 +209,34 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
  /* Colemak mod-dh moves the D key to the qwerty V position
    This hack makes apple-V_position do what I mean */
- 	case DHPASTE:
-		if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
-			if (record->event.pressed) {
-	  	 		clear_keyboard_but_mods();
-		 		register_code(KC_V);
-	     	} else {
-		 		unregister_code(KC_V);
-	    	}
-		} else {
+    case DHPASTE:
+        if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
             if (record->event.pressed) {
-          		register_code(KC_D);
+                clear_keyboard_but_mods();
+                register_code(KC_V);
             } else {
-           		unregister_code(KC_D);
-	   		}
-		}
-	break;
+                unregister_code(KC_V);
+            }
+        } else {
+            if (record->event.pressed) {
+                register_code(KC_D);
+            } else {
+                unregister_code(KC_D);
+            }
+        }
+    break;
 
-	case VIBRK: // vi esc:
-		 if (record->event.pressed) {
-			return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
-		 }
-	break;
+    case VIBRK: // vi esc:
+         if (record->event.pressed) {
+            return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
+         }
+    break;
 
 
 
 
-	default:
-    	return MACRO_NONE;
+    default:
+        return MACRO_NONE;
     }
 
 

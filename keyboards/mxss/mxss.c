@@ -70,14 +70,14 @@ void matrix_init_kb(void) {
             sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
     }
 
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -102,7 +102,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         break; // Process all other keycodes normally
       }
 
-	return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -114,7 +114,7 @@ void led_set_kb(uint8_t usb_led) {
     }
 
     rgblight_set();
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
@@ -135,13 +135,13 @@ uint32_t layer_state_set_kb(uint32_t state) {
 // Test if magic value is present at expected location
 bool eeprom_is_valid(void)
 {
-	return (eeprom_read_word(EEPROM_MAGIC_ADDR) == EEPROM_MAGIC);
+    return (eeprom_read_word(EEPROM_MAGIC_ADDR) == EEPROM_MAGIC);
 }
 
 // Set magic value at expected location
 void eeprom_set_valid(bool valid)
 {
-	eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0xFFFF);
+    eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0xFFFF);
 }
 
 // Store current front led config in EEPROM
@@ -159,7 +159,7 @@ void eeprom_update_conf(void)
 
     // Set magic value and store config
     eeprom_set_valid(true);
-	eeprom_update_byte(EEPROM_FRONTLED_ADDR, conf.raw);
+    eeprom_update_byte(EEPROM_FRONTLED_ADDR, conf.raw);
 }
 
 // Custom keycode functions

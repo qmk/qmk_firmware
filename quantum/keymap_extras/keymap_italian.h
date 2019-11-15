@@ -102,12 +102,12 @@
 #define IT_LBRC ALGR(IT_EACC) // [
 #define IT_RBRC ALGR(IT_PLUS) // ]
 #define IT_RCBR ALGR(KC_0) // }
-#define IT_AT   ALGR(IT_OACC) 	// @
-#define IT_EURO ALGR(KC_E) 		// €
-#define IT_PIPE LSFT(IT_BSLS) 	// |
-#define	IT_SHRP	ALGR(IT_AACC) 	// #
+#define IT_AT   ALGR(IT_OACC)   // @
+#define IT_EURO ALGR(KC_E)      // €
+#define IT_PIPE LSFT(IT_BSLS)   // |
+#define IT_SHRP ALGR(IT_AACC)   // #
 
 // Deprecated
-#define	IT_X_PLUS	X_RBRACKET 	// #
+#define IT_X_PLUS   X_RBRACKET  // #
 
 #endif

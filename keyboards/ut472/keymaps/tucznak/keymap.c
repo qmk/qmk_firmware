@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Left function layer (1)
-	 * F keys and navigation
+     * F keys and navigation
      * ,-------------------------------------------------------------------------.
      * | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12   |
      * |-------------------------------------------------------------------------+
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* Right function layer (2)
-	 * National and special characters
+     * National and special characters
      * ,-------------------------------------------------------------------------.
      * | +1  | ě2  | š3  | č4  | ř5  | ž6  | ý7  | á8  | í9  | é0  | ´   |   ˇ   |
      * |-------------------------------------------------------------------------+
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______,     _______,      KC_KP_0, KC_DOT,  KC_PPLS, KC_PMNS, _______
     ),
 
-	/* Function layer (4)
+    /* Function layer (4)
      * Backlighting, keyboard controls, music etc.
      * ,-------------------------------------------------------------------------.
      * |Reset|     |     |     |     |     |     |     |     |     |     |  Vol+ |

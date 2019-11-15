@@ -50,88 +50,88 @@ and jeebak & algernon's keymap
 Whatever isn't defined will NOP  */
 enum  {
 // Movement macros
-	// left & right
-	BABL_GO_LEFT_1C= BABL_START_NUM,
-	BABL_GO_RIGHT_1C,
-	BABL_GO_LEFT_WORD,
-	BABL_GO_RIGHT_WORD,
-	BABL_GO_START_LINE,
-	BABL_GO_END_LINE,
-	// now up & down
-	BABL_GO_START_DOC,
-	BABL_GO_END_DOC,
-	BABL_GO_NEXT_LINE,
-	BABL_GO_PREV_LINE,
-	BABL_PGDN,
-	BABL_PGUP,
-	// And the delete options
-	//BABL_DEL_LEFT_1C == backspace, so why bother.
-	BABL_DEL_RIGHT_1C, // usually = Del
-	BABL_DEL_LEFT_WORD,
-	BABL_DEL_RIGHT_WORD,
-	BABL_DEL_TO_LINE_END, // delete from cursor to end of line
-	BABL_DEL_TO_LINE_START, // delete from cursor to begining line
+    // left & right
+    BABL_GO_LEFT_1C= BABL_START_NUM,
+    BABL_GO_RIGHT_1C,
+    BABL_GO_LEFT_WORD,
+    BABL_GO_RIGHT_WORD,
+    BABL_GO_START_LINE,
+    BABL_GO_END_LINE,
+    // now up & down
+    BABL_GO_START_DOC,
+    BABL_GO_END_DOC,
+    BABL_GO_NEXT_LINE,
+    BABL_GO_PREV_LINE,
+    BABL_PGDN,
+    BABL_PGUP,
+    // And the delete options
+    //BABL_DEL_LEFT_1C == backspace, so why bother.
+    BABL_DEL_RIGHT_1C, // usually = Del
+    BABL_DEL_LEFT_WORD,
+    BABL_DEL_RIGHT_WORD,
+    BABL_DEL_TO_LINE_END, // delete from cursor to end of line
+    BABL_DEL_TO_LINE_START, // delete from cursor to begining line
 #ifndef BABL_MOVEMENTONLY
-	   // Cut & Paste
+       // Cut & Paste
     BABL_UNDO,
-	BABL_REDO,
-	BABL_CUT,
-	BABL_COPY,
-	BABL_PASTE,
-	BABL_SELECT_ALL,
-	/* not yet implemented
-	BABL_SWAP_LAST2C // swap last characters before the cursor
-	BABL_SWAP_LAST2W // Swap the last two words before the cursor
-	*/
-		// find & replace
-	BABL_FIND,
-	BABL_FIND_NEXT,
-	BABL_FIND_REPLACE,
-		// GUI or app
-	BABL_RUNAPP,
-	BABL_SWITCH_APP_NEXT,
-	BABL_SWITCH_APP_LAST, // previous
-	BABL_CLOSE_APP,
-	BABL_HELP,
+    BABL_REDO,
+    BABL_CUT,
+    BABL_COPY,
+    BABL_PASTE,
+    BABL_SELECT_ALL,
+    /* not yet implemented
+    BABL_SWAP_LAST2C // swap last characters before the cursor
+    BABL_SWAP_LAST2W // Swap the last two words before the cursor
+    */
+        // find & replace
+    BABL_FIND,
+    BABL_FIND_NEXT,
+    BABL_FIND_REPLACE,
+        // GUI or app
+    BABL_RUNAPP,
+    BABL_SWITCH_APP_NEXT,
+    BABL_SWITCH_APP_LAST, // previous
+    BABL_CLOSE_APP,
+    BABL_HELP,
 
 #ifndef BABL_NOBROWSER
-	BABL_BROWSER_NEW_TAB,
-	BABL_BROWSER_CLOSE_TAB,
-	BABL_BROWSER_REOPEN_LAST_TAB,
-	BABL_BROWSER_NEXT_TAB,
-	BABL_BROWSER_PREV_TAB,
-	BABL_BROWSER_URL_BAR,
-	BABL_BROWSER_FORWARD,
-	BABL_BROWSER_BACK,
-	BABL_BROWSER_FIND,
-	BABL_BROWSER_BOOKMARK,
-	BABL_BROWSER_DEV_TOOLS, // hard one to remember
-	BABL_BROWSER_RELOAD,
-	BABL_BROWSER_FULLSCREEN,
-	BABL_BROWSER_ZOOM_IN,
-	BABL_BROWSER_ZOOM_OUT,
+    BABL_BROWSER_NEW_TAB,
+    BABL_BROWSER_CLOSE_TAB,
+    BABL_BROWSER_REOPEN_LAST_TAB,
+    BABL_BROWSER_NEXT_TAB,
+    BABL_BROWSER_PREV_TAB,
+    BABL_BROWSER_URL_BAR,
+    BABL_BROWSER_FORWARD,
+    BABL_BROWSER_BACK,
+    BABL_BROWSER_FIND,
+    BABL_BROWSER_BOOKMARK,
+    BABL_BROWSER_DEV_TOOLS, // hard one to remember
+    BABL_BROWSER_RELOAD,
+    BABL_BROWSER_FULLSCREEN,
+    BABL_BROWSER_ZOOM_IN,
+    BABL_BROWSER_ZOOM_OUT,
 
 #endif
 
 #endif
 // Macros for mode switching
 #ifdef MS_MODE
-	BABL_WINDOWS,
+    BABL_WINDOWS,
 #endif
 #ifdef MAC_MODE
-	BABL_MAC,
+    BABL_MAC,
 #endif
 #ifdef LINUX_MODE
-	BABL_LINUX,
+    BABL_LINUX,
 #endif
 #ifdef EMACS_MODE
-	BABL_EMACS,
+    BABL_EMACS,
 #endif
 #ifdef VI_MODE
-	BABL_VI,
+    BABL_VI,
 #endif
 #ifdef READMUX_MODE
-	BABL_READLINE,
+    BABL_READLINE,
 #endif
 
 
@@ -143,19 +143,19 @@ enum  {
 /* And all the shorthand keymap ready versions */
 // First the mode switching macros
 #ifdef MS_MODE
-#define B_WIN  	M(BABL_WINDOWS)
+#define B_WIN   M(BABL_WINDOWS)
 #endif
 #ifdef MAC_MODE
-#define B_MAC 	M(BABL_MAC)
+#define B_MAC   M(BABL_MAC)
 #endif
 #ifdef LINUX_MODE
-#define B_LNX 	M(BABL_LINUX)
+#define B_LNX   M(BABL_LINUX)
 #endif
 #ifdef EMACS_MODE
 #define B_EMAX  M(BABL_EMACS)
 #endif
 #ifdef VI_MODE
-#define B_VI  	M(BABL_VI)
+#define B_VI    M(BABL_VI)
 #endif
 #ifdef READMUX_MODE
 #define B_READ  M(BABL_READLINE)

@@ -187,7 +187,7 @@ float voice_envelope(float frequency) {
 
             //         default:
             //             note_timbre = TIMBRE_12;
-            //         	break;
+            //          break;
             //     }
             //  break;
 

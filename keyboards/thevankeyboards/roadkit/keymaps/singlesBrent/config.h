@@ -8,7 +8,7 @@
 
 #ifdef BACKLIGHT_ENABLE
     #define BACKLIGHT_PIN B5
-	#define BACKLIGHT_LEVELS 3
+    #define BACKLIGHT_LEVELS 3
     #define BACKLIGHT_ON_STATE 0
 #endif
 

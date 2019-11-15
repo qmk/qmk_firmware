@@ -13,10 +13,10 @@
  #define KN_HALF KC_GRV          // 1/2
  #define KN_PLUS KC_MINS         // +
  #define KN_ACUT KC_EQL          // ´
- #define KN_AO	 KC_LBRC         // Å
+ #define KN_AO   KC_LBRC         // Å
  #define KN_UMLA KC_RBRC         // ¨
- #define KN_OE	 KC_SCLN         // Ö
- #define KN_AE	 KC_QUOT         // Ä
+ #define KN_OE   KC_SCLN         // Ö
+ #define KN_AE   KC_QUOT         // Ä
  #define KN_QUOT KC_NUHS         // '
  #define KN_LABK KC_NUBS         // <
  #define KN_MINS KC_SLSH         // -

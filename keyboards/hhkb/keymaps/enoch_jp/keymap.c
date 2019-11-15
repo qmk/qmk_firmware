@@ -50,22 +50,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 /*void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
-	leading = false;
-	leader_end();
+    leading = false;
+    leader_end();
 
-	SEQ_ONE_KEY(KC_RSFT) {
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	}
-	SEQ_TWO_KEYS(KC_A, KC_S) {
-	  register_code(KC_H);
-	  unregister_code(KC_H);
-	}
-	SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-	  register_code(KC_LGUI);
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	  unregister_code(KC_LGUI);
-	}
+    SEQ_ONE_KEY(KC_RSFT) {
+      register_code(KC_S);
+      unregister_code(KC_S);
+    }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_H);
+      unregister_code(KC_H);
+    }
+    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
+    }
   }
 }*/

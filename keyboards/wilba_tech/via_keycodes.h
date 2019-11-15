@@ -21,24 +21,24 @@
 // TODO: merge this into quantum_keycodes
 // Backlight keycodes are in range 0x5F00-0x5F0F
 enum via_keycodes {
-	FN_MO13 = 0x5F10,
-	FN_MO23,
-	MACRO00,
-	MACRO01,
-	MACRO02,
-	MACRO03,
-	MACRO04,
-	MACRO05,
-	MACRO06,
-	MACRO07,
-	MACRO08,
-	MACRO09,
-	MACRO10,
-	MACRO11,
-	MACRO12,
-	MACRO13,
-	MACRO14,
-	MACRO15,
+    FN_MO13 = 0x5F10,
+    FN_MO23,
+    MACRO00,
+    MACRO01,
+    MACRO02,
+    MACRO03,
+    MACRO04,
+    MACRO05,
+    MACRO06,
+    MACRO07,
+    MACRO08,
+    MACRO09,
+    MACRO10,
+    MACRO11,
+    MACRO12,
+    MACRO13,
+    MACRO14,
+    MACRO15,
 };
 
 enum user_keycodes {
@@ -64,8 +64,8 @@ enum user_keycodes {
 // These are only valid IDs in action_function()
 // Use FN_TT13, FN_TT23, etc. in keymaps
 enum via_action_functions {
-	TRIPLE_TAP_1_3 = 0x31,
-	TRIPLE_TAP_2_3 = 0x32
+    TRIPLE_TAP_1_3 = 0x31,
+    TRIPLE_TAP_2_3 = 0x32
 };
 
 // Bitwise OR the above with 0x0F00 to use in F(x) macro

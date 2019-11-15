@@ -1,19 +1,19 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-	SONG_SU = SAFE_RANGE,
-	SONG_SC,
-	SONG_GB
+    SONG_SU = SAFE_RANGE,
+    SONG_SC,
+    SONG_GB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT(
-		RGB_TOG,        RGB_SAI,        RGB_VAI, \
-		        RGB_HUD,        RGB_HUI,         \
-		RGB_MOD,        RGB_SAD,        RGB_VAD, \
-		BL_STEP,                                 \
-		SONG_SU,SONG_SC,SONG_GB                  \
-	)
+    [0] = LAYOUT(
+        RGB_TOG,        RGB_SAI,        RGB_VAI, \
+                RGB_HUD,        RGB_HUI,         \
+        RGB_MOD,        RGB_SAD,        RGB_VAD, \
+        BL_STEP,                                 \
+        SONG_SU,SONG_SC,SONG_GB                  \
+    )
 };
 
 #ifdef AUDIO_ENABLE

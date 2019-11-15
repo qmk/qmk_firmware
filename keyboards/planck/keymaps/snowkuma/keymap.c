@@ -71,14 +71,14 @@ void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }; void tilde_home(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count > 2) {
-	register_code(KC_LSFT);
+    register_code(KC_LSFT);
         register_code(KC_GRV);
     }
     else {
         register_code(KC_LSFT);
         register_code(KC_GRV);
-	if (state->count > 1) {
-	// Outputs ~/ if tilde tapped twice
+    if (state->count > 1) {
+    // Outputs ~/ if tilde tapped twice
           unregister_code(KC_GRV);
           unregister_code(KC_LSFT);
           register_code(KC_SLSH);

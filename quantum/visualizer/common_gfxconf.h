@@ -80,7 +80,7 @@
 //    #define GDISP_NEED_UTF8                          FALSE
 #define GDISP_NEED_TEXT_KERNING TRUE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
-//    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
+//    #define GDISP_INCLUDE_FONT_UI2                   FALSE        // The smallest preferred font.
 //    #define GDISP_INCLUDE_FONT_LARGENUMBERS          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS10          FALSE
 //    #define GDISP_INCLUDE_FONT_DEJAVUSANS12          FALSE
@@ -125,7 +125,7 @@
 //#define GDISP_STARTUP_COLOR                          Black
 #define GDISP_NEED_STARTUP_LOGO FALSE
 
-//#define GDISP_TOTAL_DISPLAYS		                 2
+//#define GDISP_TOTAL_DISPLAYS                       2
 
 #ifdef GDISP_DRIVER_LIST
 // For code and speed optimization define as TRUE or FALSE if all controllers have the same capability

@@ -11,7 +11,7 @@ enum custom_keycodes {
   MAC_AE = SAFE_RANGE,
   MAC_OE,
   MAC_SS,
-	MAC_UE,
+    MAC_UE,
   MAC_SHFT
 };
 
@@ -58,20 +58,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) {
-		switch(keycode) {
-			case MAC_UE:
+    if (record->event.pressed) {
+        switch(keycode) {
+            case MAC_UE:
         if(keyboard_report->mods & MOD_BIT(KC_LSFT)) {
           clear_keyboard();
           SEND_STRING(SS_LALT("u") SS_LSFT("u"));
         } else {
-				  SEND_STRING(SS_LALT("u")"u");
+                  SEND_STRING(SS_LALT("u")"u");
         }
-				return false;
+                return false;
       case MAC_AE:
         if(keyboard_report->mods & MOD_BIT(KC_LSFT)) {
           clear_keyboard();
-				  SEND_STRING(SS_LALT("u") SS_LSFT("a"));
+                  SEND_STRING(SS_LALT("u") SS_LSFT("a"));
         } else {
           SEND_STRING(SS_LALT("u")"a");
         }
@@ -87,7 +87,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case MAC_SS:
         SEND_STRING(SS_LALT("s"));
         return false;
-		}
-	}
-	return true;
+        }
+    }
+    return true;
 };

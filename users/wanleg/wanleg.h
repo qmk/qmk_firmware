@@ -129,9 +129,9 @@ enum {
  * | SFThold|        |        |        |        |        |        |        |        |CTRLhold|
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_Row_0_______________			TD(TD_Q_ESC),	KC_W,	KC_E, 	KC_R, 			KC_T, 			KC_Y, 	KC_U, 			KC_I, 			KC_O, 			KC_P
-#define _______________Gherkin_Row_1_______________			KC_A, 			KC_S, 	KC_D, 	KC_F, 			KC_G, 			KC_H, 	KC_J, 			KC_K, 			KC_L, 			SFT_T(KC_SPC)
-#define _______________Gherkin_Row_2_______________			SFT_T(KC_Z), 	KC_X, 	KC_C, 	LT(gNUM,KC_V),	LT(gETC,KC_B),  LT(_FN,KC_N), 	LT(gDIR,KC_M), 	GUI_T(KC_COMM),	ALT_T(KC_DOT),	CTL_T(KC_BSPC)
+#define _______________Gherkin_Row_0_______________         TD(TD_Q_ESC),   KC_W,   KC_E,   KC_R,           KC_T,           KC_Y,   KC_U,           KC_I,           KC_O,           KC_P
+#define _______________Gherkin_Row_1_______________         KC_A,           KC_S,   KC_D,   KC_F,           KC_G,           KC_H,   KC_J,           KC_K,           KC_L,           SFT_T(KC_SPC)
+#define _______________Gherkin_Row_2_______________         SFT_T(KC_Z),    KC_X,   KC_C,   LT(gNUM,KC_V),  LT(gETC,KC_B),  LT(_FN,KC_N),   LT(gDIR,KC_M),  GUI_T(KC_COMM), ALT_T(KC_DOT),  CTL_T(KC_BSPC)
 
 /* Gherkin Directional Keys
  * .-----------------------------------------------------------------------------------------.
@@ -142,9 +142,9 @@ enum {
  * | P-Brk  |        |        |        |        |        |        | RGUI   | ALT    |  /     |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_DIR_0_______________			KC_TAB,	 KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL
-#define _______________Gherkin_DIR_1_______________			KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_RCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC
-#define _______________Gherkin_DIR_2_______________			KC_PAUS, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_LALT, KC_SLSH
+#define _______________Gherkin_DIR_0_______________         KC_TAB,  KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL
+#define _______________Gherkin_DIR_1_______________         KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_RCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC
+#define _______________Gherkin_DIR_2_______________         KC_PAUS, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_LALT, KC_SLSH
 
 /* Gherkin Numbers
  * .-----------------------------------------------------------------------------------------.
@@ -156,9 +156,9 @@ enum {
  * |        |        |        |        |        |        |        |        |        |CTRLhold|
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_NUM_0_______________			KC_F1,  KC_F2,  KC_F3,  KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,   KC_F9,         KC_F10
-#define _______________Gherkin_NUM_1_______________			KC_1,   KC_2,   KC_3,	KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,          KC_0
-#define _______________Gherkin_NUM_2_______________			KC_F11, KC_F12, _______,_______, _______, KC_ENT, KC_RSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC)
+#define _______________Gherkin_NUM_0_______________         KC_F1,  KC_F2,  KC_F3,  KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,   KC_F9,         KC_F10
+#define _______________Gherkin_NUM_1_______________         KC_1,   KC_2,   KC_3,   KC_4,    KC_5,    KC_6,   KC_7,    KC_8,    KC_9,          KC_0
+#define _______________Gherkin_NUM_2_______________         KC_F11, KC_F12, _______,_______, _______, KC_ENT, KC_RSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC)
 
 /* Gherkin Et Cetera
  * .-----------------------------------------------------------------------------------------.
@@ -169,9 +169,9 @@ enum {
  * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,KC_ESC,  RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
-#define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
-#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
+#define _______________Gherkin_ETC_0_______________         KC_GRV,         KC_MS_U, _______,KC_ESC,  RESET,   KC_RSFT,             KC_WH_D, KC_WH_U, _______, KC_BSLS
+#define _______________Gherkin_ETC_1_______________         KC_MS_L,        KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3,             KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
+#define _______________Gherkin_ETC_2_______________         TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),  KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
@@ -231,15 +231,15 @@ enum {
  * |    `   | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | F11    | F12    |        |        |        |        |        | RGUI   | ./ALT  | BSPC   |        |
- * |        |        |        |        |        |        |        |        |        |        |CTRLhold|	       |
+ * |        |        |        |        |        |        |        |        |        |        |CTRLhold|        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        | gherkin|        |        |        | ENTER  | SHIFT  |        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
  */
-#define _______________SUBTER_Row__0_______________   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,  KC_F9,			KC_F10,			KC_DEL
-#define _______________SUBTER_Row__1_______________   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,     KC_8,   KC_9, 			KC_0,    		_______
-#define _______________SUBTER_Row__2_______________   _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______,  KC_RGUI,ALT_T(KC_DOT),  	CTL_T(KC_BSPC), _______
-#define _______________SUBTER_Row__3_______________   _______, _______, GHERKIN, _______, _______, _______, KC_ENT,  KC_LSFT,  _______,_______,			_______,		_______
+#define _______________SUBTER_Row__0_______________   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,  KC_F9,           KC_F10,         KC_DEL
+#define _______________SUBTER_Row__1_______________   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,     KC_8,   KC_9,            KC_0,           _______
+#define _______________SUBTER_Row__2_______________   _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______,  KC_RGUI,ALT_T(KC_DOT),   CTL_T(KC_BSPC), _______
+#define _______________SUBTER_Row__3_______________   _______, _______, GHERKIN, _______, _______, _______, KC_ENT,  KC_LSFT,  _______,_______,         _______,        _______
 
 /* Gherkin-Like Numbers
  * .-----------------------------------------------------------------------------------------------------------.
@@ -248,7 +248,7 @@ enum {
  * |        | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | F11    | F12    |        |        |        | ENTER  | SHIFT  | RGUI   | ./ALT  | BSPC   |        |
- * |        |        |        |        |        |        |        |        |        |        |CTRLhold|	  	   |
+ * |        |        |        |        |        |        |        |        |        |        |CTRLhold|        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        | ENTER  | SHIFT  | RGUI   |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
@@ -317,6 +317,6 @@ enum {
  * |  UG_hue-   | UG_hue+   |  UG_sat-  |  UG_sat+  |             |             |     |     |     |QWERTY|
  * '-----------------------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_FN_0________________			BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, BL_STEP, BL_ON,   _______, _______, _______, _______
-#define _______________Gherkin_FN_1________________			RGB_M_B, RGB_VAD, RGB_VAI, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______
-#define _______________Gherkin_FN_2________________			RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, QWERTY
+#define _______________Gherkin_FN_0________________         BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, BL_STEP, BL_ON,   _______, _______, _______, _______
+#define _______________Gherkin_FN_1________________         RGB_M_B, RGB_VAD, RGB_VAI, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______
+#define _______________Gherkin_FN_2________________         RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, QWERTY

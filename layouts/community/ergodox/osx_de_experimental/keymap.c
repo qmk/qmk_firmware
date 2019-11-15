@@ -385,18 +385,18 @@ switch(id) {
 case SMLY_TOG_QUOT:
 //Macro: SMLY_TOG_QUOT//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
+            start = timer_read();
            layer_state ^= (1<<SMLY);
            layer_state &= (1<<SMLY);
-			return MACRO_NONE; 		} else {
+            return MACRO_NONE;      } else {
            layer_state ^= (1<<SMLY);
            layer_state &= (1<<SMLY);
-			if (timer_elapsed(start) >150) {
-				return MACRO_NONE;
-			} else {
-				return MACRO(DOWN(KC_LSFT),TYPE(DE_OSX_HASH),UP(KC_LSFT),END);
-			}
-		}
+            if (timer_elapsed(start) >150) {
+                return MACRO_NONE;
+            } else {
+                return MACRO(DOWN(KC_LSFT),TYPE(DE_OSX_HASH),UP(KC_LSFT),END);
+            }
+        }
 
 break;
 case M_TOGGLE_5:
@@ -425,66 +425,66 @@ break;
 case M_DE_OSX_PLUS_CTRLALT:
 //Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LALT),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(KC_RBRC),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(DOWN(KC_LCTRL),DOWN(KC_LALT),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LALT),END);
+            } else {
+                return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(KC_RBRC),END);
+            }
+        }
 
 break;
 case SM_KISS:
 //Macro: SM_KISS//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_RBRC),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_RBRC),UP(KC_LSFT),END);
+        }
 
 break;
 case SM_FROWN:
 //Macro: SM_FROWN//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LALT),TYPE(KC_8),UP(KC_LALT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LALT),TYPE(KC_8),UP(KC_LALT),END);
+        }
 
 break;
 case SM_CRY:
 //Macro: SM_CRY//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
+        }
 
 break;
 case SM_SMILE:
 //Macro: SM_SMILE//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
+        }
 
 break;
 case SM_SMIRK:
 //Macro: SM_SMIRK//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
+        }
 
 break;
 case M_LGUI_SHFT:
 //Macro: M_LGUI_SHFT//-----------------------
 if (record->event.pressed){
-			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
-		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
-		}
+            return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
+        }else{
+            return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+        }
 
 break;
 case SM_HEART:
 //Macro: SM_HEART//-----------------------
 if (record->event.pressed) {
-			return MACRO(TYPE(KC_GRV),TYPE(KC_3),END);
-		}
+            return MACRO(TYPE(KC_GRV),TYPE(KC_3),END);
+        }
 
 break;
 case TOG_HLD_MDIA:
@@ -505,43 +505,43 @@ break;
 case SM_LAUGH:
 //Macro: SM_LAUGH//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_D),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_D),UP(KC_LSFT),END);
+        }
 
 break;
 case SM_SAD:
 //Macro: SM_SAD//-----------------------
 if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
-		}
+            return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
+        }
 
 break;
 case M_DE_OSX_CIRC_CTRLCMD:
 //Macro: M_DE_OSX_CIRC_CTRLCMD//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LGUI),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LGUI),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LGUI),TYPE(KC_NUBS),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(DOWN(KC_LCTRL),DOWN(KC_LGUI),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LGUI),END);
+            } else {
+                return MACRO(UP(KC_LCTRL),UP(KC_LGUI),TYPE(KC_NUBS),END);
+            }
+        }
 
 break;
 case M_MEH_SH_ACUT:
 //Macro: M_MEH_SH_ACUT//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LSFT),DOWN(KC_LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_OSX_ACUT),UP(KC_LSFT),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(DOWN(KC_LCTRL),DOWN(KC_LSFT),DOWN(KC_LALT),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
+            } else {
+                return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_OSX_ACUT),UP(KC_LSFT),END);
+            }
+        }
 
 break;
 }

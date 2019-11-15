@@ -33,7 +33,7 @@ uint8_t init_mcp23018(void);
 #define LAYOUT_georgi(                                            \
     L00,L01,L02,L03,L04,L05,            R00,R01,R02,R03,R04,R05,  \
     L10,L11,L12,L13,L14,L15,            R10,R11,R12,R13,R14,R15,  \
-               	L20,L21,L22,            R20,R21,R22)              \
+                L20,L21,L22,            R20,R21,R22)              \
                                                                   \
     {                         \
     { KC_NO,  R00,   R10,   R21},     \
@@ -43,7 +43,7 @@ uint8_t init_mcp23018(void);
     { KC_NO,  R04,   R14,   KC_NO},   \
     { KC_NO,  R05,   R15,   KC_NO},   \
     { KC_NO,  KC_NO, KC_NO, KC_NO},     \
-							  \
+                              \
     { KC_NO,  L05,   L15,   L22},     \
     { KC_NO,  L04,   L14,   L21},     \
     { KC_NO,  L03,   L13,   L20},     \

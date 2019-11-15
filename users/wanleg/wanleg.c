@@ -7,29 +7,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QW);
-		#if defined(RGBLIGHT_ENABLE)
-		rgblight_sethsv_noeeprom(0,0,128);
+        #if defined(RGBLIGHT_ENABLE)
+        rgblight_sethsv_noeeprom(0,0,128);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
-		#endif
+        #endif
       }
       return false;
       break;
     case GHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_GK);
-		#if defined(RGBLIGHT_ENABLE)
+        #if defined(RGBLIGHT_ENABLE)
         rgblight_sethsv_noeeprom(128,255,64);
-		#endif
+        #endif
       }
       return false;
       break;
     case gGHERKIN:
       if (record->event.pressed) {
         set_single_persistent_default_layer(gGK);
-		#if defined(RGBLIGHT_ENABLE)
+        #if defined(RGBLIGHT_ENABLE)
         rgblight_sethsv_noeeprom(128,255,128);
         rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT);
-		#endif
+        #endif
       }
       return false;
       break;
@@ -67,7 +67,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case NUMBER:
+    case NUMBER:
       if (record->event.pressed) {
         layer_on(NUM);
       } else {
@@ -75,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case DIRECTION:
+    case DIRECTION:
       if (record->event.pressed) {
         layer_on(DIR);
       } else {
@@ -83,7 +83,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case ETCETERA:
+    case ETCETERA:
       if (record->event.pressed) {
         layer_on(ETC);
       } else {
@@ -107,7 +107,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case gETCETERA:
+    case gETCETERA:
       if (record->event.pressed) {
         layer_on(gETC);
       } else {
@@ -115,7 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case FUNCTION:
+    case FUNCTION:
       if (record->event.pressed) {
         layer_on(_FN);
       } else {
@@ -126,11 +126,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //on RESET, underglow red if present
   case RESET:
       if (record->event.pressed) {
-		  #if defined(RGBLIGHT_ENABLE)
-		  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-		  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-		  rgblight_sethsv_noeeprom_red();
-		  #endif
+          #if defined(RGBLIGHT_ENABLE)
+          rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+          rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+          rgblight_sethsv_noeeprom_red();
+          #endif
       }
       return true; // Let QMK send the press/release events as normal
       break;

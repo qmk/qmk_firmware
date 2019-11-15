@@ -127,37 +127,37 @@ uint8_t matrix_scan(void)
     // Will only be a match if the correct bytes were recieved
     if (uart_data[3] == (uart_data[0] ^ uart_data[1] ^ uart_data[2])) { // This is an arbitrary checksum calculated by XORing all the data.
         // Transferring the keystates to the QMK matrix variable
-		/* ASSUMING MSB FIRST */
-		matrix[0] = ((uint16_t) uart_data[0] << 8) | ((uint16_t) uart_data[1]);
-		encoderValue += (int8_t) uart_data[2];
-		if ((uart_data[0] | uart_data[1] | uart_data[2])!=0){
-			xprintf("\r\n0x%0X%02X%02X",uart_data[0],uart_data[1], uart_data[2]);
-		}
-		/* OK, TURNS OUT THAT WAS A BAD ASSUMPTION */
+        /* ASSUMING MSB FIRST */
+        matrix[0] = ((uint16_t) uart_data[0] << 8) | ((uint16_t) uart_data[1]);
+        encoderValue += (int8_t) uart_data[2];
+        if ((uart_data[0] | uart_data[1] | uart_data[2])!=0){
+            xprintf("\r\n0x%0X%02X%02X",uart_data[0],uart_data[1], uart_data[2]);
+        }
+        /* OK, TURNS OUT THAT WAS A BAD ASSUMPTION */
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-			// I've unpacked these into the mirror image of what QMK expects them to be, so...
-			matrix[i] = bitrev16(matrix[i]);
-			// So I'll reverse it, and this should be fine now.
+            // I've unpacked these into the mirror image of what QMK expects them to be, so...
+            matrix[i] = bitrev16(matrix[i]);
+            // So I'll reverse it, and this should be fine now.
         }
 
         // A mouse report for scrolling would go here, but I don't plan on doing scrolling with the encoder. So.
 
-    	report_mouse_t currentReport = {};
+        report_mouse_t currentReport = {};
 /*
-    	currentReport = pointing_device_get_report();
+        currentReport = pointing_device_get_report();
             //mouseReport.x = 127 max -127 min
-    	currentReport.x = (int8_t) uart_data[6];
+        currentReport.x = (int8_t) uart_data[6];
             //mouseReport.y = 127 max -127 min
-    	currentReport.y = (int8_t) uart_data[7];
+        currentReport.y = (int8_t) uart_data[7];
             //mouseReport.v = 127 max -127 min (scroll vertical)
-    	currentReport.v = (int8_t) uart_data[8];
+        currentReport.v = (int8_t) uart_data[8];
             //mouseReport.h = 127 max -127 min (scroll horizontal)
-    	currentReport.h = (int8_t) uart_data[9];
+        currentReport.h = (int8_t) uart_data[9];
         */
-    	/*
-    	currentReport.x = 0;
-    	currentReport.y = 0;
-    	currentReport.v = 0;
+        /*
+        currentReport.x = 0;
+        currentReport.y = 0;
+        currentReport.v = 0;
         currentReport.h = 0;*/
 
         pointing_device_set_report(currentReport);

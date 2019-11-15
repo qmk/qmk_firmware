@@ -310,7 +310,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-	case COLEMAK:
+    case COLEMAK:
       if (record->event.pressed) {
         default_layer_set(1UL << _COLEMAK);
 //        persistent_default_layer_set(1UL << _COLEMAK);
@@ -324,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _QWERTYGM);
         layer_off ( _ADJUST);
         layer_off ( _ADJUST2);
-	  }
+      }
       return false;
       break;
     case QWERTY:
@@ -357,7 +357,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _QWERTYGM);
         layer_off ( _ADJUST);
         layer_off ( _ADJUST2);
-	  }
+      }
       return false;
       break;
     case QWERTYGM:
@@ -373,7 +373,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _COLEMAKGM);
         layer_off ( _ADJUST);
         layer_off ( _ADJUST2);
-	  }
+      }
       return false;
       break;
   }

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "indicator_leds.h"
 #include "duck_led/duck_led.h"
 
-#define LED_T1H	600
+#define LED_T1H 600
 #define LED_T1L 650
 #define LED_T0H 250
 #define LED_T0L 1000

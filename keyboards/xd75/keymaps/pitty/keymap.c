@@ -131,11 +131,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _RAISE:
         rgblight_setrgb (0xC3,  0xFF, 0xFF);
-		rgblight_mode(5);
+        rgblight_mode(5);
         break;
     case _LOWER:
         rgblight_setrgb (0xFF, 0xFF, 0xFF);
-		rgblight_mode(5);
+        rgblight_mode(5);
         break;
     case _GAME:
         rgblight_mode(8);

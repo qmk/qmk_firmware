@@ -22,10 +22,10 @@
 #define BACKLIGHT_PORT  (1 << 4)  // D4
 #define SCROLLLOCK_PORT (1 << 6)  // D6
 
-#define TIMER_CLK_DIV64			  0x03	///< Timer clocked at F_CPU/64
-#define TIMER1PRESCALE	TIMER_CLK_DIV64 ///< timer 1 prescaler default
+#define TIMER_CLK_DIV64           0x03  ///< Timer clocked at F_CPU/64
+#define TIMER1PRESCALE  TIMER_CLK_DIV64 ///< timer 1 prescaler default
 
-#define TIMER_PRESCALE_MASK		0x07	///< Timer Prescaler Bit-Mask
+#define TIMER_PRESCALE_MASK     0x07    ///< Timer Prescaler Bit-Mask
 
 #define PWM_MAX 0xFF
 #define TIMER_TOP 255 // 8 bit PWM
@@ -85,8 +85,8 @@ void timer1PWMSetup(void) { // NOTE ONLY CALL THIS ONCE
   // outb(OCR1AL, 0);
 
   // clear output comparator registers for B
-	OCR1BH = 0; // outb(OCR1BH, 0);
-	OCR1BL = 0; // outb(OCR1BL, 0);
+    OCR1BH = 0; // outb(OCR1BH, 0);
+    OCR1BL = 0; // outb(OCR1BL, 0);
 }
 
 bool is_init = false;
@@ -97,10 +97,10 @@ void timer1Init(void) {
 
   // reset TCNT1
   TCNT1H = 0;  // outb(TCNT1H, 0);
-	TCNT1L = 0;  // outb(TCNT1L, 0);
+    TCNT1L = 0;  // outb(TCNT1L, 0);
 
   // TOIE1: Timer Overflow Interrupt Enable (Timer 1);
-	TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
+    TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
 
   is_init = true;
 }
@@ -122,7 +122,7 @@ void timer1UnInit(void) {
 //! Interrupt handler for tcnt1 overflow interrupt
 ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 {
-	// sei();
+    // sei();
   // handle breathing here
   #ifdef BACKLIGHT_BREATHING
   if (is_breathing()) {

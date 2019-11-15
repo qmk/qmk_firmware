@@ -1,6 +1,6 @@
 // Can't Remember Sh*t Keymap for Let's Split
 // Trying to fit as many characters as possible on the default layer
-// 	as its easier for me to remember logical functions than characters
+//  as its easier for me to remember logical functions than characters
 // Also, I like me some numpad
 
 

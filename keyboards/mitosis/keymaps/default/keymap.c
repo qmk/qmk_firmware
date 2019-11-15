@@ -9,10 +9,10 @@
 // entirely and just use numbers.
 enum mitosis_layers
 {
-	_MALT,
-	_SHIFTED,
-	_FUNCTION,
-	_FUNCSHIFT
+    _MALT,
+    _SHIFTED,
+    _FUNCTION,
+    _FUNCSHIFT
 };
 
 enum mitosis_keycodes
@@ -76,40 +76,40 @@ static bool singular_key = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-	uint8_t layer;
+    uint8_t layer;
   layer = biton32(layer_state);  // get the current layer
 
   //custom layer handling for tri_layer,
   switch (keycode) {
   case FNKEY:
-  	if (record->event.pressed) {
+    if (record->event.pressed) {
       key_timer = timer_read();
       singular_key = true;
-    	layer_on(_FUNCTION);
-  	} else {
+        layer_on(_FUNCTION);
+    } else {
       if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
         layer_off(_FUNCTION);
       }
-  	}
+    }
     update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
-  	break;
+    return false;
+    break;
   //SHIFT is handled as LSHIFT in the general case
   case SHIFT:
-  	if (record->event.pressed) {
+    if (record->event.pressed) {
       key_timer = timer_read();
       singular_key = true;
-    	layer_on(_SHIFTED);
-    	register_code(KC_LSFT);
-  	} else {
-    	if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
+        layer_on(_SHIFTED);
+        register_code(KC_LSFT);
+    } else {
+        if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
         layer_off(_SHIFTED);
-    	  unregister_code(KC_LSFT);
+          unregister_code(KC_LSFT);
       }
     }
     update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
-  	break;
+    return false;
+    break;
   //switch multiplexing for media, short tap for volume up, long press for play/pause
   case M_VOLU:
       if (record->event.pressed) {
@@ -158,16 +158,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   //FUNCSHIFT has been shifted by the SHIFT handling, some keys need to be excluded
   if (layer == _FUNCSHIFT) {
-  	//F1-F12 should be sent as unshifted keycodes,
-  	//and ] needs to be unshifted or it is sent as }
-  	if ( (keycode >= KC_F1 && keycode <= KC_F12)
-  	   || keycode == KC_RBRC ) {
-  		if (record->event.pressed) {
+    //F1-F12 should be sent as unshifted keycodes,
+    //and ] needs to be unshifted or it is sent as }
+    if ( (keycode >= KC_F1 && keycode <= KC_F12)
+       || keycode == KC_RBRC ) {
+        if (record->event.pressed) {
               unregister_mods(MOD_LSFT);
           } else {
               register_mods(MOD_LSFT);
           }
-  	}
+    }
   }
 
   return true;
@@ -177,9 +177,9 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     switch (layer) {
-    	case _MALT:
-    		set_led_off;
-    		break;
+        case _MALT:
+            set_led_off;
+            break;
         case _FUNCTION:
             set_led_blue;
             break;
@@ -187,8 +187,8 @@ void matrix_scan_user(void) {
             set_led_red;
             break;
         case _FUNCSHIFT:
-        	set_led_green;
-        	break;
+            set_led_green;
+            break;
         default:
             break;
     }

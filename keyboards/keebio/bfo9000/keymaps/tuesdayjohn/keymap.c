@@ -310,13 +310,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-	case COLEMAK:
+    case COLEMAK:
       if (record->event.pressed) {
 //        persistent_default_layer_set(1UL << _COLEMAK);
         default_layer_set(1UL << _COLEMAK);
         layer_move (_COLEMAK);
         keymap_config.nkro = 0;
-	  }
+      }
       return false;
       break;
     case QWERTY:
@@ -333,7 +333,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_invert (_GAMING);
         layer_off (_NUMPAD);
         keymap_config.nkro = 1;
-	  }
+      }
       return false;
       break;
   }

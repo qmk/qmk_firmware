@@ -57,9 +57,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          case TG(1):
            if (record->event.pressed) {
                 tap_code(KC_NUMLOCK);
-		return true;
-		}
-	   break;
+        return true;
+        }
+       break;
 
     }
     return true;

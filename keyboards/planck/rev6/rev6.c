@@ -16,11 +16,11 @@
 #include "rev6.h"
 
 void matrix_init_kb(void) {
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 #ifdef DIP_SWITCH_ENABLE

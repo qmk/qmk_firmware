@@ -16,17 +16,17 @@
 #include "unloved_bastard.h"
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-	led_init_ports();
-	matrix_init_user();
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+    led_init_ports();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

@@ -62,7 +62,7 @@ uint8_t matrix_scan(void)
         switch (row) {
             case 0: palSetPad(GPIOB, 11);    break;
             case 1: palSetPad(GPIOB, 10);    break;
-            case 2: palSetPad(GPIOB, 2);   	break;
+            case 2: palSetPad(GPIOB, 2);    break;
             case 3: palSetPad(GPIOB, 1);   break;
             case 4: palSetPad(GPIOB, 0);    break;
         }
@@ -70,19 +70,19 @@ uint8_t matrix_scan(void)
         wait_us(20); // need wait to settle pin state
 
         // read col data: { PTA15, PTC10, PTC11, PTC12, PTD2, PTB3, PTB4, PTB5, PTB6, PTB7, PTB8, PTB9, PTA2, PTA3 }
-        data = ((palReadPort(GPIOA) & 0x8000UL) >> 15) |	// 0
-        	   ((palReadPort(GPIOC) & 0x1C00UL) >> 9) |		// 1, 2, 3
-			   ((palReadPort(GPIOD) & 0x0004UL) << 2) |		// 4
-			   ((palReadPort(GPIOB) & 0x03F8UL) << 2) |		// 5, 6, 7, 8, 9, 10, 11
-			   ((palReadPort(GPIOA) & 0x000CUL) << 10);    // 12, 13
+        data = ((palReadPort(GPIOA) & 0x8000UL) >> 15) |    // 0
+               ((palReadPort(GPIOC) & 0x1C00UL) >> 9) |     // 1, 2, 3
+               ((palReadPort(GPIOD) & 0x0004UL) << 2) |     // 4
+               ((palReadPort(GPIOB) & 0x03F8UL) << 2) |     // 5, 6, 7, 8, 9, 10, 11
+               ((palReadPort(GPIOA) & 0x000CUL) << 10);    // 12, 13
 
         // un-strobe row
         switch (row) {
-        	case 0: palClearPad(GPIOB, 11);    break;
-        	case 1: palClearPad(GPIOB, 10);    break;
-        	case 2: palClearPad(GPIOB, 2);	  break;
-        	case 3: palClearPad(GPIOB, 1);   break;
-        	case 4: palClearPad(GPIOB, 0);    break;
+            case 0: palClearPad(GPIOB, 11);    break;
+            case 1: palClearPad(GPIOB, 10);    break;
+            case 2: palClearPad(GPIOB, 2);    break;
+            case 3: palClearPad(GPIOB, 1);   break;
+            case 4: palClearPad(GPIOB, 0);    break;
         }
 
         if (matrix_debouncing[row] != data) {

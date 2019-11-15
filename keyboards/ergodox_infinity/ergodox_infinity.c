@@ -39,30 +39,30 @@ void init_serial_link_hal(void) {
 // Which will reduce the brightness range
 #define PRESCALAR_DEFINE 0
 void lcd_backlight_hal_init(void) {
-	// Setup Backlight
+    // Setup Backlight
     SIM->SCGC6 |= SIM_SCGC6_FTM0;
     FTM0->CNT = 0; // Reset counter
 
-	// PWM Period
-	// 16-bit maximum
-	FTM0->MOD = 0xFFFF;
+    // PWM Period
+    // 16-bit maximum
+    FTM0->MOD = 0xFFFF;
 
-	// Set FTM to PWM output - Edge Aligned, Low-true pulses
+    // Set FTM to PWM output - Edge Aligned, Low-true pulses
 #define CNSC_MODE FTM_SC_CPWMS | FTM_SC_PS(4) | FTM_SC_CLKS(0)
-	CHANNEL_RED.CnSC = CNSC_MODE;
-	CHANNEL_GREEN.CnSC = CNSC_MODE;
-	CHANNEL_BLUE.CnSC = CNSC_MODE;
+    CHANNEL_RED.CnSC = CNSC_MODE;
+    CHANNEL_GREEN.CnSC = CNSC_MODE;
+    CHANNEL_BLUE.CnSC = CNSC_MODE;
 
-	// System clock, /w prescalar setting
-	FTM0->SC = FTM_SC_CLKS(1) | FTM_SC_PS(PRESCALAR_DEFINE);
+    // System clock, /w prescalar setting
+    FTM0->SC = FTM_SC_CLKS(1) | FTM_SC_PS(PRESCALAR_DEFINE);
 
-	CHANNEL_RED.CnV = 0;
-	CHANNEL_GREEN.CnV = 0;
-	CHANNEL_BLUE.CnV = 0;
+    CHANNEL_RED.CnV = 0;
+    CHANNEL_GREEN.CnV = 0;
+    CHANNEL_BLUE.CnV = 0;
 
-	RGB_PORT_GPIO->PDDR |= (1 << RED_PIN);
-	RGB_PORT_GPIO->PDDR |= (1 << GREEN_PIN);
-	RGB_PORT_GPIO->PDDR |= (1 << BLUE_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << RED_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << GREEN_PIN);
+    RGB_PORT_GPIO->PDDR |= (1 << BLUE_PIN);
 
 #define RGB_MODE PORTx_PCRn_SRE | PORTx_PCRn_DSE | PORTx_PCRn_MUX(4)
     RGB_PORT->PCR[RED_PIN] = RGB_MODE;
@@ -94,9 +94,9 @@ static uint16_t cie_lightness(uint16_t v) {
 }
 
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
-	CHANNEL_RED.CnV = cie_lightness(r);
-	CHANNEL_GREEN.CnV = cie_lightness(g);
-	CHANNEL_BLUE.CnV = cie_lightness(b);
+    CHANNEL_RED.CnV = cie_lightness(r);
+    CHANNEL_GREEN.CnV = cie_lightness(g);
+    CHANNEL_BLUE.CnV = cie_lightness(b);
 }
 
 __attribute__ ((weak))
@@ -109,21 +109,21 @@ void matrix_scan_user(void) {
 
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
 
-	matrix_init_user();
-	// The backlight always has to be initialized, otherwise it will stay lit
+    matrix_init_user();
+    // The backlight always has to be initialized, otherwise it will stay lit
 #ifndef VISUALIZER_ENABLE
-	lcd_backlight_hal_init();
+    lcd_backlight_hal_init();
 #endif
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool is_keyboard_master(void) {

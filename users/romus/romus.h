@@ -22,7 +22,7 @@
 #define CUT     LCTL(KC_X)
 #define PASTE   LCTL(KC_V)
 #define EXIT    LALT(KC_F4)
-#define	CAPS	SFT_T(KC_CAPS)
+#define CAPS    SFT_T(KC_CAPS)
 
 
 // Rename mouse keys with 7 letters
@@ -167,14 +167,14 @@ enum {
  * | Ctrl|  OS | Alt | Tab | Cps | ACH || SYM | Spc | Lft |  Up | Dwn | Rght|
  * `------------------------------------------------------------------------' */
 #define DVORAK \
-    KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,	KC_ESC,	KC_DEL,	KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    \
+    KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_ESC, KC_DEL, KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    \
     KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_BSPC,KC_ENT, KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    \
-    MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,  	KC_SPC,	MO(_SE),KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    \
-    KC_LCTL,KC_LGUI,KC_LALT,KC_TAB,	CAPS, 	MO(_AL),K_NUMBR,KC_SPC, KC_LEFT,KC_UP,	KC_DOWN,KC_RGHT
+    MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_SPC, MO(_SE),KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    \
+    KC_LCTL,KC_LGUI,KC_LALT,KC_TAB, CAPS,   MO(_AL),K_NUMBR,KC_SPC, KC_LEFT,KC_UP,  KC_DOWN,KC_RGHT
 
 /* Alternative character overlay
  * ,------------------------------------------------------------------------.
- * | ` ~ | ' ' | " " | Euro|Pound|     || Del | Home| PgUp| Prn | \ | | / ?	|
+ * | ` ~ | ' ' | " " | Euro|Pound|     || Del | Home| PgUp| Prn | \ | | / ? |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Redo| < > | ( ) | [ ] | { } | Alt || Ins | End |PgDwn| Scl | BTC | - _ |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
@@ -183,10 +183,10 @@ enum {
  * |     |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define ALTCHAR \
-    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,		KC_BSLASH,	KC_SLSH, \
-    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,KC_SCROLLLOCK,	CUR_BIT,	KC_MINUS, \
-    UNDO,	CUT,    COPY,   PASTE,	EXIT,	KC_LSFT,_______,_______,_______,_______,		CUR_YEN,	KC_EQUAL,   \
-    _______,_______,_______,_______,_______,_______,_______,DBL_SPC,_______,_______,		_______,	_______
+    KC_GRV, DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,     KC_BSLASH,  KC_SLSH, \
+    REDO,   DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS, KC_END, KC_PGDN,KC_SCROLLLOCK,  CUR_BIT,    KC_MINUS, \
+    UNDO,   CUT,    COPY,   PASTE,  EXIT,   KC_LSFT,_______,_______,_______,_______,        CUR_YEN,    KC_EQUAL,   \
+    _______,_______,_______,_______,_______,_______,_______,DBL_SPC,_______,_______,        _______,    _______
 
 /* Game layer
  * ,------------------------------------------------------------------------.
@@ -202,7 +202,7 @@ enum {
     K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT , \
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,K_MOUSE, \
-    KC_LCTL,KC_LALT,KC_SLSH,KC_GRV,	K_NUMBR,KC_SPC, KC_F5, 	KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
+    KC_LCTL,KC_LALT,KC_SLSH,KC_GRV, K_NUMBR,KC_SPC, KC_F5,  KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
 
 /* Symbols layer
  * ,------------------------------------------------------------------------.
@@ -216,7 +216,7 @@ enum {
  * `------------------------------------------------------------------------' */
 #define NUMBERS \
     K_NUMBR,KC_GRV, KC_TILD,KC_BSLS,KC_LBRC,KC_LCBR,KC_RCBR,KC_RBRC,KC_MINS,KC_UNDS,KC_EQL, KC_PLUS, \
-    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,	_______,K_LOCK,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    \
+    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   _______,K_LOCK,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    \
     KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,_______,KC_VOLU,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, \
     KC_PIPE,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
 

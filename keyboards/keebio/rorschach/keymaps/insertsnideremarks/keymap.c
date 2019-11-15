@@ -258,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _FUNCTION2);
         layer_off ( _NUMPAD);
         layer_off ( _ADJUST);
-		layer_off ( _ADJUST2);
+        layer_off ( _ADJUST2);
       }
       return false;
       break;
@@ -272,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _FUNCTION2);
         layer_off ( _NUMPAD);
         layer_off ( _ADJUST);
-		layer_off ( _ADJUST2);
+        layer_off ( _ADJUST2);
       }
       return false;
       break;

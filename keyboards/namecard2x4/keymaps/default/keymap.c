@@ -17,28 +17,28 @@
 
 enum Layer
 {
-	DF,
-	LW,
-	RS
+    DF,
+    LW,
+    RS
 };
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DF] = LAYOUT(
-		KC_1,KC_2,KC_3,LT(LW,KC_4),
-		KC_5,KC_6,KC_7,LT(RS,KC_8)
-		),
+        KC_1,KC_2,KC_3,LT(LW,KC_4),
+        KC_5,KC_6,KC_7,LT(RS,KC_8)
+        ),
 [LW]= LAYOUT(
 
-		RGB_VAD,RGB_VAI,RGB_HUI,RGB_HUD,
-		KC_TRNS,RGB_MOD,RGB_RMOD,KC_TRNS
-		),
+        RGB_VAD,RGB_VAI,RGB_HUI,RGB_HUD,
+        KC_TRNS,RGB_MOD,RGB_RMOD,KC_TRNS
+        ),
 [RS]= LAYOUT(
 
-		KC_MYCM,KC_MAIL,KC_VOLU,KC_MUTE,
-		KC_WSCH,KC_CALC,KC_VOLD,KC_TRNS
-		)
+        KC_MYCM,KC_MAIL,KC_VOLU,KC_MUTE,
+        KC_WSCH,KC_CALC,KC_VOLD,KC_TRNS
+        )
 
 };
 

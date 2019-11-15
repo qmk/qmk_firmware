@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	return MACRO_NONE;
+    return MACRO_NONE;
 }
 
 enum function_id {
@@ -167,39 +167,39 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
+    return true;
 }
 
 void led_set_user(uint8_t usb_led) {
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
+    if (usb_led & (1 << USB_LED_COMPOSE)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
-	if (usb_led & (1 << USB_LED_KANA)) {
+    if (usb_led & (1 << USB_LED_KANA)) {
 
-	} else {
+    } else {
 
-	}
+    }
 
 }

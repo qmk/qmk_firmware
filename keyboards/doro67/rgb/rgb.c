@@ -44,13 +44,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
   if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
     writePinLow(E6);
   } else {
     writePinHigh(E6);
   }
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }
 
 led_config_t g_led_config = { {

@@ -153,10 +153,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
+    update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
       } else {
         layer_off(_LOWER);
-	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
+    update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
       }
       return false;
       break;
@@ -171,10 +171,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MOVEMENT:
       if (record->event.pressed) {
         layer_on(_MOVEMENT);
-	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
+    update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
       } else {
         layer_off(_MOVEMENT);
-	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
+    update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
       }
       return false;
       break;

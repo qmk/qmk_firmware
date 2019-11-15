@@ -20,70 +20,70 @@
 
 void raw_hid_receive( uint8_t *data, uint8_t length )
 {
-	uint8_t command = data[0];
-	switch ( command )
-	{
-		case id_protocol_version:
-		{
-			msg_protocol_version *msg = (msg_protocol_version*)&data[1];
-			msg->version = PROTOCOL_VERSION;
-			break;
-		}
+    uint8_t command = data[0];
+    switch ( command )
+    {
+        case id_protocol_version:
+        {
+            msg_protocol_version *msg = (msg_protocol_version*)&data[1];
+            msg->version = PROTOCOL_VERSION;
+            break;
+        }
 #if USE_KEYMAPS_IN_EEPROM
-		case id_keymap_keycode_load:
-		{
-			msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
-			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->column );
-			break;
-		}
-		case id_keymap_keycode_save:
-		{
-			msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
-			keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
-			break;
-		}
-		case id_keymap_default_save:
-		{
-			keymap_default_save();
-			break;
-		}
+        case id_keymap_keycode_load:
+        {
+            msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
+            msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->column );
+            break;
+        }
+        case id_keymap_keycode_save:
+        {
+            msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
+            keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
+            break;
+        }
+        case id_keymap_default_save:
+        {
+            keymap_default_save();
+            break;
+        }
 #endif // USE_KEYMAPS_IN_EEPROM
-		case id_backlight_config_set_values:
-		{
-			msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
-			backlight_config_set_values(msg);
-			backlight_config_save();
-			break;
-		}
-		case id_backlight_config_set_alphas_mods:
-		{
-			msg_backlight_config_set_alphas_mods *msg = (msg_backlight_config_set_alphas_mods*)&data[1];
-			backlight_config_set_alphas_mods( msg->alphas_mods );
-			backlight_config_save();
-			break;
-		}
-		case id_backlight_set_key_color:
-		{
-			msg_backlight_set_key_color *msg = (msg_backlight_set_key_color*)&data[1];
-			backlight_set_key_color(msg->row, msg->column, msg->hsv);
-			break;
-		}
-		case id_system_get_state:
-		{
-			msg_system_state *msg = (msg_system_state*)&data[1];
-			msg->value = backlight_get_tick();
-			break;
-		}
-		default:
-		{
-			// Unhandled message.
-			data[0] = id_unhandled;
-			break;
-		}
-	}
+        case id_backlight_config_set_values:
+        {
+            msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
+            backlight_config_set_values(msg);
+            backlight_config_save();
+            break;
+        }
+        case id_backlight_config_set_alphas_mods:
+        {
+            msg_backlight_config_set_alphas_mods *msg = (msg_backlight_config_set_alphas_mods*)&data[1];
+            backlight_config_set_alphas_mods( msg->alphas_mods );
+            backlight_config_save();
+            break;
+        }
+        case id_backlight_set_key_color:
+        {
+            msg_backlight_set_key_color *msg = (msg_backlight_set_key_color*)&data[1];
+            backlight_set_key_color(msg->row, msg->column, msg->hsv);
+            break;
+        }
+        case id_system_get_state:
+        {
+            msg_system_state *msg = (msg_system_state*)&data[1];
+            msg->value = backlight_get_tick();
+            break;
+        }
+        default:
+        {
+            // Unhandled message.
+            data[0] = id_unhandled;
+            break;
+        }
+    }
 
-	// Return same buffer with values changed
-	raw_hid_send( data, length );
+    // Return same buffer with values changed
+    raw_hid_send( data, length );
 
 }
 
@@ -172,27 +172,27 @@ led_config_t g_led_config = { {
     {  47, NO_LED,  46,  53,  54,  55,  56,  19,  18,  17,  16,  24, NO_LED,  25 },
     {  60,  59,  58,  57, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,  29,  28,  27,  26 }
 }, {
-	//A1-A16
+    //A1-A16
     { 224,   0 }, { 204,   0 }, { 187,   0 }, { 170,   0 }, { 153,   0 }, { 136,   0 }, { 119,   0 }, { 119,  16 }, { 136,  16 }, { 153,  16 }, { 170,  16 }, { 187,  16 }, { 204,  16 }, { 224,  32 },
     { 224,  16 }, { 197,  32 },
-	//B1-B14
+    //B1-B14
     { 170,  48 }, { 153,  48 }, { 136,  48 }, { 119,  48 }, { 119,  32 }, { 136,  32 }, { 153,  32 }, { 170,  32 }, { 187,  48 }, { 214,  48 }, { 224,  64 }, { 204,  64 }, { 187,  64 }, { 170,  64 },
-	//C1-C16
+    //C1-C16
     { 102,   0 }, {  85,   0 }, {  68,   0 }, {  51,   0 }, {  34,   0 }, {  17,   0 }, {   0,   0 }, {   0,  16 }, {  17,  16 }, {  34,  16 }, {  51,  16 }, {  68,  16 }, {  85,  16 }, { 102,  16 },
     { 102,  32 }, {  85,  32 },
-	//D1-D16
+    //D1-D16
     {  32,  48 }, {  10,  48 }, {   0,  32 }, {  17,  32 }, {  34,  32 }, {  51,  32 }, {  68,  32 }, {  51,  48 }, {  68,  48 }, {  85,  48 }, { 102,  48 }, { 102,  64 }, {  34,  68 }, {  17,  68 },
     {   0,  68 }
 }, {
-	//A1-A16
+    //A1-A16
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     4, 4,
-	//B1-B14
+    //B1-B14
     4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1,
-	//C1-C16
+    //C1-C16
     4, 4, 4, 4, 4, 4, 1, 1, 4, 4, 4, 4, 4, 4,
     4, 4,
-	//D1-D16
+    //D1-D16
     4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
     1
 } };
@@ -280,27 +280,27 @@ led_config_t g_led_config = { {
     {  48,  47,  46,  54,  55,  56,  57,  19,  18,  17,  16,  24, NO_LED,  25 },
     {  61,  60,  59,  58, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED,  29,  28,  27,  26 }
 }, {
-	//A1-A16
+    //A1-A16
     { 224,   0 }, { 204,   0 }, { 187,   0 }, { 170,   0 }, { 153,   0 }, { 136,   0 }, { 119,   0 }, { 119,  16 }, { 136,  16 }, { 153,  16 }, { 170,  16 }, { 187,  16 }, { 204,  16 }, { 224,   8 },
     { 204,  32 }, { 187,  32 },
-	//B1-B14
+    //B1-B14
     { 170,  48 }, { 153,  48 }, { 136,  48 }, { 119,  48 }, { 119,  32 }, { 136,  32 }, { 153,  32 }, { 170,  32 }, { 187,  48 }, { 214,  48 }, { 224,  64 }, { 204,  64 }, { 187,  64 }, { 170,  64 },
-	//C1-C16
+    //C1-C16
     { 102,   0 }, {  85,   0 }, {  68,   0 }, {  51,   0 }, {  34,   0 }, {  17,   0 }, {   0,   0 }, {   0,  16 }, {  17,  16 }, {  34,  16 }, {  51,  16 }, {  68,  16 }, {  85,  16 }, { 102,  16 },
     { 102,  32 }, {  85,  32 },
-	//D1-D16
+    //D1-D16
     {  32,  48 }, {  17,  48 }, {   0,  48 }, {   0,  32 }, {  17,  32 }, {  34,  32 }, {  51,  32 }, {  68,  32 }, {  51,  48 }, {  68,  48 }, {  85,  48 }, { 102,  48 }, { 102,  64 }, {  34,  68 },
     {  17,  68 }, {   0,  68 }
 }, {
-	//A1-A16
+    //A1-A16
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     4, 4,
-	//B1-B14
+    //B1-B14
     4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1,
-	//C1-C16
+    //C1-C16
     4, 4, 4, 4, 4, 4, 1, 1, 4, 4, 4, 4, 4, 4,
     4, 4,
-	//D1-D16
+    //D1-D16
     4, 4, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 1
 } };
@@ -309,87 +309,87 @@ led_config_t g_led_config = { {
 
 void bootmagic_lite(void)
 {
-	// The lite version of TMK's bootmagic made by Wilba.
-	// 100% less potential for accidentally making the
-	// keyboard do stupid things.
+    // The lite version of TMK's bootmagic made by Wilba.
+    // 100% less potential for accidentally making the
+    // keyboard do stupid things.
 
-	// We need multiple scans because debouncing can't be turned off.
-	matrix_scan();
-	wait_ms(DEBOUNCE);
-	matrix_scan();
+    // We need multiple scans because debouncing can't be turned off.
+    matrix_scan();
+    wait_ms(DEBOUNCE);
+    matrix_scan();
 
-	// If the Esc and space bar are held down on power up,
-	// reset the EEPROM valid state and jump to bootloader.
-	// Assumes Esc is at [0,0] and spacebar is at [4,6].
-	// This isn't very generalized, but we need something that doesn't
-	// rely on user's keymaps in firmware or EEPROM.
-	if ( ( matrix_get_row(0) & (1<<0) ) &&
-		( matrix_get_row(4) & (1<<6) ) )
-	{
-		// Set the TMK/QMK EEPROM state as invalid.
-		eeconfig_disable();
-		//eeprom_set_valid(false);
-		// Jump to bootloader.
-		bootloader_jump();
-	}
+    // If the Esc and space bar are held down on power up,
+    // reset the EEPROM valid state and jump to bootloader.
+    // Assumes Esc is at [0,0] and spacebar is at [4,6].
+    // This isn't very generalized, but we need something that doesn't
+    // rely on user's keymaps in firmware or EEPROM.
+    if ( ( matrix_get_row(0) & (1<<0) ) &&
+        ( matrix_get_row(4) & (1<<6) ) )
+    {
+        // Set the TMK/QMK EEPROM state as invalid.
+        eeconfig_disable();
+        //eeprom_set_valid(false);
+        // Jump to bootloader.
+        bootloader_jump();
+    }
 }
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
 
-	bootmagic_lite();
+    bootmagic_lite();
 
     // Please ignore this is for upcoming features
-	// If the EEPROM has the magic, the data is good.
-	// OK to load from EEPROM.
-	/*if (eeprom_is_valid())
-	{
-		backlight_config_load();
+    // If the EEPROM has the magic, the data is good.
+    // OK to load from EEPROM.
+    /*if (eeprom_is_valid())
+    {
+        backlight_config_load();
 
-		// TODO: do something to "turn on" keymaps in EEPROM?
-	}
-	else
-	{
-		// If the EEPROM has not been saved before, or is out of date,
-		// save the default values to the EEPROM. Default values
-		// come from construction of the zeal_backlight_config instance.
-		backlight_config_save();
+        // TODO: do something to "turn on" keymaps in EEPROM?
+    }
+    else
+    {
+        // If the EEPROM has not been saved before, or is out of date,
+        // save the default values to the EEPROM. Default values
+        // come from construction of the zeal_backlight_config instance.
+        backlight_config_save();
 
-		// Clear the LED colors stored in EEPROM
-		for ( int row=0; row < MATRIX_ROWS; row++ )
-		{
-			HSV hsv;
-			for ( int column=0; column < MATRIX_COLS; column++ )
-			{
-				hsv.h = rand() & 0xFF;
-				hsv.s = rand() & 0x7F;
-				hsv.v = 255;
-				backlight_set_key_color( row, column, hsv );
-			}
-		}
+        // Clear the LED colors stored in EEPROM
+        for ( int row=0; row < MATRIX_ROWS; row++ )
+        {
+            HSV hsv;
+            for ( int column=0; column < MATRIX_COLS; column++ )
+            {
+                hsv.h = rand() & 0xFF;
+                hsv.s = rand() & 0x7F;
+                hsv.v = 255;
+                backlight_set_key_color( row, column, hsv );
+            }
+        }
         #ifdef USE_KEYMAPS_IN_EEPROM
-		keymap_default_save();
-		#endif
-		// Save the magic number last, in case saving was interrupted
-		eeprom_set_valid(true);
-	}*/
+        keymap_default_save();
+        #endif
+        // Save the magic number last, in case saving was interrupted
+        eeprom_set_valid(true);
+    }*/
 
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
 
-	matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
-	return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
-	//backlight_set_indicator_state(usb_led);
+    //backlight_set_indicator_state(usb_led);
 }
 
 void suspend_power_down_kb(void)

@@ -4,15 +4,15 @@
 
 enum mitosis_layers
 {
-	_QWERTY,
-	_WORKMAN,
-	_NUMBERS,
-	_PUNCT,
-	_MOUSE,
-	_LAYERS,
-	_GAMING,
-	_UNICODE,
-	_NUMPAD
+    _QWERTY,
+    _WORKMAN,
+    _NUMBERS,
+    _PUNCT,
+    _MOUSE,
+    _LAYERS,
+    _GAMING,
+    _UNICODE,
+    _NUMPAD
 };
 
 
@@ -178,10 +178,10 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     switch (layer) {
-    	case _QWERTY:
-    	case _WORKMAN:
-    		set_led_off;
-    		break;
+        case _QWERTY:
+        case _WORKMAN:
+            set_led_off;
+            break;
         case _NUMBERS:
             set_led_blue;
             break;
@@ -203,7 +203,7 @@ void matrix_scan_user(void) {
 };
 
 void matrix_init_user(void) {
-	set_unicode_input_mode(UC_LNX); // or UC_WINC
+    set_unicode_input_mode(UC_LNX); // or UC_WINC
 };
 
 

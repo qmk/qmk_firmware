@@ -68,10 +68,10 @@ enum {
 
 void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-	set_oneshot_mods(MOD_LCTL);
+    set_oneshot_mods(MOD_LCTL);
   } else {
     register_code (KC_LCTL);
-	layer_on(NM_MODE);
+    layer_on(NM_MODE);
   }
 }
 
@@ -80,16 +80,16 @@ void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_LCTL);
   } else {
     unregister_code (KC_LCTL);
-	layer_off(NM_MODE);
+    layer_off(NM_MODE);
   }
 }
 
 void dance_GUI_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-	register_code (KC_LGUI);
+    register_code (KC_LGUI);
   } else {
     register_code (KC_LGUI);
-	layer_on(NM_MODE);
+    layer_on(NM_MODE);
   }
 }
 
@@ -98,16 +98,16 @@ void dance_GUI_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_LGUI);
   } else {
     unregister_code (KC_LGUI);
-	layer_off(NM_MODE);
+    layer_off(NM_MODE);
   }
 }
 
 void dance_ALT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-	register_code (KC_LALT);
+    register_code (KC_LALT);
   } else {
     register_code (KC_LALT);
-	layer_on(NM_MODE);
+    layer_on(NM_MODE);
   }
 }
 
@@ -116,17 +116,17 @@ void dance_ALT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_LALT);
   } else {
     unregister_code (KC_LALT);
-	layer_off(NM_MODE);
+    layer_off(NM_MODE);
   }
 }
 
 void dance_SFT_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-	register_code (KC_LSFT);
-	set_oneshot_mods(MOD_LSFT);
+    register_code (KC_LSFT);
+    set_oneshot_mods(MOD_LSFT);
   } else {
     register_code (KC_LSFT);
-	layer_on(NM_MODE);
+    layer_on(NM_MODE);
   }
 }
 
@@ -135,7 +135,7 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code (KC_LSFT);
   } else {
     unregister_code (KC_LSFT);
-	layer_off(NM_MODE);
+    layer_off(NM_MODE);
   }
 }
 
@@ -151,26 +151,26 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // old R3 capslock, LT(NM_MODE,KC_BSPC),
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [CL] = LAYOUT(
-      KC_GESC, 					 KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,        KC_EQL,     KC_BSLS,    KC_DEL,
+      KC_GESC,                   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,        KC_EQL,     KC_BSLS,    KC_DEL,
       MT(MOD_LGUI,KC_TAB),       LT(NM_MODE,KC_Q),    KC_W,    LT(ACCENT,KC_F),    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,     KC_LBRC, KC_RBRC, KC_BSPC,
       MT(MOD_LCTL,KC_BSPC),      KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,           KC_QUOT, KC_ENT,
       TD(SFT_NM),                KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    MT(MOD_LCTL,KC_COMM), MT(MOD_LSFT,KC_DOT),  MT(MOD_LALT,KC_SLSH),        LM(CL,MOD_LGUI|MOD_LSFT), TT(NM_MODE),
-      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT)    , _______
+      _______, TD(CTL_NM),                     TD(ALT_NM),                      KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT)    , _______
       ),
   [NM_MODE] = LAYOUT(
       KC_GRV,            KC_MPRV,    KC_MNXT,    KC_MPLY,    KC_END,      _______,     _______,     _______,     _______,     _______,     KC_HOME,    _______,  _______,  RESET, KC_INS,
       LGUI(KC_TAB),       _______,    LCTL(KC_RGHT),  _______,    _______,    _______,    _______,    KC_UP,    KC_PGUP,    _______,    _______,     _______, TG(CL), KC_DEL,
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
-      KC_LSFT,     			_______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
-      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
+      KC_LSFT,              _______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
+      _______, TD(CTL_NM),                     TD(ALT_NM),                      KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
       ),
 
   [VI_MODE] = LAYOUT(
       KC_GRV,         KC_MPRV,  KC_MNXT, KC_MPLY,    LSFT(KC_END),          KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     LSFT(KC_HOME),    KC_F11,  KC_F12,  RESET, KC_INS,
       LGUI(KC_TAB),     _______,    LSFT(LCTL(KC_RGHT)),  _______,    _______,    _______,    _______,    LSFT(KC_UP),    _______,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            _______,    _______,    _______,      _______,    _______,    LSFT(LCTL(KC_LEFT)),   LSFT(KC_DOWN),   LSFT(KC_RGHT),     _______,    KC_SCLN,  KC_QUOT, KC_LGUI,
-      KC_LSFT,      	    _______,  _______, _______,      _______,    LSFT(LCTL(KC_LEFT)),    _______,    _______,    _______,    _______,    KC_SLSH,    OSM(MOD_LSFT), TO(CL),
-      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
+      KC_LSFT,              _______,  _______, _______,      _______,    LSFT(LCTL(KC_LEFT)),    _______,    _______,    _______,    _______,    KC_SLSH,    OSM(MOD_LSFT), TO(CL),
+      _______, TD(CTL_NM),                     TD(ALT_NM),                      KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
       ),
   [ACCENT] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, _______,
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   _______,  _______, _______,    _______,          _______,     _______,     _______,     _______,     _______,     _______,    _______,  _______,  _______, _______,
       _______,      _______,    _______,  _______,    _______,    _______,    _______,    _______,    DE_UE_CAP,    _______,    _______,     _______, _______, _______,
       _______,        DE_AE_CAP,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE_CAP,  _______, TO(CL),
-      _______, 	       _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______,
+      _______,         _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______,
       _______,   _______,         _______,         _______,         _______,   _______,      _______
       ),
 };

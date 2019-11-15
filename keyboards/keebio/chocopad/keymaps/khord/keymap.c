@@ -77,25 +77,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ADMIN:
       if (record->event.pressed) {
-	SEND_STRING("Administrator");
+    SEND_STRING("Administrator");
       }
       return false;
       break;
     case SMSPC:
       if (record->event.pressed) {
-	SEND_STRING("Simspace1!");
+    SEND_STRING("Simspace1!");
       }
       return false;
       break;
     case M192:
       if (record->event.pressed) {
-	SEND_STRING("192.168.");
+    SEND_STRING("192.168.");
       }
       return false;
       break;
     case M255:
       if (record->event.pressed) {
-	SEND_STRING("255");
+    SEND_STRING("255");
       }
       return false;
       break;

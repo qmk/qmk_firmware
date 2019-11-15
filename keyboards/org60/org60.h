@@ -14,10 +14,10 @@
  *   B0 not connected
  */
 inline void org60_caps_led_on(void)    { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
-inline void org60_bl_led_on(void)    	{ DDRF |=  (1<<5); PORTF &= ~(1<<5); }
+inline void org60_bl_led_on(void)       { DDRF |=  (1<<5); PORTF &= ~(1<<5); }
 
 inline void org60_caps_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
-inline void org60_bl_led_off(void)   	{ DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
+inline void org60_bl_led_off(void)      { DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
 
 /* Org60 Keymap Definition Macro */
 #define LAYOUT( \

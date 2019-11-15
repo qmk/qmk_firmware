@@ -417,8 +417,8 @@ static const uint8_t PROGMEM config1_descriptor[CONFIG1_DESC_SIZE] = {
     0x00,             // bInterfaceSubClass (0x01 = Boot)
     0x00,             // bInterfaceProtocol (0x02 = Mouse)
                       /*
-                          0x01,					// bInterfaceSubClass (0x01 = Boot)
-                          0x02,					// bInterfaceProtocol (0x02 = Mouse)
+                          0x01,                 // bInterfaceSubClass (0x01 = Boot)
+                          0x02,                 // bInterfaceProtocol (0x02 = Mouse)
                       */
     0,                // iInterface
     // HID descriptor, HID 1.11 spec, section 6.2.1

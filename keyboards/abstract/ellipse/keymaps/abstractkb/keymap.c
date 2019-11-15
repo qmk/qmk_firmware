@@ -23,7 +23,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Base */
     KC_MUTE,  RGB_TOG,  BL_TOGG,
-    RGB_M_SW,  RGB_M_P,	BL_BRTG
+    RGB_M_SW,  RGB_M_P, BL_BRTG
   )
 };
 
@@ -44,23 +44,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }*/
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-	if (index == 0) { /* First encoder */
-		if (clockwise) {
-			tap_code(KC_VOLU);
-		} else {
-			tap_code(KC_VOLD);
-		}
-	} else if (index == 1) { /* Second encoder */
-		if (clockwise) {
-			rgblight_increase_hue_noeeprom();
-		} else {
-			rgblight_decrease_hue_noeeprom();
-		}
-	} else if (index == 2) { /* Third encoder */
-		if (clockwise) {
-			backlight_increase();
-		} else {
-			backlight_decrease();
-		}
-	}
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            rgblight_increase_hue_noeeprom();
+        } else {
+            rgblight_decrease_hue_noeeprom();
+        }
+    } else if (index == 2) { /* Third encoder */
+        if (clockwise) {
+            backlight_increase();
+        } else {
+            backlight_decrease();
+        }
+    }
 }

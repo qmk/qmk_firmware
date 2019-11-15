@@ -4,17 +4,17 @@
 /*
  *  Key names are inherited from steno machines
  *  .-----------------------------------------------------.
- *	| LSU | LFT | LP | LH | ST1 | RF | RP | RL | RT | RD  |
+ *  | LSU | LFT | LP | LH | ST1 | RF | RP | RL | RT | RD  |
  *  |-----------------------------------------------------|
- *	| LSD | LK  | LW | LR | ST2 | RR | RB | RG | RS | RZ  |
+ *  | LSD | LK  | LW | LR | ST2 | RR | RB | RG | RS | RZ  |
  *  '-----------------------------------------------------'
  */
 
 // Function prefixes
-#define MEDIA 	(LSD | LK  | LW | LR)
-#define FUNCT 	(LSD | LK  | LP | LH)
-#define MOVE	(LSU | LFT | LP | LH)
-#define SYMB	(RD  | RZ)
+#define MEDIA   (LSD | LK  | LW | LR)
+#define FUNCT   (LSD | LK  | LP | LH)
+#define MOVE    (LSU | LFT | LP | LH)
+#define SYMB    (RD  | RZ)
 #define NUMA    (LW  | LR)
 #define NUMB    (RR  | RB)
 
@@ -27,13 +27,13 @@
 // keys/customize on the first layer modify processQwerty():
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_butter(
-  	STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
-   	STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR
+    STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+    STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR
   ),
   // I don't game don't roast me thanks
   [GAME] = LAYOUT_butter(
-  	KC_Q,  KC_W,  KC_E,  KC_R,  KC_T, KC_Y, KC_U, KC_I,  KC_O, KC_ENT,
-  	KC_A,  KC_S,  KC_D,  KC_F,  KC_G, KC_H, KC_J, KC_K,  KC_L, TO(BASE)
+    KC_Q,  KC_W,  KC_E,  KC_R,  KC_T, KC_Y, KC_U, KC_I,  KC_O, KC_ENT,
+    KC_A,  KC_S,  KC_D,  KC_F,  KC_G, KC_H, KC_J, KC_K,  KC_L, TO(BASE)
   )
 };
 
@@ -44,22 +44,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // http://docs.gboards.ca
 uint32_t processQwerty(bool lookup) {
     // SECRET AGENT CHORDS
-    P( LSU | LK | RS | RD,    	SEND_STRING(VERSION); SEND_STRING(__DATE__));
-		P( LR  | ST2| RR | RB, 		SEND(KC_BSPC));
-    P( LSD | RZ,   			 	SEND(KC_SPC));
+    P( LSU | LK | RS | RD,      SEND_STRING(VERSION); SEND_STRING(__DATE__));
+        P( LR  | ST2| RR | RB,      SEND(KC_BSPC));
+    P( LSD | RZ,                SEND(KC_SPC));
 
     // Dual chords
-    P( LP  | LH,    			CLICK_MOUSE(KC_MS_BTN2));
-    P( ST1 | RF,    			CLICK_MOUSE(KC_MS_BTN1));
+    P( LP  | LH,                CLICK_MOUSE(KC_MS_BTN2));
+    P( ST1 | RF,                CLICK_MOUSE(KC_MS_BTN1));
     P( LSU | LFT,         SEND(KC_ESC));
-		P( LSD | LK,					SEND(KC_LSFT));
-		P( RZ  | RS,					SEND(KC_LSFT));
-		P( ST2 | RR,					SEND(KC_SPC));
-    P( RP  | RL,    			SEND(KC_LGUI));
-    P( RT  | RD,    			SEND(KC_LCTL));
-    P( RL  | RT,    			SEND(KC_LALT));
-		P( LSU | LSD | LFT | LK,	SEND(KC_LCTL));
-		P( RS  | RT  | RD  | RZ,	SEND(KC_ENT));
+        P( LSD | LK,                    SEND(KC_LSFT));
+        P( RZ  | RS,                    SEND(KC_LSFT));
+        P( ST2 | RR,                    SEND(KC_SPC));
+    P( RP  | RL,                SEND(KC_LGUI));
+    P( RT  | RD,                SEND(KC_LCTL));
+    P( RL  | RT,                SEND(KC_LALT));
+        P( LSU | LSD | LFT | LK,    SEND(KC_LCTL));
+        P( RS  | RT  | RD  | RZ,    SEND(KC_ENT));
 
     // Function Layer
     P( FUNCT | RF,         SEND(KC_F1));
@@ -88,7 +88,7 @@ uint32_t processQwerty(bool lookup) {
     P( MEDIA | RP,    SEND(KC_MPLY));
     P( MEDIA | RL,    SEND(KC_MPLY));
     P( MEDIA | RT,    SEND(KC_MNXT));
-    P( MEDIA | RG,	  SEND(KC_VOLU));
+    P( MEDIA | RG,    SEND(KC_VOLU));
     P( MEDIA | RB,    SEND(KC_VOLD));
     P( MEDIA | RS,    SEND(KC_MUTE));
 
@@ -121,7 +121,7 @@ uint32_t processQwerty(bool lookup) {
     P( SYMB | LP | LW,      SEND(KC_LSFT); SEND(KC_9));       // (
     P( SYMB | LH | LR,      SEND(KC_LSFT); SEND(KC_0));       // )
     P( SYMB | ST1 | ST2,    SEND(KC_GRV));                    // `
-    P( SYMB | RR  | RF,    	SEND(KC_LSFT); SEND(KC_3));       // #
+    P( SYMB | RR  | RF,     SEND(KC_LSFT); SEND(KC_3));       // #
     P( SYMB | LFT | LK,     SEND(KC_LSFT); SEND(KC_4));       // $
     P( SYMB | LSU,          SEND(KC_LSFT); SEND(KC_1));       // !
     P( SYMB | LSD,          SEND(KC_LSFT); SEND(KC_5));       // %

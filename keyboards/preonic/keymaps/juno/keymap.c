@@ -206,11 +206,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 
-  float caps_song_on[][2] 	= SONG(NUM_LOCK_ON_SOUND);
-  float caps_song_off[][2] 	= SONG(SCROLL_LOCK_ON_SOUND);
+  float caps_song_on[][2]   = SONG(NUM_LOCK_ON_SOUND);
+  float caps_song_off[][2]  = SONG(SCROLL_LOCK_ON_SOUND);
 
-  float dpad_song_on[][2] 	= SONG(ZELDA_PUZZLE);
-  float dpad_song_off[][2] 	= SONG(SONIC_RING);
+  float dpad_song_on[][2]   = SONG(ZELDA_PUZZLE);
+  float dpad_song_off[][2]  = SONG(SONIC_RING);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -269,44 +269,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
-		// Additional personal custom functions
+        // Additional personal custom functions
 
-		case KC_CAPS:
-			if (record->event.pressed) {
-				#ifdef AUDIO_ENABLE
-				if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-					PLAY_SONG(caps_song_off);
-				} else {
-					PLAY_SONG(caps_song_on);
-				}
-				#endif
-			}
-			return true; // process the actual function of Caps Lock
-			//break;
+        case KC_CAPS:
+            if (record->event.pressed) {
+                #ifdef AUDIO_ENABLE
+                if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+                    PLAY_SONG(caps_song_off);
+                } else {
+                    PLAY_SONG(caps_song_on);
+                }
+                #endif
+            }
+            return true; // process the actual function of Caps Lock
+            //break;
 
-		case DP_ON:
-			if (record->event.pressed) {
+        case DP_ON:
+            if (record->event.pressed) {
 
-			} else {
-				// activated upon release
-				#ifdef AUDIO_ENABLE
-				PLAY_SONG(dpad_song_on);
-				#endif
+            } else {
+                // activated upon release
+                #ifdef AUDIO_ENABLE
+                PLAY_SONG(dpad_song_on);
+                #endif
 
-				layer_off(_FN1);
-				layer_on(_DPAD);
-			}
+                layer_off(_FN1);
+                layer_on(_DPAD);
+            }
 
-		case DP_OFF:
-			if (record->event.pressed) {
-				// deactivated upon pressdown
-				#ifdef AUDIO_ENABLE
-				PLAY_SONG(dpad_song_off);
-				#endif
+        case DP_OFF:
+            if (record->event.pressed) {
+                // deactivated upon pressdown
+                #ifdef AUDIO_ENABLE
+                PLAY_SONG(dpad_song_off);
+                #endif
 
-				//layer_off(_FN1); // do not put in this line
-				layer_off(_DPAD);
-			}
+                //layer_off(_FN1); // do not put in this line
+                layer_off(_DPAD);
+            }
 
       }
     return true;

@@ -10,7 +10,7 @@ void matrix_init_kb(void) {
     // DDRB |= (1<<0);
     // PORTB &= ~(1<<0);
 
-	matrix_init_user();
+    matrix_init_user();
 };
 
 #ifdef SWAP_HANDS_ENABLE

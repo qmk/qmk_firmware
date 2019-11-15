@@ -115,36 +115,36 @@ bool command_console_extra(uint8_t code) {
  * Command common
  ***********************************************************/
 static void command_common_help(void) {
-    print("\n\t- Magic -\n" STR(MAGIC_KEY_DEBUG) ":	Debug Message Toggle\n" STR(MAGIC_KEY_DEBUG_MATRIX) ":	Matrix Debug Mode Toggle - Show keypresses in matrix grid\n" STR(MAGIC_KEY_DEBUG_KBD) ":	Keyboard Debug Toggle - Show keypress report\n" STR(MAGIC_KEY_DEBUG_MOUSE) ":	Debug Mouse Toggle\n" STR(MAGIC_KEY_VERSION) ":	Version\n" STR(MAGIC_KEY_STATUS) ":	Status\n" STR(MAGIC_KEY_CONSOLE) ":	Activate Console Mode\n"
+    print("\n\t- Magic -\n" STR(MAGIC_KEY_DEBUG) ": Debug Message Toggle\n" STR(MAGIC_KEY_DEBUG_MATRIX) ":  Matrix Debug Mode Toggle - Show keypresses in matrix grid\n" STR(MAGIC_KEY_DEBUG_KBD) ":    Keyboard Debug Toggle - Show keypress report\n" STR(MAGIC_KEY_DEBUG_MOUSE) ":   Debug Mouse Toggle\n" STR(MAGIC_KEY_VERSION) ": Version\n" STR(MAGIC_KEY_STATUS) ": Status\n" STR(MAGIC_KEY_CONSOLE) ": Activate Console Mode\n"
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-          STR(MAGIC_KEY_LAYER0) ":	Switch to Layer 0\n" STR(MAGIC_KEY_LAYER1) ":	Switch to Layer 1\n" STR(MAGIC_KEY_LAYER2) ":	Switch to Layer 2\n" STR(MAGIC_KEY_LAYER3) ":	Switch to Layer 3\n" STR(MAGIC_KEY_LAYER4) ":	Switch to Layer 4\n" STR(MAGIC_KEY_LAYER5) ":	Switch to Layer 5\n" STR(MAGIC_KEY_LAYER6) ":	Switch to Layer 6\n" STR(MAGIC_KEY_LAYER7) ":	Switch to Layer 7\n" STR(MAGIC_KEY_LAYER8) ":	Switch to Layer 8\n" STR(MAGIC_KEY_LAYER9) ":	Switch to Layer 9\n"
+          STR(MAGIC_KEY_LAYER0) ":  Switch to Layer 0\n" STR(MAGIC_KEY_LAYER1) ":   Switch to Layer 1\n" STR(MAGIC_KEY_LAYER2) ":   Switch to Layer 2\n" STR(MAGIC_KEY_LAYER3) ":   Switch to Layer 3\n" STR(MAGIC_KEY_LAYER4) ":   Switch to Layer 4\n" STR(MAGIC_KEY_LAYER5) ":   Switch to Layer 5\n" STR(MAGIC_KEY_LAYER6) ":   Switch to Layer 6\n" STR(MAGIC_KEY_LAYER7) ":   Switch to Layer 7\n" STR(MAGIC_KEY_LAYER8) ":   Switch to Layer 8\n" STR(MAGIC_KEY_LAYER9) ":   Switch to Layer 9\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "F1-F10:	Switch to Layer 0-9 (F10 = L0)\n"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "F1-F10: Switch to Layer 0-9 (F10 = L0)\n"
 #endif
 
 #if MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "0-9:	Switch to Layer 0-9\n"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                               "0-9:    Switch to Layer 0-9\n"
 #endif
 
-          STR(MAGIC_KEY_LAYER0_ALT) ":	Switch to Layer 0 (alternate)\n"
+          STR(MAGIC_KEY_LAYER0_ALT) ":  Switch to Layer 0 (alternate)\n"
 
-          STR(MAGIC_KEY_BOOTLOADER) ":	Jump to Bootloader\n" STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
+          STR(MAGIC_KEY_BOOTLOADER) ":  Jump to Bootloader\n" STR(MAGIC_KEY_BOOTLOADER_ALT) ":  Jump to Bootloader (alternate)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
-          STR(MAGIC_KEY_LOCK) ":	Lock Keyboard\n"
+          STR(MAGIC_KEY_LOCK) ":    Lock Keyboard\n"
 #endif
 
-          STR(MAGIC_KEY_EEPROM) ":	Print EEPROM Settings\n" STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
+          STR(MAGIC_KEY_EEPROM) ":  Print EEPROM Settings\n" STR(MAGIC_KEY_EEPROM_CLEAR) ": Clear EEPROM\n"
 
 #ifdef NKRO_ENABLE
-          STR(MAGIC_KEY_NKRO) ":	NKRO Toggle\n"
+          STR(MAGIC_KEY_NKRO) ":    NKRO Toggle\n"
 #endif
 
 #ifdef SLEEP_LED_ENABLE
-          STR(MAGIC_KEY_SLEEP_LED) ":	Sleep LED Test\n"
+          STR(MAGIC_KEY_SLEEP_LED) ":   Sleep LED Test\n"
 #endif
     );
 }
@@ -542,9 +542,9 @@ static bool command_common(uint8_t code) {
  ***********************************************************/
 static void command_console_help(void) {
     print("\n\t- Console -\n"
-          "ESC/q:	quit\n"
+          "ESC/q:   quit\n"
 #ifdef MOUSEKEY_ENABLE
-          "m:	mousekey\n"
+          "m:   mousekey\n"
 #endif
     );
 }
@@ -703,20 +703,20 @@ static void mousekey_param_dec(uint8_t param, uint8_t dec) {
 
 static void mousekey_console_help(void) {
     print("\n\t- Mousekey -\n"
-          "ESC/q:	quit\n"
-          "1:	delay(*10ms)\n"
-          "2:	interval(ms)\n"
-          "3:	max_speed\n"
-          "4:	time_to_max\n"
-          "5:	wheel_max_speed\n"
-          "6:	wheel_time_to_max\n"
+          "ESC/q:   quit\n"
+          "1:   delay(*10ms)\n"
+          "2:   interval(ms)\n"
+          "3:   max_speed\n"
+          "4:   time_to_max\n"
+          "5:   wheel_max_speed\n"
+          "6:   wheel_time_to_max\n"
           "\n"
-          "p:	print values\n"
-          "d:	set defaults\n"
-          "up:	+1\n"
-          "down:	-1\n"
-          "pgup:	+10\n"
-          "pgdown:	-10\n"
+          "p:   print values\n"
+          "d:   set defaults\n"
+          "up:  +1\n"
+          "down:    -1\n"
+          "pgup:    +10\n"
+          "pgdown:  -10\n"
           "\n"
           "speed = delta * max_speed * (repeat / time_to_max)\n");
     xprintf("where delta: cursor=%d, wheel=%d\n"

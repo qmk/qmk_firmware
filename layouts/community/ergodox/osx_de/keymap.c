@@ -160,150 +160,150 @@ break;
 case M_CTRL_CMDC:
 //Macro: M_CTRL_CMDC//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),END);
-			} else {
-				return MACRO(U(LCTRL),D(LGUI),T(C),U(LGUI),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),END);
+            } else {
+                return MACRO(U(LCTRL),D(LGUI),T(C),U(LGUI),END);
+            }
+        }
 
 break;
 case M_DE_OSX_PLUS_CTRLALT:
 //Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),D(LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LALT),END);
-			} else {
-				return MACRO(U(LCTRL),U(LALT),T(RBRC),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),D(LALT),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LALT),END);
+            } else {
+                return MACRO(U(LCTRL),U(LALT),T(RBRC),END);
+            }
+        }
 
 break;
 case SM_KISS:
 //Macro: SM_KISS//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(RBRC),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(RBRC),U(LSFT),END);
+        }
 
 break;
 case SM_FROWN:
 //Macro: SM_FROWN//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LALT),T(8),U(LALT),END);
-		}
+            return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LALT),T(8),U(LALT),END);
+        }
 
 break;
 case SM_CRY:
 //Macro: SM_CRY//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(COMM),U(LSFT),T(SLSH),D(LSFT),T(8),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(COMM),U(LSFT),T(SLSH),D(LSFT),T(8),U(LSFT),END);
+        }
 
 break;
 case SM_SMILE:
 //Macro: SM_SMILE//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(9),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(9),U(LSFT),END);
+        }
 
 break;
 case SM_SMIRK:
 //Macro: SM_SMIRK//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(COMM),U(LSFT),T(SLSH),D(LSFT),T(9),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(COMM),U(LSFT),T(SLSH),D(LSFT),T(9),U(LSFT),END);
+        }
 
 break;
 case M_LGUI_SHFT:
 //Macro: M_LGUI_SHFT//-----------------------
 if (record->event.pressed){
-			return MACRO(D(LGUI),D(LSFT),END);
-		}else{
-			return MACRO(U(LGUI),U(LSFT),END);
-		}
+            return MACRO(D(LGUI),D(LSFT),END);
+        }else{
+            return MACRO(U(LGUI),U(LSFT),END);
+        }
 
 break;
 case SM_HEART:
 //Macro: SM_HEART//-----------------------
 if (record->event.pressed) {
-			return MACRO(T(GRV),T(3),END);
-		}
+            return MACRO(T(GRV),T(3),END);
+        }
 
 break;
 case SM_LAUGH:
 //Macro: SM_LAUGH//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(D),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(D),U(LSFT),END);
+        }
 
 break;
 case M_CTL_SFT_HASH:
 //Macro: M_CTL_SFT_HASH//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),D(LSFT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LSFT),END);
-			} else {
-				return MACRO(U(LCTRL),U(LSFT),T(BSLS),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),D(LSFT),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LSFT),END);
+            } else {
+                return MACRO(U(LCTRL),U(LSFT),T(BSLS),END);
+            }
+        }
 
 break;
 case SM_SAD:
 //Macro: SM_SAD//-----------------------
 if (record->event.pressed) {
-			return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(8),U(LSFT),END);
-		}
+            return MACRO(D(LSFT),T(DOT),U(LSFT),T(SLSH),D(LSFT),T(8),U(LSFT),END);
+        }
 
 break;
 case M_DE_OSX_CIRC_CTRLCMD:
 //Macro: M_DE_OSX_CIRC_CTRLCMD//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),D(LGUI),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LGUI),END);
-			} else {
-				return MACRO(U(LCTRL),U(LGUI),T(NUBS),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),D(LGUI),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LGUI),END);
+            } else {
+                return MACRO(U(LCTRL),U(LGUI),T(NUBS),END);
+            }
+        }
 
 break;
 case M_CTRL_CMDV:
 //Macro: M_CTRL_CMDV//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),END);
-			} else {
-				return MACRO(U(LCTRL),D(LGUI),T(V),U(LGUI),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),END);
+            } else {
+                return MACRO(U(LCTRL),D(LGUI),T(V),U(LGUI),END);
+            }
+        }
 
 break;
 case M_MEH_SH_ACUT:
 //Macro: M_MEH_SH_ACUT//-----------------------
 if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(D(LCTRL),D(LSFT),D(LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
-			} else {
-				return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END);
-			}
-		}
+            start = timer_read();
+            return MACRO(D(LCTRL),D(LSFT),D(LALT),END);
+        } else {
+            if (timer_elapsed(start) >150) {
+                return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
+            } else {
+                return MACRO(U(LCTRL),U(LALT),T(EQL),U(LSFT),END);
+            }
+        }
 
 break;
 }

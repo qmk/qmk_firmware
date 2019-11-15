@@ -67,43 +67,43 @@ static bool numlock_down = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-	  case KC_NLCK:
+      case KC_NLCK:
       if (record->event.pressed) {
-		  numlock_down = true;
-		  if (IS_LAYER_ON(_ALT)) {
-			  layer_on(_ADJUST);
-		  }
-	  } else{
-		if(!IS_LAYER_ON(_ADJUST)) {
-		  if (!IS_LAYER_ON(_NAV)){
-			  numlock_led_off();
-		    layer_on(_NAV);
-		  } else {
-			  numlock_led_on();
-		    layer_off(_NAV);
-		  }
-		} else {
-			layer_off(_ADJUST);
-		}
-		numlock_down = false;
-	  }
+          numlock_down = true;
+          if (IS_LAYER_ON(_ALT)) {
+              layer_on(_ADJUST);
+          }
+      } else{
+        if(!IS_LAYER_ON(_ADJUST)) {
+          if (!IS_LAYER_ON(_NAV)){
+              numlock_led_off();
+            layer_on(_NAV);
+          } else {
+              numlock_led_on();
+            layer_off(_NAV);
+          }
+        } else {
+            layer_off(_ADJUST);
+        }
+        numlock_down = false;
+      }
       return false;
       break;
-	  case KC_LALT:
+      case KC_LALT:
       if (record->event.pressed) {
-		  if (numlock_down) {
-			  layer_on(_ADJUST);
-		  } else {
-			  layer_on(_ALT);
-		  }
-	  } else {
-		  if(IS_LAYER_ON(_ADJUST)) {
-		      layer_off(_ADJUST);
-		  } else {
-			  layer_off(_ALT);
-		  }
-	  }
-	  // Allow normal processing of ALT?
+          if (numlock_down) {
+              layer_on(_ADJUST);
+          } else {
+              layer_on(_ALT);
+          }
+      } else {
+          if(IS_LAYER_ON(_ADJUST)) {
+              layer_off(_ADJUST);
+          } else {
+              layer_off(_ALT);
+          }
+      }
+      // Allow normal processing of ALT?
       return false;
       break;
   }

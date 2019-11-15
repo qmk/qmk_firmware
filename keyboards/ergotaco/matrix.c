@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#   define DEBOUNCE 5
 #endif
 
 // ATmega pin defs
@@ -192,8 +192,8 @@ uint8_t matrix_scan(void)
 
 #ifdef DEBUG_MATRIX
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
-		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
-		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
+        for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+          if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
     return 1;
@@ -268,7 +268,7 @@ static matrix_row_t read_cols(uint8_t row)
             return data;
         }
     } else {
-		// Read using bitmask
+        // Read using bitmask
         return ~((((PINF & ROW1) >> 5)) & 0x1);
     }
 }
@@ -291,11 +291,11 @@ static void select_row(uint8_t row)
     if (row < 6) {
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
-			// Read using bitmask
+            // Read using bitmask
         } else { // set active row low  : 0 // set other rows hi-Z : 1
             mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      		if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }

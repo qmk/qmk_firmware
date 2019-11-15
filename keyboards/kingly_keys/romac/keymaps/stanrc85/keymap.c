@@ -24,34 +24,34 @@ enum keys {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = LAYOUT(
-	KC_7,   KC_8, KC_9,
-	KC_4,   KC_5, KC_6,
-	KC_1,   KC_2, KC_3,
-	U_LAYR, KC_0, KC_ENT),
+    KC_7,   KC_8, KC_9,
+    KC_4,   KC_5, KC_6,
+    KC_1,   KC_2, KC_3,
+    U_LAYR, KC_0, KC_ENT),
 
   [_NAVKEY] = LAYOUT(
-	KC_HOME, KC_INS,  KC_PGUP,
-	KC_END,  KC_UP,   KC_PGDN,
-	KC_LEFT, KC_DOWN, KC_RGHT,
-	U_LAYR,  TD_TWIN, D_LAYR),
+    KC_HOME, KC_INS,  KC_PGUP,
+    KC_END,  KC_UP,   KC_PGDN,
+    KC_LEFT, KC_DOWN, KC_RGHT,
+    U_LAYR,  TD_TWIN, D_LAYR),
 
   [_MEDIA] = LAYOUT(
-	KC_MUTE, KC_VOLD, KC_VOLU,
-	CA_QUOT, KC_MPLY, CA_SCLN,
-	CA_COPY, CA_PSTE, KC_NO,
-	U_LAYR,  KC_NO,   D_LAYR),
+    KC_MUTE, KC_VOLD, KC_VOLU,
+    CA_QUOT, KC_MPLY, CA_SCLN,
+    CA_COPY, CA_PSTE, KC_NO,
+    U_LAYR,  KC_NO,   D_LAYR),
 
   [_RGB] = LAYOUT(
-	RGB_SAI, RGB_VAI, RGB_HUI,
-	RGB_SAD, RGB_VAD, RGB_HUD,
-	RGB_TOG, RGB_MOD, KC_NO,
-	U_LAYR,  KC_NO,   D_LAYR),
+    RGB_SAI, RGB_VAI, RGB_HUI,
+    RGB_SAD, RGB_VAD, RGB_HUD,
+    RGB_TOG, RGB_MOD, KC_NO,
+    U_LAYR,  KC_NO,   D_LAYR),
 
   [_FN1PAD] = LAYOUT(
-	KC_NO, KC_NO,   KC_NO,
-	KC_NO, KC_NO,   RESET,
-	KC_NO, KC_NO,   KC_MAKE,
-	KC_NO, KC_LSFT, D_LAYR)
+    KC_NO, KC_NO,   KC_NO,
+    KC_NO, KC_NO,   RESET,
+    KC_NO, KC_NO,   KC_MAKE,
+    KC_NO, KC_LSFT, D_LAYR)
 };
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

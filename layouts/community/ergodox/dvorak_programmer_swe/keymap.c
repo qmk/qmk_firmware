@@ -216,84 +216,84 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
         case MACRO_PUBLIC:
-			if (record->event.pressed) {
-				return MACRO( T(P), T(U), T(B), T(L), T(I), T(C), T(SPACE),END);
-			}
-			break;
-		case MACRO_PRIVATE:
-			if (record->event.pressed) {
-				return MACRO( T(P), T(R), T(I), T(V), T(A), T(T), T(E), T(SPACE),END);
-			}
-			break;
+            if (record->event.pressed) {
+                return MACRO( T(P), T(U), T(B), T(L), T(I), T(C), T(SPACE),END);
+            }
+            break;
+        case MACRO_PRIVATE:
+            if (record->event.pressed) {
+                return MACRO( T(P), T(R), T(I), T(V), T(A), T(T), T(E), T(SPACE),END);
+            }
+            break;
         case MACRO_PROT:
-			if (record->event.pressed) {
-				return MACRO( T(P), T(R), T(O), T(T), T(E), T(C), T(T), T(E), T(D), T(SPACE),END);
-			}
-			break;
-		case MACRO_SHARED:
-			if (record->event.pressed) {
-				return MACRO( T(S), T(H), T(A), T(R), T(E), T(D), T(SPACE), END);
-			}
-			break;
-		case MACRO_CONST:
-			if (record->event.pressed) {
-				return MACRO( T(C), T(O), T(N), T(S), T(T), T(SPACE), END);
-			}
-			break;
-		case MACRO_DIM:
-			if (record->event.pressed) {
-				return MACRO( T(D), T(I), T(M), T(SPACE), END);
-			}
-			break;
-		case MACRO_STRING:
-			if (record->event.pressed) {
-				return MACRO( T(S), T(T), T(R), T(I), T(N), T(G), T(SPACE), END);
-			}
-			break;
-		case MACRO_BOOL:
-			if (record->event.pressed) {
-				return MACRO( T(B), T(O), T(O), T(L), T(E), T(A), T(N), T(SPACE), END);
-			}
-			break;
-		case MACRO_INT:
-			if (record->event.pressed) {
-				return MACRO( T(I), T(N), T(T), T(SPACE), END);
-			}
-			break;
-		case MACRO_DEC:
-			if (record->event.pressed) {
-				return MACRO( T(D), T(E), T(C), T(I), T(M), T(A), T(L), T(SPACE), END);
-			}
-			break;
-		case MACRO_RETURN:
-			if (record->event.pressed) {
-				return MACRO( T(R), T(E), T(T), T(U),T(R),T(N), T(SPACE), END);
-			}
-			break;
-		case MACRO_NOTHING:
-			if (record->event.pressed) {
-				return MACRO( T(N), T(O), T(T), T(H), T(I), T(N), T(G), T(SPACE), END);
-			}
-		case MACRO_TODO:
-			if (record->event.pressed) {
-				return MACRO( KC_BSLASH, D(LSHIFT) ,T(T), T(O), T(D), T(O), KC_DOT, U(LSHIFT),  T(SPACE),END);
-			}
-			break;
+            if (record->event.pressed) {
+                return MACRO( T(P), T(R), T(O), T(T), T(E), T(C), T(T), T(E), T(D), T(SPACE),END);
+            }
+            break;
+        case MACRO_SHARED:
+            if (record->event.pressed) {
+                return MACRO( T(S), T(H), T(A), T(R), T(E), T(D), T(SPACE), END);
+            }
+            break;
+        case MACRO_CONST:
+            if (record->event.pressed) {
+                return MACRO( T(C), T(O), T(N), T(S), T(T), T(SPACE), END);
+            }
+            break;
+        case MACRO_DIM:
+            if (record->event.pressed) {
+                return MACRO( T(D), T(I), T(M), T(SPACE), END);
+            }
+            break;
+        case MACRO_STRING:
+            if (record->event.pressed) {
+                return MACRO( T(S), T(T), T(R), T(I), T(N), T(G), T(SPACE), END);
+            }
+            break;
+        case MACRO_BOOL:
+            if (record->event.pressed) {
+                return MACRO( T(B), T(O), T(O), T(L), T(E), T(A), T(N), T(SPACE), END);
+            }
+            break;
+        case MACRO_INT:
+            if (record->event.pressed) {
+                return MACRO( T(I), T(N), T(T), T(SPACE), END);
+            }
+            break;
+        case MACRO_DEC:
+            if (record->event.pressed) {
+                return MACRO( T(D), T(E), T(C), T(I), T(M), T(A), T(L), T(SPACE), END);
+            }
+            break;
+        case MACRO_RETURN:
+            if (record->event.pressed) {
+                return MACRO( T(R), T(E), T(T), T(U),T(R),T(N), T(SPACE), END);
+            }
+            break;
+        case MACRO_NOTHING:
+            if (record->event.pressed) {
+                return MACRO( T(N), T(O), T(T), T(H), T(I), T(N), T(G), T(SPACE), END);
+            }
+        case MACRO_TODO:
+            if (record->event.pressed) {
+                return MACRO( KC_BSLASH, D(LSHIFT) ,T(T), T(O), T(D), T(O), KC_DOT, U(LSHIFT),  T(SPACE),END);
+            }
+            break;
         case MACRO_SAVE:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL) ,T(S), U(LCTL),END);
-			}
-			break;
+            if (record->event.pressed) {
+                return MACRO( D(LCTL) ,T(S), U(LCTL),END);
+            }
+            break;
         case MACRO_BUILD:
-			if (record->event.pressed) {
-				return MACRO(  D(LCTL), D(LSHIFT) ,T(B), U(LSHIFT), U(LCTL),END);
-			}
-			break;
+            if (record->event.pressed) {
+                return MACRO(  D(LCTL), D(LSHIFT) ,T(B), U(LSHIFT), U(LCTL),END);
+            }
+            break;
         case MACRO_DEBUG:
-			if (record->event.pressed) {
-				return MACRO( KC_F5 ,END);
-			}
-			break;
+            if (record->event.pressed) {
+                return MACRO( KC_F5 ,END);
+            }
+            break;
       }
     return MACRO_NONE;
 };

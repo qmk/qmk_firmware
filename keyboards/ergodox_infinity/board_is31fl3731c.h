@@ -23,15 +23,15 @@ static const I2CConfig i2ccfg = {
 };
 
 static const uint8_t led_mask[] = {
-	0xFF, 0x00, /* C1-1 -> C1-16 */
-	0xFF, 0x00, /* C2-1 -> C2-16 */
-	0xFF, 0x00, /* C3-1 -> C3-16 */
-	0xFF, 0x00, /* C4-1 -> C4-16 */
-	0x3F, 0x00, /* C5-1 -> C5-16 */
-	0x00, 0x00, /* C6-1 -> C6-16 */
-	0x00, 0x00, /* C7-1 -> C7-16 */
-	0x00, 0x00, /* C8-1 -> C8-16 */
-	0x00, 0x00, /* C9-1 -> C9-16 */
+    0xFF, 0x00, /* C1-1 -> C1-16 */
+    0xFF, 0x00, /* C2-1 -> C2-16 */
+    0xFF, 0x00, /* C3-1 -> C3-16 */
+    0xFF, 0x00, /* C4-1 -> C4-16 */
+    0x3F, 0x00, /* C5-1 -> C5-16 */
+    0x00, 0x00, /* C6-1 -> C6-16 */
+    0x00, 0x00, /* C7-1 -> C7-16 */
+    0x00, 0x00, /* C8-1 -> C8-16 */
+    0x00, 0x00, /* C9-1 -> C9-16 */
 };
 
 // The address of the LED
@@ -78,7 +78,7 @@ static GFXINLINE void init_board(GDisplay *g) {
 }
 
 static GFXINLINE void post_init_board(GDisplay *g) {
-	(void) g;
+    (void) g;
 }
 
 static GFXINLINE const uint8_t* get_led_mask(GDisplay* g) {
@@ -103,8 +103,8 @@ static GFXINLINE void set_hardware_shutdown(GDisplay* g, bool shutdown) {
 }
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
-	(void) g;
-	i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, US2ST(IS31_TIMEOUT));
+    (void) g;
+    i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, data, length, 0, 0, US2ST(IS31_TIMEOUT));
 }
 
 #endif /* _GDISP_LLD_BOARD_H */

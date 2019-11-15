@@ -18,7 +18,7 @@
 //This is the HHKB version of the PCB
 
 enum macro_keys {
-	KC_EML = SAFE_RANGE
+    KC_EML = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

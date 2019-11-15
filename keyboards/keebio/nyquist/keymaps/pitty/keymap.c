@@ -149,10 +149,10 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(5);
       break;
     case _VIM:
-	  rgblight_set_green;
+      rgblight_set_green;
       rgblight_mode(23);
       break;
-	case _GAME:
+    case _GAME:
       rgblight_mode(8);
       break;
     default:

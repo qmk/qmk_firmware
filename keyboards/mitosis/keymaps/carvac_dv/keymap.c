@@ -7,9 +7,9 @@
 
 enum mitosis_layers
 {
-	_STD,
-	_NUM,
-	_FN
+    _STD,
+    _NUM,
+    _FN
 };
 
 
@@ -108,9 +108,9 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     switch (layer) {
-    	case _STD:
-    		set_led_off;
-    		break;
+        case _STD:
+            set_led_off;
+            break;
         case _FN:
             set_led_blue;
             break;

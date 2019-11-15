@@ -252,6 +252,6 @@ void led_set(uint8_t usb_led)
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
       palSetPad(GPIOC, 13);
     } else {
-    	palClearPad(GPIOC, 13);
+        palClearPad(GPIOC, 13);
     }
 }

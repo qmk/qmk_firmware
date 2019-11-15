@@ -15,7 +15,7 @@ public:
         virtual void OnButtonDn(uint8_t but_id);
 };
 
-#define RPT_GEMEPAD_LEN		5
+#define RPT_GEMEPAD_LEN     5
 
 class JoystickReportParser : public HIDReportParser {
         JoystickEvents *joyEvents;

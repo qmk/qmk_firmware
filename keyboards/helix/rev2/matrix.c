@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef DEBOUNCE
-#  define DEBOUNCE	5
+#  define DEBOUNCE  5
 #endif
 
 #define ERROR_DISCONNECT_COUNT 5
@@ -230,10 +230,10 @@ uint8_t matrix_master_scan(void) {
 #else // USE_SERIAL
   #ifdef SERIAL_USE_MULTI_TRANSACTION
     mchanged = memcmp((void *)serial_master_buffer,
-		      &matrix[offset], sizeof(serial_master_buffer));
+              &matrix[offset], sizeof(serial_master_buffer));
   #endif
     memcpy((void *)serial_master_buffer,
-	   &matrix[offset], sizeof(serial_master_buffer));
+       &matrix[offset], sizeof(serial_master_buffer));
 #endif
 #endif
 
@@ -280,7 +280,7 @@ void matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
   #ifdef SERIAL_USE_MULTI_TRANSACTION
         if( serial_slave_buffer[i] != matrix[offset+i] )
-	    change = 1;
+        change = 1;
   #endif
         serial_slave_buffer[i] = matrix[offset+i];
     }

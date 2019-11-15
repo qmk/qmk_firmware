@@ -75,7 +75,7 @@ OSX,
 #define ALT_IT      MT(MOD_RALT, KC_SCLN)
 #define SFT_IT      MT(MOD_RSFT, KC_DOT)
 #define CTL_IT      MT(MOD_RCTL, KC_SLSH)
-#define SFT_ENT	    MT(MOD_RSFT, KC_ENT)
+#define SFT_ENT     MT(MOD_RSFT, KC_ENT)
 
 //sticky modifiers
 #define KYCTL       OSM(MOD_LCTL)

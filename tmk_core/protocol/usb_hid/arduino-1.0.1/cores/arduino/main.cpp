@@ -2,19 +2,19 @@
 
 int main(void)
 {
-	init();
+    init();
 
 #if defined(USBCON)
-	USBDevice.attach();
+    USBDevice.attach();
 #endif
 
-	setup();
+    setup();
 
-	for (;;) {
-		loop();
-		if (serialEventRun) serialEventRun();
-	}
+    for (;;) {
+        loop();
+        if (serialEventRun) serialEventRun();
+    }
 
-	return 0;
+    return 0;
 }
 

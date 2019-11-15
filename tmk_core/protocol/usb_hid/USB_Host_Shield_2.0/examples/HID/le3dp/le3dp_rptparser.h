@@ -22,21 +22,21 @@ struct GamePadEventData
 class JoystickEvents
 {
 public:
-	virtual void OnGamePadChanged(const GamePadEventData *evt);
+    virtual void OnGamePadChanged(const GamePadEventData *evt);
 };
 
-#define RPT_GAMEPAD_LEN	sizeof(GamePadEventData)/sizeof(uint8_t)
+#define RPT_GAMEPAD_LEN sizeof(GamePadEventData)/sizeof(uint8_t)
 
 class JoystickReportParser : public HIDReportParser
 {
-	JoystickEvents		*joyEvents;
+    JoystickEvents      *joyEvents;
 
   uint8_t oldPad[RPT_GAMEPAD_LEN];
 
 public:
-	JoystickReportParser(JoystickEvents *evt);
+    JoystickReportParser(JoystickEvents *evt);
 
-	virtual void Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf);
+    virtual void Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf);
 };
 
 #endif // __HIDJOYSTICKRPTPARSER_H__

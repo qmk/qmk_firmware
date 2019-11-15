@@ -13,8 +13,8 @@
 /* In your system, make sure Caps Lock acts as the Compose Key, also known as the Multi Key. If so, then the quote on
  * the lower layer acts as macro to enter ¨ */
 enum custom_keycodes {
-	DIAERESIS = SAFE_RANGE,
-	EN_DASH
+    DIAERESIS = SAFE_RANGE,
+    EN_DASH
 };
 
   /* Basic layer (L0)
@@ -62,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-		case DIAERESIS:
-			// assuming KC_CAPS is your Multi Key
-			SEND_STRING(SS_TAP(X_CAPSLOCK)"\"");
-			return false;
-		case EN_DASH:
-			// assuming KC_CAPS is your Multi Key
-			SEND_STRING(SS_TAP(X_CAPSLOCK)"--.");
-			return false;
+        case DIAERESIS:
+            // assuming KC_CAPS is your Multi Key
+            SEND_STRING(SS_TAP(X_CAPSLOCK)"\"");
+            return false;
+        case EN_DASH:
+            // assuming KC_CAPS is your Multi Key
+            SEND_STRING(SS_TAP(X_CAPSLOCK)"--.");
+            return false;
         }
     }
     return true;

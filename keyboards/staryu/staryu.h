@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ___ KC_NO
 
 #define LAYOUT( \
-	     K01, K02, \
-	K10, K11, K12  \
+         K01, K02, \
+    K10, K11, K12  \
 ) { \
-	{ ___, K01, K02 }, \
-	{ K10, K11, K12 }  \
+    { ___, K01, K02 }, \
+    { K10, K11, K12 }  \
 }

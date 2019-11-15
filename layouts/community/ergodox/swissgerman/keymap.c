@@ -35,7 +35,7 @@
     send_key(KC_NONUS_BSLASH); \
     SEND_STRING(TAG); \
     SEND_STRING("&"); \
-    send_larger_than();	       \
+    send_larger_than();        \
   } while (0)
 
 void send_key(uint16_t keycode);
@@ -78,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-	KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-	TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_LBRC,
-	KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),GUI_T(KC_QUOT),
-	MEH_T(KC_NO),KC_N,   KC_M,   KC_COMM,ALT_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSFT,
+    KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+    TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_LBRC,
+    KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),GUI_T(KC_QUOT),
+    MEH_T(KC_NO),KC_N,   KC_M,   KC_COMM,ALT_T(KC_DOT), CTL_T(KC_SLSH),   KC_RSFT,
                              KC_UP,  KC_DOWN,KC_RALT,KC_RBRC, TT(SYMB),
              KC_LALT,CTL_T(KC_ESC),
              KC_PGUP,
@@ -187,29 +187,29 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         break;
       case 10:
-	if (record->event.pressed) {
-	  SEND_TAG("li");
-	}
-	break;
+    if (record->event.pressed) {
+      SEND_TAG("li");
+    }
+    break;
       case 11:
-	if (record->event.pressed) {
-	  SEND_TAG("ul");
-	}
-	break;
+    if (record->event.pressed) {
+      SEND_TAG("ul");
+    }
+    break;
       case 12:
-	if (record->event.pressed) {
-	  SEND_TAG("ol");
-	}
-	break;
+    if (record->event.pressed) {
+      SEND_TAG("ol");
+    }
+    break;
       case 13:
-	if (record->event.pressed) {
-	  SEND_TAG("code");
-	}
-	break;
+    if (record->event.pressed) {
+      SEND_TAG("code");
+    }
+    break;
       case 14:
-	if (record->event.pressed) {
-	  SEND_SHORT_TAG("br");
-	}
+    if (record->event.pressed) {
+      SEND_SHORT_TAG("br");
+    }
       }
     return MACRO_NONE;
 };

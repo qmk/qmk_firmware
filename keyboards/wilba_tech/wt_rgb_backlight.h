@@ -27,39 +27,39 @@
 
 typedef struct PACKED
 {
-	uint8_t h;
-	uint8_t s;
+    uint8_t h;
+    uint8_t s;
 } HS;
 
 typedef struct
 {
-	HS color;
-	uint8_t index;
+    HS color;
+    uint8_t index;
 } backlight_config_indicator;
 
 typedef struct
 {
-	bool use_split_backspace:1;         // |
-	bool use_split_left_shift:1;        // |
-	bool use_split_right_shift:1;       // |
-	bool use_7u_spacebar:1;             // |
-	bool use_iso_enter:1;               // |
-	bool disable_when_usb_suspended:1;  // |
-	bool disable_hhkb_blocker_leds:1;   // |
-	bool __pad7:1;                      // 1 byte
-	uint8_t disable_after_timeout;      // 1 byte
-	uint8_t brightness;                 // 1 byte
-	uint8_t effect;                     // 1 byte
-	uint8_t effect_speed;				// 1 byte
-	HS color_1;                         // 2 bytes
-	HS color_2;                         // 2 bytes
-	backlight_config_indicator caps_lock_indicator;	// 3 bytes
-	backlight_config_indicator layer_1_indicator;	// 3 bytes
-	backlight_config_indicator layer_2_indicator;	// 3 bytes
-	backlight_config_indicator layer_3_indicator;	// 3 bytes
-	uint16_t alphas_mods[5];            // 10 bytes
+    bool use_split_backspace:1;         // |
+    bool use_split_left_shift:1;        // |
+    bool use_split_right_shift:1;       // |
+    bool use_7u_spacebar:1;             // |
+    bool use_iso_enter:1;               // |
+    bool disable_when_usb_suspended:1;  // |
+    bool disable_hhkb_blocker_leds:1;   // |
+    bool __pad7:1;                      // 1 byte
+    uint8_t disable_after_timeout;      // 1 byte
+    uint8_t brightness;                 // 1 byte
+    uint8_t effect;                     // 1 byte
+    uint8_t effect_speed;               // 1 byte
+    HS color_1;                         // 2 bytes
+    HS color_2;                         // 2 bytes
+    backlight_config_indicator caps_lock_indicator; // 3 bytes
+    backlight_config_indicator layer_1_indicator;   // 3 bytes
+    backlight_config_indicator layer_2_indicator;   // 3 bytes
+    backlight_config_indicator layer_3_indicator;   // 3 bytes
+    uint16_t alphas_mods[5];            // 10 bytes
 #if defined(RGB_BACKLIGHT_M6_B)
-	HS custom_color[6];                 // 12 bytes
+    HS custom_color[6];                 // 12 bytes
 #endif
 } backlight_config;                // = 31 bytes (M6-B = 43 bytes)
 

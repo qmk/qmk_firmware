@@ -23,25 +23,25 @@ bool command_extra(uint8_t code)
             serial_send(0x01);
             break;
         case KC_HOME:
-	    sun_bell = !sun_bell;
-	    if (sun_bell) {
+        sun_bell = !sun_bell;
+        if (sun_bell) {
                 print("Bell On\n");
-	        serial_send(0x02);
-	    } else {
-	        print("Bell Off\n");
-	        serial_send(0x03);
-	    }
+            serial_send(0x02);
+        } else {
+            print("Bell Off\n");
+            serial_send(0x03);
+        }
             break;
         case KC_END:
-	    sun_click = !sun_click;
-	    if (sun_click) {
-	        print("Click On\n");
-		serial_send(0x0A);
-	    } else {
-	        print("Click Off\n");
+        sun_click = !sun_click;
+        if (sun_click) {
+            print("Click On\n");
+        serial_send(0x0A);
+        } else {
+            print("Click Off\n");
                 serial_send(0x0B);
-	    }
-	    break;
+        }
+        break;
         case KC_PGUP:
             print("LED all on\n");
             serial_send(0x0E);

@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	// Put your per-action keyboard code here.
-	// Runs for every action, just before processing by the firmware.
+    // Put your per-action keyboard code here.
+    // Runs for every action, just before processing by the firmware.
   if (record->event.pressed) {
 
     // Check for custom keycodes for turning on and off LEDs

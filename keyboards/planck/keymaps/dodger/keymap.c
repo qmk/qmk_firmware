@@ -200,14 +200,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
         #ifdef BACKLIGHT_ENABLE
-		  backlight_set(0);
+          backlight_set(0);
         #endif
       }
       return false;
       break;
-	case GCTOGG:
+    case GCTOGG:
       if (record->event.pressed) {
-		  if (isGame) {
+          if (isGame) {
               if (isMusic)
                   setLayer(_MUSIC);
               else
@@ -256,20 +256,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case LENNY:
-    	if (record->event.pressed) {
-    		SEND_STRING("()");
-    	}
-    	return false; break;
+        if (record->event.pressed) {
+            SEND_STRING("()");
+        }
+        return false; break;
     case COMMENTHEAD:
-    	if (record->event.pressed) {
-    		SEND_STRING("// ---------------------------------------------------------------");
-    	}
-    	return false; break;
+        if (record->event.pressed) {
+            SEND_STRING("// ---------------------------------------------------------------");
+        }
+        return false; break;
     case RICKANDMORT:
-    	if (record->event.pressed) {
-    		SEND_STRING("// ***************************************************************");
-    	}
-    	return false; break;
+        if (record->event.pressed) {
+            SEND_STRING("// ***************************************************************");
+        }
+        return false; break;
     case MARIO:
         if(record->event.pressed) {
           #ifdef AUDIO_ENABLE
@@ -331,8 +331,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-	set_single_persistent_default_layer(_COLEMAK);
-	isGame = false;
+    set_single_persistent_default_layer(_COLEMAK);
+    isGame = false;
   #ifdef BACKLIGHT_ENABLE
         backlight_level(0);
   #endif

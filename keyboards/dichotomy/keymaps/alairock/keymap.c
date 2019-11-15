@@ -16,7 +16,7 @@
 
 enum dichotomy_keycodes
 {
-	QWERTY = SAFE_RANGE,
+    QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   ADJUST,
@@ -80,117 +80,117 @@ static bool shift_suspended = false;
 report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch (keycode) {
-		case QWERTY:
+    switch (keycode) {
+        case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
-			return false;
+            return false;
       break;
-		case LOWER:
-			if (record->event.pressed) {
-				layer_on(_LOWER);
-				grn_led_on();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			} else {
-				layer_off(_LOWER);
-				grn_led_off();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			}
-			return false;
-			break;
-		//SHIFT is handled as LSHIFT in the general case - 'toggle' shoudl activate caps, while the layer is only active when shift is held.
-		case RAISE:
-			if (record->event.pressed) {
-				layer_on(_RAISE);
-				red_led_on();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			} else {
-				layer_off(_RAISE);
-				red_led_off();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			}
-			return false;
-			break;
-		case ADJUST:
-			if (record->event.pressed) {
-				layer_on(_ADJUST);
-			} else {
-				layer_off(_ADJUST);
-			}
-			return false;
-			break;
-		//MOUSE layer needs to be handled the same way as NUMKEY, but differently from shift
-		case MOUKEY:
-			if (record->event.pressed) {
-				layer_on(_MOUSE);
-				blu_led_on();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			} else {
-				layer_off(_MOUSE);
-				blu_led_off();
-				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			}
-			return false;
-			break;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                grn_led_on();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_LOWER);
+                grn_led_off();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+            break;
+        //SHIFT is handled as LSHIFT in the general case - 'toggle' shoudl activate caps, while the layer is only active when shift is held.
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                red_led_on();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_RAISE);
+                red_led_off();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+            break;
+        case ADJUST:
+            if (record->event.pressed) {
+                layer_on(_ADJUST);
+            } else {
+                layer_off(_ADJUST);
+            }
+            return false;
+            break;
+        //MOUSE layer needs to be handled the same way as NUMKEY, but differently from shift
+        case MOUKEY:
+            if (record->event.pressed) {
+                layer_on(_MOUSE);
+                blu_led_on();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            } else {
+                layer_off(_MOUSE);
+                blu_led_off();
+                update_tri_layer(_LOWER, _RAISE, _ADJUST);
+            }
+            return false;
+            break;
 
-		//mouse buttons, for 1-3, to update the mouse report:
-		case MS_BTN1:
-			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				if (shift_held && shift_suspended){
-					register_code(KC_LSFT);
-					shift_suspended = false;
-				}
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN1; //MOUSE_BTN1 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN1;
-			}
-			pointing_device_set_report(currentReport);
-			return false;
-			break;
-		case MS_BTN2:
-			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				if (shift_held && shift_suspended){
-					register_code(KC_LSFT);
-					shift_suspended = false;
-				}
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN2; //MOUSE_BTN2 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN2;
-			}
-			pointing_device_set_report(currentReport);
-			return false;
-			break;
-		case MS_BTN3:
-			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				if (shift_held && shift_suspended){
-					register_code(KC_LSFT);
-					shift_suspended = false;
-				}
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN3; //MOUSE_BTN3 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN3;
-			}
-			pointing_device_set_report(currentReport);
-			return false;
-			break;
-		//Additionally, if NS_ keys are in use, then shift may be held (but is
-		//disabled for the unshifted keycodes to be send.  Check the bool and
-		//register shift as necessary.
-		// default:
-		// 	if (shift_held){
-		// 		register_code(KC_LSFT);
-		// 	}
-		// break;
-	}
-	return true;
+        //mouse buttons, for 1-3, to update the mouse report:
+        case MS_BTN1:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                if (shift_held && shift_suspended){
+                    register_code(KC_LSFT);
+                    shift_suspended = false;
+                }
+                //update mouse report here
+                currentReport.buttons |= MOUSE_BTN1; //MOUSE_BTN1 is a const defined in report.h
+            } else {
+                //update mouse report here
+                currentReport.buttons &= ~MOUSE_BTN1;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
+            break;
+        case MS_BTN2:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                if (shift_held && shift_suspended){
+                    register_code(KC_LSFT);
+                    shift_suspended = false;
+                }
+                //update mouse report here
+                currentReport.buttons |= MOUSE_BTN2; //MOUSE_BTN2 is a const defined in report.h
+            } else {
+                //update mouse report here
+                currentReport.buttons &= ~MOUSE_BTN2;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
+            break;
+        case MS_BTN3:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                if (shift_held && shift_suspended){
+                    register_code(KC_LSFT);
+                    shift_suspended = false;
+                }
+                //update mouse report here
+                currentReport.buttons |= MOUSE_BTN3; //MOUSE_BTN3 is a const defined in report.h
+            } else {
+                //update mouse report here
+                currentReport.buttons &= ~MOUSE_BTN3;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
+            break;
+        //Additionally, if NS_ keys are in use, then shift may be held (but is
+        //disabled for the unshifted keycodes to be send.  Check the bool and
+        //register shift as necessary.
+        // default:
+        //  if (shift_held){
+        //      register_code(KC_LSFT);
+        //  }
+        // break;
+    }
+    return true;
 };

@@ -16,7 +16,7 @@
 #include "al1.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -36,5 +36,5 @@ void led_set_kb(uint8_t usb_led) {
         PORTD &= ~(1<<1);
     else
         PORTD |=  (1<<1);
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

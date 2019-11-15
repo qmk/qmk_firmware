@@ -21,10 +21,10 @@
 
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
   setPinOutput(B1);
-	matrix_init_user();
+    matrix_init_user();
 }
 
 /*
@@ -57,5 +57,5 @@ void led_set_kb(uint8_t usb_led) {
     writePinHigh(B1);
   }
 
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

@@ -21,10 +21,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_mods(MOD_BIT(KC_RGUI));
         layer_off(_NUMBER);
-	if (timer_elapsed(user_key_timer) < TAPPING_TERM) {
+    if (timer_elapsed(user_key_timer) < TAPPING_TERM) {
           register_code(KC_QUOT);
-	  unregister_code(KC_QUOT);
-	}
+      unregister_code(KC_QUOT);
+    }
       }
       return false; break;
   }

@@ -22,7 +22,7 @@ void battery_poll(uint8_t level) {
 }
 
 void matrix_init_kb(void) {
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {

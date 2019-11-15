@@ -438,7 +438,7 @@ void music_on_user(void){           // Run when the music layer is turned on
 }
 
 void music_off_user(void){          // Run when music is turned off
-	PLAY_SONG(tone_goodbye);
+    PLAY_SONG(tone_goodbye);
 }
 #endif
 

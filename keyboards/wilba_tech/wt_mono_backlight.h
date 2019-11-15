@@ -29,7 +29,7 @@ typedef struct PACKED
 
 typedef struct
 {
-	bool disable_when_usb_suspended:1;  // |
+    bool disable_when_usb_suspended:1;  // |
     bool __pad1:1;                      // |
     bool __pad2:1;                      // |
     bool __pad3:1;                      // |

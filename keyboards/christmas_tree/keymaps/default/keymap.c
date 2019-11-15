@@ -69,12 +69,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code(KC_RSFT);
         #ifdef BACKLIGHT_ENABLE
-		  register_code(KC_LSFT);
+          register_code(KC_LSFT);
           backlight_step();
         #endif
       } else {
         unregister_code(KC_RSFT);
-		unregister_code(KC_LSFT);
+        unregister_code(KC_LSFT);
       }
       return false;
       break;

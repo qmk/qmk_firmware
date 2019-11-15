@@ -32,5 +32,5 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-	matrix_scan_user();
+    matrix_scan_user();
 }

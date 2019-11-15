@@ -190,7 +190,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 
 void matrix_init_kb(void) {
   queue_for_send = true;
-	matrix_init_user();
+    matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
@@ -211,5 +211,5 @@ if (queue_for_send) {
   }
   counterst = (counterst + 1) % 1024;
   //rgblight_task();
-	matrix_scan_user();
+    matrix_scan_user();
 }

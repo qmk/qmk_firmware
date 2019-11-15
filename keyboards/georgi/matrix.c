@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#   define DEBOUNCE 5
 #endif
 
 // MCP Pin Defs
@@ -213,8 +213,8 @@ uint8_t matrix_scan(void)
 
 #ifdef DEBUG_MATRIX
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
-		for (uint8_t r = 0; r < MATRIX_ROWS; r++)
-		  if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
+        for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+          if (matrix_is_on(r, c)) xprintf("r:%d c:%d \n", r, c);
 #endif
 
     return 1;
@@ -290,9 +290,9 @@ static matrix_row_t read_cols(uint8_t row)
         }
     } else {
          /* read from teensy
-	        * bitmask is 0b0111001, but we want the lower four
-	        * we'll return 1s for the top two, but that's harmless.
-	        */
+            * bitmask is 0b0111001, but we want the lower four
+            * we'll return 1s for the top two, but that's harmless.
+            */
         // So I need to confuckulate all this
         //return ~(((PIND & DMASK) >> 1  | ((PINC & CMASK) >> 6) | (PIN)));
         //return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2));

@@ -242,7 +242,7 @@ static void unselect_rows(void)
     setPinOutput(B0);
     setPinOutput(B1);
     setPinOutput(B2);
-	// make all pins high to select Y7, nothing is connected to that (otherwise the first row will act weird)
+    // make all pins high to select Y7, nothing is connected to that (otherwise the first row will act weird)
     writePinHigh(B0);
     writePinHigh(B1);
     writePinHigh(B2);

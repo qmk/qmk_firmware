@@ -29,28 +29,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         F(2),    KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_ENT,         \
         KC_LSFT, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,        \
         KC_LCTL, KC_LGUI,KC_LALT, F(0),          F(1),           KC_RGUI,KC_RALT, KC_RCTL                  \
-		),
+        ),
 
-	[_LOWER] = LAYOUT( \
+    [_LOWER] = LAYOUT( \
         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_UP,   KC_MINS, KC_EQL, KC_DEL, \
-		_______, _______, KC_ASTR, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQUO, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,         \
-		_______, _______, _______, KC_LPRN, KC_RPRN, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______,          \
-		_______, _______, _______, _______, _______, _______, _______, _______                                     \
-		),
+        _______, _______, KC_ASTR, KC_LBRC, KC_RBRC, KC_QUOT, KC_DQUO, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSLS,         \
+        _______, _______, _______, KC_LPRN, KC_RPRN, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______,          \
+        _______, _______, _______, _______, _______, _______, _______, _______                                     \
+        ),
 
     [_RAISE] = LAYOUT( \
         KC_GRV,  KC_LPRN, KC_RPRN, KC_DQUO, KC_QUOT, KC_SCLN, KC_COLON,KC_UNDS, KC_PLUS, _______, _______, KC_BSPC, \
-		_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,             \
-		_______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______, _______, _______, _______,          \
-		_______, _______, _______, _______, _______, _______, BL_INC,  BL_DEC                                      \
-		),
+        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,             \
+        _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______, _______, _______, _______, _______,          \
+        _______, _______, _______, _______, _______, _______, BL_INC,  BL_DEC                                      \
+        ),
 
     [_ADJUST] = LAYOUT( \
         _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         \
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         \
-		KC_SYSTEM_SLEEP, _______, _______, _______, _______, _______, _______, _______                             \
-		),
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,         \
+        KC_SYSTEM_SLEEP, _______, _______, _______, _______, _______, _______, _______                             \
+        ),
 
 };
 
@@ -60,9 +60,9 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-	[0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
-	[1]  = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC),
-	[2]  = ACTION_LAYER_TAP_KEY(_ADJUST,KC_TAB),
+    [0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
+    [1]  = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC),
+    [2]  = ACTION_LAYER_TAP_KEY(_ADJUST,KC_TAB),
 
 };
 

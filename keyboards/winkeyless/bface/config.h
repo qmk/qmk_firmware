@@ -41,9 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_UART 1
 
 #ifdef BACKLIGHT_ENABLE
-	// the backlight PWM does not work (yet). Therefore, we only have two backlight levels (on/off)
-	#define BACKLIGHT_LEVELS 1
-	#define LED_PIN PORTD
-	#define BACKLIGHT_PORT_NUM (1 << 4)
+    // the backlight PWM does not work (yet). Therefore, we only have two backlight levels (on/off)
+    #define BACKLIGHT_LEVELS 1
+    #define LED_PIN PORTD
+    #define BACKLIGHT_PORT_NUM (1 << 4)
 #endif
 

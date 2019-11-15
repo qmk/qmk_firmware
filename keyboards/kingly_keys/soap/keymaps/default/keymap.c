@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | LEFT  | DOWN  | RIGHT |       |   FN   |
    * `----------------------------------------'
    */
-  	[BASE] = LAYOUT(
+    [BASE] = LAYOUT(
     KC_DEL,  KC_UP,   KC_ENT,           RGB,
     KC_LEFT, KC_DOWN, KC_RIGHT,         MO(1)
   ),
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  HU-  |  Br-  |  Sat- |       |        |
    * `----------------------------------------'
    */
-  	[FN] = LAYOUT(
+    [FN] = LAYOUT(
     RGB_HUI, RGB_VAI, RGB_SAI,         KC_TR,
     RGB_HUD, RGB_VAD, RGB_SAD,         KC_TR
   )

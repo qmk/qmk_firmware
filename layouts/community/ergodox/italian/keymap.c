@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, RALT(KC_QUOT),          KC_DLR,        RALT(KC_LBRC), RALT(KC_RBRC), KC_CIRC,
        KC_TRNS, KC_PERC,                LSFT(KC_EQL),  LSFT(KC_8),    LSFT(KC_9),    KC_TRNS,  KC_TRNS,
        KC_TRNS, KC_TRNS,                KC_TRNS,       KC_TRNS,       KC_TRNS,
-		              KC_TRNS,          KC_TRNS,
+                      KC_TRNS,          KC_TRNS,
                                                 KC_TRNS,
                               KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand

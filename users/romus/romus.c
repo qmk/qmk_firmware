@@ -72,8 +72,8 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
     // Enable RGB light; will not work without this
-	//rgblight_enable_noeeprom();
-	// Change RGB light
+    //rgblight_enable_noeeprom();
+    // Change RGB light
     switch ( this_layer ) {
         case _DV:
             // Load base layer
@@ -81,35 +81,35 @@ void rgblight_change( uint8_t this_layer ) {
             break;
         case _AL:
             // Do yellow for alternate
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 60,255,255);
 
 
             break;
         case _GA:
             // Do purple for game
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(285,255,255);
 
 
             break;
         case _NU:
             // Do azure for number
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(186,200,255);
 
 
             break;
         case _SE:
             // Do red for settings
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
 
             rgblight_sethsv_noeeprom( 16,255,255);
 
             break;
         case _MO:
             // Do green for mouse
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(120,255,255);
 
 
@@ -117,13 +117,13 @@ void rgblight_change( uint8_t this_layer ) {
         case _MU:
             // Do orange for music
 
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 39,255,255);
 
             break;
         default:
             // Something went wrong
-			rgblight_enable_noeeprom();
+            rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(  0,255,255);
 
             break;

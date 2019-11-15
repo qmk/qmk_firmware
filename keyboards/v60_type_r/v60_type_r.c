@@ -26,76 +26,76 @@ extern rgblight_config_t rgblight_config;
 static uint8_t softpwm_buff[3] = {0};
 
 void matrix_init_kb(void) {
-	rgb_init();
-	matrix_init_user();
+    rgb_init();
+    matrix_init_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	uint8_t r = led[0].r, g = led[0].g, b = led[0].b;
-	switch(keycode) {
-		case RGB_RI:
-			if (record->event.pressed) {
-				r += RGB_STEP;
-				if (r < led[0].r) {
-					r = 255;
-				}
-				rgblight_setrgb(r, g, b);
-			}
+    uint8_t r = led[0].r, g = led[0].g, b = led[0].b;
+    switch(keycode) {
+        case RGB_RI:
+            if (record->event.pressed) {
+                r += RGB_STEP;
+                if (r < led[0].r) {
+                    r = 255;
+                }
+                rgblight_setrgb(r, g, b);
+            }
 
-			return false;
-		case RGB_RD:
-		  if (record->event.pressed) {
-		  	r -= RGB_STEP;
-				if (r > led[0].r) {
-					r = 0;
-				}
-				rgblight_setrgb(r, g, b);
-		  }
+            return false;
+        case RGB_RD:
+          if (record->event.pressed) {
+            r -= RGB_STEP;
+                if (r > led[0].r) {
+                    r = 0;
+                }
+                rgblight_setrgb(r, g, b);
+          }
 
-			return false;
-		case RGB_BI:
-			if (record->event.pressed) {
-				b += RGB_STEP;
-				if (b < led[0].b) {
-					b = 255;
-				}
-				rgblight_setrgb(r, g, b);
-			}
+            return false;
+        case RGB_BI:
+            if (record->event.pressed) {
+                b += RGB_STEP;
+                if (b < led[0].b) {
+                    b = 255;
+                }
+                rgblight_setrgb(r, g, b);
+            }
 
-			return false;
-		case RGB_BD:
-		  if (record->event.pressed) {
-		  	b -= RGB_STEP;
-				if (b > led[0].b) {
-					b = 0;
-				}
-				rgblight_setrgb(r, g, b);
-		  }
+            return false;
+        case RGB_BD:
+          if (record->event.pressed) {
+            b -= RGB_STEP;
+                if (b > led[0].b) {
+                    b = 0;
+                }
+                rgblight_setrgb(r, g, b);
+          }
 
-			return false;
-		case RGB_GI:
-			if (record->event.pressed) {
-				g += RGB_STEP;
-				if (g < led[0].g) {
-					g = 255;
-				}
-				rgblight_setrgb(r, g, b);
-			}
+            return false;
+        case RGB_GI:
+            if (record->event.pressed) {
+                g += RGB_STEP;
+                if (g < led[0].g) {
+                    g = 255;
+                }
+                rgblight_setrgb(r, g, b);
+            }
 
-			return false;
-		case RGB_GD:
-		  if (record->event.pressed) {
-		  	g -= RGB_STEP;
-				if (g > led[0].g) {
-					g = 0;
-				}
-				rgblight_setrgb(r, g, b);
-			}
+            return false;
+        case RGB_GD:
+          if (record->event.pressed) {
+            g -= RGB_STEP;
+                if (g > led[0].g) {
+                    g = 0;
+                }
+                rgblight_setrgb(r, g, b);
+            }
 
-			return false;
-	}
+            return false;
+    }
 
-	return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 
@@ -124,15 +124,15 @@ void rgb_init(void) {
 }
 
 void set_rgb_pin_on(uint8_t pin) {
-	PORTF &= ~_BV(pin);
+    PORTF &= ~_BV(pin);
 }
 
 void set_rgb_pin_off(uint8_t pin) {
-	PORTF |= _BV(pin);
+    PORTF |= _BV(pin);
 }
 
 void rgblight_set(void) {
-	  // xprintf("Setting RGB underglow\n");
+      // xprintf("Setting RGB underglow\n");
     if (!rgblight_config.enable) {
           led[0].r = 0;
           led[0].g = 0;
@@ -152,37 +152,37 @@ ISR(TIMER3_COMPA_vect)
 
     // turn the LEDS on
     if (pwm == 0) {
-    	if (softpwm_buff[0]) {
-    		set_rgb_pin_on(RGB_RED_PIN);
-    		softpwm_buff[0] = led[0].r;
-    	}
+        if (softpwm_buff[0]) {
+            set_rgb_pin_on(RGB_RED_PIN);
+            softpwm_buff[0] = led[0].r;
+        }
 
-    	if (softpwm_buff[1]) {
-    		set_rgb_pin_on(RGB_GREEN_PIN);
-    		softpwm_buff[1] = led[0].g;
-    	}
+        if (softpwm_buff[1]) {
+            set_rgb_pin_on(RGB_GREEN_PIN);
+            softpwm_buff[1] = led[0].g;
+        }
 
-    	if (softpwm_buff[2]) {
-    		set_rgb_pin_on(RGB_BLUE_PIN);
-    		softpwm_buff[2] = led[0].b;
-    	}
+        if (softpwm_buff[2]) {
+            set_rgb_pin_on(RGB_BLUE_PIN);
+            softpwm_buff[2] = led[0].b;
+        }
     }
 
     // turn em off
-  	if (pwm == softpwm_buff[0]) {
-  		set_rgb_pin_off(RGB_RED_PIN);
-  		softpwm_buff[0] = led[0].r;
+    if (pwm == softpwm_buff[0]) {
+        set_rgb_pin_off(RGB_RED_PIN);
+        softpwm_buff[0] = led[0].r;
 
-  	}
+    }
 
-  	if (pwm == softpwm_buff[1]) {
-  		set_rgb_pin_off(RGB_GREEN_PIN);
-    	softpwm_buff[1] = led[0].g;
-  	}
+    if (pwm == softpwm_buff[1]) {
+        set_rgb_pin_off(RGB_GREEN_PIN);
+        softpwm_buff[1] = led[0].g;
+    }
 
-  	if (pwm == softpwm_buff[2]) {
-  		set_rgb_pin_off(RGB_BLUE_PIN);
-    	softpwm_buff[2] = led[0].b;
-  	}
+    if (pwm == softpwm_buff[2]) {
+        set_rgb_pin_off(RGB_BLUE_PIN);
+        softpwm_buff[2] = led[0].b;
+    }
 }
 #endif // RGBLIGHT_ENABLE

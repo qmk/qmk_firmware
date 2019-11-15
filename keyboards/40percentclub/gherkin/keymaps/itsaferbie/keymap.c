@@ -133,13 +133,13 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) {
-		switch(keycode) {
-			case MACRO_0:
+    if (record->event.pressed) {
+        switch(keycode) {
+            case MACRO_0:
         // Save for Web Macro.
-				SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
-				return false;
-		}
-	}
-	return true;
+                SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
+                return false;
+        }
+    }
+    return true;
 };

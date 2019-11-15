@@ -146,10 +146,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 // settings for LED on receiver
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+    DDRD  |= (1<<1);
+    PORTD |= (1<<1);
+    DDRF  |= (1<<4) | (1<<5);
+    PORTF |= (1<<4) | (1<<5);
 }
 
 #define red_led_off   PORTF |= (1<<5)

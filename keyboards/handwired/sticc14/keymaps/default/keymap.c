@@ -18,15 +18,15 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT( /* Base */
         KC_PPLS, KC_PSLS, KC_BSPC,
-		KC_7, KC_8, KC_9,
-		KC_4, KC_5, KC_6,
-		KC_1, KC_2, KC_3,
-		KC_0, LT(1, KC_ENT)),
+        KC_7, KC_8, KC_9,
+        KC_4, KC_5, KC_6,
+        KC_1, KC_2, KC_3,
+        KC_0, LT(1, KC_ENT)),
 
     [1] = LAYOUT(
-		KC_MPRV, KC_MPLY, KC_MNXT,
-		KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_MPRV, KC_MPLY, KC_MNXT,
-		KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS)
+        KC_MPRV, KC_MPLY, KC_MNXT,
+        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_MPRV, KC_MPLY, KC_MNXT,
+        KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS)
 };

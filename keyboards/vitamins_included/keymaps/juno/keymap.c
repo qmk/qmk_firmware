@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_ENT), \
   KC_APP,  KC_LCTL, KC_LGUI, KC_LALT, LOWER,   LT(_FN1, KC_SPC),
-											   LT(_FN1, KC_SPC), RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
+                                               LT(_FN1, KC_SPC), RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
 ),
 
 /* Colemak
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT , \
   KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, MO(_DPADNUM),
-											   KC_SPC,  KC_SPC,  LOWER,   DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT \
+                                               KC_SPC,  KC_SPC,  LOWER,   DP_OFF,  KC_LEFT, KC_DOWN, KC_RGHT \
 ),
 
 // Extended layer for weapon switchings
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6  , \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 , \
   _______, _______, _______, XXXXXXX, MO(_DPADNUM),
-											   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX   \
+                                               XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX   \
 )
 
 };
@@ -250,44 +250,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-	 // Additional personal custom functions
+     // Additional personal custom functions
 
-	case KC_CAPS:
-		if (record->event.pressed) {
-			#ifdef AUDIO_ENABLE
-			if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-			//	PLAY_SONG(caps_song_off);
-			} else {
-			//	PLAY_SONG(caps_song_on);
-			}
-			#endif
-		}
-		return true; // process the actual function of Caps Lock
-		//break;
+    case KC_CAPS:
+        if (record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+            if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+            //  PLAY_SONG(caps_song_off);
+            } else {
+            //  PLAY_SONG(caps_song_on);
+            }
+            #endif
+        }
+        return true; // process the actual function of Caps Lock
+        //break;
 
-	case DP_ON:
-		if (record->event.pressed) {
+    case DP_ON:
+        if (record->event.pressed) {
 
-		} else {
-			// activated upon release
-			#ifdef AUDIO_ENABLE
-			// PLAY_SONG(dpad_song_on);
-			#endif
+        } else {
+            // activated upon release
+            #ifdef AUDIO_ENABLE
+            // PLAY_SONG(dpad_song_on);
+            #endif
 
-			layer_off(_FN1);
-			layer_on(_DPAD);
-		}
+            layer_off(_FN1);
+            layer_on(_DPAD);
+        }
 
-	case DP_OFF:
-		if (record->event.pressed) {
- 			// deactivated upon pressdown
-			#ifdef AUDIO_ENABLE
-			// PLAY_SONG(dpad_song_off);
-			#endif
+    case DP_OFF:
+        if (record->event.pressed) {
+            // deactivated upon pressdown
+            #ifdef AUDIO_ENABLE
+            // PLAY_SONG(dpad_song_off);
+            #endif
 
-			//layer_off(_FN1); // do not put in this line
-			layer_off(_DPAD);
-		}
+            //layer_off(_FN1); // do not put in this line
+            layer_off(_DPAD);
+        }
   }
   return true;
 }

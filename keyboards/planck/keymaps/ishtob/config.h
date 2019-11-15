@@ -15,7 +15,7 @@
     #define AUDIO_CLICKY
   // to enable clicky on startup
   //#define AUDIO_CLICKY_ON
-	#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
+    #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 
 
 #endif

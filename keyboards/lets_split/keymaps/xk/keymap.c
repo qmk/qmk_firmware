@@ -76,7 +76,7 @@ OSX,
 // mod-TAP for mod/key behavior MT(modkey, KC)
 #define ALT_IT      MT(MOD_RALT, KC_SCLN)
 #define CTL_IT      MT(MOD_RCTL, KC_DOT)
-#define SFT_ENT	    MT(MOD_RSFT, KC_ENT)
+#define SFT_ENT     MT(MOD_RSFT, KC_ENT)
 
 //sticky modifiers
 #define KYCTL       OSM(MOD_LCTL)

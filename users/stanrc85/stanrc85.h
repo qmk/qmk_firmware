@@ -16,8 +16,8 @@ enum my_layers {
 };
 
 //Aliases for longer keycodes
-#define KC_CAD	LALT(LCTL(KC_DEL))
-#define KC_LOCK	LGUI(KC_L)
+#define KC_CAD  LALT(LCTL(KC_DEL))
+#define KC_LOCK LGUI(KC_L)
 #define CA_QUOT LCA(KC_QUOT)
 #define CA_SCLN LCA(KC_SCLN)
 #define KC_CTLE LCTL_T(KC_ESC)

@@ -35,10 +35,10 @@ enum custom_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) {
-		switch(keycode) {
-			case GIT_ADD:
-				SEND_STRING("git add ."SS_TAP(X_ENTER));
+    if (record->event.pressed) {
+        switch(keycode) {
+            case GIT_ADD:
+                SEND_STRING("git add ."SS_TAP(X_ENTER));
         break;
       case GIT_COMMIT:
         SEND_STRING("git commit -m "SS_DOWN(X_LSHIFT)SS_TAP(X_QUOTE)SS_UP(X_LSHIFT));
@@ -53,9 +53,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_LGUI(SS_LSFT("D")));
         break;
       return false;
-		}
-	}
-	return true;
+        }
+    }
+    return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

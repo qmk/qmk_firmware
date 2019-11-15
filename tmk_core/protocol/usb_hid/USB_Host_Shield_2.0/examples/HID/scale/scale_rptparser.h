@@ -17,39 +17,39 @@
 /* input data report */
 struct ScaleEventData
 {
-  uint8_t reportID;	//must be 3
+  uint8_t reportID; //must be 3
   uint8_t status;
   uint8_t unit;
-  int8_t exp;			//scale factor for the weight
-  uint16_t weight;	//
+  int8_t exp;           //scale factor for the weight
+  uint16_t weight;  //
 };
 
 class ScaleEvents
 {
 
-	Max_LCD*	pLcd;
+    Max_LCD*    pLcd;
 
-	void LcdPrint( const char* str );
+    void LcdPrint( const char* str );
 
 public:
 
-	ScaleEvents( Max_LCD* pLCD );
+    ScaleEvents( Max_LCD* pLCD );
 
-	virtual void OnScaleChanged(const ScaleEventData *evt);
+    virtual void OnScaleChanged(const ScaleEventData *evt);
 };
 
-#define RPT_SCALE_LEN	sizeof(ScaleEventData)/sizeof(uint8_t)
+#define RPT_SCALE_LEN   sizeof(ScaleEventData)/sizeof(uint8_t)
 
 class ScaleReportParser : public HIDReportParser
 {
-	ScaleEvents		*scaleEvents;
+    ScaleEvents     *scaleEvents;
 
   uint8_t oldScale[RPT_SCALE_LEN];
 
 public:
-	ScaleReportParser(ScaleEvents *evt);
+    ScaleReportParser(ScaleEvents *evt);
 
-	virtual void Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf);
+    virtual void Parse(HID *hid, bool is_rpt_id, uint8_t len, uint8_t *buf);
 };
 
 #endif // __SCALERPTPARSER_H__

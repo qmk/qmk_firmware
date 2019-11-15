@@ -17,9 +17,9 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 35
+    #define RGBLIGHT_MODES 35
 #else
-	#define RGBLIGHT_MODES 1
+    #define RGBLIGHT_MODES 1
 #endif
 
 #ifndef RGBLIGHT_EFFECT_BREATHE_CENTER

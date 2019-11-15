@@ -24,10 +24,10 @@ typedef struct _Serial_m2s_buffer_t {
     // there is no need to communicate.
 #endif
 
-	uint8_t current_layer;
-	uint8_t nlock_led;
-	uint8_t clock_led;
-	uint8_t slock_led;
+    uint8_t current_layer;
+    uint8_t nlock_led;
+    uint8_t clock_led;
+    uint8_t slock_led;
 
 } Serial_m2s_buffer_t;
 

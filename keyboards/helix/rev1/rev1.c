@@ -5,7 +5,7 @@
 #include "ssd1306.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	return process_record_gfx(keycode,record) && process_record_user(keycode, record);
+    return process_record_gfx(keycode,record) && process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
@@ -24,5 +24,5 @@ void matrix_init_kb(void) {
     // DDRB |= (1<<0);
     // PORTB &= ~(1<<0);
 
-	matrix_init_user();
+    matrix_init_user();
 };

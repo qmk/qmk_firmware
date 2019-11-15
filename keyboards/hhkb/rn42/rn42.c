@@ -74,7 +74,7 @@ void rn42_putc(uint8_t c)
 void rn42_puts(char *s)
 {
     while (*s)
-	serial_send(*s++);
+    serial_send(*s++);
 }
 
 bool rn42_autoconnecting(void)

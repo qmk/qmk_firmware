@@ -325,12 +325,12 @@ void do_flash_cmd(volatile uint8_t *fstat)
     while ((*fstat & 0x80) == 0) ; // wait
 }
 00000000 <do_flash_cmd>:
-   0:	f06f 037f 	mvn.w	r3, #127	; 0x7f
-   4:	7003      	strb	r3, [r0, #0]
-   6:	7803      	ldrb	r3, [r0, #0]
-   8:	f013 0f80 	tst.w	r3, #128	; 0x80
-   c:	d0fb      	beq.n	6 <do_flash_cmd+0x6>
-   e:	4770      	bx	lr
+   0:   f06f 037f   mvn.w   r3, #127    ; 0x7f
+   4:   7003        strb    r3, [r0, #0]
+   6:   7803        ldrb    r3, [r0, #0]
+   8:   f013 0f80   tst.w   r3, #128    ; 0x80
+   c:   d0fb        beq.n   6 <do_flash_cmd+0x6>
+   e:   4770        bx  lr
 */
 
 #elif defined(KL2x) /* chip selection */
@@ -463,13 +463,13 @@ void do_flash_cmd(volatile uint8_t *fstat)
         while ((*fstat & 0x80) == 0) ; // wait
 }
 00000000 <do_flash_cmd>:
-   0:	2380      	movs	r3, #128	; 0x80
-   2:	7003      	strb	r3, [r0, #0]
-   4:	7803      	ldrb	r3, [r0, #0]
-   6:	b25b      	sxtb	r3, r3
-   8:	2b00      	cmp	r3, #0
-   a:	dafb      	bge.n	4 <do_flash_cmd+0x4>
-   c:	4770      	bx	lr
+   0:   2380        movs    r3, #128    ; 0x80
+   2:   7003        strb    r3, [r0, #0]
+   4:   7803        ldrb    r3, [r0, #0]
+   6:   b25b        sxtb    r3, r3
+   8:   2b00        cmp r3, #0
+   a:   dafb        bge.n   4 <do_flash_cmd+0x4>
+   c:   4770        bx  lr
 */
 
 uint16_t eeprom_read_word(const uint16_t *addr) {

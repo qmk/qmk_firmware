@@ -19,7 +19,7 @@ extern keymap_config_t keymap_config;
 #define LAYER3 M(_L3)
 
 void matrix_init_user(void) {
-	backlight_level(4);
+    backlight_level(4);
 }
 
 
@@ -38,16 +38,16 @@ enum {
 //Tap Dance Definitions
 
 
-	//TD equal to turn on layer NP
+    //TD equal to turn on layer NP
 void _td_equal_tg_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_EQUAL);
   } else if (state->count == 2) {
     backlight_set(3);
-	layer_on(_NP);
-	layer_off(_L1);
-	layer_off(_L2);
-	layer_off(_L3);
+    layer_on(_NP);
+    layer_off(_L1);
+    layer_off(_L2);
+    layer_off(_L3);
   }
 }
 
@@ -58,16 +58,16 @@ void _td_equal_tg_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-	//TD kp plus to toggle layer 1
+    //TD kp plus to toggle layer 1
 void _td_kp_plus_tg_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_KP_PLUS);
   } else if (state->count == 2) {
 //    layer_invert(_L1);
     backlight_set(2);
-	layer_on(_L1);
-	layer_off(_L2);
-	layer_off(_L3);
+    layer_on(_L1);
+    layer_off(_L2);
+    layer_off(_L3);
   }
 }
 
@@ -78,15 +78,15 @@ void _td_kp_plus_tg_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-	//TD dot to toggle layer 2
+    //TD dot to toggle layer 2
 void _td_dot_tg_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_DOT);
   } else if (state->count == 2) {
     backlight_set(1);
-	layer_on(_L2);
-	layer_off(_L1);
-	layer_off(_L3);
+    layer_on(_L2);
+    layer_off(_L1);
+    layer_off(_L3);
   }
 }
 
@@ -96,15 +96,15 @@ void _td_dot_tg_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-	//TD 0 to toggle layer 3
+    //TD 0 to toggle layer 3
 void _td_0_tg_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_0);
   } else if (state->count == 2) {
     backlight_set(0);
-	layer_on(_L3);
-	layer_off(_L1);
-	layer_off(_L2);
+    layer_on(_L3);
+    layer_off(_L1);
+    layer_off(_L2);
   }
 }
 

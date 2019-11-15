@@ -54,14 +54,14 @@ uint32_t g_any_key_hit = 0;
 
 void backlight_init_drivers(void)
 {
-	// Initialize I2C
-	i2c_init();
-	IS31FL3736_init( ISSI_ADDR_DEFAULT );
+    // Initialize I2C
+    i2c_init();
+    IS31FL3736_init( ISSI_ADDR_DEFAULT );
 
-	for ( uint8_t index = 0; index < 96; index++ )	{
-		IS31FL3736_mono_set_led_control_register( index, true );
-	}
-	IS31FL3736_update_led_control_registers( ISSI_ADDR_DEFAULT, 0x00 );
+    for ( uint8_t index = 0; index < 96; index++ )  {
+        IS31FL3736_mono_set_led_control_register( index, true );
+    }
+    IS31FL3736_update_led_control_registers( ISSI_ADDR_DEFAULT, 0x00 );
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
@@ -76,37 +76,37 @@ void backlight_set_key_hit(uint8_t row, uint8_t column)
 
 void backlight_timer_init(void)
 {
-	static uint8_t backlight_timer_is_init = 0;
-	if ( backlight_timer_is_init ) {
-		return;
-	}
-	backlight_timer_is_init = 1;
+    static uint8_t backlight_timer_is_init = 0;
+    if ( backlight_timer_is_init ) {
+        return;
+    }
+    backlight_timer_is_init = 1;
 
-	// Timer 3 setup
-	TCCR3B = _BV(WGM32) | 			// CTC mode OCR3A as TOP
-			 _BV(CS32) | _BV(CS30); // prescale by /1024
-	// Set TOP value
-	uint8_t sreg = SREG;
-	cli();
+    // Timer 3 setup
+    TCCR3B = _BV(WGM32) |           // CTC mode OCR3A as TOP
+             _BV(CS32) | _BV(CS30); // prescale by /1024
+    // Set TOP value
+    uint8_t sreg = SREG;
+    cli();
 
-	OCR3AH = (TIMER3_TOP >> 8) & 0xff;
-	OCR3AL = TIMER3_TOP & 0xff;
-	SREG = sreg;
+    OCR3AH = (TIMER3_TOP >> 8) & 0xff;
+    OCR3AL = TIMER3_TOP & 0xff;
+    SREG = sreg;
 }
 
 void backlight_timer_enable(void)
 {
-	TIMSK3 |= _BV(OCIE3A);
+    TIMSK3 |= _BV(OCIE3A);
 }
 
 void backlight_timer_disable(void)
 {
-	TIMSK3 &= ~_BV(OCIE3A);
+    TIMSK3 &= ~_BV(OCIE3A);
 }
 
 void backlight_set_suspend_state(bool state)
 {
-	g_suspend_state = state;
+    g_suspend_state = state;
 }
 
 void backlight_set_indicator_state(uint8_t state)
@@ -116,17 +116,17 @@ void backlight_set_indicator_state(uint8_t state)
 
 void backlight_set_brightness_all( uint8_t value )
 {
-	IS31FL3736_mono_set_brightness_all( value );
+    IS31FL3736_mono_set_brightness_all( value );
 }
 
 void backlight_effect_all_off(void)
 {
-	IS31FL3736_mono_set_brightness_all( 0 );
+    IS31FL3736_mono_set_brightness_all( 0 );
 }
 
 void backlight_effect_all_on(void)
 {
-	IS31FL3736_mono_set_brightness_all( g_config.brightness );
+    IS31FL3736_mono_set_brightness_all( g_config.brightness );
 }
 
 void backlight_effect_raindrops(bool initialize)
@@ -147,9 +147,9 @@ void backlight_effect_raindrops(bool initialize)
 
 void backlight_effect_cycle_all(void)
 {
-	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
+    uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 
-	backlight_set_brightness_all( offset );
+    backlight_set_brightness_all( offset );
 }
 
 // This runs after another backlight effect and replaces
@@ -168,14 +168,14 @@ void backlight_effect_indicators(void)
 
 ISR(TIMER3_COMPA_vect)
 {
-	// delay 1 second before driving LEDs or doing anything else
-	static uint8_t startup_tick = 0;
-	if ( startup_tick < 20 ) {
-		startup_tick++;
-		return;
-	}
+    // delay 1 second before driving LEDs or doing anything else
+    static uint8_t startup_tick = 0;
+    if ( startup_tick < 20 ) {
+        startup_tick++;
+        return;
+    }
 
-	g_tick++;
+    g_tick++;
 
     if ( g_any_key_hit < 0xFFFFFFFF )
     {
@@ -212,7 +212,7 @@ ISR(TIMER3_COMPA_vect)
         default:
             backlight_effect_all_off();
             break;
-	}
+    }
 
     if ( ! suspend_backlight )
     {
@@ -329,7 +329,7 @@ void backlight_config_save(void)
 
 void backlight_update_pwm_buffers(void)
 {
-	IS31FL3736_update_pwm_buffers(ISSI_ADDR_DEFAULT,0x00);
+    IS31FL3736_update_pwm_buffers(ISSI_ADDR_DEFAULT,0x00);
 }
 
 bool process_record_backlight(uint16_t keycode, keyrecord_t *record)

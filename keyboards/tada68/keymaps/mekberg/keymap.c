@@ -11,10 +11,10 @@
 #define SE_DASH KC_SLSH         // -
 #define SE_UML KC_RBRC          // Umlaut (¨)
 #define SE_QUT KC_NUHS          // Singlequote (')
-#define SE_AUML KC_QUOT     	// Ä
-#define SE_ARNG KC_LBRC     	// Å
-#define SE_OUML KC_SCLN     	// Ö
-#define SE_LT KC_NUBS       	// <
+#define SE_AUML KC_QUOT         // Ä
+#define SE_ARNG KC_LBRC         // Å
+#define SE_OUML KC_SCLN         // Ö
+#define SE_LT KC_NUBS           // <
 
 // My common shortcuts
 #define MY_PREV KC_MRWD         // Media: Previous
@@ -41,7 +41,7 @@ TADA68 ISO physical layout
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT_iso(
+    [0] = LAYOUT_iso(
 //  ,----------------------------------------------------------------------------------------------------------------------------------------------.
 //  |  Esc   |    1   |    2   |    3   |    4   |    5   |    6   |    7   |    8   |    9   |    0   |    +   |    ´   |   Backspace    |  Home  |
      KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    SE_PLUS, SE_TCK,     KC_BSPC,      KC_HOME,
@@ -58,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |  LCtrl   |   LAlt   | Command  |                        Space                          |Command |  RAlt  |  Fn    |  Left  |  Down  | Right  |
       KC_LCTL,   KC_LALT,   KC_LGUI,                         KC_SPC,                          KC_LGUI, KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT
 //  `----------------------------------------------------------------------------------------------------------------------------------------------'
-	),
+    ),
 
-	[1] = LAYOUT_iso(
+    [1] = LAYOUT_iso(
 //  ,----------------------------------------------------------------------------------------------------------------------------------------------.
 //  |        |   F1   |   F2   |   F3   |   F4   |   F5   |   F6   |   F7   |   F8   |   F9   |  F10   |  F11   |  F12   |     Delete     |  Ins   |
      KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,      KC_INS,
@@ -77,9 +77,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |          |          |          |                        Sleep                          |        |        |        |  Prev  |  Play  |  Fwd   |
       ______,    ______,    ______,                          KC_SLEP,                           ______,  ______,  XXXXXX, MY_PREV, MY_PLAY, MY_NEXT
 //  `----------------------------------------------------------------------------------------------------------------------------------------------'
-	),
+    ),
 
-	[2] = LAYOUT_iso(
+    [2] = LAYOUT_iso(
 //  ,----------------------------------------------------------------------------------------------------------------------------------------------.
 //  |   Esc  |   F1   |   F2   |   F3   |   F4   |   F5   |   F6   |   F7   |   F8   |   F9   |  F10   |  F11   |  F12   |     Delete     |        |
      KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      KC_DEL,     ______,
@@ -96,5 +96,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |          |          |          |                                                       |        |        |        |  Prev  |  Play  |  Fwd   |
       ______,    ______,    ______,                          ______,                           ______,  ______,  ______, MY_PREV, MY_PLAY, MY_NEXT
 //  `----------------------------------------------------------------------------------------------------------------------------------------------'
-	)
+    )
 };

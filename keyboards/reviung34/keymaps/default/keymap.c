@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         _______,  _______,  _______,            KC_BSPC
   ),
 
-	[_RAISE] = LAYOUT_reviung34(
+    [_RAISE] = LAYOUT_reviung34(
     KC_1,     KC_2,     KC_3,     KC_4,     KC_5,               KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
     KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_BSLS,            XXXXXXX,  XXXXXXX,  KC_GRV,   KC_TILD,  KC_DQUO,
     KC_LSFT,  KC_ESC,   KC_RGUI,  KC_LALT,  KC_CAPS,            KC_TAB,   KC_RALT,  KC_RCTL,  KC_RSFT,  KC_BSPC,

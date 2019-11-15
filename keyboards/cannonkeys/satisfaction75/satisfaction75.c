@@ -60,40 +60,40 @@ backlight_config_t kb_backlight_config = {
 
 bool eeprom_is_valid(void)
 {
-	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
-			eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
+    return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
+            eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
 }
 
 void eeprom_set_valid(bool valid)
 {
-	eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
-	eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
+    eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
+    eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
 void eeprom_reset(void)
 {
-	// Set the VIA specific EEPROM state as invalid.
-	eeprom_set_valid(false);
-	// Set the TMK/QMK EEPROM state as invalid.
-	eeconfig_disable();
+    // Set the VIA specific EEPROM state as invalid.
+    eeprom_set_valid(false);
+    // Set the TMK/QMK EEPROM state as invalid.
+    eeconfig_disable();
 }
 
 #ifdef RAW_ENABLE
 
 void raw_hid_receive( uint8_t *data, uint8_t length )
 {
-	uint8_t *command_id = &(data[0]);
-	uint8_t *command_data = &(data[1]);
-	switch ( *command_id )
-	{
-		case id_get_protocol_version:
-		{
-			command_data[0] = PROTOCOL_VERSION >> 8;
-			command_data[1] = PROTOCOL_VERSION & 0xFF;
-			break;
-		}
-		case id_get_keyboard_value:
-		{
+    uint8_t *command_id = &(data[0]);
+    uint8_t *command_data = &(data[1]);
+    switch ( *command_id )
+    {
+        case id_get_protocol_version:
+        {
+            command_data[0] = PROTOCOL_VERSION >> 8;
+            command_data[1] = PROTOCOL_VERSION & 0xFF;
+            break;
+        }
+        case id_get_keyboard_value:
+        {
             switch( command_data[0])
             {
                 case id_uptime:
@@ -141,7 +141,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
                     break;
                 }
             }
-			break;
+            break;
     }
 #ifdef DYNAMIC_KEYMAP_ENABLE
     case id_set_keyboard_value:
@@ -180,92 +180,92 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
       }
       break;
     }
-		case id_dynamic_keymap_get_keycode:
-		{
-			uint16_t keycode = dynamic_keymap_get_keycode( command_data[0], command_data[1], command_data[2] );
-			command_data[3] = keycode >> 8;
-			command_data[4] = keycode & 0xFF;
-			break;
-		}
-		case id_dynamic_keymap_set_keycode:
-		{
-			dynamic_keymap_set_keycode( command_data[0], command_data[1], command_data[2], ( command_data[3] << 8 ) | command_data[4] );
-			break;
-		}
-		case id_dynamic_keymap_reset:
-		{
-			dynamic_keymap_reset();
-			break;
-		}
-		case id_dynamic_keymap_macro_get_count:
-		{
-			command_data[0] = dynamic_keymap_macro_get_count();
-			break;
-		}
-		case id_dynamic_keymap_macro_get_buffer_size:
-		{
-			uint16_t size = dynamic_keymap_macro_get_buffer_size();
-			command_data[0] = size >> 8;
-			command_data[1] = size & 0xFF;
-			break;
-		}
-		case id_dynamic_keymap_macro_get_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_macro_reset:
-		{
-			dynamic_keymap_macro_reset();
-			break;
-		}
-		case id_dynamic_keymap_get_layer_count:
-		{
-			command_data[0] = dynamic_keymap_get_layer_count();
-			break;
-		}
-		case id_dynamic_keymap_get_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_get_buffer( offset, size, &command_data[3] );
-			break;
-		}
-		case id_dynamic_keymap_set_buffer:
-		{
-			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
-			uint16_t size = command_data[2]; // size <= 28
-			dynamic_keymap_set_buffer( offset, size, &command_data[3] );
-			break;
-		}
+        case id_dynamic_keymap_get_keycode:
+        {
+            uint16_t keycode = dynamic_keymap_get_keycode( command_data[0], command_data[1], command_data[2] );
+            command_data[3] = keycode >> 8;
+            command_data[4] = keycode & 0xFF;
+            break;
+        }
+        case id_dynamic_keymap_set_keycode:
+        {
+            dynamic_keymap_set_keycode( command_data[0], command_data[1], command_data[2], ( command_data[3] << 8 ) | command_data[4] );
+            break;
+        }
+        case id_dynamic_keymap_reset:
+        {
+            dynamic_keymap_reset();
+            break;
+        }
+        case id_dynamic_keymap_macro_get_count:
+        {
+            command_data[0] = dynamic_keymap_macro_get_count();
+            break;
+        }
+        case id_dynamic_keymap_macro_get_buffer_size:
+        {
+            uint16_t size = dynamic_keymap_macro_get_buffer_size();
+            command_data[0] = size >> 8;
+            command_data[1] = size & 0xFF;
+            break;
+        }
+        case id_dynamic_keymap_macro_get_buffer:
+        {
+            uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+            uint16_t size = command_data[2]; // size <= 28
+            dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
+            break;
+        }
+        case id_dynamic_keymap_macro_reset:
+        {
+            dynamic_keymap_macro_reset();
+            break;
+        }
+        case id_dynamic_keymap_get_layer_count:
+        {
+            command_data[0] = dynamic_keymap_get_layer_count();
+            break;
+        }
+        case id_dynamic_keymap_get_buffer:
+        {
+            uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+            uint16_t size = command_data[2]; // size <= 28
+            dynamic_keymap_get_buffer( offset, size, &command_data[3] );
+            break;
+        }
+        case id_dynamic_keymap_set_buffer:
+        {
+            uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+            uint16_t size = command_data[2]; // size <= 28
+            dynamic_keymap_set_buffer( offset, size, &command_data[3] );
+            break;
+        }
 #endif // DYNAMIC_KEYMAP_ENABLE
-		case id_eeprom_reset:
-		{
-			eeprom_reset();
-			break;
-		}
-		case id_bootloader_jump:
-		{
-			// Need to send data back before the jump
-			// Informs host that the command is handled
-			raw_hid_send( data, length );
-			// Give host time to read it
-			wait_ms(100);
-			bootloader_jump();
-			break;
-		}
-		default:
-		{
-			// Unhandled message.
-			*command_id = id_unhandled;
-			break;
-		}
-	}
+        case id_eeprom_reset:
+        {
+            eeprom_reset();
+            break;
+        }
+        case id_bootloader_jump:
+        {
+            // Need to send data back before the jump
+            // Informs host that the command is handled
+            raw_hid_send( data, length );
+            // Give host time to read it
+            wait_ms(100);
+            bootloader_jump();
+            break;
+        }
+        default:
+        {
+            // Unhandled message.
+            *command_id = id_unhandled;
+            break;
+        }
+    }
 
-	// Return same buffer with values changed
-	raw_hid_send( data, length );
+    // Return same buffer with values changed
+    raw_hid_send( data, length );
 
 }
 
@@ -350,15 +350,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   }
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-	// Handle macros
-	if (record->event.pressed) {
-		if ( keycode >= MACRO00 && keycode <= MACRO15 )
-		{
-			uint8_t id = keycode - MACRO00;
-			dynamic_keymap_macro_send(id);
-			return false;
-		}
-	}
+    // Handle macros
+    if (record->event.pressed) {
+        if ( keycode >= MACRO00 && keycode <= MACRO15 )
+        {
+            uint8_t id = keycode - MACRO00;
+            dynamic_keymap_macro_send(id);
+            return false;
+        }
+    }
 #endif //DYNAMIC_KEYMAP_ENABLE
 
   return process_record_user(keycode, record);
@@ -394,11 +394,11 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 
 void dynamic_keymap_custom_reset(void){
   void *p = (void*)(DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT);
-	void *end = (void*)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
-	while ( p != end ) {
-		eeprom_update_byte(p, 0);
-		++p;
-	}
+    void *end = (void*)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
+    while ( p != end ) {
+        eeprom_update_byte(p, 0);
+        ++p;
+    }
   eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES, 0x1F);
 }
 
@@ -416,35 +416,35 @@ void load_custom_config(){
 
 void eeprom_init_kb(void)
 {
-	// If the EEPROM has the magic, the data is good.
-	// OK to load from EEPROM.
-	if (eeprom_is_valid()) {
-		load_custom_config();
-	} else	{
-		// If the EEPROM has not been saved before, or is out of date,
-		// save the default values to the EEPROM. Default values
-		// come from construction of the zeal_backlight_config instance.
-		//backlight_config_save();
+    // If the EEPROM has the magic, the data is good.
+    // OK to load from EEPROM.
+    if (eeprom_is_valid()) {
+        load_custom_config();
+    } else  {
+        // If the EEPROM has not been saved before, or is out of date,
+        // save the default values to the EEPROM. Default values
+        // come from construction of the zeal_backlight_config instance.
+        //backlight_config_save();
 #ifdef DYNAMIC_KEYMAP_ENABLE
-		// This resets the keymaps in EEPROM to what is in flash.
-		dynamic_keymap_reset();
-		// This resets the macros in EEPROM to nothing.
-		dynamic_keymap_macro_reset();
+        // This resets the keymaps in EEPROM to what is in flash.
+        dynamic_keymap_reset();
+        // This resets the macros in EEPROM to nothing.
+        dynamic_keymap_macro_reset();
     // Reset the custom stuff
     dynamic_keymap_custom_reset();
 #endif
-		// Save the magic number last, in case saving was interrupted
-		eeprom_set_valid(true);
-	}
+        // Save the magic number last, in case saving was interrupted
+        eeprom_set_valid(true);
+    }
 }
 
 void matrix_init_kb(void)
 {
-	eeprom_init_kb();
+    eeprom_init_kb();
   rtcGetTime(&RTCD1, &last_timespec);
   queue_for_send = true;
   backlight_init_ports();
-	matrix_init_user();
+    matrix_init_user();
 }
 
 

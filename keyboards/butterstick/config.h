@@ -9,7 +9,7 @@
 #define MANUFACTURER    g Heavy Industries
 #define PRODUCT         Butter Stick
 #define DESCRIPTION     Its a stick of butter
-#define VERSION 		"Paula Deen"
+#define VERSION         "Paula Deen"
 
 #define DEBOUNCE 5
 #define FORCE_NKRO

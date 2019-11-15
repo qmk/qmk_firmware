@@ -44,9 +44,9 @@ enum tap_codes {
 void send_french_unicode_char(uint8_t count, char *once, char *twice)
 {
     if (count <= 1)
-	send_unicode_hex_string(once);
+    send_unicode_hex_string(once);
     else
-	send_unicode_hex_string(twice);
+    send_unicode_hex_string(twice);
 }
 
 void dance_a_q(qk_tap_dance_state_t *state, void *user_data)
@@ -107,16 +107,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NORMAL_LAYER] = LAYOUT(TO(1),    WIN_TAB, KC_HOME, KC_UP,   KC_END,
-			    WIN_LOCK, KC_MUTE, KC_LEFT, KC_DOWN, KC_RGHT),
+                WIN_LOCK, KC_MUTE, KC_LEFT, KC_DOWN, KC_RGHT),
 
     [MEDIA_LAYER]  = LAYOUT(TO(2),    KC_CALC, KC_MPRV, KC_MNXT, KC_VOLU,
-			    KC_TRNS,  KC_TRNS, KC_MSTP, KC_MPLY, KC_VOLD),
+                KC_TRNS,  KC_TRNS, KC_MSTP, KC_MPLY, KC_VOLD),
 
     [TBD_LAYER2]   = LAYOUT(TO(3),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-			    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+                KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
     [FRENCH_LAYER] = LAYOUT(TO(0),    TD(A_Q), TD(E_Q), TD(E_U), TD(E_E),
-			    KC_TRNS,  TD(A_Y), TD(I_I), TD(O_C), TD(U_U))
+                KC_TRNS,  TD(A_Y), TD(I_I), TD(O_C), TD(U_U))
 };
 
 
@@ -128,7 +128,7 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
+    return true;
 }
 */
 
@@ -146,19 +146,19 @@ layer_state_t layer_state_set_user(layer_state_t state)
     switch (biton32(state))
     {
     case NORMAL_LAYER:
-	break;
+    break;
 
     case MEDIA_LAYER:
-	turn_on_led(RED_LED);
-	break;
+    turn_on_led(RED_LED);
+    break;
 
     case TBD_LAYER2:
-	turn_on_led(BLUE_LED);
-	break;
+    turn_on_led(BLUE_LED);
+    break;
 
     case FRENCH_LAYER:
-	turn_on_led(GREEN_LED);
-	break;
-	}
+    turn_on_led(GREEN_LED);
+    break;
+    }
     return state;
 }

@@ -90,42 +90,42 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch(id) {
     case _RAISE: // Raised layer.
-	if (record->event.pressed) {
-	    layer_on(_RAISE);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	} else {
-	    layer_off(_RAISE);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	}
-	break;
+    if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    }
+    break;
     case _LOWER: // Lowered layer.
-	if (record->event.pressed) {
-	    layer_on(_LOWER);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	} else {
-	    layer_off(_LOWER);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	}
-	break;
+    if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    }
+    break;
     case _BL: // Backlight
-	if (record->event.pressed) {
-	    register_code(KC_RSFT);
+    if (record->event.pressed) {
+        register_code(KC_RSFT);
 #ifdef BACKLIGHT_ENABLE
-	    backlight_step();
+        backlight_step();
 #endif
-	} else {
-	    unregister_code(KC_RSFT);
-	}
-	break;
+    } else {
+        unregister_code(KC_RSFT);
+    }
+    break;
     case _MOB: // Your mobile# here.
-	return MACRODOWN(T(1), T(2), T(3), T(MINS),
-			 T(1), T(2), T(3), T(MINS),
-			 T(1), T(2), T(3), T(4),
-			 END);
+    return MACRODOWN(T(1), T(2), T(3), T(MINS),
+             T(1), T(2), T(3), T(MINS),
+             T(1), T(2), T(3), T(4),
+             END);
     case _CUS1: // Your custom macro 1
-	return MACRODOWN(T(E), T(M), T(A), T(C), T(S), T(SPC), END);
+    return MACRODOWN(T(E), T(M), T(A), T(C), T(S), T(SPC), END);
     case _CUS2: // Your custom macro 2
-	return MACRODOWN(T(L), T(S), T(SPC), T(MINS), T(L), T(ENT), END);
+    return MACRODOWN(T(L), T(S), T(SPC), T(MINS), T(L), T(ENT), END);
     };
     return MACRO_NONE;
 }

@@ -264,7 +264,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
       rgblight_timer_disable();
     #endif
   } else if ((rgblight_config.mode >= 2 && rgblight_config.mode <= 24) ||
-	     rgblight_config.mode == 35 ) {
+         rgblight_config.mode == 35 ) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl

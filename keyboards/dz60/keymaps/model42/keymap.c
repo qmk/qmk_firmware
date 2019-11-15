@@ -2,7 +2,7 @@
 
 // Hard Reload Chrome
 enum dz60_keycodes {
-	LT_1_OR_RELOAD_CHROME = SAFE_RANGE
+    LT_1_OR_RELOAD_CHROME = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][5][15] = {
@@ -44,21 +44,21 @@ LAYOUT_directional(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
 uint16_t custom_lt_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if(LT_1_OR_RELOAD_CHROME == keycode) {
-		if(record->event.pressed) {
-			custom_lt_timer = timer_read();
-			layer_on(1);
-		} else {
-			layer_off(1);
-			if (timer_elapsed(custom_lt_timer) < 200) {
-				register_code(KC_LGUI);
-				register_code(KC_RSHIFT);
-				register_code(KC_R);
-				unregister_code(KC_R);
-				unregister_code(KC_RSHIFT);
-				unregister_code(KC_LGUI);
-			}
-		}
-	}
-	return true;
+    if(LT_1_OR_RELOAD_CHROME == keycode) {
+        if(record->event.pressed) {
+            custom_lt_timer = timer_read();
+            layer_on(1);
+        } else {
+            layer_off(1);
+            if (timer_elapsed(custom_lt_timer) < 200) {
+                register_code(KC_LGUI);
+                register_code(KC_RSHIFT);
+                register_code(KC_R);
+                unregister_code(KC_R);
+                unregister_code(KC_RSHIFT);
+                unregister_code(KC_LGUI);
+            }
+        }
+    }
+    return true;
 }

@@ -123,7 +123,7 @@ void adb_mouse_task(void)
     y *= mouseacc;
     // Cap our two bytes per axis to one byte.
     // Easier with a MIN-function, but since -MAX(-a,-b) = MIN(a,b)...
-	 // I.E. MIN(MAX(x,-127),127) = -MAX(-MAX(x, -127), -127) = MIN(-MIN(-x,127),127)
+     // I.E. MIN(MAX(x,-127),127) = -MAX(-MAX(x, -127), -127) = MIN(-MIN(-x,127),127)
     mouse_report.x = -MAX(-MAX(x, -127), -127);
     mouse_report.y = -MAX(-MAX(y, -127), -127);
     if (debug_mouse) {

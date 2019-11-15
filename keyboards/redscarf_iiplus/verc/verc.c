@@ -28,8 +28,8 @@ void matrix_init_kb(void) {
 }
 
 void led_init_ports(void) {
-	setPinOutput(C7);
-	setPinOutput(E6);
+    setPinOutput(C7);
+    setPinOutput(E6);
 }
 
 void led_set_kb(uint8_t usb_led) {

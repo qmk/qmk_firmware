@@ -27,17 +27,17 @@ enum custom_keycodes {
 };
 
 // Mod taps
-#define SFT_ENT    SFT_T(KC_ENT)	// Tap for Enter, hold for Shift
-#define CTL_ESC    CTL_T(KC_ESC)	// Tap for Escape, hold for Control
+#define SFT_ENT    SFT_T(KC_ENT)    // Tap for Enter, hold for Shift
+#define CTL_ESC    CTL_T(KC_ESC)    // Tap for Escape, hold for Control
 
 // Custom macros
-#define SCN_SHT    LSFT(LGUI(KC_4))	// Take a screenshot (MacOS)
-#define SCN_LCK    LCTL(LGUI(KC_Q))	// Lock screen (MacOS)
-#define SH_HOME    LCTL(KC_A)		// Go to start of line
-#define SH_END     LCTL(KC_E)		// Go to end of line
-#define SH_RSCH    LCTL(KC_R)		// Search command history
-#define SH_CLRH    LCTL(KC_U)		// Erase to beginning of line
-#define SH_CLRE    LCTL(KC_K)		// Erase to end of line
+#define SCN_SHT    LSFT(LGUI(KC_4)) // Take a screenshot (MacOS)
+#define SCN_LCK    LCTL(LGUI(KC_Q)) // Lock screen (MacOS)
+#define SH_HOME    LCTL(KC_A)       // Go to start of line
+#define SH_END     LCTL(KC_E)       // Go to end of line
+#define SH_RSCH    LCTL(KC_R)       // Search command history
+#define SH_CLRH    LCTL(KC_U)       // Erase to beginning of line
+#define SH_CLRE    LCTL(KC_K)       // Erase to end of line
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

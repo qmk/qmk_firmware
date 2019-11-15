@@ -49,7 +49,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     [3] = ACTION_DEFAULT_LAYER_SET(0),
     [4] = ACTION_DEFAULT_LAYER_SET(1),
-	// Actions for the tap/hold modifiers listed above
+    // Actions for the tap/hold modifiers listed above
     [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
     [7] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_BSPC),
 

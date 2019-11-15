@@ -171,11 +171,11 @@ void transport_master_init(void)
 
 void transport_slave_init(void)
 {
-	soft_serial_target_init(transactions, TID_LIMIT(transactions));
-	slave_layer_cache = 255;
-	slave_nlock_cache = 255;
-	slave_clock_cache = 255;
-	slave_slock_cache = 255;
+    soft_serial_target_init(transactions, TID_LIMIT(transactions));
+    slave_layer_cache = 255;
+    slave_nlock_cache = 255;
+    slave_clock_cache = 255;
+    slave_slock_cache = 255;
 }
 
 bool transport_master(matrix_row_t matrix[]) {
@@ -216,21 +216,21 @@ void transport_slave(matrix_row_t matrix[]) {
   #endif
 
   if (slave_layer_cache != serial_m2s_buffer.current_layer) {
-	slave_layer_cache = serial_m2s_buffer.current_layer;
-	set_layer_indicators(slave_layer_cache);
+    slave_layer_cache = serial_m2s_buffer.current_layer;
+    set_layer_indicators(slave_layer_cache);
   }
 
   if (slave_nlock_cache != serial_m2s_buffer.nlock_led) {
-	slave_nlock_cache = serial_m2s_buffer.nlock_led;
-	led_toggle(3, slave_nlock_cache);
+    slave_nlock_cache = serial_m2s_buffer.nlock_led;
+    led_toggle(3, slave_nlock_cache);
   }
   if (slave_clock_cache != serial_m2s_buffer.clock_led) {
-	slave_clock_cache = serial_m2s_buffer.clock_led;
-	led_toggle(4, slave_clock_cache);
+    slave_clock_cache = serial_m2s_buffer.clock_led;
+    led_toggle(4, slave_clock_cache);
   }
   if (slave_slock_cache != serial_m2s_buffer.slock_led) {
-	slave_slock_cache = serial_m2s_buffer.slock_led;
-	led_toggle(5, slave_slock_cache);
+    slave_slock_cache = serial_m2s_buffer.slock_led;
+    led_toggle(5, slave_slock_cache);
   }
 
 }

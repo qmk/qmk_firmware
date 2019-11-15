@@ -30,12 +30,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,                       DE_Z,    DE_U,    DE_I,    DE_O,    DE_P, \
   DE_A,    DE_S,    DE_D,    DE_F,    DE_G,                       DE_H,    DE_J,    DE_K,    DE_L,    KC_SPC,  \
   DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,                       DE_N,    DE_M,    DE_COMM, DE_DOT,  DE_MINS,  \
-                     KC_LCTRL, MO(_LOWER), MO(_RAISE),		      KC_LGUI, KC_LSFT, KC_LALT \
+                     KC_LCTRL, MO(_LOWER), MO(_RAISE),            KC_LGUI, KC_LSFT, KC_LALT \
 ),
 
 [_RAISE] = LAYOUT( \
   DE_EXLM,  DE_QST,   DE_PARA, DE_DLR,  DE_HASH,                  DE_PLUS,  DE_7,  DE_8,   DE_9, DE_0,  \
-  DE_CIRC,  DE_QUOT, DE_DQOT, DE_GRV, DE_AMPR,              	    DE_ASTR,  DE_4,  DE_5,   DE_6, DE_EQL, \
+  DE_CIRC,  DE_QUOT, DE_DQOT, DE_GRV, DE_AMPR,                      DE_ASTR,  DE_4,  DE_5,   DE_6, DE_EQL, \
   DE_SLSH,  DE_PIPE,  DE_BSLS, DE_AT,   DE_EURO,                  DE_PERC,  DE_1,  DE_2,   DE_3, KC_TAB,  \
                     _______, _______, _______,        _______,  _______,  _______ \
 ),
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
   KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,  DE_LBRC,  DE_RBRC,  KC_AUDIO_VOL_UP,  KC_HOME,      KC_PGDOWN,  KC_PGUP,  KC_END,   DE_TILD,  \
   KC_ESC,   DE_LESS,  DE_LPRN,  DE_RPRN,  DE_MORE,                          KC_LEFT,      KC_DOWN,    KC_UP,    KC_RIGHT, KC_ENT,  \
-  KC_BSPC,  KC_DEL,   DE_LCBR,  DE_RCBR,  KC_PSCR,                        	_______,  DE_AE,    DE_OE,    DE_UE,    DE_SS,  \
+  KC_BSPC,  KC_DEL,   DE_LCBR,  DE_RCBR,  KC_PSCR,                          _______,  DE_AE,    DE_OE,    DE_UE,    DE_SS,  \
                         _______, _______, _______,                    _______,  MO(_ADJUST), _______  \
 ),
 

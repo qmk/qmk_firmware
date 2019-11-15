@@ -27,5 +27,5 @@ bool is_keyboard_left(void) {
 }
 
 void matrix_init_kb(void) {
-	matrix_init_user();
+    matrix_init_user();
 };

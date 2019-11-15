@@ -151,14 +151,14 @@ uint8_t _matrix_scan(void)
         }
 #   endif
 
-	return 1;
+    return 1;
 }
 
 uint8_t matrix_scan(void)
 {
-	uint8_t ret = _matrix_scan();
-	matrix_scan_quantum();
-	return ret;
+    uint8_t ret = _matrix_scan();
+    matrix_scan_quantum();
+    return ret;
 }
 
 bool matrix_is_modified(void)
@@ -252,22 +252,22 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void select_col(uint8_t col)
 {
 #ifdef FLIPPED_BOARD
-	col = MATRIX_COLS - col - 1;
+    col = MATRIX_COLS - col - 1;
 #endif
     for(uint8_t x = 0; x < 4; x++) {
-		uint8_t pin = col_pins[x];
+        uint8_t pin = col_pins[x];
         _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT
-		if (((col >> x) & 0x1) == 1){
-			_SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HIGH
-		} else {
-			_SFR_IO8((pin >> 4) + 2) &=  ~_BV(pin & 0xF); // LOW
-		}
-	}
+        if (((col >> x) & 0x1) == 1){
+            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HIGH
+        } else {
+            _SFR_IO8((pin >> 4) + 2) &=  ~_BV(pin & 0xF); // LOW
+        }
+    }
 }
 
 static void unselect_cols(void)
 {
-	// FIXME This really needs to use the global enable on the decoder, because currently this sets the value to col1
+    // FIXME This really needs to use the global enable on the decoder, because currently this sets the value to col1
     for(uint8_t x = 0; x < 4; x++) {
         uint8_t pin = col_pins[x];
         _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT

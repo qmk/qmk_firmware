@@ -99,53 +99,53 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch(id) {
     case _RAISE: // Raised layer.
-	if (record->event.pressed) {
-	    layer_on(_RAISE);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	} else {
-	    layer_off(_RAISE);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	}
-	break;
+    if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    }
+    break;
     case _LOWER: // Lowered layer.
-	if (record->event.pressed) {
-	    layer_on(_LOWER);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	} else {
-	    layer_off(_LOWER);
-	    update_tri_layer(_LOWER, _RAISE, _CUSTOM);
-	}
-	break;
+    if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _CUSTOM);
+    }
+    break;
     case _BL: // Backlight
-	if (record->event.pressed) {
-	    register_code(KC_RSFT);
+    if (record->event.pressed) {
+        register_code(KC_RSFT);
 #ifdef BACKLIGHT_ENABLE
-	    backlight_step();
+        backlight_step();
 #endif
-	} else {
-	    unregister_code(KC_RSFT);
-	}
-	break;
+    } else {
+        unregister_code(KC_RSFT);
+    }
+    break;
     case _CUS0: // enter your mobile# here
-	    return MACRODOWN(T(9), T(9), T(9), T(MINS),T(9), T(9), T(9), T(MINS),T(9), T(9), T(9), T(9),END);
+        return MACRODOWN(T(9), T(9), T(9), T(MINS),T(9), T(9), T(9), T(MINS),T(9), T(9), T(9), T(9),END);
     case _CUS1: // signature line for email
-	    return MACRODOWN(T(ENT), T(ENT), T(MINS), T(J), T(W), END);
+        return MACRODOWN(T(ENT), T(ENT), T(MINS), T(J), T(W), END);
     case _CUS2: // Custom macro 2
-	    return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_L), UP(KC_LSFT), END );
+        return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_L), UP(KC_LSFT), END );
     case _CUS3: // custom macro 3
-	    return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_F), UP(KC_LSFT), END );
+        return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_F), UP(KC_LSFT), END );
     case _CUS4: // custom macro 4
-	    return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_I), UP(KC_LSFT), END );
+        return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_I), UP(KC_LSFT), END );
     case _CUS5: // Enter your email here
-	    return MACRODOWN( TYPE(KC_F),
+        return MACRODOWN( TYPE(KC_F),
         DOWN(KC_LSFT), TYPE(KC_2), UP(KC_LSFT),
         TYPE(KC_G), TYPE(KC_M), TYPE(KC_A), TYPE(KC_I), TYPE(KC_L), TYPE(KC_DOT), TYPE(KC_C), TYPE(KC_O), TYPE(KC_M), END );
     case _CUT: //cut macro
-	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_X), UP(KC_LCTL), END );
+        return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_X), UP(KC_LCTL), END );
     case _COPY: // copy macro
-	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_C), UP(KC_LCTL), END );
+        return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_C), UP(KC_LCTL), END );
     case _PASTE: // paste macro
-	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END );
+        return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END );
     };
     return MACRO_NONE;
 }

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB Underglow */
 #define RGB_DI_PIN B7
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 30    			// Number of LEDs
+#define RGBLED_NUM 30               // Number of LEDs
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

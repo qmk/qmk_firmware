@@ -11,7 +11,7 @@
   L20, L21, L22, L23, L24, L25,           R26, R25, R24, R23, R22, R21, R20, \
   L30, L31, L32, L33, L34, L35,                R35, R34, R33, R32, R31, R30, \
   L40, L41, L42, L43, L44,                          R44, R43, R42, R41, R40 \
-	) \
+    ) \
   { \
   { XXX, L06, L05, L04, L03, L02, L01, L00 }, \
   { XXX, XXX, L15, L14, L13, L12, L11, L10 }, \
@@ -23,7 +23,7 @@
   { R20, R21, R22, R23, R24, R25, R26, XXX }, \
   { R30, R31, R32, R33, R34, R35, XXX, XXX }, \
   { R40, R41, R42, R43, R44, XXX, XXX, XXX } \
-	}
+    }
 
 #define LAYOUT_split60 LAYOUT
 

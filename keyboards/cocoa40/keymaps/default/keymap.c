@@ -17,10 +17,10 @@
 #include QMK_KEYBOARD_H
 
 enum layer_names {
-	_BASE,
-	_NUMS,
-	_SYMS,
-	_FN,
+    _BASE,
+    _NUMS,
+    _SYMS,
+    _FN,
 };
 
 #define KC_NUMS LT(_NUMS, KC_SPACE)

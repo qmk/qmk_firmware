@@ -20,5 +20,5 @@ extern inline void kc60se_caps_led_off(void);
 
 void led_set_kb(uint8_t usb_led) {
     (usb_led & (1<<USB_LED_CAPS_LOCK))? kc60se_caps_led_on(): kc60se_caps_led_off();
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

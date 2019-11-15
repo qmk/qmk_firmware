@@ -2,11 +2,11 @@
 
 enum chimera_ortho_layers
 {
-	_BASE,
-	_NAV,
-	_SYM,
-	_FUNC,
-	_MOUSE
+    _BASE,
+    _NAV,
+    _SYM,
+    _FUNC,
+    _MOUSE
 };
 
 #define KC_NAV MO(_NAV)
