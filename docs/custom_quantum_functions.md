@@ -120,7 +120,7 @@ return `false` when you would prefer not to run the code in `led_update_kb()`.
 Some examples include:
 
   - overriding the LEDs to use them for something else like layer indication
-    - return false as you do not want the `_kb` functions to run as they would override your layer behavior.
+    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
   - play a sound when an LED turns on or off.
     - return true because you want the `_kb` function to run and this is in addition to the default LED behavior.
 
