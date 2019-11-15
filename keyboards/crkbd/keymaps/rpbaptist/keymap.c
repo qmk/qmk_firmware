@@ -442,6 +442,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       case GAMING:
         if (record->event.pressed) {
+          if (!user_config.rgb_layer_change) {
+            user_config.rgb_layer_change = true;
+          }
           user_config.rgb_matrix_idle_timeout = 5000;
           rgb_matrix_update_mode(RGB_MATRIX_DUAL_BEACON, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
         }
