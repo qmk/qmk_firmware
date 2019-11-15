@@ -115,7 +115,7 @@ Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
 
 By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
-return false when you would prefer not to run the code in `led_update_kb()`.
+return `false` when you would prefer not to run the code in `led_update_kb()`.
 
 Some example include:
 
