@@ -1,6 +1,6 @@
 # ADC Driver
 
-QMK can leverage the Analog to Digital Converter (ADC) on supported MCUs to read voltages on certain pins. This can be useful for implementing things such as battery level indicators for Bluetooth keyboards, or volume controls using a potentiometer, as opposed to a rotary encoder.
+QMK can leverage the Analog-to-Digital Converter (ADC) on supported MCUs to measure voltages on certain pins. This can be useful for implementing things such as battery level indicators for Bluetooth keyboards, or volume controls using a potentiometer, as opposed to a rotary encoder.
 
 This driver is currently AVR-only. The values returned are 10-bit integers (0-1023) mapped between 0V and VCC (usually 5V or 3.3V).
 
