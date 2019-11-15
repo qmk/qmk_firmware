@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2011 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,8 +15,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef SYNC_TIMER_H
+#define SYNC_TIMER_H
 
-#include "config_common.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "timer.h"
 
-#define USE_SERIAL
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void sync_timer_init(void);
+void sync_timer_clear(void);
+void sync_timer_update(uint32_t time);
+uint16_t sync_timer_read(void);
+uint32_t sync_timer_read32(void);
+uint16_t sync_timer_elapsed(uint16_t last);
+uint32_t sync_timer_elapsed32(uint32_t last);
+bool sync_timer_expired(uint16_t future);
+bool sync_timer_expired32(uint32_t future);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

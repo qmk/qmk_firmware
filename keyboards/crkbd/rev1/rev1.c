@@ -2,6 +2,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
+// clang-format off
+
   // Logical Layout
   // Columns
   // Left
@@ -72,8 +74,9 @@ __attribute__((weak))
 void matrix_init_user(void) {}
 
 void matrix_init_kb(void) {
+    is_master = (uint8_t)is_keyboard_master();
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && !defined(SPLIT_TRANSPORT_MIRROR)
     if (!isLeftHand) {
         g_led_config = (led_config_t){ {
             {  51,  50,  45,  44,  37,  36 },
