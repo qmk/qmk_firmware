@@ -117,7 +117,7 @@ This function will be called when the state of one of those 5 LEDs changes. It r
 By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
 return `false` when you would prefer not to run the code in `led_update_kb()`.
 
-Some example include:
+Some examples include:
 
   - overriding the LEDs to use them for something else like layer indication
     - return false as you do not want the `_kb` functions to run as they would override your layer behavior.
