@@ -2,10 +2,7 @@
 
 This is a Dvorak layout for the Minivan 40% keyboard (default 44 keys).
 The accented characters would likely cover Dutch, German, French, Finnish,
-Norwegian, Swedish, Italian and Spanish, besides English.
-
-Qwerty users would have to change the base layer as far as their letter and
-symbol arrangement is concerned, otherwise it should work the same.
+Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 
 This keymap.c was edited from the default provided with this version of
 QMK on Github, and the LED support was copied from ../jetpacktuxedo/
@@ -39,7 +36,6 @@ keymap.
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                                 // Accessed by -*- (hold)
      <1        <2    <3       <4   | 4>    3>    2>    1>  
-    
     
     
      Layer _FUN (F-keys, CAF means Control+Alt+F-key)
@@ -82,7 +78,6 @@ keymap.
      <1     <2      <3    <4   | 4>   3>    2>    1>  
     
     
-    
      Layer _REV (REVerse hands) (Only through _FUN layer)
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
@@ -94,7 +89,6 @@ keymap.
      Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
-    
     
     
      Layer _ACC (ACCented characters)
@@ -110,9 +104,7 @@ keymap.
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
     
-    
      Layer _DRA (DRAwings, whatever else)
-
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>                              -*-      // Access on _FUN
