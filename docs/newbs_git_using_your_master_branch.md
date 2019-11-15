@@ -12,7 +12,7 @@ To keep your `master` branch updated, it is recommended to add the QMK Firmware 
 git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
-!> The `upstream` name is arbitrary; you can give the QMK repo any name that suits you. Git's `remote` command uses the syntax `git remote add <name> <url>`, `<name>` being shorthand for the remote repo. The shorthand name is usable with many Git commands, including but not limited to `fetch`, `pull` and `push`.
+?> The name `upstream` is arbitrary, but a common convention; you can give the QMK remote any name that suits you. Git's `remote` command uses the syntax `git remote add <name> <url>`, `<name>` being shorthand for the remote repo. This name is usable with many Git commands, including but not limited to `fetch`, `pull` and `push`.
 
 To verify that the repository has been added, run `git remote -v`, which should return the following:
 
@@ -48,11 +48,11 @@ git push --set-upstream origin dev_branch
 
 This creates a new branch named `dev_branch`, checks it out, and then saves the new branch to your fork. The `--set-upstream` argument tells git to use your fork and the `dev_branch` branch every time you use `git push` or `git pull` from this branch. It only needs to be used on the first push; after that, you can safely use `git push` or `git pull`, without the rest of the arguments.
 
-!> With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`.
+?> With `git push`, you can use `-u` in place of `--set-upstream` &mdash; `-u` is an alias for `--set-upstream`.
 
 You can name your branch nearly anything you want, though it is recommended to name it something related to the changes you are going to make.
 
-By default `git checkout -b` will base your new branch on the branch that is checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command:
+By default `git checkout -b` will base your new branch on the branch that is currently checked out. You can base your new branch on an existing branch that is not checked out by adding the name of the existing branch to the command:
 
 ```
 git checkout -b dev_branch master
@@ -67,8 +67,8 @@ git commit -m "My commit message."
 
 `git add` adds files that have been changed to Git's *staging area*, which is Git's "loading zone." This contains the changes that are going to be *committed* by `git commit`, which saves the changes to the repo. Use descriptive commit messages so you can know what was changed at a glance.
 
-!> If you've changed multiple files, you can use `git add -- path/to/file1 path/to/file2 ...` to add all your desired files.
+?> If you've changed multiple files, you can use `git add -- path/to/file1 path/to/file2 ...` to add all your desired files.
 
 ## Publishing Your Changes
 
-The last step is to push your changes to your fork. To do this, enter `git push`. Git now publishes the current state of `dev_branch` to your fork.
+The last step is to push your changes to your fork. To do this, enter `git push`. Git will then publish the current state of `dev_branch` to your fork.
