@@ -21,7 +21,7 @@ enum custom_keycodes {
   RGB_SOL, // RGB_MATRIX_SOLID_COLOR
   RGB_SPL, // RGB_MATRIX_SPLASH
   RGB_CYC, // RGB_MATRIX_CYCLE_ALL
-  RGB_DUO, // RGB_MATRIX_CYCLE_OUT_IN_DUAL
+  RGB_DUO, // RGB_MATRIX_RAINBOW_PINWHEELS
   RGB_CHV  // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 };
 
@@ -446,7 +446,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             user_config.rgb_layer_change = true;
           }
           user_config.rgb_matrix_idle_timeout = 5000;
-          rgb_matrix_update_mode(RGB_MATRIX_CYCLE_OUT_IN_DUAL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
+          rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
         }
         return true;
       case RGB_RST:
@@ -498,7 +498,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
       case RGB_DUO:
         if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_CYCLE_OUT_IN_DUAL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
+          rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
         }
         break;
       case RGB_CHV:
