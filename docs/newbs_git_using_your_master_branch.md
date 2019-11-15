@@ -12,6 +12,8 @@ To keep your `master` branch updated, it is recommended to add the QMK Firmware 
 git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
+!> The `upstream` name is arbitrary; you can give the QMK repo any name that suits you. Git's `remote` command uses the syntax `git remote add <name> <url>`, `<name>` being shorthand for the remote repo. The shorthand name is usable with many Git commands, including but not limited to `fetch`, `pull` and `push`.
+
 To verify that the repository has been added, run `git remote -v`, which should return the following:
 
 ```
