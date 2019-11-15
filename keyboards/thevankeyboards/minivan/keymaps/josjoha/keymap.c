@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //                                        | Right hand
 // <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-//                                       <|>
+// -*-                                   <|>                                       // Access from all other layers -*- there
 // Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 //      <pink2            , <pinky  , <ring   , <middl , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>  ,
-//                        ,         ,         ,        ,      ,    <|,>     ,      ,      ,      ,      ,         ,
+//      -*-               ,         ,         ,        ,      ,    <|,>     ,      ,      ,      ,      ,         ,
         KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
@@ -257,24 +257,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _NSY ] = LAYOUT (
 
 // <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                     <|>
+//        -*-                          <|>                                       // Layer access from _FUN -*-
 // _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1     2     3     4     5     | \|    =+    /?    [{    ]}    `~+RCtl
 // .+LSht 0     9     8     7     6     | |     +     ?     {     }      ~+RSht
 // --------------------------------------------------------
 // Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-//                              <|>
+//                          -*- <|>      -*-                                     // Layer access from _LTR -*-
 // <1        <2    <3       <4   | 4>    3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
-//                         ,         ,       ,         ,        ,       <|,>        ,         ,         ,         ,         ,                    ,
+//                         , -*-     ,       ,         ,        ,       <|,>        ,         ,         ,         ,         ,                    ,
         TO ( _LTR )        , KC_EXLM , KC_AT , KC_HASH , KC_DLR , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -----------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB , _______ , KC_ENT , RALT_T ( KC_RGHT )
-//                         ,        ,              ,       <|,>       ,         ,        ,
+//                         ,        ,              , -*-   <|,>       , -*-     ,        ,
 //      <1                 , <2     , <3           , <4     |, 4>     , 3>      , 2>     , 1>
                       ),
 
@@ -289,24 +289,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // toggl toggl toggl toggl toggl toggl | toggl                         toggl      // Type of layer switch
-//                                    <|>
+//             -*-                    <|>                                         // Access -*- _FUN
 // _LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  CAF11 CAF12 F12   F11   _DRA
 // LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
 // LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
 // -----------------------------------------------
-// LAlt  ___   ___   ___  | ___   ___   ___   RAlt
-//                       <|>
+// LAlt  xxx   xxx   xxx  | xxx   xxx   xxx   RAlt
+//                       <|>            -*-                                       // Acces -*- _LTR
 // <1    <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
 //      <pink2      , <pinky         , <ring         , <middl        , <index        , <indx2       |, indx2>      , index>         , middl>         , ring>  , pinky> , pink2>      ,
-//                  ,                ,               ,               ,               ,             <|,>            ,                ,                ,        ,        ,             ,
+//                  ,                , -*-           ,               ,               ,             <|,>            ,                ,                ,        ,        ,             ,
         TO ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , LCA ( KC_F11 ) , LCA ( KC_F12 ) , KC_F12 , KC_F11 , TO ( _DRA ) ,
         KC_LCTL     , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4          , KC_F3          , KC_F2  , KC_F1  , KC_RCTL     ,
         KC_LSFT     , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) , KC_F6       , KC_F7          , KC_F8          , KC_F9  , KC_F10 , KC_RSFT     ,
 //      -----------------------------------------------------------------------------
-        KC_LALT , _______ , _______ , _______ , _______ , _______ , _______ , KC_RALT
-//              ,         ,         ,       <|,>        ,         ,         ,
+        KC_LALT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_RALT
+//              ,         ,         ,       <|,>        ,         , -*-     ,
 //      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
 
@@ -320,24 +320,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _MOV ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>
+//                   -*-              <|>
 // _LTR  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
 // LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
 // LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
 // -------------------------------------------------------------
-// Left+LAlt Del   ___   Sht(tab) | tab   ___   ___   Right+RAlt
-//                               <|>
+// Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
+//                 -*-           <|>
 // <1        <2    <3    <4       | 4>    3>    2>    1>  
 //
 //
 //      <pink2      , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                  ,         ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,         ,
+//                  ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
         TO ( _LTR ) , KC_WH_L , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3 , KC_HOME , KC_PGUP , KC_PGDN , KC_END  , KC_BSPC ,
         KC_LCTL     , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
         KC_LSFT     , KC_BTN5 , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , _______ , _______ , RALT_T ( KC_RGHT )
-//                         ,         ,         ,            <|,>        ,         ,         ,
+        LALT_T ( KC_LEFT ) , KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
+//                         ,         , -*-     ,            <|,>        ,         ,         ,
 //      <1                 , <2      , <3      , <4          |, 4>      , 3>      , 2>      , 1>
                       ),
 
@@ -351,23 +351,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _RAR ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>
+//                         -*-        <|>
 // _LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
-// Tab   xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx Insert
+// Tab   uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert
 // xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
 // ------------------------------------------------
-// xxx    ___     ___   ___  | ___  ___   ___   App
+// xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
 //                          <|>
 // <1     <2      <3    <4   | 4>   3>    2>    1>  
 //
 //
-//      <pink2      , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                  ,         ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,         ,
-        TO ( _LTR ) , KC_CAPS , KC_NLCK , KC_PAUS , KC_SLCK , KC_PSCR , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
-        KC_TAB      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
-        XXXXXXX     , KC_MSTP , KC_MPLY , KC_MPRV , KC_MNXT , KC_VOLD , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
+//      <pink2      , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
+//                  ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
+        TO ( _LTR ) , KC_CAPS          , KC_NLCK          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
+        KC_TAB      , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
+        XXXXXXX     , KC_MSTP          , KC_MPLY          , KC_MPRV          , KC_MNXT          , KC_VOLD           , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
 //      ----------------------------------------------------------------------------
-        XXXXXXX , _______ , _______ , _______ , _______ , _______ , _______ , KC_APP  
+        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP  
 //              ,         ,         ,       <|,>        ,         ,         ,
 //      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
@@ -382,23 +382,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _REV ] = LAYOUT (
 
 // <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                     <|>
+//                                -*-  <|>
 // _LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
 // -+LCtl Left  Down  Up    Right xxx   | 5     4     3     2     1     RCtl
 // .+LSht xxx   xxx   xxx   xxx   xxx   | 6     7     8     9     0     RSht
 // ----------------------------------------------------------
-// Left+LAlt Del   Sht(Tab) ___  | Tab  ___   Ent   Right+Alt
+// Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
 //                              <|>
 // <1        <2    <3       <4   | 4>   3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                         ,         ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,         ,
+//                         ,         ,         ,         ,         , -*-   <|,>        ,         ,         ,         ,         ,         ,
         TO ( _LTR )        , KC_END  , KC_PGDN , KC_PGUP , KC_HOME , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_BSPC ,
         LCTL_T ( KC_MINS ) , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , XXXXXXX , KC_5    , KC_4    , KC_3    , KC_2    , KC_1    , KC_RCTL ,
         LSFT_T ( KC_DOT )  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_RSFT ,
 //      -------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB  , _______ , KC_ENT  , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , XXXXXXX , KC_TAB  , XXXXXXX , KC_ENT  , RALT_T ( KC_RGHT )
 //                         ,        ,              ,       <|,>        ,         ,         ,
 //      <1                 , <2     , <3           , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
@@ -457,25 +457,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _ACC ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>
+//                                    <|>-*-
 // _LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
 // LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
 // ---------------------------------------------------------
-// LAlt+Left Del   Linux Ent  | Spc   ___   ___   RAlt+Right
-//                           <|>
+// LAlt+Left Del   xxx   Ent  | Spc   xxx   xxx   ___
+//                           <|>                  -*-
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
-//                  ,                          ,                          ,                          ,                          ,                        <|,>                         ,                          ,                          ,                          ,                          ,         ,
+//                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
         TO ( _LTR ) , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ------------------------------------------------------------------------------------
-        KC_LALT , KC_DEL , UNICODE_MODE_LNX , KC_ENT , KC_SPC , _______ , _______ , _______ 
-//	        ,        ,                  ,      <|,>       ,         ,         ,
-//     <1       ,<2      ,<3                ,<4     |, 4>     , 3>      , 2>      , 1>
+        KC_LALT , KC_DEL , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX , _______ 
+//	        ,        ,         ,      <|,>       ,         ,         , -*-
+//     <1       ,<2      ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
                       ),
 
 	/**/
@@ -490,13 +490,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _DRA ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>
+//                                    <|>                              -*-
 // _LTR  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
 // LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
 // LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
 // ---------------------------------------------------------
-// LAlt+Left Del   ___   Ent  | Spc   ___   ___   RAlt+Right
-//                           <|>
+// LAlt+Left ___   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+//           -*-             <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
@@ -506,9 +506,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , X ( CQU_INV ) , XXXXXXX       , XXXXXXX                  , KC_RCTL ,
         KC_LSFT     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , XXXXXXX       , XXXXXXX       , XXXXXXX                  , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
-//                         ,        ,         ,       <|,>        ,         ,         ,
-//      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>      , 1>
+        LALT_T ( KC_LEFT ) , _______ , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
+//                         ,         ,         ,       <|,>        ,         ,         ,
+//      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
 
 	/**/

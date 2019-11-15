@@ -17,7 +17,7 @@ keymap.
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> // Keys by finger
-     ***                                   <|>                                     // *** Access from all
+     -*-                                   <|>                                     // -*- Access from all
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
@@ -31,13 +31,13 @@ keymap.
      Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-            ***                          <|>                                      // *** Access on _FUN
+            -*-                          <|>                                      // -*- Access on _FUN
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1     2     3     4     5     | \|    =+    /?    [{    ]}    `~+RCtl
      .+LSht 0     9     8     7     6     | |     +     ?     {     }      ~+RSht
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              *** <|>      ***                                 // Accessed by *** (hold)
+                              -*- <|>      -*-                                 // Accessed by -*- (hold)
      <1        <2    <3       <4   | 4>    3>    2>    1>  
     
     
@@ -46,38 +46,38 @@ keymap.
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl                         toggl        // Type of switch
-                 ***                    <|>                                     // *** Locks _Fun layer
+                 -*-                    <|>                                     // -*- Locks _Fun layer
      _LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  CAF11 CAF12 F12   F11   _DRA
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
      LAlt  ___   ___   ___  | ___   ___   ___   RAlt
-                           <|>            ***                             // Accessed by *** (one shot)
+                           <|>            -*-                             // Accessed by -*- (one shot)
      <1    <2    <3    <4   | 4>    3>    2>    1>  
     
     
      Layer _MOV (MOVement, mouse movement on left hand)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                       ***              <|>                                           // Access on _FUN
+                       -*-              <|>                                           // Access on _FUN
      _LTR  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
      LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------
      Left+LAlt Del   ___   Sht(tab) | tab   ___   ___   Right+RAlt
-                     ***           <|>                                        // Accessed by *** (hold)
+                     -*-           <|>                                        // Accessed by -*- (hold)
      <1        <2    <3    <4       | 4>    3>    2>    1>  
     
     
      _RAR (RARely used keys) (Only through _FUN layer)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                             ***        <|>                                          // Access on _FUN
+                             -*-        <|>                                          // Access on _FUN
      _LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
      Tab   xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx Insert
      xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
      ------------------------------------------------
-     xxx    ___     ___   ___  | ___  ___   ___   App
+     xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
                               <|>
      <1     <2      <3    <4   | 4>   3>    2>    1>  
     
@@ -86,12 +86,12 @@ keymap.
      Layer _REV (REVerse hands) (Only through _FUN layer)
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                    ***  <|>                                        // Access on _FUN
+                                    -*-  <|>                                        // Access on _FUN
      _LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      -+LCtl Left  Down  Up    Right xxx   | 5     4     3     2     1     RCtl
      .+LSht xxx   xxx   xxx   xxx   xxx   | 6     7     8     9     0     RSht
      ----------------------------------------------------------
-     Left+LAlt Del   Sht(Tab) ___  | Tab  ___   Ent   Right+Alt
+     Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
     
@@ -100,13 +100,13 @@ keymap.
      Layer _ACC (ACCented characters)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>***                                     // Access on _FUN
+                                        <|>-*-                                     // Access on _FUN
      _LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------------------
      LAlt+Left Del   Linux Ent  | Spc   ___   ___   RAlt+Right
-                               <|>                  ***                    // Accessed by *** (hold)
+                               <|>                  -*-                    // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
     
@@ -115,13 +115,13 @@ keymap.
 
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>                              ***      // Access on _FUN
+                                        <|>                              -*-      // Access on _FUN
      _LTR  ¡     xxx   xxx   xxx   xxx   | xxx   🙂😃  👍    👎     ⍨🙁   Bspc
      LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
      LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
      ---------------------------------------------------------
-     LAlt+Left Del   ___   Ent  | Spc   ___   ___   RAlt+Right
-               ***             <|>                                         // Accessed by *** (hold)
+     LAlt+Left ___   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+               -*-             <|>                                         // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
    
