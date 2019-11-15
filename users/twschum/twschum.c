@@ -1,9 +1,5 @@
 #include "twschum.h"
 
-// util for detecting simultanious shifts
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
-
 #ifdef TWSCHUM_TAPPING_CTRL_PREFIX
 // state for the great state machine of custom actions!
 #define TIMEOUT_DELAY 200 // ms
@@ -81,7 +77,7 @@ static inline bool tap_ctrl_other_pressed(void) {
             else {
                 // another key pressed after leader key released,
                 // need to send the plain keycode plus potential mods
-                if (get_mods() & MODS_CTRL_MASK) {
+                if (get_mods() & MOD_MASK_CTRL) {
                     // make sure to send a shift if prssed
                     repeat_send_keys(key->count, KC_RSHIFT, key->keycode);
                 }
