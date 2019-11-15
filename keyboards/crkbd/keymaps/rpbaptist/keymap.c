@@ -19,7 +19,7 @@ enum custom_keycodes {
   RGB_UND, // Toggle RGB underglow as layer indicator
   RGB_MAP, // RGB_MATRIX_TYPING_HEATMAP
   RGB_SOL, // RGB_MATRIX_SOLID_COLOR
-  RGB_SPL, // RGB_MATRIX_SPLASH
+  RGB_SPL, // RGB_MATRIX_MULTISPLASH
   RGB_CYC, // RGB_MATRIX_CYCLE_ALL
   RGB_DUO, // RGB_MATRIX_RAINBOW_PINWHEELS
   RGB_CHV  // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
@@ -483,7 +483,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
       case RGB_SPL:
         if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_SPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
+          rgb_matrix_update_mode(RGB_MATRIX_MULTISPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
         }
         break;
       case RGB_SOL:
