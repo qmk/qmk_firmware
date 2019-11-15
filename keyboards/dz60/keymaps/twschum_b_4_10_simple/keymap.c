@@ -7,7 +7,6 @@
  * http://www.keyboard-layout-editor.com/#/gists/225f0f4dcf6671405f744fabe314627c
  */
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 #undef KEYMAP
 #define KEYMAP( \
