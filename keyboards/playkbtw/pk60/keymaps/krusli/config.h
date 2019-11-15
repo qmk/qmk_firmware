@@ -1,0 +1,3 @@
+#ifdef LOCKING_RESYNC_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#endif
