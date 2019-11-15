@@ -14,7 +14,7 @@
 
 // Combos
 enum combos {
-	WE,AS,SD,DF,XC,OP,
+	WE,AS,SD,DF,XC,OP,CV,
 	UI,HJ,JK,KL,MC,NM,
 	FV,GB,HN,
 	SDJK
@@ -36,10 +36,11 @@ enum combos {
  *  '-------------------------'           '-----------------' 
  */
 const uint16_t PROGMEM we_combo[] = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM as_combo[] = {MT(MOD_LCTL, KC_A), KC_S, COMBO_END};
+//const uint16_t PROGMEM as_combo[] = {MT(MOD_LCTL, KC_A), KC_S, COMBO_END};
 const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM xc_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 
 const uint16_t PROGMEM op_combo[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM ui_combo[] = {KC_U, KC_I, COMBO_END};
@@ -58,10 +59,11 @@ const uint16_t PROGMEM sdjk_combo[] = {KC_J, KC_K, KC_S, KC_D, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
 	// Horizontal Chords
   [WE] = COMBO(we_combo, KC_ESC),
-  [AS] = COMBO(as_combo, KC_TAB),
+  //[AS] = COMBO(as_combo, KC_ENT),
   [SD] = COMBO(sd_combo, KC_BSPC),
-  [DF] = COMBO(df_combo, KC_ENT),
+  [DF] = COMBO(df_combo, KC_TAB),
   [XC] = COMBO(xc_combo, KC_MINS),
+  [CV] = COMBO(cv_combo, KC_ENT),
 
   [OP] = COMBO(op_combo, KC_BSLS),
   [UI] = COMBO(ui_combo, KC_ESC),
