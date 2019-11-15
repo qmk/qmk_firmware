@@ -1,6 +1,6 @@
 # BR ABNT2 layout
 
-This is a Brazilian ABNT2 keymap for the DZ60 in a standard layout.
+This is a Brazilian ABNT2 keymap for the GH60 in a standard layout.
 
 The top-left sends Escape normally, but becomes a quote key when
 tapped whilst either Fn or GUI are held down.
