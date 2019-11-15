@@ -2,7 +2,6 @@
 
 #include "quantum.h"
 
-//void promicro_bootloader_jmp(bool program);
 /*
  * ,-----------------.
  * |     | L01 |     |
