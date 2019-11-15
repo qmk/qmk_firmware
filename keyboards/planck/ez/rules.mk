@@ -1,8 +1,5 @@
-# project specific files
-LAYOUTS += ortho_4x12
-
-# Cortex version
-MCU  = STM32F303
+# MCU name
+MCU = STM32F303
 
 # Build Options
 #   comment out to disable the options.
@@ -22,3 +19,5 @@ RGBLIGHT_ENABLE = no
 # SERIAL_LINK_ENABLE = yes
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = IS31FL3737
+
+LAYOUTS += ortho_4x12
