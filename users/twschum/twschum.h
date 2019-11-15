@@ -52,7 +52,7 @@ enum layers_definitions {
 };
 #ifdef RGBLIGHT_ENABLE
 #define _Base_HSV_ON  HSV_WHITE
-#define _Base_HSV_OFF HSV_OFF
+#define _Base_HSV_OFF 0, 0, 0
 #define _Vim_HSV      HSV_ORANGE
 #define _Fn_HSV       HSV_GREEN
 #define _Nav_HSV      HSV_AZURE
