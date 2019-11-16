@@ -3,7 +3,6 @@
 #   the appropriate keymap folder that will get included automatically
 #
 CONSOLE_ENABLE = no
-NKRO_ENABLE = yes
 BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
@@ -49,11 +48,8 @@ COMBO_ENABLE = yes
 endif
 
 ifeq ($(strip $(KEYBOARD)), hhkb)
-MOUSEKEY_ENABLE = no        # Mouse keys
-EXTRAKEY_ENABLE = yes        # Audio control and System control
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-TAP_DANCE_ENABLE = no
+TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
+SRC += tominabox1.c
 BOOTLOADER = halfkay
 endif

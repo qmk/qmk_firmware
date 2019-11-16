@@ -6,8 +6,8 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // Combos
-#ifndef KEYBOARD_thevankeyboards_roadkit
-#define COMBO_COUNT 3
+#ifndef KEYBOARD_thevankeyboards_roadkit // Combo settings for NOT roadkit - roadkit defined in keymap folder
+#define COMBO_COUNT 4
 #define COMBO_TERM 70
 #endif
 

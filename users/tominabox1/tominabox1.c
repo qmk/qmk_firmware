@@ -44,7 +44,8 @@ layer_state_t layer_state_set_user (layer_state_t state) {
 enum combo_events {
   EMAIL,
   COMBO_RESET,
-  CAPS_COMBO
+  CAPS_COMBO,
+  CRET
 };
 
 const uint16_t PROGMEM email[] = {KC_Q, KC_W, COMBO_END};
@@ -55,11 +56,13 @@ const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
 #ifndef KEYBOARD_crkbd_rev1
 const uint16_t PROGMEM caps_combo[] = {KC_K, KC_V, COMBO_END};
 #endif
+const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [EMAIL] = COMBO_ACTION(email),
   [COMBO_RESET] = COMBO_ACTION(combo_reset),
   [CAPS_COMBO] = COMBO_ACTION(caps_combo),
+  [CRET] = COMBO_ACTION(cret),
 };
 
 __attribute__ ((weak))
@@ -85,5 +88,9 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
       unregister_code16(KC_CAPS);
     }
     break;
+    case CRET:
+    if (pressed) {
+      tap_code16(KC_ENT);
+    }
   }
 }
