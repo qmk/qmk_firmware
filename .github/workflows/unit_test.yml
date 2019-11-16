@@ -15,7 +15,7 @@ on:
     - '.github/workflows/unit_test.yml'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     container: qmkfm/base_container
