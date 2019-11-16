@@ -3,6 +3,7 @@
 import json
 import qmk.keymap
 
+
 def create_make_command(keyboard, keymap, target=None):
     """Create a make compile command
 
@@ -23,6 +24,7 @@ def create_make_command(keyboard, keymap, target=None):
         return ['make', ':'.join((keyboard, keymap))]
     return ['make', ':'.join((keyboard, keymap, target))]
 
+
 def parse_configurator_json(configurator_filename):
     """Open and parse a configurator json export
     """
@@ -30,6 +32,7 @@ def parse_configurator_json(configurator_filename):
     user_keymap = json.load(file)
     file.close()
     return user_keymap
+
 
 def compile_configurator_json(configurator_filename, bootloader=None):
     """Convert a configurator export JSON file into a C file
@@ -54,4 +57,3 @@ def compile_configurator_json(configurator_filename, bootloader=None):
     if bootloader is None:
         return create_make_command(user_keymap['keyboard'], user_keymap['keymap'])
     return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader)
-
