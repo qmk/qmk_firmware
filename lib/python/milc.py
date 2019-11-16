@@ -501,12 +501,12 @@ class MILC(object):
 
             if argument not in self.arg_only:
                 # Find the argument's section
-                argument_found = True
-                for group in self.default_arguments:
-                    if argument in self.default_arguments[group]:
-                        argument_found = True
-                        section = group
-                        break
+                if self._entrypoint.__name__ in self.default_arguments and argument in self.default_arguments[self._entrypoint.__name__]:
+                    argument_found = True
+                    section = self._entrypoint.__name__
+                if argument in self.default_arguments['general']:
+                    argument_found = True
+                    section = 'general'
 
                 if not argument_found:
                     raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
