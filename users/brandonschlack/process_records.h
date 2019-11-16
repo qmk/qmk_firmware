@@ -23,15 +23,15 @@ void matrix_scan_cmd_tab(void);
  * Some meta aliases for QMK features such as Mod-Taps
  * and for cleaner looking Layer Toggles
  */
-#define HY_CAPS   ALL_T(KC_CAPS)
-#define HY_ESC    ALL_T(KC_ESC)
-#define SF_CAPS   LSFT_T(KC_CAPS)
-#define SFT_ENT   RSFT_T(KC_ENT)
-#define FN_LYR    MO(_FN)
-#define LOWER     MO(_LOWER)
-#define RAISE     MO(_RAISE)
-#define TG_ADJT   TG(_ADJUST)
-#define TG_LGHT   TG(_LIGHT)
+#define HY_CAPS   ALL_T(KC_CAPS)       // Hold Caps Lock for Hyper (Shift-Control-Option-Command)
+#define HY_ESC    ALL_T(KC_ESC)        // Hold Escape for Hyper (Shift-Control-Option-Command)
+#define SF_CAPS   LSFT_T(KC_CAPS)      // Hold Caps Lock for Left Shift
+#define SFT_ENT   RSFT_T(KC_ENT)       // Hold Enter for Right Shift
+#define FN_LYR    MO(_FN)              // Hold for FN Layer
+#define LOWER     MO(_LOWER)           // Hold for LOWER Layer
+#define RAISE     MO(_RAISE)           // Hold for RAISE Layer
+#define TG_ADJT   TG(_ADJUST)          // Toggle ADJUST Layer
+#define TG_LGHT   TG(_LIGHT)           // Toggle LIGHT Layer
 /**
  * Media Mod-Tap
  * Use the Mod-Tap feature for easy media controls
@@ -94,14 +94,14 @@ void matrix_scan_cmd_tab(void);
 // Macropad Defines
 #if defined(IS_MACROPAD)
 // Macropad Default Layer keycodes
-#define DF_REDR   DF(_REEDER)
-#define DF_MEDA   DF(_MEDIA)
-#define DF_NAVI   DF(_NAVI)
-#define DF_MCRO   DF(_MACRO)
+#define DF_REDR   DF(_REEDER)          // Set Default Layer to Reeder shortcuts
+#define DF_MEDA   DF(_MEDIA)           // Set Default Layer to Media controls
+#define DF_NAVI   DF(_NAVI)            // Set Default Layer to Navigation shortcuts
+#define DF_MCRO   DF(_MACRO)           // Set Default Layer to Basic Macro keys
 #endif
 
 // RGB Theme
-#define RGB_THM   RGB_THEME_FORWARD
-#define RGB_RTHM  RGB_THEME_REVERSE
+#define RGB_THM   RGB_THEME_FORWARD    // Cycle next RGB_THEME
+#define RGB_RTHM  RGB_THEME_REVERSE    // Cycle previous RGB_THEME
 
 void send_make_command(bool flash_bootloader);

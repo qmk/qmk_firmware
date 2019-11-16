@@ -27,7 +27,7 @@ enum bs_layers {
     KEYMAP_LAYERS, // Add more layers in keymaps
     /* Protected Layer */
     _AUDIO = 13, // 13: Audio controls
-    _LIGHT = 14, // 14: BLight/RGB controls
+    _LIGHT = 14, // 14: Backlight/RGB controls
     _ADJUST = 15 // 15: Change keyboard settings
 };
 
