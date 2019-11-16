@@ -32,6 +32,7 @@ def print_bootloader_help():
     cli.echo('\tst-link-cli')
     cli.echo('For more info, visit https://docs.qmk.fm/#/flashing')
 
+
 @cli.argument('-bl', '--bootloader', default='flash', help='The flash command, corresponding to qmk\'s make options of bootloaders.')
 @cli.argument('filename', nargs='?', arg_only=True, help='The configurator export JSON to compile. Use this if you dont want to specify a keymap and keyboard.')
 @cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Use this if you dont have a configurator file. Ignored when a configurator file is supplied.')
