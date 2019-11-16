@@ -1,6 +1,6 @@
-MCU  = STM32F303
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
-DFU_SUFFIX_ARGS = -p DF11 -v 0483
+# MCU name
+MCU = STM32F303
+
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = lite           # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
@@ -12,5 +12,3 @@ NKRO_ENABLE = no                 # USB Nkey Rollover
 AUDIO_ENABLE = no
 RGB_MATRIX_ENABLE = IS31FL3733     # Use RGB matrix
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
-
-LAYOUTS = 60_ansi

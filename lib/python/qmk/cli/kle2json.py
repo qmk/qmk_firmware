@@ -31,7 +31,7 @@ class CustomJSONEncoder(json.JSONEncoder):
 @cli.subcommand('Convert a KLE layout to a Configurator JSON')
 def kle2json(cli):
     """Convert a KLE layout to QMK's layout format.
-    """        # If filename is a path
+    """  # If filename is a path
     if cli.args.filename.startswith("/") or cli.args.filename.startswith("./"):
         file_path = Path(cli.args.filename)
     # Otherwise assume it is a file name
@@ -45,7 +45,7 @@ def kle2json(cli):
     # Check if info.json exists, allow overwrite with force
     if Path(out_path, "info.json").exists() and not cli.args.force:
         cli.log.error('File {fg_cyan}%s/info.json{style_reset_all} already exists, use -f or --force to overwrite.', str(out_path))
-        return False;
+        return False
     try:
         # Convert KLE raw to x/y coordinates (using kle2xy package from skullydazed)
         kle = KLE2xy(raw_code)
@@ -65,11 +65,9 @@ def kle2json(cli):
         }},
     )
     # Initialize keyboard with json encoded from ordered dict
-    keyboard = json.dumps(keyboard, indent=4, separators=(
-        ', ', ': '), sort_keys=False, cls=CustomJSONEncoder)
+    keyboard = json.dumps(keyboard, indent=4, separators=(', ', ': '), sort_keys=False, cls=CustomJSONEncoder)
     # Initialize layout with kle2qmk from converter module
-    layout = json.dumps(kle2qmk(kle), separators=(
-        ', ', ':'), cls=CustomJSONEncoder)
+    layout = json.dumps(kle2qmk(kle), separators=(', ', ':'), cls=CustomJSONEncoder)
     # Replace layout in keyboard json
     keyboard = keyboard.replace('"LAYOUT_JSON_HERE"', layout)
     # Write our info.json
