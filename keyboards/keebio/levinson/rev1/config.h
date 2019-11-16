@@ -36,10 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, F4 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D0
@@ -55,5 +55,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 12    // Number of LEDs
 
 /* Backlight LEDs */
-#define BACKLIGHT_PIN B6
+#define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 7

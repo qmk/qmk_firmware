@@ -2,7 +2,7 @@
 
 #include "talljoe.h"
 #ifdef ZEAL_RGB
-#include "../../../keyboards/zeal60/rgb_backlight.h"
+#include "../../../keyboards/wilba_tech/wt_rgb_backlight.h"
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

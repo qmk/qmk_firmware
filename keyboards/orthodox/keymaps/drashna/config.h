@@ -39,37 +39,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 16     // Number of LEDs
-#define RGBLED_SPLIT { 8, 8 }
+#   define RGB_DI_PIN D3
+#   define RGBLED_NUM 16     // Number of LEDs
+#   define RGBLED_SPLIT { 8, 8 }
 
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 12
-#define RGBLIGHT_VAL_STEP 12
-#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+#   define RGBLIGHT_HUE_STEP 12
+#   define RGBLIGHT_SAT_STEP 12
+#   define RGBLIGHT_VAL_STEP 12
+#   define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
+#   define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #endif // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
-#define C6_AUDIO
-#ifdef RGBLIGHT_ENABLE
-#define NO_MUSIC_MODE
-#endif
+#   define C6_AUDIO
+#   ifdef RGBLIGHT_ENABLE
+#       define NO_MUSIC_MODE
+#   endif
 #endif //AUDIO_ENABLE
 
 #undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
-#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#   define PRODUCT         Drashna Hacked Orthodox Rev.1
 #elif KEYBOARD_orthodox_rev3
-#define PRODUCT         Drashna Hacked Orthodox Rev.3
+#   define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
 #define QMK_ESC_OUTPUT D7 // usually COL
 #ifdef KEYBOARD_orthodox_rev1
-#define QMK_ESC_INPUT D4 // usually ROW
+#   define QMK_ESC_INPUT D4 // usually ROW
 #else
-#define QMK_ESC_INPUT D2 // usually ROW
+#   define QMK_ESC_INPUT D2 // usually ROW
 #endif
 #define QMK_LED B0
 #define QMK_SPEAKER C6

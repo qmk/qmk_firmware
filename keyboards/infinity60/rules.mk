@@ -53,11 +53,14 @@ ARMV = 7
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 
+BOOTLOADER = dfu
+
 # Build Options
 #   comment out to disable the options.
 #
 
 DFU_ARGS = -d 1c11:b007
+DFU_SUFFIX_ARGS = -p b007 -v 1c11
 
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)

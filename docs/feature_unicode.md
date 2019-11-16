@@ -1,48 +1,78 @@
 # Unicode Support
 
-There are three Unicode keymap definition methods available in QMK:
+Unicode characters can be input straight from your keyboard! There are some limitations, however.
 
-## `UNICODE_ENABLE`
+QMK has three different methods for enabling Unicode input and defining keycodes:
 
-Supports Unicode up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji. The keycode function is `UC(c)` in the keymap file, where _c_ is the code point's number (preferably hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+## Basic Unicode
 
-## `UNICODEMAP_ENABLE`
+This method supports Unicode code points up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table. The table may contain at most 1024 entries.
+Add the following to your `rules.mk`:
 
-You may want to have an enum to make referencing easier. So, you could add something like this to your keymap file:
+```make
+UNICODE_ENABLE = yes
+```
+
+Then add `UC(c)` keycodes to your keymap, where _c_ is the code point (preferably in hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
+
+## Unicode Map
+
+This method supports all possible code points (up to `0x10FFFF`); however, you need to maintain a separate mapping table in your keymap file, which may contain at most 16384 entries.
+
+Add the following to your `rules.mk`:
+
+```make
+UNICODEMAP_ENABLE = yes
+```
+
+Then add `X(i)` keycodes to your keymap, where _i_ is an array index into the mapping table:
 
 ```c
 enum unicode_names {
-  BANG,
-  IRONY,
-  SNEK,
+    BANG,
+    IRONY,
+    SNEK
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [BANG]  = 0x203D,  // ‽
-  [IRONY] = 0x2E2E,  // ⸮
-  [SNEK]  = 0x1F40D, // 🐍
+    [BANG]  = 0x203D,  // ‽
+    [IRONY] = 0x2E2E,  // ⸮
+    [SNEK]  = 0x1F40D, // 🐍
 };
 ```
 
-Then you can use `X(BANG)` etc. in your keymap.
+Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
 
-## `UCIS_ENABLE`
+### Lower and Upper Case
 
-Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once this function's been called, you can type the corresponding mnemonic for your character, then hit Space or Enter to complete it, or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode character inserted.
+Characters often come in lower and upper case pairs, such as å and Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
 
-For instance, you would define a table like this in your keymap file:
+This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `XP()`. This helps blend Unicode keys in with regular alphas.
+
+Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L40) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
+
+## UCIS
+
+This method also supports all possible code points. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
+
+Add the following to your `rules.mk`:
+
+```make
+UCIS_ENABLE = yes
+```
+
+Then define a table like this in your keymap file:
 
 ```c
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
-  UCIS_SYM("poop", 0x1F4A9), // 💩
-  UCIS_SYM("rofl", 0x1F923), // 🤣
-  UCIS_SYM("kiss", 0x1F619)  // 😙
+    UCIS_SYM("poop", 0x1F4A9), // 💩
+    UCIS_SYM("rofl", 0x1F923), // 🤣
+    UCIS_SYM("kiss", 0x1F619)  // 😙
 );
 ```
 
-You call `qk_ucis_start()`, then type "rofl" and hit Enter. QMK should erase the "rofl" text and input the laughing emoji.
+To use it, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl"), and hit Space or Enter. QMK should erase the "rofl" text and insert the laughing emoji.
 
 ### Customization
 
@@ -60,28 +90,29 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
+* **`UC_OSX`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with Unicode Map).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
-  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_OSX_KEY`](#input-key-configuration) with another keycode.
+  By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
 
-  **Note:** Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as: Option + Left Arrow (`moveWordLeftAndModifySelection`) and Option + Right Arrow  (`moveWordRightAndModifySelection`).
+  !> Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as Option + Left Arrow and Option + Right Arrow.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
+  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with another keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
-  To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Afterwards, reboot.
+  To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
   This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
 
 * **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
 
-* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF` (all currently assigned code points).
+* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.9.0, supports code points up to `0x10FFFF` (all possible code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining [`UNICODE_WINC_KEY`](#input-key-configuration) with another keycode.
+  By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
 
 ### Switching Input Modes
 
@@ -89,21 +120,21 @@ There are two ways to set the input mode for Unicode: by keycode or by function.
 
 You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
 
-|Keycode                |Alias    |Input mode   |Description                              |
-|-----------------------|---------|-------------|-----------------------------------------|
-|`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycles forwards through the available modes. [(Disabled by default)](#input-method-cycling)|
-|`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycles forwards through the available modes. [(Disabled by default)](#input-method-cycling)|
-|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to Mac OS X input.                |
-|`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input.                   |
-|`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
-|`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
-|`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
+|Keycode               |Alias    |Input Mode  |Description                                                   |
+|----------------------|---------|------------|--------------------------------------------------------------|
+|`UNICODE_MODE_FORWARD`|`UC_MOD` |Next in list|[Cycle](#input-mode-cycling) through selected modes           |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Prev in list|[Cycle](#input-mode-cycling) through selected modes in reverse|
+|`UNICODE_MODE_OSX`    |`UC_M_OS`|`UC_OSX`    |Switch to macOS input                                         |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`|`UC_LNX`    |Switch to Linux input                                         |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`|`UC_WIN`    |Switch to Windows input                                       |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`|`UC_BSD`    |Switch to BSD input (not implemented)                         |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`|`UC_WINC`   |Switch to Windows input using WinCompose                      |
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user()` (or a similar function). For example:
 
 ```c
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UC_LNX);
 }
 ```
 
@@ -123,34 +154,44 @@ For instance, you can add these definitions to your `config.h` file:
 
 ### Additional Customization
 
-Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system.
+Because Unicode is a large and versatile feature, there are a number of options you can customize to make it work better on your system.
 
-#### Start and Finish input functions
+#### Start and Finish Input Functions
 
 The functions for starting and finishing Unicode input on your platform can be overridden locally. Possible uses include customizing input mode behavior if you don't use the default keys, or adding extra visual/audio feedback to Unicode input.
 
-* `void unicode_input_start(void)` – This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on Mac.
+* `void unicode_input_start(void)` – This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on macOS.
 * `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Option key.
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
-
 #### Input Key Configuration
 
-Additionally, you can customize the keys used to trigger the unicode input for macOS and WinCompose by adding defines to your `config.h`
+You can customize the keys used to trigger Unicode input for macOS, Linux and WinCompose by adding corresponding defines to your `config.h`. The default values match the platforms' default settings, so you shouldn't need to change this unless Unicode input isn't working, or you want to use a different key (e.g. in order to free up left or right Alt).
+
+|Define            |Type      |Default           |Example                                    |
+|------------------|----------|------------------|-------------------------------------------|
+|`UNICODE_KEY_OSX` |`uint8_t` |`KC_LALT`         |`#define UNICODE_KEY_OSX  KC_RALT`         |
+|`UNICODE_KEY_LNX` |`uint16_t`|`LCTL(LSFT(KC_U))`|`#define UNICODE_KEY_LNX  LCTL(LSFT(KC_E))`|
+|`UNICODE_KEY_WINC`|`uint8_t` |`KC_RALT`         |`#define UNICODE_KEY_WINC KC_RGUI`         |
+
+#### Input Mode Cycling
+
+You can choose which input modes are available for cycling through. By default, this is disabled. If you want to enable it, limiting it to just the modes you use makes sense. Note that the values in the list are comma-delimited.
 
 ```c
-#define UNICODE_OSX_KEY  KC_LALT
-#define UNICODE_WINC_KEY KC_RALT
+#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC
 ```
 
-#### Input Method Cycling
+You can cycle through the selected modes by using the `UC_MOD`/`UC_RMOD` keycodes, or by calling `cycle_unicode_input_mode(offset)` in your code (`offset` is how many modes to move forward by, so +1 corresponds to `UC_MOD`).
 
-Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
+By default, when the keyboard boots, it will initialize the input mode to the last one you used. You can disable this and make it start with the first mode in the list every time by adding the following to your `config.h`:
 
 ```c
-#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_BSD, UC_WINC
+#define UNICODE_CYCLE_PERSIST false
 ```
+
+!> Using `UNICODE_SELECTED_MODES` means you don't have to initially set the input mode in `matrix_init_user()` (or a similar function); the Unicode system will do that for you on startup. This has the added benefit of avoiding unnecessary writes to EEPROM.
 
 ## `send_unicode_hex_string`
 

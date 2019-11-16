@@ -33,6 +33,7 @@ OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+DFU_SUFFIX_ARGS = -p DF11 -v 0483
 
 # Build Options
 #   comment out to disable the options.
@@ -45,3 +46,5 @@ CONSOLE_ENABLE = no					# Console for debug
 COMMAND_ENABLE = no    				# Commands for debug and configuration
 NKRO_ENABLE = yes					# USB Nkey Rollover
 NO_USB_STARTUP_CHECK = no         	# Disable initialization only when usb is plugged in
+
+LAYOUTS = 65_ansi_blocker

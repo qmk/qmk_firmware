@@ -7,6 +7,7 @@ NO_REPEAT				 = no
 VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
+STENO_LAYERS			 = no
 
 #Firmware reduction options
 MOUSEKEY_ENABLE			 = yes 		# 1500 bytes

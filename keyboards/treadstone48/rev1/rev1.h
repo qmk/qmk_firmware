@@ -3,7 +3,6 @@
 
 #include "../treadstone48.h"
 
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
