@@ -26,15 +26,15 @@ def status():
             continue
 
         status = line[0]
-        githash = line[1:41]
-        submodule = line[42:].split()[0]
+        githash, submodule = line[1:].split()[:2]
+        submodules[submodule] = {'name': submodule, 'githash': githash}
 
         if status == '-':
-            submodules[submodule] = {'name': submodule, 'status': None, 'githash': githash}
+            submodules[submodule]['status'] = None
         elif status == '+':
-            submodules[submodule] = {'name': submodule, 'status': False, 'githash': githash}
+            submodules[submodule]['status'] = False
         elif status == ' ':
-            submodules[submodule] = {'name': submodule, 'status': True, 'githash': githash}
+            submodules[submodule]['status'] = True
         else:
             raise ValueError('Unknown `git submodule status` sha-1 prefix character: "%s"' % status)
 
