@@ -20,9 +20,9 @@ uint32_t timer_read32(void) {
     // Note: We assume that the timer update is called at least once betweeen every wrap around of the system time
     systime_t current_systime = chVTGetSystemTime();
     systime_t elapsed         = current_systime - last_systime + overflow;
-    uint32_t  elapsed_ms      = ST2MS(elapsed);
+    uint32_t  elapsed_ms      = TIME_I2MS(elapsed);
     current_time_ms += elapsed_ms;
-    overflow     = elapsed - MS2ST(elapsed_ms);
+    overflow     = elapsed - TIME_MS2I(elapsed_ms);
     last_systime = current_systime;
 
     return current_time_ms;
