@@ -1,8 +1,9 @@
 # 学習リソース
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_learn_more_resources.md
-  $ git diff ed0575fc8 HEAD docs/newbs_learn_more_resources.md
+  git diff ed0575fc8 HEAD docs/newbs_learn_more_resources.md | cat
 -->
 
 これらのリソースは、QMKコミュニティの新しいメンバーに、初心者向けドキュメントで提供されている情報に対する理解を深めることを目的としています。
