@@ -1,2 +1,3 @@
-RGBLIGHT_ENABLE = yes
-BACKLIGHT_ENABLE = yes
+# Build Options
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow

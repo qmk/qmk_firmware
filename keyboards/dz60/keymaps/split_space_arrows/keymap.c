@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 
 /* DZ60 layout using following options (from layouts diagram on KBDfans):
  *  - plate B (2.25u lshift)
@@ -20,17 +20,6 @@
     { K300,  KC_NO, K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  KC_NO, K312,  K313,  K314 }, \
     { K400,  K401,  KC_NO, K403,  K404,  KC_NO, K406,  KC_NO, K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
 }
-
-// Mac vs Linux/windows behaviour for media next/prev keys
-#define IS_MAC 1
-#ifdef IS_MAC
-#define MEDIA_FWD KC_MFFD
-#define MEDIA_RWD KC_MRWD
-#elif
-#define MEDIA_FWD KC_MNXT
-#define MEDIA_RWD KC_MPRV
-#define
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: basic qwerty */
@@ -58,21 +47,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: primary fn layer */
     LAYOUT_b_4_10(
-            KC_GRV,   KC_F1,      KC_F2,          KC_F3,                KC_F4,            KC_F5,      KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-            KC_TAB,   KC_NO,      KC_HOME,        KC_UP,                KC_END,           KC_NO,      KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    KC_NO,  KC_NO,    KC_NO,    KC_NO,
-            KC_CAPS,  KC_NO,      KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
-            KC_LSFT,  MEDIA_RWD,  KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  MEDIA_FWD,  KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_LOCK,  KC_PGUP,  KC_INS,
-            KC_MEH,   KC_LALT,    KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRNS,          KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_HOME,   KC_PGDN,    KC_END
-          ),
+        KC_GRV,  KC_F1,   KC_F2,         KC_F3,               KC_F4,           KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12, KC_DEL,
+        KC_TAB,  KC_NO,   KC_HOME,       KC_UP,               KC_END,          KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
+        KC_CAPS, KC_NO,   KC_LEFT,       KC_DOWN,             KC_RIGHT,        KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_NO,   KC_NO,   KC_ENT,
+        KC_LSFT, KC_MPRV, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP, KC_MNXT, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_LOCK, KC_PGUP, KC_INS,
+        KC_MEH,  KC_LALT, KC_LGUI,       KC_MEDIA_PLAY_PAUSE, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN,  KC_END
+    ),
 
     /* Layer 2: mouse navigation */
     /* Layer 3: numpad */
     /* Layer 4: RGB lighting controls and keyboard config, reset */
     LAYOUT_b_4_10(
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      TO(5),
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  RESET,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  RGB_SAD,  RGB_VAD,  RGB_SAI
-          ),
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,            KC_NO,     TO(5),
+        KC_NO, KC_NO, KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,            KC_NO,     RGB_HUD,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RGB_MODE_PLAIN, RGB_MODE_FORWARD, KC_RSHIFT,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RGB_TOG,        RGB_VAI,          RGB_HUI,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, RGB_SAD, RGB_VAD, RGB_SAI
+    ),
 };

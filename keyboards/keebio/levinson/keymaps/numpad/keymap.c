@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 /* Add the stings you want to send as macros, see
  * https://docs.qmk.fm/#/feature_macros for what all can be used

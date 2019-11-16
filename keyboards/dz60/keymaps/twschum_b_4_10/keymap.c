@@ -23,17 +23,6 @@
     { K400,  K401,  XXXXXXX, K403,  K404,  XXXXXXX, K406,  XXXXXXX, K408,  XXXXXXX, K410,  K411,  K412,  K413,  K414 }  \
 }
 
-// Mac vs Linux/windows behaviour for media next/prev keys
-#define IS_MAC 1
-#ifdef IS_MAC
-#define MM_NEXT KC_MFFD
-#define MM_PREV KC_MRWD
-#elif
-#define MM_NEXT KC_MNXT
-#define MM_PREV KC_MPRV
-#define
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* base 60% qwerty */
@@ -83,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
     //
     // |------2.25--------|---Z----|---X----|---C----|---V----|---B----|---N----|---M----|---,----|---.----||----1.75------|--------|--------||
-          KC_LSHIFT,       MM_PREV, KC_MUTE, KC_VOLD, KC_VOLU, MM_NEXT, _______, _______, XXXXXXX, XXXXXXX,     KC_LOCK,     KC_PGUP,  KC_INS,
+          KC_LSHIFT,       KC_MPRV, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, _______, _______, XXXXXXX, XXXXXXX,     KC_LOCK,     KC_PGUP,  KC_INS,
     // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
     //
     // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
