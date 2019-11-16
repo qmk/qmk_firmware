@@ -88,7 +88,7 @@ def question(prompt, *args, default=None, confirm=False, answer_type=type_unchan
 
         if answer:
             if confirm:
-                if yesno('Is the answer "%s" correct?', answer, default=Y):
+                if yesno('Is the answer "%s" correct?', answer, default=True):
                     try:
                         return answer_type(answer)
                     except Exception as e:

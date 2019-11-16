@@ -20,7 +20,6 @@ def status():
     submodules = {}
     git_cmd = subprocess.run(['git', 'submodule', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30, universal_newlines=True)
 
-    import os
     for line in git_cmd.stdout.split('\n'):
         if not line:
             continue
@@ -52,16 +51,16 @@ def update(submodules=None):
 
     if submodules is None:
         # Update everything
-        git_sync_cmd.append('--recursive') 
-        git_update_cmd.append('--recursive') 
+        git_sync_cmd.append('--recursive')
+        git_update_cmd.append('--recursive')
         subprocess.run(git_sync_cmd, check=True)
         subprocess.run(git_update_cmd, check=True)
 
     else:
         if isinstance(submodules, str):
             # Update only a single submodule
-            git_sync_cmd.append(submodules) 
-            git_update_cmd.append(submodules) 
+            git_sync_cmd.append(submodules)
+            git_update_cmd.append(submodules)
             subprocess.run(git_sync_cmd, check=True)
             subprocess.run(git_update_cmd, check=True)
 

@@ -120,7 +120,7 @@ def is_executable(command):
 
     # Make sure the command can be executed
     check = subprocess.run([command, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
-    if check.returncode in [0, 1]:  #  Older versions of dfu-programmer exit 1
+    if check.returncode in [0, 1]:  # Older versions of dfu-programmer exit 1
         cli.log.debug('Found {fg_cyan}%s', command)
         return True
 
