@@ -3,6 +3,7 @@
 #include "bmp_matrix.h"
 #include "quantum.h"
 #include "apidef.h"
+#include "i2c.h"
 
 static void init_row2col();
 static void init_col2row();
@@ -16,7 +17,7 @@ extern const bmp_matrix_func_t matrix_func_col2row;
 const bmp_matrix_func_t matrix_func_row2col_lpme = {init_row2col, get_device_row, get_device_col, scan_row2col};
 const bmp_matrix_func_t matrix_func_col2row_lpme = {init_col2row, get_device_row, get_device_col, scan_col2row};
 
-#define LPME_ADDR 0x20
+#define LPME_ADDR I2C_7BIT_ADDR(0x20)
 
 static uint8_t lpme_row_num, lpme_col_num;
 static uint8_t pin_matrix_row_num, pin_matrix_col_num;
