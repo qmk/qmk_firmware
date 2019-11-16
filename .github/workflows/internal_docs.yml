@@ -9,7 +9,7 @@ on:
     - 'quantum/**'
 
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
