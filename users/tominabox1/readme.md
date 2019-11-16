@@ -9,5 +9,5 @@ Dimple: make lazydesigners/dimple:tominabox1
 Minivan Catalyst: make thevankeyboards/minivan:tominabox1_catalyst
 Minvian Low Rider: make thevankeyboards/minivan:tominabox1_low
 Roadkit: make thevankeyboards/roadkit:tominabox1
-CRKBD: make crkbd:tominabox1 (RGB_MATRIX_SPLIT_RIGHT=yes)
+CRKBD: make crkbd:tominabox1
 HHKB: make hhkb:tominabox1
