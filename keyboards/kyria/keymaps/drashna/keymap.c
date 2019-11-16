@@ -53,7 +53,7 @@ void add_keylog(uint16_t keycode);
       KC_ESC,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
    LALT_T(KC_TAB), K11, K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
       OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,     KC_NO,   KC_NO,       KC_NO,   KC_NO,   K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
-                                 KC_MUTE, KC_GRV,  OS_LALT, KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x2E2E), KC_NO \
+                                 KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
     )
 /* Re-pass though to allow templates to be used */
 #define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
@@ -254,13 +254,14 @@ void render_bootmagic_status(void) {
         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
     };
-    oled_write_ln_P(PSTR("Bootmagic Settings"), false);
+    oled_write_P(PSTR("Boot  "), false);
     oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
     oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("NKRO"), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
     oled_write_ln_P(PSTR("GUI"), !keymap_config.no_gui);
+    oled_write_P(PSTR("Magic "), false);
     oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
     oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" "), false);
