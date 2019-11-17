@@ -31,20 +31,22 @@ keymap.
   Usage
   - - -
  
-     All normal use layer switching is by thumb buttons on the base layer, all temporary.
-     All layers can be set to be on persistently through the _FUN layer top row toggles.
-     A few rarely used layers can only be reached by _FUN layer toggle.
-     From each layer one can go back to the base layer by pressing the upper/left most button.
+  All normal use layer switching is by thumb buttons on the base layer, all temporary.
+  All layers can be set to be on persistently through the \_FUN layer top row toggles.
+  A few rarely used layers can only be reached by \_FUN layer toggle.
+  From each layer one can go back to the base layer by pressing the upper/left most button.
 
 
-       Connecting to a computer already set to Dvorak
+    To a computer already set to Dvorak remapping ...
 
-     Tap _FUN once (7th key bottom row, to function layer), then hit !QDL (most right top row).
-     -> Layers _QDL, _QDN descramble _LTR, _NYS. (Handy for laptops where one may want
-        to use the build in keyboard as Dvorak, and plug in the Minivan to work in Dvorak.)
-     Undo: tap _FUN once, then hit !LTR (most left top row), or plug keyboard in/out. 
-     -> Base layer back to normal _LTR.
+  Tap **`\_FUN`** once (7th key bottom row, to function layer), then **`!QDL`** (right/top row).
+  -> Layers `\_QDL` and `\_QDN` descramble `\_LTR` and `\_NYS`. 
+  Undo: tap **`\_FUN`** once, then hit **`\_!LTR`** (most left top row), or plug keyboard in/out. 
+  -> Base layer back to normal `\_LTR`.
 
+  (This works for laptops where one may want to use the build in keyboard as Dvorak, and plug in 
+  the Minivan to work in Dvorak. It results in a sort of Qwerty map which can be used as Qwerty,
+  but the symbol arrangement for `\=/[]|+?{}` is probably not what a Qwerty typer would prefer.)
 
   Layers
   - - - 
