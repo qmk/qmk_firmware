@@ -6,7 +6,7 @@ Now that you've built a custom firmware file you'll want to flash your keyboard.
 
 The simplest way to flash your keyboard will be with the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases). 
 
-However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), you'll have to use the [method outlined below](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), you'll have to use the [method outlined below](newbs_flashing.md#TAG_flash-your-keyboard-from-the-command-line).
 
 ### Load The File Into QMK Toolbox
 
@@ -84,7 +84,7 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## <div id="flash-your-keyboard-from-the-command-line">Flash your Keyboard from the Command Line</div>
+## <div id="TAG_flash-your-keyboard-from-the-command-line">Flash your Keyboard from the Command Line</div>
 
 This has been made pretty simple compared to what it used to be.  When you are ready to compile and flash your firmware, open up your terminal window and run the build command: 
 

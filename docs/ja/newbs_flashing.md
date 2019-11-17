@@ -13,7 +13,7 @@
 キーボードに書き込む最も簡単な方法は [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) を使うことです。
 
 ただし、QMK Toolbox は、現在は Windows と macOS でしか使えません。
-Linuxを使用している場合(および、コマンドラインでファームウェアを書き込みたい場合)は、下の方で概説する[方法](newbs_flashing.md#flash-your-keyboard-from-the-command-line)で行なう必要があります。
+Linuxを使用している場合(および、コマンドラインでファームウェアを書き込みたい場合)は、下の方で概説する[方法](newbs_flashing.md#TAG_flash-your-keyboard-from-the-command-line)で行なう必要があります。
 
 ### QMK Toolbox にファイルをロードする
 
@@ -98,7 +98,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## <div id="flash-your-keyboard-from-the-command-line">コマンドラインでファームウェアを書き込む</div>
+## <div id="TAG_flash-your-keyboard-from-the-command-line">コマンドラインでファームウェアを書き込む</div>
 
 これは、以前のものと比較して非常に単純になりました。
 ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。
