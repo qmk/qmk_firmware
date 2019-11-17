@@ -1,8 +1,10 @@
 # XD68
 
+![Kitteh](https://i.imgur.com/qkA5Of5.jpg)
+
 65% board with USB-C, RGB underglow and backlight.  Powered by ATM32U4.
 
-![Top View of XD68 Keyboard](https://tba)
+![Top View of XD68 Keyboard](https://i.imgur.com/OLkQQ17.jpg)
 
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: XD68
@@ -10,14 +12,26 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd68:ansi  # default ansi layout
-    make xd68:iso-uk # default ISO UK layout
+    make xd68:default  # default ansi layout
+    make xd68:iso-uk   # default ISO UK layout
 
 ## Layouts 
 
 ### ANSI
 
-<TBA>
+```
+,----------------------------------------------------------------.
+|Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Home|
+|----------------------------------------------------------------|
+|Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |PgUp|
+|----------------------------------------------------------------|
+|CAPS   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgDn|
+|----------------------------------------------------------------|
+|Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|End |
+|----------------------------------------------------------------|
+|Ctrl|Win |Alt |        Space          |App|Ctrl|FN |Lef|Dow|Rig |
+`----------------------------------------------------------------'
+```
 
 ### ISO-UK
 
