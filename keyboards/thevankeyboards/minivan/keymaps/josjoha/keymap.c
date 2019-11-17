@@ -568,8 +568,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                     <|>                        -*-            // Layer access from _FUN -*-
 // _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
-// -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    =+    '"    `~+RCtl
-// .+LSht 0)    9(    8*    7&    6^    | |     }     {     +     "      `+RSht  // QMK limitation prevents ~
+// -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
+// .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  // QMK limitation prevents ~
 // --------------------------------------------------------
 // Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
 //                          -*- <|>      -*-                                     // Layer access from _LTR -*-

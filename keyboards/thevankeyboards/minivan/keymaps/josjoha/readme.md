@@ -13,8 +13,8 @@ keymap.
                                                 By Jos B.,  joshb@xs4all.nl 
 
 
-      Overview of layers
-      - - - - - - - - - 
+  Overview of layers
+  - - - - - - - - - 
 
       Basic layers are: * letters (normal Dvorak layout), (Led: off)         \_LTR "LeTteRs"
                         * numbers with remaining symbols, (Led: blue)        \_NSY "Numbers SYmbols"
@@ -28,8 +28,8 @@ keymap.
                          * numbers                        (Led: yellow/blue) \_QDL "Qwerty-Dvorak Letters"
 
 
-     Usage
-     - - -
+  Usage
+  - - -
 
      If connecting to for example a laptop that remaps to Dvorak on the computer side: 
      tap _FUN once (function layer), then hit _QDL. Base layers _QDL, _QDN descramble _LTR, _NYS
@@ -42,8 +42,8 @@ keymap.
      From each layer one can go back to the base layer by pressing the upper/left most button.
 
 
-     Layers
-     - - - 
+  Layers
+  - - - 
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
@@ -156,8 +156,8 @@ keymap.
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                          <|>                        -*-            // Layer on _FUN
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
-     -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    '"    `~+RCtl
-     .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     "      `+RSht  
+     -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
+     .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                             // Accessed by -*- (hold)
