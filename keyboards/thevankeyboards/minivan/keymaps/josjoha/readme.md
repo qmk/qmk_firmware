@@ -64,6 +64,7 @@ keymap.
                  hold     hold  hold      |        hold oneshot hold               // Layer switch type
      <1          <2       <3    <4        | 4>     3>   2>      1>                 // Keys by number
 
+- - -
 
      Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
     
@@ -76,6 +77,8 @@ keymap.
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                                 // Accessed by -*- (hold)
      <1        <2    <3       <4   | 4>    3>    2>    1>  
+
+- - -
     
     
      Layer _FUN (F-keys, CAF means Control+Alt+F-key)
@@ -90,6 +93,8 @@ keymap.
      LAlt  xxx   xxx   xxx  | xxx   xxx   ___   RAlt
                            <|>            -*-                             // Accessed by -*- (one shot)
      <1    <2    <3    <4   | 4>    3>    2>    1>  
+
+- - -
     
     
      Layer _MOV (MOVement, mouse movement on left hand)
@@ -103,6 +108,8 @@ keymap.
      Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
                      -*-           <|>                                        // Accessed by -*- (hold)
      <1        <2    <3    <4       | 4>    3>    2>    1>  
+
+- - -
     
     
      _RAR (RARely used keys) (Only through _FUN layer)
@@ -116,6 +123,8 @@ keymap.
      xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
                               <|>
      <1     <2      <3    <4   | 4>   3>    2>    1>  
+
+- - -
     
     
      Layer _REV (REVerse hands) (Only through _FUN layer)
@@ -129,6 +138,8 @@ keymap.
      Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
+
+- - -
     
     
      Layer _ACC (ACCented characters)
@@ -142,6 +153,8 @@ keymap.
      LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   ___
                                <|>                  -*-                    // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
+
+- - -
     
     
      Layer _DRA (DRAwings, whatever else)
@@ -155,6 +168,8 @@ keymap.
      LAlt+Left ___   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                -*-             <|>                                         // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
+
+- - -
     
 
      Layer _QDN (Dvorak descramble mode for numbers/symbols)
@@ -169,6 +184,8 @@ keymap.
                               -*- <|>      -*-                             // Accessed by -*- (hold)
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
+- - -
+
 
      Layer _QDN (Dvorak descramble mode for letters)
 
@@ -182,7 +199,11 @@ keymap.
                                          <|>
                  hold     hold  hold      |        hold oneshot hold          // Type of layer switch
      <1          <2       <3    <4        | 4>     3>   2>      1>
+
+- - -
    
+  Modifiers
+  =========
 
 
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
