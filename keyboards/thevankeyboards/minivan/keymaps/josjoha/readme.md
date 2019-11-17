@@ -4,12 +4,46 @@ This is a Dvorak layout for the Minivan 40% keyboard (default 44 keys).
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 
+It also allows the same layout on a computer that is already set to Dvorak
+on the computer side, by changing the default layer (see Function layer).
+
 This keymap.c was edited from the default provided with this version of
 QMK on Github, and the LED support was copied from ../jetpacktuxedo/
 keymap. 
                                                 By Jos B.,  joshb@xs4all.nl 
 
 
+      Overview of layers
+      - - - - - - - - - 
+
+      Basic layers are: * letters (normal Dvorak layout), (Led: off)         \_LTR "LeTteRs"
+                        * numbers with remaining symbols, (Led: blue)        \_NSY "Numbers SYmbols"
+                        * function keys,                  (Led: red)         \_FUN "FUNction keys"
+                        * and a movement layer            (Led: green)       \_MOV "MOVement"
+      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)      \_RAR "RARe keys"
+                    * navigation and numbers other hand,  (Led: green/blue)  \_REV "REVerse hands"
+                    * special characters like é.          (Led: cyan)        \_ACC "ACCented"
+                    * Unicode symbols and whatever else   (Led: white)       \_DRA "DRAwings"
+      Dvorak Descramble: * letters                        (Led: off)         \_QDN "Qwerty-Dvorak Numbers"
+                         * numbers                        (Led: yellow/blue) \_QDL "Qwerty-Dvorak Letters"
+
+
+     Usage
+     - - -
+
+     If connecting to for example a laptop that remaps to Dvorak on the computer side: 
+     tap _FUN once (function layer), then hit _QDL. Base layers _QDL, _QDN descramble _LTR, _NYS
+     Undo: tap _FUN once (function layer), then hit _LTR. Base layer back to normal _LTR.
+ 
+     All normal use layer switching is by thumb buttons on the base layer, all temporary.
+     All layers can be set to be on persistently through the _FUN layer top row toggles.
+     A few rarely used layers can only be reached by _FUN layer toggle.
+     The most left _LTR and most right _QDL layer toggles on _FUN also set base layer (see above).
+     From each layer one can go back to the base layer by pressing the upper/left most button.
+
+
+     Layers
+     - - - 
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
@@ -30,8 +64,8 @@ keymap.
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
             -*-                          <|>                                      // -*- Access on _FUN
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
-     -+LCtl 1     2     3     4     5     | \|    =+    /?    [{    ]}    `~+RCtl
-     .+LSht 0     9     8     7     6     | |     +     ?     {     }      ~+RSht
+     -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
+     .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht  // QMK limitation prevents ~
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                                 // Accessed by -*- (hold)
@@ -41,9 +75,9 @@ keymap.
      Layer _FUN (F-keys, CAF means Control+Alt+F-key)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     toggl toggl toggl toggl toggl toggl | toggl                         toggl        // Type of switch
+     base  toggl toggl toggl toggl toggl | toggl toggl             toggl base         // Type of switch
                  -*-                    <|>                                     // -*- Locks _Fun layer
-     _LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  CAF11 CAF12 F12   F11   _DRA
+     _LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _QDN  _QDL
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
@@ -83,8 +117,8 @@ keymap.
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                     -*-  <|>                                        // Access on _FUN
      _LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-     -+LCtl Left  Down  Up    Right xxx   | 5     4     3     2     1     RCtl
-     .+LSht xxx   xxx   xxx   xxx   xxx   | 6     7     8     9     0     RSht
+     -+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
+     .+LSht xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSht
      ----------------------------------------------------------
      Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
                                   <|>
@@ -116,21 +150,34 @@ keymap.
                -*-             <|>                                         // Accessed by -*- (hold)
      <1        <2    <3    <4   | 4>    3>    2>    1>  
     
+
+     Layer _QDN (Dvorak descramble mode for numbers/symbols)
+
+     <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                         <|>                        -*-            // Layer on _FUN
+     _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
+     -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    '"    `~+RCtl
+     .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     "      `+RSht  
+     --------------------------------------------------------
+     Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
+                              -*- <|>      -*-                             // Accessed by -*- (hold)
+     <1        <2    <3       <4   | 4>    3>    2>    1>  
+
+
+     Layer _QDN (Dvorak descramble mode for letters)
+
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
+                                           <|>                              -!-      // Access on _FUN
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
+     LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
+     ---------------------------------------------------------------------
+     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC    // _XYZ are layer switches
+                                         <|>
+                 hold     hold  hold      |        hold oneshot hold          // Type of layer switch
+     <1          <2       <3    <4        | 4>     3>   2>      1>
    
 
-    - Basic layers are: * letters (normal Dvorak layout), (Led: off)
-                        * numbers with remaining symbols, (Led: blue)
-                        * function keys,                  (Led: red)
-                        * and a movement layer            (Led: green)
-      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)
-                    * navigation and numbers other hand,  (Led: green/blue)
-                    * special characters like é.          (Led: cyan)
-                    * Unicode symbols and whatever else   (Led: white)
-
-    - Upper left key always goes back to default layer, then is Escape.
-
-    - All layers can be statically active by toggling to the function
-      layer, and then to the desired layer (top row left side).
 
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
       most layers.
