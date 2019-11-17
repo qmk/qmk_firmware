@@ -34,7 +34,6 @@ keymap.
      All normal use layer switching is by thumb buttons on the base layer, all temporary.
      All layers can be set to be on persistently through the _FUN layer top row toggles.
      A few rarely used layers can only be reached by _FUN layer toggle.
-     The most left _LTR and most right _QDL layer toggles on _FUN also set base layer (see above).
      From each layer one can go back to the base layer by pressing the upper/left most button.
 
 
