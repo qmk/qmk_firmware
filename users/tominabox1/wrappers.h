@@ -27,8 +27,8 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 // Dimple Base layer
 #define __________________DIMPLE1__________________       KC_ESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC
 #define __________________DIMPLE2__________________       LCTL_T(KC_TAB), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT
-#define __________________DIMPLE3L_________________       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_UP,  LT(_FKEY,KC_DOT)
+#define __________________DIMPLE3L_________________       KC_LSFT, LT(_FKEY,KC_Z),    KC_X,    KC_C,    KC_V,    KC_B
+#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_UP,  RSFT_T(KC_DOT)
 #define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT
 
 // Dimple Symbol Layer
@@ -45,7 +45,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 
 // Dimple F-key layer
 #define ___________________FKEY1___________________       KC_PASTA, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO
-#define ___________________FKEY2___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,   KC_F12,   KC_NO
+#define ___________________FKEY2___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,   KC_F12,   KC_TRNS
 #define ___________________FKEY3___________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 #define ___________________FKEY4___________________       KC_NO, KC_NO, KC_NO, KC_NO,   KC_TRNS,   KC_TRNS,   KC_NO, KC_NO
 

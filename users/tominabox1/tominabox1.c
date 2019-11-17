@@ -18,8 +18,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
-        case LSFT_T(KC_CAPS):
-            return 250;
+        case RSFT_T(KC_DOT):
+            return 150;
         case KC_ENT_LOW:
             return 150;
         case KC_SPC_RSE:
@@ -45,7 +45,10 @@ enum combo_events {
   EMAIL,
   COMBO_RESET,
   CAPS_COMBO,
-  CRET
+  CRET,
+  COMBOPP,
+  COMBO_NEXT,
+  COMBO_PREV
 };
 
 const uint16_t PROGMEM email[] = {KC_Q, KC_W, COMBO_END};
@@ -57,12 +60,18 @@ const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {KC_K, KC_V, COMBO_END};
 #endif
 const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
+const uint16_t PROGMEM combo_pp[] = {KC_L, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_next[] = {KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_prev[] = {KC_U, KC_L, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [EMAIL] = COMBO_ACTION(email),
   [COMBO_RESET] = COMBO_ACTION(combo_reset),
-  [CAPS_COMBO] = COMBO_ACTION(caps_combo),
-  [CRET] = COMBO_ACTION(cret),
+  [CAPS_COMBO] = COMBO(caps_combo, KC_CAPS),
+  [CRET] = COMBO(cret, KC_ENT),
+  [COMBOPP] = COMBO(combo_pp,KC_MPLY),
+  [COMBO_NEXT] = COMBO(combo_next,KC_MNXT),
+  [COMBO_PREV] = COMBO(combo_prev,KC_MPRV),
 };
 
 __attribute__ ((weak))
@@ -75,22 +84,27 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     if (pressed) {
       SEND_STRING("tom.campie@gmail.com");
     }
-    break;
+break;
     case COMBO_RESET:
     if (pressed) {
       reset_keyboard();
     }
     break;
-    case CAPS_COMBO:
-    if (pressed) {
-      register_code16(KC_CAPS);
-      wait_ms(100);
-      unregister_code16(KC_CAPS);
-    }
-    break;
-    case CRET:
-    if (pressed) {
-      tap_code16(KC_ENT);
-    }
+//     case CAPS_COMBO:
+//     if (pressed) {
+//       register_code16(KC_CAPS);
+//       wait_ms(100);
+//       unregister_code16(KC_CAPS);
+//     }
+//     break;
+    // case CRET2:
+    // if (pressed) {
+    //   tap_code16(KC_ENT);
+    // }
+    // break;
+//     case CRET2:
+//     if (pressed) {
+//       tap_code16(KC_ENT);
+//     }
   }
 }

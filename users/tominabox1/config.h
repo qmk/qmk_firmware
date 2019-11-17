@@ -7,8 +7,8 @@
 
 // Combos
 #ifndef KEYBOARD_thevankeyboards_roadkit // Combo settings for NOT roadkit - roadkit defined in keymap folder
-#define COMBO_COUNT 4
-#define COMBO_TERM 70
+#define COMBO_COUNT 7
+#define COMBO_TERM 40
 #endif
 
 // Bootmagic
