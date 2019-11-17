@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TILD, ____, ____, ____, ____, ____, ____,   ____, ____, ____, ____, ____, UNDS, PLUS,
     ____, ____, ____, ____, UNDS, EQL , RBRC,   _TAP, ____, LPRN, RPRN, ____, ____, DEL ,
     ____, ____, ____, ____, MINS, PLUS, ____,   PENT, ____, ____, ____, ____, COLN, DQUO,
-    ____, ____, ____, ____, PIPE, BSLS, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
+    ____, ____, ____, ____, BSLS, PIPE, ____,   PIPE, ____, ____, LT  , GT  , QUES, ____,
     ____, ____, ____, ____, ____, ____, ____,   ____, ____, ____, MRWD, MPLY, MFFD, ____
   ),
 
