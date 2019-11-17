@@ -485,7 +485,7 @@ static inline void create_info_file()
   static const char info[] =
                         "API version: " STR(API_VERSION) "\n"
                         "Config version: " STR(CONFIG_VERSION) "\n"
-                        "Build from " STR(GIT_HASH) STR(GIT_HAS_DIFF)"\n"
+                        "Build from: " STR(GIT_DESCRIBE) "\n"
                         "Build Target: " STR(TARGET);
   BMPAPI->usb.create_file("VERSION TXT", (uint8_t*)info, strlen(info));
 }

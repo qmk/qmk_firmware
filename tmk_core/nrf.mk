@@ -35,15 +35,9 @@ NRF_VER_DIR = sdk$(NRFSDK_VER)
 
 COMMON_VPATH += $(DRIVER_PATH)/nrf52
 
-GIT_HASH = $(shell git log -1 --format="%h")
-CFLAGS += -DGIT_HASH=$(GIT_HASH)
+GIT_DESCRIBE = $(shell git describe --tags --dirty="\\*")
+CFLAGS += -DGIT_DESCRIBE=$(GIT_DESCRIBE)
 CFLAGS += -DTARGET=$(TARGET)
-
-ifeq ($(shell git diff --exit-code --quiet; echo $$?), 1)
-  CFLAGS += -DGIT_HAS_DIFF=-*
-else
-  CFLAGS += -DGIT_HAS_DIFF
-endif
 
 ifeq ($(MCU_SERIES), NRF52840)
   NRFSRC +=  $(TOP_DIR)/tmk_core/protocol/nrf/gcc_startup_nrf52840.S \
