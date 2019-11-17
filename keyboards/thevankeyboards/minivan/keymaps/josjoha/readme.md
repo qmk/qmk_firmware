@@ -36,10 +36,12 @@ from ../jetpacktuxedo/ keymap.
   Usage
   =====
  
-  All normal use layer switching is by thumb buttons on the base layer, all temporary.
-  All layers can be set to be on persistently through the _FUN layer top row toggles, except
-  _FUN itself (XXX). A few rarely used layers can only be reached by _FUN layer toggle.
-  From each layer one can go back to the base layer by pressing the upper/left most button.
+  All normal use layer switching is by thumb buttons on the base layer,
+  all temporary.  All layers can be set to be on persistently through
+  the \_FUN layer top row toggles, except \_FUN itself (XXX). Tap \_FUN
+  on base layer to persist. A few rarely used layers can only be reached
+  by \_FUN layer toggle.  From each layer one can go back to the base
+  layer by pressing the upper/left most button.
 
 
 ## To a computer already set to Dvorak remapping ...
