@@ -88,8 +88,8 @@ Descramble on _Computer_ set to Dvorak:
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      base  toggl toggl toggl toggl toggl | toggl toggl             toggl base           // Type of switch
-                 -*-                    <|>                                       // -*- Locks _Fun layer
-     !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL      // ! set default layer
+                                        <|>
+     !LTR  _NSY  xxx   _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL      // ! set default layer
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------

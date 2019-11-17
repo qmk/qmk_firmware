@@ -304,11 +304,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *
      * XXX FIXME When toggling to the _FUN layer again by top row, while alreaady on it by one shot,
      *           the _LTR key does no longer go back to the base layer. Switching to another layer
-     *           first unsticks it. Reason: unknown, solution: unknown. Importance: low (I never need
-     *           that layer to be on persistantly, and the work around is easy; but it is not perfect).
-     *           It seems that something gets confused {probably its me} when re-switching to the
-     *           already active layer or something), having to do with setting the base layer. It
-     *           also occurs on setting _DDL layer.
+     *           first unsticks it. 
+     *           It seems that something gets confused {probably its me} by the combination of it being
+     *           one-shot to that layer, and/or it going to set a default layer from that layer.
+     *           It also occurs on setting _DDL layer, it also occurs when _FUN is activated by tapping
+     *           on the oneshot key. 
+     *           Reason: unknown, solution: unknown. Importance: low (I never need that layer to be on
+     *           persistantly, and the work around is easy; but it is not perfect. I wonder if it is a
+     *           QMK limitation with something. For now I have de-activated _FUN on the top layer,
+     *           which is unneeded anyway. The irony of that is that with one-shot, that no-action
+     *           button gets the action of returning to base layer, from the _FUN spot in the row. hah)
+     *
      */
 
     [ _FUN ] = LAYOUT (
@@ -316,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // base  toggl toggl toggl toggl toggl | toggl toggl             toggl base       // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL       // ! set default layer
+// !LTR  _NSY  xxx   _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL       // ! set default layer
 // LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
 // LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
 // -----------------------------------------------
@@ -327,7 +333,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2      , <pinky         , <ring         , <middl        , <index        , <indx2       |, indx2>      , index>      , middl> , ring>  , pinky>      , pink2>      ,
 //                  ,                , -*-           ,               ,               ,             <|,>            ,             ,        ,        ,             ,             ,
-        DF ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , TO ( _DRA ) , KC_F12 , KC_F11 , TO ( _DDN ) , DF ( _DDL ) ,
+        DF ( _LTR ) , TO ( _NSY )    , XXXXXXX       , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , TO ( _DRA ) , KC_F12 , KC_F11 , TO ( _DDN ) , DF ( _DDL ) ,
         KC_LCTL     , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4       , KC_F3  , KC_F2  , KC_F1       , KC_RCTL     ,
         KC_LSFT     , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) , KC_F6       , KC_F7       , KC_F8  , KC_F9  , KC_F10      , KC_RSFT     ,
 //      -----------------------------------------------------------------------------
