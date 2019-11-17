@@ -189,7 +189,7 @@ keymap.
 
      Layer _QDN (Dvorak descramble mode for letters)
 
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>  // Keys by finger
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
                                            <|>                              -!-     // on _FUN (set base)
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
