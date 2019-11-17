@@ -45,7 +45,7 @@ QMK Toolbox は、Windows と macOS で使える GUI を備えたプログラム
 * Windows 版: `qmk_toolbox.exe` (portable) または `qmk_toolbox_install.exe` (installer)
 * macOS 版: `QMK.Toolbox.app.zip` (portable) または `QMK.Toolbox.pkg` (installer)
 
-## 環境構築
+## <div id="set-up-your-environment">環境構築</div>
 
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。
 Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。

@@ -84,7 +84,7 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## Flash your Keyboard from the Command Line
+## <div id="flash-your-keyboard-from-the-command-line">Flash your Keyboard from the Command Line</div>
 
 This has been made pretty simple compared to what it used to be.  When you are ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
