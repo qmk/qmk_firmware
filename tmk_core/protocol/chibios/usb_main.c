@@ -310,7 +310,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_SUSPEND:
 #ifdef SLEEP_LED_ENABLE
             sleep_led_enable();
-#endif      /* SLEEP_LED_ENABLE */
+#endif /* SLEEP_LED_ENABLE */
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
@@ -453,9 +453,9 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef NKRO_ENABLE
                             keymap_config.nkro = !!keyboard_protocol;
                             if (!keymap_config.nkro && keyboard_idle) {
-#else                           /* NKRO_ENABLE */
+#else  /* NKRO_ENABLE */
                             if (keyboard_idle) {
-#endif                          /* NKRO_ENABLE */
+#endif /* NKRO_ENABLE */
                                 /* arm the idle timer if boot protocol & idle */
                                 osalSysLockFromISR();
                                 chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
