@@ -189,15 +189,15 @@ keymap.
 
      Layer _QDN (Dvorak descramble mode for letters)
 
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                            <|>                              -!-     // on _FUN (set base)
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC     // _XYZ are layer switches
+     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC
                                          <|>
-                 hold     hold  hold      |        hold oneshot hold              // Type of layer switch
+                 hold     hold  hold      |        hold oneshot hold
      <1          <2       <3    <4        | 4>     3>   2>      1>
 
 - - -
