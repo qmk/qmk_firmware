@@ -186,6 +186,15 @@ void tfp_format(void* putp, putcf putf, char* fmt, va_list va) {
                 case 's':
                     putchw(putp, putf, w, 0, va_arg(va, char*));
                     break;
+                case 'b':
+#ifdef PRINTF_LONG_SUPPORT
+                    if (lng)
+                        uli2a(va_arg(va, unsigned long int), 2, 0, bf);
+                    else
+#endif
+                        ui2a(va_arg(va, unsigned int), 2, 0, bf);
+                    putchw(putp, putf, w, lz, bf);
+                    break;
                 case '%':
                     putf(putp, ch);
                 default:

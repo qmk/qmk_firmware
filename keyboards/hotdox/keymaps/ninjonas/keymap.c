@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
                 KC_PGDN,
-                KC_DEL,  LT_LOW
+                MT_DEL,  LT_LOW
     ),
 
 /* DVORAK
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
                 KC_PGDN,
-                KC_DEL,  LT_LOW
+                MT_DEL,  LT_LOW
     ),
 
 /* COLEMAK
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LEFT, KC_RGHT,
                 KC_PGUP,
                 KC_PGDN,
-                KC_DEL,  LT_LOW
+                MT_DEL,  LT_LOW
     ),
 
 /* LOWER

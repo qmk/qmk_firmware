@@ -12,7 +12,25 @@ extern rgblight_config_t rgblight_config;
 static uint32_t        oled_timer = 0;
 static char     keylog_str[6]   = {};
 static uint16_t log_timer       = 0;
-static const char code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+static const char PROGMEM code_to_name[0xFF] = {
+//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
+    '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
+    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
+    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
+    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
+};
 
 void add_keylog(uint16_t keycode);
 #endif
@@ -27,7 +45,7 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+    ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         KC_GRV,  KC_SPC,  BK_LWER, DL_RAIS,  KC_ENT,  OS_RGUI                                      \
   )
@@ -107,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
     MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
-                                     _______, KC_NUKE, _______,        _______, TG_MODS, _______
+                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
   )
 };
 // clang-format on
@@ -131,16 +149,18 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
+    } else if (keycode > 0xFF) {
+        keycode = 0;
     }
 
     for (uint8_t i = 4; i > 0; --i) {
         keylog_str[i] = keylog_str[i - 1];
     }
 
-    if (keycode < 60) {
-        keylog_str[0] = code_to_name[keycode];
+    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
     }
 
     log_timer = timer_read();
@@ -148,7 +168,7 @@ void add_keylog(uint16_t keycode) {
 
 void update_log(void) {
     if (timer_elapsed(log_timer) > 750) {
-        add_keylog(0);
+        //add_keylog(0);
     }
 }
 
@@ -197,19 +217,18 @@ void render_layer_state(void) {
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR("Lock:"), false);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("NUM "), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("CAPS"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("SCRL"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
+    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
 }
 
 void render_mod_status(uint8_t modifiers) {
     oled_write_P(PSTR("Mods:"), false);
-    oled_write_P(PSTR(" SHFT"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR(" CTRL"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR(" ALT "), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR(" GUI "), (modifiers & MOD_MASK_GUI));
+    oled_write_P(PSTR(" "), false);
+    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
+    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
+    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
+    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
 }
 
 void render_bootmagic_status(void) {
