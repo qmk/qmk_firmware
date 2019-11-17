@@ -53,29 +53,29 @@ keymap.
  
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> // Keys by finger
-     -*!-                                  <|>                                     // -*!- Access from all
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
+     -*!-                                  <|>                                    // -*!- Access from all
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC         // _XYZ is to layer
+     Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC            // _XYZ is to layer
                                          <|>
-                 hold     hold  hold      |        hold oneshot hold               // Layer switch type
-     <1          <2       <3    <4        | 4>     3>   2>      1>                 // Keys by number
+                 hold     hold  hold      |        hold oneshot hold                 // Layer switch type
+     <1          <2       <3    <4        | 4>     3>   2>      1>                      // Keys by number
 
 - - -
 
      Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-            -*-                          <|>                                      // -*- Access on _FUN
+            -*-                          <|>                                        // -*- Access on _FUN
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
-     .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht  // limitation prevents ~
+     .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht //limitation prevents ~
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                 // Accessed by -*- (hold)
+                              -*- <|>      -*-                                      // -*- Access on base
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
 - - -
@@ -84,14 +84,14 @@ keymap.
      Layer _FUN (F-keys, CAF means Control+Alt+F-key)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     base  toggl toggl toggl toggl toggl | toggl toggl             toggl base            // Type of switch
-                 -*-                    <|>                                        // -*- Locks _Fun layer
-     !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _QDN  !QDL       // ! set default layer
+     base  toggl toggl toggl toggl toggl | toggl toggl             toggl base           // Type of switch
+                 -*-                    <|>                                       // -*- Locks _Fun layer
+     !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _QDN  !QDL      // ! set default layer
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
      LAlt  xxx   xxx   xxx  | xxx   xxx   ___   RAlt
-                           <|>            -*-                             // Accessed by -*- (one shot)
+                           <|>            -*-                        // -*- Access on base -*- (one shot)
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -100,13 +100,13 @@ keymap.
      Layer _MOV (MOVement, mouse movement on left hand)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                       -*-              <|>                                           // Access on _FUN
+                       -*-              <|>                                                // -*- on _FUN
      _LTR  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
      LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------
      Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
-                     -*-           <|>                                        // Accessed by -*- (hold)
+                     -*-           <|>                                                     // -*- on base
      <1        <2    <3    <4       | 4>    3>    2>    1>  
 
 - - -
@@ -115,7 +115,7 @@ keymap.
      _RAR (RARely used keys) (Only through _FUN layer)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                             -*-        <|>                                          // Access on _FUN
+                             -*-        <|>                                                    // on _FUN
      _LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
      Tab   uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert
      xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
@@ -130,7 +130,7 @@ keymap.
      Layer _REV (REVerse hands) (Only through _FUN layer)
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                    -*-  <|>                                        // Access on _FUN
+                                    -*-  <|>                                                   // on _FUN
      _LTR   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      -+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
      .+LSht xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSht
@@ -145,13 +145,13 @@ keymap.
      Layer _ACC (ACCented characters)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>-*-                                     // Access on _FUN
+                                        <|>-*-                                                 // on _FUN
      _LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------------------
      LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   ___
-                               <|>                  -*-                    // Accessed by -*- (hold)
+                               <|>                  -*-                                        // on base
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -160,13 +160,13 @@ keymap.
      Layer _DRA (DRAwings, whatever else)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>      -*-                              // Access on _FUN
+                                        <|>      -*-                                           // on _FUN
      _LTR  ¡     xxx   xxx   xxx   xxx   | xxx   🙂😃  👍    👎     ⍨🙁   Bspc
      LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
      LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
      ---------------------------------------------------------
      LAlt+Left ___   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
-               -*-             <|>                                         // Accessed by -*- (hold)
+               -*-             <|>                                                             // on base
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -175,13 +175,13 @@ keymap.
      Layer _QDN (Dvorak descramble mode for numbers/symbols)
 
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                         <|>                        -*-            // Layer on _FUN
+                                         <|>                        -*-                        // on _FUN
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                             // Accessed by -*- (hold)
+                              -*- <|>      -*-                                            // on _QDN base
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
 - - -
@@ -189,15 +189,15 @@ keymap.
 
      Layer _QDN (Dvorak descramble mode for letters)
 
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-                                           <|>                              -!-      // Access on _FUN
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>  // Keys by finger
+                                           <|>                              -!-     // on _FUN (set base)
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC    // _XYZ are layer switches
+     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC     // _XYZ are layer switches
                                          <|>
-                 hold     hold  hold      |        hold oneshot hold          // Type of layer switch
+                 hold     hold  hold      |        hold oneshot hold              // Type of layer switch
      <1          <2       <3    <4        | 4>     3>   2>      1>
 
 - - -
