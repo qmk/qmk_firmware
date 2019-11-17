@@ -40,7 +40,7 @@ keymap.
        Connecting to a computer already set to Dvorak
 
      Tap _FUN once (7th key bottom row, to function layer), then hit !QDL (most right top row).
-     -> Base layers _QDL, _QDN descramble _LTR, _NYS. (Handy for laptops where one may want
+     -> Layers _QDL, _QDN descramble _LTR, _NYS. (Handy for laptops where one may want
         to use the build in keyboard as Dvorak, and plug in the Minivan to work in Dvorak.)
      Undo: tap _FUN once, then hit !LTR (most left top row), or plug keyboard in/out. 
      -> Base layer back to normal _LTR.
