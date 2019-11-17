@@ -12,6 +12,7 @@
 #include "bmp_custom_keycode.h"
 
 
+#define LAYOUT_NAME_MAXLEN 32
 typedef struct
 {
   uint16_t *keymap;
@@ -22,6 +23,8 @@ typedef struct
 
   bmp_ex_keycode_t *bmp_ek;
   uint16_t ek_num;
+
+  char layout_name[LAYOUT_NAME_MAXLEN];
 } json_keymap_convert_inst_t;
 
 typedef struct
@@ -33,6 +36,8 @@ typedef struct
   uint8_t use_ascii;
 
   bmp_ex_keycode_t *bmp_ek;
+
+  const char *layout_name;
 } keymap_json_convert_inst_t;
 
 typedef struct

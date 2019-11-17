@@ -26,6 +26,7 @@ void json_to_keymap_init(json_keymap_convert_inst_t * const inst,
   inst->keymap_len = keymap_len;
   inst->locale = LOCALE_US;
   memset(inst->tail, 0, sizeof(inst->tail));
+  memset(inst->layout_name, 0, sizeof(inst->layout_name));
 }
 
 
@@ -48,6 +49,8 @@ static uint16_t register_ex_kc(json_keymap_convert_inst_t* const inst,
     return KC_NO;
 }
 
+int32_t get_val_string(const char* json, const char* key,
+    const char** val, uint32_t* len);
 
 // Return quantum keycode from json strings.
 // inst->tail contains partial string if quotation is not closed
@@ -57,11 +60,42 @@ int32_t json_to_keymap_conv(json_keymap_convert_inst_t * const inst,
   const char * str;
   const char * str2;
   const char * str3;
+  uint32_t name_len;
+  uint32_t layout_name_len;
 
   inst->ek_num = 0;
 
   if ((inst->keymap_idx == 0) && inst->tail[0]=='\0')
   {
+    str = strstr(json, "keyboard");
+    if (str != NULL)
+    {
+        get_val_string(str, "keyboard", &str2, &name_len);
+        if (name_len + 1 < 32) {
+            strncat(inst->layout_name, str2, name_len);
+            strcat(inst->layout_name, ":");
+        }
+    }
+
+    str = strstr(json, "layout");
+    if (str != NULL)
+    {
+        get_val_string(str, "layout", &str2, &layout_name_len);
+        if (layout_name_len == 0 && name_len + 1 + 6 < LAYOUT_NAME_MAXLEN)
+        {
+            strcat(inst->layout_name, "LAYOUT");
+        }
+        else if (name_len + layout_name_len + 1 < LAYOUT_NAME_MAXLEN)
+        {
+            strncat(inst->layout_name, str2, layout_name_len);
+            inst->layout_name[name_len + layout_name_len + 1] = '\0';
+        }
+    }
+    else
+    {
+        strcat(inst->layout_name, "LAYOUT");
+    }
+
     str = strstr(json, "layers");
     if (str == NULL)
     {

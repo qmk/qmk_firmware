@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         ble_micro_pro
 #define DESCRIPTION     A development board for wireless split keyboards
 
+#define BMP_BOOTPIN_AS_RESET
+
 #define TAPPING_TERM_PER_KEY
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS

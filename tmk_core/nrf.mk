@@ -35,7 +35,7 @@ NRF_VER_DIR = sdk$(NRFSDK_VER)
 
 COMMON_VPATH += $(DRIVER_PATH)/nrf52
 
-GIT_DESCRIBE = $(shell git describe --tags --dirty="\\*")
+GIT_DESCRIBE = $(shell git describe --tags --long --dirty="\\*")
 CFLAGS += -DGIT_DESCRIBE=$(GIT_DESCRIBE)
 CFLAGS += -DTARGET=$(TARGET)
 

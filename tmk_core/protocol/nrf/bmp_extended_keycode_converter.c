@@ -53,6 +53,11 @@ uint8_t bmp_ex_keycode2str_locale(bmp_ex_keycode_t const* const ek, char* str, u
 }
 
 uint8_t str2bmp_ex_keycode_locale(bmp_ex_keycode_t* ek_res, const char* str, uint32_t len, KEYMAP_LOCALE locale) {
+    // Delete ANY() if contained
+    if (str[0] == 'A' && str[1] == 'N' && str[2] == 'Y') {
+        len = get_inner_element(&str, len);
+    }
+
     // Delete EX()
     len = get_inner_element(&str, len);
 

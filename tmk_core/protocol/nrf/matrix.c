@@ -58,6 +58,9 @@ extern const bmp_matrix_func_t matrix_func_col2row_lpme;
 extern const bmp_matrix_func_t matrix_func_row2col2row;
 extern const bmp_matrix_func_t matrix_func_col2row2col;
 
+extern int reset_counter;
+#define BOOTPIN 22
+
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
     matrix_init_kb();
@@ -145,6 +148,10 @@ void matrix_init(void) {
   matrix_func->init();
 
   matrix_init_quantum();
+
+#if defined(BMP_BOOTPIN_AS_RESET)
+  setPinInputHigh(BOOTPIN);
+#endif
 }
 
 __attribute__ ((weak))
@@ -211,6 +218,14 @@ uint8_t matrix_scan(void)
 {
   uint8_t res = matrix_scan_impl(matrix);
   matrix_scan_quantum();
+
+#if defined(BMP_BOOTPIN_AS_RESET)
+  if (readPin(BOOTPIN) == 0 && reset_counter < 0)
+  {
+    reset_counter = 10;
+  }
+#endif
+
   return res;
 }
 

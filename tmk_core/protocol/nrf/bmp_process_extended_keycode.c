@@ -88,6 +88,8 @@ static void state_transition_common(uint16_t exkc_idx);
 bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const record);
 
 static int pending_exkc_num = 0;
+static bool pending_normal_kc_flag;
+static bool process_normal_kc_flag;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     dprintf("Process KC:%d\n", keycode);
@@ -155,9 +157,9 @@ void bmp_action_exec_impl(keyevent_t event) {
 bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const record) {
     uint16_t keycode = *p_keycode;
     static bool skip_next_call = false;
+    bool continue_process = true;
 
     if (skip_next_call) {
-        skip_next_call = false;
         return true;
     }
 
@@ -170,34 +172,51 @@ bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const 
     }
 
     if (pending_exkc_num > 0) {
-        // queueing keyevent
-        //// return false;
-        return send_pending_buffer(&record->event) ? false : true;
-    } else {
+        pending_normal_kc_flag = true;
+    }
+
+    if (pending_normal_kc_flag) {
+        if ( EXKC_START >= *p_keycode || *p_keycode >= EXKC_END) {
+            // queueing keyevent
+            continue_process = send_pending_buffer(&record->event) ? false : true;
+        }
+    }
+
+    if (pending_exkc_num <= 0) {
+        pending_normal_kc_flag = false;
+        if (pending_buffer_cnt[PRESS_BUF] + pending_buffer_cnt[RELEASE_BUF] > 0) {
+            process_normal_kc_flag = true;
+        }
+    }
+
+    if (process_normal_kc_flag) {
         // process events
-        keyrecord_t record;
+        keyevent_t keyevent;
+        skip_next_call = true;
         for (int idx = 0; idx < pending_buffer_max_idx; idx++) {
             if (pending_buffer[idx][PRESS_BUF].pressed) {
-                skip_next_call = true;
-                record.event = pending_buffer[idx][PRESS_BUF];
+                keyevent = pending_buffer[idx][PRESS_BUF];
                 pending_buffer[idx][PRESS_BUF].pressed = false;
                 dprintf("[PDB] proc(p):%d\n", idx);
-                process_record(&record);
+                action_exec(keyevent);
             }
 
             if (pending_buffer[idx][RELEASE_BUF].pressed) {
-                skip_next_call = true;
-                record.event = pending_buffer[idx][RELEASE_BUF];
+                keyevent = pending_buffer[idx][RELEASE_BUF];
                 pending_buffer[idx][RELEASE_BUF].pressed = false;
-                record.event.pressed = false;
+                keyevent.pressed = false;
                 dprintf("[PDB] proc(r):%d\n", idx);
-                process_record(&record);
+                action_exec(keyevent);
             }
         }
 
+        skip_next_call = false;
+        process_normal_kc_flag = false;
         pending_buffer_max_idx = 0;
         pending_buffer_cnt[PRESS_BUF] = 0;
         pending_buffer_cnt[RELEASE_BUF] = 0;
+
+        return false;
     }
 
     // if ( keycode < EXKC_START || keycode > EXKC_END)
@@ -205,7 +224,7 @@ bool bmp_process_extended_keycode(uint16_t *const p_keycode, keyrecord_t *const 
     //     return true;
     // }
 
-    return true;
+    return continue_process;
 }
 
 static void preprocess_exkc_common(keyevent_t const *const keyevent) {

@@ -5,7 +5,7 @@
 
 #include "error_def.h"
 
-#define API_VERSION 4
+#define API_VERSION 5
 #define CONFIG_VERSION 2
 #define PINS_MAX 32
 
@@ -212,6 +212,7 @@ typedef struct {
   uint16_t len;
   uint16_t keynum;
   const uint16_t* array;
+  const char* layout_name;
 } bmp_api_keymap_info_t;
 
 typedef bmp_error_t (*bmp_api_msc_write_cb_t)(const uint8_t* dat, uint32_t len);
@@ -227,7 +228,7 @@ typedef struct
   bmp_error_t (*push_keystate_change)(bmp_api_key_event_t const *  const key);
   uint32_t (*pop_keystate_change)(bmp_api_key_event_t* key, uint32_t len, uint8_t burst_threshold);
   uint16_t (*keymap_key_to_keycode)(uint8_t layer, bmp_api_keypos_t const * const key);
-  bmp_error_t (*set_keymap)(const uint16_t* keymap, uint16_t len);
+  bmp_error_t (*set_keymap)(const uint16_t* keymap, uint16_t len, const char * layout_name);
   bmp_error_t (*set_config)(bmp_api_config_t const * const);
   bmp_error_t (*get_keymap_info)(bmp_api_keymap_info_t* const keymap_info);
   const bmp_api_config_t* (*get_config)(void);

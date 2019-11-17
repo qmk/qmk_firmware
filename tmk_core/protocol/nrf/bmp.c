@@ -88,6 +88,7 @@ void bmp_action_exec(keyevent_t event)
 }
 
 static int sleep_enter_counter = -1;
+int reset_counter = -1;
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
@@ -229,6 +230,16 @@ MATRIX_LOOP_END:
             BMPAPI->app.enter_sleep_mode();
         }
     }
+
+    // reset flag check
+    if (reset_counter > 0)
+    {
+        reset_counter--;
+        if (reset_counter == 0)
+        {
+            BMPAPI->app.reset();
+        }
+    }
 }
 
 bmp_error_t nus_rcv_callback(const uint8_t* dat, uint32_t len)
@@ -277,6 +288,20 @@ char *strnstr(const char *haystack, const char *needle, size_t len) {
   return NULL;
 }
 
+const char *strnchr(const char *haystack, char needle, size_t len) {
+  int i;
+  for (i=0; i < len; i++)
+  {
+      if (haystack[i] == needle) {
+          return &haystack[i];
+      }
+      else if (haystack[i] == '\0') {
+          return NULL;
+      }
+  }
+  return NULL;
+}
+
 void parse_and_save_config(void)
 {
     bmp_api_config_t config;
@@ -315,7 +340,8 @@ void parse_and_save_keymap(void)
     {
         xprintf("Update keymap. length:%d\r\n", inst.keymap_idx);
         xprintf("%d extended keycodes are found\r\n", inst.ek_num);
-        BMPAPI->app.set_keymap(keymap, inst.keymap_idx);
+        xprintf("keyboard:%s\r\n", inst.layout_name);
+        BMPAPI->app.set_keymap(keymap, inst.keymap_idx, inst.layout_name);
         bmp_ex_keycode_num = inst.ek_num;
         BMPAPI->app.save_file(1);
 
@@ -460,9 +486,36 @@ static inline void update_keymap_string(bmp_api_config_t const * config,
   keymap_conv_inst.use_ascii = config->keymap.use_ascii;
   keymap_conv_inst.bmp_ek = bmp_ex_keycodes;
 
-  strcpy(str, "{\"layers\":\r\n");
-  keymap_to_json_conv_layout(&keymap_conv_inst, str + 12,
-      len-12, config->matrix.layout);
+  char keyboard_name[32] = {0};
+  char layout_name[32] = {0};
+  const char* delimiter = strnchr(keymap_info->layout_name, ':', 32);
+
+  if (delimiter != NULL)
+  {
+    memcpy(keyboard_name, keymap_info->layout_name,
+        delimiter - keymap_info->layout_name);
+
+    strncpy(layout_name, delimiter + 1, sizeof(layout_name));
+  }
+  else
+  {
+    strcpy(keyboard_name, config->device_info.name);
+    strcpy(layout_name, keymap_info->layout_name);
+  }
+
+
+  strcpy(str, "{\"keyboard\":\"");
+  strcat(str, keyboard_name);
+
+  strcat(str, "\",\r\n\"keymap\":\"");
+  strcat(str, "\",\r\n\"layout\":\"");
+  strcat(str, layout_name);
+
+  strcat(str, "\",\r\n\"layers\":\r\n");
+  uint32_t header_len = strlen(str);
+
+  keymap_to_json_conv_layout(&keymap_conv_inst, str + header_len,
+      len - header_len, config->matrix.layout);
   strcat(str, "}");
   BMPAPI->usb.create_file("KEYMAP  JSN", (uint8_t*)str, strlen(str));
 }
@@ -567,7 +620,7 @@ void bmp_init()
   BMPAPI->app.get_keymap_info(&keymap_info);
   if (keymap_info.len == 0)
   {
-    BMPAPI->app.set_keymap((uint16_t*)keymaps, keymaps_len()); // load default keymap
+    BMPAPI->app.set_keymap((uint16_t*)keymaps, keymaps_len(), keymap_info.layout_name); // load default keymap
     BMPAPI->app.get_keymap_info(&keymap_info);
   }
 
