@@ -61,7 +61,7 @@ from ../jetpacktuxedo/ keymap.
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
-     ---------------------------------------------------------------------
+     -------------------------------------------------------------------
      Left+LAlt Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC              // _XYZ is to layer
                                        <|>                                      
                hold     hold  hold      |        hold oneshot hold                   // Layer switch type
@@ -76,7 +76,7 @@ from ../jetpacktuxedo/ keymap.
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht //limitation prevents ~
-     --------------------------------------------------------
+     ------------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                                      // -*- Access on base
      <1        <2    <3       <4   | 4>    3>    2>    1>  
@@ -122,7 +122,7 @@ from ../jetpacktuxedo/ keymap.
      _LTR  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
      Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
-     ------------------------------------------------
+     ----------------------------------------------
      xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
@@ -152,7 +152,7 @@ from ../jetpacktuxedo/ keymap.
      _LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
-     ---------------------------------------------------------
+     --------------------------------------------------
      LAlt+Left Del   LGUI  Ent  | Spc   RGUI  xxx   ___
                                <|>                  -*-                                        // on base
      <1        <2    <3    <4   | 4>    3>    2>    1>  
@@ -182,7 +182,7 @@ from ../jetpacktuxedo/ keymap.
      _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
-     --------------------------------------------------------
+     ------------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
                               -*- <|>      -*-                                            // on _DDN base
      <1        <2    <3       <4   | 4>    3>    2>    1>  
@@ -197,11 +197,11 @@ from ../jetpacktuxedo/ keymap.
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
-     ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
-                                         <|>
-                 hold     hold  hold      |        hold oneshot hold
-     <1          <2       <3    <4        | 4>     3>   2>      1>
+     -------------------------------------------------------------------
+     Left+LAlt Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
+                                       <|>
+               hold     hold  hold      |        hold oneshot hold
+     <1        <2       <3    <4        | 4>     3>   2>      1>
 
 - - -
    

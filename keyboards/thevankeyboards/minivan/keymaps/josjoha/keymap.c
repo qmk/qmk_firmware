@@ -246,11 +246,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
-// ---------------------------------------------------------------------
-// Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC           // _XYZ are layer switches
-//                                     <|>
-//             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
-// <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
+// ------------------------------------------------------------------
+// Left+LAlt Del+_DRA _MOV  Enter+_NSY| Space _NSY _FUN    Right+_ACC             // _XYZ are layer switches
+//                                   <|>                                  
+//           hold     hold  hold      |       hold oneshot hold                   // Type of layer switch
+// <1        <2       <3    <4        | 4>    3>   2>      1>                     // Keys by number
 //
 //
 //      <pink2            , <pinky  , <ring   , <middl , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>  ,
@@ -279,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
 // .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht  // QMK limitation prevents ~
-// --------------------------------------------------------
+// -------------------------------------------------------------
 // Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
 //                          -*- <|>      -*-                                     // Layer access from _LTR -*-
 // <1        <2    <3       <4   | 4>    3>    2>    1>  
@@ -389,8 +389,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            the weird stuff, but if they are modifiers they need a layer that is
      *            on a hold key. Since these buttons seem common, and accented characters
      *            are also common, and there is a hold layer for it, and room, they are there.
-     *            They should be accessible by pressing the accented layer, the GUI, let
-     *            the layer go and press some other key.
      *          - APP (whatever it is) fakes being next to right GUI (though other layer).
      *          - The traditional obsolete button like ScrLk/PrtSc are also included, in
      *            case some program needs them suddenly.
@@ -403,10 +401,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // _LTR  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL // P(ower) indicator
 // Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
 // Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert // Ü(nicode) tester
-// ------------------------------------------------
-// xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
-//                          <|>
-// <1     <2      <3    <4   | 4>   3>    2>    1>  
+// ----------------------------------------------
+// xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
+//                       <|>     
+// <1    <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
 //      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -493,13 +491,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       hold key.  It also seems that a one-shot shift key cannot
      *       be combined with the below XP ( ... ), hence it results in
      *       three key combinations.  At least right shift (on both layers)
-     *       is close to the layer hold, and the most important ones are
-     *       on the left.  That the shift is on both layers seems to matter,
+     *       is close to the layer hold.
+     *       That the shift is on this and base layers seems to matter,
      *       so that the order of pressing the shift and the layer does not
-     *       matter anymore. It is an option to make _ACC on the _FUN layer
+     *       matter. It is an option to make _ACC on the _FUN layer
      *       a one shot if this is a problem, but it breaks the overall
      *       logic on that _FUN layer with its toggles.  It seems overall
-     *       this will be doable like it is.
+     *       this will be doable like it is. After needing to go to _FUN,
+     *       the _ACC there being one shot lost its effectiveness against
+     *       a hold on the base layer.
      *      
      *       See _RAR about why GUI is here.
      */ 
@@ -511,7 +511,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // _LTR  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
 // LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
-// ---------------------------------------------------------
+// --------------------------------------------------
 // LAlt+Left Del   LGUI  Ent  | Spc   RGUI  xxx   ___
 //                           <|>                  -*-
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
@@ -602,7 +602,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
 // .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  // QMK limitation prevents ~
-// --------------------------------------------------------
+// ------------------------------------------------------------
 // Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
 //                          -*- <|>      -*-                                     // Layer access from _LTR -*-
 // <1        <2    <3       <4   | 4>    3>    2>    1>  
@@ -635,11 +635,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
 // LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
-// ---------------------------------------------------------------------
-// Left+LAlt   Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
-//                                     <|>
-//             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
-// <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
+// -------------------------------------------------------------------
+// Left+LAlt Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
+//                                   <|>
+//           hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
+// <1        <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
 //                                                   
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
