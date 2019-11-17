@@ -15,16 +15,19 @@ from ../jetpacktuxedo/ keymap.
   Overview of layers
   - - - - - - - - - 
 
-      Basic layers are: * letters (normal Dvorak layout), (Led: off)         _LTR "LeTteRs"
-                        * numbers with remaining symbols, (Led: blue)        _NSY "Numbers SYmbols"
-                        * function keys,                  (Led: red)         _FUN "FUNction keys"
-                        * and a movement layer            (Led: green)       _MOV "MOVement"
-      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
-                    * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
-                    * special characters like é.          (Led: cyan)        _ACC "ACCented"
-                    * Unicode symbols and whatever else   (Led: yellow)      _DRA "DRAwings"
-      Dvorak Descramble: * letters                        (Led: off)         _QDN "Qwerty-Dvorak Numbers"
-                         * numbers                        (Led: blue/off)    _QDL "Qwerty-Dvorak Letters"
+Basic layers are:
+ * letters (normal Dvorak layout),     (Led: off)         \_LTR "LeTteRs"
+ * numbers with remaining symbols,     (Led: blue)        \_NSY "Numbers SYmbols"
+ * function keys,                      (Led: red)         \_FUN "FUNction keys"
+ * and a movement layer                (Led: green)       \_MOV "MOVement"
+Extra layers: 
+ * keys like Print-Screen, CapsLock,   (Led: purple)      \_RAR "RARe keys"
+ * navigation and numbers other hand,  (Led: green/blue)  \_REV "REVerse hands"
+ * special characters like é.          (Led: cyan)        \_ACC "ACCented"
+ * Unicode symbols and whatever else   (Led: yellow)      \_DRA "DRAwings"
+Descramble on _Computer_ set to Dvorak: 
+ * letters                             (Led: off)         \_DDN "Descramble Numbers"
+ * numbers                             (Led: blue/off)    \_DDL "Descramble Letters"
 
 
   Usage
@@ -38,11 +41,11 @@ from ../jetpacktuxedo/ keymap.
 
 ## To a computer already set to Dvorak remapping ...
 
-  Tap **`_FUN`** once (7th key bottom row, to function layer), then **`!QDL`** (right/top row).
-  _Layers `_QDL` and `_QDN` descramble `_LTR` and `_NYS`._
+  Tap **`_FUN`** once (7th key bottom row, to function layer), then **`!DDL`** (right/top row).
+  _Layers `_DDL` and `_DDN` descramble `_LTR` and `_NYS`._
   Undo: tap **`_FUN`** once, then hit **`_!LTR`** (most left top row), or plug keyboard in/out. 
   _Base layer back to normal `_LTR`._
-  To detect that descramble mode is (in)active, activate _NSY/_QDN and check the leds.
+  To detect that descramble mode is (in)active, activate _NSY/_DDN and check the leds.
 
   This works for laptops where one may want to use the build in keyboard as Dvorak, and plug in 
   the Minivan to work in Dvorak. It results in a sort of Qwerty map which can be used as Qwerty,
@@ -86,7 +89,7 @@ from ../jetpacktuxedo/ keymap.
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      base  toggl toggl toggl toggl toggl | toggl toggl             toggl base           // Type of switch
                  -*-                    <|>                                       // -*- Locks _Fun layer
-     !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _QDN  !QDL      // ! set default layer
+     !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL      // ! set default layer
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
@@ -116,9 +119,9 @@ from ../jetpacktuxedo/ keymap.
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                                    // on _FUN
-     _LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
-     Tab   uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert
-     xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
+     _LTR  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
+     Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+     Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ------------------------------------------------
      xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
                               <|>
@@ -142,7 +145,7 @@ from ../jetpacktuxedo/ keymap.
 - - -
     
     
-     Layer _ACC (ACCented characters)
+     Layer _ACC (ACCented characters, see _RAR layer for input modes)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>-*-                                                 // on _FUN
@@ -150,7 +153,7 @@ from ../jetpacktuxedo/ keymap.
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      ---------------------------------------------------------
-     LAlt+Left Del   Linux Ent  | Spc   xxx   xxx   ___
+     LAlt+Left Del   LGUI  Ent  | Spc   RGUI  xxx   ___
                                <|>                  -*-                                        // on base
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -172,7 +175,7 @@ from ../jetpacktuxedo/ keymap.
 - - -
     
 
-     Layer _QDN (Dvorak descramble mode for numbers/symbols)
+     Layer _DDN (Dvorak descramble mode for numbers/symbols)
 
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                          <|>                        -*-                        // on _FUN
@@ -181,13 +184,13 @@ from ../jetpacktuxedo/ keymap.
      .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
      --------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                            // on _QDN base
+                              -*- <|>      -*-                                            // on _DDN base
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
 - - -
 
 
-     Layer _QDN (Dvorak descramble mode for letters)
+     Layer _DDN (Dvorak descramble mode for letters)
 
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                            <|>                              -!-     // on _FUN (set base)
@@ -195,7 +198,7 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC
+     Left+LAlt   Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
                                          <|>
                  hold     hold  hold      |        hold oneshot hold
      <1          <2       <3    <4        | 4>     3>   2>      1>

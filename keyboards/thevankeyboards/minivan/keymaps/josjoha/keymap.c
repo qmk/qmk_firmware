@@ -20,7 +20,7 @@ extern keymap_config_t keymap_config;
      *   some remaining symbols on the numbers and remaining symbols layer.
      *
      *   The _FUN layer acts as the layer toggle hub from where to fall into the
-     *   descramble system by activating _QDL, or in the normal mode by
+     *   descramble system by activating _DDL, or in the normal mode by
      *   activating _LTR (those set default layer).
      *
      * */
@@ -38,8 +38,8 @@ extern keymap_config_t keymap_config;
 #define _REV 7 // Reversing: numbers right, navigation left (mirrored.)
 #define _ACC 8 // Accented letters and unusual symbols
 #define _DRA 9 // Accented letters and unusual symbols
-#define _QDN 2 // Unmapping Qwerty-to-Dvorak computer side remapping, numbers/symbols
-#define _QDL 1 // Unmapping Qwerty-to-Dvorak computer side remapping, letters
+#define _DDN 2 // Descramble Dvorak computer side remapping, numbers/symbols
+#define _DDL 1 // Descramble Dvorak computer side remapping, letters
 
 
 
@@ -301,6 +301,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: Function keys, on the right side with Control+Alt (switch virtual consoles in Linux)
      *          Toward any layer by toggle.
+     *
+     * XXX FIXME When toggling to the _FUN layer again by top row, while alreaady on it by one shot,
+     *           the _LTR key does no longer go back to the base layer. Switching to another layer
+     *           first unsticks it. Reason: unknown, solution: unknown. Importance: low (I never need
+     *           that layer to be on persistantly, and the work around is easy; but it is not perfect).
+     *           It seems that something gets confused {probably its me} when re-switching to the
+     *           already active layer or something), having to do with setting the base layer. It
+     *           also occurs on setting _DDL layer.
      */
 
     [ _FUN ] = LAYOUT (
@@ -308,7 +316,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // base  toggl toggl toggl toggl toggl | toggl toggl             toggl base       // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _QDN  !QDL       // ! set default layer
+// !LTR  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL       // ! set default layer
 // LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
 // LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
 // -----------------------------------------------
@@ -319,7 +327,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2      , <pinky         , <ring         , <middl        , <index        , <indx2       |, indx2>      , index>      , middl> , ring>  , pinky>      , pink2>      ,
 //                  ,                , -*-           ,               ,               ,             <|,>            ,             ,        ,        ,             ,             ,
-        DF ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , TO ( _DRA ) , KC_F12 , KC_F11 , TO ( _QDN ) , DF ( _QDL ) ,
+        DF ( _LTR ) , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , TO ( _DRA ) , KC_F12 , KC_F11 , TO ( _DDN ) , DF ( _DDL ) ,
         KC_LCTL     , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4       , KC_F3  , KC_F2  , KC_F1       , KC_RCTL     ,
         KC_LSFT     , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) , KC_F6       , KC_F7       , KC_F8  , KC_F9  , KC_F10      , KC_RSFT     ,
 //      -----------------------------------------------------------------------------
@@ -362,30 +370,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/**/
 
 
-    /* Layer 4: Dump for various unused keys. Media keys on 2nd row.
-     *   
+    /* Layer 4: Dump for various unused keys.
+     *          - Media keys sortof follow navigation block logic, on those keycap colors.
+     *          - Ü precedes the Unicode input modes, as indicator key and tester
+     *            This block follows the numbers lower row keycap colors.
+     *          - p precedes the power key (to test where it is if forgotten)
+     *            This block is on top row, where the "powerful" F-keys are on _FUN layer.
+     *            POWER is on the button where _FUN itself is, associating it with 'red'.
+     *          - Capslock/Numlock have vague logic of being on the other side of normal
+     *          - Insert sortof has to do with Capslock/Numlock (insert characters...)
+     *          - GUI are keys I never heard about before. They kindof belong here with
+     *            the weird stuff, but if they are modifiers they need a layer that is
+     *            on a hold key. Since these buttons seem common, and accented characters
+     *            are also common, and there is a hold layer for it, and room, they are there.
+     *            They should be accessible by pressing the accented layer, the GUI, let
+     *            the layer go and press some other key.
+     *          - APP (whatever it is) fakes being next to right GUI (though other layer).
+     *          - The traditional obsolete button like ScrLk/PrtSc are also included, in
+     *            case some program needs them suddenly.
      */
 
     [ _RAR ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                         -*-        <|>
-// _LTR  CapL  NumL  Pause ScrLk PrtSc | xxx   xxx   Power Sleep Wake   xxx   
-// Tab   uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert
-// xxx   Stop  Play  Prev  Next  Vol-  | Vol+  Mute  xxx   xxx   xxx    xxx
+// _LTR  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL // P(ower) indicator
+// Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+// Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert // Ü(nicode) tester
 // ------------------------------------------------
 // xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
 //                          <|>
 // <1     <2      <3    <4   | 4>   3>    2>    1>  
 //
 //
-//      <pink2      , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
-//                  ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
-        TO ( _LTR ) , KC_CAPS          , KC_NLCK          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_PWR  , KC_SLEP , KC_WAKE , XXXXXXX ,
-        KC_TAB      , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
-        XXXXXXX     , KC_MSTP          , KC_MPLY          , KC_MPRV          , KC_MNXT          , KC_VOLD           , KC_VOLU , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
+//      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
+//                    ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
+        TO ( _LTR )   , S ( KC_P )       , KC_PWR           , KC_WAKE          , KC_SLEP          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
+        KC_TAB        , XXXXXXX          , XXXXXXX          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
+        X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
 //      ----------------------------------------------------------------------------
-        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP  
+        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP  , XXXXXXX
 //              ,         ,         ,       <|,>        ,         ,         ,
 //      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
@@ -470,6 +494,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *       a one shot if this is a problem, but it breaks the overall
      *       logic on that _FUN layer with its toggles.  It seems overall
      *       this will be doable like it is.
+     *      
+     *       See _RAR about why GUI is here.
      */ 
 
     [ _ACC ] = LAYOUT (
@@ -480,7 +506,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
 // LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
 // ---------------------------------------------------------
-// LAlt+Left Del   xxx   Ent  | Spc   xxx   xxx   ___
+// LAlt+Left Del   LGUI  Ent  | Spc   RGUI  xxx   ___
 //                           <|>                  -*-
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
@@ -491,7 +517,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ------------------------------------------------------------------------------------
-        KC_LALT , KC_DEL , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX , _______ 
+        KC_LALT , KC_DEL , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
 //	        ,        ,         ,      <|,>       ,         ,         , -*-
 //     <1       ,<2      ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
                       ),
@@ -563,7 +589,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _QDN ] = LAYOUT (
+    [ _DDN ] = LAYOUT (
 
 // <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                     <|>                        -*-            // Layer access from _FUN -*-
@@ -590,12 +616,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/**/
 
     /* Layer 10: Descrambled _LTR layer for a computer already set to Dvorak (see above).
-     *           It is a copy of _LTR, with moved around stuff, and points to _QDN instead
+     *           It is a copy of _LTR, with moved around stuff, and points to _DDN instead
      *           of _NSY, because that too has some descrambled symbols. The rest is the same.
      *
      */
 
-    [ _QDL ] = LAYOUT (
+    [ _DDL ] = LAYOUT (
 
 //                                        | Right hand
 // <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
@@ -604,7 +630,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
 // LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
 // ---------------------------------------------------------------------
-// Left+LAlt   Del+_DRA _MOV  Enter+_QDN| Space  _QDN _FUN    Right+_ACC           // _XYZ are layer switches
+// Left+LAlt   Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
 //                                     <|>
 //             hold     hold  hold      |        hold oneshot hold                 // Type of layer switch
 // <1          <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
@@ -616,7 +642,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _DRA , KC_DEL ) , MO ( _MOV ) , LT ( _QDN , KC_ENT ) , KC_SPC , MO ( _QDN ) , OSL ( _FUN ) , LT ( _ACC , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _DRA , KC_DEL ) , MO ( _MOV ) , LT ( _DDN , KC_ENT ) , KC_SPC , MO ( _DDN ) , OSL ( _FUN ) , LT ( _ACC , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -725,12 +751,12 @@ uint32_t layer_state_set_user(uint32_t state){
         led2g = 128; //
         rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
     }
-    else if (layer_state_cmp(state, _QDN)) { // double Dvorak descramble, numbers/symbols 
+    else if (layer_state_cmp(state, _DDN)) { // double Dvorak descramble, numbers/symbols 
 	// Off first led indicates we are in descramble mode
         led2b = 255; //  Third led follows the layer being descrambled (_NSY) 
         rgblight_sethsv_noeeprom(HSV_BLUE); 
     }
-    /*else if (layer_state_cmp(state, _QDL)) { // double Dvorak descramble, letters
+    /*else if (layer_state_cmp(state, _DDL)) { // double Dvorak descramble, letters
 	// Disabled to let it breathe in the color of the last layer
     }*/
 
