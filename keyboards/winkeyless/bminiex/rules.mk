@@ -28,7 +28,3 @@ TAP_DANCE_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c backlight.c

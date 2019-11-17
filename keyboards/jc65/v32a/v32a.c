@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "v32a.h"
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void) {
 	setPinOutput(D0);

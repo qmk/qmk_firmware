@@ -24,7 +24,3 @@ RGBLIGHT_ENABLE = yes
 WS2812_DRIVER = i2c
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c

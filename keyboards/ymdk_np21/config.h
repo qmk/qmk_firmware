@@ -29,8 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         np21
 
 /* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 6
+#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
