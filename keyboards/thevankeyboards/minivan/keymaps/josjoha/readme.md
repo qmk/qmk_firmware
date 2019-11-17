@@ -81,7 +81,7 @@ keymap.
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
-     LAlt  ___   ___   ___  | ___   ___   ___   RAlt
+     LAlt  xxx   xxx   xxx  | xxx   xxx   ___   RAlt
                            <|>            -*-                             // Accessed by -*- (one shot)
      <1    <2    <3    <4   | 4>    3>    2>    1>  
     
