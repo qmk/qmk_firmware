@@ -29,6 +29,9 @@ from ../jetpacktuxedo/ keymap.
       * letters                             (Led: off)         _DDN "Descramble Numbers"
       * numbers                             (Led: blue/off)    _DDL "Descramble Letters"
 
+      Leds: breathing effect on the middle LED in color of last active non base layer,
+      others indicate active layer.
+
 
   Usage
   =====
@@ -210,18 +213,15 @@ from ../jetpacktuxedo/ keymap.
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
       most layers.
 
-      Except ... the Right Control on the base layer is taken off, because
+    - Except ... the Right Control on the base layer is taken off, because
       of tap delay. QMK allows one to press-hold to the numerical layer
       for example, then press a right modifier like right Control, release
       numerical layer, and access the base layer with that modifier
       (Right-Contro-A for example); so it is still possible, just not
       needed, Left-Control-A will suffice in all to me known cases.)
 
-      Right Alt on the base layer is taken off, instead it switches to
+    - Right Alt on the base layer is taken off, instead it switches to
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
  
-    - Leds: breathing effect on the middle LED in color of last active
-      non base layer, others indicate active layer.
-
     See keymap.c for more comments.
