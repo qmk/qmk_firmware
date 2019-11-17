@@ -19,7 +19,7 @@ Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_bas
 
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
-# Switching and Toggling Layers
+# <div id="switching-and-toggling-layers">Switching and Toggling Layers</div>
 
 These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers). When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
@@ -56,7 +56,7 @@ Layers stack on top of each other in numerical order. When determining what a ke
 
 Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_layer.h).
 
-# Modifier Keys
+# <div id="modifier-keys">Modifier Keys</div>
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
@@ -78,7 +78,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
-# Mod-Tap
+# <div id="mod-tap">Mod-Tap</div>
 
 The Mod-Tap key `MT(mod, kc)` acts like a modifier when held, and a regular keycode when tapped. In other words, you can have a key that sends Escape when you tap it, but functions as a Control or Shift key when you hold it down.
 
@@ -133,7 +133,7 @@ Additionally, you may run into issues when using Remote Desktop Connection on Wi
 
 To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
 
-# One Shot Keys
+# <div id="one-shot-keys">One Shot Keys</div>
 
 One shot keys are keys that remain active until the next key is pressed, and then are released. This allows you to type keyboard combinations without pressing more than one key at a time. These keys are usually called "Sticky keys" or "Dead keys".
 
@@ -242,7 +242,7 @@ While Tap-Hold options are fantastic, they are not without their issues.  We hav
 
 These options let you modify the behavior of the Tap-Hold keys.
 
-## Permissive Hold
+## <div id="permissive-hold">Permissive Hold</div>
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
@@ -265,7 +265,7 @@ Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this wil
 
 ?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-## Ignore Mod Tap Interrupt
+## <div id="ignore-mod-tap-interrupt">Ignore Mod Tap Interrupt</div>
 
 To enable this setting, add this to your `config.h`:
 
@@ -291,7 +291,7 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 ?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-## Tapping Force Hold
+## <div id="tapping-force-hold">Tapping Force Hold</div>
 
 To enable `tapping force hold`, add the following to your `config.h`: 
 
@@ -315,7 +315,7 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
 
-## Retro Tapping
+## <div id="retro-tapping">Retro Tapping</div>
 
 To enable `retro tapping`, add the following to your `config.h`: 
 
