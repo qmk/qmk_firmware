@@ -23,7 +23,7 @@ from ../jetpacktuxedo/ keymap.
      Extra layers: 
       * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
       * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
-      * special characters like é.          (Led: cyan)        _ACC "ACCented"
+      * accented characters like é, ø, ß    (Led: cyan)        _ACC "ACCented"
       * Unicode symbols and whatever else   (Led: yellow)      _DRA "DRAwings"
      Descramble on _Computer_ set to Dvorak: 
       * letters                             (Led: off)         _DDN "Descramble Numbers"
@@ -34,8 +34,8 @@ from ../jetpacktuxedo/ keymap.
   =====
  
   All normal use layer switching is by thumb buttons on the base layer, all temporary.
-  All layers can be set to be on persistently through the _FUN layer top row toggles.
-  A few rarely used layers can only be reached by _FUN layer toggle.
+  All layers can be set to be on persistently through the _FUN layer top row toggles, except
+  _FUN itself (XXX). A few rarely used layers can only be reached by _FUN layer toggle.
   From each layer one can go back to the base layer by pressing the upper/left most button.
 
 
