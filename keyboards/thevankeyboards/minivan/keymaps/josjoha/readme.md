@@ -16,30 +16,35 @@ keymap.
   Overview of layers
   - - - - - - - - - 
 
-      Basic layers are: * letters (normal Dvorak layout), (Led: off)         \_LTR "LeTteRs"
-                        * numbers with remaining symbols, (Led: blue)        \_NSY "Numbers SYmbols"
-                        * function keys,                  (Led: red)         \_FUN "FUNction keys"
-                        * and a movement layer            (Led: green)       \_MOV "MOVement"
-      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)      \_RAR "RARe keys"
-                    * navigation and numbers other hand,  (Led: green/blue)  \_REV "REVerse hands"
-                    * special characters like é.          (Led: cyan)        \_ACC "ACCented"
-                    * Unicode symbols and whatever else   (Led: white)       \_DRA "DRAwings"
-      Dvorak Descramble: * letters                        (Led: off)         \_QDN "Qwerty-Dvorak Numbers"
-                         * numbers                        (Led: yellow/blue) \_QDL "Qwerty-Dvorak Letters"
+      Basic layers are: * letters (normal Dvorak layout), (Led: off)         _LTR "LeTteRs"
+                        * numbers with remaining symbols, (Led: blue)        _NSY "Numbers SYmbols"
+                        * function keys,                  (Led: red)         _FUN "FUNction keys"
+                        * and a movement layer            (Led: green)       _MOV "MOVement"
+      Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
+                    * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
+                    * special characters like é.          (Led: cyan)        _ACC "ACCented"
+                    * Unicode symbols and whatever else   (Led: white)       _DRA "DRAwings"
+      Dvorak Descramble: * letters                        (Led: off)         _QDN "Qwerty-Dvorak Numbers"
+                         * numbers                        (Led: yellow/blue) _QDL "Qwerty-Dvorak Letters"
 
 
   Usage
   - - -
-
-     If connecting to for example a laptop that remaps to Dvorak on the computer side: 
-     tap _FUN once (function layer), then hit _QDL. Base layers _QDL, _QDN descramble _LTR, _NYS
-     Undo: tap _FUN once (function layer), then hit _LTR. Base layer back to normal _LTR.
  
      All normal use layer switching is by thumb buttons on the base layer, all temporary.
      All layers can be set to be on persistently through the _FUN layer top row toggles.
      A few rarely used layers can only be reached by _FUN layer toggle.
      The most left _LTR and most right _QDL layer toggles on _FUN also set base layer (see above).
      From each layer one can go back to the base layer by pressing the upper/left most button.
+
+
+       Connecting to a computer already set to Dvorak
+
+     Tap _FUN once (7th key bottom row, to function layer), then hit !QDL (most right top row).
+     -> Base layers _QDL, _QDN descramble _LTR, _NYS. (Handy for laptops where one may want
+        to use the build in keyboard as Dvorak, and plug in the Minivan to work in Dvorak.)
+     Undo: tap _FUN once, then hit !LTR (most left top row), or plug keyboard in/out. 
+     -> Base layer back to normal _LTR.
 
 
   Layers
