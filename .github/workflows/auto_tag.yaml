@@ -1,0 +1,26 @@
+name: Essential files modified
+
+on:
+  push:
+    branches:
+    - master
+    paths-ignore:
+    - 'keyboards/**'
+    - 'docs/**'
+    - 'users/**'
+    - 'layouts/**'
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    # protect against those who develop with their fork on master
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@master
+      env:
+        DEFAULT_BUMP: patch
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
