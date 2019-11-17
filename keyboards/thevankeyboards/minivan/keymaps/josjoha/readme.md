@@ -47,9 +47,7 @@ from ../jetpacktuxedo/ keymap.
   _Base layer back to normal `_LTR`._
   To detect that descramble mode is (in)active, activate _NSY/_DDN and check the leds.
 
-  This works for laptops where one may want to use the build in keyboard as Dvorak, and plug in 
-  the Minivan to work in Dvorak. It results in a sort of Qwerty map which can be used as Qwerty,
-  but the symbol arrangement for `\=/[]|+?{}` is probably not what a Qwerty typer would prefer.
+  This works for computers configured to _already_ remap the input to Dvorak.
 
   Layers
   ======
