@@ -15,19 +15,19 @@ from ../jetpacktuxedo/ keymap.
   Overview of layers
   - - - - - - - - - 
 
-Basic layers are:
- * letters (normal Dvorak layout),     (Led: off)         \_LTR "LeTteRs"
- * numbers with remaining symbols,     (Led: blue)        \_NSY "Numbers SYmbols"
- * function keys,                      (Led: red)         \_FUN "FUNction keys"
- * and a movement layer                (Led: green)       \_MOV "MOVement"
-Extra layers: 
- * keys like Print-Screen, CapsLock,   (Led: purple)      \_RAR "RARe keys"
- * navigation and numbers other hand,  (Led: green/blue)  \_REV "REVerse hands"
- * special characters like é.          (Led: cyan)        \_ACC "ACCented"
- * Unicode symbols and whatever else   (Led: yellow)      \_DRA "DRAwings"
-Descramble on _Computer_ set to Dvorak: 
- * letters                             (Led: off)         \_DDN "Descramble Numbers"
- * numbers                             (Led: blue/off)    \_DDL "Descramble Letters"
+     Basic layers are:
+      * letters (normal Dvorak layout),     (Led: off)         _LTR "LeTteRs"
+      * numbers with remaining symbols,     (Led: blue)        _NSY "Numbers SYmbols"
+      * function keys,                      (Led: red)         _FUN "FUNction keys"
+      * and a movement layer                (Led: green)       _MOV "MOVement"
+     Extra layers: 
+      * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
+      * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
+      * special characters like é.          (Led: cyan)        _ACC "ACCented"
+      * Unicode symbols and whatever else   (Led: yellow)      _DRA "DRAwings"
+     Descramble on _Computer_ set to Dvorak: 
+      * letters                             (Led: off)         _DDN "Descramble Numbers"
+      * numbers                             (Led: blue/off)    _DDL "Descramble Letters"
 
 
   Usage
