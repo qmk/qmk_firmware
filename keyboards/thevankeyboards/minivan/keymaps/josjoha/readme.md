@@ -62,10 +62,10 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      ---------------------------------------------------------------------
-     Left+LAlt   Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC            // _XYZ is to layer
-                                         <|>
-                 hold     hold  hold      |        hold oneshot hold                 // Layer switch type
-     <1          <2       <3    <4        | 4>     3>   2>      1>                      // Keys by number
+     Left+LAlt Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC              // _XYZ is to layer
+                                       <|>                                      
+               hold     hold  hold      |        hold oneshot hold                   // Layer switch type
+     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
 - - -
 
@@ -123,9 +123,9 @@ from ../jetpacktuxedo/ keymap.
      Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ------------------------------------------------
-     xxx    xxx     xxx   xxx  | xxx  xxx   xxx   App
-                              <|>
-     <1     <2      <3    <4   | 4>   3>    2>    1>  
+     xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
+                           <|>
+     <1    <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
     
@@ -212,15 +212,18 @@ from ../jetpacktuxedo/ keymap.
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
       most layers.
 
-      Except ... the Right Control on the base layer is taken off,
-      because of tap delay. Right Alt on the base layer is taken off,
-      instead it switches to an accented letters layer. It becomes a bit
-      like a private subset of AltGr symbols. QMK allows one to press-hold 
-      to the numerical layer for example, then press a right modifier like
-      right Control, release numerical layer, and access the base layer with
-      that modifier (Right-Contro-A for example); so it is still possible,
-      just not needed, Left-Control-A will suffice in all to me known cases.)
+      Except ... the Right Control on the base layer is taken off, because
+      of tap delay. QMK allows one to press-hold to the numerical layer
+      for example, then press a right modifier like right Control, release
+      numerical layer, and access the base layer with that modifier
+      (Right-Contro-A for example); so it is still possible, just not
+      needed, Left-Control-A will suffice in all to me known cases.)
+
+      Right Alt on the base layer is taken off, instead it switches to
+      an accented letters layer. It becomes a bit like a private subset
+      of AltGr symbols.
  
-    - Leds: breathing effect on the middle LED, other indicate layer.
+    - Leds: breathing effect on the middle LED in color of last active
+      non base layer, others indicate active layer.
 
     See keymap.c for more comments.
