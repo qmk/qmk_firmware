@@ -678,60 +678,64 @@ void keyboard_post_init_user(void) {
 uint32_t layer_state_set_user(uint32_t state){
   #ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-    uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
+    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
 
+    /*if (layer_state_cmp(state, _LTR)) { // symbols and numbers
+	// Disabled to let it breathe in the color of the last layer
+    }
+    else */
     if (layer_state_cmp(state, _NSY)) { // symbols and numbers
-      led1b = 255; // blue for symbols, like ink (writing)
-      led0b = 255;
+        led2b = 255; // blue for symbols, like ink (writing)
+        led0b = 255;
+        rgblight_sethsv_noeeprom(HSV_BLUE);
     }
-    if (layer_state_cmp(state, _FUN)) { // F-keys, and layer toggles
-      led1r = 255; // F-keys is red, because it can mean anything, "be careful"
-      led0r = 255;
+    else if (layer_state_cmp(state, _FUN)) { // F-keys, and layer toggles
+        led2r = 255; // F-keys is red, warning color because it can mean anything
+        led0r = 255;
+        rgblight_sethsv_noeeprom(HSV_RED);
     } 
-    if (layer_state_cmp(state, _MOV)) { // movement layer
-      led1g = 255; // movement is green, "go forward"
-      led0g = 255;
+    else if (layer_state_cmp(state, _MOV)) { // movement layer
+        led2g = 255; // movement is green, "go forward"
+        led0g = 255;
+        rgblight_sethsv_noeeprom(HSV_GREEN);
     }
-    if (layer_state_cmp(state, _RAR)) { // weird layer
-      led1b = 100; // some color for strange keys
-      led1r = 100;
-      led0r = 100;
-      led0b = 100;
+    else if (layer_state_cmp(state, _RAR)) { // weird layer
+        led2r = 100; // purple
+        led2b = 100;
+        led0r = 100;
+        led0b = 100;
+        rgblight_sethsv_noeeprom(HSV_PURPLE); // purple
     }
-    if (layer_state_cmp(state, _REV)) { // reverse hands layer
-      led0g = 255; // green for nagivation left hand
-      led1b = 255; // blue for symbols right hand
+    else if (layer_state_cmp(state, _REV)) { // reverse hands layer
+        led0g = 255; // green for nagivation left hand
+        led2b = 255; // blue for symbols right hand
+        rgblight_sethsv_noeeprom(60, 20, 100); // yellow (low saturation)
     }
-    if (layer_state_cmp(state, _ACC)) { // Accented letters (Unicode input layer)
-      led1b = 100; // With some blue, because it is also a symbol 
-      led1g = 100;
-      led0b = 100;
-      led0g = 100;
+    else if (layer_state_cmp(state, _ACC)) { // Accented letters (Unicode input layer)
+        led2g = 100; // With some blue, because it is also a symbol 
+        led2b = 100;
+        led0g = 100;
+        led0b = 100;
+        rgblight_sethsv_noeeprom(HSV_CYAN); // cyan
     }
-    if (layer_state_cmp(state, _DRA)) { // Unicode drawings and unusual things
-      led0g = 200; // Bit of a white/yellowish color
-      led0b = 50; //
-      led0r = 250; //
-      led1g = 200; //
-      led1b = 50; //
-      led1r = 250; //
+    else if (layer_state_cmp(state, _DRA)) { // Unicode drawings and unusual things
+        led0r = 255; // gold red
+        led0g = 128; // 
+        led2r = 255; //
+        led2g = 128; //
+        rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
     }
-    if (layer_state_cmp(state, _QDN)) { // double Dvorak descramble, numbers/symbols 
-      led0g = 155; // Orange only left led indicates descramble mode
-      led0r = 255; //
-      led1b = 255; //  Third led follows the layer being descrambled (_NSY) 
+    else if (layer_state_cmp(state, _QDN)) { // double Dvorak descramble, numbers/symbols 
+	// Off first led indicates we are in descramble mode
+        led2b = 255; //  Third led follows the layer being descrambled (_NSY) 
+        rgblight_sethsv_noeeprom(HSV_BLUE); 
     }
-    if (layer_state_cmp(state, _QDL)) { // double Dvorak descramble, letters
-      led0g = 155; // Orange only left led indicates descramble mode
-      led0r = 255; //
-                   // Third led follows the layer being descrambled (_LTR)
-      // It seems that this does not work, perhaps because internally the layer
-      // is renamed layer 0 when activated as the base layer. To detect this
-      // layer one could activate the _NSY / _QDN layer key.
-    }
+    /*else if (layer_state_cmp(state, _QDL)) { // double Dvorak descramble, letters
+	// Disabled to let it breathe in the color of the last layer
+    }*/
 
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led1r, led1g, led1b, (LED_TYPE *)&led[2]); // Led 2
+    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     rgblight_set();
   #endif //RGBLIGHT_ENABLE
   return state;

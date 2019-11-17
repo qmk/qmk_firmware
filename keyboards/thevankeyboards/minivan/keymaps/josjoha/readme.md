@@ -5,11 +5,10 @@ The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 
 It also allows the same layout on a computer that is already set to Dvorak
-on the computer side, by changing the default layer (see Function layer).
+on the computer side.
 
-This keymap.c was edited from the default provided with this version of
-QMK on Github, and the LED support was copied from ../jetpacktuxedo/
-keymap. 
+This keymap.c was edited from the default, LED support was copied/edited
+from ../jetpacktuxedo/ keymap. 
                                                 By Jos B.,  joshb@xs4all.nl 
 
 
@@ -23,9 +22,9 @@ keymap.
       Extra layers: * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
                     * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
                     * special characters like é.          (Led: cyan)        _ACC "ACCented"
-                    * Unicode symbols and whatever else   (Led: white)       _DRA "DRAwings"
+                    * Unicode symbols and whatever else   (Led: yellow)      _DRA "DRAwings"
       Dvorak Descramble: * letters                        (Led: off)         _QDN "Qwerty-Dvorak Numbers"
-                         * numbers                        (Led: yellow/blue) _QDL "Qwerty-Dvorak Letters"
+                         * numbers                        (Led: blue/off)    _QDL "Qwerty-Dvorak Letters"
 
 
   Usage
@@ -43,6 +42,7 @@ keymap.
   _Layers `_QDL` and `_QDN` descramble `_LTR` and `_NYS`._
   Undo: tap **`_FUN`** once, then hit **`_!LTR`** (most left top row), or plug keyboard in/out. 
   _Base layer back to normal `_LTR`._
+  To detect that descramble mode is (in)active, activate _NSY/_QDN and check the leds.
 
   This works for laptops where one may want to use the build in keyboard as Dvorak, and plug in 
   the Minivan to work in Dvorak. It results in a sort of Qwerty map which can be used as Qwerty,
