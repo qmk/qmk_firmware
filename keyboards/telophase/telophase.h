@@ -2,9 +2,6 @@
 #define TELOPHASE_H
 
 #include "quantum.h"
-#include "matrix.h"
-#include "backlight.h"
-#include <stddef.h>
 
 #define red_led_off   PORTF |= (1<<5)
 #define red_led_on    PORTF &= ~(1<<5)

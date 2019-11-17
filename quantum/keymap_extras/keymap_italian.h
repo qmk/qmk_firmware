@@ -70,18 +70,15 @@
 
 #define IT_APOS KC_MINS  // ', ?,  ,
 
-
-
-#define IT_BKSL KC_GRAVE // backslash \, |
-
+#define IT_BKSL KC_GRAVE  // backslash \, |
 
 #define IT_ACUT  // accent acute ´ and grave `
 
-#define IT_LESS KC_NUBS // < and > and |
-#define IT_MINS KC_SLSH // - and _
+#define IT_LESS KC_NUBS  // < and > and |
+#define IT_MINS KC_SLSH  // - and _
 
 // shifted characters
-#define IT_PIPE LSFT(IT_BKSL) // °
+#define IT_DEGR LSFT(IT_AACC) // °
 #define IT_EXLM LSFT(KC_1) // !
 #define IT_DQOT LSFT(KC_2) // "
 #define IT_STRL LSFT(KC_3) // £
@@ -107,9 +104,10 @@
 #define IT_RCBR ALGR(KC_0) // }
 #define IT_AT   ALGR(IT_OACC) 	// @
 #define IT_EURO ALGR(KC_E) 		// €
-#define IT_PIPE LSFT(IT_BKSL) 	// |
+#define IT_PIPE LSFT(IT_BSLS) 	// |
 #define	IT_SHRP	ALGR(IT_AACC) 	// #
 
+// Deprecated
 #define	IT_X_PLUS	X_RBRACKET 	// #
 
 #endif

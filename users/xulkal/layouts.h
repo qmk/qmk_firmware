@@ -15,10 +15,10 @@
   */
 
 #define _________________QWERTY_L1_________________ KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5
-#define _________________QWERTY_L2_________________ TD_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
+#define _________________QWERTY_L2_________________ KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
 #define _________________QWERTY_L3_________________ RIS_CAPS, KC_A,     KC_S,     KC_D,     KC_F,     KC_G
 #define _________________QWERTY_L4_________________ KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B
-#define _________________QWERTY_L5_________________ KC_LCPO,  KC_LGUI,  LOWER,    RAISE,    KC_LALT,  KC_SPC
+#define _________________QWERTY_L5_________________ KC_LCPO,  KC_LGUI,  KC_LALT,  LOWER,    RAISE,  KC_SPC
 
 #define _________________QWERTY_R1_________________           KC_6,    KC_7,      KC_8,     KC_9,     KC_0,     TD_BSPC
 #define _________________QWERTY_R2_________________           KC_Y,    KC_U,      KC_I,     KC_O,     KC_P,     KC_BSLS
@@ -86,7 +86,7 @@
 #define __________________LOWER_L4_________________ _______,  _______,  _______,  _______,  _______,  _______
 #define __________________LOWER_L5_________________ _______,  _______,  _______,  _______,  _______,  _______
 
-#define __________________LOWER_R1_________________           _______,  _______,  _______,  _______,  _______,  KC_DEL
+#define __________________LOWER_R1_________________           _______,  _______,  _______,  KC_SLCK,  KC_NLCK,  KC_DEL
 #define __________________LOWER_R2_________________           _______,  _______,  KC_KP_7,  KC_KP_8,  KC_KP_9,  _______
 #define __________________LOWER_R3_________________           _______,  _______,  KC_KP_4,  KC_KP_5,  KC_KP_6,  _______
 #define __________________LOWER_R4_________________           _______,  _______,  KC_KP_1,  KC_KP_2,  KC_KP_3,  _______

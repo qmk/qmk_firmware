@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x0348
+#define DEVICE_VER   0x0200
 #define MANUFACTURER Pearl Boards
 #define PRODUCT      Pearl
 #define DESCRIPTION  40% keyboard
@@ -40,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
