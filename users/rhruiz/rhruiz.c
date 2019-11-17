@@ -10,6 +10,8 @@ __attribute__((weak)) bool rhruiz_process_record(uint16_t keycode, keyrecord_t *
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 
+__attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1; }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_MAKE:
@@ -104,8 +106,6 @@ void rhruiz_rgblight_reset(void) {
     rgblight_sethsv_noeeprom(eeprom_config.hue, eeprom_config.sat, eeprom_config.val);
 #endif
 }
-
-__attribute__((weak)) bool rhruiz_is_layer_indicator_led(uint8_t index) { return index == 0 || index == RGBLED_NUM / 2 - 1; }
 
 void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
 #ifdef RGBLIGHT_ENABLE
