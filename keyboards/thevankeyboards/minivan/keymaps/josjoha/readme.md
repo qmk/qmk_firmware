@@ -48,7 +48,7 @@ keymap.
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> // Keys by finger
-     -*-                                   <|>                                     // -*- Access from all
+     -*!-                                  <|>                                     // -*!- Access from all
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
