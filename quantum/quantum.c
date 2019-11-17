@@ -24,8 +24,10 @@
 #    include "outputselect.h"
 #endif
 
-#include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
 extern backlight_config_t backlight_config;
+#endif
 
 #ifdef FAUXCLICKY_ENABLE
 #    include "fauxclicky.h"
@@ -85,44 +87,28 @@ static void do_code16(uint16_t code, void (*f)(uint8_t)) {
             return;
     }
 
-    if (code & QK_LCTL) f(KC_LCTL);
-    if (code & QK_LSFT) f(KC_LSFT);
-    if (code & QK_LALT) f(KC_LALT);
-    if (code & QK_LGUI) f(KC_LGUI);
+    uint8_t mods_to_send = 0;
 
-    if (code < QK_RMODS_MIN) return;
+    if (code & QK_RMODS_MIN) {  // Right mod flag is set
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_RCTL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_RSFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_RALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_RGUI);
+    } else {
+        if (code & QK_LCTL) mods_to_send |= MOD_BIT(KC_LCTL);
+        if (code & QK_LSFT) mods_to_send |= MOD_BIT(KC_LSFT);
+        if (code & QK_LALT) mods_to_send |= MOD_BIT(KC_LALT);
+        if (code & QK_LGUI) mods_to_send |= MOD_BIT(KC_LGUI);
+    }
 
-    if (code & QK_RCTL) f(KC_RCTL);
-    if (code & QK_RSFT) f(KC_RSFT);
-    if (code & QK_RALT) f(KC_RALT);
-    if (code & QK_RGUI) f(KC_RGUI);
-}
-
-static inline void qk_register_weak_mods(uint8_t kc) {
-    add_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_weak_mods(uint8_t kc) {
-    del_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_register_mods(uint8_t kc) {
-    add_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
-}
-
-static inline void qk_unregister_mods(uint8_t kc) {
-    del_weak_mods(MOD_BIT(kc));
-    send_keyboard_report();
+    f(mods_to_send);
 }
 
 void register_code16(uint16_t code) {
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_register_mods);
+        do_code16(code, register_mods);
     } else {
-        do_code16(code, qk_register_weak_mods);
+        do_code16(code, register_weak_mods);
     }
     register_code(code);
 }
@@ -130,9 +116,9 @@ void register_code16(uint16_t code) {
 void unregister_code16(uint16_t code) {
     unregister_code(code);
     if (IS_MOD(code) || code == KC_NO) {
-        do_code16(code, qk_unregister_mods);
+        do_code16(code, unregister_mods);
     } else {
-        do_code16(code, qk_unregister_weak_mods);
+        do_code16(code, unregister_weak_mods);
     }
 }
 
@@ -235,6 +221,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(KEY_LOCK_ENABLE)
             // Must run first to be able to mask key_up events.
             process_key_lock(&keycode, record) &&
+#endif
+#if defined(DYNAMIC_MACRO_ENABLE) && !defined(DYNAMIC_MACRO_USER_CALL)
+            // Must run asap to ensure all keypresses are recorded.
+            process_dynamic_macro(keycode, record) &&
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
@@ -577,6 +567,7 @@ bool process_record_quantum(keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = true;
                         break;
                     case MAGIC_HOST_NKRO:
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = true;
                         break;
                     case MAGIC_SWAP_ALT_GUI:
@@ -619,6 +610,7 @@ bool process_record_quantum(keyrecord_t *record) {
                         keymap_config.swap_backslash_backspace = false;
                         break;
                     case MAGIC_UNHOST_NKRO:
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = false;
                         break;
                     case MAGIC_UNSWAP_ALT_GUI:
@@ -656,6 +648,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
                         break;
                     case MAGIC_TOGGLE_NKRO:
+                        clear_keyboard();  // clear first buffer to prevent stuck keys
                         keymap_config.nkro = !keymap_config.nkro;
                         break;
                     case MAGIC_EE_HANDS_LEFT:
@@ -992,7 +985,7 @@ void matrix_scan_quantum() {
 #if defined(BACKLIGHT_ENABLE)
 #    if defined(LED_MATRIX_ENABLE)
     led_matrix_task();
-#    elif defined(BACKLIGHT_PIN)
+#    elif defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
     backlight_task();
 #    endif
 #endif
@@ -1077,9 +1070,29 @@ void api_send_unicode(uint32_t unicode) {
 #endif
 }
 
+/** \brief Lock LED set callback - keymap/user level
+ *
+ * \deprecated Use led_update_user() instead.
+ */
 __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
+/** \brief Lock LED set callback - keyboard level
+ *
+ * \deprecated Use led_update_kb() instead.
+ */
 __attribute__((weak)) void led_set_kb(uint8_t usb_led) { led_set_user(usb_led); }
+
+/** \brief Lock LED update callback - keymap/user level
+ *
+ * \return True if led_update_kb() should run its own code, false otherwise.
+ */
+__attribute__((weak)) bool led_update_user(led_t led_state) { return true; }
+
+/** \brief Lock LED update callback - keyboard level
+ *
+ * \return Ignored for now.
+ */
+__attribute__((weak)) bool led_update_kb(led_t led_state) { return led_update_user(led_state); }
 
 __attribute__((weak)) void led_init_ports(void) {}
 
@@ -1103,6 +1116,7 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
 #endif
 
     led_set_kb(usb_led);
+    led_update_kb((led_t) usb_led);
 }
 
 //------------------------------------------------------------------------------

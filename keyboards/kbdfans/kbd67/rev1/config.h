@@ -49,9 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B6
+#ifdef BACKLIGHT_PIN
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
-
+#endif
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 20
@@ -62,6 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
   #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_SLEEP
 /*== or choose animations ==*/
   // #define RGBLIGHT_EFFECT_BREATHING
   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
