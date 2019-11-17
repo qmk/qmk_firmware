@@ -13,6 +13,8 @@ Make example for this keyboard (after setting up your build environment):
 
 **Reset Key:** To put the TC-V3 into reset, hold the top second most right key (`K0J`) while plugging in. 
 
+**CAUTION:** At this time 11/16/19 lighting has not been tested fully and may not properly work. 
+
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Hardware Notes
