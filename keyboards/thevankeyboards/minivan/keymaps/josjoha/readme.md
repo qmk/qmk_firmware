@@ -55,7 +55,7 @@ from ../jetpacktuxedo/ keymap.
   you can set that on the `_FUN` layer:
 
   Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (6th key bottom row).
-  Undo: tap **`_FUN`** once, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
+  Undo: tap again to **`_FUN`**, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
   To detect that descramble mode is (in)active, activate `_FUN` layer and check the leds. Toggle
   it using the 3rd and 6th keys on bottom row (watch leds). Escape from `_FUN` layer by way of
   top left key, it should send you to your chosen BASE layer. 
