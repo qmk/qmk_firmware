@@ -4,6 +4,12 @@ void matrix_init_kb(void) {
     setPinOutput(E2);
     matrix_init_user();
 };
+void led_init_ports(void) {
+    setPinOutput(D1);
+    writePinHigh(D1);
+    setPinOutput(E2);
+    writePinHigh(E2);
+}
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
         if (led_state.num_lock) {
