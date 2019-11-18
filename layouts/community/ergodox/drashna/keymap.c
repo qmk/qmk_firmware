@@ -15,6 +15,13 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 // define layer change stuff for underglow indicator
 bool skip_leds = false;
 
+/*
+ * The `LAYOUT_ergodox_pretty_base` macro is a template to allow the use of 
+ * identical modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, 
+ * etc), so that there is no need to set them up for each layout, and modify 
+ * all of them if I want to change them.  This helps to keep consistency and 
+ * ease of use. K## is a placeholder to pass through the individual keycodes
+ */
 // clang-format off
 #define LAYOUT_ergodox_pretty_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
