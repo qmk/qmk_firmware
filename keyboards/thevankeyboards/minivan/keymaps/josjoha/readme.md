@@ -64,8 +64,10 @@ from ../jetpacktuxedo/ keymap.
   keys are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The right most two
   layers are the _descramble_ variants thereof. The other layers in the middle are used in common.
 
-  This works for computers configured to _already_ remap the input to Dvorak, such as a laptop
-  that you want computer operating system side mapping to Dvorak for its build in keyboard.
+  This works for computers configured to _already_ remap the input to Dvorak. Example: a laptop
+  with a build in keyboard, for which you need _computer operating system side_ mapping 
+  to Dvorak. With the _descramble_ active, you should be able to type on it with the Minivan
+  exactly as normal.
 
   Layers
   ======
