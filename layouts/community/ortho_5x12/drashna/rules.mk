@@ -8,9 +8,9 @@ AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 
 ifeq ($(strip $(KEYBOARD)), fractal)
-	RGB_MATRIX_ENABLE   = no
-	AUDIO_ENABLE        = yes
-	RGBLIGHT_ENABLE     = yes
-	RGBLIGHT_TWINKLE    = yes
-	BOOTLOADER          = qmk-dfu
+    RGB_MATRIX_ENABLE   = no
+    AUDIO_ENABLE        = yes
+    RGBLIGHT_ENABLE     = yes
+    RGBLIGHT_TWINKLE    = yes
+    BOOTLOADER          = qmk-dfu
 endif
