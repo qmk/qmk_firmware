@@ -16,10 +16,10 @@ enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
 bool skip_leds = false;
 
 /*
- * The `LAYOUT_ergodox_pretty_base` macro is a template to allow the use of 
- * identical modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, 
- * etc), so that there is no need to set them up for each layout, and modify 
- * all of them if I want to change them.  This helps to keep consistency and 
+ * The `LAYOUT_ergodox_pretty_base` macro is a template to allow the use of
+ * identical modifiers for the default layouts (eg QWERTY, Colemak, Dvorak,
+ * etc), so that there is no need to set them up for each layout, and modify
+ * all of them if I want to change them.  This helps to keep consistency and
  * ease of use. K## is a placeholder to pass through the individual keycodes
  */
 // clang-format off
