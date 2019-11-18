@@ -64,12 +64,14 @@ from ../jetpacktuxedo/ keymap.
   If this sounds confusing, ... ?
 
    - Look at the top row in the `_FUN` layer map. The left most two 
-  keys are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The
-  right most two layers are the _descramble_ variants thereof. The other
+  keys are by default the normal BASE layer `_LTR` and its numbers layer `_NSY`. The
+  right most two keys are to the _descramble_ variants thereof, with the last
+  one acting as the _descramble_ BASE layer which replaces the default BASE layer 
+  uses once you activate it and use it. The other
   layers in the middle are used in common.  A BASE layer (there are two)
   is nothing more than a layer with layer-hold keys to a bunch of other
   layers that work well with it. Those keys revert you to that BASE layer
-  when released. Only these BASE layers have those layer-toggles, which
+  when released. Only these BASE layers have those layer-hold keys, which
   makes them the most interesting. You should be able to reach all you
   need from them, on that layer and others by way of layer-hold keys. The
   other layers are more static. The other simpler layers can still
