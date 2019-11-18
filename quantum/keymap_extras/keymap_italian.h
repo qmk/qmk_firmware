@@ -70,46 +70,44 @@
 
 #define IT_APOS KC_MINS  // ', ?,  ,
 
-
-
-#define IT_BKSL KC_GRAVE // backslash \, |
-
+#define IT_BKSL KC_GRAVE  // backslash \, |
 
 #define IT_ACUT  // accent acute ´ and grave `
 
-#define IT_LESS KC_NUBS // < and > and |
-#define IT_MINS KC_SLSH // - and _
+#define IT_LESS KC_NUBS  // < and > and |
+#define IT_MINS KC_SLSH  // - and _
 
 // shifted characters
-#define IT_PIPE LSFT(IT_BKSL) // °
-#define IT_EXLM LSFT(KC_1) // !
-#define IT_DQOT LSFT(KC_2) // "
-#define IT_STRL LSFT(KC_3) // £
-#define IT_DLR  LSFT(KC_4) // $
-#define IT_PERC LSFT(KC_5) // %
-#define IT_AMPR LSFT(KC_6) // &
-#define IT_SLSH LSFT(KC_7) // /
-#define IT_LPRN LSFT(KC_8) // (
-#define IT_RPRN LSFT(KC_9) // )
-#define IT_EQL  LSFT(KC_0) // =
-#define IT_QST  LSFT(IT_APOS) // ?
-#define IT_CRC  LSFT(IT_IACC) // ^
-#define IT_ASTR LSFT(IT_PLUS) // *
-#define IT_MORE LSFT(IT_LESS) // >
-#define IT_COLN LSFT(IT_DOT) // :
-#define IT_SCLN LSFT(IT_COMM) // ;
-#define IT_UNDS LSFT(IT_MINS) // _
+#define IT_DEGR LSFT(IT_AACC)  // °
+#define IT_EXLM LSFT(KC_1)     // !
+#define IT_DQOT LSFT(KC_2)     // "
+#define IT_STRL LSFT(KC_3)     // £
+#define IT_DLR LSFT(KC_4)      // $
+#define IT_PERC LSFT(KC_5)     // %
+#define IT_AMPR LSFT(KC_6)     // &
+#define IT_SLSH LSFT(KC_7)     // /
+#define IT_LPRN LSFT(KC_8)     // (
+#define IT_RPRN LSFT(KC_9)     // )
+#define IT_EQL LSFT(KC_0)      // =
+#define IT_QST LSFT(IT_APOS)   // ?
+#define IT_CRC LSFT(IT_IACC)   // ^
+#define IT_ASTR LSFT(IT_PLUS)  // *
+#define IT_MORE LSFT(IT_LESS)  // >
+#define IT_COLN LSFT(IT_DOT)   // :
+#define IT_SCLN LSFT(IT_COMM)  // ;
+#define IT_UNDS LSFT(IT_MINS)  // _
 
 // Alt Gr-ed characters
-#define IT_LCBR ALGR(KC_7) // {
-#define IT_LBRC ALGR(IT_EACC) // [
-#define IT_RBRC ALGR(IT_PLUS) // ]
-#define IT_RCBR ALGR(KC_0) // }
-#define IT_AT   ALGR(IT_OACC) 	// @
-#define IT_EURO ALGR(KC_E) 		// €
-#define IT_PIPE LSFT(IT_BKSL) 	// |
-#define	IT_SHRP	ALGR(IT_AACC) 	// #
+#define IT_LCBR ALGR(KC_7)     // {
+#define IT_LBRC ALGR(IT_EACC)  // [
+#define IT_RBRC ALGR(IT_PLUS)  // ]
+#define IT_RCBR ALGR(KC_0)     // }
+#define IT_AT ALGR(IT_OACC)    // @
+#define IT_EURO ALGR(KC_E)     // €
+#define IT_PIPE LSFT(IT_BSLS)  // |
+#define IT_SHRP ALGR(IT_AACC)  // #
 
-#define	IT_X_PLUS	X_RBRACKET 	// #
+// Deprecated
+#define IT_X_PLUS X_RBRACKET  // #
 
 #endif

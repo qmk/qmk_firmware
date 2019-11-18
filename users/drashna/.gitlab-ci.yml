@@ -10,7 +10,7 @@ QMK Firmware:
   image: ubuntu:18.10
   before_script:
     - apt-get update -qy
-    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi gcc-avr unzip wget zip
+    - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util gcc gcc-arm-none-eabi git libnewlib-arm-none-eabi gcc-avr python3 unzip wget zip
     - avr-gcc --version
     - uname -a
   script:

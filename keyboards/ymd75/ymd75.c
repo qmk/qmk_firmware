@@ -16,23 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ymd75.h"
-//#include "rgblight.h"
-
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
-#include "i2c.h"
-#include "quantum.h"
 
 #include "backlight.h"
 #include "backlight_custom.h"
 
-// for keyboard subdirectory level init functions
-// @Override
-void matrix_init_kb(void) {
-    // call user level keymaps, if any
-    matrix_init_user();
-}
+void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__ ((weak))
+void matrix_init_user(void) {}
+
+void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {}
 
 #ifdef BACKLIGHT_ENABLE
 /// Overrides functions in `quantum.c`
@@ -48,48 +44,3 @@ void backlight_set(uint8_t level) {
     b_led_set(level);
 }
 #endif
-
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-
-// custom RGB driver
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i=0; i<RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-        }
-    }
-    
-    i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
-}
-
-bool rgb_init = false;
-
-void matrix_scan_kb(void) {
-    // if LEDs were previously on before poweroff, turn them back on
-    if (rgb_init == false && rgblight_config.enable) {
-        i2c_init();
-        i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
-        rgb_init = true;
-    }
-    
-    rgblight_task();
-#else
-    void matrix_scan_kb(void) {
-#endif
-        matrix_scan_user();
-        /* Nothing else for now. */
-    }
-    
-    __attribute__((weak)) // overridable
-    void matrix_init_user(void) {
-        
-    }
-    
-    __attribute__((weak)) // overridable
-    void matrix_scan_user(void) {
-        
-    }
