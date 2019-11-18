@@ -116,7 +116,7 @@ void indicate_scramble ( int mode_descr )
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case CSET_LTR: // All upper/left buttons switch to _LTR
+    case BASE_LTR: // All upper/left buttons switch to _LTR
         if (record->event.pressed) {
             
         } else { // key up
@@ -125,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         }
         break;           
-    case CSET_DDL:// All upper/left buttons switch to _DDL 
+    case BASE_DDL:// All upper/left buttons switch to _DDL 
         if (record->event.pressed) {
 
         } else { // key up

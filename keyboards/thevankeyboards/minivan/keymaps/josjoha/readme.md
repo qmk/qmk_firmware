@@ -61,8 +61,8 @@ from ../jetpacktuxedo/ keymap.
   top left key, it should send you to your chosen BASE layer. 
 
   If this sounds confusing, look at the top row in the `_FUN` layer map. The left most two 
-  layers are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The right most two
-  layers are the _descramble_ variants thereof. The other layers are used in common.
+  keys are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The right most two
+  layers are the _descramble_ variants thereof. The other layers in the middle are used in common.
 
   This works for computers configured to _already_ remap the input to Dvorak, such as a laptop
   that you want computer operating system side mapping to Dvorak for its build in keyboard.
@@ -74,7 +74,7 @@ from ../jetpacktuxedo/ keymap.
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
      -o-                                   <|>                                         // -o- BASE access
-     BASE     '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
+     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
