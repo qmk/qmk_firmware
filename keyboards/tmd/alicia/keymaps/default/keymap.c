@@ -16,11 +16,11 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { 
-                      TMDMSG = SAFE_RANGE, 
-                      TMDURL 
-                    };
 
+enum custom_keycodes {
+    TMDMSG = SAFE_RANGE,
+    TMDURL
+};
 
 extern keymap_config_t keymap_config;
 
@@ -71,17 +71,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-}
-
-
-
-void matrix_init_user(void) {}
-
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {}
-
-bool led_update_user(led_t led_state)
-{
-  return true;
 }
