@@ -7,6 +7,18 @@ Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 It also allows the same layout on a computer that is already set to Dvorak
 on the computer side.
 
+- - -
+
+Work in progress (Mon 18 Nov 2019 07:47:27 PM UTC)...
+  Todo: add layers to allow Unicode in "descramble" mode. These layers will
+  probably only be accessible on the `_FUN` layer if BASE key points to
+  the _descramble_ BASE layer `_DDL`, and get on the same spot as the
+  corresponding normal layer. `_DDN` will hence be taken off its current
+  spot, and moved to co-exist on the current `_NSY` spot. Same for `_ACC`
+  and `_DRA` (the Unicode layers). (Probably be done in a week at the most.)
+
+- - -
+
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
                                                 By Jos B.,  joshb@xs4all.nl 
