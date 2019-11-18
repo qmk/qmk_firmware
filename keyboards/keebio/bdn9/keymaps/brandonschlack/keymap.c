@@ -213,6 +213,7 @@ const uint16_t PROGMEM encoders[][2][2] = {
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
+    clockwise = !clockwise; // Clockwise is reversed (again)
 
     switch (layer) {
         case _AUDIO:
