@@ -229,4 +229,26 @@ from ../jetpacktuxedo/ keymap.
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
   
+  Hacking & slashing 
+  ==================
+
+  For basic adaptation of this map to get the right characters for you, you
+  could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and look at what
+  you want accessed easily using those layers, accessed by the 2nd and last
+  layer hold keys on the bottom row. For example if one is German and wants
+  media keys, one could put `_RAR` on the 2nd (to have media right), and
+  `_ACC` on the 7th. If this leaves ß awkward on the right, you could move
+  it to the left on that layer.
+
+  Another interesting adaptation is to rework the keys on the `_DDL` and
+  `_DDN` "descramble" layers, to for example a whole other language with 
+  different letter symbols, or just a usable Qwerty. For both BASE
+  layouts there are two dedicated maps (88 keys total), which could be
+  extended by adding a layer like `_ACC` to one side only, and `_DRA` to
+  the other, by pointing the layer hold keys on each of the BASE layers
+  to only one of those.
+
+  If you do and it works I could add a link to your map here if you like.
+  
+
     See keymap.c for more comments.
