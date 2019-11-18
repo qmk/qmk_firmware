@@ -1,9 +1,9 @@
-# This enables Link Time Optimization. This can save a good chunk of space (several KB for me), but the macro and function ... functions cause it to error out.
+#This enables Link Time Optimization.This can save a good chunk of space(several KB for me), but the macro and function... functions cause it to error out.
 LINK_TIME_OPTIMIZATION_ENABLE = yes
 
-# Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#Build Options
+#change to "no" to disable the options, or define them in the Makefile in
+#the appropriate keymap folder that will get included automatically
 #
 EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
 NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
@@ -22,7 +22,7 @@ SWAP_HANDS_ENABLE  = no   # Enable one-hand typing
 
 RGB_MATRIX_ENABLE = WS2812
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+#Do not enable SLEEP_LED_ENABLE.it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE   = no    # Breathing sleep LED during USB suspend
 
 BOOTLOADER       = qmk-dfu

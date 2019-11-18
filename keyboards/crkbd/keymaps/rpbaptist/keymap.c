@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-extern uint8_t is_master;
+extern uint8_t  is_master;
 static uint32_t oled_timer = 0;
 
 enum layer_names {
@@ -13,29 +13,29 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  BSP_DEL = SAFE_RANGE,
-  RGB_RST,
-  RGB_IDL, // RGB Idling animations
-  RGB_UND, // Toggle RGB underglow as layer indicator
-  RGB_MAP, // RGB_MATRIX_TYPING_HEATMAP
-  RGB_SPL, // RGB_MATRIX_MULTISPLASH
-  RGB_SOL, // RGB_MATRIX_SOLID_COLOR
-  RGB_CYC, // RGB_MATRIX_CYCLE_ALL
-  RGB_DUO, // RGB_MATRIX_RAINBOW_PINWHEELS
-  RGB_CHV  // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+    BSP_DEL = SAFE_RANGE,
+    RGB_RST,
+    RGB_IDL,  // RGB Idling animations
+    RGB_UND,  // Toggle RGB underglow as layer indicator
+    RGB_MAP,  // RGB_MATRIX_TYPING_HEATMAP
+    RGB_SPL,  // RGB_MATRIX_MULTISPLASH
+    RGB_SOL,  // RGB_MATRIX_SOLID_COLOR
+    RGB_CYC,  // RGB_MATRIX_CYCLE_ALL
+    RGB_DUO,  // RGB_MATRIX_RAINBOW_PINWHEELS
+    RGB_CHV   // RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 };
 
 typedef union {
-  uint32_t raw;
-  struct {
-    bool     rgb_layer_change        :1;
-    bool     rgb_matrix_idle_anim    :1;
-    uint8_t  rgb_matrix_active_mode  :4;
-    uint8_t  rgb_matrix_idle_mode    :4;
-    uint8_t  rgb_matrix_active_speed :8;
-    uint8_t  rgb_matrix_idle_speed   :8;
-    uint16_t rgb_matrix_idle_timeout :16;
-  };
+    uint32_t raw;
+    struct {
+        bool     rgb_layer_change        : 1;
+        bool     rgb_matrix_idle_anim    : 1;
+        uint8_t  rgb_matrix_active_mode  : 4;
+        uint8_t  rgb_matrix_idle_mode    : 4;
+        uint8_t  rgb_matrix_active_speed : 8;
+        uint8_t  rgb_matrix_idle_speed   : 8;
+        uint16_t rgb_matrix_idle_timeout : 16;
+    };
 } user_config_t;
 
 user_config_t user_config;
@@ -52,7 +52,7 @@ user_config_t user_config;
 #define S_NUM MO(_NUM)
 
 // Layer keys with functionality on tap
-#define NAV_0  LT(_NAV, KC_0)
+#define NAV_0 LT(_NAV, KC_0)
 
 #define EXT_SF LT(_GAMING_EXT, KC_LSHIFT)
 
@@ -152,131 +152,132 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  switch (get_highest_layer(default_layer_state)) {
-    case _COLEMAKDHM:
-      state = update_tri_layer_state(state, _NUM, _NAV, _UTIL);
-      break;
-    case _GAMING:
-      state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
-      break;
-  }
-  return state;
+    switch (get_highest_layer(default_layer_state)) {
+        case _COLEMAKDHM:
+            state = update_tri_layer_state(state, _NUM, _NAV, _UTIL);
+            break;
+        case _GAMING:
+            state = update_tri_layer_state(state, _GAMING_EXT, _NAV, _UTIL);
+            break;
+    }
+    return state;
 }
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (is_master) {
-    return OLED_ROTATION_270;
-  } else {
-    return OLED_ROTATION_180;
-  }
+    if (is_master) {
+        return OLED_ROTATION_270;
+    } else {
+        return OLED_ROTATION_180;
+    }
 }
 
 void render_crkbd_logo(void) {
-  static const char PROGMEM crkbd_logo[] = {
-      0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-      0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-      0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-      0};
-  oled_write_P(crkbd_logo, false);
+    static const char PROGMEM crkbd_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+        0};
+    oled_write_P(crkbd_logo, false);
 }
 
-#ifdef RGB_MATRIX_ENABLE
-  const char *rgb_matrix_anim_oled_text(uint8_t mode) {
-    switch(mode) {
-      case RGB_MATRIX_TYPING_HEATMAP:
-        return PSTR("Heat ");
-      case RGB_MATRIX_MULTISPLASH:
-        return PSTR("Splsh");
-      case RGB_MATRIX_SOLID_COLOR:
-        return PSTR("Solid");
-      case RGB_MATRIX_CYCLE_ALL:
-        return PSTR("Cycle");
-      case RGB_MATRIX_RAINBOW_PINWHEELS:
-        return PSTR("Wheel");
-      case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-        return PSTR("Wave ");
-      default:
-        return PSTR("");
+#    ifdef RGB_MATRIX_ENABLE
+const char *rgb_matrix_anim_oled_text(uint8_t mode) {
+    switch (mode) {
+        case RGB_MATRIX_TYPING_HEATMAP:
+            return PSTR("Heat ");
+        case RGB_MATRIX_MULTISPLASH:
+            return PSTR("Splsh");
+        case RGB_MATRIX_SOLID_COLOR:
+            return PSTR("Solid");
+        case RGB_MATRIX_CYCLE_ALL:
+            return PSTR("Cycle");
+        case RGB_MATRIX_RAINBOW_PINWHEELS:
+            return PSTR("Wheel");
+        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+            return PSTR("Wave ");
+        default:
+            return PSTR("");
     }
-  }
-#endif
+}
+#    endif
 
 void render_status(void) {
-  // oled_write_P(PSTR("Layout: "), false);
-  switch (get_highest_layer(default_layer_state)) {
-    case _COLEMAKDHM:
-      oled_write_P(PSTR("TYPE "), false);
-      break;
-    case _GAMING:
-      oled_write_P(PSTR("GAME "), false);
-      break;
-  }
+    // oled_write_P(PSTR("Layout: "), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _COLEMAKDHM:
+            oled_write_P(PSTR("TYPE "), false);
+            break;
+        case _GAMING:
+            oled_write_P(PSTR("GAME "), false);
+            break;
+    }
 
-  oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n"), false);
 
-  switch (get_highest_layer(layer_state)) {
-    case 0:
-      oled_write_P(PSTR("     "), false);
-      break;
-    case _NUM:
-      oled_write_P(PSTR("Comm "), false);
-      break;
-    case _NAV:
-      oled_write_P(PSTR("Fuel "), false);
-      break;
-    case _GAMING_EXT:
-      oled_write_P(PSTR("Ext  "), false);
-      break;
-    case _UTIL:
-      oled_write_P(PSTR("Util "), false);
-      break;
-    default:
-      oled_write_P(PSTR("Unkn "), false);
-      break;
-  }
-  oled_write_P(PSTR("\n"), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("     "), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("Comm "), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("Fuel "), false);
+            break;
+        case _GAMING_EXT:
+            oled_write_P(PSTR("Ext  "), false);
+            break;
+        case _UTIL:
+            oled_write_P(PSTR("Util "), false);
+            break;
+        default:
+            oled_write_P(PSTR("Unkn "), false);
+            break;
+    }
+    oled_write_P(PSTR("\n"), false);
 
-  uint8_t modifiers = get_mods();
+    uint8_t modifiers = get_mods();
 
-  oled_write_P( (modifiers & MOD_MASK_CTRL)  ? PSTR("PROG ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_SHIFT) ? PSTR("PULSE") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_ALT)   ? PSTR("STBY ") : PSTR("     "), false);
-  oled_write_P( (modifiers & MOD_MASK_GUI)   ? PSTR("GYRO ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("PROG ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("PULSE") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("STBY ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("GYRO ") : PSTR("     "), false);
 
-  oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n"), false);
 
-  uint8_t led_usb_state = host_keyboard_leds();
-  oled_write_P(PSTR("Mode:"), false);
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)    ? PSTR(" NUM ") : PSTR("     "), false);
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK)   ? PSTR(" CAPS") : PSTR("     "), false);
-  oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_P(PSTR("Mode:"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR(" SCRL") : PSTR("     "), false);
 
-  #ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
     oled_write_P(PSTR("\n"), false);
     if (user_config.rgb_matrix_idle_anim) {
-      oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_active_mode), false);
-      oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_idle_mode), false);
+        oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_active_mode), false);
+        oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_idle_mode), false);
     } else {
-      oled_write_P(PSTR("\n"), false);
-      oled_write_P(rgb_matrix_anim_oled_text(rgb_matrix_get_mode()), false);
+        oled_write_P(PSTR("\n"), false);
+        oled_write_P(rgb_matrix_anim_oled_text(rgb_matrix_get_mode()), false);
     }
-  #endif
+#    endif
 }
 
 void oled_task_user(void) {
-  if (timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
-      oled_off();
-      return;
-  }
-  else { oled_on(); }
+    if (timer_elapsed32(oled_timer) > OLED_TIMEOUT) {
+        oled_off();
+        return;
+    } else {
+        oled_on();
+    }
 
-  if (is_master) {
-    render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-  } else {
-    render_crkbd_logo();
-    // oled_scroll_left();  // Turns on scrolling
-  }
+    if (is_master) {
+        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_crkbd_logo();
+        // oled_scroll_left();  // Turns on scrolling
+    }
 }
 #endif
 
@@ -338,50 +339,50 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void rgb_matrix_update_current_mode(uint8_t mode, uint8_t speed) {
-  rgb_matrix_config.speed = speed;
-  rgb_matrix_mode_noeeprom(mode);
-  eeconfig_update_user(user_config.raw);
+    rgb_matrix_config.speed = speed;
+    rgb_matrix_mode_noeeprom(mode);
+    eeconfig_update_user(user_config.raw);
 }
 
 void rgb_matrix_update_dynamic_mode(uint8_t mode, uint8_t speed, bool active) {
-  if (active) {
-    user_config.rgb_matrix_active_speed = speed;
-    user_config.rgb_matrix_active_mode = mode;
-  } else {
-    user_config.rgb_matrix_idle_speed = speed;
-    user_config.rgb_matrix_idle_mode = mode;
-  }
+    if (active) {
+        user_config.rgb_matrix_active_speed = speed;
+        user_config.rgb_matrix_active_mode  = mode;
+    } else {
+        user_config.rgb_matrix_idle_speed = speed;
+        user_config.rgb_matrix_idle_mode  = mode;
+    }
 }
 
 void rgb_matrix_update_mode(uint8_t mode, uint8_t speed, bool active) {
-  if (user_config.rgb_matrix_idle_anim) {
-    rgb_matrix_update_dynamic_mode(mode, speed, active);
-  }
-  if (active || !user_config.rgb_matrix_idle_anim) {
-    rgb_matrix_update_current_mode(mode, speed);
-  }
+    if (user_config.rgb_matrix_idle_anim) {
+        rgb_matrix_update_dynamic_mode(mode, speed, active);
+    }
+    if (active || !user_config.rgb_matrix_idle_anim) {
+        rgb_matrix_update_current_mode(mode, speed);
+    }
 }
 
 void rgb_matrix_set_defaults(void) {
-  rgb_matrix_config.enable = 1;
-  rgb_matrix_config.hsv    = (HSV){128, 255, 128}; // TEAL
+    rgb_matrix_config.enable = 1;
+    rgb_matrix_config.hsv    = (HSV){128, 255, 128};  // TEAL
 
-  user_config.rgb_layer_change        = true;
-  user_config.rgb_matrix_idle_anim    = true;
-  user_config.rgb_matrix_idle_timeout = 50000;
+    user_config.rgb_layer_change        = true;
+    user_config.rgb_matrix_idle_anim    = true;
+    user_config.rgb_matrix_idle_timeout = 50000;
 
-  rgb_matrix_update_dynamic_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
-  rgb_matrix_update_dynamic_mode(RGB_MATRIX_TYPING_HEATMAP, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
+    rgb_matrix_update_dynamic_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
+    rgb_matrix_update_dynamic_mode(RGB_MATRIX_TYPING_HEATMAP, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
 
-  eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
+    eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
 }
 
 void matrix_scan_rgb(void) {
     if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && timer_elapsed32(hypno_timer) > user_config.rgb_matrix_idle_timeout) {
-      if (user_config.rgb_layer_change) {
-        rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
-      }
-      rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode, user_config.rgb_matrix_idle_speed);
+        if (user_config.rgb_layer_change) {
+            rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+        }
+        rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode, user_config.rgb_matrix_idle_speed);
     }
 }
 
@@ -418,122 +419,122 @@ void keyboard_post_init_user(void) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint8_t saved_mods = 0;
-  uint16_t temp_keycode = keycode;
+    static uint8_t saved_mods   = 0;
+    uint16_t       temp_keycode = keycode;
 
-  oled_timer = timer_read32();
+    oled_timer = timer_read32();
 
-  #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     if (user_config.rgb_matrix_idle_anim) {
-      hypno_timer = timer_read32();
-      if (rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
-          rgb_matrix_update_current_mode(user_config.rgb_matrix_active_mode, user_config.rgb_matrix_active_speed);
-          if (!user_config.rgb_layer_change) {
-            rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
-          }
-      }
+        hypno_timer = timer_read32();
+        if (rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
+            rgb_matrix_update_current_mode(user_config.rgb_matrix_active_mode, user_config.rgb_matrix_active_speed);
+            if (!user_config.rgb_layer_change) {
+                rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+            }
+        }
     }
-  #endif
+#endif
 
-  // Filter out the actual keycode from MT and LT keys.
-  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-      temp_keycode &= 0xFF;
-  }
+    // Filter out the actual keycode from MT and LT keys.
+    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+        temp_keycode &= 0xFF;
+    }
 
-  switch (temp_keycode) {
-    case BSP_DEL:
-      if (record->event.pressed) {
-          saved_mods = get_mods() & MOD_MASK_SHIFT;
+    switch (temp_keycode) {
+        case BSP_DEL:
+            if (record->event.pressed) {
+                saved_mods = get_mods() & MOD_MASK_SHIFT;
 
-          if (saved_mods == MOD_MASK_SHIFT) { // Both shifts pressed
-            register_code(KC_DEL);
-          } else if (saved_mods) { // One shift pressed
-            del_mods(saved_mods); // Remove any Shifts present
-            register_code(KC_DEL);
-          } else {
-            saved_mods = 0; // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
-            register_code(KC_BSPC);
-          }
-      } else {
-        add_mods(saved_mods);
-        unregister_code(KC_DEL);
-        unregister_code(KC_BSPC);
-      }
-      return false;
-    #ifdef RGB_MATRIX_ENABLE
-      case COLEMAK:
-        if (record->event.pressed) {
-          user_config.rgb_matrix_idle_timeout = 50000;
-          rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
-        }
-        return true;
-      case GAMING:
-        if (record->event.pressed) {
-          if (!user_config.rgb_layer_change) {
-            user_config.rgb_layer_change = true;
-          }
-          user_config.rgb_matrix_idle_timeout = 5000;
-          rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
-        }
-        return true;
-      case RGB_RST:
-        if (record->event.pressed) {
-          rgb_matrix_set_defaults();
-          rgb_matrix_enable();
-        }
-        break;
-      case RGB_UND:  // Toggle separate underglow status
-        if (record->event.pressed) {
-            user_config.rgb_layer_change ^= 1;
-            eeconfig_update_user(user_config.raw);
-            if (user_config.rgb_layer_change) {
-              layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+                if (saved_mods == MOD_MASK_SHIFT) {  // Both shifts pressed
+                    register_code(KC_DEL);
+                } else if (saved_mods) {   // One shift pressed
+                    del_mods(saved_mods);  // Remove any Shifts present
+                    register_code(KC_DEL);
+                } else {
+                    saved_mods = 0;  // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
+                    register_code(KC_BSPC);
+                }
             } else {
-              rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+                add_mods(saved_mods);
+                unregister_code(KC_DEL);
+                unregister_code(KC_BSPC);
             }
-        }
-       break;
-      case RGB_IDL: // Toggle idle/heatmap animation
-        if (record->event.pressed) {
-            user_config.rgb_matrix_idle_anim ^=1;
-            if (user_config.rgb_matrix_idle_anim) {
-              rgb_matrix_update_mode(user_config.rgb_matrix_active_mode, user_config.rgb_matrix_active_speed, true);
-            } else {
-              rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode, user_config.rgb_matrix_idle_speed);
+            return false;
+#ifdef RGB_MATRIX_ENABLE
+        case COLEMAK:
+            if (record->event.pressed) {
+                user_config.rgb_matrix_idle_timeout = 50000;
+                rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
             }
-        }
-       break;
-      case RGB_MAP:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_TYPING_HEATMAP, rgb_matrix_config.speed, true);
-        }
-        break;
-      case RGB_SPL:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_MULTISPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
-        }
-        break;
-      case RGB_SOL:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, false);
-        }
-        break;
-      case RGB_CYC:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
-        }
-        break;
-      case RGB_DUO:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
-        }
-        break;
-      case RGB_CHV:
-        if (record->event.pressed) {
-          rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
-        }
-        break;
-    #endif
-  }
-  return true;
+            return true;
+        case GAMING:
+            if (record->event.pressed) {
+                if (!user_config.rgb_layer_change) {
+                    user_config.rgb_layer_change = true;
+                }
+                user_config.rgb_matrix_idle_timeout = 5000;
+                rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
+            }
+            return true;
+        case RGB_RST:
+            if (record->event.pressed) {
+                rgb_matrix_set_defaults();
+                rgb_matrix_enable();
+            }
+            break;
+        case RGB_UND:  // Toggle separate underglow status
+            if (record->event.pressed) {
+                user_config.rgb_layer_change ^= 1;
+                eeconfig_update_user(user_config.raw);
+                if (user_config.rgb_layer_change) {
+                    layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+                } else {
+                    rgb_matrix_layer_helper(0, 0, 0, LED_FLAG_UNDERGLOW);
+                }
+            }
+            break;
+        case RGB_IDL:  // Toggle idle/heatmap animation
+            if (record->event.pressed) {
+                user_config.rgb_matrix_idle_anim ^= 1;
+                if (user_config.rgb_matrix_idle_anim) {
+                    rgb_matrix_update_mode(user_config.rgb_matrix_active_mode, user_config.rgb_matrix_active_speed, true);
+                } else {
+                    rgb_matrix_update_current_mode(user_config.rgb_matrix_idle_mode, user_config.rgb_matrix_idle_speed);
+                }
+            }
+            break;
+        case RGB_MAP:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_TYPING_HEATMAP, rgb_matrix_config.speed, true);
+            }
+            break;
+        case RGB_SPL:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_MULTISPLASH, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
+            }
+            break;
+        case RGB_SOL:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_SOLID_COLOR, rgb_matrix_config.speed, false);
+            }
+            break;
+        case RGB_CYC:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
+            }
+            break;
+        case RGB_DUO:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_PINWHEELS, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
+            }
+            break;
+        case RGB_CHV:
+            if (record->event.pressed) {
+                rgb_matrix_update_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON, RGB_MATRIX_ANIMATION_SPEED_SLOW, false);
+            }
+            break;
+#endif
+    }
+    return true;
 }
