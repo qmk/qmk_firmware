@@ -206,7 +206,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`                     |Brightness Up                                  |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`                     |Brightness Down                                |
 
-## [Quantum Keycodes](quantum_keycodes.md#TAG_qmk-keycodes)
+## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 |Key            |Aliases    |Description                                                          |
 |---------------|-----------|---------------------------------------------------------------------|
@@ -307,7 +307,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
 |`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
-## [Layer Switching](feature_advanced_keycodes.md#TAG_switching-and-toggling-layers)
+## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
@@ -341,7 +341,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## [Modifiers](feature_advanced_keycodes.md#TAG_modifier-keys)
+## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
 
 |Key       |Aliases                        |Description                                         |
 |----------|-------------------------------|----------------------------------------------------|
@@ -361,7 +361,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEH`  |                               |Left Control, Shift and Alt                         |
 |`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
 
-## [Mod-Tap Keys](feature_advanced_keycodes.md#TAG_mod-tap)
+## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
 
 |Key          |Aliases                                                          |Description                                            |
 |-------------|-----------------------------------------------------------------|-------------------------------------------------------|
@@ -454,7 +454,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## [One Shot Keys](feature_advanced_keycodes.md#TAG_one-shot-keys)
+## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
 |Key         |Description                       |
 |------------|----------------------------------|

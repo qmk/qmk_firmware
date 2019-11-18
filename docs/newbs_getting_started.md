@@ -30,7 +30,7 @@ QMK Toolbox is an optional graphical program for Windows and macOS that allows y
 * For Windows: `qmk_toolbox.exe` (portable) or `qmk_toolbox_install.exe` (installer)
 * For macOS: `QMK.Toolbox.app.zip` (portable) or `QMK.Toolbox.pkg` (installer)
 
-## <div id="TAG_set-up-your-environment">Set Up Your Environment</div>
+## Set Up Your Environment
 
 We've tried to make QMK as easy to set up as possible. You only have to prepare your Linux or Unix environment, then let QMK install the rest.
 
@@ -60,9 +60,9 @@ You will need to install Git. It's very likely that you already have it, but if 
 * Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
-?> Docker is also an option on all platforms. [Click here for details.](getting_started_build_tools.md#TAG_docker)
+?> Docker is also an option on all platforms. [Click here for details.](getting_started_build_tools.md#docker)
 
-## <div id="TAG_set-up-qmk">Set Up QMK</div>
+## Set Up QMK
 
 Once you have set up your Linux/Unix environment, you are ready to download QMK. We will do this by using Git to "clone" the QMK repository. Open a Terminal or MSYS2 MinGW window and leave it open for the remainder of this guide. Inside that window run these two commands:
 
