@@ -410,7 +410,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: Function keys, on the right side with Control+Alt (switch virtual consoles in Linux)
      *          Toward any layer by toggle.
-     *
+     *          Completes output mode (normal / descramble on Dvorak remapping computer). This affects
+     *          how CTO_BASE operates on the other layers, which is all it does. De-scramble is
+     *          already usable by toggling to the _DDL layer.
      */
 
     [ _FUN ] = LAYOUT (
@@ -421,10 +423,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  _DDL
 // LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
 // LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
-// -----------------------------------------------
-// LAlt  xxx   !LTR  xxx  | xxx   !DDL  ___   RAlt                                // ! sets base layer
-//                       <|>            -*-                                       // Acces -*- _LTR
-// <1    <2    <3    <4   | 4>    3>    2>    1>  
+// -----------------------------------------------------
+// LAlt  xxx   !LTR   xxx  | xxx   !DDL       ___   RAlt                            // ! sets base layer
+//                        <|>                 -*-                                   // Acces -*- _LTR
+//             normal      |       descramble                                       // Output mode (full)
+// <1    <2    <3     <4   | 4>    3>         2>    1>  
 //
 //
 //      <pink2      , <pinky         , <ring         , <middl        , <index        , <indx2       |, indx2>      , index>      , middl> , ring>  , pinky>      , pink2>      ,

@@ -56,18 +56,46 @@ from ../jetpacktuxedo/ keymap.
 
   Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (6th key bottom row).
   Undo: tap again to **`_FUN`**, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
-  To detect that descramble mode is (in)active, activate `_FUN` layer and check the leds. Toggle
-  it using the 3rd and 6th keys on bottom row (watch leds). Escape from `_FUN` layer by way of
-  top left key, it should send you to your chosen BASE layer. 
+  To detect if the BASE keys direct to the descramble layer or not, activate `_FUN` layer and check
+  the leds. Toggle it using the 3rd and 6th keys on bottom row. Escape from `_FUN` layer by way of
+  top left key, which should then send you to your chosen BASE layer. The regular BASE layer is
+  now out of reach (the regular numbers layer is not).
 
-  If this sounds confusing, look at the top row in the `_FUN` layer map. The left most two 
-  keys are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The right most two
-  layers are the _descramble_ variants thereof. The other layers in the middle are used in common.
+  If this sounds confusing, ... ?
 
-  This works for computers configured to _already_ remap the input to Dvorak. Example: a laptop
+   - Look at the top row in the `_FUN` layer map. The left most two 
+  keys are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The
+  right most two layers are the _descramble_ variants thereof. The other
+  layers in the middle are used in common.  A BASE layer (there are two)
+  is nothing more than a layer with layer-hold keys to a bunch of other
+  layers that work well with it. Those keys revert you to that BASE layer
+  when released. Only these BASE layers have those layer-toggles, which
+  makes them the most interesting. You should be able to reach all you
+  need from them, on that layer and others by way of layer-hold keys. The
+  other layers are more static. The other simpler layers can still
+  be brought on without needing to hold a key down through the `_FUN`
+  layer (a second way of accessing them). Rather than have a set of layer
+  toggles for touch typing, they specialize in something (moving, F-keys,
+  etc). These more simple layers have one layer toggle in the top/left
+  of the keyboard, back to a BASE layer.  You can configure which one
+  (using !LTR and !DDL on `_FUN`). That is all there is to it. You can
+  for example _not_ toggle the BASE keys on all layers to point to the
+  `_DLL` descramble BASE layer, but _still_ activate the `_DLL` layer
+  and use it just fine. The reverse however is not possible by default,
+  simply because there is no key to toggle to the default `_LTR` BASE
+  layer anymore, but if you put that key on the map somewhere (which is
+  easy enough) than that layer would work just fine even though BASE keys
+  point to the other layer. You only notice the difference when reaching
+  for a simple layer by toggle, and where you end up if you escape
+  from that layer by way of the top/left key. It has no other meaning.
+  Nothing is being computed or decrypted or anything. It is all nothing
+  more than basic layer switching, with some layer hold and toggle keys.
+  I understand it better now too. ^^
+
+  Example: a laptop
   with a build in keyboard, for which you need _computer operating system side_ mapping 
-  to Dvorak. With the _descramble_ active, you should be able to type on it with the Minivan
-  exactly as normal.
+  to Dvorak. However it can mess up a plugged in keyboard that is already natively Dvorak.
+  With the _descramble_ output mode active, you should be able to type on it anyway, in Dvorak.
 
   Layers
   ======
@@ -102,7 +130,7 @@ from ../jetpacktuxedo/ keymap.
 - - -
     
     
-     Layer _FUN (F-keys, CAF means Control+Alt+F-key)
+     Layer _FUN (F-keys, CAF means Control+Alt+F-key, Layer access, Set output mode)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggltoggl           // Type of switch
@@ -110,10 +138,11 @@ from ../jetpacktuxedo/ keymap.
      BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  _DDL
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
-     -----------------------------------------------
-     LAlt  xxx   !LTR  xxx  | xxx   !DDL  ___   RAlt                                 // ! sets BASE layer
-                           <|>            -*-                                       // -*- Access on base
-     <1    <2    <3    <4   | 4>    3>    2>    1>  
+     -----------------------------------------------------
+     LAlt  xxx   !LTR   xxx  | xxx   !DDL       ___   RAlt                           // ! sets BASE layer
+                            <|>                 -*-                                 // -*- Access on base
+                 normal      |       descramble                              // BASE key toggle direction
+     <1    <2    <3     <4   | 4>    3>         2>    1>  
 
 - - -
     
