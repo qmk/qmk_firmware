@@ -18,9 +18,6 @@
 #define USERSPACE
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-
-#define X_____X KC_NO
 
 enum xtonhasvim_keycodes {
   VIM_START = SAFE_RANGE,  // bookend for vim states
@@ -56,7 +53,7 @@ enum xtonhasvim_keycodes {
 
 bool process_record_vimlayer(uint16_t keycode, keyrecord_t *record);
 
-// NOTE: YOU MUST DEFINE THIS
+// NOTE: Define this in keymap.c to return vim layer
 extern uint8_t vim_cmd_layer(void);
 
 extern uint16_t vstate;
