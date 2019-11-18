@@ -1,5 +1,5 @@
-# XD68 layout for ISO UK
+# XD68 layout for Default ANSI
 
 ```
-make xd68:iso-uk
+make xd68:default
 ```
