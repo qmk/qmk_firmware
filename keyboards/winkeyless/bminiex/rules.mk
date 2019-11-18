@@ -28,3 +28,5 @@ TAP_DANCE_ENABLE = no
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 OPT_DEFS = -DDEBUG_LEVEL=0
+
+SRC += backlight.c
