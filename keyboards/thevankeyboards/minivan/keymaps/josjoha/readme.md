@@ -159,7 +159,7 @@ from ../jetpacktuxedo/ keymap.
 - - -
     
     
-     Layer _FUN (F-keys, CAF means Control+Alt+F-key, Layer access, Set output mode)
+     Layer _FUN (F-keys, CAF means Control+Alt+F-key, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggltoggl           // Type of switch
