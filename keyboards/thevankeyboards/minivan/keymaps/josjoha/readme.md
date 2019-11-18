@@ -48,11 +48,21 @@ from ../jetpacktuxedo/ keymap.
 
 ## To a computer already set to Dvorak remapping ...
 
+  Hitting the 7th key on bottom row (`_FUN`), and last key on top row (`_DDL`) is enough for
+  typing with the layer hold keys on that layer.
+
+  To also have the left most key on top row on each layer go to the descramble BASE layer `_DDL`,
+  you can set that on the `_FUN` layer:
+
   Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (6th key bottom row).
-  _Layers `_DDL` and `_DDN` descramble `_LTR` and `_NYS`._
   Undo: tap **`_FUN`** once, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
-  _Base layer back to normal `_LTR`._
-  To detect that descramble mode is (in)active, activate _FUN layer and check the leds.
+  To detect that descramble mode is (in)active, activate `_FUN` layer and check the leds. Toggle
+  it using the 3rd and 6th keys on bottom row (watch leds). Escape from `_FUN` layer by way of
+  top left key, it should send you to your chosen BASE layer. 
+
+  If this sounds confusing, look at the top row in the `_FUN` layer map. The left most two 
+  layers are the normal BASE layer `_LTR` and its numbers layer `_NSY`. The right most two
+  layers are the _descramble_ variants thereof. The other layers are used in common.
 
   This works for computers configured to _already_ remap the input to Dvorak, such as a laptop
   that you want computer operating system side mapping to Dvorak for its build in keyboard.
