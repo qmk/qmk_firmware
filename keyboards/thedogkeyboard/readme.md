@@ -1,12 +1,12 @@
 # thedogkeyboard
 
-![thedogkeyboard](imgur.com image replace me!)
+![thedogkeyboard](https://i.gyazo.com/70ac677c1e75c04b812e5dce311f7901.jpg)
 
-A short description of the keyboard/project
+1ProMicro 100% Keyboard.
 
 Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: thedogkeyboard_rev1, promicro  
+Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
 Make example for this keyboard (after setting up your build environment):
 
