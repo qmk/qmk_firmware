@@ -63,36 +63,37 @@ from ../jetpacktuxedo/ keymap.
 
   If this sounds confusing, ... ?
 
-   - Look at the top row in the `_FUN` layer map. The left most two 
-  keys are by default the normal BASE layer `_LTR` and its numbers layer `_NSY`. The
-  right most two keys are to the _descramble_ variants thereof, with the last
-  one acting as the _descramble_ BASE layer which replaces the default BASE layer 
-  uses once you activate it and use it. The other
-  layers in the middle are used in common.  A BASE layer (there are two)
-  is nothing more than a layer with layer-hold keys to a bunch of other
-  layers that work well with it. Those keys revert you to that BASE layer
-  when released. Only these BASE layers have those layer-hold keys, which
-  makes them the most interesting. You should be able to reach all you
-  need from them, on that layer and others by way of layer-hold keys. The
-  other layers are more static. The other simpler layers can still
-  be brought on without needing to hold a key down through the `_FUN`
-  layer (a second way of accessing them). Rather than have a set of layer
-  toggles for touch typing, they specialize in something (moving, F-keys,
-  etc). These more simple layers have one layer toggle in the top/left
-  of the keyboard, back to a BASE layer.  You can configure which one
-  (using !LTR and !DDL on `_FUN`). That is all there is to it. You can
-  for example _not_ toggle the BASE keys on all layers to point to the
-  `_DLL` descramble BASE layer, but _still_ activate the `_DLL` layer
-  and use it just fine. The reverse however is not possible by default,
-  simply because there is no key to toggle to the default `_LTR` BASE
-  layer anymore, but if you put that key on the map somewhere (which is
-  easy enough) than that layer would work just fine even though BASE keys
-  point to the other layer. You only notice the difference when reaching
-  for a simple layer by toggle, and where you end up if you escape
-  from that layer by way of the top/left key. It has no other meaning.
-  Nothing is being computed or decrypted or anything. It is all nothing
-  more than basic layer switching, with some layer hold and toggle keys.
-  I understand it better now too. ^^
+   - Look at the top row in the `_FUN` layer map. The left most two
+  keys are by default the normal BASE layer `_LTR` and its numbers
+  layer `_NSY`. The right most two keys are to the _descramble_ variants
+  thereof, with the last one acting as the _descramble_ BASE layer which
+  replaces the default BASE layer uses once you activate it and use
+  it. The other layers in the middle are used in common.  A BASE layer
+  (there are two) is nothing more than a layer with layer-hold keys to
+  a bunch of other layers that work well with it. Those keys revert you
+  to that BASE layer when released. Only these BASE layers have those
+  layer-hold keys, which makes the BASE layers the most interesting. They
+  are your "base of operation."  You should be able to reach all you
+  need from them, on that layer itself and others accessed by way of
+  layer-hold keys from there. The other layers are more static. The other
+  simpler layers can still be brought on without needing to hold a key
+  down through the `_FUN` layer (a second way of accessing them). Rather
+  than have a set of layer toggles for touch typing, they specialize in
+  something (moving, F-keys, etc). These more simple layers have one
+  layer toggle in the top/left of the keyboard, back to a BASE layer.
+  You can configure which one (using !LTR and !DDL on `_FUN`). That is
+  all there is to it. You can for example _not_ toggle the BASE keys on
+  all layers to point to the `_DLL` descramble BASE layer, but _still_
+  activate the `_DLL` layer and use it just fine. The reverse however
+  is not possible by default, simply because there is no key to toggle
+  to the default `_LTR` BASE layer anymore, but if you put that key on
+  the map somewhere (which is easy enough) than that layer would work
+  just fine even though BASE keys point to the other layer. You only
+  notice the difference when reaching for a simple layer by toggle, and
+  where you end up if you escape from that layer by way of the top/left
+  key. It has no other meaning.  Nothing is being computed or decrypted
+  or anything. It is all nothing more than basic layer switching, with
+  some layer hold and toggle keys.  I understand it better now too. ^^
 
   Example: a laptop
   with a build in keyboard, for which you need _computer operating system side_ mapping 
