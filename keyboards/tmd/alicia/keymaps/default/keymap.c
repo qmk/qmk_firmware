@@ -16,7 +16,10 @@
 #include QMK_KEYBOARD_H
 
 // Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { TMDMSG = SAFE_RANGE, TMDURL };
+enum custom_keycodes {
+    TMDMSG = SAFE_RANGE,
+    TMDURL
+};
 
 /*
 Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
