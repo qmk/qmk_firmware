@@ -25,23 +25,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,          KC_LALT,                           KC_SPC,                                      KC_RALT,          KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT,   KC_P0,            KC_PDOT
   ),
 };
-
-enum combo_events {
-  CTRL_PAUS_RESET,
-};
-
-const uint16_t PROGMEM reset_combo[] = {KC_LCTL, KC_PAUS, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-  [CTRL_PAUS_RESET] = COMBO_ACTION(reset_combo),
-};
-
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case CTRL_PAUS_RESET:
-      if (pressed) {
-        reset_keyboard();
-      }
-      break;
-  }
-}
