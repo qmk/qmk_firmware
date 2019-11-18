@@ -61,7 +61,12 @@ from ../jetpacktuxedo/ keymap.
   top left key, which should then send you to your chosen BASE layer. The regular BASE layer is
   now out of reach (the regular numbers layer is not).
 
-  If this sounds confusing, ... ?
+  Example: A laptop with a build in keyboard, for which you need _computer
+  operating system side_ mapping to Dvorak, but you also like to plug in
+  this natively Dvorak keyboard, besides using this keyboard on other 
+  computers that do not remap the keyboard input.
+
+  If this sounds confusing, ... ? (Warning: _ultra-verbose mode is on_ !)
 
    - Look at the top row in the `_FUN` layer map. The left most two
   keys are by default the normal BASE layer `_LTR` and its numbers
@@ -120,11 +125,6 @@ from ../jetpacktuxedo/ keymap.
   direction to `_LTR` normal BASE or `_DDL` _descramble_ BASE. All of
   it can be changed at will indefinitely without any consequences. I
   understand it better now too. ^^
-
-  Example: a laptop
-  with a build in keyboard, for which you need _computer operating system side_ mapping 
-  to Dvorak. However it can mess up a plugged in keyboard that is already natively Dvorak.
-  With the _descramble_ output mode active, you should be able to type on it anyway, in Dvorak.
 
   Layers
   ======
