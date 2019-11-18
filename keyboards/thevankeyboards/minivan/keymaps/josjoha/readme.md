@@ -16,43 +16,46 @@ from ../jetpacktuxedo/ keymap.
   - - - - - - - - - 
 
      Basic layers are:
-      * letters (normal Dvorak layout),     (Led: off)         _LTR "LeTteRs"
-      * numbers with remaining symbols,     (Led: blue)        _NSY "Numbers SYmbols"
-      * function keys,                      (Led: red)         _FUN "FUNction keys"
-      * and a movement layer                (Led: green)       _MOV "MOVement"
+      * letters (normal Dvorak layout), (Led: low-white/off)   _LTR "LeTteRs"
+      * numbers with remaining symbols, (Led: blue 2x)         _NSY "Numbers SYmbols"
+      * function keys,                  (Led: red & white *})  _FUN "FUNction keys"
+      * and a movement layer            (Led: green 2x)        _MOV "MOVement"
      Extra layers: 
-      * keys like Print-Screen, CapsLock,   (Led: purple)      _RAR "RARe keys"
-      * navigation and numbers other hand,  (Led: green/blue)  _REV "REVerse hands"
-      * accented characters like é, ø, ß    (Led: cyan)        _ACC "ACCented"
-      * Unicode symbols and whatever else   (Led: yellow)      _DRA "DRAwings"
-     Descramble on _Computer_ set to Dvorak: 
-      * letters                             (Led: off)         _DDN "Descramble Numbers"
-      * numbers                             (Led: blue/off)    _DDL "Descramble Letters"
+      * keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
+      * navigation, numbers other hand, (Led: green/blue)      _REV "REVerse hands"
+      * accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
+      * Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
+     Descramble _Computer_ set Dvorak: 
+      * letters                         (Led: off/low-white)   _DDN "Descramble Numbers"
+      * numbers                         (Led: blue/low-white)  _DDL "Descramble Letters"
 
-      Leds: breathing effect on the middle LED in color of last active non base layer,
-      others indicate active layer.
+
+      Leds: Breathing effect on the middle LED in color of last active non base layer.
+      Leds left and right indicate active layer.
+      *} One led on the _FUN layer is bright white, indicating which BASE layer is active.
+         Left is white for _LTR BASE (normal), right is white for _DDL BASE (descramble).
 
 
   Usage
   =====
  
   All normal use layer switching is by thumb buttons on the base layer,
-  all temporary.  All layers can be set to be on persistently through
-  the \_FUN layer top row toggles, except \_FUN itself (XXX). Tap \_FUN
-  on base layer to persist. A few rarely used layers can only be reached
-  by \_FUN layer toggle.  From each layer one can go back to the base
+  all temporary, no transparent keys. All layers can be set to be on persistently through
+  the \_FUN layer top row toggles. A few rarely used layers can only be reached
+  by \_FUN layer toggle.  From each layer one can go back to the BASE
   layer by pressing the upper/left most button.
 
 
 ## To a computer already set to Dvorak remapping ...
 
-  Tap **`_FUN`** once (7th key bottom row, to function layer), then **`!DDL`** (right/top row).
+  Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (6th key bottom row).
   _Layers `_DDL` and `_DDN` descramble `_LTR` and `_NYS`._
-  Undo: tap **`_FUN`** once, then hit **`_!LTR`** (most left top row), or plug keyboard in/out. 
+  Undo: tap **`_FUN`** once, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
   _Base layer back to normal `_LTR`._
-  To detect that descramble mode is (in)active, activate _NSY/_DDN and check the leds.
+  To detect that descramble mode is (in)active, activate _FUN layer and check the leds.
 
-  This works for computers configured to _already_ remap the input to Dvorak.
+  This works for computers configured to _already_ remap the input to Dvorak, such as a laptop
+  that you want computer operating system side mapping to Dvorak for its build in keyboard.
 
   Layers
   ======
@@ -60,14 +63,14 @@ from ../jetpacktuxedo/ keymap.
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
-     -*!-                                  <|>                                    // -*!- Access from all
-     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
+     -o-                                   <|>                                         // -o- BASE access
+     BASE     '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_DRA _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC              // _XYZ is to layer
-                                       <|>                                      
-               hold     hold  hold      |        hold oneshot hold                   // Layer switch type
+     Left+LAlt Del+_ACC _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC              // _XYZ is to layer
+                        ...            <|>                                  // Activation on _FUN as BASE
+               hold     hold  hold      |        hold toggl   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
 - - -
@@ -76,12 +79,12 @@ from ../jetpacktuxedo/ keymap.
     
      <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
             -*-                          <|>                                        // -*- Access on _FUN
-     _LTR   !     @     #     $     %     | ^     &     *     (     )        Bspc
+     BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
      -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht //limitation prevents ~
      ------------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                      // -*- Access on base
+                              -*- <|>      -*-                                      // -*- Access on _LTR
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
 - - -
@@ -90,14 +93,14 @@ from ../jetpacktuxedo/ keymap.
      Layer _FUN (F-keys, CAF means Control+Alt+F-key)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     base  toggl toggl toggl toggl toggl | toggl toggl             toggl base           // Type of switch
-                                        <|>
-     !LTR  _NSY  xxx   _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  !DDL      // ! set default layer
+     toggl toggl toggl toggl toggl toggl | toggl toggl             toggltoggl           // Type of switch
+                 -*-                    <|>
+     BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  _DDL
      LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
      LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
      -----------------------------------------------
-     LAlt  xxx   xxx   xxx  | xxx   xxx   ___   RAlt
-                           <|>            -*-                        // -*- Access on base -*- (one shot)
+     LAlt  xxx   !LTR  xxx  | xxx   !DDL  ___   RAlt                                 // ! sets BASE layer
+                           <|>            -*-                                       // -*- Access on base
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -112,7 +115,7 @@ from ../jetpacktuxedo/ keymap.
      LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------
      Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
-                     -*-           <|>                                                     // -*- on base
+                     -*-           <|>                                                     // -*- on BASE
      <1        <2    <3    <4       | 4>    3>    2>    1>  
 
 - - -
@@ -156,8 +159,8 @@ from ../jetpacktuxedo/ keymap.
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left Del   LGUI  Ent  | Spc   RGUI  xxx   ___
-                               <|>                  -*-                                        // on base
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+               -*-             <|>                  -*-                                        // on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -171,8 +174,8 @@ from ../jetpacktuxedo/ keymap.
      LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
      LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
      ---------------------------------------------------------
-     LAlt+Left ___   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
-               -*-             <|>                                                             // on base
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+                               <|>                                              
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -187,23 +190,23 @@ from ../jetpacktuxedo/ keymap.
      .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
      ------------------------------------------------------------
      Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                            // on _DDN base
+                              -*- <|>      -*-                                                 // on _DDL
      <1        <2    <3       <4   | 4>    3>    2>    1>  
 
 - - -
 
 
-     Layer _DDN (Dvorak descramble mode for letters)
+     Layer _DDL (Dvorak descramble mode for letters)
 
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                           <|>                              -!-     // on _FUN (set base)
+     -o-                                   <|>                              -*-     // -o- BASE, -*- _FUN
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_DRA _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
-                                       <|>
-               hold     hold  hold      |        hold oneshot hold
+     Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
+                                       <|>       ...                        // Activation on _FUN as BASE
+               hold     hold  hold      |        hold toggl   hold
      <1        <2       <3    <4        | 4>     3>   2>      1>
 
 - - -
@@ -225,5 +228,5 @@ from ../jetpacktuxedo/ keymap.
     - Right Alt on the base layer is taken off, instead it switches to
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
- 
+  
     See keymap.c for more comments.
