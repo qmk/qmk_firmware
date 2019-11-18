@@ -97,7 +97,7 @@ from ../jetpacktuxedo/ keymap.
   _descramble_ BASE layer (`_DDL`) That is no big deal either. You can
   switch to the `_FUN` layer again, and select the `_DDL` _descramble_
   BASE layer once again to start using it, and/or set where the BASE
-  layers should point next (using !LTR and !DLL also on the `_FUN` layer).
+  layers should point next (using !LTR and !DDL also on the `_FUN` layer).
   -  The reverse however is not possible: you can not access `_LTR` normal
   BASE layer anymore once BASE keys point to the _descramble_ BASE layer
   `_DDL`, simply because there is no key to toggle to the default `_LTR`
@@ -113,7 +113,8 @@ from ../jetpacktuxedo/ keymap.
   keys point, when reaching for a simple layer by toggle on `_FUN`, and
   where you end up if you escape from that layer by way of the top/left
   key. It has no other meaning.  Nothing is being computed or decrypted
-  or anything. It is all nothing more than basic layer switching, with
+  or anything. The mere altered placement of keys on the _descramble_ `_DDL` layer is 
+  enough to fix the problem. It is all nothing more than basic layer switching, with
   some layer hold and toggle keys.  There are no fixed modes that affect
   things down the line. There is your layer toggles, and your BASE key
   direction to `_LTR` normal BASE or `_DDL` _descramble_ BASE. All of
