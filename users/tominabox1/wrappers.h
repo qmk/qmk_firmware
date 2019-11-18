@@ -28,18 +28,18 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define __________________DIMPLE1__________________       KC_ESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC
 #define __________________DIMPLE2__________________       LCTL_T(KC_TAB), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT
 #define __________________DIMPLE3L_________________       KC_LSFT, LT(_FKEY,KC_Z),    KC_X,    KC_C,    KC_V,    KC_B
-#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_UP,  RSFT_T(KC_DOT)
-#define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT
+#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_QUES)
+#define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO
 
 // Dimple Symbol Layer
 #define _________________LOWER_1___________________       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC
-#define _________________LOWER_2___________________       KC_DEL,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE
-#define _________________LOWER_3___________________       KC_CAPS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO, KC_PGUP, KC_QUES
+#define _________________LOWER_2___________________       KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_MINS, KC_PIPE
+#define _________________LOWER_3___________________       KC_DEL,KC_NO, KC_LCBR, KC_LBRC, KC_LPRN, KC_NO, KC_RPRN, KC_RBRC, KC_RCBR, KC_SLSH, KC_QUES
 #define _________________LOWER_4___________________       LCA(KC_DEL),   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDN, KC_END
 
 // Dimple Number layer
-#define ___________________RAISE1__________________       KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL
-#define ___________________RAISE2__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS
+#define ___________________RAISE1__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_PGDN,   KC_UP,     KC_PGUP,    KC_NO, KC_NO
+#define ___________________RAISE2__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS
 #define ___________________RAISE3__________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
 #define ___________________RAISE4__________________       KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO
 
@@ -75,7 +75,8 @@ __  __ _       _
 #define __________________MINIVAN1_________________       __________________DIMPLE1__________________
 #define __________________MINIVAN2_________________       __________________DIMPLE2__________________
 #define __________________MINIVAN3_________________       __________________DIMPLE3L_________________, __________________DIMPLE3R_________________, KC_RSFT
-#define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, KC_ENT_LOW,  KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
+#define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO, MO(_FKEY)
+#define __________________MINIVAN4BIGSPACE_________       KC_LALT, KC_LGUI, KC_ENT_LOW,  KC_NO, KC_NO, KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
 
 /* Minivan Symbol Layer
 #define _________________LOWER_1___________________

@@ -60,9 +60,9 @@ const uint16_t PROGMEM caps_combo[] = {KC_M, KC_V, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {KC_K, KC_V, COMBO_END};
 #endif
 const uint16_t PROGMEM cret[] = {KC_QUOT, KC_O, COMBO_END};
-const uint16_t PROGMEM combo_pp[] = {KC_L, KC_Y, COMBO_END};
-const uint16_t PROGMEM combo_next[] = {KC_U, KC_Y, COMBO_END};
-const uint16_t PROGMEM combo_prev[] = {KC_U, KC_L, COMBO_END};
+const uint16_t PROGMEM combo_pp[] = {KC_7, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_next[] = {KC_8, KC_9, COMBO_END};
+const uint16_t PROGMEM combo_prev[] = {KC_7, KC_8, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [EMAIL] = COMBO_ACTION(email),
@@ -90,21 +90,5 @@ break;
       reset_keyboard();
     }
     break;
-//     case CAPS_COMBO:
-//     if (pressed) {
-//       register_code16(KC_CAPS);
-//       wait_ms(100);
-//       unregister_code16(KC_CAPS);
-//     }
-//     break;
-    // case CRET2:
-    // if (pressed) {
-    //   tap_code16(KC_ENT);
-    // }
-    // break;
-//     case CRET2:
-//     if (pressed) {
-//       tap_code16(KC_ENT);
-//     }
   }
 }
