@@ -22,10 +22,10 @@ uint16_t get_tapping_term(uint16_t keycode) {
             return 150;
         case KC_ENT_LOW:
             return 150;
-        case KC_SPC_RSE:
+        case LT(_LOWER, KC_SPC):
             return 270;
         case LCTL_T(KC_TAB):
-            return 150;
+            return 120;
         default:
             return TAPPING_TERM;
     }
