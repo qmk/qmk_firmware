@@ -26,8 +26,8 @@ from ../jetpacktuxedo/ keymap.
       * accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
       * Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak: 
-      * letters                         (Led: off/low-white)   _DDN "Descramble Numbers"
-      * numbers                         (Led: blue/low-white)  _DDL "Descramble Letters"
+      * numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
+      * letters                         (Led: off/low-white)   _DDN "Descramble Letters"
 
 
       Leds: Breathing effect on the middle LED in color of last active non base layer.
@@ -232,13 +232,14 @@ from ../jetpacktuxedo/ keymap.
   Hacking & slashing 
   ==================
 
-  For basic adaptation of this map to get the right characters for you, you
-  could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and look at what
-  you want accessed easily using those layers, accessed by the 2nd and last
-  layer hold keys on the bottom row. For example if one is German and wants
-  media keys, one could put `_RAR` on the 2nd (to have media right), and
-  `_ACC` on the 7th. If this leaves ß awkward on the right, you could move
-  it to the left on that layer.
+  For basic adaptation of this map to get the right characters for you,
+  you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and look
+  at what you want accessed easily using those layers, reworking them
+  as needed. Then see what layers to set for the 2nd and 7th keys on
+  the bottom row. For example if one is German and wants media keys,
+  one could put `_RAR` on the 2nd (to have media right), and `_ACC` on
+  the 7th (to have äöëü on the left). If this leaves ß awkward on the
+  right, you could move it to the left on that layer.
 
   Another interesting adaptation is to rework the keys on the `_DDL` and
   `_DDN` "descramble" layers, to for example a whole other language with 
