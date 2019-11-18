@@ -21,6 +21,7 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define DEBOUNCE 3
+#ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
@@ -29,14 +30,10 @@
 #define DISABLE_RGB_MATRIX_SPLASH
 #define DISABLE_RGB_MATRIX_MULTISPLASH
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 #define DRIVER_COUNT 2
-#if defined (dzrgb60_ansi) || defined (dzrgb60_iso)
-#define DRIVER_1_LED_TOTAL 61
-#elif defined (dzrgb60_hhkb) || defined (dzrgb60_hhkb_iso)
-#define DRIVER_1_LED_TOTAL 62
-#else
 #define DRIVER_1_LED_TOTAL 63
-#endif
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#endif

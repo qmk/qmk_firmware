@@ -185,8 +185,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_AUDIO_MUTE`        |`KC_MUTE`                     |Mute                                           |
 |`KC_AUDIO_VOL_UP`      |`KC_VOLU`                     |Volume Up                                      |
 |`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`                     |Volume Down                                    |
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track (Windows)                           |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track (Windows)                       |
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`                     |Next Track                                     |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`                     |Previous Track                                 |
 |`KC_MEDIA_STOP`        |`KC_MSTP`                     |Stop Track (Windows)                           |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`                     |Play/Pause Track                               |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`                     |Launch Media Player (Windows)                  |
@@ -296,6 +296,16 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_AUTO`|Automatically switch between USB and Bluetooth|
 |`OUT_USB` |USB only                                      |
 |`OUT_BT`  |Bluetooth only                                |
+
+## [Dynamic Macros](feature_dynamic_macros.md)
+
+|Key              |Alias    |Description                                       |
+|-----------------|---------|--------------------------------------------------|
+|`DYN_REC_START1` |`DM_REC1`|Start recording Macro 1                           |
+|`DYN_REC_START2` |`DM_REC2`|Start recording Macro 2                           |
+|`DYN_MACRO_PLAY1`|`DM_PLY1`|Replay Macro 1                                    |
+|`DYN_MACRO_PLAY2`|`DM_PLY2`|Replay Macro 2                                    |
+|`DYN_REC_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
