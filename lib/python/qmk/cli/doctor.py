@@ -13,7 +13,6 @@ from milc import cli
 from qmk import submodules
 from qmk.questions import yesno
 
-
 ESSENTIAL_BINARIES = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
 ESSENTIAL_SUBMODULES = ['lib/chibios', 'lib/lufa']
 
