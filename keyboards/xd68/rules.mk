@@ -29,5 +29,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-LAYOUTS = LAYOUT_ansi LAYOUT_iso
-
+LAYOUTS = LAYOUT_65_ansi LAYOUT_65_iso
