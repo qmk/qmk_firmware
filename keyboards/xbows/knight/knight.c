@@ -1,9 +1,11 @@
 #include "knight.h"
 void matrix_init_kb(void) {
-    setPinOutput(D1);
-    setPinOutput(E2);
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+
     matrix_init_user();
-};
+    led_init_ports();
+}
 void led_init_ports(void) {
     setPinOutput(D1);
     writePinHigh(D1);
