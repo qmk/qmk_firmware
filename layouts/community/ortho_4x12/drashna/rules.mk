@@ -1,9 +1,10 @@
-BOOTMAGIC_ENABLE  = lite       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE   = no       # Mouse keys(+4700)
-EXTRAKEY_ENABLE   = yes       # Audio control and System control(+450)
-TAP_DANCE_ENABLE  = no
-AUDIO_ENABLE      = yes
+BOOTMAGIC_ENABLE   = lite       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE    = no       # Mouse keys(+4700)
+EXTRAKEY_ENABLE    = yes       # Audio control and System control(+450)
+TAP_DANCE_ENABLE   = no
+AUDIO_ENABLE       = yes
 SPACE_CADET_ENABLE = no
+NKRO_ENABLE        = yes
 
 ifneq ($(strip $(KEYBOARD)), planck/rev6)
     CONSOLE_ENABLE    			= no
@@ -34,10 +35,4 @@ ifeq ($(strip $(KEYBOARD)), planck/ez)
     RGBLIGHT_STARTUP_ANIMATION  = yes
     CONSOLE_ENABLE    			= yes
     COMMAND_ENABLE    			= yes
-endif
-
-ifeq ($(strip $(PROTOCOL)), VUSB)
-    NKRO_ENABLE       = no
-else
-    NKRO_ENABLE       = yes
 endif
