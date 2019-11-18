@@ -22,3 +22,4 @@ bool led_update_kb(led_t led_state) {
         writePin(B7, !led_state.scroll_lock);
     }
     return true;
+  }
