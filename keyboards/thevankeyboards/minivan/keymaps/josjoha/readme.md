@@ -64,36 +64,53 @@ from ../jetpacktuxedo/ keymap.
   If this sounds confusing, ... ?
 
    - Look at the top row in the `_FUN` layer map. The left most two
-  keys are by default the normal BASE layer `_LTR` and its numbers
-  layer `_NSY`. The right most two keys are to the _descramble_ variants
-  thereof, with the last one acting as the _descramble_ BASE layer which
-  replaces the default BASE layer uses once you activate it and use
-  it. The other layers in the middle are used in common.  A BASE layer
-  (there are two) is nothing more than a layer with layer-hold keys to
-  a bunch of other layers that work well with it. Those keys revert you
-  to that BASE layer when released. Only these BASE layers have those
-  layer-hold keys, which makes the BASE layers the most interesting. They
-  are your "base of operation."  You should be able to reach all you
-  need from them, on that layer itself and others accessed by way of
-  layer-hold keys from there. The other layers are more static. The other
-  simpler layers can still be brought on without needing to hold a key
-  down through the `_FUN` layer (a second way of accessing them). Rather
-  than have a set of layer toggles for touch typing, they specialize in
-  something (moving, F-keys, etc). These more simple layers have one
-  layer toggle in the top/left of the keyboard, back to a BASE layer.
-  You can configure which one (using !LTR and !DDL on `_FUN`). That is
-  all there is to it. You can for example _not_ toggle the BASE keys on
-  all layers to point to the `_DLL` descramble BASE layer, but _still_
-  activate the `_DLL` layer and use it just fine. The reverse however
-  is not possible by default, simply because there is no key to toggle
-  to the default `_LTR` BASE layer anymore, but if you put that key on
-  the map somewhere (which is easy enough) than that layer would work
-  just fine even though BASE keys point to the other layer. You only
-  notice the difference when reaching for a simple layer by toggle, and
+  keys are by default the normal BASE layer `_LTR` and its numbers layer
+  `_NSY`. The right most two keys are to the _descramble_ variants
+  thereof, with the last one acting as the _descramble_ BASE layer
+  which replaces the default BASE layer uses once you activate it and
+  use it. The other layers in the middle are used in common.  A BASE
+  layer (there are two) is nothing more than a layer with layer-hold
+  keys to a bunch of other layers that work well with it. Those keys
+  revert you to that BASE layer when released. Only these BASE layers
+  have those layer-hold keys, which makes the BASE layers the most
+  interesting. They are your "base of operation."  You should be able
+  to reach all you need from them, on that layer itself and others
+  accessed by way of layer-hold keys from there. The other layers are
+  more static. The other simpler layers can still be brought on without
+  needing to hold a key down through the `_FUN` layer (a second way of
+  accessing them). Rather than have a set of layer toggles for touch
+  typing, these simple layers specialize in something (moving, F-keys,
+  numbers/symbols etc). These more simple layers have one layer toggle in
+  the top/left of the keyboard, back to one of the two BASE layers. You
+  can configure which one (using !LTR and !DDL on `_FUN`). That is all
+  there is to it. You can for example decide to _not_ toggle the BASE
+  keys on all layers to point to the `_DLL` _descramble BASE layer_,
+  but _still_ activate the `_DLL` layer and use it just fine. The only
+  difference is that once you access one of the simpler layers through
+  `_FUN` toggle, and you escape away from there with the top/left key,
+  then you end up on the normal BASE layer (`_LTR`), rather than the
+  _descramble_ BASE layer (`_DDL`) That is no big deal either. You can
+  switch to the `_FUN` layer again, and select `_DLL` _descramble_ BASE
+  layer once again, and/or set where the BASE layers should point next
+  (using !LTR and !DLL on the `_FUN` layer).  The reverse however is
+  not possible by default: you can not access `_LTR` normal BASE layer
+  anymore once BASE keys point to the _descramble_ BASE layer `_DLL`
+  simply because there is no key to toggle to the default `_LTR` BASE
+  layer anymore. There is no use for that key, so it is not present,
+  but if you put that key on the map somewhere (which is easy enough)
+  than that layer would work just fine even though BASE keys point to
+  the other _descramble_ layer `_DLL`. As it is, the only way to go
+  back to normal BASE layer, is to set the BASE keys to point there,
+  using the `_FUN` layer !LTR key, and then press a BASE key on whatever
+  layer. You only notice the difference in regular use regarding where
+  the BASE keys point, when reaching for a simple layer by toggle, and
   where you end up if you escape from that layer by way of the top/left
   key. It has no other meaning.  Nothing is being computed or decrypted
   or anything. It is all nothing more than basic layer switching, with
-  some layer hold and toggle keys.  I understand it better now too. ^^
+  some layer hold and toggle keys.  There are no fixed modes that affect
+  things down the line. There is your layer toggles, and your BASE key
+  direction to `_LTR` normal BASE or `_DDL`, both of which can be changed
+  at will indefinitely. I understand it better now too. ^^ 
 
   Example: a laptop
   with a build in keyboard, for which you need _computer operating system side_ mapping 
