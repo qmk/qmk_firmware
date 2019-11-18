@@ -45,19 +45,3 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
       break;
   }
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
