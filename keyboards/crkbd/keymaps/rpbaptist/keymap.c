@@ -239,28 +239,34 @@ void render_status(void) {
 
     uint8_t modifiers = get_mods();
 
-    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("SHIFT") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("ALT  ") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("SUPER") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("SHIFT") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("ALT  ") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("SUPER") : PSTR("\n"), false);
 
     oled_write_P(PSTR("\n"), false);
 
     uint8_t led_usb_state = host_keyboard_leds();
     oled_write_P(PSTR("Mode:"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("     "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("     "), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("\n"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("\n"), false);
 
 #    ifdef RGB_MATRIX_ENABLE
     oled_write_P(PSTR("\n"), false);
     oled_write_P(PSTR("\n"), false);
-    if (user_config.rgb_matrix_idle_anim) {
-        oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_active_mode), false);
-        oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_idle_mode), false);
-    } else {
+
+    if (rgb_matrix_config.enable) {
+        if (user_config.rgb_matrix_idle_anim) {
+            oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_active_mode), false);
+            oled_write_P(rgb_matrix_anim_oled_text(user_config.rgb_matrix_idle_mode), false);
+        } else {
+            oled_write_P(PSTR("\n"), false);
+            oled_write_P(rgb_matrix_anim_oled_text(rgb_matrix_get_mode()), false);
+        }
+      } else {
         oled_write_P(PSTR("\n"), false);
-        oled_write_P(rgb_matrix_anim_oled_text(rgb_matrix_get_mode()), false);
-    }
+        oled_write_P(PSTR("\n"), false);
+      }
 #    endif
 }
 
