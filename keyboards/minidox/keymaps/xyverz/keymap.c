@@ -1,44 +1,28 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
+enum layer_names { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _DVORAK 0
-#define _QWERTY 1
-#define _COLEMAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
-
-enum planck_keycodes {
-  DVORAK = SAFE_RANGE,
-  QWERTY,
-  COLEMAK,
-  LOWER,
-  RAISE,
-  BACKLIT
-};
+enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, LOWER, RAISE, ADJUST };
 
 // Adding macros to make the keymaps below much easier to read.
-#define SFTSCLN SFT_T(KC_SCLN)
-#define SFTSLSH SFT_T(KC_SLSH)
-#define SFTZED SFT_T(KC_Z)
-//#define ALTENT ALT_T(KC_ENT)
-//#define ESCTRL CTL_T(KC_ESC)
-//#define TABGUI GUI_T(KC_TAB)
-#define CTRLQ CTL_T(KC_Q)
-#define CTRLV CTL_T(KC_V)
-#define ALTJ ALT_T(KC_J)
-#define ALTW ALT_T(KC_W)
-#define CTRLX CTL_T(KC_X)
-#define CTRLDOT CTL_T(KC_DOT)
-#define ALTC ALT_T(KC_C)
-#define ALTCOMM ALT_T(KC_COMM)
-//#define GUIBSPC GUI_T(KC_BSPC)
+/*
+ Visit https://github.com/qmk/qmk_firmware/blob/master/docs/feature_advanced_keycodes.md#mod-tap
+ to read why these macros below are side-aware (LALT, RCTL, etc).
+*/
+#define CTLSCLN RCTL_T(KC_SCLN)
+#define CTLSLSH LCTL_T(KC_SLSH)
+#define RCTLZED RCTL_T(KC_Z)
+#define LCTLZED LCTL_T(KC_Z)
+#define ALTDOT RALT_T(KC_DOT)
+#define ALTX LALT_T(KC_X)
+#define ALTQ LALT_T(KC_Q)
+#define ALTV RALT_T(KC_V)
+#define GUICOMM RGUI_T(KC_COMM)
+#define GUIJ LGUI_T(KC_J)
+#define GUIC LGUI_T(KC_C)
+#define GUIW RGUI_T(KC_W)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
@@ -48,19 +32,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  |   O  |   E  |   U  |   I  |           |   D  |   H  |   T  |   N  |   S  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |SFT/ ;|CTL/ Q|ALT/ J|   K  |   X  |           |   B  |   M  |ALT/ W|CTL/ V|SFT/ Z|
+ * |CTL/ ;|ALT/ Q|GUI/ J|   K  |   X  |           |   B  |   M  |GUI/ W|ALT/ V|CTL/ Z|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  | LOWER| Gui  |      |    |      | Ent  |RAISE |
- *                  `-------------| BSpc |    | Spc  |------+------.
+ *                  | LOWER| BSPC |      |    |      | Spc  |RAISE |
+ *                  `-------------| SHFT |    | Ent  |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_DVORAK] = LAYOUT ( \
   KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,       KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    \
   KC_A,    KC_O,    KC_E,    KC_U,    KC_I,       KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    \
-  SFTSCLN, CTRLQ,   ALTJ,    KC_K,    KC_X,       KC_B,    KC_M,    ALTW,    CTRLV,   SFTZED,  \
-                    LOWER,   KC_LGUI, KC_BSPC,    KC_SPC,  KC_ENT,  RAISE                      \
+  CTLSCLN, ALTQ,    GUIJ,    KC_K,    KC_X,       KC_B,    KC_M,    GUIW,    ALTV,    RCTLZED, \
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
 ),
 
 /* Qwerty
@@ -70,19 +54,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  |   S  |   D  |   F  |   G  |           |   H  |   J  |   K  |   L  |   ;  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |SFT/ Z|CTL/ X|ALT/ C|   V  |   B  |           |   N  |   M  |ALT/ ,|CTL/ .|SFT/ /|
+ * |CTL/ Z|ALT/ X|GUI/ C|   V  |   B  |           |   N  |   M  |GUI/ ,|ALT/ .|CTL/ /|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  | LOWER| Gui  |      |    |      | Ent  |RAISE |
- *                  `-------------| BSpc |    | Spc  |------+------.
+ *                  | LOWER| BSPC |      |    |      | Spc  |RAISE |
+ *                  `-------------| SHFT |    | Ent  |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT ( \
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
-  SFTZED,  CTRLX,   ALTC,    KC_V,    KC_B,       KC_N,    KC_M,    ALTCOMM, CTRLDOT, SFTSLSH, \
-                    LOWER,   KC_LGUI, KC_BSPC,    KC_SPC,  KC_ENT,  RAISE                      \
+  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_N,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH, \
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
 ),
 
 /* Colemak
@@ -92,19 +76,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  |   R  |   S  |   T  |   D  |           |   H  |   N  |   E  |   I  |   S  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |SFT/ Z|CTL/ X|ALT/ C|   V  |   B  |           |   K  |   M  |ALT/ ,|CTL/ .|SFT/ /|
+ * |CTL/ Z|ALT/ X|GUI/ C|   V  |   B  |           |   K  |   M  |GUI/ ,|ALT/ .|CTL/ /|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
- *                  | LOWER| Gui  |      |    |      | Ent  |RAISE |
- *                  `-------------| BSpc |    | Spc  |------+------.
+ *                  | LOWER| BSPC |      |    |      | Spc  |RAISE |
+ *                  `-------------| SHFT |    | Ent  |------+------.
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_COLEMAK] = LAYOUT ( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,       KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    \
-  SFTZED,  CTRLX,   ALTC,    KC_V,    KC_B,       KC_K,    KC_M,    ALTCOMM, CTRLDOT, SFTSLSH, \
-                    LOWER,   KC_LGUI, KC_BSPC,    KC_SPC,  KC_ENT,  RAISE                      \
+  LCTLZED, ALTX,    GUIC,    KC_V,    KC_B,       KC_K,    KC_M,    GUICOMM, ALTDOT,  CTLSLSH, \
+                    LOWER,   KC_BSPC, KC_LSFT,    KC_ENT,  KC_SPC,  RAISE                      \
 ),
 
 /* Lower
@@ -168,65 +152,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  LAYOUT ( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_UP,   KC_F9,   KC_F10,  \
-  KC_F11,  _______, _______, _______, _______,    _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_F12,  \
+  KC_F11,  RESET,   _______, _______, _______,    _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_F12,  \
   _______, QWERTY,  COLEMAK, DVORAK,  _______,    RESET,   _______, _______, _______, _______, \
                     _______, _______, _______,    _______, _______, _______                    \
-)
+  )
 };
+// clang-format on
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-};
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+#endif
 
 void matrix_init_user(void) {
-   // This will disable the red LEDs on the ProMicros
-   DDRD &= ~(1<<5);
-   PORTD &= ~(1<<5);
-   DDRB &= ~(1<<0);
-   PORTB &= ~(1<<0);
+#ifdef BOOTLOADER_CATERINA
+    // This will disable the red LEDs on the ProMicros
+    setPinInput(D5);
+    writePinLow(D5);
+    setPinInput(B0);
+    writePinLow(B0);
+#endif
 };
 
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); };
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QWERTY);
-          }
-          return false;
-          break;
-        case COLEMAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_COLEMAK);
-          }
-          return false;
-          break;
-        case DVORAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DVORAK);
-          }
-          return false;
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-      }
+    if (record->event.pressed) {
+        switch (keycode) {
+            case QWERTY:
+                set_single_persistent_default_layer(_QWERTY);
+                return false;
+            case COLEMAK:
+                set_single_persistent_default_layer(_COLEMAK);
+                return false;
+            case DVORAK:
+                set_single_persistent_default_layer(_DVORAK);
+                return false;
+        }
+    }
     return true;
-};
+}

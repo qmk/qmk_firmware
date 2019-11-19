@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* key matrix pins */
 #define MATRIX_ROW_PINS { F7, F6, F5, F0, B5 }
 #define MATRIX_COL_PINS { C6, B6, C7, F4, E6, D0, D7, D1, D2, B4, D6, D4, D5, F1, D3, B1 }
 #define UNUSED_PINS
@@ -49,14 +48,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
+/*
+ * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
+ */
+#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+
 #define BACKLIGHT_PIN B7
-#ifdef BACKLIGHT_PIN
+//define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
-#endif
+
+// #define RGB_DI_PIN E2
+// #ifdef RGB_DI_PIN
+//   #define RGBLED_NUM 16
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
+// /*== customize breathing effect ==*/
+//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
+//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
+//   /*==== use exp() and sin() ====*/
+//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
+//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
+// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -106,6 +136,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* key combination for magic key command */
+/* defined by default; to change, uncomment and set to the combination you want */
+// #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
@@ -115,8 +149,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM
-//#define MAGIC_KEY_HELP1          H
-//#define MAGIC_KEY_HELP2          SLASH
+//#define MAGIC_KEY_HELP           H
+//#define MAGIC_KEY_HELP_ALT       SLASH
 //#define MAGIC_KEY_DEBUG          D
 //#define MAGIC_KEY_DEBUG_MATRIX   X
 //#define MAGIC_KEY_DEBUG_KBD      K
@@ -124,9 +158,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_VERSION        V
 //#define MAGIC_KEY_STATUS         S
 //#define MAGIC_KEY_CONSOLE        C
-//#define MAGIC_KEY_LAYER0_ALT1    ESC
-//#define MAGIC_KEY_LAYER0_ALT2    GRAVE
 //#define MAGIC_KEY_LAYER0         0
+//#define MAGIC_KEY_LAYER0_ALT     GRAVE
 //#define MAGIC_KEY_LAYER1         1
 //#define MAGIC_KEY_LAYER2         2
 //#define MAGIC_KEY_LAYER3         3
@@ -136,9 +169,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_LAYER7         7
 //#define MAGIC_KEY_LAYER8         8
 //#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
+//#define MAGIC_KEY_BOOTLOADER     B
+//#define MAGIC_KEY_BOOTLOADER_ALT ESC
 //#define MAGIC_KEY_LOCK           CAPS
 //#define MAGIC_KEY_EEPROM         E
+//#define MAGIC_KEY_EEPROM_CLEAR   BSPACE
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 

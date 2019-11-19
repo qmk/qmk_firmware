@@ -10,6 +10,9 @@ enum custom_keycodes {
   TD_DOT,
   TD_MAX,
 #endif
+#ifdef ENCODER_ENABLE
+  RGB_ENC,
+#endif
   KEYMAP_SAFE_RANGE
 };
 
@@ -26,3 +29,12 @@ enum custom_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+
+#ifdef ENCODER_ENABLE
+#define KC_ENC1 RGB_ENC
+#define KC_ENC2 KC_MPLY
+#else
+#define KC_ENC1 RGB_RMOD
+#define KC_ENC2 RGB_MOD
+#endif

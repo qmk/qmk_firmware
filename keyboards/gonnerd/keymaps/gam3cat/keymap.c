@@ -12,10 +12,10 @@ enum layers {
 };
 
 enum custom_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-    QMK_REV,
+    QMK_REV = SAFE_RANGE,
     KC_WEB,
-    KC_SP4
+    KC_SP4,
+    DYNAMIC_MACRO_RANGE
 };
 
 extern backlight_config_t backlight_config;
