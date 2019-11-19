@@ -36,4 +36,15 @@ for KB in $QMK_KEYBOARDS; do
 	fi
 done
 
+# As there is no clean way to associate community layouts or users with boards,
+# we blindly build all keymaps for that user. This might incrementally build
+# a user keymap again but its better to be safe than sorry...
+USER_CHANGES=$(echo "$QMK_CHANGES" | grep -E -e '^(users/)' | cut -d "/" -f2)
+USER_COMMUNITY=$(echo "$QMK_CHANGES" | grep -E -e '^(layouts/community/)' | cut -d "/" -f4)
+USERS=$(echo "$USER_CHANGES" "$USER_COMMUNITY" | sort -u)
+
+for USER in $USERS; do
+	make all:$USER
+done
+
 exit $exit_code
