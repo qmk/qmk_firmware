@@ -239,10 +239,10 @@ void render_status(void) {
 
     uint8_t modifiers = get_mods();
 
-    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("PROG ") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("PULSE") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("STBY ") : PSTR("     "), false);
-    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("GYRO ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_SHIFT) ? PSTR("SHIFT") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("ALT  ") : PSTR("     "), false);
+    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("SUPER") : PSTR("     "), false);
 
     oled_write_P(PSTR("\n"), false);
 
