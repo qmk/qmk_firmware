@@ -129,3 +129,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #endif // RGBLIGHT_ENABLE
     return layer_state_set_keymap(state);
 }
+
+#ifdef ENCODER_ENABLE
+__attribute__ ((weak))
+void encoder_update_keymap(uint8_t index, bool clockwise) { }
+
+/**
+ * If REVERSE_ENCODER defined, then toggle clockwise
+ */
+void encoder_update_user(uint8_t index, bool clockwise) {
+#ifdef REVERSE_ENCODER
+    clockwise = !clockwise;
+#endif
+    encoder_update_keymap(index, clockwise);
+}
+#endif

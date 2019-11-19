@@ -1,6 +1,6 @@
 #pragma once
 
-#define ENCODER_RESOLUTION 4
+#define REVERSE_ENCODER // Encoder seems to be reversed
 
 #undef RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_EFFECT_BREATHING // Only have Breathing Animation

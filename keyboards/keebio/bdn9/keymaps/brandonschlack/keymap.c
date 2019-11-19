@@ -211,9 +211,8 @@ const uint16_t PROGMEM encoders[][2][2] = {
     [LR_EDIT] = {{ KC_DOT, KC_COMM }, { KC_EQL, KC_MINS }},
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+void encoder_update_keymap(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
-    clockwise = !clockwise; // Clockwise is reversed (again)
 
     switch (layer) {
         case _AUDIO:
