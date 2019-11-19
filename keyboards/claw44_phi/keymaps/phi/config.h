@@ -52,4 +52,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
 #define PERMISSIVE_HOLD
 
-#define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"
+#define OLED_FONT_H "keyboards/claw44_phi/lib/glcdfont.c"

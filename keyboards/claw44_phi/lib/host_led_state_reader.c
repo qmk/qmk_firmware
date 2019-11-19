@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "claw44.h"
+#include "claw44_phi.h"
 
 char host_led_state_str[24];
 

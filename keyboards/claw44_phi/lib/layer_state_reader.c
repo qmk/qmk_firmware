@@ -1,7 +1,7 @@
 
 #include QMK_KEYBOARD_H
 #include <stdio.h>
-#include "claw44.h"
+#include "claw44_phi.h"
 
 #define L_BASE 0
 #define L_LOWER (1<<_LOWER)

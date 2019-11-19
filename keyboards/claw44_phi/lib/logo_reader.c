@@ -1,4 +1,4 @@
-#include "claw44.h"
+#include "claw44_phi.h"
 
 const char *read_logo(void) {
   static char logo[] = {

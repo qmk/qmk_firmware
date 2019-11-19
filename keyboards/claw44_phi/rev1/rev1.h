@@ -2,7 +2,7 @@
 
 uint8_t is_master;
 
-#include "../claw44.h"
+#include "../claw44_phi.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"

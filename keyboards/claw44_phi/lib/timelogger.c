@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "claw44.h"
+#include "claw44_phi.h"
 
 char timelog_str[24] = {};
 int last_time = 0;

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "claw44.h"
+#include "claw44_phi.h"
 
 char keylog_str[24] = {};
 char keylogs_str[21] = {};

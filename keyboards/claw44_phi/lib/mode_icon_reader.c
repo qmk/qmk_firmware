@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "claw44.h"
+#include "claw44_phi.h"
 
 char mode_icon[24];
 
