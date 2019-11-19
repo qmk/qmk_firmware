@@ -11,7 +11,7 @@
 #   include "rgb_bs.h"
 #endif
 
-// Define layer names
+/* TODO Layer Names */
 enum bs_layers {
 #if !defined(IS_MACROPAD) // Keyboard Layers
     _BASE = 0,
@@ -31,7 +31,7 @@ enum bs_layers {
     _ADJUST = 15 // 15: Change keyboard settings
 };
 
-// EEPROM User Config
+/* TODO User EECONFIG */
 typedef union {
   uint32_t raw;
   struct {
