@@ -4,7 +4,7 @@
 
 ProMicro 100% Keyboard.
 
-Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
+* Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
 Hardware Supported: thedogkeyboard_rev1, promicro  
 Hardware Availability: booth([@kakunpc](https://kakunpc.booth.pm/))
 
