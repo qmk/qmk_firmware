@@ -62,6 +62,7 @@
 #    endif
 #endif
 
+#define ENCODER_DIRECTION_FLIP
 /*
  * MIDI options
  */
