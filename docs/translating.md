@@ -8,7 +8,13 @@ A `_summary.md` file should exist in this folder with a list of links to each fi
  * [QMK简介](zh-cn/getting_started_introduction.md)
 ```
 
-All links to other docs pages must also be prefixed with the language folder.
+All links to other docs pages must also be prefixed with the language folder. If the link is to a specific part of the page (ie. a certain heading), you must use the English ID for the heading, like so:
+
+```markdown
+[建立你的环境](zh-cn/newbs-getting-started.md#set-up-your-environment)
+
+## 建立你的环境 :id=set-up-your-environment
+```
 
 Once you've finished translating a new language, you'll also need to modify the following files:
 
@@ -26,7 +32,7 @@ Once you've finished translating a new language, you'll also need to modify the 
   '/zh-cn/': '没有结果!',
   ```
 
-  And make sure to add the language folder in the `fallbackLanguages` list, so it will properly fall back to English:
+  And make sure to add the language folder in the `fallbackLanguages` list, so it will properly fall back to English instead of 404ing:
 
   ```js
   fallbackLanguages: [
