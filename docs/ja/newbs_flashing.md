@@ -98,7 +98,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
 
-## <div id="flash-your-keyboard-from-the-command-line">コマンドラインでファームウェアを書き込む</div>
+## コマンドラインでファームウェアを書き込む :id=flash-your-keyboard-from-the-command-line
 
 これは、以前のものと比較して非常に単純になりました。
 ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いてビルドコマンドを実行します。

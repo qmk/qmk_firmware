@@ -45,7 +45,7 @@ QMK Toolbox は、Windows と macOS で使える GUI を備えたプログラム
 * Windows 版: `qmk_toolbox.exe` (portable) または `qmk_toolbox_install.exe` (installer)
 * macOS 版: `QMK.Toolbox.app.zip` (portable) または `QMK.Toolbox.pkg` (installer)
 
-## <div id="set-up-your-environment">環境構築</div>
+## 環境構築 :id=set-up-your-environment
 
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。
 Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。
@@ -79,7 +79,7 @@ Git のインストールが必要です。既にインストールされてい�
 
 ?> 全てのプラットフォームにおいて、Docker を使うことも可能です。[詳細はこちらをクリックしてください](ja/getting_started_build_tools.md#docker)。
 
-## <div id="set-up-qmk">QMK の設定</div>
+## QMK の設定 :id=set-up-qmk
 
 Linux/Unix 環境が準備できたら QMK のダウンロードの準備は完了です。Git を使用して QMK のリポジトリを「クローン」することで QMK をダウンロードします。ターミナルか MSYS2 MinGW ウィンドウを開いて、このガイドの残りの部分では開いたままにします。そのウィンドウ内で、次の2つのコマンドを実行します。
 
