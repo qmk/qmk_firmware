@@ -9,7 +9,9 @@ NKRO_ENABLE        = yes
 ifneq ($(strip $(KEYBOARD)), planck/rev6)
     CONSOLE_ENABLE    			= no
     COMMAND_ENABLE    			= no
-    RGBLIGHT_ENABLE             = yes
+    ifeq ($(strip $(LAYOUT_HAS_RGB)), yes)
+        RGBLIGHT_ENABLE         = yes
+	endif
     INDICATOR_LIGHTS            = yes
     RGBLIGHT_TWINKLE            = yes
     RGBLIGHT_STARTUP_ANIMATION  = yes
