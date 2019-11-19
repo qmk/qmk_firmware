@@ -36,7 +36,7 @@ Once you've finished translating a new language, you'll also need to modify the 
   ],
   ```
 
-## Previewing the translations
+## Previewing the Translations
 
 Before opening a pull request, you can preview your additions if you have Python 3 installed by running this command in the `qmk_firmware/` folder:
 
