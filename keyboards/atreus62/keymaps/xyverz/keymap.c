@@ -30,6 +30,7 @@ CHANGELOG:
  0.6 - Swapped ESC and GRV in all layers.
  0.7 - Brought code up to current standards.
  0.8 - Added MACLOCK macro.
+ 0.9 - Updated code to correspond to new setPinInput behaviour
 
 TODO:
 
@@ -124,9 +125,7 @@ void matrix_init_user(void) {
 #ifdef BOOTLOADER_CATERINA
    // This will disable the red LEDs on the ProMicros
    setPinInput(D5);
-   writePinLow(D5);
    setPinInput(B0);
-   writePinLow(B0);
 #endif
 };
 
