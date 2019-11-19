@@ -32,7 +32,7 @@
 #endif
 
 #define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
-#ifndef ENCODER_DIRECTION_FLIP
+#ifdef ENCODER_DIRECTION_FLIP
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
 #else
@@ -60,7 +60,7 @@ __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { enc
 void encoder_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
     if (!isLeftHand) {
-#ifndef ENCODER_DIRECTION_FLIP
+#ifdef ENCODER_DIRECTION_FLIP
         const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
         const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
 #else
