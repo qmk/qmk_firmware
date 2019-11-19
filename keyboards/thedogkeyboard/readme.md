@@ -2,7 +2,7 @@
 
 ![thedogkeyboard](https://i.gyazo.com/70ac677c1e75c04b812e5dce311f7901.jpg)
 
-1ProMicro 100% Keyboard.
+ProMicro 100% Keyboard.
 
 Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
 Hardware Supported: thedogkeyboard_rev1, promicro  
