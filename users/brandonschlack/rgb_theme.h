@@ -4,9 +4,7 @@
 #include "color.h"
 #include "rgblight_list.h"
 
-/**
- * Portable rgb_theme.h
- */
+/*TODO Update as RGBLIGHT Mode */
 #ifndef RGB_THEME_COLORS_MAX
 #define RGB_THEME_COLORS_MAX 5
 #endif
