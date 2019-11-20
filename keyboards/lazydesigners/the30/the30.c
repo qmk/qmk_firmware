@@ -1,4 +1,4 @@
-/* Copyright 2019 Kumao Kobo <kumaokobo@gmail.com>
+/* Copyright 2019 Erovia
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,4 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-
-#ifdef KEYBOARD_kudox_rev1
-    #include "rev1.h"
-#endif
-#ifdef KEYBOARD_kudox_rev2
-    #include "rev2.h"
-#endif
-#ifdef KEYBOARD_kudox_columner
-    #include "columner.h"
-#endif
-
-#include "quantum.h"
+#include "the30.h"
