@@ -3,6 +3,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define WEBUSB_STOP_BIT -2
+#define WEBUSB_BLINK_STEPS 512
+#define WEBUSB_BLINK_END WEBUSB_BLINK_STEPS * 60
+
 void webusb_receive(uint8_t *data, uint8_t length);
 void webusb_send(uint8_t *data, uint8_t length);
 void webusb_error(uint8_t);
@@ -21,4 +25,13 @@ enum Webusb_Status_Code {
     WEBUSB_STATUS_UNKNOWN_COMMAND,
 };
 
+enum Webusb_Command_Code {
+    WEBUSB_CMD_PAIR
+};
 
+enum Webusb_Event_Code {
+    WEBUSB_EVT_PAIRED,
+    WEBUSB_EVT_KEYDOWN,
+    WEBUSB_EVT_KEYUP,
+    WEBUSB_EVT_LAYER
+};
