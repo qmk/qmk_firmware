@@ -48,20 +48,20 @@ int retro_tapping_counter = 0;
 #endif
 
 #ifndef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-  #ifdef IGNORE_MOD_TAP_INTERRUPT
-    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 1
-  #else
-    #define IS_IGNORE_MOD_TAP_INTERRUPT(r) 0
-  #endif
+#    ifdef IGNORE_MOD_TAP_INTERRUPT
+#        define IS_IGNORE_MOD_TAP_INTERRUPT(r) 1
+#    else
+#        define IS_IGNORE_MOD_TAP_INTERRUPT(r) 0
+#    endif
 #else
-#define IS_IGNORE_MOD_TAP_INTERRUPT(r) (get_ignore_mod_tap_interrupt(get_event_keycode(r->event)))
+#    define IS_IGNORE_MOD_TAP_INTERRUPT(r) (get_ignore_mod_tap_interrupt(get_event_keycode(r->event)))
 __attribute__ ((weak))
 bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
-  #ifdef IGNORE_MOD_TAP_INTERRUPT
+#    ifdef IGNORE_MOD_TAP_INTERRUPT
     return true;
-  #else
+#    else
     return false;
-  #endif
+#    endif
 }
 #endif
 
