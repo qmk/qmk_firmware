@@ -18,10 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 /* split keyboard setup */
 #define USE_SERIAL              /* SERIAL or I2C */
@@ -50,5 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Prefer "hold" when "SandS Dn -> A Dn -> A Up -> SandS Up" within the TAPPING_TERM */
 #define PERMISSIVE_HOLD
-
-#endif
