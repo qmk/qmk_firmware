@@ -3,17 +3,11 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 A bootloader must be specified.
 """
-import os
-import sys
 import subprocess
-from argparse import FileType
-
-from milc import cli
-from qmk.commands import create_make_command
-from qmk.commands import parse_configurator_json
-from qmk.commands import compile_configurator_json
 
 import qmk.path
+from milc import cli
+from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
 
 
 def print_bootloader_help():

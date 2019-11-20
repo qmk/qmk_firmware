@@ -2,9 +2,6 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
-import json
-import os
-import sys
 import subprocess
 from argparse import FileType
 

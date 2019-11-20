@@ -4,3 +4,5 @@ appdirs
 argcomplete
 colorama
 hjson
+nose2
+flake8

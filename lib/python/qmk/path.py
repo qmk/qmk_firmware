@@ -2,7 +2,6 @@
 """
 import logging
 import os
-from pkgutil import walk_packages
 
 from qmk.errors import NoSuchKeyboardError
 
