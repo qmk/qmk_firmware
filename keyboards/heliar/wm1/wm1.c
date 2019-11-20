@@ -14,18 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <print.h>
 #include "wm1.h"
 
 
 void keyboard_pre_init_kb(void)
 {
     setPinOutput(D7);
-    print("init LED output Pin D7");
     setPinOutput(D6);
-    print("init LED output Pin D6");
     setPinOutput(D4);
-    print("init LED output Pin D4");
 }
 
 bool led_update_kb(led_t led_state) {
