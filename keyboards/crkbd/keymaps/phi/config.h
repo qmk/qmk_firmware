@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 #define SSD1306OLED
 
-// #define CATERINA_BOOTLOADER /* Explicitly use caterina bootloader to make RESET keycode available */
-#define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
-
 #define MOUSEKEY_DELAY             48
 #define MOUSEKEY_INTERVAL          24
 #define MOUSEKEY_MOVE_DELTA        3
