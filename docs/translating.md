@@ -19,7 +19,7 @@ All links to other docs pages must also be prefixed with the language folder. If
 Once you've finished translating a new language, you'll also need to modify the following files:
 
 * [`docs/_langs.md`](https://github.com/qmk/qmk_firmware/blob/master/docs/_langs.md)  
-  Each line should contain a country flag in the format `:us:` followed by the name represented in its own language:
+  Each line should contain a country flag as a [GitHub emoji shortcode](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md#country-flag) followed by the name represented in its own language:
 
   ```markdown
    - [:cn: 中文](/zh-cn/)
