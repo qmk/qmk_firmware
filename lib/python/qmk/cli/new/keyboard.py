@@ -66,9 +66,9 @@ def new_keyboard(cli):
     copy_tree(kb_path_base, kb_path, preserve_symlinks=1)
     copy_tree(kb_path_type, kb_path, preserve_symlinks=1)
 
-    # rename template files to keyboard
-    shutil.move(os.path.join(kb_path, "template.c"), os.path.join(kb_path, "%s.c" % keyboard))
-    shutil.move(os.path.join(kb_path, "template.h"), os.path.join(kb_path, "%s.h" % keyboard))
+    # rename header/c files to keyboard
+    shutil.move(os.path.join(kb_path, "keyboard.c"), os.path.join(kb_path, "%s.c" % keyboard))
+    shutil.move(os.path.join(kb_path, "keyboard.h"), os.path.join(kb_path, "%s.h" % keyboard))
 
     # replace year placeholders
     replace_files([
