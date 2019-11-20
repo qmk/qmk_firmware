@@ -5,17 +5,8 @@ The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 
 It also allows the same layout on a computer that is already set to Dvorak
-on the computer side.
-
-- - -
-
-Work in progress (Mon 18 Nov 2019 07:47:27 PM UTC)...
-  Todo: add layers to allow Unicode in "descramble" mode. These layers will
-  probably only be accessible on the `_FUN` layer if BASE key points to
-  the _descramble_ BASE layer `_DDL`, and get on the same spot as the
-  corresponding normal layer. `_DDN` will hence be taken off its current
-  spot, and moved to co-exist on the current `_NSY` spot. Same for `_ACC`
-  and `_DRA` (the Unicode layers). (Probably be done in a week at the most.)
+on the computer side, but only for basic keycodes, not Unicode (accented
+characters, etc).
 
 - - -
 
@@ -315,21 +306,18 @@ from ../jetpacktuxedo/ keymap.
   ==================
 
   For basic adaptation of this map to get the right characters for you,
-  you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and look
-  at what you want accessed easily using those layers, reworking them
-  as needed. Then see what layers to set for the 2nd and 7th keys on
-  the bottom row. For example if one is German and wants media keys,
-  one could put `_RAR` on the 2nd (to have media right), and `_ACC` on
-  the 7th (to have äöëü on the left). If this leaves ß awkward on the
-  right, you could move it to the left on that layer.
+  you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
+  then see what layers to set for the 2nd and 7th keys on the bottom row.
 
   Another interesting adaptation is to rework the keys on the `_DDL` and
   `_DDN` "descramble" layers, to for example a whole other language with 
-  different letter symbols, or just a usable Qwerty. For both BASE
-  layouts there are two dedicated maps (88 keys total), which could be
-  extended by adding a layer like `_ACC` to one side only, and `_DRA` to
-  the other, by pointing the layer hold keys on each of the BASE layers
-  to only one of those.
+  different letter symbols.
+
+  Todo: To complete this keymap, the Unicode input modes and hexadecimal numbers
+  need to be altered depending on whether 'descramble' is active. Unfortunately
+  this turns out to be too tedious for me (Jos B.) to bother with completing, 
+  because I almost never even use accented characters anyway. Maybe some day
+  I might get to it.
 
   If you do and it works I could add a link to your map here if you like.
   
