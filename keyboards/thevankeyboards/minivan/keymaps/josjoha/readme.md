@@ -63,10 +63,10 @@ from ../jetpacktuxedo/ keymap.
   To also have the left most key on top row on each layer go to the descramble BASE layer `_DDL`,
   you can set that on the `_FUN` layer:
 
-  Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (6th key bottom row).
-  Undo: tap again to **`_FUN`**, then hit **`_!LTR`** (3rd key bottom row), or plug keyboard in/out. 
+  Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (5th key bottom row).
+  Undo: tap again to **`_FUN`**, then hit **`_!LTR`** (4th key bottom row), or plug keyboard in/out. 
   To detect if the BASE keys direct to the descramble layer or not, activate `_FUN` layer and check
-  the leds. Toggle it using the 3rd and 6th keys on bottom row. Escape from `_FUN` layer by way of
+  the leds. Toggle it using the 4th and 5th keys on bottom row. Escape from `_FUN` layer by way of
   top left key, which should then send you to your chosen BASE layer. The regular BASE layer is
   now out of reach (the regular numbers layer is not).
 
@@ -169,19 +169,20 @@ from ../jetpacktuxedo/ keymap.
 - - -
     
     
-     Layer _FUN (F-keys, CAF means Control+Alt+F-key, Layer access, Set BASE key direction)
+     Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     toggl toggl toggl toggl toggl toggl | toggl toggl             toggltoggl           // Type of switch
-                 -*-                    <|>
-     BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  _DDL
-     LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
-     LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
-     -----------------------------------------------------
-     LAlt  xxx   !LTR   xxx  | xxx   !DDL       ___   RAlt                           // ! sets BASE layer
-                            <|>                 -*-                                 // -*- Access on base
-                 normal      |       descramble                              // BASE key toggle direction
-     <1    <2    <3     <4   | 4>    3>         2>    1>  
+     toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
+                 -*-                    <|>                                     
+     BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
+     LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
+     LSft  xxx   xxx   xxx   xxx   xxx   | F6    F7    F8    F9    F10   RSft
+     ----------------------------------------------------------------
+     LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                // ! sets base layer
+           LSft+xxx LAlt+xxx        |            LAlt+xxx                 // (Continued, multi-modifiers)
+                                   <|>                    -*-                           // Acces -*- base
+                             normal | descramble                             // BASE key toggle direction 
+     <1    <2       <3       <4     | 4>         3>       2>     1>  
 
 - - -
     

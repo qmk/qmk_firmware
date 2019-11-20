@@ -280,6 +280,8 @@ void deactivate_other_layer(int mode_descr) {
         layer_off ( _REV ) ;
         layer_off ( _ACC ) ;
         layer_off ( _DRA ) ;
+        layer_off ( _DDD ) ;
+        layer_off ( _DDA ) ;
         layer_off ( _DDN ) ;
         //layer_off ( _DDL ) ; // the descramble base layer
     } else { // normal mode
@@ -291,6 +293,8 @@ void deactivate_other_layer(int mode_descr) {
         layer_off ( _REV ) ;
         layer_off ( _ACC ) ;
         layer_off ( _DRA ) ;
+        layer_off ( _DDD ) ;
+        layer_off ( _DDA ) ;
         layer_off ( _DDN ) ;
         layer_off ( _DDL ) ;
     }
@@ -429,7 +433,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // -*-                                   <|>                                       // Access from all other layers -*!- there
 // Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
-// LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
+// LSft     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSft
 // ------------------------------------------------------------------
 // Left+LAlt Del+_ACC _MOV  Enter+_NSY| Space _NSY _FUN    Right+_ACC             // _XYZ are layer switches
 //                                   <|>                                  
@@ -462,9 +466,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //        -*-                          <|>                                       // Layer access from _FUN -*-
 // BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
-// .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht  // QMK limitation prevents ~
+// .+LSft 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSft  // QMK limitation prevents ~
 // -------------------------------------------------------------
-// Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
+// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
 //                          -*- <|>      -*-                                     // Layer access from _LTR -*-
 // <1        <2    <3       <4   | 4>    3>    2>    1>  
 //
@@ -483,9 +487,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
-    /* Layer _FUN: Function keys, on the right side with Control+Alt (switch virtual consoles in Linux)
+    /* Layer _FUN: Function keys, most on the right side, some combo modifiers control/alt/shift
      *          Toward any layer by toggle.
      *          Completes output normal / descramble on Dvorak remapping computer. This affects
+     *          XXX
      *          how CTO_BASE operates on the other layers, which is all it does. De-scramble is
      *          already usable by toggling to the _DDL layer.
      */
@@ -495,25 +500,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl      // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  F12   F11   _DDN  _DDL
-// LCtl  CAF1  CAF2  CAF3  CAF4  CAF5  | F5    F4    F3    F2    F1    RCtl
-// LSht  CAF10 CAF9  CAF8  CAF7  CAF6  | F6    F7    F8    F9    F10   RSht
-// -----------------------------------------------------
-// LAlt  xxx   !LTR   xxx  | xxx   !DDL       ___   RAlt                            // ! sets base layer
-//                        <|>                 -*-                                   // Acces -*- _LTR
-//             normal      |       descramble                                       // Output mode (full)
-// <1    <2    <3     <4   | 4>    3>         2>    1>  
+// BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
+// LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
+// LSft  xxx   xxx   xxx   xxx   xxx   | F6    F7    F8    F9    F10   RSft
+// ----------------------------------------------------------------
+// LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                            // ! sets base layer
+//       LSft+xxx LAlt+xxx        |            LAlt+xxx                         // (Continued, multi-modifiers)
+//                               <|>                    -*-                                   // Acces -*- _LTR
+//                         normal | descramble                                       // Output mode (full)
+// <1    <2       <3       <4     | 4>         3>       2>     1>  
 //
 //
-//      <pink2      , <pinky         , <ring         , <middl        , <index        , <indx2       |, indx2>      , index>      , middl> , ring>  , pinky>      , pink2>      ,
-//                  ,                , -*-           ,               ,               ,             <|,>            ,             ,        ,        ,             ,             ,
-        CTO_BASE    , TO ( _NSY )    , TO ( _FUN )   , TO ( _MOV )   , TO ( _RAR )   , TO ( _REV )   , TO ( _ACC ) , TO ( _DRA ) , KC_F12 , KC_F11 , TO ( _DDN ) , TO ( _DDL ) ,
-        KC_LCTL     , LCA ( KC_F1 )  , LCA ( KC_F2 ) , LCA ( KC_F3 ) , LCA ( KC_F4 ) , LCA ( KC_F5 ) , KC_F5       , KC_F4       , KC_F3  , KC_F2  , KC_F1       , KC_RCTL     ,
-        KC_LSFT     , LCA ( KC_F10 ) , LCA ( KC_F9 ) , LCA ( KC_F8 ) , LCA ( KC_F7 ) , LCA ( KC_F6 ) , KC_F6       , KC_F7       , KC_F8  , KC_F9  , KC_F10      , KC_RSFT     ,
-//      -------------------------------------------------------------------------------------
-        KC_LALT , XXXXXXX , BASE_LTR    , XXXXXXX , XXXXXXX , BASE_DDL    , _______ , KC_RALT
-//              ,         ,             ,       <|,>        ,             , -*-     ,
-//      <1      , <2      , <3          , <4     |, 4>      , 3>          , 2>      , 1>
+//      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
+//                  ,             , -*-         ,             ,             ,           <|,>            ,             ,             ,             ,             ,             ,
+        CTO_BASE    , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , TO ( _DRA ) , TO ( _DDD ) , TO ( _DDA ) , TO ( _DDN ) , TO ( _DDL ) ,
+        KC_LCTL     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F5       , KC_F4       , KC_F3       , KC_F2       , KC_F1       , KC_RCTL     ,
+        KC_LSFT     , KC_F20      , KC_F19      , KC_F18      , KC_F17      , KC_F16      , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RSFT     ,
+//      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , BASE_LTR , BASE_DDL , MT ( MOD_LSFT | MOD_LALT, XXXXXXX )  , CTO_BASE , KC_RALT
+//              ,                                     ,                                      ,        <|,>         ,                                      , -*-      ,
+//      <1      , <2                                  , <3                                   , <4      |, 4>       , 3>                                   , 2>       , 1>
                       ),
 
         /**/
@@ -529,9 +535,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                   -*-              <|>
 // BASE  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
 // LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-// LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
+// LSft  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
 // -------------------------------------------------------------
-// Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
+// Left+LAlt Del   ___   Sft(tab) | tab   xxx   xxx   Right+RAlt
 //                 -*-           <|>
 // <1        <2    <3    <4       | 4>    3>    2>    1>  
 //
@@ -605,9 +611,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                -*-  <|>
 // BASE   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
 // -+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
-// .+LSht xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSht
+// .+LSft xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSft
 // ----------------------------------------------------------
-// Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
+// Left+LAlt Del   Sft(Tab) xxx  | Tab  xxx   Ent   Right+Alt
 //                              <|>
 // <1        <2    <3       <4   | 4>   3>    2>    1>  
 //
@@ -669,7 +675,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                    <|>-*-
 // BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
-// LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
 // LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
 //           -*-             <|>                  -*-
@@ -704,7 +710,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
 // LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
-// LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
@@ -769,7 +775,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
 // LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
-// LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
@@ -799,7 +805,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                    <|>-*-
 // BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
-// LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
 // LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
 //           -*-             <|>                  -*-
@@ -832,9 +838,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                     <|>                        -*-            // Layer access from _FUN -*-
 // BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
-// .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  // QMK limitation prevents ~
+// .+LSft 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSft  // QMK limitation prevents ~
 // ------------------------------------------------------------
-// Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
+// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
 //                          -*- <|>      -*-                                     // Layer access from _DDL -*-
 // <1        <2    <3       <4   | 4>    3>    2>    1>  
 //
@@ -865,7 +871,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                       <|>                              -*-      // Access from _FUN -*- there
 // Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-// LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
+// LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
 // -------------------------------------------------------------------
 // Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
 //                                   <|>
@@ -898,7 +904,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                    <|>
 // _LTR  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
 // LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RCtl
-// LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSft
 // ---------------------------------------------------------
 // LAlt+Left Del   ___   ___  | ___   ___   ___   RAlt+Right
 //                           <|>
