@@ -64,9 +64,10 @@ extern keymap_config_t keymap_config;
 #define _DDN 3  // Descramble version of _NSY
 #define _DDL 1  // Descramble version of _LTR
 
-int descramble = 0 ; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
-int shift_ison = 0 ; // keep track of the state of shift (Capslock is ignored)
-int recall_state = 0 ; // remember for unicode
+bool descramble = 0 ; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+bool shift_ison = 0 ; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
+                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
+bool recall_state = 0 ; // remember for unicode
 
     /* These are some rarely but existing letters in Dutch, and some other additions.
      * Using the Unicode input system
