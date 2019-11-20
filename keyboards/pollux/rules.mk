@@ -35,4 +35,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-DEFAULT_FOLDER = switch42/rev2
+DEFAULT_FOLDER = pollux/rev2
