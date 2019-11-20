@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define SOFT_SERIAL_PIN D2
-/* #define USE_SERIAL_PD2 */
 
 #define DIODE_DIRECTION ROW2COL
 
