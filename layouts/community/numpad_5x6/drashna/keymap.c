@@ -1,4 +1,3 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
 #define F2_MCRO LT(_GAMEPAD, KC_F2)
