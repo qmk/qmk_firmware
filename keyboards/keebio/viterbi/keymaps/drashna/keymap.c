@@ -1,24 +1,15 @@
-#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-
-
 // Fillers to make layering more clear
-#define DIABLO   TG(_DIABLO)
-#define GAMEPAD  TG(_GAMEPAD)
-#define MEDIA    TT(_MEDIA)
+#define DIABLO TG(_DIABLO)
+#define GAMEPAD TG(_GAMEPAD)
+#define MEDIA TT(_MEDIA)
 
-
-//enum more_custom_keycodes {
+// enum more_custom_keycodes {
 //  KC_P00 = NEW_SAFE_RANGE
 //};
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
@@ -55,32 +46,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
-
-
+// clang-format on
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-
-  //switch (keycode) {
-  //case KC_P00:
-  //  if (!record->event.pressed) {
-  //    tap(KC_KP_0);
-  //    tap(KC_KP_0);
-  //  }
-  //  return false;
-  //  break;
-  //}
-  return true;
+    // switch (keycode) {
+    // case KC_P00:
+    //  if (!record->event.pressed) {
+    //    tap(KC_KP_0);
+    //    tap(KC_KP_0);
+    //  }
+    //  return false;
+    //  break;
+    //}
+    return true;
 }
 
-
-
-
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+#ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
     writePinHigh(D5);
 
     setPinOutput(B0);
     writePinHigh(B0);
-  #endif
+#endif
 }
