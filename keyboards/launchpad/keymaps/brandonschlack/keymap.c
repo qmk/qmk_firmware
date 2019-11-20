@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "brandonschlack.h"
 
-extern keymap_config_t keymap_config;
-
 // Layers defined in brandonschlack.h
 
 // Tap Dances

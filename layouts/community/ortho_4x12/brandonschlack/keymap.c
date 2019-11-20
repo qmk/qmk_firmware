@@ -20,10 +20,6 @@
 #endif
 #include "brandonschlack.h"
 
-#ifdef KEYBOARD_plaid
-extern keymap_config_t keymap_config;
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty */
