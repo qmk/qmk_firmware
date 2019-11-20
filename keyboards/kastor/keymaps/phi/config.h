@@ -19,13 +19,5 @@
 #define MOUSEKEY_ACL_MAX_SPEED 16
 #define MOUSEKEY_ACL_WHEEL_MAX_SPEED 4
 
-#define TAPPING_TERM 180
-
-/* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
-#define TAPPING_FORCE_HOLD
-
-/* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
-#define PERMISSIVE_HOLD
-
 /* Prefer "tap" when "Alt Dn -> A Dn -> Alt Up -> A Up" within the TAPPING_TERM for some keys */
 #define IGNORE_MOD_TAP_INTERRUPT_PER_KEY

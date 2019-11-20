@@ -38,12 +38,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MOUSEKEY_ACL_MAX_SPEED 16
 #define MOUSEKEY_ACL_WHEEL_MAX_SPEED 4
-
-#undef TAPPING_TERM
-#define TAPPING_TERM 180
-
-/* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
-#define TAPPING_FORCE_HOLD
-
-/* Prefer "hold" when "SandS Dn -> A Dn -> A Up -> SandS Up" within the TAPPING_TERM */
-#define PERMISSIVE_HOLD
