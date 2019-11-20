@@ -4,12 +4,6 @@
 from milc import cli, format_ansi
 
 
-def type_unchanged(value):
-    """Return the object without changing its type.
-    """
-    return value
-
-
 def yesno(prompt, *args, default=None, **kwargs):
     """Displays prompt to the user and gets a yes or no response.
 
@@ -63,7 +57,7 @@ def yesno(prompt, *args, default=None, **kwargs):
             return False
 
 
-def question(prompt, *args, default=None, confirm=False, answer_type=type_unchanged, **kwargs):
+def question(prompt, *args, default=None, confirm=False, answer_type=str, **kwargs):
     """Prompt the user to answer a question with a free-form input.
 
         prompt
@@ -72,7 +66,7 @@ def question(prompt, *args, default=None, confirm=False, answer_type=type_unchan
         default
             The value to return when the user doesn't enter any value. Use None to prompt until they enter a value.
 
-        type
+        answer_type
             Specify a type function for the answer. Will re-prompt the user if the function raises any errors. Common choices here include int, float, and decimal.Decimal.
     """
     if not args and kwargs:
