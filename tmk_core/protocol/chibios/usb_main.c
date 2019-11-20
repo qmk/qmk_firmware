@@ -871,7 +871,7 @@ void raw_hid_task(void) {
 #ifdef WEBUSB_ENABLE
 void webusb_send(uint8_t *data, uint8_t length) { chnWrite(&drivers.webusb_driver.driver, data, length); }
 
-__attribute__((weak)) void webusb_receive(uint8_t *data, uint8_t length) {
+__attribute__((weak)) void webusb_receive_kb(uint8_t *data, uint8_t length) {
   // Users should #include "raw_hid.h" in their own code
   // and implement this function there. Leave this as weak linkage
   // so users can opt to not handle data coming in.
@@ -883,12 +883,7 @@ void webusb_task(void) {
     do {
         size_t size = chnReadTimeout(&drivers.webusb_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
         if (size > 0) {
-            if(webusb_state.paired == true) {
-                webusb_receive(buffer, size);
-            }
-            else {
-                webusb_error(WEBUSB_STATUS_NOT_PAIRED);
-            }
+            webusb_receive(buffer, size);
         }
     } while (size > 0);
 }

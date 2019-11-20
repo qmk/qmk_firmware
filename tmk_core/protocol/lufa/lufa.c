@@ -280,18 +280,17 @@ void webusb_send(uint8_t *data, uint8_t length) {
 
     Endpoint_SelectEndpoint(WEBUSB_IN_EPNUM);
 
-    if (Endpoint_IsINReady()) {
-        Endpoint_Write_Stream_LE(data, length, NULL);
-        Endpoint_ClearIN();
-    }
+    Endpoint_Write_Stream_LE(data, length, NULL);
+    Endpoint_ClearIN();
 }
 
-__attribute__((weak)) void webusb_receive(uint8_t *data, uint8_t length) { }
+__attribute__((weak)) void webusb_receive_kb(uint8_t *data, uint8_t length) { }
 
 static void webusb_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[WEBUSB_EPSIZE];
     bool    data_read = false;
+
 
     // Device must be connected and configured for the task to run
     if (USB_DeviceState != DEVICE_STATE_Configured) return;
@@ -311,12 +310,7 @@ static void webusb_task(void) {
         Endpoint_ClearOUT();
 
         if (data_read) {
-            if(webusb_state.paired == true) {
-                webusb_receive(data, sizeof(data));
-            }
-            else {
-                webusb_error(WEBUSB_STATUS_NOT_PAIRED);
-            }
+            webusb_receive(data, sizeof(data));
         }
     }
 }

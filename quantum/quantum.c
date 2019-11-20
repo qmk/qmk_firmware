@@ -720,7 +720,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef WEBUSB_ENABLE
         case WEBUSB_PAIR:
             if (record->event.pressed) {
-                webusb_state.paired = true;
+                webusb_state.pairing = true;
             }
             return false;
 #endif
