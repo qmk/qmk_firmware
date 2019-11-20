@@ -173,10 +173,10 @@ from ../jetpacktuxedo/ keymap.
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
-                 -*-                    <|>                                     
+                 -*-                    <|>                                                 // -*- unused
      BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
      LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
-     LSft  xxx   xxx   xxx   xxx   xxx   | F6    F7    F8    F9    F10   RSft
+     LSft  F20   F19   F18   F17   F16   | F6    F7    F8    F9    F10   RSft
      ----------------------------------------------------------------
      LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                // ! sets base layer
            LSft+xxx LAlt+xxx        |            LAlt+xxx                 // (Continued, multi-modifiers)
