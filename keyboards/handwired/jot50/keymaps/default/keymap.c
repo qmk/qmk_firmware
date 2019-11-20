@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -81,4 +80,3 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 void matrix_init_user(void) {
 }
-
