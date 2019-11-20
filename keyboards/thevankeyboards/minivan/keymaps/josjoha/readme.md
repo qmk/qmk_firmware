@@ -8,6 +8,10 @@ It also allows the same layout on a computer that is already set to Dvorak
 on the computer side, but only for basic keycodes, not Unicode (accented
 characters, etc).
 
+Work in progress ... 
+ Todo: change F-layer layout
+       add descramble for _ACC and _DRA (will only do or Linux) *)
+
 - - -
 
 This keymap.c was edited from the default, LED support was copied/edited
@@ -29,6 +33,8 @@ from ../jetpacktuxedo/ keymap.
       * accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
       * Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak: 
+      * Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings" *)
+      * accented characters             (Led: yellow/low-white)_DDA "Descramble Accented" *)
       * numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
       * letters                         (Led: off/low-white)   _DDN "Descramble Letters"
 
@@ -71,6 +77,7 @@ from ../jetpacktuxedo/ keymap.
 
   If this sounds confusing, ... ? (Warning: _ultra-verbose mode is on_ !)
 
+  (This will change soon.)
    - Look at the top row in the `_FUN` layer map. The left most two
   keys are by default the normal BASE layer `_LTR` and its numbers
   layer `_NSY`. The right most two keys are to the _descramble_ variants
@@ -312,12 +319,6 @@ from ../jetpacktuxedo/ keymap.
   Another interesting adaptation is to rework the keys on the `_DDL` and
   `_DDN` "descramble" layers, to for example a whole other language with 
   different letter symbols.
-
-  Todo: To complete this keymap, the Unicode input modes and hexadecimal numbers
-  need to be altered depending on whether 'descramble' is active. Unfortunately
-  this turns out to be too tedious for me (Jos B.) to bother with completing, 
-  because I almost never even use accented characters anyway. Maybe some day
-  I might get to it.
 
   If you do and it works I could add a link to your map here if you like.
   
