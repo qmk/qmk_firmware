@@ -2,9 +2,9 @@
 """
 import os
 import shutil
-
 from distutils.dir_util import copy_tree
 from datetime import datetime
+
 from milc import cli
 
 
@@ -52,14 +52,17 @@ def new_keyboard(cli):
     kb_path_type = os.path.join(os.getcwd(), "quantum/template", keyboard_type)
 
     # check directories
+    valid = True
     if os.path.exists(kb_path):
         cli.log.error('Keyboard %s already exists!', kb_path)
-        exit(1)
+        valid = False
     if not os.path.exists(kb_path_base):
         cli.log.error('Keyboard default %s does not exist!', kb_path_base)
-        exit(1)
+        valid = False
     if not os.path.exists(kb_path_type):
         cli.log.error('Keyboard type %s does not exist!', kb_path_type)
+        valid = False
+    if not valid:
         exit(1)
 
     # create user directory with mix of keyboard base and keyboard type
