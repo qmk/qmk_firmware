@@ -229,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             writePinLow(E6);
           } else {
             unregister_code(KC_RSFT);
-            PORTE |= (1<<6);
+            writePinHigh(E6);
           }
           return false;
           break;
