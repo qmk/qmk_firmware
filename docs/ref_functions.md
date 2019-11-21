@@ -157,7 +157,7 @@ When ? is pressed and left shift is hold, on any layer, send !. You can combine
 multiple modifiers like this:
 
 ```c
-MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LCTRL())
+MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LCTRL)
 ```
 
 This means that left shift and left control must be held for the custom keycode
