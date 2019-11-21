@@ -464,7 +464,7 @@ static bool custom_keycode_on_modifiers_handler(uint16_t keycode, keyrecord_t *r
     register_code16(custom_keycode);
   } else {
     /* release the alternate key */
-    unregister_code(custom_keycode);
+    unregister_code16(custom_keycode);
 
     /* make sure all mods we sat up earlier are released */
     clear_weak_mods();
