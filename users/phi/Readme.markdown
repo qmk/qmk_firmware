@@ -1,4 +1,8 @@
 # zk-phi userspace
+## `process_record_keymap`
+
+`phi.c` in the userspace reserves `process_record_user`, instead you can use `process_record_keymap` for per-keymap customizations.
+
 ## Common configurations
 
 Common configurations such as `TAPPING_TERM`, `TAPPING_FORCE_HOLD`, `PERMISSIVE_HOLD` are automatically applied to `phi` keymaps.
@@ -11,7 +15,7 @@ Enables customized version of mousekeys. Wheel and cursor speed are configured i
 
 ### Usage
 
-Add `CUSTOM_MOUSEKEY` to `rules.mk`.
+Add `CUSTOM_MOUSEKEY` to `rules.mk` (this also enables `MOUSEKEY_ENABLE`).
 
 ```mk
 CUSTOM_MOUSEKEY = yes
