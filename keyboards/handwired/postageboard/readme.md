@@ -1,4 +1,4 @@
-# PostageBoard
+# Postage Board
 
 ### Round 1
 ![PostageBoard](https://cdn.shopify.com/s/files/1/1851/5125/products/image_db6a6d1c-01d8-4263-b148-136292425b6a_530x@2x.jpg?v=1540240631)
