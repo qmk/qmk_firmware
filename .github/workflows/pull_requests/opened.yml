@@ -1,0 +1,14 @@
+name: Pull Request opened
+on:
+    pull_request:
+        types: [opened]
+jobs:
+    first_comment:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/github-script@0.3.0
+              with:
+                  github-token: ${{secrets.GITHUB_TOKEN}}
+                  script: |
+                      github.issues.createComment({...context.issue, body: '👋 Thanks for reporting! The QMK team will review your PR as soon as possible!'})
+                      github.issues.addLabels({...context.issue, labels: ['awaiting review']})
