@@ -127,7 +127,7 @@ slash released, shift released. But then what happens when pressing shift and
 that key? QMK Firmware will send shift pressed, slash pressed, slash released and shift
 released. The OS won't be able to distinguish between the two and you might just
 have lost a useful key combo on your shiny new keymap. This is where the
-`custom_keycode_on_modifiers` function comes in. It can be used to have qmk send
+`custom_keycode_on_modifiers` function comes in. It can be used to have QMK Firmware send
 another keycode when some modifiers are pressed. Its prototype is
 
 ```c
