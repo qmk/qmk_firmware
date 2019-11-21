@@ -52,3 +52,40 @@ Default settings (somewhat like karabiner) are provided, but you can also apply 
 #define MOUSEKEY_ACL_MAX_SPEED 16
 #define MOUSEKEY_ACL_WHEEL_MAX_SPEED 4
 ```
+
+## Enhanced shift key
+
+- HOLD or INTERRUPT -> works normally as a shift key
+- TAP -> next input will be capitalized (sticky shift)
+- DOUBLE TAP -> shift locked (tap again to unlock)
+
+### Usage
+
+Enable `ENHANCED_SHIFT` (this also enables `TAPDANCE_ENABLE`),
+
+```mk
+ENHANCED_SHIFT = yes
+```
+
+include `enhanced_shift.h`,
+
+```c
+#include "enhanced_shift.h"
+```
+
+and add `ACTION_ENHANCED_SHIFT` to `tap_dance_actions` in your `keymap.c`.
+
+```c
+#define KC_ESFT TD(0)
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    ACTION_ENHANCED_SHIFT,
+    ....
+};
+```
+
+You can also get whether shift is locked (by tapping more twice) or not, via `shift_holded` external variable. This may be useful to indicate the status with OLEDs or LEDs.
+
+```c
+rgblight_setrgb_at(shift_holded ? 255 : 0, 0, 0, 0);
+```

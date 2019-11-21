@@ -30,11 +30,52 @@ extern uint8_t is_master;
 #ifdef TAP_DANCE_ENABLE
 #include "dance.c"
 #endif
+#ifdef ENHANCED_SHIFT
+#include "enhanced_shift.h"
+#endif
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey_accel.h"
+#endif
+
+/* TAPDANCE ACTIONS */
+
+#ifdef TAP_DANCE_ENABLE
+enum tapdance_actions {
+ #ifdef ENHANCED_SHIFT
+  TD_SHIFT_CAPS,
+ #endif
+  TD_ESC_FUNC,
+  TD_GARAKE1,
+  TD_GARAKE2,
+  TD_GARAKE3,
+  TD_GARAKE4,
+  TD_GARAKE5,
+  TD_GARAKE6,
+  TD_GARAKE7,
+  TD_GARAKE8,
+  TD_GARAKE9,
+  TD_GARAKE0_RAISE
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+ #ifdef ENHANCED_SHIFT
+  [TD_SHIFT_CAPS]    = ACTION_ENHANCED_SHIFT,
+ #endif
+  [TD_ESC_FUNC]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_finished,  esc_reset),
+  [TD_GARAKE7]       = ACTION_TAP_DANCE_FN(garake7),
+  [TD_GARAKE8]       = ACTION_TAP_DANCE_FN(garake8),
+  [TD_GARAKE9]       = ACTION_TAP_DANCE_FN(garake9),
+  [TD_GARAKE4]       = ACTION_TAP_DANCE_FN(garake4),
+  [TD_GARAKE5]       = ACTION_TAP_DANCE_FN(garake5),
+  [TD_GARAKE6]       = ACTION_TAP_DANCE_FN(garake6),
+  [TD_GARAKE1]       = ACTION_TAP_DANCE_FN(garake1),
+  [TD_GARAKE2]       = ACTION_TAP_DANCE_FN(garake2),
+  [TD_GARAKE3]       = ACTION_TAP_DANCE_FN(garake3),
+  [TD_GARAKE0_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake0_finished, garake0_reset)
+};
 #endif
 
 /* KEYCODE DEFINITIONS */
@@ -54,7 +95,6 @@ extern uint8_t is_master;
 
 #ifdef TAP_DANCE_ENABLE
 #define KC_ESC_FN  TD(TD_ESC_FUNC)
-#define KC_SFCL    TD(TD_SHIFT_CAPS)
 #define KC_GK1     TD(TD_GARAKE1)
 #define KC_GK2     TD(TD_GARAKE2)
 #define KC_GK3     TD(TD_GARAKE3)
@@ -67,7 +107,6 @@ extern uint8_t is_master;
 #define KC_GK0R    TD(TD_GARAKE0_RAISE)
 #else
 #define KC_ESC_FN  LT(FUNCTION, KC_ESC)
-#define KC_SFCL    KC_LSFT
 #define KC_GK1     KC_1
 #define KC_GK2     KC_2
 #define KC_GK3     KC_3
@@ -78,6 +117,12 @@ extern uint8_t is_master;
 #define KC_GK8     KC_8
 #define KC_GK9     KC_9
 #define KC_GK0R    LT(RAISE, KC_0)
+#endif
+
+#ifdef ENHANCED_SHIFT
+#define KC_SFCL TD(TD_SHIFT_CAPS)
+#else
+#define KC_SFCL KC_LSFT
 #endif
 
 #define KC_RST  RESET
