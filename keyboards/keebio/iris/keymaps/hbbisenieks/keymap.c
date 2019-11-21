@@ -31,7 +31,6 @@ enum custom_keycodes {
 #define KC_RASE RAISE
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
-#define KC_ENTS MT(MOD_LSFT, KC_ENT)
 
 // Left and right shift as mot-tap square braces
 #define KC_LSBR MT(MOD_LSFT, KC_LBRC)
