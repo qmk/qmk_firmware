@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+/* LAYERS */
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -14,10 +16,13 @@ enum layer_number {
   WHEEL
 };
 
-enum custom_keycodes {
-  KC_ACCL = SAFE_RANGE,
-  KC_WEEL
-};
+/* FEATURES */
+
+#ifdef MOUSEKEY_ENABLE
+#include "mousekey_accel.h"
+#endif
+
+/* KEYCODES */
 
 #define KC_____   KC_TRNS
 #define KC_XXXX   KC_NO
@@ -32,6 +37,7 @@ enum custom_keycodes {
 #define KC_FN_ENT LT(FUNCTION, KC_ENT)
 #define KC_CTL_TB LCTL_T(KC_TAB)
 #define KC_CACL   MO(CURSOR_ACL)
+#define KC_WEEL   MO(WHEEL)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -42,6 +48,7 @@ enum custom_keycodes {
 #define KC_WDN  KC_WH_D
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
+#define KC_ACEL KC_MS_ACCEL0
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -99,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //       ,-----------------------------------------. ,-----------------------------------------.
            ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
 //,------+------+------+------+------+------+------' `------+------+------+------+------+------+------.
-    ____ , ____ , WEEL , ____ , ACCL , ____ ,                 MLFT , MDN  , MUP  , MRGT , ____ , ____ , \
+    ____ , ____ , WEEL , ____ , ACEL , ____ ,                 MLFT , MDN  , MUP  , MRGT , ____ , ____ , \
 //|------+------+------+------+------+------|               |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , BTN1 , BTN2 ,                 ____ , ____ , ____ , ____ , ____ , ____   \
 //`------+------+------+------+------+------'               `------+------+------+------+------+------'
@@ -126,34 +133,11 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
   }
 }
 
-extern uint8_t mk_time_to_max, mk_wheel_time_to_max, mk_max_speed, mk_wheel_max_speed, mk_delay, mk_interval;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-   case KC_ACCL:
-    if (record->event.pressed) {
-      mk_max_speed = MOUSEKEY_ACL_MAX_SPEED;
-      mk_wheel_max_speed = MOUSEKEY_ACL_WHEEL_MAX_SPEED;
-      mk_time_to_max = 0;
-      mk_wheel_time_to_max = 0;
-    } else {
-      mk_max_speed = MOUSEKEY_MAX_SPEED;
-      mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
-      mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
-      mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
-    }
+ #ifdef MOUSEKEY_ENABLE
+  if (!process_mousekey_accel(keycode, record)) {
     return false;
-   case KC_WEEL:
-    if (record->event.pressed) {
-      mk_delay = MOUSEKEY_WHEEL_DELAY / 10;
-      mk_interval = MOUSEKEY_WHEEL_INTERVAL;
-      layer_on(WHEEL);
-    } else {
-      mk_delay = MOUSEKEY_DELAY / 10;
-      mk_interval = MOUSEKEY_INTERVAL;
-      layer_off(WHEEL);
-    }
-    break;
   }
+ #endif
   return true;
 }
