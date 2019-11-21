@@ -41,15 +41,17 @@ extern keymap_config_t keymap_config;
      *
      * */
 
-// Defines the internal order of the layers. The Dvorak descramble BASE _DDL needs to
+// Notice this order in layer_state_set_user as well, regarding the led indicators.
+// Defines the internal order of the layers. The normal base layer starts at 
+// default 0.  The Dvorak descramble BASE _DDL needs to
 // have a low order number, so that the other layers can be accessed on top of it.
-// The sorting of these lines of code here is the same as the button order in
-// the _FUN layer for them, the layer numbers has to follow the stack precedence.
-// In this layout, everything is irrelevevant, so long BASE layers are the lowest two.
-// It seems that setting the 'default' layer is not needed, it is enough to merely toggle
-// to either _LTR or _DDL, no need for DF(layer). The temporary layer buttons will
-// just go back to the layer they where started from. Notice this order in 
-// layer_state_set_user as well, regarding the led indicators.
+// The rest of the order does not matter, but to keep the code easier the descramble
+// layers are near the layer they descramble. F-keys is on top because it is the 
+// layers hub, although that should not matter either.
+// It seems that setting the 'default' layer is not needed. It is enough to merely toggle
+// to either _LTR or _DDL, no need for DF(layer).
+// The source lines order is as on the keyboard (_FUN top row). The order of the layers
+// in the source file follows layer precedence order in reverse (0-11).
 
 #define _LTR 0  // letters (Dvorak)
 #define _NSY 2  // numbers and symbols
@@ -58,16 +60,15 @@ extern keymap_config_t keymap_config;
 #define _RAR 5  // strange keys never used
 #define _REV 6  // Reversing: numbers right, navigation left (mirrored.)
 #define _ACC 7  // Accented letters and unusual symbols
-#define _DRA 8  // Accented letters and unusual symbols
-#define _DDD 9  // Descramble version of _DRA
-#define _DDA 10 // Descramble version of _ACC
+#define _DRA 9  // Accented letters and unusual symbols
+#define _DDD 10 // Descramble version of _DRA
+#define _DDA 8  // Descramble version of _ACC
 #define _DDN 3  // Descramble version of _NSY
 #define _DDL 1  // Descramble version of _LTR
 
 bool descramble = 0 ; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
 bool shift_ison = 0 ; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                       //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
-bool recall_state = 0 ; // remember for unicode
 
     /* These are some rarely but existing letters in Dutch, and some other additions.
      * Using the Unicode input system
@@ -371,43 +372,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //  Then when we get a Unicode character, we will assemble a string to send,
     //  depending on the setting of descramble, and shift.
     // User gave 'a' with diacreses key
-    //if (_ACC == recall_state) { // Accented letters (Unicode input layer)
-        switch (keycode) {
-            case CUNI_ADIA:
-                if (record->event.pressed) { // key down
-		    //char leadin[] = "u" ;
-		    if ( shift_ison ) {
-			SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT)) ;
-		        if ( descramble ) {
-		             SEND_STRING ( "f" ) ; // pre-scrambled
-		        } else {
-		             SEND_STRING ( "u" ) ;
-		        }
-			SEND_STRING ( SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ;
-		        if ( descramble ) {
-                            SEND_STRING ( "00d4 " ) ; // pre-scrambled
-		        } else {
-                            SEND_STRING ( "00e4 " ) ; // test
-		        }
-		    } else {
-                        SEND_STRING ( "ccc" ) ; // test
-		    }
-                } else { // key up
-                }
-                break;
-            // Record state of shift
-            // ... left shift
-            case KC_LSFT:
-            // ... right shift
-            case KC_RSFT:
-                if (record->event.pressed) { // key down
-                    shift_ison = 1 ; // shift depressed
-                } else { // key up
-                    shift_ison = 0 ; // shift released
-                }
-              break;
-          }
-     //}
+    switch (keycode) {
+        case CUNI_ADIA:
+            if (record->event.pressed) { // key down
+    	    //char leadin[] = "u" ;
+    	    if ( shift_ison ) {
+    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT)) ;
+    	        if ( descramble ) {
+    	             SEND_STRING ( "f" ) ; // pre-scrambled
+    	        } else {
+    	             SEND_STRING ( "u" ) ;
+    	        }
+    		SEND_STRING ( SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ;
+    	        if ( descramble ) {
+                        SEND_STRING ( "00d4 " ) ; // pre-scrambled
+    	        } else {
+                        SEND_STRING ( "00e4 " ) ; // test
+    	        }
+    	    } else {
+                    SEND_STRING ( "ccc" ) ; // test
+    	    }
+            } else { // key up
+            }
+            break;
+        // Record state of shift
+        // ... left shift
+        case KC_LSFT:
+        // ... right shift
+        case KC_RSFT:
+            if (record->event.pressed) { // key down
+                shift_ison = 1 ; // shift depressed
+            } else { // key up
+                shift_ison = 0 ; // shift released
+            }
+          break;
+     }
      return true;
 };
 
@@ -454,6 +453,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /**/
 
+    /* Layers _DDL, _DDN, _DDA and _DDD: Descramble basic layers if the computer itself is
+     *                  applying Dvorak remapping.
+     *
+     *          When a computer is already set to Dvorak, connecting a
+     *          keyboard which is natively Dvorak results in garbage.
+     *          The computer side general keycodes to Dvorak remapping goes
+     *          on top of the wrong input, resulting in the following being
+     *          effective:
+     *
+     *          _LTR layer:        |
+     *          Esc  -  w  v  l  f   u  i  j  p  n  Bspc
+     *          Tab  a  r  .  g  c   e  d  y  b  o  [
+     *          Sft  s  '  h  t  q   x  m  ,  k  ;  Sft
+     *                     Enter  Space
+     *          _NSY layer:        |
+     *          _LTR !  @  #  $  %   ^  &  *  (  )  Bspc
+     *          [    1  2  3  4  5   \  ]  z  /  =  `
+     *          Sft  0  9  8  7  6   |  }  Z  ?  +  `
+     *                     Enter  Space
+     *
+     *          _ACC layer:        |
+     *          <just semi-random character strings>
+     *
+     *          _DRA layer:        |
+     *          <just semi-random character strings>
+     *
+     *          To solve this results in the strange layout given below.
+     *          The result is a Qwerty layout, however it will not be ideal
+     *          for Qwerty typers because the symbols are not arranged that
+     *          well if typed with the intent of it being Qwerty.
+     */ 
+
+
+    /* Layer _DDL: Descrambled _LTR layer for a computer already set to Dvorak (see above).
+     *           It is a copy of _LTR, with moved around stuff, and points to _DDN instead
+     *           of _NSY, because that too has some descrambled symbols. The rest is the same.
+     *
+     */
+
+    [ _DDL ] = LAYOUT (
+
+//                                        | Right hand
+// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
+//                                       <|>                              -*-      // Access from _FUN -*- there
+// Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
+// Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
+// LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
+// -------------------------------------------------------------------
+// Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
+//                                   <|>
+//           hold     hold  hold      |        hold toggl   hold                 // Type of layer switch
+// <1        <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
+//                                                   
+//
+//      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
+//      -*-               ,      ,      ,      ,      ,    <|,>     ,      ,         ,        ,         , -!-     ,
+        KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC ,
+        LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
+        KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
+//      ---------------------------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _MOV ) , LT ( _DDN , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDA , KC_RIGHT )
+//                         ,                      ,             ,                    <|,>       ,             ,              ,
+//      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
+                      ),
+
+        /**/
 
     /* Layer _NSY: Numbers and symbols.
      *          Off hand Number input (-.Bksp ent (shft)tab).
@@ -487,39 +552,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
-    /* Layer _FUN: Function keys, most on the right side, some combo modifiers control/alt/shift
-     *          Toward any layer by toggle.
-     *          Completes output normal / descramble on Dvorak remapping computer. This affects
-     *          XXX
-     *          how CTO_BASE operates on the other layers, which is all it does. De-scramble is
-     *          already usable by toggling to the _DDL layer.
+    /* Layer _DDN: Descrambled _NSY layer for a computer already set to Dvorak (see just above).
+     *
      */
+    // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
 
-    [ _FUN ] = LAYOUT (
+    [ _DDN ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-// toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl      // Type of layer switch
-//             -*-                    <|>                                         // Access -*- _FUN
-// BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
-// LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
-// LSft  F20   F19   F18   F17   F16   | F6    F7    F8    F9    F10   RSft
-// ----------------------------------------------------------------
-// LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                            // ! sets base layer
-//       LSft+xxx LAlt+xxx        |            LAlt+xxx                         // (Continued, multi-modifiers)
-//                               <|>                    -*-                                   // Acces -*- _LTR
-//                         normal | descramble                                       // Output mode (full)
-// <1    <2       <3       <4     | 4>         3>       2>     1>  
+// <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+//                                     <|>                        -*-            // Layer access from _FUN -*-
+// BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
+// -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
+// .+LSft 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSft  // QMK limitation prevents ~
+// ------------------------------------------------------------
+// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
+//                          -*- <|>      -*-                                     // Layer access from _DDL -*-
+// <1        <2    <3       <4   | 4>    3>    2>    1>  
 //
 //
-//      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
-//                  ,             , -*-         ,             ,             ,           <|,>            ,             ,             ,             ,             ,             ,
-        CTO_BASE    , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , TO ( _DRA ) , TO ( _DDD ) , TO ( _DDA ) , TO ( _DDN ) , TO ( _DDL ) ,
-        KC_LCTL     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F5       , KC_F4       , KC_F3       , KC_F2       , KC_F1       , KC_RCTL     ,
-        KC_LSFT     , KC_F20      , KC_F19      , KC_F18      , KC_F17      , KC_F16      , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RSFT     ,
-//      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , BASE_LTR , BASE_DDL , MT ( MOD_LSFT | MOD_LALT, XXXXXXX )  , CTO_BASE , KC_RALT
-//              ,                                     ,                                      ,        <|,>         ,                                      , -*-      ,
-//      <1      , <2                                  , <3                                   , <4      |, 4>       , 3>                                   , 2>       , 1>
+//      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
+//                         , -*-     ,       ,         ,        ,       <|,>        ,         ,         ,         , -*-     ,                    ,
+        CTO_BASE           , KC_EXLM , KC_AT , KC_HASH , KC_DLR , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
+        LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_RBRC , KC_LBRC , KC_MINS , KC_EQL  , RCTL_T ( KC_GRV )  , 
+        LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
+//      -----------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB , _______ , KC_ENT , RALT_T ( KC_RGHT )
+//                         ,        ,              , -*-   <|,>       , -*-     ,        ,
+//      <1                 , <2     , <3           , <4     |, 4>     , 3>      , 2>     , 1>
                       ),
 
         /**/
@@ -698,6 +757,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
+    /* Layer _DDA: Descrambled _ACC layer for a computer already set to Dvorak (see just above).
+     *
+     */
+
+    [ _DDA ] = LAYOUT (
+
+// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+//                                    <|>-*-
+// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
+// LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
+// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
+// --------------------------------------------------
+// LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+//           -*-             <|>                  -*-
+// <1        <2    <3    <4   | 4>    3>    2>    1>  
+//
+//
+//      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
+//                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
+        CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
+     // KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
+        KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
+
+        KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
+//      ------------------------------------------------------------------------------------
+        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
+//                , -*-     ,         ,      <|,>       ,         ,         , -*-
+//     <1       ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
+                      ),
+
+        /**/
+
     /* Layer _DRA: Drawings, like various Unicode symbols, and whatever else.
      *          The emoticons follow the "logic" of the movement layer.
      *          The symbols ¡ and ¿ are placed on top of ! and ?.
@@ -731,38 +822,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /**/
 
 
-    /* Layers _DDL, _DDN, _DDA and _DDD: Descramble basic layers if the computer itself is
-     *                  applying Dvorak remapping.
-     *
-     *          When a computer is already set to Dvorak, connecting a
-     *          keyboard which is natively Dvorak results in garbage.
-     *          The computer side general keycodes to Dvorak remapping goes
-     *          on top of the wrong input, resulting in the following being
-     *          effective:
-     *
-     *          _LTR layer:        |
-     *          Esc  -  w  v  l  f   u  i  j  p  n  Bspc
-     *          Tab  a  r  .  g  c   e  d  y  b  o  [
-     *          Sft  s  '  h  t  q   x  m  ,  k  ;  Sft
-     *                     Enter  Space
-     *          _NSY layer:        |
-     *          _LTR !  @  #  $  %   ^  &  *  (  )  Bspc
-     *          [    1  2  3  4  5   \  ]  z  /  =  `
-     *          Sft  0  9  8  7  6   |  }  Z  ?  +  `
-     *                     Enter  Space
-     *
-     *          _ACC layer:        |
-     *          <just semi-random character strings>
-     *
-     *          _DRA layer:        |
-     *          <just semi-random character strings>
-     *
-     *          To solve this results in the strange layout given below.
-     *          The result is a Qwerty layout, however it will not be ideal
-     *          for Qwerty typers because the symbols are not arranged that
-     *          well if typed with the intent of it being Qwerty.
-     */ 
-
     /* Layer _DDD: Drawings, like various Unicode symbols, and whatever else.
      *          The emoticons follow the "logic" of the movement layer.
      *          The symbols ¡ and ¿ are placed on top of ! and ?.
@@ -795,103 +854,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /**/
 
-    /* Layer _DDA: Descrambled _NSY layer for a computer already set to Dvorak (see just above).
-     *
+
+    /* Layer _FUN: Function keys, most on the right side, some combo modifiers control/alt/shift
+     *          Toward any layer by toggle.
+     *          Completes output normal / descramble on Dvorak remapping computer. This affects
+     *          XXX
+     *          how CTO_BASE operates on the other layers, which is all it does. De-scramble is
+     *          already usable by toggling to the _DDL layer.
      */
 
-    [ _DDA ] = LAYOUT (
+    [ _FUN ] = LAYOUT (
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>-*-
-// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
-// LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
-// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
-// --------------------------------------------------
-// LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-//           -*-             <|>                  -*-
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
+// toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl      // Type of layer switch
+//             -*-                    <|>                                         // Access -*- _FUN
+// BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
+// LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
+// LSft  F20   F19   F18   F17   F16   | F6    F7    F8    F9    F10   RSft
+// ----------------------------------------------------------------
+// LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                            // ! sets base layer
+//       LSft+xxx LAlt+xxx        |            LAlt+xxx                         // (Continued, multi-modifiers)
+//                               <|>                    -*-                                   // Acces -*- _LTR
+//                         normal | descramble                                       // Output mode (full)
+// <1    <2       <3       <4     | 4>         3>       2>     1>  
 //
 //
-//      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
-//                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
-        CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
-     // KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-        KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-
-        KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
-//      ------------------------------------------------------------------------------------
-        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//                , -*-     ,         ,      <|,>       ,         ,         , -*-
-//     <1       ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
+//      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
+//                  ,             , -*-         ,             ,             ,           <|,>            ,             ,             ,             ,             ,             ,
+        CTO_BASE    , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , TO ( _DRA ) , TO ( _DDD ) , TO ( _DDA ) , TO ( _DDN ) , TO ( _DDL ) ,
+        KC_LCTL     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F5       , KC_F4       , KC_F3       , KC_F2       , KC_F1       , KC_RCTL     ,
+        KC_LSFT     , KC_F20      , KC_F19      , KC_F18      , KC_F17      , KC_F16      , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RSFT     ,
+//      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , BASE_LTR , BASE_DDL , MT ( MOD_LSFT | MOD_LALT, XXXXXXX )  , CTO_BASE , KC_RALT
+//              ,                                     ,                                      ,        <|,>         ,                                      , -*-      ,
+//      <1      , <2                                  , <3                                   , <4      |, 4>       , 3>                                   , 2>       , 1>
                       ),
 
         /**/
-
-    /* Layer _DDN: Descrambled _NSY layer for a computer already set to Dvorak (see just above).
-     *
-     */
-    // KC_TILD does not work there, because of a limitation with shifted keys (nov 2019).
-
-    [ _DDN ] = LAYOUT (
-
-// <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                     <|>                        -*-            // Layer access from _FUN -*-
-// BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
-// -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
-// .+LSft 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSft  // QMK limitation prevents ~
-// ------------------------------------------------------------
-// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
-//                          -*- <|>      -*-                                     // Layer access from _DDL -*-
-// <1        <2    <3       <4   | 4>    3>    2>    1>  
-//
-//
-//      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
-//                         , -*-     ,       ,         ,        ,       <|,>        ,         ,         ,         , -*-     ,                    ,
-        CTO_BASE           , KC_EXLM , KC_AT , KC_HASH , KC_DLR , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
-        LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_RBRC , KC_LBRC , KC_MINS , KC_EQL  , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
-//      -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB , _______ , KC_ENT , RALT_T ( KC_RGHT )
-//                         ,        ,              , -*-   <|,>       , -*-     ,        ,
-//      <1                 , <2     , <3           , <4     |, 4>     , 3>      , 2>     , 1>
-                      ),
-
-        /**/
-
-    /* Layer _DDL: Descrambled _LTR layer for a computer already set to Dvorak (see above).
-     *           It is a copy of _LTR, with moved around stuff, and points to _DDN instead
-     *           of _NSY, because that too has some descrambled symbols. The rest is the same.
-     *
-     */
-
-    [ _DDL ] = LAYOUT (
-
-//                                        | Right hand
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-//                                       <|>                              -*-      // Access from _FUN -*- there
-// Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp     //" ((syntax highlighting fix))
-// Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-// LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
-// -------------------------------------------------------------------
-// Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
-//                                   <|>
-//           hold     hold  hold      |        hold toggl   hold                 // Type of layer switch
-// <1        <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
-//                                                   
-//
-//      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
-//      -*-               ,      ,      ,      ,      ,    <|,>     ,      ,         ,        ,         , -!-     ,
-        KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC ,
-        LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
-        KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
-//      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _MOV ) , LT ( _DDN , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _ACC , KC_RIGHT )
-//                         ,                      ,             ,                    <|,>       ,             ,              ,
-//      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
-                      ),
-
-        /**/
-
 
 
 
@@ -948,11 +947,12 @@ uint32_t layer_state_set_user(uint32_t state){
   #ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
+    short color_ddl = 28 ;
 
 
     // The order should be the reverse of the #defines of layer number of the layers on top
     // because higher layer number is higher priority if activated
-    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DRA 8 _DDD 9 _DDA 10 _FUN 11 */
+    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
     if (layer_state_cmp(state, _FUN)) { // F-keys, and layer toggles
         //led2r = 255; // F-keys is red, warning color because it can mean anything
         //led0r = 255;
@@ -976,21 +976,14 @@ uint32_t layer_state_set_user(uint32_t state){
         }
         rgblight_sethsv_noeeprom(HSV_RED);
     } 
-    else if (layer_state_cmp(state, _DDA)) {  // double Dvorak descramble, Accented letters
-        led0g = 100; //  first led follows the layer being descrambled: _ACC
-        led0b = 100;
-        led2r = 128; // Same as DDL, to which it belongs.
-        led2g = 128; // 
-        led2b = 128; // 
-        rgblight_sethsv_noeeprom(HSV_BLUE); 
-    }
+    //--- (pair)
     else if (layer_state_cmp(state, _DDD)) {  // double Dvorak descramble, Unicode drawings
         led0r = 255; //  first led follows the layer being descrambled: _DRA
         led0g = 128; // 
-        led2r = 128; // Same as DDL, to which it belongs.
-        led2g = 128; // 
-        led2b = 128; // 
-        rgblight_sethsv_noeeprom(HSV_BLUE); 
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+        rgblight_sethsv_noeeprom(HSV_GOLDENROD); 
     }
     if (layer_state_cmp(state, _DRA)) { // Unicode drawings and unusual things
         led0r = 255; // gold red
@@ -999,18 +992,29 @@ uint32_t layer_state_set_user(uint32_t state){
         led2g = 128; //
         rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
     }
-    else if (layer_state_cmp(state, _ACC)) { // Accented letters (Unicode input layer)
-        led0g = 100; // With some blue, because it is also a symbol 
+    //--- (pair)
+    else if (layer_state_cmp(state, _DDA)) {  // double Dvorak descramble, Accented letters
+        led0g = 150; //  first led follows the layer being descrambled: _ACC
         led0b = 100;
-        led2g = 100;
-        led2b = 100;
-        rgblight_sethsv_noeeprom(HSV_CYAN); // cyan
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+        rgblight_sethsv_noeeprom(HSV_TURQUOISE); 
     }
+    else if (layer_state_cmp(state, _ACC)) { // Accented letters (Unicode input layer)
+        led0g = 150; // With some blue, because it is also a symbol 
+        led0b = 100;
+        led2g = 150;
+        led2b = 100;
+        rgblight_sethsv_noeeprom(HSV_TURQUOISE); // cyan
+    }
+    //---
     else if (layer_state_cmp(state, _REV)) { // reverse hands layer
         led0g = 255; // green for nagivation left hand
         led2b = 255; // blue for symbols right hand
         rgblight_sethsv_noeeprom(60, 20, 100); // yellow (low saturation)
     }
+    //---
     else if (layer_state_cmp(state, _RAR)) { // weird layer
         led0r = 100; // purple
         led0b = 100;
@@ -1018,38 +1022,39 @@ uint32_t layer_state_set_user(uint32_t state){
         led2b = 100;
         rgblight_sethsv_noeeprom(HSV_PURPLE); // purple
     }
+    //---
     else if (layer_state_cmp(state, _MOV)) { // movement layer
         led0g = 255;// movement is green, "go forward"
         led2g = 255; 
         rgblight_sethsv_noeeprom(HSV_GREEN);
     }
+    //--- (pair)
     else if (layer_state_cmp(state, _DDN)) { // double Dvorak descramble, numbers/symbols 
         led0b = 255; //  first led follows the layer being descrambled: _NSY 
-        led2r = 128; // Same as DDL, to which it belongs.
-        led2g = 128; // 
-        led2b = 128; // 
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
         rgblight_sethsv_noeeprom(HSV_BLUE); 
     }
     else if (layer_state_cmp(state, _NSY)) { // symbols and numbers
         led0b = 255; // blue for symbols, like ink (writing)
         led2b = 255;
         rgblight_sethsv_noeeprom(HSV_BLUE);
-        recall_state = _LTR ; // remember for unicode
-	// -here
     }
+    //--- (pair)
     // Alternate BASE layer (descramble)
     else if (layer_state_cmp(state, _DDL)) { // double Dvorak descramble, letters
-        led2r = 28; // A bit of a white not too bright color on rightaaaa111oooonnnooo
-        led2g = 28; // 
-        led2b = 28; // 
+        led2r = color_ddl; // A bit of a white not too bright color on rightaaaa111oooonnnooo
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
     }
     // Default layer (generally), normal BASE layer
     else if (layer_state_cmp(state, _LTR)) { // symbols and numbers
         led0r = 28; // A bit of a weak white color on left 
         led0g = 28; // 
         led0b = 28; // 
-        recall_state = _LTR ; // remember for unicode
     }
+    //---
 
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
