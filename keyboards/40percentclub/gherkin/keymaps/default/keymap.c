@@ -18,46 +18,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_user(void) {
-}
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
+  // Set our LED pins as output
+  setPinOutput(D5);
+  setPinOutput(B0);
 }
 
 void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-    DDRD |= (1 << 5); PORTD &= ~(1 << 5);
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinLow(D5);
   } else {
-    DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
+    writePinHigh(D5);
   }
 
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    DDRB |= (1 << 0); PORTB &= ~(1 << 0);
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(B0);
   } else {
-    DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
+    writePinHigh(B0);
   }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
 }

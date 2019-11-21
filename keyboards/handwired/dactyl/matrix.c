@@ -76,16 +76,7 @@ uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
-
 #define ROW_SHIFTER ((matrix_row_t)1)
-#if (DIODE_DIRECTION == COL2ROW)
-// bitmask to ensure the row state from the expander only applies to its columns
-#define EXPANDER_MASK ((matrix_row_t)0b00111111)
-#endif
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -133,11 +124,6 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
-
     matrix_init_quantum();
 }
 
@@ -166,17 +152,17 @@ void init_expander(void) {
 
     /*
     Pin direction and pull-up depends on both the diode direction
-    and on whether the column register is 0 ("A") or 1 ("B"):
+    and on whether the column register is GPIOA or GPIOB
     +-------+---------------+---------------+
     |       | ROW2COL       | COL2ROW       |
     +-------+---------------+---------------+
-    | Reg 0 | input, output | output, input |
+    | GPIOA | input, output | output, input |
     +-------+---------------+---------------+
-    | Reg 1 | output, input | input, output |
+    | GPIOB | output, input | input, output |
     +-------+---------------+---------------+
     */
 
-#if (EXPANDER_COLUMN_REGISTER == 0)
+#if (EXPANDER_COL_REGISTER == GPIOA)
 #   if (DIODE_DIRECTION == COL2ROW)
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
         expander_status = i2c_write(0);                       if (expander_status) goto out;
@@ -184,7 +170,7 @@ void init_expander(void) {
         expander_status = i2c_write(0);                       if (expander_status) goto out;
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
 #   endif
-#elif (EXPANDER_COLUMN_REGISTER == 1)
+#elif (EXPANDER_COL_REGISTER == GPIOB)
 #   if (DIODE_DIRECTION == COL2ROW)
         expander_status = i2c_write(0);                       if (expander_status) goto out;
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
@@ -202,7 +188,7 @@ void init_expander(void) {
     // - driving : off : 0
     expander_status = i2c_start(I2C_ADDR_WRITE);              if (expander_status) goto out;
     expander_status = i2c_write(GPPUA);                       if (expander_status) goto out;
-#if (EXPANDER_COLUMN_REGISTER == 0)
+#if (EXPANDER_COL_REGISTER == GPIOA)
 #   if (DIODE_DIRECTION == COL2ROW)
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
         expander_status = i2c_write(0);                       if (expander_status) goto out;
@@ -210,7 +196,7 @@ void init_expander(void) {
         expander_status = i2c_write(0);                       if (expander_status) goto out;
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
 #   endif
-#elif (EXPANDER_COLUMN_REGISTER == 1)
+#elif (EXPANDER_COL_REGISTER == GPIOB)
 #   if (DIODE_DIRECTION == COL2ROW)
         expander_status = i2c_write(0);                       if (expander_status) goto out;
         expander_status = i2c_write(expander_input_pin_mask); if (expander_status) goto out;
@@ -239,20 +225,6 @@ uint8_t matrix_scan(void)
             }
         }
     }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
-
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
-        print("\n");
-
-        matrix_timer = timer_now;
-        matrix_scan_count = 0;
-    }
-#endif
 
 #if (DIODE_DIRECTION == COL2ROW)
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
@@ -365,11 +337,11 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Read columns from expander, unless it's in an error state
     if (! expander_status) {
-        expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
-        expander_status = i2c_write(GPIOA);          if (expander_status) goto out;
-        expander_status = i2c_start(I2C_ADDR_READ);  if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_COL_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);            if (expander_status) goto out;
 
-        current_matrix[current_row] |= (~i2c_readNak()) & EXPANDER_MASK;
+        current_matrix[current_row] |= (~i2c_readNak()) & expander_input_pin_mask;
 
         out:
             i2c_stop();
@@ -394,9 +366,9 @@ static void select_row(uint8_t row) {
     if (! expander_status) {
         // set active row low  : 0
         // set other rows hi-Z : 1
-        expander_status = i2c_start(I2C_ADDR_WRITE);   if (expander_status) goto out;
-        expander_status = i2c_write(GPIOB);            if (expander_status) goto out;
-        expander_status = i2c_write(0xFF & ~(1<<row)); if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_ROW_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_write(0xFF & ~(1<<row));         if (expander_status) goto out;
     out:
         i2c_stop();
     }
@@ -454,9 +426,9 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             return false;
         }
 
-        expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
-        expander_status = i2c_write(GPIOB);          if (expander_status) goto out;
-        expander_status = i2c_start(I2C_ADDR_READ);  if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_WRITE);           if (expander_status) goto out;
+        expander_status = i2c_write(EXPANDER_ROW_REGISTER);    if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);            if (expander_status) goto out;
         column_state = i2c_readNak();
 
         out:
@@ -504,9 +476,9 @@ static void select_col(uint8_t col)
         } else {
             // set active col low  : 0
             // set other cols hi-Z : 1
-            expander_status = i2c_start(I2C_ADDR_WRITE);   if (expander_status) goto out;
-            expander_status = i2c_write(GPIOA);            if (expander_status) goto out;
-            expander_status = i2c_write(0xFF & ~(1<<col)); if (expander_status) goto out;
+            expander_status = i2c_start(I2C_ADDR_WRITE);          if (expander_status) goto out;
+            expander_status = i2c_write(EXPANDER_COL_REGISTER);   if (expander_status) goto out;
+            expander_status = i2c_write(0xFF & ~(1<<col));        if (expander_status) goto out;
         out:
             i2c_stop();
         }

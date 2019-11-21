@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <stdint.h>
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -40,7 +39,7 @@ typedef struct {
 } keyevent_t;
 
 /* equivalent test of keypos_t */
-#define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
+#define KEYEQ(keya, keyb) ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
@@ -51,13 +50,8 @@ static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && 
 static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
 
 /* Tick event */
-#define TICK                    (keyevent_t){           \
-    .key = (keypos_t){ .row = 255, .col = 255 },           \
-    .pressed = false,                                   \
-    .time = (timer_read() | 1)                          \
-}
-
-void disable_jtag(void);
+#define TICK \
+    (keyevent_t) { .key = (keypos_t){.row = 255, .col = 255}, .pressed = false, .time = (timer_read() | 1) }
 
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
