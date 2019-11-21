@@ -8,6 +8,7 @@ This revision includes this documentation and introduction of the individual RGB
 
 ## Still to do:
 
+ * Update layout files to match current standards.
  * Enjoy this revision; figure out new things later.
 
 ### Qwerty layer

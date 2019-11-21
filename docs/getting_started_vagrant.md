@@ -40,7 +40,7 @@ vagrant plugin install vagrant-vbguest
 Finished with your environment? From anywhere inside the folder where you checked out this project, Execute:
 
 ```console
-vagrant destory
+vagrant destroy
 ```
 
 ### What if I want to use Docker directly?

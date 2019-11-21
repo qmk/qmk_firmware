@@ -6,7 +6,7 @@ QMK has the ability to control RGB LEDs attached to your keyboard. This is commo
 
 Some keyboards come with RGB LEDs preinstalled. Others must have them installed after the fact. See the [Hardware Modification](#hardware-modification) section for information on adding RGB lighting to your keyboard.
 
-Currently QMK supports the following addressable LEDs on AVR microcontrollers (however, the white LED in RGBW variants is not supported):
+Currently QMK supports the following addressable LEDs (however, the white LED in RGBW variants is not supported):
 
  * WS2811, WS2812, WS2812B, WS2812C, etc.
  * SK6812, SK6812MINI, SK6805
@@ -363,8 +363,8 @@ Using the `rgblight_set_clipping_range()` function, you can prepare more buffers
 You can set the Clipping Range by executing the following code.
 
 ```c
-// some soruce
-  rgblight_set_clipping_range(3, 4);
+// some source
+rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
 

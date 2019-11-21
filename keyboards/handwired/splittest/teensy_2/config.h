@@ -27,5 +27,5 @@
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
-// required for teensy slave otherwise it "locks up" during startup
-#define NO_USB_STARTUP_CHECK
+// teensy has vbus detection issues - use usb detection instead
+#define SPLIT_USB_DETECT
