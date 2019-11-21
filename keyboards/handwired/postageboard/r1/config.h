@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0xB07D
-#define DEVICE_VER 0x0002
+#define DEVICE_VER 0x0001
 #define MANUFACTURER LifeIsOnTheWire
 #define PRODUCT PostageBoard
-#define DESCRIPTION "A Handwire Controller Board Round 2"
+#define DESCRIPTION "A Handwire Controller Board"
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -41,9 +41,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D5 }
-#define MATRIX_COL_PINS { E6, B3, B7 }
-#define UNUSED_PINS { D0, D1, D2, D3, D4, D6, D7, B4, B5, B6, C6, C7, B2, B1, B0, F7, F6, F5, F4, F1, F0 }
+#define MATRIX_ROW_PINS { B6 }
+#define MATRIX_COL_PINS { B7, C6, C7 }
+#define UNUSED_PINS { D4, D6, D7, B4, B5, D5, D3, D2, D1, D0, B2, B3, F0, F1, F4, F5, F6, F7, E6, B0, B1 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
