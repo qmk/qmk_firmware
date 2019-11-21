@@ -33,7 +33,7 @@ pulls:
 
 # Issue specific configuration
 issues:
-  staleLabel: solved
+  staleLabel: stale
   limitPerRun: 10
   daysUntilStale: 90
   daysUntilClose: 30
