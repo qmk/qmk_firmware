@@ -65,8 +65,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-You can also get whether shift is locked (by tapping more twice) or not, via `shift_holded` external variable. This may be useful to indicate the status with OLEDs or LEDs.
+You can also get whether shift is locked (by tapping more twice) or not, via `shift_held` external variable. This may be useful to indicate the status with OLEDs or LEDs.
 
 ```c
-rgblight_setrgb_at(shift_holded ? 255 : 0, 0, 0, 0);
+rgblight_setrgb_at(shift_held ? 255 : 0, 0, 0, 0);
 ```
