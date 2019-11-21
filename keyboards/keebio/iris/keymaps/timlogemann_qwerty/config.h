@@ -22,6 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
+// Because Elite-C v3 has an issue :(
+#define SPLIT_USB_DETECT
+
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT
