@@ -1,7 +1,7 @@
 # PostageBoard
 
 ### Round 1
-![PostageBoard](https://camo.githubusercontent.com/b598d9ec5055c6b67e1a4d9b70b9dea5e51bb4ed/68747470733a2f2f692e696d6775722e636f6d2f43333879686f372e706e67)
+![PostageBoard](https://cdn.shopify.com/s/files/1/1851/5125/products/image_db6a6d1c-01d8-4263-b148-136292425b6a_530x@2x.jpg?v=1540240631)
 
 ### Round 2: Mini version
 ![PostageBoard](https://cdn.shopify.com/s/files/1/1851/5125/products/image_94eb103e-07f9-437f-b661-0909247cd766_1024x1024@2x.jpg?v=1574211602)
