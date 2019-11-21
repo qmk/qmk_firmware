@@ -7,7 +7,7 @@ This document aims to instruct novices in the best ways to have a smooth experie
 This document assumes a few things:
 
 1. You have a GitHub account, and have [forked the qmk_firmware repository](getting_started_github.md) to your account.
-2. You've [set up your build environment](newbs_getting_started.md?id=environment-setup).
+2. You've [set up your build environment](newbs_getting_started.md#set-up-your-environment).
 
 
 ## Your fork's master: Update Often, Commit Never
