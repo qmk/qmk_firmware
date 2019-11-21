@@ -44,10 +44,6 @@ Once you've finished translating a new language, you'll also need to modify the 
 
 ## Previewing the Translations
 
-Before opening a pull request, you can preview your additions if you have Python 3 installed by running this command in the `qmk_firmware/` folder:
-
-    ./bin/qmk docs
-
-and navigating to `http://localhost:8936/` - you should be able to select your new language from the "Translations" menu at the top-right.
+See (Previewing the Documentation)[contributing.md#previewing-the-documentation] for how to set up a local instance of the docs - you should be able to select your new language from the "Translations" menu at the top-right.
 
 Once you're happy with your work, feel free to open a pull request!
