@@ -16,12 +16,6 @@ enum layer_number {
   WHEEL
 };
 
-/* FEATURES */
-
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey_accel.h"
-#endif
-
 /* KEYCODES */
 
 #define KC_____   KC_TRNS
@@ -131,13 +125,4 @@ bool get_ignore_mod_tap_interrupt(uint16_t keycode) {
    default:
     return false;
   }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- #ifdef MOUSEKEY_ENABLE
-  if (!process_mousekey_accel(keycode, record)) {
-    return false;
-  }
- #endif
-  return true;
 }

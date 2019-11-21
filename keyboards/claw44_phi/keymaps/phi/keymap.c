@@ -12,10 +12,6 @@ enum layer_number {
   WHEEL
 };
 
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey_accel.h"
-#endif
-
 #define KC_____   KC_TRNS
 #define KC_XXXX   KC_NO
 
@@ -119,12 +115,3 @@ void oled_task_user(void) {
   }
 }
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
- #ifdef MOUSEKEY_ENABLE
-  if (!process_mousekey_accel(keycode, record)) {
-    return false;
-  }
- #endif
-  return true;
-}

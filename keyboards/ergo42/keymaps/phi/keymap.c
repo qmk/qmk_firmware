@@ -8,12 +8,6 @@
 #define WHEEL    4
 #define FUNCTION 5
 
-/* FEATURES */
-
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey_accel.h"
-#endif
-
 /* KEYCODE DEFINITIONS */
 
 /* invalid / blank keys */
@@ -102,12 +96,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
-
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
-  #ifdef MOUSEKEY_ENABLE
-    if (!process_mousekey_accel(keycode, record)) {
-        return false;
-    }
-  #endif
-    return true;
-}

@@ -1,4 +1,4 @@
-#include "mousekey_accel.h"
+#include "custom_mousekey.h"
 
 extern uint8_t mk_time_to_max, mk_wheel_time_to_max, mk_max_speed, mk_wheel_max_speed, mk_delay, mk_interval;
 

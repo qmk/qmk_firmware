@@ -36,9 +36,6 @@ extern uint8_t is_master;
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey_accel.h"
-#endif
 
 /* TAPDANCE ACTIONS */
 
@@ -261,14 +258,9 @@ void matrix_scan_user(void) {
   #endif
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
  #ifdef SSD1306OLED
   oled_record_event(keycode, record);
- #endif
- #ifdef MOUSEKEY_ENABLE
-  if (!process_mousekey_accel(keycode, record)) {
-    return false;
-  }
  #endif
   return true;
 }

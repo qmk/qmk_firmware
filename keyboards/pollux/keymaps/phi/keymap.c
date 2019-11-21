@@ -23,9 +23,6 @@ extern uint8_t is_master;
 #ifdef RGBLIGHT_ENABLE
 #include "./rgb.c"
 #endif
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey_accel.h"
-#endif
 
 /* KEYCODE DEFINITIONS */
 
@@ -108,14 +105,9 @@ void keybaord_post_init_user (void) {
  #endif
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
  #ifdef RGBLIGHT_ENABLE
   rgb_process_record(keycode, record);
- #endif
- #ifdef MOUSEKEY_ENABLE
-  if (!process_mousekey_accel(keycode, record)) {
-    return false;
-  }
  #endif
   return true;
 }
