@@ -3,6 +3,7 @@
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
 import subprocess
+import os
 from argparse import FileType
 
 from milc import cli
