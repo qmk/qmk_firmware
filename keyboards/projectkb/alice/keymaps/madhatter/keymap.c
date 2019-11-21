@@ -23,7 +23,7 @@ enum my_layers {
 };
 
 #define FNMS MO(_FNMS)
-#define SPC_NAV LT(_NAVMED, KC_SPC)
+#define NAVMED MO(_NAVMED)
 #define CAP_CTL CTL_T(KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGUP, KC_TAB,  KC_Q,  KC_W,    KC_E,   KC_R,    KC_T,         KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
     KC_PGDN, CAP_CTL, KC_A,  KC_S,    KC_D,   KC_F,    KC_G,         KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
              KC_LSFT, KC_Z,  KC_X,    KC_C,   KC_V,    KC_B,         KC_B,   KC_N,  KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, FNMS,
-             KC_LCTL,              KC_LALT,    KC_LCMD, FNMS,         SPC_NAV,       KC_RALT,                              KC_RCTL
+             KC_LCTL,              KC_LALT,    KC_LCMD, NAVMED,       KC_SPC,        KC_RALT,                              KC_RCTL
   ),
 
   [_FNMS] = LAYOUT_default(
@@ -75,5 +75,5 @@ bool led_update_user(led_t usb_led) {
     writePin(A0, !top);
     writePin(A1, !middle);
     writePin(A2, !bottom);
-    return false; // we are using LEDs for something else override kb
+    return false;
 }
