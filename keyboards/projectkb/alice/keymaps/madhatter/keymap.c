@@ -65,15 +65,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       case _FNMS:
           middle = 1;
           break;
-      default: 
+      default:
         break;
     }
   return state;
 }
 
-void led_set_kb(uint8_t usb_led) {
-    top ?  writePinLow(A0) : writePinHigh(A0);
-    middle ? writePinLow(A1): writePinHigh(A1);
-    bottom ? writePinLow(A2) : writePinHigh(A2);
-    led_set_user(usb_led);
+bool led_update_user(led_t usb_led) {
+    writePin(A0, !top);
+    writePin(A1, !middle);
+    writePin(A2, !bottom);
+    return false; // we are using LEDs for something else override kb
 }
