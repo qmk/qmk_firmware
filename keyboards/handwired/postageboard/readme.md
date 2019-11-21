@@ -16,7 +16,7 @@ However, neither the Teensy, nor the Pro Micro are designed for keyboards specif
 
 Make example for this keyboard (after setting up your build environment):
 
-`    make handwired/postageboard/r1:default`
+    make handwired/postageboard/r1:default
 
 or
 
