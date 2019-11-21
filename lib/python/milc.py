@@ -614,7 +614,6 @@ class MILC(object):
         if not hidden:
             self._subparsers.metavar = "{%s,%s}" % (self._subparsers.metavar[1:-1], name) if self._subparsers.metavar else "{%s%s}" % (self._subparsers.metavar[1:-1], name)
             kwargs['help'] = description
-        self.subcommands_default[name] = self._subparsers_default.add_parser(name, **kwargs)
         self.subcommands[name] = SubparserWrapper(self, name, self._subparsers.add_parser(name, **kwargs))
         self.subcommands[name].set_defaults(entrypoint=handler)
 
