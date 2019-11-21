@@ -86,7 +86,7 @@ def compile(cli):
 
     elif user_keyboard and user_keymap:
         # Generate the make command for a specific keyboard/keymap.
-        command = ['make', ':'.join((user_keyboard, user_keymap))]
+        command = create_make_command(user_keyboard, user_keymap)
 
     elif in_keyboard:
         keyboard = user_keyboard if user_keyboard else keyboard
@@ -99,7 +99,7 @@ def compile(cli):
         keymap_path = qmk.path.keymap(keyboard)
         # Check for global keymap config first
         if keymap:
-            command = ['make', ':'.join((keyboard, keymap))]
+            command = create_make_command(keyboard, keymap)
 
         else:
             # If no default keymap exists and none provided
@@ -109,8 +109,7 @@ def compile(cli):
     elif in_layout:
         if user_keyboard:
             keymap = current_folder
-            print(keymap)
-            command = ['make', ':'.join((user_keyboard, keymap))]
+            command = create_make_command(user_keyboard, keymap)
         else:
             cli.log.error('You must supply a keyboard to compile a layout keymap. Set one with `qmk config` or supply `--keyboard` ')
             return False
