@@ -104,13 +104,6 @@ uint8_t matrix_cols(void) {
 }
 
 void matrix_init(void) {
-
-    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
-        MCUCR |= _BV(JTD);
-        MCUCR |= _BV(JTD);
-    #endif
-
     // initialize row and col
     unselect_rows();
     init_cols();

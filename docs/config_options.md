@@ -76,7 +76,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define B7_AUDIO`
   * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
-  * pin of the backlight - `B5`, `B6`, `B7` and `C6` (and `D4` on ATmega32A) use hardware PWM, others use software implementation
+  * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
   * number of levels your backlight will have (maximum 15 excluding off)
 * `#define BACKLIGHT_BREATHING`
@@ -89,10 +89,12 @@ This is a C header file that is one of the first things included, and will persi
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
   * tries to keep switch state consistent with keyboard LED state
-* `#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))`
+* `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
   * key combination that allows the use of magic commands (useful for debugging)
-* `#define USB_MAX_POWER_CONSUMPTION`
+* `#define USB_MAX_POWER_CONSUMPTION 500`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define USB_POLLING_INTERVAL_MS 10`
+  * sets the USB polling rate in milliseconds for the keyboard, mouse, and shared (NKRO/media keys) interfaces
 * `#define F_SCL 100000L`
   * sets the I2C clock rate speed for keyboards using I2C. The default is `400000L`, except for keyboards using `split_common`, where the default is `100000L`.
 
@@ -171,8 +173,8 @@ If you define these options you will enable the associated feature, which may in
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
-* `#define TAP_HOLD_CAPS_DELAY 200`
-  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 200ms if not defined. 
+* `#define TAP_HOLD_CAPS_DELAY 80`
+  * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPSLOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 
 ## RGB Light Configuration
 
@@ -194,8 +196,8 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW_BB_TWI`
-  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
+* `#define RGBW`
+  * Enables RGBW LED support
 
 ## Mouse Key Options
 
@@ -222,6 +224,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
    * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
    * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
+   * For boards with ARM DFU bootloader (like Proton C), use `:dfu-util-split-left`/`:dfu-util-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
 
@@ -248,6 +251,9 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
 
+* `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
+  * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
+
 * `#define RGBLED_SPLIT { 6, 6 }`
   * See [RGB Light Configuration](#rgb-light-configuration)
 
@@ -260,6 +266,14 @@ There are a few different ways to set handedness for split keyboards (listed in 
     * 3: about 39kbps
     * 4: about 26kbps
     * 5: about 20kbps
+
+* `#define SPLIT_USB_DETECT`
+  * Detect (with timeout) USB connection when delegating master/slave
+  * Default behavior for ARM
+  * Required for AVR Teensy
+
+* `#define SPLIT_USB_TIMEOUT 2500`
+  * Maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`
 
 # The `rules.mk` File
 
@@ -289,19 +303,20 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `halfkay`
   * `caterina`
   * `bootloadHID`
+  * `USBasp`
 
 ## Feature Options
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `BOOTMAGIC_ENABLE`
-  * Virtual DIP switch configuration(+1000)
+  * Virtual DIP switch configuration
 * `MOUSEKEY_ENABLE`
-  * Mouse keys(+4700)
+  * Mouse keys
 * `EXTRAKEY_ENABLE`
-  * Audio control and System control(+450)
+  * Audio control and System control
 * `CONSOLE_ENABLE`
-  * Console for debug(+400)
+  * Console for debug
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `COMBO_ENABLE`
@@ -333,7 +348,8 @@ Use these to enable or disable building certain features. The more you have enab
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
 * `LINK_TIME_OPTIMIZATION_ENABLE`
-  = Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION` 
+  * Enables Link Time Optimization (`LTO`) when compiling the keyboard.  This makes the process take longer, but can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).  However, this will automatically disable the old Macros and Functions features automatically, as these break when `LTO` is enabled.  It does this by automatically defining `NO_ACTION_MACRO` and `NO_ACTION_FUNCTION`
+  * Alternatively, you can use `LTO_ENABLE` instead of `LINK_TIME_OPTIMIZATION_ENABLE`. 
 
 ## USB Endpoint Limitations
 
