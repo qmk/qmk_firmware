@@ -15,7 +15,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-*/
+ * Authors: This QMK keymap file is a combination of the default
+ * keymap, led source original copied from ../jetpacktuxedo, some
+ * copy/paste from QMK documentation code examples (etc).
+ * Remainder: (C) 2019 by J.B. <joshb@xs4all.nl>
+ *
+ */
 
 #include QMK_KEYBOARD_H
 
@@ -31,13 +36,11 @@ extern keymap_config_t keymap_config;
      * - 'Escape' always goes back to default layer.
      * - All other layers are through the _FUN layer on toggle.
      * - A lot of the modifiers, Del/Esc, alt-arrows repeat on layers.
-     * - Layer switching by thumbs, hold keys except _FUN which is one-shot.
+     * - Layer switching by thumbs, hold keys except _FUN.
      * - Rather than AltGr or Compose (which for some reason did not work here
-     *   at the moment), RAlt position switches to a symbols layer.
-     * - There are two layers that allow typing this layout when the computer
-     *   is already set to Dvorak. One descrambles the letters, the other 
-     *   some remaining symbols on the numbers and remaining symbols layer.
-     *   On the _FUN layer are keys that switch between either. 
+     *   at the moment), RAlt position switches to a special symbols layer.
+     * - There are multiple layers that allow typing this layout when the computer
+     *   is already set to Dvorak. Switchin input modes is on the _FUN layer.
      *
      * */
 
@@ -57,10 +60,10 @@ extern keymap_config_t keymap_config;
 #define _NSY 2  // numbers and symbols
 #define _FUN 11 // function keys, layer switcher, given highest order precedence just in case
 #define _MOV 4  // movement arrows and mouse
-#define _RAR 5  // strange keys never used
+#define _RAR 5  // strange keys never used, Unicode config
 #define _REV 6  // Reversing: numbers right, navigation left (mirrored.)
-#define _ACC 7  // Accented letters and unusual symbols
-#define _DRA 9  // Accented letters and unusual symbols
+#define _ACC 7  // Accented letters 
+#define _DRA 9  // Unusual symbols and whatever else
 #define _DDD 10 // Descramble version of _DRA
 #define _DDA 8  // Descramble version of _ACC
 #define _DDN 3  // Descramble version of _NSY
@@ -924,8 +927,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// Copied from ../jetpacktuxedo/ (for LEDs)
-// Code and comments edited to use different leds.
 
 void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
