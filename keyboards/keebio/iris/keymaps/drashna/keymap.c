@@ -1,6 +1,12 @@
-
-#include QMK_KEYBOARD_H
 #include "drashna.h"
+
+/*
+ * The `LAYOUT_iris_base` macro is a template to allow the use of identical
+ * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
+ * that there is no need to set them up for each layout, and modify all of
+ * them if I want to change them.  This helps to keep consistency and ease
+ * of use. K## is a placeholder to pass through the individual keycodes
+ */
 
 // clang-format off
 #define LAYOUT_iris_base( \
@@ -10,8 +16,8 @@
   ) \
   LAYOUT_wrapper( \
      KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS, \
-     KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
-     KC_C1R3, ALT_T(K11), K12, K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
+     LALT_T(KC_TAB), K01, K02, K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
+     KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A, RALT_T(KC_QUOT), \
      OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                              KC_GRV, KC_SPC,  LT(_LOWER,KC_BSPC),         LT(_RAISE,KC_DEL),  KC_ENT,  RAISE                           \
   )
