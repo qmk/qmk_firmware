@@ -124,7 +124,7 @@ when some modifiers and a key are pressed. For example let's say that your
 keymap binds a shifted keycode like question mark (?) on a qwerty keyboard to a
 key. When pressed, qmk will send these events: shift pressed, slash (/) pressed,
 slash released, shift released. But then what happens when pressing shift and
-that key ? Qmk will send shitf pressed, slash pressed, slash released and shift
+that key? QMK Firmware will send shift pressed, slash pressed, slash released and shift
 released. The OS won't be able to distinguish between the two and you might just
 have lost a usefull keycombo on your shiny new keymap. This is  where the
 `custom_keycode_on_modifiers` function comes in. It can be used to have qmk send
