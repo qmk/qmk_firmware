@@ -1,10 +1,8 @@
 """Convert raw KLE to JSON
-
 """
 import json
 import os
 from pathlib import Path
-from argparse import FileType
 from decimal import Decimal
 from collections import OrderedDict
 
@@ -23,7 +21,7 @@ class CustomJSONEncoder(json.JSONEncoder):
                 return float(obj)
         except TypeError:
             pass
-        return JSONEncoder.default(self, obj)
+        return json.JSONEncoder.default(self, obj)
 
 
 @cli.argument('filename', help='The KLE raw txt to convert')
