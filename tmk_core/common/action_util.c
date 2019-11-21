@@ -461,7 +461,7 @@ static bool custom_keycode_on_modifiers_handler(uint16_t keycode, keyrecord_t *r
     send_keyboard_report();
 
     /* send alternate key code */
-    register_code(custom_keycode);
+    register_code16(custom_keycode);
   } else {
     /* release the alternate key */
     unregister_code(custom_keycode);
