@@ -20,6 +20,19 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
+void led_set_user(uint8_t usb_led) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinHigh(B6);
+    } else {
+        writePinLow(B6);
+    }
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+        writePinHigh(B7);
+    } else {
+        writePinLow(B7);
+    }
+}
+
 /*
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
