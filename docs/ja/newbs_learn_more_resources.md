@@ -14,8 +14,8 @@
 
 * [Great General Tutorial](https://www.codecademy.com/learn/learn-git)
 * [Git Game To Learn From Examples](https://learngitbranching.js.org/)
-* [Git Resources to Learn More About Github](getting_started_github.md)
-* [Git Resources Aimed Specifically toward QMK](contributing.md)
+* [Git Resources to Learn More About Github](ja/getting_started_github.md)
+* [Git Resources Aimed Specifically toward QMK](ja/contributing.md)
 
 ### 日本語
 
