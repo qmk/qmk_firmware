@@ -8,6 +8,7 @@ MCU = atmega32u4
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
+
 BACKLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = lite           # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
