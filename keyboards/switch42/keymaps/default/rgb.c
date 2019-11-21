@@ -95,7 +95,7 @@ void rgb_update (bool force) {
     last_update = timer_read();
 
     if (layer_state != last_layer_state || force) {
-        if (layer_state & L_GARAKE) {
+        if (layer_state & L_TENKEY) {
             if (is_master) {
                 rgb_set_bg_disabled();
             } else {
