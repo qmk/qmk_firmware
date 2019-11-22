@@ -224,7 +224,7 @@ static MSCMD_USER_RESULT usrcmd_dump_memory(MSOPT *msopt, MSCMD_USER_OBJECT usro
      uint32_t addr = (uint32_t)strtol(arg, NULL, 16);
      uint8_t* p = (uint8_t*)addr;
      char* pstr = (char*)addr;
-     if (addr < 0x20000000 || addr > 0x20040000)
+     if ((addr > 0x100000) && (addr < 0x20000000 || addr > 0x20040000))
      {
        tfp_printf("invalid addr\r\n");
        return 0;
@@ -235,7 +235,12 @@ static MSCMD_USER_RESULT usrcmd_dump_memory(MSOPT *msopt, MSCMD_USER_OBJECT usro
        }
        tfp_printf("  ");
        for(int j=0; j<8; j++){
-         tfp_printf("%c", *pstr++);
+         if (*pstr >= 0x20 && *pstr <= 0x7e) {
+           tfp_printf("%c", *pstr);
+         } else {
+           tfp_printf(".");
+         }
+         pstr++;
        }
        tfp_printf("\r\n");
      }
