@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 180
 
-/* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
+/* Prefer "tap then hold" when "down -> up -> down" ("tap twice" by default) */
 #define TAPPING_FORCE_HOLD
 
 /* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
