@@ -2,14 +2,15 @@
 
 extern uint8_t is_master;
 
-/* GLOBAL VARS */
+/* LAYERS */
 
-#define BASE      0
-#define RAISE     1
-#define FUNCTION  2
-#define TENKEY    3
-#define MOUSE     4
-#define WHEEL     5
+enum layer_number {
+  BASE = 0,
+  RAISE,
+  FUNCTION,
+  MOUSE,
+  WHEEL
+};
 
 #define L_BASE      0
 #define L_RAISE     (2 << (RAISE - 1))
@@ -24,33 +25,16 @@ extern uint8_t is_master;
 #include "./rgb.c"
 #endif
 
-/* KEYCODE DEFINITIONS */
+/* KEYCODES */
 
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
 
-#define KC_D_MOUS  LT(MOUSE, KC_D)
-#define KC_L1_RAI  LT(RAISE, KC_LANG1)
-#define KC_ESC_FN  LT(FUNCTION, KC_ESC)
-#define KC_L2_ALT  LALT_T(KC_LANG2)
-#define KC_WEEL    MO(WHEEL)
-#define KC_BASE    TO(BASE)
-#define KC_TENKEY  TG(TENKEY)
-#define KC_ALT_EN  LALT_T(KC_ENT)
-#define KC_CTL_TB  LCTL_T(KC_TAB)
-
-#define KC_GK1     KC_1
-#define KC_GK2     KC_2
-#define KC_GK3     KC_3
-#define KC_GK4     KC_4
-#define KC_GK5     KC_5
-#define KC_GK6     KC_6
-#define KC_GK7     KC_7
-#define KC_GK8     KC_8
-#define KC_GK9     KC_9
-#define KC_GK0_RA  LT(RAISE, KC_0)
-#define KC_CTL_L1  LCTL_T(KC_LANG1)
-#define KC_SFT_L2  LSFT_T(KC_LANG2)
+#define KC_D_MOUS LT(MOUSE, KC_D)
+#define KC_L1_RAI LT(RAISE, KC_LANG1)
+#define KC_ESC_FN LT(FUNCTION, KC_ESC)
+#define KC_L2_ALT LALT_T(KC_LANG2)
+#define KC_WEEL   MO(WHEEL)
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
@@ -87,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                         ____ , BSPC , RST  ,  TENKEY, ____ , XXXX  \
+                         ____ , BSPC , RST  ,   ____ , ____ , XXXX  \
 //                     `--------------------' `--------------------'
 ),
 
@@ -100,18 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , HOME , PGDN , END , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
                          ____ , ____ , XXXX ,   ____ , ____ , ____  \
-//                     `--------------------' `--------------------'
-),
-
-[TENKEY] = LAYOUT_kc( \
-//,-----------------------------------------. ,-----------------------------------------.
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , 7    , 8    , 9    , ____ , ____ , \
-//|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , 4    , 5    , 6    , ____ , ____ , \
-//|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , 1    , 2    , 3    , ____ , ____ , \
-//`------+------+------+------+------+------| |------+------+------+------+------+------'
-                         ____ , ____ , BASE ,   ____ , 0    , ____ \
 //                     `--------------------' `--------------------'
 ),
 
