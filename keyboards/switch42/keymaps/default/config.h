@@ -12,8 +12,6 @@
 /* load built-in rgblight animations */
 #define RGBLIGHT_ANIMATIONS
 
-#define TAPPING_TERM 180
-
 /* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
 #define TAPPING_FORCE_HOLD
 
