@@ -7,17 +7,26 @@ def check_subcommand(command, *args):
 
 
 def test_cformat():
-    assert check_subcommand('cformat', 'tmk_core/common/backlight.c').returncode == 0
+    assert check_subcommand('cformat', 'tmk_core/common/keyboard.c').returncode == 0
 
 
 def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
 
 
+def test_flash():
+    assert check_subcommand('flash', '-b').returncode == 1
+    assert check_subcommand('flash').returncode == 1
+
+
 def test_config():
     result = check_subcommand('config')
     assert result.returncode == 0
     assert 'general.color' in result.stdout
+
+
+def test_kle2json():
+    assert check_subcommand('kle2json', 'kle.txt', '-f').returncode == 0
 
 
 def test_doctor():

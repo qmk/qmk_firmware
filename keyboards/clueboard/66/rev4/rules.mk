@@ -1,19 +1,5 @@
-LAYOUTS = 66_ansi 66_iso
-
-## chip/board settings
-MCU_FAMILY = STM32
-MCU_SERIES = STM32F3xx
-MCU_LDSCRIPT = STM32F303xC
-MCU_STARTUP = stm32f3xx
-BOARD = GENERIC_STM32_F303XC
-MCU  = cortex-m4
-ARMV = 7
-USE_FPU = yes
-OPT_DEFS =
-
-# Options to pass to dfu-util when flashing
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
-DFU_SUFFIX_ARGS = -p DF11 -v 0483
+# MCU name
+MCU = STM32F303
 
 # Build Options
 #   comment out to disable the options.
@@ -31,3 +17,5 @@ MIDI_ENABLE = no        # MIDI controls
 UNICODE_ENABLE = no     # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = yes
+
+LAYOUTS = 66_ansi 66_iso
