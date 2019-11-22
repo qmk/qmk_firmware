@@ -84,7 +84,6 @@ enum glow_modes {
 uint8_t glow_mode = GLOW_MIN;
 
 void turn_off_capslock(void);
-extern keymap_config_t keymap_config;
 
 // layers, ordering is important!
 enum layers {
