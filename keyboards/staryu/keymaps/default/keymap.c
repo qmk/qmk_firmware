@@ -81,7 +81,7 @@ void keyboard_post_init_user(void) {
   rgblight_sethsv_noeeprom_white();
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   switch (biton32(state)) {
     case _LAYER1:
         rgblight_sethsv_noeeprom_cyan();
