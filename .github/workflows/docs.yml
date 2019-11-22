@@ -1,0 +1,44 @@
+name: Generate Docs
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'tmk_core/**'
+    - 'quantum/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    # protect against those who develop with their fork on master
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Install dependencies
+      run: sudo apt install nodejs doxygen
+    - name: Prep code
+      run: |
+        mkdir -p .build/{in,out}
+        cp -rf docs/* .build/in
+    - name: Generate internal docs
+      run: |
+        doxygen Doxyfile
+        npx moxygen -q -a -g -o .build/in/internals_%s.md doxygen/xml
+    - name: Build docs
+      run: |
+        # TODO: add a real build step... something static docs
+        cp -rf .build/in/* .build/out
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: .build/out
