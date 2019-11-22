@@ -1,7 +1,5 @@
 #include "switch42.h"
 
-extern uint8_t is_master;
-
 /* LAYERS */
 
 enum layer_number {
@@ -11,19 +9,6 @@ enum layer_number {
   MOUSE,
   WHEEL
 };
-
-#define L_BASE      0
-#define L_RAISE     (2 << (RAISE - 1))
-#define L_FUNCTION  (2 << (FUNCTION - 1))
-#define L_TENKEY    (2 << (TENKEY - 1))
-#define L_MOUSE     (2 << (MOUSE - 1))
-#define L_WHEEL     (2 << (WHEEL - 1))
-
-/* FEATURES */
-
-#ifdef RGBLIGHT_ENABLE
-#include "./rgb.c"
-#endif
 
 /* KEYCODES */
 
@@ -46,6 +31,15 @@ enum layer_number {
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
 #define KC_ZNHN A(KC_ZKHK)
+
+#define KC_TOGG RGB_TOG
+#define KC_MODE RGB_MOD
+#define KC_H_UP RGB_HUI
+#define KC_H_DN RGB_HUD
+#define KC_S_UP RGB_SAI
+#define KC_S_DN RGB_SAD
+#define KC_V_UP RGB_VAI
+#define KC_V_DN RGB_VAD
 
 /* KEYMAPS */
 
@@ -79,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     ____ , F1   , F2   , F3   , F4   , F5   ,   F6   , F7   , F8   , F9   , PSCR , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , LGUI ,   ____ , ____ , ____ , ____ , PGUP , ____ , \
+    ____ , TOGG , H_UP , S_UP , V_UP , LGUI ,   ____ , ____ , ____ , ____ , PGUP , ____ , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , ____ , ____ , HOME , PGDN , END , \
+    ____ , MODE , H_DN , S_DN , V_DN , ____ ,   ____ , ____ , ____ , HOME , PGDN , END , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
                          ____ , ____ , XXXX ,   ____ , ____ , ____  \
 //                     `--------------------' `--------------------'
@@ -112,24 +106,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
-
-/* USER TASKS */
-
-void matrix_scan_user (void) {
-  #ifdef RGBLIGHT_ENABLE
-    rgb_update(false);
-  #endif
-}
-
-void keybaord_post_init_user (void) {
-  #ifdef RGBLIGHT_ENABLE
-    rgb_update(false);
-  #endif
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef RGBLIGHT_ENABLE
-    rgb_process_record(keycode, record);
-  #endif
-    return true;
-}

@@ -1,19 +1,16 @@
 #pragma once
 
+/* *** UN-COMMENT LINES BELOW, IF YOU ARE USING AN UNDERGLOW STRIP *** */
+/* #undef RGBLED_NUM */
+/* #define RGBLED_NUM 4 */
+
 /* split keyboard setup */
 #define USE_SERIAL              /* SERIAL or MATRIX_I2C */
 #define USE_SERIAL_PD2
 #define MASTER_LEFT             /* LEFT or RIGHT (or EE_HANDS) */
 
-/* *** COMMENT THIS LINE IF YOU ARE USING UNDERGLOW *** */
-#define USE_BACKLIGHT
-
-#undef RGBLED_NUM
-#ifdef USE_BACKLIGHT
-#define RGBLED_NUM 21
-#else
-#define RGBLED_NUM 4
-#endif
+/* load built-in rgblight animations */
+#define RGBLIGHT_ANIMATIONS
 
 #define MOUSEKEY_DELAY             48
 #define MOUSEKEY_INTERVAL          24
