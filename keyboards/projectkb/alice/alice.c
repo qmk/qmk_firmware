@@ -1,6 +1,5 @@
 #include "alice.h"
 
-__attribute__ ((weak))
 void matrix_init_board(void){
     setPinOutput(A0);
     setPinOutput(A1);
