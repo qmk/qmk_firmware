@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  * Authors: This QMK keymap file is a combination of the default
- * keymap, led source original copied from ../jetpacktuxedo, some
+ * keymap, led code original copied from ../jetpacktuxedo, some
  * copy/paste from QMK documentation code examples (etc).
  * Remainder: (C) 2019 by J.B. <joshb@xs4all.nl>
  *
@@ -73,10 +73,9 @@ bool descramble = 0 ; // boolean to remember if we are in descramble mode for 'e
 bool shift_ison = 0 ; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                       //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
 
-    /* These are some rarely but existing letters in Dutch, and some other additions.
+    /* These are the accented characters of most/all western European Nations.
      * Using the Unicode input system
      */
-
 enum unicode_names { // See below for meaning
     CAEL_,
     CAEU_,
@@ -437,7 +436,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSft     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSft
 // ------------------------------------------------------------------
-// Left+LAlt Del+_ACC _MOV  Enter+_NSY| Space _NSY _FUN    Right+_ACC             // _XYZ are layer switches
+// Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_ACC             // _XYZ are layer switches
 //                                   <|>                                  
 //           hold     hold  hold      |       hold toggl   hold                   // Type of layer switch
 // <1        <2       <3    <4        | 4>    3>   2>      1>                     // Keys by number
@@ -449,7 +448,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _MOV ) , LT ( _NSY , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , LT ( _ACC , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , LT ( _ACC , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -503,11 +502,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
 // LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
-// -------------------------------------------------------------------
-// Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC           // _XYZ are layer switches
-//                                   <|>
-//           hold     hold  hold      |        hold toggl   hold                 // Type of layer switch
-// <1        <2       <3    <4        | 4>     3>   2>      1>                   // Keys by number
+// ------------------------------------------------------------------
+// Left+LAlt Del+_ACC _DDN  Enter+_MOV| Space _DDN _FUN    Right+_ACC            // _XYZ are layer switches
+//                                   <|>                                  
+//           hold     hold  hold      |       hold toggl   hold                  // Type of layer switch
+// <1        <2       <3    <4        | 4>    3>   2>      1>                    // Keys by number
 //                                                   
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
@@ -516,7 +515,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _MOV ) , LT ( _DDN , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDA , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDA , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -535,10 +534,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
 // -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
 // .+LSft 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSft  // QMK limitation prevents ~
-// -------------------------------------------------------------
-// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
-//                          -*- <|>      -*-                                     // Layer access from _LTR -*-
-// <1        <2    <3       <4   | 4>    3>    2>    1>  
+// ------------------------------------------------------------
+// Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
+//                 -*-       <|>         -*-                                     // Layer access from _LTR -*-
+// <1        <2    <3    <4   | 4>       3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
@@ -547,9 +546,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB , _______ , KC_ENT , RALT_T ( KC_RGHT )
-//                         ,        ,              , -*-   <|,>       , -*-     ,        ,
-//      <1                 , <2     , <3           , <4     |, 4>     , 3>      , 2>     , 1>
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , S ( KC_TAB ) , _______ , KC_TAB  , RALT_T ( KC_RGHT )
+//                         ,        , -*-     ,      <|,>             , -*-     ,         ,
+//      <1                 , <2     , <3      , <4    |, 4>           , 3>      , 2>      , 1>
                       ),
 
         /**/
@@ -568,9 +567,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
 // .+LSft 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSft  // QMK limitation prevents ~
 // ------------------------------------------------------------
-// Left+LAlt Del   Sft(tab) ___  | tab   ___   Ent   Right+RAlt
-//                          -*- <|>      -*-                                     // Layer access from _DDL -*-
-// <1        <2    <3       <4   | 4>    3>    2>    1>  
+// Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
+//                 -*-       <|>         -*-                                     // Layer access from _DDL -*-
+// <1        <2    <3    <4   | 4>       3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
@@ -579,9 +578,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_RBRC , KC_LBRC , KC_MINS , KC_EQL  , RCTL_T ( KC_GRV )  , 
         LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
 //      -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , S ( KC_TAB ) , _______ , KC_TAB , _______ , KC_ENT , RALT_T ( KC_RGHT )
-//                         ,        ,              , -*-   <|,>       , -*-     ,        ,
-//      <1                 , <2     , <3           , <4     |, 4>     , 3>      , 2>     , 1>
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , S ( KC_TAB ) , _______ , KC_TAB , RALT_T ( KC_RGHT )
+//                         ,        , -*-     ,      <|,>             , -*-     ,        ,
+//      <1                 , <2     , <3      , <4    |, 4>           , 3>      , 2>     , 1>
                       ),
 
         /**/
@@ -599,9 +598,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
 // LSft  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
 // -------------------------------------------------------------
-// Left+LAlt Del   ___   Sft(tab) | tab   xxx   xxx   Right+RAlt
-//                 -*-           <|>
-// <1        <2    <3    <4       | 4>    3>    2>    1>  
+// Left+LAlt Del   Ent   ___ | Sft(tab) xxx   tab   Right+RAlt
+//                       -*-<|>
+// <1        <2    <3    <4  | 4>       3>    2>    1>  
 //
 //
 //      <pink2      , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -610,9 +609,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
         KC_LSFT     , KC_BTN5 , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , _______ , S ( KC_TAB ) , KC_TAB  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
-//                         ,         , -*-     ,            <|,>        ,         ,         ,
-//      <1                 , <2      , <3      , <4          |, 4>      , 3>      , 2>      , 1>
+        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , S ( KC_TAB ) , XXXXXXX , KC_TAB , RALT_T ( KC_RGHT )
+//                         ,         ,        , -*-   <|,>             ,         ,        ,
+//      <1                 , <2      , <3     , <4     |, 4>           , 3>      , 2>     , 1>
                       ),
 
         /**/

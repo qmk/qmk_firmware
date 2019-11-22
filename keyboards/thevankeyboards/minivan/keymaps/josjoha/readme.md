@@ -147,8 +147,8 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_ACC _MOV  Enter+_NSY| Space  _NSY _FUN    Right+_ACC              // _XYZ is to layer
-                        ...            <|>                                  // Activation on _FUN as BASE
+     Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_ACC               // _XYZ is to layer
+                              ...      <|>                                  // Activation on _FUN as BASE
                hold     hold  hold      |        hold toggl   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
@@ -162,9 +162,9 @@ from ../jetpacktuxedo/ keymap.
      -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht //limitation prevents ~
      ------------------------------------------------------------
-     Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                      // -*- Access on _LTR
-     <1        <2    <3       <4   | 4>    3>    2>    1>  
+     Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
+                     -*-       <|>         -*-                                      // -*- Access on _LTR 
+     <1        <2    <3    <4   | 4>       3>    2>    1>  
 
 - - -
     
@@ -195,9 +195,9 @@ from ../jetpacktuxedo/ keymap.
      LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
      -------------------------------------------------------------
-     Left+LAlt Del   ___   Sht(tab) | tab   xxx   xxx   Right+RAlt
-                     -*-           <|>                                                     // -*- on BASE
-     <1        <2    <3    <4       | 4>    3>    2>    1>  
+     Left+LAlt Del   Ent   ___ | Sft(tab) xxx   tab   Right+RAlt
+                           -*-<|>                                                          // -*- on BASE
+     <1        <2    <3    <4  | 4>       3>    2>    1>  
 
 - - -
     
@@ -270,9 +270,9 @@ from ../jetpacktuxedo/ keymap.
      -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
      .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
      ------------------------------------------------------------
-     Left+LAlt Del   Sht(tab) ___  | tab   ___   Ent   Right+RAlt
-                              -*- <|>      -*-                                                 // on _DDL
-     <1        <2    <3       <4   | 4>    3>    2>    1>  
+     Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
+                     -*-       <|>         -*-                                                 // on _DDL 
+     <1        <2    <3    <4   | 4>       3>    2>    1>  
 
 - - -
 
@@ -285,10 +285,10 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_ACC _MOV  Enter+_DDN| Space  _DDN _FUN    Right+_ACC
-                                       <|>       ...                        // Activation on _FUN as BASE
-               hold     hold  hold      |        hold toggl   hold
-     <1        <2       <3    <4        | 4>     3>   2>      1>
+     Left+LAlt Del+_ACC _DDN  Enter+_MOV| Space _DDN _FUN    Right+_ACC           
+                                       <|>...                               // Activation on _FUN as BASE
+               hold     hold  hold      |       hold toggl   hold
+     <1        <2       <3    <4        | 4>    3>   2>      1>
 
 - - -
    
