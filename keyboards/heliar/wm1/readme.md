@@ -1,12 +1,12 @@
-# Wm1 ergo-keyboard
+# Wm1 ergonomic Keyboard
 
-![Wm1](http://i.imgur.com/q2M3uEU.jpg)
+![Wm1]()
 
-A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. 
+A ergonomic 68 key keyboard pcb made by Helair. 
 
 * Keyboard Maintainer: [Heliar](https://github.com/heliarmk)
-* Hardware Supported: Planck PCB rev1, rev2, rev3, rev4, Teensy 2.0
-* Hardware Availability: [OLKB.com](https://olkb.com), [Massdrop](https://www.massdrop.com/buy/planck-mechanical-keyboard?mode=guest_open)
+* Hardware Supported: Hotswap type
+* Hardware Availability: [Heliar](https://github.com/heliarmk)
 
 Make example for this keyboard (after setting up your build environment):
 
