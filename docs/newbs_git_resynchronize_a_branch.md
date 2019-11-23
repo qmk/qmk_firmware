@@ -16,7 +16,7 @@ Now you have a branch named `old_master` that is a duplicate of your `master` br
 
 ## Resynchronizing Your Branch
 
-Now it's time to resynchronize your `master` branch. For this step, you'll want to have the upstream repository configured as a remote in Git. To check your configured remotes, run `git remote -v`, which should return something similar to:
+Now it's time to resynchronize your `master` branch. For this step, you'll want to have QMK's repository configured as a remote in Git. To check your configured remotes, run `git remote -v`, which should return something similar to:
 
 ```sh
 QMKuser ~/qmk_firmware (master)
