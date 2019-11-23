@@ -3,11 +3,9 @@
 
 A 12-key, orthogonal keypad designed by Can!
 
-Keyboard Maintainer: [Can](https://github.com/canbaytok)
-
-Hardware Supported: Pro Micro Atmega32u4
-
-Hardware Availability: DIY with the [open-source design files](https://github.com/canbaytok/Cans12er)
+* Keyboard Maintainer: [Can](https://github.com/canbaytok)
+* Hardware Supported: Pro Micro Atmega32u4
+* Hardware Availability: DIY with the [open-source design files](https://github.com/canbaytok/Cans12er)
 
 Schematic can be found here: [EasyEDA](https://easyeda.com/senordoenermann/mediapad)
 

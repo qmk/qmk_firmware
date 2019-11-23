@@ -1,5 +1,4 @@
-#ifndef CANS12ER_H
-#define CANS12ER_H
+#pragma once
 
 #include "quantum.h"
 
@@ -12,5 +11,3 @@
 	{ K10,   K11,   K12,   K13 }, \
 	{ K20,   K21,   K22,   K23 }  \
 }
-
-#endif
