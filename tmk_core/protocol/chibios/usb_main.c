@@ -310,7 +310,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_SUSPEND:
 #ifdef SLEEP_LED_ENABLE
             sleep_led_enable();
-#endif      /* SLEEP_LED_ENABLE */
+#endif /* SLEEP_LED_ENABLE */
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
             /* Falls into.*/
@@ -379,7 +379,6 @@ static void    set_led_transfer_cb(USBDriver *usbp) {
 /* Callback for SETUP request on the endpoint 0 (control) */
 static bool usb_request_hook_cb(USBDriver *usbp) {
     const USBDescriptor *dp;
-    int                  has_report_id;
 
     /* usbp->setup fields:
      *  0:   bmRequestType (bitmask)
@@ -432,26 +431,17 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
                 switch (usbp->setup[1]) { /* bRequest */
                     case HID_SET_REPORT:
                         switch (usbp->setup[4]) { /* LSB(wIndex) (check MSB==0 and wLength==1?) */
-                            case KEYBOARD_INTERFACE:
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
+                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                return TRUE;
+                                break;
 #endif
+
+                            case KEYBOARD_INTERFACE:
                                 /* keyboard_led_stats = <read byte from next OUT report>
                                  * keyboard_led_stats needs be word (or dword), otherwise we get an exception on F0 */
-                                has_report_id = 0;
-#if defined(SHARED_EP_ENABLE)
-                                if (usbp->setup[4] == SHARED_INTERFACE) {
-                                    has_report_id = 1;
-                                }
-#endif
-                                if (usbp->setup[4] == KEYBOARD_INTERFACE && !keyboard_protocol) {
-                                    has_report_id = 0;
-                                }
-                                if (has_report_id) {
-                                    usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
-                                } else {
-                                    usbSetupTransfer(usbp, (uint8_t *)&keyboard_led_stats, 1, NULL);
-                                }
+                                usbSetupTransfer(usbp, (uint8_t *)&keyboard_led_stats, 1, NULL);
                                 return TRUE;
                                 break;
                         }
@@ -463,9 +453,9 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #ifdef NKRO_ENABLE
                             keymap_config.nkro = !!keyboard_protocol;
                             if (!keymap_config.nkro && keyboard_idle) {
-#else                           /* NKRO_ENABLE */
+#else  /* NKRO_ENABLE */
                             if (keyboard_idle) {
-#endif                          /* NKRO_ENABLE */
+#endif /* NKRO_ENABLE */
                                 /* arm the idle timer if boot protocol & idle */
                                 osalSysLockFromISR();
                                 chVTSetI(&keyboard_idle_timer, 4 * MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);

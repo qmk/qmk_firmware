@@ -1,18 +1,23 @@
 #+Title: miryoku.org
 
+[[https://raw.githubusercontent.com/manna-harbour/miryoku/master/kle-miryoku-keycodes.png]]
+
 The miryoku layout is an ergonomic, minimal, orthogonal layout for ergo or ortho
 keyboards, implemented as part of the QMK firmware.  The layout is maintained in
 emacs org-mode tables and converted to QMK keymap data structures using embedded
 python scripts.  The layout is mapped onto keyboards with different physical
-layouts as a subset without code duplication using the QMK userland feature and
+layouts as a subset without code duplication using the QMK userspace feature and
 C macros.  Versions of the layout can also be seen outside of the QMK source at
 [[https://github.com/manna-harbour/miryoku/]].
+
+After making changes here call org-babel-tangle (C-c C-v t).
 
 * Contents
 
 - [[#layout][Layout]]
 - [[#code-generation][Code Generation]]
 - [[#subset-mapping][Subset Mapping]]
+- [[#related-documentation][Related Documentation]]
 
 
 * Layout
@@ -45,6 +50,7 @@ C macros.  Versions of the layout can also be seen outside of the QMK source at
     - Dual-function layer change on thumbs.
     - Layers are designed orthogonally with a single purpose per hand and are
       accessed by holding a thumb key on the opposite hand.
+    - All layers on the same hand are based on the same basic key arrangement.
     - Holding layer change and modifiers on one hand combined with a single key
       press on the other hand can produce any combination of modifiers and
       single keys without any finger contortions.
@@ -53,9 +59,10 @@ C macros.  Versions of the layout can also be seen outside of the QMK source at
       or simultaneously without race conditions.
     - As mods are only enabled on the opposite hand, auto-repeat is available on
       the home row on layers for use with cursor and mouse keys.
-    - Tap-hold auto-repeat is disabled to enable faster tap-hold switching on
-      thumbs but thumb tap keys are mirrored onto some layers for use with
-      auto-repeat.
+    - Tap-hold auto-repeat is disabled to permit faster tap-hold switching on
+      thumbs, but thumb tap keys are mirrored onto some layers for use with
+      auto-repeat.  On other layers thumb keys are redefined with important
+      functions for that layer.
 
 
 ** Layers
@@ -92,7 +99,7 @@ included for prose, dot and slash for file and directory names.
 #+NAME: hold
 | RST  |      |      |      |      |      |      |      |      | RST  |
 | LGUI | LALT | LCTL | LSFT |      |      | LSFT | LCTL | LALT | LGUI |
-|      |      |      |      |      |      |      |      |      |      |
+|      | ALGR |      |      |      |      |      |      | ALGR |      |
 | NP   | NP   | MEDR | NAVR | MOUR | NSSL | NSL  | FUNL | NP   | NP   |
 
 
@@ -365,7 +372,7 @@ Modifiers usable in hold table.  Need to have the same name for KC_ and _T versi
 - LCTL
 - LALT
 - LGUI
-- LAGR
+- ALGR
 
 
 ** Other
@@ -512,8 +519,9 @@ cd ../.. && make ergodox_ez:manna-harbour_miryoku:teensy
 
 For the ortho_4x12 layout, the right half as is as follows: The rightmost column
 bottom 3 rows is the pinkie column.  The middle 4 columns top 3 rows are for the
-remaining fingers.  The bottom row left 3 columns are the thumb keys.  The
-remaining keys are unused.
+remaining fingers.  The pinkie column is one row lower than the other columns to
+provide some column stagger on ortho keyboards.  The bottom row left 3 columns
+are the thumb keys.  The remaining keys are unused.
 
 [[../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c][layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c]]
 #+BEGIN_SRC C :noweb yes :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
@@ -588,6 +596,10 @@ cd ../.. && make crkbd:manna-harbour_miryoku:avrdude
 
 
 * Related Documentation
+:PROPERTIES:
+:CUSTOM_ID: related-documentation
+:END:
+
 
 ** QMK
 

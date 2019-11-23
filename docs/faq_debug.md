@@ -27,7 +27,7 @@ You may need privilege to access the device on OS like Linux.
 Check:
 - *hid_listen* finds your device. See above.
 - Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=true` usually in `matrix_init()` in **matrix.c**.
+- set `debug_enable=true`. See [Testing and Debugging](newbs_testing_debugging.md#debugging)
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
