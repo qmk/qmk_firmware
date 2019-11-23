@@ -42,7 +42,7 @@ def compile(cli):
     user_keyboard = ""
 
     # Set path for '/keyboards/' directory
-    keyboards_path = os.path.join(qmk_path , "keyboards")
+    keyboards_path = os.path.join(qmk_path, "keyboards")
     layouts_path = os.path.join(qmk_path, "layouts")
 
     # If below 'keyboards' and not in 'keyboards' or 'keymaps', get current keyboard name
@@ -56,20 +56,19 @@ def compile(cli):
             else:
                 keyboard = str(cwd[len(keyboards_path):])[1:]
 
-            in_keyboard= True
+            in_keyboard = True
 
     # If in layouts dir
     if cwd.startswith(layouts_path):
         if current_folder != "layouts":
-            layout = str(cwd[len(layouts_path):])[1:]
-            in_layout=True
+            in_layout = True
 
     # If user keyboard/keymap or compile keyboard/keymap are supplied, assign those
     if cli.config.compile.keyboard or cli.config.user.keyboard:
         user_keyboard = cli.config.user.keyboard if cli.config.user.keyboard else cli.config.compile.keyboard
     if cli.config.compile.keymap or cli.config.user.keymap:
         if not in_layout:
-            user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap 
+            user_keymap = cli.config.user.keymap if cli.config.user.keymap else cli.config.compile.keymap
 
     if cli.args.filename:
         # Parse the configurator json
@@ -113,7 +112,6 @@ def compile(cli):
         else:
             cli.log.error('You must supply a keyboard to compile a layout keymap. Set one with `qmk config` or supply `--keyboard` ')
             return False
-
 
     else:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
