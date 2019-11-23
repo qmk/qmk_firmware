@@ -134,7 +134,7 @@ bool led_update_kb(led_t led_state) {
     if(res) {
         // writePin sets the pin high for 1 and low for zero.
         // In this example the pins are inverted, setting
-        // it low/0 makes them light up and high/1 turns the led off.
+        // it low/0 turns it on, and high/1 turns the led off.
         // This behavior depends on whether the LED is between the pin
         // and VCC or GND.
         writePin(B0, !led_state.num_lock);
