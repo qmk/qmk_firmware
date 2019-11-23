@@ -146,9 +146,12 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef DIP_SWITCH_ENABLE
-    #include "dip_switch.h"
+#    include "dip_switch.h"
 #endif
 
+#ifdef DYNAMIC_MACRO_ENABLE
+#    include "process_dynamic_macro.h"
+#endif
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
@@ -257,8 +260,8 @@ void tap_code16(uint16_t code);
 void backlight_init_ports(void);
 void backlight_task(void);
 void backlight_task_internal(void);
-void backlight_on(uint8_t backlight_pin);
-void backlight_off(uint8_t backlight_pin);
+void backlight_on(pin_t backlight_pin);
+void backlight_off(pin_t backlight_pin);
 
 #    ifdef BACKLIGHT_BREATHING
 void breathing_task(void);
@@ -285,5 +288,7 @@ uint16_t hex_to_keycode(uint8_t hex);
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
+bool led_update_user(led_t led_state);
+bool led_update_kb(led_t led_state);
 
 void api_send_unicode(uint32_t unicode);

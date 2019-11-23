@@ -91,8 +91,8 @@ void draw_default(){
   if (hour == 0){
     hour = 12;
   }
-  char hour_str[2] = "";
-  char min_str[2] = "";
+  char hour_str[3] = "";
+  char min_str[3] = "";
 
   sprintf(hour_str, "%02d", hour);
   sprintf(min_str, "%02d", minute);
@@ -199,11 +199,11 @@ void draw_clock(){
   if (hour == 0){
     hour = 12;
   }
-  char hour_str[2] = "";
-  char min_str[2] = "";
-  char year_str[4] = "";
-  char month_str[2] = "";
-  char day_str[2] = "";
+  char hour_str[3] = "";
+  char min_str[3] = "";
+  char year_str[5] = "";
+  char month_str[3] = "";
+  char day_str[3] = "";
 
   sprintf(hour_str, "%02d", hour);
   sprintf(min_str, "%02d", minute);

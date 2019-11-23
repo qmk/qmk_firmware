@@ -1,10 +1,5 @@
 # Use this by sourcing it in your script.
 
-TRAVIS_BRANCH="${TRAVIS_BRANCH:master}"
-TRAVIS_PULL_REQUEST="${TRAVIS_PULL_REQUEST:false}"
-TRAVIS_COMMIT_MESSAGE="${TRAVIS_COMMIT_MESSAGE:-none}"
-TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
-
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 	git config --global user.name "QMK Bot"
 	git config --global user.email "hello@qmk.fm"

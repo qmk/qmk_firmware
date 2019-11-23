@@ -100,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_wrapper( \
 	_____________________FUNC_LEFT______________________,                     _____________________FUNC_RIGHT_____________________, \
-	 M_XXX2,  M_XXX3, _________MEDIA_1_________, _______,                     _______________NAV_1______________, _______,  K_MDSH, \
-	 M_XXX4,  M_XXX5, _________MEDIA_2_________, _______,                     _______________NAV_2______________,  K_LOCK, _______, \
-	_______,  M_SHFT, _________MEDIA_3_________, _______, _______,   _______, _______,    KC_M, _______, _______,  M_XXX1,  M_PYNV, \
+	_____________________LOWER_L1_______________________,                     _____________________LOWER_R1_______________________, \
+	_____________________LOWER_L2_______________________,                     _____________________LOWER_R2_______________________, \
+	_____________________LOWER_L3_______________________, _______,   _______, _____________________LOWER_R3_______________________, \
 	                           __________________________________,   _______, _______, M_CODE,  _______ \
 	),
 
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_RAISE] = LAYOUT_wrapper( \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   K_CSCN, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX,  XXXXXXX, _____________MOUSE_1______________,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX,  XXXXXXX, _____________MOUSE_2______________,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
@@ -130,9 +130,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ADJUST
  * ,------------------------------------------.                    ,-----------------------------------------.
- * |EEP_RST|      |      |      |      |      |                    |      |      |      |COLMAK|DVORAK|QWERTY|
+ * |       |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |M_MAKE |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |M_MAKE |EEPRST|      |      |      |      |                    |      |      |      |COLMAK|DVORAK|QWERTY|
  * |-------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |M_VRSN |M_MALL|      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
  * |-------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
@@ -143,10 +143,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                    `----------------------------'           '------''--------------------'
  */
 [_ADJUST] = LAYOUT_wrapper( \
-  EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK,  DVORAK,  QWERTY, \
-  M_MAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  M_VRSN, M_MALL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  M_FLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
-                            __________________________________,      __________________________________ \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  _____________________ADJUST_L1______________________,                        _____________________ADJUST_R1______________________, \
+  _____________________ADJUST_L2______________________,                        _____________________ADJUST_R2______________________, \
+  _____________________ADJUST_L3______________________, XXXXXXX,      XXXXXXX, _____________________ADJUST_R3______________________,\
+                             __________________________________,      __________________________________ \
   ),
 };

@@ -505,6 +505,13 @@ enum quantum_keycodes {
     MAGIC_EE_HANDS_LEFT,
     MAGIC_EE_HANDS_RIGHT,
 
+    // Dynamic Macros
+    DYN_REC_START1,
+    DYN_REC_START2,
+    DYN_REC_STOP,
+    DYN_MACRO_PLAY1,
+    DYN_MACRO_PLAY2,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -756,5 +763,12 @@ enum quantum_keycodes {
 #    define SH_ON (QK_SWAP_HANDS | OP_SH_ON)
 #    define SH_OFF (QK_SWAP_HANDS | OP_SH_OFF)
 #endif
+
+// Dynamic Macros aliases
+#define DM_REC1 DYN_REC_START1
+#define DM_REC2 DYN_REC_START2
+#define DM_RSTP DYN_REC_STOP
+#define DM_PLY1 DYN_MACRO_PLAY1
+#define DM_PLY2 DYN_MACRO_PLAY2
 
 #endif  // QUANTUM_KEYCODES_H
