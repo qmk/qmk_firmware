@@ -90,7 +90,6 @@ def compile(cli):
     elif in_keyboard:
         keyboard = user_keyboard if user_keyboard else keyboard
         keymap = user_keymap if user_keymap else keymap
-        
         if not os.path.exists(os.path.join(keyboards_path, keyboard, "rules.mk")):
             cli.log.error('This directory does not contain a rules.mk file. Change directory or supply --keyboard with optional --keymap')
             return False
