@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-uint16_t copy_paste_timer;
 
 enum layers {
     QWERTY = 0,
