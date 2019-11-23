@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "", 
+    "keyboard_name": "wm1", 
     "url": "", 
-    "maintainer": "qmk", 
+    "maintainer": "heliar", 
     "width": 18.25, 
     "height": 5.25, 
     "layouts": {
