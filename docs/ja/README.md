@@ -1,4 +1,4 @@
-# Quantum メカニカル キーボード ファームウェア
+# Quantum Mechanical Keyboard Firmware
 
 [![現在のバージョン](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![ビルド状態](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
@@ -13,7 +13,7 @@ QMK (*Quantum Mechanical Keyboard*)は QMK ファームウェア、QMK ツール
 
 ## 入手方法
 
-キーマップ、キーボードあるいは QMK への機能に貢献をする予定がある場合、最も簡単なのは、[Github を介してリポジトリをフォークし](https://github.com/qmk/qmk_firmware#fork-destination-box)、リポジトリをあなたの開発環境にクローンして変更を加え、それらをプッシュし、[プルリクエスト](https://github.com/qmk/qmk_firmware/pulls)を開くことです。
+QMK のキーマップ、キーボード、機能に貢献をする予定がある場合、最も簡単なのは、[Github を介してリポジトリをフォークし](https://github.com/qmk/qmk_firmware#fork-destination-box)、リポジトリをあなたの開発環境にクローンして変更を加え、それらをプッシュし、[プルリクエスト](https://github.com/qmk/qmk_firmware/pulls)を開くことです。
 
 それ以外の場合は、`git clone https://github.com/qmk/qmk_firmware` を介して直接クローンすることができます。zip または tar ファイルをダウンロードしないでください。コンパイルするためのサブモジュールをダウンロードするために git リポジトリが必要です。
 
