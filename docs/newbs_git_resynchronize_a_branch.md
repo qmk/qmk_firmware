@@ -2,7 +2,7 @@
 
 Suppose you have committed to your `master` branch, and now need to update your QMK repository. You could `git pull` QMK's `master` branch into your own, but GitHub will tell you that your commit is a number of commits ahead of `qmk:master`, which can create issues if you want to make a pull request to QMK.
 
-!> This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch.md). If you are not familiar with that document, please read it first, then return here.
+?> This document builds upon the concepts detailed in [Your Fork's Master: Update Often, Commit Never](newbs_git_using_your_master_branch.md). If you are not familiar with that document, please read it first, then return here.
 
 ## Backing Up the Changes on Your Own Master Branch (Optional)
 
