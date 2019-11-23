@@ -6,31 +6,17 @@ Suppose you have committed to your `master` branch, and now need to update your 
 
 ## Backing Up the Changes on Your Own Master Branch (Optional)
 
-No one wants to lose work if it can be helped. If you want to save the changes you've already made to your `master` branch, the simplest way to do so is to simply rename your branch:
+No one wants to lose work if it can be helped. If you want to save the changes you've already made to your `master` branch, the simplest way to do so is to simply create a duplicate of your "dirty" `master` branch:
 
 ```sh
-$ git branch -m old_master  # Renames the current branch
+$ git branch old_master master
 ```
 
-Now you have a branch named `old_master`, but no `master` branch. To create a new `master` branch, enter:
-
-```sh
-$ git branch master  # Creates a new branch
-```
-
-When you create a branch, the new branch matches the state of the current branch.
-
-Now it's time to resynchronize your `master` branch. First, it needs to be checked out:
-
-```sh
-$ git checkout master
-```
-
-?> You can use `git checkout -b master` to create a new branch named `master`, in place of running `git branch master` followed by `git checkout master`.
+Now you have a branch named `old_master` that is a duplicate of your `master` branch.
 
 ## Resynchronizing Your Branch
 
-For this step, you'll want to have the upstream repository configured as a remote in Git. To check your configured remotes, run `git remote -v`, which should return something similar to:
+Now it's time to resynchronize your `master` branch. For this step, you'll want to have the upstream repository configured as a remote in Git. To check your configured remotes, run `git remote -v`, which should return something similar to:
 
 ```sh
 QMKuser ~/qmk_firmware (master)
