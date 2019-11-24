@@ -1,0 +1,6 @@
+#pragma once
+
+#define RGBLIGHT_EFFECT_BREATHING
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+#define RETRO_TAPPING
