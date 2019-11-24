@@ -1,6 +1,6 @@
 # キーマップの FAQ
 
-このページは人々がキーマップについてしばしば持つ質問についてカバーします。まだ持っていない場合は、[キーマップの概要](keymap.md)を最初に読むべきです。
+このページは人々がキーマップについてしばしば持つ疑問についてカバーします。まだ無い場合には、[キーマップの概要](keymap.md)を最初に読むべきです。
 
 ## どのキーコードを使えますか？
 あなたが利用可能なキーコードのインデックスについては、[キーコード](keycodes.md)を見てください。利用可能な場合、これらをより広範なドキュメントにリンクします。
@@ -18,14 +18,14 @@
 
 QMK は2つの機能、ブートマジックとコマンドを持ち、これによりその場でキーボードの動作を変更することができます。これには Ctrl/Caps の交換、Gui の無効化、Alt/GUI の交換、Backspace/Backslash の交換、全てのキーの無効化およびその他の動作の変更が含まれますが、これらに限定されません。
 
-高速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットされ、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
+高速な解決策として、キーボードを接続している時に `Space`+`Backspace` を押してみてください。これはキーボードに保存されている設定をリセットし、これらのキーを通常の操作に戻します。うまく行かない場合は、以下を見てください:
 
 * [ブートマジック](feature_bootmagic.md)
 * [コマンド](feature_command.md)
 
-## メニュー キーが動作しない
+## メニューキーが動作しない
 
-`KC_RGUI` と `KC_RCTL` の間にあるほとんどの最新のキーボードで見つかるキーは、実際には `KC_APP` と呼ばれます。これは、そのキーが発明された時に、関連する標準にすでに `MENU` という名前のキーが存在していたため、MS はそれを `APP` キーと呼ぶことを選択したたためです。
+`KC_RGUI` と `KC_RCTL` の間にあるほとんどの最近のキーボードで見つかるキーは、実際には `KC_APP` と呼ばれます。これは、そのキーが発明された時に、関連する標準にすでに `MENU` という名前のキーが存在していたため、MS はそれを `APP` キーと呼ぶことを選択したたためです。
 
 ## `KC_SYSREQ` が動作しません。
 `KC_SYSREQ`の代わりに、Print Screen(`KC_PSCREEN` あるいは `KC_PSCR`) のキーコードを使ってください。'Alt + Print Screen' のキーの組み合わせは、'System request' と認識されます。
@@ -36,9 +36,9 @@ QMK は2つの機能、ブートマジックとコマンドを持ち、これに
 
 ## 電源キーが動作しません
 
-やや紛らわしいことに、QMK には2つの "Power" キーコードがあります: キーボード/キーパッド HID 使用ページでは `KC_POWER`、コンシューマ ページでは `KC_SYSTEM_POWER` (あるいは `KC_PWR`)。
+やや紛らわしいことに、QMK には2つの "Power" キーコードがあります: キーボード/キーパッド HID 使用法ページでは `KC_POWER`、コンシューマ ページでは `KC_SYSTEM_POWER` (あるいは `KC_PWR`)。
 
-前者は macOS でのみ認識されますが、後者 `KC_SLEP` および `KC_WAKE` は3つの主要なオペレーティング システム全てでサポートされるため、代わりにこれらを使うことをお勧めします。Windows では、これらのキーはすぐに有効になりますが、macOS ではそれらはダイアログが表示されるまで押し続ける必要があります。
+前者は macOS でのみ認識されますが、後者 `KC_SLEP` および `KC_WAKE` は3つの主要なオペレーティングシステム全てでサポートされるため、これらを使うことをお勧めします。Windows ではこれらのキーはすぐに有効になりますが、macOS ではそれらはダイアログが表示されるまで押し続ける必要があります。
 
 ## ワンショット修飾子
 私の個人的な問題を解決します。'The' ではなく 'the' あるいは 'THe' を間違って取得することがありました。ワンショットシフトはこれを軽減します。
@@ -53,7 +53,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
-## メカニカル ロックスイッチのサポート
+## メカニカルロックスイッチのサポート
 
 この機能は [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock) のような*メカニカルロックスイッチ*用です。これを `config.h` に追加することで有効にすることができます:
 
@@ -64,16 +64,16 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 この機能を有効にした後で、キーマップでキーコード `KC_LCAP`、`KC_LNUM` および `KC_LSCR` を代わりに使います。
 
-古いビンテージ メカニカル キーボードにはロック スイッチが付いている場合がありますが、最新のものにはありません。***ほとんどの場合この機能は必要なく、単にキーコード `KC_CAPS`、`KC_NLCK` および `KC_SLCK`*** を使います。
+古いビンテージメカニカルキーボードにはロックスイッチが付いている場合がありますが、最新のものにはありません。***ほとんどの場合この機能は必要なく、単にキーコード `KC_CAPS`、`KC_NLCK` および `KC_SLCK`*** を使います。
 
-## Cédille 'Ç' のような ASCII 以外の特別文字を入力してください。 
+## Cédille 'Ç' のような ASCII 以外の特別文字の入力
 これらの機能を全てのシステムで入力するための汎用的な方法はありません。 OS またはレイアウトに固有の方法で、**MACRO** を定義しなければなりません。
 
 **MACRO** コードの例についてはこの投稿を見てください。
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
 
-**Windows** では、`AltGr` キーあるいは **Altコード** を使うことができます。
+**Windows** では、`AltGr` キーあるいは **Alt コード** を使うことができます。
 * http://en.wikipedia.org/wiki/AltGr_key
 * http://en.wikipedia.org/wiki/Alt_code
 
@@ -91,7 +91,7 @@ http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.ht
 ほとんどの Fn キーと異なり、Apple のキーボードのキーには実際には独自のキーコードがあります... 基本的な 6KRO HID レポートの6番目のキーコードの代わりになります -- つまり、Apple キーボードは実際には 5KRO のみです。
 
 QMK にこのキーを送信させることは技術的に可能です。ただし、そうするには Fn キーの状態を追加するためにレポート形式の修正を必要とします。 
-さらに悪いことに、キーボードの VID と PID が実際の Apple のキーボードのものと一致しない限り、認識されません。公式の QMK がこの機能をサポートする法的な問題は、それが起こりそうもないという意味を作成するかもしれません。
+さらに悪いことに、キーボードの VID と PID が実際の Apple のキーボードのものと一致しない限り、認識されません。公式の QMK がこの機能をサポートする法的な問題は、それが起こりそうもないということを意味します。
 
 詳細については、[この問題](https://github.com/qmk/qmk_firmware/issues/2179)を見てください。
 
@@ -102,7 +102,7 @@ QMK にこのキーを送信させることは技術的に可能です。ただ�
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c
 
-`IOHIDConsumer::dispatchConsumerEvent` はコンシューマページの使用を処理します。
+`IOHIDConsumer::dispatchConsumerEvent` はコンシューマページの使用法を処理します。
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
 
@@ -118,7 +118,7 @@ https://pqrs.org/osx/karabiner/seil.html
 
 
 ## RN-42 Bluetooth が Karabiner で動作しない
-Karabiner - Mac OSX 上のキーマッピング ツール - デフォルトで RN-42 モジュールからの入力を無視します。Karabiner をキーボードで動作させるにはこのオプションを有効にする必要があります。
+Karabiner - Mac OSX 上のキーマッピングツール - デフォルトで RN-42 モジュールからの入力を無視します。Karabiner をキーボードで動作させるにはこのオプションを有効にする必要があります。
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
 この問題の詳細についてはこれらを見てください。
@@ -130,8 +130,8 @@ https://github.com/tekezo/Karabiner/issues/403
 
 [Grave Escape](feature_grave_esc.md) 機能を見てください。
 
-## デュアル ロールの右修飾キーの矢印
-キーがタップされた時に右の修飾キーが矢印キーになり、キーが保持された時に修飾キーが引き続き使用されます。TMK では、デュアル-ロール機能は **TAP** と呼ばれます。
+## デュアルロールの右修飾キーの矢印
+キーがタップされた時に右の修飾キーが矢印キーになり、キーが押し続けられた時に修飾キーが引き続き使用されます。TMK では、デュアルロール機能は **TAP** と呼ばれます。
 ```
 #include "keymap_common.h"
 

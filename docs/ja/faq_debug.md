@@ -18,7 +18,7 @@ Waiting for new device:.........................
 Listening:
 ```
 
-この 'Listening:' のメッセージが表示されない場合は、[Makefile] 内の `CONSOLE_ENABLE=yes` でビルドしてみてください
+この 'Listening:' のメッセージが表示されない場合は、[Makefile] を `CONSOLE_ENABLE=yes` に設定してビルドしてみてください
 
 Linux のような OS でデバイスにアクセスするには、権限が必要かもしれません。
 - `sudo hid_listen` を試してください
@@ -27,11 +27,11 @@ Linux のような OS でデバイスにアクセスするには、権限が必�
 以下を調べてください:
 - *hid_listen* がデバイスを検出する。上記を見てください。
 - **Magic**+d を使ってデバッグを有効にする。[マジック コマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
-- set `debug_enable=true`. [テストとデバッグ](newbs_testing_debugging.md#debugging)を見てください
+- `debug_enable=true` を設定します。[テストとデバッグ](newbs_testing_debugging.md#debugging)を見てください
 - デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
 
-## Linux あるいは UNIX のようなシステムは Super User 権限を必要とします。
+## Linux あるいは UNIX のようなシステムは Super User 権限を必要とします
 権限付きで *hid_listen* を実行するために 'sudo' を使ってください。
 ```
 $ sudo hid_listen
@@ -75,10 +75,10 @@ Size after:
 - DFU tools do /not/ allow you to write into the bootloader (unless
 you throw in extra fruit salad of options), so there is little risk
 there.
-- EEPROM の書き込みサイクルは、約100000です。ファームウェアを繰り返し継続的に書き換えるべきではありません; それは最終的に EEPROM を焼き焦がします。
+- EEPROM の書き込みサイクルは、約100000です。ファームウェアを繰り返し継続的に書き換えるべきではありません。それは最終的に EEPROM を焼き焦がします。
 
 ## NKRO が動作しません
-最初に、**Makefile**内で ビルドオプション `NKRO_ENABLE`を使ってファームウェアをコンパイルする必要があります。
+最初に、**Makefile** 内で ビルドオプション `NKRO_ENABLE`を使ってファームウェアをコンパイルする必要があります。
 
 **NKRO** がまだ動作しない場合は、`Magic` **N** コマンド(デフォルトでは`LShift+RShift+N`)を試してみてください。**NKRO** モードと **6KRO** モードの間で一時的に切り替えるためにこのコマンドを使うことができます。状況によっては **NKRO** が機能しない場合、特に BIOS の場合は **6KRO** モードに切り替える必要があります。
 
@@ -103,7 +103,7 @@ http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad
 
 
 ## ブートローダの Jump が動作しない
-**Makefile** 内でブートローダのサイズを適切に設定します。間違ったセクションサイズのブートローダは、おそらく**マジック コマンド** および **ブート マジック**で起動しません。
+**Makefile** 内でブートローダのサイズを適切に設定します。間違ったセクションサイズのブートローダは、おそらく**マジックコマンド** および **ブートマジック**で起動しません。
 ```
 # Size of Bootloaders in bytes:
 #   Atmel DFU loader(ATmega32U4)   4096
@@ -115,7 +115,7 @@ http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad
 #   Teensy++ halfKay(AT90USB128)   2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
-AVR ブート セクションのサイズは実際には **BOOTSZ** ヒューズを設定することで定義されます。MCU のデータシートを参照してください。
+AVR ブートセクションのサイズは実際には **BOOTSZ** ヒューズを設定することで定義されます。MCU のデータシートを参照してください。
 TMK は**バイト**を使いますが、データシートでは **Word** (2 バイト) のサイズとアドレスが使われることに注意してください。
 
 AVR ブートセクションは以下のように Flash メモリの最後にあります。
@@ -149,16 +149,16 @@ byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
 詳細についてはこの議論を見てください。
 https://github.com/tmk/tmk_keyboard/issues/179
 
-TeensyUSB を使っている場合、ハードウェア リセットボタンによって RESET キーが機能しなくなる[既知のバグ](https://github.com/qmk/qmk_firmware/issues/164)があります。キーボードのプラグを抜いて再接続すると、問題が解決するはずです。
+TeensyUSB を使っている場合、ハードウェアリセットボタンによって RESET キーが機能しなくなる[既知のバグ](https://github.com/qmk/qmk_firmware/issues/164)があります。キーボードのプラグを抜いて再接続すると、問題が解決するはずです。
 
-## 特別なエクストラキーが動作しない (システム、オーディオ コントロール キー)
+## 特別なエクストラキーが動作しない (システム、オーディオコントロールキー)
 QMK でそれらを使うには、`rules.mk` 内で `EXTRAKEY_ENABLE` を定義する必要があります。
 
 ```
 EXTRAKEY_ENABLE = yes          # オーディオ制御とシステム制御
 ```
 
-## スリープからの復帰が動作しない
+## スリープから復帰しない
 
 Windows では、**デバイス マネージャ**の電源**プロパティの管理**タブ内の `Allow this device to wake the computer` 設定を調べてください。また BIOS 設定も調べてください。
 
@@ -175,7 +175,7 @@ Arduino の Leonardo と micro には **ATMega32U4** があり、TMK に使う�
 
 ## JTAG を有効にする
 
-デフォルトでは、キーボードが起動するとすぐに JTAG デバッグ インタフェースが無効になります。JTAG 対応 MCU は工場で `JTAGEN` ヒューズ セットが搭載されており、ボードがスイッチマトリックス、LED などに使用している MCU の特定のピンを引き継ぎます。
+デフォルトでは、キーボードが起動するとすぐに JTAG デバッグインタフェースが無効になります。JTAG 対応 MCU は出荷時に `JTAGEN` ヒューズセットが搭載されており、ボードがスイッチマトリックス、LED などに使用している MCU の特定のピンを引き継ぎます。
 
 JTAG を有効にしたい場合は、単に以下のものを `config.h` に追加します:
 
@@ -213,7 +213,7 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 ## BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles の問題
 一部の人がキーボードが BIOS で動作しなくなった および/または 再開(電源サイクル)の後で動作しなくなったと報告しました。
 
-今のところ、この問題の根本は明確ではないですが、幾つかのビルドオプションが関係しているようです。Makefileで、`CONSOLE_ENABLE`、`NKRO_ENABLE`、`SLEEP_LED_ENABLE` および/あるいは 他のオプションを無効にしてみてください。
+今のところ、この問題の根本は明確ではないですが、幾つかのビルドオプションが関係しているようです。Makefileで、`CONSOLE_ENABLE`、`NKRO_ENABLE`、`SLEEP_LED_ENABLE` あるいは他のオプションを無効にしてみてください。
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
@@ -222,5 +222,5 @@ https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 
 ## FLIP が動作しない
 ### `AtLibUsbDfu.dll` が見つかりません。
-デバイスマネージャから現在のドライバを削除し、FLIP が提供するものを再インストールする。
+デバイスマネージャから現在のドライバを削除し、FLIP が提供するものを再インストールします。
 http://imgur.com/a/bnwzy

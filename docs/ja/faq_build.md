@@ -18,7 +18,7 @@
 `make` を `sudo` で実行することは一般的には良い考えでは***なく***、可能であれば前者の方法のいずれかを使うべきです。
 
 ### Linuxの `udev` ルール
-Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置するかのどちらかを使うことができます。追加をしたら、以下を実行します:
+Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置することで、これを行うことができます。権限の追加が完了したら、以下を実行します:
 ```console
 sudo udevadm control --reload-rules
 sudo udevadm trigger
@@ -53,7 +53,7 @@ ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
 ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**注意:** ModemManager フィルタリングは厳格モードで無い場合のみ動作します。以下のコマンドはその設定を更新することができます:
+**注意:** ModemManager フィルタリングは厳格モードでは無い場合のみ動作します。以下のコマンドでその設定を変更することができます:
 ```console
 sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
 sudo systemctl daemon-reload
@@ -77,9 +77,9 @@ Windows 上でキーボードを書き込む時に発生する問題は、ブー
 
 QMK インストール スクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
 
-それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダ ドライバのインストール](driver_installation_zadig.md)を見てください。
+それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダドライバのインストール](driver_installation_zadig.md)を見てください。
 
-## WINAVR は非推奨です。
+## WINAVR は非推奨
 もう推奨されなくなり、何らかの問題を起こすかもしれません。
 [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99)を見てください。
 
@@ -164,9 +164,9 @@ brew link --force avr-gcc@8
 ```
 
 ### キーボードを書き込んだが何も起こらない/キーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
-ARM ベースのチップ上で EEPROM がどのように動作するかにより、保存された設定が無効になる場合があります。これはデフォルト レイヤに影響し、まだ解明中の特定の環境下でキーボー尾が不安定になるかも*しれません*。EEPROM の再設定でこれが修正されます。
+ARM ベースのチップ上で EEPROM がどのように動作するかにより、保存された設定が無効になる場合があります。これはデフォルトレイヤに影響し、まだ調査中の特定の環境下でキーボードが不安定になるかも*しれません*。EEPROM の再設定でこれが修正されます。
 
-[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を eeprom 再設定を強制するために使うことができます。このイメージを書き込んだ後で、通常のファームウェアをフラッシュすると、キーボードが_通常_ の正常な順序に復元されます。
+[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom 再設定を強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが_通常_ の正常な順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
 いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[Bootmagic  ドキュメント](feature_bootmagic.md)を見てください)。

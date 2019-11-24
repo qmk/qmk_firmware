@@ -2,7 +2,7 @@
 
 ## QMK とは何か？
 
-Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) はカスタム キーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始めました。
+Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) はカスタム キーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始まりました。
 
 ## QMK と TMK の違いは何か？
 
