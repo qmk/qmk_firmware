@@ -69,6 +69,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
+**/etc/udev/rules.d/57-bootloadhid.rules:**
+```
+# bootloadHID
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
+```
+
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
 Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices may require `USB_SERIAL` and any of its sub options.
