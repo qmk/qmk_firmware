@@ -1,6 +1,6 @@
 # Leeku Finger65
 
-**This PCB is not QMK ready by default**. If you want to use your Leeku Finger65 PCB with QMK, you **must** ISP Flash the Leeku PCB using the bootloader for theatmega32a that resides in the `util/` folder.
+**This PCB is not QMK ready by default**. If you want to use your Leeku Finger65 PCB with QMK, you **must** ISP Flash the Leeku PCB using the bootloader for the atmega32a that resides in the `util/` folder.
 
 * Keyboard Maintainer: [sidcarter](https://github.com/sidcarter)
 * Hardware Supported: LeeKu Finger65 PCB, atmega32a

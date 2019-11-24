@@ -14,7 +14,7 @@ Flashing example for this keyboard ([after setting up the bootloadHID flashing e
 
     make unikorn:default:flash
 
-**Reset Key:**: Short the two holes labeled `FW_JP` underneath the PCB, beside the Tab key while plugging in the keyboard. 
+**Reset Key**: Short the two holes labeled `FW_JP` underneath the PCB, beside the Tab key while plugging in the keyboard. 
 
 Do not confuse this with the LED holes of the switch in the `Tab` position. `FW_JP` is not reachable from the top as the plate blocks access to it. 
 
