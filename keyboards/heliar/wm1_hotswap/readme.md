@@ -1,6 +1,6 @@
 # Wm1 ergonomic Keyboard alternative hotswap PCB
 ### Original Wm1 Keyboard
-[Wm1 keyboard with SA Pulse](https://i.imgur.com/f0zRPTB.png)
+![Wm1 keyboard with SA Pulse](https://i.imgur.com/f0zRPTB.png)
 ### Pcb front side
 ![Wm1 front side of Pcb](https://i.imgur.com/2W2G3V6.jpg)
 ### Pcb back side
