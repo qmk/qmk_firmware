@@ -1,45 +1,45 @@
-# Debugging FAQ
+# デバッグのFAQ
 
-This page details various common questions people have about troubleshooting their keyboards.
+このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
 
-# Debug Console
+# デバッグ コンソール
 
-## `hid_listen` Can't Recognize Device
-When debug console of your device is not ready you will see like this:
+## `hid_listen` デバイスを認識できない
+デバイスのデバッグコンソールの準備ができていない場合、以下のように表示されます:
 
 ```
 Waiting for device:.........
 ```
 
-once the device is plugged in then *hid_listen* finds it you will get this message:
+デバイスが接続されると、*hid_listen* がデバイスを見つけ、以下のメッセージが表示されます:
 
 ```
 Waiting for new device:.........................
 Listening:
 ```
 
-If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
+この 'Listening:' のメッセージが表示されない場合は、[Makefile] 内の `CONSOLE_ENABLE=yes` でビルドしてみてください
 
-You may need privilege to access the device on OS like Linux.
-- try `sudo hid_listen`
+Linux のような OS でデバイスにアクセスするには、権限が必要かもしれません。
+- `sudo hid_listen` を試してください
 
-## Can't Get Message on Console
-Check:
-- *hid_listen* finds your device. See above.
-- Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
-- set `debug_enable=true`. See [Testing and Debugging](newbs_testing_debugging.md#debugging)
-- try using 'print' function instead of debug print. See **common/print.h**.
-- disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
+## コンソールにメッセージが表示されない
+以下を調べてください:
+- *hid_listen* がデバイスを検出する。上記を見てください。
+- **Magic**+d を使ってデバッグを有効にする。[マジック コマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
+- set `debug_enable=true`. [テストとデバッグ](newbs_testing_debugging.md#debugging)を見てください
+- デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
+- コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
 
-## Linux or UNIX Like System Requires Super User Privilege
-Just use 'sudo' to execute *hid_listen* with privilege.
+## Linux あるいは UNIX のようなシステムは Super User 権限を必要とします。
+権限付きで *hid_listen* を実行するために 'sudo' を使ってください。
 ```
 $ sudo hid_listen
 ```
 
-Or add an *udev rule* for TMK devices with placing a file in rules directory. The directory may vary on each system.
+または rules ディレクトリにファイルを置いて、TMK デバイスのための *udev rule* を追加します。ディレクトリは各システムで異なるかもしれません。
 
-File: /etc/udev/rules.d/52-tmk-keyboard.rules(in case of Ubuntu)
+File: /etc/udev/rules.d/52-tmk-keyboard.rules (Ubuntuの場合)
 ```
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
@@ -47,23 +47,18 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 
 ***
 
-# Miscellaneous
-## Safety Considerations
+# 雑多なこと
+## 安全性の考慮
 
-You probably don't want to "brick" your keyboard, making it impossible
-to rewrite firmware onto it.  Here are some of the parameters to show
-what things are (and likely aren't) too risky.
+あなたはおそらくキーボードを "文鎮化" したくないでしょう。ファームウェアを書き換えられないようにします。リスクがあまりに高い(そしてそうでないかもしれない)ものの一部のリストを示します。
 
-- If your keyboard map does not include RESET, then, to get into DFU
-  mode, you will need to press the reset button on the PCB, which
-  requires unscrewing the bottom.
-- Messing with tmk_core / common files might make the keyboard
-  inoperable
+- キーボードマップに RESET が含まれない場合、DFU モードに入るには、PCB のリセットボタンを押す必要があります。底部のネジを外す必要があります。
+- tmk_core / common ファイルを触るとキーボードが操作不能になるかもしれません。
 - Too large a .hex file is trouble; `make dfu` will erase the block,
-  test the size (oops, wrong order!), which errors out, failing to
-  flash the keyboard, leaving it in DFU mode.
-  - To this end, note that the maximum .hex file size on Planck is
-    7000h (28672 decimal)
+test the size (oops, wrong order!), which errors out, failing to
+flash the keyboard, leaving it in DFU mode.
+   - To this end, note that the maximum .hex file size on Planck is
+7000h (28672 decimal)
 
 ```
 Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
@@ -74,47 +69,41 @@ Size after:
       0   22396       0   22396    577c planck_rev4_cbbrowne.hex
 ```
 
-  - The above file is of size 22396/577ch, which is less than
-    28672/7000h
-  - As long as you have a suitable alternative .hex file around, you
-    can retry, loading that one
-  - Some of the options you might specify in your keyboard's Makefile
-    consume extra memory; watch out for BOOTMAGIC_ENABLE,
-    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
+- 上のファイルのサイズは 22396/577ch で、28672/7000h より小さいです
+- 適切な替わりの .hex ファイルがある限り、それをロードして再試行することができます
+- キーボードの Makefile で指定したかもしれない一部のオプションは、余分なメモリを消費します; BOOTMAGIC_ENABLE、MOUSEKEY_ENABLE、EXTRAKEY_ENABLE、CONSOLE_ENABLE、API_SYSEX_ENABLE に注意してください
 - DFU tools do /not/ allow you to write into the bootloader (unless
-  you throw in extra fruit salad of options), so there is little risk
-  there.
-- EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
-  firmware repeatedly and continually; that'll burn the EEPROM
-  eventually.
+you throw in extra fruit salad of options), so there is little risk
+there.
+- EEPROM の書き込みサイクルは、約100000です。ファームウェアを繰り返し継続的に書き換えるべきではありません; それは最終的に EEPROM を焼き焦がします。
 
-## NKRO Doesn't work
-First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
+## NKRO が動作しません
+最初に、**Makefile**内で ビルドオプション `NKRO_ENABLE`を使ってファームウェアをコンパイルする必要があります。
 
-Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
+**NKRO** がまだ動作しない場合は、`Magic` **N** コマンド(デフォルトでは`LShift+RShift+N`)を試してみてください。**NKRO** モードと **6KRO** モードの間で一時的に切り替えるためにこのコマンドを使うことができます。状況によっては **NKRO** が機能しない場合、特に BIOS の場合は **6KRO** モードに切り替える必要があります。
 
-If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
+ファームウェアが `BOOTMAGIC_ENABLE` でビルドされた場合、`BootMagic` **N** コマンドによって切り替える必要があります (デフォルトでは`Space+N`)。この設定は EEPROM に格納され、電源を入れ直しても保持されます。
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
-## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
-Without reset circuit you will have inconsistent result due to improper initialize of the hardware. See circuit schematic of TPM754.
+## TrackPoint はリセット回路が必要です (PS/2 マウスサポート)
+リセット回路が無いとハードウェアの不適切な初期化のために一貫性の無い結果になります。TPM754 の回路図を見てください。
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
-## Can't Read Column of Matrix Beyond 16
-Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
+## 16 を超えるマトリックの列を読み込めない
+列が 16 を超える場合、[matrix.h] の `read_cols()` 内の `1<<16` の代わりに `1UL<<16` を使います。
 
-In C `1` means one of [int] type which is [16 bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
+C では、`1` は AVR の場合には [16 bit] である [int] 型の1つを意味し、15 を超えて左にシフトすることはできません。`1<<16` にする時に予期しないゼロが発生します。`1UL` で [unsigned long] 型を使う必要があります。
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 
-## Bootloader Jump Doesn't Work
-Properly configure bootloader size in **Makefile**. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
+## ブートローダの Jump が動作しない
+**Makefile** 内でブートローダのサイズを適切に設定します。間違ったセクションサイズのブートローダは、おそらく**マジック コマンド** および **ブート マジック**で起動しません。
 ```
 # Size of Bootloaders in bytes:
 #   Atmel DFU loader(ATmega32U4)   4096
@@ -126,10 +115,10 @@ Properly configure bootloader size in **Makefile**. With wrong section size boot
 #   Teensy++ halfKay(AT90USB128)   2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
-AVR Boot section size are defined by setting **BOOTSZ** fuse in fact. Consult with your MCU datasheet.
-Note that **Word**(2 bytes) size and address are used in datasheet while TMK uses **Byte**.
+AVR ブート セクションのサイズは実際には **BOOTSZ** ヒューズを設定することで定義されます。MCU のデータシートを参照してください。
+TMK は**バイト**を使いますが、データシートでは **Word** (2 バイト) のサイズとアドレスが使われることに注意してください。
 
-AVR Boot section is located at end of Flash memory like the followings.
+AVR ブートセクションは以下のように Flash メモリの最後にあります。
 ```
 byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
 0x0000   +---------------+               0x00000  +---------------+
@@ -157,81 +146,81 @@ byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
 0x7FFF   +---------------+               0x1FFFF  +---------------+
 ```
 
-And see this discussion for further reference.
+詳細についてはこの議論を見てください。
 https://github.com/tmk/tmk_keyboard/issues/179
 
-If you are using a TeensyUSB, there is a [known bug](https://github.com/qmk/qmk_firmware/issues/164) in which the hardware reset button prevents the RESET key from working. Unplugging the keyboard and plugging it back in should resolve the problem.
+TeensyUSB を使っている場合、ハードウェア リセットボタンによって RESET キーが機能しなくなる[既知のバグ](https://github.com/qmk/qmk_firmware/issues/164)があります。キーボードのプラグを抜いて再接続すると、問題が解決するはずです。
 
-## Special Extra Key Doesn't Work (System, Audio Control Keys)
-You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
+## 特別なエクストラキーが動作しない (システム、オーディオ コントロール キー)
+QMK でそれらを使うには、`rules.mk` 内で `EXTRAKEY_ENABLE` を定義する必要があります。
 
 ```
-EXTRAKEY_ENABLE = yes          # Audio control and System control
+EXTRAKEY_ENABLE = yes          # オーディオ制御とシステム制御
 ```
 
-## Wakeup from Sleep Doesn't Work
+## スリープからの復帰が動作しない
 
-In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
+Windows では、**デバイス マネージャ**の電源**プロパティの管理**タブ内の `Allow this device to wake the computer` 設定を調べてください。また BIOS 設定も調べてください。
 
-Pressing any key during sleep should wake host.
+スリープ中に任意のキーを押すとホストが起動するはずです。
 
-## Using Arduino?
+## Arduino を使っていますか？
 
-**Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
+**Arduino のピンの命名は実際のチップと異なることに注意してください。** 例えば、Arduino のピン `D0` は `PD0` ではありません。回路図を自身で確認してください。
 
 - http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
 - http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
-Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
+Arduino の Leonardo と micro には **ATMega32U4** があり、TMK に使うことができますが、Arduino のブートローダが問題になります。
 
-## Enabling JTAG
+## JTAG を有効にする
 
-By default, the JTAG debugging interface is disabled as soon as the keyboard starts up. JTAG-capable MCUs come from the factory with the `JTAGEN` fuse set, and it takes over certain pins of the MCU that the board may be using for the switch matrix, LEDs, etc.
+デフォルトでは、キーボードが起動するとすぐに JTAG デバッグ インタフェースが無効になります。JTAG 対応 MCU は工場で `JTAGEN` ヒューズ セットが搭載されており、ボードがスイッチマトリックス、LED などに使用している MCU の特定のピンを引き継ぎます。
 
-If you would like to keep JTAG enabled, just add the following to your `config.h`:
+JTAG を有効にしたい場合は、単に以下のものを `config.h` に追加します:
 
 ```c
 #define NO_JTAG_DISABLE
 ```
 
-## Adding LED Indicators of Lock Keys
-You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
+## Lock キーの LED 表示を追加
+CapsLock、ScrollLock および NumLock 用の独自の LED 表示が必要ですか？この投稿を見てください。
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
 
-## Program Arduino Micro/Leonardo
-Push reset button and then run command like this within 8 seconds.
+## Arduino Micro/Leonardo プログラム
+リセットボタンを押して、8秒以内にこのようなコマンドを実行します。
 
 ```
 avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
 ```
 
-Device name will vary depending on your system.
+デバイス名はシステムによって異なります。
 
 http://arduino.cc/en/Main/ArduinoBoardMicro
 https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
 
 
-## USB 3 Compatibility
-I heard some people have a problem with USB 3 port, try USB 2 port.
+## USB 3 互換性
+USB 3 ポートで問題がある人がいると聞きました。USB 2 ポートを試してください。
 
 
-## Mac Compatibility
-### OS X 10.11 and Hub
+## Mac 互換性
+### OS X 10.11 と Hub
 https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 
-## Problem on BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles
-Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
+## BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles の問題
+一部の人がキーボードが BIOS で動作しなくなった および/または 再開(電源サイクル)の後で動作しなくなったと報告しました。
 
-As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
+今のところ、この問題の根本は明確ではないですが、幾つかのビルドオプションが関係しているようです。Makefileで、`CONSOLE_ENABLE`、`NKRO_ENABLE`、`SLEEP_LED_ENABLE` および/あるいは 他のオプションを無効にしてみてください。
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 
 
 
-## FLIP Doesn't Work
-### `AtLibUsbDfu.dll` Not Found
-Remove current driver and reinstall one FLIP provides from DeviceManager.
+## FLIP が動作しない
+### `AtLibUsbDfu.dll` が見つかりません。
+デバイスマネージャから現在のドライバを削除し、FLIP が提供するものを再インストールする。
 http://imgur.com/a/bnwzy

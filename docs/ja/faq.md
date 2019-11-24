@@ -1,6 +1,6 @@
-# Frequently Asked Questions
+# よくある質問
 
-* [General](faq_general.md)
-* [Building or Compiling QMK](faq_build.md)
-* [Debugging and Troubleshooting QMK](faq_debug.md)
-* [Keymap](faq_keymap.md)
+* [一般](faq_general.md)
+* [QMK のビルドあるいはコンパイル](faq_build.md)
+* [QMK のデバッグとトラブルシューティング](faq_debug.md)
+* [キーマップ](faq_keymap.md)

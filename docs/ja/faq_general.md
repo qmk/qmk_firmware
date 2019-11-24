@@ -1,15 +1,15 @@
-# Frequently Asked Questions
+# よくある質問
 
-## What is QMK?
+## QMK とは何か？
 
-[QMK](https://github.com/qmk), short for Quantum Mechanical Keyboard, is a group of people building tools for custom keyboards. We started with the [QMK firmware](https://github.com/qmk/qmk_firmware), a heavily modified fork of [TMK](https://github.com/tmk/tmk_keyboard).
+Quantum Mechanical Keyboard の略である [QMK](https://github.com/qmk) はカスタム キーボードのためのツールをビルドしている人々のグループです。[TMK](https://github.com/tmk/tmk_keyboard) の大幅に修正されたフォークである [QMK ファームウェア](https://github.com/qmk/qmk_firmware)から始めました。
 
-## What Differences Are There Between QMK and TMK?
+## QMK と TMK の違いは何か？
 
-TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert](https://github.com/jackhumbert)'s fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.
+TMK は [Jun Wako](https://github.com/tmk) によって設計され実装されました。QMK は [Jack Humbert](https://github.com/jackhumbert)の Planck 用 TMK のフォークとして始まりました。しばらくして、Jack のフォークは TMK からかなり分岐し、2015年に Jack はフォークを QMK に名前を変えることにしました。
 
-From a technical standpoint QMK builds upon TMK by adding several new features. Most notably QMK has expanded the number of available keycodes and uses these to implement advanced features like `S()`, `LCTL()`, and `MO()`. You can see a complete list of these keycodes in [Keycodes](keycodes.md).
+技術的な観点から、QMK は幾つかの新しい機能を追加した TMK に基づいています。最も注目すべきことは、QMK は利用可能なキーボードの数を増やし、`S()`、`LCTL()` および `MO()` などの高度な機能を実装するためにこれらを使っています。[キーコード](keycodes.md)でこれらのキーコードの完全なリストを見ることができます。
 
-From a project and community management standpoint TMK maintains all the officially supported keyboards by himself, with a bit of community support. Separate community maintained forks exist or can be created for other keyboards. Only a few keymaps are provided by default, so users typically don't share keymaps with each other. QMK encourages sharing of both keyboards and keymaps through a centrally managed repository, accepting all pull requests that follow the quality standards. These are mostly community maintained, but the QMK team also helps when necessary.
+プロジェクトとコミュニティの管理の観点から、TMK は公式にサポートされている全てのキーボードを自分で管理しており、コミュニティのサポートも少し受けています。Separate community maintained forks exist or can be created for other keyboards. デフォルトでは少数のキーマップのみが提供されるため、ユーザは一般的にお互いにキーマップを共有しません。QMK は集中管理されたリポジトリを介して、キーボードとキーマップの両方を共有することを奨励しており、品質基準に準拠する全てのプルリクエストを受け付けます。これらはほとんどコミュニティで管理されますが、必要な場合は QMK チームも支援します。
 
-Both approaches have their merits and their drawbacks, and code flows freely between TMK and QMK when it makes sense.
+どちらのアプローチもメリットとデメリットがあり、理に適う場合は TMK と QMK の間でコードは自由に流れます。

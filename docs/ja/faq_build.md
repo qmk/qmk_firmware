@@ -1,25 +1,24 @@
-# Frequently Asked Build Questions
+# よくあるビルドの質問
 
-This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
+このページは QMK のビルドに関する質問をカバーします。まだビルドをしていない場合は、[ビルド環境のセットアップ](getting_started_build_tools.md) および [Make手順](getting_started_make_guide.md)ガイドを読むべきです。
 
-## Can't Program on Linux
-You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. If you have issues with `udev`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
+## Linux でプログラムできません
+デバイスを操作するには適切な権限が必要です。Linux ユーザに関しては、以下の `udev` ルールに関する指示を見てください。`udev` に問題がある場合は、回避策は `sudo` コマンドを使うことです。このコマンドに慣れていない場合は、`man sudo` を使ってマニュアルを確認するか、[この web ページを見てください](https://linux.die.net/man/8/sudo)。
 
-An example of using `sudo`, when your controller is ATMega32u4:
+コントローラが ATMega32u4 の場合の `sudo` の使い方の例:
 
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
 
-or just:
+あるいは、単純に:
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
+`make` を `sudo` で実行することは、一般的には良い考えでは***なく***、可能であれば前者のメソッドのうちの1つを使うべきです。
 
-### Linux `udev` Rules
-On Linux, you'll need proper privileges to access the MCU. You can either use
-`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`. Once added run the following:
+### Linuxの `udev` ルール
+Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアをフラッシュする時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置するかのどちらかを使うことができます。追加をしたら、以下を実行します:
 ```console
 sudo udevadm control --reload-rules
 sudo udevadm trigger
@@ -54,7 +53,7 @@ ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
 ATTRS{idVendor}=="2341", ENV{ID_MM_DEVICE_IGNORE}="1"
 ```
 
-**Note:** ModemManager filtering only works when not in strict mode, the following commands can update that settings:
+**注意:** ModemManager フィルタリングは厳格モードで無い場合のみ動作します。以下のコマンドはその設定を更新することができます:
 ```console
 sudo sed -i 's/--filter-policy=strict/--filter-policy=default/' /lib/systemd/system/ModemManager.service
 sudo systemctl daemon-reload
@@ -69,44 +68,43 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
-### Serial device is not detected in bootloader mode on Linux
-Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
-Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices may require `USB_SERIAL` and any of its sub options.
+### Linux のブートローダ モードで Serial デバイスが検知されない
+カーネルがデバイスの適切なサポートを持つことを確認してください。デバイスが、Pro Micro (Atmega32u4) のような USB ACM を使う場合、`CONFIG_USB_ACM=y` を含めるようにしてください。他のデバイスは `USB_SERIAL` およびそのサブオプションを必要とするかもしれません。
 
-## Unknown Device for DFU Bootloader
+## DFUブートローダの不明なデバイス
 
-Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
+Windows 上でキーボードをフラッシュする時に発生する問題は、ブートローダに間違ったドライバがインストールされているか、全くインストールされていないかによるものがほとんどです。
 
-Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
+QMK インストール スクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
 
-If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig.md) for more detailed information.
+それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダ ドライバのインストール](driver_installation_zadig.md)を見てください。
 
-## WINAVR is Obsolete
-It is no longer recommended and may cause some problem.
-See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+## WINAVR は非推奨です。
+もう推奨されなくなり、何らかの問題を起こすかもしれません。
+[TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99)を見てください。
 
-## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
+## USB VID と PID
+`config.h` を編集することで必要なIDを使うことができます。おそらく未使用の ID を使っても、他の製品との衝突の可能性が低いことを除いて、実際には問題はありません。
 
-Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
+QMK のほとんどのボードは、vendor ID として、`0xFEED` を使います。ユニークな ID を選択したことを確認するために、他のキーボードを調べるべきです。
 
-Also see this.
+またこれも見てください。
 https://github.com/tmk/tmk_keyboard/issues/150
 
-You can buy a really unique VID:PID here. I don't think you need this for personal use.
+ここで本当にユニークな VID:PID を買うことができます。個人的な使用にはこれは必要ないと思います。
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## Cortex: `cstddef: No such file or directory`
-GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
+Ubuntu 14.04 の GCC 4.8 にはこの問題があり、この PPA を使って 4.9 に更新する必要がありました。
 https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
 
 https://github.com/tmk/tmk_keyboard/issues/212
 https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
 https://developer.mbed.org/forum/mbed/topic/5205/
 
-## `clock_prescale_set` and `clock_div_1` Not Available
-Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
+## `clock_prescale_set` と `clock_div_1` が利用不可能
+ツールチェーンが古すぎるため、MCU をサポートできません。例えば WinAVR 20100110 は ATMega32u2 をサポートしません。
 
 ```
 Compiling C: ../../tmk_core/protocol/lufa/lufa.c
@@ -120,8 +118,8 @@ make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 ```
 
 
-## BOOTLOADER_SIZE for AVR
-Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
+## AVR のための BOOTLOADER_SIZE
+Teensy2.0++ ブートローダのサイズは 2048 バイトであることに注意してください。一部の Makefile には間違ったコメントがあります。
 
 ```
 # Boot Section Size in *bytes*
@@ -133,10 +131,10 @@ Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
 
-## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
-This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled.
+## MacOS での `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` 
+これは brew での更新に関する問題で、avr-gcc が依存するシムリンクを壊します。
 
-The solution is to remove and reinstall all affected modules.
+解決法は全ての影響を受けたモジュールを削除し再インストールすることです。
 
 ```
 brew rm avr-gcc
@@ -151,13 +149,13 @@ brew install gcc-arm-none-eabi
 brew install avrdude
 ```
 
-### avr-gcc 8.1 and LUFA
+### avr-gcc 8.1 と LUFA
 
-If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+avr-gcc を 7 より上に更新した場合、LUFA に関連するエラーが表示されるかもしれません。例えば:
 
 `lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
 
-For now, you need to rollback avr-gcc to 7 in brew.
+今のところ、brew で avr-gcc を 7 にロールバックする必要があります。
 
 ```
 brew uninstall --force avr-gcc
@@ -165,10 +163,10 @@ brew install avr-gcc@8
 brew link --force avr-gcc@8
 ```
 
-### I just flashed my keyboard and it does nothing/keypresses don't register - it's also ARM (rev6 planck, clueboard 60, hs60v2, etc...) (Feb 2019)
-Due to how EEPROM works on ARM based chips, saved settings may no longer be valid.  This affects the default layers, and *may*, under certain circumstances we are still figuring out, make the keyboard unusable.  Resetting the EEPROM will correct this.
+### キーボードをフラッシュしただけで何も起こらない/キーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
+ARM ベースのチップ上で EEPROM がどのように動作するかにより、保存された設定が無効になる場合があります。これはデフォルト レイヤに影響し、まだ解明中の特定の環境下でキーボー尾が不安定になるかも*しれません*。EEPROM の再設定でこれが修正されます。
 
-[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) can be used to force an eeprom reset. After flashing this image, flash your normal firmware again which should restore your keyboard to _normal_ working order.
+[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を eeprom 再設定を強制するために使うことができます。このイメージをフラッシュした後で、通常のファームウェアをフラッシュすると、キーボードが_通常_ の正常な順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-If bootmagic is enabled in any form, you should be able to do this too (see [Bootmagic docs](feature_bootmagic.md) and keyboard info for specifics on how to do this).
+いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[Bootmagic  ドキュメント](feature_bootmagic.md)を見てください)。
