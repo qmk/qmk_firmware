@@ -1,7 +1,7 @@
 # Wm1 ergonomic Keyboard alternative hotswap PCB
 
-![Wm1 front side of Pcb](https://imgur.com/2W2G3V6)
-![Wm1 back side of Pcb](https://imgur.com/nGxVJGI)
+![Wm1 front side of Pcb](https://i.imgur.com/2W2G3V6.jpg)
+![Wm1 back side of Pcb](https://i.imgur.com/nGxVJGI.jpg)
 
 A ergonomic 68 key keyboard's hotswap-type PCB made by helair and inspired by Hoq from wolfmark.club. 
 
