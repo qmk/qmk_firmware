@@ -1,9 +1,12 @@
 # Wm1 ergonomic Keyboard alternative hotswap PCB
-
+### Original Wm1 Keyboard
+[Wm1 keyboard with SA Pulse](https://i.imgur.com/f0zRPTB.png)
+### Pcb front side
 ![Wm1 front side of Pcb](https://i.imgur.com/2W2G3V6.jpg)
+### Pcb back side
 ![Wm1 back side of Pcb](https://i.imgur.com/nGxVJGI.jpg)
 
-A ergonomic 68 key keyboard's hotswap-type PCB made by helair and inspired by Hoq from wolfmark.club. 
+A ergonomic 68 key keyboard's hotswap-type PCB which is made by helair and this PCB is compatible with the wm1 keyboard is designed by Hoq.
 
 * Keyboard Maintainer: [Heliar](https://github.com/heliarmk)
 * Hardware Supported: Hotswap type
