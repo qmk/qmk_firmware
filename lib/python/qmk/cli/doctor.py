@@ -2,11 +2,9 @@
 
 Check up for QMK environment.
 """
-import os
 import platform
 import shutil
 import subprocess
-from glob import glob
 
 from milc import cli
 

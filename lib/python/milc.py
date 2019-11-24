@@ -20,6 +20,7 @@ import re
 import shlex
 import sys
 from decimal import Decimal
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 from time import sleep
 
@@ -39,7 +40,7 @@ import colorama
 from appdirs import user_config_dir
 
 # Disable logging until we can configure it how the user wants
-logging.basicConfig(filename='/dev/null')
+logging.basicConfig(stream=os.devnull)
 
 # Log Level Representations
 EMOJI_LOGLEVELS = {
@@ -96,7 +97,6 @@ def format_ansi(text):
 class ANSIFormatter(logging.Formatter):
     """A log formatter that inserts ANSI color.
     """
-
     def format(self, record):
         msg = super(ANSIFormatter, self).format(record)
         return format_ansi(msg)
@@ -105,7 +105,6 @@ class ANSIFormatter(logging.Formatter):
 class ANSIEmojiLoglevelFormatter(ANSIFormatter):
     """A log formatter that makes the loglevel an emoji on UTF capable terminals.
     """
-
     def format(self, record):
         if UNICODE_SUPPORT:
             record.levelname = EMOJI_LOGLEVELS[record.levelname].format(**ansi_colors)
@@ -115,7 +114,6 @@ class ANSIEmojiLoglevelFormatter(ANSIFormatter):
 class ANSIStrippingFormatter(ANSIFormatter):
     """A log formatter that strips ANSI.
     """
-
     def format(self, record):
         msg = super(ANSIStrippingFormatter, self).format(record)
         return ansi_escape.sub('', msg)
@@ -127,7 +125,6 @@ class Configuration(object):
     This class never raises IndexError, instead it will return None if a
     section or option does not yet exist.
     """
-
     def __contains__(self, key):
         return self._config.__contains__(key)
 
@@ -214,9 +211,8 @@ def handle_store_boolean(self, *args, **kwargs):
 
 
 class SubparserWrapper(object):
-    """Wrap subparsers so we can populate the normal and the shadow parser.
+    """Wrap subparsers so we can track what options the user passed.
     """
-
     def __init__(self, cli, submodule, subparser):
         self.cli = cli
         self.submodule = submodule
@@ -232,26 +228,30 @@ class SubparserWrapper(object):
         self.subparser.completer = completer
 
     def add_argument(self, *args, **kwargs):
+        """Add an argument for this subcommand.
+
+        This also stores the default for the argument in `self.cli.default_arguments`.
+        """
         if 'action' in kwargs and kwargs['action'] == 'store_boolean':
+            # Store boolean will call us again with the enable/disable flag arguments
             return handle_store_boolean(self, *args, **kwargs)
 
         self.cli.acquire_lock()
         self.subparser.add_argument(*args, **kwargs)
-
-        if 'default' in kwargs:
-            del kwargs['default']
-        if 'action' in kwargs and kwargs['action'] == 'store_false':
-            kwargs['action'] == 'store_true'
-        self.cli.subcommands_default[self.submodule].add_argument(*args, **kwargs)
+        if self.submodule not in self.cli.default_arguments:
+            self.cli.default_arguments[self.submodule] = {}
+        self.cli.default_arguments[self.submodule][self.cli.get_argument_name(*args, **kwargs)] = kwargs.get('default')
         self.cli.release_lock()
 
 
 class MILC(object):
     """MILC - An Opinionated Batteries Included Framework
     """
-
     def __init__(self):
         """Initialize the MILC object.
+
+            version
+                The version string to associate with your CLI program
         """
         # Setup a lock for thread safety
         self._lock = threading.RLock() if thread else None
@@ -263,9 +263,10 @@ class MILC(object):
         self._inside_context_manager = False
         self.ansi = ansi_colors
         self.arg_only = []
-        self.config = Configuration()
+        self.config = None
         self.config_file = None
-        self.version = os.environ.get('QMK_VERSION', 'unknown')
+        self.default_arguments = {}
+        self.version = 'unknown'
         self.release_lock()
 
         # Figure out our program name
@@ -273,6 +274,7 @@ class MILC(object):
         self.prog_name = self.prog_name.split('/')[-1]
 
         # Initialize all the things
+        self.read_config_file()
         self.initialize_argparse()
         self.initialize_logging()
 
@@ -282,7 +284,7 @@ class MILC(object):
 
     @description.setter
     def description(self, value):
-        self._description = self._arg_parser.description = self._arg_defaults.description = value
+        self._description = self._arg_parser.description = value
 
     def echo(self, text, *args, **kwargs):
         """Print colorized text to stdout.
@@ -311,12 +313,9 @@ class MILC(object):
 
         self.acquire_lock()
         self.subcommands = {}
-        self.subcommands_default = {}
         self._subparsers = None
-        self._subparsers_default = None
         self.argwarn = argcomplete.warn
         self.args = None
-        self._arg_defaults = argparse.ArgumentParser(**kwargs)
         self._arg_parser = argparse.ArgumentParser(**kwargs)
         self.set_defaults = self._arg_parser.set_defaults
         self.print_usage = self._arg_parser.print_usage
@@ -329,25 +328,18 @@ class MILC(object):
         self._arg_parser.completer = completer
 
     def add_argument(self, *args, **kwargs):
-        """Wrapper to add arguments to both the main and the shadow argparser.
+        """Wrapper to add arguments and track whether they were passed on the command line.
         """
         if 'action' in kwargs and kwargs['action'] == 'store_boolean':
             return handle_store_boolean(self, *args, **kwargs)
 
-        if kwargs.get('add_dest', True) and args[0][0] == '-':
-            kwargs['dest'] = 'general_' + self.get_argument_name(*args, **kwargs)
-        if 'add_dest' in kwargs:
-            del kwargs['add_dest']
-
         self.acquire_lock()
-        self._arg_parser.add_argument(*args, **kwargs)
 
-        # Populate the shadow parser
-        if 'default' in kwargs:
-            del kwargs['default']
-        if 'action' in kwargs and kwargs['action'] == 'store_false':
-            kwargs['action'] == 'store_true'
-        self._arg_defaults.add_argument(*args, **kwargs)
+        self._arg_parser.add_argument(*args, **kwargs)
+        if 'general' not in self.default_arguments:
+            self.default_arguments['general'] = {}
+        self.default_arguments['general'][self.get_argument_name(*args, **kwargs)] = kwargs.get('default')
+
         self.release_lock()
 
     def initialize_logging(self):
@@ -374,15 +366,14 @@ class MILC(object):
         self.add_argument('--log-file-fmt', default='[%(levelname)s] [%(asctime)s] [file:%(pathname)s] [line:%(lineno)d] %(message)s', help='Format string for log file.')
         self.add_argument('--log-file', help='File to write log messages to')
         self.add_argument('--color', action='store_boolean', default=True, help='color in output')
-        self.add_argument('-c', '--config-file', help='The config file to read and/or write')
-        self.add_argument('--save-config', action='store_true', help='Save the running configuration to the config file')
+        self.add_argument('--config-file', help='The location for the configuration file')
+        self.arg_only.append('config_file')
 
     def add_subparsers(self, title='Sub-commands', **kwargs):
         if self._inside_context_manager:
             raise RuntimeError('You must run this before the with statement!')
 
         self.acquire_lock()
-        self._subparsers_default = self._arg_defaults.add_subparsers(title=title, dest='subparsers', **kwargs)
         self._subparsers = self._arg_parser.add_subparsers(title=title, dest='subparsers', **kwargs)
         self.release_lock()
 
@@ -404,10 +395,12 @@ class MILC(object):
         if self.config_file:
             return self.config_file
 
-        if self.args and self.args.general_config_file:
-            return self.args.general_config_file
+        if '--config-file' in sys.argv:
+            return Path(sys.argv[sys.argv.index('--config-file') + 1]).expanduser().resolve()
 
-        return os.path.join(user_config_dir(appname='qmk', appauthor='QMK'), '%s.ini' % self.prog_name)
+        filedir = user_config_dir(appname='qmk', appauthor='QMK')
+        filename = '%s.ini' % self.prog_name
+        return Path(filedir) / filename
 
     def get_argument_name(self, *args, **kwargs):
         """Takes argparse arguments and returns the dest name.
@@ -446,7 +439,7 @@ class MILC(object):
     def arg_passed(self, arg):
         """Returns True if arg was passed on the command line.
         """
-        return self.args_passed[arg] in (None, False)
+        return self.default_arguments.get(arg) != self.args[arg]
 
     def parse_args(self):
         """Parse the CLI args.
@@ -459,25 +452,22 @@ class MILC(object):
 
         self.acquire_lock()
         self.args = self._arg_parser.parse_args()
-        self.args_passed = self._arg_defaults.parse_args()
 
         if 'entrypoint' in self.args:
             self._entrypoint = self.args.entrypoint
 
-        if self.args.general_config_file:
-            self.config_file = self.args.general_config_file
-
         self.release_lock()
 
-    def read_config(self):
-        """Parse the configuration file and determine the runtime configuration.
+    def read_config_file(self):
+        """Read in the configuration file and store it in self.config.
         """
         self.acquire_lock()
+        self.config = Configuration()
         self.config_file = self.find_config_file()
 
-        if self.config_file and os.path.exists(self.config_file):
+        if self.config_file and self.config_file.exists():
             config = RawConfigParser(self.config)
-            config.read(self.config_file)
+            config.read(str(self.config_file))
 
             # Iterate over the config file options and write them into self.config
             for section in config.sections():
@@ -487,8 +477,10 @@ class MILC(object):
                     # Coerce values into useful datatypes
                     if value.lower() in ['1', 'yes', 'true', 'on']:
                         value = True
-                    elif value.lower() in ['0', 'no', 'false', 'none', 'off']:
+                    elif value.lower() in ['0', 'no', 'false', 'off']:
                         value = False
+                    elif value.lower() in ['none']:
+                        continue
                     elif value.replace('.', '').isdigit():
                         if '.' in value:
                             value = Decimal(value)
@@ -497,32 +489,44 @@ class MILC(object):
 
                     self.config[section][option] = value
 
-        # Fold the CLI args into self.config
+        self.release_lock()
+
+    def merge_args_into_config(self):
+        """Merge CLI arguments into self.config to create the runtime configuration.
+        """
+        self.acquire_lock()
         for argument in vars(self.args):
             if argument in ('subparsers', 'entrypoint'):
                 continue
 
-            if '_' in argument:
-                section, option = argument.split('_', 1)
-            else:
-                section = self._entrypoint.__name__
-                option = argument
+            if argument not in self.arg_only:
+                # Find the argument's section
+                if self._entrypoint.__name__ in self.default_arguments and argument in self.default_arguments[self._entrypoint.__name__]:
+                    argument_found = True
+                    section = self._entrypoint.__name__
+                if argument in self.default_arguments['general']:
+                    argument_found = True
+                    section = 'general'
 
-            if option not in self.arg_only:
-                if hasattr(self.args_passed, argument):
+                if not argument_found:
+                    raise RuntimeError('Could not find argument in `self.default_arguments`. This should be impossible!')
+                    exit(1)
+
+                # Merge this argument into self.config
+                if argument in self.default_arguments:
                     arg_value = getattr(self.args, argument)
                     if arg_value:
-                        self.config[section][option] = arg_value
+                        self.config[section][argument] = arg_value
                 else:
-                    if option not in self.config[section]:
-                        self.config[section][option] = getattr(self.args, argument)
+                    if argument not in self.config[section]:
+                        self.config[section][argument] = getattr(self.args, argument)
 
         self.release_lock()
 
     def save_config(self):
         """Save the current configuration to the config file.
         """
-        self.log.debug("Saving config file to '%s'", self.config_file)
+        self.log.debug("Saving config file to '%s'", str(self.config_file))
 
         if not self.config_file:
             self.log.warning('%s.config_file file not set, not saving config!', self.__class__.__name__)
@@ -530,31 +534,34 @@ class MILC(object):
 
         self.acquire_lock()
 
+        # Generate a sanitized version of our running configuration
         config = RawConfigParser()
-        config_dir = os.path.dirname(self.config_file)
-
         for section_name, section in self.config._config.items():
             config.add_section(section_name)
             for option_name, value in section.items():
                 if section_name == 'general':
-                    if option_name in ['save_config']:
+                    if option_name in ['config_file']:
                         continue
-                config.set(section_name, option_name, str(value))
+                if value is not None:
+                    config.set(section_name, option_name, str(value))
 
-        if not os.path.exists(config_dir):
-            os.makedirs(config_dir)
+        # Write out the config file
+        config_dir = self.config_file.parent
+        if not config_dir.exists():
+            config_dir.mkdir(parents=True, exist_ok=True)
 
-        with NamedTemporaryFile(mode='w', dir=config_dir, delete=False) as tmpfile:
+        with NamedTemporaryFile(mode='w', dir=str(config_dir), delete=False) as tmpfile:
             config.write(tmpfile)
 
         # Move the new config file into place atomically
         if os.path.getsize(tmpfile.name) > 0:
-            os.rename(tmpfile.name, self.config_file)
+            os.rename(tmpfile.name, str(self.config_file))
         else:
-            self.log.warning('Config file saving failed, not replacing %s with %s.', self.config_file, tmpfile.name)
+            self.log.warning('Config file saving failed, not replacing %s with %s.', str(self.config_file), tmpfile.name)
 
+        # Housekeeping
         self.release_lock()
-        cli.log.info('Wrote configuration to %s', shlex.quote(self.config_file))
+        cli.log.info('Wrote configuration to %s', shlex.quote(str(self.config_file)))
 
     def __call__(self):
         """Execute the entrypoint function.
@@ -588,41 +595,37 @@ class MILC(object):
 
         return entrypoint_func
 
-    def add_subcommand(self, handler, description, name=None, **kwargs):
+    def add_subcommand(self, handler, description, name=None, hidden=False, **kwargs):
         """Register a subcommand.
 
         If name is not provided we use `handler.__name__`.
         """
+
         if self._inside_context_manager:
             raise RuntimeError('You must run this before the with statement!')
 
         if self._subparsers is None:
-            self.add_subparsers()
+            self.add_subparsers(metavar="")
 
         if not name:
             name = handler.__name__.replace("_", "-")
 
         self.acquire_lock()
-        kwargs['help'] = description
-        self.subcommands_default[name] = self._subparsers_default.add_parser(name, **kwargs)
+        if not hidden:
+            self._subparsers.metavar = "{%s,%s}" % (self._subparsers.metavar[1:-1], name) if self._subparsers.metavar else "{%s%s}" % (self._subparsers.metavar[1:-1], name)
+            kwargs['help'] = description
         self.subcommands[name] = SubparserWrapper(self, name, self._subparsers.add_parser(name, **kwargs))
         self.subcommands[name].set_defaults(entrypoint=handler)
-
-        if name not in self.__dict__:
-            self.__dict__[name] = self.subcommands[name]
-        else:
-            self.log.debug("Could not add subcommand '%s' to attributes, key already exists!", name)
 
         self.release_lock()
 
         return handler
 
-    def subcommand(self, description, **kwargs):
+    def subcommand(self, description, hidden=False, **kwargs):
         """Decorator to register a subcommand.
         """
-
         def subcommand_function(handler):
-            return self.add_subcommand(handler, description, **kwargs)
+            return self.add_subcommand(handler, description, hidden=hidden, **kwargs)
 
         return subcommand_function
 
@@ -644,9 +647,9 @@ class MILC(object):
         self.log_format = self.config['general']['log_fmt']
 
         if self.config.general.color:
-            self.log_format = ANSIEmojiLoglevelFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIEmojiLoglevelFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
         else:
-            self.log_format = ANSIStrippingFormatter(self.args.general_log_fmt, self.config.general.datetime_fmt)
+            self.log_format = ANSIStrippingFormatter(self.args.log_fmt, self.config.general.datetime_fmt)
 
         if self.log_file:
             self.log_file_handler = logging.FileHandler(self.log_file, self.log_file_mode)
@@ -673,12 +676,8 @@ class MILC(object):
 
         colorama.init()
         self.parse_args()
-        self.read_config()
+        self.merge_args_into_config()
         self.setup_logging()
-
-        if 'save_config' in self.config.general and self.config.general.save_config:
-            self.save_config()
-            exit(0)
 
         return self
 

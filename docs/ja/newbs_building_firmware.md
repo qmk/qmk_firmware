@@ -1,8 +1,9 @@
 # 初めてのファームウェアを構築する(コマンドライン版)
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_building_firmware.md
-  $ git diff ed0575fc8 HEAD docs/newbs_building_firmware.md
+  git diff ed0575fc8 HEAD docs/newbs_building_firmware.md | cat
 -->
 
 ビルド環境をセットアップしたので、カスタムファームウェアのビルドを開始する準備ができました。
@@ -66,9 +67,9 @@ macOS または Windows を使用している場合は、キーマップフォ�
 あるレイヤー全体が必要ない場合はレイヤーを削除することもでき、必要があれば、合計 32 個までレイヤーを追加することもできます。
 ここで定義できる内容については、次のドキュメントを参照してください。
 
-* [キーコード](keycodes.md)
-* [機能](features.md)
-* [FAQ](faq.md)
+* [キーコード](ja/keycodes.md)
+* [機能](ja/features.md)
+* [FAQ](ja/faq.md)
 
 ?> キーマップがどのように機能するかを感じながら、各変更を小さくしてください。大きな変更は、発生する問題のデバッグを困難にします。
 
@@ -95,4 +96,4 @@ Checking file size of planck_rev5_xyverz.hex                                    
 
 ## ファームウェアを書きこむ
 
-[「ファームウェアを書きこむ」](newbs_flashing.md) に移動して、キーボードに新しいファームウェアを書き込む方法を学習します。
+[「ファームウェアを書きこむ」](ja/newbs_flashing.md) に移動して、キーボードに新しいファームウェアを書き込む方法を学習します。

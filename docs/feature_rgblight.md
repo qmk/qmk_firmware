@@ -363,8 +363,8 @@ Using the `rgblight_set_clipping_range()` function, you can prepare more buffers
 You can set the Clipping Range by executing the following code.
 
 ```c
-// some soruce
-  rgblight_set_clipping_range(3, 4);
+// some source
+rgblight_set_clipping_range(3, 4);
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743785-2bd82a00-5a6e-11e9-9d4b-1b4ffaf4932b.JPG" alt="clip direct" width="70%"/>
 

@@ -13,7 +13,9 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
 
-The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit Document" link at the bottom of any page.
+The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+
+You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit Document" link at the bottom of any page.
 
 ## Supported Keyboards
 
