@@ -172,7 +172,7 @@
 #        define BACKLIGHT_ON_STATE 1
 #    endif
 
-void backlight_on(uint8_t backlight_pin) {
+void backlight_on(pin_t backlight_pin) {
 #    if BACKLIGHT_ON_STATE == 1
     writePinHigh(backlight_pin);
 #    else
@@ -180,7 +180,7 @@ void backlight_on(uint8_t backlight_pin) {
 #    endif
 }
 
-void backlight_off(uint8_t backlight_pin) {
+void backlight_off(pin_t backlight_pin) {
 #    if BACKLIGHT_ON_STATE == 1
     writePinLow(backlight_pin);
 #    else
@@ -204,11 +204,11 @@ void backlight_off(uint8_t backlight_pin) {
 
 #        define FOR_EACH_LED(x)                                 \
             for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
-                uint8_t backlight_pin = backlight_pins[i];      \
+                pin_t backlight_pin = backlight_pins[i];        \
                 { x }                                           \
             }
 
-static const uint8_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PIN_INIT;
+static const pin_t backlight_pins[BACKLIGHT_LED_COUNT] = BACKLIGHT_PIN_INIT;
 
 #    else  // full hardware PWM
 
@@ -229,7 +229,7 @@ static inline void disable_pwm(void) {
 }
 
 // we support only one backlight pin
-static const uint8_t backlight_pin = BACKLIGHT_PIN;
+static const pin_t backlight_pin = BACKLIGHT_PIN;
 #        define FOR_EACH_LED(x) x
 
 #    endif
