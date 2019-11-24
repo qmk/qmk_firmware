@@ -1,17 +1,17 @@
 #include QMK_KEYBOARD_H
 
 /*
- * Each layer gets a name for readability. The underscores don't mean anything - you can
- * have a layer called STUFF or any other name. Layer names don't all need to be of the same
+ * Each layer gets a name for readability. Layer names don't all need to be of the same
  * length, and you can also skip them entirely and just use numbers.
  *
  * 
  * Based originally on `dz60/zvecr`
  */
-#define BASE    0   // Layer: Base
-#define NRMN    1   // Layer: Norman (!!!!!)
-#define FCTN    2   // Layer: Function
-#define KEYB    3   // Layer: Keyboard
+#define BASE    0   // Layer: QWERTY / Base
+#define NRMN    1   // Layer: Norman
+#define GAME    2   // Layer: Game
+#define FCTN    3   // Layer: Function
+#define KEYB    4   // Layer: Keyboard
 
 /*
  * 
@@ -27,9 +27,18 @@
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬┴───┤
  * │40  │41  │43  │46                      │4a  │4b  │4d  │4e  │ 8
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ *
+ * XXXXXXX = Key does nothing.
+ * _______ = Key that allows the uppermost exposed key in a layer below it.
 */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+    /**
+     * Layer 0
+     *
+     * QWERTY and basic modifiers.
+     * Upper layers are toggled or accessed through the "HACK" key: last key on fourth row.
+     */
     [BASE] = LAYOUT__bonfire(
         KC_GRV,  KC_1,    KC_2,    KC_3,   KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,   KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC,  KC_BSLS,
@@ -38,6 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, FUNC(2), FUNC(1), FUNC(3)
     ),
 
+    /**
+     * Layer 1
+     *
+     * NORMAN Key layout.
+     * All that's changed is the position of A-Z and a few punctuation keys.
+     */
     [NRMN] = LAYOUT__bonfire(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN, _______, _______, _______,
@@ -46,6 +61,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
+    /**
+     * Layer 2
+     *
+     * Moves the escape key from the left to the right side of the keyboard for gaming.
+     */
+    [GAME] = LAYOUT__bonfire(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    /**
+     * Layer 3
+     *
+     * Function layer.
+     * This layer is accessed when "HACK" is held down.
+     * Modifiers and such to basic keys, but with basic key functions.
+     */
     [FCTN] = LAYOUT__bonfire(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
         _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,  _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
@@ -55,24 +90,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /**
-     * This is the KEYB layer. It's for changing how the board itself works.
+     * Layer 4
      * 
+     * This is the KEYB/System layer.
      * Other keymaps call this a NAV layer, but it's more than just NAV-ing the board's layers.
-     * It will eventually do a lot of that; right now it's mainly to change RGB, put the board into RESET, and the
-     * 
-     * 1 key toggles the Norman layout.
-     * More to come later.
+     * This Layer currently handles RGB and puts the board into RESET for flashing.
      *
-     * XXXXXXX = Key does nothing.
+     * ~ key resets board to [BASE].
+     * 1 key toggles [NRMN].
+     * 2 key toggles [GAME].
+     * BACKSPACE puts board into reset.
      */
     [KEYB] = LAYOUT__bonfire(
-        XXXXXXX, TG(NRMN), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, 
-        XXXXXXX, RGB_TOG,  RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, BL_DEC,   BL_TOGG, BL_INC,  BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        TO(0),   TG(NRMN), TG(GAME), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, 
+        XXXXXXX, RGB_TOG,  RGB_MOD,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, BL_DEC,   BL_TOGG,  BL_INC,  BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
-
 };
 
 /**
@@ -81,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * This turns 3d, 4b, 4d and 4e into arrow keys when tapped,
  * and RSFT, RCTL, RGUI and HYPR, respectively.
  *
- * @todo: learn more about how this works.
+ * @DEPRECATED -- view: https://docs.qmk.fm/#/custom_quantum_functions
  */
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
@@ -89,3 +124,18 @@ const uint16_t PROGMEM fn_actions[] = {
     [2] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_LEFT),
     [3] = ACTION_MODS_TAP_KEY(MOD_HYPR, KC_RIGHT),
 };
+
+// check out
+// https://github.com/DanDobrick/qmk_firmware/blob/danDobrick-v60r-layout/keyboards/v60_type_r/keymaps/danDobrick/keymap.c#L140
+
+/* Helper Grouping:
+
+[NAME] = LAYOUT__bonfire(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______
+)
+
+ */
