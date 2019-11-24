@@ -2,11 +2,9 @@
 
 Check up for QMK environment.
 """
-import os
 import platform
 import shutil
 import subprocess
-from glob import glob
 
 from milc import cli
 
@@ -24,8 +22,7 @@ def doctor(cli):
     cli.log.info('QMK Doctor is checking your environment.')
 
     # Make sure the basic CLI tools we need are available and can be executed.
-    binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc']
-    binaries += glob('bin/qmk-*')
+    binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
     ok = True
 
     for binary in binaries:
@@ -34,10 +31,10 @@ def doctor(cli):
             cli.log.error("{fg_red}QMK can't find %s in your path.", binary)
             ok = False
         else:
-            try:
-                subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, check=True)
+            check = subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+            if check.returncode in [0, 1]:
                 cli.log.info('Found {fg_cyan}%s', binary)
-            except subprocess.CalledProcessError:
+            else:
                 cli.log.error("{fg_red}Can't run `%s --version`", binary)
                 ok = False
 

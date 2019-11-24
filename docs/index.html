@@ -35,17 +35,28 @@
       loadNavbar: '_langs.md',
       mergeNavbar: true,
       auto2top: true,
+      fallbackLanguages: [
+        'de',
+        'es',
+        'fr-fr',
+        'he-il',
+        'ja',
+        'ru-ru',
+        'zh-cn'
+      ],
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
       search: {
         paths: 'auto',
         placeholder: {
           '/es/': 'Buscar',
           '/zh-cn/': '搜索',
+          '/ja/': '検索',
           '/': 'Search'
         },
         noData: {
           '/es/': '¡Ningún resultado!',
           '/zh-cn/': '没有结果!',
+          '/ja/': '見つかりません!',
           '/': 'No results!'
         },
         depth: 6

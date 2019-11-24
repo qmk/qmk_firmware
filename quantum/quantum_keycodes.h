@@ -771,4 +771,4 @@ enum quantum_keycodes {
 #define DM_PLY1 DYN_MACRO_PLAY1
 #define DM_PLY2 DYN_MACRO_PLAY2
 
-#endif // QUANTUM_KEYCODES_H
+#endif  // QUANTUM_KEYCODES_H
