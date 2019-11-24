@@ -114,7 +114,15 @@ Two more deprecated functions exist that provide the LED state as a `uint8_t`:
 
 This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a struct parameter.
 
-You must return either `true` or `false` from this function, depending on whether you want to override the keyboard-level implementation.
+By convention, return `true` from `led_update_user()` to get the `led_update_kb()` hook to run its code, and
+return `false` when you would prefer not to run the code in `led_update_kb()`.
+
+Some examples include:
+
+  - overriding the LEDs to use them for something else like layer indication
+    - return `false` because you do not want the `_kb()` function to run, as it would override your layer behavior.
+  - play a sound when an LED turns on or off.
+    - return `true` because you want the `_kb` function to run, and this is in addition to the default LED behavior.
 
 ?> Because the `led_set_*` functions return `void` instead of `bool`, they do not allow for overriding the keyboard LED control, and thus it's recommended to use `led_update_*` instead.
 
@@ -122,66 +130,41 @@ You must return either `true` or `false` from this function, depending on whethe
 
 ```c
 bool led_update_kb(led_t led_state) {
-    if(led_update_user(led_state)) {
-        if (led_state.num_lock) {
-            writePinLow(B0);
-        } else {
-            writePinHigh(B0);
-        }
-        if (led_state.caps_lock) {
-            writePinLow(B1);
-        } else {
-            writePinHigh(B1);
-        }
-        if (led_state.scroll_lock) {
-            writePinLow(B2);
-        } else {
-            writePinHigh(B2);
-        }
-        if (led_state.compose) {
-            writePinLow(B3);
-        } else {
-            writePinHigh(B3);
-        }
-        if (led_state.kana) {
-            writePinLow(B4);
-        } else {
-            writePinHigh(B4);
-        }
-        return true;
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+        writePin(B0, !led_state.num_lock);
+        writePin(B1, !led_state.caps_lock);
+        writePin(B2, !led_state.scroll_lock);
+        writePin(B3, !led_state.compose);
+        writePin(B4, !led_state.kana);
     }
+    return res;
 }
 ```
 
 ### Example `led_update_user()` Implementation
 
+This incomplete example would play a sound if Caps Lock is turned on or off. It returns `true`, because you also want the LEDs to maintain their state.
+
 ```c
+#ifdef AUDIO_ENABLE
+  float caps_on[][2] = SONG(CAPS_LOCK_ON_SOUND);
+  float caps_off[][2] = SONG(CAPS_LOCK_OFF_SOUND);
+#endif
+
 bool led_update_user(led_t led_state) {
-    if (led_state.num_lock) {
-        writePinLow(B0);
-    } else {
-        writePinHigh(B0);
+    #ifdef AUDIO_ENABLE
+    static uint8_t caps_state = 0;
+    if (caps_state != led_state.caps_lock) {
+        led_state.caps_lock ? PLAY_SONG(caps_on) : PLAY_SONG(caps_off);
+        caps_state = led_state.caps_lock;
     }
-    if (led_state.caps_lock) {
-        writePinLow(B1);
-    } else {
-        writePinHigh(B1);
-    }
-    if (led_state.scroll_lock) {
-        writePinLow(B2);
-    } else {
-        writePinHigh(B2);
-    }
-    if (led_state.compose) {
-        writePinLow(B3);
-    } else {
-        writePinHigh(B3);
-    }
-    if (led_state.kana) {
-        writePinLow(B4);
-    } else {
-        writePinHigh(B4);
-    }
+    #endif
     return true;
 }
 ```
@@ -411,7 +394,7 @@ void keyboard_post_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan(); 
+    rgblight_sethsv_noeeprom_cyan();
     rgblight_mode_noeeprom(1);
   }
 }
@@ -459,18 +442,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true; // Let QMK send the enter press/release events
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
-        if (record->event.pressed) { 
+        if (record->event.pressed) {
             user_config.rgb_layer_change ^= 1; // Toggles the status
             eeconfig_update_user(user_config.raw); // Writes the new status to EEPROM
-            if (user_config.rgb_layer_change) { // if layer state indication is enabled, 
+            if (user_config.rgb_layer_change) { // if layer state indication is enabled,
                 layer_state_set(layer_state);   // then immediately update the layer color
             }
         }
         return false; break;
     case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // For any of the RGB codes (see quantum_keycodes.h, L400 for reference)
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-            if (user_config.rgb_layer_change) {        // only if this is enabled 
-                user_config.rgb_layer_change = false;  // disable it, and 
+            if (user_config.rgb_layer_change) {        // only if this is enabled
+                user_config.rgb_layer_change = false;  // disable it, and
                 eeconfig_update_user(user_config.raw); // write the setings to EEPROM
             }
         }
@@ -483,7 +466,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EEP_RST` keycode or [Bootmagic](feature_bootmagic.md) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued. 
 
 ```c
-void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
   user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
@@ -508,7 +491,7 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
 
-To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.  
+To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first. 
 
 
 ## Example `get_tapping_term` Implementation

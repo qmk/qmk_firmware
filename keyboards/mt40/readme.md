@@ -1,16 +1,19 @@
-# MT40: An 40% Ortholinear Keyboard
+# MT40
 
-## Program 
+[MT40](https://i.imgur.com/0opsDkt.jpg)
 
-`make mt40:default:program`
+A 40% Ortholinear Keyboard
 
-## Pictures
+* Keyboard Maintainer: QMK Community
+* Hardware Supported: MT40
+* Hardware Availability: <https://world.taobao.com/item/548335974877.htm?fromSite=main&spm=a312a.7700824.w4002-6810221593.51.670e68a08mRh69>
 
-[PCB](https://i.imgur.com/8BeeY07.jpg)
-[Backview of the PCB](https://i.imgur.com/0opsDkt.jpg)
-[Board with Sleeve](https://i.imgur.com/44FhPU8.jpg)
+Make example for this keyboard (after setting up your build environment):
 
-## Buy
+    make mt40:default
 
-https://world.taobao.com/item/548335974877.htm?fromSite=main&spm=a312a.7700824.w4002-6810221593.51.670e68a08mRh69
+Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
+    make mt40:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
