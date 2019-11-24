@@ -4,7 +4,7 @@
 
 This is 63 keys Custom keyboard.
 
-Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)
+* Keyboard Maintainer: [Salicylic_acid3](https://github.com/Salicylic-acid3)
 * Hardware Supported: 7skb PCB, Pro Micro
 * Hardware Availability: [PCB & Case Data](https://github.com/Salicylic-acid3/PCB_Data), [Booth Shop](https://salicylic-acid3.booth.pm/items/1673395)
 
