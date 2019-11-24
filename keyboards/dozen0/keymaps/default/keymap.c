@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'
    */
 	[_BASE] = LAYOUT(
-    LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_UP, KC_DEL, LT(_RAISE,KC_BSPC), \
-    KC_LCTL, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, LT(_LOWER,KC_ENT) \
+    LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_UP, KC_DEL, LT(_RAISE,KC_BSPC),
+    KC_LCTL, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, LT(_LOWER,KC_ENT)
   ),
 
   /* Lower
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'
    */
   [_LOWER] = LAYOUT(
-    _______, _______, _______, KC_PGUP, _______, _______, \
-    _______, _______, KC_HOME, KC_PGDN, KC_END, _______ \
+    _______, _______, _______, KC_PGUP, _______, _______,
+    _______, _______, KC_HOME, KC_PGDN, KC_END, _______
   ),
 
   /* Raise
@@ -74,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'
    */
   [_RAISE] = LAYOUT(
-    _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______ \
+    _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______
   ),
 
   /* Adjust
@@ -88,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'
    */
   [_ADJUST] = LAYOUT(
-    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
-    RGBRST, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______ \
+    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,
+    RGBRST, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______
   )
 };
 
