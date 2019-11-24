@@ -31,7 +31,7 @@ qmk setup  # This will clone `qmk/qmk_firmware` and optionally set up your build
 
 ## easy_install あるいは pip を使ってインストール
 
-システムが上記にリストされていない場合は、QMK を手動でインストールすることができます。最初に、python 3.5 (以降)をインストールしていて、pip をインストールされていることを確認してください。次に以下のコマンドを使って QMK をインストールします:
+上のリストにあなたのシステムがない場合は、QMK を手動でインストールすることができます。最初に、python 3.5 (以降)をインストールしていて、pip をインストールされていることを確認してください。次に以下のコマンドを使って QMK をインストールします:
 
 ```
 pip3 install qmk
