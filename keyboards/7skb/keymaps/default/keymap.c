@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //A description for expressing the layer position in LED mode.
 layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _FN:
       rgblight_sethsv_at(HSV_BLUE, 0);
       break;
