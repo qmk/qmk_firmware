@@ -178,11 +178,21 @@ class ConfigurationSection(Configuration):
 
     def __getitem__(self, key):
         """Returns a config value, pulling from the `user` section as a fallback.
+        This is called when the attribute is accessed either via the get method or through [ ] index.
         """
-        if key in self._config:
+        if key in self._config and self._config[key]:
             return self._config[key]
 
         elif key in self.parent.user:
+            return self.parent.user[key]
+
+        return None
+
+    def __getattr__(self, key):
+        """Returns the config value from the `user` section.
+        This is called when the attribute is accessed via dot notation but does not exists.
+        """
+        if key in self.parent.user:
             return self.parent.user[key]
 
         return None
@@ -519,7 +529,10 @@ class MILC(object):
                         self.config[section][argument] = arg_value
                 else:
                     if argument not in self.config[section]:
-                        self.config[section][argument] = getattr(self.args, argument)
+                        # Check if the argument exist for this section
+                        arg = getattr(self.args, argument)
+                        if arg:
+                            self.config[section][argument] = arg
 
         self.release_lock()
 
