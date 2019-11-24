@@ -98,8 +98,8 @@ qmk compile -kb <keyboard_name> -km <keymap_name>
 ## `qmk flash`
 
 このコマンドは `qmk compile` に似ていますが、ブートローダを対象にすることもできます。ブートローダはオプションで、デフォルトでは `:flash` に設定されています。
-違うブートローダを指定するには、`-bl <bootloader>` を使ってください。Visit <https://docs.qmk.fm/#/flashing>
-for more details of the available bootloaders.
+違うブートローダを指定するには、`-bl <bootloader>` を使ってください。利用可能なブートローダの詳細については、<https://docs.qmk.fm/#/flashing>
+を見てください。
 
 **Configurator Exports の使い方**:
 
