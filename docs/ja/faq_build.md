@@ -15,10 +15,10 @@
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-`make` を `sudo` で実行することは、一般的には良い考えでは***なく***、可能であれば前者のメソッドのうちの1つを使うべきです。
+`make` を `sudo` で実行することは一般的には良い考えでは***なく***、可能であれば前者の方法のいずれかを使うべきです。
 
 ### Linuxの `udev` ルール
-Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアをフラッシュする時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置するかのどちらかを使うことができます。追加をしたら、以下を実行します:
+Linux では、MCU にアクセスするには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか、`/etc/udev/rules.d/` にこれらのファイルを配置するかのどちらかを使うことができます。追加をしたら、以下を実行します:
 ```console
 sudo udevadm control --reload-rules
 sudo udevadm trigger
@@ -73,7 +73,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="066
 
 ## DFUブートローダの不明なデバイス
 
-Windows 上でキーボードをフラッシュする時に発生する問題は、ブートローダに間違ったドライバがインストールされているか、全くインストールされていないかによるものがほとんどです。
+Windows 上でキーボードを書き込む時に発生する問題は、ブートローダに間違ったドライバがインストールされているか、全くインストールされていないかによるものがほとんどです。
 
 QMK インストール スクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
 
@@ -163,10 +163,10 @@ brew install avr-gcc@8
 brew link --force avr-gcc@8
 ```
 
-### キーボードをフラッシュしただけで何も起こらない/キーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
+### キーボードを書き込んだが何も起こらない/キーの押下が登録されない - ARM でも同じ (rev6 planck、clueboard 60、hs60v2 など) (Feb 2019)
 ARM ベースのチップ上で EEPROM がどのように動作するかにより、保存された設定が無効になる場合があります。これはデフォルト レイヤに影響し、まだ解明中の特定の環境下でキーボー尾が不安定になるかも*しれません*。EEPROM の再設定でこれが修正されます。
 
-[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を eeprom 再設定を強制するために使うことができます。このイメージをフラッシュした後で、通常のファームウェアをフラッシュすると、キーボードが_通常_ の正常な順序に復元されます。
+[Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を eeprom 再設定を強制するために使うことができます。このイメージを書き込んだ後で、通常のファームウェアをフラッシュすると、キーボードが_通常_ の正常な順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
 いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[Bootmagic  ドキュメント](feature_bootmagic.md)を見てください)。
