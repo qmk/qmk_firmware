@@ -74,5 +74,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     	/* 8-bit data */ \
     	UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
   	} while(0)
-
-#endif
