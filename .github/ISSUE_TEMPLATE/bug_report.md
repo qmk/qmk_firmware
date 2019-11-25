@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve QMK Firmware.
 title: "[Bug] "
-labels: bug, help wanted, discussion
+labels: bug, help wanted
 assignees: ''
 
 ---

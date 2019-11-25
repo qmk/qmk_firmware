@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 enum plaid_layers {
   _QWERTY,
@@ -235,7 +234,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
   eeconfig_update_user(led_config.raw);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
