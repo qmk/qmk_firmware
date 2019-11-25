@@ -657,26 +657,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _NSY ] = LAYOUT (
 
-// <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//        -*-                          <|>                                       // Layer access from _FUN -*-
-// BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
-// -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
-// .+LSft 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSft  // QMK limitation prevents ~
-// ------------------------------------------------------------
-// Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
-//                 -*-       <|>         -*-                                     // Layer access from _LTR -*-
-// <1        <2    <3    <4   | 4>       3>    2>    1>  
+// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+//          -*-                          <|>                                    // Layer access from _FUN -*-
+// BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
+// Tab+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{   ]}  `~+RCtl
+// -+LSft   0)    9(    8*    7&    6^    | |     +     ?     {    }    `+RSft  // QMK limitation prevents ~
+// -------------------------------------------------------
+// Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+//                 -*-       <|>    -*-                                         // Layer access from _LTR -*-
+// <1        <2    <3    <4   | 4>  3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
 //                         , -*-     ,       ,         ,        ,       <|,>        ,         ,         ,         ,         ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT , KC_HASH , KC_DLR , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
-        LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
-//      -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , S ( KC_TAB ) , _______ , KC_TAB  , RALT_T ( KC_RGHT )
-//                         ,        , -*-     ,      <|,>             , -*-     ,         ,
-//      <1                 , <2     , <3      , <4    |, 4>           , 3>      , 2>      , 1>
+        LCTL_T ( KC_TAB )  , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_EQL  , KC_SLSH , KC_LBRC , KC_RBRC , RCTL_T ( KC_GRV )  , 
+        LSFT_T ( KC_MINS ) , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
+//      -------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM  , RALT_T ( KC_RGHT )
+//                         ,        , -*-     ,      <|,>       , -*-     ,          ,
+//      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
 
         /**/
@@ -689,26 +689,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DDN ] = LAYOUT (
 
-// <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                     <|>                        -*-            // Layer access from _FUN -*-
-// BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
-// -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
-// .+LSft 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSft  // QMK limitation prevents ~
-// ------------------------------------------------------------
-// Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
-//                 -*-       <|>         -*-                                     // Layer access from _DDL -*-
-// <1        <2    <3    <4   | 4>       3>    2>    1>  
+// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+//                                       <|>                        -*-                      // on _FUN
+// BASE     !     @     #     $     %     | ^     &     *     (     )        Bspc
+// Tab+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
+// -+LSht   0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
+// -------------------------------------------------------
+// Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+//                 -*-       <|>    -*-                                                      // on _DDL
+// <1        <2    <3    <4   | 4>  3>    2>    1>  
 //
 //
 //      <pink2             , <pinky  , <ring , <middl  , <index , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
 //                         , -*-     ,       ,         ,        ,       <|,>        ,         ,         ,         , -*-     ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT , KC_HASH , KC_DLR , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
-        LCTL_T ( KC_MINS ) , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_RBRC , KC_LBRC , KC_MINS , KC_EQL  , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_DOT )  , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
-//      -----------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , S ( KC_TAB ) , _______ , KC_TAB , RALT_T ( KC_RGHT )
-//                         ,        , -*-     ,      <|,>             , -*-     ,        ,
-//      <1                 , <2     , <3      , <4    |, 4>           , 3>      , 2>     , 1>
+        LCTL_T ( KC_TAB )  , KC_1    , KC_2  , KC_3    , KC_4   , KC_5    , KC_BSLS , KC_RBRC , KC_LBRC , KC_MINS , KC_EQL  , RCTL_T ( KC_GRV )  , 
+        LSFT_T ( KC_MINS ) , KC_0    , KC_9  , KC_8    , KC_7   , KC_6    , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
+//  ----------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM , RALT_T ( KC_RGHT )
+//                         ,        , -*-     ,      <|,>       , -*-     ,         ,
+//      <1                 , <2     , <3      , <4    |, 4>     , 3>      , 2>      , 1>
                       ),
 
         /**/

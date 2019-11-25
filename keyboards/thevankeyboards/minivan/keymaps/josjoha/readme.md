@@ -156,15 +156,15 @@ from ../jetpacktuxedo/ keymap.
 
      Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
     
-     <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-            -*-                          <|>                                        // -*- Access on _FUN
-     BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
-     -+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{    ]}    `~+RCtl
-     .+LSht 0)    9(    8*    7&    6^    | |     +     ?     {     }      `+RSht //limitation prevents ~
-     ------------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
-                     -*-       <|>         -*-                                      // -*- Access on _LTR 
-     <1        <2    <3    <4   | 4>       3>    2>    1>  
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+              -*-                          <|>                                      // -*- Access on _FUN
+     BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
+     Tab+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{   ]}  `~+RCtl
+     -+LSft   0)    9(    8*    7&    6^    | |     +     ?     {    }    `+RSft // limitation prevents ~
+     -------------------------------------------------------
+     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+                     -*-       <|>    -*-                                           // -*- Access on _LTR
+       <1      <2    <3    <4   | 4>  3>    2>    1>  
 
 - - -
     
@@ -264,15 +264,15 @@ from ../jetpacktuxedo/ keymap.
 
      Layer _DDN (Dvorak descramble mode for numbers/symbols)
 
-     <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                         <|>                        -*-                        // on _FUN
-     BASE   !     @     #     $     %     | ^     &     *     (     )        Bspc
-     -+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
-     .+LSht 0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
-     ------------------------------------------------------------
-     Left+LAlt Del   ___   Ent  | Sft(tab) ___   tab   Right+RAlt
-                     -*-       <|>         -*-                                                 // on _DDL 
-     <1        <2    <3    <4   | 4>       3>    2>    1>  
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                           <|>                        -*-                      // on _FUN
+     BASE     !     @     #     $     %     | ^     &     *     (     )        Bspc
+     Tab+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
+     -+LSht   0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
+     -------------------------------------------------------
+     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+                     -*-       <|>    -*-                                                      // on _DDL
+     <1        <2    <3    <4   | 4>  3>    2>    1>  
 
 - - -
 
