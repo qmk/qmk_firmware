@@ -20,26 +20,18 @@
 void keyboard_pre_init_kb(void)
 {
     setPinOutput(D7);
+    writePinHigh(D7);
     setPinOutput(D6);
+    writePinHigh(D6);
     setPinOutput(D4);
+    writePinHigh(D4);
 }
 
 bool led_update_kb(led_t led_state) {
-    if (led_state.num_lock) {
-        writePinLow(D7);
-    } else {
-        writePinHigh(D7);
-    }
-    if (led_state.caps_lock) {
-        writePinLow(D6);
-    } else {
-        writePinHigh(D6);
-    }
-    if (led_state.scroll_lock) {
-        writePinLow(D4);
-    } else {
-        writePinHigh(D4);
-    }
+    writePin(D7, !led_state.num_lock);
+    writePin(D6, !led_state.caps_lock);
+    writePin(D4, !led_state.scroll_lock);
+
     return led_update_user(led_state);
 }
 
