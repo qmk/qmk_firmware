@@ -1,7 +1,6 @@
 # MCU name
 # MCU = atmega32u4
 MCU = STM32F303
-# CTPC = yes
 ALLOW_WARNINGS = yes
 
 # Bootloader selection
