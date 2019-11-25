@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Layer switch TT(layer) tapping amount to make it toggle
 //#define TAPPING_TOGGLE 2
 
+#define PRESCRAMBLED_U "f"  // This is the letter 'u' for Unicode input, as effective on a computer set to Dvorak
+
 extern keymap_config_t keymap_config;
 
 
@@ -45,16 +47,7 @@ extern keymap_config_t keymap_config;
      * */
 
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
-// Defines the internal order of the layers. The normal base layer starts at 
-// default 0.  The Dvorak descramble BASE _DDL needs to
-// have a low order number, so that the other layers can be accessed on top of it.
-// The rest of the order does not matter, but to keep the code easier the descramble
-// layers are near the layer they descramble. F-keys is on top because it is the 
-// layers hub, although that should not matter either.
-// It seems that setting the 'default' layer is not needed. It is enough to merely toggle
-// to either _LTR or _DDL, no need for DF(layer).
-// The source lines order is as on the keyboard (_FUN top row). The order of the layers
-// in the source file follows layer precedence order in reverse (0-11).
+// Below #defines the internal order of the layers.
 
 #define _LTR 0  // letters (Dvorak)
 #define _NSY 2  // numbers and symbols
@@ -68,17 +61,31 @@ extern keymap_config_t keymap_config;
 #define _DDA 8  // Descramble version of _ACC
 #define _DDN 3  // Descramble version of _NSY
 #define _DDL 1  // Descramble version of _LTR
+//
+// The normal and Dvorak descramble BASE _DDL needs to have a low order
+// number, so that the other layers can be accessed on top of it.  The rest
+// of the order does not matter, but to keep the code easier the descramble
+// layers are near the layer they descramble. F-keys is on top because it
+// is the layers hub, although that should not matter either.
+// It seems that setting the 'default' layer is not needed, no need for DF(layer).
+// The source lines order is as on the keyboard (_FUN top row). The order of the layers
+// in the source file follows layer precedence order in reverse, which in user logic
+// is more-important to lesser-important, but in layer precedence the other way around (0-11).
+// The order is irrelevant for this keymap, because transparent is an unused concept
+// (I fear it adds confusion, and leaves key space under a layer key under used),
+// except when unavoidable for layer switches to work.
 
-bool descramble = 0 ; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
-bool shift_ison = 0 ; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
-                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
+bool descramble = 0; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
+                     //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
 
     /* These are the accented characters of most/all western European Nations.
      * Using the Unicode input system
      */
-enum unicode_names { // See below for meaning
-    CAEL_,
-    CAEU_,
+enum unicode_names { // See below under 'unicode map' for meaning
+    // For normal Dvorak BASE layer set:
+    CAEL_BI,
+    CAEU_BI,
     CAL_ACU,
     CAL_CAR,
     CAL_DIA,
@@ -110,8 +117,8 @@ enum unicode_names { // See below for meaning
     CIU_GRA,
     CNL_TLD,
     CNU_TLD,
-    COEL_,
-    COEU_,
+    COEL_BI,
+    COEU_BI,
     COL_ACU,
     COL_CAR,
     COL_DIA,
@@ -217,12 +224,12 @@ const uint32_t PROGMEM unicode_map[] = {
     [CYU_DIA] = 0x0178, //      ''             ''    'U' for upper,        ''         : Ÿ
 
     // OE (French)
-    [COEL_] = 0x0153, //        ''        'AO' for ao, 'L' for lower: œ
-    [COEU_] = 0x0152, //        ''              ''     'U' for upper: Œ
+    [COEL_BI] = 0x0153, //        ''        "AO" for ao, 'L' for lower, "BI" for two-character: œ
+    [COEU_BI] = 0x0152, //        ''              ''     'U' for upper,       ''              ; Œ
                             
     // AE (French)          
-    [CAEL_] = 0x00e6, //        ''        'AE' for ae, 'L' for lower: æ
-    [CAEU_] = 0x00c6, //        ''              ''     'U' for upper: Æ
+    [CAEL_BI] = 0x00e6, //        ''        "AE" for ae, 'L' for lower        ''              : æ
+    [CAEU_BI] = 0x00c6, //        ''              ''     'U' for upper,       ''              : Æ
 
     // O with stroke (Scandinavia)
     [COL_STK] = 0x00f8, //      ''        'O' for o, 'L' for lower, "STK" for Stroke: ø
@@ -249,7 +256,7 @@ const uint32_t PROGMEM unicode_map[] = {
       //Sad symbols
     [CS_SAD_] = 0x1f641, //      ''              ''          "SAD_"   for  <sad face>  🙁 
     [CS_SQIG] = 0x2368,  //      ''              ''          "SQIG"  for "Squiggly" face <sad>  ⍨
-    [CS_THDN] = 0x1f44e         //      ''              ''          "THDN"  for <thumb down>  👎 
+    [CS_THDN] = 0x1f44e  //      ''              ''          "THDN"  for <thumb down>  👎 
 };
 
 
@@ -262,54 +269,100 @@ enum custom_keycodes {
     BASE_LTR,              // "BASE" for base layer, "_LTR" for that layer
     BASE_DDL,              //         ''             "_DDL" for that layer
     CUNI_ADIA,             // 'C' for costum' "UNI" for Unicode, 'A' for a, "DIA" for diaereses
+    //
+    // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
+    // the assigned key to end up doing other stuff besides what we have defined in this file.
+    // The below are the same as above for the normal maps, but there is not upper/lower case
+    // because that is handled by noting the state of Shift. These are merely keycodes that refer
+    // to their macro, which then refers to the above Unicode map version and then recode that.
+    // UN_OE_BI_ refers to the values in COEL_BI and COEU_BI, recodes them and gives as output, etc.
+    // (These lists are sorted.)
+    UN_A_ACU,
+    UN_A_CAR,
+    UN_A_DIA,
+    UN_AE_BI_,
+    UN_A_GRA,
+    UN_A_RNG,
+    UN_C_CDL,
+    UN_E_ACU,
+    UN_E_CAR,
+    UN_E_DIA,
+    UN_E_GRA,
+    UN_EX_INV,
+    UN_I_ACU,
+    UN_I_CAR,
+    UN_I_DIA,
+    UN_I_GRA,
+    UN_N_TLD,
+    UN_O_ACU,
+    UN_O_CAR,
+    UN_O_DIA,
+    UN_OE_BI_,
+    UN_O_GRA,
+    UN_O_STK,
+    UN_OU_STK,
+    UN_QU_INV,
+    UN_SL_SHP,
+    UN_S_SAD_,
+    UN_S_SMIL,
+    UN_S_SQIG,
+    UN_S_THDN,
+    UN_S_THUP,
+    UN_S_YAYS,
+    UN_U_ACU,
+    UN_U_CAR,
+    UN_U_DIA,
+    UN_U_GRA,
+    UN_Y_ACU,
+    UN_Y_DIA,
 };
 
 // Activates only the major layer, either the normal or the descramble one
-void activate_major_layer(int mode_descr) { 
-    if ( mode_descr ) {
-        layer_on ( _DDL ) ;
+void activate_major_layer (int mode_descr) { 
+    if (mode_descr) {
+        layer_on(_DDL);
     } else { // normal mode
-        layer_on ( _LTR ) ;
+        layer_on(_LTR);
     }
 }
 // De-activates layers
-void deactivate_other_layer(int mode_descr) {
-    if ( mode_descr ) {
+void deactivate_other_layer (int mode_descr) {
+    if(mode_descr) {
         //layer_off ( _LTR ) ; // maybe better not de-activate lowest default layer, it is covered up anyway
-        layer_off ( _NSY ) ;
-        layer_off ( _FUN ) ;
-        layer_off ( _MOV ) ;
-        layer_off ( _RAR ) ;
-        layer_off ( _REV ) ;
-        layer_off ( _ACC ) ;
-        layer_off ( _DRA ) ;
-        layer_off ( _DDD ) ;
-        layer_off ( _DDA ) ;
-        layer_off ( _DDN ) ;
+        layer_off(_NSY);
+        layer_off(_FUN);
+        layer_off(_MOV);
+        layer_off(_RAR);
+        layer_off(_REV);
+        layer_off(_ACC);
+        layer_off(_DRA);
+        layer_off(_DDD);
+        layer_off(_DDA);
+        layer_off(_DDN);
         //layer_off ( _DDL ) ; // the descramble base layer
     } else { // normal mode
         //layer_off ( _LTR ) ; // normal base layer
-        layer_off ( _NSY ) ;
-        layer_off ( _FUN ) ;
-        layer_off ( _MOV ) ;
-        layer_off ( _RAR ) ;
-        layer_off ( _REV ) ;
-        layer_off ( _ACC ) ;
-        layer_off ( _DRA ) ;
-        layer_off ( _DDD ) ;
-        layer_off ( _DDA ) ;
-        layer_off ( _DDN ) ;
-        layer_off ( _DDL ) ;
+        layer_off(_NSY);
+        layer_off(_FUN);
+        layer_off(_MOV);
+        layer_off(_RAR);
+        layer_off(_REV);
+        layer_off(_ACC);
+        layer_off(_DRA);
+        layer_off(_DDD);
+        layer_off(_DDA);
+        layer_off(_DDN);
+        layer_off(_DDL);
     }
 }
 
 // help user with leds
-void indicate_scramble ( int mode_descr )
+void indicate_scramble(int mode_descr)
 {
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     // See also below under _FUN layer led
-    if ( mode_descr ) { // descramble mode, 1
+    if (mode_descr) { // descramble mode, 1
         led0r = 255; //  shine only right led, since _DDL is on the right furthest key
         led0g = 0; 
         led0b = 0; 
@@ -326,7 +379,7 @@ void indicate_scramble ( int mode_descr )
     }
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
-    rgblight_set();
+    rgblight_set ();
 }
 
 // Process the user input, as far as special costumization within this source file is concerned.
@@ -340,8 +393,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 
             } else { // key up
-                descramble = 0 ; // off  
-                indicate_scramble ( descramble ) ; // Help user with indicator
+                descramble = 0; // off  
+                indicate_scramble(descramble); // Help user with indicator
        
             }
             break;           
@@ -350,23 +403,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
        
             } else { // key up
-                descramble = 1 ;// on
-                indicate_scramble ( descramble ) ; // Help user with indicator
+                descramble = 1;// on
+                indicate_scramble(descramble); // Help user with indicator
        
             }
             break; 
         // User pressed upper/left button (escape from a layer to BASE layer)
         case CTO_BASE:
             if (record->event.pressed) { // key down
-                activate_major_layer ( descramble ) ; // makes respective base layer active
+                activate_major_layer(descramble); // makes respective base layer active
                 // set leds accordingly
-                if ( descramble ) {
-                    layer_state_set_user(_DDL);
+                if (descramble) {
+                    layer_state_set_user (_DDL);
                 } else {
-                    layer_state_set_user(_LTR);
+                    layer_state_set_user (_LTR);
                 }
             } else { // key up
-                deactivate_other_layer ( descramble ) ; // deactivates all else
+                deactivate_other_layer (descramble); // deactivates all else
             }
             break;
     }
@@ -378,21 +431,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CUNI_ADIA:
             if (record->event.pressed) { // key down
     	    //char leadin[] = "u" ;
-    	    if ( shift_ison ) {
-    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT)) ;
+    	    if (shift_ison) {
+    		SEND_STRING (SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT)) ;
     	        if ( descramble ) {
     	             SEND_STRING ( "f" ) ; // pre-scrambled
     	        } else {
     	             SEND_STRING ( "u" ) ;
     	        }
-    		SEND_STRING ( SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ;
+    		SEND_STRING (SS_UP(X_LSHIFT) SS_UP(X_LCTRL)) ;
     	        if ( descramble ) {
-                        SEND_STRING ( "00d4 " ) ; // pre-scrambled
+                        SEND_STRING ("00d4 "); // pre-scrambled
     	        } else {
-                        SEND_STRING ( "00e4 " ) ; // test
+                        SEND_STRING ("00e4 "); // test
     	        }
     	    } else {
-                    SEND_STRING ( "ccc" ) ; // test
+                    SEND_STRING ("ccc"); // test
     	    }
             } else { // key up
             }
@@ -403,11 +456,86 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // ... right shift
         case KC_RSFT:
             if (record->event.pressed) { // key down
-                shift_ison = 1 ; // shift depressed
+                shift_ison = 1; // shift depressed
             } else { // key up
-                shift_ison = 0 ; // shift released
+                shift_ison = 0; // shift released
             }
           break;
+
+	// Unicode macros for descramble mode.
+	// The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
+	// However it seems SEND_STRING cannot take a variable, or I am doing something wrong.
+	// It seems that it has to be a hardcoded constant. This will take up quite a bit of memory.
+	// The table of conversion the ASCII representation of hex values is:
+	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y.
+        case UN_A_ACU:
+            if (record->event.pressed) { // key down
+    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
+    	        if (shift_ison) {
+                    SEND_STRING ("00i1 ");
+		} else {
+                    SEND_STRING ("00d1 "); 
+		}
+            }
+	  break;
+        case UN_A_CAR:
+            if (record->event.pressed) { // key down
+    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
+    	        if (shift_ison) {
+                    SEND_STRING ("00i2 ");
+		} else {
+                    SEND_STRING ("00d2 "); 
+		}
+            }
+	  break;
+  /*
+    // a lower case variants
+    [CAL_ACU] = 0x00e1, // 'C' for Costum 'A' for a, 'L' for lower, "ACU" for acute: á
+    [CAL_CAR] = 0x00e2, //      ''              ''        ''        "CAR" for caret: â
+    [CAL_DIA] = 0x00e4, //      ''              ''        ''        "DIA" for diaereses: ä
+    [CAL_GRA] = 0x00e0, //      ''              ''        ''        "GRA" for grave: à
+      // A upper case variants
+    [CAU_ACU] = 0x00c1, //      ''              ''   'U' for upper, "ACU" for acute: Á
+    [CAU_CAR] = 0x00c2, //      ''              ''        ''        "CAR" for caret: Â
+    [CAU_DIA] = 0x00c4, //      ''              ''        ''        "DIA" for diaereses: Ä
+    [CAU_GRA] = 0x00c0, //      ''              ''        ''        "GRA" for grave: À
+    UN_A_DIA,
+    UN_AE_BI_,
+    UN_A_GRA,
+    UN_A_RNG,
+    UN_C_CDL,
+    UN_E_ACU,
+    UN_E_CAR,
+    UN_E_DIA,
+    UN_E_GRA,
+    UN_EX_INV,
+    UN_I_ACU,
+    UN_I_CAR,
+    UN_I_DIA,
+    UN_I_GRA,
+    UN_N_TLD,
+    UN_O_ACU,
+    UN_O_CAR,
+    UN_O_DIA,
+    UN_OE_BI_,
+    UN_O_GRA,
+    UN_O_STK,
+    UN_OU_STK,
+    UN_QU_INV,
+    UN_SL_SHP,
+    UN_S_SAD_,
+    UN_S_SMIL,
+    UN_S_SQIG,
+    UN_S_THDN,
+    UN_S_THUP,
+    UN_S_YAYS,
+    UN_U_ACU,
+    UN_U_CAR,
+    UN_U_DIA,
+    UN_U_GRA,
+    UN_Y_ACU,
+    UN_Y_DIA,
+    */
      }
      return true;
 };
@@ -746,9 +874,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
 //                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
         CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
-        KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-      //KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-
+        KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ------------------------------------------------------------------------------------
         KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
@@ -778,11 +904,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
 //                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
-        CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
-     // KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-        KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_ , COEU_ )     , XP ( CAEL_ , CAEU_ )     , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-
-        KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
+        CTO_BASE    , UN_A_ACU                 , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
+        KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
+        KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , UN_A_CAR                 , KC_RSFT ,
 //      ------------------------------------------------------------------------------------
         KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
 //                , -*-     ,         ,      <|,>       ,         ,         , -*-
@@ -927,19 +1051,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_user (void) {
   #ifdef RGBLIGHT_ENABLE
     // Set up RGB effects on _only_ the first LED 
-    rgblight_set_effect_range(1, 1); // Takes a range: 1st arg is start, 2nd how many
+    rgblight_set_effect_range (1, 1); // Takes a range: 1st arg is start, 2nd how many
     // Purple
-    rgblight_sethsv_noeeprom(210, 255, 20);
+    rgblight_sethsv_noeeprom (210, 255, 20);
     // Set LED effects to breathing mode
-    rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
+    rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
 
     // Init the first and last LEDs to a static color.
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
-    setrgb(0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
-    rgblight_set();
+    setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
+    setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
+    rgblight_set ();
   #endif //RGBLIGHT_ENABLE
 }
 
@@ -953,13 +1077,13 @@ uint32_t layer_state_set_user(uint32_t state){
     // The order should be the reverse of the #defines of layer number of the layers on top
     // because higher layer number is higher priority if activated
     /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
-    if (layer_state_cmp(state, _FUN)) { // F-keys, and layer toggles
+    if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
         //led2r = 255; // F-keys is red, warning color because it can mean anything
         //led0r = 255;
 	
 	// When it enters this mode, this gets triggered, indicating the current state
 	// of the (de)scramble.
-        if ( descramble ) { // descramble mode, 1
+        if (descramble) { // descramble mode, 1
             led0r = 255; //  shine only right led, since _DDL is on the right furthest key
             led0g = 0; 
             led0b = 0; 
@@ -974,18 +1098,18 @@ uint32_t layer_state_set_user(uint32_t state){
             led2g = 0; 
             led2b = 0; 
         }
-        rgblight_sethsv_noeeprom(HSV_RED);
+        rgblight_sethsv_noeeprom (HSV_RED);
     } 
     //--- (pair)
-    else if (layer_state_cmp(state, _DDD)) {  // double Dvorak descramble, Unicode drawings
+    else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
         led0r = 255; //  first led follows the layer being descrambled: _DRA
         led0g = 128; // 
         led2r = color_ddl; // Same as DDL, to which it belongs.
         led2g = color_ddl; // 
         led2b = color_ddl; // 
-        rgblight_sethsv_noeeprom(HSV_GOLDENROD); 
+        rgblight_sethsv_noeeprom (HSV_GOLDENROD); 
     }
-    if (layer_state_cmp(state, _DRA)) { // Unicode drawings and unusual things
+    if (layer_state_cmp (state, _DRA)) { // Unicode drawings and unusual things
         led0r = 255; // gold red
         led0g = 128; // 
         led2r = 255; //
@@ -993,7 +1117,7 @@ uint32_t layer_state_set_user(uint32_t state){
         rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
     }
     //--- (pair)
-    else if (layer_state_cmp(state, _DDA)) {  // double Dvorak descramble, Accented letters
+    else if (layer_state_cmp (state, _DDA)) {  // double Dvorak descramble, Accented letters
         led0g = 150; //  first led follows the layer being descrambled: _ACC
         led0b = 100;
         led2r = color_ddl; // Same as DDL, to which it belongs.
@@ -1001,64 +1125,64 @@ uint32_t layer_state_set_user(uint32_t state){
         led2b = color_ddl; // 
         rgblight_sethsv_noeeprom(HSV_TURQUOISE); 
     }
-    else if (layer_state_cmp(state, _ACC)) { // Accented letters (Unicode input layer)
+    else if (layer_state_cmp (state, _ACC)) { // Accented letters (Unicode input layer)
         led0g = 150; // With some blue, because it is also a symbol 
         led0b = 100;
         led2g = 150;
         led2b = 100;
-        rgblight_sethsv_noeeprom(HSV_TURQUOISE); // cyan
+        rgblight_sethsv_noeeprom (HSV_TURQUOISE); // cyan
     }
     //---
-    else if (layer_state_cmp(state, _REV)) { // reverse hands layer
+    else if (layer_state_cmp (state, _REV)) { // reverse hands layer
         led0g = 255; // green for nagivation left hand
         led2b = 255; // blue for symbols right hand
-        rgblight_sethsv_noeeprom(60, 20, 100); // yellow (low saturation)
+        rgblight_sethsv_noeeprom (60, 20, 100); // yellow (low saturation)
     }
     //---
-    else if (layer_state_cmp(state, _RAR)) { // weird layer
+    else if (layer_state_cmp (state, _RAR)) { // weird layer
         led0r = 100; // purple
         led0b = 100;
         led2r = 100;
         led2b = 100;
-        rgblight_sethsv_noeeprom(HSV_PURPLE); // purple
+        rgblight_sethsv_noeeprom (HSV_PURPLE); // purple
     }
     //---
-    else if (layer_state_cmp(state, _MOV)) { // movement layer
+    else if (layer_state_cmp (state, _MOV)) { // movement layer
         led0g = 255;// movement is green, "go forward"
         led2g = 255; 
         rgblight_sethsv_noeeprom(HSV_GREEN);
     }
     //--- (pair)
-    else if (layer_state_cmp(state, _DDN)) { // double Dvorak descramble, numbers/symbols 
+    else if (layer_state_cmp (state, _DDN)) { // double Dvorak descramble, numbers/symbols 
         led0b = 255; //  first led follows the layer being descrambled: _NSY 
         led2r = color_ddl; // Same as DDL, to which it belongs.
         led2g = color_ddl; // 
         led2b = color_ddl; // 
-        rgblight_sethsv_noeeprom(HSV_BLUE); 
+        rgblight_sethsv_noeeprom (HSV_BLUE); 
     }
-    else if (layer_state_cmp(state, _NSY)) { // symbols and numbers
+    else if (layer_state_cmp (state, _NSY)) { // symbols and numbers
         led0b = 255; // blue for symbols, like ink (writing)
         led2b = 255;
-        rgblight_sethsv_noeeprom(HSV_BLUE);
+        rgblight_sethsv_noeeprom (HSV_BLUE);
     }
     //--- (pair)
     // Alternate BASE layer (descramble)
-    else if (layer_state_cmp(state, _DDL)) { // double Dvorak descramble, letters
+    else if (layer_state_cmp (state, _DDL)) { // double Dvorak descramble, letters
         led2r = color_ddl; // A bit of a white not too bright color on rightaaaa111oooonnnooo
         led2g = color_ddl; // 
         led2b = color_ddl; // 
     }
     // Default layer (generally), normal BASE layer
-    else if (layer_state_cmp(state, _LTR)) { // symbols and numbers
+    else if (layer_state_cmp (state, _LTR)) { // symbols and numbers
         led0r = 28; // A bit of a weak white color on left 
         led0g = 28; // 
         led0b = 28; // 
     }
     //---
 
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
-    rgblight_set();
+    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
+    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    rgblight_set ();
   #endif //RGBLIGHT_ENABLE
   return state;
 }
