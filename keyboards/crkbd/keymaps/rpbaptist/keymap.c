@@ -375,7 +375,7 @@ void rgb_matrix_set_defaults(void) {
 
     user_config.rgb_layer_change        = true;
     user_config.rgb_matrix_idle_anim    = true;
-    user_config.rgb_matrix_idle_timeout = 50000;
+    user_config.rgb_matrix_idle_timeout = 60000;
 
     rgb_matrix_update_dynamic_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
     rgb_matrix_update_dynamic_mode(RGB_MATRIX_TYPING_HEATMAP, RGB_MATRIX_ANIMATION_SPEED_DEFAULT, true);
@@ -470,7 +470,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
         case COLEMAK:
             if (record->event.pressed) {
-                user_config.rgb_matrix_idle_timeout = 50000;
+                user_config.rgb_matrix_idle_timeout = 60000;
                 rgb_matrix_update_mode(RGB_MATRIX_CYCLE_ALL, RGB_MATRIX_ANIMATION_SPEED_SLOWER, false);
             }
             return true;
