@@ -111,7 +111,7 @@
   * [Using Eclipse with QMK](other_eclipse.md)
   * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
-  * [How to add translations](translating.md)
+  * [Translating the QMK Docs](translating.md)
 
 * QMK Internals (In Progress)
   * [Defines](internals_defines.md)
