@@ -47,7 +47,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ```
 
-**/etc/udev/rules.d/55-catalina.rules:**
+**/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
 ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
