@@ -9,14 +9,3 @@ edition = "2018"
 
 [build-dependencies]
 bindgen = "0.51"
-
-[profile.release]
-codegen-units = 1
-debug = false
-debug-assertions = false
-incremental = false
-lto = true
-opt-level = 'z'
-overflow-checks = false
-panic = "abort"
-rpath = false

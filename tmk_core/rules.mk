@@ -169,6 +169,11 @@ endif
 CARGO_BUILD_FLAGS = --release --target=$(RUST_TARGET)
 CARGO_BUILD = cargo +$(RUST_TOOLCHAIN) build $(CARGO_BUILD_FLAGS)
 
+RUST_OPTIMIZER_FLAGS += -C opt-level=z
+RUST_OPTIMIZER_FLAGS += -C panic=abort
+RUST_OPTIMIZER_FLAGS += -C lto
+RUST_OPTIMIZER_FLAGS += -C codegen-units=1
+
 # generate the qmk bindings
 libqmk_sys.rlib: $(RUST_QMK_BIND_DEPS)
 	QMK_BASE_DIR=$(PWD)                    \
@@ -181,13 +186,14 @@ libqmk_sys.rlib: $(RUST_QMK_BIND_DEPS)
 
 # generate the qmk glue
 libqmk.rlib: $(RUST_QMK_GLUE_DEPS) libqmk_sys.rlib
-	RUSTFLAGS="--extern qmk_sys=$(RUST_QMK_BIND_RELEASE_DIR)/libqmk_sys.rlib" \
+	RUSTFLAGS="$(RUST_OPTIMIZER_FLAGS) --extern qmk_sys=$(RUST_QMK_BIND_RELEASE_DIR)/libqmk_sys.rlib" \
 	$(CARGO_BUILD) \
 		--manifest-path=$(RUST_QMK_GLUE_PATH)/Cargo.toml \
 		--target-dir=$(RUST_QMK_GLUE_TARGET_DIR) \
 		--features '$(RUST_QMK_FEATURES)'
 
 # compile the user's keymap into a static library...
+RUST_CRATE_FLAGS = $(RUST_OPTIMIZER_FLAGS)
 RUST_CRATE_FLAGS += -L $(RUST_QMK_BIND_RELEASE_DIR) --extern qmk_sys=$(RUST_QMK_BIND_RELEASE_DIR)/libqmk_sys.rlib
 RUST_CRATE_FLAGS += -L $(RUST_QMK_GLUE_RELEASE_DIR) --extern qmk=$(RUST_QMK_GLUE_RELEASE_DIR)/libqmk.rlib
 $(RUST_CRATE_RELEASE_DIR)/lib$(RUST_CRATE).a: $(RUST_CRATE_DEPS) libqmk.rlib

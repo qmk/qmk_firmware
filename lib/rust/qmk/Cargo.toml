@@ -10,14 +10,3 @@ malloc = []
 
 [dependencies]
 # makefile provides qmk_sys
-
-[profile.release]
-codegen-units = 1
-debug = false
-debug-assertions = false
-incremental = false
-lto = true
-opt-level = 'z'
-overflow-checks = false
-panic = "abort"
-rpath = false
