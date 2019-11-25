@@ -1,5 +1,4 @@
 # project specific files
-# SRC = ssd1306.c
 ## chip/board settings
 # the next two should match the directories in
 #  <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
@@ -49,4 +48,3 @@ CUSTOM_MATRIX = no # Custom matrix file
 
 # RAW_ENABLE = yes
 # DYNAMIC_KEYMAP_ENABLE = yes
-
