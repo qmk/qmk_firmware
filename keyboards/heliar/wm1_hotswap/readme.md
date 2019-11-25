@@ -6,7 +6,7 @@
 ### Pcb back side
 ![Wm1 back side of Pcb](https://i.imgur.com/nGxVJGI.jpg)
 
-A ergonomic 68 key keyboard's hotswap-type PCB which is made by helair and this PCB is compatible with the wm1 keyboard is designed by Hoq.
+A ergonomic 68 key keyboard's hotswap-type PCB which is made by heliar and this PCB is compatible with the wm1 keyboard is designed by Hoq.
 
 * Keyboard Maintainer: [Heliar](https://github.com/heliarmk)
 * Hardware Supported: Hotswap type
