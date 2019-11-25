@@ -4,4 +4,4 @@
 
 This is a custom keymap with the following layout:
 
-![](jhelvy_iris_rev2.png)
+<img src="https://github.com/jhelvy/qmkJsonConverter/raw/master/keymaps/keebio_iris_rev2_jhelvy.png" width="800">
