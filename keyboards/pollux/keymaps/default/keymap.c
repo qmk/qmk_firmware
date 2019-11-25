@@ -1,4 +1,4 @@
-#include "pollux.h"
+#include QMK_KEYBOARD_H
 
 /* LAYERS */
 

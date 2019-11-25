@@ -1,4 +1,4 @@
-#include "crkbd.h"
+#include QMK_KEYBOARD_H
 
 extern uint8_t is_master;
 

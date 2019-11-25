@@ -1,4 +1,4 @@
-#include "ergo42.h"
+#include QMK_KEYBOARD_H
 
 /* LAYER DEFINITIONS */
 

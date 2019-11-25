@@ -1,4 +1,4 @@
-#include "switch42.h"
+#include QMK_KEYBOARD_H
 
 /* GLOBAL VARS */
 
