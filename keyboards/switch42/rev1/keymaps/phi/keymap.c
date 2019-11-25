@@ -1,7 +1,5 @@
 #include "switch42.h"
 
-extern uint8_t is_master;
-
 /* GLOBAL VARS */
 
 #define BASE      0
@@ -24,12 +22,7 @@ extern uint8_t is_master;
 
 /* FEATURES */
 
-#ifdef RGBLIGHT_ENABLE
-#include "./rgb.c"
-#endif
-#ifdef TAP_DANCE_ENABLE
 #include "dance.c"
-#endif
 
 /* KEYCODE DEFINITIONS */
 
@@ -191,20 +184,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* USER TASKS */
 
 void matrix_scan_user (void) {
-  #ifdef RGBLIGHT_ENABLE
-    rgb_update(false);
-  #endif
+  static uint32_t last_layer_state = ~0;
+
+  if (layer_state != last_layer_state) {
+    if (layer_state & L_GARAKE) {
+      rgblight_sethsv_noeeprom(HSV_ORANGE);
+    } else {
+      rgblight_sethsv_noeeprom(HSV_CYAN);
+    }
+    last_layer_state = layer_state;
+  }
 }
 
-void keybaord_post_init_user (void) {
-  #ifdef RGBLIGHT_ENABLE
-    rgb_update(false);
-  #endif
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
- #ifdef RGBLIGHT_ENABLE
-  rgb_process_record(keycode, record);
- #endif
-  return true;
+void keyboard_post_init_user (void) {
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 8);
+  rgblight_sethsv_noeeprom(HSV_CYAN);
 }
