@@ -92,3 +92,29 @@ break;
     break;
   }
 }
+__attribute__ ((weak))
+void process_record_keymap(uint8_t combo_index, bool pressed) {
+}
+
+bool spongebob_mode = false;
+bool spongebob_case = false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (spongebob_mode) {
+    switch(keycode) {
+      case KC_A ... KC_Z:
+        if (record->event.pressed) {
+          (spongebob_case ^= 1) == 0 ? tap_code16(S(keycode)) : tap_code(keycode);
+          return false; break;
+        }
+    }
+  }
+  switch(keycode) {
+    case SPONGEBOB:
+      if (record->event.pressed) {
+        spongebob_mode ^= 1;
+      }
+      return false; break;
+    // OTHER NORMAL process_record_user CASES GO HERE
+  }
+  return true;
+}
