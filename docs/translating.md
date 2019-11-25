@@ -44,6 +44,6 @@ Once you've finished translating a new language, you'll also need to modify the 
 
 ## Previewing the Translations
 
-See (Previewing the Documentation)[contributing.md#previewing-the-documentation] for how to set up a local instance of the docs - you should be able to select your new language from the "Translations" menu at the top-right.
+See [Previewing the Documentation](contributing.md#previewing-the-documentation) for how to set up a local instance of the docs - you should be able to select your new language from the "Translations" menu at the top-right.
 
 Once you're happy with your work, feel free to open a pull request!
