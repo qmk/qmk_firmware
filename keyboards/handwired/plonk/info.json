@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "%KEYBOARD%",
-    "url": "",
+    "keyboard_name": "Plonk",
+    "url": "https://imgur.com/gJLgwQI",
     "maintainer": "Kevin Lockwood",
-    "width": 3,
-    "height": 2,
+    "width": 12,
+    "height": 4,
     "layouts": {
         "LAYOUT": {
             "layout": [
