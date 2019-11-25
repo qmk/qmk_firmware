@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wm1.h"
+#include "wm1_hotswap.h"
 
 
 void keyboard_pre_init_kb(void)
