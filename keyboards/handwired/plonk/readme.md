@@ -1,6 +1,6 @@
 # Plonk
 
-![Plonk Images](https://imgur.com/gJLgwQI!)
+![Plonk Image](https://imgur.com/gJLgwQI)
 
 I was too broke to buy the planck pcb, and I wanted the soldering practice. So here it is, in all it's glory. A handwired planck with a proton C, and the dvorak layout. Because why not.
 
