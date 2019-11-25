@@ -457,12 +457,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else if (saved_mods) {   // One shift pressed
                     del_mods(saved_mods);  // Remove any Shifts present
                     register_code(KC_DEL);
+                    add_mods(saved_mods);  // Add shifts again
                 } else {
-                    saved_mods = 0;  // Clear saved mods so the add_mods() below doesn't add Shifts back when it shouldn't
                     register_code(KC_BSPC);
                 }
             } else {
-                add_mods(saved_mods);
                 unregister_code(KC_DEL);
                 unregister_code(KC_BSPC);
             }
