@@ -6,16 +6,24 @@ void uart_init(void) {
 
 void led_init(void) {
 #if CPU_TYPE == ATMEGA32U2
-	DDRD  |= (1<<1); // Pin to green, set as output
-	PORTD |= (1<<1); // Turn it off
-	DDRC  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
-	PORTC |= (1<<4) | (1<<5); // Turn them off
-
+    setPinOutput(C4); // Set red LED pin as output
+    setPinOutput(C5); // Set blue LED pin as output
+    setPinOutput(D1); // Set green LED pin as output
+    
+    writePinHigh(C4); // Turn off red LED pin
+    writePinHigh(C5); // Turn off blue LED pin
+    writePinHigh(D1); // Turn off green LED pin
+    
 #else
-	DDRD  |= (1<<1); // Pin to green, set as output
-	PORTD |= (1<<1); // Turn it off
-	DDRF  |= (1<<4) | (1<<5); // Pins to red and blue, set as output
-	PORTF |= (1<<4) | (1<<5); // Turn them off
+
+    setPinOutput(F4); // Set red LED pin as output
+    setPinOutput(F5); // Set blue LED pin as output
+    setPinOutput(D1); // Set green LED pin as output
+    
+    writePinHigh(F4); // Turn off red LED pin
+    writePinHigh(F5); // Turn off blue LED pin
+    writePinHigh(D1); // Turn off green LED pin
+    
 #endif
 
 }
