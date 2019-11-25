@@ -65,14 +65,14 @@ void keyboard_pre_init_user(void) {
 
 void led_set_user(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        writePinLow(F0);
-    } else {
         writePinHigh(F0);
+    } else {
+        writePinLow(F0);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinLow(B7);
-    } else {
         writePinHigh(B7);
+    } else {
+        writePinLow(B7);
     }
 }
 

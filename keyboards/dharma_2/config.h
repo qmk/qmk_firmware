@@ -54,7 +54,7 @@
 // EEPROM usage
 
 // TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x4520
+#define EEPROM_MAGIC 0x451F
 #define EEPROM_MAGIC_ADDR 34
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
