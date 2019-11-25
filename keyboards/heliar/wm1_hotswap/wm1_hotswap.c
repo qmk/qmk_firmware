@@ -32,7 +32,7 @@ bool led_update_kb(led_t led_state) {
     writePin(D6, !led_state.caps_lock);
     writePin(D4, !led_state.scroll_lock);
 
-    return led_update_user(led_state);
+    return true;
 }
 
 void matrix_init_kb(void) {
