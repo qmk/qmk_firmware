@@ -1,0 +1,22 @@
+[package]
+name = "qmk-sys"
+version = "0.1.0"
+authors = ["Daniel Prilik <danielprilik@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+# makefile provides qmk and qmk_sys
+
+[build-dependencies]
+bindgen = "0.51"
+
+[profile.release]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = 'z'
+overflow-checks = false
+panic = "abort"
+rpath = false

@@ -1,0 +1,22 @@
+[package]
+name = "rust_example"
+version = "0.1.0"
+authors = ["Daniel Prilik <danielprilik@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+lazy_static = { version = "1.4", features = ["spin_no_std"] }
+
+[profile.release]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = 's'
+overflow-checks = false
+panic = "abort"
+rpath = false
+
+[lib]
+crate-type = ["staticlib"]

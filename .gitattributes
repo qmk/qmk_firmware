@@ -26,6 +26,7 @@
 *.pl     text
 *.py     text
 *.rb     text
+*.rs     text
 *.sass   text
 *.scm    text
 *.scss   text

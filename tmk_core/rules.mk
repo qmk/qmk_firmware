@@ -130,6 +130,78 @@ endif
 CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #CPPFLAGS += $(CSTANDARD)
 
+#---------------- Compiler Options Rust ----------------
+# RUST_CRATE: the name of the user's keymap crate
+# RUST_TARGET: the target triple for the user's keyboard (e.g: thumbv7em-none-eabi)
+# RUST_TOOLCHAIN: (optional) specify which toolchain to use (e.g: nightly)
+# RUST_QMK_HEADERS: (optional) any additional QMK headers to bindgen via `qmk-sys`
+ifdef RUST_CRATE
+
+RUST_BUILD_DIR = $(KEYMAP_OUTPUT)/rust
+
+RUST_QMK_BIND_PATH = lib/rust/qmk-sys
+RUST_QMK_BIND_TARGET_DIR = $(RUST_BUILD_DIR)/qmk-sys
+RUST_QMK_BIND_RELEASE_DIR = $(PWD)/$(RUST_QMK_BIND_TARGET_DIR)/$(RUST_TARGET)/release
+
+RUST_QMK_GLUE_PATH = lib/rust/qmk
+RUST_QMK_GLUE_TARGET_DIR = $(RUST_BUILD_DIR)/qmk
+RUST_QMK_GLUE_RELEASE_DIR = $(PWD)/$(RUST_QMK_GLUE_TARGET_DIR)/$(RUST_TARGET)/release
+
+RUST_CRATE_PATH = $(KEYMAP_PATH)/$(RUST_CRATE)
+RUST_CRATE_TARGET_DIR = $(RUST_BUILD_DIR)/$(RUST_CRATE)
+RUST_CRATE_RELEASE_DIR = $(RUST_CRATE_TARGET_DIR)/$(RUST_TARGET)/release
+
+# cargo emits .d files, but there doesn't seem to be a good way to include them...
+RUST_QMK_BIND_DEPS = $(shell find $(RUST_QMK_BIND_PATH)/ -name \*.rs -print)
+RUST_QMK_GLUE_DEPS = $(shell find $(RUST_QMK_GLUE_PATH)/ -name \*.rs -print)
+RUST_CRATE_DEPS = $(shell find $(RUST_CRATE_PATH)/ -name \*.rs -print)
+
+ifdef RUST_MALLOC
+	RUST_QMK_FEATURES += malloc
+endif
+
+# default to the stable compiler, unless the user requires nightly features
+# (e.g: the "alloc" crate for dynamic allocation)
+ifndef RUST_TOOLCHAIN
+	RUST_TOOLCHAIN = stable
+endif
+
+CARGO_BUILD_FLAGS = --release --target=$(RUST_TARGET)
+CARGO_BUILD = cargo +$(RUST_TOOLCHAIN) build $(CARGO_BUILD_FLAGS)
+
+# generate the qmk bindings
+libqmk_sys.rlib: $(RUST_QMK_BIND_DEPS)
+	QMK_BASE_DIR=$(PWD)                    \
+	KEYMAP_OUTPUT=$(KEYMAP_OUTPUT)         \
+	QMK_KEYBOARD_H=$(QMK_KEYBOARD_H)       \
+	RUST_QMK_HEADERS="$(RUST_QMK_HEADERS)" \
+	$(CARGO_BUILD) \
+		--manifest-path=$(RUST_QMK_BIND_PATH)/Cargo.toml \
+		--target-dir=$(RUST_QMK_BIND_TARGET_DIR)
+
+# generate the qmk glue
+libqmk.rlib: $(RUST_QMK_GLUE_DEPS) libqmk_sys.rlib
+	RUSTFLAGS="--extern qmk_sys=$(RUST_QMK_BIND_RELEASE_DIR)/libqmk_sys.rlib" \
+	$(CARGO_BUILD) \
+		--manifest-path=$(RUST_QMK_GLUE_PATH)/Cargo.toml \
+		--target-dir=$(RUST_QMK_GLUE_TARGET_DIR) \
+		--features '$(RUST_QMK_FEATURES)'
+
+# compile the user's keymap into a static library...
+RUST_CRATE_FLAGS += -L $(RUST_QMK_BIND_RELEASE_DIR) --extern qmk_sys=$(RUST_QMK_BIND_RELEASE_DIR)/libqmk_sys.rlib
+RUST_CRATE_FLAGS += -L $(RUST_QMK_GLUE_RELEASE_DIR) --extern qmk=$(RUST_QMK_GLUE_RELEASE_DIR)/libqmk.rlib
+$(RUST_CRATE_RELEASE_DIR)/lib$(RUST_CRATE).a: $(RUST_CRATE_DEPS) libqmk.rlib
+	RUSTFLAGS="$(RUST_CRATE_FLAGS)" \
+	$(CARGO_BUILD) \
+		--manifest-path=$(RUST_CRATE_PATH)/Cargo.toml \
+		--target-dir=$(RUST_CRATE_TARGET_DIR)
+
+# ...which is then linked with the rest of QMK
+OBJ += $(RUST_CRATE_RELEASE_DIR)/lib$(RUST_CRATE).a
+EXTRALDFLAGS += -L$(RUST_CRATE_RELEASE_DIR)/ -l$(RUST_CRATE)
+
+endif
+
 #---------------- Assembler Options ----------------
 #  -Wa,...:   tell GCC to pass this to the assembler.
 #  -adhlns:   create listing
@@ -344,6 +416,9 @@ $1/%.a : $1/%.o
 
 $1/force:
 
+$1/preprocessor.txt: $1/force
+	echo '$$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)' | cmp -s - $$@ || echo '$$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)' > $$@
+
 $1/cflags.txt: $1/force
 	echo '$$($1_CFLAGS)' | cmp -s - $$@ || echo '$$($1_CFLAGS)' > $$@
 
@@ -353,7 +428,7 @@ $1/cppflags.txt: $1/force
 $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
-$1/compiler.txt: $1/force
+$1/compiler.txt: $1/force $1/preprocessor.txt
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 
