@@ -7,15 +7,6 @@ enum centromere_layers
 	_FN
 };
 
-
-//Mousekeys
-#define MOUSEKEY_DELAY 300
-#define MOUSEKEY_INTERNAL 50
-#define MOUSEKEY_MAX_SPEED 20
-#define MOUSEKEY_TIME_TO_MAX 30
-#define MOUSEKEY_WHEEL_MAX_SPEED 8
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_STD] = LAYOUT( \
