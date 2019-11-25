@@ -413,7 +413,7 @@ void suspend_wakeup_init_keymap(void) {
 
 void eeconfig_init_user(void) {
     user_config.raw = 0;
-    rgb_matrix_mode_noeeprom(user_config.rgb_matrix_idle_mode);
+    rgb_matrix_mode_noeeprom(user_config.rgb_matrix_active_mode);
     keyboard_init();
 }
 
