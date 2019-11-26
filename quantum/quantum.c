@@ -327,7 +327,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 rgblight_toggle();
             }
             return false;
-        case RGB_MODE_FORWARDexo:
+        case RGB_MODE_FORWARD:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_step_reverse();
