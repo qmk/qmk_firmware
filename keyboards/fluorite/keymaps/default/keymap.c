@@ -15,12 +15,14 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _CUSTOM1 4
-#define _CUSTOM2 8
-#define _ADJUST 16
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _CUSTOM1,
+    _CUSTOM2,
+    _ADJUST
+};
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -30,10 +32,6 @@ enum custom_keycodes {
   CUSTOM1,
   CUSTOM2,
   ADJUST,
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
 };
 
 #define KC______ KC_TRNS
@@ -223,16 +221,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
