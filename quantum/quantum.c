@@ -277,56 +277,60 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 
     // Shift / paren setup
-
-    switch (keycode) {
-        case RESET:
-            if (record->event.pressed) {
+    if (record->event.pressed) {
+        switch (keycode) {
+            case RESET:
                 reset_keyboard();
-            }
-            return false;
-        case DEBUG:
-            if (record->event.pressed) {
+                return false;
+            case DEBUG:
                 debug_enable ^= 1;
                 if (debug_enable) {
                     print("DEBUG: enabled.\n");
                 } else {
                     print("DEBUG: disabled.\n");
                 }
-            }
-            return false;
-        case EEPROM_RESET:
-            if (record->event.pressed) {
+                return false;
+            case EEPROM_RESET:
                 eeconfig_init();
-            }
-            return false;
+                return false;
 #ifdef FAUXCLICKY_ENABLE
-        case FC_TOG:
-            if (record->event.pressed) {
+            case FC_TOG:
                 FAUXCLICKY_TOGGLE;
-            }
-            return false;
-        case FC_ON:
-            if (record->event.pressed) {
+                return false;
+            case FC_ON:
                 FAUXCLICKY_ON;
-            }
-            return false;
-        case FC_OFF:
-            if (record->event.pressed) {
+                return false;
+            case FC_OFF:
                 FAUXCLICKY_OFF;
-            }
-            return false;
+                return false;
 #endif
+        }
+    }
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        case RGB_TOG:
-// Split keyboards need to trigger on key-up for edge-case issue
 #    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
+    if (record->event.pressed) {
 #    else
-            if (!record->event.pressed) {
+    if (!record->event.pressed) {
 #    endif
+        uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+        switch (keycode) {
+            case RGB_TOG:
                 rgblight_toggle();
-            }
-            return false;
+                return false;
+            case RGB_MODE_FORWARD:
+                if (shifted) {
+                    rgblight_step_reverse();
+                } else {
+                    rgblight_step();
+                }
+                return false;
+        }
+    }
+#endif
+
+    switch (keycode) {
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
         case RGB_MODE_FORWARD:
             if (record->event.pressed) {
                 uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
