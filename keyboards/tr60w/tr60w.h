@@ -1,5 +1,4 @@
-#ifndef TR60W_H
-#define TR60W_H
+#pragma once
 
 #include "quantum.h"
 
