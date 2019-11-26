@@ -111,7 +111,7 @@
   * [Support](de/support.md)
   * [Übersetzungen](de/translating.md)
 
-* QMK Internals (de/In Progress)
+* QMK Internals (In Progress)
   * [Defines](de/internals_defines.md)
   * [Input Callback Reg](de/internals_input_callback_reg.md)
   * [Midi Device](de/internals_midi_device.md)
