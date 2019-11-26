@@ -304,6 +304,24 @@ bool process_record_quantum(keyrecord_t *record) {
                 FAUXCLICKY_OFF;
                 return false;
 #endif
+#ifdef VELOCIKEY_ENABLE
+            case VLK_TOG:
+                velocikey_toggle();
+                return false;
+#endif
+#ifdef PROTOCOL_LUFA
+        case OUT_AUTO:
+                set_output(OUTPUT_AUTO);
+                return false;
+        case OUT_USB:
+                set_output(OUTPUT_USB);
+                return false;
+#    ifdef BLUETOOTH_ENABLE
+        case OUT_BT:
+                set_output(OUTPUT_BLUETOOTH);
+                return false;
+#    endif
+#endif
         }
     }
 
@@ -415,37 +433,17 @@ bool process_record_quantum(keyrecord_t *record) {
                 rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
 #    endif
                 return false;
+#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
+            case BL_BRTG:
+                backlight_toggle_breathing();
+                return false;
+#endif
         }
     }
 #endif
 
+    // keycodes that depend on both pressed and non-pressed state
     switch (keycode) {
-#ifdef VELOCIKEY_ENABLE
-        case VLK_TOG:
-            if (record->event.pressed) {
-                velocikey_toggle();
-            }
-            return false;
-#endif
-#ifdef PROTOCOL_LUFA
-        case OUT_AUTO:
-            if (record->event.pressed) {
-                set_output(OUTPUT_AUTO);
-            }
-            return false;
-        case OUT_USB:
-            if (record->event.pressed) {
-                set_output(OUTPUT_USB);
-            }
-            return false;
-#    ifdef BLUETOOTH_ENABLE
-        case OUT_BT:
-            if (record->event.pressed) {
-                set_output(OUTPUT_BLUETOOTH);
-            }
-            return false;
-#    endif
-#endif
         case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_ALT_GUI:
         case MAGIC_SWAP_LCTL_LGUI ... MAGIC_EE_HANDS_RIGHT:
             if (record->event.pressed) {
@@ -628,14 +626,6 @@ bool process_record_quantum(keyrecord_t *record) {
             return false;
         }
 
-#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
-        case BL_BRTG: {
-            if (record->event.pressed) {
-                backlight_toggle_breathing();
-            }
-            return false;
-        }
-#endif
     }
 
     return process_action_kb(record);
