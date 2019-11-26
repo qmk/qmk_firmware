@@ -26,12 +26,14 @@ enum Webusb_Status_Code {
 };
 
 enum Webusb_Command_Code {
-    WEBUSB_CMD_PAIR
+    WEBUSB_CMD_PAIR,
+    WEBUSB_GET_LANDING_PAGE
 };
 
 enum Webusb_Event_Code {
     WEBUSB_EVT_PAIRED,
     WEBUSB_EVT_KEYDOWN,
     WEBUSB_EVT_KEYUP,
-    WEBUSB_EVT_LAYER
+    WEBUSB_EVT_LAYER,
+    WEBUSB_EVT_LANDING_PAGE
 };
