@@ -1,3 +1,17 @@
+# ビルド手順
+
+1.
+```
+cd ~/qmk_firmware
+make crkbd/rev1:yusukemorita
+```
+
+2.
+QMK Toolbox を開き、`/Users/moritayusuke/qmk_firmware/crkbd_rev1_yusukemorita.hex`をOpenする
+
+3.
+auto flashがONになってることを確認し、キーボードのresetボタンをクリックすると
+j
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)

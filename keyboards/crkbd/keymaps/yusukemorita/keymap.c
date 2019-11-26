@@ -36,7 +36,7 @@ enum custom_keycodes {
 };
 
 enum macro_keycodes {
-  KC_SAMPLEMACRO,
+  ESCAPE_AND_ENGLISH
 };
 
 #define KC______ KC_TRNS
@@ -182,7 +182,12 @@ void iota_gfx_task_user(void) {
 #endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
+  switch(keycode) {
+    case ESCAPE_AND_ENGLISH:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_LANG1));
+      }
+      break;
 #ifdef SSD1306OLED
     set_keylog(keycode, record);
 #endif
