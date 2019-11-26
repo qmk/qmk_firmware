@@ -41,7 +41,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________RAISE1__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_PGDN,   KC_UP,     KC_PGUP,    KC_NO, KC_NO
 #define ___________________RAISE2__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS
 #define ___________________RAISE3__________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
-#define ___________________RAISE4__________________       KC_VOLD, KC_MUTE, KC_VOLU, KC_ENT, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO
+#define ___________________RAISE4__________________       SPONGEBOB, KC_MUTE, KC_VOLU, KC_ENT, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO
 
 // Dimple F-key layer
 #define ___________________FKEY1___________________       KC_PASTA, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO
