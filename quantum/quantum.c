@@ -276,7 +276,6 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
     }
 
-    // Shift / paren setup
     if (record->event.pressed) {
         switch (keycode) {
             case RESET:
