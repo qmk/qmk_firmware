@@ -326,13 +326,6 @@ bool process_record_quantum(keyrecord_t *record) {
                     rgblight_step();
                 }
                 return false;
-            case RGB_MODE_FORWARD:
-                if (shifted) {
-                    rgblight_step_reverse();
-                } else {
-                    rgblight_step();
-                }
-                return false;
             case RGB_MODE_REVERSE:
                 if (shifted) {
                     rgblight_step();
@@ -346,22 +339,15 @@ bool process_record_quantum(keyrecord_t *record) {
             case RGB_HUD:
                 rgblight_decrease_hue();
                 return false;
+            case RGB_SAI:
+                rgblight_increase_sat();
+                return false;
         }
     }
 #endif
 
     switch (keycode) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        case RGB_SAI:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_increase_sat();
-            }
-            return false;
         case RGB_SAD:
 // Split keyboards need to trigger on key-up for edge-case issue
 #    ifndef SPLIT_KEYBOARD
