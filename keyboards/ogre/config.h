@@ -41,37 +41,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-// #define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
+// #define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
+// #define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 #define UNUSED_PINS
-
+#define MASTER_RIGHT
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-// #define SOFT_SERIAL_PIN D3
+#define SOFT_SERIAL_PIN D3
 
 #define RGB_DI_PIN B6
+#define RGBLED_SPLIT { 7, 7 }
 
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 14
-  #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 13, 12,11, 10, 9, 8, 7}
+  #define RGBLIGHT_LED_MAP { 6, 5, 4, 3, 2, 1, 0, 13, 12,11, 10, 9, 8, 7}
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
 //   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-  #define RGBLIGHT_ANIMATIONS
+//   #define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
+  #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_SPLIT
 //   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
+  #define RGBLIGHT_EFFECT_KNIGHT
 //   #define RGBLIGHT_EFFECT_CHRISTMAS
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
