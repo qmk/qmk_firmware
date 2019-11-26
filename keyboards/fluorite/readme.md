@@ -6,7 +6,7 @@ Fluorite is a chaotic keyboard consisting of staggered rows, staggered columns, 
 
 * Keyboard Maintainer: [mahuyu ihotsuno](https://github.com/ihotsuno)
 * Hardware Supported: The PCBs, controllers supported
-Hardware Availability: links to where you can find this hardware
+* Hardware Availability: links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 
