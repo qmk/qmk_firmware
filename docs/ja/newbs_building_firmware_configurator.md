@@ -1,8 +1,9 @@
 # QMK Configurator
 
 <!---
+  grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
   original document: ed0575fc8:docs/newbs_building_firmware_configurator.md
-  $ git diff ed0575fc8 HEAD docs/newbs_building_firmware_configurator.md
+  git diff ed0575fc8 HEAD docs/newbs_building_firmware_configurator.md | cat
 -->
 
 [QMK Configurator](https://config.qmk.fm) は、QMKファームウェアの hex ファイルを生成するオンライングラフィカルユーザーインターフェイスです。
@@ -82,7 +83,7 @@ QMK Configurator は Chrome/Firefox で最適に動作します。
 
 ## キーボードに書き込む(フラッシュする)
 
-[ファームウェアを書きこむ](newbs_flashing.md) を参照してください。
+[ファームウェアを書きこむ](ja/newbs_flashing.md) を参照してください。
 
 ## トラブルシューティング
 

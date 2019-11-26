@@ -2,7 +2,6 @@
 """
 import json
 import os
-import sys
 
 from milc import cli
 
@@ -10,6 +9,7 @@ import qmk.keymap
 
 
 @cli.argument('-o', '--output', arg_only=True, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('filename', arg_only=True, help='Configurator JSON file')
 @cli.subcommand('Creates a keymap.c from a QMK Configurator export.')
 def json_keymap(cli):
@@ -48,7 +48,8 @@ def json_keymap(cli):
         with open(output_file, 'w') as keymap_fd:
             keymap_fd.write(keymap_c)
 
-        cli.log.info('Wrote keymap to %s.', cli.args.output)
+        if not cli.args.quiet:
+            cli.log.info('Wrote keymap to %s.', cli.args.output)
 
     else:
         print(keymap_c)
