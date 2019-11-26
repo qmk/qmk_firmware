@@ -9,7 +9,7 @@ Suppose you have committed to your `master` branch, and now need to update your 
 No one wants to lose work if it can be helped. If you want to save the changes you've already made to your `master` branch, the simplest way to do so is to simply create a duplicate of your "dirty" `master` branch:
 
 ```sh
-$ git branch old_master master
+git branch old_master master
 ```
 
 Now you have a branch named `old_master` that is a duplicate of your `master` branch.
@@ -39,13 +39,13 @@ origin  https://github.com/qmk/qmk_firmware.git (push)
 add a new remote with:
 
 ```sh
-$ git remote add upstream https://github.com/qmk/qmk_firmware.git
+git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
 Then, redirect the `origin` remote to your own fork with:
 
 ```sh
-$ git remote set-url origin https://github.com/<your_username>/qmk_firmware.git
+git remote set-url origin https://github.com/<your_username>/qmk_firmware.git
 ```
 
 Now that you have both remotes configured, you need to update the references for the upstream repository, which is QMK's, by running:
