@@ -342,57 +342,30 @@ bool process_record_quantum(keyrecord_t *record) {
             case RGB_SAI:
                 rgblight_increase_sat();
                 return false;
+            case RGB_SAD:
+                rgblight_decrease_sat();
+                return false;
+            case RGB_VAI:
+                rgblight_increase_val();
+                return false;
+            case RGB_VAD:
+                rgblight_decrease_val();
+                return false;
+            case RGB_SPI:
+                rgblight_increase_speed();
+                return false;
+            case RGB_SPD:
+                rgblight_decrease_speed();
+                return false;
+            case RGB_MODE_PLAIN:
+                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+                return false;
         }
     }
 #endif
 
     switch (keycode) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        case RGB_SAD:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_decrease_sat();
-            }
-            return false;
-        case RGB_VAI:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_increase_val();
-            }
-            return false;
-        case RGB_VAD:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_decrease_val();
-            }
-            return false;
-        case RGB_SPI:
-            if (record->event.pressed) {
-                rgblight_increase_speed();
-            }
-            return false;
-        case RGB_SPD:
-            if (record->event.pressed) {
-                rgblight_decrease_speed();
-            }
-            return false;
-        case RGB_MODE_PLAIN:
-            if (record->event.pressed) {
-                rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-            }
-            return false;
         case RGB_MODE_BREATHE:
 #    ifdef RGBLIGHT_EFFECT_BREATHING
             if (record->event.pressed) {
