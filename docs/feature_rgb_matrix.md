@@ -183,7 +183,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 |`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
 |`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
 |`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), incease value when Shift is held                         |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 

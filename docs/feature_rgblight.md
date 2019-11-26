@@ -53,7 +53,7 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
 |`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
 |`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
-|`RGB_VAD`          |          |Decrease value (brightness), incease value when Shift is held       |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |

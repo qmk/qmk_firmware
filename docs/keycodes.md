@@ -394,7 +394,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
 |`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
 |`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
-|`RGB_VAD`          |          |Decrease value (brightness), incease value when Shift is held       |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
@@ -417,7 +417,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
 |`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
 |`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), incease value when Shift is held                         |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
