@@ -16,5 +16,3 @@
     { K400,  K401,  K402,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K505,  KC_NO, KC_NO, KC_NO, KC_NO, K510,  K511,  K512,  KC_NO }  \
 }
-
-#endif
