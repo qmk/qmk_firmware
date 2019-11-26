@@ -15,11 +15,9 @@ from ../jetpacktuxedo/ keymap.
 
 Work in progress ... 
    Todo: 
-   - finish up/test descramble for DDA and DDD 
-   - Layer switching in descramble mode
+   - Layer switching in descramble mode on FUN layer
    - Add a descramble mode that uses standard Unicode layers.
-   - Work on FUN layer key in BASE layer to be one shot with exceptions for setting descramble.
-   - Change arrow cluster to make up-arrow and page up/down easier to combine, or add keys.
+   - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
    
 
 
@@ -126,15 +124,15 @@ Work in progress ...
     
      Layer _MOV (MOVement, mouse movement on left hand)
     
-     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                       -*-              <|>                                                // -*- on _FUN
-     BASE  WLft  WDn   WUp   WRht  xxx   | Btn3  Home  PgUp  PgDn  End   Bksp
-     LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-     LSht  Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSht
+     <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                           -*-              <|>                                            // -*- on _FUN
+     BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      -------------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | Sft(tab) xxx   tab   Right+RAlt
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
                            -*-<|>                                                          // -*- on BASE
-     <1        <2    <3    <4  | 4>       3>    2>    1>  
+     <1        <2    <3    <4  | 4>    3>    2>    1>  
 
 - - -
     
@@ -156,13 +154,13 @@ Work in progress ...
     
      Layer _REV (REVerse hands) (Only through _FUN layer)
     
-     <pink2 <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                    -*-  <|>                                                   // on _FUN
-     BASE   End   PgDn  PgUp  Home  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-     -+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
-     .+LSht xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSht
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                      -*-  <|>                                                 // on _FUN
+     BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
+     Tab+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
+     -+LSft   xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSft
      ----------------------------------------------------------
-     Left+LAlt Del   Sht(Tab) xxx  | Tab  xxx   Ent   Right+Alt
+     Left+LAlt Del   xxx      Ent  | .    xxx   ,     Right+Alt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
@@ -192,8 +190,8 @@ Work in progress ...
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
-     BASE  ¡     xxx   xxx   xxx   xxx   | xxx   🙂😃  👍    👎     ⍨🙁   Bspc
-     LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx  「     」    RCtl
+     BASE  ¡     xxx   xxx   xxx   xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
+     LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   〇   「     」    RCtl
      LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
