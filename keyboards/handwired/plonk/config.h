@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { A2, A1, A0, B8 }
-// B13, B14, B15, B0, B9, B1, B2, B3, B4, B5, B6, B7
 #define MATRIX_COL_PINS { B7, B6, B5, B4, B3, B2, B1, B9, B0, B15, B14, B13 }
 #define UNUSED_PINS { B10, B11, B12, A14, A13, A4, A5, A6, A7, A8, A15, A10, A9 }
 
