@@ -19,12 +19,26 @@
 
 #define LAYOUT( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, k0f, k0g, \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1c, k1d, k1e, k1f, k1g, \
-    k20, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, \
-    k30, k31, k32, k35, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a,      k1c, k1d, k1e, k1f, k1g, \
+    k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, \
+    k30, k31, k32,           k35,      k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g \
 ) { \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, k0f, k0g }, \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, KC_NO, k1c, k1d, k1e, k1f, k1g }, \
-    { k20, KC_NO, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g }, \
-    { k30, k31, k32, KC_NO, KC_NO, k35, KC_NO, k37, k38, k39, k3a, k3b, k3c, k3d, k3e, k3f, k3g } \
+    { k00, k01  , k02, k03  , k04  , k05, k06  , k07, k08, k09, k0a, k0b  , k0c, k0d, k0e, k0f, k0g }  , \
+    { k10, k11  , k12, k13  , k14  , k15, k16  , k17, k18, k19, k1a, KC_NO, k1c, k1d, k1e, k1f, k1g }  , \
+    { k20, KC_NO, k22, k23  , k24  , k25, k26  , k27, k28, k29, k2a, k2b  , k2c, k2d, k2e, k2f, k2g }  , \
+    { k30, k31  , k32, KC_NO, KC_NO, k35, KC_NO, k37, k38, k39, k3a, k3b  , k3c, k3d, k3e, k3f, k3g } \
 }
+
+#define LAYOUT_lefty( \
+    k0d, k0e, k0f, k0g, k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, \
+    k1d, k1e, k1f, k1g, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a,      k1c, \
+    k2d, k2e, k2f, k2g, k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, \
+    k3d, k3e, k3f, k3g, k30, k31, k32,           k35,      k37, k38, k39, k3a, k3b, k3c \
+) { \
+    { k00, k01  , k02, k03  , k04  , k05, k06  , k07, k08, k09, k0a, k0b  , k0c, k0d, k0e, k0f, k0g }  , \
+    { k10, k11  , k12, k13  , k14  , k15, k16  , k17, k18, k19, k1a, KC_NO, k1c, k1d, k1e, k1f, k1g }  , \
+    { k20, KC_NO, k22, k23  , k24  , k25, k26  , k27, k28, k29, k2a, k2b  , k2c, k2d, k2e, k2f, k2g }  , \
+    { k30, k31  , k32, KC_NO, KC_NO, k35, KC_NO, k37, k38, k39, k3a, k3b  , k3c, k3d, k3e, k3f, k3g } \
+}
+
+#define LAYOUT_righty LAYOUT
