@@ -48,9 +48,23 @@ Then, redirect the `origin` remote to your own fork with:
 $ git remote set-url origin https://github.com/<your_username>/qmk_firmware.git
 ```
 
-Now that you have both remotes configured, run `git fetch upstream` to update the references for the upstream repository, which is QMK's. At this point, run `git reset --hard upstream/master` to resynchronize your branch to QMK's.
+Now that you have both remotes configured, you need to update the references for the upstream repository, which is QMK's, by running:
 
-This will update the repository on your computer, but your GitHub fork will still be out-of-sync. To resynchronize your fork on GitHub, you need to push to your fork, instructing Git to override any remote changes that are not reflected in your local repository. To do this, run `git push --force-with-lease`.
+```sh
+git fetch upstream
+```
+
+At this point, resynchronize your branch to QMK's by running:
+
+```sh
+git reset --hard upstream/master
+```
+
+These steps will update the repository on your computer, but your GitHub fork will still be out of sync. To resynchronize your fork on GitHub, you need to push to your fork, instructing Git to override any remote changes that are not reflected in your local repository. To do this, run:
+
+```sh
+git push --force-with-lease
+```
 
 !> **DO NOT** run `git push --force-with-lease` on a fork to which other users post commits. This will erase their commits.
 
