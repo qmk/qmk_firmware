@@ -19,6 +19,7 @@ Work in progress ...
    - Layer switching in descramble mode
    - Add a descramble mode that uses standard Unicode layers.
    - Work on FUN layer key in BASE layer to be one shot with exceptions for setting descramble.
+   - Change arrow cluster to make up-arrow and page up/down easier to combine, or add keys.
    
 
 
@@ -266,7 +267,7 @@ Work in progress ...
 
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
-  then see what layers to set for the 2nd and 7th keys on the bottom row.
+  then see what layers to set for the 2nd and 8th keys on the bottom row.
 
   If you do and it works I could add a link to your map here if you like.
   
