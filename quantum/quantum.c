@@ -327,10 +327,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 rgblight_toggle();
             }
             return false;
-        case RGB_MODE_FORWARD:
+        case RGB_MODE_FORWARDexo:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_step_reverse();
                 } else {
                     rgblight_step();
@@ -339,8 +338,7 @@ bool process_record_quantum(keyrecord_t *record) {
             return false;
         case RGB_MODE_REVERSE:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_step();
                 } else {
                     rgblight_step_reverse();
@@ -354,8 +352,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_decrease_hue();
                 } else {
                     rgblight_increase_hue();
@@ -369,8 +366,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_increase_hue();
                 } else {
                     rgblight_decrease_hue();
@@ -384,8 +380,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_decrease_sat();
                 } else {
                     rgblight_increase_sat();
@@ -399,8 +394,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_increase_sat();
                 } else {
                     rgblight_decrease_sat();
@@ -414,8 +408,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_decrease_val();
                 } else {
                     rgblight_increase_val();
@@ -429,8 +422,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    else
             if (!record->event.pressed) {
 #    endif
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_increase_val();
                 } else {
                     rgblight_decrease_val();
@@ -439,8 +431,7 @@ bool process_record_quantum(keyrecord_t *record) {
             return false;
         case RGB_SPI:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_decrease_speed();
                 } else {
                     rgblight_increase_speed();
@@ -449,8 +440,7 @@ bool process_record_quantum(keyrecord_t *record) {
             return false;
         case RGB_SPD:
             if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
+                if (get_mods() & MOD_MASK_SHIFT) {
                     rgblight_increase_speed();
                 } else {
                     rgblight_decrease_speed();
