@@ -1,12 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "d4mation.h"
 
-#define _DVR 0
-#define _QWR 1
-#define _LOWER 2
-#define _RAISE 3
-#define _NUM 4
-#define _ADJUST 16
+enum layer_names {
+  _DVR,
+  _QWR,
+  _LOWER,
+  _RAISE,
+  _NUM,
+  _ADJUST
+};
 
 enum keymap_custom_keycodes {
   LOWER = NEW_SAFE_RANGE,
