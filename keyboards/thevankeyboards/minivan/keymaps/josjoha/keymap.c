@@ -22,6 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+/* Todo:
+ *
+ *  - Add more Dutch keyboard symbols
+ *    https://en.wikipedia.org/wiki/QWERTY#Dutch_.28Netherlands.29
+ *  - Fix Layer keys on _FUN to go to respective layer (de)scramble
+ *  - Add a third mode, middle led white, for combining _ACC and _DRA with _DDL, 
+ *    because the Unicode input modes on the other platforms might be the same
+ *    whether Dvorak is set or not. Another option is to ignore _DDA and _DDD
+ *    when the Unicode input mode is not Linux (harder to do).
+ *  - 
+ */
+
 #include QMK_KEYBOARD_H
 
 // Layer switch TT(layer) tapping amount to make it toggle
@@ -68,16 +80,14 @@ extern keymap_config_t keymap_config;
 // layers are near the layer they descramble. F-keys is on top because it
 // is the layers hub, although that should not matter either.
 // It seems that setting the 'default' layer is not needed, no need for DF(layer).
-// The source lines order is as on the keyboard (_FUN top row). The order of the layers
-// in the source file follows layer precedence order in reverse, which in user logic
-// is more-important to lesser-important, but in layer precedence the other way around (0-11).
-// The order is irrelevant for this keymap, because transparent is an unused concept
-// (I fear it adds confusion, and leaves key space under a layer key under used),
-// except when unavoidable for layer switches to work.
 
 bool descramble = 0; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+
+/* Shift detection
+ * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
 bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
+ */
 
     /* These are the accented characters of most/all western European Nations.
      * Using the Unicode input system
@@ -164,6 +174,22 @@ const uint32_t PROGMEM unicode_map[] = {
     [CAU_DIA] = 0x00c4, //      ''              ''        ''        "DIA" for diaereses: Ä
     [CAU_GRA] = 0x00c0, //      ''              ''        ''        "GRA" for grave: À
 
+    // A with ring (Scandinavia)
+    [CAL_RNG] = 0x00e5, //      ''        'A' for a, 'L' for lower, "RNG" for Ring: å
+    [CAU_RNG] = 0x00c5, //      ''             ''    'U' for upper,        ''     : Å
+
+    // AE (French)          
+    [CAEL_BI] = 0x00e6, //        ''        "AE" for ae, 'L' for lower        ''              : æ
+    [CAEU_BI] = 0x00c6, //        ''              ''     'U' for upper,       ''              : Æ
+
+    // OE (French)
+    [COEL_BI] = 0x0153, //        ''        "AO" for ao, 'L' for lower, "BI" for two-character: œ
+    [COEU_BI] = 0x0152, //        ''              ''     'U' for upper,       ''              ; Œ
+
+    // C with cedilla
+    [CCL_CDL] = 0x00e7, //      ''        'C' for c, 'L' for lower, "CDL" for cedilla: ç 
+    [CCU_CDL] = 0x00c7, //      ''             ''    'U' for upper,        ''        : Ç
+
     // e lower case variants
     [CEL_ACU] = 0x00e9, // 'C' for Costum 'E' for e, 'L' for lower, "ACU" for acute: é
     [CEL_CAR] = 0x00ea, //      ''              ''        ''        "CAR" for caret: ê
@@ -185,6 +211,14 @@ const uint32_t PROGMEM unicode_map[] = {
     [CIU_CAR] = 0x00ce, //      ''              ''         ''        "CAR" for caret: Î
     [CIU_DIA] = 0x00cf, //      ''              ''         ''        "DIA" for diaereses: Ï
     [CIU_GRA] = 0x00cc, //      ''              ''         ''        "GRA" for grave: Ì
+
+    // N with tilde
+    [CNL_TLD] = 0x00f1, //      ''        'N' for n, 'L' for lower, "TLD" for tilde: ñ
+    [CNU_TLD] = 0x00d1, //      ''             ''    'U' for upper,        ''      : Ñ
+
+    //Spanish additional symbols:
+    [CEX_INV] = 0x00a1, //      ''        "EX" for exclamation mark, "INV" for inverted: ¡
+    [CQU_INV] = 0x00bf, //      ''        "QU" for question mark,           ''         : ¿
     
     // o lower case variants
     [COL_ACU] = 0x00f3, // 'C' for Costum 'O' for a, 'L' for lower, "ACU" for acute: ó
@@ -196,6 +230,10 @@ const uint32_t PROGMEM unicode_map[] = {
     [COU_CAR] = 0x00d4, //      ''              ''        ''        "CAR" for caret: Ô
     [COU_DIA] = 0x00d6, //      ''              ''        ''        "DIA" for diaereses: Ö
     [COU_GRA] = 0x00d2, //      ''              ''        ''        "GRA" for grave: Ò
+                            
+    // O with stroke (Scandinavia)
+    [COL_STK] = 0x00f8, //      ''        'O' for o, 'L' for lower, "STK" for Stroke: ø
+    [COU_STK] = 0x00d8, //      ''             ''    'U' for upper,        ''       : Ø
 
     // u lower case variants
     [CUL_ACU] = 0x00fa, // 'C' for Costum 'U' for a, 'L' for lower, "ACU" for acute: ú
@@ -208,44 +246,16 @@ const uint32_t PROGMEM unicode_map[] = {
     [CUU_DIA] = 0x00dc, //      ''              ''        ''        "DIA" for diaereses: Ü
     [CUU_GRA] = 0x00d9, //      ''              ''        ''        "GRA" for grave: Ù
 
-    // N with tilde
-    [CNL_TLD] = 0x00f1, //      ''        'N' for n, 'L' for lower, "TLD" for tilde: ñ
-    [CNU_TLD] = 0x00d1, //      ''             ''    'U' for upper,        ''      : Ñ
-
-    // C with cedilla
-    [CCL_CDL] = 0x00e7, //      ''        'C' for c, 'L' for lower, "CDL" for cedilla: ç 
-    [CCU_CDL] = 0x00c7, //      ''             ''    'U' for upper,        ''        : Ç
-
     // Y with acute
-    [CYL_ACU] = 0x00fd, //      ''        'Y' for y, 'L' for lower, "ACU" for Acute:
-    [CYU_ACU] = 0x00dd, //      ''             ''    'U' for upper,        ''      :
+    [CYL_ACU] = 0x00fd, //      ''        'Y' for y, 'L' for lower, "ACU" for Acute: ý
+    [CYU_ACU] = 0x00dd, //      ''             ''    'U' for upper,        ''      : Ý
     // Y with diaereses
     [CYL_DIA] = 0x00ff, //      ''        'Y' for y, 'L' for lower, "DIA" for Diareses: ÿ
     [CYU_DIA] = 0x0178, //      ''             ''    'U' for upper,        ''         : Ÿ
 
-    // OE (French)
-    [COEL_BI] = 0x0153, //        ''        "AO" for ao, 'L' for lower, "BI" for two-character: œ
-    [COEU_BI] = 0x0152, //        ''              ''     'U' for upper,       ''              ; Œ
-                            
-    // AE (French)          
-    [CAEL_BI] = 0x00e6, //        ''        "AE" for ae, 'L' for lower        ''              : æ
-    [CAEU_BI] = 0x00c6, //        ''              ''     'U' for upper,       ''              : Æ
-
-    // O with stroke (Scandinavia)
-    [COL_STK] = 0x00f8, //      ''        'O' for o, 'L' for lower, "STK" for Stroke: ø
-    [COU_STK] = 0x00d8, //      ''             ''    'U' for upper,        ''       : Ø
-
-    // A with ring (Scandinavia)
-    [CAL_RNG] = 0x00e5, //      ''        'A' for a, 'L' for lower, "RNG" for Ring: å
-    [CAU_RNG] = 0x00c5, //      ''             ''    'U' for upper,        ''     : Å
-
     //German:
      // sharp s 
     [CSL_SHP] = 0x00df, //      ''         'S' for s, 'L' for lower, "SHP" for sharp: ß
-
-    //Spanish additional symbols:
-    [CEX_INV] = 0x00a1, //      ''        "EX" for exclamation mark, "INV" for inverted: 
-    [CQU_INV] = 0x00bf, //      ''        "QU" for question mark,           ''         :
   
     // Some Unicode symbols that might be handy
       // Happy symbols:
@@ -268,19 +278,18 @@ enum custom_keycodes {
     CTO_BASE = SAFE_RANGE, // 'C' for costum, "TO" for to, "BASE" for chosen base layer
     BASE_LTR,              // "BASE" for base layer, "_LTR" for that layer
     BASE_DDL,              //         ''             "_DDL" for that layer
-    CUNI_ADIA,             // 'C' for costum' "UNI" for Unicode, 'A' for a, "DIA" for diaereses
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
     // The below are the same as above for the normal maps, but there is not upper/lower case
     // because that is handled by noting the state of Shift. These are merely keycodes that refer
     // to their macro, which then refers to the above Unicode map version and then recode that.
-    // UN_OE_BI_ refers to the values in COEL_BI and COEU_BI, recodes them and gives as output, etc.
+    // UN_OE_BI refers to the values in COEL_BI and COEU_BI, recodes them and gives as output, etc.
     // (These lists are sorted.)
     UN_A_ACU,
     UN_A_CAR,
     UN_A_DIA,
-    UN_AE_BI_,
+    UN_AE_BI,
     UN_A_GRA,
     UN_A_RNG,
     UN_C_CDL,
@@ -297,18 +306,17 @@ enum custom_keycodes {
     UN_O_ACU,
     UN_O_CAR,
     UN_O_DIA,
-    UN_OE_BI_,
+    UN_OE_BI,
     UN_O_GRA,
     UN_O_STK,
-    UN_OU_STK,
     UN_QU_INV,
-    UN_SL_SHP,
-    UN_S_SAD_,
+    UN_S_SHP,
+    //UN_S_SAD_, // access by shifted UN_S_SQIG
     UN_S_SMIL,
     UN_S_SQIG,
     UN_S_THDN,
     UN_S_THUP,
-    UN_S_YAYS,
+    //UN_S_YAYS, // access by shifted UN_S_SMIL
     UN_U_ACU,
     UN_U_CAR,
     UN_U_DIA,
@@ -316,6 +324,22 @@ enum custom_keycodes {
     UN_Y_ACU,
     UN_Y_DIA,
 };
+
+// Descramble Unicode functions, for layouts _DDA, _DDD
+// This function sends the leader codes that are common to most/all accented characters,
+// in an effort to reduce memory use, and/or to simplify the code. The "f" becomes "u"
+// when the computer side remaps the input to Dvorak (which problem is what 'descramble' deals with).
+void unicode_lead_00 ( void ) { 
+    SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) "00" ) ; // lead-in for Unicode on Linux
+}
+// Same as above, but without first two zeroes 
+void unicode_lead ( void ) { 
+    SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
+}
+// Tail end of unicode input.
+void unicode_tail ( void ) { 
+    SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
+}
 
 // Activates only the major layer, either the normal or the descramble one
 void activate_major_layer (int mode_descr) { 
@@ -423,33 +447,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
-    // Unicode input. We will keep track of shift by way of a variable shift_ison.
-    //  Then when we get a Unicode character, we will assemble a string to send,
-    //  depending on the setting of descramble, and shift.
-    // User gave 'a' with diacreses key
+    // Unicode input. Shift detection copied from.
+    // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
+    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+
     switch (keycode) {
-        case CUNI_ADIA:
-            if (record->event.pressed) { // key down
-    	    //char leadin[] = "u" ;
-    	    if (shift_ison) {
-    		SEND_STRING (SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT)) ;
-    	        if ( descramble ) {
-    	             SEND_STRING ( "f" ) ; // pre-scrambled
-    	        } else {
-    	             SEND_STRING ( "u" ) ;
-    	        }
-    		SEND_STRING (SS_UP(X_LSHIFT) SS_UP(X_LCTRL)) ;
-    	        if ( descramble ) {
-                        SEND_STRING ("00d4 "); // pre-scrambled
-    	        } else {
-                        SEND_STRING ("00e4 "); // test
-    	        }
-    	    } else {
-                    SEND_STRING ("ccc"); // test
-    	    }
-            } else { // key up
-            }
-            break;
+	    /* Crude but self contained shift detection. Replaced by using get_mods()
         // Record state of shift
         // ... left shift
         case KC_LSFT:
@@ -461,81 +464,263 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 shift_ison = 0; // shift released
             }
           break;
+	    */
 
 	// Unicode macros for descramble mode.
 	// The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
-	// However it seems SEND_STRING cannot take a variable, or I am doing something wrong.
-	// It seems that it has to be a hardcoded constant. This will take up quite a bit of memory.
-	// The table of conversion the ASCII representation of hex values is:
-	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y.
+	// However it seems SEND_STRING cannot take a variable.
+	// It seems that it has to be a hardcoded constant. 
+	// The table of 'descramble' conversion of the ASCII representation of hex values is:
+	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y (computer side maps to Dvorak, before interpreting the value)
+	
+	// 'a' variants (basic)
         case UN_A_ACU:
             if (record->event.pressed) { // key down
-    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
-    	        if (shift_ison) {
-                    SEND_STRING ("00i1 ");
-		} else {
-                    SEND_STRING ("00d1 "); 
-		}
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
+		unicode_tail ();
             }
 	  break;
         case UN_A_CAR:
-            if (record->event.pressed) { // key down
-    		SEND_STRING ( SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) "f" SS_UP(X_LSHIFT) SS_UP(X_LCTRL) ) ; // lead-in for Unicode on Linux
-    	        if (shift_ison) {
-                    SEND_STRING ("00i2 ");
-		} else {
-                    SEND_STRING ("00d2 "); 
-		}
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
+		unicode_tail ();
             }
 	  break;
-  /*
-    // a lower case variants
-    [CAL_ACU] = 0x00e1, // 'C' for Costum 'A' for a, 'L' for lower, "ACU" for acute: á
-    [CAL_CAR] = 0x00e2, //      ''              ''        ''        "CAR" for caret: â
-    [CAL_DIA] = 0x00e4, //      ''              ''        ''        "DIA" for diaereses: ä
-    [CAL_GRA] = 0x00e0, //      ''              ''        ''        "GRA" for grave: à
-      // A upper case variants
-    [CAU_ACU] = 0x00c1, //      ''              ''   'U' for upper, "ACU" for acute: Á
-    [CAU_CAR] = 0x00c2, //      ''              ''        ''        "CAR" for caret: Â
-    [CAU_DIA] = 0x00c4, //      ''              ''        ''        "DIA" for diaereses: Ä
-    [CAU_GRA] = 0x00c0, //      ''              ''        ''        "GRA" for grave: À
-    UN_A_DIA,
-    UN_AE_BI_,
-    UN_A_GRA,
-    UN_A_RNG,
-    UN_C_CDL,
-    UN_E_ACU,
-    UN_E_CAR,
-    UN_E_DIA,
-    UN_E_GRA,
-    UN_EX_INV,
-    UN_I_ACU,
-    UN_I_CAR,
-    UN_I_DIA,
-    UN_I_GRA,
-    UN_N_TLD,
-    UN_O_ACU,
-    UN_O_CAR,
-    UN_O_DIA,
-    UN_OE_BI_,
-    UN_O_GRA,
-    UN_O_STK,
-    UN_OU_STK,
-    UN_QU_INV,
-    UN_SL_SHP,
-    UN_S_SAD_,
-    UN_S_SMIL,
-    UN_S_SQIG,
-    UN_S_THDN,
-    UN_S_THUP,
-    UN_S_YAYS,
-    UN_U_ACU,
-    UN_U_CAR,
-    UN_U_DIA,
-    UN_U_GRA,
-    UN_Y_ACU,
-    UN_Y_DIA,
-    */
+        case UN_A_DIA:
+            if (record->event.pressed) {
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
+		unicode_tail ();
+            }
+	  break;
+        case UN_A_GRA:
+            if (record->event.pressed) {
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
+		unicode_tail ();
+            }
+	  break;
+        case UN_A_RNG:
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
+		unicode_tail ();
+            }
+	  break;
+        case UN_AE_BI: 
+            if (record->event.pressed) {
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
+		unicode_tail ();
+            }
+	  break;
+        case UN_OE_BI: 
+            if (record->event.pressed) { // key down
+		unicode_lead ();
+    	        if (shifted) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
+		unicode_tail ();
+            }
+	  break;
+        case UN_C_CDL: 
+            if (record->event.pressed) {
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
+		unicode_tail ();
+            }
+	  break;
+        case UN_E_ACU: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
+		unicode_tail ();
+            }
+	  break;
+        case UN_E_CAR: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
+		unicode_tail ();
+            }
+	  break;
+        case UN_E_DIA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
+		unicode_tail ();
+            }
+	  break;
+        case UN_E_GRA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
+		unicode_tail ();
+            }
+	  break;
+        case UN_I_ACU: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
+		unicode_tail ();
+            }
+	  break;
+        case UN_I_CAR: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
+		unicode_tail ();
+            }
+	  break;
+        case UN_I_DIA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("iy"); } else { SEND_STRING ("iy"); } // ÏÏ
+		unicode_tail ();
+            }
+	  break;
+        case UN_I_GRA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_TLD: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
+		unicode_tail ();
+            }
+	  break;
+        case UN_EX_INV: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        SEND_STRING ("a1"); // ¡
+		unicode_tail ();
+            }
+	  break;
+        case UN_QU_INV: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        SEND_STRING ("ny");  // ¿
+		unicode_tail ();
+            }
+	  break;
+        case UN_O_ACU: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
+		unicode_tail ();
+            }
+	  break;
+        case UN_O_CAR: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
+		unicode_tail ();
+            }
+	  break;
+        case UN_O_DIA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
+		unicode_tail ();
+            }
+	  break;
+        case UN_O_GRA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
+		unicode_tail ();
+            }
+	  break;
+        case UN_O_STK: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_SHP: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        SEND_STRING ("hy"); // ß
+		unicode_tail ();
+            }
+	  break;
+        case UN_U_ACU: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
+		unicode_tail ();
+            }
+	  break;
+        case UN_U_CAR: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
+		unicode_tail ();
+            }
+	  break;
+        case UN_U_DIA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
+		unicode_tail ();
+            }
+	  break;
+        case UN_U_GRA: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
+		unicode_tail ();
+            }
+	  break;
+        case UN_Y_ACU: 
+            if (record->event.pressed) { 
+		unicode_lead_00 ();
+    	        if (shifted) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
+		unicode_tail ();
+            }
+	  break;
+        case UN_Y_DIA: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shifted) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_THUP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("1y44h"); // 👍
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_SMIL: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shifted) { SEND_STRING ("1y603"); } else { SEND_STRING ("1y642"); } // 🙂😃
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_SQIG: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shifted) { SEND_STRING ("1y641"); } else { SEND_STRING ("2368"); } // ⍨🙁
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_THDN: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("1y44d"); // 👎
+		unicode_tail ();
+            }
+	  break;
+
+
      }
      return true;
 };
@@ -902,17 +1087,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
-//      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
-//                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
-        CTO_BASE    , UN_A_ACU                 , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
-        KC_LCTL     , CUNI_ADIA                , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
-        KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , UN_A_CAR                 , KC_RSFT ,
-//      ------------------------------------------------------------------------------------
+//      <pink2   , <pinky   , <ring    , <middl   , <index   , <indx2  |, indx2>   , index>   , middl>   , ring>    , pinky>   , pink2>  ,
+//               ,          ,          ,          ,          ,        <|,>-*-      ,          ,          ,          ,          ,         ,
+        CTO_BASE , UN_A_ACU , UN_O_ACU , UN_E_ACU , UN_U_ACU , UN_I_ACU , UN_Y_ACU , XXXXXXX  , UN_C_CDL , UN_O_STK , UN_A_RNG , KC_BSPC ,
+        KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
+        KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
+//      ---------------------------------------------------------------------------
         KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//                , -*-     ,         ,      <|,>       ,         ,         , -*-
-//     <1       ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
+//              , -*-     ,         ,      <|,>       ,         ,         , -*-
+//      <1      , <2      , <3      , <4    |, 4>     , 3>      , 2>      , 1>
                       ),
-
         /**/
 
     /* Layer _DRA: Drawings, like various Unicode symbols, and whatever else.
@@ -926,14 +1110,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
-// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSft
+// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RCtl
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
+
 //      <pink2      , <pinky        , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>                   , middl>        , ring>         , pinky>                   , pink2>  ,
 //                  ,               ,         ,         ,         ,       <|,>        , -*-                      ,               ,               ,                          ,         ,
         CTO_BASE    , X ( CEX_INV ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP ) , X ( CS_THDN ) , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
@@ -944,6 +1129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         ,         ,         ,       <|,>        ,         ,         ,
 //      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
+
 
         /**/
 
@@ -967,11 +1153,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
-//      <pink2      , <pinky        , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>                   , middl>        , ring>         , pinky>                   , pink2>  ,
-//                  ,               ,         ,         ,         ,       <|,>        , -*-                      ,               ,               ,                          ,         ,
-        CTO_BASE    , X ( CEX_INV ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP ) , X ( CS_THDN ) , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
-        KC_LCTL     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , X ( CQU_INV ) , XXXXXXX       , XXXXXXX                  , KC_RCTL ,
-        KC_LSFT     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , XXXXXXX       , XXXXXXX       , XXXXXXX                  , KC_RSFT ,
+//      <pink2      , <pinky    , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>    , middl>    , ring>     , pinky>    , pink2>  ,
+//                  ,           ,         ,         ,         ,       <|,>        , -*-       ,           ,           ,           ,         ,
+        CTO_BASE    , UN_EX_INV , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , UN_S_SMIL , UN_S_THUP , UN_S_THDN , UN_S_SQIG , KC_BSPC ,
+        KC_LCTL     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , XXXXXXX   , XXXXXXX   , XXXXXXX   , KC_RCTL ,
+        KC_LSFT     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , UN_QU_INV , XXXXXXX   , XXXXXXX   , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,

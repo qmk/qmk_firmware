@@ -1,22 +1,21 @@
 # Dvorak on the Minivan
 
-This is a Dvorak layout for the Minivan 40% keyboard (default 44 keys).
+This is a Dvorak layout for the Minivan 40% keyboard (default 44 keys; 12,12,12,8).
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
+If that in Unicode is enough, you can deactivate the dead-keys system.
 
-It also allows the same layout on a computer that is already set to Dvorak
-on the computer side, but only for basic keycodes, not Unicode (accented
-characters, etc).
-
-Work in progress ... 
- Todo: change F-layer layout
-       add descramble for _ACC and _DRA (will only do or Linux) *)
-
-- - -
+**Linux only**: this map allows the same layout on a computer that is already set to Dvorak
+on the computer side. It helps with a laptop for example that you need to have _computer side_
+Dvorak on for its build-in keyboard.
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
                                                 By Jos B.,  joshb@xs4all.nl 
+
+Work in progress ... 
+ Todo: finish up/test descramble for DDA and DDD (see /-here/)  (will only do for Linux) 
+   
 
 
   Overview of layers
@@ -40,6 +39,7 @@ from ../jetpacktuxedo/ keymap.
 
 
       Leds: Breathing effect on the middle LED in color of last active non base layer.
+            There is no particular reason for this (fun & games).
       Leds left and right indicate active layer.
       *} One led on the _FUN layer is bright white, indicating which BASE layer is active.
          Left is white for _LTR BASE (normal), right is white for _DDL BASE (descramble).
@@ -49,92 +49,24 @@ from ../jetpacktuxedo/ keymap.
   =====
  
   All normal use layer switching is by thumb buttons on the base layer,
-  all temporary, no transparent keys. All layers can be set to be on persistently through
-  the \_FUN layer top row toggles. A few rarely used layers can only be reached
-  by \_FUN layer toggle.  From each layer one can go back to the BASE
-  layer by pressing the upper/left most button.
+  mostly temporary. All layers can be set to be on persistently through
+  the `_FUN` layer top row toggles. A few rarely used layers can only
+  be reached by `_FUN` layer toggle. From each layer one can go back
+  to the BASE layer by pressing the upper/left most button.
 
+  'Descramble' mode
+  -----------------
 
-## To a computer already set to Dvorak remapping ...
+  There are several layers for that take care of typing normally on
+  a computer already set to Dvorak ('descramble' mode.)  These layers
+  are active' simply by changing the layer that you use for letters,
+  and by having the upper/left key bring you back to that alternative
+  letters layer, instead of to the default letters layer.
 
-  Hitting the 7th key on bottom row (`_FUN`), and last key on top row (`_DDL`) is enough for
-  typing with the layer hold keys on that layer.
-
-  To also have the left most key on top row on each layer go to the descramble BASE layer `_DDL`,
-  you can set that on the `_FUN` layer:
-
-  Tap **`_FUN`** (7th key bottom row, to function layer), then **`!DDL`** (5th key bottom row).
-  Undo: tap again to **`_FUN`**, then hit **`_!LTR`** (4th key bottom row), or plug keyboard in/out. 
-  To detect if the BASE keys direct to the descramble layer or not, activate `_FUN` layer and check
-  the leds. Toggle it using the 4th and 5th keys on bottom row. Escape from `_FUN` layer by way of
-  top left key, which should then send you to your chosen BASE layer. The regular BASE layer is
-  now out of reach (the regular numbers layer is not).
-
-  Example: A laptop with a build in keyboard, for which you need _computer
-  operating system side_ mapping to Dvorak, but you also like to plug in
-  this natively Dvorak keyboard, besides using this keyboard on other 
-  computers that do not remap the keyboard input.
-
-  If this sounds confusing, ... ? (Warning: _ultra-verbose mode is on_ !)
-
-  (This will change soon.)
-   - Look at the top row in the `_FUN` layer map. The left most two
-  keys are by default the normal BASE layer `_LTR` and its numbers
-  layer `_NSY`. The right most two keys are to the _descramble_ variants
-  thereof, with the last one acting as the _descramble_ BASE layer which
-  replaces the default BASE layer uses once you activate it and use
-  it. The other layers in the middle are used in common.
-  - A BASE layer (there are two) is nothing more than a layer with
-  layer-hold keys to a bunch of other layers that work well with it. Those
-  keys revert you to that BASE layer when released. Only these BASE
-  layers have those layer-hold keys, which makes the BASE layers the
-  most interesting. They are your "base of operation."  You should be
-  able to reach all you need from them, on that layer itself and others
-  accessed by way of layer-hold keys from there.
-  - The other layers are more static. The other simpler layers can still
-  be brought on without needing to hold a key down through the `_FUN`
-  layer (a second way of accessing them, sometimes the only one). Rather
-  than have a set of layer toggles for touch typing and reaching anything
-  fast, these simple layers specialize in something (moving, F-keys,
-  numbers/symbols etc). These more simple layers have one layer toggle
-  in the top/left of the keyboard, back to one of the two BASE layers,
-  for when you brought it on statically rather than by a layer-hold key
-  (the latter of which will immediately revert you back upon release
-  already). You can configure which one (using !LTR and !DDL on `_FUN`)
-  of the BASE layers that top/left key should go to. That is all there
-  is to it.
-  - You can for example decide to _not_ toggle the BASE keys on all layers
-  to point to the `_DDL` _descramble BASE layer_, but _still_ activate
-  the `_DDL` layer (through `_FUN`) and use it just fine. The only
-  difference is that once you access one of the simpler layers through
-  `_FUN` toggle, and you escape away from there with the top/left key,
-  then you end up on the normal BASE layer (`_LTR`), rather than the
-  _descramble_ BASE layer (`_DDL`) That is no big deal either. You can
-  switch to the `_FUN` layer again, and select the `_DDL` _descramble_
-  BASE layer once again to start using it, and/or set where the BASE
-  layers should point next (using !LTR and !DDL also on the `_FUN` layer).
-  -  The reverse however is not possible: you can not access `_LTR` normal
-  BASE layer anymore once BASE keys point to the _descramble_ BASE layer
-  `_DDL`, simply because there is no key to toggle to the default `_LTR`
-  BASE layer anymore in that case.  Only BASE keys do that. There is
-  no use for that key, so it is not present, but if you put that key
-  on the map somewhere (which is easy enough) than that layer would
-  work just fine even though BASE keys point to the other _descramble_
-  layer `_DDL`. As it is, the only way to go back to normal BASE layer,
-  is to set the BASE keys to point there, using the `_FUN` layer !LTR
-  key, and then press a BASE key on whatever layer (or plug in/out,
-  because normal BASE layer is the default on startup).
-  - You only notice the difference in regular use regarding where the BASE
-  keys point, when reaching for a simple layer by toggle on `_FUN`, and
-  where you end up if you escape from that layer by way of the top/left
-  key. It has no other meaning.  Nothing is being computed or decrypted
-  or anything. The mere altered placement of keys on the _descramble_ `_DDL` layer is 
-  enough to fix the problem. It is all nothing more than basic layer switching, with
-  some layer hold and toggle keys.  There are no fixed modes that affect
-  things down the line. There is your layer toggles, and your BASE key
-  direction to `_LTR` normal BASE or `_DDL` _descramble_ BASE. All of
-  it can be changed at will indefinitely without any consequences. I
-  understand it better now too. ^^
+  Go to `_FUN` layer, touch what is 'spacebar' (5th key bottom row) on the
+  base layer, then hit what is 'escape' on the base layer (upper/left).
+  To return to normal Dvorak output: go to `_FUN` and hit what is 'enter'
+  on the base layer (4th key bottom row).
 
   Layers
   ======
@@ -313,13 +245,16 @@ from ../jetpacktuxedo/ keymap.
   Hacking & slashing 
   ==================
 
+  The 'descramble' letters layer is basically a Qwerty layout, because
+  that becomes Dvorak after computer side remapping. However it is not
+  the best Qwerty layout, because the symbols on the `_DDN` layer are
+  not optimal for direct Qwerty use. With some minor tweaks there, you
+  could use it as a good Qwerty layout for a pretty full featured dual
+  layout board.
+
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
   then see what layers to set for the 2nd and 7th keys on the bottom row.
-
-  Another interesting adaptation is to rework the keys on the `_DDL` and
-  `_DDN` "descramble" layers, to for example a whole other language with 
-  different letter symbols.
 
   If you do and it works I could add a link to your map here if you like.
   
