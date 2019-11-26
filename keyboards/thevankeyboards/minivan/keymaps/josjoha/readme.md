@@ -172,7 +172,7 @@ Work in progress ...
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>-*-                                                 // on _FUN
-     BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
+     BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
@@ -180,6 +180,10 @@ Work in progress ...
                -*-             <|>                  -*-                                        // on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
+- - -
+   
+     Layer _DDA: same as _ACC, but internally coded for 'descramble' mode.
+    
 - - -
     
     
@@ -195,6 +199,10 @@ Work in progress ...
                                <|>                                              
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
+- - -
+   
+     Layer _DDD: same as _DRA, but internally coded for 'descramble' mode.
+    
 - - -
     
 

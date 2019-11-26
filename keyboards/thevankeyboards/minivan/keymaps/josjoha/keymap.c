@@ -83,11 +83,11 @@ extern keymap_config_t keymap_config;
 
 bool descramble = 0; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
 
-/* Shift detection
- * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
+//* Shift detection
+// * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
 bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
- */
+ 
 
     /* These are the accented characters of most/all western European Nations.
      * Using the Unicode input system
@@ -159,6 +159,8 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CYL_DIA,
     CYU_ACU,
     CYU_DIA,
+    CIJL_BI,
+    CIJU_BI,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -253,6 +255,10 @@ const uint32_t PROGMEM unicode_map[] = {
     [CYL_DIA] = 0x00ff, //      ''        'Y' for y, 'L' for lower, "DIA" for Diareses: ÿ
     [CYU_DIA] = 0x0178, //      ''             ''    'U' for upper,        ''         : Ÿ
 
+    // Dutch IJ 
+    [CIJL_BI] = 0x0133, //      ''        'IJ' for ij, 'L' for lower, BI for two-character: ĳ
+    [CIJU_BI] = 0x0132, //      ''              ''   , 'U' for upper      ''              : Ĳ
+
     //German:
      // sharp s 
     [CSL_SHP] = 0x00df, //      ''         'S' for s, 'L' for lower, "SHP" for sharp: ß
@@ -307,6 +313,7 @@ enum custom_keycodes {
     UN_O_CAR,
     UN_O_DIA,
     UN_OE_BI,
+    UN_IJ_BI,
     UN_O_GRA,
     UN_O_STK,
     UN_QU_INV,
@@ -447,12 +454,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
+    //
+    // ... Disused again, because it turned out 'one shot' like
     // Unicode input. Shift detection copied from.
     // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-    uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+    //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
 
     switch (keycode) {
-	    /* Crude but self contained shift detection. Replaced by using get_mods()
+	    // Re-instated ...
+	   // /* Crude but self contained shift detection. Replaced by using get_mods()
         // Record state of shift
         // ... left shift
         case KC_LSFT:
@@ -464,7 +474,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 shift_ison = 0; // shift released
             }
           break;
-	    */
 
 	// Unicode macros for descramble mode.
 	// The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
@@ -477,119 +486,119 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_A_ACU:
             if (record->event.pressed) { // key down
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
+    	        if (shift_ison) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
 		unicode_tail ();
             }
 	  break;
         case UN_A_CAR:
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
+    	        if (shift_ison) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
 		unicode_tail ();
             }
 	  break;
         case UN_A_DIA:
             if (record->event.pressed) {
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
+    	        if (shift_ison) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
 		unicode_tail ();
             }
 	  break;
         case UN_A_GRA:
             if (record->event.pressed) {
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
+    	        if (shift_ison) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
 		unicode_tail ();
             }
 	  break;
         case UN_A_RNG:
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
+    	        if (shift_ison) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
 		unicode_tail ();
             }
 	  break;
         case UN_AE_BI: 
             if (record->event.pressed) {
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
+    	        if (shift_ison) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
 		unicode_tail ();
             }
 	  break;
         case UN_OE_BI: 
             if (record->event.pressed) { // key down
 		unicode_lead ();
-    	        if (shifted) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
+    	        if (shift_ison) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
 		unicode_tail ();
             }
 	  break;
         case UN_C_CDL: 
             if (record->event.pressed) {
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
+    	        if (shift_ison) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
 		unicode_tail ();
             }
 	  break;
         case UN_E_ACU: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
+    	        if (shift_ison) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
 		unicode_tail ();
             }
 	  break;
         case UN_E_CAR: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
+    	        if (shift_ison) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
 		unicode_tail ();
             }
 	  break;
         case UN_E_DIA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
+    	        if (shift_ison) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
 		unicode_tail ();
             }
 	  break;
         case UN_E_GRA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
+    	        if (shift_ison) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
 		unicode_tail ();
             }
 	  break;
         case UN_I_ACU: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
+    	        if (shift_ison) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
 		unicode_tail ();
             }
 	  break;
         case UN_I_CAR: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
+    	        if (shift_ison) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
 		unicode_tail ();
             }
 	  break;
         case UN_I_DIA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("iy"); } else { SEND_STRING ("iy"); } // ÏÏ
+    	        if (shift_ison) { SEND_STRING ("iy"); } else { SEND_STRING ("iy"); } // ÏÏ
 		unicode_tail ();
             }
 	  break;
         case UN_I_GRA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
+    	        if (shift_ison) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
 		unicode_tail ();
             }
 	  break;
         case UN_N_TLD: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
+    	        if (shift_ison) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
 		unicode_tail ();
             }
 	  break;
@@ -610,35 +619,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_O_ACU: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
+    	        if (shift_ison) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
 		unicode_tail ();
             }
 	  break;
         case UN_O_CAR: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
+    	        if (shift_ison) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
 		unicode_tail ();
             }
 	  break;
         case UN_O_DIA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
+    	        if (shift_ison) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
 		unicode_tail ();
             }
 	  break;
         case UN_O_GRA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
+    	        if (shift_ison) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
 		unicode_tail ();
             }
 	  break;
         case UN_O_STK: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
+    	        if (shift_ison) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
 		unicode_tail ();
             }
 	  break;
@@ -652,42 +661,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_U_ACU: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
+    	        if (shift_ison) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
 		unicode_tail ();
             }
 	  break;
         case UN_U_CAR: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
+    	        if (shift_ison) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
 		unicode_tail ();
             }
 	  break;
         case UN_U_DIA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
+    	        if (shift_ison) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
 		unicode_tail ();
             }
 	  break;
         case UN_U_GRA: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
+    	        if (shift_ison) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
 		unicode_tail ();
             }
 	  break;
         case UN_Y_ACU: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        if (shifted) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
+    	        if (shift_ison) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
 		unicode_tail ();
             }
 	  break;
         case UN_Y_DIA: 
             if (record->event.pressed) { 
 		unicode_lead ();
-    	        if (shifted) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
+    	        if (shift_ison) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
+		unicode_tail ();
+            }
+	  break;
+        case UN_IJ_BI: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("0132"); } else { SEND_STRING ("0133"); } // ĳĲ
 		unicode_tail ();
             }
 	  break;
@@ -701,14 +717,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_SMIL: 
             if (record->event.pressed) { 
 		unicode_lead ();
-    	        if (shifted) { SEND_STRING ("1y603"); } else { SEND_STRING ("1y642"); } // 🙂😃
+    	        if (shift_ison) { SEND_STRING ("1y603"); } else { SEND_STRING ("1y642"); } // 🙂😃
 		unicode_tail ();
             }
 	  break;
         case UN_S_SQIG: 
             if (record->event.pressed) { 
 		unicode_lead ();
-    	        if (shifted) { SEND_STRING ("1y641"); } else { SEND_STRING ("2368"); } // ⍨🙁
+    	        if (shift_ison) { SEND_STRING ("1y641"); } else { SEND_STRING ("2368"); } // ⍨🙁
 		unicode_tail ();
             }
 	  break;
@@ -1047,7 +1063,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>-*-
-// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
+// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
 // LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
@@ -1058,7 +1074,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
 //                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
-        CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XXXXXXX                  , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
+        CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XP ( CIJL_BI , CIJU_BI ) , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
 //      ------------------------------------------------------------------------------------
@@ -1078,7 +1094,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>-*-
-// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    xxx   çÇ    øØ    åÅ    Bspc
+// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc
 // LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
 // LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
@@ -1089,7 +1105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2   , <pinky   , <ring    , <middl   , <index   , <indx2  |, indx2>   , index>   , middl>   , ring>    , pinky>   , pink2>  ,
 //               ,          ,          ,          ,          ,        <|,>-*-      ,          ,          ,          ,          ,         ,
-        CTO_BASE , UN_A_ACU , UN_O_ACU , UN_E_ACU , UN_U_ACU , UN_I_ACU , UN_Y_ACU , XXXXXXX  , UN_C_CDL , UN_O_STK , UN_A_RNG , KC_BSPC ,
+        CTO_BASE , UN_A_ACU , UN_O_ACU , UN_E_ACU , UN_U_ACU , UN_I_ACU , UN_Y_ACU , UN_IJ_BI , UN_C_CDL , UN_O_STK , UN_A_RNG , KC_BSPC ,
         KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
 //      ---------------------------------------------------------------------------
