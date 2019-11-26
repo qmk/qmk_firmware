@@ -1,4 +1,4 @@
-#include "QMK_KEYBOARD_H"
+#include "tr60w.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
