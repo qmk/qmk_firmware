@@ -312,7 +312,7 @@ void check_default_layer(uint8_t type) {
             rgb_matrix_layer_helper(HSV_TEAL, type);
             break;
         case _GAMING:
-            rgb_matrix_layer_helper(HSV_PURPLE, type);
+            rgb_matrix_layer_helper(HSV_RED, type);
             break;
     }
 }
@@ -325,7 +325,7 @@ void rgb_matrix_indicators_user(void) {
     {
         switch (get_highest_layer(layer_state)) {
             case _GAMING_EXT:
-                rgb_matrix_layer_helper(HSV_RED, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_PURPLE, LED_FLAG_UNDERGLOW);
                 break;
             case _NUM:
                 rgb_matrix_layer_helper(HSV_GOLDENROD, LED_FLAG_UNDERGLOW);
@@ -334,7 +334,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_SPRINGGREEN, LED_FLAG_UNDERGLOW);
                 break;
             case _UTIL:
-                rgb_matrix_layer_helper(HSV_CORAL, LED_FLAG_UNDERGLOW);
+                rgb_matrix_layer_helper(HSV_PINK, LED_FLAG_UNDERGLOW);
                 break;
             default: {
                 check_default_layer(LED_FLAG_UNDERGLOW);
