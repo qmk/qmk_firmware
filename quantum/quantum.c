@@ -311,6 +311,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #    ifndef SPLIT_KEYBOARD
     if (record->event.pressed) {
 #    else
+    // Split keyboards need to trigger on key-up for edge-case issue
     if (!record->event.pressed) {
 #    endif
         uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
@@ -325,52 +326,32 @@ bool process_record_quantum(keyrecord_t *record) {
                     rgblight_step();
                 }
                 return false;
+            case RGB_MODE_FORWARD:
+                if (shifted) {
+                    rgblight_step_reverse();
+                } else {
+                    rgblight_step();
+                }
+                return false;
+            case RGB_MODE_REVERSE:
+                if (shifted) {
+                    rgblight_step();
+                } else {
+                    rgblight_step_reverse();
+                }
+                return false;
+            case RGB_HUI:
+                rgblight_increase_hue();
+                return false;
+            case RGB_HUD:
+                rgblight_decrease_hue();
+                return false;
         }
     }
 #endif
 
     switch (keycode) {
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        case RGB_MODE_FORWARD:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
-                    rgblight_step_reverse();
-                } else {
-                    rgblight_step();
-                }
-            }
-            return false;
-        case RGB_MODE_REVERSE:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
-                if (shifted) {
-                    rgblight_step();
-                } else {
-                    rgblight_step_reverse();
-                }
-            }
-            return false;
-        case RGB_HUI:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_increase_hue();
-            }
-            return false;
-        case RGB_HUD:
-// Split keyboards need to trigger on key-up for edge-case issue
-#    ifndef SPLIT_KEYBOARD
-            if (record->event.pressed) {
-#    else
-            if (!record->event.pressed) {
-#    endif
-                rgblight_decrease_hue();
-            }
-            return false;
         case RGB_SAI:
 // Split keyboards need to trigger on key-up for edge-case issue
 #    ifndef SPLIT_KEYBOARD
