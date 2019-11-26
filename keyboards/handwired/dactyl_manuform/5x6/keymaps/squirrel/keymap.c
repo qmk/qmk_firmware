@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_LALT,KC_LCTRL,                                                       KC_PMNS, KC_PPLS,
                                       KC_SPC,MO(_ARROWS),                        MO(_MOUSE), KC_ENT,
                                       KC_LCMD,MO(_SYMBOLS),                         KC_EQL,  MO(_MOUSE),
-                                      MO(_NUMBERS), KC_SPC,                        KC_PGUP, KC_PGDOWN
+                                      KC_SPC, MO(_NUMBERS),                        KC_PGUP, KC_PGDOWN
   ),
 
   [_WINDOWS] = LAYOUT_5x6(
