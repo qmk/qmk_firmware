@@ -14,7 +14,11 @@ from ../jetpacktuxedo/ keymap.
                                                 By Jos B.,  joshb@xs4all.nl 
 
 Work in progress ... 
- Todo: finish up/test descramble for DDA and DDD (see /-here/)  (will only do for Linux) 
+   Todo: 
+   - finish up/test descramble for DDA and DDD 
+   - Layer switching in descramble mode
+   - Add a descramble mode that uses standard Unicode layers.
+   - Work on FUN layer key in BASE layer to be one shot with exceptions for setting descramble.
    
 
 
