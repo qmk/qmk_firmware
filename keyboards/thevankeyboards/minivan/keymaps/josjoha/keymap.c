@@ -161,6 +161,10 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CYU_DIA,
     CIJL_BI,
     CIJU_BI,
+    CS_OCBRA,
+    CS_CCBRA,
+    CS_ODABRA,
+    CS_CDABRA,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -272,7 +276,12 @@ const uint32_t PROGMEM unicode_map[] = {
       //Sad symbols
     [CS_SAD_] = 0x1f641, //      ''              ''          "SAD_"   for  <sad face>  🙁 
     [CS_SQIG] = 0x2368,  //      ''              ''          "SQIG"  for "Squiggly" face <sad>  ⍨
-    [CS_THDN] = 0x1f44e  //      ''              ''          "THDN"  for <thumb down>  👎 
+    [CS_THDN] = 0x1f44e, //      ''              ''          "THDN"  for <thumb down>  👎 
+
+    [CS_OCBRA] = 0x300c, //      ''              ''          "O" for opening, "C" for corner, "BRA" for bracket:「
+    [CS_CCBRA] = 0x300d, //      ''              ''          "C" for closing,                                  : 」
+    [CS_ODABRA] = 0x300a, //     ''              ''          "O" for opening, "D" for double, "A" for angled, "BRA" for bracket:《
+    [CS_CDABRA] = 0x300b, //     ''              ''          "C" for closing,      ''              ''                ''        : 》
 };
 
 
@@ -330,6 +339,10 @@ enum custom_keycodes {
     UN_U_GRA,
     UN_Y_ACU,
     UN_Y_DIA,
+    UN_S_OCBRA,
+    UN_S_CCBRA,
+    UN_S_ODABRA,
+    UN_S_CDABRA,
 };
 
 // Descramble Unicode functions, for layouts _DDA, _DDD
@@ -735,10 +748,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		unicode_tail ();
             }
 	  break;
-
+        case UN_S_OCBRA: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("300i"); // 「
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_CCBRA: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("300h"); // 」
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_ODABRA: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("300a"); // 《
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_CDABRA: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        SEND_STRING ("300n"); // 》
+		unicode_tail ();
+            }
+	  break;
 
      }
      return true;
+	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
 };
 
 
@@ -1126,8 +1167,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RCtl
-// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RSft
+// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx  「     」    RCtl
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
@@ -1135,11 +1176,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
 
-//      <pink2      , <pinky        , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>                   , middl>        , ring>         , pinky>                   , pink2>  ,
-//                  ,               ,         ,         ,         ,       <|,>        , -*-                      ,               ,               ,                          ,         ,
-        CTO_BASE    , X ( CEX_INV ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP ) , X ( CS_THDN ) , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
-        KC_LCTL     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , X ( CQU_INV ) , XXXXXXX       , XXXXXXX                  , KC_RCTL ,
-        KC_LSFT     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , XXXXXXX       , XXXXXXX       , XXXXXXX                  , KC_RSFT ,
+//      <pink2      , <pinky        , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>                   , middl>        , ring>           , pinky>                   , pink2>  ,
+//                  ,               ,         ,         ,         ,       <|,>        , -*-                      ,               ,                 ,                          ,         ,
+        CTO_BASE    , X ( CEX_INV ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP ) , X ( CS_THDN )   , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
+        KC_LCTL     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , X ( CQU_INV ) , X ( CS_OCBRA )  , X ( CS_CCBRA )           , KC_RCTL ,
+        KC_LSFT     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                  , XXXXXXX       , X ( CS_ODABRA ) , X ( CS_CDABRA )          , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,
@@ -1161,19 +1202,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | xxx  🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
-// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSft
+// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx  「     」    RCtl
+// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
-//      <pink2      , <pinky    , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>    , middl>    , ring>     , pinky>    , pink2>  ,
-//                  ,           ,         ,         ,         ,       <|,>        , -*-       ,           ,           ,           ,         ,
-        CTO_BASE    , UN_EX_INV , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , UN_S_SMIL , UN_S_THUP , UN_S_THDN , UN_S_SQIG , KC_BSPC ,
-        KC_LCTL     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , XXXXXXX   , XXXXXXX   , XXXXXXX   , KC_RCTL ,
-        KC_LSFT     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , UN_QU_INV , XXXXXXX   , XXXXXXX   , KC_RSFT ,
+//      <pink2      , <pinky    , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>    , middl>    , ring>       , pinky>      , pink2>  ,
+//                  ,           ,         ,         ,         ,       <|,>        , -*-       ,           ,             ,             ,         ,
+        CTO_BASE    , UN_EX_INV , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , UN_S_SMIL , UN_S_THUP , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
+        KC_LCTL     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , XXXXXXX   , UN_S_OCBRA  , UN_S_CCBRA  , KC_RCTL ,
+        KC_LSFT     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX   , UN_QU_INV , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,

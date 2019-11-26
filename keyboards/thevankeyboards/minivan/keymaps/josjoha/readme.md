@@ -5,9 +5,9 @@ The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
 If that in Unicode is enough, you can deactivate the dead-keys system.
 
-**Linux only**: this map allows the same layout on a computer that is already set to Dvorak
+This map allows the same layout on a computer that is already set to Dvorak
 on the computer side. It helps with a laptop for example that you need to have _computer side_
-Dvorak on for its build-in keyboard.
+Dvorak on for its build-in keyboard. (Only tested on Linux, may work on other systems.)
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
@@ -193,8 +193,8 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
      BASE  ¡     xxx   xxx   xxx   xxx   | xxx   🙂😃  👍    👎     ⍨🙁   Bspc
-     LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿     xxx   xxx   RCtl
-     LSht  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx   xxx   xxx   RSht
+     LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   xxx  「     」    RCtl
+     LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                                              
