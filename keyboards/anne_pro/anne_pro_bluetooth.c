@@ -349,12 +349,6 @@ static void send_keyboard(report_keyboard_t *report) {
         bluetooth_report[5+i] = report->keys[i];
     }
     uart_tx_ringbuf_write(&bluetooth_uart_ringbuf, 11, bluetooth_report);
-    /* If the Bluetooth UART is currently not sending anything, start sending */
-    if (bluetooth_uart_ringbuf.sending_elements == 0) {
-        if (bluetooth_wakeup() == MSG_OK) {
-            uart_tx_ringbuf_start_transmission(&bluetooth_uart_ringbuf);
-        }
-    }
 }
 
 /* Send mouse HID report for Bluetooth driver */
