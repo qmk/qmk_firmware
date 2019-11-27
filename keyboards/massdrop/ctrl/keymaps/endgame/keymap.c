@@ -341,6 +341,8 @@ void rgb_matrix_indicators_user(void) {
                 // Power Control Keys. Color code #cb2f2a
                 rgb_matrix_set_color(40, 0xcb, 0x2f, 0x2a);
                 rgb_matrix_set_color(41, 0xcb, 0x2f, 0x2a);
+                rgb_matrix_set_color(74, 0xcb, 0x2f, 0x2a);
+                rgb_matrix_set_color(83, 0xcb, 0x2f, 0x2a);
                 // Keyboard Control Keys. Color code #f4791e
                 rgb_matrix_set_color(68, 0xf4, 0x79, 0x1e);
                 rgb_matrix_set_color(69, 0xf4, 0x79, 0x1e);
