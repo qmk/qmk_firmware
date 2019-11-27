@@ -3,7 +3,7 @@
 A 65% with the arrow keys and right most column exploded away, with macro keys on the left hand side. Only 15 manufactured. 
 
 * Keyboard Maintainer: [Maartenwut](https://github.com/maartenwut)
-* Hardware Supported: J-01 PCB  
+* Hardware Supported: J-01 PCB
 * Hardware Availability: Private Group Buy and [Charity Raffle](https://novelkeys.xyz/collections/frontpage/products/j-01-raffle-ticket)
 
 Make example for this keyboard (after setting up your build environment):
