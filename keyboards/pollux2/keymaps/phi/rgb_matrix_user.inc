@@ -33,7 +33,7 @@ enum led_type_flags {
 uint8_t layer_image [][DRIVER_LED_TOTAL] = {
     [BASE] = LED_LAYOUT(
         ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
-        MOD, ___, MOD, MOD, ___, ___, ___, ___, ___, ___, ___, ___,
+        MOD, ___, ___, MOD, MOD, ___, ___, ___, ___, ___, ___, ___,
         MOD, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
         /*               */ MOD, ___, ___, MOD
     ),
@@ -41,50 +41,65 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
         FN2, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, FN1,
         XXX, XXX, XXX, FN1, FN1, FN1, FN1, FN1, FN1, XXX, FN1, FN1,
         MOD, ___, ___, ___, ___, ___, ___, ___, ___, XXX, XXX, FN1,
-        /*               */ FN2, FN2, XXX, XXX
+        /*               */ FN2, FN2, XXX, MOD
     ),
     [FUNCTION] = LED_LAYOUT(
         XXX, ___, ___, ___, ___, ___, ___, ___, ___, ___, FN2, XXX,
         XXX, FN1, FN1, FN1, FN1, MOD, XXX, XXX, XXX, XXX, XXX, XXX,
-        XXX, FN1, FN1, FN1, FN1, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        /*               */ XXX, FN2, XXX, XXX
+        MOD, FN1, FN1, FN1, FN1, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        /*               */ XXX, FN2, XXX, MOD
     ),
     [MOUSE] = LED_LAYOUT(
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        XXX, XXX, MOD, XXX, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
+        XXX, XXX, MOD, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        /*               */ FN1, FN1, XXX, XXX
+        /*               */ FN2, FN2, XXX, XXX
+    ),
+    [WHEEL] = LED_LAYOUT(
+        XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        XXX, XXX, MOD, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
+        XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
+        /*               */ XXX, XXX, XXX, XXX
     ),
     [CURSOR] = LED_LAYOUT(
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        XXX, XXX, XXX, MOD, XXX, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
+        XXX, XXX, XXX, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         /*               */ XXX, XXX, XXX, XXX
     ),
     [CURSOR_ACCL] = LED_LAYOUT(
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        XXX, XXX, XXX, XXX, XXX, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
+        XXX, XXX, XXX, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         /*               */ XXX, XXX, XXX, XXX
     ),
 };
 
+#define _HSV(H, S, V) (HSV){ .h = H, .s = S, .v = V }
+#define _RGB(rgb) rgb.r, rgb.g, rgb.b
+
 static void set_color_internal (uint8_t index, uint8_t color_index) {
+    HSV hsv = rgb_matrix_config.hsv;
+    RGB white = hsv_to_rgb(_HSV(0, 0, hsv.v));
+    RGB base_color = hsv_to_rgb(hsv);
+    RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 3) % 256, hsv.s, hsv.v));
+    RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 3) % 256, hsv.s, hsv.v));
+
     switch (color_index) {
       case XXX:
         rgb_matrix_set_color(index, 0x00, 0x00, 0x00);
         break;
       case ___:
-        rgb_matrix_set_color(index, 0x10, 0x10, 0x10);
-        break;
-      case FN2:
-        rgb_matrix_set_color(index, 0x30, 0x08, 0x08);
+        rgb_matrix_set_color(index, _RGB(white));
         break;
       case FN1:
-        rgb_matrix_set_color(index, 0x08, 0x30, 0x08);
+        rgb_matrix_set_color(index, _RGB(base_color));
+        break;
+      case FN2:
+        rgb_matrix_set_color(index, _RGB(accent1));
         break;
       case MOD:
-        rgb_matrix_set_color(index, 0x08, 0x08, 0x30);
+        rgb_matrix_set_color(index, _RGB(accent2));
         break;
     }
 }
@@ -92,10 +107,10 @@ static void set_color_internal (uint8_t index, uint8_t color_index) {
 static bool my_effect (effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
-        if (LAYER_ON(RAISE)) {
-            set_color_internal(i, layer_image[RAISE][i]);
-        } else if (LAYER_ON(FUNCTION)) {
+        if (LAYER_ON(FUNCTION)) {
             set_color_internal(i, layer_image[FUNCTION][i]);
+        } else if (LAYER_ON(RAISE)) {
+            set_color_internal(i, layer_image[RAISE][i]);
         } else if (LAYER_ON(WHEEL)) {
             set_color_internal(i, layer_image[WHEEL][i]);
         } else if (LAYER_ON(MOUSE)) {
