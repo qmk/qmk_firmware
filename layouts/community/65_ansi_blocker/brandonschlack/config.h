@@ -1,7 +1,5 @@
 #pragma once
 
-#define GRAVE_ESC_ALT_OVERRIDE
-
 #ifdef RGB_MATRIX_ENABLE
 // Disable RGB Effects
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
