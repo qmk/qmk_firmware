@@ -117,3 +117,15 @@ void suspend_wakeup_init_kb(void)
     rgb_matrix_set_suspend_state(false);
     suspend_wakeup_init_user();
 }
+
+__attribute__ ((weak))
+void rgb_matrix_indicators_user(void)
+{
+    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
+    {
+        rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
+    }
+}
+
+
+

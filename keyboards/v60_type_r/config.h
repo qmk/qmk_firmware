@@ -53,14 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_ON_STATE 0
 
-#define RGBLIGHT_CUSTOM_DRIVER
-#define RGBLIGHT_ANIMATIONS
+//#define RGB_DI_PIN 0
 #define RGBLED_NUM 1
+#define RGBLIGHT_ANIMATIONS
+#define RGB_STEP 16
+
 #define RGB_RED_PIN PF6
 #define RGB_GREEN_PIN PF5
 #define RGB_BLUE_PIN PF4
-#define RGB_DI_PIN 0
-#define RGB_STEP 16
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

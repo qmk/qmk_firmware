@@ -13,13 +13,6 @@
 #define DEBOUNCE 10
 #endif
 
-//#define DEBUG_MATRIX_SCAN_RATE
-
-//#ifdef DEBUG_MATRIX_SCAN_RATE
-//uint32_t matrix_timer;
-//uint32_t matrix_scan_count;
-//#endif
-
 static uint8_t mcp23017_reset_loop = 0;
 
 volatile matrix_row_t matrix[MATRIX_ROWS];
