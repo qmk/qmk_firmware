@@ -1,18 +1,11 @@
 # TR60W
 
-[![TR60W Imgur Link](https://imgur.com/a/vezmI99/)](https://imgur.com/a/vezmI99/)
+![TR60W](https://i.imgur.com/Ez2T2Te.jpg)
 
-This is the hotswap pcb supplied by Triangle Lab with their tr60 case.
+This is the hotswap PCB supplied by Triangle Labs with their TR60 case, featuring four RGB LEDs around the Escape key, USB-C, and SMD single-color backlighting.
 
 * Keyboard Maintainer: [Joule-Flow](https://github.com/Joule-Flow)
-* Hardware Supported:
-  * ATMEGA 32u4 supported
-  * The pcb does seem to be designed by fox labs
-  * 4 rgb leds around the escape key socket
-  * kalih hot swap sockets
-  * north facing switches
-  * usb c receptacle
-  * smd nonrgb-in-switch leds
+* Hardware Supported: TR60W PCB, ATmega32U4
 * Hardware Availability: Group-buy by [Triangle Labs](https://geekhack.org/index.php?topic=96378.0)
 
 Make example for this keyboard (after setting up your build environment):
