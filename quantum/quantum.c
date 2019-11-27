@@ -386,6 +386,14 @@ bool process_record_quantum(keyrecord_t *record) {
                 }
 #    endif
                 return false;
+        case RGB_MODE_RAINBOW:
+#    ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+                if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
+                    rgblight_step();
+                } else {
+                    rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
+                }
+#    endif
             case RGB_MODE_SWIRL:
 #    ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
                 if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) && (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
