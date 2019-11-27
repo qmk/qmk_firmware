@@ -26,7 +26,7 @@ enum layer_number {
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_EN_RAI LT(RAISE, KC_ENT)
 #define KC_ES_ALT LALT_T(KC_ESC)
-#define KC_SPC_FN LT(FUNCTION, KC_SPC)
+#define KC_FUNC   MO(FUNCTION)
 #define KC_WEEL   MO(WHEEL)
 
 #define KC_RST  RESET
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    ,   B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                               ES_ALT,SPC_FN,   TAB  ,EN_RAI \
+                               ES_ALT, SPC  ,   TAB  ,EN_RAI \
 //                            `-------------' `-------------'
 ),
 
@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     BSPC , 1    , 2    , 3    , 4    , 5    ,   6    , 7    , 8    , 9    , 0    , EQL  , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    RST  , ____ , BSLS , LCBR , LPRN , LBRC ,   RBRC , RPRN , RCBR , PIPE , UP   , PLUS , \
+    ____ , ____ , BSLS , LCBR , LPRN , LBRC ,   RBRC , RPRN , RCBR , PIPE , UP   , PLUS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
+    FUNC , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
                                LANG2 ,LANG1 ,   ____ , ____ \
 //                            `-------------' `------------'
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , MODE , H_DN , S_DN , V_DN , ____ ,   ____ , ____ , ____ , HOME , PGDN , END , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                                ____ , XXXX ,   ____ , ____ \
+                                ____ , RST  ,   ____ , ____ \
 //                            `-------------' `------------'
 ),
 
