@@ -1,8 +1,26 @@
-This is the hotswap pcb supplied by triangle labs with their tr60 case.
-[Group-buy](https://geekhack.org/index.php?topic=96378.0)
+# TR60W
 
-The pcb does seem to be designed by fox labs
-The pcb does have 4 rgb leds surrounding the escape key
-Hardware: ATMEGA 32u4, 4 rgb leds around escape, kalih hot swap sockets, north facing switches, usb c, smd nonrgb-in-switch leds
+![Tr60W](https://imgur.com/a/vezmI99)
 
-Hardware Availability: Group-buy by [Traingle Labs](https://geekhack.org/index.php?topic=96378.0)
+This is the hotswap pcb supplied by Triangle Lab with their tr60 case.
+
+* Keyboard Maintainer: [Joule-Flow](https://github.com/Joule-Flow)
+* Hardware Supported:
+  * ATMEGA 32u4 supported
+  * The pcb does seem to be designed by fox labs
+  * 4 rgb leds around the escape key socket
+  * kalih hot swap sockets
+  * north facing switches
+  * usb c receptacle
+  * smd nonrgb-in-switch leds
+* Hardware Availability: Group-buy by [Triangle Labs](https://geekhack.org/index.php?topic=96378.0)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make tr60w:default
+
+Or use my personal settings:
+
+    make tr60w:joule-flow
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
