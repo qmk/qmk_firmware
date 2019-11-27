@@ -1,6 +1,11 @@
 # QMK の設定
 
-QMK はほぼ無制限に設定可能です。Wherever possible we err on the side of allowing users to customize their keyboard, even at the expense of code size. ただし、この柔軟性のレベルにより設定が困難になります。
+<!---
+  original document: eae21eed7:docs/config_options.md
+  git diff eae21eed7 HEAD docs/config_options.md | cat
+-->
+
+QMK はほぼ無制限に設定可能です。可能なところはいかなるところでも、やりすぎな程、ユーザーがコードサイズを犠牲してでも彼らのキーボードをカスタマイズをすることを許しています。ただし、この柔軟性のレベルにより設定が困難になります。
 
 QMK には主に２種類の設定ファイルがあります- `config.h` と `rules.mk`。これらのファイルは QMK の様々なレベルに存在し、同じ種類の全てのファイルは最終的な設定を構築するために組み合わされます。最低の優先度から最高の優先度までのレベルは以下の通りです:
 
@@ -23,11 +28,11 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 
 ## キーマップ
 
-このレベルは特定のキーマップのための全てのオプションを含みます。以前の定義を上書きしたい場合は、定義を解除するために`#undef <variable>`を使うことができます。エラー無しで再定義することができます。
+このレベルは特定のキーマップのための全てのオプションを含みます。以前の定義を上書きしたい場合は、定義を解除するために `#undef <variable>` を使うことができます。エラー無しで再定義することができます。
 
 # `config.h` ファイル
 
-これは最初に含まれるものの1つである C ヘッダ ファイルで、プロジェクト全体(含まれる場合)にわたって持続します。多くの変数をここで設定し、他の場所からアクセスすることができます。The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
+これは最初に include されるものの 1 つである C ヘッダ ファイルで、プロジェクト全体(含まれる場合)にわたって持続します。多くの変数をここで設定し、他の場所からアクセスすることができます。The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
 
     #include "config_common.h"
 
@@ -58,9 +63,9 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 * `#define MATRIX_HAS_GHOST`
    * define is matrix has ghost (unlikely)
 * `#define DIODE_DIRECTION COL2ROW`
-   * COL2ROW あるいは ROW2COL - マトリックスがどのように設定されているかCOL2ROW は、ダイオードの黒い印が行に向かっていて、スイッチと行の間にあることを意味します。
+   * COL2ROW あるいは ROW2COL - マトリックスがどのように設定されているか。マトリックスがどのように設定されているか。COL2ROW は、スイッチとロウ(行)ラインの間にダイオードが黒い印をロウ(行)ラインに向けて置いてあることを意味します。
 * `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
-   * 行と列にマップされているピンを左から右に。各スイッチが個別のピンとグラウンドに接続されているマトリックスを定義します。
+   * ロウ(行)ラインとカラム(列)ラインにマップされているピンを左から右に。各スイッチが個別のピンとグラウンドに接続されているマトリックスを定義します。
 * `#define AUDIO_VOICES`
    * turns on the alternate audio voices (to cycle through)
 * `#define C4_AUDIO`
@@ -86,7 +91,7 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 * `#define DEBOUNCE 5`
    * ピンの値を読み取る時の遅延 (5がデフォルト)
 * `#define LOCKING_SUPPORT_ENABLE`
-   * メカニカルロックのサポートキーマップでは代わりに KC_LCAP、 KC_LNUM または KC_LSCR を使います
+   * メカニカルロックのサポート。キーマップで KC_LCAP、 KC_LNUM そして KC_LSCR を使えるようにします
 * `#define LOCKING_RESYNC_ENABLE`
    * キーボードの LED の状態をスイッチの状態と一致させ続けようとします
 * `#define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)`
@@ -94,7 +99,7 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 * `#define USB_MAX_POWER_CONSUMPTION 500`
    * デバイスのための USB 経由の最大電力(mA) を設定します (デフォルト: 500)
 * `#define USB_POLLING_INTERVAL_MS 10`
-   * キーボード、マウス および 共有 (NKRO/メディア キー) インタフェースのためのUSBポーリングレートのミリ秒を設定します
+   * キーボード、マウス および 共有 (NKRO/メディア キー) インタフェースのための USB ポーリングレートのミリ秒を設定します
 * `#define F_SCL 100000L`
    * I2C を使用するキーボードのための I2C クロックレート速度を設定しますデフォルトは `400000L`です。ただし、デフォルトが`100000L`である `split_common` を使っているキーボードを除きます。
 
@@ -129,23 +134,23 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 ## 設定可能な挙動
 
 * `#define TAPPING_TERM 200`
-   * タップがホールドになるまでの時間。500以上に設定された場合、タップ期間中にタップされたキーもホールドになります
+   * タップがホールドになるまでの時間。500以上に設定された場合、タップ期間中にタップされたキーもホールドになります。(訳注: PERMISSIVE_HOLDも参照)
 * `#define TAPPING_TERM_PER_KEY`
    * キーごとの `TAPPING_TERM` 設定の処理を有効にします
 * `#define RETRO_TAPPING`
-   * 押下とリリースの間に他のキーによる中断がなければ、TAPPING_TERMの後であってもとにかくタップします
-   * 詳細は [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) を見てください
+   * 押下とリリースの間に他のキーによる中断がなければ、TAPPING_TERM の後であってもとにかくタップします
+   * 詳細は [Retro Tapping](ja/feature_advanced_keycodes.md#retro-tapping) を見てください
 * `#define TAPPING_TOGGLE 2`
    * トグルを引き起こす前のタップ数
 * `#define PERMISSIVE_HOLD`
    * `TAPPING_TERM` にヒットしていなくても、リリースする前に別のキーが押されると、タップアンドフォールドキーがホールドを引き起こします
-   * 詳細は[Permissive Hold](feature_advanced_keycodes.md#permissive-hold)を見てください
+   * 詳細は[Permissive Hold](ja/feature_advanced_keycodes.md#permissive-hold)を見てください
 * `#define IGNORE_MOD_TAP_INTERRUPT`
    * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリング コンボ (zx) をすることができるようにします
-   * 詳細は [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
+   * 詳細は [Mod tap interrupt](ja/feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
 * `#define TAPPING_FORCE_HOLD`
    * タップされた直後に、dual role キーを修飾子として使用できるようにします
-   * [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)を見てください
+   * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
    * タップ トグル機能を無効にします (`TT` あるいは One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
    * リーダーキーがタイムアウトするまでの時間
@@ -153,7 +158,7 @@ QMK での全ての利用可能な設定はデフォルトを持ちます。設�
 * `#define LEADER_PER_KEY_TIMING`
    * 全体では無く各キーを押すたびに実行されるリーダーキー chord のタイマーを設定します
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
-   * Mod-Tap および Layer-Tap キーコードのためのキーコードフィルタリングを無効にします例えば、これを有効にすると、`KC_A` を使いたい場合は `MT(MOD_CTL, KC_A)` を指定する必要があります。
+   * Mod-Tap および Layer-Tap キーコードのためのキーコードフィルタリングを無効にします。例えば、これを有効にすると、`KC_A` を使いたい場合は `MT(MOD_CTL, KC_A)` を指定する必要があります。
 * `#define ONESHOT_TIMEOUT 300`
    * ワンショットがタイムアウトするまでの時間
 * `#define ONESHOT_TAP_TOGGLE 2`
@@ -164,7 +169,7 @@ going to produce the 500 keystrokes a second needed to actually get more than a
 few ms of delay from this. But if you're doing chording on something with 3-4ms
 scan times?おそらくこれが必要です。
 * `#define COMBO_COUNT 2`
-   * [コンボ](feature_combo.md)機能で使っているコンボの数にこれを設定します。
+   * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`
    * コンボキーが検出されるまでの時間。定義されていない場合は、デフォルトは `TAPPING_TERM` です。
 * `#define TAP_CODE_DELAY 100`
@@ -172,10 +177,10 @@ scan times?おそらくこれが必要です。
 * `#define TAP_HOLD_CAPS_DELAY 80`
    * MacOS で特別な処理が行われるため、`KC_CAPSLOCK` を使う時にタップホールドキー (`LT`, `MT`) に遅延を設定します。この値はミリ秒で、定義されていない場合はデフォルトは80msです。macOS については、これを200以上に設定したいかもしれません。
 
-## RGB ライト設定
+## RGB ライト設定 :id=rgb-light-configuration
 
 * `#define RGB_DI_PIN D7`
-   * pin the DI on the WS2812 is hooked-up to
+   * WS2812 の DI 端子につなぐピンを指定します
 * `#define RGBLIGHT_ANIMATIONS`
    * RGB アニメーションを実行します
 * `#define RGBLED_NUM 12`
@@ -205,7 +210,7 @@ scan times?おそらくこれが必要です。
 
 ## 分割キーボードオプション
 
-分割キーボード固有のオプション。rules.mk の中で 'SPLIT_KEYBOARD = yes' であることを確認します
+分割キーボード固有のオプション。あなたの rules.mk に 'SPLIT_KEYBOARD = yes' が有ることを確認してください。
 
 * `SPLIT_TRANSPORT = custom`
    * 標準の分割通信ルーチンをカスタムのものに置き換えることができます。現在、ARM ベースの分割キーボードはこれを使わなければなりません。
@@ -217,20 +222,20 @@ scan times?おそらくこれが必要です。
 分割キーボードの左右を設定するには、幾つかの異なる方法があります (優先度の順にリストされています):
 
 1. `SPLIT_HAND_PIN` を設定します: 左右を決定するためにピンを読み込みます。ピンが high の場合、それが左側です。low であれば、その半分側が右側であると決定されます。
-2. `EE_HANDS` を設定し、各半分に `eeprom-lefthand.eep`/`eeprom-righthand.eep` をフラッシュします
+2. `EE_HANDS` を設定し、各半分に `eeprom-lefthand.eep`/`eeprom-righthand.eep` を書き込みます
    * DFU ブートローダを搭載したボードでは、これらの EEPROM ファイルを書き込むために `:dfu-split-left`/`:dfu-split-right` を使うことができます
    * Caterina ブートローダを搭載したボード (標準的な Pro Micros など)では、`:avrdude-split-left`/`:avrdude-split-right` を使ってください
    * ARM DFU ブートローダを搭載したボード (Proton C など)では、`:dfu-util-split-left`/`:dfu-util-split-right` を使ってください
-3. `MASTER_RIGHT` を設定します: USBポートに差し込まれた半分はマスターで右側であると決定されます(デフォルトの逆)
-4. デフォルト: USB ポートに差し込まれている側がマスターの半分であり、左半分であると見なされます。スレーブ側は右半分です
+3. `MASTER_RIGHT` を設定します: USBポートに差し込まれた側はマスターで右側であると決定されます(デフォルトの逆)
+4. デフォルト: ポートに差し込まれている側がマスター側であり、左側であると見なされます。スレーブ側は右側です
 
 #### 左右を定義します
 
 * `#define SPLIT_HAND_PIN B7`
-   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンと置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準のLet'sが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
+   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンと置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's が使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
 * `#define EE_HANDS` (`SPLIT_HAND_PIN` が定義されていない場合のみ動作します)
-   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分にフラッシュされた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。
+   * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分に書き込まれた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。
 
 * `#define MASTER_RIGHT`
    * マスターの半分が右半分と定義されます。
@@ -264,7 +269,7 @@ scan times?おそらくこれが必要です。
       * 5: about 20kbps
 
 * `#define SPLIT_USB_DETECT`
-   * マスタ/スレーブを委任する時に(タイムアウト付きで)USB接続を検出します
+   * マスタ/スレーブを委任する時に(タイムアウト付きで) USB 接続を検出します
    * ARM についてはデフォルトの挙動
    * AVR Teensy については必須
 
@@ -273,7 +278,7 @@ scan times?おそらくこれが必要です。
 
 # `rules.mk` ファイル
 
-これは、トップレベルの `Makefile` に含まれる [make](https://www.gnu.org/software/make/manual/make.html) ファイルです。これは特定の機能を有効または無効にするだけでなく、コンパイルする MCU に関する情報を設定するために使われます。
+これは、トップレベルの `Makefile` から include される [make](https://www.gnu.org/software/make/manual/make.html) ファイルです。これは特定の機能を有効または無効にするだけでなく、コンパイルする MCU に関する情報を設定するために使われます。
 
 ## ビルド オプション
 
@@ -284,7 +289,7 @@ scan times?おそらくこれが必要です。
 * `SRC`
    * コンパイル/リンク リストにファイルを追加するために使われます。
 * `LAYOUTS`
-   * このキーボードがサポートする[レイアウト](feature_layouts.md)のリスト
+   * このキーボードがサポートする[レイアウト](ja/feature_layouts.md)のリスト
 
 ## AVR MCU オプション
 * `MCU = atmega32u4`
@@ -345,14 +350,14 @@ scan times?おそらくこれが必要です。
    * キーボードの起動後の usb サスペンドチェックを無効にします。通常、キーボードはタスクが実行される前にホストがウェイク アップするのを待ちます。分割キーボードは半分はウェイクアップコールを取得できませんが、マスタにコマンドを送信する必要があるため、役に立ちます。
 * `LINK_TIME_OPTIMIZATION_ENABLE`
    * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、これらの機能が壊れるため、これは自動的に古いマクロと関数の機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます
-   * 別の方法として、`LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
+   * `LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## USB エンドポイントの制限
 
 USB 経由でサービスを提供するために、QMK は USB エンドポイントを使う必要があります。
 これらは有限なリソースです: 各マイクロコントローラは特定の数しか持ちません。
 これは一緒に有効にできる機能を制限します。
-利用可能なエンドポイントを超えると、ビルドエラーが投げられます。
+利用可能なエンドポイントを超えると、ビルドエラーをひきおこします。
 
 以下の機能は個別のエンドポイントを必要とするかもしれません:
 
