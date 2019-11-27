@@ -168,6 +168,26 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CS_LGULDEN,
     CS_UGULDEN,
     CS_CIRCLE,
+    CN_0SUB,
+    CN_0SUP,
+    CN_1SUB,
+    CN_1SUP,
+    CN_2SUB,
+    CN_2SUP,
+    CN_3SUB,
+    CN_3SUP,
+    CN_4SUB,
+    CN_4SUP,
+    CN_5SUB,
+    CN_5SUP,
+    CN_6SUB,
+    CN_6SUP,
+    CN_7SUB,
+    CN_7SUP,
+    CN_8SUB,
+    CN_8SUP,
+    CN_9SUB,
+    CN_9SUP,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -281,15 +301,40 @@ const uint32_t PROGMEM unicode_map[] = {
     [CS_SQIG] = 0x2368,  //      ''              ''          "SQIG"  for "Squiggly" face <sad>  ⍨
     [CS_THDN] = 0x1f44e, //      ''              ''          "THDN"  for <thumb down>  👎 
 
+     // Unusual parenthesis types
     [CS_OCBRA] = 0x300c, //      ''              ''          "O" for opening, "C" for corner, "BRA" for bracket:「
     [CS_CCBRA] = 0x300d, //      ''              ''          "C" for closing,                                  : 」
     [CS_ODABRA] = 0x300a, //     ''              ''          "O" for opening, "D" for double, "A" for angled, "BRA" for bracket:《
     [CS_CDABRA] = 0x300b, //     ''              ''          "C" for closing,      ''              ''                ''        : 》
 
+     // Dutch currency
     [CS_LGULDEN] = 0x0192, //     ''              ''          "L" for lower, "GULDEN" for guilder: ƒ
     [CS_UGULDEN] = 0x0191, //     ''              ''          "U" for upper,           ''        : Ƒ
     
+     // circle
     [CS_CIRCLE] = 0x3007, //      ''              ''          "CIRCLE" for circle: 〇
+
+     // super and sub script numbers
+    [CN_0SUB] =  0x2080, //       ''     , N for number, "SUB" for sub-script or "SUP" for super-script:₀
+    [CN_0SUP] =  0x2070, //       ''     ,    ''       ,                           ''                  :⁰
+    [CN_1SUB] =  0x2081, //       ''     ,    ''       ,        ''                                     :₁
+    [CN_1SUP] =  0x00B9, //       ''     ,    ''       ,                           ''                  :¹
+    [CN_2SUB] =  0x2082, //       ''     ,    ''       ,        ''                                     :₂
+    [CN_2SUP] =  0x00B2, //       ''     ,    ''       ,                           ''                  :²
+    [CN_3SUB] =  0x2083, //       ''     ,    ''       ,        ''                                     :₃
+    [CN_3SUP] =  0x00B3, //       ''     ,    ''       ,                           ''                  :³
+    [CN_4SUB] =  0x2084, //       ''     ,    ''       ,        ''                                     :₄
+    [CN_4SUP] =  0x2074, //       ''     ,    ''       ,                           ''                  :⁴
+    [CN_5SUB] =  0x2085, //       ''     ,    ''       ,        ''                                     :₅
+    [CN_5SUP] =  0x2075, //       ''     ,    ''       ,                           ''                  :⁵
+    [CN_6SUB] =  0x2086, //       ''     ,    ''       ,        ''                                     :₆
+    [CN_6SUP] =  0x2076, //       ''     ,    ''       ,                           ''                  :⁶
+    [CN_7SUB] =  0x2087, //       ''     ,    ''       ,        ''                                     :₇
+    [CN_7SUP] =  0x2077, //       ''     ,    ''       ,                           ''                  :⁷
+    [CN_8SUB] =  0x2088, //       ''     ,    ''       ,        ''                                     :₈
+    [CN_8SUP] =  0x2078, //       ''     ,    ''       ,                           ''                  :⁸
+    [CN_9SUB] =  0x2089, //       ''     ,    ''       ,        ''                                     :₉
+    [CN_9SUP] =  0x2079, //       ''     ,    ''       ,                           ''                  :⁹
 };
 
 
@@ -353,6 +398,16 @@ enum custom_keycodes {
     UN_S_CDABRA,
     UN_S_GULDEN,
     UN_S_CIRCLE,
+    UN_N_0SUBP,
+    UN_N_1SUBP,
+    UN_N_2SUBP,
+    UN_N_3SUBP,
+    UN_N_4SUBP,
+    UN_N_5SUBP,
+    UN_N_6SUBP,
+    UN_N_7SUBP,
+    UN_N_8SUBP,
+    UN_N_9SUBP,
 };
 
 // Descramble Unicode functions, for layouts _DDA, _DDD
@@ -800,6 +855,78 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		unicode_tail ();
             }
 	  break;
+     // super and sub script numbers
+        case UN_N_0SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2080"); } else { SEND_STRING ("2070"); } // ₀⁰
+		unicode_tail ();
+            }
+	  break;
+
+        case UN_N_1SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2081"); } else { SEND_STRING ("00n9"); } // ₁¹
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_2SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2082"); } else { SEND_STRING ("00n2"); } // ₂²
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_3SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2083"); } else { SEND_STRING ("00n3"); } // ₃³
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_4SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2084"); } else { SEND_STRING ("2074"); } // ₄⁴
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_5SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2085"); } else { SEND_STRING ("2075"); } // ₅⁵
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_6SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2086"); } else { SEND_STRING ("2076"); } // ₇⁷
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_7SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2087"); } else { SEND_STRING ("2077"); } // ₈⁸
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_8SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2088"); } else { SEND_STRING ("2078"); } // ₉⁹
+		unicode_tail ();
+            }
+	  break;
+        case UN_N_9SUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("2089"); } else { SEND_STRING ("2079"); } // 
+		unicode_tail ();
+            }
+	  break;
      }
      return true;
 	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
@@ -1067,7 +1194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
 // -+LSft   xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSft
 // ----------------------------------------------------------
-// Left+LAlt Del   xxx      Ent  | .    xxx   ,     Right+Alt
+// Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+Alt
 //                              <|>
 // <1        <2    <3       <4   | 4>   3>    2>    1>  
 //
@@ -1078,7 +1205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB )  , KC_LEFT , KC_DOWN , KC_UP   , KC_RGHT , XXXXXXX , KC_5    , KC_4    , KC_3    , KC_2    , KC_1    , KC_RCTL ,
         LSFT_T ( KC_MINS ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_RSFT ,
 //      -------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL , XXXXXXX , KC_ENT  , KC_DOT  , XXXXXXX , KC_COMM , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , KC_DEL , KC_PGDN , KC_PGUP , KC_DOT  , XXXXXXX , KC_COMM , RALT_T ( KC_RGHT )
 //                         ,        ,         ,       <|,>        ,         ,         ,
 //      <1                 , <2     , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
@@ -1190,20 +1317,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   〇   「     」    RCtl
-// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
+// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | xxx   xxx   〇   「     」    RCtl
+// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
-
-//      <pink2      , <pinky        , <ring   , <middl  , <index  , <indx2 |, indx2>                         , index>                   , middl>            , ring>           , pinky>                   , pink2>  ,
-//                  ,               ,         ,         ,         ,       <|,>                               , -*-                      ,                   ,                 ,                          ,         ,
-        CTO_BASE    , X ( CEX_INV ) , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP )     , X ( CS_THDN )   , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
-        KC_LCTL     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                        , XXXXXXX                  , X ( CS_CIRCLE ) , X ( CS_OCBRA )  , X ( CS_CCBRA )           , KC_RCTL ,
-        KC_LSFT     , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX                        , XXXXXXX                  , X ( CQU_INV )     , X ( CS_ODABRA ) , X ( CS_CDABRA )          , KC_RSFT ,
+//      <pink2      , <pinky                  , <ring                   , <middl                  , <index                  , <indx2                 |, indx2>                         , index>                   , middl>            , ring>           , pinky>                   , pink2>  ,
+//                  ,                         ,                         ,                         ,                         ,                       <|,>                               , -*-                      ,                   ,                 ,                          ,         ,
+        CTO_BASE    , X ( CEX_INV )           , XXXXXXX                 , XXXXXXX                 , XXXXXXX                 , XXXXXXX                 , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS ) , X ( CS_THUP )     , X ( CS_THDN )   , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
+        KC_LCTL     , XP ( CN_1SUP , CN_1SUB) , XP ( CN_2SUP , CN_2SUB) , XP ( CN_3SUP , CN_3SUB) , XP ( CN_4SUP , CN_4SUB) , XP ( CN_5SUP , CN_5SUB) , XXXXXXX                        , XXXXXXX                  , X ( CS_CIRCLE )   , X ( CS_OCBRA )  , X ( CS_CCBRA )           , KC_RCTL ,
+        KC_LSFT     , XP ( CN_0SUP , CN_0SUB) , XP ( CN_9SUP , CN_9SUB) , XP ( CN_8SUP , CN_8SUB) , XP ( CN_7SUP , CN_7SUB) , XP ( CN_6SUP , CN_6SUB) , XXXXXXX                        , XXXXXXX                  , X ( CQU_INV )     , X ( CS_ODABRA ) , X ( CS_CDABRA )          , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,
@@ -1225,19 +1351,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
 // BASE  ¡     xxx   xxx   xxx   xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   〇   「     」    RCtl
-// LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
+// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | xxx   xxx   〇   「     」    RCtl
+// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
+
+
+    
+     
+
 //
-//      <pink2      , <pinky    , <ring   , <middl  , <index  , <indx2 |, indx2>      , index>    , middl>      , ring>       , pinky>      , pink2>  ,
-//                  ,           ,         ,         ,         ,       <|,>            , -*-       ,             ,             ,             ,         ,
-        CTO_BASE    , UN_EX_INV , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , UN_S_GULDEN , UN_S_SMIL , UN_S_THUP   , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
-        KC_LCTL     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX     , XXXXXXX   , UN_S_CIRCLE , UN_S_OCBRA  , UN_S_CCBRA  , KC_RCTL ,
-        KC_LSFT     , XXXXXXX   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX     , XXXXXXX   , UN_QU_INV   , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
+//      <pink2      , <pinky     , <ring      , <middl     , <index     , <indx2    |, indx2>      , index>    , middl>      , ring>       , pinky>      , pink2>  ,
+//                  ,            ,            ,            ,            ,          <|,>            , -*-       ,             ,             ,             ,         ,
+        CTO_BASE    , UN_EX_INV  , XXXXXXX    , XXXXXXX    , XXXXXXX    , XXXXXXX    , UN_S_GULDEN , UN_S_SMIL , UN_S_THUP   , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
+        KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP , UN_N_3SUBP , UN_N_4SUBP , UN_N_5SUBP , XXXXXXX     , XXXXXXX   , UN_S_CIRCLE , UN_S_OCBRA  , UN_S_CCBRA  , KC_RCTL ,
+        KC_LSFT     , UN_N_0SUBP , UN_N_9SUBP , UN_N_8SUBP , UN_N_7SUBP , UN_N_6SUBP , XXXXXXX     , XXXXXXX   , UN_QU_INV   , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,

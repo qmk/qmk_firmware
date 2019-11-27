@@ -35,8 +35,8 @@ Work in progress ...
       * accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
       * Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak: 
-      * Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings" *)
-      * accented characters             (Led: yellow/low-white)_DDA "Descramble Accented" *)
+      * Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
+      * accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
       * numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
       * letters                         (Led: off/low-white)   _DDN "Descramble Letters"
 
@@ -160,7 +160,7 @@ Work in progress ...
      Tab+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSft
      ----------------------------------------------------------
-     Left+LAlt Del   xxx      Ent  | .    xxx   ,     Right+Alt
+     Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+Alt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
@@ -191,8 +191,8 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
      BASE  ¡     xxx   xxx   xxx   xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-     LCtl  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   〇   「     」    RCtl
-     LSft  xxx   xxx   xxx   xxx   xxx   | xxx   xxx   ¿    《     》    RSft
+     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | xxx   xxx   〇   「     」    RCtl
+     LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                                              
