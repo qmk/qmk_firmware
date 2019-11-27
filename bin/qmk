@@ -4,34 +4,58 @@
 import os
 import sys
 from importlib.util import find_spec
+from time import strftime
+from pathlib import Path
 
 # Add the QMK python libs to our path
-script_dir = os.path.dirname(os.path.realpath(__file__))
-qmk_dir = os.path.abspath(os.path.join(script_dir, '..'))
-python_lib_dir = os.path.abspath(os.path.join(qmk_dir, 'lib', 'python'))
-sys.path.append(python_lib_dir)
+script_dir = Path(os.path.realpath(__file__)).parent
+qmk_dir = script_dir.parent
+python_lib_dir = Path(qmk_dir / 'lib' / 'python').resolve()
+sys.path.append(str(python_lib_dir))
 
-# Make sure our modules have been setup
-with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
-    for line in fd.readlines():
-        line = line.strip().replace('<', '=').replace('>', '=')
+# QMK CLI user config file
+config_file = Path(Path.home() / '.config/qmk/qmk.ini')
 
-        if line[0] == '#':
-            continue
 
-        if '#' in line:
-            line = line.split('#')[0]
+def _check_modules(requirements):
+    """ Check if the modules in the given requirements.txt are available.
+    """
+    with Path(qmk_dir / requirements).open() as fd:
+        for line in fd.readlines():
+            line = line.strip().replace('<', '=').replace('>', '=')
 
-        module = line.split('=')[0] if '=' in line else line
+            if line[0] == '#':
+                continue
 
-        if module in ['pep8-naming']:
+            if '#' in line:
+                line = line.split('#')[0]
+
+            module = dict()
+            module['name'] = module['import'] = line.split('=')[0] if '=' in line else line
+
             # Not every module is importable by its own name.
-            continue
+            if module['name'] == "pep8-naming":
+                module['import'] = "pep8ext_naming"
 
-        if not find_spec(module):
-            print('Could not find module %s!' % module)
-            print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
-            exit(255)
+            if not find_spec(module['import']):
+                print('Could not find module %s!' % module['name'])
+                if developer:
+                    print('Please run `pip3 install -r requirements-dev.txt` to install the python development dependencies or turn off developer mode with `qmk config user.developer=None`.')
+                    print()
+                else:
+                    print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
+                    print()
+                    exit(255)
+
+
+developer = False
+# Make sure our modules have been setup
+_check_modules('requirements.txt')
+
+# For developers additional modules are needed
+if config_file.exists() and 'developer = True' in config_file.read_text():
+    developer = True
+    _check_modules('requirements-dev.txt')
 
 # Setup the CLI
 import milc  # noqa
