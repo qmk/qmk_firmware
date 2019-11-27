@@ -53,7 +53,7 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         XXX, XXX, MOD, MOD, MOD, XXX, FN1, FN1, FN1, FN1, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        /*               */ FN2, FN2, XXX, XXX
+        /*               */ FN1, FN1, XXX, XXX
     ),
     [WHEEL] = LED_LAYOUT(
         XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX,
@@ -80,10 +80,14 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
 
 static void set_color_internal (uint8_t index, uint8_t color_index) {
     HSV hsv = rgb_matrix_config.hsv;
-    RGB base_color = hsv_to_rgb(hsv);
-    RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 4) % 256, hsv.s, hsv.v));
-    RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 4) % 256, hsv.s, hsv.v));
-    RGB accent3 = hsv_to_rgb(_HSV((hsv.h + 256 * 3 / 4) % 256, hsv.s, hsv.v));
+    /* RGB base_color = hsv_to_rgb(hsv); */
+    /* RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 4) % 256, hsv.s, hsv.v)); */
+    /* RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 4) % 256, hsv.s, hsv.v)); */
+    /* RGB accent3 = hsv_to_rgb(_HSV((hsv.h + 256 * 3 / 4) % 256, hsv.s, hsv.v)); */
+    RGB base_color = hsv_to_rgb(_HSV(0, 0, hsv.v));
+    RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 0 / 3) % 256, hsv.s, hsv.v));
+    RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 3) % 256, hsv.s, hsv.v));
+    RGB accent3 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 3) % 256, hsv.s, hsv.v));
 
     switch (color_index) {
       case XXX:
