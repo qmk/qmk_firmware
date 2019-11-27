@@ -1,3 +1,5 @@
+#pragma once
+
 #define GRAVE_ESC_ALT_OVERRIDE
 
 #ifdef RGB_MATRIX_ENABLE
