@@ -1,9 +1,9 @@
 #include "brandonschlack.h"
 
 #if defined(TAP_CODE_DELAY)
-    #define SEND_STRING_DELAY TAP_CODE_DELAY
+    #define SS_DELAY TAP_CODE_DELAY
 #else
-    #define SEND_STRING_DELAY 5
+    #define SS_DELAY 5
 #endif
 
 // Super CMD↯TAB
@@ -45,17 +45,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case QM_VRSN:  // Prints firmware version
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), SEND_STRING_DELAY);
+                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), SS_DELAY);
             }
             break;
         case QM_KYBD:  // Prints keyboard path
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/"), SEND_STRING_DELAY);
+                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/"), SS_DELAY);
             }
             break;
         case QM_KYMP:  // Prints keymap path
             if (record->event.pressed) {
-                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c"), SEND_STRING_DELAY);
+                send_string_with_delay_P(PSTR("keyboards/" QMK_KEYBOARD "/keymaps/" QMK_KEYMAP "/keymap.c"), SS_DELAY);
             }
             break;
         case CMD_TAB: // Super CMD↯TAB
@@ -132,20 +132,20 @@ void matrix_scan_cmd_tab(void) {
  * Sends FORCE_LAYOUT parameter if built with FORCE_LAYOUT
  */
 void send_make_command(bool flash_bootloader) {
-    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), SEND_STRING_DELAY);
+    send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), SS_DELAY);
     if (flash_bootloader) {
 #if defined(KEYBOARD_massdrop_alt) // only run for Massdrop ALT
-        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), SEND_STRING_DELAY);
+        send_string_with_delay_P(PSTR(" && mdlflash " QMK_KEYBOARD " " QMK_KEYMAP), SS_DELAY);
 #elif defined(KEYBOARD_coseyfannitutti_discipline) // only run for Discipline 65
-        send_string_with_delay_P(PSTR(":program"), SEND_STRING_DELAY);
+        send_string_with_delay_P(PSTR(":program"), SS_DELAY);
 #else // use universal flash command
-        send_string_with_delay_P(PSTR(":flash"), SEND_STRING_DELAY);
+        send_string_with_delay_P(PSTR(":flash"), SS_DELAY);
 #endif
 #if defined(FORCE_LAYOUT)
-        send_string_with_delay_P(PSTR(" FORCE_LAYOUT=" FORCE_LAYOUT), SEND_STRING_DELAY);
+        send_string_with_delay_P(PSTR(" FORCE_LAYOUT=" FORCE_LAYOUT), SS_DELAY);
 #endif
     }
-    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), SEND_STRING_DELAY);
+    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), SS_DELAY);
     if (flash_bootloader) {
         reset_keyboard();
     }
