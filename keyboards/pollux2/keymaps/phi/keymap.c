@@ -9,7 +9,7 @@
 #define KC_XXXX KC_NO
 
 #define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_S_CUR  LT(CURSOR, KC_S)
+#define KC_F_CUR  LT(CURSOR, KC_F)
 #define KC_EN_RAI LT(RAISE, KC_ENT)
 #define KC_ES_ALT LALT_T(KC_ESC)
 #define KC_FUNC   MO(FUNCTION)
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     JYEN , Q    , W    , E    , R    , T    ,   Y    , U    , I    , O    , P    , MINS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LCTL , A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN , QUOT , \
+    LCTL , A    , S    ,D_MOUS, F_CUR, G    ,   H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    ,   B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
