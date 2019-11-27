@@ -1,4 +1,4 @@
-/* Copyright 2019 Maartenwut
+/* Copyright Maarten Dekkers <maartenwut@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,13 @@
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-/*
+
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
 
     matrix_init_user();
+    setPinOutput(E6);
 }
 
 void matrix_scan_kb(void) {
@@ -43,8 +44,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool led_update_kb(led_t led_state) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    if(led_update_user(led_state)) {
+        writePin(E6, !led_state.caps_lock);
+    }
 
-    return led_update_user(led_state);
+    return true;
 }
-*/
