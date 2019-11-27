@@ -1,24 +1,7 @@
 #include QMK_KEYBOARD_H
 
-#include "split_util.h"
-
-/* GLOBAL VARS */
-
-enum layer_number {
-    BASE = 0,
-    RAISE,
-    FUNCTION,
-    MOUSE,
-    WHEEL,
-    CURSOR,
-    CURSOR_ACCL
-};
-
-#define L_BASE     0
-#define L_RAISE    (2 << (RAISE - 1))
-#define L_FUNCTION (2 << (FUNCTION - 1))
-#define L_MOUSE    (2 << (MOUSE - 1))
-#define L_WHEEL    (2 << (WHEEL - 1))
+#include "keymap.h"
+#include "split_util.h"         /* isLeftHand */
 
 /* KEYCODE DEFINITIONS */
 
