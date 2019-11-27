@@ -1,6 +1,6 @@
 # TR60W
 
-![Tr60W](https://imgur.com/a/vezmI99)
+[![TR60W Imgur Link](https://imgur.com/a/vezmI99/)](https://imgur.com/a/vezmI99/)
 
 This is the hotswap pcb supplied by Triangle Lab with their tr60 case.
 
