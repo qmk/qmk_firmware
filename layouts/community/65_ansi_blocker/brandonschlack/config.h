@@ -1,5 +1,6 @@
-#pragma once
+#define GRAVE_ESC_ALT_OVERRIDE
 
+#ifdef RGB_MATRIX_ENABLE
 // Disable RGB Effects
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
 // #define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -39,19 +40,9 @@
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define QMK_KEYS_PER_SCAN 4
+#endif
 
-// #define RGB_MATRIX_KEYRELEASES
-
-// Use RGB Indicators over LED
+#ifdef KEYBOARD_massdrop_alt
 #undef USB_LED_INDICATOR_ENABLE
 #define USB_LED_CAPS_LOCK_SCANCODE      30
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
+#endif
