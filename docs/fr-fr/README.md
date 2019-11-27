@@ -19,7 +19,7 @@ Sinon, vous pouvez aussi le télécharger directement en ([zip](https://github.c
 
 ## Comment le compiler
 
-Avant d'être prêt à compiler vous allez devoir [installer un environnement](getting_started_build_tools.md) pour les développements AVR et/ou ARM. Une fois ceci fait, vous pourrez utiliser la commande `make` pour compiler le clavier et la disposition avec une commande de ce type :
+Avant d'être prêt à compiler vous allez devoir [installer un environnement](fr-fr/getting_started_build_tools.md) pour les développements AVR et/ou ARM. Une fois ceci fait, vous pourrez utiliser la commande `make` pour compiler le clavier et la disposition avec une commande de ce type :
 
     make planck/rev4:default
 
@@ -29,4 +29,4 @@ Cette commande compilera la révision `rev4` du clavier `planck` avec la disposi
 
 ## Comment le personnaliser
 
-QMK a beaucoup de [fonctionnalités](features.md) à explorer, et [une documentation](http://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](keymap.md) (keymaps) et de changer [les codes de caractères](keycodes.md) (keycodes).
+QMK a beaucoup de [fonctionnalités](fr-fr/features.md) à explorer, et [une documentation](http://docs.qmk.fm) très abondante que vous pourrez parcourir. La plupart des fonctionnalités vous permettrons de modifier vos [dispositions](fr-fr/keymap.md) (keymaps) et de changer [les codes de caractères](fr-fr/keycodes.md) (keycodes).
