@@ -3,8 +3,6 @@ SRC += brandonschlack.c \
 
 ifneq ($(strip $(DISABLE_LTO)), yes)
 	EXTRAFLAGS += -flto
-	OPT_DEFS += -DNO_ACTION_MACRO
-	OPT_DEFS += -DNO_ACTION_FUNCTION
 endif
 
 ifeq ($(strip $(IS_MACROPAD)), yes)
