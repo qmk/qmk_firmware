@@ -14,12 +14,12 @@ RGB_MATRIX_EFFECT(my_effect)
     L10, L11, L12, L13, L14, L15,                               \
     L20, L21, L22, L23, L24, L25,                               \
     L34, L35,                                                   \
-    0, 0, 0, 0, 0, 0,                                           \
+    ___, ___, ___, ___, ___, ___,                               \
     R05, R04, R03, R02, R01, R00,                               \
     R15, R14, R13, R12, R11, R10,                               \
     R25, R24, R23, R22, R21, R20,                               \
     R31, R30,                                                   \
-    0, 0, 0, 0, 0, 0                                            \
+    ___, ___, ___, ___, ___, ___                                \
 }
 
 enum led_type_flags {
@@ -80,26 +80,26 @@ uint8_t layer_image [][DRIVER_LED_TOTAL] = {
 
 static void set_color_internal (uint8_t index, uint8_t color_index) {
     HSV hsv = rgb_matrix_config.hsv;
-    RGB white = hsv_to_rgb(_HSV(0, 0, hsv.v));
     RGB base_color = hsv_to_rgb(hsv);
-    RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 3) % 256, hsv.s, hsv.v));
-    RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 3) % 256, hsv.s, hsv.v));
+    RGB accent1 = hsv_to_rgb(_HSV((hsv.h + 256 * 1 / 4) % 256, hsv.s, hsv.v));
+    RGB accent2 = hsv_to_rgb(_HSV((hsv.h + 256 * 2 / 4) % 256, hsv.s, hsv.v));
+    RGB accent3 = hsv_to_rgb(_HSV((hsv.h + 256 * 3 / 4) % 256, hsv.s, hsv.v));
 
     switch (color_index) {
       case XXX:
         rgb_matrix_set_color(index, 0x00, 0x00, 0x00);
         break;
       case ___:
-        rgb_matrix_set_color(index, _RGB(white));
-        break;
-      case FN1:
         rgb_matrix_set_color(index, _RGB(base_color));
         break;
-      case FN2:
+      case FN1:
         rgb_matrix_set_color(index, _RGB(accent1));
         break;
-      case MOD:
+      case FN2:
         rgb_matrix_set_color(index, _RGB(accent2));
+        break;
+      case MOD:
+        rgb_matrix_set_color(index, _RGB(accent3));
         break;
     }
 }
