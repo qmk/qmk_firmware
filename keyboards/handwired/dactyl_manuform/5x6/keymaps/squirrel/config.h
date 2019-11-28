@@ -25,3 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 //#define EE_HANDS
 // Rows are doubled-up
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL       15
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX    60
+#undef MOUSEKEY_WHEEL_MAX_SPEED
+#define MOUSEKEY_WHEEL_MAX_SPEED   	3
