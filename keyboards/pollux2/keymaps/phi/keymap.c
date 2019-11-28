@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "keymap.h"
+#include "layer_numbers.h"
 #include "split_util.h"         /* isLeftHand */
 
 /* KEYCODE DEFINITIONS */
