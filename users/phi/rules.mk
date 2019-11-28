@@ -9,5 +9,5 @@ endif
 ifdef ENHANCED_SHIFT
 	OPT_DEFS += -DENHANCED_SHIFT
 	SRC += enhanced_shift.c
-	TAPDANCE_ENABLE = yes
+	TAP_DANCE_ENABLE = yes
 endif
