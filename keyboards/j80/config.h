@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 5
 
 #define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_PIN D2
+#define BACKLIGHT_PIN D3
 
 #define NO_UART 1
 
