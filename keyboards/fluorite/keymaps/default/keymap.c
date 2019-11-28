@@ -29,7 +29,6 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  ADJUST,
 };
 
 #define KC_TTCM1 TT(_CUSTOM1)
@@ -199,17 +198,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         // when keycode QMKBEST is released
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        layer_on(_ADJUST);
-        // SEND_STRING("QMK is the best thing ever!");
-      } else {
-        layer_off(_ADJUST);
-        // when keycode .QMKBEST is released
       }
       return false;
       break;
