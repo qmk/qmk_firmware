@@ -1,4 +1,5 @@
 #include "pollux2.h"
+#include "split_util.h"         /* isLeftHand */
 
 #define LED_POS(col, row) { col * (224 / 11), row * (64 / 3) }
 
@@ -55,3 +56,9 @@ led_config_t g_led_config = {
         2, 2, 2,
     }
 };
+
+void keyboard_post_init_kb (void) {
+    if (!isLeftHand) {
+        rgb_matrix_disable_noeeprom();
+    }
+}

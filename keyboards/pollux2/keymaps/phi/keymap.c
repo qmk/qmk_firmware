@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 
 #include "layer_numbers.h"
-#include "split_util.h"         /* isLeftHand */
 
 /* KEYCODE DEFINITIONS */
 
@@ -126,9 +125,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
-
-void keyboard_post_init_user (void) {
-    if (!isLeftHand) {
-        rgb_matrix_disable_noeeprom();
-    }
-}
