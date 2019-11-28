@@ -188,6 +188,10 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CN_8SUP,
     CN_9SUB,
     CN_9SUP,
+    CS_OPSUP,
+    CS_OPSUB,
+    CS_CPSUP,
+    CS_CPSUB,
     CS_PARA,
     CS_PLMI,
     CS_DQUL,
@@ -346,6 +350,10 @@ const uint32_t PROGMEM unicode_map[] = {
     [CN_8SUP] =  0x2078, //       ''     ,    ''       ,                           ''                  :⁸
     [CN_9SUB] =  0x2089, //       ''     ,    ''       ,        ''                                     :₉
     [CN_9SUP] =  0x2079, //       ''     ,    ''       ,                           ''                  :⁹
+    [CS_OPSUB] = 0x208D, //       ''     , S for symbol,        ''                                     :₍
+    [CS_OPSUP] = 0x207D, //       ''     ,    ''       ,                           ''                  :⁽
+    [CS_CPSUB] = 0x208E, //       ''     ,    ''       ,        ''                                     :₎
+    [CS_CPSUP] = 0x207E, //       ''     ,    ''       ,                           ''                  :⁾
 
     // Symbols from Dutch typewriter, other Dutch 
     [CS_PARA] = 0x00A7, //        ''     , S for symbol, "PARA" for paragraaf: §
@@ -384,7 +392,7 @@ enum custom_keycodes {
     UN_E_CAR,
     UN_E_DIA,
     UN_E_GRA,
-    UN_EX_INV,
+    //UN_EX_INV,
     UN_I_ACU,
     UN_I_CAR,
     UN_I_DIA,
@@ -426,7 +434,7 @@ enum custom_keycodes {
     UN_N_7SUBP,
     UN_N_8SUBP,
     UN_N_9SUBP,
-    UN_S_PARA,
+    UN_S_PlUSMIN,
     UN_S_PLMI,
     UN_S_DQUL,
     UN_S_DQUH,
@@ -434,6 +442,8 @@ enum custom_keycodes {
     UN_S_MIDDOT,
     UN_S_BULLET,
     UN_S_DEGREE,
+    UN_S_OPSUBP,
+    UN_S_CPSUBP,   
 };
 
 // Descramble Unicode functions, for layouts _DDA, _DDD
@@ -706,6 +716,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		unicode_tail ();
             }
 	  break;
+	  /*
         case UN_EX_INV: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
@@ -713,10 +724,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		unicode_tail ();
             }
 	  break;
+	  */
         case UN_QU_INV: 
             if (record->event.pressed) { 
 		unicode_lead_00 ();
-    	        SEND_STRING ("ny");  // ¿
+    	        if (shift_ison) { SEND_STRING ("a1"); } else { SEND_STRING ("ny"); } // 
 		unicode_tail ();
             }
 	  break;
@@ -884,7 +896,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case UN_S_BULLET: 
             if (record->event.pressed) { 
 		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("2022"); } // ·•
+    	        if (shift_ison) { SEND_STRING ("00a7"); } else { SEND_STRING ("2022"); } // §•
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_PlUSMIN: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("00n1"); } // ·±
 		unicode_tail ();
             }
 	  break;
@@ -961,10 +980,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		unicode_tail ();
             }
 	  break;
-        case UN_S_PARA: 
+        case UN_S_OPSUBP: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("n1"); } else { SEND_STRING ("a7"); } // §±
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("208h"); } else { SEND_STRING ("207h"); } // ₍⁽
+		unicode_tail ();
+            }
+	  break;
+        case UN_S_CPSUBP: 
+            if (record->event.pressed) { 
+		unicode_lead ();
+    	        if (shift_ison) { SEND_STRING ("208d"); } else { SEND_STRING ("207d"); } // ₎⁾
 		unicode_tail ();
             }
 	  break;
@@ -1011,7 +1037,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSft     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSft
 // ------------------------------------------------------------------
-// Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_ACC             // _XYZ are layer switches
+// Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_DRA             // _XYZ are layer switches
 //                                   <|>                                  
 //           hold     hold  hold      |       hold toggl   hold                   // Type of layer switch
 // <1        <2       <3    <4        | 4>    3>   2>      1>                     // Keys by number
@@ -1023,7 +1049,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , LT ( _ACC , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , LT ( _DRA , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -1078,7 +1104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
 // LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
 // ------------------------------------------------------------------
-// Left+LAlt Del+_ACC _DDN  Enter+_MOV| Space _DDN _FUN    Right+_ACC            // _XYZ are layer switches
+// Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD            // _XYZ are layer switches
 //                                   <|>                                  
 //           hold     hold  hold      |       hold toggl   hold                  // Type of layer switch
 // <1        <2       <3    <4        | 4>    3>   2>      1>                    // Keys by number
@@ -1090,7 +1116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDA , KC_RIGHT )
+        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDD , KC_RIGHT )
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -1371,9 +1397,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
-// BASE  ¡     „“    ”     §±    xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •·    xxx  「     」    RCtl
-// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
+// BASE  „“    ⁽₍    ⁾₎    ”     xxx   | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •§    ±·    「     」    RCtl
+// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿¡    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
@@ -1381,12 +1407,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //
     
-    
-//      <pink2      , <pinky                  , <ring                     , <middl                  , <index                , <indx2                 |, indx2>                         , index>                       , middl>            , ring>           , pinky>                   , pink2>  ,
-//                  ,                         ,                           ,                         ,                       ,                       <|,>                               , -*-                          ,                   ,                 ,                          ,         ,
-        CTO_BASE    , X ( CEX_INV )           , XP ( CS_DQUL , CS_DQUHR ) , X ( CS_DQUH )           , XP (CS_PARA, CS_PLMI) , XXXXXXX                 , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS )     , X ( CS_THUP )     , X ( CS_THDN )   , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
-        KC_LCTL     , XP ( CN_1SUP , CN_1SUB) , XP ( CN_2SUP , CN_2SUB)   , XP ( CN_3SUP , CN_3SUB) , XP (CN_4SUP, CN_4SUB) , XP ( CN_5SUP , CN_5SUB) , XP ( CS_DEGREE , CS_CIRCLE )   , XP ( CS_BULLET , CS_MIDDOT ) , XXXXXXX           , X ( CS_OCBRA )  , X ( CS_CCBRA )           , KC_RCTL ,
-        KC_LSFT     , XP ( CN_0SUP , CN_0SUB) , XP ( CN_9SUP , CN_9SUB)   , XP ( CN_8SUP , CN_8SUB) , XP (CN_7SUP, CN_7SUB) , XP ( CN_6SUP , CN_6SUB) , XXXXXXX                        , XXXXXXX                      , X ( CQU_INV )     , X ( CS_ODABRA ) , X ( CS_CDABRA )          , KC_RSFT ,
+//      <pink2      , <pinky                    , <ring                      , <middl                     , <index                   , <indx2                  |, indx2>                         , index>                     , middl>                     , ring>           , pinky>                   , pink2>  ,
+//                  ,                           ,                            ,                            ,                          ,                        <|,>                               , -*-                        ,                            ,                 ,                          ,         ,
+        CTO_BASE    , XP ( CS_DQUL , CS_DQUHR ) , XP ( CS_OPSUP , CS_OPSUB ) , XP ( CS_CPSUP , CS_CPSUB ) , X ( CS_DQUH )            , XXXXXXX                  , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS )   , X ( CS_THUP )              , X ( CS_THDN )   , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
+        KC_LCTL     , XP ( CN_1SUP , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )   , XP ( CN_4SUP , CN_4SUB ) , XP ( CN_5SUP , CN_5SUB ) , XP ( CS_DEGREE , CS_CIRCLE )   , XP ( CS_BULLET , CS_PARA ) , XP ( CS_PLMI , CS_MIDDOT ) , X ( CS_OCBRA )  , X ( CS_CCBRA )           , KC_RCTL ,
+        KC_LSFT     , XP ( CN_0SUP , CN_0SUB )  , XP ( CN_9SUP , CN_9SUB )   , XP ( CN_8SUP , CN_8SUB )   , XP ( CN_7SUP , CN_7SUB ) , XP ( CN_6SUP , CN_6SUB ) , XXXXXXX                        , XXXXXXX                    , XP ( CQU_INV , CEX_INV )   , X ( CS_ODABRA ) , X ( CS_CDABRA )          , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,
@@ -1407,20 +1432,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                                    <|>      -*-
-// BASE  ¡     „“    ”     §±    xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •·    xxx  「     」    RCtl
-// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
+// BASE  „“    ⁽₍    ⁾₎    ”     xxx   | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •§    ±·    「     」    RCtl
+// LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿¡    《     》    RSft
 // ---------------------------------------------------------
 // LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
-//      <pink2      , <pinky     , <ring      , <middl     , <index     , <indx2    |, indx2>      , index>      , middl>    , ring>       , pinky>      , pink2>  ,
-//                  ,            ,            ,            ,            ,          <|,>            , -*-         ,           ,             ,             ,         ,
-        CTO_BASE    , UN_EX_INV  , UN_S_DQUL  , UN_S_DQUH  , UN_S_PARA  , XXXXXXX    , UN_S_GULDEN , UN_S_SMIL   , UN_S_THUP , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
-        KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP , UN_N_3SUBP , UN_N_4SUBP , UN_N_5SUBP , UN_S_DEGREE , UN_S_BULLET , XXXXXXX   , UN_S_OCBRA  , UN_S_CCBRA  , KC_RCTL ,
-        KC_LSFT     , UN_N_0SUBP , UN_N_9SUBP , UN_N_8SUBP , UN_N_7SUBP , UN_N_6SUBP , XXXXXXX     , XXXXXXX     , UN_QU_INV , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
+//      <pink2      , <pinky     , <ring       , <middl      , <index     , <indx2    |, indx2>      , index>      , middl>    , ring>       , pinky>      , pink2>  ,
+//                  ,            ,             ,             ,            ,          <|,>            , -*-         ,           ,             ,             ,         ,
+        CTO_BASE    , UN_S_DQUL  , UN_S_OPSUBP , UN_S_CPSUBP , UN_S_DQUH  , XXXXXXX    , UN_S_GULDEN , UN_S_SMIL   , UN_S_THUP , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
+        KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP , UN_N_5SUBP , UN_S_DEGREE , UN_S_BULLET , UN_S_PlUSMIN , UN_S_OCBRA  , UN_S_CCBRA  , KC_RCTL ,
+        KC_LSFT     , UN_N_0SUBP , UN_N_9SUBP  , UN_N_8SUBP  , UN_N_7SUBP , UN_N_6SUBP , XXXXXXX     , XXXXXXX     , UN_QU_INV , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,         ,       <|,>        ,         ,         ,

@@ -25,27 +25,27 @@ Work in progress ...
   - - - - - - - - - 
 
      Basic layers are:
-      * letters (normal Dvorak layout), (Led: low-white/off)   _LTR "LeTteRs"
-      * numbers with remaining symbols, (Led: blue 2x)         _NSY "Numbers SYmbols"
-      * function keys,                  (Led: red & white *})  _FUN "FUNction keys"
-      * and a movement layer            (Led: green 2x)        _MOV "MOVement"
+      • letters (normal Dvorak layout), (Led: low-white/off)   _LTR "LeTteRs"
+      • numbers with remaining symbols, (Led: blue 2x)         _NSY "Numbers SYmbols"
+      • function keys,                  (Led: red & white ⁽¹⁾) _FUN "FUNction keys"
+      • and a movement layer            (Led: green 2x)        _MOV "MOVement"
      Extra layers: 
-      * keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
-      * navigation, numbers other hand, (Led: green/blue)      _REV "REVerse hands"
-      * accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
-      * Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
+      • keys like Power, Play,          (Led: purple 2x)       _RAR "RARe keys"
+      • navigation, numbers other hand, (Led: green/blue)      _REV "REVerse hands"
+      • accented characters é, ø, ß ... (Led: cyan 2x)         _ACC "ACCented"
+      • Unicode symbols, etc etc.       (Led: yellow 2x)       _DRA "DRAwings"
      Descramble _Computer_ set Dvorak: 
-      * Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
-      * accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
-      * numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
-      * letters                         (Led: off/low-white)   _DDN "Descramble Letters"
+      • Unicode symbols, etc            (Led: cyan/low-white)  _DDD "Descramble Drawings"
+      • accented characters             (Led: yellow/low-white)_DDA "Descramble Accented"
+      • numbers                         (Led: blue/low-white)  _DDL "Descramble Numbers"
+      • letters                         (Led: off/low-white)   _DDN "Descramble Letters"
 
 
-      Leds: Breathing effect on the middle LED in color of last active non base layer.
-            There is no particular reason for this (fun & games).
-      Leds left and right indicate active layer.
-      *} One led on the _FUN layer is bright white, indicating which BASE layer is active.
-         Left is white for _LTR BASE (normal), right is white for _DDL BASE (descramble).
+      Leds: • Breathing effect on the middle LED in color of last active non base layer.
+              There is no particular reason for this (fun & games).
+            • Leds left and right indicate active layer.
+            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which BASE layer is active.
+              Left is white for _LTR BASE (normal), right is white for _DDL BASE (descramble).
 
 
   Usage
@@ -82,7 +82,7 @@ Work in progress ...
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_ACC               // _XYZ is to layer
+     Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_DRA               // _XYZ is to layer
                               ...      <|>                                  // Activation on _FUN as BASE
                hold     hold  hold      |        hold toggl   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
@@ -190,9 +190,9 @@ Work in progress ...
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
-     BASE  ¡     „“    ”     §±    xxx   | ƒƑ   🙂😃   👍    👎    ⍨🙁   Bspc
-     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •·    xxx  「     」    RCtl
-     LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿    《     》    RSft
+     BASE  „“    ⁽₍    ⁾₎    ”     xxx   | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •§    ±·    「     」    RCtl
+     LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿¡    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                                              
@@ -228,7 +228,7 @@ Work in progress ...
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_ACC _DDN  Enter+_MOV| Space _DDN _FUN    Right+_ACC           
+     Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD           
                                        <|>...                               // Activation on _FUN as BASE
                hold     hold  hold      |       hold toggl   hold
      <1        <2       <3    <4        | 4>    3>   2>      1>
