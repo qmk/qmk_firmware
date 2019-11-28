@@ -1,0 +1,1 @@
+# The default keymap for half_n_half

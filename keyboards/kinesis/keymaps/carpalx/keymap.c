@@ -11,10 +11,6 @@ extern keymap_config_t keymap_config;
 #define QWERTY M(_QW)
 #define COLEMAK M(_CM)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /*
 
         Function Keys on All Layers (Keypad toggles):
@@ -165,11 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,
            _______, KC_PENT, KC_P0
     )
-
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

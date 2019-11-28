@@ -16,14 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SOCKETS_CONFIG_H
-#define SOCKETS_CONFIG_H
-
-#include "config_common.h"
+#pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEE5
-#define PRODUCT_ID      0xFEED
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0BEE
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Duckle29
 #define PRODUCT         Lets Split Sockets
@@ -46,24 +43,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
+
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D4
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 12    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
@@ -88,5 +81,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+#ifdef USE_Link_Time_Optimization
+  // LTO has issues with macros (action_get_macro) and "functions" (fn_actions),
+  //  so just disable them
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
 
-#endif
+  #define DISABLE_LEADER
+#endif // USE_Link_Time_Optimization

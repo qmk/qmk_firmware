@@ -11,6 +11,3 @@ MOUSEKEY_ENABLE  = yes   # Mouse keys(+4700)
 TAP_DANCE_ENABLE = yes   # Enable tap dancing
 #UNICODE_ENABLE   = no    # Unicode
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

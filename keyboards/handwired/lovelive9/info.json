@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "lovelive9",
+  "url": "https://github.com/ginjake",
+  "maintainer": "ginjake",
+  "width": 9,
+  "height": 1,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{"label":"k00", "x":0, "y":0}, {"label":"k01", "x":1, "y":0}, {"label":"k02", "x":2, "y":0}, {"label":"k03", "x":3, "y":0}, {"label":"k04", "x":4, "y":0}, {"label":"k05", "x":5, "y":0}, {"label":"k06", "x":6, "y":0}, {"label":"k07", "x":7, "y":0}, {"label":"k08", "x":8, "y":0}]
+    }
+  }
+}

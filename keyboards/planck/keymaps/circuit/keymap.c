@@ -32,8 +32,6 @@ enum planck_keycodes {
 #define SFT_ENT FUNC(0) // Tap for enter, hold for right shift
 #define LOCK    FUNC(1)
 #define KC_PSTE KC_PASTE
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #ifdef TAP_DANCE_ENABLE
 #define SFT_CAP TD(0)   // Left shift, double tap for caps

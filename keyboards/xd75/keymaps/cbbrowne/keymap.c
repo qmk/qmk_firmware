@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 Christopher B Browne
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 /* Fillers to make layering more clear */
-#define _______ KC_TRNS
 #define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 /* Layer shorthand */
 
@@ -64,12 +62,7 @@ enum macro_id {
 #define FUNCTION MO(_FUNCTION)
 #define MRAISE MO(_RAISE)
 #define MLOWER MO(_LOWER)
-#define ALTBSP ALT_T(KC_BSPC)
-
-/* More modifiers for QCENT2... */
-#define PALT MT(KC_RALT, KC_P)
-#define SCTL MT(KC_RCTL, KC_SCLN)
-#define SSHF MT(KC_RSFT, KC_SLSH)
+#define ALTPLUS ALT_T(KC_PLUS)
   
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -86,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BRITE  | LCTRL  | LALT   | LGUI   | RAISE  | XXXXXX . SPACE  | LOWER  | RGUI   | RALT   | RCTRL  | FN     | LEFT   | DOWN   | RIGHT  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-	
+
   /* layout for centred keypad + qwerty...
 
 |ESC| 1 | 2 | 3 | 4 | 5 | ? | ? | ? | ? | 6 | 7 | 8 | 9 | 0 |
@@ -96,40 +89,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |ALT|LED|   |   |   |   |   |   |   |   |   |   |   |   |   |
 
 
-
-
 keys needing to be assigned:
-11 - KC_TAB - tab
-52 - ROT_LED - rotate LED
+51 - KC_TAB - tab
+   - ROT_LED - rotate LED
 15 - KC_LALT - Left ALT
-   - KC_LGUI  - this is the windows/command key, which I think I do not use...
-   - M_LOWER - switch to LOWER layer 
-   - KC_SPC - space
-   - M_UPPER - switch to UPPER layer, maybe unneeded for 15x5
-   - KC_LEFT - famous arrows
-   - KC_DOWN - famous arrows
-   - KC_UP - famous arrows
-   - KC_RIGHT - famous arrows
-   - KC_ENT - enter
+53,55 - M_RAISE - switch to RAISE layer 
+5b - M_LOWER - switch to LOWER layer 
+56,59,5a   - KC_SPC - space
+5c - KC_LEFT - famous arrows
+5d - KC_DOWN - famous arrows
+5e - KC_UP - famous arrows
+5f - KC_RIGHT - famous arrows
+3f - KC_ENT - enter
    - KC_GRV - leftwards quote
-   - KC_QUOT - rightwards quote
-   - KC_BSPC - backspace
-   - KC_ESC
+4f - KC_QUOT - rightwards quote
+1f - KC_BSPC - backspace
+11 - KC_ESC
+19 - KC_GRV - ` - raised
+19 - KC_TILD - ~ - lowered
 
-Missing still...  
-   KC_LBRC and KC_LCBR
-   KC_RBRC and KC_RCBR
+  */
 
-  */  
+[_QWERTY] = LAYOUT_ortho_5x15( /* QWERTY, with keypad in the centre */
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, KC_EQL,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC ,
+      KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,   KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, ALTPLUS ,
+      KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_LBRC, KC_RBRC,KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER ,
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGUP, KC_EQL,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE ,
+       KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,KC_PGDN,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT 
+),
 
-   [_QWERTY] = { /* QWERTY, with keypad in the centre */
-     { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
-     { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,   KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
-     { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,   KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
-     { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-     { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,  KC_0,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
-   },
-	
 /* LOWER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
  * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | XXXXXX .        |
@@ -144,13 +132,13 @@ Missing still...
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
- [_LOWER] = { /* LOWERED */
-   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
-  { ___T___, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS   },
-   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______ },
-   { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______ },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
+[_LOWER] = LAYOUT_ortho_5x15( /* LOWERED */
+    ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, KC_TILD,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 ,
+    ___T___, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS  ,
+    ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE ,
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______ ,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ 
+ ),
 
 /* RAISED
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
@@ -166,13 +154,13 @@ Missing still...
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
- [_RAISE] = { /* RAISED */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___ },
-  { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    _______, _______, KC_7,    KC_8,    KC_9,    KC_0,    _______, _______, KC_INS   },
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, ___T___, ___T___ },
-  { KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
+[_RAISE] = LAYOUT_ortho_5x15 ( /* RAISED */
+   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  MVERSION, _______, KC_GRV,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___ ,
+   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,   USERNAME, _______, KC_7,    KC_8,    KC_LCBR, KC_RCBR,    _______, _______, KC_INS   ,
+   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RANDDIG, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, ___T___, ___T___ ,
+   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  RANDALP, _______, _______, _______, _______, ___T___, ___T___, _______, _______  ,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  
+),
  
 /* FUNCTION
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
@@ -180,25 +168,21 @@ Missing still...
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * | SCR LK | F13    | F14    | F15    | F16    | F17    | F18    | F19    | F20    | F21    | F22    | F23    | F24    | PAUSE  | PR SCR |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | MS BT5 | MS BT4 | MS BT3 | MS BT2 | SLOW M | FAST M | NEXT   | VOL+   | VOL-   | PLAY   |        | XXXXXX .        | WHEEL+ |
+ * | CAP LK | MS BT5 | MS BT4 | MS BT3 | MS BT2 | SLOW M | FAST M | NEXT   | VOL+   | VOL-   | PLAY   |        | XXXXXX |        | WHEEL+ |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | RGB TG | RGB MD | RGB HI | RGB HD | RGB SI | RGB SD | RGB VI | RGB VD | BL TOG | BL INC | BL DEC | XXXXXX .        | MOUS Un | WHEEL- |
+ * | RGB TG | RGB MD | RGB HI | RGB HD | RGB SI | RGB SD | RGB VI | RGB VD | BL TOG | BL INC | BL DEC | XXXXXX |        | MOUS U | WHEEL- |
  * |--------+--------+--------+--------+--------+-- 2u -----------+--------+--------+--------+--------+-----------------+--------+--------|
  * | RESET  |        | QWERTY | COLEMK | DVORAK | XXXXXX . MS BT1 |        |        |        |        |        | MOUS L | MOUS D | MOUS R |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
- [_FUNCTION] = { /* FUNCTION */
-  { KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___, ___T___  },
-  { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
-  { KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, ___T___, ___T___, KC_WH_U  },
-  { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  },
-  { RESET  , _______, DF(_QWERTY), DF(_QWERTY), DF(_QWERTY), KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
- },
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
+[_FUNCTION] = LAYOUT_ortho_5x15( /* FUNCTION */
+   KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  RESET, RESET,
+   KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  ,
+   KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, ___T___, ___T___, KC_WH_U  ,
+   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  ,
+   RESET  , _______, DF(_QWERTY), DF(_QWERTY), DF(_QWERTY), KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R 
+ )
 };
 
 /* This bit of logic seeds a wee linear congruential random number generator */
@@ -229,8 +213,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     break;
   case M_VERSION:
     if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP "@");
-      //      SEND_STRING(QMK_VERSION "@" QMK_BUILDDATE);
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP);
     }
     break;
   case M_RANDDIGIT:
@@ -295,3 +278,33 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   }
   return MACRO_NONE;
 };
+
+void matrix_init_user(void) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_sethsv(325,255,255);
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  switch(biton32(state)) {
+  case _QWERTY:
+    rgblight_sethsv_white();
+    break;
+  case _LOWER:
+    rgblight_sethsv_blue();
+    break;
+  case _RAISE:
+    rgblight_sethsv_green();
+    break;
+  case _ADJUST:
+    rgblight_sethsv_orange();
+    break;
+  case _FUNCTION:
+    rgblight_sethsv_red();
+    break;
+  default:
+    rgblight_sethsv(325,255,255);
+    break;
+  }
+  return state;
+}

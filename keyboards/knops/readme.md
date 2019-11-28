@@ -7,4 +7,4 @@
 * Maintainer: [Pawnerd](https://github.com/pawnerd)
 * Hardware Supported:
   * [`Mini`](mini/): Knops Mini
-* Hardware Availability: [knops.io](https://www.knops.io/)
+* Hardware Availability: [knops.io](http://www.knops.io/)

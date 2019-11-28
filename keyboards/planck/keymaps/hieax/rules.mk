@@ -21,6 +21,3 @@ SLEEP_LED_ENABLE = no   # breathing sleep LED during USB suspend
 
 TAP_DANCE_ENABLE = yes  # enable double tap completion of (),[],{}
 
-ifndef QUANTUM_DIR
-include ../../../../Makefile
-endif

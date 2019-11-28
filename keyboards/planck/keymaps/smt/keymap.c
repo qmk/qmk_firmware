@@ -28,10 +28,6 @@ enum planck_keycodes {
   BACKLIT
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift

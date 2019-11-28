@@ -13,14 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "terminus_mini.h"
-#include "action_layer.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -45,32 +39,14 @@ enum terminus_mini_keycodes {
   LOWER,
   RAISE,
   FUNCTION,
-  MOUSE
-};
-
-enum custom_macros {
+  MOUSE,
+  // Custom Macros
   R_PIPE,
   R_POINT
 };
 
-  // Enable these functions using FUNC(n) macro.
-  const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
-      [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
-      [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
-      [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
-   };
-#define SPC_LW FUNC(0)
-#define ENT_RS FUNC(1)
-#define FNC FUNC(2)
-#define MSE FUNC(3)
-#define PIPE M(R_PIPE)
-#define POINT M(R_POINT)
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
+#define SPC_LW LT(_LOWER, KC_SPC)
+#define ENT_RS LT(_RAISE, KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Colemak -
@@ -85,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT(
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,      KC_Y,    KC_SCLN, KC_DEL , \
-  KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,      KC_I,    KC_O,    KC_QUOT, \
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSPC, \
-  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       FNC,       MSE,     KC_APP,  KC_RCTL \
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL,  \
+  KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
+  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       MO(5),   MO(6),   KC_APP,  KC_RCTL  \
   ),
 
 /* QWERTY -
@@ -103,10 +79,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT(
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,    KC_P,    KC_DEL , \
-  KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSPC, \
-  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       FNC,       MSE,     KC_APP,  KC_RCTL \
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,  \
+  KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
+  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       MO(5),   MO(6),   KC_APP,  KC_RCTL  \
   ),
 
 /* Dvorak
@@ -121,10 +97,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT(
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL, \
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL,  \
   KC_BSPC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
   KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSPC, \
-  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,      SPC_LW,          ENT_RS,       FNC,     MSE,     KC_APP,  KC_RCTL \
+  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       MO(5),   MO(6),   KC_APP,  KC_RCTL  \
 ),
 
 /* Lower
@@ -141,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_LOWER] = LAYOUT(
-  KC_TAB,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   KC_PSLS,  KC_7,  KC_8,  KC_9,   KC_PAST,  XXXXXXX, _______, \
-  _______, KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_MINS,  KC_4,  KC_5,  KC_6,   KC_PPLS,  XXXXXXX, _______, \
-  _______, _______,  _______,  _______,  _______,  KC_EQL,   KC_1,  KC_2,  KC_3,   KC_PENT,  XXXXXXX, _______, \
-  _______, _______,  _______,  _______,       _______,       KC_0,       KC_DOT,   FNC,      RAISE,   _______ \
+  KC_TAB,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_PSLS, KC_7,    KC_8,    KC_9,    KC_PAST, XXXXXXX, _______, \
+  _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_MINS, KC_4,    KC_5,    KC_6,    KC_PPLS, XXXXXXX, _______, \
+  _______, _______, _______, _______, _______, KC_EQL,  KC_1,    KC_2,    KC_3,    KC_PENT, XXXXXXX, _______, \
+  _______, _______, _______, _______,     _______,          KC_0,         KC_DOT,  MO(5),   RAISE,   _______  \
 ),
 
 /* Raise
@@ -160,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
 [_RAISE] = LAYOUT(
-   KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC,  KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  _______, \
-   _______, KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-   _______, POINT,   PIPE,    KC_LCBR, KC_LBRC,  KC_GRV,  KC_BSLS,  KC_RBRC, KC_RCBR, KC_DOT,  KC_SLSH, _______, \
-   _______, _______, XXXXXXX, _______,        SPC_LW,            ENT_RS,     FNC,     MSE,     _______, _______ \
+  KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  _______, \
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+  _______, R_POINT, R_PIPE,  KC_LCBR, KC_LBRC, KC_GRV,  KC_BSLS, KC_RBRC, KC_RCBR, KC_DOT,  KC_SLSH, _______, \
+  _______, _______, XXXXXXX, _______,     SPC_LW,           ENT_RS,       MO(5),   MO(6),   _______, _______  \
    ),
 
 /*Function
@@ -178,11 +154,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 
-[_FUNCTION] = LAYOUT( 
-  _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX, XXXXXXX,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_INS , \
-  KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY,  KC_MNXT, XXXXXXX, XXXXXXX,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_PSCR, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_SLCK, \
-  _______, _______, XXXXXXX, _______,         _______,        _______,     _______, XXXXXXX, XXXXXXX, KC_PAUS \
+[_FUNCTION] = LAYOUT(
+  _______, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_INS,  \
+  KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_PSCR, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_SLCK, \
+  _______, _______, XXXXXXX, _______,     _______,          _______,      _______, XXXXXXX, XXXXXXX, KC_PAUS  \
   ),
 
 /* MOUSE
@@ -198,10 +174,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSE] = LAYOUT(
-   KC_ESC,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
-   KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
-   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_RSPC, \
-   _______, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ACL2,           KC_ACL0,     XXXXXXX,  MSE,     XXXXXXX, KC_RCTL \
+  KC_ESC,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX, \
+  KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSPC, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,     KC_ACL2,          KC_ACL0,      XXXXXXX, MO(6),   XXXXXXX, KC_RCTL  \
   ),
 
 /* Adjust (Lower + Raise)
@@ -217,10 +193,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_ADJUST] = LAYOUT(
-  _______, _______, _______, _______, _______, RESET,   _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL, \
-  _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, DVORAK, _______,  _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______,      _______,          _______,     _______, _______, _______, _______ \
+  _______, _______, _______, _______, _______, RESET,   _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL,  \
+  _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK,  DVORAK,  _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, \
+  _______, _______, _______, _______,     _______,          _______,      _______, _______, _______,  _______  \
 )
 
 };
@@ -228,27 +204,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
-}
-
-// Macros to send R pointer & dplyr pipe
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-      //R Pointer: <-
-        case R_POINT:
-            if (record->event.pressed) { // pointer
-                SEND_STRING("<- ");
-//                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
-            }
-            break;
-      //dplyr pipe: %>%
-        case R_PIPE:
-            if (record->event.pressed) { // dplyr pipe
-                SEND_STRING("%>% ");
-//                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
-            }
-            break;
-    }
-    return MACRO_NONE;
 }
 
 // Cases to switch default layer to QWERTY, COLEMAK or DVORAK and to access ADJUST layer
@@ -265,13 +220,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break; 
+      break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break; 
+      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -291,6 +246,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
+      break;
+    // Macros to send R pointer & dplyr pipe
+    //R Pointer: <-
+    case R_POINT:
+      if (record->event.pressed) { // pointer
+        SEND_STRING("<- ");
+        //return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
+      }
+      break;
+    //dplyr pipe: %>%
+    case R_PIPE:
+      if (record->event.pressed) { // dplyr pipe
+        SEND_STRING("%>% ");
+        //return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
+      }
       break;
   }
   return true;

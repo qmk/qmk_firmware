@@ -15,9 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // MacOS based definitions.
 #define K_SPCFN LT(SYMB, KC_SPACE) // Tap for space, hold for symbols layer
 #define K_PRVWD LALT(KC_LEFT)      // Previous word

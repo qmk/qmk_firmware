@@ -17,6 +17,16 @@ uint16_t click_time = CLICK_MS;
 uint8_t click_toggle = CLICK_ENABLED;
 float my_song[][2] = SONG(ZELDA_PUZZLE);
 
+// Colors of the layer indicator LED
+// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
+__attribute__((weak))
+const Layer_Info layer_info[] = {
+    // Layer     Mask           Red     Green   Blue
+    {0x00000000, 0xFFFFFFFF, {0x00, 0xFF, 0x00}}, // base layers - green
+    {0x00000002, 0xFFFFFFFE, {0x00, 0x00, 0xFF}}, // function layer - blue
+    {0x00000004, 0xFFFFFFFC, {0xFF, 0x00, 0xFF}}, // settings layer - magenta
+    {0xFFFFFFFF, 0xFFFFFFFF, {0xFF, 0xFF, 0xFF}}, // unknown layer - REQUIRED - white
+};
 
 void matrix_init_kb(void)
 {

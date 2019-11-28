@@ -1,13 +1,10 @@
-![Gherkin Wanleg Layout Image](https://i.imgur.com/nCPog2W.png)  
+![Gherkin Wanleg Layout Image](https://i.imgur.com/iNkR90W.png)  
 # Gherkin Wanleg Layout
 This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board.  
-I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions since in actual use, they tended to impede typing speed more than their current two-key versions.  
-I've left them in my `keymap.c` ready for use if anyone wants to try them out:
+Here are the two Tap Dance keys I've set up for this board:
 
-Legend Name | Single Tap | Double Tap | Hold
---- | --- | --- | ---
-*null* | space | enter | shift
-*null* | backspace | delete | control
+Legend Name | Single Tap | Double Tap | Hold  
+--- | --- | --- | ---  
 Sft//Cp | shift | caps lock | *null*
 Q//Esc | KC_Q | escape | *null*
 
@@ -50,9 +47,9 @@ The instructions below have been adapted from https://www.reddit.com/r/olkb/comm
 | Arduino | ProMicro |
 | --- | --- |
 | 10 | RST |
-| 11 | 16 |
-| 12 | 14 |
-| 13 | 15 |
+| 11 (MOSI) | 16 |
+| 12 (MISO) | 14 |
+| 13 (SCK) | 15 |
 | GND | GND |
 | 5V | VCC |
 

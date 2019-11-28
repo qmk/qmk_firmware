@@ -1,7 +1,5 @@
 #include "k_type.h"
 
-#define _______ KC_TRNS
-
 #define _QW 0
 #define _L1 1
 
@@ -20,10 +18,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            KC_PGUP, \
       _______, _______, _______,          _______,                   _______, _______, _______, _______,                            KC_HOME, KC_PGDN, KC_END),
-};
-
-const uint16_t fn_actions[] = {
-
 };
 
 // Runs just one time when the keyboard initializes.

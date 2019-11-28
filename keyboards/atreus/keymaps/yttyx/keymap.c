@@ -2,118 +2,158 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-  BASE,         // Balance Twelve
-  L1,           // (momentary)
-  R1,           // (momentary)
-  R2,           // (momentary)
-  R3            // (momentary)
+  BA,           // Base (Balance Twelve mirror variant)
+  P1,           // Punctuation (1)
+  P2,           // Punctuation (2)
+  P3,           // Punctuation (2)
+  NC,           // Numerals / Cursor control
+  FV,           // Function keys / Cursor control (Vim)
+  RS            // Reset
 };
 
-#define xxxxxxx    KC_NO
-#define _______    KC_TRNS
+// Abbreviations - base
+#define KX_P1_BSPC      LT(P1, KC_BSPC)
+#define KX_P2_SPC       LT(P2, KC_SPC)
 
-// Aliases from replicaJunction's atreus layout
-#define KCX_LST   LSFT(KC_TAB)
-#define KX_COPY   LCTL(KC_C)
-#define KX_CUT    LCTL(KC_X)
-#define KX_PAST   LCTL(KC_V)
-#define KX_UNDO   LCTL(KC_Z)
+#define KX_SFT_Z        MT(MOD_LSFT, KC_Z)
+#define KX_CTL_J        MT(MOD_LCTL, KC_J)
+#define KX_ALT_F        MT(MOD_LALT, KC_F)
 
-#define KX_AT     LSFT(KC_QUOT)
-#define KX_PIPE   LSFT(KC_NUBS)
-#define KX_WINR   LSFT(LGUI(KC_RGHT))   // Move window to next monitor (Windows)
+#define KX_ALT_DOT      MT(MOD_LALT, KC_DOT)
+#define KX_CTL_SCLN     MT(MOD_LCTL, KC_SCLN)
+#define KX_SFT_X        MT(MOD_LSFT, KC_X)
 
+#define KX_AT           LSFT(KC_QUOT)
+#define KX_DQUOT        LSFT(KC_2)
+#define KX_PIPE         LSFT(KC_NUBS)
+#define KX_TILDA        LSFT(KC_NUHS)
 
+ 
 const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
-
- /* Balance Twelve mirror variant (left-handed)
-  .--------------------------------.         .------------------------------.
-  | P    | L    | C   | D  | W     |         | U    | O  | Y   | K    | Q   |
-  +------+------+-----+----+-------|         |------+----+-----+------+-----|
-  | N    | R    | S   | T  | M     |         | A    | E  | I   | H    | V   |
-  +------+------+-----+----+-------|         |------+----+-----+------+-----|
-  | Z    | J    | F   | G  | B     |         | ,    | .  | ;   | X    | -   |
-  +------+------+-----+----+-------+---------+------+----+-----+------+-----|
-  | Shft | Ctrl | Alt | Bk | Space | L1 | R1 | Shft | R2 | Win | Ctrl | Alt |
-  '-------------------------------------------------------------------------'
-  */
-  [BASE] = LAYOUT(
-    KC_P,    KC_L,    KC_C,    KC_D,    KC_W,                   KC_U,          KC_O,   KC_Y,    KC_K,    KC_Q,
-    KC_N,    KC_R,    KC_S,    KC_T,    KC_M,                   KC_A,          KC_E,   KC_I,    KC_H,    KC_V,
-    KC_Z,    KC_J,    KC_F,    KC_G,    KC_B,                   KC_COMM,       KC_DOT, KC_SCLN, KC_X,    KC_MINS,
-    KC_LSFT, KC_LCTL, KC_LALT, KC_BSPC, KC_SPC, MO(L1), MO(R1), OSM(MOD_LSFT), MO(R2), KC_LWIN, KC_RCTL, KC_RALT
+  /*
+    .--------.-------.-------.-------.--------.                           .-------.-------.-------.-------.------.
+    | P      | L     | C     | D     | W      |                           | U     | O     | Y     | K     | Q    |
+    |--------+-------+-------+-------+--------|                           |-------+-------+-------+-------+------|
+    | N      | R     | S     | T     | M      |                           | A     | E     | I     | H     | V    |
+    |--------+-------+-------+-------+--------|                           |-------+-------+-------+-------+------|
+    | Z Sft  | J Ctl | F Alt | G     | B      |                           | ,     | . Alt | ; Ctl | X Sft | Sup  |
+    '--------'-------'-------+-------+--------+-----.               .-----+-------+-------+-------'-------'------'
+                             | BS P1 | Spc P2 | P3  |               |     | Sft   |       |
+                             '-------'--------'-----'               '-----'-------'-------'
+  */                                                               
+  [BA] = LAYOUT(                                                   
+    KC_P,     KC_L,     KC_C,     KC_D,       KC_W,                          KC_U,    KC_O,       KC_Y,        KC_K,     KC_Q,
+    KC_N,     KC_R,     KC_S,     KC_T,       KC_M,                          KC_A,    KC_E,       KC_I,        KC_H,     KC_V,
+    KX_SFT_Z, KX_CTL_J, KX_ALT_F, KC_G,       KC_B,                          KC_COMM, KX_ALT_DOT, KX_CTL_SCLN, KX_SFT_X, KC_LGUI,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KX_P1_BSPC, KX_P2_SPC, MO(P3),    XXXXXXX, KC_RSFT, XXXXXXX,    XXXXXXX,     XXXXXXX,  XXXXXXX
   ),
 
- /* L1
-  .---------------------------------.         .--------------------------------.
-  | 1    | 2    | 3    | 4  | 5     |         | 6    | 7  | 8   | 9    | 0     |
-  |------+------+------+----+-------|         |------+----+-----+------+-------|
-  | Tab  | ?    | =    | -  | _     |         | '    | "  | +   | *    | Enter |
-  |------+------+------+----+-------|         |------+----+-----+------+-------|
-  | Esc  | !    | &    |    |       |         | ,    | .  | ;   |      | -     |
-  |------+------+------+----+-------+---------+------+----+-----+------+-------|
-  | Shft | Ctrl | Alt  | Bk | Space | L1 | R1 | Shft | R2 | Sup | Ctrl | Alt   |
-  '----------------------------------------------------------------------------'
+  /* P1: Punctuation (1)
+    .--------.-------.-------.-------.-------.                              .------.-------.-------.-------.------.
+    | Esc    |       |       |       | RS    |                              | |    | /     | ^     | £     |  ~   |
+    |--------+-------+-------+-------+-------|                              |------+-------+-------+-------+------|
+    | Tab    |       |       |       |       |                              | &    | \     | `     | $     | Ent  |
+    |--------+-------+-------+-------+-------|                              |------+-------+-------+-------+------|
+    | Sft    | Ctl   | Alt   | Del   |       |                              | %    | Alt   | Ctl   | Sft   | Sup  |
+    '--------'-------'-------+-------+-------+-----.                  .-----+------+-------+-------'-------'------'
+                             | P1    |       |     |                  |     | Sft  |       |
+                             '-------'-------'-----'                  '-----'------'-------'
   */
-  [L1] = LAYOUT(
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,       KC_8,    KC_9,    KC_0,
-    KC_TAB,  KC_QUES, KC_EQL,  KC_MINS, KC_UNDS,                   KC_QUOT, LSFT(KC_2), KC_PLUS, KC_ASTR, KC_ENT,
-    KC_ESC,  KC_EXLM, KC_AMPR, xxxxxxx, xxxxxxx,                   _______, _______,    _______, xxxxxxx, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______
+  [P1] = LAYOUT(
+    KC_ESC,  XXXXXXX,    XXXXXXX,    XXXXXXX,  TO(RS),                         KX_PIPE, KC_SLSH, KC_CIRC, KC_HASH, KX_TILDA,  
+    KC_TAB,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,                        KC_AMPR, KC_NUBS, KC_GRV,  KC_DLR,  KC_ENT,
+    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,   XXXXXXX,                        KC_PERC, KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX,    XXXXXXX,    _______,  XXXXXXX, XXXXXXX,      XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
- /* R1
-  .---------------------------------.         .-------------------------------.
-  | <    | >    | {   | }   | @     |         | $    | £  |     |      | R3   |
-  +------+------+-----+-----|-------|         |------+----+-----+------+------|
-  | [    | ]    | (   | )   | #     |         | '    | "  | ~   | `    | Caps |
-  |------+------+-----+-----+-------|         |------+----+-----+------+------|
-  | /    | \    | ^   | |   | %     |         | ,    | .  | ;   |      | PScn |
-  |------+------+-----+-----+-------+---------+------+----+-----+------+------|
-  | Shft | Ctrl | Alt | Del | Space | L1 | R1 | Shft | R2 | Sup | Ctrl | Alt  |
-  '---------------------------------------------------------------------------'
+  /* P2: Punctuation (2)
+    .-------.-------.-------.-------.-------.                               .-------.-------.-------.-------.------.
+    | Esc   |       | NC    | FV    |       |                               | (     | )     | "     | ?     |      |
+    |-------+-------+-------+-------+-------|                               |-------+-------+-------+-------+------|
+    | Tab   | Ctl-X | Ctl-C | Ctl-V | Ctl-Z |                               | {     | }     | '     | !     | Ent  |
+    |-------+-------+-------+-------+-------|                               |-------+-------+-------+-------+------|
+    | Sft   | Ctl   | Alt   | Del   | Ent   |                               | #     | Alt   | Ctl   | Sft   | Sup  |
+    '-------'-------'-------+-------+-------+-----.                   .-----+-------+-------+-------'-------'------'
+                            | BS    | P2    |     |                   |     | Sft   |       |
+                            '-------'-------'-----'                   '-----'-------'-------'
   */
-  [R1] = LAYOUT(
-    KC_LABK, KC_RABK,  KC_LCBR,  KC_RCBR, KX_AT,                     KC_DLR,  KC_HASH,    xxxxxxx,       xxxxxxx, MO(R3),
-    KC_LBRC, KC_RBRC,  KC_LPRN,  KC_RPRN, KC_NUHS,                   KC_QUOT, LSFT(KC_2), LSFT(KC_NUHS), KC_GRV,  KC_CAPS,
-    KC_SLSH, KC_NUBS,  KC_CIRC,  KX_PIPE, KC_PERC,                   _______, _______,    _______,       xxxxxxx, KC_PSCR,
-    _______, _______,  _______,  KC_DEL,  _______, _______, _______, _______, _______,    _______,       _______, _______
+  [P2] = LAYOUT(
+    KC_ESC,  XXXXXXX,    TO(NC),     TO(FV),     XXXXXXX,                      KC_LPRN, KC_RPRN, KX_DQUOT, KC_QUES, XXXXXXX,
+    KC_TAB,  LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z),                   KC_LCBR, KC_RCBR, KC_QUOT,  KC_EXLM, KC_ENT,
+    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     KC_ENT,                       KC_NUHS, KC_LALT, KC_LCTL,  KC_LSFT, _______,
+    XXXXXXX, XXXXXXX,    XXXXXXX,    KC_BSPC,    _______,    XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX
   ),
 
- /* R2
-  .-----------------------------------.         .--------------------.-----------------.
-  | F12  | F11  | F10  | F9   | Copy  |         | Home | Up   | End  | PgUp | Insert   |
-  |------+------+------+------+-------|         |------+------+------+------+----------|
-  | F8   | F7   | F6   | F5   | Paste |         | Left | Down | Right| PgDn | Enter    |
-  |------+------+------+------+-------|         |------+------+------+------+----------|
-  | F4   | F3   | F2   | F1   | Cut   |         | ^Tab |      | Tab  |      |          |
-  |------+------+------+------+-------+---------+------+------+------+------+----------|
-  | Shft | Ctrl | Alt  | Del  | Undo  | L1 | R1 | Shft | R2   | Sup  | Ctrl | WinRight |
-  '------------------------------------------------------------------------------------'
+  /* P3: Punctuation (3)
+    .-------.-------.-------.-------.-------.                             .------.-------.-------.-------.------.
+    | Esc   |       | Break | Pscr  | ScLk  |                             | <    | >     | +     | _     | =    |
+    |-------+-------+-------+-------+-------|                             |------+-------+-------+-------+------|
+    | Tab   |       |       | Caps  |       |                             | [    | ]     | *     | -     | Ent  |
+    |-------+-------+-------+-------+-------|                             |------+-------+-------+-------+------|
+    | Sft   | Ctl   | Alt   | Del   |       |                             | @    | Alt   | Ctl   | Sft   | Sup  |
+    '-------'-------'-------+-------+-------+-----.                 .-----+------+-------+-------'-------'------'
+                            | BS    |       | P3  |                 |     | Sft  |       |
+                            '-------'-------'-----'                 '-----'------'-------'
   */
-  [R2] = LAYOUT(
-    KC_F12,  KC_F11,  KC_F10,  KC_F9,  KX_COPY,                   KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_INS, 
-    KC_F8,   KC_F7,   KC_F6,   KC_F5,  KX_PAST,                   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_ENT,
-    KC_F4,   KC_F3,   KC_F2,   KC_F1,  KX_CUT,                    KCX_LST, xxxxxxx, KC_TAB,  xxxxxxx, xxxxxxx, 
-    _______, _______, _______, KC_DEL, KX_UNDO, _______, _______, _______, _______, _______, _______, KX_WINR
+  [P3] = LAYOUT(
+    KC_ESC,  XXXXXXX, KC_BRK,  KC_PSCR, KC_SLCK,                             KC_LABK, KC_RABK, KC_PLUS, KC_UNDS, KC_EQL,
+    KC_TAB,  XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX,                             KC_LBRC, KC_RBRC, KC_ASTR, KC_MINS, KC_ENT,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  XXXXXXX,                             KX_AT,   KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, XXXXXXX, _______,           XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
- /* R3
-  .----------------------------.         .------------------------.
-  | RESET |    |     |    |    |         |    |    |    |    | R3 |
-  |-------+----+-----+----+----|         |----+----+----+----+----|
-  |       |    |     |    |    |         |    |    |    |    |    |
-  |-------+----+-----+----+----|         |----+----+----+----+----|
-  |       |    |     |    |    |         |    |    |    |    |    |
-  |-------+----+-----+----+----+---------+----+----+----+----+----|
-  |       |    |     |    |    |    |    |    |    |    |    |    |
-  '---------------------------------------------------------------'
+  /* NC: Numerals / Cursor control
+    .-------.-------.-------.------.-------.                              .------.-------.-------.------.------.
+    | 1     | 2     | 3     | 4    | 5     |                              | Home | Up    | End   | PgUp |      |
+    |-------+-------+-------+------+-------|                              |------+-------+-------+------+------|
+    | 6     | 7     | 8     | 9    | 0     |                              | Left | Down  | Right | PgDn |      |
+    |-------+-------+-------+------+-------|                              |------+-------+-------+------+------|
+    | Sft   | Ctl   | Alt   | Del  | .     |                              | Ins  | Alt   | Ctl   | Sft  | Sup  |
+    '-------'-------'-------+------+-------+-----.                  .-----+------+-------+-------'------'------'
+                            | BS   | BA    |     |                  |     | Sft  |       |
+                            '------'-------'-----'                  '-----'------'-------'
   */
-  [R3] = LAYOUT(
-    RESET,   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+  [NC] = LAYOUT(
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX,
+    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                                KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  KC_DOT,                              KC_INS,  KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, TO(BA), XXXXXXX,            XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  ),
+
+  /* FV: Function keys / Cursor control (Vim)
+    .-------.------.-------.-----.-------.                                .------.-------.-----.-------.------.
+    | F1    | F2   | F3    | F4  | F5    |                                | 0    | K     | $   | Ctl-B |      |
+    |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
+    | F6    | F7   | F8    | F9  | F10   |                                | H    | J     | L   | Ctl-F |      |
+    |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
+    | Sft   | Ctl  | Alt   | F11 | F12   |                                |      | Alt   | Ctl | Sft   | Sup  |
+    '-------'------'-------+-----+-------+-----.                    .-----+------+-------+-----'-------'------'
+                           | BS  | BA    |     |                    |     | Sft  |       |
+                           '-----'-------'-----'                    '-----'------'-------'
+  */
+  [FV] = LAYOUT(
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                               KC_0,    KC_K,    KC_DLR,   LCTL(KC_B), XXXXXXX,
+    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                              KC_H,    KC_J,    KC_L,     LCTL(KC_F), XXXXXXX,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_F11,  KC_F12,                              XXXXXXX, KC_LALT, KC_LCTL,  KC_LSFT,    _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, TO(BA), XXXXXXX,            XXXXXXX, _______, XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX
+  ),
+
+ /* RS: Reset
+    .-------.------.-------.-----.-------.                                .------.-------.-----.-------.------.
+    | RESET |      |       |     |       |                                |      |       |     |       |      |
+    |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
+    |       |      |       |     |       |                                |      |       |     |       |      |
+    |-------+------+-------+-----+-------|                                |------+-------+-----+-------+------|
+    |       |      |       |     |       |                                |      |       |     |       |      |
+    '-------'------'-------+-----+-------+-----.                    .-----+------+-------+-----'-------'------'
+                           |     | BA    |     |                    |     |      |       |
+                           '-----'-------'-----'                    '-----'------'-------'
+  */
+  [RS] = LAYOUT(
+    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(BA),  XXXXXXX,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 

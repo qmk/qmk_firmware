@@ -1,14 +1,12 @@
-Sweet16
-===
+# Sweet 16 Macropad
 
-A 4x4 numpad/macro pad sold by 1up Keyboards - designed by Bishop Keyboards
+A 4x4 numpad/macro pad sold by 1up Keyboards.
 
-Keyboard Maintainer: QMK Community  
-Hardware Supported: Sweet16 Keyboard PCB  
-Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
+* Keyboard Maintainer: skullydazed
+* Hardware Supported: Sweet16 Keyboard PCB
+* Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
 
-Make example for this keyboard (after setting up your build environment):
-
-    make sweet16:default
-
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+Revisions:
+* [v1](./v1/)- The original macropad, designed by Bishop Keyboards
+* [v2/promicro](./v2/promicro)- The second macropad built with a Pro Micro, designed by Clueboard
+* [v2/proton_c](./v2/proton_c)- The second macropad built with a Proton C, designed by Clueboard

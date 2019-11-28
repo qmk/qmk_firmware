@@ -1,18 +1,15 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
+#include "version.h"
+#include "eeprom.h"
 
-// Define layer names 
+// Define layer names
 #define BASE 0
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  KC_MAKE,
-  KC_RESET,
-  NEWPLACEHOLDER  //use "NEWPLACEHOLDER for keymap specific codes
+    VRSN = SAFE_RANGE,  // can always be here
+    KC_MAKE,
+    KC_RESET,
+    NEWPLACEHOLDER  // use "NEWPLACEHOLDER for keymap specific codes
 };
-
-#endif

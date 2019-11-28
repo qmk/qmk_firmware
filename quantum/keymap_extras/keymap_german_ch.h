@@ -18,10 +18,6 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ALGR(kc) RALT(kc)
-#define CH_ALGR KC_RALT
-
 // normal characters
 #define CH_Z KC_Y
 #define CH_Y KC_Z
@@ -35,7 +31,7 @@
 #define CH_G KC_G
 #ifdef CH_H
 // The ChibiOS ch.h file defines this...
-#undef CH_H
+#    undef CH_H
 #endif
 #define CH_H KC_H
 #define CH_I KC_I
@@ -69,53 +65,53 @@
 #define CH_DOT KC_DOT
 #define CH_COMM KC_COMM
 
-#define CH_QUOT KC_MINS // ' ? ´
+#define CH_QUOT KC_MINS  // ' ? ´
 #define CH_AE KC_QUOT
 #define CH_UE KC_LBRC
 #define CH_OE KC_SCLN
 
-#define CH_PARA KC_GRAVE // secction sign § and °
-#define CH_CARR KC_EQL // carret ^ ` ~
-#define CH_DIER KC_RBRC // dieresis ¨ ! ]
-#define CH_DLR KC_BSLS // $ £ }
-#define CH_LESS KC_NUBS // < and > and backslash
-#define CH_MINS KC_SLSH // - and _
+#define CH_PARA KC_GRAVE  // secction sign § and °
+#define CH_CARR KC_EQL    // carret ^ ` ~
+#define CH_DIER KC_RBRC   // dieresis ¨ ! ]
+#define CH_DLR KC_BSLS    // $ £ }
+#define CH_LESS KC_NUBS   // < and > and backslash
+#define CH_MINS KC_SLSH   // - and _
 
 // shifted characters
-#define CH_RING LSFT(CH_PARA) // °
-#define CH_PLUS LSFT(KC_1) // +
-#define CH_DQOT LSFT(KC_2) // "
-#define CH_PAST LSFT(KC_3) // *
-#define CH_CELA  LSFT(KC_4) // ç
-#define CH_PERC LSFT(KC_5) // %
-#define CH_AMPR LSFT(KC_6) // &
-#define CH_SLSH LSFT(KC_7) // /
-#define CH_LPRN LSFT(KC_8) // (
-#define CH_RPRN LSFT(KC_9) // )
-#define CH_EQL  LSFT(KC_0) // =
-#define CH_QST  LSFT(CH_QUOT) // ?
-#define CH_GRV  LSFT(CH_CARR) // `
-#define CH_EXLM LSFT(CH_DIER) // !
-#define CH_POND LSFT(CH_DLR) // £
-#define CH_MORE LSFT(CH_LESS) // >
-#define CH_COLN LSFT(KC_DOT) // :
-#define CH_SCLN LSFT(KC_COMM) // ;
-#define CH_UNDS LSFT(CH_MINS) // _
+#define CH_RING LSFT(CH_PARA)  // °
+#define CH_PLUS LSFT(KC_1)     // +
+#define CH_DQOT LSFT(KC_2)     // "
+#define CH_PAST LSFT(KC_3)     // *
+#define CH_CELA LSFT(KC_4)     // ç
+#define CH_PERC LSFT(KC_5)     // %
+#define CH_AMPR LSFT(KC_6)     // &
+#define CH_SLSH LSFT(KC_7)     // /
+#define CH_LPRN LSFT(KC_8)     // (
+#define CH_RPRN LSFT(KC_9)     // )
+#define CH_EQL LSFT(KC_0)      // =
+#define CH_QST LSFT(CH_QUOT)   // ?
+#define CH_GRV LSFT(CH_CARR)   // `
+#define CH_EXLM LSFT(CH_DIER)  // !
+#define CH_POND LSFT(CH_DLR)   // £
+#define CH_MORE LSFT(CH_LESS)  // >
+#define CH_COLN LSFT(KC_DOT)   // :
+#define CH_SCLN LSFT(KC_COMM)  // ;
+#define CH_UNDS LSFT(CH_MINS)  // _
 
 // Alt Gr-ed characters
-#define CH_BRBR ALGR(KC_1) // ¦ brocken bar
-#define CH_AT ALGR(KC_2) // @
-#define CH_HASH ALGR(KC_3) // #
-#define CH_NOTL ALGR(KC_6) // ¬ negative logic
-#define CH_PIPE ALGR(KC_7) // |
-#define CH_CENT ALGR(KC_8) // ¢ cent
-#define CH_ACUT ALGR(CH_QUOT) // ´
-#define CH_TILD ALGR(CH_CARR) // ~
-#define CH_EURO ALGR(KC_E) // €
-#define CH_LBRC ALGR(CH_UE) // [
-#define CH_RBRC ALGR(CH_DIER) // ]
-#define CH_LCBR ALGR(CH_AE) // {
-#define CH_RCBR ALGR(CH_DLR) // }
-#define CH_BSLS ALGR(CH_LESS) // backslash
+#define CH_BRBR ALGR(KC_1)     // ¦ brocken bar
+#define CH_AT ALGR(KC_2)       // @
+#define CH_HASH ALGR(KC_3)     // #
+#define CH_NOTL ALGR(KC_6)     // ¬ negative logic
+#define CH_PIPE ALGR(KC_7)     // |
+#define CH_CENT ALGR(KC_8)     // ¢ cent
+#define CH_ACUT ALGR(CH_QUOT)  // ´
+#define CH_TILD ALGR(CH_CARR)  // ~
+#define CH_EURO ALGR(KC_E)     // €
+#define CH_LBRC ALGR(CH_UE)    // [
+#define CH_RBRC ALGR(CH_DIER)  // ]
+#define CH_LCBR ALGR(CH_AE)    // {
+#define CH_RCBR ALGR(CH_DLR)   // }
+#define CH_BSLS ALGR(CH_LESS)  // backslash
 
 #endif

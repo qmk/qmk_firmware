@@ -16,44 +16,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "pearl.h"
-#include "rgblight.h"
-#include "backlight.h"
-
-#include <avr/pgmspace.h>
-
-#include "action_layer.h"
-#include "i2c.h"
-#include "quantum.h"
-
-extern rgblight_config_t rgblight_config;
-
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-        }
-    }
-
-    i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
-}
 
 void backlight_init_ports(void) {
-  DDRD |= (1<<4);
-  PORTD &= ~(1<<4);
+    // initialize pins D0, D1, D4 and D6 as output
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D4);
+    setPinOutput(D6);
+
+    // turn backlight LEDs on
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(D4);
+    writePinHigh(D6);
 }
 
 void backlight_set(uint8_t level) {
-  if (level > 0) {
-    PORTD |= (1<<4);
-  } else {
-    PORTD &= ~(1<<4);
-  }
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-    rgblight_task();
+    if (level == 0) {
+        // turn backlight LEDs off
+        writePinLow(D0);
+        writePinLow(D1);
+        writePinLow(D4);
+        writePinLow(D6);
+    } else {
+        // turn backlight LEDs on
+        writePinHigh(D0);
+        writePinHigh(D1);
+        writePinHigh(D4);
+        writePinHigh(D6);
+    }
 }

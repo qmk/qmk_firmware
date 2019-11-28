@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+#define DEVICE_VER      0x0200
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
 #define MANUFACTURER    ymdk
@@ -41,14 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 /* RGB underglow */
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
 // The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 5
 #define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
 #define RGBLIGHT_ANIMATIONS
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #endif

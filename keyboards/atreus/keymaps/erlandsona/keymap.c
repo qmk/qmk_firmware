@@ -11,17 +11,12 @@
 #define NUMS 1
 #define MOUS 2
 
-// Some quick aliases, just to make it look pretty
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT( /* Qwerty */
     KC_Q       , KC_W   , KC_E   , KC_R   ,  KC_T   ,                 KC_Y  ,  KC_U   , KC_I   , KC_O   , KC_P          ,
     KC_A       , KC_S   , KC_D   , KC_F   ,  KC_G   ,                 KC_H  ,  KC_J   , KC_K   , KC_L   , KC_SCLN       ,
     SFT_T(KC_Z), KC_X   , KC_C   , KC_V   ,  KC_B   ,                 KC_N  ,  KC_M   , KC_COMM, KC_DOT , SFT_T(KC_QUOT),
-    KC_LCTL    , KC_LALT, KC_LALT, KC_LGUI,  KC_BSPC, KC_ESC, KC_ENT, KC_SPC,  F(NUMS), KC_RALT, KC_SLSH, KC_BSLS
+    KC_LCTL    , KC_LALT, KC_LALT, KC_LGUI,  KC_BSPC, KC_ESC, KC_ENT, KC_SPC,  MO(NUMS),KC_RALT, KC_SLSH, KC_BSLS
   ),
 
   [NUMS] = LAYOUT( /* Numbers / Arrows / Symbols */
@@ -44,7 +39,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // so that I can get out of mouse mode just by tapping/holding my base layer FN key.
 const uint16_t PROGMEM fn_actions[] = {
   [BASE] = ACTION_LAYER_OFF(2, 1),  // switch back to layer 0
-  [NUMS] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
   [MOUS] = ACTION_LAYER_ON(2, 1)  // switch to layer 2
 };
 

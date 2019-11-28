@@ -54,11 +54,6 @@ extern keymap_config_t keymap_config;
 #define EXT_PLV M(13)
 #define TOG_OUT M(14)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -188,10 +183,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

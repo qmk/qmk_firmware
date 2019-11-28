@@ -4,15 +4,13 @@ extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _DVORAK 1
-#define _GAME 2
-#define _LEFTY 3
-#define _RIGHTY 4
-#define _DUAL 5
+#define _LEFTY 2
+#define _RIGHTY 3
+#define _DUAL 4
 
 enum jj40_keycodes {
   QWERTY = SAFE_RANGE,
   DVORAK,
-  GAME,
   LEFTY,
   RIGHTY,
   DUAL,
@@ -21,8 +19,6 @@ enum jj40_keycodes {
 #define TG_NKRO MAGIC_TOGGLE_NKRO     // Toggle NKRO
 #define CTLESC MT(MOD_LCTL, KC_ESC)    // Hold for left Ctrl, tap for Esc
 #define SHFTENT MT(MOD_RSFT, KC_ENT)    // Hold for right Shift, tap for Enter
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -30,21 +26,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC, \
   CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, SHFTENT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT, \
-  KC_PSCR, KC_BSPC, KC_LALT, _______, LEFTY, KC_LGUI, KC_SPC, RIGHTY, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+  KC_PSCR, KC_BSPC, KC_CAPS, KC_LALT, LEFTY, KC_LGUI, KC_SPC, RIGHTY, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 [_DVORAK] = LAYOUT_ortho_4x12( \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,    KC_F,   KC_G,   KC_C,    KC_R,    KC_L,  KC_BSPC, \
   CTLESC,  KC_A,    KC_O,    KC_E,    KC_U,  KC_I,    KC_D,   KC_H,   KC_T,    KC_N,    KC_S,  SHFTENT, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,    KC_B,   KC_M,   KC_W,    KC_V,    KC_Z,  KC_SLSH, \
-  KC_PSCR, KC_LGUI, KC_LALT, KC_CAPS, LEFTY, KC_BSPC, KC_SPC, RIGHTY, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
-),
-
-[_GAME] = LAYOUT_ortho_4x12( \
-  KC_TAB,  KC_Q, KC_W, KC_E, KC_R,  KC_T,   _______, _______, _______, _______, _______, QWERTY, \
-  CTLESC,  KC_A, KC_S, KC_D, KC_F,  KC_G,   _______, _______, _______, _______, _______, _______, \
-  KC_LSFT, KC_Z, KC_X, KC_C, KC_V,  KC_B,   _______, _______, _______, _______, _______, _______, \
-  KC_LCTL, KC_1, KC_2, KC_3, LEFTY, KC_SPC, KC_BSPC, RIGHTY,   KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT \
+  KC_PSCR, KC_BSPC, KC_CAPS, KC_LALT, LEFTY, KC_LGUI, KC_SPC, RIGHTY, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
 ),
 
 [_LEFTY] = LAYOUT_ortho_4x12( \
@@ -61,11 +50,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F9, KC_F10, KC_F11, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
-[_DUAL] =  LAYOUT_ortho_4x12( \
-  RESET,   _______, _______, _______, _______, QWERTY,  GAME,    _______, _______, _______, BL_BRTG, RESET, \
-  _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, AG_NORM, AG_SWAP, _______, _______, _______, BL_TOGG, _______, \
-  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, TG_NKRO, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, DVORAK,  _______, _______, _______, _______, _______ \
+[_DUAL] = LAYOUT_ortho_4x12( \
+  RESET,   _______, _______, _______, _______, QWERTY,  DVORAK,  _______, _______, RGB_HUD,  RGB_TOG,  RESET, \
+  _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, AG_NORM, AG_SWAP, _______, _______, RGB_HUI,  RGB_MOD,  _______, \
+  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, TG_NKRO, _______, _______, RGB_SAD,  RGB_VAD,  _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SAI,  RGB_VAI,  _______ \
 )
 };
 
@@ -85,12 +74,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
-    case GAME:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_GAME);
       }
       return false;
       break;

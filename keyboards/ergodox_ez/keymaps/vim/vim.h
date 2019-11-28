@@ -9,7 +9,6 @@
 
 #define PRESS(keycode) register_code16(keycode)
 #define RELEASE(keycode) unregister_code16(keycode)
-#define PREVENT_STUCK_MODIFIERS
 
 uint16_t VIM_QUEUE = KC_NO;
 

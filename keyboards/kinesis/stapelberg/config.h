@@ -30,7 +30,7 @@
  
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 /* don't know if this should be defined at the board or top level. Assuming board 
 #define MOUSEKEY_DELAY          100
@@ -40,11 +40,5 @@
 */
 
 #define IGNORE_MOD_TAP_INTERRUPT
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 
 #endif

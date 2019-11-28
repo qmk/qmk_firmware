@@ -16,9 +16,39 @@ Change `comPORT` to whatever port is used by the Arduino (e.g. `com11` in Window
 ## Using QMK DFU  
 Once QMK DFU is burned to your ProMicro, you can then flash subsequent hex files with
 `make lets_split/rev2:<keymap>:dfu dfu=qmk`  
-The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina` 
+The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina`  
 
----
-# JJ40 
-## To Do
-- [ ] Mousekeys not working with Userspace for some reason (jj40 only)
+# Let's Split LEDs  
+In `qmk_firmware/keyboards/lets_split/rev2/rev2.c`, replace contents with 
+```  
+#include "lets_split.h"
+
+
+#ifdef SSD1306OLED
+void led_set_kb(uint8_t usb_led) {
+    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    led_set_user(usb_led);
+}
+#endif
+
+void matrix_init_kb(void) {
+
+    // // green led on
+    // DDRD |= (1<<5);
+    // PORTD &= ~(1<<5);
+
+    // // orange led on
+    // DDRB |= (1<<0);
+    // PORTB &= ~(1<<0);
+	
+	//turn off LEDs on ProMicro
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+
+	matrix_init_user();
+};
+```  
+to turn off LEDs

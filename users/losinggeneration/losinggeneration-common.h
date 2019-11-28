@@ -3,9 +3,6 @@
 
 /* Custom keys & combinations to be shorter for keymaps */
 #define KC_LCA LCA(KC_NO)
-/* Fillers to make layering more clear */
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define OSM_LSFT OSM(MOD_LSFT)
 #define TD_CTL TD(TD_CTL_CTLALT)

@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef JETFIRE_H
-#define JETFIRE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -57,4 +56,3 @@
   { K0A, K0B, K0C, KC_NO,KC_NO,KC_NO,KC_NO,KC_NO, K0I, KC_NO,KC_NO,KC_NO, K0M, K0N, K0O, K0P, K0Q, K0R, K0S, KC_NO    }  \
 }
 
-#endif

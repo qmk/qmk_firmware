@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_numpad_6x4( /* Base */
     KC_ESC,   KC_TAB,   KC_PEQL,  MO(1),   \
@@ -23,16 +19,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,          XXXXXXX,  RGB_TOG   \
   ),
 };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
     // This keymap only has a single base layer, so reset the default if needed

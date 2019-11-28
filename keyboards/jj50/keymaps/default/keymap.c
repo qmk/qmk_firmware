@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "rgblight.h"
 
 #define ______ KC_TRNS
 #define _DEFLT 0
@@ -113,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______,S(KC_NUHS),S(KC_NUBS),KC_HOME, KC_END, _______, \
         BL_STEP, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY    \
     ),
-    
+
     /* Fn
      * ,-----------------------------------------------------------------------------------.
      * |      |      |  £   |      |      |      |      |      |      |      |      |      |

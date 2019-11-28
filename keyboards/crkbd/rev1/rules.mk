@@ -1,2 +1,3 @@
-SRC += rev1/matrix.c \
-	   ws2812.c
+SRC += 	matrix.c \
+		split_util.c \
+		split_scomm.c

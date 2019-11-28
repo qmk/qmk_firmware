@@ -1,47 +1,15 @@
-SRC += matrix.c TWIlib.c issi.c lighting.c
-
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
-
-#
-# LUFA specific
-#
-# Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
-
-# Input clock frequency.
-#     This will define a symbol, F_USB, in all source code files equal to the
-#     input clock frequency (before any prescaling is performed) in Hz. This value may
-#     differ from F_CPU if prescaling is used on the latter, and is required as the
-#     raw input clock is fed directly to the PLL sections of the AVR for high speed
-#     clock generation for the USB and other AVR subsections. Do NOT tack on a 'UL'
-#     at the end, this will be done automatically to create a 32-bit value in your
-#     source code.
-#
-#     If no clock division is performed on the input clock inside the AVR (via the
-#     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
-
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 BOOTLOADER = caterina
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 
 # Build Options
 #   change yes to no to disable
@@ -59,7 +27,7 @@ MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 BACKLIGHT_CUSTOM_DRIVER = yes
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
@@ -74,6 +42,7 @@ CUSTOM_MATRIX = yes
 #ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
 #    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 #endif
+SRC += matrix.c TWIlib.c issi.c lighting.c
 
 DEFAULT_FOLDER = meira/promicro
 LAYOUTS = ortho_4x12

@@ -10,8 +10,6 @@
 #define _HL  3
 #define _XL  4
 
-#define _______ KC_TRNS
-
 enum hype_keycodes {
   FN_HLa = SAFE_RANGE,
   FN_HLb

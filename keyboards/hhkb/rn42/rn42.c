@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include "host.h"
 #include "host_driver.h"
-#include "serial.h"
+#include "../serial.h"
 #include "rn42.h"
 #include "print.h"
 #include "timer.h"
@@ -26,10 +26,6 @@ host_driver_t rn42_driver = {
 
 void rn42_init(void)
 {
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-
     // PF7: BT connection control(high: connect, low: disconnect)
     rn42_autoconnect();
 

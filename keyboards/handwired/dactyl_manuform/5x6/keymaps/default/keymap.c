@@ -2,7 +2,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -10,10 +9,6 @@ extern keymap_config_t keymap_config;
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
-
-#define _______ KC_TRNS
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,5 +47,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,_______,            _______,_______
   ),
 };
-
-

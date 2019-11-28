@@ -269,7 +269,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 /*case RGB_MOD:
-case RGB_SMOD:
 case RGB_HUI:
 case RGB_HUD:
 case RGB_SAI:

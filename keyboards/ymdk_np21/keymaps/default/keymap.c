@@ -1,5 +1,4 @@
-#include "ymdk_np21.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _NP 0
 #define _BL  1
@@ -21,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Enter| Enter|   +  |   +  |   -  | FN   |
  * `-----------------------------------------'
  */
-[_NP] = KEYMAP( \
+[_NP] = LAYOUT( \
   KC_KP_0,     KC_KP_1,     KC_KP_4,    KC_KP_7,    KC_NUMLOCK,     KC_ESC,    \
   KC_DOT,      KC_KP_2,     KC_KP_5,    KC_KP_8,    KC_KP_SLASH,    KC_TAB,    \
   KC_KP_DOT,   KC_KP_3,     KC_KP_6,    KC_KP_9,    KC_KP_ASTERISK, KC_BSPACE, \
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BL_DEC  | BL_DEC | BL_INC  | BL_INC |   |   |
  * `---------------------------------------------'
  */
-[_BL] = KEYMAP( \
+[_BL] = LAYOUT( \
   BL_BRTG, _______, _______, _______, _______, _______, \
   _______, BL_OFF,  BL_TOGG, BL_ON,   _______, _______, \
   _______, _______, _______, _______, _______, _______, \
