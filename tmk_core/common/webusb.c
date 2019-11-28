@@ -7,8 +7,6 @@ webusb_state_t webusb_state = {
   .pairing = false,
 };
 
-#define pl u8"https://plop.com"
-
 void webusb_receive(uint8_t *data, uint8_t length) {
     uint8_t command = data[0];
 
