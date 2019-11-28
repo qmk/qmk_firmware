@@ -30,9 +30,6 @@ extern uint8_t is_master;
 #ifdef TAP_DANCE_ENABLE
 #include "dance.c"
 #endif
-#ifdef ENHANCED_SHIFT
-#include "enhanced_shift.h"
-#endif
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
@@ -41,9 +38,6 @@ extern uint8_t is_master;
 
 #ifdef TAP_DANCE_ENABLE
 enum tapdance_actions {
- #ifdef ENHANCED_SHIFT
-  TD_SHIFT_CAPS,
- #endif
   TD_ESC_FUNC,
   TD_GARAKE1,
   TD_GARAKE2,
@@ -58,9 +52,6 @@ enum tapdance_actions {
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
- #ifdef ENHANCED_SHIFT
-  [TD_SHIFT_CAPS]    = ACTION_ENHANCED_SHIFT,
- #endif
   [TD_ESC_FUNC]      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_finished,  esc_reset),
   [TD_GARAKE7]       = ACTION_TAP_DANCE_FN(garake7),
   [TD_GARAKE8]       = ACTION_TAP_DANCE_FN(garake8),
@@ -116,12 +107,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KC_GK0R    LT(RAISE, KC_0)
 #endif
 
-#ifdef ENHANCED_SHIFT
-#define KC_SFCL TD(TD_SHIFT_CAPS)
-#else
-#define KC_SFCL KC_LSFT
-#endif
-
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
 #define KC_MDN  KC_MS_D
@@ -143,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     LCTL , A    , S    ,D_MOUS, F    , G    ,                  H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    SFCL , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
+    LSFT , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------|
                                L2_ALT, SPC  ,ESC_FN,    TAB  , ENT  ,L1_RAI \
 //                            `--------------------'  `--------------------'

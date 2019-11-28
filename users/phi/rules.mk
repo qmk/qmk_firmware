@@ -5,9 +5,3 @@ ifdef CUSTOM_MOUSEKEY
 	SRC += custom_mousekey.c
 	MOUSEKEY_ENABLE = yes
 endif
-
-ifdef ENHANCED_SHIFT
-	OPT_DEFS += -DENHANCED_SHIFT
-	SRC += enhanced_shift.c
-	TAP_DANCE_ENABLE = yes
-endif
