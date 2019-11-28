@@ -346,28 +346,60 @@ bool process_record_quantum(keyrecord_t *record) {
                 }
                 return false;
             case RGB_HUI:
-                rgblight_increase_hue();
+                if (shifted) {
+                    rgblight_decrease_hue();
+                } else {
+                    rgblight_increase_hue();
+                }
                 return false;
             case RGB_HUD:
-                rgblight_decrease_hue();
+                if (shifted) {
+                    rgblight_increase_hue();
+                } else {
+                    rgblight_decrease_hue();
+                }
                 return false;
             case RGB_SAI:
-                rgblight_increase_sat();
+                if (shifted) {
+                    rgblight_decrease_sat();
+                } else {
+                    rgblight_increase_sat();
+                }
                 return false;
             case RGB_SAD:
-                rgblight_decrease_sat();
+                if (shifted) {
+                    rgblight_increase_sat();
+                } else {
+                    rgblight_decrease_sat();
+                }
                 return false;
             case RGB_VAI:
-                rgblight_increase_val();
+                if (shifted) {
+                    rgblight_decrease_val();
+                } else {
+                    rgblight_increase_val();
+                }
                 return false;
             case RGB_VAD:
-                rgblight_decrease_val();
+                if (shifted) {
+                    rgblight_increase_val();
+                } else {
+                    rgblight_decrease_val();
+                }
                 return false;
             case RGB_SPI:
-                rgblight_increase_speed();
+                if (shifted) {
+                    rgblight_decrease_speed();
+                } else {
+                    rgblight_increase_speed();
+                }
                 return false;
             case RGB_SPD:
-                rgblight_decrease_speed();
+                if (shifted) {
+                    rgblight_increase_speed();
+                } else {
+                    rgblight_decrease_speed();
+                }
                 return false;
             case RGB_MODE_PLAIN:
                 rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
