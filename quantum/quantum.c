@@ -164,11 +164,6 @@ void reset_keyboard(void) {
     bootloader_jump();
 }
 
-/* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
- * Used to ensure that the correct keycode is released if the key is released.
- */
-static bool grave_esc_was_shifted = false;
-
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record) { return get_event_keycode(record->event); }
 
@@ -281,6 +276,7 @@ bool process_record_quantum(keyrecord_t *record) {
             case RESET:
                 reset_keyboard();
                 return false;
+#ifndef NO_DEBUG
             case DEBUG:
                 debug_enable ^= 1;
                 if (debug_enable) {
@@ -288,6 +284,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 } else {
                     print("DEBUG: disabled.\n");
                 }
+#endif
                 return false;
             case EEPROM_RESET:
                 eeconfig_init();
@@ -308,18 +305,16 @@ bool process_record_quantum(keyrecord_t *record) {
                 velocikey_toggle();
                 return false;
 #endif
-#ifdef PROTOCOL_LUFA
+#ifdef BLUETOOTH_ENABLE
         case OUT_AUTO:
                 set_output(OUTPUT_AUTO);
                 return false;
         case OUT_USB:
                 set_output(OUTPUT_USB);
                 return false;
-#    ifdef BLUETOOTH_ENABLE
         case OUT_BT:
                 set_output(OUTPUT_BLUETOOTH);
                 return false;
-#    endif
 #endif
         }
     }
@@ -590,6 +585,11 @@ bool process_record_quantum(keyrecord_t *record) {
             break;
 
         case GRAVE_ESC: {
+            /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+            * Used to ensure that the correct keycode is released if the key is released.
+            */
+            static bool grave_esc_was_shifted = false;
+
             uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)));
 
 #ifdef GRAVE_ESC_ALT_OVERRIDE
