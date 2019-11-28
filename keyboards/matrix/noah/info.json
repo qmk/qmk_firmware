@@ -79,12 +79,12 @@
           "y": 0
         },
         {
-          "label":"Backspace",
+          "label": "~",
           "x": 14,
           "y": 0
         },
         {
-          "label":"Print Screen",
+          "Label": "Ins",
           "x": 15,
           "y": 0
         },
@@ -155,17 +155,18 @@
           "y": 1
         },
         {
-          "label": "|",
+          "label": "Backspace",
           "x": 13.5,
           "y": 1,
           "w": 1.5
         },
-        { "label": "Page Up",
+        {
+          "label": "Page up",
           "x": 15,
           "y": 1
         },
         {
-          "label": "Caps Lock",
+          "label": "Ctrl",
           "x": 0,
           "y": 2,
           "w": 1.75
@@ -232,7 +233,7 @@
           "w": 2.25
         },
         {
-          "label": "Page Down",
+          "label": "Page down",
           "x": 15,
           "y": 2
         },
@@ -299,17 +300,17 @@
           "w": 1.75
         },
         {
-          "label": "Up",
+          "label": "&uarr;",
           "x": 14,
           "y": 3
         },
         {
-          "label": "End"
+          "label": "End",
           "x": 15,
           "y": 3
         },
         {
-          "label": "Ctrl",
+          "label": "Caps Lock",
           "x": 0,
           "y": 4,
           "w": 1.25
@@ -338,23 +339,23 @@
           "w": 1.25
         },
         {
-          "label": "Win",
+          "label": "Fn",
           "x": 11.25,
           "y": 4,
           "w": 1.25
         },
         {
-          "label": "Left",
+          "label": "&larr;",
           "x": 13,
           "y": 4
         },
         {
-          "label": "Down",
+          "label": "&darr;",
           "x": 14,
           "y": 4
         },
         {
-          "label": "Right",
+          "label": "&rarr;",
           "x": 15,
           "y": 4
         }
@@ -435,7 +436,7 @@
           "w": 2
         },
         {
-          "label": "Print Screen",
+          "label": "Ins",
           "x": 15,
           "y": 0
         },
@@ -506,14 +507,7 @@
           "y": 1
         },
         {
-          "label": "Enter",
-          "x": 13.75,
-          "y": 1,
-          "w": 1.25,
-          "h": 2
-        },
-        {
-          "label": "Page Up",
+          "label": "Page up",
           "x": 15,
           "y": 1
         },
@@ -584,7 +578,14 @@
           "y": 2
         },
         {
-          "label": "Page Down",
+          "label": "Enter",
+          "x": 13.75,
+          "y": 1,
+          "w": 1.25,
+          "h": 2
+        },
+        {
+          "label": "Page down",
           "x": 15,
           "y": 2
         },
@@ -595,7 +596,7 @@
           "w": 1.25
         },
         {
-          "label":"Win",
+          "label": "Win",
           "x": 1.25,
           "y": 3
         },
@@ -656,7 +657,7 @@
           "w": 1.75
         },
         {
-          "label": "Up",
+          "label": "&rarr;",
           "x": 14,
           "y": 3
         },
@@ -695,23 +696,23 @@
           "w": 1.25
         },
         {
-          "label": "Win",
+          "label": "Fn",
           "x": 11.25,
           "y": 4,
           "w": 1.25
         },
         {
-          "label": "Left",
+          "label": "&larr;",
           "x": 13,
           "y": 4
         },
         {
-          "label": "Down",
+          "label": "&darr;",
           "x": 14,
           "y": 4
         },
         {
-          "label": "Right",
+          "label": "&rarr;",
           "x": 15,
           "y": 4
         }
