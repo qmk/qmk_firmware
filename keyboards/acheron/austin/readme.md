@@ -10,7 +10,7 @@ This is the QMK firmware repository for the Austin, updated until [revision Alph
 
 The AustinPCB is an Open-Hardware guidelines compliant PCB which files can be found at [this link](https://github.com/Gondolindrim/Austin). Its designer and maintainer is [Gondolindrim](https://github.com/Gondolindrim).
 
-The Austin keyboard is a collaboration between Gondolindrim, DriftingBunnies from Drifting Mechanics and PheonixStarr from Nightingale Studios.
+The Austin keyboard is a collaboration between Gondolindrim, DriftingBunnies from DriftMechanics and PheonixStarr from Nightingale Studios.
 
 See the [IC page](https://geekhack.org/index.php?topic=100883) and the [GB page](https://geekhack.org/index.php?topic=102542) for further information. The GB was the only known way to obtain an Austin from the official vendor.
 
