@@ -6,8 +6,8 @@ QMK firmware port for the Anne Pro 60% keyboard produced by [Obins](http://en.ob
 
 __This firmware is not created or supported by the creator of this keyboard!__
 
-Keyboard Maintainer: [Michiel Visser](https://github.com/msvisser)  
-Hardware Supported: Anne Pro (this means no support for the _Anne Pro 2_)  
+Keyboard Maintainer: [Michiel Visser](https://github.com/msvisser)
+Hardware Supported: Anne Pro (this means no support for the _Anne Pro 2_)
 Hardware Availability: Discontinued, [possible vendors](https://www.reddit.com/r/AnnePro/wiki/vendors)
 
 Make sure you check out the correct branch for this keyboard!
