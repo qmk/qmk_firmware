@@ -109,6 +109,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
+    RGB_KEYCODES_ENABLE = yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
@@ -147,6 +148,7 @@ endif
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
+    RGB_KEYCODES_ENABLE = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
@@ -185,6 +187,10 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
     OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
+endif
+
+ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
