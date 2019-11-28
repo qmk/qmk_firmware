@@ -1,7 +1,7 @@
 # Acheron Aχξρων 1800CP-SM-S-STM32-MX-TH-WI (codename "Austin") QMK firmware
 
 <p align="center">
-  <img align="middle" src="https://raw.githubusercontent.com/Gondolindrim/acheronLibrary/master/graphics/acheronLong.png"  width="300"> 
+  <img align="middle" src="https://raw.githubusercontent.com/Gondolindrim/acheronLibrary/master/graphics/acheronLong.png"  width="400"> 
 </p>
 
 ## Introduction
@@ -26,6 +26,12 @@ After setting up your build environment, you can compile the Austin default keym
 
     make acheron/austin:default
 
-Also before flashing your Austin please not that there are two firmware keymap variants: a WK (winkey) one and a WKL (winkeyless) one. 
+Also before flashing your Austin please not that there are two firmware keymap variants: a WK (winkey) one and a WKL (winkeyless) one, which you can compile with 
+
+    make acheron/austin:WK
+    
+Or
+
+    make acheron/austin:WKL
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
