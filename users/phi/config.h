@@ -37,3 +37,23 @@
 #define MOUSEKEY_ACL_WHEEL_MAX_SPEED 4
 
 #endif
+
+/* ---- rgblight */
+
+#ifdef RGBLIGHT_ENABLE
+
+#define RGBLIGHT_HUE_STEP 2
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+
+#endif
+
+/* ---- rgb matrix */
+
+#ifdef RGB_MATRIX_ENABLE
+
+#define RGB_MATRIX_HUE_STEP 2
+#define RGB_MATRIX_SAT_STEP 8
+#define RGB_MATRIX_VAL_STEP 8
+
+#endif
