@@ -29,6 +29,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  ADJUST,
 };
 
 #define KC_TTCM1 TT(_CUSTOM1)
@@ -162,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------+---------+---------|
        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,\
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------+---------+---------|
-          KC_1,     KC_2,     KC_3,     KC_4,     KC_5,  KC_BSPC,  XDXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_HOME,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,\
+          KC_1,     KC_2,     KC_3,     KC_4,     KC_5,  KC_BSPC,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_HOME,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,\
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------+---------+---------|
       KC_LSFCO,  KC_RCBR,  KC_RBRC,  KC_ASTR,  KC_BSPC,   KC_DEL,  XXXXXXX,    KC_UP,  XXXXXXX,     XXXXXXX,    KC_UP,  XXXXXXX,   KC_END,  KC_BSPC,  KC_LPRN,  KC_BSLS,  KC_PIPE, KC_LSFDO,\
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------|  |---------+---------+---------+---------+---------+---------+---------+---------+---------|
