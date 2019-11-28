@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Kevin Lockwood
 #define PRODUCT Floorboard
-#define DESCRIPTION A Planck Ripoff
+#define DESCRIPTION A handwired 4x12 ortholinear board
 
 /* key matrix size */
 #define MATRIX_ROWS 4
