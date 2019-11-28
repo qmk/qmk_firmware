@@ -18,6 +18,8 @@
 
 #include "quantum.h"
 
+#define ____ KC_NO
+
 /* This is a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
@@ -35,13 +37,13 @@
    k40, k3C, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4D, k4C, \
    k50, k51, k52, k54, k58, k59, k5A, k5B, k5D, k5C, k57 \
  ){ \
-   { k00,   k01,   k02,   k03,   k04,   k05,   KC_NO, k07,   k08,   k09,   k0A,   k0B,   k0C, k0D }, \
-   { k10,   k11,   k12,   k13,   k14,   k15,   k16,   k17,   k18,   k19,   k1A,   k1B,   k1C, k1D }, \
-   { k20,   k21,   k22,   k23,   k24,   k25,   k26,   k27,   k28,   k29,   k2A,   k2B,   k2C, k2D }, \
-   { k30,   k31,   k32,   k33,   k34,   k35,   k36,   k37,   k38,   k39,   k3A,   k3B,   k3C, k3D }, \
-   { k40,   k41,   k42,   k43,   k44,   k45,   k46,   k47,   k48,   k49,   k4A,   k4B,   k4C, k4D }, \
-   { k50,   k51,   k52,   KC_NO, k54,   KC_NO, KC_NO, k57,   k58,   k59,   k5A,   k5B,   k5C, k5D }, \
-   { KC_NO, k61,   k62,   KC_NO, k64,   k65,   k66,   k67,   k68,   KC_NO, KC_NO, KC_NO, k6C, k6D }, \
+   { k00,  k01, k02, k03,  k04, k05,  ____, k07, k08, k09,  k0A,  k0B,  k0C, k0D }, \
+   { k10,  k11, k12, k13,  k14, k15,  k16,  k17, k18, k19,  k1A,  k1B,  k1C, k1D }, \
+   { k20,  k21, k22, k23,  k24, k25,  k26,  k27, k28, k29,  k2A,  k2B,  k2C, k2D }, \
+   { k30,  k31, k32, k33,  k34, k35,  k36,  k37, k38, k39,  k3A,  k3B,  k3C, k3D }, \
+   { k40,  k41, k42, k43,  k44, k45,  k46,  k47, k48, k49,  k4A,  k4B,  k4C, k4D }, \
+   { k50,  k51, k52, ____, k54, ____, ____, k57, k58, k59,  k5A,  k5B,  k5C, k5D }, \
+   { ____, k61, k62, ____, k64, k65,  k66,  k67, k68, ____, ____, ____, k6C, k6D }, \
  }
 
 #define LAYOUT_tkl_iso( \
@@ -52,13 +54,13 @@
   k40, k3C, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4D, k4C, \
   k50, k51, k52, k54, k58, k59, k5A, k5B, k5D, k5C, k57  \
 ){ \
-  { k00,   k01,   k02,   k03,   k04,   k05,   KC_NO, k07,   k08,   k09,   k0A,   k0B,   k0C, k0D }, \
-  { k10,   k11,   k12,   k13,   k14,   k15,   k16,   k17,   k18,   k19,   k1A,   k1B,   k1C, k1D }, \
-  { k20,   k21,   k22,   k23,   k24,   k25,   k26,   k27,   k28,   k29,   k2A,   k2B,   k2C, k2D }, \
-  { k30,   k31,   k32,   k33,   k34,   k35,   k36,   k37,   k38,   k39,   k3A,   k3B,   k3C, k3D }, \
-  { k40,   k41,   k42,   k43,   k44,   k45,   k46,   k47,   k48,   k49,   k4A,   k4B,   k4C, k4D }, \
-  { k50,   k51,   k52,   KC_NO, k54,   KC_NO, KC_NO, k57,   k58,   k59,   k5A,   k5B,   k5C, k5D }, \
-  { KC_NO, k61,   k62,   KC_NO, k64,   k65,   k66,   k67,   k68,   KC_NO, KC_NO, KC_NO, k6C, k6D }, \
+  { k00,  k01, k02, k03,  k04, k05,  ____, k07, k08, k09,  k0A,  k0B,  k0C, k0D }, \
+  { k10,  k11, k12, k13,  k14, k15,  k16,  k17, k18, k19,  k1A,  k1B,  k1C, k1D }, \
+  { k20,  k21, k22, k23,  k24, k25,  k26,  k27, k28, k29,  k2A,  k2B,  k2C, k2D }, \
+  { k30,  k31, k32, k33,  k34, k35,  k36,  k37, k38, k39,  k3A,  k3B,  k3C, k3D }, \
+  { k40,  k41, k42, k43,  k44, k45,  k46,  k47, k48, k49,  k4A,  k4B,  k4C, k4D }, \
+  { k50,  k51, k52, ____, k54, ____, ____, k57, k58, k59,  k5A,  k5B,  k5C, k5D }, \
+  { ____, k61, k62, ____, k64, k65,  k66,  k67, k68, ____, ____, ____, k6C, k6D }, \
 }
 
 #define LAYOUT_tkl_ansi( \
@@ -69,11 +71,11 @@
   k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4D, k4C, \
   k50, k51, k52, k54, k58, k59, k5A, k5B, k5D, k5C, k57  \
 ){ \
-  { k00,   k01,   k02,   k03,   k04,   k05,   KC_NO, k07,   k08,   k09,   k0A,   k0B,   k0C,   k0D }, \
-  { k10,   k11,   k12,   k13,   k14,   k15,   k16,   k17,   k18,   k19,   k1A,   k1B,   k1C,   k1D }, \
-  { k20,   k21,   k22,   k23,   k24,   k25,   k26,   k27,   k28,   k29,   k2A,   k2B,   k2C,   k2D }, \
-  { k30,   k31,   k32,   k33,   k34,   k35,   k36,   k37,   k38,   k39,   k3A,   k3B,   KC_NO, k3D }, \
-  { k40,   k41,   k42,   k43,   k44,   k45,   k46,   k47,   k48,   k49,   k4A,   k4B,   k4C,   k4D }, \
-  { k50,   k51,   k52,   KC_NO, k54,   KC_NO, KC_NO, k57,   k58,   k59,   k5A,   k5B,   k5C,   k5D }, \
-  { KC_NO, k61,   k62,   KC_NO, k64,   k65,   k66,   k67,   k68,   KC_NO, KC_NO, KC_NO, k6C,   k6D }, \
+  { k00,  k01, k02, k03,  k04, k05,  ____, k07, k08, k09,  k0A,  k0B,  k0C,  k0D }, \
+  { k10,  k11, k12, k13,  k14, k15,  k16,  k17, k18, k19,  k1A,  k1B,  k1C,  k1D }, \
+  { k20,  k21, k22, k23,  k24, k25,  k26,  k27, k28, k29,  k2A,  k2B,  k2C,  k2D }, \
+  { k30,  k31, k32, k33,  k34, k35,  k36,  k37, k38, k39,  k3A,  k3B,  ____, k3D }, \
+  { k40,  k41, k42, k43,  k44, k45,  k46,  k47, k48, k49,  k4A,  k4B,  k4C,  k4D }, \
+  { k50,  k51, k52, ____, k54, ____, ____, k57, k58, k59,  k5A,  k5B,  k5C,  k5D }, \
+  { ____, k61, k62, ____, k64, k65,  k66,  k67, k68, ____, ____, ____, k6C,  k6D }, \
 }
