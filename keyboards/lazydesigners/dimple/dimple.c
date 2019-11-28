@@ -16,11 +16,11 @@
 #include "dimple.h"
 
 void dimple_led_on() {
-  writePinHigh(E6);
+  writePinLow(E6);
 }
 
 void dimple_led_off() {
-  writePinLow(E6);
+  writePinHigh(E6);
 }
 
 void keyboard_pre_init_kb(void) {

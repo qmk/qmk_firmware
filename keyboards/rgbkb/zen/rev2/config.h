@@ -41,8 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C6, E6, B5, D7, B4 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B3, B1, B2 }
 
-#define NUMBER_OF_ENCODERS 1
-
 #define ENCODERS_PAD_A  { D4 }
 #define ENCODERS_PAD_B  { D2 }
 
