@@ -12,6 +12,7 @@
 #define KC_F_CUR  LT(CURSOR, KC_F)
 #define KC_EN_RAI LT(RAISE, KC_ENT)
 #define KC_ES_ALT LALT_T(KC_ESC)
+#define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_FUNC   MO(FUNCTION)
 #define KC_WEEL   MO(WHEEL)
 #define KC_CACCL  MO(CURSOR_ACCL)
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     FUNC , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                               LANG2 ,LANG1 ,   ____ , ____ \
+                               L2_ALT,LANG1 ,   ____ , ____ \
 //                            `-------------' `------------'
 ),
 
