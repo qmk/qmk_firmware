@@ -12,6 +12,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Combos](feature_combo.md) - Custom actions for multiple key holds.
 * [Command](feature_command.md) - Runtime version of bootmagic (Formerly known as "Magic").
 * [Debounce API](feature_debounce_type.md) - Customization of debouncing algorithms, and the ability to add more/custom debouncing. 
+* [DIP Switch](feature_dip_switch.md) - Toggle switches for customizing board function.
 * [Dynamic Macros](feature_dynamic_macros.md) - Record and playback macros from the keyboard itself.
 * [Encoders](feature_encoders.md) - Rotary encoders! 
 * [Grave Escape](feature_grave_esc.md) - Lets you use a single key for Esc and Grave. 
