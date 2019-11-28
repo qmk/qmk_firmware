@@ -14,7 +14,7 @@
 
 ## QMK ファームウェアとは何か？
 
-QMK (*Quantum Mechanical Keyboard*)は QMK ファームウェア、QMK ツールボックス、qmk.fm およびそれらのドキュメントを保守するオープンソースコミュニティです。QMK ファームウェアは[tmk\_keyboard](http://github.com/tmk/tmk_keyboard) を元にしたキーボードファームウェアで、Atmel AVR コントローラ、より具体的には [OLKB product line](http://olkb.com)、[ErgoDox EZ](http://www.ergodox-ez.com) キーボードおよび [Clueboard product line](http://clueboard.co/) のための幾つかの便利な機能を持ちます。また、ChibiOS を使って ARM チップに移植されています。これを使ってあなたの作った手配線のキーボードあるいはカスタムキーボード PCB で作ったキーボードを動かすことができます。
+QMK (*Quantum Mechanical Keyboard*)は QMK ファームウェア、QMK ツールボックス、qmk.fm およびそれらのドキュメントを保守するオープンソースコミュニティです。QMK ファームウェアは[tmk\_keyboard](http://github.com/tmk/tmk_keyboard) を元にしたキーボードファームウェアで、Atmel AVR コントローラ、より具体的には [OLKB 製品](http://olkb.com)、[ErgoDox EZ](http://www.ergodox-ez.com) キーボードおよび [Clueboard 製品](http://clueboard.co/) のための幾つかの便利な機能を持ちます。また、ChibiOS を使って ARM チップに移植されています。これを使ってあなたの作った手配線のキーボードあるいはカスタムキーボード PCB で作ったキーボードを動かすことができます。
 
 ## 入手方法
 
