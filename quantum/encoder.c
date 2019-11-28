@@ -95,11 +95,7 @@ void encoder_read(void) {
     for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
         encoder_state[i] <<= 2;
         encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-#if SPLIT_KEYBOARD
-        encoder_update(i + thisHand, encoder_state[i]);
-#else
         encoder_update(i, encoder_state[i]);
-#endif
     }
 }
 
