@@ -150,19 +150,21 @@ void bluetooth_handle_packet(void) {
 
     /* Handle incomming packets over Bluetooth */
     switch (packet_type) {
-    case 2: // System
+    case 2: /* System packet */
         switch (message_type) {
-        case 1: // GetId
-            // [2, 15, 129, 10,  2,  0,  1,  2, 50, 55, 71,  1, 50, 48]
-            // [2, 15, 129,  8,  2,  1, 54, 48, 52,  0, 54,  0, 50, 48]
+        case 1: /* GetId */
+            /* These two buffers of data were extracted from the original Anne Pro firmware
+               however the exact meaning of all fields is unknown.
+               [2, 15, 129, 10,  2,  0,  1,  2, 50, 55, 71,  1, 50, 48]
+               [2, 15, 129,  8,  2,  1, 54, 48, 52,  0, 54,  0, 50, 48] */
             uart_tx_ringbuf_write(&bluetooth_uart_ringbuf, 28, "\x02\x0f\x81\x0a\x02\x00\x01\x02\x32\x37\x47\x01\x32\x30"
                                                                "\x02\x0f\x81\x08\x02\x01\x36\x30\x34\x00\x36\x00\x32\x30");
             break;
         }
         break;
-    case 6: // BLE
+    case 6: /* Bluetooth packet */
         switch (message_type) {
-        case 13: // Pair
+        case 13: /* Pair request */
             if (bluetooth_connected_host == 0) {
                 /* Connected, turn to bluetooth */
                 bluetooth_connected_host = 12;
@@ -170,11 +172,11 @@ void bluetooth_handle_packet(void) {
                 layer_off(BLUETOOTH_LAYER);
             }
             break;
-        case 133: // AckDeleteHost
+        case 133: /* AckDeleteHost */
             /* Update the hostlist information when a saved host is deleted */
             anne_pro_bluetooth_hostlist_query();
             break;
-        case 134: // AckHostListQuery
+        case 134: /* AckHostListQuery */
             if (data_len == 3) {
                 if (bluetooth_connected_host == 0 && packet_data[1] != 0) {
                     /* Connected, turn to bluetooth */
@@ -318,14 +320,14 @@ void anne_pro_bluetooth_lighting_update(void) {
 
     /* Payload for the lighting effect */
     uint8_t keybuf[] = {
-        0, drvr ? 0 : 255, connected ? 255 : 0, drvr ? 255 : 0, 1, // ESC-key
-        1, r1, g1, 0, 1, // 1-key
-        2, r2, g2, 0, 1, // 2-key
-        3, r3, g3, 0, 1, // 3-key
-        4, r4, g4, 0, 1, // 4-key
-        10, leg, 255, 0, 1, // 0-key (legacy)
-        11, 255, 0, 0, 1, // '-'-key (off)
-        12, 0, 255, 0, 2, // '='-key (on)
+        0, drvr ? 0 : 255, connected ? 255 : 0, drvr ? 255 : 0, 1, /* ESC-key */
+        1, r1, g1, 0, 1, /* 1-key */
+        2, r2, g2, 0, 1, /* 2-key */
+        3, r3, g3, 0, 1, /* 3-key */
+        4, r4, g4, 0, 1, /* 4-key */
+        10, leg, 255, 0, 1, /* 0-key (legacy) */
+        11, 255, 0, 0, 1, /* '-'-key (off) */
+        12, 0, 255, 0, 2, /* '='-key (on) */
     };
 
     anne_pro_lighting_set_keys(8, keybuf);
