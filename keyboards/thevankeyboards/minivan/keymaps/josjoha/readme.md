@@ -157,8 +157,8 @@ Work in progress ...
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                       -*-  <|>                                                 // on _FUN
      BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-     Tab+LCtl Left  Down  Up    Right xxx   | 5%    4$    3#    2@    1!    RCtl
-     -+LSft   xxx   xxx   xxx   xxx   xxx   | 6^    7&    8*    9(    0)    RSft
+     Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
+     -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
      ----------------------------------------------------------
      Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+Alt
                                   <|>
@@ -186,7 +186,7 @@ Work in progress ...
 - - -
     
     
-     Layer _DRA (DRAwings, whatever else)
+     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
