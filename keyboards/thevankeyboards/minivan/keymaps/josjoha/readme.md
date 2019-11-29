@@ -190,9 +190,9 @@ Work in progress ...
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
-     BASE  „“    ⁽₍    ⁾₎    ”     xxx   | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「     」    °〇   •§    ±·    | xxx   xxx   ¿¡    《     》    RSft
+     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                                              
