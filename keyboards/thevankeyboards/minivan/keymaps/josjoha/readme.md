@@ -89,13 +89,13 @@ Work in progress ...
 
 - - -
 
-     Layer _NSY (Numbers and SYmbols, with Pok3r compatibility in mind regarding MWVZ)
+     Layer _NSY (Numbers and SYmbols)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
               -*-                          <|>                                      // -*- Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
-     Tab+LCtl 1!    2@    3#    4$    5%    | \|    =+    /?    [{   ]}  `~+RCtl
-     -+LSft   0)    9(    8*    7&    6^    | |     +     ?     {    }    `+RSft // limitation prevents ~
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
+     -+LSft   [{    ]}    /?    =+    \|    | |     +     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
                      -*-       <|>    -*-                                           // -*- Access on _LTR
@@ -110,8 +110,8 @@ Work in progress ...
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
                  -*-                    <|>                                                 // -*- unused
      BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
-     LCtl  F11   F12   F13   F14   F15   | F5    F4    F3    F2    F1    RCtl
-     LSft  F20   F19   F18   F17   F16   | F6    F7    F8    F9    F10   RSft
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
      ----------------------------------------------------------------
      LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                // ! sets base layer
            LSft+xxx LAlt+xxx        |            LAlt+xxx                 // (Continued, multi-modifiers)
@@ -191,8 +191,8 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
      BASE  „“    ⁽₍    ⁾₎    ”     xxx   | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
-     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | °〇   •§    ±·    「     」    RCtl
-     LSft  ⁰₀    ⁹₉    ⁸₈    ⁷₇    ⁶₆    | xxx   xxx   ¿¡    《     》    RSft
+     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
+     LSft 「     」    °〇   •§    ±·    | xxx   xxx   ¿¡    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
                                <|>                                              
@@ -204,18 +204,18 @@ Work in progress ...
     
 - - -
     
-
      Layer _DDN (Dvorak descramble mode for numbers/symbols)
-
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                           <|>                        -*-                      // on _FUN
-     BASE     !     @     #     $     %     | ^     &     *     (     )        Bspc
-     Tab+LCtl 1!    2@    3#    4$    5%    | \|    ]}    [{    -_    =+    `~+RCtl
-     -+LSht   0)    9(    8*    7&    6^    | |     }     {     _     +      `+RSht  
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+              -*-                          <|>                                      // -*- Access on _FUN
+     BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
+     -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht                   // raw
+              [{    ]}    /?    =+    \|    | |     +     ?     {     }                         // result
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
-                     -*-       <|>    -*-                                                      // on _DDL
-     <1        <2    <3    <4   | 4>  3>    2>    1>  
+                     -*-       <|>    -*-                                           // -*- Access on _LTR
+       <1      <2    <3    <4   | 4>  3>    2>    1>  
 
 - - -
 
