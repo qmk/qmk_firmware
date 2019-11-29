@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB MATRIX */
 #define RGB_DI_PIN D3
 #define DRIVER_LED_TOTAL 52 // Number of LEDs
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 140
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value
