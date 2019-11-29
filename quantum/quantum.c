@@ -16,10 +16,6 @@
 
 #include "quantum.h"
 
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-#    include "rgb.h"
-#endif
-
 #ifdef PROTOCOL_LUFA
 #    include "outputselect.h"
 #endif
