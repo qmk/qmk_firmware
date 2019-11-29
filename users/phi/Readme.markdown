@@ -33,3 +33,18 @@ Default configuration (somewhat like karabiner) is provided, but you can also ap
 ```
 
 See `custom_mousekey.h` for available options.
+
+## HSV dump utility
+
+Add a keycode to dump the current RGB Matrix's HSV value.
+
+### Usage
+
+Add `HSVDUMP` to `rules.mk` and in your `process_record_user` function, call `process_hsvdump`.
+
+```c
+switch (keycode) {
+  KC_DUMP:
+    return process_hsvdump(record);
+}
+```
