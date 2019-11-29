@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "layer_numbers.h"
+#include "rgb_matrix.h"         /* rgb_matrix_config */
 
 /* KEYCODE DEFINITIONS */
 
@@ -125,3 +126,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+void matrix_scan_user (void) {
+    static uint32_t last_layer_state = ~0;
+
+    if (layer_state != last_layer_state) {
+        if (LAYER_ON(RAISE)) {
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
+            rgb_matrix_sethsv_noeeprom(10, 190, 140);
+        } else {
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
+            rgb_matrix_sethsv_noeeprom(20, 190, 140);
+        }
+        last_layer_state = layer_state;
+    }
+}
