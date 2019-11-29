@@ -410,7 +410,7 @@ endif
 MAGIC_ENABLE ?= yes
 ifeq ($(strip $(MAGIC_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_magic.c
-  OPT_DEFS += -DMAGIC_ENABLE
+    OPT_DEFS += -DMAGIC_KEYCODE_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)

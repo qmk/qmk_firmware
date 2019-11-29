@@ -267,7 +267,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef SPACE_CADET_ENABLE
             process_space_cadet(keycode, record) &&
 #endif
-#ifdef MAGIC_ENABLE
+#ifdef MAGIC_KEYCODE_ENABLE
             process_magic(keycode, record) &&
 #endif
             true)) {

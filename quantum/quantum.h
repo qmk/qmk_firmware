@@ -133,7 +133,7 @@ extern layer_state_t layer_state;
 #    include "process_space_cadet.h"
 #endif
 
-#ifdef MAGIC_ENABLE
+#ifdef MAGIC_KEYCODE_ENABLE
 #    include "process_magic.h"
 #endif
 
