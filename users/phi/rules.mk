@@ -5,3 +5,7 @@ ifdef CUSTOM_MOUSEKEY
 	SRC += custom_mousekey.c
 	MOUSEKEY_ENABLE = yes
 endif
+
+ifdef HSVDUMP
+	SRC += hsvdump.c
+endif
