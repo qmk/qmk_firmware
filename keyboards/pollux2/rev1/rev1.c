@@ -61,4 +61,5 @@ void keyboard_post_init_kb (void) {
     if (!isLeftHand) {
         rgb_matrix_disable_noeeprom();
     }
+    keyboard_post_init_user();
 }
