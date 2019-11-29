@@ -15,8 +15,11 @@
  */
 #include "process_magic.h"
 
-// MAGIC actions (BOOTMAGIC without the boot)
+/**
+ * MAGIC actions (BOOTMAGIC without the boot)
+ */
 bool process_magic(uint16_t keycode, keyrecord_t *record) {
+    // skip anything that isn't a keyup
     if (!record->event.pressed) {
         return true;
     }
@@ -143,11 +146,12 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
             eeconfig_update_handedness(false);
             break;
         default:
+            // Not a magic keycode so continue processing
             return true;
     }
 
     eeconfig_update_keymap(keymap_config.raw);
-    clear_keyboard();  // clear to prevent stuck keys
+    clear_keyboard(); // clear to prevent stuck keys
 
     return false;
 }
