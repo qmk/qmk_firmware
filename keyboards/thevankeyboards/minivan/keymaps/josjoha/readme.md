@@ -210,12 +210,15 @@ Work in progress ...
               -*-                          <|>                                      // -*- Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht                   // raw
-              [{    ]}    /?    =+    \|    | |     +     ?     {     }                         // result
+     -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
                      -*-       <|>    -*-                                           // -*- Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
+
+     _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
+
+              [{    ]}    /?    =+          |       +     ?     {     }                  // row 2, result
 
 - - -
 
@@ -224,14 +227,23 @@ Work in progress ...
 
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      -o-                                   <|>                              -*-     // -o- BASE, -*- _FUN
-     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp  
-     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-     LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp          // row 4,  raw
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"          // row 3,  raw
+     LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht          // row 2,  raw
      -------------------------------------------------------------------
      Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD           
                                        <|>...                               // Activation on _FUN as BASE
                hold     hold  hold      |       hold toggl   hold
      <1        <2       <3    <4        | 4>    3>   2>      1>
+
+
+     _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
+
+              '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL                // row 4, result
+                    oO    eE    uU    iI    | dD    hH    tT    nN    sS                // row 3, result
+              ;:    qQ    jJ    kK    xX    | bB          wW    vV    zZ                // row 2, result
+
+     (Keys for 'aA', '\|' and 'mM' are the same in Dvorak and Qwerty.)
 
 - - -
    
