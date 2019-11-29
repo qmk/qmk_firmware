@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdbool.h>
 
-static uint8_t debouncing = 1;
+static uint8_t debouncing = 0;
 extern const uint8_t MAINTASK_INTERVAL;
 
 /* matrix state(1:on, 0:off) */

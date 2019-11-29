@@ -588,8 +588,8 @@ void bmp_init()
       .device_info = {PRODUCT_ID, VENDOR_ID,
         STR(PRODUCT), STR(MANUFACTURER), STR(DESCRIPTION)},
       .matrix = {
-          .rows = MATRIX_ROWS,
-          .cols = MATRIX_COLS,
+          .rows = MATRIX_ROWS_DEFAULT,
+          .cols = MATRIX_COLS_DEFAULT,
           .device_rows = THIS_DEVICE_ROWS,
           .device_cols = THIS_DEVICE_COLS,
           .debounce = 1,
