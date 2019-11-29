@@ -15,6 +15,25 @@
  */
 #include "process_magic.h"
 
+#ifdef AUDIO_ENABLE
+#    ifndef AG_NORM_SONG
+#        define AG_NORM_SONG SONG(AG_NORM_SOUND)
+#    endif
+#    ifndef AG_SWAP_SONG
+#        define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
+#    endif
+#    ifndef CG_NORM_SONG
+#        define CG_NORM_SONG SONG(AG_NORM_SOUND)
+#    endif
+#    ifndef CG_SWAP_SONG
+#        define CG_SWAP_SONG SONG(AG_SWAP_SOUND)
+#    endif
+float ag_norm_song[][2] = AG_NORM_SONG;
+float ag_swap_song[][2] = AG_SWAP_SONG;
+float cg_norm_song[][2] = CG_NORM_SONG;
+float cg_swap_song[][2] = CG_SWAP_SONG;
+#endif
+
 /**
  * MAGIC actions (BOOTMAGIC without the boot)
  */
