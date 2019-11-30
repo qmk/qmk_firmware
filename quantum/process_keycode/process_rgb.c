@@ -18,14 +18,26 @@
 
 typedef void (*rgb_func_pointer)(void);
 
+/**
+ * Wrapper for inc/dec rgb keycode
+ * 
+ * noinline to optimise for firmware size not speed (not in hot path) 
+ */
 void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
     if (is_shifted) {
         dec_func();
     } else {
-        dec_func();
+        inc_func();
     }
 }
 
+/**
+ * Wrapper for animation mode
+ *   - if not in animation family -> jump to that animation
+ *   - otherwise -> wrap round animation speed
+ * 
+ * noinline to optimise for firmware size not speed (not in hot path) 
+ */
 void __attribute__((noinline)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
     if ((start <= rgblight_get_mode()) && (rgblight_get_mode() < end)) {
         rgblight_step();
@@ -34,6 +46,9 @@ void __attribute__((noinline)) handleKeycodeRGBMode(const uint8_t start, const u
     }
 }
 
+/**
+ * Handle keycodes for both rgblight and rgbmatrix
+ */
 bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #ifndef SPLIT_KEYBOARD
     if (record->event.pressed) {
