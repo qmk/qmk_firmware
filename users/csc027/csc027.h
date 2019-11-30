@@ -9,27 +9,7 @@ enum custom_keycodes {
     RAISE,
 
     // Git Keycodes
-    GIT_ADD, // Add
-    GIT_BRC, // Branch
-    GIT_CHK, // Checkout
-    GIT_CHR, // Cherry-Pick
-    GIT_CMT, // Commit
-    GIT_DIF, // Diff
-    GIT_FTC, // Fetch
-    GIT_GRP, // Grep
-    GIT_LOG, // Log
-    GIT_INT, // Init
-    GIT_MRG, // Merge
-    GIT_MOV, // Move (mv)
-    GIT_PSH, // Push
-    GIT_PUL, // Pull
-    GIT_RBS, // Rebase
-    GIT_RMT, // Remote
-    GIT_RST, // Reset
-    GIT_SHW, // Show
-    GIT_STH, // Stash
-    GIT_STS, // Status
-    GIT_TAG, // Tag
+    GIT_MACROS(GIT_ENUM, DROP, DROP, COMMA_DELIM),
 
     // Remote Desktop
     MC_MRD7, // Minimize Remote Desktop on Windows 7
