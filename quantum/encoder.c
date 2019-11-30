@@ -86,11 +86,11 @@ static void encoder_update(int8_t index, uint8_t state) {
     encoder_pulses[i] += encoder_LUT[state & 0xF];
     if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
-        encoder_update_kb(i, true);
+        encoder_update_kb(index, true);
     }
     if (encoder_pulses[i] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
-        encoder_update_kb(i, false);
+        encoder_update_kb(index, false);
     }
     encoder_pulses[i] %= ENCODER_RESOLUTION;
 }
