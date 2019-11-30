@@ -1,0 +1,21 @@
+# lattice60
+
+![lattice60](imgur.com image replace me!)
+
+A Through Hole HHKB inspired keyboard.
+
+* Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
+* Hardware Supported: LATTICE60 PCB  
+* Hardware Availability: Links to where you can find this hardware   
+
+Make example for this keyboard (after setting up your build environment):
+
+    make lattice60:default
+
+To activate the USBasploader bootloader hold the BOOT button down during power on or reset.
+
+Flash the firmware using `make` command with the `program` parameter, example below:
+
+    make lattice60:default:program
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
