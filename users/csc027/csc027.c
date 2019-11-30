@@ -1,17 +1,13 @@
 #include "csc027.h"
 
+// Declare the strings in PROGMEM using the convenience macro
 GIT_MACROS(DROP, GIT_DEF, PARAMS, SEMI_DELIM);
-const char mc_mrd7[] PROGMEM = SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t ";
-const char mc_mrd8[] PROGMEM = SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ";
-const char mc_atrd[] PROGMEM = SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t");
+CUSTOM_MACROS(DROP, CUSTOM_DEF, SEMI_DELIM);
 
 static const char* const git_macros[] PROGMEM = {
-    // Make sure that the macro strings match the order they are declared
-    // in the custom_keycodes enum.
+    // Declare the pointer to the strings in PROGMEM
     GIT_MACROS(DROP, GIT_VAR, DROP, COMMA_DELIM),
-    mc_mrd7,
-    mc_mrd8,
-    mc_atrd
+    CUSTOM_MACROS(DROP, CUSTOM_VAR, COMMA_DELIM)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -36,8 +32,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case GIT_ADD...MC_ATRD:
             if(record->event.pressed) {
-                // The calculation here is to make sure that the custom keycode
-                // aligns with the git_macros array.
+                // The accessor here first reads from the pointer array that is located
+                // in PROGMEM.  The pointer is taken and passed to the send_string_P
+                // function, which is aware of the difference between RAM and PROGMEM
+                // pointers.
                 send_string_P((char*)pgm_read_word(&git_macros[keycode - GIT_ADD]));
                 return true;
             }

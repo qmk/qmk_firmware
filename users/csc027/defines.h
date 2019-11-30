@@ -216,36 +216,18 @@
 #define ___________________CONVENIENCE_R3__________________  XXXXXXX,  KC_P1,    KC_P2,    KC_P3,     KC_PENT,  _______
 #define ___________________CONVENIENCE_R4__________________  _______,  KC_P0,    KC_P0,    KC_PDOT,   XXXXXXX,  XXXXXXX
 
-/* Keycode synchronization macros
+/* Convenience macros
  *
- * These macros help synchronize the keycodes between the macro invocation and enum order.  It also makes it cleaner to
- * declare strings in PROGMEM instead of in RAM.
+ * These are accelerator macros for simplifying declaration of PROGMEM strings
  */
 
-#define GIT_MACROS(GIT_ENUM, GIT_CALL, GIT_PARAMS, GIT_DELIM) \
-    GIT_ENUM(ADD) GIT_CALL(add)          GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(BRC) GIT_CALL(branch)       GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(CHK) GIT_CALL(checkout)     GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(CHR) GIT_CALL(cherry, pick) GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(CMT) GIT_CALL(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM()\
-    GIT_ENUM(DIF) GIT_CALL(diff)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(FTC) GIT_CALL(fetch)        GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(GRP) GIT_CALL(grep)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(LOG) GIT_CALL(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM()\
-    GIT_ENUM(INT) GIT_CALL(init)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(MRG) GIT_CALL(mv)           GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(MOV) GIT_CALL(merge)        GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(PSH) GIT_CALL(push)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(PUL) GIT_CALL(pull)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(RBS) GIT_CALL(rebase)       GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(RMT) GIT_CALL(remote)       GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(RST) GIT_CALL(reset)        GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(SHW) GIT_CALL(show)         GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(STH) GIT_CALL(stash)        GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(STS) GIT_CALL(status)       GIT_PARAMS()                               GIT_DELIM()\
-    GIT_ENUM(TAG) GIT_CALL(tag)          GIT_PARAMS()
-
 #define GET_MACRO(_0, _1, _2, _3, NAME, ...) NAME
+
+#define CUSTOM_VAR(VAR, X)                   VAR
+
+#define CUSTOM_DEF(VAR, X)                   const char VAR[] PROGMEM = X
+
+#define CUSTOM_ENUM(X)                       MC_##X
 
 #define GIT_VAR(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_VAR3, GIT_VAR2, GIT_VAR1, GIT_VAR0)(__VA_ARGS__)
 #define GIT_VAR0()
@@ -263,11 +245,45 @@
 
 #define PARAMS(...)                          GET_MACRO(_0, ##__VA_ARGS__, PARAMS3, PARAMS2, PARAMS1, PARAMS0)(__VA_ARGS__)
 #define PARAMS0()
-#define PARAMS1(X)                           X" "
-#define PARAMS2(X, Y)                        X" "Y" "
-#define PARAMS3(X, Y, Z)                     X" "Y" "Z" "
+#define PARAMS1(X)                           X
+#define PARAMS2(X, Y)                        X" "Y
+#define PARAMS3(X, Y, Z)                     X" "Y" "Z
 
 #define COMMA_DELIM(...)                     ,
 #define SEMI_DELIM(...)                      ;
 
 #define DROP(...)
+
+/* Keycode synchronization macros
+ *
+ * These macros help synchronize the keycodes between the macro invocation and enum order.  It also makes it cleaner to
+ * declare strings in PROGMEM instead of in RAM.
+ */
+
+#define GIT_MACROS(GIT_ENUM, GIT_CALL, GIT_PARAMS, GIT_DELIM) \
+    GIT_ENUM(ADD) GIT_CALL(add)          GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(BRC) GIT_CALL(branch)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(CHK) GIT_CALL(checkout)     GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(CHR) GIT_CALL(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(CMT) GIT_CALL(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
+    GIT_ENUM(DIF) GIT_CALL(diff)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(FTC) GIT_CALL(fetch)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(GRP) GIT_CALL(grep)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(LOG) GIT_CALL(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
+    GIT_ENUM(INT) GIT_CALL(init)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(MOV) GIT_CALL(mv)           GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(MRG) GIT_CALL(merge)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(PSH) GIT_CALL(push)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(PUL) GIT_CALL(pull)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(RBS) GIT_CALL(rebase)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(RMT) GIT_CALL(remote)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(RST) GIT_CALL(reset)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(SHW) GIT_CALL(show)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(STH) GIT_CALL(stash)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(STS) GIT_CALL(status)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_ENUM(TAG) GIT_CALL(tag)          GIT_PARAMS()
+
+#define CUSTOM_MACROS(CUSTOM_ENUM, CUSTOM_CALL, CUSTOM_DELIM) \
+    CUSTOM_ENUM(MRD7) CUSTOM_CALL(mc_mrd7, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
+    CUSTOM_ENUM(MRD8) CUSTOM_CALL(mc_mrd8, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
+    CUSTOM_ENUM(ATRD) CUSTOM_CALL(mc_atrd, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t"))
