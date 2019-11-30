@@ -148,10 +148,10 @@ bool rgblight_twinkle_is_led_used(uint8_t index) {
 void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rgblight_sethsv is supppppper intensive
     bool litup = false;
 
-    for (uint8_t light_index = 0 ; light_index < RGBLED_NUM ; ++light_index ) {
+    for (uint8_t light_index = 0; light_index < RGBLED_NUM; ++light_index) {
         if (lights[light_index].enabled && timer_elapsed(lights[light_index].timer) > 10) {
             rgblight_fadeout *light = &lights[light_index];
-            litup = true;
+            litup                   = true;
 
             if (light->life) {
                 light->life -= 1;
@@ -294,159 +294,162 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
         case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT:  // quantum_keycodes.h L400 for definitions
             if (record->event.pressed) {
                 bool is_eeprom_updated;
-#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                 // This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
                 if (userspace_config.rgb_layer_change) {
                     userspace_config.rgb_layer_change = false;
                     dprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
                     is_eeprom_updated = true;
                 }
-#endif
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+#    endif
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
                 if (userspace_config.rgb_matrix_idle_anim) {
                     userspace_config.rgb_matrix_idle_anim = false;
                     dprintf("RGB Matrix Idle Animation [EEPROM]: %u\n", userspace_config.rgb_matrix_idle_anim);
                     is_eeprom_updated = true;
                 }
-#endif
+#    endif
                 if (is_eeprom_updated) {
                     eeconfig_update_user(userspace_config.raw);
                 }
             }
 
+#    if defined(RGBLIGHT_DISABLE_KEYCODES) || defined(RGB_MATRIX_DISABLE_KEYCODES)
             if (keycode == RGB_MODE_FORWARD && record->event.pressed) {
                 uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
                 if (shifted) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_step_reverse();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_step_reverse();
-#    endif
+#        endif
                 } else {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_step();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_step();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_MODE_REVERSE && record->event.pressed) {
                 uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
                 if (shifted) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_step();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_step();
-#    endif
+#        endif
                 } else {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_step_reverse();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_step_reverse();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_HUI) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_increase_hue();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_increase_hue();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_HUD) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_decrease_hue();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_decrease_hue();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_SAI) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_increase_sat();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_increase_sat();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_SAD) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_decrease_sat();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_decrease_sat();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_VAI) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_increase_val();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_increase_val();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_VAD) {
-#    ifndef SPLIT_KEYBOARD
+#        ifndef SPLIT_KEYBOARD
                 if (record->event.pressed) {
-#    else
+#        else
                 if (!record->event.pressed) {
-#    endif
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_decrease_val();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_decrease_val();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_SPI) {
                 if (record->event.pressed) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_increase_speed();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_increase_speed();
-#    endif
+#        endif
                 }
             } else if (keycode == RGB_SPD) {
                 if (record->event.pressed) {
-#    if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
+#        if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_DISABLE_KEYCODES)
                     rgblight_decrease_speed();
-#    endif
-#    if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
+#        endif
+#        if defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_KEYCODES)
                     rgb_matrix_decrease_speed();
-#    endif
+#        endif
                 }
             }
-#endif
             return false;
+#    endif
+#endif
+
             break;
     }
     return true;
