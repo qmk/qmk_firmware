@@ -39,5 +39,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 #define RGBLED_NUM 30
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_LIMIT_VAL 165
+#define RGBLIGHT_LIMIT_VAL 100
 #define RGBLIGHT_SPLIT
