@@ -232,9 +232,9 @@ ISR(TIMERx_OVF_vect) {
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
     if (v <= ICRx / 12)  // if below ~8% of max
-        return v / 9;  // same as dividing by 900%
+        return v / 9;    // same as dividing by 900%
     else {
-        uint32_t y = (((uint32_t)v + ICRx/6) << 8) / (ICRx/6 + 0xFFFFUL);  // add ~16% of max and compare
+        uint32_t y = (((uint32_t)v + ICRx / 6) << 8) / (ICRx / 6 + 0xFFFFUL);  // add ~16% of max and compare
         // to get a useful result with integer division, we shift left in the expression above
         // and revert what we've done again after squaring.
         y = y * y * y >> 8;
@@ -381,7 +381,7 @@ ISR(TIMERx_OVF_vect)
     }
 
     // Set PWM to a brightnessvalue scaled to the configured resolution
-    set_pwm(cie_lightness(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx/255)));
+    set_pwm(cie_lightness(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx / 255)));
 }
 
 #endif  // BACKLIGHT_BREATHING
@@ -411,20 +411,15 @@ void backlight_init_ports(void) {
     "In fast PWM mode, the compare units allow generation of PWM waveforms on the OCnx pins. Setting the COMnx1:0 bits to two will produce a non-inverted PWM [..]."
     "In fast PWM mode the counter is incremented until the counter value matches either one of the fixed values 0x00FF, 0x01FF, or 0x03FF (WGMn3:0 = 5, 6, or 7), the value in ICRn (WGMn3:0 = 14), or the value in OCRnA (WGMn3:0 = 15)."
     */
-#    if BACKLIGHT_ON_STATE == 1
-    TCCRxA = _BV(COMxx1) | _BV(WGM11);
-#    else
-    TCCRxA = _BV(COMxx1) | _BV(COMxx0) | _BV(WGM11);
-#    endif
+    TCCRxA = _BV(COMxx1) | _BV(WGM11);             // = 0b00001010;
+    TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);  // = 0b00011001;
+#        endif
 
-    TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
-#endif
-    // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
-    #ifdef BACKLIGHT_CUSTOM_RESOLUTION
-        ICRx = BACKLIGHT_CUSTOM_RESOLUTION
-    #else
-        ICRx = TIMER_TOP;
-    #endif
+#        ifdef BACKLIGHT_CUSTOM_RESOLUTION  // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
+    ICRx = BACKLIGHT_CUSTOM_RESOLUTION
+#        else
+    ICRx   = TIMER_TOP;
+#        endif
 
     backlight_init();
 #ifdef BACKLIGHT_BREATHING
