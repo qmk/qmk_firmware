@@ -143,20 +143,20 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define TAPPING_TOGGLE 2`
    * トグルを引き起こす前のタップ数
 * `#define PERMISSIVE_HOLD`
-   * `TAPPING_TERM` にヒットしていなくても、リリースする前に別のキーが押されると、タップアンドフォールドキーがホールドを引き起こします
-   * 詳細は[Permissive Hold](ja/feature_advanced_keycodes.md#permissive-hold)を見てください
+   * `TAPPING_TERM` にヒットしていなくても、リリースする前に別のキーが押されると、タップとフォールドキーがホールドを引き起こします
+   * 詳細は [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) を見てください
 * `#define IGNORE_MOD_TAP_INTERRUPT`
-   * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリング コンボ (zx) をすることができるようにします
-   * 詳細は [Mod tap interrupt](ja/feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
+   * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
+   * 詳細は [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
 * `#define TAPPING_FORCE_HOLD`
-   * タップされた直後に、dual role キーを修飾子として使用できるようにします
+   * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
    * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
-   * タップ トグル機能を無効にします (`TT` あるいは One Shot Tap Toggle)
+   * タップトグル機能を無効にします (`TT` あるいは One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
    * リーダーキーがタイムアウトするまでの時間
-      * タイムアウトする前にシーケンスを終了できない場合は、タイムアウトの設定を増やす必要があるかもしれません。あるいは、`LEADER_PER_KEY_TIMING` オプションを有効にしたいかもしれません。これは各キーがタップされた後でタイムアウトを再設定します。
+      * タイムアウトする前にシーケンスを終了できない場合は、タイムアウトの設定を増やす必要があるかもしれません。あるいは、`LEADER_PER_KEY_TIMING` オプションを有効にする必要があります。これは各キーがタップされた後でタイムアウトを再設定します。
 * `#define LEADER_PER_KEY_TIMING`
-   * 全体では無く各キーを押すたびに実行されるリーダーキー chord のタイマーを設定します
+   * 全体では無く各キーを押すたびに実行されるリーダーキーコードのタイマーを設定します
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
    * Mod-Tap および Layer-Tap キーコードのためのキーコードフィルタリングを無効にします。例えば、これを有効にすると、`KC_A` を使いたい場合は `MT(MOD_CTL, KC_A)` を指定する必要があります。
 * `#define ONESHOT_TIMEOUT 300`
@@ -164,10 +164,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define ONESHOT_TAP_TOGGLE 2`
    * ワンショットトグルが引き起こされるまでのタップ数
 * `#define QMK_KEYS_PER_SCAN 4`
-   * 走査ごとに1つ以上のキーを送信できます。デフォルトでは、走査ごとに `process_record()` 経由で1つのキーイベントのみが送信されます。これはほとんどのタイピングにほとんど影響しませんが、多くの chord をしているか、走査レートが最初から遅い場合、キーイベントの処理に多少の遅延を入れることができます。それぞれのプレスとリリースは別のイベントです。For a keyboard with 1ms or so scan times, even a very fast typist isn't
-going to produce the 500 keystrokes a second needed to actually get more than a
-few ms of delay from this. But if you're doing chording on something with 3-4ms
-scan times?おそらくこれが必要です。
+   * 走査ごとに1つ以上のキーを送信できるようにします。デフォルトでは、走査ごとに `process_record()` 経由で1つのキーイベントのみが送信されます。これはほとんどのタイピングにほとんど影響しませんが、多くのコードを入力しているか、走査レートが最初から遅い場合、キーイベントの処理に多少の遅延が生じる可能性があります。それぞれのプレスとリリースは別のイベントです。スキャン時間が 1ms 程度のキーボードの場合、とても高速なタイピストでさえ、実際にキーボードから数 ms 以上の遅延を発生させるのに必要な 500 キーストロークを1秒間に生成することはないでしょう。しかし、3～4ms の走査時間でコードを入力している場合はどうでしょうか？おそらくこれが必要です。
 * `#define COMBO_COUNT 2`
    * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`
@@ -175,7 +172,7 @@ scan times?おそらくこれが必要です。
 * `#define TAP_CODE_DELAY 100`
    * 適切な登録に問題がある場合(VUSBボードで珍しくない)、`register_code` と `unregister_code` の間の遅延を設定します。値はミリ秒です。
 * `#define TAP_HOLD_CAPS_DELAY 80`
-   * MacOS で特別な処理が行われるため、`KC_CAPSLOCK` を使う時にタップホールドキー (`LT`, `MT`) に遅延を設定します。この値はミリ秒で、定義されていない場合はデフォルトは80msです。macOS については、これを200以上に設定したいかもしれません。
+   * MacOS で特別な処理が行われるため、`KC_CAPSLOCK` を使う時にタップホールドキー (`LT`, `MT`) に遅延を設定します。この値はミリ秒で、定義されていない場合はデフォルトは80msです。macOS については、これを200以上に設定する必要があります。
 
 ## RGB ライト設定 :id=rgb-light-configuration
 
@@ -186,7 +183,7 @@ scan times?おそらくこれが必要です。
 * `#define RGBLED_NUM 12`
    * LED の数
 * `#define RGBLIGHT_SPLIT`
-   * 分割キーボードの左半分の RGB LED の出力を右半分の RGB LED の入力につなげているかわりに、それぞれの側で個別にコントローラの出力ピンが直接に RGB LED の入力に繋がっているときは、この定義が必要です。
+   * 分割キーボードの左半分の RGB LED の出力を右半分の RGB LED の入力につなげるかわりに、それぞれの側で個別にコントローラの出力ピンが直接 RGB LED の入力に繋がっているときは、この定義が必要です。
 * `#define RGBLED_SPLIT { 6, 6 }`
    * 分割キーボードの各半分の `RGB_DI_PIN` に直接配線されている接続されているLEDの数
    * 最初の値は左半分の LED の数を示し、2番目の値は右半分です。
@@ -196,7 +193,7 @@ scan times?おそらくこれが必要です。
 * `#define RGBLIGHT_SAT_STEP 25`
    * 彩度の増減時のステップ単位
 * `#define RGBLIGHT_VAL_STEP 12`
-   * 値の増減時のステップ単位 (明度)
+   * 値(明度)の増減時のステップ単位
 * `#define RGBW`
    * RGBW LED のサポートを有効にします
 
@@ -226,13 +223,13 @@ scan times?おそらくこれが必要です。
    * DFU ブートローダを搭載したボードでは、これらの EEPROM ファイルを書き込むために `:dfu-split-left`/`:dfu-split-right` を使うことができます
    * Caterina ブートローダを搭載したボード (標準的な Pro Micros など)では、`:avrdude-split-left`/`:avrdude-split-right` を使ってください
    * ARM DFU ブートローダを搭載したボード (Proton C など)では、`:dfu-util-split-left`/`:dfu-util-split-right` を使ってください
-3. `MASTER_RIGHT` を設定します: USBポートに差し込まれた側はマスターで右側であると決定されます(デフォルトの逆)
+3. `MASTER_RIGHT` を設定します: USBポートに差し込まれた側はマスター側で右側であると決定されます(デフォルトの逆)
 4. デフォルト: USB ポートに差し込まれている側がマスター側であり、左側であると見なされます。スレーブ側は右側です
 
 #### 左右を定義します
 
 * `#define SPLIT_HAND_PIN B7`
-   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンと置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's が使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
+   * high/low ピンを使って左右を決定します。low = 右手、high = 左手。`B7` を使っているピンに置き換えます。これはオプションで、`SPLIT_HAND_PIN` が未定義のままである場合、EE_HANDS メソッドまたは標準の Let's Splitが使っている MASTER_LEFT / MASTER_RIGHT 定義をまだ使うことができます。
 
 * `#define EE_HANDS` (`SPLIT_HAND_PIN` が定義されていない場合のみ動作します)
    * `eeprom-lefthand.eep`/`eeprom-righthand.eep` がそれぞれの半分に書き込まれた後で、EEPROM 内に格納されている左右の設定の値を読み込みます。
@@ -349,7 +346,7 @@ scan times?おそらくこれが必要です。
 * `NO_USB_STARTUP_CHECK`
    * キーボードの起動後の usb サスペンドチェックを無効にします。通常、キーボードはタスクが実行される前にホストがウェイク アップするのを待ちます。分割キーボードは半分はウェイクアップコールを取得できませんが、マスタにコマンドを送信する必要があるため、役に立ちます。
 * `LINK_TIME_OPTIMIZATION_ENABLE`
-   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、これらの機能が壊れるため、これは自動的に古いマクロと関数の機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます
+   * キーボードをコンパイルする時に、Link Time Optimization (`LTO`) を有効にします。これは処理に時間が掛かりますが、コンパイルされたサイズを大幅に減らします (そして、ファームウェアが小さいため、追加の時間は分からないくらいです)。ただし、`LTO` が有効な場合、古いマクロと関数の機能が壊れるため、自動的にこれらの機能を無効にします。これは `NO_ACTION_MACRO` と `NO_ACTION_FUNCTION` を自動的に定義することで行われます。
    * `LINK_TIME_OPTIMIZATION_ENABLE` の代わりに `LTO_ENABLE` を使うことができます。
 
 ## USB エンドポイントの制限
@@ -372,8 +369,8 @@ USB 経由でサービスを提供するために、QMK は USB エンドポイ�
 エンドポイントの使用率を向上させるために、HID 機能を組み合わせて1つのエンドポイントを使うようにすることができます。
 デフォルトでは、`MOUSEKEY`、`EXTRAKEY` および `NKRO` が単一のエンドポイントに結合されます。
 
-基本キーボード機能も、`KEYBOARD_SHARED_EP = yes` を設定することでエンドポイントに結合することができます。
-これによりもう1つのエンドポイントが解放されますが、一部の BIOS ではブート キーボード プロトコル切り替えを実装しないため、キーボードが動作しなくなるかもしれません。
+基本キーボード機能も、`KEYBOARD_SHARED_EP = yes` を設定することで同じエンドポイントに結合することができます。
+これによりもう1つのエンドポイントが解放されますが、一部の BIOS ではブートキーボードプロトコルの切り替えを実装しないため、キーボードが動作しなくなるかもしれません。
 
-マウスの結合も、ブート マウス互換性を破壊します。
-この機能が必要な場合は、`MOUSE_SHARED_EP = no` を設定することで、マウスを結合解除することができます。
+マウスの結合も、ブートマウス互換性を破壊します。
+この機能が必要な場合は、`MOUSE_SHARED_EP = no` を設定することで、マウスを結合しないようにすることができます。
