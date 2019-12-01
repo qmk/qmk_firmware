@@ -182,18 +182,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 /* _ADJUST
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |RGB_HUI|RGB_HUD| WAKE  |       | RESET | UNDGL |       |       |RGB_TOG|       |KC_VOLU|       |KC_BRIU|QWERTY|
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |RGB_HUI|RGB_HUD| WAKE  |       | RESET | UNDGL |       |       |RGB_TOG|       |KC_VOLU|       |KC_BRIU|QWERTY |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |RGB_SAI|RGB_SAD|       |       |       |       |       |       |RGB_MOD|KC_MRWD|KC_VOLD|KC_MFFD|KC_BRID|EUCALYN|
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
   |RGB_VAI|RGB_VAD| SLEP  |       |       |       |       |       |RGBRST |       |KC_MPLY|       |       |WORKMAN|
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-  |       |       |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |       |  |
-  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+  |       |       |       |       |  __   |  __   |  __   |  __   |  __   |  __   |       |       |       |       |
+  +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 */
   [_ADJUST] = LAYOUT(
-    RGB_HUI,RGB_HUD,KC_WAKE,XXXXXXX,RESET  ,UNDGL  ,                RGB_TOG,XXXXXXX,KC_VOLU,XXXXXXX,KC_BRIU,QWERTY, \
+    RGB_HUI,RGB_HUD,KC_WAKE,XXXXXXX,RESET  ,UNDGL  ,                RGB_TOG,XXXXXXX,KC_VOLU,XXXXXXX,KC_BRIU,QWERTY , \
     RGB_SAI,RGB_SAD,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                RGB_MOD,KC_MRWD,KC_VOLD,KC_MFFD,KC_BRID,EUCALYN, \
     RGB_VAI,RGB_VAD,KC_SLEP,XXXXXXX,XXXXXXX,XXXXXXX,                RGBRST ,XXXXXXX,KC_MPLY,XXXXXXX,XXXXXXX,WORKMAN, \
                                     _______,_______,_______,_______,_______,_______
@@ -276,8 +276,12 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 void matrix_init_user(void) {
   // 薙刀式
   set_naginata(_NAGINATA);
+  #ifdef NAGINATA_EDIT_MAC
   set_unicode_input_mode(UC_OSX);
-  // set_unicode_input_mode(UC_WINC);
+  #endif
+  #ifdef NAGINATA_EDIT_WIN
+  set_unicode_input_mode(UC_WINC);
+  #endif
   // 薙刀式
 
   #ifdef RGBLIGHT_ENABLE
@@ -484,7 +488,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (naginata_state()) {
     naginata_mode(keycode, record);
     a = process_naginata(keycode, record);
-    update_led();
+    // update_led();
   }
   if (a == false) return false;
   // 薙刀式
