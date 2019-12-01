@@ -144,10 +144,10 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
    * トグルを引き起こす前のタップ数
 * `#define PERMISSIVE_HOLD`
    * `TAPPING_TERM` にヒットしていなくても、リリースする前に別のキーが押されると、タップとフォールドキーがホールドを引き起こします
-   * 詳細は [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) を見てください
+   * 詳細は [Permissive Hold](ja/feature_advanced_keycodes.md#permissive-hold) を見てください
 * `#define IGNORE_MOD_TAP_INTERRUPT`
    * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
-   * 詳細は [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
+   * 詳細は [Mod tap interrupt](ja/feature_advanced_keycodes.md#ignore-mod-tap-interrupt) を見てください
 * `#define TAPPING_FORCE_HOLD`
    * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
    * [Hold after tap](ja/feature_advanced_keycodes.md#tapping-force-hold)を見てください
