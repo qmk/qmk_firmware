@@ -15,7 +15,8 @@ from ../jetpacktuxedo/ keymap.
 
 Work in progress ... 
    Todo: 
-   - Add a descramble mode that uses standard Unicode layers.
+   - Descramble with normal Unicode layers not finished:
+      ... need to make costum LT switch for `_DDL` layer. 
    - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
    - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
    
@@ -71,6 +72,15 @@ Work in progress ...
 
   Go to `_FUN` layer, touch what is 'spacebar' (5th key bottom row) on the
   base layer, then hit what is 'escape' on the base layer (upper/left).
+
+  You are now in 'half' descamble mode, meaning that the `_ACC` and `_DRA`
+  layers use the same Unicode layers as normal. That way you can take 
+  advantage of a Unicode input mode that works on your system, if it is
+  the same when the computer is set to Dvorak or not (see `_RAR` layer for
+  Unicode input mode selection). In order to take advantage of two special
+  Linux layers that handle Unicode input mode on that system, press instead
+  of 'spacebar' one key further to the right (6th key), in the `_FUN` layer.
+
   To return to normal Dvorak output: go to `_FUN` and hit what is 'enter'
   on the base layer (4th key bottom row).
 
@@ -78,6 +88,7 @@ Work in progress ...
    > setxkbmap -layout us -variant dvorak
   Undo:
    > setxkbmap -layout us
+
  
 
   Layers
@@ -119,14 +130,14 @@ Work in progress ...
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
                  -*-                    <|>                                                 // -*- unused
      BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: _DDD  _DDA  _DDN  _DDL       //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble 
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
-     ----------------------------------------------------------------
-     LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                // ! sets base layer
-           LSft+xxx LAlt+xxx        |            LAlt+xxx                 // (Continued, multi-modifiers)
-                                   <|>                    -*-                           // Acces -*- base
+     --------------------------------------------------------------------
+     LAlt  LCtl&    LCtl&    !Norml | !Descramble !Descramble BASE   RAlt            // ! sets base layer
+           LSft+xxx LAlt+xxx 100%   | +Norml-Unic 100%                    // (Continued, multi-modifiers)
+                                   <|>                        -*-                       // Acces -*- base
                              normal | descramble                             // BASE key toggle direction 
-     <1    <2       <3       <4     | 4>         3>       2>     1>  
+     <1    <2       <3       <4     | 4>          3>          2>     1>  
 
 - - -
     

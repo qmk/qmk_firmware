@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *    because the Unicode input modes on the other platforms might be the same
  *    whether Dvorak is set or not. Another option is to ignore _DDA and _DDD
  *    when the Unicode input mode is not Linux (harder to do).
- *  - 
+ *  ... need to make costum LT switch for _DDL layer. 
  */
 
 #include QMK_KEYBOARD_H
@@ -79,7 +79,16 @@ extern keymap_config_t keymap_config;
 // is the layers hub, although that should not matter either.
 // It seems that setting the 'default' layer is not needed, no need for DF(layer).
 
-bool descramble = 0; // boolean to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+#define _NORMAL_ 0 // Some defines to make the code a bit easier to read with regards to descramble
+#define _HALF_ 1
+#define _FULL_ 2
+short descramble = _NORMAL_; // to remember if we are in descramble mode for 'escape'ing out of layers to the right base
+                      // There are three modes: 0 for everything normal, 1 for descramble for letters and number/symbols,
+		      // .. but with the normal unicode layers, and 2 for all in descramble mode, where the Unicode
+		      // .. coding is for a Linux system (shift-control-U + HEX input).
+		      // The 1 mode is added, for systems where the Unicode input might work the same whether or not
+		      // .. the computer is already set to Dvorak. (This is untested as far as the result on  those
+		      // .. systems XXX.)
 
 //* Shift detection
 // * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
@@ -377,13 +386,14 @@ const uint32_t PROGMEM unicode_map[] = {
 
 
 // Macros, allowing the upper left button to switch to either _LTR base layer, or the _DDL descramble base layer.
-// That way the whole board works the same, with the use of descramble or not.
-// Descramble is set on/off in the _FUN layer. The word "base" is used to avoid "default," because the default
+// Same on _FUN layer key toggles. That way the whole board works the same, with the use of descramble or not.
+// Descramble is set on/half/off in the _FUN layer. The word "base" is used to avoid "default," because the default
 // layer system call DF()is not being used.
 enum custom_keycodes {
     CTO_BASE = SAFE_RANGE, // 'C' for costum, "TO" for to, "BASE" for chosen base layer
-    BASE_LTR,              // "BASE" for base layer, "_LTR" for that layer
-    BASE_DDL,              //         ''             "_DDL" for that layer
+    BASE_NORMAL,              // "BASE" for base layer, "_LTR" for that layer
+    BASE_DESCRMBL,              //         ''             "_DDL" for that layer
+    BASE_DD_HAlF,              //         ''             "_DDL" for that layer
     CTO_NUMS, // activates number-symbols layer
     CTO_FUNC,
     CTO_MOVE,
@@ -391,6 +401,8 @@ enum custom_keycodes {
     CTO_REVE,
     CTO_ACCE,
     CTO_DRAW,
+    CTMP_ACCE,
+    CTMP_DRAW,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
@@ -505,25 +517,35 @@ void deactivate_all_but (int layer) {
 }
 
 // help user with leds
-void indicate_scramble(int mode_descr)
+void indicate_scramble (void)
 {
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
     // See also below under _FUN layer led
-    if (mode_descr) { // descramble mode, 1
-        led0r = 255; //  shine only right led, since _DDL is on the right furthest key
-        led0g = 0; 
-        led0b = 0; 
-        led2r = 255;
-        led2g = 255;
-        led2b = 255;
-    } else { // normal mode, 0
-        led0r = 255; //  shine only left led, since _LTR is on the left furthest key
+    if (_NORMAL_ == descramble) { // normal mode, 0 (100% normal)
+        led0r = 255; //  shine white left led
         led0g = 255;
         led0b = 255;
+        rgblight_sethsv_noeeprom (HSV_RED); 
         led2r = 255;
         led2g = 0; 
         led2b = 0; 
+    } else if (_HALF_ == descramble) { // descramble mode, 1 (normal unicode)
+        led0r = 255; //  left/right is red
+        led0g = 0; 
+        led0b = 0; 
+        rgblight_sethsv_noeeprom (HSV_WHITE); //  shine white middle led (still breathes)
+        led2r = 255;
+        led2g = 0;
+        led2b = 0;
+    } else if (_FULL_ == descramble) { // descramble mode, 1 (normal unicode)
+        led0r = 255;  //  shine white right led
+        led0g = 0;
+        led0b = 0;
+        rgblight_sethsv_noeeprom (HSV_RED); 
+        led2r = 255;
+        led2g = 255; 
+        led2b = 255; 
     }
     setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
     setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
@@ -537,20 +559,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Layer switching:
     switch (keycode) {
 	//   Setting the descramble mode
-        case BASE_LTR: // User wants to switch to normal input BASE key pointing 
+        case BASE_NORMAL: // User wants to switch to normal input BASE key pointing 
             if (record->event.pressed) {
                 ;
             } else { // key up
-                descramble = 0; // off  
-                indicate_scramble(descramble); // Help user with indicator
+                descramble = _NORMAL_; // off  
+                indicate_scramble (); // Help user with indicator
             }
             break;           
-        case BASE_DDL: // User wants to switch to descramble BASE key pointing
+        case BASE_DD_HAlF: // User wants to switch to descramble BASE key pointing, but retain normal Unicode coding
             if (record->event.pressed) {
 		;
             } else { // key up
-                descramble = 1;// on
-                indicate_scramble(descramble); // Help user with indicator
+                descramble = _HALF_;// on
+                indicate_scramble (); 
+            }
+            break; 
+        case BASE_DESCRMBL: // User wants to switch to descramble BASE key pointing
+            if (record->event.pressed) {
+		;
+            } else { // key up
+                descramble = _FULL_;// on
+                indicate_scramble (); 
             }
             break; 
 
@@ -558,7 +588,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CTO_BASE:
         // User pressed upper/left button (escape from a layer to BASE layer)
             if (record->event.pressed) { // key down
-		if (descramble) { // go to the descramble version
+		if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
+		       // ... modes are non-zero, and all use _DDL layer)
                     activate_this_layer (_DDL); // activates descrambled num-sys layer
 		} else {
                     activate_this_layer (_LTR); // activates normal num-sys layer
@@ -588,30 +619,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 	    }
 	    break; 
-	case CTO_ACCE:
+	case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
-		if (descramble) { // go to the descramble version
+		if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDA); // activates descrambled accented layer
 		} else {
                     activate_this_layer (_ACC); // activates normal accented layer
 		}
 	    } else { // key up
-		if (descramble) {
+		if (_FULL_ == descramble) {
 		    deactivate_all_but (_DDA); // stop all other layers 
 		} else {
 		    deactivate_all_but (_ACC); //  "     "
 		}
 	    }
 	    break; 
-	case CTO_DRAW:
+	case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
-		if (descramble) { // go to the descramble version
+		if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDD); // activates descrambled drawings layer
 		} else {
                     activate_this_layer (_DRA); // activates normal drawings layer
 		}
 	    } else { // key up
-		if (descramble) {
+		if (_FULL_ == descramble) {
 		    deactivate_all_but (_DDD); // stop all other layers 
 		} else {
 		    deactivate_all_but (_DRA); //  "     "
@@ -1193,6 +1224,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
+    //CTMP_ACCE,
+    //CTMP_DRAW,
+    //-here
 
         /**/
 
@@ -1545,12 +1579,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   xxx        //':' are dynamic ...
 // LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble 
 // LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
-// ----------------------------------------------------------------
-// LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                            // ! sets base layer
-//       LSft+xxx LAlt+xxx        |            LAlt+xxx                         // (Continued, multi-modifiers)
-//                               <|>                    -*-                                   // Acces -*- _LTR
-//                         normal | descramble                                       // Output mode (full)
-// <1    <2       <3       <4     | 4>         3>       2>     1>  
+// --------------------------------------------------------------------
+// LAlt  LCtl&    LCtl&    !Norml | !Descramble !Descramble BASE   RAlt            // ! sets base layer
+//       LSft+xxx LAlt+xxx full   | +Norml-Unic full                    // (Continued, multi-modifiers)
+//                               <|>                        -*-                       // Acces -*- base
+//                         normal | descramble  descramble                 // BASE key toggle direction 
+// <1    <2       <3       <4     | 4>          3>          2>     1>  
 //
 //
 //      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
@@ -1559,9 +1593,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL     , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RCTL     ,
         KC_LSFT     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F16      , KC_F17      , KC_F18      , KC_F19      , KC_F20      , KC_RSFT     ,
 //      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , BASE_LTR , BASE_DDL , MT ( MOD_LSFT | MOD_LALT, XXXXXXX )  , CTO_BASE , KC_RALT
-//              ,                                     ,                                      ,        <|,>         ,                                      , -*-      ,
-//      <1      , <2                                  , <3                                   , <4      |, 4>       , 3>                                   , 2>       , 1>
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , BASE_NORMAL , BASE_DD_HAlF , BASE_DESCRMBL , CTO_BASE , KC_RALT
+//              ,                                     ,                                      ,           <|,>             ,               , -*-      ,
+//      <1      , <2                                  , <3                                   , <4         |, 4>           , 3>            , 2>       , 1>
                       ),
 
         /**/
@@ -1629,27 +1663,8 @@ uint32_t layer_state_set_user(uint32_t state){
     // because higher layer number is higher priority if activated
     /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
     if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
-        //led2r = 255; // F-keys is red, warning color because it can mean anything
-        //led0r = 255;
-	
-	// When it enters this mode, this gets triggered, indicating the current state
-	// of the (de)scramble.
-        if (descramble) { // descramble mode, 1
-            led0r = 255; //  shine only right led, since _DDL is on the right furthest key
-            led0g = 0; 
-            led0b = 0; 
-            led2r = 255;
-            led2g = 255;
-            led2b = 255;
-        } else { // normal mode, 0
-            led0r = 255; //  shine only left led, since _LTR is on the left furthest key
-            led0g = 255;
-            led0b = 255;
-            led2r = 255;
-            led2g = 0; 
-            led2b = 0; 
-        }
-        rgblight_sethsv_noeeprom (HSV_RED);
+        indicate_scramble (); // this function already does it all
+	return state; // 
     } 
     //--- (pair)
     else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
