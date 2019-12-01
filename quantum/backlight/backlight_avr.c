@@ -230,11 +230,11 @@ ISR(TIMERx_OVF_vect) {
 #define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
-static uint16_t cie_lightness(uint16_t v) {
-    if (v <= 5243)     // if below 8% of max
+static uint16_t cie_lightness(uint16_t v, uint16_t max = TIMER_TOP) {
+    if (v <= max / 12)  // if below ~8% of max
         return v / 9;  // same as dividing by 900%
     else {
-        uint32_t y = (((uint32_t)v + 10486) << 8) / (10486 + 0xFFFFUL);  // add 16% of max and compare
+        uint32_t y = (((uint32_t)v + max/6) << 8) / (max/6 + 0xFFFFUL);  // add ~16% of max and compare
         // to get a useful result with integer division, we shift left in the expression above
         // and revert what we've done again after squaring.
         y = y * y * y >> 8;
@@ -245,10 +245,7 @@ static uint16_t cie_lightness(uint16_t v) {
     }
 }
 
-// rescale the supplied backlight value to be in terms of the value limit
-static uint32_t rescale_limit_val(uint32_t val) { return (val * (BACKLIGHT_LIMIT_VAL + 1)) / 256; }
-
-// range for val is [0..TIMER_TOP]. PWM pin is high while the timer count is below val.
+// range for val is [0..ICRx]. PWM pin is high while the timer count is below val.
 static inline void set_pwm(uint16_t val) { OCRxx = val; }
 
 void backlight_set(uint8_t level) {
@@ -277,7 +274,7 @@ void backlight_set(uint8_t level) {
 #endif
     }
     // Set the brightness
-    set_pwm(cie_lightness(rescale_limit_val(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS)));
+    set_pwm(cie_lightness(ICR1 * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
 void backlight_task(void) {}
@@ -422,7 +419,10 @@ void backlight_init_ports(void) {
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
 #endif
     // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
-    ICRx = TIMER_TOP;
+    #ifdef BACKLIGHT_CUSTOM_SPEED
+
+    #else
+        ICRx = TIMER_TOP;
 
     backlight_init();
 #ifdef BACKLIGHT_BREATHING
@@ -431,3 +431,13 @@ void backlight_init_ports(void) {
     }
 #endif
 }
+
+#    endif  // hardware backlight
+
+#else  // no backlight
+
+__attribute__((weak)) void backlight_init_ports(void) {}
+
+__attribute__((weak)) void backlight_set(uint8_t level) {}
+
+#endif  // backlight
