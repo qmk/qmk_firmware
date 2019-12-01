@@ -67,7 +67,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define DIRECT_PINS { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
    * ロウ(行)ラインとカラム(列)ラインにマップされているピンを左から右に。各スイッチが個別のピンとグラウンドに接続されているマトリックスを定義します。
 * `#define AUDIO_VOICES`
-   * turns on the alternate audio voices (to cycle through)
+   * (循環させるために)代替音声を有効にします
 * `#define C4_AUDIO`
    * ピン C4 のオーディオを有効にします
 * `#define C5_AUDIO`
