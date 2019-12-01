@@ -416,7 +416,7 @@ void backlight_init_ports(void) {
 #        endif
 
 #        ifdef BACKLIGHT_CUSTOM_RESOLUTION  // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
-    ICRx = BACKLIGHT_CUSTOM_RESOLUTION
+    ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
 #        else
     ICRx   = TIMER_TOP;
 #        endif
