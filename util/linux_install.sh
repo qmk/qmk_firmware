@@ -29,7 +29,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-gcc \
 		avr-libc \
 		binutils-avr32-linux-gnu \
-		clang \	
+		clang \
 		dfu-util \
 		dfu-programmer \
 		diffutils \
