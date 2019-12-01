@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Todo:
  *
- *  - Add more Dutch keyboard symbols
- *    https://en.wikipedia.org/wiki/QWERTY#Dutch_.28Netherlands.29
- *  - Fix Layer keys on _FUN to go to respective layer (de)scramble
  *  - Add a third mode, middle led white, for combining _ACC and _DRA with _DDL, 
  *    because the Unicode input modes on the other platforms might be the same
  *    whether Dvorak is set or not. Another option is to ignore _DDA and _DDD
@@ -60,6 +57,7 @@ extern keymap_config_t keymap_config;
 
 // Notice this order in layer_state_set_user as well, regarding the led indicators.
 // Below #defines the internal order of the layers.
+// The layers beginning with DD are the 'Dvorak Descramble' layers.
 
 #define _LTR 0  // letters (Dvorak)
 #define _NSY 2  // numbers and symbols
@@ -386,6 +384,13 @@ enum custom_keycodes {
     CTO_BASE = SAFE_RANGE, // 'C' for costum, "TO" for to, "BASE" for chosen base layer
     BASE_LTR,              // "BASE" for base layer, "_LTR" for that layer
     BASE_DDL,              //         ''             "_DDL" for that layer
+    CTO_NUMS, // activates number-symbols layer
+    CTO_FUNC,
+    CTO_MOVE,
+    CTO_RARE,
+    CTO_REVE,
+    CTO_ACCE,
+    CTO_DRAW,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
@@ -478,43 +483,25 @@ void unicode_tail ( void ) {
     SEND_STRING ( " " ) ; // Ends the Unicode numerical input mode, replacing input with desired character (Linux)
 }
 
-// Activates only the major layer, either the normal or the descramble one
-void activate_major_layer (int mode_descr) { 
-    if (mode_descr) {
-        layer_on(_DDL);
-    } else { // normal mode
-        layer_on(_LTR);
-    }
+// Activate the given layer
+void activate_this_layer (int layer) {
+    layer_on (layer) ;
 }
-// De-activates layers
-void deactivate_other_layer (int mode_descr) {
-    if(mode_descr) {
-        //layer_off ( _LTR ) ; // maybe better not de-activate lowest default layer, it is covered up anyway
-        layer_off(_NSY);
-        layer_off(_FUN);
-        layer_off(_MOV);
-        layer_off(_RAR);
-        layer_off(_REV);
-        layer_off(_ACC);
-        layer_off(_DRA);
-        layer_off(_DDD);
-        layer_off(_DDA);
-        layer_off(_DDN);
-        //layer_off ( _DDL ) ; // the descramble base layer
-    } else { // normal mode
-        //layer_off ( _LTR ) ; // normal base layer
-        layer_off(_NSY);
-        layer_off(_FUN);
-        layer_off(_MOV);
-        layer_off(_RAR);
-        layer_off(_REV);
-        layer_off(_ACC);
-        layer_off(_DRA);
-        layer_off(_DDD);
-        layer_off(_DDA);
-        layer_off(_DDN);
-        layer_off(_DDL);
-    }
+
+// De-activates all other layers than the one given. Does not activate the one given.
+void deactivate_all_but (int layer) {
+   //if (_LTR != layer) { layer_off ( _LTR ) ; } // maybe better never to de-activate lowest base and default layer, it is covered up anyway
+   if (_NSY != layer) { layer_off ( _NSY ) ; }
+   if (_FUN != layer) { layer_off ( _FUN ) ; } 
+   if (_MOV != layer) { layer_off ( _MOV ) ; } 
+   if (_RAR != layer) { layer_off ( _RAR ) ; } 
+   if (_REV != layer) { layer_off ( _REV ) ; } 
+   if (_ACC != layer) { layer_off ( _ACC ) ; } 
+   if (_DRA != layer) { layer_off ( _DRA ) ; } 
+   if (_DDD != layer) { layer_off ( _DDD ) ; } 
+   if (_DDA != layer) { layer_off ( _DDA ) ; } 
+   if (_DDN != layer) { layer_off ( _DDN ) ; } 
+   if (_DDL != layer) { layer_off ( _DDL ) ; } 
 }
 
 // help user with leds
@@ -547,45 +534,93 @@ void indicate_scramble(int mode_descr)
 // The special layer switching keys.
 // The Unicode system to work with descramble.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Layer switching:
     switch (keycode) {
-        // Layer switching:
-        // User wants to switch to normal input BASE key pointing 
-        case BASE_LTR: // All upper/left buttons switch to _LTR
+	//   Setting the descramble mode
+        case BASE_LTR: // User wants to switch to normal input BASE key pointing 
             if (record->event.pressed) {
-                
+                ;
             } else { // key up
                 descramble = 0; // off  
                 indicate_scramble(descramble); // Help user with indicator
-       
             }
             break;           
-        // User wants to switch to descramble BASE key pointing
-        case BASE_DDL:// All upper/left buttons switch to _DDL 
+        case BASE_DDL: // User wants to switch to descramble BASE key pointing
             if (record->event.pressed) {
-       
+		;
             } else { // key up
                 descramble = 1;// on
                 indicate_scramble(descramble); // Help user with indicator
-       
             }
             break; 
-        // User pressed upper/left button (escape from a layer to BASE layer)
+
+	//     Switching to layers:
         case CTO_BASE:
+        // User pressed upper/left button (escape from a layer to BASE layer)
             if (record->event.pressed) { // key down
-                activate_major_layer(descramble); // makes respective base layer active
-                // set leds accordingly
-                if (descramble) {
-                    layer_state_set_user (_DDL);
-                } else {
-                    layer_state_set_user (_LTR);
-                }
+		if (descramble) { // go to the descramble version
+                    activate_this_layer (_DDL); // activates descrambled num-sys layer
+		} else {
+                    activate_this_layer (_LTR); // activates normal num-sys layer
+		}
             } else { // key up
-                deactivate_other_layer (descramble); // deactivates all else
+		if (descramble) {
+		    deactivate_all_but (_DDL); // stop all other layers 
+		} else {
+		    deactivate_all_but (_LTR); //  "     "
+		}
             }
             break;
+	case CTO_NUMS: // activates number-symbols layer
+		// It seems best to first enable the chosen layer on key-down, then stop others on key-up.
+		// Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
+            if (record->event.pressed) { // key down
+		if (descramble) { // go to the descramble version
+                    activate_this_layer (_DDN); // activates descrambled num-sys layer
+		} else {
+                    activate_this_layer (_NSY); // activates normal num-sys layer
+		}
+	    } else { // key up
+		if (descramble) {
+		    deactivate_all_but (_DDN); // stop all other layers 
+		} else {
+		    deactivate_all_but (_NSY); //  "     "
+		}
+	    }
+	    break; 
+	case CTO_ACCE:
+            if (record->event.pressed) { // key down
+		if (descramble) { // go to the descramble version
+                    activate_this_layer (_DDA); // activates descrambled accented layer
+		} else {
+                    activate_this_layer (_ACC); // activates normal accented layer
+		}
+	    } else { // key up
+		if (descramble) {
+		    deactivate_all_but (_DDA); // stop all other layers 
+		} else {
+		    deactivate_all_but (_ACC); //  "     "
+		}
+	    }
+	    break; 
+	case CTO_DRAW:
+            if (record->event.pressed) { // key down
+		if (descramble) { // go to the descramble version
+                    activate_this_layer (_DDD); // activates descrambled drawings layer
+		} else {
+                    activate_this_layer (_DRA); // activates normal drawings layer
+		}
+	    } else { // key up
+		if (descramble) {
+		    deactivate_all_but (_DDD); // stop all other layers 
+		} else {
+		    deactivate_all_but (_DRA); //  "     "
+		}
+	    }
+	    break;
     }
-    //
-    // ... Disused again, because it turned out 'one shot' like
+    // Shift detection system.
+    // Following ... Disused again, because it turned out 'one shot' like
     // Unicode input. Shift detection copied from.
     // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
     //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
@@ -1172,7 +1207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //          -*-                          <|>                                    // Layer access from _FUN -*-
 // BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
 // Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(    0) `~+RCtl
-// -+LSft   [{    ]}    /?    =+    \|    | |     +     ?     {     }   `+RSft   // QMK limitation prevents ~
+// -+LSft   [{    ]}    /?    \|     =+   | +     |     ?     {     }   `+RSft   // QMK limitation prevents ~
 // -------------------------------------------------------
 // Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
 //                 -*-       <|>    -*-                                         // Layer access from _LTR -*-
@@ -1183,7 +1218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         , -*-     ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_EQL  , KC_BSLS , KC_PIPE , KC_PLUS , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
+        LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_SLSH , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_QUES , KC_LCBR , KC_RCBR , RSFT_T ( KC_TILD ) ,  
 //      -------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM  , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,          ,
@@ -1205,7 +1240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE     !     @     #     $     %     | ^     &     *     (     )     Bspc
 // Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(    0) `~+RCtl
 // -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht                   // raw
-//          [{    ]}    /?    =+    \|    | |     +     ?     {     }                         // result
+//          [{    ]}    /?    \|    =+    | +     |     ?     {     }                         // result
 // -------------------------------------------------------
 // Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
 //                 -*-       <|>    -*-                                                      // on _DDL
@@ -1216,7 +1251,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         , -*-     ,        ,         ,         ,       <|,>        ,         ,         ,         , -*-     ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT  , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_BSPC            ,
         LCTL_T ( KC_TAB )  , KC_1    , KC_2   , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_RBRC , KC_BSLS , KC_PIPE , KC_RCBR , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
+        LSFT_T ( KC_MINS ) , KC_MINS , KC_EQL , KC_LBRC , KC_BSLS , KC_RBRC , KC_RCBR , KC_PIPE , KC_LCBR , KC_UNDS , KC_PLUS , RSFT_T ( KC_TILD ) ,  
 //  ----------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , KC_DEL , _______ , KC_ENT , KC_DOT , _______ , KC_COMM , RALT_T ( KC_RGHT )
 //                         ,        , -*-     ,      <|,>       , -*-     ,         ,
@@ -1507,8 +1542,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl      // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
-// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
+// BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   xxx        //':' are dynamic ...
+// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble 
 // LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
 // ----------------------------------------------------------------
 // LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                            // ! sets base layer
@@ -1520,7 +1555,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
 //                  ,             , -*-         ,             ,             ,           <|,>            ,             ,             ,             ,             ,             ,
-        CTO_BASE    , TO ( _NSY ) , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , TO ( _ACC ) , TO ( _DRA ) , TO ( _DDD ) , TO ( _DDA ) , TO ( _DDN ) , TO ( _DDL ) ,
+        CTO_BASE    , CTO_NUMS    , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE    , CTO_DRAW    , XXXXXXX     , XXXXXXX     , XXXXXXX     , XXXXXXX     ,
         KC_LCTL     , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RCTL     ,
         KC_LSFT     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F16      , KC_F17      , KC_F18      , KC_F19      , KC_F20      , KC_RSFT     ,
 //      -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1535,6 +1570,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * New layer template. Includes left/right movement arrows, deletion, modifiers.
+ * If you want a new layer, in the logic of this layout you would add a toggle on the
+ * _FUN layer top row on the first free key to it, and optionally alter the hold 
+ * layer switch keys on the base layers.
  *
     [ _??? ] = LAYOUT (
 

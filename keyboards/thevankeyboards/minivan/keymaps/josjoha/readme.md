@@ -15,9 +15,9 @@ from ../jetpacktuxedo/ keymap.
 
 Work in progress ... 
    Todo: 
-   - Layer switching in descramble mode on FUN layer
    - Add a descramble mode that uses standard Unicode layers.
    - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
+   - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
    
 
 
@@ -52,7 +52,7 @@ Work in progress ...
   =====
  
   All normal use layer switching is by thumb buttons on the base layer,
-  mostly temporary. All layers can be set to be on persistently through
+  mostly temporary. The layers can be set to be on persistently through
   the `_FUN` layer top row toggles. A few rarely used layers can only
   be reached by `_FUN` layer toggle. From each layer one can go back
   to the BASE layer by pressing the upper/left most button.
@@ -61,20 +61,29 @@ Work in progress ...
   -----------------
 
   There are several layers for that take care of typing normally on
-  a computer already set to Dvorak ('descramble' mode.)  These layers
-  are active' simply by changing the layer that you use for letters,
-  and by having the upper/left key bring you back to that alternative
-  letters layer, instead of to the default letters layer.
+  a computer already set to Dvorak ('descramble' mode.)  
+
+  The keys on `_FUN` to layers that have a 'descramble' twin, switch to
+  the normal layer variant in normal mode, and to the 'descramble' 
+  variant when in 'descramble' mode. While the 'descramble' BASE layer is
+  active, all layer switching returns to that layer, and goes to 'descramble'
+  variants where necessary.
 
   Go to `_FUN` layer, touch what is 'spacebar' (5th key bottom row) on the
   base layer, then hit what is 'escape' on the base layer (upper/left).
   To return to normal Dvorak output: go to `_FUN` and hit what is 'enter'
   on the base layer (4th key bottom row).
 
+  To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
+   > setxkbmap -layout us -variant dvorak
+  Undo:
+   > setxkbmap -layout us
+ 
+
   Layers
   ======
  
-     Layer _LTR (LeTteRs, standard Dvorak)
+     yer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
      -o-                                   <|>                                         // -o- BASE access
@@ -95,7 +104,7 @@ Work in progress ...
               -*-                          <|>                                      // -*- Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSft   [{    ]}    /?    =+    \|    | |     +     ?     {     }   `+RSft // limitation prevents ~
+     -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
                      -*-       <|>    -*-                                           // -*- Access on _LTR
@@ -109,8 +118,8 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
                  -*-                    <|>                                                 // -*- unused
-     BASE  _NSY  _FUN  _MOV  _RAR  _REV  | _ACC  _DRA  _DDD  DDA   _DDN  _DDL
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
+     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: _DDD  _DDA  _DDN  _DDL       //':' are dynamic ...
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble 
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
      ----------------------------------------------------------------
      LAlt  LCtl&    LCtl&    !LTR   | !DDL       LSft&    BASE   RAlt                // ! sets base layer
@@ -186,7 +195,7 @@ Work in progress ...
 - - -
     
     
-     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications)
+     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                           // on _FUN
@@ -210,7 +219,7 @@ Work in progress ...
               -*-                          <|>                                      // -*- Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
-     -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht            // row 2, raw
+     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
                      -*-       <|>    -*-                                           // -*- Access on _LTR
@@ -218,7 +227,7 @@ Work in progress ...
 
      _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
 
-              [{    ]}    /?    =+          |       +     ?     {     }                  // row 2, result
+              [{    ]}    /?           =+   |   +         ?     {     }                  // row 2, result
 
 - - -
 
