@@ -1,8 +1,8 @@
 # fluorite
 
-![fluorite](https://github.com/ihotsuno/keyboard/blob/master/kbd-fluorite-cxl/doc/image/fluorite-CXL-002.jpg)
-
 ![fluorite](https://github.com/ihotsuno/keyboard/blob/master/kbd-fluorite-cxl/doc/image/fluorite-CXL-001.jpg)
+
+![fluorite](https://github.com/ihotsuno/keyboard/blob/master/kbd-fluorite-cxl/doc/image/fluorite-CXL-002.jpg)
 
 Fluorite is a chaotic keyboard consisting of staggered rows, staggered columns, and ortholinear.
 
