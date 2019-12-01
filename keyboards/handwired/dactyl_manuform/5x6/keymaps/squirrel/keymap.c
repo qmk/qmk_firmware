@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______,_______,KC_WH_L,KC_WH_D,KC_WH_R ,_______,                        KC_BTN1, KC_MS_L , KC_MS_D , KC_MS_R ,_______,_______,
                   _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,                        _______, KC_BTN2 , _______ , _______ ,_______ ,_______,
                                        _______,_______,                                                       _______, RESET,
-                                                          KC_BTN1,KC_BTN1,            _______,_______,
-                                                          KC_BTN2,KC_BTN2,            _______,_______,
+                                                          KC_BTN1,KC_BTN2,            _______,_______,
+                                                          _______,KC_BTN2,            _______,_______,
                                                           _______,_______,            _______,_______
 
                ),
