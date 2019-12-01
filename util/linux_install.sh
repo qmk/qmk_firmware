@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Note: This file uses tabs to indent. Please don't mix tabs and spaces.
 
@@ -30,7 +30,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		avr-gcc \
 		avr-libc \
 		binutils-avr32-linux-gnu \
-		clang \
+		clang \	
 		dfu-util \
 		dfu-programmer \
 		diffutils \
@@ -68,6 +68,7 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		libnewlib-arm-none-eabi \
 		libusb-dev \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
