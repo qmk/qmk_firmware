@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Note: This file uses tabs to indent. Please don't mix tabs and spaces.
 
@@ -12,13 +12,12 @@ util_dir=$(dirname "$0")
 
 # For those distros that do not package bootloadHID
 install_bootloadhid() {
-	wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+    wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
     cd /tmp/bootloadHID.2012-12-08/commandline/
-    make
-	if [ $? == 0 ]; then
+    if make; then
         sudo cp bootloadHID /usr/local/bin
-	fi
-	cd -
+    fi
+    cd -
 }
 
 if grep ID /etc/os-release | grep -qE "fedora"; then
