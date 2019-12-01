@@ -230,11 +230,11 @@ ISR(TIMERx_OVF_vect) {
 #define TIMER_TOP 0xFFFFU
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
-static uint16_t cie_lightness(uint16_t v, uint16_t max = TIMER_TOP) {
-    if (v <= max / 12)  // if below ~8% of max
+static uint16_t cie_lightness(uint16_t v) {
+    if (v <= ICRx / 12)  // if below ~8% of max
         return v / 9;  // same as dividing by 900%
     else {
-        uint32_t y = (((uint32_t)v + max/6) << 8) / (max/6 + 0xFFFFUL);  // add ~16% of max and compare
+        uint32_t y = (((uint32_t)v + ICRx/6) << 8) / (ICRx/6 + 0xFFFFUL);  // add ~16% of max and compare
         // to get a useful result with integer division, we shift left in the expression above
         // and revert what we've done again after squaring.
         y = y * y * y >> 8;
@@ -380,7 +380,8 @@ ISR(TIMERx_OVF_vect)
         breathing_interrupt_disable();
     }
 
-    set_pwm(cie_lightness(rescale_limit_val(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * 0x0101U))));
+    // Set PWM to a brightnessvalue scaled to the configured resolution
+    set_pwm(cie_lightness(scale_backlight((uint16_t)pgm_read_byte(&breathing_table[index]) * ICRx/255)));
 }
 
 #endif  // BACKLIGHT_BREATHING
