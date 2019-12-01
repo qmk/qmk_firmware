@@ -32,18 +32,18 @@ enum custom_keycodes {
   RAISE,
   MEDIA,
   BACKLIT,
-  RGBRST
-};
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
+  RGBRST,
+  MSLU,
+  MSRU,
+  MSLD,
+  MSRD
 };
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
-#define KC_MEDIA MEDIA
+#define KC_MEDIA TG(_MEDIA)
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -70,6 +70,10 @@ enum macro_keycodes {
 #define KC_BRIDN KC_BRIGHTNESS_DOWN 
 #define KC_LBGUI MT(MOD_LGUI, KC_LBRC)
 #define KC_RBGUI MT(MOD_RGUI, KC_RBRC)
+#define KC_MSLU  MSLU
+#define KC_MSRU  MSRU
+#define KC_MSLD  MSLD
+#define KC_MSRD  MSRD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -110,13 +114,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [_MEDIA] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      _____, XXXXX, XXXXX,  ACL0,  ACL1,  ACL2,                   WH_L,  WH_D,  WH_U,  WH_R, XXXXX,  BTN2,\
+      _____, XXXXX, XXXXX,  ACL0,  ACL1,  ACL2,                  MSLU ,  MS_U,  MSRU,  WH_U, XXXXX,  BTN2,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG, XXXXX, BRIDN, BRIUP,  LVAI, XXXXX,                   MS_L,  MS_D,  MS_U,  MS_R, XXXXX,  BTN1,\
+       LTOG, XXXXX, BRIDN, BRIUP,  LVAI, XXXXX,                   MS_L,  BTN1,  MS_R,  BTN2, XXXXX,  BTN1,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  VDOWN, AMUTE,   VUP, MPREV, MNEXT,  BTN3,\
+       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                   MSLD,  MS_D,  MSRD,  WH_D, MNEXT,  BTN3,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, MPLPP, MPLPP,    MPLPP, MPLPP, _____\
+                                  _____, MEDIA, MPLPP,    MPLPP, MEDIA, _____\
                               //`--------------------'  `--------------------'
   )
 };
@@ -233,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MEDIA:
         if (record->event.pressed) {
           layer_on(_MEDIA);
-	} else {
+        } else {
           layer_off(_MEDIA);
         }
         return false;
@@ -257,6 +261,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+    case MSLU:
+        if (record->event.pressed) {
+          register_code(KC_MS_L);
+          register_code(KC_MS_U);
+        } else {
+          unregister_code(KC_MS_L);
+          unregister_code(KC_MS_U);
+        }
+        break;
+    case MSRU:
+        if (record->event.pressed) {
+          register_code(KC_MS_R);
+          register_code(KC_MS_U);
+        } else {
+          unregister_code(KC_MS_R);
+          unregister_code(KC_MS_U);
+        }
+        break;
+    case MSLD:
+        if (record->event.pressed) {
+          register_code(KC_MS_L);
+          register_code(KC_MS_D);
+        } else {
+          unregister_code(KC_MS_L);
+          unregister_code(KC_MS_D);
+        }
+        break;
+    case MSRD:
+        if (record->event.pressed) {
+          register_code(KC_MS_R);
+          register_code(KC_MS_D);
+        } else {
+          unregister_code(KC_MS_R);
+          unregister_code(KC_MS_D);
+        }
+        break;
   }
   return true;
 }
+
