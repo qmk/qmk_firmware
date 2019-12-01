@@ -420,10 +420,11 @@ void backlight_init_ports(void) {
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);
 #endif
     // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
-    #ifdef BACKLIGHT_CUSTOM_SPEED
-
+    #ifdef BACKLIGHT_CUSTOM_RESOLUTION
+        ICRx = BACKLIGHT_CUSTOM_RESOLUTION
     #else
         ICRx = TIMER_TOP;
+    #endif
 
     backlight_init();
 #ifdef BACKLIGHT_BREATHING
