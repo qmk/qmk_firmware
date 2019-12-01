@@ -1,1 +1,2 @@
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 2
+#define TAPPING_TERM 125

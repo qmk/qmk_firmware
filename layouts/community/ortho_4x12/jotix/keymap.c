@@ -6,10 +6,8 @@ enum layers {
   _RAISE,
 };
 
-#define LOWER   MO(_LOWER)
-#define RAISE   MO(_RAISE)
-#define TGLOWER TG(_LOWER)
-#define TTLOWER TT(_LOWER)
+#define LOWER TT(_LOWER)
+#define RAISE MO(_RAISE)
 
 static bool is_ctl_pressed;
 static bool is_esc_pressed;
@@ -25,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_ENT,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_LCTL,KC_LGUI,KC_LALT,KC_RALT,TTLOWER,KC_SPC, KC_SPC, RAISE,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
+    KC_LCTL,KC_LGUI,KC_LALT,KC_RALT,LOWER,  KC_SPC, KC_SPC, RAISE,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
 // └───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┴───────┘
 ), 
 
