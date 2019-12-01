@@ -85,16 +85,19 @@ Work in progress ...
   on the base layer (4th key bottom row).
 
   To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
-   > setxkbmap -layout us -variant dvorak
+
+        > setxkbmap -layout us -variant dvorak
+
   Undo:
-   > setxkbmap -layout us
+
+        > setxkbmap -layout us
 
  
 
   Layers
   ======
  
-     yer _LTR (LeTteRs, standard Dvorak)
+     Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
      -o-                                   <|>                                         // -o- BASE access
@@ -134,9 +137,9 @@ Work in progress ...
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
      --------------------------------------------------------------------
      LAlt  LCtl&    LCtl&    !Norml | !Descramble !Descramble BASE   RAlt            // ! sets base layer
-           LSft+xxx LAlt+xxx 100%   | +Norml-Unic 100%                    // (Continued, multi-modifiers)
+           LSft+xxx LAlt+xxx full   | +Norml-Unic full                    // (Continued, multi-modifiers)
                                    <|>                        -*-                       // Acces -*- base
-                             normal | descramble                             // BASE key toggle direction 
+                             normal | descramble  descramble                 // BASE key toggle direction 
      <1    <2       <3       <4     | 4>          3>          2>     1>  
 
 - - -
