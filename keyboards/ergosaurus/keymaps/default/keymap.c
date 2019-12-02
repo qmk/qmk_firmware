@@ -16,22 +16,32 @@
 #include QMK_KEYBOARD_H
 
 #define BASE 0
-#define RAISE 1
+#define LOWER 1
+#define RAISE 2
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-      KC_ESC,  KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,  KC_BSPC,
-      KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
+      KC_DEL,  KC_ESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS,  KC_GRV,
+      KC_PGUP, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
       KC_PGDN, KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
-               KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_B,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(RAISE),
-               KC_LCTL,          KC_LALT, KC_SPC,  MO(RAISE),                          KC_SPC,           KC_RALT,          KC_RCTL
+               KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_B,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(LOWER),
+               KC_LCTL,          KC_LALT, MO(RAISE), KC_LGUI,                            KC_SPC,           KC_RALT,                          KC_RCTL
     ),
-  
+
+    [LOWER] = LAYOUT(
+      _______,  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  _______,
+      _______,  _______,  _______, _______,  _______, _______, _______,          _______, _______, _______, _______, _______, KC_UP, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, KC_LEFT, KC_RIGHT,          _______,
+                _______, _______,  _______,  _______, _______, _______,          _______, _______, _______, _______, _______, KC_DOWN, _______, _______,
+                _______,          _______, _______, _______,                            _______,          _______,                              _______
+    ),
+
     [RAISE] = LAYOUT(
-      RGB_TOG,  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,  KC_DEL,
-      RGB_MOD,  _______,  _______, KC_UP,  _______, _______, _______,          RGB_SAI, RGB_HUI, RGB_VAI, _______, _______, _______, _______, _______,
-      RGB_RMOD, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          RGB_SAD, RGB_HUD, RGB_VAD, _______, _______, _______,          _______,
-                _______, BL_INC,  BL_DEC,  BL_TOGG, BL_BRTG, _______,          _______, _______, _______, _______, _______, _______, _______, _______,
-                _______,          _______, _______, _______,                            _______,          _______,          RESET
+      _______,  _______, _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  _______,
+      _______,  _______,  _______, _______,  _______, _______, _______,          _______, _______, KC_UP, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,          _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,          _______,
+                _______, _______,  _______,  _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______,
+                _______,          _______, _______, _______,                            _______,          _______,                               RESET
     )
 };
