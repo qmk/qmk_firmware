@@ -45,8 +45,8 @@ Work in progress ...
       Leds: • Breathing effect on the middle LED in color of last active non base layer.
               There is no particular reason for this (fun & games).
             • Leds left and right indicate active layer.
-            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which BASE layer is active.
-              Left is white for _LTR BASE (normal), right is white for _DDL BASE (descramble).
+            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descamble
+              mode is active (see below).
 
 
   Usage
@@ -66,23 +66,21 @@ Work in progress ...
 
   The keys on `_FUN` to layers that have a 'descramble' twin, switch to
   the normal layer variant in normal mode, and to the 'descramble' 
-  variant when in 'descramble' mode. While the 'descramble' BASE layer is
-  active, all layer switching returns to that layer, and goes to 'descramble'
-  variants where necessary.
+  variant when in 'descramble' mode. The same is the case for the base
+  layers `_LTR` (normal) and `_DDL` (descramble).
 
-  Go to `_FUN` layer, touch what is 'spacebar' (5th key bottom row) on the
-  base layer, then hit what is 'escape' on the base layer (upper/left).
+  Activation: go to `_FUN` layer, touch the key to the left of how you
+  got to that layer. This cycles through the descramble modes.
 
-  You are now in 'half' descamble mode, meaning that the `_ACC` and `_DRA`
-  layers use the same Unicode layers as normal. That way you can take 
-  advantage of a Unicode input mode that works on your system, if it is
-  the same when the computer is set to Dvorak or not (see `_RAR` layer for
-  Unicode input mode selection). In order to take advantage of two special
-  Linux layers that handle Unicode input mode on that system, press instead
-  of 'spacebar' one key further to the right (6th key), in the `_FUN` layer.
+  ⮚ When the left led is white: normal mode.
+  ⮚ Right led white: full descramble mode (Linux Unicode input).
+  ⮚ Middle led white: half descramble mode, with normal Unicode input system.
+**FIXME: half-descramble is not finished.**
 
-  To return to normal Dvorak output: go to `_FUN` and hit what is 'enter'
-  on the base layer (4th key bottom row).
+  With the middle led set to white, you can take advantage of a Unicode
+  input mode that works on your system, if it is the same when the
+  computer is set to Dvorak or not (see `_RAR` layer for Unicode input
+  mode selection).
 
   To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
 
@@ -92,7 +90,7 @@ Work in progress ...
 
         > setxkbmap -layout us
 
- 
+  This only seems to affect that terminal. 
 
   Layers
   ======
@@ -126,21 +124,20 @@ Work in progress ...
 
 - - -
     
-    
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
-                 -*-                    <|>                                                 // -*- unused
-     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: _DDD  _DDA  _DDN  _DDL       //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl       //  ... on descramble
+                 -*-                    <|>                                         // Access -*- _FUN
+     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   xxx        //':' are dynamic ...
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
      --------------------------------------------------------------------
-     LAlt  LCtl&    LCtl&    !Norml | !Descramble !Descramble BASE   RAlt            // ! sets base layer
-           LSft+xxx LAlt+xxx full   | +Norml-Unic full                    // (Continued, multi-modifiers)
-                                   <|>                        -*-                       // Acces -*- base
-                             normal | descramble  descramble                 // BASE key toggle direction 
-     <1    <2       <3       <4     | 4>          3>          2>     1>  
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft !Descramble BASE   RAlt         // ! sets 'descramble' mode
+           LSft    LAlt    LAlt  | &LAlt      (cycles)                    
+           +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
+                                <|>                       -*-                           // Acces -*- base
+     <1    <2      <3      <4    | 4>         3>          2>     1>       
 
 - - -
     
