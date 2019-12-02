@@ -122,14 +122,16 @@ const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {100, 30, 5, 1};
     return state;
   }
 
-  void led_set_user(uint8_t usb_led) {
-    if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+bool led_update_kb(led_t led_state){
+  if(led_state.caps_lock){
       rgblight_set_effect_range(2, 1);
       rgblight_sethsv_noeeprom(180, 200, 150);
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-      rgblight_enable();
-    } else{
+      rgblight_set();
+  } else{
       rgblight_set_effect_range(2, 1);
-      rgblight_disable();
-    }
+      rgblight_sethsv_noeeprom(180, 200, 0);
+      rgblight_set();
   }
+    return true;
+}

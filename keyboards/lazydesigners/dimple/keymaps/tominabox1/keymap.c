@@ -125,11 +125,12 @@ void keyboard_post_init_user(void) {
 		writePinHigh(E6);
 }
 
-void led_set_user(uint8_t usb_led) {
-	if(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-		rgblight_setrgb_at(145, 255, 0, 24); // Yolk colored to match Heavy Industry
-		rgblight_mode_noeeprom(0);
-	} else{
-		rgblight_sethsv_at(0, 0, 0, 24);
-	}
+bool led_update_kb(led_t led_state){
+  if(led_state.caps_lock){
+      rgblight_setrgb_at(145, 255, 0, 24);
+      rgblight_mode_noeeprom(0);
+  } else{
+      rgblight_sethsv_at(0, 0, 0, 24);
+  }
+    return true;
 }

@@ -4,6 +4,7 @@
 #
 CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
+NKRO_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = WS2812
