@@ -27,7 +27,7 @@
 #include "ch.h"
 #include <hal.h>
 
-#if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+#if defined(STM32F1XX) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F4XX) || defined(STM32L0xx) || defined(STM32L1xx)
 #    define USE_I2CV1
 #endif
 
@@ -60,6 +60,10 @@
 #    endif
 #    ifndef I2C1_DUTY_CYCLE
 #        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
+#    endif
+#    ifndef PAL_MODE_STM32_ALTERNATE_OPENDRAIN /* stm32f4 uses GPIOv2 */
+#        define I2C_PAL_MODE 4
+#        define PAL_MODE_STM32_ALTERNATE_OPENDRAIN PAL_MODE_ALTERNATE(I2C_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN
 #    endif
 #else
 // The default PAL alternate modes are used to signal that the pins are used for I2C
