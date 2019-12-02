@@ -869,7 +869,7 @@ void virtser_recv(uint8_t c) {
 void virtser_task(void) {
     uint16_t count = CDC_Device_BytesReceived(&cdc_device);
     uint8_t  ch;
-    if (count) {
+    for (; count; --count) {
         ch = CDC_Device_ReceiveByte(&cdc_device);
         virtser_recv(ch);
     }
