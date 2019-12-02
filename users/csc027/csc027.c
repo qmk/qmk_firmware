@@ -15,20 +15,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case LOWER:
             if(record->event.pressed) {
                 layer_on(_LW);
-                update_tri_layer(_LW, _RS, _MS);
             } else {
                 layer_off(_LW);
-                update_tri_layer(_LW, _RS, _MS);
             }
+            update_tri_layer(_LW, _RS, _MS);
             return false;
         case RAISE:
             if(record->event.pressed) {
                 layer_on(_RS);
-                update_tri_layer(_LW, _RS, _MS);
             } else {
                 layer_off(_RS);
-                update_tri_layer(_LW, _RS, _MS);
             }
+            update_tri_layer(_LW, _RS, _MS);
             return false;
         case GIT_ADD...MC_ATRD:
             if(record->event.pressed) {
