@@ -18,7 +18,7 @@ pulls:
     activity in the last 45 days. It will be closed in 30 days if no further activity occurs.
     Please feel free to give a status update now, or re-open when it's ready.
     
-    For maintainers: Please label with `awaiting review`, `breaking_change`, `in progress, or `on hold` to prevent 
+    For maintainers: Please label with `awaiting review`, `breaking_change`, `in progress`, or `on hold` to prevent 
     the issue from being re-flagged.
   # Comment to post when closing a stale Issue or Pull Request.
   closeComment: >
@@ -45,7 +45,7 @@ issues:
     last 90 days. It will be closed in the next 30 days unless it is tagged properly or other activity
     occurs.
     
-    For maintainers: Please label with `bug`, `in progress`, `on hold`, discussion` or `to do` to prevent 
+    For maintainers: Please label with `bug`, `in progress`, `on hold`, `discussion` or `to do` to prevent 
     the issue from being re-flagged.
   closeComment: >
     This issue has been automatically closed because it has not had activity in the last 30 days.
