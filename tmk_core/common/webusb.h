@@ -3,6 +3,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifndef FIRMWARE_VERSION
+#define FIRMWARE_VERSION u8"default"
+#endif
 #define WEBUSB_STOP_BIT -2
 #define WEBUSB_BLINK_STEPS 512
 #define WEBUSB_BLINK_END WEBUSB_BLINK_STEPS * 60
@@ -27,7 +30,7 @@ enum Webusb_Status_Code {
 
 enum Webusb_Command_Code {
     WEBUSB_CMD_PAIR,
-    WEBUSB_GET_LANDING_PAGE
+    WEBUSB_GET_FW_VERSION
 };
 
 enum Webusb_Event_Code {

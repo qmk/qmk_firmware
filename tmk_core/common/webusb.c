@@ -20,9 +20,9 @@ void webusb_receive(uint8_t *data, uint8_t length) {
         return;
     }
 
-    if(command == WEBUSB_GET_LANDING_PAGE) {
+    if(command == WEBUSB_GET_FW_VERSION) {
         // Landing page + packet headers(2) + stop bit(1)
-        uint8_t lp_size = sizeof(WEBUSB_LANDING_PAGE_URL) + 3;
+        uint8_t lp_size = sizeof(FIRMWARE_VERSION) + 3;
         uint8_t url[lp_size];
 
         uint8_t event[2];
@@ -33,8 +33,8 @@ void webusb_receive(uint8_t *data, uint8_t length) {
         stop[0] = WEBUSB_STOP_BIT;
 
         memcpy(url, event, 2);
-        memcpy(url + 2, WEBUSB_LANDING_PAGE_URL, sizeof(WEBUSB_LANDING_PAGE_URL));
-        memcpy(url + 2 + sizeof(WEBUSB_LANDING_PAGE_URL), stop, 1);
+        memcpy(url + 2, FIRMWARE_VERSION, sizeof(FIRMWARE_VERSION));
+        memcpy(url + 2 + sizeof(FIRMWARE_VERSION), stop, 1);
         webusb_send(url, lp_size);
         return;
     }
