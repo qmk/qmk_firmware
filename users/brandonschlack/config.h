@@ -21,8 +21,12 @@
 #endif
 
 /* Disable unused and unneeded features to reduce on firmware size */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#ifndef NO_ACTION_MACRO
+#   define NO_ACTION_MACRO
+#endif
+#ifndef NO_ACTION_FUNCTION
+#   define NO_ACTION_FUNCTION
+#endif
 
 #ifdef LOCKING_SUPPORT_ENABLE
 #    undef LOCKING_SUPPORT_ENABLE
