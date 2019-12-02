@@ -14,7 +14,6 @@
 
 #ifdef RGBLIGHT_ENABLE
   #define RGB_DI_PIN D0
-  #define RGBLIGHT_TIMER
   #define RGBLED_NUM 3
   #define RGBLIGHT_EFFECT_BREATHING
 #endif
