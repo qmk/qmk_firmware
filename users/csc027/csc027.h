@@ -9,8 +9,8 @@ enum custom_keycodes {
     RAISE,
 
     // Macro Keycodes
-    GIT_MACROS(GIT_ENUM, DROP, DROP, COMMA_DELIM),
-    CUSTOM_MACROS(CUSTOM_ENUM, DROP, COMMA_DELIM)
+    GIT_MACROS(GIT_ENUM, DROP, COMMA_DELIM),
+    CUSTOM_MACROS(CUSTOM_ENUM, COMMA_DELIM)
 };
 
 enum custom_layers {

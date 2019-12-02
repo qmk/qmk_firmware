@@ -85,15 +85,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ______________________RAISE_L1_____________________  KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,   KC_DLR,   KC_PERC
-#define ______________________RAISE_L2_____________________  _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,   KC_RCBR,  KC_CAPS
-#define ______________________RAISE_L3_____________________  _______,  KC_F1,    KC_F2,    KC_F3,     KC_F4,    KC_F5
-#define ______________________RAISE_L4_____________________  _______,  _______,  _______,  _______,   _______,  _______
+#define ______________________RAISE_L1_____________________  KC_TILD,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC
+#define ______________________RAISE_L2_____________________  _______,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_CAPS
+#define ______________________RAISE_L3_____________________  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5
+#define ______________________RAISE_L4_____________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ______________________RAISE_R1_____________________  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,   KC_RPRN,  KC_DELT
-#define ______________________RAISE_R2_____________________  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    XXXXXXX,  XXXXXXX
-#define ______________________RAISE_R3_____________________  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   _______
-#define ______________________RAISE_R4_____________________  _______,  _______,  _______,  _______,   XXXXXXX,  XXXXXXX
+#define ______________________RAISE_R1_____________________  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_DELT
+#define ______________________RAISE_R2_____________________  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   XXXXXXX,  XXXXXXX
+#define ______________________RAISE_R3_____________________  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______
+#define ______________________RAISE_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
 /* Lower Layer
  *
@@ -118,15 +118,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ______________________LOWER_L1_____________________  KC_GRV,   KC_1,     KC_2,     KC_3,      KC_4,     KC_5
-#define ______________________LOWER_L2_____________________  _______,  KC_MINS,  KC_EQL,   KC_LBRC,   KC_RBRC,  XXXXXXX
-#define ______________________LOWER_L3_____________________  _______,  KC_F11,   KC_F12,   XXXXXXX,   XXXXXXX,  XXXXXXX
-#define ______________________LOWER_L4_____________________  _______,  _______,  _______,  _______,   _______,  _______
+#define ______________________LOWER_L1_____________________  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5
+#define ______________________LOWER_L2_____________________  _______,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  XXXXXXX
+#define ______________________LOWER_L3_____________________  _______,  KC_F11,   KC_F12,   XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ______________________LOWER_L4_____________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ______________________LOWER_R1_____________________  KC_6,     KC_7,     KC_8,     KC_9,      KC_0,     KC_DELT
-#define ______________________LOWER_R2_____________________  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,   XXXXXXX,  XXXXXXX
-#define ______________________LOWER_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  _______
-#define ______________________LOWER_R4_____________________  _______,  _______,  _______,  _______,   XXXXXXX,  XXXXXXX
+#define ______________________LOWER_R1_____________________  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_DELT
+#define ______________________LOWER_R2_____________________  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXXXXXX,  XXXXXXX
+#define ______________________LOWER_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ______________________LOWER_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
 
 /* MIT Layout (Mouse)
@@ -144,15 +144,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ______________________MOUSE_L1_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX
-#define ______________________MOUSE_L2_____________________  _______,  XXXXXXX,  XXXXXXX,  KC_BTN1,   KC_BTN2,  XXXXXXX
-#define ______________________MOUSE_L3_____________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX
-#define ______________________MOUSE_L4_____________________  _______,  _______,  _______,  _______,   _______,  _______
+#define ______________________MOUSE_L1_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ______________________MOUSE_L2_____________________  _______,  XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX
+#define ______________________MOUSE_L3_____________________  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ______________________MOUSE_L4_____________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ______________________MOUSE_R1_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX
-#define ______________________MOUSE_R2_____________________  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,   XXXXXXX,  XXXXXXX
-#define ______________________MOUSE_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  _______
-#define ______________________MOUSE_R4_____________________  _______,  _______,  _______,  _______,   XXXXXXX,  XXXXXXX
+#define ______________________MOUSE_R1_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX
+#define ______________________MOUSE_R2_____________________  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,  XXXXXXX
+#define ______________________MOUSE_R3_____________________  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______
+#define ______________________MOUSE_R4_____________________  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX
 
 /* MIT Layout (Git)
  *
@@ -169,15 +169,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define _______________________GIT_L1______________________  XXXXXXX,  GIT_CHR,  GIT_SHW,  GIT_RBS,   GIT_RST,  GIT_TAG
-#define _______________________GIT_L2______________________  _______,  GIT_ADD,  GIT_STS,  GIT_DIF,   GIT_FTC,  GIT_GRP
-#define _______________________GIT_L3______________________  _______,  XXXXXXX,  XXXXXXX,  GIT_CMT,   GIT_MOV,  GIT_BRC
-#define _______________________GIT_L4______________________  _______,  _______,  _______,  _______,   _______,  _______
+#define _______________________GIT_L1______________________  XXXXXXX,    GIT_cherry_pick,  GIT_show,      GIT_rebase,  GIT_reset,  GIT_tag
+#define _______________________GIT_L2______________________  _______,    GIT_add,          GIT_status,    GIT_diff,    GIT_fetch,  GIT_grep
+#define _______________________GIT_L3______________________  _______,    XXXXXXX,          XXXXXXX,       GIT_commit,  GIT_mv,     GIT_branch
+#define _______________________GIT_L4______________________  _______,    _______,          _______,       _______,     _______,    _______
 
-#define _______________________GIT_R1______________________  XXXXXXX,  GIT_PUL,  GIT_INT,  GIT_RMT,   GIT_PSH,  XXXXXXX
-#define _______________________GIT_R2______________________  GIT_STH,  XXXXXXX,  GIT_CHK,  GIT_LOG,   XXXXXXX,  XXXXXXX
-#define _______________________GIT_R3______________________  XXXXXXX,  GIT_MRG,  XXXXXXX,  XXXXXXX,   XXXXXXX,  _______
-#define _______________________GIT_R4______________________  _______,  _______,  _______,  _______,   XXXXXXX,  XXXXXXX
+#define _______________________GIT_R1______________________  XXXXXXX,    GIT_pull,         GIT_init,      GIT_remote,  GIT_push,   XXXXXXX
+#define _______________________GIT_R2______________________  GIT_stash,  XXXXXXX,          GIT_checkout,  GIT_log,     XXXXXXX,    XXXXXXX
+#define _______________________GIT_R3______________________  XXXXXXX,    GIT_merge,        XXXXXXX,       XXXXXXX,     XXXXXXX,    _______
+#define _______________________GIT_R4______________________  _______,    _______,          _______,       _______,     XXXXXXX,    XXXXXXX
 
 
 /* MIT Layout (Convenience)
@@ -206,15 +206,15 @@
  * `-----------------------------------'  `-----------------------------------'
  */
 
-#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,   KC_PSCR,  XXXXXXX
-#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_LCAD,   MC_MRD7,  KC_NLCK
-#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  MC_ATRD,   MC_MRD8,  XXXXXXX
-#define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,   _______,  _______
+#define ___________________CONVENIENCE_L1__________________  XXXXXXX,  XXXXXXX,  KC_INS,   KC_SLCK,  KC_PSCR,  XXXXXXX
+#define ___________________CONVENIENCE_L2__________________  _______,  XXXXXXX,  KC_APP,   MC_LCAD,  MC_mrd7,  KC_NLCK
+#define ___________________CONVENIENCE_L3__________________  _______,  XXXXXXX,  XXXXXXX,  MC_atrd,  MC_mrd8,  XXXXXXX
+#define ___________________CONVENIENCE_L4__________________  _______,  _______,  _______,  _______,  _______,  _______
 
-#define ___________________CONVENIENCE_R1__________________  KC_PAST,  KC_P7,    KC_P8,    KC_P9,     KC_PMNS,  KC_BSPC
-#define ___________________CONVENIENCE_R2__________________  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,     KC_PPLS,  XXXXXXX
-#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  KC_P1,    KC_P2,    KC_P3,     KC_PENT,  _______
-#define ___________________CONVENIENCE_R4__________________  _______,  KC_P0,    KC_P0,    KC_PDOT,   XXXXXXX,  XXXXXXX
+#define ___________________CONVENIENCE_R1__________________  KC_PAST,  KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  KC_BSPC
+#define ___________________CONVENIENCE_R2__________________  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  XXXXXXX
+#define ___________________CONVENIENCE_R3__________________  XXXXXXX,  KC_P1,    KC_P2,    KC_P3,    KC_PENT,  _______
+#define ___________________CONVENIENCE_R4__________________  _______,  KC_P0,    KC_P0,    KC_PDOT,  XXXXXXX,  XXXXXXX
 
 /* Convenience macros
  *
@@ -223,17 +223,17 @@
 
 #define GET_MACRO(_0, _1, _2, _3, NAME, ...) NAME
 
-#define CUSTOM_VAR(VAR, X)                   VAR
+#define CUSTOM_VAR(VAR, X)                   mc_##VAR
 
-#define CUSTOM_DEF(VAR, X)                   const char VAR[] PROGMEM = X
+#define CUSTOM_DEF(VAR, X)                   const char CUSTOM_VAR(VAR, X)[] PROGMEM = X
 
-#define CUSTOM_ENUM(X)                       MC_##X
+#define CUSTOM_ENUM(VAR, X)                  MC_##VAR
 
 #define GIT_VAR(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_VAR3, GIT_VAR2, GIT_VAR1, GIT_VAR0)(__VA_ARGS__)
 #define GIT_VAR0()
 #define GIT_VAR1(X)                          git_##X
-#define GIT_VAR2(X, Y)                       git_##X_##Y
-#define GIT_VAR3(X, Y, Z)                    git_##X_##Y_##Z
+#define GIT_VAR2(X, Y)                       git_##X##_##Y
+#define GIT_VAR3(X, Y, Z)                    git_##X##_##Y##_##Z
 
 #define GIT_DEF(...)                         GET_MACRO(_0, ##__VA_ARGS__, GIT_DEF3, GIT_DEF2, GIT_DEF1, GIT_DEF0)(__VA_ARGS__)
 #define GIT_DEF0()
@@ -241,7 +241,11 @@
 #define GIT_DEF2(X, Y)                       const char GIT_VAR(X, Y)[] PROGMEM = "git "#X"-"#Y" "
 #define GIT_DEF3(X, Y, Z)                    const char GIT_VAR(X, Y, Z)[] PROGMEM = "git "#X"-"#Y"-"#Z" "
 
-#define GIT_ENUM(X)                          GIT_##X
+#define GIT_ENUM(...)                        GET_MACRO(_0, ##__VA_ARGS__, GIT_ENUM3, GIT_ENUM2, GIT_ENUM1, GIT_ENUM0)(__VA_ARGS__)
+#define GIT_ENUM0()
+#define GIT_ENUM1(X)                         GIT_##X
+#define GIT_ENUM2(X, Y)                      GIT_##X##_##Y
+#define GIT_ENUM3(X, Y, Z)                   GIT_##X##_##Y##_##Z
 
 #define PARAMS(...)                          GET_MACRO(_0, ##__VA_ARGS__, PARAMS3, PARAMS2, PARAMS1, PARAMS0)(__VA_ARGS__)
 #define PARAMS0()
@@ -260,30 +264,30 @@
  * declare strings in PROGMEM instead of in RAM.
  */
 
-#define GIT_MACROS(GIT_ENUM, GIT_CALL, GIT_PARAMS, GIT_DELIM) \
-    GIT_ENUM(ADD) GIT_CALL(add)          GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(BRC) GIT_CALL(branch)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(CHK) GIT_CALL(checkout)     GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(CHR) GIT_CALL(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(CMT) GIT_CALL(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
-    GIT_ENUM(DIF) GIT_CALL(diff)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(FTC) GIT_CALL(fetch)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(GRP) GIT_CALL(grep)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(LOG) GIT_CALL(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
-    GIT_ENUM(INT) GIT_CALL(init)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(MOV) GIT_CALL(mv)           GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(MRG) GIT_CALL(merge)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(PSH) GIT_CALL(push)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(PUL) GIT_CALL(pull)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(RBS) GIT_CALL(rebase)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(RMT) GIT_CALL(remote)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(RST) GIT_CALL(reset)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(SHW) GIT_CALL(show)         GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(STH) GIT_CALL(stash)        GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(STS) GIT_CALL(status)       GIT_PARAMS()                               GIT_DELIM() \
-    GIT_ENUM(TAG) GIT_CALL(tag)          GIT_PARAMS()
+#define GIT_MACROS(GIT_CALL, GIT_PARAMS, GIT_DELIM) \
+    GIT_CALL(add)          GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(branch)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(checkout)     GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(cherry, pick) GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(commit)       GIT_PARAMS("-m \"\""SS_TAP(X_LEFT))        GIT_DELIM() \
+    GIT_CALL(diff)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(fetch)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(grep)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(log)          GIT_PARAMS("--decorate --oneline --graph") GIT_DELIM() \
+    GIT_CALL(init)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(mv)           GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(merge)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(push)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(pull)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(rebase)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(remote)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(reset)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(show)         GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(stash)        GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(status)       GIT_PARAMS()                               GIT_DELIM() \
+    GIT_CALL(tag)          GIT_PARAMS()
 
-#define CUSTOM_MACROS(CUSTOM_ENUM, CUSTOM_CALL, CUSTOM_DELIM) \
-    CUSTOM_ENUM(MRD7) CUSTOM_CALL(mc_mrd7, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
-    CUSTOM_ENUM(MRD8) CUSTOM_CALL(mc_mrd8, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
-    CUSTOM_ENUM(ATRD) CUSTOM_CALL(mc_atrd, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t"))
+#define CUSTOM_MACROS(CUSTOM_CALL, CUSTOM_DELIM) \
+    CUSTOM_CALL(mrd7, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t ")         CUSTOM_DELIM() \
+    CUSTOM_CALL(mrd8, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))"\t\t\t ")     CUSTOM_DELIM() \
+    CUSTOM_CALL(atrd, SS_LCTRL(SS_LALT(SS_TAP(X_HOME)))SS_LALT("\t"))
