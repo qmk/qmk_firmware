@@ -80,6 +80,15 @@ static void keyboard_master_setup(void) {
 #    ifdef SSD1306OLED
     matrix_master_OLED_init();
 #    endif
+#    if defined(NO_RIGHT_HALF_EXT_I2C_PULLUPS)
+    // Set internal pullups on I2C pins
+    if (!isLeftHand) {
+#        if defined(__AVR__)
+        setPinInputHigh(D0);
+        setPinInputHigh(D1);
+#        endif
+    }
+#    endif
 #endif
     transport_master_init();
 }
