@@ -121,7 +121,7 @@ qmk flash -b
 
 ## `qmk config`
 
-このコマンドにより QMK の挙動を設定することができます完全な `qmk config` ドキュメントについては、[CLI 設定](cli_configuration.md)を見てください。
+このコマンドにより QMK の挙動を設定することができます完全な `qmk config` ドキュメントについては、[CLI 設定](ja/cli_configuration.md)を見てください。
 
 **使用法**:
 
