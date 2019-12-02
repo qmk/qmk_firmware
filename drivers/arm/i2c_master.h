@@ -51,6 +51,22 @@
 #    define I2C1_SDA 7
 #endif
 
+#if defined(STM32F4XX) || defined (STM32F3XX)
+#    ifndef USE_GPIOV2
+#        define USE_GPIOV2
+#    endif
+#endif
+
+#ifdef USE_GPIOV2
+// The default PAL alternate modes are used to signal that the pins are used for I2C
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE 4
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE 4
+#    endif
+#endif
+
 #ifdef USE_I2CV1
 #    ifndef I2C1_OPMODE
 #        define I2C1_OPMODE OPMODE_I2C
@@ -61,19 +77,7 @@
 #    ifndef I2C1_DUTY_CYCLE
 #        define I2C1_DUTY_CYCLE STD_DUTY_CYCLE /* FAST_DUTY_CYCLE_2 */
 #    endif
-#    ifndef PAL_MODE_STM32_ALTERNATE_OPENDRAIN /* stm32f4 uses GPIOv2 */
-#        define I2C_PAL_MODE 4
-#        define PAL_MODE_STM32_ALTERNATE_OPENDRAIN PAL_MODE_ALTERNATE(I2C_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN
-#    endif
 #else
-// The default PAL alternate modes are used to signal that the pins are used for I2C
-#    ifndef I2C1_SCL_PAL_MODE
-#        define I2C1_SCL_PAL_MODE 4
-#    endif
-#    ifndef I2C1_SDA_PAL_MODE
-#        define I2C1_SDA_PAL_MODE 4
-#    endif
-
 // The default timing values below configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 #    ifndef I2C1_TIMINGR_PRESC
