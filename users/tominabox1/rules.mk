@@ -4,6 +4,7 @@
 #
 CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = full      # Virtual DIP switch configuration
+NKRO_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
 RGB_MATRIX_ENABLE = WS2812
@@ -31,8 +32,6 @@ endif
 ifeq ($(strip $(KEYBOARD)), thevankeyboards/minivan)
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes        # Audio control and System control
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
-RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 SRC += tominabox1.c
