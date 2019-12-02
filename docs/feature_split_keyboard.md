@@ -128,7 +128,7 @@ Because not every split keyboard is identical, there are a number of additional 
 #define USE_I2C
 ```
 
-This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C-based devices. 
+This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C-based devices. Also add the `NO_RIGHT_HALF_EXT_I2C_PULLUPS` define (described below) if the right half of the board does not have I2C pullup resistors on it.
 
 ```c
 #define SOFT_SERIAL_PIN D0
@@ -201,6 +201,12 @@ This option changes the startup behavior to detect an active USB connection when
 #define SPLIT_USB_TIMEOUT 2500
 ```
 This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
+
+```c
+#define NO_RIGHT_HALF_EXT_I2C_PULLUPS
+```
+
+This turns on the internal pullup resistors on the I2C pins if the right half does not have external pullup resistors, so that the right half can operate on its own without delays. Most boards will need this option to be enabled. Leave this define out if the right half does have pullup resistors on the I2C pins.
 
 ## Additional Resources
 
