@@ -134,11 +134,12 @@ the home position.  Unused keys are available for other related functions.
 *** Media (MEDR)
 
 Tertiary RH layer is media control, with volume up / down and next / prev
-mirroring the navigation keys.  Pause, stop and mute are on thumbs.  Unused keys
-are available for other related functions.
+mirroring the navigation keys.  Pause, stop and mute are on thumbs.  RGB control
+is on the top row (combine with shift to invert). Unused keys are available for
+other related functions.
 
 #+NAME: medr
-|      |      |      |      |      |
+| TOG  | MOD  | HUI  | SAI  | VAI  |
 |      | MPRV | VOLD | VOLU | MNXT |
 |      |      |      |      |      |
 | MSTP | MPLY | MUTE | NP   | NP   |
@@ -413,7 +414,14 @@ Contains the keymap.  Included from keymap.c
 #define KC_NP KC_NO // key is not present
 #define KC_NA KC_NO // present but not available for use
 #define KC_NU KC_NO // available but not used
+
+// non-KC_ keycodes
 #define KC_RST RESET
+#define KC_TOG RGB_TOG
+#define KC_MOD RGB_MOD
+#define KC_HUI RGB_HUI
+#define KC_SAI RGB_SAI
+#define KC_VAI RGB_VAI
 
 <<table-enums()>>
 
@@ -463,6 +471,7 @@ Build options.  Automatically included.
 
 MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes        # Audio control and System control(+450)
+
 
 #+END_SRC
 
@@ -561,10 +570,11 @@ To use the keymap on a keyboard which does not support the layouts feature,
 LAYOUT_miryoku is defined as a macro mapping onto the keyboard's own LAYOUT
 macro, leaving the unused keys as KC_NO.  The userspace keymap is then included.
 
-
 *** crkbd
 
 The outer columns are unused.
+
+**** keymap.c
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c][keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c]]
 #+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
@@ -588,10 +598,48 @@ KC_NO, K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   KC_
 
 #+END_SRC
 
+
+**** config.h
+
+[[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h][keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h]]
+#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
+
+// <<header>>
+
+#pragma once
+
+#define EE_HANDS
+
+#ifdef RGB_MATRIX_ENABLE
+#define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+#define RGB_MATRIX_HUE_STEP 8
+#define RGB_MATRIX_SAT_STEP 8
+#define RGB_MATRIX_VAL_STEP 8
+#define RGB_MATRIX_SPD_STEP 10
+#endif
+
+#+END_SRC
+
+
+**** rules.mk
+
+[[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk][keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk]]
+#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk
+
+# <<header>>
+
+RGB_MATRIX_ENABLE = WS2812
+
+#+END_SRC
+
+
 To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
-cd ../.. && make crkbd:manna-harbour_miryoku:avrdude
+cd ../.. && make crkbd:manna-harbour_miryoku:flash
 #+END_SRC
 
 

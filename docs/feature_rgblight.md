@@ -48,12 +48,12 @@ Changing the **Value** sets the overall brightness.<br>
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
 |`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
 |`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue                                                        |
-|`RGB_HUD`          |          |Decrease hue                                                        |
-|`RGB_SAI`          |          |Increase saturation                                                 |
-|`RGB_SAD`          |          |Decrease saturation                                                 |
-|`RGB_VAI`          |          |Increase value (brightness)                                         |
-|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
+|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
+|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
+|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
+|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
+|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
 |`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
 |`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
 |`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |

@@ -10,6 +10,16 @@ SOLUS_INFO="Your tools are now installed. To start using them, open new terminal
 
 util_dir=$(dirname "$0")
 
+# For those distros that do not package bootloadHID
+install_bootloadhid() {
+    wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz -O - | tar -xz -C /tmp
+    cd /tmp/bootloadHID.2012-12-08/commandline/
+    if make; then
+        sudo cp bootloadHID /usr/local/bin
+    fi
+    cd -
+}
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -28,6 +38,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		glibc-headers \
 		kernel-devel \
 		kernel-headers \
+		libusb-devel \
 		make \
 		perl \
 		python3 \
@@ -54,7 +65,9 @@ elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 		gcc-avr \
 		git \
 		libnewlib-arm-none-eabi \
+		libusb-dev \
 		python3 \
+		python3-pip \
 		unzip \
 		wget \
 		zip
@@ -70,12 +83,14 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-libc \
 		avr-gcc \
 		base-devel \
+		bootloadhid \
 		clang \
 		dfu-programmer \
 		dfu-util \
 		diffutils \
 		gcc \
 		git \
+		libusb-compat \
 		python \
 		python-pip \
 		unzip \
@@ -138,6 +153,7 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		dfu-tool \
 		dfu-programmer \
 		gcc \
+		libusb-devel \
 		python3 \
 		unzip \
 		wget \
@@ -177,6 +193,7 @@ elif grep ID /etc/os-release | grep -q solus; then
 		avrdude \
 		dfu-util \
 		dfu-programmer \
+		libusb-devel \
 		python3 \
 		git \
 		wget \
@@ -214,4 +231,5 @@ else
 fi
 
 # Global install tasks
+install_bootloadhid
 pip3 install --user -r ${util_dir}/../requirements.txt
