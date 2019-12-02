@@ -1,5 +1,8 @@
 #pragma once
 
+#define TAPPING_TERM 505
+#define RETRO_TAPPING
+
 // smooth mousekeys (copied from the ergo ez config)
 #ifdef MOUSEKEY_ENABLE
   #define MOUSEKEY_INTERVAL 16
