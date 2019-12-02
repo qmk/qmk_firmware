@@ -7,6 +7,8 @@
 
 http://www.keyboard-layout-editor.com/#/gists/b19ee1c251c908d9b5ef76965d588937
 
+![Visual Keymap](dz60-v6-0-0.jpg)
+
 ### Todo
 
 - is there a way on the gaming layer to ignore escape if tapped? Helpful links below.
