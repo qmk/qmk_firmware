@@ -74,8 +74,13 @@ Work in progress ...
 
   ⮚ When the left led is white: normal mode.
   ⮚ Right led white: full descramble mode (Linux Unicode input).
+<<<<<<< HEAD
   ⮚ Middle led white: half descramble mode, with normal Unicode input system.
 **FIXME: half-descramble is not finished.**
+=======
+**FIXME: not finished, half mode does not work yet.**
+  ⮚ Middle led white: half descramble mode, with normal Unicode input system.
+>>>>>>> cd4e54499d9a8a88fc868c5c97877ba297c6d4e2
 
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
