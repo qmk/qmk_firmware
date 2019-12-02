@@ -4,18 +4,18 @@
 
 ## 基本的な QMK の構造
 
-QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com/tmk/tmk_keyboard) プロジェクトのフォークです。変更された元の TMK コードは、`tmk` フォルダで見つけることができます。プロジェクトへの QMK の追加は、`quantum` フォルダで見つけることができます。キーボード プロジェクトは `handwired` および `keyboard` フォルダで見つけることができます。
+QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com/tmk/tmk_keyboard) プロジェクトのフォークです。変更された元の TMK コードは、`tmk` フォルダで見つけることができます。プロジェクトへの QMK の追加は、`quantum` フォルダで見つけることができます。キーボードプロジェクトは `handwired` および `keyboard` フォルダで見つけることができます。
 
 ### ユーザスペースの構造
 
 `users` フォルダ内は各ユーザのためのディレクトリです。これはユーザがキーボード間で使うかもしれないコードを置くためのフォルダです。詳細は[Userspace feature](ja/feature_userspace.md) のドキュメントを見てください。
 
-### キーボード プロジェクトの構造
+### キーボードプロジェクトの構造
 
 `keyboards` フォルダ内には、サブフォルダ `handwired` と、そのベンダと製品のサブディレクトリがあります。例えば、`clueboard` は各キーボードプロジェクトのためのディレクトリです。例えば、`qmk_firmware/keyboards/clueboard/2x1800`。その中には、以下の構造があります:
 
 * `keymaps/`: ビルドできる様々なキーマップ
-* `rules.mk`: デフォルトの "make" オプションを設定するファイルこのファイルを直接編集しないでください。代わりにキーマップ固有の `rules.mk` を使ってください。
+* `rules.mk`: デフォルトの "make" オプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `rules.mk` を使ってください。
 * `config.h`: デフォルトのコンパイル時のオプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `config.h` を使ってください。
 * `info.json`: QMK Configurator のためのレイアウトの設定に使われるファイル。詳細は[Configurator サポート](ja/reference_configurator_support.md)を見てください。
 * `readme.md`: キーボードの簡単な概要
@@ -36,7 +36,7 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 
 # `config.h` ファイル
 
-3つの`config.h`の場所が考えられます:
+3つの `config.h` の場所が考えられます:
 
 * キーボード (`/keyboards/<keyboard>/config.h`)
 * ユーザスペース (`/users/<user>/config.h`)
