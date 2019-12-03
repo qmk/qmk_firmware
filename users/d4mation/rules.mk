@@ -1,7 +1,7 @@
 SRC += d4mation.c
 
 BOOTMAGIC_ENABLE = no
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
