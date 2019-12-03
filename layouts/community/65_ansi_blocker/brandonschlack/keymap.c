@@ -19,7 +19,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base Layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
- * │Es`│! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│_ -│+ =│ Bckspc│Hom│
+ * │`Es│! 1│@ 2│# 3│$ 4│% 5│^ 6│& 7│* 8│( 9│) 0│_ -│+ =│ Bckspc│Hom│
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
  * │Tab  │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │{ [│} ]│|   \│PgU│
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
@@ -39,43 +39,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Function Layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
- * │Mke│ F1│ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│F12│   Del │SlD│
+ * │Mke│ F1│ F2│ F3│ F4│ F5│ F6│ F7│ F8│ F9│F10│F11│F12│ Delete│SlD│
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
- * │     │   │   │   │RST│   │   │   │   │   │F13│F14│F15│ LHP │VlU│
+ * │RMod │RH+│RS+│RV+│AS+│   │   │   │   │   │F13│F14│F15│ LHP │VlU│
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
- * │      │   │   │   │   │   │   │   │   │   │   │   │ Adjust │VlD│
+ * │RTgl  │RH-│RS-│RV-│AS-│   │   │   │   │   │   │   │        │VlD│
  * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
- * │        │RTO│   │   │   │   │   │   │   │   │   │      │PgU│Mut│
+ * │        │LYR│Thm│   │   │RST│   │   │Prv│Nxt│Ply│      │PgU│Mut│
  * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
  * │    │    │    │                        │    │    │ │Hom│PgD│End│
  * └────┴────┴────┴────────────────────────┴────┴────┴─┴───┴───┴───┘
  */
 [_FN] = LAYOUT_65_ansi_blocker( \
     QM_MAKE, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DELT, MC_SLPD, \
-    _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_VOLU, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          TG_ADJT, KC_VOLD, \
-    _______,          RGB_TOG, _______, _______, _______, _______, _______, _______, KC_MRWD, KC_MFFD, KC_MPLY, _______, KC_PGUP, KC_MUTE, \
+    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, _______, _______, _______, _______, _______, KC_F13,  KC_F14,  KC_F15,  MC_LHPD, KC_VOLU, \
+    RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD, \
+    _______,          RGB_LYR, RGB_THM, _______, _______, RESET,   _______, _______, KC_MRWD, KC_MFFD, KC_MPLY, _______, KC_PGUP, KC_MUTE, \
     _______, _______, _______,                            _______,                   _______, _______,          KC_HOME, KC_PGDN, KC_END   \
-),
-/* Adjust Layer
- * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
- * │RST│   │   │   │   │   │   │   │   │   │   │   │   │       │   │
- * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
- * │RMod │RH+│RS+│RV+│AS+│   │   │   │   │   │   │   │   │     │   │
- * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
- * │      │RH-│RS-│RV-│AS-│   │   │   │   │   │   │   │ Adjust │   │
- * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
- * │        │RTO│LYR│Thm│   │   │   │   │   │   │   │      │   │   │
- * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
- * │    │    │    │                        │    │    │ │   │   │   │
- * └────┴────┴────┴────────────────────────┴────┴────┴─┴───┴───┴───┘
- */
-[_ADJUST] = LAYOUT_65_ansi_blocker( \
-    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJT, XXXXXXX, \
-    _______,          RGB_TOG, RGB_LYR, RGB_THM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, \
-    _______, _______, _______,                            XXXXXXX,                   _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX  \
 ),
 /* Blank Layout
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
