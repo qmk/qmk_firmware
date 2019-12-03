@@ -67,7 +67,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ) {
 
       if ( record->event.pressed ) {
         
-        tap_code16( S( KC_9 ) ); // Head
+        tap_code16( S( KC_9 ) );                            /* Head */
         process_unicode( ( 0x2229|QK_UNICODE ), record );   /* Hand */
         tap_code( KC_SPC );
         process_unicode( ( 0x0361|QK_UNICODE ), record );   /* Eyebrow */
