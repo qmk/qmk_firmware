@@ -1198,7 +1198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //                                        | Right hand
 // <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-// -*-                                   <|>                                       // Access from all other layers -*!- there
+// -o-                                   <|>                              ...      // Access from all other layers -o- there
 // Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp     //" ((syntax highlighting fix))
 // Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
 // LSft     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSft

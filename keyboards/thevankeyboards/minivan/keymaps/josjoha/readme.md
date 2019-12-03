@@ -95,13 +95,12 @@ Work in progress ...
      Layer _LTR (LeTteRs, standard Dvorak)
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
-     -o-                                   <|>                                         // -o- BASE access
+     -o-                                   <|>                              ...        // -o- BASE access
      Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
      Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_DRA               // _XYZ is to layer
-                              ...      <|>                                  // Activation on _FUN as BASE
                hold     hold  hold      |        hold toggl   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
@@ -244,7 +243,7 @@ Work in progress ...
 
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
-                                           <|>                              -*-         // Access on _FUN
+     -o-                                   <|>                              ...        // -o- BASE access
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
