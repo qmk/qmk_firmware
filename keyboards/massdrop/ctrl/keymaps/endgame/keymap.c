@@ -261,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 tap_code16(KC_BTN1);
                 tap_code16(KC_BTN1);
-                SEND_STRING(SS_LCTRL("c"));
+                tap_code16(C(KC_C));
             }
             return false;
         case ROUT_TG:
