@@ -23,7 +23,7 @@ typedef void (*rgb_func_pointer)(void);
  * 
  * noinline to optimise for firmware size not speed (not in hot path) 
  */
-void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
+static void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const rgb_func_pointer inc_func, const rgb_func_pointer dec_func) {
     if (is_shifted) {
         dec_func();
     } else {
@@ -38,7 +38,7 @@ void __attribute__((noinline)) handleKeycodeRGB(const uint8_t is_shifted, const 
  * 
  * noinline to optimise for firmware size not speed (not in hot path) 
  */
-void __attribute__((noinline)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
+static void __attribute__((noinline)) handleKeycodeRGBMode(const uint8_t start, const uint8_t end) {
     if ((start <= rgblight_get_mode()) && (rgblight_get_mode() < end)) {
         rgblight_step();
     } else {
