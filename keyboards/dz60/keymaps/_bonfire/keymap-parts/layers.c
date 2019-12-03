@@ -15,6 +15,13 @@
  * XXXXXXX = Key does nothing.
  * _______ = Key that allows the uppermost exposed key in a layer below it.
 */
+
+#define BASE    0   // Layer: QWERTY / Base
+#define NRMN    1   // Layer: Norman
+#define GAME    2   // Layer: Game
+#define FCTN    3   // Layer: Function
+#define KEYB    4   // Layer: Keyboard
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /**
@@ -51,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Moves the escape key from the left to the right side of the keyboard for gaming.
      */
     [GAME] = LAYOUT__bonfire(
-        KC_ESC,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        ALT_TAB, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        HLD_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______
     ),
@@ -66,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Modifiers and such to basic keys, but with basic key functions.
      */
     [FCTN] = LAYOUT__bonfire(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
         _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,  _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
         KC_CAPS, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,  _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______,
         _______, KC_SLEP, KC_WAKE, _______, _______, _______,  _______, _______, KC_DEL,  KC_END,  KC_PGDN, _______, _______,

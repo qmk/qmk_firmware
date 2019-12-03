@@ -1,3 +1,14 @@
+/**
+ * Cool Function where a single key does ALT+TAB
+ * From: https://beta.docs.qmk.fm/features/feature_macros#super-alt-tab
+ */
+bool is_alt_tab_active = false;    // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;        // we will be using them soon.
+
+enum custom_keycodes {            // Make sure have the awesome keycode ready 
+  ALT_TAB = SAFE_RANGE,
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {               // This will do most of the grunt work with the keycodes.
     case ALT_TAB:
@@ -24,18 +35,3 @@ void matrix_scan_user(void) {     // The very important timer.
     }
   }
 }
-
-/**
- * Key Mods Function
- *
- * This turns 3d, 4b, 4d and 4e into arrow keys when tapped,
- * and RSFT, RCTL, RGUI and HYPR, respectively.
- *
- * @DEPRECATED -- view: https://docs.qmk.fm/#/custom_quantum_functions
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
-    [1] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_DOWN),
-    [2] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_LEFT),
-    [3] = ACTION_MODS_TAP_KEY(MOD_HYPR, KC_RIGHT),
-};

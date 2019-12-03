@@ -1,17 +1,13 @@
 #include QMK_KEYBOARD_H
 
 /**
- * Each layer gets a name for readability.
- *
+ * Bonfire Layout
  * v6.1.0
+ * @author Ethan Beyer
+ *
  * 
+ * Keymap Parts
  */
-#define BASE    0   // Layer: QWERTY / Base
-#define NRMN    1   // Layer: Norman
-#define GAME    2   // Layer: Game
-#define FCTN    3   // Layer: Function
-#define KEYB    4   // Layer: Keyboard
-
-#include "keymap-defs.c"
-#include "keymap-layers.c"
-#include "keymap-functions.c"
+#include "keymap-parts/custom-keycodes.c"
+#include "keymap-parts/global-functions.c"
+#include "keymap-parts/layers.c"
