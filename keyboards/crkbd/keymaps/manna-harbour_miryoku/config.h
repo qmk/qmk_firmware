@@ -15,3 +15,5 @@
 #define RGB_MATRIX_VAL_STEP 8
 #define RGB_MATRIX_SPD_STEP 10
 #endif
+
+#define SSD1306OLED // old oled driver
