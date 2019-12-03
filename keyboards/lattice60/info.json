@@ -1,9 +1,9 @@
 {
     "keyboard_name": "lattice60",
     "url": "",
-    "maintainer": "Ethan Durrant",
-    "width": 3,
-    "height": 2,
+    "maintainer": "emdarcher",
+    "width": 8,
+    "height": 8,
     "layouts": {
         "LAYOUT": {
             "layout": [

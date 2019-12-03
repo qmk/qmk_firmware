@@ -17,4 +17,3 @@
 #pragma once
 
 // place overrides here
-#define GRAVE_ESC_ALT_OVERRIDE
