@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#ifndef COLORLICE_H
 #define COLORLICE_H
 
 #include "quantum.h"
