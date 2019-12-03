@@ -69,14 +69,14 @@ Work in progress ...
   variant when in 'descramble' mode. The same is the case for the base
   layers `_LTR` (normal) and `_DDL` (descramble).
 
-  Activation: go to `_FUN` layer, touch the key to the left of how you
-  got to that layer. This cycles through the descramble modes.
+  Activation: go to `_FUN` layer, touch the upper/left key (Backspace 
+  on base layer). This cycles through the descramble modes.
 
   ⮚ When the left led is white: normal mode.
   ⮚ Right led white: full descramble mode (Linux Unicode input).
   ⮚ Middle led white: half descramble mode, with normal Unicode input system.
   ⮚ Middle led white: half descramble mode, with normal Unicode input system.
-**FIXME: half-descramble is not finished.**
+**FIXME: half-descramble does not work yet.**
 
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
@@ -128,17 +128,17 @@ Work in progress ...
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
+     toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -*-                    <|>                                         // Access -*- _FUN
-     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   xxx        //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
-     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
-     --------------------------------------------------------------------
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft !Descramble BASE   RAlt         // ! sets 'descramble' mode
-           LSft    LAlt    LAlt  | &LAlt      (cycles)                    
+     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     // ... ! 'descramble'
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft
+     ----------------------------------------------------------
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
+           LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
-                                <|>                       -*-                           // Acces -*- base
-     <1    <2      <3      <4    | 4>         3>          2>     1>       
+                                <|>                 -*-                                 // Acces -*- base
+     <1    <2      <3      <4    | 4>         3>    2>     1>                
 
 - - -
     
@@ -180,8 +180,8 @@ Work in progress ...
      BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-     ----------------------------------------------------------
-     Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+Alt
+     -----------------------------------------------------------
+     Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+RAlt
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
@@ -215,7 +215,7 @@ Work in progress ...
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      ---------------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
                                <|>                                              
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 

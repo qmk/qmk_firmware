@@ -668,7 +668,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
 	    // Re-instated ...
-	   // /* Crude but self contained shift detection. Replaced by using get_mods()
+	   // /* Crude but self contained shift detection.
         // Record state of shift
         // ... left shift
         case KC_LSFT:
@@ -1316,7 +1316,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
 // Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
 // LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
-// -------------------------------------------------------------
+// --------------------------------------------------------
 // Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
 //                       -*-<|>
 // <1        <2    <3    <4  | 4>    3>    2>    1>  
@@ -1392,8 +1392,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
 // Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
 // -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-// ----------------------------------------------------------
-// Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+Alt
+// -----------------------------------------------------------
+// Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+RAlt
 //                              <|>
 // <1        <2    <3       <4   | 4>   3>    2>    1>  
 //
@@ -1519,7 +1519,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
 // LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
 // ---------------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
@@ -1553,7 +1553,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
 // LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
 // ---------------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   RAlt+Right
+// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
@@ -1586,26 +1586,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Layer _FUN (F-keys, Layer access, Set BASE key direction)
 //
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-// toggl toggl toggl toggl toggl toggl | toggl toggl             toggl toggl    // Type of layer switch
+// toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   xxx        //':' are dynamic ...
-// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10   RCtl
-// LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20   RSft
-// --------------------------------------------------------------------
-// LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft !Descramble BASE   RAlt         // ! sets 'descramble' mode
-//       LSft    LAlt    LAlt  | &LAlt      (cycles)                    
+// BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     // ... ! 'descramble'
+// LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft
+// ----------------------------------------------------------
+// LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
+//       LSft    LAlt    LAlt  | &LAlt                                     
 //       +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
-//                            <|>                       -*-                           // Acces -*- base
-// <1    <2      <3      <4    | 4>         3>          2>     1>       
+//                            <|>                 -*-                                 // Acces -*- base
+// <1    <2      <3      <4    | 4>         3>    2>     1>                
 //
 //
-//      <pink2      , <pinky      , <ring       , <middl      , <index      , <indx2     |, indx2>      , index>      , middl>      , ring>       , pinky>      , pink2>      ,
-//                  ,             , -*-         ,             ,             ,           <|,>            ,             ,             ,             ,             ,             ,
-        CTO_BASE    , CTO_NUMS    , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE    , CTO_DRAW    , XXXXXXX     , XXXXXXX     , XXXXXXX     , XXXXXXX     ,
-        KC_LCTL     , KC_F1       , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F6       , KC_F7       , KC_F8       , KC_F9       , KC_F10      , KC_RCTL     ,
-        KC_LSFT     , KC_F11      , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F16      , KC_F17      , KC_F18      , KC_F19      , KC_F20      , KC_RSFT     ,
+//      <pink2   , <pinky   , <ring       , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
+//               ,          , -*-         ,             ,             ,           <|,>         ,          ,         ,         ,         ,               ,
+        CTO_BASE , CTO_NUMS , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
+        KC_LCTL  , KC_F1    , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
+        KC_LSFT  , KC_F11   , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , BASE_DESCRMBL , CTO_BASE , KC_RALT
+        KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , CTO_BASE , KC_RALT
 //              ,                                     ,                                      ,                                    <|,>                                                ,               , -*-      ,
 //      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>            , 2>       , 1>
                       ),
