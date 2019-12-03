@@ -2,7 +2,7 @@
  * Key Mods Function
  *
  * This turns 3d, 4b, 4d and 4e into arrow keys when tapped,
- * and RSFT, RCTL, RGUI and HYPR, respectively.
+ * and RSFT, RCTL, RGUI and HYPR when held.
  *
  * @DEPRECATED -- view: https://docs.qmk.fm/#/custom_quantum_functions
  */
