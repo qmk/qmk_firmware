@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0000
-#define DEVICE_VER 0x0002
+#define VENDOR_ID           0xFEED
+#define PRODUCT_ID          0x0000
+#define DEVICE_VER          0x0002
 #define MANUFACTURER        emdarcher
 #define PRODUCT             Navi10
-#define DESCRIPTION         A Navigation cluster Macropad with retro Sci-Fi vibes.
+#define DESCRIPTION         A simple and fun navigation cluster macropad with exposed components.
 
 /* key matrix size */
 #define MATRIX_ROWS 4

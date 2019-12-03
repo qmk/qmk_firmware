@@ -2,11 +2,11 @@
 
 ![navi10](imgur.com image replace me!)
 
-A simple Navigation Cluster Macropad with retro Sci-Fi vibes. 
+A simple and fun navigation cluster macropad with exposed components.
 
 Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
 Hardware Supported: Navi10  
-Hardware Availability: links to where you can find this hardware  
+Hardware Availability: [KeyHive](https://www.keyhive.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
 
