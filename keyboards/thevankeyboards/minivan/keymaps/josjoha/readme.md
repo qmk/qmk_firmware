@@ -15,8 +15,6 @@ from ../jetpacktuxedo/ keymap.
 
 Work in progress ... 
    Todo: 
-   - Descramble with normal Unicode layers not finished:
-      ... need to make costum LT switch for `_DDL` layer. 
    - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
    - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
    
@@ -75,8 +73,6 @@ Work in progress ...
   ⮚ When the left led is white: normal mode.
   ⮚ Right led white: full descramble mode (Linux Unicode input).
   ⮚ Middle led white: half descramble mode, with normal Unicode input system.
-  ⮚ Middle led white: half descramble mode, with normal Unicode input system.
-**FIXME: half-descramble does not work yet.**
 
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
@@ -163,7 +159,7 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                                    // on _FUN
      BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
-     Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+     xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
      xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
@@ -197,7 +193,7 @@ Work in progress ...
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
      LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-               -*-             <|>                  -*-                                        // on BASE
+               -*-             <|>                                                             // on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -215,8 +211,8 @@ Work in progress ...
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      ---------------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
-                               <|>                                              
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+                               <|>                  -*-                         
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -246,16 +242,18 @@ Work in progress ...
 
      Layer _DDL (Dvorak descramble mode for letters)
 
-     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     -o-                                   <|>                              -*-     // -o- BASE, -*- _FUN
-     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp          // row 4,  raw
-     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"          // row 3,  raw
-     LSht     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSht          // row 2,  raw
-     -------------------------------------------------------------------
-     Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD           
-                                       <|>...                               // Activation on _FUN as BASE
-               hold     hold  hold      |       hold toggl   hold
-     <1        <2       <3    <4        | 4>    3>   2>      1>
+                                            | Right hand
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
+                                           <|>                              -*-         // Access on _FUN
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
+     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
+     ------------------------------------------------------------------
+     Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD        // _XYZ are layer switches
+               or:+_ACC                <|>                   or:+_DRA        // When in 'half descramble'
+               hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
+     <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
+
 
 
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:

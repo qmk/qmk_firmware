@@ -24,11 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Todo:
  *
- *  - Add a third mode, middle led white, for combining _ACC and _DRA with _DDL, 
- *    because the Unicode input modes on the other platforms might be the same
- *    whether Dvorak is set or not. Another option is to ignore _DDA and _DDD
- *    when the Unicode input mode is not Linux (harder to do).
- *  ... need to make costum LT switch for _DDL layer. 
+   - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
+   - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
  */
 
 #include QMK_KEYBOARD_H
@@ -36,7 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Layer switch TT(layer) tapping amount to make it toggle
 //#define TAPPING_TOGGLE 2
 
-#define PRESCRAMBLED_U "f"  // This is the letter 'u' for Unicode input, as effective on a computer set to Dvorak
+#define PRESCRAMBLED_U "f"  // This is the letter 'u' for Unicode input, as effective on GNU/Debian/Linux 10 set to Dvorak
+static uint16_t key_timer; // Used in _DDL to differentiate layer switching in half or full descramble mode.
+                           // In 'full' mode it goes to _DDD and _DDA Unicode layers, in 'half' mode to _DRA and _ACC.
 
 extern keymap_config_t keymap_config;
 
@@ -84,11 +83,11 @@ extern keymap_config_t keymap_config;
 #define _FULL_ 2
 short descramble = _NORMAL_; // to remember if we are in descramble mode for 'escape'ing out of layers to the right base
                       // There are three modes: 0 for everything normal, 1 for descramble for letters and number/symbols,
-		      // .. but with the normal unicode layers, and 2 for all in descramble mode, where the Unicode
-		      // .. coding is for a Linux system (shift-control-U + HEX input).
-		      // The 1 mode is added, for systems where the Unicode input might work the same whether or not
-		      // .. the computer is already set to Dvorak. (This is untested as far as the result on  those
-		      // .. systems XXX.)
+                      // .. but with the normal unicode layers, and 2 for all in descramble mode, where the Unicode
+                      // .. coding is for a Linux system (shift-control-U + HEX input).
+                      // The 1 mode is added, for systems where the Unicode input might work the same whether or not
+                      // .. the computer is already set to Dvorak. (This is untested as far as the result on  those
+                      // .. systems XXX.)
 
 //* Shift detection
 // * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
@@ -403,8 +402,8 @@ enum custom_keycodes {
     CTO_REVE,
     CTO_ACCE,
     CTO_DRAW,
-    CTMP_ACCE,
-    CTMP_DRAW,
+    CHOLTAP_ACCE,
+    CHOLTAP_DRAW,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
@@ -560,8 +559,8 @@ void indicate_scramble (void)
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Layer switching:
     switch (keycode) {
-	//   Setting the descramble mode
-	/*  // Discontinued for keyspace
+        //   Setting the descramble mode
+        /*  // Discontinued for keyspace
         case BASE_NORMAL: // User wants to switch to normal input BASE key pointing 
             if (record->event.pressed) {
                 ;
@@ -572,7 +571,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;           
         case BASE_DD_HAlF: // User wants to switch to descramble BASE key pointing, but retain normal Unicode coding
             if (record->event.pressed) {
-		;
+                ;
             } else { // key up
                 descramble = _HALF_;// on
                 indicate_scramble (); 
@@ -580,85 +579,138 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break; */
         case BASE_DESCRMBL: // Switching through the descramble modes
             if (record->event.pressed) {
-		;
+                ;
             } else { // key up
-		// Cycles through the modes
-		if (_NORMAL_ == descramble) {
+                // Cycles through the modes
+                if (_NORMAL_ == descramble) {
                     descramble = _FULL_;// all descramble layers
-		} else if (_HALF_ == descramble) {
+                } else if (_HALF_ == descramble) {
                     descramble = _NORMAL_;// normal layers
-		} else { // _FULL_ == descramble
+                } else { // _FULL_ == descramble
                     descramble = _HALF_;// with normal Unicode layers
-		}
+                }
                 indicate_scramble ();  // activate led change 
             }
             break; 
 
-	//     Switching to layers:
+        //     Switching to layers:
         case CTO_BASE:
         // User pressed upper/left button (escape from a layer to BASE layer)
             if (record->event.pressed) { // key down
-		if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
-		       // ... modes are non-zero, and all use _DDL layer)
+                if (descramble) { // go to the descramble version (bit of a hack maybe, but all descramble
+                       // ... modes are non-zero, and all use _DDL layer)
                     activate_this_layer (_DDL); // activates descrambled num-sys layer
-		} else {
+                } else {
                     activate_this_layer (_LTR); // activates normal num-sys layer
-		}
+                }
             } else { // key up
-		if (descramble) {
-		    deactivate_all_but (_DDL); // stop all other layers 
-		} else {
-		    deactivate_all_but (_LTR); //  "     "
-		}
+                if (descramble) {
+                    deactivate_all_but (_DDL); // stop all other layers 
+                } else {
+                    deactivate_all_but (_LTR); //  "     "
+                }
             }
             break;
-	case CTO_NUMS: // activates number-symbols layer
-		// It seems best to first enable the chosen layer on key-down, then stop others on key-up.
-		// Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
+        case CTO_NUMS: // activates number-symbols layer
+                // It seems best to first enable the chosen layer on key-down, then stop others on key-up.
+                // Alternatives gave some issues. Other keymaps seem to do it this way (IIRC).
             if (record->event.pressed) { // key down
-		if (descramble) { // go to the descramble version
+                if (descramble) { // go to the descramble version
                     activate_this_layer (_DDN); // activates descrambled num-sys layer
-		} else {
+                } else {
                     activate_this_layer (_NSY); // activates normal num-sys layer
-		}
-	    } else { // key up
-		if (descramble) {
-		    deactivate_all_but (_DDN); // stop all other layers 
-		} else {
-		    deactivate_all_but (_NSY); //  "     "
-		}
-	    }
-	    break; 
-	case CTO_ACCE: // Unicode layer
+                }
+            } else { // key up
+                if (descramble) {
+                    deactivate_all_but (_DDN); // stop all other layers 
+                } else {
+                    deactivate_all_but (_NSY); //  "     "
+                }
+            }
+            break; 
+        case CTO_ACCE: // Unicode layer
             if (record->event.pressed) { // key down
-		if (_FULL_ == descramble) { // go to the descramble version
+                if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDA); // activates descrambled accented layer
-		} else {
+                } else {
                     activate_this_layer (_ACC); // activates normal accented layer
-		}
-	    } else { // key up
-		if (_FULL_ == descramble) {
-		    deactivate_all_but (_DDA); // stop all other layers 
-		} else {
-		    deactivate_all_but (_ACC); //  "     "
-		}
-	    }
-	    break; 
-	case CTO_DRAW: // Unicode layer
+                }
+            } else { // key up
+                if (_FULL_ == descramble) {
+                    deactivate_all_but (_DDA); // stop all other layers 
+                } else {
+                    deactivate_all_but (_ACC); //  "     "
+                }
+            }
+            break; 
+        case CTO_DRAW: // Unicode layer
             if (record->event.pressed) { // key down
-		if (_FULL_ == descramble) { // go to the descramble version
+                if (_FULL_ == descramble) { // go to the descramble version
                     activate_this_layer (_DDD); // activates descrambled drawings layer
-		} else {
+                } else {
                     activate_this_layer (_DRA); // activates normal drawings layer
-		}
-	    } else { // key up
-		if (_FULL_ == descramble) {
-		    deactivate_all_but (_DDD); // stop all other layers 
-		} else {
-		    deactivate_all_but (_DRA); //  "     "
-		}
-	    }
-	    break;
+                }
+            } else { // key up
+                if (_FULL_ == descramble) {
+                    deactivate_all_but (_DDD); // stop all other layers 
+                } else {
+                    deactivate_all_but (_DRA); //  "     "
+                }
+            }
+            break; 
+        // These two are a simulated LT(layer,kc), layer-tap. 
+        // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
+        // They switch what layer to use depending on 'descramble'
+        // Basically it starts the right layer on key down, goes back to base layer on key up,
+        // and throws in a keypress if tapped.
+        case CHOLTAP_ACCE: //LT ( _DDA , KC_DEL ) or to _ACC, depending ...
+            if (record->event.pressed) { // key down
+                 key_timer = timer_read ();
+                 if (_FULL_ == descramble) {
+                     activate_this_layer (_DDA); // activates descrambled drawings layer
+                     deactivate_all_but (_DDA); 
+                 } else {
+                     activate_this_layer (_ACC); // activates normal drawings layer
+                     deactivate_all_but (_ACC);
+                 }
+            } else { // key up
+                 // Go back to base layer
+                 if (descramble) { // 
+                     activate_this_layer (_DDL); 
+                     deactivate_all_but (_DDL); 
+                 } else {
+                     activate_this_layer (_LTR);
+                     deactivate_all_but (_LTR); 
+                 }
+                 if (timer_elapsed (key_timer) < TAPPING_TERM) { // tapped
+                       SEND_STRING (SS_TAP (X_DEL));
+                 }
+            }
+            break;
+        case CHOLTAP_DRAW: //LT ( _DDD , KC_RIGHT ), or to _DRA, depending ...
+            if (record->event.pressed) { // key down
+                 key_timer = timer_read ();
+                 if (_FULL_ == descramble) {
+                     activate_this_layer (_DDD); // activates descrambled drawings layer
+                     deactivate_all_but (_DDD); 
+                 } else {
+                     activate_this_layer (_DRA); // activates normal drawings layer
+                     deactivate_all_but (_DRA);
+                 }
+            } else { // key up
+                 // Go back to base layer
+                 if (descramble) { // 
+                     activate_this_layer (_DDL); 
+                     deactivate_all_but (_DDL); 
+                 } else {
+                     activate_this_layer (_LTR);
+                     deactivate_all_but (_LTR); 
+                 }
+                 if (timer_elapsed (key_timer) < TAPPING_TERM) { // tapped
+                       SEND_STRING (SS_TAP (X_RIGHT));
+                 }
+            }
+            break;
     }
     // Shift detection system.
     // Following ... Disused again, because it turned out 'one shot' like
@@ -667,8 +719,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
 
     switch (keycode) {
-	    // Re-instated ...
-	   // /* Crude but self contained shift detection.
+            // Re-instated ...
+           // /* Crude but self contained shift detection.
         // Record state of shift
         // ... left shift
         case KC_LSFT:
@@ -681,450 +733,450 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
           break;
 
-	// Unicode macros for descramble mode.
-	// The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
-	// However it seems SEND_STRING cannot take a variable.
-	// It seems that it has to be a hardcoded constant. 
-	// The table of 'descramble' conversion of the ASCII representation of hex values is:
-	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y (computer side maps to Dvorak, before interpreting the value)
-	
-	// 'a' variants (basic)
+        // Unicode macros for descramble mode.
+        // The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
+        // However it seems SEND_STRING cannot take a variable.
+        // It seems that it has to be a hardcoded constant. 
+        // The table of 'descramble' conversion of the ASCII representation of hex values is:
+        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y (computer side maps to Dvorak, before interpreting the value)
+        
+        // 'a' variants (basic)
         case UN_A_ACU:
             if (record->event.pressed) { // key down
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i1"); } else { SEND_STRING ("d1"); }  // áÁ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_A_CAR:
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i2"); } else { SEND_STRING ("d2"); } // âÂ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_A_DIA:
             if (record->event.pressed) {
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i4"); } else { SEND_STRING ("d4"); } // äÄ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_A_GRA:
             if (record->event.pressed) {
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i0"); } else { SEND_STRING ("d0"); } // àÀ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_A_RNG:
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i5"); } else { SEND_STRING ("d5"); } // åÅ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_AE_BI: 
             if (record->event.pressed) {
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i6"); } else { SEND_STRING ("d6"); } // æÆ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_OE_BI: 
             if (record->event.pressed) { // key down
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("0152"); } else { SEND_STRING ("0153"); } // œŒ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_C_CDL: 
             if (record->event.pressed) {
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i7"); } else { SEND_STRING ("d7"); } // çÇ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_E_ACU: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i9"); } else { SEND_STRING ("d9"); } // éÉ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_E_CAR: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("ia"); } else { SEND_STRING ("da"); } // êÊ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_E_DIA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("in"); } else { SEND_STRING ("dn"); } // ëË
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_E_GRA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("i8"); } else { SEND_STRING ("d8"); } // èÈ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_I_ACU: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("ih"); } else { SEND_STRING ("dh"); } // íÍ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_I_CAR: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("id"); } else { SEND_STRING ("dd"); } // îÎ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_I_DIA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("iy"); } else { SEND_STRING ("iy"); } // ÏÏ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("iy"); } else { SEND_STRING ("iy"); } // ÏÏ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_I_GRA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("ii"); } else { SEND_STRING ("di"); } // ìÌ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_TLD: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h1"); } else { SEND_STRING ("y1"); } // ñÑ
+                unicode_tail ();
             }
-	  break;
-	  /*
+          break;
+          /*
         case UN_EX_INV: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        SEND_STRING ("a1"); // ¡
-		unicode_tail ();
+                unicode_lead_00 ();
+                SEND_STRING ("a1"); // ¡
+                unicode_tail ();
             }
-	  break;
-	  */
+          break;
+          */
         case UN_QU_INV: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("a1"); } else { SEND_STRING ("ny"); } // 
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("a1"); } else { SEND_STRING ("ny"); } // 
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_O_ACU: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h3"); } else { SEND_STRING ("y3"); } // óÓ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_O_CAR: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h4"); } else { SEND_STRING ("y4"); } // ôÔ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_O_DIA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h6"); } else { SEND_STRING ("y6"); } // öÖ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_O_GRA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h2"); } else { SEND_STRING ("y2"); } // òÒ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_O_STK: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h8"); } else { SEND_STRING ("y8"); } // øØ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_SHP: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        SEND_STRING ("hy"); // ß
-		unicode_tail ();
+                unicode_lead_00 ();
+                SEND_STRING ("hy"); // ß
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_U_ACU: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("ha"); } else { SEND_STRING ("ya"); } // úÚ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_U_CAR: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("hn"); } else { SEND_STRING ("yn"); } // ûÛ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_U_DIA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("hi"); } else { SEND_STRING ("yi"); } // üÜ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_U_GRA: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("h9"); } else { SEND_STRING ("y9"); } // ùÙ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_Y_ACU: 
             if (record->event.pressed) { 
-		unicode_lead_00 ();
-    	        if (shift_ison) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
-		unicode_tail ();
+                unicode_lead_00 ();
+                if (shift_ison) { SEND_STRING ("hh"); } else { SEND_STRING ("yh"); } // ýÝ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_Y_DIA: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("0178"); } else { SEND_STRING ("00yy"); } // ÿŸ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_IJ_BI: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("0132"); } else { SEND_STRING ("0133"); } // ĳĲ
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("0132"); } else { SEND_STRING ("0133"); } // ĳĲ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_THUP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("1y44h"); // 👍
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("1y44h"); // 👍
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_SMIL: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("1y603"); } else { SEND_STRING ("1y642"); } // 🙂😃
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("1y603"); } else { SEND_STRING ("1y642"); } // 🙂😃
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_SQIG: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("1y641"); } else { SEND_STRING ("2368"); } // ⍨🙁
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("1y641"); } else { SEND_STRING ("2368"); } // ⍨🙁
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_THDN: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("1y44d"); // 👎
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("1y44d"); // 👎
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_OCBRA: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("300i"); // 「
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("300i"); // 「
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_CCBRA: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("300h"); // 」
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("300h"); // 」
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_ODABRA: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("300a"); // 《
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("300a"); // 《
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_CDABRA: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("300n"); // 》
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("300n"); // 》
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_GULDEN: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("0191"); } else { SEND_STRING ("0192"); } // ƒƑ
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("0191"); } else { SEND_STRING ("0192"); } // ƒƑ
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_DEGREE: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("3007"); } else { SEND_STRING ("00n0"); } // 〇°
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("3007"); } else { SEND_STRING ("00n0"); } // 〇°
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_BULLET: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("00a7"); } else { SEND_STRING ("2022"); } // §•
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("00a7"); } else { SEND_STRING ("2022"); } // §•
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_PlUSMIN: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("00n1"); } // ·±
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("00n1"); } // ·±
+                unicode_tail ();
             }
-	  break;
-	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+          break;
+        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
      // super and sub script numbers
         case UN_N_0SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2080"); } else { SEND_STRING ("2070"); } // ₀⁰
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2080"); } else { SEND_STRING ("2070"); } // ₀⁰
+                unicode_tail ();
             }
-	  break;
+          break;
 
         case UN_N_1SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2081"); } else { SEND_STRING ("00n9"); } // ₁¹
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2081"); } else { SEND_STRING ("00n9"); } // ₁¹
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_2SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2082"); } else { SEND_STRING ("00n2"); } // ₂²
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2082"); } else { SEND_STRING ("00n2"); } // ₂²
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_3SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2083"); } else { SEND_STRING ("00n3"); } // ₃³
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2083"); } else { SEND_STRING ("00n3"); } // ₃³
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_4SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2084"); } else { SEND_STRING ("2074"); } // ₄⁴
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2084"); } else { SEND_STRING ("2074"); } // ₄⁴
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_5SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2085"); } else { SEND_STRING ("2075"); } // ₅⁵
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2085"); } else { SEND_STRING ("2075"); } // ₅⁵
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_6SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2086"); } else { SEND_STRING ("2076"); } // ₆⁶
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2086"); } else { SEND_STRING ("2076"); } // ₆⁶
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_7SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2087"); } else { SEND_STRING ("2077"); } // ₇⁷
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2087"); } else { SEND_STRING ("2077"); } // ₇⁷
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_8SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2088"); } else { SEND_STRING ("2078"); } // ₈⁸
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2088"); } else { SEND_STRING ("2078"); } // ₈⁸
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_N_9SUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2089"); } else { SEND_STRING ("2079"); } // ₉⁹
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2089"); } else { SEND_STRING ("2079"); } // ₉⁹
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_OPSUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("208h"); } else { SEND_STRING ("207h"); } // ₍⁽
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("208h"); } else { SEND_STRING ("207h"); } // ₍⁽
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_CPSUBP: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("208d"); } else { SEND_STRING ("207d"); } // ₎⁾
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("208d"); } else { SEND_STRING ("207d"); } // ₎⁾
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_DQUL: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("201i"); } else { SEND_STRING ("201d"); } // „“
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("201i"); } else { SEND_STRING ("201d"); } // „“
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_DQUH: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING ("201h"); // ”
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING ("201h"); // ”
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_LARROW: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        SEND_STRING (""); // 
-    	        if (shift_ison) { SEND_STRING ("2n99"); } else { SEND_STRING ("2n98"); } // ⮙⮘ 
-		unicode_tail ();
+                unicode_lead ();
+                SEND_STRING (""); // 
+                if (shift_ison) { SEND_STRING ("2n99"); } else { SEND_STRING ("2n98"); } // ⮙⮘ 
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_RARROW: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2n9n"); } else { SEND_STRING ("2n9a"); } // ⮛⮚
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2n9n"); } else { SEND_STRING ("2n9a"); } // ⮛⮚
+                unicode_tail ();
             }
-	  break;
+          break;
         case UN_S_FLEUR: 
             if (record->event.pressed) { 
-		unicode_lead ();
-    	        if (shift_ison) { SEND_STRING ("2665"); } else { SEND_STRING ("2766"); } // ♥❦
-		unicode_tail ();
+                unicode_lead ();
+                if (shift_ison) { SEND_STRING ("2665"); } else { SEND_STRING ("2766"); } // ♥❦
+                unicode_tail ();
             }
-	  break;
+          break;
      }
      return true;
-	// 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
+        // 0-9=0-9, a=a, b=n, c=i, d=h, e=d, f=y 
 };
 
 
@@ -1162,8 +1214,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC            , KC_QUOT , KC_COMM , KC_DOT , KC_P , KC_Y , KC_F , KC_G , KC_C , KC_R , KC_L , KC_BSPC ,
         LCTL_T ( KC_TAB ) , KC_A    , KC_O    , KC_E   , KC_U , KC_I , KC_D , KC_H , KC_T , KC_N , KC_S , KC_MINS ,
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
-//      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _ACC , KC_DEL ) , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , LT ( _DRA , KC_RIGHT )
+//      --------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , CHOLTAP_DRAW
 //                         ,                      ,             ,                    <|,>       ,             ,              ,
 //      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
@@ -1212,16 +1264,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ _DDL ] = LAYOUT (
 
 //                                        | Right hand
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-//                                       <|>                              -*-      // Access from _FUN -*- there
+// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
+//                                       <|>                              -*-         // Access on _FUN
 // Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
 // Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
 // LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
 // ------------------------------------------------------------------
-// Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD            // _XYZ are layer switches
-//                                   <|>                                  
-//           hold     hold  hold      |       hold toggl   hold                  // Type of layer switch
-// <1        <2       <3    <4        | 4>    3>   2>      1>                    // Keys by number
+// Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD        // _XYZ are layer switches
+//           or:+_ACC                <|>                   or:+_DRA        // When in 'half descramble'
+//           hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
+// <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
 //                                                   
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
@@ -1229,14 +1281,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC            , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_Y , KC_U , KC_I    , KC_O   , KC_P    , KC_BSPC ,
         LCTL_T ( KC_TAB ) , KC_A , KC_S , KC_D , KC_F , KC_G , KC_H , KC_J , KC_K    , KC_L   , KC_SCLN , KC_QUOT ,
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
-//      ---------------------------------------------------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , LT ( _DDA , KC_DEL ) , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , LT ( _DDD , KC_RIGHT )
-//                         ,                      ,             ,                    <|,>       ,             ,              ,
-//      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
+//      --------------------------------------------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , CHOLTAP_DRAW
+//                         ,              ,             ,                    <|,>       ,             ,              ,
+//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
                       ),
-    //CTMP_ACCE,
-    //CTMP_DRAW,
-    //-here
 
         /**/
 
@@ -1359,7 +1408,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 //                         -*-        <|>
 // BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL // P(ower) indicator
-// Tab   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+// xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
 // Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert // Ü(nicode) tester
 // ----------------------------------------------
 // xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
@@ -1370,7 +1419,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                    ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
         CTO_BASE      , S ( KC_P )       , KC_PWR           , KC_WAKE          , KC_SLEP          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
-        KC_TAB        , XXXXXXX          , XXXXXXX          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
+        XXXXXXX       , XXXXXXX          , XXXXXXX          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
         X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
 //      ----------------------------------------------------------------------------
         XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP  , XXXXXXX
@@ -1458,7 +1507,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
 // LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-//           -*-             <|>                  -*-
+//           -*-             <|>                  
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
@@ -1467,10 +1516,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XP ( CIJL_BI , CIJU_BI ) , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
-//      ------------------------------------------------------------------------------------
+//      ---------------------------------------------------------------------------
         KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//                , -*-     ,         ,      <|,>       ,         ,         , -*-
-//     <1       ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
+//              , -*-     ,         ,      <|,>       ,         ,         , 
+//      <1      ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
                       ),
 
         /**/
@@ -1489,7 +1538,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
 // --------------------------------------------------
 // LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-//           -*-             <|>                  -*-
+//                           <|>                  -*-
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
 //
@@ -1500,7 +1549,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
 //      ---------------------------------------------------------------------------
         KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//              , -*-     ,         ,      <|,>       ,         ,         , -*-
+//              ,         ,         ,      <|,>       ,         ,         , -*-
 //      <1      , <2      , <3      , <4    |, 4>     , 3>      , 2>      , 1>
                       ),
         /**/
@@ -1518,8 +1567,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
 // LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
 // LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-// ---------------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
+// --------------------------------------------------
+// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
@@ -1529,8 +1578,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , XP ( CS_DQUL   , CS_DQUHR ) , XP ( CS_OPSUP , CS_OPSUB ) , XP ( CS_CPSUP , CS_CPSUB )   , X ( CS_DQUH )              , XP ( CS_FLEUR , CS_HEART ) , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS )     , X ( CS_THUP )            , X ( CS_THDN )            , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
         KC_LCTL  , XP ( CN_1SUP   , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )   , XP ( CN_6SUP , CN_6SUB )       , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB ) , XP ( CN_0SUP , CN_0SUB ) , KC_RCTL ,
         KC_LSFT  , X ( CS_OCBRA )              , X ( CS_CCBRA )             , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_PLMI , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW )   , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , X ( CS_ODABRA )          , X ( CS_CDABRA )          , KC_RSFT ,
-//      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
+//      --------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX , _______
 //                         ,         ,         ,      <|,>       ,         ,         ,
 //      <1                 , <2      , <3      , <4    |, 4>     , 3>      , 2>      , 1>
                       ),
@@ -1553,7 +1602,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
 // LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
 // ---------------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   Right+RAlt
+// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
 //                           <|>
 // <1        <2    <3    <4   | 4>    3>    2>    1>  
 //
@@ -1563,9 +1612,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE    , UN_S_DQUL  , UN_S_OPSUBP , UN_S_CPSUBP , UN_S_DQUH   , UN_S_FLEUR   , UN_S_GULDEN , UN_S_SMIL   , UN_S_THUP  , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
         KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP   , UN_N_6SUBP  , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
         KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_PlUSMIN , UN_S_LARROW , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
-
 //      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , RALT_T ( KC_RGHT )
+        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , _______
 //                         ,         ,         ,       <|,>        ,         ,         ,
 //      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),  
@@ -1676,7 +1724,7 @@ uint32_t layer_state_set_user(uint32_t state){
     /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
     if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
         indicate_scramble (); // this function already does it all
-	return state; // 
+        return state; // 
     } 
     //--- (pair)
     else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
