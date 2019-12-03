@@ -16,11 +16,13 @@
  * _______ = Key that allows the uppermost exposed key in a layer below it.
 */
 
-#define BASE    0   // Layer: QWERTY / Base
-#define NRMN    1   // Layer: Norman
-#define GAME    2   // Layer: Game
-#define FCTN    3   // Layer: Function
-#define KEYB    4   // Layer: Keyboard
+enum layers {
+    BASE = 0,
+    NRMN,
+    GAME,
+    FCTN,
+    KEYB
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
