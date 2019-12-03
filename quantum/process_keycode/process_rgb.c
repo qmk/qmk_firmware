@@ -103,6 +103,7 @@ bool process_rgb(const uint16_t keycode, const keyrecord_t *record) {
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
                 handleKeycodeRGBMode(RGBLIGHT_MODE_RAINBOW_MOOD, RGBLIGHT_MODE_RAINBOW_MOOD_end);
 #endif
+                return false;
             case RGB_MODE_SWIRL:
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
                 handleKeycodeRGBMode(RGBLIGHT_MODE_RAINBOW_SWIRL, RGBLIGHT_MODE_RAINBOW_SWIRL_end);
