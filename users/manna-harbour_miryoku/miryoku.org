@@ -384,7 +384,7 @@ Header for tangled src files.
 
 #+NAME: header
 #+BEGIN_SRC C :tangle no
-generated from users/manna-harbour_miryoku/miryoku.org
+generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 #+END_SRC
 
 
@@ -405,8 +405,7 @@ bottom row unused and the rest of the bottom row are the thumb keys.
 Contains the keymap.  Included from keymap.c
 
 [[./manna-harbour_miryoku.c][users/manna-harbour_miryoku/manna-harbour_miryoku.c]]
-#+BEGIN_SRC C :noweb yes :tangle manna-harbour_miryoku.c
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.c
 // <<header>>
 
 #include QMK_KEYBOARD_H
@@ -442,8 +441,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 Config options.  Automatically included.
 
 [[./config.h][users/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :tangle config.h
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle config.h
 // <<header>>
 
 #pragma once
@@ -465,8 +463,7 @@ Config options.  Automatically included.
 Build options.  Automatically included.
 
 [[./rules.mk][users/manna-harbour_miryoku/rules.mk]]
-#+BEGIN_SRC makefile :noweb yes :tangle rules.mk
-
+#+BEGIN_SRC makefile :noweb yes :padline no :tangle rules.mk
 # <<header>>
 
 MOUSEKEY_ENABLE = yes        # Mouse keys(+4700)
@@ -490,8 +487,7 @@ thumb key is the innermost key of the partial bottom row.  The remaining keys
 are unused.
 
 [[../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c][layouts/community/ergodox/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
 // <<header>>
 
 #define LAYOUT_miryoku(\
@@ -533,8 +529,7 @@ provide some column stagger on ortho keyboards.  The bottom row left 3 columns
 are the thumb keys.  The remaining keys are unused.
 
 [[../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c][layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
 // <<header>>
 
 #define LAYOUT_miryoku(\
@@ -577,8 +572,7 @@ The outer columns are unused.
 **** keymap.c
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c][keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
 // <<header>>
 
 #define LAYOUT_miryoku( \
@@ -640,8 +634,7 @@ void iota_gfx_task_user(void) {
 **** config.h
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h][keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
 // <<header>>
 
 #pragma once
@@ -667,8 +660,7 @@ void iota_gfx_task_user(void) {
 **** rules.mk
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk][keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk]]
-#+BEGIN_SRC C :noweb yes :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk
-
+#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/rules.mk
 # <<header>>
 
 RGB_MATRIX_ENABLE = WS2812

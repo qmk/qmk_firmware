@@ -1,5 +1,4 @@
-
-# generated from users/manna-harbour_miryoku/miryoku.org
+# generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 
 RGB_MATRIX_ENABLE = WS2812
 
