@@ -1,8 +1,11 @@
 SRC += brandonschlack.c \
        process_records.c
 
-ifneq ($(strip $(DISABLE_LTO)), yes)
-	EXTRAFLAGS += -flto
+SPACE_CADET_ENABLE = no
+
+# Use LTO except for Massdrop boards
+ifeq (, $(findstring massdrop, $(KEYBOARD)))
+	LTO_ENABLE = yes
 endif
 
 ifeq ($(strip $(IS_MACROPAD)), yes)
