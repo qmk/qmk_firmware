@@ -1,4 +1,4 @@
-# デバッグのFAQ
+# デバッグの FAQ
 
 このページは、キーボードのトラブルシューティングについての様々な一般的な質問を説明します。
 
@@ -27,7 +27,7 @@ Linux のような OS でデバイスにアクセスするには、権限が必�
 以下を調べてください:
 - *hid_listen* がデバイスを検出する。上記を見てください。
 - **Magic**+d を使ってデバッグを有効にする。[マジック コマンド](https://github.com/tmk/tmk_keyboard#magic-commands)を見てください。
-- `debug_enable=true` を設定します。[テストとデバッグ](newbs_testing_debugging.md#debugging)を見てください
+- `debug_enable=true` を設定します。[テストとデバッグ](ja/newbs_testing_debugging.md#debugging)を見てください
 - デバッグ print の代わりに 'print' 関数を使ってみてください。**common/print.h** を見てください。
 - コンソール機能を持つ他のデバイスを切断します。[Issue #97](https://github.com/tmk/tmk_keyboard/issues/97) を見てください。
 
@@ -160,7 +160,7 @@ EXTRAKEY_ENABLE = yes          # オーディオ制御とシステム制御
 
 ## スリープから復帰しない
 
-Windows では、**デバイス マネージャ**の電源**プロパティの管理**タブ内の `Allow this device to wake the computer` 設定を調べてください。また BIOS 設定も調べてください。
+Windows では、**デバイスマネージャ**の**電源の管理**タブ内の `このデバイスで、コンピュータのスタンバイ状態を解除できるようにする` 設定を調べてください。また BIOS 設定も調べてください。
 
 スリープ中に任意のキーを押すとホストが起動するはずです。
 
@@ -210,8 +210,8 @@ USB 3 ポートで問題がある人がいると聞きました。USB 2 ポー�
 https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 
-## BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles の問題
-一部の人がキーボードが BIOS で動作しなくなった および/または 再開(電源サイクル)の後で動作しなくなったと報告しました。
+## BIOS (UEFI)/Resume (Sleep & Wake)/電源サイクル の問題
+一部の人がキーボードが BIOS で動作しなくなった、または再開(電源サイクル)の後で動作しなくなったと報告しました。
 
 今のところ、この問題の根本は明確ではないですが、幾つかのビルドオプションが関係しているようです。Makefileで、`CONSOLE_ENABLE`、`NKRO_ENABLE`、`SLEEP_LED_ENABLE` あるいは他のオプションを無効にしてみてください。
 

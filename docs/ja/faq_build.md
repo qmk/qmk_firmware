@@ -1,6 +1,6 @@
 # よくあるビルドの質問
 
-このページは QMK のビルドに関する質問をカバーします。まだビルドをしていない場合は、[ビルド環境のセットアップ](getting_started_build_tools.md) および [Make手順](getting_started_make_guide.md)ガイドを読むべきです。
+このページは QMK のビルドに関する質問を説明します。まだビルドをしていない場合は、[ビルド環境のセットアップ](ja/getting_started_build_tools.md) および [Make手順](ja/getting_started_make_guide.md)ガイドを読むべきです。
 
 ## Linux でプログラムできません
 デバイスを操作するには適切な権限が必要です。Linux ユーザに関しては、以下の `udev` ルールに関する指示を見てください。`udev` に問題がある場合は、回避策は `sudo` コマンドを使うことです。このコマンドに慣れていない場合は、`man sudo` を使ってマニュアルを確認するか、[この web ページを見てください](https://linux.die.net/man/8/sudo)。
@@ -68,23 +68,23 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
 ```
 
-### Linux のブートローダ モードで Serial デバイスが検知されない
+### Linux のブートローダモードで Serial デバイスが検知されない
 カーネルがデバイスの適切なサポートを持つことを確認してください。デバイスが、Pro Micro (Atmega32u4) のような USB ACM を使う場合、`CONFIG_USB_ACM=y` を含めるようにしてください。他のデバイスは `USB_SERIAL` およびそのサブオプションを必要とするかもしれません。
 
-## DFUブートローダの不明なデバイス
+## DFU ブートローダの不明なデバイス
 
 Windows 上でキーボードを書き込む時に発生する問題は、ブートローダに間違ったドライバがインストールされているか、全くインストールされていないかによるものがほとんどです。
 
 QMK インストール スクリプト (MSYS2 あるいは WSL 内の `qmk_firmware` ディレクトリから `./util/qmk_install.sh`) を再実行するか、QMK Toolbox の再インストールでこの問題が解決するかもしれません。別のやり方として、手動で [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) パッケージをダウンロードして実行することができます。
 
-それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダドライバのインストール](driver_installation_zadig.md)を見てください。
+それでもうまく行かない場合は、Zadig をダウンロードして実行する必要があります。詳細な情報は [Zadig を使ったブートローダドライバのインストール](ja/driver_installation_zadig.md)を見てください。
 
 ## WINAVR は非推奨
 もう推奨されなくなり、何らかの問題を起こすかもしれません。
 [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99)を見てください。
 
 ## USB VID と PID
-`config.h` を編集することで必要なIDを使うことができます。おそらく未使用の ID を使っても、他の製品との衝突の可能性が低いことを除いて、実際には問題はありません。
+`config.h` を編集することで必要な ID を使うことができます。おそらく未使用の ID を使っても、他の製品との衝突の可能性が低いことを除いて、実際には問題はありません。
 
 QMK のほとんどのボードは、vendor ID として、`0xFEED` を使います。ユニークな ID を選択したことを確認するために、他のキーボードを調べるべきです。
 
@@ -169,4 +169,4 @@ ARM ベースのチップ上で EEPROM がどのように動作するかによ�
 [Planck rev6 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/539284620861243409/planck_rev6_default.bin) を使って eeprom 再設定を強制することができます。このイメージを書き込んだ後で、通常のファームウェアを書き込むと、キーボードが_通常_ の正常な順序に復元されます。
 [Preonic rev3 reset EEPROM](https://cdn.discordapp.com/attachments/473506116718952450/537849497313738762/preonic_rev3_default.bin)
 
-いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[Bootmagic  ドキュメント](feature_bootmagic.md)を見てください)。
+いずれかの形式でブートマジックが有効になっている場合は、これも実行できるはずです (実行方法の詳細については、[Bootmagic  ドキュメント](ja/feature_bootmagic.md)を見てください)。

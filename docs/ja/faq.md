@@ -1,6 +1,6 @@
 # よくある質問
 
-* [一般](faq_general.md)
-* [QMK のビルドあるいはコンパイル](faq_build.md)
-* [QMK のデバッグとトラブルシューティング](faq_debug.md)
-* [キーマップ](faq_keymap.md)
+* [一般](ja/faq_general.md)
+* [QMK のビルドあるいはコンパイル](ja/faq_build.md)
+* [QMK のデバッグとトラブルシューティング](ja/faq_debug.md)
+* [キーマップ](ja/faq_keymap.md)
