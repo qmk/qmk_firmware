@@ -62,24 +62,18 @@ void suspend_wakeup_init_kb(void)
 }
 #endif
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        PORTB &= ~(1 << 2);
-    } else {
-        PORTB |= (1 << 2);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+        writePin(B2, !led_state.num_lock);
+        writePin(C6, !led_state.caps_lock);
+        writePin(B7, !led_state.scroll_lock);
     }
-
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        PORTC &= ~(1 << 6);
-    } else {
-        PORTC |= (1 << 6);
-    }
-
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        PORTB &= ~(1 << 7);
-    } else {
-        PORTB |= (1 << 7);
-    }
-    led_set_user(usb_led);
+    return res;
 }
 
