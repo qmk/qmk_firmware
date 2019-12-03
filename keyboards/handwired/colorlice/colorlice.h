@@ -40,5 +40,3 @@
     { k40,  KC_NO, k42,   k43,  k44,  KC_NO, KC_NO,k47, KC_NO,  KC_NO, k4a,  KC_NO,KC_NO,KC_NO, k4e, KC_NO  }, \
 }
 
-
-#endif
