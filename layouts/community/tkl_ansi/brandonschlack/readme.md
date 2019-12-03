@@ -1,4 +1,4 @@
-# The brandonschlack keymap for KBD8X MKII
+# brandonschlack's TKL ANSI layout
 
 A mostly typical Mac setup, with some personal QMK touches.
 
@@ -40,16 +40,16 @@ The Function layer is a mix of [Apple's *Fn* shortcuts](https://support.apple.co
 
 * **Sleep Display** (Shift+Control+Power) as **Fn+Home**.
 * **QMK Make** as **Fn+Esc**. Sends make command to command line. Holding **Shift** will also append `:flash` target and put keyboard into bootloader.
-* **Reset** as **Fn+R**
+* **Reset** as **Fn+B**
 
 ### RGB Controls
 
-* **RGB Toggle** as **Fn+Z**
+* **RGB Toggle** as **Fn+Caps Lock**
 * **RGB Hue Increase/Decrease** as **Fn+Q/A**
 * **RGB Saturation Increase/Decrease** as **Fn+W/S**
 * **RGB Value Increase/Decrease** as **Fn+E/D**
 * **RGB Mode Next/Previous** as **Fn+Tab/Shift+Tab**
-* **RGB Toggle Layer Indication** as **Fn+X**
+* **RGB Toggle Layer Indication** as **Fn+Z**
   * Changes RGB Color with Layer change (*uses custom RGB_THEME*).
-* **RGB Cycle Next Theme** as **Fn+C**
+* **RGB Cycle Next Theme** as **Fn+X**
 
