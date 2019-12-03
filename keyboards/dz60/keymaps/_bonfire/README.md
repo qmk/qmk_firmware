@@ -25,4 +25,4 @@ http://www.keyboard-layout-editor.com/#/gists/b19ee1c251c908d9b5ef76965d588937
 - lighting effects based on layer in use
   - https://github.com/DanDobrick/qmk_firmware/blob/danDobrick-v60r-layout/keyboards/v60_type_r/keymaps/danDobrick/keymap.c#L140
 
-
+- check out https://github.com/DanDobrick/qmk_firmware/blob/danDobrick-v60r-layout/keyboards/v60_type_r/keymaps/danDobrick/keymap.c#L140 for lighting effects based on layer in use
