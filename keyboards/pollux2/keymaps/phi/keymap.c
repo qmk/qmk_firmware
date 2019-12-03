@@ -11,9 +11,9 @@
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_F_CUR  LT(CURSOR, KC_F)
 #define KC_EN_RAI LT(RAISE, KC_ENT)
-#define KC_ES_ALT LALT_T(KC_ESC)
+#define KC_L1_FN  LT(FUNCTION, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
-#define KC_FUNC   MO(FUNCTION)
+#define KC_ES_ALT LALT_T(KC_ESC)
 #define KC_WEEL   MO(WHEEL)
 #define KC_CACCL  MO(CURSOR_ACCL)
 
@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , LCBR , LPRN , LBRC ,   RBRC , RPRN , RCBR , ____ , PIPE , PLUS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    FUNC , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
+    ____ , EXLM , AT   , HASH , DLR  , PERC ,   CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                               L2_ALT,LANG1 ,   ____ , ____ \
+                               L2_ALT,L1_FN ,   ____ , ____ \
 //                            `-------------' `------------'
 ),
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , MODE , H_DN , S_DN , V_DN , ____ ,   ____ , ____ , ____ , ____ , ____ , ____ , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                                ____ , RST  ,   ____ , ____ \
+                                RST  , ____ ,   ____ , ____ \
 //                            `-------------' `------------'
 ),
 
