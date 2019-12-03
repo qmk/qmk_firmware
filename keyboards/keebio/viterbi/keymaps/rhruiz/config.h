@@ -32,3 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+#ifdef KEYBOARD_keebio_viterbi_rev1
+#define QMK_ESC_OUTPUT F5 // usually COL
+#endif
+
+#ifdef KEYBOARD_keebio_viterbi_rev2
+#define QMK_ESC_OUTPUT F4 // usually COL
+#endif
+
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
+#define QMK_SPEAKER C6
