@@ -9,6 +9,7 @@ enum custom_keycodes {            // Make sure have the awesome keycode ready
   ALT_TAB = SAFE_RANGE,
 };
 
+// key processing
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {               // This will do most of the grunt work with the keycodes.
     case ALT_TAB:
@@ -27,11 +28,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {     // The very important timer. 
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
-    }
+// The very important timer.
+void matrix_scan_user(void) { 
+  if (is_alt_tab_active && timer_elapsed(alt_tab_timer) > 1000) {
+    unregister_code(KC_LALT);
+    is_alt_tab_active = false;
   }
 }
