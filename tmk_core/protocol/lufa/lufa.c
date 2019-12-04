@@ -280,7 +280,11 @@ void webusb_send(uint8_t *data, uint8_t length) {
 
     Endpoint_SelectEndpoint(WEBUSB_IN_EPNUM);
 
-    Endpoint_Write_Stream_LE(data, length, NULL);
+    if(Endpoint_Write_Stream_LE(data, length, NULL)) {
+        // Stream failed to complete, resetting WEBUSB's state
+        webusb_state.paired = false;
+        webusb_state.pairing = false;
+    }
     Endpoint_ClearIN();
 }
 
