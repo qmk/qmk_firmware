@@ -682,8 +682,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      activate_this_layer (_LTR);
                      deactivate_all_but (_LTR); 
                  }
-                 if (timer_elapsed (key_timer) < TAPPING_TERM) { // tapped
-                       SEND_STRING (SS_TAP (X_DEL));
+                 if (timer_elapsed (key_timer) <= (TAPPING_TERM + 50)) { // tapped, 175 ms proved unreliable, 225 ms seems ok
+                     SEND_STRING (SS_TAP (X_DEL));
                  }
             }
             break;
@@ -706,8 +706,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      activate_this_layer (_LTR);
                      deactivate_all_but (_LTR); 
                  }
-                 if (timer_elapsed (key_timer) < TAPPING_TERM) { // tapped
-                       SEND_STRING (SS_TAP (X_RIGHT));
+                 if (timer_elapsed (key_timer) <= (TAPPING_TERM + 50)) { // tapped
+                     SEND_STRING (SS_TAP (X_RIGHT));
                  }
             }
             break;
