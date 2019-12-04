@@ -344,4 +344,3 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   I have used, thanks to the awesomeness of QMK and the Minivan.
   👍🙂 
 
-    See keymap.c for more comments.
