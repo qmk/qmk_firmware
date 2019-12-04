@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT      Orange75
 #define DESCRIPTION  A custom 75% keyboard
 
-#define RGBLED_NUM 16
-
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 
