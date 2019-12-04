@@ -19,12 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0x20A0
-#define PRODUCT_ID 0x422D
-#define DEVICE_VER 0x0001
-#define MANUFACTURER MechMerlin
-#define PRODUCT 32a
-#define DESCRIPTION A custom keyboard
+#define VENDOR_ID    0xFEEB
+#define PRODUCT_ID   0x6060
+#define DEVICE_VER   0x0001
+#define MANUFACTURER Fox-Lab
+#define PRODUCT      Orange75
+#define DESCRIPTION  A custom 75% keyboard
 
 #define RGBLED_NUM 16
 

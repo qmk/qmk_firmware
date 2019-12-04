@@ -1,20 +1,17 @@
-# 32a
+# Orange75 BMC Edition
 
-![32a](imgur.com image replace me!)
+![Orange75](https://i.imgur.com/eAfiwwM.jpg)
 
-A short description of the keyboard/project
+A 75% made by Fox Lab.
 
-* Keyboard Maintainer: [MechMerlin](https://github.com/yourusername)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: links to where you can find this hardware
+* Keyboard Maintainer: [MechMerlin](https://www.github.com/mechmerlin)
+* Hardware Supported: Orange75 powered by the ATmega32a 
+* Hardware Availability: [zFrontier](https://en.zfrontier.com/collections/keyboards/products/foxlab-orange75), [Geekhack GB](https://geekhack.org/index.php?topic=95080.0)
+
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 32a:default
-
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
-
-    make 32a:default:flash
+    make foxlab/orange75/32a:default
 
 **Reset Key**: Hold down the key located at *LOCATION*, commonly programmed as *KEY* while plugging in the keyboard.
 
