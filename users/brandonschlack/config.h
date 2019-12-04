@@ -14,6 +14,11 @@
 #   define RGB_THEME_ENABLE
 #endif
 
+#ifdef RGB_THEME_ENABLE
+#   define DISABLE_RGB_THEME_STRIKER
+#   define DISABLE_RGB_THEME_OBLIQUE
+#endif
+
 #ifdef ENCODER_ENABLE
 #    define TAP_CODE_DELAY 10
 #else
