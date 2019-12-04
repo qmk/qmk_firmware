@@ -51,13 +51,11 @@
 #    define I2C1_SDA 7
 #endif
 
-#if defined(STM32F4XX) || defined (STM32F3XX)
-#    ifndef USE_GPIOV2
-#        define USE_GPIOV2
-#    endif
+#if defined(STM32F1XX) || defined(STM32F1xx)
+#    define USE_GPIOV1
 #endif
 
-#ifdef USE_GPIOV2
+#ifndef USE_GPIOV1
 // The default PAL alternate modes are used to signal that the pins are used for I2C
 #    ifndef I2C1_SCL_PAL_MODE
 #        define I2C1_SCL_PAL_MODE 4
