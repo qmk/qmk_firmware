@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 
+//                         0   1   2   3   4   5   6   7   8   9   A   B   C   D  E
 #define MATRIX_ROW_PINS { B5, B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { C2, C4, C5, C6, C7, A7, A6, A5, A4, A3, A2, A1, A0, C3, D7 }
 // #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1, C0, D7 }
