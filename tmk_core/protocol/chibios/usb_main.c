@@ -869,7 +869,12 @@ void raw_hid_task(void) {
 #endif
 
 #ifdef WEBUSB_ENABLE
-void webusb_send(uint8_t *data, uint8_t length) { chnWrite(&drivers.webusb_driver.driver, data, length); }
+void webusb_send(uint8_t *data, uint8_t length) {
+    if(chnWriteTimeout(&drivers.webusb_driver.driver, data, length, TIME_IMMEDIATE) != length){
+        webusb_state.paired = false;
+        webusb_state.pairing = false;
+    }
+}
 
 __attribute__((weak)) void webusb_receive_kb(uint8_t *data, uint8_t length) {
   // Users should #include "raw_hid.h" in their own code
