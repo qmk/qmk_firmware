@@ -1225,18 +1225,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _LTR ] = LAYOUT (
 
-//                                        | Right hand
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>   // Keys by finger
-// -o-                                   <|>                              ...      // Access from all other layers -o- there
-// Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp     //" ((syntax highlighting fix))
-// Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
-// LSft     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSft
-// ------------------------------------------------------------------
-// Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_DRA             // _XYZ are layer switches
-//                                   <|>                                  
-//           hold     hold  hold      |       hold toggl   hold                   // Type of layer switch
-// <1        <2       <3    <4        | 4>    3>   2>      1>                     // Keys by number
-//
+/*
+     Layer _LTR (LeTteRs, standard Dvorak)
+                                            | Right hand
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>      // Keys by finger
+     -o-                                   <|>                              ...        // -o- BASE access
+     Esc      '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL    Bksp 
+     Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
+     LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
+     -------------------------------------------------------------------
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space _NSY _FUN     Right;_DRA              // _XYZ is to layer
+               hold     hold  hold      |        hold mixed   hold                   // Layer switch type
+     <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
+*/
 //
 //      <pink2            , <pinky  , <ring   , <middl , <indx, <ind|, indx>, inde>, midd>, ring>, pink>, pink2>  ,
 //      -*!-              ,         ,         ,        ,      ,    <|,>     ,      ,      ,      ,      ,         ,
@@ -1292,17 +1293,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DDL ] = LAYOUT (
 
-//                                        | Right hand
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
-//                                       <|>                              -*-         // Access on _FUN
-// Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
-// Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
-// LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
-// ------------------------------------------------------------------
-// Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD        // _XYZ are layer switches
-//           or:+_ACC                <|>                   or:+_DRA        // When in 'half descramble'
-//           hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
-// <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
+/*
+     Layer _DDL (Dvorak descramble mode for letters)
+
+                                            | Right hand
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
+     -o-                                   <|>                              ...        //(to) BASE access
+     Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
+     Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
+     LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
+     ------------------------------------------------------------------
+     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right;_DDD        // _XYZ are layer switches
+               or:;_ACC                <|>                   or:;_DRA        // When in 'half descramble'
+               hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
+     <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
+
+
+     _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
+
+              '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL                 // row 4, result
+                    oO    eE    uU    iI    | dD    hH    tT    nN    sS   -_            // row 3, result
+              ;:    qQ    jJ    kK    xX    | bB          wW    vV    zZ                 // row 2, result
+
+     (Keys for 'aA', '\|' and 'mM' are the same in Dvorak and Qwerty.)
+
+ */
 //                                                   
 //
 //      <pink2            , <pink, <ring, <midd, <indx, <ind|, indx>, inde>, middle> , ring>  , pink>   , pink2>  ,
@@ -1325,15 +1340,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _NSY ] = LAYOUT (
 
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-//          -*-                          <|>                                    // Layer access from _FUN -*-
-// BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
-// Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(    0) `~+RCtl
-// -+LSft   [{    ]}    /?    \|     =+   | +     |     ?     {     }   `+RSft   // QMK limitation prevents ~
-// -------------------------------------------------------
-// Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
-//                 -*-       <|>    -*-                                         // Layer access from _LTR -*-
-// <1        <2    <3    <4   | 4>  3>    2>    1>  
+/*
+     Layer _NSY (Numbers and SYmbols)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+              -*-                          <|>                                  //(toggle) Access on _FUN
+     BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
+     -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
+     -------------------------------------------------------
+     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+                     -*-       <|>    -*-                                         //(hold) Access on _LTR
+       <1      <2    <3    <4   | 4>  3>    2>    1>  
+*/
 //
 //
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
@@ -1357,17 +1376,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DDN ] = LAYOUT (
 
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                       <|>                        -*-                      // on _FUN
-// BASE     !     @     #     $     %     | ^     &     *     (     )     Bspc
-// Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(    0) `~+RCtl
-// -+LSht   -_    =+    [{    ]}    \|    | |     }     {     _     +   `+RSht                   // raw
-//          [{    ]}    /?    \|    =+    | +     |     ?     {     }                         // result
-// -------------------------------------------------------
-// Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
-//                 -*-       <|>    -*-                                                      // on _DDL
-// <1        <2    <3    <4   | 4>  3>    2>    1>  
-//
+/*
+     Layer _DDN (Dvorak descramble mode for numbers/symbols)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
+              -*-                          <|>                                  //(toggle) Access on _FUN
+     BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
+     Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
+     -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
+     -------------------------------------------------------
+     Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
+                     -*-       <|>    -*-                                         //(hold) Access on _LTR
+       <1      <2    <3    <4   | 4>  3>    2>    1>  
+
+     _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
+
+              [{    ]}    /?           =+   |   +         ?     {     }                  // row 2, result
+ */
 //
 //      <pink2             , <pinky  , <ring  , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
 //                         , -*-     ,        ,         ,         ,       <|,>        ,         ,         ,         , -*-     ,                    ,
@@ -1389,16 +1414,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _MOV ] = LAYOUT (
 
-// <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                       -*-              <|>
-// BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
-// Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
-// LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
-// --------------------------------------------------------
-// Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
-//                       -*-<|>
-// <1        <2    <3    <4  | 4>    3>    2>    1>  
-//
+/*
+     Layer _MOV (MOVement, mouse movement on left hand)
+    
+     <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                           -*-              <|>                                        //(toggle) on _FUN
+     BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
+     Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
+     LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
+     -------------------------------------------------------------
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
+                           -*-<|>                                                        //(hold) on BASE
+     <1        <2    <3    <4  | 4>    3>    2>    1>  
+ */
 //
 //      <pink2            , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                        ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
@@ -1434,15 +1462,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _RAR ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                         -*-        <|>
-// BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL // P(ower) indicator
-// xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
-// Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert // Ü(nicode) tester
-// ----------------------------------------------
-// xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
-//                       <|>     
-// <1    <2    <3    <4   | 4>    3>    2>    1>  
+/*
+     _RAR (RARely used keys) (Only through _FUN layer)
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                             -*-        <|>                                            //(toggle) on _FUN
+     BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
+     xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+     Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
+     ----------------------------------------------
+     xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
+                           <|>
+     <1    <2    <3    <4   | 4>    3>    2>    1>  
+ */
 //
 //
 //      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
@@ -1465,16 +1497,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _REV ] = LAYOUT (
 
-// <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                  -*-  <|>
-// BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
-// Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
-// -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
-// -----------------------------------------------------------
-// Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+RAlt
-//                              <|>
-// <1        <2    <3       <4   | 4>   3>    2>    1>  
-//
+/*
+     Layer _REV (REVerse hands) (Only through _FUN layer)
+    
+     <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                      -*-  <|>                                         //(toggle) on _FUN
+     BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
+     Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
+     -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
+     -----------------------------------------------------------
+     Left+LAlt Del   PgDn     PgUp | .    xxx   ,     Right+RAlt
+                                  <|>
+     <1        <2    <3       <4   | 4>   3>    2>    1>  
+ */
 //
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                         ,         ,         ,         ,         , -*-   <|,>        ,         ,         ,         ,         ,         ,
@@ -1529,16 +1564,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _ACC ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>-*-
-// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
-// LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
-// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
-// --------------------------------------------------
-// LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-//           -*-             <|>                  
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
-//
+/*
+     Layer _ACC (ACCented characters, see _RAR layer for input modes)
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                        <|>-*-                                         //(toggle) on _FUN
+     BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
+     LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
+     LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+     --------------------------------------------------
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+               -*-             <|>                                                       //(hold) on BASE
+     <1        <2    <3    <4   | 4>    3>    2>    1>  
+ */
 //
 //      <pink2      , <pinky                   , <ring                    , <middl                   , <index                   , <indx2                  |, indx2>                   , index>                   , middl>                   , ring>                    , pinky>                   , pink2>  ,
 //                  ,                          ,                          ,                          ,                          ,                        <|,>-*-                      ,                          ,                          ,                          ,                          ,         ,
@@ -1560,16 +1598,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DDA ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>-*-
-// BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc
-// LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
-// LSft  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSft
-// --------------------------------------------------
-// LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-//                           <|>                  -*-
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
-//
+/*
+     Layer _ACC (ACCented characters, see _RAR layer for input modes)
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                        <|>-*-                                         //(toggle) on _FUN
+     BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
+     LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
+     LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
+     --------------------------------------------------
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+               -*-             <|>                                                       //(hold) on BASE
+     <1        <2    <3    <4   | 4>    3>    2>    1>  
+ */
 //
 //      <pink2   , <pinky   , <ring    , <middl   , <index   , <indx2  |, indx2>   , index>   , middl>   , ring>    , pinky>   , pink2>  ,
 //               ,          ,          ,          ,          ,        <|,>-*-      ,          ,          ,          ,          ,         ,
@@ -1591,16 +1632,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DRA ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>      -*-
-// BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
-// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-// LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-// --------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
-//                           <|>
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
-//
+/*
+     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                        <|>      -*-                                   //(toggle) on _FUN
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
+     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     ---------------------------------------------------------
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+                               <|>                  -*-                                  //(hold) on BASE
+     <1        <2    <3    <4   | 4>    3>    2>    1>  
+ */
 //
 //      <pink2   , <pinky                      , <ring                      , <middl                       , <index                     , <indx2                    |, indx2>                         , index>                       , middl>                   , ring>                    , pinky>                   , pink2>  ,
 //               ,                             ,                            ,                              ,                            ,                          <|,>                               , -*-                          ,                          ,                          ,                          ,         ,
@@ -1625,16 +1669,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _DDD ] = LAYOUT (
 
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-//                                    <|>      -*-
-// BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
-// LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-// LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-// ---------------------------------------------------------
-// LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
-//                           <|>
-// <1        <2    <3    <4   | 4>    3>    2>    1>  
-//
+/*
+     Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+                                        <|>      -*-                                   //(toggle) on _FUN
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
+     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     ---------------------------------------------------------
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+                               <|>                  -*-                                  //(hold) on BASE
+     <1        <2    <3    <4   | 4>    3>    2>    1>  
+ */
 //
 //      <pink2      , <pinky     , <ring       , <middl      , <index      , <indx2      |, indx2>      , index>      , middl>     , ring>       , pinky>      , pink2>  ,
 //                  ,            ,             ,             ,             ,            <|,>            , -*-         ,            ,             ,             ,         ,
@@ -1660,21 +1707,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [ _FUN ] = LAYOUT (
 
-// Layer _FUN (F-keys, Layer access, Set BASE key direction)
-//
-// <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-// toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
-//             -*-                    <|>                                         // Access -*- _FUN
-// BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
-// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
-// LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-// ----------------------------------------------------------
-// LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
-//       LSft    LAlt    LAlt  | &LAlt                                     
-//       +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
-//                            <|>                 -*-                                 // Acces -*- base
-// <1    <2      <3      <4    | 4>         3>    2>     1>                
-//
+/*
+     Layer _FUN (F-keys, Layer access, Set BASE key direction)
+    
+     <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
+     toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
+                 -v-                    <|>                                       // -v- One-shot setting
+     BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
+     ----------------------------------------------------------
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt
+           LSft    LAlt    LAlt  | &LAlt                                     
+           +xxx    +xxx    +xxx  | +xxx
+                                <|>                 -*-                         //(toggle) Acces -*- base
+     <1    <2      <3      <4    | 4>         3>    2>     1>                
+ */
 //
 //      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
 //               ,          , -*-       ,             ,             ,           <|,>         ,          ,         ,         ,         ,               ,

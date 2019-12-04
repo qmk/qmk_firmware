@@ -39,7 +39,7 @@ from ../jetpacktuxedo/ keymap.
       Leds: • Breathing effect on the middle LED in color of last active non base layer.
               There is no particular reason for this (fun & games).
             • Leds left and right indicate active layer.
-            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descamble
+            • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descramble
               mode is active (see below).
 
 
@@ -97,28 +97,28 @@ from ../jetpacktuxedo/ keymap.
      Tab+LCtl aA    oO    eE    uU    iI    | dD    hH    tT    nN    sS      -_
      LSht     ;:    qQ    jJ    kK    xX    | bB    mM    wW    vV    zZ    RSht
      -------------------------------------------------------------------
-     Left+LAlt Del+_ACC _NSY  Enter+_MOV| Space _NSY _FUN    Right+_DRA               // _XYZ is to layer
-               hold     hold  hold      |        hold toggl   hold                   // Layer switch type
+     Left+LAlt Del;_ACC _NSY  Enter+_MOV| Space _NSY _FUN     Right;_DRA              // _XYZ is to layer
+               hold     hold  hold      |        hold mixed   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
 Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
 It seems this will be difficult to fix, because it is spread over two devices. To avoid the
 ±0.2 second delay, activate a layer where Left-Control is direct, such as `_FUN`.
 
-To activate an automatic repeating Delete, activate numbers/symbols layer (`_NSY`, `_DDN`).
+The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
 
 - - -
 
      Layer _NSY (Numbers and SYmbols)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-              -*-                          <|>                                      // -*- Access on _FUN
+              -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSft   [{    ]}    /?    \|    =+    | +     |     ?     {     }   `+RSft // limitation prevents ~
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
-                     -*-       <|>    -*-                                           // -*- Access on _LTR
+                     -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
 Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for that.
@@ -128,16 +128,16 @@ Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for t
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-     toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
-                 -*-                    <|>                                         // Access -*- _FUN
+     toggl toggl set   toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
+                 -v-                    <|>                                       // -v- One-shot setting
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
      ----------------------------------------------------------
-     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
+     LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt
            LSft    LAlt    LAlt  | &LAlt                                     
-           +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
-                                <|>                 -*-                                 // Acces -*- base
+           +xxx    +xxx    +xxx  | +xxx
+                                <|>                 -*-                         //(toggle) Acces -*- base
      <1    <2      <3      <4    | 4>         3>    2>     1>                
 
 Remarks. Unusual keys !Descr and FUN<. !Descr cycles through the 'descramble' modes. 
@@ -150,13 +150,13 @@ or staying on the `_FUN` layer. Default: return to BASE.
      Layer _MOV (MOVement, mouse movement on left hand)
     
      <pinky2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                           -*-              <|>                                            // -*- on _FUN
+                           -*-              <|>                                        //(toggle) on _FUN
      BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      -------------------------------------------------------------
      Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
-                           -*-<|>                                                          // -*- on BASE
+                           -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
 
 - - -
@@ -165,7 +165,7 @@ or staying on the `_FUN` layer. Default: return to BASE.
      _RAR (RARely used keys) (Only through _FUN layer)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                             -*-        <|>                                                    // on _FUN
+                             -*-        <|>                                            //(toggle) on _FUN
      BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
      xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
@@ -183,7 +183,7 @@ for BSD Unix, uWIN for Windos, uWNC for another Windos encoding.
      Layer _REV (REVerse hands) (Only through _FUN layer)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                      -*-  <|>                                                 // on _FUN
+                                      -*-  <|>                                         //(toggle) on _FUN
      BASE     PgDn  End   Home  PgUp  xxx   | xxx   xxx   xxx   xxx   xxx   Bspc
      Tab+LCtl Left  Down  Up    Right xxx   | 6^    7&    8*    9(    0)    RCtl
      -+LSft   xxx   xxx   xxx   xxx   xxx   | 5%    4$    3#    2@    1!    RSft
@@ -198,13 +198,13 @@ for BSD Unix, uWIN for Windos, uWNC for another Windos encoding.
      Layer _ACC (ACCented characters, see _RAR layer for input modes)
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>-*-                                                 // on _FUN
+                                        <|>-*-                                         //(toggle) on _FUN
      BASE  áÁ    óÓ    éÉ    úÚ    íÍ    | ýÝ    ĳĲ    çÇ    øØ    åÅ    Bspc 
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
      LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
-               -*-             <|>                                                             // on BASE
+               -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -219,13 +219,13 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Layer _DRA (DRAwings, whatever else (rendering width varies in different applications))
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
-                                        <|>      -*-                                           // on _FUN
+                                        <|>      -*-                                   //(toggle) on _FUN
      BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
      LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      ---------------------------------------------------------
      LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
-                               <|>                  -*-                                        // on BASE
+                               <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
 - - -
@@ -239,13 +239,13 @@ Remarks. This layer is seamlessly activated with 'descramble'
      Layer _DDN (Dvorak descramble mode for numbers/symbols)
     
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring>pin>pink2>
-              -*-                          <|>                                      // -*- Access on _FUN
+              -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )      Bspc
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)  `~+RCtl
      -+LSht   -_    =+    [{    \|    ]}    | }     |     {     _     +   `+RSht            // row 2, raw
      -------------------------------------------------------
      Left+LAlt Del   ___   Ent  | .   ___   ,     Right+RAlt
-                     -*-       <|>    -*-                                           // -*- Access on _LTR
+                     -*-       <|>    -*-                                         //(hold) Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
      _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
@@ -261,13 +261,13 @@ Remarks. This layer is seamlessly activated with 'descramble'
 
                                             | Right hand
      <pink2   <pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2> 
-     -o-                                   <|>                              ...        // -o- BASE access
+     -o-                                   <|>                              ...        //(to) BASE access
      Esc      qQ    wW    eE    rR    tT    | yY    uU    iI    oO    pP    Bksp
      Tab+LCtl aA    sS    dD    fF    gG    | hH    jJ    kK    lL    ;:      '"
      LSft     zZ    xX    cC    vV    bB    | nN    mM    ,<    .>    /?    RSft
      ------------------------------------------------------------------
-     Left+LAlt Del+_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right+_DDD        // _XYZ are layer switches
-               or:+_ACC                <|>                   or:+_DRA        // When in 'half descramble'
+     Left+LAlt Del;_DDA _DDN  Enter+_MOV| Space _DDN _FUN    Right;_DDD        // _XYZ are layer switches
+               or:;_ACC                <|>                   or:;_DRA        // When in 'half descramble'
                hold     hold  hold      |       hold toggl   hold                 // Type of layer switch
      <1        <2       <3    <4        | 4>    3>   2>      1>                         // Keys by number
 
@@ -276,12 +276,12 @@ Remarks. This layer is seamlessly activated with 'descramble'
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
 
               '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL                 // row 4, result
-                    oO    eE    uU    iI    | dD    hH    tT    nN    sS                 // row 3, result
+                    oO    eE    uU    iI    | dD    hH    tT    nN    sS   -_            // row 3, result
               ;:    qQ    jJ    kK    xX    | bB          wW    vV    zZ                 // row 2, result
 
      (Keys for 'aA', '\|' and 'mM' are the same in Dvorak and Qwerty.)
 
-Remarks. This layer is seamlessly activated with 'descramble'
+Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works the same).
 
 - - -
    
@@ -341,7 +341,7 @@ Remarks. This layer is seamlessly activated with 'descramble'
   find. It is fun to have the expanded character set on `_DRA`, to be able
   to do super- and subscript, unusual brace styles, and for typing the
   all important: 〇. All in all a ton better than any other keyboard
-  I have used, thanks to the _awesomeness of QMK and the Minivan_.
+  I have used, thanks to the awesomeness of QMK and the Minivan.
   👍🙂 
 
     See keymap.c for more comments.
