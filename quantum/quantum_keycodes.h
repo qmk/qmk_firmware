@@ -663,6 +663,8 @@ enum quantum_keycodes {
 #define CG_NORM MAGIC_UNSWAP_CTL_GUI
 #define CG_TOGG MAGIC_TOGGLE_CTL_GUI
 
+#define NK_TOGG MAGIC_TOGGLE_NKRO
+
 // GOTO layer - 16 layers max
 // when:
 // ON_PRESS    = 1

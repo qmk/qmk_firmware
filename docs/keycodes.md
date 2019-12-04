@@ -285,7 +285,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_CTL_GUI`            |`CG_NORM`|Unswap Ctrl and GUI on both sides          |
 |`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides      |
 |`MAGIC_TOGGLE_CTL_GUI`            |`CG_TOGG`|Toggle Ctrl and GUI swap on both sides     |
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                        |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Turn NKRO on or off                        |
 |`MAGIC_EE_HANDS_LEFT`             |         |Set "Left Hand" for EE_HANDS handedness    |
 |`MAGIC_EE_HANDS_RIGHT`            |         |Set "Right Hand" for EE_HANDS handedness   |
 

@@ -62,7 +62,7 @@ Hold down the Bootmagic key (Space by default) and the desired hotkey while plug
 |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Left Control   |
 |`MAGIC_HOST_NKRO`                 |         |Force N-Key Rollover (NKRO) on            |
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                            |
-|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                       |
+|`MAGIC_TOGGLE_NKRO`               |`NK_TOGG`|Turn NKRO on or off                       |
 |`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
 |`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
 |`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
