@@ -115,7 +115,7 @@ extern uint8_t is_master;
 
 uint16_t        oled_timer;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   #ifdef CONSOLE_ENABLE
       uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
   #endif

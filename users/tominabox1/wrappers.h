@@ -115,19 +115,19 @@ __  __ _       _
 #define ___________________CRKBD1__________________       __________________DIMPLE1__________________
 #define ___________________CRKBD2__________________       __________________DIMPLE2__________________
 #define ___________________CRKBD3__________________       __________________DIMPLE3L_________________, KC_K, KC_M,KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT
-#define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,KC_ENT_LOW,  KC_SPC_RSE, MO(_ARROW), KC_FKEY
+#define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
 /* CRKBD Number layer
 #define ___________________RAISE1__________________
 #define ___________________RAISE1__________________        */
 #define ___________________CRKBD_RAISE3____________       ___________________RVAN_3__________________
-#define ___________________CRKBD_RAISE4____________       ___________________CRKBD4__________________
+#define ___________________CRKBD_RAISE4____________       SPONGEBOB, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
 /* CRKBD Symbol Layer
 #define _________________LOWER_1___________________
 #define _________________LOWER_2___________________       */
 #define ___________________CRKBD_LOW3______________       __________________MININUM3_________________
-#define ___________________CRKBD_LOW4______________       ___________________CRKBD4__________________
+#define ___________________CRKBD_LOW4______________       SPONGEBOB, AESTHETIC,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
 /* CRKBD F-key layer
 #define ___________________FKEY1___________________
@@ -147,4 +147,3 @@ __  __ _       _
 #define ___________________ARROW3__________________       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 #define ___________________ARROW4__________________       ___________________CRKBD4__________________
 
-// clang-format on

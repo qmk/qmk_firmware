@@ -31,7 +31,8 @@ enum custom_keycodes {
     KC_LFT_NUM_F,
     RGBRST,
     KC_PASTA,
-	SPONGEBOB
+	SPONGEBOB,
+	AESTHETIC
 };
 
 enum tap_dance_indexes {
