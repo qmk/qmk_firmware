@@ -27,7 +27,7 @@ void webusb_receive(uint8_t *data, uint8_t length) {
 
         uint8_t event[2];
         event[0] = WEBUSB_STATUS_OK;
-        event[1] = WEBUSB_EVT_LANDING_PAGE;
+        event[1] = WEBUSB_EVT_FW_VERSION;
 
         uint8_t stop[1];
         stop[0] = WEBUSB_STOP_BIT;
