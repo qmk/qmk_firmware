@@ -37,7 +37,7 @@ led_config_t g_led_config = { {
 } };
 #endif
 
-#ifdef DRIVER_LED_TOTAL
+#ifdef RGB_MATRIX_ENABLE
 void suspend_power_down_kb(void)
 {
     rgb_matrix_set_suspend_state(true);
