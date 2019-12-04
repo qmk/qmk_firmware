@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------|
      * |   3  |  4   |
      * |------+------|
-     * |   5  |  6   |
+     * | Val- | Val+ |
      * |------+------|
      * | FUNC | RGB  |
      * `-------------'
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT( \
         KC_1,      KC_2, \
         KC_3,      KC_4, \
-        KC_5,      KC_6, \
+        RGB_VAD,   RGB_VAI, \
         MO(_FUNC), TG(_RGB) \
       ),
 
