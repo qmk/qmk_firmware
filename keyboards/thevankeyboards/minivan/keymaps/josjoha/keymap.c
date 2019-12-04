@@ -23,9 +23,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Todo:
  *
-   - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
-   - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
+ * - Make _REV follow _MOV configuration system
  */
+        /*       Navigation cluster configuration
+         * 
+         * Here you can easily define what navigation type layout you like.
+         * There are two basic settings: - Arrows in a triangle, or in a row.
+         * - Arrows on left or right hand (mouse on the other). 
+         * Left/right hand setting affects if the less usable center column is left 
+         * or right on that hand.
+         * If you are uncommenting both below settings, you probably do not have
+         * to edit anything. If you only use one, you may want to swap the edge 
+         * columns by hand.
+         *
+         * By default the arrows are in a row, and on the right hand.
+         * The alternative layout is configured for arrows in a triangle, on the left hand.
+         *
+         * Uncomment below line to use a "WASD" type layout.
+         * Comment out if you prefer a flat "vim" type layout.
+         */
+ 
+//#define ARROWS_TRIANGLE // implies mouse is also similarly in a triangle.
+
+         /* Uncomment below line to put the arrows on the left, comment out to have arrows right. */
+
+//#define ARROWS_LEFT // implies mouse is right
+
 
 #include QMK_KEYBOARD_H
 
@@ -564,9 +587,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Go back to base-layer after pressing an F-key, on key-up to avoid BASE key activation
     if ((_fun_stay == FALSE) && // 
-       (keycode >= KC_F1) && (keycode <= KC_F24)) { // relies on keycodes being consequtive
+        (((keycode >= KC_F1) && (keycode <= KC_F12))
+         ||
+        ((keycode >= KC_F13) && (keycode <= KC_F24)))) {  // assumes keycodes 1-12 and 13-24 are consequtive, which seems likely, although using 1-24 failed (probably not consequtive)
          // Go back to base layer
-         if (!(record->event.pressed)) { // key upaaa<F2>ooo
+         if (!(record->event.pressed)) { // key up
              if (descramble) { // 
                  activate_this_layer (_DDL); 
                  deactivate_all_but (_DDL); 
@@ -1427,12 +1452,154 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
  */
-//
+
+         /* Inner default navigation/mouse layout. 11 means row 1, column 1, etc.
+          * Configured for arrows on the right, mouse on the left (BTN* on the left side, that is).
+          */
+#ifndef ARROWS_TRIANGLE
+    #define NAVI_11 KC_BTN3 // NAVI for 'navigation cluster', 11 for row 1, column 1, etc.
+    #define                 NAVI_12 KC_PGUP
+    #define                                 NAVI_13 KC_HOME
+    #define                                                 NAVI_14 KC_END
+    #define                                                                NAVI_15 KC_PGDN
+    #define NAVI_21 KC_BTN1
+    #define                 NAVI_22 KC_LEFT
+    #define                                 NAVI_23 KC_UP
+    #define                                                 NAVI_24 KC_DOWN
+    #define                                                                NAVI_25 KC_RIGHT
+    #define NAVI_31 KC_BTN2
+    #define                 NAVI_32 KC_ACL0
+    #define                                 NAVI_33 KC_ACL1
+    #define                                                 NAVI_34 KC_ACL2
+    #define                                                                NAVI_35 XXXXXXX
+    //--------------------------------------------------------------------------
+    // Configured for left handed mouse, with xxx,BTN* on the right most column.
+    #define MOUS_11 KC_WH_L  // MOUS for mouse, etc.
+    #define                 MOUS_12 KC_WH_D
+    #define                                 MOUS_13 KC_WH_U
+    #define                                                 MOUS_14 KC_WH_R
+    #define                                                                MOUS_15 XXXXXXX
+    #define MOUS_21 KC_MS_L
+    #define                 MOUS_22 KC_MS_D
+    #define                                 MOUS_23 KC_MS_U
+    #define                                                 MOUS_24 KC_MS_R
+    #define                                                                MOUS_25 KC_BTN1
+    #define MOUS_31 KC_BTN5
+    #define                 MOUS_32 KC_BTN4
+    #define                                 MOUS_33 KC_BTN3
+    #define                                                 MOUS_34 KC_BTN2
+    #define                                                                MOUS_35 XXXXXXX
+#endif
+// Alternative navigation/mouse layout: arrows in triangle, and left hand on the left 'wasd' location.
+// If you want these arrows on the right hand, you may want to edit this, to put right most column left, etc.
+#ifdef ARROWS_TRIANGLE
+    #define NAVI_11 KC_PGDN
+    #define                 NAVI_12 KC_UP   
+    #define                                 NAVI_13 KC_PGUP
+    #define                                                 NAVI_14 KC_HOME
+    #define                                                                 NAVI_15 KC_BTN3
+    #define NAVI_21 KC_LEFT
+    #define                 NAVI_22 KC_DOWN
+    #define                                 NAVI_23 KC_RIGHT
+    #define                                                  NAVI_24 KC_END
+    #define                                                                 NAVI_25 KC_BTN1
+    #define NAVI_31 XXXXXXX
+    #define                 NAVI_32 KC_ACL2
+    #define                                 NAVI_33 KC_ACL1
+    #define                                                  NAVI_34 KC_ACL0
+    #define                                                                 NAVI_35 KC_BTN2
+    //--------------------------------------------------------------------------
+    // If switching hands to put mouse left, same as for navigation side: switch outer columns by editing here.
+    #define MOUS_11 XXXXXXX
+    #define                 MOUS_12 KC_WH_D
+    #define                                 MOUS_13 KC_MS_U
+    #define                                                 MOUS_14 KC_WH_U
+    #define                                                                MOUS_15 KC_WH_L
+    #define MOUS_21 KC_BTN1
+    #define                 MOUS_22 KC_MS_L
+    #define                                 MOUS_23 KC_MS_D
+    #define                                                 MOUS_24 KC_MS_R
+    #define                                                                MOUS_25 KC_WH_R
+    #define MOUS_31 XXXXXXX
+    #define                 MOUS_32 KC_BTN5
+    #define                                 MOUS_33 KC_BTN4
+    #define                                                 MOUS_34 KC_BTN3
+    #define                                                                MOUS_35 KC_BTN2
+#endif
+
+// Default left/right layout, meaning arrows right and mouse left.
+#ifndef ARROWS_LEFT
+    #define LEFT_AA MOUS_11
+    #define LEFT_AB MOUS_12
+    #define LEFT_AC MOUS_13
+    #define LEFT_AD MOUS_14
+    #define LEFT_AE MOUS_15
+    #define LEFT_BA MOUS_21
+    #define LEFT_BB MOUS_22
+    #define LEFT_BC MOUS_23
+    #define LEFT_BD MOUS_24
+    #define LEFT_BE MOUS_25
+    #define LEFT_CA MOUS_31
+    #define LEFT_CB MOUS_32
+    #define LEFT_CC MOUS_33
+    #define LEFT_CD MOUS_34
+    #define LEFT_CE MOUS_35
+    #define RGHT_AA NAVI_11
+    #define RGHT_AB NAVI_12
+    #define RGHT_AC NAVI_13
+    #define RGHT_AD NAVI_14
+    #define RGHT_AE NAVI_15
+    #define RGHT_BA NAVI_21
+    #define RGHT_BB NAVI_22
+    #define RGHT_BC NAVI_23
+    #define RGHT_BD NAVI_24
+    #define RGHT_BE NAVI_25
+    #define RGHT_CA NAVI_31
+    #define RGHT_CB NAVI_32
+    #define RGHT_CC NAVI_33
+    #define RGHT_CD NAVI_34
+    #define RGHT_CE NAVI_35
+#endif
+
+#ifdef ARROWS_LEFT
+    #define LEFT_AA NAVI_11
+    #define LEFT_AB NAVI_12
+    #define LEFT_AC NAVI_13
+    #define LEFT_AD NAVI_14
+    #define LEFT_AE NAVI_15
+    #define LEFT_BA NAVI_21
+    #define LEFT_BB NAVI_22
+    #define LEFT_BC NAVI_23
+    #define LEFT_BD NAVI_24
+    #define LEFT_BE NAVI_25
+    #define LEFT_CA NAVI_31
+    #define LEFT_CB NAVI_32
+    #define LEFT_CC NAVI_33
+    #define LEFT_CD NAVI_34
+    #define LEFT_CE NAVI_35
+    #define RGHT_AA MOUS_11
+    #define RGHT_AB MOUS_12
+    #define RGHT_AC MOUS_13
+    #define RGHT_AD MOUS_14
+    #define RGHT_AE MOUS_15
+    #define RGHT_BA MOUS_21
+    #define RGHT_BB MOUS_22
+    #define RGHT_BC MOUS_23
+    #define RGHT_BD MOUS_24
+    #define RGHT_BE MOUS_25
+    #define RGHT_CA MOUS_31
+    #define RGHT_CB MOUS_32
+    #define RGHT_CC MOUS_33
+    #define RGHT_CD MOUS_34
+    #define RGHT_CE MOUS_35
+#endif
+
 //      <pink2            , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                        ,         ,         , -*-     ,         ,       <|,>        ,         ,         ,         ,         ,         ,
-        CTO_BASE          , KC_WH_L , KC_WH_D , KC_WH_U , KC_WH_R , XXXXXXX , KC_BTN3 , KC_PGUP , KC_HOME , KC_END  , KC_PGDN , KC_BSPC ,
-        LCTL_T ( KC_TAB ) , KC_MS_L , KC_MS_D , KC_MS_U , KC_MS_R , KC_BTN1 , KC_BTN1 , KC_LEFT , KC_UP   , KC_DOWN , KC_RGHT , KC_RCTL ,
-        KC_LSFT           , KC_BTN5 , KC_BTN4 , KC_BTN3 , KC_BTN2 , XXXXXXX , KC_BTN2 , KC_ACL0 , KC_ACL1 , KC_ACL2 , XXXXXXX , KC_RSFT ,
+        CTO_BASE          , LEFT_AA , LEFT_AB , LEFT_AC , LEFT_AD , LEFT_AE , RGHT_AA , RGHT_AB , RGHT_AC , RGHT_AD , RGHT_AE , KC_BSPC ,
+        LCTL_T ( KC_TAB ) , LEFT_BA , LEFT_BB , LEFT_BC , LEFT_BD , LEFT_BE , RGHT_BA , RGHT_BB , RGHT_BC , RGHT_BD , RGHT_BE , KC_RCTL ,
+        KC_LSFT           , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
+
 //      --------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , XXXXXXX , RALT_T ( KC_RGHT )
 //                         ,         ,        , -*-   <|,>        ,         ,         ,

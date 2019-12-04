@@ -159,6 +159,9 @@ or staying on the `_FUN` layer. Default: return to BASE.
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
 
+Remarks. It is fairly easy to switch from this vim-like layout, to a wasd layout, and/or
+to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines at the top of keymap.c.
+
 - - -
     
     
