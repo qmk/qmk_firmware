@@ -198,6 +198,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+void keyboard_post_init_keymap(void){
+    // Debug to Console by default
+    debug_enable = true;
+}
+
 /**
  * Encoder
  */
