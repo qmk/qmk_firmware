@@ -1,3 +1,4 @@
+#include QMK_KEYBOARD_H
 #include <string.h>
 #include "webusb.h"
 #include "wait.h"
@@ -41,12 +42,28 @@ void webusb_receive(uint8_t *data, uint8_t length) {
 
     if(webusb_state.paired == true) {
         switch(command) {
-          //Handle commands in here
+            //Handle commands in here
+            case WEBUSB_GET_LAYER:
+                webusb_layer_event();
+                break;
+            default:
+                break;
         }
     } else {
         webusb_error(WEBUSB_STATUS_NOT_PAIRED);
     }
 };
+
+void webusb_layer_event() {
+    uint8_t layer;
+    uint8_t event[4];
+    layer = biton32(layer_state);
+    event[0] = WEBUSB_STATUS_OK;
+    event[1] = WEBUSB_EVT_LAYER;
+    event[2] = layer;
+    event[3] = WEBUSB_STOP_BIT;
+    webusb_send(event, sizeof(event));
+}
 
 void webusb_error(uint8_t code) {
     uint8_t buffer[1];

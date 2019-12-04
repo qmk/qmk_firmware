@@ -12,6 +12,7 @@
 
 void webusb_receive(uint8_t *data, uint8_t length);
 void webusb_send(uint8_t *data, uint8_t length);
+void webusb_layer_event(void);
 void webusb_error(uint8_t);
 void webusb_set_pairing_state(void);
 
@@ -30,7 +31,8 @@ enum Webusb_Status_Code {
 
 enum Webusb_Command_Code {
     WEBUSB_CMD_PAIR,
-    WEBUSB_GET_FW_VERSION
+    WEBUSB_GET_FW_VERSION,
+    WEBUSB_GET_LAYER
 };
 
 enum Webusb_Event_Code {
