@@ -2,17 +2,15 @@
 
 Check up for QMK environment.
 """
-import os
 import platform
 import shutil
 import subprocess
-from glob import glob
 
 from milc import cli
 
 
-@cli.entrypoint('Basic QMK environment checks')
-def main(cli):
+@cli.subcommand('Basic QMK environment checks')
+def doctor(cli):
     """Basic QMK environment checks.
 
     This is currently very simple, it just checks that all the expected binaries are on your system.
@@ -24,8 +22,7 @@ def main(cli):
     cli.log.info('QMK Doctor is checking your environment.')
 
     # Make sure the basic CLI tools we need are available and can be executed.
-    binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc']
-    binaries += glob('bin/qmk-*')
+    binaries = ['dfu-programmer', 'avrdude', 'dfu-util', 'avr-gcc', 'arm-none-eabi-gcc', 'bin/qmk']
     ok = True
 
     for binary in binaries:
@@ -34,14 +31,15 @@ def main(cli):
             cli.log.error("{fg_red}QMK can't find %s in your path.", binary)
             ok = False
         else:
-            try:
-                subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5, check=True)
-            except subprocess.CalledProcessError:
+            check = subprocess.run([binary, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+            if check.returncode in [0, 1]:
+                cli.log.info('Found {fg_cyan}%s', binary)
+            else:
                 cli.log.error("{fg_red}Can't run `%s --version`", binary)
                 ok = False
 
     # Determine our OS and run platform specific tests
-    OS = platform.system()
+    OS = platform.system()  # noqa (N806), uppercase name is ok in this instance
 
     if OS == "Darwin":
         cli.log.info("Detected {fg_cyan}macOS.")
@@ -49,12 +47,12 @@ def main(cli):
     elif OS == "Linux":
         cli.log.info("Detected {fg_cyan}Linux.")
         if shutil.which('systemctl'):
-            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
             if mm_check.returncode == 0:
-                mm = True
+                mm = False
                 for line in mm_check.stdout.split('\n'):
                     if 'ModemManager' in line and 'enabled' in line:
-                        mm = False
+                        mm = True
 
                 if mm:
                     cli.log.warn("{bg_yellow}Detected ModemManager. Please disable it if you are using a Pro-Micro.")

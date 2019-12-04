@@ -107,4 +107,7 @@ uint32_t eeconfig_read_haptic(void);
 void     eeconfig_update_haptic(uint32_t val);
 #endif
 
+bool eeconfig_read_handedness(void);
+void eeconfig_update_handedness(bool val);
+
 #endif

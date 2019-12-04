@@ -7,15 +7,15 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-  #   or <this_dir>/ld/
+  #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= STM32F303xC
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
   MCU_STARTUP ?= stm32f3xx
 
-  # Board: it should exist either in <chibios>/os/hal/boards/
-  #  or <this_dir>/boards
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F303XC
 
   # Cortex version
@@ -27,7 +27,7 @@ ifneq ($(findstring STM32F303, $(MCU)),)
   USE_FPU = yes
 
   # Vector table for application
-  # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
+  # 0x00000000-0x00001000 area is occupied by bootloader.*/
   # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
   # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
 
@@ -87,9 +87,6 @@ ifneq (,$(filter $(MCU),atmega32a))
   # unsupported features for now
   NO_UART ?= yes
   NO_SUSPEND_POWER_DOWN ?= yes
-
-  # Programming options
-  PROGRAM_CMD ?= ./util/atmega32a_program.py $(TARGET).hex
 endif
 
 ifneq (,$(filter $(MCU),atmega328p))
