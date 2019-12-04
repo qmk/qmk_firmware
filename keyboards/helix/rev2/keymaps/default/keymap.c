@@ -11,6 +11,7 @@
   #include "ssd1306.h"
 #endif
 
+extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
