@@ -49,6 +49,14 @@
 #    include "hal.h"
 #endif
 
+#ifndef PRODUCT
+#    ifdef SKIP_VERSION
+#        define PRODUCT BOARD_PATH (QMK __DATE__) (__DATE__ __TIME__)
+#    else
+#        define PRODUCT BOARD_PATH (QMK QMK_VERSION) (__DATE__ __TIME__)
+#    endif
+#endif
+
 /*
  * USB descriptor structure
  */

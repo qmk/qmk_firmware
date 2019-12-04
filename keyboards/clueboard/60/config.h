@@ -24,7 +24,6 @@
 #define PRODUCT_ID      0x2350
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
-#define PRODUCT         Clueboard 60%
 #define DESCRIPTION     Clueboard 60%
 
 /* Address for jumping to bootloader on STM32 chips. */

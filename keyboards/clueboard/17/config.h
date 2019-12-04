@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x2312
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
-#define PRODUCT         Cluepad with RGB Underlighting
 #define DESCRIPTION     QMK keyboard firmware for Cluepad
 
 /* key matrix size */

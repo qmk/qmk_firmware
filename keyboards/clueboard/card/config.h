@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x2330
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Clueboard
-#define PRODUCT         ATMEGA32U4 Firmware Dev Kit
 #define DESCRIPTION     A small board to help you hack on QMK.
 
 /* key matrix size */
