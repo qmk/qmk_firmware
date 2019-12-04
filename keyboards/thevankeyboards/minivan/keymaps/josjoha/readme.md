@@ -1,22 +1,18 @@
-# Dvorak on the Minivan
+# Dvorak² no-dead-keys
 
 This is a Dvorak layout for the Minivan 40% keyboard (default 44 keys; 12,12,12,8).
 The accented characters would likely cover Dutch, German, French, Finnish,
 Norwegian, Swedish, Italian and Spanish, besides English (Unicode input).
-If that in Unicode is enough, you can deactivate the dead-keys system.
+It has two Unicode layers, so that the dead-keys system can be de-activated.
 
-This map allows the same layout on a computer that is already set to Dvorak
-on the computer side. It helps with a laptop for example that you need to have _computer side_
-Dvorak on for its build-in keyboard. (Only tested on Linux, may work on other systems.)
+This keymap allows the same layout on a computer that is already set to Dvorak
+on the computer side, such as a laptop that you need the built-in keyboard to be
+mapped to Dvorak. (Only tested on Linux, should work on other systems.)
 
 This keymap.c was edited from the default, LED support was copied/edited
 from ../jetpacktuxedo/ keymap. 
                                                 By Jos B.,  joshb@xs4all.nl 
 
-Work in progress ... 
-   Todo: 
-   - Work on FUN layer key in BASE layer to act as one-shot for F-keys.
-   - Shift is also a sort of layer key (esp. in this layout), may represent it in leds
    
 
 
@@ -67,17 +63,19 @@ Work in progress ...
   variant when in 'descramble' mode. The same is the case for the base
   layers `_LTR` (normal) and `_DDL` (descramble).
 
-  Activation: go to `_FUN` layer, touch the upper/left key (Backspace 
+  Activation: go to `_FUN` layer, touch the upper/right key (Backspace 
   on base layer). This cycles through the descramble modes.
 
   ⮚ When the left led is white: normal mode.
-  ⮚ Right led white: full descramble mode (Linux Unicode input).
+  ⮚ Right led white: full descramble mode (Linux descrambled Unicode input).
   ⮚ Middle led white: half descramble mode, with normal Unicode input system.
 
   With the middle led set to white, you can take advantage of a Unicode
   input mode that works on your system, if it is the same when the
   computer is set to Dvorak or not (see `_RAR` layer for Unicode input
-  mode selection).
+  encoding selection). This more or less means there is one more Unicode
+  encoding option than already standard in QMK: 'descrambled' version of 
+  Linux (Shift-Control-U HEX) encoding.
 
   To test it, (in Debian/Linux) go to a terminal in X and type (normal user)
 
@@ -87,7 +85,6 @@ Work in progress ...
 
         > setxkbmap -layout us
 
-  This only seems to affect that terminal. 
 
   Layers
   ======
@@ -104,6 +101,12 @@ Work in progress ...
                hold     hold  hold      |        hold toggl   hold                   // Layer switch type
      <1        <2       <3    <4        | 4>     3>   2>      1>                        // Keys by number
 
+Remarks: The 'Tab' on Left-Control causes a slight delay for using Control in combination with a mouse.
+It seems this will be difficult to fix, because it is spread over two devices. To avoid the
+±0.2 second delay, activate a layer where Left-Control is direct, such as `_FUN`.
+
+To activate an automatic repeating Delete, activate numbers/symbols layer (`_NSY`, `_DDN`).
+
 - - -
 
      Layer _NSY (Numbers and SYmbols)
@@ -118,6 +121,8 @@ Work in progress ...
                      -*-       <|>    -*-                                           // -*- Access on _LTR
        <1      <2    <3    <4   | 4>  3>    2>    1>  
 
+Remarks. There is a bit of numbers entry here with -,.Tab, also see `_REV` for that.
+
 - - -
     
      Layer _FUN (F-keys, Layer access, Set BASE key direction)
@@ -125,15 +130,19 @@ Work in progress ...
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
      toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
                  -*-                    <|>                                         // Access -*- _FUN
-     BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
-     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     // ... ! 'descramble'
-     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft
+     BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+     LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
+     LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
      ----------------------------------------------------------
      LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
            LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx                                                    // When tapped
                                 <|>                 -*-                                 // Acces -*- base
      <1    <2      <3      <4    | 4>         3>    2>     1>                
+
+Remarks. Unusual keys !Descr and FUN<. !Descr cycles through the 'descramble' modes. 
+Default: off. FUN< toggles an immediate return to the BASE layer after pressing an F-key, 
+or staying on the `_FUN` layer. Default: return to BASE.
 
 - - -
     
@@ -164,6 +173,9 @@ Work in progress ...
      xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
+
+Remarks. Ü is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
+for BSD Unix, uWIN for Windos, uWNC for another Windos encoding.
 
 - - -
     
@@ -199,6 +211,8 @@ Work in progress ...
    
      Layer _DDA: same as _ACC, but internally coded for 'descramble' mode.
     
+Remarks. This layer is seamlessly activated with 'descramble'
+
 - - -
     
     
@@ -217,6 +231,8 @@ Work in progress ...
 - - -
    
      Layer _DDD: same as _DRA, but internally coded for 'descramble' mode.
+
+Remarks. This layer is seamlessly activated with 'descramble'
     
 - - -
     
@@ -235,6 +251,8 @@ Work in progress ...
      _DDN input results in the same as _NSY with computer side Dvorak remapping. Only shown what changes:
 
               [{    ]}    /?           =+   |   +         ?     {     }                  // row 2, result
+
+Remarks. This layer is seamlessly activated with 'descramble'
 
 - - -
 
@@ -257,11 +275,13 @@ Work in progress ...
 
      _DDL input results in the same as _LTR with computer side Dvorak remapping. Only shown what changes:
 
-              '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL                // row 4, result
-                    oO    eE    uU    iI    | dD    hH    tT    nN    sS                // row 3, result
-              ;:    qQ    jJ    kK    xX    | bB          wW    vV    zZ                // row 2, result
+              '"    ,<    .>    pP    yY    | fF    gG    cC    rR    lL                 // row 4, result
+                    oO    eE    uU    iI    | dD    hH    tT    nN    sS                 // row 3, result
+              ;:    qQ    jJ    kK    xX    | bB          wW    vV    zZ                 // row 2, result
 
      (Keys for 'aA', '\|' and 'mM' are the same in Dvorak and Qwerty.)
+
+Remarks. This layer is seamlessly activated with 'descramble'
 
 - - -
    
@@ -299,5 +319,29 @@ Work in progress ...
 
   If you do and it works I could add a link to your map here if you like.
   
+  There is not much room left on the device (which is perfect, isn't it):
+     (...)
+     Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
+     * The firmware size is approaching the maximum - 28040/28672 (97%, 632 bytes free)
+
+  Personal remarks
+  ================
+
+  Yay!
+
+  This map has been tweaked quite a bit by experience, for getting rid of
+  irritating delays with tap-layer '-' plus right-control in the early
+  version of it for example.  Personally I find it an intuitive map,
+  because what can be the same on layers is the same, like Control or
+  Backspace (not always true though). It is so much better for using
+  vim to not deal with dead-keys issues (how do you press _Control-^_
+  or access a _register_ or _mark_ with dead-keys getting in the way ?).
+
+  Since the accented characters are logically arranged, they are easy to
+  find. It is fun to have the expanded character set on `_DRA`, to be able
+  to do super- and subscript, unusual brace styles, and for typing the
+  all important: 〇. All in all a ton better than any other keyboard
+  I have used, thanks to the _awesomeness of QMK and the Minivan_.
+  👍🙂 
 
     See keymap.c for more comments.

@@ -1,4 +1,3 @@
-
 /*
  * License (GPL):
   
@@ -32,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Layer switch TT(layer) tapping amount to make it toggle
 //#define TAPPING_TOGGLE 2
+#define TAPPING_TERM_HOLTAP 225 // 175 ms proved unreliable, 225 ms seems ok
 
 #define PRESCRAMBLED_U "f"  // This is the letter 'u' for Unicode input, as effective on GNU/Debian/Linux 10 set to Dvorak
 static uint16_t key_timer; // Used in _DDL to differentiate layer switching in half or full descramble mode.
@@ -93,6 +93,9 @@ short descramble = _NORMAL_; // to remember if we are in descramble mode for 'es
 // * Replaced by get_mod () (Code kept in comments in case this system breaks by updates to other sources files.)
 bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). There may be more elegant code for this in
                      //   QMK (a function seems to do it?), but this is simple and keeps the issue isolated to this file.
+#define TRUE 1
+#define FALSE 0
+bool _fun_stay = FALSE; // for making _FUN layer not return to BASE after pressing f-key
  
 
     /* These are the accented characters of most/all western European Nations.
@@ -404,6 +407,7 @@ enum custom_keycodes {
     CTO_DRAW,
     CHOLTAP_ACCE,
     CHOLTAP_DRAW,
+    _FUN_STAY,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
@@ -557,8 +561,44 @@ void indicate_scramble (void)
 // The special layer switching keys.
 // The Unicode system to work with descramble.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // Go back to base-layer after pressing an F-key, on key-up to avoid BASE key activation
+    if ((_fun_stay == FALSE) && // 
+       (keycode >= KC_F1) && (keycode <= KC_F24)) { // relies on keycodes being consequtive
+         // Go back to base layer
+         if (!(record->event.pressed)) { // key upaaa<F2>ooo
+             if (descramble) { // 
+                 activate_this_layer (_DDL); 
+                 deactivate_all_but (_DDL); 
+             } else {
+                 activate_this_layer (_LTR);
+                 deactivate_all_but (_LTR); 
+             }
+        }
+    }
     // Layer switching:
     switch (keycode) {
+
+    // Shift detection system.
+    // Following ... Disused again, because it turned out 'one shot' like
+    // Unicode input. Shift detection copied from.
+    // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
+    //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+
+            // Re-instated ...
+           // /* Crude but self contained shift detection.
+        // Record state of shift
+        // ... left shift
+        case KC_LSFT:
+        // ... right shift
+        case KC_RSFT:
+            if (record->event.pressed) { // key down
+                shift_ison = 1; // shift depressed
+            } else { // key up
+                shift_ison = 0; // shift released
+            }
+          break;
+
         //   Setting the descramble mode
         /*  // Discontinued for keyspace
         case BASE_NORMAL: // User wants to switch to normal input BASE key pointing 
@@ -658,6 +698,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break; 
+
         // These two are a simulated LT(layer,kc), layer-tap. 
         // Double-tap-hold functionality: not done, but holding _NSY layer gives a normal Del there
         // They switch what layer to use depending on 'descramble'
@@ -682,7 +723,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      activate_this_layer (_LTR);
                      deactivate_all_but (_LTR); 
                  }
-                 if (timer_elapsed (key_timer) <= (TAPPING_TERM + 50)) { // tapped, 175 ms proved unreliable, 225 ms seems ok
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                      SEND_STRING (SS_TAP (X_DEL));
                  }
             }
@@ -706,33 +747,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      activate_this_layer (_LTR);
                      deactivate_all_but (_LTR); 
                  }
-                 if (timer_elapsed (key_timer) <= (TAPPING_TERM + 50)) { // tapped
+                 if (timer_elapsed (key_timer) <= TAPPING_TERM_HOLTAP) { // tapped
                      SEND_STRING (SS_TAP (X_RIGHT));
                  }
             }
             break;
-    }
-    // Shift detection system.
-    // Following ... Disused again, because it turned out 'one shot' like
-    // Unicode input. Shift detection copied from.
-    // https://github.com/kyleterry/qmk_firmware/blob/master/quantum/quantum.c
-    //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
-
-    switch (keycode) {
-            // Re-instated ...
-           // /* Crude but self contained shift detection.
-        // Record state of shift
-        // ... left shift
-        case KC_LSFT:
-        // ... right shift
-        case KC_RSFT:
+        case _FUN_STAY: // causes the f-keys to *not* return _FUN layer to BASE
             if (record->event.pressed) { // key down
-                shift_ison = 1; // shift depressed
-            } else { // key up
-                shift_ison = 0; // shift released
+                if (_fun_stay == FALSE) { // cycles, so it becomes permament until altered
+                    _fun_stay = TRUE;
+                } else {
+                    _fun_stay = FALSE;
+                }
             }
-          break;
-
+            break;
+     
         // Unicode macros for descramble mode.
         // The plan was to use the already defined hex values, convert them to ascii and then use them (itoa(...), stdlib.h).
         // However it seems SEND_STRING cannot take a variable.
@@ -1216,8 +1245,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT           , KC_SCLN , KC_Q    , KC_J   , KC_K , KC_X , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _NSY ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _NSY ) , TO ( _FUN ) , CHOLTAP_DRAW
-//                         ,                      ,             ,                    <|,>       ,             ,              ,
-//      <1                 , <2                   , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
+//                         ,              ,             ,                    <|,>       ,             ,             ,
+//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>          , 1>
                       ),
 
         /**/
@@ -1283,8 +1312,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT           , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_N , KC_M , KC_COMM , KC_DOT , KC_SLSH , KC_RSFT ,
 //      --------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) , CHOLTAP_ACCE , MO ( _DDN ) , LT ( _MOV , KC_ENT ) , KC_SPC , MO ( _DDN ) , TO ( _FUN ) , CHOLTAP_DRAW
-//                         ,              ,             ,                    <|,>       ,             ,              ,
-//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>           , 1>
+//                         ,              ,             ,                    <|,>       ,             ,             ,
+//      <1                 , <2           , <3          , <4                  |, 4>     , 3>          , 2>          , 1>
                       ),
 
         /**/
@@ -1636,9 +1665,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
 // toggl toggl toggl toggl toggl toggl | toggl toggl                   cycles   // Type of layer switch
 //             -*-                    <|>                                         // Access -*- _FUN
-// BASE: NUMS: _FUN  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
-// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     // ... ! 'descramble'
-// LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft
+// BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
+// LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
+// LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
 // ----------------------------------------------------------
 // LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt               // ! sets 'descramble' mode
 //       LSft    LAlt    LAlt  | &LAlt                                     
@@ -1647,15 +1676,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // <1    <2      <3      <4    | 4>         3>    2>     1>                
 //
 //
-//      <pink2   , <pinky   , <ring       , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
-//               ,          , -*-         ,             ,             ,           <|,>         ,          ,         ,         ,         ,               ,
-        CTO_BASE , CTO_NUMS , TO ( _FUN ) , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
-        KC_LCTL  , KC_F1    , KC_F2       , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
-        KC_LSFT  , KC_F11   , KC_F12      , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
+//      <pink2   , <pinky   , <ring     , <middl      , <index      , <indx2     |, indx2>   , index>   , middl>  , ring>   , pinky>  , pink2>        ,
+//               ,          , -*-       ,             ,             ,           <|,>         ,          ,         ,         ,         ,               ,
+        CTO_BASE , CTO_NUMS , _FUN_STAY , TO ( _MOV ) , TO ( _RAR ) , TO ( _REV ) , CTO_ACCE , CTO_DRAW , XXXXXXX , XXXXXXX , XXXXXXX , BASE_DESCRMBL ,
+        KC_LCTL  , KC_F1    , KC_F2     , KC_F3       , KC_F4       , KC_F5       , KC_F6    , KC_F7    , KC_F8   , KC_F9   , KC_F10  , KC_RCTL       ,
+        KC_LSFT  , KC_F11   , KC_F12    , KC_F13      , KC_F14      , KC_F15      , KC_F16   , KC_F17   , KC_F18  , KC_F19  , KC_F20  , KC_RSFT       ,
 //      ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         KC_LALT , MT ( MOD_LCTL | MOD_LSFT, XXXXXXX ) , MT ( MOD_LCTL | MOD_LALT , XXXXXXX ) , MT ( MOD_LSFT | MOD_LALT , XXXXXXX ) , MT ( MOD_LCTL | MOD_LSFT | MOD_LALT , XXXXXXX ) , XXXXXXX , CTO_BASE , KC_RALT
-//              ,                                     ,                                      ,                                    <|,>                                                ,               , -*-      ,
-//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>            , 2>       , 1>
+//              ,                                     ,                                      ,                                    <|,>                                                ,         , -*-     ,
+//      <1      , <2                                  , <3                                   , <4                                  |, 4>                                              , 3>      , 2>      , 1>
                       ),
 
         /**/
@@ -1666,7 +1695,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * New layer template. Includes left/right movement arrows, deletion, modifiers.
  * If you want a new layer, in the logic of this layout you would add a toggle on the
  * _FUN layer top row on the first free key to it, and optionally alter the hold 
- * layer switch keys on the base layers.
+ * layer switch keys on the base layers. (The firmware is already large.)
  *
     [ _??? ] = LAYOUT (
 
