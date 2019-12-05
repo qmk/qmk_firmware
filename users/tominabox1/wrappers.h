@@ -25,23 +25,23 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
                     |_|
 */
 // Dimple Base layer
-#define __________________DIMPLE1__________________       KC_ESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC
-#define __________________DIMPLE2__________________       LCTL_T(KC_TAB), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT
-#define __________________DIMPLE3L_________________       KC_LSFT, LT(_FKEY,KC_Z),    KC_X,    KC_C,    KC_V,    KC_B
-#define __________________DIMPLE3R_________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_QUES)
-#define __________________DIMPLE4__________________       KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO
+#define __________________BASE1____________________       KC_ESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC
+#define __________________BASE2____________________       LCTL_T(KC_TAB), KC_A,    KC_R,    KC_S,    KC_T,    KC_D, KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT
+#define __________________BASE3L___________________       KC_LSFT, LT(_FKEY,KC_Z),    KC_X,    KC_C,    KC_V,    KC_B
+#define __________________BASE3R___________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  RSFT_T(KC_QUES)
+#define __________________BASE4____________________       KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO
 
-// Dimple Symbol Layer
+// Dimple Num/Symbol Layer
 #define _________________LOWER_1___________________       KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC
 #define _________________LOWER_2___________________       KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_MINS, KC_PIPE
 #define _________________LOWER_3___________________       KC_DEL,KC_NO, KC_LCBR, KC_LBRC, KC_LPRN, KC_UNDS, KC_RPRN, KC_RBRC, KC_RCBR, KC_DOT, KC_SLSH
 #define _________________LOWER_4___________________       LCA(KC_DEL),   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS, KC_ENT, KC_PGDN, KC_END
 
 // Dimple Number layer
-#define ___________________RAISE1__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_PGDN,   KC_UP,     KC_PGUP,    KC_NO, KC_NO
-#define ___________________RAISE2__________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS
-#define ___________________RAISE3__________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
-#define ___________________RAISE4__________________       SPONGEBOB, KC_MUTE, KC_VOLU, KC_ENT, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO
+#define ___________________NAV1____________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_PGDN,   KC_UP,     KC_PGUP,    KC_NO, KC_NO
+#define ___________________NAV2____________________       KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS
+#define ___________________NAV3____________________       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_DOT,   KC_SLSH
+#define ___________________NAV4____________________       SPONGEBOB, AESTHETIC, KC_VOLU, KC_ENT, KC_TRNS, KC_TRNS,   KC_NO,   KC_NO
 
 // Dimple F-key layer
 #define ___________________FKEY1___________________       KC_PASTA, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_NO
@@ -72,23 +72,22 @@ __  __ _       _
 
 
 // Minivan Base Layer
-#define __________________MINIVAN1_________________       __________________DIMPLE1__________________
-#define __________________MINIVAN2_________________       __________________DIMPLE2__________________
-#define __________________MINIVAN3_________________       __________________DIMPLE3L_________________, __________________DIMPLE3R_________________, KC_RSFT
+#define __________________MINIVAN1_________________       __________________BASE1____________________
+#define __________________MINIVAN2_________________       __________________BASE2____________________
+#define __________________MINIVAN3_________________       __________________BASE3L___________________, __________________BASE3R___________________, KC_RSFT
 #define __________________MINIVAN4_________________       KC_DEL, KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC),  MO(_RAISE), MO(_FKEY), KC_NO, MO(_FKEY)
-#define __________________MINIVAN4BIGSPACE_________       KC_LALT, KC_LGUI, KC_ENT_LOW,  KC_NO, KC_NO, KC_SPC_RSE,  KC_LEFT, KC_DOWN, KC_RGHT, MO(_FKEY)
 
-/* Minivan Symbol Layer
+/* Minivan Num/Symbol Layer
 #define _________________LOWER_1___________________
 #define _________________LOWER_2___________________        */
 #define __________________MININUM3_________________       _________________LOWER_3___________________, KC_SLSH
 #define __________________MININUM4_________________       KC_DEL, _________________LOWER_4___________________, KC_END
 
 /* Minvian Number Layer
-#define ___________________RAISE1__________________
-#define ___________________RAISE2__________________       */
-#define ___________________RVAN_3__________________       ___________________RAISE3__________________, KC_NO
-#define ___________________RVAN_4__________________       SPONGEBOB, ___________________RAISE4__________________, KC_NO
+#define ___________________NAV1____________________
+#define ___________________NAV2____________________       */
+#define ___________________RVAN_3__________________       ___________________NAV3____________________, KC_NO
+#define ___________________RVAN_4__________________       KC_NO, ___________________NAV4____________________, KC_NO
 
 /* Minvian F-key layer
 #define ___________________FKEY1___________________
@@ -112,14 +111,14 @@ __  __ _       _
 */
 
 // CRKBD Base Layer
-#define ___________________CRKBD1__________________       __________________DIMPLE1__________________
-#define ___________________CRKBD2__________________       __________________DIMPLE2__________________
-#define ___________________CRKBD3__________________       __________________DIMPLE3L_________________, KC_K, KC_M,KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT
+#define ___________________CRKBD1__________________       __________________BASE1____________________
+#define ___________________CRKBD2__________________       __________________BASE2____________________
+#define ___________________CRKBD3__________________       __________________BASE3L___________________, KC_K, KC_M,KC_COMM,   KC_DOT,  KC_SLSH,  KC_RSFT
 #define ___________________CRKBD4__________________       KC_LGUI, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
 /* CRKBD Number layer
-#define ___________________RAISE1__________________
-#define ___________________RAISE1__________________        */
+#define ___________________NAV1____________________
+#define ___________________NAV2____________________        */
 #define ___________________CRKBD_RAISE3____________       ___________________RVAN_3__________________
 #define ___________________CRKBD_RAISE4____________       SPONGEBOB, KC_LALT,LT(_LOWER, KC_SPC),  LT(_LOWER, KC_SPC), MO(_ARROW), KC_FKEY
 
@@ -146,4 +145,3 @@ __  __ _       _
 #define ___________________ARROW2__________________       KC_NO,  KC_LEFT,  KC_DOWN, KC_RIGHT, KC_NO, KC_NO,KC_NO,  KC_LEFT,  KC_DOWN,  KC_RGHT, KC_NO, KC_NO
 #define ___________________ARROW3__________________       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 #define ___________________ARROW4__________________       ___________________CRKBD4__________________
-

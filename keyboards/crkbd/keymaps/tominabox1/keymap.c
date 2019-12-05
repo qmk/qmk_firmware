@@ -10,8 +10,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT_wrapper(
-    ___________________RAISE1__________________,
-    ___________________RAISE2__________________,
+    ___________________NAV1____________________,
+    ___________________NAV2____________________,
     ___________________CRKBD_RAISE3____________,
     ___________________CRKBD_RAISE4____________
   ),
@@ -35,8 +35,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________ARROW2__________________,
     ___________________ARROW3__________________,
     ___________________ARROW4__________________
-   ),
-   [_FKEY] = LAYOUT_wrapper(
+  ),
+  [_FKEY] = LAYOUT_wrapper(
     ___________________FKEY1___________________,
     ___________________FKEY2___________________,
     ___________________CRKBD_FKEY3_____________,
@@ -51,54 +51,54 @@ static bool is_suspended;
 static bool rgb_matrix_enabled;
 
 void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-    if (!is_suspended) {
-        is_suspended = true;
-        rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
-        rgb_matrix_disable_noeeprom();
-    }
+  rgb_matrix_set_suspend_state(true);
+  if (!is_suspended) {
+    is_suspended = true;
+    rgb_matrix_enabled = (bool)rgb_matrix_config.enable;
+    rgb_matrix_disable_noeeprom();
+  }
 }
 
 void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
-    is_suspended = false;
-    if (rgb_matrix_enabled) {
-        rgb_matrix_enable_noeeprom();
-    }
+  rgb_matrix_set_suspend_state(false);
+  is_suspended = false;
+  if (rgb_matrix_enabled) {
+    rgb_matrix_enable_noeeprom();
+  }
 }
 
 #include "lib/lib8tion/lib8tion.h"
 extern led_config_t g_led_config;
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode, uint8_t speed, uint8_t led_type) {
-    HSV hsv = {hue, sat, val};
-    if (hsv.v > rgb_matrix_config.hsv.v) {
-        hsv.v = rgb_matrix_config.hsv.v;
-    }
+  HSV hsv = {hue, sat, val};
+  if (hsv.v > rgb_matrix_config.hsv.v) {
+    hsv.v = rgb_matrix_config.hsv.v;
+  }
 
-    switch (mode) {
-        case 1:  // breathing
-        {
-            uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
-            hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
-            RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
+  switch (mode) {
+    case 1:  // breathing
+    {
+      uint16_t time = scale16by8(g_rgb_counters.tick, speed / 8);
+      hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
+      RGB rgb       = hsv_to_rgb(hsv);
+      for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+          rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         }
-        default:  // Solid Color
-        {
-            RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-                if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
-                    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-                }
-            }
-            break;
-        }
+      }
+      break;
     }
+    default:  // Solid Color
+    {
+      RGB rgb = hsv_to_rgb(hsv);
+      for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+        if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
+          rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+        }
+      }
+      break;
+    }
+  }
 }
 #endif //RGB_MATRIX_ENABLE
 
@@ -117,107 +117,107 @@ uint16_t        oled_timer;
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   #ifdef CONSOLE_ENABLE
-      uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+  uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
   #endif
 
-    if (record->event.pressed) {
-      #ifdef OLED_DRIVER_ENABLE
-        oled_timer = timer_read();
-        oled_on();
-        #endif // OLED_DRIVER_ENABLE
+  if (record->event.pressed) {
+    #ifdef OLED_DRIVER_ENABLE
+    oled_timer = timer_read();
+    oled_on();
+    #endif // OLED_DRIVER_ENABLE
     switch (keycode) {
-            case KC_BBB:
-                if (record->event.pressed) {
-                    SEND_STRING(":b:");
-                } else {}
-                break;
-            case KC_BEPIS:
-                if (record->event.pressed) {
-                    SEND_STRING("BEPIS");
-                } else {}
-                break;
-        }
+      case KC_BBB:
+      if (record->event.pressed) {
+        SEND_STRING(":b:");
+      } else {}
+      break;
+      case KC_BEPIS:
+      if (record->event.pressed) {
+        SEND_STRING("BEPIS");
+      } else {}
+      break;
     }
-    return true;
+  }
+  return true;
 
 }
 
 #ifdef OLED_DRIVER_ENABLE
 void render_logo(void) {
-    static const char PROGMEM logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
+  static const char PROGMEM logo[] = {
+    0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+    0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
+    0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
+    0};
     oled_write_P(logo, false);
-}
+  }
 
-void render_status_main(void) {
+  void render_status_main(void) {
     // Host Keyboard USB Status
     oled_write_P(PSTR("USB: "), false);
     switch (USB_DeviceState) {
-        case DEVICE_STATE_Unattached:
-            oled_write_P(PSTR("Unattached\n"), false);
-            break;
-        case DEVICE_STATE_Suspended:
-             oled_write_P(PSTR("Suspended\n"), false);
-            break;
-        case DEVICE_STATE_Configured:
-             oled_write_P(PSTR("Connected\n"), false);
-            break;
-        case DEVICE_STATE_Powered:
-             oled_write_P(PSTR("Powered\n"), false);
-            break;
-        case DEVICE_STATE_Default:
-             oled_write_P(PSTR("Default\n"), false);
-            break;
-        case DEVICE_STATE_Addressed:
-             oled_write_P(PSTR("Addressed\n"), false);
-            break;
-        default:
-             oled_write_P(PSTR("Invalid\n"), false);
-        }
+      case DEVICE_STATE_Unattached:
+      oled_write_P(PSTR("Unattached\n"), false);
+      break;
+      case DEVICE_STATE_Suspended:
+      oled_write_P(PSTR("Suspended\n"), false);
+      break;
+      case DEVICE_STATE_Configured:
+      oled_write_P(PSTR("Connected\n"), false);
+      break;
+      case DEVICE_STATE_Powered:
+      oled_write_P(PSTR("Powered\n"), false);
+      break;
+      case DEVICE_STATE_Default:
+      oled_write_P(PSTR("Default\n"), false);
+      break;
+      case DEVICE_STATE_Addressed:
+      oled_write_P(PSTR("Addressed\n"), false);
+      break;
+      default:
+      oled_write_P(PSTR("Invalid\n"), false);
+    }
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (biton32(layer_state)) {
-        case _BASE:
-            oled_write_P(PSTR("Colemak\n"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("Numbers\n"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Symbols\n"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
-            break;
-        case _ARROW:
-            oled_write_P(PSTR("Navigation\n"), false);
-            break;
-        case _FKEY:
-            oled_write_P(PSTR("Function\n"), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined"), false);
+      case _BASE:
+      oled_write_P(PSTR("Colemak\n"), false);
+      break;
+      case _RAISE:
+      oled_write_P(PSTR("Numbers\n"), false);
+      break;
+      case _LOWER:
+      oled_write_P(PSTR("Symbols\n"), false);
+      break;
+      case _ADJUST:
+      oled_write_P(PSTR("Adjust\n"), false);
+      break;
+      case _ARROW:
+      oled_write_P(PSTR("Navigation\n"), false);
+      break;
+      case _FKEY:
+      oled_write_P(PSTR("Function\n"), false);
+      break;
+      default:
+      // Or use the write_ln shortcut over adding '\n' to the end of your string
+      oled_write_ln_P(PSTR("Undefined"), false);
     }
 
     // Host Keyboard LED Status
 
     oled_write_ln_P(IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? PSTR("Caps Lock\n") : PSTR("         \n"), false);
-}
+  }
 
-void oled_task_user(void) {
+  void oled_task_user(void) {
 
     if (timer_elapsed(oled_timer) > 20000) {
-        oled_off();
-        return;
+      oled_off();
+      return;
     }
-        if (is_master) {
-            render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
-        } else {}
-    }
+    if (is_master) {
+      render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {}
+  }
 
-#endif // OLED_Driver
+  #endif // OLED_Driver
