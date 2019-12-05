@@ -9,7 +9,6 @@ F_USB = 16000000
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-# This uses usbaspbootloader
 BOOTLOADER = USBasp
 
 # If you don't know the bootloader type, then you can specify the
