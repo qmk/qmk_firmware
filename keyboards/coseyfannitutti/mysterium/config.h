@@ -240,8 +240,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
