@@ -174,7 +174,7 @@ to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines a
      xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds LEDS  xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
