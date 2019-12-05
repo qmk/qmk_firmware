@@ -16,6 +16,8 @@ Holding SHIFT while tapping BACKSPACE will output DEL. Holding both SHIFT keys w
 
 I don't know about you but "lower" and "raise" don't mean that much to me. I named my layers `NUM`, short for numbers and `NAV`, short for navigation. Holding the key will activate the layer for as long as it is held, double tapping it will switch to it. Single tapping it once will switch to main layer again.
 
+Holding TAB will access `MOUSE` layer.
+
 Everything else is pretty standard I'd say.
 
 ### NUM
@@ -29,6 +31,12 @@ This is where I access arrow keys, page up, down, home, end and F keys. I also a
 ### UTIL
 
 Short for utility. This is accessed by pressing both `NUM` and `NAV` at the same time. It has a software `RESET` key, media keys, RGB control and switches main layer between Colemak and a gaming layer.
+
+### MOUSE
+
+A simple set up which changes where the arrows are on `NAV` to mouse directions. There's also scroll wheel and mouse clicks of course.
+
+The left thumb keys change into accelleration control keys.
 
 ### GAMING
 
