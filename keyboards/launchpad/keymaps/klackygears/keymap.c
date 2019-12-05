@@ -8,7 +8,7 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
+#define _BASE 0
 #define _RGB 1
 #define _FUNC 15
 
@@ -18,21 +18,21 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* Qwerty
+    /* Base
      * ,-------------.
      * |   1  |  2   |
      * |------+------|
      * |   3  |  4   |
      * |------+------|
-     * |   5  |  6   |
+     * | Val- | Val+ |
      * |------+------|
      * | FUNC | RGB  |
      * `-------------'
      */
-    [_QWERTY] = LAYOUT( \
+    [_BASE] = LAYOUT( \
         KC_1,      KC_2, \
         KC_3,      KC_4, \
-        KC_5,      KC_6, \
+        RGB_VAD,   RGB_VAI, \
         MO(_FUNC), TG(_RGB) \
       ),
 
