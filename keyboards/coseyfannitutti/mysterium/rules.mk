@@ -7,7 +7,8 @@ F_USB = 16000000
 #   Atmel DFU    atmel-dfu
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
-#   atmega32a    bootloadHID
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
 #
 # This uses usbaspbootloader
 BOOTLOADER = USBasp
