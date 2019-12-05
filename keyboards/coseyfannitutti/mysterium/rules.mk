@@ -1,3 +1,6 @@
+# MCU name
+MCU = atmega32a
+
 # Processor frequency
 F_USB = 16000000
 
