@@ -24,10 +24,10 @@
 #    include "wait.h"
 #endif
 
-#include "is31fl3733.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "progmem.h"
+#include "is31fl3733.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -80,43 +80,54 @@ bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 uint8_t g_led_control_registers[DRIVER_COUNT][24]             = {{0}, {0}};
 bool    g_led_control_registers_update_required[DRIVER_COUNT] = {false};
 
-void IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
+bool IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
+    // If the transaction fails function returns false.
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
 
 #if ISSI_PERSISTENCE > 0
     for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) == 0) break;
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) != 0) {
+            return false;
+        }
     }
 #else
-    i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT);
+    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, ISSI_TIMEOUT) != 0) {
+        return false;
+    }
 #endif
+    return true;
 }
 
-void IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // assumes PG1 is already selected
-
-    // transmit PWM registers in 12 transfers of 16 bytes
+bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
+    // Assumes PG1 is already selected.
+    // If any of the transactions fails function returns false.
+    // Transmit PWM registers in 12 transfers of 16 bytes.
     // g_twi_transfer_buffer[] is 20 bytes
 
-    // iterate over the pwm_buffer contents at 16 byte intervals
+    // Iterate over the pwm_buffer contents at 16 byte intervals.
     for (int i = 0; i < 192; i += 16) {
         g_twi_transfer_buffer[0] = i;
-        // copy the data from i to i+15
-        // device will auto-increment register for data after the first byte
-        // thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer
+        // Copy the data from i to i+15.
+        // Device will auto-increment register for data after the first byte
+        // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
         for (int j = 0; j < 16; j++) {
             g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) == 0) break;
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
+                return false;
+            }
         }
 #else
-        i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT);
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, ISSI_TIMEOUT) != 0) {
+            return false;
+        }
 #endif
     }
+    return true;
 }
 
 void IS31FL3733_init(uint8_t addr, uint8_t sync) {
@@ -213,11 +224,15 @@ void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        // Firstly we need to unlock the command register and select PG1
+        // Firstly we need to unlock the command register and select PG1.
         IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
         IS31FL3733_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
 
-        IS31FL3733_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        // If any of the transactions fail we risk writing dirty PG0,
+        // refresh page 0 just in case.
+        if (!IS31FL3733_write_pwm_buffer(addr, g_pwm_buffer[index])){
+            g_led_control_registers_update_required[index] = true;
+        }
     }
     g_pwm_buffer_update_required[index] = false;
 }
@@ -231,6 +246,5 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index) {
             IS31FL3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
     }
-    // This seems counter intuitive but sometimes this page can get corrupted. So update it every time.
-    // g_led_control_registers_update_required[index] = false;
+    g_led_control_registers_update_required[index] = false;
 }
