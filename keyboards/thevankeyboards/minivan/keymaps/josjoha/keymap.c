@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include QMK_KEYBOARD_H
+#define RGBLIGHT_SLEEP // QMK docs: "If defined, the RGB lighting will be switched off when the host goes to sleep"
 
 // Layer switch TT(layer) tapping amount to make it toggle
 //#define TAPPING_TOGGLE 2
@@ -119,6 +120,7 @@ bool shift_ison = 0; // keep track of the state of shift (Capslock is ignored). 
 #define TRUE 1
 #define FALSE 0
 bool _fun_stay = FALSE; // for making _FUN layer not return to BASE after pressing f-key
+bool leds_on = TRUE; // toggle leds on/off
  
 
     /* These are the accented characters of most/all western European Nations.
@@ -431,6 +433,7 @@ enum custom_keycodes {
     CHOLTAP_ACCE,
     CHOLTAP_DRAW,
     _FUN_STAY,
+    LEDS_ON,
     //
     // For descramble BASE layer set. These need to be 'costum' keycodes, which seems to prevent
     // the assigned key to end up doing other stuff besides what we have defined in this file.
@@ -507,6 +510,194 @@ enum custom_keycodes {
     UN_S_FLEUR,
 };
 
+// pre-existing function
+void keyboard_post_init_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    // Set up RGB effects on _only_ the first LED 
+    rgblight_set_effect_range (1, 1); // Takes a range: 1st arg is start, 2nd how many
+    // Purple
+    rgblight_sethsv_noeeprom (210, 255, 20);
+    // Set LED effects to breathing mode
+    rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
+
+    // Init the first and last LEDs to a static color.
+    setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
+    setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
+    rgblight_set ();
+  #endif //RGBLIGHT_ENABLE
+}
+
+// help user with leds
+void indicate_scramble (void)
+{
+  #ifdef RGBLIGHT_ENABLE
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
+    // See also below under _FUN layer led
+    if (_NORMAL_ == descramble) { // normal mode, 0 (100% normal)
+        led0r = 255; //  shine white left led
+        led0g = 255;
+        led0b = 255;
+        rgblight_sethsv_noeeprom (HSV_RED); 
+        led2r = 255;
+        led2g = 0; 
+        led2b = 0; 
+    } else if (_HALF_ == descramble) { // descramble mode, 1 (normal unicode)
+        led0r = 255; //  left/right is red
+        led0g = 0; 
+        led0b = 0; 
+        rgblight_sethsv_noeeprom (HSV_WHITE); //  shine white middle led (still breathes)
+        led2r = 255;
+        led2g = 0;
+        led2b = 0;
+    } else if (_FULL_ == descramble) { // descramble mode, 1 (normal unicode)
+        led0r = 255;  //  shine white right led
+        led0g = 0;
+        led0b = 0;
+        rgblight_sethsv_noeeprom (HSV_RED); 
+        led2r = 255;
+        led2g = 255; 
+        led2b = 255; 
+    }
+    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
+    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    rgblight_set ();
+  #endif //RGBLIGHT_ENABLE
+}
+
+// pre-existing function
+uint32_t layer_state_set_user (uint32_t state) {
+  #ifdef RGBLIGHT_ENABLE
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
+    short color_ddl = 28 ;
+
+    if (!leds_on) return state; // leds are off
+        
+
+    // The order should be the reverse of the #defines of layer number of the layers on top
+    // because higher layer number is higher priority if activated
+    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
+    if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
+        indicate_scramble (); // this function already does it all
+        return state; // 
+    } 
+    //--- (pair)
+    else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
+        led0r = 255; //  first led follows the layer being descrambled: _DRA
+        led0g = 128; // 
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+        rgblight_sethsv_noeeprom (HSV_GOLDENROD); 
+    }
+    if (layer_state_cmp (state, _DRA)) { // Unicode drawings and unusual things
+        led0r = 255; // gold red
+        led0g = 128; // 
+        led2r = 255; //
+        led2g = 128; //
+        rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
+    }
+    //--- (pair)
+    else if (layer_state_cmp (state, _DDA)) {  // double Dvorak descramble, Accented letters
+        led0g = 150; //  first led follows the layer being descrambled: _ACC
+        led0b = 100;
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+        rgblight_sethsv_noeeprom(HSV_TURQUOISE); 
+    }
+    else if (layer_state_cmp (state, _ACC)) { // Accented letters (Unicode input layer)
+        led0g = 150; // With some blue, because it is also a symbol 
+        led0b = 100;
+        led2g = 150;
+        led2b = 100;
+        rgblight_sethsv_noeeprom (HSV_TURQUOISE); // cyan
+    }
+    //---
+    else if (layer_state_cmp (state, _REV)) { // reverse hands layer
+        led0g = 255; // green for nagivation left hand
+        led2b = 255; // blue for symbols right hand
+        rgblight_sethsv_noeeprom (60, 20, 100); // yellow (low saturation)
+    }
+    //---
+    else if (layer_state_cmp (state, _RAR)) { // weird layer
+        led0r = 100; // purple
+        led0b = 100;
+        led2r = 100;
+        led2b = 100;
+        rgblight_sethsv_noeeprom (HSV_PURPLE); // purple
+    }
+    //---
+    else if (layer_state_cmp (state, _MOV)) { // movement layer
+        led0g = 255;// movement is green, "go forward"
+        led2g = 255; 
+        rgblight_sethsv_noeeprom(HSV_GREEN);
+    }
+    //--- (pair)
+    else if (layer_state_cmp (state, _DDN)) { // double Dvorak descramble, numbers/symbols 
+        led0b = 255; //  first led follows the layer being descrambled: _NSY 
+        led2r = color_ddl; // Same as DDL, to which it belongs.
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+        rgblight_sethsv_noeeprom (HSV_BLUE); 
+    }
+    else if (layer_state_cmp (state, _NSY)) { // symbols and numbers
+        led0b = 255; // blue for symbols, like ink (writing)
+        led2b = 255;
+        rgblight_sethsv_noeeprom (HSV_BLUE);
+    }
+    //--- (pair)
+    // Alternate BASE layer (descramble)
+    else if (layer_state_cmp (state, _DDL)) { // double Dvorak descramble, letters
+        led2r = color_ddl; // A bit of a white not too bright color on rightaaaa111oooonnnooo
+        led2g = color_ddl; // 
+        led2b = color_ddl; // 
+    }
+    // Default layer (generally), normal BASE layer
+    else if (layer_state_cmp (state, _LTR)) { // symbols and numbers
+        led0r = 28; // A bit of a weak white color on left 
+        led0g = 28; // 
+        led0b = 28; // 
+    }
+    //---
+
+    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
+    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    rgblight_set ();
+  #endif //RGBLIGHT_ENABLE
+  return state;
+}
+
+// Set the leds to 'black' color
+void leds_show_off (void) {
+  #ifdef RGBLIGHT_ENABLE
+    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
+    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
+
+    if (leds_on) { // left/right white
+        led0r = 255; 
+        led0g = 255; 
+        led0b = 255; 
+        led2r = 255; 
+        led2g = 255; 
+        led2b = 255; 
+    } else { // left/right dark, after this they should remain at this color
+        led0r = 0; 
+        led0g = 0; 
+        led0b = 0; 
+        led2r = 0; 
+        led2g = 0; 
+        led2b = 0; 
+    }
+    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
+    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
+    rgblight_set ();
+
+  #endif //RGBLIGHT_ENABLE
+    return;
+}
+
 // Descramble Unicode functions, for layouts _DDA, _DDD
 // This function sends the leader codes that are common to most/all accented characters,
 // in an effort to reduce memory use, and/or to simplify the code. The "f" becomes "u"
@@ -544,45 +735,10 @@ void deactivate_all_but (int layer) {
    if (_DDL != layer) { layer_off ( _DDL ) ; } 
 }
 
-// help user with leds
-void indicate_scramble (void)
-{
-    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
-    // See also below under _FUN layer led
-    if (_NORMAL_ == descramble) { // normal mode, 0 (100% normal)
-        led0r = 255; //  shine white left led
-        led0g = 255;
-        led0b = 255;
-        rgblight_sethsv_noeeprom (HSV_RED); 
-        led2r = 255;
-        led2g = 0; 
-        led2b = 0; 
-    } else if (_HALF_ == descramble) { // descramble mode, 1 (normal unicode)
-        led0r = 255; //  left/right is red
-        led0g = 0; 
-        led0b = 0; 
-        rgblight_sethsv_noeeprom (HSV_WHITE); //  shine white middle led (still breathes)
-        led2r = 255;
-        led2g = 0;
-        led2b = 0;
-    } else if (_FULL_ == descramble) { // descramble mode, 1 (normal unicode)
-        led0r = 255;  //  shine white right led
-        led0g = 0;
-        led0b = 0;
-        rgblight_sethsv_noeeprom (HSV_RED); 
-        led2r = 255;
-        led2g = 255; 
-        led2b = 255; 
-    }
-    setrgb(led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
-    rgblight_set ();
-}
-
 // Process the user input, as far as special costumization within this source file is concerned.
 // The special layer switching keys.
 // The Unicode system to work with descramble.
+// pre-existing function
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Go back to base-layer after pressing an F-key, on key-up to avoid BASE key activation
@@ -783,6 +939,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     _fun_stay = TRUE;
                 } else {
                     _fun_stay = FALSE;
+                }
+            }
+            break;
+        case LEDS_ON: // Toggles leds on or off
+            if (record->event.pressed) { // key down
+                if (leds_on == FALSE) { 
+                    leds_on = TRUE;
+                    leds_show_off ();
+                } else {
+                    leds_on = FALSE;
+                    leds_show_off ();
                 }
             }
             break;
@@ -1240,7 +1407,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer _LTR: Dvorak, normal BASE layer and 'default' layer
      *
      * - Dual use keys create a delay in the key (tap/hold keys), therefore
-     *   space is not dual use (most used key), neither is hyphen.
+     *   space is not dual use (most ued key), neither is hyphen.
      *
      * - If _ACC right hand or _RAR is much used, an obvious choice is to 
      *   change the layer switched to by the Delete key, or copy the more
@@ -1638,7 +1805,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
+     MLed  SLeds Leds  xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1650,7 +1817,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX       , XXXXXXX          , XXXXXXX          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
         X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
 //      ----------------------------------------------------------------------------
-        XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP  , XXXXXXX
+        RGB_TOG , LEDS_ON , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP
 //              ,         ,         ,       <|,>        ,         ,         ,
 //      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
                       ),
@@ -1883,7 +2050,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      BASE: NUMS: FUN<  _MOV  _RAR  _REV  | ACCE: DRAW: xxx   xxx   xxx   !Descr     //':' are dynamic ...
      LCtl  F1    F2    F3    F4    F5    | F6    F7    F8    F9    F10     RCtl     //... ! 'descramble'
      LSft  F11   F12   F13   F14   F15   | F16   F17   F18   F19   F20     RSft     //... < toggle 'stay'
-     ----------------------------------------------------------
+     ----------------------------------------------------------                  
      LAlt  LCtl&   LCtl&   LSft& | +LCtl&LSft xxx   BASE   RAlt
            LSft    LAlt    LAlt  | &LAlt                                     
            +xxx    +xxx    +xxx  | +xxx
@@ -1938,123 +2105,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 };
-
-
-void keyboard_post_init_user (void) {
-  #ifdef RGBLIGHT_ENABLE
-    // Set up RGB effects on _only_ the first LED 
-    rgblight_set_effect_range (1, 1); // Takes a range: 1st arg is start, 2nd how many
-    // Purple
-    rgblight_sethsv_noeeprom (210, 255, 20);
-    // Set LED effects to breathing mode
-    rgblight_mode_noeeprom (RGBLIGHT_EFFECT_BREATHING + 2);
-
-    // Init the first and last LEDs to a static color.
-    setrgb (0, 0, 0, (LED_TYPE *)&led[0]); // Led[0] is led 0
-    setrgb (0, 0, 0, (LED_TYPE *)&led[2]); // 2nd led
-    rgblight_set ();
-  #endif //RGBLIGHT_ENABLE
-}
-
-uint32_t layer_state_set_user(uint32_t state){
-  #ifdef RGBLIGHT_ENABLE
-    uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
-    uint8_t led2r = 0; uint8_t led2g = 0; uint8_t led2b = 0;
-    short color_ddl = 28 ;
-
-
-    // The order should be the reverse of the #defines of layer number of the layers on top
-    // because higher layer number is higher priority if activated
-    /* _LTR 0 _DDL 1 _NSY 2 _DDN 3 _MOV 4 _RAR 5 _REV 6 _ACC 7 _DDA 8 _DRA 9 _DDD 10 _FUN 11 */
-    if (layer_state_cmp (state, _FUN)) { // F-keys, and layer toggles
-        indicate_scramble (); // this function already does it all
-        return state; // 
-    } 
-    //--- (pair)
-    else if (layer_state_cmp (state, _DDD)) {  // double Dvorak descramble, Unicode drawings
-        led0r = 255; //  first led follows the layer being descrambled: _DRA
-        led0g = 128; // 
-        led2r = color_ddl; // Same as DDL, to which it belongs.
-        led2g = color_ddl; // 
-        led2b = color_ddl; // 
-        rgblight_sethsv_noeeprom (HSV_GOLDENROD); 
-    }
-    if (layer_state_cmp (state, _DRA)) { // Unicode drawings and unusual things
-        led0r = 255; // gold red
-        led0g = 128; // 
-        led2r = 255; //
-        led2g = 128; //
-        rgblight_sethsv_noeeprom( HSV_GOLDENROD ); 
-    }
-    //--- (pair)
-    else if (layer_state_cmp (state, _DDA)) {  // double Dvorak descramble, Accented letters
-        led0g = 150; //  first led follows the layer being descrambled: _ACC
-        led0b = 100;
-        led2r = color_ddl; // Same as DDL, to which it belongs.
-        led2g = color_ddl; // 
-        led2b = color_ddl; // 
-        rgblight_sethsv_noeeprom(HSV_TURQUOISE); 
-    }
-    else if (layer_state_cmp (state, _ACC)) { // Accented letters (Unicode input layer)
-        led0g = 150; // With some blue, because it is also a symbol 
-        led0b = 100;
-        led2g = 150;
-        led2b = 100;
-        rgblight_sethsv_noeeprom (HSV_TURQUOISE); // cyan
-    }
-    //---
-    else if (layer_state_cmp (state, _REV)) { // reverse hands layer
-        led0g = 255; // green for nagivation left hand
-        led2b = 255; // blue for symbols right hand
-        rgblight_sethsv_noeeprom (60, 20, 100); // yellow (low saturation)
-    }
-    //---
-    else if (layer_state_cmp (state, _RAR)) { // weird layer
-        led0r = 100; // purple
-        led0b = 100;
-        led2r = 100;
-        led2b = 100;
-        rgblight_sethsv_noeeprom (HSV_PURPLE); // purple
-    }
-    //---
-    else if (layer_state_cmp (state, _MOV)) { // movement layer
-        led0g = 255;// movement is green, "go forward"
-        led2g = 255; 
-        rgblight_sethsv_noeeprom(HSV_GREEN);
-    }
-    //--- (pair)
-    else if (layer_state_cmp (state, _DDN)) { // double Dvorak descramble, numbers/symbols 
-        led0b = 255; //  first led follows the layer being descrambled: _NSY 
-        led2r = color_ddl; // Same as DDL, to which it belongs.
-        led2g = color_ddl; // 
-        led2b = color_ddl; // 
-        rgblight_sethsv_noeeprom (HSV_BLUE); 
-    }
-    else if (layer_state_cmp (state, _NSY)) { // symbols and numbers
-        led0b = 255; // blue for symbols, like ink (writing)
-        led2b = 255;
-        rgblight_sethsv_noeeprom (HSV_BLUE);
-    }
-    //--- (pair)
-    // Alternate BASE layer (descramble)
-    else if (layer_state_cmp (state, _DDL)) { // double Dvorak descramble, letters
-        led2r = color_ddl; // A bit of a white not too bright color on rightaaaa111oooonnnooo
-        led2g = color_ddl; // 
-        led2b = color_ddl; // 
-    }
-    // Default layer (generally), normal BASE layer
-    else if (layer_state_cmp (state, _LTR)) { // symbols and numbers
-        led0r = 28; // A bit of a weak white color on left 
-        led0g = 28; // 
-        led0b = 28; // 
-    }
-    //---
-
-    setrgb (led0r, led0g, led0b, (LED_TYPE *)&led[0]); // Led 0
-    setrgb (led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
-    rgblight_set ();
-  #endif //RGBLIGHT_ENABLE
-  return state;
-}
-
 

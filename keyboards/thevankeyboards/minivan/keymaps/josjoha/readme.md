@@ -41,6 +41,7 @@ from ../jetpacktuxedo/ keymap.
             • Leds left and right indicate active layer.
             • ⁽¹⁾ One led on the _FUN layer is bright white, indicating which descramble
               mode is active (see below).
+            • Leds can be switched on/off on the _RAR layer (MLed, SLeds).      
 
 
   Usage
@@ -173,12 +174,15 @@ to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines a
      xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     xxx   xxx   xxx   xxx  | xxx   xxx   xxx   App
+     MLed  SLeds LEDS  xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
 Remarks. Ü is a Unicode tester key. uLNX for Linux Unicode input encoding, uBSD
-for BSD Unix, uWIN for Windos, uWNC for another Windos encoding.
+for BSD Unix, uWIN for Windos, uWNC for another Windos encoding. The
+change is retained between on/off power cycles.
+
+MLed switches on/off the middle led, SLeds switches on/off the side leds.
 
 - - -
     
