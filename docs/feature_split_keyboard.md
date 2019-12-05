@@ -128,7 +128,7 @@ Because not every split keyboard is identical, there are a number of additional 
 #define USE_I2C
 ```
 
-This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C-based devices. Also add the `NO_RIGHT_HALF_EXT_I2C_PULLUPS` define (described below) if the right half of the board does not have I2C pullup resistors on it.
+This enables I<sup>2</sup>C support for split keyboards. This isn't strictly for communication, but can be used for OLED or other I<sup>2</sup>C-based devices.
 
 ```c
 #define SOFT_SERIAL_PIN D0
@@ -203,10 +203,16 @@ This option changes the startup behavior to detect an active USB connection when
 This sets the maximum timeout when detecting master/slave when using `SPLIT_USB_DETECT`.
 
 ```c
-#define NO_RIGHT_HALF_EXT_I2C_PULLUPS
+#define RIGHT_HALF_INT_I2C_PULLUPS_OFF
 ```
 
-This turns on the internal pullup resistors on the I2C pins if the right half does not have external pullup resistors, so that the right half can operate on its own without delays. Most boards will need this option to be enabled. Leave this define out if the right half does have pullup resistors on the I2C pins.
+By default, it is assumed that the right half of a board does not have I2C pullup resistors installed on it, so the internal pullups are turned on for the 2 I2C pins. If the right half of the board does have physical I2C pullup resistors on the PCB, then `RIGHT_HALF_INT_I2C_PULLUPS_OFF` can be set to disable the internal pullups, but this is optional, as using both internal and external pullups at the same time will be okay.
+
+```c
+#define LEFT_HALF_INT_I2C_PULLUPS_ON
+```
+
+This turns on the internal pullup resistors on the I2C pins if the left half does not have external pullup resistors, so that the left half can operate on its own without delays. Most boards will not need this option, as the I2C pullup resistors are usually placed on this half. Leave this define out if the left half does have pullup resistors on the I2C pins.
 
 ## Additional Resources
 
