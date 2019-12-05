@@ -4,9 +4,9 @@
 
 A TKL keyboard that can be assembled with only through hole components, including usb type-c
 
-Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)  
-Hardware Supported: MYSTERIUM, atmega32a  
-Hardware Availability: [cftkb.com](http://www.cftkb.com), [GitHub](https://github.com/coseyfannitutti/mysterium)
+* Keyboard Maintainer: [coseyfannitutti](https://github.com/coseyfannitutti)
+* Hardware Supported: MYSTERIUM, atmega32a
+* Hardware Availability: [cftkb.com](http://www.cftkb.com), [GitHub](https://github.com/coseyfannitutti/mysterium)
 
 Make example for this keyboard (after setting up your build environment):
 
