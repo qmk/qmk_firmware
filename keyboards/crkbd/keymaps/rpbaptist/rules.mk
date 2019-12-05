@@ -17,7 +17,7 @@ MIDI_ENABLE        = no   # MIDI controls
 AUDIO_ENABLE       = no   # Audio output on port C6
 UNICODE_ENABLE     = no   # Unicode
 BLUETOOTH_ENABLE   = no   # Enable Bluetooth with the Adafruit EZ-Key HID
-MOUSEKEY_ENABLE    = no   # Mouse keys(+4700)
+MOUSEKEY_ENABLE    = yes  # Mouse keys(+4700)
 SWAP_HANDS_ENABLE  = no   # Enable one-hand typing
 
 RGB_MATRIX_ENABLE = WS2812
