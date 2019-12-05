@@ -231,17 +231,19 @@ ISR(TIMERx_OVF_vect) {
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
-    if (v <= ICRx / 12)  // if below ~8% of max
-        return v / 9;    // same as dividing by 900%
-    else {
-        uint32_t y = (((uint32_t)v + ICRx / 6) << 8) / (ICRx / 6 + 0xFFFFUL);  // add ~16% of max and compare
-        // to get a useful result with integer division, we shift left in the expression above
-        // and revert what we've done again after squaring.
-        y = y * y * y >> 8;
-        if (y > 0xFFFFUL)  // prevent overflow
-            return 0xFFFFU;
-        else
-            return (uint16_t)y;
+    if (v <= ICRx / 12)  // If the value is less than or equal to ~8% of max
+    {
+        return v / 9;  // Same as dividing by 900%
+    } else {
+        // In the next two lines values are bit-shifted. This is to avoid loosing decimals in integer math.
+        uint32_t y = (((uint32_t)v + ICRx / 6) << 5) / (ICRx / 6 + ICRx);  // If above 8%, add ~16% of max, and normalize with (max + ~16% max)
+        uint32_t out = (y * y * y * ICRx) >> 15;                           // Cube it and undo the bit-shifting. (which is now three times as much due to the cubing)
+
+        if (out > ICRx)  // Avoid overflows
+        {
+            out = ICRx;
+        }
+        return out;
     }
 }
 
@@ -274,7 +276,7 @@ void backlight_set(uint8_t level) {
 #endif
     }
     // Set the brightness
-    set_pwm(cie_lightness(ICR1 * (uint32_t)level / BACKLIGHT_LEVELS));
+    set_pwm(cie_lightness(ICRx * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
 void backlight_task(void) {}
@@ -415,7 +417,13 @@ void backlight_init_ports(void) {
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10);  // = 0b00011001;
 #        endif
 
-#        ifdef BACKLIGHT_CUSTOM_RESOLUTION  // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
+#        ifdef BACKLIGHT_CUSTOM_RESOLUTION
+#            if (BACKLIGHT_CUSTOM_RESOLUTION > 0xFFFF || BACKLIGHT_CUSTOM_RESOLUTION < 1)
+#                error "This out of range of the timer capabilities"
+#            elif (BACKLIGHT_CUSTOM_RESOLUTION < 0xFF)
+#                warning "Resolution lower than 0xFF isn't recommended"
+#            endif
+
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
 #        else
     ICRx   = TIMER_TOP;
