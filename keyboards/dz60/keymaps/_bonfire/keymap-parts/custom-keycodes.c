@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 // checking the held escape timer
 void matrix_scan_user(void)
 {
-    if(esc_held && timer_elapsed(held_esc_timer) > 470) {
+    if(esc_held && timer_elapsed(held_esc_timer) > 295) {
         register_code(KC_ESC);
     }
 }
