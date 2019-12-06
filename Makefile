@@ -281,6 +281,12 @@ define PARSE_RULE
     else ifeq ($$(call TRY_TO_MATCH_RULE_FROM_LIST,$$(KEYBOARDS)),true)
         KEYBOARD_RULE=$$(MATCHED_ITEM)
         $$(eval $$(call PARSE_KEYBOARD,$$(MATCHED_ITEM)))
+    # ONLY ON CI - build all revisions for boards without DEFAULT_FOLDER set
+    else ifeq ($${CI}, true)
+        FILTER := $$(firstword $$(subst :, ,$${RULE}))
+        KEYBOARDS := $$(filter $${FILTER}%,$$(KEYBOARDS))
+        RULE := $$(subst $${FILTER}:,,$${RULE})
+        $$(eval $$(call PARSE_ALL_KEYBOARDS))
     # Otherwise use the KEYBOARD variable, which is determined either by
     # the current directory you run make from, or passed in as an argument
     else ifneq ($$(KEYBOARD),)
