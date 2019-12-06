@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x0A64
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    kakunpc
 #define PRODUCT         angel64
@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8
    #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
+   #define RGBLIGHT_LIMIT_VAL 25 /* The maximum brightness level */
    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
  /*== all animations enable ==*/
    #define RGBLIGHT_ANIMATIONS
