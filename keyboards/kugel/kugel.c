@@ -30,9 +30,12 @@
 #define CS_PIN_IO 18
 #define CS_PIN_TB 17
 
-const uint8_t ioexpander_addrs[]   = {0x00, 0x01, 0x02};
-const uint8_t ioexpander_cs_pins[] = {CS_PIN_IO, CS_PIN_IO, CS_PIN_IO};
+#define IO_NUM 3
+
+const uint8_t ioexpander_addrs[IO_NUM]   = {0x00, 0x01, 0x02};
+const uint8_t ioexpander_cs_pins[IO_NUM] = {CS_PIN_IO, CS_PIN_IO, CS_PIN_IO};
 static bool   ioexpander_init_flag = false;
+static bool   ioexpander_init_succeed[IO_NUM] = {false};
 bool          trackball_init_flag  = false;
 
 #define WRITE_TO(addr) (0x80 | addr)
@@ -47,6 +50,20 @@ void create_user_file() {
 
     static const char build_guide[] = "<meta http-equiv=\"refresh\" content=\"0;URL=\'https://github.com/sekigon-gonnoc/Kugel-doc\'\"/>";
     BMPAPI->usb.create_file("BLDGUIDEHTM", (uint8_t *)build_guide, strlen(build_guide));
+}
+
+static void create_status_file() {
+    static char status_str[128];
+    tfp_sprintf(status_str,
+        "IO exp1:%s\r\n"
+        "IO exp2:%s\r\n"
+        "IO exp3:%s\r\n"
+        "Trackball:%s\r\n",
+        ioexpander_init_succeed[0] ? "OK" : "NG",
+        ioexpander_init_succeed[1] ? "OK" : "NG",
+        ioexpander_init_succeed[2] ? "OK" : "NG",
+        trackball_init_flag ? "OK" : "NG");
+    BMPAPI->usb.create_file("STATUS  TXT", (uint8_t*)status_str, strlen(status_str));
 }
 
 void matrix_init_kb() {
@@ -81,7 +98,7 @@ void matrix_scan_kb() {
     // trackball communication packet
     static uint8_t snd[]         = {0x02, 0, 0x03, 0, 0x04, 0, 0x05, 0, 0x06, 0};
     static uint8_t rcv[]         = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    uint32_t       reset_timeout = 1000;
+    int32_t       reset_timeout = 1000;
 
     tb_info.x = 0;
     tb_info.y = 0;
@@ -103,16 +120,39 @@ void matrix_scan_kb() {
             }
 
             // set pull-up of io expanders
-            uint8_t mcp23s_snd2[] = {0x40 | 0 | 0, 0x0C, 0xFF, 0xFF};
-            uint8_t mcp23s_rcv2[] = {0, 0, 0, 0};
-            spim_start(mcp23s_snd2, 4, mcp23s_rcv2, 4, CS_PIN_IO);
+            {
+                uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0C, 0xFF, 0xFF};
+                uint8_t mcp23s_rcv[] = {0, 0, 0, 0};
+                spim_start(mcp23s_snd, 4, mcp23s_rcv, 4, CS_PIN_IO);
+            }
 
             // set addressing mode of io expanders
-            uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A, (1 << 3) | (1 << 2)};
-            uint8_t mcp23s_rcv[] = {0, 0, 0};
-            spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
+            {
+                uint8_t mcp23s_snd[] = {0x40 | 0 | 0, 0x0A, (1 << 3) | (1 << 2)};
+                uint8_t mcp23s_rcv[] = {0, 0, 0};
+                spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
+            }
+
+            {
+                uint8_t mcp23s_snd[] = {0x40 | 0 | 1, 0x0A, (1 << 3) | (1 << 2)};
+                uint8_t mcp23s_rcv[] = {0, 0, 0};
+
+                for (int idx=0; idx<IO_NUM; idx++) {
+                    mcp23s_snd[0] = 0x40 | (ioexpander_addrs[idx] << 1) | 1;
+                    spim_start(mcp23s_snd, 3, mcp23s_rcv, 3, CS_PIN_IO);
+
+                    if (mcp23s_rcv[2] == mcp23s_snd[2]) {
+                        ioexpander_init_succeed[idx] = true;
+                    }
+                }
+            }
 
             ioexpander_init_flag = true;
+            for (int idx=0; idx<IO_NUM; idx++) {
+                ioexpander_init_flag &= ioexpander_init_succeed[idx];
+            }
+
+            create_status_file();
 
             if (trackball_init_flag) {
                 reset_adns7530();
