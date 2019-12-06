@@ -14,14 +14,6 @@ F_USB = 16000000
 #   ATmega328P   USBasp
 BOOTLOADER = USBasp
 
-# If you don't know the bootloader type, then you can specify the
-# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
-#   Teensy halfKay      512
-#   Teensy++ halfKay    1024
-#   Atmel DFU loader    4096
-#   LUFA bootloader     4096
-#   USBaspLoader        2048
-
 # Flash program via avrdude, but default command is not suitable.
 # You can use coseyfannitutti/discipline:default:program
 PROGRAM_CMD = avrdude -c usbasp -p m32 -U flash:w:$(BUILD_DIR)/$(TARGET).hex
