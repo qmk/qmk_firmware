@@ -102,7 +102,7 @@
         {"x":17.25, "y":5.25}
       ]
     },
-    "LAYOUT_tkl_iso": {
+    "LAYOUT_tkl_iso_split_rshift": {
       "layout": [
         {"x":0, "y":0},
         {"x":2, "y":0},
