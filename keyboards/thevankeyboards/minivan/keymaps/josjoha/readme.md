@@ -155,8 +155,8 @@ or staying on the `_FUN` layer. Default: return to BASE.
      BASE      WLft  WDn   WUp   WRht  xxx   | Btn3  PgUp  Home  End   PgDn  Bksp
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
-     -------------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
+     --------------------------------------------------------
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  BASE  Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
 
@@ -170,11 +170,11 @@ to switch left with right hand. See `ARROW_TRIANGLE` and `ARROW_LEFT` #defines a
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                            //(toggle) on _FUN
-     BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
-     xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+     BASE  xxx   xxx   xxx   xxx   xxx   | xxx   Play  Next  Prev  Stop  NumL
+     P     Power Wake  Sleep Pause ScrLk | PrtSc xxx   Vol+  Vol-  Mute  CapL        // P(ower) indicator
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds xxx   xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds xxx   xxx  | xxx   xxx   BASE  App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -199,6 +199,9 @@ MLed switches on/off the middle led, SLeds switches on/off the side leds.
                                   <|>
      <1        <2    <3       <4   | 4>   3>    2>    1>  
 
+Remarks. This layer does not follow the navigation configuration #define settings 
+used for the `_MOV` layer (it seemed to become convoluted and overkill to add it).
+
 - - -
     
     
@@ -210,7 +213,7 @@ MLed switches on/off the middle led, SLeds switches on/off the side leds.
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  BASE  ___
                -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -227,11 +230,11 @@ Remarks. This layer is seamlessly activated with 'descramble'
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ±ƒ    🙂😃  👍     👎    ⍨🙁   Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
      ---------------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
 
@@ -313,41 +316,61 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Hacking & slashing 
   ==================
 
-  The 'descramble' letters layer is basically a Qwerty layout, because
-  that becomes Dvorak after computer side remapping. However it is not
-  the best Qwerty layout, because the symbols on the `_DDN` layer are
-  not optimal for direct Qwerty use. With some minor tweaks there, you
-  could use it as a good Qwerty layout for a pretty full featured dual
-  layout board.
+  How I would go about some changes people might need ...
 
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
-  then see what layers to set for the 2nd and 8th keys on the bottom row.
+  then see what layers to set for the 2nd, 3rd or 6th, 8th key on the
+  bottom row.
 
-  If you do and it works I could add a link to your map here if you like.
+       Qwerty, other languages ?
+
+  The 'descramble' letters layer is basically a Qwerty layout, but it is
+  not the best for that. With some minor tweaks it would be better, 
+  sacrificing the ability to type on a computer already set to Dvorak.
+  Another fun use of the second layout is a completely different language
+  like Arabic or Chinese; or the other way around so that the default
+  is the other language.
+
+       Device Space
   
   There is not much room left on the device (which is perfect, isn't it):
      (...)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28040/28672 (97%, 632 bytes free)
+     * The firmware size is approaching the maximum - 28332/28672 (98%, 340 bytes free)
+
+       Other formfactor keyboards ?
+
+  To use this layout on a keyboard with more keys on the bottom row
+  (like the Planck) it seems you would need to add some keys to the
+  first row in each of the 12 layers. An interesting use of more keys
+  could be: assign a key to each of the layer-tap key thus avoiding
+  the slight hold delay with a mouse; add layer-hold keys to `_RAR` and
+  `_REV`; more navigation on the base layer; some accented or Unicode
+  that you use the most, etc.
+
+  Keyboards with fewer keys: the `_REV` layer would be the first
+  to repurpose I guess. One of the `_NSY` layer hold keys to it,
+  to accomodate the lost characters, or use another layer hold key.
 
   Personal remarks
   ================
 
-  Yay!
-
-  This map has been tweaked quite a bit by experience, for getting rid of
-  irritating delays with tap-layer '-' plus right-control in the early
-  version of it for example.  Personally I find it an intuitive map,
-  because what can be the same on layers is the same, like Control or
-  Backspace (not always true though). It is so much better for using
-  vim to not deal with dead-keys issues (how do you press _Control-^_
-  or access a _register_ or _mark_ with dead-keys getting in the way ?).
+  It seems to be an intuitive and effective map. What can be the same
+  on layers is the same, like Control or Backspace (not always true
+  though). It is so much better for using vim to not deal with dead-keys
+  issues (how do you press _Control-^_ or access a _register_ or _mark_
+  with dead-keys getting in the way ?).
 
   Since the accented characters are logically arranged, they are easy to
   find. It is fun to have the expanded character set on `_DRA`, to be able
-  to do super- and subscript, unusual brace styles, and for typing the
-  all important: 〇. All in all a ton better than any other keyboard
-  I have used, thanks to the awesomeness of QMK and the Minivan.
-  👍🙂 
+  to do super-² and subscript₍₂₎, 「unusual brace styles」, and for typing the
+  all important 〇… It is nice to be able to plug and play on any computer,
+  including a laptop set to Dvorak already.
 
+  Feel free to let me know if you like it, and _not_ let me know if you _don't_
+  like it ;-P.
+
+  Thanks to the awesomeness of **QMK and the Minivan**.  👍🙂 
+
+  JB

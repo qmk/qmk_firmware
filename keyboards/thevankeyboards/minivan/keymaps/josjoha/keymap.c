@@ -200,7 +200,7 @@ enum unicode_names { // See below under 'unicode map' for meaning
     CS_ODABRA,
     CS_CDABRA,
     CS_LGULDEN,
-    CS_UGULDEN,
+    CS_ELLIPS,
     CS_CIRCLE,
     CN_0SUB,
     CN_0SUP,
@@ -361,13 +361,13 @@ const uint32_t PROGMEM unicode_map[] = {
 
      // Dutch currency
     [CS_LGULDEN] = 0x0192, //     ''              ''          "L" for lower, "GULDEN" for guilder: ƒ
-    [CS_UGULDEN] = 0x0191, //     ''              ''          "U" for upper,           ''        : Ƒ
     
      // circle and dots
     [CS_CIRCLE] = 0x3007, //      ''              ''          "CIRCLE" for circle: 〇
     [CS_DEGREE] = 0x00B0, //      ''              ''          "DEGREE" for degree: °
     [CS_MIDDOT] = 0x00B7, //      ''              ''          "MIDDOT" for mid dot: ·
     [CS_BULLET] = 0x2022, //      ''              ''          "BULLET" for bullet: •
+    [CS_ELLIPS] = 0x2026, //      ''              ''          "ELLIPS" for bullet: …
 
      // super and sub script numbers
     [CN_0SUB] =  0x2080, //       ''     , N for number, "SUB" for sub-script or "SUP" for super-script:₀
@@ -484,7 +484,6 @@ enum custom_keycodes {
     UN_S_CCBRA,
     UN_S_ODABRA,
     UN_S_CDABRA,
-    UN_S_GULDEN,
     UN_N_0SUBP,
     UN_N_1SUBP,
     UN_N_2SUBP,
@@ -495,13 +494,14 @@ enum custom_keycodes {
     UN_N_7SUBP,
     UN_N_8SUBP,
     UN_N_9SUBP,
-    UN_S_PlUSMIN,
+    UN_S_PLUSMIN,
     UN_S_PLMI,
     UN_S_DQUL,
     UN_S_DQUH,
     UN_S_CIRCLE,
     UN_S_MIDDOT,
     UN_S_BULLET,
+    UN_S_ELLIPS,
     UN_S_DEGREE,
     UN_S_OPSUBP,
     UN_S_CPSUBP,   
@@ -1244,10 +1244,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unicode_tail ();
             }
           break;
-        case UN_S_GULDEN: 
+        case UN_S_PLUSMIN: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("0191"); } else { SEND_STRING ("0192"); } // ƒƑ
+                if (shift_ison) { SEND_STRING ("0192"); } else { SEND_STRING ("00n7"); } // ƒ±
                 unicode_tail ();
             }
           break;
@@ -1265,10 +1265,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unicode_tail ();
             }
           break;
-        case UN_S_PlUSMIN: 
+        case UN_S_ELLIPS: 
             if (record->event.pressed) { 
                 unicode_lead ();
-                if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("00n1"); } // ·±
+                if (shift_ison) { SEND_STRING ("00n7"); } else { SEND_STRING ("2026"); } // ·…
                 unicode_tail ();
             }
           break;
@@ -1615,7 +1615,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      Tab+LCtl  MLft  MDn   MUp   MRht  Btn1  | Btn1  Left  Up    Down  Right RCtl
      LSft      Btn5  Btn4  Btn3  Butn2 xxx   | Btn2  Acc0  Acc1  Acc2  xxx   RSft
      -------------------------------------------------------------
-     Left+LAlt Del   Ent   ___ | PgUp  PgDn  xxx   Right+RAlt
+     Left+LAlt Del   Ent   ___ | PgUp  PgDn  BASE   Right+RAlt
                            -*-<|>                                                        //(hold) on BASE
      <1        <2    <3    <4  | 4>    3>    2>    1>  
  */
@@ -1768,9 +1768,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT           , LEFT_CA , LEFT_CB , LEFT_CC , LEFT_CD , LEFT_CE , RGHT_CA , RGHT_CB , RGHT_CC , RGHT_CD , RGHT_CE , KC_RSFT ,
 
 //      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , XXXXXXX , RALT_T ( KC_RGHT )
-//                         ,         ,        , -*-   <|,>        ,         ,         ,
-//      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>      , 1>
+        LALT_T ( KC_LEFT ) , KC_DEL  , KC_ENT , _______ , KC_PGUP , KC_PGDN , CTO_BASE , RALT_T ( KC_RGHT )
+//                         ,         ,        , -*-   <|,>        ,         ,          ,
+//      <1                 , <2      , <3     , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
 
         /**/
@@ -1801,11 +1801,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                              -*-        <|>                                            //(toggle) on _FUN
-     BASE  P     Power Wake  Sleep xxx   | xxx   Play  Next  Prev  Stop  NumL        // P(ower) indicator
-     xxx   xxx   xxx   Pause ScrLk PrtSc | xxx   xxx   Vol+  Vol-  Mute  CapL
+     BASE  xxx   xxx   xxx   xxx   xxx   | xxx   Play  Next  Prev  Stop  NumL
+     P     Power Wake  Sleep Pause ScrLk | PrtSc xxx   Vol+  Vol-  Mute  CapL        // P(ower) indicator
      Ü     uLNX  uBSD  uOSX  uWIN  uWNC  | xxx   xxx   xxx   xxx   xxx Insert         // Ü(nicode) tester
      ----------------------------------------------
-     MLed  SLeds Leds  xxx  | xxx   xxx   xxx   App                      // Middle-led, Side-leds: on/off
+     MLed  SLeds Leds  xxx  | xxx   xxx   BASE  App                      // Middle-led, Side-leds: on/off
                            <|>
      <1    <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1813,13 +1813,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 //      <pink2        , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>  ,
 //                    ,                  ,                  ,                  , -*-              ,                 <|,>        ,         ,         ,         ,         ,         ,
-        CTO_BASE      , S ( KC_P )       , KC_PWR           , KC_WAKE          , KC_SLEP          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
-        XXXXXXX       , XXXXXXX          , XXXXXXX          , KC_PAUS          , KC_SLCK          , KC_PSCR           , XXXXXXX , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
+        CTO_BASE      , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX          , XXXXXXX           , XXXXXXX , KC_MPLY , KC_MNXT , KC_MPRV , KC_MSTP , KC_NLCK ,
+        S ( KC_P )    , KC_PWR           , KC_WAKE          , KC_SLEP          , KC_PAUS          , KC_SLCK           , KC_PSCR , XXXXXXX , KC_VOLU , KC_VOLD , KC_MUTE , KC_CAPS ,
         X ( CUU_DIA ) , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_INS  ,
-//      ----------------------------------------------------------------------------
-        RGB_TOG , LEDS_ON , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_APP
-//              ,         ,         ,       <|,>        ,         ,         ,
-//      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
+//      -----------------------------------------------------------------------------
+        RGB_TOG , LEDS_ON , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , CTO_BASE , KC_APP
+//              ,         ,         ,       <|,>        ,         ,          ,
+//      <1      , <2      , <3      , <4     |, 4>      , 3>      , 2>       , 1>
                       ),
 
         /**/
@@ -1907,7 +1907,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  BASE  ___
                -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1917,10 +1917,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE    , XP ( CAL_ACU , CAU_ACU ) , XP ( COL_ACU , COU_ACU ) , XP ( CEL_ACU , CEU_ACU ) , XP ( CUL_ACU , CUU_ACU ) , XP ( CIL_ACU , CIU_ACU ) , XP ( CYL_ACU , CYU_ACU ) , XP ( CIJL_BI , CIJU_BI ) , XP ( CCL_CDL , CCU_CDL ) , XP ( COL_STK , COU_STK ) , XP ( CAL_RNG , CAU_RNG ) , KC_BSPC ,
         KC_LCTL     , XP ( CAL_DIA , CAU_DIA ) , XP ( COL_DIA , COU_DIA ) , XP ( CEL_DIA , CEU_DIA ) , XP ( CUL_DIA , CUU_DIA ) , XP ( CIL_DIA , CIU_DIA ) , XP ( CYL_DIA , CYU_DIA ) , XP ( COEL_BI , COEU_BI ) , XP ( CAEL_BI , CAEU_BI ) , XP ( CNL_TLD , CNU_TLD ) , X ( CSL_SHP )            , KC_RCTL ,
         KC_LSFT     , XP ( CAL_GRA , CAU_GRA ) , XP ( COL_GRA , COU_GRA ) , XP ( CEL_GRA , CEU_GRA ) , XP ( CUL_GRA , CUU_GRA ) , XP ( CIL_GRA , CIU_GRA ) , XP ( CIL_CAR , CIU_CAR ) , XP ( CUL_CAR , CUU_CAR ) , XP ( CEL_CAR , CEU_CAR ) , XP ( COL_CAR , COU_CAR ) , XP ( CAL_CAR , CAU_CAR ) , KC_RSFT ,
-//      ---------------------------------------------------------------------------
-        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//              , -*-     ,         ,      <|,>       ,         ,         , 
-//      <1      ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>      , 1>
+//      ----------------------------------------------------------------------------
+        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , CTO_BASE , _______ 
+//              , -*-     ,         ,      <|,>       ,         ,          , 
+//      <1      ,<2       ,<3       ,<4     |, 4>     , 3>      , 2>       , 1>
                       ),
 
         /**/
@@ -1941,7 +1941,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCtl  äÄ    öÖ    ëË    üÜ    ïÏ    | ÿŸ    œŒ    æÆ    ñÑ     ß    RCtl
      LSht  àÀ    òÒ    èÈ    ùÙ    ìÌ    | îÎ    ûÛ    êÊ    ôÔ    âÂ    RSht
      --------------------------------------------------
-     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  xxx   ___
+     LAlt+Left ___   LGUI  Ent  | Spc   RGUI  BASE  ___
                -*-             <|>                                                       //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
@@ -1951,10 +1951,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CTO_BASE , UN_A_ACU , UN_O_ACU , UN_E_ACU , UN_U_ACU , UN_I_ACU , UN_Y_ACU , UN_IJ_BI , UN_C_CDL , UN_O_STK , UN_A_RNG , KC_BSPC ,
         KC_LCTL  , UN_A_DIA , UN_O_DIA , UN_E_DIA , UN_U_DIA , UN_I_DIA , UN_Y_DIA , UN_OE_BI , UN_AE_BI , UN_N_TLD , UN_S_SHP , KC_RCTL ,
         KC_LSFT  , UN_A_GRA , UN_O_GRA , UN_E_GRA , UN_U_GRA , UN_I_GRA , UN_I_CAR , UN_U_CAR , UN_E_CAR , UN_O_CAR , UN_A_CAR , KC_RSFT ,
-//      ---------------------------------------------------------------------------
-        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , XXXXXXX , _______ 
-//              ,         ,         ,      <|,>       ,         ,         , -*-
-//      <1      , <2      , <3      , <4    |, 4>     , 3>      , 2>      , 1>
+//      ----------------------------------------------------------------------------
+        KC_LALT , _______ , KC_LGUI , KC_ENT , KC_SPC , KC_RGUI , CTO_BASE , _______ 
+//              ,         ,         ,      <|,>       ,         ,          , -*-
+//      <1      , <2      , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
         /**/
 
@@ -1971,24 +1971,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ±ƒ    🙂😃  👍     👎    ⍨🙁   Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-     ---------------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+     LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     --------------------------------------------------
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
 //
-//      <pink2   , <pinky                      , <ring                      , <middl                       , <index                     , <indx2                    |, indx2>                         , index>                       , middl>                   , ring>                    , pinky>                   , pink2>  ,
-//               ,                             ,                            ,                              ,                            ,                          <|,>                               , -*-                          ,                          ,                          ,                          ,         ,
-        CTO_BASE , XP ( CS_DQUL   , CS_DQUHR ) , XP ( CS_OPSUP , CS_OPSUB ) , XP ( CS_CPSUP , CS_CPSUB )   , X ( CS_DQUH )              , XP ( CS_FLEUR , CS_HEART ) , XP ( CS_LGULDEN , CS_UGULDEN ) , XP ( CS_SMIL , CS_YAYS )     , X ( CS_THUP )            , X ( CS_THDN )            , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
-        KC_LCTL  , XP ( CN_1SUP   , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )   , XP ( CN_6SUP , CN_6SUB )       , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB ) , XP ( CN_0SUP , CN_0SUB ) , KC_RCTL ,
-        KC_LSFT  , X ( CS_OCBRA )              , X ( CS_CCBRA )             , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_PLMI , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW )   , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , X ( CS_ODABRA )          , X ( CS_CDABRA )          , KC_RSFT ,
-//      --------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , XXXXXXX , _______
-//                         ,         ,         ,      <|,>       ,         ,         ,
-//      <1                 , <2      , <3      , <4    |, 4>     , 3>      , 2>      , 1>
+//      <pink2   , <pinky                      , <ring                      , <middl                       , <index                     , <indx2                      |, indx2>                         , index>                       , middl>                   , ring>                    , pinky>                   , pink2>  ,
+//               ,                             ,                            ,                              ,                            ,                            <|,>                               , -*-                          ,                          ,                          ,                          ,         ,
+        CTO_BASE , XP ( CS_DQUL   , CS_DQUHR ) , XP ( CS_OPSUP , CS_OPSUB ) , XP ( CS_CPSUP , CS_CPSUB )   , X ( CS_DQUH )              , XP ( CS_FLEUR , CS_HEART )   , XP ( CS_PLMI , CS_LGULDEN )    , XP ( CS_SMIL , CS_YAYS )     , X ( CS_THUP )            , X ( CS_THDN )            , XP ( CS_SQIG , CS_SAD_ ) , KC_BSPC ,
+        KC_LCTL  , XP ( CN_1SUP   , CN_1SUB )  , XP ( CN_2SUP , CN_2SUB )   , XP ( CN_3SUP , CN_3SUB )     , XP ( CN_4SUP , CN_4SUB )   , XP ( CN_5SUP , CN_5SUB )     , XP ( CN_6SUP , CN_6SUB )       , XP ( CN_7SUP , CN_7SUB )     , XP ( CN_8SUP , CN_8SUB ) , XP ( CN_9SUP , CN_9SUB ) , XP ( CN_0SUP , CN_0SUB ) , KC_RCTL ,
+        KC_LSFT  , X ( CS_OCBRA )              , X ( CS_CCBRA )             , XP ( CS_DEGREE , CS_CIRCLE ) , XP ( CS_BULLET , CS_PARA ) , XP ( CS_ELLIPS , CS_MIDDOT ) , XP ( CS_LARROW , CS_UARROW )   , XP ( CS_RARROW , CS_DARROW ) , XP ( CQU_INV , CEX_INV ) , X ( CS_ODABRA )          , X ( CS_CDABRA )          , KC_RSFT ,
+//      ---------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT , KC_SPC , XXXXXXX , CTO_BASE , _______
+//                         ,         ,         ,      <|,>       ,         ,          ,
+//      <1                 , <2      , <3      , <4    |, 4>     , 3>      , 2>       , 1>
                       ),
 
 
@@ -2008,35 +2008,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
      <pink2<pinky<ring <middl<index<indx2| indx2>index>middl>ring> pinky>pink2>
                                         <|>      -*-                                   //(toggle) on _FUN
-     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ƒƑ    🙂😃  👍     👎    ⍨🙁   Bspc
+     BASE  „“    ⁽₍    ⁾₎    ”     ❦♥    | ±ƒ    🙂😃  👍     👎    ⍨🙁   Bspc
      LCtl  ¹₁    ²₂    ³₃    ⁴₄    ⁵₅    | ⁶₆    ⁷₇    ⁸₈     ⁹₉    ⁰₀    RCtl
-     LSft 「     」    °〇   •§    ±·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
-     ---------------------------------------------------------
-     LAlt+Left xxx   xxx   Ent  | Spc   xxx   xxx   ___
+     LSft 「     」    °〇   •§    …·    | ⮘⮙    ⮚⮛    ¿¡    《     》    RSft
+     --------------------------------------------------
+     LAlt+Left xxx   xxx   Ent  | Spc   xxx   BASE  ___
                                <|>                  -*-                                  //(hold) on BASE
      <1        <2    <3    <4   | 4>    3>    2>    1>  
  */
 //
-//      <pink2      , <pinky     , <ring       , <middl      , <index      , <indx2      |, indx2>      , index>      , middl>     , ring>       , pinky>      , pink2>  ,
-//                  ,            ,             ,             ,             ,            <|,>            , -*-         ,            ,             ,             ,         ,
-        CTO_BASE    , UN_S_DQUL  , UN_S_OPSUBP , UN_S_CPSUBP , UN_S_DQUH   , UN_S_FLEUR   , UN_S_GULDEN , UN_S_SMIL   , UN_S_THUP  , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
-        KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP   , UN_N_6SUBP  , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
-        KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_PlUSMIN , UN_S_LARROW , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
-//      --------------------------------------------------------------------------------------------------
-        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , XXXXXXX , _______
-//                         ,         ,         ,       <|,>        ,         ,         ,
-//      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>      , 1>
+//      <pink2      , <pinky     , <ring       , <middl      , <index      , <indx2     |, indx2>       , index>      , middl>     , ring>       , pinky>      , pink2>  ,
+//                  ,            ,             ,             ,             ,           <|,>             , -*-         ,            ,             ,             ,         ,
+        CTO_BASE    , UN_S_DQUL  , UN_S_OPSUBP , UN_S_CPSUBP , UN_S_DQUH   , UN_S_FLEUR  , UN_S_PLUSMIN , UN_S_SMIL   , UN_S_THUP  , UN_S_THDN   , UN_S_SQIG   , KC_BSPC ,
+        KC_LCTL     , UN_N_1SUBP , UN_N_2SUBP  , UN_N_3SUBP  , UN_N_4SUBP  , UN_N_5SUBP  , UN_N_6SUBP   , UN_N_7SUBP  , UN_N_8SUBP , UN_N_9SUBP  , UN_N_0SUBP  , KC_RCTL ,
+        KC_LSFT     , UN_S_OCBRA , UN_S_CCBRA  , UN_S_DEGREE , UN_S_BULLET , UN_S_ELLIPS , UN_S_LARROW  , UN_S_RARROW , UN_QU_INV  , UN_S_ODABRA , UN_S_CDABRA , KC_RSFT ,
+//      -----------------------------------------------------------------------------------------
+        LALT_T ( KC_LEFT ) , XXXXXXX , XXXXXXX , KC_ENT  , KC_SPC  , XXXXXXX , CTO_BASE , _______
+//                         ,         ,         ,       <|,>        ,         ,          ,
+//      <1                 , <2      , <3      , <4     |, 4>      , 3>      , 2>       , 1>
                       ),  
                           
         /**/              
                           
 
     /* Layer _FUN: Function keys, most on the right side, some combo modifiers control/alt/shift
-     *          Toward any layer by toggle.
-     *          Completes output normal / descramble on Dvorak remapping computer. This affects
-     *          XXX
-     *          how CTO_BASE operates on the other layers, which is all it does. De-scramble is
-     *          already usable by toggling to the _DDL layer.
+     *          Toward any layer by toggle. Set 'descramble' mode.
      */
 
     [ _FUN ] = LAYOUT (
