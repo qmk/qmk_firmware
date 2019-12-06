@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
-    make J80:default:flash
+    make j80:default:flash
 
 **Reset Key**: Hold down the key located at *TOP RIGHT*, commonly programmed as *PAUSE* while plugging in the keyboard. The key definition for the reset key is k6D. Bootmagic Lite is enabled so holding down Escape while plugging in the keyboard will also jump to bootloader, after QMK is flashed.
 
