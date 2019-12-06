@@ -78,6 +78,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 /*
  * Force NKRO
  *

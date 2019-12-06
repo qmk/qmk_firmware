@@ -1,14 +1,15 @@
-SRC = TWIlib.c issi.c lighting.c
-
+# MCU name
 MCU = atmega32u4
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-F_CPU = 16000000
-F_USB = $(F_CPU)
-ARCH = AVR8
-
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
 
 LAYOUTS = numpad_6x4
 
@@ -31,6 +32,7 @@ TAP_DANCE_ENABLE = no
 ISSI_ENABLE = yes           # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no       # Resets keyboard if matrix_scan isn't run every 250ms
 
+SRC = TWIlib.c issi.c lighting.c
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     TMK_COMMON_DEFS += -DISSI_ENABLE

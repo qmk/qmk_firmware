@@ -47,7 +47,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ```
 
-**/etc/udev/rules.d/55-catalina.rules:**
+**/etc/udev/rules.d/55-caterina.rules:**
 ```
 # ModemManager should ignore the following devices
 ATTRS{idVendor}=="2a03", ENV{ID_MM_DEVICE_IGNORE}="1"
@@ -67,6 +67,12 @@ sudo systemctl restart ModemManager
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1eaf", ATTRS{idProduct}=="0003", MODE:="0666"
 # Generic stm32
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+```
+
+**/etc/udev/rules.d/57-bootloadhid.rules:**
+```
+# bootloadHID
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05df", MODE:="0666"
 ```
 
 ### Serial device is not detected in bootloader mode on Linux
