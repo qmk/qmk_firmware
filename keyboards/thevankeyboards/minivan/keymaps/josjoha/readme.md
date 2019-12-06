@@ -310,14 +310,14 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
       (Right-Contro-A for example); so it is still possible, just not
       needed, Left-Control-A will suffice in all to me known cases.)
 
-    - Right Alt on the base layer is taken off, instead it switches to
+    - Exception: Right Alt on the base layer is taken off, instead it switches to
       an accented letters layer. It becomes a bit like a private subset
       of AltGr symbols.
   
   Hacking & slashing 
   ==================
 
-  (Since I know this map already … how to go about some changes quickly…)
+  (How to go about some changes quickly…)
 
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
