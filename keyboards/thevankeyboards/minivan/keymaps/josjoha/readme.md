@@ -107,7 +107,7 @@ It seems this will be difficult to fix, because it is spread over two devices. T
 ±0.2 second delay, activate a layer where Left-Control is direct, such as `_FUN`.
 
 The two keys with ';' (Del;`_ACC`, Right;`_DRA`) do not auto-repeat on double tap, like QMK normal layer-tap keys.
-There is an uncluttered _Delete_ and _Right_ on the `_NSY` layer.
+There is an uncluttered _Delete_ and _Right_ on the `_NSY` or `_MOV` layer respectively.
 
 - - -
 
