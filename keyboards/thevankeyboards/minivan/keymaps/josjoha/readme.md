@@ -302,7 +302,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
     - Shift/Alt/Control, Del/Esc and Alt with tap arrows, repeat on
       most layers.
 
-    - Except ... the Right Control on the base layer is taken off, because
+    - Exception:  the Right Control on the base layer is taken off, because
       of tap delay. QMK allows one to press-hold to the numerical layer
       for example, then press a right modifier like right Control, release
       numerical layer, and access the base layer with that modifier
@@ -316,7 +316,7 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Hacking & slashing 
   ==================
 
-  How I would go about some changes people might need ...
+  How I would go about some changes people might need …
 
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
