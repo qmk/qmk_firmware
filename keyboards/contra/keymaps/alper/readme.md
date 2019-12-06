@@ -1,5 +1,9 @@
 # Alper's Contra Layout
 
+![Dvorak Layout](https://i.imgur.com/BvBYgpz.png)
+
+## Rationale
+
 I based this off the default and changed some stuff because I'm a macOS user who types in Dvorak:
 
 * Ctrl/Tab: It is normal to remap Caps Lock to control there and having a press button there for Tab would solve a lot of problems. BUT on my Contra this button is broken, so I've mapped 0,0 to Tab as well.
