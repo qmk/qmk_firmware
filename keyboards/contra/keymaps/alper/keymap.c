@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 enum planck_layers {
   _QWERTY,
   _COLEMAK,
@@ -32,8 +30,7 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK,
   LOWER,
-  RAISE,
-  BACKLIT
+  RAISE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -186,19 +183,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        PORTE &= ~(1<<6);
-      } else {
-        unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
       }
       return false;
       break;
