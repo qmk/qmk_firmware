@@ -358,24 +358,3 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   to repurpose I guess. One of the `_NSY` layer hold keys to it,
   to accomodate the lost characters, or use another layer hold key.
 
-  Personal remarks
-  ================
-
-  It seems to be an intuitive and effective map. What can be the same
-  on layers is the same, like Control or Backspace (not always true
-  though). It is so much better for using vim to not deal with dead-keys
-  issues (how do you press _Control-^_ or access a _register_ or _mark_
-  with dead-keys getting in the way ?).
-
-  Since the accented characters are logically arranged, they are easy to
-  find. It is fun to have the expanded character set on `_DRA`, to be able
-  to do super-² and subscript₍₂₎, 「unusual brace styles」, and for typing the
-  all important 〇… It is nice to be able to plug and play on any computer,
-  including a laptop set to Dvorak already.
-
-  Feel free to let me know if you like it, and _not_ let me know if you _don't_
-  like it ;-P.
-
-  Thanks to the awesomeness of **QMK and the Minivan**.  👍🙂 
-
-  JB
