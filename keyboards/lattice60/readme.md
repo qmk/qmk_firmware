@@ -2,7 +2,7 @@
 
 ![lattice60](imgur.com image replace me!)
 
-A Through Hole HHKB inspired keyboard.
+An HHKB layout keyboard using only through-hole components.
 
 * Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
 * Hardware Supported: LATTICE60 PCB  
@@ -12,9 +12,9 @@ Make example for this keyboard (after setting up your build environment):
 
     make lattice60:default
 
-To activate the USBasploader bootloader hold the BOOT button down during power on or reset.
+To activate the USBasploader bootloader,  hold the BOOT button down during power on or reset. LED2 should light up to indicate that the bootloader is active.
 
-Flash the firmware using `make` command with the `program` parameter, example below:
+Flash the firmware using the `make` command with the `program` parameter, example below:
 
     make lattice60:default:program
 
