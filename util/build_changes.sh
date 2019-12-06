@@ -4,7 +4,7 @@
 QMK_CHANGES=$(cat) # read changes from stdin
 QMK_KEYBOARDS=$(make list-keyboards)
 
-NUM_CORE_CHANGES=$(echo "$QMK_CHANGES" | grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(users/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '^(.github/workflows/)')
+NUM_CORE_CHANGES=$(echo "$QMK_CHANGES" | grep -Ecv -e '^(docs/)' -e '^(keyboards/)' -e '^(users/)' -e '^(layouts/)' -e '^(util/)' -e '^(lib/python/)' -e '^(bin/qmk)' -e '^(requirements.txt)' -e '^(Makefile)' -e '^(.github/workflows/)')
 
 if [ "$NUM_CORE_CHANGES" != "0" ]; then
     echo "Making default keymaps for all keyboards"
