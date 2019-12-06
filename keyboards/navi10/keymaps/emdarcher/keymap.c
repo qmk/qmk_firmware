@@ -84,10 +84,6 @@ void matrix_init_user(void) {
     writePinHigh(RX_LED);
 }
 
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {}
-
 //determine the current tap dance state
 int cur_dance (qk_tap_dance_state_t *state){
     if(state->count == 1){
@@ -105,7 +101,7 @@ int cur_dance (qk_tap_dance_state_t *state){
     } else if(state->count == 3){
         //if tapped thrice, set to triple tap
         return TRIPLE_TAP;
-    }else {
+    } else {
         return 8;
     }
 }

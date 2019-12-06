@@ -65,12 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_MRWD,   KC_MPLY,    KC_MFFD),
 };
 
-void matrix_init_user(void) {}
-
-void matrix_scan_user(void) {}
-
-void led_set_user(uint8_t usb_led) {}
-
 //determine the current tap dance state
 int cur_dance (qk_tap_dance_state_t *state){
     if(state->count == 1){
