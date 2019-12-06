@@ -10,7 +10,7 @@ It is characterized by the fact that the hoisting PCB has no steel plate and can
 
 Make example for this keyboard (after setting up your build environment):
 
-    make J80:default
+    make j80:default
 
 Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
 
