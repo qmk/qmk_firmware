@@ -95,6 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,               KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC,  RAISE,   MT(MOD_RGUI, KC_LEFT), KC_DOWN, KC_UP,   KC_RGHT
   ),
 // 0,0 is TAB in this layout because my key for Ctrl/Tab seems to be broken.
+// If yours isn't, it would be free.
 
 // TODO wipe everything except Dvorak and Qwerty
 // see deastiny/keymap.c
