@@ -39,7 +39,9 @@
 #include "util.h"
 #include "report.h"
 #include "usb_descriptor.h"
-
+#ifdef WEBUSB_ENABLE
+#include "webusb_descriptor.h"
+#endif
 /*
  * HID report descriptors
  */
@@ -274,11 +276,22 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 };
 #endif
 
+#ifdef WEBUSB_ENABLE
+const USB_Descriptor_BOS_t PROGMEM BOSDescriptor = BOS_DESCRIPTOR(
+		(MS_OS_20_PLATFORM_DESCRIPTOR(MS_OS_20_VENDOR_CODE, MS_OS_20_DESCRIPTOR_SET_TOTAL_LENGTH))
+		(WEBUSB_PLATFORM_DESCRIPTOR(WEBUSB_VENDOR_CODE, WEBUSB_LANDING_PAGE_INDEX))
+);
+#endif
+
 /*
  * Device descriptor
  */
 const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {.Header           = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
+#if WEBUSB_ENABLE
+                                                          .USBSpecification = VERSION_BCD(2, 1, 0),
+#else
                                                           .USBSpecification = VERSION_BCD(1, 1, 0),
+#endif
 #if VIRTSER_ENABLE
                                                           .Class    = USB_CSCP_IADDeviceClass,
                                                           .SubClass = USB_CSCP_IADDeviceSubclass,
@@ -331,6 +344,16 @@ const USB_Descriptor_Configuration_t PROGMEM
             .Keyboard_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = KEYBOARD_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
+#ifdef RAW_ENABLE
+            /*
+             * Raw HID
+             */
+            .Raw_Interface   = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface}, .InterfaceNumber = RAW_INTERFACE, .AlternateSetting = 0x00, .TotalEndpoints = 2, .Class = HID_CSCP_HIDClass, .SubClass = HID_CSCP_NonBootSubclass, .Protocol = HID_CSCP_NonBootProtocol, .InterfaceStrIndex = NO_DESCRIPTOR},
+            .Raw_HID         = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(RawReport)},
+            .Raw_INEndpoint  = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | RAW_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
+            .Raw_OUTEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
             /*
              * Mouse
@@ -361,16 +384,6 @@ const USB_Descriptor_Configuration_t PROGMEM
             .Shared_INEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = SHARED_EPSIZE, .PollingIntervalMS = USB_POLLING_INTERVAL_MS},
 #endif
 
-#ifdef RAW_ENABLE
-            /*
-             * Raw HID
-             */
-            .Raw_Interface   = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface}, .InterfaceNumber = RAW_INTERFACE, .AlternateSetting = 0x00, .TotalEndpoints = 2, .Class = HID_CSCP_HIDClass, .SubClass = HID_CSCP_NonBootSubclass, .Protocol = HID_CSCP_NonBootProtocol, .InterfaceStrIndex = NO_DESCRIPTOR},
-            .Raw_HID         = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(RawReport)},
-            .Raw_INEndpoint  = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | RAW_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
-            .Raw_OUTEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = RAW_EPSIZE, .PollingIntervalMS = 0x01},
-#endif
-
 #ifdef CONSOLE_ENABLE
             /*
              * Console
@@ -379,6 +392,38 @@ const USB_Descriptor_Configuration_t PROGMEM
             .Console_HID         = {.Header = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID}, .HIDSpec = VERSION_BCD(1, 1, 1), .CountryCode = 0x00, .TotalReportDescriptors = 1, .HIDReportType = HID_DTYPE_Report, .HIDReportLength = sizeof(ConsoleReport)},
             .Console_INEndpoint  = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = CONSOLE_EPSIZE, .PollingIntervalMS = 0x01},
             .Console_OUTEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint}, .EndpointAddress = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM), .Attributes = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA), .EndpointSize = CONSOLE_EPSIZE, .PollingIntervalMS = 0x01},
+#endif
+
+#ifdef WEBUSB_ENABLE
+            /*
+             * Webusb
+             */
+            .WebUSB_Interface = {.Header = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+
+                                 .InterfaceNumber  = INTERFACE_ID_WebUSB,
+                                 .AlternateSetting = 0x00,
+
+                                 .TotalEndpoints = 2,
+
+                                 .Class    = USB_CSCP_VendorSpecificClass,
+                                 .SubClass = 0x00,
+                                 .Protocol = 0x00,
+
+                                 .InterfaceStrIndex = NO_DESCRIPTOR},
+
+            .WebUSB_DataInEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+                                      .EndpointAddress   = WEBUSB_IN_EPADDR,
+                                      .Attributes        = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+                                      .EndpointSize      = WEBUSB_EPSIZE,
+                                      .PollingIntervalMS = 0x05},
+
+            .WebUSB_DataOutEndpoint = {.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+                                       .EndpointAddress   = WEBUSB_OUT_EPADDR,
+                                       .Attributes        = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+                                       .EndpointSize      = WEBUSB_EPSIZE,
+                                       .PollingIntervalMS = 0x05},
 #endif
 
 #ifdef MIDI_ENABLE
@@ -520,6 +565,13 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
             Size    = sizeof(USB_Descriptor_Device_t);
 
             break;
+#ifdef WEBUSB_ENABLE
+        case DTYPE_BOS:
+          Address = &BOSDescriptor;
+          Size = pgm_read_byte(&BOSDescriptor.TotalLength);
+
+          break;
+#endif
         case DTYPE_Configuration:
             Address = &ConfigurationDescriptor;
             Size    = sizeof(USB_Descriptor_Configuration_t);

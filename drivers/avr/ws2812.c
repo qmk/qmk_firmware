@@ -25,13 +25,17 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "debug.h"
 
-#if !defined(LED_ARRAY) && defined(RGB_MATRIX_ENABLE)
-// LED color buffer
-LED_TYPE led[DRIVER_LED_TOTAL];
-#    define LED_ARRAY led
-#endif
+/*
+ * Forward declare internal functions
+ *
+ * The functions take a byte-array and send to the data output as WS2812 bitstream.
+ * The length is the number of bytes to send - three per LED.
+ */
+
+void ws2812_sendarray(uint8_t *array, uint16_t length);
+void ws2812_sendarray_mask(uint8_t *array, uint16_t length, uint8_t pinmask);
+
 
 #ifdef RGBW_BB_TWI
 
@@ -133,23 +137,6 @@ unsigned char I2C_Write(unsigned char c) {
     return 0;
 }
 
-#endif
-
-#ifdef RGB_MATRIX_ENABLE
-// Set an led in the buffer to a color
-void inline ws2812_setled(int i, uint8_t r, uint8_t g, uint8_t b) {
-    led[i].r = r;
-    led[i].g = g;
-    led[i].b = b;
-}
-
-void ws2812_setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(led) / sizeof(led[0]); i++) {
-        led[i].r = r;
-        led[i].g = g;
-        led[i].b = b;
-    }
-}
 #endif
 
 // Setleds for standard RGB

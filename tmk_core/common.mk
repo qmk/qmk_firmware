@@ -118,6 +118,10 @@ ifeq ($(strip $(RAW_ENABLE)), yes)
     TMK_COMMON_DEFS += -DRAW_ENABLE
 endif
 
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DWEBUSB_ENABLE
+endif
+
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     TMK_COMMON_DEFS += -DCONSOLE_ENABLE
 else
@@ -151,11 +155,6 @@ endif
 
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
     TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
-endif
-
-ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-    TMK_COMMON_SRC += $(COMMON_DIR)/backlight.c
-    TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
 endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)

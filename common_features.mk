@@ -112,7 +112,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-        SRC += ws2812.c
+        WS2812_DRIVER_REQUIRED = yes
     endif
 endif
 
@@ -176,7 +176,7 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), WS2812)
     OPT_DEFS += -DWS2812
-    SRC += ws2812.c
+    WS2812_DRIVER_REQUIRED = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
@@ -233,8 +233,34 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+
+
+    COMMON_VPATH += $(QUANTUM_DIR)/backlight
+    SRC += $(QUANTUM_DIR)/backlight/backlight.c
+    OPT_DEFS += -DBACKLIGHT_ENABLE
+
+    ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    endif
+endif
+
+VALID_WS2812_DRIVER_TYPES := bitbang pwm spi i2c
+
+WS2812_DRIVER ?= bitbang
+ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(WS2812_DRIVER),$(VALID_WS2812_DRIVER_TYPES)),)
+        $(error WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
+    endif
+
+    ifeq ($(strip $(WS2812_DRIVER)), bitbang)
+        SRC += ws2812.c
+    else
+        SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    endif
+
+    # add extra deps
+    ifeq ($(strip $(WS2812_DRIVER)), i2c)
+        QUANTUM_LIB_SRC += i2c_master.c
     endif
 endif
 
@@ -260,6 +286,10 @@ endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+ifeq ($(strip $(WEBUSB_ENABLE)), yes)
+    SRC += $(TMK_DIR)/common/webusb.c
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)

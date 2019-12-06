@@ -26,8 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "action_macro.h"
 #include "debug.h"
-#include "backlight.h"
 #include "quantum.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"

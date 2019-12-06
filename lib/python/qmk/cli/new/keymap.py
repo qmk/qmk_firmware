@@ -6,20 +6,20 @@ import shutil
 from milc import cli
 
 
-@cli.argument('-k', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
-@cli.argument('-u', '--username', help='Specify any name for the new keymap directory')
-@cli.entrypoint('Creates a new keymap for the keyboard of your choosing')
-def main(cli):
+@cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
+@cli.argument('-km', '--keymap', help='Specify the name for the new keymap directory')
+@cli.subcommand('Creates a new keymap for the keyboard of your choosing')
+def new_keymap(cli):
     """Creates a new keymap for the keyboard of your choosing.
     """
-    # ask for user input if keyboard or username was not provided in the command line
-    keyboard = cli.config.general.keyboard if cli.config.general.keyboard else input("Keyboard Name: ")
-    username = cli.config.general.username if cli.config.general.username else input("Username: ")
+    # ask for user input if keyboard or keymap was not provided in the command line
+    keyboard = cli.config.new_keymap.keyboard if cli.config.new_keymap.keyboard else input("Keyboard Name: ")
+    keymap = cli.config.new_keymap.keymap if cli.config.new_keymap.keymap else input("Keymap Name: ")
 
     # generate keymap paths
     kb_path = os.path.join(os.getcwd(), "keyboards", keyboard)
     keymap_path_default = os.path.join(kb_path, "keymaps/default")
-    keymap_path = os.path.join(kb_path, "keymaps/%s" % username)
+    keymap_path = os.path.join(kb_path, "keymaps/%s" % keymap)
 
     # check directories
     if not os.path.exists(kb_path):
@@ -36,6 +36,5 @@ def main(cli):
     shutil.copytree(keymap_path_default, keymap_path, symlinks=True)
 
     # end message to user
-    cli.log.info("%s keymap directory created in: %s\n" +
-                 "Compile a firmware file with your new keymap by typing: \n" +
-                 "qmk compile -kb %s -km %s", username, keymap_path, keyboard, username)
+    cli.log.info("%s keymap directory created in: %s", keymap, keymap_path)
+    cli.log.info("Compile a firmware with your new keymap by typing: \n" + "qmk compile -kb %s -km %s", keyboard, keymap)
