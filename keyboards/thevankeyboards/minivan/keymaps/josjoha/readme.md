@@ -335,9 +335,10 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
        Device Space
   
   There is not much room left on the device (which is perfect, isn't it):
-     (...)
+
+     (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
-     * The firmware size is approaching the maximum - 28332/28672 (98%, 340 bytes free)
+     * The firmware size is approaching the maximum - 27938/28672 (97%, 734 bytes free)
 
        Other formfactor keyboards ?
 
