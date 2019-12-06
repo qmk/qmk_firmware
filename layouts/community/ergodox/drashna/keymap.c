@@ -384,6 +384,21 @@ void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
 void rgb_matrix_indicators_user(void) {
     if (g_suspend_state || !rgb_matrix_config.enable) return;
 
+    if (layer_state_is(_GAMEPAD)) {
+        rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
+        rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF);  // W
+        rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);  // E
+        rgb_matrix_set_color(29, 0xFF, 0x80, 0x00);  // R
+        rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF);  // A
+        rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF);  // S
+        rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF);  // D
+        rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF);  // F
+
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF);  // 1
+        rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00);  // 2
+        rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF);                                          // 3
+    }
+
 #    if defined(RGBLIGHT_ENABLE)
     if (!userspace_config.rgb_layer_change)
 #    else
@@ -393,18 +408,6 @@ void rgb_matrix_indicators_user(void) {
         switch (get_highest_layer(layer_state)) {
             case _GAMEPAD:
                 rgb_matrix_layer_helper(HSV_ORANGE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
-                rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);  // Q
-                rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF);  // W
-                rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);  // E
-                rgb_matrix_set_color(29, 0xFF, 0x80, 0x00);  // R
-                rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF);  // A
-                rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF);  // S
-                rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF);  // D
-                rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF);  // F
-
-                rgb_matrix_set_color(userspace_config.swapped_numbers ? 27 : 26, 0xFF, 0xFF, 0xFF);  // 1
-                rgb_matrix_set_color(userspace_config.swapped_numbers ? 26 : 27, 0x00, 0xFF, 0x00);  // 2
-                rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF);                                          // 3
                 break;
             case _DIABLO:
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed * 8, LED_FLAG_MODIFIER);
