@@ -316,14 +316,15 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   Hacking & slashing 
   ==================
 
-  How I would go about some changes people might need …
+  (Since I know this map already … how to go about some changes quickly…)
 
   For basic adaptation of this map to get the right characters for you,
   you could have a look at layers `_RAR`, `_ACC`, and `_DRA`, and 
   then see what layers to set for the 2nd, 3rd or 6th, 8th key on the
   bottom row.
 
-       Qwerty, other languages ?
+
+  **Dual language or layout**
 
   The 'descramble' letters layer is basically a Qwerty layout, but it is
   not the best for that. With some minor tweaks it would be better, 
@@ -332,15 +333,17 @@ Remarks. This layer is seamlessly activated with 'descramble,' see `_LTR` (works
   like Arabic or Chinese; or the other way around so that the default
   is the other language.
 
-       Device Space
+
+  **Device Space**
   
-  There is not much room left on the device (which is perfect, isn't it):
+  Not much can be added without removing things.
 
      (…)
      Checking file size of thevankeyboards_minivan_josjoha.hex               [WARNINGS]
      * The firmware size is approaching the maximum - 27938/28672 (97%, 734 bytes free)
 
-       Other formfactor keyboards ?
+
+  **Other formfactor keyboards**
 
   To use this layout on a keyboard with more keys on the bottom row
   (like the Planck) it seems you would need to add some keys to the
