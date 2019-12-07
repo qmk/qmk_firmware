@@ -39,7 +39,9 @@ typedef union {
         uint8_t  mode : 7;
         bool     buzz : 1;
         uint8_t  dwell : 7;
-        uint16_t reserved : 16;
+        bool     cont : 1;
+        uint8_t  amplitude : 8;
+        uint16_t reserved : 7;
     };
 } haptic_config_t;
 
@@ -71,6 +73,9 @@ uint8_t haptic_get_mode(void);
 uint8_t haptic_get_feedback(void);
 void    haptic_dwell_increase(void);
 void    haptic_dwell_decrease(void);
+void    haptic_toggle_continuous(void);
+void    haptic_cont_increase(void);
+void    haptic_cont_decrease(void);
 
 void haptic_play(void);
 void haptic_shutdown(void);

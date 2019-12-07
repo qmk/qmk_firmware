@@ -7,14 +7,12 @@ LFK_REV = J
 
 ifeq ($(LFK_REV), B)
     MCU = atmega32u4
-    OPT_DEFS += -DBOOTLOADER_SIZE=4096
 else ifeq ($(LFK_REV), J)
     MCU = at90usb646
-    OPT_DEFS += -DBOOTLOADER_SIZE=4096
 else
     MCU = at90usb1286
-    OPT_DEFS += -DBOOTLOADER_SIZE=8192
 endif
+BOOTLOADER = atmel-dfu
 OPT_DEFS += -DLFK_REV_$(LFK_REV)
 OPT_DEFS += -DLFK_REV_STRING=\"Rev$(LFK_REV)\"
 

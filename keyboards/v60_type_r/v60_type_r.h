@@ -17,7 +17,7 @@
 
 #include "quantum.h"
 
-#ifdef V60_POLESTAR
+#ifdef RGBLIGHT_ENABLE
 
 #include "rgblight.h"
 
