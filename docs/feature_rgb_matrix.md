@@ -286,7 +286,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 ## Custom RGB Matrix Effects
 
-By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
+By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rules.mk`, new effects can be defined directly from userspace, without having to edit any QMK core files.
 
 To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
 
