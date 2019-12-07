@@ -1,6 +1,6 @@
 # Navi10 / ナビ10
 
-![navi10](imgur.com image replace me!)
+![navi10](https://i.imgur.com/QpFCMFd.jpg)
 
 A simple and fun navigation cluster macropad with exposed components.
 
