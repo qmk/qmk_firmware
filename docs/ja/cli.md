@@ -12,11 +12,11 @@ QMK CLI を使用すると QMK キーボードの構築と作業が簡単にな�
 
 # 必要事項
 
-CLI は Python 3.5 以上を必要とします。我々は必要事項の数を少なくしようとしていますが、[`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt)にリストされているパッケージもインストールする必要があります。
+CLI は Python 3.5 以上を必要とします。我々は必要事項の数を少なくしようとしていますが、[`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt) にリストされているパッケージもインストールする必要があります。
 
 # グローバル CLI :id=global-cli
 
-QMK は、QMK ビルド環境のセットアップ、QMK の操作、および`qmk_firmware` の複数のコピーの操作を容易にできるインストール可能な CLI を提供します。これを定期的にインストールおよび更新することをお勧めします。
+QMK は、QMK ビルド環境のセットアップ、QMK の操作、および `qmk_firmware` の複数のコピーの操作を容易にできるインストール可能な CLI を提供します。これを定期的にインストールおよび更新することをお勧めします。
 
 ## Homebrew を使ったインストール (macOS、いくつかの Linux)
 

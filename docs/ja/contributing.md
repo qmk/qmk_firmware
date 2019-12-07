@@ -21,7 +21,7 @@ QMK について質問したい場合は、[OLKB Subreddit](https://reddit.com/r
    * https://opensource.com/life/16/10/how-ask-technical-questions
    * http://www.catb.org/esr/faqs/smart-questions.html
 
-# プロジェクトの概要
+# プロジェクトの概要 :id=project-overview
 
 QMK は主に C で書かれており、特定の機能と部分は C++ で書かれています。キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](http://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](http://www.chibios.com)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
 
@@ -40,10 +40,10 @@ QMK は主に C で書かれており、特定の機能と部分は C++ で書�
 2. 問題に関連付けられているリポジトリをあなたの GitHub アカウントにフォークします。これは、`your-GitHub-username/qmk_firmware` の下にリポジトリのコピーを持つことを意味します。
 3. `git clone https://github.com/github-username/repository-name.git` を使ってローカルマシンにリポジトリをクローンします。
 4. 新しい機能に取り組んでいる場合は、issue を開きこれから行う作業について話し合うことを検討してください。
-5. `git checkout -b branch-name-here`を使って修正用の新しいブランチを作成します。
+5. `git checkout -b branch-name-here` を使って修正用の新しいブランチを作成します。
 6. 解決しようとしている問題、あるいは追加したい機能について適切な変更を加えます。
 7. `git add insert-paths-of-changed-files-here` を使って変更されたファイルの内容を git がプロジェクトの状態を管理するために使用する "snapshot"、インデックスとしても知られている、に追加します。
-8. `git commit -m "Insert a short message of the changes made here"`を使って、説明的なメッセージとともにインデックスの内容を保存します。
+8. `git commit -m "Insert a short message of the changes made here"` を使って、説明的なメッセージとともにインデックスの内容を保存します。
 9. `git push origin branch-name-here` を使って GitHub 上のリポジトリに変更をプッシュします。
 10. プルリクエストを [QMK Firmware](https://github.com/qmk/qmk_firmware/pull/new/master) にサブミットします。
 11. 行われた変更の簡単な説明と、変更に関する問題またはバグ番号を使って、プルリクエストにタイトルを付けます。例えば、issue に "Added more log outputting to resolve #4352" のようなタイトルをつけることができます。
@@ -52,14 +52,14 @@ QMK は主に C で書かれており、特定の機能と部分は C++ で書�
 14. レビューをしているメンテナが推奨する場合は、プルリクエストに変更を加えます。
 15. プルリクエストがマージされた後で成功を祝います！
 
-# コーディング規約
+# コーディング規約 :id=coding-conventions
 
 私たちのスタイルのほとんどは簡単に理解できます。C あるいは Python のいずれかに精通している場合は、ローカルスタイルにそれほど問題はないはずです。
 
 * [コーディング規約 - C](ja/coding_conventions_c.md)
 * [コーディング規約 - Python](ja/coding_conventions_python.md)
 
-# 一般的なガイドライン
+# 一般的なガイドライン :id=general-guidelines
 
 QMK には幾つかの異なるタイプの変更があり、それぞれ異なるレベルの厳密さが必要です。どのような種類の変更を行っても、次のガイドラインに留意してください。
 
@@ -72,9 +72,9 @@ QMK には幾つかの異なるタイプの変更があり、それぞれ異な�
 * コミットメッセージがそれ自体で理解できることを確認してください。最初の行に短い説明(70文字以内)を入れ、2行目は空にし、3行目以降では必要に応じてコミットを詳細に説明する必要があります。例:
 
 ```
-kerpleplorkのfronzlebop を調整します
+kerpleplork の fronzlebop を調整します
 
-kerpleplork はエラーコード 23 で連続的に失敗していました。根本的な原因はfronzlebop設定で、これによりkerpleplorkはN回の繰り返しごとにアクティブになります。
+kerpleplork はエラーコード 23 で連続的に失敗していました。根本的な原因は fronzlebop 設定で、これにより kerpleplork はN回の繰り返しごとにアクティブになります。
 
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
@@ -121,7 +121,7 @@ enum my_keycodes {
 * 全てのキーマップの PR は潰されるため、コミットがどのように潰されるかを気にする場合は、自分で行う必要があります。
 * キーマップの PR に機能をまとめないでください。最初に機能をサブミットし、次にキーマップのための2つ目の PR をサブミットします。
 * `Makefile` をキーマップ フォルダ(もう使われていません)に含めないでください。
-* ファイルヘッダの著作権を更新します (`%YOUR_NAME%`を探します)
+* ファイルヘッダの著作権を更新します (`%YOUR_NAME%` を探します)
 
 ## キーボード
 
@@ -133,8 +133,8 @@ enum my_keycodes {
 * コミットの数を適切に保ってください。そうでなければあなたの PR を潰します。
 * コア機能を新しいキーボードにまとめないでください。最初に機能をサブミットし、次にキーボード用に別の PR をサブミットしてください。
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
-* キーボード フォルダに`Makefile`を含めないでください (それらは使われなくなりました)
-* ファイルヘッダの著作権を更新します (`%YOUR_NAME%`を探します)
+* キーボードフォルダに`Makefile`を含めないでください (それらは使われなくなりました)
+* ファイルヘッダの著作権を更新します (`%YOUR_NAME%` を探します)
 
 ## Quantum/TMK コア
 
@@ -163,6 +163,6 @@ enum my_keycodes {
 
 QMK で物事がどのようにレイアウトされるかについて明確なビジョンを維持するために、私たちはリファクタリングを詳細に計画し、変更をする協力者がいます。リファクタリングのアイデアあるいは提案がある場合は、[issue を開いてください](https://github.com/qmk/qmk_firmware/issues)。QMK を改善する方法についてお話ししたいと思います。
 
-# 行動規範は私にとって何を意味しますか？
+# 行動規範は私にとって何を意味しますか？ :id=what-does-the-code-of-conduct-mean-for-me
 
 私たちの[行動規範](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md)は、身元に関係なくあなたがプロジェクトの全員を経緯と礼儀を持って扱う責任があることを意味します。あなたが行動規範に記載されている不適切な行動やコメントの被害者である場合は、私たちはあなたのためにここにおり、私たちのコードに従って虐待者が適切に懲戒されるように最善を尽くします。

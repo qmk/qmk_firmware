@@ -8,7 +8,7 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 
 ### ユーザスペースの構造
 
-`users` フォルダ内は各ユーザのためのディレクトリです。これはユーザがキーボード間で使うかもしれないコードを置くためのフォルダです。詳細は[Userspace feature](ja/feature_userspace.md) のドキュメントを見てください。
+`users` フォルダ内は各ユーザのためのディレクトリです。これはユーザがキーボード間で使うかもしれないコードを置くためのフォルダです。詳細は[ユーザスペース機能](ja/feature_userspace.md) のドキュメントを見てください。
 
 ### キーボードプロジェクトの構造
 
@@ -17,13 +17,12 @@ QMK は [Jun Wako](https://github.com/tmk) の [tmk_keyboard](https://github.com
 * `keymaps/`: ビルドできる様々なキーマップ
 * `rules.mk`: デフォルトの "make" オプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `rules.mk` を使ってください。
 * `config.h`: デフォルトのコンパイル時のオプションを設定するファイル。このファイルを直接編集しないでください。代わりにキーマップ固有の `config.h` を使ってください。
-* `info.json`: QMK Configurator のためのレイアウトの設定に使われるファイル。詳細は[Configurator サポート](ja/reference_configurator_support.md)を見てください。
+* `info.json`: QMK Configurator のためのレイアウトの設定に使われるファイル。詳細は [Configurator サポート](ja/reference_configurator_support.md)を見てください。
 * `readme.md`: キーボードの簡単な概要
 * `<keyboardName>.h`: このファイルは、キーボードのスイッチマトリックスに対してキーボードレイアウトが定義されるファイルです。
 * `<keyboardName>.c`: このファイルには、キーボードのためのカスタムコードがあります。
 
-プロジェクトの構造についての詳細は、[QMK キーボードガイドライン](ja/hardware_keyboard_guidelines.md)を見てくだ
-さい。
+プロジェクトの構造についての詳細は、[QMK キーボードガイドライン](ja/hardware_keyboard_guidelines.md)を見てください。
 
 ### キーマップ構造
 

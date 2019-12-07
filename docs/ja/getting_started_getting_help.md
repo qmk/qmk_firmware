@@ -12,4 +12,4 @@ QMK の助けを得るための多くのリソースがあります。
 
 ## Github Issues
 
-[issue on GitHub](https://github.com/qmk/qmk_firmware/issues)を開くことができます。issue が長期的な議論あるいはデバッグを必要とする場合は、特に便利です。
+[issue on GitHub](https://github.com/qmk/qmk_firmware/issues) を開くことができます。issue が長期的な議論あるいはデバッグを必要とする場合は、特に便利です。
