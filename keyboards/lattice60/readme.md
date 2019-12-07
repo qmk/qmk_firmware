@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make lattice60:default
 
-To activate the USBasploader bootloader,  hold the BOOT button down during power on or reset. LED2 should light up to indicate that the bootloader is active.
+To activate the USBasploader bootloader, hold the BOOT button down during power on or reset. LED2 should light up to indicate that the bootloader is active.
 
 Flash the firmware using the `make` command with the `program` parameter, example below:
 
