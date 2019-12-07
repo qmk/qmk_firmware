@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 #define AUTO_SHIFT_TIMEOUT 200
+#define NO_AUTO_SHIFT_NUMERIC
 #endif
 
 // RGB lighting

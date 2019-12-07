@@ -9,7 +9,8 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _NUMPAD 3 
+#define _NUMPAD 3
+#define _GAMING 4
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -18,6 +19,7 @@ enum custom_keycodes {
   RAISE,
   NUMPAD,
   ADJUST,
+  GAMING,
   AE,
   EE,
   IE,
@@ -114,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------.                ,-----------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |                |   6  |   7  |   8  |   9  |   0  | Del  |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |                |   6  |   7  |   8  |   9  |   0  |  Del |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -138,14 +140,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * | TGLAS|      |      |      |      |      |                |      |      |      |      |      |      |
+ * | TGLAS|      |      |      |      |      |                |      |      |      |      |      |GAMING|
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
   RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______, _______, \
   _______, AE,      _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______ \
+  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, QWERTY, GAMING   \
 ),
 
 /* Numpad
@@ -162,8 +164,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMPAD] = LAYOUT_ortho_4x12( \
   _______, _______, _______, _______, _______, _______,       KC_7,    KC_8,   KC_9,    _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    _______, _______, _______, \
-  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______,   _______, \
-  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______ \
+  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______, _______, \
+  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______  \
+),
+
+/* Gaming
+ * ,-----------------------------------------.               ,-----------------------------------------.
+ * |      |      |      |      |      |      |               |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|               |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |               |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|               |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |               |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|               |------+------+------+------+------+------|
+ * |      |      |      |      | RAISE|      |               |      | LOWER|      |      |      |      |
+ * `-----------------------------------------'               `-----------------------------------------'
+ */
+[_GAMING] = LAYOUT_ortho_4x12(
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, RAISE,   _______,       _______, LOWER,   _______, _______, _______, _______  \
 )};
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -175,6 +195,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
+	rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
+	autoshift_enable();
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -207,6 +229,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case GAMING:
+      if (record->event.pressed) {
+	rgb_mode = RGBLIGHT_MODE_RAINBOW_SWIRL + 5;
+        autoshift_disable();
+	default_layer_set(1UL<<_GAMING);
+      }
+      return false;
+      break;
     case NUMPAD:
       if(record->event.pressed){
 	layer_on(_NUMPAD);
@@ -215,6 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	layer_off(_NUMPAD);
 	PORTB |= (1<<0);
       }
+      return false;
       break;
     case AE:           
       if(record->event.pressed) {
