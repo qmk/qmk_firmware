@@ -4,8 +4,8 @@
 
 A simple and fun navigation cluster macropad with exposed components.
 
-* Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)  
-* Hardware Supported: Navi10  
+* Keyboard Maintainer: [emdarcher](https://github.com/emdarcher)
+* Hardware Supported: Navi10
 * Hardware Availability: [KeyHive](https://www.keyhive.xyz/)
 
 Make example for this keyboard (after setting up your build environment):
