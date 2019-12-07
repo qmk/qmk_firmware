@@ -42,7 +42,6 @@ enum custom_keycodes {
   THUMBSUP
 };
 
-
 enum td_extra_keys {
   U = 0 ,
   O = 1,
@@ -95,7 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_LCTL, KC_LALT, NUMPAD,  KC_LGUI, LOWER,   KC_SPC,       KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
-
 /* Lower
  * ,-----------------------------------------.                ,-----------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |                |   ^  |   &  |   *  |   (  |   )  |  =   |
@@ -136,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                ,-----------------------------------------.
  * | Reset|EEPRST|      |  EE  |      |      |                |      |  UE  |  IE  |  OE  |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      |  AE  |      |Aud on|Audoff|      |                |      |      |      |      |      |      |
+ * |      |  AE  |      |      |      |      |                |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
@@ -145,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
   RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______, _______, \
-  _______, AE,      _______, AU_ON,   AU_OFF,  _______,       _______, _______, _______, _______, _______, _______, \
+  _______, AE,      _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
   KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______ \
 ),
@@ -166,14 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    _______, _______, _______, \
   VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    _______, _______,   _______, \
   _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_CALC, KC_0,   KC_PPLS, _______, _______, _______ \
-)
-
-};
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
+)};
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -184,9 +175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -370,7 +358,6 @@ void led_set_user(uint8_t usb_led) {
   rgblight_mode_noeeprom(rgb_mode);
 }
 
-
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
@@ -406,7 +393,6 @@ static tap otap_state = {
   .is_press_action = true,
   .state = 0
 };
-
 
 void u_finished (qk_tap_dance_state_t *state, void *user_data) {
   utap_state.state = cur_dance(state);
