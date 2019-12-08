@@ -114,6 +114,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     led[i].b = b;
 #    ifdef RGBW
     led[i].w = 0;
+    convert_rgb_to_rgbw(led[i]);
 #    endif
 }
 
