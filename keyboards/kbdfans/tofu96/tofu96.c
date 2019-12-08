@@ -13,7 +13,7 @@ void led_init_ports(void) {
     writePinHigh(B2);
     setPinOutput(B0);
     writePinHigh(B0);
-	setPinOutput(B1);
+    setPinOutput(B1);
     writePinHigh(B1);
 }
 bool led_update_kb(led_t led_state) {
