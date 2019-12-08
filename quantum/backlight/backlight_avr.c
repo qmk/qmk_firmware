@@ -220,8 +220,8 @@ ISR(TIMERx_OVF_vect) {
     // artifacts (especially while breathing, because breathing_task
     // takes many computation cycles).
     // so better not turn them on while the counter TOP is very low.
-    if (OCRxx > 256) {
-        backlight_pins_on();
+    if (OCRxx > ICRx / 250 + 5) {
+        FOR_EACH_LED(backlight_on(backlight_pin);)
     }
 }
 
