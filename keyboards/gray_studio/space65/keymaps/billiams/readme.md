@@ -30,7 +30,7 @@ make gray_studio/space65:billiams:flash # be in the qmk_firmware directory to do
 ```
 
 Notes:
-- If you are using QMK Toolbox, use `make gray_studio/space65:<keymap>` in the base qmk_firmware directory instead of step 5 above which will create a hex file like `space65_billiams.hex` which you can then choose in the toolbox and hit flash
+- If you are using QMK Toolbox, use `make gray_studio/space65:<keymap>` in the base qmk_firmware directory instead of step 5 above which will create a hex file `gray_studio_space65_billiams.hex` which you can then choose in the toolbox and hit flash
 - If you accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootloader mode again, hold the `ESC` key and plug the board in.
 
 Hope this helps!
