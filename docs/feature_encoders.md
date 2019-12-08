@@ -58,3 +58,11 @@ or `keymap.c`:
 ## Hardware
 
 The A an B lines of the encoders should be wired directly to the MCU, and the C/common lines should be wired to ground.
+
+## Encoder matrix
+
+You can also wire the C/common line through a diode (arrow towards the row) to each of the rows (or reading pin) in your matrix, and use as many encoders as you have rows (multiplied by the number of A/B lines you have hooked up). To do this, you can add this line to your `config.h` with all of the pins you use:
+
+```c
+#define ENCODERS_PAD_C { encoder1c, encoder2c }
+```
