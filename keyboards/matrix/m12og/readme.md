@@ -3,11 +3,13 @@
 ![Matrix 8XV1.2 OG](https://raw.githubusercontent.com/yulei/qmk_webusb_tool/master/public/m12og.jpg)
 
 This was the Matrix 8XV1.2 OG keyboard made by the Matrix team. Note: this firmware only support ISO/ANSI version,
-and DO NOT support the ANSI only 8XV1.2 OG keybaord.
+and DO NOT support the 8XV1.2 OG ANSI only version.
 
-Keyboard Maintainer: [astro](https://github.com/yulei)  
-Hardware Supported: Matrix 8XV1.2 OG (ISO/ANSI) keyboard
-Hardware Availability: Matrix Lab
+Keyboard Maintainer: [astro](https://github.com/yulei)      
+
+Hardware Supported: Matrix 8XV1.2 OG (ISO/ANSI) keyboard    
+
+Hardware Availability: Matrix Lab    
 
 Make example for this keyboard (after setting up your build environment):
 
