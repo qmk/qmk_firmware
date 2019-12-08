@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
 
+#define DEBOUNCE 30
+
 #define TAPPING_TOGGLE  1
 
 /* define if matrix has ghost */
@@ -73,17 +75,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 15     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 255
 #define RGBLIGHT_VAL_STEP 12
 
+// Pick one of the modes
+// Defaults to 15 mirror, for legacy behavior
+
+// #define ERGODOX_LED_15 // Addresses 15 LEDs, but same position on both halves
+// #define ERGODOX_LED_15_MIRROR // Addresses 15 LEDs, but are mirrored
+// #define ERGODOX_LED_30 // Addresses all 30 LED individually
+
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-#define RGBW_BB_TWI
-
-#define RGBW 1
+#define RGBW
 
 #define RGBLIGHT_SLEEP
 

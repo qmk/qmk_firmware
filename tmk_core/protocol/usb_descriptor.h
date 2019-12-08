@@ -62,6 +62,14 @@ typedef struct {
     USB_Descriptor_Endpoint_t  Keyboard_INEndpoint;
 #endif
 
+#ifdef RAW_ENABLE
+    // Raw HID Interface
+    USB_Descriptor_Interface_t Raw_Interface;
+    USB_HID_Descriptor_HID_t   Raw_HID;
+    USB_Descriptor_Endpoint_t  Raw_INEndpoint;
+    USB_Descriptor_Endpoint_t  Raw_OUTEndpoint;
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     // Mouse HID Interface
     USB_Descriptor_Interface_t Mouse_Interface;
@@ -74,14 +82,6 @@ typedef struct {
     USB_Descriptor_Interface_t Shared_Interface;
     USB_HID_Descriptor_HID_t   Shared_HID;
     USB_Descriptor_Endpoint_t  Shared_INEndpoint;
-#endif
-
-#ifdef RAW_ENABLE
-    // Raw HID Interface
-    USB_Descriptor_Interface_t Raw_Interface;
-    USB_HID_Descriptor_HID_t   Raw_HID;
-    USB_Descriptor_Endpoint_t  Raw_INEndpoint;
-    USB_Descriptor_Endpoint_t  Raw_OUTEndpoint;
 #endif
 
 #ifdef CONSOLE_ENABLE
