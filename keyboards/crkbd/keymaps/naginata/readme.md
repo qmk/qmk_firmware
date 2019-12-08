@@ -5,8 +5,7 @@ Windows用の編集モード1、2(ただし横書き用に修正)は実装が完
 
 1. Windowsのキーボード設定を106キーボードにする。
 2. config.hで`#define NAGINATA_EDIT_MODE_WIN`を有効にする。
-3. keymap.cで`set_unicode_input_mode(UC_WINC);`を有効にする。
-4. [WinCompose](http://wincompose.info/)をインストールする。
+3. [WinCompose](http://wincompose.info/)をインストールする。
 
 macOSでの編集モードはカーソル移動など一部に対応しますが、Unicode入力にはUnicode Hex Inputへマウスを使って切り替えが必要で実用的ではないため、不完全です。
 
