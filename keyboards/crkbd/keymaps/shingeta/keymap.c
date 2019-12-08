@@ -274,14 +274,14 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 void matrix_init_user(void) {
-  // 薙刀式
+  // 薙刀式 // 新下駄
   set_naginata(_NAGINATA);
-  #ifdef NAGINATA_EDIT_MAC
-  set_unicode_input_mode(UC_OSX);
-  #endif
-  #ifdef NAGINATA_EDIT_WIN
-  set_unicode_input_mode(UC_WINC);
-  #endif
+  // #ifdef NAGINATA_EDIT_MAC
+  // set_unicode_input_mode(UC_OSX);
+  // #endif
+  // #ifdef NAGINATA_EDIT_WIN
+  // set_unicode_input_mode(UC_WINC);
+  // #endif
   // 薙刀式
 
   #ifdef RGBLIGHT_ENABLE

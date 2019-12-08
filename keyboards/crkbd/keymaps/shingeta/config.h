@@ -27,7 +27,7 @@
 // #define DQWERTY
 // #define DEUCALYN
 // #define DWORKMAN
-#define NAGINATA_EDIT_WIN // JP106
+// #define NAGINATA_EDIT_WIN // JP106
 // #define NAGINATA_EDIT_MAC // JP106
 // #define COMBO_COUNT 2
 // #define COMBO_TERM 300
