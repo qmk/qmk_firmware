@@ -10,23 +10,12 @@ void matrix_init_user(void) {
 	setPinOutput(B1);
 }
 
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        writePinLow(B1);
-	} else {
-        writePinHigh(B1);
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        writePinLow(C6);
-	} else {
-        writePinHigh(C6);
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        writePinLow(B2);
-	} else {
-        writePinHigh(B2);
-	}
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        writePin(B1, !led_state.num_lock);
+        writePin(C6, !led_state.caps_lock);
+        writePin(B2, !led_state.scroll_lock);
+    }
+    return res;
 }
