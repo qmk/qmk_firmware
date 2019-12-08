@@ -2,11 +2,9 @@
 
 Check up for QMK environment.
 """
-import os
 import platform
 import shutil
 import subprocess
-from glob import glob
 
 from milc import cli
 
@@ -41,7 +39,7 @@ def doctor(cli):
                 ok = False
 
     # Determine our OS and run platform specific tests
-    OS = platform.system()
+    OS = platform.system()  # noqa (N806), uppercase name is ok in this instance
 
     if OS == "Darwin":
         cli.log.info("Detected {fg_cyan}macOS.")

@@ -1,5 +1,4 @@
-
-// generated from users/manna-harbour_miryoku/miryoku.org
+// generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 
 #define LAYOUT_miryoku(\
 K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,\

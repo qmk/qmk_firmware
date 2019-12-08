@@ -21,7 +21,7 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      alias : {
+      alias: {
         '/en/(.*)': '/$1',
         '/en-us/(.*)': '/$1',
         '/en-gb/(.*)': '/$1',
@@ -29,12 +29,30 @@
       },
       basePath: '/',
       name: 'QMK Firmware',
-      nameLink: '/',
+      nameLink: {
+        '/de/': '/#/de/',
+        '/es/': '/#/es/',
+        '/fr-fr/': '/#/fr-fr/',
+        '/he-il/': '/#/he-il/',
+        '/ja/': '/#/ja/',
+        '/ru-ru/': '/#/ru-ru/',
+        '/zh-cn/': '/#/zh-cn/',
+        '/': '/#/'
+      },
       repo: 'qmk/qmk_firmware',
       loadSidebar: '_summary.md',
       loadNavbar: '_langs.md',
       mergeNavbar: true,
       auto2top: true,
+      fallbackLanguages: [
+        'de',
+        'es',
+        'fr-fr',
+        'he-il',
+        'ja',
+        'ru-ru',
+        'zh-cn'
+      ],
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
       search: {
         paths: 'auto',

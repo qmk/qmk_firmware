@@ -25,6 +25,11 @@ with open(os.path.join(qmk_dir, 'requirements.txt'), 'r') as fd:
             line = line.split('#')[0]
 
         module = line.split('=')[0] if '=' in line else line
+
+        if module in ['pep8-naming']:
+            # Not every module is importable by its own name.
+            continue
+
         if not find_spec(module):
             print('Could not find module %s!' % module)
             print('Please run `pip3 install -r requirements.txt` to install the python dependencies.')
@@ -41,7 +46,7 @@ else:
     os.environ['QMK_VERSION'] = 'nogit-' + strftime('%Y-%m-%d-%H:%M:%S') + '-dirty'
 
 # Setup the CLI
-import milc
+import milc  # noqa
 
 milc.EMOJI_LOGLEVELS['INFO'] = '{fg_blue}Ψ{style_reset_all}'
 
@@ -61,7 +66,7 @@ def main():
     os.chdir(qmk_dir)
 
     # Import the subcommands
-    import qmk.cli
+    import qmk.cli  # noqa
 
     # Execute
     return_code = milc.cli()
