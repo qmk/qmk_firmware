@@ -23,7 +23,7 @@ git clone https://github.com/qmk/qmk_firmware.git
 ```
 2. Customize your layout by starting with a [keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gray_studio/space65/keymaps). I copied  the default and changed it to my liking.
 3. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
-4. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode. Note that if you've done this before, it could be that you need to simply press `ESC` prior to plugging in the board to put it in Bootlegger mode.
+4. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootloader mode. Note that if you've done this before, it could be that you need to simply press `ESC` prior to plugging in the board to put it in Bootloader mode.
 5. Build your hex file and flash your keyboard
 ```
 make gray_studio/space65:billiams:flash # be in the qmk_firmware directory to do this
