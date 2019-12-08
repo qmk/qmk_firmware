@@ -23,15 +23,15 @@ git clone https://github.com/qmk/qmk_firmware.git
 ```
 2. Customize your layout by starting with a [keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/gray_studio/space65/keymaps). I copied  the default and changed it to my liking.
 3. Before plugging in your keyboard into your computer, hold `SPACE` and `B` keys down
-4. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootlegger mode. Note that if you've done this before, it could be that you need to simply press `ESC` prior to plugging in the board to put it in Bootlegger mode.
+4. Holding those keys down, plug the keyboard into your computer, which will put the keyboard in bootloader mode. Note that if you've done this before, it could be that you need to simply press `ESC` prior to plugging in the board to put it in Bootloader mode.
 5. Build your hex file and flash your keyboard
 ```
 make gray_studio/space65:billiams:flash # be in the qmk_firmware directory to do this
 ```
 
 Notes:
-- If you are using QMK Toolbox, use `make gray_studio/space65:<keymap>` in the base qmk_firmware directory instead of step 5 above which will create a hex file like `space65_billiams.hex` which you can then choose in the toolbox and hit flash
-- If you accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootlegger mode again, hold the `ESC` key and plug the board in.
+- If you are using QMK Toolbox, use `make gray_studio/space65:<keymap>` in the base qmk_firmware directory instead of step 5 above which will create a hex file `gray_studio_space65_billiams.hex` which you can then choose in the toolbox and hit flash
+- If you accidentally loaded the default keymap, then to `RESET` the keyboard and kick it into bootloader mode again, hold the `ESC` key and plug the board in.
 
 Hope this helps!
 
@@ -65,7 +65,7 @@ Hope this helps!
 `------------------------------------------------------------------------------------------------'
 ```
 
-### 2 Fn Layer - Just for bootleg mode button
+### 2 Fn Layer - Just for bootloader mode button
 ```
 ,------------------------------------------------------------------------------------------------.
 |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |      |
