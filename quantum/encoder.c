@@ -32,12 +32,15 @@
 #endif
 
 #define NUMBER_OF_ENCODERS (sizeof(encoders_pad_a) / sizeof(pin_t))
-#ifdef ENCODER_DIRECTION_FLIP
 static pin_t encoders_pad_a[] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[] = ENCODERS_PAD_B;
+
+#ifndef ENCODER_DIRECTION_FLIP
+#    define ENCODER_CLOCKWISE true
+#    define ENCODER_COUNTER_CLOCKWISE false
 #else
-static pin_t encoders_pad_a[] = ENCODERS_PAD_B;
-static pin_t encoders_pad_b[] = ENCODERS_PAD_A;
+#    define ENCODER_CLOCKWISE false
+#    define ENCODER_COUNTER_CLOCKWISE true
 #endif
 static int8_t encoder_LUT[] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 
@@ -60,13 +63,8 @@ __attribute__((weak)) void encoder_update_kb(int8_t index, bool clockwise) { enc
 void encoder_init(void) {
 #if defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
     if (!isLeftHand) {
-#ifdef ENCODER_DIRECTION_FLIP
         const pin_t encoders_pad_a_right[] = ENCODERS_PAD_A_RIGHT;
         const pin_t encoders_pad_b_right[] = ENCODERS_PAD_B_RIGHT;
-#else
-        const pin_t encoders_pad_a_right[] = ENCODERS_PAD_B_RIGHT;
-        const pin_t encoders_pad_b_right[] = ENCODERS_PAD_A_RIGHT;
-#endif
         for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
             encoders_pad_a[i] = encoders_pad_a_right[i];
             encoders_pad_b[i] = encoders_pad_b_right[i];
@@ -95,11 +93,11 @@ static void encoder_update(int8_t index, uint8_t state) {
     encoder_pulses[i] += encoder_LUT[state & 0xF];
     if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
-        encoder_update_kb(index, true);
+        encoder_update_kb(index, ENCODER_CLOCKWISE);
     }
     if (encoder_pulses[i] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
         encoder_value[index]--;
-        encoder_update_kb(index, false);
+        encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
     }
     encoder_pulses[i] %= ENCODER_RESOLUTION;
 }
@@ -122,12 +120,12 @@ void encoder_update_raw(uint8_t* slave_state) {
         while (delta > 0) {
             delta--;
             encoder_value[index]++;
-            encoder_update_kb(index, true);
+            encoder_update_kb(index, ENCODER_CLOCKWISE);
         }
         while (delta < 0) {
             delta++;
             encoder_value[index]--;
-            encoder_update_kb(index, false);
+            encoder_update_kb(index, ENCODER_COUNTER_CLOCKWISE);
         }
     }
 }
