@@ -135,10 +135,10 @@ __attribute__ ((weak))
 void encoder_update_keymap(uint8_t index, bool clockwise) { }
 
 /**
- * If REVERSE_ENCODER defined, then toggle clockwise
+ * If ENCODER_FLIP defined, then toggle clockwise
  */
 void encoder_update_user(uint8_t index, bool clockwise) {
-#ifdef REVERSE_ENCODER
+#ifdef ENCODER_FLIP
     clockwise = !clockwise;
 #endif
     encoder_update_keymap(index, clockwise);
