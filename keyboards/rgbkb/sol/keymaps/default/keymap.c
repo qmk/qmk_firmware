@@ -234,12 +234,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 #endif
   {
     uint8_t layer = biton32(layer_state);
-    uint16_t keycode = encoders[layer][index][clockwise];
+    uint16_t keycode = pgm_read_word(&encoders[layer][index][clockwise]);
     while (keycode == KC_TRANSPARENT && layer > 0)
     {
       layer--;
       if ((layer_state & (1 << layer)) != 0)
-          keycode = encoders[layer][index][clockwise];
+          keycode = pgm_read_word(&encoders[layer][index][clockwise]);
     }
     if (keycode != KC_TRANSPARENT)
       tap_code16(keycode);
