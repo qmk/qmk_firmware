@@ -22,3 +22,7 @@
 #define MATRIX_COL_PINS { D5 }
 #define MATRIX_ROW_PINS { B2 }
 #define UNUSED_PINS
+
+// i2c_master defines
+#define I2C1_SCL 0 // A5 on pinout = B0
+#define I2C1_SDA 1 // A4 on pinout = B1
