@@ -96,6 +96,22 @@ def special_keys(kc):
         'KC_WH_R': 'MOUSE_ENABLE',
         'KC_ACL0': 'MOUSE_ENABLE',
         'KC_ALC1': 'MOUSE_ENABLE',
-        'KC_ACL2': 'MOUSE_ENABLE'
+        'KC_ACL2': 'MOUSE_ENABLE',
+        'BL_TOGG': 'BACKLIGHT_ENABLE',
+        'BL_STEP': 'BACKLIGHT_ENABLE',
+        'BL_ON': 'BACKLIGHT_ENABLE',
+        'BL_OFF': 'BACKLIGHT_ENABLE',
+        'BL_INC': 'BACKLIGHT_ENABLE',
+        'BL_DEC': 'BACKLIGHT_ENABLE',
+        'BL_BRTG': 'BACKLIGHT_ENABLE',
+        'VLK_TOG': 'VELOCIKEY_ENABLE',
+        'UC_MOD': 'UCIS_ENABLE',
+        'UC_RMOD': 'UCIS_ENABLE',
+        'UC_M_OSX': 'UCIS_ENABLE',
+        'UC_M_LN': 'UCIS_ENABLE',
+        'UC_M_WI': 'UCIS_ENABLE',
+        'UC_M_BS': 'UCIS_ENABLE',
+        'UC_M_WC': 'UCIS_ENABLE',
+        'UC_M_WC': 'UCIS_ENABLE',
     }
     return switcher.get(kc, "IGNORE")
