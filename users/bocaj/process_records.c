@@ -1,19 +1,65 @@
 #include "bocaj.h"
 #include QMK_KEYBOARD_H
 
-uint16_t copy_paste_timer;
-uint16_t grave_layer_timer;
-uint16_t heal_layer_timer;
+uint16_t braces_timer;
+bool is_hyper_active = false;
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+__attribute__ ((weak))
+void matrix_scan_secrets(void) {}
+
 // Defines actions tor my global custom keycodes. Defined in bocaj.h file
 // Then runs the _keymap's record handler if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case MC_PRNS:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            SEND_STRING("()");
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BRCS:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            if (temp_mod & MODS_SHIFT_MASK) {
+                SEND_STRING("{}");
+            } else {
+                SEND_STRING("[]");
+            }
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BPRN:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            SEND_STRING(")(");
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
+    case MC_BBRC:
+        if (!record->event.pressed) {
+            uint8_t temp_mod = get_mods();
+            clear_mods();
+            if (temp_mod & MODS_SHIFT_MASK) {
+                SEND_STRING("}{");
+            } else {
+                SEND_STRING("][");
+            }
+            tap(KC_LEFT);
+            set_mods(temp_mod);
+        }
+        break;
     case KC_MWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
@@ -44,6 +90,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         ergodox_blink_all_leds();
       }
       break;
+    case KC_GAME:
+      if (!record->event.pressed) {
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        if (temp_mod & MODS_SHIFT_MASK) {
+          layer_move(_DIABLO);
+        } else {
+          layer_move(_POE);
+        }
+        set_mods(temp_mod);
+      }
+      break;
     case MC_LOCK:
       if (!record->event.pressed) {
         layer_move(0);
@@ -53,21 +111,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
       if (!record->event.pressed) {
         uint8_t temp_mod = get_mods();
-        uint8_t temp_osm = get_oneshot_mods();
         clear_mods();
-        clear_oneshot_mods();
-        if (biton32(default_layer_state) == _WINWORKMAN) {
-          send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-        } else {
-          send_string_with_delay_P(PSTR("util/docker_build.sh " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-        }
-        if (temp_mod & MODS_SHIFT_MASK) {
-          send_string_with_delay_P(PSTR(":teensy"), 10);
-        }
-        if (temp_mod & MODS_CTRL_MASK) {
-          send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10);
-        }
-        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
+        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
         set_mods(temp_mod);
         layer_move(0);
       }
@@ -82,43 +128,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 #endif // TAP_DANCE_ENABLE
       break;
-      case JJ_ARRW:
+    case JJ_ARRW:
       if (!record->event.pressed) {
-        SEND_STRING("->");
-      }
-      return false;
-      break;
-    case LM_GRAVE:
-      if (record->event.pressed) {
-        grave_layer_timer = timer_read();
-      } else {
-        if (timer_elapsed(grave_layer_timer) < TAPPING_TERM) {
-          uint8_t temp_mod = get_mods();
-          uint8_t one_shot = get_oneshot_mods();
-          clear_mods();
-          if (temp_mod & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) {
-            register_code(KC_LSFT);
-            tap(KC_GRAVE);
-            unregister_code(KC_LSFT);
-          } else {
-            tap(KC_GRAVE);
-          }
-          set_mods(temp_mod);
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        if (temp_mod & MODS_SHIFT_MASK) {
+          SEND_STRING("=>");
         } else {
-          layer_move(0);
+          SEND_STRING("->");
         }
-      }
-      return false;
-      break;
-    case KC_CCCV:
-      if (record->event.pressed) {
-        copy_paste_timer = timer_read();
-      } else {
-        if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) { // Hold, copy
-          SEND_STRING(SS_LGUI("c"));
-        } else {
-          SEND_STRING(SS_LGUI("v"));
-        }
+        set_mods(temp_mod);
       }
       return false;
       break;
@@ -135,7 +154,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case UC_SHRG: // ¯\_(ツ)_/¯
       if (record->event.pressed) {
-        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F");
+        SEND_STRING("/"); // Because Microsoft Teams sucks and uses UC_OSX+/ as the accessibility key
+        send_unicode_hex_string("00AF");
       }
       break;
     case UC_DISA: // ಠ_ಠ
@@ -146,4 +167,67 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return process_record_keymap(keycode, record);
+}
+
+LEADER_EXTERNS();
+// No global matrix scan code, so just run keymap's matrix
+// scan function
+void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Mac copy line down (Leader -> d, d)
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      // Get to end of current line
+      register_code(KC_LGUI);
+      tap(KC_RIGHT);
+      // Select to the beginning of the line
+      register_code(KC_LSHIFT);
+      tap(KC_LEFT);
+      unregister_code(KC_LSHIFT);
+      // Copy (LGUI is still held)
+      tap(KC_C);
+      // Back to the end
+      tap(KC_RIGHT);
+      unregister_code(KC_LGUI);
+      // Make new line
+      tap(KC_ENTER);
+      // Paste
+      SEND_STRING(SS_LGUI("v"));
+    }
+
+    // XCode one-hand run project (or browser refresh)
+    SEQ_TWO_KEYS(KC_H, KC_R) {
+      SEND_STRING(SS_LGUI("r"));
+    }
+
+    SEQ_ONE_KEY(KC_B) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " ");
+      tap(KC_ENTER);
+      SEND_STRING ("Built at: " QMK_BUILDDATE);
+    }
+
+    // Good luck figuring out what this goes to... ;)
+    SEQ_TWO_KEYS(KC_J, KC_J) {
+        SEND_STRING("jj@p.com");
+    }
+    SEQ_TWO_KEYS(KC_Z, KC_Z) {
+        SEND_STRING("Zz$1111111");
+    }
+#ifndef NO_SECRETS
+    matrix_scan_secrets();
+#endif // !NO_SECRETS
+  }
+
+#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+  run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+
+  matrix_scan_keymap();
 }

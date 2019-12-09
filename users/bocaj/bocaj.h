@@ -33,6 +33,7 @@ enum userspace_layers {
   _LOWER,
   _ADJUST,
   _DIABLO,
+  _POE,
 };
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))

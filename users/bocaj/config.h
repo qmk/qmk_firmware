@@ -17,7 +17,9 @@
 #endif // TAPPING_TERM
 #define TAPPING_TERM 175
 
-#define RETRO_TAPPING
+#ifdef RETRO_TAPPING
+#undef RETRO_TAPPING // Turns out, this is bad lol
+#endif // RETRO_TAPPING
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
@@ -30,4 +32,4 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define MACRO_TIMER 5
+#define MACRO_TIMER 10
