@@ -161,6 +161,10 @@ const PROGMEM nicola_keymap ngmap[] = {
   // {.key = B_SHFTL           , .kana = " "},
   // {.key = B_SHFTR           , .kana = " "},
 
+  // Shift and Henkan/Muhenkan
+  // {.key = B_SHFTL           , .kana = SS_TAP(X_INT5)},
+  // {.key = B_SHFTR           , .kana = SS_TAP(X_INT4)},
+
   // 左シフト
   {.key = B_SHFTL|B_Q       , .kana = "la"},
   {.key = B_SHFTL|B_W       , .kana = "e"},
