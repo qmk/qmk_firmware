@@ -2,7 +2,7 @@
 
 ![TOFU96](https://kbdfans.com/collections/group-buy/products/tofu96-mechanical-keyboard-diy-kit)
 
-Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)  
+* Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 Hardware Supported: DZTECH  
 Hardware Availability: [KBDFANS](https://kbdfans.cn)  
 
