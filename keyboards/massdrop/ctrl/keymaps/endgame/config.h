@@ -1,5 +1,11 @@
 #pragma once
 
+#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
+
+#define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
+#define MODS_CTRL  (get_mods() & MOD_MASK_CTRL)
+#define MODS_ALT  (get_mods() & MOD_MASK_ALT)
+
 // #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)      // Key combination that allows the use of magic commands (useful for debugging)
 
 // #define NO_DEBUG                    // Disable debugging
