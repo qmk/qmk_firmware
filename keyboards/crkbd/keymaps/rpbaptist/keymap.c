@@ -118,11 +118,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, KC_BSPC,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_INS,                      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,\
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, _______,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX, KC_RCTL,\
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_NLCK,                      XXXXXXX, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX, KC_RCTL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_ACL0, KC_ACL2, _______,    _______, _______, _______ \
                                       //`--------------------------'  `--------------------------'
@@ -144,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_PGUP, KC_HOME,   KC_UP,  KC_END, XXXXXXX, KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_CAPS,\
+       KC_TAB,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LCT_PRN,  KC_F11,  KC_F12,  KC_INS, KC_PSCR, KC_NLCK,                      WIN_CLS, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, RCT_PRN,\
+      LCT_PRN,  KC_F11,  KC_F12, XXXXXXX, KC_BSLS, XXXXXXX,                      WIN_CLS, TAB_BCK, TAB_CLS, TAB_FWD, KC_BSLS, RCT_PRN,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+---------|
                                           _______, _______, _______,    _______, S_NAV, _______ \
                                       //`--------------------------'  `--------------------------'
