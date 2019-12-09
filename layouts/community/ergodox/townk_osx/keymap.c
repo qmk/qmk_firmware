@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_FN1,         TG(KEYPAD), KC_LCTRL, KC_LALT,        KC_LGUI,
                                                                                 M_TESC,   M_TPASTE,
                                                                                           KC_HOME,
-                                                                    KC_BSPC,    KC_DELT,  KC_END,
+                                                                    KC_BSPC,    KC_DEL,   KC_END,
               //right half
               KC_POWER,       KC_6,       KC_7,     KC_8,           KC_9,       KC_0,     KC_MINS,
               MEH_T(KC_F17),  KC_Y,       KC_U,     KC_I,           KC_O,       KC_P,     KC_EQL,

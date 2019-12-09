@@ -5,7 +5,7 @@
     "width": 4,
     "height": 5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_5x4": {
             "key_count": 17,
             "layout": [
                 {"label":"K00 (D1,C7)", "x":0, "y":0},
