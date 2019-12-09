@@ -32,7 +32,9 @@
 static uint8_t i2c_address;
 
 static const I2CConfig i2cconfig = {
-#ifdef USE_I2CV1
+#if defined(USE_I2CV1_CONTRIB)
+    I2C1_CLOCK_SPEED,
+#elif defined(USE_I2CV1)
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
     I2C1_DUTY_CYCLE,
