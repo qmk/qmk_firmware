@@ -25,13 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    unknown
-#define PRODUCT         Telophase
-#define DESCRIPTION     q.m.k. keyboard firmware for Telophase
+#define MANUFACTURER    SouthpawDesign
+#define PRODUCT         telophase
+#define DESCRIPTION     q.m.k. keyboard firmware for TELOPHASE
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 14
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -41,10 +41,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ONESHOT_TIMEOUT 500
 
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
+
+#define PREVENT_STUCK_MODIFIERS
 
 /* disable debug print */
 //#define NO_DEBUG
@@ -60,7 +68,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 //UART settings for communication with the RF microcontroller
-#define SERIAL_UART_BAUD 1000000
+#if F_CPU == 8000000
+	#define SERIAL_UART_BAUD 500000
+#else
+	#define SERIAL_UART_BAUD 1000000
+#endif
 #define SERIAL_UART_DATA UDR1
 #define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
 #define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
