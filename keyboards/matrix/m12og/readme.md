@@ -5,7 +5,7 @@
 This was the Matrix 8XV1.2 OG keyboard made by the Matrix team. Note: this firmware only support ISO/ANSI version,
 and DO NOT support the 8XV1.2 OG ANSI only version.
 
-Keyboard Maintainer: [astro](https://github.com/yulei)      
+* Keyboard Maintainer: [astro](https://github.com/yulei)
 
 Hardware Supported: Matrix 8XV1.2 OG (ISO/ANSI) keyboard    
 
