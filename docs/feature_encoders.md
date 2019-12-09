@@ -20,7 +20,7 @@ Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.
 #define ENCODERS_PAD_B { encoder1b, encoder2b }
 ```
 
-If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.  Additionally, they can be flipped with a define:
+If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.  They can also be flipped with a define:
 
 ```c
 #define ENCODER_DIRECTION_FLIP
