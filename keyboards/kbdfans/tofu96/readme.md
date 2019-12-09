@@ -4,7 +4,7 @@
 
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: DZTECH
-Hardware Availability: [KBDFANS](https://kbdfans.cn)  
+* Hardware Availability: [KBDFANS](https://kbdfans.cn)
 
 Make example for this keyboard (after setting up your build environment):
 
