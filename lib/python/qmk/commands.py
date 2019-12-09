@@ -25,11 +25,13 @@ def create_make_command(keyboard, keymap, target=None, special=None):
     """
 
     command = ['make']
+
+    # Add specified rules to command line invocation to
+    # enable optional keymap features.
     if special and len(special) > 0:
-        options = ''
         for value, key in enumerate(special):
-            options += '%s=%s ' % (key, special[key])
-        command.append(options)
+            option = '%s=%s' % (key, special[key])
+            command.append(option)
 
     if target is None:
         command.append(':'.join((keyboard, keymap)))
@@ -61,13 +63,7 @@ def compile_configurator_json(user_keymap, bootloader=None):
     """
 
     # scan keymap for special codes
-    special = {'MOUSE_ENABLE': 'no'}
-    for layer_num, layer in enumerate(user_keymap['layers']):
-        # check each key for special keys of interest
-        for key_pos, key in enumerate(layer):
-            ret = special_keys(key)
-            if (ret != 'IGNORE'):
-                special[ret] = 'yes'
+    special = scan_keymap(user_keymap['layers'])
 
     # Write the keymap C file
     qmk.keymap.write(user_keymap['keyboard'], user_keymap['keymap'], user_keymap['layout'], user_keymap['layers'])
@@ -78,8 +74,40 @@ def compile_configurator_json(user_keymap, bootloader=None):
     return create_make_command(user_keymap['keyboard'], user_keymap['keymap'], bootloader, special)
 
 
-# used to turn out features based on presence of codes in keymap
+def scan_keymap(layers):
+    """Scan layer dictionary and detect keycodes of interest
+
+    Args:
+        layers
+        dictionary of nested arrays containing the keymap
+
+    Returns:
+        A dictionary of rules to enable dynamically.
+    """
+
+    special = {}
+    for layer_num, layer in enumerate(layers):
+        # check each key for special keys of interest
+        for key_pos, key in enumerate(layer):
+            ret = special_keys(key)
+            if (ret != 'IGNORE'):
+                special[ret] = 'yes'
+
+    return special
+
+
+# used to turn on features based on presence of codes in keymap
 def special_keys(kc):
+    """ check keycode and return matching rules or IGNORE
+
+    Args:
+        kc
+        Keycode as a string
+
+    Returns:
+        A matching rule or IGNORE
+    """
+
     switcher = {
         'KC_MS_U': 'MOUSE_ENABLE',
         'KC_MS_D': 'MOUSE_ENABLE',
