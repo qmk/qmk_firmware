@@ -19,7 +19,7 @@
  * Implementation notes:
  *
  * USBEndpointConfig - Configured using explicit order instead of struct member name.
- *   This is due to ChibiOS hal LDD differences, which is dependent on hardware,
+ *   This is due to ChibiOS hal LLD differences, which is dependent on hardware,
  *   "USBv1" devices have `ep_buffers` and "OTGv1" have `in_multiplier`.
  *   Given `USBv1/hal_usb_lld.h` marks the field as "not currently used" this code file
  *   makes the assumption this is safe to avoid littering with preprocessor directives.
