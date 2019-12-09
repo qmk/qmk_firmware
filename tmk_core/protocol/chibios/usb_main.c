@@ -15,6 +15,16 @@
  * GPL v2 or later.
  */
 
+/*
+ * Implementation notes:
+ *
+ * USBEndpointConfig - Configured using explicit order instead of struct member name.
+ *   This is due to ChibiOS hal LDD differences, which is dependent on hardware,
+ *   "USBv1" devices have `ep_buffers` and "OTGv1" have `in_multiplier`.
+ *   Given `USBv1/hal_usb_lld.h` marks the field as "not currently used" this code file
+ *   makes the assumption this is safe to avoid littering with preprocessor directives.
+ */
+
 #include "ch.h"
 #include "hal.h"
 
@@ -98,7 +108,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 #ifndef KEYBOARD_SHARED_EP
 /* keyboard endpoint state structure */
 static USBInEndpointState kbd_ep_state;
-/* keyboard endpoint initialization structure (IN) */
+/* keyboard endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig kbd_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -117,7 +127,7 @@ static const USBEndpointConfig kbd_ep_config = {
 /* mouse endpoint state structure */
 static USBInEndpointState mouse_ep_state;
 
-/* mouse endpoint initialization structure (IN) */
+/* mouse endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig mouse_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -136,7 +146,7 @@ static const USBEndpointConfig mouse_ep_config = {
 /* shared endpoint state structure */
 static USBInEndpointState shared_ep_state;
 
-/* shared endpoint initialization structure (IN) */
+/* shared endpoint initialization structure (IN) - see USBEndpointConfig comment at top of file */
 static const USBEndpointConfig shared_ep_config = {
     USB_EP_MODE_TYPE_INTR, /* Interrupt EP */
     NULL,                  /* SETUP packet notification callback */
@@ -164,6 +174,7 @@ typedef struct {
     QMKUSBDriver        driver;
 } usb_driver_config_t;
 
+/* Reusable initialization structure - see USBEndpointConfig comment at top of file */
 #define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize)                                  \
     {                                                                                           \
         .queue_capacity_in = stream##_IN_CAPACITY, .queue_capacity_out = stream##_OUT_CAPACITY, \
