@@ -240,7 +240,7 @@ avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 define EXEC_USBASP
-	avrdude -p $(MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+	avrdude -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 endef
 
 usbasp: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
