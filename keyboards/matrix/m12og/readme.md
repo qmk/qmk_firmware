@@ -6,7 +6,6 @@ This was the Matrix 8XV1.2 OG keyboard made by the Matrix team. Note: this firmw
 and DO NOT support the 8XV1.2 OG ANSI only version.
 
 * Keyboard Maintainer: [astro](https://github.com/yulei)
-
 * Hardware Supported: Matrix 8XV1.2 OG (ISO/ANSI) keyboard
 * Hardware Availability: Matrix Lab
 
