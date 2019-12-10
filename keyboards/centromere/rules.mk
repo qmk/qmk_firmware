@@ -36,8 +36,6 @@ USB = /dev/ttyACM0
 # 	$(CENTROMERE_UPLOAD_COMMAND)
 
 OPT_DEFS += -DCENTROMERE_PROMICRO
-CENTROMERE_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
-                         avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
 SRC = matrix.c
