@@ -6,7 +6,7 @@ void dance_1_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         tap_code(KC_SCLN);
     } else {
-        tap_code16(ALGR(KC_O));
+        tap_code16(ALGR(KC_A));
     }
 }
 
@@ -14,7 +14,7 @@ void dance_1_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_SCLN);
     } else {
-        unregister_code16(ALGR(KC_O));
+        unregister_code16(ALGR(KC_A));
     }
 }
 
@@ -23,7 +23,7 @@ void dance_2_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         tap_code(KC_QUOT);
     } else {
-        tap_code16(ALGR(KC_A));
+        tap_code16(ALGR(KC_W));
     }
 }
 
@@ -31,7 +31,7 @@ void dance_2_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_QUOT);
     } else {
-        unregister_code16(ALGR(KC_A));
+        unregister_code16(ALGR(KC_W));
     }
 }
 
@@ -41,7 +41,7 @@ void dance_3_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         tap_code(KC_SLSH);
     } else {
-        tap_code16(ALGR(KC_W));
+        tap_code16(ALGR(KC_O));
     }
 }
 
@@ -49,7 +49,7 @@ void dance_3_reset(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_SLSH);
     } else {
-        unregister_code16(ALGR(KC_W));
+        unregister_code16(ALGR(KC_O));
     }
 }
 
