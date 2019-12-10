@@ -205,7 +205,7 @@ static inline void disable_pwm(void) {
 ISR(TIMERx_COMPA_vect) { backlight_pins_off(); }
 
 // Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/65536 =~ 244 Hz
+// this one triggers at F_CPU/ICRx = 16MHz/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #    ifdef BACKLIGHT_BREATHING
     if (is_breathing()) {
@@ -290,6 +290,7 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
+static uint16_t pwm_frequency = 244;
 
 #    ifdef BACKLIGHT_PWM_TIMER
 static bool breathing = false;
@@ -318,14 +319,14 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
             } while (0)
 #    endif
 
-#    define breathing_min()        \
-        do {                       \
-            breathing_counter = 0; \
-        } while (0)
-#    define breathing_max()                                       \
-        do {                                                      \
-            breathing_counter = get_breathing_period() * 244 / 2; \
-        } while (0)
+#            define breathing_min()        \
+                do {                       \
+                    breathing_counter = 0; \
+                } while (0)
+#            define breathing_max()                                 \
+                do {                                                \
+                    breathing_counter = breathing_period * pwm_frequency / 2; \
+                } while (0)
 
 void breathing_enable(void) {
     breathing_counter = 0;
@@ -372,11 +373,10 @@ void breathing_task(void)
 ISR(TIMERx_OVF_vect)
 #    endif
 {
-    uint8_t  breathing_period = get_breathing_period();
-    uint16_t interval         = (uint16_t)breathing_period * 244 / BREATHING_STEPS;
+    uint16_t interval = (uint16_t)breathing_period * pwm_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
-    breathing_counter = (breathing_counter + 1) % (breathing_period * 244);
-    uint8_t index     = breathing_counter / interval % BREATHING_STEPS;
+    breathing_counter = (breathing_counter + 1) % (breathing_period * pwm_frequency);
+    uint8_t index = breathing_counter / interval % BREATHING_STEPS;
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
         breathing_interrupt_disable();
@@ -424,6 +424,7 @@ void backlight_init_ports(void) {
 #                warning "Resolution lower than 0xFF isn't recommended"
 #            endif
 
+    pwm_frequency = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION;
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
 #        else
     ICRx   = TIMER_TOP;
