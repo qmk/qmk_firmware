@@ -291,8 +291,10 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
-static uint16_t pwm_frequency = 244;
+
+static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
+const uint8_t breathing_ISR_frequency = 120;
 static uint16_t breathing_freq_scale_factor = 2;
 
 #    ifdef BACKLIGHT_PWM_TIMER
@@ -328,7 +330,7 @@ bool is_breathing(void) { return !!(TIMSKx & _BV(TOIEx)); }
                 } while (0)
 #            define breathing_max()                                           \
                 do {                                                          \
-                    breathing_counter = breathing_period * pwm_frequency / 2; \
+                    breathing_counter = breathing_period * breathing_ISR_frequency / 2; \
                 } while (0)
 
 void breathing_enable(void) {
@@ -375,8 +377,6 @@ void breathing_task(void)
  *
  * The following ISR runs at F_CPU/ISRx. With a 16MHz clock and default pwm resolution, that means 244Hz
  */
-static uint8_t breath_scale_counter = 1;
-const uint8_t breathing_ISR_frequency = 120;
 ISR(TIMERx_OVF_vect)
 #    endif
 {
@@ -441,7 +441,6 @@ void backlight_init_ports(void) {
 #                warning "Resolution lower than 0xFF isn't recommended"
 #            endif
 #            ifdef BACKLIGHT_BREATHING
-    pwm_frequency = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION;
     breathing_freq_scale_factor = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION / 120;
 #            endif
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
