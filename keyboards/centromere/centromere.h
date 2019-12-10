@@ -1,4 +1,4 @@
-#ifndef CENTROMERE_H
+#pragma once
 
 #include "quantum.h"
 
