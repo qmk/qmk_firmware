@@ -2,9 +2,9 @@
  * Variables
  * 
  */
+int held_esc_threshold = 230;
 bool is_esc_held = false;
 uint16_t held_esc_timer = 0;
-int held_esc_threshold = 230;
 
 /**
  * Define Layers
