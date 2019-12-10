@@ -91,7 +91,8 @@ def scan_keymap(layers):
         for key_pos, key in enumerate(layer):
             ret = special_keys(key)
             if (ret != 'IGNORE'):
-                special[ret] = 'yes'
+                for rule in ret:
+                    special[rule] = 'yes'
 
     return special
 
@@ -109,37 +110,36 @@ def special_keys(kc):
     """
 
     switcher = {
-        'KC_MS_U': 'MOUSE_ENABLE',
-        'KC_MS_D': 'MOUSE_ENABLE',
-        'KC_MS_L': 'MOUSE_ENABLE',
-        'KC_MS_R': 'MOUSE_ENABLE',
-        'KC_BTN1': 'MOUSE_ENABLE',
-        'KC_BTN2': 'MOUSE_ENABLE',
-        'KC_BTN3': 'MOUSE_ENABLE',
-        'KC_BTN4': 'MOUSE_ENABLE',
-        'KC_BTN5': 'MOUSE_ENABLE',
-        'KC_WH_U': 'MOUSE_ENABLE',
-        'KC_WH_D': 'MOUSE_ENABLE',
-        'KC_WH_L': 'MOUSE_ENABLE',
-        'KC_WH_R': 'MOUSE_ENABLE',
-        'KC_ACL0': 'MOUSE_ENABLE',
-        'KC_ALC1': 'MOUSE_ENABLE',
-        'KC_ACL2': 'MOUSE_ENABLE',
-        'BL_TOGG': 'BACKLIGHT_ENABLE',
-        'BL_STEP': 'BACKLIGHT_ENABLE',
-        'BL_ON': 'BACKLIGHT_ENABLE',
-        'BL_OFF': 'BACKLIGHT_ENABLE',
-        'BL_INC': 'BACKLIGHT_ENABLE',
-        'BL_DEC': 'BACKLIGHT_ENABLE',
-        'BL_BRTG': 'BACKLIGHT_ENABLE',
-        'VLK_TOG': 'VELOCIKEY_ENABLE',
-        'UC_MOD': 'UCIS_ENABLE',
-        'UC_RMOD': 'UCIS_ENABLE',
-        'UC_M_OSX': 'UCIS_ENABLE',
-        'UC_M_LN': 'UCIS_ENABLE',
-        'UC_M_WI': 'UCIS_ENABLE',
-        'UC_M_BS': 'UCIS_ENABLE',
-        'UC_M_WC': 'UCIS_ENABLE',
-        'UC_M_WC': 'UCIS_ENABLE',
+        'KC_MS_U': ['MOUSE_ENABLE'],
+        'KC_MS_D': ['MOUSE_ENABLE'],
+        'KC_MS_L': ['MOUSE_ENABLE'],
+        'KC_MS_R': ['MOUSE_ENABLE'],
+        'KC_BTN1': ['MOUSE_ENABLE'],
+        'KC_BTN2': ['MOUSE_ENABLE'],
+        'KC_BTN3': ['MOUSE_ENABLE'],
+        'KC_BTN4': ['MOUSE_ENABLE'],
+        'KC_BTN5': ['MOUSE_ENABLE'],
+        'KC_WH_U': ['MOUSE_ENABLE'],
+        'KC_WH_D': ['MOUSE_ENABLE'],
+        'KC_WH_L': ['MOUSE_ENABLE'],
+        'KC_WH_R': ['MOUSE_ENABLE'],
+        'KC_ACL0': ['MOUSE_ENABLE'],
+        'KC_ALC1': ['MOUSE_ENABLE'],
+        'KC_ACL2': ['MOUSE_ENABLE'],
+        'BL_TOGG': ['BACKLIGHT_ENABLE'],
+        'BL_STEP': ['BACKLIGHT_ENABLE'],
+        'BL_ON': ['BACKLIGHT_ENABLE'],
+        'BL_OFF': ['BACKLIGHT_ENABLE'],
+        'BL_INC': ['BACKLIGHT_ENABLE'],
+        'BL_DEC': ['BACKLIGHT_ENABLE'],
+        'BL_BRTG': ['BACKLIGHT_ENABLE'],
+        'VLK_TOG': ['VELOCIKEY_ENABLE'],
+        'UC_MOD': ['UCIS_ENABLE'],
+        'UC_RMOD': ['UCIS_ENABLE'],
+        'UC_M_OSX': ['UCIS_ENABLE'],
+        'UC_M_LN': ['UCIS_ENABLE'],
+        'UC_M_WI': ['UCIS_ENABLE'],
+        'UC_M_BS': ['UCIS_ENABLE'],
+        'UC_M_WC': ['UCIS_ENABLE'],
     }
     return switcher.get(kc, "IGNORE")
