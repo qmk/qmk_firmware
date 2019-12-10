@@ -56,6 +56,22 @@ endef
     SHOW_HELIX_OPTIONS = yes
   endif
 
+ifneq ($(strip $(SPLIT_KEYBOARD)), yes)
+  SRC += local_drivers/serial.c
+  KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
+
+  # A workaround until #7089 is merged.
+  #   serial.c must not be compiled with the -lto option.
+  #   The current LIB_SRC has a side effect with the -fno-lto option, so use it.
+  LIB_SRC += local_drivers/serial.c
+
+  CUSTOM_MATRIX = yes
+
+  SRC += rev2/matrix.c
+  SRC += rev2/split_util.c
+  SRC += rev2/split_scomm.c
+endif
+
 ########
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
