@@ -14,7 +14,6 @@ F_CPU = 8000000
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
 F_CPU = 8000000
-F_USB = $(F_CPU)
 
 # Build Options
 #   comment out to disable the options.
