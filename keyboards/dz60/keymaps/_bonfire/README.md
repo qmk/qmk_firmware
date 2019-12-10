@@ -7,7 +7,7 @@
 
 http://www.keyboard-layout-editor.com/#/gists/b19ee1c251c908d9b5ef76965d588937
 
-![Visual Keymap](visual-keymap.jpg)
+![Visual Keymap](https://i.imgur.com/DuiUo0W.jpg)
 
 ### Todo
 - lighting effects based on layer in use
