@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#if MCU = atmega32u2
+#if MCU == atmega32u2
 #define red_led_off   writePinHigh(C5)
 #define red_led_on    writePinLow(C5)
 #define blu_led_off   writePinHigh(C4)
