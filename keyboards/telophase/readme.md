@@ -13,7 +13,7 @@ See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 
 ## Hardware versions
 
-There are two versions of the pro micro, a 3v and a 5v version. Depending on the version you're using, you'll need to set the CPU speed to `8000000` or `16000000` respectivly. Do this by changing the F_CPU version in rules.mk
+There are two versions of the Pro Micro, a 3V and a 5V version. Depending on the version you're using, you'll need to set the processor frequency to `8000000` or `16000000` respectively. Do this by changing `F_CPU` in rules.mk.
 
 ## Telophase Notes
 

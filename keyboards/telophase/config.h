@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -41,18 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ONESHOT_TIMEOUT 500
 
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
 
-#define PREVENT_STUCK_MODIFIERS
 
 /* disable debug print */
 //#define NO_DEBUG
@@ -87,5 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     	/* 8-bit data */ \
     	UCSR1C = _BV(UCSZ11) | _BV(UCSZ10); \
   	} while(0)
-
-#endif
