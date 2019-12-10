@@ -13,7 +13,6 @@ F_CPU = 8000000
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
 BOOTLOADER = caterina
-F_CPU = 8000000
 
 # Build Options
 #   comment out to disable the options.
