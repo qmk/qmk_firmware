@@ -85,7 +85,6 @@ def scan_keymap(layers):
         A dictionary of rules to enable dynamically.
     """
 
-    special = {}
     special = {'MOUSE_ENABLE': 'no', 'BACKLIGHT_ENABLE': 'no', 'UCIS_ENABLE': 'no', 'EXTRAKEY_ENABLE': 'no', 'VELOCIKEY_ENABLE': 'no'}
     for layer_num, layer in enumerate(layers):
         # check each key for special keys of interest
