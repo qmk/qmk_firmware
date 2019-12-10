@@ -254,6 +254,7 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
+    eeconfig_update_keymap(keymap_config.raw);
 #endif
     keyboard_post_init_kb(); /* Always keep this last */
 }
