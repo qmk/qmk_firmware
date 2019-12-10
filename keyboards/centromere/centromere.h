@@ -45,4 +45,3 @@
     { KC_NO, KC_NO, k32, k33, k34, k35, k36, k37, KC_NO, KC_NO }, \
     { KC_NO, KC_NO, k2a, k1a, k0a, k0b, k1b, k2b, KC_NO, KC_NO }  \
   }
-#endif
