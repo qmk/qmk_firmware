@@ -3,8 +3,8 @@
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 #define MODS_SHIFT  (get_mods() & MOD_MASK_SHIFT)
-#define MODS_CTRL  (get_mods() & MOD_MASK_CTRL)
-#define MODS_ALT  (get_mods() & MOD_MASK_ALT)
+#define MODS_CTRL   (get_mods() & MOD_MASK_CTRL)
+#define MODS_ALT    (get_mods() & MOD_MASK_ALT)
 
 // #define IS_COMMAND() (get_mods() == MOD_MASK_SHIFT)      // Key combination that allows the use of magic commands (useful for debugging)
 
@@ -24,10 +24,10 @@
 // #define STRICT_LAYER_RELEASE        // Force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 // #define LOCKING_SUPPORT_ENABLE      // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 // #define LOCKING_RESYNC_ENABLE       // Tries to keep switch state consistent with keyboard LED state
-#define TAPPING_TERM 150            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+#define TAPPING_TERM 200            // How long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 // #define TAPPING_TERM_PER_KEY        // Enables handling for per key TAPPING_TERM settings
 // #define RETRO_TAPPING               // Tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
-// #define TAPPING_TOGGLE 2            // How many taps before triggering the toggle
+#define TAPPING_TOGGLE 2            // How many taps before triggering the toggle
 // #define PERMISSIVE_HOLD             // Makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the TAPPING_TERM. See Permissive Hold for details
 // #define IGNORE_MOD_TAP_INTERRUPT    // Makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the TAPPING_TERM for both keys. See Mod tap interrupt for details
 // #define TAPPING_FORCE_HOLD          // Makes it possible to use a dual role key as modifier shortly after having been tapped. See Hold after tap. Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
