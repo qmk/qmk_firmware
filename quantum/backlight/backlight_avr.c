@@ -199,7 +199,8 @@ static inline void disable_pwm(void) {
 // reaches the backlight level, where we turn off the LEDs,
 // but also an overflow interrupt when the counter rolls back to 0,
 // in which we're going to turn on the LEDs.
-// The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz.
+// The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz,
+// or F_CPU/BACKLIGHT_CUSTOM_RESOLUTION if used.
 
 // Triggered when the counter reaches the OCRx value
 ISR(TIMERx_COMPA_vect) { backlight_pins_off(); }
@@ -279,6 +280,8 @@ void backlight_set(uint8_t level) {
     set_pwm(cie_lightness(ICRx * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
+static uint16_t pwm_frequency = 244;
+
 void backlight_task(void) {}
 
 #ifdef BACKLIGHT_BREATHING
@@ -290,7 +293,6 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
-static uint16_t pwm_frequency = 244;
 
 #    ifdef BACKLIGHT_PWM_TIMER
 static bool breathing = false;
