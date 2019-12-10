@@ -1,4 +1,4 @@
-* [Complete Newbs Guide](newbs.md)
+* [Complete Newbs Guide](pt-br/newbs.md)
   * [Getting Started](newbs_getting_started.md)
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
