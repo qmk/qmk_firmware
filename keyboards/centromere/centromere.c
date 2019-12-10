@@ -5,7 +5,7 @@ void uart_init(void) {
 }
 
 void led_init(void) {
-#if CPU_TYPE == ATMEGA32U2
+#if MCU == atmega32u2
     setPinOutput(C4); // Set red LED pin as output
     setPinOutput(C5); // Set blue LED pin as output
     setPinOutput(D1); // Set green LED pin as output
