@@ -280,7 +280,9 @@ void backlight_set(uint8_t level) {
     set_pwm(cie_lightness(ICRx * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
+#ifdef BACKLIGHT_BREATHING
 static uint16_t pwm_frequency = 244;
+#endif
 
 void backlight_task(void) {}
 
@@ -425,8 +427,9 @@ void backlight_init_ports(void) {
 #            elif (BACKLIGHT_CUSTOM_RESOLUTION < 0xFF)
 #                warning "Resolution lower than 0xFF isn't recommended"
 #            endif
-
-    pwm_frequency = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION;
+#        ifdef BACKLIGHT_BREATHING
+            pwm_frequency = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION;
+            #endif
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
 #        else
     ICRx   = TIMER_TOP;
