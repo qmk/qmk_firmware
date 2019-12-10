@@ -198,6 +198,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_user(user_config.raw);
             }
             break;
+        default:
+            break;
     }
     return true;
 }
