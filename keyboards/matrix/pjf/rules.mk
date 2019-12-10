@@ -47,7 +47,6 @@ CONSOLE_ENABLE = no# Console for debug
 COMMAND_ENABLE = no # Commands for debug and configuration
 NKRO_ENABLE = no # USB Nkey Rollover
 AUDIO_ENABLE = no
-#CUSTOM_MATRIX = yes # Custom matrix file
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes # Custom rgblight driver
