@@ -1,8 +1,6 @@
 KEYBOARD_LOCAL_FEATURES_MK := $(dir $(lastword $(MAKEFILE_LIST)))local_features.mk
 
-SRC += local_drivers/i2c.c
 SRC += local_drivers/serial.c
-SRC += local_drivers/ssd1306.c
 KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
 
 # A workaround until #7089 is merged.

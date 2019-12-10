@@ -80,11 +80,13 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += local_drivers/i2c.c
+    SRC += local_drivers/ssd1306.c
+    KEYBOARD_PATHS += $(HELIX_TOP_DIR)/local_drivers
     OPT_DEFS += -DOLED_ENABLE
-endif
-
-ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-    OPT_DEFS += -DLOCAL_GLCDFONT
+    ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
+        OPT_DEFS += -DLOCAL_GLCDFONT
+    endif
 endif
 
 ifeq ($(strip $(AUDIO_ENABLE)),yes)

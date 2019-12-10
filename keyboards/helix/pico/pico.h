@@ -15,19 +15,6 @@
 extern uint8_t is_master; // 'is_master' will be obsolete, it is recommended to use 'is_keyboard_master ()' instead.
 #define has_usb() is_keyboard_master()
 
-#ifdef RGBLIGHT_ENABLE
-//rgb led driver
-#include "ws2812.h"
-#endif
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-#endif
-#endif
-
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
