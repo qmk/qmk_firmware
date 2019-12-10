@@ -280,10 +280,6 @@ void backlight_set(uint8_t level) {
     set_pwm(cie_lightness(ICRx * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
-#            ifdef BACKLIGHT_BREATHING
-static uint16_t pwm_frequency = 244;
-#            endif
-
 void backlight_task(void) {}
 
 #ifdef BACKLIGHT_BREATHING
@@ -295,6 +291,9 @@ void backlight_task(void) {}
 
 static uint8_t  breathing_halt    = BREATHING_NO_HALT;
 static uint16_t breathing_counter = 0;
+static uint16_t pwm_frequency = 244;
+/* Run the breathing loop at ~120Hz*/
+static uint16_t breathing_freq_scale_factor = 2;
 
 #    ifdef BACKLIGHT_PWM_TIMER
 static bool breathing = false;
@@ -373,13 +372,27 @@ void breathing_task(void)
 #    else
 /* Assuming a 16MHz CPU clock and a timer that resets at 64k (ICR1), the following interrupt handler will run
  * about 244 times per second.
+ *
+ * The following ISR runs at F_CPU/ISRx. With a 16MHz clock and default pwm resolution, that means 244Hz
  */
+static uint8_t breath_scale_counter = 1;
+const uint8_t breathing_ISR_frequency = 120;
 ISR(TIMERx_OVF_vect)
 #    endif
 {
-    uint16_t interval = (uint16_t)breathing_period * pwm_frequency / BREATHING_STEPS;
+
+    // Only run this ISR at ~120 Hz
+    if(breath_scale_counter++ == breathing_freq_scale_factor)
+    {
+        breath_scale_counter = 1;
+    }
+    else
+    {
+        return;
+    }
+    uint16_t interval = (uint16_t)breathing_period * breathing_ISR_frequency / BREATHING_STEPS;
     // resetting after one period to prevent ugly reset at overflow.
-    breathing_counter = (breathing_counter + 1) % (breathing_period * pwm_frequency);
+    breathing_counter = (breathing_counter + 1) % (breathing_period * breathing_ISR_frequency);
     uint8_t index = breathing_counter / interval % BREATHING_STEPS;
 
     if (((breathing_halt == BREATHING_HALT_ON) && (index == BREATHING_STEPS / 2)) || ((breathing_halt == BREATHING_HALT_OFF) && (index == BREATHING_STEPS - 1))) {
@@ -429,6 +442,7 @@ void backlight_init_ports(void) {
 #            endif
 #            ifdef BACKLIGHT_BREATHING
     pwm_frequency = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION;
+    breathing_freq_scale_factor = F_CPU / BACKLIGHT_CUSTOM_RESOLUTION / 120;
 #            endif
     ICRx = BACKLIGHT_CUSTOM_RESOLUTION;
 #        else
