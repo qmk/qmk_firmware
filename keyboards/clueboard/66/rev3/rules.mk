@@ -1,10 +1,15 @@
-LAYOUTS = 66_ansi 66_iso
+# MCU name
 MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-F_USB = $(F_CPU)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   ATmega32A    bootloadHID
+#   ATmega328P   USBasp
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   comment out to disable the options.
@@ -21,3 +26,5 @@ RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
 MIDI_ENABLE = no 		    # MIDI controls
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
+
+LAYOUTS = 66_ansi 66_iso

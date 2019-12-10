@@ -15,11 +15,16 @@
  */
 
 #include "quantum.h"
-#ifdef WT_MONO_BACKLIGHT
+
+// Check that no backlight functions are called
+#if RGB_BACKLIGHT_ENABLED
+#include "keyboards/wilba_tech/wt_rgb_backlight.h"
+#endif // RGB_BACKLIGHT_ENABLED
+#if MONO_BACKLIGHT_ENABLED
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
-#endif
-#include "keyboards/zeal60/zeal60_api.h" // Temporary hack
-#include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
+#endif // MONO_BACKLIGHT_ENABLED
+#include "keyboards/wilba_tech/via_api.h" // Temporary hack
+#include "keyboards/wilba_tech/via_keycodes.h" // Temporary hack
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
@@ -145,6 +150,23 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 #endif // DYNAMIC_KEYMAP_ENABLE
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+		case id_backlight_config_set_value:
+		{
+			backlight_config_set_value(command_data);
+			break;
+		}
+		case id_backlight_config_get_value:
+		{
+			backlight_config_get_value(command_data);
+			break;
+		}
+		case id_backlight_config_save:
+		{
+			backlight_config_save();
+			break;
+		}
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		case id_eeprom_reset:
 		{
 			eeprom_reset();
@@ -180,29 +202,33 @@ void main_init(void)
 	// If the EEPROM has the magic, the data is good.
 	// OK to load from EEPROM.
 	if (eeprom_is_valid()) {
-		//backlight_config_load();
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+		backlight_config_load();
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	} else	{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 		// If the EEPROM has not been saved before, or is out of date,
 		// save the default values to the EEPROM. Default values
-		// come from construction of the zeal_backlight_config instance.
-		//backlight_config_save();
+		// come from construction of the backlight_config instance.
+		backlight_config_save();
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 #ifdef DYNAMIC_KEYMAP_ENABLE
 		// This resets the keymaps in EEPROM to what is in flash.
 		dynamic_keymap_reset();
 		// This resets the macros in EEPROM to nothing.
 		dynamic_keymap_macro_reset();
-#endif
+#endif // DYNAMIC_KEYMAP_ENABLE
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}
-
-#ifdef WT_MONO_BACKLIGHT
+	
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 
 	backlight_timer_init();
 	backlight_timer_enable();
-#endif
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 }
 
 void bootmagic_lite(void)
@@ -234,15 +260,19 @@ void matrix_init_kb(void)
 
 void matrix_scan_kb(void)
 {
-#ifdef WT_MONO_BACKLIGHT
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
-#endif
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
 	matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	process_record_backlight(keycode, record);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+
 	switch(keycode) {
 		case FN_MO13:
 			if (record->event.pressed) {
@@ -280,3 +310,74 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 
 	return process_record_user(keycode, record);
 }
+
+// This overrides the one in quantum/keymap_common.c
+uint16_t keymap_function_id_to_action( uint16_t function_id )
+{
+	// Zeal60 specific "action functions" are 0xF00 to 0xFFF
+	// i.e. F(0xF00) to F(0xFFF) are mapped to
+	// enum zeal60_action_functions by masking last 8 bits.
+	if ( function_id >= 0x0F00 && function_id <= 0x0FFF )
+	{
+		uint8_t id = function_id & 0xFF;
+		switch ( id ) {
+			case TRIPLE_TAP_1_3:
+			case TRIPLE_TAP_2_3:
+			{
+				return ACTION_FUNCTION_TAP(id);
+				break;
+			}
+			default:
+				break;
+		}
+	}
+
+	return pgm_read_word(&fn_actions[function_id]);
+}
+
+
+// Zeal60 specific "action functions"
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+	switch (id)
+	{
+	case TRIPLE_TAP_1_3:
+	case TRIPLE_TAP_2_3:
+		if (record->event.pressed) {
+			layer_on( id == TRIPLE_TAP_1_3 ? 1 : 2 );
+			if (record->tap.count && !record->tap.interrupted) {
+				if (record->tap.count >= 3) {
+					layer_invert(3);
+				}
+			} else {
+				record->tap.count = 0;
+			}
+		} else {
+			layer_off( id == TRIPLE_TAP_1_3 ? 1 : 2 );
+		}
+		break;
+	}
+}
+
+void led_set_kb(uint8_t usb_led)
+{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	backlight_set_indicator_state(usb_led);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	led_set_user(usb_led);
+}
+
+void suspend_power_down_kb(void)
+{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	backlight_set_suspend_state(true);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+}
+
+void suspend_wakeup_init_kb(void)
+{
+#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+	backlight_set_suspend_state(false);
+#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+}
+

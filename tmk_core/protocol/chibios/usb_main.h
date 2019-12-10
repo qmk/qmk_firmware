@@ -15,7 +15,6 @@
  * GPL v2 or later.
  */
 
-
 #ifndef _USB_MAIN_H_
 #define _USB_MAIN_H_
 
@@ -82,9 +81,9 @@ void shared_in_cb(USBDriver *usbp, usbep_t ep);
 
 /* extra report structure */
 typedef struct {
-  uint8_t report_id;
-  uint16_t usage;
-} __attribute__ ((packed)) report_extra_t;
+    uint8_t  report_id;
+    uint16_t usage;
+} __attribute__((packed)) report_extra_t;
 #endif /* EXTRAKEY_ENABLE */
 
 /* --------------

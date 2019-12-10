@@ -2,7 +2,7 @@
 
 ![XD96](https://cdn.shopify.com/s/files/1/2711/4238/products/xd96_pcb_1024x1024.jpg?v=1515425370)
 
-Compact With 96 Keys & RGB LED Underglow
+Keyboard with 96 Keys & RGB LED Underglow
 - Designed by Xiudi
 - ISO and ANSI support
 - Uses Kimera core

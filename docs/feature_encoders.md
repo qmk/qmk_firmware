@@ -6,7 +6,6 @@ Basic encoders are supported by adding this to your `rules.mk`:
 
 and this to your `config.h`:
 
-    #define NUMBER_OF_ENCODERS 1
     #define ENCODERS_PAD_A { B12 }
     #define ENCODERS_PAD_B { B13 }
 
@@ -20,6 +19,15 @@ If your encoder's clockwise directions are incorrect, you can swap the A & B pad
 Additionally, the resolution can be specified in the same file (the default & suggested is 4):
 
     #define ENCODER_RESOLUTION 4
+
+## Split Keyboards
+
+If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout for the right half like this:
+
+```c
+#define ENCODERS_PAD_A_RIGHT { encoder1a, encoder2a }
+#define ENCODERS_PAD_B_RIGHT { encoder1b, encoder2b }
+```
 
 ## Callbacks
 
