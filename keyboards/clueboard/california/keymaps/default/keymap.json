@@ -1,7 +1,7 @@
 {
     "keyboard": "clueboard/california",
     "layout": "LAYOUT",
-    "keymap": "fake_keymap",
+    "keymap": "default_keymap",
     "layers": [
         [
             "KC_1",
