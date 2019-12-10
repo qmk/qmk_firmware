@@ -74,7 +74,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
 #ifdef USE_LED_RIPPLE_EFFECT
     rgblight_enable_noeeprom();
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -170,13 +170,6 @@ void matrix_scan_user(void) {
 #endif
     led_ripple_effect();
 #endif
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
-
-void keyboard_post_init_user(void) {
 }
 
 #ifdef OLED_DRIVER_ENABLE
