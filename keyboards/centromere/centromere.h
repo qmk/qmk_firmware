@@ -1,5 +1,4 @@
 #ifndef CENTROMERE_H
-#define CENTROMERE_H
 
 #include "quantum.h"
 
