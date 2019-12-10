@@ -96,7 +96,7 @@ void perform_space_cadet(keyrecord_t *record, uint8_t holdMod, uint8_t tapMod, u
             register_mods(MOD_BIT(holdMod));
         }
     } else {
-        if (sc_last == holdMod && TIMER_DIFF_16(timer_read(), sc_timer) < TAPPING_TERM) {
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < TAPPING_TERM) {
             if (holdMod != tapMod) {
                 if (IS_MOD(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
