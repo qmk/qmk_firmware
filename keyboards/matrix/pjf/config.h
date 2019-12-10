@@ -28,12 +28,7 @@
 
 /* rgb light */
 #define RGBLED_NUM      2
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      8
-
-#define RGBLIGHT_STATIC_PATTERNS
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGB_DI_PIN      B8
 
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

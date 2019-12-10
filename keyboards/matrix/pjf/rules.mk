@@ -31,8 +31,6 @@ USE_FPU = no
 # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
 OPT_DEFS =
 
-SRC = ws2812_pwm.c
-
 # Options to pass to dfu-util when flashing
 #DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
@@ -49,4 +47,3 @@ NKRO_ENABLE = no # USB Nkey Rollover
 AUDIO_ENABLE = no
 
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes # Custom rgblight driver
