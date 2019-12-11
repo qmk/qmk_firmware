@@ -213,12 +213,26 @@ void matrix_scan_user(void) {
       SEND_STRING ("Built at: " QMK_BUILDDATE);
     }
 
-    // Good luck figuring out what this goes to... ;)
+    // Good luck figuring out what these go to... ;)
     SEQ_TWO_KEYS(KC_J, KC_J) {
         SEND_STRING("jj@p.com");
+        tap(KC_TAB);
+    }
+    SEQ_TWO_KEYS(KC_B, KC_B) {
+        SEND_STRING("bc@p.com");
+        tap(KC_TAB);
     }
     SEQ_TWO_KEYS(KC_Z, KC_Z) {
         SEND_STRING("Zz$1111111");
+        tap(KC_ENTER);
+    }
+    SEQ_TWO_KEYS(KC_J, KC_P) {
+        SEND_STRING("jp@p.com");
+        tap(KC_TAB);
+    }
+    SEQ_TWO_KEYS(KC_T, KC_T) {
+        SEND_STRING("Test123@123");
+        tap(KC_ENTER);
     }
 #ifndef NO_SECRETS
     matrix_scan_secrets();
