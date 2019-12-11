@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case S_H_P:
       if (record->event.pressed) {
-        SEND_STRING("@HERE" SS_LCTL("v"));
+        SEND_STRING("@HERE" SS_TAP(X_SPC) SS_LCTL("v"));
       }
  break;
 
